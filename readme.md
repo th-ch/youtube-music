@@ -89,10 +89,10 @@ module.exports = () => {
 ## Build
 
 ```
-$ npm run build
+npm run build
 ```
 
-Builds the app for macOS, Linux, and Windows, using [electron-packager](https://github.com/electron-userland/electron-packager).
+Builds the app for macOS, Linux, and Windows, using [electron-builder](https://github.com/electron-userland/electron-builder).
 
 ## License
 
