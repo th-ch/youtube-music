@@ -1,8 +1,9 @@
 "use strict";
 const path = require("path");
 
-const electron = require("electron");
-const isDev    = require("electron-is-dev");
+const electron        = require("electron");
+const isDev           = require("electron-is-dev");
+const { autoUpdater } = require("electron-updater");
 
 const { setApplicationMenu }       = require("./menu");
 const { getEnabledPlugins, store } = require("./store");
@@ -15,6 +16,7 @@ require("electron-debug")();
 
 // Prevent window being garbage collected
 let mainWindow;
+autoUpdater.autoDownload = false;
 
 let icon = "assets/youtube-music.png";
 if (process.platform == "win32") {
@@ -120,6 +122,20 @@ app.on("activate", () => {
 app.on("ready", () => {
 	setApplicationMenu();
 	mainWindow = createMainWindow();
+	if (!isDev) {
+		autoUpdater.checkForUpdatesAndNotify();
+		autoUpdater.on("update-available", () => {
+			const dialogOpts = {
+				type   : "info",
+				buttons: ["OK"],
+				title  : "Application Update",
+				message: "A new version is available",
+				detail : 
+					"A new version is available and can be downloaded at https://github.com/th-ch/youtube-music/releases/latest"
+			};
+			electron.dialog.showMessageBox(dialogOpts);
+		});
+	}
 
 	// Optimized for Mac OS X
 	if (process.platform === "darwin") {

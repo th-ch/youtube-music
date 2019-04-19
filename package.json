@@ -1,8 +1,8 @@
 {
 	"name"       : "youtube-music",
 	"productName": "YouTube Music",
-	"version"    : "1.0.0",
-	"description": "",
+	"version"    : "1.1.0",
+	"description": "YouTube Music Desktop App - including custom plugins",
 	"license"    : "MIT",
 	"repository" : "th-ch/youtube-music",
 	"author"     : {
@@ -10,28 +10,47 @@
 		"email": "th-ch@users.noreply.github.com",
 		"url"  : "https://github.com/th-ch/youtube-music"
 	},
+	"build": {
+		"appId"      : "com.github.th-ch.youtube-music",
+		"productName": "YouTube Music",
+		"mac"        : {
+			"identity": null,
+			"icon"    : "assets/generated/icons/mac/icon.icns"
+		},
+		"win": {
+			"icon": "assets/generated/icons/win/icon.ico"
+		},
+		"linux": {
+			"icon"    : "assets/generated/icons/png",
+			"category": "Audio"
+		}
+	},
 	"scripts": {
 		"test"       : "xo",
 		"start"      : "electron .",
-		"icon"       : "electron-icon-maker --input=assets/youtube-music.png --output=assets/generated",
+		"icon"       : "rimraf assets/generated && electron-icon-maker --input=assets/youtube-music.png --output=assets/generated",
 		"postinstall": "npm run icon && npm rebuild && node plugins/adblocker/generator.js && electron-rebuild",
-		"build"      : "electron-packager . --out=dist --asar --overwrite --all --icon=assets/generated/icons/mac/icon.icns --prune=true",
-		"build:macos": "electron-packager . --platform=darwin --arch=x64 --out=dist --asar --overwrite --icon=assets/generated/icons/mac/icon.icns --prune=true"
+		"clean"      : "rimraf dist",
+		"build"      : "npm run clean && build --win --mac --linux",
+		"build:mac"  : "npm run clean && build --mac",
+		"release"    : "npm run clean && build --win --mac --linux -p always"
 	},
 	"dependencies": {
 		"ad-block"              : "^4.1.3",
 		"electron-debug"        : "^2.0.0",
 		"electron-is-dev"       : "^1.0.1",
 		"electron-localshortcut": "^3.1.0",
-		"electron-store"        : "^2.0.0"
+		"electron-store"        : "^2.0.0",
+		"electron-updater"      : "^4.0.6"
 	},
 	"devDependencies": {
 		"devtron"                    : "^1.4.0",
 		"electron"                   : "^4.0.8",
+		"electron-builder"           : "^20.40.2",
 		"electron-devtools-installer": "^2.2.4",
 		"electron-icon-maker"        : "0.0.4",
-		"electron-packager"          : "^13.1.1",
 		"electron-rebuild"           : "^1.8.4",
+		"rimraf"                     : "^2.6.3",
 		"xo"                         : "^0.24.0"
 	},
 	"xo": {
