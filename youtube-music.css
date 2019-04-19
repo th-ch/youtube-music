@@ -1,0 +1,25 @@
+/**
+ * Overriding YouTube Music style
+ */
+
+/* Allow window dragging */
+ytmusic-nav-bar {
+	-webkit-user-select: none;
+	-webkit-app-region : drag;
+}
+
+iron-icon,
+ytmusic-pivot-bar-item-renderer,
+.tab-title,
+a {
+	-webkit-app-region: no-drag;
+}
+
+/* custom style for navbar */
+ytmusic-app-layout {
+	--ytmusic-nav-bar-height: 85px;
+}
+
+ytmusic-search-box.ytmusic-nav-bar {
+	margin-top: 12px;
+}
