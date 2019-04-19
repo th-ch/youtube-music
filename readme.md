@@ -1,6 +1,6 @@
 # YouTube Music [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
 
-![Screenshot](screenshot.png "Screenshot)
+![Screenshot](screenshot.png "Screenshot")
 
 **Electron wrapper around YouTube Music featuring:**
 
