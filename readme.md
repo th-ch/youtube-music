@@ -7,6 +7,15 @@
 - Native look & feel, aims at keeping the original interface
 - Framework for custom plugins: change YouTube Music to your needs (style, content, features), enable/disable plugins in one click
 
+## Download
+
+You can check out the [latest release](https://github.com/th-ch/youtube-music/releases/latest) to quickly find the latest version. 
+Here are the links to the current version: 
+
+- [Mac](https://github.com/th-ch/youtube-music/releases/download/v1.0.0/youtube-music-1.0.0.dmg)
+- [Windows](https://github.com/th-ch/youtube-music/releases/download/v1.0.0/youtube-music-setup-1.0.0.exe)
+- [Linux](https://github.com/th-ch/youtube-music/releases/download/v1.0.0/youtube-music-1.0.0-x86_64.AppImage)
+
 ## Available plugins:
 
 - **Ad Blocker**: block all ads and tracking out of the box
