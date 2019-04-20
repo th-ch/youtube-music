@@ -56,7 +56,7 @@ module.exports = win => {
 ```
 module.exports = () => {
 	// This function will be called as a preload script
-    // So you can use front features like `document.querySelector`
+	// So you can use front features like `document.querySelector`
 };
 ```
 
