@@ -28,7 +28,7 @@ Here are the links to the current version:
 
 ## Dev
 
-```
+```sh
 git clone https://github.com/th-ch/youtube-music
 cd youtube-music
 npm install
@@ -48,7 +48,7 @@ Create a folder in `plugins/YOUR-PLUGIN-NAME`:
 
 - if you need to manipulate the BrowserWindow, create a file `back.js` with the following template:
 
-```
+```node
 module.exports = win => {
 	// win is the BrowserWindow object
 };
@@ -56,7 +56,7 @@ module.exports = win => {
 
 - if you need to change the front, create a file `front.js` with the following template:
 
-```
+```node
 module.exports = () => {
 	// This function will be called as a preload script
 	// So you can use front features like `document.querySelector`
@@ -67,7 +67,10 @@ module.exports = () => {
 
 - injecting custom CSS: create a `style.css` file in the same folder then:
 
-```
+```node
+const path = require("path");
+const { injectCSS } = require("../utils");
+
 // back.js
 module.exports = win => {
 	injectCSS(win.webContents, path.join(__dirname, "style.css"));
@@ -76,7 +79,7 @@ module.exports = win => {
 
 - changing the HTML:
 
-```
+```node
 // front.js
 module.exports = () => {
 	// Remove the login button
@@ -88,7 +91,7 @@ module.exports = () => {
 
 ## Build
 
-```
+```sh
 npm run build
 ```
 
