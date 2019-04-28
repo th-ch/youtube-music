@@ -31,7 +31,7 @@ script:
         -v ~/.cache/electron:/root/.cache/electron \
         -v ~/.cache/electron-builder:/root/.cache/electron-builder \
         electronuserland/builder \
-        /bin/bash -c "npm run release:linux"
+        /bin/bash -c "npm install && npm run release:linux"
     else
       npm run release:mac
     fi
