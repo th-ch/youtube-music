@@ -33,6 +33,7 @@
 		"clean"      : "rimraf dist",
 		"build"      : "npm run clean && build --win --mac --linux",
 		"build:mac"  : "npm run clean && build --mac",
+		"build:win"  : "npm run clean && build --win",
 		"release"    : "npm run clean && build --win --mac --linux -p always"
 	},
 	"dependencies": {
