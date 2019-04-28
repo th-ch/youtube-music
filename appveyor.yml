@@ -15,6 +15,6 @@ install:
   - npm install
 
 build_script:
-  - npm run build
+  - npm run build:win
 
 test: off
