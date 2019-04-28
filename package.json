@@ -34,7 +34,8 @@
 		"build"      : "npm run clean && build --win --mac --linux",
 		"build:mac"  : "npm run clean && build --mac",
 		"build:win"  : "npm run clean && build --win",
-		"release"    : "npm run clean && build --win --mac --linux -p always"
+		"release"    : "npm run clean && build --win --mac --linux -p always",
+		"release:win": "npm run clean && build --win -p always"
 	},
 	"dependencies": {
 		"ad-block"              : "^4.1.3",
