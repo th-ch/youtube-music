@@ -22,7 +22,7 @@
 		},
 		"linux": {
 			"icon"    : "assets/generated/icons/png",
-			"category": "Audio"
+			"category": "AudioVideo"
 		}
 	},
 	"scripts": {
