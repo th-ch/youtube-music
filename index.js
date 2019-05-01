@@ -72,6 +72,13 @@ function createMainWindow() {
 		});
 	});
 
+	win.webContents.on("did-fail-load", () => {
+		if (isDev) {
+			console.log("did fail load");
+		}
+		win.webContents.loadFile(path.join(__dirname, "error.html"));
+	});
+
 	win.webContents.on("did-navigate-in-page", () => {
 		const url = win.webContents.getURL();
 		if (url.startsWith("https://music.youtube.com")) {
