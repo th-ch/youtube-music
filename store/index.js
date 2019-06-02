@@ -16,6 +16,6 @@ module.exports = {
 	store            : store,
 	isPluginEnabled  : plugin => plugins.isEnabled(store, plugin),
 	getEnabledPlugins: () => plugins.getEnabledPlugins(store),
-	enableplugin     : plugin => plugins.enablePlugin(store, plugin),
+	enablePlugin     : plugin => plugins.enablePlugin(store, plugin),
 	disablePlugin    : plugin => plugins.disablePlugin(store, plugin)
 };

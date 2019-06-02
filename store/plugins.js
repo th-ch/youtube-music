@@ -26,6 +26,6 @@ function disablePlugin(store, plugin) {
 module.exports = {
 	isEnabled        : isEnabled,
 	getEnabledPlugins: getEnabledPlugins,
-	enableplugin     : enablePlugin,
-	disableplugin    : disablePlugin
+	enablePlugin     : enablePlugin,
+	disablePlugin    : disablePlugin
 };
