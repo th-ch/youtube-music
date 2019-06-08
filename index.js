@@ -45,8 +45,8 @@ function createMainWindow() {
 			nodeIntegration: false,
 			preload        : path.join(__dirname, "preload.js")
 		},
-		frame        : false,
-		titleBarStyle: "hiddenInset"
+		frame        : !is.macOS(),
+		titleBarStyle: is.macOS() ? "hiddenInset": "default"
 	});
 	if (windowMaximized) {
 		win.maximize();
