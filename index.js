@@ -2,7 +2,7 @@
 const path = require("path");
 
 const electron        = require("electron");
-const isDev           = require("electron-is-dev");
+const is              = require("electron-is");
 const { autoUpdater } = require("electron-updater");
 
 const { setApplicationMenu }       = require("./menu");
@@ -57,7 +57,7 @@ function createMainWindow() {
 
 	injectCSS(win.webContents, path.join(__dirname, "youtube-music.css"));
 	win.webContents.on("did-finish-load", () => {
-		if (isDev) {
+		if (is.dev()) {
 			console.log("did finish load");
 			win.webContents.openDevTools();
 		}
@@ -73,7 +73,7 @@ function createMainWindow() {
 	});
 
 	win.webContents.on("did-fail-load", () => {
-		if (isDev) {
+		if (is.dev()) {
 			console.log("did fail load");
 		}
 		win.webContents.loadFile(path.join(__dirname, "error.html"));
@@ -129,7 +129,7 @@ app.on("activate", () => {
 app.on("ready", () => {
 	setApplicationMenu();
 	mainWindow = createMainWindow();
-	if (!isDev) {
+	if (!is.dev()) {
 		autoUpdater.checkForUpdatesAndNotify();
 		autoUpdater.on("update-available", () => {
 			const dialogOpts = {
