@@ -8,7 +8,7 @@ const store = new Store({
 			height: 550
 		},
 		url    : "https://music.youtube.com",
-		plugins: ["navigation", "shortcuts", "adblocker", "no-google-login"]
+		plugins: ["navigation", "shortcuts", "adblocker"]
 	}
 });
 
