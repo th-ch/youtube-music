@@ -42,8 +42,10 @@ function createMainWindow() {
 		backgroundColor: "#000",
 		show           : false,
 		webPreferences : {
-			nodeIntegration: false,
-			preload        : path.join(__dirname, "preload.js")
+			nodeIntegration : false,
+			preload         : path.join(__dirname, "preload.js"),
+			nativeWindowOpen: true,                                 // window.open return Window object(like in regular browsers), not BrowserWindowProxy
+			affinity        : "main-window"                         // main window, and addition windows should work in one process
 		},
 		frame        : !is.macOS(),
 		titleBarStyle: is.macOS() ? "hiddenInset": "default"
@@ -85,6 +87,17 @@ function createMainWindow() {
 			store.set("url", url);
 		}
 	});
+
+	win.webContents.on(
+		"new-window",
+		(e, url, frameName, disposition, options) => {
+			// hook on new opened window
+
+			// at now new window in mainWindow renderer process.
+			// Also, this will automatically get an option `nodeIntegration=false`(not override to true, like in iframe's) - like in regular browsers
+			options.webPreferences.affinity = "main-window";
+		}
+	);
 
 	win.on("move", () => {
 		let position = win.getPosition();
