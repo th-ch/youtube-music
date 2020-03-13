@@ -1,4 +1,5 @@
 # YouTube Music
+
 [![GitHub release](https://img.shields.io/github/release/th-ch/youtube-music.svg)](https://GitHub.com/th-ch/youtube-music/releases/)
 [![GitHub license](https://img.shields.io/github/license/th-ch/youtube-music.svg)](https://github.com/th-ch/youtube-music/blob/master/LICENSE)
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
@@ -80,7 +81,7 @@ module.exports = win => {
 // front.js
 module.exports = () => {
 	// Remove the login button
-	document.querySelector('.sign-in-link.ytmusic-nav-bar').remove();
+	document.querySelector(".sign-in-link.ytmusic-nav-bar").remove();
 };
 ```
 
