@@ -12,9 +12,9 @@ init:
 
 install:
   - ps: Install-Product node 8 x64
-  - npm install
+  - yarn
 
 build_script:
-  - npm run release:win
+  - yarn run release:win
 
 test: off

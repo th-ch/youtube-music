@@ -29,8 +29,8 @@ You can check out the [latest release](https://github.com/th-ch/youtube-music/re
 ```sh
 git clone https://github.com/th-ch/youtube-music
 cd youtube-music
-npm install
-npm start
+yarn
+yarn start
 ```
 
 ## Build your own plugins
@@ -90,7 +90,7 @@ module.exports = () => {
 ## Build
 
 ```sh
-npm run build
+yarn build
 ```
 
 Builds the app for macOS, Linux, and Windows, using [electron-builder](https://github.com/electron-userland/electron-builder).
