@@ -23,3 +23,8 @@ ytmusic-app-layout {
 ytmusic-search-box.ytmusic-nav-bar {
 	margin-top: 12px;
 }
+
+/* Blocking annoying elements */
+ytmusic-mealbar-promo-renderer {
+	display: none !important;
+}
