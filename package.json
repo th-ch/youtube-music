@@ -1,7 +1,7 @@
 {
 	"name": "youtube-music",
 	"productName": "YouTube Music",
-	"version": "1.1.6",
+	"version": "1.2.0",
 	"description": "YouTube Music Desktop App - including custom plugins",
 	"license": "MIT",
 	"repository": "th-ch/youtube-music",
@@ -29,16 +29,21 @@
 		"test": "xo",
 		"start": "electron .",
 		"icon": "rimraf assets/generated && electron-icon-maker --input=assets/youtube-music.png --output=assets/generated",
-		"postinstall": "npm run icon && npm rebuild && node plugins/adblocker/generator.js && electron-rebuild",
+		"generate:package": "node utils/generate-package-json.js",
+		"postinstall": "yarn run generate:package YoutubeNonStop && yarn run icon && npm rebuild && node plugins/adblocker/generator.js && electron-rebuild",
 		"clean": "rimraf dist",
-		"build": "npm run clean && build --win --mac --linux",
-		"build:mac": "npm run clean && build --mac",
-		"build:win": "npm run clean && build --win",
-		"release:linux": "npm run clean && build --linux -p always",
-		"release:mac": "npm run clean && build --mac -p always",
-		"release:win": "npm run clean && build --win -p always"
+		"build": "yarn run clean && build --win --mac --linux",
+		"build:mac": "yarn run clean && build --mac",
+		"build:win": "yarn run clean && build --win",
+		"release:linux": "yarn run clean && build --linux -p always",
+		"release:mac": "yarn run clean && build --mac -p always",
+		"release:win": "yarn run clean && build --win -p always"
+	},
+	"engines": {
+		"npm": "Please use yarn and not npm"
 	},
 	"dependencies": {
+		"YoutubeNonStop": "git://github.com/lawfx/YoutubeNonStop.git#v0.7.1",
 		"ad-block": "^4.1.3",
 		"electron-debug": "^2.0.0",
 		"electron-is": "^3.0.0",

@@ -23,14 +23,15 @@ You can check out the [latest release](https://github.com/th-ch/youtube-music/re
 - **No Google Login**: remove Google login buttons and links from the interface
 - **Shortcuts**: use your usual shortcuts (media keys, Ctrl/CMD + F…) to control YouTube Music
 - **Navigation**: next/back navigation arrows directly integrated in the interface, like in your favorite browser
+- **Auto confirm when paused**: when the "Continue Watching?" modal appears, automatically click "Yes"
 
 ## Dev
 
 ```sh
 git clone https://github.com/th-ch/youtube-music
 cd youtube-music
-npm install
-npm start
+yarn
+yarn start
 ```
 
 ## Build your own plugins
