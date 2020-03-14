@@ -30,7 +30,7 @@ script:
         -v ${PWD}:/project \
         -v ~/.cache/electron:/root/.cache/electron \
         -v ~/.cache/electron-builder:/root/.cache/electron-builder \
-        electronuserland/builder \
+        electronuserland/builder:10 \
         /bin/bash -c "yarn && yarn run release:linux"
     else
       yarn run release:mac
