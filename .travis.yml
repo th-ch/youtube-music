@@ -13,8 +13,8 @@ matrix:
       language: generic
 
 cache:
+  yarn: false
   directories:
-    - node_modules
     - $HOME/.cache/electron
     - $HOME/.cache/electron-builder
 
@@ -30,13 +30,15 @@ script:
         -v ${PWD}:/project \
         -v ~/.cache/electron:/root/.cache/electron \
         -v ~/.cache/electron-builder:/root/.cache/electron-builder \
-        electronuserland/builder \
-        /bin/bash -c "npm install && npm run release:linux"
+        electronuserland/builder:10 \
+        /bin/bash -c "yarn && npm run release:linux"
     else
       npm run release:mac
     fi
 before_cache:
   - rm -rf $HOME/.cache/electron-builder
+before_install:
+  - rm -rf node_modules
 
 branches:
   except:
