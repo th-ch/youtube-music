@@ -31,9 +31,9 @@ script:
         -v ~/.cache/electron:/root/.cache/electron \
         -v ~/.cache/electron-builder:/root/.cache/electron-builder \
         electronuserland/builder:10 \
-        /bin/bash -c "yarn && yarn run release:linux"
+        /bin/bash -c "yarn && npm run release:linux"
     else
-      yarn run release:mac
+      yarn && npm run release:mac
     fi
 before_cache:
   - rm -rf $HOME/.cache/electron-builder
