@@ -56,7 +56,7 @@
 	},
 	"devDependencies": {
 		"devtron": "^1.4.0",
-		"electron": "^4.0.8",
+		"electron": "^8.2.1",
 		"electron-build-env": "^0.2",
 		"electron-builder": "^20.40.2",
 		"electron-devtools-installer": "^2.2.4",
