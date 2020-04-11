@@ -39,6 +39,11 @@ before_cache:
   - rm -rf $HOME/.cache/electron-builder
 before_install:
   - rm -rf node_modules
+  # Install Rust and Cargo
+  - curl https://sh.rustup.rs -sSf > /tmp/rustup.sh
+  - sh /tmp/rustup.sh -y
+  - export PATH="$HOME/.cargo/bin:$PATH"
+  - source "$HOME/.cargo/env"
 
 branches:
   except:
