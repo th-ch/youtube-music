@@ -44,6 +44,8 @@ before_install:
   - sh /tmp/rustup.sh -y
   - export PATH="$HOME/.cargo/bin:$PATH"
   - source "$HOME/.cargo/env"
+  # Install dependencies
+  - travis_wait 30 yarn --frozen-lockfile
 
 branches:
   except:
