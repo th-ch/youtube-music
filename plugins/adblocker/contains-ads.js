@@ -1,24 +1,32 @@
 const fs = require("fs");
-const path    = require("path");
-const Blocker = require("ad-block");
+const path = require("path");
 
-const client = new Blocker.AdBlockClient();
-const file   = path.resolve(__dirname, "detector.buffer");
+const AdBlockClient = require("adblock-rs");
+const is = require("electron-is");
 
-module.exports.client     = client;
-module.exports.initialize = () =>
-	new Promise((resolve, reject) => {
-		fs.readFile(file, (err, buffer) => {
-			if (err) {
-				return reject(err);
-			}
-			client.deserialize(buffer);
-			return resolve();
-		});
-	});
+const sourcesFolder = path.resolve(__dirname, "filter-lists");
+const filterLists = fs
+	.readdirSync(sourcesFolder)
+	.filter(filename => filename.includes(".txt"))
+	.map(filename =>
+		fs
+			.readFileSync(path.resolve(sourcesFolder, filename), {
+				encoding: "utf-8"
+			})
+			.split("\n")
+	);
 
-const none = Blocker.FilterOptions.noFilterOption;
-const isAd = (req, base) => client.matches(req, none, base);
+const rules = [].concat(...filterLists);
+const debug = is.dev();
+const client = new AdBlockClient.Engine(rules, debug);
 
-module.exports.containsAds = (req, base) => isAd(req, base);
-module.exports.isAd        = isAd;
+if (debug) {
+	const serializedArrayBuffer = client.serialize(); // Serialize the engine to an ArrayBuffer
+	console.log(
+		`AdBlock engine size: ${(serializedArrayBuffer.byteLength / 1024).toFixed(
+			2
+		)} KB`
+	);
+}
+
+module.exports.containsAds = (req, base) => client.check(req, base || "", "");
