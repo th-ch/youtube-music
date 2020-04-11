@@ -1,7 +1,6 @@
-const { initialize, containsAds } = require("./contains-ads");
+const { containsAds } = require("./contains-ads");
 
 module.exports.blockWindowAds = webContents => {
-	initialize();
 	webContents.session.webRequest.onBeforeRequest(
 		["*://*./*"],
 		(details, cb) => {
