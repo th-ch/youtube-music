@@ -44,7 +44,7 @@
 	},
 	"dependencies": {
 		"YoutubeNonStop": "git://github.com/lawfx/YoutubeNonStop.git#v0.7.1",
-		"ad-block": "^4.1.3",
+		"adblock-rs": "^0.2.7",
 		"electron-debug": "^2.2.0",
 		"electron-is": "^3.0.0",
 		"electron-localshortcut": "^3.2.1",
@@ -54,10 +54,12 @@
 	"devDependencies": {
 		"devtron": "^1.4.0",
 		"electron": "^4.0.8",
+		"electron-build-env": "^0.2",
 		"electron-builder": "^20.40.2",
 		"electron-devtools-installer": "^2.2.4",
 		"electron-icon-maker": "0.0.4",
 		"electron-rebuild": "^1.8.4",
+		"neon-cli": "^0.1.17",
 		"rimraf": "^2.6.3",
 		"xo": "^0.24.0"
 	},
