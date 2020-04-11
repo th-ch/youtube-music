@@ -59,7 +59,6 @@
 		"electron-builder": "^20.40.2",
 		"electron-devtools-installer": "^2.2.4",
 		"electron-icon-maker": "0.0.4",
-		"electron-rebuild": "^1.8.4",
 		"neon-cli": "^0.1.17",
 		"rimraf": "^2.6.3",
 		"xo": "^0.24.0"
