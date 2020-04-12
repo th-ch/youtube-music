@@ -5,9 +5,14 @@ const electron = require("electron");
 const is = require("electron-is");
 const { autoUpdater } = require("electron-updater");
 
-const { getEnabledPlugins, store } = require("./store");
 const { setApplicationMenu } = require("./menu");
+const {
+	getEnabledPlugins,
+	isAppVisible,
+	store,
+} = require("./store");
 const { fileExists, injectCSS } = require("./plugins/utils");
+const { setUpTray } = require("./tray");
 
 const app = electron.app;
 
@@ -114,7 +119,9 @@ function createMainWindow() {
 	});
 
 	win.once("ready-to-show", () => {
-		win.show();
+		if (isAppVisible()) {
+			win.show();
+		}
 	});
 
 	return win;
@@ -143,6 +150,7 @@ app.on("ready", () => {
 	setApplicationMenu();
 	mainWindow = createMainWindow();
 	if (!is.dev()) {
+	setUpTray(app, mainWindow);
 		autoUpdater.checkForUpdatesAndNotify();
 		autoUpdater.on("update-available", () => {
 			const dialogOpts = {
@@ -159,6 +167,10 @@ app.on("ready", () => {
 
 	// Optimized for Mac OS X
 	if (process.platform === "darwin") {
+		if (!isAppVisible()) {
+			app.dock.hide();
+		}
+
 		var forceQuit = false;
 		app.on("before-quit", () => {
 			forceQuit = true;
