@@ -35,8 +35,7 @@
 		"build": "yarn run clean && build --win --mac --linux",
 		"build:mac": "yarn run clean && build --mac",
 		"build:win": "yarn run clean && build --win",
-		"plugins": "yarn run plugin:autoconfirm && yarn run plugin:adblock",
-		"plugin:adblock": "node plugins/adblocker/downloader.js && electron-build-env neon build adblock-rs",
+		"plugins": "yarn run plugin:autoconfirm",
 		"plugin:autoconfirm": "yarn run generate:package YoutubeNonStop",
 		"release:linux": "yarn run clean && build --linux -p always",
 		"release:mac": "yarn run clean && build --mac -p always",
@@ -46,22 +45,21 @@
 		"npm": "Please use yarn and not npm"
 	},
 	"dependencies": {
+		"@cliqz/adblocker-electron": "^1.14.1",
 		"YoutubeNonStop": "git://github.com/lawfx/YoutubeNonStop.git#v0.7.1",
-		"adblock-rs": "^0.2.7",
 		"electron-debug": "^2.2.0",
 		"electron-is": "^3.0.0",
 		"electron-localshortcut": "^3.2.1",
 		"electron-store": "^3.1.0",
-		"electron-updater": "^4.2.2"
+		"electron-updater": "^4.2.2",
+		"node-fetch": "^2.6.0"
 	},
 	"devDependencies": {
 		"devtron": "^1.4.0",
 		"electron": "^8.2.1",
-		"electron-build-env": "^0.2",
 		"electron-builder": "^20.40.2",
 		"electron-devtools-installer": "^2.2.4",
 		"electron-icon-maker": "0.0.4",
-		"neon-cli": "^0.1.17",
 		"rimraf": "^2.6.3",
 		"xo": "^0.24.0"
 	},
