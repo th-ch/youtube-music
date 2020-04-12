@@ -1,2 +1,2 @@
 const { loadAdBlockerEngine } = require("./blocker");
-module.exports = () => loadAdBlockerEngine(true);
+module.exports = (win) => loadAdBlockerEngine(win.webContents.session);
