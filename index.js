@@ -7,6 +7,7 @@ const { autoUpdater } = require("electron-updater");
 
 const { setApplicationMenu } = require("./menu");
 const {
+	autoUpdate,
 	getEnabledPlugins,
 	isAppVisible,
 	store,
@@ -149,8 +150,9 @@ app.on("activate", () => {
 app.on("ready", () => {
 	setApplicationMenu();
 	mainWindow = createMainWindow();
-	if (!is.dev()) {
 	setUpTray(app, mainWindow);
+
+	if (!is.dev() && autoUpdate()) {
 		autoUpdater.checkForUpdatesAndNotify();
 		autoUpdater.on("update-available", () => {
 			const dialogOpts = {
