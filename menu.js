@@ -1,7 +1,7 @@
 const { app, Menu } = require("electron");
 
-const { getAllPlugins }                                = require("./plugins/utils");
 const { isPluginEnabled, enablePlugin, disablePlugin } = require("./store");
+const { getAllPlugins } = require("./plugins/utils");
 
 module.exports.setApplicationMenu = () => {
 	const menuTemplate = [
@@ -27,7 +27,7 @@ module.exports.setApplicationMenu = () => {
 	if (process.platform === "darwin") {
 		const name = app.getName();
 		menuTemplate.unshift({
-			label  : name,
+			label: name,
 			submenu: [
 				{ role: "about" },
 				{ type: "separator" },
@@ -36,9 +36,9 @@ module.exports.setApplicationMenu = () => {
 				{ role: "unhide" },
 				{ type: "separator" },
 				{
-					label      : "Select All",
+					label: "Select All",
 					accelerator: "CmdOrCtrl+A",
-					selector   : "selectAll:"
+					selector: "selectAll:",
 				},
 				{ label: "Cut", accelerator: "CmdOrCtrl+X", selector: "cut:" },
 				{ label: "Copy", accelerator: "CmdOrCtrl+C", selector: "copy:" },
@@ -46,8 +46,8 @@ module.exports.setApplicationMenu = () => {
 				{ type: "separator" },
 				{ role: "minimize" },
 				{ role: "close" },
-				{ role: "quit" }
-			]
+				{ role: "quit" },
+			],
 		});
 	}
 
