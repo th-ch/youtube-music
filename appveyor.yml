@@ -13,12 +13,6 @@ init:
 install:
   # Install node
   - ps: Install-Product node 10 x64
-  # Install Rust and Cargo
-  - appveyor DownloadFile https://win.rustup.rs/ -FileName rustup-init.exe
-  - rustup-init -yv --default-toolchain stable --default-host x86_64-pc-windows-msvc
-  - set PATH=%PATH%;%USERPROFILE%\.cargo\bin
-  - rustc -vV
-  - cargo -vV
   # Install dependencies
   - yarn --frozen-lockfile
 
