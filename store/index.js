@@ -9,13 +9,25 @@ const store = new Store({
 		},
 		url: "https://music.youtube.com",
 		plugins: ["navigation", "shortcuts", "adblocker"],
+		options: {
+			tray: false,
+			appVisible: true,
+			autoUpdates: true
+		}
 	}
 });
 
 module.exports = {
 	store: store,
+	// Plugins
 	isPluginEnabled: plugin => plugins.isEnabled(store, plugin),
 	getEnabledPlugins: () => plugins.getEnabledPlugins(store),
 	enablePlugin: plugin => plugins.enablePlugin(store, plugin),
 	disablePlugin: plugin => plugins.disablePlugin(store, plugin),
+	// Options
+	setOptions: options =>
+		store.set("options", { ...store.get("options"), ...options }),
+	isTrayEnabled: () => store.get("options.tray"),
+	isAppVisible: () => store.get("options.appVisible"),
+	autoUpdate: () => store.get("options.autoUpdates")
 };
