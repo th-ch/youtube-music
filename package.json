@@ -48,10 +48,10 @@
 	"dependencies": {
 		"@cliqz/adblocker-electron": "^1.14.1",
 		"YoutubeNonStop": "git://github.com/lawfx/YoutubeNonStop.git#v0.7.1",
-		"electron-debug": "^2.2.0",
+		"electron-debug": "^3.0.1",
 		"electron-is": "^3.0.0",
 		"electron-localshortcut": "^3.2.1",
-		"electron-store": "^3.1.0",
+		"electron-store": "^5.1.1",
 		"electron-updater": "^4.2.2",
 		"node-fetch": "^2.6.0"
 	},
@@ -59,10 +59,10 @@
 		"devtron": "^1.4.0",
 		"electron": "^8.2.1",
 		"electron-builder": "^22.4.1",
-		"electron-devtools-installer": "^2.2.4",
+		"electron-devtools-installer": "^3.0.0",
 		"electron-icon-maker": "0.0.4",
-		"rimraf": "^2.6.3",
-		"xo": "^0.24.0"
+		"rimraf": "^3.0.2",
+		"xo": "^0.29.0"
 	},
 	"xo": {
 		"envs": [
