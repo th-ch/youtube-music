@@ -32,15 +32,15 @@
 		"generate:package": "node utils/generate-package-json.js",
 		"postinstall": "yarn run icon && yarn run plugins",
 		"clean": "rimraf dist",
-		"build": "yarn run clean && build --win --mac --linux",
-		"build:mac": "yarn run clean && build --mac",
-		"build:win": "yarn run clean && build --win",
+		"build": "yarn run clean && electron-builder --win --mac --linux",
+		"build:mac": "yarn run clean && electron-builder --mac",
+		"build:win": "yarn run clean && electron-builder --win",
 		"plugins": "yarn run plugin:adblocker && yarn run plugin:autoconfirm",
 		"plugin:adblocker": "rimraf plugins/adblocker/ad-blocker-engine.bin && node plugins/adblocker/blocker.js",
 		"plugin:autoconfirm": "yarn run generate:package YoutubeNonStop",
-		"release:linux": "yarn run clean && build --linux -p always",
-		"release:mac": "yarn run clean && build --mac -p always",
-		"release:win": "yarn run clean && build --win -p always"
+		"release:linux": "yarn run clean && electron-builder --linux -p always -c.snap.publish=github",
+		"release:mac": "yarn run clean && electron-builder --mac -p always",
+		"release:win": "yarn run clean && electron-builder --win -p always"
 	},
 	"engines": {
 		"npm": "Please use yarn and not npm"
@@ -58,7 +58,7 @@
 	"devDependencies": {
 		"devtron": "^1.4.0",
 		"electron": "^8.2.1",
-		"electron-builder": "^20.40.2",
+		"electron-builder": "^22.4.1",
 		"electron-devtools-installer": "^2.2.4",
 		"electron-icon-maker": "0.0.4",
 		"rimraf": "^2.6.3",
