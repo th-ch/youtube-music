@@ -20,7 +20,11 @@ install:
   - rustc -vV
   - cargo -vV
   # Install dependencies
-  - yarn
+  - yarn --frozen-lockfile
+
+on_finish:
+  # Enable RDP to the build worker (using APPVEYOR_RDP_PASSWORD env var)
+  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 build_script:
   - yarn run release:win
