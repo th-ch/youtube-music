@@ -60,12 +60,7 @@ function createMainWindow() {
 		win.maximize();
 	}
 
-	// Force user-agent "Firefox Windows" for Google OAuth to work
-	// From https://github.com/firebase/firebase-js-sdk/issues/2478#issuecomment-571356751
-	const userAgent =
-		"Mozilla/5.0 (Windows NT 10.0; WOW64; rv:70.0) Gecko/20100101 Firefox/70.0";
-
-	win.webContents.loadURL(store.get("url"), { userAgent });
+	win.webContents.loadURL(store.get("url"));
 	win.on("closed", onClosed);
 
 	injectCSS(win.webContents, path.join(__dirname, "youtube-music.css"));
@@ -96,6 +91,21 @@ function createMainWindow() {
 		const url = win.webContents.getURL();
 		if (url.startsWith("https://music.youtube.com")) {
 			store.set("url", url);
+		}
+	});
+
+	win.webContents.on("will-navigate", (_, url) => {
+		if (url.startsWith("https://accounts.google.com")) {
+			// Force user-agent "Firefox Windows" for Google OAuth to work
+			// From https://github.com/firebase/firebase-js-sdk/issues/2478#issuecomment-571356751
+			// Only set on accounts.google.com, otherwise querySelectors in preload scripts fail (?)
+			const userAgent =
+				"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:70.0) Gecko/20100101 Firefox/70.0";
+
+			win.webContents.session.webRequest.onBeforeSendHeaders((details, cb) => {
+				details.requestHeaders["User-Agent"] = userAgent;
+				cb({ requestHeaders: details.requestHeaders });
+			});
 		}
 	});
 
