@@ -59,7 +59,7 @@
 		"devtron": "^1.4.0",
 		"electron": "^8.2.1",
 		"electron-builder": "^22.4.1",
-		"electron-devtools-installer": "^2.2.4",
+		"electron-devtools-installer": "^3.0.0",
 		"electron-icon-maker": "0.0.4",
 		"rimraf": "^2.6.3",
 		"xo": "^0.24.0"
