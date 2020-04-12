@@ -62,7 +62,7 @@
 		"electron-devtools-installer": "^3.0.0",
 		"electron-icon-maker": "0.0.4",
 		"rimraf": "^3.0.2",
-		"xo": "^0.24.0"
+		"xo": "^0.29.0"
 	},
 	"xo": {
 		"envs": [
