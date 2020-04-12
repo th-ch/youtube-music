@@ -1,33 +1,79 @@
 const { app, Menu } = require("electron");
 
-const { getAllPlugins }                                = require("./plugins/utils");
-const { isPluginEnabled, enablePlugin, disablePlugin } = require("./store");
+const { getAllPlugins } = require("./plugins/utils");
+const {
+	isPluginEnabled,
+	enablePlugin,
+	disablePlugin,
+	autoUpdate,
+	isAppVisible,
+	isTrayEnabled,
+	setOptions,
+} = require("./store");
 
-module.exports.setApplicationMenu = () => {
-	const menuTemplate = [
-		{
-			label  : "Plugins",
-			submenu: getAllPlugins().map(plugin => {
-				return {
-					label  : plugin,
-					type   : "checkbox",
-					checked: isPluginEnabled(plugin),
-					click  : item => {
-						if (item.checked) {
-							enablePlugin(plugin);
-						} else {
-							disablePlugin(plugin);
-						}
+const mainMenuTemplate = [
+	{
+		label: "Plugins",
+		submenu: getAllPlugins().map((plugin) => {
+			return {
+				label: plugin,
+				type: "checkbox",
+				checked: isPluginEnabled(plugin),
+				click: (item) => {
+					if (item.checked) {
+						enablePlugin(plugin);
+					} else {
+						disablePlugin(plugin);
 					}
-				};
-			})
-		}
-	];
+				},
+			};
+		}),
+	},
+	{
+		label: "Options",
+		submenu: [
+			{
+				label: "Auto-update",
+				type: "checkbox",
+				checked: autoUpdate(),
+				click: (item) => {
+					setOptions({ autoUpdates: item.checked });
+				},
+			},
+			{
+				label: "Tray",
+				submenu: [
+					{
+						label: "Disabled",
+						type: "radio",
+						checked: !isTrayEnabled(),
+						click: () => setOptions({ tray: false, appVisible: true }),
+					},
+					{
+						label: "Enabled + app visible",
+						type: "radio",
+						checked: isTrayEnabled() && isAppVisible(),
+						click: () => setOptions({ tray: true, appVisible: true }),
+					},
+					{
+						label: "Enabled + app hidden",
+						type: "radio",
+						checked: isTrayEnabled() && !isAppVisible(),
+						click: () => setOptions({ tray: true, appVisible: false }),
+					},
+				],
+			},
+		],
+	},
+];
 
+module.exports.mainMenuTemplate = mainMenuTemplate;
+module.exports.setApplicationMenu = () => {
+	const menuTemplate = [...mainMenuTemplate];
 	if (process.platform === "darwin") {
 		const name = app.getName();
 		menuTemplate.unshift({
-			label  : name,
+			label: name,
 			submenu: [
 				{ role: "about" },
 				{ type: "separator" },
@@ -36,9 +82,9 @@ module.exports.setApplicationMenu = () => {
 				{ role: "unhide" },
 				{ type: "separator" },
 				{
-					label      : "Select All",
+					label: "Select All",
 					accelerator: "CmdOrCtrl+A",
-					selector   : "selectAll:"
+					selector: "selectAll:",
 				},
 				{ label: "Cut", accelerator: "CmdOrCtrl+X", selector: "cut:" },
 				{ label: "Copy", accelerator: "CmdOrCtrl+C", selector: "copy:" },
@@ -46,8 +92,8 @@ module.exports.setApplicationMenu = () => {
 				{ type: "separator" },
 				{ role: "minimize" },
 				{ role: "close" },
-				{ role: "quit" }
-			]
+				{ role: "quit" },
+			],
 		});
 	}
 
