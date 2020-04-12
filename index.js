@@ -1,13 +1,19 @@
 "use strict";
 const path = require("path");
 
-const electron        = require("electron");
-const is              = require("electron-is");
+const electron = require("electron");
+const is = require("electron-is");
 const { autoUpdater } = require("electron-updater");
 
-const { setApplicationMenu }       = require("./menu");
-const { getEnabledPlugins, store } = require("./store");
-const { fileExists, injectCSS }    = require("./plugins/utils");
+const { setApplicationMenu } = require("./menu");
+const {
+	autoUpdate,
+	getEnabledPlugins,
+	isAppVisible,
+	store,
+} = require("./store");
+const { fileExists, injectCSS } = require("./plugins/utils");
+const { setUpTray } = require("./tray");
 
 const app = electron.app;
 
@@ -32,23 +38,23 @@ function onClosed() {
 }
 
 function createMainWindow() {
-	const windowSize      = store.get("window-size");
+	const windowSize = store.get("window-size");
 	const windowMaximized = store.get("window-maximized");
 
 	const win = new electron.BrowserWindow({
-		icon           : icon,
-		width          : windowSize.width,
-		height         : windowSize.height,
+		icon: icon,
+		width: windowSize.width,
+		height: windowSize.height,
 		backgroundColor: "#000",
-		show           : false,
-		webPreferences : {
-			nodeIntegration : false,
-			preload         : path.join(__dirname, "preload.js"),
-			nativeWindowOpen: true,                                 // window.open return Window object(like in regular browsers), not BrowserWindowProxy
-			affinity        : "main-window"                         // main window, and addition windows should work in one process
+		show: false,
+		webPreferences: {
+			nodeIntegration: false,
+			preload: path.join(__dirname, "preload.js"),
+			nativeWindowOpen: true, // window.open return Window object(like in regular browsers), not BrowserWindowProxy
+			affinity: "main-window", // main window, and addition windows should work in one process
 		},
-		frame        : !is.macOS(),
-		titleBarStyle: is.macOS() ? "hiddenInset": "default"
+		frame: !is.macOS(),
+		titleBarStyle: is.macOS() ? "hiddenInset" : "default",
 	});
 	if (windowMaximized) {
 		win.maximize();
@@ -65,7 +71,7 @@ function createMainWindow() {
 		}
 	});
 
-	getEnabledPlugins().forEach(plugin => {
+	getEnabledPlugins().forEach((plugin) => {
 		console.log("Loaded plugin - " + plugin);
 		const pluginPath = path.join(__dirname, "plugins", plugin, "back.js");
 		fileExists(pluginPath, () => {
@@ -114,7 +120,9 @@ function createMainWindow() {
 	});
 
 	win.once("ready-to-show", () => {
-		win.show();
+		if (isAppVisible()) {
+			win.show();
+		}
 	});
 
 	return win;
@@ -142,16 +150,18 @@ app.on("activate", () => {
 app.on("ready", () => {
 	setApplicationMenu();
 	mainWindow = createMainWindow();
-	if (!is.dev()) {
+	setUpTray(app, mainWindow);
+
+	if (!is.dev() && autoUpdate()) {
 		autoUpdater.checkForUpdatesAndNotify();
 		autoUpdater.on("update-available", () => {
 			const dialogOpts = {
-				type   : "info",
+				type: "info",
 				buttons: ["OK"],
-				title  : "Application Update",
+				title: "Application Update",
 				message: "A new version is available",
-				detail : 
-					"A new version is available and can be downloaded at https://github.com/th-ch/youtube-music/releases/latest"
+				detail:
+					"A new version is available and can be downloaded at https://github.com/th-ch/youtube-music/releases/latest",
 			};
 			electron.dialog.showMessageBox(dialogOpts);
 		});
@@ -159,11 +169,15 @@ app.on("ready", () => {
 
 	// Optimized for Mac OS X
 	if (process.platform === "darwin") {
+		if (!isAppVisible()) {
+			app.dock.hide();
+		}
+
 		var forceQuit = false;
 		app.on("before-quit", () => {
 			forceQuit = true;
 		});
-		mainWindow.on("close", event => {
+		mainWindow.on("close", (event) => {
 			if (!forceQuit) {
 				event.preventDefault();
 				mainWindow.hide();
