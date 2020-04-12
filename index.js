@@ -60,7 +60,12 @@ function createMainWindow() {
 		win.maximize();
 	}
 
-	win.webContents.loadURL(store.get("url"));
+	// Force user-agent "Firefox Windows" for Google OAuth to work
+	// From https://github.com/firebase/firebase-js-sdk/issues/2478#issuecomment-571356751
+	const userAgent =
+		"Mozilla/5.0 (Windows NT 10.0; WOW64; rv:70.0) Gecko/20100101 Firefox/70.0";
+
+	win.webContents.loadURL(store.get("url"), { userAgent });
 	win.on("closed", onClosed);
 
 	injectCSS(win.webContents, path.join(__dirname, "youtube-music.css"));
