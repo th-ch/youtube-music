@@ -1,7 +1,7 @@
 {
 	"name": "youtube-music",
 	"productName": "YouTube Music",
-	"version": "1.2.0",
+	"version": "1.3.0",
 	"description": "YouTube Music Desktop App - including custom plugins",
 	"license": "MIT",
 	"repository": "th-ch/youtube-music",
@@ -30,34 +30,37 @@
 		"start": "electron .",
 		"icon": "rimraf assets/generated && electron-icon-maker --input=assets/youtube-music.png --output=assets/generated",
 		"generate:package": "node utils/generate-package-json.js",
-		"postinstall": "yarn run generate:package YoutubeNonStop && yarn run icon && npm rebuild && node plugins/adblocker/generator.js && electron-rebuild",
+		"postinstall": "yarn run icon && yarn run plugins",
 		"clean": "rimraf dist",
-		"build": "yarn run clean && build --win --mac --linux",
-		"build:mac": "yarn run clean && build --mac",
-		"build:win": "yarn run clean && build --win",
-		"release:linux": "yarn run clean && build --linux -p always",
-		"release:mac": "yarn run clean && build --mac -p always",
-		"release:win": "yarn run clean && build --win -p always"
+		"build": "yarn run clean && electron-builder --win --mac --linux",
+		"build:mac": "yarn run clean && electron-builder --mac",
+		"build:win": "yarn run clean && electron-builder --win",
+		"plugins": "yarn run plugin:adblocker && yarn run plugin:autoconfirm",
+		"plugin:adblocker": "rimraf plugins/adblocker/ad-blocker-engine.bin && node plugins/adblocker/blocker.js",
+		"plugin:autoconfirm": "yarn run generate:package YoutubeNonStop",
+		"release:linux": "yarn run clean && electron-builder --linux -p always -c.snap.publish=github",
+		"release:mac": "yarn run clean && electron-builder --mac -p always",
+		"release:win": "yarn run clean && electron-builder --win -p always"
 	},
 	"engines": {
 		"npm": "Please use yarn and not npm"
 	},
 	"dependencies": {
+		"@cliqz/adblocker-electron": "^1.14.1",
 		"YoutubeNonStop": "git://github.com/lawfx/YoutubeNonStop.git#v0.7.1",
-		"ad-block": "^4.1.3",
 		"electron-debug": "^2.2.0",
 		"electron-is": "^3.0.0",
 		"electron-localshortcut": "^3.2.1",
 		"electron-store": "^3.1.0",
-		"electron-updater": "^4.2.2"
+		"electron-updater": "^4.2.2",
+		"node-fetch": "^2.6.0"
 	},
 	"devDependencies": {
 		"devtron": "^1.4.0",
-		"electron": "^4.0.8",
-		"electron-builder": "^20.40.2",
+		"electron": "^8.2.1",
+		"electron-builder": "^22.4.1",
 		"electron-devtools-installer": "^2.2.4",
 		"electron-icon-maker": "0.0.4",
-		"electron-rebuild": "^1.8.4",
 		"rimraf": "^2.6.3",
 		"xo": "^0.24.0"
 	},
