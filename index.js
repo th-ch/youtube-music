@@ -10,6 +10,7 @@ const {
 	autoUpdate,
 	getEnabledPlugins,
 	isAppVisible,
+	isTrayEnabled,
 	store,
 } = require("./store");
 const { fileExists, injectCSS } = require("./plugins/utils");
@@ -187,12 +188,16 @@ app.on("ready", () => {
 		if (!isAppVisible()) {
 			app.dock.hide();
 		}
+	}
 
-		var forceQuit = false;
-		app.on("before-quit", () => {
-			forceQuit = true;
-		});
+	var forceQuit = false;
+	app.on("before-quit", () => {
+		forceQuit = true;
+	});
+
+	if (is.macOS() || isTrayEnabled()) {
 		mainWindow.on("close", (event) => {
+			// Hide the window instead of quitting (quit is available in tray options)
 			if (!forceQuit) {
 				event.preventDefault();
 				mainWindow.hide();
