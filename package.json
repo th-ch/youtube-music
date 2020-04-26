@@ -52,7 +52,7 @@
 		"electron-is": "^3.0.0",
 		"electron-localshortcut": "^3.2.1",
 		"electron-store": "^5.1.1",
-		"electron-updater": "^4.2.2",
+		"electron-updater": "^4.3.0",
 		"node-fetch": "^2.6.0"
 	},
 	"devDependencies": {
