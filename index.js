@@ -183,7 +183,7 @@ app.on("ready", () => {
 	}
 
 	// Optimized for Mac OS X
-	if (process.platform === "darwin") {
+	if (is.macOS()) {
 		if (!isAppVisible()) {
 			app.dock.hide();
 		}
