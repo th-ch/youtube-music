@@ -22,6 +22,7 @@ module.exports.setUpTray = (app, win) => {
 	});
 	tray = new Tray(trayIcon);
 	tray.setToolTip("Youtube Music");
+	tray.setIgnoreDoubleClickEvents(true);
 
 	const trayMenu = Menu.buildFromTemplate([
 		{
@@ -66,4 +67,6 @@ module.exports.setUpTray = (app, win) => {
 		},
 	]);
 	tray.setContextMenu(trayMenu);
+
+	return tray;
 };
