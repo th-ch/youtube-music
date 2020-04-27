@@ -166,10 +166,7 @@ app.on("activate", () => {
 app.on("ready", () => {
 	setApplicationMenu();
 	mainWindow = createMainWindow();
-	const tray = setUpTray(app, mainWindow);
-	tray.on("click", () => {
-		mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();
-	});
+	setUpTray(app, mainWindow);
 
 	if (!is.dev() && autoUpdate()) {
 		autoUpdater.checkForUpdatesAndNotify();
