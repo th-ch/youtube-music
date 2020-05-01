@@ -14,6 +14,7 @@ const {
 	store,
 } = require("./store");
 const { fileExists, injectCSS } = require("./plugins/utils");
+const { isTesting } = require("./utils/testing");
 const { setUpTray } = require("./tray");
 
 const app = electron.app;
@@ -49,7 +50,7 @@ function createMainWindow() {
 		backgroundColor: "#000",
 		show: false,
 		webPreferences: {
-			nodeIntegration: false,
+			nodeIntegration: isTesting(), // Only necessary when testing with Spectron
 			preload: path.join(__dirname, "preload.js"),
 			nativeWindowOpen: true, // window.open return Window object(like in regular browsers), not BrowserWindowProxy
 			affinity: "main-window", // main window, and addition windows should work in one process
