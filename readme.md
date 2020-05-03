@@ -98,6 +98,14 @@ yarn run build
 
 Builds the app for macOS, Linux, and Windows, using [electron-builder](https://github.com/electron-userland/electron-builder).
 
+## Tests
+
+```sh
+yarn test
+```
+
+Uses [Spectron](https://www.electronjs.org/spectron) to test the app.
+
 ## License
 
 MIT © [th-ch](https://github.com/th-ch/youtube-music)
