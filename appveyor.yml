@@ -21,6 +21,11 @@ install:
 #   # https://www.appveyor.com/docs/how-to/rdp-to-build-worker/
 #   - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
+# @FIXME: tests disabled because app fails to launch on AppVeyor/Windows
+# os: unstable # https://github.com/electron-userland/spectron#on-appveyor
+# test_script:
+#   - yarn test
+
 build_script:
   - yarn run release:win
 
