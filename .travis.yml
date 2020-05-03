@@ -9,6 +9,8 @@ jobs:
       osx_image: xcode11.3
     - os: linux
       dist: xenial
+      services:
+        - xvfb
 
 cache:
   yarn: false
@@ -18,6 +20,7 @@ cache:
 
 script:
   - |
+    yarn test
     if [ "$TRAVIS_OS_NAME" == "linux" ]; then
       yarn run release:linux
     else
