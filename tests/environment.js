@@ -33,7 +33,9 @@ class TestEnvironment extends NodeEnvironment {
 	}
 
 	async teardown() {
-		await this.global.__APP__.stop();
+		if (this.global.__APP__.isRunning()) {
+			await this.global.__APP__.stop();
+		}
 		await super.teardown();
 	}
 
