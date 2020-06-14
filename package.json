@@ -48,7 +48,7 @@
 	"dependencies": {
 		"@cliqz/adblocker-electron": "^1.14.2",
 		"YoutubeNonStop": "git://github.com/lawfx/YoutubeNonStop.git#v0.7.1",
-		"electron-debug": "^3.0.1",
+		"electron-debug": "^3.1.0",
 		"electron-is": "^3.0.0",
 		"electron-localshortcut": "^3.2.1",
 		"electron-store": "^5.1.1",
