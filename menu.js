@@ -71,7 +71,7 @@ module.exports.mainMenuTemplate = mainMenuTemplate;
 module.exports.setApplicationMenu = () => {
 	const menuTemplate = [...mainMenuTemplate];
 	if (process.platform === "darwin") {
-		const name = app.getName();
+		const name = app.name;
 		menuTemplate.unshift({
 			label: name,
 			submenu: [
