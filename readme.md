@@ -93,7 +93,7 @@ module.exports = () => {
 ## Build
 
 ```sh
-yarn run build
+yarn build
 ```
 
 Builds the app for macOS, Linux, and Windows, using [electron-builder](https://github.com/electron-userland/electron-builder).
