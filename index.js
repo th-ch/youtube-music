@@ -18,6 +18,7 @@ const { isTesting } = require("./utils/testing");
 const { setUpTray } = require("./tray");
 
 const app = electron.app;
+app.allowRendererProcessReuse = true; // https://github.com/electron/electron/issues/18397
 
 // Adds debug features like hotkeys for triggering dev tools and reload
 require("electron-debug")();
