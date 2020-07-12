@@ -1,4 +1,5 @@
 const { app, Menu } = require("electron");
+const is = require("electron-is");
 
 const { getAllPlugins } = require("./plugins/utils");
 const {
@@ -9,6 +10,7 @@ const {
 	isAppVisible,
 	isTrayEnabled,
 	setOptions,
+	startAtLogin,
 } = require("./store");
 
 const mainMenuTemplate = [
@@ -40,6 +42,20 @@ const mainMenuTemplate = [
 					setOptions({ autoUpdates: item.checked });
 				},
 			},
+			...(is.windows() || is.macOS()
+				? // Only works on Win/Mac
+				  // https://www.electronjs.org/docs/api/app#appsetloginitemsettingssettings-macos-windows
+				  [
+						{
+							label: "Start at login",
+							type: "checkbox",
+							checked: startAtLogin(),
+							click: (item) => {
+								setOptions({ startAtLogin: item.checked });
+							},
+						},
+				  ]
+				: []),
 			{
 				label: "Tray",
 				submenu: [
