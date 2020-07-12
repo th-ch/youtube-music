@@ -57,7 +57,7 @@
 	},
 	"devDependencies": {
 		"devtron": "^1.4.0",
-		"electron": "^8.2.1",
+		"electron": "^8.2.4",
 		"electron-builder": "^22.4.1",
 		"electron-devtools-installer": "^3.0.0",
 		"electron-icon-maker": "0.0.4",
