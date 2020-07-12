@@ -12,6 +12,7 @@ const {
 	isAppVisible,
 	isTrayEnabled,
 	store,
+	startAtLogin,
 } = require("./store");
 const { fileExists, injectCSS } = require("./plugins/utils");
 const { isTesting } = require("./utils/testing");
@@ -169,6 +170,11 @@ app.on("ready", () => {
 	setApplicationMenu();
 	mainWindow = createMainWindow();
 	setUpTray(app, mainWindow);
+
+	// Autostart at login
+	app.setLoginItemSettings({
+		openAtLogin: startAtLogin(),
+	});
 
 	if (!is.dev() && autoUpdate()) {
 		autoUpdater.checkForUpdatesAndNotify();
