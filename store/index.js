@@ -5,16 +5,17 @@ const store = new Store({
 	defaults: {
 		"window-size": {
 			width: 1100,
-			height: 550
+			height: 550,
 		},
 		url: "https://music.youtube.com",
 		plugins: ["navigation", "shortcuts", "adblocker"],
 		options: {
 			tray: false,
 			appVisible: true,
-			autoUpdates: true
-		}
-	}
+			autoUpdates: true,
+			startAtLogin: false,
+		},
+	},
 });
 
 module.exports = {
@@ -29,5 +30,6 @@ module.exports = {
 		store.set("options", { ...store.get("options"), ...options }),
 	isTrayEnabled: () => store.get("options.tray"),
 	isAppVisible: () => store.get("options.appVisible"),
-	autoUpdate: () => store.get("options.autoUpdates")
+	autoUpdate: () => store.get("options.autoUpdates"),
+	startAtLogin: () => store.get("options.startAtLogin"),
 };
