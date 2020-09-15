@@ -46,7 +46,7 @@
 		"npm": "Please use yarn and not npm"
 	},
 	"dependencies": {
-		"@cliqz/adblocker-electron": "^1.16.1",
+		"@cliqz/adblocker-electron": "^1.18.0",
 		"YoutubeNonStop": "git://github.com/lawfx/YoutubeNonStop.git#v0.7.1",
 		"electron-debug": "^3.1.0",
 		"electron-is": "^3.0.0",
