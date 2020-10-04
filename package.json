@@ -46,26 +46,26 @@
 		"npm": "Please use yarn and not npm"
 	},
 	"dependencies": {
-		"@cliqz/adblocker-electron": "^1.18.0",
+		"@cliqz/adblocker-electron": "^1.18.3",
 		"YoutubeNonStop": "git://github.com/lawfx/YoutubeNonStop.git#v0.7.1",
 		"electron-debug": "^3.1.0",
 		"electron-is": "^3.0.0",
 		"electron-localshortcut": "^3.2.1",
-		"electron-store": "^5.2.0",
-		"electron-updater": "^4.3.4",
+		"electron-store": "^6.0.0",
+		"electron-updater": "^4.3.5",
 		"node-fetch": "^2.6.1"
 	},
 	"devDependencies": {
 		"devtron": "^1.4.0",
 		"electron": "^8.2.4",
-		"electron-builder": "^22.4.1",
-		"electron-devtools-installer": "^3.0.0",
-		"electron-icon-maker": "0.0.4",
+		"electron-builder": "^22.8.1",
+		"electron-devtools-installer": "^3.1.1",
+		"electron-icon-maker": "0.0.5",
 		"get-port": "^5.1.1",
-		"jest": "^25.5.1",
+		"jest": "^26.4.2",
 		"rimraf": "^3.0.2",
 		"spectron": "^10.0.1",
-		"xo": "^0.29.0"
+		"xo": "^0.33.1"
 	},
 	"xo": {
 		"envs": [
