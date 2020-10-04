@@ -2,6 +2,7 @@ const path = require("path");
 
 const getPort = require("get-port");
 const NodeEnvironment = require("jest-environment-node");
+const electronPath = require("electron");
 const { Application } = require("spectron");
 
 class TestEnvironment extends NodeEnvironment {
@@ -12,13 +13,6 @@ class TestEnvironment extends NodeEnvironment {
 	async setup() {
 		await super.setup();
 
-		const electronPath = path.resolve(
-			__dirname,
-			"..",
-			"node_modules",
-			".bin",
-			"electron"
-		);
 		const appPath = path.resolve(__dirname, "..");
 		const port = await getPort();
 
