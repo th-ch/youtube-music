@@ -66,6 +66,9 @@
 		"spectron": "^12.0.0",
 		"xo": "^0.33.1"
 	},
+	"resolutions": {
+		"yargs-parser": "18.1.3"
+	},
 	"xo": {
 		"envs": [
 			"node",
