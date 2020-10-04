@@ -1,6 +1,6 @@
 const path = require("path");
 
-const { getCurrentWindow } = require("electron").remote;
+const { remote } = require("electron");
 
 const { getEnabledPlugins, store } = require("./store");
 const { fileExists }               = require("./plugins/utils");
@@ -28,5 +28,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	// Add action for reloading
 	global.reload = () =>
-		getCurrentWindow().webContents.loadURL(store.get("url"));
+		remote.getCurrentWindow().webContents.loadURL(store.get("url"));
 });
