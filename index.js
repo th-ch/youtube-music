@@ -168,8 +168,8 @@ app.on("activate", () => {
 });
 
 app.on("ready", () => {
-	setApplicationMenu();
 	mainWindow = createMainWindow();
+	setApplicationMenu(mainWindow);
 	setUpTray(app, mainWindow);
 
 	// Autostart at login

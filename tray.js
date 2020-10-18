@@ -61,7 +61,7 @@ module.exports.setUpTray = (app, win) => {
 				win.show();
 			},
 		},
-		...mainMenuTemplate,
+		...mainMenuTemplate(win),
 		{
 			label: "Quit",
 			click: () => {

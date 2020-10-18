@@ -13,7 +13,7 @@ const {
 	startAtLogin,
 } = require("./store");
 
-const mainMenuTemplate = [
+const mainMenuTemplate = (win) => [
 	{
 		label: "Plugins",
 		submenu: getAllPlugins().map((plugin) => {
@@ -79,13 +79,26 @@ const mainMenuTemplate = [
 					},
 				],
 			},
+			{
+				label: "Toggle DevTools",
+				// Cannot use "toggleDevTools" role in MacOS
+				click: () => {
+					const { webContents } = win;
+					if (webContents.isDevToolsOpened()) {
+						webContents.closeDevTools();
+					} else {
+						const devToolsOptions = {};
+						webContents.openDevTools(devToolsOptions);
+					}
+				},
+			},
 		],
 	},
 ];
 
 module.exports.mainMenuTemplate = mainMenuTemplate;
-module.exports.setApplicationMenu = () => {
-	const menuTemplate = [...mainMenuTemplate];
+module.exports.setApplicationMenu = (win) => {
+	const menuTemplate = [...mainMenuTemplate(win)];
 	if (process.platform === "darwin") {
 		const name = app.name;
 		menuTemplate.unshift({
