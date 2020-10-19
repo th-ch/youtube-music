@@ -92,6 +92,10 @@ function createMainWindow() {
 		win.webContents.loadFile(path.join(__dirname, "error.html"));
 	});
 
+	win.webContents.on("will-prevent-unload", (event) => {
+		event.preventDefault();
+	});
+
 	win.webContents.on("did-navigate-in-page", () => {
 		const url = win.webContents.getURL();
 		if (url.startsWith("https://music.youtube.com")) {
