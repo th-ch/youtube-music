@@ -41,33 +41,7 @@ function onClosed() {
 	mainWindow = null;
 }
 
-function createMainWindow() {
-	const windowSize = store.get("window-size");
-	const windowMaximized = store.get("window-maximized");
-
-	const win = new electron.BrowserWindow({
-		icon: icon,
-		width: windowSize.width,
-		height: windowSize.height,
-		backgroundColor: "#000",
-		show: false,
-		webPreferences: {
-			nodeIntegration: isTesting(), // Only necessary when testing with Spectron
-			preload: path.join(__dirname, "preload.js"),
-			nativeWindowOpen: true, // window.open return Window object(like in regular browsers), not BrowserWindowProxy
-			enableRemoteModule: true,
-			affinity: "main-window", // main window, and addition windows should work in one process
-		},
-		frame: !is.macOS(),
-		titleBarStyle: is.macOS() ? "hiddenInset" : "default",
-	});
-	if (windowMaximized) {
-		win.maximize();
-	}
-
-	win.webContents.loadURL(store.get("url"));
-	win.on("closed", onClosed);
-
+function loadPlugins(win) {
 	injectCSS(win.webContents, path.join(__dirname, "youtube-music.css"));
 	win.webContents.on("did-finish-load", () => {
 		if (is.dev()) {
@@ -84,6 +58,61 @@ function createMainWindow() {
 			handle(win);
 		});
 	});
+}
+
+function createMainWindow() {
+	const windowSize = store.get("window-size");
+	const windowMaximized = store.get("window-maximized");
+
+	const win = new electron.BrowserWindow({
+		icon: icon,
+		width: windowSize.width,
+		height: windowSize.height,
+		backgroundColor: "#000",
+		show: false,
+		webPreferences: {
+			nodeIntegration: isTesting(), // Only necessary when testing with Spectron
+			preload: path.join(__dirname, "preload.js"),
+			nodeIntegrationInSubFrames: true,
+			nativeWindowOpen: true, // window.open return Window object(like in regular browsers), not BrowserWindowProxy
+			enableRemoteModule: true,
+			affinity: "main-window", // main window, and addition windows should work in one process
+		},
+		frame: !is.macOS(),
+		titleBarStyle: is.macOS() ? "hiddenInset" : "default",
+	});
+	if (windowMaximized) {
+		win.maximize();
+	}
+
+	win.webContents.loadURL(store.get("url"));
+	win.on("closed", onClosed);
+
+	win.on("move", () => {
+		let position = win.getPosition();
+		store.set("window-position", { x: position[0], y: position[1] });
+	});
+
+	win.on("resize", () => {
+		const windowSize = win.getSize();
+
+		store.set("window-maximized", win.isMaximized());
+		if (!win.isMaximized()) {
+			store.set("window-size", { width: windowSize[0], height: windowSize[1] });
+		}
+	});
+
+	win.once("ready-to-show", () => {
+		if (isAppVisible()) {
+			win.show();
+		}
+	});
+
+	return win;
+}
+
+app.on("browser-window-created", (event, win) => {
+	loadPlugins(win);
 
 	win.webContents.on("did-fail-load", () => {
 		if (is.dev()) {
@@ -128,29 +157,7 @@ function createMainWindow() {
 			options.webPreferences.affinity = "main-window";
 		}
 	);
-
-	win.on("move", () => {
-		let position = win.getPosition();
-		store.set("window-position", { x: position[0], y: position[1] });
-	});
-
-	win.on("resize", () => {
-		const windowSize = win.getSize();
-
-		store.set("window-maximized", win.isMaximized());
-		if (!win.isMaximized()) {
-			store.set("window-size", { width: windowSize[0], height: windowSize[1] });
-		}
-	});
-
-	win.once("ready-to-show", () => {
-		if (isAppVisible()) {
-			win.show();
-		}
-	});
-
-	return win;
-}
+});
 
 app.on("window-all-closed", () => {
 	if (process.platform !== "darwin") {
