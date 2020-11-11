@@ -1379,9 +1379,9 @@
   dependencies:
     "@wdio/logger" "6.4.7"
 
-"YoutubeNonStop@git://github.com/lawfx/YoutubeNonStop.git#v0.7.1":
+"YoutubeNonStop@git://github.com/lawfx/YoutubeNonStop.git#v0.8.0":
   version "0.0.0"
-  resolved "git://github.com/lawfx/YoutubeNonStop.git#4f8cc214636226ecc8ea2b830435855c067aea2e"
+  resolved "git://github.com/lawfx/YoutubeNonStop.git#c2252130fbd63baa70047355a84fe424adb1c9e0"
 
 abab@^2.0.3:
   version "2.0.5"
