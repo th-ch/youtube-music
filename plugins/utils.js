@@ -20,8 +20,8 @@ module.exports.templatePath = (pluginPath, name) => {
 	return path.join(pluginPath, "templates", name);
 };
 
-module.exports.triggerAction = (channel, action) => {
-	return ipcRenderer.send(channel, action);
+module.exports.triggerAction = (channel, action, ...args) => {
+	return ipcRenderer.send(channel, action, ...args);
 };
 
 module.exports.listenAction = (channel, callback) => {
