@@ -80,6 +80,7 @@ function createMainWindow() {
 		},
 		frame: !is.macOS(),
 		titleBarStyle: is.macOS() ? "hiddenInset" : "default",
+		autoHideMenuBar: true,
 	});
 	if (windowMaximized) {
 		win.maximize();
