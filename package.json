@@ -43,6 +43,7 @@
 		"release:win": "yarn run clean && electron-builder --win -p always"
 	},
 	"engines": {
+		"node": ">=12.16.1",
 		"npm": "Please use yarn and not npm"
 	},
 	"dependencies": {

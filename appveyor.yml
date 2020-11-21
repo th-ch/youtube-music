@@ -12,7 +12,7 @@ init:
 
 install:
   # Install node
-  - ps: Install-Product node 10 x64
+  - ps: Install-Product node 12 x64
   # Install dependencies
   - yarn --frozen-lockfile
 
