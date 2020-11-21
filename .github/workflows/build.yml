@@ -28,7 +28,9 @@ jobs:
         run: yarn --frozen-lockfile
 
       - name: Test
-        run: yarn test
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: yarn test
 
       - name: Build on Mac
         if: startsWith(matrix.os, 'macOS')
