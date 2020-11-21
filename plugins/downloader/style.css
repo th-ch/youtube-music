@@ -1,0 +1,13 @@
+.menu-item {
+	display: var(--ytmusic-menu-item_-_display);
+	height: var(--ytmusic-menu-item_-_height);
+	align-items: var(--ytmusic-menu-item_-_align-items);
+	padding: var(--ytmusic-menu-item_-_padding);
+	cursor: pointer;
+}
+
+.menu-icon {
+	flex: var(--ytmusic-menu-item-icon_-_flex);
+	margin: var(--ytmusic-menu-item-icon_-_margin);
+	fill: var(--ytmusic-menu-item-icon_-_fill);
+}
