@@ -32,15 +32,21 @@ jobs:
 
       - name: Build on Mac
         if: startsWith(matrix.os, 'macOS')
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           yarn run release:mac
 
       - name: Build on Linux
         if: startsWith(matrix.os, 'ubuntu')
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           yarn run release:linux
 
       - name: Build on Windows
         if: startsWith(matrix.os, 'windows')
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           yarn run release:win
