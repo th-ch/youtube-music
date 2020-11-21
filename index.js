@@ -19,6 +19,11 @@ const { isTesting } = require("./utils/testing");
 const { setUpTray } = require("./tray");
 
 const app = electron.app;
+app.commandLine.appendSwitch(
+	"js-flags",
+	// WebAssembly flags
+	"--experimental-wasm-threads --experimental-wasm-bulk-memory"
+);
 app.allowRendererProcessReuse = true; // https://github.com/electron/electron/issues/18397
 
 // Adds debug features like hotkeys for triggering dev tools and reload
