@@ -1,5 +1,5 @@
 language: node_js
-node_js: "10"
+node_js: "12"
 env:
   - ELECTRON_CACHE=$HOME/.cache/electron ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
 
