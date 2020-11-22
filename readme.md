@@ -3,8 +3,7 @@
 [![GitHub release](https://img.shields.io/github/release/th-ch/youtube-music.svg)](https://GitHub.com/th-ch/youtube-music/releases/)
 [![GitHub license](https://img.shields.io/github/license/th-ch/youtube-music.svg)](https://github.com/th-ch/youtube-music/blob/master/LICENSE)
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
-[![Build status](https://ci.appveyor.com/api/projects/status/tgre12r150ynvwl2?svg=true)](https://ci.appveyor.com/project/th-ch/youtube-music)
-[![Build Status](https://travis-ci.org/th-ch/youtube-music.svg?branch=master)](https://travis-ci.org/th-ch/youtube-music)
+[![Build status](https://github.com/th-ch/youtube-music/workflows/Build%20YouTube%20Music/badge.svg)](https://GitHub.com/th-ch/youtube-music/releases/)
 [![Known Vulnerabilities](https://snyk.io/test/github/th-ch/youtube-music/badge.svg)](https://snyk.io/test/github/th-ch/youtube-music)
 ![GitHub All Releases](https://img.shields.io/github/downloads/th-ch/youtube-music/total)
 
