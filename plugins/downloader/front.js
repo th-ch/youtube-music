@@ -19,6 +19,14 @@ const observer = new MutationObserver((mutations, observer) => {
 	}
 });
 
+const reinit = () => {
+	if (!progress) {
+		console.warn("Cannot update progress");
+	} else {
+		progress.innerHTML = "Download";
+	}
+};
+
 global.download = () => {
 	const videoUrl = window.location.href;
 
@@ -33,14 +41,9 @@ global.download = () => {
 		},
 		(error) => {
 			triggerAction(CHANNEL, ACTIONS.ERROR, error);
+			reinit();
 		},
-		() => {
-			if (!progress) {
-				console.warn("Cannot update progress");
-			} else {
-				progress.innerHTML = "Download";
-			}
-		}
+		reinit
 	);
 };
 
