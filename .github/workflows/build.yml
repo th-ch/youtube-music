@@ -1,0 +1,54 @@
+name: Build YouTube Music
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Build YouTube Music
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup NodeJS
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+
+      - name: Test
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: yarn test
+
+      - name: Build on Mac
+        if: startsWith(matrix.os, 'macOS')
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          yarn run release:mac
+
+      - name: Build on Linux
+        if: startsWith(matrix.os, 'ubuntu')
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          yarn run release:linux
+
+      - name: Build on Windows
+        if: startsWith(matrix.os, 'windows')
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          yarn run release:win
