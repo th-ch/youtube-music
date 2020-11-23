@@ -384,7 +384,7 @@
   dependencies:
     "@cliqz/adblocker-content" "^1.18.6"
 
-"@cliqz/adblocker-electron@^1.18.4":
+"@cliqz/adblocker-electron@^1.18.6":
   version "1.18.6"
   resolved "https://registry.yarnpkg.com/@cliqz/adblocker-electron/-/adblocker-electron-1.18.6.tgz#e387a1dc6f3f4a4005d299b37723899be4f0967b"
   integrity sha512-RGy003FHsvcLoGYaQIJVNWX8ZUQmK+Dbo0LeQAcsP96vOaTHHFOVj0Auhwkg7mZASiR9/XnoNepKIifO2zQVfw==
