@@ -6,6 +6,9 @@ describe("YouTube Music App", () => {
 
 		const win = app.browserWindow;
 
+		const isMenuVisible = await win.isMenuBarVisible();
+		expect(isMenuVisible).toBe(true);
+
 		const isVisible = await win.isVisible();
 		expect(isVisible).toBe(true);
 
