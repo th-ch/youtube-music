@@ -8,7 +8,7 @@ jobs:
     name: Build YouTube Music
     runs-on: ${{ matrix.os }}
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
 
