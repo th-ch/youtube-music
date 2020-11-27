@@ -9,6 +9,7 @@ const { setApplicationMenu } = require("./menu");
 const {
 	autoUpdate,
 	getEnabledPlugins,
+	hideMenu,
 	isAppVisible,
 	isTrayEnabled,
 	store,
@@ -85,6 +86,7 @@ function createMainWindow() {
 		},
 		frame: !is.macOS(),
 		titleBarStyle: is.macOS() ? "hiddenInset" : "default",
+		autoHideMenuBar: hideMenu(),
 	});
 	if (windowMaximized) {
 		win.maximize();
