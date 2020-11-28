@@ -7,6 +7,7 @@ const {
 	enablePlugin,
 	disablePlugin,
 	autoUpdate,
+	hideMenu,
 	isAppVisible,
 	isTrayEnabled,
 	setOptions,
@@ -42,6 +43,18 @@ const mainMenuTemplate = (win) => [
 					setOptions({ autoUpdates: item.checked });
 				},
 			},
+			...(is.windows() || is.linux()
+				? [
+						{
+							label: "Hide menu",
+							type: "checkbox",
+							checked: hideMenu(),
+							click: (item) => {
+								setOptions({ hideMenu: item.checked });
+							},
+						},
+				  ]
+				: []),
 			...(is.windows() || is.macOS()
 				? // Only works on Win/Mac
 				  // https://www.electronjs.org/docs/api/app#appsetloginitemsettingssettings-macos-windows
