@@ -11,6 +11,7 @@ const {
 	getEnabledPlugins,
 	isAppVisible,
 	isTrayEnabled,
+	setOptions,
 	store,
 	startAtLogin,
 } = require("./store");
@@ -196,15 +197,29 @@ app.on("ready", () => {
 	if (!is.dev() && autoUpdate()) {
 		autoUpdater.checkForUpdatesAndNotify();
 		autoUpdater.on("update-available", () => {
+			const downloadLink =
+				"https://github.com/th-ch/youtube-music/releases/latest";
 			const dialogOpts = {
 				type: "info",
-				buttons: ["OK"],
+				buttons: ["OK", "Download", "Disable updates"],
 				title: "Application Update",
 				message: "A new version is available",
-				detail:
-					"A new version is available and can be downloaded at https://github.com/th-ch/youtube-music/releases/latest",
+				detail: `A new version is available and can be downloaded at ${downloadLink}`,
 			};
-			electron.dialog.showMessageBox(dialogOpts);
+			electron.dialog.showMessageBox(dialogOpts).then((dialogOutput) => {
+				switch (dialogOutput.response) {
+					// Download
+					case 1:
+						electron.shell.openExternal(downloadLink);
+						break;
+					// Disable updates
+					case 2:
+						setOptions({ autoUpdates: false });
+						break;
+					default:
+						break;
+				}
+			});
 		});
 	}
 
