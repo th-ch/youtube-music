@@ -58,6 +58,7 @@
 		"electron-store": "^6.0.1",
 		"electron-updater": "^4.3.5",
 		"filenamify": "^4.2.0",
+		"mpris-service": "^2.1.0",
 		"node-fetch": "^2.6.1",
 		"ytdl-core": "^4.0.3"
 	},
