@@ -13,6 +13,7 @@ const store = new Store({
 			tray: false,
 			appVisible: true,
 			autoUpdates: true,
+			hideMenu: false,
 			startAtLogin: false,
 		},
 	},
@@ -31,5 +32,6 @@ module.exports = {
 	isTrayEnabled: () => store.get("options.tray"),
 	isAppVisible: () => store.get("options.appVisible"),
 	autoUpdate: () => store.get("options.autoUpdates"),
+	hideMenu: () => store.get("options.hideMenu"),
 	startAtLogin: () => store.get("options.startAtLogin"),
 };
