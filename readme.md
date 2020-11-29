@@ -20,7 +20,7 @@ You can check out the [latest release](https://github.com/th-ch/youtube-music/re
 
 **Arch Linux**
 
-Install the `youtube-music` package from the AUR. For AUR installation instructions, take a look at this [wiki page](https://wiki.archlinux.org/index.php/Arch_User_Repository#Installing_packages).
+Install the `youtube-music-bin` package from the AUR. For AUR installation instructions, take a look at this [wiki page](https://wiki.archlinux.org/index.php/Arch_User_Repository#Installing_packages).
 
 ## Available plugins:
 
