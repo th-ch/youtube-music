@@ -33,6 +33,7 @@
 		"postinstall": "yarn run icon && yarn run plugins",
 		"clean": "rimraf dist",
 		"build": "yarn run clean && electron-builder --win --mac --linux",
+		"build:linux": "yarn run clean && electron-builder --linux",
 		"build:mac": "yarn run clean && electron-builder --mac",
 		"build:win": "yarn run clean && electron-builder --win",
 		"plugins": "yarn run plugin:adblocker && yarn run plugin:autoconfirm",
