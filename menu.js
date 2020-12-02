@@ -12,6 +12,7 @@ const {
 	isTrayEnabled,
 	setOptions,
 	startAtLogin,
+	disableHardwareAcceleration,
 } = require("./store");
 
 const mainMenuTemplate = (win) => [
@@ -41,6 +42,14 @@ const mainMenuTemplate = (win) => [
 				checked: autoUpdate(),
 				click: (item) => {
 					setOptions({ autoUpdates: item.checked });
+				},
+			},
+			{
+				label: "Disable hardware acceleration",
+				type: "checkbox",
+				checked: disableHardwareAcceleration(),
+				click: (item) => {
+					setOptions({ disableHardwareAcceleration: item.checked });
 				},
 			},
 			...(is.windows() || is.linux()
