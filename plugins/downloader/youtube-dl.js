@@ -29,6 +29,7 @@ const downloadVideoToMP3 = (videoUrl, sendFeedback, sendError, reinit) => {
 			filter: "audioonly",
 			quality: "highestaudio",
 			highWaterMark: 32 * 1024 * 1024, // 32 MB
+			requestOptions: { maxRetries: 3 },
 		});
 	} catch (err) {
 		sendError(err);
