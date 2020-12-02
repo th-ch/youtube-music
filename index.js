@@ -8,6 +8,7 @@ const { autoUpdater } = require("electron-updater");
 const { setApplicationMenu } = require("./menu");
 const {
 	autoUpdate,
+	disableHardwareAcceleration,
 	getEnabledPlugins,
 	hideMenu,
 	isAppVisible,
@@ -27,6 +28,12 @@ app.commandLine.appendSwitch(
 	"--experimental-wasm-threads --experimental-wasm-bulk-memory"
 );
 app.allowRendererProcessReuse = true; // https://github.com/electron/electron/issues/18397
+if (disableHardwareAcceleration()) {
+	if (is.dev()) {
+		console.log("Disabling hardware acceleration");
+	}
+	app.disableHardwareAcceleration();
+}
 
 // Adds debug features like hotkeys for triggering dev tools and reload
 require("electron-debug")();
