@@ -15,6 +15,7 @@ const store = new Store({
 			autoUpdates: true,
 			hideMenu: false,
 			startAtLogin: false,
+			disableHardwareAcceleration: false,
 		},
 	},
 });
@@ -34,4 +35,6 @@ module.exports = {
 	autoUpdate: () => store.get("options.autoUpdates"),
 	hideMenu: () => store.get("options.hideMenu"),
 	startAtLogin: () => store.get("options.startAtLogin"),
+	disableHardwareAcceleration: () =>
+		store.get("options.disableHardwareAcceleration"),
 };
