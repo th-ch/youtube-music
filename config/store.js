@@ -1,4 +1,3 @@
-const { dialog } = require("electron");
 const Store = require("electron-store");
 
 const defaults = require("./defaults");
@@ -11,9 +10,22 @@ const migrations = {
 			return;
 		}
 
-		const plugins = {};
+		// Include custom options
+		const plugins = {
+			adblocker: {
+				enabled: true,
+				cache: true,
+				additionalBlockLists: [],
+			},
+			downloader: {
+				enabled: false,
+				ffmpegArgs: [], // e.g. ["-b:a", "192k"] for an audio bitrate of 192kb/s
+				downloadFolder: undefined, // Custom download folder (absolute path)
+			},
+		};
 		enabledPlugins.forEach((enabledPlugin) => {
 			plugins[enabledPlugin] = {
+				...plugins[enabledPlugin],
 				enabled: true,
 			};
 		});
