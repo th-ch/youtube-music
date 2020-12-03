@@ -2,15 +2,15 @@ const path = require("path");
 
 const { Menu, nativeImage, Tray } = require("electron");
 
+const config = require("./config");
 const { mainMenuTemplate } = require("./menu");
-const { isTrayEnabled } = require("./store");
 const { clickInYoutubeMusic } = require("./utils/youtube-music");
 
 // Prevent tray being garbage collected
 let tray;
 
 module.exports.setUpTray = (app, win) => {
-	if (!isTrayEnabled()) {
+	if (!config.get("options.tray")) {
 		tray = undefined;
 		return;
 	}
