@@ -12,5 +12,6 @@ const get = (key) => {
 module.exports = {
 	get,
 	set,
+	edit: () => store.openInEditor(),
 	plugins,
 };
