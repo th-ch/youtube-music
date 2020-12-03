@@ -1,4 +1,4 @@
-const { promises } = require("fs"); // used for caching
+const { existsSync, promises, unlinkSync } = require("fs"); // used for caching
 const path = require("path");
 
 const { ElectronBlocker } = require("@cliqz/adblocker-electron");
@@ -8,16 +8,28 @@ const SOURCES = [
 	"https://raw.githubusercontent.com/kbinani/adblock-youtube-ads/master/signed.txt",
 ];
 
-const loadAdBlockerEngine = (session = undefined) =>
+const loadAdBlockerEngine = (
+	session = undefined,
+	cache = true,
+	additionalBlockLists = []
+) => {
+	const adBlockerCache = path.resolve(__dirname, "ad-blocker-engine.bin");
+	if (!cache && existsSync(adBlockerCache)) {
+		unlinkSync(adBlockerCache);
+	}
+	const cachingOptions = cache
+		? {
+				path: adBlockerCache,
+				read: promises.readFile,
+				write: promises.writeFile,
+		  }
+		: undefined;
+
 	ElectronBlocker.fromLists(
 		fetch,
-		SOURCES,
+		[...SOURCES, ...additionalBlockLists],
 		{},
-		{
-			path: path.resolve(__dirname, "ad-blocker-engine.bin"),
-			read: promises.readFile,
-			write: promises.writeFile,
-		}
+		cachingOptions
 	)
 		.then((blocker) => {
 			if (session) {
@@ -27,6 +39,7 @@ const loadAdBlockerEngine = (session = undefined) =>
 			}
 		})
 		.catch((err) => console.log("Error loading adBlocker engine", err));
+};
 
 module.exports = { loadAdBlockerEngine };
 if (require.main === module) {
