@@ -13,6 +13,9 @@ module.exports = {
 	get,
 	set,
 	edit: () => store.openInEditor(),
-	watch: (cb) => store.onDidAnyChange(cb),
+	watch: (cb) => {
+		store.onDidChange("options", cb);
+		store.onDidChange("plugins", cb);
+	},
 	plugins,
 };

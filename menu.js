@@ -50,6 +50,14 @@ const mainMenuTemplate = (win) => [
 					config.set("options.disableHardwareAcceleration", item.checked);
 				},
 			},
+			{
+				label: "Restart on config changes",
+				type: "checkbox",
+				checked: config.get("options.restartOnConfigChanges"),
+				click: (item) => {
+					config.set("options.restartOnConfigChanges", item.checked);
+				},
+			},
 			...(is.windows() || is.linux()
 				? [
 						{
