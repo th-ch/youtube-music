@@ -7,6 +7,7 @@ let progress = null;
 const downloadButton = ElementFromFile(
 	templatePath(__dirname, "download.html")
 );
+let pluginOptions = {};
 
 const observer = new MutationObserver((mutations, observer) => {
 	if (!menu) {
@@ -43,11 +44,13 @@ global.download = () => {
 			triggerAction(CHANNEL, ACTIONS.ERROR, error);
 			reinit();
 		},
-		reinit
+		reinit,
+		pluginOptions
 	);
 };
 
-function observeMenu() {
+function observeMenu(options) {
+	pluginOptions = { ...pluginOptions, ...options };
 	observer.observe(document, {
 		childList: true,
 		subtree: true,
