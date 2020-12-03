@@ -13,6 +13,7 @@ const defaultConfig = {
 		disableHardwareAcceleration: false,
 	},
 	plugins: {
+		// Enabled plugins
 		navigation: {
 			enabled: true,
 		},
@@ -21,6 +22,14 @@ const defaultConfig = {
 		},
 		adblocker: {
 			enabled: true,
+			cache: true,
+			additionalBlockLists: [], // Additional list of filters, e.g "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters.txt"
+		},
+		// Disabled plugins
+		downloader: {
+			enabled: false,
+			ffmpegArgs: [], // e.g. ["-b:a", "192k"] for an audio bitrate of 192kb/s
+			downloadFolder: undefined, // Custom download folder (absolute path)
 		},
 	},
 };
