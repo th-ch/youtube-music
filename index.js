@@ -5,18 +5,8 @@ const electron = require("electron");
 const is = require("electron-is");
 const { autoUpdater } = require("electron-updater");
 
+const config = require("./config");
 const { setApplicationMenu } = require("./menu");
-const {
-	autoUpdate,
-	disableHardwareAcceleration,
-	getEnabledPlugins,
-	hideMenu,
-	isAppVisible,
-	isTrayEnabled,
-	setOptions,
-	store,
-	startAtLogin,
-} = require("./store");
 const { fileExists, injectCSS } = require("./plugins/utils");
 const { isTesting } = require("./utils/testing");
 const { setUpTray } = require("./tray");
@@ -28,7 +18,7 @@ app.commandLine.appendSwitch(
 	"--experimental-wasm-threads --experimental-wasm-bulk-memory"
 );
 app.allowRendererProcessReuse = true; // https://github.com/electron/electron/issues/18397
-if (disableHardwareAcceleration()) {
+if (config.get("options.disableHardwareAcceleration")) {
 	if (is.dev()) {
 		console.log("Disabling hardware acceleration");
 	}
@@ -64,19 +54,19 @@ function loadPlugins(win) {
 		}
 	});
 
-	getEnabledPlugins().forEach((plugin) => {
+	config.plugins.getEnabled().forEach(([plugin, options]) => {
 		console.log("Loaded plugin - " + plugin);
 		const pluginPath = path.join(__dirname, "plugins", plugin, "back.js");
 		fileExists(pluginPath, () => {
 			const handle = require(pluginPath);
-			handle(win);
+			handle(win, options);
 		});
 	});
 }
 
 function createMainWindow() {
-	const windowSize = store.get("window-size");
-	const windowMaximized = store.get("window-maximized");
+	const windowSize = config.get("window-size");
+	const windowMaximized = config.get("window-maximized");
 
 	const win = new electron.BrowserWindow({
 		icon: icon,
@@ -94,31 +84,34 @@ function createMainWindow() {
 		},
 		frame: !is.macOS(),
 		titleBarStyle: is.macOS() ? "hiddenInset" : "default",
-		autoHideMenuBar: hideMenu(),
+		autoHideMenuBar: config.get("options.hideMenu"),
 	});
 	if (windowMaximized) {
 		win.maximize();
 	}
 
-	win.webContents.loadURL(store.get("url"));
+	win.webContents.loadURL(config.get("url"));
 	win.on("closed", onClosed);
 
 	win.on("move", () => {
 		let position = win.getPosition();
-		store.set("window-position", { x: position[0], y: position[1] });
+		config.set("window-position", { x: position[0], y: position[1] });
 	});
 
 	win.on("resize", () => {
 		const windowSize = win.getSize();
 
-		store.set("window-maximized", win.isMaximized());
+		config.set("window-maximized", win.isMaximized());
 		if (!win.isMaximized()) {
-			store.set("window-size", { width: windowSize[0], height: windowSize[1] });
+			config.set("window-size", {
+				width: windowSize[0],
+				height: windowSize[1],
+			});
 		}
 	});
 
 	win.once("ready-to-show", () => {
-		if (isAppVisible()) {
+		if (config.get("options.appVisible")) {
 			win.show();
 		}
 	});
@@ -143,7 +136,7 @@ app.on("browser-window-created", (event, win) => {
 	win.webContents.on("did-navigate-in-page", () => {
 		const url = win.webContents.getURL();
 		if (url.startsWith("https://music.youtube.com")) {
-			store.set("url", url);
+			config.set("url", url);
 		}
 	});
 
@@ -196,14 +189,17 @@ app.on("activate", () => {
 app.on("ready", () => {
 	mainWindow = createMainWindow();
 	setApplicationMenu(mainWindow);
+	config.watch(() => {
+		setApplicationMenu(mainWindow);
+	});
 	setUpTray(app, mainWindow);
 
 	// Autostart at login
 	app.setLoginItemSettings({
-		openAtLogin: startAtLogin(),
+		openAtLogin: config.get("options.startAtLogin"),
 	});
 
-	if (!is.dev() && autoUpdate()) {
+	if (!is.dev() && config.get("options.autoUpdates")) {
 		autoUpdater.checkForUpdatesAndNotify();
 		autoUpdater.on("update-available", () => {
 			const downloadLink =
@@ -223,7 +219,7 @@ app.on("ready", () => {
 						break;
 					// Disable updates
 					case 2:
-						setOptions({ autoUpdates: false });
+						config.set("options.autoUpdates", false);
 						break;
 					default:
 						break;
@@ -234,7 +230,7 @@ app.on("ready", () => {
 
 	// Optimized for Mac OS X
 	if (is.macOS()) {
-		if (!isAppVisible()) {
+		if (!config.get("options.appVisible")) {
 			app.dock.hide();
 		}
 	}
@@ -244,7 +240,7 @@ app.on("ready", () => {
 		forceQuit = true;
 	});
 
-	if (is.macOS() || isTrayEnabled()) {
+	if (is.macOS() || config.get("options.tray")) {
 		mainWindow.on("close", (event) => {
 			// Hide the window instead of quitting (quit is available in tray options)
 			if (!forceQuit) {

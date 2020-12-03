@@ -19,7 +19,13 @@ const ffmpeg = createFFmpeg({
 	progress: () => {}, // console.log,
 });
 
-const downloadVideoToMP3 = (videoUrl, sendFeedback, sendError, reinit) => {
+const downloadVideoToMP3 = (
+	videoUrl,
+	sendFeedback,
+	sendError,
+	reinit,
+	options
+) => {
 	sendFeedback("Downloading…");
 
 	let videoName = "YouTube Music - Unknown title";
@@ -54,11 +60,18 @@ const downloadVideoToMP3 = (videoUrl, sendFeedback, sendError, reinit) => {
 		.on("error", sendError)
 		.on("end", () => {
 			const buffer = Buffer.concat(chunks);
-			toMP3(videoName, buffer, sendFeedback, sendError, reinit);
+			toMP3(videoName, buffer, sendFeedback, sendError, reinit, options);
 		});
 };
 
-const toMP3 = async (videoName, buffer, sendFeedback, sendError, reinit) => {
+const toMP3 = async (
+	videoName,
+	buffer,
+	sendFeedback,
+	sendError,
+	reinit,
+	options
+) => {
 	const safeVideoName = randomBytes(32).toString("hex");
 
 	try {
@@ -71,11 +84,17 @@ const toMP3 = async (videoName, buffer, sendFeedback, sendError, reinit) => {
 		ffmpeg.FS("writeFile", safeVideoName, buffer);
 
 		sendFeedback("Converting…");
-		await ffmpeg.run("-i", safeVideoName, safeVideoName + ".mp3");
+		await ffmpeg.run(
+			"-i",
+			safeVideoName,
+			...options.ffmpegArgs,
+			safeVideoName + ".mp3"
+		);
 
+		const folder = options.downloadFolder || downloadsFolder();
 		const filename = filenamify(videoName + ".mp3", { replacement: "_" });
 		writeFileSync(
-			join(downloadsFolder(), filename),
+			join(folder, filename),
 			ffmpeg.FS("readFile", safeVideoName + ".mp3")
 		);
 
