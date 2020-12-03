@@ -189,6 +189,9 @@ app.on("activate", () => {
 app.on("ready", () => {
 	mainWindow = createMainWindow();
 	setApplicationMenu(mainWindow);
+	config.watch(() => {
+		setApplicationMenu(mainWindow);
+	});
 	setUpTray(app, mainWindow);
 
 	// Autostart at login
