@@ -2,18 +2,7 @@ const { app, Menu } = require("electron");
 const is = require("electron-is");
 
 const { getAllPlugins } = require("./plugins/utils");
-const {
-	isPluginEnabled,
-	enablePlugin,
-	disablePlugin,
-	autoUpdate,
-	hideMenu,
-	isAppVisible,
-	isTrayEnabled,
-	setOptions,
-	startAtLogin,
-	disableHardwareAcceleration,
-} = require("./store");
+const config = require("./config");
 
 const mainMenuTemplate = (win) => [
 	{
@@ -22,12 +11,12 @@ const mainMenuTemplate = (win) => [
 			return {
 				label: plugin,
 				type: "checkbox",
-				checked: isPluginEnabled(plugin),
+				checked: config.plugins.isEnabled(plugin),
 				click: (item) => {
 					if (item.checked) {
-						enablePlugin(plugin);
+						config.plugins.enable(plugin);
 					} else {
-						disablePlugin(plugin);
+						config.plugins.disable(plugin);
 					}
 				},
 			};
@@ -39,17 +28,17 @@ const mainMenuTemplate = (win) => [
 			{
 				label: "Auto-update",
 				type: "checkbox",
-				checked: autoUpdate(),
+				checked: config.get("options.autoUpdates"),
 				click: (item) => {
-					setOptions({ autoUpdates: item.checked });
+					config.set("options.autoUpdates", item.checked);
 				},
 			},
 			{
 				label: "Disable hardware acceleration",
 				type: "checkbox",
-				checked: disableHardwareAcceleration(),
+				checked: config.get("options.disableHardwareAcceleration"),
 				click: (item) => {
-					setOptions({ disableHardwareAcceleration: item.checked });
+					config.set("options.disableHardwareAcceleration", item.checked);
 				},
 			},
 			...(is.windows() || is.linux()
@@ -57,9 +46,9 @@ const mainMenuTemplate = (win) => [
 						{
 							label: "Hide menu",
 							type: "checkbox",
-							checked: hideMenu(),
+							checked: config.get("options.hideMenu"),
 							click: (item) => {
-								setOptions({ hideMenu: item.checked });
+								config.set("options.hideMenu", item.checked);
 							},
 						},
 				  ]
@@ -71,9 +60,9 @@ const mainMenuTemplate = (win) => [
 						{
 							label: "Start at login",
 							type: "checkbox",
-							checked: startAtLogin(),
+							checked: config.get("options.startAtLogin"),
 							click: (item) => {
-								setOptions({ startAtLogin: item.checked });
+								config.set("options.startAtLogin", item.checked);
 							},
 						},
 				  ]
@@ -84,20 +73,31 @@ const mainMenuTemplate = (win) => [
 					{
 						label: "Disabled",
 						type: "radio",
-						checked: !isTrayEnabled(),
-						click: () => setOptions({ tray: false, appVisible: true }),
+						checked: !config.get("options.tray"),
+						click: () => {
+							config.set("options.tray", false);
+							config.set("options.appVisible", true);
+						},
 					},
 					{
 						label: "Enabled + app visible",
 						type: "radio",
-						checked: isTrayEnabled() && isAppVisible(),
-						click: () => setOptions({ tray: true, appVisible: true }),
+						checked:
+							config.get("options.tray") && config.get("options.appVisible"),
+						click: () => {
+							config.set("options.tray", true);
+							config.set("options.appVisible", true);
+						},
 					},
 					{
 						label: "Enabled + app hidden",
 						type: "radio",
-						checked: isTrayEnabled() && !isAppVisible(),
-						click: () => setOptions({ tray: true, appVisible: false }),
+						checked:
+							config.get("options.tray") && !config.get("options.appVisible"),
+						click: () => {
+							config.set("options.tray", true);
+							config.set("options.appVisible", false);
+						},
 					},
 				],
 			},
