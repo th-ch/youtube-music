@@ -11,6 +11,7 @@ const defaultConfig = {
 		hideMenu: false,
 		startAtLogin: false,
 		disableHardwareAcceleration: false,
+		restartOnConfigChanges: false,
 	},
 	plugins: {
 		// Enabled plugins
