@@ -7,20 +7,29 @@ const config = require("./config");
 const mainMenuTemplate = (win) => [
 	{
 		label: "Plugins",
-		submenu: getAllPlugins().map((plugin) => {
-			return {
-				label: plugin,
-				type: "checkbox",
-				checked: config.plugins.isEnabled(plugin),
-				click: (item) => {
-					if (item.checked) {
-						config.plugins.enable(plugin);
-					} else {
-						config.plugins.disable(plugin);
-					}
+		submenu: [
+			...getAllPlugins().map((plugin) => {
+				return {
+					label: plugin,
+					type: "checkbox",
+					checked: config.plugins.isEnabled(plugin),
+					click: (item) => {
+						if (item.checked) {
+							config.plugins.enable(plugin);
+						} else {
+							config.plugins.disable(plugin);
+						}
+					},
+				};
+			}),
+			{ type: "separator" },
+			{
+				label: "Advanced options",
+				click: () => {
+					config.edit();
 				},
-			};
-		}),
+			},
+		],
 	},
 	{
 		label: "Options",
@@ -101,6 +110,7 @@ const mainMenuTemplate = (win) => [
 					},
 				],
 			},
+			{ type: "separator" },
 			{
 				label: "Toggle DevTools",
 				// Cannot use "toggleDevTools" role in MacOS
@@ -112,6 +122,12 @@ const mainMenuTemplate = (win) => [
 						const devToolsOptions = {};
 						webContents.openDevTools(devToolsOptions);
 					}
+				},
+			},
+			{
+				label: "Advanced options",
+				click: () => {
+					config.edit();
 				},
 			},
 		],
