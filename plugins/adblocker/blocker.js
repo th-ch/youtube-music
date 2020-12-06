@@ -1,4 +1,4 @@
-const { existsSync, promises, unlinkSync } = require("fs"); // used for caching
+const { promises } = require("fs"); // used for caching
 const path = require("path");
 
 const { ElectronBlocker } = require("@cliqz/adblocker-electron");
@@ -13,17 +13,15 @@ const loadAdBlockerEngine = (
 	cache = true,
 	additionalBlockLists = []
 ) => {
-	const adBlockerCache = path.resolve(__dirname, "ad-blocker-engine.bin");
-	if (!cache && existsSync(adBlockerCache)) {
-		unlinkSync(adBlockerCache);
-	}
-	const cachingOptions = cache
-		? {
-				path: adBlockerCache,
-				read: promises.readFile,
-				write: promises.writeFile,
-		  }
-		: undefined;
+	// Only use cache if no additional blocklists are passed
+	const cachingOptions =
+		cache && additionalBlockLists.length === 0
+			? {
+					path: path.resolve(__dirname, "ad-blocker-engine.bin"),
+					read: promises.readFile,
+					write: promises.writeFile,
+			  }
+			: undefined;
 
 	ElectronBlocker.fromLists(
 		fetch,
