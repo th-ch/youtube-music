@@ -3,5 +3,6 @@ module.exports = (win, options) =>
 	loadAdBlockerEngine(
 		win.webContents.session,
 		options.cache,
-		options.additionalBlockLists
+		options.additionalBlockLists,
+		options.disableDefaultLists
 	);
