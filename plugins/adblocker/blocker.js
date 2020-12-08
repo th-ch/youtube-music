@@ -11,7 +11,8 @@ const SOURCES = [
 const loadAdBlockerEngine = (
 	session = undefined,
 	cache = true,
-	additionalBlockLists = []
+	additionalBlockLists = [],
+	disableDefaultLists = false
 ) => {
 	// Only use cache if no additional blocklists are passed
 	const cachingOptions =
@@ -22,13 +23,12 @@ const loadAdBlockerEngine = (
 					write: promises.writeFile,
 			  }
 			: undefined;
+	const lists = [
+		...(disableDefaultLists ? [] : SOURCES),
+		...additionalBlockLists,
+	];
 
-	ElectronBlocker.fromLists(
-		fetch,
-		[...SOURCES, ...additionalBlockLists],
-		{},
-		cachingOptions
-	)
+	ElectronBlocker.fromLists(fetch, lists, {}, cachingOptions)
 		.then((blocker) => {
 			if (session) {
 				blocker.enableBlockingInSession(session);
