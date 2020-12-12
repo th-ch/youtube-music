@@ -22,7 +22,8 @@
 		},
 		"linux": {
 			"icon": "assets/generated/icons/png",
-			"category": "AudioVideo"
+			"category": "AudioVideo",
+			"target": ["AppImage", "deb", "rpm"]
 		}
 	},
 	"scripts": {
