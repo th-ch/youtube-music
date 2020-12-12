@@ -23,7 +23,7 @@
 		"linux": {
 			"icon": "assets/generated/icons/png",
 			"category": "AudioVideo",
-			"target": ["AppImage", "deb", "rpm"]
+			"target": ["AppImage", "snap", "freebsd", "deb", "rpm"]
 		}
 	},
 	"scripts": {
