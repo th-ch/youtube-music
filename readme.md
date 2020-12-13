@@ -12,7 +12,13 @@
 
 </div>
 
-![Screenshot](screenshot.jpg "Screenshot")
+![Screenshot](web/screenshot.jpg "Screenshot")
+
+<div align="center">
+	<a href="https://github.com/th-ch/youtube-music/releases/latest">
+		<img src="web/youtube-music.svg" width="400" height="100">
+	</a>
+</div>
 
 **Electron wrapper around YouTube Music featuring:**
 
