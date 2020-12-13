@@ -1,7 +1,7 @@
 {
 	"name": "youtube-music",
 	"productName": "YouTube Music",
-	"version": "1.7.4",
+	"version": "1.7.5",
 	"description": "YouTube Music Desktop App - including custom plugins",
 	"license": "MIT",
 	"repository": "th-ch/youtube-music",
@@ -22,7 +22,8 @@
 		},
 		"linux": {
 			"icon": "assets/generated/icons/png",
-			"category": "AudioVideo"
+			"category": "AudioVideo",
+			"target": ["AppImage", "snap", "freebsd", "deb", "rpm"]
 		}
 	},
 	"scripts": {
