@@ -1,5 +1,5 @@
 const {
-	TouchBar
+	TouchBar, nativeImage
 } = require('electron');
 const {
 	TouchBarButton,
@@ -8,9 +8,13 @@ const {
 	TouchBarSegmentedControl,
 	TouchBarScrubber
 } = TouchBar;
+const fetch = require('node-fetch');
 
-// This selects the title
+// This selects the song title
 const titleSelector = '.title.style-scope.ytmusic-player-bar';
+
+// This selects the song image
+const imageSelector = '#layout > ytmusic-player-bar > div.middle-controls.style-scope.ytmusic-player-bar > img';
 
 // These keys will be used to go backwards, pause and skip songs
 const keys = ['k', 'space', 'j'];
@@ -31,11 +35,23 @@ const getTitle = win => {
 	});
 };
 
+// Grab the image src using the selector
+const getImage = win => {
+	return win.webContents.executeJavaScript(
+		'document.querySelector(\'' + imageSelector + '\').src'
+	).catch(error => {
+		console.log(error);
+	});
+};
+
 module.exports = win => {
 	// Songtitle label
 	const songTitle = new TouchBarLabel({
 		label: ''
 	});
+
+	// This will store the song image once available
+	const songImage = {};
 
 	// The song control buttons (keys to press are in the same order)
 	const buttons = new TouchBarSegmentedControl({
@@ -58,7 +74,7 @@ module.exports = win => {
 	const touchBar = new TouchBar({
 		items: [
 			new TouchBarScrubber({
-				items: [songTitle],
+				items: [songImage, songTitle],
 				continuous: false
 			}),
 			new TouchBarSpacer({
@@ -70,7 +86,19 @@ module.exports = win => {
 
 	// If the page title changes, update touchbar and song title
 	win.on('page-title-updated', async () => {
+		// Set the song title
 		songTitle.label = await getTitle(win);
+
+		// Get image source
+		const imageSrc = await getImage(win);
+
+		// Fetch and set song image
+		await fetch(imageSrc)
+			.then(response => response.buffer())
+			.then(data => {
+				songImage.icon = nativeImage.createFromBuffer(data).resize({height: 23});
+			});
+
 		win.setTouchBar(touchBar);
 	});
 };
