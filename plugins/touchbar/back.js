@@ -16,7 +16,7 @@ const titleSelector = '.title.style-scope.ytmusic-player-bar';
 // This selects the song image
 const imageSelector = '#layout > ytmusic-player-bar > div.middle-controls.style-scope.ytmusic-player-bar > img';
 
-// These keys will be used to go backwards, pause and skip songs
+// These keys will be used to go backwards, pause, skip songs, like songs, dislike songs
 const keys = ['k', 'space', 'j', '+', '_'];
 
 const presskey = (window, key) => {
