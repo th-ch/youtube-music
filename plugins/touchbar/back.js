@@ -17,7 +17,7 @@ const titleSelector = '.title.style-scope.ytmusic-player-bar';
 const imageSelector = '#layout > ytmusic-player-bar > div.middle-controls.style-scope.ytmusic-player-bar > img';
 
 // These keys will be used to go backwards, pause and skip songs
-const keys = ['k', 'space', 'j'];
+const keys = ['k', 'space', 'j', '+', '_'];
 
 const presskey = (window, key) => {
 	window.webContents.sendInputEvent({
@@ -58,13 +58,19 @@ module.exports = win => {
 		mode: 'buttons',
 		segments: [
 			new TouchBarButton({
-				label: '<'
+				label: '⏮'
 			}),
 			new TouchBarButton({
 				label: '⏯️'
 			}),
 			new TouchBarButton({
-				label: '>'
+				label: '⏭'
+			}),
+			new TouchBarButton({
+				label: '👍'
+			}),
+			new TouchBarButton({
+				label: '👎'
 			})
 		],
 		change: i => presskey(win, keys[i])
