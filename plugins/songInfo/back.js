@@ -70,7 +70,7 @@ const getPausedStatus = async win => {
 // This variable will be filled with the callbacks once they register
 const callbacks = [];
 
-module.exports = async win => {
+module.exports = win => {
 	// Fill songInfo with empty values
 	global.songInfo = {
 		title: '',
