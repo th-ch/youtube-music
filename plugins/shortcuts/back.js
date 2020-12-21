@@ -1,11 +1,13 @@
 const { globalShortcut } = require("electron");
+const is = require("electron-is");
 const electronLocalshortcut = require("electron-localshortcut");
 
+const { setupMPRIS } = require("./mpris");
 const {
 	playPause,
 	nextTrack,
 	previousTrack,
-	startSearch
+	startSearch,
 } = require("./youtube.js");
 
 function _registerGlobalShortcut(webContents, shortcut, action) {
@@ -26,6 +28,22 @@ function registerShortcuts(win) {
 	_registerGlobalShortcut(win.webContents, "MediaPreviousTrack", previousTrack);
 	_registerLocalShortcut(win, "CommandOrControl+F", startSearch);
 	_registerLocalShortcut(win, "CommandOrControl+L", startSearch);
+
+	if (is.linux()) {
+		try {
+			const player = setupMPRIS();
+
+			player.on("raise", () => {
+				win.setSkipTaskbar(false);
+				win.show();
+			});
+			player.on("playpause", playPause);
+			player.on("next", nextTrack);
+			player.on("previous", previousTrack);
+		} catch (e) {
+			console.warn("Error in MPRIS", e);
+		}
+	}
 }
 
 module.exports = registerShortcuts;
