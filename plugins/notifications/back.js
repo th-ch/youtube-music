@@ -1,6 +1,6 @@
 const {Notification} = require('electron');
 
-function notify(info) {
+const notify = info => {
 	let notificationImage = 'assets/youtube-music.png';
 
 	if (info.image) {
@@ -16,7 +16,7 @@ function notify(info) {
 	};
 	// Send the notification
 	new Notification(notification).show();
-}
+};
 
 module.exports = win => {
 	win.on('ready-to-show', () => {
