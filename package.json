@@ -61,7 +61,7 @@
 		"electron-updater": "^4.3.5",
 		"filenamify": "^4.2.0",
 		"node-fetch": "^2.6.1",
-		"ytdl-core": "^4.1.1"
+		"ytdl-core": "^4.1.2"
 	},
 	"devDependencies": {
 		"electron": "^10.1.3",
