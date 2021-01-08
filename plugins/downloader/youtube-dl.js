@@ -73,6 +73,7 @@ const toMP3 = async (
 	options
 ) => {
 	const safeVideoName = randomBytes(32).toString("hex");
+	const extension = options.extension || "mp3";
 
 	try {
 		if (!ffmpeg.isLoaded()) {
@@ -88,14 +89,16 @@ const toMP3 = async (
 			"-i",
 			safeVideoName,
 			...(options.ffmpegArgs || []),
-			safeVideoName + ".mp3"
+			safeVideoName + "." + extension
 		);
 
 		const folder = options.downloadFolder || downloadsFolder();
-		const filename = filenamify(videoName + ".mp3", { replacement: "_" });
+		const filename = filenamify(videoName + "." + extension, {
+			replacement: "_",
+		});
 		writeFileSync(
 			join(folder, filename),
-			ffmpeg.FS("readFile", safeVideoName + ".mp3")
+			ffmpeg.FS("readFile", safeVideoName + "." + extension)
 		);
 
 		reinit();
