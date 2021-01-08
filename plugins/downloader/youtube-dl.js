@@ -87,7 +87,7 @@ const toMP3 = async (
 		await ffmpeg.run(
 			"-i",
 			safeVideoName,
-			...options.ffmpegArgs,
+			...(options.ffmpegArgs || []),
 			safeVideoName + ".mp3"
 		);
 
