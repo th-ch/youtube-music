@@ -58,7 +58,7 @@
 		"electron-is": "^3.0.0",
 		"electron-localshortcut": "^3.2.1",
 		"electron-store": "^6.0.1",
-		"electron-updater": "^4.3.5",
+		"electron-updater": "^4.3.6",
 		"filenamify": "^4.2.0",
 		"node-fetch": "^2.6.1",
 		"ytdl-core": "^4.1.2"
