@@ -75,12 +75,18 @@ function createMainWindow() {
 		backgroundColor: "#000",
 		show: false,
 		webPreferences: {
-			nodeIntegration: isTesting(), // Only necessary when testing with Spectron
 			preload: path.join(__dirname, "preload.js"),
 			nodeIntegrationInSubFrames: true,
 			nativeWindowOpen: true, // window.open return Window object(like in regular browsers), not BrowserWindowProxy
 			enableRemoteModule: true,
 			affinity: "main-window", // main window, and addition windows should work in one process
+			...(isTesting()
+				? {
+						// Only necessary when testing with Spectron
+						contextIsolation: false,
+						nodeIntegration: true,
+				  }
+				: undefined),
 		},
 		frame: !is.macOS(),
 		titleBarStyle: is.macOS() ? "hiddenInset" : "default",
