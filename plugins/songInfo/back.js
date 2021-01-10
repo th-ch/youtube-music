@@ -81,7 +81,7 @@ module.exports = win => {
 		image: null,
 		isPaused: true
 	};
-	// The song control funcions
+	// The song control functions
 	global.songControls = {
 		previous: () => presskey(win, 'k'),
 		next: () => presskey(win, 'j'),
