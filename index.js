@@ -75,6 +75,7 @@ function createMainWindow() {
 		backgroundColor: "#000",
 		show: false,
 		webPreferences: {
+			contextIsolation: true,
 			preload: path.join(__dirname, "preload.js"),
 			nodeIntegrationInSubFrames: true,
 			nativeWindowOpen: true, // window.open return Window object(like in regular browsers), not BrowserWindowProxy
