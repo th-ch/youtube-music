@@ -28,6 +28,8 @@ if (config.get("options.disableHardwareAcceleration")) {
 // Adds debug features like hotkeys for triggering dev tools and reload
 require("electron-debug")();
 
+// these are the providers for the plugins, this shouldn't be hardcoded but it's temporarily
+const providers = ["song-info"];
 // Prevent window being garbage collected
 let mainWindow;
 autoUpdater.autoDownload = false;
@@ -52,6 +54,15 @@ function loadPlugins(win) {
 			console.log("did finish load");
 			win.webContents.openDevTools();
 		}
+	});
+
+	providers.forEach(provider => {
+		console.log("Loaded provider - " + provider);
+		const providerPath = path.join(__dirname, "providers", provider, "back.js");
+		fileExists(providerPath, () => {
+			const handle = require(providerPath);
+			handle(win);
+		});
 	});
 
 	config.plugins.getEnabled().forEach(([plugin, options]) => {
