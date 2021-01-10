@@ -1,6 +1,4 @@
-const {
-	TouchBar, nativeImage
-} = require('electron');
+const {TouchBar} = require('electron');
 const {
 	TouchBarButton,
 	TouchBarLabel,
@@ -8,103 +6,80 @@ const {
 	TouchBarSegmentedControl,
 	TouchBarScrubber
 } = TouchBar;
-const fetch = require('node-fetch');
 
-// This selects the song title
-const titleSelector = '.title.style-scope.ytmusic-player-bar';
+// Songtitle label
+const songTitle = new TouchBarLabel({
+	label: ''
+});
+// This will store the song controls once available
+let controls = [];
 
-// This selects the song image
-const imageSelector = '#layout > ytmusic-player-bar > div.middle-controls.style-scope.ytmusic-player-bar > img';
+// This will store the song image once available
+const songImage = {};
 
-// These keys will be used to go backwards, pause, skip songs, like songs, dislike songs
-const keys = ['k', 'space', 'j', '_', '+'];
+// Pause/play button
+const pausePlayButton = new TouchBarButton();
 
-const presskey = (window, key) => {
-	window.webContents.sendInputEvent({
-		type: 'keydown',
-		keyCode: key
-	});
-};
+// The song control buttons (control functions are in the same order)
+const buttons = new TouchBarSegmentedControl({
+	mode: 'buttons',
+	segments: [
+		new TouchBarButton({
+			label: '⏮'
+		}),
+		pausePlayButton,
+		new TouchBarButton({
+			label: '⏭'
+		}),
+		new TouchBarButton({
+			label: '👎'
+		}),
+		new TouchBarButton({
+			label: '👍'
+		})
+	],
+	change: i => controls[i]()
+});
 
-// Grab the title using the selector
-const getTitle = win => {
-	return win.webContents.executeJavaScript(
-		'document.querySelector(\'' + titleSelector + '\').innerText'
-	).catch(error => {
-		console.log(error);
-	});
-};
-
-// Grab the image src using the selector
-const getImage = win => {
-	return win.webContents.executeJavaScript(
-		'document.querySelector(\'' + imageSelector + '\').src'
-	).catch(error => {
-		console.log(error);
-	});
-};
+// This is the touchbar object, this combines everything with proper layout
+const touchBar = new TouchBar({
+	items: [
+		new TouchBarScrubber({
+			items: [songImage, songTitle],
+			continuous: false
+		}),
+		new TouchBarSpacer({
+			size: 'flexible'
+		}),
+		buttons
+	]
+});
 
 module.exports = win => {
-	// Songtitle label
-	const songTitle = new TouchBarLabel({
-		label: ''
-	});
+	// If the page is ready, register the callback
+	win.on('ready-to-show', () => {
+		controls = [
+			global.songControls.previous,
+			global.songControls.pause,
+			global.songControls.next,
+			global.songControls.like,
+			global.songControls.dislike
+		];
 
-	// This will store the song image once available
-	const songImage = {};
+		// Register the callback
+		global.songInfo.onNewData(songInfo => {
+			// Song information changed, so lets update the touchBar
 
-	// The song control buttons (keys to press are in the same order)
-	const buttons = new TouchBarSegmentedControl({
-		mode: 'buttons',
-		segments: [
-			new TouchBarButton({
-				label: '⏮'
-			}),
-			new TouchBarButton({
-				label: '⏯️'
-			}),
-			new TouchBarButton({
-				label: '⏭'
-			}),
-			new TouchBarButton({
-				label: '👎'
-			}),
-			new TouchBarButton({
-				label: '👍'
-			})
-		],
-		change: i => presskey(win, keys[i])
-	});
+			// Set the song title
+			songTitle.label = songInfo.title;
 
-	// This is the touchbar object, this combines everything with proper layout
-	const touchBar = new TouchBar({
-		items: [
-			new TouchBarScrubber({
-				items: [songImage, songTitle],
-				continuous: false
-			}),
-			new TouchBarSpacer({
-				size: 'flexible'
-			}),
-			buttons
-		]
-	});
+			// Changes the pause button if paused
+			pausePlayButton.label = songInfo.isPaused ? '▶️' : '⏸';
 
-	// If the page title changes, update touchbar and song title
-	win.on('page-title-updated', async () => {
-		// Set the song title
-		songTitle.label = await getTitle(win);
+			// Get image source
+			songImage.icon = songInfo.image ? songInfo.image.resize({height: 23}) : null;
 
-		// Get image source
-		const imageSrc = await getImage(win);
-
-		// Fetch and set song image
-		await fetch(imageSrc)
-			.then(response => response.buffer())
-			.then(data => {
-				songImage.icon = nativeImage.createFromBuffer(data).resize({height: 23});
-			});
-
-		win.setTouchBar(touchBar);
+			win.setTouchBar(touchBar);
+		});
 	});
 };
