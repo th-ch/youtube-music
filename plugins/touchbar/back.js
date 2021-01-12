@@ -7,6 +7,9 @@ const {
 	TouchBarScrubber,
 } = TouchBar;
 
+const getSongInfo = require("../../providers/song-info");
+const getSongControls = require("../../providers/song-controls");
+
 // Songtitle label
 const songTitle = new TouchBarLabel({
 	label: "",
@@ -55,19 +58,16 @@ const touchBar = new TouchBar({
 	],
 });
 
-module.exports = win => {
+module.exports = (win) => {
+	const registerCallback = getSongInfo(win);
+	const { playPause, next, previous, like, dislike } = getSongControls(win);
+
 	// If the page is ready, register the callback
-	win.on('ready-to-show', () => {
-		controls = [
-			global.songControls.previous,
-			global.songControls.pause,
-			global.songControls.next,
-			global.songControls.like,
-			global.songControls.dislike
-		];
+	win.on("ready-to-show", () => {
+		controls = [previous, playPause, next, like, dislike];
 
 		// Register the callback
-		global.songInfo.onNewData(songInfo => {
+		registerCallback((songInfo) => {
 			// Song information changed, so lets update the touchBar
 
 			// Set the song title
