@@ -1,18 +1,18 @@
-const {Notification} = require('electron');
+const { Notification } = require("electron");
 
 const notify = info => {
 	let notificationImage = 'assets/youtube-music.png';
 
 	if (info.image) {
-		notificationImage = info.image.resize({height: 256, width: 256});
+		notificationImage = info.image.resize({ height: 256, width: 256 });
 	}
 
 	// Fill the notification with content
 	const notification = {
-		title: info.title || 'Playing',
+		title: info.title || "Playing",
 		body: info.artist,
 		icon: notificationImage,
-		silent: true
+		silent: true,
 	};
 	// Send the notification
 	new Notification(notification).show();

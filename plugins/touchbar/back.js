@@ -1,15 +1,15 @@
-const {TouchBar} = require('electron');
+const { TouchBar } = require("electron");
 const {
 	TouchBarButton,
 	TouchBarLabel,
 	TouchBarSpacer,
 	TouchBarSegmentedControl,
-	TouchBarScrubber
+	TouchBarScrubber,
 } = TouchBar;
 
 // Songtitle label
 const songTitle = new TouchBarLabel({
-	label: ''
+	label: "",
 });
 // This will store the song controls once available
 let controls = [];
@@ -22,23 +22,23 @@ const pausePlayButton = new TouchBarButton();
 
 // The song control buttons (control functions are in the same order)
 const buttons = new TouchBarSegmentedControl({
-	mode: 'buttons',
+	mode: "buttons",
 	segments: [
 		new TouchBarButton({
-			label: '⏮'
+			label: "⏮",
 		}),
 		pausePlayButton,
 		new TouchBarButton({
-			label: '⏭'
+			label: "⏭",
 		}),
 		new TouchBarButton({
-			label: '👎'
+			label: "👎",
 		}),
 		new TouchBarButton({
-			label: '👍'
-		})
+			label: "👍",
+		}),
 	],
-	change: i => controls[i]()
+	change: (i) => controls[i](),
 });
 
 // This is the touchbar object, this combines everything with proper layout
@@ -46,13 +46,13 @@ const touchBar = new TouchBar({
 	items: [
 		new TouchBarScrubber({
 			items: [songImage, songTitle],
-			continuous: false
+			continuous: false,
 		}),
 		new TouchBarSpacer({
-			size: 'flexible'
+			size: "flexible",
 		}),
-		buttons
-	]
+		buttons,
+	],
 });
 
 module.exports = win => {
@@ -74,10 +74,12 @@ module.exports = win => {
 			songTitle.label = songInfo.title;
 
 			// Changes the pause button if paused
-			pausePlayButton.label = songInfo.isPaused ? '▶️' : '⏸';
+			pausePlayButton.label = songInfo.isPaused ? "▶️" : "⏸";
 
 			// Get image source
-			songImage.icon = songInfo.image ? songInfo.image.resize({height: 23}) : null;
+			songImage.icon = songInfo.image
+				? songInfo.image.resize({ height: 23 })
+				: null;
 
 			win.setTouchBar(touchBar);
 		});
