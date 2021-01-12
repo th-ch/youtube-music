@@ -1,6 +1,6 @@
 const path = require("path");
 
-const { remote } = require("electron");
+const { contextBridge, remote } = require("electron");
 
 const config = require("./config");
 const { fileExists } = require("./plugins/utils");
@@ -10,10 +10,8 @@ const plugins = config.plugins.getEnabled();
 plugins.forEach(([plugin, options]) => {
 	const pluginPath = path.join(__dirname, "plugins", plugin, "actions.js");
 	fileExists(pluginPath, () => {
-		const actions = require(pluginPath).global || {};
-		Object.keys(actions).forEach((actionName) => {
-			global[actionName] = actions[actionName];
-		});
+		const actions = require(pluginPath).actions || {};
+		contextBridge.exposeInMainWorld(plugin + "Actions", actions);
 	});
 });
 
