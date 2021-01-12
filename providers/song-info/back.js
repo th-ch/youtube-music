@@ -10,6 +10,9 @@ const imageSelector = '#layout > ytmusic-player-bar > div.middle-controls.style-
 // This selects the song subinfo, this includes artist, views, likes
 const subInfoSelector = '#layout > ytmusic-player-bar > div.middle-controls.style-scope.ytmusic-player-bar > div.content-info-wrapper.style-scope.ytmusic-player-bar > span';
 
+// This selects the progress bar, used for songlength and current progress
+const progressSelector = '#progress-bar';
+
 // This is used for to control the songs
 const presskey = (window, key) => {
 	window.webContents.sendInputEvent({
@@ -55,6 +58,18 @@ const getSubInfo = async win => {
 	return subInfo;
 };
 
+// Grab the progress using the selector
+const getProgress = async win => {
+	// Get max value of the progressbar element
+	const songDuration = await win.webContents.executeJavaScript(
+		'document.querySelector("' + progressSelector + '").max');
+	// Get current value of the progressbar element
+	const elapsedSeconds = await win.webContents.executeJavaScript(
+		'document.querySelector("' + progressSelector + '").value');
+
+	return {songDuration, elapsedSeconds};
+};
+
 // Grab the native image using the src
 const getImage = async src => {
 	const result = await fetch(src);
@@ -79,7 +94,9 @@ module.exports = win => {
 		likes: '',
 		imageSrc: '',
 		image: null,
-		isPaused: true
+		isPaused: true,
+		songDuration: 0,
+		elapsedSeconds: 0
 	};
 	// The song control functions
 	global.songControls = {
@@ -101,6 +118,10 @@ module.exports = win => {
 		// Get and set the new data
 		global.songInfo.title = await getTitle(win);
 		global.songInfo.isPaused = await getPausedStatus(win);
+
+		const {songDuration, elapsedSeconds} = await getProgress(win);
+		global.songInfo.songDuration = songDuration;
+		global.songInfo.elapsedSeconds = elapsedSeconds;
 
 		// If title changed then we do need to update other info
 		if (oldTitle !== global.songInfo.title) {
