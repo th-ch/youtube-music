@@ -1,7 +1,9 @@
 const { Notification } = require("electron");
 
-const notify = info => {
-	let notificationImage = 'assets/youtube-music.png';
+const getSongInfo = require("../../providers/song-info");
+
+const notify = (info) => {
+	let notificationImage = "assets/youtube-music.png";
 
 	if (info.image) {
 		notificationImage = info.image.resize({ height: 256, width: 256 });
@@ -18,10 +20,12 @@ const notify = info => {
 	new Notification(notification).show();
 };
 
-module.exports = win => {
-	win.on('ready-to-show', () => {
+module.exports = (win) => {
+	const registerCallback = getSongInfo(win);
+
+	win.on("ready-to-show", () => {
 		// Register the callback for new song information
-		global.songInfo.onNewData(songInfo => {
+		registerCallback((songInfo) => {
 			// If song is playing send notification
 			if (!songInfo.isPaused) {
 				notify(songInfo);
