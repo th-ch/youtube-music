@@ -1,3 +1,5 @@
+const { contextBridge } = require("electron");
+
 const { ElementFromFile, templatePath, triggerAction } = require("../utils");
 const { ACTIONS, CHANNEL } = require("./actions.js");
 const { downloadVideoToMP3 } = require("./youtube-dl");
@@ -28,26 +30,28 @@ const reinit = () => {
 	}
 };
 
-global.download = () => {
-	const videoUrl = window.location.href;
+contextBridge.exposeInMainWorld("downloader", {
+	download: () => {
+		const videoUrl = window.location.href;
 
-	downloadVideoToMP3(
-		videoUrl,
-		(feedback) => {
-			if (!progress) {
-				console.warn("Cannot update progress");
-			} else {
-				progress.innerHTML = feedback;
-			}
-		},
-		(error) => {
-			triggerAction(CHANNEL, ACTIONS.ERROR, error);
-			reinit();
-		},
-		reinit,
-		pluginOptions
-	);
-};
+		downloadVideoToMP3(
+			videoUrl,
+			(feedback) => {
+				if (!progress) {
+					console.warn("Cannot update progress");
+				} else {
+					progress.innerHTML = feedback;
+				}
+			},
+			(error) => {
+				triggerAction(CHANNEL, ACTIONS.ERROR, error);
+				reinit();
+			},
+			reinit,
+			pluginOptions
+		);
+	},
+});
 
 function observeMenu(options) {
 	pluginOptions = { ...pluginOptions, ...options };
