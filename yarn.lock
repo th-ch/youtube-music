@@ -2911,6 +2911,14 @@ dir-glob@^2.2.2:
   dependencies:
     path-type "^3.0.0"
 
+discord-rpc@^3.1.4:
+  version "3.1.4"
+  resolved "https://registry.yarnpkg.com/discord-rpc/-/discord-rpc-3.1.4.tgz#6d449a682e6a0dec4f0444d5f36f9ebfabaccf91"
+  integrity sha512-QaBu+gHica2SzgRAmTpuJ4J8DX9+fDwAqhvaie3hcbkU9WPqewEPh21pWdd/7vTI/JNuapU7PFm2ZKg3BTkbGg==
+  dependencies:
+    node-fetch "^2.6.1"
+    ws "^7.3.1"
+
 dmg-builder@22.8.1:
   version "22.8.1"
   resolved "https://registry.yarnpkg.com/dmg-builder/-/dmg-builder-22.8.1.tgz#9b3bcbbc43e5fed232525d61a5567ea4b66085c3"
@@ -8772,6 +8780,11 @@ ws@^7.2.3:
   version "7.3.1"
   resolved "https://registry.yarnpkg.com/ws/-/ws-7.3.1.tgz#d0547bf67f7ce4f12a72dfe31262c68d7dc551c8"
   integrity sha512-D3RuNkynyHmEJIpD2qrgVkc9DQ23OrN/moAwZX4L8DfvszsJxpjQuUq3LMx6HoYji9fbIOBY18XWBsAux1ZZUA==
+
+ws@^7.3.1:
+  version "7.4.2"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-7.4.2.tgz#782100048e54eb36fe9843363ab1c68672b261dd"
+  integrity sha512-T4tewALS3+qsrpGI/8dqNMLIVdq/g/85U98HPMa6F0m6xTbvhXU6RCQLqPH3+SlomNV/LdY6RXEbBpMH6EOJnA==
 
 xdg-basedir@^4.0.0:
   version "4.0.0"
