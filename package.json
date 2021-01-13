@@ -1,7 +1,7 @@
 {
 	"name": "youtube-music",
 	"productName": "YouTube Music",
-	"version": "1.8.1",
+	"version": "1.8.2",
 	"description": "YouTube Music Desktop App - including custom plugins",
 	"license": "MIT",
 	"repository": "th-ch/youtube-music",
@@ -18,7 +18,8 @@
 			"icon": "assets/generated/icons/mac/icon.icns"
 		},
 		"win": {
-			"icon": "assets/generated/icons/win/icon.ico"
+			"icon": "assets/generated/icons/win/icon.ico",
+			"target": ["nsis", "portable"]
 		},
 		"linux": {
 			"icon": "assets/generated/icons/png",
