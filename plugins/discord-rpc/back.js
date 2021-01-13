@@ -1,5 +1,5 @@
-const DiscordRPC = require('discord-rpc');
-const rpc = new DiscordRPC.Client({
+const Discord = require('discord-rpc');
+const rpc = new Discord.Client({
 	transport: 'ipc'
 });
 
