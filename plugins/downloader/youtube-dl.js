@@ -54,7 +54,12 @@ const downloadVideoToMP3 = (
 		.on("info", (info, format) => {
 			videoName = info.videoDetails.title.replace("|", "").toString("ascii");
 			if (is.dev()) {
-				console.log("Downloading video - name:", videoName);
+				console.log(
+					"Downloading video - name:",
+					videoName,
+					"- quality:",
+					format.audioBitrate + "kbits/s"
+				);
 			}
 		})
 		.on("error", sendError)
