@@ -11,7 +11,12 @@ plugins.forEach(([plugin, options]) => {
 	const pluginPath = path.join(__dirname, "plugins", plugin, "actions.js");
 	fileExists(pluginPath, () => {
 		const actions = require(pluginPath).actions || {};
-		contextBridge.exposeInMainWorld(plugin + "Actions", actions);
+
+		// TODO: re-enable once contextIsolation is set to true
+		// contextBridge.exposeInMainWorld(plugin + "Actions", actions);
+		Object.keys(actions).forEach((actionName) => {
+			global[actionName] = actions[actionName];
+		});
 	});
 });
 

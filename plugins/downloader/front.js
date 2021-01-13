@@ -30,28 +30,30 @@ const reinit = () => {
 	}
 };
 
-contextBridge.exposeInMainWorld("downloader", {
-	download: () => {
-		const videoUrl = window.location.href;
+// TODO: re-enable once contextIsolation is set to true
+// contextBridge.exposeInMainWorld("downloader", {
+// 	download: () => {
+global.download = () => {
+	const videoUrl = window.location.href;
 
-		downloadVideoToMP3(
-			videoUrl,
-			(feedback) => {
-				if (!progress) {
-					console.warn("Cannot update progress");
-				} else {
-					progress.innerHTML = feedback;
-				}
-			},
-			(error) => {
-				triggerAction(CHANNEL, ACTIONS.ERROR, error);
-				reinit();
-			},
-			reinit,
-			pluginOptions
-		);
-	},
-});
+	downloadVideoToMP3(
+		videoUrl,
+		(feedback) => {
+			if (!progress) {
+				console.warn("Cannot update progress");
+			} else {
+				progress.innerHTML = feedback;
+			}
+		},
+		(error) => {
+			triggerAction(CHANNEL, ACTIONS.ERROR, error);
+			reinit();
+		},
+		reinit,
+		pluginOptions
+	);
+};
+// });
 
 function observeMenu(options) {
 	pluginOptions = { ...pluginOptions, ...options };
