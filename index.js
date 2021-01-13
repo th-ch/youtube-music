@@ -75,7 +75,9 @@ function createMainWindow() {
 		backgroundColor: "#000",
 		show: false,
 		webPreferences: {
-			contextIsolation: true,
+			// TODO: re-enable contextIsolation once it can work with ffmepg.wasm
+			// Possible bundling? https://github.com/ffmpegwasm/ffmpeg.wasm/issues/126
+			contextIsolation: false,
 			preload: path.join(__dirname, "preload.js"),
 			nodeIntegrationInSubFrames: true,
 			nativeWindowOpen: true, // window.open return Window object(like in regular browsers), not BrowserWindowProxy

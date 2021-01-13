@@ -13,6 +13,9 @@ const imageSelector =
 const subInfoSelector =
 	"#layout > ytmusic-player-bar > div.middle-controls.style-scope.ytmusic-player-bar > div.content-info-wrapper.style-scope.ytmusic-player-bar > span";
 
+// This selects the progress bar, used for songlength and current progress
+const progressSelector = "#progress-bar";
+
 // Grab the title using the selector
 const getTitle = (win) => {
 	return win.webContents
@@ -53,6 +56,20 @@ const getSubInfo = async (win) => {
 	return subInfo;
 };
 
+// Grab the progress using the selector
+const getProgress = async (win) => {
+	// Get max value of the progressbar element
+	const songDuration = await win.webContents.executeJavaScript(
+		'document.querySelector("' + progressSelector + '").max'
+	);
+	// Get current value of the progressbar element
+	const elapsedSeconds = await win.webContents.executeJavaScript(
+		'document.querySelector("' + progressSelector + '").value'
+	);
+
+	return { songDuration, elapsedSeconds };
+};
+
 // Grab the native image using the src
 const getImage = async (src) => {
 	const result = await fetch(src);
@@ -74,6 +91,8 @@ const songInfo = {
 	imageSrc: "",
 	image: null,
 	isPaused: true,
+	songDuration: 0,
+	elapsedSeconds: 0,
 };
 
 const registerProvider = (win) => {
@@ -91,6 +110,10 @@ const registerProvider = (win) => {
 		// Get and set the new data
 		songInfo.title = await getTitle(win);
 		songInfo.isPaused = await getPausedStatus(win);
+
+		const { songDuration, elapsedSeconds } = await getProgress(win);
+		songInfo.songDuration = songDuration;
+		songInfo.elapsedSeconds = elapsedSeconds;
 
 		// If title changed then we do need to update other info
 		if (oldTitle !== songInfo.title) {
