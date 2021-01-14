@@ -43,6 +43,7 @@ Install the `youtube-music-bin` package from the AUR. For AUR installation instr
 - **Auto confirm when paused**: when the "Continue Watching?" modal appears, automatically click "Yes"
 - **Hide video player**: no video in the interface when playing music
 - **Notifications**: display a notification when a song starts playing
+- **Touchbar**: custom TouchBar layout for macOS
 
 ## Dev
 
