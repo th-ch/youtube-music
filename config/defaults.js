@@ -12,6 +12,7 @@ const defaultConfig = {
 		startAtLogin: false,
 		disableHardwareAcceleration: false,
 		restartOnConfigChanges: false,
+		trayClickPlayPause: false,
 	},
 	plugins: {
 		// Enabled plugins
