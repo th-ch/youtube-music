@@ -116,6 +116,15 @@ const mainMenuTemplate = (win) => [
 							config.set("options.appVisible", false);
 						},
 					},
+					{ type: "separator" },
+					{
+						label: "Play/Pause on click",
+						type: "checkbox",
+						checked: config.get("options.trayClickPlayPause"),
+						click: (item) => {
+							config.set("options.trayClickPlayPause", item.checked);
+						},
+					},
 				],
 			},
 			{ type: "separator" },

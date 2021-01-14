@@ -4,7 +4,7 @@ const { Menu, nativeImage, Tray } = require("electron");
 
 const config = require("./config");
 const { mainMenuTemplate } = require("./menu");
-const { clickInYoutubeMusic } = require("./utils/youtube-music");
+const getSongControls = require("./providers/song-controls");
 
 // Prevent tray being garbage collected
 let tray;
@@ -15,6 +15,7 @@ module.exports.setUpTray = (app, win) => {
 		return;
 	}
 
+	const { playPause, next, previous } = getSongControls(win);
 	const iconPath = path.join(__dirname, "assets", "youtube-music-tray.png");
 	let trayIcon = nativeImage.createFromPath(iconPath).resize({
 		width: 16,
@@ -24,35 +25,30 @@ module.exports.setUpTray = (app, win) => {
 	tray.setToolTip("Youtube Music");
 	tray.setIgnoreDoubleClickEvents(true);
 	tray.on("click", () => {
-		win.isVisible() ? win.hide() : win.show();
+		if (config.get("options.trayClickPlayPause")) {
+			playPause();
+		} else {
+			win.isVisible() ? win.hide() : win.show();
+		}
 	});
 
 	const trayMenu = Menu.buildFromTemplate([
 		{
 			label: "Play/Pause",
 			click: () => {
-				clickInYoutubeMusic(
-					win,
-					"#left-controls > div > paper-icon-button.play-pause-button.style-scope.ytmusic-player-bar"
-				);
+				playPause();
 			},
 		},
 		{
 			label: "Next",
 			click: () => {
-				clickInYoutubeMusic(
-					win,
-					"#left-controls > div > paper-icon-button.next-button.style-scope.ytmusic-player-bar"
-				);
+				next();
 			},
 		},
 		{
 			label: "Previous",
 			click: () => {
-				clickInYoutubeMusic(
-					win,
-					"#left-controls > div > paper-icon-button.previous-button.style-scope.ytmusic-player-bar"
-				);
+				previous();
 			},
 		},
 		{
