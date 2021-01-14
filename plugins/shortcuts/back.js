@@ -1,12 +1,7 @@
 const { globalShortcut } = require("electron");
 const electronLocalshortcut = require("electron-localshortcut");
 
-const {
-	playPause,
-	nextTrack,
-	previousTrack,
-	startSearch
-} = require("./youtube.js");
+const getSongControls = require("../../providers/song-controls");
 
 function _registerGlobalShortcut(webContents, shortcut, action) {
 	globalShortcut.register(shortcut, () => {
@@ -21,11 +16,13 @@ function _registerLocalShortcut(win, shortcut, action) {
 }
 
 function registerShortcuts(win) {
+	const { playPause, next, previous, search } = getSongControls(win);
+
 	_registerGlobalShortcut(win.webContents, "MediaPlayPause", playPause);
-	_registerGlobalShortcut(win.webContents, "MediaNextTrack", nextTrack);
-	_registerGlobalShortcut(win.webContents, "MediaPreviousTrack", previousTrack);
-	_registerLocalShortcut(win, "CommandOrControl+F", startSearch);
-	_registerLocalShortcut(win, "CommandOrControl+L", startSearch);
+	_registerGlobalShortcut(win.webContents, "MediaNextTrack", next);
+	_registerGlobalShortcut(win.webContents, "MediaPreviousTrack", previous);
+	_registerLocalShortcut(win, "CommandOrControl+F", search);
+	_registerLocalShortcut(win, "CommandOrControl+L", search);
 }
 
 module.exports = registerShortcuts;
