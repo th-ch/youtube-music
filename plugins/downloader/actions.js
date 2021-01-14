@@ -1,6 +1,7 @@
 const CHANNEL = "downloader";
 const ACTIONS = {
 	ERROR: "error",
+	METADATA: "metadata",
 };
 
 module.exports = {
