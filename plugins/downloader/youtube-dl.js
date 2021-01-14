@@ -12,6 +12,9 @@ const filenamify = require("filenamify");
 const FFmpeg = require("@ffmpeg/ffmpeg/dist/ffmpeg.min");
 const ytdl = require("ytdl-core");
 
+const { triggerActionSync } = require("../utils");
+const { ACTIONS, CHANNEL } = require("./actions.js");
+
 const { createFFmpeg } = FFmpeg;
 const ffmpeg = createFFmpeg({
 	log: false,
@@ -93,6 +96,7 @@ const toMP3 = async (
 		await ffmpeg.run(
 			"-i",
 			safeVideoName,
+			...getFFmpegMetadataArgs(),
 			...(options.ffmpegArgs || []),
 			safeVideoName + "." + extension
 		);
@@ -110,6 +114,20 @@ const toMP3 = async (
 	} catch (e) {
 		sendError(e);
 	}
+};
+
+const getFFmpegMetadataArgs = () => {
+	const metadata = JSON.parse(triggerActionSync(CHANNEL, ACTIONS.METADATA));
+	if (!metadata) {
+		return;
+	}
+
+	return [
+		"-metadata",
+		`title=${metadata.title}`,
+		"-metadata",
+		`artist=${metadata.artist}`,
+	];
 };
 
 module.exports = {

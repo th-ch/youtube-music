@@ -24,6 +24,10 @@ module.exports.triggerAction = (channel, action, ...args) => {
 	return ipcRenderer.send(channel, action, ...args);
 };
 
+module.exports.triggerActionSync = (channel, action, ...args) => {
+	return ipcRenderer.sendSync(channel, action, ...args);
+};
+
 module.exports.listenAction = (channel, callback) => {
 	return ipcMain.on(channel, callback);
 };
