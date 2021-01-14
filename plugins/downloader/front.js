@@ -1,3 +1,5 @@
+const { contextBridge } = require("electron");
+
 const { ElementFromFile, templatePath, triggerAction } = require("../utils");
 const { ACTIONS, CHANNEL } = require("./actions.js");
 const { downloadVideoToMP3 } = require("./youtube-dl");
@@ -28,6 +30,9 @@ const reinit = () => {
 	}
 };
 
+// TODO: re-enable once contextIsolation is set to true
+// contextBridge.exposeInMainWorld("downloader", {
+// 	download: () => {
 global.download = () => {
 	const videoUrl = window.location.href;
 
@@ -48,6 +53,7 @@ global.download = () => {
 		pluginOptions
 	);
 };
+// });
 
 function observeMenu(options) {
 	pluginOptions = { ...pluginOptions, ...options };

@@ -1,23 +1,23 @@
 const path = require("path");
 
 const { injectCSS, listenAction } = require("../utils");
-const { ACTIONS, CHANNEL }        = require("./actions.js");
+const { ACTIONS, CHANNEL } = require("./actions.js");
 
 function handle(win) {
 	injectCSS(win.webContents, path.join(__dirname, "style.css"));
 	listenAction(CHANNEL, (event, action) => {
 		switch (action) {
-			case ACTIONS.NEXT: 
+			case ACTIONS.NEXT:
 				if (win.webContents.canGoForward()) {
 					win.webContents.goForward();
 				}
 				break;
-			case ACTIONS.BACK: 
+			case ACTIONS.BACK:
 				if (win.webContents.canGoBack()) {
 					win.webContents.goBack();
 				}
 				break;
-			default: 
+			default:
 				console.log("Unknown action: " + action);
 		}
 	});

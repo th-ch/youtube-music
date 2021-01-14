@@ -54,7 +54,12 @@ const downloadVideoToMP3 = (
 		.on("info", (info, format) => {
 			videoName = info.videoDetails.title.replace("|", "").toString("ascii");
 			if (is.dev()) {
-				console.log("Downloading video - name:", videoName);
+				console.log(
+					"Downloading video - name:",
+					videoName,
+					"- quality:",
+					format.audioBitrate + "kbits/s"
+				);
 			}
 		})
 		.on("error", sendError)
@@ -73,6 +78,7 @@ const toMP3 = async (
 	options
 ) => {
 	const safeVideoName = randomBytes(32).toString("hex");
+	const extension = options.extension || "mp3";
 
 	try {
 		if (!ffmpeg.isLoaded()) {
@@ -87,15 +93,17 @@ const toMP3 = async (
 		await ffmpeg.run(
 			"-i",
 			safeVideoName,
-			...options.ffmpegArgs,
-			safeVideoName + ".mp3"
+			...(options.ffmpegArgs || []),
+			safeVideoName + "." + extension
 		);
 
 		const folder = options.downloadFolder || downloadsFolder();
-		const filename = filenamify(videoName + ".mp3", { replacement: "_" });
+		const filename = filenamify(videoName + "." + extension, {
+			replacement: "_",
+		});
 		writeFileSync(
 			join(folder, filename),
-			ffmpeg.FS("readFile", safeVideoName + ".mp3")
+			ffmpeg.FS("readFile", safeVideoName + "." + extension)
 		);
 
 		reinit();
