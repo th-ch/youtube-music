@@ -93,16 +93,20 @@ const toMP3 = async (
 		ffmpeg.FS("writeFile", safeVideoName, buffer);
 
 		sendFeedback("Converting…");
+		const metadata = getMetadata();
 		await ffmpeg.run(
 			"-i",
 			safeVideoName,
-			...getFFmpegMetadataArgs(),
+			...getFFmpegMetadataArgs(metadata),
 			...(options.ffmpegArgs || []),
 			safeVideoName + "." + extension
 		);
 
 		const folder = options.downloadFolder || downloadsFolder();
-		const filename = filenamify(videoName + "." + extension, {
+		const name = metadata
+			? `${metadata.artist} - ${metadata.title}`
+			: videoName;
+		const filename = filenamify(name + "." + extension, {
 			replacement: "_",
 		});
 		writeFileSync(
@@ -116,8 +120,11 @@ const toMP3 = async (
 	}
 };
 
-const getFFmpegMetadataArgs = () => {
-	const metadata = JSON.parse(triggerActionSync(CHANNEL, ACTIONS.METADATA));
+const getMetadata = () => {
+	return JSON.parse(triggerActionSync(CHANNEL, ACTIONS.METADATA));
+};
+
+const getFFmpegMetadataArgs = (metadata) => {
 	if (!metadata) {
 		return;
 	}
