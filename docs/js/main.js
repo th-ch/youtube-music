@@ -156,8 +156,8 @@ starCanvas.prototype.start = function () {
   let h;
 
   const setCanvasExtents = () => {
-    w = document.body.clientWidth;
-    h = document.body.clientHeight;
+	w = this.canvas.parentNode.clientWidth;
+	h = this.canvas.parentNode.clientHeight;
     this.canvas.width = w;
     this.canvas.height = h;
   };
