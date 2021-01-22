@@ -8977,10 +8977,10 @@ yauzl@^2.10.0:
     buffer-crc32 "~0.2.3"
     fd-slicer "~1.1.0"
 
-ytdl-core@^4.1.2:
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/ytdl-core/-/ytdl-core-4.2.1.tgz#afcc1577a2a35701a5e1369f2ad3b0d1a7d2419d"
-  integrity sha512-7zAoJiWpaBGgiAUCQuvKBuWom7tmSCV0A70gRdrPxR96yQoJOrCZkW6Wg1CofvPtAeQVWTVWThC8bXRsE+SBeA==
+ytdl-core@^4.3.0:
+  version "4.4.4"
+  resolved "https://registry.yarnpkg.com/ytdl-core/-/ytdl-core-4.4.4.tgz#d7635dc4ea95965b52589bd3adc6b28368daae22"
+  integrity sha512-/IFJTM5RjN20q6RVaE/9rv9tKoBtx95lKZCI/pUPDiDzu9fXyuPbkVzEQJmsYEwzi0zdv4d6iJy0gHWz49o6mw==
   dependencies:
     m3u8stream "^0.8.3"
     miniget "^4.0.0"
