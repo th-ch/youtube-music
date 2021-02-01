@@ -1,7 +1,7 @@
 const { Notification } = require("electron");
 const getSongInfo = require("../../providers/song-info");
 
-const notify = (info) => {
+const notify = info => {
 	let notificationImage = "assets/youtube-music.png";
 
 	if (info.image) {
@@ -28,13 +28,13 @@ module.exports = (win) => {
 	let oldNotification;
 	win.on("ready-to-show", () => {
 		// Register the callback for new song information
-		registerCallback((songInfo) => {
+		registerCallback(songInfo => {
 			// If song is playing send notification
 			if (!songInfo.isPaused) {	
 				// Close the old notification
 				oldNotification?.close();
 				// This fixes a weird bug that would cause the notification to be updated instead of showing
-				setTimeout(()=>{ oldNotification = notify(songInfo) }, 1);
+				setTimeout(()=>{ oldNotification = notify(songInfo) }, 10);
 			}
 		});
 	});
