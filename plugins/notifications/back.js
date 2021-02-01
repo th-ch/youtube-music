@@ -10,7 +10,7 @@ const notify = (info, notification) => {
 	}
 
 	// Fill the notification with content
-	notification.title =  info.title || "Playing";
+	notification.title = info.title || "Playing";
 	notification.body = info.artist;
 	notification.icon = notificationImage;
 
@@ -23,8 +23,8 @@ module.exports = (win) => {
 	
 	// Create a notification
 	let notification = new Notification( {
-		title:'',
-		body: '',
+		title: "",
+		body: "",
 		icon: "assets/youtube-music.png",
 		silent: true,
 	});
