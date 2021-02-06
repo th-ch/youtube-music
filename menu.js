@@ -58,6 +58,14 @@ const mainMenuTemplate = (win) => [
 					config.set("options.restartOnConfigChanges", item.checked);
 				},
 			},
+			{
+				label: "Reset App cache when app starts",
+				type: "checkbox",
+				checked: config.get("options.autoResetAppCache"),
+				click: (item) => {
+					config.set("options.autoResetAppCache", item.checked);
+				},
+			},
 			...(is.windows() || is.linux()
 				? [
 						{

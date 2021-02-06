@@ -196,6 +196,11 @@ app.on("activate", () => {
 });
 
 app.on("ready", () => {
+	if (config.get("options.autoResetAppCache")) {
+		// Clear cache
+		electron.session.defaultSession.clearCache();
+	}
+
 	mainWindow = createMainWindow();
 	setApplicationMenu(mainWindow);
 	if (config.get("options.restartOnConfigChanges")) {
