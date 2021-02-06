@@ -13,6 +13,7 @@ const defaultConfig = {
 		disableHardwareAcceleration: false,
 		restartOnConfigChanges: false,
 		trayClickPlayPause: false,
+		autoResetAppCache: false,
 	},
 	plugins: {
 		// Enabled plugins
