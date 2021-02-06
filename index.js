@@ -217,7 +217,10 @@ app.on("ready", () => {
 	});
 
 	if (!is.dev() && config.get("options.autoUpdates")) {
-		autoUpdater.checkForUpdatesAndNotify();
+		const updateTimeout = setTimeout(() => {
+			autoUpdater.checkForUpdatesAndNotify();
+			clearTimeout(updateTimeout);
+		}, 2000);
 		autoUpdater.on("update-available", () => {
 			const downloadLink =
 				"https://github.com/th-ch/youtube-music/releases/latest";
