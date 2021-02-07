@@ -30,10 +30,22 @@ module.exports = (win) => {
 		muteUnmute: () => pressKey(win, "m"),
 		maximizeMinimisePlayer: () => pressKey(win, "q"),
 		// Navigation
-		goToHome: () => pressKey(win, "h", ["g"]),
-		goToLibrary: () => pressKey(win, "l", ["g"]),
-		goToHotlist: () => pressKey(win, "t", ["g"]),
-		goToSettings: () => pressKey(win, ",", ["g"]),
+		goToHome: () => {
+			pressKey(win, "g");
+			pressKey(win, "h");
+		},
+		goToLibrary: () => {
+			pressKey(win, "g");
+			pressKey(win, "l");
+		},
+		goToHotlist: () => {
+			pressKey(win, "g");
+			pressKey(win, "t");
+		},
+		goToSettings: () => {
+			pressKey(win, "g");
+			pressKey(win, ",");
+		},
 		search: () => pressKey(win, "/"),
 		showShortcuts: () => pressKey(win, "/", ["shift"]),
 	};
