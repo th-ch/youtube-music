@@ -67,6 +67,7 @@ function loadPlugins(win) {
 function createMainWindow() {
 	const windowSize = config.get("window-size");
 	const windowMaximized = config.get("window-maximized");
+	const windowPosition = config.get("window-position");
 
 	const win = new electron.BrowserWindow({
 		icon: icon,
@@ -95,6 +96,10 @@ function createMainWindow() {
 		titleBarStyle: is.macOS() ? "hiddenInset" : "default",
 		autoHideMenuBar: config.get("options.hideMenu"),
 	});
+	if (windowPosition) {
+		const { x, y } = windowPosition;
+		win.setPosition(x, y);
+	}
 	if (windowMaximized) {
 		win.maximize();
 	}
