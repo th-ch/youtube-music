@@ -15,14 +15,35 @@ function _registerLocalShortcut(win, shortcut, action) {
 	});
 }
 
-function registerShortcuts(win) {
-	const { playPause, next, previous, search } = getSongControls(win);
+function registerShortcuts(win, options) {
+	const songControls = getSongControls(win);
+	const { playPause, next, previous, search } = songControls;
 
 	_registerGlobalShortcut(win.webContents, "MediaPlayPause", playPause);
 	_registerGlobalShortcut(win.webContents, "MediaNextTrack", next);
 	_registerGlobalShortcut(win.webContents, "MediaPreviousTrack", previous);
 	_registerLocalShortcut(win, "CommandOrControl+F", search);
 	_registerLocalShortcut(win, "CommandOrControl+L", search);
+
+	const { global, local } = options;
+	(global || []).forEach(({ shortcut, action }) => {
+		console.debug("Registering global shortcut", shortcut, ":", action);
+		if (!action || !songControls[action]) {
+			console.warn("Invalid action", action);
+			return;
+		}
+
+		_registerGlobalShortcut(win.webContents, shortcut, songControls[action]);
+	});
+	(local || []).forEach(({ shortcut, action }) => {
+		console.debug("Registering local shortcut", shortcut, ":", action);
+		if (!action || !songControls[action]) {
+			console.warn("Invalid action", action);
+			return;
+		}
+
+		_registerLocalShortcut(win, shortcut, songControls[action]);
+	});
 }
 
 module.exports = registerShortcuts;
