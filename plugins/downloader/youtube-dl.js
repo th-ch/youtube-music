@@ -1,8 +1,8 @@
 const { randomBytes } = require("crypto");
-const { writeFileSync } = require("fs");
 const { join } = require("path");
 
 const downloadsFolder = require("downloads-folder");
+const { ipcRenderer } = require("electron");
 const is = require("electron-is");
 const filenamify = require("filenamify");
 
@@ -109,12 +109,15 @@ const toMP3 = async (
 		const filename = filenamify(name + "." + extension, {
 			replacement: "_",
 		});
-		writeFileSync(
+
+		// Add the metadata
+		sendFeedback("Adding metadata…");
+		ipcRenderer.send(
+			"add-metadata",
 			join(folder, filename),
 			ffmpeg.FS("readFile", safeVideoName + "." + extension)
 		);
-
-		reinit();
+		ipcRenderer.once("add-metadata-done", reinit);
 	} catch (e) {
 		sendError(e);
 	}

@@ -1,6 +1,8 @@
+const { writeFileSync } = require("fs");
 const { join } = require("path");
 
-const { dialog } = require("electron");
+const ID3Writer = require("browser-id3-writer");
+const { dialog, ipcMain } = require("electron");
 
 const getSongInfo = require("../../providers/song-info");
 const { injectCSS, listenAction } = require("../utils");
@@ -23,10 +25,7 @@ function handle(win) {
 	injectCSS(win.webContents, join(__dirname, "style.css"));
 	const registerCallback = getSongInfo(win);
 	registerCallback((info) => {
-		metadata = {
-			...info,
-			image: info.image ? info.image.toDataURL() : undefined,
-		};
+		metadata = info;
 	});
 
 	listenAction(CHANNEL, (event, action, error) => {
@@ -40,6 +39,33 @@ function handle(win) {
 			default:
 				console.log("Unknown action: " + action);
 		}
+	});
+
+	ipcMain.on("add-metadata", (event, filePath, songBuffer) => {
+		let fileBuffer = songBuffer;
+
+		try {
+			const coverBuffer = metadata.image.toPNG();
+			const writer = new ID3Writer(songBuffer);
+
+			// Create the metadata tags
+			writer
+				.setFrame("TIT2", metadata.title)
+				.setFrame("TPE1", [metadata.artist])
+				.setFrame("APIC", {
+					type: 3,
+					data: coverBuffer,
+					description: "",
+				});
+			writer.addTag();
+			fileBuffer = Buffer.from(writer.arrayBuffer);
+		} catch (error) {
+			sendError(win, error);
+		}
+
+		writeFileSync(filePath, fileBuffer);
+		// Notify the youtube-dl file
+		event.reply("add-metadata-done");
 	});
 }
 
