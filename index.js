@@ -209,8 +209,14 @@ app.on("activate", () => {
 
 app.on("ready", () => {
 	if (config.get("options.autoResetAppCache")) {
-		// Clear cache
-		electron.session.defaultSession.clearCache();
+		// Clear cache after 20s
+		const clearCacheTimeout = setTimeout(() => {
+			if (is.dev()) {
+				console.log("Clearing app cache.");
+			}
+			electron.session.defaultSession.clearCache();
+			clearTimeout(clearCacheTimeout);
+		}, 20000);
 	}
 
 	mainWindow = createMainWindow();
