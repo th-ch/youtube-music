@@ -19,7 +19,10 @@
 		},
 		"win": {
 			"icon": "assets/generated/icons/win/icon.ico",
-			"target": ["nsis", "portable"]
+			"target": [
+				"nsis",
+				"portable"
+			]
 		},
 		"nsis": {
 			"runAfterFinish": false
@@ -69,6 +72,7 @@
 		"electron-is": "^3.0.0",
 		"electron-localshortcut": "^3.2.1",
 		"electron-store": "^6.0.1",
+		"electron-unhandled": "^3.0.2",
 		"electron-updater": "^4.3.6",
 		"filenamify": "^4.2.0",
 		"node-fetch": "^2.6.1",
