@@ -3,6 +3,7 @@ const path = require("path");
 
 const electron = require("electron");
 const is = require("electron-is");
+const unhandled = require("electron-unhandled");
 const { autoUpdater } = require("electron-updater");
 
 const config = require("./config");
@@ -10,6 +11,12 @@ const { setApplicationMenu } = require("./menu");
 const { fileExists, injectCSS } = require("./plugins/utils");
 const { isTesting } = require("./utils/testing");
 const { setUpTray } = require("./tray");
+
+// Catch errors and log them
+unhandled({
+	logger: console.error,
+	showDialog: false,
+});
 
 const app = electron.app;
 app.commandLine.appendSwitch(
