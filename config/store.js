@@ -3,6 +3,11 @@ const Store = require("electron-store");
 const defaults = require("./defaults");
 
 const migrations = {
+	">=1.11.0": (store) => {
+		if (store.get("options.resumeOnStart") === undefined) {
+			store.set("options.resumeOnStart", true);
+		}
+	},
 	">=1.7.0": (store) => {
 		const enabledPlugins = store.get("plugins");
 		if (!Array.isArray(enabledPlugins)) {
