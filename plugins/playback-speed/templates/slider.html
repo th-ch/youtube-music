@@ -5,7 +5,7 @@
 	aria-disabled="false"
 	aria-selected="false"
 >
-	<paper-slider
+	<tp-yt-paper-slider
 		id="playback-speed-slider"
 		class="volume-slider style-scope ytmusic-player-bar on-hover"
 		max="100"
@@ -22,68 +22,53 @@
 		aria-disabled="false"
 		value="50"
 		><!--css-build:shady-->
-		<div id="sliderContainer" class="style-scope paper-slider">
-			<div class="bar-container style-scope paper-slider">
-				<paper-progress
+		<div id="sliderContainer" class="style-scope tp-yt-paper-slider">
+			<div class="bar-container style-scope tp-yt-paper-slider">
+				<tp-yt-paper-progress
 					id="sliderBar"
 					aria-hidden="true"
-					class="style-scope paper-slider"
+					class="style-scope tp-yt-paper-slider"
 					role="progressbar"
 					value="50"
 					aria-valuenow="50"
 					aria-valuemin="0"
 					aria-valuemax="100"
 					aria-disabled="false"
-					style="touch-action: none;"
+					style="touch-action: none"
 					><!--css-build:shady-->
 
-					<div id="progressContainer" class="style-scope paper-progress">
+					<div id="progressContainer" class="style-scope tp-yt-paper-progress">
 						<div
 							id="secondaryProgress"
-							class="style-scope paper-progress"
+							class="style-scope tp-yt-paper-progress"
 							hidden="true"
-							style="transform: scaleX(0);"
+							style="transform: scaleX(0)"
 						></div>
 						<div
 							id="primaryProgress"
-							class="style-scope paper-progress"
-							style="transform: scaleX(0.5);"
+							class="style-scope tp-yt-paper-progress"
+							style="transform: scaleX(0.5)"
 						></div>
 					</div>
-				</paper-progress>
+				</tp-yt-paper-progress>
 			</div>
-			<dom-if class="style-scope paper-slider"
+			<dom-if class="style-scope tp-yt-paper-slider"
 				><template is="dom-if"></template
 			></dom-if>
 			<div
 				id="sliderKnob"
-				class="slider-knob style-scope paper-slider"
-				style="left: 50%; touch-action: none;"
+				class="slider-knob style-scope tp-yt-paper-slider"
+				style="left: 50%; touch-action: none"
 			>
 				<div
-					class="slider-knob-inner style-scope paper-slider"
+					class="slider-knob-inner style-scope tp-yt-paper-slider"
 					value="50"
 				></div>
-				<paper-ripple
-					id="ink"
-					center=""
-					class="circle style-scope paper-slider"
-					style="display: none;"
-					><!--css-build:shady-->
-
-					<div
-						id="background"
-						class="style-scope paper-ripple"
-						style="opacity: 0.006008;"
-					></div>
-					<div id="waves" class="style-scope paper-ripple"></div>
-				</paper-ripple>
 			</div>
 		</div>
-		<dom-if class="style-scope paper-slider"
-			><template is="dom-if"></template
-		></dom-if>
-	</paper-slider>
+		<dom-if class="style-scope tp-yt-paper-slider"
+			><template is="dom-if"></template></dom-if
+	></tp-yt-paper-slider>
 
 	<div
 		class="text style-scope ytmusic-toggle-menu-service-item-renderer"

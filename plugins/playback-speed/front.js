@@ -1,4 +1,7 @@
-const { watchDOMElement } = require("../../providers/dom-elements");
+const {
+	getSongMenu,
+	watchDOMElement,
+} = require("../../providers/dom-elements");
 const { ElementFromFile, templatePath } = require("../utils");
 
 const slider = ElementFromFile(templatePath(__dirname, "slider.html"));
@@ -49,8 +52,7 @@ module.exports = () => {
 
 	watchDOMElement(
 		"menu",
-		(document) =>
-			document.querySelector("ytmusic-menu-popup-renderer paper-listbox"),
+		(document) => getSongMenu(document),
 		(menuElement) => {
 			if (!menuElement.contains(slider)) {
 				menuElement.prepend(slider);
