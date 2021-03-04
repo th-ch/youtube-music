@@ -66,6 +66,14 @@ const mainMenuTemplate = (win) => [
 					config.set("options.autoResetAppCache", item.checked);
 				},
 			},
+			{
+				label: "Resume last song when app starts",
+				type: "checkbox",
+				checked: config.get("options.resumeSongOnStart"),
+				click: (item) => {
+					config.set("options.resumeSongOnStart", item.checked);
+				}
+			},
 			...(is.windows() || is.linux()
 				? [
 						{
