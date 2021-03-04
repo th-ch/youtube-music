@@ -69,10 +69,10 @@ const mainMenuTemplate = (win) => [
 			{
 				label: "Resume last song when app starts",
 				type: "checkbox",
-				checked: config.get("options.resumeSongOnStart"),
+				checked: config.get("options.resumeOnStart"),
 				click: (item) => {
-					config.set("options.resumeSongOnStart", item.checked);
-				}
+					config.set("options.resumeOnStart", item.checked);
+				},
 			},
 			...(is.windows() || is.linux()
 				? [

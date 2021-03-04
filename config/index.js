@@ -1,3 +1,4 @@
+const defaultConfig = require("./defaults");
 const plugins = require("./plugins");
 const store = require("./store");
 
@@ -10,6 +11,7 @@ const get = (key) => {
 };
 
 module.exports = {
+	defaultConfig,
 	get,
 	set,
 	edit: () => store.openInEditor(),

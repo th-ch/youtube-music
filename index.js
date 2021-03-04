@@ -111,7 +111,9 @@ function createMainWindow() {
 		win.maximize();
 	}
 
-	const urlToLoad = config.get("resumeOnStart") ? config.get("url") : "https://music.youtube.com";
+	const urlToLoad = config.get("options.resumeOnStart")
+		? config.get("url")
+		: config.defaultConfig.url;
 	win.webContents.loadURL(urlToLoad);
 	win.on("closed", onClosed);
 

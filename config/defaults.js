@@ -14,7 +14,7 @@ const defaultConfig = {
 		restartOnConfigChanges: false,
 		trayClickPlayPause: false,
 		autoResetAppCache: false,
-		resumeSongOnStart: true
+		resumeOnStart: true,
 	},
 	plugins: {
 		// Enabled plugins
