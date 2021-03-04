@@ -1,5 +1,6 @@
 const { contextBridge } = require("electron");
 
+const { getSongMenu } = require("../../providers/dom-elements");
 const { ElementFromFile, templatePath, triggerAction } = require("../utils");
 const { ACTIONS, CHANNEL } = require("./actions.js");
 const { downloadVideoToMP3 } = require("./youtube-dl");
@@ -13,7 +14,7 @@ let pluginOptions = {};
 
 const observer = new MutationObserver((mutations, observer) => {
 	if (!menu) {
-		menu = document.querySelector("ytmusic-menu-popup-renderer paper-listbox");
+		menu = getSongMenu();
 	}
 
 	if (menu && !menu.contains(downloadButton)) {
