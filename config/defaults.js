@@ -35,6 +35,10 @@ const defaultConfig = {
 			ffmpegArgs: [], // e.g. ["-b:a", "192k"] for an audio bitrate of 192kb/s
 			downloadFolder: undefined, // Custom download folder (absolute path)
 		},
+		discord: {
+			activityTimoutEnabled: true, // if enabled, the discord rich presence gets cleared when music paused after the time specified below
+			activityTimoutTime: 10 * 60 * 1000 // 10 minutes
+		},
 	},
 };
 
