@@ -22,7 +22,10 @@ module.exports = (win) => {
 					details: songInfo.title,
 					state: songInfo.artist,
 					largeImageKey: "logo",
-					largeImageText: songInfo.views + " - " + songInfo.likes,
+					largeImageText: [
+						songInfo.uploadDate,
+						songInfo.views.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " views"
+					].join(' || '),
 				};
 
 				if (songInfo.isPaused) {
@@ -42,8 +45,7 @@ module.exports = (win) => {
 		});
 
 		// Startup the rpc client
-		rpc
-			.login({
+		rpc.login({
 				clientId,
 			})
 			.catch(console.error);
