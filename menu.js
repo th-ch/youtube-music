@@ -165,6 +165,38 @@ const mainMenuTemplate = (win) => [
 			},
 		],
 	},
+	{
+		label: "View",
+		submenu: [
+			{ role: "reload" },
+			{ role: "forceReload" },
+			{ type: "separator" },
+			{ role: "zoomIn" },
+			{ role: "zoomOut" },
+			{ role: "resetZoom" },
+		],
+	},
+	{
+		label: "Navigation",
+		submenu: [
+			{
+				label: "Go back",
+				click: () => {
+					if (win.webContents.canGoBack()) {
+						win.webContents.goBack();
+					}
+				},
+			},
+			{
+				label: "Go forward",
+				click: () => {
+					if (win.webContents.canGoForward()) {
+						win.webContents.goForward();
+					}
+				},
+			},
+		],
+	},
 ];
 
 module.exports.mainMenuTemplate = mainMenuTemplate;
