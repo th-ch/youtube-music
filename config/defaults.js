@@ -35,6 +35,12 @@ const defaultConfig = {
 			ffmpegArgs: [], // e.g. ["-b:a", "192k"] for an audio bitrate of 192kb/s
 			downloadFolder: undefined, // Custom download folder (absolute path)
 		},
+		"last-fm": {
+			enabled: false,
+			api_root: "http://ws.audioscrobbler.com/2.0/",
+			api_key: "04d76faaac8726e60988e14c105d421a", // api key registered by @semvis123
+			secret: "a5d2a36fdf64819290f6982481eaffa2",
+		}
 	},
 };
 

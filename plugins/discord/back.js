@@ -45,9 +45,6 @@ module.exports = (win) => {
 		});
 
 		// Startup the rpc client
-		rpc.login({
-				clientId,
-			})
-			.catch(console.error);
+		rpc.login({ clientId }).catch(console.error);
 	});
 };
