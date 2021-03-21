@@ -5,6 +5,13 @@ const axios = require('axios');
 const { setOptions } = require('../../config/plugins');
 const getSongInfo = require('../../providers/song-info');
 
+const defaultSettings = {
+	enabled: true,
+	api_root: "http://ws.audioscrobbler.com/2.0/",
+	api_key: "04d76faaac8726e60988e14c105d421a", // api key registered by @semvis123
+	secret: "a5d2a36fdf64819290f6982481eaffa2",
+}
+
 const createFormData = (params) => {
 	// creates the body for in the post request
 	let formData = new URLSearchParams();
@@ -138,7 +145,13 @@ let scrobbleTimer = undefined;
 
 const lastfm = async (win, config) => {
 	const registerCallback = getSongInfo(win);
-	
+
+	if (!config.api_root){
+		// settings are not present, creating them with the default values
+		config = defaultSettings;
+		setOptions('last-fm', config);
+	}
+
 	if (!config.session_key) {
 		// not authenticated
 		config = await getAndSetSessionKey(config);
