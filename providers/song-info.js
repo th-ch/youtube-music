@@ -44,11 +44,11 @@ const songInfo = {
 };
 
 const handleData = async (_event, responseText) => {
-	data = JSON.parse(responseText);
+	let data = JSON.parse(responseText);
 	songInfo.title = data?.videoDetails?.title;
 	songInfo.artist = data?.videoDetails?.author;
 	songInfo.views = data?.videoDetails?.viewCount;
-	songInfo.imageSrc = data?.videoDetails?.thumbnail?.thumbnails?.[0]?.url;
+	songInfo.imageSrc = data?.videoDetails?.thumbnail?.thumbnails?.pop()?.url;
 	songInfo.songDuration = data?.videoDetails?.lengthSeconds;
 	songInfo.image = await getImage(songInfo.imageSrc);
 	songInfo.uploadDate = data?.microformat?.microformatDataRenderer?.uploadDate;
