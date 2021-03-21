@@ -286,7 +286,8 @@ app.on("ready", () => {
 			// Hide the window instead of quitting (quit is available in tray options)
 			if (!forceQuit) {
 				event.preventDefault();
-				mainWindow.hide();
+				mainWindow.minimize()
+				mainWindow.setSkipTaskbar(true);
 			}
 		});
 	}
