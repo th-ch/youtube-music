@@ -94,7 +94,7 @@ const addScrobble = async (songInfo, config) => {
 		await getAndSetSessionKey(config);
 	data = {
 		track: songInfo.title,
-		artist: songInfo.artist,
+		artist: songInfo.artist?.replace(' - Topic', ''),
 		api_key: config.api_key,
 		sk: config.session_key,
 		format: 'json',
@@ -120,7 +120,7 @@ const setNowPlaying = async (songInfo, config) => {
 		await getAndSetSessionKey(config);
 	data = {
 		track: songInfo.title,
-		artist: songInfo.artist,
+		artist: songInfo.artist?.replace(' - Topic', ''),
 		api_key: config.api_key,
 		sk: config.session_key,
 		format: 'json',
