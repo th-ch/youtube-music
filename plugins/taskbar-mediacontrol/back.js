@@ -8,9 +8,12 @@ module.exports = win => {
 
   // If the page is ready, register the callback
   win.on("ready-to-show", () => {
-    // Register the callback
 		registerCallback((songInfo) => {
-			// Song information changed, so lets update the the playPause button
+      //wait for song to start before setting thumbar
+      if(songInfo.title === '') {
+        return;
+      }
+			// win32 require full rewrite of components 
       win.setThumbarButtons([
         {
           tooltip: 'Previous',
@@ -18,6 +21,7 @@ module.exports = win => {
           click () { previous(win.webContents) }
         }, {
           tooltip: 'Play/Pause',
+          //update icon based on play state
           icon: songInfo.isPaused ? get('play.png') : get('pause.png'),
           click () { playPause(win.webContents) }
         } , {
@@ -30,6 +34,7 @@ module.exports = win => {
   });
 };
 
+//util
 function get (address) {
   return path.join(__dirname,address);
 }
