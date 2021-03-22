@@ -8,7 +8,7 @@ module.exports = win => {
 		win.setSkipTaskbar(true);
 	};
 
-	const {show} = win;
+	const show = win.show;
 	win.show = function () {
 		win.restore();
 		win.focus();
