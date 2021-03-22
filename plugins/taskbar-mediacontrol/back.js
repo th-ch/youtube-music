@@ -7,10 +7,12 @@ module.exports = win => {
     win.minimize()
     win.setSkipTaskbar(true);}
 
+  var show = win.show;
   win.show = function () {
         win.restore();
 				win.focus();
 				win.setSkipTaskbar(false);
+        show.apply(win)
   }
 
   win.isVisible = function () {
