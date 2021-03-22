@@ -27,12 +27,8 @@ module.exports.setUpTray = (app, win) => {
 	tray.on("click", () => {
 		if (config.get("options.trayClickPlayPause")) {
 			playPause();
-		} else if(win.isMinimized()){
-			win.restore();
-			win.setSkipTaskbar(false);
 		} else {
-			win.minimize()
-			win.setSkipTaskbar(true);
+			win.isVisible() ? win.hide() : win.show();
 		}
 	});
 
@@ -58,9 +54,7 @@ module.exports.setUpTray = (app, win) => {
 		{
 			label: "Show",
 			click: () => {
-				win.restore();
-				win.focus();
-				win.setSkipTaskbar(false);
+				win.show();
 			},
 		},
 		...mainMenuTemplate(win),
