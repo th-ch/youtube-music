@@ -3,6 +3,20 @@ const getSongInfo = require("../../providers/song-info");
 const path = require('path');
 
 module.exports = win => {
+  win.hide = function () {
+    win.minimize()
+    win.setSkipTaskbar(true);}
+
+  win.show = function () {
+        win.restore();
+				win.focus();
+				win.setSkipTaskbar(false);
+  }
+
+  win.isVisible = function () {
+    return !win.isMinimized();
+  }
+
   const registerCallback = getSongInfo(win);
 	const { playPause, next, previous} = getSongControls(win);
 
