@@ -1,5 +1,7 @@
 /* remove window dragging for nav bar (conflict with titlebar drag) */
-ytmusic-nav-bar {
+ytmusic-nav-bar, 
+.tab-titleiron-icon,
+ytmusic-pivot-bar-item-renderer {
 	-webkit-app-region : unset;
 }
 
@@ -15,12 +17,9 @@ ytmusic-search-box.ytmusic-nav-bar {
 .center-content.ytmusic-nav-bar {
   background: #030303;
 }
-yt-page-navigation-progress, #progress.yt-page-navigation-progress {
-  top: 90px !important;
-}
-ytmusic-item-section-renderer[has-item-section-tabbed-header-renderer_] #header.ytmusic-item-section-renderer {
-  top: 90px !important;
-}
+yt-page-navigation-progress, 
+#progress.yt-page-navigation-progress,
+ytmusic-item-section-renderer[has-item-section-tabbed-header-renderer_] #header.ytmusic-item-section-renderer,
 ytmusic-header-renderer.ytmusic-search-page {
   top: 90px !important;
 }
