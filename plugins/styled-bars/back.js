@@ -5,7 +5,7 @@ const electronLocalshortcut = require("electron-localshortcut");
 const is = require('electron-is');
 const {getAllPlugins} = require('../../plugins/utils');
 const config = require('../../config');
-const {ipcMain} = require('electron')
+const { app } = require('electron')
 
 module.exports = win => {
 	// css for custom scrollbar + disable drag area(was causing bugs)
@@ -15,7 +15,7 @@ module.exports = win => {
 		const template = mainMenuTemplate(win)
 		const menu = Menu.buildFromTemplate(template);
 		Menu.setApplicationMenu(menu);
-		
+
 		//register keyboard shortcut && hide menu if hideMenu is enabled
 		if (config.get('options.hideMenu')) {
 			win.webContents.send('updateMenu', false); 
@@ -212,12 +212,27 @@ const mainMenuTemplate = win => [
 	{
 		label: 'View',
 		submenu: [
-			{role: 'reload'},
-			{role: 'forceReload'},
+			{
+			label: 'Reload',
+			click: () => {win.webContents.reload();}
+			},
+			{
+				label: 'Force Reload',
+				click: () => {win.webContents.reloadIgnoringCache();}
+			},
 			{type: 'separator'},
-			{role: 'zoomIn'},
-			{role: 'zoomOut'},
-			{role: 'resetZoom'}
+			{
+				label: 'Zoom In',
+				click: () => {win.webContents.setZoomLevel(win.webContents.getZoomLevel() + 1);}
+			},
+			{
+				label: 'Zoom Out',
+				click: () => {win.webContents.setZoomLevel(win.webContents.getZoomLevel() - 1);}
+			},
+			{
+				label: 'Reset Zoom',
+				click: () => {win.webContents.setZoomLevel(0)}
+			}
 		]
 	},
 	{
@@ -238,6 +253,14 @@ const mainMenuTemplate = win => [
 						win.webContents.goForward();
 					}
 				}
+			} ,
+			{
+				label: 'Restart App',
+				click: () => {app.relaunch(); app.quit();}
+			} ,
+			{
+				label: 'Quit App',
+				click: () => {app.quit();}
 			}
 		]
 	}
