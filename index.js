@@ -75,7 +75,7 @@ function createMainWindow() {
 	const windowSize = config.get("window-size");
 	const windowMaximized = config.get("window-maximized");
 	const windowPosition = config.get("window-position");
-
+	
 	const win = new electron.BrowserWindow({
 		icon: icon,
 		width: windowSize.width,
@@ -99,7 +99,7 @@ function createMainWindow() {
 				  }
 				: undefined),
 		},
-		frame: !is.macOS(),
+		frame:  !is.macOS() && !config.plugins.isEnabled("styled-bars"),
 		titleBarStyle: is.macOS() ? "hiddenInset" : "default",
 		autoHideMenuBar: config.get("options.hideMenu"),
 	});
