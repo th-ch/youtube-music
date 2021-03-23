@@ -93,10 +93,10 @@ function createMainWindow() {
 			affinity: "main-window", // main window, and addition windows should work in one process
 			...(isTesting()
 				? {
-					// Only necessary when testing with Spectron
-					contextIsolation: false,
-					nodeIntegration: true,
-				}
+						// Only necessary when testing with Spectron
+						contextIsolation: false,
+						nodeIntegration: true,
+				  }
 				: undefined),
 		},
 		frame: !is.macOS() && !config.plugins.isEnabled("styled-bars"),

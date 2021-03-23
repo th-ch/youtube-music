@@ -1,11 +1,10 @@
 const {injectCSS} = require('../utils');
-const {Menu} = require('electron');
+const {Menu , app} = require('electron');
 const path = require('path');
 const electronLocalshortcut = require("electron-localshortcut");
 const is = require('electron-is');
 const {getAllPlugins} = require('../../plugins/utils');
 const config = require('../../config');
-const { app } = require('electron')
 
 module.exports = win => {
 	// css for custom scrollbar + disable drag area(was causing bugs)
@@ -86,6 +85,7 @@ const mainMenuTemplate = win => [
 				checked: config.get('options.disableHardwareAcceleration'),
 				click: item => {
 					config.set('options.disableHardwareAcceleration', item.checked);
+					checkCheckbox(item);
 				}
 			},
 			{

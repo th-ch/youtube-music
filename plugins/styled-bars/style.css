@@ -3,6 +3,7 @@ ytmusic-nav-bar {
 	-webkit-app-region : unset;
 }
 
+/* Move navBar downwards and make it opaque */
 ytmusic-app-layout {
 	--ytmusic-nav-bar-height: 120px;
 }
@@ -20,6 +21,7 @@ yt-page-navigation-progress, #progress.yt-page-navigation-progress {
 ytmusic-item-section-renderer[has-item-section-tabbed-header-renderer_] #header.ytmusic-item-section-renderer {
   top: 90px !important;
 }
+/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 12px; 
   background-color: #030303;
