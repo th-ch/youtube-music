@@ -6,5 +6,5 @@ module.exports = () => {
         itemBackgroundColor: customTitlebar.Color.fromHex('#121212'), //#020
     });
     myBar.updateTitle(' ');
-    document.title ="Youtube Music";
+    document.title = "Youtube Music";
 }

@@ -5,24 +5,24 @@ const path = require("path");
 const is = require("electron-is");
 const { getAllPlugins } = require("../../plugins/utils");
 const config = require("../../config");
-//const { myBar } = require("./front");
+
 
 
 module.exports = win => {
-    injectCSS(win.webContents, path.join(__dirname, "style.css"));
-    //myBar.updateMenu(Menu.buildFromTemplate(mainMenuTemplate));
-    win.on('ready-to-show', () => {
-        console.log("building new menu");
-        const menu = Menu.buildFromTemplate(mainMenuTemplate(win));
-	    Menu.setApplicationMenu(menu);
-    })
+	//css for custom scrollbar + disable drag area(was causing bugs)
+	injectCSS(win.webContents, path.join(__dirname, "style.css"));
+	win.on('ready-to-show', () => {
+		const menu = Menu.buildFromTemplate(mainMenuTemplate(win));
+		Menu.setApplicationMenu(menu);
+	})
 }
 
-function checkCheckbox(item) { 
-		item.checked = !item.checked
+function checkCheckbox(item) {
+	item.checked = !item.checked
 }
 
- const mainMenuTemplate = (win) => [
+//create new template because it works abit different (need to manually change checkbox + tray is out of submenu)
+const mainMenuTemplate = (win) => [
 	{
 		label: "Plugins",
 		submenu: [
@@ -100,33 +100,33 @@ function checkCheckbox(item) {
 			},
 			...(is.windows() || is.linux()
 				? [
-						{
-							label: "Hide menu",
-							type: "checkbox",
-							checked: config.get("options.hideMenu"),
-							click: (item) => {
-								config.set("options.hideMenu", item.checked);
-								checkCheckbox(item);
-							},
+					{
+						label: "Hide menu",
+						type: "checkbox",
+						checked: config.get("options.hideMenu"),
+						click: (item) => {
+							config.set("options.hideMenu", item.checked);
+							checkCheckbox(item);
 						},
-				  ]
+					},
+				]
 				: []),
 			...(is.windows() || is.macOS()
 				? // Only works on Win/Mac
-				  // https://www.electronjs.org/docs/api/app#appsetloginitemsettingssettings-macos-windows
-				  [
-						{
-							label: "Start at login",
-							type: "checkbox",
-							checked: config.get("options.startAtLogin"),
-							click: (item) => {
-								config.set("options.startAtLogin", item.checked);
-								checkCheckbox(item);
-							},
+				// https://www.electronjs.org/docs/api/app#appsetloginitemsettingssettings-macos-windows
+				[
+					{
+						label: "Start at login",
+						type: "checkbox",
+						checked: config.get("options.startAtLogin"),
+						click: (item) => {
+							config.set("options.startAtLogin", item.checked);
+							checkCheckbox(item);
 						},
-				  ]
+					},
+				]
 				: []),
-			
+
 			{ type: "separator" },
 			{
 				label: "Toggle DevTools",
