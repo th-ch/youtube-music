@@ -3,14 +3,22 @@ ytmusic-nav-bar {
 	-webkit-app-region : unset;
 }
 
+ytmusic-app-layout {
+	--ytmusic-nav-bar-height: 120px;
+}
+
+ytmusic-search-box.ytmusic-nav-bar {
+	margin-top: 25px;
+}
+
 .center-content.ytmusic-nav-bar {
-  background: black;
+  background: #030303;
 }
 yt-page-navigation-progress, #progress.yt-page-navigation-progress {
-  top: 75px !important;
+  top: 90px !important;
 }
 ytmusic-item-section-renderer[has-item-section-tabbed-header-renderer_] #header.ytmusic-item-section-renderer {
-  top: 60px !important;
+  top: 90px !important;
 }
 ::-webkit-scrollbar {
   width: 12px; 
