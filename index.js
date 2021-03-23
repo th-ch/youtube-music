@@ -75,7 +75,7 @@ function createMainWindow() {
 	const windowSize = config.get("window-size");
 	const windowMaximized = config.get("window-maximized");
 	const windowPosition = config.get("window-position");
-	
+
 	const win = new electron.BrowserWindow({
 		icon: icon,
 		width: windowSize.width,
@@ -93,13 +93,13 @@ function createMainWindow() {
 			affinity: "main-window", // main window, and addition windows should work in one process
 			...(isTesting()
 				? {
-						// Only necessary when testing with Spectron
-						contextIsolation: false,
-						nodeIntegration: true,
-				  }
+					// Only necessary when testing with Spectron
+					contextIsolation: false,
+					nodeIntegration: true,
+				}
 				: undefined),
 		},
-		frame:  !is.macOS() && !config.plugins.isEnabled("styled-bars"),
+		frame: !is.macOS() && !config.plugins.isEnabled("styled-bars"),
 		titleBarStyle: is.macOS() ? "hiddenInset" : "default",
 		autoHideMenuBar: config.get("options.hideMenu"),
 	});
