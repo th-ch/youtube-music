@@ -1,17 +1,35 @@
 const {injectCSS} = require('../utils');
 const {Menu} = require('electron');
 const path = require('path');
-
+const electronLocalshortcut = require("electron-localshortcut");
 const is = require('electron-is');
 const {getAllPlugins} = require('../../plugins/utils');
 const config = require('../../config');
+const {ipcMain} = require('electron')
 
 module.exports = win => {
 	// css for custom scrollbar + disable drag area(was causing bugs)
 	injectCSS(win.webContents, path.join(__dirname, 'style.css'));
 	win.on('ready-to-show', () => {
-		const menu = Menu.buildFromTemplate(mainMenuTemplate(win));
+		//build new menu
+		const template = mainMenuTemplate(win)
+		const menu = Menu.buildFromTemplate(template);
 		Menu.setApplicationMenu(menu);
+		
+		//register keyboard shortcut && hide menu if hideMenu is enabled
+		if (config.get('options.hideMenu')) {
+			win.webContents.send('updateMenu', false); 
+			var enabled=  false;
+			electronLocalshortcut.register(win, 'Esc', () => {
+				if(enabled) {
+					win.webContents.send('updateMenu', false); 
+					enabled = false;
+				} else {
+					win.webContents.send('updateMenu', true); 
+					enabled =  true;
+				}
+			});
+		} 
 	});
 };
 
@@ -100,7 +118,7 @@ const mainMenuTemplate = win => [
 			...(is.windows() || is.linux() ?
 				[
 					{
-						label: 'Hide menu',
+						label: 'Hide menu (show with Escape key)',
 						type: 'checkbox',
 						checked: config.get('options.hideMenu'),
 						click: item => {
