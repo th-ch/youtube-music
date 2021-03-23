@@ -3,6 +3,15 @@ ytmusic-nav-bar {
 	-webkit-app-region : unset;
 }
 
+.center-content.ytmusic-nav-bar {
+  background: black;
+}
+yt-page-navigation-progress, #progress.yt-page-navigation-progress {
+  top: 75px !important;
+}
+ytmusic-item-section-renderer[has-item-section-tabbed-header-renderer_] #header.ytmusic-item-section-renderer {
+  top: 60px !important;
+}
 ::-webkit-scrollbar {
   width: 12px; 
   background-color: #030303;
