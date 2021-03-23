@@ -9,7 +9,7 @@ ytmusic-app-layout {
 }
 
 ytmusic-search-box.ytmusic-nav-bar {
-	margin-top: 30px;
+	margin-top: 29px;
 }
 
 .center-content.ytmusic-nav-bar {
@@ -19,6 +19,9 @@ yt-page-navigation-progress, #progress.yt-page-navigation-progress {
   top: 90px !important;
 }
 ytmusic-item-section-renderer[has-item-section-tabbed-header-renderer_] #header.ytmusic-item-section-renderer {
+  top: 90px !important;
+}
+ytmusic-header-renderer.ytmusic-search-page {
   top: 90px !important;
 }
 /* Custom scrollbar */
