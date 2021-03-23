@@ -10,12 +10,17 @@ module.exports = () => {
 	myBar.updateTitle(' ');
 	document.title = 'Youtube Music';
 
-	ipcRenderer.on('updateMenu', function(event, menu) {
+	ipcRenderer.on('updateMenu', function (event, menu) {
 		//let menu = Menu.buildFromTemplate(template);
 		//Menu.setApplicationMenu(menu);
-		if(menu)
+		if (menu) {
 			myBar.updateMenu(remote.Menu.getApplicationMenu());
-		else
-			myBar.updateMenu(null);
+		} else {
+			try {
+				myBar.updateMenu(null);
+			} catch (e) {
+				//will always throw type error - null isn't menu, but it works
+			}
+		}
 	});
 };
