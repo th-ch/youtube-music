@@ -42,9 +42,12 @@ module.exports.fileExists = (path, callbackIfExists) => {
 	});
 };
 
-module.exports.injectCSS = (webContents, filepath) => {
-	webContents.on("did-finish-load", () => {
-		webContents.insertCSS(fs.readFileSync(filepath, "utf8"));
+module.exports.injectCSS = (webContents, filepath, cb = undefined) => {
+	webContents.on("did-finish-load", async () => {
+		await webContents.insertCSS(fs.readFileSync(filepath, "utf8"));
+		if (cb) {
+			cb();
+		}
 	});
 };
 
