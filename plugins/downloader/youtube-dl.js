@@ -1,4 +1,5 @@
 const { randomBytes } = require("crypto");
+const { writeFileSync } = require("fs");
 const { join } = require("path");
 
 const Mutex = require("async-mutex").Mutex;
@@ -29,7 +30,9 @@ const downloadVideoToMP3 = (
 	sendFeedback,
 	sendError,
 	reinit,
-	options
+	options,
+	metadata = undefined,
+	subfolder = ""
 ) => {
 	sendFeedback("Downloading…");
 
@@ -70,7 +73,16 @@ const downloadVideoToMP3 = (
 		.on("error", sendError)
 		.on("end", async () => {
 			const buffer = Buffer.concat(chunks);
-			await toMP3(videoName, buffer, sendFeedback, sendError, reinit, options);
+			await toMP3(
+				videoName,
+				buffer,
+				sendFeedback,
+				sendError,
+				reinit,
+				options,
+				metadata,
+				subfolder
+			);
 		});
 };
 
@@ -80,7 +92,9 @@ const toMP3 = async (
 	sendFeedback,
 	sendError,
 	reinit,
-	options
+	options,
+	existingMetadata = undefined,
+	subfolder = ""
 ) => {
 	const safeVideoName = randomBytes(32).toString("hex");
 	const extension = options.extension || "mp3";
@@ -96,7 +110,7 @@ const toMP3 = async (
 		ffmpeg.FS("writeFile", safeVideoName, buffer);
 
 		sendFeedback("Converting…");
-		const metadata = getMetadata();
+		const metadata = existingMetadata || getMetadata();
 		await ffmpeg.run(
 			"-i",
 			safeVideoName,
@@ -113,14 +127,19 @@ const toMP3 = async (
 			replacement: "_",
 		});
 
-		// Add the metadata
-		sendFeedback("Adding metadata…");
-		ipcRenderer.send(
-			"add-metadata",
-			join(folder, filename),
-			ffmpeg.FS("readFile", safeVideoName + "." + extension)
-		);
-		ipcRenderer.once("add-metadata-done", reinit);
+		const filePath = join(folder, subfolder, filename);
+		const fileBuffer = ffmpeg.FS("readFile", safeVideoName + "." + extension);
+
+		if (existingMetadata) {
+			writeFileSync(filePath, fileBuffer);
+			reinit();
+		} else {
+			// Add the metadata
+			sendFeedback("Adding metadata…");
+			ipcRenderer.send("add-metadata", filePath, fileBuffer);
+			ipcRenderer.once("add-metadata-done", reinit);
+			sendFeedback("Finished converting", metadata);
+		}
 	} catch (e) {
 		sendError(e);
 	} finally {
