@@ -13,7 +13,7 @@ const filenamify = require("filenamify");
 const FFmpeg = require("@ffmpeg/ffmpeg/dist/ffmpeg.min");
 const ytdl = require("ytdl-core");
 
-const { triggerActionSync } = require("../utils");
+const { triggerAction, triggerActionSync } = require("../utils");
 const { ACTIONS, CHANNEL } = require("./actions.js");
 const { defaultMenuDownloadLabel, getFolder } = require("./utils");
 
@@ -165,3 +165,26 @@ const getFFmpegMetadataArgs = (metadata) => {
 module.exports = {
 	downloadVideoToMP3,
 };
+
+ipcRenderer.on(
+	"downloader-download-playlist",
+	(_, songMetadata, playlistFolder, options) => {
+		const reinit = () =>
+			ipcRenderer.send("downloader-feedback", defaultMenuDownloadLabel);
+
+		downloadVideoToMP3(
+			songMetadata.url,
+			(feedback) => {
+				ipcRenderer.send("downloader-feedback", feedback);
+			},
+			(error) => {
+				triggerAction(CHANNEL, ACTIONS.ERROR, error);
+				reinit();
+			},
+			reinit,
+			options,
+			songMetadata,
+			playlistFolder
+		);
+	}
+);
