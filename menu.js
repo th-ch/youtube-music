@@ -1,26 +1,46 @@
+const { existsSync } = require("fs");
+const path = require("path");
+
 const { app, Menu } = require("electron");
 const is = require("electron-is");
 
 const { getAllPlugins } = require("./plugins/utils");
 const config = require("./config");
 
+const pluginEnabledMenu = (plugin, label = "") => ({
+	label: label || plugin,
+	type: "checkbox",
+	checked: config.plugins.isEnabled(plugin),
+	click: (item) => {
+		if (item.checked) {
+			config.plugins.enable(plugin);
+		} else {
+			config.plugins.disable(plugin);
+		}
+	},
+});
+
 const mainMenuTemplate = (win) => [
 	{
 		label: "Plugins",
 		submenu: [
 			...getAllPlugins().map((plugin) => {
-				return {
-					label: plugin,
-					type: "checkbox",
-					checked: config.plugins.isEnabled(plugin),
-					click: (item) => {
-						if (item.checked) {
-							config.plugins.enable(plugin);
-						} else {
-							config.plugins.disable(plugin);
-						}
-					},
-				};
+				const pluginPath = path.join(__dirname, "plugins", plugin, "menu.js");
+
+				if (existsSync(pluginPath)) {
+					const getPluginMenu = require(pluginPath);
+					return {
+						label: plugin,
+						submenu: [
+							pluginEnabledMenu(plugin, "Enabled"),
+							...getPluginMenu(win, config.plugins.getOptions(plugin), () =>
+								module.exports.setApplicationMenu(win)
+							),
+						],
+					};
+				}
+
+				return pluginEnabledMenu(plugin);
 			}),
 			{ type: "separator" },
 			{
