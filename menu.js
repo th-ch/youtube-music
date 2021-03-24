@@ -27,6 +27,10 @@ const mainMenuTemplate = (win) => [
 			...getAllPlugins().map((plugin) => {
 				const pluginPath = path.join(__dirname, "plugins", plugin, "menu.js");
 
+				if (!config.plugins.isEnabled(plugin)) {
+					return pluginEnabledMenu(plugin);
+				}
+
 				if (existsSync(pluginPath)) {
 					const getPluginMenu = require(pluginPath);
 					return {
