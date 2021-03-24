@@ -1,7 +1,6 @@
 const { randomBytes } = require("crypto");
 const { join } = require("path");
 
-const downloadsFolder = require("downloads-folder");
 const Mutex = require("async-mutex").Mutex;
 const { ipcRenderer } = require("electron");
 const is = require("electron-is");
@@ -15,6 +14,7 @@ const ytdl = require("ytdl-core");
 
 const { triggerActionSync } = require("../utils");
 const { ACTIONS, CHANNEL } = require("./actions.js");
+const { defaultMenuDownloadLabel, getFolder } = require("./utils");
 
 const { createFFmpeg } = FFmpeg;
 const ffmpeg = createFFmpeg({
@@ -105,7 +105,7 @@ const toMP3 = async (
 			safeVideoName + "." + extension
 		);
 
-		const folder = options.downloadFolder || downloadsFolder();
+		const folder = getFolder(options.downloadFolder);
 		const name = metadata
 			? `${metadata.artist ? `${metadata.artist} - ` : ""}${metadata.title}`
 			: videoName;
