@@ -138,10 +138,8 @@ const getFFmpegMetadataArgs = (metadata) => {
 	}
 
 	return [
-		"-metadata",
-		`title=${metadata.title}`,
-		"-metadata",
-		`artist=${metadata.artist}`,
+		...(metadata.title ? ["-metadata", `title=${metadata.title}`] : []),
+		...(metadata.artist ? ["-metadata", `artist=${metadata.artist}`] : []),
 	];
 };
 
