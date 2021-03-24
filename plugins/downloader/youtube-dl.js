@@ -2,6 +2,7 @@ const { randomBytes } = require("crypto");
 const { join } = require("path");
 
 const downloadsFolder = require("downloads-folder");
+const Mutex = require("async-mutex").Mutex;
 const { ipcRenderer } = require("electron");
 const is = require("electron-is");
 const filenamify = require("filenamify");
@@ -21,6 +22,7 @@ const ffmpeg = createFFmpeg({
 	logger: () => {}, // console.log,
 	progress: () => {}, // console.log,
 });
+const ffmpegMutex = new Mutex();
 
 const downloadVideoToMP3 = (
 	videoUrl,
@@ -66,9 +68,9 @@ const downloadVideoToMP3 = (
 			}
 		})
 		.on("error", sendError)
-		.on("end", () => {
+		.on("end", async () => {
 			const buffer = Buffer.concat(chunks);
-			toMP3(videoName, buffer, sendFeedback, sendError, reinit, options);
+			await toMP3(videoName, buffer, sendFeedback, sendError, reinit, options);
 		});
 };
 
@@ -82,6 +84,7 @@ const toMP3 = async (
 ) => {
 	const safeVideoName = randomBytes(32).toString("hex");
 	const extension = options.extension || "mp3";
+	const releaseFFmpegMutex = await ffmpegMutex.acquire();
 
 	try {
 		if (!ffmpeg.isLoaded()) {
@@ -120,6 +123,8 @@ const toMP3 = async (
 		ipcRenderer.once("add-metadata-done", reinit);
 	} catch (e) {
 		sendError(e);
+	} finally {
+		releaseFFmpegMutex();
 	}
 };
 
