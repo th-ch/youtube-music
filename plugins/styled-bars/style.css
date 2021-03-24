@@ -1,3 +1,7 @@
+/* allow submenu's to show correctly */
+.menubar-menu-container{
+  overflow-y: visible !important;
+}
 /* remove window dragging for nav bar (conflict with titlebar drag) */
 ytmusic-nav-bar, 
 .tab-titleiron-icon,
