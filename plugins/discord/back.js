@@ -9,7 +9,9 @@ const rpc = new Discord.Client({
 // Application ID registered by @semvis123
 const clientId = "790655993809338398";
 
-module.exports = (win) => {
+let clearActivity;
+
+module.exports = (win, {activityTimoutEnabled, activityTimoutTime}) => {
 	const registerCallback = getSongInfo(win);
 
 	// If the page is ready, register the callback
@@ -29,7 +31,13 @@ module.exports = (win) => {
 					// Add an idle icon to show that the song is paused
 					activityInfo.smallImageKey = "idle";
 					activityInfo.smallImageText = "idle/paused";
+					// Set start the timer so the activity gets cleared after a while if enabled
+					if (activityTimoutEnabled)
+						clearActivity = setTimeout(()=>rpc.clearActivity(), activityTimoutTime||10,000);
+
 				} else {
+					// stop the clear activity timout
+					clearTimeout(clearActivity);
 					// Add the start and end time of the song
 					const songStartTime = Date.now() - songInfo.elapsedSeconds * 1000;
 					activityInfo.startTimestamp = songStartTime;
