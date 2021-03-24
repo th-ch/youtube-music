@@ -53,6 +53,6 @@ module.exports = win => {
 };
 
 // Util
-function get(address) {
-	return path.join(__dirname, address);
+function get(file) {
+	return path.join(__dirname,"assets", file);
 }
