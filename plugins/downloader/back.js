@@ -70,3 +70,4 @@ function handle(win) {
 }
 
 module.exports = handle;
+module.exports.sendError = sendError;
