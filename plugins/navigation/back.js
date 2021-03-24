@@ -4,7 +4,10 @@ const { injectCSS, listenAction } = require("../utils");
 const { ACTIONS, CHANNEL } = require("./actions.js");
 
 function handle(win) {
-	injectCSS(win.webContents, path.join(__dirname, "style.css"));
+	injectCSS(win.webContents, path.join(__dirname, "style.css"), () => {
+		win.webContents.send("navigation-css-ready");
+	});
+
 	listenAction(CHANNEL, (event, action) => {
 		switch (action) {
 			case ACTIONS.NEXT:
