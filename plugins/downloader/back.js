@@ -45,19 +45,21 @@ function handle(win) {
 		let fileBuffer = songBuffer;
 
 		try {
-			const coverBuffer = metadata.image.toPNG();
 			const writer = new ID3Writer(songBuffer);
+			if (metadata.image) {
+				const coverBuffer = metadata.image.toPNG();
 
-			// Create the metadata tags
-			writer
-				.setFrame("TIT2", metadata.title)
-				.setFrame("TPE1", [metadata.artist])
-				.setFrame("APIC", {
-					type: 3,
-					data: coverBuffer,
-					description: "",
-				});
-			writer.addTag();
+				// Create the metadata tags
+				writer
+					.setFrame("TIT2", metadata.title)
+					.setFrame("TPE1", [metadata.artist])
+					.setFrame("APIC", {
+						type: 3,
+						data: coverBuffer,
+						description: "",
+					});
+				writer.addTag();
+			}
 			fileBuffer = Buffer.from(writer.arrayBuffer);
 		} catch (error) {
 			sendError(win, error);
@@ -70,3 +72,4 @@ function handle(win) {
 }
 
 module.exports = handle;
+module.exports.sendError = sendError;

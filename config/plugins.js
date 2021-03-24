@@ -24,6 +24,10 @@ function setOptions(plugin, options) {
 	});
 }
 
+function getOptions(plugin) {
+	return store.get("plugins")[plugin];
+}
+
 function enable(plugin) {
 	setOptions(plugin, { enabled: true });
 }
@@ -38,4 +42,5 @@ module.exports = {
 	enable,
 	disable,
 	setOptions,
+	getOptions,
 };

@@ -5,7 +5,7 @@
 /* Allow window dragging */
 ytmusic-nav-bar {
 	-webkit-user-select: none;
-	-webkit-app-region : drag;
+	-webkit-app-region: drag;
 }
 
 iron-icon,
