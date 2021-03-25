@@ -10,6 +10,20 @@ const defaultSettings = {
 	api_root: "http://ws.audioscrobbler.com/2.0/",
 	api_key: "04d76faaac8726e60988e14c105d421a", // api key registered by @semvis123
 	secret: "a5d2a36fdf64819290f6982481eaffa2",
+	suffixesToRemove: [' - Topic', 'VEVO']
+}
+
+const cleanupArtistName = (config, artist) => {
+	let { suffixesToRemove } = config;
+	if (suffixesToRemove === undefined){
+		suffixesToRemove = defaultSettings.suffixesToRemove;
+		config.suffixesToRemove = suffixesToRemove;
+		setOptions('last-fm', config);
+	}
+	for (suffix of suffixesToRemove){
+		artist = artist.replace(suffix,'');
+	}
+	return artist
 }
 
 const createFormData = (params) => {
@@ -94,7 +108,7 @@ const addScrobble = async (songInfo, config) => {
 		await getAndSetSessionKey(config);
 	data = {
 		track: songInfo.title,
-		artist: songInfo.artist?.replace(' - Topic', ''),
+		artist: songInfo.artist,
 		api_key: config.api_key,
 		sk: config.session_key,
 		format: 'json',
@@ -120,7 +134,7 @@ const setNowPlaying = async (songInfo, config) => {
 		await getAndSetSessionKey(config);
 	data = {
 		track: songInfo.title,
-		artist: songInfo.artist?.replace(' - Topic', ''),
+		artist: songInfo.artist,
 		api_key: config.api_key,
 		sk: config.session_key,
 		format: 'json',
@@ -159,6 +173,7 @@ const lastfm = async (win, config) => {
 
 	registerCallback( songInfo => {
 		clearTimeout(scrobbleTimer);
+		songInfo.artist = cleanupArtistName(config, songInfo.artist);
 		if (!songInfo.isPaused) {
 			setNowPlaying(songInfo, config);
 			let scrobbleTime = Math.min(Math.ceil(songInfo.songDuration/2), 4*60);
