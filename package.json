@@ -67,6 +67,7 @@
 		"@ffmpeg/ffmpeg": "^0.9.7",
 		"YoutubeNonStop": "git://github.com/lawfx/YoutubeNonStop.git#v0.8.1",
 		"axios": "^0.21.1",
+		"async-mutex": "^0.3.1",
 		"browser-id3-writer": "^4.4.0",
 		"discord-rpc": "^3.2.0",
 		"downloads-folder": "^3.0.1",
@@ -80,7 +81,8 @@
 		"md5": "^2.3.0",
 		"node-fetch": "^2.6.1",
 		"open": "^8.0.3",
-		"ytdl-core": "^4.4.5"
+		"ytdl-core": "^4.4.5",
+		"ytpl": "^2.0.5"
 	},
 	"devDependencies": {
 		"electron": "^11.2.3",

@@ -41,7 +41,11 @@ const defaultConfig = {
 			api_key: "04d76faaac8726e60988e14c105d421a", // api key registered by @semvis123
 			secret: "a5d2a36fdf64819290f6982481eaffa2",
 			suffixesToRemove: [' - Topic', 'VEVO'] // removes suffixes of the artist name, for better recognition
-		}
+		},
+		discord: {
+			activityTimoutEnabled: true, // if enabled, the discord rich presence gets cleared when music paused after the time specified below
+			activityTimoutTime: 10 * 60 * 1000 // 10 minutes
+		},
 	},
 };
 

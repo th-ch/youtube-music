@@ -1,26 +1,50 @@
+const { existsSync } = require("fs");
+const path = require("path");
+
 const { app, Menu } = require("electron");
 const is = require("electron-is");
 
 const { getAllPlugins } = require("./plugins/utils");
 const config = require("./config");
 
+const pluginEnabledMenu = (plugin, label = "") => ({
+	label: label || plugin,
+	type: "checkbox",
+	checked: config.plugins.isEnabled(plugin),
+	click: (item) => {
+		if (item.checked) {
+			config.plugins.enable(plugin);
+		} else {
+			config.plugins.disable(plugin);
+		}
+	},
+});
+
 const mainMenuTemplate = (win) => [
 	{
 		label: "Plugins",
 		submenu: [
 			...getAllPlugins().map((plugin) => {
-				return {
-					label: plugin,
-					type: "checkbox",
-					checked: config.plugins.isEnabled(plugin),
-					click: (item) => {
-						if (item.checked) {
-							config.plugins.enable(plugin);
-						} else {
-							config.plugins.disable(plugin);
-						}
-					},
-				};
+				const pluginPath = path.join(__dirname, "plugins", plugin, "menu.js");
+
+				if (!config.plugins.isEnabled(plugin)) {
+					return pluginEnabledMenu(plugin);
+				}
+
+				if (existsSync(pluginPath)) {
+					const getPluginMenu = require(pluginPath);
+					return {
+						label: plugin,
+						submenu: [
+							pluginEnabledMenu(plugin, "Enabled"),
+							...getPluginMenu(win, config.plugins.getOptions(plugin), () =>
+								module.exports.setApplicationMenu(win)
+							),
+						],
+					};
+				}
+
+				return pluginEnabledMenu(plugin);
 			}),
 			{ type: "separator" },
 			{
@@ -161,6 +185,38 @@ const mainMenuTemplate = (win) => [
 				label: "Advanced options",
 				click: () => {
 					config.edit();
+				},
+			},
+		],
+	},
+	{
+		label: "View",
+		submenu: [
+			{ role: "reload" },
+			{ role: "forceReload" },
+			{ type: "separator" },
+			{ role: "zoomIn" },
+			{ role: "zoomOut" },
+			{ role: "resetZoom" },
+		],
+	},
+	{
+		label: "Navigation",
+		submenu: [
+			{
+				label: "Go back",
+				click: () => {
+					if (win.webContents.canGoBack()) {
+						win.webContents.goBack();
+					}
+				},
+			},
+			{
+				label: "Go forward",
+				click: () => {
+					if (win.webContents.canGoForward()) {
+						win.webContents.goForward();
+					}
 				},
 			},
 		],
