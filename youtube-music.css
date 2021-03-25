@@ -5,7 +5,7 @@
 /* Allow window dragging */
 ytmusic-nav-bar {
 	-webkit-user-select: none;
-	-webkit-app-region : drag;
+	-webkit-app-region: drag;
 }
 
 iron-icon,
@@ -17,11 +17,11 @@ a {
 
 /* custom style for navbar */
 ytmusic-app-layout {
-	--ytmusic-nav-bar-height: 85px;
+	--ytmusic-nav-bar-height: 90px;
 }
 
 ytmusic-search-box.ytmusic-nav-bar {
-	margin-top: 12px;
+	margin-top: 15px;
 }
 
 /* Blocking annoying elements */
