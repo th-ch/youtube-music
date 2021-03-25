@@ -21,8 +21,6 @@ const pluginEnabledMenu = (plugin, label = "") => ({
 	},
 });
 
-var enabled = !config.get('options.hideMenu');
-
 //override Menu.setApplicationMenu to also point to also refresh custom menu
 const setMenu = Menu.setApplicationMenu;
 Menu.setApplicationMenu = function (menu) {
@@ -41,11 +39,11 @@ module.exports = win => {
 
 		//register keyboard shortcut && hide menu if hideMenu is enabled
 		if (config.get('options.hideMenu')) {
-			win.webContents.send('updateMenu', false); 
+			win.webContents.send('updateMenu', null); 
 			 var enabled=  false;
 			electronLocalshortcut.register(win, 'Esc', () => {
 				if(enabled) {
-					win.webContents.send('updateMenu', false); 
+					win.webContents.send('updateMenu', null); 
 					enabled = false;
 				} else {
 					win.webContents.send('updateMenu', true); 
@@ -56,8 +54,11 @@ module.exports = win => {
 	});
 };
 
-function checkCheckbox(item) {
+function checkCheckbox(item, updateMenu, win) {
 	item.checked = !item.checked;
+	if(updateMenu) {
+		win.webContents.send('updateMenu', true); 
+	}
 }
 
 // Create new template because it works abit different (need to manually change checkbox + tray is out of submenu)
@@ -73,7 +74,6 @@ const mainMenuTemplate = win => [
 					return pluginEnabledMenu(plugin);
 				}
 				if (existsSync(pluginPath)) {
-					console.log("alert in");
 					const getPluginMenu = require(pluginPath);
 					return {
 						label: plugin,
@@ -179,9 +179,10 @@ const mainMenuTemplate = win => [
 							label: 'Disabled',
 							type: 'radio',
 							checked: !config.get('options.tray'),
-							click: () => {
+							click: item => {
 								config.set('options.tray', false);
 								config.set('options.appVisible', true);
+								checkCheckbox(item, true, win)
 							}
 						},
 						{
@@ -189,9 +190,10 @@ const mainMenuTemplate = win => [
 							type: 'radio',
 							checked:
 								config.get('options.tray') && config.get('options.appVisible'),
-							click: () => {
+							click: item => {
 								config.set('options.tray', true);
 								config.set('options.appVisible', true);
+								checkCheckbox(item, true, win)
 							}
 						},
 						{
@@ -199,9 +201,10 @@ const mainMenuTemplate = win => [
 							type: 'radio',
 							checked:
 								config.get('options.tray') && !config.get('options.appVisible'),
-							click: () => {
+							click: item => {
 								config.set('options.tray', true);
 								config.set('options.appVisible', false);
+								checkCheckbox(item, true, win)
 							}
 						},
 						{type: 'separator'},
