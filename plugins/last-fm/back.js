@@ -14,6 +14,7 @@ const defaultSettings = {
 }
 
 const cleanupArtistName = (config, artist) => {
+	// removes the suffixes of the artist name for more recognition by last.fm
 	let { suffixesToRemove } = config;
 	if (suffixesToRemove === undefined){
 		suffixesToRemove = defaultSettings.suffixesToRemove;
