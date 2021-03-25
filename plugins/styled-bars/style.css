@@ -2,6 +2,10 @@
 .menubar-menu-container{
   overflow-y: visible !important;
 }
+/* fixes scrollbar positioning relative to nav bar  */
+#nav-bar-background.ytmusic-app-layout {
+  right: 15px !important;
+}
 /* remove window dragging for nav bar (conflict with titlebar drag) */
 ytmusic-nav-bar, 
 .tab-titleiron-icon,
