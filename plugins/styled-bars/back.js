@@ -21,6 +21,15 @@ const pluginEnabledMenu = (plugin, label = "") => ({
 	},
 });
 
+var enabled = !config.get('options.hideMenu');
+
+//override Menu.setApplicationMenu to also point to also refresh custom menu
+const setMenu = Menu.setApplicationMenu;
+Menu.setApplicationMenu = function (menu) {
+	setMenu.apply(Menu,menu)
+	win.webContents.send('updateMenu', true);
+}
+
 module.exports = win => {
 	// css for custom scrollbar + disable drag area(was causing bugs)
 	injectCSS(win.webContents, path.join(__dirname, 'style.css'));
@@ -28,12 +37,12 @@ module.exports = win => {
 		//build new menu
 		const template = mainMenuTemplate(win)
 		const menu = Menu.buildFromTemplate(template);
-		Menu.setApplicationMenu(menu);
+		setMenu(menu);
 
 		//register keyboard shortcut && hide menu if hideMenu is enabled
 		if (config.get('options.hideMenu')) {
 			win.webContents.send('updateMenu', false); 
-			var enabled=  false;
+			 var enabled=  false;
 			electronLocalshortcut.register(win, 'Esc', () => {
 				if(enabled) {
 					win.webContents.send('updateMenu', false); 
@@ -57,13 +66,14 @@ const mainMenuTemplate = win => [
 		label: 'Plugins',
 		submenu: [
 			...getAllPlugins().map(plugin => {
-				const pluginPath = path.join(__dirname, "plugins", plugin, "menu.js");
+				const pluginPath = path.join(path.dirname(path.dirname(__dirname))
+					, "plugins", plugin, "menu.js");
 				
 				if (!config.plugins.isEnabled(plugin)) {
 					return pluginEnabledMenu(plugin);
 				}
-
 				if (existsSync(pluginPath)) {
+					console.log("alert in");
 					const getPluginMenu = require(pluginPath);
 					return {
 						label: plugin,
