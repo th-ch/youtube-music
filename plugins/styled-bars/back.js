@@ -1,5 +1,5 @@
-const {injectCSS} = require('../utils');
-const {Menu} = require('electron');
+const { injectCSS } = require('../utils');
+const { Menu } = require('electron');
 const path = require('path');
 const electronLocalshortcut = require("electron-localshortcut");
 const config = require('../../config');
@@ -27,46 +27,46 @@ module.exports = winImport => {
 	injectCSS(win.webContents, path.join(__dirname, 'style.css'));
 	win.on('ready-to-show', () => {
 		//build new menu (once)		
-		if(!isFixed) {
+		if (!isFixed) {
 			let template = mainMenuTemplate(win);
 			let menu = Menu.buildFromTemplate(template);
 			Menu.setApplicationMenu(menu);
 			isFixed = true;
 		}
-		
+
 		//register keyboard shortcut && hide menu if hideMenu is enabled
 		if (config.get('options.hideMenu')) {
-			win.webContents.send('updateMenu', null); 
-			let enabled=  false;
+			win.webContents.send('updateMenu', null);
+			let enabled = false;
 			electronLocalshortcut.register(win, 'Esc', () => {
-				if(enabled) {
-					win.webContents.send('updateMenu', null); 
+				if (enabled) {
+					win.webContents.send('updateMenu', null);
 					enabled = false;
 				} else {
-					win.webContents.send('updateMenu', true); 
-					enabled =  true;
+					win.webContents.send('updateMenu', true);
+					enabled = true;
 				}
 			});
-		} 
+		}
 	});
 };
 
 //go over each item in menu
-function fixCheck(ogTemplate){
-	for(let position in ogTemplate) {
+function fixCheck(ogTemplate) {
+	for (let position in ogTemplate) {
 		let item = ogTemplate[position];
 		//apply function on submenu
-		if(item.submenu != null) {
+		if (item.submenu != null) {
 			fixCheck(item.submenu);
-		} 
+		}
 		//change onClick of checkbox+radio
-		else if(item.type === 'checkbox' || item.type === 'radio') {
+		else if (item.type === 'checkbox' || item.type === 'radio') {
 			let ogOnclick = item.click;
 			item.click = (itemClicked) => {
 				ogOnclick(itemClicked);
 				checkCheckbox(itemClicked);
 			};
-		}  
+		}
 		//customize roles
 		else if (item.role != null) {
 			fixRoles(item)
@@ -74,30 +74,31 @@ function fixCheck(ogTemplate){
 	}
 }
 
+//custom menu doesn't support roles, so they get injected manually
 function fixRoles(MenuItem) {
 	switch (MenuItem.role) {
 		case 'reload':
-			MenuItem['label'] = 'Reload';
-			MenuItem.click = () => {win.webContents.reload();}
+			MenuItem.label = 'Reload';
+			MenuItem.click = () => { win.webContents.reload(); }
 			break;
-		case 'forceReload' :
+		case 'forceReload':
 			MenuItem.label = 'Force Reload';
-			MenuItem.click = () => {win.webContents.reloadIgnoringCache();}
+			MenuItem.click = () => { win.webContents.reloadIgnoringCache(); }
 			break;
 		case 'zoomIn':
 			MenuItem.label = 'Zoom In';
-			MenuItem.click = () => {win.webContents.setZoomLevel(win.webContents.getZoomLevel() + 1);}
+			MenuItem.click = () => { win.webContents.setZoomLevel(win.webContents.getZoomLevel() + 1); }
 			break;
 		case 'zoomOut':
 			MenuItem.label = 'Zoom Out';
-			MenuItem.click = () => {win.webContents.setZoomLevel(win.webContents.getZoomLevel() - 1);}
+			MenuItem.click = () => { win.webContents.setZoomLevel(win.webContents.getZoomLevel() - 1); }
 			break;
 		case 'resetZoom':
 			MenuItem.label = 'Reset Zoom';
-			MenuItem.click = () => {win.webContents.setZoomLevel(0);}
+			MenuItem.click = () => { win.webContents.setZoomLevel(0); }
 			break;
-		default : 
-			console.log(MenuItem.role +' was not expected');
+		default:
+			console.log(MenuItem.role + ' was not expected');
 	}
 	delete MenuItem.role;
 }
@@ -105,6 +106,6 @@ function fixRoles(MenuItem) {
 function checkCheckbox(item) {
 	//check item
 	item.checked = !item.checked;
-	//update menu
-	win.webContents.send('updateMenu', true); 
+	//update menu (closes it)
+	win.webContents.send('updateMenu', true);
 }
