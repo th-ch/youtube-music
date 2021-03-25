@@ -19,37 +19,37 @@ mainMenuTemplate = function (winHook) {
 let win;
 
 //check that menu doesn't get created twice
-let isFixed = false;
+let done = false;
 
 module.exports = winImport => {
 	win = winImport;
 	// css for custom scrollbar + disable drag area(was causing bugs)
 	injectCSS(win.webContents, path.join(__dirname, 'style.css'));
 	win.on('ready-to-show', () => {
-		//build new menu (once)		
-		if (!isFixed) {
-			let template = mainMenuTemplate(win);
-			let menu = Menu.buildFromTemplate(template);
-			Menu.setApplicationMenu(menu);
-			isFixed = true;
+		// (apparently ready-to-show is called twice)		
+		if (done) {
+			return
 		}
-
+		done = true;
+		let template = mainMenuTemplate(win);
+		let menu = Menu.buildFromTemplate(template);
+		Menu.setApplicationMenu(menu);
+		
 		//register keyboard shortcut && hide menu if hideMenu is enabled
 		if (config.get('options.hideMenu')) {
-			win.webContents.send('updateMenu', null);
-			let enabled = false;
+			switchMenuVisibility();
 			electronLocalshortcut.register(win, 'Esc', () => {
-				if (enabled) {
-					win.webContents.send('updateMenu', null);
-					enabled = false;
-				} else {
-					win.webContents.send('updateMenu', true);
-					enabled = true;
-				}
+				switchMenuVisibility();
 			});
 		}
 	});
 };
+
+let visible = true;
+function switchMenuVisibility() {
+	visible=!visible;
+	win.webContents.send('updateMenu',visible)
+}
 
 //go over each item in menu
 function fixCheck(ogTemplate) {
