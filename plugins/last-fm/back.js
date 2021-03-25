@@ -16,18 +16,18 @@ const defaultSettings = {
 const cleanupArtistName = (config, artist) => {
 	// removes the suffixes of the artist name for more recognition by last.fm
 	let { suffixesToRemove } = config;
-	if (suffixesToRemove === undefined){
+	if (suffixesToRemove === undefined) {
 		suffixesToRemove = defaultSettings.suffixesToRemove;
 		config.suffixesToRemove = suffixesToRemove;
 		setOptions('last-fm', config);
 	}
-	for (suffix of suffixesToRemove){
-		artist = artist.replace(suffix,'');
+	for (suffix of suffixesToRemove) {
+		artist = artist.replace(suffix, '');
 	}
 	return artist
 }
 
-const createFormData = (params) => {
+const createFormData = params => {
 	// creates the body for in the post request
 	let formData = new URLSearchParams();
 	for (key in params) {
@@ -48,7 +48,7 @@ const createQueryString = (params, api_sig) => {
 const createApiSig = (params, secret) => { 
 	// this function creates the api signature, see: https://www.last.fm/api/authspec
 	let keys = [];
-	for (key in params){
+	for (key in params) {
 		keys.push(key);
 	}
 	keys.sort();
@@ -63,8 +63,8 @@ const createApiSig = (params, secret) => {
 	return sig;
 }
 
-const createToken = async ({api_key, api_root, secret}) => {
-	// creates an auth token
+const createToken = async ({ api_key, api_root, secret }) => {
+	// creates and stores the auth token
 	data = {
 		method: 'auth.gettoken',
 		api_key: api_key,
@@ -76,16 +76,16 @@ const createToken = async ({api_key, api_root, secret}) => {
 	return response?.token;
 }
 
-const authenticate = async (config) => {
-	// asks user for authentication
+const authenticate = async config => {
+	// asks the user for authentication
 	config.token = await createToken(config);
 	setOptions('last-fm', config);
 	open(`https://www.last.fm/api/auth/?api_key=${config.api_key}&token=${config.token}`);
 	return config;
 }
 
-const getAndSetSessionKey = async (config) => {
-	// get and set the session key
+const getAndSetSessionKey = async config => {
+	// get and store the session key
 	data = {
 		api_key: config.api_key,
 		format: 'json',
@@ -104,7 +104,7 @@ const getAndSetSessionKey = async (config) => {
 
 
 const addScrobble = async (songInfo, config) => {
-	// this adds one scrobbled song
+	// this adds one scrobbled song to last.fm
 	if (!config.session_key)
 		await getAndSetSessionKey(config);
 	data = {
@@ -114,14 +114,14 @@ const addScrobble = async (songInfo, config) => {
 		sk: config.session_key,
 		format: 'json',
 		method: 'track.scrobble',
-		timestamp: ~~((Date.now() - songInfo.elapsedSeconds)/1000),
+		timestamp: ~~((Date.now() - songInfo.elapsedSeconds) / 1000),
 		duration: songInfo.songDuration,
 	};
 	data.api_sig = createApiSig(data, config.secret);
 	axios.post('https://ws.audioscrobbler.com/2.0/', createFormData(data))
 		.catch(res => {
-			if (res.response.data.error == 9){
-				// session key is invalid
+			if (res.response.data.error == 9) {
+				// session key is invalid, so remove it from the config and reauthenticate
 				config.session_key = undefined;
 				setOptions('last-fm', config);
 				authenticate(config);
@@ -130,7 +130,7 @@ const addScrobble = async (songInfo, config) => {
 }
 
 const setNowPlaying = async (songInfo, config) => {
-	// this adds one scrobbled song
+	// this sets the now playing status in last.fm
 	if (!config.session_key)
 		await getAndSetSessionKey(config);
 	data = {
@@ -145,8 +145,8 @@ const setNowPlaying = async (songInfo, config) => {
 	data.api_sig = createApiSig(data, config.secret);
 	axios.post('https://ws.audioscrobbler.com/2.0/', createFormData(data))
 		.catch(res => {
-			if (res.response.data.error == 9){
-				// session key is invalid
+			if (res.response.data.error == 9) {
+				// session key is invalid, so remove it from the config and reauthenticate
 				config.session_key = undefined;
 				setOptions('last-fm', config);
 				authenticate(config);
@@ -161,7 +161,7 @@ let scrobbleTimer = undefined;
 const lastfm = async (win, config) => {
 	const registerCallback = getSongInfo(win);
 
-	if (!config.api_root){
+	if (!config.api_root) {
 		// settings are not present, creating them with the default values
 		config = defaultSettings;
 		setOptions('last-fm', config);
@@ -173,14 +173,16 @@ const lastfm = async (win, config) => {
 	}
 
 	registerCallback( songInfo => {
+		// set remove the old scrobble timer
 		clearTimeout(scrobbleTimer);
+		// make the artist name a bit cleaner
 		songInfo.artist = cleanupArtistName(config, songInfo.artist);
 		if (!songInfo.isPaused) {
 			setNowPlaying(songInfo, config);
-			let scrobbleTime = Math.min(Math.ceil(songInfo.songDuration/2), 4*60);
+			let scrobbleTime = Math.min(Math.ceil(songInfo.songDuration / 2), 4 * 60);
 			if (scrobbleTime > songInfo.elapsedSeconds) {
 				// scrobble still needs to happen
-				timeToWait = (scrobbleTime-songInfo.elapsedSeconds)*1000;
+				timeToWait = (scrobbleTime - songInfo.elapsedSeconds) * 1000;
 				scrobbleTimer = setTimeout(addScrobble, timeToWait, songInfo, config);
 			}
 		}
