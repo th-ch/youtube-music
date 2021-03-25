@@ -3,7 +3,7 @@ const {remote, ipcRenderer} = require('electron');
 
 module.exports = () => {
 	const myBar = new customTitlebar.Titlebar({
-		backgroundColor: customTitlebar.Color.fromHex('#030303'),
+		backgroundColor: customTitlebar.Color.fromHex('#050505'),
 		itemBackgroundColor: customTitlebar.Color.fromHex('#121212')
 	});
 	myBar.updateTitle(' ');
