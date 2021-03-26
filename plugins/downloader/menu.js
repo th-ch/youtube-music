@@ -67,10 +67,10 @@ module.exports = (win, options, refreshMenu) => [
 		click: () => {
 			let result = dialog.showOpenDialogSync({ 
 				properties: ['openDirectory', 'createDirectory'],
-				defaultPath: Array.isArray(options.downloadFolder) ? options.downloadFolder[0] : undefined,
+				defaultPath: getFolder(options.downloadFolder),
 			})
 			if(result) {
-				options.downloadFolder = result
+				options.downloadFolder = result[0]
 				setOptions("downloader", options)
 			} //else = user pressed cancel
 		}
