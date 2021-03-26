@@ -32,7 +32,7 @@ module.exports.setUpTray = (app, win) => {
 		}
 	});
 
-	const trayMenu = Menu.buildFromTemplate([
+	let template = [
 		{
 			label: "Play/Pause",
 			click: () => {
@@ -64,6 +64,13 @@ module.exports.setUpTray = (app, win) => {
 				app.quit();
 			},
 		},
-	]);
+	];
+
+
+	// delete quit button from navigation submenu
+	delete template[template.findIndex(item => item.label==='Navigation')].submenu[3];
+	// delete View submenu (all buttons are useless in tray)
+	delete template[template.findIndex(item => item.label==='View')];
+	const trayMenu = Menu.buildFromTemplate(template);
 	tray.setContextMenu(trayMenu);
 };
