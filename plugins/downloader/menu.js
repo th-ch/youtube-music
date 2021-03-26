@@ -9,6 +9,8 @@ const ytpl = require("ytpl");
 const { sendError } = require("./back");
 const { defaultMenuDownloadLabel, getFolder } = require("./utils");
 
+const { setOptions } = require('../../config/plugins')
+const { dialog } = require('electron');
 let downloadLabel = defaultMenuDownloadLabel;
 
 module.exports = (win, options, refreshMenu) => [
@@ -59,5 +61,18 @@ module.exports = (win, options, refreshMenu) => [
 				);
 			});
 		},
+	},
+	{
+		label: 'Choose download folder:',
+		click: () => {
+			let result = dialog.showOpenDialogSync({ 
+				properties: ['openDirectory', 'createDirectory'],
+				defaultPath: Array.isArray(options.downloadFolder) ? options.downloadFolder[0] : undefined,
+			})
+			if(result) {
+				options.downloadFolder = result
+				setOptions("downloader", options)
+			} //else = user pressed cancel
+		}
 	},
 ];
