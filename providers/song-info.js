@@ -39,6 +39,7 @@ const songInfo = {
 	isPaused: true,
 	songDuration: 0,
 	elapsedSeconds: 0,
+	url: "",
 };
 
 const handleData = async (_event, responseText) => {
@@ -50,6 +51,7 @@ const handleData = async (_event, responseText) => {
 	songInfo.songDuration = data?.videoDetails?.lengthSeconds;
 	songInfo.image = await getImage(songInfo.imageSrc);
 	songInfo.uploadDate = data?.microformat?.microformatDataRenderer?.uploadDate;
+	songInfo.url = data?.microformat?.microformatDataRenderer?.urlCanonical;
 };
 
 const registerProvider = (win) => {
