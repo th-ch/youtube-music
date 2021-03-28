@@ -1,11 +1,9 @@
-const { ipcMain } = require("electron");
-const { nativeImage } = require("electron");
+const { ipcMain, nativeImage } = require("electron");
 
 const fetch = require("node-fetch");
 
 // This selects the progress bar, used for current progress
 const progressSelector = "#progress-bar";
-
 
 // Grab the progress using the selector
 const getProgress = async (win) => {
@@ -52,7 +50,7 @@ const handleData = async (_event, responseText) => {
 	songInfo.songDuration = data?.videoDetails?.lengthSeconds;
 	songInfo.image = await getImage(songInfo.imageSrc);
 	songInfo.uploadDate = data?.microformat?.microformatDataRenderer?.uploadDate;
-}
+};
 
 const registerProvider = (win) => {
 	// This variable will be filled with the callbacks once they register
@@ -77,7 +75,7 @@ const registerProvider = (win) => {
 	});
 
 	// This will be called when the song-info-front finds a new request with song data
-	ipcMain.on('song-info-request', handleData);
+	ipcMain.on("song-info-request", handleData);
 
 	return registerCallback;
 };
