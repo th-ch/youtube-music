@@ -42,7 +42,7 @@ const songInfo = {
 	url: "",
 };
 
-const handleData = async (_event, responseText) => {
+const handleData = async (responseText, win) => {
 	let data = JSON.parse(responseText);
 	songInfo.title = data?.videoDetails?.title;
 	songInfo.artist = data?.videoDetails?.author;
@@ -52,6 +52,8 @@ const handleData = async (_event, responseText) => {
 	songInfo.image = await getImage(songInfo.imageSrc);
 	songInfo.uploadDate = data?.microformat?.microformatDataRenderer?.uploadDate;
 	songInfo.url = data?.microformat?.microformatDataRenderer?.urlCanonical;
+
+	win.webContents.send("update-song-info", JSON.stringify(songInfo));
 };
 
 const registerProvider = (win) => {
@@ -77,7 +79,10 @@ const registerProvider = (win) => {
 	});
 
 	// This will be called when the song-info-front finds a new request with song data
-	ipcMain.on("song-info-request", handleData);
+	ipcMain.on(
+		"song-info-request",
+		async (_, responseText) => await handleData(responseText, win)
+	);
 
 	return registerCallback;
 };
