@@ -35,7 +35,7 @@ const reinit = () => {
 // contextBridge.exposeInMainWorld("downloader", {
 // 	download: () => {
 global.download = () => {
-	const videoUrl = window.location.href;
+	const videoUrl = global.songInfo.url || window.location.href;
 
 	downloadVideoToMP3(
 		videoUrl,
