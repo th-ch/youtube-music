@@ -1,3 +1,8 @@
+/* increase font size for menu and menuItems */
+.titlebar, .menubar-menu-container .action-label{
+  font-size: 14px !important;
+}
+
 /* allow submenu's to show correctly */
 .menubar-menu-container{
   overflow-y: visible !important;
