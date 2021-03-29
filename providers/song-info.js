@@ -79,10 +79,12 @@ const registerProvider = (win) => {
 	});
 
 	// This will be called when the song-info-front finds a new request with song data
-	ipcMain.on(
-		"song-info-request",
-		async (_, responseText) => await handleData(responseText, win)
-	);
+	ipcMain.on("song-info-request", async (_, responseText) => {
+		await handleData(responseText, win);
+		callbacks.forEach((c) => {
+			c(songInfo);
+		});
+	});
 
 	return registerCallback;
 };
