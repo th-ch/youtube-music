@@ -36,7 +36,7 @@ const songInfo = {
 	uploadDate: "",
 	imageSrc: "",
 	image: null,
-	isPaused: true,
+	isPaused: undefined,
 	songDuration: 0,
 	elapsedSeconds: 0,
 	url: "",
