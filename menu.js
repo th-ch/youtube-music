@@ -20,7 +20,7 @@ const pluginEnabledMenu = (plugin, label = "") => ({
 	},
 });
 
-const mainMenuTemplate = (win, withRoles = true) => [
+const mainMenuTemplate = (win, withRoles = true, clickCb = () => {}) => [
 	{
 		label: "Plugins",
 		submenu: [
@@ -64,6 +64,7 @@ const mainMenuTemplate = (win, withRoles = true) => [
 				checked: config.get("options.autoUpdates"),
 				click: (item) => {
 					config.set("options.autoUpdates", item.checked);
+					clickCb(item);
 				},
 			},
 			{
@@ -72,6 +73,7 @@ const mainMenuTemplate = (win, withRoles = true) => [
 				checked: config.get("options.disableHardwareAcceleration"),
 				click: (item) => {
 					config.set("options.disableHardwareAcceleration", item.checked);
+					clickCb(item);
 				},
 			},
 			{
@@ -80,6 +82,7 @@ const mainMenuTemplate = (win, withRoles = true) => [
 				checked: config.get("options.restartOnConfigChanges"),
 				click: (item) => {
 					config.set("options.restartOnConfigChanges", item.checked);
+					clickCb(item);
 				},
 			},
 			{
@@ -88,6 +91,7 @@ const mainMenuTemplate = (win, withRoles = true) => [
 				checked: config.get("options.autoResetAppCache"),
 				click: (item) => {
 					config.set("options.autoResetAppCache", item.checked);
+					clickCb(item);
 				},
 			},
 			{
@@ -96,6 +100,7 @@ const mainMenuTemplate = (win, withRoles = true) => [
 				checked: config.get("options.resumeOnStart"),
 				click: (item) => {
 					config.set("options.resumeOnStart", item.checked);
+					clickCb(item);
 				},
 			},
 			...(is.windows() || is.linux()
@@ -106,6 +111,7 @@ const mainMenuTemplate = (win, withRoles = true) => [
 							checked: config.get("options.hideMenu"),
 							click: (item) => {
 								config.set("options.hideMenu", item.checked);
+								clickCb(item);
 							},
 						},
 				  ]
@@ -120,6 +126,7 @@ const mainMenuTemplate = (win, withRoles = true) => [
 							checked: config.get("options.startAtLogin"),
 							click: (item) => {
 								config.set("options.startAtLogin", item.checked);
+								clickCb(item);
 							},
 						},
 				  ]
@@ -134,6 +141,7 @@ const mainMenuTemplate = (win, withRoles = true) => [
 						click: () => {
 							config.set("options.tray", false);
 							config.set("options.appVisible", true);
+							clickCb(item);
 						},
 					},
 					{
@@ -144,6 +152,7 @@ const mainMenuTemplate = (win, withRoles = true) => [
 						click: () => {
 							config.set("options.tray", true);
 							config.set("options.appVisible", true);
+							clickCb(item);
 						},
 					},
 					{
@@ -154,6 +163,7 @@ const mainMenuTemplate = (win, withRoles = true) => [
 						click: () => {
 							config.set("options.tray", true);
 							config.set("options.appVisible", false);
+							clickCb(item);
 						},
 					},
 					{ type: "separator" },
@@ -163,6 +173,7 @@ const mainMenuTemplate = (win, withRoles = true) => [
 						checked: config.get("options.trayClickPlayPause"),
 						click: (item) => {
 							config.set("options.trayClickPlayPause", item.checked);
+							clickCb(item);
 						},
 					},
 				],

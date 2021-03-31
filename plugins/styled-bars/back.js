@@ -9,9 +9,9 @@ var { mainMenuTemplate } = require("../../menu");
 const originTemplate = mainMenuTemplate;
 mainMenuTemplate = function (winHook) {
 	//get template
-	let template = originTemplate(winHook, false);
-	//fix checkbox and roles
-	fixMenu(template);
+	let template = originTemplate(winHook, false, (item) => {
+		checkCheckbox(item);
+	});
 	//return as normal
 	return template;
 };
@@ -49,25 +49,6 @@ let visible = true;
 function switchMenuVisibility() {
 	visible = !visible;
 	win.webContents.send("updateMenu", visible);
-}
-
-//go over each item in menu
-function fixMenu(template) {
-	for (let index in template) {
-		let item = template[index];
-		//apply function on submenu
-		if (item.submenu != null) {
-			fixMenu(item.submenu);
-		}
-		//change onClick of checkbox+radio
-		else if (item.type === "checkbox" || item.type === "radio") {
-			let ogOnclick = item.click;
-			item.click = (itemClicked) => {
-				ogOnclick(itemClicked);
-				checkCheckbox(itemClicked);
-			};
-		}
-	}
 }
 
 function checkCheckbox(item) {
