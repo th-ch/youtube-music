@@ -219,6 +219,14 @@ const mainMenuTemplate = (win) => [
 					}
 				},
 			},
+			{
+				label: 'Restart App',
+				click: () => {app.relaunch(); app.quit();}
+			} ,
+			{
+				label: 'Quit App',
+				click: () => {app.quit();}
+			}
 		],
 	},
 ];
