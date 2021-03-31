@@ -20,7 +20,7 @@ const pluginEnabledMenu = (plugin, label = "") => ({
 	},
 });
 
-const mainMenuTemplate = (win) => [
+const mainMenuTemplate = (win, withRoles = true) => [
 	{
 		label: "Plugins",
 		submenu: [
@@ -191,14 +191,48 @@ const mainMenuTemplate = (win) => [
 	},
 	{
 		label: "View",
-		submenu: [
-			{ role: "reload" },
-			{ role: "forceReload" },
-			{ type: "separator" },
-			{ role: "zoomIn" },
-			{ role: "zoomOut" },
-			{ role: "resetZoom" },
-		],
+		submenu: withRoles
+			? [
+					{ role: "reload" },
+					{ role: "forceReload" },
+					{ type: "separator" },
+					{ role: "zoomIn" },
+					{ role: "zoomOut" },
+					{ role: "resetZoom" },
+			  ]
+			: [
+					{
+						label: "Reload",
+						click: () => {
+							win.webContents.reload();
+						},
+					},
+					{
+						label: "Force Reload",
+						click: () => {
+							win.webContents.reloadIgnoringCache();
+						},
+					},
+					{ type: "separator" },
+					{
+						label: "Zoom In",
+						click: () => {
+							win.webContents.setZoomLevel(win.webContents.getZoomLevel() + 1);
+						},
+					},
+					{
+						label: "Zoom Out",
+						click: () => {
+							win.webContents.setZoomLevel(win.webContents.getZoomLevel() - 1);
+						},
+					},
+					{
+						label: "Reset Zoom",
+						click: () => {
+							win.webContents.setZoomLevel(0);
+						},
+					},
+			  ],
 	},
 	{
 		label: "Navigation",
