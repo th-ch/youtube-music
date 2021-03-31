@@ -1,8 +1,8 @@
-const { injectCSS } = require('../utils');
-const { Menu } = require('electron');
-const path = require('path');
+const { injectCSS } = require("../utils");
+const { Menu } = require("electron");
+const path = require("path");
 const electronLocalshortcut = require("electron-localshortcut");
-const config = require('../../config');
+const config = require("../../config");
 var { mainMenuTemplate } = require("../../menu");
 
 //override menu template for custom menu
@@ -14,31 +14,31 @@ mainMenuTemplate = function (winHook) {
 	fixMenu(template);
 	//return as normal
 	return template;
-}
+};
 //win hook for fixing menu
 let win;
 
 //check that menu doesn't get created twice
 let done = false;
 
-module.exports = winImport => {
+module.exports = (winImport) => {
 	win = winImport;
 	// css for custom scrollbar + disable drag area(was causing bugs)
-	injectCSS(win.webContents, path.join(__dirname, 'style.css'));
-	win.on('ready-to-show', () => {
-		// (apparently ready-to-show is called twice)		
+	injectCSS(win.webContents, path.join(__dirname, "style.css"));
+	win.on("ready-to-show", () => {
+		// (apparently ready-to-show is called twice)
 		if (done) {
-			return
+			return;
 		}
 		done = true;
 		let template = mainMenuTemplate(win);
 		let menu = Menu.buildFromTemplate(template);
 		Menu.setApplicationMenu(menu);
-		
+
 		//register keyboard shortcut && hide menu if hideMenu is enabled
-		if (config.get('options.hideMenu')) {
+		if (config.get("options.hideMenu")) {
 			switchMenuVisibility();
-			electronLocalshortcut.register(win, 'Esc', () => {
+			electronLocalshortcut.register(win, "Esc", () => {
 				switchMenuVisibility();
 			});
 		}
@@ -47,8 +47,8 @@ module.exports = winImport => {
 
 let visible = true;
 function switchMenuVisibility() {
-	visible=!visible;
-	win.webContents.send('updateMenu',visible)
+	visible = !visible;
+	win.webContents.send("updateMenu", visible);
 }
 
 //go over each item in menu
@@ -60,7 +60,7 @@ function fixMenu(template) {
 			fixMenu(item.submenu);
 		}
 		//change onClick of checkbox+radio
-		else if (item.type === 'checkbox' || item.type === 'radio') {
+		else if (item.type === "checkbox" || item.type === "radio") {
 			let ogOnclick = item.click;
 			item.click = (itemClicked) => {
 				ogOnclick(itemClicked);
@@ -107,5 +107,5 @@ function checkCheckbox(item) {
 	//check item
 	item.checked = !item.checked;
 	//update menu (closes it)
-	win.webContents.send('updateMenu', true);
+	win.webContents.send("updateMenu", true);
 }

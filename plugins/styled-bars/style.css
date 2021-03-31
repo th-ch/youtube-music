@@ -1,21 +1,22 @@
 /* increase font size for menu and menuItems */
-.titlebar, .menubar-menu-container .action-label{
-  font-size: 14px !important;
+.titlebar,
+.menubar-menu-container .action-label {
+	font-size: 14px !important;
 }
 
 /* allow submenu's to show correctly */
-.menubar-menu-container{
-  overflow-y: visible !important;
+.menubar-menu-container {
+	overflow-y: visible !important;
 }
 /* fixes scrollbar positioning relative to nav bar  */
 #nav-bar-background.ytmusic-app-layout {
-  right: 15px !important;
+	right: 15px !important;
 }
 /* remove window dragging for nav bar (conflict with titlebar drag) */
-ytmusic-nav-bar, 
+ytmusic-nav-bar,
 .tab-titleiron-icon,
 ytmusic-pivot-bar-item-renderer {
-	-webkit-app-region : unset;
+	-webkit-app-region: unset;
 }
 
 /* Move navBar downwards and make it opaque */
@@ -28,34 +29,35 @@ ytmusic-search-box.ytmusic-nav-bar {
 }
 
 .center-content.ytmusic-nav-bar {
-  background: #030303;
+	background: #030303;
 }
-yt-page-navigation-progress, 
+yt-page-navigation-progress,
 #progress.yt-page-navigation-progress,
-ytmusic-item-section-renderer[has-item-section-tabbed-header-renderer_] #header.ytmusic-item-section-renderer,
+ytmusic-item-section-renderer[has-item-section-tabbed-header-renderer_]
+	#header.ytmusic-item-section-renderer,
 ytmusic-header-renderer.ytmusic-search-page {
-  top: 90px !important;
+	top: 90px !important;
 }
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 12px; 
-  background-color: #030303;
-  -webkit-border-radius: 100px;
+	width: 12px;
+	background-color: #030303;
+	-webkit-border-radius: 100px;
 }
 /* hover effect for both scrollbar area, and scrollbar 'thumb' */
 ::-webkit-scrollbar:hover {
-  background-color: rgba(15, 15, 15, 0.699);
+	background-color: rgba(15, 15, 15, 0.699);
 }
 
 /* The scrollbar 'thumb' ...that marque oval shape in a scrollbar */
 ::-webkit-scrollbar-thumb:vertical {
-  background-clip: padding-box;
-  border: 2px solid rgba(0, 0, 0, 0);
+	background-clip: padding-box;
+	border: 2px solid rgba(0, 0, 0, 0);
 
-  background: rgb(49, 0, 0);
-  -webkit-border-radius: 100px;
+	background: rgb(49, 0, 0);
+	-webkit-border-radius: 100px;
 }
 ::-webkit-scrollbar-thumb:vertical:active {
-  background: rgb(56, 0, 0); /* Some darker color when you click it */
-  -webkit-border-radius: 100px;
+	background: rgb(56, 0, 0); /* Some darker color when you click it */
+	-webkit-border-radius: 100px;
 }
