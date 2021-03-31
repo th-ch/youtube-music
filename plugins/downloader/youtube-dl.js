@@ -120,7 +120,7 @@ const toMP3 = async (
 		);
 
 		const folder = getFolder(options.downloadFolder);
-		const name = metadata
+		const name = metadata.title
 			? `${metadata.artist ? `${metadata.artist} - ` : ""}${metadata.title}`
 			: videoName;
 		const filename = filenamify(name + "." + extension, {
