@@ -1,15 +1,15 @@
-const customTitlebar = require('custom-electron-titlebar');
-const {remote, ipcRenderer} = require('electron');
+const customTitlebar = require("custom-electron-titlebar");
+const { remote, ipcRenderer } = require("electron");
 
 module.exports = () => {
 	const myBar = new customTitlebar.Titlebar({
-		backgroundColor: customTitlebar.Color.fromHex('#050505'),
-		itemBackgroundColor: customTitlebar.Color.fromHex('#121212')
+		backgroundColor: customTitlebar.Color.fromHex("#050505"),
+		itemBackgroundColor: customTitlebar.Color.fromHex("#121212"),
 	});
-	myBar.updateTitle(' ');
-	document.title = 'Youtube Music';
+	myBar.updateTitle(" ");
+	document.title = "Youtube Music";
 
-	ipcRenderer.on('updateMenu', function (event, menu) {
+	ipcRenderer.on("updateMenu", function (event, menu) {
 		if (menu) {
 			myBar.updateMenu(remote.Menu.getApplicationMenu());
 		} else {
