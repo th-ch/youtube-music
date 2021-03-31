@@ -11,7 +11,7 @@ mainMenuTemplate = function (winHook) {
 	//get template
 	let template = originTemplate(winHook);
 	//fix checkbox and roles
-	fixCheck(template);
+	fixMenu(template);
 	//return as normal
 	return template;
 }
@@ -52,12 +52,12 @@ function switchMenuVisibility() {
 }
 
 //go over each item in menu
-function fixCheck(ogTemplate) {
-	for (let position in ogTemplate) {
-		let item = ogTemplate[position];
+function fixMenu(template) {
+	for (let index in template) {
+		let item = template[index];
 		//apply function on submenu
 		if (item.submenu != null) {
-			fixCheck(item.submenu);
+			fixMenu(item.submenu);
 		}
 		//change onClick of checkbox+radio
 		else if (item.type === 'checkbox' || item.type === 'radio') {
@@ -98,7 +98,7 @@ function fixRoles(MenuItem) {
 			MenuItem.click = () => { win.webContents.setZoomLevel(0); }
 			break;
 		default:
-			console.log(MenuItem.role + ' was not expected');
+			console.log(`Error fixing MenuRoles: "${MenuItem.role}" was not expected`);
 	}
 	delete MenuItem.role;
 }
