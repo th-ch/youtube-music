@@ -20,7 +20,12 @@ const pluginEnabledMenu = (plugin, label = "") => ({
 	},
 });
 
-const mainMenuTemplate = (win, withRoles = true, clickCb = () => {}) => [
+const mainMenuTemplate = (
+	win,
+	withRoles = true,
+	isTray = false,
+	clickCb = () => {}
+) => [
 	{
 		label: "Plugins",
 		submenu: [
@@ -200,51 +205,59 @@ const mainMenuTemplate = (win, withRoles = true, clickCb = () => {}) => [
 			},
 		],
 	},
-	{
-		label: "View",
-		submenu: withRoles
-			? [
-					{ role: "reload" },
-					{ role: "forceReload" },
-					{ type: "separator" },
-					{ role: "zoomIn" },
-					{ role: "zoomOut" },
-					{ role: "resetZoom" },
-			  ]
-			: [
-					{
-						label: "Reload",
-						click: () => {
-							win.webContents.reload();
-						},
-					},
-					{
-						label: "Force Reload",
-						click: () => {
-							win.webContents.reloadIgnoringCache();
-						},
-					},
-					{ type: "separator" },
-					{
-						label: "Zoom In",
-						click: () => {
-							win.webContents.setZoomLevel(win.webContents.getZoomLevel() + 1);
-						},
-					},
-					{
-						label: "Zoom Out",
-						click: () => {
-							win.webContents.setZoomLevel(win.webContents.getZoomLevel() - 1);
-						},
-					},
-					{
-						label: "Reset Zoom",
-						click: () => {
-							win.webContents.setZoomLevel(0);
-						},
-					},
-			  ],
-	},
+	...(!isTray
+		? [
+				{
+					label: "View",
+					submenu: withRoles
+						? [
+								{ role: "reload" },
+								{ role: "forceReload" },
+								{ type: "separator" },
+								{ role: "zoomIn" },
+								{ role: "zoomOut" },
+								{ role: "resetZoom" },
+						  ]
+						: [
+								{
+									label: "Reload",
+									click: () => {
+										win.webContents.reload();
+									},
+								},
+								{
+									label: "Force Reload",
+									click: () => {
+										win.webContents.reloadIgnoringCache();
+									},
+								},
+								{ type: "separator" },
+								{
+									label: "Zoom In",
+									click: () => {
+										win.webContents.setZoomLevel(
+											win.webContents.getZoomLevel() + 1
+										);
+									},
+								},
+								{
+									label: "Zoom Out",
+									click: () => {
+										win.webContents.setZoomLevel(
+											win.webContents.getZoomLevel() - 1
+										);
+									},
+								},
+								{
+									label: "Reset Zoom",
+									click: () => {
+										win.webContents.setZoomLevel(0);
+									},
+								},
+						  ],
+				},
+		  ]
+		: []),
 	{
 		label: "Navigation",
 		submenu: [
@@ -271,12 +284,16 @@ const mainMenuTemplate = (win, withRoles = true, clickCb = () => {}) => [
 					app.quit();
 				},
 			},
-			{
-				label: "Quit App",
-				click: () => {
-					app.quit();
-				},
-			},
+			...(!isTray
+				? [
+						{
+							label: "Quit App",
+							click: () => {
+								app.quit();
+							},
+						},
+				  ]
+				: []),
 		],
 	},
 ];

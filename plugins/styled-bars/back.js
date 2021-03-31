@@ -20,7 +20,7 @@ module.exports = (win) => {
 			return;
 		}
 		done = true;
-		let template = mainMenuTemplate(win, false, (item) => {
+		let template = mainMenuTemplate(win, false, false, (item) => {
 			checkCheckbox(win, item);
 		});
 		let menu = Menu.buildFromTemplate(template);
