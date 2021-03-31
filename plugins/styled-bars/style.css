@@ -42,6 +42,8 @@ ytmusic-header-renderer.ytmusic-search-page {
 ::-webkit-scrollbar {
 	width: 12px;
 	background-color: #030303;
+	border-radius: 100px;
+	-moz-border-radius: 100px;
 	-webkit-border-radius: 100px;
 }
 /* hover effect for both scrollbar area, and scrollbar 'thumb' */
@@ -55,9 +57,13 @@ ytmusic-header-renderer.ytmusic-search-page {
 	border: 2px solid rgba(0, 0, 0, 0);
 
 	background: rgb(49, 0, 0);
+	border-radius: 100px;
+	-moz-border-radius: 100px;
 	-webkit-border-radius: 100px;
 }
 ::-webkit-scrollbar-thumb:vertical:active {
 	background: rgb(56, 0, 0); /* Some darker color when you click it */
+	border-radius: 100px;
+	-moz-border-radius: 100px;
 	-webkit-border-radius: 100px;
 }
