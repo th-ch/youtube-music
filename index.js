@@ -99,7 +99,7 @@ function createMainWindow() {
 				  }
 				: undefined),
 		},
-		frame: !is.macOS(),
+		frame: !is.macOS() && !config.plugins.isEnabled("styled-bars"),
 		titleBarStyle: is.macOS() ? "hiddenInset" : "default",
 		autoHideMenuBar: config.get("options.hideMenu"),
 	});
