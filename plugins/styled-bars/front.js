@@ -1,5 +1,6 @@
-const customTitlebar = require("custom-electron-titlebar");
 const { remote, ipcRenderer } = require("electron");
+
+const customTitlebar = require("custom-electron-titlebar");
 
 module.exports = () => {
 	const myBar = new customTitlebar.Titlebar({

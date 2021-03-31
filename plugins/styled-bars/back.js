@@ -1,9 +1,11 @@
-const { injectCSS } = require("../utils");
-const { Menu } = require("electron");
 const path = require("path");
+
+const { Menu } = require("electron");
 const electronLocalshortcut = require("electron-localshortcut");
+
 const config = require("../../config");
-var { mainMenuTemplate } = require("../../menu");
+const { mainMenuTemplate } = require("../../menu");
+const { injectCSS } = require("../utils");
 
 //check that menu doesn't get created twice
 let done = false;
@@ -11,6 +13,7 @@ let done = false;
 module.exports = (win) => {
 	// css for custom scrollbar + disable drag area(was causing bugs)
 	injectCSS(win.webContents, path.join(__dirname, "style.css"));
+
 	win.on("ready-to-show", () => {
 		// (apparently ready-to-show is called twice)
 		if (done) {
