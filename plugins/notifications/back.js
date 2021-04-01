@@ -31,7 +31,7 @@ module.exports = (win, options) => {
 	win.on("ready-to-show", () => {
 		// Register the callback for new song information
 		registerCallback(songInfo => {
-			// If song is playing send notification
+			// If song is playing && title isn't the same as last one - send notification
 			if (!songInfo.isPaused && songInfo.title !== oldTitle) {
 				oldTitle = songInfo.title;
 				// Close the old notification
