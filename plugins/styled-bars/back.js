@@ -3,9 +3,9 @@ const { Menu } = require('electron');
 const path = require('path');
 const electronLocalshortcut = require("electron-localshortcut");
 const config = require('../../config');
-var { mainMenuTemplate } = require("../../menu");
+const { setApplicationMenu } = require("../../menu");
 
-//override Menu.buildFromTemplate to also fix menu
+//override Menu.buildFromTemplate, making it also fix the template
 const originBuildMenu = Menu.buildFromTemplate;
 //this function natively gets called on all submenu so no more reason to use recursion
 Menu.buildFromTemplate = function (template) {
@@ -21,7 +21,7 @@ let win;
 //check that menu doesn't get created twice
 let done = false;
 
-module.exports = winImport => {	
+module.exports = winImport => {
 	win = winImport;
 	// css for custom scrollbar + disable drag area(was causing bugs)
 	injectCSS(win.webContents, path.join(__dirname, 'style.css'));
@@ -31,9 +31,9 @@ module.exports = winImport => {
 			return
 		}
 		done = true;
-		let template = mainMenuTemplate(win);
-		let menu = Menu.buildFromTemplate(template);
-		Menu.setApplicationMenu(menu);
+
+		//refresh menu to fix it
+		setApplicationMenu(win);
 		
 		//register keyboard shortcut && hide menu if hideMenu is enabled
 		if (config.get('options.hideMenu')) {
@@ -53,18 +53,17 @@ function switchMenuVisibility() {
 
 //go over each item in menu
 function fixMenu(template) {
-	for (let index in template) {
-		let item = template[index];
+	for (let item of template) {
 		//change onClick of checkbox+radio if not fixed
 		if ((item.type === 'checkbox' || item.type === 'radio') && !item.fixed) {
-			item.fixed = true;
 			let ogOnclick = item.click;
 			item.click = (itemClicked) => {
 				ogOnclick(itemClicked);
 				checkCheckbox(itemClicked);
 			};
+			item.fixed = true;
 		}
-		//customize roles
+		//customize roles (will be deleted soon)
 		else if (item.role != null) {
 			fixRoles(item)
 		}
