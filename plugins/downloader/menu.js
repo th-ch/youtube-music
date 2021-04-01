@@ -64,7 +64,6 @@ module.exports = (win, options, refreshMenu) => [
 	{
 		label: "Choose download folder",
 		click: () => {
-
 			let result = dialog.showOpenDialogSync({
 				properties: ["openDirectory", "createDirectory"],
 				defaultPath: getFolder(options.downloadFolder),
