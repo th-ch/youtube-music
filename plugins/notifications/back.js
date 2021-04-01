@@ -18,7 +18,7 @@ const notify = (info, options) => {
 	};
 
 	// Send the notification
-	currentNotification = new Notification(notification);
+	const currentNotification = new Notification(notification);
 	currentNotification.show()
 
 	return currentNotification;
@@ -27,11 +27,13 @@ const notify = (info, options) => {
 module.exports = (win, options) => {
 	const registerCallback = getSongInfo(win);
 	let oldNotification;
+	let oldTitle = "";
 	win.on("ready-to-show", () => {
 		// Register the callback for new song information
 		registerCallback(songInfo => {
 			// If song is playing send notification
-			if (!songInfo.isPaused) {
+			if (!songInfo.isPaused && songInfo.title !== oldTitle) {
+				oldTitle = songInfo.title;
 				// Close the old notification
 				oldNotification?.close();
 				// This fixes a weird bug that would cause the notification to be updated instead of showing
