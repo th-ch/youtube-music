@@ -7,7 +7,7 @@ const is = require("electron-is");
 const { getAllPlugins } = require("./plugins/utils");
 const config = require("./config");
 
-const pluginEnabledMenu = (win, plugin, label = "") => ({
+const pluginEnabledMenu = (win, plugin, label = "", hasSubmenu=false) => ({
 	label: label || plugin,
 	type: "checkbox",
 	checked: config.plugins.isEnabled(plugin),
@@ -17,7 +17,9 @@ const pluginEnabledMenu = (win, plugin, label = "") => ({
 		} else {
 			config.plugins.disable(plugin);
 		}
-		this.setApplicationMenu(win);
+		if(hasSubmenu) {
+			this.setApplicationMenu(win);
+		}
 	},
 });
 
@@ -28,16 +30,15 @@ const mainMenuTemplate = (win) => [
 			...getAllPlugins().map((plugin) => {
 				const pluginPath = path.join(__dirname, "plugins", plugin, "menu.js");
 
-				if (!config.plugins.isEnabled(plugin)) {
-					return pluginEnabledMenu(win, plugin);
-				}
-
 				if (existsSync(pluginPath)) {
+					if (!config.plugins.isEnabled(plugin)) {
+						return pluginEnabledMenu(win, plugin, "", true);
+					}
 					const getPluginMenu = require(pluginPath);
 					return {
 						label: plugin,
 						submenu: [
-							pluginEnabledMenu(win, plugin, "Enabled"),
+							pluginEnabledMenu(win, plugin, "Enabled", true),
 							...getPluginMenu(win, config.plugins.getOptions(plugin), () =>
 								module.exports.setApplicationMenu(win)
 							),
