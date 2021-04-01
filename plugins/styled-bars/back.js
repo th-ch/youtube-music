@@ -5,23 +5,24 @@ const electronLocalshortcut = require("electron-localshortcut");
 const config = require('../../config');
 var { mainMenuTemplate } = require("../../menu");
 
-//override menu template for custom menu
-const originTemplate = mainMenuTemplate;
-mainMenuTemplate = function (winHook) {
-	//get template
-	let template = originTemplate(winHook);
+//override Menu.buildFromTemplate to also fix menu
+const originBuildMenu = Menu.buildFromTemplate;
+//this function natively gets called on all submenu so no more reason to use recursion
+Menu.buildFromTemplate = function (template) {
 	//fix checkbox and roles
 	fixMenu(template);
 	//return as normal
-	return template;
+	return originBuildMenu(template);
 }
+
 //win hook for fixing menu
 let win;
 
 //check that menu doesn't get created twice
 let done = false;
 
-module.exports = winImport => {
+module.exports = winImport => {	
+	//override menu template for custom menu
 	win = winImport;
 	// css for custom scrollbar + disable drag area(was causing bugs)
 	injectCSS(win.webContents, path.join(__dirname, 'style.css'));
@@ -55,12 +56,9 @@ function switchMenuVisibility() {
 function fixMenu(template) {
 	for (let index in template) {
 		let item = template[index];
-		//apply function on submenu
-		if (item.submenu != null) {
-			fixMenu(item.submenu);
-		}
-		//change onClick of checkbox+radio
-		else if (item.type === 'checkbox' || item.type === 'radio') {
+		//change onClick of checkbox+radio if not fixed
+		if ((item.type === 'checkbox' || item.type === 'radio') && !item.fixed) {
+			item.fixed = true;
 			let ogOnclick = item.click;
 			item.click = (itemClicked) => {
 				ogOnclick(itemClicked);
