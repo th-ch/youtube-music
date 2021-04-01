@@ -22,7 +22,6 @@ let win;
 let done = false;
 
 module.exports = winImport => {	
-	//override menu template for custom menu
 	win = winImport;
 	// css for custom scrollbar + disable drag area(was causing bugs)
 	injectCSS(win.webContents, path.join(__dirname, 'style.css'));
