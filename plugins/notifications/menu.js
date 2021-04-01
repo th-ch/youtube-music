@@ -1,4 +1,4 @@
-const {urgencyLevels, setUrgency} = require("./utils");
+const {urgencyLevels, setUrgency, setUnpause} = require("./utils");
 
 module.exports = (win, options) => [
 	{
@@ -10,4 +10,10 @@ module.exports = (win, options) => [
 			click: () => setUrgency(options, level.value)
 		})),
 	},
+	{
+		label: "Show notification on unpause",
+		type: "checkbox",
+		checked: options.unpauseNotification,
+		click: (item) => setUnpause(options, item.checked)
+	}
 ];
