@@ -27,13 +27,21 @@ const notify = (info, options) => {
 module.exports = (win, options) => {
 	const registerCallback = getSongInfo(win);
 	let oldNotification;
-	let oldTitle = "";
+	let oldURL = "";
 	win.on("ready-to-show", () => {
 		// Register the callback for new song information
 		registerCallback(songInfo => {
-			// If song is playing && title isn't the same as last one - send notification
-			if (!songInfo.isPaused && songInfo.title !== oldTitle) {
-				oldTitle = songInfo.title;
+			// on pause - reset url? and skip notification
+			if (songInfo.isPaused) {
+				//reset oldURL if unpause notification option is on
+				if (options.unpauseNotification) {
+					oldURL = "";
+				}
+				return;
+			}
+			// If url isn't the same as last one - send notification
+			if (songInfo.url !== oldURL) {
+				oldURL = songInfo.url;
 				// Close the old notification
 				oldNotification?.close();
 				// This fixes a weird bug that would cause the notification to be updated instead of showing
