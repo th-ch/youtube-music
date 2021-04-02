@@ -20,9 +20,8 @@ module.exports = (win) => {
 			return;
 		}
 		done = true;
-		let template = mainMenuTemplate(win, false, false, (item) => {
-			checkCheckbox(win, item);
-		});
+		let template = mainMenuTemplate(win, false, false);
+		updateCheckboxesAndRadioButtons(win, template);
 		let menu = Menu.buildFromTemplate(template);
 		Menu.setApplicationMenu(menu);
 
@@ -47,4 +46,23 @@ function checkCheckbox(win, item) {
 	item.checked = !item.checked;
 	//update menu (closes it)
 	win.webContents.send("updateMenu", true);
+}
+
+// Update checkboxes/radio buttons
+function updateCheckboxesAndRadioButtons(win, template) {
+	for (let index in template) {
+		let item = template[index];
+		// Apply function on submenu
+		if (item.submenu != null) {
+			updateCheckboxesAndRadioButtons(win, item.submenu);
+		}
+		// Change onClick of checkbox+radio
+		else if (item.type === "checkbox" || item.type === "radio") {
+			let originalOnclick = item.click;
+			item.click = (itemClicked) => {
+				originalOnclick(itemClicked);
+				checkCheckbox(win, itemClicked);
+			};
+		}
+	}
 }
