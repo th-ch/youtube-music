@@ -7,5 +7,13 @@ module.exports.urgencyLevels = [
 ];
 module.exports.setUrgency = (options, level) => {
 	options.urgency = level
+	setOption(options)
+};
+module.exports.setUnpause = (options, value) => {
+	options.unpauseNotification = value
+	setOption(options)
+};
+
+let setOption = options => {
 	setOptions("notifications", options)
 };
