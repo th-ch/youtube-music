@@ -7,7 +7,7 @@ const is = require("electron-is");
 const { getAllPlugins } = require("./plugins/utils");
 const config = require("./config");
 
-const pluginEnabledMenu = (plugin, label = "") => ({
+const pluginEnabledMenu = (win, plugin, label = "", hasSubmenu = false) => ({
 	label: label || plugin,
 	type: "checkbox",
 	checked: config.plugins.isEnabled(plugin),
@@ -16,6 +16,9 @@ const pluginEnabledMenu = (plugin, label = "") => ({
 			config.plugins.enable(plugin);
 		} else {
 			config.plugins.disable(plugin);
+		}
+		if (hasSubmenu) {
+			this.setApplicationMenu(win);
 		}
 	},
 });
@@ -27,16 +30,16 @@ const mainMenuTemplate = (win, withRoles = true, isTray = false) => [
 			...getAllPlugins().map((plugin) => {
 				const pluginPath = path.join(__dirname, "plugins", plugin, "menu.js");
 
-				if (!config.plugins.isEnabled(plugin)) {
-					return pluginEnabledMenu(plugin);
-				}
-
 				if (existsSync(pluginPath)) {
+					if (!config.plugins.isEnabled(plugin)) {
+						return pluginEnabledMenu(win, plugin, "", true);
+					}
+
 					const getPluginMenu = require(pluginPath);
 					return {
 						label: plugin,
 						submenu: [
-							pluginEnabledMenu(plugin, "Enabled"),
+							pluginEnabledMenu(win, plugin, "Enabled", true),
 							...getPluginMenu(win, config.plugins.getOptions(plugin), () =>
 								module.exports.setApplicationMenu(win)
 							),
@@ -44,7 +47,7 @@ const mainMenuTemplate = (win, withRoles = true, isTray = false) => [
 					};
 				}
 
-				return pluginEnabledMenu(plugin);
+				return pluginEnabledMenu(win, plugin);
 			}),
 			{ type: "separator" },
 			{
