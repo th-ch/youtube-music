@@ -3,18 +3,18 @@ const { Menu } = require('electron');
 const path = require('path');
 const electronLocalshortcut = require("electron-localshortcut");
 const config = require('../../config');
-var { mainMenuTemplate } = require("../../menu");
+const { setApplicationMenu } = require("../../menu");
 
-//override menu template for custom menu
-const originTemplate = mainMenuTemplate;
-mainMenuTemplate = function (winHook) {
-	//get template
-	let template = originTemplate(winHook);
+//override Menu.buildFromTemplate, making it also fix the template
+const originBuildMenu = Menu.buildFromTemplate;
+//this function natively gets called on all submenu so no more reason to use recursion
+Menu.buildFromTemplate = function (template) {
 	//fix checkbox and roles
 	fixMenu(template);
 	//return as normal
-	return template;
+	return originBuildMenu(template);
 }
+
 //win hook for fixing menu
 let win;
 
@@ -31,9 +31,9 @@ module.exports = winImport => {
 			return
 		}
 		done = true;
-		let template = mainMenuTemplate(win);
-		let menu = Menu.buildFromTemplate(template);
-		Menu.setApplicationMenu(menu);
+
+		//refresh menu to fix it
+		setApplicationMenu(win);
 		
 		//register keyboard shortcut && hide menu if hideMenu is enabled
 		if (config.get('options.hideMenu')) {
@@ -53,21 +53,17 @@ function switchMenuVisibility() {
 
 //go over each item in menu
 function fixMenu(template) {
-	for (let index in template) {
-		let item = template[index];
-		//apply function on submenu
-		if (item.submenu != null) {
-			fixMenu(item.submenu);
-		}
-		//change onClick of checkbox+radio
-		else if (item.type === 'checkbox' || item.type === 'radio') {
+	for (let item of template) {
+		//change onClick of checkbox+radio if not fixed
+		if ((item.type === 'checkbox' || item.type === 'radio') && !item.fixed) {
 			let ogOnclick = item.click;
 			item.click = (itemClicked) => {
 				ogOnclick(itemClicked);
 				checkCheckbox(itemClicked);
 			};
+			item.fixed = true;
 		}
-		//customize roles
+		//customize roles (will be deleted soon)
 		else if (item.role != null) {
 			fixRoles(item)
 		}
