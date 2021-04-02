@@ -1,5 +1,11 @@
 const { ipcRenderer } = require("electron");
 
+global.songInfo = {};
+
+ipcRenderer.on("update-song-info", (_, extractedSongInfo) => {
+	global.songInfo = JSON.parse(extractedSongInfo);
+});
+
 const injectListener = () => {
 	var oldXHR = window.XMLHttpRequest;
 	function newXHR() {
