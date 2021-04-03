@@ -16,7 +16,7 @@ const originalBuildMenu = Menu.buildFromTemplate;
 // This function natively gets called on all submenu so no more reason to use recursion
 Menu.buildFromTemplate = (template) => {
 	// Fix checkboxes and radio buttons
-	updateCheckboxesAndRadioButtons(win, template);
+	updateCheckboxesAndRadioButtons(template);
 
 	// return as normal
 	return originalBuildMenu(template);
@@ -39,21 +39,21 @@ module.exports = (winImport) => {
 
 		//register keyboard shortcut && hide menu if hideMenu is enabled
 		if (config.get("options.hideMenu")) {
-			switchMenuVisibility(win);
+			switchMenuVisibility();
 			electronLocalshortcut.register(win, "Esc", () => {
-				switchMenuVisibility(win);
+				switchMenuVisibility();
 			});
 		}
 	});
 };
 
 let visible = true;
-function switchMenuVisibility(win) {
+function switchMenuVisibility() {
 	visible = !visible;
 	win.webContents.send("updateMenu", visible);
 }
 
-function checkCheckbox(win, item) {
+function checkCheckbox(item) {
 	//check item
 	item.checked = !item.checked;
 	//update menu (closes it)
@@ -61,14 +61,14 @@ function checkCheckbox(win, item) {
 }
 
 // Update checkboxes/radio buttons
-function updateCheckboxesAndRadioButtons(win, template) {
+function updateCheckboxesAndRadioButtons(template) {
 	for (let item of template) {
 		// Change onClick of checkbox+radio
 		if ((item.type === "checkbox" || item.type === "radio") && !item.fixed) {
 			let originalOnclick = item.click;
 			item.click = (itemClicked) => {
 				originalOnclick(itemClicked);
-				checkCheckbox(win, itemClicked);
+				checkCheckbox(itemClicked);
 			};
 			item.fixed = true;
 		}
