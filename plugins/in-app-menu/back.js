@@ -36,6 +36,8 @@ module.exports = (winImport) => {
 		done = true;
 
 		setApplicationMenu(win);
+		//fix bug when loading window with no internet connection
+		switchMenuVisibility();
 
 		//register keyboard shortcut && hide menu if hideMenu is enabled
 		if (config.get("options.hideMenu")) {
@@ -47,7 +49,7 @@ module.exports = (winImport) => {
 	});
 };
 
-let visible = true;
+let visible = false;
 function switchMenuVisibility() {
 	visible = !visible;
 	win.webContents.send("updateMenu", visible);
