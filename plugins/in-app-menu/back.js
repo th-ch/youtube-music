@@ -38,17 +38,15 @@ module.exports = (winImport) => {
 		done = true;
 
 		setApplicationMenu(win);
-		//fix bug when loading window with no internet connection
-		switchMenuVisibility();
 
 		//register keyboard shortcut && hide menu if hideMenu is enabled
 		if (config.get("options.hideMenu")) {
-			visible = false;
+			switchMenuVisibility();
 			electronLocalshortcut.register(win, "Esc", () => {
 				switchMenuVisibility();
 			});
-		}
-		// fix bug with menu not applying on start
+		} 
+		// fix bug with menu not applying on start when no internet connection available
 		setMenuVisibility(visible);
 	});
 };
