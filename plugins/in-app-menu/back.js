@@ -9,6 +9,8 @@ const { injectCSS } = require("../utils");
 
 //check that menu doesn't get created twice
 let done = false;
+//tracks menu visibility
+let visible = true;
 // win hook for fixing menu
 let win;
 
@@ -41,17 +43,22 @@ module.exports = (winImport) => {
 
 		//register keyboard shortcut && hide menu if hideMenu is enabled
 		if (config.get("options.hideMenu")) {
-			switchMenuVisibility();
+			visible = false;
 			electronLocalshortcut.register(win, "Esc", () => {
 				switchMenuVisibility();
 			});
 		}
+		// fix bug with menu not applying on start
+		setMenuVisibility(visible);
 	});
 };
 
-let visible = false;
 function switchMenuVisibility() {
-	visible = !visible;
+	setMenuVisibility(!visible);
+}
+
+function setMenuVisibility(value){
+	visible = value;
 	win.webContents.send("updateMenu", visible);
 }
 
