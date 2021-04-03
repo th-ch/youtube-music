@@ -1,5 +1,4 @@
-const { ipcMain } = require("electron");
-const { nativeImage } = require("electron");
+const { ipcMain, nativeImage } = require("electron");
 
 const fetch = require("node-fetch");
 
@@ -38,21 +37,25 @@ const songInfo = {
 	uploadDate: "",
 	imageSrc: "",
 	image: null,
-	isPaused: true,
+	isPaused: undefined,
 	songDuration: 0,
 	elapsedSeconds: 0,
+	url: "",
 };
 
-const handleData = async (_event, responseText) => {
-	data = JSON.parse(responseText);
+const handleData = async (responseText, win) => {
+	let data = JSON.parse(responseText);
 	songInfo.title = data?.videoDetails?.title;
 	songInfo.artist = data?.videoDetails?.author;
 	songInfo.views = data?.videoDetails?.viewCount;
-	songInfo.imageSrc = data?.videoDetails?.thumbnail?.thumbnails?.[0]?.url;
+	songInfo.imageSrc = data?.videoDetails?.thumbnail?.thumbnails?.pop()?.url;
 	songInfo.songDuration = data?.videoDetails?.lengthSeconds;
 	songInfo.image = await getImage(songInfo.imageSrc);
 	songInfo.uploadDate = data?.microformat?.microformatDataRenderer?.uploadDate;
-}
+	songInfo.url = data?.microformat?.microformatDataRenderer?.urlCanonical;
+
+	win.webContents.send("update-song-info", JSON.stringify(songInfo));
+};
 
 const registerProvider = (win) => {
 	// This variable will be filled with the callbacks once they register
@@ -77,9 +80,15 @@ const registerProvider = (win) => {
 	});
 
 	// This will be called when the song-info-front finds a new request with song data
-	ipcMain.on('song-info-request', handleData);
+	ipcMain.on("song-info-request", async (_, responseText) => {
+		await handleData(responseText, win);
+		callbacks.forEach((c) => {
+			c(songInfo);
+		});
+	});
 
 	return registerCallback;
 };
 
 module.exports = registerProvider;
+module.exports.getImage = getImage;

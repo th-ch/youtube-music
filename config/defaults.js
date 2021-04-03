@@ -15,13 +15,11 @@ const defaultConfig = {
 		trayClickPlayPause: false,
 		autoResetAppCache: false,
 		resumeOnStart: true,
+		proxy: "",
 	},
 	plugins: {
 		// Enabled plugins
 		navigation: {
-			enabled: true,
-		},
-		shortcuts: {
 			enabled: true,
 		},
 		adblocker: {
@@ -30,6 +28,9 @@ const defaultConfig = {
 			additionalBlockLists: [], // Additional list of filters, e.g "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters.txt"
 		},
 		// Disabled plugins
+		shortcuts: {
+			enabled: false,
+		},
 		downloader: {
 			enabled: false,
 			ffmpegArgs: [], // e.g. ["-b:a", "192k"] for an audio bitrate of 192kb/s
@@ -43,9 +44,15 @@ const defaultConfig = {
 			suffixesToRemove: [' - Topic', 'VEVO'] // removes suffixes of the artist name, for better recognition
 		},
 		discord: {
+			enabled: false,
 			activityTimoutEnabled: true, // if enabled, the discord rich presence gets cleared when music paused after the time specified below
 			activityTimoutTime: 10 * 60 * 1000 // 10 minutes
 		},
+		notifications: {
+			enabled: false,
+			urgency: "normal",
+			unpauseNotification: false
+		}
 	},
 };
 

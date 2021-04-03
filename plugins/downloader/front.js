@@ -1,5 +1,6 @@
 const { contextBridge } = require("electron");
 
+const { defaultConfig } = require("../../config");
 const { getSongMenu } = require("../../providers/dom-elements");
 const { ElementFromFile, templatePath, triggerAction } = require("../utils");
 const { ACTIONS, CHANNEL } = require("./actions.js");
@@ -31,11 +32,19 @@ const reinit = () => {
 	}
 };
 
+const baseUrl = defaultConfig.url;
+
 // TODO: re-enable once contextIsolation is set to true
 // contextBridge.exposeInMainWorld("downloader", {
 // 	download: () => {
 global.download = () => {
-	const videoUrl = window.location.href;
+	let videoUrl = getSongMenu()
+		.querySelector("ytmusic-menu-navigation-item-renderer")
+		.querySelector("#navigation-endpoint")
+		.getAttribute("href");
+	videoUrl = !videoUrl
+		? global.songInfo.url || window.location.href
+		: baseUrl + videoUrl;
 
 	downloadVideoToMP3(
 		videoUrl,
@@ -51,7 +60,8 @@ global.download = () => {
 			reinit();
 		},
 		reinit,
-		pluginOptions
+		pluginOptions,
+		global.songInfo
 	);
 };
 // });
