@@ -148,7 +148,7 @@ const mainMenuTemplate = (win) => [
 						type: "checkbox",
 						checked: !!config.get("options.proxy"),
 						click: (item) => {
-								setProxy(item, win);	
+								setProxy(item);	
 						}
 					},
 					{
@@ -310,7 +310,7 @@ module.exports.setApplicationMenu = (win) => {
 };
 
 const iconPath = path.join(__dirname, "assets", "youtube-music-tray.png");
-function setProxy(item, win) {
+function setProxy(item) {
 	prompt({
 		title: 'Set Proxy',
 		label: 'Enter Proxy Adress:',
@@ -325,8 +325,6 @@ function setProxy(item, win) {
 	.then((input) => {
 		if(input !== null) {
 			config.set("options.proxy", input);
-			if(input === "")
-				item.checked = false;
 			item.checked = (input === "") ? false : true;
 		} else { //user pressed cancel
 			item.checked = !item.checked; //reset checkbox
