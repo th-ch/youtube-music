@@ -147,7 +147,6 @@ const mainMenuTemplate = (win) => [
 						label: "Proxy",
 						type: "checkbox",
 						checked: !!config.get("options.proxy"),
-						//fixed: true, //skip in-app-menu click() override
 						click: (item) => {
 								setProxy(item, win);	
 						}
@@ -310,7 +309,6 @@ module.exports.setApplicationMenu = (win) => {
 	Menu.setApplicationMenu(menu);
 };
 
-//
 const iconPath = path.join(__dirname, "assets", "youtube-music-tray.png");
 function setProxy(item, win) {
 	prompt({
@@ -326,7 +324,6 @@ function setProxy(item, win) {
 	})
 	.then((input) => {
 		if(input !== null) {
-			console.log(`setting proxy to ${input}`);
 			config.set("options.proxy", input);
 			if(input === "")
 				item.checked = false;
