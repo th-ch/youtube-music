@@ -31,11 +31,16 @@ const reinit = () => {
 	}
 };
 
+const baseUrl = "https://music.youtube.com";
 // TODO: re-enable once contextIsolation is set to true
 // contextBridge.exposeInMainWorld("downloader", {
 // 	download: () => {
 global.download = () => {
-	const videoUrl = global.songInfo.url || window.location.href;
+	let videoUrl = getSongMenu()
+		.querySelector("ytmusic-menu-navigation-item-renderer")
+		.querySelector("#navigation-endpoint")
+		.getAttribute("href");
+	videoUrl = !videoUrl ? (global.songInfo.url || window.location.href) : (baseUrl + videoUrl);
 
 	downloadVideoToMP3(
 		videoUrl,
