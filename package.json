@@ -66,7 +66,6 @@
 		"@ffmpeg/core": "^0.8.5",
 		"@ffmpeg/ffmpeg": "^0.9.7",
 		"YoutubeNonStop": "git://github.com/lawfx/YoutubeNonStop.git#v0.8.1",
-		"axios": "^0.21.1",
 		"async-mutex": "^0.3.1",
 		"browser-id3-writer": "^4.4.0",
 		"discord-rpc": "^3.2.0",

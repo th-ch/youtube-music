@@ -1,35 +1,24 @@
 const fetch = require('node-fetch');
 const md5 = require('md5');
 const open = require("open");
-const axios = require('axios');
 const { setOptions } = require('../../config/plugins');
 const getSongInfo = require('../../providers/song-info');
-
-const defaultSettings = {
-	enabled: true,
-	api_root: "http://ws.audioscrobbler.com/2.0/",
-	api_key: "04d76faaac8726e60988e14c105d421a", // api key registered by @semvis123
-	secret: "a5d2a36fdf64819290f6982481eaffa2",
-	suffixesToRemove: [' - Topic', 'VEVO']
-}
+const defaultConfig = require('../../config/defaults');
 
 const cleanupArtistName = (config, artist) => {
 	// removes the suffixes of the artist name for more recognition by last.fm
-	let { suffixesToRemove } = config;
-	if (suffixesToRemove === undefined) {
-		suffixesToRemove = defaultSettings.suffixesToRemove;
-		config.suffixesToRemove = suffixesToRemove;
-		setOptions('last-fm', config);
-	}
+	const { suffixesToRemove } = config;
+	if (suffixesToRemove === undefined) return artist;
+
 	for (suffix of suffixesToRemove) {
 		artist = artist.replace(suffix, '');
 	}
-	return artist
+	return artist;
 }
 
 const createFormData = params => {
 	// creates the body for in the post request
-	let formData = new URLSearchParams();
+	const formData = new URLSearchParams();
 	for (key in params) {
 		formData.append(key, params[key]);
 	}
@@ -40,14 +29,14 @@ const createQueryString = (params, api_sig) => {
 	const queryData = [];
 	params.api_sig = api_sig;
 	for (key in params) {
-		queryData.push(`${key}=${params[key]}`);
+		queryData.push(`${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`);
 	}
 	return '?'+queryData.join('&');
 }
 
 const createApiSig = (params, secret) => { 
 	// this function creates the api signature, see: https://www.last.fm/api/authspec
-	let keys = [];
+	const keys = [];
 	for (key in params) {
 		keys.push(key);
 	}
@@ -65,12 +54,12 @@ const createApiSig = (params, secret) => {
 
 const createToken = async ({ api_key, api_root, secret }) => {
 	// creates and stores the auth token
-	data = {
+	const data = {
 		method: 'auth.gettoken',
 		api_key: api_key,
 		format: 'json'
 	};
-	let api_sig = createApiSig(data, secret);
+	const api_sig = createApiSig(data, secret);
 	let response = await fetch(`${api_root}${createQueryString(data, api_sig)}`);
 	response = await response.json();
 	return response?.token;
@@ -86,14 +75,14 @@ const authenticate = async config => {
 
 const getAndSetSessionKey = async config => {
 	// get and store the session key
-	data = {
+	const data = {
 		api_key: config.api_key,
 		format: 'json',
 		method: 'auth.getsession',
 		token: config.token,
 	};
-	api_sig = createApiSig(data, config.secret);
-	res = await fetch(`${config.api_root}${createQueryString(data, api_sig)}`);
+	const api_sig = createApiSig(data, config.secret);
+	let res = await fetch(`${config.api_root}${createQueryString(data, api_sig)}`);
 	res = await res.json();
 	if (res.error)
 		await authenticate(config);
@@ -102,23 +91,23 @@ const getAndSetSessionKey = async config => {
 	return config;
 }
 
-
-const addScrobble = async (songInfo, config) => {
-	// this adds one scrobbled song to last.fm
+const postSongDataToAPI = async (songInfo, config, data) => {
+	// this sends a post request to the api, and adds the common data
 	if (!config.session_key)
 		await getAndSetSessionKey(config);
-	data = {
+
+	const postData = {
 		track: songInfo.title,
+		duration: songInfo.songDuration,
 		artist: songInfo.artist,
 		api_key: config.api_key,
 		sk: config.session_key,
 		format: 'json',
-		method: 'track.scrobble',
-		timestamp: ~~((Date.now() - songInfo.elapsedSeconds) / 1000),
-		duration: songInfo.songDuration,
+		...data,
 	};
-	data.api_sig = createApiSig(data, config.secret);
-	axios.post('https://ws.audioscrobbler.com/2.0/', createFormData(data))
+
+	postData.api_sig = createApiSig(postData, config.secret);
+	fetch('https://ws.audioscrobbler.com/2.0/', {method: 'POST', body: createFormData(postData)})
 		.catch(res => {
 			if (res.response.data.error == 9) {
 				// session key is invalid, so remove it from the config and reauthenticate
@@ -129,29 +118,21 @@ const addScrobble = async (songInfo, config) => {
 		});
 }
 
-const setNowPlaying = async (songInfo, config) => {
-	// this sets the now playing status in last.fm
-	if (!config.session_key)
-		await getAndSetSessionKey(config);
-	data = {
-		track: songInfo.title,
-		artist: songInfo.artist,
-		api_key: config.api_key,
-		sk: config.session_key,
-		format: 'json',
-		method: 'track.updateNowPlaying',
-		duration: songInfo.songDuration,
+const addScrobble = (songInfo, config) => {
+	// this adds one scrobbled song to last.fm
+	const data = {
+		method: 'track.scrobble',
+		timestamp: ~~((Date.now() - songInfo.elapsedSeconds) / 1000),
 	};
-	data.api_sig = createApiSig(data, config.secret);
-	axios.post('https://ws.audioscrobbler.com/2.0/', createFormData(data))
-		.catch(res => {
-			if (res.response.data.error == 9) {
-				// session key is invalid, so remove it from the config and reauthenticate
-				config.session_key = undefined;
-				setOptions('last-fm', config);
-				authenticate(config);
-			}
-		});
+	postSongDataToAPI(songInfo, config, data);
+}
+
+const setNowPlaying = (songInfo, config) => {
+	// this sets the now playing status in last.fm
+	const data = {
+		method: 'track.updateNowPlaying',
+	};
+	postSongDataToAPI(songInfo, config, data);
 }
 
 
@@ -161,9 +142,10 @@ let scrobbleTimer = undefined;
 const lastfm = async (win, config) => {
 	const registerCallback = getSongInfo(win);
 
-	if (!config.api_root) {
+	if (!config.api_root || !config.suffixesToRemove) {
 		// settings are not present, creating them with the default values
-		config = defaultSettings;
+		config = defaultConfig.plugins['last-fm'];
+		config.enabled = true;
 		setOptions('last-fm', config);
 	}
 
@@ -179,10 +161,11 @@ const lastfm = async (win, config) => {
 		songInfo.artist = cleanupArtistName(config, songInfo.artist);
 		if (!songInfo.isPaused) {
 			setNowPlaying(songInfo, config);
-			let scrobbleTime = Math.min(Math.ceil(songInfo.songDuration / 2), 4 * 60);
+			// scrobble when the song is half way through, or has passed the 4 minute mark
+			const scrobbleTime = Math.min(Math.ceil(songInfo.songDuration / 2), 4 * 60);
 			if (scrobbleTime > songInfo.elapsedSeconds) {
 				// scrobble still needs to happen
-				timeToWait = (scrobbleTime - songInfo.elapsedSeconds) * 1000;
+				const timeToWait = (scrobbleTime - songInfo.elapsedSeconds) * 1000;
 				scrobbleTimer = setTimeout(addScrobble, timeToWait, songInfo, config);
 			}
 		}
