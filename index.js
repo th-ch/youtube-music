@@ -152,7 +152,13 @@ function createMainWindow() {
 	return win;
 }
 
+let createdWindow = false;
 app.on("browser-window-created", (event, win) => {
+	//Ensure listeners aren't registered when creating input dialog
+	if(createdWindow){
+		return;
+	}
+	createdWindow = true;
 	loadPlugins(win);
 
 	win.webContents.on("did-fail-load", () => {
