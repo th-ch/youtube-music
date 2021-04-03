@@ -16,7 +16,7 @@ const originalBuildMenu = Menu.buildFromTemplate;
 // This function natively gets called on all submenu so no more reason to use recursion
 Menu.buildFromTemplate = (template) => {
 	// Fix checkboxes and radio buttons
-	updateCheckboxesAndRadioButtons(template);
+	updateTemplate(template);
 
 	// return as normal
 	return originalBuildMenu(template);
@@ -55,22 +55,26 @@ function switchMenuVisibility() {
 	win.webContents.send("updateMenu", visible);
 }
 
-function checkCheckbox(item) {
-	//check item
+function updateCheckboxesAndRadioButtons(item, isRadio, hasSubmenu) {
+	if (!isRadio) {
+	//fix checkbox
 	item.checked = !item.checked;
-	//update menu (closes it)
+	} 
+	//update menu if radio / hasSubmenu
+	if (isRadio || hasSubmenu) {
 	win.webContents.send("updateMenu", true);
+	}
 }
 
 // Update checkboxes/radio buttons
-function updateCheckboxesAndRadioButtons(template) {
+function updateTemplate(template) {
 	for (let item of template) {
 		// Change onClick of checkbox+radio
 		if ((item.type === "checkbox" || item.type === "radio") && !item.fixed) {
 			let originalOnclick = item.click;
 			item.click = (itemClicked) => {
 				originalOnclick(itemClicked);
-				checkCheckbox(itemClicked);
+				updateCheckboxesAndRadioButtons(itemClicked, item.type==='radio', item.hasSubmenu);
 			};
 			item.fixed = true;
 		}
