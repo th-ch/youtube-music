@@ -310,11 +310,12 @@ module.exports.setApplicationMenu = (win) => {
 };
 
 const iconPath = path.join(__dirname, "assets", "youtube-music-tray.png");
+const example = `Example: "socks5://127.0.0.1:9999"`;
 function setProxy(item) {
 	prompt({
 		title: 'Set Proxy',
-		label: 'Enter Proxy Adress:',
-		value: config.get("options.proxy") || `Example - "socks5://127.0.0.1:9999"`,
+		label: 'Enter Proxy Adress (or leave empty to disable)',
+		value: config.get("options.proxy") || example,
 		inputAttrs: {
 			type: 'text'
 		},
@@ -323,7 +324,7 @@ function setProxy(item) {
 		icon: iconPath
 	})
 	.then((input) => {
-		if(input !== null) {
+		if(input !== null && input !== example) {
 			config.set("options.proxy", input);
 			item.checked = (input === "") ? false : true;
 		} else { //user pressed cancel
