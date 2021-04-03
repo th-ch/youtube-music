@@ -93,6 +93,7 @@ function createMainWindow() {
 			contextIsolation: false,
 			preload: path.join(__dirname, "preload.js"),
 			nodeIntegrationInSubFrames: true,
+			nodeIntegration: true,
 			nativeWindowOpen: true, // window.open return Window object(like in regular browsers), not BrowserWindowProxy
 			enableRemoteModule: true,
 			affinity: "main-window", // main window, and addition windows should work in one process
