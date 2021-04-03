@@ -1,5 +1,6 @@
 const { contextBridge } = require("electron");
 
+const { defaultConfig } = require("../../config");
 const { getSongMenu } = require("../../providers/dom-elements");
 const { ElementFromFile, templatePath, triggerAction } = require("../utils");
 const { ACTIONS, CHANNEL } = require("./actions.js");
@@ -31,7 +32,8 @@ const reinit = () => {
 	}
 };
 
-const baseUrl = "https://music.youtube.com";
+const baseUrl = defaultConfig.url;
+
 // TODO: re-enable once contextIsolation is set to true
 // contextBridge.exposeInMainWorld("downloader", {
 // 	download: () => {
