@@ -23,18 +23,16 @@ const pluginEnabledMenu = (win, plugin, label = "", hasSubmenu = false) => ({
 	},
 });
 
-const mainMenuTemplate = (win, withRoles = true, isTray = false) => [
+const mainMenuTemplate = (win, withRoles = true) => [
 	{
 		label: "Plugins",
 		submenu: [
 			...getAllPlugins().map((plugin) => {
-				const pluginPath = path.join(__dirname, "plugins", plugin, "menu.js");
-
+				const pluginPath = path.join(__dirname, "plugins", plugin, "menu.js")
 				if (existsSync(pluginPath)) {
 					if (!config.plugins.isEnabled(plugin)) {
 						return pluginEnabledMenu(win, plugin, "", true);
 					}
-
 					const getPluginMenu = require(pluginPath);
 					return {
 						label: plugin,
@@ -46,7 +44,7 @@ const mainMenuTemplate = (win, withRoles = true, isTray = false) => [
 						],
 					};
 				}
-
+			
 				return pluginEnabledMenu(win, plugin);
 			}),
 			{ type: "separator" },
@@ -111,12 +109,12 @@ const mainMenuTemplate = (win, withRoles = true, isTray = false) => [
 								config.set("options.hideMenu", item.checked);
 							},
 						},
-				  ]
+				]
 				: []),
 			...(is.windows() || is.macOS()
 				? // Only works on Win/Mac
-				  // https://www.electronjs.org/docs/api/app#appsetloginitemsettingssettings-macos-windows
-				  [
+				// https://www.electronjs.org/docs/api/app#appsetloginitemsettingssettings-macos-windows
+				[
 						{
 							label: "Start at login",
 							type: "checkbox",
@@ -125,7 +123,7 @@ const mainMenuTemplate = (win, withRoles = true, isTray = false) => [
 								config.set("options.startAtLogin", item.checked);
 							},
 						},
-				  ]
+				]
 				: []),
 			{
 				label: "Tray",
@@ -192,59 +190,55 @@ const mainMenuTemplate = (win, withRoles = true, isTray = false) => [
 			},
 		],
 	},
-	...(!isTray
-		? [
-				{
-					label: "View",
-					submenu: withRoles
-						? [
-								{ role: "reload" },
-								{ role: "forceReload" },
-								{ type: "separator" },
-								{ role: "zoomIn" },
-								{ role: "zoomOut" },
-								{ role: "resetZoom" },
-						  ]
-						: [
-								{
-									label: "Reload",
-									click: () => {
-										win.webContents.reload();
-									},
-								},
-								{
-									label: "Force Reload",
-									click: () => {
-										win.webContents.reloadIgnoringCache();
-									},
-								},
-								{ type: "separator" },
-								{
-									label: "Zoom In",
-									click: () => {
-										win.webContents.setZoomLevel(
-											win.webContents.getZoomLevel() + 1
-										);
-									},
-								},
-								{
-									label: "Zoom Out",
-									click: () => {
-										win.webContents.setZoomLevel(
-											win.webContents.getZoomLevel() - 1
-										);
-									},
-								},
-								{
-									label: "Reset Zoom",
-									click: () => {
-										win.webContents.setZoomLevel(0);
-									},
-								},
-						  ],
-				},
-		  ]
-		: []),
+	{
+		label: "View",
+		submenu: withRoles
+			? [
+					{ role: "reload" },
+					{ role: "forceReload" },
+					{ type: "separator" },
+					{ role: "zoomIn" },
+					{ role: "zoomOut" },
+					{ role: "resetZoom" },
+			  ]
+			: [
+					{
+						label: "Reload",
+						click: () => {
+							win.webContents.reload();
+						},
+					},
+					{
+						label: "Force Reload",
+						click: () => {
+							win.webContents.reloadIgnoringCache();
+						},
+					},
+					{ type: "separator" },
+					{
+						label: "Zoom In",
+						click: () => {
+							win.webContents.setZoomLevel(
+								win.webContents.getZoomLevel() + 1
+							);
+						},
+					},
+					{
+						label: "Zoom Out",
+						click: () => {
+							win.webContents.setZoomLevel(
+								win.webContents.getZoomLevel() - 1
+							);
+						},
+					},
+					{
+						label: "Reset Zoom",
+						click: () => {
+							win.webContents.setZoomLevel(0);
+						},
+					},
+			  ],
+	},
 	{
 		label: "Navigation",
 		submenu: [
@@ -271,16 +265,12 @@ const mainMenuTemplate = (win, withRoles = true, isTray = false) => [
 					app.quit();
 				},
 			},
-			...(!isTray
-				? [
-						{
-							label: "Quit App",
-							click: () => {
-								app.quit();
-							},
-						},
-				  ]
-				: []),
+			{
+				label: "Quit App",
+				click: () => {
+					app.quit();
+				},
+			},
 		],
 	},
 ];
