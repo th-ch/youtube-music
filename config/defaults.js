@@ -15,6 +15,7 @@ const defaultConfig = {
 		trayClickPlayPause: false,
 		autoResetAppCache: false,
 		resumeOnStart: true,
+		proxy: "",
 	},
 	plugins: {
 		// Enabled plugins
