@@ -42,7 +42,9 @@ global.download = () => {
 		.querySelector("ytmusic-menu-navigation-item-renderer")
 		.querySelector("#navigation-endpoint")
 		.getAttribute("href");
-	videoUrl = !videoUrl ? (global.songInfo.url || window.location.href) : (baseUrl + videoUrl);
+	videoUrl = !videoUrl
+		? global.songInfo.url || window.location.href
+		: baseUrl + videoUrl;
 
 	downloadVideoToMP3(
 		videoUrl,
