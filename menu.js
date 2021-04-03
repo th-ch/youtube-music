@@ -6,11 +6,13 @@ const is = require("electron-is");
 
 const { getAllPlugins } = require("./plugins/utils");
 const config = require("./config");
+const prompt = require('electron-prompt');
 
 const pluginEnabledMenu = (win, plugin, label = "", hasSubmenu = false) => ({
 	label: label || plugin,
 	type: "checkbox",
 	checked: config.plugins.isEnabled(plugin),
+	hasSubmenu: hasSubmenu || undefined,
 	click: (item) => {
 		if (item.checked) {
 			config.plugins.enable(plugin);
@@ -142,12 +144,12 @@ const mainMenuTemplate = (win) => [
 				label: "Advanced options",
 				submenu: [
 					{
-						label: "Use Proxy",
+						label: "Proxy",
 						type: "checkbox",
 						checked: !!config.get("options.proxy"),
+						//fixed: true, //skip in-app-menu click() override
 						click: (item) => {
-								const value = item.checked? "socks5://127.0.0.1:9999" : "";
-								config.set("options.proxy", value);				
+								setProxy(item, win);	
 						}
 					},
 					{
@@ -307,3 +309,31 @@ module.exports.setApplicationMenu = (win) => {
 	const menu = Menu.buildFromTemplate(menuTemplate);
 	Menu.setApplicationMenu(menu);
 };
+
+//
+const iconPath = path.join(__dirname, "assets", "youtube-music-tray.png");
+function setProxy(item, win) {
+	prompt({
+		title: 'Set Proxy',
+		label: 'Enter Proxy Adress:',
+		value: config.get("options.proxy") || `Example - "socks5://127.0.0.1:9999"`,
+		inputAttrs: {
+			type: 'text'
+		},
+		type: 'input',
+		alwaysOnTop: true,
+		icon: iconPath
+	})
+	.then((input) => {
+		if(input !== null) {
+			console.log(`setting proxy to ${input}`);
+			config.set("options.proxy", input);
+			if(input === "")
+				item.checked = false;
+			item.checked = (input === "") ? false : true;
+		} else { //user pressed cancel
+			item.checked = !item.checked; //reset checkbox
+		}
+	})
+	.catch(console.error);
+}
