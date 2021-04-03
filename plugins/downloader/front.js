@@ -60,7 +60,8 @@ global.download = () => {
 			reinit();
 		},
 		reinit,
-		pluginOptions
+		pluginOptions,
+		global.songInfo
 	);
 };
 // });

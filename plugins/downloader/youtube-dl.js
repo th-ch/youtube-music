@@ -3,6 +3,7 @@ const { writeFileSync } = require("fs");
 const { join } = require("path");
 
 const Mutex = require("async-mutex").Mutex;
+const ID3Writer = require("browser-id3-writer");
 const { ipcRenderer } = require("electron");
 const is = require("electron-is");
 const filenamify = require("filenamify");
@@ -130,15 +131,29 @@ const toMP3 = async (
 		const filePath = join(folder, subfolder, filename);
 		const fileBuffer = ffmpeg.FS("readFile", safeVideoName + "." + extension);
 
-		if (existingMetadata) {
-			writeFileSync(filePath, fileBuffer);
+		// Add the metadata
+		try {
+			const writer = new ID3Writer(fileBuffer);
+			if (metadata.image) {
+				const coverBuffer = metadata.image.toPNG();
+
+				// Create the metadata tags
+				writer
+					.setFrame("TIT2", metadata.title)
+					.setFrame("TPE1", [metadata.artist])
+					.setFrame("APIC", {
+						type: 3,
+						data: coverBuffer,
+						description: "",
+					});
+				writer.addTag();
+			}
+
+			writeFileSync(filePath, Buffer.from(writer.arrayBuffer));
+		} catch (error) {
+			sendError(error);
+		} finally {
 			reinit();
-		} else {
-			// Add the metadata
-			sendFeedback("Adding metadata…");
-			ipcRenderer.send("add-metadata", filePath, fileBuffer);
-			ipcRenderer.once("add-metadata-done", reinit);
-			sendFeedback("Finished converting", metadata);
 		}
 	} catch (e) {
 		sendError(e);
