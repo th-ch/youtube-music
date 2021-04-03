@@ -32,6 +32,10 @@ if (config.get("options.disableHardwareAcceleration")) {
 	app.disableHardwareAcceleration();
 }
 
+if (config.get("options.proxy")) {
+	app.commandLine.appendSwitch("proxy-server", config.get("options.proxy"));
+}
+
 // Adds debug features like hotkeys for triggering dev tools and reload
 require("electron-debug")();
 
@@ -75,6 +79,7 @@ function createMainWindow() {
 	const windowSize = config.get("window-size");
 	const windowMaximized = config.get("window-maximized");
 	const windowPosition = config.get("window-position");
+	const useInlineMenu = config.plugins.isEnabled("in-app-menu");
 
 	const win = new electron.BrowserWindow({
 		icon: icon,
@@ -99,8 +104,12 @@ function createMainWindow() {
 				  }
 				: undefined),
 		},
-		frame: !is.macOS(),
-		titleBarStyle: is.macOS() ? "hiddenInset" : "default",
+		frame: !is.macOS() && !useInlineMenu,
+		titleBarStyle: useInlineMenu
+			? "hidden"
+			: is.macOS()
+			? "hiddenInset"
+			: "default",
 		autoHideMenuBar: config.get("options.hideMenu"),
 	});
 	if (windowPosition) {
