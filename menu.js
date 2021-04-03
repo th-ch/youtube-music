@@ -47,13 +47,6 @@ const mainMenuTemplate = (win) => [
 
 				return pluginEnabledMenu(win, plugin);
 			}),
-			{ type: "separator" },
-			{
-				label: "Advanced options",
-				click: () => {
-					config.edit();
-				},
-			},
 		],
 	},
 	{
@@ -65,30 +58,6 @@ const mainMenuTemplate = (win) => [
 				checked: config.get("options.autoUpdates"),
 				click: (item) => {
 					config.set("options.autoUpdates", item.checked);
-				},
-			},
-			{
-				label: "Disable hardware acceleration",
-				type: "checkbox",
-				checked: config.get("options.disableHardwareAcceleration"),
-				click: (item) => {
-					config.set("options.disableHardwareAcceleration", item.checked);
-				},
-			},
-			{
-				label: "Restart on config changes",
-				type: "checkbox",
-				checked: config.get("options.restartOnConfigChanges"),
-				click: (item) => {
-					config.set("options.restartOnConfigChanges", item.checked);
-				},
-			},
-			{
-				label: "Reset App cache when app starts",
-				type: "checkbox",
-				checked: config.get("options.autoResetAppCache"),
-				click: (item) => {
-					config.set("options.autoResetAppCache", item.checked);
 				},
 			},
 			{
@@ -170,23 +139,62 @@ const mainMenuTemplate = (win) => [
 			},
 			{ type: "separator" },
 			{
-				label: "Toggle DevTools",
-				// Cannot use "toggleDevTools" role in MacOS
-				click: () => {
-					const { webContents } = win;
-					if (webContents.isDevToolsOpened()) {
-						webContents.closeDevTools();
-					} else {
-						const devToolsOptions = {};
-						webContents.openDevTools(devToolsOptions);
-					}
-				},
-			},
-			{
 				label: "Advanced options",
-				click: () => {
-					config.edit();
-				},
+				submenu: [
+					{
+						label: "Use Proxy",
+						type: "checkbox",
+						checked: !!config.get("options.proxy"),
+						click: (item) => {
+								const value = item.checked? "socks5://127.0.0.1:9999" : "";
+								config.set("options.proxy", value);				
+						}
+					},
+					{
+						label: "Disable hardware acceleration",
+						type: "checkbox",
+						checked: config.get("options.disableHardwareAcceleration"),
+						click: (item) => {
+							config.set("options.disableHardwareAcceleration", item.checked);
+						},
+					},
+					{
+						label: "Restart on config changes",
+						type: "checkbox",
+						checked: config.get("options.restartOnConfigChanges"),
+						click: (item) => {
+							config.set("options.restartOnConfigChanges", item.checked);
+						},
+					},
+					{
+						label: "Reset App cache when app starts",
+						type: "checkbox",
+						checked: config.get("options.autoResetAppCache"),
+						click: (item) => {
+							config.set("options.autoResetAppCache", item.checked);
+						},
+					},
+					{ type: "separator" },
+					{
+						label: "Toggle DevTools",
+						// Cannot use "toggleDevTools" role in MacOS
+						click: () => {
+							const { webContents } = win;
+							if (webContents.isDevToolsOpened()) {
+								webContents.closeDevTools();
+							} else {
+								const devToolsOptions = {};
+								webContents.openDevTools(devToolsOptions);
+							}
+						},
+					},
+					{
+						label: "Edit config.json",
+						click: () => {
+							config.edit();
+						},
+					},
+				]
 			},
 		],
 	},
