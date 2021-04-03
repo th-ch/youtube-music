@@ -32,6 +32,10 @@ if (config.get("options.disableHardwareAcceleration")) {
 	app.disableHardwareAcceleration();
 }
 
+if (config.get("options.proxy")) {
+	app.commandLine.appendSwitch("proxy-server", config.get("options.proxy"));
+}
+
 // Adds debug features like hotkeys for triggering dev tools and reload
 require("electron-debug")();
 
