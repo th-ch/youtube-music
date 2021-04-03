@@ -57,7 +57,7 @@ module.exports.setUpTray = (app, win) => {
 				win.show();
 			},
 		},
-		...mainMenuTemplate(win),
+		...mainMenuTemplate(win, true, true),
 		{
 			label: "Quit",
 			click: () => {
@@ -66,18 +66,6 @@ module.exports.setUpTray = (app, win) => {
 		},
 	];
 
-	// delete quit button from navigation submenu
-	let navigation = getIndex(template,'Navigation');
-	let quit = getIndex(template[navigation].submenu,'Quit App');
-	delete template[navigation].submenu[quit];
-
-	// delete View submenu (all buttons are useless in tray)
-	delete template[getIndex(template, 'View')];
-
 	const trayMenu = Menu.buildFromTemplate(template);
 	tray.setContextMenu(trayMenu);
 };
-
-function getIndex(arr,label) {
-	return arr.findIndex(item => item.label === label)
-}
