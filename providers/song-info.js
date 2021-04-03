@@ -90,3 +90,4 @@ const registerProvider = (win) => {
 };
 
 module.exports = registerProvider;
+module.exports.getImage = getImage;

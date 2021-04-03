@@ -1,9 +1,12 @@
 const { ipcRenderer } = require("electron");
 
+const { getImage } = require("./song-info");
+
 global.songInfo = {};
 
-ipcRenderer.on("update-song-info", (_, extractedSongInfo) => {
+ipcRenderer.on("update-song-info", async (_, extractedSongInfo) => {
 	global.songInfo = JSON.parse(extractedSongInfo);
+	global.songInfo.image = await getImage(global.songInfo.imageSrc);
 });
 
 const injectListener = () => {
