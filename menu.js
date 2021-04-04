@@ -314,14 +314,15 @@ const example = `Example: "socks5://127.0.0.1:9999"`;
 function setProxy(item) {
 	prompt({
 		title: 'Set Proxy',
-		label: 'Enter Proxy Adress (or leave empty to disable)',
+		label: 'Enter Proxy Address (leave empty to disable)',
 		value: config.get("options.proxy") || example,
 		inputAttrs: {
 			type: 'text'
 		},
 		type: 'input',
 		alwaysOnTop: true,
-		icon: iconPath
+		icon: iconPath,
+		customStylesheet: path.join(__dirname, "darkPrompt.css"),
 	})
 	.then((input) => {
 		if(input !== null && input !== example) {
