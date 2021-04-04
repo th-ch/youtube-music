@@ -2,11 +2,11 @@ const customTitlebar = require("custom-electron-titlebar");
 
 module.exports = () => {
     const bar = new customTitlebar.Titlebar({
-		backgroundColor: customTitlebar.Color.fromHex("#050505"),
+        backgroundColor: customTitlebar.Color.fromHex("#050505"),
         minimizable: false,
         maximizable: false,
         unfocusEffect: true,
-	});
+    });
     try {
         bar.updateMenu(null);
     } catch (e) {
