@@ -4,6 +4,16 @@ body {
     overflow: hidden;
     color:whitesmoke;
 }
+
+::-webkit-scrollbar {
+    width: 0 !important;
+    display: none; 
+}
+
+#label {
+    text-align: center;
+}
+
 #container {
     background: rgba( 0, 0, 0, 0.7 );
     box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
@@ -11,7 +21,6 @@ body {
     -webkit-backdrop-filter: blur( 10.0px );
     border-radius: 10px;
     border: 1px solid rgba(80, 0, 0, 0.4);
-    
     overflow: hidden;
 }
 
