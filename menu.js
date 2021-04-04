@@ -6,7 +6,7 @@ const is = require("electron-is");
 
 const { getAllPlugins } = require("./plugins/utils");
 const config = require("./config");
-const prompt = require('electron-prompt');
+const prompt = require('./prompt');
 
 const pluginEnabledMenu = (win, plugin, label = "", hasSubmenu = false) => ({
 	label: label || plugin,
@@ -312,7 +312,7 @@ module.exports.setApplicationMenu = (win) => {
 const iconPath = path.join(__dirname, "assets", "youtube-music-tray.png");
 const example = `Example: "socks5://127.0.0.1:9999"`;
 function setProxy(item) {
-	prompt({
+	let options = {
 		title: 'Set Proxy',
 		label: 'Enter Proxy Address (leave empty to disable)',
 		value: config.get("options.proxy") || example,
@@ -322,8 +322,18 @@ function setProxy(item) {
 		type: 'input',
 		alwaysOnTop: true,
 		icon: iconPath,
-		customStylesheet: path.join(__dirname, "darkPrompt.css"),
-	})
+		customStylesheet: path.join(__dirname, "prompt","darkPrompt.css"),
+	};
+	if (config.plugins.isEnabled("in-app-menu")) {
+		Object.assign(options, {
+			frame: false,
+			customScript: path.join(__dirname, "prompt","customTitlebar.js"),
+			enableRemoteModule: true,
+			height: 200,
+			width: 450,
+		})
+	}
+	prompt(options)
 	.then((input) => {
 		if(input !== null && input !== example) {
 			config.set("options.proxy", input);

@@ -3093,13 +3093,6 @@ electron-localshortcut@^3.1.0, electron-localshortcut@^3.2.1:
     keyboardevent-from-electron-accelerator "^2.0.0"
     keyboardevents-areequal "^0.2.1"
 
-electron-prompt@^1.6.2:
-  version "1.6.2"
-  resolved "https://registry.yarnpkg.com/electron-prompt/-/electron-prompt-1.6.2.tgz#e26bd3d359120bd45ce2f9625bdc380deb7ee269"
-  integrity sha512-gC9ZpMopIgz1kW92J7UfsXarkLdPH2zhr77bnJFlDSduYjRlr9nEPm4ux1vyzJsO72AdOyvuPPIQB0j+gWsncQ==
-  dependencies:
-    doc-ready "^1.0.4"
-
 electron-publish@22.9.1:
   version "22.9.1"
   resolved "https://registry.yarnpkg.com/electron-publish/-/electron-publish-22.9.1.tgz#7cc76ac4cc53efd29ee31c1e5facb9724329068e"
