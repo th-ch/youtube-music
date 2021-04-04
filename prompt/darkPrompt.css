@@ -1,13 +1,8 @@
+
 body {
     background-color: rgba(0, 0, 0, 0.3);
     background-image: linear-gradient(315deg, #200000 0%, #13253a 74%);
-    overflow: hidden;
     color:whitesmoke;
-}
-
-::-webkit-scrollbar {
-    width: 0 !important;
-    display: none; 
 }
 
 #label {
@@ -30,14 +25,20 @@ body {
     border: 1px solid rgb(54, 54, 54);
 }
 
+#data:hover {
+    border: 1px solid rgb(85, 85, 85);
+}
+
 #data:focus {
     outline: unset;
     border: 1px solid rgb(85, 85, 85);
 }
 
- #ok:focus, #cancel:focus {
-    outline: rgba(30, 0, 0, 0.3) solid 1px;
+ #ok:hover, #cancel:hover {
+    outline: rgba(60, 0, 0, 0.4) solid 2px;
+    /*
     border: 1px solid rgba(60, 0, 0, 0.4);
+    */
 }
 
 #ok, #cancel {
