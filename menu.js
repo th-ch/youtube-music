@@ -148,7 +148,7 @@ const mainMenuTemplate = (win) => [
 						type: "checkbox",
 						checked: !!config.get("options.proxy"),
 						click: (item) => {
-								setProxy(item);	
+							setProxy(item, win);	
 						}
 					},
 					{
@@ -311,36 +311,31 @@ module.exports.setApplicationMenu = (win) => {
 
 const iconPath = path.join(__dirname, "assets", "youtube-music-tray.png");
 const example = `Example: "socks5://127.0.0.1:9999"`;
-function setProxy(item) {
+function setProxy(item, win) {
 	let options = {
 		title: 'Set Proxy',
-		label: 'Enter Proxy Address (leave empty to disable)',
+		label: 'Enter Proxy Address: (leave empty to disable)',
 		value: config.get("options.proxy") || example,
 		inputAttrs: {
 			type: 'text'
 		},
 		type: 'input',
-		alwaysOnTop: true,
 		icon: iconPath,
-		customStylesheet: path.join(__dirname, "prompt","darkPrompt.css"),
+		customStylesheet: path.join(__dirname, "prompt", "darkPrompt.css"),
+		frame: false,
+		customScript: path.join(__dirname, "prompt", "customTitlebar.js"),
+		enableRemoteModule: true,
+		height: 200,
+		width: 450,
 	};
-	if (config.plugins.isEnabled("in-app-menu")) {
-		Object.assign(options, {
-			frame: false,
-			customScript: path.join(__dirname, "prompt","customTitlebar.js"),
-			enableRemoteModule: true,
-			height: 200,
-			width: 450,
+	prompt(options, win)
+		.then((input) => {
+			if (input !== null && input !== example) {
+				config.set("options.proxy", input);
+				item.checked = (input === "") ? false : true;
+			} else { //user pressed cancel
+				item.checked = !item.checked; //reset checkbox
+			}
 		})
-	}
-	prompt(options)
-	.then((input) => {
-		if(input !== null && input !== example) {
-			config.set("options.proxy", input);
-			item.checked = (input === "") ? false : true;
-		} else { //user pressed cancel
-			item.checked = !item.checked; //reset checkbox
-		}
-	})
-	.catch(console.error);
+		.catch(console.error);
 }
