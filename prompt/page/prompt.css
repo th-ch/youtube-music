@@ -3,6 +3,12 @@ body {
     line-height: 1.5em;
     color: #333;
     background-color: #fff;
+    overflow-y: hidden;
+}
+
+::-webkit-scrollbar {
+    width: 0 !important;
+    display: none; 
 }
 
 #container {
@@ -10,7 +16,7 @@ body {
     justify-content: center;
     display: flex;
     height: 100%;
-    overflow: auto;
+    overflow-y: hidden;
 }
 
 #form {
