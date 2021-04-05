@@ -8,7 +8,9 @@ const { setApplicationMenu } = require("../../menu");
 const { injectCSS } = require("../utils");
 
 //check that menu doesn't get created twice
-let done = false;
+let calledReadyToShow = false;
+//check menu state isn't changed twice
+let calledFinishedLoad = false
 //tracks menu visibility
 let visible = true;
 // win hook for fixing menu
@@ -32,42 +34,49 @@ module.exports = (winImport) => {
 
 	win.on("ready-to-show", () => {
 		// (apparently ready-to-show is called twice)
-		if (done) {
+		if (calledReadyToShow) {
 			return;
 		}
-		done = true;
+		calledReadyToShow = true;
 
 		setApplicationMenu(win);
 
 		//register keyboard shortcut && hide menu if hideMenu is enabled
 		if (config.get("options.hideMenu")) {
-			switchMenuVisibility();
 			electronLocalshortcut.register(win, "Esc", () => {
 				switchMenuVisibility();
 			});
-		} 
-		// fix bug with menu not applying on start when no internet connection available
-		setMenuVisibility(visible);
+		}
 	});
+
+	//set menu visibility on load
+	win.webContents.on("did-finish-load", () => {
+		if (calledFinishedLoad) {
+			return;
+		}
+		calledFinishedLoad = true;
+		// fix bug with menu not applying on start when no internet connection available
+		setMenuVisibility(!config.get("options.hideMenu"));
+	})
 };
 
 function switchMenuVisibility() {
 	setMenuVisibility(!visible);
 }
 
-function setMenuVisibility(value){
+function setMenuVisibility(value) {
 	visible = value;
 	win.webContents.send("updateMenu", visible);
 }
 
 function updateCheckboxesAndRadioButtons(item, isRadio, hasSubmenu) {
 	if (!isRadio) {
-	//fix checkbox
-	item.checked = !item.checked;
-	} 
+		//fix checkbox
+		item.checked = !item.checked;
+	}
 	//update menu if radio / hasSubmenu
 	if (isRadio || hasSubmenu) {
-	win.webContents.send("updateMenu", true);
+		win.webContents.send("updateMenu", true);
 	}
 }
 
@@ -79,7 +88,7 @@ function updateTemplate(template) {
 			let originalOnclick = item.click;
 			item.click = (itemClicked) => {
 				originalOnclick(itemClicked);
-				updateCheckboxesAndRadioButtons(itemClicked, item.type==='radio', item.hasSubmenu);
+				updateCheckboxesAndRadioButtons(itemClicked, item.type === 'radio', item.hasSubmenu);
 			};
 			item.fixed = true;
 		}
