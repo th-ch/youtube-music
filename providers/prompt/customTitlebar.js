@@ -5,15 +5,10 @@ module.exports = () => {
         backgroundColor: customTitlebar.Color.fromHex("#050505"),
         minimizable: false,
         maximizable: false,
-        unfocusEffect: true,
+        menu: null
     });
-    try {
-        bar.updateMenu(null);
-    } catch (e) {
-        //will always throw type error - null isn't menu, but it works
-    }
-    let container = document.querySelector('#container');
-    container.style.width = '100%';
-    container.style.position = 'fixed';
-    container.style.border = 'unset';
+    let mainStyle = document.querySelector('#container').style;
+    mainStyle.width = '100%';
+    mainStyle.position = 'fixed';
+    mainStyle.border = 'unset';
 }
