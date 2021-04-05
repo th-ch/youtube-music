@@ -1,9 +1,9 @@
-const electron = require('electron');
+const electron = require("electron");
 
 const BrowserWindow = electron.BrowserWindow || electron.remote.BrowserWindow;
 const ipcMain = electron.ipcMain || electron.remote.ipcMain;
-const url = require('url');
-const path = require('path');
+const url = require("url");
+const path = require("path");
 
 const DEFAULT_WIDTH = 370;
 const DEFAULT_HEIGHT = 160;
@@ -38,7 +38,7 @@ function electronPrompt(options, parentWindow) {
 			options || {}
 		);
 
-		if (options_.type === 'select' && (options_.selectOptions === null || typeof options_.selectOptions !== 'object')) {
+		if (options_.type === "select" && (options_.selectOptions === null || typeof options_.selectOptions !== "object")) {
 			reject(new Error('"selectOptions" must be an object'));
 			return;
 		}
@@ -75,9 +75,9 @@ function electronPrompt(options, parentWindow) {
 		};
 
 		const cleanup = () => {
-			ipcMain.removeListener('prompt-get-options:' + id, getOptionsListener);
-			ipcMain.removeListener('prompt-post-data:' + id, postDataListener);
-			ipcMain.removeListener('prompt-error:' + id, errorListener);
+			ipcMain.removeListener("prompt-get-options:" + id, getOptionsListener);
+			ipcMain.removeListener("prompt-post-data:" + id, postDataListener);
+			ipcMain.removeListener("prompt-error:" + id, errorListener);
 
 			if (promptWindow) {
 				promptWindow.close();
@@ -92,7 +92,7 @@ function electronPrompt(options, parentWindow) {
 		};
 
 		const unresponsiveListener = () => {
-			reject(new Error('Window was unresponsive'));
+			reject(new Error("Window was unresponsive"));
 			cleanup();
 		};
 
@@ -102,21 +102,21 @@ function electronPrompt(options, parentWindow) {
 			cleanup();
 		};
 
-		ipcMain.on('prompt-get-options:' + id, getOptionsListener);
-		ipcMain.on('prompt-post-data:' + id, postDataListener);
-		ipcMain.on('prompt-error:' + id, errorListener);
-		promptWindow.on('unresponsive', unresponsiveListener);
+		ipcMain.on("prompt-get-options:" + id, getOptionsListener);
+		ipcMain.on("prompt-post-data:" + id, postDataListener);
+		ipcMain.on("prompt-error:" + id, errorListener);
+		promptWindow.on("unresponsive", unresponsiveListener);
 
-		promptWindow.on('closed', () => {
+		promptWindow.on("closed", () => {
 			promptWindow = null;
 			cleanup();
 			resolve(null);
 		});
 
 		const promptUrl = url.format({
-			protocol: 'file',
+			protocol: "file",
 			slashes: true,
-			pathname: path.join(__dirname, 'page', 'prompt.html'),
+			pathname: path.join(__dirname, "page", "prompt.html"),
 			hash: id
 		});
 
