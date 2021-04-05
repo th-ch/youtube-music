@@ -338,7 +338,7 @@ function setProxy(item, win) {
 		.then((input) => {
 			if (input !== null && input !== example) {
 				config.set("options.proxy", input);
-				item.checked = (input === "") ? false : true;
+				item.checked = input !== "";
 			} else { //user pressed cancel
 				item.checked = !item.checked; //reset checkbox
 			}
