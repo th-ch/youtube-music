@@ -163,10 +163,29 @@ app.on("browser-window-created", (event, win) => {
 	createdWindow = true;
 	loadPlugins(win);
 
-	win.webContents.on("did-fail-load", () => {
+	win.webContents.on("did-fail-load", (
+			event,
+			errorCode,
+			errorDescription,
+			validatedURL,
+			isMainFrame,
+			frameProcessId,
+			frameRoutingId,
+	) => {
+		let log = {
+			error: "did-fail-load",
+			event,
+			errorCode,
+			errorDescription,
+			validatedURL,
+			isMainFrame,
+			frameProcessId,
+			frameRoutingId,
+		};
 		if (is.dev()) {
-			console.log("did fail load");
+			console.log(log);
 		}
+		win.webContents.send("log", log);
 		win.webContents.loadFile(path.join(__dirname, "error.html"));
 	});
 
