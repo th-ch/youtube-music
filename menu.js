@@ -6,7 +6,7 @@ const is = require("electron-is");
 
 const { getAllPlugins } = require("./plugins/utils");
 const config = require("./config");
-const prompt = require('./prompt');
+const prompt = require('./providers/prompt');
 
 const pluginEnabledMenu = (win, plugin, label = "", hasSubmenu = false) => ({
 	label: label || plugin,
@@ -321,13 +321,18 @@ function setProxy(item, win) {
 		},
 		type: 'input',
 		icon: iconPath,
-		customStylesheet: path.join(__dirname, "prompt", "darkPrompt.css"),
-		frame: false,
-		customScript: path.join(__dirname, "prompt", "customTitlebar.js"),
-		enableRemoteModule: true,
-		height: 200,
-		width: 450,
+		customStylesheet: path.join(__dirname, "providers", "prompt", "darkPrompt.css"),
 	};
+	//TODO: custom bar on prompt need testing on macOS
+	if(!is.macOS()) {
+		Object.assign(options, {
+			frame: false,
+			customScript: path.join(__dirname, "providers", "prompt", "customTitlebar.js"),
+			enableRemoteModule: true,
+			height: 200,
+			width: 450,
+		});
+	}
 	prompt(options, win)
 		.then((input) => {
 			if (input !== null && input !== example) {
