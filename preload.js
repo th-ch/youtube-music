@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	// inject front logger
 	const loggerPath = path.join(__dirname, "providers", "logger.js")
 	fileExists(loggerPath, require(loggerPath));
-	
+
 	// Add action for reloading
 	global.reload = () =>
 		remote.getCurrentWindow().webContents.loadURL(config.get("url"));

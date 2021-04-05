@@ -37,8 +37,8 @@ if (config.get("options.proxy")) {
 }
 
 // Adds debug features like hotkeys for triggering dev tools and reload
-require("electron-debug")({ 
-	showDevTools: false //disable dev tools on electron-prompt
+require("electron-debug")({
+	showDevTools: false //disable automatic devTools on new window
 });
 
 // Prevent window being garbage collected
@@ -100,18 +100,18 @@ function createMainWindow() {
 			affinity: "main-window", // main window, and addition windows should work in one process
 			...(isTesting()
 				? {
-						// Only necessary when testing with Spectron
-						contextIsolation: false,
-						nodeIntegration: true,
-				  }
+					// Only necessary when testing with Spectron
+					contextIsolation: false,
+					nodeIntegration: true,
+				}
 				: undefined),
 		},
 		frame: !is.macOS() && !useInlineMenu,
 		titleBarStyle: useInlineMenu
 			? "hidden"
 			: is.macOS()
-			? "hiddenInset"
-			: "default",
+				? "hiddenInset"
+				: "default",
 		autoHideMenuBar: config.get("options.hideMenu"),
 	});
 	if (windowPosition) {
@@ -157,20 +157,20 @@ function createMainWindow() {
 let createdWindow = false;
 app.on("browser-window-created", (event, win) => {
 	//Ensure listeners aren't registered when creating input dialog
-	if(createdWindow){
+	if (createdWindow) {
 		return;
 	}
 	createdWindow = true;
 	loadPlugins(win);
 
 	win.webContents.on("did-fail-load", (
-			event,
-			errorCode,
-			errorDescription,
-			validatedURL,
-			isMainFrame,
-			frameProcessId,
-			frameRoutingId,
+		event,
+		errorCode,
+		errorDescription,
+		validatedURL,
+		isMainFrame,
+		frameProcessId,
+		frameRoutingId,
 	) => {
 		let log = {
 			error: "did-fail-load",
