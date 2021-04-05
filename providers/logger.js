@@ -1,11 +1,15 @@
 const { ipcRenderer } = require("electron");
 
+function logToString(log) {
+	let string = (typeof log === "string") ? log : log.toString();
+	if (!string || string.includes("[object Object]")) {
+		string = JSON.stringify(log);
+	}
+	return string;
+}
+
 module.exports = () => {
-    ipcRenderer.on("log", (event, log) => {
-        let string = log || log.toString();
-		if (!string || string === "[object Object]") {
-			string = JSON.stringify(log);
-		} 
-		console.log(string);
-    })
+	ipcRenderer.on("log", (event, log) => {
+		console.log(logToString(log));
+	});
 };

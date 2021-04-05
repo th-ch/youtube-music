@@ -10,8 +10,10 @@ const DEFAULT_HEIGHT = 160;
 
 function electronPrompt(options, parentWindow) {
 	return new Promise((resolve, reject) => {
+		//id used to ensure unique listeners per window
 		const id = `${Date.now()}-${Math.random()}`;
 
+		//custom options override default
 		const options_ = Object.assign(
 			{
 				width: DEFAULT_WIDTH,
@@ -19,12 +21,12 @@ function electronPrompt(options, parentWindow) {
 				minWidth: DEFAULT_WIDTH,
 				minHeight: DEFAULT_HEIGHT,
 				resizable: false,
-				title: 'Prompt',
-				label: 'Please input a value:',
+				title: "Prompt",
+				label: "Please input a value:",
 				buttonLabels: null,
 				alwaysOnTop: false,
 				value: null,
-				type: 'input',
+				type: "input",
 				selectOptions: null,
 				icon: null,
 				useHtmlLabel: false,
@@ -70,10 +72,7 @@ function electronPrompt(options, parentWindow) {
 		promptWindow.setMenu(null);
 		promptWindow.setMenuBarVisibility(options_.menuBarVisible);
 
-		const getOptionsListener = event => {
-			event.returnValue = JSON.stringify(options_);
-		};
-
+		//called on exit
 		const cleanup = () => {
 			ipcMain.removeListener("prompt-get-options:" + id, getOptionsListener);
 			ipcMain.removeListener("prompt-post-data:" + id, postDataListener);
@@ -85,6 +84,12 @@ function electronPrompt(options, parentWindow) {
 			}
 		};
 
+		///transfer options to front
+		const getOptionsListener = event => {
+			event.returnValue = JSON.stringify(options_);
+		};
+
+		//get input from front
 		const postDataListener = (event, value) => {
 			resolve(value);
 			event.returnValue = null;
@@ -96,12 +101,14 @@ function electronPrompt(options, parentWindow) {
 			cleanup();
 		};
 
+		//get error from front
 		const errorListener = (event, message) => {
 			reject(new Error(message));
 			event.returnValue = null;
 			cleanup();
 		};
 
+		//attach listeners
 		ipcMain.on("prompt-get-options:" + id, getOptionsListener);
 		ipcMain.on("prompt-post-data:" + id, postDataListener);
 		ipcMain.on("prompt-error:" + id, errorListener);
@@ -113,13 +120,23 @@ function electronPrompt(options, parentWindow) {
 			resolve(null);
 		});
 
-		const promptUrl = url.format({
-			protocol: "file",
-			slashes: true,
-			pathname: path.join(__dirname, "page", "prompt.html"),
-			hash: id
+		//should never happen
+		promptWindow.webContents.on("did-fail-load", (
+			event,
+			errorCode,
+			errorDescription,
+			validatedURL,		
+		) => {
+			const log = {
+				error: "did-fail-load",
+				errorCode,
+				errorDescription,
+				validatedURL,
+			};
+			reject(new Error("prompt.html did-fail-load, log:\n", + log.toString()));
 		});
 
+		//Finally, load prompt
 		promptWindow.loadURL(promptUrl);
 	});
 }
