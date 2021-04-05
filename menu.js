@@ -321,13 +321,13 @@ function setProxy(item, win) {
 		},
 		type: 'input',
 		icon: iconPath,
-		customStylesheet: path.join(__dirname, "providers", "prompt", "darkPrompt.css"),
+		customStylesheet: path.join(__dirname, "providers", "prompt", "dark-prompt.css"),
 	};
 	//TODO: custom bar on prompt need testing on macOS
 	if(!is.macOS()) {
 		Object.assign(options, {
 			frame: false,
-			customScript: path.join(__dirname, "providers", "prompt", "customTitlebar.js"),
+			customScript: path.join(__dirname, "providers", "prompt", "custom-titlebar.js"),
 			enableRemoteModule: true,
 			height: 200,
 			width: 450,
