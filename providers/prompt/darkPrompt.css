@@ -34,7 +34,9 @@ body {
 }
 
 #ok:hover,
-#cancel:hover {
+#ok:focus,
+#cancel:hover,
+#cancel:focus {
 	outline: rgba(60, 0, 0, 0.4) solid 2px;
 }
 
