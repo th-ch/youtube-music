@@ -12,6 +12,7 @@ const pluginEnabledMenu = (win, plugin, label = "", hasSubmenu = false) => ({
 	label: label || plugin,
 	type: "checkbox",
 	checked: config.plugins.isEnabled(plugin),
+	//Submenu check used in in-app-menu
 	hasSubmenu: hasSubmenu || undefined,
 	click: (item) => {
 		if (item.checked) {

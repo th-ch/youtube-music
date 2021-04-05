@@ -3,11 +3,14 @@
 <p align="center"><img width="482" alt="prompt-preview" src="https://user-images.githubusercontent.com/17620180/111753337-09c0c680-8897-11eb-8ce8-43de29c143bd.png"></p>
 
 ## Usage
-
 ```js
 prompt([options, parentBrowserWindow]).then(...).catch(...)
 ```
+Promise resolve returns input
 
+If user presses cancel/exit window, input = null;
+
+On error, Prompise reject returns custom error message
 ## Example
 
 ```js

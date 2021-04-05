@@ -5,6 +5,93 @@ const docReady = require("doc-ready");
 let promptId = null;
 let promptOptions = null;
 
+
+docReady(promptRegister);
+//start here
+function promptRegister() {
+	//get custom session id
+	promptId = document.location.hash.replace("#", "");
+
+	//get options from back
+	try {
+		promptOptions = JSON.parse(ipcRenderer.sendSync("prompt-get-options:" + promptId));
+	} catch (error) {
+		return promptError(error);
+	}
+
+	//set label
+	if (promptOptions.useHtmlLabel) {
+		document.querySelector("#label").innerHTML = promptOptions.label;
+	} else {
+		document.querySelector("#label").textContent = promptOptions.label;
+	}
+
+	//set button label
+	if (promptOptions.buttonLabels && promptOptions.buttonLabels.ok) {
+		document.querySelector("#ok").textContent = promptOptions.buttonLabels.ok;
+	}
+
+	if (promptOptions.buttonLabels && promptOptions.buttonLabels.cancel) {
+		document.querySelector("#cancel").textContent = promptOptions.buttonLabels.cancel;
+	}
+
+	//inject custom stylesheet from options
+	if (promptOptions.customStylesheet) {
+		try {
+			const customStyleContent = fs.readFileSync(promptOptions.customStylesheet);
+			if (customStyleContent) {
+				const customStyle = document.createElement("style");
+				customStyle.setAttribute("rel", "stylesheet");
+				customStyle.append(document.createTextNode(customStyleContent));
+				document.head.append(customStyle);
+			}
+		} catch (error) {
+			return promptError(error);
+		}
+	}
+
+	//add button listeners
+	document.querySelector("#form").addEventListener("submit", promptSubmit);
+	document.querySelector("#cancel").addEventListener("click", promptCancel);
+
+
+	//create input/select
+	const dataContainerElement = document.querySelector("#data-container");
+	let dataElement;
+	if (promptOptions.type === "input") {
+		dataElement = promptCreateInput();
+	} else if (promptOptions.type === "select") {
+		dataElement = promptCreateSelect();
+	} else {
+		return promptError(`Unhandled input type '${promptOptions.type}'`);
+	}
+
+	dataContainerElement.append(dataElement);
+	dataElement.setAttribute("id", "data");
+
+	dataElement.focus();
+	if (promptOptions.type === "input") {
+		dataElement.select();
+	}
+
+	//load custom script from options
+	if (promptOptions.customScript) {
+		try {
+			const customScript = require(promptOptions.customScript);
+			customScript();
+		} catch (error) {
+			return promptError(error);
+		}
+	}
+}
+
+window.addEventListener("error", error => {
+	if (promptId) {
+		promptError("An error has occured on the prompt window: \n" + error);
+	}
+});
+
+//send error to back
 function promptError(error) {
 	if (error instanceof Error) {
 		error = error.message;
@@ -13,10 +100,12 @@ function promptError(error) {
 	ipcRenderer.sendSync("prompt-error:" + promptId, error);
 }
 
+//send to back: input=null
 function promptCancel() {
 	ipcRenderer.sendSync("prompt-post-data:" + promptId, null);
 }
 
+//transfer input data to back
 function promptSubmit() {
 	const dataElement = document.querySelector("#data");
 	let data = null;
@@ -32,6 +121,7 @@ function promptSubmit() {
 	ipcRenderer.sendSync("prompt-post-data:" + promptId, data);
 }
 
+//creates input box
 function promptCreateInput() {
 	const dataElement = document.createElement("input");
 	dataElement.setAttribute("type", "text");
@@ -42,6 +132,7 @@ function promptCreateInput() {
 		dataElement.value = "";
 	}
 
+	//insert custom input attributes if in options
 	if (promptOptions.inputAttrs && typeof (promptOptions.inputAttrs) === "object") {
 		for (const k in promptOptions.inputAttrs) {
 			if (!Object.prototype.hasOwnProperty.call(promptOptions.inputAttrs, k)) {
@@ -52,12 +143,14 @@ function promptCreateInput() {
 		}
 	}
 
+	//Cancel/Exit on 'Escape'
 	dataElement.addEventListener("keyup", event => {
 		if (event.key === "Escape") {
 			promptCancel();
 		}
 	});
 
+	//Confrim on 'Enter'
 	dataElement.addEventListener("keypress", event => {
 		if (event.key === "Enter") {
 			event.preventDefault();
@@ -68,6 +161,7 @@ function promptCreateInput() {
 	return dataElement;
 }
 
+//create multiple select
 function promptCreateSelect() {
 	const dataElement = document.createElement("select");
 	let optionElement;
@@ -90,79 +184,5 @@ function promptCreateSelect() {
 	return dataElement;
 }
 
-function promptRegister() {
-	promptId = document.location.hash.replace("#", "");
 
-	try {
-		promptOptions = JSON.parse(ipcRenderer.sendSync("prompt-get-options:" + promptId));
-	} catch (error) {
-		return promptError(error);
-	}
 
-	if (promptOptions.useHtmlLabel) {
-		document.querySelector("#label").innerHTML = promptOptions.label;
-	} else {
-		document.querySelector("#label").textContent = promptOptions.label;
-	}
-
-	if (promptOptions.buttonLabels && promptOptions.buttonLabels.ok) {
-		document.querySelector("#ok").textContent = promptOptions.buttonLabels.ok;
-	}
-
-	if (promptOptions.buttonLabels && promptOptions.buttonLabels.cancel) {
-		document.querySelector("#cancel").textContent = promptOptions.buttonLabels.cancel;
-	}
-
-	if (promptOptions.customStylesheet) {
-		try {
-			const customStyleContent = fs.readFileSync(promptOptions.customStylesheet);
-			if (customStyleContent) {
-				const customStyle = document.createElement("style");
-				customStyle.setAttribute("rel", "stylesheet");
-				customStyle.append(document.createTextNode(customStyleContent));
-				document.head.append(customStyle);
-			}
-		} catch (error) {
-			return promptError(error);
-		}
-	}
-
-	document.querySelector("#form").addEventListener("submit", promptSubmit);
-	document.querySelector("#cancel").addEventListener("click", promptCancel);
-
-	const dataContainerElement = document.querySelector("#data-container");
-
-	let dataElement;
-	if (promptOptions.type === "input") {
-		dataElement = promptCreateInput();
-	} else if (promptOptions.type === "select") {
-		dataElement = promptCreateSelect();
-	} else {
-		return promptError(`Unhandled input type '${promptOptions.type}'`);
-	}
-
-	dataContainerElement.append(dataElement);
-	dataElement.setAttribute("id", "data");
-
-	dataElement.focus();
-	if (promptOptions.type === "input") {
-		dataElement.select();
-	}
-
-	if (promptOptions.customScript) {
-		try {
-			const customScript = require(promptOptions.customScript);
-			customScript();
-		} catch (error) {
-			return promptError(error);
-		}
-	}
-}
-
-window.addEventListener("error", error => {
-	if (promptId) {
-		promptError("An error has occured on the prompt window: \n" + error);
-	}
-});
-
-docReady(promptRegister);
