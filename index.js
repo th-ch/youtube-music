@@ -110,8 +110,8 @@ function createMainWindow() {
 		titleBarStyle: useInlineMenu
 			? "hidden"
 			: is.macOS()
-				? "hiddenInset"
-				: "default",
+			? "hiddenInset"
+			: "default",
 		autoHideMenuBar: config.get("options.hideMenu"),
 	});
 	if (windowPosition) {
@@ -156,7 +156,7 @@ function createMainWindow() {
 
 let createdWindow = false;
 app.on("browser-window-created", (event, win) => {
-	//Ensure listeners aren't registered when creating input dialog
+	//Ensures listeners are registered only once
 	if (createdWindow) {
 		return;
 	}
@@ -172,7 +172,7 @@ app.on("browser-window-created", (event, win) => {
 		frameProcessId,
 		frameRoutingId,
 	) => {
-		let log = {
+		const log = {
 			error: "did-fail-load",
 			event,
 			errorCode,
@@ -183,7 +183,7 @@ app.on("browser-window-created", (event, win) => {
 			frameRoutingId,
 		};
 		if (is.dev()) {
-			console.log(log);
+			console.log(log.toString());
 		}
 		win.webContents.send("log", log);
 		win.webContents.loadFile(path.join(__dirname, "error.html"));
@@ -306,13 +306,11 @@ app.on("ready", () => {
 	}
 
 	// Optimized for Mac OS X
-	if (is.macOS()) {
-		if (!config.get("options.appVisible")) {
-			app.dock.hide();
-		}
+	if (is.macOS() && !config.get("options.appVisible")) {
+		app.dock.hide();
 	}
 
-	var forceQuit = false;
+	let forceQuit = false;
 	app.on("before-quit", () => {
 		forceQuit = true;
 	});

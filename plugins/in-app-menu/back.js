@@ -9,8 +9,6 @@ const { injectCSS } = require("../utils");
 
 //check that menu doesn't get created twice
 let calledReadyToShow = false;
-//check menu state isn't changed twice
-let calledFinishedLoad = false
 //tracks menu visibility
 let visible = true;
 // win hook for fixing menu
@@ -37,6 +35,7 @@ module.exports = (winImport) => {
 		if (calledReadyToShow) {
 			return;
 		}
+
 		calledReadyToShow = true;
 
 		setApplicationMenu(win);
@@ -53,7 +52,7 @@ module.exports = (winImport) => {
 	win.webContents.on("did-finish-load", () => {
 		// fix bug with menu not applying on start when no internet connection available
 		setMenuVisibility(!config.get("options.hideMenu"));
-	})
+	});
 };
 
 function switchMenuVisibility() {
@@ -81,10 +80,10 @@ function updateTemplate(template) {
 	for (let item of template) {
 		// Change onClick of checkbox+radio
 		if ((item.type === "checkbox" || item.type === "radio") && !item.fixed) {
-			let originalOnclick = item.click;
+			const originalOnclick = item.click;
 			item.click = (itemClicked) => {
 				originalOnclick(itemClicked);
-				updateCheckboxesAndRadioButtons(itemClicked, item.type === 'radio', item.hasSubmenu);
+				updateCheckboxesAndRadioButtons(itemClicked, item.type === "radio", item.hasSubmenu);
 			};
 			item.fixed = true;
 		}
