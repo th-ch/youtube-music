@@ -44,7 +44,8 @@ const defaultConfig = {
 		notifications: {
 			enabled: false,
 			urgency: "normal",
-			unpauseNotification: false
+			unpauseNotification: false,
+			interactive: true
 		}
 	},
 };

@@ -1,4 +1,5 @@
-const {urgencyLevels, setUrgency, setUnpause} = require("./utils");
+const {urgencyLevels, setUrgency, setUnpause, setInteractive} = require("./utils");
+const is = require("electron-is");
 
 module.exports = (win, options) => [
 	{
@@ -15,5 +16,13 @@ module.exports = (win, options) => [
 		type: "checkbox",
 		checked: options.unpauseNotification,
 		click: (item) => setUnpause(options, item.checked)
-	}
+	},
+	...(is.windows() ?
+		[{
+			label: "Interactive",
+			type: "checkbox",
+			checked: options.interactive,
+			click: (item) => setInteractive(options, item.checked)
+		}] :
+		[])
 ];
