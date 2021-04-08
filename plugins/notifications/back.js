@@ -3,7 +3,7 @@ const is = require("electron-is");
 const getSongInfo = require("../../providers/song-info");
 const { notificationImage } = require("./utils");
 
-const { setup, notifyInteractive } = require("./interactive")
+const { setupInteractive, notifyInteractive } = require("./interactive")
 
 const notify = (info, options) => {
 
@@ -24,9 +24,10 @@ const notify = (info, options) => {
 };
 
 module.exports = (win, options) => {
+	const isInteractive = is.windows() && options.interactive;
 	//setup interactive notifications for windows
-	if (is.windows()) {
-		setup(win);
+	if (isInteractive) {
+		setupInteractive(win);
 	}
 	const registerCallback = getSongInfo(win);
 	let oldNotification;
@@ -45,7 +46,7 @@ module.exports = (win, options) => {
 			// If url isn"t the same as last one - send notification
 			if (songInfo.url !== oldURL) {
 				oldURL = songInfo.url;
-				if (is.windows() && options.interactive) {
+				if (isInteractive) {
 					notifyInteractive(songInfo);
 				} else {
 					// Close the old notification
