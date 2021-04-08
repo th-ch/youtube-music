@@ -2,40 +2,29 @@ const { notificationImage, icons } = require("./utils");
 const getSongControls = require('../../providers/song-controls');
 const notifier = require("node-notifier");
 
-//store song controls
+//store song controls reference on launch
 let controls;
+module.exports.setupInteractive = (win) => {
+    //save controls
+    const { playPause, next, previous } = getSongControls(win);
+    controls = { playPause, next, previous };
+}
 
 //delete old notification
 let toDelete;
 function Delete() {
-    if (toDelete === undefined) {
-        return;
+    if (toDelete !== undefined) {
+        const removeNotif = Object.assign(toDelete, {
+            remove: toDelete.id
+        })
+        notifier.notify(removeNotif)
+
+        toDelete = undefined;
     }
-    const removeNotif = Object.assign(toDelete, {
-        remove: toDelete.id
-    })
-    notifier.notify(removeNotif)
-
-    toDelete = undefined;
-}
-
-//Setup on launch
-module.exports.setup = (win) => {
-    //save controls
-    const { playPause, next, previous } = getSongControls(win);
-    controls = { playPause, next, previous };
-    //setup global listeners
-    notifier.on("dismissed", () => { Delete(); });
-    notifier.on("timeout", () => { Delete(); });
-
-    //remove all listeners on close
-    win.on("closed", () => {
-        notifier.removeAllListeners();
-    });
 }
 
 //New notification
-module.exports.notifyInteractive = function sendToaster(songInfo) {
+module.exports.notifyInteractive = (songInfo) => {
     Delete();
     //download image and get path
     let imgSrc = notificationImage(songInfo, true);
@@ -61,6 +50,7 @@ module.exports.notifyInteractive = function sendToaster(songInfo) {
                 console.log(`ERROR = ${err}\n DATA = ${data}`);
             }
             switch (data) {
+                //buttons
                 case icons.previous.normalize():
                     controls.previous();
                     return;
@@ -76,6 +66,11 @@ module.exports.notifyInteractive = function sendToaster(songInfo) {
                     songInfo.isPaused = true;
                     toDelete = undefined; // it gets deleted automatically
                     sendToaster(songInfo);
+                    return;
+                //Native datatype
+                case "dismissed":
+                case "timeout":
+                    Delete();
             }
         }
 
