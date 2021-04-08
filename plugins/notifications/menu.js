@@ -1,4 +1,4 @@
-const {urgencyLevels, setUrgency, setUnpause, setInteractive} = require("./utils");
+const { urgencyLevels, setUrgency, setUnpause, setInteractive } = require("./utils");
 const is = require("electron-is");
 
 module.exports = (win, options) => [

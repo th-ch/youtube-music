@@ -1,4 +1,3 @@
-const is = require("electron-is");
 const { notificationImage, icons } = require("./utils");
 const getSongControls = require('../../providers/song-controls');
 const notifier = require("node-notifier");
@@ -57,7 +56,6 @@ module.exports.notifyInteractive = function sendToaster(songInfo) {
     notifier.notify(
         toDelete,
         (err, data) => {
-            console.log("clicked "+data);
             // Will also wait until notification is closed.
             if (err) {
                 console.log(`ERROR = ${err}\n DATA = ${data}`);
