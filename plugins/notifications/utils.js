@@ -24,9 +24,9 @@ module.exports.setInteractive = (options, value) => {
 	setOption(options);
 }
 
-module.exports.notificationImage = function (songInfo, url = false) {
-	//return local url
-	if (!!songInfo && url) {
+module.exports.notificationImage = function (songInfo, saveIcon = false) {
+	//return local path to temp icon
+	if (saveIcon && !!songInfo.image) {
 		try {
 			fs.writeFileSync(tempIcon,
 				songInfo.image
