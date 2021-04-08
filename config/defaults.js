@@ -45,7 +45,7 @@ const defaultConfig = {
 			enabled: false,
 			urgency: "normal",
 			unpauseNotification: false,
-			interactive: true
+			interactive: true //has effect only on Windows 8+
 		}
 	},
 };
