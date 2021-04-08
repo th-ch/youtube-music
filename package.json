@@ -79,6 +79,7 @@
 		"electron-updater": "^4.3.6",
 		"filenamify": "^4.2.0",
 		"node-fetch": "^2.6.1",
+		"node-notifier": "^9.0.1",
 		"ytdl-core": "^4.4.5",
 		"ytpl": "^2.0.5"
 	},

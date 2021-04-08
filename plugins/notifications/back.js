@@ -1,18 +1,17 @@
 const { Notification } = require("electron");
+const is = require("electron-is");
 const getSongInfo = require("../../providers/song-info");
+const { notificationImage } = require("./utils");
+
+const { setup, notifyInteractive } = require("./interactive")
 
 const notify = (info, options) => {
-	let notificationImage = "assets/youtube-music.png";
-
-	if (info.image) {
-		notificationImage = info.image.resize({ height: 256, width: 256 });
-	}
 
 	// Fill the notification with content
 	const notification = {
 		title: info.title || "Playing",
 		body: info.artist,
-		icon: notificationImage,
+		icon: notificationImage(info),
 		silent: true,
 		urgency: options.urgency,
 	};
@@ -25,6 +24,10 @@ const notify = (info, options) => {
 };
 
 module.exports = (win, options) => {
+	//setup interactive notifications for windows
+	if (is.windows()) {
+		setup(win);
+	}
 	const registerCallback = getSongInfo(win);
 	let oldNotification;
 	let oldURL = "";
@@ -39,13 +42,17 @@ module.exports = (win, options) => {
 				}
 				return;
 			}
-			// If url isn't the same as last one - send notification
+			// If url isn"t the same as last one - send notification
 			if (songInfo.url !== oldURL) {
 				oldURL = songInfo.url;
-				// Close the old notification
-				oldNotification?.close();
-				// This fixes a weird bug that would cause the notification to be updated instead of showing
-				setTimeout(()=>{ oldNotification = notify(songInfo, options) }, 10);
+				if (is.windows() && options.interactive) {
+					notifyInteractive(songInfo);
+				} else {
+					// Close the old notification
+					oldNotification?.close();
+					// This fixes a weird bug that would cause the notification to be updated instead of showing
+					setTimeout(() => { oldNotification = notify(songInfo, options) }, 10);
+				}
 			}
 		});
 	});
