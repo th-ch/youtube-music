@@ -1,13 +1,9 @@
 const is = require("electron-is");
-const { app } = require("electron");
 const { notificationImage, icons } = require("./utils");
 const getSongControls = require('../../providers/song-controls');
 const notifier = require("node-notifier");
 
-const appID = "com.github.th-ch.youtube-music";
-const shortcutPath = `("Youtube Music" "${app.getPath("exe")}" "${appID}")`;
-
-//saving controls here avoid errors
+//store song controls
 let controls;
 
 //delete old notification
@@ -32,16 +28,8 @@ module.exports.setup = (win) => {
     //setup global listeners
     notifier.on("dismissed", () => { Delete(); });
     notifier.on("timeout", () => { Delete(); });
-    //try installing shortcut
-    if (!is.dev()) {
-        notifier.notify({
-            title: "installing shortcut",
-            id: 1337,
-            install: shortcutPath
-        });
-    }
 
-    //close all listeners on close
+    //remove all listeners on close
     win.on("closed", () => {
         notifier.removeAllListeners();
     });
@@ -53,7 +41,7 @@ module.exports.notifyInteractive = function sendToaster(songInfo) {
     //download image and get path
     let imgSrc = notificationImage(songInfo, true);
     toDelete = {
-        appID: !is.dev() ? appID : undefined, //(will break action buttons if not installed to start menu)
+        //app id undefined - will break buttons
         title: songInfo.title || "Playing",
         message: songInfo.artist,
         id: parseInt(Math.random() * 1000000, 10),
@@ -69,6 +57,7 @@ module.exports.notifyInteractive = function sendToaster(songInfo) {
     notifier.notify(
         toDelete,
         (err, data) => {
+            console.log("clicked "+data);
             // Will also wait until notification is closed.
             if (err) {
                 console.log(`ERROR = ${err}\n DATA = ${data}`);
