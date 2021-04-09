@@ -27,7 +27,7 @@ module.exports = (win, options) => {
 	const isInteractive = is.windows() && options.interactive;
 	//setup interactive notifications for windows
 	if (isInteractive) {
-		setupInteractive(win);
+		setupInteractive(win, options.unpauseNotification);
 	}
 	const registerCallback = getSongInfo(win);
 	let oldNotification;

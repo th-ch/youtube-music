@@ -1,9 +1,9 @@
 const { setOptions } = require("../../config/plugins");
 const path = require("path");
 const { app } = require("electron");
-const icon = path.join(__dirname, "assets", "youtube-music.png");
 const fs = require("fs");
 
+const icon = "assets/youtube-music.png";
 const tempIcon = path.join(app.getPath("userData"), "tempIcon.png");
 
 module.exports.urgencyLevels = [
