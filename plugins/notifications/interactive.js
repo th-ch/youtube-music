@@ -12,6 +12,10 @@ module.exports.setupInteractive = (win, unpauseNotification) => {
     controls = { playPause, next, previous };
 
     onPause = unpauseNotification;
+
+    win.webContents.on("closed", () => {
+        Delete()
+    });
 }
 
 //delete old notification
