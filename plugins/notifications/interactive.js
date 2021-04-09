@@ -4,10 +4,14 @@ const notifier = require("node-notifier");
 
 //store song controls reference on launch
 let controls;
-module.exports.setupInteractive = (win) => {
-    //save controls
+let onPause;
+
+//Save controls and onPause option
+module.exports.setupInteractive = (win, unpauseNotification) => {
     const { playPause, next, previous } = getSongControls(win);
     controls = { playPause, next, previous };
+
+    onPause = unpauseNotification;
 }
 
 //delete old notification
@@ -24,10 +28,13 @@ function Delete() {
 }
 
 //New notification
-module.exports.notifyInteractive = (songInfo) => {
+module.exports.notifyInteractive = function sendToaster(songInfo) {
+    console.log("called toaster");
     Delete();
+    console.log("deleted");
     //download image and get path
     let imgSrc = notificationImage(songInfo, true);
+    console.log("got image");
     toDelete = {
         //app id undefined - will break buttons
         title: songInfo.title || "Playing",
@@ -41,6 +48,7 @@ module.exports.notifyInteractive = (songInfo) => {
         ],
         sound: false,
     };
+    console.log("sending notification");
     //send notification
     notifier.notify(
         toDelete,
@@ -59,12 +67,18 @@ module.exports.notifyInteractive = (songInfo) => {
                     return;
                 case icons.play.normalize():
                     controls.playPause();
-                    toDelete = undefined; // dont delete notification on play/pause
+                    // dont delete notification on play/pause
+                    toDelete = undefined; 
+                    //manually send notification if not sending automatically
+                    if (!onPause) {
+                        songInfo.isPaused = false;
+                        sendToaster(songInfo);
+                    }
                     return;
                 case icons.pause.normalize():
                     controls.playPause();
                     songInfo.isPaused = true;
-                    toDelete = undefined; // it gets deleted automatically
+                    toDelete = undefined;
                     sendToaster(songInfo);
                     return;
                 //Native datatype
