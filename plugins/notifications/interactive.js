@@ -29,12 +29,9 @@ function Delete() {
 
 //New notification
 module.exports.notifyInteractive = function sendToaster(songInfo) {
-    console.log("called toaster");
     Delete();
-    console.log("deleted");
     //download image and get path
     let imgSrc = notificationImage(songInfo, true);
-    console.log("got image");
     toDelete = {
         //app id undefined - will break buttons
         title: songInfo.title || "Playing",
@@ -42,20 +39,19 @@ module.exports.notifyInteractive = function sendToaster(songInfo) {
         id: parseInt(Math.random() * 1000000, 10),
         icon: imgSrc,
         actions: [
-            icons.previous, // Previous
+            icons.previous,
             songInfo.isPaused ? icons.play : icons.pause,
-            icons.next // Next
+            icons.next
         ],
         sound: false,
     };
-    console.log("sending notification");
     //send notification
     notifier.notify(
         toDelete,
         (err, data) => {
             // Will also wait until notification is closed.
             if (err) {
-                console.log(`ERROR = ${err}\n DATA = ${data}`);
+                console.log(`ERROR = ${err.toString()}\n DATA = ${data}`);
             }
             switch (data) {
                 //buttons
@@ -68,7 +64,7 @@ module.exports.notifyInteractive = function sendToaster(songInfo) {
                 case icons.play.normalize():
                     controls.playPause();
                     // dont delete notification on play/pause
-                    toDelete = undefined; 
+                    toDelete = undefined;
                     //manually send notification if not sending automatically
                     if (!onPause) {
                         songInfo.isPaused = false;
