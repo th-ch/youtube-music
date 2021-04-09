@@ -19,7 +19,7 @@ module.exports = (win, options) => [
 	},
 	...(is.windows() ?
 		[{
-			label: "Interactive",
+			label: "Interactive Notifications",
 			type: "checkbox",
 			checked: options.interactive,
 			click: (item) => setInteractive(options, item.checked)
