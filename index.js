@@ -2,6 +2,7 @@
 const path = require("path");
 
 const electron = require("electron");
+const  { dialog }  = require("electron");
 const is = require("electron-is");
 const unhandled = require("electron-unhandled");
 const { autoUpdater } = require("electron-updater");
@@ -144,7 +145,11 @@ function createMainWindow() {
 			});
 		}
 	});
-
+	
+	win.webContents.on("render-process-gone", (event, webContents, details) => {
+		showUnresponsiveDialog(win, details);
+	});
+	
 	win.once("ready-to-show", () => {
 		if (config.get("options.appVisible")) {
 			win.show();
@@ -154,13 +159,7 @@ function createMainWindow() {
 	return win;
 }
 
-let createdWindow = false;
-app.on("browser-window-created", (event, win) => {
-	//Ensures listeners are registered only once
-	if (createdWindow) {
-		return;
-	}
-	createdWindow = true;
+app.once("browser-window-created", (event, win) => {
 	loadPlugins(win);
 
 	win.webContents.on("did-fail-load", (
@@ -325,3 +324,32 @@ app.on("ready", () => {
 		});
 	}
 });
+
+function showUnresponsiveDialog(win, details) {
+	if (!!details) {
+		console.log("Unresponsive Error!\n"+JSON.stringify(details, null, "\t"))
+	}
+	dialog.showMessageBox(win, {
+		type: "error",
+		title: "Window Unresponsive",
+		message: "The Application is Unresponsive",
+		details: "We are sorry for the inconveniance! please choose what to do with the application:",
+		buttons: ["Wait", "Relaunch", "Quit"],
+		cancelId: 0
+	}).then( response => {
+		switch (response) {
+			case 1: //if relaunch - relaunch+exit
+				app.relaunch();
+			case 2:
+				app.exit();
+				break;
+			case 0:
+			default:
+				return; 
+		//maybe set a timer and afterwards check responsivness and call function again if failed
+		}
+	});
+}
+
+module.exports.aDialog = showUnresponsiveDialog;
+

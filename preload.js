@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	fileExists(songInfoProviderPath, require(songInfoProviderPath));
 
 	// inject front logger
-	const loggerPath = path.join(__dirname, "providers", "logger.js")
+	const loggerPath = path.join(__dirname, "providers", "frontLogger.js")
 	fileExists(loggerPath, require(loggerPath));
 
 	// Add action for reloading

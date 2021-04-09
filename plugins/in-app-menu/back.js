@@ -7,8 +7,6 @@ const config = require("../../config");
 const { setApplicationMenu } = require("../../menu");
 const { injectCSS } = require("../utils");
 
-//check that menu doesn't get created twice
-let calledReadyToShow = false;
 //tracks menu visibility
 let visible = true;
 // win hook for fixing menu
@@ -30,13 +28,7 @@ module.exports = (winImport) => {
 	// css for custom scrollbar + disable drag area(was causing bugs)
 	injectCSS(win.webContents, path.join(__dirname, "style.css"));
 
-	win.on("ready-to-show", () => {
-		// (apparently ready-to-show is called twice)
-		if (calledReadyToShow) {
-			return;
-		}
-
-		calledReadyToShow = true;
+	win.once("ready-to-show", () => {
 
 		setApplicationMenu(win);
 
