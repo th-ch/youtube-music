@@ -3,6 +3,7 @@ const path = require("path");
 const { Menu, nativeImage, Tray } = require("electron");
 
 const config = require("./config");
+const { mainMenuTemplate } = require("./menu");
 const getSongControls = require("./providers/song-controls");
 
 // Prevent tray being garbage collected
@@ -56,13 +57,7 @@ module.exports.setUpTray = (app, win) => {
 				win.show();
 			},
 		},
-		{
-			label: "Restart App",
-			click: () => {
-				app.relaunch();
-				app.quit();
-			},
-		},
+		...mainMenuTemplate(win, true, true),
 		{
 			label: "Quit",
 			click: () => {

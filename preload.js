@@ -32,11 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	// inject song-info provider
 	const songInfoProviderPath = path.join(__dirname, "providers", "song-info-front.js")
 	fileExists(songInfoProviderPath, require(songInfoProviderPath));
-
-	// inject front logger
-	const loggerPath = path.join(__dirname, "providers", "frontLogger.js")
-	fileExists(loggerPath, require(loggerPath));
-
+	
 	// Add action for reloading
 	global.reload = () =>
 		remote.getCurrentWindow().webContents.loadURL(config.get("url"));
