@@ -6349,7 +6349,7 @@ min-indent@^1.0.0:
   resolved "https://registry.yarnpkg.com/min-indent/-/min-indent-1.0.1.tgz#a63f681673b30571fbe8bc25686ae746eefa9869"
   integrity sha512-I9jwMn07Sy/IwOj3zVkVik2JTvgpaykDZEigL6Rx6N9LbMywwUSMtxET+7lVoDLLd3O3IXwJwvuuns8UB/HeAg==
 
-miniget@^4.0.0, miniget@^4.1.0:
+miniget@^4.0.0, miniget@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/miniget/-/miniget-4.2.0.tgz#0004e95536b192d95a7d09f4435d67b9285481d0"
   integrity sha512-IzTOaNgBw/qEpzkPTE7X2cUVXQfSKbG8w52Emi93zb+Zya2ZFrbmavpixzebuDJD9Ku4ecbaFlC7Y1cEESzQtQ==
@@ -9224,12 +9224,12 @@ ytdl-core@^4.5.0:
     miniget "^4.0.0"
     sax "^1.1.3"
 
-ytpl@^2.0.5:
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/ytpl/-/ytpl-2.0.5.tgz#c56900bccaf96e289304de647bc861121f61223e"
-  integrity sha512-8hc+f3pijaogj1yoZTCGImMDS4x0ogFPDsx1PefNQ+2EAhJMm1K4brcYT9zpJhPi9SXh+O103pEIHDw3+dAhxA==
+ytpl@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/ytpl/-/ytpl-2.1.1.tgz#c3c3e0e198e3fc7be13b52f5651e950b0aae94a0"
+  integrity sha512-yrU/w1k75f089zUONUm1QjlCv96QWhk/SS6jNEVJXMr8/9zEj4k2EIv81nk5wldJvpb+2rvEfm2zIwRqXRoZ9w==
   dependencies:
-    miniget "^4.1.0"
+    miniget "^4.2.0"
 
 zip-stream@^4.0.4:
   version "4.0.4"
