@@ -2,6 +2,7 @@
 const path = require("path");
 
 const electron = require("electron");
+const  { dialog }  = require("electron");
 const is = require("electron-is");
 const unhandled = require("electron-unhandled");
 const { autoUpdater } = require("electron-updater");
@@ -37,7 +38,9 @@ if (config.get("options.proxy")) {
 }
 
 // Adds debug features like hotkeys for triggering dev tools and reload
-require("electron-debug")();
+require("electron-debug")({
+	showDevTools: false //disable automatic devTools on new window
+});
 
 // Prevent window being garbage collected
 let mainWindow;
@@ -98,10 +101,10 @@ function createMainWindow() {
 			affinity: "main-window", // main window, and addition windows should work in one process
 			...(isTesting()
 				? {
-						// Only necessary when testing with Spectron
-						contextIsolation: false,
-						nodeIntegration: true,
-				  }
+					// Only necessary when testing with Spectron
+					contextIsolation: false,
+					nodeIntegration: true,
+				}
 				: undefined),
 		},
 		frame: !is.macOS() && !useInlineMenu,
@@ -142,7 +145,11 @@ function createMainWindow() {
 			});
 		}
 	});
-
+	
+	win.webContents.on("render-process-gone", (event, webContents, details) => {
+		showUnresponsiveDialog(win, details);
+	});
+	
 	win.once("ready-to-show", () => {
 		if (config.get("options.appVisible")) {
 			win.show();
@@ -152,13 +159,32 @@ function createMainWindow() {
 	return win;
 }
 
-app.on("browser-window-created", (event, win) => {
+app.once("browser-window-created", (event, win) => {
 	loadPlugins(win);
 
-	win.webContents.on("did-fail-load", () => {
+	win.webContents.on("did-fail-load", (
+		event,
+		errorCode,
+		errorDescription,
+		validatedURL,
+		isMainFrame,
+		frameProcessId,
+		frameRoutingId,
+	) => {
+		const log = {
+			error: "did-fail-load",
+			event,
+			errorCode,
+			errorDescription,
+			validatedURL,
+			isMainFrame,
+			frameProcessId,
+			frameRoutingId,
+		};
 		if (is.dev()) {
-			console.log("did fail load");
+			console.log(log.toString());
 		}
+		win.webContents.send("log", log);
 		win.webContents.loadFile(path.join(__dirname, "error.html"));
 	});
 
@@ -279,13 +305,11 @@ app.on("ready", () => {
 	}
 
 	// Optimized for Mac OS X
-	if (is.macOS()) {
-		if (!config.get("options.appVisible")) {
-			app.dock.hide();
-		}
+	if (is.macOS() && !config.get("options.appVisible")) {
+		app.dock.hide();
 	}
 
-	var forceQuit = false;
+	let forceQuit = false;
 	app.on("before-quit", () => {
 		forceQuit = true;
 	});
@@ -300,3 +324,32 @@ app.on("ready", () => {
 		});
 	}
 });
+
+function showUnresponsiveDialog(win, details) {
+	if (!!details) {
+		console.log("Unresponsive Error!\n"+JSON.stringify(details, null, "\t"))
+	}
+	dialog.showMessageBox(win, {
+		type: "error",
+		title: "Window Unresponsive",
+		message: "The Application is Unresponsive",
+		details: "We are sorry for the inconveniance! please choose what to do with the application:",
+		buttons: ["Wait", "Relaunch", "Quit"],
+		cancelId: 0
+	}).then( response => {
+		switch (response) {
+			case 1: //if relaunch - relaunch+exit
+				app.relaunch();
+			case 2:
+				app.exit();
+				break;
+			case 0:
+			default:
+				return; 
+		//maybe set a timer and afterwards check responsivness and call function again if failed
+		}
+	});
+}
+
+module.exports.aDialog = showUnresponsiveDialog;
+

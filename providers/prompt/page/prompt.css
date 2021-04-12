@@ -1,0 +1,80 @@
+body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+		Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial,
+		sans-serif;
+	line-height: 1.5em;
+	color: #333;
+	background-color: #fff;
+	overflow-y: hidden;
+}
+
+::-webkit-scrollbar {
+	width: 0 !important;
+	display: none;
+}
+
+#container {
+	align-items: center;
+	justify-content: center;
+	display: flex;
+	height: 100%;
+	overflow-y: hidden;
+}
+
+#form {
+	width: 100%;
+	padding-top: 0.5em;
+}
+
+#label {
+	max-width: 100%;
+	max-height: 100%;
+	margin-bottom: 0.8em;
+	padding: 0 0.5em;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+#data {
+	border-radius: 2px;
+	background: #fff;
+	width: 90%;
+	padding: 0.4em 0.5em;
+	border: 1px solid black;
+	min-height: 2em;
+	margin: 0 0 1.2em;
+}
+
+select#data {
+	height: 2em;
+}
+
+#data-container {
+	text-align: center;
+}
+
+#buttons {
+	text-align: right;
+	padding: 0 0.5em 0 0;
+}
+
+#buttons > button,
+#buttons > input[type="submit"] {
+	border-radius: 2px;
+	border: 0;
+	margin: 0 0 0 0.5em;
+	font-size: 0.8em;
+	line-height: 1em;
+	padding: 0.6em 1em;
+}
+
+#ok {
+	background-color: #3879d9;
+	color: white;
+}
+
+#cancel {
+	background-color: #ddd;
+	color: black;
+}

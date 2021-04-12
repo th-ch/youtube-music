@@ -7,8 +7,8 @@ const config = require("../../config");
 const { setApplicationMenu } = require("../../menu");
 const { injectCSS } = require("../utils");
 
-//check that menu doesn't get created twice
-let done = false;
+//tracks menu visibility
+let visible = true;
 // win hook for fixing menu
 let win;
 
@@ -16,7 +16,7 @@ const originalBuildMenu = Menu.buildFromTemplate;
 // This function natively gets called on all submenu so no more reason to use recursion
 Menu.buildFromTemplate = (template) => {
 	// Fix checkboxes and radio buttons
-	updateCheckboxesAndRadioButtons(win, template);
+	updateTemplate(template);
 
 	// return as normal
 	return originalBuildMenu(template);
@@ -28,47 +28,54 @@ module.exports = (winImport) => {
 	// css for custom scrollbar + disable drag area(was causing bugs)
 	injectCSS(win.webContents, path.join(__dirname, "style.css"));
 
-	win.on("ready-to-show", () => {
-		// (apparently ready-to-show is called twice)
-		if (done) {
-			return;
-		}
-		done = true;
+	win.once("ready-to-show", () => {
 
 		setApplicationMenu(win);
 
 		//register keyboard shortcut && hide menu if hideMenu is enabled
 		if (config.get("options.hideMenu")) {
-			switchMenuVisibility(win);
 			electronLocalshortcut.register(win, "Esc", () => {
-				switchMenuVisibility(win);
+				switchMenuVisibility();
 			});
 		}
 	});
+
+	//set menu visibility on load
+	win.webContents.on("did-finish-load", () => {
+		// fix bug with menu not applying on start when no internet connection available
+		setMenuVisibility(!config.get("options.hideMenu"));
+	});
 };
 
-let visible = true;
-function switchMenuVisibility(win) {
-	visible = !visible;
+function switchMenuVisibility() {
+	setMenuVisibility(!visible);
+}
+
+function setMenuVisibility(value) {
+	visible = value;
 	win.webContents.send("updateMenu", visible);
 }
 
-function checkCheckbox(win, item) {
-	//check item
-	item.checked = !item.checked;
-	//update menu (closes it)
-	win.webContents.send("updateMenu", true);
+function updateCheckboxesAndRadioButtons(item, isRadio, hasSubmenu) {
+	if (!isRadio) {
+		//fix checkbox
+		item.checked = !item.checked;
+	}
+	//update menu if radio / hasSubmenu
+	if (isRadio || hasSubmenu) {
+		win.webContents.send("updateMenu", true);
+	}
 }
 
 // Update checkboxes/radio buttons
-function updateCheckboxesAndRadioButtons(win, template) {
+function updateTemplate(template) {
 	for (let item of template) {
 		// Change onClick of checkbox+radio
 		if ((item.type === "checkbox" || item.type === "radio") && !item.fixed) {
-			let originalOnclick = item.click;
+			const originalOnclick = item.click;
 			item.click = (itemClicked) => {
 				originalOnclick(itemClicked);
-				checkCheckbox(win, itemClicked);
+				updateCheckboxesAndRadioButtons(itemClicked, item.type === "radio", item.hasSubmenu);
 			};
 			item.fixed = true;
 		}
