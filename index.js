@@ -341,15 +341,11 @@ function showUnresponsiveDialog(win, details) {
 			case 1: //if relaunch - relaunch+exit
 				app.relaunch();
 			case 2:
-				app.exit();
+				app.quit();
 				break;
 			case 0:
 			default:
 				return; 
-		//maybe set a timer and afterwards check responsivness and call function again if failed
 		}
 	});
 }
-
-module.exports.aDialog = showUnresponsiveDialog;
-
