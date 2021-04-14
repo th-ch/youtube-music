@@ -46,6 +46,9 @@ const handleData = async (responseText, win) => {
 	let data = JSON.parse(responseText);
 	songInfo.title = data?.videoDetails?.title;
 	songInfo.artist = data?.videoDetails?.author;
+	if (songInfo.artist.endsWith(" - Topic")) {
+		songInfo.artist = songInfo.artist.slice(0, -8);
+	}
 	songInfo.views = data?.videoDetails?.viewCount;
 	songInfo.imageSrc = data?.videoDetails?.thumbnail?.thumbnails?.pop()?.url;
 	songInfo.songDuration = data?.videoDetails?.lengthSeconds;
