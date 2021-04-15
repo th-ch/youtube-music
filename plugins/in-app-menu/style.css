@@ -21,6 +21,16 @@ ytmusic-pivot-bar-item-renderer {
 	-webkit-app-region: unset !important;
 }
 
+/* navbar background black */
+.center-content.ytmusic-nav-bar {
+	background: #030303;
+}
+
+/* move up item selectrion renderer by 15 px */
+ytmusic-item-section-renderer[has-item-section-tabbed-header-renderer_] #header.ytmusic-item-section-renderer {
+	top: 75 !important;
+}
+
 /* fix weird positioning in search screen*/
 ytmusic-header-renderer.ytmusic-search-page {
 	position: unset !important;
