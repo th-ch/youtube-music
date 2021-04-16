@@ -13,11 +13,17 @@ function saveVolume(volume, options) {
 
 function firstRun(options) {
 	const videoStream = document.querySelector(".video-stream");
-	if (videoStream) {
-		// Set saved volume if it exists and is valid
-		if (options.savedVolume && options.savedVolume >= 0 && options.savedVolume <= 100) {
+	const slider = document.querySelector("#volume-slider");
+
+	if (videoStream && slider) {
+		// Set saved volume if it pass checks
+		if (options.savedVolume
+			&& options.savedVolume >= 0 && options.savedVolume <= 100
+			&& Math.abs(slider.value - options.savedVolume) < 5
+			// If plugin was disabled and volume changed then diff>4
+		) {
 			videoStream.volume = options.savedVolume / 100;
-			document.querySelector("#volume-slider").value = options.savedVolume;
+			slider.value = options.savedVolume;
 		}
 
 		// Set current volume as tooltip
