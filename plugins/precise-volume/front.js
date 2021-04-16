@@ -4,14 +4,14 @@ module.exports = () => {
     firstTooltip();
 }
 
-function firstTooltip () {  
+function firstTooltip() {
     const videoStream = document.querySelector(".video-stream");
     if (videoStream) {
         setTooltip(Math.round(parseFloat(videoStream.volume) * 100));
     } else {
-      setTimeout(firstTooltip, 500); // try again in 500 milliseconds
+        setTimeout(firstTooltip, 500); // try again in 500 milliseconds
     }
-  }
+}
 
 function setupPlaybarOnwheel() {
     //add onwheel event to play bar
@@ -22,8 +22,8 @@ function setupPlaybarOnwheel() {
     }
 }
 
-let newVolume;
-
+//the last volume set by changeVolume() is stored here
+let newVolume; //used to determine if volume-slider was manually moved 
 
 function changeVolume(increase) {
     //need to change both the slider and the actual volume
@@ -41,20 +41,20 @@ function changeVolume(increase) {
     setTooltip(newVolume)
 }
 
-//observer sets the tooltip when volume is manually changed
+//update the volume tooltip when volume-slider is manually changed
 function setupObserver() {
     const observer = new MutationObserver((mutations) => {
         for (const mutation of mutations) {
-            //this checks that the new volume was manually set (without the new changeVolume() function)
+            //this checks that volume-slider was manually set
             if (mutation.oldValue !== mutation.target.value
                 && (!newVolume || Math.abs(newVolume - mutation.target.value) > 4)) {
-                //if diff>4 -> it was manually set, so update tooltip accordingly
+                //diff>4 means it was manually set, so update tooltip accordingly
                 setTooltip(mutation.target.value);
             }
         }
     });
 
-    //observing only changes in value of volume-slider
+    //observing only changes in 'value' of volume-slider
     observer.observe(document.querySelector("#volume-slider"), {
         attributeFilter: ["value"],
         attributeOldValue: true,
