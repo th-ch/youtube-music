@@ -1,31 +1,42 @@
-module.exports = () => {
-	setPlaybarOnwheel();
-	setObserver();
-	setFirstTooltip();
+const { setOptions } = require("../../config/plugins");
+
+module.exports = (options) => {
+	setPlaybarOnwheel(options);
+	setObserver(options);
+	firstRun(options);
 };
 
-function setFirstTooltip() {
+function saveVolume(volume, options) {
+	options.savedVolume = volume;
+	setOptions("precise-volume", options);
+}
+
+function firstRun(options) {
 	const videoStream = document.querySelector(".video-stream");
-	if (videoStream?.volume) {
+	if (videoStream) {
+		// Set saved volume if it exists and is valid
+		if (options.savedVolume && options.savedVolume >= 0 && options.savedVolume <= 100) {
+			videoStream.volume = options.savedVolume / 100;
+			document.querySelector("#volume-slider").value = options.savedVolume;
+		}
+
+		// Set current volume as tooltip
 		setTooltip(toPercent(videoStream.volume));
 	} else {
-		setTimeout(setFirstTooltip, 500); // Try again in 500 milliseconds
+		setTimeout(firstRun, 500, options); // Try again in 500 milliseconds
 	}
 }
 
-function setPlaybarOnwheel() {
-    // Add onwheel event to play bar
-    document.querySelector("ytmusic-player-bar").onwheel = event => {
-        event.preventDefault();
-        // Event.deltaY < 0 => wheel up
-        changeVolume(event.deltaY < 0);
-    };
+function setPlaybarOnwheel(options) {
+	// Add onwheel event to play bar
+	document.querySelector("ytmusic-player-bar").onwheel = event => {
+		event.preventDefault();
+		// Event.deltaY < 0 => wheel up
+		changeVolume(event.deltaY < 0, options);
+	};
 }
 
-// The last volume set by changeVolume() is stored here
-let newVolume; // Used to determine if volume-slider was manually moved
-
-function changeVolume(increase) {
+function changeVolume(increase, options) {
 	// Need to change both the slider and the actual volume
 	const videoStream = document.querySelector(".video-stream");
 	const slider = document.querySelector("#volume-slider");
@@ -36,22 +47,23 @@ function changeVolume(increase) {
 		Math.max(videoStream.volume - 0.01, 0);
 
 	// Save the new volume
-	newVolume = toPercent(videoStream.volume);
+	saveVolume(toPercent(videoStream.volume), options);
 	// Slider value automatically rounds to multiples of 5
-	slider.value = newVolume;
+	slider.value = options.savedVolume;
 	// Finally change tooltip to new value
-	setTooltip(newVolume);
+	setTooltip(options.savedVolume);
 }
 
-// Update the volume tooltip when volume-slider is manually changed
-function setObserver() {
+// Save volume + Update the volume tooltip when volume-slider is manually changed
+function setObserver(options) {
 	const observer = new MutationObserver(mutations => {
 		for (const mutation of mutations) {
 			// This checks that volume-slider was manually set
 			if (mutation.oldValue !== mutation.target.value &&
-                (!newVolume || Math.abs(newVolume - mutation.target.value) > 4)) {
-				// Diff>4 means it was manually set, so update tooltip accordingly
+				(!options.savedVolume || Math.abs(options.savedVolume - mutation.target.value) > 4)) {
+				// Diff>4 means it was manually set
 				setTooltip(mutation.target.value);
+				saveVolume(mutation.target.value, options);
 			}
 		}
 	});
