@@ -1,9 +1,11 @@
 const { setOptions } = require("../../config/plugins");
+const { ipcRenderer } = require("electron");
 
 module.exports = (options) => {
 	setPlaybarOnwheel(options);
 	setObserver(options);
 	firstRun(options);
+	setupArrowShortcuts(options);
 };
 
 function saveVolume(volume, options) {
@@ -40,6 +42,28 @@ function setPlaybarOnwheel(options) {
 		// Event.deltaY < 0 => wheel up
 		changeVolume(event.deltaY < 0, options);
 	};
+}
+
+function setupArrowShortcuts(options) {
+	//change options from renderer to keep sync
+	ipcRenderer.on("setArrowsShortcut", (event, value) => {
+		options.arrowsShortcut = value;
+		setOptions("precise-volume", options);
+	});
+
+	//register shortcuts if enabled
+	if (options.arrowsShortcut) {
+		window.addEventListener('keydown', (event) => {
+			switch (event.code) {
+				case `ArrowUp`:
+					changeVolume(true, options);
+					break;
+				case `ArrowDown`:
+					changeVolume(false, options);
+					break;
+			}
+		}, true);
+	}
 }
 
 function changeVolume(increase, options) {
