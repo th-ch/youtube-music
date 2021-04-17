@@ -4,7 +4,7 @@ const { ipcRenderer } = require("electron");
 let promptId = null;
 let promptOptions = null;
 
-function $(selector) { 
+function $(selector) {
 	return document.querySelector(selector);
 }
 
@@ -62,6 +62,8 @@ function promptRegister() {
 
 	switch (promptOptions.type) {
 		case "counter":
+			dataElement = promptCreateCounter();
+			break;
 		case "input":
 			dataElement = promptCreateInput();
 			break;
@@ -73,8 +75,6 @@ function promptRegister() {
 	}
 
 	if (promptOptions.type === "counter") {
-		dataElement.style.width = "unset";
-		dataElement.style["text-align"] = "center";
 		dataContainerElement.append(createMinusButton(dataElement));
 		dataContainerElement.append(dataElement);
 		dataContainerElement.append(createPlusButton(dataElement));
@@ -212,25 +212,72 @@ function promptCreateSelect() {
 	return dataElement;
 }
 
+let pressed = false;
+function multiFire(timer, scaleSpeed, callback, ...args) {
+	if (!pressed) {
+		return;
+	}
+	if (timer > scaleSpeed) {
+		timer -= scaleSpeed;
+	}
+	callback(...args);
+	setTimeout(multiFire, timer, timer, scaleSpeed, callback, ...args)
+}
+
 function createMinusButton(dataElement) {
+	function doMinus() {
+		dataElement.value = validateCounterInput(parseInt(dataElement.value) - 1);
+	}
 	const minusBtn = document.createElement("span");
 	minusBtn.textContent = "-";
 	minusBtn.classList.add("minus");
-	minusBtn.onmousedown = () => {
-		dataElement.value = validateCounterInput(parseInt(dataElement.value) - 1);
-	};
+	if (promptOptions.counterOptions?.multiFire) {
+		minusBtn.onmousedown = () => {
+			pressed = true;
+			multiFire(500, 100, doMinus);
+		};
+
+	} else {
+		minusBtn.onmousedown = () => {
+			doMinus();
+		};
+	}
 	return minusBtn;
 }
 
 function createPlusButton(dataElement) {
+	function doPlus() {
+		dataElement.value = validateCounterInput(parseInt(dataElement.value) + 1);
+	}
 	const plusBtn = document.createElement("span");
 	plusBtn.textContent = "+";
 	plusBtn.classList.add("plus");
-	plusBtn.onmousedown = () => {
-		dataElement.value = validateCounterInput(parseInt(dataElement.value) + 1);
-	};
-
+	if (promptOptions.counterOptions?.multiFire) {
+		plusBtn.onmousedown = () => {
+			pressed = true;
+			multiFire(500, 100, doPlus);
+		};
+	} else {
+		plusBtn.onmousedown = () => {
+			doPlus();
+		};
+	}
 	return plusBtn;
+}
+
+function promptCreateCounter() {
+	if (promptOptions.counterOptions?.multiFire) {
+		document.onmouseup = () => {
+			pressed = false;
+		};
+	}
+
+	const dataElement = promptCreateInput();
+
+	dataElement.style.width = "unset";
+	dataElement.style["text-align"] = "center";
+
+	return dataElement;
 }
 
 //validate counter
@@ -245,6 +292,6 @@ function validateCounterInput(input) {
 	if (max !== undefined && input > max) {
 		return max;
 	}
-	
+
 	return input;
 }
