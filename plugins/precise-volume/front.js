@@ -3,9 +3,9 @@ const { ipcRenderer } = require("electron");
 
 module.exports = (options) => {
 	setPlaybarOnwheel(options);
-	setObserver(options);
-	firstRun(options);
+	setupObserver(options);
 	setupArrowShortcuts(options);
+	firstRun(options);
 };
 
 function saveVolume(volume, options) {
@@ -45,22 +45,22 @@ function setPlaybarOnwheel(options) {
 }
 
 function setupArrowShortcuts(options) {
-	//change options from renderer to keep sync
+	// Register shortcuts if enabled
+	if (options.arrowsShortcut) {
+		addListener();
+	}
+
+	// Change options from renderer to keep sync
 	ipcRenderer.on("setArrowsShortcut", (event, isEnabled) => {
 		options.arrowsShortcut = isEnabled;
 		setOptions("precise-volume", options);
-		//can setting without restarting app
+		// Can setting without restarting app
 		if (isEnabled) {
 			addListener();
 		} else {
 			removeListener();
 		}
 	});
-
-	//register shortcuts if enabled
-	if (options.arrowsShortcut) {
-		addListener();
-	}
 
 	function addListener() {
 		window.addEventListener('keydown', callback);
@@ -101,7 +101,7 @@ function changeVolume(increase, options) {
 }
 
 // Save volume + Update the volume tooltip when volume-slider is manually changed
-function setObserver(options) {
+function setupObserver(options) {
 	const observer = new MutationObserver(mutations => {
 		for (const mutation of mutations) {
 			// This checks that volume-slider was manually set
@@ -129,14 +129,13 @@ const tooltipTargets = [
 	"#expand-volume"
 ];
 
-function setTooltip(newValue) {
-	newValue += "%";
+function setTooltip(volume) {
+	const tooltip = volume + "%";
 	for (target of tooltipTargets) {
-		document.querySelector(target).title = newValue;
+		document.querySelector(target).title = tooltip;
 	}
 }
 
 function toPercent(volume) {
 	return Math.round(Number.parseFloat(volume) * 100);
 }
-
