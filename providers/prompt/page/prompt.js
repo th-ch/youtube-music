@@ -4,9 +4,11 @@ const { ipcRenderer } = require("electron");
 let promptId = null;
 let promptOptions = null;
 
-function $(selector) { return document.querySelector(selector) }
+function $(selector) { 
+	return document.querySelector(selector);
+}
 
-document.addEventListener('DOMContentLoaded', promptRegister);
+document.addEventListener("DOMContentLoaded", promptRegister);
 
 function promptRegister() {
 	//get custom session id
@@ -54,7 +56,6 @@ function promptRegister() {
 	$("#form").addEventListener("submit", promptSubmit);
 	$("#cancel").addEventListener("click", promptCancel);
 
-
 	//create input/select
 	const dataContainerElement = $("#data-container");
 	let dataElement;
@@ -70,19 +71,20 @@ function promptRegister() {
 		default:
 			return promptError(`Unhandled input type '${promptOptions.type}'`);
 	}
+
 	if (promptOptions.type === "counter") {
 		dataElement.style.width = "unset";
 		dataElement.style["text-align"] = "center";
-		//dataElement.style["min-height"] = "1.5em";
-		dataContainerElement.append(createMinus(dataElement));
+		dataContainerElement.append(createMinusButton(dataElement));
 		dataContainerElement.append(dataElement);
-		dataContainerElement.append(createPlus(dataElement));
+		dataContainerElement.append(createPlusButton(dataElement));
 	} else {
 		dataContainerElement.append(dataElement);
 	}
-	dataElement.setAttribute("id", "data");
 
+	dataElement.setAttribute("id", "data");
 	dataElement.focus();
+
 	if (promptOptions.type === "input" || promptOptions.type === "counter") {
 		dataElement.select();
 	}
@@ -100,7 +102,8 @@ function promptRegister() {
 
 window.addEventListener("error", error => {
 	if (promptId) {
-		promptError("An error has occured on the prompt window: \n" + JSON.stringify(error, ["message", "arguments", "type", "name"])
+		promptError("An error has occured on the prompt window: \n" +
+			JSON.stringify(error, ["message", "arguments", "type", "name"])
 		);
 	}
 });
@@ -209,35 +212,39 @@ function promptCreateSelect() {
 	return dataElement;
 }
 
-function createMinus(dataElement) {
-	const minus = document.createElement("span");
-	minus.textContent = "-";
-	minus.classList.add("minus");
-	minus.onmousedown = () => {
+function createMinusButton(dataElement) {
+	const minusBtn = document.createElement("span");
+	minusBtn.textContent = "-";
+	minusBtn.classList.add("minus");
+	minusBtn.onmousedown = () => {
 		dataElement.value = validateCounterInput(parseInt(dataElement.value) - 1);
 	};
-	return minus;
+	return minusBtn;
 }
 
-function createPlus(dataElement) {
-	const plus = document.createElement("span");
-	plus.textContent = "+";
-	plus.classList.add("plus");
-	plus.onmousedown = () => {
+function createPlusButton(dataElement) {
+	const plusBtn = document.createElement("span");
+	plusBtn.textContent = "+";
+	plusBtn.classList.add("plus");
+	plusBtn.onmousedown = () => {
 		dataElement.value = validateCounterInput(parseInt(dataElement.value) + 1);
 	};
-	return plus;
+
+	return plusBtn;
 }
 
 //validate counter
 function validateCounterInput(input) {
-	const min = promptOptions.counterOptions?.minimum,
-		max = promptOptions.counterOptions?.maximum;
+	const min = promptOptions.counterOptions?.minimum;
+	const max = promptOptions.counterOptions?.maximum;
+
 	if (min !== undefined && input < min) {
 		return min;
 	}
+
 	if (max !== undefined && input > max) {
 		return max;
 	}
+	
 	return input;
 }
