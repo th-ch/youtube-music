@@ -45,3 +45,8 @@ body {
 	background-color: rgb(0, 0, 0);
 	color: whitesmoke;
 }
+
+.minus,
+.plus {
+	background:rgb(0, 0, 0);
+}

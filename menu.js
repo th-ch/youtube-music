@@ -335,7 +335,7 @@ function setProxy(item, win) {
 		});
 	}
 	prompt(options, win)
-		.then((input) => {
+		.then(input => {
 			if (input !== null && input !== example) {
 				config.set("options.proxy", input);
 				item.checked = input !== "";
