@@ -212,29 +212,60 @@ function promptCreateSelect() {
 	return dataElement;
 }
 
-let pressed = false;
-function multiFire(timer, scaleSpeed, callback, ...args) {
-	if (!pressed) {
-		return;
+let nextTimeoutID = null;
+
+/* Function execute callback in 3 accelerated intervals based on timer.
+ * Terminated from document.onmouseup() that is registered from promptCreateCounter()
+ * @param {function} callback: function to execute
+ * @param {object} timer: {
+ *	* 	time: First delay in miliseconds.
+ *	* 	limit: First Speed Limit, gets divided by 2 after $20 calls. $number change exponentially
+ *	* 	scaleSpeed: Speed change per tick on first acceleration
+ *	}
+ * @param {int} stepArgs: argument for callback representing Initial steps per click, default to 1
+ *  steps starts to increase when speed is too fast to notice
+ * @param {int} counter: used internally to decrease timer.limit
+ */
+function multiFire(callback, timer = { time: 500, scaleSpeed: 140, limit: 100 }, stepsArg = 1, counter = 0) {
+	callback(stepsArg);
+
+	const nextTimeout = timer.time
+
+	if (counter > 20) {
+		counter = 0 - stepsArg;
+		if (timer.limit > 1) {
+			timer.limit = timer.limit / 2;
+		} else {
+			stepsArg *= 2;
+		}
 	}
-	if (timer > scaleSpeed) {
-		timer -= scaleSpeed;
+	if (timer.time != timer.limit) {
+		timer.time = timer.time > timer.limit ?
+			timer.time - timer.scaleSpeed :
+			timer.limit;
 	}
-	callback(...args);
-	setTimeout(multiFire, timer, timer, scaleSpeed, callback, ...args)
+
+	nextTimeoutID = setTimeout(
+		multiFire, //callback
+		nextTimeout, //timer
+		//multiFire args:
+		callback,
+		timer,
+		stepsArg,
+		counter + 1
+	)
 }
 
 function createMinusButton(dataElement) {
-	function doMinus() {
-		dataElement.value = validateCounterInput(parseInt(dataElement.value) - 1);
+	function doMinus(steps) {
+		dataElement.value = validateCounterInput(parseInt(dataElement.value) - steps);
 	}
 	const minusBtn = document.createElement("span");
 	minusBtn.textContent = "-";
 	minusBtn.classList.add("minus");
 	if (promptOptions.counterOptions?.multiFire) {
 		minusBtn.onmousedown = () => {
-			pressed = true;
-			multiFire(500, 100, doMinus);
+			multiFire(doMinus);
 		};
 
 	} else {
@@ -246,16 +277,15 @@ function createMinusButton(dataElement) {
 }
 
 function createPlusButton(dataElement) {
-	function doPlus() {
-		dataElement.value = validateCounterInput(parseInt(dataElement.value) + 1);
+	function doPlus(steps) {
+		dataElement.value = validateCounterInput(parseInt(dataElement.value) + steps);
 	}
 	const plusBtn = document.createElement("span");
 	plusBtn.textContent = "+";
 	plusBtn.classList.add("plus");
 	if (promptOptions.counterOptions?.multiFire) {
 		plusBtn.onmousedown = () => {
-			pressed = true;
-			multiFire(500, 100, doPlus);
+			multiFire(doPlus);
 		};
 	} else {
 		plusBtn.onmousedown = () => {
@@ -268,7 +298,10 @@ function createPlusButton(dataElement) {
 function promptCreateCounter() {
 	if (promptOptions.counterOptions?.multiFire) {
 		document.onmouseup = () => {
-			pressed = false;
+			if (!!nextTimeoutID) {
+				clearTimeout(nextTimeoutID)
+				nextTimeoutID = null;
+			}
 		};
 	}
 
@@ -284,12 +317,12 @@ function promptCreateCounter() {
 function validateCounterInput(input) {
 	const min = promptOptions.counterOptions?.minimum;
 	const max = promptOptions.counterOptions?.maximum;
-
-	if (min !== undefined && input < min) {
+	//note that !min/max would proc if min/max are 0
+	if (min !== null && min !== undefined && input < min) {
 		return min;
 	}
 
-	if (max !== undefined && input > max) {
+	if (max !== null && max !== undefined && input > max) {
 		return max;
 	}
 
