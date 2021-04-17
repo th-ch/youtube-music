@@ -45,6 +45,12 @@ const defaultConfig = {
 			enabled: false,
 			urgency: "normal",
 			unpauseNotification: false
+		},
+		"precise-volume": {
+			enabled: false,
+			steps: 1, //percentage of volume to change
+			arrowsShortcut: true, //enable ArrowUp + ArrowDown local shortcuts
+			savedVolume: undefined //plugin save volume between session here
 		}
 	},
 };

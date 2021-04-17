@@ -86,11 +86,12 @@ function changeVolume(increase, options) {
 	// Need to change both the slider and the actual volume
 	const videoStream = document.querySelector(".video-stream");
 	const slider = document.querySelector("#volume-slider");
-
+	
 	// Apply volume change if valid
+	const steps = options.steps / 100;
 	videoStream.volume = increase ?
-		Math.min(videoStream.volume + 0.01, 1) :
-		Math.max(videoStream.volume - 0.01, 0);
+		Math.min(videoStream.volume + steps, 1) :
+		Math.max(videoStream.volume - steps, 0);
 
 	// Save the new volume
 	saveVolume(toPercent(videoStream.volume), options);
