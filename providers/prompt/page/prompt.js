@@ -1,13 +1,13 @@
 const fs = require("fs");
 const {ipcRenderer} = require("electron");
-const docReady = require("doc-ready");
 
 let promptId = null;
 let promptOptions = null;
 
+function $(selector) {return document.querySelector(selector)}
 
-docReady(promptRegister);
-//start here
+document.addEventListener( 'DOMContentLoaded', promptRegister);
+
 function promptRegister() {
 	//get custom session id
 	promptId = document.location.hash.replace("#", "");
@@ -21,18 +21,18 @@ function promptRegister() {
 
 	//set label
 	if (promptOptions.useHtmlLabel) {
-		document.querySelector("#label").innerHTML = promptOptions.label;
+		$("#label").innerHTML = promptOptions.label;
 	} else {
-		document.querySelector("#label").textContent = promptOptions.label;
+		$("#label").textContent = promptOptions.label;
 	}
 
 	//set button label
 	if (promptOptions.buttonLabels && promptOptions.buttonLabels.ok) {
-		document.querySelector("#ok").textContent = promptOptions.buttonLabels.ok;
+		$("#ok").textContent = promptOptions.buttonLabels.ok;
 	}
 
 	if (promptOptions.buttonLabels && promptOptions.buttonLabels.cancel) {
-		document.querySelector("#cancel").textContent = promptOptions.buttonLabels.cancel;
+		$("#cancel").textContent = promptOptions.buttonLabels.cancel;
 	}
 
 	//inject custom stylesheet from options
@@ -51,26 +51,40 @@ function promptRegister() {
 	}
 
 	//add button listeners
-	document.querySelector("#form").addEventListener("submit", promptSubmit);
-	document.querySelector("#cancel").addEventListener("click", promptCancel);
+	$("#form").addEventListener("submit", promptSubmit);
+	$("#cancel").addEventListener("click", promptCancel);
 
 
 	//create input/select
-	const dataContainerElement = document.querySelector("#data-container");
+	const dataContainerElement = $("#data-container");
 	let dataElement;
-	if (promptOptions.type === "input") {
-		dataElement = promptCreateInput();
-	} else if (promptOptions.type === "select") {
-		dataElement = promptCreateSelect();
-	} else {
-		return promptError(`Unhandled input type '${promptOptions.type}'`);
-	}
 
-	dataContainerElement.append(dataElement);
+	switch (promptOptions.type) {
+		case "counter":
+		case "input":
+			dataElement = promptCreateInput();
+			break;
+		case "select":
+			dataElement = promptCreateSelect();
+			break;
+		default:
+			return promptError(`Unhandled input type '${promptOptions.type}'`);
+	}
+	if (promptOptions.type === "counter") {
+		dataElement.classList.add("input");
+		dataElement.style.width = "unset";
+		dataElement.style["text-align"] = "center";
+		//dataElement.style["min-height"] = "1.5em";
+		dataContainerElement.append(createMinus(dataElement));
+		dataContainerElement.append(dataElement);
+		dataContainerElement.append(createPlus(dataElement));
+	} else {
+		dataContainerElement.append(dataElement);
+	}
 	dataElement.setAttribute("id", "data");
 
 	dataElement.focus();
-	if (promptOptions.type === "input") {
+	if (promptOptions.type === "input" || promptOptions.type === "counter") {
 		dataElement.select();
 	}
 
@@ -87,7 +101,8 @@ function promptRegister() {
 
 window.addEventListener("error", error => {
 	if (promptId) {
-		promptError("An error has occured on the prompt window: \n" + error);
+		promptError("An error has occured on the prompt window: \n" + JSON.stringify(error, ["message", "arguments", "type", "name"])
+		);
 	}
 });
 
@@ -107,15 +122,23 @@ function promptCancel() {
 
 //transfer input data to back
 function promptSubmit() {
-	const dataElement = document.querySelector("#data");
+	const dataElement = $("#data");
 	let data = null;
 
-	if (promptOptions.type === "input") {
-		data = dataElement.value;
-	} else if (promptOptions.type === "select") {
-		data = promptOptions.selectMultiple ?
-			dataElement.querySelectorAll("option[selected]").map(o => o.getAttribute("value")) :
-			dataElement.value;
+	switch (promptOptions.type) {
+		case "input":
+			data = dataElement.value;
+			break;
+		case "counter":
+			data = validateCounterInput(dataElement.value);
+			break;
+		case "select":
+			data = promptOptions.selectMultiple ?
+				dataElement.querySelectorAll("option[selected]").map(o => o.getAttribute("value")) :
+				dataElement.value;
+			break;
+		default: //will never happen
+			return promptError(`Unhandled input type '${promptOptions.type}'`);
 	}
 
 	ipcRenderer.sendSync("prompt-post-data:" + promptId, data);
@@ -127,6 +150,9 @@ function promptCreateInput() {
 	dataElement.setAttribute("type", "text");
 
 	if (promptOptions.value) {
+		if (promptOptions.type === "counter") {
+			promptOptions.value = validateCounterInput(promptOptions.value);
+		}
 		dataElement.value = promptOptions.value;
 	} else {
 		dataElement.value = "";
@@ -150,11 +176,11 @@ function promptCreateInput() {
 		}
 	});
 
-	//Confrim on 'Enter'
+	//Confirm on 'Enter'
 	dataElement.addEventListener("keypress", event => {
 		if (event.key === "Enter") {
 			event.preventDefault();
-			document.querySelector("#ok").click();
+			$("#ok").click();
 		}
 	});
 
@@ -184,5 +210,35 @@ function promptCreateSelect() {
 	return dataElement;
 }
 
+function createMinus(dataElement) {
+	const minus = document.createElement("span");
+	minus.textContent = "-";
+	minus.classList.add("minus");
+	minus.onmousedown = () => {
+		dataElement.value =  validateCounterInput(parseInt(dataElement.value) - 1);
+	};
+	return minus;
+}
 
+function createPlus(dataElement) {
+	const plus = document.createElement("span");
+	plus.textContent = "+";
+	plus.classList.add("plus");
+	plus.onmousedown = () => {
+		dataElement.value = validateCounterInput(parseInt(dataElement.value) + 1);
+	};
+	return plus;
+}
 
+//validate counter
+function validateCounterInput(input) {
+	const min = promptOptions.counterOptions?.minimum,
+		  max = promptOptions.counterOptions?.maximum;
+	if (min !== undefined && input < min) {
+		return min;
+	}
+	if (max !== undefined && input > max) {
+		return max;
+	}
+	return input;
+}
