@@ -229,17 +229,18 @@ let nextTimeoutID = null;
 function multiFire(callback, timer = { time: 500, scaleSpeed: 140, limit: 100 }, stepsArg = 1, counter = 0) {
 	callback(stepsArg);
 
-	const nextTimeout = timer.time
+	const nextTimeout = timer.time;
 
 	if (counter > 20) {
 		counter = 0 - stepsArg;
 		if (timer.limit > 1) {
-			timer.limit = timer.limit / 2;
+			timer.limit /= 2;
 		} else {
 			stepsArg *= 2;
 		}
 	}
-	if (timer.time != timer.limit) {
+
+	if (timer.time !== timer.limit) {
 		timer.time = timer.time > timer.limit ?
 			timer.time - timer.scaleSpeed :
 			timer.limit;
@@ -253,26 +254,28 @@ function multiFire(callback, timer = { time: 500, scaleSpeed: 140, limit: 100 },
 		timer,
 		stepsArg,
 		counter + 1
-	)
+	);
 }
 
 function createMinusButton(dataElement) {
 	function doMinus(steps) {
 		dataElement.value = validateCounterInput(parseInt(dataElement.value) - steps);
 	}
+
 	const minusBtn = document.createElement("span");
 	minusBtn.textContent = "-";
 	minusBtn.classList.add("minus");
+
 	if (promptOptions.counterOptions?.multiFire) {
 		minusBtn.onmousedown = () => {
 			multiFire(doMinus);
 		};
-
 	} else {
 		minusBtn.onmousedown = () => {
 			doMinus();
 		};
 	}
+
 	return minusBtn;
 }
 
@@ -280,9 +283,11 @@ function createPlusButton(dataElement) {
 	function doPlus(steps) {
 		dataElement.value = validateCounterInput(parseInt(dataElement.value) + steps);
 	}
+
 	const plusBtn = document.createElement("span");
 	plusBtn.textContent = "+";
 	plusBtn.classList.add("plus");
+
 	if (promptOptions.counterOptions?.multiFire) {
 		plusBtn.onmousedown = () => {
 			multiFire(doPlus);
@@ -292,13 +297,14 @@ function createPlusButton(dataElement) {
 			doPlus();
 		};
 	}
+
 	return plusBtn;
 }
 
 function promptCreateCounter() {
 	if (promptOptions.counterOptions?.multiFire) {
 		document.onmouseup = () => {
-			if (!!nextTimeoutID) {
+			if (nextTimeoutID) {
 				clearTimeout(nextTimeoutID)
 				nextTimeoutID = null;
 			}

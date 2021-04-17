@@ -1,6 +1,6 @@
 # Prompt Documentation
 
-<p align="center"><img width="482" alt="prompt-preview" src="https://user-images.githubusercontent.com/17620180/111753337-09c0c680-8897-11eb-8ce8-43de29c143bd.png"></p>
+<p align="center">Simplest Prompt:<br><img width="482" alt="prompt-preview" src="https://user-images.githubusercontent.com/17620180/111753337-09c0c680-8897-11eb-8ce8-43de29c143bd.png"></p>
 
 ## Usage
 ```js
@@ -49,13 +49,13 @@ prompt({
 | selectOptions      | (optional, object) The items for the select dropdown if using the 'select' type in the format 'value': 'display text', where the value is what will be given to the then block and the display text is what the user will see. |
 | useHtmlLabel       | (optional, boolean) Whether the label should be interpreted as HTML or not. Defaults to false.                                                                                                                                 |
 | width              | (optional, integer) The width of the prompt window. Defaults to 370.                                                                                                                                                           |
-| minWidth           | (optional, integer) The minimum allowed width for the prompt window. Same default value as width.                                                                                                                              |
+| minWidth  | (optional, integer) The minimum allowed width for the prompt window. Default to width if specified or default_width(370). |                                                                                                                             |
 | height             | (optional, integer) The height of the prompt window. Defaults to 130.                                                                                                                                                          |
 | minHeight          | (optional, integer) The minimum allowed height for the prompt window. Same default value as height.                                                                                                                            |
 | resizable          | (optional, boolean) Whether the prompt window can be resized or not (also sets useContentSize). Defaults to false.                                                                                                             |
 | alwaysOnTop        | (optional, boolean) Whether the window should always stay on top of other windows. Defaults to false                                                                                                                           |
 | icon               | (optional, string) The path to an icon image to use in the title bar. Defaults to null and uses electron's icon.                                                                                                               |
-| customStylesheet   | (optional, string) The local path of a CSS file to stylize the prompt window. Defaults to null.                                                                                                                                |
+| customStylesheet   | (optional, string) The local path of a CSS file to customize the style of the prompt window, you can use just "dark" to use the premade dark skin. Defaults to null.                                                                                                                                  |
 | menuBarVisible     | (optional, boolean) Whether to show the menubar or not. Defaults to false.                                                                                                                                                     |
 | skipTaskbar        | (optional, boolean) Whether to show the prompt window icon in taskbar. Defaults to true.                                                                                                                                       |
 | frame              | (optional, boolean) Wether to create prompt with frame. Defaults to true.                                                                                                                                                      |
