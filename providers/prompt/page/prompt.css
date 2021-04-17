@@ -80,12 +80,8 @@ select#data {
 }
 
 /* Counter mode css */
-
 span {
 	cursor: pointer;
-}
-.number {
-	margin: 100px;
 }
 .minus,
 .plus {
@@ -99,14 +95,4 @@ span {
 	display: inline-block;
 	vertical-align: middle;
 	text-align: center;
-}
-.inputt {
-	height: 34px;
-	width: 100px;
-	text-align: center;
-	font-size: 26px;
-	border: 1px solid #ddd;
-	border-radius: 4px;
-	display: inline-block;
-	vertical-align: middle;
 }

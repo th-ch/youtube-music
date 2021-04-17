@@ -1,12 +1,12 @@
 const fs = require("fs");
-const {ipcRenderer} = require("electron");
+const { ipcRenderer } = require("electron");
 
 let promptId = null;
 let promptOptions = null;
 
-function $(selector) {return document.querySelector(selector)}
+function $(selector) { return document.querySelector(selector) }
 
-document.addEventListener( 'DOMContentLoaded', promptRegister);
+document.addEventListener('DOMContentLoaded', promptRegister);
 
 function promptRegister() {
 	//get custom session id
@@ -71,7 +71,6 @@ function promptRegister() {
 			return promptError(`Unhandled input type '${promptOptions.type}'`);
 	}
 	if (promptOptions.type === "counter") {
-		dataElement.classList.add("input");
 		dataElement.style.width = "unset";
 		dataElement.style["text-align"] = "center";
 		//dataElement.style["min-height"] = "1.5em";
@@ -215,7 +214,7 @@ function createMinus(dataElement) {
 	minus.textContent = "-";
 	minus.classList.add("minus");
 	minus.onmousedown = () => {
-		dataElement.value =  validateCounterInput(parseInt(dataElement.value) - 1);
+		dataElement.value = validateCounterInput(parseInt(dataElement.value) - 1);
 	};
 	return minus;
 }
@@ -233,7 +232,7 @@ function createPlus(dataElement) {
 //validate counter
 function validateCounterInput(input) {
 	const min = promptOptions.counterOptions?.minimum,
-		  max = promptOptions.counterOptions?.maximum;
+		max = promptOptions.counterOptions?.maximum;
 	if (min !== undefined && input < min) {
 		return min;
 	}
