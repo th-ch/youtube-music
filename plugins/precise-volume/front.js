@@ -46,23 +46,39 @@ function setPlaybarOnwheel(options) {
 
 function setupArrowShortcuts(options) {
 	//change options from renderer to keep sync
-	ipcRenderer.on("setArrowsShortcut", (event, value) => {
-		options.arrowsShortcut = value;
+	ipcRenderer.on("setArrowsShortcut", (event, isEnabled) => {
+		options.arrowsShortcut = isEnabled;
 		setOptions("precise-volume", options);
+		//can setting without restarting app
+		if (isEnabled) {
+			addListener();
+		} else {
+			removeListener();
+		}
 	});
 
 	//register shortcuts if enabled
 	if (options.arrowsShortcut) {
-		window.addEventListener('keydown', (event) => {
-			switch (event.code) {
-				case `ArrowUp`:
-					changeVolume(true, options);
-					break;
-				case `ArrowDown`:
-					changeVolume(false, options);
-					break;
-			}
-		}, true);
+		addListener();
+	}
+
+	function addListener() {
+		window.addEventListener('keydown', callback);
+	}
+
+	function removeListener() {
+		window.removeEventListener("keydown", callback);
+	}
+
+	function callback(event) {
+		switch (event.code) {
+			case `ArrowUp`:
+				changeVolume(true, options);
+				break;
+			case `ArrowDown`:
+				changeVolume(false, options);
+				break;
+		}
 	}
 }
 
