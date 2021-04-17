@@ -18,8 +18,8 @@ function electronPrompt(options, parentWindow) {
 		//custom options override default
 		const options_ = Object.assign(
 			{
-				width: DEFAULT_WIDTH,
-				height: DEFAULT_HEIGHT,
+				width: options?.type === "counter" ? DEFAULT_COUNTER_WIDTH : DEFAULT_WIDTH,
+				height:options?.type === "counter" ? DEFAULT_COUNTER_HEIGHT: DEFAULT_HEIGHT,
 				resizable: false,
 				title: "Prompt",
 				label: "Please input a value:",
@@ -28,6 +28,7 @@ function electronPrompt(options, parentWindow) {
 				value: null,
 				type: "input",
 				selectOptions: null,
+				counterOptions: {minimum: null, maximum: null, multiFire: false},
 				icon: null,
 				useHtmlLabel: false,
 				customStylesheet: null,
@@ -40,10 +41,13 @@ function electronPrompt(options, parentWindow) {
 			options || {}
 		);
 
-		options_.minWidth = options.minWidth || options.width ||
-		options_.type === "counter" ? DEFAULT_COUNTER_WIDTH : DEFAULT_WIDTH;
-		options_.minHeight = options.minHeight || options.height ||
-		options_.type === "counter" ? DEFAULT_COUNTER_HEIGHT : DEFAULT_HEIGHT;
+		options_.minWidth = options?.minWidth || options?.width || options_.width;
+		options_.minHeight = options?.minHeight || options?.height || options_.height;
+
+		if (options_.type === "counter" && (options_.counterOptions !== null && typeof options_.selectOptions !== "object")) {
+			reject(new Error('"counterOptions" must be an object if specified'));
+			return;
+		}
 
 		if (options_.type === "select" && (options_.selectOptions === null || typeof options_.selectOptions !== "object")) {
 			reject(new Error('"selectOptions" must be an object'));
