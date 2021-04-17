@@ -8,7 +8,7 @@ const path = require("path");
 const DEFAULT_WIDTH = 370;
 const DEFAULT_COUNTER_WIDTH = 300;
 const DEFAULT_HEIGHT = 160;
-const DEFAULT_COUNTER_HEIGHT= 150;
+const DEFAULT_COUNTER_HEIGHT = 150;
 
 function electronPrompt(options, parentWindow) {
 	return new Promise((resolve, reject) => {
@@ -40,9 +40,9 @@ function electronPrompt(options, parentWindow) {
 			options || {}
 		);
 
-		options_.minWidth = options.minWidth || options.width || 
+		options_.minWidth = options.minWidth || options.width ||
 		options_.type === "counter" ? DEFAULT_COUNTER_WIDTH : DEFAULT_WIDTH;
-		options_.minHeight = options.minHeight || options.height || 
+		options_.minHeight = options.minHeight || options.height ||
 		options_.type === "counter" ? DEFAULT_COUNTER_HEIGHT : DEFAULT_HEIGHT;
 
 		if (options_.type === "select" && (options_.selectOptions === null || typeof options_.selectOptions !== "object")) {
@@ -130,21 +130,21 @@ function electronPrompt(options, parentWindow) {
 			event,
 			errorCode,
 			errorDescription,
-			validatedURL,		
+			validatedURL
 		) => {
 			const log = {
 				error: "did-fail-load",
 				errorCode,
 				errorDescription,
-				validatedURL,
+				validatedURL
 			};
-			reject(new Error("prompt.html did-fail-load, log:\n", + log.toString()));
+			reject(new Error("prompt.html did-fail-load, log:\n" + log.toString()));
 		});
 
 		const promptUrl = url.format({
-			protocol: 'file',
+			protocol: "file",
 			slashes: true,
-			pathname: path.join(__dirname, 'page', 'prompt.html'),
+			pathname: path.join(__dirname, "page", "prompt.html"),
 			hash: id
 		});
 
