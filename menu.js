@@ -149,7 +149,7 @@ const mainMenuTemplate = (win) => [
 						type: "checkbox",
 						checked: !!config.get("options.proxy"),
 						click: (item) => {
-							setProxy(item, win);	
+							setProxy(item, win);
 						}
 					},
 					{
@@ -322,10 +322,10 @@ function setProxy(item, win) {
 		},
 		type: 'input',
 		icon: iconPath,
-		customStylesheet: path.join(__dirname, "providers", "prompt", "dark-prompt.css"),
+		customStylesheet: "dark",
 	};
 	//TODO: custom bar on prompt need testing on macOS
-	if(!is.macOS()) {
+	if (!is.macOS()) {
 		Object.assign(options, {
 			frame: false,
 			customScript: path.join(__dirname, "providers", "prompt", "custom-titlebar.js"),

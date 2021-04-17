@@ -19,7 +19,7 @@ function electronPrompt(options, parentWindow) {
 		const options_ = Object.assign(
 			{
 				width: options?.type === "counter" ? DEFAULT_COUNTER_WIDTH : DEFAULT_WIDTH,
-				height:options?.type === "counter" ? DEFAULT_COUNTER_HEIGHT: DEFAULT_HEIGHT,
+				height: options?.type === "counter" ? DEFAULT_COUNTER_HEIGHT : DEFAULT_HEIGHT,
 				resizable: false,
 				title: "Prompt",
 				label: "Please input a value:",
@@ -28,7 +28,7 @@ function electronPrompt(options, parentWindow) {
 				value: null,
 				type: "input",
 				selectOptions: null,
-				counterOptions: {minimum: null, maximum: null, multiFire: false},
+				counterOptions: { minimum: null, maximum: null, multiFire: false },
 				icon: null,
 				useHtmlLabel: false,
 				customStylesheet: null,
@@ -43,6 +43,10 @@ function electronPrompt(options, parentWindow) {
 
 		options_.minWidth = options?.minWidth || options?.width || options_.width;
 		options_.minHeight = options?.minHeight || options?.height || options_.height;
+
+		if (options_.customStylesheet === "dark") {
+			options_.customStylesheet = require("path").join(__dirname, "dark-prompt.css");
+		}
 
 		if (options_.type === "counter" && (options_.counterOptions !== null && typeof options_.selectOptions !== "object")) {
 			reject(new Error('"counterOptions" must be an object if specified'));
