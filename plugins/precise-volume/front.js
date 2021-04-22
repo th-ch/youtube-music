@@ -4,7 +4,7 @@ const { setOptions } = require("../../config/plugins");
 function $(selector) { return document.querySelector(selector); }
 
 module.exports = (options) => {
-	setPlaybarOnwheel(options);
+	setupPlaybar(options);
 	setupSliderObserver(options);
 	setupArrowShortcuts(options);
 	firstRun(options);
@@ -40,13 +40,23 @@ function firstRun(options) {
 	}
 }
 
-function setPlaybarOnwheel(options) {
+function setupPlaybar(options) {
+	const playerbar = $("ytmusic-player-bar");
 	// Add onwheel event to play bar
-	$("ytmusic-player-bar").onwheel = event => {
+	playerbar.onwheel = event => {
 		event.preventDefault();
 		// Event.deltaY < 0 means wheel-up
 		changeVolume(event.deltaY < 0, options);
 	};
+
+	// Keep track of mouse position for showVolumeSlider()
+	playerbar.addEventListener("mouseenter", () => {
+		playerbar.classList.add("on-hover");
+	});
+
+	playerbar.addEventListener("mouseleave", () => {
+		playerbar.classList.remove("on-hover");
+	});
 }
 
 // (increase = false) means volume decrease
@@ -67,7 +77,25 @@ function changeVolume(increase, options) {
 	// Change tooltips to new value
 	setTooltip(options.savedVolume);
 	// Show volume slider on volume change
+	showVolumeSlider(slider);
+}
+
+let volumeHoverTimeoutID;
+
+function showVolumeSlider(slider) {
+	// This class display the volume slider if not in minimized mode
 	slider.classList.add("on-hover");
+	 // Reset timeout if previous one hasn't completed
+	if (volumeHoverTimeoutID) {
+		clearTimeout(volumeHoverTimeoutID);
+	}
+	// Timeout to remove volume preview after 3 seconds if playbar isn't hovered
+	volumeHoverTimeoutID = setTimeout(() => {
+		volumeHoverTimeoutID = null;
+		if (!$("ytmusic-player-bar").classList.contains("on-hover")) {
+			slider.classList.remove("on-hover");
+		}
+	}, 3000);
 }
 
 // Save volume + Update the volume tooltip when volume-slider is manually changed
@@ -132,6 +160,7 @@ function setupArrowShortcuts(options) {
 	}
 
 	function callback(event) {
+		event.preventDefault();
 		switch (event.code) {
 			case "ArrowUp":
 				changeVolume(true, options);
