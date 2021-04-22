@@ -1,6 +1,6 @@
 const { ipcRenderer } = require("electron");
 const { setOptions } = require("../../config/plugins");
- 
+
 function $(selector) { return document.querySelector(selector); }
 
 module.exports = (options) => {
@@ -54,7 +54,7 @@ function setPlaybarOnwheel(options) {
 function changeVolume(increase, options) {
 	// Need to change both the actual volume and the slider
 	const videoStream = $(".video-stream");
-
+	const slider = $("#volume-slider");
 	// Apply volume change if valid
 	const steps = options.steps / 100;
 	videoStream.volume = increase ?
@@ -64,9 +64,11 @@ function changeVolume(increase, options) {
 	// Save the new volume
 	saveVolume(toPercent(videoStream.volume), options);
 	// Slider value automatically rounds to multiples of 5
-	$("#volume-slider").value = options.savedVolume;
-	// Finally change tooltip to new value
+	slider.value = options.savedVolume;
+	// Change tooltips to new value
 	setTooltip(options.savedVolume);
+	// Show volume slider on volume change
+	slider.classList.add("on-hover")
 }
 
 // Save volume + Update the volume tooltip when volume-slider is manually changed
