@@ -1,6 +1,7 @@
-const { setOptions } = require("../../config/plugins");
 const { ipcRenderer } = require("electron");
-function $(selector){ return document.querySelector(selector); }
+const { setOptions } = require("../../config/plugins");
+ 
+function $(selector) { return document.querySelector(selector); }
 
 module.exports = (options) => {
 	setPlaybarOnwheel(options);
@@ -23,6 +24,7 @@ function firstRun(options) {
 	const slider = $("#volume-slider");
 	// Those elements load abit after DOMContentLoaded
 	if (videoStream && slider) {
+
 		// Set saved volume IF it pass checks
 		if (options.savedVolume
 			&& options.savedVolume >= 0 && options.savedVolume <= 100
@@ -52,7 +54,7 @@ function setPlaybarOnwheel(options) {
 function changeVolume(increase, options) {
 	// Need to change both the actual volume and the slider
 	const videoStream = $(".video-stream");
-	
+
 	// Apply volume change if valid
 	const steps = options.steps / 100;
 	videoStream.volume = increase ?
@@ -98,7 +100,7 @@ const tooltipTargets = [
 
 function setTooltip(volume) {
 	for (target of tooltipTargets) {
-		$(target).title =  `${volume}%`;
+		$(target).title = `${volume}%`;
 	}
 }
 
