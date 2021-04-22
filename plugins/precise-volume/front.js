@@ -24,7 +24,6 @@ function firstRun(options) {
 	const slider = $("#volume-slider");
 	// Those elements load abit after DOMContentLoaded
 	if (videoStream && slider) {
-
 		// Set saved volume IF it pass checks
 		if (options.savedVolume
 			&& options.savedVolume >= 0 && options.savedVolume <= 100
@@ -68,7 +67,7 @@ function changeVolume(increase, options) {
 	// Change tooltips to new value
 	setTooltip(options.savedVolume);
 	// Show volume slider on volume change
-	slider.classList.add("on-hover")
+	slider.classList.add("on-hover");
 }
 
 // Save volume + Update the volume tooltip when volume-slider is manually changed
@@ -95,7 +94,7 @@ function setupSliderObserver(options) {
 // Set new volume as tooltip for volume slider and icon + expanding slider (appears when window size is small)
 const tooltipTargets = [
 	"#volume-slider",
-	"tp-yt-paper-icon-button.volume.style-scope.ytmusic-player-bar",
+	"tp-yt-paper-icon-button.volume",
 	"#expand-volume-slider",
 	"#expand-volume"
 ];
