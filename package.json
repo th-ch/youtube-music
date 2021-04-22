@@ -80,7 +80,7 @@
 		"filenamify": "^4.2.0",
 		"node-fetch": "^2.6.1",
 		"ytdl-core": "^4.4.5",
-		"ytpl": "^2.0.5"
+		"ytpl": "^2.1.0"
 	},
 	"devDependencies": {
 		"electron": "^11.2.3",
