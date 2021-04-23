@@ -43,9 +43,9 @@ const defaultConfig = {
 		},
 		notifications: {
 			enabled: false,
-			urgency: "normal",
 			unpauseNotification: false,
-			interactive: false //has effect only on Windows 8+
+			urgency: "normal", //has effect only on Linux 
+			interactive: false //has effect only on Windows
 		}
 	},
 };
