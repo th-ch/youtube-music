@@ -24,7 +24,7 @@ module.exports = win => {
 	const {playPause, next, previous} = getSongControls(win);
 
 	// If the page is ready, register the callback
-	win.on('ready-to-show', () => {
+	win.once('ready-to-show', () => {
 		registerCallback(songInfo => {
 			// Wait for song to start before setting thumbar
 			if (songInfo.title === '') {
