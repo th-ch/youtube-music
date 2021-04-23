@@ -11,7 +11,7 @@ const clientId = "790655993809338398";
 
 let clearActivity;
 
-module.exports = (win, { activityTimoutEnabled, activityTimoutTime }) => {
+module.exports = (win, {activityTimoutEnabled, activityTimoutTime}) => {
 	const registerCallback = getSongInfo(win);
 
 	// If the page is ready, register the callback
@@ -39,8 +39,7 @@ module.exports = (win, { activityTimoutEnabled, activityTimoutTime }) => {
 					activityInfo.smallImageText = "idle/paused";
 					// Set start the timer so the activity gets cleared after a while if enabled
 					if (activityTimoutEnabled)
-						clearActivity = setTimeout(() => rpc.clearActivity(), activityTimoutTime || 10, 000);
-
+						clearActivity = setTimeout(()=>rpc.clearActivity(), activityTimoutTime||10000);
 				} else {
 					// stop the clear activity timout
 					clearTimeout(clearActivity);
