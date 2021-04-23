@@ -13,7 +13,7 @@ module.exports.setupInteractive = (win, unpauseNotification) => {
 
     onPause = unpauseNotification;
 
-    win.webContents.on("closed", () => {
+    win.webContents.once("closed", () => {
         Delete()
     });
 }

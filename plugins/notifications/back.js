@@ -32,7 +32,7 @@ module.exports = (win, options) => {
 	const registerCallback = getSongInfo(win);
 	let oldNotification;
 	let oldURL = "";
-	win.on("ready-to-show", () => {
+	win.once("ready-to-show", () => {
 		// Register the callback for new song information
 		registerCallback(songInfo => {
 			// on pause - reset url? and skip notification
