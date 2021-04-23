@@ -1,6 +1,6 @@
-# Prompt Documentation
+# Prompt Component Documentation
 
-<p align="center">Simplest Prompt:<br><img width="482" alt="prompt-preview" src="https://user-images.githubusercontent.com/17620180/111753337-09c0c680-8897-11eb-8ce8-43de29c143bd.png"></p>
+<p align="center">Simplest Prompt with no stylesheet:<br><img width="482" alt="prompt-preview" src="https://user-images.githubusercontent.com/17620180/111753337-09c0c680-8897-11eb-8ce8-43de29c143bd.png"></p>
 
 ## Usage
 ```js
