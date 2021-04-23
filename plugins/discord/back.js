@@ -11,14 +11,17 @@ const clientId = "790655993809338398";
 
 let clearActivity;
 
-module.exports = (win, {activityTimoutEnabled, activityTimoutTime}) => {
+module.exports = (win, { activityTimoutEnabled, activityTimoutTime }) => {
 	const registerCallback = getSongInfo(win);
 
 	// If the page is ready, register the callback
-	win.on("ready-to-show", () => {
-		rpc.on("ready", () => {
+	win.once("ready-to-show", () => {
+		rpc.once("ready", () => {
 			// Register the callback
 			registerCallback((songInfo) => {
+				if (songInfo.title.length === 0 && songInfo.artist.length === 0) {
+					return;
+				}
 				// Song information changed, so lets update the rich presence
 				const activityInfo = {
 					details: songInfo.title,
@@ -36,7 +39,7 @@ module.exports = (win, {activityTimoutEnabled, activityTimoutTime}) => {
 					activityInfo.smallImageText = "idle/paused";
 					// Set start the timer so the activity gets cleared after a while if enabled
 					if (activityTimoutEnabled)
-						clearActivity = setTimeout(()=>rpc.clearActivity(), activityTimoutTime||10,000);
+						clearActivity = setTimeout(() => rpc.clearActivity(), activityTimoutTime || 10, 000);
 
 				} else {
 					// stop the clear activity timout
