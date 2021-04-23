@@ -8,7 +8,20 @@ module.exports = (options) => {
 	setupSliderObserver(options);
 	setupArrowShortcuts(options);
 	firstRun(options);
+	ipcRenderer.once("setupVideoPlayerVolumeMousewheel", (_event, toEnable) => {
+		if (toEnable)
+			setupVideoPlayerOnwheel(options);
+	});
 };
+
+function setupVideoPlayerOnwheel(options){
+	// Add onwheel event to video player
+	$("#main-panel").onwheel = event => {
+		event.preventDefault();
+		// Event.deltaY < 0 means wheel-up
+		changeVolume(event.deltaY < 0, options);
+	};
+}
 
 function toPercent(volume) {
 	return Math.round(Number.parseFloat(volume) * 100);
