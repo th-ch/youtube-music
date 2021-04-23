@@ -41,7 +41,7 @@ module.exports = (winImport) => {
 	});
 
 	//set menu visibility on load
-	win.webContents.on("did-finish-load", () => {
+	win.webContents.once("did-finish-load", () => {
 		// fix bug with menu not applying on start when no internet connection available
 		setMenuVisibility(!config.get("options.hideMenu"));
 	});
