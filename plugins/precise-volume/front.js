@@ -16,11 +16,11 @@ module.exports = (options) => {
 
 function setupVideoPlayerOnwheel(options){
 	// Add onwheel event to video player
-	$("#main-panel").onwheel = event => {
+	$("#main-panel").addEventListener("wheel", event => {
 		event.preventDefault();
 		// Event.deltaY < 0 means wheel-up
 		changeVolume(event.deltaY < 0, options);
-	};
+	});
 }
 
 function toPercent(volume) {
@@ -56,11 +56,11 @@ function firstRun(options) {
 function setupPlaybar(options) {
 	const playerbar = $("ytmusic-player-bar");
 	// Add onwheel event to play bar
-	playerbar.onwheel = event => {
+	playerbar.addEventListener("wheel", event => {
 		event.preventDefault();
 		// Event.deltaY < 0 means wheel-up
 		changeVolume(event.deltaY < 0, options);
-	};
+	});
 
 	// Keep track of mouse position for showVolumeSlider()
 	playerbar.addEventListener("mouseenter", () => {
