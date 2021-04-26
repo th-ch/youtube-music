@@ -17,6 +17,7 @@ module.exports = (options) => {
 	}
 
 	firstRun(options);
+
 	// This way the ipc listener gets cleared either way
 	ipcRenderer.once("setupVideoPlayerVolumeMousewheel", (_event, toEnable) => {
 		if (toEnable)
@@ -24,8 +25,8 @@ module.exports = (options) => {
 	});
 };
 
+/** Add onwheel event to video player */
 function setupVideoPlayerOnwheel(options) {
-	// Add onwheel event to video player
 	$("#main-panel").addEventListener("wheel", event => {
 		event.preventDefault();
 		// Event.deltaY < 0 means wheel-up
@@ -42,6 +43,7 @@ function saveVolume(volume, options) {
 	setOptions("precise-volume", options);
 }
 
+/** Restore saved volume and setup tooltip */
 function firstRun(options) {
 	const videoStream = $(".video-stream");
 	const slider = $("#volume-slider");
@@ -63,9 +65,10 @@ function firstRun(options) {
 	}
 }
 
+/** Add onwheel event to play bar and also track if play bar is hovered*/
 function setupPlaybar(options) {
 	const playerbar = $("ytmusic-player-bar");
-	// Add onwheel event to play bar
+
 	playerbar.addEventListener("wheel", event => {
 		event.preventDefault();
 		// Event.deltaY < 0 means wheel-up
@@ -82,7 +85,7 @@ function setupPlaybar(options) {
 	});
 }
 
-// (increase = false) means volume decrease
+/** if (toIncrease = false) then volume decrease */
 function changeVolume(toIncrease, options) {
 	// Need to change both the actual volume and the slider
 	const videoStream = $(".video-stream");
@@ -121,7 +124,7 @@ function showVolumeSlider(slider) {
 	}, 3000);
 }
 
-// Save volume + Update the volume tooltip when volume-slider is manually changed
+/** Save volume + Update the volume tooltip when volume-slider is manually changed */
 function setupSliderObserver(options) {
 	const sliderObserver = new MutationObserver(mutations => {
 		for (const mutation of mutations) {
@@ -166,7 +169,6 @@ function setupGlobalShortcuts(options) {
 }
 
 function setupLocalArrowShortcuts(options) {
-	// Register shortcuts if enabled
 	if (options.arrowsShortcut) {
 		addListener();
 	}
@@ -175,7 +177,7 @@ function setupLocalArrowShortcuts(options) {
 	ipcRenderer.on("setArrowsShortcut", (_event, isEnabled) => {
 		options.arrowsShortcut = isEnabled;
 		setOptions("precise-volume", options);
-		// This allows changing setting without restarting app
+		// This allows changing this setting without restarting app
 		if (isEnabled) {
 			addListener();
 		} else {
