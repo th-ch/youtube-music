@@ -1,20 +1,30 @@
-const { ipcRenderer } = require("electron");
+const { ipcRenderer, remote } = require("electron");
+
 const { setOptions } = require("../../config/plugins");
 
 function $(selector) { return document.querySelector(selector); }
 
 module.exports = (options) => {
+
 	setupPlaybar(options);
+
 	setupSliderObserver(options);
-	setupArrowShortcuts(options);
+
+	setupLocalArrowShortcuts(options);
+
+	if (options.globalShortcuts?.enabled) {
+		setupGlobalShortcuts(options);
+	}
+
 	firstRun(options);
+	// This way the ipc listener gets cleared either way
 	ipcRenderer.once("setupVideoPlayerVolumeMousewheel", (_event, toEnable) => {
 		if (toEnable)
 			setupVideoPlayerOnwheel(options);
 	});
 };
 
-function setupVideoPlayerOnwheel(options){
+function setupVideoPlayerOnwheel(options) {
 	// Add onwheel event to video player
 	$("#main-panel").addEventListener("wheel", event => {
 		event.preventDefault();
@@ -73,13 +83,13 @@ function setupPlaybar(options) {
 }
 
 // (increase = false) means volume decrease
-function changeVolume(increase, options) {
+function changeVolume(toIncrease, options) {
 	// Need to change both the actual volume and the slider
 	const videoStream = $(".video-stream");
 	const slider = $("#volume-slider");
 	// Apply volume change if valid
 	const steps = options.steps / 100;
-	videoStream.volume = increase ?
+	videoStream.volume = toIncrease ?
 		Math.min(videoStream.volume + steps, 1) :
 		Math.max(videoStream.volume - steps, 0);
 
@@ -98,7 +108,7 @@ let volumeHoverTimeoutID;
 function showVolumeSlider(slider) {
 	// This class display the volume slider if not in minimized mode
 	slider.classList.add("on-hover");
-	 // Reset timeout if previous one hasn't completed
+	// Reset timeout if previous one hasn't completed
 	if (volumeHoverTimeoutID) {
 		clearTimeout(volumeHoverTimeoutID);
 	}
@@ -146,7 +156,16 @@ function setTooltip(volume) {
 	}
 }
 
-function setupArrowShortcuts(options) {
+function setupGlobalShortcuts(options) {
+	if (options.globalShortcuts.volumeUp) {
+		remote.globalShortcut.register((options.globalShortcuts.volumeUp), () => changeVolume(true, options));
+	}
+	if (options.globalShortcuts.volumeDown) {
+		remote.globalShortcut.register((options.globalShortcuts.volumeDown), () => changeVolume(false, options));
+	}
+}
+
+function setupLocalArrowShortcuts(options) {
 	// Register shortcuts if enabled
 	if (options.arrowsShortcut) {
 		addListener();
