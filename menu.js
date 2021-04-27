@@ -6,7 +6,6 @@ const is = require("electron-is");
 
 const { getAllPlugins } = require("./plugins/utils");
 const config = require("./config");
-const prompt = require('./providers/prompt');
 
 const pluginEnabledMenu = (win, plugin, label = "", hasSubmenu = false) => ({
 	label: label || plugin,
@@ -309,39 +308,3 @@ module.exports.setApplicationMenu = (win) => {
 	const menu = Menu.buildFromTemplate(menuTemplate);
 	Menu.setApplicationMenu(menu);
 };
-
-const iconPath = path.join(__dirname, "assets", "youtube-music-tray.png");
-const example = `Example: "socks5://127.0.0.1:9999"`;
-function setProxy(item, win) {
-	let options = {
-		title: 'Set Proxy',
-		label: 'Enter Proxy Address: (leave empty to disable)',
-		value: config.get("options.proxy") || example,
-		inputAttrs: {
-			type: 'text'
-		},
-		type: 'input',
-		icon: iconPath,
-		customStylesheet: "dark",
-	};
-	//TODO: custom bar on prompt need testing on macOS
-	if (!is.macOS()) {
-		Object.assign(options, {
-			frame: false,
-			customScript: path.join(__dirname, "providers", "prompt", "custom-titlebar.js"),
-			enableRemoteModule: true,
-			height: 200,
-			width: 450,
-		});
-	}
-	prompt(options, win)
-		.then(input => {
-			if (input !== null && input !== example) {
-				config.set("options.proxy", input);
-				item.checked = input !== "";
-			} else { //user pressed cancel
-				item.checked = !item.checked; //reset checkbox
-			}
-		})
-		.catch(console.error);
-}
