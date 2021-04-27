@@ -91,7 +91,7 @@ function changeVolume(toIncrease, options) {
 	const videoStream = $(".video-stream");
 	const slider = $("#volume-slider");
 	// Apply volume change if valid
-	const steps = options.steps / 100;
+	const steps = (options.steps || 1) / 100;
 	videoStream.volume = toIncrease ?
 		Math.min(videoStream.volume + steps, 1) :
 		Math.max(videoStream.volume - steps, 0);
