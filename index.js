@@ -38,7 +38,7 @@ if (config.get("options.proxy")) {
 
 // Adds debug features like hotkeys for triggering dev tools and reload
 require("electron-debug")({
-	showDevTools: false, //disable automatic devTools on new window
+	showDevTools: false //disable automatic devTools on new window
 });
 
 // Prevent window being garbage collected
@@ -154,7 +154,7 @@ function createMainWindow() {
 	return win;
 }
 
-app.on("browser-window-created", (event, win) => {
+app.once("browser-window-created", (event, win) => {
 	loadPlugins(win);
 
 	win.webContents.on("did-fail-load", () => {
