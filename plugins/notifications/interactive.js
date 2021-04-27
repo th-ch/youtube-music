@@ -20,7 +20,7 @@ module.exports.setupInteractive = (win, unpauseNotification) => {
 
 //delete old notification
 let toDelete;
-function Delete() {
+function deleteNotification() {
     if (toDelete !== undefined) {
         const removeNotif = Object.assign(toDelete, {
             remove: toDelete.id
