@@ -79,7 +79,7 @@ select#data {
 	color: black;
 }
 
-/* Counter mode css */
+/* Counter mode */
 span {
 	cursor: pointer;
 }
@@ -96,3 +96,25 @@ span {
 	vertical-align: middle;
 	text-align: center;
 }
+
+/** Keybind mode */
+div.keybind {
+	display: grid;
+	grid-template-columns: max-content max-content max-content;
+	row-gap: 20px;
+	column-gap: 10px;
+	margin: auto 0;
+	justify-content: center;
+  }
+  
+  div.keybind button {
+	width: auto;
+  }
+  
+  div.keybind label {
+	text-align: right;
+  }
+  
+  div.keybind label:after {
+	content: ":";
+  }

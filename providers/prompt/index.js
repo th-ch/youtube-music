@@ -6,9 +6,10 @@ const url = require("url");
 const path = require("path");
 
 const DEFAULT_WIDTH = 370;
+const DEFAULT_KEYBIND_WIDTH = 420;
 const DEFAULT_COUNTER_WIDTH = 300;
-const DEFAULT_HEIGHT = 160;
-const DEFAULT_COUNTER_HEIGHT = 150;
+const DEFAULT_HEIGHT = 150;
+const DEFAULT_KEYBIND_HEIGHT = options => (options.length * 40) + 100;
 
 function electronPrompt(options, parentWindow) {
 	return new Promise((resolve, reject) => {
@@ -18,8 +19,8 @@ function electronPrompt(options, parentWindow) {
 		//custom options override default
 		const options_ = Object.assign(
 			{
-				width: options?.type === "counter" ? DEFAULT_COUNTER_WIDTH : DEFAULT_WIDTH,
-				height: options?.type === "counter" ? DEFAULT_COUNTER_HEIGHT : DEFAULT_HEIGHT,
+				width: options?.type === "counter" ? DEFAULT_COUNTER_WIDTH : options?.type === "keybind" ? DEFAULT_KEYBIND_WIDTH : DEFAULT_WIDTH,
+				height: options?.type === "keybind" && options?.keybindOptions ? DEFAULT_KEYBIND_HEIGHT(options.keybindOptions) : DEFAULT_HEIGHT,
 				resizable: false,
 				title: "Prompt",
 				label: "Please input a value:",
@@ -28,6 +29,7 @@ function electronPrompt(options, parentWindow) {
 				value: null,
 				type: "input",
 				selectOptions: null,
+				keybindOptions: null,
 				counterOptions: { minimum: null, maximum: null, multiFire: false },
 				icon: null,
 				useHtmlLabel: false,
@@ -41,22 +43,21 @@ function electronPrompt(options, parentWindow) {
 			options || {}
 		);
 
-		options_.minWidth = options?.minWidth || options?.width || options_.width;
-		options_.minHeight = options?.minHeight || options?.height || options_.height;
+
 
 		if (options_.customStylesheet === "dark") {
 			options_.customStylesheet = require("path").join(__dirname, "dark-prompt.css");
 		}
 
-		if (options_.type === "counter" && (options_.counterOptions !== null && typeof options_.selectOptions !== "object")) {
-			reject(new Error('"counterOptions" must be an object if specified'));
-			return;
+		for (let type of ["counter", "select", "keybind"]) {
+			if (options_.type === type && (!options_[`${type}Options`] || typeof options_[`${type}Options`] !== "object")) {
+				reject(new Error(`"${type}Options" must be an object if type = ${type}`));
+				return;
+			}
 		}
 
-		if (options_.type === "select" && (options_.selectOptions === null || typeof options_.selectOptions !== "object")) {
-			reject(new Error('"selectOptions" must be an object'));
-			return;
-		}
+		options_.minWidth = options?.minWidth || options?.width || options_.width;
+		options_.minHeight = options?.minHeight || options?.height || options_.height;
 
 		let promptWindow = new BrowserWindow({
 			frame: options_.frame,
@@ -104,6 +105,11 @@ function electronPrompt(options, parentWindow) {
 
 		//get input from front
 		const postDataListener = (event, value) => {
+			if (options_.type === "keybind" && value) {
+				for (let i=0; i < value.length ;i++) {
+					value[i] = JSON.parse(value[i])
+				}
+			}
 			resolve(value);
 			event.returnValue = null;
 			cleanup();
@@ -135,7 +141,7 @@ function electronPrompt(options, parentWindow) {
 
 		//should never happen
 		promptWindow.webContents.on("did-fail-load", (
-			event,
+			_event,
 			errorCode,
 			errorDescription,
 			validatedURL

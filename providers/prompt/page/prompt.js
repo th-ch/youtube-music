@@ -1,16 +1,15 @@
 const fs = require("fs");
 const { ipcRenderer } = require("electron");
-
 let promptId = null;
 let promptOptions = null;
+let dataElement = null;
 
-function $(selector) {
-	return document.querySelector(selector);
-}
+function $(selector) { return document.querySelector(selector); } 
 
 document.addEventListener("DOMContentLoaded", promptRegister);
 
 function promptRegister() {
+
 	//get custom session id
 	promptId = document.location.hash.replace("#", "");
 
@@ -56,13 +55,12 @@ function promptRegister() {
 	$("#form").addEventListener("submit", promptSubmit);
 	$("#cancel").addEventListener("click", promptCancel);
 
-	//create input/select
+	//create input/select/counter/keybind
 	const dataContainerElement = $("#data-container");
-	let dataElement;
 
 	switch (promptOptions.type) {
 		case "counter":
-			dataElement = promptCreateCounter();
+			dataElement = promptCreateCounter(dataContainerElement);
 			break;
 		case "input":
 			dataElement = promptCreateInput();
@@ -70,22 +68,24 @@ function promptRegister() {
 		case "select":
 			dataElement = promptCreateSelect();
 			break;
+		case "keybind":
+			dataElement = require("./keybind")(promptOptions.keybindOptions, dataContainerElement);
+			break;
 		default:
 			return promptError(`Unhandled input type '${promptOptions.type}'`);
 	}
 
-	if (promptOptions.type === "counter") {
-		dataContainerElement.append(createMinusButton(dataElement));
-		dataContainerElement.append(dataElement);
-		dataContainerElement.append(createPlusButton(dataElement));
-	} else {
-		dataContainerElement.append(dataElement);
+	if (promptOptions.type != "keybind") {
+		dataElement.setAttribute("id", "data");
+
+		if (promptOptions.type !== "counter") {
+			dataContainerElement.append(dataElement);
+		}
 	}
 
-	dataElement.setAttribute("id", "data");
 	dataElement.focus();
 
-	if (promptOptions.type === "input" || promptOptions.type === "counter") {
+	if (promptOptions.type !== "select" && promptOptions.type !== "keybind") {
 		dataElement.select();
 	}
 
@@ -100,10 +100,10 @@ function promptRegister() {
 	}
 }
 
-window.addEventListener("error", error => {
+window.addEventListener("error", event => {
 	if (promptId) {
 		promptError("An error has occured on the prompt window: \n" +
-			JSON.stringify(error, ["message", "arguments", "type", "name"])
+			`Message: ${event.message}\nURL: ${event.url}\nLine: ${event.lineNo}, Column: ${event.columnNo}\nStack: ${event.error.stack}`
 		);
 	}
 });
@@ -111,7 +111,7 @@ window.addEventListener("error", error => {
 //send error to back
 function promptError(error) {
 	if (error instanceof Error) {
-		error = error.message;
+		error = error.message + "\n" + error.stack;
 	}
 
 	ipcRenderer.sendSync("prompt-error:" + promptId, error);
@@ -124,20 +124,18 @@ function promptCancel() {
 
 //transfer input data to back
 function promptSubmit() {
-	const dataElement = $("#data");
 	let data = null;
 
 	switch (promptOptions.type) {
 		case "input":
+		case "select":
 			data = dataElement.value;
 			break;
 		case "counter":
 			data = validateCounterInput(dataElement.value);
 			break;
-		case "select":
-			data = promptOptions.selectMultiple ?
-				dataElement.querySelectorAll("option[selected]").map(o => o.getAttribute("value")) :
-				dataElement.value;
+		case "keybind":
+			data = dataElement.submit();
 			break;
 		default: //will never happen
 			return promptError(`Unhandled input type '${promptOptions.type}'`);
@@ -152,9 +150,6 @@ function promptCreateInput() {
 	dataElement.setAttribute("type", "text");
 
 	if (promptOptions.value) {
-		if (promptOptions.type === "counter") {
-			promptOptions.value = validateCounterInput(promptOptions.value);
-		}
 		dataElement.value = promptOptions.value;
 	} else {
 		dataElement.value = "";
@@ -212,21 +207,50 @@ function promptCreateSelect() {
 	return dataElement;
 }
 
+function promptCreateCounter(parentElement) {
+	if (promptOptions.counterOptions?.multiFire) {
+		document.onmouseup = () => {
+			if (nextTimeoutID) {
+				clearTimeout(nextTimeoutID)
+				nextTimeoutID = null;
+			}
+		};
+	}
+
+	promptOptions.value = validateCounterInput(promptOptions.value);
+
+	const dataElement = promptCreateInput();
+	dataElement.onkeypress = function isNumberKey(e) {
+		if (Number.isNaN(parseInt(e.key)) && e.key !== "Backspace" && e.key !== "Delete")
+			return false;
+		return true;
+	}
+
+	dataElement.style.width = "unset";
+	dataElement.style["text-align"] = "center";
+
+	parentElement.append(createMinusButton(dataElement));
+	parentElement.append(dataElement);
+	parentElement.append(createPlusButton(dataElement));
+
+	return dataElement;
+}
+
 let nextTimeoutID = null;
 
-/* Function execute callback in 3 accelerated intervals based on timer.
+/** Function execute callback in 3 accelerated intervals based on timer.
  * Terminated from document.onmouseup() that is registered from promptCreateCounter()
- * @param {function} callback: function to execute
- * @param {object} timer: {
- *	* 	time: First delay in miliseconds.
- *	* 	limit: First Speed Limit, gets divided by 2 after $20 calls. $number change exponentially
+ * @param {function} callback function to execute
+ * @param {object} timer {
+ *	* 	time: First delay in miliseconds
  *	* 	scaleSpeed: Speed change per tick on first acceleration
- *	}
- * @param {int} stepArgs: argument for callback representing Initial steps per click, default to 1
+ *	* 	limit: First Speed Limit, gets divided by 2 after $20 calls. $number change exponentially
+ * }
+ * @param {int} stepArgs argument for callback representing Initial steps per click, default to 1
  *  steps starts to increase when speed is too fast to notice
- * @param {int} counter: used internally to decrease timer.limit
+ * @param {int} counter used internally to decrease timer.limit
  */
-function multiFire(callback, timer = { time: 500, scaleSpeed: 140, limit: 100 }, stepsArg = 1, counter = 0) {
+function multiFire(callback, timer = { time: 300, scaleSpeed: 100, limit: 100 }, stepsArg = 1, counter = 0) {
 	callback(stepsArg);
 
 	const nextTimeout = timer.time;
@@ -241,9 +265,7 @@ function multiFire(callback, timer = { time: 500, scaleSpeed: 140, limit: 100 },
 	}
 
 	if (timer.time !== timer.limit) {
-		timer.time = timer.time > timer.limit ?
-			timer.time - timer.scaleSpeed :
-			timer.limit;
+		timer.time = Math.max(timer.time - timer.scaleSpeed, timer.limit)
 	}
 
 	nextTimeoutID = setTimeout(
@@ -301,26 +323,9 @@ function createPlusButton(dataElement) {
 	return plusBtn;
 }
 
-function promptCreateCounter() {
-	if (promptOptions.counterOptions?.multiFire) {
-		document.onmouseup = () => {
-			if (nextTimeoutID) {
-				clearTimeout(nextTimeoutID)
-				nextTimeoutID = null;
-			}
-		};
-	}
-
-	const dataElement = promptCreateInput();
-
-	dataElement.style.width = "unset";
-	dataElement.style["text-align"] = "center";
-
-	return dataElement;
-}
-
 //validate counter
 function validateCounterInput(input) {
+
 	const min = promptOptions.counterOptions?.minimum;
 	const max = promptOptions.counterOptions?.maximum;
 	//note that !min/max would proc if min/max are 0
@@ -334,3 +339,6 @@ function validateCounterInput(input) {
 
 	return input;
 }
+
+module.exports.promptError = promptError;
+
