@@ -18,7 +18,8 @@ body {
 	overflow: hidden;
 }
 
-#data {
+#data,
+.keybindData {
 	background: unset;
 	color: whitesmoke;
 	border: 1px solid rgb(54, 54, 54);
@@ -41,12 +42,35 @@ body {
 }
 
 #ok,
-#cancel {
+#cancel,
+.clearButton {
 	background-color: rgb(0, 0, 0);
 	color: whitesmoke;
 }
 
+/* For Counter Prompt */
 .minus,
 .plus {
 	background: rgb(0, 0, 0);
+}
+
+/* For Select Prompt */
+option {
+	background-color: #07070C;
+}
+
+/* For Keybind Prompt */
+.clearButton:focus {
+	outline: none;
+}
+.clearButton:hover {
+	background-color: rgb(5, 5, 5);
+}
+.keybindData:hover {
+	border: 1px solid rgb(56, 0, 0);
+}
+
+.keybindData:focus {
+	outline: 3px solid #1E0919;
+	border: 1px solid rgb(56, 0, 0);
 }
