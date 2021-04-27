@@ -6,6 +6,7 @@ const is = require("electron-is");
 
 const { getAllPlugins } = require("./plugins/utils");
 const config = require("./config");
+const prompt = require("custom-electron-prompt");
 
 const pluginEnabledMenu = (win, plugin, label = "", hasSubmenu = false) => ({
 	label: label || plugin,
@@ -103,30 +104,38 @@ const mainMenuTemplate = (win, withRoles = true, isTray = false) => [
 			},
 			...(is.windows() || is.linux()
 				? [
-						{
-							label: "Hide menu",
-							type: "checkbox",
-							checked: config.get("options.hideMenu"),
-							click: (item) => {
-								config.set("options.hideMenu", item.checked);
-							},
+					{
+						label: "Hide menu",
+						type: "checkbox",
+						checked: config.get("options.hideMenu"),
+						click: (item) => {
+							config.set("options.hideMenu", item.checked);
 						},
-				  ]
+					},
+				]
 				: []),
 			...(is.windows() || is.macOS()
 				? // Only works on Win/Mac
-				  // https://www.electronjs.org/docs/api/app#appsetloginitemsettingssettings-macos-windows
-				  [
-						{
-							label: "Start at login",
-							type: "checkbox",
-							checked: config.get("options.startAtLogin"),
-							click: (item) => {
-								config.set("options.startAtLogin", item.checked);
-							},
+				// https://www.electronjs.org/docs/api/app#appsetloginitemsettingssettings-macos-windows
+				[
+					{
+						label: "Start at login",
+						type: "checkbox",
+						checked: config.get("options.startAtLogin"),
+						click: (item) => {
+							config.set("options.startAtLogin", item.checked);
 						},
-				  ]
+					},
+				]
 				: []),
+			{
+				label: "Proxy",
+				type: "checkbox",
+				checked: !!config.get("options.proxy"),
+				click: (item) => {
+					setProxy(item, win);
+				}
+			},
 			{
 				label: "Tray",
 				submenu: [
@@ -194,56 +203,56 @@ const mainMenuTemplate = (win, withRoles = true, isTray = false) => [
 	},
 	...(!isTray
 		? [
-				{
-					label: "View",
-					submenu: withRoles
-						? [
-								{ role: "reload" },
-								{ role: "forceReload" },
-								{ type: "separator" },
-								{ role: "zoomIn" },
-								{ role: "zoomOut" },
-								{ role: "resetZoom" },
-						  ]
-						: [
-								{
-									label: "Reload",
-									click: () => {
-										win.webContents.reload();
-									},
-								},
-								{
-									label: "Force Reload",
-									click: () => {
-										win.webContents.reloadIgnoringCache();
-									},
-								},
-								{ type: "separator" },
-								{
-									label: "Zoom In",
-									click: () => {
-										win.webContents.setZoomLevel(
-											win.webContents.getZoomLevel() + 1
-										);
-									},
-								},
-								{
-									label: "Zoom Out",
-									click: () => {
-										win.webContents.setZoomLevel(
-											win.webContents.getZoomLevel() - 1
-										);
-									},
-								},
-								{
-									label: "Reset Zoom",
-									click: () => {
-										win.webContents.setZoomLevel(0);
-									},
-								},
-						  ],
-				},
-		  ]
+			{
+				label: "View",
+				submenu: withRoles
+					? [
+						{ role: "reload" },
+						{ role: "forceReload" },
+						{ type: "separator" },
+						{ role: "zoomIn" },
+						{ role: "zoomOut" },
+						{ role: "resetZoom" },
+					]
+					: [
+						{
+							label: "Reload",
+							click: () => {
+								win.webContents.reload();
+							},
+						},
+						{
+							label: "Force Reload",
+							click: () => {
+								win.webContents.reloadIgnoringCache();
+							},
+						},
+						{ type: "separator" },
+						{
+							label: "Zoom In",
+							click: () => {
+								win.webContents.setZoomLevel(
+									win.webContents.getZoomLevel() + 1
+								);
+							},
+						},
+						{
+							label: "Zoom Out",
+							click: () => {
+								win.webContents.setZoomLevel(
+									win.webContents.getZoomLevel() - 1
+								);
+							},
+						},
+						{
+							label: "Reset Zoom",
+							click: () => {
+								win.webContents.setZoomLevel(0);
+							},
+						},
+					],
+			},
+		]
 		: []),
 	{
 		label: "Navigation",
@@ -273,13 +282,13 @@ const mainMenuTemplate = (win, withRoles = true, isTray = false) => [
 			},
 			...(!isTray
 				? [
-						{
-							label: "Quit App",
-							click: () => {
-								app.quit();
-							},
+					{
+						label: "Quit App",
+						click: () => {
+							app.quit();
 						},
-				  ]
+					},
+				]
 				: []),
 		],
 	},
@@ -318,3 +327,39 @@ module.exports.setApplicationMenu = (win) => {
 	const menu = Menu.buildFromTemplate(menuTemplate);
 	Menu.setApplicationMenu(menu);
 };
+
+const iconPath = path.join(__dirname, "assets", "youtube-music-tray.png");
+const example = `Example: "socks5://127.0.0.1:9999"`;
+function setProxy(item, win) {
+	let options = {
+		title: 'Set Proxy',
+		label: 'Enter Proxy Address: (leave empty to disable)',
+		value: config.get("options.proxy") || example,
+		inputAttrs: {
+			type: 'text'
+		},
+		type: 'input',
+		icon: iconPath,
+		customStylesheet: "dark",
+	};
+	//TODO: custom bar on prompt need testing on macOS
+	if (!is.macOS()) {
+		Object.assign(options, {
+			frame: false,
+			customScript: path.join(__dirname, "plugins", "in-app-menu", "prompt-custom-titlebar.js"),
+			enableRemoteModule: true,
+			height: 200,
+			width: 450,
+		});
+	}
+	prompt(options, win)
+		.then(input => {
+			if (input !== null && input !== example) {
+				config.set("options.proxy", input);
+				item.checked = input !== "";
+			} else { //user pressed cancel
+				item.checked = !item.checked; //reset checkbox
+			}
+		})
+		.catch(console.error);
+}

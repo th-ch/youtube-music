@@ -37,7 +37,9 @@ if (config.get("options.proxy")) {
 }
 
 // Adds debug features like hotkeys for triggering dev tools and reload
-require("electron-debug")();
+require("electron-debug")({
+	showDevTools: false, //disable automatic devTools on new window
+});
 
 // Prevent window being garbage collected
 let mainWindow;
@@ -58,7 +60,7 @@ function onClosed() {
 
 function loadPlugins(win) {
 	injectCSS(win.webContents, path.join(__dirname, "youtube-music.css"));
-	win.webContents.on("did-finish-load", () => {
+	win.webContents.once("did-finish-load", () => {
 		if (is.dev()) {
 			console.log("did finish load");
 			win.webContents.openDevTools();

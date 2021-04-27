@@ -68,6 +68,7 @@
 		"YoutubeNonStop": "git://github.com/lawfx/YoutubeNonStop.git#v0.8.1",
 		"async-mutex": "^0.3.1",
 		"browser-id3-writer": "^4.4.0",
+		"custom-electron-prompt": "^1.0.2",
 		"custom-electron-titlebar": "^3.2.6",
 		"discord-rpc": "^3.2.0",
 		"downloads-folder": "^3.0.1",

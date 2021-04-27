@@ -2636,6 +2636,13 @@ cssstyle@^2.2.0:
   dependencies:
     cssom "~0.3.6"
 
+custom-electron-prompt@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/custom-electron-prompt/-/custom-electron-prompt-1.0.1.tgz#6d11c6e5130a444a9425bd27864777b36f1fef11"
+  integrity sha512-ldEiZ1t3rBDOb0nfvVpxQOjWJvkkUO3B/sD9IIYr2C/VG9COkc6IJNO2E3rXMPdDDIwejXEQx3CTWp2N2d4moQ==
+  dependencies:
+    electron "^11.4.4"
+
 custom-electron-titlebar@^3.2.6:
   version "3.2.6"
   resolved "https://registry.yarnpkg.com/custom-electron-titlebar/-/custom-electron-titlebar-3.2.6.tgz#4cd064efa5020954c09732efa8c667a7ee3636e3"
@@ -3135,6 +3142,15 @@ electron@^11.2.3:
   version "11.2.3"
   resolved "https://registry.yarnpkg.com/electron/-/electron-11.2.3.tgz#8ad1d9858436cfca0e2e5ea7fea326794ae58ebb"
   integrity sha512-6yxOc42nDAptHKNlUG/vcOh2GI9x2fqp2nQbZO0/3sz2CrwsJkwR3i3oMN9XhVJaqI7GK1vSCJz0verOkWlXcQ==
+  dependencies:
+    "@electron/get" "^1.0.1"
+    "@types/node" "^12.0.12"
+    extract-zip "^1.0.3"
+
+electron@^11.4.4:
+  version "11.4.4"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-11.4.4.tgz#d6c046dedd9e22df5f6408841c3f8ae1a1d59414"
+  integrity sha512-m52nF85VADCmL9DpzJfgmkvc9fNiGZPYwptv/4fTYrYhAMiO+hmClGMXncCoSAzoULQjl+f+0b9CY4yd6nRFlQ==
   dependencies:
     "@electron/get" "^1.0.1"
     "@types/node" "^12.0.12"
