@@ -14,7 +14,7 @@ module.exports.setupInteractive = (win, unpauseNotification) => {
     onPause = unpauseNotification;
 
     win.webContents.once("closed", () => {
-        Delete()
+        deleteNotification()
     });
 }
 
@@ -33,7 +33,7 @@ function deleteNotification() {
 
 //New notification
 module.exports.notifyInteractive = function sendToaster(songInfo) {
-    Delete();
+    deleteNotification();
     //download image and get path
     let imgSrc = notificationImage(songInfo, true);
     toDelete = {
@@ -84,7 +84,7 @@ module.exports.notifyInteractive = function sendToaster(songInfo) {
                 //Native datatype
                 case "dismissed":
                 case "timeout":
-                    Delete();
+                    deleteNotification();
             }
         }
 
