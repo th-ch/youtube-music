@@ -8,26 +8,24 @@ let currentSongInfo;
 module.exports = win => {
 	const registerCallback = getSongInfo(win);
 	const { playPause, next, previous } = getSongControls(win);
-	controls = { playPause, next, previous }
+	controls = { playPause, next, previous };
 
 	registerCallback(songInfo => {
 		//update currentsonginfo for win.on('show')
 		currentSongInfo = songInfo;
 		// update thumbar
-		setThumbar(win, songInfo)
+		setThumbar(win, songInfo);
 	});
 
 	// need to set thumbar again after win.show 
 	win.on("show", () => {
-		if (currentSongInfo) {
-			setThumbar(win, currentSongInfo)
-		}
+		setThumbar(win, currentSongInfo)
 	})
 };
 
 function setThumbar(win, songInfo) {
 	// Wait for song to start before setting thumbar
-	if (!songInfo.title) {
+	if (!songInfo?.title) {
 		return;
 	}
 
