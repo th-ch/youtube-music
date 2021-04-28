@@ -78,7 +78,9 @@
 		"electron-unhandled": "^3.0.2",
 		"electron-updater": "^4.3.6",
 		"filenamify": "^4.2.0",
+		"md5": "^2.3.0",
 		"node-fetch": "^2.6.1",
+		"open": "^8.0.3",
 		"ytdl-core": "^4.4.5",
 		"ytpl": "^2.0.5"
 	},
