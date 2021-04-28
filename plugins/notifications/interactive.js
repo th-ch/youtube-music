@@ -4,14 +4,14 @@ const notifier = require("node-notifier");
 
 //store song controls reference on launch
 let controls;
-let NotificationOnPause;
+let notificationOnPause;
 
 //Save controls and onPause option
 module.exports.setupInteractive = (win, unpauseNotification) => {
     const { playPause, next, previous } = getSongControls(win);
     controls = { playPause, next, previous };
 
-    NotificationOnPause = unpauseNotification;
+    notificationOnPause = unpauseNotification;
 
     win.webContents.once("closed", () => {
         deleteNotification()
@@ -71,7 +71,7 @@ module.exports.notifyInteractive = function sendToaster(songInfo) {
                     // dont delete notification on play/pause
                     toDelete = undefined;
                     //manually send notification if not sending automatically
-                    if (!NotificationOnPause) {
+                    if (!notificationOnPause) {
                         songInfo.isPaused = false;
                         sendToaster(songInfo);
                     }
