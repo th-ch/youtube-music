@@ -38,9 +38,7 @@ if (config.get("options.proxy")) {
 }
 
 // Adds debug features like hotkeys for triggering dev tools and reload
-require("electron-debug")({
-	showDevTools: false //disable automatic devTools on new window
-});
+require("electron-debug")();
 
 // Prevent window being garbage collected
 let mainWindow;
