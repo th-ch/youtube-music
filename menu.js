@@ -144,14 +144,6 @@ const mainMenuTemplate = (win) => [
 				label: "Advanced options",
 				submenu: [
 					{
-						label: "Proxy",
-						type: "checkbox",
-						checked: !!config.get("options.proxy"),
-						click: (item) => {
-							setProxy(item, win);
-						}
-					},
-					{
 						label: "Disable hardware acceleration",
 						type: "checkbox",
 						checked: config.get("options.disableHardwareAcceleration"),
