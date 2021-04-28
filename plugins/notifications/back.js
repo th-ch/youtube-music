@@ -43,7 +43,7 @@ module.exports = (win, options) => {
 				}
 				return;
 			}
-			// If url isn"t the same as last one - send notification
+			// If url isn't the same as last one - send notification
 			if (songInfo.url !== oldURL) {
 				oldURL = songInfo.url;
 				if (isInteractive) {
