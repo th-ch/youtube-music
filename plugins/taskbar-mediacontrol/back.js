@@ -3,7 +3,7 @@ const getSongInfo = require('../../providers/song-info');
 const path = require('path');
 
 let controls;
-let CurrentSongInfo;
+let currentSongInfo;
 
 module.exports = win => {
 	const registerCallback = getSongInfo(win);
@@ -12,15 +12,15 @@ module.exports = win => {
 
 	registerCallback(songInfo => {
 		//update currentsonginfo for win.on('show')
-		CurrentSongInfo = songInfo;
+		currentSongInfo = songInfo;
 		// update thumbar
 		setThumbar(win, songInfo)
 	});
 
 	// need to set thumbar again after win.show 
 	win.on("show", () => {
-		if (CurrentSongInfo) {
-			setThumbar(win, CurrentSongInfo)
+		if (currentSongInfo) {
+			setThumbar(win, currentSongInfo)
 		}
 	})
 };
