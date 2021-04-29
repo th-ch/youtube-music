@@ -1,7 +1,9 @@
 const { randomBytes } = require("crypto");
+const { writeFileSync } = require("fs");
 const { join } = require("path");
 
-const downloadsFolder = require("downloads-folder");
+const Mutex = require("async-mutex").Mutex;
+const ID3Writer = require("browser-id3-writer");
 const { ipcRenderer } = require("electron");
 const is = require("electron-is");
 const filenamify = require("filenamify");
@@ -12,8 +14,9 @@ const filenamify = require("filenamify");
 const FFmpeg = require("@ffmpeg/ffmpeg/dist/ffmpeg.min");
 const ytdl = require("ytdl-core");
 
-const { triggerActionSync } = require("../utils");
+const { triggerAction, triggerActionSync } = require("../utils");
 const { ACTIONS, CHANNEL } = require("./actions.js");
+const { defaultMenuDownloadLabel, getFolder } = require("./utils");
 
 const { createFFmpeg } = FFmpeg;
 const ffmpeg = createFFmpeg({
@@ -21,13 +24,16 @@ const ffmpeg = createFFmpeg({
 	logger: () => {}, // console.log,
 	progress: () => {}, // console.log,
 });
+const ffmpegMutex = new Mutex();
 
 const downloadVideoToMP3 = (
 	videoUrl,
 	sendFeedback,
 	sendError,
 	reinit,
-	options
+	options,
+	metadata = undefined,
+	subfolder = ""
 ) => {
 	sendFeedback("Downloading…");
 
@@ -66,9 +72,18 @@ const downloadVideoToMP3 = (
 			}
 		})
 		.on("error", sendError)
-		.on("end", () => {
+		.on("end", async () => {
 			const buffer = Buffer.concat(chunks);
-			toMP3(videoName, buffer, sendFeedback, sendError, reinit, options);
+			await toMP3(
+				videoName,
+				buffer,
+				sendFeedback,
+				sendError,
+				reinit,
+				options,
+				metadata,
+				subfolder
+			);
 		});
 };
 
@@ -78,10 +93,13 @@ const toMP3 = async (
 	sendFeedback,
 	sendError,
 	reinit,
-	options
+	options,
+	existingMetadata = undefined,
+	subfolder = ""
 ) => {
 	const safeVideoName = randomBytes(32).toString("hex");
 	const extension = options.extension || "mp3";
+	const releaseFFmpegMutex = await ffmpegMutex.acquire();
 
 	try {
 		if (!ffmpeg.isLoaded()) {
@@ -93,7 +111,7 @@ const toMP3 = async (
 		ffmpeg.FS("writeFile", safeVideoName, buffer);
 
 		sendFeedback("Converting…");
-		const metadata = getMetadata();
+		const metadata = existingMetadata || getMetadata();
 		await ffmpeg.run(
 			"-i",
 			safeVideoName,
@@ -102,24 +120,45 @@ const toMP3 = async (
 			safeVideoName + "." + extension
 		);
 
-		const folder = options.downloadFolder || downloadsFolder();
-		const name = metadata
-			? `${metadata.artist} - ${metadata.title}`
+		const folder = getFolder(options.downloadFolder);
+		const name = metadata.title
+			? `${metadata.artist ? `${metadata.artist} - ` : ""}${metadata.title}`
 			: videoName;
 		const filename = filenamify(name + "." + extension, {
 			replacement: "_",
 		});
 
+		const filePath = join(folder, subfolder, filename);
+		const fileBuffer = ffmpeg.FS("readFile", safeVideoName + "." + extension);
+
 		// Add the metadata
-		sendFeedback("Adding metadata…");
-		ipcRenderer.send(
-			"add-metadata",
-			join(folder, filename),
-			ffmpeg.FS("readFile", safeVideoName + "." + extension)
-		);
-		ipcRenderer.once("add-metadata-done", reinit);
+		try {
+			const writer = new ID3Writer(fileBuffer);
+			if (metadata.image) {
+				const coverBuffer = metadata.image.toPNG();
+
+				// Create the metadata tags
+				writer
+					.setFrame("TIT2", metadata.title)
+					.setFrame("TPE1", [metadata.artist])
+					.setFrame("APIC", {
+						type: 3,
+						data: coverBuffer,
+						description: "",
+					});
+				writer.addTag();
+			}
+
+			writeFileSync(filePath, Buffer.from(writer.arrayBuffer));
+		} catch (error) {
+			sendError(error);
+		} finally {
+			reinit();
+		}
 	} catch (e) {
 		sendError(e);
+	} finally {
+		releaseFFmpegMutex();
 	}
 };
 
@@ -133,13 +172,34 @@ const getFFmpegMetadataArgs = (metadata) => {
 	}
 
 	return [
-		"-metadata",
-		`title=${metadata.title}`,
-		"-metadata",
-		`artist=${metadata.artist}`,
+		...(metadata.title ? ["-metadata", `title=${metadata.title}`] : []),
+		...(metadata.artist ? ["-metadata", `artist=${metadata.artist}`] : []),
 	];
 };
 
 module.exports = {
 	downloadVideoToMP3,
 };
+
+ipcRenderer.on(
+	"downloader-download-playlist",
+	(_, songMetadata, playlistFolder, options) => {
+		const reinit = () =>
+			ipcRenderer.send("downloader-feedback", defaultMenuDownloadLabel);
+
+		downloadVideoToMP3(
+			songMetadata.url,
+			(feedback) => {
+				ipcRenderer.send("downloader-feedback", feedback);
+			},
+			(error) => {
+				triggerAction(CHANNEL, ACTIONS.ERROR, error);
+				reinit();
+			},
+			reinit,
+			options,
+			songMetadata,
+			playlistFolder
+		);
+	}
+);

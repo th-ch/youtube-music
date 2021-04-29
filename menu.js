@@ -1,26 +1,53 @@
+const { existsSync } = require("fs");
+const path = require("path");
+
 const { app, Menu } = require("electron");
 const is = require("electron-is");
 
 const { getAllPlugins } = require("./plugins/utils");
 const config = require("./config");
 
-const mainMenuTemplate = (win) => [
+const pluginEnabledMenu = (win, plugin, label = "", hasSubmenu = false) => ({
+	label: label || plugin,
+	type: "checkbox",
+	checked: config.plugins.isEnabled(plugin),
+	click: (item) => {
+		if (item.checked) {
+			config.plugins.enable(plugin);
+		} else {
+			config.plugins.disable(plugin);
+		}
+		if (hasSubmenu) {
+			this.setApplicationMenu(win);
+		}
+	},
+});
+
+const mainMenuTemplate = (win, withRoles = true, isTray = false) => [
 	{
 		label: "Plugins",
 		submenu: [
 			...getAllPlugins().map((plugin) => {
-				return {
-					label: plugin,
-					type: "checkbox",
-					checked: config.plugins.isEnabled(plugin),
-					click: (item) => {
-						if (item.checked) {
-							config.plugins.enable(plugin);
-						} else {
-							config.plugins.disable(plugin);
-						}
-					},
-				};
+				const pluginPath = path.join(__dirname, "plugins", plugin, "menu.js");
+
+				if (existsSync(pluginPath)) {
+					if (!config.plugins.isEnabled(plugin)) {
+						return pluginEnabledMenu(win, plugin, "", true);
+					}
+
+					const getPluginMenu = require(pluginPath);
+					return {
+						label: plugin,
+						submenu: [
+							pluginEnabledMenu(win, plugin, "Enabled", true),
+							...getPluginMenu(win, config.plugins.getOptions(plugin), () =>
+								module.exports.setApplicationMenu(win)
+							),
+						],
+					};
+				}
+
+				return pluginEnabledMenu(win, plugin);
 			}),
 			{ type: "separator" },
 			{
@@ -163,6 +190,97 @@ const mainMenuTemplate = (win) => [
 					config.edit();
 				},
 			},
+		],
+	},
+	...(!isTray
+		? [
+				{
+					label: "View",
+					submenu: withRoles
+						? [
+								{ role: "reload" },
+								{ role: "forceReload" },
+								{ type: "separator" },
+								{ role: "zoomIn" },
+								{ role: "zoomOut" },
+								{ role: "resetZoom" },
+						  ]
+						: [
+								{
+									label: "Reload",
+									click: () => {
+										win.webContents.reload();
+									},
+								},
+								{
+									label: "Force Reload",
+									click: () => {
+										win.webContents.reloadIgnoringCache();
+									},
+								},
+								{ type: "separator" },
+								{
+									label: "Zoom In",
+									click: () => {
+										win.webContents.setZoomLevel(
+											win.webContents.getZoomLevel() + 1
+										);
+									},
+								},
+								{
+									label: "Zoom Out",
+									click: () => {
+										win.webContents.setZoomLevel(
+											win.webContents.getZoomLevel() - 1
+										);
+									},
+								},
+								{
+									label: "Reset Zoom",
+									click: () => {
+										win.webContents.setZoomLevel(0);
+									},
+								},
+						  ],
+				},
+		  ]
+		: []),
+	{
+		label: "Navigation",
+		submenu: [
+			{
+				label: "Go back",
+				click: () => {
+					if (win.webContents.canGoBack()) {
+						win.webContents.goBack();
+					}
+				},
+			},
+			{
+				label: "Go forward",
+				click: () => {
+					if (win.webContents.canGoForward()) {
+						win.webContents.goForward();
+					}
+				},
+			},
+			{
+				label: "Restart App",
+				click: () => {
+					app.relaunch();
+					app.quit();
+				},
+			},
+			...(!isTray
+				? [
+						{
+							label: "Quit App",
+							click: () => {
+								app.quit();
+							},
+						},
+				  ]
+				: []),
 		],
 	},
 ];

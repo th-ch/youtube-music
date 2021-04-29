@@ -32,7 +32,7 @@ module.exports.setUpTray = (app, win) => {
 		}
 	});
 
-	const trayMenu = Menu.buildFromTemplate([
+	let template = [
 		{
 			label: "Play/Pause",
 			click: () => {
@@ -57,13 +57,15 @@ module.exports.setUpTray = (app, win) => {
 				win.show();
 			},
 		},
-		...mainMenuTemplate(win),
+		...mainMenuTemplate(win, true, true),
 		{
 			label: "Quit",
 			click: () => {
 				app.quit();
 			},
 		},
-	]);
+	];
+
+	const trayMenu = Menu.buildFromTemplate(template);
 	tray.setContextMenu(trayMenu);
 };

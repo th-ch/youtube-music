@@ -1,73 +1,19 @@
-const { nativeImage } = require("electron");
+const { ipcMain, nativeImage } = require("electron");
 
 const fetch = require("node-fetch");
 
-// This selects the song title
-const titleSelector = ".title.style-scope.ytmusic-player-bar";
-
-// This selects the song image
-const imageSelector =
-	"#layout > ytmusic-player-bar > div.middle-controls.style-scope.ytmusic-player-bar > img";
-
-// This selects the song subinfo, this includes artist, views, likes
-const subInfoSelector =
-	"#layout > ytmusic-player-bar > div.middle-controls.style-scope.ytmusic-player-bar > div.content-info-wrapper.style-scope.ytmusic-player-bar > span";
-
-// This selects the progress bar, used for songlength and current progress
+// This selects the progress bar, used for current progress
 const progressSelector = "#progress-bar";
 
-// Grab the title using the selector
-const getTitle = (win) => {
-	return win.webContents
-		.executeJavaScript(
-			"document.querySelector('" + titleSelector + "').innerText"
-		)
-		.catch((error) => {
-			console.log(error);
-		});
-};
-
-// Grab the image src using the selector
-const getImageSrc = (win) => {
-	return win.webContents
-		.executeJavaScript("document.querySelector('" + imageSelector + "').src")
-		.catch((error) => {
-			console.log(error);
-		});
-};
-
-// Grab the subinfo using the selector
-const getSubInfo = async (win) => {
-	// Get innerText of subinfo element
-	const subInfoString = await win.webContents.executeJavaScript(
-		'document.querySelector("' + subInfoSelector + '").innerText'
-	);
-
-	// Split and clean the string
-	const splittedSubInfo = subInfoString.replaceAll("\n", "").split(" • ");
-
-	// Make sure we always return 3 elements in the aray
-	const subInfo = [];
-	for (let i = 0; i < 3; i++) {
-		// Fill array with empty string if not defined
-		subInfo.push(splittedSubInfo[i] || "");
-	}
-
-	return subInfo;
-};
 
 // Grab the progress using the selector
 const getProgress = async (win) => {
-	// Get max value of the progressbar element
-	const songDuration = await win.webContents.executeJavaScript(
-		'document.querySelector("' + progressSelector + '").max'
-	);
 	// Get current value of the progressbar element
 	const elapsedSeconds = await win.webContents.executeJavaScript(
 		'document.querySelector("' + progressSelector + '").value'
 	);
 
-	return { songDuration, elapsedSeconds };
+	return elapsedSeconds;
 };
 
 // Grab the native image using the src
@@ -77,6 +23,7 @@ const getImage = async (src) => {
 	return nativeImage.createFromBuffer(buffer);
 };
 
+// To find the paused status, we check if the title contains `-`
 const getPausedStatus = async (win) => {
 	const title = await win.webContents.executeJavaScript("document.title");
 	return !title.includes("-");
@@ -86,13 +33,28 @@ const getPausedStatus = async (win) => {
 const songInfo = {
 	title: "",
 	artist: "",
-	views: "",
-	likes: "",
+	views: 0,
+	uploadDate: "",
 	imageSrc: "",
 	image: null,
-	isPaused: true,
+	isPaused: undefined,
 	songDuration: 0,
 	elapsedSeconds: 0,
+	url: "",
+};
+
+const handleData = async (responseText, win) => {
+	let data = JSON.parse(responseText);
+	songInfo.title = data?.videoDetails?.title;
+	songInfo.artist = data?.videoDetails?.author;
+	songInfo.views = data?.videoDetails?.viewCount;
+	songInfo.imageSrc = data?.videoDetails?.thumbnail?.thumbnails?.pop()?.url;
+	songInfo.songDuration = data?.videoDetails?.lengthSeconds;
+	songInfo.image = await getImage(songInfo.imageSrc);
+	songInfo.uploadDate = data?.microformat?.microformatDataRenderer?.uploadDate;
+	songInfo.url = data?.microformat?.microformatDataRenderer?.urlCanonical;
+
+	win.webContents.send("update-song-info", JSON.stringify(songInfo));
 };
 
 const registerProvider = (win) => {
@@ -105,27 +67,21 @@ const registerProvider = (win) => {
 	};
 
 	win.on("page-title-updated", async () => {
-		// Save the old title temporarily
-		const oldTitle = songInfo.title;
 		// Get and set the new data
-		songInfo.title = await getTitle(win);
 		songInfo.isPaused = await getPausedStatus(win);
 
-		const { songDuration, elapsedSeconds } = await getProgress(win);
-		songInfo.songDuration = songDuration;
+		const elapsedSeconds = await getProgress(win);
 		songInfo.elapsedSeconds = elapsedSeconds;
 
-		// If title changed then we do need to update other info
-		if (oldTitle !== songInfo.title) {
-			const subInfo = await getSubInfo(win);
-			songInfo.artist = subInfo[0];
-			songInfo.views = subInfo[1];
-			songInfo.likes = subInfo[2];
-			songInfo.imageSrc = await getImageSrc(win);
-			songInfo.image = await getImage(songInfo.imageSrc);
-		}
-
 		// Trigger the callbacks
+		callbacks.forEach((c) => {
+			c(songInfo);
+		});
+	});
+
+	// This will be called when the song-info-front finds a new request with song data
+	ipcMain.on("song-info-request", async (_, responseText) => {
+		await handleData(responseText, win);
 		callbacks.forEach((c) => {
 			c(songInfo);
 		});
@@ -135,3 +91,4 @@ const registerProvider = (win) => {
 };
 
 module.exports = registerProvider;
+module.exports.getImage = getImage;
