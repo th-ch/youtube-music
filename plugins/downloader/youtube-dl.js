@@ -126,6 +126,7 @@ const toMP3 = async (
 			: videoName;
 		const filename = filenamify(name + "." + extension, {
 			replacement: "_",
+			maxLength: 255,
 		});
 
 		const filePath = join(folder, subfolder, filename);
