@@ -5,6 +5,7 @@ const fetch = require("node-fetch");
 // This selects the progress bar, used for current progress
 const progressSelector = "#progress-bar";
 
+
 // Grab the progress using the selector
 const getProgress = async (win) => {
 	// Get current value of the progressbar element
