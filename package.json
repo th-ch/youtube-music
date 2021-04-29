@@ -62,38 +62,37 @@
 		"npm": "Please use yarn and not npm"
 	},
 	"dependencies": {
-		"@cliqz/adblocker-electron": "^1.20.1",
+		"@cliqz/adblocker-electron": "^1.20.4",
 		"@ffmpeg/core": "^0.8.5",
 		"@ffmpeg/ffmpeg": "^0.9.7",
-		"YoutubeNonStop": "git://github.com/lawfx/YoutubeNonStop.git#v0.8.1",
+		"YoutubeNonStop": "git://github.com/lawfx/YoutubeNonStop.git#v0.9.0",
 		"async-mutex": "^0.3.1",
 		"browser-id3-writer": "^4.4.0",
 		"custom-electron-titlebar": "^3.2.6",
 		"discord-rpc": "^3.2.0",
-		"downloads-folder": "^3.0.1",
 		"electron-debug": "^3.2.0",
 		"electron-is": "^3.0.0",
 		"electron-localshortcut": "^3.2.1",
-		"electron-store": "^7.0.2",
+		"electron-store": "^7.0.3",
 		"electron-unhandled": "^3.0.2",
-		"electron-updater": "^4.3.6",
+		"electron-updater": "^4.3.8",
 		"filenamify": "^4.2.0",
 		"md5": "^2.3.0",
 		"node-fetch": "^2.6.1",
 		"open": "^8.0.3",
-		"ytdl-core": "^4.4.5",
-		"ytpl": "^2.0.5"
+		"ytdl-core": "^4.5.0",
+		"ytpl": "^2.1.1"
 	},
 	"devDependencies": {
-		"electron": "^11.2.3",
-		"electron-builder": "^22.9.1",
+		"electron": "^11.4.2",
+		"electron-builder": "^22.10.5",
 		"electron-devtools-installer": "^3.1.1",
 		"electron-icon-maker": "0.0.5",
 		"get-port": "^5.1.1",
 		"jest": "^26.6.3",
 		"rimraf": "^3.0.2",
 		"spectron": "^13.0.0",
-		"xo": "^0.37.1"
+		"xo": "^0.38.2"
 	},
 	"resolutions": {
 		"yargs-parser": "18.1.3"
