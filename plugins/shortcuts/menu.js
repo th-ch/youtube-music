@@ -1,5 +1,6 @@
 const { setOptions } = require("../../config/plugins");
 const prompt = require("custom-electron-prompt");
+
 const path = require("path");
 const is = require("electron-is");
 
@@ -23,74 +24,19 @@ module.exports = (win, options) => [
 	}
 ];
 
-//will not be needed if globalKeybinds will be an object
-function getGlobalKeybinds(options) {
-	let playPause, next, previous;
-	if (options.global) {
-		for (const global of options.global) {
-			switch (global.action) {
-				case "playPause":
-					playPause = global.shortcut;
-					break;
-				case "previous":
-					previous = global.shortcut;
-					break;
-				case "next":
-					next = global.shortcut;
-			}
-		}
-	}
-	return { playPause, next, previous };
-}
-
-//will not be needed if globalKeybinds will be an object
-function setGlobalKeybinds(options, newShortcuts) {
-	let didSet = {};
-	for (const shortcut in newShortcuts) {
-		didSet[shortcut] = false;
-	}
-	if (!options.global) {
-		options.global = [];
-	}
-	for (let i in options.global) {
-		switch (options.global[i].action) {
-			case "playPause":
-				options.global[i].shortcut = newShortcuts.playPause;
-				didSet["playPause"] = true;
-				break;
-			case "previous":
-				options.global[i].shortcut = newShortcuts.previous;
-				didSet["previous"] = true;
-				break;
-			case "next":
-				options.global[i].shortcut = newShortcuts.next;
-				didSet["next"] = true;
-				break;
-		}
-	}
-	for (const action in didSet) {
-		if (!didSet[action]) {
-			options.global.push({ action: action, shortcut: newShortcuts[action] });
-		}
-	}
-	options.global.forEach((obj) => console.log(obj));
-	setOption(options);
-}
-
-const kb = (label_, value_, default_) => { return { value: value_, label: label_, default: default_ || "" } };
+const kb = (label_, value_, default_) => { return { value: value_, label: label_, default: default_ || undefined } };
 const iconPath = path.join(process.cwd(), "assets", "youtube-music-tray.png");
 
 function promptKeybind(options, win) {
-	let globalKeybinds = getGlobalKeybinds(options);
 	let promptOptions = {
 		title: "Global Keybinds",
 		icon: iconPath,
 		label: "Choose Global Keybinds for Songs Control:",
 		type: "keybind",
 		keybindOptions: [
-			kb("Previous", "previous", globalKeybinds.previous),
-			kb("Play / Pause", "playPause", globalKeybinds.playPause),
-			kb("Next", "next", globalKeybinds.next),
+			kb("Previous", "previous", options.global?.previous),
+			kb("Play / Pause", "playPause", options.global?.playPause),
+			kb("Next", "next", options.global?.next),
 		],
 		customStylesheet: "dark",
 		height: 250
@@ -106,11 +52,10 @@ function promptKeybind(options, win) {
 	prompt(promptOptions, win)
 	.then(output => {
 		if (output) {
-			let toSave = {};
 			for (const keybindObj of output) {
-				toSave[keybindObj.value] = keybindObj.accelerator;
+				options.global[keybindObj.value] = keybindObj.accelerator;
 			}
-			setGlobalKeybinds(options, toSave);
+			setOption(options);
 		}
 		//else = pressed cancel
 	})
