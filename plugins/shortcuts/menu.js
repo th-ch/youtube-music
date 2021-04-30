@@ -4,13 +4,6 @@ const prompt = require("custom-electron-prompt");
 const path = require("path");
 const is = require("electron-is");
 
-function setOption(options, key = null, newValue = null) {
-	if (key && newValue) {
-		options[key] = newValue;
-	}
-	setOptions("shortcuts", options)
-}
-
 module.exports = (win, options) => [
 	{
 		label: "Set Global Song Controls",
@@ -20,11 +13,19 @@ module.exports = (win, options) => [
 		label: "Override MediaKeys",
 		type: "checkbox",
 		checked: options.overrideMediaKeys,
-		click: (item) => setOption(options, "overrideMediaKeys", item.checked)
+		click: item => setOption(options, "overrideMediaKeys", item.checked)
 	}
 ];
 
-const kb = (label_, value_, default_) => { return { value: value_, label: label_, default: default_ || undefined } };
+function setOption(options, key = null, newValue = null) {
+	if (key && newValue) {
+		options[key] = newValue;
+	}
+
+	setOptions("shortcuts", options);
+}
+
+const kb = (label_, value_, default_) => { return { value: value_, label: label_, default: default_ || undefined }; };
 const iconPath = path.join(process.cwd(), "assets", "youtube-music-tray.png");
 
 function promptKeybind(options, win) {
@@ -36,11 +37,12 @@ function promptKeybind(options, win) {
 		keybindOptions: [
 			kb("Previous", "previous", options.global?.previous),
 			kb("Play / Pause", "playPause", options.global?.playPause),
-			kb("Next", "next", options.global?.next),
+			kb("Next", "next", options.global?.next)
 		],
 		customStylesheet: "dark",
 		height: 250
 	};
+
 	if (!is.macOS()) {
 		Object.assign(promptOptions, {
 			frame: false,
@@ -49,15 +51,17 @@ function promptKeybind(options, win) {
 			height: 270
 		});
 	}
+
 	prompt(promptOptions, win)
-	.then(output => {
-		if (output) {
-			for (const keybindObj of output) {
-				options.global[keybindObj.value] = keybindObj.accelerator;
+		.then(output => {
+			if (output) {
+				for (const keybindObject of output) {
+					options.global[keybindObject.value] = keybindObject.accelerator;
+				}
+
+				setOption(options);
 			}
-			setOption(options);
-		}
-		//else = pressed cancel
-	})
-	.catch(console.error)
+			// else -> pressed cancel
+		})
+		.catch(console.error);
 }

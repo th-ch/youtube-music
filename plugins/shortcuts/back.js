@@ -36,13 +36,15 @@ function registerShortcuts(win, options) {
 	if (global) {
 		for (const action in global) {
 			if (!global[action]) {
-				return; //accelerator is empty
+				continue; //accelerator is empty
 			}
+
 			console.debug("Registering global shortcut", global[action], ":", action);
 			if (!songControls[action]) {
 				console.warn("Invalid action", action);
-				return;
+				continue;
 			}
+
 			_registerGlobalShortcut(win.webContents, global[action], songControls[action]);
 		}
 	}
@@ -50,13 +52,15 @@ function registerShortcuts(win, options) {
 	if (local) {
 		for (const action in local) {
 			if (!local[action]) {
-				return; //accelerator is empty
+				continue; //accelerator is empty
 			}
+
 			console.debug("Registering local shortcut", local[action], ":", action);
 			if (!songControls[action]) {
 				console.warn("Invalid action", action);
-				return;
+				continue;
 			}
+
 			_registerLocalShortcut(win, local[action], songControls[action]);
 		}
 	}
@@ -67,16 +71,18 @@ function updateOptions(options) {
 	let updated = false;
 	for (const optionType of ["global", "local"]) {
 		if (Array.isArray(options[optionType])) {
-			const updatedOptions = {}
-			for (const obj of options[optionType]) {
-				if (obj.action && obj.shortcut) {
-					updatedOptions[obj.action] = obj.shortcut;
+			const updatedOptions = {};
+			for (const optionObject of options[optionType]) {
+				if (optionObject.action && optionObject.shortcut) {
+					updatedOptions[optionObject.action] = optionObject.shortcut;
 				}
 			}
+
 			options[optionType] = updatedOptions;
 			updated = true;
 		}
 	}
+
 	if (updated) {
 		setOptions("shortcuts", options);
 	}
