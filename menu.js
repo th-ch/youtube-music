@@ -104,38 +104,30 @@ const mainMenuTemplate = (win, withRoles = true, isTray = false) => [
 			},
 			...(is.windows() || is.linux()
 				? [
-					{
-						label: "Hide menu",
-						type: "checkbox",
-						checked: config.get("options.hideMenu"),
-						click: (item) => {
-							config.set("options.hideMenu", item.checked);
+						{
+							label: "Hide menu",
+							type: "checkbox",
+							checked: config.get("options.hideMenu"),
+							click: (item) => {
+								config.set("options.hideMenu", item.checked);
+							},
 						},
-					},
-				]
+				  ]
 				: []),
 			...(is.windows() || is.macOS()
 				? // Only works on Win/Mac
-				// https://www.electronjs.org/docs/api/app#appsetloginitemsettingssettings-macos-windows
-				[
-					{
-						label: "Start at login",
-						type: "checkbox",
-						checked: config.get("options.startAtLogin"),
-						click: (item) => {
-							config.set("options.startAtLogin", item.checked);
+				  // https://www.electronjs.org/docs/api/app#appsetloginitemsettingssettings-macos-windows
+				  [
+						{
+							label: "Start at login",
+							type: "checkbox",
+							checked: config.get("options.startAtLogin"),
+							click: (item) => {
+								config.set("options.startAtLogin", item.checked);
+							},
 						},
-					},
-				]
+				  ]
 				: []),
-			{
-				label: "Proxy",
-				type: "checkbox",
-				checked: !!config.get("options.proxy"),
-				click: (item) => {
-					setProxy(item, win);
-				}
-			},
 			{
 				label: "Tray",
 				submenu: [
@@ -180,6 +172,15 @@ const mainMenuTemplate = (win, withRoles = true, isTray = false) => [
 				],
 			},
 			{ type: "separator" },
+			// Should be put in Advanced Options submenu
+			{
+				label: "Proxy",
+				type: "checkbox",
+				checked: !!config.get("options.proxy"),
+				click: (item) => {
+					setProxy(item, win);
+				}
+			},
 			{
 				label: "Toggle DevTools",
 				// Cannot use "toggleDevTools" role in MacOS
@@ -203,56 +204,56 @@ const mainMenuTemplate = (win, withRoles = true, isTray = false) => [
 	},
 	...(!isTray
 		? [
-			{
-				label: "View",
-				submenu: withRoles
-					? [
-						{ role: "reload" },
-						{ role: "forceReload" },
-						{ type: "separator" },
-						{ role: "zoomIn" },
-						{ role: "zoomOut" },
-						{ role: "resetZoom" },
-					]
-					: [
-						{
-							label: "Reload",
-							click: () => {
-								win.webContents.reload();
-							},
-						},
-						{
-							label: "Force Reload",
-							click: () => {
-								win.webContents.reloadIgnoringCache();
-							},
-						},
-						{ type: "separator" },
-						{
-							label: "Zoom In",
-							click: () => {
-								win.webContents.setZoomLevel(
-									win.webContents.getZoomLevel() + 1
-								);
-							},
-						},
-						{
-							label: "Zoom Out",
-							click: () => {
-								win.webContents.setZoomLevel(
-									win.webContents.getZoomLevel() - 1
-								);
-							},
-						},
-						{
-							label: "Reset Zoom",
-							click: () => {
-								win.webContents.setZoomLevel(0);
-							},
-						},
-					],
-			},
-		]
+				{
+					label: "View",
+					submenu: withRoles
+						? [
+								{ role: "reload" },
+								{ role: "forceReload" },
+								{ type: "separator" },
+								{ role: "zoomIn" },
+								{ role: "zoomOut" },
+								{ role: "resetZoom" },
+						  ]
+						: [
+								{
+									label: "Reload",
+									click: () => {
+										win.webContents.reload();
+									},
+								},
+								{
+									label: "Force Reload",
+									click: () => {
+										win.webContents.reloadIgnoringCache();
+									},
+								},
+								{ type: "separator" },
+								{
+									label: "Zoom In",
+									click: () => {
+										win.webContents.setZoomLevel(
+											win.webContents.getZoomLevel() + 1
+										);
+									},
+								},
+								{
+									label: "Zoom Out",
+									click: () => {
+										win.webContents.setZoomLevel(
+											win.webContents.getZoomLevel() - 1
+										);
+									},
+								},
+								{
+									label: "Reset Zoom",
+									click: () => {
+										win.webContents.setZoomLevel(0);
+									},
+								},
+						  ],
+				},
+		  ]
 		: []),
 	{
 		label: "Navigation",
@@ -282,13 +283,13 @@ const mainMenuTemplate = (win, withRoles = true, isTray = false) => [
 			},
 			...(!isTray
 				? [
-					{
-						label: "Quit App",
-						click: () => {
-							app.quit();
+						{
+							label: "Quit App",
+							click: () => {
+								app.quit();
+							},
 						},
-					},
-				]
+				  ]
 				: []),
 		],
 	},
