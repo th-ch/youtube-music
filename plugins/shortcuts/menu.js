@@ -13,8 +13,6 @@ function setOption(options, key = null, newValue = null) {
 module.exports = (win, options) => [
 	{
 		label: "Set Global Song Controls",
-		type: "checkbox",
-		checked: true,
 		click: () => promptKeybind(options, win)
 	},
 	{
@@ -25,6 +23,7 @@ module.exports = (win, options) => [
 	}
 ];
 
+//will not be needed if globalKeybinds will be an object
 function getGlobalKeybinds(options) {
 	let playPause, next, previous;
 	if (options.global) {
@@ -44,6 +43,7 @@ function getGlobalKeybinds(options) {
 	return { playPause, next, previous };
 }
 
+//will not be needed if globalKeybinds will be an object
 function setGlobalKeybinds(options, newShortcuts) {
 	let didSet = {};
 	for (const shortcut in newShortcuts) {
