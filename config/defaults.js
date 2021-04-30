@@ -30,6 +30,7 @@ const defaultConfig = {
 		// Disabled plugins
 		shortcuts: {
 			enabled: false,
+			overrideMediaKeys: false,
 		},
 		downloader: {
 			enabled: false,
