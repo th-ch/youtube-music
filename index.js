@@ -2,7 +2,6 @@
 const path = require("path");
 
 const electron = require("electron");
-const  { dialog }  = require("electron");
 const is = require("electron-is");
 const unhandled = require("electron-unhandled");
 const { autoUpdater } = require("electron-updater");
@@ -327,7 +326,7 @@ function showUnresponsiveDialog(win, details) {
 	if (!!details) {
 		console.log("Unresponsive Error!\n"+JSON.stringify(details, null, "\t"))
 	}
-	dialog.showMessageBox(win, {
+	electron.dialog.showMessageBox(win, {
 		type: "error",
 		title: "Window Unresponsive",
 		message: "The Application is Unresponsive",
