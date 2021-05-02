@@ -341,7 +341,6 @@ function showUnresponsiveDialog(win, details) {
 			case 2:
 				app.quit();
 				break;
-			case 0:
 			default:
 				break; 
 		}
