@@ -85,7 +85,7 @@
 		"ytpl": "^2.1.1"
 	},
 	"devDependencies": {
-		"electron": "^11.4.2",
+		"electron": "^11.4.4",
 		"electron-builder": "^22.10.5",
 		"electron-devtools-installer": "^3.1.1",
 		"electron-icon-maker": "0.0.5",
