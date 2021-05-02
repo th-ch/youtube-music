@@ -331,7 +331,7 @@ function showUnresponsiveDialog(win, details) {
 		type: "error",
 		title: "Window Unresponsive",
 		message: "The Application is Unresponsive",
-		details: "We are sorry for the inconveniance! please choose what to do:",
+		details: "We are sorry for the inconvenience! please choose what to do:",
 		buttons: ["Wait", "Relaunch", "Quit"],
 		cancelId: 0
 	}).then( result => {
