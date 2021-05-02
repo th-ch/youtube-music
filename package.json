@@ -79,7 +79,7 @@
 		"filenamify": "^4.2.0",
 		"md5": "^2.3.0",
 		"node-fetch": "^2.6.1",
-    "node-notifier": "^9.0.1",
+		"node-notifier": "^9.0.1",
 		"open": "^8.0.3",
 		"ytdl-core": "^4.5.0",
 		"ytpl": "^2.1.1"
