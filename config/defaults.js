@@ -50,8 +50,9 @@ const defaultConfig = {
 		},
 		notifications: {
 			enabled: false,
-			urgency: "normal",
-			unpauseNotification: false
+			unpauseNotification: false,
+			urgency: "normal", //has effect only on Linux 
+			interactive: false //has effect only on Windows
 		},
 		"precise-volume": {
 			enabled: false,
