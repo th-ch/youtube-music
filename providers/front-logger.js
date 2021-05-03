@@ -7,7 +7,7 @@ function logToString(log) {
 }
 
 module.exports = () => {
-	ipcRenderer.on("log", (event, log) => {
+	ipcRenderer.on("log", (_event, log) => {
 		console.log(logToString(log));
 	});
 };

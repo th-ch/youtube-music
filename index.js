@@ -160,7 +160,7 @@ app.once("browser-window-created", (event, win) => {
 	loadPlugins(win);
 
 	win.webContents.on("did-fail-load", (
-		event,
+		_event,
 		errorCode,
 		errorDescription,
 		validatedURL,
@@ -170,7 +170,6 @@ app.once("browser-window-created", (event, win) => {
 	) => {
 		const log = JSON.stringify({
 			error: "did-fail-load",
-			event,
 			errorCode,
 			errorDescription,
 			validatedURL,
@@ -181,8 +180,10 @@ app.once("browser-window-created", (event, win) => {
 		if (is.dev()) {
 			console.log(log);
 		}
-		win.webContents.send("log", log);
-		win.webContents.loadFile(path.join(__dirname, "error.html"));
+		if( !(config.plugins.isEnabled("in-app-menu") && errorCode === -3)) { // -3 is a false positive with in-app-menu
+			win.webContents.send("log", log);
+			win.webContents.loadFile(path.join(__dirname, "error.html"));
+		}
 	});
 
 	win.webContents.on("will-prevent-unload", (event) => {
