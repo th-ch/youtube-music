@@ -168,7 +168,7 @@ app.once("browser-window-created", (event, win) => {
 		frameProcessId,
 		frameRoutingId,
 	) => {
-		const log = {
+		const log = JSON.stringify({
 			error: "did-fail-load",
 			event,
 			errorCode,
@@ -177,9 +177,9 @@ app.once("browser-window-created", (event, win) => {
 			isMainFrame,
 			frameProcessId,
 			frameRoutingId,
-		};
+		}, null, "\t");
 		if (is.dev()) {
-			console.log(log.toString());
+			console.log(log);
 		}
 		win.webContents.send("log", log);
 		win.webContents.loadFile(path.join(__dirname, "error.html"));
