@@ -311,7 +311,7 @@ module.exports.setApplicationMenu = (win) => {
 };
 
 const iconPath = path.join(__dirname, "assets", "youtube-music-tray.png");
-const example = `Example: "socks5://127.0.0.1:9999"`;
+const example = "Example: 'socks5://127.0.0.1:9999'";
 function setProxy(item, win) {
 	let options = {
 		title: 'Set Proxy',
