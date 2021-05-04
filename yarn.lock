@@ -2849,10 +2849,10 @@ cssstyle@^2.2.0:
   dependencies:
     cssom "~0.3.6"
 
-custom-electron-prompt@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/custom-electron-prompt/-/custom-electron-prompt-1.0.1.tgz#6d11c6e5130a444a9425bd27864777b36f1fef11"
-  integrity sha512-ldEiZ1t3rBDOb0nfvVpxQOjWJvkkUO3B/sD9IIYr2C/VG9COkc6IJNO2E3rXMPdDDIwejXEQx3CTWp2N2d4moQ==
+custom-electron-prompt@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/custom-electron-prompt/-/custom-electron-prompt-1.0.3.tgz#fc1f8313917d07d137fd80d060f9ca96fa953037"
+  integrity sha512-lEI/KH7qBn8sw7jkw4kAuE24rSfmjxSTdVKlLG2EKfUCvYKyDSLAOS1z8M6PEGAeAmHQxp4lA8kiA2BPFjpANA==
   dependencies:
     electron "^11.4.4"
 
@@ -3371,15 +3371,6 @@ electron-updater@^4.3.8:
     lazy-val "^1.0.4"
     lodash.isequal "^4.5.0"
     semver "^7.3.4"
-
-electron@^11.4.4:
-  version "11.4.4"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-11.4.4.tgz#d6c046dedd9e22df5f6408841c3f8ae1a1d59414"
-  integrity sha512-m52nF85VADCmL9DpzJfgmkvc9fNiGZPYwptv/4fTYrYhAMiO+hmClGMXncCoSAzoULQjl+f+0b9CY4yd6nRFlQ==
-  dependencies:
-    "@electron/get" "^1.0.1"
-    "@types/node" "^12.0.12"
-    extract-zip "^1.0.3"
 
 electron@^11.4.4:
   version "11.4.4"
