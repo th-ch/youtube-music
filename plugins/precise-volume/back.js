@@ -13,7 +13,6 @@ module.exports = (win) => {
 	// did-finish-load is called after all elements finished loading, including said listeners
 	// Thats the reason the timing is controlled from main
 	win.webContents.once("did-finish-load", () => {
-		win.webContents.send("restoreAddEventListener");
 		win.webContents.send("setupVideoPlayerVolumeMousewheel", !isEnabled("hide-video-player"));
 	});
 };
