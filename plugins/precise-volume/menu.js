@@ -37,25 +37,6 @@ const customTitlebarPath = path.join(app.getAppPath(), "plugins", "in-app-menu",
 // Helper function for globalShortcuts prompt
 const kb = (label_, value_, default_) => { return { value: value_, label: label_, default: default_ || undefined }; };
 
-function setupPromptOptions(options) {
-	// TODO Custom titlebar needs testing on macOS
-	if (is.macOS()) {
-		Object.assign(options, {
-			customStylesheet: "dark",
-			icon: iconPath
-		});
-	} else {
-		Object.assign(options, {
-			customStylesheet: "dark",
-			icon: iconPath,
-			// The following are used for custom titlebar
-			frame: false,
-			customScript: customTitlebarPath,
-			enableRemoteModule: true
-		});
-	}
-}
-
 function promptVolumeSteps(win, options) {
 	const promptOptions = {
 		title: "Volume Steps",
@@ -67,12 +48,13 @@ function promptVolumeSteps(win, options) {
 
 	setupPromptOptions(promptOptions);
 
-	prompt(promptOptions, win).then(input => {
-		if (input || input === 0) { // 0 is somehow valid
-			options.steps = input;
-			setOptions("precise-volume", options);
-		}
-	}).catch(console.error);
+	prompt(promptOptions, win)
+		.then(output => {
+			if (output || output === 0) { // 0 is somehow valid
+				options.steps = output;
+				setOptions("precise-volume", options);
+			}
+		}).catch(console.error);
 }
 
 function promptGlobalShortcuts(win, options, item) {
@@ -105,4 +87,23 @@ function promptGlobalShortcuts(win, options, item) {
 			}
 		})
 		.catch(console.error);
+}
+
+function setupPromptOptions(options) {
+	// TODO Custom titlebar needs testing on macOS
+	if (is.macOS()) {
+		Object.assign(options, {
+			customStylesheet: "dark",
+			icon: iconPath
+		});
+	} else {
+		Object.assign(options, {
+			customStylesheet: "dark",
+			icon: iconPath,
+			// The following are used for custom titlebar
+			frame: false,
+			customScript: customTitlebarPath,
+			enableRemoteModule: true
+		});
+	}
 }

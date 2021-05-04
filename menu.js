@@ -335,10 +335,10 @@ function setProxy(item, win) {
 		});
 	}
 	prompt(options, win)
-		.then(input => {
-			if (input !== null && input !== example) {
-				config.set("options.proxy", input);
-				item.checked = input !== "";
+		.then(output => {
+			if (output !== null && output !== example) {
+				config.set("options.proxy", output);
+				item.checked = output !== "";
 			} else { //user pressed cancel
 				item.checked = !item.checked; //reset checkbox
 			}
