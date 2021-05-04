@@ -4,6 +4,7 @@ const { remote } = require("electron");
 
 const config = require("./config");
 const { fileExists } = require("./plugins/utils");
+const setupFrontLogger = require("./providers/front-logger");
 
 const plugins = config.plugins.getEnabled();
 
@@ -34,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	fileExists(songInfoProviderPath, require(songInfoProviderPath));
 
 	// inject front logger
-	require("./providers/front-logger")();
+	setupFrontLogger();
 
 	// Add action for reloading
 	global.reload = () =>
