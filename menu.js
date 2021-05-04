@@ -318,6 +318,9 @@ function setProxy(item, win) {
 		label: 'Enter Proxy Address: (leave empty to disable)',
 		value: config.get("options.proxy") || example,
 		type: 'input',
+		inputAttrs: {
+			type: 'url'
+		},
 		icon: iconPath,
 		customStylesheet: "dark",
 	};
