@@ -8,12 +8,6 @@ const { fileExists } = require("./plugins/utils");
 const plugins = config.plugins.getEnabled();
 
 plugins.forEach(([plugin, options]) => {
-	const preloadPath = path.join(__dirname, "plugins", plugin, "preload.js");
-	fileExists(preloadPath, () => {
-		const run = require(preloadPath);
-		run(options);
-	});
-
 	const actionPath = path.join(__dirname, "plugins", plugin, "actions.js");
 	fileExists(actionPath, () => {
 		const actions = require(actionPath).actions || {};
