@@ -5,7 +5,6 @@ const { setOptions } = require("../../config/plugins");
 function $(selector) { return document.querySelector(selector); }
 
 module.exports = (options) => {
-	overrideAddEventListener();
 
 	setupPlaybar(options);
 
@@ -23,34 +22,8 @@ module.exports = (options) => {
 	ipcRenderer.once("setupVideoPlayerVolumeMousewheel", (_event, toEnable) => {
 		if (toEnable)
 			setupVideoPlayerOnwheel(options);
-		// Restore original function after did-finish-load to avoid keeping Element.prototype altered
-		Element.prototype.addEventListener = Element.prototype._addEventListener;
 	});
 };
-
-// Override specific listeners of volume-slider by modifying Element.prototype
-function overrideAddEventListener() {
-	// Events to ignore
-	const nativeEvents = ["mousewheel", "keydown", "keyup"];
-	// Save native addEventListener
-	Element.prototype._addEventListener = Element.prototype.addEventListener;
-	// Override addEventListener to Ignore specific events in volume-slider
-	Element.prototype.addEventListener = function (
-		type,
-		listener,
-		useCapture = false
-	) {
-		if (this.tagName === "TP-YT-PAPER-SLIDER") {
-			// tagName of #volume-slider
-			for (const eventType of nativeEvents) {
-				if (eventType === type) {
-					return;
-				}
-			}
-		} //else
-		this._addEventListener(type, listener, useCapture);
-	};
-}
 
 /** Add onwheel event to video player */
 function setupVideoPlayerOnwheel(options) {
