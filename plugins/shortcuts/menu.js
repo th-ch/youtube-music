@@ -25,16 +25,17 @@ function setOption(options, key = null, newValue = null) {
 	setOptions("shortcuts", options);
 }
 
-const kb = (label_, value_, default_) => { return { value: value_, label: label_, default: default_ || undefined }; };
 const iconPath = path.join(process.cwd(), "assets", "youtube-music-tray.png");
+// Helper function for keybind prompt
+const kb = (label_, value_, default_) => { return { value: value_, label: label_, default: default_ }; };
 
 function promptKeybind(options, win) {
-	let promptOptions = {
+	const promptOptions = {
 		title: "Global Keybinds",
 		icon: iconPath,
 		label: "Choose Global Keybinds for Songs Control:",
 		type: "keybind",
-		keybindOptions: [
+		keybindOptions: [ // If default=undefined then no default is used
 			kb("Previous", "previous", options.global?.previous),
 			kb("Play / Pause", "playPause", options.global?.playPause),
 			kb("Next", "next", options.global?.next)

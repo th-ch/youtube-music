@@ -60,9 +60,8 @@ const defaultConfig = {
 			steps: 1, //percentage of volume to change
 			arrowsShortcut: true, //enable ArrowUp + ArrowDown local shortcuts
 			globalShortcuts: {
-				enabled: false, // enable global shortcuts
-				volumeUp: "Shift+PageUp", // Keybind default can be changed
-				volumeDown: "Shift+PageDown"
+				volumeUp: "",
+				volumeDown: ""
 			},
 			savedVolume: undefined //plugin save volume between session here
 		}

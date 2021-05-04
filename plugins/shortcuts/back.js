@@ -32,7 +32,7 @@ function registerShortcuts(win, options) {
 	_registerLocalShortcut(win, "CommandOrControl+L", search);
 
 	const { global, local } = options;
-	const shortcutOptions = {global, local};
+	const shortcutOptions = { global, local };
 
 	for (const optionType in shortcutOptions) {
 		registerAllShortcuts(shortcutOptions[optionType], optionType);
@@ -41,23 +41,25 @@ function registerShortcuts(win, options) {
 	function registerAllShortcuts(container, type) {
 		for (const action in container) {
 			if (!container[action]) {
-				continue; //accelerator is empty
+				continue; // Action accelerator is empty
 			}
-	
+
 			console.debug(`Registering ${type} shortcut`, container[action], ":", action);
 			if (!songControls[action]) {
 				console.warn("Invalid action", action);
 				continue;
 			}
-	
-			type === "global" ? 
-			_registerGlobalShortcut(win.webContents, container[action], songControls[action]) :
-			_registerLocalShortcut(win, local[action], songControls[action]);
+
+			if (type === "global") {
+				_registerGlobalShortcut(win.webContents, container[action], songControls[action]);
+			} else { // type === "local"
+				_registerLocalShortcut(win, local[action], songControls[action]);
+			}
 		}
 	}
 }
 
-/** Update options to new format */
+/** Update options to new format if they are still an array (old format) */
 function updateOptions(options) {
 	let updated = false;
 	for (const optionType of ["global", "local"]) {
