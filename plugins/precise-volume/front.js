@@ -12,9 +12,7 @@ module.exports = (options) => {
 
 	setupLocalArrowShortcuts(options);
 
-	if (options.globalShortcuts?.enabled) {
-		setupGlobalShortcuts(options);
-	}
+	setupGlobalShortcuts(options);
 
 	firstRun(options);
 

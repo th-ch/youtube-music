@@ -18,7 +18,7 @@ module.exports = (win, options) => [
 ];
 
 function setOption(options, key = null, newValue = null) {
-	if (key && newValue) {
+	if (key && newValue !== null) {
 		options[key] = newValue;
 	}
 
