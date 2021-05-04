@@ -8,36 +8,46 @@
 .menubar-menu-container {
 	overflow-y: visible !important;
 }
+
 /* fixes scrollbar positioning relative to nav bar  */
 #nav-bar-background.ytmusic-app-layout {
 	right: 15px !important;
 }
+
 /* remove window dragging for nav bar (conflict with titlebar drag) */
 ytmusic-nav-bar,
 .tab-titleiron-icon,
 ytmusic-pivot-bar-item-renderer {
-	-webkit-app-region: unset;
+	-webkit-app-region: unset !important;
 }
 
-/* Move navBar downwards and make it opaque */
-ytmusic-app-layout {
-	--ytmusic-nav-bar-height: 120px;
-}
-
-ytmusic-search-box.ytmusic-nav-bar {
-	margin-top: 29px;
-}
-
+/* navbar background black */
 .center-content.ytmusic-nav-bar {
 	background: #030303;
 }
-yt-page-navigation-progress,
-#progress.yt-page-navigation-progress,
-ytmusic-item-section-renderer[has-item-section-tabbed-header-renderer_]
-	#header.ytmusic-item-section-renderer,
-ytmusic-header-renderer.ytmusic-search-page {
-	top: 90px !important;
+
+/* move up item selectrion renderer by 15 px */
+ytmusic-item-section-renderer[has-item-section-tabbed-header-renderer_] #header.ytmusic-item-section-renderer {
+	top: 75 !important;
 }
+
+/* fix weird positioning in search screen*/
+ytmusic-header-renderer.ytmusic-search-page {
+	position: unset !important;
+}
+
+/* Move navBar downwards */
+ytmusic-app-layout > [slot="nav-bar"],
+#nav-bar-background.ytmusic-app-layout {
+	top: 17px !important;
+}
+
+/* fix page progress bar position*/
+yt-page-navigation-progress,
+#progress.yt-page-navigation-progress {
+	top: 30px !important;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
 	width: 12px;
@@ -56,13 +66,13 @@ ytmusic-header-renderer.ytmusic-search-page {
 	background-clip: padding-box;
 	border: 2px solid rgba(0, 0, 0, 0);
 
-	background: rgb(49, 0, 0);
+	background: #3a3a3a;
 	border-radius: 100px;
 	-moz-border-radius: 100px;
 	-webkit-border-radius: 100px;
 }
 ::-webkit-scrollbar-thumb:vertical:active {
-	background: rgb(56, 0, 0); /* Some darker color when you click it */
+	background: #4d4c4c; /* Some darker color when you click it */
 	border-radius: 100px;
 	-moz-border-radius: 100px;
 	-webkit-border-radius: 100px;

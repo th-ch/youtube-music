@@ -102,6 +102,16 @@
 		"envs": [
 			"node",
 			"browser"
-		]
+		],
+		"rules": {
+			"quotes": [
+				"error",
+				"double",
+				{
+					"avoidEscape": true,
+					"allowTemplateLiterals": true
+				}
+			]
+		}
 	}
 }

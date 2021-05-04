@@ -63,7 +63,7 @@ module.exports = (win) => {
 	const { playPause, next, previous, like, dislike } = getSongControls(win);
 
 	// If the page is ready, register the callback
-	win.on("ready-to-show", () => {
+	win.once("ready-to-show", () => {
 		controls = [previous, playPause, next, like, dislike];
 
 		// Register the callback
