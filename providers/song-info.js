@@ -57,8 +57,8 @@ const songInfo = {
 
 const handleData = async (responseText, win) => {
 	let data = JSON.parse(responseText);
-	songInfo.title = data?.videoDetails?.title;
-	songInfo.artist = await getArtist(win) || data?.videoDetails?.author;
+	songInfo.title = data.videoDetails?.media?.song || data?.videoDetails?.title;
+	songInfo.artist = data.videoDetails?.media?.artist || await getArtist(win) || data?.videoDetails?.author;
 	songInfo.views = data?.videoDetails?.viewCount;
 	songInfo.imageSrc = data?.videoDetails?.thumbnail?.thumbnails?.pop()?.url;
 	songInfo.songDuration = data?.videoDetails?.lengthSeconds;
