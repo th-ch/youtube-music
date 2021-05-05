@@ -7,6 +7,9 @@ const is = require("electron-is");
 const { getAllPlugins } = require("./plugins/utils");
 const config = require("./config");
 
+// true only if in-app-menu was loaded on launch
+const inAppMenuActive = config.plugins.isEnabled("in-app-menu");
+
 const pluginEnabledMenu = (win, plugin, label = "", hasSubmenu = false) => ({
 	label: label || plugin,
 	type: "checkbox",
@@ -19,7 +22,7 @@ const pluginEnabledMenu = (win, plugin, label = "", hasSubmenu = false) => ({
 		}
 		if (hasSubmenu) {
 			this.setApplicationMenu(win);
-			if (config.plugins.isEnabled("in-app-menu")) {
+			if (inAppMenuActive) {
 				win.webContents.send("updateMenu", true);
 			}
 		}
