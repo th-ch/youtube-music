@@ -51,18 +51,20 @@ function handle(win) {
 		}
 
 		try {
-			const coverBuffer = songMetadata.image.toPNG();
+			const coverBuffer = songMetadata.image ? songMetadata.image.toPNG() : null;
 			const writer = new ID3Writer(songBuffer);
 
 			// Create the metadata tags
 			writer
 				.setFrame("TIT2", songMetadata.title)
-				.setFrame("TPE1", [songMetadata.artist])
-				.setFrame("APIC", {
+				.setFrame("TPE1", [songMetadata.artist]);
+			if (coverBuffer) {
+				writer.setFrame("APIC", {
 					type: 3,
 					data: coverBuffer,
 					description: "",
 				});
+			}
 			writer.addTag();
 			fileBuffer = Buffer.from(writer.arrayBuffer);
 		} catch (error) {
