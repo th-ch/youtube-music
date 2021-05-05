@@ -35,7 +35,7 @@ module.exports = (win, options, refreshMenu) => {
 					return;
 				}
 
-				const playlist = await ytpl(playlistID);
+				const playlist = await ytpl(playlistID, { limit: Infinity });
 				const playlistTitle = playlist.title;
 
 				const folder = getFolder(options.downloadFolder);
