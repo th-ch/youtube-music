@@ -11,8 +11,6 @@ const pluginEnabledMenu = (win, plugin, label = "", hasSubmenu = false) => ({
 	label: label || plugin,
 	type: "checkbox",
 	checked: config.plugins.isEnabled(plugin),
-	//Submenu check used in in-app-menu
-	hasSubmenu: hasSubmenu || undefined,
 	click: (item) => {
 		if (item.checked) {
 			config.plugins.enable(plugin);
@@ -21,6 +19,9 @@ const pluginEnabledMenu = (win, plugin, label = "", hasSubmenu = false) => ({
 		}
 		if (hasSubmenu) {
 			this.setApplicationMenu(win);
+			if (config.plugins.isEnabled("in-app-menu")) {
+				win.webContents.send("updateMenu", true);
+			}
 		}
 	},
 });
