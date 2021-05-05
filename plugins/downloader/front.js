@@ -47,8 +47,8 @@ global.download = () => {
 		videoUrl = baseUrl + "/" + videoUrl;
 		metadata = null;
 	} else {
-		videoUrl = global.songInfo.url || window.location.href;
 		metadata = global.songInfo;
+		videoUrl = metadata.url || window.location.href;
 	}
 
 	downloadVideoToMP3(

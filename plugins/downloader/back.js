@@ -45,9 +45,11 @@ function handle(win) {
 	ipcMain.on("add-metadata", async (event, filePath, songBuffer, currentMetadata) => {
 		let fileBuffer = songBuffer;
 		const songMetadata = { ...metadata, ...currentMetadata };
+
 		if (!songMetadata.image && songMetadata.imageSrc) {
 			songMetadata.image = await getImage(songMetadata.imageSrc)
 		}
+
 		try {
 			const coverBuffer = songMetadata.image.toPNG();
 			const writer = new ID3Writer(songBuffer);
