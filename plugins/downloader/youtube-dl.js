@@ -152,7 +152,7 @@ const toMP3 = async (
 		ipcRenderer.send("add-metadata", filePath, fileBuffer, {
 			artist: metadata.artist,
 			title: metadata.title,
-			imageSrc: metadata.imageSrc || ""
+			imageSrc: metadata.imageSrc
 		});
 		ipcRenderer.once("add-metadata-done", reinit);
 	} catch (e) {
