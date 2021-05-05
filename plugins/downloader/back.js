@@ -7,6 +7,7 @@ const { dialog, ipcMain } = require("electron");
 const getSongInfo = require("../../providers/song-info");
 const { injectCSS, listenAction } = require("../utils");
 const { ACTIONS, CHANNEL } = require("./actions.js");
+const { getImage } = require("../../providers/song-info");
 
 const sendError = (win, err) => {
 	const dialogOpts = {
@@ -41,10 +42,12 @@ function handle(win) {
 		}
 	});
 
-	ipcMain.on("add-metadata", (event, filePath, songBuffer, currentMetadata) => {
+	ipcMain.on("add-metadata", async (event, filePath, songBuffer, currentMetadata) => {
 		let fileBuffer = songBuffer;
 		const songMetadata = { ...metadata, ...currentMetadata };
-
+		if (!songMetadata.image && songMetadata.imageSrc) {
+			songMetadata.image = await getImage(songMetadata.imageSrc)
+		}
 		try {
 			const coverBuffer = songMetadata.image.toPNG();
 			const writer = new ID3Writer(songBuffer);

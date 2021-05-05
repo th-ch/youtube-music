@@ -24,7 +24,14 @@ const ffmpeg = createFFmpeg({
 });
 const ffmpegMutex = new Mutex();
 
-const downloadVideoToMP3 = (
+function noTopic(channelName) {
+	if (channelName && channelName.endsWith(" - Topic")) {
+		channelName = channelName.slice(0, -8);
+	}
+	return channelName;
+}
+
+const downloadVideoToMP3 = async (
 	videoUrl,
 	sendFeedback,
 	sendError,
@@ -34,6 +41,16 @@ const downloadVideoToMP3 = (
 	subfolder = ""
 ) => {
 	sendFeedback("Downloading…");
+
+	if (metadata === null) {
+		const info = await ytdl.getInfo(videoUrl);
+		const thumbnails = info.videoDetails?.author?.thumbnails;
+		metadata = {
+			artist: info.videoDetails?.media?.artist || noTopic(info.videoDetails?.author?.name) || "",
+			title: info.videoDetails?.media?.song || info.videoDetails?.title || "",
+			imageSrc: thumbnails ? thumbnails[thumbnails.length - 1].url : ""
+		}
+	}
 
 	let videoName = "YouTube Music - Unknown title";
 	let videoReadableStream;
@@ -135,6 +152,7 @@ const toMP3 = async (
 		ipcRenderer.send("add-metadata", filePath, fileBuffer, {
 			artist: metadata.artist,
 			title: metadata.title,
+			imageSrc: metadata.imageSrc || ""
 		});
 		ipcRenderer.once("add-metadata-done", reinit);
 	} catch (e) {
