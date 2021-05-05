@@ -323,15 +323,14 @@ function setProxy(item, win) {
 		},
 		icon: iconPath,
 		customStylesheet: "dark",
+		width: 450,
 	};
 	//TODO: custom bar on prompt need testing on macOS
 	if (!is.macOS()) {
 		Object.assign(options, {
 			frame: false,
 			customScript: path.join(__dirname, "plugins", "in-app-menu", "prompt-custom-titlebar.js"),
-			enableRemoteModule: true,
-			height: 200,
-			width: 450,
+			enableRemoteModule: true,			
 		});
 	}
 	prompt(options, win)

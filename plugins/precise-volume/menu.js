@@ -43,7 +43,8 @@ function promptVolumeSteps(win, options) {
 		label: "Choose Volume Increase/Decrease Steps",
 		value: options.steps || 1,
 		type: "counter",
-		counterOptions: { minimum: 0, maximum: 100, multiFire: true }
+		counterOptions: { minimum: 0, maximum: 100, multiFire: true },
+		width: 380
 	};
 
 	setupPromptOptions(promptOptions);
@@ -65,8 +66,7 @@ function promptGlobalShortcuts(win, options, item) {
 		keybindOptions: [
 			kb("Increase Volume", "volumeUp", options.globalShortcuts?.volumeUp),
 			kb("Decrease Volume", "volumeDown", options.globalShortcuts?.volumeDown)
-		],
-		height: 230
+		]
 	};
 
 	setupPromptOptions(promptOptions);
