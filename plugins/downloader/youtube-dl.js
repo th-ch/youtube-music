@@ -183,12 +183,12 @@ module.exports = {
 
 ipcRenderer.on(
 	"downloader-download-playlist",
-	(_, songMetadata, playlistFolder, options) => {
+	(_, url, playlistFolder, options) => {
 		const reinit = () =>
 			ipcRenderer.send("downloader-feedback", defaultMenuDownloadLabel);
 
 		downloadVideoToMP3(
-			songMetadata.url,
+			url,
 			(feedback) => {
 				ipcRenderer.send("downloader-feedback", feedback);
 			},

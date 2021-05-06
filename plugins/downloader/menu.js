@@ -35,7 +35,7 @@ module.exports = (win, options, refreshMenu) => {
 					return;
 				}
 
-				const playlist = await ytpl(playlistID, 
+				const playlist = await ytpl(playlistID,
 					{ limit: options.playlistMaxItems || Infinity }
 				);
 				const playlistTitle = playlist.title;
@@ -59,6 +59,14 @@ module.exports = (win, options, refreshMenu) => {
 				downloadLabel = `Downloading "${playlistTitle}"`;
 				refreshMenu();
 
+				dialog.showMessageBox({
+					type: "info",
+					buttons: ["OK"],
+					title: "Started Download",
+					message: `Downloading Playlist "${playlistTitle}"`,
+					detail: `(${playlist.items.length} songs)`,
+				});
+
 				if (is.dev()) {
 					console.log(
 						`Downloading playlist "${playlistTitle}" (${playlist.items.length} songs)`
@@ -68,7 +76,7 @@ module.exports = (win, options, refreshMenu) => {
 				playlist.items.forEach((song) => {
 					win.webContents.send(
 						"downloader-download-playlist",
-						song,
+						song.url,
 						playlistTitle,
 						options
 					);
