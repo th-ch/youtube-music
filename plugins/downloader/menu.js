@@ -73,9 +73,8 @@ module.exports = (win, options, refreshMenu) => {
 
 				let dirWatcher = chokidar.watch(playlistFolder);
 				dirWatcher.on('add', () => {
-					console.log(`progress:${progress} + steps:${steps} = newProgress:${progress+steps}`)
 					progress += steps;
-					if (progress >= 0.999) {
+					if (progress >= 0.9999) {
 						win.setProgressBar(-1); // close progress bar
 						dirWatcher.close().then(() => dirWatcher = null);
 					} else {
