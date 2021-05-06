@@ -194,12 +194,13 @@ function setupLocalArrowShortcuts(options) {
 	}
 
 	function callback(event) {
-		event.preventDefault();
 		switch (event.code) {
 			case "ArrowUp":
+				event.preventDefault();
 				changeVolume(true, options);
 				break;
 			case "ArrowDown":
+				event.preventDefault();
 				changeVolume(false, options);
 				break;
 		}
