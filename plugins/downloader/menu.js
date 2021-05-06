@@ -35,7 +35,9 @@ module.exports = (win, options, refreshMenu) => {
 					return;
 				}
 
-				const playlist = await ytpl(playlistID, { limit: Infinity });
+				const playlist = await ytpl(playlistID, 
+					{ limit: options.playlistMaxItems || Infinity }
+				);
 				const playlistTitle = playlist.title;
 
 				const folder = getFolder(options.downloadFolder);
@@ -63,7 +65,7 @@ module.exports = (win, options, refreshMenu) => {
 					);
 				}
 
-				playlist.items.slice(0, options.playlistMaxItems).forEach((song) => {
+				playlist.items.forEach((song) => {
 					win.webContents.send(
 						"downloader-download-playlist",
 						song,
