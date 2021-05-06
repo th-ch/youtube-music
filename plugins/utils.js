@@ -43,7 +43,7 @@ module.exports.fileExists = (path, callbackIfExists) => {
 };
 
 module.exports.injectCSS = (webContents, filepath, cb = undefined) => {
-	webContents.once("did-finish-load", async () => {
+	webContents.on("did-finish-load", async () => {
 		await webContents.insertCSS(fs.readFileSync(filepath, "utf8"));
 		if (cb) {
 			cb();
