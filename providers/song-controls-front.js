@@ -15,4 +15,4 @@ module.exports = () => {
             videoStream.yns_pause();
         }
     });
-}
+};
