@@ -5,6 +5,7 @@ const { URL } = require("url");
 const { dialog, ipcMain } = require("electron");
 const is = require("electron-is");
 const ytpl = require("ytpl");
+const chokidar = require('chokidar');
 
 const { setOptions } = require("../../config/plugins");
 const getSongInfo = require("../../providers/song-info");
@@ -51,14 +52,6 @@ module.exports = (win, options, refreshMenu) => {
 				}
 				mkdirSync(playlistFolder, { recursive: true });
 
-				ipcMain.on("downloader-feedback", (_, feedback) => {
-					downloadLabel = feedback;
-					refreshMenu();
-				});
-
-				downloadLabel = `Downloading "${playlistTitle}"`;
-				refreshMenu();
-
 				dialog.showMessageBox({
 					type: "info",
 					buttons: ["OK"],
@@ -72,6 +65,23 @@ module.exports = (win, options, refreshMenu) => {
 						`Downloading playlist "${playlistTitle}" (${playlist.items.length} songs)`
 					);
 				}
+
+				const steps = 1 / playlist.items.length;
+				let progress = 0;
+
+				win.setProgressBar(2); // starts with indefinite bar
+
+				let dirWatcher = chokidar.watch(playlistFolder);
+				dirWatcher.on('add', () => {
+					console.log(`progress:${progress} + steps:${steps} = newProgress:${progress+steps}`)
+					progress += steps;
+					if (progress >= 0.999) {
+						win.setProgressBar(-1); // close progress bar
+						dirWatcher.close().then(() => dirWatcher = null);
+					} else {
+						win.setProgressBar(progress);
+					}
+				});
 
 				playlist.items.forEach((song) => {
 					win.webContents.send(
