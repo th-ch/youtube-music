@@ -8,7 +8,7 @@ function overrideAddEventListener() {
     Element.prototype._addEventListener = Element.prototype.addEventListener;
     // Override addEventListener to Ignore specific events in volume-slider
     Element.prototype.addEventListener = function (type, listener, useCapture = false) {
-        if (this.tagName === "TP-YT-PAPER-SLIDER") { // tagName of #volume-slider
+        if (this.id === "volume-slider" || this.id === "expand-volume-slider") { // id of both volume sliders
             for (const eventType of nativeEvents) {
                 if (eventType === type) {
                     return;
