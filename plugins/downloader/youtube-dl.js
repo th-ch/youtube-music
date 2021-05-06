@@ -198,7 +198,7 @@ ipcRenderer.on(
 			},
 			reinit,
 			options,
-			songMetadata,
+			null,
 			playlistFolder
 		);
 	}
