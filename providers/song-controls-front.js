@@ -1,9 +1,7 @@
 const { ipcRenderer } = require("electron");
 
-let videoStream;
+let videoStream = document.querySelector(".video-stream");
 module.exports = () => {
-    videoStream = document.querySelector(".video-stream");
-
     ipcRenderer.on("playPause", () => {
         if (!videoStream) {
             videoStream = document.querySelector(".video-stream");
