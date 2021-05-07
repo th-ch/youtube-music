@@ -1,16 +1,25 @@
 const path = require("path");
 
-const { contextBridge, remote } = require("electron");
+const { remote } = require("electron");
 
 const config = require("./config");
 const { fileExists } = require("./plugins/utils");
+const setupFrontLogger = require("./providers/front-logger");
+const setupSongControl = require("./providers/song-controls-front");
+const setupSongInfo = require("./providers/song-info-front");
 
 const plugins = config.plugins.getEnabled();
 
 plugins.forEach(([plugin, options]) => {
-	const pluginPath = path.join(__dirname, "plugins", plugin, "actions.js");
-	fileExists(pluginPath, () => {
-		const actions = require(pluginPath).actions || {};
+	const preloadPath = path.join(__dirname, "plugins", plugin, "preload.js");
+	fileExists(preloadPath, () => {
+		const run = require(preloadPath);
+		run(options);
+	});
+
+	const actionPath = path.join(__dirname, "plugins", plugin, "actions.js");
+	fileExists(actionPath, () => {
+		const actions = require(actionPath).actions || {};
 
 		// TODO: re-enable once contextIsolation is set to true
 		// contextBridge.exposeInMainWorld(plugin + "Actions", actions);
@@ -30,9 +39,14 @@ document.addEventListener("DOMContentLoaded", () => {
 	});
 
 	// inject song-info provider
-	const songInfoProviderPath = path.join(__dirname, "providers", "song-info-front.js")
-	fileExists(songInfoProviderPath, require(songInfoProviderPath));
-	
+	setupSongInfo();
+
+	// inject song-control provider
+	setupSongControl();
+
+	// inject front logger
+	setupFrontLogger();
+
 	// Add action for reloading
 	global.reload = () =>
 		remote.getCurrentWindow().webContents.loadURL(config.get("url"));

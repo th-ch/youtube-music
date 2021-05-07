@@ -1,4 +1,5 @@
-const downloadsFolder = require("downloads-folder");
+const electron = require("electron");
 
-module.exports.getFolder = (customFolder) => customFolder || downloadsFolder();
+module.exports.getFolder = (customFolder) =>
+	customFolder || (electron.app || electron.remote.app).getPath("downloads");
 module.exports.defaultMenuDownloadLabel = "Download playlist";

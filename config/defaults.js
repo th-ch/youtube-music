@@ -50,8 +50,20 @@ const defaultConfig = {
 		},
 		notifications: {
 			enabled: false,
-			urgency: "normal",
-			unpauseNotification: false
+			unpauseNotification: false,
+			urgency: "normal", //has effect only on Linux 
+			interactive: false //has effect only on Windows
+		},
+		"precise-volume": {
+			enabled: false,
+			steps: 1, //percentage of volume to change
+			arrowsShortcut: true, //enable ArrowUp + ArrowDown local shortcuts
+			globalShortcuts: {
+				enabled: false, // enable global shortcuts
+				volumeUp: "Shift+PageUp", // Keybind default can be changed
+				volumeDown: "Shift+PageDown"
+			},
+			savedVolume: undefined //plugin save volume between session here
 		}
 	},
 };

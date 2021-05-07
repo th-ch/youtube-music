@@ -98,10 +98,10 @@ function createMainWindow() {
 			affinity: "main-window", // main window, and addition windows should work in one process
 			...(isTesting()
 				? {
-						// Only necessary when testing with Spectron
-						contextIsolation: false,
-						nodeIntegration: true,
-				  }
+					// Only necessary when testing with Spectron
+					contextIsolation: false,
+					nodeIntegration: true,
+				}
 				: undefined),
 		},
 		frame: !is.macOS() && !useInlineMenu,
@@ -142,7 +142,11 @@ function createMainWindow() {
 			});
 		}
 	});
-
+	
+	win.webContents.on("render-process-gone", (event, webContents, details) => {
+		showUnresponsiveDialog(win, details);
+	});
+	
 	win.once("ready-to-show", () => {
 		if (config.get("options.appVisible")) {
 			win.show();
@@ -152,14 +156,34 @@ function createMainWindow() {
 	return win;
 }
 
-app.on("browser-window-created", (event, win) => {
+app.once("browser-window-created", (event, win) => {
 	loadPlugins(win);
 
-	win.webContents.on("did-fail-load", () => {
+	win.webContents.on("did-fail-load", (
+		_event,
+		errorCode,
+		errorDescription,
+		validatedURL,
+		isMainFrame,
+		frameProcessId,
+		frameRoutingId,
+	) => {
+		const log = JSON.stringify({
+			error: "did-fail-load",
+			errorCode,
+			errorDescription,
+			validatedURL,
+			isMainFrame,
+			frameProcessId,
+			frameRoutingId,
+		}, null, "\t");
 		if (is.dev()) {
-			console.log("did fail load");
+			console.log(log);
 		}
-		win.webContents.loadFile(path.join(__dirname, "error.html"));
+		if( !(config.plugins.isEnabled("in-app-menu") && errorCode === -3)) { // -3 is a false positive with in-app-menu
+			win.webContents.send("log", log);
+			win.webContents.loadFile(path.join(__dirname, "error.html"));
+		}
 	});
 
 	win.webContents.on("will-prevent-unload", (event) => {
@@ -279,13 +303,11 @@ app.on("ready", () => {
 	}
 
 	// Optimized for Mac OS X
-	if (is.macOS()) {
-		if (!config.get("options.appVisible")) {
-			app.dock.hide();
-		}
+	if (is.macOS() && !config.get("options.appVisible")) {
+		app.dock.hide();
 	}
 
-	var forceQuit = false;
+	let forceQuit = false;
 	app.on("before-quit", () => {
 		forceQuit = true;
 	});
@@ -300,3 +322,27 @@ app.on("ready", () => {
 		});
 	}
 });
+
+function showUnresponsiveDialog(win, details) {
+	if (!!details) {
+		console.log("Unresponsive Error!\n"+JSON.stringify(details, null, "\t"))
+	}
+	electron.dialog.showMessageBox(win, {
+		type: "error",
+		title: "Window Unresponsive",
+		message: "The Application is Unresponsive",
+		details: "We are sorry for the inconvenience! please choose what to do:",
+		buttons: ["Wait", "Relaunch", "Quit"],
+		cancelId: 0
+	}).then( result => {
+		switch (result.response) {
+			case 1: //if relaunch - relaunch+exit
+				app.relaunch();
+			case 2:
+				app.quit();
+				break;
+			default:
+				break; 
+		}
+	});
+}

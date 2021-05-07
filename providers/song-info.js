@@ -29,6 +29,18 @@ const getPausedStatus = async (win) => {
 	return !title.includes("-");
 };
 
+const getArtist = async (win) => {
+	return await win.webContents.executeJavaScript(
+		`
+		var bar = document.getElementsByClassName('subtitle ytmusic-player-bar')[0];
+		var artistName = (bar.getElementsByClassName('yt-formatted-string')[0]) || (bar.getElementsByClassName('byline ytmusic-player-bar')[0]);
+		if (artistName) {
+			artistName.textContent;
+		}
+		`
+	)
+}
+
 // Fill songInfo with empty values
 const songInfo = {
 	title: "",
@@ -46,7 +58,7 @@ const songInfo = {
 const handleData = async (responseText, win) => {
 	let data = JSON.parse(responseText);
 	songInfo.title = data?.videoDetails?.title;
-	songInfo.artist = data?.videoDetails?.author;
+	songInfo.artist = await getArtist(win) || data?.videoDetails?.author;
 	songInfo.views = data?.videoDetails?.viewCount;
 	songInfo.imageSrc = data?.videoDetails?.thumbnail?.thumbnails?.pop()?.url;
 	songInfo.songDuration = data?.videoDetails?.lengthSeconds;
