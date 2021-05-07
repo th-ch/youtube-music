@@ -5,6 +5,8 @@ const { remote } = require("electron");
 const config = require("./config");
 const { fileExists } = require("./plugins/utils");
 const setupFrontLogger = require("./providers/front-logger");
+const setupSongControl = require("./providers/song-controls-front");
+const setupSongInfo = require("./providers/song-info-front");
 
 const plugins = config.plugins.getEnabled();
 
@@ -37,8 +39,10 @@ document.addEventListener("DOMContentLoaded", () => {
 	});
 
 	// inject song-info provider
-	const songInfoProviderPath = path.join(__dirname, "providers", "song-info-front.js")
-	fileExists(songInfoProviderPath, require(songInfoProviderPath));
+	setupSongInfo();
+
+	// inject song-control provider
+	setupSongControl();
 
 	// inject front logger
 	setupFrontLogger();
