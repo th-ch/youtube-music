@@ -16,7 +16,7 @@ let downloadLabel = defaultMenuDownloadLabel;
 let metadataURL = undefined;
 let callbackIsRegistered = false;
 
-module.exports = (win, options, refreshMenu) => {
+module.exports = (win, options) => {
 	if (!callbackIsRegistered) {
 		const registerCallback = getSongInfo(win);
 		registerCallback((info) => {
@@ -36,6 +36,7 @@ module.exports = (win, options, refreshMenu) => {
 					return;
 				}
 
+				console.log("trying to get playlist ID" +playlistID);
 				const playlist = await ytpl(playlistID,
 					{ limit: options.playlistMaxItems || Infinity }
 				);

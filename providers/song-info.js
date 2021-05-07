@@ -58,7 +58,7 @@ const songInfo = {
 const handleData = async (responseText, win) => {
 	let data = JSON.parse(responseText);
 	songInfo.title = data.videoDetails?.media?.song || data?.videoDetails?.title;
-	songInfo.artist = data.videoDetails?.media?.artist || await getArtist(win) || data?.videoDetails?.author;
+	songInfo.artist = data.videoDetails?.media?.artist || await getArtist(win) || cleanupArtistName(data?.videoDetails?.author);
 	songInfo.views = data?.videoDetails?.viewCount;
 	songInfo.imageSrc = data?.videoDetails?.thumbnail?.thumbnails?.pop()?.url;
 	songInfo.songDuration = data?.videoDetails?.lengthSeconds;
@@ -102,5 +102,20 @@ const registerProvider = (win) => {
 	return registerCallback;
 };
 
+const suffixesToRemove = [' - Topic', 'VEVO'];
+function cleanupArtistName(artist) {
+	if (!artist) {
+		return artist;
+	}
+	for (const suffix of suffixesToRemove) {
+		if (artist.endsWith(suffix)) {
+			return artist.slice(0, -suffix.length)
+		}
+	}
+	return artist;
+}
+
 module.exports = registerProvider;
 module.exports.getImage = getImage;
+module.exports.cleanupArtistName = cleanupArtistName;
+
