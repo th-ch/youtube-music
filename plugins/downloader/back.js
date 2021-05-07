@@ -47,7 +47,7 @@ function handle(win) {
 		const songMetadata = { ...metadata, ...currentMetadata };
 
 		if (!songMetadata.image && songMetadata.imageSrc) {
-			songMetadata.image = await getImage(songMetadata.imageSrc)
+			songMetadata.image = await getImage(songMetadata.imageSrc);
 		}
 
 		try {

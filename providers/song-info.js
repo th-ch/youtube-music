@@ -38,7 +38,7 @@ const getArtist = async (win) => {
 			artistName.textContent;
 		}
 		`
-	)
+	);
 }
 
 // Fill songInfo with empty values
@@ -109,7 +109,7 @@ function cleanupArtistName(artist) {
 	}
 	for (const suffix of suffixesToRemove) {
 		if (artist.endsWith(suffix)) {
-			return artist.slice(0, -suffix.length)
+			return artist.slice(0, -suffix.length);
 		}
 	}
 	return artist;
