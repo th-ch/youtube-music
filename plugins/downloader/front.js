@@ -38,13 +38,18 @@ const baseUrl = defaultConfig.url;
 // contextBridge.exposeInMainWorld("downloader", {
 // 	download: () => {
 global.download = () => {
+	let metadata;
 	let videoUrl = getSongMenu()
 		.querySelector("ytmusic-menu-navigation-item-renderer")
 		.querySelector("#navigation-endpoint")
 		.getAttribute("href");
-	videoUrl = !videoUrl
-		? global.songInfo.url || window.location.href
-		: baseUrl + "/" + videoUrl;
+	if (videoUrl) {
+		videoUrl = baseUrl + "/" + videoUrl;
+		metadata = null;
+	} else {
+		metadata = global.songInfo;
+		videoUrl = metadata.url || window.location.href;
+	}
 
 	downloadVideoToMP3(
 		videoUrl,
@@ -61,7 +66,7 @@ global.download = () => {
 		},
 		reinit,
 		pluginOptions,
-		global.songInfo
+		metadata
 	);
 };
 // });

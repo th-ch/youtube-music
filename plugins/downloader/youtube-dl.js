@@ -14,7 +14,8 @@ const ytdl = require("ytdl-core");
 
 const { triggerAction, triggerActionSync } = require("../utils");
 const { ACTIONS, CHANNEL } = require("./actions.js");
-const { defaultMenuDownloadLabel, getFolder } = require("./utils");
+const { getFolder } = require("./utils");
+const { cleanupArtistName } = require("../../providers/song-info");
 
 const { createFFmpeg } = FFmpeg;
 const ffmpeg = createFFmpeg({
@@ -24,7 +25,7 @@ const ffmpeg = createFFmpeg({
 });
 const ffmpegMutex = new Mutex();
 
-const downloadVideoToMP3 = (
+const downloadVideoToMP3 = async (
 	videoUrl,
 	sendFeedback,
 	sendError,
@@ -34,6 +35,16 @@ const downloadVideoToMP3 = (
 	subfolder = ""
 ) => {
 	sendFeedback("Downloading…");
+
+	if (metadata === null) {
+		const info = await ytdl.getInfo(videoUrl);
+		const thumbnails = info.videoDetails?.author?.thumbnails;
+		metadata = {
+			artist: info.videoDetails?.media?.artist || cleanupArtistName(info.videoDetails?.author?.name) || "",
+			title: info.videoDetails?.media?.song || info.videoDetails?.title || "",
+			imageSrc: thumbnails ? thumbnails[thumbnails.length - 1].url : ""
+		}
+	}
 
 	let videoName = "YouTube Music - Unknown title";
 	let videoReadableStream;
@@ -135,6 +146,7 @@ const toMP3 = async (
 		ipcRenderer.send("add-metadata", filePath, fileBuffer, {
 			artist: metadata.artist,
 			title: metadata.title,
+			imageSrc: metadata.imageSrc
 		});
 		ipcRenderer.once("add-metadata-done", reinit);
 	} catch (e) {
@@ -165,22 +177,16 @@ module.exports = {
 
 ipcRenderer.on(
 	"downloader-download-playlist",
-	(_, songMetadata, playlistFolder, options) => {
-		const reinit = () =>
-			ipcRenderer.send("downloader-feedback", defaultMenuDownloadLabel);
-
+	(_, url, playlistFolder, options) => {
 		downloadVideoToMP3(
-			songMetadata.url,
-			(feedback) => {
-				ipcRenderer.send("downloader-feedback", feedback);
-			},
+			url,
+			() => {},
 			(error) => {
 				triggerAction(CHANNEL, ACTIONS.ERROR, error);
-				reinit();
 			},
-			reinit,
+			() => {},
 			options,
-			songMetadata,
+			null,
 			playlistFolder
 		);
 	}

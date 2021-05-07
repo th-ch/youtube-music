@@ -1,7 +1,7 @@
 {
 	"name": "youtube-music",
 	"productName": "YouTube Music",
-	"version": "1.12.0",
+	"version": "1.12.1",
 	"description": "YouTube Music Desktop App - including custom plugins",
 	"license": "MIT",
 	"repository": "th-ch/youtube-music",
@@ -42,6 +42,7 @@
 	"scripts": {
 		"test": "jest",
 		"start": "electron .",
+        "start:debug": "ELECTRON_ENABLE_LOGGING=1 electron .",
 		"icon": "rimraf assets/generated && electron-icon-maker --input=assets/youtube-music.png --output=assets/generated",
 		"generate:package": "node utils/generate-package-json.js",
 		"postinstall": "yarn run icon && yarn run plugins",
@@ -69,6 +70,7 @@
 		"async-mutex": "^0.3.1",
 		"browser-id3-writer": "^4.4.0",
 		"custom-electron-prompt": "^1.1.0",
+		"chokidar": "^3.5.1",
 		"custom-electron-titlebar": "^3.2.6",
 		"discord-rpc": "^3.2.0",
 		"electron-debug": "^3.2.0",
