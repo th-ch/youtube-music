@@ -10,7 +10,11 @@ module.exports = () => {
         if (videoStream.paused) {
             videoStream.play();
         } else {
-            videoStream.yns_pause();
+            if (videoStream.yns_pause) {
+                videoStream.yns_pause();
+            } else {
+                videoStream.pause();
+            }
         }
     });
 };
