@@ -14,7 +14,8 @@ const ytdl = require("ytdl-core");
 
 const { triggerAction, triggerActionSync } = require("../utils");
 const { ACTIONS, CHANNEL } = require("./actions.js");
-const { defaultMenuDownloadLabel, getFolder } = require("./utils");
+const { getFolder } = require("./utils");
+const { cleanupArtistName } = require("../../providers/song-info");
 
 const { createFFmpeg } = FFmpeg;
 const ffmpeg = createFFmpeg({
@@ -23,13 +24,6 @@ const ffmpeg = createFFmpeg({
 	progress: () => {}, // console.log,
 });
 const ffmpegMutex = new Mutex();
-
-function noTopic(channelName) {
-	if (channelName && channelName.endsWith(" - Topic")) {
-		channelName = channelName.slice(0, -8);
-	}
-	return channelName;
-}
 
 const downloadVideoToMP3 = async (
 	videoUrl,
@@ -46,7 +40,7 @@ const downloadVideoToMP3 = async (
 		const info = await ytdl.getInfo(videoUrl);
 		const thumbnails = info.videoDetails?.author?.thumbnails;
 		metadata = {
-			artist: info.videoDetails?.media?.artist || noTopic(info.videoDetails?.author?.name) || "",
+			artist: info.videoDetails?.media?.artist || cleanupArtistName(info.videoDetails?.author?.name) || "",
 			title: info.videoDetails?.media?.song || info.videoDetails?.title || "",
 			imageSrc: thumbnails ? thumbnails[thumbnails.length - 1].url : ""
 		}
