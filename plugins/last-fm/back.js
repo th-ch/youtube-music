@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
-const { shell } = require('electron')
 const md5 = require('md5');
+const { shell } = require('electron');
 const { setOptions } = require('../../config/plugins');
 const getSongInfo = require('../../providers/song-info');
 const defaultConfig = require('../../config/defaults');
