@@ -51,8 +51,10 @@ function handle(win) {
 		let fileBuffer = songBuffer;
 		let songMetadata;
 		if (currentMetadata.imageSrc) { // means metadata come from ytpl.getInfo();
-			currentMetadata.image = cropMaxWidth(await getImage(currentMetadata.imageSrc));
-			songMetadata = { ...currentMetadata };
+			songMetadata = {
+				...currentMetadata,
+				image: cropMaxWidth(await getImage(currentMetadata.imageSrc))
+			};
 		} else {
 			songMetadata = { ...metadata, ...currentMetadata };
 		}
