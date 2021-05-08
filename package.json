@@ -42,7 +42,7 @@
 	"scripts": {
 		"test": "jest",
 		"start": "electron .",
-        "start:debug": "ELECTRON_ENABLE_LOGGING=1 electron .",
+		"start:debug": "ELECTRON_ENABLE_LOGGING=1 electron .",
 		"icon": "rimraf assets/generated && electron-icon-maker --input=assets/youtube-music.png --output=assets/generated",
 		"generate:package": "node utils/generate-package-json.js",
 		"postinstall": "yarn run icon && yarn run plugins",
@@ -82,7 +82,6 @@
 		"md5": "^2.3.0",
 		"node-fetch": "^2.6.1",
 		"node-notifier": "^9.0.1",
-		"open": "^8.0.3",
 		"ytdl-core": "^4.5.0",
 		"ytpl": "^2.1.1"
 	},
