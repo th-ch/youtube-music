@@ -49,12 +49,13 @@ function handle(win) {
 
 	ipcMain.on("add-metadata", async (event, filePath, songBuffer, currentMetadata) => {
 		let fileBuffer = songBuffer;
-
-		if (currentMetadata.imageSrc) {
+		let songMetadata;
+		if (currentMetadata.imageSrc) { // means metadata come from ytpl.getInfo();
 			currentMetadata.image = cropMaxWidth(await getImage(currentMetadata.imageSrc));
+			songMetadata = { ...currentMetadata };
+		} else {
+			songMetadata = { ...metadata, ...currentMetadata };
 		}
-
-		const songMetadata = { ...metadata, ...currentMetadata };
 
 		try {
 			const coverBuffer = songMetadata.image ? songMetadata.image.toPNG() : null;
