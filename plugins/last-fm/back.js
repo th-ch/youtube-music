@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 const md5 = require('md5');
-const open = require("open");
+const { shell } = require('electron');
 const { setOptions } = require('../../config/plugins');
 const getSongInfo = require('../../providers/song-info');
 const defaultConfig = require('../../config/defaults');
@@ -58,7 +58,7 @@ const authenticate = async config => {
 	// asks the user for authentication
 	config.token = await createToken(config);
 	setOptions('last-fm', config);
-	open(`https://www.last.fm/api/auth/?api_key=${config.api_key}&token=${config.token}`);
+	shell.openExternal(`https://www.last.fm/api/auth/?api_key=${config.api_key}&token=${config.token}`);
 	return config;
 }
 
