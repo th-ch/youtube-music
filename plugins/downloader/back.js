@@ -10,7 +10,7 @@ const { cropMaxWidth } = require("./utils");
 const { ACTIONS, CHANNEL } = require("./actions.js");
 const { getImage } = require("../../providers/song-info");
 
-const sendError = (err) => {
+const sendError = (win, err) => {
 	const dialogOpts = {
 		type: "info",
 		buttons: ["OK"],
@@ -34,7 +34,7 @@ function handle(win) {
 	listenAction(CHANNEL, (event, action, arg) => {
 		switch (action) {
 			case ACTIONS.ERROR: //arg = error
-				sendError(arg);
+				sendError(win, arg);
 				break;
 			case ACTIONS.METADATA:
 				event.returnValue = JSON.stringify(metadata);
@@ -77,7 +77,7 @@ function handle(win) {
 			writer.addTag();
 			fileBuffer = Buffer.from(writer.arrayBuffer);
 		} catch (error) {
-			sendError(error);
+			sendError(win, error);
 		}
 
 		writeFileSync(filePath, fileBuffer);
