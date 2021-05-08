@@ -32,7 +32,7 @@ module.exports = (win, options) => {
 				const currentURL = metadataURL || win.webContents.getURL();
 				const playlistID = new URL(currentURL).searchParams.get("list");
 				if (!playlistID) {
-					sendError(win, new Error("No playlist ID found"));
+					sendError(new Error("No playlist ID found"));
 					return;
 				}
 
@@ -46,7 +46,6 @@ module.exports = (win, options) => {
 				const playlistFolder = join(folder, playlistTitle);
 				if (existsSync(playlistFolder)) {
 					sendError(
-						win,
 						new Error(`The folder ${playlistFolder} already exists`)
 					);
 					return;
