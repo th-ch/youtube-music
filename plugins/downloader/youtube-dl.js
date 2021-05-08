@@ -14,7 +14,7 @@ const ytdl = require("ytdl-core");
 
 const { triggerAction, triggerActionSync } = require("../utils");
 const { ACTIONS, CHANNEL } = require("./actions.js");
-const { getFolder, UrlToJPG } = require("./utils");
+const { getFolder, urlToJPG } = require("./utils");
 const { cleanupArtistName } = require("../../providers/song-info");
 
 const { createFFmpeg } = FFmpeg;
@@ -43,7 +43,7 @@ const downloadVideoToMP3 = async (
 			artist: videoDetails?.media?.artist || cleanupArtistName(videoDetails?.author?.name) || "",
 			title: videoDetails?.media?.song || videoDetails?.title || "",
 			imageSrcYTPL: thumbnails ? 
-				UrlToJPG(thumbnails[thumbnails.length - 1].url, videoDetails?.videoId) 
+				urlToJPG(thumbnails[thumbnails.length - 1].url, videoDetails?.videoId)
 				: ""
 		}
 	}
