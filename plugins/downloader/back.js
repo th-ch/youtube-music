@@ -10,16 +10,15 @@ const { cropMaxWidth } = require("./utils");
 const { ACTIONS, CHANNEL } = require("./actions.js");
 const { getImage } = require("../../providers/song-info");
 
-const sendError = (win, err) => {
-	const dialogOpts = {
+const sendError = (win, error) => {
+	win.setProgressBar(-1); // close progress bar
+	dialog.showMessageBox({
 		type: "info",
 		buttons: ["OK"],
 		title: "Error in download!",
 		message: "Argh! Apologies, download failed…",
-		detail: err.toString(),
-	};
-	win.setProgressBar(-1); // close progress bar
-	dialog.showMessageBox(dialogOpts);
+		detail: error.toString(),
+	});
 };
 
 let nowPlayingMetadata = {};
@@ -33,13 +32,13 @@ function handle(win) {
 
 	listenAction(CHANNEL, (event, action, arg) => {
 		switch (action) {
-			case ACTIONS.ERROR: //arg = error
+			case ACTIONS.ERROR: // arg = error
 				sendError(win, arg);
 				break;
 			case ACTIONS.METADATA:
 				event.returnValue = JSON.stringify(nowPlayingMetadata);
 				break;
-			case ACTIONS.PROGRESS: //arg = progress
+			case ACTIONS.PROGRESS: // arg = progress
 				win.setProgressBar(arg);
 				break;
 			default:
@@ -49,15 +48,12 @@ function handle(win) {
 
 	ipcMain.on("add-metadata", async (event, filePath, songBuffer, currentMetadata) => {
 		let fileBuffer = songBuffer;
-		let songMetadata;
-		if (currentMetadata.imageSrcYTPL) { // means metadata come from ytpl.getInfo();
-			songMetadata = {
+		const songMetadata = currentMetadata.imageSrcYTPL ? // This means metadata come from ytpl.getInfo();
+			{
 				...currentMetadata,
 				image: cropMaxWidth(await getImage(currentMetadata.imageSrcYTPL))
-			};
-		} else {
-			songMetadata = { ...nowPlayingMetadata, ...currentMetadata };
-		}
+			} :
+			{ ...nowPlayingMetadata, ...currentMetadata };
 
 		try {
 			const coverBuffer = songMetadata.image ? songMetadata.image.toPNG() : null;
@@ -71,7 +67,7 @@ function handle(win) {
 				writer.setFrame("APIC", {
 					type: 3,
 					data: coverBuffer,
-					description: "",
+					description: ""
 				});
 			}
 			writer.addTag();
