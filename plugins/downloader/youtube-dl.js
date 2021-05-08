@@ -14,7 +14,7 @@ const ytdl = require("ytdl-core");
 
 const { triggerAction, triggerActionSync } = require("../utils");
 const { ACTIONS, CHANNEL } = require("./actions.js");
-const { getFolder } = require("./utils");
+const { getFolder, UrlToJPG } = require("./utils");
 const { cleanupArtistName } = require("../../providers/song-info");
 
 const { createFFmpeg } = FFmpeg;
@@ -37,12 +37,14 @@ const downloadVideoToMP3 = async (
 	sendFeedback("Downloading…");
 
 	if (metadata === null) {
-		const info = await ytdl.getInfo(videoUrl);
-		const thumbnails = info.videoDetails?.author?.thumbnails;
+		const { videoDetails } = await ytdl.getInfo(videoUrl);
+		const thumbnails = videoDetails?.thumbnails;
 		metadata = {
-			artist: info.videoDetails?.media?.artist || cleanupArtistName(info.videoDetails?.author?.name) || "",
-			title: info.videoDetails?.media?.song || info.videoDetails?.title || "",
-			imageSrc: thumbnails ? thumbnails[thumbnails.length - 1].url : ""
+			artist: videoDetails?.media?.artist || cleanupArtistName(videoDetails?.author?.name) || "",
+			title: videoDetails?.media?.song || videoDetails?.title || "",
+			imageSrcYTPL: thumbnails ? 
+				UrlToJPG(thumbnails[thumbnails.length - 1].url, videoDetails?.videoId) 
+				: ""
 		}
 	}
 
@@ -65,9 +67,10 @@ const downloadVideoToMP3 = async (
 		.on("data", (chunk) => {
 			chunks.push(chunk);
 		})
-		.on("progress", (chunkLength, downloaded, total) => {
-			const progress = Math.floor((downloaded / total) * 100);
-			sendFeedback("Download: " + progress + "%");
+		.on("progress", (_chunkLength, downloaded, total) => {
+			const ratio = downloaded / total;
+			const progress = Math.floor(ratio * 100);
+			sendFeedback("Download: " + progress + "%", ratio);
 		})
 		.on("info", (info, format) => {
 			videoName = info.videoDetails.title.replace("|", "").toString("ascii");
@@ -112,7 +115,7 @@ const toMP3 = async (
 
 	try {
 		if (!ffmpeg.isLoaded()) {
-			sendFeedback("Loading…");
+			sendFeedback("Loading…", 2); // indefinite progress bar after download
 			await ffmpeg.load();
 		}
 
@@ -146,7 +149,7 @@ const toMP3 = async (
 		ipcRenderer.send("add-metadata", filePath, fileBuffer, {
 			artist: metadata.artist,
 			title: metadata.title,
-			imageSrc: metadata.imageSrc
+			imageSrcYTPL: metadata.imageSrcYTPL
 		});
 		ipcRenderer.once("add-metadata-done", reinit);
 	} catch (e) {
