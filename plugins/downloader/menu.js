@@ -36,10 +36,16 @@ module.exports = (win, options) => {
 					return;
 				}
 
-				console.log("trying to get playlist ID" +playlistID);
-				const playlist = await ytpl(playlistID,
-					{ limit: options.playlistMaxItems || Infinity }
-				);
+				console.log(`trying to get playlist ID: '${playlistID}'`);
+				let playlist;
+				try {
+					playlist = await ytpl(playlistID, {
+						limit: options.playlistMaxItems || Infinity,
+					});
+				} catch (e) {
+					sendError(win, e);
+					return;
+				}
 				const playlistTitle = playlist.title;
 
 				const folder = getFolder(options.downloadFolder);
