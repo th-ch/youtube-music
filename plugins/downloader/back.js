@@ -44,11 +44,12 @@ function handle(win) {
 
 	ipcMain.on("add-metadata", async (event, filePath, songBuffer, currentMetadata) => {
 		let fileBuffer = songBuffer;
-		const songMetadata = { ...metadata, ...currentMetadata };
 
-		if (!songMetadata.image && songMetadata.imageSrc) {
-			songMetadata.image = await getImage(songMetadata.imageSrc);
+		if (currentMetadata.imageSrc) {
+			currentMetadata.image = await getImage(currentMetadata.imageSrc);
 		}
+
+		const songMetadata = { ...metadata, ...currentMetadata };
 
 		try {
 			const coverBuffer = songMetadata.image ? songMetadata.image.toPNG() : null;
