@@ -22,13 +22,13 @@ const sendError = (win, err) => {
 	dialog.showMessageBox(dialogOpts);
 };
 
-let metadata = {};
+let nowPlayingMetadata = {};
 
 function handle(win) {
 	injectCSS(win.webContents, join(__dirname, "style.css"));
 	const registerCallback = getSongInfo(win);
 	registerCallback((info) => {
-		metadata = info;
+		nowPlayingMetadata = info;
 	});
 
 	listenAction(CHANNEL, (event, action, arg) => {
@@ -37,7 +37,7 @@ function handle(win) {
 				sendError(win, arg);
 				break;
 			case ACTIONS.METADATA:
-				event.returnValue = JSON.stringify(metadata);
+				event.returnValue = JSON.stringify(nowPlayingMetadata);
 				break;
 			case ACTIONS.PROGRESS: //arg = progress
 				win.setProgressBar(arg);
@@ -50,13 +50,13 @@ function handle(win) {
 	ipcMain.on("add-metadata", async (event, filePath, songBuffer, currentMetadata) => {
 		let fileBuffer = songBuffer;
 		let songMetadata;
-		if (currentMetadata.imageSrc) { // means metadata come from ytpl.getInfo();
+		if (currentMetadata.imageSrcYTPL) { // means metadata come from ytpl.getInfo();
 			songMetadata = {
 				...currentMetadata,
-				image: cropMaxWidth(await getImage(currentMetadata.imageSrc))
+				image: cropMaxWidth(await getImage(currentMetadata.imageSrcYTPL))
 			};
 		} else {
-			songMetadata = { ...metadata, ...currentMetadata };
+			songMetadata = { ...nowPlayingMetadata, ...currentMetadata };
 		}
 
 		try {
