@@ -30,15 +30,11 @@ const getPausedStatus = async (win) => {
 };
 
 const getArtist = async (win) => {
-	return await win.webContents.executeJavaScript(
-		`
-		var bar = document.getElementsByClassName('subtitle ytmusic-player-bar')[0];
-		var artistName = (bar.getElementsByClassName('yt-formatted-string')[0]) || (bar.getElementsByClassName('byline ytmusic-player-bar')[0]);
-		if (artistName) {
-			artistName.textContent;
-		}
-		`
-	);
+	return await win.webContents.executeJavaScript(`
+		document.querySelector(".subtitle.ytmusic-player-bar")
+			?.querySelector(".yt-formatted-string")
+			?.textContent
+	`);
 }
 
 // Fill songInfo with empty values
@@ -65,6 +61,8 @@ const handleData = async (responseText, win) => {
 	songInfo.image = await getImage(songInfo.imageSrc);
 	songInfo.uploadDate = data?.microformat?.microformatDataRenderer?.uploadDate;
 	songInfo.url = data?.microformat?.microformatDataRenderer?.urlCanonical;
+
+	console.log("updating song-info");
 
 	win.webContents.send("update-song-info", JSON.stringify(songInfo));
 };
