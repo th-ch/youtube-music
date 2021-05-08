@@ -31,8 +31,7 @@ const getPausedStatus = async (win) => {
 
 const getArtist = async (win) => {
 	return await win.webContents.executeJavaScript(`
-		document.querySelector(".subtitle.ytmusic-player-bar")
-			?.querySelector(".yt-formatted-string")
+		document.querySelector(".subtitle.ytmusic-player-bar .yt-formatted-string")
 			?.textContent
 	`);
 }
