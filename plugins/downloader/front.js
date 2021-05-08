@@ -40,9 +40,9 @@ const baseUrl = defaultConfig.url;
 global.download = () => {
 	let metadata;
 	let videoUrl = getSongMenu()
-		.querySelector("ytmusic-menu-navigation-item-renderer")
-		.querySelector("#navigation-endpoint")
-		.getAttribute("href");
+		?.querySelector('ytmusic-menu-navigation-item-renderer.iron-selected[tabindex="0"]')
+		?.querySelector("#navigation-endpoint")
+		?.getAttribute("href");
 	if (videoUrl) {
 		videoUrl = baseUrl + "/" + videoUrl;
 		metadata = null;
