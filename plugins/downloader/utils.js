@@ -5,7 +5,7 @@ module.exports.getFolder = (customFolder) =>
 module.exports.defaultMenuDownloadLabel = "Download playlist";
 
 const orderedQualityList = ["maxresdefault", "hqdefault", "mqdefault", "sdddefault"];
-module.exports.UrlToJPG = (imgUrl, videoId) => {
+module.exports.urlToJPG = (imgUrl, videoId) => {
 	if (!imgUrl || imgUrl.includes(".jpg")) return imgUrl;
 	//it will almost never get further than hqdefault
 	for (const quality of orderedQualityList) {
