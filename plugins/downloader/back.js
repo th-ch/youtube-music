@@ -6,10 +6,11 @@ const { dialog, ipcMain } = require("electron");
 
 const getSongInfo = require("../../providers/song-info");
 const { injectCSS, listenAction } = require("../utils");
+const { cropMaxWidth } = require("./utils");
 const { ACTIONS, CHANNEL } = require("./actions.js");
 const { getImage } = require("../../providers/song-info");
 
-const sendError = (win, err) => {
+const sendError = (err) => {
 	const dialogOpts = {
 		type: "info",
 		buttons: ["OK"],
@@ -17,6 +18,7 @@ const sendError = (win, err) => {
 		message: "Argh! Apologies, download failed…",
 		detail: err.toString(),
 	};
+	win.setProgressBar(-1); // close progress bar
 	dialog.showMessageBox(dialogOpts);
 };
 
@@ -29,13 +31,16 @@ function handle(win) {
 		metadata = info;
 	});
 
-	listenAction(CHANNEL, (event, action, error) => {
+	listenAction(CHANNEL, (event, action, arg) => {
 		switch (action) {
-			case ACTIONS.ERROR:
-				sendError(win, error);
+			case ACTIONS.ERROR: //arg = error
+				sendError(arg);
 				break;
 			case ACTIONS.METADATA:
 				event.returnValue = JSON.stringify(metadata);
+				break;
+			case ACTIONS.PROGRESS: //arg = progress
+				win.setProgressBar(arg);
 				break;
 			default:
 				console.log("Unknown action: " + action);
@@ -46,7 +51,7 @@ function handle(win) {
 		let fileBuffer = songBuffer;
 
 		if (currentMetadata.imageSrc) {
-			currentMetadata.image = await getImage(currentMetadata.imageSrc);
+			currentMetadata.image = cropMaxWidth(await getImage(currentMetadata.imageSrc));
 		}
 
 		const songMetadata = { ...metadata, ...currentMetadata };
@@ -69,7 +74,7 @@ function handle(win) {
 			writer.addTag();
 			fileBuffer = Buffer.from(writer.arrayBuffer);
 		} catch (error) {
-			sendError(win, error);
+			sendError(error);
 		}
 
 		writeFileSync(filePath, fileBuffer);
