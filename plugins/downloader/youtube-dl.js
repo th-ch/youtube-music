@@ -42,7 +42,7 @@ const downloadVideoToMP3 = async (
 		metadata = {
 			artist: videoDetails?.media?.artist || cleanupArtistName(videoDetails?.author?.name) || "",
 			title: videoDetails?.media?.song || videoDetails?.title || "",
-			imageSrc: thumbnails ? 
+			imageSrcYTPL: thumbnails ? 
 				UrlToJPG(thumbnails[thumbnails.length - 1].url, videoDetails?.videoId) 
 				: ""
 		}
@@ -149,7 +149,7 @@ const toMP3 = async (
 		ipcRenderer.send("add-metadata", filePath, fileBuffer, {
 			artist: metadata.artist,
 			title: metadata.title,
-			imageSrc: metadata.imageSrc
+			imageSrcYTPL: metadata.imageSrcYTPL
 		});
 		ipcRenderer.once("add-metadata-done", reinit);
 	} catch (e) {
