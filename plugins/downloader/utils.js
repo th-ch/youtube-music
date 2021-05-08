@@ -4,25 +4,21 @@ module.exports.getFolder = (customFolder) =>
 	customFolder || (electron.app || electron.remote.app).getPath("downloads");
 module.exports.defaultMenuDownloadLabel = "Download playlist";
 
+const orderedQualityList = ["maxresdefault", "hqdefault", "mqdefault", "sdddefault"];
 module.exports.UrlToJPG = (imgUrl, videoId) => {
 	if (!imgUrl || imgUrl.includes(".jpg")) return imgUrl;
-	if (imgUrl.includes("maxresdefault")) {
-		return "https://img.youtube.com/vi/"+videoId+"/maxresdefault.jpg";
+	//it will almost never get further than hqdefault
+	for (const quality of orderedQualityList) {
+		if (imgUrl.includes(quality)) {
+			return `https://img.youtube.com/vi/${videoId}/${quality}.jpg`;
+		}
 	}
-	if (imgUrl.includes("hqdefault")) {
-		return "https://img.youtube.com/vi/"+videoId+"/hqdefault.jpg";
-	} //it will almost never get further than hq
-	if (imgUrl.includes("mqdefault")) {
-		return "https://img.youtube.com/vi/"+videoId+"/mqdefault.jpg";
-	}
-	if (imgUrl.includes("sdddefault")) {
-		return "https://img.youtube.com/vi/"+videoId+"/sdddefault.jpg";
-	}
-	return "https://img.youtube.com/vi/"+videoId+"/default.jpg";
+	return `https://img.youtube.com/vi/${videoId}/default.jpg`;
 }
 
 module.exports.cropMaxWidth = (image) => {
 	const imageSize = image.getSize();
+	// standart youtube artwork width with margins from both sides is 280 + 720 + 280
 	if (imageSize.width === 1280 && imageSize.height === 720) {
 		return image.crop({
 			x: 280,
