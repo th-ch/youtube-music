@@ -131,7 +131,7 @@ let scrobbleTimer = undefined;
 const lastfm = async (win, config) => {
 	const registerCallback = getSongInfo(win);
 
-	if (!config.api_root || !config.suffixesToRemove) {
+	if (!config.api_root) {
 		// settings are not present, creating them with the default values
 		config = defaultConfig.plugins['last-fm'];
 		config.enabled = true;
