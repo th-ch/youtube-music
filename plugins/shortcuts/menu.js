@@ -1,8 +1,6 @@
 const { setOptions } = require("../../config/plugins");
 const prompt = require("custom-electron-prompt");
-
-const path = require("path");
-const is = require("electron-is");
+const promptOptions = require("../../providers/prompt-options");
 
 module.exports = (win, options) => [
 	{
@@ -25,14 +23,12 @@ function setOption(options, key = null, newValue = null) {
 	setOptions("shortcuts", options);
 }
 
-const iconPath = path.join(process.cwd(), "assets", "youtube-music-tray.png");
 // Helper function for keybind prompt
 const kb = (label_, value_, default_) => { return { value: value_, label: label_, default: default_ }; };
 
 async function promptKeybind(options, win) {
-	let promptOptions = {
+	const output = await prompt({
 		title: "Global Keybinds",
-		icon: iconPath,
 		label: "Choose Global Keybinds for Songs Control:",
 		type: "keybind",
 		keybindOptions: [ // If default=undefined then no default is used
@@ -40,21 +36,10 @@ async function promptKeybind(options, win) {
 			kb("Play / Pause", "playPause", options.global?.playPause),
 			kb("Next", "next", options.global?.next)
 		],
-		customStylesheet: "dark",
-		height: 250
-	};
+		height: 270,
+		...promptOptions()
+	}, win);
 
-	if (!is.macOS()) {
-		promptOptions = {
-			...promptOptions,
-			frame: false,
-			customScript: path.join(process.cwd(), "plugins", "in-app-menu", "prompt-custom-titlebar.js"),
-			enableRemoteModule: true,
-			height: 270
-		};
-	}
-
-	const output = await prompt(promptOptions, win);
 	if (output) {
 		for (const keybindObject of output) {
 			options.global[keybindObject.value] = keybindObject.accelerator;

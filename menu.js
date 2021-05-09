@@ -6,7 +6,9 @@ const is = require("electron-is");
 
 const { getAllPlugins } = require("./plugins/utils");
 const config = require("./config");
+
 const prompt = require("custom-electron-prompt");
+const promptOptions = require("./providers/prompt-options");
 
 const pluginEnabledMenu = (win, plugin, label = "", hasSubmenu = false) => ({
 	label: label || plugin,
@@ -310,10 +312,9 @@ module.exports.setApplicationMenu = (win) => {
 	Menu.setApplicationMenu(menu);
 };
 
-const iconPath = path.join(__dirname, "assets", "youtube-music-tray.png");
 const example = "Example: 'socks5://127.0.0.1:9999'";
 async function setProxy(item, win) {
-	let options = {
+	const output = await prompt({
 		title: 'Set Proxy',
 		label: 'Enter Proxy Address: (leave empty to disable)',
 		value: config.get("options.proxy") || example,
@@ -321,23 +322,14 @@ async function setProxy(item, win) {
 		inputAttrs: {
 			type: 'url'
 		},
-		icon: iconPath,
-		customStylesheet: "dark",
 		width: 450,
-	};
-	if (!is.macOS()) {
-		options = {
-			...options,
-			frame: false,
-			customScript: path.join(__dirname, "plugins", "in-app-menu", "prompt-custom-titlebar.js"),
-			enableRemoteModule: true,			
-		};
+		...promptOptions()
+	}, win);
+
+	if (output !== null && output !== example) {
+		config.set("options.proxy", output);
+		item.checked = output !== "";
+	} else { //user pressed cancel
+		item.checked = !item.checked; //reset checkbox
 	}
-	const output = await prompt(options, win);
-		if (output !== null && output !== example) {
-			config.set("options.proxy", output);
-			item.checked = output !== "";
-		} else { //user pressed cancel
-			item.checked = !item.checked; //reset checkbox
-		}
 }
