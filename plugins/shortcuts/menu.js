@@ -29,8 +29,8 @@ const iconPath = path.join(process.cwd(), "assets", "youtube-music-tray.png");
 // Helper function for keybind prompt
 const kb = (label_, value_, default_) => { return { value: value_, label: label_, default: default_ }; };
 
-function promptKeybind(options, win) {
-	const promptOptions = {
+async function promptKeybind(options, win) {
+	let promptOptions = {
 		title: "Global Keybinds",
 		icon: iconPath,
 		label: "Choose Global Keybinds for Songs Control:",
@@ -45,24 +45,21 @@ function promptKeybind(options, win) {
 	};
 
 	if (!is.macOS()) {
-		Object.assign(promptOptions, {
+		promptOptions = {
+			...promptOptions,
 			frame: false,
 			customScript: path.join(process.cwd(), "plugins", "in-app-menu", "prompt-custom-titlebar.js"),
 			enableRemoteModule: true,
 			height: 270
-		});
+		};
 	}
 
-	prompt(promptOptions, win)
-		.then(output => {
-			if (output) {
-				for (const keybindObject of output) {
-					options.global[keybindObject.value] = keybindObject.accelerator;
-				}
-
-				setOption(options);
-			}
-			// else -> pressed cancel
-		})
-		.catch(console.error);
+	const output = await prompt(promptOptions, win);
+	if (output) {
+		for (const keybindObject of output) {
+			options.global[keybindObject.value] = keybindObject.accelerator;
+		}
+		setOption(options);
+	}
+	// else -> pressed cancel
 }

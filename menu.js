@@ -312,7 +312,7 @@ module.exports.setApplicationMenu = (win) => {
 
 const iconPath = path.join(__dirname, "assets", "youtube-music-tray.png");
 const example = "Example: 'socks5://127.0.0.1:9999'";
-function setProxy(item, win) {
+async function setProxy(item, win) {
 	let options = {
 		title: 'Set Proxy',
 		label: 'Enter Proxy Address: (leave empty to disable)',
@@ -325,22 +325,19 @@ function setProxy(item, win) {
 		customStylesheet: "dark",
 		width: 450,
 	};
-	//TODO: custom bar on prompt need testing on macOS
 	if (!is.macOS()) {
-		Object.assign(options, {
+		options = {
+			...options,
 			frame: false,
 			customScript: path.join(__dirname, "plugins", "in-app-menu", "prompt-custom-titlebar.js"),
 			enableRemoteModule: true,			
-		});
+		};
 	}
-	prompt(options, win)
-		.then(output => {
-			if (output !== null && output !== example) {
-				config.set("options.proxy", output);
-				item.checked = output !== "";
-			} else { //user pressed cancel
-				item.checked = !item.checked; //reset checkbox
-			}
-		})
-		.catch(console.error);
+	const output = await prompt(options, win);
+		if (output !== null && output !== example) {
+			config.set("options.proxy", output);
+			item.checked = output !== "";
+		} else { //user pressed cancel
+			item.checked = !item.checked; //reset checkbox
+		}
 }

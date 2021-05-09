@@ -37,29 +37,25 @@ const customTitlebarPath = path.join(app.getAppPath(), "plugins", "in-app-menu",
 // Helper function for globalShortcuts prompt
 const kb = (label_, value_, default_) => { return { value: value_, label: label_, default: default_ || undefined }; };
 
-function promptVolumeSteps(win, options) {
-	const promptOptions = {
+async function promptVolumeSteps(win, options) {
+	const promptOptions = setupPromptOptions({
 		title: "Volume Steps",
 		label: "Choose Volume Increase/Decrease Steps",
 		value: options.steps || 1,
 		type: "counter",
 		counterOptions: { minimum: 0, maximum: 100, multiFire: true },
 		width: 380
-	};
+	});
 
-	setupPromptOptions(promptOptions);
-
-	prompt(promptOptions, win)
-		.then(output => {
-			if (output || output === 0) { // 0 is somehow valid
-				options.steps = output;
-				setOptions("precise-volume", options);
-			}
-		}).catch(console.error);
+	const output = await prompt(promptOptions, win)
+	if (output || output === 0) { // 0 is somewhat valid
+		options.steps = output;
+		setOptions("precise-volume", options);
+	}
 }
 
-function promptGlobalShortcuts(win, options, item) {
-	const promptOptions = {
+async function promptGlobalShortcuts(win, options, item) {
+	const promptOptions = setupPromptOptions({
 		title: "Global Volume Keybinds",
 		label: "Choose Global Volume Keybinds:",
 		type: "keybind",
@@ -67,43 +63,40 @@ function promptGlobalShortcuts(win, options, item) {
 			kb("Increase Volume", "volumeUp", options.globalShortcuts?.volumeUp),
 			kb("Decrease Volume", "volumeDown", options.globalShortcuts?.volumeDown)
 		]
-	};
+	});
 
-	setupPromptOptions(promptOptions);
+	const output = await prompt(promptOptions, win)
+	if (output) {
+		for (const keybindObject of output) {
+			options.globalShortcuts[keybindObject.value] = keybindObject.accelerator;
+		}
 
-	prompt(promptOptions, win)
-		.then(output => {
-			if (output) {
-				for (const keybindObject of output) {
-					options.globalShortcuts[keybindObject.value] = keybindObject.accelerator;
-				}
+		setOptions("precise-volume", options);
 
-				setOptions("precise-volume", options);
-
-				item.checked = !!options.globalShortcuts.volumeUp || !!options.globalShortcuts.volumeDown;
-			} else {
-				// Reset checkbox if prompt was canceled
-				item.checked = !item.checked;
-			}
-		})
-		.catch(console.error);
+		item.checked = !!options.globalShortcuts.volumeUp || !!options.globalShortcuts.volumeDown;
+	} else {
+		// Reset checkbox if prompt was canceled
+		item.checked = !item.checked;
+	}
 }
 
 function setupPromptOptions(options) {
 	// TODO Custom titlebar needs testing on macOS
 	if (is.macOS()) {
-		Object.assign(options, {
+		return {
+			...options,
 			customStylesheet: "dark",
 			icon: iconPath
-		});
+		};
 	} else {
-		Object.assign(options, {
+		return {
+			...options,
 			customStylesheet: "dark",
 			icon: iconPath,
 			// The following are used for custom titlebar
 			frame: false,
 			customScript: customTitlebarPath,
 			enableRemoteModule: true
-		});
+		};
 	}
 }
