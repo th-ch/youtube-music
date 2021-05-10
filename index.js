@@ -255,6 +255,10 @@ app.on("ready", () => {
 		}, 20000);
 	}
 
+	if (is.windows()) {
+		app.setAppUserModelId("com.github.th-ch.youtube-music");
+	}
+
 	mainWindow = createMainWindow();
 	setApplicationMenu(mainWindow);
 	if (config.get("options.restartOnConfigChanges")) {
