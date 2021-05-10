@@ -11,6 +11,7 @@ const { setApplicationMenu } = require("./menu");
 const { fileExists, injectCSS } = require("./plugins/utils");
 const { isTesting } = require("./utils/testing");
 const { setUpTray } = require("./tray");
+const { setupSongInfo } = require("./providers/song-info");
 
 // Catch errors and log them
 unhandled({
@@ -157,6 +158,7 @@ function createMainWindow() {
 }
 
 app.once("browser-window-created", (event, win) => {
+	setupSongInfo(win);
 	loadPlugins(win);
 
 	win.webContents.on("did-fail-load", (
