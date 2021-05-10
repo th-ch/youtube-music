@@ -41,8 +41,8 @@ async function promptKeybind(options, win) {
 	}, win);
 
 	if (output) {
-		for (const keybindObject of output) {
-			options.global[keybindObject.value] = keybindObject.accelerator;
+		for (const { value, accelerator } of output) {
+			options.global[value] = accelerator;
 		}
 		setOption(options);
 	}

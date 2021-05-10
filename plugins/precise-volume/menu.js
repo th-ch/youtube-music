@@ -64,8 +64,8 @@ async function promptGlobalShortcuts(win, options, item) {
 	}, win)
 
 	if (output) {
-		for (const keybindObject of output) {
-			options.globalShortcuts[keybindObject.value] = keybindObject.accelerator;
+		for (const { value, accelerator } of output) {
+			options.globalShortcuts[value] = accelerator;
 		}
 
 		setOptions("precise-volume", options);
