@@ -51,7 +51,6 @@ const songInfo = {
 };
 
 const handleData = async (responseText, win) => {
-	console.log("handling song-info")
 	let data = JSON.parse(responseText);
 	songInfo.title = data?.videoDetails?.title;
 	songInfo.artist = await getArtist(win) || cleanupArtistName(data?.videoDetails?.author);
