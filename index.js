@@ -255,11 +255,12 @@ app.on("ready", () => {
 		}, 20000);
 	}
 
+	const appLocation = process.execPath;
+	
 	// Register shortcut & appID on windows
-	if (!is.dev() && is.windows()) {
+	if (is.windows() && !is.dev() && !appLocation.startsWith(path.join(app.getPath("appData"), "..", "Local", "Temp"))) {
 		const appID = "com.github.th-ch.youtube-music";
 		const shortcutPath = path.join(app.getPath("appData"), "Microsoft", "Windows", "Start Menu", "Programs", "YouTube Music.lnk");
-		const appLocation = process.execPath;
 		try { // check if shortcut is registered and valid
 			const shortcutDetails = electron.shell.readShortcutLink(shortcutPath); // throw error if doesn't exist yet
 			if (shortcutDetails.target !== appLocation || shortcutDetails.appUserModelId !== appID) {
