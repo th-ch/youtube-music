@@ -1,26 +1,31 @@
 const { ipcMain, nativeImage } = require("electron");
 
+const overrideSongInfo = require("../config").get("options.overrideSongInfo");
+
 const fetch = require("node-fetch");
-
-// This selects the progress bar, used for current progress
-const progressSelector = "#progress-bar";
-
-
-// Grab the progress using the selector
-const getProgress = async (win) => {
-	// Get current value of the progressbar element
-	const elapsedSeconds = await win.webContents.executeJavaScript(
-		'document.querySelector("' + progressSelector + '").value'
-	);
-
-	return elapsedSeconds;
-};
 
 // Grab the native image using the src
 const getImage = async (src) => {
 	const result = await fetch(src);
 	const buffer = await result.buffer();
 	return nativeImage.createFromBuffer(buffer);
+};
+
+// This selects the progress bar, used for current progress
+const progressBar = 'document.querySelector("#progress-bar")';
+
+// Grab the progress using the selector
+const getProgress = async (win) => {
+	// Get current value of the progressbar element
+	return await win.webContents.executeJavaScript(
+		`${progressBar}?.value`
+	);
+};
+
+const getsongDuration = async (win) => {
+	return await win.webContents.executeJavaScript(
+		`${progressBar}?.getAttribute("aria-valuetext")?.split(" of ")[1]`
+	)
 };
 
 // To find the paused status, we check if the title contains `-`
@@ -33,6 +38,27 @@ const getArtist = async (win) => {
 	return await win.webContents.executeJavaScript(`
 		document.querySelector(".subtitle.ytmusic-player-bar .yt-formatted-string")
 			?.textContent
+	`);
+}
+
+const getUploadDate = async (win) => {
+	return await win.webContents.executeJavaScript(`
+	document.querySelectorAll(".subtitle.ytmusic-player-bar .yt-formatted-string")[4]
+		?.textContent
+	`);
+}
+
+const getTitle = async (win) => {
+	return await win.webContents.executeJavaScript(`
+	document.querySelector(".title.ytmusic-player-bar")
+		?.textContent
+	`);
+}
+
+const getImageSrc = async (win) => {
+	return await win.webContents.executeJavaScript(`
+	document.querySelector(".image.ytmusic-player-bar")
+		?.src
 	`);
 }
 
@@ -52,14 +78,24 @@ const songInfo = {
 
 const handleData = async (responseText, win) => {
 	let data = JSON.parse(responseText);
+
+	songInfo.imageSrc = data?.videoDetails?.thumbnail?.thumbnails?.pop()?.url;
 	songInfo.title = data?.videoDetails?.title;
+	songInfo.url = data?.microformat?.microformatDataRenderer?.urlCanonical;
+	songInfo.uploadDate = data?.microformat?.microformatDataRenderer?.uploadDate;
+	songInfo.songDuration = data?.videoDetails?.lengthSeconds;
+
+	if (overrideSongInfo) {
+		songInfo.imageSrc = await getImageSrc(win) || songInfo.imageSrc;
+		songInfo.title = await getTitle(win) || songInfo.imageSrc;
+		songInfo.uploadDate = await getUploadDate(win) || songInfo.uploadDate;
+		songInfo.songDuration = await getsongDuration(win) || songInfo.songDuration;
+		songInfo.url = win.webContents.getURL().split("&")[0];
+	}
+
 	songInfo.artist = await getArtist(win) || cleanupArtistName(data?.videoDetails?.author);
 	songInfo.views = data?.videoDetails?.viewCount;
-	songInfo.imageSrc = data?.videoDetails?.thumbnail?.thumbnails?.pop()?.url;
-	songInfo.songDuration = data?.videoDetails?.lengthSeconds;
 	songInfo.image = await getImage(songInfo.imageSrc);
-	songInfo.uploadDate = data?.microformat?.microformatDataRenderer?.uploadDate;
-	songInfo.url = data?.microformat?.microformatDataRenderer?.urlCanonical;
 
 	win.webContents.send("update-song-info", JSON.stringify(songInfo));
 };

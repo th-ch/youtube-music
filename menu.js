@@ -167,6 +167,14 @@ const mainMenuTemplate = (win) => [
 							config.set("options.autoResetAppCache", item.checked);
 						},
 					},
+					{
+						label: "Override SongInfo",
+						type: "checkbox",
+						checked: config.get("options.overrideSongInfo"),
+						click: (item) => {
+							config.set("options.overrideSongInfo", item.checked);
+						},
+					},
 					{ type: "separator" },
 					{
 						label: "Toggle DevTools",
