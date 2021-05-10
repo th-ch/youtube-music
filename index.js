@@ -263,12 +263,12 @@ app.on("ready", () => {
 		try { // check if shortcut is registered and valid
 			const shortcutDetails = electron.shell.readShortcutLink(shortcutPath); // throw error if doesn't exist yet
 			if (shortcutDetails.target !== appLocation || shortcutDetails.appUserModelId !== appID) {
-				throw undefined;
+				throw "needUpdate";
 			}
-		} catch { // if not valid -> Register shortcut
+		} catch (error) { // if not valid -> Register shortcut
 			electron.shell.writeShortcutLink(
 				shortcutPath,
-				"create",
+				error === "needUpdate" ? "update" : "create",
 				{
 					target: appLocation,
 					cwd: appLocation.slice(0, appLocation.lastIndexOf(path.sep)),
