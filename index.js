@@ -255,17 +255,29 @@ app.on("ready", () => {
 		}, 20000);
 	}
 
+	// Register shortcut & appID on windows
 	if (!is.dev() && is.windows()) {
 		const appID = "com.github.th-ch.youtube-music";
-		electron.shell.writeShortcutLink(
-			path.join(app.getPath("appData"), 'Microsoft', 'Windows', 'Start Menu', 'Programs', 'YouTube Music.lnk'),
-			'update',
-			{
-				target: process.execPath,
-				description: "YouTube Music Desktop App - including custom plugins",
-				appUserModelId: appID
+		const shortcutPath = path.join(app.getPath("appData"), "Microsoft", "Windows", "Start Menu", "Programs", "YouTube Music.lnk");
+		const appLocation = process.execPath;
+		try { // check if shortcut is registered and valid
+			const shortcutDetails = electron.shell.readShortcutLink(shortcutPath); // throw error if doesn't exist yet
+			if (shortcutDetails.target !== appLocation || shortcutDetails.appUserModelId !== appID) {
+				throw undefined;
 			}
-		);
+		} catch { // if not valid -> Register shortcut
+			electron.shell.writeShortcutLink(
+				shortcutPath,
+				"create",
+				{
+					target: appLocation,
+					cwd: appLocation.slice(0, appLocation.lastIndexOf(path.sep)),
+					description: "YouTube Music Desktop App - including custom plugins",
+					appUserModelId: appID
+				}
+			);
+		}
+		// set appID
 		app.setAppUserModelId(appID);
 	}
 
