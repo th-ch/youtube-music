@@ -255,31 +255,32 @@ app.on("ready", () => {
 		}, 20000);
 	}
 
-	const appLocation = process.execPath;
-	
-	// Register shortcut & appID on windows
-	if (is.windows() && !is.dev() && !appLocation.startsWith(path.join(app.getPath("appData"), "..", "Local", "Temp"))) {
+	// Register appID on windows
+	if (is.windows()) {
+		const appLocation = process.execPath;
 		const appID = "com.github.th-ch.youtube-music";
-		const shortcutPath = path.join(app.getPath("appData"), "Microsoft", "Windows", "Start Menu", "Programs", "YouTube Music.lnk");
-		try { // check if shortcut is registered and valid
-			const shortcutDetails = electron.shell.readShortcutLink(shortcutPath); // throw error if doesn't exist yet
-			if (shortcutDetails.target !== appLocation || shortcutDetails.appUserModelId !== appID) {
-				throw "needUpdate";
-			}
-		} catch (error) { // if not valid -> Register shortcut
-			electron.shell.writeShortcutLink(
-				shortcutPath,
-				error === "needUpdate" ? "update" : "create",
-				{
-					target: appLocation,
-					cwd: appLocation.slice(0, appLocation.lastIndexOf(path.sep)),
-					description: "YouTube Music Desktop App - including custom plugins",
-					appUserModelId: appID
-				}
-			);
-		}
-		// set appID
 		app.setAppUserModelId(appID);
+		// check shortcut validity if not in dev mode / running portable app
+		if (!is.dev() && !appLocation.startsWith(path.join(app.getPath("appData"), "..", "Local", "Temp"))) {
+			const shortcutPath = path.join(app.getPath("appData"), "Microsoft", "Windows", "Start Menu", "Programs", "YouTube Music.lnk");
+			try { // check if shortcut is registered and valid
+				const shortcutDetails = electron.shell.readShortcutLink(shortcutPath); // throw error if doesn't exist yet
+				if (shortcutDetails.target !== appLocation || shortcutDetails.appUserModelId !== appID) {
+					throw "needUpdate";
+				}
+			} catch (error) { // if not valid -> Register shortcut
+				electron.shell.writeShortcutLink(
+					shortcutPath,
+					error === "needUpdate" ? "update" : "create",
+					{
+						target: appLocation,
+						cwd: appLocation.slice(0, appLocation.lastIndexOf(path.sep)),
+						description: "YouTube Music Desktop App - including custom plugins",
+						appUserModelId: appID
+					}
+				);
+			}
+		}
 	}
 
 	mainWindow = createMainWindow();
