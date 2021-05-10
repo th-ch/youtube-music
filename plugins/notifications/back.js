@@ -1,6 +1,6 @@
 const { Notification } = require("electron");
 const is = require("electron-is");
-const getSongInfo = require("../../providers/song-info");
+const registerCallback = require("../../providers/song-info");
 const { notificationImage } = require("./utils");
 
 const { setupInteractive, notifyInteractive } = require("./interactive")
@@ -29,7 +29,6 @@ module.exports = (win, options) => {
 	if (isInteractive) {
 		setupInteractive(win, options.unpauseNotification);
 	}
-	const registerCallback = getSongInfo(win);
 	let oldNotification;
 	let oldURL = "";
 	win.once("ready-to-show", () => {

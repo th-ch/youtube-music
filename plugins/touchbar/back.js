@@ -7,7 +7,7 @@ const {
 	TouchBarScrubber,
 } = TouchBar;
 
-const getSongInfo = require("../../providers/song-info");
+const registerCallback = require("../../providers/song-info");
 const getSongControls = require("../../providers/song-controls");
 
 // Songtitle label
@@ -59,7 +59,6 @@ const touchBar = new TouchBar({
 });
 
 module.exports = (win) => {
-	const registerCallback = getSongInfo(win);
 	const { playPause, next, previous, like, dislike } = getSongControls(win);
 
 	// If the page is ready, register the callback
