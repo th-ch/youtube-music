@@ -255,8 +255,18 @@ app.on("ready", () => {
 		}, 20000);
 	}
 
-	if (is.windows()) {
-		app.setAppUserModelId("com.github.th-ch.youtube-music");
+	if (!is.dev() && is.windows()) {
+		const appID = "com.github.th-ch.youtube-music";
+		electron.shell.writeShortcutLink(
+			path.join(app.getPath("appData"), 'Microsoft', 'Windows', 'Start Menu', 'Programs', 'YouTube Music.lnk'),
+			'update',
+			{
+				target: process.execPath,
+				description: "YouTube Music Desktop App - including custom plugins",
+				appUserModelId: appID
+			}
+		);
+		app.setAppUserModelId(appID);
 	}
 
 	mainWindow = createMainWindow();
