@@ -1,6 +1,5 @@
 const { globalShortcut } = require("electron");
 const electronLocalshortcut = require("electron-localshortcut");
-const { setOptions } = require("../../config/plugins");
 
 const getSongControls = require("../../providers/song-controls");
 
@@ -19,8 +18,6 @@ function _registerLocalShortcut(win, shortcut, action) {
 function registerShortcuts(win, options) {
 	const songControls = getSongControls(win);
 	const { playPause, next, previous, search } = songControls;
-
-	updateOptions(options);
 
 	if (options.overrideMediaKeys) {
 		_registerGlobalShortcut(win.webContents, "MediaPlayPause", playPause);
@@ -56,28 +53,6 @@ function registerShortcuts(win, options) {
 				_registerLocalShortcut(win, local[action], songControls[action]);
 			}
 		}
-	}
-}
-
-/** Update options to new format if they are still an array (old format) */
-function updateOptions(options) {
-	let updated = false;
-	for (const optionType of ["global", "local"]) {
-		if (Array.isArray(options[optionType])) {
-			const updatedOptions = {};
-			for (const optionObject of options[optionType]) {
-				if (optionObject.action && optionObject.shortcut) {
-					updatedOptions[optionObject.action] = optionObject.shortcut;
-				}
-			}
-
-			options[optionType] = updatedOptions;
-			updated = true;
-		}
-	}
-
-	if (updated) {
-		setOptions("shortcuts", options);
 	}
 }
 
