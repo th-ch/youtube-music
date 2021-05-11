@@ -86,14 +86,14 @@
 		"ytpl": "^2.1.1"
 	},
 	"devDependencies": {
-		"electron": "^11.4.4",
+		"electron": "^12.0.7",
 		"electron-builder": "^22.10.5",
 		"electron-devtools-installer": "^3.1.1",
 		"electron-icon-maker": "0.0.5",
 		"get-port": "^5.1.1",
 		"jest": "^26.6.3",
 		"rimraf": "^3.0.2",
-		"spectron": "^13.0.0",
+		"spectron": "^14.0.0",
 		"xo": "^0.38.2"
 	},
 	"resolutions": {
