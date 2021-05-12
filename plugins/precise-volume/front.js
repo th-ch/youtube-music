@@ -16,14 +16,44 @@ module.exports = (options) => {
 		setupGlobalShortcuts(options);
 	}
 
-	firstRun(options);
-
-	// This way the ipc listener gets cleared either way
-	ipcRenderer.once("setupVideoPlayerVolumeMousewheel", (_event, toEnable) => {
-		if (toEnable)
+	ipcRenderer.once("did-finish-load", () => {
+		injectVolumeHud();
+		// if hideVideo is disabled
+		if ($("#main-panel")?.computedStyleMap().get("display").value !== "none") {
 			setupVideoPlayerOnwheel(options);
+		}
 	});
+
+	firstRun(options);
 };
+
+function injectVolumeHud() {
+    const position = `top: 18px; right: 60px; z-index: 999; position: absolute;`;
+    const mainStyle = "font-size: xx-large; padding: 10px; transition: opacity 1.5s"
+    $(".center-content.ytmusic-nav-bar").insertAdjacentHTML('beforeend', `<span id="volumeHud" style="${position + mainStyle}"></span>`)
+}
+
+let hudFadeTimeout;
+
+function showVolumeHud(volume) {
+    let volumeHud = $('#volumeHud');
+    if (!volumeHud) {
+		console.error("volumeHud Not Found !");
+		return;
+	}
+
+    volumeHud.textContent = volume + '%';
+    volumeHud.style.opacity = 1;
+
+    if (hudFadeTimeout) {
+		clearTimeout(hudFadeTimeout);
+	}
+
+    hudFadeTimeout = setTimeout(() => {
+        volumeHud.style.opacity = 0;
+        hudFadeTimeout = null;
+    }, 2000);
+}
 
 /** Add onwheel event to video player */
 function setupVideoPlayerOnwheel(options) {
@@ -102,8 +132,10 @@ function changeVolume(toIncrease, options) {
 	slider.value = options.savedVolume;
 	// Change tooltips to new value
 	setTooltip(options.savedVolume);
-	// Show volume slider on volume change
+	// Show volume slider
 	showVolumeSlider(slider);
+	// Show volume HUD
+	showVolumeHud(options.savedVolume);
 }
 
 let volumeHoverTimeoutID;

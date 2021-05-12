@@ -25,7 +25,7 @@ function overrideAddEventListener() {
 module.exports = () => {
     overrideAddEventListener();
     // Restore original function after did-finish-load to avoid keeping Element.prototype altered
-    ipcRenderer.once("restoreAddEventListener", () => { // Called from main to make sure page is completly loaded
+    ipcRenderer.once("did-finish-load", () => { // Called from main to make sure page is completly loaded
         Element.prototype.addEventListener = Element.prototype._addEventListener;
         Element.prototype._addEventListener = undefined;
         ignored = undefined;
