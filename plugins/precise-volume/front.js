@@ -28,19 +28,17 @@ module.exports = (options) => {
 };
 
 function injectVolumeHud() {
-    const position = `top: 18px; right: 60px; z-index: 999; position: absolute;`;
-    const mainStyle = "font-size: xx-large; padding: 10px; transition: opacity 1.5s"
-    $(".center-content.ytmusic-nav-bar").insertAdjacentHTML('beforeend', `<span id="volumeHud" style="${position + mainStyle}"></span>`)
+    const position = "top: 18px; right: 60px; z-index: 999; position: absolute;";
+    const mainStyle = "font-size: xx-large; padding: 10px; transition: opacity 1.5s";
+    $(".center-content.ytmusic-nav-bar").insertAdjacentHTML("beforeend",
+		`<span id="volumeHud" style="${position + mainStyle}"></span>`)
 }
 
 let hudFadeTimeout;
 
 function showVolumeHud(volume) {
-    let volumeHud = $('#volumeHud');
-    if (!volumeHud) {
-		console.error("volumeHud Not Found !");
-		return;
-	}
+    let volumeHud = $("#volumeHud");
+    if (!volumeHud) return;
 
     volumeHud.textContent = volume + '%';
     volumeHud.style.opacity = 1;
