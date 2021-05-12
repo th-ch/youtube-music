@@ -7,7 +7,7 @@ let enabled = false;
 module.exports = (win) => {
 	enabled = true;
 
-	win.webContents.once("did-finish-load", () => {
+	win.webContents.on("did-finish-load", () => {
 		win.webContents.send("did-finish-load");
 	});
 };

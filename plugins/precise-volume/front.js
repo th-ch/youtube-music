@@ -16,7 +16,7 @@ module.exports = (options) => {
 		setupGlobalShortcuts(options);
 	}
 
-	ipcRenderer.once("did-finish-load", () => {
+	ipcRenderer.on("did-finish-load", () => {
 		injectVolumeHud();
 		// if hideVideo is disabled
 		if ($("#main-panel")?.computedStyleMap().get("display").value !== "none") {
