@@ -312,21 +312,21 @@ module.exports.setApplicationMenu = (win) => {
 	Menu.setApplicationMenu(menu);
 };
 
-const example = "Example: 'socks5://127.0.0.1:9999'";
 async function setProxy(item, win) {
 	const output = await prompt({
 		title: 'Set Proxy',
 		label: 'Enter Proxy Address: (leave empty to disable)',
-		value: config.get("options.proxy") || example,
+		value: config.get("options.proxy"),
 		type: 'input',
 		inputAttrs: {
-			type: 'url'
+			type: 'url',
+			placeholder: "Example: 'socks5://127.0.0.1:9999"
 		},
 		width: 450,
 		...promptOptions()
 	}, win);
 
-	if (output !== null && output !== example) {
+	if (output) {
 		config.set("options.proxy", output);
 		item.checked = output !== "";
 	} else { //user pressed cancel
