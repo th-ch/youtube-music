@@ -40,6 +40,9 @@ if (config.get("options.disableHardwareAcceleration")) {
 	app.disableHardwareAcceleration();
 }
 
+if (config.get("options.proxy")) {
+	app.commandLine.appendSwitch("proxy-server", config.get("options.proxy"));
+}
 
 // Adds debug features like hotkeys for triggering dev tools and reload
 require("electron-debug")();
@@ -113,8 +116,8 @@ function createMainWindow() {
 		titleBarStyle: useInlineMenu
 			? "hidden"
 			: is.macOS()
-				? "hiddenInset"
-				: "default",
+			? "hiddenInset"
+			: "default",
 		autoHideMenuBar: config.get("options.hideMenu"),
 	});
 	if (windowPosition) {
@@ -147,11 +150,11 @@ function createMainWindow() {
 			});
 		}
 	});
-
+	
 	win.webContents.on("render-process-gone", (event, webContents, details) => {
 		showUnresponsiveDialog(win, details);
 	});
-
+	
 	win.once("ready-to-show", () => {
 		if (config.get("options.appVisible")) {
 			win.show();
@@ -185,7 +188,7 @@ app.once("browser-window-created", (event, win) => {
 		if (is.dev()) {
 			console.log(log);
 		}
-		if (!(config.plugins.isEnabled("in-app-menu") && errorCode === -3)) { // -3 is a false positive with in-app-menu
+		if( !(config.plugins.isEnabled("in-app-menu") && errorCode === -3)) { // -3 is a false positive with in-app-menu
 			win.webContents.send("log", log);
 			win.webContents.loadFile(path.join(__dirname, "error.html"));
 		}
@@ -330,7 +333,7 @@ app.on("ready", () => {
 
 function showUnresponsiveDialog(win, details) {
 	if (!!details) {
-		console.log("Unresponsive Error!\n" + JSON.stringify(details, null, "\t"))
+		console.log("Unresponsive Error!\n"+JSON.stringify(details, null, "\t"))
 	}
 	electron.dialog.showMessageBox(win, {
 		type: "error",
@@ -339,7 +342,7 @@ function showUnresponsiveDialog(win, details) {
 		details: "We are sorry for the inconvenience! please choose what to do:",
 		buttons: ["Wait", "Relaunch", "Quit"],
 		cancelId: 0
-	}).then(result => {
+	}).then( result => {
 		switch (result.response) {
 			case 1: //if relaunch - relaunch+exit
 				app.relaunch();
@@ -347,7 +350,7 @@ function showUnresponsiveDialog(win, details) {
 				app.quit();
 				break;
 			default:
-				break;
+				break; 
 		}
 	});
 }
