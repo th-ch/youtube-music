@@ -326,7 +326,7 @@ async function setProxy(item, win) {
 		...promptOptions()
 	}, win);
 
-	if (output) {
+	if (typeof output === "string") {
 		config.set("options.proxy", output);
 		item.checked = output !== "";
 	} else { //user pressed cancel
