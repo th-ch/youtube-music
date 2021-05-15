@@ -2877,10 +2877,10 @@ cssstyle@^2.2.0:
   dependencies:
     cssom "~0.3.6"
 
-custom-electron-titlebar@^3.2.6:
-  version "3.2.6"
-  resolved "https://registry.yarnpkg.com/custom-electron-titlebar/-/custom-electron-titlebar-3.2.6.tgz#4cd064efa5020954c09732efa8c667a7ee3636e3"
-  integrity sha512-P3ZGEr0eouUHqhdBBXllpuy2bFhfSmp+32HQBPcwzujjIsUhQxQj/nCpJiFa4SUGAEp1ifu/icuZdDKNNX72Tw==
+custom-electron-titlebar@^3.2.7:
+  version "3.2.7"
+  resolved "https://registry.yarnpkg.com/custom-electron-titlebar/-/custom-electron-titlebar-3.2.7.tgz#fb249d6180cbda074b1d392bea755fa0743012a8"
+  integrity sha512-KO/6e3r6YflfNUOzi5QHLwkLHBP+ICtHPo70u/kUIKR8UUkDTPb4a9i19q0uDZQcjkH6oqRvFCz9wEHeEpCgxw==
 
 dashdash@^1.12.0:
   version "1.14.1"

@@ -172,19 +172,21 @@ const mainMenuTemplate = (win) => [
 						},
 					},
 					{ type: "separator" },
-					{
-						label: "Toggle DevTools",
-						// Cannot use "toggleDevTools" role in MacOS
-						click: () => {
-							const { webContents } = win;
-							if (webContents.isDevToolsOpened()) {
-								webContents.closeDevTools();
-							} else {
-								const devToolsOptions = {};
-								webContents.openDevTools(devToolsOptions);
-							}
-						},
-					},
+					is.macOS() ?
+						{
+							label: "Toggle DevTools",
+							// Cannot use "toggleDevTools" role in MacOS
+							click: () => {
+								const { webContents } = win;
+								if (webContents.isDevToolsOpened()) {
+									webContents.closeDevTools();
+								} else {
+									const devToolsOptions = {};
+									webContents.openDevTools(devToolsOptions);
+								}
+							},
+						} :
+						{ role: "toggleDevTools" },
 					{
 						label: "Edit config.json",
 						click: () => {
@@ -198,41 +200,12 @@ const mainMenuTemplate = (win) => [
 	{
 		label: "View",
 		submenu: [
-			{
-				label: "Reload",
-				click: () => {
-					win.webContents.reload();
-				},
-			},
-			{
-				label: "Force Reload",
-				click: () => {
-					win.webContents.reloadIgnoringCache();
-				},
-			},
+			{ role: "reload" },
+			{ role: "forceReload" },
 			{ type: "separator" },
-			{
-				label: "Zoom In",
-				click: () => {
-					win.webContents.setZoomLevel(
-						win.webContents.getZoomLevel() + 1
-					);
-				},
-			},
-			{
-				label: "Zoom Out",
-				click: () => {
-					win.webContents.setZoomLevel(
-						win.webContents.getZoomLevel() - 1
-					);
-				},
-			},
-			{
-				label: "Reset Zoom",
-				click: () => {
-					win.webContents.setZoomLevel(0);
-				},
-			},
+			{ role: "zoomIn" },
+			{ role: "zoomOut" },
+			{ role: "resetZoom" },
 		],
 	},
 	{
@@ -261,12 +234,7 @@ const mainMenuTemplate = (win) => [
 					app.quit();
 				},
 			},
-			{
-				label: "Quit App",
-				click: () => {
-					app.quit();
-				},
-			},
+			{ role: "quit" },
 		],
 	},
 ];
