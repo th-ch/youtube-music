@@ -14,7 +14,8 @@ const ytdl = require("ytdl-core");
 
 const { triggerAction, triggerActionSync } = require("../utils");
 const { ACTIONS, CHANNEL } = require("./actions.js");
-const { defaultMenuDownloadLabel, getFolder } = require("./utils");
+const { getFolder, urlToJPG } = require("./utils");
+const { cleanupArtistName } = require("../../providers/song-info");
 
 const { createFFmpeg } = FFmpeg;
 const ffmpeg = createFFmpeg({
@@ -24,7 +25,7 @@ const ffmpeg = createFFmpeg({
 });
 const ffmpegMutex = new Mutex();
 
-const downloadVideoToMP3 = (
+const downloadVideoToMP3 = async (
 	videoUrl,
 	sendFeedback,
 	sendError,
@@ -34,6 +35,18 @@ const downloadVideoToMP3 = (
 	subfolder = ""
 ) => {
 	sendFeedback("Downloading…");
+
+	if (metadata === null) {
+		const { videoDetails } = await ytdl.getInfo(videoUrl);
+		const thumbnails = videoDetails?.thumbnails;
+		metadata = {
+			artist: videoDetails?.media?.artist || cleanupArtistName(videoDetails?.author?.name) || "",
+			title: videoDetails?.media?.song || videoDetails?.title || "",
+			imageSrcYTPL: thumbnails ? 
+				urlToJPG(thumbnails[thumbnails.length - 1].url, videoDetails?.videoId)
+				: ""
+		}
+	}
 
 	let videoName = "YouTube Music - Unknown title";
 	let videoReadableStream;
@@ -54,9 +67,10 @@ const downloadVideoToMP3 = (
 		.on("data", (chunk) => {
 			chunks.push(chunk);
 		})
-		.on("progress", (chunkLength, downloaded, total) => {
-			const progress = Math.floor((downloaded / total) * 100);
-			sendFeedback("Download: " + progress + "%");
+		.on("progress", (_chunkLength, downloaded, total) => {
+			const ratio = downloaded / total;
+			const progress = Math.floor(ratio * 100);
+			sendFeedback("Download: " + progress + "%", ratio);
 		})
 		.on("info", (info, format) => {
 			videoName = info.videoDetails.title.replace("|", "").toString("ascii");
@@ -101,7 +115,7 @@ const toMP3 = async (
 
 	try {
 		if (!ffmpeg.isLoaded()) {
-			sendFeedback("Loading…");
+			sendFeedback("Loading…", 2); // indefinite progress bar after download
 			await ffmpeg.load();
 		}
 
@@ -135,6 +149,7 @@ const toMP3 = async (
 		ipcRenderer.send("add-metadata", filePath, fileBuffer, {
 			artist: metadata.artist,
 			title: metadata.title,
+			imageSrcYTPL: metadata.imageSrcYTPL
 		});
 		ipcRenderer.once("add-metadata-done", reinit);
 	} catch (e) {
@@ -165,22 +180,16 @@ module.exports = {
 
 ipcRenderer.on(
 	"downloader-download-playlist",
-	(_, songMetadata, playlistFolder, options) => {
-		const reinit = () =>
-			ipcRenderer.send("downloader-feedback", defaultMenuDownloadLabel);
-
+	(_, url, playlistFolder, options) => {
 		downloadVideoToMP3(
-			songMetadata.url,
-			(feedback) => {
-				ipcRenderer.send("downloader-feedback", feedback);
-			},
+			url,
+			() => {},
 			(error) => {
 				triggerAction(CHANNEL, ACTIONS.ERROR, error);
-				reinit();
 			},
-			reinit,
+			() => {},
 			options,
-			songMetadata,
+			null,
 			playlistFolder
 		);
 	}

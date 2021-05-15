@@ -25,6 +25,7 @@ const observer = new MutationObserver((mutations, observer) => {
 });
 
 const reinit = () => {
+	triggerAction(CHANNEL, ACTIONS.PROGRESS, -1); // closes progress bar
 	if (!progress) {
 		console.warn("Cannot update progress");
 	} else {
@@ -38,21 +39,30 @@ const baseUrl = defaultConfig.url;
 // contextBridge.exposeInMainWorld("downloader", {
 // 	download: () => {
 global.download = () => {
+	triggerAction(CHANNEL, ACTIONS.PROGRESS, 2); // starts with indefinite progress bar
+	let metadata;
 	let videoUrl = getSongMenu()
-		.querySelector("ytmusic-menu-navigation-item-renderer")
-		.querySelector("#navigation-endpoint")
-		.getAttribute("href");
-	videoUrl = !videoUrl
-		? global.songInfo.url || window.location.href
-		: baseUrl + "/" + videoUrl;
+		// selector of first button which is always "Start Radio"
+		?.querySelector('ytmusic-menu-navigation-item-renderer.iron-selected[tabindex="0"] #navigation-endpoint')
+		?.getAttribute("href");
+	if (videoUrl) {
+		videoUrl = baseUrl + "/" + videoUrl;
+		metadata = null;
+	} else {
+		metadata = global.songInfo;
+		videoUrl = metadata.url || window.location.href;
+	}
 
 	downloadVideoToMP3(
 		videoUrl,
-		(feedback) => {
+		(feedback, ratio = undefined) => {
 			if (!progress) {
 				console.warn("Cannot update progress");
 			} else {
 				progress.innerHTML = feedback;
+			}
+			if (ratio) {
+				triggerAction(CHANNEL, ACTIONS.PROGRESS, ratio);
 			}
 		},
 		(error) => {
@@ -61,7 +71,7 @@ global.download = () => {
 		},
 		reinit,
 		pluginOptions,
-		global.songInfo
+		metadata
 	);
 };
 // });

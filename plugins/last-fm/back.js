@@ -1,25 +1,14 @@
 const fetch = require('node-fetch');
 const md5 = require('md5');
-const open = require("open");
+const { shell } = require('electron');
 const { setOptions } = require('../../config/plugins');
 const getSongInfo = require('../../providers/song-info');
 const defaultConfig = require('../../config/defaults');
 
-const cleanupArtistName = (config, artist) => {
-	// removes the suffixes of the artist name for more recognition by last.fm
-	const { suffixesToRemove } = config;
-	if (suffixesToRemove === undefined) return artist;
-
-	for (suffix of suffixesToRemove) {
-		artist = artist.replace(suffix, '');
-	}
-	return artist;
-}
-
 const createFormData = params => {
 	// creates the body for in the post request
 	const formData = new URLSearchParams();
-	for (key in params) {
+	for (const key in params) {
 		formData.append(key, params[key]);
 	}
 	return formData;
@@ -28,7 +17,7 @@ const createQueryString = (params, api_sig) => {
 	// creates a querystring
 	const queryData = [];
 	params.api_sig = api_sig;
-	for (key in params) {
+	for (const key in params) {
 		queryData.push(`${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`);
 	}
 	return '?'+queryData.join('&');
@@ -37,12 +26,12 @@ const createQueryString = (params, api_sig) => {
 const createApiSig = (params, secret) => { 
 	// this function creates the api signature, see: https://www.last.fm/api/authspec
 	const keys = [];
-	for (key in params) {
+	for (const key in params) {
 		keys.push(key);
 	}
 	keys.sort();
 	let sig = '';
-	for (key of keys) {
+	for (const key of keys) {
 		if (String(key) === 'format')
 			continue
 		sig += `${key}${params[key]}`;
@@ -69,7 +58,7 @@ const authenticate = async config => {
 	// asks the user for authentication
 	config.token = await createToken(config);
 	setOptions('last-fm', config);
-	open(`https://www.last.fm/api/auth/?api_key=${config.api_key}&token=${config.token}`);
+	shell.openExternal(`https://www.last.fm/api/auth/?api_key=${config.api_key}&token=${config.token}`);
 	return config;
 }
 
@@ -142,7 +131,7 @@ let scrobbleTimer = undefined;
 const lastfm = async (win, config) => {
 	const registerCallback = getSongInfo(win);
 
-	if (!config.api_root || !config.suffixesToRemove) {
+	if (!config.api_root) {
 		// settings are not present, creating them with the default values
 		config = defaultConfig.plugins['last-fm'];
 		config.enabled = true;
@@ -157,8 +146,6 @@ const lastfm = async (win, config) => {
 	registerCallback( songInfo => {
 		// set remove the old scrobble timer
 		clearTimeout(scrobbleTimer);
-		// make the artist name a bit cleaner
-		songInfo.artist = cleanupArtistName(config, songInfo.artist);
 		if (!songInfo.isPaused) {
 			setNowPlaying(songInfo, config);
 			// scrobble when the song is half way through, or has passed the 4 minute mark

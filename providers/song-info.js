@@ -30,15 +30,10 @@ const getPausedStatus = async (win) => {
 };
 
 const getArtist = async (win) => {
-	return await win.webContents.executeJavaScript(
-		`
-		var bar = document.getElementsByClassName('subtitle ytmusic-player-bar')[0];
-		var artistName = (bar.getElementsByClassName('yt-formatted-string')[0]) || (bar.getElementsByClassName('byline ytmusic-player-bar')[0]);
-		if (artistName) {
-			artistName.textContent;
-		}
-		`
-	)
+	return await win.webContents.executeJavaScript(`
+		document.querySelector(".subtitle.ytmusic-player-bar .yt-formatted-string")
+			?.textContent
+	`);
 }
 
 // Fill songInfo with empty values
@@ -58,7 +53,7 @@ const songInfo = {
 const handleData = async (responseText, win) => {
 	let data = JSON.parse(responseText);
 	songInfo.title = data?.videoDetails?.title;
-	songInfo.artist = await getArtist(win) || data?.videoDetails?.author;
+	songInfo.artist = await getArtist(win) || cleanupArtistName(data?.videoDetails?.author);
 	songInfo.views = data?.videoDetails?.viewCount;
 	songInfo.imageSrc = data?.videoDetails?.thumbnail?.thumbnails?.pop()?.url;
 	songInfo.songDuration = data?.videoDetails?.lengthSeconds;
@@ -102,5 +97,20 @@ const registerProvider = (win) => {
 	return registerCallback;
 };
 
+const suffixesToRemove = [' - Topic', 'VEVO'];
+function cleanupArtistName(artist) {
+	if (!artist) {
+		return artist;
+	}
+	for (const suffix of suffixesToRemove) {
+		if (artist.endsWith(suffix)) {
+			return artist.slice(0, -suffix.length);
+		}
+	}
+	return artist;
+}
+
 module.exports = registerProvider;
 module.exports.getImage = getImage;
+module.exports.cleanupArtistName = cleanupArtistName;
+

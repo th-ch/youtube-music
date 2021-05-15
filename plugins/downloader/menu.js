@@ -5,6 +5,7 @@ const { URL } = require("url");
 const { dialog, ipcMain } = require("electron");
 const is = require("electron-is");
 const ytpl = require("ytpl");
+const chokidar = require('chokidar');
 
 const { setOptions } = require("../../config/plugins");
 const getSongInfo = require("../../providers/song-info");
@@ -15,7 +16,7 @@ let downloadLabel = defaultMenuDownloadLabel;
 let metadataURL = undefined;
 let callbackIsRegistered = false;
 
-module.exports = (win, options, refreshMenu) => {
+module.exports = (win, options) => {
 	if (!callbackIsRegistered) {
 		const registerCallback = getSongInfo(win);
 		registerCallback((info) => {
@@ -35,7 +36,16 @@ module.exports = (win, options, refreshMenu) => {
 					return;
 				}
 
-				const playlist = await ytpl(playlistID);
+				console.log(`trying to get playlist ID: '${playlistID}'`);
+				let playlist;
+				try {
+					playlist = await ytpl(playlistID, {
+						limit: options.playlistMaxItems || Infinity,
+					});
+				} catch (e) {
+					sendError(win, e);
+					return;
+				}
 				const playlistTitle = playlist.title;
 
 				const folder = getFolder(options.downloadFolder);
@@ -49,13 +59,13 @@ module.exports = (win, options, refreshMenu) => {
 				}
 				mkdirSync(playlistFolder, { recursive: true });
 
-				ipcMain.on("downloader-feedback", (_, feedback) => {
-					downloadLabel = feedback;
-					refreshMenu();
+				dialog.showMessageBox({
+					type: "info",
+					buttons: ["OK"],
+					title: "Started Download",
+					message: `Downloading Playlist "${playlistTitle}"`,
+					detail: `(${playlist.items.length} songs)`,
 				});
-
-				downloadLabel = `Downloading "${playlistTitle}"`;
-				refreshMenu();
 
 				if (is.dev()) {
 					console.log(
@@ -63,10 +73,26 @@ module.exports = (win, options, refreshMenu) => {
 					);
 				}
 
-				playlist.items.slice(0, options.playlistMaxItems).forEach((song) => {
+				const steps = 1 / playlist.items.length;
+				let progress = 0;
+
+				win.setProgressBar(2); // starts with indefinite bar
+
+				let dirWatcher = chokidar.watch(playlistFolder);
+				dirWatcher.on('add', () => {
+					progress += steps;
+					if (progress >= 0.9999) {
+						win.setProgressBar(-1); // close progress bar
+						dirWatcher.close().then(() => dirWatcher = null);
+					} else {
+						win.setProgressBar(progress);
+					}
+				});
+
+				playlist.items.forEach((song) => {
 					win.webContents.send(
 						"downloader-download-playlist",
-						song,
+						song.url,
 						playlistTitle,
 						options
 					);
