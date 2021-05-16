@@ -135,7 +135,7 @@ function changeVolume(toIncrease, options) {
 	const steps = (options.steps || 1) / 100;
 	videoStream.volume = toIncrease ?
 		Math.min(videoStream.volume + steps, 1) :
-		Math.max(videoStream.volume - steps, 0);
+		Math.max(videoStream.volume - steps, 0).toFixed(2);
 
 	// Save the new volume
 	saveVolume(toPercent(videoStream.volume), options);
@@ -156,7 +156,7 @@ function setupVolumeOverride(options) {
 
 	video.addEventListener("canplay", () => {
 		if (typeof options.savedVolume === "number") {
-			const newVolume = options.savedVolume / 100;
+			const newVolume = (options.savedVolume / 100).toFixed(2);
 
 			video.volume = newVolume;
 			updateVolumeSlider(options);
