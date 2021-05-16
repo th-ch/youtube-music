@@ -136,7 +136,7 @@ function changeVolume(toIncrease, options) {
 	// Save the new volume
 	saveVolume(toPercent(videoStream.volume), options);
 	// Slider value automatically rounds to multiples of 5
-	slider.value = options.savedVolume;
+	slider.value = Math.max(options.savedVolume, 5);
 	// Change tooltips to new value
 	setTooltip(options.savedVolume);
 	// Show volume slider
