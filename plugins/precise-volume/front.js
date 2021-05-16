@@ -77,7 +77,18 @@ function toPercent(volume) {
 
 function saveVolume(volume, options) {
 	options.savedVolume = volume;
-	setOptions("precise-volume", options);
+	writeOptions(options);
+}
+
+//without this function it would rewrite config 20 time when volume change by 20
+let writeTimeout;
+function writeOptions(options) {
+    if (writeTimeout) clearTimeout(writeTimeout);
+
+    writeTimeout = setTimeout(() => {
+		setOptions("precise-volume", options);
+        writeTimeout = null;
+    }, 1500)
 }
 
 /** Restore saved volume and setup tooltip */
