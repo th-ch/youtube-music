@@ -5,16 +5,16 @@ const {
 let videoElement;
 
 const applyCompressor = () => {
-	var audioContext = new AudioContext();
+	const audioContext = new AudioContext();
 	
-	var compressor = audioContext.createDynamicsCompressor();
+	let compressor = audioContext.createDynamicsCompressor();
 	compressor.threshold.value = -50;
 	compressor.ratio.value = 12;
 	compressor.knee.value = 40;
 	compressor.attack.value = 0;
 	compressor.release.value = 0.25;
 
-	var source = audioContext.createMediaElementSource(videoElement);
+	const source = audioContext.createMediaElementSource(videoElement);
 
 	source.connect(compressor);
 	compressor.connect(audioContext.destination);
