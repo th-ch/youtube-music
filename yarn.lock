@@ -9339,10 +9339,10 @@ ytdl-core@^4.5.0:
     miniget "^4.0.0"
     sax "^1.1.3"
 
-ytpl@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/ytpl/-/ytpl-2.1.1.tgz#c3c3e0e198e3fc7be13b52f5651e950b0aae94a0"
-  integrity sha512-yrU/w1k75f089zUONUm1QjlCv96QWhk/SS6jNEVJXMr8/9zEj4k2EIv81nk5wldJvpb+2rvEfm2zIwRqXRoZ9w==
+ytpl@^2.2.0:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/ytpl/-/ytpl-2.2.1.tgz#e514eccdd46e02eeb0d16e08f8278489258ab31a"
+  integrity sha512-sxty58s4JTNCDkiaiTkcaXfWCOW5sfHOPwDQtWIkoU4C+Kht2qat8yaLVbWZIclUSZo+naANyaI7LGjhhrErGA==
   dependencies:
     miniget "^4.2.0"
 
