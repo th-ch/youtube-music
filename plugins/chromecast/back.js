@@ -11,7 +11,7 @@ module.exports = () => {
 function registerDevice(device) {
     let currentUrl;
     let isPaused;
-
+    console.log(`Registered a new device: ${device.friendlyName}`)
     registerCallback(songInfo => {
         if (!songInfo?.title) {
             return;
@@ -29,6 +29,7 @@ function registerDevice(device) {
             isPaused ?
                 device.pause() :
                 device.resume();
+            console.log(isPaused ? "Paused" : "Resumed" + "palyback on your chromecast device")
         }
 	});
 }
