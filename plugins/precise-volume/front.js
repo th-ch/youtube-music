@@ -93,11 +93,10 @@ function writeOptions(options) {
 
 /** Restore saved volume and setup tooltip */
 function firstRun(options) {
-	const videoStream = $(".video-stream");
-	const slider = $("#volume-slider");
+	const video = $("video");
 	// Those elements load abit after DOMContentLoaded
-	if (videoStream && slider) {
-		setupVolumeOverride(options);
+	if (video) {
+		setupVolumeOverride(video, options);
 		if (typeof options.savedVolume === "number") {
 			// Set saved volume as tooltip
 			setTooltip(options.savedVolume);
@@ -151,9 +150,7 @@ function changeVolume(toIncrease, options) {
 	showVolumeHud(options.savedVolume);
 }
 
-function setupVolumeOverride(options) {
-	const video = $('video');
-
+function setupVolumeOverride(video, options) {
 	video.addEventListener("canplay", () => {
 		if (typeof options.savedVolume === "number") {
 			const newVolume = (options.savedVolume / 100).toFixed(2);
