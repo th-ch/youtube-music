@@ -4,14 +4,6 @@ This is used to determine if plugin is actually active
 */
 let enabled = false;
 
-module.exports = (win) => {
-	enabled = true;
+module.exports = () => enabled = true;
 
-	win.webContents.on("did-finish-load", () => {
-		win.webContents.send("did-finish-load");
-	});
-};
-
-module.exports.enabled = () => {
-	return enabled;
-};
+module.exports.enabled = () => enabled;

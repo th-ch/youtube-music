@@ -16,7 +16,7 @@ module.exports = (options) => {
 		setupGlobalShortcuts(options);
 	}
 
-	ipcRenderer.on("did-finish-load", () => {
+	window.addEventListener('load', () => {
 		const noVid = $("#main-panel")?.computedStyleMap().get("display").value === "none";
 		injectVolumeHud(noVid);
 		if (!noVid) {
@@ -156,6 +156,7 @@ function setupVolumeOverride(options) {
 
 	video.addEventListener("canplay", () => {
 		if (typeof options.savedVolume === "number") {
+			console.log("canplay video called")
 			const newVolume = (options.savedVolume / 100).toFixed(2);
 
 			video.volume = newVolume;
