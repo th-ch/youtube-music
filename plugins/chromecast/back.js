@@ -36,5 +36,5 @@ function registerDevice(device) {
 
 function transformURL(url) {// will not be needed after https://github.com/alxhotel/chromecast-api/pull/69
     const videoId = url.match(/http(?:s?):\/\/(?:www\.)?(?:music\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w\-\_]*)(&(amp;)?‌​[\w\?‌​=]*)?/);
-    return videoId.length > 1 ? videoId[1] : "dQw4w9WgXcQ";
+    return "https://youtube.com/watch?v=" + (videoId.length > 1 ? videoId[1] : "dQw4w9WgXcQ");
 }
