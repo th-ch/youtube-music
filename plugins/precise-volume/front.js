@@ -156,7 +156,6 @@ function setupVolumeOverride(options) {
 
 	video.addEventListener("canplay", () => {
 		if (typeof options.savedVolume === "number") {
-			console.log("canplay video called")
 			const newVolume = (options.savedVolume / 100).toFixed(2);
 
 			video.volume = newVolume;
