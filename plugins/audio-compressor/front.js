@@ -1,10 +1,12 @@
-const {
-	watchDOMElement
-} = require("../../providers/dom-elements");
-
-let videoElement;
-
 const applyCompressor = () => {
+	const videoElement = document.querySelector("video");
+
+	// If video element is not loaded yet try again
+	if(videoElement === null) {
+		setTimeout(applyCompressor, 500);
+		return;
+	}
+
 	const audioContext = new AudioContext();
 	
 	let compressor = audioContext.createDynamicsCompressor();
@@ -20,13 +22,4 @@ const applyCompressor = () => {
 	compressor.connect(audioContext.destination);
 };
 
-module.exports = () => {
-	watchDOMElement(
-		"video",
-		(document) => document.querySelector("video"),
-		(element) => {
-			videoElement = element;
-			applyCompressor();
-		}
-	);
-};
+module.exports = applyCompressor;
