@@ -78,7 +78,7 @@
 		"electron-store": "^7.0.3",
 		"electron-unhandled": "^3.0.2",
 		"electron-updater": "^4.3.8",
-		"filenamify": "^4.2.0",
+		"filenamify": "^4.3.0",
 		"md5": "^2.3.0",
 		"node-fetch": "^2.6.1",
 		"node-notifier": "^9.0.1",
