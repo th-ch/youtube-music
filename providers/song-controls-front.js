@@ -4,7 +4,7 @@ let video = document.querySelector("video");
 
 function playPause() {
     if (!video) {
-        video = document.querySelector(".video-stream");
+        video = document.querySelector("video");
     }
 
     if (video.paused) {

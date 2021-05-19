@@ -25,7 +25,7 @@ module.exports = (winImport, initialOptions) => {
         }
     });
     ipcMain.on('volume-change', (_, v) => setVolume(v));
-    ipcMain.on('seeked-to', (_, s) => seekTo(s));
+    ipcMain.on('seeked-to', (_, s) => seekTo(s + 1.5));
 };
 
 function setVolume(volume) {
@@ -37,6 +37,7 @@ function setVolume(volume) {
 }
 
 function seekTo(seconds, device = null) {
+    if (options.syncChromecastTime) return;
     if (device) {
         device.seekTo(seconds);
     } else {
@@ -53,19 +54,23 @@ async function getTime() {
 
 function registerDevice(device) {
     deviceList.push(device.name);
-
+    let currentStatus;
     device.on('status', async (status) => {
-        win.webContents.send("log", JSON.stringify(status, null, "\t"));
-        if (status.playerState === "PLAYING") {
-            if (options.syncChromecastTime) {
-                const currentTime = await getTime();
-                const timeDiff = Math.abs(status.currentTime - currentTime);
-                if (timeDiff > 1) {
-                    win.webContents.send("log", `Time difference = ${timeDiff}, Setting Chromecast to "${currentTime}" seconds`);
-                    seekTo(currentTime, device);
+        currentStatus = status.playerState;
+        //win.webContents.send("log", JSON.stringify(status, null, "\t"));
+        if (currentStatus === "PLAYING") {
+            const currentTime = await getTime();
+            const timeDiff = Math.abs(status.currentTime - currentTime);
+            if (timeDiff > 1) {
+                if (options.syncChromecastTime) {
+                    seekTo(currentTime + 1.5, device);
+                    win.webContents.send("log", 'options.syncChromecastTime = ' + options.syncChromecastTime +
+                        ` \nTime difference = ${timeDiff}, Setting Chromecast to "${currentTime}" +1.5 seconds`);
+                } else if (options.syncAppTime) {
+                    win.webContents.send("setPlaybackTime", status.currentTime);
+                    win.webContents.send("log", 'options.syncAppTime = ' + options.syncAppTime +
+                        ` \nTime difference = ${timeDiff}, Setting AppVideo to "${status.currentTime}" seconds`);
                 }
-            } else if (options.syncAppTime) {
-                win.webContents.send("setPlaybackTime", status.currentTime);
             }
         }
     })
@@ -83,9 +88,13 @@ function registerDevice(device) {
 
         } else if (isPaused !== songInfo.isPaused) { //paused status changed
             isPaused = songInfo.isPaused;
-            isPaused ?
-                device.pause() :
+            if (isPaused) {
+                if (currentStatus === "PLAYING") {
+                    device.pause()
+                }
+            } else {
                 device.resume();
+            }
         }
     });
 }
@@ -99,7 +108,7 @@ function setOption(value, ...keys) {
     for (const key of keys) {
         if (typeof key === "string") {
             options[key] = value;
-        } else if (key.name && key.value){
+        } else if (typeof key.name == "string" && typeof key.value === "boolean") {
             options[key.name] = key.value;
         }
     }
