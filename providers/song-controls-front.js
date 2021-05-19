@@ -1,18 +1,23 @@
 const { ipcRenderer } = require("electron");
 
-let videoStream = document.querySelector(".video-stream");
-module.exports = () => {
-    ipcRenderer.on("playPause", () => {
-        if (!videoStream) {
-            videoStream = document.querySelector(".video-stream");
-        }
+let video = document.querySelector("video");
 
-        if (videoStream.paused) {
-            videoStream.play();
-        } else {
-            videoStream.yns_pause ?
-                videoStream.yns_pause() :
-                videoStream.pause();
-        }
-    });
+function playPause() {
+    if (!video) {
+        video = document.querySelector(".video-stream");
+    }
+
+    if (video.paused) {
+        video.play();
+    } else {
+        video.yns_pause ?
+            video.yns_pause() :
+            video.pause();
+    }
+}
+
+module.exports = () => {
+    ipcRenderer.on("playPause", playPause);
 };
+
+module.exports.playPause = playPause;

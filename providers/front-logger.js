@@ -10,4 +10,7 @@ module.exports = () => {
 	ipcRenderer.on("log", (_event, log) => {
 		console.log(logToString(log));
 	});
+	ipcRenderer.on("logObject", (_event, logObject) => {
+		console.log(JSON.parse(logObject));
+	});
 };

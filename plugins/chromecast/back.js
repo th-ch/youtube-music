@@ -1,37 +1,93 @@
-const registerCallback = require('../../providers/song-info');
+const getSongInfo = require("../../providers/song-info");
+const { ipcMain } = require('electron')
+const ChromecastAPI = require('chromecast-api');
+const { setOptions } = require("../../config/plugins");
 
-const ChromecastAPI = require('chromecast-api') 
+let client;
+let deviceList = [];
 
-module.exports = () => {
-    const client = new ChromecastAPI();
+let registerCallback;
 
-    client.on('device', registerDevice);
+let win;
+
+let options;
+
+module.exports = (winImport, initialOptions) => {
+    win = winImport;
+    options = initialOptions;
+    registerCallback = getSongInfo(win);
+
+    client = new ChromecastAPI();
+
+    client.on('device', (device) => {
+        if (!deviceList.includes(device.name)) {
+            registerDevice(device);
+        }
+    });
+    ipcMain.on('volume-change', (_, v) => setVolume(v));
+    ipcMain.on('seeked-to', (_, s) => seekTo(s));
 };
 
+function setVolume(volume) {
+    if (!options.syncVolume) return;
+
+    for (const device of client.devices) {
+        device.setVolume(volume);
+    }
+}
+
+function seekTo(seconds, device = null) {
+    if (device) {
+        device.seekTo(seconds);
+    } else {
+        win.webContents.send("log", `Seeking to "${seconds}" seconds`);
+        for (const device_ of client.devices) {
+            device_.seekTo(seconds);
+        }
+    }
+}
+
+async function getTime() {
+    return win.webContents.executeJavaScript(`document.querySelector("video").currentTime`);
+}
+
 function registerDevice(device) {
+    deviceList.push(device.name);
+
+    device.on('status', async (status) => {
+        win.webContents.send("log", JSON.stringify(status, null, "\t"));
+        if (status.playerState === "PLAYING") {
+            if (options.syncChromecastTime) {
+                const currentTime = await getTime();
+                const timeDiff = Math.abs(status.currentTime - currentTime);
+                if (timeDiff > 1) {
+                    win.webContents.send("log", `Time difference = ${timeDiff}, Setting Chromecast to "${currentTime}" seconds`);
+                    seekTo(currentTime, device);
+                }
+            } else if (options.syncAppTime) {
+                win.webContents.send("setPlaybackTime", status.currentTime);
+            }
+        }
+    })
+
     let currentUrl;
     let isPaused;
-    log(`Registered a new device: ${device.friendlyName}`)
     registerCallback(songInfo => {
         if (!songInfo?.title) {
             return;
-        } 
+        }
         if (currentUrl !== songInfo.url) { //new song
             currentUrl = songInfo.url;
             isPaused = songInfo.isPaused;
+            device.play(transformURL(songInfo.url));
 
-            device.play(transformURL(songInfo.url), function (err) {
-                if (!err) log(`Playing in your chromecast: "${songInfo.title}"`)
-            });
-
-        } else if (isPaused !== songInfo.isPaused ) { //paused status changed
+        } else if (isPaused !== songInfo.isPaused) { //paused status changed
             isPaused = songInfo.isPaused;
             isPaused ?
                 device.pause() :
                 device.resume();
-            log(isPaused ? "Paused" : "Resumed" + "palyback on your chromecast device")
         }
-	});
+    });
 }
 
 function transformURL(url) {// will not be needed after https://github.com/alxhotel/chromecast-api/pull/69
@@ -39,13 +95,23 @@ function transformURL(url) {// will not be needed after https://github.com/alxho
     return "https://youtube.com/watch?v=" + (videoId.length > 1 ? videoId[1] : "dQw4w9WgXcQ");
 }
 
-const { dialog } = require('electron')
+function setOption(value, ...keys) {
+    for (const key of keys) {
+        if (typeof key === "string") {
+            options[key] = value;
+        } else if (key.name && key.value){
+            options[key.name] = key.value;
+        }
+    }
+    setOptions("chromecast", options);
+}
 
-async function log(msg) {
-    dialog.showMessageBox(null, {
-        type: 'info',
-        buttons: ['Ok'],
-        title: 'Chromecast Status',
-        message: msg,
-    });
+module.exports.setOption = setOption;
+
+module.exports.menuCheck = (options_) => {
+    if (!options) options = options_;
+}
+
+module.exports.refreshChromecast = () => {
+    if (client) client.update();
 }
