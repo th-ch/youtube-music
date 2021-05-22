@@ -25,11 +25,13 @@ const notify = (info, options) => {
 
 const setup = (options) => {
 	let oldNotification;
+	let currentUrl;
 
 	registerCallback(songInfo => {
-		if (!songInfo.isPaused || options.unpauseNotification) {
+		if (!songInfo.isPaused && (songInfo.url !== currentUrl || options.unpauseNotification)) {
 			// Close the old notification
 			oldNotification?.close();
+			currentUrl = songInfo.url;
 			// This fixes a weird bug that would cause the notification to be updated instead of showing
 			setTimeout(() => { oldNotification = notify(songInfo, options) }, 10);
 		}
