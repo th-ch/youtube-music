@@ -5,17 +5,20 @@ const notifier = require("node-notifier");
 
 //store song controls reference on launch
 let controls;
-let notificationOnPause;
+let notificationOnUnpause;
 
 module.exports = (win, unpauseNotification) => {
     //Save controls and onPause option
     const { playPause, next, previous } = getSongControls(win);
     controls = { playPause, next, previous };
-    notificationOnPause = unpauseNotification;
+    notificationOnUnpause = unpauseNotification;
+
+    let currentUrl;
 
     // Register songInfoCallback
     registerCallback(songInfo => {
-		if (!songInfo.isPaused || notificationOnPause) {
+		if (!songInfo.isPaused && (songInfo.url !== currentUrl || notificationOnUnpause)) {
+            currentUrl = songInfo.url;
             sendToaster(songInfo);
 		}
 	});
@@ -78,7 +81,7 @@ function sendToaster(songInfo) {
                     // dont delete notification on play/pause
                     toDelete = undefined;
                     //manually send notification if not sending automatically
-                    if (!notificationOnPause) {
+                    if (!notificationOnUnpause) {
                         songInfo.isPaused = false;
                         sendToaster(songInfo);
                     }
