@@ -63,6 +63,12 @@ const defaultConfig = {
 				volumeDown: "Shift+PageDown"
 			},
 			savedVolume: undefined //plugin save volume between session here
+		},
+		chromecast: {
+			enabled: false,
+			syncVolume: true,
+			syncStartTime: true,
+			syncSeek: true
 		}
 	},
 };
