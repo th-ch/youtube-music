@@ -12,8 +12,7 @@ module.exports = (win) => {
 		// Playback
 		previous: () => pressKey(win, "k"),
 		next: () => pressKey(win, "j"),
-		playPause: () => win.webContents.send("playPause"),
-		like: () => pressKey(win, "_"),
+		playPause: (toPlay = undefined) => win.webContents.send("playPause", toPlay),
 		dislike: () => pressKey(win, "+"),
 		go10sBack: () => pressKey(win, "h"),
 		go10sForward: () => pressKey(win, "l"),

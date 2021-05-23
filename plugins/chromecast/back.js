@@ -1,4 +1,6 @@
 const getSongInfo = require("../../providers/song-info");
+const getSongControls = require('../../providers/song-controls');
+
 const { ipcMain } = require('electron')
 const ChromecastAPI = require('chromecast-api');
 const { setOptions } = require("../../config/plugins");
@@ -10,10 +12,16 @@ let registerCallback;
 
 let win;
 
+let play, pause;
+
 let options;
 
 module.exports = (winImport, initialOptions) => {
     win = winImport;
+    const { playPause } = getSongControls(win);
+    play = () => playPause(true);
+    pause = () => playPause(false);
+
     options = initialOptions;
     registerCallback = getSongInfo(win);
 
@@ -29,49 +37,29 @@ module.exports = (winImport, initialOptions) => {
 };
 
 function setVolume(volume) {
-    if (!options.syncVolume) return;
-
-    for (const device of client.devices) {
-        device.setVolume(volume);
-    }
-}
-
-function seekTo(seconds, device = null) {
-    if (options.syncChromecastTime) return;
-    if (device) {
-        device.seekTo(seconds);
-    } else {
-        win.webContents.send("log", `Seeking to "${seconds}" seconds`);
-        for (const device_ of client.devices) {
-            device_.seekTo(seconds);
+    if (options.syncVolume) {
+        for (const device of client.devices) {
+            device.setVolume(volume);
         }
     }
 }
 
-async function getTime() {
-    return win.webContents.executeJavaScript(`document.querySelector("video").currentTime`);
+function seekTo(seconds) {
+    if (options.syncSeek) {
+        for (const device of client.devices) {
+            device.seekTo(seconds);
+        }
+    }
 }
 
 function registerDevice(device) {
     deviceList.push(device.name);
     let currentStatus;
     device.on('status', async (status) => {
+        win.webContents.send("log", status.playerState);
         currentStatus = status.playerState;
-        //win.webContents.send("log", JSON.stringify(status, null, "\t"));
-        if (currentStatus === "PLAYING") {
-            const currentTime = await getTime();
-            const timeDiff = Math.abs(status.currentTime - currentTime);
-            if (timeDiff > 1) {
-                if (options.syncChromecastTime) {
-                    seekTo(currentTime + 1.5, device);
-                    win.webContents.send("log", 'options.syncChromecastTime = ' + options.syncChromecastTime +
-                        ` \nTime difference = ${timeDiff}, Setting Chromecast to "${currentTime}" +1.5 seconds`);
-                } else if (options.syncAppTime) {
-                    win.webContents.send("setPlaybackTime", status.currentTime);
-                    win.webContents.send("log", 'options.syncAppTime = ' + options.syncAppTime +
-                        ` \nTime difference = ${timeDiff}, Setting AppVideo to "${status.currentTime}" seconds`);
-                }
-            }
+        if (options.syncStartTime) {
+            currentStatus === "PLAYING" ? play() : pause();
         }
     })
 
@@ -83,15 +71,18 @@ function registerDevice(device) {
         }
         if (currentUrl !== songInfo.url) { //new song
             currentUrl = songInfo.url;
-            isPaused = songInfo.isPaused;
+            if (options.syncStartTime) {
+                isPaused = true;
+                pause();
+            } else {
+                isPaused = songInfo.isPaused;
+            }
             device.play(transformURL(songInfo.url));
 
         } else if (isPaused !== songInfo.isPaused) { //paused status changed
             isPaused = songInfo.isPaused;
-            if (isPaused) {
-                if (currentStatus === "PLAYING") {
-                    device.pause()
-                }
+            if (isPaused && currentStatus === "PLAYING") {
+                device.pause();
             } else {
                 device.resume();
             }
@@ -106,11 +97,7 @@ function transformURL(url) {// will not be needed after https://github.com/alxho
 
 function setOption(value, ...keys) {
     for (const key of keys) {
-        if (typeof key === "string") {
-            options[key] = value;
-        } else if (typeof key.name == "string" && typeof key.value === "boolean") {
-            options[key.name] = key.value;
-        }
+        options[key] = value;
     }
     setOptions("chromecast", options);
 }

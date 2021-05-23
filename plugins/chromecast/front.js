@@ -12,17 +12,9 @@ function setup(video) {
 
     sendVolume(video.volume);
 
-    video.addEventListener('volumechange', e => sendVolume(e.target.volume), {passive: true});
+    video.addEventListener('volumechange', e => sendVolume(
+        e.target.muted ? 0 : e.target.volume),
+        { passive: true });
 
-    video.addEventListener('seeking', e => sendTime(e.target.currentTime), {passive: true}); //or 'seeked'
-
-    ipcRenderer.on("setPlaybackTime", (_e, seconds) => {
-        const timeDiff = Math.abs(video.currentTime - seconds);
-
-        console.log(`Actual Time difference = ${timeDiff}`);
-
-        video.yns_pause ? video.yns_pause() : video.pause();
-        video.currentTime = seconds;
-        video.play();
-    })
+    video.addEventListener('seeking', e => sendTime(e.target.currentTime), { passive: true });
 }
