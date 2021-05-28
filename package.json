@@ -64,7 +64,7 @@
 	},
 	"dependencies": {
 		"@cliqz/adblocker-electron": "^1.20.5",
-		"@ffmpeg/core": "^0.8.5",
+		"@ffmpeg/core": "^0.9.0",
 		"@ffmpeg/ffmpeg": "^0.9.7",
 		"YoutubeNonStop": "git://github.com/lawfx/YoutubeNonStop.git#v0.9.0",
 		"async-mutex": "^0.3.1",
@@ -78,15 +78,15 @@
 		"electron-store": "^7.0.3",
 		"electron-unhandled": "^3.0.2",
 		"electron-updater": "^4.3.8",
-		"filenamify": "^4.2.0",
+		"filenamify": "^4.3.0",
 		"md5": "^2.3.0",
 		"node-fetch": "^2.6.1",
 		"node-notifier": "^9.0.1",
-		"ytdl-core": "^4.5.0",
-		"ytpl": "^2.1.1"
+		"ytdl-core": "^4.7.0",
+		"ytpl": "^2.2.0"
 	},
 	"devDependencies": {
-		"electron": "^12.0.7",
+		"electron": "^12.0.8",
 		"electron-builder": "^22.10.5",
 		"electron-devtools-installer": "^3.1.1",
 		"electron-icon-maker": "0.0.5",

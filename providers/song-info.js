@@ -64,15 +64,15 @@ const handleData = async (responseText, win) => {
 	win.webContents.send("update-song-info", JSON.stringify(songInfo));
 };
 
+// This variable will be filled with the callbacks once they register
+const callbacks = [];
+
+// This function will allow plugins to register callback that will be triggered when data changes
+const registerCallback = (callback) => {
+	callbacks.push(callback);
+};
+
 const registerProvider = (win) => {
-	// This variable will be filled with the callbacks once they register
-	const callbacks = [];
-
-	// This function will allow plugins to register callback that will be triggered when data changes
-	const registerCallback = (callback) => {
-		callbacks.push(callback);
-	};
-
 	win.on("page-title-updated", async () => {
 		// Get and set the new data
 		songInfo.isPaused = await getPausedStatus(win);
@@ -93,8 +93,6 @@ const registerProvider = (win) => {
 			c(songInfo);
 		});
 	});
-
-	return registerCallback;
 };
 
 const suffixesToRemove = [' - Topic', 'VEVO'];
@@ -110,7 +108,8 @@ function cleanupArtistName(artist) {
 	return artist;
 }
 
-module.exports = registerProvider;
+module.exports = registerCallback;
+module.exports.setupSongInfo = registerProvider;
 module.exports.getImage = getImage;
 module.exports.cleanupArtistName = cleanupArtistName;
 

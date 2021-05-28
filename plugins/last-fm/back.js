@@ -2,7 +2,7 @@ const fetch = require('node-fetch');
 const md5 = require('md5');
 const { shell } = require('electron');
 const { setOptions } = require('../../config/plugins');
-const getSongInfo = require('../../providers/song-info');
+const registerCallback = require('../../providers/song-info');
 const defaultConfig = require('../../config/defaults');
 
 const createFormData = params => {
@@ -128,9 +128,7 @@ const setNowPlaying = (songInfo, config) => {
 // this will store the timeout that will trigger addScrobble
 let scrobbleTimer = undefined;
 
-const lastfm = async (win, config) => {
-	const registerCallback = getSongInfo(win);
-
+const lastfm = async (_win, config) => {
 	if (!config.api_root) {
 		// settings are not present, creating them with the default values
 		config = defaultConfig.plugins['last-fm'];
