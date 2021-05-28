@@ -1,6 +1,6 @@
 const Discord = require("discord-rpc");
 
-const getSongInfo = require("../../providers/song-info");
+const registerCallback = require("../../providers/song-info");
 
 const rpc = new Discord.Client({
 	transport: "ipc",
@@ -12,8 +12,6 @@ const clientId = "790655993809338398";
 let clearActivity;
 
 module.exports = (win, {activityTimoutEnabled, activityTimoutTime}) => {
-	const registerCallback = getSongInfo(win);
-
 	// If the page is ready, register the callback
 	win.once("ready-to-show", () => {
 		rpc.once("ready", () => {
