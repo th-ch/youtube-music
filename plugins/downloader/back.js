@@ -4,7 +4,7 @@ const { join } = require("path");
 const ID3Writer = require("browser-id3-writer");
 const { dialog, ipcMain } = require("electron");
 
-const getSongInfo = require("../../providers/song-info");
+const registerCallback = require("../../providers/song-info");
 const { injectCSS, listenAction } = require("../utils");
 const { cropMaxWidth } = require("./utils");
 const { ACTIONS, CHANNEL } = require("./actions.js");
@@ -25,7 +25,6 @@ let nowPlayingMetadata = {};
 
 function handle(win) {
 	injectCSS(win.webContents, join(__dirname, "style.css"));
-	const registerCallback = getSongInfo(win);
 	registerCallback((info) => {
 		nowPlayingMetadata = info;
 	});
