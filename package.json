@@ -82,7 +82,7 @@
 		"md5": "^2.3.0",
 		"node-fetch": "^2.6.1",
 		"node-notifier": "^9.0.1",
-		"ytdl-core": "^4.5.0",
+		"ytdl-core": "^4.7.0",
 		"ytpl": "^2.2.0"
 	},
 	"devDependencies": {
