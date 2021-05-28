@@ -1,17 +1,27 @@
 const { notificationImage, icons } = require("./utils");
 const getSongControls = require('../../providers/song-controls');
+const registerCallback = require("../../providers/song-info");
 const notifier = require("node-notifier");
 
 //store song controls reference on launch
 let controls;
-let notificationOnPause;
+let notificationOnUnpause;
 
-//Save controls and onPause option
-module.exports.setupInteractive = (win, unpauseNotification) => {
+module.exports = (win, unpauseNotification) => {
+    //Save controls and onPause option
     const { playPause, next, previous } = getSongControls(win);
     controls = { playPause, next, previous };
+    notificationOnUnpause = unpauseNotification;
 
-    notificationOnPause = unpauseNotification;
+    let currentUrl;
+
+    // Register songInfoCallback
+    registerCallback(songInfo => {
+		if (!songInfo.isPaused && (songInfo.url !== currentUrl || notificationOnUnpause)) {
+            currentUrl = songInfo.url;
+            sendToaster(songInfo);
+		}
+	});
 
     win.webContents.once("closed", () => {
         deleteNotification()
@@ -33,7 +43,7 @@ function deleteNotification() {
 }
 
 //New notification
-module.exports.notifyInteractive = function sendToaster(songInfo) {
+function sendToaster(songInfo) {
     deleteNotification();
     //download image and get path
     let imgSrc = notificationImage(songInfo, true);
@@ -71,7 +81,7 @@ module.exports.notifyInteractive = function sendToaster(songInfo) {
                     // dont delete notification on play/pause
                     toDelete = undefined;
                     //manually send notification if not sending automatically
-                    if (!notificationOnPause) {
+                    if (!notificationOnUnpause) {
                         songInfo.isPaused = false;
                         sendToaster(songInfo);
                     }

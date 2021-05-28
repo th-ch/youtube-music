@@ -544,10 +544,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@ffmpeg/core@^0.8.5":
-  version "0.8.5"
-  resolved "https://registry.yarnpkg.com/@ffmpeg/core/-/core-0.8.5.tgz#2d0b7d4409a4348fa6a1888c247de706ffc0e63f"
-  integrity sha512-hemVFmhVLbD/VZaCG2BvCzFglKytMIMJ5aJfc12eXN4O4cG0wXnGTMVzlK1KKW/6viHhJMPkc9h4UDnJW8Uivg==
+"@ffmpeg/core@^0.9.0":
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/@ffmpeg/core/-/core-0.9.0.tgz#4a999a07671c081216fcc2714f73ec02ddc9c24b"
+  integrity sha512-d931yzQpb8GRgTZr+T7+BMqglPZ1R8FPH3W3UA8I21RzuasRHsMwQ4MQTlS9twjfqvUGIkD8p/8mNToUVN/Yrw==
 
 "@ffmpeg/ffmpeg@^0.9.7":
   version "0.9.7"
@@ -3393,10 +3393,10 @@ electron-updater@^4.3.8:
     lodash.isequal "^4.5.0"
     semver "^7.3.4"
 
-electron@^12.0.7:
-  version "12.0.7"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-12.0.7.tgz#e0fca2c8be34cb7da48c4d15cfb1d2ad666d2718"
-  integrity sha512-722TZNKDuLpEmj96AzTYFKHaJEH98xgOBH0aldStaPXI1xDFfb9SJQQuirvwFlkwG5OqQdz6Ne3OwwJ7Dbs5nQ==
+electron@^12.0.8:
+  version "12.0.8"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-12.0.8.tgz#e52583b2b4f1eaa6fbb0e3666b9907f99f1f24c7"
+  integrity sha512-bN2wYNnnma7ugBsiwysO1LI6oTTV1lDHOXuWip+OGjDUiz0IiJmZ+r0gAIMMeypVohZh7AA1ftnKad7tJ8sH4A==
   dependencies:
     "@electron/get" "^1.0.1"
     "@types/node" "^14.6.2"
@@ -4130,10 +4130,10 @@ filename-reserved-regex@^2.0.0:
   resolved "https://registry.yarnpkg.com/filename-reserved-regex/-/filename-reserved-regex-2.0.0.tgz#abf73dfab735d045440abfea2d91f389ebbfa229"
   integrity sha1-q/c9+rc10EVECr/qLZHzieu/oik=
 
-filenamify@^4.2.0:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/filenamify/-/filenamify-4.2.0.tgz#c99716d676869585b3b5d328b3f06590d032e89f"
-  integrity sha512-pkgE+4p7N1n7QieOopmn3TqJaefjdWXwEkj2XLZJLKfOgcQKkn11ahvGNgTD8mLggexLiDFQxeTs14xVU22XPA==
+filenamify@^4.3.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/filenamify/-/filenamify-4.3.0.tgz#62391cb58f02b09971c9d4f9d63b3cf9aba03106"
+  integrity sha512-hcFKyUG57yWGAzu1CMt/dPzYZuv+jAJUT85bL8mrXvNe6hWj6yEHEc4EdcgiA6Z3oi1/9wXJdZPXF2dZNgwgOg==
   dependencies:
     filename-reserved-regex "^2.0.0"
     strip-outer "^1.0.1"
@@ -9339,10 +9339,10 @@ ytdl-core@^4.7.0:
     miniget "^4.0.0"
     sax "^1.1.3"
 
-ytpl@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/ytpl/-/ytpl-2.1.1.tgz#c3c3e0e198e3fc7be13b52f5651e950b0aae94a0"
-  integrity sha512-yrU/w1k75f089zUONUm1QjlCv96QWhk/SS6jNEVJXMr8/9zEj4k2EIv81nk5wldJvpb+2rvEfm2zIwRqXRoZ9w==
+ytpl@^2.2.0:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/ytpl/-/ytpl-2.2.1.tgz#e514eccdd46e02eeb0d16e08f8278489258ab31a"
+  integrity sha512-sxty58s4JTNCDkiaiTkcaXfWCOW5sfHOPwDQtWIkoU4C+Kht2qat8yaLVbWZIclUSZo+naANyaI7LGjhhrErGA==
   dependencies:
     miniget "^4.2.0"
 
