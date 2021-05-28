@@ -1,4 +1,4 @@
-const getSongInfo = require("../../providers/song-info");
+const registerCallback = require("../../providers/song-info");
 const getSongControls = require('../../providers/song-controls');
 
 const { ipcMain } = require('electron')
@@ -7,8 +7,6 @@ const { setOptions } = require("../../config/plugins");
 
 let client;
 let deviceList = [];
-
-let registerCallback;
 
 let play, pause;
 
@@ -20,7 +18,6 @@ module.exports = (win, initialOptions) => {
     pause = () => playPause(false);
 
     options = initialOptions;
-    registerCallback = getSongInfo(win);
 
     client = new ChromecastAPI();
 
