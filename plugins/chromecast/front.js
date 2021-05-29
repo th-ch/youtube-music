@@ -12,9 +12,9 @@ function setup(video) {
 
     sendVolume(video.volume);
 
-    video.addEventListener('volumechange', e => sendVolume(
-        e.target.muted ? 0 : e.target.volume),
-        { passive: true });
+    video.addEventListener('volumechange', e => 
+						   sendVolume(e.target.muted ? 0 : e.target.volume));
 
-    video.addEventListener('seeking', e => sendTime(e.target.currentTime), { passive: true });
+    video.addEventListener('seeking', e => 
+						   sendTime(e.target.currentTime));
 }
