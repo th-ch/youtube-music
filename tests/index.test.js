@@ -1,3 +1,7 @@
+/**
+ * @jest-environment ./tests/environment
+ */
+
 describe("YouTube Music App", () => {
 	const app = global.__APP__;
 
