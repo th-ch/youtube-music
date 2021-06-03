@@ -12,16 +12,16 @@ module.exports = () => {
 	});
 
 	ontimeupdate((videoElement) => {
-		if (
-			currentSegments.length > 0 &&
-			videoElement.currentTime >= currentSegments[0][0] &&
-			videoElement.currentTime <= currentSegments[0][1]
-		) {
-			videoElement.currentTime = currentSegments[0][1];
-			const skipped = currentSegments.shift();
-			if (is.dev()) {
-				console.log("SponsorBlock: skipping segment", skipped);
+		currentSegments.forEach((segment) => {
+			if (
+				videoElement.currentTime >= segment[0] &&
+				videoElement.currentTime <= segment[1]
+			) {
+				videoElement.currentTime = segment[1];
+				if (is.dev()) {
+					console.log("SponsorBlock: skipping segment", segment);
+				}
 			}
-		}
+		});
 	});
 };
