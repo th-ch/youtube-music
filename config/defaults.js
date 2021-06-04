@@ -63,7 +63,19 @@ const defaultConfig = {
 				volumeDown: "Shift+PageDown"
 			},
 			savedVolume: undefined //plugin save volume between session here
-		}
+		},
+		sponsorblock: {
+			enabled: false,
+			apiURL: "https://sponsor.ajay.app",
+			categories: [
+				"sponsor",
+				"intro",
+				"outro",
+				"interaction",
+				"selfpromo",
+				"music_offtopic",
+			],
+		},
 	},
 };
 
