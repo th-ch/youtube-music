@@ -69,7 +69,19 @@ const defaultConfig = {
 			syncVolume: true,
 			syncStartTime: true,
 			syncSeek: true
-		}
+		},
+		sponsorblock: {
+			enabled: false,
+			apiURL: "https://sponsor.ajay.app",
+			categories: [
+				"sponsor",
+				"intro",
+				"outro",
+				"interaction",
+				"selfpromo",
+				"music_offtopic",
+			],
+		},
 	},
 };
 
