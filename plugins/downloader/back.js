@@ -55,7 +55,9 @@ function handle(win) {
 			{ ...nowPlayingMetadata, ...currentMetadata };
 
 		try {
-			const coverBuffer = songMetadata.image ? songMetadata.image.toPNG() : null;
+			const coverBuffer = songMetadata.image && !songMetadata.image.isEmpty() ?
+				songMetadata.image.toPNG() : null;
+
 			const writer = new ID3Writer(songBuffer);
 
 			// Create the metadata tags
