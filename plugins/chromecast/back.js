@@ -8,13 +8,13 @@ const { setOptions } = require("../../config/plugins");
 let client;
 let deviceList = [];
 
-let play, pause;
+let controls;
 
 let options;
 
 module.exports = (win, initialOptions) => {
-    const { _play, _pause } = getSongControls(win);
-    play = _play; pause = _pause;
+    const { play, pause } = getSongControls(win);
+    controls = { play, pause };
 
     options = initialOptions;
 
@@ -51,7 +51,7 @@ function registerDevice(device) {
     device.on('status', async (status) => {
         currentStatus = status.playerState;
         if (options.syncStartTime) {
-            currentStatus === "PLAYING" ? play() : pause();
+            currentStatus === "PLAYING" ? controls.play() : controls.pause();
         }
     })
 
@@ -65,7 +65,7 @@ function registerDevice(device) {
             currentUrl = songInfo.url;
             if (options.syncStartTime) {
                 isPaused = true;
-                pause();
+                controls.pause();
             } else {
                 isPaused = songInfo.isPaused;
             }

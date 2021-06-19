@@ -17,8 +17,7 @@ function playPause(toPlay = undefined) {
         case false:
             pause();
             break;
-        case undefined:
-        default:
+        default: //usually undefined
             video.paused ? video.play() : pause();
     }
 
