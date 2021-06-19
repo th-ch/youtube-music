@@ -13,9 +13,8 @@ let play, pause;
 let options;
 
 module.exports = (win, initialOptions) => {
-    const { playPause } = getSongControls(win);
-    play = () => playPause(true);
-    pause = () => playPause(false);
+    const { _play, _pause } = getSongControls(win);
+    play = _play; pause = _pause;
 
     options = initialOptions;
 
@@ -83,9 +82,10 @@ function registerDevice(device) {
     });
 }
 
-function transformURL(url) {// will not be needed after https://github.com/alxhotel/chromecast-api/pull/69 (chromecastAPI v0.3.5)
+// will not be needed after https://github.com/alxhotel/chromecast-api/pull/69 (chromecastAPI v0.3.5)
+function transformURL(url) {
     const videoId = url.match(/(?:http(?:s?):\/\/)?(?:www\.)?(?:music\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w\-\_]*)/);
-    // videoId[1] should always be valid since regex should always be valid
+    // videoId[1] should always be valid since regex should always be valid - rickroll video should never happen :)
     return "https://youtube.com/watch?v=" + (videoId.length > 1 ? videoId[1] : "dQw4w9WgXcQ");
 }
 

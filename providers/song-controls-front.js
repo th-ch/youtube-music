@@ -9,35 +9,30 @@ module.exports.playPause = playPause;
 
 function playPause(toPlay = undefined) {
     if (!checkVideo()) return;
-    
-    switch(toPlay) {
-        case undefined: 
-            video.paused ? play() : pause();
-            break;
+
+    switch (toPlay) {
         case true:
-            play(); 
+            video.play();
             break;
         case false:
             pause();
+            break;
+        case undefined:
+        default:
+            video.paused ? video.play() : pause();
     }
 
-    function play() {
-        video.play();
-    }
-    
     function pause() {
         video.yns_pause ?
             video.yns_pause() :
             video.pause();
     }
-    
 }
 
 function checkVideo() {
     if (!video) {
         video = document.querySelector("video");
-        if (!video) {
-            return false;
-        }
-    } return true;
+    }
+
+    return !!video;
 }
