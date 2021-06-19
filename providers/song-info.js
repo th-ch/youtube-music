@@ -9,18 +9,21 @@ const progressSelector = "#progress-bar";
 // Grab the progress using the selector
 const getProgress = async (win) => {
 	// Get current value of the progressbar element
-	const elapsedSeconds = await win.webContents.executeJavaScript(
+	return win.webContents.executeJavaScript(
 		'document.querySelector("' + progressSelector + '").value'
 	);
-
-	return elapsedSeconds;
 };
 
 // Grab the native image using the src
 const getImage = async (src) => {
 	const result = await fetch(src);
 	const buffer = await result.buffer();
-	return nativeImage.createFromBuffer(buffer);
+	const output = nativeImage.createFromBuffer(buffer);
+	if (output.isEmpty() && !src.endsWith(".jpg") && src.includes(".jpg")) { // fix hidden webp files (https://github.com/th-ch/youtube-music/issues/315)
+		return getImage(src.slice(0, src.lastIndexOf(".jpg")+4));
+	} else {
+		return output;
+	}
 };
 
 // To find the paused status, we check if the title contains `-`
@@ -30,7 +33,7 @@ const getPausedStatus = async (win) => {
 };
 
 const getArtist = async (win) => {
-	return await win.webContents.executeJavaScript(`
+	return win.webContents.executeJavaScript(`
 		document.querySelector(".subtitle.ytmusic-player-bar .yt-formatted-string")
 			?.textContent
 	`);
@@ -112,4 +115,3 @@ module.exports = registerCallback;
 module.exports.setupSongInfo = registerProvider;
 module.exports.getImage = getImage;
 module.exports.cleanupArtistName = cleanupArtistName;
-
