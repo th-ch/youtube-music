@@ -64,6 +64,12 @@ const defaultConfig = {
 			},
 			savedVolume: undefined //plugin save volume between session here
 		},
+		chromecast: {
+			enabled: false,
+			syncVolume: true,
+			syncStartTime: true,
+			syncSeek: true
+		},
 		sponsorblock: {
 			enabled: false,
 			apiURL: "https://sponsor.ajay.app",

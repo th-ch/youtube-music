@@ -33,16 +33,16 @@ function setThumbar(win, songInfo) {
 		{
 			tooltip: 'Previous',
 			icon: get('backward.png'),
-			click() { controls.previous(win.webContents); }
+			click() { controls.previous(); }
 		}, {
 			tooltip: 'Play/Pause',
 			// Update icon based on play state
 			icon: songInfo.isPaused ? get('play.png') : get('pause.png'),
-			click() { controls.playPause(win.webContents); }
+			click() { controls.playPause(); }
 		}, {
 			tooltip: 'Next',
 			icon: get('forward.png'),
-			click() { controls.next(win.webContents); }
+			click() { controls.next(); }
 		}
 	]);
 }

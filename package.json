@@ -70,6 +70,7 @@
 		"async-mutex": "^0.3.1",
 		"browser-id3-writer": "^4.4.0",
 		"chokidar": "^3.5.1",
+		"chromecast-api": "^0.3.4",
 		"custom-electron-titlebar": "^3.2.6",
 		"discord-rpc": "^3.2.0",
 		"electron-debug": "^3.2.0",
@@ -97,7 +98,8 @@
 		"xo": "^0.38.2"
 	},
 	"resolutions": {
-		"yargs-parser": "18.1.3"
+		"yargs-parser": "18.1.3",
+		"dns-packet": "5.2.4"
 	},
 	"xo": {
 		"envs": [
