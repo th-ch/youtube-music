@@ -65,7 +65,7 @@
 	"dependencies": {
 		"@cliqz/adblocker-electron": "^1.22.0",
 		"@ffmpeg/core": "^0.9.0",
-		"@ffmpeg/ffmpeg": "^0.9.8",
+		"@ffmpeg/ffmpeg": "^0.10.0",
 		"YoutubeNonStop": "git://github.com/lawfx/YoutubeNonStop.git#v0.9.0",
 		"async-mutex": "^0.3.1",
 		"browser-id3-writer": "^4.4.0",
