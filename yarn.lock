@@ -549,10 +549,10 @@
   resolved "https://registry.yarnpkg.com/@ffmpeg/core/-/core-0.10.0.tgz#f6a58361b22d7c23c6f7071b9fff6d572bc3f499"
   integrity sha512-qunWJl5PezpXEm31tb8Qu5z37B5KVA1VYZCpXchMhuAb3X9T7PuE3SlhOwphEoRhzaOa3lpofDfzihAUMFaVPQ==
 
-"@ffmpeg/ffmpeg@^0.9.8":
-  version "0.9.8"
-  resolved "https://registry.yarnpkg.com/@ffmpeg/ffmpeg/-/ffmpeg-0.9.8.tgz#d0292ac1e31f6a070b35e18e50dbbd79f2e2bb08"
-  integrity sha512-QradleJx78hHJBtI1wRsus1L1jxQB3v4h6k8c3CERI9fssm+NSSppuofmsOei7uq7iQEYq3oK9tJNAyEsRoNng==
+"@ffmpeg/ffmpeg@^0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@ffmpeg/ffmpeg/-/ffmpeg-0.10.0.tgz#0bebd944d50ce11297b91883f94b2f6220b74e34"
+  integrity sha512-W+d0ysYTO6d4vue/0KMYrxaprh9wvmnPqh6qyHXavBWLrDcE7gI3cJ/EQVfwe9nrt2e0Pi7873P2I18VEDgRfA==
   dependencies:
     is-url "^1.2.4"
     node-fetch "^2.6.1"
@@ -2882,10 +2882,10 @@ cssstyle@^2.2.0:
   dependencies:
     cssom "~0.3.6"
 
-custom-electron-titlebar@^3.2.6:
-  version "3.2.6"
-  resolved "https://registry.yarnpkg.com/custom-electron-titlebar/-/custom-electron-titlebar-3.2.6.tgz#4cd064efa5020954c09732efa8c667a7ee3636e3"
-  integrity sha512-P3ZGEr0eouUHqhdBBXllpuy2bFhfSmp+32HQBPcwzujjIsUhQxQj/nCpJiFa4SUGAEp1ifu/icuZdDKNNX72Tw==
+custom-electron-titlebar@^3.2.7:
+  version "3.2.7"
+  resolved "https://registry.yarnpkg.com/custom-electron-titlebar/-/custom-electron-titlebar-3.2.7.tgz#fb249d6180cbda074b1d392bea755fa0743012a8"
+  integrity sha512-KO/6e3r6YflfNUOzi5QHLwkLHBP+ICtHPo70u/kUIKR8UUkDTPb4a9i19q0uDZQcjkH6oqRvFCz9wEHeEpCgxw==
 
 dashdash@^1.12.0:
   version "1.14.1"
