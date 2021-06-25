@@ -2,13 +2,13 @@ const { existsSync, mkdirSync } = require("fs");
 const { join } = require("path");
 const { URL } = require("url");
 
-const { dialog, ipcMain } = require("electron");
+const { dialog } = require("electron");
 const is = require("electron-is");
 const ytpl = require("ytpl");
 const chokidar = require('chokidar');
 
 const { setOptions } = require("../../config/plugins");
-const getSongInfo = require("../../providers/song-info");
+const registerCallback = require("../../providers/song-info");
 const { sendError } = require("./back");
 const { defaultMenuDownloadLabel, getFolder } = require("./utils");
 
@@ -18,7 +18,6 @@ let callbackIsRegistered = false;
 
 module.exports = (win, options) => {
 	if (!callbackIsRegistered) {
-		const registerCallback = getSongInfo(win);
 		registerCallback((info) => {
 			metadataURL = info.url;
 		});
@@ -36,10 +35,16 @@ module.exports = (win, options) => {
 					return;
 				}
 
-				console.log("trying to get playlist ID" +playlistID);
-				const playlist = await ytpl(playlistID,
-					{ limit: options.playlistMaxItems || Infinity }
-				);
+				console.log(`trying to get playlist ID: '${playlistID}'`);
+				let playlist;
+				try {
+					playlist = await ytpl(playlistID, {
+						limit: options.playlistMaxItems || Infinity,
+					});
+				} catch (e) {
+					sendError(win, e);
+					return;
+				}
 				const playlistTitle = playlist.title;
 
 				const folder = getFolder(options.downloadFolder);

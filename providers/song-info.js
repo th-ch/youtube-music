@@ -9,18 +9,21 @@ const progressSelector = "#progress-bar";
 // Grab the progress using the selector
 const getProgress = async (win) => {
 	// Get current value of the progressbar element
-	const elapsedSeconds = await win.webContents.executeJavaScript(
+	return win.webContents.executeJavaScript(
 		'document.querySelector("' + progressSelector + '").value'
 	);
-
-	return elapsedSeconds;
 };
 
 // Grab the native image using the src
 const getImage = async (src) => {
 	const result = await fetch(src);
 	const buffer = await result.buffer();
-	return nativeImage.createFromBuffer(buffer);
+	const output = nativeImage.createFromBuffer(buffer);
+	if (output.isEmpty() && !src.endsWith(".jpg") && src.includes(".jpg")) { // fix hidden webp files (https://github.com/th-ch/youtube-music/issues/315)
+		return getImage(src.slice(0, src.lastIndexOf(".jpg")+4));
+	} else {
+		return output;
+	}
 };
 
 // To find the paused status, we check if the title contains `-`
@@ -30,15 +33,10 @@ const getPausedStatus = async (win) => {
 };
 
 const getArtist = async (win) => {
-	return await win.webContents.executeJavaScript(
-		`
-		var bar = document.getElementsByClassName('subtitle ytmusic-player-bar')[0];
-		var artistName = (bar.getElementsByClassName('yt-formatted-string')[0]) || (bar.getElementsByClassName('byline ytmusic-player-bar')[0]);
-		if (artistName) {
-			artistName.textContent;
-		}
-		`
-	);
+	return win.webContents.executeJavaScript(`
+		document.querySelector(".subtitle.ytmusic-player-bar .yt-formatted-string")
+			?.textContent
+	`);
 }
 
 // Fill songInfo with empty values
@@ -57,8 +55,8 @@ const songInfo = {
 
 const handleData = async (responseText, win) => {
 	let data = JSON.parse(responseText);
-	songInfo.title = data.videoDetails?.media?.song || data?.videoDetails?.title;
-	songInfo.artist = data.videoDetails?.media?.artist || await getArtist(win) || cleanupArtistName(data?.videoDetails?.author);
+	songInfo.title = data?.videoDetails?.title;
+	songInfo.artist = await getArtist(win) || cleanupArtistName(data?.videoDetails?.author);
 	songInfo.views = data?.videoDetails?.viewCount;
 	songInfo.imageSrc = data?.videoDetails?.thumbnail?.thumbnails?.pop()?.url;
 	songInfo.songDuration = data?.videoDetails?.lengthSeconds;
@@ -69,15 +67,15 @@ const handleData = async (responseText, win) => {
 	win.webContents.send("update-song-info", JSON.stringify(songInfo));
 };
 
+// This variable will be filled with the callbacks once they register
+const callbacks = [];
+
+// This function will allow plugins to register callback that will be triggered when data changes
+const registerCallback = (callback) => {
+	callbacks.push(callback);
+};
+
 const registerProvider = (win) => {
-	// This variable will be filled with the callbacks once they register
-	const callbacks = [];
-
-	// This function will allow plugins to register callback that will be triggered when data changes
-	const registerCallback = (callback) => {
-		callbacks.push(callback);
-	};
-
 	win.on("page-title-updated", async () => {
 		// Get and set the new data
 		songInfo.isPaused = await getPausedStatus(win);
@@ -98,8 +96,6 @@ const registerProvider = (win) => {
 			c(songInfo);
 		});
 	});
-
-	return registerCallback;
 };
 
 const suffixesToRemove = [' - Topic', 'VEVO'];
@@ -115,7 +111,7 @@ function cleanupArtistName(artist) {
 	return artist;
 }
 
-module.exports = registerProvider;
+module.exports = registerCallback;
+module.exports.setupSongInfo = registerProvider;
 module.exports.getImage = getImage;
 module.exports.cleanupArtistName = cleanupArtistName;
-
