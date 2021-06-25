@@ -4,38 +4,41 @@ const { join } = require("path");
 const ID3Writer = require("browser-id3-writer");
 const { dialog, ipcMain } = require("electron");
 
-const getSongInfo = require("../../providers/song-info");
+const registerCallback = require("../../providers/song-info");
 const { injectCSS, listenAction } = require("../utils");
+const { cropMaxWidth } = require("./utils");
 const { ACTIONS, CHANNEL } = require("./actions.js");
 const { getImage } = require("../../providers/song-info");
 
-const sendError = (win, err) => {
-	const dialogOpts = {
+const sendError = (win, error) => {
+	win.setProgressBar(-1); // close progress bar
+	dialog.showMessageBox({
 		type: "info",
 		buttons: ["OK"],
 		title: "Error in download!",
 		message: "Argh! Apologies, download failed…",
-		detail: err.toString(),
-	};
-	dialog.showMessageBox(dialogOpts);
+		detail: error.toString(),
+	});
 };
 
-let metadata = {};
+let nowPlayingMetadata = {};
 
 function handle(win) {
 	injectCSS(win.webContents, join(__dirname, "style.css"));
-	const registerCallback = getSongInfo(win);
 	registerCallback((info) => {
-		metadata = info;
+		nowPlayingMetadata = info;
 	});
 
-	listenAction(CHANNEL, (event, action, error) => {
+	listenAction(CHANNEL, (event, action, arg) => {
 		switch (action) {
-			case ACTIONS.ERROR:
-				sendError(win, error);
+			case ACTIONS.ERROR: // arg = error
+				sendError(win, arg);
 				break;
 			case ACTIONS.METADATA:
-				event.returnValue = JSON.stringify(metadata);
+				event.returnValue = JSON.stringify(nowPlayingMetadata);
+				break;
+			case ACTIONS.PROGRESS: // arg = progress
+				win.setProgressBar(arg);
 				break;
 			default:
 				console.log("Unknown action: " + action);
@@ -44,14 +47,17 @@ function handle(win) {
 
 	ipcMain.on("add-metadata", async (event, filePath, songBuffer, currentMetadata) => {
 		let fileBuffer = songBuffer;
-		const songMetadata = { ...metadata, ...currentMetadata };
-
-		if (!songMetadata.image && songMetadata.imageSrc) {
-			songMetadata.image = await getImage(songMetadata.imageSrc);
-		}
+		const songMetadata = currentMetadata.imageSrcYTPL ? // This means metadata come from ytpl.getInfo();
+			{
+				...currentMetadata,
+				image: cropMaxWidth(await getImage(currentMetadata.imageSrcYTPL))
+			} :
+			{ ...nowPlayingMetadata, ...currentMetadata };
 
 		try {
-			const coverBuffer = songMetadata.image ? songMetadata.image.toPNG() : null;
+			const coverBuffer = songMetadata.image && !songMetadata.image.isEmpty() ?
+				songMetadata.image.toPNG() : null;
+
 			const writer = new ID3Writer(songBuffer);
 
 			// Create the metadata tags
@@ -62,7 +68,7 @@ function handle(win) {
 				writer.setFrame("APIC", {
 					type: 3,
 					data: coverBuffer,
-					description: "",
+					description: ""
 				});
 			}
 			writer.addTag();

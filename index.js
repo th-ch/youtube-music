@@ -11,6 +11,7 @@ const { setApplicationMenu } = require("./menu");
 const { fileExists, injectCSS } = require("./plugins/utils");
 const { isTesting } = require("./utils/testing");
 const { setUpTray } = require("./tray");
+const { setupSongInfo } = require("./providers/song-info");
 
 // Catch errors and log them
 unhandled({
@@ -159,6 +160,7 @@ function createMainWindow() {
 }
 
 app.once("browser-window-created", (event, win) => {
+	setupSongInfo(win);
 	loadPlugins(win);
 
 	win.webContents.on("did-fail-load", (
@@ -255,6 +257,35 @@ app.on("ready", () => {
 			electron.session.defaultSession.clearCache();
 			clearTimeout(clearCacheTimeout);
 		}, 20000);
+	}
+
+	// Register appID on windows
+	if (is.windows()) {
+		const appID = "com.github.th-ch.youtube-music";
+		app.setAppUserModelId(appID);
+		const appLocation = process.execPath;
+		const appData = app.getPath("appData");
+		// check shortcut validity if not in dev mode / running portable app
+		if (!is.dev() && !appLocation.startsWith(path.join(appData, "..", "Local", "Temp"))) {
+			const shortcutPath = path.join(appData, "Microsoft", "Windows", "Start Menu", "Programs", "YouTube Music.lnk");
+			try { // check if shortcut is registered and valid
+				const shortcutDetails = electron.shell.readShortcutLink(shortcutPath); // throw error if doesn't exist yet
+				if (shortcutDetails.target !== appLocation || shortcutDetails.appUserModelId !== appID) {
+					throw "needUpdate";
+				}
+			} catch (error) { // if not valid -> Register shortcut
+				electron.shell.writeShortcutLink(
+					shortcutPath,
+					error === "needUpdate" ? "update" : "create",
+					{
+						target: appLocation,
+						cwd: appLocation.slice(0, appLocation.lastIndexOf(path.sep)),
+						description: "YouTube Music Desktop App - including custom plugins",
+						appUserModelId: appID
+					}
+				);
+			}
+		}
 	}
 
 	mainWindow = createMainWindow();

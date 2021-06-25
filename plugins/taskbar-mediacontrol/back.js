@@ -1,12 +1,11 @@
 const getSongControls = require('../../providers/song-controls');
-const getSongInfo = require('../../providers/song-info');
+const registerCallback = require('../../providers/song-info');
 const path = require('path');
 
 let controls;
 let currentSongInfo;
 
 module.exports = win => {
-	const registerCallback = getSongInfo(win);
 	const { playPause, next, previous } = getSongControls(win);
 	controls = { playPause, next, previous };
 
