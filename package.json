@@ -59,7 +59,7 @@
 		"release:win": "yarn run clean && electron-builder --win -p always"
 	},
 	"engines": {
-		"node": ">=12.16.1",
+		"node": ">=12.20",
 		"npm": "Please use yarn and not npm"
 	},
 	"dependencies": {
@@ -95,9 +95,10 @@
 		"jest": "^26.6.3",
 		"rimraf": "^3.0.2",
 		"spectron": "^14.0.0",
-		"xo": "^0.38.2"
+		"xo": "^0.40.3"
 	},
 	"resolutions": {
+		"minimist": "1.2.5",
 		"yargs-parser": "18.1.3"
 	},
 	"xo": {
