@@ -82,8 +82,8 @@
 		"md5": "^2.3.0",
 		"node-fetch": "^2.6.1",
 		"node-notifier": "^9.0.1",
-		"ytdl-core": "^4.8.2",
-		"ytpl": "^2.2.0"
+		"ytdl-core": "^4.8.3",
+		"ytpl": "^2.2.1"
 	},
 	"devDependencies": {
 		"electron": "^12.0.8",
