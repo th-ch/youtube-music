@@ -9,12 +9,14 @@ const { ACTIONS, CHANNEL } = require("./actions.js");
 let subscriptionsWindow;
 
 module.exports = win => {
+  // inject CSS in main window
   injectCSS(win.webContents, path.join(__dirname, "style.css"), () => {
 		win.webContents.send("subscriptions-css-ready");
 	});
 
   listenAction(CHANNEL, (event, action, data) => {
     switch(action) {
+      // Open new window and send there local subscriptions from options
       case ACTIONS.SUBS_WIN_BTN:
         subscriptionsWindow = new BrowserWindow({
           parent: win, 
@@ -34,6 +36,8 @@ module.exports = win => {
           console.log("Unknown action: " + action);
     }
   })
+
+  // Handles sub button click and saves changes in options
   ipcMain.on('sub-btn-clk', (event, pathname, channelName) => {
     const currentSubscriptions = getOptions('local-subscriptions');
     const newSubscription = {[pathname]: {channelName, subDate: new Date()}}

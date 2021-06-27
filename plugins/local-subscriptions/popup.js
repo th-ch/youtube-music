@@ -17,6 +17,7 @@ contextBridge.exposeInMainWorld('SUBS_WIN', {
   handleListItemClick
 })
 
+// Load subscriptions in a list on window load
 ipcRenderer.on('saved-subscriptions', (evt, subs) => {
   const subList = document.getElementById('subscriptions-list');
 

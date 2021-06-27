@@ -1,12 +1,14 @@
 const { ipcRenderer } = require("electron");
 const { ElementFromFile, templatePath } = require("../utils");
 
+// Send channel data to 'back' on 'sub-btn-clk' channel
 const localSubscriptionButtonHandler = () => {
   const channelName = document.querySelector('.title.style-scope.ytmusic-immersive-header-renderer').innerHTML
   ipcRenderer.send('sub-btn-clk', window.location.pathname, channelName);
 }
 
 module.exports = () => {
+  // On css load add local subscriptions button to the menu
   ipcRenderer.on('subscriptions-css-ready', () => {
   const localSubscriptionsButton = ElementFromFile(templatePath(__dirname, "subscriptions-tab.html"));
   const menu = document.querySelector("ytmusic-pivot-bar-renderer");
@@ -16,14 +18,8 @@ module.exports = () => {
   }
   });
  
-  // TODO: 
-  // [x] Listen to 'did-stop-loading' event
-  // [x] Check if it is a channel page
-  // [x] Add subscribe button
-  // [x] Think through how the subscriptions are going to get stored (electron-store, data structures)
-  // [] Display subscription list in the popup window
-  // [] Add comments
- 
+  // On page loading finnish check if it is a channel page
+  // If it is add sub button to the page
   ipcRenderer.on('subscriptions-page-stop-loading', () => {
     const isChannelPage = window.location.pathname.includes('channel');
 
