@@ -51,6 +51,7 @@
 		"build:linux": "yarn run clean && electron-builder --linux",
 		"build:mac": "yarn run clean && electron-builder --mac",
 		"build:win": "yarn run clean && electron-builder --win",
+		"lint": "xo",
 		"plugins": "yarn run plugin:adblocker && yarn run plugin:autoconfirm",
 		"plugin:adblocker": "rimraf plugins/adblocker/ad-blocker-engine.bin && node plugins/adblocker/blocker.js",
 		"plugin:autoconfirm": "yarn run generate:package YoutubeNonStop",
@@ -98,6 +99,7 @@
 		"xo": "^0.40.3"
 	},
 	"resolutions": {
+		"glob-parent": "5.1.2",
 		"minimist": "1.2.5",
 		"yargs-parser": "18.1.3"
 	},
