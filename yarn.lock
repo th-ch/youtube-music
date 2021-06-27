@@ -3264,6 +3264,14 @@ ejs@^3.1.6:
   dependencies:
     jake "^10.6.1"
 
+electron-better-web-request@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/electron-better-web-request/-/electron-better-web-request-1.0.1.tgz#9c7ccf88499cc8b17f9bffd3f33a01fc1e70282a"
+  integrity sha512-euwLeL82k6fbVODfH5Uz9c4BN047/XyYKfsZcaFhdWfqx05JPu2J0xE7nciJ/1Bb0sTClU1FDLW5H2zQWBB5Gw==
+  dependencies:
+    url-match-patterns "^0.2.0"
+    uuid "^3.3.2"
+
 electron-builder@^22.10.5:
   version "22.10.5"
   resolved "https://registry.yarnpkg.com/electron-builder/-/electron-builder-22.10.5.tgz#03b156b93e6012609027c3aaa69201a3ad21e454"
@@ -6222,7 +6230,7 @@ lodash.zip@^4.2.0:
   resolved "https://registry.yarnpkg.com/lodash.zip/-/lodash.zip-4.2.0.tgz#ec6662e4896408ed4ab6c542a3990b72cc080020"
   integrity sha1-7GZi5IlkCO1KtsVCo5kLcswIACA=
 
-lodash@^4.13.1, lodash@^4.17.10, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.20, lodash@^4.17.21:
+lodash@^4.13.1, lodash@^4.17.10, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.20, lodash@^4.17.21, lodash@^4.3.0:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
@@ -8858,6 +8866,13 @@ urix@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/urix/-/urix-0.1.0.tgz#da937f7a62e21fec1fd18d49b35c2935067a6c72"
   integrity sha1-2pN/emLiH+wf0Y1Js1wpNQZ6bHI=
+
+url-match-patterns@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/url-match-patterns/-/url-match-patterns-0.2.0.tgz#a688f68b0aff990c6df3c99ec208a8d410f1cb8c"
+  integrity sha1-poj2iwr/mQxt88mewgio1BDxy4w=
+  dependencies:
+    lodash "^4.3.0"
 
 url-parse-lax@^3.0.0:
   version "3.0.0"
