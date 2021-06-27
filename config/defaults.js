@@ -76,10 +76,6 @@ const defaultConfig = {
 				"music_offtopic",
 			],
 		},
-    "local-subscriptions": {
-      enabled: false,
-      subscriptions: {}
-    }
 	},
 };
 

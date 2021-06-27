@@ -63,14 +63,14 @@
 		"npm": "Please use yarn and not npm"
 	},
 	"dependencies": {
-		"@cliqz/adblocker-electron": "^1.22.0",
+		"@cliqz/adblocker-electron": "^1.22.1",
 		"@ffmpeg/core": "^0.10.0",
 		"@ffmpeg/ffmpeg": "^0.10.0",
 		"YoutubeNonStop": "git://github.com/lawfx/YoutubeNonStop.git#v0.9.0",
 		"async-mutex": "^0.3.1",
 		"browser-id3-writer": "^4.4.0",
-		"chokidar": "^3.5.1",
 		"custom-electron-titlebar": "^3.2.7",
+		"chokidar": "^3.5.1",
 		"discord-rpc": "^3.2.0",
 		"electron-debug": "^3.2.0",
 		"electron-is": "^3.0.0",
