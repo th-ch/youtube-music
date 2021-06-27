@@ -69,9 +69,10 @@
 		"YoutubeNonStop": "git://github.com/lawfx/YoutubeNonStop.git#v0.9.0",
 		"async-mutex": "^0.3.1",
 		"browser-id3-writer": "^4.4.0",
-		"custom-electron-titlebar": "^3.2.7",
 		"chokidar": "^3.5.1",
+		"custom-electron-titlebar": "^3.2.7",
 		"discord-rpc": "^3.2.0",
+		"electron-better-web-request": "^1.0.1",
 		"electron-debug": "^3.2.0",
 		"electron-is": "^3.0.0",
 		"electron-localshortcut": "^3.2.1",
@@ -82,8 +83,8 @@
 		"md5": "^2.3.0",
 		"node-fetch": "^2.6.1",
 		"node-notifier": "^9.0.1",
-		"ytdl-core": "^4.8.2",
-		"ytpl": "^2.2.0"
+		"ytdl-core": "^4.8.3",
+		"ytpl": "^2.2.1"
 	},
 	"devDependencies": {
 		"electron": "^12.0.8",
