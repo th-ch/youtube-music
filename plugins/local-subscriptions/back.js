@@ -1,20 +1,34 @@
-const { BrowserWindow, ipcMain, session } = require("electron");
+const { BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
+const defaultConfig = require("../../config/defaults");
 const { getOptions, setOptions } = require("../../config/plugins");
 
 const { injectCSS, listenAction, templatePath } = require("../utils");
 const { ACTIONS, CHANNEL } = require("./actions.js");
+
+let subscriptionsWindow;
 
 module.exports = win => {
   injectCSS(win.webContents, path.join(__dirname, "style.css"), () => {
 		win.webContents.send("subscriptions-css-ready");
 	});
 
-  listenAction(CHANNEL, (event, action) => {
+  listenAction(CHANNEL, (event, action, data) => {
     switch(action) {
-      case ACTIONS.BUTTON:
-        const subscriptionsWindow = new BrowserWindow({parent: win})
-        subscriptionsWindow.webContents.loadFile(templatePath(__dirname, "subscriptions-menu.html"))
+      case ACTIONS.SUBS_WIN_BTN:
+        subscriptionsWindow = new BrowserWindow({
+          parent: win, 
+          webPreferences: {
+            preload: path.join(__dirname, "popup.js"),
+            affinity: "main-window"
+          }})
+        subscriptionsWindow.loadFile(templatePath(__dirname, "subscriptions-menu.html"))
+        subscriptionsWindow.webContents.on('did-stop-loading', () => subscriptionsWindow.webContents.send('saved-subscriptions', getOptions('local-subscriptions').subscriptions))
+        break;
+      case ACTIONS.SUBS_LI_CLK:
+        subscriptionsWindow.close();
+        console.log(action)
+        win.loadURL(defaultConfig.url + data);
         break;
       default:
           console.log("Unknown action: " + action);

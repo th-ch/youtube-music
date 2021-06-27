@@ -1,17 +1,24 @@
 const { triggerAction } = require("../utils");
 
-const CHANNEL = 'playlists'
-const ACTIONS = {BUTTON: 'test-button'}
+const CHANNEL = 'local-subscriptions'
+const ACTIONS = {
+  SUBS_WIN_BTN: 'subscriptions-window-button',
+  SUBS_LI_CLK: 'subscriptions-list-item-click'
+}
 
-function testPlaylistButton() {
-  console.log('bruh.');
-  triggerAction(CHANNEL, ACTIONS.BUTTON)
+function openSubscriptionsWindow() {
+  triggerAction(CHANNEL, ACTIONS.SUBS_WIN_BTN)
+}
+
+function handleListItemClick(pathname) {
+  triggerAction(CHANNEL, ACTIONS.SUBS_LI_CLK, pathname)
 }
 
 module.exports = {
   CHANNEL,
   ACTIONS,
   actions: {
-    testPlaylistButton
+    openSubscriptionsWindow,
+    handleListItemClick
   }
 }

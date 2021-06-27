@@ -8,14 +8,14 @@ const localSubscriptionButtonHandler = () => {
 
 module.exports = () => {
   ipcRenderer.on('subscriptions-css-ready', () => {
-  const localPlaylistsButton = ElementFromFile(templatePath(__dirname, "subscriptions-tab.html"));
+  const localSubscriptionsButton = ElementFromFile(templatePath(__dirname, "subscriptions-tab.html"));
   const menu = document.querySelector("ytmusic-pivot-bar-renderer");
 
   if (menu) {
-    menu.appendChild(localPlaylistsButton);
+    menu.appendChild(localSubscriptionsButton);
   }
   });
-
+ 
   // TODO: 
   // [x] Listen to 'did-stop-loading' event
   // [x] Check if it is a channel page
@@ -36,5 +36,5 @@ module.exports = () => {
         buttons.appendChild(localSubscriptionButton);
       }
     }
-  })
+  });
 };
