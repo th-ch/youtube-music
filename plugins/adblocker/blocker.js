@@ -33,7 +33,17 @@ const loadAdBlockerEngine = (
 		...additionalBlockLists,
 	];
 
-	ElectronBlocker.fromLists(fetch, lists, {}, cachingOptions)
+	ElectronBlocker.fromLists(
+		fetch,
+		lists,
+		{
+			// when generating the engine for caching, do not load network filters
+			// So that enhancing the session works as expected
+			// Allowing to define multiple webRequest listeners
+			loadNetworkFilters: session !== undefined,
+		},
+		cachingOptions
+	)
 		.then((blocker) => {
 			if (session) {
 				blocker.enableBlockingInSession(session);
