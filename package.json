@@ -79,7 +79,7 @@
 		"electron-localshortcut": "^3.2.1",
 		"electron-store": "^7.0.3",
 		"electron-unhandled": "^3.0.2",
-		"electron-updater": "^4.3.9",
+		"electron-updater": "^4.3.10",
 		"filenamify": "^4.3.0",
 		"md5": "^2.3.0",
 		"node-fetch": "^2.6.1",
