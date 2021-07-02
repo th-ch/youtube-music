@@ -16,14 +16,51 @@ module.exports = (options) => {
 		setupGlobalShortcuts(options);
 	}
 
-	firstRun(options);
-
-	// This way the ipc listener gets cleared either way
-	ipcRenderer.once("setupVideoPlayerVolumeMousewheel", (_event, toEnable) => {
-		if (toEnable)
+	window.addEventListener('load', () => {
+		const noVid = $("#main-panel")?.computedStyleMap().get("display").value === "none";
+		injectVolumeHud(noVid);
+		if (!noVid) {
 			setupVideoPlayerOnwheel(options);
+		}
 	});
+
+	firstRun(options);
 };
+
+function injectVolumeHud(noVid) {
+	if (noVid) {
+		const position = "top: 18px; right: 60px; z-index: 999; position: absolute;";
+		const mainStyle = "font-size: xx-large; padding: 10px; transition: opacity 1s";
+
+		$(".center-content.ytmusic-nav-bar").insertAdjacentHTML("beforeend",
+			`<span id="volumeHud" style="${position + mainStyle}"></span>`)
+	} else {
+		const position = `top: 10px; left: 10px; z-index: 999; position: absolute;`;
+		const mainStyle = "font-size: xxx-large; padding: 10px; transition: opacity 0.6s; webkit-text-stroke: 1px black; font-weight: 600;";
+
+		$("#song-video").insertAdjacentHTML('afterend',
+			`<span id="volumeHud" style="${position + mainStyle}"></span>`)
+	}
+}
+
+let hudFadeTimeout;
+
+function showVolumeHud(volume) {
+	let volumeHud = $("#volumeHud");
+	if (!volumeHud) return;
+
+	volumeHud.textContent = volume + '%';
+	volumeHud.style.opacity = 1;
+
+	if (hudFadeTimeout) {
+		clearTimeout(hudFadeTimeout);
+	}
+
+	hudFadeTimeout = setTimeout(() => {
+		volumeHud.style.opacity = 0;
+		hudFadeTimeout = null;
+	}, 2000);
+}
 
 /** Add onwheel event to video player */
 function setupVideoPlayerOnwheel(options) {
@@ -40,26 +77,30 @@ function toPercent(volume) {
 
 function saveVolume(volume, options) {
 	options.savedVolume = volume;
-	setOptions("precise-volume", options);
+	writeOptions(options);
+}
+
+//without this function it would rewrite config 20 time when volume change by 20
+let writeTimeout;
+function writeOptions(options) {
+	if (writeTimeout) clearTimeout(writeTimeout);
+
+	writeTimeout = setTimeout(() => {
+		setOptions("precise-volume", options);
+		writeTimeout = null;
+	}, 1500)
 }
 
 /** Restore saved volume and setup tooltip */
 function firstRun(options) {
-	const videoStream = $(".video-stream");
-	const slider = $("#volume-slider");
+	const video = $("video");
 	// Those elements load abit after DOMContentLoaded
-	if (videoStream && slider) {
-		// Set saved volume IF it pass checks
-		if (options.savedVolume
-			&& options.savedVolume >= 0 && options.savedVolume <= 100
-			&& Math.abs(slider.value - options.savedVolume) < 5
-			// If plugin was disabled and volume changed then diff>4
-		) {
-			videoStream.volume = options.savedVolume / 100;
-			slider.value = options.savedVolume;
+	if (video) {
+		setupVolumeOverride(video, options);
+		if (typeof options.savedVolume === "number") {
+			// Set saved volume as tooltip
+			setTooltip(options.savedVolume);
 		}
-		// Set current volume as tooltip
-		setTooltip(toPercent(videoStream.volume));
 	} else {
 		setTimeout(firstRun, 500, options); // Try again in 500 milliseconds
 	}
@@ -89,26 +130,55 @@ function setupPlaybar(options) {
 function changeVolume(toIncrease, options) {
 	// Need to change both the actual volume and the slider
 	const videoStream = $(".video-stream");
-	const slider = $("#volume-slider");
 	// Apply volume change if valid
 	const steps = (options.steps || 1) / 100;
-	videoStream.volume = toIncrease ?
+	videoStream.volume = (toIncrease ?
 		Math.min(videoStream.volume + steps, 1) :
-		Math.max(videoStream.volume - steps, 0);
+		Math.max(videoStream.volume - steps, 0)).toFixed(2);
 
 	// Save the new volume
 	saveVolume(toPercent(videoStream.volume), options);
-	// Slider value automatically rounds to multiples of 5
-	slider.value = options.savedVolume;
+
+	// change slider position (important)
+	updateVolumeSlider(options);
+
 	// Change tooltips to new value
 	setTooltip(options.savedVolume);
-	// Show volume slider on volume change
-	showVolumeSlider(slider);
+	// Show volume slider
+	showVolumeSlider();
+	// Show volume HUD
+	showVolumeHud(options.savedVolume);
+}
+
+function setupVolumeOverride(video, options) {
+	video.addEventListener("canplay", () => {
+		if (typeof options.savedVolume === "number") {
+			const newVolume = (options.savedVolume / 100).toFixed(2);
+
+			video.volume = newVolume;
+			updateVolumeSlider(options);
+
+			const volumeOverrideInterval = setInterval(() => {
+				video.volume = newVolume;
+			}, 4);
+			setTimeout((interval) => {
+				updateVolumeSlider(options);
+				clearInterval(interval);
+			}, 500, volumeOverrideInterval);
+		}
+	});
+}
+
+function updateVolumeSlider(options) {
+	// Slider value automatically rounds to multiples of 5
+	$("#volume-slider").value = options.savedVolume > 0 && options.savedVolume < 5 ?
+		5 : options.savedVolume;
 }
 
 let volumeHoverTimeoutID;
 
-function showVolumeSlider(slider) {
+function showVolumeSlider() {
+	const slider = $("#volume-slider");
 	// This class display the volume slider if not in minimized mode
 	slider.classList.add("on-hover");
 	// Reset timeout if previous one hasn't completed
@@ -130,7 +200,7 @@ function setupSliderObserver(options) {
 		for (const mutation of mutations) {
 			// This checks that volume-slider was manually set
 			if (mutation.oldValue !== mutation.target.value &&
-				(!options.savedVolume || Math.abs(options.savedVolume - mutation.target.value) > 4)) {
+				(typeof options.savedVolume !== "number" || Math.abs(options.savedVolume - mutation.target.value) > 4)) {
 				// Diff>4 means it was manually set
 				setTooltip(mutation.target.value);
 				saveVolume(mutation.target.value, options);
