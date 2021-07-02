@@ -1,0 +1,19 @@
+.subscriptions-item {
+	font-family: Roboto, Noto Naskh Arabic UI, Arial, sans-serif;
+	font-size: 20px;
+	line-height: var(--ytmusic-title-1_-_line-height);
+	font-weight: 500;
+	color: #fff;
+	--yt-endpoint-color: #fff;
+	--yt-endpoint-hover-color: #fff;
+	--yt-endpoint-visited-color: #fff;
+	display: inline-flex;
+	align-items: center;
+	color: rgba(255, 255, 255, 0.5);
+	cursor: pointer;
+	margin: 0 var(--ytmusic-pivot-bar-tab-margin);
+}
+
+.subscriptions-item:hover {
+	color: #fff;
+}
