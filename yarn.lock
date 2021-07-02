@@ -1355,7 +1355,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/semver@^7.3.5":
+"@types/semver@^7.3.6":
   version "7.3.6"
   resolved "https://registry.yarnpkg.com/@types/semver/-/semver-7.3.6.tgz#e9831776f4512a7ba6da53e71c26e5fb67882d63"
   integrity sha512-0caWDWmpCp0uifxFh+FaqK3CuZ2SkRR/ZRxAV5+zNdC3QVUi6wyOJnefhPvtNt8NQWXB5OA93BUvZsXpWat2Xw==
@@ -2266,10 +2266,10 @@ builder-util-runtime@8.7.3:
     debug "^4.3.2"
     sax "^1.2.4"
 
-builder-util-runtime@8.7.5:
-  version "8.7.5"
-  resolved "https://registry.yarnpkg.com/builder-util-runtime/-/builder-util-runtime-8.7.5.tgz#fbe59e274818885e0d2e358d5b7017c34ae6b0f5"
-  integrity sha512-fgUFHKtMNjdvH6PDRFntdIGUPgwZ69sXsAqEulCtoiqgWes5agrMq/Ud274zjJRTbckYh2PHh8/1CpFc6dpsbQ==
+builder-util-runtime@8.7.7:
+  version "8.7.7"
+  resolved "https://registry.yarnpkg.com/builder-util-runtime/-/builder-util-runtime-8.7.7.tgz#6c83cc3abe7a7a5c8b4ec8878f68adc828c07f0d"
+  integrity sha512-RUfoXzVrmFFI0K/Oft0CtP1LpTIOlBeLJatt5DePTI0KlxE156am4SGUpqtbbdqZNm++LkV9mX4olBDcXyGPow==
   dependencies:
     debug "^4.3.2"
     sax "^1.2.4"
@@ -3428,16 +3428,16 @@ electron-unhandled@^3.0.2:
     ensure-error "^2.0.0"
     lodash.debounce "^4.0.8"
 
-electron-updater@^4.3.9:
-  version "4.3.9"
-  resolved "https://registry.yarnpkg.com/electron-updater/-/electron-updater-4.3.9.tgz#247c660bafad7c07935e1b81acd3e9a5fd733154"
-  integrity sha512-LCNfedSwZfS4Hza+pDyPR05LqHtGorCStaBgVpRnfKxOlZcvpYEX0AbMeH5XUtbtGRoH2V8osbbf2qKPNb7AsA==
+electron-updater@^4.3.10:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/electron-updater/-/electron-updater-4.4.0.tgz#c1361dc0b695c9274d8f61c441296eaa2fafdd50"
+  integrity sha512-D+cQ8fzKb8QphMc5lX65XxuFVhOPbCuKEgkf2GUMVZNSh/xQ5JTghgtGDQlyJ3ZNru87I3P0qsYv/kzdC9en2w==
   dependencies:
-    "@types/semver" "^7.3.5"
-    builder-util-runtime "8.7.5"
+    "@types/semver" "^7.3.6"
+    builder-util-runtime "8.7.7"
     fs-extra "^10.0.0"
     js-yaml "^4.1.0"
-    lazy-val "^1.0.4"
+    lazy-val "^1.0.5"
     lodash.escaperegexp "^4.1.2"
     lodash.isequal "^4.5.0"
     semver "^7.3.5"
@@ -6068,6 +6068,11 @@ lazy-val@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/lazy-val/-/lazy-val-1.0.4.tgz#882636a7245c2cfe6e0a4e3ba6c5d68a137e5c65"
   integrity sha512-u93kb2fPbIrfzBuLjZE+w+fJbUUMhNDXxNmMfaqNgpfQf1CO5ZSe2LfsnBqVAk7i/2NF48OSoRj+Xe2VT+lE8Q==
+
+lazy-val@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/lazy-val/-/lazy-val-1.0.5.tgz#6cf3b9f5bc31cee7ee3e369c0832b7583dcd923d"
+  integrity sha512-0/BnGCCfyUMkBpeDgWihanIAF9JmZhHBgUhEqzvf+adhNGLoP6TaiI5oF8oyb3I45P+PcnrqihSf01M0l0G5+Q==
 
 lazystream@^1.0.0:
   version "1.0.0"
