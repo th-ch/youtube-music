@@ -10,15 +10,7 @@ module.exports = () => {
 	bar.updateTitle(" ");
 	document.title = "Youtube Music";
 
-	ipcRenderer.on("updateMenu", function (event, menu) {
-		if (menu) {
-			bar.updateMenu(remote.Menu.getApplicationMenu());
-		} else {
-			try {
-				bar.updateMenu(null);
-			} catch (e) {
-				//will always throw type error - null isn't menu, but it works
-			}
-		}
+	ipcRenderer.on("updateMenu", function (_event, showMenu) {
+		bar.updateMenu(showMenu ? remote.Menu.getApplicationMenu() : null);
 	});
 };

@@ -10,12 +10,13 @@ const config = require("./config");
 const prompt = require("custom-electron-prompt");
 const promptOptions = require("./providers/prompt-options");
 
-const pluginEnabledMenu = (win, plugin, label = "", hasSubmenu = false) => ({
+// true only if in-app-menu was loaded on launch
+const inAppMenuActive = config.plugins.isEnabled("in-app-menu");
+
+const pluginEnabledMenu = (plugin, label = "", hasSubmenu = false, refreshMenu = undefined) => ({
 	label: label || plugin,
 	type: "checkbox",
 	checked: config.plugins.isEnabled(plugin),
-	//Submenu check used in in-app-menu
-	hasSubmenu: hasSubmenu || undefined,
 	click: (item) => {
 		if (item.checked) {
 			config.plugins.enable(plugin);
@@ -23,260 +24,234 @@ const pluginEnabledMenu = (win, plugin, label = "", hasSubmenu = false) => ({
 			config.plugins.disable(plugin);
 		}
 		if (hasSubmenu) {
-			this.setApplicationMenu(win);
+			refreshMenu();
 		}
 	},
 });
 
-const mainMenuTemplate = (win) => [
-	{
-		label: "Plugins",
-		submenu: [
-			...getAllPlugins().map((plugin) => {
-				const pluginPath = path.join(__dirname, "plugins", plugin, "menu.js")
-				if (existsSync(pluginPath)) {
-					if (!config.plugins.isEnabled(plugin)) {
-						return pluginEnabledMenu(win, plugin, "", true);
+const mainMenuTemplate = (win) => {
+	const refreshMenu = () => {
+		this.setApplicationMenu(win);
+		if (inAppMenuActive) {
+			win.webContents.send("updateMenu", true);
+		}
+	}
+	return [
+		{
+			label: "Plugins",
+			submenu: [
+				...getAllPlugins().map((plugin) => {
+					const pluginPath = path.join(__dirname, "plugins", plugin, "menu.js")
+					if (existsSync(pluginPath)) {
+						if (!config.plugins.isEnabled(plugin)) {
+							return pluginEnabledMenu(plugin, "", true, refreshMenu);
+						}
+						const getPluginMenu = require(pluginPath);
+						return {
+							label: plugin,
+							submenu: [
+								pluginEnabledMenu(plugin, "Enabled", true, refreshMenu),
+								...getPluginMenu(win, config.plugins.getOptions(plugin), refreshMenu),
+							],
+						};
 					}
-					const getPluginMenu = require(pluginPath);
-					return {
-						label: plugin,
-						submenu: [
-							pluginEnabledMenu(win, plugin, "Enabled", true),
-							...getPluginMenu(win, config.plugins.getOptions(plugin), () =>
-								module.exports.setApplicationMenu(win)
-							),
-						],
-					};
-				}
 
-				return pluginEnabledMenu(win, plugin);
-			}),
-		],
-	},
-	{
-		label: "Options",
-		submenu: [
-			{
-				label: "Auto-update",
-				type: "checkbox",
-				checked: config.get("options.autoUpdates"),
-				click: (item) => {
-					config.set("options.autoUpdates", item.checked);
+					return pluginEnabledMenu(plugin);
+				}),
+			],
+		},
+		{
+			label: "Options",
+			submenu: [
+				{
+					label: "Auto-update",
+					type: "checkbox",
+					checked: config.get("options.autoUpdates"),
+					click: (item) => {
+						config.set("options.autoUpdates", item.checked);
+					},
 				},
-			},
-			{
-				label: "Resume last song when app starts",
-				type: "checkbox",
-				checked: config.get("options.resumeOnStart"),
-				click: (item) => {
-					config.set("options.resumeOnStart", item.checked);
+				{
+					label: "Resume last song when app starts",
+					type: "checkbox",
+					checked: config.get("options.resumeOnStart"),
+					click: (item) => {
+						config.set("options.resumeOnStart", item.checked);
+					},
 				},
-			},
-			...(is.windows() || is.linux()
-				? [
-					{
-						label: "Hide menu",
-						type: "checkbox",
-						checked: config.get("options.hideMenu"),
-						click: (item) => {
-							config.set("options.hideMenu", item.checked);
+				...(is.windows() || is.linux()
+					? [
+						{
+							label: "Hide menu",
+							type: "checkbox",
+							checked: config.get("options.hideMenu"),
+							click: (item) => {
+								config.set("options.hideMenu", item.checked);
+							},
 						},
-					},
-				]
-				: []),
-			...(is.windows() || is.macOS()
-				? // Only works on Win/Mac
-				// https://www.electronjs.org/docs/api/app#appsetloginitemsettingssettings-macos-windows
-				[
-					{
-						label: "Start at login",
-						type: "checkbox",
-						checked: config.get("options.startAtLogin"),
-						click: (item) => {
-							config.set("options.startAtLogin", item.checked);
+					]
+					: []),
+				...(is.windows() || is.macOS()
+					? // Only works on Win/Mac
+					// https://www.electronjs.org/docs/api/app#appsetloginitemsettingssettings-macos-windows
+					[
+						{
+							label: "Start at login",
+							type: "checkbox",
+							checked: config.get("options.startAtLogin"),
+							click: (item) => {
+								config.set("options.startAtLogin", item.checked);
+							},
 						},
-					},
-				]
-				: []),
-			{
-				label: "Tray",
-				submenu: [
-					{
-						label: "Disabled",
-						type: "radio",
-						checked: !config.get("options.tray"),
-						click: () => {
-							config.set("options.tray", false);
-							config.set("options.appVisible", true);
+					]
+					: []),
+				{
+					label: "Tray",
+					submenu: [
+						{
+							label: "Disabled",
+							type: "radio",
+							checked: !config.get("options.tray"),
+							click: () => {
+								config.set("options.tray", false);
+								config.set("options.appVisible", true);
+							},
 						},
-					},
-					{
-						label: "Enabled + app visible",
-						type: "radio",
-						checked:
-							config.get("options.tray") && config.get("options.appVisible"),
-						click: () => {
-							config.set("options.tray", true);
-							config.set("options.appVisible", true);
+						{
+							label: "Enabled + app visible",
+							type: "radio",
+							checked:
+								config.get("options.tray") && config.get("options.appVisible"),
+							click: () => {
+								config.set("options.tray", true);
+								config.set("options.appVisible", true);
+							},
 						},
-					},
-					{
-						label: "Enabled + app hidden",
-						type: "radio",
-						checked:
-							config.get("options.tray") && !config.get("options.appVisible"),
-						click: () => {
-							config.set("options.tray", true);
-							config.set("options.appVisible", false);
+						{
+							label: "Enabled + app hidden",
+							type: "radio",
+							checked:
+								config.get("options.tray") && !config.get("options.appVisible"),
+							click: () => {
+								config.set("options.tray", true);
+								config.set("options.appVisible", false);
+							},
 						},
-					},
-					{ type: "separator" },
-					{
-						label: "Play/Pause on click",
-						type: "checkbox",
-						checked: config.get("options.trayClickPlayPause"),
-						click: (item) => {
-							config.set("options.trayClickPlayPause", item.checked);
+						{ type: "separator" },
+						{
+							label: "Play/Pause on click",
+							type: "checkbox",
+							checked: config.get("options.trayClickPlayPause"),
+							click: (item) => {
+								config.set("options.trayClickPlayPause", item.checked);
+							},
 						},
-					},
-				],
-			},
-			{ type: "separator" },
-			{
-				label: "Advanced options",
-				submenu: [
-					{
+					],
+				},
+				{ type: "separator" },
+				{
+					label: "Advanced options",
+					submenu: [
+            	{
 						label: "Proxy",
 						type: "checkbox",
 						checked: !!config.get("options.proxy"),
 						click: (item) => {
 							setProxy(item, win);
+						  },
+					  },
+						{
+							label: "Disable hardware acceleration",
+							type: "checkbox",
+							checked: config.get("options.disableHardwareAcceleration"),
+							click: (item) => {
+								config.set("options.disableHardwareAcceleration", item.checked);
+							},
+						},
+						{
+							label: "Restart on config changes",
+							type: "checkbox",
+							checked: config.get("options.restartOnConfigChanges"),
+							click: (item) => {
+								config.set("options.restartOnConfigChanges", item.checked);
+							},
+						},
+						{
+							label: "Reset App cache when app starts",
+							type: "checkbox",
+							checked: config.get("options.autoResetAppCache"),
+							click: (item) => {
+								config.set("options.autoResetAppCache", item.checked);
+							},
+						},
+						{ type: "separator" },
+						is.macOS() ?
+							{
+								label: "Toggle DevTools",
+								// Cannot use "toggleDevTools" role in MacOS
+								click: () => {
+									const { webContents } = win;
+									if (webContents.isDevToolsOpened()) {
+										webContents.closeDevTools();
+									} else {
+										const devToolsOptions = {};
+										webContents.openDevTools(devToolsOptions);
+									}
+								},
+							} :
+							{ role: "toggleDevTools" },
+						{
+							label: "Edit config.json",
+							click: () => {
+								config.edit();
+							},
+						},
+					]
+				},
+			],
+		},
+		{
+			label: "View",
+			submenu: [
+				{ role: "reload" },
+				{ role: "forceReload" },
+				{ type: "separator" },
+				{ role: "zoomIn" },
+				{ role: "zoomOut" },
+				{ role: "resetZoom" },
+			],
+		},
+		{
+			label: "Navigation",
+			submenu: [
+				{
+					label: "Go back",
+					click: () => {
+						if (win.webContents.canGoBack()) {
+							win.webContents.goBack();
 						}
 					},
-					{
-						label: "Disable hardware acceleration",
-						type: "checkbox",
-						checked: config.get("options.disableHardwareAcceleration"),
-						click: (item) => {
-							config.set("options.disableHardwareAcceleration", item.checked);
-						},
+				},
+				{
+					label: "Go forward",
+					click: () => {
+						if (win.webContents.canGoForward()) {
+							win.webContents.goForward();
+						}
 					},
-					{
-						label: "Restart on config changes",
-						type: "checkbox",
-						checked: config.get("options.restartOnConfigChanges"),
-						click: (item) => {
-							config.set("options.restartOnConfigChanges", item.checked);
-						},
+				},
+				{
+					label: "Restart App",
+					click: () => {
+						app.relaunch();
+						app.quit();
 					},
-					{
-						label: "Reset App cache when app starts",
-						type: "checkbox",
-						checked: config.get("options.autoResetAppCache"),
-						click: (item) => {
-							config.set("options.autoResetAppCache", item.checked);
-						},
-					},
-					{ type: "separator" },
-					{
-						label: "Toggle DevTools",
-						// Cannot use "toggleDevTools" role in MacOS
-						click: () => {
-							const { webContents } = win;
-							if (webContents.isDevToolsOpened()) {
-								webContents.closeDevTools();
-							} else {
-								const devToolsOptions = {};
-								webContents.openDevTools(devToolsOptions);
-							}
-						},
-					},
-					{
-						label: "Edit config.json",
-						click: () => {
-							config.edit();
-						},
-					},
-				]
-			},
-		],
-	},
-	{
-		label: "View",
-		submenu: [
-			{
-				label: "Reload",
-				click: () => {
-					win.webContents.reload();
 				},
-			},
-			{
-				label: "Force Reload",
-				click: () => {
-					win.webContents.reloadIgnoringCache();
-				},
-			},
-			{ type: "separator" },
-			{
-				label: "Zoom In",
-				click: () => {
-					win.webContents.setZoomLevel(
-						win.webContents.getZoomLevel() + 1
-					);
-				},
-			},
-			{
-				label: "Zoom Out",
-				click: () => {
-					win.webContents.setZoomLevel(
-						win.webContents.getZoomLevel() - 1
-					);
-				},
-			},
-			{
-				label: "Reset Zoom",
-				click: () => {
-					win.webContents.setZoomLevel(0);
-				},
-			},
-		],
-	},
-	{
-		label: "Navigation",
-		submenu: [
-			{
-				label: "Go back",
-				click: () => {
-					if (win.webContents.canGoBack()) {
-						win.webContents.goBack();
-					}
-				},
-			},
-			{
-				label: "Go forward",
-				click: () => {
-					if (win.webContents.canGoForward()) {
-						win.webContents.goForward();
-					}
-				},
-			},
-			{
-				label: "Restart App",
-				click: () => {
-					app.relaunch();
-					app.quit();
-				},
-			},
-			{
-				label: "Quit App",
-				click: () => {
-					app.quit();
-				},
-			},
-		],
-	},
-];
+				{ role: "quit" },
+			],
+		},
+	];
+}
 
 module.exports.mainMenuTemplate = mainMenuTemplate;
 module.exports.setApplicationMenu = (win) => {

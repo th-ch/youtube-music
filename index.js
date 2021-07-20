@@ -2,6 +2,7 @@
 const path = require("path");
 
 const electron = require("electron");
+const enhanceWebRequest = require("electron-better-web-request").default;
 const is = require("electron-is");
 const unhandled = require("electron-unhandled");
 const { autoUpdater } = require("electron-updater");
@@ -145,16 +146,18 @@ function createMainWindow() {
 			});
 		}
 	});
-	
+
 	win.webContents.on("render-process-gone", (event, webContents, details) => {
 		showUnresponsiveDialog(win, details);
 	});
-	
+
 	win.once("ready-to-show", () => {
 		if (config.get("options.appVisible")) {
 			win.show();
 		}
 	});
+
+	removeContentSecurityPolicy();
 
 	return win;
 }
@@ -375,7 +378,45 @@ function showUnresponsiveDialog(win, details) {
 				app.quit();
 				break;
 			default:
-				break; 
+				break;
 		}
+	});
+}
+
+function removeContentSecurityPolicy(
+	session = electron.session.defaultSession
+) {
+	// Allows defining multiple "onHeadersReceived" listeners
+	// by enhancing the session.
+	// Some plugins (e.g. adblocker) also define a "onHeadersReceived" listener
+	enhanceWebRequest(session);
+
+	// Custom listener to tweak the content security policy
+	session.webRequest.onHeadersReceived(function (details, callback) {
+		if (
+			!details.responseHeaders["content-security-policy-report-only"] &&
+			!details.responseHeaders["content-security-policy"]
+		)
+			return callback({ cancel: false });
+		delete details.responseHeaders["content-security-policy-report-only"];
+		delete details.responseHeaders["content-security-policy"];
+		callback({ cancel: false, responseHeaders: details.responseHeaders });
+	});
+
+	// When multiple listeners are defined, apply them all
+	session.webRequest.setResolver("onHeadersReceived", (listeners) => {
+		const response = listeners.reduce(
+			async (accumulator, listener) => {
+				if (accumulator.cancel) {
+					return accumulator;
+				}
+
+				const result = await listener.apply();
+				return { ...accumulator, ...result };
+			},
+			{ cancel: false }
+		);
+
+		return response;
 	});
 }

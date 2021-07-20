@@ -1,7 +1,7 @@
 {
 	"name": "youtube-music",
 	"productName": "YouTube Music",
-	"version": "1.12.1",
+	"version": "1.12.2",
 	"description": "YouTube Music Desktop App - including custom plugins",
 	"license": "MIT",
 	"repository": "th-ch/youtube-music",
@@ -51,6 +51,7 @@
 		"build:linux": "yarn run clean && electron-builder --linux",
 		"build:mac": "yarn run clean && electron-builder --mac",
 		"build:win": "yarn run clean && electron-builder --win",
+		"lint": "xo",
 		"plugins": "yarn run plugin:adblocker && yarn run plugin:autoconfirm",
 		"plugin:adblocker": "rimraf plugins/adblocker/ad-blocker-engine.bin && node plugins/adblocker/blocker.js",
 		"plugin:autoconfirm": "yarn run generate:package YoutubeNonStop",
@@ -59,11 +60,11 @@
 		"release:win": "yarn run clean && electron-builder --win -p always"
 	},
 	"engines": {
-		"node": ">=12.16.1",
+		"node": ">=12.20",
 		"npm": "Please use yarn and not npm"
 	},
 	"dependencies": {
-		"@cliqz/adblocker-electron": "^1.22.0",
+		"@cliqz/adblocker-electron": "^1.22.1",
 		"@ffmpeg/core": "^0.10.0",
 		"@ffmpeg/ffmpeg": "^0.10.0",
 		"YoutubeNonStop": "git://github.com/lawfx/YoutubeNonStop.git#v0.9.0",
@@ -73,6 +74,7 @@
 		"chokidar": "^3.5.1",
 		"custom-electron-titlebar": "^3.2.7",
 		"discord-rpc": "^3.2.0",
+		"electron-better-web-request": "^1.0.1",
 		"electron-debug": "^3.2.0",
 		"electron-is": "^3.0.0",
 		"electron-localshortcut": "^3.2.1",
@@ -83,8 +85,8 @@
 		"md5": "^2.3.0",
 		"node-fetch": "^2.6.1",
 		"node-notifier": "^9.0.1",
-		"ytdl-core": "^4.8.2",
-		"ytpl": "^2.2.0"
+		"ytdl-core": "^4.8.3",
+		"ytpl": "^2.2.1"
 	},
 	"devDependencies": {
 		"electron": "^12.0.8",
@@ -95,9 +97,11 @@
 		"jest": "^26.6.3",
 		"rimraf": "^3.0.2",
 		"spectron": "^14.0.0",
-		"xo": "^0.38.2"
+		"xo": "^0.40.3"
 	},
 	"resolutions": {
+		"glob-parent": "5.1.2",
+		"minimist": "1.2.5",
 		"yargs-parser": "18.1.3"
 	},
 	"xo": {
