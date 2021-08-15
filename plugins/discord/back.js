@@ -16,6 +16,10 @@ module.exports = (win, {activityTimoutEnabled, activityTimoutTime}) => {
 	win.once("ready-to-show", () => {
 		rpc.once("ready", () => {
 			// Register the callback
+			//
+			// We get multiple events
+			// Next song: PAUSE(n), PAUSE(n+1), PLAY(n+1)
+			// Skip time: PAUSE(N), PLAY(N)
 			registerCallback((songInfo) => {
 				if (songInfo.title.length === 0 && songInfo.artist.length === 0) {
 					return;
@@ -31,16 +35,17 @@ module.exports = (win, {activityTimoutEnabled, activityTimoutTime}) => {
 					].join(' || '),
 				};
 
+				// stop the clear activity timout
+				clearTimeout(clearActivity);
+
 				if (songInfo.isPaused) {
 					// Add an idle icon to show that the song is paused
 					activityInfo.smallImageKey = "idle";
 					activityInfo.smallImageText = "idle/paused";
 					// Set start the timer so the activity gets cleared after a while if enabled
 					if (activityTimoutEnabled)
-						clearActivity = setTimeout(()=>rpc.clearActivity(), activityTimoutTime||10000);
+						clearActivity = setTimeout(() => rpc.clearActivity().catch(console.error), activityTimoutTime || 10000);
 				} else {
-					// stop the clear activity timout
-					clearTimeout(clearActivity);
 					// Add the start and end time of the song
 					const songStartTime = Date.now() - songInfo.elapsedSeconds * 1000;
 					activityInfo.startTimestamp = songStartTime;
@@ -48,7 +53,7 @@ module.exports = (win, {activityTimoutEnabled, activityTimoutTime}) => {
 						songStartTime + songInfo.songDuration * 1000;
 				}
 
-				rpc.setActivity(activityInfo);
+				rpc.setActivity(activityInfo).catch(console.error);
 			});
 		});
 
