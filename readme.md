@@ -36,7 +36,7 @@ Install the `youtube-music-bin` package from the AUR. For AUR installation instr
 ## Available plugins:
 
 - **Ad Blocker**: block all ads and tracking out of the box
-- **Downloader**: download to MP3 directly from the interface (youtube-dl)
+- **Downloader**: download to MP3 directly from the interface [(youtube-dl)](https://github.com/ytdl-org/youtube-dl)
 - **No Google Login**: remove Google login buttons and links from the interface
 - **Shortcuts**: use your usual shortcuts (media keys, Ctrl/CMD + F…) to control YouTube Music
 - **Navigation**: next/back navigation arrows directly integrated in the interface, like in your favorite browser
@@ -44,6 +44,13 @@ Install the `youtube-music-bin` package from the AUR. For AUR installation instr
 - **Hide video player**: no video in the interface when playing music
 - **Notifications**: display a notification when a song starts playing
 - **Touchbar**: custom TouchBar layout for macOS
+- [**Discord**](https://discord.com/): show your friends what you listen to with [Rich Presence](https://user-images.githubusercontent.com/28219076/104362104-a7a0b980-5513-11eb-9744-bb89eabe0016.png)
+- **In-app menu**: control app from your tray
+- [**Last.fm**](https://www.last.fm/): scrobbles support
+- **Playback speed**: listen fast, listen slow!
+- **Precise volume**: more control over the volume for more comfort
+- [**SponsorBlock**](https://github.com/ajayyy/SponsorBlock): skips non-music parts
+- **Taskbar media control**: control app from your [Windows taskbar](https://user-images.githubusercontent.com/78568641/111916130-24a35e80-8a82-11eb-80c8-5021c1aa27f4.png)
 
 ## Dev
 
