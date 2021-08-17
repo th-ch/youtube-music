@@ -1,7 +1,14 @@
 const { setOptions } = require("../../config/plugins");
 const { edit } = require("../../config");
+const { clear } = require("./back");
 
 module.exports = (win, options) => [
+	{
+		label: "Clear activity",
+		click: () => {
+			clear();
+		},
+	},
 	{
 		label: "Clear activity after timeout",
 		type: "checkbox",

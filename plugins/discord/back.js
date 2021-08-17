@@ -61,3 +61,5 @@ module.exports = (win, {activityTimoutEnabled, activityTimoutTime}) => {
 		rpc.login({ clientId }).catch(console.error);
 	});
 };
+
+module.exports.clear = () => rpc.clearActivity();
