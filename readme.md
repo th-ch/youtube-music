@@ -36,7 +36,7 @@ Install the `youtube-music-bin` package from the AUR. For AUR installation instr
 ## Available plugins:
 
 - **Ad Blocker**: block all ads and tracking out of the box
-- **Downloader**: downloads MP3 [directly from the interface[(https://user-images.githubusercontent.com/61631665/129977677-83a7d067-c192-45e1-98ae-b5a4927393be.png)] [(youtube-dl)](https://github.com/ytdl-org/youtube-dl)
+- **Downloader**: downloads MP3 [directly from the interface](https://user-images.githubusercontent.com/61631665/129977677-83a7d067-c192-45e1-98ae-b5a4927393be.png) [(youtube-dl)](https://github.com/ytdl-org/youtube-dl)
 - **No Google Login**: remove Google login buttons and links from the interface
 - **Shortcuts**: use your usual shortcuts (media keys, Ctrl/CMD + F…) to control YouTube Music
 - **Navigation**: next/back navigation arrows directly integrated in the interface, like in your favorite browser
