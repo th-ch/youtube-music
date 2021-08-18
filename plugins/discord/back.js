@@ -38,6 +38,12 @@ module.exports = (win, {activityTimoutEnabled, activityTimoutTime}) => {
 				// stop the clear activity timout
 				clearTimeout(clearActivity);
 
+				// clear directly if timeout is 0
+				if (songInfo.isPaused && activityTimoutEnabled && activityTimoutTime === 0) {
+					rpc.clearActivity().catch(console.error);
+					return;
+				}
+
 				if (songInfo.isPaused) {
 					// Add an idle icon to show that the song is paused
 					activityInfo.smallImageKey = "idle";
