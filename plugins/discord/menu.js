@@ -1,28 +1,38 @@
 const { setOptions } = require("../../config/plugins");
 const { edit } = require("../../config");
-const { clear } = require("./back");
+const { clear, info, connect, registerRefresh } = require("./back");
 
-module.exports = (win, options) => [
-	{
-		label: "Clear activity",
-		click: () => {
-			clear();
+let hasRegisterred = false;
+
+module.exports = (win, options, refreshMenu) => {
+	if (!hasRegisterred) {
+		registerRefresh(refreshMenu);
+		hasRegisterred = true;
+	}
+
+	return [
+		{
+			label: info.rpc !== null ? "Connected" : "Reconnect",
+			enabled: info.rpc === null,
+			click: connect,
 		},
-	},
-	{
-		label: "Clear activity after timeout",
-		type: "checkbox",
-		checked: options.activityTimoutEnabled,
-		click: (item) => {
-			options.activityTimoutEnabled = item.checked;
-			setOptions('discord', options);
+		{
+			label: "Clear activity",
+			click: clear,
 		},
-	},
-	{
-		label: "Set timeout time in config",
-		click: () => {
+		{
+			label: "Clear activity after timeout",
+			type: "checkbox",
+			checked: options.activityTimoutEnabled,
+			click: (item) => {
+				options.activityTimoutEnabled = item.checked;
+				setOptions('discord', options);
+			},
+		},
+		{
+			label: "Set timeout time in config",
 			// open config.json
-			edit();
+			click: edit,
 		},
-	},
-];
+	];
+};

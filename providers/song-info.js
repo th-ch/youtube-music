@@ -40,6 +40,9 @@ const getArtist = async (win) => {
 }
 
 // Fill songInfo with empty values
+/**
+ * @typedef {songInfo} SongInfo
+ */
 const songInfo = {
 	title: "",
 	artist: "",
@@ -71,6 +74,14 @@ const handleData = async (responseText, win) => {
 const callbacks = [];
 
 // This function will allow plugins to register callback that will be triggered when data changes
+/**
+ * @callback songInfoCallback
+ * @param {songInfo} songInfo
+ * @returns {void}
+ */
+/**
+ * @param {songInfoCallback} callback
+ */
 const registerCallback = (callback) => {
 	callbacks.push(callback);
 };
