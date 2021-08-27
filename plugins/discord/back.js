@@ -1,5 +1,6 @@
 const Discord = require("discord-rpc");
-const { dev } = require("electron-is")
+const { dev } = require("electron-is");
+const { dialog } = require("electron");
 
 const registerCallback = require("../../providers/song-info");
 
@@ -32,7 +33,8 @@ const resetInfo = () => {
 	refreshCallbacks.forEach(cb => cb());
 };
 
-const connect = () => {
+let window;
+const connect = (showErr = false) => {
 	if (info.rpc) {
 		if (dev())
 			console.log('Attempted to connect with active RPC object');
@@ -58,6 +60,7 @@ const connect = () => {
 	info.rpc.login({ clientId }).catch(err => {
 		resetInfo();
 		if (dev()) console.error(err);
+		if (showErr) dialog.showMessageBox(window, { title: 'Connection failed', message: err.message || String(err), type: 'error' });
 	});
 };
 
@@ -68,6 +71,7 @@ let clearActivity;
 let updateActivity;
 
 module.exports = (win, {activityTimoutEnabled, activityTimoutTime}) => {
+	window = win;
 	// We get multiple events
 	// Next song: PAUSE(n), PAUSE(n+1), PLAY(n+1)
 	// Skip time: PAUSE(N), PLAY(N)
