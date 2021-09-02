@@ -4,15 +4,15 @@ const path = require("path");
 const { ipcMain, ipcRenderer } = require("electron");
 
 // Creates a DOM element from a HTML string
-module.exports.ElementFromHtml = html => {
-	var template           = document.createElement("template");
-	    html               = html.trim();                         // Never return a text node of whitespace as the result
-	    template.innerHTML = html;
+module.exports.ElementFromHtml = (html) => {
+	var template = document.createElement("template");
+	html = html.trim(); // Never return a text node of whitespace as the result
+	template.innerHTML = html;
 	return template.content.firstChild;
 };
 
 // Creates a DOM element from a HTML file
-module.exports.ElementFromFile = filepath => {
+module.exports.ElementFromFile = (filepath) => {
 	return module.exports.ElementFromHtml(fs.readFileSync(filepath, "utf8"));
 };
 
@@ -24,12 +24,16 @@ module.exports.triggerAction = (channel, action, ...args) => {
 	return ipcRenderer.send(channel, action, ...args);
 };
 
+module.exports.triggerActionSync = (channel, action, ...args) => {
+	return ipcRenderer.sendSync(channel, action, ...args);
+};
+
 module.exports.listenAction = (channel, callback) => {
 	return ipcMain.on(channel, callback);
 };
 
 module.exports.fileExists = (path, callbackIfExists) => {
-	fs.access(path, fs.F_OK, err => {
+	fs.access(path, fs.F_OK, (err) => {
 		if (err) {
 			return;
 		}
@@ -38,17 +42,20 @@ module.exports.fileExists = (path, callbackIfExists) => {
 	});
 };
 
-module.exports.injectCSS = (webContents, filepath) => {
-	webContents.on("did-finish-load", () => {
-		webContents.insertCSS(fs.readFileSync(filepath, "utf8"));
+module.exports.injectCSS = (webContents, filepath, cb = undefined) => {
+	webContents.on("did-finish-load", async () => {
+		await webContents.insertCSS(fs.readFileSync(filepath, "utf8"));
+		if (cb) {
+			cb();
+		}
 	});
 };
 
 module.exports.getAllPlugins = () => {
-	const isDirectory = source => fs.lstatSync(source).isDirectory();
+	const isDirectory = (source) => fs.lstatSync(source).isDirectory();
 	return fs
 		.readdirSync(__dirname)
-		.map(name => path.join(__dirname, name))
+		.map((name) => path.join(__dirname, name))
 		.filter(isDirectory)
-		.map(name => path.basename(name));
+		.map((name) => path.basename(name));
 };

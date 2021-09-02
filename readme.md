@@ -1,13 +1,24 @@
 # YouTube Music
 
-[![GitHub release](https://img.shields.io/github/release/th-ch/youtube-music.svg)](https://GitHub.com/th-ch/youtube-music/releases/)
-[![GitHub license](https://img.shields.io/github/license/th-ch/youtube-music.svg)](https://github.com/th-ch/youtube-music/blob/master/LICENSE)
-[![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
-[![Build status](https://github.com/th-ch/youtube-music/workflows/Build%20YouTube%20Music/badge.svg)](https://GitHub.com/th-ch/youtube-music/releases/)
-[![Known Vulnerabilities](https://snyk.io/test/github/th-ch/youtube-music/badge.svg)](https://snyk.io/test/github/th-ch/youtube-music)
-![GitHub All Releases](https://img.shields.io/github/downloads/th-ch/youtube-music/total)
+<div align="center">
 
-![Screenshot](screenshot.jpg "Screenshot")
+[![GitHub release](https://img.shields.io/github/release/th-ch/youtube-music.svg?style=for-the-badge&logo=youtube-music)](https://github.com/th-ch/youtube-music/releases/)
+[![GitHub license](https://img.shields.io/github/license/th-ch/youtube-music.svg?style=for-the-badge)](https://github.com/th-ch/youtube-music/blob/master/LICENSE)
+[![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg?style=for-the-badge)](https://github.com/sindresorhus/xo)
+[![Build status](https://img.shields.io/github/workflow/status/th-ch/youtube-music/Build%20YouTube%20Music?style=for-the-badge&logo=youtube-music)](https://GitHub.com/th-ch/youtube-music/releases/)
+[![Known Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/github/th-ch/youtube-music?style=for-the-badge)](https://snyk.io/test/github/th-ch/youtube-music)
+[![GitHub All Releases](https://img.shields.io/github/downloads/th-ch/youtube-music/total?style=for-the-badge&logo=youtube-music)](https://GitHub.com/th-ch/youtube-music/releases/)
+[![AUR](https://img.shields.io/aur/version/youtube-music-bin?color=blueviolet&style=for-the-badge&logo=youtube-music)](https://aur.archlinux.org/packages/youtube-music-bin)
+
+</div>
+
+![Screenshot](web/screenshot.jpg "Screenshot")
+
+<div align="center">
+	<a href="https://github.com/th-ch/youtube-music/releases/latest">
+		<img src="web/youtube-music.svg" width="400" height="100">
+	</a>
+</div>
 
 **Electron wrapper around YouTube Music featuring:**
 
@@ -18,9 +29,9 @@
 
 You can check out the [latest release](https://github.com/th-ch/youtube-music/releases/latest) to quickly find the latest version.
 
-**Arch Linux**
+### Arch Linux
 
-Install the `youtube-music` package from the AUR. For AUR installation instructions, take a look at this [wiki page](https://wiki.archlinux.org/index.php/Arch_User_Repository#Installing_packages).
+Install the `youtube-music-bin` package from the AUR. For AUR installation instructions, take a look at this [wiki page](https://wiki.archlinux.org/index.php/Arch_User_Repository#Installing_packages).
 
 ## Available plugins:
 
@@ -32,6 +43,7 @@ Install the `youtube-music` package from the AUR. For AUR installation instructi
 - **Auto confirm when paused**: when the "Continue Watching?" modal appears, automatically click "Yes"
 - **Hide video player**: no video in the interface when playing music
 - **Notifications**: display a notification when a song starts playing
+- **Touchbar**: custom TouchBar layout for macOS
 
 ## Dev
 

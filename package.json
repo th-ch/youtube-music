@@ -1,7 +1,7 @@
 {
 	"name": "youtube-music",
 	"productName": "YouTube Music",
-	"version": "1.6.3",
+	"version": "1.12.2",
 	"description": "YouTube Music Desktop App - including custom plugins",
 	"license": "MIT",
 	"repository": "th-ch/youtube-music",
@@ -18,23 +18,40 @@
 			"icon": "assets/generated/icons/mac/icon.icns"
 		},
 		"win": {
-			"icon": "assets/generated/icons/win/icon.ico"
+			"icon": "assets/generated/icons/win/icon.ico",
+			"target": [
+				"nsis",
+				"portable"
+			]
+		},
+		"nsis": {
+			"runAfterFinish": false
 		},
 		"linux": {
 			"icon": "assets/generated/icons/png",
-			"category": "AudioVideo"
+			"category": "AudioVideo",
+			"target": [
+				"AppImage",
+				"snap",
+				"freebsd",
+				"deb",
+				"rpm"
+			]
 		}
 	},
 	"scripts": {
 		"test": "jest",
 		"start": "electron .",
+		"start:debug": "ELECTRON_ENABLE_LOGGING=1 electron .",
 		"icon": "rimraf assets/generated && electron-icon-maker --input=assets/youtube-music.png --output=assets/generated",
 		"generate:package": "node utils/generate-package-json.js",
 		"postinstall": "yarn run icon && yarn run plugins",
 		"clean": "rimraf dist",
 		"build": "yarn run clean && electron-builder --win --mac --linux",
+		"build:linux": "yarn run clean && electron-builder --linux",
 		"build:mac": "yarn run clean && electron-builder --mac",
 		"build:win": "yarn run clean && electron-builder --win",
+		"lint": "xo",
 		"plugins": "yarn run plugin:adblocker && yarn run plugin:autoconfirm",
 		"plugin:adblocker": "rimraf plugins/adblocker/ad-blocker-engine.bin && node plugins/adblocker/blocker.js",
 		"plugin:autoconfirm": "yarn run generate:package YoutubeNonStop",
@@ -43,43 +60,63 @@
 		"release:win": "yarn run clean && electron-builder --win -p always"
 	},
 	"engines": {
-		"node": ">=12.16.1",
+		"node": ">=14.0.0",
 		"npm": "Please use yarn and not npm"
 	},
 	"dependencies": {
-		"@cliqz/adblocker-electron": "^1.18.6",
-		"@ffmpeg/core": "^0.8.4",
-		"@ffmpeg/ffmpeg": "^0.9.5",
-		"YoutubeNonStop": "git://github.com/lawfx/YoutubeNonStop.git#v0.8.0",
-		"downloads-folder": "^3.0.1",
-		"electron-debug": "^3.1.0",
+		"@cliqz/adblocker-electron": "^1.22.1",
+		"@ffmpeg/core": "^0.10.0",
+		"@ffmpeg/ffmpeg": "^0.10.0",
+		"YoutubeNonStop": "git://github.com/lawfx/YoutubeNonStop.git#v0.9.0",
+		"async-mutex": "^0.3.1",
+		"browser-id3-writer": "^4.4.0",
+		"chokidar": "^3.5.2",
+		"custom-electron-titlebar": "^3.2.7",
+		"discord-rpc": "^3.2.0",
+		"electron-better-web-request": "^1.0.1",
+		"electron-debug": "^3.2.0",
 		"electron-is": "^3.0.0",
 		"electron-localshortcut": "^3.2.1",
-		"electron-store": "^6.0.1",
-		"electron-updater": "^4.3.5",
-		"filenamify": "^4.2.0",
-		"mpris-service": "^2.1.0",
+		"electron-store": "^7.0.3",
+		"electron-unhandled": "^3.0.2",
+		"electron-updater": "^4.3.10",
+		"filenamify": "^4.3.0",
+		"md5": "^2.3.0",
 		"node-fetch": "^2.6.1",
-		"ytdl-core": "^4.0.3"
+		"node-notifier": "^9.0.1",
+		"ytdl-core": "^4.9.1",
+		"ytpl": "^2.2.3"
 	},
 	"devDependencies": {
-		"electron": "^10.1.3",
-		"electron-builder": "^22.8.1",
+		"electron": "^12.0.8",
+		"electron-builder": "^22.10.5",
 		"electron-devtools-installer": "^3.1.1",
 		"electron-icon-maker": "0.0.5",
 		"get-port": "^5.1.1",
-		"jest": "^26.4.2",
+		"jest": "^26.6.3",
 		"rimraf": "^3.0.2",
-		"spectron": "^12.0.0",
-		"xo": "^0.33.1"
+		"spectron": "^14.0.0",
+		"xo": "^0.40.3"
 	},
 	"resolutions": {
+		"glob-parent": "5.1.2",
+		"minimist": "1.2.5",
 		"yargs-parser": "18.1.3"
 	},
 	"xo": {
 		"envs": [
 			"node",
 			"browser"
-		]
+		],
+		"rules": {
+			"quotes": [
+				"error",
+				"double",
+				{
+					"avoidEscape": true,
+					"allowTemplateLiterals": true
+				}
+			]
+		}
 	}
 }

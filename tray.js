@@ -2,19 +2,19 @@ const path = require("path");
 
 const { Menu, nativeImage, Tray } = require("electron");
 
-const { mainMenuTemplate } = require("./menu");
-const { isTrayEnabled } = require("./store");
-const { clickInYoutubeMusic } = require("./utils/youtube-music");
+const config = require("./config");
+const getSongControls = require("./providers/song-controls");
 
 // Prevent tray being garbage collected
 let tray;
 
 module.exports.setUpTray = (app, win) => {
-	if (!isTrayEnabled()) {
+	if (!config.get("options.tray")) {
 		tray = undefined;
 		return;
 	}
 
+	const { playPause, next, previous } = getSongControls(win);
 	const iconPath = path.join(__dirname, "assets", "youtube-music-tray.png");
 	let trayIcon = nativeImage.createFromPath(iconPath).resize({
 		width: 16,
@@ -24,35 +24,30 @@ module.exports.setUpTray = (app, win) => {
 	tray.setToolTip("Youtube Music");
 	tray.setIgnoreDoubleClickEvents(true);
 	tray.on("click", () => {
-		win.isVisible() ? win.hide() : win.show();
+		if (config.get("options.trayClickPlayPause")) {
+			playPause();
+		} else {
+			win.isVisible() ? win.hide() : win.show();
+		}
 	});
 
-	const trayMenu = Menu.buildFromTemplate([
+	let template = [
 		{
 			label: "Play/Pause",
 			click: () => {
-				clickInYoutubeMusic(
-					win,
-					"#left-controls > div > paper-icon-button.play-pause-button.style-scope.ytmusic-player-bar"
-				);
+				playPause();
 			},
 		},
 		{
 			label: "Next",
 			click: () => {
-				clickInYoutubeMusic(
-					win,
-					"#left-controls > div > paper-icon-button.next-button.style-scope.ytmusic-player-bar"
-				);
+				next();
 			},
 		},
 		{
 			label: "Previous",
 			click: () => {
-				clickInYoutubeMusic(
-					win,
-					"#left-controls > div > paper-icon-button.previous-button.style-scope.ytmusic-player-bar"
-				);
+				previous();
 			},
 		},
 		{
@@ -61,13 +56,16 @@ module.exports.setUpTray = (app, win) => {
 				win.show();
 			},
 		},
-		...mainMenuTemplate(win),
 		{
-			label: "Quit",
+			label: "Restart App",
 			click: () => {
+				app.relaunch();
 				app.quit();
 			},
 		},
-	]);
+		 { role: "quit" } 
+	];
+
+	const trayMenu = Menu.buildFromTemplate(template);
 	tray.setContextMenu(trayMenu);
 };
