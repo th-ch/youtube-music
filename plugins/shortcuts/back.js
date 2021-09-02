@@ -1,6 +1,7 @@
 const { globalShortcut } = require("electron");
 const is = require("electron-is");
 const electronLocalshortcut = require("electron-localshortcut");
+const { setupMPRIS } = require("./mpris");
 
 const getSongControls = require("../../providers/song-controls");
 
@@ -25,6 +26,22 @@ function registerShortcuts(win, options) {
 	_registerGlobalShortcut(win.webContents, "MediaPreviousTrack", previous);
 	_registerLocalShortcut(win, "CommandOrControl+F", search);
 	_registerLocalShortcut(win, "CommandOrControl+L", search);
+
+	if (is.linux()) {
+		try {
+			const player = setupMPRIS();
+
+			player.on("raise", () => {
+				win.setSkipTaskbar(false);
+				win.show();
+			});
+			player.on("playpause", playPause);
+			player.on("next", next);
+			player.on("previous", previous);
+		} catch (e) {
+			console.warn("Error in MPRIS", e);
+		}
+	}
 
 	const { global, local } = options;
 	(global || []).forEach(({ shortcut, action }) => {
