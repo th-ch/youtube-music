@@ -2,17 +2,7 @@ const { globalShortcut } = require("electron");
 const is = require("electron-is");
 const electronLocalshortcut = require("electron-localshortcut");
 
-<<<<<<< HEAD
-const { setupMPRIS } = require("./mpris");
-const {
-	playPause,
-	nextTrack,
-	previousTrack,
-	startSearch,
-} = require("./youtube.js");
-=======
 const getSongControls = require("../../providers/song-controls");
->>>>>>> fe0f213919084f9e0bd95ce626ec711fb522d436
 
 function _registerGlobalShortcut(webContents, shortcut, action) {
 	globalShortcut.register(shortcut, () => {
