@@ -82,6 +82,7 @@
 		"electron-updater": "^4.3.10",
 		"filenamify": "^4.3.0",
 		"md5": "^2.3.0",
+		"mpris-service": "^2.1.2",
 		"node-fetch": "^2.6.1",
 		"node-notifier": "^9.0.1",
 		"ytdl-core": "^4.9.1",
