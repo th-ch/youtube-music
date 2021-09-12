@@ -29,6 +29,9 @@ module.exports = (win, {activityTimoutEnabled, activityTimoutTime}) => {
 						songInfo.uploadDate,
 						songInfo.views.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " views"
 					].join(' || '),
+					buttons: [
+						{ label: "Listen Along", url: songInfo.url },
+					]
 				};
 
 				if (songInfo.isPaused) {
