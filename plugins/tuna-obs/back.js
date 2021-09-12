@@ -1,8 +1,7 @@
-
 const { ipcRenderer } = require("electron");
-const registerCallback = require("../../providers/song-info");
-
 const fetch = require('node-fetch');
+
+const registerCallback = require("../../providers/song-info");
 
 const post = (data) => {
 	const port = 1608;
@@ -14,13 +13,10 @@ const post = (data) => {
 	fetch(url, {method: 'POST', headers, body:JSON.stringify({data})});
 }
 
-
-
 module.exports = async (win) => {
-
 	registerCallback((songInfo) => {
 
-		// Register the calilback
+		// Register the callback
 		if (songInfo.title.length === 0 && songInfo.artist.length === 0) {
 			return;
 		}
@@ -33,8 +29,5 @@ module.exports = async (win) => {
 		const artists = [songInfo.artist]
 		const status = !songInfo.isPaused ? 'Playing': 'Paused'
 		post({ cover_url, title, artists, status, progress, duration, album_url});
-
 	})
-
 }
-
