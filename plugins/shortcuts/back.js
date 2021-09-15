@@ -1,8 +1,9 @@
 const { globalShortcut } = require("electron");
+const is = require("electron-is");
 const electronLocalshortcut = require("electron-localshortcut");
-const { setupMPRIS } = require("./mpris");
 
 const getSongControls = require("../../providers/song-controls");
+const { setupMPRIS } = require("./mpris");
 
 function _registerGlobalShortcut(webContents, shortcut, action) {
 	globalShortcut.register(shortcut, () => {
