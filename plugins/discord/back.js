@@ -97,7 +97,10 @@ module.exports = (win, {activityTimoutEnabled, activityTimoutTime}) => {
 		}
 
 		// Song information changed, so lets update the rich presence
+		// @see https://discord.com/developers/docs/topics/gateway#activity-object
+		// not all options are transfered through https://github.com/discordjs/RPC/blob/6f83d8d812c87cb7ae22064acd132600407d7d05/src/client.js#L518-530
 		const activityInfo = {
+			type: 2, // Listening, addressed in https://github.com/discordjs/RPC/pull/149
 			details: songInfo.title,
 			state: songInfo.artist,
 			largeImageKey: "logo",
@@ -133,6 +136,7 @@ module.exports = (win, {activityTimoutEnabled, activityTimoutTime}) => {
 		registerCallback(updateActivity);
 		connect();
 	});
+	win.on("close", () => module.exports.clear());
 };
 
 module.exports.clear = () => {
