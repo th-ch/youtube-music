@@ -30,6 +30,15 @@ module.exports = (win, options, refreshMenu) => {
 			},
 		},
 		{
+			label: "Listen Along",
+			type: "checkbox",
+			checked: options.listenAlong,
+			click: (item) => {
+				options.listenAlong = item.checked;
+				setOptions('discord', options);
+			},
+		},
+		{
 			label: "Set timeout time in config",
 			// open config.json
 			click: edit,

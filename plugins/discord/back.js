@@ -70,7 +70,7 @@ let clearActivity;
  */
 let updateActivity;
 
-module.exports = (win, {activityTimoutEnabled, activityTimoutTime}) => {
+module.exports = (win, {activityTimoutEnabled, activityTimoutTime, listenAlong}) => {
 	window = win;
 	// We get multiple events
 	// Next song: PAUSE(n), PAUSE(n+1), PLAY(n+1)
@@ -106,11 +106,11 @@ module.exports = (win, {activityTimoutEnabled, activityTimoutTime}) => {
 			largeImageKey: "logo",
 			largeImageText: [
 				songInfo.uploadDate,
-				songInfo.views.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " views"
+				songInfo.views.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " views",
 			].join(' || '),
-			buttons: [
+			buttons: listenAlong ? [
 				{ label: "Listen Along", url: songInfo.url },
-			],
+			] : undefined,
 		};
 
 		if (songInfo.isPaused) {
@@ -119,7 +119,7 @@ module.exports = (win, {activityTimoutEnabled, activityTimoutTime}) => {
 			activityInfo.smallImageText = "idle/paused";
 			// Set start the timer so the activity gets cleared after a while if enabled
 			if (activityTimoutEnabled)
-				clearActivity = setTimeout(() => info.rpc.clearActivity().catch(console.error), activityTimoutTime || 10000);
+				clearActivity = setTimeout(() => info.rpc.clearActivity().catch(console.error), activityTimoutTime ?? 10000);
 		} else {
 			// Add the start and end time of the song
 			const songStartTime = Date.now() - songInfo.elapsedSeconds * 1000;
