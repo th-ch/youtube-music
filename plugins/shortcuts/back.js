@@ -21,7 +21,7 @@ function _registerLocalShortcut(win, shortcut, action) {
 
 function registerShortcuts(win, options) {
 	const songControls = getSongControls(win);
-	const { playPause, next, previous, search } = songControls;
+	const { play, pause, playPause, next, previous, search } = songControls;
 
 	_registerGlobalShortcut(win.webContents, "MediaPlayPause", playPause);
 	_registerGlobalShortcut(win.webContents, "MediaNextTrack", next);
@@ -41,20 +41,21 @@ function registerShortcuts(win, options) {
 	if (is.linux()) {
 		try {
 			const MPRISPlayer = setupMPRIS();
-			player = MPRISPlayer
+
 			MPRISPlayer.on("raise", () => {
 				win.setSkipTaskbar(false);
 				win.show();
 			});
+			MPRISPlayer.on("playPause", () => {
+				console.log("Playpause");
+			})
 			MPRISPlayer.on("play", () => {
-				console.log('Event:', "play", arguments);
 				player.playbackStatus = 'Playing';
-				playPause()
+				play()
 			});
 			MPRISPlayer.on("pause", () => {
-				console.log('Event:', "pause", arguments);
 				player.playbackStatus = 'Paused';
-				playPause()
+				pause()
 			});
 			MPRISPlayer.on("next", () => {
 				next()
@@ -62,6 +63,8 @@ function registerShortcuts(win, options) {
 			MPRISPlayer.on("previous", () => {
 				previous()
 			});
+
+			player = MPRISPlayer
 
 		} catch (e) {
 			console.warn("Error in MPRIS", e);
