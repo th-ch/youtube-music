@@ -1,9 +1,11 @@
 const { globalShortcut } = require("electron");
 const is = require("electron-is");
 const electronLocalshortcut = require("electron-localshortcut");
-
 const getSongControls = require("../../providers/song-controls");
 const { setupMPRIS } = require("./mpris");
+const registerCallback = require("../../providers/song-info");
+
+let player;
 
 function _registerGlobalShortcut(webContents, shortcut, action) {
 	globalShortcut.register(shortcut, () => {
@@ -26,18 +28,41 @@ function registerShortcuts(win, options) {
 	_registerGlobalShortcut(win.webContents, "MediaPreviousTrack", previous);
 	_registerLocalShortcut(win, "CommandOrControl+F", search);
 	_registerLocalShortcut(win, "CommandOrControl+L", search);
+	registerCallback(songInfo => {
+		player.metadata = {
+			'mpris:length': songInfo.songDuration * 60 * 1000 * 1000, // In microseconds
+			'mpris:artUrl': songInfo.imageSrc,
+			'xesam:title': songInfo.title,
+			'xesam:artist': songInfo.artist
+		};
+	}
+	)
 
 	if (is.linux()) {
 		try {
-			const player = setupMPRIS();
-
-			player.on("raise", () => {
+			const MPRISPlayer = setupMPRIS();
+			player = MPRISPlayer
+			MPRISPlayer.on("raise", () => {
 				win.setSkipTaskbar(false);
 				win.show();
 			});
-			player.on("playpause", playPause);
-			player.on("next", next);
-			player.on("previous", previous);
+			MPRISPlayer.on("play", () => {
+				console.log('Event:', "play", arguments);
+				player.playbackStatus = 'Playing';
+				playPause()
+			});
+			MPRISPlayer.on("pause", () => {
+				console.log('Event:', "pause", arguments);
+				player.playbackStatus = 'Paused';
+				playPause()
+			});
+			MPRISPlayer.on("next", () => {
+				next()
+			});
+			MPRISPlayer.on("previous", () => {
+				previous()
+			});
+
 		} catch (e) {
 			console.warn("Error in MPRIS", e);
 		}
