@@ -21,7 +21,7 @@ function _registerLocalShortcut(win, shortcut, action) {
 
 function registerShortcuts(win, options) {
 	const songControls = getSongControls(win);
-	const { play, pause, playPause, next, previous, search } = songControls;
+	const { playPause, next, previous, search } = songControls;
 
 	_registerGlobalShortcut(win.webContents, "MediaPlayPause", playPause);
 	_registerGlobalShortcut(win.webContents, "MediaNextTrack", next);
@@ -29,12 +29,14 @@ function registerShortcuts(win, options) {
 	_registerLocalShortcut(win, "CommandOrControl+F", search);
 	_registerLocalShortcut(win, "CommandOrControl+L", search);
 	registerCallback(songInfo => {
-		player.metadata = {
-			'mpris:length': songInfo.songDuration * 60 * 1000 * 1000, // In microseconds
-			'mpris:artUrl': songInfo.imageSrc,
-			'xesam:title': songInfo.title,
-			'xesam:artist': songInfo.artist
-		};
+		if (player) {
+			player.metadata = {
+				'mpris:length': songInfo.songDuration * 60 * 1000 * 1000, // In microseconds
+				'mpris:artUrl': songInfo.imageSrc,
+				'xesam:title': songInfo.title,
+				'xesam:artist': songInfo.artist
+			};
+		}
 	}
 	)
 
@@ -46,16 +48,17 @@ function registerShortcuts(win, options) {
 				win.setSkipTaskbar(false);
 				win.show();
 			});
-			MPRISPlayer.on("playPause", () => {
-				console.log("Playpause");
-			})
 			MPRISPlayer.on("play", () => {
-				player.playbackStatus = 'Playing';
-				play()
+				if (MPRISPlayer.playbackStatus !== 'Playing') {
+					MPRISPlayer.playbackStatus = 'Playing';
+					playPause()
+				}
 			});
 			MPRISPlayer.on("pause", () => {
-				player.playbackStatus = 'Paused';
-				pause()
+				if (MPRISPlayer.playbackStatus === 'Playing') {
+					MPRISPlayer.playbackStatus = 'Paused';
+					playPause()
+				}
 			});
 			MPRISPlayer.on("next", () => {
 				next()
