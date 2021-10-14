@@ -13,8 +13,6 @@ module.exports = (win) => {
 		previous: () => pressKey(win, "k"),
 		next: () => pressKey(win, "j"),
 		playPause: () => win.webContents.send("playPause"),
-		play: () => win.webContents.send("play"),
-		pause: () => win.webContents.send("pause"),
 		like: () => pressKey(win, "_"),
 		dislike: () => pressKey(win, "+"),
 		go10sBack: () => pressKey(win, "h"),
