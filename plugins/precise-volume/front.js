@@ -8,8 +8,6 @@ module.exports = (options) => {
 
 	setupPlaybar(options);
 
-	setupSliderObserver(options);
-
 	setupLocalArrowShortcuts(options);
 
 	if (options.globalShortcuts?.enabled) {
@@ -109,6 +107,10 @@ function firstRun(options) {
 /** Add onwheel event to play bar and also track if play bar is hovered*/
 function setupPlaybar(options) {
 	const playerbar = $("ytmusic-player-bar");
+	if (!playerbar) {
+		setTimeout(setupPlaybar(options), 200);
+		return;
+	}
 
 	playerbar.addEventListener("wheel", event => {
 		event.preventDefault();
@@ -123,6 +125,29 @@ function setupPlaybar(options) {
 
 	playerbar.addEventListener("mouseleave", () => {
 		playerbar.classList.remove("on-hover");
+	});
+
+	setupSliderObserver(options);
+}
+
+/** Save volume + Update the volume tooltip when volume-slider is manually changed */
+function setupSliderObserver(options) {
+	const sliderObserver = new MutationObserver(mutations => {
+		for (const mutation of mutations) {
+			// This checks that volume-slider was manually set
+			if (mutation.oldValue !== mutation.target.value &&
+				(typeof options.savedVolume !== "number" || Math.abs(options.savedVolume - mutation.target.value) > 4)) {
+				// Diff>4 means it was manually set
+				setTooltip(mutation.target.value);
+				saveVolume(mutation.target.value, options);
+			}
+		}
+	});
+
+	// Observing only changes in 'value' of volume-slider
+	sliderObserver.observe($("#volume-slider"), {
+		attributeFilter: ["value"],
+		attributeOldValue: true
 	});
 }
 
@@ -192,27 +217,6 @@ function showVolumeSlider() {
 			slider.classList.remove("on-hover");
 		}
 	}, 3000);
-}
-
-/** Save volume + Update the volume tooltip when volume-slider is manually changed */
-function setupSliderObserver(options) {
-	const sliderObserver = new MutationObserver(mutations => {
-		for (const mutation of mutations) {
-			// This checks that volume-slider was manually set
-			if (mutation.oldValue !== mutation.target.value &&
-				(typeof options.savedVolume !== "number" || Math.abs(options.savedVolume - mutation.target.value) > 4)) {
-				// Diff>4 means it was manually set
-				setTooltip(mutation.target.value);
-				saveVolume(mutation.target.value, options);
-			}
-		}
-	});
-
-	// Observing only changes in 'value' of volume-slider
-	sliderObserver.observe($("#volume-slider"), {
-		attributeFilter: ["value"],
-		attributeOldValue: true
-	});
 }
 
 // Set new volume as tooltip for volume slider and icon + expanding slider (appears when window size is small)
