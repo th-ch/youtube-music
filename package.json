@@ -52,9 +52,8 @@
 		"build:mac": "yarn run clean && electron-builder --mac",
 		"build:win": "yarn run clean && electron-builder --win",
 		"lint": "xo",
-		"plugins": "yarn run plugin:adblocker && yarn run plugin:autoconfirm",
+		"plugins": "yarn run plugin:adblocker",
 		"plugin:adblocker": "rimraf plugins/adblocker/ad-blocker-engine.bin && node plugins/adblocker/blocker.js",
-		"plugin:autoconfirm": "yarn run generate:package YoutubeNonStop",
 		"release:linux": "yarn run clean && electron-builder --linux -p always -c.snap.publish=github",
 		"release:mac": "yarn run clean && electron-builder --mac -p always",
 		"release:win": "yarn run clean && electron-builder --win -p always"
@@ -67,7 +66,6 @@
 		"@cliqz/adblocker-electron": "^1.22.5",
 		"@ffmpeg/core": "^0.10.0",
 		"@ffmpeg/ffmpeg": "^0.10.0",
-		"YoutubeNonStop": "git://github.com/lawfx/YoutubeNonStop.git#v0.9.0",
 		"async-mutex": "^0.3.1",
 		"browser-id3-writer": "^4.4.0",
 		"chokidar": "^3.5.2",
