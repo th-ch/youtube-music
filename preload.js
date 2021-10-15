@@ -38,6 +38,11 @@ document.addEventListener("DOMContentLoaded", () => {
 		});
 	});
 
+	// Remove upgrade button
+	if (config.get("options.removeUpgradeButton")) {
+		document.querySelector('[tab-id*="SPunlimited"]').style.display = "none";
+	}
+
 	// inject song-info provider
 	setupSongInfo();
 

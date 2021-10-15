@@ -28,3 +28,9 @@ ytmusic-search-box.ytmusic-nav-bar {
 ytmusic-mealbar-promo-renderer {
 	display: none !important;
 }
+
+/* Disable Image Selection */
+img {
+	-webkit-user-select: none;
+	user-select: none;
+}
