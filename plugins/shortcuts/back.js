@@ -55,7 +55,7 @@ function registerShortcuts(win, options) {
 				}
 			});
 			MPRISPlayer.on("pause", () => {
-				if (MPRISPlayer.playbackStatus === 'Playing') {
+				if (MPRISPlayer.playbackStatus !== 'Paused') {
 					MPRISPlayer.playbackStatus = 'Paused';
 					playPause()
 				}
