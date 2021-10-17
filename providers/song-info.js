@@ -16,15 +16,17 @@ const getProgress = async (win) => {
 
 // Grab the native image using the src
 const getImage = async (src) => {
-	const result = await fetch(src);
-	const buffer = await result.buffer();
-	const output = nativeImage.createFromBuffer(buffer);
-	if (output.isEmpty() && !src.endsWith(".jpg") && src.includes(".jpg")) { // fix hidden webp files (https://github.com/th-ch/youtube-music/issues/315)
-		return getImage(src.slice(0, src.lastIndexOf(".jpg")+4));
-	} else {
-		return output;
-	}
-};
+	if (src) {
+		const result = await fetch(src);
+		const buffer = await result.buffer();
+		const output = nativeImage.createFromBuffer(buffer);
+		if (output.isEmpty() && !src.endsWith(".jpg") && src.includes(".jpg")) { // fix hidden webp files (https://github.com/th-ch/youtube-music/issues/315)
+			return getImage(src.slice(0, src.lastIndexOf(".jpg") + 4));
+		} else {
+			return output;
+		}
+	};
+}
 
 // To find the paused status, we check if the title contains `-`
 const getPausedStatus = async (win) => {
@@ -38,6 +40,7 @@ const getArtist = async (win) => {
 			?.textContent
 	`);
 }
+
 
 // Fill songInfo with empty values
 const songInfo = {
@@ -53,9 +56,18 @@ const songInfo = {
 	url: "",
 };
 
+
+const getTitle = async (win) => {
+	return win.webContents.executeJavaScript(`
+	document.querySelector(".title.ytmusic-player-bar")
+	?.textContent
+	`);
+
+
+}
 const handleData = async (responseText, win) => {
 	let data = JSON.parse(responseText);
-	songInfo.title = data?.videoDetails?.title;
+	songInfo.title = await getTitle(win) || data?.videoDetails?.title;
 	songInfo.artist = await getArtist(win) || cleanupArtistName(data?.videoDetails?.author);
 	songInfo.views = data?.videoDetails?.viewCount;
 	songInfo.imageSrc = data?.videoDetails?.thumbnail?.thumbnails?.pop()?.url;
