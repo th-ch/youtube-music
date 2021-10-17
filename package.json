@@ -1,7 +1,7 @@
 {
 	"name": "youtube-music",
 	"productName": "YouTube Music",
-	"version": "1.12.2",
+	"version": "1.13.0",
 	"description": "YouTube Music Desktop App - including custom plugins",
 	"license": "MIT",
 	"repository": "th-ch/youtube-music",
@@ -64,7 +64,7 @@
 		"npm": "Please use yarn and not npm"
 	},
 	"dependencies": {
-		"@cliqz/adblocker-electron": "^1.22.1",
+		"@cliqz/adblocker-electron": "^1.22.5",
 		"@ffmpeg/core": "^0.10.0",
 		"@ffmpeg/ffmpeg": "^0.10.0",
 		"YoutubeNonStop": "git://github.com/lawfx/YoutubeNonStop.git#v0.9.0",
@@ -79,7 +79,7 @@
 		"electron-localshortcut": "^3.2.1",
 		"electron-store": "^7.0.3",
 		"electron-unhandled": "^3.0.2",
-		"electron-updater": "^4.3.10",
+		"electron-updater": "^4.4.6",
 		"filenamify": "^4.3.0",
 		"md5": "^2.3.0",
 		"mpris-service": "^2.1.2",
