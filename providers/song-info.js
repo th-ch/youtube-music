@@ -62,6 +62,10 @@ const getSongDuration = async (win) => {
 	`);
 }
 
+const getSongURL = async (win) => {
+	return  win.webContents.getURL().split("&")[0];
+}
+
 
 // Fill songInfo with empty values
 const songInfo = {
@@ -89,10 +93,11 @@ const handleData = async (responseText, win) => {
 		songInfo.imageSrc =
 			(await getImageSrc(win)) || data?.videoDetails?.thumbnail?.thumbnails?.pop()?.url;
 		songInfo.songDuration =
-			(await getSongDuration(win)) ||	data?.videoDetails?.lengthSeconds;
+			(await getSongDuration(win)) || data?.videoDetails?.lengthSeconds;
 		songInfo.image = await getImage(songInfo.imageSrc);
 		songInfo.uploadDate = data?.microformat?.microformatDataRenderer?.uploadDate;
-		songInfo.url = data?.microformat?.microformatDataRenderer?.urlCanonical;
+		songInfo.url =
+			(await getSongURL(win)) || data?.microformat?.microformatDataRenderer?.urlCanonical;
 		win.webContents.send("update-song-info", JSON.stringify(songInfo));
 	}
 };
