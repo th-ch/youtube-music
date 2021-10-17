@@ -36,6 +36,9 @@ function registerShortcuts(win, options) {
 				'xesam:title': songInfo.title,
 				'xesam:artist': songInfo.artist
 			};
+			if (!songInfo.isPaused) {
+				player.playbackStatus = "Playing"
+			}
 		}
 	}
 	)
