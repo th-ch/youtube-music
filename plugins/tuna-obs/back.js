@@ -1,4 +1,3 @@
-const { ipcMain } = require("electron");
 const fetch = require('node-fetch');
 
 const registerCallback = require("../../providers/song-info");
@@ -13,7 +12,7 @@ const post = async (data) => {
 	await fetch(url, {method: 'POST', headers, body:JSON.stringify({data})});
 }
 
-module.exports = async (win) => {
+module.exports = async () => {
 	registerCallback(async (songInfo) => {
 			
 			if (songInfo.title?.length === 0 && songInfo.artist?.length === 0) {
