@@ -3376,7 +3376,7 @@ electron-better-web-request@^1.0.1:
     url-match-patterns "^0.2.0"
     uuid "^3.3.2"
 
-electron-builder@^22.11.7:
+electron-builder@^22.10.5:
   version "22.11.7"
   resolved "https://registry.yarnpkg.com/electron-builder/-/electron-builder-22.11.7.tgz#cd97a0d9f6e6d388112e66b4376de431cca4d596"
   integrity sha512-yQExSLt7Hbz/P8lLkZDdE/OnJJ7NCX+uiQcV+XIH0TeEZcD87ZnSqBBzGUN5akySU4BXXlrVZKeUsXACWrm5Kw==
