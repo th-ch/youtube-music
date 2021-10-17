@@ -51,6 +51,7 @@ Install the `youtube-music-bin` package from the AUR. For AUR installation instr
 - [**SponsorBlock**](https://github.com/ajayyy/SponsorBlock): skips non-music parts
 - **Taskbar media control**: control app from your [Windows taskbar](https://user-images.githubusercontent.com/78568641/111916130-24a35e80-8a82-11eb-80c8-5021c1aa27f4.png)
 - **Touchbar**: custom TouchBar layout for macOS
+- **OBS tunna**: send informations about the song to tuna in port 1608 currently its not tracking song update (progress bar)
 
 ## Dev
 
