@@ -14,6 +14,13 @@ const getProgress = async (win) => {
 	);
 };
 
+const getImageSrc = async (win) => {
+	return win.webContents.executeJavaScript(
+		'document.querySelector(".ytmusic-player-bar .ytmusic-player-bar img")?.src'
+	);
+
+}
+
 // Grab the native image using the src
 const getImage = async (src) => {
 	if (src) {
@@ -41,6 +48,20 @@ const getArtist = async (win) => {
 	`);
 }
 
+const getTitle = async (win) => {
+	return win.webContents.executeJavaScript(`
+		document.querySelector(".ytmusic-player-bar yt-formatted-string.title")
+			?.textContent
+	`);
+}
+
+const getSongDuration = async (win) => {
+	return win.webContents.executeJavaScript(`
+		document.querySelector("#progress-bar")
+		?.ariaValueMax
+	`);
+}
+
 
 // Fill songInfo with empty values
 const songInfo = {
@@ -57,27 +78,23 @@ const songInfo = {
 };
 
 
-const getTitle = async (win) => {
-	return win.webContents.executeJavaScript(`
-	document.querySelector(".title.ytmusic-player-bar")
-	?.textContent
-	`);
-
-
-}
 const handleData = async (responseText, win) => {
 	let data = JSON.parse(responseText);
-	songInfo.title = cleanupName(data?.videoDetails?.title);
-	songInfo.artist =
-		(await getArtist(win)) || cleanupName(data?.videoDetails?.author);
-	songInfo.views = data?.videoDetails?.viewCount;
-	songInfo.imageSrc = data?.videoDetails?.thumbnail?.thumbnails?.pop()?.url;
-	songInfo.songDuration = data?.videoDetails?.lengthSeconds;
-	songInfo.image = await getImage(songInfo.imageSrc);
-	songInfo.uploadDate = data?.microformat?.microformatDataRenderer?.uploadDate;
-	songInfo.url = data?.microformat?.microformatDataRenderer?.urlCanonical;
-
-	win.webContents.send("update-song-info", JSON.stringify(songInfo));
+	if (data?.videoDetails) {
+		songInfo.title =
+			(await getTitle(win)) || cleanupName(data?.videoDetails?.title);
+		songInfo.artist =
+			(await getArtist(win)) || cleanupName(data?.videoDetails?.author);
+		songInfo.views = data?.videoDetails?.viewCount;
+		songInfo.imageSrc =
+			(await getImageSrc(win)) || data?.videoDetails?.thumbnail?.thumbnails?.pop()?.url;
+		songInfo.songDuration =
+			(await getSongDuration(win)) ||	data?.videoDetails?.lengthSeconds;
+		songInfo.image = await getImage(songInfo.imageSrc);
+		songInfo.uploadDate = data?.microformat?.microformatDataRenderer?.uploadDate;
+		songInfo.url = data?.microformat?.microformatDataRenderer?.urlCanonical;
+		win.webContents.send("update-song-info", JSON.stringify(songInfo));
+	}
 };
 
 // This variable will be filled with the callbacks once they register

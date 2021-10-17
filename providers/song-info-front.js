@@ -19,6 +19,7 @@ const injectListener = () => {
 				if (realXHR.readyState === 4 && realXHR.status === 200
 					&& realXHR.responseURL.includes("/player")) {
 						// if the request contains the song info, send the response to ipcMain
+						
 						ipcRenderer.send("song-info-request", realXHR.responseText);
 				}
 			},
