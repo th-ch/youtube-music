@@ -3,6 +3,11 @@ const Store = require("electron-store");
 const defaults = require("./defaults");
 
 const migrations = {
+	">=1.13.0": (store) => {
+		if (store.get("plugins.discord.listenAlong") === undefined) {
+			store.set("plugins.discord.listenAlong", true);
+		}
+	},
 	">=1.11.0": (store) => {
 		if (store.get("options.resumeOnStart") === undefined) {
 			store.set("options.resumeOnStart", true);
