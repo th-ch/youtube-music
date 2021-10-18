@@ -64,7 +64,7 @@
 		"npm": "Please use yarn and not npm"
 	},
 	"dependencies": {
-		"@cliqz/adblocker-electron": "^1.22.5",
+		"@cliqz/adblocker-electron": "^1.22.6",
 		"@ffmpeg/core": "^0.10.0",
 		"@ffmpeg/ffmpeg": "^0.10.0",
 		"YoutubeNonStop": "git://github.com/lawfx/YoutubeNonStop.git#v0.9.0",
