@@ -3,8 +3,12 @@ const Store = require("electron-store");
 const defaults = require("./defaults");
 
 const migrations = {
-	/** Update shortcuts format from array to object */
-	">=1.12.0": (store) => {
+	">=1.13.0": (store) => {
+		if (store.get("plugins.discord.listenAlong") === undefined) {
+			store.set("plugins.discord.listenAlong", true);
+		}
+	},
+  ">=1.12.0": (store) => {
 		const options = store.get("plugins.shortcuts")
 		let updated = false;
 		for (const optionType of ["global", "local"]) {

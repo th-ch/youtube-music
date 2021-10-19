@@ -40,6 +40,9 @@ const getArtist = async (win) => {
 }
 
 // Fill songInfo with empty values
+/**
+ * @typedef {songInfo} SongInfo
+ */
 const songInfo = {
 	title: "",
 	artist: "",
@@ -55,8 +58,9 @@ const songInfo = {
 
 const handleData = async (responseText, win) => {
 	let data = JSON.parse(responseText);
-	songInfo.title = data?.videoDetails?.title;
-	songInfo.artist = await getArtist(win) || cleanupArtistName(data?.videoDetails?.author);
+	songInfo.title = cleanupName(data?.videoDetails?.title);
+	songInfo.artist =
+		(await getArtist(win)) || cleanupName(data?.videoDetails?.author);
 	songInfo.views = data?.videoDetails?.viewCount;
 	songInfo.imageSrc = data?.videoDetails?.thumbnail?.thumbnails?.pop()?.url;
 	songInfo.songDuration = data?.videoDetails?.lengthSeconds;
@@ -71,6 +75,14 @@ const handleData = async (responseText, win) => {
 const callbacks = [];
 
 // This function will allow plugins to register callback that will be triggered when data changes
+/**
+ * @callback songInfoCallback
+ * @param {songInfo} songInfo
+ * @returns {void}
+ */
+/**
+ * @param {songInfoCallback} callback
+ */
 const registerCallback = (callback) => {
 	callbacks.push(callback);
 };
@@ -98,8 +110,15 @@ const registerProvider = (win) => {
 	});
 };
 
-const suffixesToRemove = [' - Topic', 'VEVO'];
-function cleanupArtistName(artist) {
+const suffixesToRemove = [
+	" - Topic",
+	"VEVO",
+	" (Performance Video)",
+	" (Official Music Video)",
+	" (Official Video)",
+	" (Clip officiel)",
+];
+function cleanupName(artist) {
 	if (!artist) {
 		return artist;
 	}
@@ -114,4 +133,4 @@ function cleanupArtistName(artist) {
 module.exports = registerCallback;
 module.exports.setupSongInfo = registerProvider;
 module.exports.getImage = getImage;
-module.exports.cleanupArtistName = cleanupArtistName;
+module.exports.cleanupName = cleanupName;
