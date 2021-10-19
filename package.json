@@ -63,10 +63,10 @@
 		"npm": "Please use yarn and not npm"
 	},
 	"dependencies": {
-		"@cliqz/adblocker-electron": "^1.22.5",
+		"@cliqz/adblocker-electron": "^1.22.6",
 		"@ffmpeg/core": "^0.10.0",
 		"@ffmpeg/ffmpeg": "^0.10.0",
-		"async-mutex": "^0.3.1",
+		"async-mutex": "^0.3.2",
 		"browser-id3-writer": "^4.4.0",
 		"chokidar": "^3.5.2",
 		"custom-electron-titlebar": "^3.2.7",
@@ -81,13 +81,13 @@
 		"filenamify": "^4.3.0",
 		"md5": "^2.3.0",
 		"mpris-service": "^2.1.2",
-		"node-fetch": "^2.6.1",
+		"node-fetch": "^2.6.2",
 		"node-notifier": "^9.0.1",
 		"ytdl-core": "^4.9.1",
 		"ytpl": "^2.2.3"
 	},
 	"devDependencies": {
-		"electron": "^12.0.8",
+		"electron": "^12.1.0",
 		"electron-builder": "^22.10.5",
 		"electron-devtools-installer": "^3.1.1",
 		"electron-icon-maker": "0.0.5",
