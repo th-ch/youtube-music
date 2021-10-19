@@ -1,6 +1,6 @@
 const { setOptions } = require("../../config/plugins");
 const { edit } = require("../../config");
-const { clear, info, connect, registerRefresh } = require("./back");
+const { clear, connect, registerRefresh, isConnected } = require("./back");
 
 let hasRegisterred = false;
 
@@ -12,8 +12,8 @@ module.exports = (win, options, refreshMenu) => {
 
 	return [
 		{
-			label: info.rpc !== null ? "Connected" : "Reconnect",
-			enabled: info.rpc === null,
+			label: isConnected() ? "Connected" : "Reconnect",
+			enabled: !isConnected(),
 			click: connect,
 		},
 		{
