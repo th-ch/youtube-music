@@ -36,6 +36,7 @@ Install the `youtube-music-bin` package from the AUR. For AUR installation instr
 ## Available plugins:
 - **Ad Blocker**: block all ads and tracking out of the box
 - **Auto confirm when paused**: when the ["Continue Watching?"](https://user-images.githubusercontent.com/61631665/129977894-01c60740-7ec6-4bf0-9a2c-25da24491b0e.png) modal appears, automatically click "Yes"
+- **Blur navigation bar**: makes navigation bar transparent and blurry
 - **Disable autoplay**: makes every song start in "paused" mode
 - [**Discord**](https://discord.com/): show your friends what you listen to with [Rich Presence](https://user-images.githubusercontent.com/28219076/104362104-a7a0b980-5513-11eb-9744-bb89eabe0016.png)
 - **Downloader**: downloads MP3 [directly from the interface](https://user-images.githubusercontent.com/61631665/129977677-83a7d067-c192-45e1-98ae-b5a4927393be.png) [(youtube-dl)](https://github.com/ytdl-org/youtube-dl)
