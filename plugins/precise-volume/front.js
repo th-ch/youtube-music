@@ -3,8 +3,36 @@ const { ipcRenderer, remote } = require("electron");
 const { setOptions } = require("../../config/plugins");
 
 function $(selector) { return document.querySelector(selector); }
+let api = $('#movie_player');
 
 module.exports = (options) => {
+	if (api) {
+		firstRun(options);
+		return;
+	}
+
+	const observer = new MutationObserver(() => {
+		api = $('#movie_player');
+		if (api) {
+			observer.disconnect();
+			firstRun(options);
+		}
+	})
+
+	observer.observe(document.documentElement, { childList: true, subtree: true });
+};
+
+
+/** Restore saved volume and setup tooltip */
+function firstRun(options) {
+	if (typeof options.savedVolume === "number") {
+		// Set saved volume as tooltip
+		setTooltip(options.savedVolume);
+
+		if (api.getVolume() !== options.savedVolume) {
+			api.setVolume(options.savedVolume);
+		}
+	}
 
 	setupPlaybar(options);
 
@@ -14,16 +42,12 @@ module.exports = (options) => {
 		setupGlobalShortcuts(options);
 	}
 
-	window.addEventListener('load', () => {
-		const noVid = $("#main-panel")?.computedStyleMap().get("display").value === "none";
-		injectVolumeHud(noVid);
-		if (!noVid) {
-			setupVideoPlayerOnwheel(options);
-		}
-	});
-
-	firstRun(options);
-};
+	const noVid = $("#main-panel")?.computedStyleMap().get("display").value === "none";
+	injectVolumeHud(noVid);
+	if (!noVid) {
+		setupVideoPlayerOnwheel(options);
+	}
+}
 
 function injectVolumeHud(noVid) {
 	if (noVid) {
@@ -89,28 +113,9 @@ function writeOptions(options) {
 	}, 1500)
 }
 
-/** Restore saved volume and setup tooltip */
-function firstRun(options) {
-	const video = $("video");
-	// Those elements load abit after DOMContentLoaded
-	if (video) {
-		setupVolumeOverride(video, options);
-		if (typeof options.savedVolume === "number") {
-			// Set saved volume as tooltip
-			setTooltip(options.savedVolume);
-		}
-	} else {
-		setTimeout(firstRun, 500, options); // Try again in 500 milliseconds
-	}
-}
-
 /** Add onwheel event to play bar and also track if play bar is hovered*/
 function setupPlaybar(options) {
 	const playerbar = $("ytmusic-player-bar");
-	if (!playerbar) {
-		setTimeout(setupPlaybar(options), 200);
-		return;
-	}
 
 	playerbar.addEventListener("wheel", event => {
 		event.preventDefault();
@@ -153,16 +158,14 @@ function setupSliderObserver(options) {
 
 /** if (toIncrease = false) then volume decrease */
 function changeVolume(toIncrease, options) {
-	// Need to change both the actual volume and the slider
-	const videoStream = $(".video-stream");
 	// Apply volume change if valid
-	const steps = (options.steps || 1) / 100;
-	videoStream.volume = (toIncrease ?
-		Math.min(videoStream.volume + steps, 1) :
-		Math.max(videoStream.volume - steps, 0)).toFixed(2);
+	const steps = (options.steps || 1);
+	api.setVolume(toIncrease ?
+		Math.min(api.getVolume() + steps, 100) :
+		Math.max(api.getVolume() - steps, 0));
 
 	// Save the new volume
-	saveVolume(toPercent(videoStream.volume), options);
+	saveVolume(api.getVolume(), options);
 
 	// change slider position (important)
 	updateVolumeSlider(options);
@@ -173,25 +176,6 @@ function changeVolume(toIncrease, options) {
 	showVolumeSlider();
 	// Show volume HUD
 	showVolumeHud(options.savedVolume);
-}
-
-function setupVolumeOverride(video, options) {
-	video.addEventListener("canplay", () => {
-		if (typeof options.savedVolume === "number") {
-			const newVolume = (options.savedVolume / 100).toFixed(2);
-
-			video.volume = newVolume;
-			updateVolumeSlider(options);
-
-			const volumeOverrideInterval = setInterval(() => {
-				video.volume = newVolume;
-			}, 4);
-			setTimeout((interval) => {
-				updateVolumeSlider(options);
-				clearInterval(interval);
-			}, 500, volumeOverrideInterval);
-		}
-	});
 }
 
 function updateVolumeSlider(options) {
