@@ -3,25 +3,14 @@ const { ipcRenderer, remote } = require("electron");
 const { setOptions } = require("../../config/plugins");
 
 function $(selector) { return document.querySelector(selector); }
-let api = $('#movie_player');
+let api;
 
 module.exports = (options) => {
-	if (api) {
+	document.addEventListener('apiLoaded', e => {
+		api = e.detail;
 		firstRun(options);
-		return;
-	}
-
-	const observer = new MutationObserver(() => {
-		api = $('#movie_player');
-		if (api) {
-			observer.disconnect();
-			firstRun(options);
-		}
 	})
-
-	observer.observe(document.documentElement, { childList: true, subtree: true });
 };
-
 
 /** Restore saved volume and setup tooltip */
 function firstRun(options) {
@@ -91,10 +80,6 @@ function setupVideoPlayerOnwheel(options) {
 		// Event.deltaY < 0 means wheel-up
 		changeVolume(event.deltaY < 0, options);
 	});
-}
-
-function toPercent(volume) {
-	return Math.round(Number.parseFloat(volume) * 100);
 }
 
 function saveVolume(volume, options) {
