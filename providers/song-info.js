@@ -107,15 +107,15 @@ const suffixesToRemove = [
 	" (clip officiel)",
 ];
 
-function cleanupName(artist) {
-	if (!artist) return artist;
-    const lowerCaseArtist = artist.toLowerCase();
+function cleanupName(name) {
+	if (!name) return name;
+    const lowCaseName = name.toLowerCase();
 	for (const suffix of suffixesToRemove) {
-		if (lowerCaseArtist.endsWith(suffix)) {
-			return artist.slice(0, -suffix.length);
+		if (lowCaseName.endsWith(suffix)) {
+			return name.slice(0, -suffix.length);
 		}
 	}
-	return artist;
+	return name;
 }
 
 module.exports = registerCallback;
