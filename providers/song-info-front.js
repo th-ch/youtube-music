@@ -9,23 +9,27 @@ ipcRenderer.on("update-song-info", async (_, extractedSongInfo) => {
 	global.songInfo.image = await getImage(global.songInfo.imageSrc);
 });
 
-const injectListener = () => {
-	const oldXHR = window.XMLHttpRequest;
-	function newXHR() {
-		const realXHR = new oldXHR();
-		realXHR.addEventListener(
-			"readystatechange",
-			() => {
-				if (realXHR.readyState === 4 && realXHR.status === 200
-					&& realXHR.responseURL.includes("/player")) {
-						// if the request contains the song info, send the response to ipcMain
-						ipcRenderer.send("song-info-request", realXHR.responseText);
-				}
-			},
-			false
-		);
-		return realXHR;
-	}
-	window.XMLHttpRequest = newXHR;
+function setup() {
+    if (document.querySelector('#movie_player')) {
+        injectListener();
+        return;
+    }
+
+    const observer = new MutationObserver(() => {
+        if (document.querySelector('#movie_player')) {
+            observer.disconnect();
+            injectListener();
+        }
+    })
+
+    observer.observe(document.documentElement, { childList: true, subtree: true });
+}
+
+function injectListener() {
+	document.querySelector('video').addEventListener('loadedmetadata', () => {
+		const data = document.querySelector('#movie_player').getPlayerResponse();
+		ipcRenderer.send("song-info-request", JSON.stringify(data));
+	});
 };
-module.exports = injectListener;
+
+module.exports = setup;
