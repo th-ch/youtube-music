@@ -25,7 +25,6 @@ const getImage = async (src) => {
 // To find the paused status, we check if the title contains `-`
 const getPausedStatus = async (win) => {
 	const title = await win.webContents.executeJavaScript("document.title");
-	console.log('doc title = ',title)
 	return !title.includes("-");
 };
 
