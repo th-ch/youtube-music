@@ -47,9 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
 	global.reload = () =>
 		remote.getCurrentWindow().webContents.loadURL(config.get("url"));
 
-	// Block "You still there?" popup by setting last active time to date.now every 15min
-	const activityScript = document.createElement('script');
-	activityScript.textContent = `setInterval(() => window._lact = Date.now(), 900000);`;
-	(document.head || document.documentElement).appendChild(activityScript);
-	activityScript.remove();
+	// Blocks the "Are You Still There?" popup by setting the last active time to Date.now every 15min
+	setInterval(() => window._lact = Date.now(), 900000);
 });
