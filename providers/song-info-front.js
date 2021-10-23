@@ -29,7 +29,7 @@ function setup() {
 }
 
 function injectListener() {
-	document.querySelector('video').addEventListener('loadedmetadata', () => {
+	document.querySelector('video').addEventListener('loadeddata', () => {
 		const data = api.getPlayerResponse();
 		ipcRenderer.send("song-info-request", JSON.stringify(data));
 	});
