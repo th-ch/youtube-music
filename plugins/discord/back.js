@@ -145,7 +145,4 @@ module.exports.clear = () => {
 };
 module.exports.connect = connect;
 module.exports.registerRefresh = (cb) => refreshCallbacks.push(cb);
-/**
- * @type {Info}
- */
-module.exports.info = Object.defineProperties({}, Object.keys(info).reduce((o, k) => ({ ...o, [k]: { enumerable: true, get: () => info[k] } }), {}));
+module.exports.isConnected = () => info.rpc !== null;
