@@ -2960,6 +2960,11 @@ cssstyle@^2.2.0:
   dependencies:
     cssom "~0.3.6"
 
+custom-electron-prompt@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/custom-electron-prompt/-/custom-electron-prompt-1.1.0.tgz#611b790047c91f6b532c7861355a0e1f9a81aef2"
+  integrity sha512-YZYmwZnMOdoWROUlJ+rEMHYsp4XJNNqLj6sZnx5aKBJ8cprEjKP4L5wfo6U+yyX/L9fxVOtvYD0Mp8ki5I9Kow==
+
 custom-electron-titlebar@^3.2.7:
   version "3.2.7"
   resolved "https://registry.yarnpkg.com/custom-electron-titlebar/-/custom-electron-titlebar-3.2.7.tgz#fb249d6180cbda074b1d392bea755fa0743012a8"

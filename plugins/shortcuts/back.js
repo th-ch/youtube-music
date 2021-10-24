@@ -21,9 +21,12 @@ function registerShortcuts(win, options) {
 	const songControls = getSongControls(win);
 	const { playPause, next, previous, search } = songControls;
 
-	_registerGlobalShortcut(win.webContents, "MediaPlayPause", playPause);
-	_registerGlobalShortcut(win.webContents, "MediaNextTrack", next);
-	_registerGlobalShortcut(win.webContents, "MediaPreviousTrack", previous);
+	if (options.overrideMediaKeys) {
+		_registerGlobalShortcut(win.webContents, "MediaPlayPause", playPause);
+		_registerGlobalShortcut(win.webContents, "MediaNextTrack", next);
+		_registerGlobalShortcut(win.webContents, "MediaPreviousTrack", previous);
+	}
+
 	_registerLocalShortcut(win, "CommandOrControl+F", search);
 	_registerLocalShortcut(win, "CommandOrControl+L", search);
 
@@ -44,24 +47,31 @@ function registerShortcuts(win, options) {
 	}
 
 	const { global, local } = options;
-	(global || []).forEach(({ shortcut, action }) => {
-		console.debug("Registering global shortcut", shortcut, ":", action);
-		if (!action || !songControls[action]) {
-			console.warn("Invalid action", action);
-			return;
-		}
+	const shortcutOptions = { global, local };
 
-		_registerGlobalShortcut(win.webContents, shortcut, songControls[action]);
-	});
-	(local || []).forEach(({ shortcut, action }) => {
-		console.debug("Registering local shortcut", shortcut, ":", action);
-		if (!action || !songControls[action]) {
-			console.warn("Invalid action", action);
-			return;
-		}
+	for (const optionType in shortcutOptions) {
+		registerAllShortcuts(shortcutOptions[optionType], optionType);
+	}
 
-		_registerLocalShortcut(win, shortcut, songControls[action]);
-	});
+	function registerAllShortcuts(container, type) {
+		for (const action in container) {
+			if (!container[action]) {
+				continue; // Action accelerator is empty
+			}
+
+			console.debug(`Registering ${type} shortcut`, container[action], ":", action);
+			if (!songControls[action]) {
+				console.warn("Invalid action", action);
+				continue;
+			}
+
+			if (type === "global") {
+				_registerGlobalShortcut(win.webContents, container[action], songControls[action]);
+			} else { // type === "local"
+				_registerLocalShortcut(win, local[action], songControls[action]);
+			}
+		}
+	}
 }
 
 module.exports = registerShortcuts;
