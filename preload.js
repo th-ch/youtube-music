@@ -79,6 +79,9 @@ function onApiLoaded() {
 
 	// Remove upgrade button
 	if (config.get("options.removeUpgradeButton")) {
-		document.querySelector('ytmusic-pivot-bar-item-renderer[tab-id="SPunlimited"]')?.style.display = "none";
+		const upgradeButtton = document.querySelector('ytmusic-pivot-bar-item-renderer[tab-id="SPunlimited"]')
+		if (upgradeButtton) {
+			upgradeButtton.style.display = "none";
+		}
 	}
 }
