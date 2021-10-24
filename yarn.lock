@@ -1518,10 +1518,6 @@
   dependencies:
     "@wdio/logger" "6.10.10"
 
-"YoutubeNonStop@git://github.com/lawfx/YoutubeNonStop.git#v0.9.0":
-  version "0.0.0"
-  resolved "git://github.com/lawfx/YoutubeNonStop.git#7b6b97b31bb3fd2078179660db0fd3fcc7062259"
-
 abab@^2.0.3:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/abab/-/abab-2.0.5.tgz#c0b678fb32d60fc1219c784d6a826fe385aeb79a"
@@ -2959,6 +2955,11 @@ cssstyle@^2.2.0:
   integrity sha512-AZL67abkUzIuvcHqk7c09cezpGNcxUxU4Ioi/05xHk4DQeTkWmGYftIE6ctU6AEt+Gn4n1lDStOtj7FKycP71A==
   dependencies:
     cssom "~0.3.6"
+
+custom-electron-prompt@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/custom-electron-prompt/-/custom-electron-prompt-1.1.0.tgz#611b790047c91f6b532c7861355a0e1f9a81aef2"
+  integrity sha512-YZYmwZnMOdoWROUlJ+rEMHYsp4XJNNqLj6sZnx5aKBJ8cprEjKP4L5wfo6U+yyX/L9fxVOtvYD0Mp8ki5I9Kow==
 
 custom-electron-titlebar@^3.2.7:
   version "3.2.7"

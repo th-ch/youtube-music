@@ -7,6 +7,9 @@ const is = require("electron-is");
 const { getAllPlugins } = require("./plugins/utils");
 const config = require("./config");
 
+const prompt = require("custom-electron-prompt");
+const promptOptions = require("./providers/prompt-options");
+
 // true only if in-app-menu was loaded on launch
 const inAppMenuActive = config.plugins.isEnabled("in-app-menu");
 
@@ -74,6 +77,14 @@ const mainMenuTemplate = (win) => {
 					checked: config.get("options.resumeOnStart"),
 					click: (item) => {
 						config.set("options.resumeOnStart", item.checked);
+					},
+				},
+				{
+					label: "Remove upgrade button",
+					type: "checkbox",
+					checked: config.get("options.removeUpgradeButton"),
+					click: (item) => {
+						config.set("options.removeUpgradeButton", item.checked);
 					},
 				},
 				...(is.windows() || is.linux()
@@ -149,6 +160,14 @@ const mainMenuTemplate = (win) => {
 				{
 					label: "Advanced options",
 					submenu: [
+            	{
+						label: "Proxy",
+						type: "checkbox",
+						checked: !!config.get("options.proxy"),
+						click: (item) => {
+							setProxy(item, win);
+						  },
+					  },
 						{
 							label: "Disable hardware acceleration",
 							type: "checkbox",
@@ -275,3 +294,25 @@ module.exports.setApplicationMenu = (win) => {
 	const menu = Menu.buildFromTemplate(menuTemplate);
 	Menu.setApplicationMenu(menu);
 };
+
+async function setProxy(item, win) {
+	const output = await prompt({
+		title: 'Set Proxy',
+		label: 'Enter Proxy Address: (leave empty to disable)',
+		value: config.get("options.proxy"),
+		type: 'input',
+		inputAttrs: {
+			type: 'url',
+			placeholder: "Example: 'socks5://127.0.0.1:9999"
+		},
+		width: 450,
+		...promptOptions()
+	}, win);
+
+	if (typeof output === "string") {
+		config.set("options.proxy", output);
+		item.checked = output !== "";
+	} else { //user pressed cancel
+		item.checked = !item.checked; //reset checkbox
+	}
+}

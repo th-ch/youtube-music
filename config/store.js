@@ -8,6 +8,27 @@ const migrations = {
 			store.set("plugins.discord.listenAlong", true);
 		}
 	},
+  ">=1.12.0": (store) => {
+		const options = store.get("plugins.shortcuts")
+		let updated = false;
+		for (const optionType of ["global", "local"]) {
+			if (Array.isArray(options[optionType])) {
+				const updatedOptions = {};
+				for (const optionObject of options[optionType]) {
+					if (optionObject.action && optionObject.shortcut) {
+						updatedOptions[optionObject.action] = optionObject.shortcut;
+					}
+				}
+
+				options[optionType] = updatedOptions;
+				updated = true;
+			}
+		}
+
+		if (updated) {
+			store.set("plugins.shortcuts", options);
+		}
+	},
 	">=1.11.0": (store) => {
 		if (store.get("options.resumeOnStart") === undefined) {
 			store.set("options.resumeOnStart", true);
