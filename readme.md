@@ -47,6 +47,7 @@ Install the `youtube-music-bin` package from the AUR. For AUR installation instr
 - **Notifications**: display a [notification](https://user-images.githubusercontent.com/78568641/114102651-63ce0e00-98d0-11eb-9dfe-c5a02bb54f9c.png) when a song starts playing
 - **Playback speed**: listen fast, listen slow! [Adds a slider that controls song speed](https://user-images.githubusercontent.com/61631665/129976003-e55db5ba-bf42-448c-a059-26a009775e68.png)
 - **Precise volume**: customizable volume steps for more comfort, allows controlling the volume precisely using mousewheel
+- **Quality changer**: change video quality
 - **Shortcuts**: use your usual shortcuts (media keys, Ctrl/CMD + F…) to control YouTube Music, you may setup custom global hotkeys for play/pause/next/previous song
 - [**SponsorBlock**](https://github.com/ajayyy/SponsorBlock): skips non-music parts
 - **Taskbar media control**: control app from your [Windows taskbar](https://user-images.githubusercontent.com/78568641/111916130-24a35e80-8a82-11eb-80c8-5021c1aa27f4.png)
