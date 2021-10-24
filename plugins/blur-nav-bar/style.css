@@ -1,0 +1,8 @@
+#nav-bar-background {
+    background: rgba(0, 0, 0, 0.3) !important;
+    backdrop-filter: blur(18px) !important;
+}
+
+#nav-bar-divider {
+    display: none !important;
+}
