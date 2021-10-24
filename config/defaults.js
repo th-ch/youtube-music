@@ -30,6 +30,7 @@ const defaultConfig = {
 		// Disabled plugins
 		shortcuts: {
 			enabled: false,
+			overrideMediaKeys: false,
 		},
 		downloader: {
 			enabled: false,
@@ -45,7 +46,8 @@ const defaultConfig = {
 		discord: {
 			enabled: false,
 			activityTimoutEnabled: true, // if enabled, the discord rich presence gets cleared when music paused after the time specified below
-			activityTimoutTime: 10 * 60 * 1000 // 10 minutes
+			activityTimoutTime: 10 * 60 * 1000, // 10 minutes
+			listenAlong: true, // add a "listen along" button to rich presence
 		},
 		notifications: {
 			enabled: false,
@@ -58,9 +60,8 @@ const defaultConfig = {
 			steps: 1, //percentage of volume to change
 			arrowsShortcut: true, //enable ArrowUp + ArrowDown local shortcuts
 			globalShortcuts: {
-				enabled: false, // enable global shortcuts
-				volumeUp: "Shift+PageUp", // Keybind default can be changed
-				volumeDown: "Shift+PageDown"
+				volumeUp: "",
+				volumeDown: ""
 			},
 			savedVolume: undefined //plugin save volume between session here
 		},

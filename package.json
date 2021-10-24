@@ -52,9 +52,8 @@
 		"build:mac": "yarn run clean && electron-builder --mac",
 		"build:win": "yarn run clean && electron-builder --win",
 		"lint": "xo",
-		"plugins": "yarn run plugin:adblocker && yarn run plugin:autoconfirm",
+		"plugins": "yarn run plugin:adblocker",
 		"plugin:adblocker": "rimraf plugins/adblocker/ad-blocker-engine.bin && node plugins/adblocker/blocker.js",
-		"plugin:autoconfirm": "yarn run generate:package YoutubeNonStop",
 		"release:linux": "yarn run clean && electron-builder --linux -p always -c.snap.publish=github",
 		"release:mac": "yarn run clean && electron-builder --mac -p always",
 		"release:win": "yarn run clean && electron-builder --win -p always"
@@ -64,12 +63,12 @@
 		"npm": "Please use yarn and not npm"
 	},
 	"dependencies": {
-		"@cliqz/adblocker-electron": "^1.22.5",
+		"@cliqz/adblocker-electron": "^1.22.6",
 		"@ffmpeg/core": "^0.10.0",
 		"@ffmpeg/ffmpeg": "^0.10.0",
-		"YoutubeNonStop": "git://github.com/lawfx/YoutubeNonStop.git#v0.9.0",
-		"async-mutex": "^0.3.1",
+		"async-mutex": "^0.3.2",
 		"browser-id3-writer": "^4.4.0",
+		"custom-electron-prompt": "^1.1.0",
 		"chokidar": "^3.5.2",
 		"custom-electron-titlebar": "^3.2.7",
 		"discord-rpc": "^3.2.0",
@@ -83,13 +82,13 @@
 		"filenamify": "^4.3.0",
 		"md5": "^2.3.0",
 		"mpris-service": "^2.1.2",
-		"node-fetch": "^2.6.1",
+		"node-fetch": "^2.6.2",
 		"node-notifier": "^9.0.1",
 		"ytdl-core": "^4.9.1",
 		"ytpl": "^2.2.3"
 	},
 	"devDependencies": {
-		"electron": "^12.0.8",
+		"electron": "^12.1.0",
 		"electron-builder": "^22.10.5",
 		"electron-devtools-installer": "^3.1.1",
 		"electron-icon-maker": "0.0.5",
