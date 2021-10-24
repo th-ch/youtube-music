@@ -39,7 +39,7 @@ Install the `youtube-music-bin` package from the AUR. For AUR installation instr
 - **Disable autoplay**: makes every song start in "paused" mode
 - [**Discord**](https://discord.com/): show your friends what you listen to with [Rich Presence](https://user-images.githubusercontent.com/28219076/104362104-a7a0b980-5513-11eb-9744-bb89eabe0016.png)
 - **Downloader**: downloads MP3 [directly from the interface](https://user-images.githubusercontent.com/61631665/129977677-83a7d067-c192-45e1-98ae-b5a4927393be.png) [(youtube-dl)](https://github.com/ytdl-org/youtube-dl)
-- **Hide video player**: no video in the interface when playing music
+- **Video Toggle**: Adds a button to switch between Video/Song modes. can also optionally remove the whole video tab (like the old hide-video-player)
 - **In-app menu**: [gives bars a fancy, dark look](https://user-images.githubusercontent.com/78568641/112215894-923dbf00-8c29-11eb-95c3-3ce15db27eca.png)
 - [**Last.fm**](https://www.last.fm/): scrobbles support
 - **Navigation**: next/back navigation arrows directly integrated in the interface, like in your favorite browser
@@ -47,7 +47,7 @@ Install the `youtube-music-bin` package from the AUR. For AUR installation instr
 - **Notifications**: display a [notification](https://user-images.githubusercontent.com/78568641/114102651-63ce0e00-98d0-11eb-9dfe-c5a02bb54f9c.png) when a song starts playing
 - **Playback speed**: listen fast, listen slow! [Adds a slider that controls song speed](https://user-images.githubusercontent.com/61631665/129976003-e55db5ba-bf42-448c-a059-26a009775e68.png)
 - **Precise volume**: customizable volume steps for more comfort, allows controlling the volume precisely using mousewheel
-- **Quality changer**: change video quality
+- **Quality changer**: Adds a button on the video overlay that allows changing video quality
 - **Shortcuts**: use your usual shortcuts (media keys, Ctrl/CMD + F…) to control YouTube Music, you may setup custom global hotkeys for play/pause/next/previous song
 - [**SponsorBlock**](https://github.com/ajayyy/SponsorBlock): skips non-music parts
 - **Taskbar media control**: control app from your [Windows taskbar](https://user-images.githubusercontent.com/78568641/111916130-24a35e80-8a82-11eb-80c8-5021c1aa27f4.png)

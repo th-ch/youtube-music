@@ -77,6 +77,10 @@ const defaultConfig = {
 				"music_offtopic",
 			],
 		},
+		"video-toggle": {
+			enabled: false,
+			forceHide: false,
+		},
 	},
 };
 
