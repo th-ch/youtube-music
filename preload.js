@@ -76,4 +76,9 @@ function listenForApiLoad() {
 
 function onApiLoaded() {
 	document.dispatchEvent(new CustomEvent('apiLoaded', { detail: api }));
+
+	// Remove upgrade button
+	if (config.get("options.removeUpgradeButton")) {
+		document.querySelector('ytmusic-pivot-bar-item-renderer[tab-id="SPunlimited"]')?.style.display = "none";
+	}
 }

@@ -79,6 +79,14 @@ const mainMenuTemplate = (win) => {
 						config.set("options.resumeOnStart", item.checked);
 					},
 				},
+				{
+					label: "Remove upgrade button",
+					type: "checkbox",
+					checked: config.get("options.removeUpgradeButton"),
+					click: (item) => {
+						config.set("options.removeUpgradeButton", item.checked);
+					},
+				},
 				...(is.windows() || is.linux()
 					? [
 						{
