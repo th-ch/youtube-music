@@ -1,9 +1,11 @@
 const { globalShortcut } = require("electron");
 const is = require("electron-is");
 const electronLocalshortcut = require("electron-localshortcut");
-
 const getSongControls = require("../../providers/song-controls");
 const { setupMPRIS } = require("./mpris");
+const registerCallback = require("../../providers/song-info");
+
+let player;
 
 function _registerGlobalShortcut(webContents, shortcut, action) {
 	globalShortcut.register(shortcut, () => {
@@ -29,18 +31,50 @@ function registerShortcuts(win, options) {
 
 	_registerLocalShortcut(win, "CommandOrControl+F", search);
 	_registerLocalShortcut(win, "CommandOrControl+L", search);
+	registerCallback(songInfo => {
+		if (player) {
+			player.metadata = {
+				'mpris:length': songInfo.songDuration * 60 * 1000 * 1000, // In microseconds
+				'mpris:artUrl': songInfo.imageSrc,
+				'xesam:title': songInfo.title,
+				'xesam:artist': songInfo.artist
+			};
+			if (!songInfo.isPaused) {
+				player.playbackStatus = "Playing"
+			}
+		}
+	}
+	)
 
 	if (is.linux()) {
 		try {
-			const player = setupMPRIS();
+			const MPRISPlayer = setupMPRIS();
 
-			player.on("raise", () => {
+			MPRISPlayer.on("raise", () => {
 				win.setSkipTaskbar(false);
 				win.show();
 			});
-			player.on("playpause", playPause);
-			player.on("next", next);
-			player.on("previous", previous);
+			MPRISPlayer.on("play", () => {
+				if (MPRISPlayer.playbackStatus !== 'Playing') {
+					MPRISPlayer.playbackStatus = 'Playing';
+					playPause()
+				}
+			});
+			MPRISPlayer.on("pause", () => {
+				if (MPRISPlayer.playbackStatus !== 'Paused') {
+					MPRISPlayer.playbackStatus = 'Paused';
+					playPause()
+				}
+			});
+			MPRISPlayer.on("next", () => {
+				next()
+			});
+			MPRISPlayer.on("previous", () => {
+				previous()
+			});
+
+			player = MPRISPlayer
+
 		} catch (e) {
 			console.warn("Error in MPRIS", e);
 		}
