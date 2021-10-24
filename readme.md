@@ -35,6 +35,7 @@ Install the `youtube-music-bin` package from the AUR. For AUR installation instr
 
 ## Available plugins:
 - **Ad Blocker**: block all ads and tracking out of the box
+- **Audio compressor**: apply compression to audio (lowers the volume of the loudest parts of the signal and raises the volume of the softest parts)
 - **Blur navigation bar**: makes navigation bar transparent and blurry
 - **Disable autoplay**: makes every song start in "paused" mode
 - [**Discord**](https://discord.com/): show your friends what you listen to with [Rich Presence](https://user-images.githubusercontent.com/28219076/104362104-a7a0b980-5513-11eb-9744-bb89eabe0016.png)
