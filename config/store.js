@@ -8,8 +8,8 @@ const migrations = {
 			store.set("plugins.discord.listenAlong", true);
 		}
 	},
-  ">=1.12.0": (store) => {
-		const options = store.get("plugins.shortcuts")
+	">=1.12.0": (store) => {
+		const options = store.get("plugins.shortcuts");
 		let updated = false;
 		for (const optionType of ["global", "local"]) {
 			if (Array.isArray(options[optionType])) {
