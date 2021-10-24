@@ -24,10 +24,10 @@ function overrideAddEventListener() {
 
 module.exports = () => {
     overrideAddEventListener();
-    // Restore original function after did-finish-load to avoid keeping Element.prototype altered
-    ipcRenderer.once("restoreAddEventListener", () => { // Called from main to make sure page is completly loaded
+    // Restore original function after finished loading to avoid keeping Element.prototype altered
+    window.addEventListener('load', () => {
         Element.prototype.addEventListener = Element.prototype._addEventListener;
         Element.prototype._addEventListener = undefined;
         ignored = undefined;
-    });
+    }, { once: true });
 };
