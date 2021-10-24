@@ -2,6 +2,8 @@ const { ipcMain, nativeImage } = require("electron");
 
 const fetch = require("node-fetch");
 
+const config = require("../config");
+
 // Grab the progress using the selector
 const getProgress = async (win) => {
 	// Get current value of the progressbar element
@@ -55,6 +57,9 @@ const handleData = async (responseText, win) => {
 	songInfo.image = await getImage(songInfo.imageSrc);
 	songInfo.uploadDate = data?.microformat?.microformatDataRenderer?.uploadDate;
 	songInfo.url = data?.microformat?.microformatDataRenderer?.urlCanonical?.split("&")[0];
+
+	// used for options.resumeOnStart
+	config.set("url", data?.microformat?.microformatDataRenderer?.urlCanonical);
 
 	win.webContents.send("update-song-info", JSON.stringify(songInfo));
 };
