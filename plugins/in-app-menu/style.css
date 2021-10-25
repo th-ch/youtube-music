@@ -4,10 +4,10 @@
 	font-size: 14px !important;
 }
 
-/* fixes scrollbar positioning relative to nav bar + its opacity */
+/* fixes nav-bar-background opacity bug and allows clicking scrollbar through it */
 #nav-bar-background {
-	right: 15px !important;
 	opacity: 1 !important;
+	pointer-events: none;
 }
 
 /* remove window dragging for nav bar (conflict with titlebar drag) */
