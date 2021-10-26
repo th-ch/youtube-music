@@ -47,7 +47,7 @@ Install the `youtube-music-bin` package from the AUR. For AUR installation instr
 - **Notifications**: display a [notification](https://user-images.githubusercontent.com/78568641/114102651-63ce0e00-98d0-11eb-9dfe-c5a02bb54f9c.png) when a song starts playing
 - **Playback speed**: listen fast, listen slow! [Adds a slider that controls song speed](https://user-images.githubusercontent.com/61631665/129976003-e55db5ba-bf42-448c-a059-26a009775e68.png)
 - **Precise volume**: customizable volume steps for more comfort, allows controlling the volume precisely using mousewheel
-- **Quality changer**: Adds a button on the video overlay that allows changing video quality
+- **Quality changer**: Allows changing the video quality with a [button](https://user-images.githubusercontent.com/78568641/138574366-70324a5e-2d64-4f6a-acdd-dc2a2b9cecc5.png) on the video overlay
 - **Shortcuts**: Allows setting global hotkeys for playback (play/pause/next/previous) + disable [media osd](https://user-images.githubusercontent.com/84923831/128601225-afa38c1f-dea8-4209-9f72-0f84c1dd8b54.png) by overriding media keys + enable Ctrl/CMD + F to search + enable linux mpris support for mediakeys + [custom hotkeys](https://github.com/Araxeus/youtube-music/blob/1e591d6a3df98449bcda6e63baab249b28026148/providers/song-controls.js#L13-L50) for [advanced users](https://github.com/th-ch/youtube-music/issues/106#issuecomment-952156902)
 - [**SponsorBlock**](https://github.com/ajayyy/SponsorBlock): skips non-music parts
 - **Taskbar media control**: control playback from your [Windows taskbar](https://user-images.githubusercontent.com/78568641/111916130-24a35e80-8a82-11eb-80c8-5021c1aa27f4.png)
