@@ -348,10 +348,10 @@ app.on("ready", () => {
 		});
 	}
 
-	if(config.get("options.hideMenu") && !config.get("options.hideMenuWarned")) {
+	if (config.get("options.hideMenu") && !config.get("options.hideMenuWarned")) {
 		electron.dialog.showMessageBox(mainWindow, {
-			type: 'info',
-			title: 'Hide Menu Enabled', message: "Menu is hidden, use 'Alt' to show it (or 'Escape' if using in-app-menu)"
+			type: 'info', title: 'Hide Menu Enabled',
+			message: "Menu is hidden, use 'Alt' to show it (or 'Escape' if using in-app-menu)"
 		});
 		config.set("options.hideMenuWarned", true);
 	}
