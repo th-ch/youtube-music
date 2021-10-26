@@ -42,6 +42,7 @@ Install the `youtube-music-bin` package from the AUR. For AUR installation instr
 - **Downloader**: downloads MP3 [directly from the interface](https://user-images.githubusercontent.com/61631665/129977677-83a7d067-c192-45e1-98ae-b5a4927393be.png) [(youtube-dl)](https://github.com/ytdl-org/youtube-dl)
 - **Hide video player**: no video in the interface when playing music
 - **In-app menu**: [gives bars a fancy, dark look](https://user-images.githubusercontent.com/78568641/112215894-923dbf00-8c29-11eb-95c3-3ce15db27eca.png)
+  > (see [this post](https://github.com/th-ch/youtube-music/issues/410#issuecomment-952060709) if you have problem accessing the menu after enabling this plugin and hide-menu option)
 - [**Last.fm**](https://www.last.fm/): scrobbles support
 - **Navigation**: next/back navigation arrows directly integrated in the interface, like in your favorite browser
 - **No Google Login**: remove Google login buttons and links from the interface
@@ -54,6 +55,8 @@ Install the `youtube-music-bin` package from the AUR. For AUR installation instr
 - **Taskbar media control**: control app from your [Windows taskbar](https://user-images.githubusercontent.com/78568641/111916130-24a35e80-8a82-11eb-80c8-5021c1aa27f4.png)
 - **Touchbar**: custom TouchBar layout for macOS
 - **Auto confirm when paused** (Always Enabled): disable the ["Continue Watching?"](https://user-images.githubusercontent.com/61631665/129977894-01c60740-7ec6-4bf0-9a2c-25da24491b0e.png) popup that pause music after a certain time
+
+> If using `Hide Menu` option - you can show the menu with the `alt` key (or `escape` if using the in-app-menu plugin)
 
 ## Dev
 
