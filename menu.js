@@ -1,7 +1,7 @@
 const { existsSync } = require("fs");
 const path = require("path");
 
-const { app, Menu } = require("electron");
+const { app, Menu, dialog } = require("electron");
 const is = require("electron-is");
 
 const { getAllPlugins } = require("./plugins/utils");
@@ -95,6 +95,11 @@ const mainMenuTemplate = (win) => {
 							checked: config.get("options.hideMenu"),
 							click: (item) => {
 								config.set("options.hideMenu", item.checked);
+								if(item.checked && !config.get("options.hideMenuWarned")) {
+									dialog.showMessageBox(win, {
+										type: 'info',
+										title: 'Hide Menu Enabled', message: "Menu will be hidden on next launch, use 'Alt' to show it (or 'Escape' if using in-app-menu)"});
+								}
 							},
 						},
 					]
