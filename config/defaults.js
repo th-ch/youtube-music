@@ -28,6 +28,9 @@ const defaultConfig = {
 			additionalBlockLists: [], // Additional list of filters, e.g "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters.txt"
 		},
 		// Disabled plugins
+		"audio-compressor": {
+			"enabled": false
+		},
 		shortcuts: {
 			enabled: false,
 			overrideMediaKeys: false,
