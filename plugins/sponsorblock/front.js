@@ -14,7 +14,7 @@ module.exports = () => {
 			currentSegments.forEach((segment) => {
 				if (
 					e.target.currentTime >= segment[0] &&
-					e.target.currentTime <= segment[1]
+					e.target.currentTime < segment[1]
 				) {
 					e.target.currentTime = segment[1];
 					if (is.dev()) {
