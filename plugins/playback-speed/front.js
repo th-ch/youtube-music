@@ -8,6 +8,7 @@ const slider = ElementFromFile(templatePath(__dirname, "slider.html"));
 const roundToTwo = (n) => Math.round( n * 1e2 ) / 1e2;
 
 const MIN_PLAYBACK_SPEED = 0.07;
+const MAX_PLAYBACK_SPEED = 16;
 
 let playbackSpeed = 1;
 
@@ -61,8 +62,9 @@ const setupSliderListeners = () => {
 		}
 		// e.deltaY < 0 means wheel-up
 		playbackSpeed = roundToTwo(e.deltaY < 0 ? 
-			playbackSpeed + 0.01 :
-			Math.max(playbackSpeed - 0.01, MIN_PLAYBACK_SPEED));
+			math.min(playbackSpeed + 0.01, MAX_PLAYBACK_SPEED) :
+			Math.max(playbackSpeed - 0.01, MIN_PLAYBACK_SPEED)
+		);
 
 		updatePlayBackSpeed();
 		// update slider position
