@@ -1,13 +1,6 @@
 const fetch = require("node-fetch");
 const is = require("electron-is");
 
-// see https://github.com/node-fetch/node-fetch/issues/568#issuecomment-932200523
-// will not be needed if project's electron version >= v15.1.0 (https://github.com/node-fetch/node-fetch/issues/568#issuecomment-932435180)
-const https = require("https");
-const agent = new https.Agent({
-	rejectUnauthorized: false,
-});
-
 const defaultConfig = require("../../config/defaults");
 const registerCallback = require("../../providers/song-info");
 const { sortSegments } = require("./segments");
@@ -44,7 +37,6 @@ const fetchSegments = async (apiURL, categories) => {
 				"Content-Type": "application/json",
 			},
 			redirect: "follow",
-			agent // fixes error: 'CERT_HAS_EXPIRED'
 		});
 		if (resp.status !== 200) {
 			return [];
