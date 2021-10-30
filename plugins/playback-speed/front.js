@@ -1,83 +1,77 @@
-const {
-	getSongMenu,
-	watchDOMElement,
-} = require("../../providers/dom-elements");
+const {	getSongMenu } = require("../../providers/dom-elements");
 const { ElementFromFile, templatePath } = require("../utils");
+
+function $(selector) { return document.querySelector(selector); }
 
 const slider = ElementFromFile(templatePath(__dirname, "slider.html"));
 
 const MIN_PLAYBACK_SPEED = 0.25;
 const MAX_PLAYBACK_SPEED = 2;
 
-let videoElement;
-let playbackSpeedPercentage = 50; // = Playback speed of 1
+let playbackSpeed = 1;
 
-const computePlayBackSpeed = () => {
-	if (playbackSpeedPercentage <= 50) {
+const computePlayBackSpeed = (playbackSpeedPercentage) => {
+	if (playbackSpeedPercentage <= 50) {  // = Playback speed <= 1
 		// Slow down video by setting a playback speed between MIN_PLAYBACK_SPEED and 1
 		return (
 			MIN_PLAYBACK_SPEED +
 			((1 - MIN_PLAYBACK_SPEED) / 50) * playbackSpeedPercentage
-		);
+		).toFixed(2);
 	}
 
 	// Accelerate video by setting a playback speed between 1 and MAX_PLAYBACK_SPEED
-	return 1 + ((MAX_PLAYBACK_SPEED - 1) / 50) * (playbackSpeedPercentage - 50);
+	return (1 + ((MAX_PLAYBACK_SPEED - 1) / 50) * (playbackSpeedPercentage - 50)).toFixed(2);
 };
 
 const updatePlayBackSpeed = () => {
-	const playbackSpeed = Math.round(computePlayBackSpeed() * 100) / 100;
+	$('video').playbackRate = playbackSpeed;
 
-	if (!videoElement || videoElement.playbackRate === playbackSpeed) {
-		return;
-	}
-
-	videoElement.playbackRate = playbackSpeed;
-
-	const playbackSpeedElement = document.querySelector("#playback-speed-value");
+	const playbackSpeedElement = $("#playback-speed-value");
 	if (playbackSpeedElement) {
 		playbackSpeedElement.innerHTML = playbackSpeed;
 	}
 };
 
+let menu;
+
+const observePopupContainer = () => {
+	const observer = new MutationObserver(() => {
+		if (!menu) {
+			menu = getSongMenu();
+		}
+
+		if (menu && !menu.contains(slider)) {
+			menu.prepend(slider);
+			$('#playback-speed-slider').addEventListener("immediate-value-change", () => {
+				playbackSpeed = computePlayBackSpeed($('#playback-speed-slider #sliderBar').value);
+				if (isNaN(playbackSpeed)) {
+					playbackSpeed = 1;
+				}
+				updatePlayBackSpeed();
+			})
+		}
+	});
+
+	observer.observe($('ytmusic-popup-container'), {
+		childList: true,
+		subtree: true,
+	});
+};
+
+const observeVideo = () => {
+	$('video').addEventListener('ratechange', forcePlaybackRate)
+	$('video').addEventListener('loadeddata', forcePlaybackRate)
+}
+
+function forcePlaybackRate (e) {
+	if (e.target.playbackRate !== playbackSpeed) {
+		e.target.playbackRate = playbackSpeed
+	}
+}
+
 module.exports = () => {
-	watchDOMElement(
-		"video",
-		(document) => document.querySelector("video"),
-		(element) => {
-			videoElement = element;
-			updatePlayBackSpeed();
-		}
-	);
-
-	watchDOMElement(
-		"menu",
-		(document) => getSongMenu(document),
-		(menuElement) => {
-			if (!menuElement.contains(slider)) {
-				menuElement.prepend(slider);
-			}
-
-			const playbackSpeedElement = document.querySelector(
-				"#playback-speed-slider #sliderKnob .slider-knob-inner"
-			);
-
-			const playbackSpeedObserver = new MutationObserver((mutations) => {
-				mutations.forEach(function (mutation) {
-					if (mutation.type == "attributes") {
-						const value = playbackSpeedElement.getAttribute("value");
-						playbackSpeedPercentage = parseInt(value, 10);
-						if (isNaN(playbackSpeedPercentage)) {
-							playbackSpeedPercentage = 50;
-						}
-						updatePlayBackSpeed();
-						return;
-					}
-				});
-			});
-			playbackSpeedObserver.observe(playbackSpeedElement, {
-				attributes: true,
-			});
-		}
-	);
+	document.addEventListener('apiLoaded', e => {
+		observePopupContainer();
+		observeVideo();
+	})
 };
