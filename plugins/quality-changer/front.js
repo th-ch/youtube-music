@@ -9,7 +9,7 @@ const qualitySettingsButton = ElementFromFile(
 
 
 module.exports = () => {
-    document.addEventListener('apiLoaded', setup);
+    document.addEventListener('apiLoaded', setup, { once: true, passive: true});
 }
 
 function setup(event) {
