@@ -23,5 +23,5 @@ module.exports = () => {
 				}
 			});
 		})
-	}, { once: true, passive: true})
+	}, { once: true, passive: true })
 };

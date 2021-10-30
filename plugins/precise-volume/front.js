@@ -9,7 +9,7 @@ module.exports = (options) => {
 	document.addEventListener('apiLoaded', e => {
 		api = e.detail;
 		firstRun(options);
-	}, { once: true, passive: true})
+	}, { once: true, passive: true })
 };
 
 /** Restore saved volume and setup tooltip */

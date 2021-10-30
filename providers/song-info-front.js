@@ -15,5 +15,5 @@ module.exports = () => {
 			const data = e.detail.getPlayerResponse();
 			ipcRenderer.send("song-info-request", JSON.stringify(data));
 		});
-	}, { once: true, passive: true})
+	}, { once: true, passive: true })
 };
