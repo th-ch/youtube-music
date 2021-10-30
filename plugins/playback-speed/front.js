@@ -5,6 +5,8 @@ function $(selector) { return document.querySelector(selector); }
 
 const slider = ElementFromFile(templatePath(__dirname, "slider.html"));
 
+const roundToTwo = (n) => Math.round( n * 1e2 ) / 1e2;
+
 const MIN_PLAYBACK_SPEED = 0.25;
 const MAX_PLAYBACK_SPEED = 2;
 
@@ -20,7 +22,7 @@ const computePlayBackSpeed = (playbackSpeedPercentage) => {
 	}
 
 	// Accelerate video by setting a playback speed between 1 and MAX_PLAYBACK_SPEED
-	return (1 + ((MAX_PLAYBACK_SPEED - 1) / 50) * (playbackSpeedPercentage - 50)).toFixed(2);
+	return roundToTwo(1 + ((MAX_PLAYBACK_SPEED - 1) / 50) * (playbackSpeedPercentage - 50));
 };
 
 const updatePlayBackSpeed = () => {
@@ -42,13 +44,6 @@ const observePopupContainer = () => {
 
 		if (menu && !menu.contains(slider)) {
 			menu.prepend(slider);
-			$('#playback-speed-slider').addEventListener("immediate-value-change", () => {
-				playbackSpeed = computePlayBackSpeed($('#playback-speed-slider #sliderBar').value);
-				if (isNaN(playbackSpeed)) {
-					playbackSpeed = 1;
-				}
-				updatePlayBackSpeed();
-			})
 		}
 	});
 
@@ -63,6 +58,26 @@ const observeVideo = () => {
 	$('video').addEventListener('loadeddata', forcePlaybackRate)
 }
 
+const setupSliderListeners = () => {
+	slider.addEventListener('immediate-value-change', () => {
+		playbackSpeed = computePlayBackSpeed($('#playback-speed-slider #sliderBar').value);
+		if (isNaN(playbackSpeed)) {
+			playbackSpeed = 1;
+		}
+		updatePlayBackSpeed();
+	})
+	slider.addEventListener('wheel', e => {
+		e.preventDefault();
+		if (isNaN(playbackSpeed)) {
+			playbackSpeed = 1;
+		}
+		// e.deltaY < 0 means wheel-up 0.01
+		playbackSpeed = roundToTwo(e.deltaY < 0 ? playbackSpeed + 0.01 : playbackSpeed - 0.01);
+		updatePlayBackSpeed();
+		$('#playback-speed-slider').value = playbackSpeed * 50;
+	})
+}
+
 function forcePlaybackRate (e) {
 	if (e.target.playbackRate !== playbackSpeed) {
 		e.target.playbackRate = playbackSpeed
@@ -73,5 +88,6 @@ module.exports = () => {
 	document.addEventListener('apiLoaded', e => {
 		observePopupContainer();
 		observeVideo();
+		setupSliderListeners();
 	}, { once: true, passive: true })
 };
