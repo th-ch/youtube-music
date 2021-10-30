@@ -73,5 +73,5 @@ module.exports = () => {
 	document.addEventListener('apiLoaded', e => {
 		observePopupContainer();
 		observeVideo();
-	})
+	}, { once: true, passive: true })
 };
