@@ -67,11 +67,12 @@ const setupSliderListeners = () => {
 		updatePlayBackSpeed();
 	})
 	slider.addEventListener('wheel', e => {
+		if (playbackSpeed <= 0.07) return; // lowest possible speed
 		e.preventDefault();
 		if (isNaN(playbackSpeed)) {
 			playbackSpeed = 1;
 		}
-		// e.deltaY < 0 means wheel-up 0.01
+		// e.deltaY < 0 means wheel-up
 		playbackSpeed = roundToTwo(e.deltaY < 0 ? playbackSpeed + 0.01 : playbackSpeed - 0.01);
 		updatePlayBackSpeed();
 		$('#playback-speed-slider').value = playbackSpeed * 50;
