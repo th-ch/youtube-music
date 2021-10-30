@@ -1,5 +1,5 @@
 module.exports = () => {
-	document.addEventListener('apiLoaded', e => {
+	document.addEventListener('apiLoaded', () => {
 		document.querySelector('video').addEventListener('loadeddata', e => {
 			e.target.pause();
 		})
