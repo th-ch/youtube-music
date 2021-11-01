@@ -7,7 +7,7 @@ function $(selector) { return document.querySelector(selector); }
 let options;
 
 const switchButtonDiv = ElementFromFile(
-    templatePath(__dirname, "buttonTemplate.html")
+    templatePath(__dirname, "button_template.html")
 );
 
 
