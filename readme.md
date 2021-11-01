@@ -40,7 +40,6 @@ Install the `youtube-music-bin` package from the AUR. For AUR installation instr
 - **Disable autoplay**: makes every song start in "paused" mode
 - [**Discord**](https://discord.com/): show your friends what you listen to with [Rich Presence](https://user-images.githubusercontent.com/28219076/104362104-a7a0b980-5513-11eb-9744-bb89eabe0016.png)
 - **Downloader**: downloads MP3 [directly from the interface](https://user-images.githubusercontent.com/61631665/129977677-83a7d067-c192-45e1-98ae-b5a4927393be.png) [(youtube-dl)](https://github.com/ytdl-org/youtube-dl)
-- **Video Toggle**: Adds a button to switch between Video/Song mode. can also optionally remove the whole video tab
 - **In-app menu**: [gives bars a fancy, dark look](https://user-images.githubusercontent.com/78568641/112215894-923dbf00-8c29-11eb-95c3-3ce15db27eca.png)
   > (see [this post](https://github.com/th-ch/youtube-music/issues/410#issuecomment-952060709) if you have problem accessing the menu after enabling this plugin and hide-menu option)
 - [**Last.fm**](https://www.last.fm/): scrobbles support
@@ -54,6 +53,10 @@ Install the `youtube-music-bin` package from the AUR. For AUR installation instr
 - [**SponsorBlock**](https://github.com/ajayyy/SponsorBlock): skips non-music parts
 - **Taskbar media control**: control playback from your [Windows taskbar](https://user-images.githubusercontent.com/78568641/111916130-24a35e80-8a82-11eb-80c8-5021c1aa27f4.png)
 - **Touchbar**: custom TouchBar layout for macOS
+- **Video Toggle**: Adds a button to switch between Video/Song mode. can also optionally remove the whole video tab
+
+---
+
 - **Auto confirm when paused** (Always Enabled): disable the ["Continue Watching?"](https://user-images.githubusercontent.com/61631665/129977894-01c60740-7ec6-4bf0-9a2c-25da24491b0e.png) popup that pause music after a certain time
 
 > If using `Hide Menu` option - you can show the menu with the `alt` key (or `escape` if using the in-app-menu plugin)
