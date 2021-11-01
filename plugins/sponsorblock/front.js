@@ -10,7 +10,9 @@ module.exports = () => {
 	});
 
 	document.addEventListener('apiLoaded', () => {
-		document.querySelector('video').addEventListener('timeupdate', e => {
+		const video = document.querySelector('video');
+
+		video.addEventListener('timeupdate', e => {
 			currentSegments.forEach((segment) => {
 				if (
 					e.target.currentTime >= segment[0] &&
@@ -23,5 +25,7 @@ module.exports = () => {
 				}
 			});
 		})
+		// Reset segments on song end
+		video.addEventListener('emptied', () => currentSegments = []);
 	}, { once: true, passive: true })
 };
