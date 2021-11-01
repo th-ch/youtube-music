@@ -52,6 +52,10 @@ function changeDisplay(showVideo) {
 
 function videoStarted() {
     if (videoExist()) {
+        const thumbnails = $('#movie_player').getPlayerResponse()?.videoDetails?.thumbnail?.thumbnails;
+        if (thumbnails && thumbnails.length > 0) {
+            $('#song-image img').src = thumbnails[thumbnails.length-1].url;
+        }
         switchButtonDiv.style.display = "initial";
         if (!options.hideVideo && $('#song-video.ytmusic-player').style.display === "none") {
             changeDisplay(true);
@@ -60,7 +64,6 @@ function videoStarted() {
         changeDisplay(false);
         switchButtonDiv.style.display = "none";
     }
-    $('#song-image img').src = $('#movie_player').getPlayerResponse()?.videoDetails?.thumbnail?.thumbnails?.pop()?.url;
 }
 
 function videoExist() {
