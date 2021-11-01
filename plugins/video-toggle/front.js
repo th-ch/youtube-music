@@ -14,7 +14,7 @@ const switchButtonDiv = ElementFromFile(
 module.exports = (_options) => {
     if (_options.forceHide) return;
     options = _options;
-    document.addEventListener('apiLoaded', setup);
+    document.addEventListener('apiLoaded', setup, { once: true, passive: true });
 }
 
 function setup() {
