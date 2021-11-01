@@ -341,6 +341,14 @@ app.on("ready", () => {
 		});
 	}
 
+	if (config.get("options.hideMenu") && !config.get("options.hideMenuWarned")) {
+		electron.dialog.showMessageBox(mainWindow, {
+			type: 'info', title: 'Hide Menu Enabled',
+			message: "Menu is hidden, use 'Alt' to show it (or 'Escape' if using in-app-menu)"
+		});
+		config.set("options.hideMenuWarned", true);
+	}
+
 	// Optimized for Mac OS X
 	if (is.macOS() && !config.get("options.appVisible")) {
 		app.dock.hide();
