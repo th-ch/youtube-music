@@ -17,16 +17,15 @@ module.exports = () => {
 
 	// Increases the right margin of Navbar background when the scrollbar is visible to avoid blocking it (z-index doesn't affect it)
 	document.addEventListener('apiLoaded', () => {
-		setNavbarMargin()
-		const playPageObserver = new MutationObserver(() => {
-			setNavbarMargin();
-		});
+		setNavbarMargin();
+		const playPageObserver = new MutationObserver(setNavbarMargin);
 		playPageObserver.observe($('ytmusic-app-layout'), { attributeFilter: ['player-page-open_', 'playerPageOpen_'] })
-	})
+	}, { once: true, passive: true })
 };
 
 function setNavbarMargin() {
-	$('ytmusic-app-layout').playerPageOpen_ ?
-		$('#nav-bar-background').style.right = '0px' :
-		$('#nav-bar-background').style.right = '12px';
+	$('#nav-bar-background').style.right =
+		$('ytmusic-app-layout').playerPageOpen_ ?
+			'0px' :
+			'12px';
 }
