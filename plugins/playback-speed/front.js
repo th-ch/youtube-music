@@ -1,11 +1,11 @@
-const {	getSongMenu } = require("../../providers/dom-elements");
+const { getSongMenu } = require("../../providers/dom-elements");
 const { ElementFromFile, templatePath } = require("../utils");
 
 function $(selector) { return document.querySelector(selector); }
 
 const slider = ElementFromFile(templatePath(__dirname, "slider.html"));
 
-const roundToTwo = (n) => Math.round( n * 1e2 ) / 1e2;
+const roundToTwo = (n) => Math.round(n * 1e2) / 1e2;
 
 const MIN_PLAYBACK_SPEED = 0.07;
 const MAX_PLAYBACK_SPEED = 16;
@@ -61,8 +61,8 @@ const setupSliderListeners = () => {
 			playbackSpeed = 1;
 		}
 		// e.deltaY < 0 means wheel-up
-		playbackSpeed = roundToTwo(e.deltaY < 0 ? 
-			math.min(playbackSpeed + 0.01, MAX_PLAYBACK_SPEED) :
+		playbackSpeed = roundToTwo(e.deltaY < 0 ?
+			Math.min(playbackSpeed + 0.01, MAX_PLAYBACK_SPEED) :
 			Math.max(playbackSpeed - 0.01, MIN_PLAYBACK_SPEED)
 		);
 
@@ -72,7 +72,7 @@ const setupSliderListeners = () => {
 	})
 }
 
-function forcePlaybackRate (e) {
+function forcePlaybackRate(e) {
 	if (e.target.playbackRate !== playbackSpeed) {
 		e.target.playbackRate = playbackSpeed
 	}
