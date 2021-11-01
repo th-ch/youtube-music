@@ -9,6 +9,11 @@ const migrations = {
 		) {
 			store.set("plugins.precise-volume.globalShortcuts", {});
 		}
+
+		if (store.get("plugins.hide-video-player.enabled")) {
+			store.delete("plugins.hide-video-player");
+			store.set("plugins.video-toggle.enabled", true);
+		}
 	},
 	">=1.13.0": (store) => {
 		if (store.get("plugins.discord.listenAlong") === undefined) {
