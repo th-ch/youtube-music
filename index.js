@@ -197,13 +197,6 @@ app.once("browser-window-created", (event, win) => {
 		event.preventDefault();
 	});
 
-	win.webContents.on("did-navigate-in-page", () => {
-		const url = win.webContents.getURL();
-		if (url.startsWith("https://music.youtube.com")) {
-			config.set("url", url);
-		}
-	});
-
 	win.webContents.on("will-navigate", (_, url) => {
 		if (url.startsWith("https://accounts.google.com")) {
 			// Force user-agent "Firefox Windows" for Google OAuth to work
