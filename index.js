@@ -197,13 +197,6 @@ app.once("browser-window-created", (event, win) => {
 		event.preventDefault();
 	});
 
-	win.webContents.on("did-navigate-in-page", () => {
-		const url = win.webContents.getURL();
-		if (url.startsWith("https://music.youtube.com")) {
-			config.set("url", url);
-		}
-	});
-
 	win.webContents.on("will-navigate", (_, url) => {
 		if (url.startsWith("https://accounts.google.com")) {
 			// Force user-agent "Firefox Windows" for Google OAuth to work
@@ -346,6 +339,14 @@ app.on("ready", () => {
 				}
 			});
 		});
+	}
+
+	if (config.get("options.hideMenu") && !config.get("options.hideMenuWarned")) {
+		electron.dialog.showMessageBox(mainWindow, {
+			type: 'info', title: 'Hide Menu Enabled',
+			message: "Menu is hidden, use 'Alt' to show it (or 'Escape' if using in-app-menu)"
+		});
+		config.set("options.hideMenuWarned", true);
 	}
 
 	// Optimized for Mac OS X
