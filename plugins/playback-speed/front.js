@@ -24,6 +24,7 @@ const updatePlayBackSpeed = () => {
 };
 
 let menu;
+let observingSlider = false;
 
 const observePopupContainer = () => {
 	const observer = new MutationObserver(() => {
@@ -33,6 +34,10 @@ const observePopupContainer = () => {
 
 		if (menu && !menu.contains(slider)) {
 			menu.prepend(slider);
+			if (!observingSlider) {
+				setupSliderListener();
+				observingSlider = true;
+			}
 		}
 	});
 
@@ -47,14 +52,7 @@ const observeVideo = () => {
 	$('video').addEventListener('loadeddata', forcePlaybackRate)
 }
 
-const setupSliderListeners = () => {
-	slider.addEventListener('immediate-value-change', () => {
-		playbackSpeed = computePlayBackSpeed($('#playback-speed-slider #sliderBar').value);
-		if (isNaN(playbackSpeed)) {
-			playbackSpeed = 1;
-		}
-		updatePlayBackSpeed();
-	})
+const setupWheelListener = () => {
 	slider.addEventListener('wheel', e => {
 		e.preventDefault();
 		if (isNaN(playbackSpeed)) {
@@ -72,6 +70,16 @@ const setupSliderListeners = () => {
 	})
 }
 
+function setupSliderListener() {
+	$('#playback-speed-slider').addEventListener('immediate-value-changed', () => {
+		playbackSpeed = computePlayBackSpeed($('#playback-speed-slider #sliderBar').value);
+		if (isNaN(playbackSpeed)) {
+			playbackSpeed = 1;
+		}
+		updatePlayBackSpeed();
+	})
+}
+
 function forcePlaybackRate(e) {
 	if (e.target.playbackRate !== playbackSpeed) {
 		e.target.playbackRate = playbackSpeed
@@ -82,6 +90,6 @@ module.exports = () => {
 	document.addEventListener('apiLoaded', e => {
 		observePopupContainer();
 		observeVideo();
-		setupSliderListeners();
+		setupWheelListener();
 	}, { once: true, passive: true })
 };
