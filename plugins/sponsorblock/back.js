@@ -1,4 +1,5 @@
 const fetch = require("node-fetch");
+const is = require("electron-is");
 
 const defaultConfig = require("../../config/defaults");
 const registerCallback = require("../../providers/song-info");
@@ -24,6 +25,7 @@ module.exports = (win, options) => {
 	});
 };
 
+
 const fetchSegments = async (apiURL, categories) => {
 	const sponsorBlockURL = `${apiURL}/api/skipSegments?videoID=${videoID}&categories=${JSON.stringify(
 		categories
@@ -45,7 +47,10 @@ const fetchSegments = async (apiURL, categories) => {
 		);
 
 		return sortedSegments;
-	} catch {
+	} catch (e) {
+		if (is.dev()) {
+			console.log('error on sponsorblock request:', e);
+		}
 		return [];
 	}
 };

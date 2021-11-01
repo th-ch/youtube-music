@@ -2,8 +2,6 @@ const { ipcRenderer } = require("electron");
 
 const is = require("electron-is");
 
-const { ontimeupdate } = require("../../providers/video-element");
-
 let currentSegments = [];
 
 module.exports = () => {
@@ -11,17 +9,19 @@ module.exports = () => {
 		currentSegments = segments;
 	});
 
-	ontimeupdate((videoElement) => {
-		currentSegments.forEach((segment) => {
-			if (
-				videoElement.currentTime >= segment[0] &&
-				videoElement.currentTime <= segment[1]
-			) {
-				videoElement.currentTime = segment[1];
-				if (is.dev()) {
-					console.log("SponsorBlock: skipping segment", segment);
+	document.addEventListener('apiLoaded', () => {
+		document.querySelector('video').addEventListener('timeupdate', e => {
+			currentSegments.forEach((segment) => {
+				if (
+					e.target.currentTime >= segment[0] &&
+					e.target.currentTime < segment[1]
+				) {
+					e.target.currentTime = segment[1];
+					if (is.dev()) {
+						console.log("SponsorBlock: skipping segment", segment);
+					}
 				}
-			}
-		});
-	});
+			});
+		})
+	}, { once: true, passive: true })
 };

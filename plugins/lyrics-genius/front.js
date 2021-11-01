@@ -1,4 +1,5 @@
 const { ipcRenderer } = require("electron");
+const is = require("electron-is");
 
 module.exports = () => {
 	ipcRenderer.on("update-song-info", (_, extractedSongInfo) => {
@@ -15,6 +16,8 @@ module.exports = () => {
 		);
 		if (!html) {
 			return;
+		} else if (is.dev()) {
+			console.log("Fetched lyrics from Genius");
 		}
 
 		const wrapper = document.createElement("div");
@@ -41,7 +44,6 @@ module.exports = () => {
 
 		lyricsTab.onclick = () => {
 			const tabContainer = document.querySelector("ytmusic-tab-renderer");
-			console.log("tabContainer", tabContainer);
 			const observer = new MutationObserver((_, observer) => {
 				const lyricsContainer = document.querySelector(
 					'[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"] > ytmusic-message-renderer'
