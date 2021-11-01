@@ -11,7 +11,7 @@ ipcRenderer.on("update-song-info", async (_, extractedSongInfo) => {
 
 module.exports = () => {
 	document.addEventListener('apiLoaded', e => {
-		document.querySelector('video').addEventListener('loadeddata', () => {
+		document.querySelector('video').addEventListener('loadedmetadata', () => {
 			const data = e.detail.getPlayerResponse();
 			ipcRenderer.send("song-info-request", JSON.stringify(data));
 		});
