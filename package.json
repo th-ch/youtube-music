@@ -68,7 +68,7 @@
 		"@ffmpeg/ffmpeg": "^0.10.0",
 		"async-mutex": "^0.3.2",
 		"browser-id3-writer": "^4.4.0",
-		"custom-electron-prompt": "^1.1.0",
+		"custom-electron-prompt": "^1.2.0",
 		"chokidar": "^3.5.2",
 		"custom-electron-titlebar": "^3.2.7",
 		"discord-rpc": "^3.2.0",
