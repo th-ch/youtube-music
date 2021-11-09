@@ -1,11 +1,9 @@
-const { globalShortcut } = require("electron");
+const { globalShortcut, ipcMain } = require("electron");
 const is = require("electron-is");
 const electronLocalshortcut = require("electron-localshortcut");
 const getSongControls = require("../../providers/song-controls");
 const { setupMPRIS } = require("./mpris");
 const registerCallback = require("../../providers/song-info");
-
-let player;
 
 function _registerGlobalShortcut(webContents, shortcut, action) {
 	globalShortcut.register(shortcut, () => {
@@ -31,54 +29,8 @@ function registerShortcuts(win, options) {
 
 	_registerLocalShortcut(win, "CommandOrControl+F", search);
 	_registerLocalShortcut(win, "CommandOrControl+L", search);
-	registerCallback(songInfo => {
-		if (player) {
-			player.metadata = {
-				'mpris:length': songInfo.songDuration * 60 * 1000 * 1000, // In microseconds
-				'mpris:artUrl': songInfo.imageSrc,
-				'xesam:title': songInfo.title,
-				'xesam:artist': songInfo.artist
-			};
-			if (!songInfo.isPaused) {
-				player.playbackStatus = "Playing"
-			}
-		}
-	}
-	)
 
-	if (is.linux()) {
-		try {
-			const MPRISPlayer = setupMPRIS();
-
-			MPRISPlayer.on("raise", () => {
-				win.setSkipTaskbar(false);
-				win.show();
-			});
-			MPRISPlayer.on("play", () => {
-				if (MPRISPlayer.playbackStatus !== 'Playing') {
-					MPRISPlayer.playbackStatus = 'Playing';
-					playPause()
-				}
-			});
-			MPRISPlayer.on("pause", () => {
-				if (MPRISPlayer.playbackStatus !== 'Paused') {
-					MPRISPlayer.playbackStatus = 'Paused';
-					playPause()
-				}
-			});
-			MPRISPlayer.on("next", () => {
-				next()
-			});
-			MPRISPlayer.on("previous", () => {
-				previous()
-			});
-
-			player = MPRISPlayer
-
-		} catch (e) {
-			console.warn("Error in MPRIS", e);
-		}
-	}
+	if (is.linux()) registerMPRIS();
 
 	const { global, local } = options;
 	const shortcutOptions = { global, local };
@@ -104,6 +56,71 @@ function registerShortcuts(win, options) {
 			} else { // type === "local"
 				_registerLocalShortcut(win, local[action], songControls[action]);
 			}
+		}
+	}
+	function registerMPRIS() {
+		try {
+			const secToMicro = n => Math.round(Number(n) * (1000 * 1000));
+			const microToSec = n => Math.round(Number(n) / 1000 / 1000);
+
+			const seekTo = e => win.webContents.send("seekTo", microToSec(e.position));
+			const seek = o => win.webContents.send("seek", microToSec(o));
+
+			const player = setupMPRIS();
+
+			const mprisSeek = p => {
+				player.seeked(p);
+			}
+			win.webContents.send("registerOnSeek");
+
+			ipcMain.on('seeked', (_, t) => mprisSeek(secToMicro(t)));
+
+			let currentSeconds = 0;
+			ipcMain.on('timeChanged', (_, t) => currentSeconds = t);
+
+			player.getPosition = () => secToMicro(currentSeconds)
+
+			player.on("raise", () => {
+				win.setSkipTaskbar(false);
+				win.show();
+			});
+
+			player.on("play", () => {
+				if (player.playbackStatus !== 'Playing') {
+					player.playbackStatus = 'Playing';
+					playPause()
+				}
+			});
+			player.on("pause", () => {
+				if (player.playbackStatus !== 'Paused') {
+					player.playbackStatus = 'Paused';
+					playPause()
+				}
+			});
+
+			player.on("playpause", playPause);
+			player.on("next", next);
+			player.on("previous", previous);
+
+			player.on('seek', seek);
+			player.on('position', seekTo);
+
+			registerCallback(songInfo => {
+				if (player) {
+					player.metadata = {
+						'mpris:length': secToMicro(songInfo.songDuration),
+						'mpris:artUrl': songInfo.imageSrc,
+						'xesam:title': songInfo.title,
+						'xesam:artist': songInfo.artist,
+						'mpris:trackid': '/'
+					};;
+					mprisSeek(secToMicro(songInfo.elapsedSeconds))
+					player.playbackStatus = songInfo.isPaused ? "Paused" : "Playing"
+				}
+			})
+
+		} catch (e) {
+			console.warn("Error in MPRIS", e);
 		}
 	}
 }

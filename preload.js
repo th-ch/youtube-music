@@ -6,6 +6,7 @@ const config = require("./config");
 const { fileExists } = require("./plugins/utils");
 const setupFrontLogger = require("./providers/front-logger");
 const setupSongInfo = require("./providers/song-info-front");
+const { setupSongControls } = require("./providers/song-controls-front");
 
 const plugins = config.plugins.getEnabled();
 
@@ -44,6 +45,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	// inject song-info provider
 	setupSongInfo();
+
+	// inject song-controls
+	setupSongControls();
 
 	// inject front logger
 	setupFrontLogger();
