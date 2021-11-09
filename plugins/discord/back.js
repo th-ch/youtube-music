@@ -1,6 +1,6 @@
 const Discord = require("discord-rpc");
 const { dev } = require("electron-is");
-const { dialog } = require("electron");
+const { dialog, app } = require("electron");
 
 const registerCallback = require("../../providers/song-info");
 
@@ -70,7 +70,7 @@ let clearActivity;
  */
 let updateActivity;
 
-module.exports = (win, {activityTimoutEnabled, activityTimoutTime, listenAlong}) => {
+module.exports = (win, { activityTimoutEnabled, activityTimoutTime, listenAlong }) => {
 	window = win;
 	// We get multiple events
 	// Next song: PAUSE(n), PAUSE(n+1), PLAY(n+1)
@@ -136,7 +136,7 @@ module.exports = (win, {activityTimoutEnabled, activityTimoutTime, listenAlong})
 		registerCallback(updateActivity);
 		connect();
 	});
-	win.on("close", () => module.exports.clear());
+	app.on('window-all-closed', module.exports.clear)
 };
 
 module.exports.clear = () => {
