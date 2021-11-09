@@ -35,13 +35,13 @@ function setup() {
         setOptions("video-toggle", options);
     })
 
-    $('video').addEventListener('loadedmetadata', videoStarted);
+    $('video').addEventListener('srcChanged', videoStarted);
 }
 
 function changeDisplay(showVideo) {
-    if (!showVideo && $('ytmusic-player').getAttribute('playback-mode') !== "ATV_PREFERRED") {
+    if (!showVideo) {
         $('video').style.top = "0";
-        $('ytmusic-player').style.margin = "auto 21.5px";
+        $('ytmusic-player').style.margin = "auto 0px";
         $('ytmusic-player').setAttribute('playback-mode', "ATV_PREFERRED");
     }
 
