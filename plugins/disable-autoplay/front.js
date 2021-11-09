@@ -1,7 +1,7 @@
 module.exports = () => {
-	document.addEventListener('apiLoaded', () => {
-		document.querySelector('video').addEventListener('srcChanged', e => {
-			e.target.pause();
+	document.addEventListener('apiLoaded', e => {
+		document.querySelector('video').addEventListener('srcChanged', () => {
+			e.detail.pauseVideo();
 		})
 	}, { once: true, passive: true })
 };

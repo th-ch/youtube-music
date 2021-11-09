@@ -6,6 +6,8 @@ function $(selector) { return document.querySelector(selector); }
 
 let options;
 
+let api;
+
 const switchButtonDiv = ElementFromFile(
     templatePath(__dirname, "button_template.html")
 );
@@ -17,7 +19,9 @@ module.exports = (_options) => {
     document.addEventListener('apiLoaded', setup, { once: true, passive: true });
 }
 
-function setup() {
+function setup(e) {
+    api = e.detail;
+
     $('ytmusic-player-page').prepend(switchButtonDiv);
 
     $('#song-image.ytmusic-player').style.display = "block"
@@ -36,6 +40,8 @@ function setup() {
     })
 
     $('video').addEventListener('srcChanged', videoStarted);
+
+    observeThumbnail();
 }
 
 function changeDisplay(showVideo) {
@@ -51,11 +57,8 @@ function changeDisplay(showVideo) {
 }
 
 function videoStarted() {
-    if (videoExist()) {
-        const thumbnails = $('#movie_player').getPlayerResponse()?.videoDetails?.thumbnail?.thumbnails;
-        if (thumbnails && thumbnails.length > 0) {
-            $('#song-image img').src = thumbnails[thumbnails.length-1].url;
-        }
+    if (api.getPlayerResponse().videoDetails.musicVideoType === 'MUSIC_VIDEO_TYPE_OMV') { // or `$('#player').videoMode_`
+        forceThumbnail($('#song-image img'));
         switchButtonDiv.style.display = "initial";
         if (!options.hideVideo && $('#song-video.ytmusic-player').style.display === "none") {
             changeDisplay(true);
@@ -64,10 +67,6 @@ function videoStarted() {
         changeDisplay(false);
         switchButtonDiv.style.display = "none";
     }
-}
-
-function videoExist() {
-    return $('#player').videoMode_;
 }
 
 // on load, after a delay, the page overrides the playback-mode to 'OMV_PREFERRED' which causes weird aspect ratio in the image container
@@ -82,4 +81,23 @@ function forcePlaybackMode() {
         });
     });
     playbackModeObserver.observe($('ytmusic-player'), { attributeFilter: ["playback-mode"] })
+}
+
+function observeThumbnail() {
+    const playbackModeObserver = new MutationObserver(mutations => {
+        if (!$('#player').videoMode_) return;
+
+        mutations.forEach(mutation => {
+            if (!mutation.target.src.startsWith('data:')) return;
+            forceThumbnail(mutation.target)
+        });
+    });
+    playbackModeObserver.observe($('#song-image img'), { attributeFilter: ["src"] })
+}
+
+function forceThumbnail(img) {
+    const thumbnails = $('#movie_player').getPlayerResponse()?.videoDetails?.thumbnail?.thumbnails;
+    if (thumbnails && thumbnails.length > 0) {
+        img.src = thumbnails[thumbnails.length - 1].url;
+    }
 }

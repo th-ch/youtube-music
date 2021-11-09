@@ -9,23 +9,18 @@ ipcRenderer.on("update-song-info", async (_, extractedSongInfo) => {
 	global.songInfo.image = await getImage(global.songInfo.imageSrc);
 });
 
-module.exports = () => {
-	document.addEventListener('apiLoaded', e => observeSrcChange(e.detail), { once: true, passive: true });
-};
-
 // used because 'loadeddata' or 'loadedmetadata' weren't firing on song start for some users (https://github.com/th-ch/youtube-music/issues/473)
-function observeSrcChange(api) {
-	const srcChangedEvent = new CustomEvent('srcChanged');
+const srcChangedEvent = new CustomEvent('srcChanged');
 
-	const video = document.querySelector('video');
-
-	const playbackModeObserver = new MutationObserver((mutations) => {
-		mutations.forEach(mutation => {
-			if (mutation.target.src) { // in first mutation src is usually an empty string (loading)
-				video.dispatchEvent(srcChangedEvent);
-				ipcRenderer.send("song-info-request", JSON.stringify(api.getPlayerResponse()));
-			}
+module.exports = () => {
+	document.addEventListener('apiLoaded', apiEvent => {
+		const video = document.querySelector('video');
+		// name = "dataloaded" and abit later "dataupdated"
+		apiEvent.detail.addEventListener('videodatachange', (name, dataEvent) => {
+			if (name !== 'dataloaded') return;
+			ipcRenderer.send("song-info-request", JSON.stringify(dataEvent.playerResponse));
+			video.dispatchEvent(srcChangedEvent);
 		})
-	});
-	playbackModeObserver.observe(video, { attributeFilter: ["src"] })
-}
+
+	}, { once: true, passive: true });
+};
