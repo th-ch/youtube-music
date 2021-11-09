@@ -5,3 +5,8 @@
 	pointer-events: none;
 	text-decoration: none;
 }
+
+#contents.genius-lyrics {
+    font-size: initial;
+    opacity: 0.9;
+}
