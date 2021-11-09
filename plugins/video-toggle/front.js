@@ -20,7 +20,7 @@ module.exports = (_options) => {
 function setup() {
     $('ytmusic-player-page').prepend(switchButtonDiv);
 
-    $('#song-image.ytmusic-player').style.display = "block"
+    $('#song-image.ytmusic-player').style.display = "block";
 
     if (options.hideVideo) {
         $('.video-switch-button-checkbox').checked = false;
@@ -39,29 +39,35 @@ function setup() {
 }
 
 function changeDisplay(showVideo) {
-    if (!showVideo && $('ytmusic-player').getAttribute('playback-mode') !== "ATV_PREFERRED") {
+    if (!showVideo) {
         $('video').style.top = "0";
-        $('ytmusic-player').style.margin = "auto 21.5px";
+        $('ytmusic-player').style.margin = "auto 0px";
         $('ytmusic-player').setAttribute('playback-mode', "ATV_PREFERRED");
-    }
-
-    showVideo ?
-        $('#song-video.ytmusic-player').style.display = "unset" :
         $('#song-video.ytmusic-player').style.display = "none";
+    } else {
+        $('#song-video.ytmusic-player').style.display = "unset";
+        // fix black video
+        $('video').pause(); $('video').play();
+    }
 }
 
 function videoStarted() {
     if (videoExist()) {
+        // switch to high res thumbnail
         const thumbnails = $('#movie_player').getPlayerResponse()?.videoDetails?.thumbnail?.thumbnails;
         if (thumbnails && thumbnails.length > 0) {
-            $('#song-image img').src = thumbnails[thumbnails.length-1].url;
+            $('#song-image img').src = thumbnails[thumbnails.length - 1].url;
         }
+        // show toggle button
         switchButtonDiv.style.display = "initial";
+        // change display to video mode if video exist & video is hidden & option.hideVideo = false
         if (!options.hideVideo && $('#song-video.ytmusic-player').style.display === "none") {
             changeDisplay(true);
         }
     } else {
+        // video doesn't exist -> switch to song mode
         changeDisplay(false);
+        // hide toggle button
         switchButtonDiv.style.display = "none";
     }
 }
@@ -75,11 +81,11 @@ function videoExist() {
 function forcePlaybackMode() {
     const playbackModeObserver = new MutationObserver(mutations => {
         mutations.forEach(mutation => {
-            if (mutation.type === 'attributes' && mutation.attributeName === 'playback-mode' && mutation.target.getAttribute('playback-mode') !== "ATV_PREFERRED") {
+            if (mutation.target.getAttribute('playback-mode') !== "ATV_PREFERRED") {
                 playbackModeObserver.disconnect();
                 mutation.target.setAttribute('playback-mode', "ATV_PREFERRED");
             }
         });
     });
-    playbackModeObserver.observe($('ytmusic-player'), { attributeFilter: ["playback-mode"] })
+    playbackModeObserver.observe($('ytmusic-player'), { attributeFilter: ["playback-mode"] });
 }
