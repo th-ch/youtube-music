@@ -23,7 +23,7 @@ const post = async (data) => {
 		'Access-Control-Allow-Origin': '*'
 	}
 	const url = `http://localhost:${port}/`;
-	fetch(url, { method: 'POST', headers, body: JSON.stringify({ data }) });
+	fetch(url, { method: 'POST', headers, body: JSON.stringify({ data }) }).catch(e => console.log(`Error: '${e.code || e.errno}' - when trying to access obs-tuna webserver at port ${port}`));
 }
 
 module.exports = async () => {
