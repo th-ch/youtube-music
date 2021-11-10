@@ -4,7 +4,7 @@ const { setOptions } = require("../../config/plugins");
 
 function $(selector) { return document.querySelector(selector); }
 
-let options;
+let options, player, video, api;
 
 const switchButtonDiv = ElementFromFile(
     templatePath(__dirname, "button_template.html")
@@ -17,7 +17,11 @@ module.exports = (_options) => {
     document.addEventListener('apiLoaded', setup, { once: true, passive: true });
 }
 
-function setup() {
+function setup(e) {
+    api = e.detail;
+    player = $('ytmusic-player');
+    video = $('video');
+    
     $('ytmusic-player-page').prepend(switchButtonDiv);
 
     $('#song-image.ytmusic-player').style.display = "block";
@@ -26,6 +30,8 @@ function setup() {
         $('.video-switch-button-checkbox').checked = false;
         changeDisplay(false);
         forcePlaybackMode();
+        // fix black video
+        video.style.height = "auto";
     }
 
     // button checked = show video
@@ -35,26 +41,20 @@ function setup() {
         setOptions("video-toggle", options);
     })
 
-    $('video').addEventListener('loadedmetadata', videoStarted);
+    video.addEventListener('loadedmetadata', videoStarted);
 }
 
 function changeDisplay(showVideo) {
-    if (!showVideo) {
-        $('video').style.top = "0";
-        $('ytmusic-player').style.margin = "auto 0px";
-        $('ytmusic-player').setAttribute('playback-mode', "ATV_PREFERRED");
-        $('#song-video.ytmusic-player').style.display = "none";
-    } else {
-        $('#song-video.ytmusic-player').style.display = "unset";
-        // fix black video
-        $('video').pause(); $('video').play();
-    }
+    player.style.margin = showVideo ? '' : 'auto 0px';
+    player.setAttribute('playback-mode', showVideo ? 'OMV_PREFERRED' : 'ATV_PREFERRED');
+    $('#song-video.ytmusic-player').style.display = showVideo ? 'unset' : 'none';
+    if(showVideo && !video.style.top) video.style.top = `${(player.clientHeight - video.clientHeight) / 2}px`;
 }
 
 function videoStarted() {
-    if (videoExist()) {
+    if (player.videoMode_) {
         // switch to high res thumbnail
-        const thumbnails = $('#movie_player').getPlayerResponse()?.videoDetails?.thumbnail?.thumbnails;
+        const thumbnails = api.getPlayerResponse()?.videoDetails?.thumbnail?.thumbnails;
         if (thumbnails && thumbnails.length > 0) {
             $('#song-image img').src = thumbnails[thumbnails.length - 1].url;
         }
@@ -72,10 +72,6 @@ function videoStarted() {
     }
 }
 
-function videoExist() {
-    return $('#player').videoMode_;
-}
-
 // on load, after a delay, the page overrides the playback-mode to 'OMV_PREFERRED' which causes weird aspect ratio in the image container
 // this function fix the problem by overriding that override :)
 function forcePlaybackMode() {
@@ -87,5 +83,5 @@ function forcePlaybackMode() {
             }
         });
     });
-    playbackModeObserver.observe($('ytmusic-player'), { attributeFilter: ["playback-mode"] });
+    playbackModeObserver.observe(player, { attributeFilter: ["playback-mode"] });
 }
