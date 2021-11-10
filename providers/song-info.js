@@ -45,6 +45,7 @@ const songInfo = {
 	songDuration: 0,
 	elapsedSeconds: 0,
 	url: "",
+	album: undefined
 };
 
 const handleData = async (responseText, win) => {
@@ -57,6 +58,7 @@ const handleData = async (responseText, win) => {
 	songInfo.image = await getImage(songInfo.imageSrc);
 	songInfo.uploadDate = data?.microformat?.microformatDataRenderer?.uploadDate;
 	songInfo.url = data?.microformat?.microformatDataRenderer?.urlCanonical?.split("&")[0];
+	songInfo.album = data?.videoDetails?.album
 
 	// used for options.resumeOnStart
 	config.set("url", data?.microformat?.microformatDataRenderer?.urlCanonical);

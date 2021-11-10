@@ -11,7 +11,8 @@ const data = {
 	status: '',
 	progress: 0,
 	duration: 0,
-	album_url: ''
+	album_url: '',
+	album: undefined
 };
 
 const post = async (data) => {
@@ -44,7 +45,8 @@ module.exports = async () => {
 		data.album_url = songInfo.imageSrc;
 		data.title = songInfo.title;
 		data.artists = [songInfo.artist];
-		data.status = songInfo.isPaused ? 'Paused' : 'Playing';
+		data.status = songInfo.isPaused ? 'stopped' : 'playing';
+		data.album = songInfo.album;
 		post(data);
 	})
 }

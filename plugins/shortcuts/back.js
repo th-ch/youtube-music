@@ -68,9 +68,8 @@ function registerShortcuts(win, options) {
 
 			const player = setupMPRIS();
 
-			const mprisSeek = p => {
-				player.seeked(p);
-			}
+			const mprisSeek = player.seeked;
+
 			win.webContents.send("registerOnSeek");
 
 			ipcMain.on('seeked', (_, t) => mprisSeek(secToMicro(t)));
@@ -107,13 +106,15 @@ function registerShortcuts(win, options) {
 
 			registerCallback(songInfo => {
 				if (player) {
-					player.metadata = {
+					const data = {
 						'mpris:length': secToMicro(songInfo.songDuration),
 						'mpris:artUrl': songInfo.imageSrc,
 						'xesam:title': songInfo.title,
 						'xesam:artist': songInfo.artist,
 						'mpris:trackid': '/'
-					};;
+					};
+					if (songInfo.album) data['xesam:album'] = songInfo.album;
+					player.metadata = data;
 					mprisSeek(secToMicro(songInfo.elapsedSeconds))
 					player.playbackStatus = songInfo.isPaused ? "Paused" : "Playing"
 				}

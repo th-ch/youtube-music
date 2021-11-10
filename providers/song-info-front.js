@@ -4,6 +4,8 @@ const { getImage } = require("./song-info");
 
 global.songInfo = {};
 
+function $(selector) { return document.querySelector(selector); }
+
 ipcRenderer.on("update-song-info", async (_, extractedSongInfo) => {
 	global.songInfo = JSON.parse(extractedSongInfo);
 	global.songInfo.image = await getImage(global.songInfo.imageSrc);
@@ -13,8 +15,9 @@ module.exports = () => {
 	document.addEventListener('apiLoaded', e => {
 		setupTimeChangeListener();
 
-		document.querySelector('video').addEventListener('loadedmetadata', () => {
+		$('video').addEventListener('loadedmetadata', () => {
 			const data = e.detail.getPlayerResponse();
+			data.videoDetails.album = $('ytmusic-player-page')?.__data?.playerPageWatchMetadata?.albumName?.runs[0].text
 			ipcRenderer.send("song-info-request", JSON.stringify(data));
 		});
 	}, { once: true, passive: true })
@@ -25,5 +28,5 @@ function setupTimeChangeListener() {
 		ipcRenderer.send('timeChanged', mutations[0].target.value);
 		global.songInfo.elapsedSeconds = mutations[0].target.value;
 	});
-	progressObserver.observe(document.querySelector('#progress-bar'), { attributeFilter: ["value"] })
+	progressObserver.observe($('#progress-bar'), { attributeFilter: ["value"] })
 }
