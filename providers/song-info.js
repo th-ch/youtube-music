@@ -52,7 +52,7 @@ const handleData = async (responseText, win) => {
 	songInfo.title = cleanupName(data?.videoDetails?.title);
 	songInfo.artist =cleanupName(data?.videoDetails?.author);
 	songInfo.views = data?.videoDetails?.viewCount;
-	songInfo.imageSrc = data?.videoDetails?.thumbnail?.thumbnails?.pop()?.url;
+	songInfo.imageSrc = data?.videoDetails?.thumbnail?.thumbnails?.pop()?.url.split("?")[0];
 	songInfo.songDuration = data?.videoDetails?.lengthSeconds;
 	songInfo.image = await getImage(songInfo.imageSrc);
 	songInfo.uploadDate = data?.microformat?.microformatDataRenderer?.uploadDate;

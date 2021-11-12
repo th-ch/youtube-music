@@ -18,8 +18,8 @@ module.exports = () => {
 		// name = "dataloaded" and abit later "dataupdated"
 		apiEvent.detail.addEventListener('videodatachange', (name, dataEvent) => {
 			if (name !== 'dataloaded') return;
-			ipcRenderer.send("song-info-request", JSON.stringify(dataEvent.playerResponse));
 			video.dispatchEvent(srcChangedEvent);
+			ipcRenderer.send("song-info-request", JSON.stringify(dataEvent.playerResponse));
 		})
 
 	}, { once: true, passive: true });

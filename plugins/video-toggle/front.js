@@ -98,6 +98,6 @@ function observeThumbnail() {
 function forceThumbnail(img) {
     const thumbnails = $('#movie_player').getPlayerResponse()?.videoDetails?.thumbnail?.thumbnails;
     if (thumbnails && thumbnails.length > 0) {
-        img.src = thumbnails[thumbnails.length - 1].url;
+        img.src = thumbnails[thumbnails.length - 1].url.split("?")[0];
     }
 }
