@@ -21,7 +21,7 @@ function setup(e) {
     api = e.detail;
     player = $('ytmusic-player');
     video = $('video');
-    
+
     $('ytmusic-player-page').prepend(switchButtonDiv);
 
     $('#song-image.ytmusic-player').style.display = "block";
@@ -48,7 +48,10 @@ function changeDisplay(showVideo) {
     player.style.margin = showVideo ? '' : 'auto 0px';
     player.setAttribute('playback-mode', showVideo ? 'OMV_PREFERRED' : 'ATV_PREFERRED');
     $('#song-video.ytmusic-player').style.display = showVideo ? 'unset' : 'none';
-    if(showVideo && !video.style.top) video.style.top = `${(player.clientHeight - video.clientHeight) / 2}px`;
+    if (showVideo && !video.style.top) {
+        video.style.top = `${(player.clientHeight - video.clientHeight) / 2}px`;
+    }
+    moveVolumeHud(showVideo);
 }
 
 function videoStarted() {
@@ -63,6 +66,8 @@ function videoStarted() {
         // change display to video mode if video exist & video is hidden & option.hideVideo = false
         if (!options.hideVideo && $('#song-video.ytmusic-player').style.display === "none") {
             changeDisplay(true);
+        } else {
+            moveVolumeHud(!options.hideVideo);
         }
     } else {
         // video doesn't exist -> switch to song mode
@@ -84,4 +89,11 @@ function forcePlaybackMode() {
         });
     });
     playbackModeObserver.observe(player, { attributeFilter: ["playback-mode"] });
+}
+
+// if precise volume plugin is enabled, move its hud to be on top of the video
+function moveVolumeHud(showVideo) {
+    const volumeHud = $('#volumeHud');
+    if (volumeHud)
+        volumeHud.style.top = showVideo ? `${(player.clientHeight - video.clientHeight) / 2}px` : 0;
 }
