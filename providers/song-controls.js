@@ -10,8 +10,8 @@ const pressKey = (window, key, modifiers = []) => {
 module.exports = (win) => {
 	return {
 		// Playback
-		previous: () => pressKey(win, "k"),
-		next: () => pressKey(win, "j"),
+		previous: () => pressKey(win, "p", ["shift"]),
+		next: () => pressKey(win, "n", ["shift"]),
 		playPause: () => pressKey(win, "space"),
 		like: () => pressKey(win, "_"),
 		dislike: () => pressKey(win, "+"),
