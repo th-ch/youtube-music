@@ -1,6 +1,6 @@
 #nav-bar-background, #header.ytmusic-item-section-renderer {
     background: rgba(0, 0, 0, 0.3) !important;
-    backdrop-filter: blur(18px) !important;
+    backdrop-filter: blur(8px) !important;
 }
 
 #nav-bar-divider {
