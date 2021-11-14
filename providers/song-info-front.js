@@ -16,11 +16,19 @@ module.exports = () => {
 	document.addEventListener('apiLoaded', apiEvent => {
 		const video = document.querySelector('video');
 		// name = "dataloaded" and abit later "dataupdated"
-		apiEvent.detail.addEventListener('videodatachange', (name, dataEvent) => {
+		apiEvent.detail.addEventListener('videodatachange', (name, _dataEvent) => {
 			if (name !== 'dataloaded') return;
 			video.dispatchEvent(srcChangedEvent);
-			ipcRenderer.send("song-info-request", JSON.stringify(dataEvent.playerResponse));
+			ipcRenderer.send("video-src-changed", JSON.stringify(apiEvent.detail.getPlayerResponse()));
 		})
-
+		for (const status of ['playing', 'pause']) {
+			video.addEventListener(status, sendSongInfo);
+		}
+		function sendSongInfo() {
+			const data = apiEvent.detail.getPlayerResponse();
+			data.videoDetails.elapsedSeconds = Math.floor(video.currentTime);
+			data.videoDetails.isPaused = video.paused;
+			ipcRenderer.send("song-info-request", JSON.stringify(apiEvent.detail.getPlayerResponse()));
+		}
 	}, { once: true, passive: true });
 };

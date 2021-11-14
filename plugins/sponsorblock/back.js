@@ -13,7 +13,7 @@ module.exports = (win, options) => {
 		...options,
 	};
 
-	ipcMain.on("song-info-request", async (_, data) => {
+	ipcMain.on("video-src-changed", async (_, data) => {
 		videoID = JSON.parse(data)?.videoDetails?.videoId;
 		const segments = await fetchSegments(apiURL, categories);
 		win.webContents.send("sponsorblock-skip", segments);
