@@ -4,7 +4,7 @@
 	font-size: 14px !important;
 }
 
-/* fixes nav-bar-background opacity bug and allows clicking scrollbar through it */
+/* fixes nav-bar-background opacity bug, reposition it, and allows clicking scrollbar through it */
 #nav-bar-background {
 	opacity: 1 !important;
 	pointer-events: none !important;
@@ -20,9 +20,10 @@ ytmusic-pivot-bar-item-renderer {
 	-webkit-app-region: unset !important;
 }
 
-/* move up item selection renderer by 13 px */
-ytmusic-item-section-renderer.stuck #header.ytmusic-item-section-renderer {
-	top: calc(var(--ytmusic-nav-bar-height) - 13px) !important;
+/* move up item selection renderers */
+ytmusic-item-section-renderer.stuck #header.ytmusic-item-section-renderer,
+ytmusic-tabs.stuck {
+	top: calc(var(--ytmusic-nav-bar-height) - 15px) !important;
 }
 
 /* fix weird positioning in search screen*/
