@@ -19,6 +19,8 @@ const songInfo = {
 	songDuration: 0,
 	elapsedSeconds: 0,
 	url: "",
+	videoId: "",
+	playlistId: "",
 };
 
 // Grab the native image using the src
@@ -41,7 +43,7 @@ const handleData = async (responseText, win) => {
 	if (microformat) {
 		songInfo.uploadDate = microformat.uploadDate;
 		songInfo.url = microformat.urlCanonical?.split("&")[0];
-
+		songInfo.playlistId = new URL(microformat.urlCanonical).searchParams.get("list");
 		// used for options.resumeOnStart
 		config.set("url", microformat.urlCanonical);
 	}
@@ -54,6 +56,7 @@ const handleData = async (responseText, win) => {
 		songInfo.songDuration = videoDetails.lengthSeconds;
 		songInfo.elapsedSeconds = videoDetails.elapsedSeconds;
 		songInfo.isPaused = videoDetails.isPaused;
+		songInfo.videoId = videoDetails.videoId;
 
 		const oldUrl = songInfo.imageSrc;
 		songInfo.imageSrc = videoDetails.thumbnail?.thumbnails?.pop()?.url.split("?")[0];
