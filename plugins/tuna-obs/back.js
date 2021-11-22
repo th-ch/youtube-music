@@ -27,7 +27,7 @@ const post = async (data) => {
 	fetch(url, { method: 'POST', headers, body: JSON.stringify({ data }) }).catch(e => console.log(`Error: '${e.code || e.errno}' - when trying to access obs-tuna webserver at port ${port}`));
 }
 
-module.exports = async () => {
+module.exports = async (win) => {
 	ipcMain.on('timeChanged', async (_, t) => {
 		if (!data.title) return;
 		data.progress = secToMilisec(t);

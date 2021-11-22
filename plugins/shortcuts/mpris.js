@@ -22,13 +22,11 @@ function registerMPRIS(win) {
 		const microToSec = n => Math.round(Number(n) / 1e6);
 
 		const seekTo = e => win.webContents.send("seekTo", microToSec(e.position));
-		const seek = o => win.webContents.send("seek", microToSec(o));
+		const seekBy = o => win.webContents.send("seekBy", microToSec(o));
 
 		const player = setupMPRIS();
 
 		const mprisSeek = player.seeked;
-
-		win.webContents.send("registerOnSeek");
 
 		ipcMain.on('seeked', (_, t) => mprisSeek(secToMicro(t)));
 
@@ -59,7 +57,7 @@ function registerMPRIS(win) {
 		player.on("next", next);
 		player.on("previous", previous);
 
-		player.on('seek', seek);
+		player.on('seek', seekBy);
 		player.on('position', seekTo);
 
 		registerCallback(songInfo => {

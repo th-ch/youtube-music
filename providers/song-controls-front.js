@@ -1,30 +1,15 @@
 const { ipcRenderer } = require("electron");
-
-module.exports.seekTo = seekTo;
-function seekTo(t) {
-    document.querySelector('video').currentTime = t;
-}
-
-module.exports.seek = seek;
-function seek(o) {
-    document.querySelector('video').currentTime += o;
-}
+const config = require("../config");
+const is = require("electron-is");
 
 module.exports.setupSongControls = () => {
-	ipcRenderer.on("seekTo", async (_, t) => seekTo(t));
-    ipcRenderer.on("seek", async (_, t) => seek(t));
-    ipcRenderer.once("registerOnSeek", registerOnSeek)
-};
+    document.addEventListener('apiLoaded', e => {
+        ipcRenderer.on("seekTo", (_, t) => e.target.seekTo(t));
+        ipcRenderer.on("seekBy", (_, t) => e.target.seekBy(t));
 
-async function registerOnSeek() {
-    const register = v => v.addEventListener('seeked', () => ipcRenderer.send('seeked', v.currentTime));
-    let video =  document.querySelector('video');
-    if (video) {
-        register(video);
+    }, { once: true, passive: true })
+
+    if (is.linux() && config.plugins.isEnabled('shortcuts')) { // MPRIS Enabled
+        document.querySelector('video').addEventListener('seeked', () => ipcRenderer.send('seeked', v.currentTime));
     }
-    else {
-        document.addEventListener('apiLoaded', () => {
-            register(document.querySelector('video'))
-        }, { once: true, passive: true })
-    }
-}
+};

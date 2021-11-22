@@ -2,6 +2,8 @@ const { ipcRenderer } = require("electron");
 
 const { getImage } = require("./song-info");
 
+const config = require("../config");
+
 global.songInfo = {};
 
 function $(selector) { return document.querySelector(selector); }
@@ -13,7 +15,9 @@ ipcRenderer.on("update-song-info", async (_, extractedSongInfo) => {
 
 module.exports = () => {
 	document.addEventListener('apiLoaded', e => {
-		setupTimeChangeListener();
+		if (config.plugins.isEnabled('tuna-obs')) {
+			setupTimeChangeListener();
+		}
 
 		$('video').addEventListener('loadedmetadata', () => {
 			const data = e.detail.getPlayerResponse();
