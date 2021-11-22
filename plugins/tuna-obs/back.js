@@ -3,7 +3,7 @@ const fetch = require('node-fetch');
 
 const registerCallback = require("../../providers/song-info");
 
-const secToMilisec = t => Math.round(Number(t) * 1000);
+const secToMilisec = t => Math.round(Number(t) * 1e3);
 const data = {
 	cover_url: '',
 	title: '',
