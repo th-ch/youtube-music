@@ -2903,10 +2903,10 @@ cssstyle@^2.3.0:
   dependencies:
     cssom "~0.3.6"
 
-custom-electron-prompt@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/custom-electron-prompt/-/custom-electron-prompt-1.3.0.tgz#33a46af79c6abceba5640a294e6138756fa44131"
-  integrity sha512-aflX6M9kyB5hsEY3bV7U6PAuCZfaHnI4v95WNTs3foJhlvERBFkqjcAYurIxJ2qnVHyGh/8hRlCtZzEJ4Av0iw==
+custom-electron-prompt@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/custom-electron-prompt/-/custom-electron-prompt-1.3.1.tgz#5c5c1266bb94ca618c493bdbebef2732286a06f2"
+  integrity sha512-QKq0H87G1EQS6QEc1lNmPrMj+J/h/1F4BAcmH2UQ+JUX9MOHZKZvbuIMEdsjYHlgI42SUAcnQklJ9F18ZCAc3A==
 
 custom-electron-titlebar@^3.2.7:
   version "3.2.7"
