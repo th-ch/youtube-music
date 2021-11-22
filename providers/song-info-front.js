@@ -19,16 +19,24 @@ module.exports = () => {
 		apiEvent.detail.addEventListener('videodatachange', (name, _dataEvent) => {
 			if (name !== 'dataloaded') return;
 			video.dispatchEvent(srcChangedEvent);
-			ipcRenderer.send("video-src-changed", JSON.stringify(apiEvent.detail.getPlayerResponse()));
+			sendSongInfo();
 		})
-		for (const status of ['playing', 'pause']) {
-			video.addEventListener(status, sendSongInfo);
-		}
+
+		video.addEventListener('pause', e => {
+			ipcRenderer.send("playPaused", { isPaused: true, elapsedSeconds: Math.floor(e.target.currentTime) });
+		});
+
+		video.addEventListener('playing', e => {
+			if (e.target.currentTime > 0){
+				ipcRenderer.send("playPaused", { isPaused: false, elapsedSeconds: Math.floor(e.target.currentTime) });
+			}
+		});
+
 		function sendSongInfo() {
 			const data = apiEvent.detail.getPlayerResponse();
 			data.videoDetails.elapsedSeconds = Math.floor(video.currentTime);
 			data.videoDetails.isPaused = video.paused;
-			ipcRenderer.send("song-info-request", JSON.stringify(apiEvent.detail.getPlayerResponse()));
+			ipcRenderer.send("video-src-changed", JSON.stringify(apiEvent.detail.getPlayerResponse()));
 		}
 	}, { once: true, passive: true });
 };

@@ -86,12 +86,19 @@ const registerCallback = (callback) => {
 
 const registerProvider = (win) => {
 	// This will be called when the song-info-front finds a new request with song data
-	ipcMain.on("song-info-request", async (_, responseText) => {
+	ipcMain.on("video-src-changed", async (_, responseText) => {
 		await handleData(responseText, win);
 		callbacks.forEach((c) => {
 			c(songInfo);
 		});
 	});
+	ipcMain.on("playPaused", (_, { isPaused, elapsedSeconds }) => {
+		songInfo.isPaused = isPaused;
+		songInfo.elapsedSeconds = elapsedSeconds;
+		callbacks.forEach((c) => {
+			c(songInfo);
+		});
+	})
 };
 
 const suffixesToRemove = [
