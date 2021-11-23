@@ -22,21 +22,22 @@ module.exports = () => {
 			sendSongInfo();
 		})
 
-		video.addEventListener('pause', e => {
-			ipcRenderer.send("playPaused", { isPaused: true, elapsedSeconds: Math.floor(e.target.currentTime) });
-		});
-
-		video.addEventListener('playing', e => {
-			if (e.target.currentTime > 0){
-				ipcRenderer.send("playPaused", { isPaused: false, elapsedSeconds: Math.floor(e.target.currentTime) });
-			}
-		});
+		for (const status of ['playing', 'pause']) {
+			video.addEventListener(status, e => {
+				if (Math.floor(e.target.currentTime) > 0) {
+					ipcRenderer.send("playPaused", {
+						isPaused: status === 'pause',
+						elapsedSeconds: Math.floor(e.target.currentTime)
+					});
+				}
+			});
+		}
 
 		function sendSongInfo() {
 			const data = apiEvent.detail.getPlayerResponse();
 			data.videoDetails.elapsedSeconds = Math.floor(video.currentTime);
-			data.videoDetails.isPaused = video.paused;
-			ipcRenderer.send("video-src-changed", JSON.stringify(apiEvent.detail.getPlayerResponse()));
+			data.videoDetails.isPaused = false;
+			ipcRenderer.send("video-src-changed", JSON.stringify(data));
 		}
 	}, { once: true, passive: true });
 };
