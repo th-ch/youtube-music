@@ -2397,10 +2397,10 @@ builder-util-runtime@8.7.7:
     debug "^4.3.2"
     sax "^1.2.4"
 
-builder-util-runtime@8.9.0:
-  version "8.9.0"
-  resolved "https://registry.yarnpkg.com/builder-util-runtime/-/builder-util-runtime-8.9.0.tgz#5d8e7ef101c0bf8a54fec3a70f0c551e8fdd58c2"
-  integrity sha512-XT7asdRMiSqUj/7EtvSW1mzVARvnhj0Nv4Ei4kD0p8GrKMFJt1Nadm4XwD+PrI2+srrtU+l8JMoBgSe4LX8EmQ==
+builder-util-runtime@8.9.2:
+  version "8.9.2"
+  resolved "https://registry.yarnpkg.com/builder-util-runtime/-/builder-util-runtime-8.9.2.tgz#a9669ae5b5dcabfe411ded26678e7ae997246c28"
+  integrity sha512-rhuKm5vh7E0aAmT6i8aoSfEjxzdYEFX7zDApK+eNgOhjofnWb74d9SRJv0H/8nsgOkos0TZ4zxW0P8J4N7xQ2A==
   dependencies:
     debug "^4.3.2"
     sax "^1.2.4"
@@ -3398,13 +3398,13 @@ electron-unhandled@^3.0.2:
     ensure-error "^2.0.0"
     lodash.debounce "^4.0.8"
 
-electron-updater@^4.4.6:
-  version "4.6.0"
-  resolved "https://registry.yarnpkg.com/electron-updater/-/electron-updater-4.6.0.tgz#17fc25a16d28f749cd3980430461bf7e6927d925"
-  integrity sha512-evvAwfDn100sIBZ/GLDpcWtWfaug48RGxVuYiSp0foKQkaXJGFyqYy5ADyt+HPML/mSTMPBvUq55cLEW45BroQ==
+electron-updater@^4.6.1:
+  version "4.6.2"
+  resolved "https://registry.yarnpkg.com/electron-updater/-/electron-updater-4.6.2.tgz#6edd2816a6b3859f55252082f59308b0d314f644"
+  integrity sha512-KAloJQNXwW2j81n0o2KgBsiRsxp2OS15nty4nZLUjZYNuRyJ7yp2zeKPL4fVNGY6Ave491ht7/Dyz5OIykJf9g==
   dependencies:
     "@types/semver" "^7.3.6"
-    builder-util-runtime "8.9.0"
+    builder-util-runtime "8.9.2"
     fs-extra "^10.0.0"
     js-yaml "^4.1.0"
     lazy-val "^1.0.5"
