@@ -47,7 +47,7 @@ const observePopupContainer = () => {
 
 const observeVideo = () => {
 	$('video').addEventListener('ratechange', forcePlaybackRate)
-	$('video').addEventListener('loadeddata', forcePlaybackRate)
+	$('video').addEventListener('srcChanged', forcePlaybackRate)
 }
 
 const setupWheelListener = () => {

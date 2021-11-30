@@ -4,10 +4,13 @@
 	font-size: 14px !important;
 }
 
-/* fixes nav-bar-background opacity bug and allows clicking scrollbar through it */
+/* fixes nav-bar-background opacity bug, reposition it, and allows clicking scrollbar through it */
 #nav-bar-background {
 	opacity: 1 !important;
-	pointer-events: none;
+	pointer-events: none !important;
+	position: sticky !important;
+	top: 0 !important;
+	height: 75px !important;
 }
 
 /* remove window dragging for nav bar (conflict with titlebar drag) */
@@ -17,9 +20,10 @@ ytmusic-pivot-bar-item-renderer {
 	-webkit-app-region: unset !important;
 }
 
-/* move up item selection renderer by 13 px */
-ytmusic-item-section-renderer.stuck #header.ytmusic-item-section-renderer {
-    top: calc(var(--ytmusic-nav-bar-height) - 13px) !important;
+/* move up item selection renderers */
+ytmusic-item-section-renderer.stuck #header.ytmusic-item-section-renderer,
+ytmusic-tabs.stuck {
+	top: calc(var(--ytmusic-nav-bar-height) - 15px) !important;
 }
 
 /* fix weird positioning in search screen*/
@@ -28,8 +32,7 @@ ytmusic-header-renderer.ytmusic-search-page {
 }
 
 /* Move navBar downwards */
-ytmusic-nav-bar[slot="nav-bar"],
-#nav-bar-background {
+ytmusic-nav-bar[slot="nav-bar"] {
 	top: 17px !important;
 }
 

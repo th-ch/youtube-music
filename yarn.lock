@@ -650,46 +650,46 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@cliqz/adblocker-content@^1.22.7":
-  version "1.22.7"
-  resolved "https://registry.yarnpkg.com/@cliqz/adblocker-content/-/adblocker-content-1.22.7.tgz#02bfa1775d8be1efa82e9d5802cc17cfa9dc0712"
-  integrity sha512-pAGxQ7sKCk7r0g/d7vyxY1MhkLfxfwMzd4WPL9234HmU/blCGCg1QL8wkjLTNYJERXZ+xoJ2dqMOisR/nE0ypA==
+"@cliqz/adblocker-content@^1.23.0":
+  version "1.23.0"
+  resolved "https://registry.yarnpkg.com/@cliqz/adblocker-content/-/adblocker-content-1.23.0.tgz#4417a28d6018138956898efa141c9e6f52c9ec34"
+  integrity sha512-X1osDX8pWGE1wGFnJqdY4qnwHI9Kb48Tom8HeZWTYDsf8VN636xUB5e5s4YZCTSfn271tFHYSdXNx3+TZqkkkQ==
   dependencies:
-    "@cliqz/adblocker-extended-selectors" "^1.22.7"
+    "@cliqz/adblocker-extended-selectors" "^1.23.0"
 
-"@cliqz/adblocker-electron-preload@^1.22.7":
-  version "1.22.7"
-  resolved "https://registry.yarnpkg.com/@cliqz/adblocker-electron-preload/-/adblocker-electron-preload-1.22.7.tgz#1de6c4c3e66d566149cf60785b85d6f3fdb9a9ea"
-  integrity sha512-1eUQvmmDd5Wi0ka48SRggd80ZBilnA7uRePni/cVGfH5LSecCs5WoIpEhuoc1G333DXeBv9W0sRc1wVlKBsszg==
+"@cliqz/adblocker-electron-preload@^1.23.0":
+  version "1.23.0"
+  resolved "https://registry.yarnpkg.com/@cliqz/adblocker-electron-preload/-/adblocker-electron-preload-1.23.0.tgz#69b42929fb06f1a3e0af7822813f7d4fb0698c3e"
+  integrity sha512-sLvmoI7sr9dro/zBidVJU8gGrh+8GmS4Bzkbmxl5Wzgr6Q7cAPf1OOO8ixSXltFurJWH7OJCgPss4WC8Q/kc5w==
   dependencies:
-    "@cliqz/adblocker-content" "^1.22.7"
+    "@cliqz/adblocker-content" "^1.23.0"
 
-"@cliqz/adblocker-electron@^1.22.6":
-  version "1.22.7"
-  resolved "https://registry.yarnpkg.com/@cliqz/adblocker-electron/-/adblocker-electron-1.22.7.tgz#bd29cf47835bc5c0c4d146333de3944096d23b4d"
-  integrity sha512-/O5Dskkr7R/8RKOby04VZ7HbnU/OD6Kk+raLxyP858FOYccHOnBjkAcUcUzun2x0UXmHX9Cus8SJ3h8GbrG7ZA==
+"@cliqz/adblocker-electron@^1.23.0":
+  version "1.23.0"
+  resolved "https://registry.yarnpkg.com/@cliqz/adblocker-electron/-/adblocker-electron-1.23.0.tgz#8ad7f4f705291b9d038356464bde46b310af602c"
+  integrity sha512-j7X8B1p4PFHkHA7wOLxPpHUz2smsTkYM04/X8/mQyTUf42jzvqqA14qF0r4EGbavSrdqQxKEkHxeHhw2odHykQ==
   dependencies:
-    "@cliqz/adblocker" "^1.22.7"
-    "@cliqz/adblocker-electron-preload" "^1.22.7"
+    "@cliqz/adblocker" "^1.23.0"
+    "@cliqz/adblocker-electron-preload" "^1.23.0"
     tldts-experimental "^5.6.21"
 
-"@cliqz/adblocker-extended-selectors@^1.22.7":
-  version "1.22.7"
-  resolved "https://registry.yarnpkg.com/@cliqz/adblocker-extended-selectors/-/adblocker-extended-selectors-1.22.7.tgz#ca0f219d773af5e8013287e5ddd8b00761359d87"
-  integrity sha512-eHZWYJsgPZPaiLyQtZF7phDFoEqAzk54eno0P+Daal+QwiNixobsk3V4Uh1AVGFcmFEG/Z2CbC/vdWSHpSlImw==
+"@cliqz/adblocker-extended-selectors@^1.23.0":
+  version "1.23.0"
+  resolved "https://registry.yarnpkg.com/@cliqz/adblocker-extended-selectors/-/adblocker-extended-selectors-1.23.0.tgz#44e54a91ae6f4cbc24f76f5b0ce16ec03851c015"
+  integrity sha512-6Zl/wdGBuRd80ssmThOYS0L9u2t4lZElJXpxRB3Jp7uF6oL4LqSK4OKps4x8BktdQMgej6r5EhCh1avwu/13Bg==
 
-"@cliqz/adblocker@^1.22.7":
-  version "1.22.7"
-  resolved "https://registry.yarnpkg.com/@cliqz/adblocker/-/adblocker-1.22.7.tgz#e2ee745c663ad6862e627de240973bdb4f1dc100"
-  integrity sha512-DxHlLJmV1q05F1I6BORqvBaOc43Vqts8c+vZdsjYdfiwfrPtuVRFYVTwZeMlZHBhmWx4HyxnfFakzJ8hw/B09A==
+"@cliqz/adblocker@^1.23.0":
+  version "1.23.0"
+  resolved "https://registry.yarnpkg.com/@cliqz/adblocker/-/adblocker-1.23.0.tgz#a970d1199d36161a6154e27654cd7eb59a10a497"
+  integrity sha512-SRgSqEzFSN99zBeW3Or7ZW1uiIn+O2/Ol6KmZnsTZ/Wrn2RAQsm4wEzxPi6BSC3HpdJh2JdKuAwISavpmhuuvA==
   dependencies:
-    "@cliqz/adblocker-content" "^1.22.7"
-    "@cliqz/adblocker-extended-selectors" "^1.22.7"
+    "@cliqz/adblocker-content" "^1.23.0"
+    "@cliqz/adblocker-extended-selectors" "^1.23.0"
     "@remusao/guess-url-type" "^1.1.2"
     "@remusao/small" "^1.1.2"
     "@remusao/smaz" "^1.7.1"
-    "@types/chrome" "^0.0.157"
-    "@types/firefox-webext-browser" "^82.0.0"
+    "@types/chrome" "^0.0.159"
+    "@types/firefox-webext-browser" "^94.0.0"
     tldts-experimental "^5.6.21"
 
 "@develar/schema-utils@~2.6.5":
@@ -1441,10 +1441,10 @@
     "@types/node" "*"
     "@types/responselike" "*"
 
-"@types/chrome@^0.0.157":
-  version "0.0.157"
-  resolved "https://registry.yarnpkg.com/@types/chrome/-/chrome-0.0.157.tgz#5a50bd378f4f632383c6ebbc34c88fb87d501f58"
-  integrity sha512-q5SSmA9nKaDzFi8QkJW9kW8MYwWg9O7PKPUdBxsz+3rPcIF1Kxw0Bexpd70Uq1mU6PN4DBp4qKMXQDybUeiI9w==
+"@types/chrome@^0.0.159":
+  version "0.0.159"
+  resolved "https://registry.yarnpkg.com/@types/chrome/-/chrome-0.0.159.tgz#0c1125fbb6d1fd64713e35de9aafbfd5a1b7a33a"
+  integrity sha512-WZBkNJGAwZuRgv/an94DANdzFtJK0TvlO/evMpJD/TYnkjIxynIAU6RM7M78e8tyig/vD6weQ9T1Ba7v8nYjXQ==
   dependencies:
     "@types/filesystem" "*"
     "@types/har-format" "*"
@@ -1479,10 +1479,10 @@
   resolved "https://registry.yarnpkg.com/@types/filewriter/-/filewriter-0.0.28.tgz#c054e8af4d9dd75db4e63abc76f885168714d4b3"
   integrity sha1-wFTor02d11205jq8dviFFocU1LM=
 
-"@types/firefox-webext-browser@^82.0.0":
-  version "82.0.0"
-  resolved "https://registry.yarnpkg.com/@types/firefox-webext-browser/-/firefox-webext-browser-82.0.0.tgz#4d0f5cfebd7321d2cbf0ccfb6032570f0138b958"
-  integrity sha512-zKHePkjMx42KIUUZCPcUiyu1tpfQXH9VR4iDYfns3HvmKVJzt/TAFT+DFVroos8BI9RH78YgF3Hi/wlC6R6cKA==
+"@types/firefox-webext-browser@^94.0.0":
+  version "94.0.0"
+  resolved "https://registry.yarnpkg.com/@types/firefox-webext-browser/-/firefox-webext-browser-94.0.0.tgz#8a470475ab111e47d34e2599034e227feece09f9"
+  integrity sha512-DU6rySaklQlzc3tnVAFNgK2OGkOKCDze8ZlhQFtx+Ag4w2rzgNFoqlwQHrUqUogRJph7Gxf1M8e9n4mlYlragw==
 
 "@types/fs-extra@^9.0.11":
   version "9.0.12"
@@ -2397,10 +2397,10 @@ builder-util-runtime@8.7.7:
     debug "^4.3.2"
     sax "^1.2.4"
 
-builder-util-runtime@8.9.0:
-  version "8.9.0"
-  resolved "https://registry.yarnpkg.com/builder-util-runtime/-/builder-util-runtime-8.9.0.tgz#5d8e7ef101c0bf8a54fec3a70f0c551e8fdd58c2"
-  integrity sha512-XT7asdRMiSqUj/7EtvSW1mzVARvnhj0Nv4Ei4kD0p8GrKMFJt1Nadm4XwD+PrI2+srrtU+l8JMoBgSe4LX8EmQ==
+builder-util-runtime@8.9.2:
+  version "8.9.2"
+  resolved "https://registry.yarnpkg.com/builder-util-runtime/-/builder-util-runtime-8.9.2.tgz#a9669ae5b5dcabfe411ded26678e7ae997246c28"
+  integrity sha512-rhuKm5vh7E0aAmT6i8aoSfEjxzdYEFX7zDApK+eNgOhjofnWb74d9SRJv0H/8nsgOkos0TZ4zxW0P8J4N7xQ2A==
   dependencies:
     debug "^4.3.2"
     sax "^1.2.4"
@@ -3398,13 +3398,13 @@ electron-unhandled@^3.0.2:
     ensure-error "^2.0.0"
     lodash.debounce "^4.0.8"
 
-electron-updater@^4.4.6:
-  version "4.6.0"
-  resolved "https://registry.yarnpkg.com/electron-updater/-/electron-updater-4.6.0.tgz#17fc25a16d28f749cd3980430461bf7e6927d925"
-  integrity sha512-evvAwfDn100sIBZ/GLDpcWtWfaug48RGxVuYiSp0foKQkaXJGFyqYy5ADyt+HPML/mSTMPBvUq55cLEW45BroQ==
+electron-updater@^4.6.1:
+  version "4.6.2"
+  resolved "https://registry.yarnpkg.com/electron-updater/-/electron-updater-4.6.2.tgz#6edd2816a6b3859f55252082f59308b0d314f644"
+  integrity sha512-KAloJQNXwW2j81n0o2KgBsiRsxp2OS15nty4nZLUjZYNuRyJ7yp2zeKPL4fVNGY6Ave491ht7/Dyz5OIykJf9g==
   dependencies:
     "@types/semver" "^7.3.6"
-    builder-util-runtime "8.9.0"
+    builder-util-runtime "8.9.2"
     fs-extra "^10.0.0"
     js-yaml "^4.1.0"
     lazy-val "^1.0.5"
@@ -6448,10 +6448,10 @@ node-fetch@^2.6.1:
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
   integrity sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==
 
-node-fetch@^2.6.2:
-  version "2.6.5"
-  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.5.tgz#42735537d7f080a7e5f78b6c549b7146be1742fd"
-  integrity sha512-mmlIVHJEu5rnIxgEgez6b9GgWXbkZj5YZ7fx+2r94a2E+Uirsp6HsPTPlomfdHtpt/B0cdKviwkoaM6pyvUOpQ==
+node-fetch@^2.6.6:
+  version "2.6.6"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.6.tgz#1751a7c01834e8e1697758732e9efb6eeadfaf89"
+  integrity sha512-Z8/6vRlTUChSdIgMa51jxQ4lrw/Jy5SOW10ObaA47/RElsAN2c5Pn8bTgFGWn/ibwzXTE8qwr1Yzx28vsecXEA==
   dependencies:
     whatwg-url "^5.0.0"
 

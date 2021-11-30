@@ -63,7 +63,7 @@
 		"npm": "Please use yarn and not npm"
 	},
 	"dependencies": {
-		"@cliqz/adblocker-electron": "^1.22.6",
+		"@cliqz/adblocker-electron": "^1.23.0",
 		"@ffmpeg/core": "^0.10.0",
 		"@ffmpeg/ffmpeg": "^0.10.0",
 		"async-mutex": "^0.3.2",
@@ -78,11 +78,11 @@
 		"electron-localshortcut": "^3.2.1",
 		"electron-store": "^7.0.3",
 		"electron-unhandled": "^3.0.2",
-		"electron-updater": "^4.4.6",
+		"electron-updater": "^4.6.1",
 		"filenamify": "^4.3.0",
 		"md5": "^2.3.0",
 		"mpris-service": "^2.1.2",
-		"node-fetch": "^2.6.2",
+		"node-fetch": "^2.6.6",
 		"node-notifier": "^9.0.1",
 		"ytdl-core": "^4.9.1",
 		"ytpl": "^2.2.3"

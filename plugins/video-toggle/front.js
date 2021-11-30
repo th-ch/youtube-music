@@ -6,6 +6,8 @@ function $(selector) { return document.querySelector(selector); }
 
 let options, player, video, api;
 
+let api;
+
 const switchButtonDiv = ElementFromFile(
     templatePath(__dirname, "button_template.html")
 );
@@ -40,8 +42,10 @@ function setup(e) {
         changeDisplay(e.target.checked);
         setOptions("video-toggle", options);
     })
+  
+    video.addEventListener('srcChanged', videoStarted);
 
-    video.addEventListener('loadedmetadata', videoStarted);
+    observeThumbnail();
 }
 
 function changeDisplay(showVideo) {
@@ -57,10 +61,7 @@ function changeDisplay(showVideo) {
 function videoStarted() {
     if (player.videoMode_) {
         // switch to high res thumbnail
-        const thumbnails = api.getPlayerResponse()?.videoDetails?.thumbnail?.thumbnails;
-        if (thumbnails && thumbnails.length > 0) {
-            $('#song-image img').src = thumbnails[thumbnails.length - 1].url;
-        }
+        forceThumbnail($('#song-image img'));
         // show toggle button
         switchButtonDiv.style.display = "initial";
         // change display to video mode if video exist & video is hidden & option.hideVideo = false
@@ -96,4 +97,23 @@ function moveVolumeHud(showVideo) {
     const volumeHud = $('#volumeHud');
     if (volumeHud)
         volumeHud.style.top = showVideo ? `${(player.clientHeight - video.clientHeight) / 2}px` : 0;
+}
+
+function observeThumbnail() {
+    const playbackModeObserver = new MutationObserver(mutations => {
+        if (!$('#player').videoMode_) return;
+
+        mutations.forEach(mutation => {
+            if (!mutation.target.src.startsWith('data:')) return;
+            forceThumbnail(mutation.target)
+        });
+    });
+    playbackModeObserver.observe($('#song-image img'), { attributeFilter: ["src"] })
+}
+
+function forceThumbnail(img) {
+    const thumbnails = $('#movie_player').getPlayerResponse()?.videoDetails?.thumbnail?.thumbnails;
+    if (thumbnails && thumbnails.length > 0) {
+        img.src = thumbnails[thumbnails.length - 1].url.split("?")[0];
+    }
 }
