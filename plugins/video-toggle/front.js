@@ -6,12 +6,9 @@ function $(selector) { return document.querySelector(selector); }
 
 let options, player, video, api;
 
-let api;
-
 const switchButtonDiv = ElementFromFile(
     templatePath(__dirname, "button_template.html")
 );
-
 
 module.exports = (_options) => {
     if (_options.forceHide) return;
