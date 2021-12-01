@@ -1,8 +1,8 @@
 const fetch = require("node-fetch");
 const is = require("electron-is");
+const { ipcMain } = require("electron");
 
 const defaultConfig = require("../../config/defaults");
-const registerCallback = require("../../providers/song-info");
 const { sortSegments } = require("./segments");
 
 let videoID;
@@ -13,15 +13,10 @@ module.exports = (win, options) => {
 		...options,
 	};
 
-	registerCallback(async (info) => {
-		const newURL = info.url || win.webContents.getURL();
-		const newVideoID = new URL(newURL).searchParams.get("v");
-
-		if (videoID !== newVideoID) {
-			videoID = newVideoID;
-			const segments = await fetchSegments(apiURL, categories);
-			win.webContents.send("sponsorblock-skip", segments);
-		}
+	ipcMain.on("video-src-changed", async (_, data) => {
+		videoID = JSON.parse(data)?.videoDetails?.videoId;
+		const segments = await fetchSegments(apiURL, categories);
+		win.webContents.send("sponsorblock-skip", segments);
 	});
 };
 

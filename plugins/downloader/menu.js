@@ -1,25 +1,23 @@
 const { existsSync, mkdirSync } = require("fs");
 const { join } = require("path");
-const { URL } = require("url");
 
-const { dialog } = require("electron");
+const { dialog, ipcMain } = require("electron");
 const is = require("electron-is");
 const ytpl = require("ytpl");
 const chokidar = require('chokidar');
 
 const { setOptions } = require("../../config/plugins");
-const registerCallback = require("../../providers/song-info");
 const { sendError } = require("./back");
 const { defaultMenuDownloadLabel, getFolder } = require("./utils");
 
 let downloadLabel = defaultMenuDownloadLabel;
-let metadataURL = undefined;
+let playingPlaylistId = undefined;
 let callbackIsRegistered = false;
 
 module.exports = (win, options) => {
 	if (!callbackIsRegistered) {
-		registerCallback((info) => {
-			metadataURL = info.url;
+		ipcMain.on("video-src-changed", async (_, data) => {
+			playingPlaylistId = JSON.parse(data)?.videoDetails?.playlistId;
 		});
 		callbackIsRegistered = true;
 	}
@@ -28,17 +26,17 @@ module.exports = (win, options) => {
 		{
 			label: downloadLabel,
 			click: async () => {
-				const currentURL = metadataURL || win.webContents.getURL();
-				const playlistID = new URL(currentURL).searchParams.get("list");
-				if (!playlistID) {
+				const currentPagePlaylistId = new URL(win.webContents.getURL()).searchParams.get("list");
+				const playlistId = currentPagePlaylistId || playingPlaylistId;
+				if (!playlistId) {
 					sendError(win, new Error("No playlist ID found"));
 					return;
 				}
 
-				console.log(`trying to get playlist ID: '${playlistID}'`);
+				console.log(`trying to get playlist ID: '${playlistId}'`);
 				let playlist;
 				try {
-					playlist = await ytpl(playlistID, {
+					playlist = await ytpl(playlistId, {
 						limit: options.playlistMaxItems || Infinity,
 					});
 				} catch (e) {

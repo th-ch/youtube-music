@@ -4,32 +4,6 @@ const fetch = require("node-fetch");
 
 const config = require("../config");
 
-// Grab the progress using the selector
-const getProgress = async (win) => {
-	// Get current value of the progressbar element
-	return win.webContents.executeJavaScript(
-		'document.querySelector("#progress-bar").value'
-	);
-};
-
-// Grab the native image using the src
-const getImage = async (src) => {
-	const result = await fetch(src);
-	const buffer = await result.buffer();
-	const output = nativeImage.createFromBuffer(buffer);
-	if (output.isEmpty() && !src.endsWith(".jpg") && src.includes(".jpg")) { // fix hidden webp files (https://github.com/th-ch/youtube-music/issues/315)
-		return getImage(src.slice(0, src.lastIndexOf(".jpg")+4));
-	} else {
-		return output;
-	}
-};
-
-// To find the paused status, we check if the title contains `-`
-const getPausedStatus = async (win) => {
-	const title = await win.webContents.executeJavaScript("document.title");
-	return !title.includes("-");
-};
-
 // Fill songInfo with empty values
 /**
  * @typedef {songInfo} SongInfo
@@ -45,25 +19,55 @@ const songInfo = {
 	songDuration: 0,
 	elapsedSeconds: 0,
 	url: "",
-	album: undefined
+	album: undefined,
+	videoId: "",
+	playlistId: "",
+};
+
+// Grab the native image using the src
+const getImage = async (src) => {
+	const result = await fetch(src);
+	const buffer = await result.buffer();
+	const output = nativeImage.createFromBuffer(buffer);
+	if (output.isEmpty() && !src.endsWith(".jpg") && src.includes(".jpg")) { // fix hidden webp files (https://github.com/th-ch/youtube-music/issues/315)
+		return getImage(src.slice(0, src.lastIndexOf(".jpg") + 4));
+	} else {
+		return output;
+	}
 };
 
 const handleData = async (responseText, win) => {
-	let data = JSON.parse(responseText);
-	songInfo.title = cleanupName(data?.videoDetails?.title);
-	songInfo.artist =cleanupName(data?.videoDetails?.author);
-	songInfo.views = data?.videoDetails?.viewCount;
-	songInfo.imageSrc = data?.videoDetails?.thumbnail?.thumbnails?.pop()?.url;
-	songInfo.songDuration = data?.videoDetails?.lengthSeconds;
-	songInfo.image = await getImage(songInfo.imageSrc);
-	songInfo.uploadDate = data?.microformat?.microformatDataRenderer?.uploadDate;
-	songInfo.url = data?.microformat?.microformatDataRenderer?.urlCanonical?.split("&")[0];
-	songInfo.album = data?.videoDetails?.album
+	const data = JSON.parse(responseText);
+	if (!data) return;
 
-	// used for options.resumeOnStart
-	config.set("url", data?.microformat?.microformatDataRenderer?.urlCanonical);
+	const microformat = data.microformat?.microformatDataRenderer;
+	if (microformat) {
+		songInfo.uploadDate = microformat.uploadDate;
+		songInfo.url = microformat.urlCanonical?.split("&")[0];
+		songInfo.playlistId = new URL(microformat.urlCanonical).searchParams.get("list");
+		// used for options.resumeOnStart
+		config.set("url", microformat.urlCanonical);
+	}
 
-	win.webContents.send("update-song-info", JSON.stringify(songInfo));
+	const videoDetails = data.videoDetails;
+	if (videoDetails) {
+		songInfo.title = cleanupName(videoDetails.title);
+		songInfo.artist = cleanupName(videoDetails.author);
+		songInfo.views = videoDetails.viewCount;
+		songInfo.songDuration = videoDetails.lengthSeconds;
+		songInfo.elapsedSeconds = videoDetails.elapsedSeconds;
+		songInfo.isPaused = videoDetails.isPaused;
+		songInfo.videoId = videoDetails.videoId;
+    songInfo.album = data?.videoDetails?.album
+
+		const oldUrl = songInfo.imageSrc;
+		songInfo.imageSrc = videoDetails.thumbnail?.thumbnails?.pop()?.url.split("?")[0];
+		if (oldUrl !== songInfo.imageSrc) {
+			songInfo.image = await getImage(songInfo.imageSrc);
+		}
+
+		win.webContents.send("update-song-info", JSON.stringify(songInfo));
+	}
 };
 
 // This variable will be filled with the callbacks once they register
@@ -83,26 +87,20 @@ const registerCallback = (callback) => {
 };
 
 const registerProvider = (win) => {
-	win.on("page-title-updated", async () => {
-		// Get and set the new data
-		songInfo.isPaused = await getPausedStatus(win);
-
-		const elapsedSeconds = await getProgress(win);
-		songInfo.elapsedSeconds = elapsedSeconds;
-
-		// Trigger the callbacks
-		callbacks.forEach((c) => {
-			c(songInfo);
-		});
-	});
-
 	// This will be called when the song-info-front finds a new request with song data
-	ipcMain.on("song-info-request", async (_, responseText) => {
+	ipcMain.on("video-src-changed", async (_, responseText) => {
 		await handleData(responseText, win);
 		callbacks.forEach((c) => {
 			c(songInfo);
 		});
 	});
+	ipcMain.on("playPaused", (_, { isPaused, elapsedSeconds }) => {
+		songInfo.isPaused = isPaused;
+		songInfo.elapsedSeconds = elapsedSeconds;
+		callbacks.forEach((c) => {
+			c(songInfo);
+		});
+	})
 };
 
 const suffixesToRemove = [
@@ -116,7 +114,7 @@ const suffixesToRemove = [
 
 function cleanupName(name) {
 	if (!name) return name;
-    const lowCaseName = name.toLowerCase();
+	const lowCaseName = name.toLowerCase();
 	for (const suffix of suffixesToRemove) {
 		if (lowCaseName.endsWith(suffix)) {
 			return name.slice(0, -suffix.length);
