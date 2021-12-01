@@ -18,7 +18,7 @@ const srcChangedEvent = new CustomEvent('srcChanged');
 
 module.exports = () => {
 	document.addEventListener('apiLoaded', apiEvent => {
-    if (config.plugins.isEnabled('tuna-obs')) {
+		if (config.plugins.isEnabled('tuna-obs')) {
 			setupTimeChangeListener();
 		}
 		const video = $('video');
@@ -42,7 +42,7 @@ module.exports = () => {
 
 		function sendSongInfo() {
 			const data = apiEvent.detail.getPlayerResponse();
-      data.videoDetails.album = $('ytmusic-player-page')?.__data?.playerPageWatchMetadata?.albumName?.runs[0].text
+			data.videoDetails.album = $('ytmusic-player-page')?.__data?.playerPageWatchMetadata?.albumName?.runs[0].text
 			data.videoDetails.elapsedSeconds = Math.floor(video.currentTime);
 			data.videoDetails.isPaused = false;
 			ipcRenderer.send("video-src-changed", JSON.stringify(data));

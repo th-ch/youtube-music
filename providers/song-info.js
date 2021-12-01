@@ -58,7 +58,7 @@ const handleData = async (responseText, win) => {
 		songInfo.elapsedSeconds = videoDetails.elapsedSeconds;
 		songInfo.isPaused = videoDetails.isPaused;
 		songInfo.videoId = videoDetails.videoId;
-    songInfo.album = data?.videoDetails?.album
+		songInfo.album = data?.videoDetails?.album; // Will be undefined if video exist
 
 		const oldUrl = songInfo.imageSrc;
 		songInfo.imageSrc = videoDetails.thumbnail?.thumbnails?.pop()?.url.split("?")[0];
