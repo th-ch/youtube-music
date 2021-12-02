@@ -166,6 +166,8 @@ app.once("browser-window-created", (event, win) => {
 	setupSongInfo(win);
 	loadPlugins(win);
 
+	let actualUserAgent = win.webContents.userAgent;
+
 	win.webContents.on("did-fail-load", (
 		_event,
 		errorCode,
@@ -207,18 +209,24 @@ app.once("browser-window-created", (event, win) => {
 			const userAgents = {
 				mac: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:70.0) Gecko/20100101 Firefox/70.0",
 				windows: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:90.0) Gecko/20100101 Firefox/90.0",
-				linux: "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:90.0) Gecko/20100101 Firefox/90.0",
+				linux: "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:94.0) Gecko/20100101 Firefox/94.0",
 			}
 			
 			const userAgent = 
 				is.macOS() ? userAgents.mac :
 				is.windows() ? userAgents.windows :
 				userAgents.linux;
+			
+			// Also overwrite the user agent to prevent finding the actual user agent
+			win.webContents.userAgent = userAgent;
 
 			win.webContents.session.webRequest.onBeforeSendHeaders((details, cb) => {
 				details.requestHeaders["User-Agent"] = userAgent;
 				cb({ requestHeaders: details.requestHeaders });
 			});
+		} else {
+			// Restore the actual getUserAgent for everything else.
+			win.webContents.userAgent = actualUserAgent;
 		}
 	});
 
