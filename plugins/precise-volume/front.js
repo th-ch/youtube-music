@@ -39,13 +39,13 @@ function firstRun(options) {
 function injectVolumeHud(noVid) {
 	if (noVid) {
 		const position = "top: 18px; right: 60px; z-index: 999; position: absolute;";
-		const mainStyle = "font-size: xx-large; padding: 10px; transition: opacity 1s";
+		const mainStyle = "font-size: xx-large; padding: 10px; transition: opacity 1s; pointer-events: none;";
 
 		$(".center-content.ytmusic-nav-bar").insertAdjacentHTML("beforeend",
 			`<span id="volumeHud" style="${position + mainStyle}"></span>`)
 	} else {
 		const position = `top: 10px; left: 10px; z-index: 999; position: absolute;`;
-		const mainStyle = "font-size: xxx-large; padding: 10px; transition: opacity 0.6s; webkit-text-stroke: 1px black; font-weight: 600;";
+		const mainStyle = "font-size: xxx-large; padding: 10px; transition: opacity 0.6s; webkit-text-stroke: 1px black; font-weight: 600; pointer-events: none;";
 
 		$("#song-video").insertAdjacentHTML('afterend',
 			`<span id="volumeHud" style="${position + mainStyle}"></span>`)

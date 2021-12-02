@@ -5,14 +5,12 @@ function $(selector) { return document.querySelector(selector); }
 
 const slider = ElementFromFile(templatePath(__dirname, "slider.html"));
 
-const roundToTwo = (n) => Math.round(n * 1e2) / 1e2;
+const roundToTwo = n => Math.round(n * 1e2) / 1e2;
 
 const MIN_PLAYBACK_SPEED = 0.07;
 const MAX_PLAYBACK_SPEED = 16;
 
 let playbackSpeed = 1;
-
-const computePlayBackSpeed = (playbackSpeedPercentage) => playbackSpeedPercentage || MIN_PLAYBACK_SPEED;
 
 const updatePlayBackSpeed = () => {
 	$('video').playbackRate = playbackSpeed;
@@ -71,8 +69,8 @@ const setupWheelListener = () => {
 }
 
 function setupSliderListener() {
-	$('#playback-speed-slider').addEventListener('immediate-value-changed', () => {
-		playbackSpeed = computePlayBackSpeed($('#playback-speed-slider #sliderBar').value);
+	$('#playback-speed-slider').addEventListener('immediate-value-changed', e => {
+		playbackSpeed = e.detail.value || MIN_PLAYBACK_SPEED;
 		if (isNaN(playbackSpeed)) {
 			playbackSpeed = 1;
 		}
