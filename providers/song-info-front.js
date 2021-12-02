@@ -2,7 +2,11 @@ const { ipcRenderer } = require("electron");
 
 const { getImage } = require("./song-info");
 
+const config = require("../config");
+
 global.songInfo = {};
+
+function $(selector) { return document.querySelector(selector); }
 
 ipcRenderer.on("update-song-info", async (_, extractedSongInfo) => {
 	global.songInfo = JSON.parse(extractedSongInfo);
@@ -14,7 +18,10 @@ const srcChangedEvent = new CustomEvent('srcChanged');
 
 module.exports = () => {
 	document.addEventListener('apiLoaded', apiEvent => {
-		const video = document.querySelector('video');
+		if (config.plugins.isEnabled('tuna-obs')) {
+			setupTimeChangeListener();
+		}
+		const video = $('video');
 		// name = "dataloaded" and abit later "dataupdated"
 		apiEvent.detail.addEventListener('videodatachange', (name, _dataEvent) => {
 			if (name !== 'dataloaded') return;
@@ -24,7 +31,7 @@ module.exports = () => {
 
 		for (const status of ['playing', 'pause']) {
 			video.addEventListener(status, e => {
-				if (Math.floor(e.target.currentTime) > 0) {
+				if (Math.round(e.target.currentTime) > 0) {
 					ipcRenderer.send("playPaused", {
 						isPaused: status === 'pause',
 						elapsedSeconds: Math.floor(e.target.currentTime)
@@ -35,9 +42,18 @@ module.exports = () => {
 
 		function sendSongInfo() {
 			const data = apiEvent.detail.getPlayerResponse();
+			data.videoDetails.album = $('ytmusic-player-page')?.__data?.playerPageWatchMetadata?.albumName?.runs[0].text
 			data.videoDetails.elapsedSeconds = Math.floor(video.currentTime);
 			data.videoDetails.isPaused = false;
 			ipcRenderer.send("video-src-changed", JSON.stringify(data));
 		}
 	}, { once: true, passive: true });
 };
+
+function setupTimeChangeListener() {
+	const progressObserver = new MutationObserver(mutations => {
+		ipcRenderer.send('timeChanged', mutations[0].target.value);
+		global.songInfo.elapsedSeconds = mutations[0].target.value;
+	});
+	progressObserver.observe($('#progress-bar'), { attributeFilter: ["value"] })
+}

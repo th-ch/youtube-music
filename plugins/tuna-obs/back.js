@@ -1,33 +1,52 @@
-const { ipcRenderer } = require("electron");
+const { ipcMain } = require("electron");
 const fetch = require('node-fetch');
 
 const registerCallback = require("../../providers/song-info");
 
-const post = (data) => {
+const secToMilisec = t => Math.round(Number(t) * 1e3);
+const data = {
+	cover_url: '',
+	title: '',
+	artists: [],
+	status: '',
+	progress: 0,
+	duration: 0,
+	album_url: '',
+	album: undefined
+};
+
+const post = async (data) => {
 	const port = 1608;
-	headers = {'Content-Type': 'application/json',
+	headers = {
+		'Content-Type': 'application/json',
 		'Accept': 'application/json',
 		'Access-Control-Allow-Headers': '*',
-		'Access-Control-Allow-Origin': '*'}
+		'Access-Control-Allow-Origin': '*'
+	}
 	const url = `http://localhost:${port}/`;
-	fetch(url, {method: 'POST', headers, body:JSON.stringify({data})});
+	fetch(url, { method: 'POST', headers, body: JSON.stringify({ data }) }).catch(e => console.log(`Error: '${e.code || e.errno}' - when trying to access obs-tuna webserver at port ${port}`));
 }
 
 module.exports = async (win) => {
-	registerCallback((songInfo) => {
+	ipcMain.on('timeChanged', async (_, t) => {
+		if (!data.title) return;
+		data.progress = secToMilisec(t);
+		post(data);
+	});
 
-		// Register the callback
-		if (songInfo.title.length === 0 && songInfo.artist.length === 0) {
+	registerCallback((songInfo) => {
+		if (!songInfo.title && !songInfo.artist) {
 			return;
 		}
 
-		const duration =  Number(songInfo.songDuration)*1000
-		const progress = Number(songInfo.elapsedSeconds)*1000
-		const cover_url = songInfo.imageSrc
-		const album_url = songInfo.imageSrc
-		const title = songInfo.title
-		const artists = [songInfo.artist]
-		const status = !songInfo.isPaused ? 'Playing': 'Paused'
-		post({ cover_url, title, artists, status, progress, duration, album_url});
+		data.duration = secToMilisec(songInfo.songDuration)
+		data.progress = secToMilisec(songInfo.elapsedSeconds)
+		data.cover_url = songInfo.imageSrc;
+		data.album_url = songInfo.imageSrc;
+		data.title = songInfo.title;
+		data.artists = [songInfo.artist];
+		data.status = songInfo.isPaused ? 'stopped' : 'playing';
+		data.album = songInfo.album;
+		post(data);
 	})
 }
