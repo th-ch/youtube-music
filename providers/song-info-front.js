@@ -1,5 +1,5 @@
 const { ipcRenderer } = require("electron");
-
+const is = require('electron-is');
 const { getImage } = require("./song-info");
 
 const config = require("../config");
@@ -18,7 +18,8 @@ const srcChangedEvent = new CustomEvent('srcChanged');
 
 module.exports = () => {
 	document.addEventListener('apiLoaded', apiEvent => {
-		if (config.plugins.isEnabled('tuna-obs')) {
+		if (config.plugins.isEnabled('tuna-obs') ||
+			(is.linux() && config.plugins.isEnabled('shortcuts'))) {
 			setupTimeChangeListener();
 		}
 		const video = $('video');
