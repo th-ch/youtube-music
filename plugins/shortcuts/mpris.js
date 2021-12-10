@@ -1,6 +1,7 @@
 const mpris = require("mpris-service");
 const { ipcMain } = require("electron");
 const registerCallback = require("../../providers/song-info");
+const getSongControls = require("../../providers/song-controls");
 
 function setupMPRIS() {
 	const player = mpris({
@@ -17,6 +18,8 @@ function setupMPRIS() {
 }
 
 function registerMPRIS(win) {
+	const songControls = getSongControls(win);
+	const { playPause, next, previous } = songControls;
 	try {
 		const secToMicro = n => Math.round(Number(n) * 1e6);
 		const microToSec = n => Math.round(Number(n) / 1e6);
@@ -26,9 +29,7 @@ function registerMPRIS(win) {
 
 		const player = setupMPRIS();
 
-		const mprisSeek = player.seeked;
-
-		ipcMain.on('seeked', (_, t) => mprisSeek(secToMicro(t)));
+		ipcMain.on('seeked', (_, t) => player.seeked(secToMicro(t)));
 
 		let currentSeconds = 0;
 		ipcMain.on('timeChanged', (_, t) => currentSeconds = t);
@@ -71,7 +72,7 @@ function registerMPRIS(win) {
 				};
 				if (songInfo.album) data['xesam:album'] = songInfo.album;
 				player.metadata = data;
-				mprisSeek(secToMicro(songInfo.elapsedSeconds))
+				player.seeked(secToMicro(songInfo.elapsedSeconds))
 				player.playbackStatus = songInfo.isPaused ? "Paused" : "Playing"
 			}
 		})
