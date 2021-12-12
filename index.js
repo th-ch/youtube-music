@@ -205,9 +205,9 @@ app.once("browser-window-created", (event, win) => {
 			// Uses custom user agent to Google alert with a correct device type (https://github.com/th-ch/youtube-music/issues/327)
 			// User agents are from https://developers.whatismybrowser.com/useragents/explore/
 			const userAgents = {
-				mac: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:70.0) Gecko/20100101 Firefox/70.0",
-				windows: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:90.0) Gecko/20100101 Firefox/90.0",
-				linux: "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:90.0) Gecko/20100101 Firefox/90.0",
+				mac: "Mozilla/5.0 (Macintosh; Intel Mac OS X 12.0; rv:95.0) Gecko/20100101 Firefox/95.0",
+				windows: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:95.0) Gecko/20100101 Firefox/95.0",
+				linux: "Mozilla/5.0 (Linux x86_64; rv:95.0) Gecko/20100101 Firefox/95.0",
 			}
 			
 			const userAgent = 
