@@ -197,6 +197,19 @@ app.once("browser-window-created", (event, win) => {
 		event.preventDefault();
 	});
 
+	const userAgents = {
+		mac: "Mozilla/5.0 (Macintosh; Intel Mac OS X 12.0; rv:95.0) Gecko/20100101 Firefox/95.0",
+		windows: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:95.0) Gecko/20100101 Firefox/95.0",
+		linux: "Mozilla/5.0 (Linux x86_64; rv:95.0) Gecko/20100101 Firefox/95.0",
+	}
+	
+	const userAgent = 
+		is.macOS() ? userAgents.mac :
+		is.windows() ? userAgents.windows :
+		userAgents.linux;
+
+	win.webContents.userAgent = userAgent;
+
 	win.webContents.on("will-navigate", (_, url) => {
 		if (url.startsWith("https://accounts.google.com")) {
 			// Force user-agent "Firefox Windows" for Google OAuth to work
@@ -204,16 +217,6 @@ app.once("browser-window-created", (event, win) => {
 			// Only set on accounts.google.com, otherwise querySelectors in preload scripts fail (?)
 			// Uses custom user agent to Google alert with a correct device type (https://github.com/th-ch/youtube-music/issues/327)
 			// User agents are from https://developers.whatismybrowser.com/useragents/explore/
-			const userAgents = {
-				mac: "Mozilla/5.0 (Macintosh; Intel Mac OS X 12.0; rv:95.0) Gecko/20100101 Firefox/95.0",
-				windows: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:95.0) Gecko/20100101 Firefox/95.0",
-				linux: "Mozilla/5.0 (Linux x86_64; rv:95.0) Gecko/20100101 Firefox/95.0",
-			}
-			
-			const userAgent = 
-				is.macOS() ? userAgents.mac :
-				is.windows() ? userAgents.windows :
-				userAgents.linux;
 
 			win.webContents.session.webRequest.onBeforeSendHeaders((details, cb) => {
 				details.requestHeaders["User-Agent"] = userAgent;
