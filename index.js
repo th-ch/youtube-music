@@ -165,21 +165,20 @@ function createMainWindow() {
 }
 
 app.once("browser-window-created", (event, win) => {
-	// Force user-agent "Firefox Windows" for Google OAuth to work
-	// From https://github.com/firebase/firebase-js-sdk/issues/2478#issuecomment-571356751
-	// Uses custom user agent to Google alert with a correct device type (https://github.com/th-ch/youtube-music/issues/327)
 	// User agents are from https://developers.whatismybrowser.com/useragents/explore/
 
 	const userAgents = {
-		mac: "Mozilla/5.0 (Macintosh; Intel Mac OS X 12_0_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36",
-		windows: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36",
-		linux: "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36",
+		mac: "Mozilla/5.0 (Macintosh; Intel Mac OS X 12.1; rv:95.0) Gecko/20100101 Firefox/95.0",
+		windows: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:95.0) Gecko/20100101 Firefox/95.0",
+		linux: "Mozilla/5.0 (Linux x86_64; rv:95.0) Gecko/20100101 Firefox/95.0",
 	}
 
-	app.userAgentFallback = 
+	const userAgent = 
 		is.macOS() ? userAgents.mac :
 		is.windows() ? userAgents.windows :
 		userAgents.linux;
+
+	app.userAgentFallback = userAgent;
 
 	setupSongInfo(win);
 	loadPlugins(win);
