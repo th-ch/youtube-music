@@ -1,7 +1,8 @@
 const electron = require("electron");
+//const remote = require('@electron/remote');
 
 module.exports.getFolder = (customFolder) =>
-	customFolder || (electron.app || electron.remote.app).getPath("downloads");
+	customFolder || electron.app.getPath("downloads");
 module.exports.defaultMenuDownloadLabel = "Download playlist";
 
 const orderedQualityList = ["maxresdefault", "hqdefault", "mqdefault", "sdddefault"];

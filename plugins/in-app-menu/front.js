@@ -1,4 +1,6 @@
-const { remote, ipcRenderer } = require("electron");
+const { ipcRenderer } = require("electron");
+const { Menu } = require("@electron/remote");
+
 
 const customTitlebar = require("custom-electron-titlebar");
 function $(selector) { return document.querySelector(selector); }
@@ -12,7 +14,7 @@ module.exports = () => {
 	document.title = "Youtube Music";
 
 	ipcRenderer.on("updateMenu", function (_event, showMenu) {
-		bar.updateMenu(showMenu ? remote.Menu.getApplicationMenu() : null);
+		bar.updateMenu(showMenu ? Menu.getApplicationMenu() : null);
 	});
 
 	// Increases the right margin of Navbar background when the scrollbar is visible to avoid blocking it (z-index doesn't affect it)

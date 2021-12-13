@@ -2,6 +2,8 @@
 const path = require("path");
 
 const electron = require("electron");
+const remote = require('@electron/remote/main');
+remote.initialize();
 const enhanceWebRequest = require("electron-better-web-request").default;
 const is = require("electron-is");
 const unhandled = require("electron-unhandled");
@@ -98,7 +100,6 @@ function createMainWindow() {
 			preload: path.join(__dirname, "preload.js"),
 			nodeIntegrationInSubFrames: true,
 			nativeWindowOpen: true, // window.open return Window object(like in regular browsers), not BrowserWindowProxy
-			enableRemoteModule: true,
 			affinity: "main-window", // main window, and addition windows should work in one process
 			...(isTesting()
 				? {
@@ -116,6 +117,7 @@ function createMainWindow() {
 			: "default",
 		autoHideMenuBar: config.get("options.hideMenu"),
 	});
+	remote.enable(win.webContents);
 	if (windowPosition) {
 		const { x, y } = windowPosition;
 		win.setPosition(x, y);
@@ -197,33 +199,21 @@ app.once("browser-window-created", (event, win) => {
 		event.preventDefault();
 	});
 
+	// Force user-agent "Firefox Windows" for Google OAuth to work
+	// From https://github.com/firebase/firebase-js-sdk/issues/2478#issuecomment-571356751
+	// Uses custom user agent to Google alert with a correct device type (https://github.com/th-ch/youtube-music/issues/327)
+	// User agents are from https://developers.whatismybrowser.com/useragents/explore/
+
 	const userAgents = {
 		mac: "Mozilla/5.0 (Macintosh; Intel Mac OS X 12.0; rv:95.0) Gecko/20100101 Firefox/95.0",
 		windows: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:95.0) Gecko/20100101 Firefox/95.0",
 		linux: "Mozilla/5.0 (Linux x86_64; rv:95.0) Gecko/20100101 Firefox/95.0",
 	}
-	
-	const userAgent = 
+
+	win.webContents.userAgent = 
 		is.macOS() ? userAgents.mac :
 		is.windows() ? userAgents.windows :
 		userAgents.linux;
-
-	win.webContents.userAgent = userAgent;
-
-	win.webContents.on("will-navigate", (_, url) => {
-		if (url.startsWith("https://accounts.google.com")) {
-			// Force user-agent "Firefox Windows" for Google OAuth to work
-			// From https://github.com/firebase/firebase-js-sdk/issues/2478#issuecomment-571356751
-			// Only set on accounts.google.com, otherwise querySelectors in preload scripts fail (?)
-			// Uses custom user agent to Google alert with a correct device type (https://github.com/th-ch/youtube-music/issues/327)
-			// User agents are from https://developers.whatismybrowser.com/useragents/explore/
-
-			win.webContents.session.webRequest.onBeforeSendHeaders((details, cb) => {
-				details.requestHeaders["User-Agent"] = userAgent;
-				cb({ requestHeaders: details.requestHeaders });
-			});
-		}
-	});
 
 	win.webContents.on(
 		"new-window",
