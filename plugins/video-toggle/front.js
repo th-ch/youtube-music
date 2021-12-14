@@ -98,7 +98,7 @@ function moveVolumeHud(showVideo) {
 
 function observeThumbnail() {
     const playbackModeObserver = new MutationObserver(mutations => {
-        if (!$('#player').videoMode_) return;
+        if (!player.videoMode_) return;
 
         mutations.forEach(mutation => {
             if (!mutation.target.src.startsWith('data:')) return;

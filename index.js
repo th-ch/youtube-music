@@ -166,19 +166,28 @@ function createMainWindow() {
 
 app.once("browser-window-created", (event, win) => {
 	// User agents are from https://developers.whatismybrowser.com/useragents/explore/
-
+	const originalUserAgent = win.webContents.userAgent;
 	const userAgents = {
 		mac: "Mozilla/5.0 (Macintosh; Intel Mac OS X 12.1; rv:95.0) Gecko/20100101 Firefox/95.0",
 		windows: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:95.0) Gecko/20100101 Firefox/95.0",
 		linux: "Mozilla/5.0 (Linux x86_64; rv:95.0) Gecko/20100101 Firefox/95.0",
 	}
 
-	const userAgent = 
+	const updatedUserAgent = 
 		is.macOS() ? userAgents.mac :
 		is.windows() ? userAgents.windows :
 		userAgents.linux;
 
-	app.userAgentFallback = userAgent;
+	win.webContents.userAgent = updatedUserAgent;
+	app.userAgentFallback = updatedUserAgent;
+
+	win.webContents.session.webRequest.onBeforeSendHeaders((details, cb) => {
+		if (win.webContents.getURL().startsWith("https://accounts.google.com") && details.url.startsWith("https://accounts.google.com")){
+			details.requestHeaders["User-Agent"] = originalUserAgent;
+		}
+		cb({ requestHeaders: details.requestHeaders });
+	});
+
 
 	setupSongInfo(win);
 	loadPlugins(win);
