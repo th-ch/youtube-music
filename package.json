@@ -86,7 +86,7 @@
 		"mpris-service": "^2.1.2",
 		"node-fetch": "^2.6.6",
 		"node-notifier": "^9.0.1",
-		"ytdl-core": "^4.9.1",
+		"ytdl-core": "^4.9.2",
 		"ytpl": "^2.2.3"
 	},
 	"devDependencies": {

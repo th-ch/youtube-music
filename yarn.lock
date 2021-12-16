@@ -6243,10 +6243,10 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
-m3u8stream@^0.8.3:
-  version "0.8.3"
-  resolved "https://registry.yarnpkg.com/m3u8stream/-/m3u8stream-0.8.3.tgz#c4624e92b4240eb356d040c4a5e155586cf58108"
-  integrity sha512-0nAcdrF8YJKUkb6PzWdvGftTPyCVWgoiot1AkNVbPKTeIGsWs6DrOjifrJ0Zi8WQfQmD2SuVCjkYIOip12igng==
+m3u8stream@^0.8.4:
+  version "0.8.4"
+  resolved "https://registry.yarnpkg.com/m3u8stream/-/m3u8stream-0.8.4.tgz#15b49d0c2b510755ea43c1e53f85d7aaa4dc65c2"
+  integrity sha512-sco80Db+30RvcaIOndenX6E6oQNgTiBKeJbFPc+yDXwPQIkryfboEbCvXPlBRq3mQTCVPQO93TDVlfRwqpD35w==
   dependencies:
     miniget "^4.0.0"
     sax "^1.2.4"
@@ -8921,12 +8921,12 @@ yocto-queue@^1.0.0:
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-1.0.0.tgz#7f816433fb2cbc511ec8bf7d263c3b58a1a3c251"
   integrity sha512-9bnSc/HEW2uRy67wc+T8UwauLuPJVn28jb+GtJY16iiKWyvmYJRXVT4UamsAEGQfPohgr2q4Tq0sQbQlxTfi1g==
 
-ytdl-core@^4.9.1:
-  version "4.9.1"
-  resolved "https://registry.yarnpkg.com/ytdl-core/-/ytdl-core-4.9.1.tgz#f587e2bd8329b5133c0bac4ce5ee1f3c7a1175a9"
-  integrity sha512-6Jbp5RDhUEozlaJQAR+l8oV8AHsx3WUXxSyPxzE6wOIAaLql7Hjiy0ZM58wZoyj1YEenlEPjEqcJIjKYKxvHtQ==
+ytdl-core@^4.9.2:
+  version "4.9.2"
+  resolved "https://registry.yarnpkg.com/ytdl-core/-/ytdl-core-4.9.2.tgz#c2d1ec44ee3cabff35e5843c6831755e69ffacf0"
+  integrity sha512-aTlsvsN++03MuOtyVD4DRF9Z/9UAeeuiNbjs+LjQBAiw4Hrdp48T3U9vAmRPyvREzupraY8pqRoBfKGqpq+eHA==
   dependencies:
-    m3u8stream "^0.8.3"
+    m3u8stream "^0.8.4"
     miniget "^4.0.0"
     sax "^1.1.3"
 

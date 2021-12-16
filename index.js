@@ -26,8 +26,9 @@ const app = electron.app;
 app.commandLine.appendSwitch(
 	"js-flags",
 	// WebAssembly flags
-	"--experimental-wasm-threads --experimental-wasm-bulk-memory"
+	"--experimental-wasm-threads"
 );
+app.commandLine.appendSwitch('enable-features', "SharedArrayBuffer"); // Fix downloader bug
 app.allowRendererProcessReuse = true; // https://github.com/electron/electron/issues/18397
 if (config.get("options.disableHardwareAcceleration")) {
 	if (is.dev()) {
