@@ -1370,13 +1370,6 @@
   resolved "https://registry.yarnpkg.com/@remusao/trie/-/trie-1.4.1.tgz#755d09f8a007476334e611f42719b2d581f00720"
   integrity sha512-yvwa+aCyYI/UjeD39BnpMypG8N06l86wIDW1/PAc6ihBRnodIfZDwccxQN3n1t74wduzaz74m4ZMHZnB06567Q==
 
-"@rozzzly/custom-electron-titlebar@^3.3.1":
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/@rozzzly/custom-electron-titlebar/-/custom-electron-titlebar-3.3.1.tgz#1900604ac9f8b818f8fc69f7bd45addab818acdd"
-  integrity sha512-TshwwVRYydmrzU/7VKYeEPY7Xgf+yZcOUl3dH3AkZ+Iqmyyb8MwzgLbY9Jc6lAyHjbHDa0vgE3aClIsUYf4EQQ==
-  dependencies:
-    "@electron/remote" "^1.1.0"
-
 "@sindresorhus/is@^0.14.0":
   version "0.14.0"
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.14.0.tgz#9fb3a3cf3132328151f353de4632e01e52102bea"
@@ -1604,6 +1597,11 @@
   version "14.14.44"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.44.tgz#df7503e6002847b834371c004b372529f3f85215"
   integrity sha512-+gaugz6Oce6ZInfI/tK4Pq5wIIkJMEJUu92RB3Eu93mtj4wjjjz9EB5mLp5s1pSsLXdC/CPut/xF20ZzAQJbTA==
+
+"@types/node@^17.0.0":
+  version "17.0.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.0.tgz#62797cee3b8b497f6547503b2312254d4fe3c2bb"
+  integrity sha512-eMhwJXc931Ihh4tkU+Y7GiLzT/y/DBNpNtr4yU9O2w3SYBsr9NaOPhQlLKRmoWtI54uNwuo0IOUFQjVOTZYRvw==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -2940,6 +2938,14 @@ custom-electron-prompt@^1.3.1:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/custom-electron-prompt/-/custom-electron-prompt-1.3.1.tgz#5c5c1266bb94ca618c493bdbebef2732286a06f2"
   integrity sha512-QKq0H87G1EQS6QEc1lNmPrMj+J/h/1F4BAcmH2UQ+JUX9MOHZKZvbuIMEdsjYHlgI42SUAcnQklJ9F18ZCAc3A==
+
+custom-electron-titlebar@^3.2.9:
+  version "3.2.9"
+  resolved "https://registry.yarnpkg.com/custom-electron-titlebar/-/custom-electron-titlebar-3.2.9.tgz#382e889315ba76edd7f2acdd1f7f32e46848ad4a"
+  integrity sha512-kWMUrpYWq0LAikwMbn7rx3SHcr1RpEfYO3aju/FcMzoQbiaaAsc55EiEVB0eyp9VGWAmOqakFtkObpCa4kp9Mg==
+  dependencies:
+    "@electron/remote" "^1.1.0"
+    "@types/node" "^17.0.0"
 
 dashdash@^1.12.0:
   version "1.14.1"

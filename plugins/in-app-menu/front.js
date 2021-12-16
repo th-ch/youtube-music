@@ -2,7 +2,7 @@ const { ipcRenderer } = require("electron");
 const { Menu } = require("@electron/remote");
 
 
-const customTitlebar = require("@rozzzly/custom-electron-titlebar");
+const customTitlebar = require("custom-electron-titlebar");
 function $(selector) { return document.querySelector(selector); }
 
 module.exports = () => {
