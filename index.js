@@ -183,6 +183,7 @@ app.once("browser-window-created", (event, win) => {
 	app.userAgentFallback = updatedUserAgent;
 
 	win.webContents.session.webRequest.onBeforeSendHeaders((details, cb) => {
+		// this will only happen if login failed, and "retry" was pressed
 		if (win.webContents.getURL().startsWith("https://accounts.google.com") && details.url.startsWith("https://accounts.google.com")){
 			details.requestHeaders["User-Agent"] = originalUserAgent;
 		}
