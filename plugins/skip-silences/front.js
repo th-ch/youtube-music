@@ -6,7 +6,7 @@ module.exports = () => {
 	document.addEventListener("apiLoaded", (apiEvent) => {
 		const video = document.querySelector("video");
 		const speechEvents = hark(video, {
-			threshold: -90, // dB (-100 = absolute silence, 0 = loudest)
+			threshold: -100, // dB (-100 = absolute silence, 0 = loudest)
 			interval: 2, // ms
 		});
 		const skipSilence = () => {
@@ -19,9 +19,11 @@ module.exports = () => {
 			isSilent = false;
 		});
 
-		speechEvents.on("stopped_speaking", function () {
-			isSilent = true;
-			skipSilence();
+		speechEvents.on("stopped_speaking", function () {			
+			if (!(video.paused || video.seeking || video.ended)) {
+				isSilent = true;
+				skipSilence();
+			}
 		});
 
 		video.addEventListener("play", function () {
