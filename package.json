@@ -78,7 +78,7 @@
 		"electron-localshortcut": "^3.2.1",
 		"electron-store": "^7.0.3",
 		"electron-unhandled": "^3.0.2",
-		"electron-updater": "^4.6.1",
+		"electron-updater": "^4.6.3",
 		"filenamify": "^4.3.0",
 		"hark": "^1.2.3",
 		"md5": "^2.3.0",
