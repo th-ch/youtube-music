@@ -3,6 +3,17 @@ const { setOptions } = require("../../config/plugins");
 const prompt = require("custom-electron-prompt");
 const promptOptions = require("../../providers/prompt-options");
 
+function changeOptions(changedOptions, options, win) {
+	for (option in changedOptions) {
+		options[option] = changedOptions[option];
+	}
+	// Dynamically change setting if plugin is enabled
+	if (enabled()) {
+		win.webContents.send("setOptions", changedOptions);
+	} else { // Fallback to usual method if disabled
+		setOptions("precise-volume", options);
+	}
+}
 
 module.exports = (win, options) => [
 	{
@@ -10,13 +21,7 @@ module.exports = (win, options) => [
 		type: "checkbox",
 		checked: !!options.arrowsShortcut,
 		click: item => {
-			// Dynamically change setting if plugin is enabled
-			if (enabled()) {
-				win.webContents.send("setArrowsShortcut", item.checked);
-			} else { // Fallback to usual method if disabled
-				options.arrowsShortcut = item.checked;
-				setOptions("precise-volume", options);
-			}
+			changeOptions({ arrowsShortcut: item.checked }, options, win);
 		}
 	},
 	{
@@ -46,8 +51,7 @@ async function promptVolumeSteps(win, options) {
 	}, win)
 
 	if (output || output === 0) { // 0 is somewhat valid
-		options.steps = output;
-		setOptions("precise-volume", options);
+		changeOptions({ steps: output}, options, win);
 	}
 }
 
@@ -64,11 +68,11 @@ async function promptGlobalShortcuts(win, options, item) {
 	}, win)
 
 	if (output) {
+		let newGlobalShortcuts = {};
 		for (const { value, accelerator } of output) {
-			options.globalShortcuts[value] = accelerator;
+			newGlobalShortcuts[value] = accelerator;
 		}
-
-		setOptions("precise-volume", options);
+		changeOptions({ globalShortcuts: newGlobalShortcuts }, options, win);
 
 		item.checked = !!options.globalShortcuts.volumeUp || !!options.globalShortcuts.volumeDown;
 	} else {
