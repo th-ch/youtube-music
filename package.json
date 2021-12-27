@@ -66,7 +66,7 @@
 		"npm": "Please use yarn and not npm"
 	},
 	"dependencies": {
-		"@cliqz/adblocker-electron": "^1.23.0",
+		"@cliqz/adblocker-electron": "^1.23.1",
 		"@ffmpeg/core": "^0.10.0",
 		"@ffmpeg/ffmpeg": "^0.10.0",
 		"async-mutex": "^0.3.2",
