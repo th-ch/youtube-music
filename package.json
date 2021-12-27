@@ -37,6 +37,9 @@
 				"deb",
 				"rpm"
 			]
+		},
+		"snap": {
+			"slots": [{ "mpris": { "interface": "mpris" }}]
 		}
 	},
 	"scripts": {
