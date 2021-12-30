@@ -28,3 +28,12 @@ module.exports.cropMaxWidth = (image) => {
 	}
 	return image;
 }
+
+// Presets for FFmpeg
+module.exports.presets = {
+	"None (defaults to mp3)": undefined,
+	opus: {
+		extension: "opus",
+		ffmpegArgs: ["-acodec", "libopus"],
+	},
+};

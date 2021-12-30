@@ -36,6 +36,7 @@ const defaultConfig = {
 			enabled: false,
 			ffmpegArgs: [], // e.g. ["-b:a", "192k"] for an audio bitrate of 192kb/s
 			downloadFolder: undefined, // Custom download folder (absolute path)
+			preset: "mp3",
 		},
 		"last-fm": {
 			enabled: false,

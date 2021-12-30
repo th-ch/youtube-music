@@ -8,7 +8,7 @@ const chokidar = require('chokidar');
 
 const { setOptions } = require("../../config/plugins");
 const { sendError } = require("./back");
-const { defaultMenuDownloadLabel, getFolder } = require("./utils");
+const { defaultMenuDownloadLabel, getFolder, presets } = require("./utils");
 
 let downloadLabel = defaultMenuDownloadLabel;
 let playingPlaylistId = undefined;
@@ -108,6 +108,18 @@ module.exports = (win, options) => {
 					setOptions("downloader", options);
 				} // else = user pressed cancel
 			},
+		},
+		{
+			label: "Presets",
+			submenu: Object.keys(presets).map((preset) => ({
+				label: preset,
+				type: "radio",
+				click: () => {
+					options.preset = preset;
+					setOptions("downloader", options);
+				},
+				checked: options.preset === preset || presets[preset] === undefined,
+			})),
 		},
 	];
 };

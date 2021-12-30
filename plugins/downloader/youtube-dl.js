@@ -15,7 +15,7 @@ const ytdl = require("ytdl-core");
 
 const { triggerAction, triggerActionSync } = require("../utils");
 const { ACTIONS, CHANNEL } = require("./actions.js");
-const { urlToJPG } = require("./utils");
+const { presets, urlToJPG } = require("./utils");
 const { cleanupName } = require("../../providers/song-info");
 
 const { createFFmpeg } = FFmpeg;
@@ -113,8 +113,9 @@ const toMP3 = async (
 	existingMetadata = undefined,
 	subfolder = ""
 ) => {
+	const convertOptions = { ...presets[options.preset], ...options };
 	const safeVideoName = randomBytes(32).toString("hex");
-	const extension = options.extension || "mp3";
+	const extension = convertOptions.extension || "mp3";
 	const releaseFFmpegMutex = await ffmpegMutex.acquire();
 
 	try {
@@ -132,7 +133,7 @@ const toMP3 = async (
 			"-i",
 			safeVideoName,
 			...getFFmpegMetadataArgs(metadata),
-			...(options.ffmpegArgs || []),
+			...(convertOptions.ffmpegArgs || []),
 			safeVideoName + "." + extension
 		);
 
