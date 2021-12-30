@@ -35,6 +35,14 @@ function firstRun(options) {
 	if (!noVid) {
 		setupVideoPlayerOnwheel(options);
 	}
+
+	// Change options from renderer to keep sync
+	ipcRenderer.on("setOptions", (_event, newOptions = {}) => {
+		for (option in newOptions) {
+			options[option] = newOptions[option];
+		}
+		setOptions("precise-volume", options);
+	});
 }
 
 function injectVolumeHud(noVid) {
@@ -94,7 +102,7 @@ function writeOptions(options) {
 	writeTimeout = setTimeout(() => {
 		setOptions("precise-volume", options);
 		writeTimeout = null;
-	}, 1500)
+	}, 1000)
 }
 
 /** Add onwheel event to play bar and also track if play bar is hovered*/
@@ -143,7 +151,7 @@ function setupSliderObserver(options) {
 /** if (toIncrease = false) then volume decrease */
 function changeVolume(toIncrease, options) {
 	// Apply volume change if valid
-	const steps = (options.steps || 1);
+	const steps = Number(options.steps || 1);
 	api.setVolume(toIncrease ?
 		Math.min(api.getVolume() + steps, 100) :
 		Math.max(api.getVolume() - steps, 0));
@@ -212,39 +220,17 @@ function setupGlobalShortcuts(options) {
 
 function setupLocalArrowShortcuts(options) {
 	if (options.arrowsShortcut) {
-		addListener();
-	}
-
-	// Change options from renderer to keep sync
-	ipcRenderer.on("setArrowsShortcut", (_event, isEnabled) => {
-		options.arrowsShortcut = isEnabled;
-		setOptions("precise-volume", options);
-		// This allows changing this setting without restarting app
-		if (isEnabled) {
-			addListener();
-		} else {
-			removeListener();
-		}
-	});
-
-	function addListener() {
-		window.addEventListener('keydown', callback);
-	}
-
-	function removeListener() {
-		window.removeEventListener("keydown", callback);
-	}
-
-	function callback(event) {
-		switch (event.code) {
-			case "ArrowUp":
-				event.preventDefault();
-				changeVolume(true, options);
-				break;
-			case "ArrowDown":
-				event.preventDefault();
-				changeVolume(false, options);
-				break;
-		}
+		window.addEventListener('keydown', (event) => {
+			switch (event.code) {
+				case "ArrowUp":
+					event.preventDefault();
+					changeVolume(true, options);
+					break;
+				case "ArrowDown":
+					event.preventDefault();
+					changeVolume(false, options);
+					break;
+			}
+		});
 	}
 }
