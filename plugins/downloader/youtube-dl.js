@@ -3,6 +3,7 @@ const { join } = require("path");
 
 const Mutex = require("async-mutex").Mutex;
 const { ipcRenderer } = require("electron");
+const remote = require('@electron/remote');
 const is = require("electron-is");
 const filenamify = require("filenamify");
 
@@ -14,7 +15,7 @@ const ytdl = require("ytdl-core");
 
 const { triggerAction, triggerActionSync } = require("../utils");
 const { ACTIONS, CHANNEL } = require("./actions.js");
-const { getFolder, urlToJPG } = require("./utils");
+const { urlToJPG } = require("./utils");
 const { cleanupName } = require("../../providers/song-info");
 
 const { createFFmpeg } = FFmpeg;
@@ -135,7 +136,7 @@ const toMP3 = async (
 			safeVideoName + "." + extension
 		);
 
-		const folder = getFolder(options.downloadFolder);
+		const folder = options.downloadFolder || remote.app.getPath("downloads");
 		const name = metadata.title
 			? `${metadata.artist ? `${metadata.artist} - ` : ""}${metadata.title}`
 			: videoName;

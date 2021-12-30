@@ -1,4 +1,5 @@
-const { ipcRenderer, remote } = require("electron");
+const { ipcRenderer } = require("electron");
+const { globalShortcut } = require('@electron/remote');
 
 const { setOptions } = require("../../config/plugins");
 
@@ -202,10 +203,10 @@ function setTooltip(volume) {
 
 function setupGlobalShortcuts(options) {
 	if (options.globalShortcuts.volumeUp) {
-		remote.globalShortcut.register((options.globalShortcuts.volumeUp), () => changeVolume(true, options));
+		globalShortcut.register((options.globalShortcuts.volumeUp), () => changeVolume(true, options));
 	}
 	if (options.globalShortcuts.volumeDown) {
-		remote.globalShortcut.register((options.globalShortcuts.volumeDown), () => changeVolume(false, options));
+		globalShortcut.register((options.globalShortcuts.volumeDown), () => changeVolume(false, options));
 	}
 }
 
