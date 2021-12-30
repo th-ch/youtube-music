@@ -56,7 +56,7 @@ function changeDisplay(showVideo) {
 }
 
 function videoStarted() {
-    if (player.videoMode_) {
+    if (api.getPlayerResponse().videoDetails.musicVideoType !== 'MUSIC_VIDEO_TYPE_ATV') {
         // switch to high res thumbnail
         forceThumbnail($('#song-image img'));
         // show toggle button
@@ -98,7 +98,7 @@ function moveVolumeHud(showVideo) {
 
 function observeThumbnail() {
     const playbackModeObserver = new MutationObserver(mutations => {
-        if (!$('#player').videoMode_) return;
+        if (!player.videoMode_) return;
 
         mutations.forEach(mutation => {
             if (!mutation.target.src.startsWith('data:')) return;

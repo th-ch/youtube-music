@@ -1,5 +1,5 @@
 const { ElementFromFile, templatePath } = require("../utils");
-const dialog = require('electron').remote.dialog
+const { dialog } = require('@electron/remote');
 
 function $(selector) { return document.querySelector(selector); }
 

@@ -103,7 +103,7 @@ module.exports = (win, { activityTimoutEnabled, activityTimoutTime, listenAlong 
 			type: 2, // Listening, addressed in https://github.com/discordjs/RPC/pull/149
 			details: songInfo.title,
 			state: songInfo.artist,
-			largeImageKey: "logo",
+			largeImageKey: songInfo.imageSrc,
 			largeImageText: [
 				songInfo.uploadDate,
 				songInfo.views.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " views",
