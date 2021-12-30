@@ -39,7 +39,13 @@
 			]
 		},
 		"snap": {
-			"slots": [{ "mpris": { "interface": "mpris" }}]
+			"slots": [
+				{
+					"mpris": {
+						"interface": "mpris"
+					}
+				}
+			]
 		}
 	},
 	"scripts": {
