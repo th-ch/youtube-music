@@ -44,7 +44,7 @@
 	},
 	"scripts": {
 		"test": "jest",
-		"start": "electron .",
+		"start": "NODE_OPTIONS= electron .",
 		"start:debug": "ELECTRON_ENABLE_LOGGING=1 electron .",
 		"icon": "rimraf assets/generated && electron-icon-maker --input=assets/youtube-music.png --output=assets/generated",
 		"generate:package": "node utils/generate-package-json.js",
