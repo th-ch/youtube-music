@@ -28,7 +28,7 @@ app.commandLine.appendSwitch(
 	// WebAssembly flags
 	"--experimental-wasm-threads"
 );
-app.commandLine.appendSwitch('enable-features', "SharedArrayBuffer"); // Fix downloader bug
+app.commandLine.appendSwitch("enable-features", "SharedArrayBuffer"); // Required for downloader
 app.allowRendererProcessReuse = true; // https://github.com/electron/electron/issues/18397
 if (config.get("options.disableHardwareAcceleration")) {
 	if (is.dev()) {
