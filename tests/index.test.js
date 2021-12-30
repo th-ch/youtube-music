@@ -6,22 +6,11 @@ describe("YouTube Music App", () => {
 	const app = global.__APP__;
 
 	test("With default settings, app is launched and visible", async () => {
-		expect(app.isRunning()).toBe(true);
-
-		const win = app.browserWindow;
-
-		const isMenuVisible = await win.isMenuBarVisible();
-		expect(isMenuVisible).toBe(true);
-
-		const isVisible = await win.isVisible();
-		expect(isVisible).toBe(true);
-
-		const { width, height } = await win.getBounds();
-		expect(width).toBeGreaterThan(0);
-		expect(height).toBeGreaterThan(0);
-
-		const { client } = app;
-		const title = await client.getTitle();
+		const window = await app.firstWindow();
+		const title = await window.title();
 		expect(title).toEqual("YouTube Music");
+
+		const url = window.url();
+		expect(url.startsWith("https://music.youtube.com")).toBe(true);
 	});
 });
