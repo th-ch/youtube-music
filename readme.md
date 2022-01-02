@@ -138,7 +138,7 @@ Builds the app for macOS, Linux, and Windows, using [electron-builder](https://g
 yarn test
 ```
 
-Uses [Spectron](https://www.electronjs.org/spectron) to test the app.
+Uses [Playwright](https://playwright.dev/) to test the app.
 
 ## License
 
