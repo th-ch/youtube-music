@@ -67,7 +67,7 @@ function registerMPRIS(win) {
 					'mpris:length': secToMicro(songInfo.songDuration),
 					'mpris:artUrl': songInfo.imageSrc,
 					'xesam:title': songInfo.title,
-					'xesam:artist': songInfo.artist,
+					'xesam:artist': [songInfo.artist],
 					'mpris:trackid': '/'
 				};
 				if (songInfo.album) data['xesam:album'] = songInfo.album;
