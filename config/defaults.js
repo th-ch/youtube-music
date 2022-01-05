@@ -30,11 +30,13 @@ const defaultConfig = {
 		// Disabled plugins
 		shortcuts: {
 			enabled: false,
+			overrideMediaKeys: false,
 		},
 		downloader: {
 			enabled: false,
 			ffmpegArgs: [], // e.g. ["-b:a", "192k"] for an audio bitrate of 192kb/s
 			downloadFolder: undefined, // Custom download folder (absolute path)
+			preset: "mp3",
 		},
 		"last-fm": {
 			enabled: false,
@@ -45,7 +47,8 @@ const defaultConfig = {
 		discord: {
 			enabled: false,
 			activityTimoutEnabled: true, // if enabled, the discord rich presence gets cleared when music paused after the time specified below
-			activityTimoutTime: 10 * 60 * 1000 // 10 minutes
+			activityTimoutTime: 10 * 60 * 1000, // 10 minutes
+			listenAlong: true, // add a "listen along" button to rich presence
 		},
 		notifications: {
 			enabled: false,
@@ -58,12 +61,27 @@ const defaultConfig = {
 			steps: 1, //percentage of volume to change
 			arrowsShortcut: true, //enable ArrowUp + ArrowDown local shortcuts
 			globalShortcuts: {
-				enabled: false, // enable global shortcuts
-				volumeUp: "Shift+PageUp", // Keybind default can be changed
-				volumeDown: "Shift+PageDown"
+				volumeUp: "",
+				volumeDown: ""
 			},
 			savedVolume: undefined //plugin save volume between session here
-		}
+		},
+		sponsorblock: {
+			enabled: false,
+			apiURL: "https://sponsor.ajay.app",
+			categories: [
+				"sponsor",
+				"intro",
+				"outro",
+				"interaction",
+				"selfpromo",
+				"music_offtopic",
+			],
+		},
+		"video-toggle": {
+			enabled: false,
+			forceHide: false,
+		},
 	},
 };
 

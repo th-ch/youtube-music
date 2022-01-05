@@ -3,6 +3,7 @@ const { join } = require("path");
 
 const Mutex = require("async-mutex").Mutex;
 const { ipcRenderer } = require("electron");
+const remote = require('@electron/remote');
 const is = require("electron-is");
 const filenamify = require("filenamify");
 
@@ -14,8 +15,8 @@ const ytdl = require("ytdl-core");
 
 const { triggerAction, triggerActionSync } = require("../utils");
 const { ACTIONS, CHANNEL } = require("./actions.js");
-const { getFolder, urlToJPG } = require("./utils");
-const { cleanupArtistName } = require("../../providers/song-info");
+const { presets, urlToJPG } = require("./utils");
+const { cleanupName } = require("../../providers/song-info");
 
 const { createFFmpeg } = FFmpeg;
 const ffmpeg = createFFmpeg({
@@ -40,7 +41,10 @@ const downloadVideoToMP3 = async (
 		const { videoDetails } = await ytdl.getInfo(videoUrl);
 		const thumbnails = videoDetails?.thumbnails;
 		metadata = {
-			artist: videoDetails?.media?.artist || cleanupArtistName(videoDetails?.author?.name) || "",
+			artist:
+				videoDetails?.media?.artist ||
+				cleanupName(videoDetails?.author?.name) ||
+				"",
 			title: videoDetails?.media?.song || videoDetails?.title || "",
 			imageSrcYTPL: thumbnails ? 
 				urlToJPG(thumbnails[thumbnails.length - 1].url, videoDetails?.videoId)
@@ -109,8 +113,9 @@ const toMP3 = async (
 	existingMetadata = undefined,
 	subfolder = ""
 ) => {
+	const convertOptions = { ...presets[options.preset], ...options };
 	const safeVideoName = randomBytes(32).toString("hex");
-	const extension = options.extension || "mp3";
+	const extension = convertOptions.extension || "mp3";
 	const releaseFFmpegMutex = await ffmpegMutex.acquire();
 
 	try {
@@ -128,11 +133,11 @@ const toMP3 = async (
 			"-i",
 			safeVideoName,
 			...getFFmpegMetadataArgs(metadata),
-			...(options.ffmpegArgs || []),
+			...(convertOptions.ffmpegArgs || []),
 			safeVideoName + "." + extension
 		);
 
-		const folder = getFolder(options.downloadFolder);
+		const folder = options.downloadFolder || remote.app.getPath("downloads");
 		const name = metadata.title
 			? `${metadata.artist ? `${metadata.artist} - ` : ""}${metadata.title}`
 			: videoName;

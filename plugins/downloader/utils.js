@@ -1,7 +1,6 @@
 const electron = require("electron");
 
-module.exports.getFolder = (customFolder) =>
-	customFolder || (electron.app || electron.remote.app).getPath("downloads");
+module.exports.getFolder = customFolder => customFolder || electron.app.getPath("downloads");
 module.exports.defaultMenuDownloadLabel = "Download playlist";
 
 const orderedQualityList = ["maxresdefault", "hqdefault", "mqdefault", "sdddefault"];
@@ -29,3 +28,12 @@ module.exports.cropMaxWidth = (image) => {
 	}
 	return image;
 }
+
+// Presets for FFmpeg
+module.exports.presets = {
+	"None (defaults to mp3)": undefined,
+	opus: {
+		extension: "opus",
+		ffmpegArgs: ["-acodec", "libopus"],
+	},
+};

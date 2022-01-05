@@ -12,9 +12,9 @@ module.exports = (win) => {
 		// Playback
 		previous: () => pressKey(win, "k"),
 		next: () => pressKey(win, "j"),
-		playPause: () => win.webContents.send("playPause"),
-		like: () => pressKey(win, "_"),
-		dislike: () => pressKey(win, "+"),
+		playPause: () => pressKey(win, "space"),
+		like: () => pressKey(win, "+"),
+		dislike: () => pressKey(win, "_"),
 		go10sBack: () => pressKey(win, "h"),
 		go10sForward: () => pressKey(win, "l"),
 		go1sBack: () => pressKey(win, "h", ["shift"]),
@@ -24,8 +24,6 @@ module.exports = (win) => {
 		// General
 		volumeMinus10: () => pressKey(win, "-"),
 		volumePlus10: () => pressKey(win, "="),
-		dislikeAndNext: () => pressKey(win, "-", ["shift"]),
-		like: () => pressKey(win, "=", ["shift"]),
 		fullscreen: () => pressKey(win, "f"),
 		muteUnmute: () => pressKey(win, "m"),
 		maximizeMinimisePlayer: () => pressKey(win, "q"),
@@ -38,13 +36,13 @@ module.exports = (win) => {
 			pressKey(win, "g");
 			pressKey(win, "l");
 		},
-		goToHotlist: () => {
-			pressKey(win, "g");
-			pressKey(win, "t");
-		},
 		goToSettings: () => {
 			pressKey(win, "g");
 			pressKey(win, ",");
+		},
+		goToExplore: () => {
+			pressKey(win, "g");
+			pressKey(win, "e");
 		},
 		search: () => pressKey(win, "/"),
 		showShortcuts: () => pressKey(win, "/", ["shift"]),

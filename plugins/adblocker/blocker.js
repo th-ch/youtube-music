@@ -8,7 +8,9 @@ const SOURCES = [
 	"https://raw.githubusercontent.com/kbinani/adblock-youtube-ads/master/signed.txt",
 	// uBlock Origin
 	"https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters.txt",
-	"https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters-2020.txt",
+	"https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters-2021.txt",
+	// Fanboy Annoyances
+	"https://secure.fanboy.co.nz/fanboy-annoyance_ubo.txt",
 ];
 
 const loadAdBlockerEngine = (
@@ -31,7 +33,17 @@ const loadAdBlockerEngine = (
 		...additionalBlockLists,
 	];
 
-	ElectronBlocker.fromLists(fetch, lists, {}, cachingOptions)
+	ElectronBlocker.fromLists(
+		fetch,
+		lists,
+		{
+			// when generating the engine for caching, do not load network filters
+			// So that enhancing the session works as expected
+			// Allowing to define multiple webRequest listeners
+			loadNetworkFilters: session !== undefined,
+		},
+		cachingOptions
+	)
 		.then((blocker) => {
 			if (session) {
 				blocker.enableBlockingInSession(session);

@@ -1,6 +1,9 @@
-const { remote, ipcRenderer } = require("electron");
+const { ipcRenderer } = require("electron");
+const { Menu } = require("@electron/remote");
+
 
 const customTitlebar = require("custom-electron-titlebar");
+function $(selector) { return document.querySelector(selector); }
 
 module.exports = () => {
 	const bar = new customTitlebar.Titlebar({
@@ -10,15 +13,21 @@ module.exports = () => {
 	bar.updateTitle(" ");
 	document.title = "Youtube Music";
 
-	ipcRenderer.on("updateMenu", function (event, menu) {
-		if (menu) {
-			bar.updateMenu(remote.Menu.getApplicationMenu());
-		} else {
-			try {
-				bar.updateMenu(null);
-			} catch (e) {
-				//will always throw type error - null isn't menu, but it works
-			}
-		}
+	ipcRenderer.on("updateMenu", function (_event, showMenu) {
+		bar.updateMenu(showMenu ? Menu.getApplicationMenu() : null);
 	});
+
+	// Increases the right margin of Navbar background when the scrollbar is visible to avoid blocking it (z-index doesn't affect it)
+	document.addEventListener('apiLoaded', () => {
+		setNavbarMargin();
+		const playPageObserver = new MutationObserver(setNavbarMargin);
+		playPageObserver.observe($('ytmusic-app-layout'), { attributeFilter: ['player-page-open_', 'playerPageOpen_'] })
+	}, { once: true, passive: true })
 };
+
+function setNavbarMargin() {
+	$('#nav-bar-background').style.right =
+		$('ytmusic-app-layout').playerPageOpen_ ?
+			'0px' :
+			'12px';
+}

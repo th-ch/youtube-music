@@ -63,12 +63,7 @@ module.exports.setUpTray = (app, win) => {
 				app.quit();
 			},
 		},
-		{
-			label: "Quit",
-			click: () => {
-				app.quit();
-			},
-		},
+		 { role: "quit" } 
 	];
 
 	const trayMenu = Menu.buildFromTemplate(template);

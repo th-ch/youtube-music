@@ -1,9 +1,7 @@
 const path = require("path");
 
-const getPort = require("get-port");
 const NodeEnvironment = require("jest-environment-node");
-const electronPath = require("electron");
-const { Application } = require("spectron");
+const { _electron: electron } = require("playwright");
 
 class TestEnvironment extends NodeEnvironment {
 	constructor(config) {
@@ -14,21 +12,12 @@ class TestEnvironment extends NodeEnvironment {
 		await super.setup();
 
 		const appPath = path.resolve(__dirname, "..");
-		const port = await getPort();
-
-		this.global.__APP__ = new Application({
-			path: electronPath,
-			args: [appPath],
-			port,
-		});
-		await this.global.__APP__.start();
-		const { client } = this.global.__APP__;
-		await client.waitUntilWindowLoaded();
+		this.global.__APP__ = await electron.launch({ args: [appPath] });
 	}
 
 	async teardown() {
-		if (this.global.__APP__.isRunning()) {
-			await this.global.__APP__.stop();
+		if (this.global.__APP__) {
+			await this.global.__APP__.close();
 		}
 		await super.teardown();
 	}
