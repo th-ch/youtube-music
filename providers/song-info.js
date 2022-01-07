@@ -86,10 +86,14 @@ const registerCallback = (callback) => {
 	callbacks.push(callback);
 };
 
+let handlingData = false;
+
 const registerProvider = (win) => {
 	// This will be called when the song-info-front finds a new request with song data
 	ipcMain.on("video-src-changed", async (_, responseText) => {
+		handlingData = true;
 		await handleData(responseText, win);
+		handlingData = false;
 		callbacks.forEach((c) => {
 			c(songInfo);
 		});
@@ -97,6 +101,7 @@ const registerProvider = (win) => {
 	ipcMain.on("playPaused", (_, { isPaused, elapsedSeconds }) => {
 		songInfo.isPaused = isPaused;
 		songInfo.elapsedSeconds = elapsedSeconds;
+		if (handlingData) return;
 		callbacks.forEach((c) => {
 			c(songInfo);
 		});
