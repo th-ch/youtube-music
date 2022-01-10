@@ -134,6 +134,14 @@ const toMP3 = async (
 			safeVideoName,
 			...getFFmpegMetadataArgs(metadata),
 			...(convertOptions.ffmpegArgs || []),
+			safeVideoName + "_broken." + extension
+		);
+		
+		// second pass to fix the broken file
+		await ffmpeg.run(
+			"-i",
+			safeVideoName + "_broken." + extension,
+			...["-acodec","copy"],
 			safeVideoName + "." + extension
 		);
 
