@@ -22,6 +22,9 @@ unhandled({
 	showDialog: false,
 });
 
+// Disable Node options if the env var is set
+process.env.NODE_OPTIONS = "";
+
 const app = electron.app;
 app.commandLine.appendSwitch(
 	"js-flags",
