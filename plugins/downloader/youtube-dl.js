@@ -46,7 +46,7 @@ const downloadVideoToMP3 = async (
 				cleanupName(videoDetails?.author?.name) ||
 				"",
 			title: videoDetails?.media?.song || videoDetails?.title || "",
-			imageSrcYTPL: thumbnails ? 
+			imageSrcYTPL: thumbnails ?
 				urlToJPG(thumbnails[thumbnails.length - 1].url, videoDetails?.videoId)
 				: ""
 		}
