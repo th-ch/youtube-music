@@ -124,7 +124,14 @@ function createMainWindow() {
 	remote.enable(win.webContents);
 	if (windowPosition) {
 		const { x, y } = windowPosition;
-		win.setPosition(x, y);
+		if(x + win.getSize()[0] < 0 || x - win.getSize()[0] > electron.screen.getDisplayNearestPoint({x, y}).bounds.width) {
+			//Window is offscreen
+			if (is.dev()) {
+				console.log(`Window tried to render offscreen, Width=${win.getSize()[0]}, nearestDisplayPointer.bounds=${electron.screen.getDisplayNearestPoint({x, y}).bounds}, position=${{x, y}}`);
+			}
+		} else { 
+			win.setPosition(x, y);
+		}
 	}
 	if (windowMaximized) {
 		win.maximize();
