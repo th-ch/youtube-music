@@ -30,7 +30,7 @@ const observePopupContainer = () => {
 			menu = getSongMenu();
 		}
 
-		if (menu && !menu.contains(slider)) {
+		if (menu && menu.lastElementChild.lastElementChild.innerText.startsWith('Stats') && !menu.contains(slider)) {
 			menu.prepend(slider);
 			if (!observingSlider) {
 				setupSliderListener();
