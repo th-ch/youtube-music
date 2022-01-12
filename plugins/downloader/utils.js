@@ -1,4 +1,5 @@
 const electron = require("electron");
+const is = require('electron-is');
 
 module.exports.getFolder = customFolder => customFolder || electron.app.getPath("downloads");
 module.exports.defaultMenuDownloadLabel = "Download playlist";
@@ -37,3 +38,9 @@ module.exports.presets = {
 		ffmpegArgs: ["-acodec", "libopus"],
 	},
 };
+
+module.exports.setBadge = num => {
+	if (is.linux() || is.macOS()) {
+		electron.app.badgeCount = num;
+	}
+}
