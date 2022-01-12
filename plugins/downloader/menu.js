@@ -11,15 +11,24 @@ const { sendError } = require("./back");
 const { defaultMenuDownloadLabel, getFolder, presets } = require("./utils");
 
 let downloadLabel = defaultMenuDownloadLabel;
-let playingPlaylistId = undefined;
+let playingUrl = undefined;
 let callbackIsRegistered = false;
 
-const INVALID_PLAYLIST_MODIFIER = 'RDAMPLPL';
+// Playlist radio modifier needs to be cut from playlist ID
+const INVALID_PLAYLIST_MODIFIER = 'RDAMPL';
+
+const getPlaylistID = aURL => {
+	const result = aURL?.searchParams.get("list") || aURL?.searchParams.get("playlist");
+	if (result?.startsWith(INVALID_PLAYLIST_MODIFIER)) {
+		return result.slice(6)
+	}
+	return result;
+};
 
 module.exports = (win, options) => {
 	if (!callbackIsRegistered) {
 		ipcMain.on("video-src-changed", async (_, data) => {
-			playingPlaylistId = JSON.parse(data)?.videoDetails?.playlistId;
+			playingUrl = JSON.parse(data)?.microformat?.microformatDataRenderer?.urlCanonical;
 		});
 		ipcMain.on("download-playlist-request", async (_event, url) => downloadPlaylist(url, win, options));
 		callbackIsRegistered = true;
@@ -58,21 +67,17 @@ module.exports = (win, options) => {
 	];
 };
 
-async function downloadPlaylist(url, win, options) {
-	const getPlaylistID = aURL => {
-		const result = aURL?.searchParams.get("list") || aURL?.searchParams.get("playlist");
-		return (!result || result.startsWith(INVALID_PLAYLIST_MODIFIER)) ? undefined : result;
-	};
-	if (url) {
+async function downloadPlaylist(givenUrl, win, options) {
+	if (givenUrl) {
 		try {
-			url = new URL(url);
+			givenUrl = new URL(givenUrl);
 		} catch {
-			url = undefined;
+			givenUrl = undefined;
 		};
 	}
-	const playlistId = getPlaylistID(url)
+	const playlistId = getPlaylistID(givenUrl)
 		|| getPlaylistID(new URL(win.webContents.getURL()))
-		|| playingPlaylistId;
+		|| getPlaylistID(new URL(playingUrl));
 
 	if (!playlistId) {
 		sendError(win, new Error("No playlist ID found"));

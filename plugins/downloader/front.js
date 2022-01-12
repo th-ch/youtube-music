@@ -45,7 +45,7 @@ global.download = () => {
 	let metadata;
 	let videoUrl = getSongMenu()
 		// selector of first button which is always "Start Radio"
-		?.querySelector('ytmusic-menu-navigation-item-renderer.iron-selected[tabindex="0"] #navigation-endpoint')
+		?.querySelector('ytmusic-menu-navigation-item-renderer[tabindex="0"] #navigation-endpoint')
 		?.getAttribute("href");
 	if (videoUrl) {
 		if (videoUrl.startsWith('watch?')) {
