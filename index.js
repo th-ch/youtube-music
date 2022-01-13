@@ -40,6 +40,11 @@ if (config.get("options.disableHardwareAcceleration")) {
 	app.disableHardwareAcceleration();
 }
 
+if (is.linux() && config.plugins.isEnabled("shortcuts")) {
+	//stops chromium from launching it's own mpris service
+	app.commandLine.appendSwitch('disable-features', 'MediaSessionService');
+}
+
 if (config.get("options.proxy")) {
 	app.commandLine.appendSwitch("proxy-server", config.get("options.proxy"));
 }
