@@ -77,7 +77,7 @@ module.exports = (win, options) => {
 
 				let dirWatcher = chokidar.watch(playlistFolder);
 				dirWatcher.on('add', () => {
-					downloadCount += 1;
+					downloadCount++;
 					if (downloadCount >= playlist.items.length) {
 						win.setProgressBar(-1); // close progress bar
 						setBadge(0); // close badge counter

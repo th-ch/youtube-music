@@ -39,8 +39,8 @@ module.exports.presets = {
 	},
 };
 
-module.exports.setBadge = num => {
+module.exports.setBadge = n => {
 	if (is.linux() || is.macOS()) {
-		electron.app.badgeCount = num;
+		electron.app.setBadgeCount(n);
 	}
 }
