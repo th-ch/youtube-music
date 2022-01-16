@@ -121,19 +121,21 @@ async function downloadPlaylist(givenUrl, win, options) {
 		);
 	}
 
-	const steps = 1 / playlist.items.length;
-	let progress = 0;
-
 	win.setProgressBar(2); // starts with indefinite bar
+
+	let downloadCount = 0;
+	setBadge(playlist.items.length);
 
 	let dirWatcher = chokidar.watch(playlistFolder);
 	dirWatcher.on('add', () => {
-		progress += steps;
-		if (progress >= 0.9999) {
+		downloadCount += 1;
+		if (downloadCount >= playlist.items.length) {
 			win.setProgressBar(-1); // close progress bar
-			dirWatcher.close().then(() => dirWatcher = null);
+			setBadge(0); // close badge counter
+			dirWatcher.close().then(() => (dirWatcher = null));
 		} else {
-			win.setProgressBar(progress);
+			win.setProgressBar(downloadCount / playlist.items.length);
+			setBadge(playlist.items.length - downloadCount);
 		}
 	});
 
