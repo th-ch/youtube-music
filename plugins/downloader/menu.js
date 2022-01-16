@@ -8,7 +8,7 @@ const chokidar = require('chokidar');
 
 const { setOptions } = require("../../config/plugins");
 const { sendError } = require("./back");
-const { defaultMenuDownloadLabel, getFolder, presets } = require("./utils");
+const { defaultMenuDownloadLabel, getFolder, presets, setBadge } = require("./utils");
 
 let downloadLabel = defaultMenuDownloadLabel;
 let playingUrl = undefined;
@@ -37,7 +37,7 @@ module.exports = (win, options) => {
 	return [
 		{
 			label: downloadLabel,
-			click: () => downloadPlaylist(undefined, win, options)
+			click: () => downloadPlaylist(undefined, win, options),
 		},
 		{
 			label: "Choose download folder",
