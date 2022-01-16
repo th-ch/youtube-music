@@ -122,12 +122,16 @@ function createMainWindow() {
 		autoHideMenuBar: config.get("options.hideMenu"),
 	});
 	remote.enable(win.webContents);
+
 	if (windowPosition) {
 		const { x, y } = windowPosition;
-		if(x + win.getSize()[0] < 0 || x - win.getSize()[0] > electron.screen.getDisplayNearestPoint({x, y}).bounds.width) {
+		const winSize = win.getSize();
+		const displaySize = electron.screen.getDisplayNearestPoint(windowPosition).bounds;
+		if((x + winSize[0] < 0 || x -winSize[0] > displaySize.width) ||
+		   (y < 0 || y > displaySize.height)) {
 			//Window is offscreen
 			if (is.dev()) {
-				console.log(`Window tried to render offscreen, Width=${win.getSize()[0]}, nearestDisplayPointer.bounds=${electron.screen.getDisplayNearestPoint({x, y}).bounds}, position=${{x, y}}`);
+				console.log(`Window tried to render offscreen, windowSize=${winSize}, displaySize=${displaySize}, position=${windowPosition}`);
 			}
 		} else { 
 			win.setPosition(x, y);
