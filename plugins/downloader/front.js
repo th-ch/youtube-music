@@ -1,4 +1,4 @@
-const { contextBridge } = require("electron");
+const { ipcRenderer } = require("electron");
 
 const { defaultConfig } = require("../../config");
 const { getSongMenu } = require("../../providers/dom-elements");
@@ -13,15 +13,17 @@ const downloadButton = ElementFromFile(
 );
 let pluginOptions = {};
 
-const observer = new MutationObserver((mutations, observer) => {
+const observer = new MutationObserver(() => {
 	if (!menu) {
 		menu = getSongMenu();
+		if (!menu) return;
 	}
+	if (menu.contains(downloadButton)) return;
+	const menuUrl = document.querySelector('tp-yt-paper-listbox [tabindex="0"] #navigation-endpoint')?.href;
+	if (menuUrl && !menuUrl.includes('watch?')) return;
 
-	if (menu && !menu.contains(downloadButton)) {
-		menu.prepend(downloadButton);
-		progress = document.querySelector("#ytmcustom-download");
-	}
+	menu.prepend(downloadButton);
+	progress = document.querySelector("#ytmcustom-download");
 });
 
 const reinit = () => {
@@ -43,10 +45,16 @@ global.download = () => {
 	let metadata;
 	let videoUrl = getSongMenu()
 		// selector of first button which is always "Start Radio"
-		?.querySelector('ytmusic-menu-navigation-item-renderer.iron-selected[tabindex="0"] #navigation-endpoint')
+		?.querySelector('ytmusic-menu-navigation-item-renderer[tabindex="0"] #navigation-endpoint')
 		?.getAttribute("href");
 	if (videoUrl) {
-		videoUrl = baseUrl + "/" + videoUrl;
+		if (videoUrl.startsWith('watch?')) {
+			videoUrl = baseUrl + "/" + videoUrl;
+		}
+		if (videoUrl.includes('?playlist=')) {
+			ipcRenderer.send('download-playlist-request', videoUrl);
+			return;
+		}
 		metadata = null;
 	} else {
 		metadata = global.songInfo;
@@ -78,10 +86,13 @@ global.download = () => {
 
 function observeMenu(options) {
 	pluginOptions = { ...pluginOptions, ...options };
-	observer.observe(document, {
-		childList: true,
-		subtree: true,
-	});
+
+	document.addEventListener('apiLoaded', () => {
+		observer.observe(document.querySelector('ytmusic-popup-container'), {
+			childList: true,
+			subtree: true,
+		});
+	}, { once: true, passive: true })
 }
 
 module.exports = observeMenu;
