@@ -142,6 +142,7 @@ function createMainWindow() {
 	win.on("closed", onClosed);
 
 	win.on("move", () => {
+		if (win.isMaximized()) return;
 		let position = win.getPosition();
 		lateSave("window-position", { x: position[0], y: position[1] });
 	});
@@ -171,6 +172,7 @@ function createMainWindow() {
 		savedTimeouts[key] = setTimeout(() => {
 			config.set(key, value);
 			savedTimeouts[key] = undefined;
+
 		}, 1000)
 	}
 
