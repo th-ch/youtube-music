@@ -172,7 +172,6 @@ function createMainWindow() {
 		savedTimeouts[key] = setTimeout(() => {
 			config.set(key, value);
 			savedTimeouts[key] = undefined;
-
 		}, 1000)
 	}
 
