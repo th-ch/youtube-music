@@ -1,6 +1,8 @@
 const { ElementFromFile, templatePath } = require("../utils");
 
-const { setOptions } = require("../../config/plugins");
+const { setOptions, isEnabled } = require("../../config/plugins");
+
+const moveVolumeHud = isEnabled("precise-volume") ? require("../precise-volume/front").moveVolumeHud : ()=>{};
 
 function $(selector) { return document.querySelector(selector); }
 
@@ -39,7 +41,7 @@ function setup(e) {
         changeDisplay(e.target.checked);
         setOptions("video-toggle", options);
     })
-  
+
     video.addEventListener('srcChanged', videoStarted);
 
     observeThumbnail();
@@ -87,13 +89,6 @@ function forcePlaybackMode() {
         });
     });
     playbackModeObserver.observe(player, { attributeFilter: ["playback-mode"] });
-}
-
-// if precise volume plugin is enabled, move its hud to be on top of the video
-function moveVolumeHud(showVideo) {
-    const volumeHud = $('#volumeHud');
-    if (volumeHud)
-        volumeHud.style.top = showVideo ? `${(player.clientHeight - video.clientHeight) / 2}px` : 0;
 }
 
 function observeThumbnail() {
