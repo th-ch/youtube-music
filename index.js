@@ -131,14 +131,21 @@ function createMainWindow() {
 	if (windowPosition) {
 		const { x, y } = windowPosition;
 		const winSize = win.getSize();
-		const displaySize = electron.screen.getDisplayNearestPoint(windowPosition).bounds;
-		if((x + winSize[0] < displaySize.x - 8 || x - winSize[0] > displaySize.x + displaySize.width) ||
-		   (y < displaySize.y - 8 || y > displaySize.y + displaySize.height)) {
+		const displaySize =
+			electron.screen.getDisplayNearestPoint(windowPosition).bounds;
+		if (
+			x + winSize[0] < displaySize.x - 8 ||
+			x - winSize[0] > displaySize.x + displaySize.width ||
+			y < displaySize.y - 8 ||
+			y > displaySize.y + displaySize.height
+		) {
 			//Window is offscreen
 			if (is.dev()) {
-				console.log(`Window tried to render offscreen, windowSize=${winSize}, displaySize=${displaySize}, position=${windowPosition}`);
+				console.log(
+					`Window tried to render offscreen, windowSize=${winSize}, displaySize=${displaySize}, position=${windowPosition}`
+				);
 			}
-		} else { 
+		} else {
 			win.setPosition(x, y);
 		}
 	}
