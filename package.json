@@ -15,6 +15,15 @@
 		"productName": "YouTube Music",
 		"mac": {
 			"identity": null,
+			"target": [
+				{
+					"target": "dmg",
+					"arch": [
+						"x64",
+						"arm64"
+					]
+				}
+			],
 			"icon": "assets/generated/icons/mac/icon.icns"
 		},
 		"win": {
@@ -58,8 +67,8 @@
 		"clean": "rimraf dist",
 		"build": "yarn run clean && electron-builder --win --mac --linux",
 		"build:linux": "yarn run clean && electron-builder --linux",
-		"build:mac": "yarn run clean && electron-builder --mac",
-		"build:mac:arm64": "yarn run clean && electron-builder --mac --arm64",
+		"build:mac": "yarn run clean && electron-builder --mac dmg:x64",
+		"build:mac:arm64": "yarn run clean && electron-builder --mac dmg:arm64",
 		"build:win": "yarn run clean && electron-builder --win",
 		"lint": "xo",
 		"plugins": "yarn run plugin:adblocker",
