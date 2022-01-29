@@ -82,8 +82,8 @@ module.exports = () => {
 				`<div id="contents" class="style-scope ytmusic-section-list-renderer description ytmusic-description-shelf-renderer genius-lyrics">
 			 		${hasLyrics ? lyrics : 'Could not retrieve lyrics from genius'}
 
-			 		<yt-formatted-string class="footer style-scope ytmusic-description-shelf-renderer" style="text-align: initial"></yt-formatted-string>
-				</div>`;
+				</div>
+				<yt-formatted-string class="footer style-scope ytmusic-description-shelf-renderer" style="align-self: baseline"></yt-formatted-string>`;
 			if (hasLyrics) {
 				lyricsContainer.querySelector('.footer').textContent = 'Source: Genius';
 				enableLyricsTab();
