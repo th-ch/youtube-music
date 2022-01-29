@@ -15,13 +15,22 @@ module.exports = () => {
 			return;
 		}
 
+		let hasLyrics = true;
+
 		const html = ipcRenderer.sendSync(
 			"search-genius-lyrics",
 			extractedSongInfo
 		);
 		if (!html) {
+			// Delete previous lyrics if tab is open and couldn't get new lyrics
+			checkLyricsContainer(() => {
+				hasLyrics = false;
+				setTabsOnclick(undefined);
+			});
 			return;
-		} else if (is.dev()) {
+		}
+
+		if (is.dev()) {
 			console.log("Fetched lyrics from Genius");
 		}
 
@@ -42,11 +51,7 @@ module.exports = () => {
 
 		enableLyricsTab();
 
-		for (tab of [tabs.upNext, tabs.discover]) {
-			if (tab) {
-				tab.onclick = enableLyricsTab;
-			}
-		}
+		setTabsOnclick(enableLyricsTab);
 
 		checkLyricsContainer();
 
@@ -74,12 +79,22 @@ module.exports = () => {
 
 		function setLyrics(lyricsContainer) {
 			lyricsContainer.innerHTML = `<div id="contents" class="style-scope ytmusic-section-list-renderer description ytmusic-description-shelf-renderer genius-lyrics">
-			 			${lyrics}
+			 			${hasLyrics ? lyrics : 'Could not retrieve lyrics from genius'}
 
 			 			<yt-formatted-string class="footer style-scope ytmusic-description-shelf-renderer" style="text-align: initial"></yt-formatted-string>
 					</div>`;
-			lyricsContainer.querySelector('.footer').textContent = 'Source: Genius';
-			enableLyricsTab();
+			if (hasLyrics) {
+				lyricsContainer.querySelector('.footer').textContent = 'Source: Genius';
+				enableLyricsTab();
+			}
+		}
+
+		function setTabsOnclick(callback) {
+			for (tab of [tabs.upNext, tabs.discover]) {
+				if (tab) {
+					tab.onclick = callback;
+				}
+			}
 		}
 
 		function enableLyricsTab() {
