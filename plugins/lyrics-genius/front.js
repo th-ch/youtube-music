@@ -11,7 +11,7 @@ module.exports = () => {
 		}
 
 		// Check if disabled
-		if (!tabs.lyrics || !tabs.lyrics.hasAttribute("disabled")) {
+		if (!tabs.lyrics?.hasAttribute("disabled")) {
 			return;
 		}
 
@@ -40,14 +40,12 @@ module.exports = () => {
 			return;
 		}
 
-		tabs.lyrics.removeAttribute("disabled");
-		tabs.lyrics.removeAttribute("aria-disabled");
+		enableLyricsTab();
 
-		for (tab of [tabs.upNext, tabs.discover]){
-			tab.onclick = () => {
-				tabs.lyrics.removeAttribute("disabled");
-				tabs.lyrics.removeAttribute("aria-disabled");
-			};
+		for (tab of [tabs.upNext, tabs.discover]) {
+			if (tab) {
+				tab.onclick = enableLyricsTab;
+			}
 		}
 
 		checkLyricsContainer();
@@ -74,12 +72,16 @@ module.exports = () => {
 			}
 		}
 
-		function setLyrics(lyricsContainer){
+		function setLyrics(lyricsContainer) {
 			lyricsContainer.innerHTML = `<div id="contents" class="style-scope ytmusic-section-list-renderer description ytmusic-description-shelf-renderer genius-lyrics">
 			 			${lyrics}
 
 			 			<yt-formatted-string class="footer style-scope ytmusic-description-shelf-renderer">Source&nbsp;: Genius</yt-formatted-string>
 					</div>`;
+			enableLyricsTab()
+		}
+
+		function enableLyricsTab() {
 			tabs.lyrics.removeAttribute("disabled");
 			tabs.lyrics.removeAttribute("aria-disabled");
 		}

@@ -6,7 +6,7 @@
 	text-decoration: none;
 }
 
-#contents.genius-lyrics, .description {
-    font-size: 1.1vw !important;
+.description {
+	font-size: 1.1vw !important;
 	text-align: center !important;
 }
