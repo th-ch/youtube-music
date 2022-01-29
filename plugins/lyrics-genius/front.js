@@ -3,10 +3,15 @@ const is = require("electron-is");
 
 module.exports = () => {
 	ipcRenderer.on("update-song-info", (_, extractedSongInfo) => {
-		const lyricsTab = document.querySelector('tp-yt-paper-tab[tabindex="-1"]');
+		const tabList = document.querySelectorAll("tp-yt-paper-tab");
+		const tabs = {
+			upNext: tabList[0],
+			lyrics: tabList[1],
+			discover: tabList[2],
+		}
 
 		// Check if disabled
-		if (!lyricsTab || !lyricsTab.hasAttribute("disabled")) {
+		if (!tabs.lyrics || !tabs.lyrics.hasAttribute("disabled")) {
 			return;
 		}
 
@@ -35,26 +40,31 @@ module.exports = () => {
 			return;
 		}
 
-		lyricsTab.removeAttribute("disabled");
-		lyricsTab.removeAttribute("aria-disabled");
-		document.querySelector("tp-yt-paper-tab").onclick = () => {
-			lyricsTab.removeAttribute("disabled");
-			lyricsTab.removeAttribute("aria-disabled");
-		};
+		tabs.lyrics.removeAttribute("disabled");
+		tabs.lyrics.removeAttribute("aria-disabled");
 
-		lyricsTab.onclick = () => {
+		for (tab of [tabs.upNext, tabs.discover]){
+			tab.onclick = () => {
+				tabs.lyrics.removeAttribute("disabled");
+				tabs.lyrics.removeAttribute("aria-disabled");
+			};
+		}
+
+		tabs.lyrics.onclick = () => {
 			const tabContainer = document.querySelector("ytmusic-tab-renderer");
 			const observer = new MutationObserver((_, observer) => {
 				const lyricsContainer = document.querySelector(
 					'[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"] > ytmusic-message-renderer'
 				);
 				if (lyricsContainer) {
+					observer.disconnect();
 					lyricsContainer.innerHTML = `<div id="contents" class="style-scope ytmusic-section-list-renderer genius-lyrics">
 			 			${lyrics}
 
 			 			<yt-formatted-string class="footer style-scope ytmusic-description-shelf-renderer">Source&nbsp;: Genius</yt-formatted-string>
 					</div>`;
-					observer.disconnect();
+					tabs.lyrics.removeAttribute("disabled");
+					tabs.lyrics.removeAttribute("aria-disabled");
 				}
 			});
 			observer.observe(tabContainer, {
