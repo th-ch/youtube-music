@@ -50,22 +50,12 @@ module.exports = () => {
 			};
 		}
 
+		checkLyricsContainer();
+
 		tabs.lyrics.onclick = () => {
 			const tabContainer = document.querySelector("ytmusic-tab-renderer");
 			const observer = new MutationObserver((_, observer) => {
-				const lyricsContainer = document.querySelector(
-					'[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"] > ytmusic-message-renderer'
-				);
-				if (lyricsContainer) {
-					observer.disconnect();
-					lyricsContainer.innerHTML = `<div id="contents" class="style-scope ytmusic-section-list-renderer genius-lyrics">
-			 			${lyrics}
-
-			 			<yt-formatted-string class="footer style-scope ytmusic-description-shelf-renderer">Source&nbsp;: Genius</yt-formatted-string>
-					</div>`;
-					tabs.lyrics.removeAttribute("disabled");
-					tabs.lyrics.removeAttribute("aria-disabled");
-				}
+				checkLyricsContainer(() => observer.disconnect());
 			});
 			observer.observe(tabContainer, {
 				attributes: true,
@@ -73,5 +63,25 @@ module.exports = () => {
 				subtree: true,
 			});
 		};
+
+		function checkLyricsContainer(callback = () => {}) {
+			const lyricsContainer = document.querySelector(
+				'[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"] > ytmusic-message-renderer'
+			);
+			if (lyricsContainer) {
+				callback();
+				setLyrics(lyricsContainer)
+			}
+		}
+
+		function setLyrics(lyricsContainer){
+			lyricsContainer.innerHTML = `<div id="contents" class="style-scope ytmusic-section-list-renderer description ytmusic-description-shelf-renderer genius-lyrics">
+			 			${lyrics}
+
+			 			<yt-formatted-string class="footer style-scope ytmusic-description-shelf-renderer">Source&nbsp;: Genius</yt-formatted-string>
+					</div>`;
+			tabs.lyrics.removeAttribute("disabled");
+			tabs.lyrics.removeAttribute("aria-disabled");
+		}
 	});
 };
