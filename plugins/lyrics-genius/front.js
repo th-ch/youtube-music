@@ -76,9 +76,10 @@ module.exports = () => {
 			lyricsContainer.innerHTML = `<div id="contents" class="style-scope ytmusic-section-list-renderer description ytmusic-description-shelf-renderer genius-lyrics">
 			 			${lyrics}
 
-			 			<yt-formatted-string class="footer style-scope ytmusic-description-shelf-renderer">Source&nbsp;: Genius</yt-formatted-string>
+			 			<yt-formatted-string class="footer style-scope ytmusic-description-shelf-renderer" style="text-align: initial"></yt-formatted-string>
 					</div>`;
-			enableLyricsTab()
+			lyricsContainer.querySelector('.footer').textContent = 'Source: Genius';
+			enableLyricsTab();
 		}
 
 		function enableLyricsTab() {
