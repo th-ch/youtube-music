@@ -121,7 +121,7 @@ module.exports = (
 		};
 
 		if (songInfo.isPlaying) {
-			// Add a playing icon to show that the song is paused
+			// Add a playing icon to show that the song is playing
 			activityInfo.smallImageKey = "playing";
 			activityInfo.smallImageText = "Playing";
 			if (songInfo.isPaused) {
