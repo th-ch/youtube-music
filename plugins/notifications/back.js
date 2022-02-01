@@ -3,8 +3,6 @@ const is = require("electron-is");
 const registerCallback = require("../../providers/song-info");
 const { notificationImage } = require("./utils");
 
-const setupInteractive = require("./interactive")
-
 const notify = (info, options) => {
 
 	// Fill the notification with content
@@ -41,6 +39,6 @@ const setup = (options) => {
 module.exports = (win, options) => {
 	// Register the callback for new song information
 	is.windows() && options.interactive ?
-		setupInteractive(win, options.unpauseNotification) :
+		require("./snoretoast/interactive")(win, options.unpauseNotification) :
 		setup(options);
 };

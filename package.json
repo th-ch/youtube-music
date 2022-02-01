@@ -15,6 +15,7 @@
 		"productName": "YouTube Music",
 		"mac": {
 			"identity": null,
+			"files": ["!plugins/{taskbar-mediacontrol,notifications/snoretoast}${/*}"],
 			"target": [
 				{
 					"target": "dmg",
@@ -28,6 +29,7 @@
 		},
 		"win": {
 			"icon": "assets/generated/icons/win/icon.ico",
+			"files": ["!plugins/touchbar${/*}"],
 			"target": [
 				"nsis",
 				"portable"
@@ -38,6 +40,7 @@
 		},
 		"linux": {
 			"icon": "assets/generated/icons/png",
+			"files": ["!plugins/{touchbar,taskbar-mediacontrol,notifications/snoretoast}${/*}"],
 			"category": "AudioVideo",
 			"target": [
 				"AppImage",
