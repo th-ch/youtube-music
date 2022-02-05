@@ -166,14 +166,22 @@ const mainMenuTemplate = (win) => {
 				{
 					label: "Advanced options",
 					submenu: [
-            	{
-						label: "Proxy",
-						type: "checkbox",
-						checked: !!config.get("options.proxy"),
-						click: (item) => {
-							setProxy(item, win);
-						  },
-					  },
+						{
+							label: "Proxy",
+							type: "checkbox",
+							checked: !!config.get("options.proxy"),
+							click: (item) => {
+								setProxy(item, win);
+							},
+						},
+						{
+							label: "Override useragent",
+							type: "checkbox",
+							checked: config.get("options.overrideUserAgent"),
+							click: (item) => {
+								config.set("options.overrideUserAgent", item.checked);
+							}
+						},
 						{
 							label: "Disable hardware acceleration",
 							type: "checkbox",
