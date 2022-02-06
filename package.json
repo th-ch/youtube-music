@@ -90,7 +90,7 @@
 		"browser-id3-writer": "^4.4.0",
 		"chokidar": "^3.5.2",
 		"custom-electron-prompt": "^1.4.0",
-		"custom-electron-titlebar": "^3.2.10",
+		"custom-electron-titlebar": "^4.1.0",
 		"discord-rpc": "^3.2.0",
 		"electron-better-web-request": "^1.0.1",
 		"electron-debug": "^3.2.0",

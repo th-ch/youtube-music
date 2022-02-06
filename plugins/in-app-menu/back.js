@@ -5,14 +5,19 @@ const electronLocalshortcut = require("electron-localshortcut");
 const config = require("../../config");
 const { injectCSS } = require("../utils");
 
+const { setupTitlebar, attachTitlebarToWindow } = require('custom-electron-titlebar/main');
+setupTitlebar();
+
 //tracks menu visibility
-let visible = true;
+let visible = !config.get("options.hideMenu");
 
 module.exports = (win) => {
 	// css for custom scrollbar + disable drag area(was causing bugs)
 	injectCSS(win.webContents, path.join(__dirname, "style.css"));
 
 	win.once("ready-to-show", () => {
+		attachTitlebarToWindow(win);
+
 		//register keyboard shortcut && hide menu if hideMenu is enabled
 		if (config.get("options.hideMenu")) {
 			electronLocalshortcut.register(win, "Esc", () => {
@@ -21,13 +26,8 @@ module.exports = (win) => {
 		}
 	});
 
-	win.webContents.once("did-finish-load", () => {
-		// fix bug with menu not applying on start when no internet connection available
-		setMenuVisibility(!config.get("options.hideMenu"));
-	});
-
 	function setMenuVisibility(value) {
 		visible = value;
-		win.webContents.send("updateMenu", visible);
+		win.webContents.send("refreshMenu", visible);
 	}
 };
