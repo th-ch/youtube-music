@@ -5,6 +5,7 @@ const { dialog, ipcMain } = require("electron");
 const is = require("electron-is");
 const ytpl = require("ytpl");
 const chokidar = require('chokidar');
+const filenamify = require('filenamify');
 
 const { setMenuOptions } = require("../../config/plugins");
 const { sendError } = require("./back");
@@ -94,10 +95,10 @@ async function downloadPlaylist(givenUrl, win, options) {
 		sendError(win, e);
 		return;
 	}
-	const playlistTitle = playlist.title;
+	const safePlaylistTitle = filenamify(playlist.title, {replacement: ' '});
 
 	const folder = getFolder(options.downloadFolder);
-	const playlistFolder = join(folder, playlistTitle);
+	const playlistFolder = join(folder, safePlaylistTitle);
 	if (existsSync(playlistFolder)) {
 		sendError(
 			win,
@@ -111,13 +112,13 @@ async function downloadPlaylist(givenUrl, win, options) {
 		type: "info",
 		buttons: ["OK"],
 		title: "Started Download",
-		message: `Downloading Playlist "${playlistTitle}"`,
+		message: `Downloading Playlist "${playlist.title}"`,
 		detail: `(${playlist.items.length} songs)`,
 	});
 
 	if (is.dev()) {
 		console.log(
-			`Downloading playlist "${playlistTitle}" - ${playlist.items.length} songs (${playlistId})`
+			`Downloading playlist "${playlist.title}" - ${playlist.items.length} songs (${playlistId})`
 		);
 	}
 
@@ -143,7 +144,7 @@ async function downloadPlaylist(givenUrl, win, options) {
 		win.webContents.send(
 			"downloader-download-playlist",
 			song.url,
-			playlistTitle,
+			safePlaylistTitle,
 			options
 		);
 	});

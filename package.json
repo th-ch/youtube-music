@@ -15,6 +15,15 @@
 		"productName": "YouTube Music",
 		"mac": {
 			"identity": null,
+			"target": [
+				{
+					"target": "dmg",
+					"arch": [
+						"x64",
+						"arm64"
+					]
+				}
+			],
 			"icon": "assets/generated/icons/mac/icon.icns"
 		},
 		"win": {
@@ -58,7 +67,8 @@
 		"clean": "rimraf dist",
 		"build": "yarn run clean && electron-builder --win --mac --linux",
 		"build:linux": "yarn run clean && electron-builder --linux",
-		"build:mac": "yarn run clean && electron-builder --mac",
+		"build:mac": "yarn run clean && electron-builder --mac dmg:x64",
+		"build:mac:arm64": "yarn run clean && electron-builder --mac dmg:arm64",
 		"build:win": "yarn run clean && electron-builder --win",
 		"lint": "xo",
 		"plugins": "yarn run plugin:adblocker",
@@ -72,35 +82,35 @@
 		"npm": "Please use yarn and not npm"
 	},
 	"dependencies": {
-		"@cliqz/adblocker-electron": "^1.23.1",
-		"@electron/remote": "^2.0.1",
+		"@cliqz/adblocker-electron": "^1.23.4",
+		"@electron/remote": "^2.0.4",
 		"@ffmpeg/core": "^0.10.0",
-		"@ffmpeg/ffmpeg": "^0.10.0",
+		"@ffmpeg/ffmpeg": "^0.10.1",
 		"async-mutex": "^0.3.2",
 		"browser-id3-writer": "^4.4.0",
-		"chokidar": "^3.5.2",
+		"chokidar": "^3.5.3",
 		"custom-electron-prompt": "^1.4.0",
 		"custom-electron-titlebar": "^3.2.10",
-		"discord-rpc": "^3.2.0",
+		"discord-rpc": "^4.0.1",
 		"electron-better-web-request": "^1.0.1",
 		"electron-debug": "^3.2.0",
 		"electron-is": "^3.0.0",
 		"electron-localshortcut": "^3.2.1",
-		"electron-store": "^7.0.3",
+		"electron-store": "^8.0.1",
 		"electron-unhandled": "^3.0.2",
 		"electron-updater": "^4.6.3",
 		"filenamify": "^4.3.0",
 		"hark": "^1.2.3",
 		"md5": "^2.3.0",
 		"mpris-service": "^2.1.2",
-		"node-fetch": "^2.6.6",
-		"node-notifier": "^9.0.1",
-		"ytdl-core": "^4.10.0",
+		"node-fetch": "^2.6.7",
+		"node-notifier": "^10.0.1",
+		"ytdl-core": "^4.10.1",
 		"ytpl": "^2.2.3"
 	},
 	"devDependencies": {
-		"electron": "^16.0.5",
-		"electron-builder": "^22.10.5",
+		"electron": "^17.0.0",
+		"electron-builder": "^22.14.5",
 		"electron-devtools-installer": "^3.1.1",
 		"electron-icon-maker": "0.0.5",
 		"jest": "^27.3.1",
