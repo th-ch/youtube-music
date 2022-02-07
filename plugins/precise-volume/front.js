@@ -1,7 +1,7 @@
 const { ipcRenderer } = require("electron");
 const { globalShortcut } = require('@electron/remote');
 
-const { setOptions } = require("../../config/plugins");
+const { setOptions, isEnabled } = require("../../config/plugins");
 
 function $(selector) { return document.querySelector(selector); }
 let api;
@@ -12,6 +12,8 @@ module.exports = (options) => {
 		firstRun(options);
 	}, { once: true, passive: true })
 };
+
+module.exports.moveVolumeHud = moveVolumeHud;
 
 /** Restore saved volume and setup tooltip */
 function firstRun(options) {
@@ -34,6 +36,11 @@ function firstRun(options) {
 	injectVolumeHud(noVid);
 	if (!noVid) {
 		setupVideoPlayerOnwheel(options);
+		if (!isEnabled('video-toggle')) {
+			//video-toggle handles hud positioning on its own
+			const videoMode = () => api.getPlayerResponse().videoDetails?.musicVideoType !== 'MUSIC_VIDEO_TYPE_ATV';
+			$("video").addEventListener("srcChanged", () => moveVolumeHud(videoMode()));
+		}
 	}
 
 	// Change options from renderer to keep sync
@@ -59,6 +66,16 @@ function injectVolumeHud(noVid) {
 		$("#song-video").insertAdjacentHTML('afterend',
 			`<span id="volumeHud" style="${position + mainStyle}"></span>`)
 	}
+}
+
+let hudMoveTimeout;
+function moveVolumeHud(showVideo) {
+	clearTimeout(hudMoveTimeout);
+	const volumeHud = $('#volumeHud');
+	if (!volumeHud) return;
+	hudMoveTimeout = setTimeout(() => {
+		volumeHud.style.top = showVideo ? `${($('ytmusic-player').clientHeight - $('video').clientHeight) / 2}px` : 0;
+	}, 250)
 }
 
 let hudFadeTimeout;
