@@ -1,7 +1,7 @@
 const { ipcRenderer } = require("electron");
 const { globalShortcut } = require('@electron/remote');
 
-const { setOptions, isEnabled } = require("../../config/plugins");
+const { setOptions, setMenuOptions, isEnabled } = require("../../config/plugins");
 
 function $(selector) { return document.querySelector(selector); }
 let api;
@@ -48,7 +48,7 @@ function firstRun(options) {
 		for (option in newOptions) {
 			options[option] = newOptions[option];
 		}
-		setOptions("precise-volume", options);
+		setMenuOptions("precise-volume", options);
 	});
 }
 

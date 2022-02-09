@@ -1,5 +1,6 @@
-const { setOptions } = require("../../config/plugins");
 const prompt = require("custom-electron-prompt");
+
+const { setMenuOptions } = require("../../config/plugins");
 const promptOptions = require("../../providers/prompt-options");
 const { clear, connect, registerRefresh, isConnected } = require("./back");
 
@@ -27,7 +28,7 @@ module.exports = (win, options, refreshMenu) => {
 			checked: options.activityTimoutEnabled,
 			click: (item) => {
 				options.activityTimoutEnabled = item.checked;
-				setOptions('discord', options);
+				setMenuOptions('discord', options);
 			},
 		},
 		{
@@ -36,7 +37,7 @@ module.exports = (win, options, refreshMenu) => {
 			checked: options.listenAlong,
 			click: (item) => {
 				options.listenAlong = item.checked;
-				setOptions('discord', options);
+				setMenuOptions('discord', options);
 			},
 		},
 		{
@@ -59,6 +60,6 @@ async function setInactivityTimeout(win, options) {
 
 	if (output) {
 		options.activityTimoutTime = Math.round(output * 1e3);
-		setOptions("discord", options);
+		setMenuOptions("discord", options);
 	}
 }

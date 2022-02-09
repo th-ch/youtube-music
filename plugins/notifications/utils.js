@@ -1,4 +1,4 @@
-const { setOptions } = require("../../config/plugins");
+const { setMenuOptions } = require("../../config/plugins");
 const path = require("path");
 const { app } = require("electron");
 const fs = require("fs");
@@ -15,7 +15,7 @@ module.exports.icons = {
 
 module.exports.setOption = (options, option, value) => {
 	options[option] = value;
-	setOptions("notifications", options)
+	setMenuOptions("notifications", options)
 }
 
 module.exports.urgencyLevels = [
