@@ -87,6 +87,19 @@ const mainMenuTemplate = (win) => {
 						config.setMenuOption("options.removeUpgradeButton", item.checked);
 					},
 				},
+				{
+					label: "Single instance lock",
+					type: "checkbox",
+					checked: config.get("options.singleInstanceLock"),
+					click: (item) => {
+						config.set("options.singleInstanceLock", item.checked);
+						if (item.checked && !app.hasSingleInstanceLock()) {
+							app.requestSingleInstanceLock();
+						} else if (!item.checked && app.hasSingleInstanceLock()) {
+							app.releaseSingleInstanceLock();
+						}
+					},
+				},
 				...(is.windows() || is.linux()
 					? [
 						{
@@ -166,14 +179,14 @@ const mainMenuTemplate = (win) => {
 				{
 					label: "Advanced options",
 					submenu: [
-            	{
-						label: "Proxy",
-						type: "checkbox",
-						checked: !!config.get("options.proxy"),
-						click: (item) => {
-							setProxy(item, win);
-						  },
-					  },
+						{
+							label: "Proxy",
+							type: "checkbox",
+							checked: !!config.get("options.proxy"),
+							click: (item) => {
+								setProxy(item, win);
+							},
+						},
 						{
 							label: "Disable hardware acceleration",
 							type: "checkbox",

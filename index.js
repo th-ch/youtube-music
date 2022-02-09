@@ -26,6 +26,22 @@ unhandled({
 process.env.NODE_OPTIONS = "";
 
 const app = electron.app;
+// Prevent window being garbage collected
+let mainWindow;
+autoUpdater.autoDownload = false;
+
+if(config.get("options.singleInstanceLock")){
+	const gotTheLock = app.requestSingleInstanceLock();
+	if (!gotTheLock) app.quit();
+
+	app.on('second-instance', () => {
+		if (!mainWindow) return;
+		if (mainWindow.isMinimized()) mainWindow.restore();
+		if (!mainWindow.isVisible()) mainWindow.show();
+		mainWindow.focus();
+	});
+}
+
 app.commandLine.appendSwitch(
 	"js-flags",
 	// WebAssembly flags
@@ -53,10 +69,6 @@ if (config.get("options.proxy")) {
 require("electron-debug")({
 	showDevTools: false //disable automatic devTools on new window
 });
-
-// Prevent window being garbage collected
-let mainWindow;
-autoUpdater.autoDownload = false;
 
 let icon = "assets/youtube-music.png";
 if (process.platform == "win32") {
