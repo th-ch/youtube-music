@@ -78,7 +78,7 @@ module.exports = () => {
 		}
 
 		function setLyrics(lyricsContainer) {
-			lyricsContainer.innerHTML = 
+			lyricsContainer.innerHTML =
 				`<div id="contents" class="style-scope ytmusic-section-list-renderer description ytmusic-description-shelf-renderer genius-lyrics">
 			 		${hasLyrics ? lyrics : 'Could not retrieve lyrics from genius'}
 
@@ -91,7 +91,7 @@ module.exports = () => {
 		}
 
 		function setTabsOnclick(callback) {
-			for (tab of [tabs.upNext, tabs.discover]) {
+			for (const tab of [tabs.upNext, tabs.discover]) {
 				if (tab) {
 					tab.onclick = callback;
 				}
