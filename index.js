@@ -26,6 +26,22 @@ unhandled({
 process.env.NODE_OPTIONS = "";
 
 const app = electron.app;
+// Prevent window being garbage collected
+let mainWindow;
+autoUpdater.autoDownload = false;
+
+if(config.get("options.singleInstanceLock")){
+	const gotTheLock = app.requestSingleInstanceLock();
+	if (!gotTheLock) app.quit();
+
+	app.on('second-instance', () => {
+		if (!mainWindow) return;
+		if (mainWindow.isMinimized()) mainWindow.restore();
+		if (!mainWindow.isVisible()) mainWindow.show();
+		mainWindow.focus();
+	});
+}
+
 app.commandLine.appendSwitch(
 	"js-flags",
 	// WebAssembly flags
@@ -53,10 +69,6 @@ if (config.get("options.proxy")) {
 require("electron-debug")({
 	showDevTools: false //disable automatic devTools on new window
 });
-
-// Prevent window being garbage collected
-let mainWindow;
-autoUpdater.autoDownload = false;
 
 let icon = "assets/youtube-music.png";
 if (process.platform == "win32") {
@@ -160,21 +172,38 @@ function createMainWindow() {
 	win.on("closed", onClosed);
 
 	win.on("move", () => {
+		if (win.isMaximized()) return;
 		let position = win.getPosition();
-		config.set("window-position", { x: position[0], y: position[1] });
+		lateSave("window-position", { x: position[0], y: position[1] });
 	});
+
+	let winWasMaximized;
 
 	win.on("resize", () => {
 		const windowSize = win.getSize();
 
-		config.set("window-maximized", win.isMaximized());
-		if (!win.isMaximized()) {
-			config.set("window-size", {
+		const isMaximized = win.isMaximized();
+		if (winWasMaximized !== isMaximized) {
+			winWasMaximized = isMaximized;
+			config.set("window-maximized", isMaximized);
+		}
+		if (!isMaximized) {
+			lateSave("window-size", {
 				width: windowSize[0],
 				height: windowSize[1],
 			});
 		}
 	});
+
+	let savedTimeouts = {};
+	function lateSave(key, value) {
+		if (savedTimeouts[key]) clearTimeout(savedTimeouts[key]);
+
+		savedTimeouts[key] = setTimeout(() => {
+			config.set(key, value);
+			savedTimeouts[key] = undefined;
+		}, 1000)
+	}
 
 	win.webContents.on("render-process-gone", (event, webContents, details) => {
 		showUnresponsiveDialog(win, details);
@@ -326,12 +355,6 @@ app.on("ready", () => {
 
 	mainWindow = createMainWindow();
 	setApplicationMenu(mainWindow);
-	if (config.get("options.restartOnConfigChanges")) {
-		config.watch(() => {
-			app.relaunch();
-			app.exit();
-		});
-	}
 	setUpTray(app, mainWindow);
 
 	// Autostart at login

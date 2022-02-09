@@ -1,4 +1,4 @@
-const { setOptions } = require("../../config/plugins");
+const { setMenuOptions } = require("../../config/plugins");
 
 module.exports = (win, options) => [
     {
@@ -7,7 +7,7 @@ module.exports = (win, options) => [
         checked: options.forceHide,
         click: item => {
             options.forceHide = item.checked;
-            setOptions("video-toggle", options);
+            setMenuOptions("video-toggle", options);
         }
     }
 ];
