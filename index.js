@@ -160,21 +160,38 @@ function createMainWindow() {
 	win.on("closed", onClosed);
 
 	win.on("move", () => {
+		if (win.isMaximized()) return;
 		let position = win.getPosition();
-		config.set("window-position", { x: position[0], y: position[1] });
+		lateSave("window-position", { x: position[0], y: position[1] });
 	});
+
+	let winWasMaximized;
 
 	win.on("resize", () => {
 		const windowSize = win.getSize();
 
-		config.set("window-maximized", win.isMaximized());
-		if (!win.isMaximized()) {
-			config.set("window-size", {
+		const isMaximized = win.isMaximized();
+		if (winWasMaximized !== isMaximized) {
+			winWasMaximized = isMaximized;
+			config.set("window-maximized", isMaximized);
+		}
+		if (!isMaximized) {
+			lateSave("window-size", {
 				width: windowSize[0],
 				height: windowSize[1],
 			});
 		}
 	});
+
+	let savedTimeouts = {};
+	function lateSave(key, value) {
+		if (savedTimeouts[key]) clearTimeout(savedTimeouts[key]);
+
+		savedTimeouts[key] = setTimeout(() => {
+			config.set(key, value);
+			savedTimeouts[key] = undefined;
+		}, 1000)
+	}
 
 	win.webContents.on("render-process-gone", (event, webContents, details) => {
 		showUnresponsiveDialog(win, details);
