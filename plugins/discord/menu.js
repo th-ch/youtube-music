@@ -1,5 +1,7 @@
+const prompt = require("custom-electron-prompt");
+
 const { setMenuOptions } = require("../../config/plugins");
-const { edit } = require("../../config");
+const promptOptions = require("../../providers/prompt-options");
 const { clear, connect, registerRefresh, isConnected } = require("./back");
 
 let hasRegisterred = false;
@@ -39,9 +41,25 @@ module.exports = (win, options, refreshMenu) => {
 			},
 		},
 		{
-			label: "Set timeout time in config",
-			// open config.json
-			click: edit,
+			label: "Set inactivity timeout",
+			click: () => setInactivityTimeout(win, options),
 		},
 	];
 };
+
+async function setInactivityTimeout(win, options) {
+	let output = await prompt({
+		title: 'Set Inactivity Timeout',
+		label: 'Enter inactivity timeout in seconds:',
+		value: Math.round((options.activityTimoutTime ?? 0) / 1e3),
+		type: "counter",
+		counterOptions: { minimum: 0, multiFire: true },
+		width: 450,
+		...promptOptions()
+	}, win)
+
+	if (output) {
+		options.activityTimoutTime = Math.round(output * 1e3);
+		setMenuOptions("discord", options);
+	}
+}

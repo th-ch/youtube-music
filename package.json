@@ -89,7 +89,7 @@
 		"async-mutex": "^0.3.2",
 		"browser-id3-writer": "^4.4.0",
 		"chokidar": "^3.5.3",
-		"custom-electron-prompt": "^1.4.0",
+		"custom-electron-prompt": "^1.4.1",
 		"custom-electron-titlebar": "^3.2.10",
 		"discord-rpc": "^4.0.1",
 		"electron-better-web-request": "^1.0.1",
