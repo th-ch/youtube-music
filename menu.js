@@ -68,7 +68,7 @@ const mainMenuTemplate = (win) => {
 					type: "checkbox",
 					checked: config.get("options.autoUpdates"),
 					click: (item) => {
-						config.set("options.autoUpdates", item.checked);
+						config.setMenuOption("options.autoUpdates", item.checked);
 					},
 				},
 				{
@@ -76,7 +76,7 @@ const mainMenuTemplate = (win) => {
 					type: "checkbox",
 					checked: config.get("options.resumeOnStart"),
 					click: (item) => {
-						config.set("options.resumeOnStart", item.checked);
+						config.setMenuOption("options.resumeOnStart", item.checked);
 					},
 				},
 				{
@@ -84,7 +84,7 @@ const mainMenuTemplate = (win) => {
 					type: "checkbox",
 					checked: config.get("options.removeUpgradeButton"),
 					click: (item) => {
-						config.set("options.removeUpgradeButton", item.checked);
+						config.setMenuOption("options.removeUpgradeButton", item.checked);
 					},
 				},
 				...(is.windows() || is.linux()
@@ -94,7 +94,7 @@ const mainMenuTemplate = (win) => {
 							type: "checkbox",
 							checked: config.get("options.hideMenu"),
 							click: (item) => {
-								config.set("options.hideMenu", item.checked);
+								config.setMenuOption("options.hideMenu", item.checked);
 								if (item.checked && !config.get("options.hideMenuWarned")) {
 									dialog.showMessageBox(win, {
 										type: 'info', title: 'Hide Menu Enabled',
@@ -114,7 +114,7 @@ const mainMenuTemplate = (win) => {
 							type: "checkbox",
 							checked: config.get("options.startAtLogin"),
 							click: (item) => {
-								config.set("options.startAtLogin", item.checked);
+								config.setMenuOption("options.startAtLogin", item.checked);
 							},
 						},
 					]
@@ -127,8 +127,8 @@ const mainMenuTemplate = (win) => {
 							type: "radio",
 							checked: !config.get("options.tray"),
 							click: () => {
-								config.set("options.tray", false);
-								config.set("options.appVisible", true);
+								config.setMenuOption("options.tray", false);
+								config.setMenuOption("options.appVisible", true);
 							},
 						},
 						{
@@ -137,8 +137,8 @@ const mainMenuTemplate = (win) => {
 							checked:
 								config.get("options.tray") && config.get("options.appVisible"),
 							click: () => {
-								config.set("options.tray", true);
-								config.set("options.appVisible", true);
+								config.setMenuOption("options.tray", true);
+								config.setMenuOption("options.appVisible", true);
 							},
 						},
 						{
@@ -147,8 +147,8 @@ const mainMenuTemplate = (win) => {
 							checked:
 								config.get("options.tray") && !config.get("options.appVisible"),
 							click: () => {
-								config.set("options.tray", true);
-								config.set("options.appVisible", false);
+								config.setMenuOption("options.tray", true);
+								config.setMenuOption("options.appVisible", false);
 							},
 						},
 						{ type: "separator" },
@@ -157,7 +157,7 @@ const mainMenuTemplate = (win) => {
 							type: "checkbox",
 							checked: config.get("options.trayClickPlayPause"),
 							click: (item) => {
-								config.set("options.trayClickPlayPause", item.checked);
+								config.setMenuOption("options.trayClickPlayPause", item.checked);
 							},
 						},
 					],
@@ -179,7 +179,7 @@ const mainMenuTemplate = (win) => {
 							type: "checkbox",
 							checked: config.get("options.disableHardwareAcceleration"),
 							click: (item) => {
-								config.set("options.disableHardwareAcceleration", item.checked);
+								config.setMenuOption("options.disableHardwareAcceleration", item.checked);
 							},
 						},
 						{
@@ -187,7 +187,7 @@ const mainMenuTemplate = (win) => {
 							type: "checkbox",
 							checked: config.get("options.restartOnConfigChanges"),
 							click: (item) => {
-								config.set("options.restartOnConfigChanges", item.checked);
+								config.setMenuOption("options.restartOnConfigChanges", item.checked);
 							},
 						},
 						{
@@ -195,7 +195,7 @@ const mainMenuTemplate = (win) => {
 							type: "checkbox",
 							checked: config.get("options.autoResetAppCache"),
 							click: (item) => {
-								config.set("options.autoResetAppCache", item.checked);
+								config.setMenuOption("options.autoResetAppCache", item.checked);
 							},
 						},
 						{ type: "separator" },
@@ -316,7 +316,7 @@ async function setProxy(item, win) {
 	}, win);
 
 	if (typeof output === "string") {
-		config.set("options.proxy", output);
+		config.setMenuOption("options.proxy", output);
 		item.checked = output !== "";
 	} else { //user pressed cancel
 		item.checked = !item.checked; //reset checkbox

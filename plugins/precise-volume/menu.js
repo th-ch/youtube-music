@@ -1,5 +1,5 @@
 const { enabled } = require("./back");
-const { setOptions } = require("../../config/plugins");
+const { setMenuOptions } = require("../../config/plugins");
 const prompt = require("custom-electron-prompt");
 const promptOptions = require("../../providers/prompt-options");
 
@@ -11,7 +11,7 @@ function changeOptions(changedOptions, options, win) {
 	if (enabled()) {
 		win.webContents.send("setOptions", changedOptions);
 	} else { // Fallback to usual method if disabled
-		setOptions("precise-volume", options);
+		setMenuOptions("precise-volume", options);
 	}
 }
 

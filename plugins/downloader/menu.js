@@ -7,7 +7,7 @@ const ytpl = require("ytpl");
 const chokidar = require('chokidar');
 const filenamify = require('filenamify');
 
-const { setOptions } = require("../../config/plugins");
+const { setMenuOptions } = require("../../config/plugins");
 const { sendError } = require("./back");
 const { defaultMenuDownloadLabel, getFolder, presets, setBadge } = require("./utils");
 
@@ -49,7 +49,7 @@ module.exports = (win, options) => {
 				});
 				if (result) {
 					options.downloadFolder = result[0];
-					setOptions("downloader", options);
+					setMenuOptions("downloader", options);
 				} // else = user pressed cancel
 			},
 		},
@@ -60,7 +60,7 @@ module.exports = (win, options) => {
 				type: "radio",
 				click: () => {
 					options.preset = preset;
-					setOptions("downloader", options);
+					setMenuOptions("downloader", options);
 				},
 				checked: options.preset === preset || presets[preset] === undefined,
 			})),

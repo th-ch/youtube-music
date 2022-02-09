@@ -1,4 +1,4 @@
-const { setOptions } = require("../../config/plugins");
+const { setMenuOptions } = require("../../config/plugins");
 const { edit } = require("../../config");
 const { clear, connect, registerRefresh, isConnected } = require("./back");
 
@@ -26,7 +26,7 @@ module.exports = (win, options, refreshMenu) => {
 			checked: options.activityTimoutEnabled,
 			click: (item) => {
 				options.activityTimoutEnabled = item.checked;
-				setOptions('discord', options);
+				setMenuOptions('discord', options);
 			},
 		},
 		{
@@ -35,7 +35,7 @@ module.exports = (win, options, refreshMenu) => {
 			checked: options.listenAlong,
 			click: (item) => {
 				options.listenAlong = item.checked;
-				setOptions('discord', options);
+				setMenuOptions('discord', options);
 			},
 		},
 		{
