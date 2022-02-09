@@ -188,6 +188,14 @@ const mainMenuTemplate = (win) => {
 							},
 						},
 						{
+							label: "Override useragent",
+							type: "checkbox",
+							checked: config.get("options.overrideUserAgent"),
+							click: (item) => {
+								config.setMenuOption("options.overrideUserAgent", item.checked);
+							}
+						},
+						{
 							label: "Disable hardware acceleration",
 							type: "checkbox",
 							checked: config.get("options.disableHardwareAcceleration"),
