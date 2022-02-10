@@ -6,7 +6,8 @@ const config = require("../config");
 
 global.songInfo = {};
 
-function $(selector) { return document.querySelector(selector); }
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
 
 ipcRenderer.on("update-song-info", async (_, extractedSongInfo) => {
 	global.songInfo = JSON.parse(extractedSongInfo);
@@ -43,7 +44,11 @@ module.exports = () => {
 
 		function sendSongInfo() {
 			const data = apiEvent.detail.getPlayerResponse();
-			data.videoDetails.album = $('ytmusic-player-page')?.__data?.playerPageWatchMetadata?.albumName?.runs[0].text
+
+			data.videoDetails.album = $$(
+				".byline.ytmusic-player-bar > .yt-simple-endpoint"
+			).find(e => e.href?.includes("browse"))?.textContent;
+
 			data.videoDetails.elapsedSeconds = Math.floor(video.currentTime);
 			data.videoDetails.isPaused = false;
 			ipcRenderer.send("video-src-changed", JSON.stringify(data));

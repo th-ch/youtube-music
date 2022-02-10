@@ -26,6 +26,22 @@ unhandled({
 process.env.NODE_OPTIONS = "";
 
 const app = electron.app;
+// Prevent window being garbage collected
+let mainWindow;
+autoUpdater.autoDownload = false;
+
+if(config.get("options.singleInstanceLock")){
+	const gotTheLock = app.requestSingleInstanceLock();
+	if (!gotTheLock) app.quit();
+
+	app.on('second-instance', () => {
+		if (!mainWindow) return;
+		if (mainWindow.isMinimized()) mainWindow.restore();
+		if (!mainWindow.isVisible()) mainWindow.show();
+		mainWindow.focus();
+	});
+}
+
 app.commandLine.appendSwitch(
 	"js-flags",
 	// WebAssembly flags
@@ -53,10 +69,6 @@ if (config.get("options.proxy")) {
 require("electron-debug")({
 	showDevTools: false //disable automatic devTools on new window
 });
-
-// Prevent window being garbage collected
-let mainWindow;
-autoUpdater.autoDownload = false;
 
 let icon = "assets/youtube-music.png";
 if (process.platform == "win32") {
@@ -160,21 +172,38 @@ function createMainWindow() {
 	win.on("closed", onClosed);
 
 	win.on("move", () => {
+		if (win.isMaximized()) return;
 		let position = win.getPosition();
-		config.set("window-position", { x: position[0], y: position[1] });
+		lateSave("window-position", { x: position[0], y: position[1] });
 	});
+
+	let winWasMaximized;
 
 	win.on("resize", () => {
 		const windowSize = win.getSize();
 
-		config.set("window-maximized", win.isMaximized());
-		if (!win.isMaximized()) {
-			config.set("window-size", {
+		const isMaximized = win.isMaximized();
+		if (winWasMaximized !== isMaximized) {
+			winWasMaximized = isMaximized;
+			config.set("window-maximized", isMaximized);
+		}
+		if (!isMaximized) {
+			lateSave("window-size", {
 				width: windowSize[0],
 				height: windowSize[1],
 			});
 		}
 	});
+
+	let savedTimeouts = {};
+	function lateSave(key, value) {
+		if (savedTimeouts[key]) clearTimeout(savedTimeouts[key]);
+
+		savedTimeouts[key] = setTimeout(() => {
+			config.set(key, value);
+			savedTimeouts[key] = undefined;
+		}, 1000)
+	}
 
 	win.webContents.on("render-process-gone", (event, webContents, details) => {
 		showUnresponsiveDialog(win, details);
@@ -192,30 +221,31 @@ function createMainWindow() {
 }
 
 app.once("browser-window-created", (event, win) => {
-	// User agents are from https://developers.whatismybrowser.com/useragents/explore/
-	const originalUserAgent = win.webContents.userAgent;
-	const userAgents = {
-		mac: "Mozilla/5.0 (Macintosh; Intel Mac OS X 12.1; rv:95.0) Gecko/20100101 Firefox/95.0",
-		windows: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:95.0) Gecko/20100101 Firefox/95.0",
-		linux: "Mozilla/5.0 (Linux x86_64; rv:95.0) Gecko/20100101 Firefox/95.0",
-	}
-
-	const updatedUserAgent = 
-		is.macOS() ? userAgents.mac :
-		is.windows() ? userAgents.windows :
-		userAgents.linux;
-
-	win.webContents.userAgent = updatedUserAgent;
-	app.userAgentFallback = updatedUserAgent;
-
-	win.webContents.session.webRequest.onBeforeSendHeaders((details, cb) => {
-		// this will only happen if login failed, and "retry" was pressed
-		if (win.webContents.getURL().startsWith("https://accounts.google.com") && details.url.startsWith("https://accounts.google.com")){
-			details.requestHeaders["User-Agent"] = originalUserAgent;
+	if (config.get("options.overrideUserAgent")) {
+		// User agents are from https://developers.whatismybrowser.com/useragents/explore/
+		const originalUserAgent = win.webContents.userAgent;
+		const userAgents = {
+			mac: "Mozilla/5.0 (Macintosh; Intel Mac OS X 12.1; rv:95.0) Gecko/20100101 Firefox/95.0",
+			windows: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:95.0) Gecko/20100101 Firefox/95.0",
+			linux: "Mozilla/5.0 (Linux x86_64; rv:95.0) Gecko/20100101 Firefox/95.0",
 		}
-		cb({ requestHeaders: details.requestHeaders });
-	});
 
+		const updatedUserAgent =
+			is.macOS() ? userAgents.mac :
+				is.windows() ? userAgents.windows :
+					userAgents.linux;
+
+		win.webContents.userAgent = updatedUserAgent;
+		app.userAgentFallback = updatedUserAgent;
+
+		win.webContents.session.webRequest.onBeforeSendHeaders((details, cb) => {
+			// this will only happen if login failed, and "retry" was pressed
+			if (win.webContents.getURL().startsWith("https://accounts.google.com") && details.url.startsWith("https://accounts.google.com")) {
+				details.requestHeaders["User-Agent"] = originalUserAgent;
+			}
+			cb({ requestHeaders: details.requestHeaders });
+		});
+	}
 
 	setupSongInfo(win);
 	loadPlugins(win);
@@ -325,12 +355,6 @@ app.on("ready", () => {
 
 	mainWindow = createMainWindow();
 	setApplicationMenu(mainWindow);
-	if (config.get("options.restartOnConfigChanges")) {
-		config.watch(() => {
-			app.relaunch();
-			app.exit();
-		});
-	}
 	setUpTray(app, mainWindow);
 
 	// Autostart at login

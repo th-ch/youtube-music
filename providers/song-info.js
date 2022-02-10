@@ -112,13 +112,12 @@ const suffixesToRemove = [
 	" - topic",
 	"vevo",
 	" (performance video)",
-	" (official music video)",
-	" (official video)",
 	" (clip officiel)",
 ];
 
 function cleanupName(name) {
 	if (!name) return name;
+	name = name.replace(/\((?:official)?[ ]?(?:music)?[ ]?(?:lyric[s]?)?[ ]?(?:video)?\)$/i, '')
 	const lowCaseName = name.toLowerCase();
 	for (const suffix of suffixesToRemove) {
 		if (lowCaseName.endsWith(suffix)) {
