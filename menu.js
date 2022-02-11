@@ -254,6 +254,8 @@ const mainMenuTemplate = (win) => {
 				{ role: "zoomIn" },
 				{ role: "zoomOut" },
 				{ role: "resetZoom" },
+				{ type: "separator" },
+				{ role: "togglefullscreen" },
 			],
 		},
 		{
