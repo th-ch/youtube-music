@@ -1,4 +1,5 @@
 const store = require("./store");
+const { restart } = require("../providers/app-controls");
 
 function getEnabled() {
 	const plugins = store.get("plugins");
@@ -24,16 +25,21 @@ function setOptions(plugin, options) {
 	});
 }
 
+function setMenuOptions(plugin, options) {
+	setOptions(plugin, options);
+	if (store.get("options.restartOnConfigChanges")) restart();
+}
+
 function getOptions(plugin) {
 	return store.get("plugins")[plugin];
 }
 
 function enable(plugin) {
-	setOptions(plugin, { enabled: true });
+	setMenuOptions(plugin, { enabled: true });
 }
 
 function disable(plugin) {
-	setOptions(plugin, { enabled: false });
+	setMenuOptions(plugin, { enabled: false });
 }
 
 module.exports = {
@@ -42,5 +48,6 @@ module.exports = {
 	enable,
 	disable,
 	setOptions,
+	setMenuOptions,
 	getOptions,
 };

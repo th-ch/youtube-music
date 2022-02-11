@@ -1,4 +1,4 @@
-const { setOptions } = require("../../config/plugins");
+const { setMenuOptions } = require("../../config/plugins");
 const prompt = require("custom-electron-prompt");
 const promptOptions = require("../../providers/prompt-options");
 
@@ -20,7 +20,7 @@ function setOption(options, key = null, newValue = null) {
 		options[key] = newValue;
 	}
 
-	setOptions("shortcuts", options);
+	setMenuOptions("shortcuts", options);
 }
 
 // Helper function for keybind prompt
