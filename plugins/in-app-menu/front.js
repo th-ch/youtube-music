@@ -7,7 +7,7 @@ module.exports = () => {
 	let visible = !config.get("options.hideMenu");
 	const bar = new Titlebar({
 		backgroundColor: Color.fromHex("#050505"),
-		itemBackgroundColor: Color.fromHex("#121212"),
+		itemBackgroundColor: Color.fromHex("#1d1d1d"),
 		svgColor: Color.WHITE,
 		menu: visible ? undefined : null
 	});
