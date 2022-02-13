@@ -2,8 +2,6 @@
 const path = require("path");
 
 const electron = require("electron");
-const remote = require('@electron/remote/main');
-remote.initialize();
 const enhanceWebRequest = require("electron-better-web-request").default;
 const is = require("electron-is");
 const unhandled = require("electron-unhandled");
@@ -15,6 +13,7 @@ const { fileExists, injectCSS } = require("./plugins/utils");
 const { isTesting } = require("./utils/testing");
 const { setUpTray } = require("./tray");
 const { setupSongInfo } = require("./providers/song-info");
+const { setupAppControls } = require("./providers/app-controls");
 
 // Catch errors and log them
 unhandled({
@@ -138,7 +137,6 @@ function createMainWindow() {
 			: "default",
 		autoHideMenuBar: config.get("options.hideMenu"),
 	});
-	remote.enable(win.webContents);
 
 	if (windowPosition) {
 		const { x, y } = windowPosition;
@@ -249,6 +247,7 @@ app.once("browser-window-created", (event, win) => {
 
 	setupSongInfo(win);
 	loadPlugins(win);
+	setupAppControls();
 
 	win.webContents.on("did-fail-load", (
 		_event,

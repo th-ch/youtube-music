@@ -3,7 +3,6 @@ const { join } = require("path");
 
 const Mutex = require("async-mutex").Mutex;
 const { ipcRenderer } = require("electron");
-const remote = require('@electron/remote');
 const is = require("electron-is");
 const filenamify = require("filenamify");
 
@@ -137,7 +136,7 @@ const toMP3 = async (
 			safeVideoName + "." + extension
 		);
 
-		const folder = options.downloadFolder || remote.app.getPath("downloads");
+		const folder = options.downloadFolder || await ipcRenderer.invoke('getDownloadsFolder');
 		const name = metadata.title
 			? `${metadata.artist ? `${metadata.artist} - ` : ""}${metadata.title}`
 			: videoName;
