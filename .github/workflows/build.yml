@@ -35,6 +35,60 @@ jobs:
       - name: Install dependencies
         run: yarn --frozen-lockfile
 
+      ######################
+      # Patch SnoreToast to fix App ID - see https://github.com/th-ch/youtube-music/issues/479#issuecomment-965473559
+      - name: SnoreToast - parameters
+        id: snoretoast-params
+        if: startsWith(matrix.os, 'windows')
+        shell: bash
+        run: |
+          echo "::set-output name=version::v0.8.0"
+          echo "::set-output name=path::./vendor/snoretoast"
+
+      - name: SnoreToast - cache
+        id: snoretoast-cache
+        uses: actions/cache@v2
+        if: startsWith(matrix.os, 'windows')
+        with:
+          path: ${{ steps.snoretoast-params.outputs.path }}
+          key: snoretoast-${{ steps.snoretoast-params.outputs.version }}
+
+      - name: SnoreToast - compile
+        if: |
+          startsWith(matrix.os, 'windows') &&
+          steps.snoretoast-cache.outputs.cache-hit != 'true'
+        shell: bash
+        run: |
+          SNORETOAST_TAG="${{ steps.snoretoast-params.outputs.version }}"
+          echo "Compiling SnoreToast $SNORETOAST_TAG"
+
+          git config --global user.email "th-ch@users.noreply.github.com"
+          git config --global user.name "YouTube Music"
+          git clone -c advice.detachedHead=false --branch $SNORETOAST_TAG --depth 1 https://github.com/KDE/snoretoast.git ${{ steps.snoretoast-params.outputs.path }}
+          cd ${{ steps.snoretoast-params.outputs.path }}
+
+          # Apply https://github.com/KDE/snoretoast/pull/15/commits/c5faeceaf36f4b9fb27e5269990b716a25ecbe43
+          # Patch generated with `git format-patch -1 c5faeceaf36f4b9fb27e5269990b716a25ecbe43`
+          git am < ../snoretoast-patch/0001-Fix-activation-not-writing-to-pipe.patch
+
+          # Compile for win32
+          cmake -A Win32 -B build32
+          cmake --build build32 --config Release
+
+          # Compile for x64
+          cmake -A x64 -B build64
+          cmake --build build64 --config Release
+
+      - name: SnoreToast - overwrite with custom build
+        if: startsWith(matrix.os, 'windows')
+        shell: bash
+        run: |
+          # Override SnoreToast with the patched versions
+          cp ${{ steps.snoretoast-params.outputs.path }}/build32/bin/Release/snoretoast.exe ./node_modules/node-notifier/vendor/snoreToast/snoretoast-x86.exe
+          cp ${{ steps.snoretoast-params.outputs.path }}/build64/bin/Release/snoretoast.exe ./node_modules/node-notifier/vendor/snoreToast/snoretoast-x64.exe
+      # End of SnoreToast patch
+      ######################
+
       - name: Test
         uses: GabrielBB/xvfb-action@v1
         with:
