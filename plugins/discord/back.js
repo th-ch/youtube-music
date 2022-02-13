@@ -30,13 +30,14 @@ const resetInfo = () => {
 	info.ready = false;
 	clearTimeout(clearActivity);
 	if (dev()) console.log("discord disconnected");
-	refreshCallbacks.forEach((cb) => cb());
+	refreshCallbacks.forEach(cb => cb());
 };
 
 let window;
 const connect = (showErr = false) => {
 	if (info.rpc) {
-		if (dev()) console.log("Attempted to connect with active RPC object");
+		if (dev())
+			console.log('Attempted to connect with active RPC object');
 		return;
 	}
 
@@ -47,24 +48,19 @@ const connect = (showErr = false) => {
 
 	info.rpc.once("connected", () => {
 		if (dev()) console.log("discord connected");
-		refreshCallbacks.forEach((cb) => cb());
+		refreshCallbacks.forEach(cb => cb());
 	});
 	info.rpc.once("ready", () => {
 		info.ready = true;
-		if (info.lastSongInfo) updateActivity(info.lastSongInfo);
+		if (info.lastSongInfo) updateActivity(info.lastSongInfo)
 	});
 	info.rpc.once("disconnected", resetInfo);
 
 	// Startup the rpc client
-	info.rpc.login({ clientId }).catch((err) => {
+	info.rpc.login({ clientId }).catch(err => {
 		resetInfo();
 		if (dev()) console.error(err);
-		if (showErr)
-			dialog.showMessageBox(window, {
-				title: "Connection failed",
-				message: err.message || String(err),
-				type: "error",
-			});
+		if (showErr) dialog.showMessageBox(window, { title: 'Connection failed', message: err.message || String(err), type: 'error' });
 	});
 };
 
@@ -74,15 +70,12 @@ let clearActivity;
  */
 let updateActivity;
 
-module.exports = (
-	win,
-	{ activityTimoutEnabled, activityTimoutTime, listenAlong }
-) => {
+module.exports = (win, { activityTimoutEnabled, activityTimoutTime, listenAlong }) => {
 	window = win;
 	// We get multiple events
 	// Next song: PAUSE(n), PAUSE(n+1), PLAY(n+1)
 	// Skip time: PAUSE(N), PLAY(N)
-	updateActivity = (songInfo) => {
+	updateActivity = songInfo => {
 		if (songInfo.title.length === 0 && songInfo.artist.length === 0) {
 			return;
 		}
@@ -98,11 +91,7 @@ module.exports = (
 		}
 
 		// clear directly if timeout is 0
-		if (
-			songInfo.isPaused &&
-			activityTimoutEnabled &&
-			activityTimoutTime === 0
-		) {
+		if (songInfo.isPaused && activityTimoutEnabled && activityTimoutTime === 0) {
 			info.rpc.clearActivity().catch(console.error);
 			return;
 		}
@@ -116,9 +105,9 @@ module.exports = (
 			state: songInfo.artist,
 			largeImageKey: songInfo.imageSrc,
 			largeImageText: songInfo.album,
-			buttons: listenAlong
-				? [{ label: "Listen Along", url: songInfo.url }]
-				: undefined,
+				buttons: listenAlong ? [
+				{ label: "Listen Along", url: songInfo.url },
+			] : undefined,
 		};
 
 		if (songInfo.isPaused) {
@@ -127,15 +116,13 @@ module.exports = (
 			activityInfo.smallImageText = "Paused";
 			// Set start the timer so the activity gets cleared after a while if enabled
 			if (activityTimoutEnabled)
-				clearActivity = setTimeout(
-					() => info.rpc.clearActivity().catch(console.error),
-					activityTimoutTime ?? 10000
-				);
+				clearActivity = setTimeout(() => info.rpc.clearActivity().catch(console.error), activityTimoutTime ?? 10000);
 		} else {
 			// Add the start and end time of the song
 			const songStartTime = Date.now() - songInfo.elapsedSeconds * 1000;
 			activityInfo.startTimestamp = songStartTime;
-			activityInfo.endTimestamp = songStartTime + songInfo.songDuration * 1000;
+			activityInfo.endTimestamp =
+				songStartTime + songInfo.songDuration * 1000;
 		}
 
 		info.rpc.setActivity(activityInfo).catch(console.error);
@@ -146,7 +133,7 @@ module.exports = (
 		registerCallback(updateActivity);
 		connect();
 	});
-	app.on("window-all-closed", module.exports.clear);
+	app.on('window-all-closed', module.exports.clear)
 };
 
 module.exports.clear = () => {
