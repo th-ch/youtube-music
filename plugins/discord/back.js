@@ -4,8 +4,8 @@ const { dialog, app } = require("electron");
 
 const registerCallback = require("../../providers/song-info");
 
-// Application ID registered by @semvis123
-const clientId = "790655993809338398";
+// Application ID registered by @xn-oah
+const clientId = "937234785716285471";
 
 /**
  * @typedef {Object} Info
@@ -104,19 +104,16 @@ module.exports = (win, { activityTimoutEnabled, activityTimoutTime, listenAlong 
 			details: songInfo.title,
 			state: songInfo.artist,
 			largeImageKey: songInfo.imageSrc,
-			largeImageText: [
-				songInfo.uploadDate,
-				songInfo.views.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " views",
-			].join(' || '),
-			buttons: listenAlong ? [
+			largeImageText: songInfo.album,
+				buttons: listenAlong ? [
 				{ label: "Listen Along", url: songInfo.url },
 			] : undefined,
 		};
 
 		if (songInfo.isPaused) {
-			// Add an idle icon to show that the song is paused
-			activityInfo.smallImageKey = "idle";
-			activityInfo.smallImageText = "idle/paused";
+			// Add a paused icon to show that the song is paused
+			activityInfo.smallImageKey = "paused";
+			activityInfo.smallImageText = "Paused";
 			// Set start the timer so the activity gets cleared after a while if enabled
 			if (activityTimoutEnabled)
 				clearActivity = setTimeout(() => info.rpc.clearActivity().catch(console.error), activityTimoutTime ?? 10000);
