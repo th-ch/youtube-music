@@ -1,6 +1,6 @@
-const { notificationImage, icons } = require("../utils");
-const getSongControls = require('../../../providers/song-controls');
-const registerCallback = require("../../../providers/song-info");
+const { notificationImage, icons } = require("./utils");
+const getSongControls = require('../../providers/song-controls');
+const registerCallback = require("../../providers/song-info");
 const is = require("electron-is");
 const WindowsToaster = require('node-notifier').WindowsToaster;
 
