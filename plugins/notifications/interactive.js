@@ -1,13 +1,10 @@
 const { notificationImage, icons } = require("../utils");
 const getSongControls = require('../../../providers/song-controls');
 const registerCallback = require("../../../providers/song-info");
+const is = require("electron-is");
 const WindowsToaster = require('node-notifier').WindowsToaster;
 
-const notifier = new WindowsToaster({
-    withFallback: true,
-    // see https://github.com/th-ch/youtube-music/pull/591
-    customPath: require("path").join(__dirname, 'snoretoast-x64.exe')
-});
+const notifier = new WindowsToaster({ withFallback: true });
 
 //store song controls reference on launch
 let controls;
@@ -54,7 +51,7 @@ function sendToaster(songInfo) {
     //download image and get path
     let imgSrc = notificationImage(songInfo, true);
     toDelete = {
-        appID: "com.github.th-ch.youtube-music",
+        appID: is.dev() ? undefined : "com.github.th-ch.youtube-music",
         title: songInfo.title || "Playing",
         message: songInfo.artist,
         id: parseInt(Math.random() * 1000000, 10),
