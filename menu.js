@@ -92,7 +92,7 @@ const mainMenuTemplate = (win) => {
 					type: "checkbox",
 					checked: config.get("options.singleInstanceLock"),
 					click: (item) => {
-						config.set("options.singleInstanceLock", item.checked);
+						config.setMenuOption("options.singleInstanceLock", item.checked);
 						if (item.checked && !app.hasSingleInstanceLock()) {
 							app.requestSingleInstanceLock();
 						} else if (!item.checked && app.hasSingleInstanceLock()) {
