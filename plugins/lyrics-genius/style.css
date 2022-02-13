@@ -6,7 +6,7 @@
 	text-decoration: none;
 }
 
-#contents.genius-lyrics {
-    font-size: 1vw;
-    opacity: 0.9;
+.description {
+	font-size: 1.1vw !important;
+	text-align: center !important;
 }
