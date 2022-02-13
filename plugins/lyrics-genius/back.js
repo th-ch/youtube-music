@@ -16,37 +16,35 @@ module.exports = async (win) => {
 			metadata.title
 		)}`;
 
-		let response = await fetch(
-			`https://genius.com/api/search/multi?per_page=5&q=${encodeURI(
-				queryString
-			)}`
-		);
-		if (!response.ok) {
-			event.returnValue = null;
-			return;
-		}
-
-		const info = await response.json();
-		let url = "";
-		try {
-			url = info.response.sections.filter(
-				(section) => section.type === "song"
-			)[0].hits[0].result.url;
-		} catch {
-			event.returnValue = null;
-			return;
-		}
-
-		if (is.dev()) {
-			console.log("Fetching lyrics from Genius:", url);
-		}
-
-		response = await fetch(url);
-		if (!response.ok) {
-			event.returnValue = null;
-			return;
-		}
-
-		event.returnValue = await response.text();
+		event.returnValue = await fetchFromGenius(queryString);
 	});
+};
+
+const fetchFromGenius = async (queryString) => {
+	let response = await fetch(
+		`https://genius.com/api/search/multi?per_page=5&q=${encodeURI(queryString)}`
+	);
+	if (!response.ok) {
+		return null;
+	}
+
+	const info = await response.json();
+	let url = "";
+	try {
+		url = info.response.sections.filter((section) => section.type === "song")[0]
+			.hits[0].result.url;
+	} catch {
+		return null;
+	}
+
+	if (is.dev()) {
+		console.log("Fetching lyrics from Genius:", url);
+	}
+
+	response = await fetch(url);
+	if (!response.ok) {
+		return null;
+	}
+
+	return await response.text();
 };

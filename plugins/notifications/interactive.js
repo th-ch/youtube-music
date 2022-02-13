@@ -1,7 +1,10 @@
 const { notificationImage, icons } = require("./utils");
 const getSongControls = require('../../providers/song-controls');
 const registerCallback = require("../../providers/song-info");
-const notifier = require("node-notifier");
+const is = require("electron-is");
+const WindowsToaster = require('node-notifier').WindowsToaster;
+
+const notifier = new WindowsToaster({ withFallback: true });
 
 //store song controls reference on launch
 let controls;
@@ -17,11 +20,11 @@ module.exports = (win, unpauseNotification) => {
 
     // Register songInfoCallback
     registerCallback(songInfo => {
-		if (!songInfo.isPaused && (songInfo.url !== currentUrl || notificationOnUnpause)) {
+        if (!songInfo.isPaused && (songInfo.url !== currentUrl || notificationOnUnpause)) {
             currentUrl = songInfo.url;
             sendToaster(songInfo);
-		}
-	});
+        }
+    });
 
     win.webContents.once("closed", () => {
         deleteNotification()
@@ -48,7 +51,7 @@ function sendToaster(songInfo) {
     //download image and get path
     let imgSrc = notificationImage(songInfo, true);
     toDelete = {
-        //app id undefined - will break buttons
+        appID: is.dev() ? undefined : "com.github.th-ch.youtube-music",
         title: songInfo.title || "Playing",
         message: songInfo.artist,
         id: parseInt(Math.random() * 1000000, 10),
