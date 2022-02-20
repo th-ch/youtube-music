@@ -15,7 +15,9 @@
 		"productName": "YouTube Music",
 		"mac": {
 			"identity": null,
-			"files": ["!plugins/taskbar-mediacontrol${/*}"],
+			"files": [
+				"!plugins/taskbar-mediacontrol${/*}"
+			],
 			"target": [
 				{
 					"target": "dmg",
@@ -29,7 +31,9 @@
 		},
 		"win": {
 			"icon": "assets/generated/icons/win/icon.ico",
-			"files": ["!plugins/touchbar${/*}"],
+			"files": [
+				"!plugins/touchbar${/*}"
+			],
 			"target": [
 				"nsis",
 				"portable"
@@ -40,7 +44,9 @@
 		},
 		"linux": {
 			"icon": "assets/generated/icons/png",
-			"files": ["!plugins/{touchbar,taskbar-mediacontrol}${/*}"],
+			"files": [
+				"!plugins/{touchbar,taskbar-mediacontrol}${/*}"
+			],
 			"category": "AudioVideo",
 			"target": [
 				"AppImage",
@@ -86,7 +92,6 @@
 	},
 	"dependencies": {
 		"@cliqz/adblocker-electron": "^1.23.4",
-		"@electron/remote": "^2.0.4",
 		"@ffmpeg/core": "^0.10.0",
 		"@ffmpeg/ffmpeg": "^0.10.1",
 		"async-mutex": "^0.3.2",
