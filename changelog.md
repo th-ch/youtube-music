@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file. Dates are d
 
 #### [v1.16.0](https://github.com/th-ch/youtube-music/compare/v1.15.0...v1.16.0)
 
+> 20 February 2022
+
 - update in-app-menu [`#596`](https://github.com/th-ch/youtube-music/pull/596)
 - Fix clientID [`#602`](https://github.com/th-ch/youtube-music/pull/602)
 - Add snoretoast custom compile script [`#600`](https://github.com/th-ch/youtube-music/pull/600)
@@ -33,7 +35,7 @@ All notable changes to this project will be documented in this file. Dates are d
 - xesam:artist should be a list [`#539`](https://github.com/th-ch/youtube-music/pull/539)
 - fix notifications showing thumbnail of last song [`#537`](https://github.com/th-ch/youtube-music/pull/537)
 - Fix https://github.com/th-ch/youtube-music/pull/578#issuecomment-1035517531 [`#578`](https://github.com/th-ch/youtube-music/pull/578)
-- Add automatic changelog [`06245fe`](https://github.com/th-ch/youtube-music/commit/06245fe120d92b2f3e94ecb2ea14cfb1f6c8bbb9)
+- Add automatic changelog [`1d9bfe8`](https://github.com/th-ch/youtube-music/commit/1d9bfe8ac8869cde648164979986964baa52c2f9)
 - update electron to v17.0.0 [`fef7115`](https://github.com/th-ch/youtube-music/commit/fef711549fa9862f8ea23301edde747c5802e352)
 - update dependencies [`8be07bc`](https://github.com/th-ch/youtube-music/commit/8be07bcb7ad8b727d97c36aa0760aed4e2fc481f)
 

@@ -137,6 +137,7 @@
 	"auto-changelog": {
 		"hideCredit": true,
 		"package": true,
+		"unreleased": true,
     	"output": "changelog.md"
 	},
 	"xo": {
