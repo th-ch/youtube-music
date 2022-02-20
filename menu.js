@@ -33,7 +33,7 @@ const mainMenuTemplate = (win) => {
 	const refreshMenu = () => {
 		this.setApplicationMenu(win);
 		if (inAppMenuActive) {
-			win.webContents.send("updateMenu", true);
+			win.webContents.send("refreshMenu");
 		}
 	}
 	return [
@@ -254,6 +254,8 @@ const mainMenuTemplate = (win) => {
 				{ role: "zoomIn" },
 				{ role: "zoomOut" },
 				{ role: "resetZoom" },
+				{ type: "separator" },
+				{ role: "togglefullscreen" },
 			],
 		},
 		{

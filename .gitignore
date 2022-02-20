@@ -2,3 +2,4 @@ node_modules
 /dist
 /assets/generated
 electron-builder.yml
+.vscode/settings.json
