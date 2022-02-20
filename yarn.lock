@@ -716,11 +716,6 @@
     global-agent "^3.0.0"
     global-tunnel-ng "^2.7.1"
 
-"@electron/remote@^1.0.0":
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/@electron/remote/-/remote-1.2.2.tgz#4c390a2e669df47af973c09eec106162a296c323"
-  integrity sha512-PfnXpQGWh4vpX866NNucJRnNOzDRZcsLcLaT32fUth9k0hccsohfxprqEDYLzRg+ZK2xRrtyUN5wYYoHimMCJg==
-
 "@electron/remote@^2.0.4":
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/@electron/remote/-/remote-2.0.4.tgz#c3dae436aed79d1b8adcefc5a4963c06750ad5d8"
@@ -2730,12 +2725,10 @@ custom-electron-prompt@^1.4.1:
   resolved "https://registry.yarnpkg.com/custom-electron-prompt/-/custom-electron-prompt-1.4.1.tgz#79adc3d5cd9a372e5dfe43b21de70f0fe7d1c2f7"
   integrity sha512-bR6JhEusBxKnooXfFFlIIUhDbF23eaDhaYwvqcw3ZTcdEzzJew63+ilwhIwD7flRAO+sCroaLwP495VBexHg/A==
 
-custom-electron-titlebar@^3.2.10:
-  version "3.2.10"
-  resolved "https://registry.yarnpkg.com/custom-electron-titlebar/-/custom-electron-titlebar-3.2.10.tgz#8d3375e82997a97193669c249c4ebfe665a928bf"
-  integrity sha512-l2DRcuGzMGRHw5yDtcmmEve4DwVoWoJxWtsPrXeEePmWfrG3vA90eMtcbk1+qzHTrBPOpnNbVBJakdTNoxZIMQ==
-  dependencies:
-    "@electron/remote" "^1.0.0"
+custom-electron-titlebar@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/custom-electron-titlebar/-/custom-electron-titlebar-4.1.0.tgz#a34b4e557e661d604a5bb7807cd5127a68c46921"
+  integrity sha512-5iHiOAF+m97ZDBqhrn1KRtQr7j4ALEERNVqljryVx2tMcFv535wAZs4Tj7XSrbALJLHIixKvXQyypnvEf27NhA==
 
 dashdash@^1.12.0:
   version "1.14.1"

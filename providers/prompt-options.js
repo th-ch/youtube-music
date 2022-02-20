@@ -12,7 +12,6 @@ const promptOptions = is.macOS() ? {
     // The following are used for custom titlebar
     frame: false,
     customScript: customTitlebarPath,
-    enableRemoteModule: true
 };
 
 module.exports = () => promptOptions;
