@@ -32,8 +32,6 @@ function firstRun() {
 
 	setupLocalArrowShortcuts();
 
-	setupGlobalShortcuts();
-
 	const noVid = $("#main-panel")?.computedStyleMap().get("display").value === "none";
 	injectVolumeHud(noVid);
 	if (!noVid) {
