@@ -14,6 +14,7 @@ module.exports.setupAppControls = () => {
 }
 
 function restart() {
-    app.relaunch();
-    app.exit();
+    app.relaunch({ execPath: process.env.PORTABLE_EXECUTABLE_FILE });
+    // execPath will be undefined if not running portable app, resulting in default behavior
+    app.quit();
 }

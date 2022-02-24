@@ -1,8 +1,7 @@
 const path = require("path");
-
+require("./providers/front-logger")();
 const config = require("./config");
 const { fileExists } = require("./plugins/utils");
-const setupFrontLogger = require("./providers/front-logger");
 const setupSongInfo = require("./providers/song-info-front");
 const { setupSongControls } = require("./providers/song-controls-front");
 const { ipcRenderer } = require("electron");
@@ -47,9 +46,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	// inject song-controls
 	setupSongControls();
-
-	// inject front logger
-	setupFrontLogger();
 
 	// Add action for reloading
 	global.reload = () => ipcRenderer.send('reload');

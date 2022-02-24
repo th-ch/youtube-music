@@ -13,7 +13,7 @@ const { fileExists, injectCSS } = require("./plugins/utils");
 const { isTesting } = require("./utils/testing");
 const { setUpTray } = require("./tray");
 const { setupSongInfo } = require("./providers/song-info");
-const { setupAppControls } = require("./providers/app-controls");
+const { setupAppControls, restart } = require("./providers/app-controls");
 
 // Catch errors and log them
 unhandled({
@@ -435,13 +435,8 @@ function showUnresponsiveDialog(win, details) {
 		cancelId: 0
 	}).then( result => {
 		switch (result.response) {
-			case 1: //if relaunch - relaunch+exit
-				app.relaunch();
-			case 2:
-				app.quit();
-				break;
-			default:
-				break;
+			case 1: restart(); break;
+			case 2: app.quit(); break;
 		}
 	});
 }
