@@ -93,7 +93,7 @@
 	},
 	"dependencies": {
 		"@cliqz/adblocker-electron": "^1.23.4",
-		"@electron/remote": "^2.0.4",
+		"@electron/remote": "^2.0.5",
 		"@ffmpeg/core": "^0.10.0",
 		"@ffmpeg/ffmpeg": "^0.10.1",
 		"async-mutex": "^0.3.2",
