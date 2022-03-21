@@ -165,6 +165,10 @@ function createMainWindow() {
 		win.maximize();
 	}
 
+	if(config.get("options.alwaysOnTop")){
+		win.setAlwaysOnTop(true);
+	}
+
 	const urlToLoad = config.get("options.resumeOnStart")
 		? config.get("url")
 		: config.defaultConfig.url;
