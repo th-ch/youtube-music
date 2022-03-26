@@ -116,7 +116,7 @@
 		"node-fetch": "^2.6.7",
 		"node-notifier": "^10.0.1",
 		"ytdl-core": "^4.10.1",
-		"ytpl": "^2.2.3"
+		"ytpl": "^2.3.0"
 	},
 	"devDependencies": {
 		"auto-changelog": "^2.4.0",
