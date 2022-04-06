@@ -83,9 +83,17 @@ function onApiLoaded() {
 
 	// Remove upgrade button
 	if (config.get("options.removeUpgradeButton")) {
-		const upgradeButtton = document.querySelector('ytmusic-pivot-bar-item-renderer[tab-id="SPunlimited"]')
-		if (upgradeButtton) {
-			upgradeButtton.style.display = "none";
+		const upgradeButton = document.querySelector('ytmusic-pivot-bar-item-renderer[tab-id="SPunlimited"]')
+		if (upgradeButton) {
+			upgradeButton.style.display = "none";
+		}
+	}
+
+	// Force show like buttons
+	if (config.get("options.ForceShowLikeButtons")) {
+		const likeButtons = document.querySelector('ytmusic-like-button-renderer')
+		if (likeButtons) {
+			likeButtons.style.display = 'inherit';
 		}
 	}
 }
