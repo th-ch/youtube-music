@@ -34,17 +34,12 @@ module.exports = () => {
 			console.log("Fetched lyrics from Genius");
 		}
 
-		const wrapper = document.createElement("div");
+		const wrapper = document.createElement("div")
 		wrapper.innerHTML = html;
-		const lyricsSelector1 = wrapper.querySelector(".lyrics");
-		const lyricsSelector2 = wrapper.querySelector(
-			'[class^="Lyrics__Container"]'
-		);
-		const lyrics = lyricsSelector1
-			? lyricsSelector1.innerHTML
-			: lyricsSelector2
-			? lyricsSelector2.innerHTML
-			: null;
+		const lyricsSelector1 = Array.from(wrapper.querySelectorAll('[class^="Lyrics__Container"]')).map(d => d.innerHTML).join('<br>')
+		const lyricsSelector2 = wrapper.querySelector(".lyrics")?.innerHTML;
+
+		const lyrics = lyricsSelector1 || lyricsSelector2 || null
 		if (!lyrics) {
 			return;
 		}
