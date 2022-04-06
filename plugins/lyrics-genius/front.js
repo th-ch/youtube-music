@@ -37,7 +37,7 @@ module.exports = () => {
 		const wrapper = document.createElement("div");
 		wrapper.innerHTML = html;
 
-		const lyrics = Array.from(wrapper.querySelectorAll('[class^="Lyrics__Container"]')).map(d => d.innerHTML).join('<br>')
+		const lyrics = [...wrapper.querySelectorAll('[class^="Lyrics__Container"]')].map(d => d.innerHTML).join('<br>')
 					 || wrapper.querySelector(".lyrics")?.innerHTML;
 
 		if (!lyrics) {
