@@ -189,8 +189,12 @@ function changeVolume(toIncrease, options) {
 
 function updateVolumeSlider(options) {
 	// Slider value automatically rounds to multiples of 5
-	$("#volume-slider").value = options.savedVolume > 0 && options.savedVolume < 5 ?
-		5 : options.savedVolume;
+	for (const slider of ["#volume-slider", "#expand-volume-slider"]) {
+		$(slider).value =
+			options.savedVolume > 0 && options.savedVolume < 5
+				? 5
+				: options.savedVolume;
+	}
 }
 
 let volumeHoverTimeoutID;
