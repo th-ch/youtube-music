@@ -113,6 +113,15 @@ const mainMenuTemplate = (win) => {
 						}
 					},
 				},
+				{
+					label: "Always on top",
+					type: "checkbox",
+					checked: config.get("options.alwaysOnTop"),
+					click: (item) => {
+						config.setMenuOption("options.alwaysOnTop", item.checked);
+						win.setAlwaysOnTop(item.checked);
+					},
+				},
 				...(is.windows() || is.linux()
 					? [
 						{
