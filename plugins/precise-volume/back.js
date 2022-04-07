@@ -1,3 +1,6 @@
+const { injectCSS } = require("../utils");
+const path = require("path");
+
 /*
 This is used to determine if plugin is actually active
 (not if its only enabled in options)
@@ -8,6 +11,7 @@ const { globalShortcut } = require('electron');
 
 module.exports = (win, options) => {
     enabled = true;
+    injectCSS(win.webContents, path.join(__dirname, "volume-hud.css"));
 
     if (options.globalShortcuts?.volumeUp) {
 		globalShortcut.register((options.globalShortcuts.volumeUp), () => win.webContents.send('changeVolume', true));
