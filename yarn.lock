@@ -650,45 +650,45 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@cliqz/adblocker-content@^1.23.4":
-  version "1.23.4"
-  resolved "https://registry.yarnpkg.com/@cliqz/adblocker-content/-/adblocker-content-1.23.4.tgz#d7803ab5f3c998247100b3b29b89ce5b3442314e"
-  integrity sha512-Ib8c8E8rnrDygUfO02hAkwD9qUmW+t0cq1MuKg9iEVGOJVZwZU27SpJDoWhHz9bninzcxthzJYlLGgBZzcqq0Q==
+"@cliqz/adblocker-content@^1.23.6":
+  version "1.23.6"
+  resolved "https://registry.yarnpkg.com/@cliqz/adblocker-content/-/adblocker-content-1.23.6.tgz#649c32143b3338d1d2206540bb0ea307aa073d90"
+  integrity sha512-rzFAtp8nGc6bbQoSjN6Xo0l1OHzqS9Z86nlyFD3yLsd9g2d/CLnx0WFDVsk6iE+N9yu2UpHbgWT+siShF0rHqw==
   dependencies:
-    "@cliqz/adblocker-extended-selectors" "^1.23.4"
+    "@cliqz/adblocker-extended-selectors" "^1.23.6"
 
-"@cliqz/adblocker-electron-preload@^1.23.4":
-  version "1.23.4"
-  resolved "https://registry.yarnpkg.com/@cliqz/adblocker-electron-preload/-/adblocker-electron-preload-1.23.4.tgz#41946642c52e1a51d0514cf5513dd9a11a020fae"
-  integrity sha512-i1NMv5EeAB7T393zhBVwo+74qd082pCIIySRGDLrOqm8BAosCjXzXifq6p+14d68k1K+C8nDahHm/XvpgWMTCw==
+"@cliqz/adblocker-electron-preload@^1.23.6":
+  version "1.23.6"
+  resolved "https://registry.yarnpkg.com/@cliqz/adblocker-electron-preload/-/adblocker-electron-preload-1.23.6.tgz#7f8db3df95afb385917df00ec5300847448437d1"
+  integrity sha512-xVBrIqfvcuh2Y07ZkEogzgkyqJuZvOqhRoFnuTyW2q97AmWAGLT6IjEGjl/vX7vMP0Y1b8wubdjI3VHnKvNKDg==
   dependencies:
-    "@cliqz/adblocker-content" "^1.23.4"
+    "@cliqz/adblocker-content" "^1.23.6"
 
-"@cliqz/adblocker-electron@^1.23.4":
-  version "1.23.4"
-  resolved "https://registry.yarnpkg.com/@cliqz/adblocker-electron/-/adblocker-electron-1.23.4.tgz#6144199209aa9f1f73de5ee9d8b73c61deaf5945"
-  integrity sha512-ld/2jdf8rIzNEHAG/ZFfapDISityA++Kxql1DqfsIUi0xcRlQdz6ijWQ0+xVOW4ZhTifGjlUvaq60MVn+R3OUQ==
+"@cliqz/adblocker-electron@^1.23.5":
+  version "1.23.6"
+  resolved "https://registry.yarnpkg.com/@cliqz/adblocker-electron/-/adblocker-electron-1.23.6.tgz#e550f2ffa2b5d0404d0090c3870d0a849d3cd5d8"
+  integrity sha512-wzkCfBCo5RvRanzsVOu65xHW9GAUDqsg+tP8GYld6/hgMMb96KJZJVpvrvwvsneAm9T55QE4ef1utZbIIwltqA==
   dependencies:
-    "@cliqz/adblocker" "^1.23.4"
-    "@cliqz/adblocker-electron-preload" "^1.23.4"
+    "@cliqz/adblocker" "^1.23.6"
+    "@cliqz/adblocker-electron-preload" "^1.23.6"
     tldts-experimental "^5.6.21"
 
-"@cliqz/adblocker-extended-selectors@^1.23.4":
-  version "1.23.4"
-  resolved "https://registry.yarnpkg.com/@cliqz/adblocker-extended-selectors/-/adblocker-extended-selectors-1.23.4.tgz#76e310ff6598ec76eacf402bd4733e7b8ab0ee98"
-  integrity sha512-qDfeOwe1UK4fGQFFafQMftdPy7uLm5JwKiM8zcGiYzJqRxTvnquRTGzYLkQLri9L1Q4R9Tvtg1wZtWMIrQnO6Q==
+"@cliqz/adblocker-extended-selectors@^1.23.6":
+  version "1.23.6"
+  resolved "https://registry.yarnpkg.com/@cliqz/adblocker-extended-selectors/-/adblocker-extended-selectors-1.23.6.tgz#fed9c3973553751f1ecae2397ceff60d364a6e11"
+  integrity sha512-qnn2LrE/0YswjL4399M1ldKityLxDT9r/b9MUOPboz+4EiE/ew6hTl35yNg2g8nZU3tXSzrnvAYcqLw607kSYg==
 
-"@cliqz/adblocker@^1.23.4":
-  version "1.23.4"
-  resolved "https://registry.yarnpkg.com/@cliqz/adblocker/-/adblocker-1.23.4.tgz#dbf2282e223ca1bf963bc34d9a5d2b7f506513b5"
-  integrity sha512-IVP6L2on4SFCAk13hhH87MDbfXxvWv86LScKPoD7rOg+5f51HWp4meW+yFtv/VbLdpkKgORWXNA1KttVW0IuKA==
+"@cliqz/adblocker@^1.23.6":
+  version "1.23.6"
+  resolved "https://registry.yarnpkg.com/@cliqz/adblocker/-/adblocker-1.23.6.tgz#741ee9a1fde2e75920204c120200704252932e02"
+  integrity sha512-+Ojm25XwIkiD0THvf+WHZ3+zq65DuES7B6XlsMpbYC0JD8J9crpswLHsAmj97o0KVN+vmK2fYrqa2DgOUnFzYg==
   dependencies:
-    "@cliqz/adblocker-content" "^1.23.4"
-    "@cliqz/adblocker-extended-selectors" "^1.23.4"
+    "@cliqz/adblocker-content" "^1.23.6"
+    "@cliqz/adblocker-extended-selectors" "^1.23.6"
     "@remusao/guess-url-type" "^1.1.2"
     "@remusao/small" "^1.1.2"
     "@remusao/smaz" "^1.7.1"
-    "@types/chrome" "^0.0.176"
+    "@types/chrome" "^0.0.178"
     "@types/firefox-webext-browser" "^94.0.0"
     tldts-experimental "^5.6.21"
 
@@ -1414,10 +1414,10 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
-"@types/chrome@^0.0.176":
-  version "0.0.176"
-  resolved "https://registry.yarnpkg.com/@types/chrome/-/chrome-0.0.176.tgz#617fcbe41ea1d9c5d50c9e7fb8ebfe2d9aef853a"
-  integrity sha512-LOveFOMIUhMJjvRzZv5whGBpncP/gdJ4hcxeAqg94wGi6CyKaCmLgFSofgItf85GuLTl/0BQ6J/Y1e8BqZWfEg==
+"@types/chrome@^0.0.178":
+  version "0.0.178"
+  resolved "https://registry.yarnpkg.com/@types/chrome/-/chrome-0.0.178.tgz#fba7969208cef79ae752dc1138ff05de39f5ffde"
+  integrity sha512-U+G5YG2pH0qvLrYVJ9aT5VbPXYR3fAFyCuRBRAA14Pv7GrkFzDJuXPspgdeLYaKzGEp4rymUkuqUOuFz18LI1g==
   dependencies:
     "@types/filesystem" "*"
     "@types/har-format" "*"
@@ -6043,16 +6043,6 @@ min-indent@^1.0.1:
   resolved "https://registry.yarnpkg.com/min-indent/-/min-indent-1.0.1.tgz#a63f681673b30571fbe8bc25686ae746eefa9869"
   integrity sha512-I9jwMn07Sy/IwOj3zVkVik2JTvgpaykDZEigL6Rx6N9LbMywwUSMtxET+7lVoDLLd3O3IXwJwvuuns8UB/HeAg==
 
-miniget@^4.0.0:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/miniget/-/miniget-4.2.0.tgz#0004e95536b192d95a7d09f4435d67b9285481d0"
-  integrity sha512-IzTOaNgBw/qEpzkPTE7X2cUVXQfSKbG8w52Emi93zb+Zya2ZFrbmavpixzebuDJD9Ku4ecbaFlC7Y1cEESzQtQ==
-
-miniget@^4.2.1:
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/miniget/-/miniget-4.2.1.tgz#11a1c24817a059e292378eb9cff4328d9240c665"
-  integrity sha512-O/DduzDR6f+oDtVype9S/Qu5hhnx73EDYGyZKwU/qN82lehFZdfhoa4DT51SpsO+8epYrB3gcRmws56ROfTIoQ==
-
 miniget@^4.2.2:
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/miniget/-/miniget-4.2.2.tgz#db20320f265efdc4c1826a0be431d56753074475"
@@ -6721,13 +6711,12 @@ playwright@^1.17.1:
     playwright-core "=1.17.1"
 
 plist@^3.0.1:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/plist/-/plist-3.0.2.tgz#74bbf011124b90421c22d15779cee60060ba95bc"
-  integrity sha512-MSrkwZBdQ6YapHy87/8hDU8MnIcyxBKjeF+McXnr5A9MtffPewTs7G3hlpodT5TacyfIyFTaJEhh3GGcmasTgQ==
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/plist/-/plist-3.0.5.tgz#2cbeb52d10e3cdccccf0c11a63a85d830970a987"
+  integrity sha512-83vX4eYdQp3vP9SxuYgEM/G/pJQqLUz/V/xzPrzruLs7fz7jxGQ1msZ/mg1nwZxUSuOp4sb+/bEIbRrbzZRxDA==
   dependencies:
     base64-js "^1.5.1"
     xmlbuilder "^9.0.7"
-    xmldom "^0.5.0"
 
 plur@^4.0.0:
   version "4.0.0"
@@ -8334,11 +8323,6 @@ xmlchars@^2.2.0:
   resolved "https://registry.yarnpkg.com/xmlchars/-/xmlchars-2.2.0.tgz#060fe1bcb7f9c76fe2a17db86a9bc3ab894210cb"
   integrity sha512-JZnDKK8B0RCDw84FNdDAIpZK+JuJw+s7Lz8nksI7SIuU3UXJJslUthsi+uWBUYOwPFwW7W7PRLRfUKpxjtjFCw==
 
-xmldom@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/xmldom/-/xmldom-0.5.0.tgz#193cb96b84aa3486127ea6272c4596354cb4962e"
-  integrity sha512-Foaj5FXVzgn7xFzsKeNIde9g6aFBxTPi37iwsno8QvApmtg7KYrr+OPyRHcJF7dud2a5nGRBXK3n0dL62Gf7PA==
-
 xo@^0.45.0:
   version "0.45.0"
   resolved "https://registry.yarnpkg.com/xo/-/xo-0.45.0.tgz#a953ff5da208f1e4829866f89382f92fb382906b"
@@ -8490,18 +8474,18 @@ yocto-queue@^1.0.0:
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-1.0.0.tgz#7f816433fb2cbc511ec8bf7d263c3b58a1a3c251"
   integrity sha512-9bnSc/HEW2uRy67wc+T8UwauLuPJVn28jb+GtJY16iiKWyvmYJRXVT4UamsAEGQfPohgr2q4Tq0sQbQlxTfi1g==
 
-ytdl-core@^4.10.1:
-  version "4.10.1"
-  resolved "https://registry.yarnpkg.com/ytdl-core/-/ytdl-core-4.10.1.tgz#6648d65faca787919181b2cee1be470b2ef9fdcb"
-  integrity sha512-idBhW+e7HCzs5fR5cqp7Ci+mJhEch41YAaWabYlneQFCL6IGf6Hycv99yVx01Zl1Ci0t/70faOelMSrXaQTE/A==
+ytdl-core@^4.11.0:
+  version "4.11.0"
+  resolved "https://registry.yarnpkg.com/ytdl-core/-/ytdl-core-4.11.0.tgz#79a3ea94d9d662b4b3acecdb1372ed3f1a9ea9db"
+  integrity sha512-Q3hCLiUA9AOGQXzPvno14GN+HgF9wsO1ZBHlj0COTcyxjIyFpWvMfii0UC4/cAbVaIjEdbWB71GdcGuc4J1Lmw==
   dependencies:
     m3u8stream "^0.8.6"
-    miniget "^4.0.0"
+    miniget "^4.2.2"
     sax "^1.1.3"
 
-ytpl@^2.2.3:
-  version "2.2.3"
-  resolved "https://registry.yarnpkg.com/ytpl/-/ytpl-2.2.3.tgz#46c40d98981d06a4f89b7b1d708be31f2502e10c"
-  integrity sha512-d18HibT8wzEWzWsXFS6u6kUKCCFL20roFVwpjyGCzl+nP8sOAz5xSLafxLflkkoeXJU8AFuO7BEsJXIREASvFQ==
+ytpl@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/ytpl/-/ytpl-2.3.0.tgz#74633b6e582e22ff03e409dfb65d200c1a4ca0d2"
+  integrity sha512-Cfw2rxq3PFK6qgWr2Z8gsRefVahEzbn9XEuiJldqdXHE6GhO7kTfEvbZKdfXing1SmgW635uJ/UL2g8r0fvu2Q==
   dependencies:
-    miniget "^4.2.1"
+    miniget "^4.2.2"
