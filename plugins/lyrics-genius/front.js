@@ -36,15 +36,10 @@ module.exports = () => {
 
 		const wrapper = document.createElement("div");
 		wrapper.innerHTML = html;
-		const lyricsSelector1 = wrapper.querySelector(".lyrics");
-		const lyricsSelector2 = wrapper.querySelector(
-			'[class^="Lyrics__Container"]'
-		);
-		const lyrics = lyricsSelector1
-			? lyricsSelector1.innerHTML
-			: lyricsSelector2
-			? lyricsSelector2.innerHTML
-			: null;
+
+		const lyrics = [...wrapper.querySelectorAll('[class^="Lyrics__Container"]')].map(d => d.innerHTML).join('<br>')
+					 || wrapper.querySelector(".lyrics")?.innerHTML;
+
 		if (!lyrics) {
 			return;
 		}
