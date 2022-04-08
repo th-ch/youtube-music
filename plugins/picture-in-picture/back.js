@@ -26,7 +26,7 @@ const togglePiP = async (win) => {
 			`document.querySelector(".fullscreen-button").click()`
 		);
 
-		app.dock.hide();
+		app.dock?.hide();
 		win.setVisibleOnAllWorkspaces(true, {
 			visibleOnFullScreen: true,
 		});
