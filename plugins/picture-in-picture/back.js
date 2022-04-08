@@ -30,7 +30,7 @@ const togglePiP = async (win) => {
 		win.setVisibleOnAllWorkspaces(true, {
 			visibleOnFullScreen: true,
 		});
-		app.dock.show();
+		app.dock?.show();
 		win.setAlwaysOnTop(true, "screen-saver", 1);
 	} else {
 		win.setFullScreenable(true);
