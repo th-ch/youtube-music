@@ -22,6 +22,7 @@ const songInfo = {
 	album: undefined,
 	videoId: "",
 	playlistId: "",
+	lyrics: "",
 };
 
 // Grab the native image using the src
@@ -105,7 +106,13 @@ const registerProvider = (win) => {
 		callbacks.forEach((c) => {
 			c(songInfo);
 		});
-	})
+	});
+	ipcMain.on("lyrics", (_, lyrics) => {
+		songInfo.lyrics = lyrics;
+		callbacks.forEach((c) => {
+			c(songInfo);
+		});
+	});
 };
 
 const suffixesToRemove = [

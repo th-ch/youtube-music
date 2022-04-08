@@ -29,6 +29,7 @@ module.exports = () => {
 			if (name !== 'dataloaded') return;
 			video.dispatchEvent(srcChangedEvent);
 			sendSongInfo();
+			watchForLyrics();
 		})
 
 		for (const status of ['playing', 'pause']) {
@@ -62,4 +63,35 @@ function setupTimeChangeListener() {
 		global.songInfo.elapsedSeconds = mutations[0].target.value;
 	});
 	progressObserver.observe($('#progress-bar'), { attributeFilter: ["value"] })
+}
+
+function watchForLyrics() {
+	const previousLyrics = global.songInfo.lyrics;
+	ipcRenderer.send("lyrics", "");
+	global.songInfo.lyrics = "";
+
+	const lyricsTabSelector = '[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"]';
+	const observer = new MutationObserver((_, observer) => {
+		const lyricsContainer = document.querySelector(lyricsTabSelector);
+		if (!lyricsContainer?.hasAttribute("player-page-open")) {
+			// Lyrics only get loaded if the lyrics tab is selected
+			return;
+		}
+
+		const lyricsContent = document.querySelector(
+			`${lyricsTabSelector} .description`
+		);
+		if (lyricsContent && lyricsContent.textContent !== previousLyrics) {
+			const lyrics = lyricsContent.textContent;
+			ipcRenderer.send("lyrics", lyrics);
+			global.songInfo.lyrics = lyrics;
+			observer.disconnect();
+		}
+	});
+	const tabContainer = document.querySelector("ytmusic-tab-renderer");
+	observer.observe(tabContainer, {
+		attributes: true,
+		childList: true,
+		subtree: true,
+	});
 }
