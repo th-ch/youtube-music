@@ -24,7 +24,7 @@ module.exports = () => {
 			setupTimeChangeListener();
 		}
 		const video = $('video');
-		// name = "dataloaded" and abit later "dataupdated"
+		// name = "dataloaded" and a bit later "dataupdated"
 		apiEvent.detail.addEventListener('videodatachange', (name, _dataEvent) => {
 			if (name !== 'dataloaded') return;
 			video.dispatchEvent(srcChangedEvent);
