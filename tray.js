@@ -70,7 +70,7 @@ module.exports.setUpTray = (app, win) => {
 				app.quit();
 			},
 		},
-		 { role: "quit" } 
+		{ role: "quit" },
 	];
 
 	const trayMenu = Menu.buildFromTemplate(template);
