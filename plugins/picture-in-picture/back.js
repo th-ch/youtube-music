@@ -48,7 +48,7 @@ const togglePiP = async (win) => {
 	win.setPosition(x, y);
 	win.setSize(w, h);
 
-	win.setWindowButtonVisibility(!isInPiPMode);
+	win.setWindowButtonVisibility?.(!isInPiPMode);
 };
 
 module.exports = (win) => {
