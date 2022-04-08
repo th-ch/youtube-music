@@ -45,23 +45,21 @@ function firstRun(options) {
 
 	// Change options from renderer to keep sync
 	ipcRenderer.on("setOptions", (_event, newOptions = {}) => {
-		for (option in newOptions) {
-			options[option] = newOptions[option];
-		}
+		Object.assign(options, newOptions)
 		setMenuOptions("precise-volume", options);
 	});
 }
 
 function injectVolumeHud(noVid) {
 	if (noVid) {
-		const position = "top: 18px; right: 60px; z-index: 999; position: absolute;";
-		const mainStyle = "font-size: xx-large; padding: 10px; transition: opacity 1s; pointer-events: none;";
+		const position = "top: 18px; right: 60px;";
+		const mainStyle = "font-size: xx-large;";
 
 		$(".center-content.ytmusic-nav-bar").insertAdjacentHTML("beforeend",
 			`<span id="volumeHud" style="${position + mainStyle}"></span>`)
 	} else {
-		const position = `top: 10px; left: 10px; z-index: 999; position: absolute;`;
-		const mainStyle = "font-size: xxx-large; padding: 10px; transition: opacity 0.6s; webkit-text-stroke: 1px black; font-weight: 600; pointer-events: none;";
+		const position = `top: 10px; left: 10px;`;
+		const mainStyle = "font-size: xxx-large; webkit-text-stroke: 1px black; font-weight: 600;";
 
 		$("#song-video").insertAdjacentHTML('afterend',
 			`<span id="volumeHud" style="${position + mainStyle}"></span>`)
@@ -189,8 +187,12 @@ function changeVolume(toIncrease, options) {
 
 function updateVolumeSlider(options) {
 	// Slider value automatically rounds to multiples of 5
-	$("#volume-slider").value = options.savedVolume > 0 && options.savedVolume < 5 ?
-		5 : options.savedVolume;
+	for (const slider of ["#volume-slider", "#expand-volume-slider"]) {
+		$(slider).value =
+			options.savedVolume > 0 && options.savedVolume < 5
+				? 5
+				: options.savedVolume;
+	}
 }
 
 let volumeHoverTimeoutID;
