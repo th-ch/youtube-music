@@ -128,7 +128,8 @@ const toMP3 = async (
 		ffmpeg.FS("writeFile", safeVideoName, buffer);
 
 		sendFeedback("Converting…");
-		const metadata = existingMetadata || getMetadata();
+		const currentMetadata = getMetadata();
+		const metadata = existingMetadata || currentMetadata;
 		await ffmpeg.run(
 			"-i",
 			safeVideoName,
@@ -154,7 +155,8 @@ const toMP3 = async (
 		ipcRenderer.send("add-metadata", filePath, fileBuffer, {
 			artist: metadata.artist,
 			title: metadata.title,
-			imageSrcYTPL: metadata.imageSrcYTPL
+			imageSrcYTPL: metadata.imageSrcYTPL,
+			lyrics: metadata.lyrics || currentMetadata.lyrics,
 		});
 		ipcRenderer.once("add-metadata-done", reinit);
 	} catch (e) {

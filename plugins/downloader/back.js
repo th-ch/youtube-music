@@ -71,6 +71,12 @@ function handle(win) {
 					description: ""
 				});
 			}
+			if (songMetadata.lyrics){
+				writer.setFrame("USLT", {
+					description: songMetadata.lyrics,
+					lyrics: songMetadata.lyrics,
+				});
+			}
 			writer.addTag();
 			fileBuffer = Buffer.from(writer.arrayBuffer);
 		} catch (error) {
