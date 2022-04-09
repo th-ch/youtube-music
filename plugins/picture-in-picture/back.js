@@ -20,6 +20,8 @@ const togglePiP = async (win) => {
 		originalPosition = win.getPosition();
 		originalSize = win.getSize();
 
+		win.webContents.on("before-input-event", blockShortcutsInPiP);
+
 		win.setFullScreenable(false);
 		await win.webContents.executeJavaScript(
 			// Go fullscreen
@@ -40,6 +42,8 @@ const togglePiP = async (win) => {
 		app.dock?.show();
 		win.setAlwaysOnTop(true, "screen-saver", 1);
 	} else {
+		win.webContents.removeListener("before-input-event", blockShortcutsInPiP);
+
 		await win.webContents.executeJavaScript(
 			// Exit fullscreen
 			`
@@ -65,4 +69,11 @@ module.exports = (win) => {
 	ipcMain.on("picture-in-picture", async () => {
 		await togglePiP(win);
 	});
+};
+
+const blockShortcutsInPiP = (event, input) => {
+	const blockedShortcuts = ["f", "escape"];
+	if (blockedShortcuts.includes(input.key.toLowerCase())) {
+		event.preventDefault();
+	}
 };
