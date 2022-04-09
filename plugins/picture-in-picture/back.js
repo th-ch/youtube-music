@@ -15,8 +15,6 @@ const togglePiP = async (win) => {
 	isInPiPMode = !isInPiPMode;
 
 	if (isInPiPMode) {
-		injectCSS(win.webContents, path.join(__dirname, "style.css"));
-
 		originalPosition = win.getPosition();
 		originalSize = win.getSize();
 
@@ -52,6 +50,7 @@ const togglePiP = async (win) => {
 };
 
 module.exports = (win) => {
+	injectCSS(win.webContents, path.join(__dirname, "style.css"));
 	ipcMain.on("picture-in-picture", async () => {
 		await togglePiP(win);
 	});

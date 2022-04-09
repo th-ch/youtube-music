@@ -5,3 +5,9 @@ body {
 button {
 	-webkit-app-region: no-drag;
 }
+
+ytmusic-player-bar.pip svg,
+ytmusic-player-bar.pip yt-formatted-string {
+	filter: drop-shadow(2px 4px 6px black);
+	color: white;
+}
