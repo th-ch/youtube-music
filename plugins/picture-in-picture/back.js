@@ -23,7 +23,13 @@ const togglePiP = async (win) => {
 		win.setFullScreenable(false);
 		await win.webContents.executeJavaScript(
 			// Go fullscreen
-			`document.querySelector(".fullscreen-button").click()`
+			`
+			if (!document.querySelector("ytmusic-player-page").playerPageOpen_) {
+  				document.querySelector(".toggle-player-page-button").click();
+			}
+			document.querySelector(".fullscreen-button").click();
+			document.querySelector("ytmusic-player-bar").classList.add("pip");
+			`
 		);
 		win.setFullScreenable(true);
 
@@ -36,7 +42,10 @@ const togglePiP = async (win) => {
 	} else {
 		await win.webContents.executeJavaScript(
 			// Exit fullscreen
-			`document.querySelector(".exit-fullscreen-button").click()`
+			`
+			document.querySelector(".exit-fullscreen-button").click();
+			document.querySelector("ytmusic-player-bar").classList.remove("pip");
+			`
 		);
 
 		win.setVisibleOnAllWorkspaces(false);
