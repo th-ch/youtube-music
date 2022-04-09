@@ -1,6 +1,6 @@
 const path = require("path");
 
-const { Menu, nativeImage, Tray } = require("electron");
+const { app, Menu, nativeImage, Tray } = require("electron");
 
 const config = require("./config");
 const getSongControls = require("./providers/song-controls");
@@ -27,7 +27,13 @@ module.exports.setUpTray = (app, win) => {
 		if (config.get("options.trayClickPlayPause")) {
 			playPause();
 		} else {
-			win.isVisible() ? win.hide() : win.show();
+			if (win.isVisible()) {
+				win.hide();
+				app.dock?.hide();
+			} else {
+				win.show();
+				app.dock?.show();
+			}
 		}
 	});
 
@@ -54,6 +60,7 @@ module.exports.setUpTray = (app, win) => {
 			label: "Show",
 			click: () => {
 				win.show();
+				app.dock?.show();
 			},
 		},
 		{
@@ -63,7 +70,7 @@ module.exports.setUpTray = (app, win) => {
 				app.quit();
 			},
 		},
-		 { role: "quit" } 
+		{ role: "quit" },
 	];
 
 	const trayMenu = Menu.buildFromTemplate(template);
