@@ -132,7 +132,7 @@
 	},
 	"resolutions": {
 		"glob-parent": "5.1.2",
-		"minimist": "1.2.5",
+		"minimist": "1.2.6",
 		"yargs-parser": "18.1.3"
 	},
 	"auto-changelog": {
