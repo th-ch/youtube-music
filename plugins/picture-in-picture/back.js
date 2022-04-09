@@ -25,6 +25,7 @@ const togglePiP = async (win) => {
 			// Go fullscreen
 			`document.querySelector(".fullscreen-button").click()`
 		);
+		win.setFullScreenable(true);
 
 		app.dock?.hide();
 		win.setVisibleOnAllWorkspaces(true, {
@@ -33,7 +34,6 @@ const togglePiP = async (win) => {
 		app.dock?.show();
 		win.setAlwaysOnTop(true, "screen-saver", 1);
 	} else {
-		win.setFullScreenable(true);
 		await win.webContents.executeJavaScript(
 			// Exit fullscreen
 			`document.querySelector(".exit-fullscreen-button").click()`
