@@ -8,7 +8,9 @@ const registerCallback = require("../../providers/song-info");
 const { injectCSS, listenAction } = require("../utils");
 const { cropMaxWidth } = require("./utils");
 const { ACTIONS, CHANNEL } = require("./actions.js");
+const { isEnabled } = require("../../config/plugins");
 const { getImage } = require("../../providers/song-info");
+const { fetchFromGenius } = require("../lyrics-genius/back");
 
 const sendError = (win, error) => {
 	win.setProgressBar(-1); // close progress bar
@@ -70,6 +72,15 @@ function handle(win) {
 					data: coverBuffer,
 					description: ""
 				});
+			}
+			if (isEnabled("lyrics-genius")) {
+				const lyrics = await fetchFromGenius(songMetadata);
+				if (lyrics) {
+					writer.setFrame("USLT", {
+						description: lyrics,
+						lyrics: lyrics,
+					});
+				}
 			}
 			writer.addTag();
 			fileBuffer = Buffer.from(writer.arrayBuffer);

@@ -17,11 +17,11 @@ module.exports = () => {
 
 		let hasLyrics = true;
 
-		const html = ipcRenderer.sendSync(
+		const lyrics = ipcRenderer.sendSync(
 			"search-genius-lyrics",
 			extractedSongInfo
 		);
-		if (!html) {
+		if (!lyrics) {
 			// Delete previous lyrics if tab is open and couldn't get new lyrics
 			checkLyricsContainer(() => {
 				hasLyrics = false;
@@ -32,16 +32,6 @@ module.exports = () => {
 
 		if (is.dev()) {
 			console.log("Fetched lyrics from Genius");
-		}
-
-		const wrapper = document.createElement("div");
-		wrapper.innerHTML = html;
-
-		const lyrics = [...wrapper.querySelectorAll('[class^="Lyrics__Container"]')].map(d => d.innerHTML).join('<br>')
-					 || wrapper.querySelector(".lyrics")?.innerHTML;
-
-		if (!lyrics) {
-			return;
 		}
 
 		enableLyricsTab();
@@ -73,9 +63,12 @@ module.exports = () => {
 		}
 
 		function setLyrics(lyricsContainer) {
-			lyricsContainer.innerHTML =
-				`<div id="contents" class="style-scope ytmusic-section-list-renderer description ytmusic-description-shelf-renderer genius-lyrics">
-			 		${hasLyrics ? lyrics : 'Could not retrieve lyrics from genius'}
+			lyricsContainer.innerHTML = `<div id="contents" class="style-scope ytmusic-section-list-renderer description ytmusic-description-shelf-renderer genius-lyrics">
+			 		${
+						hasLyrics
+							? lyrics.replace(/(?:\r\n|\r|\n)/g, "<br/>")
+							: "Could not retrieve lyrics from genius"
+					}
 
 				</div>
 				<yt-formatted-string class="footer style-scope ytmusic-description-shelf-renderer" style="align-self: baseline"></yt-formatted-string>`;
