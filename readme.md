@@ -63,6 +63,8 @@ Install the `youtube-music-bin` package from the AUR. For AUR installation instr
 
 - **Notifications**: Display a notification when a song starts playing ([interactive notifications](https://user-images.githubusercontent.com/78568641/114102651-63ce0e00-98d0-11eb-9dfe-c5a02bb54f9c.png) are available on windows)
 
+- **Picture in picture**: allows to switch the app to picture-in-picture mode
+
 - **Playback Speed**: Listen fast, listen slow! [Adds a slider that controls song speed](https://user-images.githubusercontent.com/61631665/129976003-e55db5ba-bf42-448c-a059-26a009775e68.png)
 
 - **Precise Volume**: Control the volume precisely using mousewheel/hotkeys, with a custom hud and customizable volume steps
