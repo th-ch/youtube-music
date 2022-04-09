@@ -1687,6 +1687,10 @@
     "@typescript-eslint/types" "4.33.0"
     eslint-visitor-keys "^2.0.0"
 
+"Simple-YouTube-Age-Restriction-Bypass@https://gitpkg.now.sh/zerodytrash/Simple-YouTube-Age-Restriction-Bypass/dist?v2.4.6":
+  version "0.0.0"
+  resolved "https://gitpkg.now.sh/zerodytrash/Simple-YouTube-Age-Restriction-Bypass/dist?v2.4.6#ac26ebb688667ce4ec6566ffbd3a75dbe2ac9a55"
+
 abab@^2.0.3, abab@^2.0.5:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/abab/-/abab-2.0.5.tgz#c0b678fb32d60fc1219c784d6a826fe385aeb79a"
