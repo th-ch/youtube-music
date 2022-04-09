@@ -1,7 +1,10 @@
 ytmusic-player-bar.pip svg,
-ytmusic-player-bar.pip yt-formatted-string {
-	filter: drop-shadow(2px 4px 6px black);
-	color: white;
+ytmusic-player-bar.pip .time-info,
+ytmusic-player-bar.pip yt-formatted-string,
+ytmusic-player-bar.pip .yt-formatted-string {
+    filter: drop-shadow(2px 4px 6px black);
+    color: white !important;
+    fill: white !important;
 }
 
 ytmusic-player-bar.pip ytmusic-player-expanding-menu {
