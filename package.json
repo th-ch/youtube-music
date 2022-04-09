@@ -139,7 +139,7 @@
 		"hideCredit": true,
 		"package": true,
 		"unreleased": true,
-    	"output": "changelog.md"
+		"output": "changelog.md"
 	},
 	"xo": {
 		"envs": [
