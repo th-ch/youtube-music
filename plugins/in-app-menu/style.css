@@ -71,3 +71,7 @@ yt-page-navigation-progress,
 	-moz-border-radius: 100px;
 	-webkit-border-radius: 100px;
 }
+
+.cet-menubar-menu-container .cet-action-item {
+	background-color: inherit
+}
