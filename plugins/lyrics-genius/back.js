@@ -67,3 +67,5 @@ const fetchFromGenius = async (metadata) => {
 
 	return lyrics;
 };
+
+module.exports.fetchFromGenius = fetchFromGenius;
