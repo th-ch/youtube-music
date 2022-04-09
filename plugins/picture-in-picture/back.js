@@ -2,6 +2,7 @@ const path = require("path");
 
 const { app, ipcMain } = require("electron");
 
+const { setOptions } = require("../../config/plugins");
 const { injectCSS } = require("../utils");
 
 let isInPiPMode = false;
@@ -13,6 +14,7 @@ const pipSize = [400, 220];
 
 const togglePiP = async (win) => {
 	isInPiPMode = !isInPiPMode;
+	setOptions("picture-in-picture", { isInPiP: isInPiPMode });
 
 	if (isInPiPMode) {
 		originalPosition = win.getPosition();
