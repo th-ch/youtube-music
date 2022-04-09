@@ -10,7 +10,7 @@ let originalPosition;
 let originalSize;
 
 const pipPosition = [10, 10];
-const pipSize = [400, 220];
+const pipSize = [450, 275];
 
 const togglePiP = async (win) => {
 	isInPiPMode = !isInPiPMode;
