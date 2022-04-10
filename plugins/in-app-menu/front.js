@@ -1,6 +1,7 @@
 const { ipcRenderer } = require("electron");
 const config = require("../../config");
 const { Titlebar, Color } = require("custom-electron-titlebar");
+const { isEnabled } = require("../../config/plugins");
 function $(selector) { return document.querySelector(selector); }
 
 module.exports = () => {
@@ -24,6 +25,12 @@ module.exports = () => {
 			visible = true;
 		}
 	});
+
+	if (isEnabled("picture-in-picture")) {
+		ipcRenderer.on("pip-toggle", (_, pipEnabled) => {
+			bar.refreshMenu();
+		});
+	}
 
 	// Increases the right margin of Navbar background when the scrollbar is visible to avoid blocking it (z-index doesn't affect it)
 	document.addEventListener('apiLoaded', () => {

@@ -1,6 +1,15 @@
 const { setOptions } = require("./back.js");
 
-module.exports = (_win, options) => [
+module.exports = (win, options) => [
+    {
+        label: "Always on top",
+        type: "checkbox",
+        checked: options.alwaysOnTop,
+        click: (item) => {
+            setOptions({ alwaysOnTop: item.checked });
+            win.setAlwaysOnTop(item.checked);
+        },
+    },
     {
         label: "Save window position",
         type: "checkbox",

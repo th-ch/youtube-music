@@ -28,10 +28,46 @@ global.togglePictureInPicture = () => {
 	ipcRenderer.send("picture-in-picture");
 };
 
+const listenForToggle = () => {
+	const originalExitButton = $(".exit-fullscreen-button");
+	const clonedExitButton = originalExitButton.cloneNode(true);
+	clonedExitButton.onclick = () => togglePictureInPicture();
+
+	const player = $('#player');
+	const onPlayerDblClick = player.onDoubleClick_;
+
+	const playerBar = $("ytmusic-player-bar");
+	const expandMenu = $('#expanding-menu');
+	const middleControls = $('.middle-controls');
+	const playerPage = $("ytmusic-player-page");
+	const togglePlayerPageButton = $(".toggle-player-page-button");
+	const fullScreenButton = $(".fullscreen-button");
+
+	ipcRenderer.on('pip-toggle', (_, isPip) => {
+		if (isPip) {
+			$(".exit-fullscreen-button").replaceWith(clonedExitButton);
+			player.onDoubleClick_ = () => {};
+			expandMenu.onmouseleave = () => middleControls.click();
+			if (!playerPage.playerPageOpen_) {
+				togglePlayerPageButton.click();
+			}
+			fullScreenButton.click();
+			playerBar.classList.add("pip");
+		} else {
+			$(".exit-fullscreen-button").replaceWith(originalExitButton);
+			player.onDoubleClick_ = onPlayerDblClick;
+			expandMenu.onmouseleave = undefined;
+			originalExitButton.click();
+			playerBar.classList.remove("pip");
+		}
+	});
+}
+
 function observeMenu(options) {
 	document.addEventListener(
 		"apiLoaded",
 		() => {
+			listenForToggle();
 			const minButton = $(".player-minimize-button");
 			// remove native listeners
 			minButton.replaceWith(minButton.cloneNode(true)); 
