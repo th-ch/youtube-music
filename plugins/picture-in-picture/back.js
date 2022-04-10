@@ -5,18 +5,33 @@ const { app, ipcMain } = require("electron");
 const { setOptions } = require("../../config/plugins");
 const { injectCSS } = require("../utils");
 
-let isInPiPMode = false;
+let isInPiP = false;
 let originalPosition;
 let originalSize;
+let originalFullScreen;
+let originalMaximized;
 
-const pipPosition = [10, 10];
-const pipSize = [450, 275];
+let win;
+let options;
 
-const togglePiP = async (win) => {
-	isInPiPMode = !isInPiPMode;
-	setOptions("picture-in-picture", { isInPiP: isInPiPMode });
+const pipPosition = () => (options.savePosition && options["pip-position"]) || [10, 10];
+const pipSize = () => (options.saveSize && options["pip-size"]) || [450, 275];
 
-	if (isInPiPMode) {
+const setLocalOptions = (_options) => {
+	options = { ...options, ..._options };
+	setOptions("picture-in-picture", _options);
+}
+
+const togglePiP = async () => {
+	isInPiP = !isInPiP;
+	setLocalOptions({ isInPiP });
+
+	if (isInPiP) {
+		originalFullScreen = win.isFullScreen();
+		if (originalFullScreen) win.setFullScreen(false);
+		originalMaximized = win.isMaximized();
+		if (originalMaximized) win.unmaximize();
+	
 		originalPosition = win.getPosition();
 		originalSize = win.getSize();
 
@@ -26,6 +41,13 @@ const togglePiP = async (win) => {
 		await win.webContents.executeJavaScript(
 			// Go fullscreen
 			`
+			var exitButton = document.querySelector(".exit-fullscreen-button");
+			exitButton.replaceWith(exitButton.cloneNode(true));
+			document.querySelector(".exit-fullscreen-button").onclick = () => togglePictureInPicture();
+
+			var onPlayerDblClick = document.querySelector('#player').onDoubleClick_
+			document.querySelector('#player').onDoubleClick_ = () => {};
+			document.querySelector('#expanding-menu').onmouseleave = () => document.querySelector('.middle-controls').click();
 			if (!document.querySelector("ytmusic-player-page").playerPageOpen_) {
   				document.querySelector(".toggle-player-page-button").click();
 			}
@@ -47,6 +69,9 @@ const togglePiP = async (win) => {
 		await win.webContents.executeJavaScript(
 			// Exit fullscreen
 			`
+			document.querySelector('#player').onDoubleClick_ = onPlayerDblClick;
+			document.querySelector('#expanding-menu').onmouseleave = undefined;
+			document.querySelector(".exit-fullscreen-button").replaceWith(exitButton);
 			document.querySelector(".exit-fullscreen-button").click();
 			document.querySelector("ytmusic-player-bar").classList.remove("pip");
 			`
@@ -54,26 +79,39 @@ const togglePiP = async (win) => {
 
 		win.setVisibleOnAllWorkspaces(false);
 		win.setAlwaysOnTop(false);
+
+		if (originalFullScreen) win.setFullScreen(true);
+		if (originalMaximized) win.maximize();
 	}
 
-	const [x, y] = isInPiPMode ? pipPosition : originalPosition;
-	const [w, h] = isInPiPMode ? pipSize : originalSize;
+	const [x, y] = isInPiP ? pipPosition() : originalPosition;
+	const [w, h] = isInPiP ? pipSize() : originalSize;
 	win.setPosition(x, y);
 	win.setSize(w, h);
 
-	win.setWindowButtonVisibility?.(!isInPiPMode);
-};
-
-module.exports = (win) => {
-	injectCSS(win.webContents, path.join(__dirname, "style.css"));
-	ipcMain.on("picture-in-picture", async () => {
-		await togglePiP(win);
-	});
+	win.setWindowButtonVisibility?.(!isInPiP);
 };
 
 const blockShortcutsInPiP = (event, input) => {
-	const blockedShortcuts = ["f", "escape"];
-	if (blockedShortcuts.includes(input.key.toLowerCase())) {
+	const key = input.key.toLowerCase();
+
+	if (key === "f") {
 		event.preventDefault();
-	}
+	} else if (key === 'escape') {
+		togglePiP();
+		event.preventDefault();
+	};
 };
+
+module.exports = (_win, _options) => {
+	options ??= _options;
+	win ??= _win;
+	setLocalOptions({ isInPiP });
+	injectCSS(win.webContents, path.join(__dirname, "style.css"));
+	ipcMain.on("picture-in-picture", async () => {
+		await togglePiP();
+	});
+};
+
+module.exports.setOptions = setLocalOptions;
+
