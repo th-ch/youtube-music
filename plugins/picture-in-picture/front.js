@@ -33,15 +33,14 @@ const listenForToggle = () => {
 	const clonedExitButton = originalExitButton.cloneNode(true);
 	clonedExitButton.onclick = () => togglePictureInPicture();
 
-	const player = $('#player');
-	const onPlayerDblClick = player.onDoubleClick_;
-
-	const playerBar = $("ytmusic-player-bar");
+	const appLayout = $("ytmusic-app-layout");
 	const expandMenu = $('#expanding-menu');
 	const middleControls = $('.middle-controls');
 	const playerPage = $("ytmusic-player-page");
 	const togglePlayerPageButton = $(".toggle-player-page-button");
 	const fullScreenButton = $(".fullscreen-button");
+	const player = $('#player');
+	const onPlayerDblClick = player.onDoubleClick_;
 
 	ipcRenderer.on('pip-toggle', (_, isPip) => {
 		if (isPip) {
@@ -52,13 +51,13 @@ const listenForToggle = () => {
 				togglePlayerPageButton.click();
 			}
 			fullScreenButton.click();
-			playerBar.classList.add("pip");
+			appLayout.classList.add("pip");
 		} else {
 			$(".exit-fullscreen-button").replaceWith(originalExitButton);
 			player.onDoubleClick_ = onPlayerDblClick;
 			expandMenu.onmouseleave = undefined;
 			originalExitButton.click();
-			playerBar.classList.remove("pip");
+			appLayout.classList.remove("pip");
 		}
 	});
 }
