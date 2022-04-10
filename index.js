@@ -175,7 +175,9 @@ function createMainWindow() {
 	win.webContents.loadURL(urlToLoad);
 	win.on("closed", onClosed);
 
-	const setPiPOptions = (key, value) => config.plugins.setOptions("picture-in-picture", { [key]: value });
+	const setPiPOptions = config.plugins.isEnabled("picture-in-picture") 
+		? (key, value) => require("./plugins/picture-in-picture/back").setOptions({ [key]: value })
+		: () => {};
 
 	win.on("move", () => {
 		if (win.isMaximized()) return;
