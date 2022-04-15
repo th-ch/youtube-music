@@ -16,6 +16,11 @@ ytmusic-app-layout.pip ytmusic-player-expanding-menu {
 }
 
 /* fix volumeHud position when both in-app-menu and PiP are active */
-.cet-container ytmusic-app-layout.pip #volumeHud{
+.cet-container ytmusic-app-layout.pip #volumeHud {
 	top: 22px !important;
+}
+
+/* disable the video-toggle button when in PiP mode */
+ytmusic-app-layout.pip .video-switch-button {
+	display: none !important;
 }
