@@ -196,17 +196,18 @@ function createMainWindow() {
 
 	win.on("resize", () => {
 		const windowSize = win.getSize();
-
 		const isMaximized = win.isMaximized();
-		if (winWasMaximized !== isMaximized) {
+
+		const isPiPEnabled =
+			config.plugins.isEnabled("picture-in-picture") &&
+			config.plugins.getOptions("picture-in-picture")["isInPiP"];
+
+		if (!isPiPEnabled && winWasMaximized !== isMaximized) {
 			winWasMaximized = isMaximized;
 			config.set("window-maximized", isMaximized);
 		}
 		if (isMaximized) return;
 
-		const isPiPEnabled =
-			config.plugins.isEnabled("picture-in-picture") &&
-			config.plugins.getOptions("picture-in-picture")["isInPiP"];
 		if (!isPiPEnabled) {
 			lateSave("window-size", {
 				width: windowSize[0],
