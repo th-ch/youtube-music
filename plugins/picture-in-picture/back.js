@@ -1,6 +1,7 @@
 const path = require("path");
 
 const { app, ipcMain } = require("electron");
+const electronLocalshortcut = require("electron-localshortcut");
 
 const { setOptions, isEnabled } = require("../../config/plugins");
 const { injectCSS } = require("../utils");
@@ -100,6 +101,9 @@ module.exports = (_win, _options) => {
 	ipcMain.on("picture-in-picture", async () => {
 		await togglePiP();
 	});
+	if (options.hotkey) {
+		electronLocalshortcut.register(win, options.hotkey, togglePiP);
+	}
 };
 
 module.exports.setOptions = setLocalOptions;
