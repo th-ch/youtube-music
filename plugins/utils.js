@@ -42,14 +42,21 @@ module.exports.fileExists = (path, callbackIfExists) => {
 	});
 };
 
+const cssToInject = new Map();
 module.exports.injectCSS = (webContents, filepath, cb = undefined) => {
-	webContents.on("did-finish-load", async () => {
-		await webContents.insertCSS(fs.readFileSync(filepath, "utf8"));
-		if (cb) {
-			cb();
-		}
-	});
+	if (!cssToInject.size) setupCssInjection(webContents);
+
+	cssToInject.set(filepath, cb);
 };
+
+const setupCssInjection = (webContents) => {
+	webContents.on("did-finish-load", () => {
+		cssToInject.forEach(async (cb, filepath) => {
+			await webContents.insertCSS(fs.readFileSync(filepath, "utf8"));
+			cb?.();
+		})
+	});
+}
 
 module.exports.getAllPlugins = () => {
 	const isDirectory = (source) => fs.lstatSync(source).isDirectory();
