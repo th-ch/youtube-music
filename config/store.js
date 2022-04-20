@@ -2,7 +2,16 @@ const Store = require("electron-store");
 
 const defaults = require("./defaults");
 
+const setDefaultPluginOptions = (store, plugin) => {
+	if (!store.get(`plugins.${plugin}`)) {
+		store.set(`plugins.${plugin}`, defaults.plugins[plugin]);
+	}
+}
+
 const migrations = {
+	">=1.17.0": (store) => {
+		setDefaultPluginOptions(store, "picture-in-picture");
+	},
 	">=1.14.0": (store) => {
 		if (
 			typeof store.get("plugins.precise-volume.globalShortcuts") !== "object"
