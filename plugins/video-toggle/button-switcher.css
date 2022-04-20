@@ -1,7 +1,6 @@
 #main-panel.ytmusic-player-page {
     align-items: unset !important;
 }
-
 .video-switch-button {
     z-index: 999;
     box-sizing: border-box;
@@ -77,4 +76,4 @@
 }
 #av-id {
 	display: none;
-}
+} 

@@ -25,8 +25,6 @@ function setup(e) {
 
     $('ytmusic-player-page').prepend(switchButtonDiv);
 
-    $('#song-image.ytmusic-player').style.display = "block";
-
     if (options.hideVideo) {
         $('.video-switch-button-checkbox').checked = false;
         changeDisplay(false);
@@ -50,7 +48,8 @@ function setup(e) {
 function changeDisplay(showVideo) {
     player.style.margin = showVideo ? '' : 'auto 0px';
     player.setAttribute('playback-mode', showVideo ? 'OMV_PREFERRED' : 'ATV_PREFERRED');
-    $('#song-video.ytmusic-player').style.display = showVideo ? 'unset' : 'none';
+    $('#song-video.ytmusic-player').style.display = showVideo ? 'block' : 'none';
+	$('#song-image').style.display = showVideo ? 'none' : 'block';
     if (showVideo && !video.style.top) {
         video.style.top = `${(player.clientHeight - video.clientHeight) / 2}px`;
     }
