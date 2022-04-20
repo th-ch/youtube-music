@@ -7,7 +7,7 @@
     box-sizing: border-box;
     padding: 0;
     margin-top: 20px;
-    margin-left: 10px;
+    margin-left: 25%;
     background: rgba(33, 33, 33, 0.4);
     border-radius: 30px;
     overflow: hidden;
@@ -74,4 +74,7 @@
     border-radius: 30px;
     transform: translateX(0);
     transition: transform 300ms;
+}
+#av-id {
+	display: none;
 }
