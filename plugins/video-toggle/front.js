@@ -50,6 +50,9 @@ function changeDisplay(showVideo) {
     player.setAttribute('playback-mode', showVideo ? 'OMV_PREFERRED' : 'ATV_PREFERRED');
     $('#song-video.ytmusic-player').style.display = showVideo ? 'block' : 'none';
 	$('#song-image').style.display = showVideo ? 'none' : 'block';
+    if (showVideo && !video.style.top) {
+        video.style.top = `${(player.clientHeight - video.clientHeight) / 2}px`;
+    }
     moveVolumeHud(showVideo);
 }
 
