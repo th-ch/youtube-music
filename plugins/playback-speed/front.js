@@ -85,7 +85,7 @@ function forcePlaybackRate(e) {
 }
 
 module.exports = () => {
-	document.addEventListener('apiLoaded', e => {
+	document.addEventListener('apiLoaded', () => {
 		observePopupContainer();
 		observeVideo();
 		setupWheelListener();
