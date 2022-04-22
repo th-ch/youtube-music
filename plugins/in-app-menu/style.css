@@ -57,10 +57,10 @@ yt-page-navigation-progress,
 
 /* The scrollbar 'thumb' ...that marque oval shape in a scrollbar */
 ::-webkit-scrollbar-thumb:vertical {
-	background-clip: padding-box;
 	border: 2px solid rgba(0, 0, 0, 0);
 
 	background: #3a3a3a;
+	background-clip: padding-box;
 	border-radius: 100px;
 	-moz-border-radius: 100px;
 	-webkit-border-radius: 100px;
