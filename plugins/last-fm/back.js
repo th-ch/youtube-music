@@ -89,6 +89,7 @@ const postSongDataToAPI = async (songInfo, config, data) => {
 		track: songInfo.title,
 		duration: songInfo.songDuration,
 		artist: songInfo.artist,
+		...(songInfo.album ? { album: songInfo.album } : undefined), // will be undefined if current song is a video
 		api_key: config.api_key,
 		sk: config.session_key,
 		format: 'json',
