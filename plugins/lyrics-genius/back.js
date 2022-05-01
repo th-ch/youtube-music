@@ -2,6 +2,7 @@ const { join } = require("path");
 
 const { ipcMain } = require("electron");
 const is = require("electron-is");
+const { convert } = require("html-to-text");
 const fetch = require("node-fetch");
 
 const { cleanupName } = require("../../providers/song-info");
@@ -12,15 +13,14 @@ module.exports = async (win) => {
 
 	ipcMain.on("search-genius-lyrics", async (event, extractedSongInfo) => {
 		const metadata = JSON.parse(extractedSongInfo);
-		const queryString = `${cleanupName(metadata.artist)} ${cleanupName(
-			metadata.title
-		)}`;
-
-		event.returnValue = await fetchFromGenius(queryString);
+		event.returnValue = await fetchFromGenius(metadata);
 	});
 };
 
-const fetchFromGenius = async (queryString) => {
+const fetchFromGenius = async (metadata) => {
+	const queryString = `${cleanupName(metadata.artist)} ${cleanupName(
+		metadata.title
+	)}`;
 	let response = await fetch(
 		`https://genius.com/api/search/multi?per_page=5&q=${encodeURI(queryString)}`
 	);
@@ -46,5 +46,26 @@ const fetchFromGenius = async (queryString) => {
 		return null;
 	}
 
-	return await response.text();
+	const html = await response.text();
+	const lyrics = convert(html, {
+		baseElements: {
+			selectors: ['[class^="Lyrics__Container"]', ".lyrics"],
+		},
+		selectors: [
+			{
+				selector: "a",
+				format: "linkFormatter",
+			},
+		],
+		formatters: {
+			// Remove links by keeping only the content
+			linkFormatter: (elem, walk, builder) => {
+				walk(elem.children, builder);
+			},
+		},
+	});
+
+	return lyrics;
 };
+
+module.exports.fetchFromGenius = fetchFromGenius;

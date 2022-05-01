@@ -52,6 +52,7 @@ const mainMenuTemplate = (win) => {
 							label: plugin,
 							submenu: [
 								pluginEnabledMenu(plugin, "Enabled", true, refreshMenu),
+								{ type: "separator" },
 								...getPluginMenu(win, config.plugins.getOptions(plugin), refreshMenu),
 							],
 						};

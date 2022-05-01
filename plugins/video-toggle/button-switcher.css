@@ -75,3 +75,8 @@
     transform: translateX(0);
     transition: transform 300ms;
 }
+
+/* disable the native toggler */
+#av-id {
+	display: none;
+}

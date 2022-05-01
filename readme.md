@@ -41,6 +41,8 @@ Install the `youtube-music-bin` package from the AUR. For AUR installation instr
 
 - **Blur Nav Bar**: makes navigation bar transparent and blurry
 
+- **Bypass age restrictions**: bypass YouTube's age verification
+
 - **Disable Autoplay**: Makes every song start in "paused" mode
 
 - [**Discord**](https://discord.com/): Show your friends what you listen to with [Rich Presence](https://user-images.githubusercontent.com/28219076/104362104-a7a0b980-5513-11eb-9744-bb89eabe0016.png)
@@ -62,6 +64,8 @@ Install the `youtube-music-bin` package from the AUR. For AUR installation instr
 - **No Google Login**: Remove Google login buttons and links from the interface
 
 - **Notifications**: Display a notification when a song starts playing ([interactive notifications](https://user-images.githubusercontent.com/78568641/114102651-63ce0e00-98d0-11eb-9dfe-c5a02bb54f9c.png) are available on windows)
+
+- **Picture in picture**: allows to switch the app to picture-in-picture mode
 
 - **Playback Speed**: Listen fast, listen slow! [Adds a slider that controls song speed](https://user-images.githubusercontent.com/61631665/129976003-e55db5ba-bf42-448c-a059-26a009775e68.png)
 

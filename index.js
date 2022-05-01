@@ -175,7 +175,12 @@ function createMainWindow() {
 	win.on("move", () => {
 		if (win.isMaximized()) return;
 		let position = win.getPosition();
-		lateSave("window-position", { x: position[0], y: position[1] });
+		const isPiPEnabled =
+			config.plugins.isEnabled("picture-in-picture") &&
+			config.plugins.getOptions("picture-in-picture")["isInPiP"];
+		if (!isPiPEnabled) {
+			lateSave("window-position", { x: position[0], y: position[1] });
+		}
 	});
 
 	let winWasMaximized;
@@ -188,7 +193,10 @@ function createMainWindow() {
 			winWasMaximized = isMaximized;
 			config.set("window-maximized", isMaximized);
 		}
-		if (!isMaximized) {
+		const isPiPEnabled =
+			config.plugins.isEnabled("picture-in-picture") &&
+			config.plugins.getOptions("picture-in-picture")["isInPiP"];
+		if (!isMaximized && !isPiPEnabled) {
 			lateSave("window-size", {
 				width: windowSize[0],
 				height: windowSize[1],

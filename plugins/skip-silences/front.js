@@ -3,7 +3,7 @@ const hark = require("hark/hark.bundle.js");
 module.exports = () => {
 	let isSilent = false;
 
-	document.addEventListener("apiLoaded", (apiEvent) => {
+	document.addEventListener("apiLoaded", () => {
 		const video = document.querySelector("video");
 		const speechEvents = hark(video, {
 			threshold: -100, // dB (-100 = absolute silence, 0 = loudest)
