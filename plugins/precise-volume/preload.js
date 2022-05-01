@@ -1,4 +1,3 @@
-const { ipcRenderer } = require("electron");
 const is = require("electron-is");
 
 let ignored = {

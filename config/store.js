@@ -3,6 +3,11 @@ const Store = require("electron-store");
 const defaults = require("./defaults");
 
 const migrations = {
+	">=1.17.0": (store) => {
+		if (store.get("plugins.video-toggle.mode") === undefined) {
+			store.set("plugins.video-toggle.mode", "custom");
+		}
+	},
 	">=1.14.0": (store) => {
 		if (
 			typeof store.get("plugins.precise-volume.globalShortcuts") !== "object"

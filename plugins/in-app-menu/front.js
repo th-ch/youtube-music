@@ -3,7 +3,7 @@ const config = require("../../config");
 const { Titlebar, Color } = require("custom-electron-titlebar");
 function $(selector) { return document.querySelector(selector); }
 
-module.exports = () => {
+module.exports = (options) => {
 	let visible = !config.get("options.hideMenu");
 	const bar = new Titlebar({
 		backgroundColor: Color.fromHex("#050505"),
@@ -13,6 +13,10 @@ module.exports = () => {
 	});
 	bar.updateTitle(" ");
 	document.title = "Youtube Music";
+
+	const hideIcon = hide => $('.cet-window-icon').style.display = hide ? 'none' : 'flex';
+
+	if (options.hideIcon) hideIcon(true);
 
 	ipcRenderer.on("refreshMenu", (_, showMenu) => {
 		if (showMenu === undefined && !visible) return;
@@ -24,6 +28,8 @@ module.exports = () => {
 			visible = true;
 		}
 	});
+
+	ipcRenderer.on("hideIcon", (_, hide) => hideIcon(hide));
 
 	// Increases the right margin of Navbar background when the scrollbar is visible to avoid blocking it (z-index doesn't affect it)
 	document.addEventListener('apiLoaded', () => {
