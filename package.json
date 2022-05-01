@@ -92,14 +92,15 @@
 		"npm": "Please use yarn and not npm"
 	},
 	"dependencies": {
-		"@cliqz/adblocker-electron": "^1.23.5",
-		"@electron/remote": "^2.0.5",
+		"@cliqz/adblocker-electron": "^1.23.7",
+		"@electron/remote": "^2.0.8",
 		"@ffmpeg/core": "^0.10.0",
 		"@ffmpeg/ffmpeg": "^0.10.1",
+		"Simple-YouTube-Age-Restriction-Bypass": "https://gitpkg.now.sh/zerodytrash/Simple-YouTube-Age-Restriction-Bypass/dist?v2.4.6",
 		"async-mutex": "^0.3.2",
 		"browser-id3-writer": "^4.4.0",
 		"chokidar": "^3.5.3",
-		"custom-electron-prompt": "^1.4.1",
+		"custom-electron-prompt": "^1.4.2",
 		"custom-electron-titlebar": "^4.1.0",
 		"discord-rpc": "^4.0.1",
 		"electron-better-web-request": "^1.0.1",
@@ -122,7 +123,7 @@
 	"devDependencies": {
 		"auto-changelog": "^2.4.0",
 		"electron": "^17.0.0",
-		"electron-builder": "^22.14.5",
+		"electron-builder": "^23.0.3",
 		"electron-devtools-installer": "^3.1.1",
 		"electron-icon-maker": "0.0.5",
 		"jest": "^27.3.1",

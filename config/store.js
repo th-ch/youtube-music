@@ -11,6 +11,10 @@ const setDefaultPluginOptions = (store, plugin) => {
 const migrations = {
 	">=1.17.0": (store) => {
 		setDefaultPluginOptions(store, "picture-in-picture");
+
+		if (store.get("plugins.video-toggle.mode") === undefined) {
+			store.set("plugins.video-toggle.mode", "custom");
+		}
 	},
 	">=1.14.0": (store) => {
 		if (
