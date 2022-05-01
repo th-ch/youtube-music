@@ -123,7 +123,7 @@
 	"devDependencies": {
 		"auto-changelog": "^2.4.0",
 		"electron": "^17.0.0",
-		"electron-builder": "^22.14.5",
+		"electron-builder": "^23.0.3",
 		"electron-devtools-installer": "^3.1.1",
 		"electron-icon-maker": "0.0.5",
 		"jest": "^27.3.1",
