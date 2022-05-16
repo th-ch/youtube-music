@@ -2,6 +2,39 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v1.17.0](https://github.com/th-ch/youtube-music/compare/v1.16.0...v1.17.0)
+
+- Bump ejs from 3.1.6 to 3.1.7 [`#712`](https://github.com/th-ch/youtube-music/pull/712)
+- fix injectCSS `did-finish-load` listener overload [`#693`](https://github.com/th-ch/youtube-music/pull/693)
+- [Snyk] Upgrade @cliqz/adblocker-electron from 1.23.6 to 1.23.7 [`#689`](https://github.com/th-ch/youtube-music/pull/689)
+- [Snyk] Upgrade custom-electron-prompt from 1.4.1 to 1.4.2 [`#686`](https://github.com/th-ch/youtube-music/pull/686)
+- [Snyk] Upgrade @electron/remote from 2.0.7 to 2.0.8 [`#684`](https://github.com/th-ch/youtube-music/pull/684)
+- Improve plugin submenu ux [`#699`](https://github.com/th-ch/youtube-music/pull/699)
+- update build action [`#702`](https://github.com/th-ch/youtube-music/pull/702)
+- add different modes to video-toggle plugin [`#700`](https://github.com/th-ch/youtube-music/pull/700)
+- lint [`#701`](https://github.com/th-ch/youtube-music/pull/701)
+- [ImgBot] Optimize images [`#703`](https://github.com/th-ch/youtube-music/pull/703)
+- add album to lastfm if available [`#695`](https://github.com/th-ch/youtube-music/pull/695)
+- [in-app-menu] add hide icon option [`#680`](https://github.com/th-ch/youtube-music/pull/680)
+- Add plugin to bypass age restrictions [`#682`](https://github.com/th-ch/youtube-music/pull/682)
+- Add "Picture in picture" plugin [`#674`](https://github.com/th-ch/youtube-music/pull/674)
+- Set lyrics metadata from Genius [`#679`](https://github.com/th-ch/youtube-music/pull/679)
+- MacOS: bring back the app in dock when using tray + app hidden [`#677`](https://github.com/th-ch/youtube-music/pull/677)
+- [Snyk] Upgrade @electron/remote from 2.0.4 to 2.0.5 [`#644`](https://github.com/th-ch/youtube-music/pull/644)
+- [Snyk] Upgrade ytpl from 2.2.3 to 2.3.0 [`#660`](https://github.com/th-ch/youtube-music/pull/660)
+- [Snyk] Upgrade ytdl-core from 4.10.1 to 4.11.0 [`#659`](https://github.com/th-ch/youtube-music/pull/659)
+- Bump plist from 3.0.2 to 3.0.5 [`#678`](https://github.com/th-ch/youtube-music/pull/678)
+- [Snyk] Upgrade @cliqz/adblocker-electron from 1.23.4 to 1.23.5 [`#624`](https://github.com/th-ch/youtube-music/pull/624)
+- [Precise-Volume] fix volumeHud position in miniplayer [`#645`](https://github.com/th-ch/youtube-music/pull/645)
+- add always-on-top option [`#655`](https://github.com/th-ch/youtube-music/pull/655)
+- [precise-volume] fix expand-volume-slider not updating its value [`#670`](https://github.com/th-ch/youtube-music/pull/670)
+- Fix lyrics genius missing parts [`#671`](https://github.com/th-ch/youtube-music/pull/671)
+- feat: option to force show like buttons [`#673`](https://github.com/th-ch/youtube-music/pull/673)
+- fix custom titlebar in prompt options [`#619`](https://github.com/th-ch/youtube-music/pull/619)
+- Process lyrics HTML in Genius util [`d0532d6`](https://github.com/th-ch/youtube-music/commit/d0532d691e56f955ef0b41f5fe2efe6295dddf9e)
+- Create first version of picture in picture plugin [`d2265b5`](https://github.com/th-ch/youtube-music/commit/d2265b59d78143cf51fe4dc3d5dee9da66873cc1)
+- Bump electron-builder to fix Mac build script [`ae8365f`](https://github.com/th-ch/youtube-music/commit/ae8365f721eafda6c502d02eee86d098f2b9e2a1)
+
 #### [v1.16.0](https://github.com/th-ch/youtube-music/compare/v1.15.0...v1.16.0)
 
 > 20 February 2022
