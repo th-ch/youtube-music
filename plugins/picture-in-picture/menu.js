@@ -48,7 +48,6 @@ module.exports = (win, options) => [
         
             if (output) {
                 const { value, accelerator } = output[0];
-                console.log({ [value]: accelerator }); // DELETE
                 setOptions({ [value]: accelerator });
         
                 item.checked = !!accelerator;
