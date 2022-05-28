@@ -13,6 +13,11 @@
 	height: 75px !important;
 }
 
+/* fixes top gap between nav-bar and browse-page */
+#browse-page {
+	padding-top: 0 !important;
+}
+
 /* remove window dragging for nav bar (conflict with titlebar drag) */
 ytmusic-nav-bar,
 .tab-titleiron-icon,
