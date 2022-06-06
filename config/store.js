@@ -2,8 +2,16 @@ const Store = require("electron-store");
 
 const defaults = require("./defaults");
 
+const setDefaultPluginOptions = (store, plugin) => {
+	if (!store.get(`plugins.${plugin}`)) {
+		store.set(`plugins.${plugin}`, defaults.plugins[plugin]);
+	}
+}
+
 const migrations = {
 	">=1.17.0": (store) => {
+		setDefaultPluginOptions(store, "picture-in-picture");
+
 		if (store.get("plugins.video-toggle.mode") === undefined) {
 			store.set("plugins.video-toggle.mode", "custom");
 		}

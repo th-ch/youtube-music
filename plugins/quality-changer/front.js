@@ -18,8 +18,7 @@ function setup(event) {
     $('.top-row-buttons.ytmusic-player').prepend(qualitySettingsButton);
 
     qualitySettingsButton.onclick = function chooseQuality() {
-        if (api.getPlayerState() === 2) api.playVideo();
-        else if (api.getPlayerState() === 1) api.pauseVideo();
+        setTimeout(() => $('#player').click());
 
         const currentIndex = api.getAvailableQualityLevels().indexOf(api.getPlaybackQuality())
 

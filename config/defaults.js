@@ -83,6 +83,13 @@ const defaultConfig = {
 			mode: "custom",
 			forceHide: false,
 		},
+		"picture-in-picture": {
+			"enabled": false,
+			"alwaysOnTop": true,
+			"savePosition": true,
+			"saveSize": false,
+			"hotkey": "P"
+		},
 	},
 };
 

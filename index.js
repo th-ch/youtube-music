@@ -175,6 +175,10 @@ function createMainWindow() {
 	win.webContents.loadURL(urlToLoad);
 	win.on("closed", onClosed);
 
+	const setPiPOptions = config.plugins.isEnabled("picture-in-picture") 
+		? (key, value) => require("./plugins/picture-in-picture/back").setOptions({ [key]: value })
+		: () => {};
+
 	win.on("move", () => {
 		if (win.isMaximized()) return;
 		let position = win.getPosition();
@@ -183,6 +187,8 @@ function createMainWindow() {
 			config.plugins.getOptions("picture-in-picture")["isInPiP"];
 		if (!isPiPEnabled) {
 			lateSave("window-position", { x: position[0], y: position[1] });
+		} else if(config.plugins.getOptions("picture-in-picture")["savePosition"]) {
+			lateSave("pip-position", position, setPiPOptions);
 		}
 	});
 
@@ -190,31 +196,36 @@ function createMainWindow() {
 
 	win.on("resize", () => {
 		const windowSize = win.getSize();
-
 		const isMaximized = win.isMaximized();
-		if (winWasMaximized !== isMaximized) {
-			winWasMaximized = isMaximized;
-			config.set("window-maximized", isMaximized);
-		}
+
 		const isPiPEnabled =
 			config.plugins.isEnabled("picture-in-picture") &&
 			config.plugins.getOptions("picture-in-picture")["isInPiP"];
-		if (!isMaximized && !isPiPEnabled) {
+
+		if (!isPiPEnabled && winWasMaximized !== isMaximized) {
+			winWasMaximized = isMaximized;
+			config.set("window-maximized", isMaximized);
+		}
+		if (isMaximized) return;
+
+		if (!isPiPEnabled) {
 			lateSave("window-size", {
 				width: windowSize[0],
 				height: windowSize[1],
 			});
+		} else if(config.plugins.getOptions("picture-in-picture")["saveSize"]) {
+			lateSave("pip-size", windowSize, setPiPOptions);
 		}
 	});
 
 	let savedTimeouts = {};
-	function lateSave(key, value) {
+	function lateSave(key, value, fn = config.set) {
 		if (savedTimeouts[key]) clearTimeout(savedTimeouts[key]);
 
 		savedTimeouts[key] = setTimeout(() => {
-			config.set(key, value);
+			fn(key, value);
 			savedTimeouts[key] = undefined;
-		}, 1000)
+		}, 600);
 	}
 
 	win.webContents.on("render-process-gone", (event, webContents, details) => {

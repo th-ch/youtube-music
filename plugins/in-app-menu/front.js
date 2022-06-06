@@ -1,6 +1,7 @@
 const { ipcRenderer } = require("electron");
 const config = require("../../config");
 const { Titlebar, Color } = require("custom-electron-titlebar");
+const { isEnabled } = require("../../config/plugins");
 function $(selector) { return document.querySelector(selector); }
 
 module.exports = (options) => {
@@ -28,6 +29,12 @@ module.exports = (options) => {
 			visible = true;
 		}
 	});
+
+	if (isEnabled("picture-in-picture")) {
+		ipcRenderer.on("pip-toggle", (_, pipEnabled) => {
+			bar.refreshMenu();
+		});
+	}
 
 	ipcRenderer.on("hideIcon", (_, hide) => hideIcon(hide));
 
