@@ -1,12 +1,10 @@
 const path = require("path");
-
-const remote = require('@electron/remote');
-
+require("./providers/front-logger")();
 const config = require("./config");
 const { fileExists } = require("./plugins/utils");
-const setupFrontLogger = require("./providers/front-logger");
 const setupSongInfo = require("./providers/song-info-front");
 const { setupSongControls } = require("./providers/song-controls-front");
+const { ipcRenderer } = require("electron");
 
 const plugins = config.plugins.getEnabled();
 
@@ -49,12 +47,8 @@ document.addEventListener("DOMContentLoaded", () => {
 	// inject song-controls
 	setupSongControls();
 
-	// inject front logger
-	setupFrontLogger();
-
 	// Add action for reloading
-	global.reload = () =>
-		remote.getCurrentWindow().webContents.loadURL(config.get("url"));
+	global.reload = () => ipcRenderer.send('reload');
 
 	// Blocks the "Are You Still There?" popup by setting the last active time to Date.now every 15min
 	setInterval(() => window._lact = Date.now(), 900000);

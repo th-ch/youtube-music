@@ -2,6 +2,7 @@ const path = require("path");
 
 const { app, Menu, nativeImage, Tray } = require("electron");
 
+const { restart } = require("./providers/app-controls");
 const config = require("./config");
 const getSongControls = require("./providers/song-controls");
 
@@ -65,10 +66,7 @@ module.exports.setUpTray = (app, win) => {
 		},
 		{
 			label: "Restart App",
-			click: () => {
-				app.relaunch();
-				app.quit();
-			},
+			click: restart
 		},
 		{ role: "quit" },
 	];

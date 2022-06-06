@@ -1,5 +1,5 @@
 const { ElementFromFile, templatePath } = require("../utils");
-const { dialog } = require('@electron/remote');
+const { ipcRenderer } = require("electron");
 
 function $(selector) { return document.querySelector(selector); }
 
@@ -20,21 +20,15 @@ function setup(event) {
     qualitySettingsButton.onclick = function chooseQuality() {
         setTimeout(() => $('#player').click());
 
-        const currentIndex = api.getAvailableQualityLevels().indexOf(api.getPlaybackQuality())
+        const qualityLevels = api.getAvailableQualityLevels();
 
-        dialog.showMessageBox({
-            type: "question",
-            buttons: api.getAvailableQualityLabels(),
-            defaultId: currentIndex,
-            title: "Choose Video Quality",
-            message: "Choose Video Quality:",
-            detail: `Current Quality: ${api.getAvailableQualityLabels()[currentIndex]}`,
-            cancelId: -1
-        }).then((promise) => {
+        const currentIndex = qualityLevels.indexOf(api.getPlaybackQuality());
+
+        ipcRenderer.invoke('qualityChanger', api.getAvailableQualityLabels(), currentIndex).then(promise => {
             if (promise.response === -1) return;
-            const newQuality = api.getAvailableQualityLevels()[promise.response];
+            const newQuality = qualityLevels[promise.response];
             api.setPlaybackQualityRange(newQuality);
             api.setPlaybackQuality(newQuality)
-        })
+        });
     }
 }

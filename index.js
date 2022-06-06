@@ -2,8 +2,6 @@
 const path = require("path");
 
 const electron = require("electron");
-const remote = require('@electron/remote/main');
-remote.initialize();
 const enhanceWebRequest = require("electron-better-web-request").default;
 const is = require("electron-is");
 const unhandled = require("electron-unhandled");
@@ -15,6 +13,7 @@ const { fileExists, injectCSS } = require("./plugins/utils");
 const { isTesting } = require("./utils/testing");
 const { setUpTray } = require("./tray");
 const { setupSongInfo } = require("./providers/song-info");
+const { setupAppControls, restart } = require("./providers/app-controls");
 
 // Catch errors and log them
 unhandled({
@@ -120,7 +119,6 @@ function createMainWindow() {
 			contextIsolation: false,
 			preload: path.join(__dirname, "preload.js"),
 			nodeIntegrationInSubFrames: true,
-			nativeWindowOpen: true, // window.open return Window object(like in regular browsers), not BrowserWindowProxy
 			affinity: "main-window", // main window, and addition windows should work in one process
 			...(isTesting()
 				? {
@@ -138,7 +136,6 @@ function createMainWindow() {
 			: "default",
 		autoHideMenuBar: config.get("options.hideMenu"),
 	});
-	remote.enable(win.webContents);
 
 	if (windowPosition) {
 		const { x, y } = windowPosition;
@@ -272,6 +269,7 @@ app.once("browser-window-created", (event, win) => {
 
 	setupSongInfo(win);
 	loadPlugins(win);
+	setupAppControls();
 
 	win.webContents.on("did-fail-load", (
 		_event,
@@ -459,13 +457,8 @@ function showUnresponsiveDialog(win, details) {
 		cancelId: 0
 	}).then( result => {
 		switch (result.response) {
-			case 1: //if relaunch - relaunch+exit
-				app.relaunch();
-			case 2:
-				app.quit();
-				break;
-			default:
-				break;
+			case 1: restart(); break;
+			case 2: app.quit(); break;
 		}
 	});
 }

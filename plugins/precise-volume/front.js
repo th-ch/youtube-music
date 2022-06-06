@@ -1,22 +1,24 @@
 const { ipcRenderer } = require("electron");
-const { globalShortcut } = require('@electron/remote');
 
 const { setOptions, setMenuOptions, isEnabled } = require("../../config/plugins");
 
 function $(selector) { return document.querySelector(selector); }
-let api;
 
-module.exports = (options) => {
+let api, options;
+
+module.exports = (_options) => {
+	options = _options;
 	document.addEventListener('apiLoaded', e => {
 		api = e.detail;
-		firstRun(options);
+		ipcRenderer.on('changeVolume', (_, toIncrease) => changeVolume(toIncrease));
+		firstRun();
 	}, { once: true, passive: true })
 };
 
 module.exports.moveVolumeHud = moveVolumeHud;
 
 /** Restore saved volume and setup tooltip */
-function firstRun(options) {
+function firstRun() {
 	if (typeof options.savedVolume === "number") {
 		// Set saved volume as tooltip
 		setTooltip(options.savedVolume);
@@ -26,16 +28,14 @@ function firstRun(options) {
 		}
 	}
 
-	setupPlaybar(options);
+	setupPlaybar();
 
-	setupLocalArrowShortcuts(options);
-
-	setupGlobalShortcuts(options);
+	setupLocalArrowShortcuts();
 
 	const noVid = $("#main-panel")?.computedStyleMap().get("display").value === "none";
 	injectVolumeHud(noVid);
 	if (!noVid) {
-		setupVideoPlayerOnwheel(options);
+		setupVideoPlayerOnwheel();
 		if (!isEnabled('video-toggle')) {
 			//video-toggle handles hud positioning on its own
 			const videoMode = () => api.getPlayerResponse().videoDetails?.musicVideoType !== 'MUSIC_VIDEO_TYPE_ATV';
@@ -96,22 +96,22 @@ function showVolumeHud(volume) {
 }
 
 /** Add onwheel event to video player */
-function setupVideoPlayerOnwheel(options) {
+function setupVideoPlayerOnwheel() {
 	$("#main-panel").addEventListener("wheel", event => {
 		event.preventDefault();
 		// Event.deltaY < 0 means wheel-up
-		changeVolume(event.deltaY < 0, options);
+		changeVolume(event.deltaY < 0);
 	});
 }
 
-function saveVolume(volume, options) {
+function saveVolume(volume) {
 	options.savedVolume = volume;
-	writeOptions(options);
+	writeOptions();
 }
 
 //without this function it would rewrite config 20 time when volume change by 20
 let writeTimeout;
-function writeOptions(options) {
+function writeOptions() {
 	if (writeTimeout) clearTimeout(writeTimeout);
 
 	writeTimeout = setTimeout(() => {
@@ -121,13 +121,13 @@ function writeOptions(options) {
 }
 
 /** Add onwheel event to play bar and also track if play bar is hovered*/
-function setupPlaybar(options) {
+function setupPlaybar() {
 	const playerbar = $("ytmusic-player-bar");
 
 	playerbar.addEventListener("wheel", event => {
 		event.preventDefault();
 		// Event.deltaY < 0 means wheel-up
-		changeVolume(event.deltaY < 0, options);
+		changeVolume(event.deltaY < 0);
 	});
 
 	// Keep track of mouse position for showVolumeSlider()
@@ -139,11 +139,11 @@ function setupPlaybar(options) {
 		playerbar.classList.remove("on-hover");
 	});
 
-	setupSliderObserver(options);
+	setupSliderObserver();
 }
 
 /** Save volume + Update the volume tooltip when volume-slider is manually changed */
-function setupSliderObserver(options) {
+function setupSliderObserver() {
 	const sliderObserver = new MutationObserver(mutations => {
 		for (const mutation of mutations) {
 			// This checks that volume-slider was manually set
@@ -151,7 +151,7 @@ function setupSliderObserver(options) {
 				(typeof options.savedVolume !== "number" || Math.abs(options.savedVolume - mutation.target.value) > 4)) {
 				// Diff>4 means it was manually set
 				setTooltip(mutation.target.value);
-				saveVolume(mutation.target.value, options);
+				saveVolume(mutation.target.value);
 			}
 		}
 	});
@@ -164,7 +164,7 @@ function setupSliderObserver(options) {
 }
 
 /** if (toIncrease = false) then volume decrease */
-function changeVolume(toIncrease, options) {
+function changeVolume(toIncrease) {
 	// Apply volume change if valid
 	const steps = Number(options.steps || 1);
 	api.setVolume(toIncrease ?
@@ -172,10 +172,10 @@ function changeVolume(toIncrease, options) {
 		Math.max(api.getVolume() - steps, 0));
 
 	// Save the new volume
-	saveVolume(api.getVolume(), options);
+	saveVolume(api.getVolume());
 
 	// change slider position (important)
-	updateVolumeSlider(options);
+	updateVolumeSlider();
 
 	// Change tooltips to new value
 	setTooltip(options.savedVolume);
@@ -185,7 +185,7 @@ function changeVolume(toIncrease, options) {
 	showVolumeHud(options.savedVolume);
 }
 
-function updateVolumeSlider(options) {
+function updateVolumeSlider() {
 	// Slider value automatically rounds to multiples of 5
 	for (const slider of ["#volume-slider", "#expand-volume-slider"]) {
 		$(slider).value =
@@ -228,26 +228,17 @@ function setTooltip(volume) {
 	}
 }
 
-function setupGlobalShortcuts(options) {
-	if (options.globalShortcuts.volumeUp) {
-		globalShortcut.register((options.globalShortcuts.volumeUp), () => changeVolume(true, options));
-	}
-	if (options.globalShortcuts.volumeDown) {
-		globalShortcut.register((options.globalShortcuts.volumeDown), () => changeVolume(false, options));
-	}
-}
-
-function setupLocalArrowShortcuts(options) {
+function setupLocalArrowShortcuts() {
 	if (options.arrowsShortcut) {
 		window.addEventListener('keydown', (event) => {
 			switch (event.code) {
 				case "ArrowUp":
 					event.preventDefault();
-					changeVolume(true, options);
+					changeVolume(true);
 					break;
 				case "ArrowDown":
 					event.preventDefault();
-					changeVolume(false, options);
+					changeVolume(false);
 					break;
 			}
 		});

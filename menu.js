@@ -3,6 +3,7 @@ const path = require("path");
 
 const { app, Menu, dialog } = require("electron");
 const is = require("electron-is");
+const { restart } = require("./providers/app-controls");
 
 const { getAllPlugins } = require("./plugins/utils");
 const config = require("./config");
@@ -302,10 +303,7 @@ const mainMenuTemplate = (win) => {
 				},
 				{
 					label: "Restart App",
-					click: () => {
-						app.relaunch();
-						app.quit();
-					},
+					click: restart
 				},
 				{ role: "quit" },
 			],

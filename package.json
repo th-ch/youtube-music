@@ -93,7 +93,6 @@
 	},
 	"dependencies": {
 		"@cliqz/adblocker-electron": "^1.23.7",
-		"@electron/remote": "^2.0.8",
 		"@ffmpeg/core": "^0.10.0",
 		"@ffmpeg/ffmpeg": "^0.10.1",
 		"Simple-YouTube-Age-Restriction-Bypass": "https://gitpkg.now.sh/zerodytrash/Simple-YouTube-Age-Restriction-Bypass/dist?v2.4.6",
@@ -108,7 +107,7 @@
 		"electron-is": "^3.0.0",
 		"electron-localshortcut": "^3.2.1",
 		"electron-store": "^8.0.1",
-		"electron-unhandled": "^3.0.2",
+		"electron-unhandled": "^4.0.1",
 		"electron-updater": "^4.6.3",
 		"filenamify": "^4.3.0",
 		"hark": "^1.2.3",
@@ -122,7 +121,7 @@
 	},
 	"devDependencies": {
 		"auto-changelog": "^2.4.0",
-		"electron": "^17.0.0",
+		"electron": "^18.2.3",
 		"electron-builder": "^23.0.3",
 		"electron-devtools-installer": "^3.1.1",
 		"electron-icon-maker": "0.0.5",
