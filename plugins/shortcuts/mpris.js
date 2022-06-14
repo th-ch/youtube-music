@@ -34,6 +34,35 @@ function registerMPRIS(win) {
 		let currentSeconds = 0;
 		ipcMain.on('timeChanged', (_, t) => currentSeconds = t);
 
+		let currentLoopStatus = undefined;
+		let manuallySwitchingStatus = false;
+		ipcMain.on("repeatChanged", (_, mode) => {
+			if (manuallySwitchingStatus)
+				return;
+
+			if (mode == "Repeat off")
+				currentLoopStatus = "None";
+			else if (mode == "Repeat one")
+				currentLoopStatus = "Track";
+			else if (mode == "Repeat all")
+				currentLoopStatus = "Playlist";
+
+			player.loopStatus = currentLoopStatus;
+		});
+		player.on("loopStatus", (status) => {
+			// switchRepeat cycles between states in that order
+			const switches = ["None", "Playlist", "Track"];
+			const curIdx = switches.indexOf(currentLoopStatus);
+			const newIdx = switches.indexOf(status);
+
+			// Get a delta in the range [0,2]
+			const delta = ((newIdx - curIdx) % 3 + 3) % 3;
+
+			manuallySwitchingStatus = true;
+			songControls.switchRepeat(delta);
+			manuallySwitchingStatus = false;
+		})
+
 		player.getPosition = () => secToMicro(currentSeconds)
 
 		player.on("raise", () => {
