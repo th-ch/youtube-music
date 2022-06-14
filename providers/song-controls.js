@@ -21,7 +21,7 @@ module.exports = (win) => {
 		go1sForward: () => pressKey(win, "l", ["shift"]),
 		shuffle: () => pressKey(win, "s"),
 		switchRepeat: (n = 1) => {
-			for (let i = 0; i != n; ++i)
+			for (let i = 0; i < n; i++)
 				pressKey(win, "r");
 		},
 		// General

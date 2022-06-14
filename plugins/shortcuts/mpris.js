@@ -52,11 +52,11 @@ function registerMPRIS(win) {
 		player.on("loopStatus", (status) => {
 			// switchRepeat cycles between states in that order
 			const switches = ["None", "Playlist", "Track"];
-			const curIdx = switches.indexOf(currentLoopStatus);
-			const newIdx = switches.indexOf(status);
+			const currentIndex = switches.indexOf(currentLoopStatus);
+			const targetIndex = switches.indexOf(status);
 
 			// Get a delta in the range [0,2]
-			const delta = ((newIdx - curIdx) % 3 + 3) % 3;
+			const delta = (targetIndex - currentIndex + 3) % 3;
 
 			manuallySwitchingStatus = true;
 			songControls.switchRepeat(delta);
