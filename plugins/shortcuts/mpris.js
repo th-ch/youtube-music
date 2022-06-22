@@ -82,8 +82,11 @@ function registerMPRIS(win) {
 				playPause()
 			}
 		});
+		player.on("playpause", () => {
+			player.playbackStatus = player.playbackStatus == 'Playing' ? "Paused" : "Playing";
+			playPause();
+		});
 
-		player.on("playpause", playPause);
 		player.on("next", next);
 		player.on("previous", previous);
 
