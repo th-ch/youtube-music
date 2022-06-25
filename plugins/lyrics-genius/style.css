@@ -7,6 +7,6 @@
 }
 
 .description {
-	font-size: 1.1vw !important;
+	font-size: clamp(1.4rem, 1.1vmax, 3rem) !important;
 	text-align: center !important;
 }
