@@ -83,7 +83,7 @@ function registerMPRIS(win) {
 			}
 		});
 		player.on("playpause", () => {
-			player.playbackStatus = player.playbackStatus == 'Playing' ? "Paused" : "Playing";
+			player.playbackStatus = player.playbackStatus === 'Playing' ? "Paused" : "Playing";
 			playPause();
 		});
 
