@@ -40,11 +40,11 @@ function registerMPRIS(win) {
 			if (manuallySwitchingStatus)
 				return;
 
-			if (mode == "Repeat off")
+			if (mode === "Repeat off")
 				currentLoopStatus = "None";
-			else if (mode == "Repeat one")
+			else if (mode === "Repeat one")
 				currentLoopStatus = "Track";
-			else if (mode == "Repeat all")
+			else if (mode === "Repeat all")
 				currentLoopStatus = "Playlist";
 
 			player.loopStatus = currentLoopStatus;
