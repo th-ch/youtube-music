@@ -109,6 +109,7 @@
 		"electron-store": "^8.0.1",
 		"electron-unhandled": "^4.0.1",
 		"electron-updater": "^4.6.3",
+		"express": "^4.18.1",
 		"filenamify": "^4.3.0",
 		"hark": "^1.2.3",
 		"html-to-text": "^8.2.0",
