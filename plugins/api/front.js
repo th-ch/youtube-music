@@ -11,8 +11,6 @@ module.exports = (options) => {
 		'get-player-queue',
 
 		async (event, uuid) => {
-			console.warn(uuid); // Prints 'whoooooooh!'
-
 			const songs = $$('.ytmusic-tab-renderer ytmusic-player-queue-item');
 			const queue = songs.filter((x) =>
 				['primary-renderer', 'contents'].includes(x.parentElement.id)
