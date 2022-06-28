@@ -17,9 +17,6 @@ module.exports = (options) => {
 			const queue = songs.filter((x) =>
 				['primary-renderer', 'contents'].includes(x.parentElement.id)
 			);
-			//const data_without_not_rendered = queue.filter(
-			//	(song) => !f$(song, '.thumbnail img').src.startsWith('data')
-			//);
 			const data = queue.map((song) => {
 				title = f$(song, '.song-title').title;
 				thumbnail = f$(song, '.thumbnail img').src;
