@@ -19,7 +19,7 @@ function setupMPRIS() {
 
 function registerMPRIS(win) {
 	const songControls = getSongControls(win);
-	const { playPause, next, previous } = songControls;
+	const { playPause, next, previous, volumeMinus10, volumePlus10 } = songControls;
 	try {
 		const secToMicro = n => Math.round(Number(n) * 1e6);
 		const microToSec = n => Math.round(Number(n) / 1e6);
@@ -92,6 +92,22 @@ function registerMPRIS(win) {
 
 		player.on('seek', seekBy);
 		player.on('position', seekTo);
+
+		ipcMain.on('volumeChanged', (_, value) => {
+			player.volume = value;
+		});
+		player.on('volume', (newVolume) => {
+			// With keyboard shortcuts we can only change the volume in increments of 10, so round it.
+			const deltaVolume = Math.round((newVolume - player.volume) / 10);
+
+			if (deltaVolume > 0) {
+				for (let i = 0; i < deltaVolume; i++)
+					volumePlus10();
+			} else {
+				for (let i = 0; i < -deltaVolume; i++)
+					volumeMinus10();
+			}
+		});
 
 		registerCallback(songInfo => {
 			if (player) {

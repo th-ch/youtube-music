@@ -23,6 +23,7 @@ module.exports = () => {
 			(is.linux() && config.plugins.isEnabled('shortcuts'))) {
 			setupTimeChangeListener();
 			setupRepeatChangeListener();
+			setupVolumeChangeListener();
 		}
 		const video = $('video');
 		// name = "dataloaded" and abit later "dataupdated"
@@ -73,4 +74,14 @@ function setupRepeatChangeListener() {
 
 	// Emit the initial value as well; as it's persistent between launches.
 	ipcRenderer.send('repeatChanged', $('#right-controls .repeat').title);
+}
+
+function setupVolumeChangeListener() {
+	const volumeObserver = new MutationObserver(mutations => {
+		ipcRenderer.send('volumeChanged', mutations[0].target.value);
+	});
+	volumeObserver.observe($('#right-controls .volume-slider'), { attributeFilter: ["value"] });
+
+	// Emit the initial value as well; as it's persistent between launches.
+	ipcRenderer.send('volumeChanged', $('#right-controls .volume-slider').value);
 }
