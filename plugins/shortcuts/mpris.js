@@ -2,6 +2,7 @@ const mpris = require("mpris-service");
 const { ipcMain } = require("electron");
 const registerCallback = require("../../providers/song-info");
 const getSongControls = require("../../providers/song-controls");
+const config = require("../../config");
 
 function setupMPRIS() {
 	const player = mpris({
@@ -97,25 +98,30 @@ function registerMPRIS(win) {
 			player.volume = value;
 		});
 		player.on('volume', (newVolume) => {
-			// With keyboard shortcuts we can only change the volume in increments of 10, so round it.
-			const deltaVolume = Math.round((newVolume - player.volume) / 10);
-
-			if (deltaVolume > 0) {
-				for (let i = 0; i < deltaVolume; i++)
-					volumePlus10();
+			if (config.plugins.isEnabled('precise-volume')) {
+				// With precise volume we can set the volume to the exact value.
+				win.webContents.send('setVolume', newVolume)
 			} else {
-				for (let i = 0; i < -deltaVolume; i++)
-					volumeMinus10();
+				// With keyboard shortcuts we can only change the volume in increments of 10, so round it.
+				const deltaVolume = Math.round((newVolume - player.volume) / 10);
+
+				if (deltaVolume > 0) {
+					for (let i = 0; i < deltaVolume; i++)
+						volumePlus10();
+				} else {
+					for (let i = 0; i < -deltaVolume; i++)
+						volumeMinus10();
+				}
 			}
 		});
 
-		registerCallback(songInfo => {
-			if (player) {
-				const data = {
-					'mpris:length': secToMicro(songInfo.songDuration),
-					'mpris:artUrl': songInfo.imageSrc,
-					'xesam:title': songInfo.title,
-					'xesam:artist': [songInfo.artist],
+	registerCallback(songInfo => {
+		if (player) {
+			const data = {
+				'mpris:length': secToMicro(songInfo.songDuration),
+				'mpris:artUrl': songInfo.imageSrc,
+				'xesam:title': songInfo.title,
+				'xesam:artist': [songInfo.artist],
 					'mpris:trackid': '/'
 				};
 				if (songInfo.album) data['xesam:album'] = songInfo.album;

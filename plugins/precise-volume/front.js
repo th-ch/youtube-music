@@ -11,6 +11,7 @@ module.exports = (_options) => {
 	document.addEventListener('apiLoaded', e => {
 		api = e.detail;
 		ipcRenderer.on('changeVolume', (_, toIncrease) => changeVolume(toIncrease));
+		ipcRenderer.on('setVolume', (_, value) => setVolume(value));
 		firstRun();
 	}, { once: true, passive: true })
 };
@@ -163,26 +164,29 @@ function setupSliderObserver() {
 	});
 }
 
-/** if (toIncrease = false) then volume decrease */
-function changeVolume(toIncrease) {
-	// Apply volume change if valid
-	const steps = Number(options.steps || 1);
-	api.setVolume(toIncrease ?
-		Math.min(api.getVolume() + steps, 100) :
-		Math.max(api.getVolume() - steps, 0));
-
+function setVolume(value) {
+	api.setVolume(value);
 	// Save the new volume
-	saveVolume(api.getVolume());
+	saveVolume(value);
 
 	// change slider position (important)
 	updateVolumeSlider();
 
 	// Change tooltips to new value
-	setTooltip(options.savedVolume);
+	setTooltip(value);
 	// Show volume slider
 	showVolumeSlider();
 	// Show volume HUD
-	showVolumeHud(options.savedVolume);
+	showVolumeHud(value);
+}
+
+/** if (toIncrease = false) then volume decrease */
+function changeVolume(toIncrease) {
+	// Apply volume change if valid
+	const steps = Number(options.steps || 1);
+	setVolume(toIncrease ?
+				Math.min(api.getVolume() + steps, 100) :
+				Math.max(api.getVolume() - steps, 0));
 }
 
 function updateVolumeSlider() {
