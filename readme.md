@@ -33,6 +33,10 @@ You can check out the [latest release](https://github.com/th-ch/youtube-music/re
 
 Install the `youtube-music-bin` package from the AUR. For AUR installation instructions, take a look at this [wiki page](https://wiki.archlinux.org/index.php/Arch_User_Repository#Installing_packages).
 
+### MacOS
+
+If you get an error "is damaged and can’t be opened." when launching the app, run `xattr -cr /Applications/YouTube\ Music.app` in Terminal.
+
 ## Available plugins:
 
 - **Ad Blocker**: Block all ads and tracking out of the box
