@@ -84,6 +84,22 @@ function onClosed() {
 
 function loadPlugins(win) {
 	injectCSS(win.webContents, path.join(__dirname, "youtube-music.css"));
+	// Load user CSS
+	const cssFiles = config.get("options.cssFiles");
+	if (Array.isArray(cssFiles)) {
+		cssFiles.forEach((cssFile) => {
+			fileExists(
+				cssFile,
+				() => {
+					injectCSS(win.webContents, cssFile);
+				},
+				() => {
+					console.warn(`CSS file "${cssFile}" does not exist, ignoring`);
+				}
+			);
+		});
+	}
+
 	win.webContents.once("did-finish-load", () => {
 		if (is.dev()) {
 			console.log("did finish load");

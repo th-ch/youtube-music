@@ -32,9 +32,16 @@ module.exports.listenAction = (channel, callback) => {
 	return ipcMain.on(channel, callback);
 };
 
-module.exports.fileExists = (path, callbackIfExists) => {
+module.exports.fileExists = (
+	path,
+	callbackIfExists,
+	callbackIfError = undefined
+) => {
 	fs.access(path, fs.F_OK, (err) => {
 		if (err) {
+			if (callbackIfError) {
+				callbackIfError();
+			}
 			return;
 		}
 
