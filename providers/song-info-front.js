@@ -22,6 +22,8 @@ module.exports = () => {
 		if (config.plugins.isEnabled('tuna-obs') ||
 			(is.linux() && config.plugins.isEnabled('shortcuts'))) {
 			setupTimeChangeListener();
+			setupRepeatChangeListener();
+			setupVolumeChangeListener(apiEvent.detail);
 		}
 		const video = $('video');
 		// name = "dataloaded" and abit later "dataupdated"
@@ -62,4 +64,22 @@ function setupTimeChangeListener() {
 		global.songInfo.elapsedSeconds = mutations[0].target.value;
 	});
 	progressObserver.observe($('#progress-bar'), { attributeFilter: ["value"] })
+}
+
+function setupRepeatChangeListener() {
+	const repeatObserver = new MutationObserver(mutations => {
+		ipcRenderer.send('repeatChanged', mutations[0].target.title);
+	});
+	repeatObserver.observe($('#right-controls .repeat'), { attributeFilter: ["title"] });
+
+	// Emit the initial value as well; as it's persistent between launches.
+	ipcRenderer.send('repeatChanged', $('#right-controls .repeat').title);
+}
+
+function setupVolumeChangeListener(api) {
+	$('video').addEventListener('volumechange', (_) => {
+		ipcRenderer.send('volumeChanged', api.getVolume());
+	});
+	// Emit the initial value as well; as it's persistent between launches.
+	ipcRenderer.send('volumeChanged', api.getVolume());
 }

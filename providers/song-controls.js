@@ -20,7 +20,10 @@ module.exports = (win) => {
 		go1sBack: () => pressKey(win, "h", ["shift"]),
 		go1sForward: () => pressKey(win, "l", ["shift"]),
 		shuffle: () => pressKey(win, "s"),
-		switchRepeat: () => pressKey(win, "r"),
+		switchRepeat: (n = 1) => {
+			for (let i = 0; i < n; i++)
+				pressKey(win, "r");
+		},
 		// General
 		volumeMinus10: () => pressKey(win, "-"),
 		volumePlus10: () => pressKey(win, "="),
