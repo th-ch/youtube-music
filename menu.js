@@ -100,6 +100,34 @@ const mainMenuTemplate = (win) => {
 								config.set("options.ForceShowLikeButtons", item.checked);
 							},
 						},
+						{
+							label: "Theme",
+							submenu: [
+								{
+									label: "No theme",
+									type: "radio",
+									checked: !config.get("options.themes"), // todo rename "themes"
+									click: () => {
+										config.set("options.themes", []);
+									},
+								},
+								{ type: "separator" },
+								{
+									label: "Import custom CSS file",
+									type: "radio",
+									checked: false,
+									click: async () => {
+										const { filePaths } = await dialog.showOpenDialog({
+											filters: [{ name: "CSS Files", extensions: ["css"] }],
+											properties: ["openFile", "multiSelections"],
+										});
+										if (filePaths) {
+											config.set("options.themes", filePaths);
+										}
+									},
+								},
+							],
+						},
 					],
 				},
 				{

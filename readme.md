@@ -97,6 +97,12 @@ If you get an error "is damaged and can’t be opened." when launching the app, 
 
 > If using `Hide Menu` option - you can show the menu with the `alt` key (or `escape` if using the in-app-menu plugin)
 
+## Themes
+
+You can load CSS files to change the look of the application (Options > Visual Tweaks > Themes).
+
+Some predefined themes are available in https://github.com/OceanicSquirrel/themes-for-ytmdesktop-player.
+
 ## Dev
 
 ```sh
