@@ -85,9 +85,9 @@ function onClosed() {
 function loadPlugins(win) {
 	injectCSS(win.webContents, path.join(__dirname, "youtube-music.css"));
 	// Load user CSS
-	const cssFiles = config.get("options.cssFiles");
-	if (Array.isArray(cssFiles)) {
-		cssFiles.forEach((cssFile) => {
+	const themes = config.get("options.themes");
+	if (Array.isArray(themes)) {
+		themes.forEach((cssFile) => {
 			fileExists(
 				cssFile,
 				() => {
