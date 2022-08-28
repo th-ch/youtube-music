@@ -91,6 +91,8 @@ jobs:
 
       - name: Test
         uses: GabrielBB/xvfb-action@v1
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
         with:
           run: yarn test
 
