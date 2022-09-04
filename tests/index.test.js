@@ -1,16 +1,27 @@
-/**
- * @jest-environment ./tests/environment
- */
+const path = require("path");
 
-describe("YouTube Music App", () => {
-	const app = global.__APP__;
+const { _electron: electron } = require("playwright");
+const { test, expect } = require("@playwright/test");
 
-	test("With default settings, app is launched and visible", async () => {
-		const window = await app.firstWindow();
-		const title = await window.title();
-		expect(title).toEqual("YouTube Music");
+const appPath = path.resolve(__dirname, "..");
 
-		const url = window.url();
-		expect(url.startsWith("https://music.youtube.com")).toBe(true);
+test("YouTube Music App - With default settings, app is launched and visible", async () => {
+	const app = await electron.launch({
+		args: [
+			"--no-sandbox",
+			"--disable-gpu",
+			"--whitelisted-ips=",
+			"--disable-dev-shm-usage",
+			appPath,
+		],
 	});
+
+	const window = await app.firstWindow();
+	const title = await window.title();
+	expect(title).toEqual("YouTube Music");
+
+	const url = window.url();
+	expect(url.startsWith("https://music.youtube.com")).toBe(true);
+
+	await app.close();
 });
