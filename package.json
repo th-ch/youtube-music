@@ -123,7 +123,7 @@
 	"devDependencies": {
 		"@playwright/test": "^1.25.1",
 		"auto-changelog": "^2.4.0",
-		"electron": "^18.3.9",
+		"electron": "^20.1.1",
 		"electron-builder": "^23.0.3",
 		"electron-devtools-installer": "^3.1.1",
 		"electron-icon-maker": "0.0.5",
