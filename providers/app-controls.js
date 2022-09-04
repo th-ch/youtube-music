@@ -1,3 +1,5 @@
+const path = require("path");
+
 const is = require("electron-is");
 
 const { app, BrowserWindow, ipcMain, ipcRenderer } = require("electron");
@@ -11,6 +13,7 @@ module.exports.setupAppControls = () => {
     ipcMain.on('restart', restart);
     ipcMain.handle('getDownloadsFolder', () => app.getPath("downloads"));
     ipcMain.on('reload', () => BrowserWindow.getFocusedWindow().webContents.loadURL(config.get("url")));
+	ipcMain.handle('getPath', (_, ...args) => path.join(...args));
 }
 
 function restart() {

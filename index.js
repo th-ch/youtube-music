@@ -136,12 +136,12 @@ function createMainWindow() {
 			preload: path.join(__dirname, "preload.js"),
 			nodeIntegrationInSubFrames: true,
 			affinity: "main-window", // main window, and addition windows should work in one process
-			...(isTesting()
+			...(!isTesting()
 				? {
-					// Only necessary when testing with Spectron
-					contextIsolation: false,
-					nodeIntegration: true,
-				}
+						// Sandbox is only enabled in tests for now
+						// See https://www.electronjs.org/docs/latest/tutorial/sandbox#preload-scripts
+						sandbox: false,
+				  }
 				: undefined),
 		},
 		frame: !is.macOS() && !useInlineMenu,
