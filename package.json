@@ -127,7 +127,6 @@
 		"electron-builder": "^23.0.3",
 		"electron-devtools-installer": "^3.1.1",
 		"electron-icon-maker": "0.0.5",
-		"jest": "^27.3.1",
 		"playwright": "^1.25.1",
 		"rimraf": "^3.0.2",
 		"xo": "^0.45.0"
