@@ -12,7 +12,15 @@ class TestEnvironment extends NodeEnvironment {
 		await super.setup();
 
 		const appPath = path.resolve(__dirname, "..");
-		this.global.__APP__ = await electron.launch({ args: [appPath] });
+		this.global.__APP__ = await electron.launch({
+			args: [
+				"--no-sandbox",
+				"--disable-gpu",
+				"--whitelisted-ips=",
+				"--disable-dev-shm-usage",
+				appPath,
+			],
+		});
 	}
 
 	async teardown() {
