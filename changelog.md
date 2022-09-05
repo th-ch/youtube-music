@@ -2,7 +2,31 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v1.18.0](https://github.com/th-ch/youtube-music/compare/v1.17.0...v1.18.0)
+
+- Bump ytdl-core (bug fix) [`#816`](https://github.com/th-ch/youtube-music/pull/816)
+- Bump electron and fix tests in CI [`#813`](https://github.com/th-ch/youtube-music/pull/813)
+- Allow user to pass custom CSS file [`#800`](https://github.com/th-ch/youtube-music/pull/800)
+- [Snyk] Upgrade html-to-text from 8.2.0 to 8.2.1 [`#799`](https://github.com/th-ch/youtube-music/pull/799)
+- [Snyk] Upgrade electron-store from 8.0.1 to 8.0.2 [`#772`](https://github.com/th-ch/youtube-music/pull/772)
+- Bump jpeg-js from 0.4.3 to 0.4.4 [`#756`](https://github.com/th-ch/youtube-music/pull/756)
+- Support MPRIS loop and volume change [`#749`](https://github.com/th-ch/youtube-music/pull/749)
+- [Snyk] Upgrade @cliqz/adblocker-electron from 1.23.7 to 1.23.8 [`#742`](https://github.com/th-ch/youtube-music/pull/742)
+- Use ; instead of space for play/pause. [`#745`](https://github.com/th-ch/youtube-music/pull/745)
+- Update readme.md [`#750`](https://github.com/th-ch/youtube-music/pull/750)
+- fix lyrics font size [`#753`](https://github.com/th-ch/youtube-music/pull/753)
+- fix top gap between nav-bar and browse-page [`#734`](https://github.com/th-ch/youtube-music/pull/734)
+- migrate from remote to ipc + fix restart in portable app [`#605`](https://github.com/th-ch/youtube-music/pull/605)
+- [Snyk] Upgrade custom-electron-prompt from 1.4.2 to 1.5.0 [`#717`](https://github.com/th-ch/youtube-music/pull/717)
+- Picture in Picture v2 [`#685`](https://github.com/th-ch/youtube-music/pull/685)
+- Add MPRIS volume control [`#776`](https://github.com/th-ch/youtube-music/issues/776)
+- Remove jest [`bb6115f`](https://github.com/th-ch/youtube-music/commit/bb6115fec1a18a416edb365a442eb0b0ee330768)
+- migrate from remote to ipc [`5bd9768`](https://github.com/th-ch/youtube-music/commit/5bd97685b9e07c656e0b57a9e02819afc70af1b1)
+- v3 [`d23bfe9`](https://github.com/th-ch/youtube-music/commit/d23bfe936840b947ca101fd304464f65d36e88cc)
+
 #### [v1.17.0](https://github.com/th-ch/youtube-music/compare/v1.16.0...v1.17.0)
+
+> 16 May 2022
 
 - Bump ejs from 3.1.6 to 3.1.7 [`#712`](https://github.com/th-ch/youtube-music/pull/712)
 - fix injectCSS `did-finish-load` listener overload [`#693`](https://github.com/th-ch/youtube-music/pull/693)
