@@ -59,7 +59,7 @@ const touchBar = new TouchBar({
 });
 
 module.exports = (win) => {
-	const { playPause, next, previous, like, dislike } = getSongControls(win);
+	const { playPause, next, previous, dislike, like } = getSongControls(win);
 
 	// If the page is ready, register the callback
 	win.once("ready-to-show", () => {
