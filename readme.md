@@ -37,6 +37,15 @@ Install the `youtube-music-bin` package from the AUR. For AUR installation instr
 
 If you get an error "is damaged and can’t be opened." when launching the app, run `xattr -cr /Applications/YouTube\ Music.app` in Terminal.
 
+### Windows
+
+You can use the [Scoop package manager](https://scoop.sh) to install the `youtube-music` package from the [`extras` bucket](https://github.com/ScoopInstaller/Extras).
+
+```
+scoop bucket add extras
+scoop install extras/youtube-music
+```
+
 ## Available plugins:
 
 - **Ad Blocker**: Block all ads and tracking out of the box
