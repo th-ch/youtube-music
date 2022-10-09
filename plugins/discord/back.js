@@ -70,7 +70,7 @@ let clearActivity;
  */
 let updateActivity;
 
-module.exports = (win, { activityTimoutEnabled, activityTimoutTime, listenAlong }) => {
+module.exports = (win, { activityTimoutEnabled, activityTimoutTime, listenAlong, hideDurationLeft }) => {
 	window = win;
 	// We get multiple events
 	// Next song: PAUSE(n), PAUSE(n+1), PLAY(n+1)
@@ -117,7 +117,7 @@ module.exports = (win, { activityTimoutEnabled, activityTimoutTime, listenAlong 
 			// Set start the timer so the activity gets cleared after a while if enabled
 			if (activityTimoutEnabled)
 				clearActivity = setTimeout(() => info.rpc.clearActivity().catch(console.error), activityTimoutTime ?? 10000);
-		} else {
+		} else if (!hideDurationLeft) {
 			// Add the start and end time of the song
 			const songStartTime = Date.now() - songInfo.elapsedSeconds * 1000;
 			activityInfo.startTimestamp = songStartTime;

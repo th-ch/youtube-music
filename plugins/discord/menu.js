@@ -41,6 +41,15 @@ module.exports = (win, options, refreshMenu) => {
 			},
 		},
 		{
+			label: "Hide duration left",
+			type: "checkbox",
+			checked: options.hideDurationLeft,
+			click: (item) => {
+				options.hideDurationLeft = item.checked;
+				setMenuOptions('discord', options);
+			}
+		},
+		{
 			label: "Set inactivity timeout",
 			click: () => setInactivityTimeout(win, options),
 		},

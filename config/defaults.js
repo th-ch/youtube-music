@@ -49,6 +49,7 @@ const defaultConfig = {
 			activityTimoutEnabled: true, // if enabled, the discord rich presence gets cleared when music paused after the time specified below
 			activityTimoutTime: 10 * 60 * 1000, // 10 minutes
 			listenAlong: true, // add a "listen along" button to rich presence
+			hideDurationLeft: false, // hides the start and end time of the song to rich presence
 		},
 		notifications: {
 			enabled: false,
