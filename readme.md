@@ -110,7 +110,7 @@ scoop install extras/youtube-music
 
 You can load CSS files to change the look of the application (Options > Visual Tweaks > Themes).
 
-Some predefined themes are available in https://github.com/OceanicSquirrel/themes-for-ytmdesktop-player.
+Some predefined themes are available in https://github.com/kerichdev/themes-for-ytmdesktop-player.
 
 ## Dev
 
