@@ -6,6 +6,12 @@ const { ipcRenderer } = require("electron");
 const is = require("electron-is");
 const filenamify = require("filenamify");
 
+// Workaround for "Automatic publicPath is not supported in this browser"
+// See https://github.com/cypress-io/cypress/issues/18435#issuecomment-1048863509
+const script = document.createElement("script");
+document.body.appendChild(script);
+script.src = " "; // single space and not the empty string
+
 // Browser version of FFmpeg (in renderer process) instead of loading @ffmpeg/ffmpeg
 // because --js-flags cannot be passed in the main process when the app is packaged
 // See https://github.com/electron/electron/issues/22705
