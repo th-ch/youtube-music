@@ -46,6 +46,12 @@ scoop bucket add extras
 scoop install extras/youtube-music
 ```
 
+Alternately you can use [Winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/), Windows 11s official CLI package manager to install the `th-ch.YouTubeMusic` package.
+
+```
+winget install th-ch.YouTubeMusic
+```
+
 ## Available plugins:
 
 - **Ad Blocker**: Block all ads and tracking out of the box
