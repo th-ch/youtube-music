@@ -95,7 +95,7 @@
 	"dependencies": {
 		"@cliqz/adblocker-electron": "^1.23.9",
 		"@ffmpeg/core": "^0.11.0",
-		"@ffmpeg/ffmpeg": "^0.11.0",
+		"@ffmpeg/ffmpeg": "^0.11.6",
 		"Simple-YouTube-Age-Restriction-Bypass": "https://gitpkg.now.sh/zerodytrash/Simple-YouTube-Age-Restriction-Bypass/dist?v2.4.6",
 		"async-mutex": "^0.3.2",
 		"browser-id3-writer": "^4.4.0",
