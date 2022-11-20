@@ -19,8 +19,16 @@ module.exports = () => {
 			isSilent = false;
 		});
 
-		speechEvents.on("stopped_speaking", function () {			
-			if (!(video.paused || video.seeking || video.ended)) {
+		speechEvents.on("stopped_speaking", function () {
+			if (
+				!(
+					video.paused ||
+					video.seeking ||
+					video.ended ||
+					video.muted ||
+					video.volume === 0
+				)
+			) {
 				isSilent = true;
 				skipSilence();
 			}
