@@ -1011,9 +1011,9 @@
     "@typescript-eslint/types" "4.33.0"
     eslint-visitor-keys "^2.0.0"
 
-"Simple-YouTube-Age-Restriction-Bypass@https://gitpkg.now.sh/zerodytrash/Simple-YouTube-Age-Restriction-Bypass/dist?v2.4.6":
+"Simple-YouTube-Age-Restriction-Bypass@https://gitpkg.now.sh/zerodytrash/Simple-YouTube-Age-Restriction-Bypass/dist?v2.5.4":
   version "0.0.0"
-  resolved "https://gitpkg.now.sh/zerodytrash/Simple-YouTube-Age-Restriction-Bypass/dist?v2.4.6#ac26ebb688667ce4ec6566ffbd3a75dbe2ac9a55"
+  resolved "https://gitpkg.now.sh/zerodytrash/Simple-YouTube-Age-Restriction-Bypass/dist?v2.5.4#4cdc95d7614baa3fdfe334ebf6b8a99b0d8347f0"
 
 abstract-socket@^2.0.0:
   version "2.1.1"
