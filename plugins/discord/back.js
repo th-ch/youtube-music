@@ -5,7 +5,7 @@ const { dialog, app } = require("electron");
 const registerCallback = require("../../providers/song-info");
 
 // Application ID registered by @xn-oah
-const clientId = "942539762227630162";
+const clientId = "1042206454515519548";
 
 /**
  * @typedef {Object} Info
