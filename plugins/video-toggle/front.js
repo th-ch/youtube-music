@@ -38,7 +38,7 @@ function setup(e) {
     player = $('ytmusic-player');
     video = $('video');
 
-    $('ytmusic-player-page').prepend(switchButtonDiv);
+    $('#main-panel').append(switchButtonDiv);
 
     if (options.hideVideo) {
         $('.video-switch-button-checkbox').checked = false;
