@@ -33,7 +33,6 @@ jobs:
       - name: Build project # This would actually build your project, using zip for an example artifact
         run: |
           yarn
-          npm i rimraf
           yarn build:win
       - name: Create Release
         id: create_release
