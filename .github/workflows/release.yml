@@ -1,5 +1,10 @@
 on:
-  push:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag'     
+        required: true
+        default: 'v1.18.0'
 
 name: Create Release
 
@@ -13,15 +18,15 @@ jobs:
       - name: Build project # This would actually build your project, using zip for an example artifact
         run: |
           yarn
-          yarn build:win
+          yarn build:actions
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v1.18.0
-          release_name: Release v1.18.0
+          tag_name: ${{ github.event.inputs.tag }}
+          release_name: Release ${{ github.event.inputs.tag }}
           draft: false
           prerelease: false
       - name: Upload Release Asset
