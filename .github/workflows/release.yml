@@ -5,9 +5,6 @@ on:
         description: 'Tag'     
         required: true
         default: '1.18.0'
-      upload:
-        type: boolean
-        description: Include  emojis
 
 name: Create Release
 
