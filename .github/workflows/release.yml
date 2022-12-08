@@ -54,7 +54,7 @@ jobs:
       - name: Build project
         run: |
           yarn
-          yarn buid:linuxactions
+          yarn build:linuxactions
       - name: Upload Snap Asset
         id: upload-snap-asset 
         uses: actions/upload-release-asset@v1
