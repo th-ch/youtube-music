@@ -74,7 +74,7 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: dist-linux-youtube-music
-          path: ./dist/YouTube Music Setup ${{ github.event.inputs.tag }}.exe
+          path: ./dist/
   release_linux:
     name: Create Linux Release
     runs-on: ubuntu-latest
