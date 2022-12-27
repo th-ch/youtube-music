@@ -91,6 +91,9 @@ const defaultConfig = {
 			"saveSize": false,
 			"hotkey": "P"
 		},
+		"skip-silences": {
+			onlySkipBeginning: false,
+		},
 	},
 };
 
