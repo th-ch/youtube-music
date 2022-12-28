@@ -186,8 +186,7 @@ module.exports = () => {
 ## Build
 1. Clone the repo
 2. Run ```yarn```
-3. Run ```npm i rimraf```
-4. Run ```yarn build:OS```
+3. Run ```yarn build:OS```
 	- ```yarn build:win``` - Windows
 	- ```yarn build:linux``` - Linux
 	- ```yarn build:mac``` - OS X
