@@ -31,6 +31,21 @@ module.exports = (_options) => {
             document.addEventListener("apiLoaded", setup, { once: true, passive: true });
         }
     }
+    const mainpanel = document.querySelector("#main-panel");
+    switch (_options.align) {
+        case "right": {
+            mainpanel.style.setProperty("--align", "calc(100% - 240px)");
+            return;
+        }
+        case "middle": {
+            mainpanel.style.setProperty("--align", "calc(50% - 120px)");
+            return;
+        }
+        default:
+        case "left": {
+            mainpanel.style.setProperty("--align", "0px");
+        }
+    }
 };
 
 function setup(e) {

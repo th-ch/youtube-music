@@ -34,6 +34,38 @@ module.exports = (win, options) => [
         ]
     },
     {
+        label: "Alignment",
+        submenu: [
+            {
+                label: "Left",
+                type: "radio",
+                checked: options.align === 'left',
+                click: () => {
+                    options.align = 'left';
+                    setMenuOptions("video-toggle", options);
+                }
+            },
+            {
+                label: "Middle",
+                type: "radio",
+                checked: options.align === 'middle',
+                click: () => {
+                    options.align = 'middle';
+                    setMenuOptions("video-toggle", options);
+                }
+            },
+            {
+                label: "Right",
+                type: "radio",
+                checked: options.align === 'right',
+                click: () => {
+                    options.align = 'right';
+                    setMenuOptions("video-toggle", options);
+                }
+            },
+        ]
+    },
+    {
         label: "Force Remove Video Tab",
         type: "checkbox",
         checked: options.forceHide,
