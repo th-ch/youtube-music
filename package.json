@@ -74,7 +74,7 @@
 		"icon": "rimraf assets/generated && electron-icon-maker --input=assets/youtube-music.png --output=assets/generated",
 		"generate:package": "node utils/generate-package-json.js",
 		"postinstall": "yarn run icon && yarn run plugins",
-		"clean": "rimraf dist",
+		"clean": "del dist",
 		"build": "yarn run clean && electron-builder --win --mac --linux",
 		"build:linux": "yarn run clean && electron-builder --linux",
 		"build:mac": "yarn run clean && electron-builder --mac dmg:x64",
@@ -103,7 +103,7 @@
 		"browser-id3-writer": "^4.4.0",
 		"chokidar": "^3.5.3",
 		"custom-electron-prompt": "^1.5.0",
-		"custom-electron-titlebar": "^4.1.1",
+		"custom-electron-titlebar": "^4.1.2",
 		"discord-rpc": "^4.0.1",
 		"electron-better-web-request": "^1.0.1",
 		"electron-debug": "^3.2.0",
@@ -125,12 +125,12 @@
 	"devDependencies": {
 		"@playwright/test": "^1.25.1",
 		"auto-changelog": "^2.4.0",
+		"del-cli": "^5.0.0",
 		"electron": "^20.1.1",
 		"electron-builder": "^23.0.3",
 		"electron-devtools-installer": "^3.1.1",
 		"electron-icon-maker": "0.0.5",
 		"playwright": "^1.25.1",
-		"rimraf": "^3.0.2",
 		"xo": "^0.45.0"
 	},
 	"resolutions": {
