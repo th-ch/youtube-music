@@ -185,9 +185,12 @@ module.exports = () => {
 
 ## Build
 
-```sh
-yarn build
-```
+1. Clone the repo
+2. Run `yarn` to install dependencies
+3. Run `yarn build:OS`
+   - `yarn build:win` - Windows
+   - `yarn build:linux` - Linux
+   - `yarn build:mac` - MacOS
 
 Builds the app for macOS, Linux, and Windows, using [electron-builder](https://github.com/electron-userland/electron-builder).
 
