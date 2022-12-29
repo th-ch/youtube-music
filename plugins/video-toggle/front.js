@@ -31,6 +31,21 @@ module.exports = (_options) => {
             document.addEventListener("apiLoaded", setup, { once: true, passive: true });
         }
     }
+    const mainpanel = document.querySelector("#main-panel");
+    switch (_options.align) {
+        case "right": {
+            mainpanel.style.setProperty("--align", "calc(100% - 240px)");
+            return;
+        }
+        case "middle": {
+            mainpanel.style.setProperty("--align", "calc(50% - 120px)");
+            return;
+        }
+        default:
+        case "left": {
+            mainpanel.style.setProperty("--align", "0px");
+        }
+    }
 };
 
 function setup(e) {
@@ -38,7 +53,7 @@ function setup(e) {
     player = $('ytmusic-player');
     video = $('video');
 
-    $('ytmusic-player-page').prepend(switchButtonDiv);
+    $('#main-panel').append(switchButtonDiv);
 
     if (options.hideVideo) {
         $('.video-switch-button-checkbox').checked = false;
