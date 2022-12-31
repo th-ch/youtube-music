@@ -2,7 +2,36 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v1.19.0](https://github.com/th-ch/youtube-music/compare/v1.18.0...v1.19.0)
+
+- Automatic release by CI when version is updated [`#936`](https://github.com/th-ch/youtube-music/pull/936)
+- Center toggle of video-toggle [`#894`](https://github.com/th-ch/youtube-music/pull/894)
+- Load plugins as soon as the window is created [`#890`](https://github.com/th-ch/youtube-music/pull/890)
+- Bump qs from 6.5.2 to 6.5.3 [`#913`](https://github.com/th-ch/youtube-music/pull/913)
+- [Snyk] Upgrade custom-electron-titlebar from 4.1.1 to 4.1.2 [`#900`](https://github.com/th-ch/youtube-music/pull/900)
+- Add option in skip-silences plugin to only skip at the beginning [`#931`](https://github.com/th-ch/youtube-music/pull/931)
+- Replace rimraf by del-cli [`#932`](https://github.com/th-ch/youtube-music/pull/932)
+- docs: Added winget install instructions [`#873`](https://github.com/th-ch/youtube-music/pull/873)
+- [Snyk] Upgrade async-mutex from 0.3.2 to 0.4.0 [`#855`](https://github.com/th-ch/youtube-music/pull/855)
+- [Snyk] Upgrade @cliqz/adblocker-electron from 1.25.0 to 1.25.1 [`#856`](https://github.com/th-ch/youtube-music/pull/856)
+- [Snyk] Upgrade custom-electron-titlebar from 4.1.0 to 4.1.1 [`#865`](https://github.com/th-ch/youtube-music/pull/865)
+- [Snyk] Upgrade @ffmpeg/ffmpeg from 0.11.5 to 0.11.6 [`#876`](https://github.com/th-ch/youtube-music/pull/876)
+- Discord Plugin RPC Fix [`#888`](https://github.com/th-ch/youtube-music/pull/888)
+- Bump FFMpeg [`#854`](https://github.com/th-ch/youtube-music/pull/854)
+- [Snyk] Upgrade @cliqz/adblocker-electron from 1.23.8 to 1.23.9 [`#823`](https://github.com/th-ch/youtube-music/pull/823)
+- [Snyk] Upgrade electron-store from 8.0.2 to 8.1.0 [`#801`](https://github.com/th-ch/youtube-music/pull/801)
+- proposal: Adding an option to hide duration before the song ends [`#802`](https://github.com/th-ch/youtube-music/pull/802)
+- [Snyk] Security upgrade node-fetch from 2.6.7 to 3.2.10 [`#790`](https://github.com/th-ch/youtube-music/pull/790)
+- Update README.md with a new theme repo [`#807`](https://github.com/th-ch/youtube-music/pull/807)
+- Fix likes on touchbar (they were inverted) [`#822`](https://github.com/th-ch/youtube-music/pull/822)
+- Add Scoop install directions for Windows 🪟 [`#839`](https://github.com/th-ch/youtube-music/pull/839)
+- Bump version and change release type when publishing a new version [`31ab27c`](https://github.com/th-ch/youtube-music/commit/31ab27c39ff6319116a6514d952eed1f02dd45fd)
+- Lock node-fetch to v2 for commonJS [`c9f610f`](https://github.com/th-ch/youtube-music/commit/c9f610f7fcfcce1317338364045ab0e1bf4249a4)
+- fix: upgrade @cliqz/adblocker-electron from 1.25.0 to 1.25.1 [`762ef4e`](https://github.com/th-ch/youtube-music/commit/762ef4eede29b53aae912b3b50a1ca53f6765c53)
+
 #### [v1.18.0](https://github.com/th-ch/youtube-music/compare/v1.17.0...v1.18.0)
+
+> 5 September 2022
 
 - Bump ytdl-core (bug fix) [`#816`](https://github.com/th-ch/youtube-music/pull/816)
 - Bump electron and fix tests in CI [`#813`](https://github.com/th-ch/youtube-music/pull/813)
