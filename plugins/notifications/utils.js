@@ -4,7 +4,8 @@ const { app } = require("electron");
 const fs = require("fs");
 
 const icon = "assets/youtube-music.png";
-const tempIcon = path.join(app.getPath("userData"), "tempIcon.png");
+const userData = app.getPath("userData");
+const tempIcon = path.join(userData, "tempIcon.png");
 
 module.exports.icons = {
 	play: "\u{1405}", // ᐅ
@@ -24,7 +25,7 @@ module.exports.urgencyLevels = [
 	{ name: "High", value: "critical" },
 ];
 
-module.exports.notificationImage = function (songInfo, saveIcon = false) {
+module.exports.notificationImage = (songInfo, saveIcon = false) => {
 	//return local path to temp icon
 	if (saveIcon && !!songInfo.image) {
 		try {
@@ -42,6 +43,16 @@ module.exports.notificationImage = function (songInfo, saveIcon = false) {
 	return songInfo.image
 		? centerNativeImage(songInfo.image)
 		: icon
+};
+
+module.exports.save_temp_icons = () => {
+    for (const kind of Object.keys(module.exports.icons)) {
+		const destinationPath = path.join(userData, 'icons', `${kind}.png`);
+		if (fs.existsSync(destinationPath)) continue;
+        const iconPath = path.resolve(__dirname, "../../assets/media-icons-black", `${kind}.png`);
+		fs.mkdirSync(path.dirname(destinationPath), { recursive: true });
+		fs.copyFile(iconPath, destinationPath, ()=>{});
+    }
 };
 
 function centerNativeImage(nativeImage) {
