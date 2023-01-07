@@ -68,6 +68,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	// Blocks the "Are You Still There?" popup by setting the last active time to Date.now every 15min
 	setInterval(() => window._lact = Date.now(), 900000);
+
+	// setup back to front logger
+	ipcRenderer.on("log", (_event, log) => {
+		console.log(JSON.parse(log));
+	});
 });
 
 function listenForApiLoad() {
