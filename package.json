@@ -116,7 +116,6 @@
 		"md5": "^2.3.0",
 		"mpris-service": "^2.1.2",
 		"node-fetch": "^2.6.7",
-		"node-notifier": "^10.0.1",
 		"ytdl-core": "^4.11.1",
 		"ytpl": "^2.3.0"
 	},

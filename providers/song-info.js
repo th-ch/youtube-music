@@ -95,7 +95,7 @@ const registerProvider = (win) => {
 		await handleData(responseText, win);
 		handlingData = false;
 		callbacks.forEach((c) => {
-			c(songInfo);
+			c(songInfo, "video-src-changed");
 		});
 	});
 	ipcMain.on("playPaused", (_, { isPaused, elapsedSeconds }) => {
@@ -103,7 +103,7 @@ const registerProvider = (win) => {
 		songInfo.elapsedSeconds = elapsedSeconds;
 		if (handlingData) return;
 		callbacks.forEach((c) => {
-			c(songInfo);
+			c(songInfo, "playPaused");
 		});
 	})
 };

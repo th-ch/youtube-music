@@ -1,4 +1,3 @@
-require("./providers/front-logger")();
 const config = require("./config");
 const { fileExists } = require("./plugins/utils");
 const setupSongInfo = require("./providers/song-info-front");

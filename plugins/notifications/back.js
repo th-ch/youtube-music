@@ -39,6 +39,6 @@ const setup = (options) => {
 module.exports = (win, options) => {
 	// Register the callback for new song information
 	is.windows() && options.interactive ?
-		require("./interactive")(win, options.unpauseNotification) :
+		require("./interactive")(win, options) :
 		setup(options);
 };

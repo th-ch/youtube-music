@@ -1,106 +1,91 @@
 const { notificationImage, icons } = require("./utils");
 const getSongControls = require('../../providers/song-controls');
 const registerCallback = require("../../providers/song-info");
-const is = require("electron-is");
-const WindowsToaster = require('node-notifier').WindowsToaster;
+const { changeProtocolHandler } = require("../../providers/protocol-handler");
 
-const notifier = new WindowsToaster({ withFallback: true });
+const { Notification } = require("electron");
+const path = require('path');
 
-//store song controls reference on launch
-let controls;
-let notificationOnUnpause;
+let songControls;
+let config;
+let savedNotification;
 
-module.exports = (win, unpauseNotification) => {
-    //Save controls and onPause option
-    const { playPause, next, previous } = getSongControls(win);
-    controls = { playPause, next, previous };
-    notificationOnUnpause = unpauseNotification;
+module.exports = (win, _config) => {
+    songControls = getSongControls(win);
+    config = _config;
 
-    let currentUrl;
+    let lastSongInfo = { url: undefined };
 
     // Register songInfoCallback
-    registerCallback(songInfo => {
-        if (!songInfo.isPaused && (songInfo.url !== currentUrl || notificationOnUnpause)) {
-            currentUrl = songInfo.url;
-            sendToaster(songInfo);
+    registerCallback((songInfo, cause) => {
+        if (!songInfo.isPaused && (songInfo.url !== lastSongInfo.url || config.unpauseNotification)) {
+            lastSongInfo = { ...songInfo };
+            sendXML(songInfo);
         }
     });
 
     win.webContents.once("closed", () => {
-        deleteNotification()
+        savedNotification = undefined;
     });
-}
 
-//delete old notification
-let toDelete;
-function deleteNotification() {
-    if (toDelete !== undefined) {
-        // To remove the notification it has to be done this way
-        const removeNotif = Object.assign(toDelete, {
-            remove: toDelete.id
-        })
-        notifier.notify(removeNotif)
-
-        toDelete = undefined;
-    }
-}
-
-//New notification
-function sendToaster(songInfo) {
-    deleteNotification();
-    //download image and get path
-    let imgSrc = notificationImage(songInfo, true);
-    toDelete = {
-        appID: "com.github.th-ch.youtube-music",
-        title: songInfo.title || "Playing",
-        message: songInfo.artist,
-        id: parseInt(Math.random() * 1000000, 10),
-        icon: imgSrc,
-        actions: [
-            icons.previous,
-            songInfo.isPaused ? icons.play : icons.pause,
-            icons.next
-        ],
-        sound: false,
-    };
-    //send notification
-    notifier.notify(
-        toDelete,
-        (err, data) => {
-            // Will also wait until notification is closed.
-            if (err) {
-                console.log(`ERROR = ${err.toString()}\n DATA = ${data}`);
-            }
-            switch (data) {
-                //buttons
-                case icons.previous.normalize():
-                    controls.previous();
-                    return;
-                case icons.next.normalize():
-                    controls.next();
-                    return;
-                case icons.play.normalize():
-                    controls.playPause();
-                    // dont delete notification on play/pause
-                    toDelete = undefined;
-                    //manually send notification if not sending automatically
-                    if (!notificationOnUnpause) {
-                        songInfo.isPaused = false;
-                        sendToaster(songInfo);
-                    }
-                    return;
-                case icons.pause.normalize():
-                    controls.playPause();
-                    songInfo.isPaused = true;
-                    toDelete = undefined;
-                    sendToaster(songInfo);
-                    return;
-                //Native datatype
-                case "dismissed":
-                case "timeout":
-                    deleteNotification();
+    changeProtocolHandler(
+        (cmd) => {
+            if (Object.keys(songControls).includes(cmd)) {
+                songControls[cmd]();
+                if (cmd === 'pause' || (cmd === 'play' && !config.unpauseNotification)) {
+                    setImmediate(() => 
+                        sendXML({ ...lastSongInfo, isPaused: cmd === 'pause' })
+                    );
+                }
             }
         }
-
-    );
+    )
 }
+
+
+function sendXML(songInfo) {
+    const imgSrc = notificationImage(songInfo, true);
+
+    savedNotification?.close();
+
+    savedNotification = new Notification({
+			title: songInfo.title || "Playing",
+			body: songInfo.artist,
+			icon: imgSrc,
+			silent: true,
+            // https://learn.microsoft.com/en-us/uwp/schemas/tiles/toastschema/schema-root
+            // https://learn.microsoft.com/en-us/windows/apps/design/shell/tiles-and-notifications/adaptive-interactive-toasts?tabs=xml
+            // https://learn.microsoft.com/en-us/uwp/api/windows.ui.notifications.toasttemplatetype
+			toastXml: `
+                <toast useButtonStyles="true">
+                    <audio silent="true" />
+                    <visual>
+                        <binding template="ToastImageAndText02">
+                            <image id="1" src="${imgSrc}" name="Image" />
+                            <text id="1">${songInfo.title}</text>
+                            <text id="2">${songInfo.artist}}</text>
+                        </binding>
+                    </visual>
+
+                    <actions>
+                        ${getButton('previous')}
+                        ${songInfo.isPaused ? getButton('play') : getButton('pause')}
+                        ${getButton('next')}
+                    </actions>
+                </toast>`,
+		});
+
+    savedNotification.on("close", (_) => {
+        savedNotification = undefined;
+    });
+
+    savedNotification.show();
+}
+
+const getButton = (kind) => 
+    `<action ${display(kind)} activationType="protocol" arguments="youtubemusic://${kind}"/>`;
+
+const display = (kind) => 
+    config.smallInteractive ?
+        `content="${icons[kind]}"` :
+        `content="" imageUri="file:///${path.resolve(__dirname, "../../assets/media-icons-black", `${kind}.png`)}"`;
