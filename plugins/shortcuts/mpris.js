@@ -18,6 +18,7 @@ function setupMPRIS() {
 	return player;
 }
 
+/** @param {Electron.BrowserWindow} win */
 function registerMPRIS(win) {
 	const songControls = getSongControls(win);
 	const { playPause, next, previous, volumeMinus10, volumePlus10 } = songControls;
@@ -29,6 +30,13 @@ function registerMPRIS(win) {
 		const seekBy = o => win.webContents.send("seekBy", microToSec(o));
 
 		const player = setupMPRIS();
+
+		ipcMain.on("apiLoaded", () => {
+			win.webContents.send("setupSeekedListener", "mpris");
+			win.webContents.send("setupTimeChangedListener", "mpris");
+			win.webContents.send("setupRepeatChangedListener", "mpris");
+			win.webContents.send("setupVolumeChangedListener", "mpris");
+		});
 
 		ipcMain.on('seeked', (_, t) => player.seeked(secToMicro(t)));
 

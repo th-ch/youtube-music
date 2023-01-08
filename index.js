@@ -75,6 +75,7 @@ function onClosed() {
 	mainWindow = null;
 }
 
+/** @param {Electron.BrowserWindow} win */
 function loadPlugins(win) {
 	injectCSS(win.webContents, path.join(__dirname, "youtube-music.css"));
 	// Load user CSS

@@ -95,6 +95,8 @@ function listenForApiLoad() {
 
 function onApiLoaded() {
 	document.dispatchEvent(new CustomEvent('apiLoaded', { detail: api }));
+	//setImmediate()
+	ipcRenderer.send('apiLoaded');
 
 	// Remove upgrade button
 	if (config.get("options.removeUpgradeButton")) {

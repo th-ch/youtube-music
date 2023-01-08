@@ -55,8 +55,10 @@ const defaultConfig = {
 			enabled: false,
 			unpauseNotification: false,
 			urgency: "normal", //has effect only on Linux 
-			interactive: true, //has effect only on Windows
-			smallInteractive: false //has effect only on Windows
+			// the following has effect only on Windows
+			interactive: true,
+			toastStyle: 1, // see plugins/notifications/utils for more info
+			hideButtonText: false 
 		},
 		"precise-volume": {
 			enabled: false,

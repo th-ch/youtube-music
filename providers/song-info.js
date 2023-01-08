@@ -61,7 +61,8 @@ const handleData = async (responseText, win) => {
 		songInfo.album = data?.videoDetails?.album; // Will be undefined if video exist
 
 		const oldUrl = songInfo.imageSrc;
-		songInfo.imageSrc = videoDetails.thumbnail?.thumbnails?.pop()?.url.split("?")[0];
+		const thumbnails = videoDetails.thumbnail?.thumbnails;
+		songInfo.imageSrc = thumbnails[thumbnails.length - 1]?.url.split("?")[0];
 		if (oldUrl !== songInfo.imageSrc) {
 			songInfo.image = await getImage(songInfo.imageSrc);
 		}

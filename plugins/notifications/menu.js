@@ -1,5 +1,6 @@
-const { urgencyLevels, setOption } = require("./utils");
+const { urgencyLevels, ToastStyles, snakeToCamel } = require("./utils");
 const is = require("electron-is");
+const config = require("./config");
 
 module.exports = (_win, options) => [
 	...(is.linux()
@@ -10,7 +11,7 @@ module.exports = (_win, options) => [
 						label: level.name,
 						type: "radio",
 						checked: options.urgency === level.value,
-						click: () => setOption(options, "urgency", level.value),
+						click: () => config.set("urgency", level.value),
 					})),
 				},
 		  ]
@@ -21,13 +22,12 @@ module.exports = (_win, options) => [
 					label: "Interactive Notifications",
 					type: "checkbox",
 					checked: options.interactive,
-					click: (item) => setOption(options, "interactive", item.checked),
+					// doesn't update until restart
+					click: (item) => config.setAndMaybeRestart("interactive", item.checked),
 				},
 				{
-					label: "Smaller Interactive Notifications",
-					type: "checkbox",
-					checked: options.smallInteractive,
-					click: (item) => setOption(options, "smallInteractive", item.checked),
+					label: "Toast Style",
+					submenu: getToastStyleMenuItems(options)
 				},
 		  ]
 		: []),
@@ -35,6 +35,29 @@ module.exports = (_win, options) => [
 		label: "Show notification on unpause",
 		type: "checkbox",
 		checked: options.unpauseNotification,
-		click: (item) => setOption(options, "unpauseNotification", item.checked),
+		click: (item) => config.set("unpauseNotification", item.checked),
 	},
 ];
+
+function getToastStyleMenuItems(options) {
+	const arr = new Array(Object.keys(ToastStyles).length + 1);
+
+	arr[0] = {
+		label: "Hide Button Text",
+		type: "checkbox",
+		checked: options.hideButtonText,
+		click: (item) => config.set("hideButtonText", item.checked),
+	}
+
+	// ToastStyles index starts from 1
+	for (const [name, index] of Object.entries(ToastStyles)) {
+		arr[index] = {
+			label: snakeToCamel(name),
+			type: "radio",
+			checked: options.style === index,
+			click: () => config.set("style", index),
+		};
+	}
+
+	return arr;
+}
