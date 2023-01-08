@@ -32,7 +32,7 @@ autoUpdater.autoDownload = false;
 
 
 const gotTheLock = app.requestSingleInstanceLock();
-if (!gotTheLock) app.quit();
+if (!gotTheLock) app.exit();
 
 app.commandLine.appendSwitch(
 	"js-flags",
