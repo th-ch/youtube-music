@@ -1,5 +1,5 @@
-const applyCompressor = () => {
-	const audioContext = new AudioContext();
+const applyCompressor = (e) => {
+	const audioContext = e.detail.audioContext;
 
 	const compressor = audioContext.createDynamicsCompressor();
 	compressor.threshold.value = -50;
@@ -8,10 +8,11 @@ const applyCompressor = () => {
 	compressor.attack.value = 0;
 	compressor.release.value = 0.25;
 
-	const source = audioContext.createMediaElementSource(document.querySelector("video"));
-
-	source.connect(compressor);
+	e.detail.audioSource.connect(compressor);
 	compressor.connect(audioContext.destination);
 };
 
-module.exports = () => document.addEventListener('apiLoaded', applyCompressor, { once: true, passive: true });
+module.exports = () =>
+	document.addEventListener("audioCanPlay", applyCompressor, {
+		passive: true,
+	});
