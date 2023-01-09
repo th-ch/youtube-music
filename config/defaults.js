@@ -58,6 +58,8 @@ const defaultConfig = {
 			// the following has effect only on Windows
 			interactive: true,
 			toastStyle: 1, // see plugins/notifications/utils for more info
+			refreshOnPlayPause: false,
+			trayControls: true,
 			hideButtonText: false 
 		},
 		"precise-volume": {

@@ -35,7 +35,7 @@ module.exports.notificationImage = (songInfo) => {
 	if (!songInfo.image) return icon;
 	if (!config.get("interactive")) return nativeImageToLogo(songInfo.image);
 
-	switch(config.get("style")) {
+	switch(config.get("toastStyle")) {
 		case module.exports.ToastStyles.logo:
 		case module.exports.ToastStyles.legacy:
 			return this.saveImage(nativeImageToLogo(songInfo.image), tempIcon);

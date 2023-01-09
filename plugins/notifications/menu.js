@@ -26,6 +26,30 @@ module.exports = (_win, options) => [
 					click: (item) => config.setAndMaybeRestart("interactive", item.checked),
 				},
 				{
+					// submenu with settings for interactive notifications (name shouldn't be too long)
+					label: "Interactive Settings",
+					submenu: [
+						{
+							label: "Open/Close on tray click",
+							type: "checkbox",
+							checked: options.trayControls,
+							click: (item) => config.set("trayControls", item.checked),
+						},
+						{
+							label: "Hide Button Text",
+							type: "checkbox",
+							checked: options.hideButtonText,
+							click: (item) => config.set("hideButtonText", item.checked),
+						},
+						{
+							label: "Refresh on Play/Pause",
+							type: "checkbox",
+							checked: options.refreshOnPlayPause,
+							click: (item) => config.set("refreshOnPlayPause", item.checked),
+						}
+					]
+				},
+				{
 					label: "Toast Style",
 					submenu: getToastStyleMenuItems(options)
 				},
@@ -40,20 +64,11 @@ module.exports = (_win, options) => [
 ];
 
 function getToastStyleMenuItems(options) {
-	const arr = new Array(Object.keys(ToastStyles).length + 2);
-
-	arr[0] = {
-		label: "Hide Button Text",
-		type: "checkbox",
-		checked: options.hideButtonText,
-		click: (item) => config.set("hideButtonText", item.checked),
-	}
-
-	arr[1] = { type: "separator" };
+	const arr = new Array(Object.keys(ToastStyles).length);
 
 	// ToastStyles index starts from 1
 	for (const [name, index] of Object.entries(ToastStyles)) {
-		arr[index + 1] = {
+		arr[index - 1] = {
 			label: snakeToCamel(name),
 			type: "radio",
 			checked: options.style === index,

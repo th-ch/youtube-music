@@ -2,6 +2,7 @@ const { notificationImage, icons, save_temp_icons, secondsToMinutes, ToastStyles
 const getSongControls = require('../../providers/song-controls');
 const registerCallback = require("../../providers/song-info");
 const { changeProtocolHandler } = require("../../providers/protocol-handler");
+const { setTrayOnClick, setTrayOnDoubleClick } = require("../../tray");
 
 const { Notification, app, ipcMain } = require("electron");
 const path = require('path');
@@ -22,31 +23,59 @@ module.exports = (win) => {
 
     if (app.isPackaged) save_temp_icons();
 
-    let lastSongInfo = { url: undefined };
+    let savedSongInfo;
+    let lastUrl;
 
     // Register songInfoCallback
     registerCallback(songInfo => {
+        savedSongInfo = { ...songInfo };
         if (!songInfo.isPaused && 
-            (songInfo.url !== lastSongInfo.url || config.get("unpauseNotification"))
+            (songInfo.url !== lastUrl || config.get("unpauseNotification"))
         ) {
-            lastSongInfo = { ...songInfo };
+            lastUrl = songInfo.url
             sendNotification(songInfo);
         }
     });
+
+    // TODO EXPERIMENTAL
+    if (config.get("trayControls")) {
+        setTrayOnClick(() => {
+            if (savedNotification) {
+                savedNotification.close();
+                savedNotification = undefined;
+            } else if (savedSongInfo) {
+                sendNotification({
+                    ...savedSongInfo,
+                    elapsedSeconds: currentSeconds
+                })
+            }
+        });
+
+        setTrayOnDoubleClick(() => {
+            if (win.isVisible()) {
+                win.hide();
+            } else win.show();
+        })
+    }
 
 
     app.once("before-quit", () => {
         savedNotification?.close();
     });
 
+
     changeProtocolHandler(
         (cmd) => {
             if (Object.keys(songControls).includes(cmd)) {
                 songControls[cmd]();
-                if (cmd === 'pause' || (cmd === 'play' && !config.get("unpauseNotification"))) {
+                if (config.get("refreshOnPlayPause") && (
+                        cmd === 'pause' ||
+                        (cmd === 'play' && !config.get("unpauseNotification"))
+                    )
+                ) {
                     setImmediate(() => 
                         sendNotification({
-                            ...lastSongInfo,
+                            ...savedSongInfo,
                             isPaused: cmd === 'pause',
                             elapsedSeconds: currentSeconds
                         })
@@ -82,7 +111,7 @@ function sendNotification(songInfo) {
 }
 
 const get_xml = (songInfo, iconSrc) => {
-    switch (config.get("style")) {
+    switch (config.get("toastStyle")) {
         default:
         case ToastStyles.logo: 
         case ToastStyles.legacy:
@@ -105,11 +134,11 @@ const iconLocation = app.isPackaged ?
     path.resolve(__dirname, '..', '..', 'assets/media-icons-black');
 
 const display = (kind) => {
-    if (config.get("style") === ToastStyles.legacy ) {
+    if (config.get("toastStyle") === ToastStyles.legacy ) {
         return `content="${icons[kind]}"`;
     } else {
         return `\
-            content="${kind.charAt(0).toUpperCase() + kind.slice(1)}"\
+            content="${config.get("hideButtonText") ? "" : kind.charAt(0).toUpperCase() + kind.slice(1)}"\
             imageUri="file:///${path.resolve(__dirname, iconLocation, `${kind}.png`)}"
         `;
     }
