@@ -40,7 +40,7 @@ module.exports = (_win, options) => [
 ];
 
 function getToastStyleMenuItems(options) {
-	const arr = new Array(Object.keys(ToastStyles).length + 1);
+	const arr = new Array(Object.keys(ToastStyles).length + 2);
 
 	arr[0] = {
 		label: "Hide Button Text",
@@ -49,9 +49,11 @@ function getToastStyleMenuItems(options) {
 		click: (item) => config.set("hideButtonText", item.checked),
 	}
 
+	arr[1] = { type: "separator" };
+
 	// ToastStyles index starts from 1
 	for (const [name, index] of Object.entries(ToastStyles)) {
-		arr[index] = {
+		arr[index + 1] = {
 			label: snakeToCamel(name),
 			type: "radio",
 			checked: options.style === index,

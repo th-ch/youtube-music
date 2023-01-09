@@ -10,7 +10,7 @@ const config = require("./config");
 
 let songControls;
 let savedNotification;
-// TODO create banner function
+
 /** @param {Electron.BrowserWindow} win */
 module.exports = (win) => {
     songControls = getSongControls(win);
@@ -26,13 +26,15 @@ module.exports = (win) => {
 
     // Register songInfoCallback
     registerCallback(songInfo => {
-        if (!songInfo.isPaused && (songInfo.url !== lastSongInfo.url || config.get("unpauseNotification"))) {
+        if (!songInfo.isPaused && 
+            (songInfo.url !== lastSongInfo.url || config.get("unpauseNotification"))
+        ) {
             lastSongInfo = { ...songInfo };
-            sendXML(songInfo);
+            sendNotification(songInfo);
         }
     });
 
-    // TODO on app before close, close notification
+
     app.once("before-quit", () => {
         savedNotification?.close();
     });
@@ -43,7 +45,11 @@ module.exports = (win) => {
                 songControls[cmd]();
                 if (cmd === 'pause' || (cmd === 'play' && !config.get("unpauseNotification"))) {
                     setImmediate(() => 
-                        sendXML({ ...lastSongInfo, isPaused: cmd === 'pause', elapsedSeconds: currentSeconds })
+                        sendNotification({
+                            ...lastSongInfo,
+                            isPaused: cmd === 'pause',
+                            elapsedSeconds: currentSeconds
+                        })
                     );
                 }
             }
@@ -51,7 +57,7 @@ module.exports = (win) => {
     )
 }
 
-function sendXML(songInfo) {
+function sendNotification(songInfo) {
     const iconSrc = notificationImage(songInfo);
 
     savedNotification?.close();

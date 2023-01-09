@@ -1,22 +1,23 @@
 const { setOptions, setMenuOptions } = require("../../config/plugins");
+const defaultConfig = require("../../config/defaults");
 
-let config;
+let config = defaultConfig.plugins["notifications"];
 
 module.exports.init = (options) => {
-    config = options;
-}
+	config = { ...config, ...options };
+};
 
 module.exports.setAndMaybeRestart = (option, value) => {
 	config[option] = value;
 	setMenuOptions("notifications", config);
-}
+};
 
 module.exports.set = (option, value) => {
-    config[option] = value;
-    setOptions("notifications", config);
-}
+	config[option] = value;
+	setOptions("notifications", config);
+};
 
 module.exports.get = (option) => {
-    let res = config[option];
-    return res;
-}
+	let res = config[option];
+	return res;
+};

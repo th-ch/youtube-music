@@ -368,8 +368,7 @@ app.on("ready", () => {
 				const shortcutDetails = electron.shell.readShortcutLink(shortcutPath); // throw error if doesn't exist yet
 				if (
 					shortcutDetails.target !== appLocation ||
-					shortcutDetails.appUserModelId !== appID ||
-					shortcutDetails.toastActivatorClsid !== toastActivatorClsid
+					shortcutDetails.appUserModelId !== appID
 				) {
 					throw "needUpdate";
 				}

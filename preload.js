@@ -3,6 +3,7 @@ const { fileExists } = require("./plugins/utils");
 const setupSongInfo = require("./providers/song-info-front");
 const { setupSongControls } = require("./providers/song-controls-front");
 const { ipcRenderer } = require("electron");
+const is = require("electron-is");
 
 const plugins = config.plugins.getEnabled();
 
@@ -70,9 +71,11 @@ document.addEventListener("DOMContentLoaded", () => {
 	setInterval(() => window._lact = Date.now(), 900000);
 
 	// setup back to front logger
-	ipcRenderer.on("log", (_event, log) => {
-		console.log(JSON.parse(log));
-	});
+	if (is.dev()) {
+		ipcRenderer.on("log", (_event, log) => {
+			console.log(JSON.parse(log));
+		});
+	}
 });
 
 function listenForApiLoad() {
@@ -95,7 +98,6 @@ function listenForApiLoad() {
 
 function onApiLoaded() {
 	document.dispatchEvent(new CustomEvent('apiLoaded', { detail: api }));
-	//setImmediate()
 	ipcRenderer.send('apiLoaded');
 
 	// Remove upgrade button
