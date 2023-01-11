@@ -80,8 +80,6 @@
 		"build:mac": "yarn run clean && electron-builder --mac dmg:x64",
 		"build:mac:arm64": "yarn run clean && electron-builder --mac dmg:arm64",
 		"build:win": "yarn run clean && electron-builder --win",
-		"build:winactions": "electron-builder --win -p never",
-		"build:linuxactions": "electron-builder --linux -p never",
 		"lint": "xo",
 		"changelog": "auto-changelog",
 		"plugins": "yarn run plugin:adblocker",
