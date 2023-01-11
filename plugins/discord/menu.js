@@ -19,6 +19,15 @@ module.exports = (win, options, refreshMenu) => {
 			click: connect,
 		},
 		{
+			label: "Auto reconnect",
+			type: "checkbox",
+			checked: options.autoReconnect,
+			click: (item) => {
+				options.autoReconnect = item.checked;
+				setMenuOptions('discord', options);
+			},
+		},
+		{
 			label: "Clear activity",
 			click: clear,
 		},

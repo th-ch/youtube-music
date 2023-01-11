@@ -189,7 +189,7 @@ function createMainWindow() {
 	win.webContents.loadURL(urlToLoad);
 	win.on("closed", onClosed);
 
-	const setPiPOptions = config.plugins.isEnabled("picture-in-picture") 
+	const setPiPOptions = config.plugins.isEnabled("picture-in-picture")
 		? (key, value) => require("./plugins/picture-in-picture/back").setOptions({ [key]: value })
 		: () => {};
 
@@ -258,6 +258,15 @@ function createMainWindow() {
 }
 
 app.once("browser-window-created", (event, win) => {
+	electron.session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
+		callback({
+			responseHeaders: {
+				...details.responseHeaders,
+				"Content-Security-Policy": ["default-src 'self' music.youtube.com youtube.com accounts.google.com google.com"]
+			}
+		})
+	})
+
 	if (config.get("options.overrideUserAgent")) {
 		// User agents are from https://developers.whatismybrowser.com/useragents/explore/
 		const originalUserAgent = win.webContents.userAgent;
