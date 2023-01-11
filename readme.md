@@ -184,6 +184,7 @@ module.exports = () => {
 - communicating between the front and back: can be done using the ipcMain module from electron. See `utils.js` file and example in `navigation` plugin.
 
 ## Build
+
 ```sh
 yarn build
 ```
