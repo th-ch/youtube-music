@@ -37,7 +37,6 @@ module.exports = (win) => {
         }
     });
 
-    // TODO EXPERIMENTAL
     if (config.get("trayControls")) {
         setTrayOnClick(() => {
             if (savedNotification) {
