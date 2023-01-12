@@ -69,7 +69,9 @@ function observeMenu(options) {
 			listenForToggle();
 			const minButton = $(".player-minimize-button");
 			// remove native listeners
+			const svg = $(".player-minimize-button #icon svg").cloneNode(true);
 			minButton.replaceWith(minButton.cloneNode(true)); 
+			$(".player-minimize-button #icon").appendChild(svg);
 			$(".player-minimize-button").onclick = () =>  {
 				global.togglePictureInPicture();
 				setTimeout(() => $('#player').click());
