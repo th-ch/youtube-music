@@ -3,6 +3,9 @@ name: Build YouTube Music
 on:
   - push
 
+env:
+  NODE_VERSION: "16.x"
+
 jobs:
   build:
     name: Build YouTube Music
@@ -18,7 +21,7 @@ jobs:
       - name: Setup NodeJS
         uses: actions/setup-node@v3
         with:
-          node-version: "16.x"
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
@@ -116,3 +119,83 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           yarn run release:win
+
+  release:
+    runs-on: ubuntu-latest
+    name: Release YouTube Music
+    if: github.ref == 'refs/heads/master'
+    needs: build
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - uses: actions/cache@v3
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+
+      - name: Get version
+        run: |
+          echo "VERSION_TAG=v$(node -pe "require('./package.json').version")" >> $GITHUB_ENV
+
+      - name: Check if version already exists in tags
+        run: |
+          echo "VERSION_HASH=$(git rev-parse -q --verify 'refs/tags/${{ env.VERSION_TAG }}')" >> $GITHUB_ENV
+          echo "CHANGELOG_ANCHOR=$(echo $VERSION_TAG | sed -e 's/\.//g')" >> $GITHUB_ENV
+
+      - name: Fetch draft release
+        if: ${{ env.VERSION_HASH == '' }}
+        uses: cardinalby/git-get-release-action@v1
+        id: get_draft_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        with:
+          latest: true
+          draft: true
+          searchLimit: 1
+
+      - name: Publish Release (if it does not exist)
+        if: ${{ env.VERSION_HASH == '' }}
+        uses: irongut/EditRelease@v1.2.0
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          id: ${{ steps.get_draft_release.outputs.id }}
+          draft: false
+          prerelease: false
+          replacename: true
+          name: ${{ env.VERSION_TAG }}
+          replacebody: true
+          body: |
+            See [changelog](https://github.com/th-ch/youtube-music/blob/master/changelog.md#${{ env.CHANGELOG_ANCHOR }}) for the list of updates and the full diff.
+
+            Thanks to all contributors! 🏅
+
+      - name: Update changelog
+        if: ${{ env.VERSION_HASH == '' }}
+        run: |
+          yarn changelog
+
+      - name: Commit changelog
+        if: ${{ env.VERSION_HASH == '' }}
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Update changelog for ${{ env.VERSION_TAG }}
+          file_pattern: "changelog.md"
+          commit_user_name: CI
+          commit_user_email: th-ch@users.noreply.github.com

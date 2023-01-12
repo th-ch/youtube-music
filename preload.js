@@ -90,6 +90,32 @@ function listenForApiLoad() {
 }
 
 function onApiLoaded() {
+	const video = document.querySelector("video");
+	const audioContext = new AudioContext();
+	const audioSource = audioContext.createMediaElementSource(video);
+
+	video.addEventListener(
+		"loadstart",
+		() => {
+			// Emit "audioCanPlay" for each video
+			video.addEventListener(
+				"canplaythrough",
+				() => {
+					document.dispatchEvent(
+						new CustomEvent("audioCanPlay", {
+							detail: {
+								audioContext: audioContext,
+								audioSource: audioSource,
+							},
+						})
+					);
+				},
+				{ once: true }
+			);
+		},
+		{ passive: true }
+	);
+
 	document.dispatchEvent(new CustomEvent('apiLoaded', { detail: api }));
 
 	// Remove upgrade button
