@@ -50,7 +50,7 @@ module.exports = (_win, options) => [
 					]
 				},
 				{
-					label: "Toast Style",
+					label: "Style",
 					submenu: getToastStyleMenuItems(options)
 				},
 		  ]
@@ -71,8 +71,8 @@ function getToastStyleMenuItems(options) {
 		arr[index - 1] = {
 			label: snakeToCamel(name),
 			type: "radio",
-			checked: options.style === index,
-			click: () => config.set("style", index),
+			checked: options.toastStyle === index,
+			click: () => config.set("toastStyle", index),
 		};
 	}
 
