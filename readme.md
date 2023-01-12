@@ -184,10 +184,12 @@ module.exports = () => {
 - communicating between the front and back: can be done using the ipcMain module from electron. See `utils.js` file and example in `navigation` plugin.
 
 ## Build
-
-```sh
-yarn build
-```
+1. Clone the repo
+2. Run ```yarn```
+3. Run ```yarn build:OS```
+	- ```yarn build:win``` - Windows
+	- ```yarn build:linux``` - Linux
+	- ```yarn build:mac``` - OS X
 
 Builds the app for macOS, Linux, and Windows, using [electron-builder](https://github.com/electron-userland/electron-builder).
 
