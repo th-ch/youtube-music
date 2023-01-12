@@ -1,7 +1,7 @@
 {
 	"name": "youtube-music",
 	"productName": "YouTube Music",
-	"version": "1.18.0",
+	"version": "1.19.0",
 	"description": "YouTube Music Desktop App - including custom plugins",
 	"license": "MIT",
 	"repository": "th-ch/youtube-music",
@@ -111,7 +111,6 @@
 		"electron-unhandled": "^4.0.1",
 		"electron-updater": "^4.6.3",
 		"filenamify": "^4.3.0",
-		"hark": "^1.2.3",
 		"html-to-text": "^8.2.1",
 		"md5": "^2.3.0",
 		"mpris-service": "^2.1.2",
