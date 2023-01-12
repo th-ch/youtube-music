@@ -9,6 +9,15 @@ const setDefaultPluginOptions = (store, plugin) => {
 }
 
 const migrations = {
+	">1.19.0": (store) => {
+		if (store.get("plugins.notifications.toastStyle") === undefined) {
+			const pluginOptions = store.get("plugins.notifications") || {};
+			store.set("plugins.notifications", {
+				...defaults.plugins.notifications,
+				...pluginOptions,
+			});
+		}
+	},
 	">=1.17.0": (store) => {
 		setDefaultPluginOptions(store, "picture-in-picture");
 
