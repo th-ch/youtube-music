@@ -89,7 +89,7 @@
 		"release:win": "yarn run clean && electron-builder --win -p always"
 	},
 	"engines": {
-		"node": ">=14.0.0",
+		"node": ">=16.0.0",
 		"npm": "Please use yarn and not npm"
 	},
 	"dependencies": {
@@ -103,7 +103,7 @@
 		"butterchurn": "^2.6.7",
 		"butterchurn-presets": "^2.4.7",
 		"chokidar": "^3.5.3",
-		"custom-electron-prompt": "^1.5.0",
+		"custom-electron-prompt": "^1.5.1",
 		"custom-electron-titlebar": "^4.1.5",
 		"discord-rpc": "^4.0.1",
 		"electron-better-web-request": "^1.0.1",
@@ -112,12 +112,12 @@
 		"electron-localshortcut": "^3.2.1",
 		"electron-store": "^8.1.0",
 		"electron-unhandled": "^4.0.1",
-		"electron-updater": "^4.6.3",
+		"electron-updater": "^5.3.0",
 		"filenamify": "^4.3.0",
-		"html-to-text": "^8.2.1",
+		"html-to-text": "^9.0.3",
 		"md5": "^2.3.0",
 		"mpris-service": "^2.1.2",
-		"node-fetch": "^2.6.7",
+		"node-fetch": "^2.6.8",
 		"node-notifier": "^10.0.1",
 		"vudio": "^2.1.1",
 		"ytdl-core": "^4.11.1",
@@ -127,7 +127,7 @@
 		"@playwright/test": "^1.25.1",
 		"auto-changelog": "^2.4.0",
 		"del-cli": "^5.0.0",
-		"electron": "^20.1.1",
+		"electron": "^22.0.2",
 		"electron-builder": "^23.0.3",
 		"electron-devtools-installer": "^3.1.1",
 		"electron-icon-maker": "0.0.5",
@@ -136,7 +136,7 @@
 	},
 	"resolutions": {
 		"glob-parent": "5.1.2",
-		"minimist": "1.2.6",
+		"minimist": "1.2.7",
 		"yargs-parser": "18.1.3"
 	},
 	"auto-changelog": {
