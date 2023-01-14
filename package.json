@@ -124,20 +124,20 @@
 		"ytpl": "^2.3.0"
 	},
 	"devDependencies": {
-		"@playwright/test": "^1.25.1",
+		"@playwright/test": "^1.29.2",
 		"auto-changelog": "^2.4.0",
 		"del-cli": "^5.0.0",
 		"electron": "^22.0.2",
-		"electron-builder": "^23.0.3",
-		"electron-devtools-installer": "^3.1.1",
+		"electron-builder": "^23.6.0",
+		"electron-devtools-installer": "^3.2.0",
 		"electron-icon-maker": "0.0.5",
-		"playwright": "^1.25.1",
-		"xo": "^0.45.0"
+		"playwright": "^1.29.2",
+		"xo": "^0.53.1"
 	},
 	"resolutions": {
 		"glob-parent": "5.1.2",
 		"minimist": "1.2.7",
-		"yargs-parser": "18.1.3"
+		"yargs-parser": "21.1.1"
 	},
 	"auto-changelog": {
 		"hideCredit": true,

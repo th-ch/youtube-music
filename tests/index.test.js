@@ -9,18 +9,27 @@ const appPath = path.resolve(__dirname, "..");
 
 test("YouTube Music App - With default settings, app is launched and visible", async () => {
 	const app = await electron.launch({
+		cwd: appPath,
 		args: [
+			appPath,
 			"--no-sandbox",
 			"--disable-gpu",
 			"--whitelisted-ips=",
 			"--disable-dev-shm-usage",
-			appPath,
 		],
 	});
 
 	const window = await app.firstWindow();
+
+	const consentForm = await window.$(
+		"form[action='https://consent.youtube.com/save']"
+	);
+	if (consentForm) {
+		await consentForm.click("button");
+	}
+
 	const title = await window.title();
-	expect(title).toEqual("YouTube Music");
+	expect(title.replace(/\s/g, " ")).toEqual("YouTube Music");
 
 	const url = window.url();
 	expect(url.startsWith("https://music.youtube.com")).toBe(true);
