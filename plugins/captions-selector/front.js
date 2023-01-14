@@ -4,7 +4,7 @@ const { ipcRenderer } = require("electron");
 function $(selector) { return document.querySelector(selector); }
 
 const captionsSettingsButton = ElementFromFile(
-    templatePath(__dirname, "captionsSettingsTemplate.html")
+    templatePath(__dirname, "captions-settings-template.html")
 );
 
 module.exports = (options) => {
