@@ -91,6 +91,10 @@ const defaultConfig = {
 			"saveSize": false,
 			"hotkey": "P"
 		},
+		"captions-selector": {
+			enabled: false,
+			disableCaptions: false
+		},
 		"skip-silences": {
 			onlySkipBeginning: false,
 		},
