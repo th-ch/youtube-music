@@ -108,6 +108,8 @@ winget install th-ch.YouTubeMusic
 
 - **Video Toggle**: Adds a [button](https://user-images.githubusercontent.com/28893833/173663950-63e6610e-a532-49b7-9afa-54cb57ddfc15.png) to switch between Video/Song mode. can also optionally remove the whole video tab
 
+- **Visualizer**: Different music visualizers
+
 ---
 
 - **Auto confirm when paused** (Always Enabled): disable the ["Continue Watching?"](https://user-images.githubusercontent.com/61631665/129977894-01c60740-7ec6-4bf0-9a2c-25da24491b0e.png) popup that pause music after a certain time
