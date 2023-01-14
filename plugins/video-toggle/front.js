@@ -38,7 +38,7 @@ function setup(e) {
     player = $('ytmusic-player');
     video = $('video');
 
-    $('ytmusic-player-page').prepend(switchButtonDiv);
+    $('#main-panel').append(switchButtonDiv);
 
     if (options.hideVideo) {
         $('.video-switch-button-checkbox').checked = false;
@@ -58,6 +58,21 @@ function setup(e) {
     video.addEventListener('srcChanged', videoStarted);
 
     observeThumbnail();
+
+    switch (options.align) {
+        case "right": {
+            switchButtonDiv.style.left = "calc(100% - 240px)";
+            return;
+        }
+        case "middle": {
+            switchButtonDiv.style.left = "calc(50% - 120px)";
+            return;
+        }
+        default:
+        case "left": {
+            switchButtonDiv.style.left = "0px";
+        }
+    }
 }
 
 function changeDisplay(showVideo) {

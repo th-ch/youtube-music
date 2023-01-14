@@ -5,7 +5,7 @@
 [![GitHub release](https://img.shields.io/github/release/th-ch/youtube-music.svg?style=for-the-badge&logo=youtube-music)](https://github.com/th-ch/youtube-music/releases/)
 [![GitHub license](https://img.shields.io/github/license/th-ch/youtube-music.svg?style=for-the-badge)](https://github.com/th-ch/youtube-music/blob/master/LICENSE)
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg?style=for-the-badge)](https://github.com/sindresorhus/xo)
-[![Build status](https://img.shields.io/github/workflow/status/th-ch/youtube-music/Build%20YouTube%20Music?style=for-the-badge&logo=youtube-music)](https://GitHub.com/th-ch/youtube-music/releases/)
+[![Build status](https://img.shields.io/github/actions/workflow/status/th-ch/youtube-music/build.yml?branch=master&style=for-the-badge&logo=youtube-music)](https://GitHub.com/th-ch/youtube-music/releases/)
 [![Known Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/github/th-ch/youtube-music?style=for-the-badge)](https://snyk.io/test/github/th-ch/youtube-music)
 [![GitHub All Releases](https://img.shields.io/github/downloads/th-ch/youtube-music/total?style=for-the-badge&logo=youtube-music)](https://GitHub.com/th-ch/youtube-music/releases/)
 [![AUR](https://img.shields.io/aur/version/youtube-music-bin?color=blueviolet&style=for-the-badge&logo=youtube-music)](https://aur.archlinux.org/packages/youtube-music-bin)
@@ -44,6 +44,14 @@ You can use the [Scoop package manager](https://scoop.sh) to install the `youtub
 ```
 scoop bucket add extras
 scoop install extras/youtube-music
+```
+
+Alternately you can use [Winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/), Windows 11s official CLI package manager to install the `th-ch.YouTubeMusic` package.
+
+*Note: Microsoft Defender SmartScreen might block the installation since it is from an "unknown publisher". This is also true for the manual installation when trying to run the executable(.exe) after a manual download here on github (same file).*
+
+```
+winget install th-ch.YouTubeMusic
 ```
 
 ## Available plugins:
@@ -99,6 +107,8 @@ scoop install extras/youtube-music
 - **Tuna-OBS**: Integration with [OBS](https://obsproject.com/)'s plugin [Tuna](https://obsproject.com/forum/resources/tuna.843/)
 
 - **Video Toggle**: Adds a [button](https://user-images.githubusercontent.com/28893833/173663950-63e6610e-a532-49b7-9afa-54cb57ddfc15.png) to switch between Video/Song mode. can also optionally remove the whole video tab
+
+- **Visualizer**: Different music visualizers
 
 ---
 
@@ -177,9 +187,12 @@ module.exports = () => {
 
 ## Build
 
-```sh
-yarn build
-```
+1. Clone the repo
+2. Run `yarn` to install dependencies
+3. Run `yarn build:OS`
+   - `yarn build:win` - Windows
+   - `yarn build:linux` - Linux
+   - `yarn build:mac` - MacOS
 
 Builds the app for macOS, Linux, and Windows, using [electron-builder](https://github.com/electron-userland/electron-builder).
 
