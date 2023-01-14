@@ -31,21 +31,6 @@ module.exports = (_options) => {
             document.addEventListener("apiLoaded", setup, { once: true, passive: true });
         }
     }
-    const mainpanel = document.querySelector("#main-panel");
-    switch (_options.align) {
-        case "right": {
-            mainpanel.style.setProperty("--align", "calc(100% - 240px)");
-            return;
-        }
-        case "middle": {
-            mainpanel.style.setProperty("--align", "calc(50% - 120px)");
-            return;
-        }
-        default:
-        case "left": {
-            mainpanel.style.setProperty("--align", "0px");
-        }
-    }
 };
 
 function setup(e) {
@@ -73,6 +58,21 @@ function setup(e) {
     video.addEventListener('srcChanged', videoStarted);
 
     observeThumbnail();
+
+    switch (options.align) {
+        case "right": {
+            switchButtonDiv.style.left = "calc(100% - 240px)";
+            return;
+        }
+        case "middle": {
+            switchButtonDiv.style.left = "calc(50% - 120px)";
+            return;
+        }
+        default:
+        case "left": {
+            switchButtonDiv.style.left = "0px";
+        }
+    }
 }
 
 function changeDisplay(showVideo) {

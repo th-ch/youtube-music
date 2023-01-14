@@ -63,7 +63,7 @@ module.exports = (win) => {
 
 	// If the page is ready, register the callback
 	win.once("ready-to-show", () => {
-		controls = [previous, playPause, next, like, dislike];
+		controls = [previous, playPause, next, dislike, like];
 
 		// Register the callback
 		registerCallback((songInfo) => {

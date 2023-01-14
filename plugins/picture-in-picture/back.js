@@ -47,6 +47,7 @@ const togglePiP = async () => {
 
 		win.webContents.on("before-input-event", blockShortcutsInPiP);
 
+		win.setMaximizable(false);
 		win.setFullScreenable(false);
 
 		runAdaptors();
@@ -62,6 +63,7 @@ const togglePiP = async () => {
 		}
 	} else {
 		win.webContents.removeListener("before-input-event", blockShortcutsInPiP);
+		win.setMaximizable(true);
 		win.setFullScreenable(true);
 
 		runAdaptors();
