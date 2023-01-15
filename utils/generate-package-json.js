@@ -10,7 +10,15 @@ const { promisify } = require("util");
  */
 
 const generatePackageJson = async packageName => {
-	var filepath = join("node_modules", packageName, "package.json");
+	const packageFolder =  join("node_modules", packageName)
+	if (!existsSync(packageFolder )) {
+		console.log(
+			`${packageName} module not found, exiting…`
+		);
+		return
+	}
+
+	const filepath = join(packageFolder, "package.json");
 	if (!existsSync(filepath)) {
 		console.log(
 			`No package.json found for ${packageName} module, generating one…`
