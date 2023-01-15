@@ -189,7 +189,7 @@ function createMainWindow() {
 	win.webContents.loadURL(urlToLoad);
 	win.on("closed", onClosed);
 
-	const setPiPOptions = config.plugins.isEnabled("picture-in-picture") 
+	const setPiPOptions = config.plugins.isEnabled("picture-in-picture")
 		? (key, value) => require("./plugins/picture-in-picture/back").setOptions({ [key]: value })
 		: () => {};
 
