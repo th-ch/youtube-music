@@ -1,9 +1,8 @@
 const { existsSync } = require("fs");
 const path = require("path");
 
-const { app, Menu, dialog } = require("electron");
+const { app, clipboard, Menu, dialog } = require("electron");
 const is = require("electron-is");
-const { writeSync: copyToClipboard } = require("clipboardy");
 const { restart } = require("./providers/app-controls");
 
 const { getAllPlugins } = require("./plugins/utils");
@@ -334,7 +333,7 @@ const mainMenuTemplate = (win) => {
 					label: "Copy current URL",
 					click: () => {
 						const currentURL = win.webContents.getURL();
-						copyToClipboard(currentURL);
+						clipboard.writeText(currentURL);
 					},
 				},
 				{

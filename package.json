@@ -103,7 +103,6 @@
 		"butterchurn": "^2.6.7",
 		"butterchurn-presets": "^2.4.7",
 		"chokidar": "^3.5.3",
-		"clipboardy": "^2.3.0",
 		"custom-electron-prompt": "^1.5.1",
 		"custom-electron-titlebar": "^4.1.5",
 		"discord-rpc": "^4.0.1",
