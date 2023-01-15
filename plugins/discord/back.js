@@ -1,3 +1,4 @@
+"use strict";
 const Discord = require("@xhayper/discord-rpc");
 const { dev } = require("electron-is");
 const { dialog, app } = require("electron");
@@ -161,7 +162,7 @@ module.exports = (win, { autoReconnect, activityTimoutEnabled, activityTimoutTim
 };
 
 module.exports.clear = () => {
-	if (info.rpc) info.rpc.clearActivity();
+	if (info.rpc) info.rpc.user?.clearActivity();
 	clearTimeout(clearActivity);
 };
 
