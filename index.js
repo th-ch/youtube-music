@@ -317,17 +317,6 @@ app.once("browser-window-created", (event, win) => {
 	win.webContents.on("will-prevent-unload", (event) => {
 		event.preventDefault();
 	});
-
-	win.webContents.on(
-		"new-window",
-		(e, url, frameName, disposition, options) => {
-			// hook on new opened window
-
-			// at now new window in mainWindow renderer process.
-			// Also, this will automatically get an option `nodeIntegration=false`(not override to true, like in iframe's) - like in regular browsers
-			options.webPreferences.affinity = "main-window";
-		}
-	);
 });
 
 app.on("window-all-closed", () => {
