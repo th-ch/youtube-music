@@ -117,7 +117,7 @@
 		"html-to-text": "^8.2.1",
 		"md5": "^2.3.0",
 		"mpris-service": "^2.1.2",
-		"node-fetch": "^2.6.7",
+		"node-fetch": "^2.6.8",
 		"vudio": "^2.1.1",
 		"ytdl-core": "^4.11.1",
 		"ytpl": "^2.3.0"
