@@ -1,15 +1,21 @@
-const { ipcMain, dialog } = require("electron");
+const { ipcMain } = require("electron");
 
-module.exports = () => {
-    ipcMain.handle('captionsSelector', async (_, captionLabels, currentIndex) => {
-        return await dialog.showMessageBox({
-            type: "question",
-            buttons: captionLabels,
-            defaultId: currentIndex,
-            title: "Choose Caption",
-            message: "Choose Caption:",
-            detail: `Current Caption: ${captionLabels[currentIndex]}`,
-            cancelId: -1
-        })
-    })
+const prompt = require("custom-electron-prompt");
+const promptOptions = require("../../providers/prompt-options");
+
+module.exports = (win) => {
+	ipcMain.handle("captionsSelector", async (_, captionLabels, currentIndex) => {
+		return await prompt(
+			{
+				title: "Choose Caption",
+				label: `Current Caption: ${captionLabels[currentIndex] || "None"}`,
+				type: "select",
+				value: currentIndex,
+				selectOptions: captionLabels,
+				resizable: true,
+				...promptOptions(),
+			},
+			win
+		);
+	});
 };

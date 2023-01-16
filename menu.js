@@ -1,7 +1,7 @@
 const { existsSync } = require("fs");
 const path = require("path");
 
-const { app, Menu, dialog } = require("electron");
+const { app, clipboard, Menu, dialog } = require("electron");
 const is = require("electron-is");
 const { restart } = require("./providers/app-controls");
 
@@ -325,6 +325,13 @@ const mainMenuTemplate = (win) => {
 						if (win.webContents.canGoForward()) {
 							win.webContents.goForward();
 						}
+					},
+				},
+				{
+					label: "Copy current URL",
+					click: () => {
+						const currentURL = win.webContents.getURL();
+						clipboard.writeText(currentURL);
 					},
 				},
 				{

@@ -4,7 +4,7 @@ const { ipcRenderer } = require("electron");
 function $(selector) { return document.querySelector(selector); }
 
 const captionsSettingsButton = ElementFromFile(
-    templatePath(__dirname, "captionsSettingsTemplate.html")
+    templatePath(__dirname, "captions-settings-template.html")
 );
 
 module.exports = (options) => {
@@ -28,33 +28,33 @@ function setup(event, options) {
 
     $(".right-controls-buttons").append(captionsSettingsButton);
 
-    captionsSettingsButton.onclick = function chooseQuality() {
+    captionsSettingsButton.onclick = async () => {
         api.loadModule("captions");
 
         const captionTrackList = api.getOption("captions", "tracklist");
 
         if (captionTrackList?.length) {
             const currentCaptionTrack = api.getOption("captions", "track");
-            const currentIndex = captionTrackList.indexOf(captionTrackList.find(track => track.languageCode === currentCaptionTrack.languageCode));
+            let currentIndex = !currentCaptionTrack ?
+				null :
+				captionTrackList.indexOf(captionTrackList.find(track => track.languageCode === currentCaptionTrack.languageCode));
 
             const captionLabels = [
                 ...captionTrackList.map(track => track.displayName),
                 'None'
             ];
 
-            ipcRenderer.invoke('captionsSelector', captionLabels, currentIndex).then(promise => {
-                if (promise.response === -1) return;
+            currentIndex = await ipcRenderer.invoke('captionsSelector', captionLabels, currentIndex)
+			if (currentIndex === null) return;
 
-                const newCaptions = captionTrackList[promise.response];
-                if (newCaptions) {
-                    api.loadModule("captions");
-                    api.setOption("captions", "track", { languageCode: newCaptions.languageCode });
-                } else {
-                    api.unloadModule("captions");
-                }
+			const newCaptions = captionTrackList[currentIndex];
+			if (newCaptions) {
+				api.setOption("captions", "track", { languageCode: newCaptions.languageCode });
+			} else {
+				api.setOption("captions", "track", {});
+			}
 
-                setTimeout(() => api.playVideo());
-            });
+			setTimeout(() => api.playVideo());
         }
     }
 }
