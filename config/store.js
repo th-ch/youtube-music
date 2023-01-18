@@ -12,12 +12,13 @@ const migrations = {
 	">=1.20.0": (store) => {
 		setDefaultPluginOptions(store, "visualizer");
 
-    if (store.get("plugins.notifications.toastStyle") === undefined) {
-			const pluginOptions = store.get("plugins.notifications") || {};
-			store.set("plugins.notifications", {
-				...defaults.plugins.notifications,
-				...pluginOptions,
-		});
+		if (store.get("plugins.notifications.toastStyle") === undefined) {
+				const pluginOptions = store.get("plugins.notifications") || {};
+				store.set("plugins.notifications", {
+					...defaults.plugins.notifications,
+					...pluginOptions,
+			});
+		}
 	},
 	">=1.17.0": (store) => {
 		setDefaultPluginOptions(store, "picture-in-picture");
