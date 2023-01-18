@@ -163,7 +163,7 @@ const mainMenuTemplate = (win) => {
 								if (item.checked && !config.get("options.hideMenuWarned")) {
 									dialog.showMessageBox(win, {
 										type: 'info', title: 'Hide Menu Enabled',
-										message: "Menu will be hidden on next launch, use 'Alt' to show it (or 'Escape' if using in-app-menu)"
+										message: "Menu will be hidden on next launch, use [Alt] to show it (or backtick [`] if using in-app-menu)"
 									});
 								}
 							},
