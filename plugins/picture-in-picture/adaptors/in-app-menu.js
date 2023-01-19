@@ -1,5 +1,6 @@
 const { Menu, app } = require("electron");
 const { setApplicationMenu } = require("../../../menu");
+const config = require("../../../config");
 
 module.exports = (win, options, setOptions, togglePip, isInPip) => {
 	if (isInPip) {
@@ -31,6 +32,11 @@ module.exports = (win, options, setOptions, togglePip, isInPip) => {
 				],
 			},
 		]));
+		if (config.get("options.hideMenu")) {
+			setImmediate(() => {
+				win.webContents.send("toggleMenu");
+			});
+		}
 	} else {
 		setApplicationMenu(win);
 	}
