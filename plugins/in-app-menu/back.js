@@ -17,7 +17,7 @@ module.exports = (win) => {
 		attachTitlebarToWindow(win);
 
 		electronLocalshortcut.register(win, "`", () => {
-			win.webContents.send("refreshMenu", true);
+			win.webContents.send("toggleMenu");
 		});
 	});
 };

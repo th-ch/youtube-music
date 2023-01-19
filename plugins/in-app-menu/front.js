@@ -5,13 +5,13 @@ const { isEnabled } = require("../../config/plugins");
 function $(selector) { return document.querySelector(selector); }
 
 module.exports = (options) => {
-	let visible = !config.get("options.hideMenu");
+	let visible = () => !!$('.cet-menubar').firstChild;
 	const bar = new Titlebar({
 		icon: "https://cdn-icons-png.flaticon.com/512/5358/5358672.png",
 		backgroundColor: Color.fromHex("#050505"),
 		itemBackgroundColor: Color.fromHex("#1d1d1d"),
 		svgColor: Color.WHITE,
-		menu: visible ? undefined : null
+		menu: config.get("options.hideMenu") ? null : undefined
 	});
 	bar.updateTitle(" ");
 	document.title = "Youtube Music";
@@ -23,21 +23,21 @@ module.exports = (options) => {
 	icon.firstChild.style.webkitUserDrag = 'none';
 	icon.firstChild.style.filter = 'invert(50%)';
 
-	const updateMenu = () => {
-		if (visible) {
+	const toggleMenu = () => {
+		if (visible()) {
 			bar.updateMenu(null);
-			visible = false;
 		} else {
 			bar.refreshMenu();
-			visible = true;
 		}
 	};
 
-	icon.addEventListener('click', updateMenu);
+	icon.addEventListener('click', toggleMenu);
+	ipcRenderer.on("toggleMenu", toggleMenu);
 
-	ipcRenderer.on("refreshMenu", (_, fromBack) => {
-		if (fromBack === undefined && !visible) return;
-		updateMenu();
+	ipcRenderer.on("refreshMenu", () => {
+		if (visible()) {
+			bar.refreshMenu();
+		}
 	});
 
 	if (isEnabled("picture-in-picture")) {
