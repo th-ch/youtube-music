@@ -1758,10 +1758,10 @@ custom-electron-prompt@^1.5.1:
   resolved "https://registry.yarnpkg.com/custom-electron-prompt/-/custom-electron-prompt-1.5.1.tgz#24a63a7829c2ebcd2d898a312f9dff65785c2da7"
   integrity sha512-d/az6lkIdnBUf3TwQNP1sW5Jpe5PWw5xklC4F8B7/5t0RdH1OUwqO7Z/NyX7+2Iq/fyuXMiwkQxRQCqEjzIYZw==
 
-custom-electron-titlebar@^4.1.5:
-  version "4.1.5"
-  resolved "https://registry.yarnpkg.com/custom-electron-titlebar/-/custom-electron-titlebar-4.1.5.tgz#5032759ee5594fd618a62cff0de46150fd8e2b24"
-  integrity sha512-KpVmO+Fz34zNw/jYbOD6YwxPr6h2hgZmNbjy0AvhlXiH4dxeZJXDlMcBX08NqsESymMQvIWwsGaA//YGW1bXjA==
+custom-electron-titlebar@^4.1.6:
+  version "4.1.6"
+  resolved "https://registry.yarnpkg.com/custom-electron-titlebar/-/custom-electron-titlebar-4.1.6.tgz#5853c76fbe1ab6ab764e9075df84ec9cf9780015"
+  integrity sha512-AGULUZMxhEZDpl0Z1jfZzXgQEdhAPe8YET0dYQA/19t8oCrTFzF2PzdvJNCmxGU4Ai3jPWVeCPKg4vM7ffU0Mg==
 
 dashdash@^1.12.0:
   version "1.14.1"
