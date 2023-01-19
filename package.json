@@ -82,8 +82,9 @@
 		"build:win": "yarn run clean && electron-builder --win",
 		"lint": "xo",
 		"changelog": "auto-changelog",
-		"plugins": "yarn run plugin:adblocker",
+		"plugins": "yarn run plugin:adblocker && yarn run plugin:bypass-age-restrictions",
 		"plugin:adblocker": "del-cli -f \"plugins/adblocker/ad-blocker-engine.bin\" && node plugins/adblocker/blocker.js",
+		"plugin:bypass-age-restrictions": "yarn run generate:package Simple-YouTube-Age-Restriction-Bypass",
 		"release:linux": "yarn run clean && electron-builder --linux -p always -c.snap.publish=github",
 		"release:mac": "yarn run clean && electron-builder --mac -p always",
 		"release:win": "yarn run clean && electron-builder --win -p always"
