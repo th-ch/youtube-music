@@ -49,11 +49,8 @@ module.exports = (options) => {
 
 function setupSearchOpenObserver() {
 	const searchOpenObserver = new MutationObserver(mutations => {
-		if (mutations[0].target.opened) {
-			$('#nav-bar-background').style.webkitAppRegion = 'no-drag'
-		} else {
-			$('#nav-bar-background').style.webkitAppRegion = 'drag'
-		}
+		$('#nav-bar-background').style.webkitAppRegion =
+			mutations[0].target.opened ? 'no-drag' : 'drag';
 	});
 	searchOpenObserver.observe($('ytmusic-search-box'), { attributeFilter: ["opened"] })
 }
