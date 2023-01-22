@@ -80,3 +80,12 @@ yt-page-navigation-progress,
 .cet-menubar-menu-container .cet-action-item {
 	background-color: inherit
 }
+
+.cet-window-icon {
+	-webkit-app-region: no-drag;
+}
+
+.cet-window-icon img {
+	-webkit-user-drag: none;
+    filter: invert(50%);
+}

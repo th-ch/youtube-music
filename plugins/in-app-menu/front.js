@@ -16,13 +16,6 @@ module.exports = (options) => {
 	bar.updateTitle(" ");
 	document.title = "Youtube Music";
 
-	const icon = $('.cet-window-icon');
-
-	icon.style.webkitAppRegion = 'no-drag';
-
-	icon.firstChild.style.webkitUserDrag = 'none';
-	icon.firstChild.style.filter = 'invert(50%)';
-
 	const toggleMenu = () => {
 		if (visible()) {
 			bar.updateMenu(null);
@@ -31,7 +24,7 @@ module.exports = (options) => {
 		}
 	};
 
-	icon.addEventListener('click', toggleMenu);
+	$('.cet-window-icon').addEventListener('click', toggleMenu);
 	ipcRenderer.on("toggleMenu", toggleMenu);
 
 	ipcRenderer.on("refreshMenu", () => {
