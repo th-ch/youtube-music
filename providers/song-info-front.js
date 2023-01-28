@@ -67,50 +67,14 @@ function setupTimeChangeListener() {
 }
 
 function setupRepeatChangeListener() {
+	const mp = { NONE: "Repeat off", ONE: "Repeat one", ALL: "Repeat all" }
 	const repeatObserver = new MutationObserver(mutations => {
-		document.cookie.split(';').forEach((cookie) => {
-			let cookieName = cookie.substring(0, cookie.indexOf("=")).replaceAll(" ", "");
-			if (cookieName === 'PREF') {
-				let value = cookie.replace(cookieName + "=", "").replaceAll(" ", "");
-				value.split('&').forEach((pair) => {
-					if (pair !== '') {
-						let splitpair = pair.split('=');
-						if (splitpair[0] === "repeat") {
-							if (splitpair[1] === "NONE")
-								ipcRenderer.send('repeatChanged', "Repeat off");
-							else if (splitpair[1] === "ONE") //MPRIS Playlist and Track Codes are switched to look the same as yt-music icons
-								ipcRenderer.send('repeatChanged', "Repeat one");
-							else if (splitpair[1] === "ALL")
-								ipcRenderer.send('repeatChanged', "Repeat all");
-						}
-					}
-				});
-			}
-		});
+		ipcRenderer.send('repeatChanged', mp[mutations[0].target.__dataHost.getState().queue.repeatMode])
 	});
 	repeatObserver.observe($('#right-controls .repeat'), {attributeFilter: ["title"]});
 
 	// Emit the initial value as well; as it's persistent between launches.
-	// ipcRenderer.send('repeatChanged', $('#right-controls .repeat').title);
-	document.cookie.split(';').forEach((cookie) => {
-		let cookieName = cookie.substring(0, cookie.indexOf("=")).replaceAll(" ", "");
-		if (cookieName === 'PREF') {
-			let value = cookie.replace(cookieName + "=", "").replaceAll(" ", "");
-			value.split('&').forEach((pair) => {
-				if (pair !== '') {
-					let splitpair = pair.split('=');
-					if (splitpair[0] === "repeat") {
-						if (splitpair[1] === "NONE")
-							ipcRenderer.send('repeatChanged', "Repeat off");
-						else if (splitpair[1] === "ONE") //MPRIS Playlist and Track Codes are switched to look the same as yt-music icons
-							ipcRenderer.send('repeatChanged', "Repeat one");
-						else if (splitpair[1] === "ALL")
-							ipcRenderer.send('repeatChanged', "Repeat all");
-					}
-				}
-			});
-		}
-	});
+	ipcRenderer.send('repeatChanged', mp[$('ytmusic-player-bar').getState().queue.repeatMode]);
 }
 
 function setupVolumeChangeListener(api) {

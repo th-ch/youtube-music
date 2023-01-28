@@ -89,10 +89,9 @@ function registerMPRIS(win) {
 		});
 
 		ipcMain.on('volumeChanged', (_, value) => {
-			if (config.plugins.isEnabled('precise-volume')) {
-				player.volume = value / 100;
-			}
+			player.volume = value / 100;
 		});
+
 		player.on('volume', (newVolume) => {
 			if (config.plugins.isEnabled('precise-volume')) {
 				// With precise volume we can set the volume to the exact value.
