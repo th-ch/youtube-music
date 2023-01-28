@@ -1,5 +1,5 @@
 const mpris = require("mpris-service");
-const { ipcMain } = require("electron");
+const {ipcMain} = require("electron");
 const registerCallback = require("../../providers/song-info");
 const getSongControls = require("../../providers/song-controls");
 const config = require("../../config");
@@ -20,7 +20,7 @@ function setupMPRIS() {
 
 function registerMPRIS(win) {
 	const songControls = getSongControls(win);
-	const { playPause, next, previous, volumeMinus10, volumePlus10 } = songControls;
+	const {playPause, next, previous, volumeMinus10, volumePlus10, shuffle} = songControls;
 	try {
 		const secToMicro = n => Math.round(Number(n) * 1e6);
 		const microToSec = n => Math.round(Number(n) / 1e6);
@@ -35,33 +35,23 @@ function registerMPRIS(win) {
 		let currentSeconds = 0;
 		ipcMain.on('timeChanged', (_, t) => currentSeconds = t);
 
-		let currentLoopStatus = undefined;
-		let manuallySwitchingStatus = false;
 		ipcMain.on("repeatChanged", (_, mode) => {
-			if (manuallySwitchingStatus)
-				return;
-
 			if (mode === "Repeat off")
-				currentLoopStatus = "None";
-			else if (mode === "Repeat one")
-				currentLoopStatus = "Track";
+				player.loopStatus = mpris.LOOP_STATUS_NONE;
+			else if (mode === "Repeat one") //MPRIS Playlist and Track Codes are switched to look the same as yt-music icons
+				player.loopStatus = mpris.LOOP_STATUS_PLAYLIST;
 			else if (mode === "Repeat all")
-				currentLoopStatus = "Playlist";
-
-			player.loopStatus = currentLoopStatus;
+				player.loopStatus = mpris.LOOP_STATUS_TRACK;
 		});
 		player.on("loopStatus", (status) => {
 			// switchRepeat cycles between states in that order
-			const switches = ["None", "Playlist", "Track"];
-			const currentIndex = switches.indexOf(currentLoopStatus);
+			const switches = [mpris.LOOP_STATUS_NONE, mpris.LOOP_STATUS_PLAYLIST, mpris.LOOP_STATUS_TRACK];
+			const currentIndex = switches.indexOf(player.loopStatus);
 			const targetIndex = switches.indexOf(status);
 
 			// Get a delta in the range [0,2]
 			const delta = (targetIndex - currentIndex + 3) % 3;
-
-			manuallySwitchingStatus = true;
 			songControls.switchRepeat(delta);
-			manuallySwitchingStatus = false;
 		})
 
 		player.getPosition = () => secToMicro(currentSeconds)
@@ -72,19 +62,19 @@ function registerMPRIS(win) {
 		});
 
 		player.on("play", () => {
-			if (player.playbackStatus !== 'Playing') {
-				player.playbackStatus = 'Playing';
+			if (player.playbackStatus !== mpris.PLAYBACK_STATUS_PLAYING) {
+				player.playbackStatus = mpris.PLAYBACK_STATUS_PLAYING;
 				playPause()
 			}
 		});
 		player.on("pause", () => {
-			if (player.playbackStatus !== 'Paused') {
-				player.playbackStatus = 'Paused';
+			if (player.playbackStatus !== mpris.PLAYBACK_STATUS_PAUSED) {
+				player.playbackStatus = mpris.PLAYBACK_STATUS_PAUSED;
 				playPause()
 			}
 		});
 		player.on("playpause", () => {
-			player.playbackStatus = player.playbackStatus === 'Playing' ? "Paused" : "Playing";
+			player.playbackStatus = player.playbackStatus === mpris.PLAYBACK_STATUS_PLAYING ? mpris.PLAYBACK_STATUS_PAUSED : mpris.PLAYBACK_STATUS_PLAYING;
 			playPause();
 		});
 
@@ -94,40 +84,48 @@ function registerMPRIS(win) {
 		player.on('seek', seekBy);
 		player.on('position', seekTo);
 
+		player.on('shuffle', (enableShuffle) => {
+			shuffle();
+		});
+
 		ipcMain.on('volumeChanged', (_, value) => {
-			player.volume = value;
+			if (config.plugins.isEnabled('precise-volume')) {
+				player.volume = value / 100;
+			}
 		});
 		player.on('volume', (newVolume) => {
 			if (config.plugins.isEnabled('precise-volume')) {
 				// With precise volume we can set the volume to the exact value.
-				win.webContents.send('setVolume', newVolume)
+				win.webContents.send('setVolume', newVolume * 100)
 			} else {
 				// With keyboard shortcuts we can only change the volume in increments of 10, so round it.
-				const deltaVolume = Math.round((newVolume - player.volume) / 10);
-
-				if (deltaVolume > 0) {
-					for (let i = 0; i < deltaVolume; i++)
-						volumePlus10();
-				} else {
-					for (let i = 0; i < -deltaVolume; i++)
-						volumeMinus10();
+				let deltaVolume = Math.round((newVolume - player.volume) * 10);
+				while (deltaVolume !== 0 && deltaVolume > 0) {
+					volumePlus10();
+					player.volume = player.volume + 0.1;
+					deltaVolume--;
+				}
+				while (deltaVolume !== 0 && deltaVolume < 0) {
+					volumeMinus10();
+					player.volume = player.volume - 0.1;
+					deltaVolume++;
 				}
 			}
 		});
 
-	registerCallback(songInfo => {
-		if (player) {
-			const data = {
-				'mpris:length': secToMicro(songInfo.songDuration),
-				'mpris:artUrl': songInfo.imageSrc,
-				'xesam:title': songInfo.title,
-				'xesam:artist': [songInfo.artist],
+		registerCallback(songInfo => {
+			if (player) {
+				const data = {
+					'mpris:length': secToMicro(songInfo.songDuration),
+					'mpris:artUrl': songInfo.imageSrc,
+					'xesam:title': songInfo.title,
+					'xesam:artist': [songInfo.artist],
 					'mpris:trackid': '/'
 				};
 				if (songInfo.album) data['xesam:album'] = songInfo.album;
 				player.metadata = data;
-				player.seeked(secToMicro(songInfo.elapsedSeconds))
-				player.playbackStatus = songInfo.isPaused ? "Paused" : "Playing"
+				player.seeked(secToMicro(songInfo.elapsedSeconds));
+				player.playbackStatus = songInfo.isPaused ? mpris.PLAYBACK_STATUS_PAUSED : mpris.PLAYBACK_STATUS_PLAYING;
 			}
 		})
 
