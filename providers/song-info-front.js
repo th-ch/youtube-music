@@ -1,6 +1,6 @@
-const { ipcRenderer } = require("electron");
+const {ipcRenderer} = require("electron");
 const is = require('electron-is');
-const { getImage } = require("./song-info");
+const {getImage} = require("./song-info");
 
 const config = require("../config");
 
@@ -55,7 +55,7 @@ module.exports = () => {
 			data.videoDetails.isPaused = false;
 			ipcRenderer.send("video-src-changed", JSON.stringify(data));
 		}
-	}, { once: true, passive: true });
+	}, {once: true, passive: true});
 };
 
 function setupTimeChangeListener() {
@@ -63,17 +63,54 @@ function setupTimeChangeListener() {
 		ipcRenderer.send('timeChanged', mutations[0].target.value);
 		global.songInfo.elapsedSeconds = mutations[0].target.value;
 	});
-	progressObserver.observe($('#progress-bar'), { attributeFilter: ["value"] })
+	progressObserver.observe($('#progress-bar'), {attributeFilter: ["value"]})
 }
 
 function setupRepeatChangeListener() {
 	const repeatObserver = new MutationObserver(mutations => {
-		ipcRenderer.send('repeatChanged', mutations[0].target.title);
+		document.cookie.split(';').forEach((cookie) => {
+			let cookieName = cookie.substring(0, cookie.indexOf("=")).replaceAll(" ", "");
+			if (cookieName === 'PREF') {
+				let value = cookie.replace(cookieName + "=", "").replaceAll(" ", "");
+				value.split('&').forEach((pair) => {
+					if (pair !== '') {
+						let splitpair = pair.split('=');
+						if (splitpair[0] === "repeat") {
+							if (splitpair[1] === "NONE")
+								ipcRenderer.send('repeatChanged', "Repeat off");
+							else if (splitpair[1] === "ONE") //MPRIS Playlist and Track Codes are switched to look the same as yt-music icons
+								ipcRenderer.send('repeatChanged', "Repeat one");
+							else if (splitpair[1] === "ALL")
+								ipcRenderer.send('repeatChanged', "Repeat all");
+						}
+					}
+				});
+			}
+		});
 	});
-	repeatObserver.observe($('#right-controls .repeat'), { attributeFilter: ["title"] });
+	repeatObserver.observe($('#right-controls .repeat'), {attributeFilter: ["title"]});
 
 	// Emit the initial value as well; as it's persistent between launches.
-	ipcRenderer.send('repeatChanged', $('#right-controls .repeat').title);
+	// ipcRenderer.send('repeatChanged', $('#right-controls .repeat').title);
+	document.cookie.split(';').forEach((cookie) => {
+		let cookieName = cookie.substring(0, cookie.indexOf("=")).replaceAll(" ", "");
+		if (cookieName === 'PREF') {
+			let value = cookie.replace(cookieName + "=", "").replaceAll(" ", "");
+			value.split('&').forEach((pair) => {
+				if (pair !== '') {
+					let splitpair = pair.split('=');
+					if (splitpair[0] === "repeat") {
+						if (splitpair[1] === "NONE")
+							ipcRenderer.send('repeatChanged', "Repeat off");
+						else if (splitpair[1] === "ONE") //MPRIS Playlist and Track Codes are switched to look the same as yt-music icons
+							ipcRenderer.send('repeatChanged', "Repeat one");
+						else if (splitpair[1] === "ALL")
+							ipcRenderer.send('repeatChanged', "Repeat all");
+					}
+				}
+			});
+		}
+	});
 }
 
 function setupVolumeChangeListener(api) {

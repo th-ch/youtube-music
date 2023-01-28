@@ -3,3 +3,4 @@ node_modules
 /assets/generated
 electron-builder.yml
 .vscode/settings.json
+.idea
