@@ -3,3 +3,11 @@ node_modules
 /assets/generated
 electron-builder.yml
 .vscode/settings.json
+
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
