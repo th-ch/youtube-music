@@ -5,6 +5,7 @@ const registerCallback = require("../../providers/song-info");
 
 const secToMilisec = t => Math.round(Number(t) * 1e3);
 const data = {
+	cover: '',
 	cover_url: '',
 	title: '',
 	artists: [],
@@ -41,6 +42,7 @@ module.exports = async (win) => {
 
 		data.duration = secToMilisec(songInfo.songDuration)
 		data.progress = secToMilisec(songInfo.elapsedSeconds)
+		data.cover = songInfo.imageSrc;
 		data.cover_url = songInfo.imageSrc;
 		data.album_url = songInfo.imageSrc;
 		data.title = songInfo.title;

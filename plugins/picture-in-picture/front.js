@@ -10,6 +10,21 @@ const pipButton = ElementFromFile(
 	templatePath(__dirname, "picture-in-picture.html")
 );
 
+// will also clone
+function replaceButton(query, button) {
+	const svg = button.querySelector("#icon svg").cloneNode(true);
+	button.replaceWith(button.cloneNode(true));
+	button.remove();
+	const newButton = $(query);
+	newButton.querySelector("#icon").appendChild(svg);
+	return newButton;
+}
+
+function cloneButton(query) {
+	replaceButton(query, $(query));
+	return $(query);
+}
+
 const observer = new MutationObserver(() => {
 	if (!menu) {
 		menu = getSongMenu();
@@ -30,9 +45,6 @@ global.togglePictureInPicture = () => {
 
 const listenForToggle = () => {
 	const originalExitButton = $(".exit-fullscreen-button");
-	const clonedExitButton = originalExitButton.cloneNode(true);
-	clonedExitButton.onclick = () => togglePictureInPicture();
-
 	const appLayout = $("ytmusic-app-layout");
 	const expandMenu = $('#expanding-menu');
 	const middleControls = $('.middle-controls');
@@ -44,7 +56,7 @@ const listenForToggle = () => {
 
 	ipcRenderer.on('pip-toggle', (_, isPip) => {
 		if (isPip) {
-			$(".exit-fullscreen-button").replaceWith(clonedExitButton);
+			replaceButton(".exit-fullscreen-button", originalExitButton).onclick = () => togglePictureInPicture();
 			player.onDoubleClick_ = () => {};
 			expandMenu.onmouseleave = () => middleControls.click();
 			if (!playerPage.playerPageOpen_) {
@@ -67,10 +79,8 @@ function observeMenu(options) {
 		"apiLoaded",
 		() => {
 			listenForToggle();
-			const minButton = $(".player-minimize-button");
 			// remove native listeners
-			minButton.replaceWith(minButton.cloneNode(true)); 
-			$(".player-minimize-button").onclick = () =>  {
+			cloneButton(".player-minimize-button").onclick = () =>  {
 				global.togglePictureInPicture();
 				setTimeout(() => $('#player').click());
 			};

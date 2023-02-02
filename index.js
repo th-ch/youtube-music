@@ -189,7 +189,7 @@ function createMainWindow() {
 	win.webContents.loadURL(urlToLoad);
 	win.on("closed", onClosed);
 
-	const setPiPOptions = config.plugins.isEnabled("picture-in-picture") 
+	const setPiPOptions = config.plugins.isEnabled("picture-in-picture")
 		? (key, value) => require("./plugins/picture-in-picture/back").setOptions({ [key]: value })
 		: () => {};
 
@@ -317,17 +317,6 @@ app.once("browser-window-created", (event, win) => {
 	win.webContents.on("will-prevent-unload", (event) => {
 		event.preventDefault();
 	});
-
-	win.webContents.on(
-		"new-window",
-		(e, url, frameName, disposition, options) => {
-			// hook on new opened window
-
-			// at now new window in mainWindow renderer process.
-			// Also, this will automatically get an option `nodeIntegration=false`(not override to true, like in iframe's) - like in regular browsers
-			options.webPreferences.affinity = "main-window";
-		}
-	);
 });
 
 app.on("window-all-closed", () => {
@@ -363,6 +352,9 @@ app.on("ready", () => {
 
 	// Register appID on windows
 	if (is.windows()) {
+		// Depends on SnoreToast version https://github.com/KDE/snoretoast/blob/master/CMakeLists.txt#L5
+		const toastActivatorClsid = "eb1fdd5b-8f70-4b5a-b230-998a2dc19303";
+
 		const appID = "com.github.th-ch.youtube-music";
 		app.setAppUserModelId(appID);
 		const appLocation = process.execPath;
@@ -372,7 +364,11 @@ app.on("ready", () => {
 			const shortcutPath = path.join(appData, "Microsoft", "Windows", "Start Menu", "Programs", "YouTube Music.lnk");
 			try { // check if shortcut is registered and valid
 				const shortcutDetails = electron.shell.readShortcutLink(shortcutPath); // throw error if doesn't exist yet
-				if (shortcutDetails.target !== appLocation || shortcutDetails.appUserModelId !== appID) {
+				if (
+					shortcutDetails.target !== appLocation ||
+					shortcutDetails.appUserModelId !== appID ||
+					shortcutDetails.toastActivatorClsid !== toastActivatorClsid
+				) {
 					throw "needUpdate";
 				}
 			} catch (error) { // if not valid -> Register shortcut
@@ -381,9 +377,10 @@ app.on("ready", () => {
 					error === "needUpdate" ? "update" : "create",
 					{
 						target: appLocation,
-						cwd: appLocation.slice(0, appLocation.lastIndexOf(path.sep)),
+						cwd: path.dirname(appLocation),
 						description: "YouTube Music Desktop App - including custom plugins",
-						appUserModelId: appID
+						appUserModelId: appID,
+						toastActivatorClsid
 					}
 				);
 			}

@@ -14,5 +14,6 @@ const applyCompressor = (e) => {
 
 module.exports = () =>
 	document.addEventListener("audioCanPlay", applyCompressor, {
+		once: true, // Only create the audio compressor once, not on each video
 		passive: true,
 	});

@@ -22,7 +22,6 @@
     color: #fff;
     padding-right: 120px;
     position: absolute;
-    left: var(--align);
 }
 
 .video-switch-button:before {

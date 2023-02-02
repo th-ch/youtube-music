@@ -64,6 +64,8 @@ winget install th-ch.YouTubeMusic
 
 - **Bypass age restrictions**: bypass YouTube's age verification
 
+- **Captions selector**: Enable captions
+
 - **Disable Autoplay**: Makes every song start in "paused" mode
 
 - [**Discord**](https://discord.com/): Show your friends what you listen to with [Rich Presence](https://user-images.githubusercontent.com/28219076/104362104-a7a0b980-5513-11eb-9744-bb89eabe0016.png)
@@ -107,6 +109,8 @@ winget install th-ch.YouTubeMusic
 - **Tuna-OBS**: Integration with [OBS](https://obsproject.com/)'s plugin [Tuna](https://obsproject.com/forum/resources/tuna.843/)
 
 - **Video Toggle**: Adds a [button](https://user-images.githubusercontent.com/28893833/173663950-63e6610e-a532-49b7-9afa-54cb57ddfc15.png) to switch between Video/Song mode. can also optionally remove the whole video tab
+
+- **Visualizer**: Different music visualizers
 
 ---
 
