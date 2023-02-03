@@ -36,11 +36,11 @@ function registerMPRIS(win) {
 		ipcMain.on('timeChanged', (_, t) => currentSeconds = t);
 
 		ipcMain.on("repeatChanged", (_, mode) => {
-			if (mode === "Repeat off")
+			if (mode === "NONE")
 				player.loopStatus = mpris.LOOP_STATUS_NONE;
-			else if (mode === "Repeat one") //MPRIS Playlist and Track Codes are switched to look the same as yt-music icons
+			else if (mode === "ONE") //MPRIS Playlist and Track Codes are switched to look the same as yt-music icons
 				player.loopStatus = mpris.LOOP_STATUS_PLAYLIST;
-			else if (mode === "Repeat all")
+			else if (mode === "ALL")
 				player.loopStatus = mpris.LOOP_STATUS_TRACK;
 		});
 		player.on("loopStatus", (status) => {
@@ -88,14 +88,33 @@ function registerMPRIS(win) {
 			shuffle();
 		});
 
-		ipcMain.on('volumeChanged', (_, value) => {
-			player.volume = value / 100;
+		let mprisVolNewer = false;
+		let autoUpdate = false;
+		ipcMain.on('volumeChanged', (_, newVol) => {
+			if (parseInt(player.volume * 100) !== newVol) {
+				if (mprisVolNewer) {
+					mprisVolNewer = false;
+					autoUpdate = false;
+				} else {
+					autoUpdate = true;
+					player.volume = parseFloat((newVol / 100).toFixed(2));
+					mprisVolNewer = false;
+					autoUpdate = false;
+				}
+			}
 		});
 
 		player.on('volume', (newVolume) => {
 			if (config.plugins.isEnabled('precise-volume')) {
 				// With precise volume we can set the volume to the exact value.
-				win.webContents.send('setVolume', newVolume * 100)
+				let newVol = parseInt(newVolume * 100);
+				if (parseInt(player.volume * 100) !== newVol) {
+					if (!autoUpdate){
+						mprisVolNewer = true;
+						autoUpdate = false;
+						win.webContents.send('setVolume', newVol);
+					}
+				}
 			} else {
 				// With keyboard shortcuts we can only change the volume in increments of 10, so round it.
 				let deltaVolume = Math.round((newVolume - player.volume) * 10);

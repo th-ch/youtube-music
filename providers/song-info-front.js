@@ -67,14 +67,13 @@ function setupTimeChangeListener() {
 }
 
 function setupRepeatChangeListener() {
-	const mp = { NONE: "Repeat off", ONE: "Repeat one", ALL: "Repeat all" }
 	const repeatObserver = new MutationObserver(mutations => {
-		ipcRenderer.send('repeatChanged', mp[mutations[0].target.__dataHost.getState().queue.repeatMode])
+		ipcRenderer.send('repeatChanged', mutations[0].target.__dataHost.getState().queue.repeatMode)
 	});
 	repeatObserver.observe($('#right-controls .repeat'), {attributeFilter: ["title"]});
 
 	// Emit the initial value as well; as it's persistent between launches.
-	ipcRenderer.send('repeatChanged', mp[$('ytmusic-player-bar').getState().queue.repeatMode]);
+	ipcRenderer.send('repeatChanged', $('ytmusic-player-bar').getState().queue.repeatMode);
 }
 
 function setupVolumeChangeListener(api) {
