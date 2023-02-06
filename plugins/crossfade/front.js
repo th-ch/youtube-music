@@ -6,6 +6,7 @@ require("./fader");
 
 let transitionAudio; // Howler audio used to fade out the current music
 let firstVideo = true;
+let transitioning = false;
 
 // Crossfade options that can be overridden in plugin options
 let crossfadeOptions = {
@@ -108,8 +109,10 @@ const syncVideoWithTransitionAudio = async () => {
 
 const onApiLoaded = () => {
 	watchVideoIDChanges(async (videoID) => {
-		const url = await getStreamURL(videoID);
-		await createAudioForCrossfade(url);
+		if (!transitioning) {
+			const url = await getStreamURL(videoID);
+			await createAudioForCrossfade(url);
+		}
 	});
 };
 
@@ -118,6 +121,7 @@ const crossfade = (cb) => {
 		cb();
 		return;
 	}
+	transitioning = true;
 
 	const video = document.querySelector("video");
 
@@ -129,7 +133,10 @@ const crossfade = (cb) => {
 
 	// Fade out the music
 	video.volume = 0;
-	fader.fadeOut(cb);
+	fader.fadeOut(() => {
+		transitioning = false;
+		cb();
+	});
 };
 
 module.exports = (options) => {
