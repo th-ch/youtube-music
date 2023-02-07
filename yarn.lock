@@ -47,45 +47,45 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@cliqz/adblocker-content@^1.25.1":
-  version "1.25.1"
-  resolved "https://registry.yarnpkg.com/@cliqz/adblocker-content/-/adblocker-content-1.25.1.tgz#da81e7838e288a6f0fdb8a97a0df8169accb74a1"
-  integrity sha512-7gl2VdNPBfj7aPoq34B5miwGcnda/7LCr+BqnpcSOjdLV6jjT2FrNSAKGFvcH23q0HM1IFhYDV6ydTgsdWFCnA==
+"@cliqz/adblocker-content@^1.25.2":
+  version "1.25.2"
+  resolved "https://registry.yarnpkg.com/@cliqz/adblocker-content/-/adblocker-content-1.25.2.tgz#8835d7307c7829e85a2e38e7e3bfd161024ae4d7"
+  integrity sha512-Br177fKm/J3yc71m6cLA1OercmfGnZ5avprM/hB1bqZlN7Nt7qjISdZih90jTZ2ljyBVItDoVXOPf4ENlpn0qQ==
   dependencies:
-    "@cliqz/adblocker-extended-selectors" "^1.25.1"
+    "@cliqz/adblocker-extended-selectors" "^1.25.2"
 
-"@cliqz/adblocker-electron-preload@^1.25.1":
-  version "1.25.1"
-  resolved "https://registry.yarnpkg.com/@cliqz/adblocker-electron-preload/-/adblocker-electron-preload-1.25.1.tgz#83bd59d8e94436c451af3525d9902fa5fa1be3ab"
-  integrity sha512-edNVEqGrXqe/Qwi0D9/V8xmtyeJlhNPaelXilYa1ne7jG/OT7pee+7Vi4BWezl0NQ77WF3/mY9Bj4eJkEO0uiQ==
+"@cliqz/adblocker-electron-preload@^1.25.2":
+  version "1.25.2"
+  resolved "https://registry.yarnpkg.com/@cliqz/adblocker-electron-preload/-/adblocker-electron-preload-1.25.2.tgz#67263683cce7cd036dbc0c37761c4f5eed6508ad"
+  integrity sha512-d2W5/ZSLZtHTgzqdW3gEAoCHJU1o4FYuAEVjB6L7cmV9S0UZRfTBL3wTtO/gzt/wo1LMk4MFAxOqC+riNj6x1g==
   dependencies:
-    "@cliqz/adblocker-content" "^1.25.1"
+    "@cliqz/adblocker-content" "^1.25.2"
 
-"@cliqz/adblocker-electron@^1.25.1":
-  version "1.25.1"
-  resolved "https://registry.yarnpkg.com/@cliqz/adblocker-electron/-/adblocker-electron-1.25.1.tgz#44d9034e35c78938a772b10f8096df55a4accc41"
-  integrity sha512-CKStwRTR2L78EjgmuUpLKkV9s/uVnwQNGr7I/hyMkEROXbGdrN7P5LhwO+kkewccZ+3JtE509PBmZAp0EP71dw==
+"@cliqz/adblocker-electron@^1.25.2":
+  version "1.25.2"
+  resolved "https://registry.yarnpkg.com/@cliqz/adblocker-electron/-/adblocker-electron-1.25.2.tgz#1b0ec106cc395f5826d97fcfe8fbe4c333d39695"
+  integrity sha512-GdYrEfhdIALm8Ue07+YONBArlQLuXHryO8UojMcEjDKYC3zp0OOl4ifi/92XpwVXdXSfX0jTavqC7ExLzRHzgQ==
   dependencies:
-    "@cliqz/adblocker" "^1.25.1"
-    "@cliqz/adblocker-electron-preload" "^1.25.1"
+    "@cliqz/adblocker" "^1.25.2"
+    "@cliqz/adblocker-electron-preload" "^1.25.2"
     tldts-experimental "^5.6.21"
 
-"@cliqz/adblocker-extended-selectors@^1.25.1":
-  version "1.25.1"
-  resolved "https://registry.yarnpkg.com/@cliqz/adblocker-extended-selectors/-/adblocker-extended-selectors-1.25.1.tgz#cfac0080952311399805fe153cd9e7e1331b3c6d"
-  integrity sha512-4MdMe/YfIok5d8WYVcLR3Ak7vGrmeUV47frgmXEe945luY93vwlzk1NiLYW1JM5Gdm+VePweoS9cJ1/QUTmv+Q==
+"@cliqz/adblocker-extended-selectors@^1.25.2":
+  version "1.25.2"
+  resolved "https://registry.yarnpkg.com/@cliqz/adblocker-extended-selectors/-/adblocker-extended-selectors-1.25.2.tgz#77256c148b1f0a6792c1adad9e8b246cde65b37d"
+  integrity sha512-acHxeUoR9TwHbgTKLrNt/ZLRxO4M+DkaNheRp86Kd2lfpn/qbN3yAH2k2mTJ/E0rWV5do9m8QRMR1mtB1yNuhQ==
 
-"@cliqz/adblocker@^1.25.1":
-  version "1.25.1"
-  resolved "https://registry.yarnpkg.com/@cliqz/adblocker/-/adblocker-1.25.1.tgz#4d3e8894ce48ad0d0f8b26a4a1003f0676b7f734"
-  integrity sha512-1C1/ELI94/XewdUj/o1+Q4ziOigMvTZQA05UERfDoKqpJ+0cbrEF/UImrzpX7n+kYsR7xTJvmf+iNM3zS0tfsg==
+"@cliqz/adblocker@^1.25.2":
+  version "1.25.2"
+  resolved "https://registry.yarnpkg.com/@cliqz/adblocker/-/adblocker-1.25.2.tgz#f2bd7c48afa650f887ac59a9950bfb220ea8cc52"
+  integrity sha512-wEgj1ppkrC1JjZyeGQx0Sxfvot9Dt8fuea7vckx07zDdEfvm5ML5WIXyxT8KvEhGB8VuM+KGJpUk05lFUpromw==
   dependencies:
-    "@cliqz/adblocker-content" "^1.25.1"
-    "@cliqz/adblocker-extended-selectors" "^1.25.1"
+    "@cliqz/adblocker-content" "^1.25.2"
+    "@cliqz/adblocker-extended-selectors" "^1.25.2"
     "@remusao/guess-url-type" "^1.1.2"
     "@remusao/small" "^1.1.2"
     "@remusao/smaz" "^1.7.1"
-    "@types/chrome" "^0.0.197"
+    "@types/chrome" "^0.0.206"
     "@types/firefox-webext-browser" "^94.0.0"
     tldts-experimental "^5.6.21"
 
@@ -611,10 +611,10 @@
     "@types/node" "*"
     "@types/responselike" "^1.0.0"
 
-"@types/chrome@^0.0.197":
-  version "0.0.197"
-  resolved "https://registry.yarnpkg.com/@types/chrome/-/chrome-0.0.197.tgz#c1b50cdb72ee40f9bc1411506031a9f8a925ab35"
-  integrity sha512-m1NfS5bOjaypyqQfaX6CxmJodZVcvj5+Mt/K94EBHkflYjPNmXHAzbxfifdLMa0YM3PDyOxohoTS5ug/e6p5jA==
+"@types/chrome@^0.0.206":
+  version "0.0.206"
+  resolved "https://registry.yarnpkg.com/@types/chrome/-/chrome-0.0.206.tgz#ad1fd9799f368b5993d7c240492d4adaf5efbd8c"
+  integrity sha512-fQnTFjghPB9S4UzbfublUB6KmsBkvvJeGXGaaoD5Qu+ZxrDUfgJnKN5egLSzDcGAH5YxQubDgbCdNwwUGewQHg==
   dependencies:
     "@types/filesystem" "*"
     "@types/har-format" "*"
