@@ -96,9 +96,7 @@ function observeMenu(options) {
 	document.addEventListener(
 		"apiLoaded",
 		() => {
-			if (!useNativePiP) {
-				listenForToggle();
-			}
+			listenForToggle();
 			// remove native listeners
 			cloneButton(".player-minimize-button").onclick = async () => {
 				const isUsingNativePiP = await global.togglePictureInPicture();
