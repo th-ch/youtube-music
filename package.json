@@ -114,6 +114,7 @@
 		"electron-unhandled": "^4.0.1",
 		"electron-updater": "^5.3.0",
 		"filenamify": "^4.3.0",
+		"howler": "^2.2.3",
 		"html-to-text": "^9.0.3",
 		"md5": "^2.3.0",
 		"mpris-service": "^2.1.2",
@@ -121,6 +122,7 @@
 		"node-notifier": "^10.0.1",
 		"simple-youtube-age-restriction-bypass": "zerodytrash/Simple-YouTube-Age-Restriction-Bypass#v2.5.4",
 		"vudio": "^2.1.1",
+		"youtubei.js": "^2.9.0",
 		"ytdl-core": "^4.11.1",
 		"ytpl": "^2.3.0"
 	},
