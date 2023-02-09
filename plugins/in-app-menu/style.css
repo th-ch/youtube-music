@@ -8,8 +8,7 @@
 #nav-bar-background {
 	opacity: 1 !important;
 	pointer-events: none !important;
-	position: sticky !important;
-	top: 0 !important;
+	top: 30px !important;
 	height: 75px !important;
 }
 
