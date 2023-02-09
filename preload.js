@@ -100,6 +100,7 @@ function onApiLoaded() {
 	const video = document.querySelector("video");
 	const audioContext = new AudioContext();
 	const audioSource = audioContext.createMediaElementSource(video);
+	audioSource.connect(audioContext.destination);
 
 	video.addEventListener(
 		"loadstart",

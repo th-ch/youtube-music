@@ -235,6 +235,7 @@ function setTooltip(volume) {
 function setupLocalArrowShortcuts() {
 	if (options.arrowsShortcut) {
 		window.addEventListener('keydown', (event) => {
+			if ($('ytmusic-search-box').opened) return;
 			switch (event.code) {
 				case "ArrowUp":
 					event.preventDefault();
