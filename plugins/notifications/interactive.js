@@ -19,7 +19,7 @@ module.exports = (win) => {
     let currentSeconds = 0;
     ipcMain.on('apiLoaded', () => win.webContents.send('setupTimeChangedListener'));
 
-	ipcMain.on('timeChanged', (_, t) => currentSeconds = t);
+    ipcMain.on('timeChanged', (_, t) => currentSeconds = t);
 
     if (app.isPackaged) save_temp_icons();
 
@@ -29,7 +29,7 @@ module.exports = (win) => {
     // Register songInfoCallback
     registerCallback(songInfo => {
         savedSongInfo = { ...songInfo };
-        if (!songInfo.isPaused && 
+        if (!songInfo.isPaused &&
             (songInfo.url !== lastUrl || config.get("unpauseNotification"))
         ) {
             lastUrl = songInfo.url
@@ -68,11 +68,11 @@ module.exports = (win) => {
             if (Object.keys(songControls).includes(cmd)) {
                 songControls[cmd]();
                 if (config.get("refreshOnPlayPause") && (
-                        cmd === 'pause' ||
-                        (cmd === 'play' && !config.get("unpauseNotification"))
-                    )
+                    cmd === 'pause' ||
+                    (cmd === 'play' && !config.get("unpauseNotification"))
+                )
                 ) {
-                    setImmediate(() => 
+                    setImmediate(() =>
                         sendNotification({
                             ...savedSongInfo,
                             isPaused: cmd === 'pause',
@@ -91,16 +91,16 @@ function sendNotification(songInfo) {
     savedNotification?.close();
 
     savedNotification = new Notification({
-			title: songInfo.title || "Playing",
-			body: songInfo.artist,
-			icon: iconSrc,
-			silent: true,
-            // https://learn.microsoft.com/en-us/uwp/schemas/tiles/toastschema/schema-root
-            // https://learn.microsoft.com/en-us/windows/apps/design/shell/tiles-and-notifications/toast-schema
-            // https://learn.microsoft.com/en-us/windows/apps/design/shell/tiles-and-notifications/adaptive-interactive-toasts?tabs=xml
-            // https://learn.microsoft.com/en-us/uwp/api/windows.ui.notifications.toasttemplatetype
-			toastXml: get_xml(songInfo, iconSrc), 
-		});
+        title: songInfo.title || "Playing",
+        body: songInfo.artist,
+        icon: iconSrc,
+        silent: true,
+        // https://learn.microsoft.com/en-us/uwp/schemas/tiles/toastschema/schema-root
+        // https://learn.microsoft.com/en-us/windows/apps/design/shell/tiles-and-notifications/toast-schema
+        // https://learn.microsoft.com/en-us/windows/apps/design/shell/tiles-and-notifications/adaptive-interactive-toasts?tabs=xml
+        // https://learn.microsoft.com/en-us/uwp/api/windows.ui.notifications.toasttemplatetype
+        toastXml: get_xml(songInfo, iconSrc),
+    });
 
     savedNotification.on("close", (_) => {
         savedNotification = undefined;
@@ -112,7 +112,7 @@ function sendNotification(songInfo) {
 const get_xml = (songInfo, iconSrc) => {
     switch (config.get("toastStyle")) {
         default:
-        case ToastStyles.logo: 
+        case ToastStyles.logo:
         case ToastStyles.legacy:
             return xml_logo(songInfo, iconSrc);
         case ToastStyles.banner_top_custom:
@@ -133,7 +133,7 @@ const iconLocation = app.isPackaged ?
     path.resolve(__dirname, '..', '..', 'assets/media-icons-black');
 
 const display = (kind) => {
-    if (config.get("toastStyle") === ToastStyles.legacy ) {
+    if (config.get("toastStyle") === ToastStyles.legacy) {
         return `content="${icons[kind]}"`;
     } else {
         return `\
@@ -166,23 +166,18 @@ const toast = (content, isPaused) => `\
     ${getButtons(isPaused)}
 </toast>`;
 
-const xml_logo = ({title, artist, isPaused}, imgSrc) => toast(`\
-            <image id="1" src="${imgSrc}" name="Image" placement="appLogoOverride"/>
+const xml_image = ({ title, artist, isPaused }, imgSrc, placement) => toast(`\
+            <image id="1" src="${imgSrc}" name="Image" ${placement}/>
             <text id="1">${title}</text>
             <text id="2">${artist}</text>\
 `, isPaused);
 
-const xml_hero = ({title, artist, isPaused}, imgSrc) => toast(`\
-            <image id="1" src="${imgSrc}" name="Image" placement="hero"/>
-            <text id="1">${title}</text>
-            <text id="2">${artist}</text>\
-`, isPaused);
 
-const xml_banner_bottom = ({title, artist, isPaused}, imgSrc) => toast(`\
-            <image id="1" src="${imgSrc}" name="Image" />
-            <text id="1">${title}</text>
-            <text id="2">${artist}</text>\
-`, isPaused);
+const xml_logo = (songInfo, imgSrc) => xml_image(songInfo, imgSrc, 'placement="appLogoOverride"');
+
+const xml_hero = (songInfo, imgSrc) => xml_image(songInfo, imgSrc, 'placement="hero"');
+
+const xml_banner_bottom = (songInfo, imgSrc) => xml_image(songInfo, imgSrc, '');
 
 const xml_banner_top_custom = (songInfo, imgSrc) => toast(`\
             <image id="1" src="${imgSrc}" name="Image" />
@@ -196,15 +191,15 @@ const xml_banner_top_custom = (songInfo, imgSrc) => toast(`\
             </group>\
 `, songInfo.isPaused);
 
-const xml_more_data = ({ album, elapsedSeconds, songDuration })=> `\
+const xml_more_data = ({ album, elapsedSeconds, songDuration }) => `\
 <subgroup hint-textStacking="bottom">
-    ${album ? 
+    ${album ?
         `<text hint-style="captionSubtle" hint-wrap="true" hint-align="right">${album}</text>` : ''}  
     <text hint-style="captionSubtle" hint-wrap="true" hint-align="right">${secondsToMinutes(elapsedSeconds)} / ${secondsToMinutes(songDuration)}</text>
 </subgroup>\
 `;
 
-const xml_banner_centered_bottom = ({title, artist, isPaused}, imgSrc) => toast(`\
+const xml_banner_centered_bottom = ({ title, artist, isPaused }, imgSrc) => toast(`\
             <text>ㅤ</text>
             <group>
                 <subgroup hint-weight="1" hint-textStacking="center">
@@ -215,7 +210,7 @@ const xml_banner_centered_bottom = ({title, artist, isPaused}, imgSrc) => toast(
             <image id="1" src="${imgSrc}" name="Image"  hint-removeMargin="true" />\
 `, isPaused);
 
-const xml_banner_centered_top = ({title, artist, isPaused}, imgSrc) => toast(`\
+const xml_banner_centered_top = ({ title, artist, isPaused }, imgSrc) => toast(`\
             <image id="1" src="${imgSrc}" name="Image" />
             <text>ㅤ</text>
             <group>

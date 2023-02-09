@@ -35,7 +35,7 @@ module.exports.notificationImage = (songInfo) => {
 	if (!songInfo.image) return icon;
 	if (!config.get("interactive")) return nativeImageToLogo(songInfo.image);
 
-	switch(config.get("toastStyle")) {
+	switch (config.get("toastStyle")) {
 		case module.exports.ToastStyles.logo:
 		case module.exports.ToastStyles.legacy:
 			return this.saveImage(nativeImageToLogo(songInfo.image), tempIcon);
@@ -67,13 +67,13 @@ function nativeImageToLogo(nativeImage) {
 }
 
 module.exports.save_temp_icons = () => {
-    for (const kind of Object.keys(module.exports.icons)) {
+	for (const kind of Object.keys(module.exports.icons)) {
 		const destinationPath = path.join(userData, 'icons', `${kind}.png`);
 		if (fs.existsSync(destinationPath)) continue;
-        const iconPath = path.resolve(__dirname, "../../assets/media-icons-black", `${kind}.png`);
+		const iconPath = path.resolve(__dirname, "../../assets/media-icons-black", `${kind}.png`);
 		fs.mkdirSync(path.dirname(destinationPath), { recursive: true });
-		fs.copyFile(iconPath, destinationPath, ()=>{});
-    }
+		fs.copyFile(iconPath, destinationPath, () => { });
+	}
 };
 
 module.exports.snakeToCamel = (str) => {

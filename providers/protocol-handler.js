@@ -16,7 +16,7 @@ function setupProtocolHandler(win) {
 	} else {
 		app.setAsDefaultProtocolClient(APP_PROTOCOL)
 	}
-	  
+
 	const songControls = getSongControls(win);
 
 	protocolHandler = (cmd) => {

@@ -337,7 +337,7 @@ app.on("ready", () => {
 		// Clear cache after 20s
 		const clearCacheTimeout = setTimeout(() => {
 			if (is.dev()) {
-				console.log("Clearing app cache.");	
+				console.log("Clearing app cache.");
 			}
 			electron.session.defaultSession.clearCache();
 			clearTimeout(clearCacheTimeout);

@@ -1,5 +1,5 @@
 const mpris = require("mpris-service");
-const {ipcMain} = require("electron");
+const { ipcMain } = require("electron");
 const registerCallback = require("../../providers/song-info");
 const getSongControls = require("../../providers/song-controls");
 const config = require("../../config");
@@ -21,7 +21,7 @@ function setupMPRIS() {
 /** @param {Electron.BrowserWindow} win */
 function registerMPRIS(win) {
 	const songControls = getSongControls(win);
-	const {playPause, next, previous, volumeMinus10, volumePlus10, shuffle} = songControls;
+	const { playPause, next, previous, volumeMinus10, volumePlus10, shuffle } = songControls;
 	try {
 		const secToMicro = n => Math.round(Number(n) * 1e6);
 		const microToSec = n => Math.round(Number(n) / 1e6);
@@ -117,7 +117,7 @@ function registerMPRIS(win) {
 				// With precise volume we can set the volume to the exact value.
 				let newVol = parseInt(newVolume * 100);
 				if (parseInt(player.volume * 100) !== newVol) {
-					if (!autoUpdate){
+					if (!autoUpdate) {
 						mprisVolNewer = true;
 						autoUpdate = false;
 						win.webContents.send('setVolume', newVol);

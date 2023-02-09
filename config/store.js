@@ -13,10 +13,10 @@ const migrations = {
 		setDefaultPluginOptions(store, "visualizer");
 
 		if (store.get("plugins.notifications.toastStyle") === undefined) {
-				const pluginOptions = store.get("plugins.notifications") || {};
-				store.set("plugins.notifications", {
-					...defaults.plugins.notifications,
-					...pluginOptions,
+			const pluginOptions = store.get("plugins.notifications") || {};
+			store.set("plugins.notifications", {
+				...defaults.plugins.notifications,
+				...pluginOptions,
 			});
 		}
 	},
