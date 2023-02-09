@@ -106,7 +106,7 @@ jobs:
   release:
     runs-on: ubuntu-latest
     name: Release YouTube Music
-    if: github.ref == 'refs/heads/master'
+    if: github.repository == 'th-ch/youtube-music' && github.ref == 'refs/heads/master'
     needs: build
     steps:
       - uses: actions/checkout@v3
