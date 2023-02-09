@@ -100,9 +100,7 @@ function observeMenu(options) {
 			// remove native listeners
 			cloneButton(".player-minimize-button").onclick = async () => {
 				const isUsingNativePiP = await global.togglePictureInPicture();
-				if (!isUsingNativePiP) {
-					setTimeout(() => $("#player").click());
-				}
+				setTimeout(() => $("#player").click());
 			};
 
 			// allows easily closing the menu by programmatically clicking outside of it
