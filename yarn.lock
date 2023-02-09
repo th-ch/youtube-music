@@ -68,7 +68,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cliqz/adblocker-electron@npm:^1.25.1":
+"@cliqz/adblocker-electron@npm:^1.25.2":
   version: 1.25.2
   resolution: "@cliqz/adblocker-electron@npm:1.25.2"
   dependencies:
@@ -8950,7 +8950,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "youtube-music@workspace:."
   dependencies:
-    "@cliqz/adblocker-electron": ^1.25.1
+    "@cliqz/adblocker-electron": ^1.25.2
     "@ffmpeg/core": ^0.11.0
     "@ffmpeg/ffmpeg": ^0.11.6
     "@foobar404/wave": ^2.0.4
