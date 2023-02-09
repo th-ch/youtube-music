@@ -37,12 +37,12 @@ module.exports.setupTimeChangedListener = singleton(() => {
 
 module.exports.setupRepeatChangedListener = singleton(() => {
 	const repeatObserver = new MutationObserver(mutations => {
-		ipcRenderer.send('repeatChanged', mutations[0].target.title);
+		ipcRenderer.send('repeatChanged', mutations[0].target.__dataHost.getState().queue.repeatMode);
 	});
 	repeatObserver.observe($('#right-controls .repeat'), { attributeFilter: ["title"] });
 
 	// Emit the initial value as well; as it's persistent between launches.
-	ipcRenderer.send('repeatChanged', $('#right-controls .repeat').title);
+	ipcRenderer.send('repeatChanged', $('ytmusic-player-bar').getState().queue.repeatMode);
 });
 
 module.exports.setupVolumeChangedListener = singleton((api) => {
@@ -58,11 +58,11 @@ module.exports = () => {
 		ipcRenderer.on("setupTimeChangedListener", async () => {
 			this.setupTimeChangedListener();
 		});
-	
+
 		ipcRenderer.on("setupRepeatChangedListener", async () => {
 			this.setupRepeatChangedListener();
 		});
-	
+
 		ipcRenderer.on("setupVolumeChangedListener", async () => {
 			this.setupVolumeChangedListener(apiEvent.detail);
 		});
@@ -70,7 +70,7 @@ module.exports = () => {
 		ipcRenderer.on("setupSeekedListener", async () => {
 			this.setupSeekedListener();
 		});
-		
+
 		const video = $('video');
 		// name = "dataloaded" and abit later "dataupdated"
 		apiEvent.detail.addEventListener('videodatachange', (name, _dataEvent) => {
