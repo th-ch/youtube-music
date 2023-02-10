@@ -54,6 +54,8 @@ const listenForToggle = () => {
 	const player = $('#player');
 	const onPlayerDblClick = player.onDoubleClick_;
 
+	const titlebar = $('.cet-titlebar');
+
 	ipcRenderer.on('pip-toggle', (_, isPip) => {
 		if (isPip) {
 			replaceButton(".exit-fullscreen-button", originalExitButton).onclick = () => togglePictureInPicture();
@@ -64,12 +66,14 @@ const listenForToggle = () => {
 			}
 			fullScreenButton.click();
 			appLayout.classList.add("pip");
+			if (titlebar) titlebar.style.display = 'none';
 		} else {
 			$(".exit-fullscreen-button").replaceWith(originalExitButton);
 			player.onDoubleClick_ = onPlayerDblClick;
 			expandMenu.onmouseleave = undefined;
 			originalExitButton.click();
 			appLayout.classList.remove("pip");
+			if (titlebar) titlebar.style.display = 'flex';
 		}
 	});
 }
@@ -80,7 +84,7 @@ function observeMenu(options) {
 		() => {
 			listenForToggle();
 			// remove native listeners
-			cloneButton(".player-minimize-button").onclick = () =>  {
+			cloneButton(".player-minimize-button").onclick = () => {
 				global.togglePictureInPicture();
 				setTimeout(() => $('#player').click());
 			};
