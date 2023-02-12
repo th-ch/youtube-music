@@ -71,10 +71,10 @@
 		"test:debug": "DEBUG=pw:browser* playwright test",
 		"start": "electron .",
 		"start:debug": "ELECTRON_ENABLE_LOGGING=1 electron .",
-		"icon": "rimraf assets/generated && electron-icon-maker --input=assets/youtube-music.png --output=assets/generated",
+		"icon": "del-cli assets/generated && electron-icon-builder --input=assets/youtube-music.png --output=assets/generated",
 		"generate:package": "node utils/generate-package-json.js",
 		"postinstall": "yarn run icon && yarn run plugins",
-		"clean": "del dist",
+		"clean": "del-cli dist",
 		"build": "yarn run clean && electron-builder --win --mac --linux",
 		"build:linux": "yarn run clean && electron-builder --linux",
 		"build:mac": "yarn run clean && electron-builder --mac dmg:x64",
@@ -83,8 +83,8 @@
 		"lint": "xo",
 		"changelog": "auto-changelog",
 		"plugins": "yarn run plugin:adblocker && yarn run plugin:bypass-age-restrictions",
-		"plugin:adblocker": "rimraf plugins/adblocker/ad-blocker-engine.bin && node plugins/adblocker/blocker.js",
-		"plugin:bypass-age-restrictions": "yarn run generate:package Simple-YouTube-Age-Restriction-Bypass",
+		"plugin:adblocker": "del-cli plugins/adblocker/ad-blocker-engine.bin && node plugins/adblocker/blocker.js",
+		"plugin:bypass-age-restrictions": "del-cli node_modules/simple-youtube-age-restriction-bypass/package.json && yarn run generate:package simple-youtube-age-restriction-bypass",
 		"release:linux": "yarn run clean && electron-builder --linux -p always -c.snap.publish=github",
 		"release:mac": "yarn run clean && electron-builder --mac -p always",
 		"release:win": "yarn run clean && electron-builder --win -p always"
@@ -94,11 +94,10 @@
 		"npm": "Please use yarn and not npm"
 	},
 	"dependencies": {
-		"@cliqz/adblocker-electron": "^1.25.1",
+		"@cliqz/adblocker-electron": "^1.25.2",
 		"@ffmpeg/core": "^0.11.0",
 		"@ffmpeg/ffmpeg": "^0.11.6",
 		"@foobar404/wave": "^2.0.4",
-		"Simple-YouTube-Age-Restriction-Bypass": "https://gitpkg.now.sh/zerodytrash/Simple-YouTube-Age-Restriction-Bypass/dist?v2.5.4",
 		"async-mutex": "^0.4.0",
 		"browser-id3-writer": "^4.4.0",
 		"butterchurn": "^2.6.7",
@@ -115,12 +114,17 @@
 		"electron-unhandled": "^4.0.1",
 		"electron-updater": "^5.3.0",
 		"filenamify": "^4.3.0",
+		"howler": "^2.2.3",
 		"html-to-text": "^9.0.3",
+		"keyboardevent-from-electron-accelerator": "^2.0.0",
+		"keyboardevents-areequal": "^0.2.2",
 		"md5": "^2.3.0",
 		"mpris-service": "^2.1.2",
 		"node-fetch": "^2.6.8",
 		"node-notifier": "^10.0.1",
+		"simple-youtube-age-restriction-bypass": "https://gitpkg.now.sh/api/pkg.tgz?url=zerodytrash/Simple-YouTube-Age-Restriction-Bypass&commit=v2.5.4",
 		"vudio": "^2.1.1",
+		"youtubei.js": "^2.9.0",
 		"ytdl-core": "^4.11.1",
 		"ytpl": "^2.3.0"
 	},
@@ -131,7 +135,8 @@
 		"electron": "^22.0.2",
 		"electron-builder": "^23.6.0",
 		"electron-devtools-installer": "^3.2.0",
-		"electron-icon-maker": "0.0.5",
+		"electron-icon-builder": "^2.0.1",
+		"node-gyp": "^9.3.1",
 		"playwright": "^1.29.2",
 		"xo": "^0.53.1"
 	},
@@ -161,5 +166,6 @@
 				}
 			]
 		}
-	}
+	},
+	"packageManager": "yarn@3.4.1"
 }
