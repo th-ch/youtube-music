@@ -39,3 +39,8 @@ img {
 ytmusic-cast-button {
 	display: none !important;
 }
+
+/* Remove useless inaccessible button on top-right corner of the video player */
+.ytp-chrome-top-buttons {
+	display: none !important;
+}
