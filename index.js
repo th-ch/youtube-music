@@ -486,13 +486,12 @@ function removeContentSecurityPolicy(
 
 	// Custom listener to tweak the content security policy
 	session.webRequest.onHeadersReceived(function (details, callback) {
-		if (
-			!details.responseHeaders["content-security-policy-report-only"] &&
-			!details.responseHeaders["content-security-policy"]
-		)
-			return callback({ cancel: false });
+		details.responseHeaders ??= {}
+
+		// Remove the content security policy
 		delete details.responseHeaders["content-security-policy-report-only"];
 		delete details.responseHeaders["content-security-policy"];
+
 		callback({ cancel: false, responseHeaders: details.responseHeaders });
 	});
 
