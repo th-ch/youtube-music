@@ -1,10 +1,14 @@
 const { ipcRenderer } = require("electron");
 
+const { toKeyEvent } = require("keyboardevent-from-electron-accelerator");
+const keyEventAreEqual = require("keyboardevents-areequal");
+
 const { getSongMenu } = require("../../providers/dom-elements");
 const { ElementFromFile, templatePath } = require("../utils");
 
 function $(selector) { return document.querySelector(selector); }
 
+let useNativePiP = false;
 let menu = null;
 const pipButton = ElementFromFile(
 	templatePath(__dirname, "picture-in-picture.html")
@@ -39,8 +43,24 @@ const observer = new MutationObserver(() => {
 	menu.prepend(pipButton);
 });
 
-global.togglePictureInPicture = () => {
+global.togglePictureInPicture = async () => {
+	if (useNativePiP) {
+		const isInPiP = document.pictureInPictureElement !== null;
+		const video = $("video");
+		const togglePiP = () =>
+			isInPiP
+				? document.exitPictureInPicture.call(document)
+				: video.requestPictureInPicture.call(video);
+
+		try {
+			await togglePiP();
+			$("#icon").click(); // Close the menu
+			return true;
+		} catch {}
+	}
+
 	ipcRenderer.send("picture-in-picture");
+	return false;
 };
 
 const listenForToggle = () => {
@@ -54,9 +74,12 @@ const listenForToggle = () => {
 	const player = $('#player');
 	const onPlayerDblClick = player.onDoubleClick_;
 
-	ipcRenderer.on('pip-toggle', (_, isPip) => {
+	const titlebar = $(".cet-titlebar");
+
+	ipcRenderer.on("pip-toggle", (_, isPip) => {
 		if (isPip) {
-			replaceButton(".exit-fullscreen-button", originalExitButton).onclick = () => togglePictureInPicture();
+			replaceButton(".exit-fullscreen-button", originalExitButton).onclick =
+				() => togglePictureInPicture();
 			player.onDoubleClick_ = () => {};
 			expandMenu.onmouseleave = () => middleControls.click();
 			if (!playerPage.playerPageOpen_) {
@@ -64,30 +87,33 @@ const listenForToggle = () => {
 			}
 			fullScreenButton.click();
 			appLayout.classList.add("pip");
+			if (titlebar) titlebar.style.display = "none";
 		} else {
 			$(".exit-fullscreen-button").replaceWith(originalExitButton);
 			player.onDoubleClick_ = onPlayerDblClick;
 			expandMenu.onmouseleave = undefined;
 			originalExitButton.click();
 			appLayout.classList.remove("pip");
+			if (titlebar) titlebar.style.display = "flex";
 		}
 	});
 }
 
 function observeMenu(options) {
+	useNativePiP = options.useNativePiP;
 	document.addEventListener(
 		"apiLoaded",
 		() => {
 			listenForToggle();
-			// remove native listeners
-			cloneButton(".player-minimize-button").onclick = () =>  {
-				global.togglePictureInPicture();
-				setTimeout(() => $('#player').click());
+
+			cloneButton(".player-minimize-button").onclick = async () => {
+				await global.togglePictureInPicture();
+				setTimeout(() => $("#player").click());
 			};
 
 			// allows easily closing the menu by programmatically clicking outside of it
 			$("#expanding-menu").removeAttribute("no-cancel-on-outside-click");
-			// TODO: think about wether an additional button in songMenu is needed 
+			// TODO: think about wether an additional button in songMenu is needed
 			observer.observe($("ytmusic-popup-container"), {
 				childList: true,
 				subtree: true,
@@ -97,4 +123,18 @@ function observeMenu(options) {
 	);
 }
 
-module.exports = observeMenu;
+module.exports = (options) => {
+	observeMenu(options);
+
+	if (options.hotkey) {
+		const hotkeyEvent = toKeyEvent(options.hotkey);
+		window.addEventListener("keydown", (event) => {
+			if (
+				keyEventAreEqual(event, hotkeyEvent) &&
+				!$("ytmusic-search-box").opened
+			) {
+				togglePictureInPicture();
+			}
+		});
+	}
+};

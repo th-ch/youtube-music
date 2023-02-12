@@ -116,6 +116,8 @@
 		"filenamify": "^4.3.0",
 		"howler": "^2.2.3",
 		"html-to-text": "^9.0.3",
+		"keyboardevent-from-electron-accelerator": "^2.0.0",
+		"keyboardevents-areequal": "^0.2.2",
 		"md5": "^2.3.0",
 		"mpris-service": "^2.1.2",
 		"node-fetch": "^2.6.8",

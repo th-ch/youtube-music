@@ -5518,7 +5518,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"keyboardevents-areequal@npm:^0.2.1":
+"keyboardevents-areequal@npm:^0.2.1, keyboardevents-areequal@npm:^0.2.2":
   version: 0.2.2
   resolution: "keyboardevents-areequal@npm:0.2.2"
   checksum: 05d846f75170238bbb9ed45d13ca9c6cd3e68ea8ba6b7727971790fa55b44c3386ec8b9c321ae72dae0d0944678d0dc2b922148fe67d3f9720bf30a23999dd65
@@ -8979,6 +8979,8 @@ __metadata:
     filenamify: ^4.3.0
     howler: ^2.2.3
     html-to-text: ^9.0.3
+    keyboardevent-from-electron-accelerator: ^2.0.0
+    keyboardevents-areequal: ^0.2.2
     md5: ^2.3.0
     mpris-service: ^2.1.2
     node-fetch: ^2.6.8
