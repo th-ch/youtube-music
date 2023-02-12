@@ -1,5 +1,8 @@
 const { ipcRenderer } = require("electron");
 
+const { toKeyEvent } = require('keyboardevent-from-electron-accelerator');
+const keyEventAreEqual = require('keyboardevents-areequal');
+
 const { getSongMenu } = require("../../providers/dom-elements");
 const { ElementFromFile, templatePath } = require("../utils");
 
@@ -78,7 +81,7 @@ const listenForToggle = () => {
 	});
 }
 
-function observeMenu(options) {
+function observeMenu() {
 	document.addEventListener(
 		"apiLoaded",
 		() => {
@@ -101,4 +104,15 @@ function observeMenu(options) {
 	);
 }
 
-module.exports = observeMenu;
+module.exports = (options) => {
+	observeMenu();
+
+	if (options.hotkey) {
+		const hotkeyEvent = toKeyEvent(options.hotkey);
+		window.addEventListener('keydown', (event) => {
+			if (keyEventAreEqual(event, hotkeyEvent) && !$('ytmusic-search-box').opened) {
+				togglePictureInPicture();
+			}
+		});
+	}
+};
