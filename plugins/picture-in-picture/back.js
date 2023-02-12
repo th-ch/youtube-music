@@ -3,7 +3,7 @@ const path = require("path");
 const { app, ipcMain } = require("electron");
 const electronLocalshortcut = require("electron-localshortcut");
 
-const { setOptions, isEnabled } = require("../../config/plugins");
+const { setOptions } = require("../../config/plugins");
 const { injectCSS } = require("../utils");
 
 let isInPiP = false;
@@ -21,15 +21,6 @@ const pipSize = () => (options.saveSize && options["pip-size"]) || [450, 275];
 const setLocalOptions = (_options) => {
 	options = { ...options, ..._options };
 	setOptions("picture-in-picture", _options);
-}
-
-
-const adaptors = [];
-const runAdaptors = () => adaptors.forEach(a => a());
-
-if (isEnabled("in-app-menu")) {
-	let adaptor = require("./adaptors/in-app-menu");
-	adaptors.push(() => adaptor(win, options, setLocalOptions, togglePiP, isInPiP));
 }
 
 const togglePiP = async () => {
@@ -50,7 +41,6 @@ const togglePiP = async () => {
 		win.setMaximizable(false);
 		win.setFullScreenable(false);
 
-		runAdaptors();
 		win.webContents.send("pip-toggle", true);
 
 		app.dock?.hide();
@@ -66,7 +56,6 @@ const togglePiP = async () => {
 		win.setMaximizable(true);
 		win.setFullScreenable(true);
 
-		runAdaptors();
 		win.webContents.send("pip-toggle", false);
 
 		win.setVisibleOnAllWorkspaces(false);
@@ -103,9 +92,6 @@ module.exports = (_win, _options) => {
 	ipcMain.on("picture-in-picture", async () => {
 		await togglePiP();
 	});
-	if (options.hotkey) {
-		electronLocalshortcut.register(win, options.hotkey, togglePiP);
-	}
 };
 
 module.exports.setOptions = setLocalOptions;

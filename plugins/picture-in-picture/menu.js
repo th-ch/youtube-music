@@ -45,16 +45,24 @@ module.exports = (win, options) => [
                 }],
                 ...promptOptions()
             }, win)
-        
+
             if (output) {
                 const { value, accelerator } = output[0];
                 setOptions({ [value]: accelerator });
-        
+
                 item.checked = !!accelerator;
             } else {
                 // Reset checkbox if prompt was canceled
                 item.checked = !item.checked;
             }
+        },
+    },
+    {
+        label: "Use native PiP",
+        type: "checkbox",
+        checked: options.useNativePiP,
+        click: (item) => {
+            setOptions({ useNativePiP: item.checked });
         },
     }
 ];
