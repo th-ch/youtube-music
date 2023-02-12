@@ -79,3 +79,15 @@ yt-page-navigation-progress,
 .cet-menubar-menu-container .cet-action-item {
 	background-color: inherit
 }
+
+#nav-bar-background {
+    -webkit-app-region: drag;
+}
+
+ytmusic-nav-bar input,
+ytmusic-nav-bar span,
+ytmusic-nav-bar [role="button"],
+ytmusic-nav-bar yt-icon,
+tp-yt-iron-dropdown {
+    -webkit-app-region: no-drag;
+}
