@@ -35,8 +35,20 @@
 				"!plugins/touchbar${/*}"
 			],
 			"target": [
-				"nsis",
-				"portable"
+				{
+					"target": "nsis",
+					"arch": [
+						"x64",
+						"arm64"
+					]
+				},
+				{
+					"target": "portable",
+					"arch": [
+						"x64",
+						"arm64"
+					]
+				}
 			]
 		},
 		"nsis": {
@@ -91,13 +103,14 @@
 	},
 	"engines": {
 		"node": ">=16.0.0",
-		"npm": "Please use yarn and not npm"
+		"npm": "Please use yarn instead"
 	},
 	"dependencies": {
 		"@cliqz/adblocker-electron": "^1.25.2",
 		"@ffmpeg/core": "^0.11.0",
 		"@ffmpeg/ffmpeg": "^0.11.6",
 		"@foobar404/wave": "^2.0.4",
+		"@xhayper/discord-rpc": "^1.0.15",
 		"async-mutex": "^0.4.0",
 		"browser-id3-writer": "^4.4.0",
 		"butterchurn": "^2.6.7",
@@ -105,7 +118,6 @@
 		"chokidar": "^3.5.3",
 		"custom-electron-prompt": "^1.5.1",
 		"custom-electron-titlebar": "^4.1.5",
-		"discord-rpc": "^4.0.1",
 		"electron-better-web-request": "^1.0.1",
 		"electron-debug": "^3.2.0",
 		"electron-is": "^3.0.0",
@@ -116,6 +128,8 @@
 		"filenamify": "^4.3.0",
 		"howler": "^2.2.3",
 		"html-to-text": "^9.0.3",
+		"keyboardevent-from-electron-accelerator": "^2.0.0",
+		"keyboardevents-areequal": "^0.2.2",
 		"md5": "^2.3.0",
 		"mpris-service": "^2.1.2",
 		"node-fetch": "^2.6.8",
@@ -136,11 +150,6 @@
 		"node-gyp": "^9.3.1",
 		"playwright": "^1.29.2",
 		"xo": "^0.53.1"
-	},
-	"resolutions": {
-		"glob-parent": "5.1.2",
-		"minimist": "1.2.7",
-		"yargs-parser": "21.1.1"
 	},
 	"auto-changelog": {
 		"hideCredit": true,

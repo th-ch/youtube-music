@@ -82,7 +82,7 @@ const downloadVideoToMP3 = async (
 			sendFeedback("Download: " + progress + "%", ratio);
 		})
 		.on("info", (info, format) => {
-			videoName = info.videoDetails.title.replace("|", "").toString("ascii");
+			videoName = info.videoDetails.title.replaceAll("|", "").toString("ascii");
 			if (is.dev()) {
 				console.log(
 					"Downloading video - name:",
