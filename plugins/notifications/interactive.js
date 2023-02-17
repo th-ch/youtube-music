@@ -28,6 +28,7 @@ module.exports = (win) => {
 
     // Register songInfoCallback
     registerCallback(songInfo => {
+        if (!songInfo.artist && !songInfo.title) return;
         savedSongInfo = { ...songInfo };
         if (!songInfo.isPaused &&
             (songInfo.url !== lastUrl || config.get("unpauseNotification"))
