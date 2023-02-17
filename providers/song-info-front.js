@@ -1,6 +1,6 @@
-const {ipcRenderer} = require("electron");
+const { ipcRenderer } = require("electron");
 const is = require('electron-is');
-const {getImage} = require("./song-info");
+const { getImage } = require("./song-info");
 
 const config = require("../config");
 
@@ -30,8 +30,8 @@ module.exports = () => {
 		apiEvent.detail.addEventListener('videodatachange', (name, _dataEvent) => {
 			if (name !== 'dataloaded') return;
 			video.dispatchEvent(srcChangedEvent);
-			sendSongInfo();
-		})
+			setTimeout(sendSongInfo);
+		});
 
 		for (const status of ['playing', 'pause']) {
 			video.addEventListener(status, e => {
@@ -51,11 +51,11 @@ module.exports = () => {
 				".byline.ytmusic-player-bar > .yt-simple-endpoint"
 			).find(e => e.href?.includes("browse"))?.textContent;
 
-			data.videoDetails.elapsedSeconds = Math.floor(video.currentTime);
+			data.videoDetails.elapsedSeconds = 0;
 			data.videoDetails.isPaused = false;
 			ipcRenderer.send("video-src-changed", JSON.stringify(data));
 		}
-	}, {once: true, passive: true});
+	}, { once: true, passive: true });
 };
 
 function setupTimeChangeListener() {
@@ -63,14 +63,14 @@ function setupTimeChangeListener() {
 		ipcRenderer.send('timeChanged', mutations[0].target.value);
 		global.songInfo.elapsedSeconds = mutations[0].target.value;
 	});
-	progressObserver.observe($('#progress-bar'), {attributeFilter: ["value"]})
+	progressObserver.observe($('#progress-bar'), { attributeFilter: ["value"] })
 }
 
 function setupRepeatChangeListener() {
 	const repeatObserver = new MutationObserver(mutations => {
 		ipcRenderer.send('repeatChanged', mutations[0].target.__dataHost.getState().queue.repeatMode)
 	});
-	repeatObserver.observe($('#right-controls .repeat'), {attributeFilter: ["title"]});
+	repeatObserver.observe($('#right-controls .repeat'), { attributeFilter: ["title"] });
 
 	// Emit the initial value as well; as it's persistent between launches.
 	ipcRenderer.send('repeatChanged', $('ytmusic-player-bar').getState().queue.repeatMode);
