@@ -46,6 +46,7 @@ const defaultConfig = {
 		},
 		discord: {
 			enabled: false,
+			autoReconnect: true, // if enabled, will try to reconnect to discord every 5 seconds after disconnecting or failing to connect
 			activityTimoutEnabled: true, // if enabled, the discord rich presence gets cleared when music paused after the time specified below
 			activityTimoutTime: 10 * 60 * 1000, // 10 minutes
 			listenAlong: true, // add a "listen along" button to rich presence
@@ -54,7 +55,7 @@ const defaultConfig = {
 		notifications: {
 			enabled: false,
 			unpauseNotification: false,
-			urgency: "normal", //has effect only on Linux 
+			urgency: "normal", //has effect only on Linux
 			interactive: false //has effect only on Windows
 		},
 		"precise-volume": {

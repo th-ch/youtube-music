@@ -1,4 +1,5 @@
-const Discord = require("discord-rpc");
+"use strict";
+const Discord = require("@xhayper/discord-rpc");
 const { dev } = require("electron-is");
 const { dialog, app } = require("electron");
 
@@ -9,58 +10,81 @@ const clientId = "1043858434585526382";
 
 /**
  * @typedef {Object} Info
- * @property {import('discord-rpc').Client} rpc
+ * @property {import('@xhayper/discord-rpc').Client} rpc
  * @property {boolean} ready
+ * @property {boolean} autoReconnect
  * @property {import('../../providers/song-info').SongInfo} lastSongInfo
  */
 /**
  * @type {Info}
  */
 const info = {
-	rpc: null,
+	rpc: new Discord.Client({
+		clientId
+	}),
 	ready: false,
+	autoReconnect: true,
 	lastSongInfo: null,
 };
+
 /**
  * @type {(() => void)[]}
  */
 const refreshCallbacks = [];
+
 const resetInfo = () => {
-	info.rpc = null;
 	info.ready = false;
 	clearTimeout(clearActivity);
 	if (dev()) console.log("discord disconnected");
 	refreshCallbacks.forEach(cb => cb());
 };
 
+info.rpc.on("connected", () => {
+	if (dev()) console.log("discord connected");
+	refreshCallbacks.forEach(cb => cb());
+});
+
+info.rpc.on("ready", () => {
+	info.ready = true;
+	if (info.lastSongInfo) updateActivity(info.lastSongInfo)
+});
+
+info.rpc.on("disconnected", () => {
+	resetInfo();
+
+	if (info.autoReconnect) {
+		connectTimeout();
+	}
+});
+
+const connectTimeout = () => new Promise((resolve, reject) => setTimeout(() => {
+	if (!info.autoReconnect || info.rpc.isConnected) return;
+	info.rpc.login().then(resolve).catch(reject);
+}, 5000));
+
+const connectRecursive = () => {
+	if (!info.autoReconnect || info.rpc.isConnected) return;
+	connectTimeout().catch(connectRecursive);
+}
+
 let window;
 const connect = (showErr = false) => {
-	if (info.rpc) {
+	if (info.rpc.isConnected) {
 		if (dev())
-			console.log('Attempted to connect with active RPC object');
+			console.log('Attempted to connect with active connection');
 		return;
 	}
 
-	info.rpc = new Discord.Client({
-		transport: "ipc",
-	});
 	info.ready = false;
-
-	info.rpc.once("connected", () => {
-		if (dev()) console.log("discord connected");
-		refreshCallbacks.forEach(cb => cb());
-	});
-	info.rpc.once("ready", () => {
-		info.ready = true;
-		if (info.lastSongInfo) updateActivity(info.lastSongInfo)
-	});
-	info.rpc.once("disconnected", resetInfo);
 
 	// Startup the rpc client
 	info.rpc.login({ clientId }).catch(err => {
 		resetInfo();
 		if (dev()) console.error(err);
-		if (showErr) dialog.showMessageBox(window, { title: 'Connection failed', message: err.message || String(err), type: 'error' });
+		if (info.autoReconnect) {
+			connectRecursive();
+		}
+		else if (showErr) dialog.showMessageBox(window, { title: 'Connection failed', message: err.message || String(err), type: 'error' });
 	});
 };
 
@@ -70,7 +94,9 @@ let clearActivity;
  */
 let updateActivity;
 
-module.exports = (win, { activityTimoutEnabled, activityTimoutTime, listenAlong, hideDurationLeft }) => {
+module.exports = (win, { autoReconnect, activityTimoutEnabled, activityTimoutTime, listenAlong, hideDurationLeft }) => {
+	info.autoReconnect = autoReconnect;
+
 	window = win;
 	// We get multiple events
 	// Next song: PAUSE(n), PAUSE(n+1), PLAY(n+1)
@@ -92,7 +118,7 @@ module.exports = (win, { activityTimoutEnabled, activityTimoutTime, listenAlong,
 
 		// clear directly if timeout is 0
 		if (songInfo.isPaused && activityTimoutEnabled && activityTimoutTime === 0) {
-			info.rpc.clearActivity().catch(console.error);
+			info.rpc.user?.clearActivity().catch(console.error);
 			return;
 		}
 
@@ -100,7 +126,6 @@ module.exports = (win, { activityTimoutEnabled, activityTimoutTime, listenAlong,
 		// @see https://discord.com/developers/docs/topics/gateway#activity-object
 		// not all options are transfered through https://github.com/discordjs/RPC/blob/6f83d8d812c87cb7ae22064acd132600407d7d05/src/client.js#L518-530
 		const activityInfo = {
-			type: 2, // Listening, addressed in https://github.com/discordjs/RPC/pull/149
 			details: songInfo.title,
 			state: songInfo.artist,
 			largeImageKey: songInfo.imageSrc,
@@ -116,7 +141,7 @@ module.exports = (win, { activityTimoutEnabled, activityTimoutTime, listenAlong,
 			activityInfo.smallImageText = "Paused";
 			// Set start the timer so the activity gets cleared after a while if enabled
 			if (activityTimoutEnabled)
-				clearActivity = setTimeout(() => info.rpc.clearActivity().catch(console.error), activityTimoutTime ?? 10000);
+				clearActivity = setTimeout(() => info.rpc.user?.clearActivity().catch(console.error), activityTimoutTime ?? 10000);
 		} else if (!hideDurationLeft) {
 			// Add the start and end time of the song
 			const songStartTime = Date.now() - songInfo.elapsedSeconds * 1000;
@@ -125,7 +150,7 @@ module.exports = (win, { activityTimoutEnabled, activityTimoutTime, listenAlong,
 				songStartTime + songInfo.songDuration * 1000;
 		}
 
-		info.rpc.setActivity(activityInfo).catch(console.error);
+		info.rpc.user?.setActivity(activityInfo).catch(console.error);
 	};
 
 	// If the page is ready, register the callback
@@ -137,9 +162,10 @@ module.exports = (win, { activityTimoutEnabled, activityTimoutTime, listenAlong,
 };
 
 module.exports.clear = () => {
-	if (info.rpc) info.rpc.clearActivity();
+	if (info.rpc) info.rpc.user?.clearActivity();
 	clearTimeout(clearActivity);
 };
+
 module.exports.connect = connect;
 module.exports.registerRefresh = (cb) => refreshCallbacks.push(cb);
 module.exports.isConnected = () => info.rpc !== null;
