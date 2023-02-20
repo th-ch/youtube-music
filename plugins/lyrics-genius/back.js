@@ -7,6 +7,7 @@ const fetch = require("node-fetch");
 
 const { cleanupName } = require("../../providers/song-info");
 const { injectCSS } = require("../utils");
+const romanized = false; 
 
 module.exports = async (win) => {
 	injectCSS(win.webContents, join(__dirname, "style.css"));
@@ -38,7 +39,11 @@ const fetchFromGenius = async (metadata) => {
 	}
 
 	if (is.dev()) {
-		console.log("Fetching lyrics from Genius:", url);
+		if(romanized) {
+			console.log("Fetching romanized lyrics from Genius:", url);
+		} else {
+			console.log("Fetching lyrics from Genius:", url);
+		}
 	}
 
 	response = await fetch(url);
