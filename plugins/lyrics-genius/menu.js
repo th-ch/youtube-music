@@ -1,43 +1,19 @@
 const prompt = require("custom-electron-prompt");
 
 const { setMenuOptions } = require("../../config/plugins");
-const promptOptions = require("../../providers/prompt-options");
-const { clear, connect, registerRefresh, isConnected } = require("./back");
+const { toggleRomanized, romanized } = require("./back");
 
-module.exports = (win, options) => {
-
+module.exports = (win, options, refreshMenu) => {
 	return [
 		{
 			label: "Romanized Lyrics",
 			type: "checkbox",
-			checked: false,
-			click: () => {
+			checked: options.romanizedLyrics,
+			click: (item) => {
 				options.romanizedLyrics = item.checked;
 				setMenuOptions('lyrics-genius', options);
-			}
+				toggleRomanized();
+			},
 		},
-		// Stole menu from Discord plugin oopsies
-		// {
-		// 	label: "Auto reconnect",
-		// 	type: "checkbox",
-		// 	checked: options.autoReconnect,
-		// 	click: (item) => {
-		// 		options.autoReconnect = item.checked;
-		// 		setMenuOptions('discord', options);
-		// 	},
-		// },
-		// {
-		// 	label: "Clear activity",
-		// 	click: clear,
-		// },
-		// {
-		// 	label: "Clear activity after timeout",
-		// 	type: "checkbox",
-		// 	checked: options.activityTimoutEnabled,
-		// 	click: (item) => {
-		// 		options.activityTimoutEnabled = item.checked;
-		// 		setMenuOptions('discord', options);
-		// 	},
-		// },
 	];
 };

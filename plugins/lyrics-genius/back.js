@@ -7,7 +7,7 @@ const fetch = require("node-fetch");
 
 const { cleanupName } = require("../../providers/song-info");
 const { injectCSS } = require("../utils");
-const romanized = false; 
+var revRomanized = false; 
 
 module.exports = async (win) => {
 	injectCSS(win.webContents, join(__dirname, "style.css"));
@@ -18,10 +18,27 @@ module.exports = async (win) => {
 	});
 };
 
+const toggleRomanized = () => {
+	revRomanized = !revRomanized;
+	console.log(revRomanized);
+}
+
 const fetchFromGenius = async (metadata) => {
+	const songTitle = `${cleanupName(metadata.title)}`;
+	const songArtist = `${cleanupName(metadata.artist)}`;
+	let regexEastAsianChars = new RegExp("[\u{3040}-\u{30ff}\u{3400}-\u{4dbf}\u{4e00}-\u{9fff}\u{f900}-\u{faff}\u{ff66}-\u{ff9f}]");
+	let hasAsianChars = regexEastAsianChars.test(songTitle) || regexEastAsianChars.test(songArtist);
+	console.log(hasAsianChars);
+
 	const queryString = `${cleanupName(metadata.artist)} ${cleanupName(
 		metadata.title
 	)}`;
+
+	console.log(queryString);
+	if(hasAsianChars) {
+		
+	}
+
 	let response = await fetch(
 		`https://genius.com/api/search/multi?per_page=5&q=${encodeURI(queryString)}`
 	);
@@ -73,4 +90,5 @@ const fetchFromGenius = async (metadata) => {
 	return lyrics;
 };
 
+module.exports.toggleRomanized = toggleRomanized;
 module.exports.fetchFromGenius = fetchFromGenius;
