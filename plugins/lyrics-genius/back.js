@@ -39,8 +39,8 @@ const fetchFromGenius = async (metadata) => {
 	// console.log(songArtist);
 
 	const queryString = revRomanized ? 
-	`${cleanupName(metadata.title)}`.concat(" Romanized") : 
-	`${cleanupName(metadata.artist)} ${cleanupName(metadata.title)}`;
+	`${songTitle}`.concat(" Romanized") : 
+	`${songArtist} ${songTitle}`;
 
 	// const queryString = `${cleanupName(metadata.artist)} ${cleanupName(
 	// 	metadata.title
