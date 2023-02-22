@@ -16,6 +16,7 @@ module.exports = async (win, options) => {
 	injectCSS(win.webContents, join(__dirname, "style.css"));
 
 	ipcMain.on("search-genius-lyrics", async (event, extractedSongInfo) => {
+		console.log("Fetching Lyrics");
 		const metadata = JSON.parse(extractedSongInfo);
 		event.returnValue = await fetchFromGenius(metadata);
 	});
@@ -32,14 +33,13 @@ const fetchFromGenius = async (metadata) => {
 	*/
 	const songTitle = `${cleanupName(metadata.title)}`;
 	const songArtist = `${cleanupName(metadata.artist)}`;
-	let regexEastAsianChars = new RegExp("[\u{3040}-\u{30ff}\u{3400}-\u{4dbf}\u{4e00}-\u{9fff}\u{f900}-\u{faff}\u{ff66}-\u{ff9f}]");
-	let hasAsianChars = regexEastAsianChars.test(songTitle) || regexEastAsianChars.test(songArtist);
-	console.log(songTitle);
-	console.log(songArtist);
-	// console.log(hasAsianChars);
+	// let regexEastAsianChars = new RegExp("[\u{3040}-\u{30ff}\u{3400}-\u{4dbf}\u{4e00}-\u{9fff}\u{f900}-\u{faff}\u{ff66}-\u{ff9f}]");
+	// let hasAsianChars = regexEastAsianChars.test(songTitle) || regexEastAsianChars.test(songArtist);
+	// console.log(songTitle);
+	// console.log(songArtist);
 
 	const queryString = revRomanized ? 
-	`${cleanupName(metadata.artist)} ${cleanupName(metadata.title)}`.concat(" Romanized") : 
+	`${cleanupName(metadata.title)}`.concat(" Romanized") : 
 	`${cleanupName(metadata.artist)} ${cleanupName(metadata.title)}`;
 
 	// const queryString = `${cleanupName(metadata.artist)} ${cleanupName(
@@ -94,7 +94,6 @@ const fetchFromGenius = async (metadata) => {
 			},
 		},
 	});
-
 	return lyrics;
 };
 
