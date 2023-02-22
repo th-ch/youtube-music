@@ -64,7 +64,7 @@ const fetchFromGenius = async (metadata) => {
 	}
 
 	if (is.dev()) {
-		if(hasAsianChars) {
+		if(revRomanized) {
 			console.log("Fetching romanized lyrics from Genius:", url);
 		} else {
 			console.log("Fetching lyrics from Genius:", url);
