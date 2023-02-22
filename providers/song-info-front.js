@@ -49,7 +49,10 @@ module.exports = () => {
 
 			data.videoDetails.album = $$(
 				".byline.ytmusic-player-bar > .yt-simple-endpoint"
-			).find(e => e.href?.includes("browse"))?.textContent;
+			).find(e =>
+				e.href?.includes("browse/FEmusic_library_privately_owned_release")
+				|| e.href?.includes("browse/MPREb")
+			)?.textContent;
 
 			data.videoDetails.elapsedSeconds = 0;
 			data.videoDetails.isPaused = false;
