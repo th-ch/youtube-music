@@ -1,7 +1,5 @@
-const prompt = require("custom-electron-prompt");
-
 const { setMenuOptions } = require("../../config/plugins");
-const { toggleRomanized, romanized } = require("./back");
+const { toggleRomanized } = require("./back");
 
 module.exports = (win, options, refreshMenu) => {
 	return [

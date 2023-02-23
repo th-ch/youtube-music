@@ -16,7 +16,6 @@ module.exports = async (win, options) => {
 	injectCSS(win.webContents, join(__dirname, "style.css"));
 
 	ipcMain.on("search-genius-lyrics", async (event, extractedSongInfo) => {
-		console.log("Fetching Lyrics");
 		const metadata = JSON.parse(extractedSongInfo);
 		event.returnValue = await fetchFromGenius(metadata);
 	});
@@ -29,23 +28,13 @@ const toggleRomanized = () => {
 
 const fetchFromGenius = async (metadata) => {
 	/* Tried using regex to test the title and artist for East Asian Characters. It works but I realized 
-	some groups are fully English in both title and singer. Might come back to this method in the future.
+	some groups are fully English in both title and singer. Might improve this in the future.
 	*/
 	const songTitle = `${cleanupName(metadata.title)}`;
 	const songArtist = `${cleanupName(metadata.artist)}`;
-	// let regexEastAsianChars = new RegExp("[\u{3040}-\u{30ff}\u{3400}-\u{4dbf}\u{4e00}-\u{9fff}\u{f900}-\u{faff}\u{ff66}-\u{ff9f}]");
-	// let hasAsianChars = regexEastAsianChars.test(songTitle) || regexEastAsianChars.test(songArtist);
-	// console.log(songTitle);
-	// console.log(songArtist);
-
 	const queryString = revRomanized ? 
 	`${songTitle}`.concat(" Romanized") : 
 	`${songArtist} ${songTitle}`;
-
-	// const queryString = `${cleanupName(metadata.artist)} ${cleanupName(
-	// 	metadata.title
-	// )}`;
-	console.log(queryString);
 
 	let response = await fetch(
 		`https://genius.com/api/search/multi?per_page=5&q=${encodeURI(queryString)}`
@@ -64,11 +53,7 @@ const fetchFromGenius = async (metadata) => {
 	}
 
 	if (is.dev()) {
-		if(revRomanized) {
-			console.log("Fetching romanized lyrics from Genius:", url);
-		} else {
-			console.log("Fetching lyrics from Genius:", url);
-		}
+		console.log("Fetching lyrics from Genius:", url);
 	}
 
 	response = await fetch(url);
