@@ -7,7 +7,7 @@ const fetch = require("node-fetch");
 
 const { cleanupName } = require("../../providers/song-info");
 const { injectCSS } = require("../utils");
-var revRomanized = false; 
+let revRomanized = false; 
 
 module.exports = async (win, options) => {
 	if(options.romanizedLyrics) {
@@ -24,16 +24,18 @@ module.exports = async (win, options) => {
 const toggleRomanized = () => {
 	revRomanized = !revRomanized;
 	console.log("Romanized Mode: " + revRomanized);
-}
+};
 
 const fetchFromGenius = async (metadata) => {
 	/* Tried using regex to test the title and artist for East Asian Characters. It works but I realized 
-	some groups are fully English in both title and singer. Might improve this in the future.
+	some groups are fully English in both title and singer. In this case, the lyrics are  Might improve this in the future.
 	*/
 	const songTitle = `${cleanupName(metadata.title)}`;
 	const songArtist = `${cleanupName(metadata.artist)}`;
-	const queryString = revRomanized ? 
-	`${songTitle}`.concat(" Romanized") : 
+	let regexEastAsianChars = new RegExp("[\u{3040}-\u{30ff}\u{3400}-\u{4dbf}\u{4e00}-\u{9fff}\u{f900}-\u{faff}\u{ff66}-\u{ff9f}]");
+	let hasAsianChars = regexEastAsianChars.test(songTitle) || regexEastAsianChars.test(songArtist);
+	const queryString = revRomanized && hasAsianChars? 
+	`${songArtist} ${songTitle} Romanized` : 
 	`${songArtist} ${songTitle}`;
 
 	let response = await fetch(
@@ -55,7 +57,13 @@ const fetchFromGenius = async (metadata) => {
 	if (is.dev()) {
 		console.log("Fetching lyrics from Genius:", url);
 	}
+	let lyrics = getLyrics(url);
+	console.log(lyrics);
+	return lyrics;
 
+};
+
+const getLyrics = async (url) => {
 	response = await fetch(url);
 	if (!response.ok) {
 		return null;
