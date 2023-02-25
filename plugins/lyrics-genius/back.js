@@ -51,7 +51,6 @@ const fetchFromGenius = async (metadata) => {
 	let lyrics = await getLyrics(url);
 
 	if(revRomanized && !hasAsianChars && regexEastAsianChars.test(lyrics)) {
-		console.log("Detected");
 		queryString = `${songArtist} ${songTitle} Romanized`;
 		let url = await getSongs(queryString);
 		lyrics = await getLyrics(url);
