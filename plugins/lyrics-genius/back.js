@@ -29,13 +29,13 @@ const toggleRomanized = () => {
 const fetchFromGenius = async (metadata) => {
 	const songTitle = `${cleanupName(metadata.title)}`;
 	const songArtist = `${cleanupName(metadata.artist)}`;
-	let hasAsianChars = false;
 
 	/* Tried using regex to test the title and artist for East Asian Characters. It works but I realized 
 	some groups are fully English in both title and singer. In this case, the lyrics are  Might improve this in the future.
 	*/
+	let regexEastAsianChars = new RegExp("[\u{3040}-\u{30ff}\u{3400}-\u{4dbf}\u{4e00}-\u{9fff}\u{f900}-\u{faff}\u{ff66}-\u{ff9f}]");
+	let hasAsianChars = false;
 	if(revRomanized) {
-		let regexEastAsianChars = new RegExp("[\u{3040}-\u{30ff}\u{3400}-\u{4dbf}\u{4e00}-\u{9fff}\u{f900}-\u{faff}\u{ff66}-\u{ff9f}]");
 		hasAsianChars = regexEastAsianChars.test(songTitle) || regexEastAsianChars.test(songArtist);
 	}
 
@@ -44,6 +44,22 @@ const fetchFromGenius = async (metadata) => {
 	`${songArtist} ${songTitle}`;
 	console.log(queryString);
 
+	let url = await getSongs(queryString);
+	if (is.dev()) {
+		console.log("Fetching lyrics from Genius:", url);
+	}
+	let lyrics = await getLyrics(url);
+
+	if(revRomanized && !hasAsianChars && regexEastAsianChars.test(lyrics)) {
+		console.log("Detected");
+		queryString = `${songArtist} ${songTitle} Romanized`;
+		let url = await getSongs(queryString);
+		lyrics = await getLyrics(url);
+	}
+	return lyrics;
+};
+
+const getSongs = async (queryString) => {
 	let response = await fetch(`https://genius.com/api/search/multi?per_page=5&q=${encodeURI(queryString)}`);
 	if (!response.ok) {
 		return null;
@@ -60,21 +76,8 @@ const fetchFromGenius = async (metadata) => {
 	} catch {
 		return null;
 	}
-	
-	if (is.dev()) {
-		console.log("Fetching lyrics from Genius:", url);
-	}
-
-	let lyrics = "";
-	if(!hasAsianChars && regexEastAsianChars.test(lyrics)) {
-		lyrics = await getLyrics(url);
-	} else {
-		lyrics = await getLyrics(url);
-	}
-	return lyrics;
-
-
-};
+	return url;
+}
 
 const getLyrics = async (url) => {
 	response = await fetch(url);
