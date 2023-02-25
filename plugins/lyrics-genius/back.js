@@ -27,24 +27,31 @@ const toggleRomanized = () => {
 };
 
 const fetchFromGenius = async (metadata) => {
+	const songTitle = `${cleanupName(metadata.title)}`;
+	const songArtist = `${cleanupName(metadata.artist)}`;
+	let hasAsianChars = false;
+
 	/* Tried using regex to test the title and artist for East Asian Characters. It works but I realized 
 	some groups are fully English in both title and singer. In this case, the lyrics are  Might improve this in the future.
 	*/
-	const songTitle = `${cleanupName(metadata.title)}`;
-	const songArtist = `${cleanupName(metadata.artist)}`;
-	let regexEastAsianChars = new RegExp("[\u{3040}-\u{30ff}\u{3400}-\u{4dbf}\u{4e00}-\u{9fff}\u{f900}-\u{faff}\u{ff66}-\u{ff9f}]");
-	let hasAsianChars = regexEastAsianChars.test(songTitle) || regexEastAsianChars.test(songArtist);
-	const queryString = revRomanized && hasAsianChars? 
+	if(revRomanized) {
+		let regexEastAsianChars = new RegExp("[\u{3040}-\u{30ff}\u{3400}-\u{4dbf}\u{4e00}-\u{9fff}\u{f900}-\u{faff}\u{ff66}-\u{ff9f}]");
+		hasAsianChars = regexEastAsianChars.test(songTitle) || regexEastAsianChars.test(songArtist);
+	}
+
+	let queryString = revRomanized && hasAsianChars? 
 	`${songArtist} ${songTitle} Romanized` : 
 	`${songArtist} ${songTitle}`;
+	console.log(queryString);
 
-	let response = await fetch(
-		`https://genius.com/api/search/multi?per_page=5&q=${encodeURI(queryString)}`
-	);
+	let response = await fetch(`https://genius.com/api/search/multi?per_page=5&q=${encodeURI(queryString)}`);
 	if (!response.ok) {
 		return null;
 	}
 
+	/* Fetch the first URL with the api, giving a collection of song results.
+	Pick the first song, parsing the json given by the API.
+	*/
 	const info = await response.json();
 	let url = "";
 	try {
@@ -53,13 +60,19 @@ const fetchFromGenius = async (metadata) => {
 	} catch {
 		return null;
 	}
-
+	
 	if (is.dev()) {
 		console.log("Fetching lyrics from Genius:", url);
 	}
-	let lyrics = getLyrics(url);
-	console.log(lyrics);
+
+	let lyrics = "";
+	if(!hasAsianChars && regexEastAsianChars.test(lyrics)) {
+		lyrics = await getLyrics(url);
+	} else {
+		lyrics = await getLyrics(url);
+	}
 	return lyrics;
+
 
 };
 
