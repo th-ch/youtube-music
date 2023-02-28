@@ -7,6 +7,7 @@ const fetch = require("node-fetch");
 
 const { cleanupName } = require("../../providers/song-info");
 const { injectCSS } = require("../utils");
+let eastAsianChars = new RegExp("[\u{3040}-\u{30ff}\u{3400}-\u{4dbf}\u{4e00}-\u{9fff}\u{f900}-\u{faff}\u{ff66}-\u{ff9f}]");
 let revRomanized = false; 
 
 module.exports = async (win, options) => {
@@ -23,7 +24,6 @@ module.exports = async (win, options) => {
 
 const toggleRomanized = () => {
 	revRomanized = !revRomanized;
-	console.log("Romanized Mode: " + revRomanized);
 };
 
 const fetchFromGenius = async (metadata) => {
@@ -34,20 +34,19 @@ const fetchFromGenius = async (metadata) => {
 	/* Uses Regex to test the title and artist first for said characters if romanization is enabled. Otherwise normal
 	Genius Lyrics behavior is observed.
 	*/
-	let regexEastAsianChars = new RegExp("[\u{3040}-\u{30ff}\u{3400}-\u{4dbf}\u{4e00}-\u{9fff}\u{f900}-\u{faff}\u{ff66}-\u{ff9f}]");
 	let hasAsianChars = false;
-	if (revRomanized && (regexEastAsianChars.test(songTitle) || regexEastAsianChars.test(songArtist))) {
-		lyrics = getSongs(`${songArtist} ${songTitle} Romanized`);
+	if (revRomanized && (eastAsianChars.test(songTitle) || eastAsianChars.test(songArtist))) {
+		lyrics = await getSongs(`${songArtist} ${songTitle} Romanized`);
 		hasAsianChars = true;
 	} else {
-		lyrics = getSongs(`${songArtist} ${songTitle}`);
+		lyrics = await getSongs(`${songArtist} ${songTitle}`);
 	}
 
 	/* If the romanization toggle is on, and we did not detect any characters in the title or artist, we do a check
 	for characters in the lyrics themselves. If this check proves true, we search for Romanized lyrics.
 	*/
-	if(revRomanized && !hasAsianChars && regexEastAsianChars.test(lyrics)) {
-		lyrics = getSongs(`${songArtist} ${songTitle} Romanized`);
+	if(revRomanized && !hasAsianChars && eastAsianChars.test(lyrics)) {
+		lyrics = await getSongs(`${songArtist} ${songTitle} Romanized`);
 	}
 	return lyrics;
 };
