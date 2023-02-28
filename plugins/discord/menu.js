@@ -1,3 +1,5 @@
+const prompt = require("custom-electron-prompt");
+
 const { setMenuOptions } = require("../../config/plugins");
 const promptOptions = require("../../providers/prompt-options");
 const { clear, connect, registerRefresh, isConnected } = require("./back");
