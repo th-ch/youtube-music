@@ -36,17 +36,17 @@ const fetchFromGenius = async (metadata) => {
 	*/
 	let hasAsianChars = false;
 	if (revRomanized && (eastAsianChars.test(songTitle) || eastAsianChars.test(songArtist))) {
-		lyrics = await getSongs(`${songArtist} ${songTitle} Romanized`);
+		lyrics = await getLyricsList(`${songArtist} ${songTitle} Romanized`);
 		hasAsianChars = true;
 	} else {
-		lyrics = await getSongs(`${songArtist} ${songTitle}`);
+		lyrics = await getLyricsList(`${songArtist} ${songTitle}`);
 	}
 
 	/* If the romanization toggle is on, and we did not detect any characters in the title or artist, we do a check
 	for characters in the lyrics themselves. If this check proves true, we search for Romanized lyrics.
 	*/
 	if(revRomanized && !hasAsianChars && eastAsianChars.test(lyrics)) {
-		lyrics = await getSongs(`${songArtist} ${songTitle} Romanized`);
+		lyrics = await getLyricsList(`${songArtist} ${songTitle} Romanized`);
 	}
 	return lyrics;
 };
@@ -56,7 +56,7 @@ const fetchFromGenius = async (metadata) => {
  * @param {*} queryString 
  * @returns The lyrics of the first song found using the Genius-Lyrics API
  */
-const getSongs = async (queryString) => {
+const getLyricsList = async (queryString) => {
 	let response = await fetch(`https://genius.com/api/search/multi?per_page=5&q=${encodeURI(queryString)}`);
 	if (!response.ok) {
 		return null;
