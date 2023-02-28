@@ -29,36 +29,38 @@ const toggleRomanized = () => {
 const fetchFromGenius = async (metadata) => {
 	const songTitle = `${cleanupName(metadata.title)}`;
 	const songArtist = `${cleanupName(metadata.artist)}`;
+	let lyrics;
 
-	/* Tried using regex to test the title and artist for East Asian Characters. It works but I realized 
-	some groups are fully English in both title and singer. In this case, the lyrics are  Might improve this in the future.
+	/* Uses Regex to test the title and artist first for said characters if romanization is enabled. Otherwise normal
+	Genius Lyrics behavior is observed.
 	*/
 	let regexEastAsianChars = new RegExp("[\u{3040}-\u{30ff}\u{3400}-\u{4dbf}\u{4e00}-\u{9fff}\u{f900}-\u{faff}\u{ff66}-\u{ff9f}]");
 	let hasAsianChars = false;
-	if(revRomanized) {
-		hasAsianChars = regexEastAsianChars.test(songTitle) || regexEastAsianChars.test(songArtist);
+	if (revRomanized && (regexEastAsianChars.test(songTitle) || regexEastAsianChars.test(songArtist))) {
+		lyrics = getSongs(`${songArtist} ${songTitle} Romanized`);
+		hasAsianChars = true;
+	} else {
+		lyrics = getSongs(`${songArtist} ${songTitle}`);
 	}
 
-	let queryString = revRomanized && hasAsianChars? 
-	`${songArtist} ${songTitle} Romanized` : 
-	`${songArtist} ${songTitle}`;
-	console.log(queryString);
-
-	let url = await getSongs(queryString);
-	if (is.dev()) {
-		console.log("Fetching lyrics from Genius:", url);
-	}
-	let lyrics = await getLyrics(url);
-
+	/* If the romanization toggle is on, and we did not detect any characters in the title or artist, we do a check
+	for characters in the lyrics themselves. If this check proves true, we search for Romanized lyrics.
+	*/
 	if(revRomanized && !hasAsianChars && regexEastAsianChars.test(lyrics)) {
-		queryString = `${songArtist} ${songTitle} Romanized`;
-		let url = await getSongs(queryString);
-		lyrics = await getLyrics(url);
+		lyrics = getSongs(`${songArtist} ${songTitle} Romanized`);
 	}
 	return lyrics;
 };
 
+/**
+ * Fetches a JSON of songs which is then parsed and passed into getLyrics to get the lyrical content of the first song 
+ * @param {*} queryString 
+ * @returns The lyrics of the first song found using the Genius-Lyrics API
+ */
 const getSongs = async (queryString) => {
+	if (is.dev()) {
+		console.log("Query String:", queryString);
+	}
 	let response = await fetch(`https://genius.com/api/search/multi?per_page=5&q=${encodeURI(queryString)}`);
 	if (!response.ok) {
 		return null;
@@ -75,15 +77,23 @@ const getSongs = async (queryString) => {
 	} catch {
 		return null;
 	}
-	return url;
+	let lyrics = await getLyrics(url);
+	return lyrics;
 }
 
+/**
+ *  
+ * @param {*} url 
+ * @returns The lyrics of the song URL provided, null if none
+ */
 const getLyrics = async (url) => {
 	response = await fetch(url);
 	if (!response.ok) {
 		return null;
 	}
-
+	if (is.dev()) {
+		console.log("Fetching lyrics from Genius:", url);
+	}
 	const html = await response.text();
 	const lyrics = convert(html, {
 		baseElements: {
