@@ -1,4 +1,4 @@
-const { setMenuOptions } = require("../../config/plugins");
+const { setOptions } = require("../../config/plugins");
 const { toggleRomanized } = require("./back");
 
 module.exports = (win, options, refreshMenu) => {
