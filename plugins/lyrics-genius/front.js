@@ -2,7 +2,7 @@ const { ipcRenderer } = require("electron");
 const is = require("electron-is");
 
 module.exports = () => {
-	ipcRenderer.on("update-song-info", (_, extractedSongInfo) => {
+	ipcRenderer.on("update-song-info", (_, extractedSongInfo) => setTimeout(() => {
 		const tabList = document.querySelectorAll("tp-yt-paper-tab");
 		const tabs = {
 			upNext: tabList[0],
@@ -90,5 +90,5 @@ module.exports = () => {
 			tabs.lyrics.removeAttribute("disabled");
 			tabs.lyrics.removeAttribute("aria-disabled");
 		}
-	});
+	}, 500));
 };
