@@ -125,7 +125,6 @@
 		"electron-store": "^8.1.0",
 		"electron-unhandled": "^4.0.1",
 		"electron-updater": "^5.3.0",
-		"file-type": "^18.2.1",
 		"filenamify": "^4.3.0",
 		"howler": "^2.2.3",
 		"html-to-text": "^9.0.3",
@@ -134,12 +133,10 @@
 		"md5": "^2.3.0",
 		"mpris-service": "^2.1.2",
 		"node-fetch": "^2.6.8",
-		"node-id3": "^0.2.6",
 		"node-notifier": "^10.0.1",
 		"simple-youtube-age-restriction-bypass": "https://gitpkg.now.sh/api/pkg.tgz?url=zerodytrash/Simple-YouTube-Age-Restriction-Bypass&commit=v2.5.4",
 		"vudio": "^2.1.1",
 		"youtubei.js": "^3.1.1",
-		"ytdl-core": "^4.11.1",
 		"ytpl": "^2.3.0"
 	},
 	"devDependencies": {

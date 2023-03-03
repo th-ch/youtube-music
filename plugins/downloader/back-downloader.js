@@ -4,12 +4,16 @@ const { join } = require("path");
 
 const { Innertube, UniversalCache, Utils } = require('youtubei.js');
 const filenamify = require("filenamify");
-const id3 = require('node-id3').Promise;
+const ID3Writer = require("browser-id3-writer");
+
+const { fetchFromGenius } = require("../lyrics-genius/back");
+const { isEnabled } = require("../../config/plugins");
+const { getImage } = require("../../providers/song-info");
+const { cropMaxWidth } = require("./utils");
 
 const { sendError } = require("./back");
 const { presets } = require('./utils');
 
-ffmpegWriteTags
 /** @type {Innertube} */
 let yt;
 let options;
@@ -49,16 +53,17 @@ async function downloadSong(url, playlistFolder = undefined) {
     }
 
     if (!presets[options.preset]) {
-        await toMP3(iterableStream, filePath, metadata);
+        const fileBuffer = await toMP3(iterableStream, filePath, metadata);
         console.info('writing id3 tags...'); // DELETE
-        await writeID3(filePath, metadata).then(() => console.info('done writing id3 tags!')); // DELETE
+        writeFileSync(filePath, await writeID3(fileBuffer, metadata));
+        console.info('done writing id3 tags!'); // DELETE
     } else {
         const file = createWriteStream(filePath);
         //stream.pipeTo(file);
         for await (const chunk of iterableStream) {
             file.write(chunk);
         }
-        ffmpegWriteTags(filePath, metadata, presets[options.preset]?.ffmpegArgs);
+        await ffmpegWriteTags(filePath, metadata, presets[options.preset]?.ffmpegArgs);
     }
 
     console.info(`${filePath} - Done!`, '\n');
@@ -84,28 +89,44 @@ async function getMetadata(url) {
     };
 }
 
-const { getImage } = require("../../providers/song-info");
-const { cropMaxWidth } = require("./utils");
+async function writeID3(buffer, metadata) {
+    try {
+        const nativeImage = cropMaxWidth(await getImage(metadata.image));
+        const coverBuffer = nativeImage && !nativeImage.isEmpty() ?
+            nativeImage.toPNG() : null;
 
-async function writeID3(filePath, metadata) {
-    const tags = {
-        title: metadata.title,
-        artist: metadata.artist,
-        album: metadata.album,
-        image: {
-            mime: "image/png",
-            type: {
-                id: 3,
-                name: "front cover"
-            },
-            description: "",
-            imageBuffer: cropMaxWidth(await getImage(metadata.image))?.toPNG(),
+        const writer = new ID3Writer(buffer);
+
+        // Create the metadata tags
+        writer
+            .setFrame("TIT2", metadata.title)
+            .setFrame("TPE1", [metadata.artist]);
+        if (metadata.album) {
+            writer.setFrame("TALB", metadata.album);
         }
-        // TODO: lyrics
-    };
-
-    await id3.write(tags, filePath);
+        if (coverBuffer) {
+            writer.setFrame("APIC", {
+                type: 3,
+                data: coverBuffer,
+                description: "",
+            });
+        }
+        if (isEnabled("lyrics-genius")) {
+            const lyrics = await fetchFromGenius(metadata);
+            if (lyrics) {
+                writer.setFrame("USLT", {
+                    description: '',
+                    lyrics: lyrics,
+                });
+            }
+        }
+        writer.addTag();
+        return Buffer.from(writer.arrayBuffer);
+    } catch (e) {
+        sendError(e);
+    }
 }
+
 
 const { randomBytes } = require("crypto");
 const Mutex = require("async-mutex").Mutex;
@@ -150,7 +171,7 @@ async function toMP3(stream, filePath, metadata, extension = "mp3") {
 
         // sendFeedback("Saving…");
 
-        writeFileSync(filePath, fileBuffer);
+        return fileBuffer;
     } catch (e) {
         sendError(e);
     } finally {

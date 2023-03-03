@@ -1,21 +1,17 @@
-const { writeFileSync } = require("fs");
 const { join } = require("path");
 
-const ID3Writer = require("browser-id3-writer");
-const { dialog, ipcMain } = require("electron");
+const { dialog } = require("electron");
 
 const registerCallback = require("../../providers/song-info");
 const { injectCSS, listenAction } = require("../utils");
-const { cropMaxWidth } = require("./utils");
 const { ACTIONS, CHANNEL } = require("./actions.js");
-const { isEnabled } = require("../../config/plugins");
-const { getImage } = require("../../providers/song-info");
-const { fetchFromGenius } = require("../lyrics-genius/back");
 
 let win = {};
 
 const sendError = (error) => {
 	win.setProgressBar(-1); // close progress bar
+
+	console.error(error);
 	dialog.showMessageBox({
 		type: "info",
 		buttons: ["OK"],
