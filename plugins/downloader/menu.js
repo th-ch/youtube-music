@@ -96,6 +96,10 @@ async function downloadPlaylist(givenUrl, win, options) {
 		sendError(e);
 		return;
 	}
+	let isAlbum = playlist.title.startsWith('Album - ');
+	if (isAlbum) {
+		playlist.title = playlist.title.slice(8);
+	}
 	const safePlaylistTitle = filenamify(playlist.title, { replacement: ' ' });
 
 	const folder = getFolder(options.downloadFolder);
@@ -143,9 +147,12 @@ async function downloadPlaylist(givenUrl, win, options) {
 		}
 	});
 
+	let counter = 1;
+
 	try {
 		for (const song of playlist.items) {
-			await downloadSong(song.url, playlistFolder).catch((e) => sendError(e));
+			const trackId = isAlbum ? counter++ : undefined;
+			await downloadSong(song.url, playlistFolder, trackId).catch((e) => sendError(e));
 		}
 	} catch (e) {
 		sendError(e);

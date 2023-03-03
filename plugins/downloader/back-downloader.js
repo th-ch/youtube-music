@@ -24,8 +24,9 @@ module.exports = async (options_) => {
     ipcMain.handle("download-song", (_, url) => downloadSong(url));
 };
 
-async function downloadSong(url, playlistFolder = undefined) {
+async function downloadSong(url, playlistFolder = undefined, trackId = undefined) {
     const metadata = await getMetadata(url);
+    metadata.trackId = trackId;
 
     const stream = await yt.download(metadata.id, {
         type: 'audio', // audio, video or video+audio
@@ -53,7 +54,7 @@ async function downloadSong(url, playlistFolder = undefined) {
     }
 
     if (!presets[options.preset]) {
-        const fileBuffer = await toMP3(iterableStream, filePath, metadata);
+        const fileBuffer = await toMP3(iterableStream, metadata);
         console.info('writing id3 tags...'); // DELETE
         writeFileSync(filePath, await writeID3(fileBuffer, metadata));
         console.info('done writing id3 tags!'); // DELETE
@@ -78,7 +79,6 @@ function getIdFromUrl(url) {
 async function getMetadata(url) {
     const id = getIdFromUrl(url);
     const info = await yt.music.getInfo(id);
-    //console.log('got info:' + JSON.stringify(info, null, 2)); // DELETE
 
     return {
         id: info.basic_info.id,
@@ -120,6 +120,9 @@ async function writeID3(buffer, metadata) {
                 });
             }
         }
+        if (metadata.trackId) {
+            writer.setFrame("TRCK", metadata.trackId);
+        }
         writer.addTag();
         return Buffer.from(writer.arrayBuffer);
     } catch (e) {
@@ -138,7 +141,7 @@ const ffmpeg = require("@ffmpeg/ffmpeg").createFFmpeg({
 
 const ffmpegMutex = new Mutex();
 
-async function toMP3(stream, filePath, metadata, extension = "mp3") {
+async function toMP3(stream, metadata, extension = "mp3") {
     const chunks = [];
     for await (const chunk of stream) {
         chunks.push(chunk);
@@ -165,13 +168,9 @@ async function toMP3(stream, filePath, metadata, extension = "mp3") {
             safeVideoName + "." + extension
         );
 
-        const fileBuffer = ffmpeg.FS("readFile", safeVideoName + "." + extension);
-
-        await writeID3(fileBuffer, metadata);
-
         // sendFeedback("Saving…");
 
-        return fileBuffer;
+       return ffmpeg.FS("readFile", safeVideoName + "." + extension);
     } catch (e) {
         sendError(e);
     } finally {
@@ -210,5 +209,6 @@ function getFFmpegMetadataArgs(metadata) {
         ...(metadata.title ? ["-metadata", `title=${metadata.title}`] : []),
         ...(metadata.artist ? ["-metadata", `artist=${metadata.artist}`] : []),
         ...(metadata.album ? ["-metadata", `album=${metadata.album}`] : []),
+        ...(metadata.trackId ? ["-metadata", `track=${metadata.trackId}`] : []),
     ];
 };
