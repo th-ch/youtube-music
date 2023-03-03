@@ -9,7 +9,7 @@ module.exports = (win, options, refreshMenu) => {
 			checked: options.romanizedLyrics,
 			click: (item) => {
 				options.romanizedLyrics = item.checked;
-				setMenuOptions('lyrics-genius', options);
+				setOptions('lyrics-genius', options);
 				toggleRomanized();
 			},
 		},
