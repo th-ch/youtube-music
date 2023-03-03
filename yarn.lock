@@ -734,13 +734,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@protobuf-ts/runtime@npm:^2.7.0":
-  version: 2.8.2
-  resolution: "@protobuf-ts/runtime@npm:2.8.2"
-  checksum: ab322e832bfb347b271a8862b8ef3db27ffa380f9c49f94acb410534586a282ebd8af96d4459f959ad0fe5fbf34183f3f4fe512e50c9a4331b742a7445b16c92
-  languageName: node
-  linkType: hard
-
 "@remusao/guess-url-type@npm:^1.1.2":
   version: 1.2.1
   resolution: "@remusao/guess-url-type@npm:1.2.1"
@@ -3860,6 +3853,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"file-type@npm:^18.2.1":
+  version: 18.2.1
+  resolution: "file-type@npm:18.2.1"
+  dependencies:
+    readable-web-to-node-stream: ^3.0.2
+    strtok3: ^7.0.0
+    token-types: ^5.0.1
+  checksum: bbc9381292e96a72ecd892f9f5e1a9a8d3f9717955841346e55891acfe099135bfa149f7dad51f35ee52b5e7e0a1a02d7375061b2800758011682c2e9d96953e
+  languageName: node
+  linkType: hard
+
 "file-uri-to-path@npm:1.0.0":
   version: 1.0.0
   resolution: "file-uri-to-path@npm:1.0.0"
@@ -4709,6 +4713,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"iconv-lite@npm:0.6.2":
+  version: 0.6.2
+  resolution: "iconv-lite@npm:0.6.2"
+  dependencies:
+    safer-buffer: ">= 2.1.2 < 3.0.0"
+  checksum: 03e03eb9fc003bc94f7956849f747258e57c162760259d76d1e67483058cad854a4b681b635e21e3ec41f4bd15ceed1b4a350f890565d680343442c5b139fa8a
+  languageName: node
+  linkType: hard
+
 "iconv-lite@npm:^0.6.2":
   version: 0.6.3
   resolution: "iconv-lite@npm:0.6.3"
@@ -5339,12 +5352,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jintr@npm:^0.3.1":
-  version: 0.3.1
-  resolution: "jintr@npm:0.3.1"
+"jintr@npm:^0.4.1":
+  version: 0.4.1
+  resolution: "jintr@npm:0.4.1"
   dependencies:
     acorn: ^8.8.0
-  checksum: 1fb2454904461c3bbe6b55251dce4ac352fb3b94803773e3d8925ede4a907b5d52a2f30f3f76757c770e1785f34a3665d5cffd710c3ae99837cd157762130a24
+  checksum: 9dd5932be611aa926dba90e3b1bf09afbdc8864a128dbba53f5ee8461f0ac27955fca780dfd4cbb1575e6873d0d74dd346127554a4b2cae01986fe12aad3ba09
   languageName: node
   linkType: hard
 
@@ -6319,6 +6332,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"node-id3@npm:^0.2.6":
+  version: 0.2.6
+  resolution: "node-id3@npm:0.2.6"
+  dependencies:
+    iconv-lite: 0.6.2
+  checksum: 9f3ba9d42f4d52348bb2f88dbcdd63ee8fd513dc7c01481d6b10082b83d0f1ce696f920c9bff0e3f2b00486c25fe49c3f93a56d54813809b7edc9ab14b1383d6
+  languageName: node
+  linkType: hard
+
 "node-notifier@npm:^10.0.1":
   version: 10.0.1
   resolution: "node-notifier@npm:10.0.1"
@@ -6837,6 +6859,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"peek-readable@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "peek-readable@npm:5.0.0"
+  checksum: bef5ceb50586eb42e14efba274ac57ffe97f0ed272df9239ce029f688f495d9bf74b2886fa27847c706a9db33acda4b7d23bbd09a2d21eb4c2a54da915117414
+  languageName: node
+  linkType: hard
+
 "pend@npm:~1.2.0":
   version: 1.2.0
   resolution: "pend@npm:1.2.0"
@@ -7277,7 +7306,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"readable-web-to-node-stream@npm:^3.0.0":
+"readable-web-to-node-stream@npm:^3.0.0, readable-web-to-node-stream@npm:^3.0.2":
   version: 3.0.2
   resolution: "readable-web-to-node-stream@npm:3.0.2"
   dependencies:
@@ -8051,6 +8080,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"strtok3@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "strtok3@npm:7.0.0"
+  dependencies:
+    "@tokenizer/token": ^0.3.0
+    peek-readable: ^5.0.0
+  checksum: 2ebe7ad8f2aea611dec6742cf6a42e82764892a362907f7ce493faf334501bf981ce21c828dcc300457e6d460dc9c34d644ededb3b01dcb9e37559203cf1748c
+  languageName: node
+  linkType: hard
+
 "sumchecker@npm:^3.0.1":
   version: 3.0.1
   resolution: "sumchecker@npm:3.0.1"
@@ -8235,6 +8274,16 @@ __metadata:
     "@tokenizer/token": ^0.3.0
     ieee754: ^1.2.1
   checksum: cce256766b33e0f08ceffefa2198fb4961a417866d00780e58625999ab5c0699821407053e64eadc41b00bbb6c0d0c4d02fbd2199940d8a3ccb71e1b148ab9a2
+  languageName: node
+  linkType: hard
+
+"token-types@npm:^5.0.1":
+  version: 5.0.1
+  resolution: "token-types@npm:5.0.1"
+  dependencies:
+    "@tokenizer/token": ^0.3.0
+    ieee754: ^1.2.1
+  checksum: 32780123bc6ce8b6a2231d860445c994a02a720abf38df5583ea957aa6626873cd1c4dd8af62314da4cf16ede00c379a765707a3b06f04b8808c38efdae1c785
   languageName: node
   linkType: hard
 
@@ -8483,12 +8532,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"undici@npm:^5.7.0":
-  version: 5.18.0
-  resolution: "undici@npm:5.18.0"
+"undici@npm:^5.19.1":
+  version: 5.20.0
+  resolution: "undici@npm:5.20.0"
   dependencies:
     busboy: ^1.6.0
-  checksum: 74e0f357c376c745fcca612481a5742866ae36086ad387e626255f4c4a15fc5357d9d0fa4355271b6a633d50f5556c3e85720844680c44861c66e23afca7245f
+  checksum: 25412a785b2bd0b12f0bb0ec47ef00aa7a611ca0e570cb7af97cffe6a42e0d78e4b15190363a43771e9002defc3c6647c1b2d52201b3f64e2196819db4d150d3
   languageName: node
   linkType: hard
 
@@ -9023,6 +9072,7 @@ __metadata:
     electron-store: ^8.1.0
     electron-unhandled: ^4.0.1
     electron-updater: ^5.3.0
+    file-type: ^18.2.1
     filenamify: ^4.3.0
     howler: ^2.2.3
     html-to-text: ^9.0.3
@@ -9032,26 +9082,26 @@ __metadata:
     mpris-service: ^2.1.2
     node-fetch: ^2.6.8
     node-gyp: ^9.3.1
+    node-id3: ^0.2.6
     node-notifier: ^10.0.1
     playwright: ^1.29.2
     simple-youtube-age-restriction-bypass: "https://gitpkg.now.sh/api/pkg.tgz?url=zerodytrash/Simple-YouTube-Age-Restriction-Bypass&commit=v2.5.4"
     vudio: ^2.1.1
     xo: ^0.53.1
-    youtubei.js: ^2.9.0
+    youtubei.js: ^3.1.1
     ytdl-core: ^4.11.1
     ytpl: ^2.3.0
   languageName: unknown
   linkType: soft
 
-"youtubei.js@npm:^2.9.0":
-  version: 2.9.0
-  resolution: "youtubei.js@npm:2.9.0"
+"youtubei.js@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "youtubei.js@npm:3.1.1"
   dependencies:
-    "@protobuf-ts/runtime": ^2.7.0
-    jintr: ^0.3.1
+    jintr: ^0.4.1
     linkedom: ^0.14.12
-    undici: ^5.7.0
-  checksum: 0b9d86c1ec7297ee41b9013d6cb951976d82b2775d9d9d5abf0447d7acb9f36b07ebb689710bf8ccfa256a6f56088f49b699fb1a3e5bac2b0ea7d2daa508c109
+    undici: ^5.19.1
+  checksum: 1280e2ddacec3034ee8e1b398ba80662a6854e184416d3484119e7cf47b69ab2e58b4f1efdf468dcad3e50bdc7bd42b6ee66b95660ffb521efb5f0634ef60fb7
   languageName: node
   linkType: hard
 

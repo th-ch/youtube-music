@@ -4,7 +4,6 @@ const { defaultConfig } = require("../../config");
 const { getSongMenu } = require("../../providers/dom-elements");
 const { ElementFromFile, templatePath, triggerAction } = require("../utils");
 const { ACTIONS, CHANNEL } = require("./actions.js");
-const { downloadVideoToMP3 } = require("./youtube-dl");
 
 let menu = null;
 let progress = null;
@@ -61,28 +60,9 @@ global.download = () => {
 		videoUrl = metadata.url || window.location.href;
 	}
 
-	downloadVideoToMP3(
-		videoUrl,
-		(feedback, ratio = undefined) => {
-			if (!progress) {
-				console.warn("Cannot update progress");
-			} else {
-				progress.innerHTML = feedback;
-			}
-			if (ratio) {
-				triggerAction(CHANNEL, ACTIONS.PROGRESS, ratio);
-			}
-		},
-		(error) => {
-			triggerAction(CHANNEL, ACTIONS.ERROR, error);
-			reinit();
-		},
-		reinit,
-		pluginOptions,
-		metadata
-	);
+	ipcRenderer.invoke('download-song', videoUrl).finally(() => triggerAction(CHANNEL, ACTIONS.PROGRESS, -1));
+	return;
 };
-// });
 
 function observeMenu(options) {
 	pluginOptions = { ...pluginOptions, ...options };
