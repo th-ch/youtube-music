@@ -12,7 +12,9 @@ const { isEnabled } = require("../../config/plugins");
 const { getImage } = require("../../providers/song-info");
 const { fetchFromGenius } = require("../lyrics-genius/back");
 
-const sendError = (win, error) => {
+let win = {};
+
+const sendError = (error) => {
 	win.setProgressBar(-1); // close progress bar
 	dialog.showMessageBox({
 		type: "info",
@@ -25,8 +27,13 @@ const sendError = (win, error) => {
 
 let nowPlayingMetadata = {};
 
-function handle(win) {
+
+function handle(win_, options) {
+	win = win_;
 	injectCSS(win.webContents, join(__dirname, "style.css"));
+
+	require("./back-downloader")(options);
+
 	registerCallback((info) => {
 		nowPlayingMetadata = info;
 	});
@@ -34,7 +41,7 @@ function handle(win) {
 	listenAction(CHANNEL, (event, action, arg) => {
 		switch (action) {
 			case ACTIONS.ERROR: // arg = error
-				sendError(win, arg);
+				sendError(arg);
 				break;
 			case ACTIONS.METADATA:
 				event.returnValue = JSON.stringify(nowPlayingMetadata);
@@ -45,52 +52,6 @@ function handle(win) {
 			default:
 				console.log("Unknown action: " + action);
 		}
-	});
-
-	ipcMain.on("add-metadata", async (event, filePath, songBuffer, currentMetadata) => {
-		let fileBuffer = songBuffer;
-		const songMetadata = currentMetadata.imageSrcYTPL ? // This means metadata come from ytpl.getInfo();
-			{
-				...currentMetadata,
-				image: cropMaxWidth(await getImage(currentMetadata.imageSrcYTPL))
-			} :
-			{ ...nowPlayingMetadata, ...currentMetadata };
-
-		try {
-			const coverBuffer = songMetadata.image && !songMetadata.image.isEmpty() ?
-				songMetadata.image.toPNG() : null;
-
-			const writer = new ID3Writer(songBuffer);
-
-			// Create the metadata tags
-			writer
-				.setFrame("TIT2", songMetadata.title)
-				.setFrame("TPE1", [songMetadata.artist]);
-			if (coverBuffer) {
-				writer.setFrame("APIC", {
-					type: 3,
-					data: coverBuffer,
-					description: ""
-				});
-			}
-			if (isEnabled("lyrics-genius")) {
-				const lyrics = await fetchFromGenius(songMetadata);
-				if (lyrics) {
-					writer.setFrame("USLT", {
-						description: lyrics,
-						lyrics: lyrics,
-					});
-				}
-			}
-			writer.addTag();
-			fileBuffer = Buffer.from(writer.arrayBuffer);
-		} catch (error) {
-			sendError(win, error);
-		}
-
-		writeFileSync(filePath, fileBuffer);
-		// Notify the youtube-dl file
-		event.reply("add-metadata-done");
 	});
 }
 

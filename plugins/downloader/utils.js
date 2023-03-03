@@ -1,7 +1,7 @@
-const electron = require("electron");
+const { app } = require("electron");
 const is = require('electron-is');
 
-module.exports.getFolder = customFolder => customFolder || electron.app.getPath("downloads");
+module.exports.getFolder = customFolder => customFolder || app.getPath("downloads");
 module.exports.defaultMenuDownloadLabel = "Download playlist";
 
 const orderedQualityList = ["maxresdefault", "hqdefault", "mqdefault", "sdddefault"];
@@ -41,6 +41,6 @@ module.exports.presets = {
 
 module.exports.setBadge = n => {
 	if (is.linux() || is.macOS()) {
-		electron.app.setBadgeCount(n);
+		app.setBadgeCount(n);
 	}
 }

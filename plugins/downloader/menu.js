@@ -9,6 +9,7 @@ const filenamify = require('filenamify');
 
 const { setMenuOptions } = require("../../config/plugins");
 const { sendError } = require("./back");
+const { downloadSong } = require("./back-downloader");
 const { defaultMenuDownloadLabel, getFolder, presets, setBadge } = require("./utils");
 
 let downloadLabel = defaultMenuDownloadLabel;
@@ -62,7 +63,7 @@ module.exports = (win, options) => {
 					options.preset = preset;
 					setMenuOptions("downloader", options);
 				},
-				checked: options.preset === preset || presets[preset] === undefined,
+				checked: options.preset === preset,
 			})),
 		},
 	];
@@ -81,7 +82,7 @@ async function downloadPlaylist(givenUrl, win, options) {
 		|| getPlaylistID(new URL(playingUrl));
 
 	if (!playlistId) {
-		sendError(win, new Error("No playlist ID found"));
+		sendError(new Error("No playlist ID found"));
 		return;
 	}
 
@@ -92,18 +93,15 @@ async function downloadPlaylist(givenUrl, win, options) {
 			limit: options.playlistMaxItems || Infinity,
 		});
 	} catch (e) {
-		sendError(win, e);
+		sendError(e);
 		return;
 	}
-	const safePlaylistTitle = filenamify(playlist.title, {replacement: ' '});
+	const safePlaylistTitle = filenamify(playlist.title, { replacement: ' ' });
 
 	const folder = getFolder(options.downloadFolder);
 	const playlistFolder = join(folder, safePlaylistTitle);
 	if (existsSync(playlistFolder)) {
-		sendError(
-			win,
-			new Error(`The folder ${playlistFolder} already exists`)
-		);
+		sendError(new Error(`The folder ${playlistFolder} already exists`));
 		return;
 	}
 	mkdirSync(playlistFolder, { recursive: true });
@@ -128,24 +126,30 @@ async function downloadPlaylist(givenUrl, win, options) {
 	setBadge(playlist.items.length);
 
 	let dirWatcher = chokidar.watch(playlistFolder);
-	dirWatcher.on('add', () => {
-		downloadCount += 1;
-		if (downloadCount >= playlist.items.length) {
+	const closeDirWatcher = () => {
+		if (dirWatcher) {
 			win.setProgressBar(-1); // close progress bar
 			setBadge(0); // close badge counter
 			dirWatcher.close().then(() => (dirWatcher = null));
+		}
+	};
+	dirWatcher.on('add', () => {
+		downloadCount += 1;
+		if (downloadCount >= playlist.items.length) {
+			closeDirWatcher();
 		} else {
 			win.setProgressBar(downloadCount / playlist.items.length);
 			setBadge(playlist.items.length - downloadCount);
 		}
 	});
 
-	playlist.items.forEach((song) => {
-		win.webContents.send(
-			"downloader-download-playlist",
-			song.url,
-			safePlaylistTitle,
-			options
-		);
-	});
+	try {
+		for (const song of playlist.items) {
+			await downloadSong(song.url, playlistFolder).catch((e) => sendError(e));
+		}
+	} catch (e) {
+		sendError(e);
+	} finally {
+		closeDirWatcher();
+	}
 }
