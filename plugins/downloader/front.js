@@ -18,7 +18,7 @@ const observer = new MutationObserver(() => {
 	}
 	if (menu.contains(downloadButton)) return;
 	const menuUrl = document.querySelector('tp-yt-paper-listbox [tabindex="0"] #navigation-endpoint')?.href;
-	if (menuUrl && !menuUrl.includes('watch?')) return;
+	if (!menuUrl?.includes('watch?')) return;
 
 	menu.prepend(downloadButton);
 	progress = document.querySelector("#ytmcustom-download");
