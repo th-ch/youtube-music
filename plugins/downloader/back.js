@@ -299,7 +299,7 @@ async function downloadPlaylist(givenUrl) {
             limit: options.playlistMaxItems || Infinity,
         });
     } catch (e) {
-        sendError(e);
+        sendError("Error getting playlist info: make sure it isn't a private or \"Mixed for you\" playlist\n\n" + e);
         return;
     }
     let isAlbum = playlist.title.startsWith('Album - ');
@@ -349,7 +349,7 @@ async function downloadPlaylist(givenUrl) {
             sendFeedback(`Downloading ${counter}/${playlist.items.length}...`);
             const trackId = isAlbum ? counter : undefined;
             await downloadSong(song.url, playlistFolder, trackId, increaseProgress)
-                .catch((e) => sendError(`Error downloading "${song.author} - ${song.title}":\n  ${e}`));
+                .catch((e) => sendError(`Error downloading "${song.author.name} - ${song.title}":\n  ${e}`));
 
             win.setProgressBar(counter / playlist.items.length);
             setBadge(playlist.items.length - counter);
