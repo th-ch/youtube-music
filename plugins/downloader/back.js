@@ -74,6 +74,7 @@ async function downloadSong(url, playlistFolder = undefined, trackId = undefined
     const info = await yt.music.getInfo(id);
 
     const metadata = getMetadata(info);
+    if (metadata.album === 'N/A') metadata.album = '';
     metadata.trackId = trackId;
 
     const download_options = {
