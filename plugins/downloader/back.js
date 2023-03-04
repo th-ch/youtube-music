@@ -111,7 +111,7 @@ async function downloadSong(url, playlistFolder = undefined, trackId = undefined
     }
 
     if (!presets[config.get('preset')]) {
-        const fileBuffer = await toMP3(iterableStream, metadata, format.content_length, sendFeedback, increasePlaylistProgress);
+        const fileBuffer = await bufferToMP3(iterableStream, metadata, format.content_length, sendFeedback, increasePlaylistProgress);
         writeFileSync(filePath, await writeID3(fileBuffer, metadata, sendFeedback));
     } else {
         const file = createWriteStream(filePath);
@@ -186,7 +186,7 @@ async function writeID3(buffer, metadata, sendFeedback) {
     }
 }
 
-async function toMP3(stream, metadata, content_length, sendFeedback, increasePlaylistProgress = () => { }, extension = "mp3") {
+async function bufferToMP3(stream, metadata, content_length, sendFeedback, increasePlaylistProgress = () => { }, extension = "mp3") {
     const chunks = [];
     let downloaded = 0;
     let total = content_length;
@@ -196,7 +196,9 @@ async function toMP3(stream, metadata, content_length, sendFeedback, increasePla
         const ratio = downloaded / total;
         const progress = Math.floor(ratio * 100);
         sendFeedback("Download: " + progress + "%", ratio);
-        increasePlaylistProgress(ratio);
+        // 15% for download, 85% for conversion
+        // This is a very rough estimate, trying to make the progress bar look nice
+        increasePlaylistProgress(ratio * 0.15);
     }
     sendFeedback("Loading…", 2); // indefinite progress bar after download
 
@@ -213,6 +215,11 @@ async function toMP3(stream, metadata, content_length, sendFeedback, increasePla
         ffmpeg.FS("writeFile", safeVideoName, buffer);
 
         sendFeedback("Converting…");
+
+        ffmpeg.setProgress(({ ratio }) => {
+            sendFeedback("Converting: " + Math.floor(ratio * 100) + "%", ratio);
+            increasePlaylistProgress(0.15 + ratio * 0.85);
+        });
 
         await ffmpeg.run(
             "-i",
@@ -305,6 +312,12 @@ async function downloadPlaylist(givenUrl) {
         });
     } catch (e) {
         sendError("Error getting playlist info: make sure it isn't a private or \"Mixed for you\" playlist\n\n" + e);
+        return;
+    }
+    if (playlist.items.length === 0) sendError(new Error("Playlist is empty"));
+    if (playlist.items.length === 1) {
+        sendFeedback("Playlist has only one item, downloading it directly");
+        await downloadSong(playlist.items[0].url);
         return;
     }
     let isAlbum = playlist.title.startsWith('Album - ');
