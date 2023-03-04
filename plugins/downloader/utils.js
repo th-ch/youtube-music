@@ -8,18 +8,6 @@ module.exports.sendFeedback = (win, message) => {
 	win.webContents.send("downloader-feedback", message);
 };
 
-const orderedQualityList = ["maxresdefault", "hqdefault", "mqdefault", "sdddefault"];
-module.exports.urlToJPG = (imgUrl, videoId) => {
-	if (!imgUrl || imgUrl.includes(".jpg")) return imgUrl;
-	//it will almost never get further than hqdefault
-	for (const quality of orderedQualityList) {
-		if (imgUrl.includes(quality)) {
-			return `https://img.youtube.com/vi/${videoId}/${quality}.jpg`;
-		}
-	}
-	return `https://img.youtube.com/vi/${videoId}/default.jpg`;
-}
-
 module.exports.cropMaxWidth = (image) => {
 	const imageSize = image.getSize();
 	// standart youtube artwork width with margins from both sides is 280 + 720 + 280

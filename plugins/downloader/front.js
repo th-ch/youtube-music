@@ -49,8 +49,7 @@ global.download = () => {
 		videoUrl = metadata.url || window.location.href;
 	}
 
-	ipcRenderer.invoke('download-song', videoUrl);
-	return;
+	ipcRenderer.send('download-song', videoUrl);
 };
 
 function observeMenu(options) {

@@ -30,19 +30,19 @@ let win;
 let playingUrl = undefined;
 
 const sendError = (error) => {
-	win.setProgressBar(-1); // close progress bar
-	setBadge(0); // close badge
-	sendFeedback_(win); // reset feedback
+    win.setProgressBar(-1); // close progress bar
+    setBadge(0); // close badge
+    sendFeedback_(win); // reset feedback
 
 
-	console.error(error);
-	dialog.showMessageBox({
-		type: "info",
-		buttons: ["OK"],
-		title: "Error in download!",
-		message: "Argh! Apologies, download failed…",
-		detail: error.toString(),
-	});
+    console.error(error);
+    dialog.showMessageBox({
+        type: "info",
+        buttons: ["OK"],
+        title: "Error in download!",
+        message: "Argh! Apologies, download failed…",
+        detail: error.toString(),
+    });
 };
 
 module.exports = async (win_, options_) => {
@@ -51,14 +51,14 @@ module.exports = async (win_, options_) => {
     injectCSS(win.webContents, join(__dirname, "style.css"));
 
     yt = await Innertube.create({ cache: new UniversalCache(false), generate_session_locally: true });
-    ipcMain.handle("download-song", (_, url) => downloadSong(url));
+    ipcMain.on("download-song", (_, url) => downloadSong(url));
     ipcMain.on("video-src-changed", async (_, data) => {
         playingUrl = JSON.parse(data)?.microformat?.microformatDataRenderer?.urlCanonical;
     });
     ipcMain.on("download-playlist-request", async (_event, url) => downloadPlaylist(url, win, options));
 };
 
-async function downloadSong(url, playlistFolder = undefined, trackId = undefined, increasePlaylistProgress = ()=>{}) {
+async function downloadSong(url, playlistFolder = undefined, trackId = undefined, increasePlaylistProgress = () => { }) {
     const sendFeedback = (message, progress) => {
         if (!playlistFolder) {
             sendFeedback_(win, message);
@@ -69,7 +69,11 @@ async function downloadSong(url, playlistFolder = undefined, trackId = undefined
     };
 
     sendFeedback(`Downloading...`, 2);
-    const metadata = await getMetadata(url);
+
+    const id = url.match(/v=([^&]+)/)?.[1];
+    const info = await yt.music.getInfo(id);
+
+    const metadata = getMetadata(info);
     metadata.trackId = trackId;
 
     const download_options = {
@@ -78,8 +82,8 @@ async function downloadSong(url, playlistFolder = undefined, trackId = undefined
         format: 'any' // media container format 
     };
 
-    const format = metadata.info.chooseFormat(download_options);
-    const stream = await metadata.info.download(download_options);
+    const format = info.chooseFormat(download_options);
+    const stream = await info.download(download_options);
 
     console.info(`Downloading ${metadata.artist} - ${metadata.title} [${metadata.id}]`);
 
@@ -121,23 +125,17 @@ async function downloadSong(url, playlistFolder = undefined, trackId = undefined
     }
 
     sendFeedback(null, -1);
-    console.info(`Saved download to ${filePath}`);
+    console.info(`Done: "${filePath}"`);
 }
 module.exports.downloadSong = downloadSong;
 
-async function getMetadata(url) {
-    const id = url.match(/v=([^&]+)/)?.[1];
-    const info = await yt.music.getInfo(id);
-
-    return {
-        id: info.basic_info.id,
-        title: info.basic_info.title,
-        artist: info.basic_info.author,
-        album: info.player_overlays?.browser_media_session?.album?.text,
-        image: info.basic_info.thumbnail[0].url,
-        info
-    };
-}
+const getMetadata = (info) => ({
+    id: info.basic_info.id,
+    title: info.basic_info.title,
+    artist: info.basic_info.author,
+    album: info.player_overlays?.browser_media_session?.album?.text,
+    image: info.basic_info.thumbnail[0].url,
+});
 
 async function writeID3(buffer, metadata, sendFeedback) {
     try {
@@ -349,7 +347,9 @@ async function downloadPlaylist(givenUrl) {
         for (const song of playlist.items) {
             sendFeedback(`Downloading ${counter}/${playlist.items.length}...`);
             const trackId = isAlbum ? counter : undefined;
-            await downloadSong(song.url, playlistFolder, trackId, increaseProgress).catch((e) => sendError(e));
+            await downloadSong(song.url, playlistFolder, trackId, increaseProgress)
+                .catch((e) => sendError(`Error downloading "${song.author} - ${song.title}":\n  ${e}`));
+
             win.setProgressBar(counter / playlist.items.length);
             setBadge(playlist.items.length - counter);
             counter++;
