@@ -37,5 +37,14 @@ module.exports = (win, options) => {
 				checked: options.preset === preset,
 			})),
 		},
+		{
+			label: "Skip existing files",
+			type: "checkbox",
+			checked: options.skipExisting,
+			click: () => {
+				options.skipExisting = !options.skipExisting;
+				setMenuOptions("downloader", options);
+			}
+		}
 	];
 };

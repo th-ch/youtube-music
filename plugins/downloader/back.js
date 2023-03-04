@@ -77,6 +77,22 @@ async function downloadSong(url, playlistFolder = undefined, trackId = undefined
     if (metadata.album === 'N/A') metadata.album = '';
     metadata.trackId = trackId;
 
+    const dir = playlistFolder || options.downloadFolder || app.getPath("downloads");
+    const name = `${metadata.artist ? `${metadata.artist} - ` : ""}${metadata.title}`;
+
+    const extension = presets[options.preset]?.extension || 'mp3';
+
+    const filename = filenamify(`${name}.${extension}`, {
+        replacement: "_",
+        maxLength: 255,
+    });
+    const filePath = join(dir, filename);
+
+    if (options.skipExisting && existsSync(filePath)) {
+        sendFeedback(null, -1);
+        return;
+    }
+
     const download_options = {
         type: 'audio', // audio, video or video+audio
         quality: 'best', // best, bestefficiency, 144p, 240p, 480p, 720p and so on.
@@ -89,17 +105,6 @@ async function downloadSong(url, playlistFolder = undefined, trackId = undefined
     console.info(`Downloading ${metadata.artist} - ${metadata.title} [${metadata.id}]`);
 
     const iterableStream = Utils.streamToIterable(stream);
-
-    const dir = playlistFolder || options.downloadFolder || app.getPath("downloads");
-    const name = `${metadata.artist ? `${metadata.artist} - ` : ""}${metadata.title}`;
-
-    const extension = presets[options.preset]?.extension || 'mp3';
-
-    const filename = filenamify(`${name}.${extension}`, {
-        replacement: "_",
-        maxLength: 255,
-    });
-    const filePath = join(dir, filename);
 
     if (!existsSync(dir)) {
         mkdirSync(dir);
@@ -311,10 +316,13 @@ async function downloadPlaylist(givenUrl) {
     const folder = getFolder(options.downloadFolder);
     const playlistFolder = join(folder, safePlaylistTitle);
     if (existsSync(playlistFolder)) {
-        sendError(new Error(`The folder ${playlistFolder} already exists`));
-        return;
+        if (!options.skipExisting) {
+            sendError(new Error(`The folder ${playlistFolder} already exists`));
+            return;
+        }
+    } else {
+        mkdirSync(playlistFolder, { recursive: true });
     }
-    mkdirSync(playlistFolder, { recursive: true });
 
     dialog.showMessageBox({
         type: "info",
