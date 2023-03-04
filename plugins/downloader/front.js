@@ -2,8 +2,7 @@ const { ipcRenderer } = require("electron");
 
 const { defaultConfig } = require("../../config");
 const { getSongMenu } = require("../../providers/dom-elements");
-const { ElementFromFile, templatePath, triggerAction } = require("../utils");
-const { ACTIONS, CHANNEL } = require("./actions.js");
+const { ElementFromFile, templatePath } = require("../utils");
 
 let menu = null;
 let progress = null;
@@ -25,22 +24,12 @@ const observer = new MutationObserver(() => {
 	progress = document.querySelector("#ytmcustom-download");
 });
 
-const reinit = () => {
-	triggerAction(CHANNEL, ACTIONS.PROGRESS, -1); // closes progress bar
-	if (!progress) {
-		console.warn("Cannot update progress");
-	} else {
-		progress.innerHTML = "Download";
-	}
-};
-
 const baseUrl = defaultConfig.url;
 
 // TODO: re-enable once contextIsolation is set to true
 // contextBridge.exposeInMainWorld("downloader", {
 // 	download: () => {
 global.download = () => {
-	//triggerAction(CHANNEL, ACTIONS.PROGRESS, 2); // starts with indefinite progress bar
 	let metadata;
 	let videoUrl = getSongMenu()
 		// selector of first button which is always "Start Radio"
@@ -60,7 +49,7 @@ global.download = () => {
 		videoUrl = metadata.url || window.location.href;
 	}
 
-	ipcRenderer.invoke('download-song', videoUrl)//.finally(() => triggerAction(CHANNEL, ACTIONS.PROGRESS, -1));
+	ipcRenderer.invoke('download-song', videoUrl);
 	return;
 };
 
@@ -74,7 +63,7 @@ function observeMenu(options) {
 		});
 	}, { once: true, passive: true })
 
-	ipcRenderer.on('downloader-feedback', (_, feedback)=> {
+	ipcRenderer.on('downloader-feedback', (_, feedback) => {
 		if (!progress) {
 			console.warn("Cannot update progress");
 		} else {

@@ -1,7 +1,7 @@
 const { dialog } = require("electron");
 
 const { setMenuOptions } = require("../../config/plugins");
-const { downloadPlaylist } = require("./back-downloader");
+const { downloadPlaylist } = require("./back");
 const { defaultMenuDownloadLabel, getFolder, presets } = require("./utils");
 
 let downloadLabel = defaultMenuDownloadLabel;
