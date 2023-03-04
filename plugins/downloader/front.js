@@ -11,6 +11,8 @@ const downloadButton = ElementFromFile(
 );
 let pluginOptions = {};
 
+let doneFirstLoad = false;
+
 const observer = new MutationObserver(() => {
 	if (!menu) {
 		menu = getSongMenu();
@@ -18,10 +20,13 @@ const observer = new MutationObserver(() => {
 	}
 	if (menu.contains(downloadButton)) return;
 	const menuUrl = document.querySelector('tp-yt-paper-listbox [tabindex="0"] #navigation-endpoint')?.href;
-	if (!menuUrl?.includes('watch?')) return;
+	if (!menuUrl?.includes('watch?') && doneFirstLoad) return;
 
 	menu.prepend(downloadButton);
 	progress = document.querySelector("#ytmcustom-download");
+
+	if (doneFirstLoad) return;
+	setTimeout(() => doneFirstLoad ||= true, 500);
 });
 
 const baseUrl = defaultConfig.url;
