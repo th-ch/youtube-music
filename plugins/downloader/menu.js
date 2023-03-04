@@ -1,27 +1,26 @@
 const { dialog } = require("electron");
 
-const { setMenuOptions } = require("../../config/plugins");
 const { downloadPlaylist } = require("./back");
 const { defaultMenuDownloadLabel, getFolder, presets } = require("./utils");
+const config = require("./config");
 
 let downloadLabel = defaultMenuDownloadLabel;
 
-module.exports = (win, options) => {
+module.exports = () => {
 	return [
 		{
 			label: downloadLabel,
-			click: () => downloadPlaylist(undefined, win, options),
+			click: () => downloadPlaylist(),
 		},
 		{
 			label: "Choose download folder",
 			click: () => {
 				let result = dialog.showOpenDialogSync({
 					properties: ["openDirectory", "createDirectory"],
-					defaultPath: getFolder(options.downloadFolder),
+					defaultPath: getFolder(config.get('downloadFolder')),
 				});
 				if (result) {
-					options.downloadFolder = result[0];
-					setMenuOptions("downloader", options);
+					config.set("downloadFolder", result[0]);
 				} // else = user pressed cancel
 			},
 		},
@@ -30,20 +29,18 @@ module.exports = (win, options) => {
 			submenu: Object.keys(presets).map((preset) => ({
 				label: preset,
 				type: "radio",
+				checked: config.get('preset') === preset,
 				click: () => {
-					options.preset = preset;
-					setMenuOptions("downloader", options);
+					config.set("preset", preset);
 				},
-				checked: options.preset === preset,
 			})),
 		},
 		{
 			label: "Skip existing files",
 			type: "checkbox",
-			checked: options.skipExisting,
-			click: () => {
-				options.skipExisting = !options.skipExisting;
-				setMenuOptions("downloader", options);
+			checked: config.get('skipExisting'),
+			click: (item) => {
+				config.set("skipExisting", item.checked);
 			}
 		}
 	];

@@ -25,7 +25,7 @@ const ffmpegMutex = new Mutex();
 
 /** @type {Innertube} */
 let yt;
-let options;
+const config = require("./config");
 let win;
 let playingUrl = undefined;
 
@@ -45,9 +45,9 @@ const sendError = (error) => {
     });
 };
 
-module.exports = async (win_, options_) => {
-    options = options_;
+module.exports = async (win_, options) => {
     win = win_;
+    config.init(options);
     injectCSS(win.webContents, join(__dirname, "style.css"));
 
     yt = await Innertube.create({ cache: new UniversalCache(false), generate_session_locally: true });
@@ -55,7 +55,7 @@ module.exports = async (win_, options_) => {
     ipcMain.on("video-src-changed", async (_, data) => {
         playingUrl = JSON.parse(data)?.microformat?.microformatDataRenderer?.urlCanonical;
     });
-    ipcMain.on("download-playlist-request", async (_event, url) => downloadPlaylist(url, win, options));
+    ipcMain.on("download-playlist-request", async (_event, url) => downloadPlaylist(url));
 };
 
 async function downloadSong(url, playlistFolder = undefined, trackId = undefined, increasePlaylistProgress = () => { }) {
@@ -77,10 +77,10 @@ async function downloadSong(url, playlistFolder = undefined, trackId = undefined
     if (metadata.album === 'N/A') metadata.album = '';
     metadata.trackId = trackId;
 
-    const dir = playlistFolder || options.downloadFolder || app.getPath("downloads");
+    const dir = playlistFolder || config.get('downloadFolder') || app.getPath("downloads");
     const name = `${metadata.artist ? `${metadata.artist} - ` : ""}${metadata.title}`;
 
-    const extension = presets[options.preset]?.extension || 'mp3';
+    const extension = presets[config.get('preset')]?.extension || 'mp3';
 
     const filename = filenamify(`${name}.${extension}`, {
         replacement: "_",
@@ -88,7 +88,7 @@ async function downloadSong(url, playlistFolder = undefined, trackId = undefined
     });
     const filePath = join(dir, filename);
 
-    if (options.skipExisting && existsSync(filePath)) {
+    if (config.get('skipExisting') && existsSync(filePath)) {
         sendFeedback(null, -1);
         return;
     }
@@ -110,7 +110,7 @@ async function downloadSong(url, playlistFolder = undefined, trackId = undefined
         mkdirSync(dir);
     }
 
-    if (!presets[options.preset]) {
+    if (!presets[config.get('preset')]) {
         const fileBuffer = await toMP3(iterableStream, metadata, format.content_length, sendFeedback, increasePlaylistProgress);
         writeFileSync(filePath, await writeID3(fileBuffer, metadata, sendFeedback));
     } else {
@@ -126,7 +126,7 @@ async function downloadSong(url, playlistFolder = undefined, trackId = undefined
             increasePlaylistProgress(ratio);
             file.write(chunk);
         }
-        await ffmpegWriteTags(filePath, metadata, presets[options.preset]?.ffmpegArgs);
+        await ffmpegWriteTags(filePath, metadata, presets[config.get('preset')]?.ffmpegArgs);
         sendFeedback(null, -1);
     }
 
@@ -301,7 +301,7 @@ async function downloadPlaylist(givenUrl) {
     let playlist;
     try {
         playlist = await ytpl(playlistId, {
-            limit: options.playlistMaxItems || Infinity,
+            limit: config.get('playlistMaxItems') || Infinity,
         });
     } catch (e) {
         sendError("Error getting playlist info: make sure it isn't a private or \"Mixed for you\" playlist\n\n" + e);
@@ -313,10 +313,10 @@ async function downloadPlaylist(givenUrl) {
     }
     const safePlaylistTitle = filenamify(playlist.title, { replacement: ' ' });
 
-    const folder = getFolder(options.downloadFolder);
+    const folder = getFolder(config.get('downloadFolder'));
     const playlistFolder = join(folder, safePlaylistTitle);
     if (existsSync(playlistFolder)) {
-        if (!options.skipExisting) {
+        if (!config.get('skipExisting')) {
             sendError(new Error(`The folder ${playlistFolder} already exists`));
             return;
         }

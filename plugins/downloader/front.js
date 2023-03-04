@@ -9,7 +9,6 @@ let progress = null;
 const downloadButton = ElementFromFile(
 	templatePath(__dirname, "download.html")
 );
-let pluginOptions = {};
 
 let doneFirstLoad = false;
 
@@ -57,9 +56,7 @@ global.download = () => {
 	ipcRenderer.send('download-song', videoUrl);
 };
 
-function observeMenu(options) {
-	pluginOptions = { ...pluginOptions, ...options };
-
+function observeMenu() {
 	document.addEventListener('apiLoaded', () => {
 		observer.observe(document.querySelector('ytmusic-popup-container'), {
 			childList: true,
