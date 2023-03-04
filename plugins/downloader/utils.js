@@ -4,6 +4,10 @@ const is = require('electron-is');
 module.exports.getFolder = customFolder => customFolder || app.getPath("downloads");
 module.exports.defaultMenuDownloadLabel = "Download playlist";
 
+module.exports.sendFeedback = (win, message) => {
+	win.webContents.send("downloader-feedback", message);
+};
+
 const orderedQualityList = ["maxresdefault", "hqdefault", "mqdefault", "sdddefault"];
 module.exports.urlToJPG = (imgUrl, videoId) => {
 	if (!imgUrl || imgUrl.includes(".jpg")) return imgUrl;

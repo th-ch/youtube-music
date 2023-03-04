@@ -40,7 +40,7 @@ const baseUrl = defaultConfig.url;
 // contextBridge.exposeInMainWorld("downloader", {
 // 	download: () => {
 global.download = () => {
-	triggerAction(CHANNEL, ACTIONS.PROGRESS, 2); // starts with indefinite progress bar
+	//triggerAction(CHANNEL, ACTIONS.PROGRESS, 2); // starts with indefinite progress bar
 	let metadata;
 	let videoUrl = getSongMenu()
 		// selector of first button which is always "Start Radio"
@@ -60,7 +60,7 @@ global.download = () => {
 		videoUrl = metadata.url || window.location.href;
 	}
 
-	ipcRenderer.invoke('download-song', videoUrl).finally(() => triggerAction(CHANNEL, ACTIONS.PROGRESS, -1));
+	ipcRenderer.invoke('download-song', videoUrl)//.finally(() => triggerAction(CHANNEL, ACTIONS.PROGRESS, -1));
 	return;
 };
 
@@ -73,6 +73,14 @@ function observeMenu(options) {
 			subtree: true,
 		});
 	}, { once: true, passive: true })
+
+	ipcRenderer.on('downloader-feedback', (_, feedback)=> {
+		if (!progress) {
+			console.warn("Cannot update progress");
+		} else {
+			progress.innerHTML = feedback || "Download";
+		}
+	});
 }
 
 module.exports = observeMenu;

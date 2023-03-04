@@ -4,12 +4,16 @@ const { dialog } = require("electron");
 
 const registerCallback = require("../../providers/song-info");
 const { injectCSS, listenAction } = require("../utils");
+const { setBadge, sendFeedback } = require("./utils");
 const { ACTIONS, CHANNEL } = require("./actions.js");
 
 let win = {};
 
 const sendError = (error) => {
 	win.setProgressBar(-1); // close progress bar
+	setBadge(0); // close badge
+	sendFeedback(); // reset feedback
+
 
 	console.error(error);
 	dialog.showMessageBox({
@@ -28,7 +32,7 @@ function handle(win_, options) {
 	win = win_;
 	injectCSS(win.webContents, join(__dirname, "style.css"));
 
-	require("./back-downloader")(options);
+	require("./back-downloader")(win, options);
 
 	registerCallback((info) => {
 		nowPlayingMetadata = info;

@@ -115,7 +115,6 @@
 		"browser-id3-writer": "^4.4.0",
 		"butterchurn": "^2.6.7",
 		"butterchurn-presets": "^2.4.7",
-		"chokidar": "^3.5.3",
 		"custom-electron-prompt": "^1.5.1",
 		"custom-electron-titlebar": "^4.1.5",
 		"electron-better-web-request": "^1.0.1",
