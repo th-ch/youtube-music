@@ -12,7 +12,7 @@ const downloadButton = ElementFromFile(
 
 let doneFirstLoad = false;
 
-const observer = new MutationObserver(() => {
+const menuObserver = new MutationObserver(() => {
 	if (!menu) {
 		menu = getSongMenu();
 		if (!menu) return;
@@ -28,37 +28,32 @@ const observer = new MutationObserver(() => {
 	setTimeout(() => doneFirstLoad ||= true, 500);
 });
 
-const baseUrl = defaultConfig.url;
-
 // TODO: re-enable once contextIsolation is set to true
 // contextBridge.exposeInMainWorld("downloader", {
 // 	download: () => {
 global.download = () => {
-	let metadata;
 	let videoUrl = getSongMenu()
 		// selector of first button which is always "Start Radio"
 		?.querySelector('ytmusic-menu-navigation-item-renderer[tabindex="0"] #navigation-endpoint')
 		?.getAttribute("href");
 	if (videoUrl) {
 		if (videoUrl.startsWith('watch?')) {
-			videoUrl = baseUrl + "/" + videoUrl;
+			videoUrl = defaultConfig.url + "/" + videoUrl;
 		}
 		if (videoUrl.includes('?playlist=')) {
 			ipcRenderer.send('download-playlist-request', videoUrl);
 			return;
 		}
-		metadata = null;
 	} else {
-		metadata = global.songInfo;
-		videoUrl = metadata.url || window.location.href;
+		videoUrl = global.songInfo.url || window.location.href;
 	}
 
 	ipcRenderer.send('download-song', videoUrl);
 };
 
-function observeMenu() {
+module.exports = () => {
 	document.addEventListener('apiLoaded', () => {
-		observer.observe(document.querySelector('ytmusic-popup-container'), {
+		menuObserver.observe(document.querySelector('ytmusic-popup-container'), {
 			childList: true,
 			subtree: true,
 		});
@@ -71,6 +66,4 @@ function observeMenu() {
 			progress.innerHTML = feedback || "Download";
 		}
 	});
-}
-
-module.exports = observeMenu;
+};

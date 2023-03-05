@@ -23,9 +23,10 @@ const ffmpeg = require("@ffmpeg/ffmpeg").createFFmpeg({
 });
 const ffmpegMutex = new Mutex();
 
+const config = require("./config");
+
 /** @type {Innertube} */
 let yt;
-const config = require("./config");
 let win;
 let playingUrl = undefined;
 
@@ -58,6 +59,8 @@ module.exports = async (win_, options) => {
     ipcMain.on("download-playlist-request", async (_event, url) => downloadPlaylist(url));
 };
 
+module.exports.downloadSong = downloadSong;
+
 async function downloadSong(url, playlistFolder = undefined, trackId = undefined, increasePlaylistProgress = () => { }) {
     const sendFeedback = (message, progress) => {
         if (!playlistFolder) {
@@ -70,7 +73,7 @@ async function downloadSong(url, playlistFolder = undefined, trackId = undefined
 
     sendFeedback(`Downloading...`, 2);
 
-    const id = url.match(/v=([^&]+)/)?.[1];
+    const id = getVideoId(url);
     const info = await yt.music.getInfo(id);
 
     const metadata = getMetadata(info);
@@ -111,7 +114,7 @@ async function downloadSong(url, playlistFolder = undefined, trackId = undefined
     }
 
     if (!presets[config.get('preset')]) {
-        const fileBuffer = await bufferToMP3(iterableStream, metadata, format.content_length, sendFeedback, increasePlaylistProgress);
+        const fileBuffer = await iterableStreamToMP3(iterableStream, metadata, format.content_length, sendFeedback, increasePlaylistProgress);
         writeFileSync(filePath, await writeID3(fileBuffer, metadata, sendFeedback));
     } else {
         const file = createWriteStream(filePath);
@@ -133,15 +136,58 @@ async function downloadSong(url, playlistFolder = undefined, trackId = undefined
     sendFeedback(null, -1);
     console.info(`Done: "${filePath}"`);
 }
-module.exports.downloadSong = downloadSong;
 
-const getMetadata = (info) => ({
-    id: info.basic_info.id,
-    title: info.basic_info.title,
-    artist: info.basic_info.author,
-    album: info.player_overlays?.browser_media_session?.album?.text,
-    image: info.basic_info.thumbnail[0].url,
-});
+async function iterableStreamToMP3(stream, metadata, content_length, sendFeedback, increasePlaylistProgress = () => { }) {
+    const chunks = [];
+    let downloaded = 0;
+    let total = content_length;
+    for await (const chunk of stream) {
+        downloaded += chunk.length;
+        chunks.push(chunk);
+        const ratio = downloaded / total;
+        const progress = Math.floor(ratio * 100);
+        sendFeedback("Download: " + progress + "%", ratio);
+        // 15% for download, 85% for conversion
+        // This is a very rough estimate, trying to make the progress bar look nice
+        increasePlaylistProgress(ratio * 0.15);
+    }
+    sendFeedback("Loading…", 2); // indefinite progress bar after download
+
+    const buffer = Buffer.concat(chunks);
+    const safeVideoName = randomBytes(32).toString("hex");
+    const releaseFFmpegMutex = await ffmpegMutex.acquire();
+
+    try {
+        if (!ffmpeg.isLoaded()) {
+            await ffmpeg.load();
+        }
+
+        sendFeedback("Preparing file…");
+        ffmpeg.FS("writeFile", safeVideoName, buffer);
+
+        sendFeedback("Converting…");
+
+        ffmpeg.setProgress(({ ratio }) => {
+            sendFeedback("Converting: " + Math.floor(ratio * 100) + "%", ratio);
+            increasePlaylistProgress(0.15 + ratio * 0.85);
+        });
+
+        await ffmpeg.run(
+            "-i",
+            safeVideoName,
+            ...getFFmpegMetadataArgs(metadata),
+            safeVideoName + ".mp3"
+        );
+
+        sendFeedback("Saving…");
+
+        return ffmpeg.FS("readFile", safeVideoName + ".mp3");
+    } catch (e) {
+        sendError(e);
+    } finally {
+        releaseFFmpegMutex();
+    }
+}
 
 async function writeID3(buffer, metadata, sendFeedback) {
     try {
@@ -185,104 +231,6 @@ async function writeID3(buffer, metadata, sendFeedback) {
         sendError(e);
     }
 }
-
-async function bufferToMP3(stream, metadata, content_length, sendFeedback, increasePlaylistProgress = () => { }, extension = "mp3") {
-    const chunks = [];
-    let downloaded = 0;
-    let total = content_length;
-    for await (const chunk of stream) {
-        downloaded += chunk.length;
-        chunks.push(chunk);
-        const ratio = downloaded / total;
-        const progress = Math.floor(ratio * 100);
-        sendFeedback("Download: " + progress + "%", ratio);
-        // 15% for download, 85% for conversion
-        // This is a very rough estimate, trying to make the progress bar look nice
-        increasePlaylistProgress(ratio * 0.15);
-    }
-    sendFeedback("Loading…", 2); // indefinite progress bar after download
-
-    const buffer = Buffer.concat(chunks);
-    const safeVideoName = randomBytes(32).toString("hex");
-    const releaseFFmpegMutex = await ffmpegMutex.acquire();
-
-    try {
-        if (!ffmpeg.isLoaded()) {
-            await ffmpeg.load();
-        }
-
-        sendFeedback("Preparing file…");
-        ffmpeg.FS("writeFile", safeVideoName, buffer);
-
-        sendFeedback("Converting…");
-
-        ffmpeg.setProgress(({ ratio }) => {
-            sendFeedback("Converting: " + Math.floor(ratio * 100) + "%", ratio);
-            increasePlaylistProgress(0.15 + ratio * 0.85);
-        });
-
-        await ffmpeg.run(
-            "-i",
-            safeVideoName,
-            ...getFFmpegMetadataArgs(metadata),
-            safeVideoName + "." + extension
-        );
-
-        sendFeedback("Saving…");
-
-        return ffmpeg.FS("readFile", safeVideoName + "." + extension);
-    } catch (e) {
-        sendError(e);
-    } finally {
-        releaseFFmpegMutex();
-    }
-}
-
-async function ffmpegWriteTags(filePath, metadata, ffmpegArgs = []) {
-    const releaseFFmpegMutex = await ffmpegMutex.acquire();
-
-    try {
-        if (!ffmpeg.isLoaded()) {
-            await ffmpeg.load();
-        }
-
-        await ffmpeg.run(
-            "-i",
-            filePath,
-            ...getFFmpegMetadataArgs(metadata),
-            ...ffmpegArgs,
-            filePath
-        );
-    } catch (e) {
-        sendError(e);
-    } finally {
-        releaseFFmpegMutex();
-    }
-}
-
-function getFFmpegMetadataArgs(metadata) {
-    if (!metadata) {
-        return;
-    }
-
-    return [
-        ...(metadata.title ? ["-metadata", `title=${metadata.title}`] : []),
-        ...(metadata.artist ? ["-metadata", `artist=${metadata.artist}`] : []),
-        ...(metadata.album ? ["-metadata", `album=${metadata.album}`] : []),
-        ...(metadata.trackId ? ["-metadata", `track=${metadata.trackId}`] : []),
-    ];
-};
-
-// Playlist radio modifier needs to be cut from playlist ID
-const INVALID_PLAYLIST_MODIFIER = 'RDAMPL';
-
-const getPlaylistID = aURL => {
-    const result = aURL?.searchParams.get("list") || aURL?.searchParams.get("playlist");
-    if (result?.startsWith(INVALID_PLAYLIST_MODIFIER)) {
-        return result.slice(6)
-    }
-    return result;
-};
 
 async function downloadPlaylist(givenUrl) {
     if (givenUrl) {
@@ -384,3 +332,64 @@ async function downloadPlaylist(givenUrl) {
         sendFeedback(); // clear feedback
     }
 }
+
+async function ffmpegWriteTags(filePath, metadata, ffmpegArgs = []) {
+    const releaseFFmpegMutex = await ffmpegMutex.acquire();
+
+    try {
+        if (!ffmpeg.isLoaded()) {
+            await ffmpeg.load();
+        }
+
+        await ffmpeg.run(
+            "-i",
+            filePath,
+            ...getFFmpegMetadataArgs(metadata),
+            ...ffmpegArgs,
+            filePath
+        );
+    } catch (e) {
+        sendError(e);
+    } finally {
+        releaseFFmpegMutex();
+    }
+}
+
+function getFFmpegMetadataArgs(metadata) {
+    if (!metadata) {
+        return;
+    }
+
+    return [
+        ...(metadata.title ? ["-metadata", `title=${metadata.title}`] : []),
+        ...(metadata.artist ? ["-metadata", `artist=${metadata.artist}`] : []),
+        ...(metadata.album ? ["-metadata", `album=${metadata.album}`] : []),
+        ...(metadata.trackId ? ["-metadata", `track=${metadata.trackId}`] : []),
+    ];
+};
+
+// Playlist radio modifier needs to be cut from playlist ID
+const INVALID_PLAYLIST_MODIFIER = 'RDAMPL';
+
+const getPlaylistID = aURL => {
+    const result = aURL?.searchParams.get("list") || aURL?.searchParams.get("playlist");
+    if (result?.startsWith(INVALID_PLAYLIST_MODIFIER)) {
+        return result.slice(6)
+    }
+    return result;
+};
+
+const getVideoId = url => {
+    if (typeof url === "string") {
+        url = new URL(url);
+    }
+    return url.searchParams.get("v");
+}
+
+const getMetadata = (info) => ({
+    id: info.basic_info.id,
+    title: info.basic_info.title,
+    artist: info.basic_info.author,
+    album: info.player_overlays?.browser_media_session?.album?.text,
+    image: info.basic_info.thumbnail[0].url,
+});
