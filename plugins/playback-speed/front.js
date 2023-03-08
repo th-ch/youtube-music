@@ -30,7 +30,7 @@ const observePopupContainer = () => {
 			menu = getSongMenu();
 		}
 
-		if (menu && menu.lastElementChild.lastElementChild.innerText.startsWith('Stats') && !menu.contains(slider)) {
+		if (menu && menu.parentElement.eventSink_?.matches('ytmusic-menu-renderer.ytmusic-player-bar') && !menu.contains(slider)) {
 			menu.prepend(slider);
 			if (!observingSlider) {
 				setupSliderListener();
