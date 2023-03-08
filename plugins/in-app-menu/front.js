@@ -5,28 +5,31 @@ const { isEnabled } = require("../../config/plugins");
 function $(selector) { return document.querySelector(selector); }
 
 module.exports = (options) => {
-	let visible = !config.get("options.hideMenu");
+	let visible = () => !!$('.cet-menubar').firstChild;
 	const bar = new Titlebar({
+		icon: "https://cdn-icons-png.flaticon.com/512/5358/5358672.png",
 		backgroundColor: Color.fromHex("#050505"),
 		itemBackgroundColor: Color.fromHex("#1d1d1d"),
 		svgColor: Color.WHITE,
-		menu: visible ? undefined : null
+		menu: config.get("options.hideMenu") ? null : undefined
 	});
 	bar.updateTitle(" ");
 	document.title = "Youtube Music";
 
-	const hideIcon = hide => $('.cet-window-icon').style.display = hide ? 'none' : 'flex';
-
-	if (options.hideIcon) hideIcon(true);
-
-	ipcRenderer.on("refreshMenu", (_, showMenu) => {
-		if (showMenu === undefined && !visible) return;
-		if (showMenu === false) {
+	const toggleMenu = () => {
+		if (visible()) {
 			bar.updateMenu(null);
-			visible = false;
 		} else {
 			bar.refreshMenu();
-			visible = true;
+		}
+	};
+
+	$('.cet-window-icon').addEventListener('click', toggleMenu);
+	ipcRenderer.on("toggleMenu", toggleMenu);
+
+	ipcRenderer.on("refreshMenu", () => {
+		if (visible()) {
+			bar.refreshMenu();
 		}
 	});
 
@@ -35,8 +38,6 @@ module.exports = (options) => {
 			bar.refreshMenu();
 		});
 	}
-
-	ipcRenderer.on("hideIcon", (_, hide) => hideIcon(hide));
 
 	// Increases the right margin of Navbar background when the scrollbar is visible to avoid blocking it (z-index doesn't affect it)
 	document.addEventListener('apiLoaded', () => {

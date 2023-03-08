@@ -2434,7 +2434,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"custom-electron-titlebar@npm:^4.1.5":
+"custom-electron-titlebar@npm:^4.1.6":
   version: 4.1.6
   resolution: "custom-electron-titlebar@npm:4.1.6"
   peerDependencies:
@@ -8982,7 +8982,7 @@ __metadata:
     butterchurn-presets: ^2.4.7
     chokidar: ^3.5.3
     custom-electron-prompt: ^1.5.1
-    custom-electron-titlebar: ^4.1.5
+    custom-electron-titlebar: ^4.1.6
     del-cli: ^5.0.0
     electron: ^22.0.2
     electron-better-web-request: ^1.0.1
