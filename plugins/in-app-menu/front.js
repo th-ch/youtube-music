@@ -44,6 +44,7 @@ module.exports = (options) => {
 		const playPageObserver = new MutationObserver(setNavbarMargin);
 		playPageObserver.observe($('ytmusic-app-layout'), { attributeFilter: ['player-page-open_', 'playerPageOpen_'] })
 		setupSearchOpenObserver();
+		setupMenuOpenObserver();
 	}, { once: true, passive: true })
 };
 
@@ -53,6 +54,15 @@ function setupSearchOpenObserver() {
 			mutations[0].target.opened ? 'no-drag' : 'drag';
 	});
 	searchOpenObserver.observe($('ytmusic-search-box'), { attributeFilter: ["opened"] })
+}
+
+function setupMenuOpenObserver() {
+	const menuOpenObserver = new MutationObserver(mutations => {
+		$('#nav-bar-background').style.webkitAppRegion =
+			Array.from($('.cet-menubar').childNodes).some(c => c.classList.contains('open')) ?
+				'no-drag' : 'drag';
+	});
+	menuOpenObserver.observe($('.cet-menubar'), { subtree: true, attributeFilter: ["class"] })
 }
 
 function setNavbarMargin() {
