@@ -131,16 +131,14 @@ const mainMenuTemplate = (win) => {
 					],
 				},
 				{
-					label: "Single instance lock",
+					label: "Release single instance lock",
 					type: "checkbox",
-					checked: config.get("options.singleInstanceLock"),
+					checked: false,
 					click: (item) => {
-						config.setMenuOption("options.singleInstanceLock", item.checked);
-						if (item.checked && !app.hasSingleInstanceLock()) {
-							app.requestSingleInstanceLock();
-						} else if (!item.checked && app.hasSingleInstanceLock()) {
+						if (item.checked && app.hasSingleInstanceLock())
 							app.releaseSingleInstanceLock();
-						}
+						else if (!item.checked && !app.hasSingleInstanceLock())
+							app.requestSingleInstanceLock();
 					},
 				},
 				{

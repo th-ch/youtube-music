@@ -1,9 +1,9 @@
-require("./providers/front-logger")();
 const config = require("./config");
 const { fileExists } = require("./plugins/utils");
 const setupSongInfo = require("./providers/song-info-front");
 const { setupSongControls } = require("./providers/song-controls-front");
 const { ipcRenderer } = require("electron");
+const is = require("electron-is");
 
 const plugins = config.plugins.getEnabled();
 
@@ -69,6 +69,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	// Blocks the "Are You Still There?" popup by setting the last active time to Date.now every 15min
 	setInterval(() => window._lact = Date.now(), 900000);
+
+	// setup back to front logger
+	if (is.dev()) {
+		ipcRenderer.on("log", (_event, log) => {
+			console.log(JSON.parse(log));
+		});
+	}
 });
 
 function listenForApiLoad() {
@@ -118,6 +125,7 @@ function onApiLoaded() {
 	);
 
 	document.dispatchEvent(new CustomEvent('apiLoaded', { detail: api }));
+	ipcRenderer.send('apiLoaded');
 
 	// Remove upgrade button
 	if (config.get("options.removeUpgradeButton")) {

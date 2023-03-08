@@ -133,7 +133,6 @@
 		"md5": "^2.3.0",
 		"mpris-service": "^2.1.2",
 		"node-fetch": "^2.6.8",
-		"node-notifier": "^10.0.1",
 		"simple-youtube-age-restriction-bypass": "https://gitpkg.now.sh/api/pkg.tgz?url=zerodytrash/Simple-YouTube-Age-Restriction-Bypass&commit=v2.5.4",
 		"vudio": "^2.1.1",
 		"youtubei.js": "^2.9.0",
