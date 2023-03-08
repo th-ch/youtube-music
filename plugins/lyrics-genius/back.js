@@ -22,7 +22,7 @@ const fetchFromGenius = async (metadata) => {
 		metadata.title
 	)}`;
 	let response = await fetch(
-		`https://genius.com/api/search/multi?per_page=5&q=${encodeURI(queryString)}`
+		`https://genius.com/api/search/multi?per_page=5&q=${encodeURIComponent(queryString)}`
 	);
 	if (!response.ok) {
 		return null;
