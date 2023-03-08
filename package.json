@@ -127,7 +127,7 @@
 		"electron-updater": "^5.3.0",
 		"filenamify": "^4.3.0",
 		"howler": "^2.2.3",
-		"html-to-text": "^9.0.3",
+		"html-to-text": "^9.0.4",
 		"keyboardevent-from-electron-accelerator": "^2.0.0",
 		"keyboardevents-areequal": "^0.2.2",
 		"md5": "^2.3.0",
