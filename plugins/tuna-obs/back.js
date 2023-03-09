@@ -28,7 +28,9 @@ const post = async (data) => {
 	fetch(url, { method: 'POST', headers, body: JSON.stringify({ data }) }).catch(e => console.log(`Error: '${e.code || e.errno}' - when trying to access obs-tuna webserver at port ${port}`));
 }
 
+/** @param {Electron.BrowserWindow} win */
 module.exports = async (win) => {
+	ipcMain.on('apiLoaded', () => win.webContents.send('setupTimeChangedListener'));
 	ipcMain.on('timeChanged', async (_, t) => {
 		if (!data.title) return;
 		data.progress = secToMilisec(t);

@@ -32,22 +32,22 @@ function setThumbar(win, songInfo) {
 	win.setThumbarButtons([
 		{
 			tooltip: 'Previous',
-			icon: get('backward.png'),
+			icon: get('previous'),
 			click() { controls.previous(win.webContents); }
 		}, {
 			tooltip: 'Play/Pause',
 			// Update icon based on play state
-			icon: songInfo.isPaused ? get('play.png') : get('pause.png'),
+			icon: songInfo.isPaused ? get('play') : get('pause'),
 			click() { controls.playPause(win.webContents); }
 		}, {
 			tooltip: 'Next',
-			icon: get('forward.png'),
+			icon: get('next'),
 			click() { controls.next(win.webContents); }
 		}
 	]);
 }
 
 // Util
-function get(file) {
-	return path.join(__dirname, "assets", file);
+function get(kind) {
+	return path.join(__dirname, "../../assets/media-icons-black", `${kind}.png`);
 }

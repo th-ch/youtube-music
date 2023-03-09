@@ -131,16 +131,14 @@ const mainMenuTemplate = (win) => {
 					],
 				},
 				{
-					label: "Single instance lock",
+					label: "Release single instance lock",
 					type: "checkbox",
-					checked: config.get("options.singleInstanceLock"),
+					checked: false,
 					click: (item) => {
-						config.setMenuOption("options.singleInstanceLock", item.checked);
-						if (item.checked && !app.hasSingleInstanceLock()) {
-							app.requestSingleInstanceLock();
-						} else if (!item.checked && app.hasSingleInstanceLock()) {
+						if (item.checked && app.hasSingleInstanceLock())
 							app.releaseSingleInstanceLock();
-						}
+						else if (!item.checked && !app.hasSingleInstanceLock())
+							app.requestSingleInstanceLock();
 					},
 				},
 				{
@@ -163,7 +161,7 @@ const mainMenuTemplate = (win) => {
 								if (item.checked && !config.get("options.hideMenuWarned")) {
 									dialog.showMessageBox(win, {
 										type: 'info', title: 'Hide Menu Enabled',
-										message: "Menu will be hidden on next launch, use 'Alt' to show it (or 'Escape' if using in-app-menu)"
+										message: "Menu will be hidden on next launch, use [Alt] to show it (or backtick [`] if using in-app-menu)"
 									});
 								}
 							},

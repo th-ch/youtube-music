@@ -14,6 +14,7 @@ const { isTesting } = require("./utils/testing");
 const { setUpTray } = require("./tray");
 const { setupSongInfo } = require("./providers/song-info");
 const { setupAppControls, restart } = require("./providers/app-controls");
+const { APP_PROTOCOL, setupProtocolHandler, handleProtocol } = require("./providers/protocol-handler");
 
 // Catch errors and log them
 unhandled({
@@ -29,17 +30,9 @@ const app = electron.app;
 let mainWindow;
 autoUpdater.autoDownload = false;
 
-if(config.get("options.singleInstanceLock")){
-	const gotTheLock = app.requestSingleInstanceLock();
-	if (!gotTheLock) app.quit();
 
-	app.on('second-instance', () => {
-		if (!mainWindow) return;
-		if (mainWindow.isMinimized()) mainWindow.restore();
-		if (!mainWindow.isVisible()) mainWindow.show();
-		mainWindow.focus();
-	});
-}
+const gotTheLock = app.requestSingleInstanceLock();
+if (!gotTheLock) app.exit();
 
 app.commandLine.appendSwitch(
 	"js-flags",
@@ -82,6 +75,7 @@ function onClosed() {
 	mainWindow = null;
 }
 
+/** @param {Electron.BrowserWindow} win */
 function loadPlugins(win) {
 	injectCSS(win.webContents, path.join(__dirname, "youtube-music.css"));
 	// Load user CSS
@@ -352,9 +346,6 @@ app.on("ready", () => {
 
 	// Register appID on windows
 	if (is.windows()) {
-		// Depends on SnoreToast version https://github.com/KDE/snoretoast/blob/master/CMakeLists.txt#L5
-		const toastActivatorClsid = "eb1fdd5b-8f70-4b5a-b230-998a2dc19303";
-
 		const appID = "com.github.th-ch.youtube-music";
 		app.setAppUserModelId(appID);
 		const appLocation = process.execPath;
@@ -366,8 +357,7 @@ app.on("ready", () => {
 				const shortcutDetails = electron.shell.readShortcutLink(shortcutPath); // throw error if doesn't exist yet
 				if (
 					shortcutDetails.target !== appLocation ||
-					shortcutDetails.appUserModelId !== appID ||
-					shortcutDetails.toastActivatorClsid !== toastActivatorClsid
+					shortcutDetails.appUserModelId !== appID
 				) {
 					throw "needUpdate";
 				}
@@ -380,7 +370,6 @@ app.on("ready", () => {
 						cwd: path.dirname(appLocation),
 						description: "YouTube Music Desktop App - including custom plugins",
 						appUserModelId: appID,
-						toastActivatorClsid
 					}
 				);
 			}
@@ -390,6 +379,23 @@ app.on("ready", () => {
 	mainWindow = createMainWindow();
 	setApplicationMenu(mainWindow);
 	setUpTray(app, mainWindow);
+
+	setupProtocolHandler(mainWindow);
+
+	app.on('second-instance', (_event, commandLine, _workingDirectory) => {
+		const uri = `${APP_PROTOCOL}://`;
+		const protocolArgv = commandLine.find(arg => arg.startsWith(uri));
+		if (protocolArgv) {
+			const command = protocolArgv.slice(uri.length, -1);
+			if (is.dev()) console.debug(`Received command over protocol: "${command}"`);
+			handleProtocol(command);
+			return;
+		}
+		if (!mainWindow) return;
+		if (mainWindow.isMinimized()) mainWindow.restore();
+		if (!mainWindow.isVisible()) mainWindow.show();
+		mainWindow.focus();
+	});
 
 	// Autostart at login
 	app.setLoginItemSettings({
