@@ -149,6 +149,7 @@
 		"electron-icon-builder": "^2.0.1",
 		"node-gyp": "^9.3.1",
 		"playwright": "^1.29.2",
+		"rome": "^11.0.0",
 		"xo": "^0.53.1"
 	},
 	"auto-changelog": {
