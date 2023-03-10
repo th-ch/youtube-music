@@ -16,7 +16,6 @@ const {
 	setBadge,
 } = require("./utils");
 
-let downloadLabel = defaultMenuDownloadLabel;
 let playingUrl = undefined;
 let callbackIsRegistered = false;
 
@@ -46,13 +45,13 @@ module.exports = (win, options) => {
 
 	return [
 		{
-			label: downloadLabel,
+			label: defaultMenuDownloadLabel,
 			click: () => downloadPlaylist(undefined, win, options),
 		},
 		{
 			label: "Choose download folder",
 			click: () => {
-				let result = dialog.showOpenDialogSync({
+				const result = dialog.showOpenDialogSync({
 					properties: ["openDirectory", "createDirectory"],
 					defaultPath: getFolder(options.downloadFolder),
 				});

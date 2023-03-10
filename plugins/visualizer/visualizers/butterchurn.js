@@ -4,15 +4,7 @@ const butterchurnPresets = require("butterchurn-presets");
 const presets = butterchurnPresets.getPresets();
 
 class ButterchurnVisualizer {
-	constructor(
-		audioContext,
-		audioSource,
-		visualizerContainer,
-		canvas,
-		audioNode,
-		stream,
-		options,
-	) {
+	constructor({ audioContext, canvas, audioNode, options }) {
 		this.visualizer = butterchurn.default.createVisualizer(
 			audioContext,
 			canvas,

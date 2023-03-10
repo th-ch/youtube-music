@@ -36,7 +36,7 @@ module.exports = (win) => {
 
 	// Register songInfoCallback
 	registerCallback((songInfo) => {
-		if (!songInfo.artist && !songInfo.title) return;
+		if (!(songInfo.artist || songInfo.title)) return;
 		savedSongInfo = { ...songInfo };
 		if (
 			!songInfo.isPaused &&
@@ -108,7 +108,7 @@ function sendNotification(songInfo) {
 		toastXml: get_xml(songInfo, iconSrc),
 	});
 
-	savedNotification.on("close", (_) => {
+	savedNotification.on("close", () => {
 		savedNotification = undefined;
 	});
 
@@ -117,10 +117,6 @@ function sendNotification(songInfo) {
 
 const get_xml = (songInfo, iconSrc) => {
 	switch (config.get("toastStyle")) {
-		default:
-		case ToastStyles.logo:
-		case ToastStyles.legacy:
-			return xml_logo(songInfo, iconSrc);
 		case ToastStyles.banner_top_custom:
 			return xml_banner_top_custom(songInfo, iconSrc);
 		case ToastStyles.hero:
@@ -131,6 +127,10 @@ const get_xml = (songInfo, iconSrc) => {
 			return xml_banner_centered_bottom(songInfo, iconSrc);
 		case ToastStyles.banner_centered_top:
 			return xml_banner_centered_top(songInfo, iconSrc);
+		case ToastStyles.logo:
+		case ToastStyles.legacy:
+		default:
+			return xml_logo(songInfo, iconSrc);
 	}
 };
 

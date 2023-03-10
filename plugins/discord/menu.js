@@ -66,7 +66,7 @@ module.exports = (win, options, refreshMenu) => {
 };
 
 async function setInactivityTimeout(win, options) {
-	let output = await prompt(
+	const output = await prompt(
 		{
 			title: "Set Inactivity Timeout",
 			label: "Enter inactivity timeout in seconds:",

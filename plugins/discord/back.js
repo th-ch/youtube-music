@@ -127,7 +127,7 @@ module.exports = (
 
 		// stop early if discord connection is not ready
 		// do this after clearTimeout to avoid unexpected clears
-		if (!info.rpc || !info.ready) {
+		if (!(info.rpc && info.ready)) {
 			return;
 		}
 

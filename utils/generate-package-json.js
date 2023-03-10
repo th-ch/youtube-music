@@ -21,7 +21,7 @@ const generatePackageJson = async (packageName) => {
 		console.log(
 			`No package.json found for ${packageName} module, generating one…`,
 		);
-		pkg = {
+		const pkg = {
 			name: packageName,
 			version: "0.0.0",
 			description: "-",

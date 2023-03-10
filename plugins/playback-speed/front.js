@@ -33,8 +33,7 @@ const observePopupContainer = () => {
 		}
 
 		if (
-			menu &&
-			menu.parentElement.eventSink_?.matches(
+			menu?.parentElement.eventSink_?.matches(
 				"ytmusic-menu-renderer.ytmusic-player-bar",
 			) &&
 			!menu.contains(slider)

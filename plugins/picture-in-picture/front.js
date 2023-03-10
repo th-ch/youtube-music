@@ -51,7 +51,7 @@ const observer = new MutationObserver(() => {
 	menu.prepend(pipButton);
 });
 
-global.togglePictureInPicture = async () => {
+const togglePiP = async () => {
 	if (useNativePiP) {
 		const isInPiP = document.pictureInPictureElement !== null;
 		const video = $("video");
@@ -71,6 +71,8 @@ global.togglePictureInPicture = async () => {
 	return false;
 };
 
+global.togglePictureInPicture = togglePiP;
+
 const listenForToggle = () => {
 	const originalExitButton = $(".exit-fullscreen-button");
 	const appLayout = $("ytmusic-app-layout");
@@ -87,7 +89,7 @@ const listenForToggle = () => {
 	ipcRenderer.on("pip-toggle", (_, isPip) => {
 		if (isPip) {
 			replaceButton(".exit-fullscreen-button", originalExitButton).onclick =
-				() => togglePictureInPicture();
+				() => togglePiP();
 			player.onDoubleClick_ = () => {};
 			expandMenu.onmouseleave = () => middleControls.click();
 			if (!playerPage.playerPageOpen_) {
@@ -141,7 +143,7 @@ module.exports = (options) => {
 				keyEventAreEqual(event, hotkeyEvent) &&
 				!$("ytmusic-search-box").opened
 			) {
-				togglePictureInPicture();
+				togglePiP();
 			}
 		});
 	}

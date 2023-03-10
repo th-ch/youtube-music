@@ -4,7 +4,7 @@ const prompt = require("custom-electron-prompt");
 const promptOptions = require("../../providers/prompt-options");
 
 function changeOptions(changedOptions, options, win) {
-	for (option in changedOptions) {
+	for (const option in changedOptions) {
 		options[option] = changedOptions[option];
 	}
 	// Dynamically change setting if plugin is enabled
@@ -84,7 +84,7 @@ async function promptGlobalShortcuts(win, options, item) {
 	);
 
 	if (output) {
-		let newGlobalShortcuts = {};
+		const newGlobalShortcuts = {};
 		for (const { value, accelerator } of output) {
 			newGlobalShortcuts[value] = accelerator;
 		}

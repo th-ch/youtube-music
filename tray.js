@@ -33,7 +33,7 @@ module.exports.setUpTray = (app, win) => {
 	const { playPause, next, previous } = getSongControls(win);
 	const iconPath = path.join(__dirname, "assets", "youtube-music-tray.png");
 
-	let trayIcon = nativeImage.createFromPath(iconPath).resize({
+	const trayIcon = nativeImage.createFromPath(iconPath).resize({
 		width: 16,
 		height: 16,
 	});
@@ -59,7 +59,7 @@ module.exports.setUpTray = (app, win) => {
 		}
 	});
 
-	let template = [
+	const template = [
 		{
 			label: "Play/Pause",
 			click: () => {

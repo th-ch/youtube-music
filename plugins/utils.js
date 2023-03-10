@@ -5,7 +5,7 @@ const { ipcMain, ipcRenderer } = require("electron");
 
 // Creates a DOM element from a HTML string
 module.exports.ElementFromHtml = (html) => {
-	var template = document.createElement("template");
+	const template = document.createElement("template");
 	html = html.trim(); // Never return a text node of whitespace as the result
 	template.innerHTML = html;
 	return template.content.firstChild;

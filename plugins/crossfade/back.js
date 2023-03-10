@@ -1,7 +1,7 @@
 const { ipcMain } = require("electron");
 const { Innertube } = require("youtubei.js");
 
-module.exports = async (win, options) => {
+module.exports = async () => {
 	const yt = await Innertube.create();
 
 	ipcMain.handle("audio-url", async (_, videoID) => {

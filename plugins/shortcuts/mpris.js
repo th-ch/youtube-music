@@ -96,13 +96,9 @@ function registerMPRIS(win) {
 
 		player.on("next", next);
 		player.on("previous", previous);
-
 		player.on("seek", seekBy);
 		player.on("position", seekTo);
-
-		player.on("shuffle", (enableShuffle) => {
-			shuffle();
-		});
+		player.on("shuffle", shuffle);
 
 		let mprisVolNewer = false;
 		let autoUpdate = false;
@@ -123,7 +119,7 @@ function registerMPRIS(win) {
 		player.on("volume", (newVolume) => {
 			if (config.plugins.isEnabled("precise-volume")) {
 				// With precise volume we can set the volume to the exact value.
-				let newVol = parseInt(newVolume * 100);
+				const newVol = parseInt(newVolume * 100);
 				if (parseInt(player.volume * 100) !== newVol) {
 					if (!autoUpdate) {
 						mprisVolNewer = true;

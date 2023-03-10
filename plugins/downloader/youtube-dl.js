@@ -79,7 +79,7 @@ const downloadVideoToMP3 = async (
 		.on("progress", (_chunkLength, downloaded, total) => {
 			const ratio = downloaded / total;
 			const progress = Math.floor(ratio * 100);
-			sendFeedback("Download: " + progress + "%", ratio);
+			sendFeedback(`Download: ${progress}%`, ratio);
 		})
 		.on("info", (info, format) => {
 			videoName = info.videoDetails.title.replaceAll("|", "").toString("ascii");
@@ -88,7 +88,7 @@ const downloadVideoToMP3 = async (
 					"Downloading video - name:",
 					videoName,
 					"- quality:",
-					format.audioBitrate + "kbits/s",
+					`${format.audioBitrate}kbits/s`,
 				);
 			}
 		})
@@ -139,7 +139,7 @@ const toMP3 = async (
 			safeVideoName,
 			...getFFmpegMetadataArgs(metadata),
 			...(convertOptions.ffmpegArgs || []),
-			safeVideoName + "." + extension,
+			`${safeVideoName}.${extension}`,
 		);
 
 		const folder =
@@ -148,13 +148,13 @@ const toMP3 = async (
 		const name = metadata.title
 			? `${metadata.artist ? `${metadata.artist} - ` : ""}${metadata.title}`
 			: videoName;
-		const filename = filenamify(name + "." + extension, {
+		const filename = filenamify(`${name}.${extension}`, {
 			replacement: "_",
 			maxLength: 255,
 		});
 
 		const filePath = join(folder, subfolder, filename);
-		const fileBuffer = ffmpeg.FS("readFile", safeVideoName + "." + extension);
+		const fileBuffer = ffmpeg.FS("readFile", `${safeVideoName}.${extension}`);
 
 		// Add the metadata
 		sendFeedback("Adding metadata…");

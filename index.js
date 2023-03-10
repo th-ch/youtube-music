@@ -66,9 +66,9 @@ require("electron-debug")({
 });
 
 let icon = "assets/youtube-music.png";
-if (process.platform == "win32") {
+if (process.platform === "win32") {
 	icon = "assets/generated/icon.ico";
-} else if (process.platform == "darwin") {
+} else if (process.platform === "darwin") {
 	icon = "assets/generated/icon.icns";
 }
 
@@ -105,7 +105,7 @@ function loadPlugins(win) {
 	});
 
 	config.plugins.getEnabled().forEach(([plugin, options]) => {
-		console.log("Loaded plugin - " + plugin);
+		console.log(`Loaded plugin - ${plugin}`);
 		const pluginPath = path.join(__dirname, "plugins", plugin, "back.js");
 		fileExists(pluginPath, () => {
 			const handle = require(pluginPath);
@@ -141,7 +141,7 @@ function createMainWindow() {
 				  }
 				: undefined),
 		},
-		frame: !is.macOS() && !useInlineMenu,
+		frame: !(is.macOS() || useInlineMenu),
 		titleBarStyle: useInlineMenu
 			? "hidden"
 			: is.macOS()
@@ -195,7 +195,7 @@ function createMainWindow() {
 
 	win.on("move", () => {
 		if (win.isMaximized()) return;
-		let position = win.getPosition();
+		const position = win.getPosition();
 		const isPiPEnabled =
 			config.plugins.isEnabled("picture-in-picture") &&
 			config.plugins.getOptions("picture-in-picture")["isInPiP"];
@@ -234,7 +234,7 @@ function createMainWindow() {
 		}
 	});
 
-	let savedTimeouts = {};
+	const savedTimeouts = {};
 	function lateSave(key, value, fn = config.set) {
 		if (savedTimeouts[key]) clearTimeout(savedTimeouts[key]);
 
@@ -244,7 +244,7 @@ function createMainWindow() {
 		}, 600);
 	}
 
-	win.webContents.on("render-process-gone", (event, webContents, details) => {
+	win.webContents.on("render-process-gone", (_event, _webContents, details) => {
 		showUnresponsiveDialog(win, details);
 	});
 
@@ -259,7 +259,7 @@ function createMainWindow() {
 	return win;
 }
 
-app.once("browser-window-created", (event, win) => {
+app.once("browser-window-created", (_event, win) => {
 	if (config.get("options.overrideUserAgent")) {
 		// User agents are from https://developers.whatismybrowser.com/useragents/explore/
 		const originalUserAgent = win.webContents.userAgent;
@@ -356,12 +356,11 @@ app.on("activate", () => {
 app.on("ready", () => {
 	if (config.get("options.autoResetAppCache")) {
 		// Clear cache after 20s
-		const clearCacheTimeout = setTimeout(() => {
+		setTimeout(() => {
 			if (is.dev()) {
 				console.log("Clearing app cache.");
 			}
 			electron.session.defaultSession.clearCache();
-			clearTimeout(clearCacheTimeout);
 		}, 20000);
 	}
 
@@ -373,8 +372,10 @@ app.on("ready", () => {
 		const appData = app.getPath("appData");
 		// check shortcut validity if not in dev mode / running portable app
 		if (
-			!is.dev() &&
-			!appLocation.startsWith(path.join(appData, "..", "Local", "Temp"))
+			!(
+				is.dev() ||
+				appLocation.startsWith(path.join(appData, "..", "Local", "Temp"))
+			)
 		) {
 			const shortcutPath = path.join(
 				appData,
@@ -437,9 +438,8 @@ app.on("ready", () => {
 	});
 
 	if (!is.dev() && config.get("options.autoUpdates")) {
-		const updateTimeout = setTimeout(() => {
+		setTimeout(() => {
 			autoUpdater.checkForUpdatesAndNotify();
-			clearTimeout(updateTimeout);
 		}, 2000);
 		autoUpdater.on("update-available", () => {
 			const downloadLink =
@@ -500,7 +500,7 @@ app.on("ready", () => {
 });
 
 function showUnresponsiveDialog(win, details) {
-	if (!!details) {
+	if (details) {
 		console.log("Unresponsive Error!\n" + JSON.stringify(details, null, "\t"));
 	}
 	electron.dialog
@@ -537,8 +537,8 @@ function removeContentSecurityPolicy(
 		details.responseHeaders ??= {};
 
 		// Remove the content security policy
-		delete details.responseHeaders["content-security-policy-report-only"];
-		delete details.responseHeaders["content-security-policy"];
+		details.responseHeaders["content-security-policy-report-only"] = undefined;
+		details.responseHeaders["content-security-policy"] = undefined;
 
 		callback({ cancel: false, responseHeaders: details.responseHeaders });
 	});

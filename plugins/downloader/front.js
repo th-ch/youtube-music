@@ -53,7 +53,7 @@ global.download = () => {
 		?.getAttribute("href");
 	if (videoUrl) {
 		if (videoUrl.startsWith("watch?")) {
-			videoUrl = baseUrl + "/" + videoUrl;
+			videoUrl = `${baseUrl}/${videoUrl}`;
 		}
 		if (videoUrl.includes("?playlist=")) {
 			ipcRenderer.send("download-playlist-request", videoUrl);

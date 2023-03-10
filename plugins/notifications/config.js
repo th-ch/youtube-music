@@ -18,6 +18,6 @@ module.exports.set = (option, value) => {
 };
 
 module.exports.get = (option) => {
-	let res = config[option];
+	const res = config[option];
 	return res;
 };

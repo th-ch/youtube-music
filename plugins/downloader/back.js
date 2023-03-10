@@ -43,7 +43,7 @@ function handle(win) {
 				win.setProgressBar(arg);
 				break;
 			default:
-				console.log("Unknown action: " + action);
+				console.log(`Unknown action: ${action}`);
 		}
 	});
 

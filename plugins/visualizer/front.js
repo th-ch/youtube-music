@@ -32,15 +32,15 @@ module.exports = (options) => {
 			gainNode.gain.value = 1.25;
 			e.detail.audioSource.connect(gainNode);
 
-			const visualizer = new VisualizerType(
-				e.detail.audioContext,
-				e.detail.audioSource,
+			const visualizer = new VisualizerType({
+				audioContext: e.detail.audioContext,
+				audioSource: e.detail.audioSource,
 				visualizerContainer,
 				canvas,
-				gainNode,
-				video.captureStream(),
-				optionsWithDefaults[optionsWithDefaults.type],
-			);
+				audioNode: gainNode,
+				stream: video.captureStream(),
+				options: optionsWithDefaults[optionsWithDefaults.type],
+			});
 
 			const resizeVisualizer = (width, height) => {
 				resizeCanvas();

@@ -149,7 +149,7 @@ const mainMenuTemplate = (win) => {
 					click: (item) => {
 						if (item.checked && app.hasSingleInstanceLock())
 							app.releaseSingleInstanceLock();
-						else if (!item.checked && !app.hasSingleInstanceLock())
+						else if (!(item.checked || app.hasSingleInstanceLock()))
 							app.requestSingleInstanceLock();
 					},
 				},

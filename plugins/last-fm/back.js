@@ -22,7 +22,7 @@ const createQueryString = (params, api_sig) => {
 			`${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`,
 		);
 	}
-	return "?" + queryData.join("&");
+	return `?${queryData.join("&")}`;
 };
 
 const createApiSig = (params, secret) => {
@@ -104,7 +104,7 @@ const postSongDataToAPI = async (songInfo, config, data) => {
 		method: "POST",
 		body: createFormData(postData),
 	}).catch((res) => {
-		if (res.response.data.error == 9) {
+		if (res.response.data.error === 9) {
 			// session key is invalid, so remove it from the config and reauthenticate
 			config.session_key = undefined;
 			setOptions("last-fm", config);

@@ -1,15 +1,7 @@
 const { Wave } = require("@foobar404/wave");
 
 class WaveVisualizer {
-	constructor(
-		audioContext,
-		audioSource,
-		visualizerContainer,
-		canvas,
-		audioNode,
-		stream,
-		options,
-	) {
+	constructor({ audioContext, audioSource, canvas, options }) {
 		this.visualizer = new Wave(
 			{ context: audioContext, source: audioSource },
 			canvas,
@@ -23,7 +15,7 @@ class WaveVisualizer {
 		});
 	}
 
-	resize(width, height) {}
+	resize() {}
 
 	render() {}
 }

@@ -1,15 +1,7 @@
 const Vudio = require("vudio/umd/vudio");
 
 class VudioVisualizer {
-	constructor(
-		audioContext,
-		audioSource,
-		visualizerContainer,
-		canvas,
-		audioNode,
-		stream,
-		options,
-	) {
+	constructor({ canvas, stream, options }) {
 		this.visualizer = new Vudio(stream, canvas, {
 			width: canvas.width,
 			height: canvas.height,

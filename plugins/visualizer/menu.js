@@ -7,7 +7,7 @@ const visualizerTypes = readdirSync(path.join(__dirname, "visualizers")).map(
 	(filename) => path.parse(filename).name,
 );
 
-module.exports = (win, options) => [
+module.exports = (_, options) => [
 	{
 		label: "Type",
 		submenu: visualizerTypes.map((visualizerType) => ({

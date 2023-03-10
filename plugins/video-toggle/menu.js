@@ -1,6 +1,6 @@
 const { setMenuOptions } = require("../../config/plugins");
 
-module.exports = (win, options) => [
+module.exports = (_, options) => [
 	{
 		label: "Mode",
 		submenu: [

@@ -18,7 +18,7 @@ const data = {
 
 const post = async (data) => {
 	const port = 1608;
-	headers = {
+	const headers = {
 		"Content-Type": "application/json",
 		Accept: "application/json",
 		"Access-Control-Allow-Headers": "*",
@@ -47,7 +47,7 @@ module.exports = async (win) => {
 	});
 
 	registerCallback((songInfo) => {
-		if (!songInfo.title && !songInfo.artist) {
+		if (!(songInfo.title || songInfo.artist)) {
 			return;
 		}
 

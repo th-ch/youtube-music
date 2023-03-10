@@ -58,7 +58,7 @@ module.exports.setupRepeatChangedListener = singleton(() => {
 });
 
 module.exports.setupVolumeChangedListener = singleton((api) => {
-	$("video").addEventListener("volumechange", (_) => {
+	$("video").addEventListener("volumechange", () => {
 		ipcRenderer.send("volumeChanged", api.getVolume());
 	});
 	// Emit the initial value as well; as it's persistent between launches.
@@ -87,14 +87,11 @@ module.exports = () => {
 
 			const video = $("video");
 			// name = "dataloaded" and abit later "dataupdated"
-			apiEvent.detail.addEventListener(
-				"videodatachange",
-				(name, _dataEvent) => {
-					if (name !== "dataloaded") return;
-					video.dispatchEvent(srcChangedEvent);
-					sendSongInfo();
-				},
-			);
+			apiEvent.detail.addEventListener("videodatachange", (name) => {
+				if (name !== "dataloaded") return;
+				video.dispatchEvent(srcChangedEvent);
+				sendSongInfo();
+			});
 
 			for (const status of ["playing", "pause"]) {
 				video.addEventListener(status, (e) => {

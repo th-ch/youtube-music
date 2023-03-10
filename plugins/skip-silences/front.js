@@ -48,7 +48,7 @@ module.exports = (options) => {
 						for (let i = 0; i < speakingHistory.length; i++) {
 							history += speakingHistory[i];
 						}
-						if (history == 0) {
+						if (history === 0) {
 							// Silent
 							if (
 								!(
@@ -99,10 +99,10 @@ module.exports = (options) => {
 };
 
 function getMaxVolume(analyser, fftBins) {
-	var maxVolume = -Infinity;
+	let maxVolume = -Infinity;
 	analyser.getFloatFrequencyData(fftBins);
 
-	for (var i = 4, ii = fftBins.length; i < ii; i++) {
+	for (let i = 4, ii = fftBins.length; i < ii; i++) {
 		if (fftBins[i] > maxVolume && fftBins[i] < 0) {
 			maxVolume = fftBins[i];
 		}

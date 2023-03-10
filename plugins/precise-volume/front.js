@@ -10,7 +10,8 @@ function $(selector) {
 	return document.querySelector(selector);
 }
 
-let api, options;
+let api;
+let options;
 
 module.exports = (_options) => {
 	options = _options;
@@ -78,7 +79,7 @@ function injectVolumeHud(noVid) {
 			`<span id="volumeHud" style="${position + mainStyle}"></span>`,
 		);
 	} else {
-		const position = `top: 10px; left: 10px;`;
+		const position = "top: 10px; left: 10px;";
 		const mainStyle =
 			"font-size: xxx-large; webkit-text-stroke: 1px black; font-weight: 600;";
 
@@ -104,10 +105,10 @@ function moveVolumeHud(showVideo) {
 let hudFadeTimeout;
 
 function showVolumeHud(volume) {
-	let volumeHud = $("#volumeHud");
+	const volumeHud = $("#volumeHud");
 	if (!volumeHud) return;
 
-	volumeHud.textContent = volume + "%";
+	volumeHud.textContent = `${volume}%`;
 	volumeHud.style.opacity = 1;
 
 	if (hudFadeTimeout) {
@@ -256,7 +257,7 @@ const tooltipTargets = [
 ];
 
 function setTooltip(volume) {
-	for (target of tooltipTargets) {
+	for (const target of tooltipTargets) {
 		$(target).title = `${volume}%`;
 	}
 }

@@ -8,7 +8,7 @@ function handle(win) {
 		win.webContents.send("navigation-css-ready");
 	});
 
-	listenAction(CHANNEL, (event, action) => {
+	listenAction(CHANNEL, (_, action) => {
 		switch (action) {
 			case ACTIONS.NEXT:
 				if (win.webContents.canGoForward()) {
@@ -21,7 +21,7 @@ function handle(win) {
 				}
 				break;
 			default:
-				console.log("Unknown action: " + action);
+				console.log(`Unknown action: ${action}`);
 		}
 	});
 }

@@ -10,7 +10,10 @@ function $(selector) {
 	return document.querySelector(selector);
 }
 
-let options, player, video, api;
+let options;
+let player;
+let video;
+let api;
 
 const switchButtonDiv = ElementFromFile(
 	templatePath(__dirname, "button_template.html"),
@@ -29,8 +32,8 @@ module.exports = (_options) => {
 			$("ytmusic-player").removeAttribute("has-av-switcher");
 			return;
 		}
-		default:
-		case "custom": {
+		case "custom":
+		default: {
 			options = _options;
 			document.addEventListener("apiLoaded", setup, {
 				once: true,
@@ -75,8 +78,8 @@ function setup(e) {
 			switchButtonDiv.style.left = "calc(50% - 120px)";
 			return;
 		}
-		default:
-		case "left": {
+		case "left":
+		default: {
 			switchButtonDiv.style.left = "0px";
 		}
 	}

@@ -6,8 +6,8 @@ function $(selector) {
 	return document.querySelector(selector);
 }
 
-module.exports = (options) => {
-	let visible = () => !!$(".cet-menubar").firstChild;
+module.exports = () => {
+	const visible = () => !!$(".cet-menubar").firstChild;
 	const bar = new Titlebar({
 		icon: "https://cdn-icons-png.flaticon.com/512/5358/5358672.png",
 		backgroundColor: Color.fromHex("#050505"),
@@ -36,9 +36,7 @@ module.exports = (options) => {
 	});
 
 	if (isEnabled("picture-in-picture")) {
-		ipcRenderer.on("pip-toggle", (_, pipEnabled) => {
-			bar.refreshMenu();
-		});
+		ipcRenderer.on("pip-toggle", bar.refreshMenu);
 	}
 
 	// Increases the right margin of Navbar background when the scrollbar is visible to avoid blocking it (z-index doesn't affect it)
@@ -69,7 +67,7 @@ function setupSearchOpenObserver() {
 }
 
 function setupMenuOpenObserver() {
-	const menuOpenObserver = new MutationObserver((mutations) => {
+	const menuOpenObserver = new MutationObserver(() => {
 		$("#nav-bar-background").style.webkitAppRegion = Array.from(
 			$(".cet-menubar").childNodes,
 		).some((c) => c.classList.contains("open"))

@@ -2,11 +2,11 @@ const { ipcRenderer } = require("electron");
 const { Howl } = require("howler");
 
 // Extracted from https://github.com/bitfasching/VolumeFader
-require("./fader");
+const { VolumeFader } = require("./fader");
 
 let transitionAudio; // Howler audio used to fade out the current music
 let firstVideo = true;
-let waitForTransition;
+let waitForTransition = async () => {}; // Promise that resolves when the transition is done
 
 // Crossfade options that can be overridden in plugin options
 let crossfadeOptions = {
@@ -30,6 +30,7 @@ const isReadyToCrossfade = () => {
 };
 
 const watchVideoIDChanges = (cb) => {
+	// rome-ignore lint/correctness/noUndeclaredVariables: https://developer.mozilla.org/en-US/docs/Web/API/Navigation
 	navigation.addEventListener("navigate", (event) => {
 		const currentVideoID = getVideoIDFromURL(
 			event.currentTarget.currentEntry.url,
@@ -109,7 +110,7 @@ const syncVideoWithTransitionAudio = async () => {
 
 const onApiLoaded = () => {
 	watchVideoIDChanges(async (videoID) => {
-		await waitForTransition;
+		await waitForTransition();
 		const url = await getStreamURL(videoID);
 		await createAudioForCrossfade(url);
 	});
@@ -122,7 +123,7 @@ const crossfade = (cb) => {
 	}
 
 	let resolveTransition;
-	waitForTransition = new Promise(function (resolve, reject) {
+	waitForTransition = new Promise((resolve) => {
 		resolveTransition = resolve;
 	});
 
