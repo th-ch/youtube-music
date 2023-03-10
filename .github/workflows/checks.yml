@@ -1,0 +1,23 @@
+name: "Checks"
+on: [pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  dependency-review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Yarn PnP Setup
+        uses: Araxeus/setup-yarn-pnp-action@v1
+
+      - name: "Dependency Review"
+        uses: actions/dependency-review-action@v3
+
+  run-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Yarn PnP Setup
+        uses: Araxeus/setup-yarn-pnp-action@v1
+      - name: "Run Lint"
+        run: yarn lint
