@@ -57,7 +57,9 @@ const fetchFromGenius = async (metadata) => {
  * @returns The lyrics of the first song found using the Genius-Lyrics API
  */
 const getLyricsList = async (queryString) => {
-	let response = await fetch(`https://genius.com/api/search/multi?per_page=5&q=${encodeURI(queryString)}`);
+	let response = await fetch(
+		`https://genius.com/api/search/multi?per_page=5&q=${encodeURIComponent(queryString)}`
+	);
 	if (!response.ok) {
 		return null;
 	}
