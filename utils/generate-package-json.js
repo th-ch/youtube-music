@@ -9,26 +9,24 @@ const { promisify } = require("util");
  * Allows electron-builder to resolve them
  */
 
-const generatePackageJson = async packageName => {
-	const packageFolder =  join("node_modules", packageName)
-	if (!existsSync(packageFolder )) {
-		console.log(
-			`${packageName} module not found, exiting…`
-		);
-		return
+const generatePackageJson = async (packageName) => {
+	const packageFolder = join("node_modules", packageName);
+	if (!existsSync(packageFolder)) {
+		console.log(`${packageName} module not found, exiting…`);
+		return;
 	}
 
 	const filepath = join(packageFolder, "package.json");
 	if (!existsSync(filepath)) {
 		console.log(
-			`No package.json found for ${packageName} module, generating one…`
+			`No package.json found for ${packageName} module, generating one…`,
 		);
 		pkg = {
 			name: packageName,
 			version: "0.0.0",
 			description: "-",
 			repository: { type: "git", url: "-" },
-			readme: "-"
+			readme: "-",
 		};
 		const writeFileAsync = promisify(writeFile);
 		await writeFileAsync(filepath, JSON.stringify(pkg, null, 2));
@@ -36,7 +34,7 @@ const generatePackageJson = async packageName => {
 };
 
 if (require.main === module) {
-	process.argv.slice(2).forEach(async packageName => {
+	process.argv.slice(2).forEach(async (packageName) => {
 		await generatePackageJson(packageName);
 	});
 }

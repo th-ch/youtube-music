@@ -4,7 +4,7 @@ const { restart } = require("../providers/app-controls");
 function getEnabled() {
 	const plugins = store.get("plugins");
 	const enabledPlugins = Object.entries(plugins).filter(([plugin, options]) =>
-		isEnabled(plugin)
+		isEnabled(plugin),
 	);
 	return enabledPlugins;
 }

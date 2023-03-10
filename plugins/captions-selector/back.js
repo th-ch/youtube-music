@@ -15,7 +15,7 @@ module.exports = (win) => {
 				resizable: true,
 				...promptOptions(),
 			},
-			win
+			win,
 		);
 	});
 };

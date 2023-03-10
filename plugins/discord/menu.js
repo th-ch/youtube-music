@@ -24,7 +24,7 @@ module.exports = (win, options, refreshMenu) => {
 			checked: options.autoReconnect,
 			click: (item) => {
 				options.autoReconnect = item.checked;
-				setMenuOptions('discord', options);
+				setMenuOptions("discord", options);
 			},
 		},
 		{
@@ -37,7 +37,7 @@ module.exports = (win, options, refreshMenu) => {
 			checked: options.activityTimoutEnabled,
 			click: (item) => {
 				options.activityTimoutEnabled = item.checked;
-				setMenuOptions('discord', options);
+				setMenuOptions("discord", options);
 			},
 		},
 		{
@@ -46,7 +46,7 @@ module.exports = (win, options, refreshMenu) => {
 			checked: options.listenAlong,
 			click: (item) => {
 				options.listenAlong = item.checked;
-				setMenuOptions('discord', options);
+				setMenuOptions("discord", options);
 			},
 		},
 		{
@@ -55,8 +55,8 @@ module.exports = (win, options, refreshMenu) => {
 			checked: options.hideDurationLeft,
 			click: (item) => {
 				options.hideDurationLeft = item.checked;
-				setMenuOptions('discord', options);
-			}
+				setMenuOptions("discord", options);
+			},
 		},
 		{
 			label: "Set inactivity timeout",
@@ -66,15 +66,18 @@ module.exports = (win, options, refreshMenu) => {
 };
 
 async function setInactivityTimeout(win, options) {
-	let output = await prompt({
-		title: 'Set Inactivity Timeout',
-		label: 'Enter inactivity timeout in seconds:',
-		value: Math.round((options.activityTimoutTime ?? 0) / 1e3),
-		type: "counter",
-		counterOptions: { minimum: 0, multiFire: true },
-		width: 450,
-		...promptOptions()
-	}, win)
+	let output = await prompt(
+		{
+			title: "Set Inactivity Timeout",
+			label: "Enter inactivity timeout in seconds:",
+			value: Math.round((options.activityTimoutTime ?? 0) / 1e3),
+			type: "counter",
+			counterOptions: { minimum: 0, multiFire: true },
+			width: 450,
+			...promptOptions(),
+		},
+		win,
+	);
 
 	if (output) {
 		options.activityTimoutTime = Math.round(output * 1e3);

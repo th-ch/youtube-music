@@ -32,7 +32,7 @@ const isReadyToCrossfade = () => {
 const watchVideoIDChanges = (cb) => {
 	navigation.addEventListener("navigate", (event) => {
 		const currentVideoID = getVideoIDFromURL(
-			event.currentTarget.currentEntry.url
+			event.currentTarget.currentEntry.url,
 		);
 		const nextVideoID = getVideoIDFromURL(event.destination.url);
 

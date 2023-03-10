@@ -39,7 +39,7 @@ module.exports = (options) => {
 				canvas,
 				gainNode,
 				video.captureStream(),
-				optionsWithDefaults[optionsWithDefaults.type]
+				optionsWithDefaults[optionsWithDefaults.type],
 			);
 
 			const resizeVisualizer = (width, height) => {
@@ -56,6 +56,6 @@ module.exports = (options) => {
 
 			visualizer.render();
 		},
-		{ passive: true }
+		{ passive: true },
 	);
 };

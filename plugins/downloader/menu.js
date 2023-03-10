@@ -4,24 +4,30 @@ const { join } = require("path");
 const { dialog, ipcMain } = require("electron");
 const is = require("electron-is");
 const ytpl = require("ytpl");
-const chokidar = require('chokidar');
-const filenamify = require('filenamify');
+const chokidar = require("chokidar");
+const filenamify = require("filenamify");
 
 const { setMenuOptions } = require("../../config/plugins");
 const { sendError } = require("./back");
-const { defaultMenuDownloadLabel, getFolder, presets, setBadge } = require("./utils");
+const {
+	defaultMenuDownloadLabel,
+	getFolder,
+	presets,
+	setBadge,
+} = require("./utils");
 
 let downloadLabel = defaultMenuDownloadLabel;
 let playingUrl = undefined;
 let callbackIsRegistered = false;
 
 // Playlist radio modifier needs to be cut from playlist ID
-const INVALID_PLAYLIST_MODIFIER = 'RDAMPL';
+const INVALID_PLAYLIST_MODIFIER = "RDAMPL";
 
-const getPlaylistID = aURL => {
-	const result = aURL?.searchParams.get("list") || aURL?.searchParams.get("playlist");
+const getPlaylistID = (aURL) => {
+	const result =
+		aURL?.searchParams.get("list") || aURL?.searchParams.get("playlist");
 	if (result?.startsWith(INVALID_PLAYLIST_MODIFIER)) {
-		return result.slice(6)
+		return result.slice(6);
 	}
 	return result;
 };
@@ -29,9 +35,12 @@ const getPlaylistID = aURL => {
 module.exports = (win, options) => {
 	if (!callbackIsRegistered) {
 		ipcMain.on("video-src-changed", async (_, data) => {
-			playingUrl = JSON.parse(data)?.microformat?.microformatDataRenderer?.urlCanonical;
+			playingUrl =
+				JSON.parse(data)?.microformat?.microformatDataRenderer?.urlCanonical;
 		});
-		ipcMain.on("download-playlist-request", async (_event, url) => downloadPlaylist(url, win, options));
+		ipcMain.on("download-playlist-request", async (_event, url) =>
+			downloadPlaylist(url, win, options),
+		);
 		callbackIsRegistered = true;
 	}
 
@@ -74,11 +83,12 @@ async function downloadPlaylist(givenUrl, win, options) {
 			givenUrl = new URL(givenUrl);
 		} catch {
 			givenUrl = undefined;
-		};
+		}
 	}
-	const playlistId = getPlaylistID(givenUrl)
-		|| getPlaylistID(new URL(win.webContents.getURL()))
-		|| getPlaylistID(new URL(playingUrl));
+	const playlistId =
+		getPlaylistID(givenUrl) ||
+		getPlaylistID(new URL(win.webContents.getURL())) ||
+		getPlaylistID(new URL(playingUrl));
 
 	if (!playlistId) {
 		sendError(win, new Error("No playlist ID found"));
@@ -95,15 +105,12 @@ async function downloadPlaylist(givenUrl, win, options) {
 		sendError(win, e);
 		return;
 	}
-	const safePlaylistTitle = filenamify(playlist.title, {replacement: ' '});
+	const safePlaylistTitle = filenamify(playlist.title, { replacement: " " });
 
 	const folder = getFolder(options.downloadFolder);
 	const playlistFolder = join(folder, safePlaylistTitle);
 	if (existsSync(playlistFolder)) {
-		sendError(
-			win,
-			new Error(`The folder ${playlistFolder} already exists`)
-		);
+		sendError(win, new Error(`The folder ${playlistFolder} already exists`));
 		return;
 	}
 	mkdirSync(playlistFolder, { recursive: true });
@@ -118,7 +125,7 @@ async function downloadPlaylist(givenUrl, win, options) {
 
 	if (is.dev()) {
 		console.log(
-			`Downloading playlist "${playlist.title}" - ${playlist.items.length} songs (${playlistId})`
+			`Downloading playlist "${playlist.title}" - ${playlist.items.length} songs (${playlistId})`,
 		);
 	}
 
@@ -128,7 +135,7 @@ async function downloadPlaylist(givenUrl, win, options) {
 	setBadge(playlist.items.length);
 
 	let dirWatcher = chokidar.watch(playlistFolder);
-	dirWatcher.on('add', () => {
+	dirWatcher.on("add", () => {
 		downloadCount += 1;
 		if (downloadCount >= playlist.items.length) {
 			win.setProgressBar(-1); // close progress bar
@@ -145,7 +152,7 @@ async function downloadPlaylist(givenUrl, win, options) {
 			"downloader-download-playlist",
 			song.url,
 			safePlaylistTitle,
-			options
+			options,
 		);
 	});
 }

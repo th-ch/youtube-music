@@ -15,13 +15,14 @@ let originalMaximized;
 let win;
 let options;
 
-const pipPosition = () => (options.savePosition && options["pip-position"]) || [10, 10];
+const pipPosition = () =>
+	(options.savePosition && options["pip-position"]) || [10, 10];
 const pipSize = () => (options.saveSize && options["pip-size"]) || [450, 275];
 
 const setLocalOptions = (_options) => {
 	options = { ...options, ..._options };
 	setOptions("picture-in-picture", _options);
-}
+};
 
 const togglePiP = async () => {
 	isInPiP = !isInPiP;
@@ -32,7 +33,7 @@ const togglePiP = async () => {
 		if (originalFullScreen) win.setFullScreen(false);
 		originalMaximized = win.isMaximized();
 		if (originalMaximized) win.unmaximize();
-	
+
 		originalPosition = win.getPosition();
 		originalSize = win.getSize();
 
@@ -78,10 +79,10 @@ const blockShortcutsInPiP = (event, input) => {
 
 	if (key === "f") {
 		event.preventDefault();
-	} else if (key === 'escape') {
+	} else if (key === "escape") {
 		togglePiP();
 		event.preventDefault();
-	};
+	}
 };
 
 module.exports = (_win, _options) => {

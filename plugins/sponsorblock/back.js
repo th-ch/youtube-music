@@ -20,10 +20,9 @@ module.exports = (win, options) => {
 	});
 };
 
-
 const fetchSegments = async (apiURL, categories) => {
 	const sponsorBlockURL = `${apiURL}/api/skipSegments?videoID=${videoID}&categories=${JSON.stringify(
-		categories
+		categories,
 	)}`;
 	try {
 		const resp = await fetch(sponsorBlockURL, {
@@ -38,13 +37,13 @@ const fetchSegments = async (apiURL, categories) => {
 		}
 		const segments = await resp.json();
 		const sortedSegments = sortSegments(
-			segments.map((submission) => submission.segment)
+			segments.map((submission) => submission.segment),
 		);
 
 		return sortedSegments;
 	} catch (e) {
 		if (is.dev()) {
-			console.log('error on sponsorblock request:', e);
+			console.log("error on sponsorblock request:", e);
 		}
 		return [];
 	}

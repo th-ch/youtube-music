@@ -1,19 +1,31 @@
 const { ipcRenderer } = require("electron");
 
-const { setOptions, setMenuOptions, isEnabled } = require("../../config/plugins");
+const {
+	setOptions,
+	setMenuOptions,
+	isEnabled,
+} = require("../../config/plugins");
 
-function $(selector) { return document.querySelector(selector); }
+function $(selector) {
+	return document.querySelector(selector);
+}
 
 let api, options;
 
 module.exports = (_options) => {
 	options = _options;
-	document.addEventListener('apiLoaded', e => {
-		api = e.detail;
-		ipcRenderer.on('changeVolume', (_, toIncrease) => changeVolume(toIncrease));
-		ipcRenderer.on('setVolume', (_, value) => setVolume(value));
-		firstRun();
-	}, { once: true, passive: true })
+	document.addEventListener(
+		"apiLoaded",
+		(e) => {
+			api = e.detail;
+			ipcRenderer.on("changeVolume", (_, toIncrease) =>
+				changeVolume(toIncrease),
+			);
+			ipcRenderer.on("setVolume", (_, value) => setVolume(value));
+			firstRun();
+		},
+		{ once: true, passive: true },
+	);
 };
 
 module.exports.moveVolumeHud = moveVolumeHud;
@@ -33,20 +45,25 @@ function firstRun() {
 
 	setupLocalArrowShortcuts();
 
-	const noVid = $("#main-panel")?.computedStyleMap().get("display").value === "none";
+	const noVid =
+		$("#main-panel")?.computedStyleMap().get("display").value === "none";
 	injectVolumeHud(noVid);
 	if (!noVid) {
 		setupVideoPlayerOnwheel();
-		if (!isEnabled('video-toggle')) {
+		if (!isEnabled("video-toggle")) {
 			//video-toggle handles hud positioning on its own
-			const videoMode = () => api.getPlayerResponse().videoDetails?.musicVideoType !== 'MUSIC_VIDEO_TYPE_ATV';
-			$("video").addEventListener("srcChanged", () => moveVolumeHud(videoMode()));
+			const videoMode = () =>
+				api.getPlayerResponse().videoDetails?.musicVideoType !==
+				"MUSIC_VIDEO_TYPE_ATV";
+			$("video").addEventListener("srcChanged", () =>
+				moveVolumeHud(videoMode()),
+			);
 		}
 	}
 
 	// Change options from renderer to keep sync
 	ipcRenderer.on("setOptions", (_event, newOptions = {}) => {
-		Object.assign(options, newOptions)
+		Object.assign(options, newOptions);
 		setMenuOptions("precise-volume", options);
 	});
 }
@@ -56,25 +73,32 @@ function injectVolumeHud(noVid) {
 		const position = "top: 18px; right: 60px;";
 		const mainStyle = "font-size: xx-large;";
 
-		$(".center-content.ytmusic-nav-bar").insertAdjacentHTML("beforeend",
-			`<span id="volumeHud" style="${position + mainStyle}"></span>`)
+		$(".center-content.ytmusic-nav-bar").insertAdjacentHTML(
+			"beforeend",
+			`<span id="volumeHud" style="${position + mainStyle}"></span>`,
+		);
 	} else {
 		const position = `top: 10px; left: 10px;`;
-		const mainStyle = "font-size: xxx-large; webkit-text-stroke: 1px black; font-weight: 600;";
+		const mainStyle =
+			"font-size: xxx-large; webkit-text-stroke: 1px black; font-weight: 600;";
 
-		$("#song-video").insertAdjacentHTML('afterend',
-			`<span id="volumeHud" style="${position + mainStyle}"></span>`)
+		$("#song-video").insertAdjacentHTML(
+			"afterend",
+			`<span id="volumeHud" style="${position + mainStyle}"></span>`,
+		);
 	}
 }
 
 let hudMoveTimeout;
 function moveVolumeHud(showVideo) {
 	clearTimeout(hudMoveTimeout);
-	const volumeHud = $('#volumeHud');
+	const volumeHud = $("#volumeHud");
 	if (!volumeHud) return;
 	hudMoveTimeout = setTimeout(() => {
-		volumeHud.style.top = showVideo ? `${($('ytmusic-player').clientHeight - $('video').clientHeight) / 2}px` : 0;
-	}, 250)
+		volumeHud.style.top = showVideo
+			? `${($("ytmusic-player").clientHeight - $("video").clientHeight) / 2}px`
+			: 0;
+	}, 250);
 }
 
 let hudFadeTimeout;
@@ -83,7 +107,7 @@ function showVolumeHud(volume) {
 	let volumeHud = $("#volumeHud");
 	if (!volumeHud) return;
 
-	volumeHud.textContent = volume + '%';
+	volumeHud.textContent = volume + "%";
 	volumeHud.style.opacity = 1;
 
 	if (hudFadeTimeout) {
@@ -98,7 +122,7 @@ function showVolumeHud(volume) {
 
 /** Add onwheel event to video player */
 function setupVideoPlayerOnwheel() {
-	$("#main-panel").addEventListener("wheel", event => {
+	$("#main-panel").addEventListener("wheel", (event) => {
 		event.preventDefault();
 		// Event.deltaY < 0 means wheel-up
 		changeVolume(event.deltaY < 0);
@@ -118,14 +142,14 @@ function writeOptions() {
 	writeTimeout = setTimeout(() => {
 		setOptions("precise-volume", options);
 		writeTimeout = null;
-	}, 1000)
+	}, 1000);
 }
 
 /** Add onwheel event to play bar and also track if play bar is hovered*/
 function setupPlaybar() {
 	const playerbar = $("ytmusic-player-bar");
 
-	playerbar.addEventListener("wheel", event => {
+	playerbar.addEventListener("wheel", (event) => {
 		event.preventDefault();
 		// Event.deltaY < 0 means wheel-up
 		changeVolume(event.deltaY < 0);
@@ -145,11 +169,14 @@ function setupPlaybar() {
 
 /** Save volume + Update the volume tooltip when volume-slider is manually changed */
 function setupSliderObserver() {
-	const sliderObserver = new MutationObserver(mutations => {
+	const sliderObserver = new MutationObserver((mutations) => {
 		for (const mutation of mutations) {
 			// This checks that volume-slider was manually set
-			if (mutation.oldValue !== mutation.target.value &&
-				(typeof options.savedVolume !== "number" || Math.abs(options.savedVolume - mutation.target.value) > 4)) {
+			if (
+				mutation.oldValue !== mutation.target.value &&
+				(typeof options.savedVolume !== "number" ||
+					Math.abs(options.savedVolume - mutation.target.value) > 4)
+			) {
 				// Diff>4 means it was manually set
 				setTooltip(mutation.target.value);
 				saveVolume(mutation.target.value);
@@ -160,7 +187,7 @@ function setupSliderObserver() {
 	// Observing only changes in 'value' of volume-slider
 	sliderObserver.observe($("#volume-slider"), {
 		attributeFilter: ["value"],
-		attributeOldValue: true
+		attributeOldValue: true,
 	});
 }
 
@@ -184,9 +211,11 @@ function setVolume(value) {
 function changeVolume(toIncrease) {
 	// Apply volume change if valid
 	const steps = Number(options.steps || 1);
-	setVolume(toIncrease ?
-				Math.min(api.getVolume() + steps, 100) :
-				Math.max(api.getVolume() - steps, 0));
+	setVolume(
+		toIncrease
+			? Math.min(api.getVolume() + steps, 100)
+			: Math.max(api.getVolume() - steps, 0),
+	);
 }
 
 function updateVolumeSlider() {
@@ -223,7 +252,7 @@ const tooltipTargets = [
 	"#volume-slider",
 	"tp-yt-paper-icon-button.volume",
 	"#expand-volume-slider",
-	"#expand-volume"
+	"#expand-volume",
 ];
 
 function setTooltip(volume) {
@@ -234,8 +263,8 @@ function setTooltip(volume) {
 
 function setupLocalArrowShortcuts() {
 	if (options.arrowsShortcut) {
-		window.addEventListener('keydown', (event) => {
-			if ($('ytmusic-search-box').opened) return;
+		window.addEventListener("keydown", (event) => {
+			if ($("ytmusic-search-box").opened) return;
 			switch (event.code) {
 				case "ArrowUp":
 					event.preventDefault();

@@ -102,7 +102,7 @@
 				else {
 					// abort and throw exception
 					throw new TypeError(
-						"Expected 'linear', 'logarithmic' or a positive number as fade scaling preference!"
+						"Expected 'linear', 'logarithmic' or a positive number as fade scaling preference!",
 					);
 				}
 
@@ -120,7 +120,7 @@
 					this.logger(
 						"Using logarithmic fading with " +
 							String(10 * dynamicRange) +
-							" dB dynamic range."
+							" dB dynamic range.",
 					);
 			}
 
@@ -135,7 +135,7 @@
 				// log setting
 				this.logger &&
 					this.logger(
-						"Set initial volume to " + String(this.media.volume) + "."
+						"Set initial volume to " + String(this.media.volume) + ".",
 					);
 			}
 
@@ -292,7 +292,7 @@
 					// log end of fade
 					this.logger &&
 						this.logger(
-							"Fade to " + String(this.fade.volume.end) + " complete."
+							"Fade to " + String(this.fade.volume.end) + " complete.",
 						);
 
 					// time is up, jump to target volume

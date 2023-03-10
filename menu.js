@@ -14,7 +14,12 @@ const promptOptions = require("./providers/prompt-options");
 // true only if in-app-menu was loaded on launch
 const inAppMenuActive = config.plugins.isEnabled("in-app-menu");
 
-const pluginEnabledMenu = (plugin, label = "", hasSubmenu = false, refreshMenu = undefined) => ({
+const pluginEnabledMenu = (
+	plugin,
+	label = "",
+	hasSubmenu = false,
+	refreshMenu = undefined,
+) => ({
 	label: label || plugin,
 	type: "checkbox",
 	checked: config.plugins.isEnabled(plugin),
@@ -36,13 +41,13 @@ const mainMenuTemplate = (win) => {
 		if (inAppMenuActive) {
 			win.webContents.send("refreshMenu");
 		}
-	}
+	};
 	return [
 		{
 			label: "Plugins",
 			submenu: [
 				...getAllPlugins().map((plugin) => {
-					const pluginPath = path.join(__dirname, "plugins", plugin, "menu.js")
+					const pluginPath = path.join(__dirname, "plugins", plugin, "menu.js");
 					if (existsSync(pluginPath)) {
 						if (!config.plugins.isEnabled(plugin)) {
 							return pluginEnabledMenu(plugin, "", true, refreshMenu);
@@ -53,7 +58,11 @@ const mainMenuTemplate = (win) => {
 							submenu: [
 								pluginEnabledMenu(plugin, "Enabled", true, refreshMenu),
 								{ type: "separator" },
-								...getPluginMenu(win, config.plugins.getOptions(plugin), refreshMenu),
+								...getPluginMenu(
+									win,
+									config.plugins.getOptions(plugin),
+									refreshMenu,
+								),
 							],
 						};
 					}
@@ -89,7 +98,10 @@ const mainMenuTemplate = (win) => {
 							type: "checkbox",
 							checked: config.get("options.removeUpgradeButton"),
 							click: (item) => {
-								config.setMenuOption("options.removeUpgradeButton", item.checked);
+								config.setMenuOption(
+									"options.removeUpgradeButton",
+									item.checked,
+								);
 							},
 						},
 						{
@@ -152,35 +164,37 @@ const mainMenuTemplate = (win) => {
 				},
 				...(is.windows() || is.linux()
 					? [
-						{
-							label: "Hide menu",
-							type: "checkbox",
-							checked: config.get("options.hideMenu"),
-							click: (item) => {
-								config.setMenuOption("options.hideMenu", item.checked);
-								if (item.checked && !config.get("options.hideMenuWarned")) {
-									dialog.showMessageBox(win, {
-										type: 'info', title: 'Hide Menu Enabled',
-										message: "Menu will be hidden on next launch, use [Alt] to show it (or backtick [`] if using in-app-menu)"
-									});
-								}
+							{
+								label: "Hide menu",
+								type: "checkbox",
+								checked: config.get("options.hideMenu"),
+								click: (item) => {
+									config.setMenuOption("options.hideMenu", item.checked);
+									if (item.checked && !config.get("options.hideMenuWarned")) {
+										dialog.showMessageBox(win, {
+											type: "info",
+											title: "Hide Menu Enabled",
+											message:
+												"Menu will be hidden on next launch, use [Alt] to show it (or backtick [`] if using in-app-menu)",
+										});
+									}
+								},
 							},
-						},
-					]
+					  ]
 					: []),
 				...(is.windows() || is.macOS()
 					? // Only works on Win/Mac
-					// https://www.electronjs.org/docs/api/app#appsetloginitemsettingssettings-macos-windows
-					[
-						{
-							label: "Start at login",
-							type: "checkbox",
-							checked: config.get("options.startAtLogin"),
-							click: (item) => {
-								config.setMenuOption("options.startAtLogin", item.checked);
+					  // https://www.electronjs.org/docs/api/app#appsetloginitemsettingssettings-macos-windows
+					  [
+							{
+								label: "Start at login",
+								type: "checkbox",
+								checked: config.get("options.startAtLogin"),
+								click: (item) => {
+									config.setMenuOption("options.startAtLogin", item.checked);
+								},
 							},
-						},
-					]
+					  ]
 					: []),
 				{
 					label: "Tray",
@@ -220,7 +234,10 @@ const mainMenuTemplate = (win) => {
 							type: "checkbox",
 							checked: config.get("options.trayClickPlayPause"),
 							click: (item) => {
-								config.setMenuOption("options.trayClickPlayPause", item.checked);
+								config.setMenuOption(
+									"options.trayClickPlayPause",
+									item.checked,
+								);
 							},
 						},
 					],
@@ -243,14 +260,17 @@ const mainMenuTemplate = (win) => {
 							checked: config.get("options.overrideUserAgent"),
 							click: (item) => {
 								config.setMenuOption("options.overrideUserAgent", item.checked);
-							}
+							},
 						},
 						{
 							label: "Disable hardware acceleration",
 							type: "checkbox",
 							checked: config.get("options.disableHardwareAcceleration"),
 							click: (item) => {
-								config.setMenuOption("options.disableHardwareAcceleration", item.checked);
+								config.setMenuOption(
+									"options.disableHardwareAcceleration",
+									item.checked,
+								);
 							},
 						},
 						{
@@ -258,7 +278,10 @@ const mainMenuTemplate = (win) => {
 							type: "checkbox",
 							checked: config.get("options.restartOnConfigChanges"),
 							click: (item) => {
-								config.setMenuOption("options.restartOnConfigChanges", item.checked);
+								config.setMenuOption(
+									"options.restartOnConfigChanges",
+									item.checked,
+								);
 							},
 						},
 						{
@@ -270,28 +293,28 @@ const mainMenuTemplate = (win) => {
 							},
 						},
 						{ type: "separator" },
-						is.macOS() ?
-							{
-								label: "Toggle DevTools",
-								// Cannot use "toggleDevTools" role in MacOS
-								click: () => {
-									const { webContents } = win;
-									if (webContents.isDevToolsOpened()) {
-										webContents.closeDevTools();
-									} else {
-										const devToolsOptions = {};
-										webContents.openDevTools(devToolsOptions);
-									}
-								},
-							} :
-							{ role: "toggleDevTools" },
+						is.macOS()
+							? {
+									label: "Toggle DevTools",
+									// Cannot use "toggleDevTools" role in MacOS
+									click: () => {
+										const { webContents } = win;
+										if (webContents.isDevToolsOpened()) {
+											webContents.closeDevTools();
+										} else {
+											const devToolsOptions = {};
+											webContents.openDevTools(devToolsOptions);
+										}
+									},
+							  }
+							: { role: "toggleDevTools" },
 						{
 							label: "Edit config.json",
 							click: () => {
 								config.edit();
 							},
 						},
-					]
+					],
 				},
 			],
 		},
@@ -336,13 +359,13 @@ const mainMenuTemplate = (win) => {
 				},
 				{
 					label: "Restart App",
-					click: restart
+					click: restart,
 				},
 				{ role: "quit" },
 			],
 		},
 	];
-}
+};
 
 module.exports.mainMenuTemplate = mainMenuTemplate;
 module.exports.setApplicationMenu = (win) => {
@@ -379,23 +402,27 @@ module.exports.setApplicationMenu = (win) => {
 };
 
 async function setProxy(item, win) {
-	const output = await prompt({
-		title: 'Set Proxy',
-		label: 'Enter Proxy Address: (leave empty to disable)',
-		value: config.get("options.proxy"),
-		type: 'input',
-		inputAttrs: {
-			type: 'url',
-			placeholder: "Example: 'socks5://127.0.0.1:9999"
+	const output = await prompt(
+		{
+			title: "Set Proxy",
+			label: "Enter Proxy Address: (leave empty to disable)",
+			value: config.get("options.proxy"),
+			type: "input",
+			inputAttrs: {
+				type: "url",
+				placeholder: "Example: 'socks5://127.0.0.1:9999",
+			},
+			width: 450,
+			...promptOptions(),
 		},
-		width: 450,
-		...promptOptions()
-	}, win);
+		win,
+	);
 
 	if (typeof output === "string") {
 		config.setMenuOption("options.proxy", output);
 		item.checked = output !== "";
-	} else { //user pressed cancel
+	} else {
+		//user pressed cancel
 		item.checked = !item.checked; //reset checkbox
 	}
 }

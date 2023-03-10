@@ -6,12 +6,14 @@ const keyEventAreEqual = require("keyboardevents-areequal");
 const { getSongMenu } = require("../../providers/dom-elements");
 const { ElementFromFile, templatePath } = require("../utils");
 
-function $(selector) { return document.querySelector(selector); }
+function $(selector) {
+	return document.querySelector(selector);
+}
 
 let useNativePiP = false;
 let menu = null;
 const pipButton = ElementFromFile(
-	templatePath(__dirname, "picture-in-picture.html")
+	templatePath(__dirname, "picture-in-picture.html"),
 );
 
 // will also clone
@@ -34,9 +36,15 @@ const observer = new MutationObserver(() => {
 		menu = getSongMenu();
 		if (!menu) return;
 	}
-	if (menu.contains(pipButton) || !menu.parentElement.eventSink_?.matches('ytmusic-menu-renderer.ytmusic-player-bar')) return;
+	if (
+		menu.contains(pipButton) ||
+		!menu.parentElement.eventSink_?.matches(
+			"ytmusic-menu-renderer.ytmusic-player-bar",
+		)
+	)
+		return;
 	const menuUrl = $(
-		'tp-yt-paper-listbox [tabindex="0"] #navigation-endpoint'
+		'tp-yt-paper-listbox [tabindex="0"] #navigation-endpoint',
 	)?.href;
 	if (menuUrl && !menuUrl.includes("watch?")) return;
 
@@ -66,12 +74,12 @@ global.togglePictureInPicture = async () => {
 const listenForToggle = () => {
 	const originalExitButton = $(".exit-fullscreen-button");
 	const appLayout = $("ytmusic-app-layout");
-	const expandMenu = $('#expanding-menu');
-	const middleControls = $('.middle-controls');
+	const expandMenu = $("#expanding-menu");
+	const middleControls = $(".middle-controls");
 	const playerPage = $("ytmusic-player-page");
 	const togglePlayerPageButton = $(".toggle-player-page-button");
 	const fullScreenButton = $(".fullscreen-button");
-	const player = $('#player');
+	const player = $("#player");
 	const onPlayerDblClick = player.onDoubleClick_;
 
 	const titlebar = $(".cet-titlebar");
@@ -97,7 +105,7 @@ const listenForToggle = () => {
 			if (titlebar) titlebar.style.display = "flex";
 		}
 	});
-}
+};
 
 function observeMenu(options) {
 	useNativePiP = options.useNativePiP;
@@ -119,7 +127,7 @@ function observeMenu(options) {
 				subtree: true,
 			});
 		},
-		{ once: true, passive: true }
+		{ once: true, passive: true },
 	);
 }
 

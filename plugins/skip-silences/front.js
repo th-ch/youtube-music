@@ -94,7 +94,7 @@ module.exports = (options) => {
 		},
 		{
 			passive: true,
-		}
+		},
 	);
 };
 

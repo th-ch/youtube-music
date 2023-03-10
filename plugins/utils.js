@@ -35,7 +35,7 @@ module.exports.listenAction = (channel, callback) => {
 module.exports.fileExists = (
 	path,
 	callbackIfExists,
-	callbackIfError = undefined
+	callbackIfError = undefined,
 ) => {
 	fs.access(path, fs.F_OK, (err) => {
 		if (err) {
@@ -61,9 +61,9 @@ const setupCssInjection = (webContents) => {
 		cssToInject.forEach(async (cb, filepath) => {
 			await webContents.insertCSS(fs.readFileSync(filepath, "utf8"));
 			cb?.();
-		})
+		});
 	});
-}
+};
 
 module.exports.getAllPlugins = () => {
 	const isDirectory = (source) => fs.lstatSync(source).isDirectory();

@@ -15,7 +15,7 @@ plugins.forEach(async ([plugin, options]) => {
 		__dirname,
 		"plugins",
 		plugin,
-		"preload.js"
+		"preload.js",
 	);
 	fileExists(preloadPath, () => {
 		const run = require(preloadPath);
@@ -27,7 +27,7 @@ plugins.forEach(async ([plugin, options]) => {
 		__dirname,
 		"plugins",
 		plugin,
-		"actions.js"
+		"actions.js",
 	);
 	fileExists(actionPath, () => {
 		const actions = require(actionPath).actions || {};
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			__dirname,
 			"plugins",
 			plugin,
-			"front.js"
+			"front.js",
 		);
 		fileExists(pluginPath, () => {
 			const run = require(pluginPath);
@@ -65,10 +65,10 @@ document.addEventListener("DOMContentLoaded", () => {
 	setupSongControls();
 
 	// Add action for reloading
-	global.reload = () => ipcRenderer.send('reload');
+	global.reload = () => ipcRenderer.send("reload");
 
 	// Blocks the "Are You Still There?" popup by setting the last active time to Date.now every 15min
-	setInterval(() => window._lact = Date.now(), 900000);
+	setInterval(() => (window._lact = Date.now()), 900000);
 
 	// setup back to front logger
 	if (is.dev()) {
@@ -79,21 +79,24 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function listenForApiLoad() {
-	api = document.querySelector('#movie_player');
+	api = document.querySelector("#movie_player");
 	if (api) {
 		onApiLoaded();
 		return;
 	}
 
 	const observer = new MutationObserver(() => {
-		api = document.querySelector('#movie_player');
+		api = document.querySelector("#movie_player");
 		if (api) {
 			observer.disconnect();
 			onApiLoaded();
 		}
-	})
+	});
 
-	observer.observe(document.documentElement, { childList: true, subtree: true });
+	observer.observe(document.documentElement, {
+		childList: true,
+		subtree: true,
+	});
 }
 
 function onApiLoaded() {
@@ -115,21 +118,23 @@ function onApiLoaded() {
 								audioContext: audioContext,
 								audioSource: audioSource,
 							},
-						})
+						}),
 					);
 				},
-				{ once: true }
+				{ once: true },
 			);
 		},
-		{ passive: true }
+		{ passive: true },
 	);
 
-	document.dispatchEvent(new CustomEvent('apiLoaded', { detail: api }));
-	ipcRenderer.send('apiLoaded');
+	document.dispatchEvent(new CustomEvent("apiLoaded", { detail: api }));
+	ipcRenderer.send("apiLoaded");
 
 	// Remove upgrade button
 	if (config.get("options.removeUpgradeButton")) {
-		const upgradeButton = document.querySelector('ytmusic-pivot-bar-item-renderer[tab-id="SPunlimited"]')
+		const upgradeButton = document.querySelector(
+			'ytmusic-pivot-bar-item-renderer[tab-id="SPunlimited"]',
+		);
 		if (upgradeButton) {
 			upgradeButton.style.display = "none";
 		}
@@ -137,9 +142,9 @@ function onApiLoaded() {
 
 	// Force show like buttons
 	if (config.get("options.ForceShowLikeButtons")) {
-		const likeButtons = document.querySelector('ytmusic-like-button-renderer')
+		const likeButtons = document.querySelector("ytmusic-like-button-renderer");
 		if (likeButtons) {
-			likeButtons.style.display = 'inherit';
+			likeButtons.style.display = "inherit";
 		}
 	}
 }

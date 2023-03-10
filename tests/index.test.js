@@ -22,7 +22,7 @@ test("YouTube Music App - With default settings, app is launched and visible", a
 	const window = await app.firstWindow();
 
 	const consentForm = await window.$(
-		"form[action='https://consent.youtube.com/save']"
+		"form[action='https://consent.youtube.com/save']",
 	);
 	if (consentForm) {
 		await consentForm.click("button");

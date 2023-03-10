@@ -10,7 +10,7 @@ const exponentialVolume = () => {
 	const storedOriginalVolumes = new WeakMap();
 	const { get, set } = Object.getOwnPropertyDescriptor(
 		HTMLMediaElement.prototype,
-		"volume"
+		"volume",
 	);
 	Object.defineProperty(HTMLMediaElement.prototype, "volume", {
 		get() {
@@ -23,7 +23,7 @@ const exponentialVolume = () => {
 			// To avoid ill effects, I check if the stored volume is somewhere in the same range as the calculated volume.
 			const storedOriginalVolume = storedOriginalVolumes.get(this);
 			const storedDeviation = Math.abs(
-				storedOriginalVolume - calculatedOriginalVolume
+				storedOriginalVolume - calculatedOriginalVolume,
 			);
 
 			const originalVolume =

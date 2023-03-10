@@ -52,6 +52,6 @@ module.exports = (win) => {
 	return {
 		...commands,
 		play: commands.playPause,
-		pause: commands.playPause
+		pause: commands.playPause,
 	};
 };

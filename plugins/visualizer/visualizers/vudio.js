@@ -8,7 +8,7 @@ class VudioVisualizer {
 		canvas,
 		audioNode,
 		stream,
-		options
+		options,
 	) {
 		this.visualizer = new Vudio(stream, canvas, {
 			width: canvas.width,

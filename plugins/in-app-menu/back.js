@@ -4,7 +4,10 @@ const electronLocalshortcut = require("electron-localshortcut");
 
 const { injectCSS } = require("../utils");
 
-const { setupTitlebar, attachTitlebarToWindow } = require('custom-electron-titlebar/main');
+const {
+	setupTitlebar,
+	attachTitlebarToWindow,
+} = require("custom-electron-titlebar/main");
 setupTitlebar();
 
 //tracks menu visibility

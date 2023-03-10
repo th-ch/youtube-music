@@ -11,7 +11,7 @@ class ButterchurnVisualizer {
 		canvas,
 		audioNode,
 		stream,
-		options
+		options,
 	) {
 		this.visualizer = butterchurn.default.createVisualizer(
 			audioContext,
@@ -19,7 +19,7 @@ class ButterchurnVisualizer {
 			{
 				width: canvas.width,
 				height: canvas.height,
-			}
+			},
 		);
 
 		const preset = presets[options.preset];

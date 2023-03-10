@@ -55,13 +55,13 @@ const defaultConfig = {
 		notifications: {
 			enabled: false,
 			unpauseNotification: false,
-			urgency: "normal", //has effect only on Linux 
+			urgency: "normal", //has effect only on Linux
 			// the following has effect only on Windows
 			interactive: true,
 			toastStyle: 1, // see plugins/notifications/utils for more info
 			refreshOnPlayPause: false,
 			trayControls: true,
-			hideButtonText: false 
+			hideButtonText: false,
 		},
 		"precise-volume": {
 			enabled: false,
@@ -69,9 +69,9 @@ const defaultConfig = {
 			arrowsShortcut: true, //enable ArrowUp + ArrowDown local shortcuts
 			globalShortcuts: {
 				volumeUp: "",
-				volumeDown: ""
+				volumeDown: "",
 			},
-			savedVolume: undefined //plugin save volume between session here
+			savedVolume: undefined, //plugin save volume between session here
 		},
 		sponsorblock: {
 			enabled: false,
@@ -91,15 +91,15 @@ const defaultConfig = {
 			forceHide: false,
 		},
 		"picture-in-picture": {
-			"enabled": false,
-			"alwaysOnTop": true,
-			"savePosition": true,
-			"saveSize": false,
-			"hotkey": "P"
+			enabled: false,
+			alwaysOnTop: true,
+			savePosition: true,
+			saveSize: false,
+			hotkey: "P",
 		},
 		"captions-selector": {
 			enabled: false,
-			disableCaptions: false
+			disableCaptions: false,
 		},
 		"skip-silences": {
 			onlySkipBeginning: false,

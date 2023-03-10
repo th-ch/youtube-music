@@ -13,14 +13,14 @@ let tray;
 
 module.exports.setTrayOnClick = (fn) => {
 	if (!tray) return;
-	tray.removeAllListeners('click');
+	tray.removeAllListeners("click");
 	tray.on("click", fn);
 };
 
 // wont do anything on macos since its disabled
 module.exports.setTrayOnDoubleClick = (fn) => {
 	if (!tray) return;
-	tray.removeAllListeners('double-click');
+	tray.removeAllListeners("double-click");
 	tray.on("double-click", fn);
 };
 
@@ -87,7 +87,7 @@ module.exports.setUpTray = (app, win) => {
 		},
 		{
 			label: "Restart App",
-			click: restart
+			click: restart,
 		},
 		{ role: "quit" },
 	];

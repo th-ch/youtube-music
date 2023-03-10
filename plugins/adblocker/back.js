@@ -4,5 +4,5 @@ module.exports = (win, options) =>
 		win.webContents.session,
 		options.cache,
 		options.additionalBlockLists,
-		options.disableDefaultLists
+		options.disableDefaultLists,
 	);

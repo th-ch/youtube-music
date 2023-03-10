@@ -47,51 +47,57 @@ function handle(win) {
 		}
 	});
 
-	ipcMain.on("add-metadata", async (event, filePath, songBuffer, currentMetadata) => {
-		let fileBuffer = songBuffer;
-		const songMetadata = currentMetadata.imageSrcYTPL ? // This means metadata come from ytpl.getInfo();
-			{
-				...currentMetadata,
-				image: cropMaxWidth(await getImage(currentMetadata.imageSrcYTPL))
-			} :
-			{ ...nowPlayingMetadata, ...currentMetadata };
+	ipcMain.on(
+		"add-metadata",
+		async (event, filePath, songBuffer, currentMetadata) => {
+			let fileBuffer = songBuffer;
+			const songMetadata = currentMetadata.imageSrcYTPL
+				? // This means metadata come from ytpl.getInfo();
+				  {
+						...currentMetadata,
+						image: cropMaxWidth(await getImage(currentMetadata.imageSrcYTPL)),
+				  }
+				: { ...nowPlayingMetadata, ...currentMetadata };
 
-		try {
-			const coverBuffer = songMetadata.image && !songMetadata.image.isEmpty() ?
-				songMetadata.image.toPNG() : null;
+			try {
+				const coverBuffer =
+					songMetadata.image && !songMetadata.image.isEmpty()
+						? songMetadata.image.toPNG()
+						: null;
 
-			const writer = new ID3Writer(songBuffer);
+				const writer = new ID3Writer(songBuffer);
 
-			// Create the metadata tags
-			writer
-				.setFrame("TIT2", songMetadata.title)
-				.setFrame("TPE1", [songMetadata.artist]);
-			if (coverBuffer) {
-				writer.setFrame("APIC", {
-					type: 3,
-					data: coverBuffer,
-					description: ""
-				});
-			}
-			if (isEnabled("lyrics-genius")) {
-				const lyrics = await fetchFromGenius(songMetadata);
-				if (lyrics) {
-					writer.setFrame("USLT", {
-						description: lyrics,
-						lyrics: lyrics,
+				// Create the metadata tags
+				writer
+					.setFrame("TIT2", songMetadata.title)
+					.setFrame("TPE1", [songMetadata.artist]);
+				if (coverBuffer) {
+					writer.setFrame("APIC", {
+						type: 3,
+						data: coverBuffer,
+						description: "",
 					});
 				}
+				if (isEnabled("lyrics-genius")) {
+					const lyrics = await fetchFromGenius(songMetadata);
+					if (lyrics) {
+						writer.setFrame("USLT", {
+							description: lyrics,
+							lyrics: lyrics,
+						});
+					}
+				}
+				writer.addTag();
+				fileBuffer = Buffer.from(writer.arrayBuffer);
+			} catch (error) {
+				sendError(win, error);
 			}
-			writer.addTag();
-			fileBuffer = Buffer.from(writer.arrayBuffer);
-		} catch (error) {
-			sendError(win, error);
-		}
 
-		writeFileSync(filePath, fileBuffer);
-		// Notify the youtube-dl file
-		event.reply("add-metadata-done");
-	});
+			writeFileSync(filePath, fileBuffer);
+			// Notify the youtube-dl file
+			event.reply("add-metadata-done");
+		},
+	);
 }
 
 module.exports = handle;

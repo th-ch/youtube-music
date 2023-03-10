@@ -9,7 +9,7 @@ const { downloadVideoToMP3 } = require("./youtube-dl");
 let menu = null;
 let progress = null;
 const downloadButton = ElementFromFile(
-	templatePath(__dirname, "download.html")
+	templatePath(__dirname, "download.html"),
 );
 let pluginOptions = {};
 
@@ -19,8 +19,10 @@ const observer = new MutationObserver(() => {
 		if (!menu) return;
 	}
 	if (menu.contains(downloadButton)) return;
-	const menuUrl = document.querySelector('tp-yt-paper-listbox [tabindex="0"] #navigation-endpoint')?.href;
-	if (menuUrl && !menuUrl.includes('watch?')) return;
+	const menuUrl = document.querySelector(
+		'tp-yt-paper-listbox [tabindex="0"] #navigation-endpoint',
+	)?.href;
+	if (menuUrl && !menuUrl.includes("watch?")) return;
 
 	menu.prepend(downloadButton);
 	progress = document.querySelector("#ytmcustom-download");
@@ -45,14 +47,16 @@ global.download = () => {
 	let metadata;
 	let videoUrl = getSongMenu()
 		// selector of first button which is always "Start Radio"
-		?.querySelector('ytmusic-menu-navigation-item-renderer[tabindex="0"] #navigation-endpoint')
+		?.querySelector(
+			'ytmusic-menu-navigation-item-renderer[tabindex="0"] #navigation-endpoint',
+		)
 		?.getAttribute("href");
 	if (videoUrl) {
-		if (videoUrl.startsWith('watch?')) {
+		if (videoUrl.startsWith("watch?")) {
 			videoUrl = baseUrl + "/" + videoUrl;
 		}
-		if (videoUrl.includes('?playlist=')) {
-			ipcRenderer.send('download-playlist-request', videoUrl);
+		if (videoUrl.includes("?playlist=")) {
+			ipcRenderer.send("download-playlist-request", videoUrl);
 			return;
 		}
 		metadata = null;
@@ -79,7 +83,7 @@ global.download = () => {
 		},
 		reinit,
 		pluginOptions,
-		metadata
+		metadata,
 	);
 };
 // });
@@ -87,12 +91,16 @@ global.download = () => {
 function observeMenu(options) {
 	pluginOptions = { ...pluginOptions, ...options };
 
-	document.addEventListener('apiLoaded', () => {
-		observer.observe(document.querySelector('ytmusic-popup-container'), {
-			childList: true,
-			subtree: true,
-		});
-	}, { once: true, passive: true })
+	document.addEventListener(
+		"apiLoaded",
+		() => {
+			observer.observe(document.querySelector("ytmusic-popup-container"), {
+				childList: true,
+				subtree: true,
+			});
+		},
+		{ once: true, passive: true },
+	);
 }
 
 module.exports = observeMenu;

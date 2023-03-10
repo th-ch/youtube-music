@@ -4,7 +4,7 @@ const path = require("path");
 const { setMenuOptions } = require("../../config/plugins");
 
 const visualizerTypes = readdirSync(path.join(__dirname, "visualizers")).map(
-	(filename) => path.parse(filename).name
+	(filename) => path.parse(filename).name,
 );
 
 module.exports = (win, options) => [

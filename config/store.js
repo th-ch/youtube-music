@@ -6,7 +6,7 @@ const setDefaultPluginOptions = (store, plugin) => {
 	if (!store.get(`plugins.${plugin}`)) {
 		store.set(`plugins.${plugin}`, defaults.plugins[plugin]);
 	}
-}
+};
 
 const migrations = {
 	">=1.20.0": (store) => {

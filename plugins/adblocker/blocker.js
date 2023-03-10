@@ -17,7 +17,7 @@ const loadAdBlockerEngine = (
 	session = undefined,
 	cache = true,
 	additionalBlockLists = [],
-	disableDefaultLists = false
+	disableDefaultLists = false,
 ) => {
 	// Only use cache if no additional blocklists are passed
 	const cachingOptions =
@@ -42,7 +42,7 @@ const loadAdBlockerEngine = (
 			// Allowing to define multiple webRequest listeners
 			loadNetworkFilters: session !== undefined,
 		},
-		cachingOptions
+		cachingOptions,
 	)
 		.then((blocker) => {
 			if (session) {

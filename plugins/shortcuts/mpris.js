@@ -21,13 +21,15 @@ function setupMPRIS() {
 /** @param {Electron.BrowserWindow} win */
 function registerMPRIS(win) {
 	const songControls = getSongControls(win);
-	const { playPause, next, previous, volumeMinus10, volumePlus10, shuffle } = songControls;
+	const { playPause, next, previous, volumeMinus10, volumePlus10, shuffle } =
+		songControls;
 	try {
-		const secToMicro = n => Math.round(Number(n) * 1e6);
-		const microToSec = n => Math.round(Number(n) / 1e6);
+		const secToMicro = (n) => Math.round(Number(n) * 1e6);
+		const microToSec = (n) => Math.round(Number(n) / 1e6);
 
-		const seekTo = e => win.webContents.send("seekTo", microToSec(e.position));
-		const seekBy = o => win.webContents.send("seekBy", microToSec(o));
+		const seekTo = (e) =>
+			win.webContents.send("seekTo", microToSec(e.position));
+		const seekBy = (o) => win.webContents.send("seekBy", microToSec(o));
 
 		const player = setupMPRIS();
 
@@ -38,31 +40,34 @@ function registerMPRIS(win) {
 			win.webContents.send("setupVolumeChangedListener", "mpris");
 		});
 
-		ipcMain.on('seeked', (_, t) => player.seeked(secToMicro(t)));
+		ipcMain.on("seeked", (_, t) => player.seeked(secToMicro(t)));
 
 		let currentSeconds = 0;
-		ipcMain.on('timeChanged', (_, t) => currentSeconds = t);
+		ipcMain.on("timeChanged", (_, t) => (currentSeconds = t));
 
 		ipcMain.on("repeatChanged", (_, mode) => {
-			if (mode === "NONE")
-				player.loopStatus = mpris.LOOP_STATUS_NONE;
-			else if (mode === "ONE") //MPRIS Playlist and Track Codes are switched to look the same as yt-music icons
+			if (mode === "NONE") player.loopStatus = mpris.LOOP_STATUS_NONE;
+			else if (mode === "ONE")
+				//MPRIS Playlist and Track Codes are switched to look the same as yt-music icons
 				player.loopStatus = mpris.LOOP_STATUS_PLAYLIST;
-			else if (mode === "ALL")
-				player.loopStatus = mpris.LOOP_STATUS_TRACK;
+			else if (mode === "ALL") player.loopStatus = mpris.LOOP_STATUS_TRACK;
 		});
 		player.on("loopStatus", (status) => {
 			// switchRepeat cycles between states in that order
-			const switches = [mpris.LOOP_STATUS_NONE, mpris.LOOP_STATUS_PLAYLIST, mpris.LOOP_STATUS_TRACK];
+			const switches = [
+				mpris.LOOP_STATUS_NONE,
+				mpris.LOOP_STATUS_PLAYLIST,
+				mpris.LOOP_STATUS_TRACK,
+			];
 			const currentIndex = switches.indexOf(player.loopStatus);
 			const targetIndex = switches.indexOf(status);
 
 			// Get a delta in the range [0,2]
 			const delta = (targetIndex - currentIndex + 3) % 3;
 			songControls.switchRepeat(delta);
-		})
+		});
 
-		player.getPosition = () => secToMicro(currentSeconds)
+		player.getPosition = () => secToMicro(currentSeconds);
 
 		player.on("raise", () => {
 			win.setSkipTaskbar(false);
@@ -72,33 +77,36 @@ function registerMPRIS(win) {
 		player.on("play", () => {
 			if (player.playbackStatus !== mpris.PLAYBACK_STATUS_PLAYING) {
 				player.playbackStatus = mpris.PLAYBACK_STATUS_PLAYING;
-				playPause()
+				playPause();
 			}
 		});
 		player.on("pause", () => {
 			if (player.playbackStatus !== mpris.PLAYBACK_STATUS_PAUSED) {
 				player.playbackStatus = mpris.PLAYBACK_STATUS_PAUSED;
-				playPause()
+				playPause();
 			}
 		});
 		player.on("playpause", () => {
-			player.playbackStatus = player.playbackStatus === mpris.PLAYBACK_STATUS_PLAYING ? mpris.PLAYBACK_STATUS_PAUSED : mpris.PLAYBACK_STATUS_PLAYING;
+			player.playbackStatus =
+				player.playbackStatus === mpris.PLAYBACK_STATUS_PLAYING
+					? mpris.PLAYBACK_STATUS_PAUSED
+					: mpris.PLAYBACK_STATUS_PLAYING;
 			playPause();
 		});
 
 		player.on("next", next);
 		player.on("previous", previous);
 
-		player.on('seek', seekBy);
-		player.on('position', seekTo);
+		player.on("seek", seekBy);
+		player.on("position", seekTo);
 
-		player.on('shuffle', (enableShuffle) => {
+		player.on("shuffle", (enableShuffle) => {
 			shuffle();
 		});
 
 		let mprisVolNewer = false;
 		let autoUpdate = false;
-		ipcMain.on('volumeChanged', (_, newVol) => {
+		ipcMain.on("volumeChanged", (_, newVol) => {
 			if (parseInt(player.volume * 100) !== newVol) {
 				if (mprisVolNewer) {
 					mprisVolNewer = false;
@@ -112,15 +120,15 @@ function registerMPRIS(win) {
 			}
 		});
 
-		player.on('volume', (newVolume) => {
-			if (config.plugins.isEnabled('precise-volume')) {
+		player.on("volume", (newVolume) => {
+			if (config.plugins.isEnabled("precise-volume")) {
 				// With precise volume we can set the volume to the exact value.
 				let newVol = parseInt(newVolume * 100);
 				if (parseInt(player.volume * 100) !== newVol) {
 					if (!autoUpdate) {
 						mprisVolNewer = true;
 						autoUpdate = false;
-						win.webContents.send('setVolume', newVol);
+						win.webContents.send("setVolume", newVol);
 					}
 				}
 			} else {
@@ -139,22 +147,23 @@ function registerMPRIS(win) {
 			}
 		});
 
-		registerCallback(songInfo => {
+		registerCallback((songInfo) => {
 			if (player) {
 				const data = {
-					'mpris:length': secToMicro(songInfo.songDuration),
-					'mpris:artUrl': songInfo.imageSrc,
-					'xesam:title': songInfo.title,
-					'xesam:artist': [songInfo.artist],
-					'mpris:trackid': '/'
+					"mpris:length": secToMicro(songInfo.songDuration),
+					"mpris:artUrl": songInfo.imageSrc,
+					"xesam:title": songInfo.title,
+					"xesam:artist": [songInfo.artist],
+					"mpris:trackid": "/",
 				};
-				if (songInfo.album) data['xesam:album'] = songInfo.album;
+				if (songInfo.album) data["xesam:album"] = songInfo.album;
 				player.metadata = data;
 				player.seeked(secToMicro(songInfo.elapsedSeconds));
-				player.playbackStatus = songInfo.isPaused ? mpris.PLAYBACK_STATUS_PAUSED : mpris.PLAYBACK_STATUS_PLAYING;
+				player.playbackStatus = songInfo.isPaused
+					? mpris.PLAYBACK_STATUS_PAUSED
+					: mpris.PLAYBACK_STATUS_PLAYING;
 			}
-		})
-
+		});
 	} catch (e) {
 		console.warn("Error in MPRIS", e);
 	}

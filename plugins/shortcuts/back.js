@@ -44,15 +44,25 @@ function registerShortcuts(win, options) {
 				continue; // Action accelerator is empty
 			}
 
-			console.debug(`Registering ${type} shortcut`, container[action], ":", action);
+			console.debug(
+				`Registering ${type} shortcut`,
+				container[action],
+				":",
+				action,
+			);
 			if (!songControls[action]) {
 				console.warn("Invalid action", action);
 				continue;
 			}
 
 			if (type === "global") {
-				_registerGlobalShortcut(win.webContents, container[action], songControls[action]);
-			} else { // type === "local"
+				_registerGlobalShortcut(
+					win.webContents,
+					container[action],
+					songControls[action],
+				);
+			} else {
+				// type === "local"
 				_registerLocalShortcut(win, local[action], songControls[action]);
 			}
 		}

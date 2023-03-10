@@ -8,17 +8,17 @@ class WaveVisualizer {
 		canvas,
 		audioNode,
 		stream,
-		options
+		options,
 	) {
 		this.visualizer = new Wave(
 			{ context: audioContext, source: audioSource },
-			canvas
+			canvas,
 		);
 		options.animations.forEach((animation) => {
 			this.visualizer.addAnimation(
 				eval(`new this.visualizer.animations.${animation.type}(
 					${JSON.stringify(animation.config)}
-				)`)
+				)`),
 			);
 		});
 	}

@@ -1,10 +1,16 @@
 const electron = require("electron");
-const is = require('electron-is');
+const is = require("electron-is");
 
-module.exports.getFolder = customFolder => customFolder || electron.app.getPath("downloads");
+module.exports.getFolder = (customFolder) =>
+	customFolder || electron.app.getPath("downloads");
 module.exports.defaultMenuDownloadLabel = "Download playlist";
 
-const orderedQualityList = ["maxresdefault", "hqdefault", "mqdefault", "sdddefault"];
+const orderedQualityList = [
+	"maxresdefault",
+	"hqdefault",
+	"mqdefault",
+	"sdddefault",
+];
 module.exports.urlToJPG = (imgUrl, videoId) => {
 	if (!imgUrl || imgUrl.includes(".jpg")) return imgUrl;
 	//it will almost never get further than hqdefault
@@ -14,7 +20,7 @@ module.exports.urlToJPG = (imgUrl, videoId) => {
 		}
 	}
 	return `https://img.youtube.com/vi/${videoId}/default.jpg`;
-}
+};
 
 module.exports.cropMaxWidth = (image) => {
 	const imageSize = image.getSize();
@@ -24,11 +30,11 @@ module.exports.cropMaxWidth = (image) => {
 			x: 280,
 			y: 0,
 			width: 720,
-			height: 720
+			height: 720,
 		});
 	}
 	return image;
-}
+};
 
 // Presets for FFmpeg
 module.exports.presets = {
@@ -39,8 +45,8 @@ module.exports.presets = {
 	},
 };
 
-module.exports.setBadge = n => {
+module.exports.setBadge = (n) => {
 	if (is.linux() || is.macOS()) {
 		electron.app.setBadgeCount(n);
 	}
-}
+};

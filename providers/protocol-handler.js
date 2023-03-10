@@ -8,13 +8,11 @@ let protocolHandler;
 
 function setupProtocolHandler(win) {
 	if (process.defaultApp && process.argv.length >= 2) {
-		app.setAsDefaultProtocolClient(
-			APP_PROTOCOL,
-			process.execPath,
-			[path.resolve(process.argv[1])]
-		);
+		app.setAsDefaultProtocolClient(APP_PROTOCOL, process.execPath, [
+			path.resolve(process.argv[1]),
+		]);
 	} else {
-		app.setAsDefaultProtocolClient(APP_PROTOCOL)
+		app.setAsDefaultProtocolClient(APP_PROTOCOL);
 	}
 
 	const songControls = getSongControls(win);
@@ -23,7 +21,7 @@ function setupProtocolHandler(win) {
 		if (Object.keys(songControls).includes(cmd)) {
 			songControls[cmd]();
 		}
-	}
+	};
 }
 
 function handleProtocol(cmd) {
@@ -40,5 +38,3 @@ module.exports = {
 	handleProtocol,
 	changeProtocolHandler,
 };
-
-

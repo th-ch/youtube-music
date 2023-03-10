@@ -29,7 +29,8 @@ const getImage = async (src) => {
 	const result = await fetch(src);
 	const buffer = await result.buffer();
 	const output = nativeImage.createFromBuffer(buffer);
-	if (output.isEmpty() && !src.endsWith(".jpg") && src.includes(".jpg")) { // fix hidden webp files (https://github.com/th-ch/youtube-music/issues/315)
+	if (output.isEmpty() && !src.endsWith(".jpg") && src.includes(".jpg")) {
+		// fix hidden webp files (https://github.com/th-ch/youtube-music/issues/315)
 		return getImage(src.slice(0, src.lastIndexOf(".jpg") + 4));
 	} else {
 		return output;
@@ -44,7 +45,9 @@ const handleData = async (responseText, win) => {
 	if (microformat) {
 		songInfo.uploadDate = microformat.uploadDate;
 		songInfo.url = microformat.urlCanonical?.split("&")[0];
-		songInfo.playlistId = new URL(microformat.urlCanonical).searchParams.get("list");
+		songInfo.playlistId = new URL(microformat.urlCanonical).searchParams.get(
+			"list",
+		);
 		// used for options.resumeOnStart
 		config.set("url", microformat.urlCanonical);
 	}
@@ -106,7 +109,7 @@ const registerProvider = (win) => {
 		callbacks.forEach((c) => {
 			c(songInfo, "playPaused");
 		});
-	})
+	});
 };
 
 const suffixesToRemove = [
@@ -118,7 +121,10 @@ const suffixesToRemove = [
 
 function cleanupName(name) {
 	if (!name) return name;
-	name = name.replace(/\((?:official)?[ ]?(?:music)?[ ]?(?:lyric[s]?)?[ ]?(?:video)?\)$/i, '')
+	name = name.replace(
+		/\((?:official)?[ ]?(?:music)?[ ]?(?:lyric[s]?)?[ ]?(?:video)?\)$/i,
+		"",
+	);
 	const lowCaseName = name.toLowerCase();
 	for (const suffix of suffixesToRemove) {
 		if (lowCaseName.endsWith(suffix)) {

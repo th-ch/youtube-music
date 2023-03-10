@@ -38,7 +38,7 @@ const downloadVideoToMP3 = async (
 	reinit,
 	options,
 	metadata = undefined,
-	subfolder = ""
+	subfolder = "",
 ) => {
 	sendFeedback("Downloading…");
 
@@ -51,10 +51,10 @@ const downloadVideoToMP3 = async (
 				cleanupName(videoDetails?.author?.name) ||
 				"",
 			title: videoDetails?.media?.song || videoDetails?.title || "",
-			imageSrcYTPL: thumbnails ?
-				urlToJPG(thumbnails[thumbnails.length - 1].url, videoDetails?.videoId)
-				: ""
-		}
+			imageSrcYTPL: thumbnails
+				? urlToJPG(thumbnails[thumbnails.length - 1].url, videoDetails?.videoId)
+				: "",
+		};
 	}
 
 	let videoName = "YouTube Music - Unknown title";
@@ -88,7 +88,7 @@ const downloadVideoToMP3 = async (
 					"Downloading video - name:",
 					videoName,
 					"- quality:",
-					format.audioBitrate + "kbits/s"
+					format.audioBitrate + "kbits/s",
 				);
 			}
 		})
@@ -103,7 +103,7 @@ const downloadVideoToMP3 = async (
 				reinit,
 				options,
 				metadata,
-				subfolder
+				subfolder,
 			);
 		});
 };
@@ -116,7 +116,7 @@ const toMP3 = async (
 	reinit,
 	options,
 	existingMetadata = undefined,
-	subfolder = ""
+	subfolder = "",
 ) => {
 	const convertOptions = { ...presets[options.preset], ...options };
 	const safeVideoName = randomBytes(32).toString("hex");
@@ -139,10 +139,12 @@ const toMP3 = async (
 			safeVideoName,
 			...getFFmpegMetadataArgs(metadata),
 			...(convertOptions.ffmpegArgs || []),
-			safeVideoName + "." + extension
+			safeVideoName + "." + extension,
 		);
 
-		const folder = options.downloadFolder || await ipcRenderer.invoke('getDownloadsFolder');
+		const folder =
+			options.downloadFolder ||
+			(await ipcRenderer.invoke("getDownloadsFolder"));
 		const name = metadata.title
 			? `${metadata.artist ? `${metadata.artist} - ` : ""}${metadata.title}`
 			: videoName;
@@ -159,7 +161,7 @@ const toMP3 = async (
 		ipcRenderer.send("add-metadata", filePath, fileBuffer, {
 			artist: metadata.artist,
 			title: metadata.title,
-			imageSrcYTPL: metadata.imageSrcYTPL
+			imageSrcYTPL: metadata.imageSrcYTPL,
 		});
 		ipcRenderer.once("add-metadata-done", reinit);
 	} catch (e) {
@@ -200,7 +202,7 @@ ipcRenderer.on(
 			() => {},
 			options,
 			null,
-			playlistFolder
+			playlistFolder,
 		);
-	}
+	},
 );
