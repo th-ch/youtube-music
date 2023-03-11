@@ -39,7 +39,6 @@ const setup = () => {
 
 /** @param {Electron.BrowserWindow} win */
 module.exports = (win, options) => {
-	config.init(options);
 	// Register the callback for new song information
 	is.windows() && options.interactive ?
 		require("./interactive")(win) :
