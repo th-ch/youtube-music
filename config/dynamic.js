@@ -67,7 +67,7 @@ module.exports.PluginConfig = class PluginConfig {
 	};
 
 	setAll = (options) => {
-		this.#config = { ...options };
+		this.#config = { ...this.#config, ...options };
 		this.#save();
 	};
 
