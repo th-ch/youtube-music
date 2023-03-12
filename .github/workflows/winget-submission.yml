@@ -1,0 +1,26 @@
+name: Submit to Windows Package Manager Community Repository
+
+on:
+  release:
+    types: [released]
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: "Specific tag name"
+        required: true
+        type: string
+
+jobs:
+  winget:
+    name: Publish winget package
+    runs-on: windows-latest
+    steps:
+      - name: Submit package to Windows Package Manager Community Repository
+        uses: vedantmgoyal2009/winget-releaser@v2
+        with:
+          identifier: th-ch.YouTubeMusic
+          installers-regex: '^YouTube-Music-Setup-[\d\.]+\.exe$'
+          version: ${{ inputs.tag_name || github.event.release.tag_name }}
+          release-tag: ${{ inputs.tag_name || github.event.release.tag_name }}
+          token: ${{ secrets.WINGET_ACC_TOKEN }}
+          fork-user: youtube-music-winget

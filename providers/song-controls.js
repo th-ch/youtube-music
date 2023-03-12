@@ -8,7 +8,7 @@ const pressKey = (window, key, modifiers = []) => {
 };
 
 module.exports = (win) => {
-	return {
+	const commands = {
 		// Playback
 		previous: () => pressKey(win, "k"),
 		next: () => pressKey(win, "j"),
@@ -21,8 +21,7 @@ module.exports = (win) => {
 		go1sForward: () => pressKey(win, "l", ["shift"]),
 		shuffle: () => pressKey(win, "s"),
 		switchRepeat: (n = 1) => {
-			for (let i = 0; i < n; i++)
-				pressKey(win, "r");
+			for (let i = 0; i < n; i++) pressKey(win, "r");
 		},
 		// General
 		volumeMinus10: () => pressKey(win, "-"),
@@ -49,5 +48,10 @@ module.exports = (win) => {
 		},
 		search: () => pressKey(win, "/"),
 		showShortcuts: () => pressKey(win, "/", ["shift"]),
+	};
+	return {
+		...commands,
+		play: commands.playPause,
+		pause: commands.playPause
 	};
 };

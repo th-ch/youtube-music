@@ -34,7 +34,7 @@ const observer = new MutationObserver(() => {
 		menu = getSongMenu();
 		if (!menu) return;
 	}
-	if (menu.contains(pipButton)) return;
+	if (menu.contains(pipButton) || !menu.parentElement.eventSink_?.matches('ytmusic-menu-renderer.ytmusic-player-bar')) return;
 	const menuUrl = $(
 		'tp-yt-paper-listbox [tabindex="0"] #navigation-endpoint'
 	)?.href;
