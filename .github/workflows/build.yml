@@ -1,7 +1,9 @@
 name: Build YouTube Music
 
 on:
-  - push
+  push:
+    branches: [ master ]
+  pull_request:
 
 env:
   NODE_VERSION: "16.x"
