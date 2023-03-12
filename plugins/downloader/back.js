@@ -23,6 +23,13 @@ const ffmpeg = require("@ffmpeg/ffmpeg").createFFmpeg({
 });
 const ffmpegMutex = new Mutex();
 
+const cache = {
+    getCoverBuffer: {
+        buffer: null,
+        url: null,
+    }
+}
+
 const config = require("./config");
 
 /** @type {Innertube} */
@@ -189,13 +196,25 @@ async function iterableStreamToMP3(stream, metadata, content_length, sendFeedbac
     }
 }
 
+async function getCoverBuffer(url) {
+    const store = cache.getCoverBuffer;
+    if (store.url === url) {
+        return store.buffer;
+    }
+    store.url = url;
+
+    const nativeImage = cropMaxWidth(await getImage(url));
+    store.buffer = nativeImage && !nativeImage.isEmpty() ?
+        nativeImage.toPNG() : null;
+
+    return store.buffer;
+}
+
 async function writeID3(buffer, metadata, sendFeedback) {
     try {
         sendFeedback("Writing ID3 tags...");
 
-        const nativeImage = cropMaxWidth(await getImage(metadata.image));
-        const coverBuffer = nativeImage && !nativeImage.isEmpty() ?
-            nativeImage.toPNG() : null;
+        const coverBuffer = await getCoverBuffer(metadata.image);
 
         const writer = new ID3Writer(buffer);
 
