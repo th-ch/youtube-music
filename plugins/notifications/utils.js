@@ -8,6 +8,8 @@ const userData = app.getPath("userData");
 const tempIcon = path.join(userData, "tempIcon.png");
 const tempBanner = path.join(userData, "tempBanner.png");
 
+const { cache } = require("../../providers/decorators")
+
 module.exports.ToastStyles = {
 	logo: 1,
 	banner_centered_top: 2,
@@ -31,6 +33,18 @@ module.exports.urgencyLevels = [
 	{ name: "High", value: "critical" },
 ];
 
+const nativeImageToLogo = cache((nativeImage) => {
+	const tempImage = nativeImage.resize({ height: 256 });
+	const margin = Math.max(tempImage.getSize().width - 256, 0);
+
+	return tempImage.crop({
+		x: Math.round(margin / 2),
+		y: 0,
+		width: 256,
+		height: 256,
+	});
+});
+
 module.exports.notificationImage = (songInfo) => {
 	if (!songInfo.image) return icon;
 	if (!config.get("interactive")) return nativeImageToLogo(songInfo.image);
@@ -44,7 +58,7 @@ module.exports.notificationImage = (songInfo) => {
 	};
 };
 
-module.exports.saveImage = (img, save_path) => {
+module.exports.saveImage = cache((img, save_path) => {
 	try {
 		fs.writeFileSync(save_path, img.toPNG());
 	} catch (err) {
@@ -52,19 +66,7 @@ module.exports.saveImage = (img, save_path) => {
 		return icon;
 	}
 	return save_path;
-}
-
-
-function nativeImageToLogo(nativeImage) {
-	const tempImage = nativeImage.resize({ height: 256 });
-	const margin = Math.max((tempImage.getSize().width - 256), 0);
-
-	return tempImage.crop({
-		x: Math.round(margin / 2),
-		y: 0,
-		width: 256, height: 256
-	})
-}
+});
 
 module.exports.save_temp_icons = () => {
 	for (const kind of Object.keys(module.exports.icons)) {

@@ -4,6 +4,8 @@ const { setOptions, setMenuOptions, isEnabled } = require("../../config/plugins"
 
 function $(selector) { return document.querySelector(selector); }
 
+const { debounce } = require("../../providers/decorators");
+
 let api, options;
 
 module.exports = (_options) => {
@@ -16,7 +18,27 @@ module.exports = (_options) => {
 	}, { once: true, passive: true })
 };
 
-module.exports.moveVolumeHud = moveVolumeHud;
+//without this function it would rewrite config 20 time when volume change by 20
+const writeOptions = debounce(() => {
+	setOptions("precise-volume", options);
+}, 1000);
+
+module.exports.moveVolumeHud = debounce((showVideo) => {
+	const volumeHud = $("#volumeHud");
+	if (!volumeHud) return;
+	volumeHud.style.top = showVideo
+		? `${($("ytmusic-player").clientHeight - $("video").clientHeight) / 2}px`
+		: 0;
+}, 250);
+
+const hideVolumeHud = debounce((volumeHud) => {
+	volumeHud.style.opacity = 0;
+}, 2000);
+
+const hideVolumeSlider = debounce((slider) => {
+	slider.classList.remove("on-hover");
+}, 2500);
+
 
 /** Restore saved volume and setup tooltip */
 function firstRun() {
@@ -67,33 +89,14 @@ function injectVolumeHud(noVid) {
 	}
 }
 
-let hudMoveTimeout;
-function moveVolumeHud(showVideo) {
-	clearTimeout(hudMoveTimeout);
-	const volumeHud = $('#volumeHud');
-	if (!volumeHud) return;
-	hudMoveTimeout = setTimeout(() => {
-		volumeHud.style.top = showVideo ? `${($('ytmusic-player').clientHeight - $('video').clientHeight) / 2}px` : 0;
-	}, 250)
-}
-
-let hudFadeTimeout;
-
 function showVolumeHud(volume) {
-	let volumeHud = $("#volumeHud");
+	const volumeHud = $("#volumeHud");
 	if (!volumeHud) return;
 
-	volumeHud.textContent = volume + '%';
+	volumeHud.textContent = `${volume}%`;
 	volumeHud.style.opacity = 1;
 
-	if (hudFadeTimeout) {
-		clearTimeout(hudFadeTimeout);
-	}
-
-	hudFadeTimeout = setTimeout(() => {
-		volumeHud.style.opacity = 0;
-		hudFadeTimeout = null;
-	}, 2000);
+	hideVolumeHud(volumeHud);
 }
 
 /** Add onwheel event to video player */
@@ -108,17 +111,6 @@ function setupVideoPlayerOnwheel() {
 function saveVolume(volume) {
 	options.savedVolume = volume;
 	writeOptions();
-}
-
-//without this function it would rewrite config 20 time when volume change by 20
-let writeTimeout;
-function writeOptions() {
-	if (writeTimeout) clearTimeout(writeTimeout);
-
-	writeTimeout = setTimeout(() => {
-		setOptions("precise-volume", options);
-		writeTimeout = null;
-	}, 1000)
 }
 
 /** Add onwheel event to play bar and also track if play bar is hovered*/
@@ -199,23 +191,12 @@ function updateVolumeSlider() {
 	}
 }
 
-let volumeHoverTimeoutID;
-
 function showVolumeSlider() {
 	const slider = $("#volume-slider");
 	// This class display the volume slider if not in minimized mode
 	slider.classList.add("on-hover");
-	// Reset timeout if previous one hasn't completed
-	if (volumeHoverTimeoutID) {
-		clearTimeout(volumeHoverTimeoutID);
-	}
-	// Timeout to remove volume preview after 3 seconds if playbar isn't hovered
-	volumeHoverTimeoutID = setTimeout(() => {
-		volumeHoverTimeoutID = null;
-		if (!$("ytmusic-player-bar").classList.contains("on-hover")) {
-			slider.classList.remove("on-hover");
-		}
-	}, 3000);
+	
+	hideVolumeSlider(slider);
 }
 
 // Set new volume as tooltip for volume slider and icon + expanding slider (appears when window size is small)
