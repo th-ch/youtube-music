@@ -19,5 +19,5 @@ jobs:
     steps:
       - name: Yarn PnP Setup
         uses: Araxeus/setup-yarn-pnp-action@v1
-      - name: "Run Lint"
-        run: yarn lint
+      - name: "Run checks"
+        run: yarn check
