@@ -1,7 +1,7 @@
 const { setOptions } = require("../../config/plugins");
 const { toggleRomanized } = require("./back");
 
-module.exports = (win, options, refreshMenu) => {
+module.exports = (_, options) => {
 	return [
 		{
 			label: "Romanized Lyrics",
@@ -9,7 +9,7 @@ module.exports = (win, options, refreshMenu) => {
 			checked: options.romanizedLyrics,
 			click: (item) => {
 				options.romanizedLyrics = item.checked;
-				setOptions('lyrics-genius', options);
+				setOptions("lyrics-genius", options);
 				toggleRomanized();
 			},
 		},
