@@ -8,7 +8,7 @@ let transitionAudio; // Howler audio used to fade out the current music
 let firstVideo = true;
 let waitForTransition;
 
-const defaultOptions = require('../../config/defaults').plugins.crossfade;
+const config = require('../../config/defaults').plugins.crossfade;
 
 const getStreamURL = async (videoID) => {
 	const url = await ipcRenderer.invoke("audio-url", videoID);
@@ -62,8 +62,8 @@ const createAudioForCrossfade = async (url) => {
 const syncVideoWithTransitionAudio = async () => {
 	const video = document.querySelector("video");
 	const videoFader = new VolumeFader(video, {
-		fadeScaling: defaultOptions.fadeScaling,
-		fadeDuration: defaultOptions.fadeInDuration,
+		fadeScaling: config.fadeScaling,
+		fadeDuration: config.fadeInDuration,
 	});
 
 	await transitionAudio.play();
@@ -89,7 +89,7 @@ const syncVideoWithTransitionAudio = async () => {
 	const transitionBeforeEnd = () => {
 		if (
 			video.currentTime >=
-				video.duration - defaultOptions.exitMusicBeforeEnd &&
+				video.duration - config.exitMusicBeforeEnd &&
 			isReadyToCrossfade()
 		) {
 			video.removeEventListener("timeupdate", transitionBeforeEnd);
@@ -124,8 +124,8 @@ const crossfade = (cb) => {
 
 	const fader = new VolumeFader(transitionAudio._sounds[0]._node, {
 		initialVolume: video.volume,
-		fadeScaling: defaultOptions.fadeScaling,
-		fadeDuration: defaultOptions.fadeOutDuration,
+		fadeScaling: config.fadeScaling,
+		fadeDuration: config.fadeOutDuration,
 	});
 
 	// Fade out the music
@@ -137,7 +137,7 @@ const crossfade = (cb) => {
 };
 
 module.exports = (options) => {
-	Object.assign(defaultOptions, options);
+	Object.assign(config, options);
 
 	document.addEventListener("apiLoaded", onApiLoaded, {
 		once: true,
