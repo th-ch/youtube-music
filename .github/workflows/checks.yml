@@ -8,9 +8,7 @@ jobs:
   dependency-review:
     runs-on: ubuntu-latest
     steps:
-      - name: Yarn PnP Setup
-        uses: Araxeus/setup-yarn-pnp-action@v1
-
+      - uses: actions/checkout@v3
       - name: "Dependency Review"
         uses: actions/dependency-review-action@v3
 
