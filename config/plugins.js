@@ -1,52 +1,52 @@
-const store = require("./store");
-const { restart } = require("../providers/app-controls");
+const store = require('./store');
+const { restart } = require('../providers/app-controls');
 
 function getEnabled() {
-	const plugins = store.get("plugins");
-	const enabledPlugins = Object.entries(plugins).filter(([plugin]) =>
-		isEnabled(plugin),
-	);
-	return enabledPlugins;
+    const plugins = store.get('plugins');
+    const enabledPlugins = Object.entries(plugins).filter(([plugin]) =>
+        isEnabled(plugin),
+    );
+    return enabledPlugins;
 }
 
 function isEnabled(plugin) {
-	return store.get("plugins")[plugin]?.enabled;
+    return store.get('plugins')[plugin]?.enabled;
 }
 
 function setOptions(plugin, options) {
-	const plugins = store.get("plugins");
-	store.set("plugins", {
-		...plugins,
-		[plugin]: {
-			...plugins[plugin],
-			...options,
-		},
-	});
+    const plugins = store.get('plugins');
+    store.set('plugins', {
+        ...plugins,
+        [plugin]: {
+            ...plugins[plugin],
+            ...options,
+        },
+    });
 }
 
 function setMenuOptions(plugin, options) {
-	setOptions(plugin, options);
-	if (store.get("options.restartOnConfigChanges")) restart();
+    setOptions(plugin, options);
+    if (store.get('options.restartOnConfigChanges')) restart();
 }
 
 function getOptions(plugin) {
-	return store.get("plugins")[plugin];
+    return store.get('plugins')[plugin];
 }
 
 function enable(plugin) {
-	setMenuOptions(plugin, { enabled: true });
+    setMenuOptions(plugin, { enabled: true });
 }
 
 function disable(plugin) {
-	setMenuOptions(plugin, { enabled: false });
+    setMenuOptions(plugin, { enabled: false });
 }
 
 module.exports = {
-	isEnabled,
-	getEnabled,
-	enable,
-	disable,
-	setOptions,
-	setMenuOptions,
-	getOptions,
+    isEnabled,
+    getEnabled,
+    enable,
+    disable,
+    setOptions,
+    setMenuOptions,
+    getOptions,
 };

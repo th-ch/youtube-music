@@ -1,25 +1,25 @@
-const Vudio = require("vudio/umd/vudio");
+const Vudio = require('vudio/umd/vudio');
 
 class VudioVisualizer {
-	constructor({ canvas, stream, options }) {
-		this.visualizer = new Vudio(stream, canvas, {
-			width: canvas.width,
-			height: canvas.height,
-			// Visualizer config
-			...options,
-		});
-	}
+    constructor({ canvas, stream, options }) {
+        this.visualizer = new Vudio(stream, canvas, {
+            width: canvas.width,
+            height: canvas.height,
+            // Visualizer config
+            ...options,
+        });
+    }
 
-	resize(width, height) {
-		this.visualizer.setOption({
-			width: width,
-			height: height,
-		});
-	}
+    resize(width, height) {
+        this.visualizer.setOption({
+            width: width,
+            height: height,
+        });
+    }
 
-	render() {
-		this.visualizer.dance();
-	}
+    render() {
+        this.visualizer.dance();
+    }
 }
 
 module.exports = VudioVisualizer;
