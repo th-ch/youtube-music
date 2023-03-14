@@ -58,7 +58,7 @@ module.exports.setupRepeatChangedListener = singleton(() => {
 });
 
 module.exports.setupVolumeChangedListener = singleton((api) => {
-	$("video").addEventListener("volumechange", () => {
+	$("video").addEventListener("volumechange", (_) => {
 		ipcRenderer.send("volumeChanged", api.getVolume());
 	});
 	// Emit the initial value as well; as it's persistent between launches.
@@ -87,11 +87,14 @@ module.exports = () => {
 
 			const video = $("video");
 			// name = "dataloaded" and abit later "dataupdated"
-			apiEvent.detail.addEventListener("videodatachange", (name) => {
-				if (name !== "dataloaded") return;
-				video.dispatchEvent(srcChangedEvent);
-				sendSongInfo();
-			});
+			apiEvent.detail.addEventListener(
+				"videodatachange",
+				(name, _dataEvent) => {
+					if (name !== "dataloaded") return;
+					video.dispatchEvent(srcChangedEvent);
+					setTimeout(sendSongInfo());
+				},
+			);
 
 			for (const status of ["playing", "pause"]) {
 				video.addEventListener(status, (e) => {
@@ -109,7 +112,12 @@ module.exports = () => {
 
 				data.videoDetails.album = $$(
 					".byline.ytmusic-player-bar > .yt-simple-endpoint",
-				).find((e) => e.href?.includes("browse"))?.textContent;
+				).find(
+					(e) =>
+						e.href?.includes(
+							"browse/FEmusic_library_privately_owned_release",
+						) || e.href?.includes("browse/MPREb"),
+				)?.textContent;
 
 				data.videoDetails.elapsedSeconds = Math.floor(video.currentTime);
 				data.videoDetails.isPaused = false;
