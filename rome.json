@@ -1,5 +1,15 @@
 {
   "$schema": "./node_modules/rome/configuration_schema.json",
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single"
+    }
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentSize": 4
+  },
   "linter": {
     "enabled": true,
     "rules": {
