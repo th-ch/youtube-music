@@ -59,7 +59,7 @@ const sendError = (error) => {
 		buttons: ["OK"],
 		title: "Error in download!",
 		message: "Argh! Apologies, download failed…",
-		detail: error.toString(),
+		detail: `${error.toString()} ${error.cause ? `\n\n${error.cause.toString()}` : ''}`,
 	});
 };
 
@@ -85,6 +85,19 @@ module.exports = async (win_, options) => {
 module.exports.downloadSong = downloadSong;
 
 async function downloadSong(
+	url,
+	playlistFolder = undefined,
+	trackId = undefined,
+	increasePlaylistProgress = () => {},
+) {
+	try {
+		await downloadSongUnsafe(url, playlistFolder, trackId, increasePlaylistProgress);
+	} catch (error) {
+		sendError(error);
+	}
+}
+
+async function downloadSongUnsafe(
 	url,
 	playlistFolder = undefined,
 	trackId = undefined,
