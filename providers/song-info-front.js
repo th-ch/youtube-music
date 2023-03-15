@@ -76,7 +76,7 @@ module.exports = () => {
 		apiEvent.detail.addEventListener('videodatachange', (name, _dataEvent) => {
 			if (name !== 'dataloaded') return;
 			video.dispatchEvent(srcChangedEvent);
-			sendSongInfo();
+			setTimeout(sendSongInfo());
 		})
 
 		for (const status of ['playing', 'pause']) {
@@ -95,7 +95,10 @@ module.exports = () => {
 
 			data.videoDetails.album = $$(
 				".byline.ytmusic-player-bar > .yt-simple-endpoint"
-			).find(e => e.href?.includes("browse"))?.textContent;
+			).find(e =>
+				e.href?.includes("browse/FEmusic_library_privately_owned_release")
+				|| e.href?.includes("browse/MPREb")
+			)?.textContent;
 
 			data.videoDetails.elapsedSeconds = Math.floor(video.currentTime);
 			data.videoDetails.isPaused = false;

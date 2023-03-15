@@ -12,9 +12,15 @@
 	height: 75px !important;
 }
 
-/* fixes top gap between nav-bar and browse-page */
+/* fix top gap between nav-bar and browse-page */
 #browse-page {
 	padding-top: 0 !important;
+}
+
+/* fix navbar hiding library items */
+ytmusic-section-list-renderer[page-type="MUSIC_PAGE_TYPE_LIBRARY_CONTENT_LANDING_PAGE"] {
+	top: 50px;
+    position: relative;
 }
 
 /* remove window dragging for nav bar (conflict with titlebar drag) */

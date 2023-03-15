@@ -131,7 +131,7 @@ const mainMenuTemplate = (win) => {
 					],
 				},
 				{
-					label: "Release single instance lock",
+					label: "Single instance lock",
 					type: "checkbox",
 					checked: false,
 					click: (item) => {
