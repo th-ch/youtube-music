@@ -12,7 +12,7 @@ jobs:
       - name: "Dependency Review"
         uses: actions/dependency-review-action@v3
 
-  run-lint:
+  checks:
     runs-on: ubuntu-latest
     steps:
       - name: Yarn PnP Setup
