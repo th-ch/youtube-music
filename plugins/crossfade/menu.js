@@ -18,7 +18,6 @@ async function promptCrossfadeValues(win, options) {
 	const res = await prompt(
 		{
 			title: "Crossfade Options",
-			label: "",
 			type: "multiInput",
 			multiInputOptions: [
 				{
@@ -58,7 +57,7 @@ async function promptCrossfadeValues(win, options) {
 				},
 			],
 			resizable: true,
-			height: 355,
+			height: 360,
 			...promptOptions(),
 		},
 		win,
