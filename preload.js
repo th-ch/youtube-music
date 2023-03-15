@@ -5,7 +5,11 @@ const { setupSongControls } = require("./providers/song-controls-front");
 const { ipcRenderer } = require("electron");
 const is = require("electron-is");
 
+const { startingPages } = require("./providers/extracted-data");
+
 const plugins = config.plugins.getEnabled();
+
+const $ = document.querySelector.bind(document);
 
 let api;
 
@@ -79,14 +83,14 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function listenForApiLoad() {
-	api = document.querySelector('#movie_player');
+	api = $('#movie_player');
 	if (api) {
 		onApiLoaded();
 		return;
 	}
 
 	const observer = new MutationObserver(() => {
-		api = document.querySelector('#movie_player');
+		api = $('#movie_player');
 		if (api) {
 			observer.disconnect();
 			onApiLoaded();
@@ -97,7 +101,7 @@ function listenForApiLoad() {
 }
 
 function onApiLoaded() {
-	const video = document.querySelector("video");
+	const video = $("video");
 	const audioContext = new AudioContext();
 	const audioSource = audioContext.createMediaElementSource(video);
 	audioSource.connect(audioContext.destination);
@@ -127,9 +131,15 @@ function onApiLoaded() {
 	document.dispatchEvent(new CustomEvent('apiLoaded', { detail: api }));
 	ipcRenderer.send('apiLoaded');
 
+	// Navigate to "Starting page"
+	const startingPage = config.get("options.startingPage");
+	if (startingPage !== "home" && startingPages[startingPage]) {
+		$('ytmusic-app')?.navigate_(startingPages[startingPage]);
+	}
+
 	// Remove upgrade button
 	if (config.get("options.removeUpgradeButton")) {
-		const upgradeButton = document.querySelector('ytmusic-pivot-bar-item-renderer[tab-id="SPunlimited"]')
+		const upgradeButton = $('ytmusic-pivot-bar-item-renderer[tab-id="SPunlimited"]')
 		if (upgradeButton) {
 			upgradeButton.style.display = "none";
 		}
@@ -137,7 +147,7 @@ function onApiLoaded() {
 
 	// Force show like buttons
 	if (config.get("options.ForceShowLikeButtons")) {
-		const likeButtons = document.querySelector('ytmusic-like-button-renderer')
+		const likeButtons = $('ytmusic-like-button-renderer')
 		if (likeButtons) {
 			likeButtons.style.display = 'inherit';
 		}

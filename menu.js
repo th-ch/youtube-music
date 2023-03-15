@@ -7,6 +7,7 @@ const { restart } = require("./providers/app-controls");
 
 const { getAllPlugins } = require("./plugins/utils");
 const config = require("./config");
+const { startingPages } = require("./providers/extracted-data");
 
 const prompt = require("custom-electron-prompt");
 const promptOptions = require("./providers/prompt-options");
@@ -80,6 +81,17 @@ const mainMenuTemplate = (win) => {
 					click: (item) => {
 						config.setMenuOption("options.resumeOnStart", item.checked);
 					},
+				},
+				{
+					label: 'Starting page',
+					submenu: Object.keys(startingPages).map((name) => ({
+						label: name,
+						type: 'radio',
+						checked: config.get('options.startingPage') === name,
+						click: () => {
+							config.set('options.startingPage', name);
+						},
+					}))
 				},
 				{
 					label: "Visual Tweaks",
