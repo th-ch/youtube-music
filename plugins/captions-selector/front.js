@@ -1,25 +1,25 @@
 const { ElementFromFile, templatePath } = require("../utils");
 const { ipcRenderer } = require("electron");
 
+const config = require("./config");
+
 function $(selector) { return document.querySelector(selector); }
 
 const captionsSettingsButton = ElementFromFile(
     templatePath(__dirname, "captions-settings-template.html")
 );
 
-module.exports = (options) => {
-    document.addEventListener('apiLoaded', (event) => setup(event, options), { once: true, passive: true });
+module.exports = () => {
+    document.addEventListener('apiLoaded', (event) => setup(event.detail), { once: true, passive: true });
 }
 
-function setup(event, options) {
-    const api = event.detail;
-
+function setup(api) {
     $(".right-controls-buttons").append(captionsSettingsButton);
 
     let captionTrackList = api.getOption("captions", "tracklist");
 
-	$("video").addEventListener("srcChanged", () => {
-		if (options.disableCaptions) {
+	$("video").addEventListener("srcChanged", async () => {
+		if (await config.get('disableCaptions')) {
 			setTimeout(() => api.unloadModule("captions"), 100);
 			captionsSettingsButton.style.display = "none";
 			return;
@@ -27,8 +27,14 @@ function setup(event, options) {
 
 		api.loadModule("captions");
 
-		setTimeout(() => {
+		setTimeout(async () => {
 			captionTrackList = api.getOption("captions", "tracklist");
+
+			if (await config.get("autoload") && await config.get("lastCaptionsCode")) {
+				api.setOption("captions", "track", {
+					languageCode: await config.get("lastCaptionsCode"),
+				});
+			}
 
 			captionsSettingsButton.style.display = captionTrackList?.length
 				? "inline-block"
@@ -52,6 +58,7 @@ function setup(event, options) {
 			if (currentIndex === null) return;
 
 			const newCaptions = captionTrackList[currentIndex];
+            config.set('lastCaptionsCode', newCaptions?.languageCode);
 			if (newCaptions) {
 				api.setOption("captions", "track", { languageCode: newCaptions.languageCode });
 			} else {
