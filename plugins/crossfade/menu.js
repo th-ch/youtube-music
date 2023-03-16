@@ -52,7 +52,7 @@ async function promptCrossfadeValues(win, options) {
 				},
 				{
 					label: "Fade scaling",
-					selectOptions: { linear: "Linear", exponential: "Exponential" },
+					selectOptions: { linear: "Linear", logarithmic: "Logarithmic" },
 					value: options.fadeScaling || defaultOptions.fadeScaling,
 				},
 			],
@@ -64,9 +64,9 @@ async function promptCrossfadeValues(win, options) {
 	).catch(console.error);
 	if (!res) return undefined;
 	return {
-		fadeInDuration: res[0],
-		fadeOutDuration: res[1],
-		exitMusicBeforeEnd: res[2],
+		fadeInDuration: Number(res[0]),
+		fadeOutDuration: Number(res[1]),
+		exitMusicBeforeEnd: Number(res[2]),
 		fadeScaling: res[3],
 	};
 }
