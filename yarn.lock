@@ -2425,12 +2425,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"custom-electron-prompt@npm:^1.5.4":
-  version: 1.5.4
-  resolution: "custom-electron-prompt@npm:1.5.4"
+"custom-electron-prompt@npm:^1.5.7":
+  version: 1.5.7
+  resolution: "custom-electron-prompt@npm:1.5.7"
   peerDependencies:
     electron: ">=10.0.0"
-  checksum: 93995b5f0e9d14401a8c4fdd358af32d8b7585b59b111667cfa55f9505109c08914f3140953125b854e5d09e811de8c76c7fec718934c13e8a1ad09fe1b85270
+  checksum: 7dd7b2fb6e0acdee35474893d0e98b5e701c411c76be716cc02c5c9ac42db4fdaa7d526e22fd8c7047c2f143559d185bed8731bd455a1d11982404512d5f5021
   languageName: node
   linkType: hard
 
@@ -8981,7 +8981,7 @@ __metadata:
     butterchurn: ^2.6.7
     butterchurn-presets: ^2.4.7
     chokidar: ^3.5.3
-    custom-electron-prompt: ^1.5.4
+    custom-electron-prompt: ^1.5.7
     custom-electron-titlebar: ^4.1.6
     del-cli: ^5.0.0
     electron: ^22.0.2
