@@ -40,7 +40,7 @@ module.exports.setUpTray = (app, win) => {
 
 	tray = new Tray(trayIcon);
 
-	tray.setToolTip("Youtube Music");
+	tray.setToolTip("YouTube Music");
 
 	// macOS only
 	tray.setIgnoreDoubleClickEvents(true);
