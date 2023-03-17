@@ -7,7 +7,7 @@ const fetch = require("node-fetch");
 
 const { cleanupName } = require("../../providers/song-info");
 const { injectCSS } = require("../utils");
-let eastAsianChars = new RegExp("[\u{3040}-\u{30ff}\u{3400}-\u{4dbf}\u{4e00}-\u{9fff}\u{f900}-\u{faff}\u{ff66}-\u{ff9f}]");
+let eastAsianChars = new RegExp("[\uac00-\ud7af]|[\u1100-\u11ff]|[\u3130-\u318f]|[\ua960-\ua97f]|[\ud7b0-\ud7ff]|[\u3040-\u309F]|[\u3000-\u303F\u3400-\u4DBF\u4E00-\u9FFF]");
 let revRomanized = false; 
 
 module.exports = async (win, options) => {
