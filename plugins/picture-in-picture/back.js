@@ -15,86 +15,83 @@ let win;
 let options;
 
 const pipPosition = () =>
-    (options.savePosition && options['pip-position']) || [10, 10];
+  (options.savePosition && options['pip-position']) || [10, 10];
 const pipSize = () => (options.saveSize && options['pip-size']) || [450, 275];
 
 const setLocalOptions = (_options) => {
-    options = { ...options, ..._options };
-    setOptions('picture-in-picture', _options);
+  options = { ...options, ..._options };
+  setOptions('picture-in-picture', _options);
 };
 
 const togglePiP = async () => {
-    isInPiP = !isInPiP;
-    setLocalOptions({ isInPiP });
+  isInPiP = !isInPiP;
+  setLocalOptions({ isInPiP });
 
-    if (isInPiP) {
-        originalFullScreen = win.isFullScreen();
-        if (originalFullScreen) win.setFullScreen(false);
-        originalMaximized = win.isMaximized();
-        if (originalMaximized) win.unmaximize();
+  if (isInPiP) {
+    originalFullScreen = win.isFullScreen();
+    if (originalFullScreen) win.setFullScreen(false);
+    originalMaximized = win.isMaximized();
+    if (originalMaximized) win.unmaximize();
 
-        originalPosition = win.getPosition();
-        originalSize = win.getSize();
+    originalPosition = win.getPosition();
+    originalSize = win.getSize();
 
-        win.webContents.on('before-input-event', blockShortcutsInPiP);
+    win.webContents.on('before-input-event', blockShortcutsInPiP);
 
-        win.setMaximizable(false);
-        win.setFullScreenable(false);
+    win.setMaximizable(false);
+    win.setFullScreenable(false);
 
-        win.webContents.send('pip-toggle', true);
+    win.webContents.send('pip-toggle', true);
 
-        app.dock?.hide();
-        win.setVisibleOnAllWorkspaces(true, {
-            visibleOnFullScreen: true,
-        });
-        app.dock?.show();
-        if (options.alwaysOnTop) {
-            win.setAlwaysOnTop(true, 'screen-saver', 1);
-        }
-    } else {
-        win.webContents.removeListener(
-            'before-input-event',
-            blockShortcutsInPiP,
-        );
-        win.setMaximizable(true);
-        win.setFullScreenable(true);
-
-        win.webContents.send('pip-toggle', false);
-
-        win.setVisibleOnAllWorkspaces(false);
-        win.setAlwaysOnTop(false);
-
-        if (originalFullScreen) win.setFullScreen(true);
-        if (originalMaximized) win.maximize();
+    app.dock?.hide();
+    win.setVisibleOnAllWorkspaces(true, {
+      visibleOnFullScreen: true,
+    });
+    app.dock?.show();
+    if (options.alwaysOnTop) {
+      win.setAlwaysOnTop(true, 'screen-saver', 1);
     }
+  } else {
+    win.webContents.removeListener('before-input-event', blockShortcutsInPiP);
+    win.setMaximizable(true);
+    win.setFullScreenable(true);
 
-    const [x, y] = isInPiP ? pipPosition() : originalPosition;
-    const [w, h] = isInPiP ? pipSize() : originalSize;
-    win.setPosition(x, y);
-    win.setSize(w, h);
+    win.webContents.send('pip-toggle', false);
 
-    win.setWindowButtonVisibility?.(!isInPiP);
+    win.setVisibleOnAllWorkspaces(false);
+    win.setAlwaysOnTop(false);
+
+    if (originalFullScreen) win.setFullScreen(true);
+    if (originalMaximized) win.maximize();
+  }
+
+  const [x, y] = isInPiP ? pipPosition() : originalPosition;
+  const [w, h] = isInPiP ? pipSize() : originalSize;
+  win.setPosition(x, y);
+  win.setSize(w, h);
+
+  win.setWindowButtonVisibility?.(!isInPiP);
 };
 
 const blockShortcutsInPiP = (event, input) => {
-    const key = input.key.toLowerCase();
+  const key = input.key.toLowerCase();
 
-    if (key === 'f') {
-        event.preventDefault();
-    } else if (key === 'escape') {
-        togglePiP();
-        event.preventDefault();
-    }
+  if (key === 'f') {
+    event.preventDefault();
+  } else if (key === 'escape') {
+    togglePiP();
+    event.preventDefault();
+  }
 };
 
 module.exports = (_win, _options) => {
-    options ??= _options;
-    win ??= _win;
-    setLocalOptions({ isInPiP });
-    injectCSS(win.webContents, path.join(__dirname, 'style.css'));
-    ipcMain.on('picture-in-picture', async () => {
-        await togglePiP();
-    });
+  options ??= _options;
+  win ??= _win;
+  setLocalOptions({ isInPiP });
+  injectCSS(win.webContents, path.join(__dirname, 'style.css'));
+  ipcMain.on('picture-in-picture', async () => {
+    await togglePiP();
+  });
 };
 
 module.exports.setOptions = setLocalOptions;

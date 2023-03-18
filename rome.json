@@ -8,7 +8,7 @@
   "formatter": {
     "enabled": true,
     "indentStyle": "space",
-    "indentSize": 4
+    "indentSize": 2
   },
   "linter": {
     "enabled": true,
