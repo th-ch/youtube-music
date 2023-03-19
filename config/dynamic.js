@@ -3,6 +3,30 @@ const { ipcRenderer, ipcMain } = require("electron");
 const defaultConfig = require("./defaults");
 const { getOptions, setOptions, setMenuOptions } = require("./plugins");
 
+const activePlugins = {};
+/**
+ * [!IMPORTANT!]
+ * The method is **sync** in the main process and **async** in the renderer process.
+ */
+module.exports.getActivePlugins =
+	process.type === "renderer"
+		? async () => ipcRenderer.invoke("get-active-plugins")
+		: () => activePlugins;
+
+if (process.type === "browser") {
+	ipcMain.handle("get-active-plugins", this.getActivePlugins);
+}
+
+/**
+ * [!IMPORTANT!]
+ * The method is **sync** in the main process and **async** in the renderer process.
+ */
+module.exports.isActive =
+	process.type === "renderer"
+		? async (plugin) =>
+				plugin in (await ipcRenderer.invoke("get-active-plugins"))
+		: (plugin) => plugin in activePlugins;
+
 /**
  * This class is used to create a dynamic synced config for plugins.
  *
@@ -17,9 +41,9 @@ const { getOptions, setOptions, setMenuOptions } = require("./plugins");
  * const { PluginConfig } = require("../../config/dynamic");
  * const config = new PluginConfig("plugin-name", { enableFront: true });
  * module.exports = { ...config };
- * 
+ *
  * // or
- * 
+ *
  * module.exports = (win, options) => {
  *  const config = new PluginConfig("plugin-name", {
  *  	enableFront: true,
@@ -46,6 +70,8 @@ module.exports.PluginConfig = class PluginConfig {
 		if (this.#enableFront) {
 			this.#setupFront();
 		}
+
+		activePlugins[name] = this;
 	}
 
 	get = (option) => {
@@ -85,6 +111,7 @@ module.exports.PluginConfig = class PluginConfig {
 		setMenuOptions(this.#name, this.#config);
 	};
 
+	/** Called only from back */
 	#save() {
 		setOptions(this.#name, this.#config);
 	}
