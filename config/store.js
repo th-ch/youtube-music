@@ -19,6 +19,11 @@ const migrations = {
 				...pluginOptions,
 			});
 		}
+
+		if (store.get("options.ForceShowLikeButtons")) {
+			store.delete("options.ForceShowLikeButtons");
+			store.set("options.likeButtons", 'force');
+		}
 	},
 	">=1.17.0": (store) => {
 		setDefaultPluginOptions(store, "picture-in-picture");

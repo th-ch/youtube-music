@@ -18,7 +18,8 @@
 }
 
 /* fix navbar hiding library items */
-ytmusic-section-list-renderer[page-type="MUSIC_PAGE_TYPE_LIBRARY_CONTENT_LANDING_PAGE"] {
+ytmusic-section-list-renderer[page-type="MUSIC_PAGE_TYPE_LIBRARY_CONTENT_LANDING_PAGE"],
+ytmusic-section-list-renderer[page-type="MUSIC_PAGE_TYPE_PRIVATELY_OWNED_CONTENT_LANDING_PAGE"] {
 	top: 50px;
     position: relative;
 }
