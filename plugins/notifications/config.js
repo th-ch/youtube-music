@@ -1,23 +1,5 @@
-const { setOptions, setMenuOptions } = require("../../config/plugins");
-const defaultConfig = require("../../config/defaults");
+const { PluginConfig } = require("../../config/dynamic");
 
-let config = defaultConfig.plugins["notifications"];
+const config = new PluginConfig("notifications");
 
-module.exports.init = (options) => {
-	config = { ...config, ...options };
-};
-
-module.exports.setAndMaybeRestart = (option, value) => {
-	config[option] = value;
-	setMenuOptions("notifications", config);
-};
-
-module.exports.set = (option, value) => {
-	config[option] = value;
-	setOptions("notifications", config);
-};
-
-module.exports.get = (option) => {
-	let res = config[option];
-	return res;
-};
+module.exports = { ...config };
