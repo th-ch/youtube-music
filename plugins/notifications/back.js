@@ -2,8 +2,9 @@ const { Notification } = require("electron");
 const is = require("electron-is");
 const registerCallback = require("../../providers/song-info");
 const { notificationImage } = require("./utils");
+const config = require("./config");
 
-const notify = (info, options) => {
+const notify = (info) => {
 
 	// Fill the notification with content
 	const notification = {
@@ -11,7 +12,7 @@ const notify = (info, options) => {
 		body: info.artist,
 		icon: notificationImage(info),
 		silent: true,
-		urgency: options.urgency,
+		urgency: config.get('urgency'),
 	};
 
 	// Send the notification
@@ -21,24 +22,25 @@ const notify = (info, options) => {
 	return currentNotification;
 };
 
-const setup = (options) => {
+const setup = () => {
 	let oldNotification;
 	let currentUrl;
 
 	registerCallback(songInfo => {
-		if (!songInfo.isPaused && (songInfo.url !== currentUrl || options.unpauseNotification)) {
+		if (!songInfo.isPaused && (songInfo.url !== currentUrl || config.get('unpauseNotification'))) {
 			// Close the old notification
 			oldNotification?.close();
 			currentUrl = songInfo.url;
 			// This fixes a weird bug that would cause the notification to be updated instead of showing
-			setTimeout(() => { oldNotification = notify(songInfo, options) }, 10);
+			setTimeout(() => { oldNotification = notify(songInfo) }, 10);
 		}
 	});
 }
 
+/** @param {Electron.BrowserWindow} win */
 module.exports = (win, options) => {
 	// Register the callback for new song information
 	is.windows() && options.interactive ?
-		require("./interactive")(win, options.unpauseNotification) :
-		setup(options);
+		require("./interactive")(win) :
+		setup();
 };
