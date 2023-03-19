@@ -34,11 +34,6 @@ autoUpdater.autoDownload = false;
 const gotTheLock = app.requestSingleInstanceLock();
 if (!gotTheLock) app.exit();
 
-app.commandLine.appendSwitch(
-	"js-flags",
-	// WebAssembly flags
-	"--experimental-wasm-threads"
-);
 app.commandLine.appendSwitch("enable-features", "SharedArrayBuffer"); // Required for downloader
 app.allowRendererProcessReuse = true; // https://github.com/electron/electron/issues/18397
 if (config.get("options.disableHardwareAcceleration")) {
