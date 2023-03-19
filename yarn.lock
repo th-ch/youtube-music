@@ -48,59 +48,59 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cliqz/adblocker-content@npm:^1.25.2":
-  version: 1.25.2
-  resolution: "@cliqz/adblocker-content@npm:1.25.2"
+"@cliqz/adblocker-content@npm:^1.26.2":
+  version: 1.26.2
+  resolution: "@cliqz/adblocker-content@npm:1.26.2"
   dependencies:
-    "@cliqz/adblocker-extended-selectors": ^1.25.2
-  checksum: c7781a9e07d6b685c10604abc72cdf79c48a7211f10901e316d506b4a296bf644c9292a256fe988c7074ebeedfd00075849ae74b648ec3672bf3da61723bb0c4
+    "@cliqz/adblocker-extended-selectors": ^1.26.2
+  checksum: 00ddbf157ca5ea97e3d8517f1d9397ca53eecfc95b6f09a327667ad388cafae84de655af8bac6d0c1f12b004b0c7eb8fc898f442f05e6b9d2294709a3bfb6a81
   languageName: node
   linkType: hard
 
-"@cliqz/adblocker-electron-preload@npm:^1.25.2":
-  version: 1.25.2
-  resolution: "@cliqz/adblocker-electron-preload@npm:1.25.2"
+"@cliqz/adblocker-electron-preload@npm:^1.26.2":
+  version: 1.26.2
+  resolution: "@cliqz/adblocker-electron-preload@npm:1.26.2"
   dependencies:
-    "@cliqz/adblocker-content": ^1.25.2
+    "@cliqz/adblocker-content": ^1.26.2
   peerDependencies:
     electron: ">11"
-  checksum: 196324d67768bbd1a9ec1023c1a8be0ebd25605621690762641ecc40272f822c179d9081b6c78603b5ba70ec1d49bb6ba3f9f4d48c6f92794b21a06bdd277300
+  checksum: e130911f00f9fbaa8f3edb3f36501a6f39b0f798a2dbeb8d8416219f3381edd7c34036452229472bd51fad13fa880ea24dc4b56419df0dffaa49f63f15a01451
   languageName: node
   linkType: hard
 
-"@cliqz/adblocker-electron@npm:^1.25.2":
-  version: 1.25.2
-  resolution: "@cliqz/adblocker-electron@npm:1.25.2"
+"@cliqz/adblocker-electron@npm:^1.26.0":
+  version: 1.26.2
+  resolution: "@cliqz/adblocker-electron@npm:1.26.2"
   dependencies:
-    "@cliqz/adblocker": ^1.25.2
-    "@cliqz/adblocker-electron-preload": ^1.25.2
+    "@cliqz/adblocker": ^1.26.2
+    "@cliqz/adblocker-electron-preload": ^1.26.2
     tldts-experimental: ^5.6.21
   peerDependencies:
     electron: ">11"
-  checksum: 8d18e85490bc60b95e880fd3315e2111e05f123bf820e87963f4fa0bf65b78d3043541b02588950b152b827414baa11cdf74159042ccc8e144afea9eef84fe62
+  checksum: 308e7e6273bdf055ba5a637111d301c6c7cc3f46c7b31e6e658addab7bcb735f162e77b50f123e2841a769b38b810f85e959dd7da382298c0c6bbedf9da58d44
   languageName: node
   linkType: hard
 
-"@cliqz/adblocker-extended-selectors@npm:^1.25.2":
-  version: 1.25.2
-  resolution: "@cliqz/adblocker-extended-selectors@npm:1.25.2"
-  checksum: 67541181fb7718d25e62184ea2b5236f0b659b82221163086179498c068f6e6c01911ce47f2ffe0ce2244c0728afa92add8e03e881bc8d6e64f0b9a0e2ff8091
+"@cliqz/adblocker-extended-selectors@npm:^1.26.2":
+  version: 1.26.2
+  resolution: "@cliqz/adblocker-extended-selectors@npm:1.26.2"
+  checksum: 54736a3328e5175c6c0350d9f18faf83ed16a4f41bc1ff6fa550319ebf728fb5536015384ee4a5d005d7225c41a31eaa251d7a18486db26d41b251eeee8eaaae
   languageName: node
   linkType: hard
 
-"@cliqz/adblocker@npm:^1.25.2":
-  version: 1.25.2
-  resolution: "@cliqz/adblocker@npm:1.25.2"
+"@cliqz/adblocker@npm:^1.26.2":
+  version: 1.26.2
+  resolution: "@cliqz/adblocker@npm:1.26.2"
   dependencies:
-    "@cliqz/adblocker-content": ^1.25.2
-    "@cliqz/adblocker-extended-selectors": ^1.25.2
+    "@cliqz/adblocker-content": ^1.26.2
+    "@cliqz/adblocker-extended-selectors": ^1.26.2
     "@remusao/guess-url-type": ^1.1.2
     "@remusao/small": ^1.1.2
     "@remusao/smaz": ^1.7.1
-    "@types/chrome": ^0.0.206
-    "@types/firefox-webext-browser": ^94.0.0
+    "@types/chrome": ^0.0.218
+    "@types/firefox-webext-browser": ^109.0.0
     tldts-experimental: ^5.6.21
-  checksum: be97b20420ccfafd2fc887538a255db4c22bddc1a6944bbea9e9a8df3e2912e39f18101f99b37599653e2a8f2053513a7ec0908a7af49ba9794573ee6d186094
+  checksum: e4fcfe15109f15ce95096501f00f4109743385158b3a746c30f4f8ff93bd73821e2424b67c9e58ba10a1c97da79826d26fb0b8eea77f7b3af3783f50b22d8009
   languageName: node
   linkType: hard
 
@@ -840,13 +840,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chrome@npm:^0.0.206":
-  version: 0.0.206
-  resolution: "@types/chrome@npm:0.0.206"
+"@types/chrome@npm:^0.0.218":
+  version: 0.0.218
+  resolution: "@types/chrome@npm:0.0.218"
   dependencies:
     "@types/filesystem": "*"
     "@types/har-format": "*"
-  checksum: 002af40b339ca0f665bf6e52af1fd2ecfdd4cffb6d10d891b0b4394c2a94d758e94e0d5497d38e9b45033eb8620ffa1a63e42294f88612507d9e74ddf3f6ce40
+  checksum: 08f00e7c2ec8a8e869b0c7a93bd187c19471baa56f3c072c85b25467f2e0eeccfaa5a02f245bf1832fd2f7d4bb0ce3f4617a7e04f52ab37562efe1b868b62aca
   languageName: node
   linkType: hard
 
@@ -892,10 +892,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/firefox-webext-browser@npm:^94.0.0":
-  version: 94.0.1
-  resolution: "@types/firefox-webext-browser@npm:94.0.1"
-  checksum: 43f7e34857f5750c6dc6833f3c4735e75782dcc71800dd29eadc8211a58de0e36611cec79ca7a238da855d5ed7badea46992baec4420b067c4dfa4b052e91465
+"@types/firefox-webext-browser@npm:^109.0.0":
+  version: 109.0.0
+  resolution: "@types/firefox-webext-browser@npm:109.0.0"
+  checksum: 6c3d8d98ca07329e88adda50911276864902d6b31f6f94712c4149327d01a06e7167eb4f6b34b8c7438a06792d0118a83e23afc21a7941ecd67ecaf40123e636
   languageName: node
   linkType: hard
 
@@ -4121,7 +4121,7 @@ __metadata:
 
 "fsevents@patch:fsevents@~2.3.2#~builtin<compat/fsevents>":
   version: 2.3.2
-  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=df0bf1"
+  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=18f3a7"
   dependencies:
     node-gyp: latest
   conditions: os=darwin
@@ -7426,7 +7426,7 @@ __metadata:
 
 "resolve@patch:resolve@^1.10.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.20.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.22.1#~builtin<compat/resolve>":
   version: 1.22.1
-  resolution: "resolve@patch:resolve@npm%3A1.22.1#~builtin<compat/resolve>::version=1.22.1&hash=c3c19d"
+  resolution: "resolve@patch:resolve@npm%3A1.22.1#~builtin<compat/resolve>::version=1.22.1&hash=07638b"
   dependencies:
     is-core-module: ^2.9.0
     path-parse: ^1.0.7
@@ -8412,11 +8412,11 @@ __metadata:
 
 "typescript@patch:typescript@^4.9.3#~builtin<compat/typescript>":
   version: 4.9.5
-  resolution: "typescript@patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=23ec76"
+  resolution: "typescript@patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=701156"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: ab417a2f398380c90a6cf5a5f74badd17866adf57f1165617d6a551f059c3ba0a3e4da0d147b3ac5681db9ac76a303c5876394b13b3de75fdd5b1eaa06181c9d
+  checksum: 2eee5c37cad4390385db5db5a8e81470e42e8f1401b0358d7390095d6f681b410f2c4a0c496c6ff9ebd775423c7785cdace7bcdad76c7bee283df3d9718c0f20
   languageName: node
   linkType: hard
 
@@ -8969,7 +8969,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "youtube-music@workspace:."
   dependencies:
-    "@cliqz/adblocker-electron": ^1.25.2
+    "@cliqz/adblocker-electron": ^1.26.0
     "@ffmpeg/core": ^0.11.0
     "@ffmpeg/ffmpeg": ^0.11.6
     "@foobar404/wave": ^2.0.4
