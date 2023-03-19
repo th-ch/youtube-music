@@ -1,20 +1,12 @@
-const electron = require("electron");
+const { app } = require("electron");
 const is = require('electron-is');
 
-module.exports.getFolder = customFolder => customFolder || electron.app.getPath("downloads");
+module.exports.getFolder = customFolder => customFolder || app.getPath("downloads");
 module.exports.defaultMenuDownloadLabel = "Download playlist";
 
-const orderedQualityList = ["maxresdefault", "hqdefault", "mqdefault", "sdddefault"];
-module.exports.urlToJPG = (imgUrl, videoId) => {
-	if (!imgUrl || imgUrl.includes(".jpg")) return imgUrl;
-	//it will almost never get further than hqdefault
-	for (const quality of orderedQualityList) {
-		if (imgUrl.includes(quality)) {
-			return `https://img.youtube.com/vi/${videoId}/${quality}.jpg`;
-		}
-	}
-	return `https://img.youtube.com/vi/${videoId}/default.jpg`;
-}
+module.exports.sendFeedback = (win, message) => {
+	win.webContents.send("downloader-feedback", message);
+};
 
 module.exports.cropMaxWidth = (image) => {
 	const imageSize = image.getSize();
@@ -41,6 +33,6 @@ module.exports.presets = {
 
 module.exports.setBadge = n => {
 	if (is.linux() || is.macOS()) {
-		electron.app.setBadgeCount(n);
+		app.setBadgeCount(n);
 	}
 }
