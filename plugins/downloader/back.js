@@ -65,9 +65,8 @@ const sendError = (error) => {
   });
 };
 
-module.exports = async (win_, options) => {
+module.exports = async (win_) => {
   win = win_;
-  config.init(options);
   injectCSS(win.webContents, join(__dirname, 'style.css'));
 
   yt = await Innertube.create({
