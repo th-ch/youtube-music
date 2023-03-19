@@ -1,23 +1,23 @@
-const { setOptions, setMenuOptions } = require("../../config/plugins");
-const defaultConfig = require("../../config/defaults");
+const { setOptions, setMenuOptions } = require('../../config/plugins');
+const defaultConfig = require('../../config/defaults');
 
-let config = defaultConfig.plugins["downloader"];
+let config = defaultConfig.plugins['downloader'];
 
 module.exports.init = (options) => {
-	config = { ...config, ...options };
+  config = { ...config, ...options };
 };
 
 module.exports.setAndMaybeRestart = (option, value) => {
-	config[option] = value;
-	setMenuOptions("downloader", config);
+  config[option] = value;
+  setMenuOptions('downloader', config);
 };
 
 module.exports.set = (option, value) => {
-	config[option] = value;
-	setOptions("downloader", config);
+  config[option] = value;
+  setOptions('downloader', config);
 };
 
 module.exports.get = (option) => {
-	let res = config[option];
-	return res;
+  const res = config[option];
+  return res;
 };
