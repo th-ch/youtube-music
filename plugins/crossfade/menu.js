@@ -1,15 +1,15 @@
-const { setOptions } = require("../../config/plugins");
+const config = require("./config");
 const defaultOptions = require("../../config/defaults").plugins.crossfade;
 
 const prompt = require("custom-electron-prompt");
 const promptOptions = require("../../providers/prompt-options");
 
-module.exports = (win, options) => [
+module.exports = (win) => [
 	{
 		label: "Advanced",
 		click: async () => {
-			const newOptions = await promptCrossfadeValues(win, options);
-			setOptions("crossfade", { ...options, ...newOptions });
+			const newOptions = await promptCrossfadeValues(win, config.getAll());
+			if (newOptions) config.setAll(newOptions);
 		},
 	},
 ];
@@ -43,7 +43,7 @@ async function promptCrossfadeValues(win, options) {
 				{
 					label: "Crossfade x seconds before end",
 					value:
-						options.exitMusicBeforeEnd || defaultOptions.exitMusicBeforeEnd,
+						options.secondsBeforeEnd || defaultOptions.secondsBeforeEnd,
 					inputAttrs: {
 						type: "number",
 						required: true,
@@ -66,7 +66,7 @@ async function promptCrossfadeValues(win, options) {
 	return {
 		fadeInDuration: Number(res[0]),
 		fadeOutDuration: Number(res[1]),
-		exitMusicBeforeEnd: Number(res[2]),
+		secondsBeforeEnd: Number(res[2]),
 		fadeScaling: res[3],
 	};
 }

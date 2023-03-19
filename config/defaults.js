@@ -108,7 +108,7 @@ const defaultConfig = {
 			enabled: false,
 			fadeInDuration: 1500, // ms
 			fadeOutDuration: 5000, // ms
-			exitMusicBeforeEnd: 10, // s
+			secondsBeforeEnd: 10, // s
 			fadeScaling: "linear", // 'linear', 'logarithmic' or a positive number in dB
 		},
 		visualizer: {
