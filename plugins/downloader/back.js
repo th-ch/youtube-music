@@ -85,6 +85,7 @@ module.exports = async (win_, options) => {
 };
 
 module.exports.downloadSong = downloadSong;
+module.exports.downloadPlaylist = downloadPlaylist;
 
 async function downloadSong(
   url,
@@ -312,12 +313,10 @@ async function writeID3(buffer, metadata, sendFeedback) {
 }
 
 async function downloadPlaylist(givenUrl) {
-  if (givenUrl) {
-    try {
-      givenUrl = new URL(givenUrl);
-    } catch {
-      givenUrl = undefined;
-    }
+  try {
+    givenUrl = new URL(givenUrl);
+  } catch {
+    givenUrl = undefined;
   }
   const playlistId =
     getPlaylistID(givenUrl) ||
@@ -465,7 +464,7 @@ const getPlaylistID = (aURL) => {
   const result =
     aURL?.searchParams.get('list') || aURL?.searchParams.get('playlist');
   if (result?.startsWith(INVALID_PLAYLIST_MODIFIER)) {
-    return result.slice(6);
+    return result.slice(INVALID_PLAYLIST_MODIFIER.length);
   }
   return result;
 };
