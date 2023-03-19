@@ -1,5 +1,10 @@
 {
   "$schema": "./node_modules/rome/configuration_schema.json",
+  "files": {
+    "ignore": [
+      "./dist/*"
+    ]
+  },
   "javascript": {
     "formatter": {
       "quoteStyle": "single"
