@@ -1,0 +1,11 @@
+{
+    "explorer.fileNesting.patterns": {
+        "index.js": "preload.js,menu.js,tray.js,error.html,youtube-music.css"
+    },
+    "editor.defaultFormatter": "rome.rome",
+    "prettier.enable": false,
+    "editor.formatOnSave": true,
+    "[javascript]": {
+      "editor.defaultFormatter": "rome.rome"
+    }
+}
