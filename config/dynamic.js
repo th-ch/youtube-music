@@ -1,8 +1,8 @@
-const { ipcRenderer, ipcMain } = require('electron');
+const { ipcRenderer, ipcMain } = require("electron");
 
-const defaultConfig = require('./defaults');
-const { getOptions, setOptions, setMenuOptions } = require('./plugins');
-const { sendToFront } = require('../providers/app-controls');
+const defaultConfig = require("./defaults");
+const { getOptions, setOptions, setMenuOptions } = require("./plugins");
+const { sendToFront } = require("../providers/app-controls");
 
 const activePlugins = {};
 /**
@@ -10,12 +10,12 @@ const activePlugins = {};
  * The method is **sync** in the main process and **async** in the renderer process.
  */
 module.exports.getActivePlugins =
-	process.type === 'renderer'
-		? async () => ipcRenderer.invoke('get-active-plugins')
+	process.type === "renderer"
+		? async () => ipcRenderer.invoke("get-active-plugins")
 		: () => activePlugins;
 
-if (process.type === 'browser') {
-	ipcMain.handle('get-active-plugins', this.getActivePlugins);
+if (process.type === "browser") {
+	ipcMain.handle("get-active-plugins", this.getActivePlugins);
 }
 
 /**
@@ -23,9 +23,9 @@ if (process.type === 'browser') {
  * The method is **sync** in the main process and **async** in the renderer process.
  */
 module.exports.isActive =
-	process.type === 'renderer'
+	process.type === "renderer"
 		? async (plugin) =>
-				plugin in (await ipcRenderer.invoke('get-active-plugins'))
+				plugin in (await ipcRenderer.invoke("get-active-plugins"))
 		: (plugin) => plugin in activePlugins;
 
 /**
@@ -99,8 +99,8 @@ module.exports.PluginConfig = class PluginConfig {
 	};
 
 	setAll = (options) => {
-		if (!options || typeof options !== 'object')
-			throw new Error('Options must be an object.');
+		if (!options || typeof options !== "object")
+			throw new Error("Options must be an object.");
 
 		let changed = false;
 		for (const [key, val] of Object.entries(options)) {
@@ -148,11 +148,11 @@ module.exports.PluginConfig = class PluginConfig {
 	}
 
 	#setupFront() {
-		const ignoredMethods = ['subscribe', 'subscribeAll'];
+		const ignoredMethods = ["subscribe", "subscribeAll"];
 
-		if (process.type === 'renderer') {
+		if (process.type === "renderer") {
 			for (const [fnName, fn] of Object.entries(this)) {
-				if (typeof fn !== 'function' || fn.name in ignoredMethods) return;
+				if (typeof fn !== "function" || fn.name in ignoredMethods) return;
 				this[fnName] = async (...args) => {
 					return await ipcRenderer.invoke(
 						`${this.name}-config-${fnName}`,
@@ -181,9 +181,9 @@ module.exports.PluginConfig = class PluginConfig {
 					ipcRenderer.send(`${this.name}-config-subscribe-all`);
 				};
 			}
-		} else if (process.type === 'browser') {
+		} else if (process.type === "browser") {
 			for (const [fnName, fn] of Object.entries(this)) {
-				if (typeof fn !== 'function' || fn.name in ignoredMethods) return;
+				if (typeof fn !== "function" || fn.name in ignoredMethods) return;
 				ipcMain.handle(`${this.name}-config-${fnName}`, (_, ...args) => {
 					return fn(...args);
 				});
