@@ -48,59 +48,59 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cliqz/adblocker-content@npm:^1.25.2":
-  version: 1.25.2
-  resolution: "@cliqz/adblocker-content@npm:1.25.2"
+"@cliqz/adblocker-content@npm:^1.26.2":
+  version: 1.26.2
+  resolution: "@cliqz/adblocker-content@npm:1.26.2"
   dependencies:
-    "@cliqz/adblocker-extended-selectors": ^1.25.2
-  checksum: c7781a9e07d6b685c10604abc72cdf79c48a7211f10901e316d506b4a296bf644c9292a256fe988c7074ebeedfd00075849ae74b648ec3672bf3da61723bb0c4
+    "@cliqz/adblocker-extended-selectors": ^1.26.2
+  checksum: 00ddbf157ca5ea97e3d8517f1d9397ca53eecfc95b6f09a327667ad388cafae84de655af8bac6d0c1f12b004b0c7eb8fc898f442f05e6b9d2294709a3bfb6a81
   languageName: node
   linkType: hard
 
-"@cliqz/adblocker-electron-preload@npm:^1.25.2":
-  version: 1.25.2
-  resolution: "@cliqz/adblocker-electron-preload@npm:1.25.2"
+"@cliqz/adblocker-electron-preload@npm:^1.26.2":
+  version: 1.26.2
+  resolution: "@cliqz/adblocker-electron-preload@npm:1.26.2"
   dependencies:
-    "@cliqz/adblocker-content": ^1.25.2
+    "@cliqz/adblocker-content": ^1.26.2
   peerDependencies:
     electron: ">11"
-  checksum: 196324d67768bbd1a9ec1023c1a8be0ebd25605621690762641ecc40272f822c179d9081b6c78603b5ba70ec1d49bb6ba3f9f4d48c6f92794b21a06bdd277300
+  checksum: e130911f00f9fbaa8f3edb3f36501a6f39b0f798a2dbeb8d8416219f3381edd7c34036452229472bd51fad13fa880ea24dc4b56419df0dffaa49f63f15a01451
   languageName: node
   linkType: hard
 
-"@cliqz/adblocker-electron@npm:^1.25.2":
-  version: 1.25.2
-  resolution: "@cliqz/adblocker-electron@npm:1.25.2"
+"@cliqz/adblocker-electron@npm:^1.26.0":
+  version: 1.26.2
+  resolution: "@cliqz/adblocker-electron@npm:1.26.2"
   dependencies:
-    "@cliqz/adblocker": ^1.25.2
-    "@cliqz/adblocker-electron-preload": ^1.25.2
+    "@cliqz/adblocker": ^1.26.2
+    "@cliqz/adblocker-electron-preload": ^1.26.2
     tldts-experimental: ^5.6.21
   peerDependencies:
     electron: ">11"
-  checksum: 8d18e85490bc60b95e880fd3315e2111e05f123bf820e87963f4fa0bf65b78d3043541b02588950b152b827414baa11cdf74159042ccc8e144afea9eef84fe62
+  checksum: 308e7e6273bdf055ba5a637111d301c6c7cc3f46c7b31e6e658addab7bcb735f162e77b50f123e2841a769b38b810f85e959dd7da382298c0c6bbedf9da58d44
   languageName: node
   linkType: hard
 
-"@cliqz/adblocker-extended-selectors@npm:^1.25.2":
-  version: 1.25.2
-  resolution: "@cliqz/adblocker-extended-selectors@npm:1.25.2"
-  checksum: 67541181fb7718d25e62184ea2b5236f0b659b82221163086179498c068f6e6c01911ce47f2ffe0ce2244c0728afa92add8e03e881bc8d6e64f0b9a0e2ff8091
+"@cliqz/adblocker-extended-selectors@npm:^1.26.2":
+  version: 1.26.2
+  resolution: "@cliqz/adblocker-extended-selectors@npm:1.26.2"
+  checksum: 54736a3328e5175c6c0350d9f18faf83ed16a4f41bc1ff6fa550319ebf728fb5536015384ee4a5d005d7225c41a31eaa251d7a18486db26d41b251eeee8eaaae
   languageName: node
   linkType: hard
 
-"@cliqz/adblocker@npm:^1.25.2":
-  version: 1.25.2
-  resolution: "@cliqz/adblocker@npm:1.25.2"
+"@cliqz/adblocker@npm:^1.26.2":
+  version: 1.26.2
+  resolution: "@cliqz/adblocker@npm:1.26.2"
   dependencies:
-    "@cliqz/adblocker-content": ^1.25.2
-    "@cliqz/adblocker-extended-selectors": ^1.25.2
+    "@cliqz/adblocker-content": ^1.26.2
+    "@cliqz/adblocker-extended-selectors": ^1.26.2
     "@remusao/guess-url-type": ^1.1.2
     "@remusao/small": ^1.1.2
     "@remusao/smaz": ^1.7.1
-    "@types/chrome": ^0.0.206
-    "@types/firefox-webext-browser": ^94.0.0
+    "@types/chrome": ^0.0.218
+    "@types/firefox-webext-browser": ^109.0.0
     tldts-experimental: ^5.6.21
-  checksum: be97b20420ccfafd2fc887538a255db4c22bddc1a6944bbea9e9a8df3e2912e39f18101f99b37599653e2a8f2053513a7ec0908a7af49ba9794573ee6d186094
+  checksum: e4fcfe15109f15ce95096501f00f4109743385158b3a746c30f4f8ff93bd73821e2424b67c9e58ba10a1c97da79826d26fb0b8eea77f7b3af3783f50b22d8009
   languageName: node
   linkType: hard
 
@@ -734,13 +734,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@protobuf-ts/runtime@npm:^2.7.0":
-  version: 2.8.2
-  resolution: "@protobuf-ts/runtime@npm:2.8.2"
-  checksum: ab322e832bfb347b271a8862b8ef3db27ffa380f9c49f94acb410534586a282ebd8af96d4459f959ad0fe5fbf34183f3f4fe512e50c9a4331b742a7445b16c92
-  languageName: node
-  linkType: hard
-
 "@remusao/guess-url-type@npm:^1.1.2":
   version: 1.2.1
   resolution: "@remusao/guess-url-type@npm:1.2.1"
@@ -840,13 +833,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chrome@npm:^0.0.206":
-  version: 0.0.206
-  resolution: "@types/chrome@npm:0.0.206"
+"@types/chrome@npm:^0.0.218":
+  version: 0.0.218
+  resolution: "@types/chrome@npm:0.0.218"
   dependencies:
     "@types/filesystem": "*"
     "@types/har-format": "*"
-  checksum: 002af40b339ca0f665bf6e52af1fd2ecfdd4cffb6d10d891b0b4394c2a94d758e94e0d5497d38e9b45033eb8620ffa1a63e42294f88612507d9e74ddf3f6ce40
+  checksum: 08f00e7c2ec8a8e869b0c7a93bd187c19471baa56f3c072c85b25467f2e0eeccfaa5a02f245bf1832fd2f7d4bb0ce3f4617a7e04f52ab37562efe1b868b62aca
   languageName: node
   linkType: hard
 
@@ -892,10 +885,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/firefox-webext-browser@npm:^94.0.0":
-  version: 94.0.1
-  resolution: "@types/firefox-webext-browser@npm:94.0.1"
-  checksum: 43f7e34857f5750c6dc6833f3c4735e75782dcc71800dd29eadc8211a58de0e36611cec79ca7a238da855d5ed7badea46992baec4420b067c4dfa4b052e91465
+"@types/firefox-webext-browser@npm:^109.0.0":
+  version: 109.0.0
+  resolution: "@types/firefox-webext-browser@npm:109.0.0"
+  checksum: 6c3d8d98ca07329e88adda50911276864902d6b31f6f94712c4149327d01a06e7167eb4f6b34b8c7438a06792d0118a83e23afc21a7941ecd67ecaf40123e636
   languageName: node
   linkType: hard
 
@@ -1372,16 +1365,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"anymatch@npm:~3.1.2":
-  version: 3.1.3
-  resolution: "anymatch@npm:3.1.3"
-  dependencies:
-    normalize-path: ^3.0.0
-    picomatch: ^2.0.4
-  checksum: 3e044fd6d1d26545f235a9fe4d7a534e2029d8e59fa7fd9f2a6eb21230f6b5380ea1eaf55136e60cbf8e613544b3b766e7a6fa2102e2a3a117505466e3025dc2
-  languageName: node
-  linkType: hard
-
 "app-builder-bin@npm:4.0.0":
   version: 4.0.0
   resolution: "app-builder-bin@npm:4.0.0"
@@ -1689,13 +1672,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"binary-extensions@npm:^2.0.0":
-  version: 2.2.0
-  resolution: "binary-extensions@npm:2.2.0"
-  checksum: ccd267956c58d2315f5d3ea6757cf09863c5fc703e50fbeb13a7dc849b812ef76e3cf9ca8f35a0c48498776a7478d7b4a0418e1e2b8cb9cb9731f2922aaad7f8
-  languageName: node
-  linkType: hard
-
 "bindings@npm:^1.2.1":
   version: 1.5.0
   resolution: "bindings@npm:1.5.0"
@@ -1761,7 +1737,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"braces@npm:^3.0.2, braces@npm:~3.0.2":
+"braces@npm:^3.0.2":
   version: 3.0.2
   resolution: "braces@npm:3.0.2"
   dependencies:
@@ -2069,25 +2045,6 @@ __metadata:
   version: 0.0.2
   resolution: "charenc@npm:0.0.2"
   checksum: 81dcadbe57e861d527faf6dd3855dc857395a1c4d6781f4847288ab23cffb7b3ee80d57c15bba7252ffe3e5e8019db767757ee7975663ad2ca0939bb8fcaf2e5
-  languageName: node
-  linkType: hard
-
-"chokidar@npm:^3.5.3":
-  version: 3.5.3
-  resolution: "chokidar@npm:3.5.3"
-  dependencies:
-    anymatch: ~3.1.2
-    braces: ~3.0.2
-    fsevents: ~2.3.2
-    glob-parent: ~5.1.2
-    is-binary-path: ~2.1.0
-    is-glob: ~4.0.1
-    normalize-path: ~3.0.0
-    readdirp: ~3.6.0
-  dependenciesMeta:
-    fsevents:
-      optional: true
-  checksum: b49fcde40176ba007ff361b198a2d35df60d9bb2a5aab228279eb810feae9294a6b4649ab15981304447afe1e6ffbf4788ad5db77235dc770ab777c6e771980c
   languageName: node
   linkType: hard
 
@@ -2425,12 +2382,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"custom-electron-prompt@npm:^1.5.1":
-  version: 1.5.1
-  resolution: "custom-electron-prompt@npm:1.5.1"
+"custom-electron-prompt@npm:^1.5.4":
+  version: 1.5.4
+  resolution: "custom-electron-prompt@npm:1.5.4"
   peerDependencies:
     electron: ">=10.0.0"
-  checksum: 43a0d72a7a3471135822cb210d580285f70080d9d3a7b03f82cd4be403059fe20ea05ebdd1f9534928c386ab25a353e678f2cfb3f4ca016b41f3366bff700767
+  checksum: 93995b5f0e9d14401a8c4fdd358af32d8b7585b59b111667cfa55f9505109c08914f3140953125b854e5d09e811de8c76c7fec718934c13e8a1ad09fe1b85270
   languageName: node
   linkType: hard
 
@@ -4109,25 +4066,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fsevents@npm:~2.3.2":
-  version: 2.3.2
-  resolution: "fsevents@npm:2.3.2"
-  dependencies:
-    node-gyp: latest
-  checksum: 97ade64e75091afee5265e6956cb72ba34db7819b4c3e94c431d4be2b19b8bb7a2d4116da417950c3425f17c8fe693d25e20212cac583ac1521ad066b77ae31f
-  conditions: os=darwin
-  languageName: node
-  linkType: hard
-
-"fsevents@patch:fsevents@~2.3.2#~builtin<compat/fsevents>":
-  version: 2.3.2
-  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=df0bf1"
-  dependencies:
-    node-gyp: latest
-  conditions: os=darwin
-  languageName: node
-  linkType: hard
-
 "function-bind@npm:^1.1.1":
   version: 1.1.1
   resolution: "function-bind@npm:1.1.1"
@@ -4254,7 +4192,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob-parent@npm:^5.1.2, glob-parent@npm:~5.1.2":
+"glob-parent@npm:^5.1.2":
   version: 5.1.2
   resolution: "glob-parent@npm:5.1.2"
   dependencies:
@@ -4896,15 +4834,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-binary-path@npm:~2.1.0":
-  version: 2.1.0
-  resolution: "is-binary-path@npm:2.1.0"
-  dependencies:
-    binary-extensions: ^2.0.0
-  checksum: 84192eb88cff70d320426f35ecd63c3d6d495da9d805b19bc65b518984b7c0760280e57dbf119b7e9be6b161784a5a673ab2c6abe83abb5198a432232ad5b35c
-  languageName: node
-  linkType: hard
-
 "is-boolean-object@npm:^1.1.0":
   version: 1.1.2
   resolution: "is-boolean-object@npm:1.1.2"
@@ -5016,7 +4945,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-glob@npm:^4.0.0, is-glob@npm:^4.0.1, is-glob@npm:^4.0.3, is-glob@npm:~4.0.1":
+"is-glob@npm:^4.0.0, is-glob@npm:^4.0.1, is-glob@npm:^4.0.3":
   version: 4.0.3
   resolution: "is-glob@npm:4.0.3"
   dependencies:
@@ -5332,12 +5261,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jintr@npm:^0.3.1":
-  version: 0.3.1
-  resolution: "jintr@npm:0.3.1"
+"jintr@npm:^0.4.1":
+  version: 0.4.1
+  resolution: "jintr@npm:0.4.1"
   dependencies:
     acorn: ^8.8.0
-  checksum: 1fb2454904461c3bbe6b55251dce4ac352fb3b94803773e3d8925ede4a907b5d52a2f30f3f76757c770e1785f34a3665d5cffd710c3ae99837cd157762130a24
+  checksum: 9dd5932be611aa926dba90e3b1bf09afbdc8864a128dbba53f5ee8461f0ac27955fca780dfd4cbb1575e6873d0d74dd346127554a4b2cae01986fe12aad3ba09
   languageName: node
   linkType: hard
 
@@ -5810,16 +5739,6 @@ __metadata:
   version: 7.14.1
   resolution: "lru-cache@npm:7.14.1"
   checksum: d72c6713c6a6d86836a7a6523b3f1ac6764768cca47ec99341c3e76db06aacd4764620e5e2cda719a36848785a52a70e531822dc2b33fb071fa709683746c104
-  languageName: node
-  linkType: hard
-
-"m3u8stream@npm:^0.8.6":
-  version: 0.8.6
-  resolution: "m3u8stream@npm:0.8.6"
-  dependencies:
-    miniget: ^4.2.2
-    sax: ^1.2.4
-  checksum: b8f61c1101dd3ad873ff2f3d0e9e6a5139ad17e20990b89ae67f2585043bc2b727151ed85f3e58aabc8a1a95af28e1ee26f69af6ac9e8841ff68129eae2f5ac5
   languageName: node
   linkType: hard
 
@@ -6359,13 +6278,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"normalize-path@npm:^3.0.0, normalize-path@npm:~3.0.0":
-  version: 3.0.0
-  resolution: "normalize-path@npm:3.0.0"
-  checksum: 88eeb4da891e10b1318c4b2476b6e2ecbeb5ff97d946815ffea7794c31a89017c70d7f34b3c2ebf23ef4e9fc9fb99f7dffe36da22011b5b5c6ffa34f4873ec20
-  languageName: node
-  linkType: hard
-
 "normalize-url@npm:^6.0.1":
   version: 6.1.0
   resolution: "normalize-url@npm:6.1.0"
@@ -6856,7 +6768,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"picomatch@npm:^2.0.4, picomatch@npm:^2.2.1, picomatch@npm:^2.3.1":
+"picomatch@npm:^2.3.1":
   version: 2.3.1
   resolution: "picomatch@npm:2.3.1"
   checksum: 050c865ce81119c4822c45d3c84f1ced46f93a0126febae20737bd05ca20589c564d6e9226977df859ed5e03dc73f02584a2b0faad36e896936238238b0446cf
@@ -7265,15 +7177,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"readdirp@npm:~3.6.0":
-  version: 3.6.0
-  resolution: "readdirp@npm:3.6.0"
-  dependencies:
-    picomatch: ^2.2.1
-  checksum: 1ced032e6e45670b6d7352d71d21ce7edf7b9b928494dcaba6f11fba63180d9da6cd7061ebc34175ffda6ff529f481818c962952004d273178acd70f7059b320
-  languageName: node
-  linkType: hard
-
 "redent@npm:^4.0.0":
   version: 4.0.0
   resolution: "redent@npm:4.0.0"
@@ -7553,7 +7456,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sax@npm:>=0.6.0, sax@npm:^1.1.3, sax@npm:^1.2.4":
+"sax@npm:>=0.6.0, sax@npm:^1.2.4":
   version: 1.2.4
   resolution: "sax@npm:1.2.4"
   checksum: d3df7d32b897a2c2f28e941f732c71ba90e27c24f62ee918bd4d9a8cfb3553f2f81e5493c7f0be94a11c1911b643a9108f231dd6f60df3fa9586b5d2e3e9e1fe
@@ -8455,12 +8358,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"undici@npm:^5.7.0":
-  version: 5.18.0
-  resolution: "undici@npm:5.18.0"
+"undici@npm:^5.19.1":
+  version: 5.20.0
+  resolution: "undici@npm:5.20.0"
   dependencies:
     busboy: ^1.6.0
-  checksum: 74e0f357c376c745fcca612481a5742866ae36086ad387e626255f4c4a15fc5357d9d0fa4355271b6a633d50f5556c3e85720844680c44861c66e23afca7245f
+  checksum: 25412a785b2bd0b12f0bb0ec47ef00aa7a611ca0e570cb7af97cffe6a42e0d78e4b15190363a43771e9002defc3c6647c1b2d52201b3f64e2196819db4d150d3
   languageName: node
   linkType: hard
 
@@ -8969,7 +8872,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "youtube-music@workspace:."
   dependencies:
-    "@cliqz/adblocker-electron": ^1.25.2
+    "@cliqz/adblocker-electron": ^1.26.0
     "@ffmpeg/core": ^0.11.0
     "@ffmpeg/ffmpeg": ^0.11.6
     "@foobar404/wave": ^2.0.4
@@ -8980,8 +8883,7 @@ __metadata:
     browser-id3-writer: ^4.4.0
     butterchurn: ^2.6.7
     butterchurn-presets: ^2.4.7
-    chokidar: ^3.5.3
-    custom-electron-prompt: ^1.5.1
+    custom-electron-prompt: ^1.5.4
     custom-electron-titlebar: ^4.1.6
     del-cli: ^5.0.0
     electron: ^22.0.2
@@ -9008,32 +8910,19 @@ __metadata:
     simple-youtube-age-restriction-bypass: "https://gitpkg.now.sh/api/pkg.tgz?url=zerodytrash/Simple-YouTube-Age-Restriction-Bypass&commit=v2.5.4"
     vudio: ^2.1.1
     xo: ^0.53.1
-    youtubei.js: ^2.9.0
-    ytdl-core: ^4.11.1
+    youtubei.js: ^3.1.1
     ytpl: ^2.3.0
   languageName: unknown
   linkType: soft
 
-"youtubei.js@npm:^2.9.0":
-  version: 2.9.0
-  resolution: "youtubei.js@npm:2.9.0"
+"youtubei.js@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "youtubei.js@npm:3.1.1"
   dependencies:
-    "@protobuf-ts/runtime": ^2.7.0
-    jintr: ^0.3.1
+    jintr: ^0.4.1
     linkedom: ^0.14.12
-    undici: ^5.7.0
-  checksum: 0b9d86c1ec7297ee41b9013d6cb951976d82b2775d9d9d5abf0447d7acb9f36b07ebb689710bf8ccfa256a6f56088f49b699fb1a3e5bac2b0ea7d2daa508c109
-  languageName: node
-  linkType: hard
-
-"ytdl-core@npm:^4.11.1":
-  version: 4.11.2
-  resolution: "ytdl-core@npm:4.11.2"
-  dependencies:
-    m3u8stream: ^0.8.6
-    miniget: ^4.2.2
-    sax: ^1.1.3
-  checksum: 57df38b5b1e4955db0e0c0be8d185f34de9eaee102ad1281d69de91628230cc84e8d46d278409eafa68c4aab4085a0f9fe8de30e9ea8644e011e20cae7f37c0e
+    undici: ^5.19.1
+  checksum: 1280e2ddacec3034ee8e1b398ba80662a6854e184416d3484119e7cf47b69ab2e58b4f1efdf468dcad3e50bdc7bd42b6ee66b95660ffb521efb5f0634ef60fb7
   languageName: node
   linkType: hard
 

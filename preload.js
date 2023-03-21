@@ -145,11 +145,17 @@ function onApiLoaded() {
 		}
 	}
 
-	// Force show like buttons
-	if (config.get("options.ForceShowLikeButtons")) {
-		const likeButtons = $('ytmusic-like-button-renderer')
+
+	// Hide / Force show like buttons
+	const likeButtonsOptions = config.get("options.likeButtons");
+	if (likeButtonsOptions) {
+		const likeButtons = $("ytmusic-like-button-renderer");
 		if (likeButtons) {
-			likeButtons.style.display = 'inherit';
+			likeButtons.style.display =
+				{
+					hide: "none",
+					force: "inherit",
+				}[likeButtonsOptions] || "";
 		}
 	}
 }

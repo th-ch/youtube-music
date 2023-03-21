@@ -106,7 +106,7 @@
 		"npm": "Please use yarn instead"
 	},
 	"dependencies": {
-		"@cliqz/adblocker-electron": "^1.25.2",
+		"@cliqz/adblocker-electron": "^1.26.0",
 		"@ffmpeg/core": "^0.11.0",
 		"@ffmpeg/ffmpeg": "^0.11.6",
 		"@foobar404/wave": "^2.0.4",
@@ -115,8 +115,7 @@
 		"browser-id3-writer": "^4.4.0",
 		"butterchurn": "^2.6.7",
 		"butterchurn-presets": "^2.4.7",
-		"chokidar": "^3.5.3",
-		"custom-electron-prompt": "^1.5.1",
+		"custom-electron-prompt": "^1.5.4",
 		"custom-electron-titlebar": "^4.1.6",
 		"electron-better-web-request": "^1.0.1",
 		"electron-debug": "^3.2.0",
@@ -135,8 +134,7 @@
 		"node-fetch": "^2.6.8",
 		"simple-youtube-age-restriction-bypass": "https://gitpkg.now.sh/api/pkg.tgz?url=zerodytrash/Simple-YouTube-Age-Restriction-Bypass&commit=v2.5.4",
 		"vudio": "^2.1.1",
-		"youtubei.js": "^2.9.0",
-		"ytdl-core": "^4.11.1",
+		"youtubei.js": "^3.1.1",
 		"ytpl": "^2.3.0"
 	},
 	"devDependencies": {

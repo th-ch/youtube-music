@@ -105,12 +105,33 @@ const mainMenuTemplate = (win) => {
 							},
 						},
 						{
-							label: "Force show like buttons",
-							type: "checkbox",
-							checked: config.get("options.ForceShowLikeButtons"),
-							click: (item) => {
-								config.set("options.ForceShowLikeButtons", item.checked);
-							},
+							label: "Like buttons",
+							submenu: [
+								{
+									label: "Default",
+									type: "radio",
+									checked: !config.get("options.likeButtons"),
+									click: () => {
+										config.set("options.likeButtons", '');
+									},
+								},
+								{
+									label: "Force show",
+									type: "radio",
+									checked: config.get("options.likeButtons") === 'force',
+									click: () => {
+										config.set("options.likeButtons", 'force');
+									}
+								},
+								{
+									label: "Hide",
+									type: "radio",
+									checked: config.get("options.likeButtons") === 'hide',
+									click: () => {
+										config.set("options.likeButtons", 'hide');
+									}
+								},
+							],
 						},
 						{
 							label: "Theme",
