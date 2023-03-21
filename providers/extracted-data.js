@@ -1,4 +1,5 @@
 const startingPages = {
+    Default: '',
     Home: 'FEmusic_home',
     Explore: 'FEmusic_explore',
     'New Releases': 'FEmusic_new_releases',

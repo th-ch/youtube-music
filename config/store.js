@@ -10,9 +10,6 @@ const setDefaultPluginOptions = (store, plugin) => {
 
 const migrations = {
 	">=1.20.0": (store) => {
-		// used only to make the radio button checked in the menu
-		store.set('options.startingPage', "Home");
-
 		setDefaultPluginOptions(store, "visualizer");
 
 		if (store.get("plugins.notifications.toastStyle") === undefined) {

@@ -16,7 +16,7 @@ const defaultConfig = {
 		autoResetAppCache: false,
 		resumeOnStart: true,
 		proxy: "",
-		startingPage: "Home",
+		startingPage: "",
 	},
 	plugins: {
 		// Enabled plugins

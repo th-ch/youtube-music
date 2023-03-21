@@ -133,7 +133,7 @@ function onApiLoaded() {
 
 	// Navigate to "Starting page"
 	const startingPage = config.get("options.startingPage");
-	if (startingPage !== "home" && startingPages[startingPage]) {
+	if (startingPage && startingPages[startingPage]) {
 		$('ytmusic-app')?.navigate_(startingPages[startingPage]);
 	}
 
