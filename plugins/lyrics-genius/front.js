@@ -9,11 +9,14 @@ module.exports = () => {
 			lyrics: tabList[1],
 			discover: tabList[2],
 		}
+		console.log("First");
 
 		// Check if disabled
-		if (!tabs.lyrics?.hasAttribute("disabled") && options.romanizedLyrics) {
+		if (!tabs.lyrics?.hasAttribute("disabled") && !options.romanizedLyrics) {
+			console.log("DASD");
 			return;
 		}
+		console.log("Second");
 
 		let hasLyrics = true;
 
