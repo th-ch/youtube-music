@@ -1,7 +1,7 @@
 const { ipcRenderer } = require("electron");
 const is = require("electron-is");
 
-module.exports = () => {
+module.exports = (options) => {
 	ipcRenderer.on("update-song-info", (_, extractedSongInfo) => setTimeout(() => {
 		const tabList = document.querySelectorAll("tp-yt-paper-tab");
 		const tabs = {
@@ -10,7 +10,7 @@ module.exports = () => {
 			discover: tabList[2],
 		}
 		console.log("First");
-
+		console.log(options.romanizedLyrics);
 		// Check if disabled
 		if (!tabs.lyrics?.hasAttribute("disabled") && !options.romanizedLyrics) {
 			console.log("DASD");
