@@ -11,7 +11,7 @@ module.exports = () => {
 		}
 
 		// Check if disabled
-		if (!tabs.lyrics?.hasAttribute("disabled")) {
+		if (!tabs.lyrics?.hasAttribute("disabled") && options.romanizedLyrics) {
 			return;
 		}
 
