@@ -134,7 +134,7 @@
 		"node-fetch": "^2.6.8",
 		"simple-youtube-age-restriction-bypass": "https://gitpkg.now.sh/api/pkg.tgz?url=zerodytrash/Simple-YouTube-Age-Restriction-Bypass&commit=v2.5.4",
 		"vudio": "^2.1.1",
-		"youtubei.js": "^3.1.1",
+		"youtubei.js": "^4.1.0",
 		"ytpl": "^2.3.0"
 	},
 	"devDependencies": {

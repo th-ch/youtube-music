@@ -20,7 +20,7 @@ const {
 
 const { ipcMain, app, dialog } = require('electron');
 const is = require('electron-is');
-const { Innertube, UniversalCache, Utils } = require('youtubei.js');
+const { Innertube, UniversalCache, Utils, ClientType } = require('youtubei.js');
 const ytpl = require('ytpl'); // REPLACE with youtubei getplaylist https://github.com/LuanRT/YouTube.js#getplaylistid
 
 const filenamify = require('filenamify');
@@ -48,20 +48,22 @@ let yt;
 let win;
 let playingUrl = undefined;
 
-const sendError = (error) => {
+const sendError = (error, source) => {
   win.setProgressBar(-1); // close progress bar
   setBadge(0); // close badge
   sendFeedback_(win); // reset feedback
 
-  console.error(error);
+  const songNameMessage = source ? `\nin ${source}` : '';
+  const cause = error.cause ? `\n\n${error.cause.toString()}` : '';
+  const message = `${error.toString()}${songNameMessage}${cause}`;
+
+  console.error(message);
   dialog.showMessageBox({
     type: 'info',
     buttons: ['OK'],
     title: 'Error in download!',
     message: 'Argh! Apologies, download failed…',
-    detail: `${error.toString()} ${
-      error.cause ? `\n\n${error.cause.toString()}` : ''
-    }`,
+    detail: message,
   });
 };
 
@@ -92,20 +94,23 @@ async function downloadSong(
   trackId = undefined,
   increasePlaylistProgress = () => {},
 ) {
+  let resolvedName = undefined;
   try {
     await downloadSongUnsafe(
       url,
+      name=>resolvedName=name,
       playlistFolder,
       trackId,
       increasePlaylistProgress,
     );
   } catch (error) {
-    sendError(error);
+    sendError(error, resolvedName || url);
   }
 }
 
 async function downloadSongUnsafe(
   url,
+  setName,
   playlistFolder = undefined,
   trackId = undefined,
   increasePlaylistProgress = () => {},
@@ -122,7 +127,11 @@ async function downloadSongUnsafe(
   sendFeedback('Downloading...', 2);
 
   const id = getVideoId(url);
-  const info = await yt.music.getInfo(id);
+  let info = await yt.music.getInfo(id);
+
+  if (!info) {
+    throw new Error('Video not found');
+  }
 
   const metadata = getMetadata(info);
   if (metadata.album === 'N/A') metadata.album = '';
@@ -133,6 +142,34 @@ async function downloadSongUnsafe(
   const name = `${metadata.artist ? `${metadata.artist} - ` : ''}${
     metadata.title
   }`;
+  setName(name);
+
+	let playabilityStatus = info.playability_status;
+	let bypassedResult = null;
+	if (playabilityStatus.status === "LOGIN_REQUIRED") {
+		// try to bypass the age restriction
+		bypassedResult = await getAndroidTvInfo(id);
+		playabilityStatus = bypassedResult.playability_status;
+
+		if (playabilityStatus.status === "LOGIN_REQUIRED") {
+			throw new Error(
+				`[${playabilityStatus.status}] ${playabilityStatus.reason}`,
+			);
+		}
+
+		info = bypassedResult;
+	}
+
+	if (playabilityStatus.status === "UNPLAYABLE") {
+		/**
+		 * @typedef {import('youtubei.js/dist/src/parser/classes/PlayerErrorMessage').default} PlayerErrorMessage
+		 * @type {PlayerErrorMessage}
+		 */
+		const errorScreen = playabilityStatus.error_screen;
+		throw new Error(
+			`[${playabilityStatus.status}] ${errorScreen.reason.text}: ${errorScreen.subreason.text}`,
+		);
+	}
 
   const extension = presets[config.get('preset')]?.extension || 'mp3';
 
@@ -252,7 +289,7 @@ async function iterableStreamToMP3(
 
     return ffmpeg.FS('readFile', `${safeVideoName}.mp3`);
   } catch (e) {
-    sendError(e);
+    sendError(e, safeVideoName);
   } finally {
     releaseFFmpegMutex();
   }
@@ -307,7 +344,7 @@ async function writeID3(buffer, metadata, sendFeedback) {
     writer.addTag();
     return Buffer.from(writer.arrayBuffer);
   } catch (e) {
-    sendError(e);
+    sendError(e, `${metadata.artist} - ${metadata.title}`);
   }
 }
 
@@ -482,3 +519,16 @@ const getMetadata = (info) => ({
   album: info.player_overlays?.browser_media_session?.album?.text,
   image: info.basic_info.thumbnail[0].url,
 });
+
+// This is used to bypass age restrictions
+const getAndroidTvInfo = async (id) => {
+  const innertube = await Innertube.create({
+    clientType: ClientType.TV_EMBEDDED,
+    generate_session_locally: true,
+    retrieve_player: true,
+  });
+  const info = await innertube.getBasicInfo(id, 'TV_EMBEDDED');
+  // getInfo 404s with the bypass, so we use getBasicInfo instead
+  // that's fine as we only need the streaming data
+  return info;
+}

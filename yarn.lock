@@ -8910,19 +8910,19 @@ __metadata:
     simple-youtube-age-restriction-bypass: "https://gitpkg.now.sh/api/pkg.tgz?url=zerodytrash/Simple-YouTube-Age-Restriction-Bypass&commit=v2.5.4"
     vudio: ^2.1.1
     xo: ^0.53.1
-    youtubei.js: ^3.1.1
+    youtubei.js: ^4.1.0
     ytpl: ^2.3.0
   languageName: unknown
   linkType: soft
 
-"youtubei.js@npm:^3.1.1":
-  version: 3.1.1
-  resolution: "youtubei.js@npm:3.1.1"
+"youtubei.js@npm:^4.1.0":
+  version: 4.1.0
+  resolution: "youtubei.js@npm:4.1.0"
   dependencies:
     jintr: ^0.4.1
     linkedom: ^0.14.12
     undici: ^5.19.1
-  checksum: 1280e2ddacec3034ee8e1b398ba80662a6854e184416d3484119e7cf47b69ab2e58b4f1efdf468dcad3e50bdc7bd42b6ee66b95660ffb521efb5f0634ef60fb7
+  checksum: fa0090aa5b86c06a765757b0716ad9e5742c401b4fe662460db82495751e1fda3380b78f5fb916699f1707ab9b7c2783312dceac974afea3a5d101be62906bea
   languageName: node
   linkType: hard
 
