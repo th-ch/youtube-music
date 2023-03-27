@@ -7,6 +7,7 @@ const { restart } = require("./providers/app-controls");
 
 const { getAllPlugins } = require("./plugins/utils");
 const config = require("./config");
+const { startingPages } = require("./providers/extracted-data");
 
 const prompt = require("custom-electron-prompt");
 const promptOptions = require("./providers/prompt-options");
@@ -82,6 +83,17 @@ const mainMenuTemplate = (win) => {
 					},
 				},
 				{
+					label: 'Starting page',
+					submenu: Object.keys(startingPages).map((name) => ({
+						label: name,
+						type: 'radio',
+						checked: config.get('options.startingPage') === name,
+						click: () => {
+							config.set('options.startingPage', name);
+						},
+					}))
+				},
+				{
 					label: "Visual Tweaks",
 					submenu: [
 						{
@@ -93,12 +105,33 @@ const mainMenuTemplate = (win) => {
 							},
 						},
 						{
-							label: "Force show like buttons",
-							type: "checkbox",
-							checked: config.get("options.ForceShowLikeButtons"),
-							click: (item) => {
-								config.set("options.ForceShowLikeButtons", item.checked);
-							},
+							label: "Like buttons",
+							submenu: [
+								{
+									label: "Default",
+									type: "radio",
+									checked: !config.get("options.likeButtons"),
+									click: () => {
+										config.set("options.likeButtons", '');
+									},
+								},
+								{
+									label: "Force show",
+									type: "radio",
+									checked: config.get("options.likeButtons") === 'force',
+									click: () => {
+										config.set("options.likeButtons", 'force');
+									}
+								},
+								{
+									label: "Hide",
+									type: "radio",
+									checked: config.get("options.likeButtons") === 'hide',
+									click: () => {
+										config.set("options.likeButtons", 'hide');
+									}
+								},
+							],
 						},
 						{
 							label: "Theme",
@@ -131,7 +164,7 @@ const mainMenuTemplate = (win) => {
 					],
 				},
 				{
-					label: "Release single instance lock",
+					label: "Single instance lock",
 					type: "checkbox",
 					checked: false,
 					click: (item) => {

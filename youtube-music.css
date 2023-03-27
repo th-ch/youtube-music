@@ -44,3 +44,9 @@ ytmusic-cast-button {
 .ytp-chrome-top-buttons {
 	display: none !important;
 }
+
+/* Make youtube-music logo un-draggable */
+ytmusic-nav-bar>div.left-content>a,
+ytmusic-nav-bar>div.left-content>a>picture>img {
+	-webkit-user-drag: none;
+}
