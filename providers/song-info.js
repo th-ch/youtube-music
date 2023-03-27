@@ -27,7 +27,7 @@ const songInfo = {
 };
 
 // Grab the native image using the src
-const getImage = cache (
+const getImage = cache(
 	/** 
 	 * @returns {Promise<Electron.NativeImage>}
 	 */
