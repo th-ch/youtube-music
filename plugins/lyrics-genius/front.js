@@ -25,13 +25,16 @@ module.exports = (options) => {
 			"search-genius-lyrics",
 			extractedSongInfo
 		);
+		console.log(lyrics);
 		if (!lyrics) {
 			// Delete previous lyrics if tab is open and couldn't get new lyrics
 			checkLyricsContainer(() => {
 				hasLyrics = false;
 				setTabsOnclick(undefined);
 			});
-			console.log("Lyrics already exist");
+			if (is.dev()) {
+				console.log("Lyrics do not exist");
+			}			
 			return;
 		}
 
@@ -62,14 +65,22 @@ module.exports = (options) => {
 			const lyricsContainer = document.querySelector(
 				'[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"] > ytmusic-message-renderer'
 			);
-			const songTypeContainer = document.querySelector('#contents .non-expandable.ytmusic-description-shelf-renderer');			
-			console.log(lyricsContainer2.innerHTML);
-
-			if (lyricsContainer) {
-				console.log("End2");
+			const songTypeContainer = document.querySelector('#contents .description.ytmusic-description-shelf-renderer');			
+			console.log(songTypeContainer);
+			if (songTypeContainer) {
+				console.log("Using Song Container");
 				callback();
-				setLyrics(lyricsContainer)
+				setSongTypeLyrics(songTypeContainer);
 			}
+			if (lyricsContainer) {
+				callback();
+				setLyrics(lyricsContainer);
+			}
+		}
+
+		function setSongTypeLyrics(container) {
+			console.log("Changing Inner Lyrics");
+			container.innerHTML = hasLyrics ? lyrics : "Could not retrieve lyrics from Genius";
 		}
 
 		/*
@@ -79,7 +90,7 @@ module.exports = (options) => {
 			// Appears to be rendered only when the song is not a "Song" type.
 			lyricsContainer.innerHTML = `<div id="contents" class="style-scope ytmusic-section-list-renderer description ytmusic-description-shelf-renderer genius-lyrics">
 			 		${
-						hasLyrics ? lyrics.replace(/(?:\r\n|\r|\n)/g, "<br/>") : "Could not retrieve lyrics from genius"
+						hasLyrics ? lyrics.replace(/(?:\r\n|\r|\n)/g, "<br/>") : "Could not retrieve lyrics from Genius"
 					}
 				</div>
 				<yt-formatted-string class="footer style-scope ytmusic-description-shelf-renderer" style="align-self: baseline"></yt-formatted-string>`;
@@ -87,8 +98,7 @@ module.exports = (options) => {
 				lyricsContainer.querySelector('.footer').textContent = 'Source: Genius';
 				enableLyricsTab();
 			}
-			console.log("End");
-
+			console.log("Lyrics Set");
 		}
 
 		function setTabsOnclick(callback) {
