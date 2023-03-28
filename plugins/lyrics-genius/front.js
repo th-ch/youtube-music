@@ -9,14 +9,15 @@ module.exports = (options) => {
 			lyrics: tabList[1],
 			discover: tabList[2],
 		}
-		console.log("First");
-		console.log(options.romanizedLyrics);
-		// Check if disabled
+
+		/* 
+		Check if disabled
+		If translation options are enabled, it'll skip this check to prevent the native Youtube lyric finder overriding the
+		lyrics tab. 
+		*/
 		if (!tabs.lyrics?.hasAttribute("disabled") && !options.romanizedLyrics) {
-			console.log("DASD");
 			return;
 		}
-		console.log("Second");
 
 		let hasLyrics = true;
 
@@ -30,6 +31,7 @@ module.exports = (options) => {
 				hasLyrics = false;
 				setTabsOnclick(undefined);
 			});
+			console.log("Lyrics already exist");
 			return;
 		}
 
@@ -56,29 +58,37 @@ module.exports = (options) => {
 		};
 
 		function checkLyricsContainer(callback = () => {}) {
+			console.log("End1");
 			const lyricsContainer = document.querySelector(
 				'[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"] > ytmusic-message-renderer'
 			);
+			const songTypeContainer = document.querySelector('#contents .non-expandable.ytmusic-description-shelf-renderer');			
+			console.log(lyricsContainer2.innerHTML);
+
 			if (lyricsContainer) {
+				console.log("End2");
 				callback();
 				setLyrics(lyricsContainer)
 			}
 		}
 
+		/*
+		Set the "Lyrics" tab you see on screen by injecting lyrics into the HTML. 
+		*/
 		function setLyrics(lyricsContainer) {
+			// Appears to be rendered only when the song is not a "Song" type.
 			lyricsContainer.innerHTML = `<div id="contents" class="style-scope ytmusic-section-list-renderer description ytmusic-description-shelf-renderer genius-lyrics">
 			 		${
-						hasLyrics
-							? lyrics.replace(/(?:\r\n|\r|\n)/g, "<br/>")
-							: "Could not retrieve lyrics from genius"
+						hasLyrics ? lyrics.replace(/(?:\r\n|\r|\n)/g, "<br/>") : "Could not retrieve lyrics from genius"
 					}
-
 				</div>
 				<yt-formatted-string class="footer style-scope ytmusic-description-shelf-renderer" style="align-self: baseline"></yt-formatted-string>`;
 			if (hasLyrics) {
 				lyricsContainer.querySelector('.footer').textContent = 'Source: Genius';
 				enableLyricsTab();
 			}
+			console.log("End");
+
 		}
 
 		function setTabsOnclick(callback) {
