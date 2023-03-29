@@ -36,19 +36,17 @@ module.exports = (options) => {
 			}			
 			return;
 		}
-
-		if (is.dev()) {
-			console.log("Fetched lyrics from Genius");
-		}
-
 		enableLyricsTab();
-
 		setTabsOnclick(enableLyricsTab);
-
 		checkLyricsContainer();
-
 		tabs.lyrics.onclick = () => {
 			const tabContainer = document.querySelector("ytmusic-tab-renderer");
+			const songContainerA = document.querySelector('#contents .description.ytmusic-description-shelf-renderer');	
+			const songContainerB = document.querySelector('#contents .non-expandable.description.ytmusic-description-shelf-renderer');	
+			if (songContainerA) {
+				setSongTypeLyrics(songContainerA);
+				setSongTypeLyrics(songContainerB);	
+			}			
 			const observer = new MutationObserver((_, observer) => {
 				checkLyricsContainer(() => observer.disconnect());
 			});
@@ -60,14 +58,9 @@ module.exports = (options) => {
 		};
 
 		function checkLyricsContainer(callback = () => {}) {
-			console.log("Checking container");
 			const lyricsContainer = document.querySelector(
 				'[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"] > ytmusic-message-renderer'
 			);
-			const songTypeContainer = document.querySelector('#contents .description.ytmusic-description-shelf-renderer');			
-			if (songTypeContainer) {
-				setSongTypeLyrics(songTypeContainer);
-			}
 			if (lyricsContainer) {
 				callback();
 				setLyrics(lyricsContainer);
@@ -97,7 +90,6 @@ module.exports = (options) => {
 				lyricsContainer.querySelector('.footer').textContent = 'Source: Genius';
 				enableLyricsTab();
 			}
-			console.log("Lyrics Set");
 		}
 
 		function setTabsOnclick(callback) {
