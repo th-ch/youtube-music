@@ -25,7 +25,6 @@ module.exports = (options) => {
 			"search-genius-lyrics",
 			extractedSongInfo
 		);
-		console.log(lyrics);
 		if (!lyrics) {
 			// Delete previous lyrics if tab is open and couldn't get new lyrics
 			checkLyricsContainer(() => {
@@ -61,15 +60,12 @@ module.exports = (options) => {
 		};
 
 		function checkLyricsContainer(callback = () => {}) {
-			console.log("End1");
+			console.log("Checking container");
 			const lyricsContainer = document.querySelector(
 				'[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"] > ytmusic-message-renderer'
 			);
 			const songTypeContainer = document.querySelector('#contents .description.ytmusic-description-shelf-renderer');			
-			console.log(songTypeContainer);
 			if (songTypeContainer) {
-				console.log("Using Song Container");
-				callback();
 				setSongTypeLyrics(songTypeContainer);
 			}
 			if (lyricsContainer) {
@@ -78,9 +74,12 @@ module.exports = (options) => {
 			}
 		}
 
+		/*
+		In the event that the type is a "Song" type, Youtube music uses different HTML for the lyrics container and this sets the lyrics there 
+		to the translated version of Lyrics if the plugin is enabled.
+		*/
 		function setSongTypeLyrics(container) {
-			console.log("Changing Inner Lyrics");
-			container.innerHTML = hasLyrics ? lyrics : "Could not retrieve lyrics from Genius";
+			container.innerHTML = hasLyrics ? lyrics.replace(/(?:\r\n|\r|\n)/g, "<br/>") : "Could not retrieve lyrics from Genius"
 		}
 
 		/*
