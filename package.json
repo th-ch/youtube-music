@@ -35,20 +35,8 @@
 				"!plugins/touchbar${/*}"
 			],
 			"target": [
-				{
-					"target": "nsis",
-					"arch": [
-						"x64",
-						"arm64"
-					]
-				},
-				{
-					"target": "portable",
-					"arch": [
-						"x64",
-						"arm64"
-					]
-				}
+				"nsis",
+				"portable"
 			]
 		},
 		"nsis": {
@@ -112,6 +100,7 @@
 		"@foobar404/wave": "^2.0.4",
 		"@xhayper/discord-rpc": "^1.0.15",
 		"async-mutex": "^0.4.0",
+		"axios": "^1.3.4",
 		"browser-id3-writer": "^4.4.0",
 		"butterchurn": "^2.6.7",
 		"butterchurn-presets": "^2.4.7",
