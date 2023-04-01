@@ -59,7 +59,12 @@ const mainMenuTemplate = (win) => {
 						};
 					}
 
-					return pluginEnabledMenu(plugin);
+					let pluginLabel = plugin;
+					if (pluginLabel === "crossfade") {
+						pluginLabel = "crossfade [beta]";
+					}
+
+					return pluginEnabledMenu(plugin, pluginLabel);
 				}),
 			],
 		},
