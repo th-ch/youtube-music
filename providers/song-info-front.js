@@ -1,5 +1,6 @@
 const { ipcRenderer } = require("electron");
 const { getImage } = require("./song-info");
+const { singleton } = require("../providers/decorators");
 
 global.songInfo = {};
 
@@ -14,17 +15,8 @@ ipcRenderer.on("update-song-info", async (_, extractedSongInfo) => {
 // used because 'loadeddata' or 'loadedmetadata' weren't firing on song start for some users (https://github.com/th-ch/youtube-music/issues/473)
 const srcChangedEvent = new CustomEvent('srcChanged');
 
-const singleton = (fn) => {
-	let called = false;
-	return (...args) => {
-		if (called) return;
-		called = true;
-		return fn(...args);
-	}
-}
-
 module.exports.setupSeekedListener = singleton(() => {
-	document.querySelector('video')?.addEventListener('seeked', v => ipcRenderer.send('seeked', v.target.currentTime));
+	$('video')?.addEventListener('seeked', v => ipcRenderer.send('seeked', v.target.currentTime));
 });
 
 module.exports.setupTimeChangedListener = singleton(() => {

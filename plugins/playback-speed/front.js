@@ -1,5 +1,6 @@
 const { getSongMenu } = require("../../providers/dom-elements");
 const { ElementFromFile, templatePath } = require("../utils");
+const { singleton } = require("../../providers/decorators")
 
 function $(selector) { return document.querySelector(selector); }
 
@@ -22,7 +23,16 @@ const updatePlayBackSpeed = () => {
 };
 
 let menu;
-let observingSlider = false;
+
+const setupSliderListener = singleton(() => {
+	$('#playback-speed-slider').addEventListener('immediate-value-changed', e => {
+		playbackSpeed = e.detail.value || MIN_PLAYBACK_SPEED;
+		if (isNaN(playbackSpeed)) {
+			playbackSpeed = 1;
+		}
+		updatePlayBackSpeed();
+	})
+});
 
 const observePopupContainer = () => {
 	const observer = new MutationObserver(() => {
@@ -32,10 +42,7 @@ const observePopupContainer = () => {
 
 		if (menu && menu.parentElement.eventSink_?.matches('ytmusic-menu-renderer.ytmusic-player-bar') && !menu.contains(slider)) {
 			menu.prepend(slider);
-			if (!observingSlider) {
-				setupSliderListener();
-				observingSlider = true;
-			}
+			setupSliderListener();
 		}
 	});
 
@@ -65,16 +72,6 @@ const setupWheelListener = () => {
 		updatePlayBackSpeed();
 		// update slider position
 		$('#playback-speed-slider').value = playbackSpeed;
-	})
-}
-
-function setupSliderListener() {
-	$('#playback-speed-slider').addEventListener('immediate-value-changed', e => {
-		playbackSpeed = e.detail.value || MIN_PLAYBACK_SPEED;
-		if (isNaN(playbackSpeed)) {
-			playbackSpeed = 1;
-		}
-		updatePlayBackSpeed();
 	})
 }
 

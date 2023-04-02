@@ -10,6 +10,7 @@ const { fetchFromGenius } = require('../lyrics-genius/back');
 const { isEnabled } = require('../../config/plugins');
 const { getImage } = require('../../providers/song-info');
 const { injectCSS } = require('../utils');
+const { cache } = require("../../providers/decorators")
 const {
   presets,
   cropMaxWidth,
@@ -33,13 +34,6 @@ const ffmpeg = require('@ffmpeg/ffmpeg').createFFmpeg({
   progress: () => {}, // console.log,
 });
 const ffmpegMutex = new Mutex();
-
-const cache = {
-  getCoverBuffer: {
-    buffer: null,
-    url: null,
-  },
-};
 
 const config = require('./config');
 
@@ -295,19 +289,10 @@ async function iterableStreamToMP3(
   }
 }
 
-async function getCoverBuffer(url) {
-  const store = cache.getCoverBuffer;
-  if (store.url === url) {
-    return store.buffer;
-  }
-  store.url = url;
-
+const getCoverBuffer = cache(async (url) => {
   const nativeImage = cropMaxWidth(await getImage(url));
-  store.buffer =
-    nativeImage && !nativeImage.isEmpty() ? nativeImage.toPNG() : null;
-
-  return store.buffer;
-}
+  return nativeImage && !nativeImage.isEmpty() ? nativeImage.toPNG() : null;
+});
 
 async function writeID3(buffer, metadata, sendFeedback) {
   try {
