@@ -48,59 +48,59 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cliqz/adblocker-content@npm:^1.26.2":
-  version: 1.26.2
-  resolution: "@cliqz/adblocker-content@npm:1.26.2"
+"@cliqz/adblocker-content@npm:^1.26.5":
+  version: 1.26.5
+  resolution: "@cliqz/adblocker-content@npm:1.26.5"
   dependencies:
-    "@cliqz/adblocker-extended-selectors": ^1.26.2
-  checksum: 00ddbf157ca5ea97e3d8517f1d9397ca53eecfc95b6f09a327667ad388cafae84de655af8bac6d0c1f12b004b0c7eb8fc898f442f05e6b9d2294709a3bfb6a81
+    "@cliqz/adblocker-extended-selectors": ^1.26.5
+  checksum: 8d95320ee0ddbc52a2580fa20ee71b4b5f41c40455c06a00fc2e396000f508ee5484e5ccded7d615aec482941ee1838361abfd977d9d4d566b58edff7ccde664
   languageName: node
   linkType: hard
 
-"@cliqz/adblocker-electron-preload@npm:^1.26.2":
-  version: 1.26.2
-  resolution: "@cliqz/adblocker-electron-preload@npm:1.26.2"
+"@cliqz/adblocker-electron-preload@npm:^1.26.5":
+  version: 1.26.5
+  resolution: "@cliqz/adblocker-electron-preload@npm:1.26.5"
   dependencies:
-    "@cliqz/adblocker-content": ^1.26.2
+    "@cliqz/adblocker-content": ^1.26.5
   peerDependencies:
     electron: ">11"
-  checksum: e130911f00f9fbaa8f3edb3f36501a6f39b0f798a2dbeb8d8416219f3381edd7c34036452229472bd51fad13fa880ea24dc4b56419df0dffaa49f63f15a01451
+  checksum: 932798b8078f8cc7546f331f99902ee5152a0732542e5ce18397e4aa4e3c88f8d2fb42532b90fffe48c896682069928746cbcfb37560c9f57ac4c4bd935bc2bd
   languageName: node
   linkType: hard
 
-"@cliqz/adblocker-electron@npm:^1.26.0":
-  version: 1.26.2
-  resolution: "@cliqz/adblocker-electron@npm:1.26.2"
+"@cliqz/adblocker-electron@npm:^1.26.5":
+  version: 1.26.5
+  resolution: "@cliqz/adblocker-electron@npm:1.26.5"
   dependencies:
-    "@cliqz/adblocker": ^1.26.2
-    "@cliqz/adblocker-electron-preload": ^1.26.2
+    "@cliqz/adblocker": ^1.26.5
+    "@cliqz/adblocker-electron-preload": ^1.26.5
     tldts-experimental: ^5.6.21
   peerDependencies:
     electron: ">11"
-  checksum: 308e7e6273bdf055ba5a637111d301c6c7cc3f46c7b31e6e658addab7bcb735f162e77b50f123e2841a769b38b810f85e959dd7da382298c0c6bbedf9da58d44
+  checksum: 666f562a5745cf0e54b26253d6c9506a049c9a84a8a1002d3027a951bf195f094f7d506997872e0774dc4b6bc5b7b1a02db0c1aa9c44219ead283e0b90394d3c
   languageName: node
   linkType: hard
 
-"@cliqz/adblocker-extended-selectors@npm:^1.26.2":
-  version: 1.26.2
-  resolution: "@cliqz/adblocker-extended-selectors@npm:1.26.2"
-  checksum: 54736a3328e5175c6c0350d9f18faf83ed16a4f41bc1ff6fa550319ebf728fb5536015384ee4a5d005d7225c41a31eaa251d7a18486db26d41b251eeee8eaaae
+"@cliqz/adblocker-extended-selectors@npm:^1.26.5":
+  version: 1.26.5
+  resolution: "@cliqz/adblocker-extended-selectors@npm:1.26.5"
+  checksum: 8c48e2fc52c20e9411298035b2a51de5a03fea09dec650e54f7471a4034f36841ab03caa0e762805e4c8c389c98b8b398d6b948569424cb0b1a540f738c80d99
   languageName: node
   linkType: hard
 
-"@cliqz/adblocker@npm:^1.26.2":
-  version: 1.26.2
-  resolution: "@cliqz/adblocker@npm:1.26.2"
+"@cliqz/adblocker@npm:^1.26.5":
+  version: 1.26.5
+  resolution: "@cliqz/adblocker@npm:1.26.5"
   dependencies:
-    "@cliqz/adblocker-content": ^1.26.2
-    "@cliqz/adblocker-extended-selectors": ^1.26.2
+    "@cliqz/adblocker-content": ^1.26.5
+    "@cliqz/adblocker-extended-selectors": ^1.26.5
     "@remusao/guess-url-type": ^1.1.2
     "@remusao/small": ^1.1.2
     "@remusao/smaz": ^1.7.1
-    "@types/chrome": ^0.0.218
-    "@types/firefox-webext-browser": ^109.0.0
+    "@types/chrome": ^0.0.225
+    "@types/firefox-webext-browser": ^111.0.0
     tldts-experimental: ^5.6.21
-  checksum: e4fcfe15109f15ce95096501f00f4109743385158b3a746c30f4f8ff93bd73821e2424b67c9e58ba10a1c97da79826d26fb0b8eea77f7b3af3783f50b22d8009
+  checksum: 2c1ef4a0947fb137edcbefd219d28f86515968884280939986aafecf4ebc926a43bb52099994935336349fc9a80a22f5477919ed46350820f4d0fb914b769f23
   languageName: node
   linkType: hard
 
@@ -833,13 +833,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chrome@npm:^0.0.218":
-  version: 0.0.218
-  resolution: "@types/chrome@npm:0.0.218"
+"@types/chrome@npm:^0.0.225":
+  version: 0.0.225
+  resolution: "@types/chrome@npm:0.0.225"
   dependencies:
     "@types/filesystem": "*"
     "@types/har-format": "*"
-  checksum: 08f00e7c2ec8a8e869b0c7a93bd187c19471baa56f3c072c85b25467f2e0eeccfaa5a02f245bf1832fd2f7d4bb0ce3f4617a7e04f52ab37562efe1b868b62aca
+  checksum: e507ab091b52b27cf49fbb33d5bb5730325928bcebab39f8ac888599ccef4c66115a7280f56a9e00eb48718cf95a2564159c7303f814041e2b62fe33c6c7bc99
   languageName: node
   linkType: hard
 
@@ -885,10 +885,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/firefox-webext-browser@npm:^109.0.0":
-  version: 109.0.0
-  resolution: "@types/firefox-webext-browser@npm:109.0.0"
-  checksum: 6c3d8d98ca07329e88adda50911276864902d6b31f6f94712c4149327d01a06e7167eb4f6b34b8c7438a06792d0118a83e23afc21a7941ecd67ecaf40123e636
+"@types/firefox-webext-browser@npm:^111.0.0":
+  version: 111.0.1
+  resolution: "@types/firefox-webext-browser@npm:111.0.1"
+  checksum: 1730c2e303cb502dd3e85aeb6ac645e3526c1583da0ae02ea1203ac002485ba5bf045f7183840b6bde4055f43818b366db6dd112e0d611ec1d82c86c74a4589b
   languageName: node
   linkType: hard
 
@@ -8872,7 +8872,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "youtube-music@workspace:."
   dependencies:
-    "@cliqz/adblocker-electron": ^1.26.0
+    "@cliqz/adblocker-electron": ^1.26.5
     "@ffmpeg/core": ^0.11.0
     "@ffmpeg/ffmpeg": ^0.11.6
     "@foobar404/wave": ^2.0.4
