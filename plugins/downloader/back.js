@@ -8,7 +8,7 @@ const { join } = require('path');
 
 const { fetchFromGenius } = require('../lyrics-genius/back');
 const { isEnabled } = require('../../config/plugins');
-const { getImage } = require('../../providers/song-info');
+const { getImage, cleanupName } = require('../../providers/song-info');
 const { injectCSS } = require('../utils');
 const { cache } = require("../../providers/decorators")
 const {
@@ -499,10 +499,10 @@ const getVideoId = (url) => {
 
 const getMetadata = (info) => ({
   id: info.basic_info.id,
-  title: info.basic_info.title,
-  artist: info.basic_info.author,
+  title: cleanupName(info.basic_info.title),
+  artist: cleanupName(info.basic_info.author),
   album: info.player_overlays?.browser_media_session?.album?.text,
-  image: info.basic_info.thumbnail[0].url,
+  image: info.basic_info.thumbnail?.find((t) => !t.url.endsWith('.webp'))?.url,
 });
 
 // This is used to bypass age restrictions
