@@ -68,7 +68,7 @@ module.exports = () => {
 		apiEvent.detail.addEventListener('videodatachange', (name, _dataEvent) => {
 			if (name !== 'dataloaded') return;
 			video.dispatchEvent(srcChangedEvent);
-			setTimeout(sendSongInfo());
+			setTimeout(sendSongInfo, 200);
 		})
 
 		for (const status of ['playing', 'pause']) {
@@ -92,7 +92,7 @@ module.exports = () => {
 				|| e.href?.includes("browse/MPREb")
 			)?.textContent;
 
-			data.videoDetails.elapsedSeconds = Math.floor(video.currentTime);
+			data.videoDetails.elapsedSeconds = 0;
 			data.videoDetails.isPaused = false;
 			ipcRenderer.send("video-src-changed", JSON.stringify(data));
 		}
