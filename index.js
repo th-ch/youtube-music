@@ -381,7 +381,7 @@ app.on("ready", () => {
 		const uri = `${APP_PROTOCOL}://`;
 		const protocolArgv = commandLine.find(arg => arg.startsWith(uri));
 		if (protocolArgv) {
-			const command = protocolArgv.slice(uri.length, -1);
+			const command = protocolArgv.slice(uri.length);
 			if (is.dev()) console.debug(`Received command over protocol: "${command}"`);
 			handleProtocol(command);
 			return;
