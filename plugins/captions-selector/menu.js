@@ -1,12 +1,20 @@
-const { setOptions } = require('../../config/plugins');
+const config = require("./config");
 
-module.exports = (_win, options) => [
+module.exports = () => [
+    {
+        label: "Automatically select last used caption",
+        type: "checkbox",
+        checked: config.get("autoload"),
+        click: (item) => {
+            config.set('autoload', item.checked);
+        }
+    },
     {
         label: "No captions by default",
         type: "checkbox",
-        checked: options.disabledCaptions,
+        checked: config.get("disabledCaptions"),
         click: (item) => {
-            setOptions("captions-selector", { disableCaptions: item.checked });
+            config.set('disableCaptions', item.checked);
         },
     }
 ];
