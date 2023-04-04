@@ -105,6 +105,13 @@ const defaultConfig = {
 		"skip-silences": {
 			onlySkipBeginning: false,
 		},
+		"crossfade": {
+			enabled: false,
+			fadeInDuration: 1500, // ms
+			fadeOutDuration: 5000, // ms
+			secondsBeforeEnd: 10, // s
+			fadeScaling: "linear", // 'linear', 'logarithmic' or a positive number in dB
+		},
 		visualizer: {
 			enabled: false,
 			type: "butterchurn",
