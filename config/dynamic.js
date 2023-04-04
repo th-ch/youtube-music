@@ -155,7 +155,7 @@ module.exports.PluginConfig = class PluginConfig {
 				if (typeof fn !== "function" || fn.name in ignoredMethods) return;
 				this[fnName] = async (...args) => {
 					return await ipcRenderer.invoke(
-						`${this.name}-config-${fnName}`,
+						`${this.#name}-config-${fnName}`,
 						...args,
 					);
 				};
@@ -166,38 +166,38 @@ module.exports.PluginConfig = class PluginConfig {
 					}
 					this.#subscribers[valueName] = fn;
 					ipcRenderer.on(
-						`${this.name}-config-changed-${valueName}`,
+						`${this.#name}-config-changed-${valueName}`,
 						(_, value) => {
 							fn(value);
 						},
 					);
-					ipcRenderer.send(`${this.name}-config-subscribe`, valueName);
+					ipcRenderer.send(`${this.#name}-config-subscribe`, valueName);
 				};
 
 				this.subscribeAll = (fn) => {
-					ipcRenderer.on(`${this.name}-config-changed`, (_, value) => {
+					ipcRenderer.on(`${this.#name}-config-changed`, (_, value) => {
 						fn(value);
 					});
-					ipcRenderer.send(`${this.name}-config-subscribe-all`);
+					ipcRenderer.send(`${this.#name}-config-subscribe-all`);
 				};
 			}
 		} else if (process.type === "browser") {
 			for (const [fnName, fn] of Object.entries(this)) {
 				if (typeof fn !== "function" || fn.name in ignoredMethods) return;
-				ipcMain.handle(`${this.name}-config-${fnName}`, (_, ...args) => {
+				ipcMain.handle(`${this.#name}-config-${fnName}`, (_, ...args) => {
 					return fn(...args);
 				});
 			}
 
-			ipcMain.on(`${this.name}-config-subscribe`, (_, valueName) => {
+			ipcMain.on(`${this.#name}-config-subscribe`, (_, valueName) => {
 				this.subscribe(valueName, (value) => {
-					sendToFront(`${this.name}-config-changed-${valueName}`, value);
+					sendToFront(`${this.#name}-config-changed-${valueName}`, value);
 				});
 			});
 
-			ipcMain.on(`${this.name}-config-subscribe-all`, () => {
+			ipcMain.on(`${this.#name}-config-subscribe-all`, () => {
 				this.subscribeAll((value) => {
-					sendToFront(`${this.name}-config-changed`, value);
+					sendToFront(`${this.#name}-config-changed`, value);
 				});
 			});
 		}
