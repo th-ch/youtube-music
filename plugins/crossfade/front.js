@@ -110,6 +110,9 @@ const onApiLoaded = () => {
 	watchVideoIDChanges(async (videoID) => {
 		await waitForTransition;
 		const url = await getStreamURL(videoID);
+		if (!url) {
+			return;
+		}
 		await createAudioForCrossfade(url);
 	});
 };
