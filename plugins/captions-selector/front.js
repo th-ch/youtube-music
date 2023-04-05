@@ -1,7 +1,8 @@
 const { ElementFromFile, templatePath } = require("../utils");
 const { ipcRenderer } = require("electron");
 
-const config = require("./config");
+const configProvider = require("./config");
+let config;
 
 function $(selector) { return document.querySelector(selector); }
 
@@ -9,7 +10,12 @@ const captionsSettingsButton = ElementFromFile(
     templatePath(__dirname, "captions-settings-template.html")
 );
 
-module.exports = () => {
+module.exports = async () => {
+	config = await configProvider.getAll();
+
+	configProvider.subscribeAll((newConfig) => {
+		config = newConfig;
+	});
     document.addEventListener('apiLoaded', (event) => setup(event.detail), { once: true, passive: true });
 }
 
@@ -19,7 +25,7 @@ function setup(api) {
     let captionTrackList = api.getOption("captions", "tracklist");
 
 	$("video").addEventListener("srcChanged", async () => {
-		if (await config.get('disableCaptions')) {
+		if (config.disableCaptions) {
 			setTimeout(() => api.unloadModule("captions"), 100);
 			captionsSettingsButton.style.display = "none";
 			return;
@@ -30,9 +36,9 @@ function setup(api) {
 		setTimeout(async () => {
 			captionTrackList = api.getOption("captions", "tracklist");
 
-			if (await config.get("autoload") && await config.get("lastCaptionsCode")) {
+			if (config.autoload && config.lastCaptionsCode) {
 				api.setOption("captions", "track", {
-					languageCode: await config.get("lastCaptionsCode"),
+					languageCode: config.lastCaptionsCode,
 				});
 			}
 
@@ -58,7 +64,7 @@ function setup(api) {
 			if (currentIndex === null) return;
 
 			const newCaptions = captionTrackList[currentIndex];
-            config.set('lastCaptionsCode', newCaptions?.languageCode);
+            configProvider.set('lastCaptionsCode', newCaptions?.languageCode);
 			if (newCaptions) {
 				api.setOption("captions", "track", { languageCode: newCaptions.languageCode });
 			} else {
