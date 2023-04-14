@@ -781,13 +781,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@selderee/plugin-htmlparser2@npm:^0.10.0":
-  version: 0.10.0
-  resolution: "@selderee/plugin-htmlparser2@npm:0.10.0"
+"@selderee/plugin-htmlparser2@npm:^0.11.0":
+  version: 0.11.0
+  resolution: "@selderee/plugin-htmlparser2@npm:0.11.0"
   dependencies:
     domhandler: ^5.0.3
-    selderee: ^0.10.0
-  checksum: 37b5e059f0091754348c288bf630b372d20bc999a84483a3dc6688ab84c743ddc286f95bc7d69253add48640e7145511b412678f2c954b83f63a87967dc3f569
+    selderee: ^0.11.0
+  checksum: 6deafedd153e492359f8f0407d20903d82f2ef4950e420f4b2ee6ffbb955753524631aac7d6a5fe61dc7c7893e6928b4d8409e886157ad64a60ab37bc08b17c4
   languageName: node
   linkType: hard
 
@@ -2528,10 +2528,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"deepmerge@npm:^4.3.0":
-  version: 4.3.0
-  resolution: "deepmerge@npm:4.3.0"
-  checksum: c7980eb5c5be040b371f1df0d566473875cfabed9f672ccc177b81ba8eee5686ce2478de2f1d0076391621cbe729e5eacda397179a59ef0f68901849647db126
+"deepmerge@npm:^4.3.1":
+  version: 4.3.1
+  resolution: "deepmerge@npm:4.3.1"
+  checksum: 2024c6a980a1b7128084170c4cf56b0fd58a63f2da1660dcfe977415f27b17dbe5888668b59d0b063753f3220719d5e400b7f113609489c90160bb9a5518d052
   languageName: node
   linkType: hard
 
@@ -3085,6 +3085,13 @@ __metadata:
   version: 4.4.0
   resolution: "entities@npm:4.4.0"
   checksum: 84d250329f4b56b40fa93ed067b194db21e8815e4eb9b59f43a086f0ecd342814f6bc483de8a77da5d64e0f626033192b1b4f1792232a7ea6b970ebe0f3187c2
+  languageName: node
+  linkType: hard
+
+"entities@npm:^4.4.0":
+  version: 4.5.0
+  resolution: "entities@npm:4.5.0"
+  checksum: 853f8ebd5b425d350bffa97dd6958143179a5938352ccae092c62d1267c4e392a039be1bae7d51b6e4ffad25f51f9617531fedf5237f15df302ccfb452cbf2d7
   languageName: node
   linkType: hard
 
@@ -4524,16 +4531,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"html-to-text@npm:^9.0.4":
-  version: 9.0.4
-  resolution: "html-to-text@npm:9.0.4"
+"html-to-text@npm:^9.0.5":
+  version: 9.0.5
+  resolution: "html-to-text@npm:9.0.5"
   dependencies:
-    "@selderee/plugin-htmlparser2": ^0.10.0
-    deepmerge: ^4.3.0
+    "@selderee/plugin-htmlparser2": ^0.11.0
+    deepmerge: ^4.3.1
     dom-serializer: ^2.0.0
-    htmlparser2: ^8.0.1
-    selderee: ^0.10.0
-  checksum: 5431f7fa5501ba05cdc7e7eb90b9d3f7607e9779f313abc6a48bf493e144947f3bde63426679ca153e085ca77d7c0983bb2cf160a30b68b1598d1fb174a0ca05
+    htmlparser2: ^8.0.2
+    selderee: ^0.11.0
+  checksum: 205e0faa9b9aa281b369122acdffc5f348848e400f4037fde1fb12d68a6baa11644d2b64c3cc6821a79d3bc7316d89e85cc733d86f7f709858cb5c5b72faac65
   languageName: node
   linkType: hard
 
@@ -4546,6 +4553,18 @@ __metadata:
     domutils: ^3.0.1
     entities: ^4.3.0
   checksum: 06d5c71e8313597722bc429ae2a7a8333d77bd3ab07ccb916628384b37332027b047f8619448d8f4a3312b6609c6ea3302a4e77435d859e9e686999e6699ca39
+  languageName: node
+  linkType: hard
+
+"htmlparser2@npm:^8.0.2":
+  version: 8.0.2
+  resolution: "htmlparser2@npm:8.0.2"
+  dependencies:
+    domelementtype: ^2.3.0
+    domhandler: ^5.0.3
+    domutils: ^3.0.1
+    entities: ^4.4.0
+  checksum: 29167a0f9282f181da8a6d0311b76820c8a59bc9e3c87009e21968264c2987d2723d6fde5a964d4b7b6cba663fca96ffb373c06d8223a85f52a6089ced942700
   languageName: node
   linkType: hard
 
@@ -6626,13 +6645,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"parseley@npm:^0.11.0":
-  version: 0.11.0
-  resolution: "parseley@npm:0.11.0"
+"parseley@npm:^0.12.0":
+  version: 0.12.0
+  resolution: "parseley@npm:0.12.0"
   dependencies:
     leac: ^0.6.0
-    peberminta: ^0.8.0
-  checksum: cbd4762bf72c2456ddd722a8f3d757dfc6c178aa0819fc26be5549fcebf258fdee5f3acd210481054735e0ecb6fee47ba542b1f17560f941b9401fdd6ddf2e8c
+    peberminta: ^0.9.0
+  checksum: 3eaad074dfa914f55f16a2d2c45335fd8b3e84f968b40be4b784a5655f6984d652aaaaeba975ee1100541cd2bdda280f978a1b0cbfe4d961e0e45fb4439977f6
   languageName: node
   linkType: hard
 
@@ -6714,10 +6733,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"peberminta@npm:^0.8.0":
-  version: 0.8.0
-  resolution: "peberminta@npm:0.8.0"
-  checksum: 77d8c02b708c23c8b3893c42e33c29f8c485caa77b691ca5c1cc41fc8706e833d669e54a90c7cd7a18a01151b902ad13b0047d0290bc6cc51b5825c40692bdd5
+"peberminta@npm:^0.9.0":
+  version: 0.9.0
+  resolution: "peberminta@npm:0.9.0"
+  checksum: b983b68077269ca8a3327520a0a3f027fa930faa9fb3cb53bed1cb3847ebc0ed55db936d70b1745a756149911f5f450e898e87e25ab207f1b8b892bed48fb540
   languageName: node
   linkType: hard
 
@@ -7329,7 +7348,7 @@ __metadata:
 
 "resolve@patch:resolve@^1.10.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.20.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.22.1#~builtin<compat/resolve>":
   version: 1.22.1
-  resolution: "resolve@patch:resolve@npm%3A1.22.1#~builtin<compat/resolve>::version=1.22.1&hash=c3c19d"
+  resolution: "resolve@patch:resolve@npm%3A1.22.1#~builtin<compat/resolve>::version=1.22.1&hash=07638b"
   dependencies:
     is-core-module: ^2.9.0
     path-parse: ^1.0.7
@@ -7463,12 +7482,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"selderee@npm:^0.10.0":
-  version: 0.10.0
-  resolution: "selderee@npm:0.10.0"
+"selderee@npm:^0.11.0":
+  version: 0.11.0
+  resolution: "selderee@npm:0.11.0"
   dependencies:
-    parseley: ^0.11.0
-  checksum: 8ecd535fe8a0359f729d4ba48c3a45121a6f5570fec3138774648084ebce63174717dfb028400490e5e7fda0c46a322a53ec656af69f4a17f34ece85685eb80f
+    parseley: ^0.12.0
+  checksum: af8a68c1f4cde858152943b6fc9f2b7164c8fb1a1c9f01b44350dffd1f79783930d77a0ae33548a036816d17c8130eeb9d15f1db65c9262ca368ad3a0d750f66
   languageName: node
   linkType: hard
 
@@ -8315,11 +8334,11 @@ __metadata:
 
 "typescript@patch:typescript@^4.9.3#~builtin<compat/typescript>":
   version: 4.9.5
-  resolution: "typescript@patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=23ec76"
+  resolution: "typescript@patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=701156"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: ab417a2f398380c90a6cf5a5f74badd17866adf57f1165617d6a551f059c3ba0a3e4da0d147b3ac5681db9ac76a303c5876394b13b3de75fdd5b1eaa06181c9d
+  checksum: 2eee5c37cad4390385db5db5a8e81470e42e8f1401b0358d7390095d6f681b410f2c4a0c496c6ff9ebd775423c7785cdace7bcdad76c7bee283df3d9718c0f20
   languageName: node
   linkType: hard
 
@@ -8899,7 +8918,7 @@ __metadata:
     electron-updater: ^5.3.0
     filenamify: ^4.3.0
     howler: ^2.2.3
-    html-to-text: ^9.0.4
+    html-to-text: ^9.0.5
     keyboardevent-from-electron-accelerator: ^2.0.0
     keyboardevents-areequal: ^0.2.2
     md5: ^2.3.0
