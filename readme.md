@@ -56,6 +56,8 @@ winget install th-ch.YouTubeMusic
 
 ## Available plugins:
 
+- **API**: Enables a REST API that can be used to view song info and control the player - See [here](https://github.com/Zo-Bro-23/youtube-music-api) for documentation
+
 - **Ad Blocker**: Block all ads and tracking out of the box
 
 - **Audio Compressor**: Apply compression to audio (lowers the volume of the loudest parts of the signal and raises the volume of the softest parts)
@@ -190,13 +192,13 @@ module.exports = () => {
 - communicating between the front and back: can be done using the ipcMain module from electron. See `utils.js` file and example in `navigation` plugin.
 
 ## Build
-
 1. Clone the repo
-2. Run `yarn` to install dependencies
-3. Run `yarn build:OS`
-   - `yarn build:win` - Windows
-   - `yarn build:linux` - Linux
-   - `yarn build:mac` - MacOS
+2. Run ```yarn```
+3. Run ```npm i rimraf```
+4. Run ```yarn build:OS```
+	- ```yarn build:win``` - Windows
+	- ```yarn build:linux``` - Linux
+	- ```yarn build:mac``` - OS X
 
 Builds the app for macOS, Linux, and Windows, using [electron-builder](https://github.com/electron-userland/electron-builder).
 
