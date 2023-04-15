@@ -2293,24 +2293,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"electron-is-dev@npm:^0.3.0":
-  version: 0.3.0
-  resolution: "electron-is-dev@npm:0.3.0"
-  checksum: d251e3b4c9cfd515a599dd852319ffca5b6b59c52c40dc3109f74ff9921a71e288d66445fc713a7f6296d3a696f04bb8d2135fa23599af7d7f1bc74a7552646b
-  languageName: node
-  linkType: hard
-
-"electron-is-dev@npm:^1.1.0":
-  version: 1.2.0
-  resolution: "electron-is-dev@npm:1.2.0"
-  checksum: 73eee7aa7ce90a387bf224ec26aa808237164572641ca41cdca34a046adb72406d4414c3cc5b0b5e335a6d6010886474e1325c0b0af40c9fac95210b00195fdb
-  languageName: node
-  linkType: hard
-
-"electron-is-dev@npm:^2.0.0":
+"electron-is-dev@npm:2.0.0":
   version: 2.0.0
   resolution: "electron-is-dev@npm:2.0.0"
   checksum: 7393f46f06153d70a427ea904c60a092e50fbf1015c26c342cebb8324ada8c9e0c0f1f02867af56d9cc76f47be17da8cb311ea6bdc83343e7ebd2323ec4014c8
+  languageName: node
+  linkType: hard
+
+"electron-is-dev@patch:electron-is-dev@npm%3A2.0.0#./.yarn/patches/electron-is-dev-npm-2.0.0-9d41637d91.patch::locator=youtube-music%40workspace%3A.":
+  version: 2.0.0
+  resolution: "electron-is-dev@patch:electron-is-dev@npm%3A2.0.0#./.yarn/patches/electron-is-dev-npm-2.0.0-9d41637d91.patch::version=2.0.0&hash=64e927&locator=youtube-music%40workspace%3A."
+  checksum: 9a0c03b4d89c1ef474bff03f331fb72a0edc58c9a5ad0d0fc31a55625a2f2650e6e4934839668cfb4200bc3c83b299f421183f9476e6ebccb6df51f0b8b6d27e
   languageName: node
   linkType: hard
 
