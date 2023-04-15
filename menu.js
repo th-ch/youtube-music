@@ -169,11 +169,11 @@ const mainMenuTemplate = (win) => {
 				{
 					label: "Single instance lock",
 					type: "checkbox",
-					checked: false,
+					checked: true,
 					click: (item) => {
-						if (item.checked && app.hasSingleInstanceLock())
+						if (!item.checked && app.hasSingleInstanceLock())
 							app.releaseSingleInstanceLock();
-						else if (!item.checked && !app.hasSingleInstanceLock())
+						else if (item.checked && !app.hasSingleInstanceLock())
 							app.requestSingleInstanceLock();
 					},
 				},
