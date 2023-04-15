@@ -137,6 +137,9 @@
 		"youtubei.js": "^4.3.0",
 		"ytpl": "^2.3.0"
 	},
+	"resolutions": {
+		"electron-is-dev": "patch:electron-is-dev@npm%3A2.0.0#./.yarn/patches/electron-is-dev-npm-2.0.0-9d41637d91.patch"
+	},
 	"devDependencies": {
 		"@playwright/test": "^1.29.2",
 		"auto-changelog": "^2.4.0",
