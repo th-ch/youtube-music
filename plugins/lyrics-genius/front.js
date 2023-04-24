@@ -58,13 +58,21 @@ module.exports = (options) => {
 		};
 
 		function checkLyricsContainer(callback = () => {}) {
-			const lyricsContainer = document.querySelector(
-				'[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"] > ytmusic-message-renderer'
-			);
-			if (lyricsContainer) {
-				callback();
-				setLyrics(lyricsContainer);
-			}
+			const lyricsContainers = [
+				document.querySelector(
+					'ytmusic-tab-renderer[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"] > ytmusic-message-renderer',
+				),
+				document.querySelector(
+					'ytmusic-section-list-renderer[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"] .non-expandable.description.ytmusic-description-shelf-renderer',
+				),
+			];
+			lyricsContainers.forEach((lyricsContainer) => {
+				if (lyricsContainer) {
+					callback();
+					setLyrics(lyricsContainer);
+					lyricsContainer.style.display = "block"; // fix youtube hiding the lyrics sometimes
+				}
+			});
 		}
 
 		/*
@@ -79,13 +87,15 @@ module.exports = (options) => {
 		Set the "Lyrics" tab you see on screen by injecting lyrics into the HTML. 
 		*/
 		function setLyrics(lyricsContainer) {
-			// Appears to be rendered only when the song is not a "Song" type.
-			lyricsContainer.innerHTML = `<div id="contents" class="style-scope ytmusic-section-list-renderer description ytmusic-description-shelf-renderer genius-lyrics">
-			 		${
-						hasLyrics ? lyrics.replace(/(?:\r\n|\r|\n)/g, "<br/>") : "Could not retrieve lyrics from Genius"
-					}
-				</div>
-				<yt-formatted-string class="footer style-scope ytmusic-description-shelf-renderer" style="align-self: baseline"></yt-formatted-string>`;
+			lyricsContainer.innerHTML =
+				`<div id="contents" class="style-scope ytmusic-section-list-renderer description ytmusic-description-shelf-renderer genius-lyrics">
+${hasLyrics
+					? lyrics.trim().replace(/(?:\r\n|\r|\n)/g, "<br/>")
+					: "Could not retrieve lyrics from genius"
+				}
+
+</div>
+<yt-formatted-string class="footer style-scope ytmusic-description-shelf-renderer" style="align-self: baseline"></yt-formatted-string>`;
 			if (hasLyrics) {
 				lyricsContainer.querySelector('.footer').textContent = 'Source: Genius';
 				enableLyricsTab();
