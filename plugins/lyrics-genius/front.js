@@ -57,22 +57,16 @@ module.exports = (options) => {
 			});
 		};
 
-		function checkLyricsContainer(callback = () => {}) {
-			const lyricsContainers = [
-				document.querySelector(
-					'ytmusic-tab-renderer[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"] > ytmusic-message-renderer',
-				),
-				document.querySelector(
-					'ytmusic-section-list-renderer[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"] .non-expandable.description.ytmusic-description-shelf-renderer',
-				),
-			];
-			lyricsContainers.forEach((lyricsContainer) => {
-				if (lyricsContainer) {
-					callback();
-					setLyrics(lyricsContainer);
-					lyricsContainer.style.display = "block"; // fix youtube hiding the lyrics sometimes
-				}
-			});
+		function setLyrics(lyricsContainer) {
+			lyricsContainer.innerHTML =
+				`<div id="contents" class="style-scope ytmusic-section-list-renderer description ytmusic-description-shelf-renderer genius-lyrics">
+				${hasLyrics ? lyrics.trim().replace(/(?:\r\n|\r|\n)/g, "<br/>") : "Could not retrieve lyrics from genius"}
+				</div>
+				<yt-formatted-string class="footer style-scope ytmusic-description-shelf-renderer" style="align-self: baseline"></yt-formatted-string>`;
+			if (hasLyrics) {
+				lyricsContainer.querySelector('.footer').textContent = 'Source: Genius';
+				enableLyricsTab();
+			}
 		}
 
 		/*
