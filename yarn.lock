@@ -57,7 +57,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cliqz/adblocker-electron-preload@npm:^1.26.5":
+"@cliqz/adblocker-electron-preload@npm:^1.26.3":
   version: 1.26.5
   resolution: "@cliqz/adblocker-electron-preload@npm:1.26.5"
   dependencies:
@@ -68,16 +68,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cliqz/adblocker-electron@npm:^1.26.5":
-  version: 1.26.5
-  resolution: "@cliqz/adblocker-electron@npm:1.26.5"
+"@cliqz/adblocker-electron@npm:1.26.3":
+  version: 1.26.3
+  resolution: "@cliqz/adblocker-electron@npm:1.26.3"
   dependencies:
-    "@cliqz/adblocker": ^1.26.5
-    "@cliqz/adblocker-electron-preload": ^1.26.5
+    "@cliqz/adblocker": ^1.26.3
+    "@cliqz/adblocker-electron-preload": ^1.26.3
     tldts-experimental: ^5.6.21
   peerDependencies:
     electron: ">11"
-  checksum: 666f562a5745cf0e54b26253d6c9506a049c9a84a8a1002d3027a951bf195f094f7d506997872e0774dc4b6bc5b7b1a02db0c1aa9c44219ead283e0b90394d3c
+  checksum: 3a649ff7aaebeb4265f3d9f75ffed11a29b06005a437f92873b1b286fd742631cb8beaf83b7973adda334a1b91075ac27a864503ae5451ac3dddfe5c0bd59bb4
   languageName: node
   linkType: hard
 
@@ -88,7 +88,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cliqz/adblocker@npm:^1.26.5":
+"@cliqz/adblocker@npm:^1.26.3":
   version: 1.26.5
   resolution: "@cliqz/adblocker@npm:1.26.5"
   dependencies:
@@ -7325,7 +7325,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "youtube-music@workspace:."
   dependencies:
-    "@cliqz/adblocker-electron": ^1.26.5
+    "@cliqz/adblocker-electron": 1.26.3
     "@ffmpeg/core": ^0.11.0
     "@ffmpeg/ffmpeg": ^0.11.6
     "@foobar404/wave": ^2.0.4
