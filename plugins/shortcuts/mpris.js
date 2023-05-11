@@ -145,6 +145,7 @@ function registerMPRIS(win) {
 					'mpris:length': secToMicro(songInfo.songDuration),
 					'mpris:artUrl': songInfo.imageSrc,
 					'xesam:title': songInfo.title,
+					'xesam:url': songInfo.url,
 					'xesam:artist': [songInfo.artist],
 					'mpris:trackid': '/'
 				};
