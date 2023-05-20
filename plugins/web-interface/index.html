@@ -1,0 +1,102 @@
+<html>
+	<head>
+	<style>
+	div {
+		display:inline;
+	}
+	</style>
+	<script>
+		var toHHMMSS = (secs) => {
+			var sec_num = parseInt(secs, 10)
+			var hours   = Math.floor(sec_num / 3600)
+			var minutes = Math.floor(sec_num / 60) % 60
+			var seconds = sec_num % 60
+
+			return [hours,minutes,seconds]
+				.map(v => v < 10 ? "0" + v : v)
+				.filter((v,i) => v !== "00" || i > 0)
+				.join(":")
+		}
+			const api_url=window.location+"api";
+		async function get_music() {
+			try {
+			const response = await fetch(api_url);
+			const jsonData = await response.json();
+			if (jsonData.title){
+				document.getElementById("now-playing").style.display="block";
+				document.getElementById("not-playing").style.display="none";
+				document.getElementById("albumart").src=jsonData.imageSrc;
+				document.getElementById("status").innerHTML=(jsonData.isPaused)?"Paused":"Playing";
+				document.getElementById("position").innerHTML=toHHMMSS(jsonData.elaspedSeconds)+"/"+toHHMMSS(jsonData.songDuration);
+				document.getElementById("song").innerHTML=jsonData.title;
+				document.getElementById("album").innerHTML=jsonData.album;
+				document.getElementById("artist").innerHTML=jsonData.artist;
+				document.getElementById("songlink").href=jsonData.url;
+				document.getElementById("loopstatus").innerHTML=jsonData.loopStatus;
+				document.getElementById("volume").innerHTML=jsonData.volume;
+			}
+				else {
+					document.getElementById("now-playing").style.display="none";
+					document.getElementById("not-playing").style.display="block";
+				}
+			
+			} catch(a) {
+				document.getElementById("now-playing").style.display="none";
+				document.getElementById("not-playing").style.display="block";
+				}
+		}
+			async function sendaction(action){
+				const response = await fetch(api_url+"?action="+action);
+			}
+			get_music();
+			abcd = setInterval(get_music,1000);
+	</script>
+</head>
+<body>
+
+
+	
+	<div id="now-playing" class="now_playing">
+		<div align=left>Listening to:</div>
+		<br>
+		<img id="albumart" width=300><br>
+		<br>
+		<div id=status></div>
+		<br>
+		Position:
+		<div id=position></div>
+		<br>
+		Song:
+		<a id=songlink class="anone" target="_blank" rel="noopener noreferrer">
+		<div id=song></div>
+		</a>
+		<br>
+		Album:
+		<div id=album></div>
+		<br>
+		Artist:
+		<div id=artist></div>
+		<br>
+		Loop:
+		<div id=loopstatus></div>
+		<br>
+		Volume:
+		<div id=volume></div>
+		<br>
+		<button onclick="sendaction('previous')">Previous</button>
+		<button onclick="sendaction('playpause')">Play/Pause</button>
+		<button onclick="sendaction('next')">Next</button>
+		<br>
+		<button onclick="sendaction('looptoggle')">loop:none/all/one</button>
+		<button onclick="sendaction('shuffle')">shuffle</button>
+		<br>
+		<button onclick="sendaction('volumeplus10')">volume+</button>
+		<button onclick="sendaction('volumeminus10')">volume-</button>
+	</div>
+	<div id="not-playing" class="now_playing">
+		if i'm listening to stuff, it shows up right here
+		<br>
+		right now I aren't
+	</div>
+</body>
+</html>
