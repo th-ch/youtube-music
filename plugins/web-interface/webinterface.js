@@ -4,11 +4,8 @@ const registerCallback = require("../../providers/song-info");
 const getSongControls = require("../../providers/song-controls");
 const config = require("../../config");
 const path = require('path');
-
-const express = require('express');
-
-// Create an Express application
-const app = express();
+const fs = require('fs');
+const http = require('http');
 const port = 9669; // Choose a port number
 
 
@@ -74,6 +71,7 @@ function doAction(action){
 	const songControls = getSongControls(win_global);
 	const { playPause, next, previous, volumeMinus10, volumePlus10, shuffle } = songControls;
 	try {	
+		err = 0;
 		switch (action){
 			case "play":
 			case "pause":
@@ -99,13 +97,15 @@ function doAction(action){
 			case 'volumeminus10':
 				volumeMinus10();
 				break;
-			default :
-				console.log("web-interface: " + "Requested action" + action + "not found");
-
+			default:
+				err="web-interface: " + "Requested action" + action + "not found";
+				console.log(err);
 		}
 	} catch (e) {
 		console.warn("Error in web-interface -> actions", e);
+		err="unkown error in doing requested action"
 	}
+	return err;
 }
 
 /* actions I do not understand and are not supported right now: raise?, volume, seek, position
@@ -146,48 +146,33 @@ function doAction(action){
 
 
 */
-
-app.get('/api', (req, res) => {
-	songsend = {};
-	if (req.query.fields){
-		const reqFields = req.query.fields.split(","); //fields multiple at a time
-		reqFields.forEach(field => {
-			if (song.hasOwnProperty(field)) {
-				songsend[field] = song[field];
-			}
-			else {
-				songsend[field] = "ERROR: no such property";
-			}
-		});
-	} else {
-		songsend = song; //send everything if nothing is requested X)
+const server = http.createServer((req,res) => {
+	err=0;
+	if (req.url.slice(0,4) === '/api') {
+		const action = req.url.split('?')[1]?.split('=')[1];
+		if (action) {
+			console.log("webinterface: received and trying action " +  action);
+			err=doAction(action);
+		}
+		if (!err) {
+			res.setHeader('Content-Type','application/json');
+			res.write(JSON.stringify(song));
+		}
+		else {
+			res.statusCode = 404;
+			res.write(err);
+		};
 	}
-	if (req.query.action) {
-		const reqAction = req.query.action;	//actions one at a time
-		console.log("webinterface: received and trying action " +  reqAction);
-		doAction(reqAction);
-	}
-	res.json(songsend);
+	else {
+		const filePath = path.join(__dirname, "index.html");
+		var index = fs.readFileSync(filePath);
+		res.writeHead(200, {'Content-Type': 'text/html'});
+		res.end(index);
+		};
+	res.end();
 });
-
-app.get('/', function(req, res) {
-	  res.sendFile(path.join(__dirname,'./index.html'));
+server.listen(port, () => {
+	console.log(`web-interface API Server is running on port ${port}`);
 });
-
-
-// Error handling middleware
-app.use((err, req, res, next) => {
-	console.error("web-interface: " + err.stack);
-	res.status(500).json({ error: 'Internal Server Error' });
-});
-
-// Start the serve
-app.listen(port,'0.0.0.0', () => {
-	console.log("web-interface: " + `Server is listening on port ${port}`);
-});
-app.get('/', function(req, res) {
-	  res.sendFile(path.join(__dirname, '/index.html'));
-});
-
 
 module.exports = registerlisterners;
