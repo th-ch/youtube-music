@@ -95,8 +95,7 @@ function registerMPRIS(win) {
 		player.on('shuffle', (enableShuffle) => {
 			shuffle();
 		});
-		player.on('open', (args) => {win.loadURL(args.uri)});
-
+		
 		let mprisVolNewer = false;
 		let autoUpdate = false;
 		ipcMain.on('volumeChanged', (_, newVol) => {
