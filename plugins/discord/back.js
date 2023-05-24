@@ -130,9 +130,10 @@ module.exports = (win, { autoReconnect, activityTimoutEnabled, activityTimoutTim
 			state: songInfo.artist,
 			largeImageKey: songInfo.imageSrc,
 			largeImageText: songInfo.album,
-				buttons: listenAlong ? [
+			buttons: [
 				{ label: "Listen Along", url: songInfo.url },
-			] : undefined,
+				{ label: "View App On GitHub", url: 'https://github.com/th-ch/youtube-music' },
+			],
 		};
 
 		if (songInfo.isPaused) {
