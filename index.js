@@ -171,13 +171,32 @@ function createMainWindow() {
 	if(config.get("options.alwaysOnTop")){
 		win.setAlwaysOnTop(true);
 	}
-
+	
 	const urlToLoad = config.get("options.resumeOnStart")
 		? config.get("url")
 		: config.defaultConfig.url;
 	win.webContents.loadURL(urlToLoad);
 	win.on("closed", onClosed);
-
+	const scaleFactor = electron.screen.getPrimaryDisplay().scaleFactor;
+	const size = config.get("window-size");
+	const position = config.get("window-position");
+	
+	if (size && size.width && size.height) {
+		const scaledSize = {
+			width: size.width / scaleFactor,
+			height: size.height / scaleFactor,
+		};
+		win.setSize(scaledSize.width, scaledSize.height);
+	}
+	
+	if (position && position.x && position.y) {
+		const scaledPosition = {
+			x: position.x / scaleFactor,
+			y: position.y / scaleFactor,
+		};
+		win.setPosition(scaledPosition.x, scaledPosition.y);
+	}
+	
 	const setPiPOptions = config.plugins.isEnabled("picture-in-picture")
 		? (key, value) => require("./plugins/picture-in-picture/back").setOptions({ [key]: value })
 		: () => {};
