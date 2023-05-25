@@ -35,7 +35,10 @@ Install the `youtube-music-bin` package from the AUR. For AUR installation instr
 
 ### MacOS
 
-If you get an error "is damaged and can’t be opened." when launching the app, run `xattr -cr /Applications/YouTube\ Music.app` in Terminal.
+If you get an error "is damaged and can’t be opened." when launching the app, run the following in the Terminal:
+```
+xattr -cr /Applications/YouTube\ Music.app
+```
 
 ### Windows
 
