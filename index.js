@@ -145,19 +145,25 @@ function createMainWindow() {
 
 	if (windowPosition) {
 		const { x, y } = windowPosition;
-		const winSize = win.getSize();
-		const displaySize =
-			electron.screen.getDisplayNearestPoint(windowPosition).bounds;
+
+		// Berücksichtige den Scalefaktor von Windows
+		const primaryDisplay = electron.screen.getPrimaryDisplay();
+		const scaleFactor = primaryDisplay.scaleFactor;
+		const scaledWindowSize = {
+			width: Math.floor(windowSize.width * scaleFactor),
+			height: Math.floor(windowSize.height * scaleFactor),
+		};
+
 		if (
-			x + winSize[0] < displaySize.x - 8 ||
-			x - winSize[0] > displaySize.x + displaySize.width ||
-			y < displaySize.y - 8 ||
-			y > displaySize.y + displaySize.height
+			x + scaledWindowSize.width < primaryDisplay.bounds.x - 8 ||
+			x - scaledWindowSize.width > primaryDisplay.bounds.x + primaryDisplay.bounds.width ||
+			y < primaryDisplay.bounds.y - 8 ||
+			y > primaryDisplay.bounds.y + primaryDisplay.bounds.height
 		) {
-			//Window is offscreen
+			// Window is offscreen
 			if (is.dev()) {
 				console.log(
-					`Window tried to render offscreen, windowSize=${winSize}, displaySize=${displaySize}, position=${windowPosition}`
+					`Window tried to render offscreen, windowSize=${scaledWindowSize}, displaySize=${primaryDisplay.bounds}, position=${windowPosition}`
 				);
 			}
 		} else {
@@ -171,32 +177,13 @@ function createMainWindow() {
 	if(config.get("options.alwaysOnTop")){
 		win.setAlwaysOnTop(true);
 	}
-	
+
 	const urlToLoad = config.get("options.resumeOnStart")
 		? config.get("url")
 		: config.defaultConfig.url;
 	win.webContents.loadURL(urlToLoad);
 	win.on("closed", onClosed);
-	const scaleFactor = electron.screen.getPrimaryDisplay().scaleFactor;
-	const size = config.get("window-size");
-	const position = config.get("window-position");
-	
-	if (size && size.width && size.height) {
-		const scaledSize = {
-			width: size.width / scaleFactor,
-			height: size.height / scaleFactor,
-		};
-		win.setSize(scaledSize.width, scaledSize.height);
-	}
-	
-	if (position && position.x && position.y) {
-		const scaledPosition = {
-			x: position.x / scaleFactor,
-			y: position.y / scaleFactor,
-		};
-		win.setPosition(scaledPosition.x, scaledPosition.y);
-	}
-	
+
 	const setPiPOptions = config.plugins.isEnabled("picture-in-picture")
 		? (key, value) => require("./plugins/picture-in-picture/back").setOptions({ [key]: value })
 		: () => {};
