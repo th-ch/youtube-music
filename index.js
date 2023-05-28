@@ -243,12 +243,6 @@ function createMainWindow() {
 
 	removeContentSecurityPolicy();
 
-	// Action webContents zoom in on 'Ctrl'+'+' keyboard shortcut
-	electron.globalShortcut.register('CommandOrControl+=', () => {
-		let currentZoomFactor = win.webContents.getZoomFactor();
-		win.webContents.setZoomFactor(currentZoomFactor + 0.1);
-	});
-
 	return win;
 }
 
