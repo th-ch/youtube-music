@@ -69,6 +69,8 @@ winget install th-ch.YouTubeMusic
 
 - **Captions selector**: Enable captions
 
+- **Compact sidebar**: Always set the sidebar in compact mode
+
 - **Crossfade**: Crossfade between songs
 
 - **Disable Autoplay**: Makes every song start in "paused" mode
