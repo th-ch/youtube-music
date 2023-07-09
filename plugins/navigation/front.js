@@ -8,7 +8,7 @@ function run() {
 			templatePath(__dirname, "forward.html")
 		);
 		const backButton = ElementFromFile(templatePath(__dirname, "back.html"));
-		const menu = document.querySelector("ytmusic-pivot-bar-renderer");
+		const menu = document.querySelector("#right-content");
 
 		if (menu) {
 			menu.prepend(backButton, forwardButton);

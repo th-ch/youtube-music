@@ -10,7 +10,7 @@
 	align-items: center;
 	color: rgba(255, 255, 255, 0.5);
 	cursor: pointer;
-	margin: 0 var(--ytmusic-pivot-bar-tab-margin);
+	margin: 0 var(--ytd-rich-grid-item-margin);
 }
 
 .navigation-item:hover {
