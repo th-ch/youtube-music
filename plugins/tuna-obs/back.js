@@ -39,7 +39,7 @@ module.exports = async (win) => {
 	ipcMain.on('playPaused', (_, { isPaused, elapsedSeconds }) => {
 		if (!data.title) return;
 		data.status = isPaused ? 'stopped' : 'playing';
-		data.elapsedSeconds = secToMilisec(elapsedSeconds);
+		data.progress = secToMilisec(elapsedSeconds);
 		post(data);
 	});
 
