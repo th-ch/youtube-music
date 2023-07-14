@@ -40,6 +40,7 @@ module.exports = async (win) => {
 		if (!data.title) return;
 		data.isPaused = isPaused;
 		data.elapsedSeconds = secToMilisec(elapsedSeconds);
+		post(data);
 	});
 
 	registerCallback((songInfo) => {
