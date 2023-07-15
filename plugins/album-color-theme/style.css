@@ -1,0 +1,18 @@
+/*:root {
+    --blue: #1e90ff;
+    --albumColor: #095e00;
+  }
+
+  .left-content.ytmusic-nav-bar{
+    filter: hue-rotate(-100deg) !important;
+}*/
+
+#progress-bar {
+    --paper-slider-active-color: white !important;
+    --paper-slider-knob-color: transparent !important;
+  }
+  
+  yt-page-navigation-progress{
+    --yt-page-navigation-container-color: #00000046 !important;
+    --yt-page-navigation-progress-color: white !important;
+  }
