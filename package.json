@@ -123,6 +123,7 @@
 		"electron-store": "^8.1.0",
 		"electron-unhandled": "^4.0.1",
 		"electron-updater": "^5.3.0",
+		"fast-average-color-node": "^2.6.0",
 		"filenamify": "^4.3.0",
 		"howler": "^2.2.3",
 		"html-to-text": "^9.0.5",
