@@ -63,6 +63,7 @@ const playerBarBackground = document.querySelector("#player-bar-background");
 const songImageElement = document.querySelector("#song-image");
 const sidebarBig = document.querySelector("#guide-wrapper");
 const sidebarSmall = document.querySelector("#mini-guide-background");
+const body = document.body;
 songImageElement.style.filter = "drop-shadow(0 0 3rem black)";
 
 function changeElementColor(element, hue, saturation, lightness){
@@ -74,16 +75,34 @@ function changeColor() {
 	ipcRenderer.on("album-color-changed", (_, albumColor) => {
 		if (albumColor) {
 			const [hue, saturation, lightness] = hexToHSL(albumColor.hex);
+			
+			const observer = new MutationObserver((mutationsList) => {
+				for (const mutation of mutationsList) {
+				  if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+					const visibility = window.getComputedStyle(playerPage).getPropertyValue('visibility');
+					if (visibility === 'visible') {
+						changeElementColor(sidebarSmall, hue, saturation, 30);
+					} else {
+						sidebarSmall.style.backgroundColor = 'black';
+					}
+				  }
+				}
+			  });
+
+			  observer.observe(playerPage, { attributes: true });
+
 			changeElementColor(playerPage, hue, saturation, 30);
 			changeElementColor(navBarBackground, hue, saturation, 15);
 			changeElementColor(ytmusicPlayerBar, hue, saturation, 15);
 			changeElementColor(playerBarBackground, hue, saturation, 15);
 			changeElementColor(sidebarBig, hue, saturation, 15);
-			changeElementColor(sidebarSmall, hue, saturation, 30);
+			
 		} else {
 			playerPage.style.backgroundColor = "#000000";
 		}
 	});
 }
+
+
 
 module.exports = changeColor;
