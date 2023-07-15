@@ -16,3 +16,11 @@ yt-page-navigation-progress{
     --yt-page-navigation-container-color: #00000046 !important;
     --yt-page-navigation-progress-color: white !important;
   }
+
+  #player-page {
+    transition: transform 300ms,background-color 300ms cubic-bezier(0.2,0,0.6,1) !important;
+  }
+
+  #nav-bar-background {
+    transition: opacity 300ms,background-color 300ms cubic-bezier(0.2,0,0.6,1) !important;
+  }
