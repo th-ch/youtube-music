@@ -61,6 +61,8 @@ const ytmusicPlayerBar = document.querySelector("ytmusic-player-bar");
 //const ytmusicAvToggleBg = document.querySelector(".av-toggle.ytmusic-av-toggle");
 const playerBarBackground = document.querySelector("#player-bar-background");
 const songImageElement = document.querySelector("#song-image");
+const sidebarBig = document.querySelector("#guide-wrapper");
+const sidebarSmall = document.querySelector("#mini-guide-background");
 songImageElement.style.filter = "drop-shadow(0 0 3rem black)";
 
 function changeElementColor(element, hue, saturation, lightness){
@@ -73,9 +75,11 @@ function changeColor() {
 		if (albumColor) {
 			const [hue, saturation, lightness] = hexToHSL(albumColor.hex);
 			changeElementColor(playerPage, hue, saturation, 30);
-			changeElementColor(navBarBackground, hue, saturation, 30);
+			changeElementColor(navBarBackground, hue, saturation, 15);
 			changeElementColor(ytmusicPlayerBar, hue, saturation, 15);
 			changeElementColor(playerBarBackground, hue, saturation, 15);
+			changeElementColor(sidebarBig, hue, saturation, 15);
+			changeElementColor(sidebarSmall, hue, saturation, 30);
 		} else {
 			playerPage.style.backgroundColor = "#000000";
 		}
