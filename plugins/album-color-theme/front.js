@@ -55,7 +55,7 @@ function hexToHSL(H) {
   //updated elements
 const playerPage = document.querySelector("#player-page");
 const navBarBackground = document.querySelector("#nav-bar-background");
-//const ytmusicPlayerBar = document.querySelector("ytmusic-player-bar");
+const ytmusicPlayerBar = document.querySelector("ytmusic-player-bar");
 //const ytmusicAvToggle1 = document.querySelector(".song-button.ytmusic-av-toggle");
 //const ytmusicAvToggle2 = document.querySelector(".video-button.ytmusic-av-toggle");
 //const ytmusicAvToggleBg = document.querySelector(".av-toggle.ytmusic-av-toggle");
@@ -74,7 +74,7 @@ function changeColor() {
 			const [hue, saturation, lightness] = hexToHSL(albumColor.hex);
 			changeElementColor(playerPage, hue, saturation, 30);
 			changeElementColor(navBarBackground, hue, saturation, 30);
-			//changeElementColor(ytmusicPlayerBar, hue, saturation, 15);
+			changeElementColor(ytmusicPlayerBar, hue, saturation, 15);
 			changeElementColor(playerBarBackground, hue, saturation, 15);
 		} else {
 			playerPage.style.backgroundColor = "#000000";
