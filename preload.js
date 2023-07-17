@@ -139,7 +139,7 @@ function onApiLoaded() {
 
 	// Remove upgrade button
 	if (config.get("options.removeUpgradeButton")) {
-		const upgradeButton = $('ytmusic-pivot-bar-item-renderer[tab-id="SPunlimited"]')
+		const upgradeButton = $('ytmusic-guide-section-renderer #items:last-child') // Last child of #items
 		if (upgradeButton) {
 			upgradeButton.style.display = "none";
 		}
