@@ -139,10 +139,13 @@ function onApiLoaded() {
 
 	// Remove upgrade button
 	if (config.get("options.removeUpgradeButton")) {
-		const upgradeButton = $('ytmusic-guide-section-renderer #items:last-child') // Last child of #items
-		if (upgradeButton) {
-			upgradeButton.style.display = "none";
-		}
+		const styles = document.createElement("style");
+		styles.innerHTML = `
+			ytmusic-guide-section-renderer #items ytmusic-guide-entry-renderer:last-child {
+				display: none;
+			}
+		`;
+		document.head.appendChild(styles);
 	}
 
 
