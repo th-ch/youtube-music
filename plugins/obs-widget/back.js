@@ -10,7 +10,7 @@ const data = {
 		seekbarCurrentPosition: 0,
 	},
 	track: {
-		author: "",
+		author: [],
 		title: "",
 		album: "",
 		cover: "",
@@ -31,14 +31,20 @@ module.exports = async (win) => {
 			res.end(JSON.stringify({}));
 			return;
 		}
-		data.player.hasSong = true;
-		data.player.isPaused = currentSongInfo.isPaused;
-		data.player.seekbarCurrentPosition = currentSongInfo.elapsedSeconds;
-		data.track.author = [currentSongInfo.artist];
-		data.track.title = currentSongInfo.title;
-		data.track.album = currentSongInfo.album;
-		data.track.cover = currentSongInfo.imageSrc;
-		data.track.duration = currentSongInfo.songDuration;
+                Object.assign(data, {
+                    player: {
+                        hasSong: true,
+                        isPaused: currentSongInfo.isPaused,
+                        seekbarCurrentPosition: currentSongInfo.elapsedSeconds
+                    },
+                    track: {
+                        author: [currentSongInfo.artist],
+                        title: currentSongInfo.title,
+                        album: currentSongInfo.album,
+                        cover: currentSongInfo.cover,
+                        duration: currentSongInfo.duration
+                    }
+                });
 		res.end(JSON.stringify(data));
 	};
 	const server = http.createServer(requestListener);
