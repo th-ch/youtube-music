@@ -33,6 +33,19 @@ module.exports = (options) => {
 		}
 	});
 
+	/*if (isEnabled("album-color-theme")) {
+		ipcRenderer.on("album-color-changed", (_, albumColor) => {
+			if (albumColor) {
+				//const [hue, saturation, lightness] = hexToHSL(albumColor.hex);
+				//changeElementColor(playerPage, hue, saturation, 30);
+				//changeElementColor(navBarBackground, hue, saturation, 30);
+				bar.updateBackground(Color.fromHex(albumColor.hex + "00"));
+			} else {
+				bar.updateBackground(Color.fromHex("#050505"));
+			}
+		});
+	}*/
+
 	if (isEnabled("picture-in-picture")) {
 		ipcRenderer.on("pip-toggle", (_, pipEnabled) => {
 			bar.refreshMenu();

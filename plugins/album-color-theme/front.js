@@ -67,7 +67,7 @@ const ytmusicAppLayout = document.querySelector("#layout");
 
 var [hue, saturation, lightness] = [0,0,0];
 
-songImageElement.style.filter = "drop-shadow(0 0 3rem black)";
+//songImageElement.style.filter = "drop-shadow(0 0 3rem black)";
 
 function changeElementColor(element, hue, saturation, lightness){
 	element.style.backgroundColor = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
@@ -111,6 +111,8 @@ function changeColor() {
 			changeElementColor(sidebarBig, hue, saturation, 15);
 			if (ytmusicAppLayout.hasAttribute('player-page-open'))
 				changeElementColor(sidebarSmall, hue, saturation, 30);
+			const ytRightClickList = document.querySelector("tp-yt-paper-listbox");
+			changeElementColor(ytRightClickList, hue, saturation, 15);
 
 		} else {
 			playerPage.style.backgroundColor = "#000000";

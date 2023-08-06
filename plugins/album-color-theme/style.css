@@ -33,3 +33,11 @@ yt-page-navigation-progress{
   #guide-wrapper {
     transition: opacity 200ms,background-color 300ms cubic-bezier(0.2,0,0.6,1) !important;
   }
+
+  #img, #player, .song-media-controls.style-scope.ytmusic-player {
+    border-radius: 2% !important;
+  }
+
+  #items {
+    border-radius: 10px !important;
+  }

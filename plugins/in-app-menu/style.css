@@ -9,7 +9,7 @@
 	opacity: 1 !important;
 	pointer-events: none !important;
 	top: 30px !important;
-	height: 75px !important;
+	height: 60px !important;
 }
 
 /* fix top gap between nav-bar and browse-page */
@@ -34,7 +34,7 @@ ytmusic-pivot-bar-item-renderer {
 /* move up item selection renderers */
 ytmusic-item-section-renderer.stuck #header.ytmusic-item-section-renderer,
 ytmusic-tabs.stuck {
-	top: calc(var(--ytmusic-nav-bar-height) - 15px) !important;
+	top: calc(var(--ytmusic-nav-bar-height) - 30px) !important;
 }
 
 /* fix weird positioning in search screen*/
@@ -56,14 +56,14 @@ yt-page-navigation-progress,
 /* custom scrollbar */
 ::-webkit-scrollbar {
 	width: 12px;
-	background-color: #030303;
+	background-color: #03030300;
 	border-radius: 100px;
 	-moz-border-radius: 100px;
 	-webkit-border-radius: 100px;
 }
 /* hover effect for both scrollbar area, and scrollbar 'thumb' */
 ::-webkit-scrollbar:hover {
-	background-color: rgba(15, 15, 15, 0.699);
+	background-color: rgba(15, 15, 15, 0);
 }
 
 /* the scrollbar 'thumb' ...that marque oval shape in a scrollbar */
@@ -108,4 +108,8 @@ ytmusic-nav-bar [role="button"],
 ytmusic-nav-bar yt-icon,
 tp-yt-iron-dropdown {
     -webkit-app-region: no-drag;
+}
+
+ytmusic-search-box.style-scope.ytmusic-nav-bar {
+	margin-top: 0px !important;
 }
