@@ -3,9 +3,13 @@
  */
 
 /* Allow window dragging */
-ytmusic-nav-bar {
+.center-content.ytmusic-nav-bar {
 	-webkit-user-select: none;
 	-webkit-app-region: drag;
+}
+
+.center-content.ytmusic-nav-bar > ytmusic-search-box{
+	-webkit-app-region: no-drag;
 }
 
 iron-icon,
