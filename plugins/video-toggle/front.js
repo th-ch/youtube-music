@@ -38,7 +38,7 @@ function setup(e) {
     player = $('ytmusic-player');
     video = $('video');
 
-    $('#main-panel').append(switchButtonDiv);
+    $('#player').prepend(switchButtonDiv);
 
     if (options.hideVideo) {
         $('.video-switch-button-checkbox').checked = false;
@@ -47,6 +47,11 @@ function setup(e) {
         // fix black video
         video.style.height = "auto";
     }
+
+    //Prevents bubbling to the player which causes it to stop or resume
+    switchButtonDiv.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
 
     // button checked = show video
     switchButtonDiv.addEventListener('change', (e) => {
