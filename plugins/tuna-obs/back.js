@@ -36,6 +36,12 @@ module.exports = async (win) => {
 		data.progress = secToMilisec(t);
 		post(data);
 	});
+	ipcMain.on('playPaused', (_, { isPaused, elapsedSeconds }) => {
+		if (!data.title) return;
+		data.status = isPaused ? 'stopped' : 'playing';
+		data.progress = secToMilisec(elapsedSeconds);
+		post(data);
+	});
 
 	registerCallback((songInfo) => {
 		if (!songInfo.title && !songInfo.artist) {
