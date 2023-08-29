@@ -1,6 +1,7 @@
-const { injectCSS } = require("../utils");
-const path = require("path");
+const path = require('node:path');
 
-module.exports = win => {
-	injectCSS(win.webContents, path.join(__dirname, "style.css"));
+const { injectCSS } = require('../utils');
+
+module.exports = (win) => {
+  injectCSS(win.webContents, path.join(__dirname, 'style.css'));
 };

@@ -1,32 +1,33 @@
-const { ipcRenderer, ipcMain } = require("electron");
+const { ipcRenderer, ipcMain } = require('electron');
 
-const defaultConfig = require("./defaults");
-const { getOptions, setOptions, setMenuOptions } = require("./plugins");
-const { sendToFront } = require("../providers/app-controls");
+const defaultConfig = require('./defaults');
+const { getOptions, setOptions, setMenuOptions } = require('./plugins');
+
+const { sendToFront } = require('../providers/app-controls');
 
 const activePlugins = {};
 /**
  * [!IMPORTANT!]
  * The method is **sync** in the main process and **async** in the renderer process.
  */
-module.exports.getActivePlugins =
-	process.type === "renderer"
-		? async () => ipcRenderer.invoke("get-active-plugins")
-		: () => activePlugins;
+module.exports.getActivePlugins
+  = process.type === 'renderer'
+  ? async () => ipcRenderer.invoke('get-active-plugins')
+  : () => activePlugins;
 
-if (process.type === "browser") {
-	ipcMain.handle("get-active-plugins", this.getActivePlugins);
+if (process.type === 'browser') {
+  ipcMain.handle('get-active-plugins', this.getActivePlugins);
 }
 
 /**
  * [!IMPORTANT!]
  * The method is **sync** in the main process and **async** in the renderer process.
  */
-module.exports.isActive =
-	process.type === "renderer"
-		? async (plugin) =>
-				plugin in (await ipcRenderer.invoke("get-active-plugins"))
-		: (plugin) => plugin in activePlugins;
+module.exports.isActive
+  = process.type === 'renderer'
+  ? async (plugin) =>
+    plugin in (await ipcRenderer.invoke('get-active-plugins'))
+  : (plugin) => plugin in activePlugins;
 
 /**
  * This class is used to create a dynamic synced config for plugins.
@@ -47,159 +48,167 @@ module.exports.isActive =
  *
  * module.exports = (win, options) => {
  *  const config = new PluginConfig("plugin-name", {
- *  	enableFront: true,
- *  	initialOptions: options,
+ *    enableFront: true,
+ *    initialOptions: options,
  *  });
  *  setupMyPlugin(win, config);
  * };
  */
 module.exports.PluginConfig = class PluginConfig {
-	#name;
-	#config;
-	#defaultConfig;
-	#enableFront;
+  #name;
+  #config;
+  #defaultConfig;
+  #enableFront;
 
-	#subscribers = {};
-	#allSubscribers = [];
+  #subscribers = {};
+  #allSubscribers = [];
 
-	constructor(name, { enableFront = false, initialOptions = undefined } = {}) {
-		const pluginDefaultConfig = defaultConfig.plugins[name] || {};
-		const pluginConfig = initialOptions || getOptions(name) || {};
+  constructor(name, { enableFront = false, initialOptions = undefined } = {}) {
+    const pluginDefaultConfig = defaultConfig.plugins[name] || {};
+    const pluginConfig = initialOptions || getOptions(name) || {};
 
-		this.#name = name;
-		this.#enableFront = enableFront;
-		this.#defaultConfig = pluginDefaultConfig;
-		this.#config = { ...pluginDefaultConfig, ...pluginConfig };
+    this.#name = name;
+    this.#enableFront = enableFront;
+    this.#defaultConfig = pluginDefaultConfig;
+    this.#config = { ...pluginDefaultConfig, ...pluginConfig };
 
-		if (this.#enableFront) {
-			this.#setupFront();
-		}
+    if (this.#enableFront) {
+      this.#setupFront();
+    }
 
-		activePlugins[name] = this;
-	}
+    activePlugins[name] = this;
+  }
 
-	get = (option) => {
-		return this.#config[option];
-	};
+  get = (option) => this.#config[option];
 
-	set = (option, value) => {
-		this.#config[option] = value;
-		this.#onChange(option);
-		this.#save();
-	};
+  set = (option, value) => {
+    this.#config[option] = value;
+    this.#onChange(option);
+    this.#save();
+  };
 
-	toggle = (option) => {
-		this.#config[option] = !this.#config[option];
-		this.#onChange(option);
-		this.#save();
-	};
+  toggle = (option) => {
+    this.#config[option] = !this.#config[option];
+    this.#onChange(option);
+    this.#save();
+  };
 
-	getAll = () => {
-		return { ...this.#config };
-	};
+  getAll = () => ({ ...this.#config });
 
-	setAll = (options) => {
-		if (!options || typeof options !== "object")
-			throw new Error("Options must be an object.");
+  setAll = (options) => {
+    if (!options || typeof options !== 'object') {
+      throw new Error('Options must be an object.');
+    }
 
-		let changed = false;
-		for (const [key, val] of Object.entries(options)) {
-			if (this.#config[key] !== val) {
-				this.#config[key] = val;
-				this.#onChange(key, false);
-				changed = true;
-			}
-		}
-		if (changed) this.#allSubscribers.forEach((fn) => fn(this.#config));
-		this.#save();
-	};
+    let changed = false;
+    for (const [key, value] of Object.entries(options)) {
+      if (this.#config[key] !== value) {
+        this.#config[key] = value;
+        this.#onChange(key, false);
+        changed = true;
+      }
+    }
 
-	getDefaultConfig = () => {
-		return this.#defaultConfig;
-	};
+    if (changed) {
+      for (const fn of this.#allSubscribers) {
+        fn(this.#config);
+      }
+    }
 
-	/**
-	 * Use this method to set an option and restart the app if `appConfig.restartOnConfigChange === true`
-	 *
-	 * Used for options that require a restart to take effect.
-	 */
-	setAndMaybeRestart = (option, value) => {
-		this.#config[option] = value;
-		setMenuOptions(this.#name, this.#config);
-		this.#onChange(option);
-	};
+    this.#save();
+  };
 
-	subscribe = (valueName, fn) => {
-		this.#subscribers[valueName] = fn;
-	};
+  getDefaultConfig = () => this.#defaultConfig;
 
-	subscribeAll = (fn) => {
-		this.#allSubscribers.push(fn);
-	};
+  /**
+   * Use this method to set an option and restart the app if `appConfig.restartOnConfigChange === true`
+   *
+   * Used for options that require a restart to take effect.
+   */
+  setAndMaybeRestart = (option, value) => {
+    this.#config[option] = value;
+    setMenuOptions(this.#name, this.#config);
+    this.#onChange(option);
+  };
 
-	/** Called only from back */
-	#save() {
-		setOptions(this.#name, this.#config);
-	}
+  subscribe = (valueName, fn) => {
+    this.#subscribers[valueName] = fn;
+  };
 
-	#onChange(valueName, single = true) {
-		this.#subscribers[valueName]?.(this.#config[valueName]);
-		if (single) this.#allSubscribers.forEach((fn) => fn(this.#config));
-	}
+  subscribeAll = (fn) => {
+    this.#allSubscribers.push(fn);
+  };
 
-	#setupFront() {
-		const ignoredMethods = ["subscribe", "subscribeAll"];
+  /** Called only from back */
+  #save() {
+    setOptions(this.#name, this.#config);
+  }
 
-		if (process.type === "renderer") {
-			for (const [fnName, fn] of Object.entries(this)) {
-				if (typeof fn !== "function" || fn.name in ignoredMethods) return;
-				this[fnName] = async (...args) => {
-					return await ipcRenderer.invoke(
-						`${this.#name}-config-${fnName}`,
-						...args,
-					);
-				};
+  #onChange(valueName, single = true) {
+    this.#subscribers[valueName]?.(this.#config[valueName]);
+    if (single) {
+      for (const fn of this.#allSubscribers) {
+        fn(this.#config);
+      }
+    }
+  }
 
-				this.subscribe = (valueName, fn) => {
-					if (valueName in this.#subscribers) {
-						console.error(`Already subscribed to ${valueName}`);
-					}
-					this.#subscribers[valueName] = fn;
-					ipcRenderer.on(
-						`${this.#name}-config-changed-${valueName}`,
-						(_, value) => {
-							fn(value);
-						},
-					);
-					ipcRenderer.send(`${this.#name}-config-subscribe`, valueName);
-				};
+  #setupFront() {
+    const ignoredMethods = ['subscribe', 'subscribeAll'];
 
-				this.subscribeAll = (fn) => {
-					ipcRenderer.on(`${this.#name}-config-changed`, (_, value) => {
-						fn(value);
-					});
-					ipcRenderer.send(`${this.#name}-config-subscribe-all`);
-				};
-			}
-		} else if (process.type === "browser") {
-			for (const [fnName, fn] of Object.entries(this)) {
-				if (typeof fn !== "function" || fn.name in ignoredMethods) return;
-				ipcMain.handle(`${this.#name}-config-${fnName}`, (_, ...args) => {
-					return fn(...args);
-				});
-			}
+    if (process.type === 'renderer') {
+      for (const [fnName, fn] of Object.entries(this)) {
+        if (typeof fn !== 'function' || fn.name in ignoredMethods) {
+          return;
+        }
 
-			ipcMain.on(`${this.#name}-config-subscribe`, (_, valueName) => {
-				this.subscribe(valueName, (value) => {
-					sendToFront(`${this.#name}-config-changed-${valueName}`, value);
-				});
-			});
+        this[fnName] = async (...args) => await ipcRenderer.invoke(
+          `${this.#name}-config-${fnName}`,
+          ...args,
+        );
 
-			ipcMain.on(`${this.#name}-config-subscribe-all`, () => {
-				this.subscribeAll((value) => {
-					sendToFront(`${this.#name}-config-changed`, value);
-				});
-			});
-		}
-	}
+        this.subscribe = (valueName, fn) => {
+          if (valueName in this.#subscribers) {
+            console.error(`Already subscribed to ${valueName}`);
+          }
+
+          this.#subscribers[valueName] = fn;
+          ipcRenderer.on(
+            `${this.#name}-config-changed-${valueName}`,
+            (_, value) => {
+              fn(value);
+            },
+          );
+          ipcRenderer.send(`${this.#name}-config-subscribe`, valueName);
+        };
+
+        this.subscribeAll = (fn) => {
+          ipcRenderer.on(`${this.#name}-config-changed`, (_, value) => {
+            fn(value);
+          });
+          ipcRenderer.send(`${this.#name}-config-subscribe-all`);
+        };
+      }
+    } else if (process.type === 'browser') {
+      for (const [fnName, fn] of Object.entries(this)) {
+        if (typeof fn !== 'function' || fn.name in ignoredMethods) {
+          return;
+        }
+
+        ipcMain.handle(`${this.#name}-config-${fnName}`, (_, ...args) => fn(...args));
+      }
+
+      ipcMain.on(`${this.#name}-config-subscribe`, (_, valueName) => {
+        this.subscribe(valueName, (value) => {
+          sendToFront(`${this.#name}-config-changed-${valueName}`, value);
+        });
+      });
+
+      ipcMain.on(`${this.#name}-config-subscribe-all`, () => {
+        this.subscribeAll((value) => {
+          sendToFront(`${this.#name}-config-changed`, value);
+        });
+      });
+    }
+  }
 };

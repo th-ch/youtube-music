@@ -1,31 +1,33 @@
-const { Wave } = require("@foobar404/wave");
+const { Wave } = require('@foobar404/wave');
 
 class WaveVisualizer {
-	constructor(
-		audioContext,
-		audioSource,
-		visualizerContainer,
-		canvas,
-		audioNode,
-		stream,
-		options
-	) {
-		this.visualizer = new Wave(
-			{ context: audioContext, source: audioSource },
-			canvas
-		);
-		options.animations.forEach((animation) => {
-			this.visualizer.addAnimation(
-				eval(`new this.visualizer.animations.${animation.type}(
+  constructor(
+    audioContext,
+    audioSource,
+    visualizerContainer,
+    canvas,
+    audioNode,
+    stream,
+    options,
+  ) {
+    this.visualizer = new Wave(
+      { context: audioContext, source: audioSource },
+      canvas,
+    );
+    for (const animation of options.animations) {
+      this.visualizer.addAnimation(
+        eval(`new this.visualizer.animations.${animation.type}(
 					${JSON.stringify(animation.config)}
-				)`)
-			);
-		});
-	}
+				)`),
+      );
+    }
+  }
 
-	resize(width, height) {}
+  resize(width, height) {
+  }
 
-	render() {}
+  render() {
+  }
 }
 
 module.exports = WaveVisualizer;

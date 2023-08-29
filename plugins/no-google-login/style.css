@@ -2,5 +2,5 @@
 ytmusic-guide-signin-promo-renderer,
 a[href="/music_premium"],
 .sign-in-link {
-	display: none !important;
+  display: none !important;
 }
