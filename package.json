@@ -106,8 +106,8 @@
   },
   "dependencies": {
     "@cliqz/adblocker-electron": "1.26.6",
-    "@ffmpeg/core": "0.12.2",
-    "@ffmpeg/ffmpeg": "0.12.5",
+    "@ffmpeg/core": "0.11.0",
+    "@ffmpeg/ffmpeg": "0.11.6",
     "@foobar404/wave": "2.0.4",
     "@xhayper/discord-rpc": "1.0.22",
     "async-mutex": "0.4.0",
@@ -115,7 +115,7 @@
     "butterchurn": "2.6.7",
     "butterchurn-presets": "2.4.7",
     "custom-electron-prompt": "1.5.7",
-    "custom-electron-titlebar": "4.2.7",
+    "custom-electron-titlebar": "4.1.6",
     "electron-better-web-request": "1.0.1",
     "electron-debug": "3.2.0",
     "electron-is": "3.0.0",
@@ -130,7 +130,6 @@
     "keyboardevents-areequal": "0.2.2",
     "md5": "2.3.0",
     "mpris-service": "2.1.2",
-    "node-fetch": "2.7.0",
     "simple-youtube-age-restriction-bypass": "git+https://github.com/zerodytrash/Simple-YouTube-Age-Restriction-Bypass.git#v2.5.9",
     "vudio": "2.1.1",
     "youtubei.js": "6.1.0",
@@ -138,6 +137,7 @@
   },
   "overrides": {
     "xml2js": "0.6.2",
+    "node-fetch": "2.7.0",
     "@electron/universal": "1.4.1"
   },
   "devDependencies": {
@@ -151,6 +151,7 @@
     "eslint-plugin-import": "2.28.1",
     "eslint-plugin-prettier": "5.0.0",
     "node-gyp": "9.4.0",
+    "patch-package": "^8.0.0",
     "playwright": "1.37.1"
   },
   "auto-changelog": {

@@ -2,7 +2,6 @@ const { promises } = require('node:fs'); // Used for caching
 const path = require('node:path');
 
 const { ElectronBlocker } = require('@cliqz/adblocker-electron');
-const fetch = require('node-fetch');
 
 const SOURCES = [
   'https://raw.githubusercontent.com/kbinani/adblock-youtube-ads/master/signed.txt',

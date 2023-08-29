@@ -3,7 +3,6 @@ const { join } = require('node:path');
 const { ipcMain } = require('electron');
 const is = require('electron-is');
 const { convert } = require('html-to-text');
-const fetch = require('node-fetch');
 
 const { cleanupName } = require('../../providers/song-info');
 const { injectCSS } = require('../utils');
@@ -99,7 +98,7 @@ const getLyrics = async (url) => {
   }
 
   const html = await response.text();
-  const lyrics = convert(html, {
+  return convert(html, {
     baseElements: {
       selectors: ['[class^="Lyrics__Container"]', '.lyrics'],
     },
@@ -116,7 +115,6 @@ const getLyrics = async (url) => {
       },
     },
   });
-  return lyrics;
 };
 
 module.exports.toggleRomanized = toggleRomanized;

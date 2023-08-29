@@ -1,5 +1,4 @@
 const { ipcMain } = require('electron');
-const fetch = require('node-fetch');
 
 const registerCallback = require('../../providers/song-info');
 
@@ -24,7 +23,7 @@ const post = async (data) => {
     'Access-Control-Allow-Headers': '*',
     'Access-Control-Allow-Origin': '*',
   };
-  const url = `http://localhost:${port}/`;
+  const url = `http://127.0.0.1:${port}/`;
   fetch(url, {
     method: 'POST',
     headers,

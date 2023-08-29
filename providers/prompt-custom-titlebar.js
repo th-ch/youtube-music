@@ -1,8 +1,8 @@
-const { Titlebar, TitlebarColor } = require('custom-electron-titlebar');
+const { Titlebar, Color } = require('custom-electron-titlebar');
 
 module.exports = () => {
   new Titlebar({
-    backgroundColor: TitlebarColor.fromHex('#050505'),
+    backgroundColor: Color.fromHex('#050505'),
     minimizable: false,
     maximizable: false,
     menu: null,

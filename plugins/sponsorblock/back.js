@@ -1,5 +1,4 @@
 const { ipcMain } = require('electron');
-const fetch = require('node-fetch');
 const is = require('electron-is');
 
 const { sortSegments } = require('./segments');
@@ -38,11 +37,9 @@ const fetchSegments = async (apiURL, categories) => {
     }
 
     const segments = await resp.json();
-    const sortedSegments = sortSegments(
+    return sortSegments(
       segments.map((submission) => submission.segment),
     );
-
-    return sortedSegments;
   } catch (error) {
     if (is.dev()) {
       console.log('error on sponsorblock request:', error);
