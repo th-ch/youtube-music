@@ -1,5 +1,5 @@
 const { ipcRenderer } = require('electron');
-const { Titlebar, Color } = require('custom-electron-titlebar');
+const { Titlebar, TitlebarColor } = require('custom-electron-titlebar');
 
 const config = require('../../config');
 const { isEnabled } = require('../../config/plugins');
@@ -12,9 +12,9 @@ module.exports = () => {
   const visible = () => Boolean($('.cet-menubar').firstChild);
   const bar = new Titlebar({
     icon: 'https://cdn-icons-png.flaticon.com/512/5358/5358672.png',
-    backgroundColor: Color.fromHex('#050505'),
-    itemBackgroundColor: Color.fromHex('#1d1d1d'),
-    svgColor: Color.WHITE,
+    backgroundColor: TitlebarColor.fromHex('#050505'),
+    itemBackgroundColor: TitlebarColor.fromHex('#1d1d1d'),
+    svgColor: TitlebarColor.WHITE,
     menu: config.get('options.hideMenu') ? null : undefined,
   });
   bar.updateTitle(' ');
