@@ -8,7 +8,7 @@ function $(selector) {
   return document.querySelector(selector);
 }
 
-module.exports = (options) => {
+module.exports = () => {
   const visible = () => Boolean($('.cet-menubar').firstChild);
   const bar = new Titlebar({
     icon: 'https://cdn-icons-png.flaticon.com/512/5358/5358672.png',
@@ -38,7 +38,7 @@ module.exports = (options) => {
   });
 
   if (isEnabled('picture-in-picture')) {
-    ipcRenderer.on('pip-toggle', (_, pipEnabled) => {
+    ipcRenderer.on('pip-toggle', () => {
       bar.refreshMenu();
     });
   }
@@ -62,7 +62,7 @@ function setupSearchOpenObserver() {
 }
 
 function setupMenuOpenObserver() {
-  const menuOpenObserver = new MutationObserver((mutations) => {
+  const menuOpenObserver = new MutationObserver(() => {
     $('#nav-bar-background').style.webkitAppRegion
       = [...$('.cet-menubar').childNodes].some((c) => c.classList.contains('open'))
       ? 'no-drag' : 'drag';

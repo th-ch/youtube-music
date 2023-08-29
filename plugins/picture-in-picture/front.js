@@ -52,7 +52,7 @@ const observer = new MutationObserver(() => {
   menu.prepend(pipButton);
 });
 
-global.togglePictureInPicture = async () => {
+const togglePictureInPicture = async () => {
   if (useNativePiP) {
     const isInPiP = document.pictureInPictureElement !== null;
     const video = $('video');
@@ -72,6 +72,7 @@ global.togglePictureInPicture = async () => {
   ipcRenderer.send('picture-in-picture');
   return false;
 };
+global.togglePictureInPicture = togglePictureInPicture;
 
 const listenForToggle = () => {
   const originalExitButton = $('.exit-fullscreen-button');
@@ -123,7 +124,7 @@ function observeMenu(options) {
       listenForToggle();
 
       cloneButton('.player-minimize-button').addEventListener('click', async () => {
-        await global.togglePictureInPicture();
+        await togglePictureInPicture();
         setTimeout(() => $('#player').click());
       });
 

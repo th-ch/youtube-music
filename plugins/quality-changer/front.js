@@ -15,6 +15,15 @@ module.exports = () => {
 };
 
 function setup(event) {
+  /**
+   * @type {{
+   *   getAvailableQualityLevels: () => string[],
+   *   getPlaybackQuality: () => string,
+   *   getAvailableQualityLabels: () => string[],
+   *   setPlaybackQualityRange: (quality: string) => void,
+   *   setPlaybackQuality: (quality: string) => void,
+   * }}
+   */
   const api = event.detail;
 
   $('.top-row-buttons.ytmusic-player').prepend(qualitySettingsButton);

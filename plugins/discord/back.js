@@ -174,10 +174,10 @@ module.exports = (win, { autoReconnect, activityTimoutEnabled, activityTimoutTim
       }
     } else if (!hideDurationLeft) {
       // Add the start and end time of the song
-      const songStartTime = Date.now() - songInfo.elapsedSeconds * 1000;
+      const songStartTime = Date.now() - (songInfo.elapsedSeconds * 1000);
       activityInfo.startTimestamp = songStartTime;
       activityInfo.endTimestamp
-        = songStartTime + songInfo.songDuration * 1000;
+        = songStartTime + (songInfo.songDuration * 1000);
     }
 
     info.rpc.user?.setActivity(activityInfo).catch(console.error);

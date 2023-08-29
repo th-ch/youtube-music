@@ -31,6 +31,8 @@ const {
   sendFeedback: sendFeedback_,
 } = require('./utils');
 
+const config = require('./config');
+
 const { fetchFromGenius } = require('../lyrics-genius/back');
 const { isEnabled } = require('../../config/plugins');
 const { getImage, cleanupName } = require('../../providers/song-info');
@@ -38,8 +40,6 @@ const { injectCSS } = require('../utils');
 const { cache } = require('../../providers/decorators');
 
 const ffmpegMutex = new Mutex();
-
-const config = require('./config');
 
 /** @type {Innertube} */
 let yt;
@@ -187,14 +187,14 @@ async function downloadSongUnsafe(
     return;
   }
 
-  const download_options = {
+  const downloadOptions = {
     type: 'audio', // Audio, video or video+audio
     quality: 'best', // Best, bestefficiency, 144p, 240p, 480p, 720p and so on.
     format: 'any', // Media container format
   };
 
-  const format = info.chooseFormat(download_options);
-  const stream = await info.download(download_options);
+  const format = info.chooseFormat(downloadOptions);
+  const stream = await info.download(downloadOptions);
 
   console.info(
     `Downloading ${metadata.artist} - ${metadata.title} [${metadata.id}]`,
@@ -244,14 +244,14 @@ async function downloadSongUnsafe(
 async function iterableStreamToMP3(
   stream,
   metadata,
-  content_length,
+  contentLength,
   sendFeedback,
   increasePlaylistProgress = () => {
   },
 ) {
   const chunks = [];
   let downloaded = 0;
-  const total = content_length;
+  const total = contentLength;
   for await (const chunk of stream) {
     downloaded += chunk.length;
     chunks.push(chunk);
@@ -281,7 +281,7 @@ async function iterableStreamToMP3(
 
     ffmpeg.setProgress(({ ratio }) => {
       sendFeedback(`Converting: ${Math.floor(ratio * 100)}%`, ratio);
-      increasePlaylistProgress(0.15 + ratio * 0.85);
+      increasePlaylistProgress(0.15 + (ratio * 0.85));
     });
 
     await ffmpeg.run(
@@ -377,7 +377,7 @@ async function downloadPlaylist(givenUrl) {
     });
   } catch (error) {
     sendError(
-      `Error getting playlist info: make sure it isn\'t a private or "Mixed for you" playlist\n\n${error}`,
+      `Error getting playlist info: make sure it isn't a private or "Mixed for you" playlist\n\n${error}`,
     );
     return;
   }
@@ -434,7 +434,7 @@ async function downloadPlaylist(givenUrl) {
 
   const increaseProgress = (itemPercentage) => {
     const currentProgress = (counter - 1) / playlist.items.length;
-    const newProgress = currentProgress + progressStep * itemPercentage;
+    const newProgress = currentProgress + (progressStep * itemPercentage);
     win.setProgressBar(newProgress);
   };
 

@@ -2,23 +2,25 @@ const { ipcRenderer } = require('electron');
 const { Howl } = require('howler');
 
 // Extracted from https://github.com/bitfasching/VolumeFader
-require('./fader');
+const { VolumeFader } = require('./fader');
 
 let transitionAudio; // Howler audio used to fade out the current music
 let firstVideo = true;
 let waitForTransition;
 
-const defaultConfig = require('../../config/defaults').plugins.crossfade;
-
+/**
+ * @type {PluginConfig}
+ */
 const configProvider = require('./config');
+
+const defaultConfig = require('../../config/defaults').plugins.crossfade;
 
 let config;
 
 const configGetNumber = (key) => Number(config[key]) || defaultConfig[key];
 
 const getStreamURL = async (videoID) => {
-  const url = await ipcRenderer.invoke('audio-url', videoID);
-  return url;
+  return await ipcRenderer.invoke('audio-url', videoID);
 };
 
 const getVideoIDFromURL = (url) => new URLSearchParams(url.split('?')?.at(-1)).get('v');
@@ -26,7 +28,7 @@ const getVideoIDFromURL = (url) => new URLSearchParams(url.split('?')?.at(-1)).g
 const isReadyToCrossfade = () => transitionAudio && transitionAudio.state() === 'loaded';
 
 const watchVideoIDChanges = (cb) => {
-  navigation.addEventListener('navigate', (event) => {
+  window.navigation.addEventListener('navigate', (event) => {
     const currentVideoID = getVideoIDFromURL(
       event.currentTarget.currentEntry.url,
     );
@@ -126,7 +128,7 @@ const crossfade = async (cb) => {
   }
 
   let resolveTransition;
-  waitForTransition = new Promise((resolve, reject) => {
+  waitForTransition = new Promise((resolve) => {
     resolveTransition = resolve;
   });
 

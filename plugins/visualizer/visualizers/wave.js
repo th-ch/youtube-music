@@ -17,12 +17,13 @@ class WaveVisualizer {
     for (const animation of options.animations) {
       this.visualizer.addAnimation(
         eval(`new this.visualizer.animations.${animation.type}(
-					${JSON.stringify(animation.config)}
-				)`),
+          ${JSON.stringify(animation.config)}
+        )`),
       );
     }
   }
 
+  // eslint-disable-next-line no-unused-vars
   resize(width, height) {
   }
 

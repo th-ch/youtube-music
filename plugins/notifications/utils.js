@@ -69,18 +69,18 @@ module.exports.notificationImage = (songInfo) => {
   }
 };
 
-module.exports.saveImage = cache((img, save_path) => {
+module.exports.saveImage = cache((img, savePath) => {
   try {
-    fs.writeFileSync(save_path, img.toPNG());
+    fs.writeFileSync(savePath, img.toPNG());
   } catch (error) {
     console.log(`Error writing song icon to disk:\n${error.toString()}`);
     return icon;
   }
 
-  return save_path;
+  return savePath;
 });
 
-module.exports.save_temp_icons = () => {
+module.exports.saveTempIcon = () => {
   for (const kind of Object.keys(module.exports.icons)) {
     const destinationPath = path.join(userData, 'icons', `${kind}.png`);
     if (fs.existsSync(destinationPath)) {

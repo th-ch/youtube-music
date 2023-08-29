@@ -46,6 +46,7 @@ module.exports = {
       allowTemplateLiterals: false,
     }],
     'quote-props': ['error', 'consistent'],
+    'semi': ['error', 'always'],
   },
   env: {
     browser: true,

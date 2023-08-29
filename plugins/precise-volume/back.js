@@ -1,14 +1,14 @@
-const { injectCSS } = require('../utils');
-
 const path = require('node:path');
+
+const { globalShortcut } = require('electron');
+
+const { injectCSS } = require('../utils');
 
 /*
 This is used to determine if plugin is actually active
 (not if its only enabled in options)
 */
 let enabled = false;
-
-const { globalShortcut } = require('electron');
 
 module.exports = (win, options) => {
   enabled = true;

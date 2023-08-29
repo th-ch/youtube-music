@@ -6,7 +6,7 @@ const getSongControls = require('../../providers/song-controls');
 const config = require('../../config');
 
 function setupMPRIS() {
-  const player = mpris({
+  return mpris({
     name: 'youtube-music',
     identity: 'YouTube Music',
     canRaise: true,
@@ -15,8 +15,6 @@ function setupMPRIS() {
     supportedInterfaces: ['player'],
     desktopEntry: 'youtube-music',
   });
-
-  return player;
 }
 
 /** @param {Electron.BrowserWindow} win */
@@ -108,7 +106,9 @@ function registerMPRIS(win) {
     player.on('position', seekTo);
 
     player.on('shuffle', (enableShuffle) => {
-      shuffle();
+      if (enableShuffle) {
+        shuffle();
+      }
     });
 
     let mprisVolNewer = false;

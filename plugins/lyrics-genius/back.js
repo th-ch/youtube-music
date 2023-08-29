@@ -8,7 +8,7 @@ const fetch = require('node-fetch');
 const { cleanupName } = require('../../providers/song-info');
 const { injectCSS } = require('../utils');
 
-const eastAsianChars = /\p{Script=Han}|\p{Script=Katakana}|\p{Script=Hiragana}|\p{Script=Hangul}|\p{Script=Han}/u;
+const eastAsianChars = /\p{Script=Katakana}|\p{Script=Hiragana}|\p{Script=Hangul}|\p{Script=Han}/u;
 let revRomanized = false;
 
 module.exports = async (win, options) => {
@@ -89,7 +89,7 @@ const getLyricsList = async (queryString) => {
  * @returns The lyrics of the song URL provided, null if none
  */
 const getLyrics = async (url) => {
-  response = await fetch(url);
+  const response = await fetch(url);
   if (!response.ok) {
     return null;
   }

@@ -16,10 +16,10 @@ const createFormData = (parameters) => {
   return formData;
 };
 
-const createQueryString = (parameters, api_sig) => {
+const createQueryString = (parameters, apiSignature) => {
   // Creates a querystring
   const queryData = [];
-  parameters.api_sig = api_sig;
+  parameters.api_sig = apiSignature;
   for (const key in parameters) {
     queryData.push(`${encodeURIComponent(key)}=${encodeURIComponent(parameters[key])}`);
   }
@@ -49,15 +49,15 @@ const createApiSig = (parameters, secret) => {
   return sig;
 };
 
-const createToken = async ({ api_key, api_root, secret }) => {
+const createToken = async ({ apiKey, apiRoot, secret }) => {
   // Creates and stores the auth token
   const data = {
     method: 'auth.gettoken',
-    api_key,
+    apiKey,
     format: 'json',
   };
-  const api_sig = createApiSig(data, secret);
-  let response = await fetch(`${api_root}${createQueryString(data, api_sig)}`);
+  const apiSigature = createApiSig(data, secret);
+  let response = await fetch(`${apiRoot}${createQueryString(data, apiSigature)}`);
   response = await response.json();
   return response?.token;
 };
@@ -78,8 +78,8 @@ const getAndSetSessionKey = async (config) => {
     method: 'auth.getsession',
     token: config.token,
   };
-  const api_sig = createApiSig(data, config.secret);
-  let res = await fetch(`${config.api_root}${createQueryString(data, api_sig)}`);
+  const apiSignature = createApiSig(data, config.secret);
+  let res = await fetch(`${config.api_root}${createQueryString(data, apiSignature)}`);
   res = await res.json();
   if (res.error) {
     await authenticate(config);
@@ -110,7 +110,7 @@ const postSongDataToAPI = async (songInfo, config, data) => {
   postData.api_sig = createApiSig(postData, config.secret);
   fetch('https://ws.audioscrobbler.com/2.0/', { method: 'POST', body: createFormData(postData) })
     .catch((error) => {
-      if (error.response.data.error == 9) {
+      if (error.response.data.error === 9) {
         // Session key is invalid, so remove it from the config and reauthenticate
         config.session_key = undefined;
         setOptions('last-fm', config);

@@ -133,7 +133,7 @@
     "node-fetch": "2.7.0",
     "simple-youtube-age-restriction-bypass": "git+https://github.com/zerodytrash/Simple-YouTube-Age-Restriction-Bypass.git#v2.5.9",
     "vudio": "2.1.1",
-    "youtubei.js": "4.3.0",
+    "youtubei.js": "6.1.0",
     "ytpl": "2.3.0"
   },
   "overrides": {

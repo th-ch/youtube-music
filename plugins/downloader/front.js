@@ -41,7 +41,7 @@ const menuObserver = new MutationObserver(() => {
 
 // TODO: re-enable once contextIsolation is set to true
 // contextBridge.exposeInMainWorld("downloader", {
-// 	download: () => {
+// download: () => {
 global.download = () => {
   let videoUrl = getSongMenu()
     // Selector of first button which is always "Start Radio"

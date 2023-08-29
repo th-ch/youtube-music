@@ -65,14 +65,14 @@ module.exports = () => {
 
     function setLyrics(lyricsContainer) {
       lyricsContainer.innerHTML = `<div id="contents" class="style-scope ytmusic-section-list-renderer description ytmusic-description-shelf-renderer genius-lyrics">
-			 		${
+      ${
         hasLyrics
           ? lyrics.replaceAll(/\r\n|\r|\n/g, '<br/>')
           : 'Could not retrieve lyrics from genius'
       }
 
-				</div>
-				<yt-formatted-string class="footer style-scope ytmusic-description-shelf-renderer" style="align-self: baseline"></yt-formatted-string>`;
+        </div>
+        <yt-formatted-string class="footer style-scope ytmusic-description-shelf-renderer" style="align-self: baseline"></yt-formatted-string>`;
       if (hasLyrics) {
         lyricsContainer.querySelector('.footer').textContent = 'Source: Genius';
         enableLyricsTab();

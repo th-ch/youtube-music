@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 // Constants
 const element = document.documentElement;
 const { body } = document;
@@ -40,7 +42,8 @@ const bubbleCanvas = function (t) {
   e.mouseX = 0;
   e.mouseY = 0;
   window.addEventListener('mousemove', (t) => {
-    (e.mouseX = t.clientX), (e.mouseY = t.clientY);
+    e.mouseX = t.clientX;
+    e.mouseY = t.clientY;
   });
   e.randomise();
 };

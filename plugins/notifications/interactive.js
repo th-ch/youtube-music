@@ -2,8 +2,11 @@ const path = require('node:path');
 
 const { Notification, app, ipcMain } = require('electron');
 
-const { notificationImage, icons, save_temp_icons, secondsToMinutes, ToastStyles } = require('./utils');
+const { notificationImage, icons, saveTempIcon, secondsToMinutes, ToastStyles } = require('./utils');
 
+/**
+ * @type {PluginConfig}
+ */
 const config = require('./config');
 
 const getSongControls = require('../../providers/song-controls');
@@ -25,7 +28,7 @@ module.exports = (win) => {
   ipcMain.on('timeChanged', (_, t) => currentSeconds = t);
 
   if (app.isPackaged) {
-    save_temp_icons();
+    saveTempIcon();
   }
 
   let savedSongInfo;
@@ -108,42 +111,42 @@ function sendNotification(songInfo) {
     // https://learn.microsoft.com/en-us/windows/apps/design/shell/tiles-and-notifications/toast-schema
     // https://learn.microsoft.com/en-us/windows/apps/design/shell/tiles-and-notifications/adaptive-interactive-toasts?tabs=xml
     // https://learn.microsoft.com/en-us/uwp/api/windows.ui.notifications.toasttemplatetype
-    toastXml: get_xml(songInfo, iconSrc),
+    toastXml: getXml(songInfo, iconSrc),
   });
 
-  savedNotification.on('close', (_) => {
+  savedNotification.on('close', () => {
     savedNotification = undefined;
   });
 
   savedNotification.show();
 }
 
-const get_xml = (songInfo, iconSrc) => {
+const getXml = (songInfo, iconSrc) => {
   switch (config.get('toastStyle')) {
     default:
     case ToastStyles.logo:
     case ToastStyles.legacy: {
-      return xml_logo(songInfo, iconSrc);
+      return xmlLogo(songInfo, iconSrc);
     }
 
     case ToastStyles.banner_top_custom: {
-      return xml_banner_top_custom(songInfo, iconSrc);
+      return xmlBannerTopCustom(songInfo, iconSrc);
     }
 
     case ToastStyles.hero: {
-      return xml_hero(songInfo, iconSrc);
+      return xmlHero(songInfo, iconSrc);
     }
 
     case ToastStyles.banner_bottom: {
-      return xml_banner_bottom(songInfo, iconSrc);
+      return xmlBannerBottom(songInfo, iconSrc);
     }
 
     case ToastStyles.banner_centered_bottom: {
-      return xml_banner_centered_bottom(songInfo, iconSrc);
+      return xmlBannerCenteredBottom(songInfo, iconSrc);
     }
 
     case ToastStyles.banner_centered_top: {
-      return xml_banner_centered_top(songInfo, iconSrc);
+      return xmlBannerCenteredTop(songInfo, iconSrc);
     }
   }
 };
@@ -186,19 +189,19 @@ const toast = (content, isPaused) => `\
     ${getButtons(isPaused)}
 </toast>`;
 
-const xml_image = ({ title, artist, isPaused }, imgSrc, placement) => toast(`\
+const xmlImage = ({ title, artist, isPaused }, imgSrc, placement) => toast(`\
             <image id="1" src="${imgSrc}" name="Image" ${placement}/>
             <text id="1">${title}</text>
             <text id="2">${artist}</text>\
 `, isPaused);
 
-const xml_logo = (songInfo, imgSrc) => xml_image(songInfo, imgSrc, 'placement="appLogoOverride"');
+const xmlLogo = (songInfo, imgSrc) => xmlImage(songInfo, imgSrc, 'placement="appLogoOverride"');
 
-const xml_hero = (songInfo, imgSrc) => xml_image(songInfo, imgSrc, 'placement="hero"');
+const xmlHero = (songInfo, imgSrc) => xmlImage(songInfo, imgSrc, 'placement="hero"');
 
-const xml_banner_bottom = (songInfo, imgSrc) => xml_image(songInfo, imgSrc, '');
+const xmlBannerBottom = (songInfo, imgSrc) => xmlImage(songInfo, imgSrc, '');
 
-const xml_banner_top_custom = (songInfo, imgSrc) => toast(`\
+const xmlBannerTopCustom = (songInfo, imgSrc) => toast(`\
             <image id="1" src="${imgSrc}" name="Image" />
             <text>ㅤ</text>
             <group>
@@ -206,11 +209,11 @@ const xml_banner_top_custom = (songInfo, imgSrc) => toast(`\
                     <text hint-style="body">${songInfo.title}</text>
                     <text hint-style="captionSubtle">${songInfo.artist}</text>
                 </subgroup>
-                ${xml_more_data(songInfo)}
+                ${xmlMoreData(songInfo)}
             </group>\
 `, songInfo.isPaused);
 
-const xml_more_data = ({ album, elapsedSeconds, songDuration }) => `\
+const xmlMoreData = ({ album, elapsedSeconds, songDuration }) => `\
 <subgroup hint-textStacking="bottom">
     ${album
   ? `<text hint-style="captionSubtle" hint-wrap="true" hint-align="right">${album}</text>` : ''}
@@ -218,7 +221,7 @@ const xml_more_data = ({ album, elapsedSeconds, songDuration }) => `\
 </subgroup>\
 `;
 
-const xml_banner_centered_bottom = ({ title, artist, isPaused }, imgSrc) => toast(`\
+const xmlBannerCenteredBottom = ({ title, artist, isPaused }, imgSrc) => toast(`\
             <text>ㅤ</text>
             <group>
                 <subgroup hint-weight="1" hint-textStacking="center">
@@ -229,7 +232,7 @@ const xml_banner_centered_bottom = ({ title, artist, isPaused }, imgSrc) => toas
             <image id="1" src="${imgSrc}" name="Image"  hint-removeMargin="true" />\
 `, isPaused);
 
-const xml_banner_centered_top = ({ title, artist, isPaused }, imgSrc) => toast(`\
+const xmlBannerCenteredTop = ({ title, artist, isPaused }, imgSrc) => toast(`\
             <image id="1" src="${imgSrc}" name="Image" />
             <text>ㅤ</text>
             <group>

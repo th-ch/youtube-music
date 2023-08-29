@@ -6,7 +6,7 @@ const { setMenuOptions } = require('../../config/plugins');
 const promptOptions = require('../../providers/prompt-options');
 
 function changeOptions(changedOptions, options, win) {
-  for (option in changedOptions) {
+  for (const option in changedOptions) {
     options[option] = changedOptions[option];
   }
 

@@ -2,7 +2,7 @@ const { toggleRomanized } = require('./back');
 
 const { setOptions } = require('../../config/plugins');
 
-module.exports = (win, options, refreshMenu) => [
+module.exports = (win, options) => [
   {
     label: 'Romanized Lyrics',
     type: 'checkbox',

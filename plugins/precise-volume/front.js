@@ -26,7 +26,7 @@ const writeOptions = debounce(() => {
   setOptions('precise-volume', options);
 }, 1000);
 
-module.exports.moveVolumeHud = debounce((showVideo) => {
+const moveVolumeHud = debounce((showVideo) => {
   const volumeHud = $('#volumeHud');
   if (!volumeHud) {
     return;
@@ -36,6 +36,7 @@ module.exports.moveVolumeHud = debounce((showVideo) => {
     ? `${($('ytmusic-player').clientHeight - $('video').clientHeight) / 2}px`
     : 0;
 }, 250);
+module.exports.moveVolumeHud = moveVolumeHud;
 
 const hideVolumeHud = debounce((volumeHud) => {
   volumeHud.style.opacity = 0;
@@ -215,7 +216,7 @@ const tooltipTargets = [
 ];
 
 function setTooltip(volume) {
-  for (target of tooltipTargets) {
+  for (const target of tooltipTargets) {
     $(target).title = `${volume}%`;
   }
 }

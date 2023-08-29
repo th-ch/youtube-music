@@ -1,7 +1,6 @@
 const path = require('node:path');
 
 const { app, ipcMain } = require('electron');
-const electronLocalshortcut = require('electron-localshortcut');
 
 const { setOptions } = require('../../config/plugins');
 const { injectCSS } = require('../utils');

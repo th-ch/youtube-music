@@ -36,7 +36,6 @@ if (!gotTheLock) {
 }
 
 app.commandLine.appendSwitch('enable-features', 'SharedArrayBuffer'); // Required for downloader
-app.allowRendererProcessReuse = true; // https://github.com/electron/electron/issues/18397
 if (config.get('options.disableHardwareAcceleration')) {
   if (is.dev()) {
     console.log('Disabling hardware acceleration');
@@ -60,9 +59,9 @@ require('electron-debug')({
 });
 
 let icon = 'assets/youtube-music.png';
-if (process.platform == 'win32') {
+if (process.platform === 'win32') {
   icon = 'assets/generated/icon.ico';
-} else if (process.platform == 'darwin') {
+} else if (process.platform === 'darwin') {
   icon = 'assets/generated/icon.icns';
 }
 
@@ -393,7 +392,7 @@ app.on('ready', () => {
 
   setupProtocolHandler(mainWindow);
 
-  app.on('second-instance', (_event, commandLine, _workingDirectory) => {
+  app.on('second-instance', (_, commandLine) => {
     const uri = `${APP_PROTOCOL}://`;
     const protocolArgv = commandLine.find((arg) => arg.startsWith(uri));
     if (protocolArgv) {
@@ -541,7 +540,7 @@ function removeContentSecurityPolicy(
 
   // When multiple listeners are defined, apply them all
   session.webRequest.setResolver('onHeadersReceived', (listeners) => {
-    const response = listeners.reduce(
+    return listeners.reduce(
       async (accumulator, listener) => {
         if (accumulator.cancel) {
           return accumulator;
@@ -552,7 +551,5 @@ function removeContentSecurityPolicy(
       },
       { cancel: false },
     );
-
-    return response;
   });
 }

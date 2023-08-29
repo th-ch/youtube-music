@@ -1,10 +1,9 @@
-const config = require('./config');
-
-const defaultOptions = require('../../config/defaults').plugins.crossfade;
-
 const prompt = require('custom-electron-prompt');
 
+const config = require('./config');
+
 const promptOptions = require('../../providers/prompt-options');
+const defaultOptions = require('../../config/defaults').plugins.crossfade;
 
 module.exports = (win) => [
   {
