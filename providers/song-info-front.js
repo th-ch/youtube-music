@@ -83,13 +83,12 @@ module.exports = () => {
       pause: (e) => playPausedHandler(e, 'pause'),
     };
 
-    const video = $('video');
-
     // Name = "dataloaded" and abit later "dataupdated"
     apiEvent.detail.addEventListener('videodatachange', (name) => {
       if (name !== 'dataloaded') {
         return;
       }
+      const video = $('video');
 
       video.dispatchEvent(srcChangedEvent);
       for (const status of ['playing', 'pause']) { // for fix issue that pause event not fired
@@ -98,6 +97,7 @@ module.exports = () => {
       setTimeout(sendSongInfo, 200);
     });
 
+    const video = $('video');
     for (const status of ['playing', 'pause']) {
       video.addEventListener(status, playPausedHandlers[status]);
     }
