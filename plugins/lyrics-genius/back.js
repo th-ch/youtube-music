@@ -1,6 +1,6 @@
 const { join } = require('node:path');
 
-const { ipcMain } = require('electron');
+const { ipcMain, net } = require('electron');
 const is = require('electron-is');
 const { convert } = require('html-to-text');
 
@@ -59,7 +59,7 @@ const fetchFromGenius = async (metadata) => {
  * @returns The lyrics of the first song found using the Genius-Lyrics API
  */
 const getLyricsList = async (queryString) => {
-  const response = await fetch(
+  const response = await net.fetch(
     `https://genius.com/api/search/multi?per_page=5&q=${encodeURIComponent(queryString)}`,
   );
   if (!response.ok) {
@@ -88,7 +88,7 @@ const getLyricsList = async (queryString) => {
  * @returns The lyrics of the song URL provided, null if none
  */
 const getLyrics = async (url) => {
-  const response = await fetch(url);
+  const response = await net.fetch(url);
   if (!response.ok) {
     return null;
   }

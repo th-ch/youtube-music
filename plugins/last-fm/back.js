@@ -1,4 +1,4 @@
-const { shell } = require('electron');
+const { shell, net } = require('electron');
 const md5 = require('md5');
 
 const { setOptions } = require('../../config/plugins');
@@ -56,7 +56,7 @@ const createToken = async ({ apiKey, apiRoot, secret }) => {
     format: 'json',
   };
   const apiSigature = createApiSig(data, secret);
-  let response = await fetch(`${apiRoot}${createQueryString(data, apiSigature)}`);
+  let response = await net.fetch(`${apiRoot}${createQueryString(data, apiSigature)}`);
   response = await response.json();
   return response?.token;
 };
@@ -78,7 +78,7 @@ const getAndSetSessionKey = async (config) => {
     token: config.token,
   };
   const apiSignature = createApiSig(data, config.secret);
-  let res = await fetch(`${config.api_root}${createQueryString(data, apiSignature)}`);
+  let res = await net.fetch(`${config.api_root}${createQueryString(data, apiSignature)}`);
   res = await res.json();
   if (res.error) {
     await authenticate(config);
@@ -107,7 +107,7 @@ const postSongDataToAPI = async (songInfo, config, data) => {
   };
 
   postData.api_sig = createApiSig(postData, config.secret);
-  fetch('https://ws.audioscrobbler.com/2.0/', { method: 'POST', body: createFormData(postData) })
+  net.fetch('https://ws.audioscrobbler.com/2.0/', { method: 'POST', body: createFormData(postData) })
     .catch((error) => {
       if (error.response.data.error === 9) {
         // Session key is invalid, so remove it from the config and reauthenticate

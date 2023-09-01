@@ -1,4 +1,4 @@
-const { ipcMain, nativeImage } = require('electron');
+const { ipcMain, nativeImage, net } = require('electron');
 
 const config = require('../config');
 const { cache } = require('../providers/decorators');
@@ -29,7 +29,7 @@ const getImage = cache(
    * @returns {Promise<Electron.NativeImage>}
    */
   async (src) => {
-    const result = await fetch(src);
+    const result = await net.fetch(src);
     const buffer = await result.arrayBuffer();
     const output = nativeImage.createFromBuffer(Buffer.from(buffer));
     if (output.isEmpty() && !src.endsWith('.jpg') && src.includes('.jpg')) { // Fix hidden webp files (https://github.com/th-ch/youtube-music/issues/315)

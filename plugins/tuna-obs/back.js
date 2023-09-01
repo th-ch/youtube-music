@@ -1,4 +1,4 @@
-const { ipcMain } = require('electron');
+const { ipcMain, net } = require('electron');
 
 const registerCallback = require('../../providers/song-info');
 
@@ -24,7 +24,7 @@ const post = async (data) => {
     'Access-Control-Allow-Origin': '*',
   };
   const url = `http://127.0.0.1:${port}/`;
-  fetch(url, {
+  net.fetch(url, {
     method: 'POST',
     headers,
     body: JSON.stringify({ data }),
