@@ -70,13 +70,14 @@ interface PluginConfigOptions {
  *  setupMyPlugin(win, config);
  * };
  */
-type ConfigType<T extends OneOfDefaultConfigKey> = typeof defaultConfig.plugins[T];
+export type ConfigType<T extends OneOfDefaultConfigKey> = typeof defaultConfig.plugins[T];
 type ValueOf<T> = T[keyof T];
+type Mode<T, Mode extends 'r' | 'm'> = Mode extends 'r' ? Promise<T> : T;
 export class PluginConfig<T extends OneOfDefaultConfigKey> {
-  private name: string;
-  private config: ConfigType<T>;
-  private defaultConfig: ConfigType<T>;
-  private enableFront: boolean;
+  private readonly name: string;
+  private readonly config: ConfigType<T>;
+  private readonly defaultConfig: ConfigType<T>;
+  private readonly enableFront: boolean;
 
   private subscribers: { [key in keyof ConfigType<T>]?: (config: ConfigType<T>) => void } = {};
   private allSubscribers: ((config: ConfigType<T>) => void)[] = [];
@@ -102,7 +103,7 @@ export class PluginConfig<T extends OneOfDefaultConfigKey> {
     activePlugins[name] = this;
   }
 
-  async get(key: keyof ConfigType<T>): Promise<ValueOf<ConfigType<T>>> {
+  get<Key extends keyof ConfigType<T> = keyof ConfigType<T>>(key: Key): ConfigType<T>[Key] {
     return this.config[key];
   }
 
@@ -112,11 +113,11 @@ export class PluginConfig<T extends OneOfDefaultConfigKey> {
     this.#save();
   }
 
-  getAll() {
+  getAll(): ConfigType<T> {
     return { ...this.config };
   }
 
-  setAll(options: ConfigType<T>) {
+  setAll(options: Partial<ConfigType<T>>) {
     if (!options || typeof options !== 'object') {
       throw new Error('Options must be an object.');
     }
@@ -124,7 +125,7 @@ export class PluginConfig<T extends OneOfDefaultConfigKey> {
     let changed = false;
     for (const [key, value] of Object.entries(options) as Entries<typeof options>) {
       if (this.config[key] !== value) {
-        this.config[key] = value;
+        if (value !== undefined) this.config[key] = value;
         this.#onChange(key, false);
         changed = true;
       }

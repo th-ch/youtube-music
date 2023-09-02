@@ -1,12 +1,19 @@
-const path = require('node:path');
+import path from 'node:path';
 
-const getSongControls = require('../../providers/song-controls');
-const registerCallback = require('../../providers/song-info');
+import { BrowserWindow, nativeImage } from 'electron';
 
-let controls;
-let currentSongInfo;
+import getSongControls from '../../providers/song-controls';
+import registerCallback, { SongInfo } from '../../providers/song-info';
 
-module.exports = (win) => {
+
+let controls: {
+  playPause: () => void;
+  next: () => void;
+  previous: () => void;
+};
+let currentSongInfo: SongInfo;
+
+export default (win: BrowserWindow) => {
   const { playPause, next, previous } = getSongControls(win);
   controls = { playPause, next, previous };
 
@@ -23,7 +30,7 @@ module.exports = (win) => {
   });
 };
 
-function setThumbar(win, songInfo) {
+function setThumbar(win: BrowserWindow, songInfo: SongInfo) {
   // Wait for song to start before setting thumbar
   if (!songInfo?.title) {
     return;
@@ -33,28 +40,28 @@ function setThumbar(win, songInfo) {
   win.setThumbarButtons([
     {
       tooltip: 'Previous',
-      icon: get('previous'),
+      icon: nativeImage.createFromPath(get('previous')),
       click() {
-        controls.previous(win.webContents);
+        controls.previous();
       },
     }, {
       tooltip: 'Play/Pause',
       // Update icon based on play state
-      icon: songInfo.isPaused ? get('play') : get('pause'),
+      icon: nativeImage.createFromPath(songInfo.isPaused ? get('play') : get('pause')),
       click() {
-        controls.playPause(win.webContents);
+        controls.playPause();
       },
     }, {
       tooltip: 'Next',
-      icon: get('next'),
+      icon: nativeImage.createFromPath(get('next')),
       click() {
-        controls.next(win.webContents);
+        controls.next();
       },
     },
   ]);
 }
 
 // Util
-function get(kind) {
+function get(kind: string) {
   return path.join(__dirname, '../../assets/media-icons-black', `${kind}.png`);
 }

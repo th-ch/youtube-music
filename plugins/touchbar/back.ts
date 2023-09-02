@@ -1,4 +1,7 @@
-const { TouchBar } = require('electron');
+import { TouchBar, NativeImage, BrowserWindow } from 'electron';
+
+import registerCallback from '../../providers/song-info';
+import getSongControls from '../../providers/song-controls';
 
 const {
   TouchBarButton,
@@ -8,21 +11,20 @@ const {
   TouchBarScrubber,
 } = TouchBar;
 
-const registerCallback = require('../../providers/song-info');
-const getSongControls = require('../../providers/song-controls');
-
 // Songtitle label
 const songTitle = new TouchBarLabel({
   label: '',
 });
 // This will store the song controls once available
-let controls = [];
+let controls: (() => void)[] = [];
 
 // This will store the song image once available
-const songImage = {};
+const songImage: {
+  icon?: NativeImage;
+} = {};
 
 // Pause/play button
-const pausePlayButton = new TouchBarButton();
+const pausePlayButton = new TouchBarButton({});
 
 // The song control buttons (control functions are in the same order)
 const buttons = new TouchBarSegmentedControl({
@@ -59,7 +61,7 @@ const touchBar = new TouchBar({
   ],
 });
 
-module.exports = (win) => {
+module.exports = (win: BrowserWindow) => {
   const { playPause, next, previous, dislike, like } = getSongControls(win);
 
   // If the page is ready, register the callback
@@ -79,7 +81,7 @@ module.exports = (win) => {
       // Get image source
       songImage.icon = songInfo.image
         ? songInfo.image.resize({ height: 23 })
-        : null;
+        : undefined;
 
       win.setTouchBar(touchBar);
     });

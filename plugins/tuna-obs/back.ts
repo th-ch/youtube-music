@@ -1,13 +1,26 @@
-const { ipcMain, net } = require('electron');
+import { ipcMain, net, BrowserWindow } from 'electron';
 
-const registerCallback = require('../../providers/song-info');
+import registerCallback from '../../providers/song-info';
 
-const secToMilisec = (t) => Math.round(Number(t) * 1e3);
-const data = {
+const secToMilisec = (t: number) => Math.round(Number(t) * 1e3);
+
+interface Data {
+  album: string | null | undefined;
+  album_url: string;
+  artists: string[];
+  cover: string;
+  cover_url: string;
+  duration: number;
+  progress: number;
+  status: string;
+  title: string;
+}
+
+const data: Data = {
   cover: '',
   cover_url: '',
   title: '',
-  artists: [],
+  artists: [] as string[],
   status: '',
   progress: 0,
   duration: 0,
@@ -15,7 +28,7 @@ const data = {
   album: undefined,
 };
 
-const post = async (data) => {
+const post = (data: Data) => {
   const port = 1608;
   const headers = {
     'Content-Type': 'application/json',
@@ -28,13 +41,12 @@ const post = async (data) => {
     method: 'POST',
     headers,
     body: JSON.stringify({ data }),
-  }).catch((error) => console.log(`Error: '${error.code || error.errno}' - when trying to access obs-tuna webserver at port ${port}`));
+  }).catch((error: { code: number, errno: number }) => console.log(`Error: '${error.code || error.errno}' - when trying to access obs-tuna webserver at port ${port}`));
 };
 
-/** @param {Electron.BrowserWindow} win */
-module.exports = async (win) => {
+module.exports = (win: BrowserWindow) => {
   ipcMain.on('apiLoaded', () => win.webContents.send('setupTimeChangedListener'));
-  ipcMain.on('timeChanged', async (_, t) => {
+  ipcMain.on('timeChanged', (_, t: number) => {
     if (!data.title) {
       return;
     }
@@ -50,9 +62,9 @@ module.exports = async (win) => {
 
     data.duration = secToMilisec(songInfo.songDuration);
     data.progress = secToMilisec(songInfo.elapsedSeconds);
-    data.cover = songInfo.imageSrc;
-    data.cover_url = songInfo.imageSrc;
-    data.album_url = songInfo.imageSrc;
+    data.cover = songInfo.imageSrc ?? '';
+    data.cover_url = songInfo.imageSrc ?? '';
+    data.album_url = songInfo.imageSrc ?? '';
     data.title = songInfo.title;
     data.artists = [songInfo.artist];
     data.status = songInfo.isPaused ? 'stopped' : 'playing';

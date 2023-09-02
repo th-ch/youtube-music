@@ -1,20 +1,37 @@
-const { ipcRenderer } = require('electron');
+/* eslint-disable @typescript-eslint/await-thenable */
+/* renderer */
 
-const configProvider = require('./config');
+import { ipcRenderer } from 'electron';
 
-const { ElementFromFile, templatePath } = require('../utils');
+import configProvider from './config';
 
-let config;
+import { ElementFromFile, templatePath } from '../utils';
+import { YoutubePlayer } from '../../types/youtube-player';
+import { ConfigType } from '../../config/dynamic';
 
-function $(selector) {
-  return document.querySelector(selector);
+interface LanguageOptions {
+  displayName: string;
+  id: string | null;
+  is_default: boolean;
+  is_servable: boolean;
+  is_translateable: boolean;
+  kind: string;
+  languageCode: string; // 2 length
+  languageName: string;
+  name: string | null;
+  vss_id: string;
 }
+
+let config: ConfigType<'captions-selector'>;
+
+const $ = <Element extends HTMLElement>(selector: string): Element => document.querySelector(selector)!;
 
 const captionsSettingsButton = ElementFromFile(
   templatePath(__dirname, 'captions-settings-template.html'),
 );
 
-module.exports = async () => {
+export default async () => {
+  // RENDERER
   config = await configProvider.getAll();
 
   configProvider.subscribeAll((newConfig) => {
@@ -23,12 +40,12 @@ module.exports = async () => {
   document.addEventListener('apiLoaded', (event) => setup(event.detail), { once: true, passive: true });
 };
 
-function setup(api) {
+function setup(api: YoutubePlayer) {
   $('.right-controls-buttons').append(captionsSettingsButton);
 
-  let captionTrackList = api.getOption('captions', 'tracklist');
+  let captionTrackList = api.getOption<LanguageOptions[]>('captions', 'tracklist') ?? [];
 
-  $('video').addEventListener('srcChanged', async () => {
+  $('video').addEventListener('srcChanged', () => {
     if (config.disableCaptions) {
       setTimeout(() => api.unloadModule('captions'), 100);
       captionsSettingsButton.style.display = 'none';
@@ -37,8 +54,8 @@ function setup(api) {
 
     api.loadModule('captions');
 
-    setTimeout(async () => {
-      captionTrackList = api.getOption('captions', 'tracklist');
+    setTimeout(() => {
+      captionTrackList = api.getOption('captions', 'tracklist') ?? [];
 
       if (config.autoload && config.lastCaptionsCode) {
         api.setOption('captions', 'track', {
@@ -54,9 +71,9 @@ function setup(api) {
 
   captionsSettingsButton.addEventListener('click', async () => {
     if (captionTrackList?.length) {
-      const currentCaptionTrack = api.getOption('captions', 'track');
+      const currentCaptionTrack = api.getOption<LanguageOptions>('captions', 'track')!;
       let currentIndex = currentCaptionTrack
-        ? captionTrackList.indexOf(captionTrackList.find((track) => track.languageCode === currentCaptionTrack.languageCode))
+        ? captionTrackList.indexOf(captionTrackList.find((track) => track.languageCode === currentCaptionTrack.languageCode)!)
         : null;
 
       const captionLabels = [
@@ -64,7 +81,7 @@ function setup(api) {
         'None',
       ];
 
-      currentIndex = await ipcRenderer.invoke('captionsSelector', captionLabels, currentIndex);
+      currentIndex = await ipcRenderer.invoke('captionsSelector', captionLabels, currentIndex) as number;
       if (currentIndex === null) {
         return;
       }

@@ -1,16 +1,22 @@
-const prompt = require('custom-electron-prompt');
+import prompt from 'custom-electron-prompt';
 
-const { clear, connect, registerRefresh, isConnected } = require('./back');
+import { Electron } from 'playwright';
 
-const { setMenuOptions } = require('../../config/plugins');
-const promptOptions = require('../../providers/prompt-options');
-const { singleton } = require('../../providers/decorators');
+import { clear, connect, isConnected, registerRefresh } from './back';
 
-const registerRefreshOnce = singleton((refreshMenu) => {
+import { setMenuOptions } from '../../config/plugins';
+import promptOptions from '../../providers/prompt-options';
+import { singleton } from '../../providers/decorators';
+import config from '../../config';
+
+const registerRefreshOnce = singleton((refreshMenu: () => void) => {
   registerRefresh(refreshMenu);
 });
 
-module.exports = (win, options, refreshMenu) => {
+const DiscordOptionsObj = config.get('plugins.discord');
+type DiscordOptions = typeof DiscordOptionsObj;
+
+export default (win: Electron.BrowserWindow, options: DiscordOptions, refreshMenu: () => void) => {
   registerRefreshOnce(refreshMenu);
 
   return [
@@ -23,7 +29,7 @@ module.exports = (win, options, refreshMenu) => {
       label: 'Auto reconnect',
       type: 'checkbox',
       checked: options.autoReconnect,
-      click(item) {
+      click(item: Electron.MenuItem) {
         options.autoReconnect = item.checked;
         setMenuOptions('discord', options);
       },
@@ -36,7 +42,7 @@ module.exports = (win, options, refreshMenu) => {
       label: 'Clear activity after timeout',
       type: 'checkbox',
       checked: options.activityTimoutEnabled,
-      click(item) {
+      click(item: Electron.MenuItem) {
         options.activityTimoutEnabled = item.checked;
         setMenuOptions('discord', options);
       },
@@ -45,7 +51,7 @@ module.exports = (win, options, refreshMenu) => {
       label: 'Listen Along',
       type: 'checkbox',
       checked: options.listenAlong,
-      click(item) {
+      click(item: Electron.MenuItem) {
         options.listenAlong = item.checked;
         setMenuOptions('discord', options);
       },
@@ -54,7 +60,7 @@ module.exports = (win, options, refreshMenu) => {
       label: 'Hide duration left',
       type: 'checkbox',
       checked: options.hideDurationLeft,
-      click(item) {
+      click(item: Electron.MenuItem) {
         options.hideDurationLeft = item.checked;
         setMenuOptions('discord', options);
       },
@@ -66,11 +72,11 @@ module.exports = (win, options, refreshMenu) => {
   ];
 };
 
-async function setInactivityTimeout(win, options) {
+async function setInactivityTimeout(win: Electron.BrowserWindow, options: DiscordOptions) {
   const output = await prompt({
     title: 'Set Inactivity Timeout',
     label: 'Enter inactivity timeout in seconds:',
-    value: Math.round((options.activityTimoutTime ?? 0) / 1e3),
+    value: String(Math.round((options.activityTimoutTime ?? 0) / 1e3)),
     type: 'counter',
     counterOptions: { minimum: 0, multiFire: true },
     width: 450,
@@ -78,7 +84,7 @@ async function setInactivityTimeout(win, options) {
   }, win);
 
   if (output) {
-    options.activityTimoutTime = Math.round(output * 1e3);
+    options.activityTimoutTime = Math.round(~~output * 1e3);
     setMenuOptions('discord', options);
   }
 }

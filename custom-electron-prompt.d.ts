@@ -24,8 +24,8 @@ declare module 'custom-electron-prompt' {
       cancel?: string;
     };
     alwaysOnTop?: boolean;
-    value?: string;
-    type?: 'input' | 'select' | 'counter';
+    value?: unknown;
+    type?: 'input' | 'select' | 'counter' | 'multiInput';
     selectOptions?: Record<string, string>;
     keybindOptions?: PromptKeybindOptions[];
     counterOptions?: PromptCounterOptions;
@@ -37,7 +37,13 @@ declare module 'custom-electron-prompt' {
     frame?: boolean;
     customScript?: string;
     enableRemoteModule?: boolean;
-    inputAttrs: Partial<HTMLInputElement>;
+    inputAttrs?: Partial<HTMLInputElement>;
+    multiInputOptions?: {
+      label: string;
+      value: unknown;
+      inputAttrs?: Partial<HTMLInputElement>;
+      selectOptions?: Record<string, string>;
+    }[];
   }
 
   const prompt: (options?: PromptOptions, parent?: BrowserWindow) => Promise<string | null>;

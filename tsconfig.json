@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "target": "ESNext",
+    "lib": ["dom"],
     "module": "CommonJS",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,

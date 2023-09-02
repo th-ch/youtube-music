@@ -122,6 +122,9 @@ const defaultConfig = {
     'captions-selector': {
       enabled: false,
       disableCaptions: false,
+      autoload: false,
+      lastCaptionsCode: '',
+      disabledCaptions: false,
     },
     'skip-silences': {
       onlySkipBeginning: false,

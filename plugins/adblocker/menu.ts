@@ -1,15 +1,13 @@
-import config from './config';
+import config, { blockers } from './config';
 
-export default async () => {
-  const blockerConfig = await config.get('blocker');
-
+export default () => {
   return [
     {
       label: 'Blocker',
-      submenu: Object.values(config.blockers).map((blocker) => ({
+      submenu: Object.values(blockers).map((blocker: string) => ({
         label: blocker,
         type: 'radio',
-        checked: (blockerConfig || config.blockers.WithBlocklists) === blocker,
+        checked: (config.get('blocker') || blockers.WithBlocklists) === blocker,
         click() {
           config.set('blocker', blocker);
         },

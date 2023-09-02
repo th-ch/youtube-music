@@ -149,6 +149,7 @@
   "devDependencies": {
     "@playwright/test": "1.37.1",
     "@total-typescript/ts-reset": "0.5.1",
+    "@types/howler": "^2.2.8",
     "@types/youtube-player": "^5.5.7",
     "@typescript-eslint/eslint-plugin": "6.5.0",
     "auto-changelog": "2.4.0",

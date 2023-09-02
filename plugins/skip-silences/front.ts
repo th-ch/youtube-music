@@ -1,4 +1,9 @@
-module.exports = (options) => {
+import config from '../../config';
+
+const SkipSilencesOptionsObj = config.get('plugins.skip-silences');
+type SkipSilencesOptions = typeof SkipSilencesOptionsObj;
+
+export default (options: SkipSilencesOptions) => {
   let isSilent = false;
   let hasAudioStarted = false;
 
@@ -6,7 +11,7 @@ module.exports = (options) => {
   const threshold = -100; // DB (-100 = absolute silence, 0 = loudest)
   const interval = 2; // Ms
   const history = 10;
-  const speakingHistory = Array.from({ length: history }).fill(0);
+  const speakingHistory = Array.from({ length: history }).fill(0) as number[];
 
   document.addEventListener(
     'audioCanPlay',
@@ -53,11 +58,13 @@ module.exports = (options) => {
             if (history == 0 // Silent
 
               && !(
-                video.paused
-                || video.seeking
-                || video.ended
-                || video.muted
-                || video.volume === 0
+                video && (
+                  video.paused
+                  || video.seeking
+                  || video.ended
+                  || video.muted
+                  || video.volume === 0
+                )
               )
             ) {
               isSilent = true;
@@ -66,7 +73,7 @@ module.exports = (options) => {
           }
 
           speakingHistory.shift();
-          speakingHistory.push(0 + (currentVolume > threshold));
+          speakingHistory.push(Number(currentVolume > threshold));
 
           looper();
         }, interval);
@@ -79,17 +86,17 @@ module.exports = (options) => {
           return;
         }
 
-        if (isSilent && !video.paused) {
+        if (isSilent && video && !video.paused) {
           video.currentTime += 0.2; // In s
         }
       };
 
-      video.addEventListener('play', () => {
+      video?.addEventListener('play', () => {
         hasAudioStarted = false;
         skipSilence();
       });
 
-      video.addEventListener('seeked', () => {
+      video?.addEventListener('seeked', () => {
         hasAudioStarted = false;
         skipSilence();
       });
@@ -100,7 +107,7 @@ module.exports = (options) => {
   );
 };
 
-function getMaxVolume(analyser, fftBins) {
+function getMaxVolume(analyser: AnalyserNode, fftBins: Float32Array) {
   let maxVolume = Number.NEGATIVE_INFINITY;
   analyser.getFloatFrequencyData(fftBins);
 

@@ -18,7 +18,7 @@
 'use strict';
 
 // Internal utility: check if value is a valid volume level and throw if not
-const validateVolumeLevel = (value) => {
+const validateVolumeLevel = (value: number) => {
   // Number between 0 and 1?
   if (!Number.isNaN(value) && value >= 0 && value <= 1) {
     // Yup, that's fine
@@ -29,8 +29,51 @@ const validateVolumeLevel = (value) => {
   }
 };
 
+type VolumeLogger = <Params extends unknown[]>(message: string, ...args: Params) => void;
+interface VolumeFaderOptions {
+  /**
+   * logging `function(stuff, …)` for execution information (default: no logging)
+   */
+  logger?: VolumeLogger;
+  /**
+   * either 'linear', 'logarithmic' or a positive number in dB (default: logarithmic)
+   */
+  fadeScaling?: string | number;
+  /**
+   * media volume 0…1 to apply during setup (volume not touched by default)
+   */
+  initialVolume?: number;
+  /**
+   * time in milliseconds to complete a fade (default: 1000 ms)
+   */
+  fadeDuration?: number;
+}
+
+interface VolumeFade {
+  volume: {
+    start: number;
+    end: number;
+  };
+  time: {
+    start: number;
+    end: number;
+  };
+  callback?: () => void;
+}
+
 // Main class
-class VolumeFader {
+export class VolumeFader {
+  private media: HTMLMediaElement;
+  private logger: VolumeLogger | false;
+  private scale: {
+    internalToVolume: (level: number) => number;
+    volumeToInternal: (level: number) => number;
+  };
+  private fadeDuration: number = 1000;
+  private active: boolean = false;
+  private fade: VolumeFade | undefined;
+
+
   /**
    * VolumeFader Constructor
    *
@@ -38,13 +81,8 @@ class VolumeFader {
    * @param options {Object} - an object with optional settings
    * @throws {TypeError} if options.initialVolume or options.fadeDuration are invalid
    *
-   * options:
-   * .logger: {Function} logging `function(stuff, …)` for execution information (default: no logging)
-   * .fadeScaling: {Mixed} either 'linear', 'logarithmic' or a positive number in dB (default: logarithmic)
-   * .initialVolume: {Number} media volume 0…1 to apply during setup (volume not touched by default)
-   * .fadeDuration: {Number} time in milliseconds to complete a fade (default: 1000 ms)
    */
-  constructor(media, options) {
+  constructor(media: HTMLMediaElement, options: VolumeFaderOptions) {
     // Passed media element of correct type?
     if (media instanceof HTMLMediaElement) {
       // Save reference to media element
@@ -70,8 +108,8 @@ class VolumeFader {
     if (options.fadeScaling === 'linear') {
       // Pass levels unchanged
       this.scale = {
-        internalToVolume: (level) => level,
-        volumeToInternal: (level) => level,
+        internalToVolume: (level: number) => level,
+        volumeToInternal: (level: number) => level,
       };
 
       // Log setting
@@ -79,7 +117,7 @@ class VolumeFader {
     }
     // No linear, but logarithmic fading…
     else {
-      let dynamicRange;
+      let dynamicRange: number;
 
       // Default dynamic range?
       if (
@@ -91,7 +129,8 @@ class VolumeFader {
       }
       // Custom dynamic range?
       else if (
-        !Number.isNaN(options.fadeScaling)
+        typeof options.fadeScaling === 'number'
+        && !Number.isNaN(options.fadeScaling)
         && options.fadeScaling > 0
       ) {
         // Turn amplitude dB into a multiple of 10 power dB
@@ -107,9 +146,9 @@ class VolumeFader {
 
       // Use exponential/logarithmic scaler for expansion/compression
       this.scale = {
-        internalToVolume: (level) =>
+        internalToVolume: (level: number) =>
           this.exponentialScaler(level, dynamicRange),
-        volumeToInternal: (level) =>
+        volumeToInternal: (level: number) =>
           this.logarithmicScaler(level, dynamicRange),
       };
 
@@ -193,7 +232,7 @@ class VolumeFader {
    * @throws {TypeError} if fadeDuration is not a number greater than zero
    * @return {Object} VolumeFader instance for chaining
    */
-  setFadeDuration(fadeDuration) {
+  setFadeDuration(fadeDuration: number) {
     // If duration is a valid number > 0…
     if (!Number.isNaN(fadeDuration) && fadeDuration > 0) {
       // Set fade duration
@@ -219,7 +258,7 @@ class VolumeFader {
    * @throws {TypeError} if targetVolume is not in the range 0…1
    * @return {Object} VolumeFader instance for chaining
    */
-  fadeTo(targetVolume, callback) {
+  fadeTo(targetVolume: number, callback?: () => void) {
     // Validate volume and throw if invalid
     validateVolumeLevel(targetVolume);
 
@@ -250,11 +289,11 @@ class VolumeFader {
   }
 
   // Convenience shorthand methods for common fades
-  fadeIn(callback) {
+  fadeIn(callback: () => void) {
     this.fadeTo(1, callback);
   }
 
-  fadeOut(callback) {
+  fadeOut(callback: () => void) {
     this.fadeTo(0, callback);
   }
 
@@ -313,7 +352,7 @@ class VolumeFader {
    * @param {Number} dynamicRange - expanded output range, in multiples of 10 dB (float, 0…∞)
    * @return {Number} - expanded level (float, 0…1)
    */
-  exponentialScaler(input, dynamicRange) {
+  exponentialScaler(input: number, dynamicRange: number) {
     // Special case: make zero (or any falsy input) return zero
     if (input === 0) {
       // Since the dynamic range is limited,
@@ -336,7 +375,7 @@ class VolumeFader {
    * @param {Number} dynamicRange - coerced input range, in multiples of 10 dB (float, 0…∞)
    * @return {Number} - compressed level (float, 0…1)
    */
-  logarithmicScaler(input, dynamicRange) {
+  logarithmicScaler(input: number, dynamicRange: number) {
     // Special case: make zero (or any falsy input) return zero
     if (input === 0) {
       // Logarithm of zero would be -∞, which would map to zero anyway
@@ -351,6 +390,6 @@ class VolumeFader {
   }
 }
 
-module.exports = {
+export default {
   VolumeFader
 };

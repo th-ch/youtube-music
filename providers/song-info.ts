@@ -88,7 +88,7 @@ const handleData = async (responseText: string, win: Electron.BrowserWindow) => 
 };
 
 // This variable will be filled with the callbacks once they register
-type SongInfoCallback = (songInfo: SongInfo, event: string) => void;
+export type SongInfoCallback = (songInfo: SongInfo, event?: string) => void;
 const callbacks: SongInfoCallback[] = [];
 
 // This function will allow plugins to register callback that will be triggered when data changes

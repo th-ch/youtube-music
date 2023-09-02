@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/await-thenable */
+/* renderer */
+
 import { PluginConfig } from '../../config/dynamic';
 
 const config = new PluginConfig('adblocker', { enableFront: true });

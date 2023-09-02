@@ -1,6 +1,8 @@
-const config = require('./config');
+import config from './config';
 
-module.exports = () => [
+import { MenuTemplate } from '../../menu';
+
+export default (): MenuTemplate => [
   {
     label: 'Automatically select last used caption',
     type: 'checkbox',

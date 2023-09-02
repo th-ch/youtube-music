@@ -140,9 +140,9 @@ export interface YoutubePlayer {
   getPlaylistId: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
   loadModule: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
   unloadModule: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  setOption: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  getOption: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  getOptions: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
+  setOption: <T>(optionName: string, key: string, value: T) => void;
+  getOption: <T>(optionName: string, key: string) => T | null | undefined;
+  getOptions: () => string[];
   mute: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
   unMute: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
   isMuted: <Parameters extends unknown[], Return>(...params: Parameters) => Return;

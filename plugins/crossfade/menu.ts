@@ -1,11 +1,16 @@
-const prompt = require('custom-electron-prompt');
+import prompt from 'custom-electron-prompt';
 
-const config = require('./config');
+import { BrowserWindow } from 'electron';
 
-const promptOptions = require('../../providers/prompt-options');
-const defaultOptions = require('../../config/defaults').plugins.crossfade;
+import config from './config';
 
-module.exports = (win) => [
+import promptOptions from '../../providers/prompt-options';
+import configOptions from '../../config/defaults';
+import { ConfigType } from '../../config/dynamic';
+
+const defaultOptions = configOptions.plugins.crossfade;
+
+export default (win: BrowserWindow) => [
   {
     label: 'Advanced',
     async click() {
@@ -17,7 +22,7 @@ module.exports = (win) => [
   },
 ];
 
-async function promptCrossfadeValues(win, options) {
+async function promptCrossfadeValues(win: BrowserWindow, options: ConfigType<'crossfade'>): Promise<Partial<ConfigType<'crossfade'>> | undefined> {
   const res = await prompt(
     {
       title: 'Crossfade Options',
@@ -29,8 +34,8 @@ async function promptCrossfadeValues(win, options) {
           inputAttrs: {
             type: 'number',
             required: true,
-            min: 0,
-            step: 100,
+            min: '0',
+            step: '100',
           },
         },
         {
@@ -39,8 +44,8 @@ async function promptCrossfadeValues(win, options) {
           inputAttrs: {
             type: 'number',
             required: true,
-            min: 0,
-            step: 100,
+            min: '0',
+            step: '100',
           },
         },
         {
@@ -50,7 +55,7 @@ async function promptCrossfadeValues(win, options) {
           inputAttrs: {
             type: 'number',
             required: true,
-            min: 0,
+            min: '0',
           },
         },
         {
