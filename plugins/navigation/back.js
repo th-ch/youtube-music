@@ -1,6 +1,6 @@
 const path = require('node:path');
 
-const { ACTIONS, CHANNEL } = require('./actions.js');
+const { ACTIONS, CHANNEL } = require('./actions.ts');
 
 const { injectCSS, listenAction } = require('../utils');
 

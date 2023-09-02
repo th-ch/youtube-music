@@ -2,14 +2,26 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:import/recommended',
+    'plugin:import/typescript',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended-requiring-type-checking',
   ],
-  plugins: ['import'],
+  plugins: ['@typescript-eslint', 'import'],
+  parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaVersion: 'latest',
+    project: './tsconfig.json',
+    tsconfigRootDir: __dirname,
+    sourceType: 'module',
+    ecmaVersion: 'latest'
   },
   rules: {
     'arrow-parens': ['error', 'always'],
     'object-curly-spacing': ['error', 'always'],
+    '@typescript-eslint/no-floating-promises': 'off',
+    '@typescript-eslint/no-misused-promises': ['off', { checksVoidReturn: false }],
+    '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+    "@typescript-eslint/no-non-null-assertion": "off",
     'import/first': 'error',
     'import/newline-after-import': 'error',
     'import/no-default-export': 'off',

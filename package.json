@@ -76,17 +76,20 @@
           }
         }
       ]
+    },
+    "directories": {
+      "output": "./pack/"
     }
   },
   "scripts": {
     "test": "playwright test",
     "test:debug": "DEBUG=pw:browser* playwright test",
-    "start": "electron .",
-    "start:debug": "ELECTRON_ENABLE_LOGGING=1 electron .",
+    "start": "tsc && electron ./dist/index.js",
+    "start:debug": "ELECTRON_ENABLE_LOGGING=1 electron ./dist/index.js",
     "generate:package": "node utils/generate-package-json.js",
     "postinstall": "npm run plugins",
-    "clean": "del-cli dist",
-    "build": "npm run clean && electron-builder --win --mac --linux -p never",
+    "clean": "del-cli dist && del-cli pack",
+    "build": "npm run clean && tsc && electron-builder --win --mac --linux -p never",
     "build:linux": "npm run clean && electron-builder --linux -p never",
     "build:mac": "npm run clean && electron-builder --mac dmg:x64 -p never",
     "build:mac:arm64": "npm run clean && electron-builder --mac dmg:arm64 -p never",
@@ -95,11 +98,12 @@
     "lint": "xo",
     "changelog": "auto-changelog",
     "plugins": "npm run plugin:adblocker && npm run plugin:bypass-age-restrictions",
-    "plugin:adblocker": "del-cli plugins/adblocker/ad-blocker-engine.bin && node plugins/adblocker/blocker.js",
+    "plugin:adblocker": "del-cli plugins/adblocker/ad-blocker-engine.bin && node plugins/adblocker/blocker.ts",
     "plugin:bypass-age-restrictions": "del-cli node_modules/simple-youtube-age-restriction-bypass/package.json && npm run generate:package simple-youtube-age-restriction-bypass",
     "release:linux": "npm run clean && electron-builder --linux -p always -c.snap.publish=github",
     "release:mac": "npm run clean && electron-builder --mac -p always",
-    "release:win": "npm run clean && electron-builder --win -p always"
+    "release:win": "npm run clean && electron-builder --win -p always",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "engines": {
     "node": ">=16.0.0"
@@ -114,6 +118,7 @@
     "browser-id3-writer": "5.0.0",
     "butterchurn": "2.6.7",
     "butterchurn-presets": "2.4.7",
+    "conf": "10.2.0",
     "custom-electron-prompt": "1.5.7",
     "custom-electron-titlebar": "4.1.6",
     "electron-better-web-request": "1.0.1",
@@ -143,6 +148,9 @@
   },
   "devDependencies": {
     "@playwright/test": "1.37.1",
+    "@total-typescript/ts-reset": "0.5.1",
+    "@types/youtube-player": "^5.5.7",
+    "@typescript-eslint/eslint-plugin": "6.5.0",
     "auto-changelog": "2.4.0",
     "del-cli": "5.0.1",
     "electron": "27.0.0-alpha.5",
@@ -153,7 +161,8 @@
     "eslint-plugin-prettier": "5.0.0",
     "node-gyp": "9.4.0",
     "patch-package": "^8.0.0",
-    "playwright": "1.37.1"
+    "playwright": "1.37.1",
+    "typescript": "5.2.2"
   },
   "auto-changelog": {
     "hideCredit": true,
