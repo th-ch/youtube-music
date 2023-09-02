@@ -11,7 +11,7 @@ module.exports = (options) => {
 		"audioCanPlay",
 		(e) => {
 			const video = document.querySelector("video");
-			const visualizerContainer = document.querySelector("#player");
+			const visualizerContainer = document.querySelector("#main-panel");
 
 			let canvas = document.getElementById("visualizer");
 			if (!canvas) {
