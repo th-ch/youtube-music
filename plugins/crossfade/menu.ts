@@ -6,6 +6,7 @@ import config from './config';
 
 import promptOptions from '../../providers/prompt-options';
 import configOptions from '../../config/defaults';
+
 import type { ConfigType } from '../../config/dynamic';
 
 const defaultOptions = configOptions.plugins.crossfade;

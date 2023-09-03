@@ -4,6 +4,7 @@ import md5 from 'md5';
 import { setOptions } from '../../config/plugins';
 import registerCallback, { SongInfo } from '../../providers/song-info';
 import defaultConfig from '../../config/defaults';
+
 import type { ConfigType } from '../../config/dynamic';
 
 type LastFMOptions = ConfigType<'last-fm'>;

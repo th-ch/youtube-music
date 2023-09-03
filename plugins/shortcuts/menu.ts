@@ -3,10 +3,12 @@ import prompt, { KeybindOptions } from 'custom-electron-prompt';
 import { BrowserWindow } from 'electron';
 
 import { setMenuOptions } from '../../config/plugins';
-import type { ConfigType } from '../../config/dynamic';
+
 
 import promptOptions from '../../providers/prompt-options';
 import { MenuTemplate } from '../../menu';
+
+import type { ConfigType } from '../../config/dynamic';
 
 export default (win: BrowserWindow, options: ConfigType<'shortcuts'>): MenuTemplate => [
   {

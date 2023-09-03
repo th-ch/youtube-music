@@ -3,8 +3,9 @@ import { Visualizer } from './visualizers/visualizer';
 import vudio from './visualizers/vudio';
 import wave from './visualizers/wave';
 
-import type { ConfigType } from '../../config/dynamic';
 import defaultConfig from '../../config/defaults';
+
+import type { ConfigType } from '../../config/dynamic';
 
 export default (options: ConfigType<'visualizer'>) => {
   const optionsWithDefaults = {

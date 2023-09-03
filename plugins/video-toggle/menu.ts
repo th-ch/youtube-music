@@ -1,8 +1,10 @@
 import { BrowserWindow } from 'electron';
 
 import { setMenuOptions } from '../../config/plugins';
-import type { ConfigType } from '../../config/dynamic';
+
 import { MenuTemplate } from '../../menu';
+
+import type { ConfigType } from '../../config/dynamic';
 
 export default (win: BrowserWindow, options: ConfigType<'video-toggle'>): MenuTemplate => [
   {

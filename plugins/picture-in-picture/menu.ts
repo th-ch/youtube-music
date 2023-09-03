@@ -5,8 +5,10 @@ import { BrowserWindow } from 'electron';
 import { setOptions } from './back';
 
 import promptOptions from '../../providers/prompt-options';
-import type { ConfigType } from '../../config/dynamic';
+
 import { MenuTemplate } from '../../menu';
+
+import type { ConfigType } from '../../config/dynamic';
 
 export default (win: BrowserWindow, options: ConfigType<'picture-in-picture'>): MenuTemplate => [
   {

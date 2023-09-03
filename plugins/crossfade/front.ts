@@ -10,6 +10,7 @@ import { VolumeFader } from './fader';
 import configProvider from './config';
 
 import defaultConfigs from '../../config/defaults';
+
 import type { ConfigType } from '../../config/dynamic';
 
 let transitionAudio: Howl; // Howler audio used to fade out the current music

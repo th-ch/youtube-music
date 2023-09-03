@@ -3,6 +3,7 @@ import path from 'node:path';
 import { globalShortcut, BrowserWindow } from 'electron';
 
 import { injectCSS } from '../utils';
+
 import type { ConfigType } from '../../config/dynamic';
 
 /*

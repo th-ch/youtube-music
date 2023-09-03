@@ -2,9 +2,11 @@ import { ElementFromFile, templatePath } from '../utils';
 import { setOptions, isEnabled } from '../../config/plugins';
 
 import { moveVolumeHud as preciseVolumeMoveVolumeHud } from '../precise-volume/front';
-import type { ConfigType } from '../../config/dynamic';
+
 import { YoutubePlayer } from '../../types/youtube-player';
 import { ThumbnailElement } from '../../types/get-player-response';
+
+import type { ConfigType } from '../../config/dynamic';
 
 const moveVolumeHud = isEnabled('precise-volume') ? preciseVolumeMoveVolumeHud : () => {};
 

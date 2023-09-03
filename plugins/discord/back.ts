@@ -5,6 +5,7 @@ import { dev } from 'electron-is';
 import { SetActivity } from '@xhayper/discord-rpc/dist/structures/ClientUser';
 
 import registerCallback from '../../providers/song-info';
+
 import type { ConfigType } from '../../config/dynamic';
 
 // Application ID registered by @Zo-Bro-23

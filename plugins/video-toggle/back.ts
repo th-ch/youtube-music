@@ -3,6 +3,7 @@ import path from 'node:path';
 import { BrowserWindow } from 'electron';
 
 import { injectCSS } from '../utils';
+
 import type { ConfigType } from '../../config/dynamic';
 
 export default (win: BrowserWindow, options: ConfigType<'video-toggle'>) => {

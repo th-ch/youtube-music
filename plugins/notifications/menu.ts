@@ -1,6 +1,6 @@
 import is from 'electron-is';
 
-import {BrowserWindow, MenuItem} from 'electron';
+import { BrowserWindow, MenuItem } from 'electron';
 
 import { snakeToCamel, ToastStyles, urgencyLevels } from './utils';
 

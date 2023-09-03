@@ -7,6 +7,7 @@ import configProvider from './config';
 
 import { ElementFromFile, templatePath } from '../utils';
 import { YoutubePlayer } from '../../types/youtube-player';
+
 import type { ConfigType } from '../../config/dynamic';
 
 interface LanguageOptions {
