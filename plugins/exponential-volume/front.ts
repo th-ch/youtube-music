@@ -1,4 +1,4 @@
-// "Youtube Music fix volume ratio 0.4" by Marco Pfeiffer
+// "YouTube Music fix volume ratio 0.4" by Marco Pfeiffer
 // https://greasyfork.org/en/scripts/397686-youtube-music-fix-volume-ratio/
 
 const exponentialVolume = () => {
@@ -7,40 +7,39 @@ const exponentialVolume = () => {
   // 0.05 (or 5%) is the lowest you can select in the UI which with an exponent of 3 becomes 0.000125 or 0.0125%
   const EXPONENT = 3;
 
-  const storedOriginalVolumes = new WeakMap();
-  const { get, set } = Object.getOwnPropertyDescriptor(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const storedOriginalVolumes = new WeakMap<any, number>();
+  const propertyDescriptor = Object.getOwnPropertyDescriptor(
     HTMLMediaElement.prototype,
     'volume',
   );
   Object.defineProperty(HTMLMediaElement.prototype, 'volume', {
     get() {
-      const lowVolume = get.call(this);
+      const lowVolume = propertyDescriptor?.get?.call(this) as number ?? 0;
       const calculatedOriginalVolume = lowVolume ** (1 / EXPONENT);
 
       // The calculated value has some accuracy issues which can lead to problems for implementations that expect exact values.
       // To avoid this, I'll store the unmodified volume to return it when read here.
       // This mostly solves the issue, but the initial read has no stored value and the volume can also change though external influences.
       // To avoid ill effects, I check if the stored volume is somewhere in the same range as the calculated volume.
-      const storedOriginalVolume = storedOriginalVolumes.get(this);
+      const storedOriginalVolume = storedOriginalVolumes.get(this) ?? 0;
       const storedDeviation = Math.abs(
         storedOriginalVolume - calculatedOriginalVolume,
       );
 
-      const originalVolume
-        = storedDeviation < 0.01
+      return storedDeviation < 0.01
         ? storedOriginalVolume
         : calculatedOriginalVolume;
-      return originalVolume;
     },
-    set(originalVolume) {
+    set(originalVolume: number) {
       const lowVolume = originalVolume ** EXPONENT;
       storedOriginalVolumes.set(this, originalVolume);
-      set.call(this, lowVolume);
+      propertyDescriptor?.set?.call(this, lowVolume);
     },
   });
 };
 
-module.exports = () =>
+export default () =>
   document.addEventListener('apiLoaded', exponentialVolume, {
     once: true,
     passive: true,
