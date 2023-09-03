@@ -6292,10 +6292,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"simple-youtube-age-restriction-bypass@https://gitpkg.now.sh/api/pkg.tgz?url=zerodytrash/Simple-YouTube-Age-Restriction-Bypass&commit=v2.5.4":
-  version: 2.5.4
-  resolution: "simple-youtube-age-restriction-bypass@https://gitpkg.now.sh/api/pkg.tgz?url=zerodytrash/Simple-YouTube-Age-Restriction-Bypass&commit=v2.5.4"
-  checksum: b20e5074ebabda23b5e3a80b6c38a64f0e87db6af4e70b71ebfc9e7ce5b18f740247bc8d77d554eafd4a9276fb11d92861b0c7fa4cd18f6a5443227ae3da59c0
+"simple-youtube-age-restriction-bypass@https://gitpkg.now.sh/api/pkg.tgz?url=MiepHD/Simple-YouTube-Age-Restriction-Bypass&commit=v2.5.5":
+  version: 2.5.9
+  resolution: "simple-youtube-age-restriction-bypass@https://gitpkg.now.sh/api/pkg.tgz?url=MiepHD/Simple-YouTube-Age-Restriction-Bypass&commit=v2.5.5"
+  checksum: 6871673051c50c9fa4d17ad2e1a75b0d8988de5c633bc00bd911647d91b377dc8945ee9aac4ee607e1d2ffd92128ca55aa8841d9716a108999cf925654fd4b05
   languageName: node
   linkType: hard
 
@@ -7359,7 +7359,7 @@ __metadata:
     node-fetch: ^2.6.9
     node-gyp: ^9.3.1
     playwright: ^1.29.2
-    simple-youtube-age-restriction-bypass: "https://gitpkg.now.sh/api/pkg.tgz?url=zerodytrash/Simple-YouTube-Age-Restriction-Bypass&commit=v2.5.4"
+    simple-youtube-age-restriction-bypass: "https://gitpkg.now.sh/api/pkg.tgz?url=MiepHD/Simple-YouTube-Age-Restriction-Bypass&commit=v2.5.5"
     vudio: ^2.1.1
     xo: ^0.53.1
     youtubei.js: ^4.3.0
