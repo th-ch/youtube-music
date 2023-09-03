@@ -103,8 +103,8 @@ function loadPlugins(win: BrowserWindow) {
     console.log('Loaded plugin - ' + plugin);
     const pluginPath = path.join(__dirname, 'plugins', plugin, 'back.js');
     fileExists(pluginPath, () => {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const handle = require(pluginPath) as (window: BrowserWindow, option: typeof options) => void;
+      // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-unsafe-member-access
+      const handle = require(pluginPath).default as (window: BrowserWindow, option: typeof options) => void;
       handle(win, options);
     });
   }

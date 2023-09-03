@@ -29,8 +29,8 @@ plugins.forEach(async ([plugin, options]) => {
     'preload.js',
   ) as string;
   fileExists(preloadPath, () => {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const run = require(preloadPath) as (config: typeof options) => Promise<void>;
+    // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-unsafe-member-access
+    const run = require(preloadPath).default as (config: typeof options) => Promise<void>;
     run(options);
   });
 
@@ -64,8 +64,8 @@ document.addEventListener('DOMContentLoaded', () => {
       'front.js',
     ) as string;
     fileExists(pluginPath, () => {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const run = require(pluginPath) as (config: typeof options) => Promise<void>;
+      // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-unsafe-member-access
+      const run = require(pluginPath).default as (config: typeof options) => Promise<void>;
       run(options);
     });
   });
