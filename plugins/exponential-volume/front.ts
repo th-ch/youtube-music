@@ -30,7 +30,7 @@ const exponentialVolume = () => {
         ? storedOriginalVolume
         : calculatedOriginalVolume;
     },
-    set(originalVolume: number) {
+    set(this: HTMLMediaElement, originalVolume: number) {
       const lowVolume = originalVolume ** EXPONENT;
       storedOriginalVolumes.set(this, originalVolume);
       propertyDescriptor?.set?.call(this, lowVolume);
