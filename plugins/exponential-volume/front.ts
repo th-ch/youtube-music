@@ -7,14 +7,13 @@ const exponentialVolume = () => {
   // 0.05 (or 5%) is the lowest you can select in the UI which with an exponent of 3 becomes 0.000125 or 0.0125%
   const EXPONENT = 3;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const storedOriginalVolumes = new WeakMap<any, number>();
+  const storedOriginalVolumes = new WeakMap<HTMLMediaElement, number>();
   const propertyDescriptor = Object.getOwnPropertyDescriptor(
     HTMLMediaElement.prototype,
     'volume',
   );
   Object.defineProperty(HTMLMediaElement.prototype, 'volume', {
-    get() {
+    get(this: HTMLMediaElement) {
       const lowVolume = propertyDescriptor?.get?.call(this) as number ?? 0;
       const calculatedOriginalVolume = lowVolume ** (1 / EXPONENT);
 
