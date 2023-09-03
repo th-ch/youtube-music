@@ -1,8 +1,8 @@
-const { ipcRenderer } = require('electron');
-const is = require('electron-is');
+import { ipcRenderer } from 'electron';
+import is from 'electron-is';
 
-module.exports = () => {
-  ipcRenderer.on('update-song-info', (_, extractedSongInfo) => setTimeout(() => {
+export default () => {
+  ipcRenderer.on('update-song-info', (_, extractedSongInfo: string) => setTimeout(async () => {
     const tabList = document.querySelectorAll('tp-yt-paper-tab');
     const tabs = {
       upNext: tabList[0],
@@ -17,10 +17,10 @@ module.exports = () => {
 
     let hasLyrics = true;
 
-    const lyrics = ipcRenderer.sendSync(
+    const lyrics = await ipcRenderer.invoke(
       'search-genius-lyrics',
       extractedSongInfo,
-    );
+    ) as string;
     if (!lyrics) {
       // Delete previous lyrics if tab is open and couldn't get new lyrics
       checkLyricsContainer(() => {
@@ -40,17 +40,21 @@ module.exports = () => {
 
     checkLyricsContainer();
 
-    tabs.lyrics.addEventListener('click', () => {
+    const lyricsTabHandler = () => {
       const tabContainer = document.querySelector('ytmusic-tab-renderer');
-      const observer = new MutationObserver((_, observer) => {
-        checkLyricsContainer(() => observer.disconnect());
-      });
-      observer.observe(tabContainer, {
-        attributes: true,
-        childList: true,
-        subtree: true,
-      });
-    });
+      if (tabContainer) {
+        const observer = new MutationObserver((_, observer) => {
+          checkLyricsContainer(() => observer.disconnect());
+        });
+        observer.observe(tabContainer, {
+          attributes: true,
+          childList: true,
+          subtree: true,
+        });
+      }
+    };
+
+    tabs.lyrics.addEventListener('click', lyricsTabHandler);
 
     function checkLyricsContainer(callback = () => {
     }) {
@@ -63,7 +67,7 @@ module.exports = () => {
       }
     }
 
-    function setLyrics(lyricsContainer) {
+    function setLyrics(lyricsContainer: Element) {
       lyricsContainer.innerHTML = `<div id="contents" class="style-scope ytmusic-section-list-renderer description ytmusic-description-shelf-renderer genius-lyrics">
       ${
         hasLyrics
@@ -74,15 +78,20 @@ module.exports = () => {
         </div>
         <yt-formatted-string class="footer style-scope ytmusic-description-shelf-renderer" style="align-self: baseline"></yt-formatted-string>`;
       if (hasLyrics) {
-        lyricsContainer.querySelector('.footer').textContent = 'Source: Genius';
-        enableLyricsTab();
+        const footer = lyricsContainer.querySelector('.footer');
+        if (footer) {
+          footer.textContent = 'Source: Genius';
+          enableLyricsTab();
+        }
       }
     }
 
-    function setTabsOnclick(callback) {
+    const defaultHandler = () => {};
+
+    function setTabsOnclick(callback: EventListenerOrEventListenerObject | undefined) {
       for (const tab of [tabs.upNext, tabs.discover]) {
         if (tab) {
-          tab.addEventListener('click', callback);
+          tab.addEventListener('click', callback ?? defaultHandler);
         }
       }
     }

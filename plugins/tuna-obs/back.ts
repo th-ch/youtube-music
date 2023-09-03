@@ -61,7 +61,7 @@ module.exports = (win: BrowserWindow) => {
     }
 
     data.duration = secToMilisec(songInfo.songDuration);
-    data.progress = secToMilisec(songInfo.elapsedSeconds);
+    data.progress = secToMilisec(songInfo.elapsedSeconds ?? 0);
     data.cover = songInfo.imageSrc ?? '';
     data.cover_url = songInfo.imageSrc ?? '';
     data.album_url = songInfo.imageSrc ?? '';

@@ -3,6 +3,39 @@ export interface WindowSizeConfig {
   height: number;
 }
 
+export interface DefaultConfig {
+  'window-size': {
+    width: number;
+    height: number;
+  }
+  'window-maximized': boolean;
+  'window-position': {
+    x: number;
+    y: number;
+  }
+  url: string;
+  options: {
+    tray: boolean;
+    appVisible: boolean;
+    autoUpdates: boolean;
+    alwaysOnTop: boolean;
+    hideMenu: boolean;
+    hideMenuWarned: boolean;
+    startAtLogin: boolean;
+    disableHardwareAcceleration: boolean;
+    removeUpgradeButton: boolean;
+    restartOnConfigChanges: boolean;
+    trayClickPlayPause: boolean;
+    autoResetAppCache: boolean;
+    resumeOnStart: boolean;
+    likeButtons: string;
+    proxy: string;
+    startingPage: string;
+    overrideUserAgent: boolean;
+    themes: string[];
+  }
+}
+
 const defaultConfig = {
   'window-size': {
     width: 1100,
@@ -54,14 +87,21 @@ const defaultConfig = {
     'downloader': {
       enabled: false,
       ffmpegArgs: [], // E.g. ["-b:a", "192k"] for an audio bitrate of 192kb/s
-      downloadFolder: undefined, // Custom download folder (absolute path)
+      downloadFolder: undefined as string | undefined, // Custom download folder (absolute path)
       preset: 'mp3',
+      skipExisting: false,
+      playlistMaxItems: undefined as number | undefined,
     },
     'last-fm': {
       enabled: false,
+      token: undefined as string | undefined, // Token used for authentication
+      session_key: undefined as string | undefined, // Session key used for scrobbling
       api_root: 'http://ws.audioscrobbler.com/2.0/',
       api_key: '04d76faaac8726e60988e14c105d421a', // Api key registered by @semvis123
       secret: 'a5d2a36fdf64819290f6982481eaffa2',
+    },
+    'lyric-genius': {
+      romanizedLyrics: false,
     },
     'discord': {
       enabled: false,

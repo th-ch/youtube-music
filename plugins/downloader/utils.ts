@@ -1,14 +1,14 @@
-const { app } = require('electron');
-const is = require('electron-is');
+import { app, BrowserWindow } from 'electron';
+import is from 'electron-is';
 
-module.exports.getFolder = (customFolder) => customFolder || app.getPath('downloads');
-module.exports.defaultMenuDownloadLabel = 'Download playlist';
+export const getFolder = (customFolder: string) => customFolder || app.getPath('downloads');
+export const defaultMenuDownloadLabel = 'Download playlist';
 
-module.exports.sendFeedback = (win, message) => {
+export const sendFeedback = (win: BrowserWindow, message?: unknown) => {
   win.webContents.send('downloader-feedback', message);
 };
 
-module.exports.cropMaxWidth = (image) => {
+export const cropMaxWidth = (image: Electron.NativeImage) => {
   const imageSize = image.getSize();
   // Standart youtube artwork width with margins from both sides is 280 + 720 + 280
   if (imageSize.width === 1280 && imageSize.height === 720) {
@@ -24,7 +24,7 @@ module.exports.cropMaxWidth = (image) => {
 };
 
 // Presets for FFmpeg
-module.exports.presets = {
+export const presets = {
   'None (defaults to mp3)': undefined,
   'opus': {
     extension: 'opus',
@@ -32,7 +32,7 @@ module.exports.presets = {
   },
 };
 
-module.exports.setBadge = (n) => {
+export const setBadge = (n: number) => {
   if (is.linux() || is.macOS()) {
     app.setBadgeCount(n);
   }

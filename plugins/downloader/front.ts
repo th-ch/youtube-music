@@ -1,11 +1,12 @@
-const { ipcRenderer } = require('electron');
+import { ipcRenderer } from 'electron';
 
-const { defaultConfig } = require('../../config');
-const { getSongMenu } = require('../../providers/dom-elements');
-const { ElementFromFile, templatePath } = require('../utils');
+import defaultConfig from '../../config/defaults';
+import { getSongMenu } from '../../providers/dom-elements';
+import { ElementFromFile, templatePath } from '../utils';
+import { getSongInfo } from '../../providers/song-info-front';
 
-let menu = null;
-let progress = null;
+let menu: Element | null = null;
+let progress: Element | null = null;
 const downloadButton = ElementFromFile(
   templatePath(__dirname, 'download.html'),
 );
@@ -24,7 +25,7 @@ const menuObserver = new MutationObserver(() => {
     return;
   }
 
-  const menuUrl = document.querySelector('tp-yt-paper-listbox [tabindex="0"] #navigation-endpoint')?.href;
+  const menuUrl = (document.querySelector('tp-yt-paper-listbox [tabindex="0"] #navigation-endpoint') as HTMLAnchorElement | undefined)?.href;
   if (!menuUrl?.includes('watch?') && doneFirstLoad) {
     return;
   }
@@ -42,7 +43,7 @@ const menuObserver = new MutationObserver(() => {
 // TODO: re-enable once contextIsolation is set to true
 // contextBridge.exposeInMainWorld("downloader", {
 // download: () => {
-global.download = () => {
+export const download = () => {
   let videoUrl = getSongMenu()
     // Selector of first button which is always "Start Radio"
     ?.querySelector('ytmusic-menu-navigation-item-renderer[tabindex="0"] #navigation-endpoint')
@@ -57,21 +58,21 @@ global.download = () => {
       return;
     }
   } else {
-    videoUrl = global.songInfo.url || window.location.href;
+    videoUrl = getSongInfo().url || window.location.href;
   }
 
   ipcRenderer.send('download-song', videoUrl);
 };
 
-module.exports = () => {
+export default () => {
   document.addEventListener('apiLoaded', () => {
-    menuObserver.observe(document.querySelector('ytmusic-popup-container'), {
+    menuObserver.observe(document.querySelector('ytmusic-popup-container')!, {
       childList: true,
       subtree: true,
     });
   }, { once: true, passive: true });
 
-  ipcRenderer.on('downloader-feedback', (_, feedback) => {
+  ipcRenderer.on('downloader-feedback', (_, feedback: string) => {
     if (progress) {
       progress.innerHTML = feedback || 'Download';
     } else {

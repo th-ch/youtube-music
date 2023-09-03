@@ -1,10 +1,12 @@
-const { dialog } = require('electron');
+import { dialog } from 'electron';
 
-const { downloadPlaylist } = require('./back');
-const { defaultMenuDownloadLabel, getFolder, presets } = require('./utils');
-const config = require('./config');
+import { downloadPlaylist } from './back';
+import { defaultMenuDownloadLabel, getFolder, presets } from './utils';
+import config from './config';
 
-module.exports = () => [
+import { MenuTemplate } from '../../menu';
+
+export default (): MenuTemplate => [
   {
     label: defaultMenuDownloadLabel,
     click: () => downloadPlaylist(),

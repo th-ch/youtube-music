@@ -7,9 +7,10 @@ import { YoutubePlayer } from '../types/youtube-player';
 import { GetState } from '../types/datahost-get-state';
 
 let songInfo: SongInfo = {} as SongInfo;
+export const getSongInfo = () => songInfo;
 
 const $ = <E extends HTMLElement>(s: string): E => document.querySelector(s) as E;
-const $$ = <E extends HTMLElement>(s: string): E[] => [...document.querySelectorAll(s)!] as E[];
+const $$ = <E extends HTMLElement>(s: string): E[] => Array.from(document.querySelectorAll(s));
 
 ipcRenderer.on('update-song-info', async (_, extractedSongInfo: string) => {
   songInfo = JSON.parse(extractedSongInfo) as SongInfo;

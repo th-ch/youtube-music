@@ -162,7 +162,7 @@ export default (
       largeImageKey: songInfo.imageSrc ?? '',
       largeImageText: songInfo.album ?? '',
       buttons: options.listenAlong ? [
-        { label: 'Listen Along', url: songInfo.url },
+        { label: 'Listen Along', url: songInfo.url ?? '' },
       ] : undefined,
     };
 
@@ -176,7 +176,7 @@ export default (
       }
     } else if (!options.hideDurationLeft) {
       // Add the start and end time of the song
-      const songStartTime = Date.now() - (songInfo.elapsedSeconds * 1000);
+      const songStartTime = Date.now() - ((songInfo.elapsedSeconds ?? 0) * 1000);
       activityInfo.startTimestamp = songStartTime;
       activityInfo.endTimestamp
         = songStartTime + (songInfo.songDuration * 1000);

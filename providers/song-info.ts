@@ -9,16 +9,16 @@ export interface SongInfo {
   title: string;
   artist: string;
   views: number;
-  uploadDate: string;
+  uploadDate?: string;
   imageSrc?: string | null;
   image?: Electron.NativeImage | null;
   isPaused?: boolean;
   songDuration: number;
-  elapsedSeconds: number;
-  url: string;
+  elapsedSeconds?: number;
+  url?: string;
   album?: string | null;
   videoId: string;
-  playlistId: string;
+  playlistId?: string;
 }
 
 // Fill songInfo with empty values
