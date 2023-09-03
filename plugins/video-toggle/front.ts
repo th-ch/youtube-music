@@ -52,7 +52,7 @@ function setup(e: CustomEvent<YoutubePlayer>) {
   player = $('ytmusic-player') as typeof player;
   video = $('video') as HTMLVideoElement;
 
-  ($('#main-panel') as HTMLVideoElement).append(switchButtonDiv);
+  ($('#player') as HTMLVideoElement).prepend(switchButtonDiv);
 
   if (options.hideVideo) {
     ($('.video-switch-button-checkbox') as HTMLInputElement).checked = false;
@@ -61,6 +61,11 @@ function setup(e: CustomEvent<YoutubePlayer>) {
     // Fix black video
     video.style.height = 'auto';
   }
+
+  //Prevents bubbling to the player which causes it to stop or resume
+  switchButtonDiv.addEventListener('click', (e) => {
+    e.stopPropagation();
+  });
 
   // Button checked = show video
   switchButtonDiv.addEventListener('change', (e) => {
