@@ -191,13 +191,8 @@ const defaultConfig = {
     },
     'visualizer': {
       enabled: false,
-      type: 'butterchurn',
+      type: 'vudio',
       // Config per visualizer
-      butterchurn: {
-        preset: 'martin [shadow harlequins shape code] - fata morgana',
-        renderingFrequencyInMs: 500,
-        blendTimeInSeconds: 2.7,
-      },
       vudio: {
         effect: 'lighting',
         accuracy: 128,
