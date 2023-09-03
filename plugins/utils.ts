@@ -5,7 +5,6 @@ import { ipcMain, ipcRenderer } from 'electron';
 
 import { ValueOf } from '../utils/type-utils';
 
-
 // Creates a DOM element from an HTML string
 export const ElementFromHtml = (html: string): HTMLElement => {
   const template = document.createElement('template');

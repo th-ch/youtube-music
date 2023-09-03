@@ -12,9 +12,7 @@ export const blockers = {
 
 export const shouldUseBlocklists = async () => await config.get('blocker') !== blockers.InPlayer;
 
-export default {
+export default Object.assign(config, {
   shouldUseBlocklists,
   blockers,
-  get: config.get.bind(this),
-  set: config.set.bind(this),
-};
+});

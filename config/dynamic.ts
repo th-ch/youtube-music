@@ -104,7 +104,7 @@ export class PluginConfig<T extends OneOfDefaultConfigKey> {
   }
 
   get<Key extends keyof ConfigType<T> = keyof ConfigType<T>>(key: Key): ConfigType<T>[Key] {
-    return this.config[key];
+    return this.config?.[key];
   }
 
   set(key: keyof ConfigType<T>, value: ValueOf<ConfigType<T>>) {
