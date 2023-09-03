@@ -11,15 +11,13 @@ module.exports = (options) => {
 		"audioCanPlay",
 		(e) => {
 			const video = document.querySelector("video");
-			const visualizerContainer = document.querySelector("#main-panel");
+			const visualizerContainer = document.querySelector("#player");
 
 			let canvas = document.getElementById("visualizer");
 			if (!canvas) {
 				canvas = document.createElement("canvas");
 				canvas.id = "visualizer";
-				canvas.style.position = "absolute";
-				canvas.style.background = "black";
-				visualizerContainer.append(canvas);
+				visualizerContainer.prepend(canvas);
 			}
 
 			const resizeCanvas = () => {
