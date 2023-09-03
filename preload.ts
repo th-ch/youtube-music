@@ -155,10 +155,11 @@ function onApiLoaded() {
 
   // Remove upgrade button
   if (config.get('options.removeUpgradeButton')) {
-    const upgradeButton: HTMLElement | null = $('ytmusic-pivot-bar-item-renderer[tab-id="SPunlimited"]');
-    if (upgradeButton) {
-      upgradeButton.style.display = 'none';
-    }
+    const styles = document.createElement('style');
+    styles.innerHTML = `ytmusic-guide-section-renderer #items ytmusic-guide-entry-renderer:last-child {
+      display: none;
+    }`;
+    document.head.appendChild(styles);
   }
 
   // Hide / Force show like buttons
