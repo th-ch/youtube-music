@@ -9,9 +9,9 @@ import { MenuTemplate } from '../../menu';
 
 import type { ConfigType } from '../../config/dynamic';
 
-const visualizerTypes = readdirSync(path.join(__dirname, 'visualizers')).map(
-  (filename) => path.parse(filename).name,
-);
+const visualizerTypes = readdirSync(path.join(__dirname, 'visualizers'))
+  .map((filename) => path.parse(filename).name)
+  .filter((filename) => filename !== 'visualizer');
 
 export default (win: BrowserWindow, options: ConfigType<'visualizer'>): MenuTemplate => [
   {
