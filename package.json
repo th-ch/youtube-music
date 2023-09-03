@@ -131,7 +131,7 @@
 		"md5": "^2.3.0",
 		"mpris-service": "^2.1.2",
 		"node-fetch": "^2.6.9",
-		"simple-youtube-age-restriction-bypass": "https://gitpkg.now.sh/api/pkg.tgz?url=zerodytrash/Simple-YouTube-Age-Restriction-Bypass&commit=v2.5.4",
+		"simple-youtube-age-restriction-bypass": "https://gitpkg.now.sh/api/pkg.tgz?url=MiepHD/Simple-YouTube-Age-Restriction-Bypass&commit=v2.5.5",
 		"vudio": "^2.1.1",
 		"youtubei.js": "^4.3.0",
 		"ytpl": "^2.3.0"
