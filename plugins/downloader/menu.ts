@@ -16,7 +16,7 @@ export default (): MenuTemplate => [
     click() {
       const result = dialog.showOpenDialogSync({
         properties: ['openDirectory', 'createDirectory'],
-        defaultPath: getFolder(config.get('downloadFolder')),
+        defaultPath: getFolder(config.get('downloadFolder') ?? ''),
       });
       if (result) {
         config.set('downloadFolder', result[0]);

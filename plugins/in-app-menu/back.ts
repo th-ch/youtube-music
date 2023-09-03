@@ -13,7 +13,7 @@ setupTitlebar();
 
 // Tracks menu visibility
 
-module.exports = (win: BrowserWindow) => {
+export default (win: BrowserWindow) => {
   // Css for custom scrollbar + disable drag area(was causing bugs)
   injectCSS(win.webContents, path.join(__dirname, 'style.css'));
 

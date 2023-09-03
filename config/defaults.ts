@@ -83,6 +83,16 @@ const defaultConfig = {
     'shortcuts': {
       enabled: false,
       overrideMediaKeys: false,
+      global: {
+        previous: '',
+        playPause: '',
+        next: '',
+      } as Record<string, string>,
+      local: {
+        previous: '',
+        playPause: '',
+        next: '',
+      } as Record<string, string>,
     },
     'downloader': {
       enabled: false,
@@ -130,7 +140,7 @@ const defaultConfig = {
         volumeUp: '',
         volumeDown: '',
       },
-      savedVolume: undefined, // Plugin save volume between session here
+      savedVolume: undefined as number | undefined, // Plugin save volume between session here
     },
     'sponsorblock': {
       enabled: false,
@@ -146,8 +156,10 @@ const defaultConfig = {
     },
     'video-toggle': {
       enabled: false,
+      hideVideo: false,
       mode: 'custom',
       forceHide: false,
+      align: '',
     },
     'picture-in-picture': {
       'enabled': false,
@@ -158,6 +170,7 @@ const defaultConfig = {
       'pip-position': [10, 10],
       'pip-size': [450, 275],
       'isInPiP': false,
+      'useNativePiP': false,
     },
     'captions-selector': {
       enabled: false,

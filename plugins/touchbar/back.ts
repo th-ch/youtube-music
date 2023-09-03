@@ -61,7 +61,7 @@ const touchBar = new TouchBar({
   ],
 });
 
-module.exports = (win: BrowserWindow) => {
+export default (win: BrowserWindow) => {
   const { playPause, next, previous, dislike, like } = getSongControls(win);
 
   // If the page is ready, register the callback

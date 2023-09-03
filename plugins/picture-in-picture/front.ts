@@ -2,31 +2,44 @@ import { ipcRenderer } from 'electron';
 import { toKeyEvent } from 'keyboardevent-from-electron-accelerator';
 import keyEventAreEqual from 'keyboardevents-areequal';
 
-const { getSongMenu } = require('../../providers/dom-elements');
-const { ElementFromFile, templatePath } = require('../utils');
+import { getSongMenu } from '../../providers/dom-elements';
 
-function $(selector) {
+import { ElementFromFile, templatePath } from '../utils';
+
+import type { ConfigType } from '../../config/dynamic';
+
+type PiPOptions = ConfigType<'picture-in-picture'>;
+
+function $(selector: string) {
   return document.querySelector(selector);
 }
 
 let useNativePiP = false;
-let menu = null;
+let menu: Element | null = null;
 const pipButton = ElementFromFile(
   templatePath(__dirname, 'picture-in-picture.html'),
 );
 
 // Will also clone
-function replaceButton(query, button) {
-  const svg = button.querySelector('#icon svg').cloneNode(true);
-  button.replaceWith(button.cloneNode(true));
-  button.remove();
-  const newButton = $(query);
-  newButton.querySelector('#icon').append(svg);
-  return newButton;
+function replaceButton(query: string, button: Element) {
+  const svg = button.querySelector('#icon svg')?.cloneNode(true);
+  if (svg) {
+    button.replaceWith(button.cloneNode(true));
+    button.remove();
+    const newButton = $(query);
+    if (newButton) {
+      newButton.querySelector('#icon')?.append(svg);
+    }
+    return newButton;
+  }
+  return null;
 }
 
-function cloneButton(query) {
-  replaceButton(query, $(query));
+function cloneButton(query: string) {
+  const button = $(query);
+  if (button) {
+    replaceButton(query, button);
+  }
   return $(query);
 }
 
@@ -38,13 +51,18 @@ const observer = new MutationObserver(() => {
     }
   }
 
-  if (menu.contains(pipButton) || !menu.parentElement.eventSink_?.matches('ytmusic-menu-renderer.ytmusic-player-bar')) {
+  if (
+    menu.contains(pipButton) ||
+    !(menu.parentElement as (HTMLElement & { eventSink_: Element }) | null)
+    ?.eventSink_
+    ?.matches('ytmusic-menu-renderer.ytmusic-player-bar')
+  ) {
     return;
   }
 
-  const menuUrl = $(
+  const menuUrl = ($(
     'tp-yt-paper-listbox [tabindex="0"] #navigation-endpoint',
-  )?.href;
+  ) as HTMLAnchorElement)?.href;
   if (menuUrl && !menuUrl.includes('watch?')) {
     return;
   }
@@ -55,15 +73,15 @@ const observer = new MutationObserver(() => {
 const togglePictureInPicture = async () => {
   if (useNativePiP) {
     const isInPiP = document.pictureInPictureElement !== null;
-    const video = $('video');
+    const video = $('video') as HTMLVideoElement | null;
     const togglePiP = () =>
       isInPiP
         ? document.exitPictureInPicture.call(document)
-        : video.requestPictureInPicture.call(video);
+        : video?.requestPictureInPicture?.call(video);
 
     try {
       await togglePiP();
-      $('#icon').click(); // Close the menu
+      ($('#icon') as HTMLButtonElement | null)?.click(); // Close the menu
       return true;
     } catch {
     }
@@ -72,24 +90,26 @@ const togglePictureInPicture = async () => {
   ipcRenderer.send('picture-in-picture');
   return false;
 };
-global.togglePictureInPicture = togglePictureInPicture;
+// For UI (HTML)
+// eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-unsafe-member-access
+(global as any).togglePictureInPicture = togglePictureInPicture;
 
 const listenForToggle = () => {
-  const originalExitButton = $('.exit-fullscreen-button');
-  const appLayout = $('ytmusic-app-layout');
-  const expandMenu = $('#expanding-menu');
-  const middleControls = $('.middle-controls');
-  const playerPage = $('ytmusic-player-page');
-  const togglePlayerPageButton = $('.toggle-player-page-button');
-  const fullScreenButton = $('.fullscreen-button');
-  const player = $('#player');
-  const onPlayerDblClick = player.onDoubleClick_;
+  const originalExitButton = $('.exit-fullscreen-button') as HTMLButtonElement;
+  const appLayout = $('ytmusic-app-layout') as HTMLElement;
+  const expandMenu = $('#expanding-menu') as HTMLElement;
+  const middleControls = $('.middle-controls') as HTMLButtonElement;
+  const playerPage = $('ytmusic-player-page') as HTMLElement & { playerPageOpen_: boolean };
+  const togglePlayerPageButton = $('.toggle-player-page-button') as HTMLButtonElement;
+  const fullScreenButton = $('.fullscreen-button') as HTMLButtonElement;
+  const player = ($('#player') as (HTMLVideoElement & { onDoubleClick_: () => void | undefined }));
+  const onPlayerDblClick = player?.onDoubleClick_;
 
-  const titlebar = $('.cet-titlebar');
+  const titlebar = $('.cet-titlebar') as HTMLElement;
 
-  ipcRenderer.on('pip-toggle', (_, isPip) => {
+  ipcRenderer.on('pip-toggle', (_, isPip: boolean) => {
     if (isPip) {
-      replaceButton('.exit-fullscreen-button', originalExitButton).addEventListener('click', () => togglePictureInPicture());
+      replaceButton('.exit-fullscreen-button', originalExitButton)?.addEventListener('click', () => togglePictureInPicture());
       player.onDoubleClick_ = () => {
       };
 
@@ -104,9 +124,9 @@ const listenForToggle = () => {
         titlebar.style.display = 'none';
       }
     } else {
-      $('.exit-fullscreen-button').replaceWith(originalExitButton);
+      $('.exit-fullscreen-button')?.replaceWith(originalExitButton);
       player.onDoubleClick_ = onPlayerDblClick;
-      expandMenu.onmouseleave = undefined;
+      expandMenu.onmouseleave = null;
       originalExitButton.click();
       appLayout.classList.remove('pip');
       if (titlebar) {
@@ -116,22 +136,23 @@ const listenForToggle = () => {
   });
 };
 
-function observeMenu(options) {
+function observeMenu(options: PiPOptions) {
   useNativePiP = options.useNativePiP;
   document.addEventListener(
     'apiLoaded',
     () => {
       listenForToggle();
 
-      cloneButton('.player-minimize-button').addEventListener('click', async () => {
+      cloneButton('.player-minimize-button')?.addEventListener('click', async () => {
         await togglePictureInPicture();
-        setTimeout(() => $('#player').click());
+        setTimeout(() => ($('#player') as HTMLButtonElement | undefined)?.click());
       });
 
       // Allows easily closing the menu by programmatically clicking outside of it
-      $('#expanding-menu').removeAttribute('no-cancel-on-outside-click');
+      $('#expanding-menu')?.removeAttribute('no-cancel-on-outside-click');
       // TODO: think about wether an additional button in songMenu is needed
-      observer.observe($('ytmusic-popup-container'), {
+      const popupContainer = $('ytmusic-popup-container');
+      if (popupContainer) observer.observe(popupContainer, {
         childList: true,
         subtree: true,
       });
@@ -140,7 +161,7 @@ function observeMenu(options) {
   );
 }
 
-module.exports = (options) => {
+export default (options: PiPOptions) => {
   observeMenu(options);
 
   if (options.hotkey) {
@@ -148,7 +169,7 @@ module.exports = (options) => {
     window.addEventListener('keydown', (event) => {
       if (
         keyEventAreEqual(event, hotkeyEvent)
-        && !$('ytmusic-search-box').opened
+        && !($('ytmusic-search-box') as (HTMLElement & { opened: boolean }) | undefined)?.opened
       ) {
         togglePictureInPicture();
       }

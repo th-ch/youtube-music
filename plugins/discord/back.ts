@@ -5,7 +5,7 @@ import { dev } from 'electron-is';
 import { SetActivity } from '@xhayper/discord-rpc/dist/structures/ClientUser';
 
 import registerCallback from '../../providers/song-info';
-import pluginConfig from '../../config';
+import type { ConfigType } from '../../config/dynamic';
 
 // Application ID registered by @Zo-Bro-23
 const clientId = '1043858434585526382';
@@ -118,8 +118,7 @@ export const connect = (showError = false) => {
 let clearActivity: NodeJS.Timeout | undefined;
 let updateActivity: import('../../providers/song-info').SongInfoCallback;
 
-const DiscordOptionsObj = pluginConfig.get('plugins.discord');
-type DiscordOptions = typeof DiscordOptionsObj;
+type DiscordOptions = ConfigType<'discord'>;
 
 export default (
   win: Electron.BrowserWindow,

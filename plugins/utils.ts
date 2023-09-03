@@ -29,7 +29,7 @@ export const triggerAction = <Parameters extends unknown[]>(channel: string, act
 
 export const triggerActionSync = <Parameters extends unknown[]>(channel: string, action: ValueOf<typeof Actions>, ...args: Parameters): unknown => ipcRenderer.sendSync(channel, action, ...args);
 
-export const listenAction = (channel: string, callback: <Parameters extends unknown[]>(event: Electron.IpcMainEvent, ...args: Parameters) => void) => ipcMain.on(channel, callback);
+export const listenAction = (channel: string, callback: (event: Electron.IpcMainEvent, action: string) => void) => ipcMain.on(channel, callback);
 
 export const fileExists = (
   path: fs.PathLike,
@@ -48,7 +48,7 @@ export const fileExists = (
 };
 
 const cssToInject = new Map();
-export const injectCSS = (webContents: Electron.WebContents, filepath: unknown, cb = undefined) => {
+export const injectCSS = (webContents: Electron.WebContents, filepath: unknown, cb: (() => void) | undefined = undefined) => {
   if (cssToInject.size === 0) {
     setupCssInjection(webContents);
   }

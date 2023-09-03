@@ -9,8 +9,8 @@ function $(selector: string) {
   return document.querySelector(selector);
 }
 
-module.exports = () => {
-  const visible = () => Boolean($('.cet-menubar')?.firstChild);
+export default () => {
+  const visible = () => !!($('.cet-menubar')?.firstChild);
   const bar = new Titlebar({
     icon: 'https://cdn-icons-png.flaticon.com/512/5358/5358672.png',
     backgroundColor: Color.fromHex('#050505'),

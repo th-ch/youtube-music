@@ -4,10 +4,9 @@ import md5 from 'md5';
 import { setOptions } from '../../config/plugins';
 import registerCallback, { SongInfo } from '../../providers/song-info';
 import defaultConfig from '../../config/defaults';
-import config from '../../config';
+import type { ConfigType } from '../../config/dynamic';
 
-const LastFMOptionsObj = config.get('plugins.last-fm');
-type LastFMOptions = typeof LastFMOptionsObj;
+type LastFMOptions = ConfigType<'last-fm'>;
 
 interface LastFmData {
   method: string,
@@ -188,4 +187,4 @@ const lastfm = async (_win: BrowserWindow, config: LastFMOptions) => {
   });
 };
 
-module.exports = lastfm;
+export default lastfm;

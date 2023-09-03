@@ -3,10 +3,9 @@ import { BrowserWindow } from 'electron';
 import { loadAdBlockerEngine } from './blocker';
 import config from './config';
 
-import pluginConfig from '../../config';
+import type { ConfigType } from '../../config/dynamic';
 
-const AdBlockOptionsObj = pluginConfig.get('plugins.adblocker');
-type AdBlockOptions = typeof AdBlockOptionsObj;
+type AdBlockOptions = ConfigType<'adblocker'>;
 
 export default async (win: BrowserWindow, options: AdBlockOptions) => {
   if (await config.shouldUseBlocklists()) {

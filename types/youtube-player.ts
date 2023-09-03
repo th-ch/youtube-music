@@ -43,7 +43,7 @@ export interface YoutubePlayer {
   getVideoAspectRatio: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
   getPreferredQuality: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
   getPlaybackQualityLabel: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  setPlaybackQualityRange: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
+  setPlaybackQualityRange: (quality: string) => void;
   onAdUxClicked: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
   getFeedbackProductData: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
   getStoryboardFrame: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
@@ -51,7 +51,7 @@ export interface YoutubePlayer {
   getStoryboardLevel: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
   getNumberOfStoryboardLevels: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
   getCaptionWindowContainerId: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  getAvailableQualityLabels: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
+  getAvailableQualityLabels: () => string[];
   addUtcCueRange: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
   showAirplayPicker: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
   dispatchReduxAction: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
@@ -147,14 +147,14 @@ export interface YoutubePlayer {
   unMute: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
   isMuted: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
   setVolume: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  getVolume: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
+  getVolume: () => number;
   seekTo: (seconds: number) => void;
   getPlayerMode: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
   getPlayerState: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
   getAvailablePlaybackRates: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  getPlaybackQuality: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  setPlaybackQuality: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  getAvailableQualityLevels: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
+  getPlaybackQuality: () => string;
+  setPlaybackQuality: (quality: string) => void;
+  getAvailableQualityLevels: () => string[];
   getCurrentTime: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
   getDuration: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
   addEventListener: <Parameters extends unknown[], Return>(...params: Parameters) => Return;

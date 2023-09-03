@@ -44,7 +44,7 @@ const post = (data: Data) => {
   }).catch((error: { code: number, errno: number }) => console.log(`Error: '${error.code || error.errno}' - when trying to access obs-tuna webserver at port ${port}`));
 };
 
-module.exports = (win: BrowserWindow) => {
+export default (win: BrowserWindow) => {
   ipcMain.on('apiLoaded', () => win.webContents.send('setupTimeChangedListener'));
   ipcMain.on('timeChanged', (_, t: number) => {
     if (!data.title) {

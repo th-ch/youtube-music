@@ -411,7 +411,7 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
 
   const safePlaylistTitle = filenamify(playlist.title, { replacement: ' ' });
 
-  const folder = getFolder(config.get('downloadFolder'));
+  const folder = getFolder(config.get('downloadFolder') ?? '');
   const playlistFolder = join(folder, safePlaylistTitle);
   if (existsSync(playlistFolder)) {
     if (!config.get('skipExisting')) {

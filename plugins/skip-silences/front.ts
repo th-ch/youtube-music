@@ -1,7 +1,6 @@
-import config from '../../config';
+import type { ConfigType } from '../../config/dynamic';
 
-const SkipSilencesOptionsObj = config.get('plugins.skip-silences');
-type SkipSilencesOptions = typeof SkipSilencesOptionsObj;
+type SkipSilencesOptions = ConfigType<'skip-silences'>;
 
 export default (options: SkipSilencesOptions) => {
   let isSilent = false;

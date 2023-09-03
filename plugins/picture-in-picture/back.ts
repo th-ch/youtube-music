@@ -5,7 +5,7 @@ import { app, BrowserWindow, ipcMain } from 'electron';
 import { setOptions as setPluginOptions } from '../../config/plugins';
 import { injectCSS } from '../utils';
 
-import config from '../../config';
+import type { ConfigType } from '../../config/dynamic';
 
 let isInPiP = false;
 let originalPosition: number[];
@@ -15,9 +15,7 @@ let originalMaximized: boolean;
 
 let win: BrowserWindow;
 
-// Magic of TypeScript
-const PiPOptionsObj = config.get('plugins.picture-in-picture');
-type PiPOptions = typeof PiPOptionsObj;
+type PiPOptions = ConfigType<'picture-in-picture'>;
 
 let options: Partial<PiPOptions>;
 

@@ -1,19 +1,29 @@
 declare module 'custom-electron-prompt' {
   import { BrowserWindow } from 'electron';
 
-  export interface PromptCounterOptions {
+  export type SelectOptions = Record<string, string>;
+
+  export interface CounterOptions {
     minimum?: number;
     maximum?: number;
     multiFire?: boolean;
   }
 
-  export interface PromptKeybindOptions {
+  export interface KeybindOptions {
     value: string;
     label: string;
-    default: string;
+    default?: string;
   }
 
-  export interface PromptOptions {
+  export interface InputOptions {
+    label: string;
+    value: unknown;
+    inputAttrs?: Partial<HTMLInputElement>;
+    selectOptions?: SelectOptions;
+  }
+
+  interface BasePromptOptions<T extends string> {
+    type?: T;
     width?: number;
     height?: number;
     resizable?: boolean;
@@ -25,10 +35,6 @@ declare module 'custom-electron-prompt' {
     };
     alwaysOnTop?: boolean;
     value?: unknown;
-    type?: 'input' | 'select' | 'counter' | 'multiInput';
-    selectOptions?: Record<string, string>;
-    keybindOptions?: PromptKeybindOptions[];
-    counterOptions?: PromptCounterOptions;
     icon?: string;
     useHtmlLabel?: boolean;
     customStylesheet?: string;
@@ -38,15 +44,42 @@ declare module 'custom-electron-prompt' {
     customScript?: string;
     enableRemoteModule?: boolean;
     inputAttrs?: Partial<HTMLInputElement>;
-    multiInputOptions?: {
-      label: string;
-      value: unknown;
-      inputAttrs?: Partial<HTMLInputElement>;
-      selectOptions?: Record<string, string>;
-    }[];
   }
 
-  const prompt: (options?: PromptOptions, parent?: BrowserWindow) => Promise<string | null>;
+  export type InputPromptOptions = BasePromptOptions<'input'>;
+  export interface SelectPromptOptions extends BasePromptOptions<'select'> {
+    selectOptions: SelectOptions;
+  }
+  export interface CounterPromptOptions extends BasePromptOptions<'counter'> {
+    counterOptions: CounterOptions;
+  }
+  export interface MultiInputPromptOptions extends BasePromptOptions<'multiInput'> {
+    multiInputOptions: InputOptions[];
+  }
+  export interface KeybindPromptOptions extends BasePromptOptions<'keybind'> {
+    keybindOptions: KeybindOptions[];
+  }
+
+  export type PromptOptions<T extends string> = (
+    T extends 'input' ? InputPromptOptions :
+    T extends 'select' ? SelectPromptOptions :
+    T extends 'counter' ? CounterPromptOptions :
+    T extends 'keybind' ? KeybindPromptOptions :
+    T extends 'multiInput' ? MultiInputPromptOptions :
+      never
+  );
+
+  type PromptResult<T extends string> = T extends 'input' ? string :
+    T extends 'select' ? string :
+    T extends 'counter' ? number :
+    T extends 'keybind' ? {
+      value: string;
+      accelerator: string
+    }[] :
+    T extends 'multiInput' ? string[] :
+    never;
+
+  const prompt: <T extends Type>(options?: PromptOptions<T> & { type: T }, parent?: BrowserWindow) => Promise<PromptResult<T> | null>;
 
   export default prompt;
 }

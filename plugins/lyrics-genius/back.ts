@@ -9,13 +9,13 @@ import { GetGeniusLyric } from './types';
 import { cleanupName, SongInfo } from '../../providers/song-info';
 
 import { injectCSS } from '../utils';
-import config from '../../config';
+
+import type { ConfigType } from '../../config/dynamic';
 
 const eastAsianChars = /\p{Script=Katakana}|\p{Script=Hiragana}|\p{Script=Hangul}|\p{Script=Han}/u;
 let revRomanized = false;
 
-const LyricGeniusTypeObj = config.get('plugins.lyric-genius');
-export type LyricGeniusType = typeof LyricGeniusTypeObj;
+export type LyricGeniusType = ConfigType<'lyric-genius'>;
 
 export default (win: BrowserWindow, options: LyricGeniusType) => {
   if (options.romanizedLyrics) {

@@ -4,7 +4,7 @@ import { LyricGeniusType, toggleRomanized } from './back';
 
 import { setOptions } from '../../config/plugins';
 
-module.exports = (win: BrowserWindow, options: LyricGeniusType) => [
+export default (_: BrowserWindow, options: LyricGeniusType) => [
   {
     label: 'Romanized Lyrics',
     type: 'checkbox',

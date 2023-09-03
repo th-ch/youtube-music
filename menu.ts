@@ -58,8 +58,9 @@ export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
             }
 
             type PluginType = (window: BrowserWindow, plugins: string, func: () => void) => Electron.MenuItemConstructorOptions[];
-            // eslint-disable-next-line @typescript-eslint/no-var-requires
-            const getPluginMenu = require(pluginPath) as PluginType;
+
+            // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-unsafe-member-access
+            const getPluginMenu = require(pluginPath).default as PluginType;
             return {
               label: pluginLabel,
               submenu: [
@@ -274,7 +275,7 @@ export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
             {
               label: 'Proxy',
               type: 'checkbox',
-              checked: Boolean(config.get('options.proxy')),
+              checked: !!(config.get('options.proxy')),
               click(item) {
                 setProxy(item, win);
               },

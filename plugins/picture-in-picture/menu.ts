@@ -1,10 +1,14 @@
-const prompt = require('custom-electron-prompt');
+import prompt from 'custom-electron-prompt';
 
-const { setOptions } = require('./back.ts');
+import { BrowserWindow } from 'electron';
 
-const promptOptions = require('../../providers/prompt-options');
+import { setOptions } from './back';
 
-module.exports = (win, options) => [
+import promptOptions from '../../providers/prompt-options';
+import type { ConfigType } from '../../config/dynamic';
+import { MenuTemplate } from '../../menu';
+
+export default (win: BrowserWindow, options: ConfigType<'picture-in-picture'>): MenuTemplate => [
   {
     label: 'Always on top',
     type: 'checkbox',
@@ -33,7 +37,7 @@ module.exports = (win, options) => [
   {
     label: 'Hotkey',
     type: 'checkbox',
-    checked: options.hotkey,
+    checked: !!options.hotkey,
     async click(item) {
       const output = await prompt({
         title: 'Picture in Picture Hotkey',
@@ -51,7 +55,7 @@ module.exports = (win, options) => [
         const { value, accelerator } = output[0];
         setOptions({ [value]: accelerator });
 
-        item.checked = Boolean(accelerator);
+        item.checked = !!accelerator;
       } else {
         // Reset checkbox if prompt was canceled
         item.checked = !item.checked;

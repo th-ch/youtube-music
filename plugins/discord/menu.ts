@@ -7,14 +7,14 @@ import { clear, connect, isConnected, registerRefresh } from './back';
 import { setMenuOptions } from '../../config/plugins';
 import promptOptions from '../../providers/prompt-options';
 import { singleton } from '../../providers/decorators';
-import config from '../../config';
+
+import type { ConfigType } from '../../config/dynamic';
 
 const registerRefreshOnce = singleton((refreshMenu: () => void) => {
   registerRefresh(refreshMenu);
 });
 
-const DiscordOptionsObj = config.get('plugins.discord');
-type DiscordOptions = typeof DiscordOptionsObj;
+type DiscordOptions = ConfigType<'discord'>;
 
 export default (win: Electron.BrowserWindow, options: DiscordOptions, refreshMenu: () => void) => {
   registerRefreshOnce(refreshMenu);
