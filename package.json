@@ -17,7 +17,13 @@
     "mac": {
       "identity": null,
       "files": [
-        "!dist/plugins/taskbar-mediacontrol${/*}"
+        "!*",
+        "dist",
+        "!dist/plugins/taskbar-mediacontrol${/*}",
+        "license",
+        "node_modules",
+        "package.json",
+        "tests"
       ],
       "target": [
         {
@@ -33,7 +39,13 @@
     "win": {
       "icon": "assets/generated/icons/win/icon.ico",
       "files": [
-        "!plugins/touchbar${/*}"
+        "!*",
+        "dist",
+        "!dist/plugins/touchbar${/*}",
+        "license",
+        "node_modules",
+        "package.json",
+        "tests"
       ],
       "target": [
         {
@@ -58,7 +70,13 @@
     "linux": {
       "icon": "assets/generated/icons/png",
       "files": [
-        "!plugins/{touchbar,taskbar-mediacontrol}${/*}"
+        "!*",
+        "dist",
+        "!dist/plugins/{touchbar,taskbar-mediacontrol}${/*}",
+        "license",
+        "node_modules",
+        "package.json",
+        "tests"
       ],
       "category": "AudioVideo",
       "target": [
@@ -90,9 +108,9 @@
     "generate:package": "node utils/generate-package-json.js",
     "postinstall": "npm run plugins",
     "clean": "del-cli dist && del-cli pack",
-    "ytm-css-copy-files": "copyfiles youtube-music.css dist/",
+    "ytm-resource-copy-files": "copyfiles error.html youtube-music.css assets/**/* dist/",
     "copy-files": "copyfiles -u 1 plugins/**/*.html plugins/**/*.css plugins/**/*.bin plugins/**/*.js dist/plugins/",
-    "tsc-and-copy": "tsc && npm run plugin:adblocker-without-tsc && npm run ytm-css-copy-files && npm run copy-files",
+    "tsc-and-copy": "tsc && npm run plugin:adblocker-without-tsc && npm run ytm-resource-copy-files && npm run copy-files",
     "build": "npm run clean && npm run tsc-and-copy && electron-builder --win --mac --linux -p never",
     "build:linux": "npm run clean && npm run tsc-and-copy && electron-builder --linux -p never",
     "build:mac": "npm run clean && npm run tsc-and-copy && electron-builder --mac dmg:x64 -p never",
