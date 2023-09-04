@@ -1,12 +1,14 @@
 // TODO: fully type definitions for youtube-player
 
+import { VideoDetails } from './video-details';
 import { GetPlayerResponse } from './get-player-response';
+import { PlayerAPIEvents } from './player-api-events';
 
 export interface YoutubePlayer {
   getInternalApiInterface: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
   getApiInterface: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  cueVideoByPlayerVars: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  loadVideoByPlayerVars: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
+  cueVideoByPlayerVars: () => void;
+  loadVideoByPlayerVars: () => void;
   preloadVideoByPlayerVars: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
   getAdState: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
   sendAbandonmentPing: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
@@ -18,7 +20,7 @@ export interface YoutubePlayer {
   seekToStreamTime: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
   startSeekCsiAction: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
   getStreamTimeOffset: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  getVideoData: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
+  getVideoData: () => VideoDetails;
   setInlinePreview: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
   updateDownloadState: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
   queueOfflineAction: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
@@ -95,82 +97,116 @@ export interface YoutubePlayer {
   setGlobalCrop: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
   setInternalSize: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
   seekBy: (seconds: number) => void;
-  showControls: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  hideControls: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  cancelPlayback: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  getProgressState: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  isInline: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  setInline: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  setLoopVideo: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  getLoopVideo: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  getVideoContentRect: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  getVideoStats: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  getStoryboardFormat: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  toggleFullscreen: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  isFullscreen: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  getPlayerSize: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  toggleSubtitles: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  setCenterCrop: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  setFauxFullscreen: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  setSizeStyle: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  handleGlobalKeyDown: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  handleGlobalKeyUp: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  wakeUpControls: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  cueVideoById: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  loadVideoById: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
+  showControls: () => void;
+  hideControls: () => void;
+  cancelPlayback: () => void;
+  getProgressState: <Return>() => Return;
+  isInline: () => boolean;
+  setInline: (isInline: boolean) => void;
+  setLoopVideo: (value: boolean) => void;
+  getLoopVideo: () => boolean;
+  getVideoContentRect: <Return>() => Return;
+  getVideoStats: <Return>() => Return;
+  getStoryboardFormat: <Return>() => Return;
+  toggleFullscreen: <Return>() => Return;
+  isFullscreen: () => boolean;
+  getPlayerSize: <Return>() => Return;
+  toggleSubtitles: () => void;
+  setCenterCrop: <Parameter>(param: Parameter) => void;
+  setFauxFullscreen: <Parameter>(param: Parameter) => void;
+  setSizeStyle: <Parameter>(params: Parameter) => void;
+  handleGlobalKeyDown: () => void;
+  handleGlobalKeyUp: () => void;
+  wakeUpControls: () => void;
+  cueVideoById: (videoId: string) => void;
+  loadVideoById: (videoId: string) => void;
   cueVideoByUrl: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
   loadVideoByUrl: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  playVideo: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  pauseVideo: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  stopVideo: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  clearVideo: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  getVideoBytesLoaded: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  getVideoBytesTotal: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  getVideoLoadedFraction: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  getVideoStartBytes: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  cuePlaylist: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  loadPlaylist: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  nextVideo: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  previousVideo: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  playVideoAt: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  setShuffle: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  setLoop: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  getPlaylist: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  getPlaylistIndex: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  getPlaylistId: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  loadModule: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  unloadModule: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
+  /**
+   * Note: This doesn't resume playback, it plays from the start.
+   */
+  playVideo: () => void;
+  pauseVideo: () => void;
+  stopVideo: () => void;
+  clearVideo: () => void;
+  getVideoBytesLoaded: () => number;
+  getVideoBytesTotal: () => number;
+  getVideoLoadedFraction: () => number;
+  getVideoStartBytes: () => number;
+  cuePlaylist: () => void;
+  loadPlaylist: () => void;
+  nextVideo: () => void;
+  previousVideo: () => void;
+  playVideoAt: () => void;
+  setShuffle: <Parameter>(param: Parameter) => void;
+  setLoop: <Parameter>(param: Parameter) => void;
+  getPlaylist: <Return extends unknown[]>() => Return;
+  getPlaylistIndex: () => number;
+  getPlaylistId: () => string | undefined;
+  loadModule: () => void;
+  unloadModule: () => void;
   setOption: <T>(optionName: string, key: string, value: T) => void;
   getOption: <T>(optionName: string, key: string) => T | null | undefined;
   getOptions: () => string[];
-  mute: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  unMute: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  isMuted: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  setVolume: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
+  mute: () => void;
+  unMute: () => void;
+  isMuted: () => boolean;
+  /**
+   * @param volume 0-100
+   */
+  setVolume: (volume: number) => void;
   getVolume: () => number;
   seekTo: (seconds: number) => void;
-  getPlayerMode: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  getPlayerState: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  getAvailablePlaybackRates: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
+  getPlayerMode: <Return>() => Return;
+  getPlayerState: () => number;
+  getAvailablePlaybackRates: () => number[];
   getPlaybackQuality: () => string;
   setPlaybackQuality: (quality: string) => void;
   getAvailableQualityLevels: () => string[];
-  getCurrentTime: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  getDuration: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  addEventListener: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  removeEventListener: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  getDebugText: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
+  /**
+   * @return float between start and end in seconds
+   */
+  getCurrentTime: () => number;
+  /**
+   * @return int song duration in seconds
+   */
+  getDuration: () => number;
+  addEventListener: <K extends keyof PlayerAPIEvents>(
+    type: K,
+    listener: (
+      this: Document,
+      name: PlayerAPIEvents[K]['name'],
+      data: PlayerAPIEvents[K]['value']
+    ) => void,
+    options?: boolean | AddEventListenerOptions | undefined,
+  ) => void;
+  removeEventListener: <K extends keyof PlayerAPIEvents>(
+    type: K,
+    listener: (
+      this: Document,
+      name: PlayerAPIEvents[K]['name'],
+      data: PlayerAPIEvents[K]['value']
+    ) => void,
+    options?: boolean | EventListenerOptions | undefined,
+  ) => void;
+  getDebugText: () => string;
   addCueRange: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
   removeCueRange: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  setSize: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
+  setSize: (size: { width: number; height: number }) => void;
   destroy: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  getSphericalProperties: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  setSphericalProperties: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  mutedAutoplay: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  getVideoEmbedCode: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  getVideoUrl: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  getMediaReferenceTime: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  getSize: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
+  getSphericalProperties: <Return>() => Return;
+  setSphericalProperties: <Parameter>(param: Parameter) => void;
+  mutedAutoplay: () => void;
+  /**
+   * @return string HTMLIFrameElement
+   */
+  getVideoEmbedCode: () => string;
+  /**
+   * @return string full URL of the video (include playlist id)
+   */
+  getVideoUrl: () => string;
+  getMediaReferenceTime: () => number;
+  getSize: () => { width: number; height: number };
   logImaAdEvent: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
   preloadVideoById: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
   setAccountLinkState: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
@@ -178,11 +214,11 @@ export interface YoutubePlayer {
   getAvailableQualityData: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
   setCompositeParam: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
   getStatsForNerds: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  showVideoInfo: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  hideVideoInfo: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  isVideoInfoVisible: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  getPlaybackRate: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
-  setPlaybackRate: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
+  showVideoInfo: () => void;
+  hideVideoInfo: () => void;
+  isVideoInfoVisible: () => boolean;
+  getPlaybackRate: () => number;
+  setPlaybackRate: (playbackRate: number) => void;
   updateFullerscreenEduButtonSubtleModeState: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
   updateFullerscreenEduButtonVisibility: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
   addEmbedsConversionTrackingParams: <Parameters extends unknown[], Return>(...params: Parameters) => Return;
