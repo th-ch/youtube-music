@@ -69,8 +69,12 @@ export default async (win_: BrowserWindow) => {
   win = win_;
   injectCSS(win.webContents, join(__dirname, 'style.css'));
 
+  const cookie = (await win.webContents.session.cookies.get({ url: 'https://music.youtube.com' })).map((it) =>
+    it.name + '=' + it.value + ';'
+  ).join('');
   yt = await Innertube.create({
     cache: new UniversalCache(false),
+    cookie,
     generate_session_locally: true,
   });
   ipcMain.on('download-song', (_, url: string) => downloadSong(url));
