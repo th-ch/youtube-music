@@ -32,15 +32,11 @@ type Paths<T, D extends number = 10> = [D] extends [never] ? never : T extends o
     : never
   }[keyof T] : ''
 
-type FirstKey<T extends string> = T extends `${infer K}.${string}` ? K : T;
-type NextKey<T extends string> = T extends `${string}.${infer K}` ? K : T;
-type PathValue<T, Key extends string> = (
-  T extends object
-    ? FirstKey<Key> extends keyof T
-      ? PathValue<T[FirstKey<Key>], NextKey<Key>>
-      : T
+type SplitKey<K> = K extends `${infer A}.${infer B}` ? [A, B] : [K, string]
+type PathValue<T, K extends string> =
+  SplitKey<K> extends [infer A extends keyof T, infer B extends string]
+    ? PathValue<T[A], B>
     : T
-);
 const get = <Key extends Paths<typeof defaultConfig>>(key: Key) => store.get(key) as PathValue<typeof defaultConfig, typeof key>;
 
 export default {
