@@ -143,8 +143,8 @@ export interface YoutubePlayer {
   getPlaylist: <Return extends unknown[]>() => Return;
   getPlaylistIndex: () => number;
   getPlaylistId: () => string | undefined;
-  loadModule: () => void;
-  unloadModule: () => void;
+  loadModule: (moduleName: string) => void;
+  unloadModule: (moduleName: string) => void;
   setOption: <T>(optionName: string, key: string, value: T) => void;
   getOption: <T>(optionName: string, key: string) => T | null | undefined;
   getOptions: () => string[];
