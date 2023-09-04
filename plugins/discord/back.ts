@@ -1,5 +1,5 @@
 import { app, dialog } from 'electron';
-import Discord from '@xhayper/discord-rpc';
+import { Client as DiscordClient } from '@xhayper/discord-rpc';
 import { dev } from 'electron-is';
 
 import { SetActivity } from '@xhayper/discord-rpc/dist/structures/ClientUser';
@@ -12,14 +12,14 @@ import type { ConfigType } from '../../config/dynamic';
 const clientId = '1043858434585526382';
 
 export interface Info {
-  rpc: import('@xhayper/discord-rpc').Client;
+  rpc: DiscordClient;
   ready: boolean;
   autoReconnect: boolean;
   lastSongInfo?: import('../../providers/song-info').SongInfo;
 }
 
 const info: Info = {
-  rpc: new Discord.Client({
+  rpc: new DiscordClient({
     clientId,
   }),
   ready: false,
