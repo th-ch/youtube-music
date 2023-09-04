@@ -242,7 +242,7 @@ export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
             {
               label: 'Enabled + app visible',
               type: 'radio',
-              checked: !!(config.get('options.tray') && config.get('options.appVisible')),
+              checked: config.get('options.tray') && config.get('options.appVisible'),
               click() {
                 config.setMenuOption('options.tray', true);
                 config.setMenuOption('options.appVisible', true);
@@ -251,7 +251,7 @@ export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
             {
               label: 'Enabled + app hidden',
               type: 'radio',
-              checked: !!(config.get('options.tray') && !config.get('options.appVisible')),
+              checked: config.get('options.tray') && !config.get('options.appVisible'),
               click() {
                 config.setMenuOption('options.tray', true);
                 config.setMenuOption('options.appVisible', false);
@@ -316,7 +316,7 @@ export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
             is.macOS()
               ? {
                 label: 'Toggle DevTools',
-                // Cannot use "toggleDevTools" role in MacOS
+                // Cannot use "toggleDevTools" role in macOS
                 click() {
                   const { webContents } = win;
                   if (webContents.isDevToolsOpened()) {

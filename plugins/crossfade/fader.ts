@@ -63,8 +63,8 @@ interface VolumeFade {
 
 // Main class
 export class VolumeFader {
-  private media: HTMLMediaElement;
-  private logger: VolumeLogger | false;
+  private readonly media: HTMLMediaElement;
+  private readonly logger: VolumeLogger | false;
   private scale: {
     internalToVolume: (level: number) => number;
     volumeToInternal: (level: number) => number;

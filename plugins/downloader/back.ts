@@ -1,10 +1,4 @@
-
-import {
-  existsSync,
-  mkdirSync,
-  createWriteStream,
-  writeFileSync,
-} from 'node:fs';
+import { createWriteStream, existsSync, mkdirSync, writeFileSync, } from 'node:fs';
 import { join } from 'node:path';
 import { randomBytes } from 'node:crypto';
 
@@ -12,7 +6,7 @@ import { app, BrowserWindow, dialog, ipcMain } from 'electron';
 import { ClientType, Innertube, UniversalCache, Utils } from 'youtubei.js';
 import is from 'electron-is';
 import ytpl from 'ytpl';
- // REPLACE with youtubei getplaylist https://github.com/LuanRT/YouTube.js#getplaylistid
+// REPLACE with youtubei getplaylist https://github.com/LuanRT/YouTube.js#getplaylistid
 import filenamify from 'filenamify';
 import { Mutex } from 'async-mutex';
 import { createFFmpeg } from '@ffmpeg/ffmpeg';
@@ -260,11 +254,10 @@ async function iterableStreamToMP3(
 ) {
   const chunks = [];
   let downloaded = 0;
-  const total = contentLength;
   for await (const chunk of stream) {
     downloaded += chunk.length;
     chunks.push(chunk);
-    const ratio = downloaded / total;
+    const ratio = downloaded / contentLength;
     const progress = Math.floor(ratio * 100);
     sendFeedback(`Download: ${progress}%`, ratio);
     // 15% for download, 85% for conversion
@@ -552,8 +545,7 @@ const getAndroidTvInfo = async (id: string): Promise<VideoInfo> => {
     generate_session_locally: true,
     retrieve_player: true,
   });
-  const info = await innertube.getBasicInfo(id, 'TV_EMBEDDED');
   // GetInfo 404s with the bypass, so we use getBasicInfo instead
   // that's fine as we only need the streaming data
-  return info;
+  return await innertube.getBasicInfo(id, 'TV_EMBEDDED');
 };
