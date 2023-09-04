@@ -3,6 +3,7 @@
   "productName": "YouTube Music",
   "version": "1.20.0",
   "description": "YouTube Music Desktop App - including custom plugins",
+  "main": "./dist/index.js",
   "license": "MIT",
   "repository": "th-ch/youtube-music",
   "author": {
@@ -16,7 +17,7 @@
     "mac": {
       "identity": null,
       "files": [
-        "!plugins/taskbar-mediacontrol${/*}"
+        "!dist/plugins/taskbar-mediacontrol${/*}"
       ],
       "target": [
         {
