@@ -55,7 +55,7 @@ const sendError = (error: Error, source?: string) => {
   const cause = error.cause ? `\n\n${String(error.cause)}` : '';
   const message = `${error.toString()}${songNameMessage}${cause}`;
 
-  console.error(message);
+  console.error(message, error, error?.stack);
   dialog.showMessageBox({
     type: 'info',
     buttons: ['OK'],

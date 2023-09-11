@@ -78,9 +78,9 @@ const getLyricsList = async (queryString: string): Promise<string | null> => {
   */
   const info = await response.json() as GetGeniusLyric;
   const url = info
-    .response
-    .sections
-    .find((section) => section.type === 'song')?.hits[0].result.url;
+    ?.response
+    ?.sections
+    ?.find((section) => section.type === 'song')?.hits[0]?.result?.url;
 
   if (url) {
     return await getLyrics(url);
