@@ -158,14 +158,14 @@
     "node-id3": "0.2.6",
     "simple-youtube-age-restriction-bypass": "git+https://github.com/MiepHD/Simple-YouTube-Age-Restriction-Bypass.git#v2.5.5",
     "vudio": "2.1.1",
-    "youtubei.js": "6.1.0",
+    "youtubei.js": "6.4.0",
     "ytpl": "2.3.0"
   },
   "overrides": {
     "xml2js": "0.6.2",
     "node-fetch": "2.7.0",
     "@electron/universal": "1.4.2",
-    "electron": "27.0.0-alpha.6"
+    "electron": "27.0.0-beta.1"
   },
   "devDependencies": {
     "@playwright/test": "1.37.1",
@@ -175,11 +175,11 @@
     "@types/html-to-text": "^9.0.1",
     "@types/md5": "^2.3.2",
     "@types/youtube-player": "^5.5.7",
-    "@typescript-eslint/eslint-plugin": "6.6.0",
+    "@typescript-eslint/eslint-plugin": "6.7.0",
     "auto-changelog": "2.4.0",
     "copyfiles": "2.4.1",
     "del-cli": "5.1.0",
-    "electron": "27.0.0-alpha.6",
+    "electron": "27.0.0-beta.1",
     "electron-builder": "24.6.4",
     "electron-devtools-installer": "3.2.0",
     "eslint": "8.49.0",
