@@ -1,5 +1,6 @@
+import crypto from 'node:crypto';
+
 import { BrowserWindow, net, shell } from 'electron';
-import md5 from 'md5';
 
 import { setOptions } from '../../config/plugins';
 import registerCallback, { SongInfo } from '../../providers/song-info';
@@ -37,10 +38,7 @@ const createQueryString = (parameters: Record<string, unknown>, apiSignature: st
 
 const createApiSig = (parameters: Record<string, unknown>, secret: string) => {
   // This function creates the api signature, see: https://www.last.fm/api/authspec
-  const keys = [];
-  for (const key in parameters) {
-    keys.push(key);
-  }
+  const keys = Object.keys(parameters);
 
   keys.sort();
   let sig = '';
@@ -53,7 +51,7 @@ const createApiSig = (parameters: Record<string, unknown>, secret: string) => {
   }
 
   sig += secret;
-  sig = md5(sig);
+  sig = crypto.createHash('md5').update(sig, 'utf-8').digest('hex');
   return sig;
 };
 
