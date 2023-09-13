@@ -133,8 +133,8 @@
   },
   "dependencies": {
     "@cliqz/adblocker-electron": "1.26.6",
-    "@ffmpeg/core": "0.11.0",
-    "@ffmpeg/ffmpeg": "0.11.6",
+    "@ffmpeg.wasm/core-mt": "0.12.0",
+    "@ffmpeg.wasm/main": "0.12.0",
     "@foobar404/wave": "2.0.4",
     "@xhayper/discord-rpc": "1.0.22",
     "async-mutex": "0.4.0",

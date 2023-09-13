@@ -96,7 +96,7 @@ const defaultConfig = {
     },
     'downloader': {
       enabled: false,
-      ffmpegArgs: [], // E.g. ["-b:a", "192k"] for an audio bitrate of 192kb/s
+      ffmpegArgs: ['-b:a', '256k'], // E.g. ["-b:a", "192k"] for an audio bitrate of 192kb/s
       downloadFolder: undefined as string | undefined, // Custom download folder (absolute path)
       preset: 'mp3',
       skipExisting: false,

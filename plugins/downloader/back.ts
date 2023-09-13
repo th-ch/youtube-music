@@ -9,7 +9,7 @@ import ytpl from 'ytpl';
 // REPLACE with youtubei getplaylist https://github.com/LuanRT/YouTube.js#getplaylistid
 import filenamify from 'filenamify';
 import { Mutex } from 'async-mutex';
-import { createFFmpeg } from '@ffmpeg/ffmpeg';
+import { createFFmpeg } from '@ffmpeg.wasm/main';
 
 import NodeID3, { TagConstants } from 'node-id3';
 
@@ -208,7 +208,9 @@ async function downloadSongUnsafe(
     mkdirSync(dir);
   }
 
-  if (presetSetting) {
+  const ffmpegArgs = config.get('ffmpegArgs');
+
+  if (presetSetting && presetSetting?.extension !== 'mp3') {
     const file = createWriteStream(filePath);
     let downloaded = 0;
     const total: number = format.content_length ?? 1;
@@ -226,12 +228,14 @@ async function downloadSongUnsafe(
       filePath,
       metadata,
       presetSetting.ffmpegArgs,
+      ffmpegArgs,
     );
     sendFeedback(null, -1);
   } else {
     const fileBuffer = await iterableStreamToMP3(
       iterableStream,
       metadata,
+      ffmpegArgs,
       format.content_length ?? 0,
       sendFeedback,
       increasePlaylistProgress,
@@ -251,6 +255,7 @@ async function downloadSongUnsafe(
 async function iterableStreamToMP3(
   stream: AsyncGenerator<Uint8Array, void>,
   metadata: CustomSongInfo,
+  ffmpegArgs: string[],
   contentLength: number,
   sendFeedback: (str: string, value?: number) => void,
   increasePlaylistProgress: (value: number) => void = () => {
@@ -290,16 +295,25 @@ async function iterableStreamToMP3(
       increasePlaylistProgress(0.15 + (ratio * 0.85));
     });
 
-    await ffmpeg.run(
-      '-i',
-      safeVideoName,
-      ...getFFmpegMetadataArgs(metadata),
-      `${safeVideoName}.mp3`,
-    );
+    try {
+      await ffmpeg.run(
+        '-i',
+        safeVideoName,
+        ...ffmpegArgs,
+        ...getFFmpegMetadataArgs(metadata),
+        `${safeVideoName}.mp3`,
+      );
+    } finally {
+      ffmpeg.FS('unlink', safeVideoName);
+    }
 
     sendFeedback('Saving…');
 
-    return ffmpeg.FS('readFile', `${safeVideoName}.mp3`);
+    try {
+      return ffmpeg.FS('readFile', `${safeVideoName}.mp3`);
+    } finally {
+      ffmpeg.FS('unlink', `${safeVideoName}.mp3`);
+    }
   } catch (error: unknown) {
     sendError(error as Error, safeVideoName);
   } finally {
@@ -475,7 +489,7 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
   }
 }
 
-async function ffmpegWriteTags(filePath: string, metadata: CustomSongInfo, ffmpegArgs: string[] = []) {
+async function ffmpegWriteTags(filePath: string, metadata: CustomSongInfo, presetFFmpegArgs: string[] = [], ffmpegArgs: string[] = []) {
   const releaseFFmpegMutex = await ffmpegMutex.acquire();
 
   try {
@@ -487,6 +501,7 @@ async function ffmpegWriteTags(filePath: string, metadata: CustomSongInfo, ffmpe
       '-i',
       filePath,
       ...getFFmpegMetadataArgs(metadata),
+      ...presetFFmpegArgs,
       ...ffmpegArgs,
       filePath,
     );
