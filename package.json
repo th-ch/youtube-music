@@ -165,7 +165,7 @@
     "xml2js": "0.6.2",
     "node-fetch": "2.7.0",
     "@electron/universal": "1.4.2",
-    "electron": "27.0.0-beta.1"
+    "electron": "27.0.0-beta.2"
   },
   "devDependencies": {
     "@playwright/test": "1.37.1",
@@ -179,7 +179,7 @@
     "auto-changelog": "2.4.0",
     "copyfiles": "2.4.1",
     "del-cli": "5.1.0",
-    "electron": "27.0.0-beta.1",
+    "electron": "27.0.0-beta.2",
     "electron-builder": "24.6.4",
     "electron-devtools-installer": "3.2.0",
     "eslint": "8.49.0",
