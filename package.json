@@ -138,6 +138,8 @@
     "@foobar404/wave": "2.0.4",
     "@xhayper/discord-rpc": "1.0.22",
     "async-mutex": "0.4.0",
+    "butterchurn": "2.6.7",
+    "butterchurn-presets": "2.4.7",
     "conf": "10.2.0",
     "custom-electron-prompt": "1.5.7",
     "custom-electron-titlebar": "4.1.6",
