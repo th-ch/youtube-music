@@ -4,6 +4,7 @@ import { setOptions, setMenuOptions, isEnabled } from '../../config/plugins';
 import { debounce } from '../../providers/decorators';
 
 import { YoutubePlayer } from '../../types/youtube-player';
+import { noopTrustedHtmlPolicy } from '../utils';
 
 import type { ConfigType } from '../../config/dynamic';
 
@@ -87,14 +88,18 @@ function injectVolumeHud(noVid: boolean) {
     const position = 'top: 18px; right: 60px;';
     const mainStyle = 'font-size: xx-large;';
 
-    $('.center-content.ytmusic-nav-bar')?.insertAdjacentHTML('beforeend',
-      `<span id="volumeHud" style="${position + mainStyle}"></span>`);
+    $('.center-content.ytmusic-nav-bar')?.insertAdjacentHTML(
+      'beforeend',
+      noopTrustedHtmlPolicy().createHTML(`<span id="volumeHud" style="${position + mainStyle}"></span>`) as unknown as string,
+    );
   } else {
     const position = 'top: 10px; left: 10px;';
     const mainStyle = 'font-size: xxx-large; webkit-text-stroke: 1px black; font-weight: 600;';
 
-    $('#song-video')?.insertAdjacentHTML('afterend',
-      `<span id="volumeHud" style="${position + mainStyle}"></span>`);
+    $('#song-video')?.insertAdjacentHTML(
+      'afterend',
+      noopTrustedHtmlPolicy().createHTML(`<span id="volumeHud" style="${position + mainStyle}"></span>`) as unknown as string,
+    );
   }
 }
 

@@ -5,11 +5,17 @@ import { ipcMain, ipcRenderer } from 'electron';
 
 import { ValueOf } from '../utils/type-utils';
 
+export const noopTrustedHtmlPolicy = () => window?.trustedTypes?.createPolicy('forceInner', {
+  createHTML: (s: string): string => s,
+}) ?? {
+  createHTML: (s: string): string => s,
+};
+
 // Creates a DOM element from an HTML string
 export const ElementFromHtml = (html: string): HTMLElement => {
   const template = document.createElement('template');
   html = html.trim(); // Never return a text node of whitespace as the result
-  template.innerHTML = html;
+  template.innerHTML = noopTrustedHtmlPolicy().createHTML(html) as unknown as string;
 
   return template.content.firstElementChild as HTMLElement;
 };
