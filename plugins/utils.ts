@@ -5,10 +5,23 @@ import { ipcMain, ipcRenderer } from 'electron';
 
 import { ValueOf } from '../utils/type-utils';
 
-export const noopTrustedHtmlPolicy = () => window?.trustedTypes?.createPolicy('forceInner', {
-  createHTML: (s: string): string => s,
-}) ?? {
-  createHTML: (s: string): string => s,
+import type { TrustedTypePolicy } from 'trusted-types/lib';
+
+let policyCache: Pick<TrustedTypePolicy<{ createHTML: (s: string) => string }>, 'name' | 'createHTML'> | {
+  createHTML: (s: string) => string,
+};
+
+export const noopTrustedHtmlPolicy = () => {
+  if (policyCache) {
+    return policyCache;
+  } else {
+    policyCache = window?.trustedTypes?.createPolicy('forceInner', {
+      createHTML: (s: string): string => s,
+    }) ?? {
+      createHTML: (s: string): string => s,
+    };
+    return policyCache;
+  }
 };
 
 // Creates a DOM element from an HTML string
