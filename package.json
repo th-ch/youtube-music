@@ -132,7 +132,7 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
-    "@cliqz/adblocker-electron": "1.26.6",
+    "@cliqz/adblocker-electron": "1.26.7--canary.50688cf.0",
     "@ffmpeg.wasm/core-mt": "0.12.0",
     "@ffmpeg.wasm/main": "0.12.0",
     "@foobar404/wave": "2.0.4",
