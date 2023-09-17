@@ -116,7 +116,7 @@ function createMainWindow() {
   const windowPosition: Electron.Point = config.get('window-position');
   const useInlineMenu = config.plugins.isEnabled('in-app-menu');
 
-  const win = new electron.BrowserWindow({
+  const win = new BrowserWindow({
     icon,
     width: windowSize.width,
     height: windowSize.height,
@@ -545,19 +545,20 @@ function removeContentSecurityPolicy(
     callback({ cancel: false, responseHeaders: details.responseHeaders });
   });
 
-  type ResolverListener = { apply: () => Record<string, unknown>; context: unknown };
+  type ResolverListener = { apply: () => Promise<Record<string, unknown>>; context: unknown };
   // When multiple listeners are defined, apply them all
-  session.webRequest.setResolver('onHeadersReceived', (listeners: ResolverListener[]) => {
-    return listeners.reduce(
-      (accumulator: Record<string, unknown>, listener: ResolverListener) => {
-        if (accumulator.cancel) {
-          return accumulator;
+  session.webRequest.setResolver('onHeadersReceived', async (listeners: ResolverListener[]) => {
+    return listeners.reduce<Promise<Record<string, unknown>>>(
+      async (accumulator: Promise<Record<string, unknown>>, listener: ResolverListener) => {
+        const acc = await accumulator;
+        if (acc.cancel) {
+          return acc;
         }
 
-        const result = listener.apply();
+        const result = await listener.apply();
         return { ...accumulator, ...result };
       },
-      { cancel: false },
+      Promise.resolve({ cancel: false }),
     );
   });
 }

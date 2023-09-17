@@ -4,7 +4,6 @@ import { setOptions, setMenuOptions, isEnabled } from '../../config/plugins';
 import { debounce } from '../../providers/decorators';
 
 import { YoutubePlayer } from '../../types/youtube-player';
-import { noopTrustedHtmlPolicy } from '../utils';
 
 import type { ConfigType } from '../../config/dynamic';
 
@@ -90,7 +89,7 @@ function injectVolumeHud(noVid: boolean) {
 
     $('.center-content.ytmusic-nav-bar')?.insertAdjacentHTML(
       'beforeend',
-      noopTrustedHtmlPolicy().createHTML(`<span id="volumeHud" style="${position + mainStyle}"></span>`) as unknown as string,
+      `<span id="volumeHud" style="${position + mainStyle}"></span>`,
     );
   } else {
     const position = 'top: 10px; left: 10px;';
@@ -98,7 +97,7 @@ function injectVolumeHud(noVid: boolean) {
 
     $('#song-video')?.insertAdjacentHTML(
       'afterend',
-      noopTrustedHtmlPolicy().createHTML(`<span id="volumeHud" style="${position + mainStyle}"></span>`) as unknown as string,
+      `<span id="volumeHud" style="${position + mainStyle}"></span>`,
     );
   }
 }
