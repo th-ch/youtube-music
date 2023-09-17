@@ -1,4 +1,4 @@
-import Vudio from 'vudio';
+import Vudio from 'vudio/umd/vudio';
 
 import { Visualizer } from './visualizer';
 
@@ -32,17 +32,18 @@ class VudioVisualizer extends Visualizer<Vudio> {
       // Visualizer config
       ...options,
     });
+
+    this.visualizer.dance();
   }
 
   resize(width: number, height: number) {
-    this.visualizer.setOptions({
+    this.visualizer.setOption({
       width,
       height,
     });
   }
 
   render() {
-    this.visualizer.dance();
   }
 }
 

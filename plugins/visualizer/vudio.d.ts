@@ -1,4 +1,4 @@
-declare module 'vudio' {
+declare module 'vudio/umd/vudio' {
   interface NoneWaveformOptions {
     maxHeight?: number;
     minHeight?: number;
@@ -27,7 +27,7 @@ declare module 'vudio' {
 
     dance(): void;
     pause(): void;
-    setOptions(options: VudioOptions): void;
+    setOption(options: VudioOptions): void;
   }
 
   export default Vudio;
