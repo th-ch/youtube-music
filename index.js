@@ -191,11 +191,11 @@ function createMainWindow() {
 	}
 	
 	if (position && position.x && position.y) {
-	  const scaledPosition = {
-		x: position.x / scaleFactor,
-		y: position.y / scaleFactor,
-	  };
-	  win.setPosition(scaledPosition.x, scaledPosition.y);
+		const scaledPosition = {
+			x: position.x / scaleFactor,
+			y: position.y / scaleFactor,
+		};
+		win.setPosition(scaledPosition.x, scaledPosition.y);
 	}
 	
 	
