@@ -183,11 +183,11 @@ function createMainWindow() {
 	const position = config.get("window-position");
 	
 	if (size && size.width && size.height) {
-	  const scaledSize = {
-		width: size.width / scaleFactor,
-		height: size.height / scaleFactor,
-	  };
-	  win.setSize(scaledSize.width, scaledSize.height);
+		const scaledSize = {
+			width: size.width / scaleFactor,
+			height: size.height / scaleFactor,
+		};
+		win.setSize(scaledSize.width, scaledSize.height);
 	}
 	
 	if (position && position.x && position.y) {
