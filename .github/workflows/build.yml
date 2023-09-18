@@ -4,6 +4,7 @@ on:
   push:
     branches: [ master ]
   pull_request:
+  workflow_run:
 
 env:
   NODE_VERSION: "16.x"
