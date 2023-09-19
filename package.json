@@ -132,7 +132,7 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
-    "@cliqz/adblocker-electron": "1.26.7--canary.50688cf.0",
+    "@cliqz/adblocker-electron": "1.26.7",
     "@ffmpeg.wasm/core-mt": "0.12.0",
     "@ffmpeg.wasm/main": "0.12.0",
     "@foobar404/wave": "2.0.4",
@@ -175,7 +175,7 @@
     "@types/howler": "2.2.9",
     "@types/html-to-text": "9.0.2",
     "@types/youtube-player": "5.5.7",
-    "@typescript-eslint/eslint-plugin": "6.7.0",
+    "@typescript-eslint/eslint-plugin": "6.7.2",
     "auto-changelog": "2.4.0",
     "copyfiles": "2.4.1",
     "del-cli": "5.1.0",
