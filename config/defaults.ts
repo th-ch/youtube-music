@@ -75,7 +75,7 @@ const defaultConfig = {
     'adblocker': {
       enabled: true,
       cache: true,
-      blocker: 'In player',
+      blocker: 'With blocklists',
       additionalBlockLists: [], // Additional list of filters, e.g "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters.txt"
       disableDefaultLists: [],
     },
