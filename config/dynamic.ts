@@ -97,7 +97,7 @@ export class PluginConfig<T extends OneOfDefaultConfigKey> {
     this.config = { ...pluginDefaultConfig, ...pluginConfig };
 
     if (this.enableFront) {
-      this.#setupFront();
+      this.setupFront();
     }
 
     activePlugins[name] = this;
@@ -109,8 +109,8 @@ export class PluginConfig<T extends OneOfDefaultConfigKey> {
 
   set(key: keyof ConfigType<T>, value: ValueOf<ConfigType<T>>) {
     this.config[key] = value;
-    this.#onChange(key);
-    this.#save();
+    this.onChange(key);
+    this.save();
   }
 
   getAll(): ConfigType<T> {
@@ -126,7 +126,7 @@ export class PluginConfig<T extends OneOfDefaultConfigKey> {
     for (const [key, value] of Object.entries(options) as Entries<typeof options>) {
       if (this.config[key] !== value) {
         if (value !== undefined) this.config[key] = value;
-        this.#onChange(key, false);
+        this.onChange(key, false);
         changed = true;
       }
     }
@@ -137,7 +137,7 @@ export class PluginConfig<T extends OneOfDefaultConfigKey> {
       }
     }
 
-    this.#save();
+    this.save();
   }
 
   getDefaultConfig() {
@@ -152,7 +152,7 @@ export class PluginConfig<T extends OneOfDefaultConfigKey> {
   setAndMaybeRestart(key: keyof ConfigType<T>, value: ValueOf<ConfigType<T>>) {
     this.config[key] = value;
     setMenuOptions(this.name, this.config);
-    this.#onChange(key);
+    this.onChange(key);
   }
 
   subscribe(valueName: keyof ConfigType<T>, fn: (config: ConfigType<T>) => void) {
@@ -164,11 +164,11 @@ export class PluginConfig<T extends OneOfDefaultConfigKey> {
   }
 
   /** Called only from back */
-  #save() {
+  private save() {
     setOptions(this.name, this.config);
   }
 
-  #onChange(valueName: keyof ConfigType<T>, single: boolean = true) {
+  private onChange(valueName: keyof ConfigType<T>, single: boolean = true) {
     this.subscribers[valueName]?.(this.config[valueName] as ConfigType<T>);
     if (single) {
       for (const fn of this.allSubscribers) {
@@ -177,7 +177,7 @@ export class PluginConfig<T extends OneOfDefaultConfigKey> {
     }
   }
 
-  #setupFront() {
+  private setupFront() {
     const ignoredMethods = ['subscribe', 'subscribeAll'];
 
     if (process.type === 'renderer') {
