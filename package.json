@@ -166,10 +166,10 @@
     "xml2js": "0.6.2",
     "node-fetch": "2.7.0",
     "@electron/universal": "1.4.2",
-    "electron": "27.0.0-beta.4"
+    "electron": "27.0.0-beta.5"
   },
   "devDependencies": {
-    "@playwright/test": "1.38.0",
+    "@playwright/test": "1.38.1",
     "@total-typescript/ts-reset": "0.5.1",
     "@types/electron-localshortcut": "3.1.0",
     "@types/howler": "2.2.9",
@@ -179,14 +179,14 @@
     "auto-changelog": "2.4.0",
     "copyfiles": "2.4.1",
     "del-cli": "5.1.0",
-    "electron": "27.0.0-beta.4",
+    "electron": "27.0.0-beta.5",
     "electron-builder": "24.6.4",
     "electron-devtools-installer": "3.2.0",
-    "eslint": "8.49.0",
+    "eslint": "8.50.0",
     "eslint-plugin-import": "2.28.1",
     "eslint-plugin-prettier": "5.0.0",
     "node-gyp": "9.4.0",
-    "playwright": "1.38.0",
+    "playwright": "1.38.1",
     "typescript": "5.2.2"
   },
   "auto-changelog": {
