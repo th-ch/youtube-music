@@ -171,11 +171,10 @@
   "devDependencies": {
     "@playwright/test": "1.38.1",
     "@total-typescript/ts-reset": "0.5.1",
-    "@types/electron-localshortcut": "3.1.0",
+    "@types/electron-localshortcut": "3.1.1",
     "@types/howler": "2.2.9",
     "@types/html-to-text": "9.0.2",
-    "@types/youtube-player": "5.5.7",
-    "@typescript-eslint/eslint-plugin": "6.7.2",
+    "@typescript-eslint/eslint-plugin": "6.7.3",
     "auto-changelog": "2.4.0",
     "copyfiles": "2.4.1",
     "del-cli": "5.1.0",
