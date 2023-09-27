@@ -33,9 +33,7 @@ export default (options: ConfigType<'visualizer'>) => {
       if (!canvas) {
         canvas = document.createElement('canvas');
         canvas.id = 'visualizer';
-        canvas.style.position = 'absolute';
-        canvas.style.background = 'black';
-        visualizerContainer.append(canvas);
+        visualizerContainer.prepend(canvas);
       }
 
       const resizeCanvas = () => {
