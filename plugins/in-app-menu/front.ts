@@ -5,6 +5,8 @@ import { Color, Titlebar } from 'custom-electron-titlebar';
 import config from '../../config';
 import { isEnabled } from '../../config/plugins';
 
+import type { FastAverageColorResult } from 'fast-average-color';
+
 function $(selector: string) {
   return document.querySelector(selector);
 }
@@ -37,6 +39,16 @@ export default () => {
       bar.refreshMenu();
     }
   });
+
+  if (isEnabled('album-color-theme')) {
+    ipcRenderer.on('album-color-changed', (_, albumColor: FastAverageColorResult) => {
+      if (albumColor) {
+        bar.updateBackground(Color.fromHex(albumColor.hexa));
+      } else {
+        bar.updateBackground(Color.fromHex('#050505'));
+      }
+    });
+  }
 
   if (isEnabled('picture-in-picture')) {
     ipcRenderer.on('pip-toggle', () => {
