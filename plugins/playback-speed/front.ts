@@ -3,8 +3,8 @@ import { ElementFromFile, templatePath } from '../utils';
 import { singleton } from '../../providers/decorators';
 
 
-function $(selector: string) {
-  return document.querySelector(selector);
+function $<E extends Element = Element>(selector: string) {
+  return document.querySelector<E>(selector);
 }
 
 const slider = ElementFromFile(templatePath(__dirname, 'slider.html'));
@@ -17,7 +17,10 @@ const MAX_PLAYBACK_SPEED = 16;
 let playbackSpeed = 1;
 
 const updatePlayBackSpeed = () => {
-  ($('video') as HTMLVideoElement).playbackRate = playbackSpeed;
+  const videoElement = $<HTMLVideoElement>('video');
+  if (videoElement) {
+    videoElement.playbackRate = playbackSpeed;
+  }
 
   const playbackSpeedElement = $('#playback-speed-value');
   if (playbackSpeedElement) {
@@ -65,9 +68,11 @@ const observePopupContainer = () => {
 };
 
 const observeVideo = () => {
-  const video = $('video') as HTMLVideoElement;
-  video.addEventListener('ratechange', forcePlaybackRate);
-  video.addEventListener('srcChanged', forcePlaybackRate);
+  const video = $<HTMLVideoElement>('video');
+  if (video) {
+    video.addEventListener('ratechange', forcePlaybackRate);
+    video.addEventListener('srcChanged', forcePlaybackRate);
+  }
 };
 
 const setupWheelListener = () => {
@@ -85,14 +90,19 @@ const setupWheelListener = () => {
 
     updatePlayBackSpeed();
     // Update slider position
-    ($('#playback-speed-slider') as HTMLElement & { value: number }).value = playbackSpeed;
+    const playbackSpeedSilder = $<HTMLElement & { value: number }>('#playback-speed-slider');
+    if (playbackSpeedSilder) {
+      playbackSpeedSilder.value = playbackSpeed;
+    }
   });
 };
 
 function forcePlaybackRate(e: Event) {
-  const videoElement = (e.target as HTMLVideoElement);
-  if (videoElement.playbackRate !== playbackSpeed) {
-    videoElement.playbackRate = playbackSpeed;
+  if (e.target instanceof HTMLVideoElement) {
+    const videoElement = e.target;
+    if (videoElement.playbackRate !== playbackSpeed) {
+      videoElement.playbackRate = playbackSpeed;
+    }
   }
 }
 

@@ -26,19 +26,28 @@ export default (options: ConfigType<'visualizer'>) => {
   document.addEventListener(
     'audioCanPlay',
     (e) => {
-      const video = document.querySelector('video') as (HTMLVideoElement & { captureStream(): MediaStream; });
-      const visualizerContainer = document.querySelector('#player') as HTMLElement;
+      const video = document.querySelector<HTMLVideoElement & { captureStream(): MediaStream; }>('video');
+      if (!video) {
+        return;
+      }
 
-      let canvas = document.querySelector('#visualizer') as HTMLCanvasElement;
+      const visualizerContainer = document.querySelector<HTMLElement>('#player');
+      if (!visualizerContainer) {
+        return;
+      }
+
+      let canvas = document.querySelector<HTMLCanvasElement>('#visualizer');
       if (!canvas) {
         canvas = document.createElement('canvas');
         canvas.id = 'visualizer';
-        visualizerContainer.prepend(canvas);
+        visualizerContainer?.prepend(canvas);
       }
 
       const resizeCanvas = () => {
-        canvas.width = visualizerContainer.clientWidth;
-        canvas.height = visualizerContainer.clientHeight;
+        if (canvas) {
+          canvas.width = visualizerContainer.clientWidth;
+          canvas.height = visualizerContainer.clientHeight;
+        }
       };
 
       resizeCanvas();

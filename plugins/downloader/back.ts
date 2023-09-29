@@ -29,7 +29,8 @@ import { isEnabled } from '../../config/plugins';
 import { cleanupName, getImage, SongInfo } from '../../providers/song-info';
 import { injectCSS } from '../utils';
 import { cache } from '../../providers/decorators';
-import { GetPlayerResponse } from '../../types/get-player-response';
+
+import type { GetPlayerResponse } from '../../types/get-player-response';
 
 type CustomSongInfo = SongInfo & { trackId?: string };
 
@@ -78,8 +79,8 @@ export default async (win_: BrowserWindow) => {
     generate_session_locally: true,
   });
   ipcMain.on('download-song', (_, url: string) => downloadSong(url));
-  ipcMain.on('video-src-changed', (_, data: string) => {
-    playingUrl = (JSON.parse(data) as GetPlayerResponse).microformat.microformatDataRenderer.urlCanonical;
+  ipcMain.on('video-src-changed', (_, data: GetPlayerResponse) => {
+    playingUrl = data.microformat.microformatDataRenderer.urlCanonical;
   });
   ipcMain.on('download-playlist-request', async (_event, url: string) =>
     downloadPlaylist(url),

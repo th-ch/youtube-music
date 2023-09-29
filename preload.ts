@@ -150,7 +150,7 @@ function onApiLoaded() {
   // Navigate to "Starting page"
   const startingPage: string = config.get('options.startingPage');
   if (startingPage && startingPages[startingPage]) {
-    ($('ytmusic-app') as YouTubeMusicAppElement)?.navigate_(startingPages[startingPage]);
+    $<YouTubeMusicAppElement>('ytmusic-app')?.navigate_(startingPages[startingPage]);
   }
 
   // Remove upgrade button

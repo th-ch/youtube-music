@@ -6,8 +6,8 @@ import { sortSegments } from './segments';
 import { SkipSegment } from './types';
 
 import defaultConfig from '../../config/defaults';
-import { GetPlayerResponse } from '../../types/get-player-response';
 
+import type { GetPlayerResponse } from '../../types/get-player-response';
 import type { ConfigType } from '../../config/dynamic';
 
 let videoID: string;
@@ -18,8 +18,8 @@ export default (win: BrowserWindow, options: ConfigType<'sponsorblock'>) => {
     ...options,
   };
 
-  ipcMain.on('video-src-changed', async (_, data: string) => {
-    videoID = (JSON.parse(data) as GetPlayerResponse)?.videoDetails?.videoId;
+  ipcMain.on('video-src-changed', async (_, data: GetPlayerResponse) => {
+    videoID = data?.videoDetails?.videoId;
     const segments = await fetchSegments(apiURL, categories);
     win.webContents.send('sponsorblock-skip', segments);
   });

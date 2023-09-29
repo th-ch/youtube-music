@@ -25,7 +25,7 @@ const menuObserver = new MutationObserver(() => {
     return;
   }
 
-  const menuUrl = (document.querySelector('tp-yt-paper-listbox [tabindex="0"] #navigation-endpoint') as HTMLAnchorElement | undefined)?.href;
+  const menuUrl = document.querySelector<HTMLAnchorElement>('tp-yt-paper-listbox [tabindex="0"] #navigation-endpoint')?.href;
   if (!menuUrl?.includes('watch?') && doneFirstLoad) {
     return;
   }
