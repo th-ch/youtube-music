@@ -104,7 +104,7 @@ const syncVideoWithTransitionAudio = () => {
       video.removeEventListener('timeupdate', transitionBeforeEnd);
 
       // Go to next video - XXX: does not support "repeat 1" mode
-      (document.querySelector('.next-button') as HTMLButtonElement).click();
+      document.querySelector<HTMLButtonElement>('.next-button')?.click();
     }
   };
 

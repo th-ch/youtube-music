@@ -9,8 +9,8 @@ import { GetState } from '../types/datahost-get-state';
 let songInfo: SongInfo = {} as SongInfo;
 export const getSongInfo = () => songInfo;
 
-const $ = <E extends HTMLElement>(s: string): E => document.querySelector(s) as E;
-const $$ = <E extends HTMLElement>(s: string): E[] => Array.from(document.querySelectorAll(s));
+const $ = <E extends Element = Element>(s: string): E | null => document.querySelector<E>(s);
+const $$ = <E extends Element = Element>(s: string): NodeListOf<E> => document.querySelectorAll<E>(s);
 
 ipcRenderer.on('update-song-info', async (_, extractedSongInfo: string) => {
   songInfo = JSON.parse(extractedSongInfo) as SongInfo;
@@ -21,35 +21,54 @@ ipcRenderer.on('update-song-info', async (_, extractedSongInfo: string) => {
 const srcChangedEvent = new CustomEvent('srcChanged');
 
 export const setupSeekedListener = singleton(() => {
-  $('video')?.addEventListener('seeked', (v) => ipcRenderer.send('seeked', (v.target as HTMLVideoElement).currentTime));
+  $('video')?.addEventListener('seeked', (v) => {
+    if (v.target instanceof HTMLVideoElement) {
+      ipcRenderer.send('seeked', v.target.currentTime);
+    }
+  });
 });
 
 export const setupTimeChangedListener = singleton(() => {
   const progressObserver = new MutationObserver((mutations) => {
-    const target = mutations[0].target as HTMLInputElement;
-    ipcRenderer.send('timeChanged', target.value);
-    songInfo.elapsedSeconds = Number(target.value);
+    for (const mutation of mutations) {
+      const target = mutation.target as Node & { value: string };
+      ipcRenderer.send('timeChanged', target.value);
+      songInfo.elapsedSeconds = Number(target.value);
+    }
   });
-  progressObserver.observe($('#progress-bar'), { attributeFilter: ['value'] });
+  const progressBar = $('#progress-bar');
+  if (progressBar) {
+    progressObserver.observe(progressBar, { attributeFilter: ['value'] });
+  }
 });
 
 export const setupRepeatChangedListener = singleton(() => {
   const repeatObserver = new MutationObserver((mutations) => {
 
-    // provided by YouTube music
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
-    ipcRenderer.send('repeatChanged', ((mutations[0].target as any).__dataHost.getState() as GetState).queue.repeatMode);
+    // provided by YouTube Music
+    ipcRenderer.send(
+      'repeatChanged',
+      (mutations[0].target as Node & {
+        __dataHost: {
+          getState: () => GetState;
+        }
+      }).__dataHost.getState().queue.repeatMode,
+    );
   });
   repeatObserver.observe($('#right-controls .repeat')!, { attributeFilter: ['title'] });
 
   // Emit the initial value as well; as it's persistent between launches.
-  // provided by YouTube music
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unnecessary-type-assertion
-  ipcRenderer.send('repeatChanged', (($('ytmusic-player-bar') as any).getState() as GetState).queue.repeatMode);
+  // provided by YouTube Music
+  ipcRenderer.send(
+    'repeatChanged',
+    $<HTMLElement & {
+      GetState: () => GetState;
+    }>('ytmusic-player-bar')?.GetState().queue.repeatMode,
+  );
 });
 
 export const setupVolumeChangedListener = singleton((api: YoutubePlayer) => {
-  $('video').addEventListener('volumechange', () => {
+  $('video')?.addEventListener('volumechange', () => {
     ipcRenderer.send('volumeChanged', api.getVolume());
   });
   // Emit the initial value as well; as it's persistent between launches.
@@ -75,10 +94,10 @@ export default () => {
     });
 
     const playPausedHandler = (e: Event, status: string) => {
-      if (Math.round((e.target as HTMLVideoElement).currentTime) > 0) {
+      if (e.target instanceof HTMLVideoElement && Math.round(e.target.currentTime) > 0) {
         ipcRenderer.send('playPaused', {
           isPaused: status === 'pause',
-          elapsedSeconds: Math.floor((e.target as HTMLVideoElement).currentTime),
+          elapsedSeconds: Math.floor(e.target.currentTime),
         });
       }
     };
@@ -94,10 +113,10 @@ export default () => {
         return;
       }
       const video = $<HTMLVideoElement>('video');
-      video.dispatchEvent(srcChangedEvent);
+      video?.dispatchEvent(srcChangedEvent);
 
       for (const status of ['playing', 'pause'] as const) { // for fix issue that pause event not fired
-        video.addEventListener(status, playPausedHandlers[status]);
+        video?.addEventListener(status, playPausedHandlers[status]);
       }
       setTimeout(sendSongInfo, 200);
     });
@@ -110,12 +129,12 @@ export default () => {
     function sendSongInfo() {
       const data = apiEvent.detail.getPlayerResponse();
 
-      data.videoDetails.album = $$<HTMLAnchorElement>(
-        '.byline.ytmusic-player-bar > .yt-simple-endpoint',
-      ).find((e) =>
-        e.href?.includes('browse/FEmusic_library_privately_owned_release')
-        || e.href?.includes('browse/MPREb'),
-      )?.textContent;
+      for (const e of $$<HTMLAnchorElement>('.byline.ytmusic-player-bar > .yt-simple-endpoint')) {
+        if (e.href?.includes('browse/FEmusic_library_privately_owned_release') || e.href?.includes('browse/MPREb')) {
+          data.videoDetails.album = e.textContent;
+          break;
+        }
+      }
 
       data.videoDetails.elapsedSeconds = 0;
       data.videoDetails.isPaused = false;

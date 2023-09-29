@@ -5,8 +5,11 @@ import { Color, Titlebar } from 'custom-electron-titlebar';
 import config from '../../config';
 import { isEnabled } from '../../config/plugins';
 
-function $(selector: string) {
-  return document.querySelector(selector);
+type ElectronCSSStyleDeclaration = CSSStyleDeclaration & { webkitAppRegion: 'drag' | 'no-drag' };
+type ElectronHTMLElement = HTMLElement & { style: ElectronCSSStyleDeclaration };
+
+function $<E extends Element = Element>(selector: string) {
+  return document.querySelector<E>(selector);
 }
 
 export default () => {
@@ -59,12 +62,10 @@ export default () => {
 
 function setupSearchOpenObserver() {
   const searchOpenObserver = new MutationObserver((mutations) => {
-    ($('#nav-bar-background') as HTMLElement)
-      .style
-      .setProperty(
-        '-webkit-app-region',
-        (mutations[0].target as HTMLElement & { opened: boolean }).opened ? 'no-drag' : 'drag',
-      );
+    const navBarBackground = $<ElectronHTMLElement>('#nav-bar-background');
+    if (navBarBackground) {
+      navBarBackground.style.webkitAppRegion = (mutations[0].target as HTMLElement & { opened: boolean }).opened ? 'no-drag' : 'drag';
+    }
   });
   const searchBox = $('ytmusic-search-box');
   if (searchBox) {
@@ -76,21 +77,28 @@ function setupMenuOpenObserver() {
   const cetMenubar = $('.cet-menubar');
   if (cetMenubar) {
     const menuOpenObserver = new MutationObserver(() => {
-      ($('#nav-bar-background') as HTMLElement)
-        .style
-        .setProperty(
-          '-webkit-app-region',
-          Array.from(cetMenubar.childNodes).some((c) => (c as HTMLElement).classList.contains('open')) ? 'no-drag' : 'drag',
-        );
+      let isOpen = false;
+      for (const child of cetMenubar.children) {
+        if (child.classList.contains('open')) {
+          isOpen = true;
+          break;
+        }
+      }
+      const navBarBackground = $<ElectronHTMLElement>('#nav-bar-background');
+      if (navBarBackground) {
+        navBarBackground.style.webkitAppRegion = isOpen ? 'no-drag' : 'drag';
+      }
     });
     menuOpenObserver.observe(cetMenubar, { subtree: true, attributeFilter: ['class'] });
   }
 }
 
 function setNavbarMargin() {
-  const navBarBackground = $('#nav-bar-background') as HTMLElement;
-  navBarBackground.style.right
-    = ($('ytmusic-app-layout') as HTMLElement & { playerPageOpen_: boolean }).playerPageOpen_
-    ? '0px'
-    : '12px';
+  const navBarBackground = $<HTMLElement>('#nav-bar-background');
+  if (navBarBackground) {
+    navBarBackground.style.right
+      = $<HTMLElement & { playerPageOpen_: boolean }>('ytmusic-app-layout')?.playerPageOpen_
+      ? '0px'
+      : '12px';
+  }
 }

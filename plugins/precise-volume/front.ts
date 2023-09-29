@@ -7,8 +7,8 @@ import { YoutubePlayer } from '../../types/youtube-player';
 
 import type { ConfigType } from '../../config/dynamic';
 
-function $(selector: string) {
-  return document.querySelector(selector);
+function $<E extends Element = Element>(selector: string) {
+  return document.querySelector<E>(selector);
 }
 
 let api: YoutubePlayer;
@@ -30,7 +30,7 @@ const writeOptions = debounce(() => {
 }, 1000);
 
 export const moveVolumeHud = debounce((showVideo: boolean) => {
-  const volumeHud = $('#volumeHud') as HTMLElement | undefined;
+  const volumeHud = $<HTMLElement>('#volumeHud');
   if (!volumeHud) {
     return;
   }
@@ -103,7 +103,7 @@ function injectVolumeHud(noVid: boolean) {
 }
 
 function showVolumeHud(volume: number) {
-  const volumeHud = $('#volumeHud') as HTMLElement | undefined;
+  const volumeHud = $<HTMLElement>('#volumeHud');
   if (!volumeHud) {
     return;
   }
@@ -116,7 +116,7 @@ function showVolumeHud(volume: number) {
 
 /** Add onwheel event to video player */
 function setupVideoPlayerOnwheel() {
-  const panel = $('#main-panel') as HTMLElement | undefined;
+  const panel = $<HTMLElement>('#main-panel');
   if (!panel) return;
 
   panel.addEventListener('wheel', (event) => {
@@ -133,7 +133,7 @@ function saveVolume(volume: number) {
 
 /** Add onwheel event to play bar and also track if play bar is hovered */
 function setupPlaybar() {
-  const playerbar = $('ytmusic-player-bar') as HTMLElement | undefined;
+  const playerbar = $<HTMLElement>('ytmusic-player-bar');
   if (!playerbar) return;
 
   playerbar.addEventListener('wheel', (event) => {
@@ -158,14 +158,16 @@ function setupPlaybar() {
 function setupSliderObserver() {
   const sliderObserver = new MutationObserver((mutations) => {
     for (const mutation of mutations) {
-      // This checks that volume-slider was manually set
-      const target = mutation.target as HTMLInputElement;
-      const targetValueNumeric = Number(target.value);
-      if (mutation.oldValue !== target.value
-        && (typeof options.savedVolume !== 'number' || Math.abs(options.savedVolume - targetValueNumeric) > 4)) {
-        // Diff>4 means it was manually set
-        setTooltip(targetValueNumeric);
-        saveVolume(targetValueNumeric);
+      if (mutation.target instanceof HTMLInputElement) {
+        // This checks that volume-slider was manually set
+        const target = mutation.target;
+        const targetValueNumeric = Number(target.value);
+        if (mutation.oldValue !== target.value
+          && (typeof options.savedVolume !== 'number' || Math.abs(options.savedVolume - targetValueNumeric) > 4)) {
+          // Diff>4 means it was manually set
+          setTooltip(targetValueNumeric);
+          saveVolume(targetValueNumeric);
+        }
       }
     }
   });
@@ -209,15 +211,15 @@ function updateVolumeSlider() {
   const savedVolume = options.savedVolume ?? 0;
   // Slider value automatically rounds to multiples of 5
   for (const slider of ['#volume-slider', '#expand-volume-slider']) {
-    ($(slider) as HTMLInputElement).value
-      = String(savedVolume > 0 && savedVolume < 5
-      ? 5
-      : savedVolume);
+    const silderElement = $<HTMLInputElement>(slider);
+    if (silderElement) {
+      silderElement.value = String(savedVolume > 0 && savedVolume < 5 ? 5 : savedVolume);
+    }
   }
 }
 
 function showVolumeSlider() {
-  const slider = $('#volume-slider') as HTMLElement | null;
+  const slider = $<HTMLElement>('#volume-slider');
   if (!slider) return;
 
   // This class display the volume slider if not in minimized mode
@@ -236,14 +238,17 @@ const tooltipTargets = [
 
 function setTooltip(volume: number) {
   for (const target of tooltipTargets) {
-    ($(target) as HTMLElement).title = `${volume}%`;
+    const tooltipTargetElement = $<HTMLElement>(target);
+    if (tooltipTargetElement) {
+      tooltipTargetElement.title = `${volume}%`;
+    }
   }
 }
 
 function setupLocalArrowShortcuts() {
   if (options.arrowsShortcut) {
     window.addEventListener('keydown', (event) => {
-      if (($('ytmusic-search-box') as (HTMLElement & { opened: boolean }) | null)?.opened) {
+      if ($<HTMLElement & { opened: boolean }>('ytmusic-search-box')?.opened) {
         return;
       }
 

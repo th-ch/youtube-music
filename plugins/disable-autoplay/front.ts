@@ -1,13 +1,17 @@
 export default () => {
+  const timeUpdateListener = (e: Event) => {
+    if (e.target instanceof HTMLVideoElement) {
+      e.target.pause();
+    }
+  };
+
   document.addEventListener('apiLoaded', (apiEvent) => {
     apiEvent.detail.addEventListener('videodatachange', (name: string) => {
       if (name === 'dataloaded') {
         apiEvent.detail.pauseVideo();
-        (document.querySelector('video') as HTMLVideoElement)?.addEventListener('timeupdate', (e) => {
-          (e.target as HTMLVideoElement)?.pause();
-        });
+        document.querySelector<HTMLVideoElement>('video')?.addEventListener('timeupdate', timeUpdateListener);
       } else {
-        (document.querySelector('video') as HTMLVideoElement).ontimeupdate = null;
+        document.querySelector<HTMLVideoElement>('video')?.removeEventListener('timeupdate', timeUpdateListener);
       }
     });
   }, { once: true, passive: true });

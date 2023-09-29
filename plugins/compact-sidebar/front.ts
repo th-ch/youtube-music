@@ -5,6 +5,6 @@ export default () => {
     || window.getComputedStyle(compactSidebar).display === 'none';
 
   if (isCompactSidebarDisabled) {
-    (document.querySelector('#button') as HTMLButtonElement)?.click();
+    document.querySelector<HTMLButtonElement>('#button')?.click();
   }
 };

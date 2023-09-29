@@ -10,8 +10,8 @@ import type { ConfigType } from '../../config/dynamic';
 
 type PiPOptions = ConfigType<'picture-in-picture'>;
 
-function $(selector: string) {
-  return document.querySelector(selector);
+function $<E extends Element = Element>(selector: string) {
+  return document.querySelector<E>(selector);
 }
 
 let useNativePiP = false;
@@ -60,10 +60,8 @@ const observer = new MutationObserver(() => {
     return;
   }
 
-  const menuUrl = ($(
-    'tp-yt-paper-listbox [tabindex="0"] #navigation-endpoint',
-  ) as HTMLAnchorElement)?.href;
-  if (menuUrl && !menuUrl.includes('watch?')) {
+  const menuUrl = $<HTMLAnchorElement>('tp-yt-paper-listbox [tabindex="0"] #navigation-endpoint')?.href;
+  if (!menuUrl?.includes('watch?')) {
     return;
   }
 
@@ -73,7 +71,7 @@ const observer = new MutationObserver(() => {
 const togglePictureInPicture = async () => {
   if (useNativePiP) {
     const isInPiP = document.pictureInPictureElement !== null;
-    const video = $('video') as HTMLVideoElement | null;
+    const video = $<HTMLVideoElement>('video');
     const togglePiP = () =>
       isInPiP
         ? document.exitPictureInPicture.call(document)
@@ -81,7 +79,7 @@ const togglePictureInPicture = async () => {
 
     try {
       await togglePiP();
-      ($('#icon') as HTMLButtonElement | null)?.click(); // Close the menu
+      $<HTMLButtonElement>('#icon')?.click(); // Close the menu
       return true;
     } catch {
     }
@@ -95,42 +93,45 @@ const togglePictureInPicture = async () => {
 (global as any).togglePictureInPicture = togglePictureInPicture;
 
 const listenForToggle = () => {
-  const originalExitButton = $('.exit-fullscreen-button') as HTMLButtonElement;
-  const appLayout = $('ytmusic-app-layout') as HTMLElement;
-  const expandMenu = $('#expanding-menu') as HTMLElement;
-  const middleControls = $('.middle-controls') as HTMLButtonElement;
-  const playerPage = $('ytmusic-player-page') as HTMLElement & { playerPageOpen_: boolean };
-  const togglePlayerPageButton = $('.toggle-player-page-button') as HTMLButtonElement;
-  const fullScreenButton = $('.fullscreen-button') as HTMLButtonElement;
-  const player = ($('#player') as (HTMLVideoElement & { onDoubleClick_: () => void | undefined }));
+  const originalExitButton = $<HTMLButtonElement>('.exit-fullscreen-button');
+  const appLayout = $<HTMLElement>('ytmusic-app-layout');
+  const expandMenu = $<HTMLElement>('#expanding-menu');
+  const middleControls = $<HTMLButtonElement>('.middle-controls');
+  const playerPage = $<HTMLElement & { playerPageOpen_: boolean }>('ytmusic-player-page');
+  const togglePlayerPageButton = $<HTMLButtonElement>('.toggle-player-page-button');
+  const fullScreenButton = $<HTMLButtonElement>('.fullscreen-button');
+  const player = $<HTMLVideoElement & { onDoubleClick_: (() => void) | undefined }>('#player');
   const onPlayerDblClick = player?.onDoubleClick_;
+  const mouseLeaveEventListener = () => middleControls?.click();
 
-  const titlebar = $('.cet-titlebar') as HTMLElement;
+  const titlebar = $<HTMLElement>('.cet-titlebar');
 
   ipcRenderer.on('pip-toggle', (_, isPip: boolean) => {
-    if (isPip) {
-      replaceButton('.exit-fullscreen-button', originalExitButton)?.addEventListener('click', () => togglePictureInPicture());
-      player.onDoubleClick_ = () => {
-      };
+    if (originalExitButton && player) {
+      if (isPip) {
+        replaceButton('.exit-fullscreen-button', originalExitButton)?.addEventListener('click', () => togglePictureInPicture());
+        player.onDoubleClick_ = () => {
+        };
 
-      expandMenu.addEventListener('mouseleave', () => middleControls.click());
-      if (!playerPage.playerPageOpen_) {
-        togglePlayerPageButton.click();
-      }
+        expandMenu?.addEventListener('mouseleave', mouseLeaveEventListener);
+        if (!playerPage?.playerPageOpen_) {
+          togglePlayerPageButton?.click();
+        }
 
-      fullScreenButton.click();
-      appLayout.classList.add('pip');
-      if (titlebar) {
-        titlebar.style.display = 'none';
-      }
-    } else {
-      $('.exit-fullscreen-button')?.replaceWith(originalExitButton);
-      player.onDoubleClick_ = onPlayerDblClick;
-      expandMenu.onmouseleave = null;
-      originalExitButton.click();
-      appLayout.classList.remove('pip');
-      if (titlebar) {
-        titlebar.style.display = 'flex';
+        fullScreenButton?.click();
+        appLayout?.classList.add('pip');
+        if (titlebar) {
+          titlebar.style.display = 'none';
+        }
+      } else {
+        $('.exit-fullscreen-button')?.replaceWith(originalExitButton);
+        player.onDoubleClick_ = onPlayerDblClick;
+        expandMenu?.removeEventListener('mouseleave', mouseLeaveEventListener);
+        originalExitButton.click();
+        appLayout?.classList.remove('pip');
+        if (titlebar) {
+          titlebar.style.display = 'flex';
+        }
       }
     }
   });
@@ -145,7 +146,7 @@ function observeMenu(options: PiPOptions) {
 
       cloneButton('.player-minimize-button')?.addEventListener('click', async () => {
         await togglePictureInPicture();
-        setTimeout(() => ($('#player') as HTMLButtonElement | undefined)?.click());
+        setTimeout(() => $<HTMLButtonElement>('#player')?.click());
       });
 
       // Allows easily closing the menu by programmatically clicking outside of it
@@ -169,7 +170,7 @@ export default (options: PiPOptions) => {
     window.addEventListener('keydown', (event) => {
       if (
         keyEventAreEqual(event, hotkeyEvent)
-        && !($('ytmusic-search-box') as (HTMLElement & { opened: boolean }) | undefined)?.opened
+        && !$<HTMLElement & { opened: boolean }>('ytmusic-search-box')?.opened
       ) {
         togglePictureInPicture();
       }

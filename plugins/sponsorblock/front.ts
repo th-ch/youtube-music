@@ -11,20 +11,22 @@ export default () => {
   });
 
   document.addEventListener('apiLoaded', () => {
-    const video = document.querySelector('video') as HTMLVideoElement | undefined;
+    const video = document.querySelector<HTMLVideoElement>('video');
     if (!video) return;
 
     video.addEventListener('timeupdate', (e) => {
-      const target = e.target as HTMLVideoElement;
+      if (e.target instanceof HTMLVideoElement) {
+        const target = e.target;
 
-      for (const segment of currentSegments) {
-        if (
-          target.currentTime >= segment[0]
-          && target.currentTime < segment[1]
-        ) {
-          target.currentTime = segment[1];
-          if (is.dev()) {
-            console.log('SponsorBlock: skipping segment', segment);
+        for (const segment of currentSegments) {
+          if (
+            target.currentTime >= segment[0]
+            && target.currentTime < segment[1]
+          ) {
+            target.currentTime = segment[1];
+            if (is.dev()) {
+              console.log('SponsorBlock: skipping segment', segment);
+            }
           }
         }
       }
