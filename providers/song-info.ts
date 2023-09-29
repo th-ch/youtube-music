@@ -3,7 +3,8 @@ import { BrowserWindow, ipcMain, nativeImage, net } from 'electron';
 import { cache } from './decorators';
 
 import config from '../config';
-import { GetPlayerResponse } from '../types/get-player-response';
+
+import type { GetPlayerResponse } from '../types/get-player-response';
 
 export interface SongInfo {
   title: string;
@@ -53,8 +54,7 @@ export const getImage = cache(
   },
 );
 
-const handleData = async (responseText: string, win: Electron.BrowserWindow) => {
-  const data = JSON.parse(responseText) as GetPlayerResponse;
+const handleData = async (data: GetPlayerResponse, win: Electron.BrowserWindow) => {
   if (!data) {
     return;
   }
@@ -83,7 +83,7 @@ const handleData = async (responseText: string, win: Electron.BrowserWindow) => 
     songInfo.imageSrc = thumbnails.at(-1)?.url.split('?')[0];
     if (songInfo.imageSrc) songInfo.image = await getImage(songInfo.imageSrc);
 
-    win.webContents.send('update-song-info', JSON.stringify(songInfo));
+    win.webContents.send('update-song-info', songInfo);
   }
 };
 
@@ -100,9 +100,9 @@ let handlingData = false;
 
 const registerProvider = (win: BrowserWindow) => {
   // This will be called when the song-info-front finds a new request with song data
-  ipcMain.on('video-src-changed', async (_, responseText: string) => {
+  ipcMain.on('video-src-changed', async (_, data: GetPlayerResponse) => {
     handlingData = true;
-    await handleData(responseText, win);
+    await handleData(data, win);
     handlingData = false;
     for (const c of callbacks) {
       c(songInfo, 'video-src-changed');

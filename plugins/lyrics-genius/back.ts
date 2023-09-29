@@ -24,8 +24,8 @@ export default (win: BrowserWindow, options: LyricGeniusType) => {
 
   injectCSS(win.webContents, join(__dirname, 'style.css'));
 
-  ipcMain.handle('search-genius-lyrics', async (_, extractedSongInfo: string) => {
-    const metadata = JSON.parse(extractedSongInfo) as SongInfo;
+  ipcMain.handle('search-genius-lyrics', async (_, extractedSongInfo: SongInfo) => {
+    const metadata = extractedSongInfo;
     return await fetchFromGenius(metadata);
   });
 };

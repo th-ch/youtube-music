@@ -1,8 +1,10 @@
 import { ipcRenderer } from 'electron';
 import is from 'electron-is';
 
+import type { SongInfo } from '../../providers/song-info';
+
 export default () => {
-  ipcRenderer.on('update-song-info', (_, extractedSongInfo: string) => setTimeout(async () => {
+  ipcRenderer.on('update-song-info', (_, extractedSongInfo: SongInfo) => setTimeout(async () => {
     const tabList = document.querySelectorAll('tp-yt-paper-tab');
     const tabs = {
       upNext: tabList[0],

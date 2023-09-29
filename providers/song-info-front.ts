@@ -12,8 +12,8 @@ export const getSongInfo = () => songInfo;
 const $ = <E extends Element = Element>(s: string): E | null => document.querySelector<E>(s);
 const $$ = <E extends Element = Element>(s: string): NodeListOf<E> => document.querySelectorAll<E>(s);
 
-ipcRenderer.on('update-song-info', async (_, extractedSongInfo: string) => {
-  songInfo = JSON.parse(extractedSongInfo) as SongInfo;
+ipcRenderer.on('update-song-info', async (_, extractedSongInfo: SongInfo) => {
+  songInfo = extractedSongInfo;
   if (songInfo.imageSrc) songInfo.image = await getImage(songInfo.imageSrc);
 });
 
@@ -138,7 +138,7 @@ export default () => {
 
       data.videoDetails.elapsedSeconds = 0;
       data.videoDetails.isPaused = false;
-      ipcRenderer.send('video-src-changed', JSON.stringify(data));
+      ipcRenderer.send('video-src-changed', data);
     }
   }, { once: true, passive: true });
 };
