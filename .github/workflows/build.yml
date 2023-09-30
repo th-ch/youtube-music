@@ -40,21 +40,21 @@ jobs:
       - name: Build and release on Mac
         if: startsWith(matrix.os, 'macOS') && github.repository == 'organization/youtube-music-next'
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           npm run release:mac
 
       - name: Build and release on Linux
         if: startsWith(matrix.os, 'ubuntu') && github.repository == 'organization/youtube-music-next'
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           npm run release:linux
 
       - name: Build and release on Windows
         if: startsWith(matrix.os, 'windows') && github.repository == 'organization/youtube-music-next'
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           npm run release:win
 
