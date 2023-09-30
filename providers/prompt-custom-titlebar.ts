@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-unresolved
 import { Titlebar, Color } from 'custom-electron-titlebar';
 
-export default () => {
+const customTitlebarFunction = () => {
   new Titlebar({
     backgroundColor: Color.fromHex('#050505'),
     minimizable: false,
@@ -15,3 +15,7 @@ export default () => {
     mainStyle.border = 'unset';
   }
 };
+
+
+module.exports = customTitlebarFunction;
+export default customTitlebarFunction;
