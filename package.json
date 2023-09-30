@@ -123,9 +123,9 @@
     "plugin:adblocker-without-tsc": "del-cli plugins/adblocker/ad-blocker-engine.bin && node dist/plugins/adblocker/blocker.js",
     "plugin:adblocker": "del-cli plugins/adblocker/ad-blocker-engine.bin && tsc && node dist/plugins/adblocker/blocker.js",
     "plugin:bypass-age-restrictions": "del-cli node_modules/simple-youtube-age-restriction-bypass/package.json && npm run generate:package simple-youtube-age-restriction-bypass",
-    "release:linux": "npm run clean && electron-builder --linux -p always -c.snap.publish=github",
-    "release:mac": "npm run clean && electron-builder --mac -p always",
-    "release:win": "npm run clean && electron-builder --win -p always",
+    "release:linux": "npm run clean && npm run tsc-and-copy && electron-builder --linux -p always -c.snap.publish=github",
+    "release:mac": "npm run clean && npm run tsc-and-copy && electron-builder --mac -p always",
+    "release:win": "npm run clean && npm run tsc-and-copy && electron-builder --win -p always",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "engines": {
