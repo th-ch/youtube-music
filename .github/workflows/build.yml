@@ -141,4 +141,3 @@ jobs:
           commit_message: Update changelog for ${{ env.VERSION_TAG }}
           file_pattern: "changelog.md"
           commit_user_name: CI
-          commit_user_email: th-ch@users.noreply.github.com
