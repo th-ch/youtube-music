@@ -3,7 +3,7 @@
   "productName": "YouTube Music",
   "version": "1.20.1",
   "description": "YouTube Music Desktop App - including custom plugins",
-  "main": "dist/index.js",
+  "main": "./dist/index.js",
   "license": "MIT",
   "repository": "th-ch/youtube-music",
   "author": {
