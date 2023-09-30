@@ -77,7 +77,7 @@ jobs:
   release:
     runs-on: ubuntu-latest
     name: Release YouTube Music
-    if: github.repository == 'organization/youtube-music-next' && github.ref == 'refs/heads/master'
+    if: github.repository == 'organization/youtube-music-next' && github.ref == 'refs/heads/custom-version'
     needs: build
     steps:
       - uses: actions/checkout@v4
@@ -125,7 +125,7 @@ jobs:
           name: ${{ env.VERSION_TAG }}
           replacebody: true
           body: |
-            See [changelog](https://github.com/organization/youtube-music-next/blob/master/changelog.md#${{ env.CHANGELOG_ANCHOR }}) for the list of updates and the full diff.
+            See [changelog](https://github.com/organization/youtube-music-next/blob/custom-version/changelog.md#${{ env.CHANGELOG_ANCHOR }}) for the list of updates and the full diff.
 
             Thanks to all contributors! 🏅
 
