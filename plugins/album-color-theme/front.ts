@@ -77,7 +77,7 @@ export default () => {
       if (mutation.type === 'attributes') {
         const isPageOpen = ytmusicAppLayout?.hasAttribute('player-page-open');
         if (isPageOpen) {
-          changeElementColor(sidebarSmall, hue, saturation, lightness - 25);
+          changeElementColor(sidebarSmall, hue, saturation, lightness - 30);
         } else {
           if (sidebarSmall) {
             sidebarSmall.style.backgroundColor = 'black';
@@ -94,13 +94,13 @@ export default () => {
   ipcRenderer.on('album-color-changed', (_, albumColor: FastAverageColorResult) => {
     if (albumColor) {
       [hue, saturation, lightness] = hexToHSL(albumColor.hex);
-      changeElementColor(playerPage, hue, saturation, lightness - 25);
+      changeElementColor(playerPage, hue, saturation, lightness - 30);
       changeElementColor(navBarBackground, hue, saturation, lightness - 15);
       changeElementColor(ytmusicPlayerBar, hue, saturation, lightness - 15);
       changeElementColor(playerBarBackground, hue, saturation, lightness - 15);
       changeElementColor(sidebarBig, hue, saturation, lightness - 15);
       if (ytmusicAppLayout?.hasAttribute('player-page-open')) {
-        changeElementColor(sidebarSmall, hue, saturation, lightness - 25);
+        changeElementColor(sidebarSmall, hue, saturation, lightness - 30);
       }
       const ytRightClickList = document.querySelector<HTMLElement>('tp-yt-paper-listbox');
       changeElementColor(ytRightClickList, hue, saturation, lightness - 15);
