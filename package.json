@@ -1,15 +1,15 @@
 {
   "name": "youtube-music",
   "productName": "YouTube Music",
-  "version": "1.20.2",
+  "version": "1.20.3",
   "description": "YouTube Music Desktop App - including custom plugins",
   "main": "./dist/index.js",
   "license": "MIT",
   "repository": "organization/youtube-music-next",
   "author": {
-    "name": "th-ch",
-    "email": "th-ch@users.noreply.github.com",
-    "url": "https://github.com/th-ch/youtube-music"
+    "name": "organization",
+    "email": "organization@users.noreply.github.com",
+    "url": "https://github.com/organization/youtube-music-next"
   },
   "build": {
     "appId": "com.github.th-ch.youtube-music",
