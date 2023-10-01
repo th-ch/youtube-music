@@ -2,7 +2,21 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
-#### 1.20.1
+#### [v1.20.3](https://github.com/organization/youtube-music-next/compare/v1.20.2...v1.20.3)
+
+- release 1.20.3: fix updater download link [`5cd2e78`](https://github.com/organization/youtube-music-next/commit/5cd2e78e884c99b5d246c7cab8ff9b15be537cac)
+
+#### [v1.20.2](https://github.com/organization/youtube-music-next/compare/v1.20.1...v1.20.2)
+
+> 1 October 2023
+
+- Update changelog for v1.20.1 [`faaf54d`](https://github.com/organization/youtube-music-next/commit/faaf54d0b08c0e6a6e3c0417f7e2f9ca70721fdb)
+- fix: CVE-2023-4863, CVE-2023-5129 [`40fa1ba`](https://github.com/organization/youtube-music-next/commit/40fa1bac92829197fb128e1976407d175b0fbe72)
+- chore: update README [`10049d1`](https://github.com/organization/youtube-music-next/commit/10049d1ee9ae3c7e1293ea3a05e693f2876118b3)
+
+#### v1.20.1
+
+> 30 September 2023
 
 - fix: Fixes the video-toggle being displayed at the wrong position on fullscreen [`#1218`](https://github.com/organization/youtube-music-next/pull/1218)
 - Change Winget Releaser job to `ubuntu-latest` [`#1225`](https://github.com/organization/youtube-music-next/pull/1225)
