@@ -165,6 +165,7 @@
   },
   "overrides": {
     "xml2js": "0.6.2",
+    "sharp": "0.32.6",
     "node-fetch": "2.7.0",
     "@electron/universal": "1.4.2",
     "electron": "27.0.0-beta.8"
