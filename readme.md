@@ -2,12 +2,12 @@
 
 <div align="center">
 
-[![GitHub release](https://img.shields.io/github/release/th-ch/youtube-music.svg?style=for-the-badge&logo=youtube-music)](https://github.com/th-ch/youtube-music/releases/)
-[![GitHub license](https://img.shields.io/github/license/th-ch/youtube-music.svg?style=for-the-badge)](https://github.com/th-ch/youtube-music/blob/master/LICENSE)
-[![eslint code style](https://img.shields.io/badge/code_style-eslint-5ed9c7.svg?style=for-the-badge)](https://github.com/th-ch/youtube-music/blob/master/.eslintrc.js)
-[![Build status](https://img.shields.io/github/actions/workflow/status/th-ch/youtube-music/build.yml?branch=master&style=for-the-badge&logo=youtube-music)](https://GitHub.com/th-ch/youtube-music/releases/)
-[![Known Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/github/th-ch/youtube-music?style=for-the-badge)](https://snyk.io/test/github/th-ch/youtube-music)
-[![GitHub All Releases](https://img.shields.io/github/downloads/th-ch/youtube-music/total?style=for-the-badge&logo=youtube-music)](https://GitHub.com/th-ch/youtube-music/releases/)
+[![GitHub release](https://img.shields.io/github/release/organization/youtube-music-next.svg?style=for-the-badge&logo=youtube-music)](https://github.com/organization/youtube-music-next/releases/)
+[![GitHub license](https://img.shields.io/github/license/organization/youtube-music-next.svg?style=for-the-badge)](https://github.com/organization/youtube-music-next/blob/master/LICENSE)
+[![eslint code style](https://img.shields.io/badge/code_style-eslint-5ed9c7.svg?style=for-the-badge)](https://github.com/organization/youtube-music-next/blob/master/.eslintrc.js)
+[![Build status](https://img.shields.io/github/actions/workflow/status/organization/youtube-music-next/build.yml?branch=custom-version&style=for-the-badge&logo=youtube-music)](https://github.com/organization/youtube-music-next/releases/)
+[![Known Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/github/organization/youtube-music-next?style=for-the-badge)](https://snyk.io/test/github/organization/youtube-music-next)
+[![GitHub All Releases](https://img.shields.io/github/downloads/organization/youtube-music-next/total?style=for-the-badge&logo=youtube-music)](https://github.com/organization/youtube-music-next/releases/)
 [![AUR](https://img.shields.io/aur/version/youtube-music-bin?color=blueviolet&style=for-the-badge&logo=youtube-music)](https://aur.archlinux.org/packages/youtube-music-bin)
 
 </div>
@@ -28,7 +28,7 @@
 
 ## Download
 
-You can check out the [latest release](https://github.com/th-ch/youtube-music/releases/latest) to quickly find the
+You can check out the [latest release](https://github.com/organization/youtube-music-next/releases/latest) to quickly find the
 latest version.
 
 ### Arch Linux
@@ -40,7 +40,7 @@ this [wiki page](https://wiki.archlinux.org/index.php/Arch_User_Repository#Insta
 
 If you get an error "is damaged and can’t be opened." when launching the app, run the following in the Terminal:
 
-```
+```bash
 xattr -cr /Applications/YouTube\ Music.app
 ```
 
@@ -49,7 +49,7 @@ xattr -cr /Applications/YouTube\ Music.app
 You can use the [Scoop package manager](https://scoop.sh) to install the `youtube-music` package from
 the [`extras` bucket](https://github.com/ScoopInstaller/Extras).
 
-```
+```bash
 scoop bucket add extras
 scoop install extras/youtube-music
 ```
@@ -61,7 +61,7 @@ official CLI package manager to install the `th-ch.YouTubeMusic` package.
 true for the manual installation when trying to run the executable(.exe) after a manual download here on github (same
 file).*
 
-```
+```bash
 winget install th-ch.YouTubeMusic
 ```
 
@@ -166,7 +166,7 @@ Some predefined themes are available in https://github.com/kerichdev/themes-for-
 
 ## Dev
 
-```sh
+```bash
 git clone https://github.com/th-ch/youtube-music
 cd youtube-music
 npm
@@ -184,18 +184,18 @@ Using plugins, you can:
 
 Create a folder in `plugins/YOUR-PLUGIN-NAME`:
 
-- if you need to manipulate the BrowserWindow, create a file `back.js` with the following template:
+- if you need to manipulate the BrowserWindow, create a file `back.ts` with the following template:
 
-```node
-module.exports = win => {
-  // win is the BrowserWindow object
+```typescript
+export default (win: Electron.BrowserWindow) => {
+  // something
 };
 ```
 
-- if you need to change the front, create a file `front.js` with the following template:
+- if you need to change the front, create a file `front.ts` with the following template:
 
-```node
-module.exports = () => {
+```typescript
+export default () => {
   // This function will be called as a preload script
   // So you can use front features like `document.querySelector`
 };
@@ -205,21 +205,21 @@ module.exports = () => {
 
 - injecting custom CSS: create a `style.css` file in the same folder then:
 
-```node
-const path = require("path");
-const {injectCSS} = require("../utils");
+```typescript
+import path from 'node:path';
+import { injectCSS } from '../utils';
 
-// back.js
-module.exports = win => {
-  injectCSS(win.webContents, path.join(__dirname, "style.css"));
+// back.ts
+export default (win: Electron.BrowserWindow) => {
+  injectCSS(win.webContents, path.join(__dirname, 'style.css'));
 };
 ```
 
 - changing the HTML:
 
-```node
-// front.js
-module.exports = () => {
+```typescript
+// front.ts
+export default () => {
   // Remove the login button
   document.querySelector(".sign-in-link.ytmusic-nav-bar").remove();
 };
@@ -243,7 +243,7 @@ using [electron-builder](https://github.com/electron-userland/electron-builder).
 
 ## Tests
 
-```sh
+```bash
 npm run test
 ```
 
