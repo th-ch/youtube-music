@@ -17,6 +17,11 @@
   padding-top: 0 !important;
 }
 
+/* https://github.com/organization/youtube-music-next/issues/4 */
+#sections {
+  padding-top: 30px !important;
+}
+
 /* fix navbar hiding library items */
 ytmusic-section-list-renderer[page-type="MUSIC_PAGE_TYPE_LIBRARY_CONTENT_LANDING_PAGE"],
 ytmusic-section-list-renderer[page-type="MUSIC_PAGE_TYPE_PRIVATELY_OWNED_CONTENT_LANDING_PAGE"] {
