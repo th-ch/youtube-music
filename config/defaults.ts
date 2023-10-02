@@ -113,6 +113,9 @@ const defaultConfig = {
     'lyric-genius': {
       romanizedLyrics: false,
     },
+    'disable-autoplay': {
+      applyOnce: false,
+    },
     'discord': {
       enabled: false,
       autoReconnect: true, // If enabled, will try to reconnect to discord every 5 seconds after disconnecting or failing to connect
