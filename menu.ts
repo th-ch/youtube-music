@@ -150,7 +150,7 @@ export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
                 {
                   label: 'No theme',
                   type: 'radio',
-                  checked: !config.get('options.themes'), // Todo rename "themes"
+                  checked: config.get('options.themes').length === 0, // Todo rename "themes"
                   click() {
                     config.set('options.themes', []);
                   },
@@ -158,8 +158,7 @@ export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
                 { type: 'separator' },
                 {
                   label: 'Import custom CSS file',
-                  type: 'radio',
-                  checked: false,
+                  type: 'normal',
                   async click() {
                     const { filePaths } = await dialog.showOpenDialog({
                       filters: [{ name: 'CSS Files', extensions: ['css'] }],

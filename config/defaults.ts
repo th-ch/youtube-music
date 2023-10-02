@@ -65,7 +65,7 @@ const defaultConfig = {
     proxy: '',
     startingPage: '',
     overrideUserAgent: false,
-    themes: {} as string[],
+    themes: [] as string[],
   },
   'plugins': {
     // Enabled plugins
