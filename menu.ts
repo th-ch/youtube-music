@@ -1,20 +1,43 @@
-import { existsSync } from 'node:fs';
-import path from 'node:path';
-
 import is from 'electron-is';
 import { app, BrowserWindow, clipboard, dialog, Menu } from 'electron';
 import prompt from 'custom-electron-prompt';
 
 import { restart } from './providers/app-controls';
-import { getAllPlugins } from './plugins/utils';
 import config from './config';
 import { startingPages } from './providers/extracted-data';
 import promptOptions from './providers/prompt-options';
 
-export type MenuTemplate = (Electron.MenuItemConstructorOptions | Electron.MenuItem)[];
+import adblockerMenu from './plugins/adblocker/menu';
+import captionsSelectorMenu from './plugins/captions-selector/menu';
+import crossfadeMenu from './plugins/crossfade/menu';
+import discordMenu from './plugins/discord/menu';
+import downloaderMenu from './plugins/downloader/menu';
+import lyricsGeniusMenu from './plugins/lyrics-genius/menu';
+import notificationsMenu from './plugins/notifications/menu';
+import preciseVolumeMenu from './plugins/precise-volume/menu';
+import shortcutsMenu from './plugins/shortcuts/menu';
+import videoToggleMenu from './plugins/video-toggle/menu';
+import visualizerMenu from './plugins/visualizer/menu';
+import { getAvailablePluginNames } from './plugins/utils';
+
+export type MenuTemplate = Electron.MenuItemConstructorOptions[];
 
 // True only if in-app-menu was loaded on launch
 const inAppMenuActive = config.plugins.isEnabled('in-app-menu');
+
+const pluginMenus = {
+  'adblocker': adblockerMenu,
+  'captions-selector': captionsSelectorMenu,
+  'crossfade': crossfadeMenu,
+  'discord': discordMenu,
+  'downloader': downloaderMenu,
+  'lyrics-genius': lyricsGeniusMenu,
+  'notifications': notificationsMenu,
+  'precise-volume': preciseVolumeMenu,
+  'shortcuts': shortcutsMenu,
+  'video-toggle': videoToggleMenu,
+  'visualizer': visualizerMenu,
+};
 
 const pluginEnabledMenu = (plugin: string, label = '', hasSubmenu = false, refreshMenu: (() => void ) | undefined = undefined): Electron.MenuItemConstructorOptions => ({
   label: label || plugin,
@@ -45,33 +68,30 @@ export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
     {
       label: 'Plugins',
       submenu:
-        getAllPlugins().map((plugin) => {
-          const pluginPath = path.join(__dirname, 'plugins', plugin, 'menu.js');
-          if (existsSync(pluginPath)) {
-            let pluginLabel = plugin;
+        getAvailablePluginNames().map((pluginName) => {
+          if (Object.hasOwn(pluginMenus, pluginName)) {
+            const getPluginMenu = pluginMenus[pluginName as keyof typeof pluginMenus];
+
+            let pluginLabel = pluginName;
             if (pluginLabel === 'crossfade') {
               pluginLabel = 'crossfade [beta]';
             }
 
-            if (!config.plugins.isEnabled(plugin)) {
-              return pluginEnabledMenu(plugin, pluginLabel, true, refreshMenu);
+            if (!config.plugins.isEnabled(pluginName)) {
+              return pluginEnabledMenu(pluginName, pluginLabel, true, refreshMenu);
             }
 
-            type PluginType = (window: BrowserWindow, plugins: string, func: () => void) => Electron.MenuItemConstructorOptions[];
-
-            // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-unsafe-member-access
-            const getPluginMenu = require(pluginPath).default as PluginType;
             return {
               label: pluginLabel,
               submenu: [
-                pluginEnabledMenu(plugin, 'Enabled', true, refreshMenu),
+                pluginEnabledMenu(pluginName, 'Enabled', true, refreshMenu),
                 { type: 'separator' },
-                ...getPluginMenu(win, config.plugins.getOptions(plugin), refreshMenu),
+                ...getPluginMenu(win, config.plugins.getOptions(pluginName), refreshMenu),
               ],
             } satisfies Electron.MenuItemConstructorOptions;
           }
 
-          return pluginEnabledMenu(plugin);
+          return pluginEnabledMenu(pluginName);
         }),
     },
     {

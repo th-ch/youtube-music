@@ -1,5 +1,7 @@
 import { ipcRenderer } from 'electron';
 
+import { ConfigType } from '../../config/dynamic';
+
 import type { FastAverageColorResult } from 'fast-average-color';
 
 function hexToHSL(H: string) {
@@ -71,7 +73,7 @@ function changeElementColor(element: HTMLElement | null, hue: number, saturation
   }
 }
 
-export default () => {
+export default (_: ConfigType<'album-color-theme'>) => {
   const observer = new MutationObserver((mutationsList) => {
     for (const mutation of mutationsList) {
       if (mutation.type === 'attributes') {

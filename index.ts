@@ -1,6 +1,6 @@
 import path from 'node:path';
 
-import { BrowserWindow, app, screen, globalShortcut, session, shell, dialog } from 'electron';
+import { BrowserWindow, app, screen, globalShortcut, session, shell, dialog, ipcMain } from 'electron';
 import enhanceWebRequest from 'electron-better-web-request';
 import is from 'electron-is';
 import unhandled from 'electron-unhandled';
@@ -18,6 +18,29 @@ import { setupSongInfo } from './providers/song-info';
 import { restart, setupAppControls } from './providers/app-controls';
 import { APP_PROTOCOL, handleProtocol, setupProtocolHandler } from './providers/protocol-handler';
 
+import adblocker from './plugins/adblocker/back';
+import albumColorTheme from './plugins/album-color-theme/back';
+import blurNavigationBar from './plugins/blur-nav-bar/back';
+import captionsSelector from './plugins/captions-selector/back';
+import crossfade from './plugins/crossfade/back';
+import discord from './plugins/discord/back';
+import downloader from './plugins/downloader/back';
+import inAppMenu from './plugins/in-app-menu/back';
+import lastFm from './plugins/last-fm/back';
+import lyricsGenius from './plugins/lyrics-genius/back';
+import navigation from './plugins/navigation/back';
+import noGoogleLogin from './plugins/no-google-login/back';
+import notifications from './plugins/notifications/back';
+import pictureInPicture, { setOptions as pipSetOptions } from './plugins/picture-in-picture/back';
+import preciseVolume from './plugins/precise-volume/back';
+import qualityChanger from './plugins/quality-changer/back';
+import shortcuts from './plugins/shortcuts/back';
+import sponsorBlock from './plugins/sponsorblock/back';
+import taskbarMediaControl from './plugins/taskbar-mediacontrol/back';
+import touchbar from './plugins/touchbar/back';
+import tunaObs from './plugins/tuna-obs/back';
+import videoToggle from './plugins/video-toggle/back';
+import visualizer from './plugins/visualizer/back';
 
 // Catch errors and log them
 unhandled({
@@ -75,6 +98,46 @@ function onClosed() {
   mainWindow = null;
 }
 
+const mainPlugins = {
+  'adblocker': adblocker,
+  'album-color-theme': albumColorTheme,
+  'blur-nav-bar': blurNavigationBar,
+  'captions-selector': captionsSelector,
+  'crossfade': crossfade,
+  'discord': discord,
+  'downloader': downloader,
+  'in-app-menu': inAppMenu,
+  'last-fm': lastFm,
+  'lyrics-genius': lyricsGenius,
+  'navigation': navigation,
+  'no-google-login': noGoogleLogin,
+  'notifications': notifications,
+  'picture-in-picture': pictureInPicture,
+  'precise-volume': preciseVolume,
+  'quality-changer': qualityChanger,
+  'shortcuts': shortcuts,
+  'sponsorblock': sponsorBlock,
+  'taskbar-mediacontrol': undefined as typeof taskbarMediaControl | undefined,
+  'touchbar': undefined as typeof touchbar | undefined,
+  'tuna-obs': tunaObs,
+  'video-toggle': videoToggle,
+  'visualizer': visualizer,
+};
+export const mainPluginNames = Object.keys(mainPlugins);
+
+if (is.windows()) {
+  mainPlugins['taskbar-mediacontrol'] = taskbarMediaControl;
+  delete mainPlugins['touchbar'];
+} else if (is.macOS()) {
+  mainPlugins['touchbar'] = touchbar;
+  delete mainPlugins['taskbar-mediacontrol'];
+} else {
+  delete mainPlugins['touchbar'];
+  delete mainPlugins['taskbar-mediacontrol'];
+}
+
+ipcMain.handle('get-main-plugin-names', () => Object.keys(mainPlugins));
+
 function loadPlugins(win: BrowserWindow) {
   injectCSS(win.webContents, path.join(__dirname, 'youtube-music.css'));
   // Load user CSS
@@ -101,13 +164,17 @@ function loadPlugins(win: BrowserWindow) {
   });
 
   for (const [plugin, options] of config.plugins.getEnabled()) {
-    console.log('Loaded plugin - ' + plugin);
-    const pluginPath = path.join(__dirname, 'plugins', plugin, 'back.js');
-    fileExists(pluginPath, () => {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-unsafe-member-access
-      const handle = require(pluginPath).default as (window: BrowserWindow, option: typeof options) => void;
-      handle(win, options);
-    });
+    try {
+      if (Object.hasOwn(mainPlugins, plugin)) {
+        console.log('Loaded plugin - ' + plugin);
+        const handler = mainPlugins[plugin as keyof typeof mainPlugins];
+        if (handler) {
+          handler(win, options as never);
+        }
+      }
+    } catch (e) {
+      console.error(`Failed to load plugin "${plugin}"`, e);
+    }
   }
 }
 
@@ -191,8 +258,7 @@ function createMainWindow() {
   type PiPOptions = typeof config.defaultConfig.plugins['picture-in-picture'];
   const setPiPOptions = config.plugins.isEnabled('picture-in-picture')
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    ? (key: string, value: unknown) => (require('./plugins/picture-in-picture/back') as typeof import('./plugins/picture-in-picture/back'))
-      .setOptions({ [key]: value })
+    ? (key: string, value: unknown) => pipSetOptions({ [key]: value })
     : () => {};
 
   win.on('move', () => {

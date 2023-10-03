@@ -10,9 +10,9 @@ import { getOptions, setMenuOptions, setOptions } from './plugins';
 import { sendToFront } from '../providers/app-controls';
 import { Entries } from '../utils/type-utils';
 
-type DefaultPluginsConfig = typeof defaultConfig.plugins;
-type OneOfDefaultConfigKey = keyof DefaultPluginsConfig;
-type OneOfDefaultConfig = typeof defaultConfig.plugins[OneOfDefaultConfigKey];
+export type DefaultPluginsConfig = typeof defaultConfig.plugins;
+export type OneOfDefaultConfigKey = keyof DefaultPluginsConfig;
+export type OneOfDefaultConfig = typeof defaultConfig.plugins[OneOfDefaultConfigKey];
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const activePlugins: { [key in OneOfDefaultConfigKey]?: PluginConfig<any> } = {};

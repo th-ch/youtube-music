@@ -3,7 +3,10 @@ import path from 'node:path';
 
 import { ipcMain, ipcRenderer } from 'electron';
 
+import is from 'electron-is';
+
 import { ValueOf } from '../utils/type-utils';
+import defaultConfig from '../config/defaults';
 
 // Creates a DOM element from an HTML string
 export const ElementFromHtml = (html: string): HTMLElement => {
@@ -64,11 +67,15 @@ const setupCssInjection = (webContents: Electron.WebContents) => {
   });
 };
 
-export const getAllPlugins = () => {
-  const isDirectory = (source: fs.PathLike) => fs.lstatSync(source).isDirectory();
-  return fs
-    .readdirSync(__dirname)
-    .map((name) => path.join(__dirname, name))
-    .filter(isDirectory)
-    .map((name) => path.basename(name));
+export const getAvailablePluginNames = () => {
+  return Object.keys(defaultConfig.plugins).filter((name) => {
+    if (is.windows() && name === 'touchbar') {
+      return false;
+    } else if (is.macOS() && name === 'taskbar-mediacontrol') {
+      return false;
+    } else if (is.linux() && (name === 'taskbar-mediacontrol' || name === 'touchbar')) {
+      return false;
+    }
+    return true;
+  });
 };

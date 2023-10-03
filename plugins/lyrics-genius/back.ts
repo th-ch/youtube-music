@@ -15,7 +15,7 @@ import type { ConfigType } from '../../config/dynamic';
 const eastAsianChars = /\p{Script=Katakana}|\p{Script=Hiragana}|\p{Script=Hangul}|\p{Script=Han}/u;
 let revRomanized = false;
 
-export type LyricGeniusType = ConfigType<'lyric-genius'>;
+export type LyricGeniusType = ConfigType<'lyrics-genius'>;
 
 export default (win: BrowserWindow, options: LyricGeniusType) => {
   if (options.romanizedLyrics) {
