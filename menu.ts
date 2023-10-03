@@ -95,14 +95,25 @@ export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
         },
         {
           label: 'Starting page',
-          submenu: Object.keys(startingPages).map((name) => ({
-            label: name,
-            type: 'radio',
-            checked: config.get('options.startingPage') === name,
-            click() {
-              config.set('options.startingPage', name);
-            },
-          })),
+          submenu: (() => {
+            const subMenuArray: Electron.MenuItemConstructorOptions[] = Object.keys(startingPages).map((name) => ({
+              label: name,
+              type: 'radio',
+              checked: config.get('options.startingPage') === name,
+              click() {
+                config.set('options.startingPage', name);
+              },
+            }));
+            subMenuArray.unshift({
+              label: 'Unset',
+              type: 'radio',
+              checked: config.get('options.startingPage') === '',
+              click() {
+                config.set('options.startingPage', '');
+              },
+            });
+            return subMenuArray;
+          })(),
         },
         {
           label: 'Visual Tweaks',
@@ -274,7 +285,7 @@ export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
             {
               label: 'Proxy',
               type: 'checkbox',
-              checked: !!(config.get('options.proxy')),
+              checked: !!(config.get('options.proxy')) && config.get('options.proxy') !== '',
               click(item) {
                 setProxy(item, win);
               },

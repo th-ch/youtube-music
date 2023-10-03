@@ -1,6 +1,6 @@
 import path from 'node:path';
 
-import electron, { BrowserWindow } from 'electron';
+import { BrowserWindow, app, screen, globalShortcut, session, shell, dialog } from 'electron';
 import enhanceWebRequest from 'electron-better-web-request';
 import is from 'electron-is';
 import unhandled from 'electron-unhandled';
@@ -28,7 +28,6 @@ unhandled({
 // Disable Node options if the env var is set
 process.env.NODE_OPTIONS = '';
 
-const { app } = electron;
 // Prevent window being garbage collected
 let mainWindow: Electron.BrowserWindow | null;
 autoUpdater.autoDownload = false;
@@ -40,7 +39,7 @@ if (!gotTheLock) {
 
 // SharedArrayBuffer: Required for downloader (@ffmpeg/core-mt)
 // OverlayScrollbar: Required for overlay scrollbars
-app.commandLine.appendSwitch('enable-features', 'OverlayScrollbar,SharedArrayBuffer');
+app.commandLine.appendSwitch('enable-features', 'OverlayScrollbar,FluentScrollbar,SharedArrayBuffer');
 if (config.get('options.disableHardwareAcceleration')) {
   if (is.dev()) {
     console.log('Disabling hardware acceleration');
@@ -157,7 +156,7 @@ function createMainWindow() {
     const { x, y } = windowPosition;
     const winSize = win.getSize();
     const displaySize
-      = electron.screen.getDisplayNearestPoint(windowPosition).bounds;
+      = screen.getDisplayNearestPoint(windowPosition).bounds;
     if (
       x + winSize[0] < displaySize.x - 8
       || x - winSize[0] > displaySize.x + displaySize.width
@@ -340,7 +339,7 @@ app.on('window-all-closed', () => {
   }
 
   // Unregister all shortcuts.
-  electron.globalShortcut.unregisterAll();
+  globalShortcut.unregisterAll();
 });
 
 app.on('activate', () => {
@@ -361,7 +360,7 @@ app.on('ready', () => {
         console.log('Clearing app cache.');
       }
 
-      electron.session.defaultSession.clearCache();
+      session.defaultSession.clearCache();
       clearTimeout(clearCacheTimeout);
     }, 20_000);
   }
@@ -376,7 +375,7 @@ app.on('ready', () => {
     if (!is.dev() && !appLocation.startsWith(path.join(appData, '..', 'Local', 'Temp'))) {
       const shortcutPath = path.join(appData, 'Microsoft', 'Windows', 'Start Menu', 'Programs', 'YouTube Music.lnk');
       try { // Check if shortcut is registered and valid
-        const shortcutDetails = electron.shell.readShortcutLink(shortcutPath); // Throw error if doesn't exist yet
+        const shortcutDetails = shell.readShortcutLink(shortcutPath); // Throw error if doesn't exist yet
         if (
           shortcutDetails.target !== appLocation
           || shortcutDetails.appUserModelId !== appID
@@ -384,7 +383,7 @@ app.on('ready', () => {
           throw 'needUpdate';
         }
       } catch (error) { // If not valid -> Register shortcut
-        electron.shell.writeShortcutLink(
+        shell.writeShortcutLink(
           shortcutPath,
           error === 'needUpdate' ? 'update' : 'create',
           {
@@ -453,11 +452,11 @@ app.on('ready', () => {
         message: 'A new version is available',
         detail: `A new version is available and can be downloaded at ${downloadLink}`,
       };
-      electron.dialog.showMessageBox(dialogOptions).then((dialogOutput) => {
+      dialog.showMessageBox(dialogOptions).then((dialogOutput) => {
         switch (dialogOutput.response) {
           // Download
           case 1: {
-            electron.shell.openExternal(downloadLink);
+            shell.openExternal(downloadLink);
             break;
           }
 
@@ -476,7 +475,7 @@ app.on('ready', () => {
   }
 
   if (config.get('options.hideMenu') && !config.get('options.hideMenuWarned')) {
-    electron.dialog.showMessageBox(mainWindow, {
+    dialog.showMessageBox(mainWindow, {
       type: 'info', title: 'Hide Menu Enabled',
       message: "Menu is hidden, use 'Alt' to show it (or 'Escape' if using in-app-menu)",
     });
@@ -509,7 +508,7 @@ function showUnresponsiveDialog(win: BrowserWindow, details: Electron.RenderProc
     console.log('Unresponsive Error!\n' + JSON.stringify(details, null, '\t'));
   }
 
-  electron.dialog.showMessageBox(win, {
+  dialog.showMessageBox(win, {
     type: 'error',
     title: 'Window Unresponsive',
     message: 'The Application is Unresponsive',
@@ -534,15 +533,15 @@ function showUnresponsiveDialog(win: BrowserWindow, details: Electron.RenderProc
 // HACK: electron-better-web-request's typing is wrong
 type BetterSession = Omit<Electron.Session, 'webRequest'> & { webRequest: BetterWebRequest & Electron.WebRequest };
 function removeContentSecurityPolicy(
-  session: BetterSession = electron.session.defaultSession as BetterSession,
+  betterSession: BetterSession = session.defaultSession as BetterSession,
 ) {
   // Allows defining multiple "onHeadersReceived" listeners
   // by enhancing the session.
   // Some plugins (e.g. adblocker) also define a "onHeadersReceived" listener
-  enhanceWebRequest(session);
+  enhanceWebRequest(betterSession);
 
   // Custom listener to tweak the content security policy
-  session.webRequest.onHeadersReceived((details, callback) => {
+  betterSession.webRequest.onHeadersReceived((details, callback) => {
     details.responseHeaders ??= {};
 
     // Remove the content security policy
@@ -554,7 +553,7 @@ function removeContentSecurityPolicy(
 
   type ResolverListener = { apply: () => Promise<Record<string, unknown>>; context: unknown };
   // When multiple listeners are defined, apply them all
-  session.webRequest.setResolver('onHeadersReceived', async (listeners: ResolverListener[]) => {
+  betterSession.webRequest.setResolver('onHeadersReceived', async (listeners: ResolverListener[]) => {
     return listeners.reduce<Promise<Record<string, unknown>>>(
       async (accumulator: Promise<Record<string, unknown>>, listener: ResolverListener) => {
         const acc = await accumulator;
