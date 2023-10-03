@@ -54,15 +54,6 @@ function hexToHSL(H: string) {
   return [h,s,l];
 }
 
-// updated elements
-const playerPage = document.querySelector<HTMLElement>('#player-page');
-const navBarBackground = document.querySelector<HTMLElement>('#nav-bar-background');
-const ytmusicPlayerBar = document.querySelector<HTMLElement>('ytmusic-player-bar');
-const playerBarBackground = document.querySelector<HTMLElement>('#player-bar-background');
-const sidebarBig = document.querySelector<HTMLElement>('#guide-wrapper');
-const sidebarSmall = document.querySelector<HTMLElement>('#mini-guide-background');
-const ytmusicAppLayout = document.querySelector<HTMLElement>('#layout');
-
 let hue = 0;
 let saturation = 0;
 let lightness = 0;
@@ -74,6 +65,15 @@ function changeElementColor(element: HTMLElement | null, hue: number, saturation
 }
 
 export default (_: ConfigType<'album-color-theme'>) => {
+  // updated elements
+  const playerPage = document.querySelector<HTMLElement>('#player-page');
+  const navBarBackground = document.querySelector<HTMLElement>('#nav-bar-background');
+  const ytmusicPlayerBar = document.querySelector<HTMLElement>('ytmusic-player-bar');
+  const playerBarBackground = document.querySelector<HTMLElement>('#player-bar-background');
+  const sidebarBig = document.querySelector<HTMLElement>('#guide-wrapper');
+  const sidebarSmall = document.querySelector<HTMLElement>('#mini-guide-background');
+  const ytmusicAppLayout = document.querySelector<HTMLElement>('#layout');
+  
   const observer = new MutationObserver((mutationsList) => {
     for (const mutation of mutationsList) {
       if (mutation.type === 'attributes') {
