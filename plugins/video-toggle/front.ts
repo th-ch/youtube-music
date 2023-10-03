@@ -56,17 +56,11 @@ function setup(e: CustomEvent<YoutubePlayer>) {
 
   $<HTMLVideoElement>('#player')?.prepend(switchButtonDiv);
 
-  if (options.hideVideo) {
-    const checkbox = $<HTMLInputElement>('.video-switch-button-checkbox');
-    if (checkbox) {
-      checkbox.checked = false;
-    }
-    changeDisplay(false);
-    forcePlaybackMode();
-    // Fix black video
-    if (video) {
-      video.style.height = 'auto';
-    }
+  setVideoState(!options.hideVideo);
+  forcePlaybackMode();
+  // Fix black video
+  if (video) {
+    video.style.height = 'auto';
   }
 
   //Prevents bubbling to the player which causes it to stop or resume
@@ -77,9 +71,8 @@ function setup(e: CustomEvent<YoutubePlayer>) {
   // Button checked = show video
   switchButtonDiv.addEventListener('change', (e) => {
     const target = e.target as HTMLInputElement;
-    options.hideVideo = target.checked;
-    changeDisplay(target.checked);
-    setOptions('video-toggle', options);
+
+    setVideoState(target.checked);
   });
 
   video?.addEventListener('srcChanged', videoStarted);
@@ -104,7 +97,13 @@ function setup(e: CustomEvent<YoutubePlayer>) {
   }
 }
 
-function changeDisplay(showVideo: boolean) {
+function setVideoState(showVideo: boolean) {
+  options.hideVideo = !showVideo;
+  setOptions('video-toggle', options);
+
+  const checkbox = $<HTMLInputElement>('.video-switch-button-checkbox'); // custom mode
+  if (checkbox) checkbox.checked = !options.hideVideo;
+
   if (player) {
     player.style.margin = showVideo ? '' : 'auto 0px';
     player.setAttribute('playback-mode', showVideo ? 'OMV_PREFERRED' : 'ATV_PREFERRED');
@@ -123,7 +122,7 @@ function changeDisplay(showVideo: boolean) {
 function videoStarted() {
   if (api.getPlayerResponse().videoDetails.musicVideoType === 'MUSIC_VIDEO_TYPE_ATV') {
     // Video doesn't exist -> switch to song mode
-    changeDisplay(false);
+    setVideoState(false);
     // Hide toggle button
     switchButtonDiv.style.display = 'none';
   } else {
@@ -137,7 +136,7 @@ function videoStarted() {
     switchButtonDiv.style.display = 'initial';
     // Change display to video mode if video exist & video is hidden & option.hideVideo = false
     if (!options.hideVideo && $<HTMLElement>('#song-video.ytmusic-player')?.style.display === 'none') {
-      changeDisplay(true);
+      setVideoState(true);
     } else {
       moveVolumeHud(!options.hideVideo);
     }
