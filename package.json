@@ -22,6 +22,9 @@
         "!dist/plugins/taskbar-mediacontrol${/*}",
         "license",
         "node_modules",
+        "!node_modules/sharp/vendor",
+        "!node_modules/**/*.map",
+        "!node_modules/**/*.ts",
         "package.json",
         "tests"
       ],
@@ -44,6 +47,9 @@
         "!dist/plugins/touchbar${/*}",
         "license",
         "node_modules",
+        "!node_modules/sharp/vendor",
+        "!node_modules/**/*.map",
+        "!node_modules/**/*.ts",
         "package.json",
         "tests"
       ],
@@ -75,6 +81,9 @@
         "!dist/plugins/{touchbar,taskbar-mediacontrol}${/*}",
         "license",
         "node_modules",
+        "!node_modules/sharp/vendor",
+        "!node_modules/**/*.map",
+        "!node_modules/**/*.ts",
         "package.json",
         "tests"
       ],
