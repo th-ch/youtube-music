@@ -23,6 +23,7 @@ title-bar {
   color: #f1f1f1;
   font-size: 14px;
   padding: 4px 12px;
+  padding-left: var(--offset-left, 12px);
   background-color: var(--titlebar-background-color, #030303);
   user-select: none;
 

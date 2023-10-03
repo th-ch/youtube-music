@@ -11,14 +11,17 @@ function $<E extends Element = Element>(selector: string) {
   return document.querySelector<E>(selector);
 }
 
+const isMacOS = navigator.userAgent.includes('Macintosh');
+
 export default () => {
   const titleBar = document.createElement('title-bar');
   const navBar = document.querySelector<HTMLDivElement>('#nav-bar-background');
+  if (isMacOS) titleBar.style.setProperty('--offset-left', '70px');
 
   const logo = ElementFromFile(path.join(__dirname, '..' , '..' , 'assets', 'youtube-music.svg'));
   logo.classList.add('title-bar-icon');
 
-  titleBar.appendChild(logo);
+  if (!isMacOS) titleBar.appendChild(logo);
   document.body.appendChild(titleBar);
 
   if (navBar) {
