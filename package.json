@@ -136,7 +136,7 @@
     "@ffmpeg.wasm/core-mt": "0.12.0",
     "@ffmpeg.wasm/main": "0.12.0",
     "@foobar404/wave": "2.0.4",
-    "@xhayper/discord-rpc": "1.0.22",
+    "@xhayper/discord-rpc": "1.0.23",
     "async-mutex": "0.4.0",
     "butterchurn": "2.6.7",
     "butterchurn-presets": "2.4.7",
@@ -159,7 +159,7 @@
     "node-id3": "0.2.6",
     "simple-youtube-age-restriction-bypass": "git+https://github.com/MiepHD/Simple-YouTube-Age-Restriction-Bypass.git#v2.5.5",
     "vudio": "2.1.1",
-    "youtubei.js": "6.4.0",
+    "youtubei.js": "6.4.1",
     "ytpl": "2.3.0"
   },
   "overrides": {
@@ -167,7 +167,7 @@
     "sharp": "0.32.6",
     "node-fetch": "2.7.0",
     "@electron/universal": "1.4.2",
-    "electron": "27.0.0-beta.8"
+    "electron": "27.0.0-beta.9"
   },
   "devDependencies": {
     "@playwright/test": "1.38.1",
@@ -175,11 +175,11 @@
     "@types/electron-localshortcut": "3.1.1",
     "@types/howler": "2.2.9",
     "@types/html-to-text": "9.0.2",
-    "@typescript-eslint/eslint-plugin": "6.7.3",
+    "@typescript-eslint/eslint-plugin": "6.7.4",
     "auto-changelog": "2.4.0",
     "copyfiles": "2.4.1",
     "del-cli": "5.1.0",
-    "electron": "27.0.0-beta.8",
+    "electron": "27.0.0-beta.9",
     "electron-builder": "24.6.4",
     "electron-devtools-installer": "3.2.0",
     "eslint": "8.50.0",
