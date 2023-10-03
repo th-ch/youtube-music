@@ -2,7 +2,19 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v1.20.4](https://github.com/organization/youtube-music-next/compare/v1.20.3...v1.20.4)
+
+- refactor(in-app-menu): refactor in-app-menu plugin [`#13`](https://github.com/organization/youtube-music-next/issues/13)
+- feat(disable-autoplay): add `apply once`, resolve #9 [`#9`](https://github.com/organization/youtube-music-next/issues/9)
+- fix: fix #4 [`#4`](https://github.com/organization/youtube-music-next/issues/4)
+- fix: fix #7 [`#7`](https://github.com/organization/youtube-music-next/issues/7)
+- chore(deps): bump deps [`47bd015`](https://github.com/organization/youtube-music-next/commit/47bd01554944bd3ad2d39d4039afd0ad4584b182)
+- fix(lyrics-genius): fix th-ch/youtube-music#1253 [`aed1bbc`](https://github.com/organization/youtube-music-next/commit/aed1bbc6d724c9d71462843467ab51b77e1cf5a1)
+- fix(in-app-menu): overlay-scrollbar [`2cb05c9`](https://github.com/organization/youtube-music-next/commit/2cb05c9d86bd426da1ea73665a8a501788026f71)
+
 #### [v1.20.3](https://github.com/organization/youtube-music-next/compare/v1.20.2...v1.20.3)
+
+> 1 October 2023
 
 - release 1.20.3: fix updater download link [`5cd2e78`](https://github.com/organization/youtube-music-next/commit/5cd2e78e884c99b5d246c7cab8ff9b15be537cac)
 
