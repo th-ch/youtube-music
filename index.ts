@@ -38,7 +38,9 @@ if (!gotTheLock) {
   app.exit();
 }
 
-app.commandLine.appendSwitch('enable-features', 'SharedArrayBuffer'); // Required for downloader
+// SharedArrayBuffer: Required for downloader (@ffmpeg/core-mt)
+// OverlayScrollbar: Required for overlay scrollbars
+app.commandLine.appendSwitch('enable-features', 'OverlayScrollbar,SharedArrayBuffer');
 if (config.get('options.disableHardwareAcceleration')) {
   if (is.dev()) {
     console.log('Disabling hardware acceleration');

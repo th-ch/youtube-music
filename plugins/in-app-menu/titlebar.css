@@ -19,7 +19,7 @@ title-bar {
   justify-content: flex-start;
   align-items: center;
   gap: 4px;
-  
+
   color: #f1f1f1;
   font-size: 14px;
   padding: 4px 12px;
@@ -109,7 +109,7 @@ menu-separator {
   height: 1px;
   margin: 4px 0;
 
-  background-color: rgba(255, 255, 255, 0.2); 
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 /* classes */
@@ -135,23 +135,4 @@ ytmusic-app-layout>[slot=nav-bar], #nav-bar-background.ytmusic-app-layout {
 ytmusic-app[is-bauhaus-sidenav-enabled] #guide-spacer.ytmusic-app,
 ytmusic-app[is-bauhaus-sidenav-enabled] #mini-guide-spacer.ytmusic-app {
   margin-top: calc(var(--ytmusic-nav-bar-height) + var(--menu-bar-height, 36px)) !important;
-}
-
-
-html::-webkit-scrollbar {
-  width: 12px !important;
-}
-
-html::-webkit-scrollbar-thumb {
-  border: solid 2px var(--titlebar-background-color, #030303) !important;
-  border-radius: 100px !important;
-}
-
-html::-webkit-scrollbar-track {
-  background: var(--titlebar-background-color, #030303) !important;
-}
-
-html::-webkit-scrollbar-track-piece:start {
-  background: transparent;
-  margin-top: var(--menu-bar-height, 36px);
 }

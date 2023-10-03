@@ -18,7 +18,7 @@ export default () => {
   const titleBar = document.createElement('title-bar');
   const navBar = document.querySelector<HTMLDivElement>('#nav-bar-background');
 
-  const logo = ElementFromFile(path.join(__dirname, '../../assets/youtube-music.svg'));
+  const logo = ElementFromFile(path.join(__dirname, '..' , '..' , 'assets', 'youtube-music.svg'));
   logo.classList.add('title-bar-icon');
 
   titleBar.appendChild(logo);
@@ -47,7 +47,7 @@ export default () => {
     menu.items.forEach((menuItem) => {
       const menu = document.createElement('menu-button');
       createPanel(titleBar, menu, menuItem.submenu?.items ?? []);
-      
+
       menu.append(menuItem.label);
       titleBar.appendChild(menu);
     });
@@ -69,6 +69,11 @@ export default () => {
   // Increases the right margin of Navbar background when the scrollbar is visible to avoid blocking it (z-index doesn't affect it)
   document.addEventListener('apiLoaded', () => {
     setupSearchOpenObserver();
+    const htmlHeadStyle = $('head > div > style');
+    if (htmlHeadStyle) {
+      // HACK: This is a hack to remove the scrollbar width
+      htmlHeadStyle.innerHTML = htmlHeadStyle.innerHTML.replace('html::-webkit-scrollbar {width: var(--ytmusic-scrollbar-width);', 'html::-webkit-scrollbar {');
+    }
   }, { once: true, passive: true });
 };
 
