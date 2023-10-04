@@ -7,6 +7,7 @@ import { setupSongControls } from './providers/song-controls-front';
 import { startingPages } from './providers/extracted-data';
 
 import albumColorThemeRenderer from './plugins/album-color-theme/front';
+import ambientModeRenderer from './plugins/ambient-mode/front';
 import audioCompressorRenderer from './plugins/audio-compressor/front';
 import bypassAgeRestrictionsRenderer from './plugins/bypass-age-restrictions/front';
 import captionsSelectorRenderer from './plugins/captions-selector/front';
@@ -43,6 +44,7 @@ type PluginMapper<Type extends 'renderer' | 'preload' | 'backend'> = {
 
 const rendererPlugins: PluginMapper<'renderer'> = {
   'album-color-theme': albumColorThemeRenderer,
+  'ambient-mode': ambientModeRenderer,
   'audio-compressor': audioCompressorRenderer,
   'bypass-age-restrictions': bypassAgeRestrictionsRenderer,
   'captions-selector': captionsSelectorRenderer,

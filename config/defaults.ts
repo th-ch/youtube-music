@@ -77,6 +77,7 @@ const defaultConfig = {
       disableDefaultLists: false,
     },
     'album-color-theme': {},
+    'ambient-mode': {},
     'audio-compressor': {},
     'blur-nav-bar': {},
     'bypass-age-restrictions': {},
