@@ -181,7 +181,7 @@ export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
                 {
                   label: 'No theme',
                   type: 'radio',
-                  checked: config.get('options.themes').length === 0, // Todo rename "themes"
+                  checked: config.get('options.themes')?.length === 0, // Todo rename "themes"
                   click() {
                     config.set('options.themes', []);
                   },

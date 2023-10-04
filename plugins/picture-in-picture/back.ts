@@ -1,9 +1,9 @@
-import path from 'node:path';
-
 import { app, BrowserWindow, ipcMain } from 'electron';
 
-import { setOptions as setPluginOptions } from '../../config/plugins';
+import style from './style.css';
+
 import { injectCSS } from '../utils';
+import { setOptions as setPluginOptions } from '../../config/plugins';
 
 import type { ConfigType } from '../../config/dynamic';
 
@@ -102,7 +102,7 @@ export default (_win: BrowserWindow, _options: PiPOptions) => {
   options ??= _options;
   win ??= _win;
   setLocalOptions({ isInPiP });
-  injectCSS(win.webContents, path.join(__dirname, 'style.css'));
+  injectCSS(win.webContents, style);
   ipcMain.on('picture-in-picture', () => {
     togglePiP();
   });

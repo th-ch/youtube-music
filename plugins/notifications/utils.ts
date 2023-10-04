@@ -88,7 +88,7 @@ export const saveTempIcon = () => {
       continue;
     }
 
-    const iconPath = path.resolve(__dirname, '../../assets/media-icons-black', `${kind}.png`);
+    const iconPath = path.resolve(__dirname, 'assets', 'media-icons-black', `${kind}.png`);
     fs.mkdirSync(path.dirname(destinationPath), { recursive: true });
     fs.copyFile(iconPath, destinationPath, () => {
     });

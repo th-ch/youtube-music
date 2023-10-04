@@ -1,3 +1,4 @@
 export default () => {
-  require('@cliqz/adblocker-electron-preload');
+  const path = require.resolve('@cliqz/adblocker-electron-preload'); // prevent require hoisting
+  require(path);
 };

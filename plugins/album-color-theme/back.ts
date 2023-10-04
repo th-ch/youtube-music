@@ -1,14 +1,13 @@
-import path from 'node:path';
-
 import { getAverageColor } from 'fast-average-color-node';
 import { BrowserWindow } from 'electron';
+
+import style from './style.css';
 
 import { injectCSS } from '../utils';
 import registerCallback from '../../providers/song-info';
 
-
 export default (win: BrowserWindow) => {
-  injectCSS(win.webContents, path.join(__dirname, 'style.css'));
+  injectCSS(win.webContents, style);
 
   registerCallback((songInfo) => {
     const songTitle = songInfo.title;

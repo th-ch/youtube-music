@@ -1,4 +1,6 @@
-import { ElementFromFile, templatePath } from '../utils';
+import buttonTemplate from './templates/button_template.html';
+
+import { ElementFromHtml } from '../utils';
 import { setOptions, isEnabled } from '../../config/plugins';
 
 import { moveVolumeHud as preciseVolumeMoveVolumeHud } from '../precise-volume/front';
@@ -19,9 +21,7 @@ let player: HTMLElement & { videoMode_: boolean } | null;
 let video: HTMLVideoElement | null;
 let api: YoutubePlayer;
 
-const switchButtonDiv = ElementFromFile(
-  templatePath(__dirname, 'button_template.html'),
-);
+const switchButtonDiv = ElementFromHtml(buttonTemplate);
 
 export default (_options: ConfigType<'video-toggle'>) => {
   if (_options.forceHide) {

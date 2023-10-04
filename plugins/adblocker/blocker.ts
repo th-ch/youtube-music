@@ -1,8 +1,9 @@
 // Used for caching
 import path from 'node:path';
-import { promises } from 'node:fs';
+import fs, { promises } from 'node:fs';
 
 import { ElectronBlocker } from '@cliqz/adblocker-electron';
+import { app } from 'electron';
 
 const SOURCES = [
   'https://raw.githubusercontent.com/kbinani/adblock-youtube-ads/master/signed.txt',
@@ -23,10 +24,19 @@ export const loadAdBlockerEngine = (
   disableDefaultLists: boolean | string[] = false,
 ) => {
   // Only use cache if no additional blocklists are passed
+  let cacheDirectory: string;
+  if (app.isPackaged) {
+    cacheDirectory = path.join(app.getPath('userData'), 'cache');
+  } else {
+    cacheDirectory = path.resolve(__dirname, 'cache');
+  }
+  if (!fs.existsSync(cacheDirectory)) {
+    fs.mkdirSync(cacheDirectory);
+  }
   const cachingOptions
     = cache && additionalBlockLists.length === 0
     ? {
-      path: path.resolve(__dirname, 'ad-blocker-engine.bin'),
+      path: path.join(cacheDirectory, 'adblocker-engine.bin'),
       read: promises.readFile,
       write: promises.writeFile,
     }

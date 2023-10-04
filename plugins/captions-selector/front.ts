@@ -5,7 +5,9 @@ import { ipcRenderer } from 'electron';
 
 import configProvider from './config';
 
-import { ElementFromFile, templatePath } from '../utils';
+import CaptionsSettingsButtonHTML from './templates/captions-settings-template.html';
+
+import { ElementFromHtml } from '../utils';
 import { YoutubePlayer } from '../../types/youtube-player';
 
 import type { ConfigType } from '../../config/dynamic';
@@ -27,9 +29,7 @@ let config: ConfigType<'captions-selector'>;
 
 const $ = <Element extends HTMLElement>(selector: string): Element => document.querySelector(selector)!;
 
-const captionsSettingsButton = ElementFromFile(
-  templatePath(__dirname, 'captions-settings-template.html'),
-);
+const captionsSettingsButton = ElementFromHtml(CaptionsSettingsButtonHTML);
 
 export default async () => {
   // RENDERER

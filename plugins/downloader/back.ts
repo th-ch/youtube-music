@@ -24,6 +24,8 @@ import { cropMaxWidth, getFolder, presets, sendFeedback as sendFeedback_, setBad
 
 import config from './config';
 
+import style from './style.css';
+
 import { fetchFromGenius } from '../lyrics-genius/back';
 import { isEnabled } from '../../config/plugins';
 import { cleanupName, getImage, SongInfo } from '../../providers/song-info';
@@ -31,6 +33,7 @@ import { injectCSS } from '../utils';
 import { cache } from '../../providers/decorators';
 
 import type { GetPlayerResponse } from '../../types/get-player-response';
+
 
 type CustomSongInfo = SongInfo & { trackId?: string };
 
@@ -68,7 +71,7 @@ const sendError = (error: Error, source?: string) => {
 
 export default async (win_: BrowserWindow) => {
   win = win_;
-  injectCSS(win.webContents, join(__dirname, 'style.css'));
+  injectCSS(win.webContents, style);
 
   const cookie = (await win.webContents.session.cookies.get({ url: 'https://music.youtube.com' })).map((it) =>
     it.name + '=' + it.value + ';'
@@ -104,6 +107,7 @@ export async function downloadSong(
       increasePlaylistProgress,
     );
   } catch (error: unknown) {
+    console.log('maybe?????', error);
     sendError(error as Error, resolvedName || url);
   }
 }
@@ -316,6 +320,7 @@ async function iterableStreamToMP3(
       ffmpeg.FS('unlink', `${safeVideoName}.mp3`);
     }
   } catch (error: unknown) {
+    console.log('maybe?', error);
     sendError(error as Error, safeVideoName);
   } finally {
     releaseFFmpegMutex();
@@ -368,6 +373,7 @@ async function writeID3(buffer: Buffer, metadata: CustomSongInfo, sendFeedback: 
 
     return NodeID3.write(tags, buffer);
   } catch (error: unknown) {
+    console.log('fallback', error);
     sendError(error as Error, `${metadata.artist} - ${metadata.title}`);
     return null;
   }
@@ -482,6 +488,7 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
       counter++;
     }
   } catch (error: unknown) {
+    console.log('also?', error);
     sendError(error as Error);
   } finally {
     win.setProgressBar(-1); // Close progress bar
@@ -507,6 +514,7 @@ async function ffmpegWriteTags(filePath: string, metadata: CustomSongInfo, prese
       filePath,
     );
   } catch (error: unknown) {
+    console.log('ffmpeg?', error);
     sendError(error as Error);
   } finally {
     releaseFFmpegMutex();

@@ -4,11 +4,13 @@ import { register } from 'electron-localshortcut';
 
 import { BrowserWindow, Menu, MenuItem, ipcMain } from 'electron';
 
+import titlebarStyle from './titlebar.css';
+
 import { injectCSS } from '../utils';
 
 // Tracks menu visibility
 export default (win: BrowserWindow) => {
-  injectCSS(win.webContents, path.join(__dirname, 'titlebar.css'));
+  injectCSS(win.webContents, titlebarStyle);
 
   win.once('ready-to-show', () => {
     register(win, '`', () => {

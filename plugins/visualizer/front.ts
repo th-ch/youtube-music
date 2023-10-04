@@ -1,8 +1,5 @@
+import { ButterchurnVisualizer as butterchurn, WaveVisualizer as wave, VudioVisualizer as vudio } from './visualizers';
 import { Visualizer } from './visualizers/visualizer';
-
-import vudio from './visualizers/vudio';
-import wave from './visualizers/wave';
-import butterchurn from './visualizers/butterchurn';
 
 import defaultConfig from '../../config/defaults';
 

@@ -11,7 +11,7 @@ import { BetterWebRequest } from 'electron-better-web-request/lib/electron-bette
 
 import config from './config';
 import { setApplicationMenu } from './menu';
-import { fileExists, injectCSS } from './plugins/utils';
+import { fileExists, injectCSS, injectCSSAsFile } from './plugins/utils';
 import { isTesting } from './utils/testing';
 import { setUpTray } from './tray';
 import { setupSongInfo } from './providers/song-info';
@@ -41,6 +41,8 @@ import touchbar from './plugins/touchbar/back';
 import tunaObs from './plugins/tuna-obs/back';
 import videoToggle from './plugins/video-toggle/back';
 import visualizer from './plugins/visualizer/back';
+
+import youtubeMusicCSS from './youtube-music.css';
 
 // Catch errors and log them
 unhandled({
@@ -139,7 +141,7 @@ if (is.windows()) {
 ipcMain.handle('get-main-plugin-names', () => Object.keys(mainPlugins));
 
 function loadPlugins(win: BrowserWindow) {
-  injectCSS(win.webContents, path.join(__dirname, 'youtube-music.css'));
+  injectCSS(win.webContents, youtubeMusicCSS);
   // Load user CSS
   const themes: string[] = config.get('options.themes');
   if (Array.isArray(themes)) {
@@ -147,7 +149,7 @@ function loadPlugins(win: BrowserWindow) {
       fileExists(
         cssFile,
         () => {
-          injectCSS(win.webContents, cssFile);
+          injectCSSAsFile(win.webContents, cssFile);
         },
         () => {
           console.warn(`CSS file "${cssFile}" does not exist, ignoring`);

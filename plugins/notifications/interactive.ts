@@ -154,7 +154,7 @@ const getXml = (songInfo: SongInfo, iconSrc: string) => {
 
 const iconLocation = app.isPackaged
   ? path.resolve(app.getPath('userData'), 'icons')
-  : path.resolve(__dirname, '..', '..', 'assets/media-icons-black');
+  : path.resolve(__dirname, 'assets', 'media-icons-black');
 
 const display = (kind: keyof typeof icons) => {
   if (config.get('toastStyle') === ToastStyles.legacy) {

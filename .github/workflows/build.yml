@@ -62,17 +62,17 @@ jobs:
       - name: Build on Mac
         if: startsWith(matrix.os, 'macOS') && github.repository != 'organization/youtube-music-next'
         run: |
-          npm run build:mac
+          npm run dist:mac
 
       - name: Build on Linux
         if: startsWith(matrix.os, 'ubuntu') && github.repository != 'organization/youtube-music-next'
         run: |
-          npm run build:linux
+          npm run dist:linux
 
       - name: Build on Windows
         if: startsWith(matrix.os, 'windows') && github.repository != 'organization/youtube-music-next'
         run: |
-          npm run build:win
+          npm run dist:win
 
   release:
     runs-on: ubuntu-latest

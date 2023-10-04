@@ -1,10 +1,8 @@
-import path from 'node:path';
-
 import { ipcRenderer, Menu } from 'electron';
 
 import { createPanel } from './menu/panel';
 
-import { ElementFromFile } from '../utils';
+import logo from '../../assets/youtube-music.svg';
 import { isEnabled } from '../../config/plugins';
 
 function $<E extends Element = Element>(selector: string) {
@@ -18,7 +16,6 @@ export default () => {
   const navBar = document.querySelector<HTMLDivElement>('#nav-bar-background');
   if (isMacOS) titleBar.style.setProperty('--offset-left', '70px');
 
-  const logo = ElementFromFile(path.join(__dirname, '..' , '..' , 'assets', 'youtube-music.svg'));
   logo.classList.add('title-bar-icon');
 
   if (!isMacOS) titleBar.appendChild(logo);

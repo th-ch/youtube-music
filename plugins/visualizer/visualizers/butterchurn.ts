@@ -8,6 +8,8 @@ import { ConfigType } from '../../../config/dynamic';
 const presets = ButterchurnPresets.getPresets();
 
 class ButterchurnVisualizer extends Visualizer<Butterchurn> {
+  name = 'butterchurn';
+
   visualizer: ReturnType<typeof Butterchurn.createVisualizer>;
   private readonly renderingFrequencyInMs: number;
 
