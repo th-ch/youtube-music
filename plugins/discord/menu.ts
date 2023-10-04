@@ -1,7 +1,5 @@
 import prompt from 'custom-electron-prompt';
 
-import { Electron } from 'playwright';
-
 import { clear, connect, isConnected, registerRefresh } from './back';
 
 import { setMenuOptions } from '../../config/plugins';
