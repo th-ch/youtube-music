@@ -74,7 +74,7 @@ const defaultConfig = {
       cache: true,
       blocker: 'With blocklists',
       additionalBlockLists: [], // Additional list of filters, e.g "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters.txt"
-      disableDefaultLists: [],
+      disableDefaultLists: false,
     },
     'album-color-theme': {},
     'audio-compressor': {},

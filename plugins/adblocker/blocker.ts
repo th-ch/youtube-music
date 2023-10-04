@@ -21,14 +21,14 @@ export const loadAdBlockerEngine = (
   session: Electron.Session | undefined = undefined,
   cache = true,
   additionalBlockLists = [],
-  disableDefaultLists: boolean | string[] = false,
+  disableDefaultLists: boolean | unknown[] = false,
 ) => {
   // Only use cache if no additional blocklists are passed
   let cacheDirectory: string;
   if (app.isPackaged) {
-    cacheDirectory = path.join(app.getPath('userData'), 'cache');
+    cacheDirectory = path.join(app.getPath('userData'), 'adblock_cache');
   } else {
-    cacheDirectory = path.resolve(__dirname, 'cache');
+    cacheDirectory = path.resolve(__dirname, 'adblock_cache');
   }
   if (!fs.existsSync(cacheDirectory)) {
     fs.mkdirSync(cacheDirectory);
@@ -42,7 +42,10 @@ export const loadAdBlockerEngine = (
     }
     : undefined;
   const lists = [
-    ...(disableDefaultLists ? [] : SOURCES),
+    ...(
+      (disableDefaultLists && !Array.isArray(disableDefaultLists)) ||
+      (Array.isArray(disableDefaultLists) && disableDefaultLists.length > 0) ? [] : SOURCES
+    ),
     ...additionalBlockLists,
   ];
 
