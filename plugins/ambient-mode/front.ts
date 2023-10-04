@@ -1,6 +1,11 @@
 import { ConfigType } from '../../config/dynamic';
 
 export default (_: ConfigType<'ambient-mode'>) => {
+  const interpolationLength = 3000;
+  const framerate = 30;
+  const interpolationFrame = (interpolationLength / 1000) * framerate;
+  const qualityRatio = 50; // width size
+
   let unregister: (() => void) | null = null;
 
   const injectBlurVideo = (): (() => void) | null => {
@@ -15,19 +20,55 @@ export default (_: ConfigType<'ambient-mode'>) => {
     const blurCanvas = document.createElement('canvas');
     blurCanvas.classList.add('html5-blur-canvas');
 
-    const context = blurCanvas.getContext('2d');
+    const context = blurCanvas.getContext('2d', { willReadFrequently: true });
+
+    /* effect */
+    let lastEffectWorkId: number | null = null;
+    const imageData: (ImageData | undefined)[] = [];
+    
+    const onSync = () => {
+      if (typeof lastEffectWorkId === 'number') cancelAnimationFrame(lastEffectWorkId);
+
+      lastEffectWorkId = requestAnimationFrame(() => {
+        if (!context) return;
+
+        context.globalAlpha = 1 / interpolationFrame;
+        const width = qualityRatio;
+        let height = Math.max(Math.floor(blurCanvas.height / blurCanvas.width * width), 1);
+        if (!Number.isFinite(height)) height = width;
+
+        context.drawImage(video, 0, 0, width, height);
+
+        const nowImageData = context.getImageData(0, 0, width, height);
+        if (nowImageData) {
+          imageData.unshift(
+            new ImageData(
+              new Uint8ClampedArray(nowImageData.data),
+              nowImageData.width,
+              nowImageData.height
+            ),
+          );
+        }
+        imageData.length = framerate;
+
+        for (let i = 1; i < interpolationFrame; i += 1) {
+          context.putImageData(imageData[i] ?? imageData[0]!, 0, 0);
+        }
+
+        lastEffectWorkId = null;
+      });
+    };
 
     const applyVideoAttributes = () => {
       const rect = video.getBoundingClientRect();
 
-      blurCanvas.width = video.width || rect.width;
-      blurCanvas.height = video.height || rect.height;
-    };
+      const newWidth = Math.floor(video.width || rect.width);
+      const newHeight = Math.floor(video.height || rect.height);
 
-    const onSync = () => {
-      requestAnimationFrame(() => {
-        context?.drawImage(video, 0, 0, blurCanvas.width, blurCanvas.height);
-      });
+      blurCanvas.width = qualityRatio;
+      blurCanvas.height = Math.floor(newHeight / newWidth * qualityRatio);
+      blurCanvas.style.width = `${newWidth}px`;
+      blurCanvas.style.height = `${newHeight}px`;
     };
 
     const observer = new MutationObserver((mutations) => {
@@ -42,20 +83,37 @@ export default (_: ConfigType<'ambient-mode'>) => {
     });
 
     /* hooking */
-    video.addEventListener('timeupdate', onSync);
-
+    let canvasInterval: NodeJS.Timeout | null = null;
+    canvasInterval = setInterval(onSync, Math.max(1, Math.ceil(interpolationLength / interpolationFrame)));
     applyVideoAttributes();
     observer.observe(songVideo, { attributes: true });
     resizeObserver.observe(songVideo);
+    window.addEventListener('resize', applyVideoAttributes);
+
+    const onPause = () => {
+      if (canvasInterval) clearInterval(canvasInterval);
+      canvasInterval = null;
+    };
+    const onPlay = () => {
+      if (canvasInterval) clearInterval(canvasInterval);
+      canvasInterval = setInterval(onSync, Math.max(1, Math.ceil(interpolationLength / interpolationFrame)));
+    };
+    songVideo.addEventListener('pause', onPause);
+    songVideo.addEventListener('play', onPlay);
 
     /* injecting */
     wrapper.prepend(blurCanvas);
 
     /* cleanup */
     return () => {
-      video.removeEventListener('timeupdate', onSync);
+      if (canvasInterval) clearInterval(canvasInterval);
+
+      songVideo.removeEventListener('pause', onPause);
+      songVideo.removeEventListener('play', onPlay);
+
       observer.disconnect();
       resizeObserver.disconnect();
+      window.removeEventListener('resize', applyVideoAttributes);
 
       wrapper.removeChild(blurCanvas);
     };
