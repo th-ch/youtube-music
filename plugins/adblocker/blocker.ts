@@ -68,6 +68,3 @@ export const loadAdBlockerEngine = (
 };
 
 export default { loadAdBlockerEngine };
-if (require.main === module) {
-  loadAdBlockerEngine(); // Generate the engine without enabling it
-}
