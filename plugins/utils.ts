@@ -8,10 +8,12 @@ import is from 'electron-is';
 import { ValueOf } from '../utils/type-utils';
 import defaultConfig from '../config/defaults';
 
+export const getAssetsDirectoryLocation = () => path.resolve(__dirname, 'assets');
+
 export const getMediaIconLocation = () =>
   app.isPackaged
     ? path.resolve(app.getPath('userData'), 'icons')
-    : path.resolve(__dirname, 'assets', 'media-icons-black');
+    : path.resolve(getAssetsDirectoryLocation(), 'media-icons-black');
 
 // Creates a DOM element from an HTML string
 export const ElementFromHtml = (html: string): HTMLElement => {

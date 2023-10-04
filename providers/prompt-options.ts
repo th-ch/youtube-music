@@ -1,6 +1,8 @@
 import path from 'node:path';
 
-const iconPath = path.join(__dirname, '..', 'assets', 'youtube-music-tray.png');
+import { getAssetsDirectoryLocation } from '../plugins/utils';
+
+const iconPath = path.join(getAssetsDirectoryLocation(), 'youtube-music-tray.png');
 
 const promptOptions = {
   customStylesheet: 'dark',
