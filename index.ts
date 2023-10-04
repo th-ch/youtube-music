@@ -20,6 +20,7 @@ import { APP_PROTOCOL, handleProtocol, setupProtocolHandler } from './providers/
 
 import adblocker from './plugins/adblocker/back';
 import albumColorTheme from './plugins/album-color-theme/back';
+import ambientMode from './plugins/ambient-mode/back';
 import blurNavigationBar from './plugins/blur-nav-bar/back';
 import captionsSelector from './plugins/captions-selector/back';
 import crossfade from './plugins/crossfade/back';
@@ -103,6 +104,7 @@ function onClosed() {
 const mainPlugins = {
   'adblocker': adblocker,
   'album-color-theme': albumColorTheme,
+  'ambient-mode': ambientMode,
   'blur-nav-bar': blurNavigationBar,
   'captions-selector': captionsSelector,
   'crossfade': crossfade,
