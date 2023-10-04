@@ -206,7 +206,7 @@ function createMainWindow() {
           sandbox: false,
         }),
     },
-    frame: !is.macOS() && !is.linux() && !useInlineMenu,
+    frame: !is.macOS() && !useInlineMenu,
     titleBarOverlay: {
       color: '#00000000',
       symbolColor: '#ffffff',
