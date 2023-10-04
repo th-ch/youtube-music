@@ -1,12 +1,17 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-import { ipcMain, ipcRenderer } from 'electron';
+import { app, ipcMain, ipcRenderer } from 'electron';
 
 import is from 'electron-is';
 
 import { ValueOf } from '../utils/type-utils';
 import defaultConfig from '../config/defaults';
+
+export const getMediaIconLocation = () =>
+  app.isPackaged
+    ? path.resolve(app.getPath('userData'), 'icons')
+    : path.resolve(__dirname, 'assets', 'media-icons-black');
 
 // Creates a DOM element from an HTML string
 export const ElementFromHtml = (html: string): HTMLElement => {

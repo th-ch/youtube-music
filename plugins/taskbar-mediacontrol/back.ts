@@ -4,6 +4,7 @@ import { BrowserWindow, nativeImage } from 'electron';
 
 import getSongControls from '../../providers/song-controls';
 import registerCallback, { SongInfo } from '../../providers/song-info';
+import { getMediaIconLocation } from '../utils';
 
 export default (win: BrowserWindow) => {
   let currentSongInfo: SongInfo;
@@ -43,7 +44,7 @@ export default (win: BrowserWindow) => {
 
   // Util
   const get = (kind: string) => {
-    return path.join(__dirname, '../../assets/media-icons-black', `${kind}.png`);
+    return path.join(getMediaIconLocation(), `${kind}.png`);
   };
 
   registerCallback((songInfo) => {

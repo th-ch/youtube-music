@@ -9,6 +9,7 @@ import getSongControls from '../../providers/song-controls';
 import registerCallback, { SongInfo } from '../../providers/song-info';
 import { changeProtocolHandler } from '../../providers/protocol-handler';
 import { setTrayOnClick, setTrayOnDoubleClick } from '../../tray';
+import { getMediaIconLocation } from '../utils';
 
 let songControls: ReturnType<typeof getSongControls>;
 let savedNotification: Notification | undefined;
@@ -151,11 +152,6 @@ const getXml = (songInfo: SongInfo, iconSrc: string) => {
     }
   }
 };
-
-const iconLocation = app.isPackaged
-  ? path.resolve(app.getPath('userData'), 'icons')
-  : path.resolve(__dirname, 'assets', 'media-icons-black');
-
 const display = (kind: keyof typeof icons) => {
   if (config.get('toastStyle') === ToastStyles.legacy) {
     return `content="${icons[kind]}"`;
@@ -163,7 +159,7 @@ const display = (kind: keyof typeof icons) => {
 
   return `\
             content="${config.get('hideButtonText') ? '' : kind.charAt(0).toUpperCase() + kind.slice(1)}"\
-            imageUri="file:///${path.resolve(__dirname, iconLocation, `${kind}.png`)}"
+            imageUri="file:///${path.resolve(getMediaIconLocation(), `${kind}.png`)}"
         `;
 };
 

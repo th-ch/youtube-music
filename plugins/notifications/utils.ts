@@ -7,6 +7,7 @@ import config from './config';
 
 import { cache } from '../../providers/decorators';
 import { SongInfo } from '../../providers/song-info';
+import { getMediaIconLocation } from '../utils';
 
 const icon = 'assets/youtube-music.png';
 const userData = app.getPath('userData');
@@ -88,10 +89,9 @@ export const saveTempIcon = () => {
       continue;
     }
 
-    const iconPath = path.resolve(__dirname, 'assets', 'media-icons-black', `${kind}.png`);
+    const iconPath = path.resolve(getMediaIconLocation(), `${kind}.png`);
     fs.mkdirSync(path.dirname(destinationPath), { recursive: true });
-    fs.copyFile(iconPath, destinationPath, () => {
-    });
+    fs.copyFile(iconPath, destinationPath, () => {});
   }
 };
 
