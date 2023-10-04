@@ -82,6 +82,9 @@
     "linux": {
       "icon": "assets/generated/icons/png",
       "category": "AudioVideo",
+      "asarUnpack": [
+        "**/node_modules/sharp/**"
+      ],
       "target": [
         "AppImage",
         "snap",
