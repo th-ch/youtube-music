@@ -1,10 +1,9 @@
 import { ConfigType } from '../../config/dynamic';
 
 export default (_: ConfigType<'ambient-mode'>) => {
-  const interpolationLength = 3000;
-  const framerate = 30;
-  const interpolationFrame = (interpolationLength / 1000) * framerate;
-  const qualityRatio = 50; // width size
+  const interpolationTime = 3000; // interpolation time (ms)
+  const framerate = 30; // frame
+  const qualityRatio = 50; // width size (pixel)
 
   let unregister: (() => void) | null = null;
 
@@ -24,7 +23,7 @@ export default (_: ConfigType<'ambient-mode'>) => {
 
     /* effect */
     let lastEffectWorkId: number | null = null;
-    const imageData: (ImageData | undefined)[] = [];
+    let lastImageData: ImageData | null = null;
     
     const onSync = () => {
       if (typeof lastEffectWorkId === 'number') cancelAnimationFrame(lastEffectWorkId);
@@ -32,28 +31,21 @@ export default (_: ConfigType<'ambient-mode'>) => {
       lastEffectWorkId = requestAnimationFrame(() => {
         if (!context) return;
 
-        context.globalAlpha = 1 / interpolationFrame;
         const width = qualityRatio;
         let height = Math.max(Math.floor(blurCanvas.height / blurCanvas.width * width), 1);
         if (!Number.isFinite(height)) height = width;
 
+        context.globalAlpha = 1;
+        if (lastImageData) {
+          const frameOffset = (1 / framerate) * (1000 / interpolationTime);
+          context.globalAlpha = 1 - (frameOffset * 2); // because of alpha value must be < 1
+          context.putImageData(lastImageData, 0, 0);
+          context.globalAlpha = frameOffset;
+        }
         context.drawImage(video, 0, 0, width, height);
 
         const nowImageData = context.getImageData(0, 0, width, height);
-        if (nowImageData) {
-          imageData.unshift(
-            new ImageData(
-              new Uint8ClampedArray(nowImageData.data),
-              nowImageData.width,
-              nowImageData.height
-            ),
-          );
-        }
-        imageData.length = framerate;
-
-        for (let i = 1; i < interpolationFrame; i += 1) {
-          context.putImageData(imageData[i] ?? imageData[0]!, 0, 0);
-        }
+        lastImageData = nowImageData;
 
         lastEffectWorkId = null;
       });
@@ -64,6 +56,8 @@ export default (_: ConfigType<'ambient-mode'>) => {
 
       const newWidth = Math.floor(video.width || rect.width);
       const newHeight = Math.floor(video.height || rect.height);
+
+      if (newWidth === 0 || newHeight === 0) return;
 
       blurCanvas.width = qualityRatio;
       blurCanvas.height = Math.floor(newHeight / newWidth * qualityRatio);
@@ -84,7 +78,7 @@ export default (_: ConfigType<'ambient-mode'>) => {
 
     /* hooking */
     let canvasInterval: NodeJS.Timeout | null = null;
-    canvasInterval = setInterval(onSync, Math.max(1, Math.ceil(interpolationLength / interpolationFrame)));
+    canvasInterval = setInterval(onSync, Math.max(1, Math.ceil(1000 / framerate)));
     applyVideoAttributes();
     observer.observe(songVideo, { attributes: true });
     resizeObserver.observe(songVideo);
@@ -96,7 +90,7 @@ export default (_: ConfigType<'ambient-mode'>) => {
     };
     const onPlay = () => {
       if (canvasInterval) clearInterval(canvasInterval);
-      canvasInterval = setInterval(onSync, Math.max(1, Math.ceil(interpolationLength / interpolationFrame)));
+      canvasInterval = setInterval(onSync, Math.max(1, Math.ceil(1000 / framerate)));
     };
     songVideo.addEventListener('pause', onPause);
     songVideo.addEventListener('play', onPlay);
@@ -130,6 +124,9 @@ export default (_: ConfigType<'ambient-mode'>) => {
         if (isPageOpen) {
           unregister?.();
           unregister = injectBlurVideo() ?? null;
+        } else {
+          unregister?.();
+          unregister = null;
         }
       }
     }
