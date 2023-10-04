@@ -2,7 +2,19 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v2.0.3](https://github.com/organization/youtube-music-next/compare/v2.0.2...v2.0.3)
+
+- fix: fix #34 [`#34`](https://github.com/organization/youtube-music-next/issues/34)
+- fix: fix #32 [`#32`](https://github.com/organization/youtube-music-next/issues/32)
+- fix: fix #29 [`#29`](https://github.com/organization/youtube-music-next/issues/29)
+- fix: fix #30 [`#30`](https://github.com/organization/youtube-music-next/issues/30)
+- release 2.0.3 [`bcc7397`](https://github.com/organization/youtube-music-next/commit/bcc7397f26522f56087d1ead67c89eca1e71df1a)
+- Merge pull request #33 from organization/feature/ambient-mode [`95ac01c`](https://github.com/organization/youtube-music-next/commit/95ac01c9baae1143e342c2361f10fbfb0f6a3dbe)
+- feat(ambient-mode): add ambient-mode plugin [`7479f2f`](https://github.com/organization/youtube-music-next/commit/7479f2f697b6bd21b544d5e9ebfa7f1723d27c06)
+
 #### [v2.0.2](https://github.com/organization/youtube-music-next/compare/v2.0.1...v2.0.2)
+
+> 4 October 2023
 
 - fix: fix #29 [`#29`](https://github.com/organization/youtube-music-next/issues/29)
 - fix: fix #30 [`#30`](https://github.com/organization/youtube-music-next/issues/30)
