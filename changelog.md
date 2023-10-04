@@ -2,7 +2,36 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v2.0.2](https://github.com/organization/youtube-music-next/compare/v2.0.1...v2.0.2)
+
+- fix: fix #29 [`#29`](https://github.com/organization/youtube-music-next/issues/29)
+- fix: fix #30 [`#30`](https://github.com/organization/youtube-music-next/issues/30)
+- hotfix: fix #28 [`#28`](https://github.com/organization/youtube-music-next/issues/28)
+- revert "chore(deps): update dependency node-fetch to v3" [`84f6e46`](https://github.com/organization/youtube-music-next/commit/84f6e46efc6da590748f87cce0bd42043e3dc333)
+- release 2.0.2 [`ca31845`](https://github.com/organization/youtube-music-next/commit/ca318450b84ebf5106dcdbcfa8c0231846da32d2)
+
+#### [v2.0.1](https://github.com/organization/youtube-music-next/compare/v2.0.0...v2.0.1)
+
+> 4 October 2023
+
+- chore: bump dependencies [`4b7d94b`](https://github.com/organization/youtube-music-next/commit/4b7d94b1d50deca26eb4b63df4d229b4fcd59ea2)
+- release 2.0.1 [`110dbd3`](https://github.com/organization/youtube-music-next/commit/110dbd3e180f4553bce2e57e2a468a7407e6ca74)
+
+### [v2.0.0](https://github.com/organization/youtube-music-next/compare/v1.20.4...v2.0.0)
+
+> 4 October 2023
+
+- feat: apply rollup 🚀 [`#20`](https://github.com/organization/youtube-music-next/pull/20)
+- fix: resolve #12 [`#12`](https://github.com/organization/youtube-music-next/issues/12)
+- fix(precise-volume): fix slider ui does not sync [`#15`](https://github.com/organization/youtube-music-next/issues/15)
+- fix(video-toggle): fix video config not load config [`#16`](https://github.com/organization/youtube-music-next/issues/16)
+- refactor: remove dynamic require (partial of #2) [`6e315b9`](https://github.com/organization/youtube-music-next/commit/6e315b9af2d10faac1f23b98a2b7eccf7af86ad6)
+- fix(album-color-theme): fix album-color-theme not working in macos [`2c33795`](https://github.com/organization/youtube-music-next/commit/2c337953ebd76699ec1f74f8dc28b2d9e72b9703)
+- fix rollup hanging [`548f82b`](https://github.com/organization/youtube-music-next/commit/548f82ba0adb75102845026b136ab893e043b44f)
+
 #### [v1.20.4](https://github.com/organization/youtube-music-next/compare/v1.20.3...v1.20.4)
+
+> 3 October 2023
 
 - refactor(in-app-menu): refactor in-app-menu plugin [`#13`](https://github.com/organization/youtube-music-next/issues/13)
 - feat(disable-autoplay): add `apply once`, resolve #9 [`#9`](https://github.com/organization/youtube-music-next/issues/9)
