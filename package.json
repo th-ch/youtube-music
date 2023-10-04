@@ -151,7 +151,7 @@
     "electron-unhandled": "4.0.1",
     "electron-updater": "6.1.4",
     "fast-average-color-node": "2.6.0",
-    "filenamify": "4.3.0",
+    "filenamify": "6.0.0",
     "howler": "2.2.4",
     "html-to-text": "9.0.5",
     "keyboardevent-from-electron-accelerator": "2.0.0",
@@ -169,7 +169,7 @@
     "xml2js": "0.6.2",
     "sharp": "0.32.6",
     "dbus-next": "0.10.2",
-    "node-fetch": "2.7.0",
+    "node-fetch": "3.3.2",
     "@electron/universal": "1.4.2",
     "electron": "27.0.0-beta.9"
   },
