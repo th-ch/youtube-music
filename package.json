@@ -26,8 +26,6 @@
       "node_modules/jintr/**",
       "node_modules/acorn/**",
       "node_modules/tslib/**",
-      "node_modules/sharp/**",
-      "!node_modules/sharp/vendor/*/win32-x64",
       "node_modules/semver/**",
       "node_modules/lru-cache/**",
       "node_modules/detect-libc/**",
@@ -82,9 +80,6 @@
     "linux": {
       "icon": "assets/generated/icons/png",
       "category": "AudioVideo",
-      "asarUnpack": [
-        "**/node_modules/sharp/**"
-      ],
       "target": [
         "AppImage",
         "snap",
@@ -153,7 +148,7 @@
     "electron-store": "8.1.0",
     "electron-unhandled": "4.0.1",
     "electron-updater": "6.1.4",
-    "fast-average-color-node": "2.6.0",
+    "fast-average-color": "9.4.0",
     "filenamify": "6.0.0",
     "howler": "2.2.4",
     "html-to-text": "9.0.5",
@@ -170,7 +165,6 @@
   "overrides": {
     "node-gyp": "9.4.0",
     "xml2js": "0.6.2",
-    "sharp": "0.32.6",
     "dbus-next": "0.10.2",
     "node-fetch": "2.7.0",
     "@electron/universal": "1.4.2",

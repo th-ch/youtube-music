@@ -1,8 +1,6 @@
-import { ipcRenderer } from 'electron';
+import { FastAverageColor } from 'fast-average-color';
 
 import { ConfigType } from '../../config/dynamic';
-
-import type { FastAverageColorResult } from 'fast-average-color';
 
 function hexToHSL(H: string) {
   // Convert hex to RGB first
@@ -73,7 +71,7 @@ export default (_: ConfigType<'album-color-theme'>) => {
   const sidebarBig = document.querySelector<HTMLElement>('#guide-wrapper');
   const sidebarSmall = document.querySelector<HTMLElement>('#mini-guide-background');
   const ytmusicAppLayout = document.querySelector<HTMLElement>('#layout');
-  
+
   const observer = new MutationObserver((mutationsList) => {
     for (const mutation of mutationsList) {
       if (mutation.type === 'attributes') {
@@ -93,23 +91,37 @@ export default (_: ConfigType<'album-color-theme'>) => {
     observer.observe(playerPage, { attributes: true });
   }
 
-  ipcRenderer.on('album-color-changed', (_, albumColor: FastAverageColorResult) => {
-    if (albumColor) {
-      [hue, saturation, lightness] = hexToHSL(albumColor.hex);
-      changeElementColor(playerPage, hue, saturation, lightness - 30);
-      changeElementColor(navBarBackground, hue, saturation, lightness - 15);
-      changeElementColor(ytmusicPlayerBar, hue, saturation, lightness - 15);
-      changeElementColor(playerBarBackground, hue, saturation, lightness - 15);
-      changeElementColor(sidebarBig, hue, saturation, lightness - 15);
-      if (ytmusicAppLayout?.hasAttribute('player-page-open')) {
-        changeElementColor(sidebarSmall, hue, saturation, lightness - 30);
+  document.addEventListener('apiLoaded', (apiEvent) => {
+    const fastAverageColor = new FastAverageColor();
+
+    apiEvent.detail.addEventListener('videodatachange', (name: string) => {
+      if (name === 'dataloaded') {
+        const playerResponse = apiEvent.detail.getPlayerResponse();
+        const thumbnail = playerResponse?.videoDetails?.thumbnail?.thumbnails?.at(0);
+        if (thumbnail) {
+          fastAverageColor.getColorAsync(thumbnail.url)
+            .then((albumColor) => {
+              if (albumColor) {
+                [hue, saturation, lightness] = hexToHSL(albumColor.hex);
+                changeElementColor(playerPage, hue, saturation, lightness - 30);
+                changeElementColor(navBarBackground, hue, saturation, lightness - 15);
+                changeElementColor(ytmusicPlayerBar, hue, saturation, lightness - 15);
+                changeElementColor(playerBarBackground, hue, saturation, lightness - 15);
+                changeElementColor(sidebarBig, hue, saturation, lightness - 15);
+                if (ytmusicAppLayout?.hasAttribute('player-page-open')) {
+                  changeElementColor(sidebarSmall, hue, saturation, lightness - 30);
+                }
+                const ytRightClickList = document.querySelector<HTMLElement>('tp-yt-paper-listbox');
+                changeElementColor(ytRightClickList, hue, saturation, lightness - 15);
+              } else {
+                if (playerPage) {
+                  playerPage.style.backgroundColor = '#000000';
+                }
+              }
+            })
+            .catch((e) => console.error(e));
+        }
       }
-      const ytRightClickList = document.querySelector<HTMLElement>('tp-yt-paper-listbox');
-      changeElementColor(ytRightClickList, hue, saturation, lightness - 15);
-    } else {
-      if (playerPage) {
-        playerPage.style.backgroundColor = '#000000';
-      }
-    }
+    });
   });
 };
