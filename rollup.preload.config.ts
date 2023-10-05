@@ -52,7 +52,6 @@ export default defineConfig({
   },
   external: [
     'electron',
-    'sharp',
     'custom-electron-prompt',
     ...builtinModules,
   ],
