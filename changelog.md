@@ -2,7 +2,15 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v2.1.0](https://github.com/organization/youtube-music-next/compare/v2.0.3...v2.1.0)
+
+- release 2.1.0 [`3cd1f79`](https://github.com/organization/youtube-music-next/commit/3cd1f79886a30917a043b763fa1dfaf46267b0d1)
+- Merge pull request #36 from organization/docs/versioning [`04234f0`](https://github.com/organization/youtube-music-next/commit/04234f0b3fdb60eabcda60ea79921d12b7c8a485)
+- chore(docs): versioning [`7b30896`](https://github.com/organization/youtube-music-next/commit/7b30896091f968373951cdd5d2849894b5d163d0)
+
 #### [v2.0.3](https://github.com/organization/youtube-music-next/compare/v2.0.2...v2.0.3)
+
+> 5 October 2023
 
 - fix: fix #34 [`#34`](https://github.com/organization/youtube-music-next/issues/34)
 - fix: fix #32 [`#32`](https://github.com/organization/youtube-music-next/issues/32)
