@@ -178,7 +178,7 @@
     "@rollup/plugin-node-resolve": "15.2.2",
     "@rollup/plugin-terser": "0.4.4",
     "@rollup/plugin-typescript": "11.1.5",
-    "@rollup/plugin-wasm": "6.2.1",
+    "@rollup/plugin-wasm": "6.2.2",
     "@total-typescript/ts-reset": "0.5.1",
     "@types/electron-localshortcut": "3.1.1",
     "@types/howler": "2.2.9",
