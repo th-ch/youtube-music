@@ -258,7 +258,7 @@ function createMainWindow() {
     : config.defaultConfig.url;
   win.webContents.loadURL(urlToLoad);
 
-  win.webContents.once('dom-ready', () => {
+  win.webContents.on('dom-ready', () => {
     win.webContents.executeJavaScript(fs.readFileSync(path.join(__dirname, 'renderer.js'), 'utf-8') + ';0', true);
   });
 
