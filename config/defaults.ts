@@ -80,6 +80,7 @@ const defaultConfig = {
       disableDefaultLists: [],
     },
     'album-color-theme': {},
+    'ambient-mode': {},
     // Disabled plugins
     'shortcuts': {
       enabled: false,

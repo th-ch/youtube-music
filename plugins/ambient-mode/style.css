@@ -1,0 +1,7 @@
+#song-video canvas.html5-blur-canvas{
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  filter: blur(100px);
+}
