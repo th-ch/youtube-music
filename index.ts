@@ -197,7 +197,7 @@ function createMainWindow() {
     webPreferences: {
       // TODO: re-enable contextIsolation once it can work with FFMpeg.wasm
       // Possible bundling? https://github.com/ffmpegwasm/ffmpeg.wasm/issues/126
-      contextIsolation: false,
+      contextIsolation: true,
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegrationInSubFrames: true,
       ...(isTesting()

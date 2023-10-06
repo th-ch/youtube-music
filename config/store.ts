@@ -57,7 +57,7 @@ const migrations = {
     }[] | Record<string, unknown>>;
     let updated = false;
     for (const optionType of ['global', 'local']) {
-      if (Array.isArray(options[optionType])) {
+      if (Array.isArray(options?.[optionType])) {
         const optionsArray = options[optionType] as {
           action: string;
           shortcut: unknown;

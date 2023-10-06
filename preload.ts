@@ -1,4 +1,4 @@
-import { ipcRenderer } from 'electron';
+import { contextBridge, ipcRenderer } from 'electron';
 import is from 'electron-is';
 
 import config from './config';
@@ -111,8 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setupSongControls();
 
   // Add action for reloading
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-explicit-any
-  (global as any).reload = () => ipcRenderer.send('reload');
+  contextBridge.exposeInMainWorld('reload', () => ipcRenderer.send('reload'));
 
   // Blocks the "Are You Still There?" popup by setting the last active time to Date.now every 15min
   setInterval(() => window._lact = Date.now(), 900_000);

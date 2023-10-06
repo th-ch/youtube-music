@@ -34,6 +34,7 @@ export default defineConfig({
     css(),
     copy({
       targets: [
+        { src: 'error.html', dest: 'dist/' },
         { src: 'assets', dest: 'dist/' },
       ],
     }),

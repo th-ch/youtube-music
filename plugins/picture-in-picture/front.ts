@@ -1,4 +1,4 @@
-import { ipcRenderer } from 'electron';
+import { contextBridge, ipcRenderer } from 'electron';
 import { toKeyEvent } from 'keyboardevent-from-electron-accelerator';
 import keyEventAreEqual from 'keyboardevents-areequal';
 
@@ -89,8 +89,7 @@ const togglePictureInPicture = async () => {
   return false;
 };
 // For UI (HTML)
-// eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-unsafe-member-access
-(global as any).togglePictureInPicture = togglePictureInPicture;
+contextBridge.exposeInMainWorld('togglePictureInPicture', togglePictureInPicture);
 
 const listenForToggle = () => {
   const originalExitButton = $<HTMLButtonElement>('.exit-fullscreen-button');

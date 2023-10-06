@@ -2,7 +2,7 @@ import { createWriteStream, existsSync, mkdirSync, writeFileSync, } from 'node:f
 import { join } from 'node:path';
 import { randomBytes } from 'node:crypto';
 
-import { app, BrowserWindow, dialog, ipcMain } from 'electron';
+import { app, BrowserWindow, dialog, ipcMain, net } from 'electron';
 import { ClientType, Innertube, UniversalCache, Utils } from 'youtubei.js';
 import is from 'electron-is';
 import ytpl from 'ytpl';
@@ -80,6 +80,9 @@ export default async (win_: BrowserWindow) => {
     cache: new UniversalCache(false),
     cookie,
     generate_session_locally: true,
+    fetch: async (input: RequestInfo | URL, init?: RequestInit) => {
+      return net.fetch(new Request(input, init));
+    }
   });
   ipcMain.on('download-song', (_, url: string) => downloadSong(url));
   ipcMain.on('video-src-changed', (_, data: GetPlayerResponse) => {
@@ -107,7 +110,6 @@ export async function downloadSong(
       increasePlaylistProgress,
     );
   } catch (error: unknown) {
-    console.log('maybe?????', error);
     sendError(error as Error, resolvedName || url);
   }
 }
@@ -117,8 +119,7 @@ async function downloadSongUnsafe(
   setName: (name: string) => void,
   playlistFolder: string | undefined = undefined,
   trackId: string | undefined = undefined,
-  increasePlaylistProgress: (value: number) => void = () => {
-  },
+  increasePlaylistProgress: (value: number) => void = () => {},
 ) {
   const sendFeedback = (message: unknown, progress?: number) => {
     if (!playlistFolder) {
@@ -320,7 +321,6 @@ async function iterableStreamToMP3(
       ffmpeg.FS('unlink', `${safeVideoName}.mp3`);
     }
   } catch (error: unknown) {
-    console.log('maybe?', error);
     sendError(error as Error, safeVideoName);
   } finally {
     releaseFFmpegMutex();
@@ -373,7 +373,6 @@ async function writeID3(buffer: Buffer, metadata: CustomSongInfo, sendFeedback: 
 
     return NodeID3.write(tags, buffer);
   } catch (error: unknown) {
-    console.log('fallback', error);
     sendError(error as Error, `${metadata.artist} - ${metadata.title}`);
     return null;
   }
@@ -488,7 +487,6 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
       counter++;
     }
   } catch (error: unknown) {
-    console.log('also?', error);
     sendError(error as Error);
   } finally {
     win.setProgressBar(-1); // Close progress bar
@@ -514,7 +512,6 @@ async function ffmpegWriteTags(filePath: string, metadata: CustomSongInfo, prese
       filePath,
     );
   } catch (error: unknown) {
-    console.log('ffmpeg?', error);
     sendError(error as Error);
   } finally {
     releaseFFmpegMutex();
