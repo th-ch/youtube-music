@@ -38,9 +38,9 @@ export default defineConfig({
         { src: 'assets', dest: 'dist/' },
       ],
     }),
-    //terser({
-    //  ecma: 2020,
-    //}),
+    terser({
+      ecma: 2020,
+    }),
     {
       closeBundle() {
         if (!process.env.ROLLUP_WATCH) {
