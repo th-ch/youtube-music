@@ -163,7 +163,7 @@
     "ytpl": "2.3.0"
   },
   "overrides": {
-    "rollup": "4.0.0",
+    "rollup": "4.0.1",
     "node-gyp": "9.4.0",
     "xml2js": "0.6.2",
     "dbus-next": "0.10.2",
@@ -195,7 +195,7 @@
     "eslint-plugin-prettier": "5.0.0",
     "node-gyp": "9.4.0",
     "playwright": "1.38.1",
-    "rollup": "4.0.0",
+    "rollup": "4.0.1",
     "rollup-plugin-copy": "3.5.0",
     "rollup-plugin-import-css": "3.3.4",
     "rollup-plugin-string": "3.0.0",
