@@ -30,9 +30,6 @@ interface PluginConfigOptions {
 /**
  * This class is used to create a dynamic synced config for plugins.
  *
- * [!IMPORTANT!]
- * The methods are **sync** in the main process and **async** in the renderer process.
- *
  * @param {string} name - The name of the plugin.
  * @param {boolean} [options.enableFront] - Whether the config should be available in front.js. Default: false.
  * @param {object} [options.initialOptions] - The initial options for the plugin. Default: loaded from store.
