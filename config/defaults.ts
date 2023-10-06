@@ -79,6 +79,7 @@ const defaultConfig = {
       additionalBlockLists: [], // Additional list of filters, e.g "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters.txt"
       disableDefaultLists: [],
     },
+    'album-color-theme': {},
     // Disabled plugins
     'shortcuts': {
       enabled: false,
