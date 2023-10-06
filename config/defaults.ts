@@ -81,6 +81,7 @@ const defaultConfig = {
     },
     'album-color-theme': {},
     'ambient-mode': {},
+    'lumiastream': {},
     // Disabled plugins
     'shortcuts': {
       enabled: false,

@@ -16,6 +16,8 @@ export type MenuTemplate = (Electron.MenuItemConstructorOptions | Electron.MenuI
 // True only if in-app-menu was loaded on launch
 const inAppMenuActive = config.plugins.isEnabled('in-app-menu');
 
+const betaPlugins = ['crossfade', 'lumiastream'];
+
 const pluginEnabledMenu = (plugin: string, label = '', hasSubmenu = false, refreshMenu: (() => void ) | undefined = undefined): Electron.MenuItemConstructorOptions => ({
   label: label || plugin,
   type: 'checkbox',
@@ -46,13 +48,13 @@ export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
       label: 'Plugins',
       submenu:
         getAllPlugins().map((plugin) => {
+          let pluginLabel = plugin;
+          if (betaPlugins.includes(plugin)) {
+            pluginLabel += ' [beta]';
+          }
+
           const pluginPath = path.join(__dirname, 'plugins', plugin, 'menu.js');
           if (existsSync(pluginPath)) {
-            let pluginLabel = plugin;
-            if (pluginLabel === 'crossfade') {
-              pluginLabel = 'crossfade [beta]';
-            }
-
             if (!config.plugins.isEnabled(plugin)) {
               return pluginEnabledMenu(plugin, pluginLabel, true, refreshMenu);
             }
@@ -71,7 +73,7 @@ export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
             } satisfies Electron.MenuItemConstructorOptions;
           }
 
-          return pluginEnabledMenu(plugin);
+          return pluginEnabledMenu(plugin, pluginLabel);
         }),
     },
     {
