@@ -22,7 +22,7 @@ if (process.type === 'browser') {
 
 export const isActive = (plugin: string): boolean => plugin in activePlugins;
 
-interface PluginConfigOptions {
+export interface PluginConfigOptions {
   enableFront: boolean;
   initialOptions?: OneOfDefaultConfig;
 }
@@ -51,7 +51,7 @@ interface PluginConfigOptions {
  */
 export type ConfigType<T extends OneOfDefaultConfigKey> = typeof defaultConfig.plugins[T];
 type ValueOf<T> = T[keyof T];
-type Mode<T, Mode extends 'r' | 'm'> = Mode extends 'r' ? Promise<T> : T;
+
 export class PluginConfig<T extends OneOfDefaultConfigKey> {
   private readonly name: string;
   private readonly config: ConfigType<T>;

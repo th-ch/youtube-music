@@ -2,7 +2,7 @@ import defaultConfig from './defaults';
 
 import { Entries } from '../utils/type-utils';
 
-import type { OneOfDefaultConfigKey, OneOfDefaultConfig, ConfigType } from './dynamic';
+import type { OneOfDefaultConfigKey, ConfigType, PluginConfigOptions } from './dynamic';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const activePlugins: { [key in OneOfDefaultConfigKey]?: PluginConfig<any> } = {};
@@ -12,11 +12,6 @@ export const getActivePlugins
 
 export const isActive
   = async (plugin: string) => plugin in (await window.ipcRenderer.invoke('get-active-plugins'));
-
-interface PluginConfigOptions {
-  enableFront: boolean;
-  initialOptions?: OneOfDefaultConfig;
-}
 
 /**
  * This class is used to create a dynamic synced config for plugins.
@@ -41,7 +36,7 @@ interface PluginConfigOptions {
  * };
  */
 type ValueOf<T> = T[keyof T];
-type Mode<T, Mode extends 'r' | 'm'> = Mode extends 'r' ? Promise<T> : T;
+
 export class PluginConfig<T extends OneOfDefaultConfigKey> {
   private readonly name: string;
   private readonly config: ConfigType<T>;
