@@ -1,4 +1,3 @@
-import { contextBridge, ipcRenderer } from 'electron';
 import { toKeyEvent } from 'keyboardevent-from-electron-accelerator';
 import keyEventAreEqual from 'keyboardevents-areequal';
 
@@ -6,7 +5,7 @@ import pipHTML from './templates/picture-in-picture.html';
 
 import { getSongMenu } from '../../providers/dom-elements';
 
-import { ElementFromHtml } from '../utils';
+import { ElementFromHtml } from '../utils-renderer';
 
 import type { ConfigType } from '../../config/dynamic';
 
@@ -85,11 +84,11 @@ const togglePictureInPicture = async () => {
     }
   }
 
-  ipcRenderer.send('picture-in-picture');
+  window.ipcRenderer.send('picture-in-picture');
   return false;
 };
 // For UI (HTML)
-contextBridge.exposeInMainWorld('togglePictureInPicture', togglePictureInPicture);
+window.togglePictureInPicture = togglePictureInPicture;
 
 const listenForToggle = () => {
   const originalExitButton = $<HTMLButtonElement>('.exit-fullscreen-button');
@@ -105,7 +104,7 @@ const listenForToggle = () => {
 
   const titlebar = $<HTMLElement>('.cet-titlebar');
 
-  ipcRenderer.on('pip-toggle', (_, isPip: boolean) => {
+  window.ipcRenderer.on('pip-toggle', (_, isPip: boolean) => {
     if (originalExitButton && player) {
       if (isPip) {
         replaceButton('.exit-fullscreen-button', originalExitButton)?.addEventListener('click', () => togglePictureInPicture());

@@ -51,7 +51,6 @@ export function enable(plugin: string) {
 export function disable(plugin: string) {
   setMenuOptions(plugin, { enabled: false });
 }
-
 export default {
   isEnabled,
   getEnabled,

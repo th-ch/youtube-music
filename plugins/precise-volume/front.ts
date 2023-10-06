@@ -1,6 +1,3 @@
-import { ipcRenderer } from 'electron';
-
-import { setOptions, setMenuOptions, isEnabled } from '../../config/plugins';
 import { debounce } from '../../providers/decorators';
 
 import { YoutubePlayer } from '../../types/youtube-player';
@@ -18,15 +15,15 @@ export default (_options: ConfigType<'precise-volume'>) => {
   options = _options;
   document.addEventListener('apiLoaded', (e) => {
     api = e.detail;
-    ipcRenderer.on('changeVolume', (_, toIncrease: boolean) => changeVolume(toIncrease));
-    ipcRenderer.on('setVolume', (_, value: number) => setVolume(value));
+    window.ipcRenderer.on('changeVolume', (_, toIncrease: boolean) => changeVolume(toIncrease));
+    window.ipcRenderer.on('setVolume', (_, value: number) => setVolume(value));
     firstRun();
   }, { once: true, passive: true });
 };
 
 // Without this function it would rewrite config 20 time when volume change by 20
 const writeOptions = debounce(() => {
-  setOptions('precise-volume', options);
+  window.mainConfig.plugins.setOptions('precise-volume', options);
 }, 1000);
 
 export const moveVolumeHud = debounce((showVideo: boolean) => {
@@ -68,7 +65,7 @@ function firstRun() {
   injectVolumeHud(noVid);
   if (!noVid) {
     setupVideoPlayerOnwheel();
-    if (!isEnabled('video-toggle')) {
+    if (!window.mainConfig.plugins.isEnabled('video-toggle')) {
       // Video-toggle handles hud positioning on its own
       const videoMode = () => api.getPlayerResponse().videoDetails?.musicVideoType !== 'MUSIC_VIDEO_TYPE_ATV';
       $('video')?.addEventListener('srcChanged', () => moveVolumeHud(videoMode()));
@@ -76,9 +73,9 @@ function firstRun() {
   }
 
   // Change options from renderer to keep sync
-  ipcRenderer.on('setOptions', (_event, newOptions = {}) => {
+  window.ipcRenderer.on('setOptions', (_event, newOptions = {}) => {
     Object.assign(options, newOptions);
-    setMenuOptions('precise-volume', options);
+    window.mainConfig.plugins.setMenuOptions('precise-volume', options);
   });
 }
 

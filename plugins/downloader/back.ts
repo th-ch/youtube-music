@@ -81,7 +81,22 @@ export default async (win_: BrowserWindow) => {
     cookie,
     generate_session_locally: true,
     fetch: async (input: RequestInfo | URL, init?: RequestInit) => {
-      return net.fetch(new Request(input, init));
+      const url =
+        typeof input === 'string' ?
+          new URL(input) :
+          input instanceof URL ?
+            input : new URL(input.url);
+
+      if (init?.body && !init.method) {
+        init.method = 'POST';
+      }
+
+      const request = new Request(
+        url,
+        input instanceof Request ? input : undefined,
+      );
+
+      return net.fetch(request, init);
     }
   });
   ipcMain.on('download-song', (_, url: string) => downloadSong(url));
@@ -545,11 +560,7 @@ const getPlaylistID = (aURL: URL) => {
 };
 
 const getVideoId = (url: URL | string): string | null => {
-  if (typeof url === 'string') {
-    url = new URL(url);
-  }
-
-  return url.searchParams.get('v');
+  return (new URL(url)).searchParams.get('v');
 };
 
 const getMetadata = (info: TrackInfo): CustomSongInfo => ({

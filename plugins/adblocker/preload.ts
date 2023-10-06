@@ -2,12 +2,12 @@ import config, { blockers } from './config';
 import inject from './inject';
 import injectCliqzPreload from './inject-cliqz-preload';
 
-export default async () => {
-  if (await config.shouldUseBlocklists()) {
+export default () => {
+  if (config.shouldUseBlocklists()) {
     // Preload adblocker to inject scripts/styles
     injectCliqzPreload();
     // eslint-disable-next-line @typescript-eslint/await-thenable
-  } else if ((await config.get('blocker')) === blockers.InPlayer) {
+  } else if ((config.get('blocker')) === blockers.InPlayer) {
     inject();
   }
 };

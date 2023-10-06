@@ -7,8 +7,8 @@ import type { ConfigType } from '../../config/dynamic';
 
 type AdBlockOptions = ConfigType<'adblocker'>;
 
-export default async (win: BrowserWindow, options: AdBlockOptions) => {
-  if (await shouldUseBlocklists()) {
+export default (win: BrowserWindow, options: AdBlockOptions) => {
+  if (shouldUseBlocklists()) {
     loadAdBlockerEngine(
       win.webContents.session,
       options.cache,

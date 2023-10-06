@@ -1,9 +1,8 @@
-import { ipcRenderer, Menu } from 'electron';
-
 import { createPanel } from './menu/panel';
 
 import logo from '../../assets/youtube-music.svg';
-import { isEnabled } from '../../config/plugins';
+
+import type { Menu } from 'electron';
 
 function $<E extends Element = Element>(selector: string) {
   return document.querySelector<E>(selector);
@@ -38,7 +37,7 @@ export default () => {
       if (child !== logo) child.remove();
     });
 
-    const menu = await ipcRenderer.invoke('get-menu') as Menu | null;
+    const menu = await window.ipcRenderer.invoke('get-menu') as Menu | null;
     if (!menu) return;
 
     menu.items.forEach((menuItem) => {
@@ -53,12 +52,12 @@ export default () => {
 
   document.title = 'Youtube Music';
 
-  ipcRenderer.on('refreshMenu', () => {
+  window.ipcRenderer.on('refreshMenu', () => {
     updateMenu();
   });
 
-  if (isEnabled('picture-in-picture')) {
-    ipcRenderer.on('pip-toggle', () => {
+  if (window.mainConfig.plugins.isEnabled('picture-in-picture')) {
+    window.ipcRenderer.on('pip-toggle', () => {
       updateMenu();
     });
   }

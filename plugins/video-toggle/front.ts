@@ -1,7 +1,6 @@
 import buttonTemplate from './templates/button_template.html';
 
-import { ElementFromHtml } from '../utils';
-import { setOptions, isEnabled } from '../../config/plugins';
+import { ElementFromHtml } from '../utils-renderer';
 
 import { moveVolumeHud as preciseVolumeMoveVolumeHud } from '../precise-volume/front';
 
@@ -10,7 +9,7 @@ import { ThumbnailElement } from '../../types/get-player-response';
 
 import type { ConfigType } from '../../config/dynamic';
 
-const moveVolumeHud = isEnabled('precise-volume') ? preciseVolumeMoveVolumeHud : () => {};
+const moveVolumeHud = window.mainConfig.plugins.isEnabled('precise-volume') ? preciseVolumeMoveVolumeHud : () => {};
 
 function $<E extends Element = Element>(selector: string): E | null {
   return document.querySelector<E>(selector);
@@ -99,7 +98,7 @@ function setup(e: CustomEvent<YoutubePlayer>) {
 
 function setVideoState(showVideo: boolean) {
   options.hideVideo = !showVideo;
-  setOptions('video-toggle', options);
+  window.mainConfig.plugins.setOptions('video-toggle', options);
 
   const checkbox = $<HTMLInputElement>('.video-switch-button-checkbox'); // custom mode
   if (checkbox) checkbox.checked = !options.hideVideo;

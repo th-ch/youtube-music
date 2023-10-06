@@ -1,12 +1,10 @@
-import path from 'node:path';
+import {register} from 'electron-localshortcut';
 
-import { register } from 'electron-localshortcut';
-
-import { BrowserWindow, Menu, MenuItem, ipcMain } from 'electron';
+import {BrowserWindow, ipcMain, Menu, MenuItem, nativeImage} from 'electron';
 
 import titlebarStyle from './titlebar.css';
 
-import { injectCSS } from '../utils';
+import {injectCSS} from '../utils';
 
 // Tracks menu visibility
 export default (win: BrowserWindow) => {
@@ -25,7 +23,7 @@ export default (win: BrowserWindow) => {
       (key: string, value: unknown) => (key !== 'commandsMap' && key !== 'menu') ? value : undefined),
     ),
   );
-  
+
   const getMenuItemById = (commandId: number): MenuItem | null => {
     const menu = Menu.getApplicationMenu();
 
@@ -40,7 +38,7 @@ export default (win: BrowserWindow) => {
         break;
       }
     }
-    
+
     return target;
   };
 
@@ -56,5 +54,10 @@ export default (win: BrowserWindow) => {
       result,
       (key: string, value: unknown) => (key !== 'commandsMap' && key !== 'menu') ? value : undefined),
     );
+  });
+
+  ipcMain.handle('image-path-to-data-url', (_, imagePath: string) => {
+    const nativeImageIcon = nativeImage.createFromPath(imagePath);
+    return nativeImageIcon?.toDataURL();
   });
 };

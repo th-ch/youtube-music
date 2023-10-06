@@ -1,5 +1,7 @@
 import path from 'node:path';
 
+import fs from 'node:fs';
+
 import { BrowserWindow, app, screen, globalShortcut, session, shell, dialog, ipcMain } from 'electron';
 import enhanceWebRequest from 'electron-better-web-request';
 import is from 'electron-is';
@@ -257,6 +259,11 @@ function createMainWindow() {
     ? config.get('url')
     : config.defaultConfig.url;
   win.webContents.loadURL(urlToLoad);
+
+  win.webContents.once('dom-ready', () => {
+    win.webContents.executeJavaScript(fs.readFileSync(path.join(__dirname, 'renderer.js'), 'utf-8') + ';0', true);
+  });
+
   win.on('closed', onClosed);
 
   type PiPOptions = typeof config.defaultConfig.plugins['picture-in-picture'];

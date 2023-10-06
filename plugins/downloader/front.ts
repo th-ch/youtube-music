@@ -1,10 +1,8 @@
-import { contextBridge, ipcRenderer } from 'electron';
-
 import downloadHTML from './templates/download.html';
 
 import defaultConfig from '../../config/defaults';
 import { getSongMenu } from '../../providers/dom-elements';
-import { ElementFromHtml } from '../utils';
+import { ElementFromHtml } from '../utils-renderer';
 import { getSongInfo } from '../../providers/song-info-front';
 
 let menu: Element | null = null;
@@ -40,7 +38,7 @@ const menuObserver = new MutationObserver(() => {
   setTimeout(() => doneFirstLoad ||= true, 500);
 });
 
-contextBridge.exposeInMainWorld('download', () => {
+window.download = () => {
   let videoUrl = getSongMenu()
     // Selector of first button which is always "Start Radio"
     ?.querySelector('ytmusic-menu-navigation-item-renderer[tabindex="0"] #navigation-endpoint')
@@ -51,15 +49,15 @@ contextBridge.exposeInMainWorld('download', () => {
     }
 
     if (videoUrl.includes('?playlist=')) {
-      ipcRenderer.send('download-playlist-request', videoUrl);
+      window.ipcRenderer.send('download-playlist-request', videoUrl);
       return;
     }
   } else {
     videoUrl = getSongInfo().url || window.location.href;
   }
 
-  ipcRenderer.send('download-song', videoUrl);
-});
+  window.ipcRenderer.send('download-song', videoUrl);
+};
 
 export default () => {
   document.addEventListener('apiLoaded', () => {
@@ -69,7 +67,7 @@ export default () => {
     });
   }, { once: true, passive: true });
 
-  ipcRenderer.on('downloader-feedback', (_, feedback: string) => {
+  window.ipcRenderer.on('downloader-feedback', (_, feedback: string) => {
     if (progress) {
       progress.innerHTML = feedback || 'Download';
     } else {

@@ -8,7 +8,7 @@ import terser from '@rollup/plugin-terser';
 import { string } from 'rollup-plugin-string';
 import css from 'rollup-plugin-import-css';
 import wasmPlugin from '@rollup/plugin-wasm';
-import copy from 'rollup-plugin-copy';
+import image from '@rollup/plugin-image';
 
 export default defineConfig({
   plugins: [
@@ -18,29 +18,23 @@ export default defineConfig({
     nodeResolvePlugin({
       browser: false,
       preferBuiltins: true,
-      exportConditions: ['node', 'default', 'module', 'import'] ,
     }),
     commonjs({
       ignoreDynamicRequires: true,
-    }),
-    wasmPlugin({
-      maxFileSize: 0,
-      targetEnv: 'browser',
     }),
     json(),
     string({
       include: '**/*.html',
     }),
     css(),
-    copy({
-      targets: [
-        { src: 'error.html', dest: 'dist/' },
-        { src: 'assets', dest: 'dist/' },
-      ],
+    wasmPlugin({
+      maxFileSize: 0,
+      targetEnv: 'browser',
     }),
-    //terser({
-    //  ecma: 2020,
-    //}),
+    image({ dom: true }),
+    terser({
+      ecma: 2020,
+    }),
     {
       closeBundle() {
         if (!process.env.ROLLUP_WATCH) {
@@ -50,7 +44,7 @@ export default defineConfig({
       name: 'force-close'
     },
   ],
-  input: './index.ts',
+  input: './renderer.ts',
   output: {
     format: 'cjs',
     name: '[name].js',
@@ -58,8 +52,6 @@ export default defineConfig({
   },
   external: [
     'electron',
-    'custom-electron-prompt',
-    'youtubei.js', // https://github.com/LuanRT/YouTube.js/pull/509
     ...builtinModules,
   ],
 });

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/await-thenable */
 /* renderer */
 
 import { PluginConfig } from '../../config/dynamic';
@@ -10,7 +9,7 @@ export const blockers = {
   InPlayer: 'In player',
 };
 
-export const shouldUseBlocklists = async () => await config.get('blocker') !== blockers.InPlayer;
+export const shouldUseBlocklists = () => config.get('blocker') !== blockers.InPlayer;
 
 export default Object.assign(config, {
   shouldUseBlocklists,

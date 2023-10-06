@@ -1,8 +1,8 @@
-import { nativeImage, type MenuItem, ipcRenderer, Menu } from 'electron';
-
 import Icons from './icons';
 
-import { ElementFromHtml } from '../../utils';
+import { ElementFromHtml } from '../../utils-renderer';
+
+import type { MenuItem } from 'electron';
 
 interface PanelOptions {
   placement?: 'bottom' | 'right';
@@ -19,7 +19,7 @@ export const createPanel = (
   const panel = document.createElement('menu-panel');
   panel.style.zIndex = `${options.order}`;
 
-  const updateIconState = (iconWrapper: HTMLElement, item: MenuItem) => {
+  const updateIconState = async (iconWrapper: HTMLElement, item: MenuItem) => {
     if (item.type === 'checkbox') {
       if (item.checked) iconWrapper.innerHTML = Icons.checkbox;
       else iconWrapper.innerHTML = '';
@@ -27,9 +27,9 @@ export const createPanel = (
       if (item.checked) iconWrapper.innerHTML = Icons.radio.checked;
       else iconWrapper.innerHTML = Icons.radio.unchecked;
     } else {
-      const nativeImageIcon = typeof item.icon === 'string' ? nativeImage.createFromPath(item.icon) : item.icon;
-      const iconURL = nativeImageIcon?.toDataURL();
-      
+      const iconURL = typeof item.icon === 'string' ?
+        await window.ipcRenderer.invoke('image-path-to-data-url') as string : item.icon?.toDataURL();
+
       if (iconURL) iconWrapper.style.background = `url(${iconURL})`;
     }
   };
@@ -37,7 +37,7 @@ export const createPanel = (
   const radioGroups: [MenuItem, HTMLElement][] = [];
   items.map((item) => {
     if (item.type === 'separator') return panel.appendChild(document.createElement('menu-separator'));
-    
+
     const menu = document.createElement('menu-item');
     const iconWrapper = document.createElement('menu-icon');
 
@@ -46,9 +46,9 @@ export const createPanel = (
     menu.append(item.label);
 
     menu.addEventListener('click', async () => {
-      await ipcRenderer.invoke('menu-event', item.commandId);
-      const menuItem = await ipcRenderer.invoke('get-menu-by-id', item.commandId) as MenuItem | null;
-      
+      await window.ipcRenderer.invoke('menu-event', item.commandId);
+      const menuItem = await window.ipcRenderer.invoke('get-menu-by-id', item.commandId) as MenuItem | null;
+
       if (menuItem) {
         updateIconState(iconWrapper, menuItem);
 
@@ -56,7 +56,7 @@ export const createPanel = (
           await Promise.all(
             radioGroups.map(async ([item, iconWrapper]) => {
               if (item.commandId === menuItem.commandId) return;
-              const newItem = await ipcRenderer.invoke('get-menu-by-id', item.commandId) as MenuItem | null;
+              const newItem = await window.ipcRenderer.invoke('get-menu-by-id', item.commandId) as MenuItem | null;
 
               if (newItem) updateIconState(iconWrapper, newItem);
             })
@@ -64,7 +64,7 @@ export const createPanel = (
         }
       }
     });
-  
+
     if (item.type === 'radio') {
       radioGroups.push([item, iconWrapper]);
     }

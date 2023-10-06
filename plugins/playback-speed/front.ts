@@ -1,7 +1,7 @@
 import sliderHTML from './templates/slider.html';
 
 import { getSongMenu } from '../../providers/dom-elements';
-import { ElementFromHtml } from '../utils';
+import { ElementFromHtml } from '../utils-renderer';
 import { singleton } from '../../providers/decorators';
 
 

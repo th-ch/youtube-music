@@ -104,9 +104,10 @@
   "scripts": {
     "test": "npm run build && playwright test",
     "test:debug": "DEBUG=pw:browser* npm run build && playwright test",
+    "rollup:renderer": "rollup -c rollup.renderer.config.ts --configPlugin @rollup/plugin-typescript --bundleConfigAsCjs",
     "rollup:preload": "rollup -c rollup.preload.config.ts --configPlugin @rollup/plugin-typescript --bundleConfigAsCjs",
     "rollup:main": "rollup -c rollup.main.config.ts --configPlugin @rollup/plugin-typescript --bundleConfigAsCjs",
-    "build": "npm run rollup:preload && npm run rollup:main",
+    "build": "npm run rollup:renderer && npm run rollup:preload && npm run rollup:main",
     "start": "npm run build && electron ./dist/index.js",
     "start:debug": "ELECTRON_ENABLE_LOGGING=1 npm run start",
     "generate:package": "node utils/generate-package-json.js",
