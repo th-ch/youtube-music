@@ -161,9 +161,10 @@ export default (
       state: songInfo.artist,
       largeImageKey: songInfo.imageSrc ?? '',
       largeImageText: songInfo.album ?? '',
-      buttons: options.listenAlong ? [
-        { label: 'Listen Along', url: songInfo.url ?? '' },
-      ] : undefined,
+      buttons: [
+        ...(options.listenAlong ? [{ label: 'Listen Along', url: songInfo.url ?? '' }] : []),
+        { label: 'View App On GitHub', url: 'https://github.com/th-ch/youtube-music' },
+      ],
     };
 
     if (songInfo.isPaused) {
