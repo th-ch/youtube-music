@@ -2,11 +2,11 @@ name: Build YouTube Music
 
 on:
   push:
-    branches: [ custom-version ]
+    branches: [ master ]
   pull_request:
 
 env:
-  NODE_VERSION: "18.x"
+  NODE_VERSION: "20.x"
 
 jobs:
   build:
@@ -38,21 +38,21 @@ jobs:
 
       # Build and release if it's the main repository
       - name: Build and release on Mac
-        if: startsWith(matrix.os, 'macOS') && github.repository == 'organization/youtube-music-next'
+        if: startsWith(matrix.os, 'macOS') && github.repository == 'th-ch/youtube-music'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           npm run release:mac
 
       - name: Build and release on Linux
-        if: startsWith(matrix.os, 'ubuntu') && github.repository == 'organization/youtube-music-next'
+        if: startsWith(matrix.os, 'ubuntu') && github.repository == 'th-ch/youtube-music'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           npm run release:linux
 
       - name: Build and release on Windows
-        if: startsWith(matrix.os, 'windows') && github.repository == 'organization/youtube-music-next'
+        if: startsWith(matrix.os, 'windows') && github.repository == 'th-ch/youtube-music'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -60,24 +60,24 @@ jobs:
 
       # Only build without release if it is a fork
       - name: Build on Mac
-        if: startsWith(matrix.os, 'macOS') && github.repository != 'organization/youtube-music-next'
+        if: startsWith(matrix.os, 'macOS') && github.repository != 'th-ch/youtube-music'
         run: |
-          npm run dist:mac
+          npm run build:mac
 
       - name: Build on Linux
-        if: startsWith(matrix.os, 'ubuntu') && github.repository != 'organization/youtube-music-next'
+        if: startsWith(matrix.os, 'ubuntu') && github.repository != 'th-ch/youtube-music'
         run: |
-          npm run dist:linux
+          npm run build:linux
 
       - name: Build on Windows
-        if: startsWith(matrix.os, 'windows') && github.repository != 'organization/youtube-music-next'
+        if: startsWith(matrix.os, 'windows') && github.repository != 'th-ch/youtube-music'
         run: |
-          npm run dist:win
+          npm run build:win
 
   release:
     runs-on: ubuntu-latest
     name: Release YouTube Music
-    if: github.repository == 'organization/youtube-music-next' && github.ref == 'refs/heads/custom-version'
+    if: github.repository == 'th-ch/youtube-music' && github.ref == 'refs/heads/master'
     needs: build
     steps:
       - uses: actions/checkout@v4
@@ -125,7 +125,7 @@ jobs:
           name: ${{ env.VERSION_TAG }}
           replacebody: true
           body: |
-            See [changelog](https://github.com/organization/youtube-music-next/blob/custom-version/changelog.md#${{ env.CHANGELOG_ANCHOR }}) for the list of updates and the full diff.
+            See [changelog](https://github.com/th-ch/youtube-music/blob/master/changelog.md#${{ env.CHANGELOG_ANCHOR }}) for the list of updates and the full diff.
 
             Thanks to all contributors! 🏅
 
@@ -141,3 +141,4 @@ jobs:
           commit_message: Update changelog for ${{ env.VERSION_TAG }}
           file_pattern: "changelog.md"
           commit_user_name: CI
+          commit_user_email: th-ch@users.noreply.github.com
