@@ -29,7 +29,7 @@ export const createPanel = (
     } else {
       const nativeImageIcon = typeof item.icon === 'string' ? nativeImage.createFromPath(item.icon) : item.icon;
       const iconURL = nativeImageIcon?.toDataURL();
-      
+
       if (iconURL) iconWrapper.style.background = `url(${iconURL})`;
     }
   };
@@ -37,7 +37,7 @@ export const createPanel = (
   const radioGroups: [MenuItem, HTMLElement][] = [];
   items.map((item) => {
     if (item.type === 'separator') return panel.appendChild(document.createElement('menu-separator'));
-    
+
     const menu = document.createElement('menu-item');
     const iconWrapper = document.createElement('menu-icon');
 
@@ -48,7 +48,7 @@ export const createPanel = (
     menu.addEventListener('click', async () => {
       await ipcRenderer.invoke('menu-event', item.commandId);
       const menuItem = await ipcRenderer.invoke('get-menu-by-id', item.commandId) as MenuItem | null;
-      
+
       if (menuItem) {
         updateIconState(iconWrapper, menuItem);
 
@@ -64,7 +64,7 @@ export const createPanel = (
         }
       }
     });
-  
+
     if (item.type === 'radio') {
       radioGroups.push([item, iconWrapper]);
     }

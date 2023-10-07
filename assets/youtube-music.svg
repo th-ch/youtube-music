@@ -1,13 +1,6 @@
-<svg xmlns:x="http://ns.adobe.com/Extensibility/1.0/" xmlns:i="http://ns.adobe.com/AdobeIllustrator/10.0/" xmlns:graph="http://ns.adobe.com/Graphs/1.0/" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 176 176" enable-background="new 0 0 176 176" xml:space="preserve">
-<metadata>
-	<sfw xmlns="http://ns.adobe.com/SaveForWeb/1.0/">
-		<slices/>
-		<sliceSourceBounds bottomLeftOrigin="true" height="176" width="176" x="8" y="-184"/>
-	</sfw>
-</metadata>
-<g id="XMLID_167_">
-	<circle id="XMLID_791_" fill="#FF0000" cx="88" cy="88" r="88"/>
-	<path id="XMLID_42_" fill="#FFFFFF" d="M88,46c23.1,0,42,18.8,42,42s-18.8,42-42,42s-42-18.8-42-42S64.9,46,88,46 M88,42   c-25.4,0-46,20.6-46,46s20.6,46,46,46s46-20.6,46-46S113.4,42,88,42L88,42z"/>
-	<polygon id="XMLID_274_" fill="#FFFFFF" points="72,111 111,87 72,65  "/>
-</g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 176" width="32" height="32">
+	<circle fill="red" cx="88" cy="88" r="88"/>
+	<path fill="#FFF"
+		  d="M88 46c23.1 0 42 18.8 42 42s-18.8 42-42 42-42-18.8-42-42 18.9-42 42-42m0-4c-25.4 0-46 20.6-46 46s20.6 46 46 46 46-20.6 46-46-20.6-46-46-46z"/>
+	<path fill="#FFF" d="M72 111l39-24-39-22z"/>
 </svg>
