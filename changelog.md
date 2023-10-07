@@ -2,7 +2,15 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
-#### [v2.0.0](https://github.com/th-ch/youtube-music/compare/v1.20.0...v2.0.0)
+#### [v2.0.1](https://github.com/th-ch/youtube-music/compare/v2.0.0...v2.0.1)
+
+- Update changelog for v2.0.0 [`2d69dfd`](https://github.com/th-ch/youtube-music/commit/2d69dfd333c3223ecc7de13a0abc98fd99aa3a2b)
+- hotfix: hotfix for #1267 [`c002263`](https://github.com/th-ch/youtube-music/commit/c002263c3bdd51890b8ffb431283afb60405d8fe)
+- Bump version to 2.0.1 [`a1f025e`](https://github.com/th-ch/youtube-music/commit/a1f025e23c599fe5eb63b32ea38ee81200d232d6)
+
+### [v2.0.0](https://github.com/th-ch/youtube-music/compare/v1.20.0...v2.0.0)
+
+> 7 October 2023
 
 - Bump version to 2.0.0 [`#1257`](https://github.com/th-ch/youtube-music/pull/1257)
 - feat(GitHub): add issue template [`#1264`](https://github.com/th-ch/youtube-music/pull/1264)
