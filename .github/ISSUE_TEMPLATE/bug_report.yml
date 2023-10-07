@@ -58,7 +58,7 @@ body:
 - type: textarea
   attributes:
     label: Expected Behavior
-    description: A clear and concise description of what you expected to happen.
+    description: A clear and concise description of what you expected to happen. (Add a replication step if applicable)
   validations:
     required: true
 - type: textarea
@@ -70,4 +70,4 @@ body:
 - type: textarea
   attributes:
     label: Additional Information
-    description: If your problem needs further explanation, or if the issue you're seeing cannot be reproduced in a gist, please add more information here. (e.g. reproduction steps)
+    description: If your problem needs further explanation, or if the issue you're seeing cannot be reproduced in a gist, please add more information here. 
