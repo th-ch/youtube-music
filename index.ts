@@ -28,6 +28,7 @@ import discord from './plugins/discord/back';
 import downloader from './plugins/downloader/back';
 import inAppMenu from './plugins/in-app-menu/back';
 import lastFm from './plugins/last-fm/back';
+import lumiaStream from './plugins/lumiastream/back';
 import lyricsGenius from './plugins/lyrics-genius/back';
 import navigation from './plugins/navigation/back';
 import noGoogleLogin from './plugins/no-google-login/back';
@@ -112,6 +113,7 @@ const mainPlugins = {
   'downloader': downloader,
   'in-app-menu': inAppMenu,
   'last-fm': lastFm,
+  'lumiastream': lumiaStream,
   'lyrics-genius': lyricsGenius,
   'navigation': navigation,
   'no-google-login': noGoogleLogin,
