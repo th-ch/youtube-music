@@ -59,7 +59,7 @@
       "icon": "assets/generated/icons/win/icon.ico",
       "target": [
         {
-          "target": "nsis",
+          "target": "nsis-web",
           "arch": [
             "x64",
             "ia32",
@@ -76,7 +76,7 @@
         }
       ]
     },
-    "nsis": {
+    "nsisWeb": {
       "runAfterFinish": false
     },
     "linux": {
@@ -119,7 +119,7 @@
     "dist:mac": "npm run clean && npm run build && electron-builder --mac dmg:x64 -p never",
     "dist:mac:arm64": "npm run clean && npm run build && electron-builder --mac dmg:arm64 -p never",
     "dist:win": "npm run clean && npm run build && electron-builder --win -p never",
-    "dist:win:x64": "npm run clean && npm run build && electron-builder --win nsis:x64 -p never",
+    "dist:win:x64": "npm run clean && npm run build && electron-builder --win nsis-web:x64 -p never",
     "lint": "eslint .",
     "changelog": "auto-changelog",
     "plugins": "npm run plugin:bypass-age-restrictions",
