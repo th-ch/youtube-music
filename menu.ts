@@ -75,13 +75,13 @@ export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
       label: 'Plugins',
       submenu:
         getAvailablePluginNames().map((pluginName) => {
+          let pluginLabel = pluginName;
+          if (betaPlugins.includes(pluginLabel)) {
+            pluginLabel += ' [beta]';
+          }
+
           if (Object.hasOwn(pluginMenus, pluginName)) {
             const getPluginMenu = pluginMenus[pluginName as keyof typeof pluginMenus];
-
-            let pluginLabel = pluginName;
-            if (betaPlugins.includes(pluginLabel)) {
-              pluginLabel += ' [beta]';
-            }
 
             if (!config.plugins.isEnabled(pluginName)) {
               return pluginEnabledMenu(pluginName, pluginLabel, true, refreshMenu);
