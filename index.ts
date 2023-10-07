@@ -514,7 +514,7 @@ app.on('ready', () => {
     }, 2000);
     autoUpdater.on('update-available', () => {
       const downloadLink
-        = 'https://github.com/organization/youtube-music-next/releases/latest';
+        = 'https://github.com/th-ch/youtube-music/releases/latest';
       const dialogOptions: Electron.MessageBoxOptions = {
         type: 'info',
         buttons: ['OK', 'Download', 'Disable updates'],
