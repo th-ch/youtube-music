@@ -309,11 +309,10 @@ export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
           label: 'Advanced options',
           submenu: [
             {
-              label: 'Proxy',
-              type: 'checkbox',
-              checked: !!(config.get('options.proxy')) && config.get('options.proxy') !== '',
-              click(item) {
-                setProxy(item, win);
+              label: 'Set Proxy',
+              type: 'normal',
+              async click(item) {
+                await setProxy(item, win);
               },
             },
             {
