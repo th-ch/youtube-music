@@ -86,7 +86,6 @@ const defaultConfig = {
       disableCaptions: false,
       autoload: false,
       lastCaptionsCode: '',
-      disabledCaptions: false,
     },
     'compact-sidebar': {},
     'crossfade': {
