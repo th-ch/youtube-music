@@ -15,11 +15,24 @@ interface LastFmData {
   timestamp?: number,
 }
 
-const createFormData = (parameters: Record<string, unknown>) => {
+interface LastFmSongData {
+  track?: string,
+  duration?: number,
+  artist?: string,
+  album?: string,
+  api_key: string,
+  sk?: string,
+  format: string,
+  method: string,
+  timestamp?: number,
+  api_sig?: string,
+}
+
+const createFormData = (parameters: LastFmSongData) => {
   // Creates the body for in the post request
   const formData = new URLSearchParams();
   for (const key in parameters) {
-    formData.append(key, String(parameters[key]));
+    formData.append(key, String(parameters[key as keyof LastFmSongData]));
   }
 
   return formData;
@@ -36,7 +49,7 @@ const createQueryString = (parameters: Record<string, unknown>, apiSignature: st
   return '?' + queryData.join('&');
 };
 
-const createApiSig = (parameters: Record<string, unknown>, secret: string) => {
+const createApiSig = (parameters: LastFmSongData, secret: string) => {
   // This function creates the api signature, see: https://www.last.fm/api/authspec
   const keys = Object.keys(parameters);
 
@@ -47,7 +60,7 @@ const createApiSig = (parameters: Record<string, unknown>, secret: string) => {
       continue;
     }
 
-    sig += `${key}${String(parameters[key])}`;
+    sig += `${key}${parameters[key as keyof LastFmSongData]}`;
   }
 
   sig += secret;
@@ -59,7 +72,7 @@ const createToken = async ({ api_key: apiKey, api_root: apiRoot, secret }: LastF
   // Creates and stores the auth token
   const data = {
     method: 'auth.gettoken',
-    apiKey,
+    api_key: apiKey,
     format: 'json',
   };
   const apiSigature = createApiSig(data, secret);
@@ -68,10 +81,9 @@ const createToken = async ({ api_key: apiKey, api_root: apiRoot, secret }: LastF
   return json?.token;
 };
 
-const authenticateAndGetToken = async (config: LastFMOptions) => {
+const authenticate = async (config: LastFMOptions) => {
   // Asks the user for authentication
   await shell.openExternal(`https://www.last.fm/api/auth/?api_key=${config.api_key}&token=${config.token}`);
-  return await createToken(config);
 };
 
 const getAndSetSessionKey = async (config: LastFMOptions) => {
@@ -86,18 +98,19 @@ const getAndSetSessionKey = async (config: LastFMOptions) => {
   const response = await net.fetch(`${config.api_root}${createQueryString(data, apiSignature)}`);
   const json = await response.json() as {
     error?: string,
-      session?: {
-        key: string,
-      }
+    session?: {
+      key: string,
+    }
   };
   if (json.error) {
-    config.token = await authenticateAndGetToken(config);
+    config.token = await createToken(config);
+    await authenticate(config);
     setOptions('last-fm', config);
   }
   if (json.session) {
-    config.session_key = json?.session?.key;
-    setOptions('last-fm', config);
+    config.session_key = json.session.key;
   }
+  setOptions('last-fm', config);
   return config;
 };
 
@@ -107,20 +120,20 @@ const postSongDataToAPI = async (songInfo: SongInfo, config: LastFMOptions, data
     await getAndSetSessionKey(config);
   }
 
-  const postData = {
+  const postData: LastFmSongData = {
     track: songInfo.title,
     duration: songInfo.songDuration,
     artist: songInfo.artist,
     ...(songInfo.album ? { album: songInfo.album } : undefined), // Will be undefined if current song is a video
     api_key: config.api_key,
-    api_sig: '',
     sk: config.session_key,
     format: 'json',
     ...data,
   };
 
   postData.api_sig = createApiSig(postData, config.secret);
-  net.fetch('https://ws.audioscrobbler.com/2.0/', { method: 'POST', body: createFormData(postData) })
+  const formData = createFormData(postData);
+  net.fetch('https://ws.audioscrobbler.com/2.0/', { method: 'POST', body: formData })
     .catch(async (error: {
       response?: {
         data?: {
@@ -131,7 +144,8 @@ const postSongDataToAPI = async (songInfo: SongInfo, config: LastFMOptions, data
       if (error?.response?.data?.error === 9) {
         // Session key is invalid, so remove it from the config and reauthenticate
         config.session_key = undefined;
-        config.token = await authenticateAndGetToken(config);
+        config.token = await createToken(config);
+        await authenticate(config);
         setOptions('last-fm', config);
       }
     });
