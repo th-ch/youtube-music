@@ -1,3 +1,5 @@
+import { blockers } from '../plugins/adblocker/blocker-types';
+
 export interface WindowSizeConfig {
   width: number;
   height: number;
@@ -72,7 +74,7 @@ const defaultConfig = {
     'adblocker': {
       enabled: true,
       cache: true,
-      blocker: 'With blocklists',
+      blocker: blockers.InPlayer as string,
       additionalBlockLists: [], // Additional list of filters, e.g "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters.txt"
       disableDefaultLists: false,
     },

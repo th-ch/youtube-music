@@ -1,4 +1,6 @@
-import config, { blockers } from './config';
+import config from './config';
+
+import { blockers } from './blocker-types';
 
 import { MenuTemplate } from '../../menu';
 

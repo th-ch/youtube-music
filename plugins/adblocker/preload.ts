@@ -1,6 +1,8 @@
-import config, { blockers } from './config';
+import config from './config';
 import inject from './inject';
 import injectCliqzPreload from './inject-cliqz-preload';
+
+import { blockers } from './blocker-types';
 
 export default async () => {
   if (await config.shouldUseBlocklists()) {
