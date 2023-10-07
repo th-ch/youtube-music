@@ -110,6 +110,7 @@ function registerMPRIS(win: BrowserWindow) {
         shuffle();
       }
     });
+    player.on('open', (args: { uri: string}) => { win.loadURL(args.uri); });
 
     let mprisVolNewer = false;
     let autoUpdate = false;

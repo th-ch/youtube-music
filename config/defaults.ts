@@ -125,6 +125,7 @@ const defaultConfig = {
       api_key: '04d76faaac8726e60988e14c105d421a', // Api key registered by @semvis123
       secret: 'a5d2a36fdf64819290f6982481eaffa2',
     },
+    'lumiastream': {},
     'lyrics-genius': {
       romanizedLyrics: false,
     },

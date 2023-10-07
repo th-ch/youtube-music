@@ -27,6 +27,8 @@ export type MenuTemplate = Electron.MenuItemConstructorOptions[];
 // True only if in-app-menu was loaded on launch
 const inAppMenuActive = config.plugins.isEnabled('in-app-menu');
 
+const betaPlugins = ['crossfade', 'lumiastream'];
+
 const pluginMenus = {
   'adblocker': adblockerMenu,
   'disable-autoplay': disableAutoplayMenu,
@@ -77,8 +79,8 @@ export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
             const getPluginMenu = pluginMenus[pluginName as keyof typeof pluginMenus];
 
             let pluginLabel = pluginName;
-            if (pluginLabel === 'crossfade') {
-              pluginLabel = 'crossfade [beta]';
+            if (betaPlugins.includes(plugin)) {
+              pluginLabel += ' [beta]';
             }
 
             if (!config.plugins.isEnabled(pluginName)) {
@@ -377,8 +379,8 @@ export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
         { role: 'reload' },
         { role: 'forceReload' },
         { type: 'separator' },
-        { role: 'zoomIn' },
-        { role: 'zoomOut' },
+        { role: 'zoomIn', accelerator: process.platform === 'darwin' ? 'Cmd+I' : 'Ctrl+I' },
+        { role: 'zoomOut', accelerator: process.platform === 'darwin' ? 'Cmd+O' : 'Ctrl+O' },
         { role: 'resetZoom' },
         { type: 'separator' },
         { role: 'togglefullscreen' },
