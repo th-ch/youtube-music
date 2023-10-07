@@ -1,27 +1,60 @@
 import path from 'node:path';
 
 import { register } from 'electron-localshortcut';
-// eslint-disable-next-line import/no-unresolved
-import { attachTitlebarToWindow, setupTitlebar } from 'custom-electron-titlebar/main';
 
-import { BrowserWindow } from 'electron';
+import { BrowserWindow, Menu, MenuItem, ipcMain } from 'electron';
+
+import titlebarStyle from './titlebar.css';
 
 import { injectCSS } from '../utils';
 
-
-setupTitlebar();
-
 // Tracks menu visibility
-
 export default (win: BrowserWindow) => {
-  // Css for custom scrollbar + disable drag area(was causing bugs)
-  injectCSS(win.webContents, path.join(__dirname, 'style.css'));
+  injectCSS(win.webContents, titlebarStyle);
 
   win.once('ready-to-show', () => {
-    attachTitlebarToWindow(win);
-
     register(win, '`', () => {
       win.webContents.send('toggleMenu');
     });
+  });
+
+  ipcMain.handle(
+    'get-menu',
+    () => JSON.parse(JSON.stringify(
+      Menu.getApplicationMenu(),
+      (key: string, value: unknown) => (key !== 'commandsMap' && key !== 'menu') ? value : undefined),
+    ),
+  );
+  
+  const getMenuItemById = (commandId: number): MenuItem | null => {
+    const menu = Menu.getApplicationMenu();
+
+    let target: MenuItem | null = null;
+    const stack = [...menu?.items ?? []];
+    while (stack.length > 0) {
+      const now = stack.shift();
+      now?.submenu?.items.forEach((item) => stack.push(item));
+
+      if (now?.commandId === commandId) {
+        target = now;
+        break;
+      }
+    }
+    
+    return target;
+  };
+
+  ipcMain.handle('menu-event', (event, commandId: number) => {
+    const target = getMenuItemById(commandId);
+    if (target) target.click(undefined, BrowserWindow.fromWebContents(event.sender), event.sender);
+  });
+
+  ipcMain.handle('get-menu-by-id', (_, commandId: number) => {
+    const result = getMenuItemById(commandId);
+
+    return JSON.parse(JSON.stringify(
+      result,
+      (key: string, value: unknown) => (key !== 'commandsMap' && key !== 'menu') ? value : undefined),
+    );
   });
 };

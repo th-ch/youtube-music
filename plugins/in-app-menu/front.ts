@@ -1,104 +1,95 @@
 import { ipcRenderer, Menu } from 'electron';
-// eslint-disable-next-line import/no-unresolved
-import { Color, Titlebar } from 'custom-electron-titlebar';
 
-import config from '../../config';
+import { createPanel } from './menu/panel';
+
+import logo from '../../assets/menu.svg';
 import { isEnabled } from '../../config/plugins';
-
-type ElectronCSSStyleDeclaration = CSSStyleDeclaration & { webkitAppRegion: 'drag' | 'no-drag' };
-type ElectronHTMLElement = HTMLElement & { style: ElectronCSSStyleDeclaration };
+import config from '../../config';
 
 function $<E extends Element = Element>(selector: string) {
   return document.querySelector<E>(selector);
 }
 
+const isMacOS = navigator.userAgent.includes('Macintosh');
+
 export default () => {
-  const visible = () => !!($('.cet-menubar')?.firstChild);
-  const bar = new Titlebar({
-    icon: 'https://cdn-icons-png.flaticon.com/512/5358/5358672.png',
-    backgroundColor: Color.fromHex('#050505'),
-    itemBackgroundColor: Color.fromHex('#1d1d1d') ,
-    svgColor: Color.WHITE,
-    menu: config.get('options.hideMenu') ? null as unknown as Menu : undefined,
-  });
-  bar.updateTitle(' ');
+  let hideMenu = config.get('options.hideMenu');
+  const titleBar = document.createElement('title-bar');
+  const navBar = document.querySelector<HTMLDivElement>('#nav-bar-background');
+  if (isMacOS) titleBar.style.setProperty('--offset-left', '70px');
+
+  logo.classList.add('title-bar-icon');
+  const logoClick = () => {
+    hideMenu = !hideMenu;
+    let visibilityStyle: string;
+    if (hideMenu) {
+      visibilityStyle = 'hidden';
+    } else {
+      visibilityStyle = 'visible';
+    }
+    const menus = document.querySelectorAll<HTMLElement>('menu-button');
+    menus.forEach((menu) => {
+      menu.style.visibility = visibilityStyle;
+    });
+  };
+  logo.onclick = logoClick;
+
+  ipcRenderer.on('toggleMenu', logoClick);
+
+  if (!isMacOS) titleBar.appendChild(logo);
+  document.body.appendChild(titleBar);
+
+  if (navBar) {
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach(() => {
+        titleBar.style.setProperty('--titlebar-background-color', navBar.style.backgroundColor);
+        document.querySelector('html')!.style.setProperty('--titlebar-background-color', navBar.style.backgroundColor);
+      });
+    });
+
+    observer.observe(navBar, { attributes : true, attributeFilter : ['style'] });
+  }
+
+  const updateMenu = async () => {
+    const children = [...titleBar.children];
+    children.forEach((child) => {
+      if (child !== logo) child.remove();
+    });
+
+    const menu = await ipcRenderer.invoke('get-menu') as Menu | null;
+    if (!menu) return;
+
+    menu.items.forEach((menuItem) => {
+      const menu = document.createElement('menu-button');
+      createPanel(titleBar, menu, menuItem.submenu?.items ?? []);
+
+      menu.append(menuItem.label);
+      titleBar.appendChild(menu);
+      if (hideMenu) {
+        menu.style.visibility = 'hidden';
+      }
+    });
+  };
+  updateMenu();
+
   document.title = 'Youtube Music';
 
-  const toggleMenu = () => {
-    if (visible()) {
-      bar.updateMenu(null as unknown as Menu);
-    } else {
-      bar.refreshMenu();
-    }
-  };
-
-  $('.cet-window-icon')?.addEventListener('click', toggleMenu);
-  ipcRenderer.on('toggleMenu', toggleMenu);
-
   ipcRenderer.on('refreshMenu', () => {
-    if (visible()) {
-      bar.refreshMenu();
-    }
+    updateMenu();
   });
 
   if (isEnabled('picture-in-picture')) {
     ipcRenderer.on('pip-toggle', () => {
-      bar.refreshMenu();
+      updateMenu();
     });
   }
 
   // Increases the right margin of Navbar background when the scrollbar is visible to avoid blocking it (z-index doesn't affect it)
   document.addEventListener('apiLoaded', () => {
-    setNavbarMargin();
-    const playPageObserver = new MutationObserver(setNavbarMargin);
-    const appLayout = $('ytmusic-app-layout');
-    if (appLayout) {
-      playPageObserver.observe(appLayout, { attributeFilter: ['player-page-open_', 'playerPageOpen_'] });
+    const htmlHeadStyle = $('head > div > style');
+    if (htmlHeadStyle) {
+      // HACK: This is a hack to remove the scrollbar width
+      htmlHeadStyle.innerHTML = htmlHeadStyle.innerHTML.replace('html::-webkit-scrollbar {width: var(--ytmusic-scrollbar-width);', 'html::-webkit-scrollbar {');
     }
-    setupSearchOpenObserver();
-    setupMenuOpenObserver();
   }, { once: true, passive: true });
 };
-
-function setupSearchOpenObserver() {
-  const searchOpenObserver = new MutationObserver((mutations) => {
-    const navBarBackground = $<ElectronHTMLElement>('#nav-bar-background');
-    if (navBarBackground) {
-      navBarBackground.style.webkitAppRegion = (mutations[0].target as HTMLElement & { opened: boolean }).opened ? 'no-drag' : 'drag';
-    }
-  });
-  const searchBox = $('ytmusic-search-box');
-  if (searchBox) {
-    searchOpenObserver.observe(searchBox, { attributeFilter: ['opened'] });
-  }
-}
-
-function setupMenuOpenObserver() {
-  const cetMenubar = $('.cet-menubar');
-  if (cetMenubar) {
-    const menuOpenObserver = new MutationObserver(() => {
-      let isOpen = false;
-      for (const child of cetMenubar.children) {
-        if (child.classList.contains('open')) {
-          isOpen = true;
-          break;
-        }
-      }
-      const navBarBackground = $<ElectronHTMLElement>('#nav-bar-background');
-      if (navBarBackground) {
-        navBarBackground.style.webkitAppRegion = isOpen ? 'no-drag' : 'drag';
-      }
-    });
-    menuOpenObserver.observe(cetMenubar, { subtree: true, attributeFilter: ['class'] });
-  }
-}
-
-function setNavbarMargin() {
-  const navBarBackground = $<HTMLElement>('#nav-bar-background');
-  if (navBarBackground) {
-    navBarBackground.style.right
-      = $<HTMLElement & { playerPageOpen_: boolean }>('ytmusic-app-layout')?.playerPageOpen_
-      ? '0px'
-      : '12px';
-  }
-}

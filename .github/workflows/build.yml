@@ -40,21 +40,21 @@ jobs:
       - name: Build and release on Mac
         if: startsWith(matrix.os, 'macOS') && github.repository == 'th-ch/youtube-music'
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           npm run release:mac
 
       - name: Build and release on Linux
         if: startsWith(matrix.os, 'ubuntu') && github.repository == 'th-ch/youtube-music'
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           npm run release:linux
 
       - name: Build and release on Windows
         if: startsWith(matrix.os, 'windows') && github.repository == 'th-ch/youtube-music'
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           npm run release:win
 
@@ -107,7 +107,7 @@ jobs:
         uses: cardinalby/git-get-release-action@v1
         id: get_draft_release
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           latest: true
           draft: true
@@ -117,7 +117,7 @@ jobs:
         if: ${{ env.VERSION_HASH == '' }}
         uses: irongut/EditRelease@v1.2.0
         with:
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           id: ${{ steps.get_draft_release.outputs.id }}
           draft: false
           prerelease: false
@@ -136,7 +136,7 @@ jobs:
 
       - name: Commit changelog
         if: ${{ env.VERSION_HASH == '' }}
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Update changelog for ${{ env.VERSION_TAG }}
           file_pattern: "changelog.md"

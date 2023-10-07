@@ -1,6 +1,6 @@
-import path from 'node:path';
-
 import { globalShortcut, BrowserWindow } from 'electron';
+
+import volumeHudStyle from './volume-hud.css';
 
 import { injectCSS } from '../utils';
 
@@ -16,7 +16,7 @@ export const enabled = () => isEnabled;
 
 export default (win: BrowserWindow, options: ConfigType<'precise-volume'>) => {
   isEnabled = true;
-  injectCSS(win.webContents, path.join(__dirname, 'volume-hud.css'));
+  injectCSS(win.webContents, volumeHudStyle);
 
   if (options.globalShortcuts?.volumeUp) {
     globalShortcut.register((options.globalShortcuts.volumeUp), () => win.webContents.send('changeVolume', true));

@@ -2,75 +2,106 @@ import { ipcRenderer } from 'electron';
 import is from 'electron-is';
 
 import config from './config';
-import { fileExists } from './plugins/utils';
 import setupSongInfo from './providers/song-info-front';
 import { setupSongControls } from './providers/song-controls-front';
 import { startingPages } from './providers/extracted-data';
 
+import albumColorThemeRenderer from './plugins/album-color-theme/front';
+import ambientModeRenderer from './plugins/ambient-mode/front';
+import audioCompressorRenderer from './plugins/audio-compressor/front';
+import bypassAgeRestrictionsRenderer from './plugins/bypass-age-restrictions/front';
+import captionsSelectorRenderer from './plugins/captions-selector/front';
+import compactSidebarRenderer from './plugins/compact-sidebar/front';
+import crossfadeRenderer from './plugins/crossfade/front';
+import disableAutoplayRenderer from './plugins/disable-autoplay/front';
+import downloaderRenderer from './plugins/downloader/front';
+import exponentialVolumeRenderer from './plugins/exponential-volume/front';
+import inAppMenuRenderer from './plugins/in-app-menu/front';
+import lyricsGeniusRenderer from './plugins/lyrics-genius/front';
+import navigationRenderer from './plugins/navigation/front';
+import noGoogleLogin from './plugins/no-google-login/front';
+import pictureInPictureRenderer from './plugins/picture-in-picture/front';
+import playbackSpeedRenderer from './plugins/playback-speed/front';
+import preciseVolumeRenderer from './plugins/precise-volume/front';
+import qualityChangerRenderer from './plugins/quality-changer/front';
+import skipSilencesRenderer from './plugins/skip-silences/front';
+import sponsorblockRenderer from './plugins/sponsorblock/front';
+import videoToggleRenderer from './plugins/video-toggle/front';
+import visualizerRenderer from './plugins/visualizer/front';
 
-const plugins = config.plugins.getEnabled();
+import adblockerPreload from './plugins/adblocker/preload';
+import preciseVolumePreload from './plugins/precise-volume/preload';
+
+import type { ConfigType, OneOfDefaultConfigKey } from './config/dynamic';
+
+type PluginMapper<Type extends 'renderer' | 'preload' | 'backend'> = {
+  [Key in OneOfDefaultConfigKey]?: (
+    Type extends 'renderer' ? (options: ConfigType<Key>) => (Promise<void> | void) :
+      Type extends 'preload' ? () => (Promise<void> | void) :
+    never
+  )
+};
+
+const rendererPlugins: PluginMapper<'renderer'> = {
+  'album-color-theme': albumColorThemeRenderer,
+  'ambient-mode': ambientModeRenderer,
+  'audio-compressor': audioCompressorRenderer,
+  'bypass-age-restrictions': bypassAgeRestrictionsRenderer,
+  'captions-selector': captionsSelectorRenderer,
+  'compact-sidebar': compactSidebarRenderer,
+  'crossfade': crossfadeRenderer,
+  'disable-autoplay': disableAutoplayRenderer,
+  'downloader': downloaderRenderer,
+  'exponential-volume': exponentialVolumeRenderer,
+  'in-app-menu': inAppMenuRenderer,
+  'lyrics-genius': lyricsGeniusRenderer,
+  'navigation': navigationRenderer,
+  'no-google-login': noGoogleLogin,
+  'picture-in-picture': pictureInPictureRenderer,
+  'playback-speed': playbackSpeedRenderer,
+  'precise-volume': preciseVolumeRenderer,
+  'quality-changer': qualityChangerRenderer,
+  'skip-silences': skipSilencesRenderer,
+  'sponsorblock': sponsorblockRenderer,
+  'video-toggle': videoToggleRenderer,
+  'visualizer': visualizerRenderer,
+};
+
+const preloadPlugins: PluginMapper<'preload'> = {
+  'adblocker': adblockerPreload,
+  'precise-volume': preciseVolumePreload,
+};
+
+const enabledPluginNameAndOptions = config.plugins.getEnabled();
 
 const $ = document.querySelector.bind(document);
 
 let api: Element | null = null;
 
-interface Actions {
-  CHANNEL: string;
-  ACTIONS: Record<string, string>,
-  actions: Record<string, () => void>,
-}
-
-plugins.forEach(async ([plugin, options]) => {
-  const preloadPath = await ipcRenderer.invoke(
-    'getPath',
-    __dirname,
-    'plugins',
-    plugin,
-    'preload.js',
-  ) as string;
-  fileExists(preloadPath, () => {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-unsafe-member-access
-    const run = require(preloadPath).default as (config: typeof options) => Promise<void>;
-    run(options);
-  });
-
-  const actionPath = await ipcRenderer.invoke(
-    'getPath',
-    __dirname,
-    'plugins',
-    plugin,
-    'actions.js',
-  ) as string;
-  fileExists(actionPath, () => {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const actions = (require(actionPath) as Actions).actions ?? {};
-
-    // TODO: re-enable once contextIsolation is set to true
-    // contextBridge.exposeInMainWorld(plugin + "Actions", actions);
-    for (const actionName of Object.keys(actions)) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-explicit-any
-      (global as any)[actionName] = actions[actionName];
+enabledPluginNameAndOptions.forEach(async ([plugin, options]) => {
+  if (Object.hasOwn(preloadPlugins, plugin)) {
+    const handler = preloadPlugins[plugin];
+    try {
+      await handler?.();
+    } catch (error) {
+      console.error(`Error in plugin "${plugin}": ${String(error)}`);
     }
-  });
+  }
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-  plugins.forEach(async ([plugin, options]) => {
-    const pluginPath = await ipcRenderer.invoke(
-      'getPath',
-      __dirname,
-      'plugins',
-      plugin,
-      'front.js',
-    ) as string;
-    fileExists(pluginPath, () => {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-unsafe-member-access
-      const run = require(pluginPath).default as (config: typeof options) => Promise<void>;
-      run(options);
-    });
+  enabledPluginNameAndOptions.forEach(async ([pluginName, options]) => {
+    if (Object.hasOwn(rendererPlugins, pluginName)) {
+      const handler = rendererPlugins[pluginName];
+      try {
+        await handler?.(options as never);
+      } catch (error) {
+        console.error(`Error in plugin "${pluginName}": ${String(error)}`);
+      }
+    }
   });
 
-  // Wait for complete load of youtube api
+  // Wait for complete load of YouTube api
   listenForApiLoad();
 
   // Inject song-info provider

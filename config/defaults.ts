@@ -65,24 +65,107 @@ const defaultConfig = {
     proxy: '',
     startingPage: '',
     overrideUserAgent: false,
-    themes: {} as string[],
+    themes: [] as string[],
   },
+  /** please order alphabetically */
   'plugins': {
-    // Enabled plugins
-    'navigation': {
-      enabled: true,
-    },
     'adblocker': {
       enabled: true,
       cache: true,
       blocker: 'With blocklists',
       additionalBlockLists: [], // Additional list of filters, e.g "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters.txt"
-      disableDefaultLists: [],
+      disableDefaultLists: false,
     },
     'album-color-theme': {},
     'ambient-mode': {},
+    'audio-compressor': {},
+    'blur-nav-bar': {},
+    'bypass-age-restrictions': {},
+    'captions-selector': {
+      enabled: false,
+      disableCaptions: false,
+      autoload: false,
+      lastCaptionsCode: '',
+    },
+    'compact-sidebar': {},
+    'crossfade': {
+      enabled: false,
+      fadeInDuration: 1500, // Ms
+      fadeOutDuration: 5000, // Ms
+      secondsBeforeEnd: 10, // S
+      fadeScaling: 'linear', // 'linear', 'logarithmic' or a positive number in dB
+    },
+    'disable-autoplay': {
+      applyOnce: false,
+    },
+    'discord': {
+      enabled: false,
+      autoReconnect: true, // If enabled, will try to reconnect to discord every 5 seconds after disconnecting or failing to connect
+      activityTimoutEnabled: true, // If enabled, the discord rich presence gets cleared when music paused after the time specified below
+      activityTimoutTime: 10 * 60 * 1000, // 10 minutes
+      listenAlong: true, // Add a "listen along" button to rich presence
+      hideDurationLeft: false, // Hides the start and end time of the song to rich presence
+    },
+    'downloader': {
+      enabled: false,
+      ffmpegArgs: ['-b:a', '256k'], // E.g. ["-b:a", "192k"] for an audio bitrate of 192kb/s
+      downloadFolder: undefined as string | undefined, // Custom download folder (absolute path)
+      preset: 'mp3',
+      skipExisting: false,
+      playlistMaxItems: undefined as number | undefined,
+    },
+    'exponential-volume': {},
+    'in-app-menu': {},
+    'last-fm': {
+      enabled: false,
+      token: undefined as string | undefined, // Token used for authentication
+      session_key: undefined as string | undefined, // Session key used for scrobbling
+      api_root: 'http://ws.audioscrobbler.com/2.0/',
+      api_key: '04d76faaac8726e60988e14c105d421a', // Api key registered by @semvis123
+      secret: 'a5d2a36fdf64819290f6982481eaffa2',
+    },
     'lumiastream': {},
-    // Disabled plugins
+    'lyrics-genius': {
+      romanizedLyrics: false,
+    },
+    'navigation': {
+      enabled: true,
+    },
+    'no-google-login': {},
+    'notifications': {
+      enabled: false,
+      unpauseNotification: false,
+      urgency: 'normal', // Has effect only on Linux
+      // the following has effect only on Windows
+      interactive: true,
+      toastStyle: 1, // See plugins/notifications/utils for more info
+      refreshOnPlayPause: false,
+      trayControls: true,
+      hideButtonText: false,
+    },
+    'picture-in-picture': {
+      'enabled': false,
+      'alwaysOnTop': true,
+      'savePosition': true,
+      'saveSize': false,
+      'hotkey': 'P',
+      'pip-position': [10, 10],
+      'pip-size': [450, 275],
+      'isInPiP': false,
+      'useNativePiP': false,
+    },
+    'playback-speed': {},
+    'precise-volume': {
+      enabled: false,
+      steps: 1, // Percentage of volume to change
+      arrowsShortcut: true, // Enable ArrowUp + ArrowDown local shortcuts
+      globalShortcuts: {
+        volumeUp: '',
+        volumeDown: '',
+      },
+      savedVolume: undefined as number | undefined, // Plugin save volume between session here
+    },
+    'quality-changer': {},
     'shortcuts': {
       enabled: false,
       overrideMediaKeys: false,
@@ -97,53 +180,8 @@ const defaultConfig = {
         next: '',
       } as Record<string, string>,
     },
-    'downloader': {
-      enabled: false,
-      ffmpegArgs: ['-b:a', '256k'], // E.g. ["-b:a", "192k"] for an audio bitrate of 192kb/s
-      downloadFolder: undefined as string | undefined, // Custom download folder (absolute path)
-      preset: 'mp3',
-      skipExisting: false,
-      playlistMaxItems: undefined as number | undefined,
-    },
-    'last-fm': {
-      enabled: false,
-      token: undefined as string | undefined, // Token used for authentication
-      session_key: undefined as string | undefined, // Session key used for scrobbling
-      api_root: 'http://ws.audioscrobbler.com/2.0/',
-      api_key: '04d76faaac8726e60988e14c105d421a', // Api key registered by @semvis123
-      secret: 'a5d2a36fdf64819290f6982481eaffa2',
-    },
-    'lyric-genius': {
-      romanizedLyrics: false,
-    },
-    'discord': {
-      enabled: false,
-      autoReconnect: true, // If enabled, will try to reconnect to discord every 5 seconds after disconnecting or failing to connect
-      activityTimoutEnabled: true, // If enabled, the discord rich presence gets cleared when music paused after the time specified below
-      activityTimoutTime: 10 * 60 * 1000, // 10 minutes
-      listenAlong: true, // Add a "listen along" button to rich presence
-      hideDurationLeft: false, // Hides the start and end time of the song to rich presence
-    },
-    'notifications': {
-      enabled: false,
-      unpauseNotification: false,
-      urgency: 'normal', // Has effect only on Linux
-      // the following has effect only on Windows
-      interactive: true,
-      toastStyle: 1, // See plugins/notifications/utils for more info
-      refreshOnPlayPause: false,
-      trayControls: true,
-      hideButtonText: false,
-    },
-    'precise-volume': {
-      enabled: false,
-      steps: 1, // Percentage of volume to change
-      arrowsShortcut: true, // Enable ArrowUp + ArrowDown local shortcuts
-      globalShortcuts: {
-        volumeUp: '',
-        volumeDown: '',
-      },
-      savedVolume: undefined as number | undefined, // Plugin save volume between session here
+    'skip-silences': {
+      onlySkipBeginning: false,
     },
     'sponsorblock': {
       enabled: false,
@@ -157,40 +195,15 @@ const defaultConfig = {
         'music_offtopic',
       ],
     },
+    'taskbar-mediacontrol': {},
+    'touchbar': {},
+    'tuna-obs': {},
     'video-toggle': {
       enabled: false,
       hideVideo: false,
       mode: 'custom',
       forceHide: false,
       align: '',
-    },
-    'picture-in-picture': {
-      'enabled': false,
-      'alwaysOnTop': true,
-      'savePosition': true,
-      'saveSize': false,
-      'hotkey': 'P',
-      'pip-position': [10, 10],
-      'pip-size': [450, 275],
-      'isInPiP': false,
-      'useNativePiP': false,
-    },
-    'captions-selector': {
-      enabled: false,
-      disableCaptions: false,
-      autoload: false,
-      lastCaptionsCode: '',
-      disabledCaptions: false,
-    },
-    'skip-silences': {
-      onlySkipBeginning: false,
-    },
-    'crossfade': {
-      enabled: false,
-      fadeInDuration: 1500, // Ms
-      fadeOutDuration: 5000, // Ms
-      secondsBeforeEnd: 10, // S
-      fadeScaling: 'linear', // 'linear', 'logarithmic' or a positive number in dB
     },
     'visualizer': {
       enabled: false,

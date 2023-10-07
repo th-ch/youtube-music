@@ -1,6 +1,8 @@
 import config, { blockers } from './config';
 
-export default () => {
+import { MenuTemplate } from '../../menu';
+
+export default (): MenuTemplate => {
   return [
     {
       label: 'Blocker',

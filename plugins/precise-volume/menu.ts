@@ -35,7 +35,7 @@ export default (win: BrowserWindow, options: ConfigType<'precise-volume'>): Menu
   {
     label: 'Global Hotkeys',
     type: 'checkbox',
-    checked: Boolean(options.globalShortcuts.volumeUp) || Boolean(options.globalShortcuts.volumeDown),
+    checked: Boolean(options.globalShortcuts?.volumeUp ?? options.globalShortcuts?.volumeDown),
     click: (item) => promptGlobalShortcuts(win, options, item),
   },
   {

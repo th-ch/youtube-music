@@ -1,12 +1,11 @@
 import prompt from 'custom-electron-prompt';
 
-import { Electron } from 'playwright';
-
 import { clear, connect, isConnected, registerRefresh } from './back';
 
 import { setMenuOptions } from '../../config/plugins';
 import promptOptions from '../../providers/prompt-options';
 import { singleton } from '../../providers/decorators';
+import { MenuTemplate } from '../../menu';
 
 import type { ConfigType } from '../../config/dynamic';
 
@@ -16,14 +15,14 @@ const registerRefreshOnce = singleton((refreshMenu: () => void) => {
 
 type DiscordOptions = ConfigType<'discord'>;
 
-export default (win: Electron.BrowserWindow, options: DiscordOptions, refreshMenu: () => void) => {
+export default (win: Electron.BrowserWindow, options: DiscordOptions, refreshMenu: () => void): MenuTemplate => {
   registerRefreshOnce(refreshMenu);
 
   return [
     {
       label: isConnected() ? 'Connected' : 'Reconnect',
       enabled: !isConnected(),
-      click: connect,
+      click: () => connect(),
     },
     {
       label: 'Auto reconnect',

@@ -15,7 +15,6 @@
     "skipLibCheck": true
   },
   "exclude": [
-    "*.config.ts",
     "./dist"
   ],
   "paths": {

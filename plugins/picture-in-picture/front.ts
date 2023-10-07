@@ -2,9 +2,11 @@ import { ipcRenderer } from 'electron';
 import { toKeyEvent } from 'keyboardevent-from-electron-accelerator';
 import keyEventAreEqual from 'keyboardevents-areequal';
 
+import pipHTML from './templates/picture-in-picture.html';
+
 import { getSongMenu } from '../../providers/dom-elements';
 
-import { ElementFromFile, templatePath } from '../utils';
+import { ElementFromHtml } from '../utils';
 
 import type { ConfigType } from '../../config/dynamic';
 
@@ -16,9 +18,7 @@ function $<E extends Element = Element>(selector: string) {
 
 let useNativePiP = false;
 let menu: Element | null = null;
-const pipButton = ElementFromFile(
-  templatePath(__dirname, 'picture-in-picture.html'),
-);
+const pipButton = ElementFromHtml(pipHTML);
 
 // Will also clone
 function replaceButton(query: string, button: Element) {

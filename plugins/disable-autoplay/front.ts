@@ -1,4 +1,6 @@
-export default () => {
+import type { ConfigType } from '../../config/dynamic';
+
+export default (options: ConfigType<'disable-autoplay'>) => {
   const timeUpdateListener = (e: Event) => {
     if (e.target instanceof HTMLVideoElement) {
       e.target.pause();
@@ -6,13 +8,16 @@ export default () => {
   };
 
   document.addEventListener('apiLoaded', (apiEvent) => {
-    apiEvent.detail.addEventListener('videodatachange', (name: string) => {
+    const eventListener = (name: string) => {
+      if (options.applyOnce) {
+        apiEvent.detail.removeEventListener('videodatachange', eventListener);
+      }
+
       if (name === 'dataloaded') {
         apiEvent.detail.pauseVideo();
-        document.querySelector<HTMLVideoElement>('video')?.addEventListener('timeupdate', timeUpdateListener);
-      } else {
-        document.querySelector<HTMLVideoElement>('video')?.removeEventListener('timeupdate', timeUpdateListener);
+        document.querySelector<HTMLVideoElement>('video')?.addEventListener('timeupdate', timeUpdateListener, { once: true });
       }
-    });
+    };
+    apiEvent.detail.addEventListener('videodatachange', eventListener);
   }, { once: true, passive: true });
 };
