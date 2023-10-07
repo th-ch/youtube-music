@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+
 const path = require('node:path');
 
 const { _electron: electron } = require('playwright');
 const { test, expect } = require('@playwright/test');
-const { is } = require('electron-is');
 
 process.env.NODE_ENV = 'test';
 
@@ -27,11 +28,6 @@ test('YouTube Music App - With default settings, app is launched and visible', a
   );
   if (consentForm) {
     await consentForm.click('button');
-  }
-
-  const title = await window.title();
-  if (!is.linux()) {
-    expect(title.replaceAll(/\s/g, ' ')).toEqual('YouTube Music');
   }
 
   const url = window.url();

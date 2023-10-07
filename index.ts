@@ -1,6 +1,6 @@
 import path from 'node:path';
 
-import electron, { BrowserWindow } from 'electron';
+import { BrowserWindow, app, screen, globalShortcut, session, shell, dialog, ipcMain } from 'electron';
 import enhanceWebRequest from 'electron-better-web-request';
 import is from 'electron-is';
 import unhandled from 'electron-unhandled';
@@ -11,13 +11,40 @@ import { BetterWebRequest } from 'electron-better-web-request/lib/electron-bette
 
 import config from './config';
 import { setApplicationMenu } from './menu';
-import { fileExists, injectCSS } from './plugins/utils';
+import { fileExists, injectCSS, injectCSSAsFile } from './plugins/utils';
 import { isTesting } from './utils/testing';
 import { setUpTray } from './tray';
 import { setupSongInfo } from './providers/song-info';
 import { restart, setupAppControls } from './providers/app-controls';
 import { APP_PROTOCOL, handleProtocol, setupProtocolHandler } from './providers/protocol-handler';
 
+import adblocker from './plugins/adblocker/back';
+import albumColorTheme from './plugins/album-color-theme/back';
+import ambientMode from './plugins/ambient-mode/back';
+import blurNavigationBar from './plugins/blur-nav-bar/back';
+import captionsSelector from './plugins/captions-selector/back';
+import crossfade from './plugins/crossfade/back';
+import discord from './plugins/discord/back';
+import downloader from './plugins/downloader/back';
+import inAppMenu from './plugins/in-app-menu/back';
+import lastFm from './plugins/last-fm/back';
+import lumiaStream from './plugins/lumiastream/back';
+import lyricsGenius from './plugins/lyrics-genius/back';
+import navigation from './plugins/navigation/back';
+import noGoogleLogin from './plugins/no-google-login/back';
+import notifications from './plugins/notifications/back';
+import pictureInPicture, { setOptions as pipSetOptions } from './plugins/picture-in-picture/back';
+import preciseVolume from './plugins/precise-volume/back';
+import qualityChanger from './plugins/quality-changer/back';
+import shortcuts from './plugins/shortcuts/back';
+import sponsorBlock from './plugins/sponsorblock/back';
+import taskbarMediaControl from './plugins/taskbar-mediacontrol/back';
+import touchbar from './plugins/touchbar/back';
+import tunaObs from './plugins/tuna-obs/back';
+import videoToggle from './plugins/video-toggle/back';
+import visualizer from './plugins/visualizer/back';
+
+import youtubeMusicCSS from './youtube-music.css';
 
 // Catch errors and log them
 unhandled({
@@ -28,7 +55,6 @@ unhandled({
 // Disable Node options if the env var is set
 process.env.NODE_OPTIONS = '';
 
-const { app } = electron;
 // Prevent window being garbage collected
 let mainWindow: Electron.BrowserWindow | null;
 autoUpdater.autoDownload = false;
@@ -38,7 +64,9 @@ if (!gotTheLock) {
   app.exit();
 }
 
-app.commandLine.appendSwitch('enable-features', 'SharedArrayBuffer'); // Required for downloader
+// SharedArrayBuffer: Required for downloader (@ffmpeg/core-mt)
+// OverlayScrollbar: Required for overlay scrollbars
+app.commandLine.appendSwitch('enable-features', 'OverlayScrollbar,SharedArrayBuffer');
 if (config.get('options.disableHardwareAcceleration')) {
   if (is.dev()) {
     console.log('Disabling hardware acceleration');
@@ -74,8 +102,50 @@ function onClosed() {
   mainWindow = null;
 }
 
+const mainPlugins = {
+  'adblocker': adblocker,
+  'album-color-theme': albumColorTheme,
+  'ambient-mode': ambientMode,
+  'blur-nav-bar': blurNavigationBar,
+  'captions-selector': captionsSelector,
+  'crossfade': crossfade,
+  'discord': discord,
+  'downloader': downloader,
+  'in-app-menu': inAppMenu,
+  'last-fm': lastFm,
+  'lumiastream': lumiaStream,
+  'lyrics-genius': lyricsGenius,
+  'navigation': navigation,
+  'no-google-login': noGoogleLogin,
+  'notifications': notifications,
+  'picture-in-picture': pictureInPicture,
+  'precise-volume': preciseVolume,
+  'quality-changer': qualityChanger,
+  'shortcuts': shortcuts,
+  'sponsorblock': sponsorBlock,
+  'taskbar-mediacontrol': undefined as typeof taskbarMediaControl | undefined,
+  'touchbar': undefined as typeof touchbar | undefined,
+  'tuna-obs': tunaObs,
+  'video-toggle': videoToggle,
+  'visualizer': visualizer,
+};
+export const mainPluginNames = Object.keys(mainPlugins);
+
+if (is.windows()) {
+  mainPlugins['taskbar-mediacontrol'] = taskbarMediaControl;
+  delete mainPlugins['touchbar'];
+} else if (is.macOS()) {
+  mainPlugins['touchbar'] = touchbar;
+  delete mainPlugins['taskbar-mediacontrol'];
+} else {
+  delete mainPlugins['touchbar'];
+  delete mainPlugins['taskbar-mediacontrol'];
+}
+
+ipcMain.handle('get-main-plugin-names', () => Object.keys(mainPlugins));
+
 function loadPlugins(win: BrowserWindow) {
-  injectCSS(win.webContents, path.join(__dirname, 'youtube-music.css'));
+  injectCSS(win.webContents, youtubeMusicCSS);
   // Load user CSS
   const themes: string[] = config.get('options.themes');
   if (Array.isArray(themes)) {
@@ -83,7 +153,7 @@ function loadPlugins(win: BrowserWindow) {
       fileExists(
         cssFile,
         () => {
-          injectCSS(win.webContents, cssFile);
+          injectCSSAsFile(win.webContents, cssFile);
         },
         () => {
           console.warn(`CSS file "${cssFile}" does not exist, ignoring`);
@@ -100,13 +170,17 @@ function loadPlugins(win: BrowserWindow) {
   });
 
   for (const [plugin, options] of config.plugins.getEnabled()) {
-    console.log('Loaded plugin - ' + plugin);
-    const pluginPath = path.join(__dirname, 'plugins', plugin, 'back.js');
-    fileExists(pluginPath, () => {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-unsafe-member-access
-      const handle = require(pluginPath).default as (window: BrowserWindow, option: typeof options) => void;
-      handle(win, options);
-    });
+    try {
+      if (Object.hasOwn(mainPlugins, plugin)) {
+        console.log('Loaded plugin - ' + plugin);
+        const handler = mainPlugins[plugin as keyof typeof mainPlugins];
+        if (handler) {
+          handler(win, options as never);
+        }
+      }
+    } catch (e) {
+      console.error(`Failed to load plugin "${plugin}"`, e);
+    }
   }
 }
 
@@ -137,6 +211,11 @@ function createMainWindow() {
         }),
     },
     frame: !is.macOS() && !useInlineMenu,
+    titleBarOverlay: {
+      color: '#00000000',
+      symbolColor: '#ffffff',
+      height: 36,
+    },
     titleBarStyle: useInlineMenu
       ? 'hidden'
       : (is.macOS()
@@ -150,7 +229,7 @@ function createMainWindow() {
     const { x, y } = windowPosition;
     const winSize = win.getSize();
     const displaySize
-      = electron.screen.getDisplayNearestPoint(windowPosition).bounds;
+      = screen.getDisplayNearestPoint(windowPosition).bounds;
     if (
       x + winSize[0] < displaySize.x - 8
       || x - winSize[0] > displaySize.x + displaySize.width
@@ -182,7 +261,7 @@ function createMainWindow() {
   win.webContents.loadURL(urlToLoad);
   win.on('closed', onClosed);
 
-  const scaleFactor = electron.screen.getAllDisplays().length > 1 ? electron.screen.getPrimaryDisplay().scaleFactor : 1;
+  const scaleFactor = screen.getAllDisplays().length > 1 ? screen.getPrimaryDisplay().scaleFactor : 1;
   const size = config.get('window-size');
   const position = config.get('window-position');
 
@@ -205,8 +284,7 @@ function createMainWindow() {
   type PiPOptions = typeof config.defaultConfig.plugins['picture-in-picture'];
   const setPiPOptions = config.plugins.isEnabled('picture-in-picture')
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    ? (key: string, value: unknown) => (require('./plugins/picture-in-picture/back') as typeof import('./plugins/picture-in-picture/back'))
-      .setOptions({ [key]: value })
+    ? (key: string, value: unknown) => pipSetOptions({ [key]: value })
     : () => {};
 
   win.on('move', () => {
@@ -353,7 +431,7 @@ app.on('window-all-closed', () => {
   }
 
   // Unregister all shortcuts.
-  electron.globalShortcut.unregisterAll();
+  globalShortcut.unregisterAll();
 });
 
 app.on('activate', () => {
@@ -374,7 +452,7 @@ app.on('ready', () => {
         console.log('Clearing app cache.');
       }
 
-      electron.session.defaultSession.clearCache();
+      session.defaultSession.clearCache();
       clearTimeout(clearCacheTimeout);
     }, 20_000);
   }
@@ -389,7 +467,7 @@ app.on('ready', () => {
     if (!is.dev() && !appLocation.startsWith(path.join(appData, '..', 'Local', 'Temp'))) {
       const shortcutPath = path.join(appData, 'Microsoft', 'Windows', 'Start Menu', 'Programs', 'YouTube Music.lnk');
       try { // Check if shortcut is registered and valid
-        const shortcutDetails = electron.shell.readShortcutLink(shortcutPath); // Throw error if doesn't exist yet
+        const shortcutDetails = shell.readShortcutLink(shortcutPath); // Throw error if doesn't exist yet
         if (
           shortcutDetails.target !== appLocation
           || shortcutDetails.appUserModelId !== appID
@@ -397,7 +475,7 @@ app.on('ready', () => {
           throw 'needUpdate';
         }
       } catch (error) { // If not valid -> Register shortcut
-        electron.shell.writeShortcutLink(
+        shell.writeShortcutLink(
           shortcutPath,
           error === 'needUpdate' ? 'update' : 'create',
           {
@@ -466,11 +544,11 @@ app.on('ready', () => {
         message: 'A new version is available',
         detail: `A new version is available and can be downloaded at ${downloadLink}`,
       };
-      electron.dialog.showMessageBox(dialogOptions).then((dialogOutput) => {
+      dialog.showMessageBox(dialogOptions).then((dialogOutput) => {
         switch (dialogOutput.response) {
           // Download
           case 1: {
-            electron.shell.openExternal(downloadLink);
+            shell.openExternal(downloadLink);
             break;
           }
 
@@ -489,7 +567,7 @@ app.on('ready', () => {
   }
 
   if (config.get('options.hideMenu') && !config.get('options.hideMenuWarned')) {
-    electron.dialog.showMessageBox(mainWindow, {
+    dialog.showMessageBox(mainWindow, {
       type: 'info', title: 'Hide Menu Enabled',
       message: "Menu is hidden, use 'Alt' to show it (or 'Escape' if using in-app-menu)",
     });
@@ -522,7 +600,7 @@ function showUnresponsiveDialog(win: BrowserWindow, details: Electron.RenderProc
     console.log('Unresponsive Error!\n' + JSON.stringify(details, null, '\t'));
   }
 
-  electron.dialog.showMessageBox(win, {
+  dialog.showMessageBox(win, {
     type: 'error',
     title: 'Window Unresponsive',
     message: 'The Application is Unresponsive',
@@ -547,15 +625,15 @@ function showUnresponsiveDialog(win: BrowserWindow, details: Electron.RenderProc
 // HACK: electron-better-web-request's typing is wrong
 type BetterSession = Omit<Electron.Session, 'webRequest'> & { webRequest: BetterWebRequest & Electron.WebRequest };
 function removeContentSecurityPolicy(
-  session: BetterSession = electron.session.defaultSession as BetterSession,
+  betterSession: BetterSession = session.defaultSession as BetterSession,
 ) {
   // Allows defining multiple "onHeadersReceived" listeners
   // by enhancing the session.
   // Some plugins (e.g. adblocker) also define a "onHeadersReceived" listener
-  enhanceWebRequest(session);
+  enhanceWebRequest(betterSession);
 
   // Custom listener to tweak the content security policy
-  session.webRequest.onHeadersReceived((details, callback) => {
+  betterSession.webRequest.onHeadersReceived((details, callback) => {
     details.responseHeaders ??= {};
 
     // Remove the content security policy
@@ -567,7 +645,7 @@ function removeContentSecurityPolicy(
 
   type ResolverListener = { apply: () => Promise<Record<string, unknown>>; context: unknown };
   // When multiple listeners are defined, apply them all
-  session.webRequest.setResolver('onHeadersReceived', async (listeners: ResolverListener[]) => {
+  betterSession.webRequest.setResolver('onHeadersReceived', async (listeners: ResolverListener[]) => {
     return listeners.reduce<Promise<Record<string, unknown>>>(
       async (accumulator: Promise<Record<string, unknown>>, listener: ResolverListener) => {
         const acc = await accumulator;

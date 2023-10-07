@@ -1,9 +1,9 @@
-import path from 'node:path';
-
 import { BrowserWindow } from 'electron';
+
+import emptyPlayerStyle from './empty-player.css';
 
 import { injectCSS } from '../utils';
 
 export default (win: BrowserWindow) => {
-  injectCSS(win.webContents, path.join(__dirname, 'empty-player.css'));
+  injectCSS(win.webContents, emptyPlayerStyle);
 };

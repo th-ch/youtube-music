@@ -1,15 +1,15 @@
 import { ipcRenderer } from 'electron';
 
+import downloadHTML from './templates/download.html';
+
 import defaultConfig from '../../config/defaults';
 import { getSongMenu } from '../../providers/dom-elements';
-import { ElementFromFile, templatePath } from '../utils';
+import { ElementFromHtml } from '../utils';
 import { getSongInfo } from '../../providers/song-info-front';
 
 let menu: Element | null = null;
 let progress: Element | null = null;
-const downloadButton = ElementFromFile(
-  templatePath(__dirname, 'download.html'),
-);
+const downloadButton = ElementFromHtml(downloadHTML);
 
 let doneFirstLoad = false;
 

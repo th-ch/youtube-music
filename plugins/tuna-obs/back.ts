@@ -1,4 +1,5 @@
 import { ipcMain, net, BrowserWindow } from 'electron';
+import is from 'electron-is';
 
 import registerCallback from '../../providers/song-info';
 
@@ -41,7 +42,11 @@ const post = (data: Data) => {
     method: 'POST',
     headers,
     body: JSON.stringify({ data }),
-  }).catch((error: { code: number, errno: number }) => console.log(`Error: '${error.code || error.errno}' - when trying to access obs-tuna webserver at port ${port}`));
+  }).catch((error: { code: number, errno: number }) => {
+    if (is.dev()) {
+      console.debug(`Error: '${error.code || error.errno}' - when trying to access obs-tuna webserver at port ${port}`);
+    }
+  });
 };
 
 export default (win: BrowserWindow) => {

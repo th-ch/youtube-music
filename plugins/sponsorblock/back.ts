@@ -10,8 +10,6 @@ import defaultConfig from '../../config/defaults';
 import type { GetPlayerResponse } from '../../types/get-player-response';
 import type { ConfigType } from '../../config/dynamic';
 
-let videoID: string;
-
 export default (win: BrowserWindow, options: ConfigType<'sponsorblock'>) => {
   const { apiURL, categories } = {
     ...defaultConfig.plugins.sponsorblock,
@@ -19,14 +17,13 @@ export default (win: BrowserWindow, options: ConfigType<'sponsorblock'>) => {
   };
 
   ipcMain.on('video-src-changed', async (_, data: GetPlayerResponse) => {
-    videoID = data?.videoDetails?.videoId;
-    const segments = await fetchSegments(apiURL, categories);
+    const segments = await fetchSegments(apiURL, categories, data?.videoDetails?.videoId);
     win.webContents.send('sponsorblock-skip', segments);
   });
 };
 
-const fetchSegments = async (apiURL: string, categories: string[]) => {
-  const sponsorBlockURL = `${apiURL}/api/skipSegments?videoID=${videoID}&categories=${JSON.stringify(
+const fetchSegments = async (apiURL: string, categories: string[], videoId: string) => {
+  const sponsorBlockURL = `${apiURL}/api/skipSegments?videoID=${videoId}&categories=${JSON.stringify(
     categories,
   )}`;
   try {

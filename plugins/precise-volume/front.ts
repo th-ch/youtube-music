@@ -55,7 +55,7 @@ function firstRun() {
     setTooltip(options.savedVolume);
 
     if (api.getVolume() !== options.savedVolume) {
-      api.setVolume(options.savedVolume);
+      setVolume(options.savedVolume);
     }
   }
 

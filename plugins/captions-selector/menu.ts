@@ -14,7 +14,7 @@ export default (): MenuTemplate => [
   {
     label: 'No captions by default',
     type: 'checkbox',
-    checked: config.get('disabledCaptions'),
+    checked: config.get('disableCaptions'),
     click(item) {
       config.set('disableCaptions', item.checked);
     },

@@ -5,6 +5,8 @@ import { Visualizer } from './visualizer';
 import type { ConfigType } from '../../../config/dynamic';
 
 class VudioVisualizer extends Visualizer<Vudio> {
+  name = 'vudio';
+
   visualizer: Vudio;
 
   constructor(
