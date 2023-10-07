@@ -30,6 +30,9 @@ test('YouTube Music App - With default settings, app is launched and visible', a
     await consentForm.click('button');
   }
 
+  const title = await window.title();
+  expect(title.replaceAll(/\s/g, ' ')).toEqual('YouTube Music');
+
   const url = window.url();
   expect(url.startsWith('https://music.youtube.com')).toBe(true);
 
