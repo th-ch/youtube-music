@@ -184,20 +184,46 @@ Using plugins, you can:
 
 Create a folder in `plugins/YOUR-PLUGIN-NAME`:
 
-- if you need to manipulate the BrowserWindow, create a file `back.ts` with the following template:
+- if you need to manipulate the BrowserWindow, create a file with the following template:
 
 ```typescript
-export default (win: Electron.BrowserWindow) => {
+// file: back.ts
+export default (win: Electron.BrowserWindow, config: ConfigType<'YOUR-PLUGIN-NAME'>) => {
   // something
 };
 ```
 
-- if you need to change the front, create a file `front.ts` with the following template:
+then, register the plugin in `index.ts`:
 
 ```typescript
-export default () => {
+import yourPlugin from './plugins/YOUR-PLUGIN-NAME/back';
+
+// ...
+
+const mainPlugins = {
+  // ...
+  'YOUR-PLUGIN-NAME': yourPlugin,
+};
+```
+
+- if you need to change the front, create a file with the following template:
+
+```typescript
+// file: front.ts
+export default (config: ConfigType<'YOUR-PLUGIN-NAME'>) => {
   // This function will be called as a preload script
   // So you can use front features like `document.querySelector`
+};
+```
+
+then, register the plugin in `preload.ts`:
+
+```typescript
+import yourPlugin from './plugins/YOUR-PLUGIN-NAME/front';
+
+const rendererPlugins: PluginMapper<'renderer'> = {
+  // ...
+  'YOUR-PLUGIN-NAME': yourPlugin,
 };
 ```
 
