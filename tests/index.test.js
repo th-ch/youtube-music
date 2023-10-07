@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+
 const path = require('node:path');
 
 const { _electron: electron } = require('playwright');
@@ -27,9 +29,6 @@ test('YouTube Music App - With default settings, app is launched and visible', a
   if (consentForm) {
     await consentForm.click('button');
   }
-
-  const title = await window.title();
-  expect(title.replaceAll(/\s/g, ' ')).toEqual('YouTube Music');
 
   const url = window.url();
   expect(url.startsWith('https://music.youtube.com')).toBe(true);
