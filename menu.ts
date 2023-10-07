@@ -97,7 +97,7 @@ export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
             } satisfies Electron.MenuItemConstructorOptions;
           }
 
-          return pluginEnabledMenu(pluginName);
+          return pluginEnabledMenu(pluginName, pluginLabel);
         }),
     },
     {
