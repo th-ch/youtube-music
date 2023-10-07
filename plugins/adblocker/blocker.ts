@@ -1,8 +1,9 @@
 // Used for caching
 import path from 'node:path';
-import { promises } from 'node:fs';
+import fs, { promises } from 'node:fs';
 
 import { ElectronBlocker } from '@cliqz/adblocker-electron';
+import { app } from 'electron';
 
 const SOURCES = [
   'https://raw.githubusercontent.com/kbinani/adblock-youtube-ads/master/signed.txt',
@@ -20,19 +21,31 @@ export const loadAdBlockerEngine = (
   session: Electron.Session | undefined = undefined,
   cache = true,
   additionalBlockLists = [],
-  disableDefaultLists: boolean | string[] = false,
+  disableDefaultLists: boolean | unknown[] = false,
 ) => {
   // Only use cache if no additional blocklists are passed
+  let cacheDirectory: string;
+  if (app.isPackaged) {
+    cacheDirectory = path.join(app.getPath('userData'), 'adblock_cache');
+  } else {
+    cacheDirectory = path.resolve(__dirname, 'adblock_cache');
+  }
+  if (!fs.existsSync(cacheDirectory)) {
+    fs.mkdirSync(cacheDirectory);
+  }
   const cachingOptions
     = cache && additionalBlockLists.length === 0
     ? {
-      path: path.resolve(__dirname, 'ad-blocker-engine.bin'),
+      path: path.join(cacheDirectory, 'adblocker-engine.bin'),
       read: promises.readFile,
       write: promises.writeFile,
     }
     : undefined;
   const lists = [
-    ...(disableDefaultLists ? [] : SOURCES),
+    ...(
+      (disableDefaultLists && !Array.isArray(disableDefaultLists)) ||
+      (Array.isArray(disableDefaultLists) && disableDefaultLists.length > 0) ? [] : SOURCES
+    ),
     ...additionalBlockLists,
   ];
 
@@ -58,6 +71,3 @@ export const loadAdBlockerEngine = (
 };
 
 export default { loadAdBlockerEngine };
-if (require.main === module) {
-  loadAdBlockerEngine(); // Generate the engine without enabling it
-}

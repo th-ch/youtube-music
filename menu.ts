@@ -1,22 +1,49 @@
-import { existsSync } from 'node:fs';
-import path from 'node:path';
-
 import is from 'electron-is';
 import { app, BrowserWindow, clipboard, dialog, Menu } from 'electron';
 import prompt from 'custom-electron-prompt';
 
 import { restart } from './providers/app-controls';
-import { getAllPlugins } from './plugins/utils';
 import config from './config';
 import { startingPages } from './providers/extracted-data';
 import promptOptions from './providers/prompt-options';
 
-export type MenuTemplate = (Electron.MenuItemConstructorOptions | Electron.MenuItem)[];
+import adblockerMenu from './plugins/adblocker/menu';
+import captionsSelectorMenu from './plugins/captions-selector/menu';
+import crossfadeMenu from './plugins/crossfade/menu';
+import disableAutoplayMenu from './plugins/disable-autoplay/menu';
+import discordMenu from './plugins/discord/menu';
+import downloaderMenu from './plugins/downloader/menu';
+import lyricsGeniusMenu from './plugins/lyrics-genius/menu';
+import notificationsMenu from './plugins/notifications/menu';
+import pictureInPictureMenu from './plugins/picture-in-picture/menu';
+import preciseVolumeMenu from './plugins/precise-volume/menu';
+import shortcutsMenu from './plugins/shortcuts/menu';
+import videoToggleMenu from './plugins/video-toggle/menu';
+import visualizerMenu from './plugins/visualizer/menu';
+import { getAvailablePluginNames } from './plugins/utils';
+
+export type MenuTemplate = Electron.MenuItemConstructorOptions[];
 
 // True only if in-app-menu was loaded on launch
 const inAppMenuActive = config.plugins.isEnabled('in-app-menu');
 
 const betaPlugins = ['crossfade', 'lumiastream'];
+
+const pluginMenus = {
+  'adblocker': adblockerMenu,
+  'disable-autoplay': disableAutoplayMenu,
+  'captions-selector': captionsSelectorMenu,
+  'crossfade': crossfadeMenu,
+  'discord': discordMenu,
+  'downloader': downloaderMenu,
+  'lyrics-genius': lyricsGeniusMenu,
+  'notifications': notificationsMenu,
+  'picture-in-picture': pictureInPictureMenu,
+  'precise-volume': preciseVolumeMenu,
+  'shortcuts': shortcutsMenu,
+  'video-toggle': videoToggleMenu,
+  'visualizer': visualizerMenu,
+};
 
 const pluginEnabledMenu = (plugin: string, label = '', hasSubmenu = false, refreshMenu: (() => void ) | undefined = undefined): Electron.MenuItemConstructorOptions => ({
   label: label || plugin,
@@ -47,33 +74,30 @@ export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
     {
       label: 'Plugins',
       submenu:
-        getAllPlugins().map((plugin) => {
-          let pluginLabel = plugin;
-          if (betaPlugins.includes(plugin)) {
+        getAvailablePluginNames().map((pluginName) => {
+          let pluginLabel = pluginName;
+          if (betaPlugins.includes(pluginLabel)) {
             pluginLabel += ' [beta]';
           }
 
-          const pluginPath = path.join(__dirname, 'plugins', plugin, 'menu.js');
-          if (existsSync(pluginPath)) {
-            if (!config.plugins.isEnabled(plugin)) {
-              return pluginEnabledMenu(plugin, pluginLabel, true, refreshMenu);
+          if (Object.hasOwn(pluginMenus, pluginName)) {
+            const getPluginMenu = pluginMenus[pluginName as keyof typeof pluginMenus];
+
+            if (!config.plugins.isEnabled(pluginName)) {
+              return pluginEnabledMenu(pluginName, pluginLabel, true, refreshMenu);
             }
 
-            type PluginType = (window: BrowserWindow, plugins: string, func: () => void) => Electron.MenuItemConstructorOptions[];
-
-            // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-unsafe-member-access
-            const getPluginMenu = require(pluginPath).default as PluginType;
             return {
               label: pluginLabel,
               submenu: [
-                pluginEnabledMenu(plugin, 'Enabled', true, refreshMenu),
+                pluginEnabledMenu(pluginName, 'Enabled', true, refreshMenu),
                 { type: 'separator' },
-                ...getPluginMenu(win, config.plugins.getOptions(plugin), refreshMenu),
+                ...getPluginMenu(win, config.plugins.getOptions(pluginName), refreshMenu),
               ],
             } satisfies Electron.MenuItemConstructorOptions;
           }
 
-          return pluginEnabledMenu(plugin, pluginLabel);
+          return pluginEnabledMenu(pluginName, pluginLabel);
         }),
     },
     {
@@ -97,14 +121,25 @@ export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
         },
         {
           label: 'Starting page',
-          submenu: Object.keys(startingPages).map((name) => ({
-            label: name,
-            type: 'radio',
-            checked: config.get('options.startingPage') === name,
-            click() {
-              config.set('options.startingPage', name);
-            },
-          })),
+          submenu: (() => {
+            const subMenuArray: Electron.MenuItemConstructorOptions[] = Object.keys(startingPages).map((name) => ({
+              label: name,
+              type: 'radio',
+              checked: config.get('options.startingPage') === name,
+              click() {
+                config.set('options.startingPage', name);
+              },
+            }));
+            subMenuArray.unshift({
+              label: 'Unset',
+              type: 'radio',
+              checked: config.get('options.startingPage') === '',
+              click() {
+                config.set('options.startingPage', '');
+              },
+            });
+            return subMenuArray;
+          })(),
         },
         {
           label: 'Visual Tweaks',
@@ -152,7 +187,7 @@ export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
                 {
                   label: 'No theme',
                   type: 'radio',
-                  checked: !config.get('options.themes'), // Todo rename "themes"
+                  checked: config.get('options.themes')?.length === 0, // Todo rename "themes"
                   click() {
                     config.set('options.themes', []);
                   },
@@ -160,8 +195,7 @@ export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
                 { type: 'separator' },
                 {
                   label: 'Import custom CSS file',
-                  type: 'radio',
-                  checked: false,
+                  type: 'normal',
                   async click() {
                     const { filePaths } = await dialog.showOpenDialog({
                       filters: [{ name: 'CSS Files', extensions: ['css'] }],
@@ -275,11 +309,10 @@ export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
           label: 'Advanced options',
           submenu: [
             {
-              label: 'Proxy',
-              type: 'checkbox',
-              checked: !!(config.get('options.proxy')),
-              click(item) {
-                setProxy(item, win);
+              label: 'Set Proxy',
+              type: 'normal',
+              async click(item) {
+                await setProxy(item, win);
               },
             },
             {

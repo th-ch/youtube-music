@@ -1,15 +1,15 @@
 import { ipcRenderer } from 'electron';
 
-import { ElementFromFile, templatePath } from '../utils';
+import qualitySettingsTemplate from './templates/qualitySettingsTemplate.html';
+
+import { ElementFromHtml } from '../utils';
 import { YoutubePlayer } from '../../types/youtube-player';
 
 function $(selector: string): HTMLElement | null {
   return document.querySelector(selector);
 }
 
-const qualitySettingsButton = ElementFromFile(
-  templatePath(__dirname, 'qualitySettingsTemplate.html'),
-);
+const qualitySettingsButton = ElementFromHtml(qualitySettingsTemplate);
 
 function setup(event: CustomEvent<YoutubePlayer>) {
   const api = event.detail;

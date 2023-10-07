@@ -15,12 +15,12 @@
   background: rgba(33, 33, 33, 0.4);
   border-radius: 30px;
   overflow: hidden;
-  width: 240px;
+  width: 20rem;
   text-align: center;
   font-size: 18px;
   letter-spacing: 1px;
   color: #fff;
-  padding-right: 120px;
+  padding-right: 10rem;
   position: absolute;
 }
 
@@ -30,7 +30,7 @@
   top: 0;
   bottom: 0;
   right: 0;
-  width: 120px;
+  width: 10rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -55,7 +55,7 @@
 }
 
 .video-switch-button-checkbox:checked + .video-switch-button-label:before {
-  transform: translateX(120px);
+  transform: translateX(10rem);
   transition: transform 300ms linear;
 }
 

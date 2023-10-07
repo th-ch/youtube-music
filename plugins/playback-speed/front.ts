@@ -1,5 +1,7 @@
+import sliderHTML from './templates/slider.html';
+
 import { getSongMenu } from '../../providers/dom-elements';
-import { ElementFromFile, templatePath } from '../utils';
+import { ElementFromHtml } from '../utils';
 import { singleton } from '../../providers/decorators';
 
 
@@ -7,7 +9,7 @@ function $<E extends Element = Element>(selector: string) {
   return document.querySelector<E>(selector);
 }
 
-const slider = ElementFromFile(templatePath(__dirname, 'slider.html'));
+const slider = ElementFromHtml(sliderHTML);
 
 const roundToTwo = (n: number) => Math.round(n * 1e2) / 1e2;
 

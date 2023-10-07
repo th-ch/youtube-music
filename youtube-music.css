@@ -54,3 +54,8 @@ ytmusic-nav-bar > div.left-content > a,
 ytmusic-nav-bar > div.left-content > a > picture > img {
   -webkit-user-drag: none;
 }
+
+/* yt-music bugs */
+tp-yt-paper-item.ytmusic-guide-entry-renderer::before {
+  border-radius: 8px !important;
+}

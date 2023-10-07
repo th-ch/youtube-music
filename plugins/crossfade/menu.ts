@@ -7,11 +7,13 @@ import config from './config';
 import promptOptions from '../../providers/prompt-options';
 import configOptions from '../../config/defaults';
 
+import { MenuTemplate } from '../../menu';
+
 import type { ConfigType } from '../../config/dynamic';
 
 const defaultOptions = configOptions.plugins.crossfade;
 
-export default (win: BrowserWindow) => [
+export default (win: BrowserWindow): MenuTemplate => [
   {
     label: 'Advanced',
     async click() {

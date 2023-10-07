@@ -5,6 +5,8 @@ import { Visualizer } from './visualizer';
 import type { ConfigType } from '../../../config/dynamic';
 
 class WaveVisualizer extends Visualizer<Wave> {
+  name = 'wave';
+
   visualizer: Wave;
 
   constructor(

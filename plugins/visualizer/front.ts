@@ -1,8 +1,5 @@
+import { ButterchurnVisualizer as butterchurn, WaveVisualizer as wave, VudioVisualizer as vudio } from './visualizers';
 import { Visualizer } from './visualizers/visualizer';
-
-import vudio from './visualizers/vudio';
-import wave from './visualizers/wave';
-import butterchurn from './visualizers/butterchurn';
 
 import defaultConfig from '../../config/defaults';
 
@@ -40,7 +37,7 @@ export default (options: ConfigType<'visualizer'>) => {
       if (!canvas) {
         canvas = document.createElement('canvas');
         canvas.id = 'visualizer';
-        visualizerContainer.prepend(canvas);
+        visualizerContainer?.prepend(canvas);
       }
 
       const resizeCanvas = () => {

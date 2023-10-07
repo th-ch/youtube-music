@@ -2,7 +2,7 @@ import { createWriteStream, existsSync, mkdirSync, writeFileSync, } from 'node:f
 import { join } from 'node:path';
 import { randomBytes } from 'node:crypto';
 
-import { app, BrowserWindow, dialog, ipcMain } from 'electron';
+import { app, BrowserWindow, dialog, ipcMain, net } from 'electron';
 import { ClientType, Innertube, UniversalCache, Utils } from 'youtubei.js';
 import is from 'electron-is';
 import ytpl from 'ytpl';
@@ -24,6 +24,8 @@ import { cropMaxWidth, getFolder, presets, sendFeedback as sendFeedback_, setBad
 
 import config from './config';
 
+import style from './style.css';
+
 import { fetchFromGenius } from '../lyrics-genius/back';
 import { isEnabled } from '../../config/plugins';
 import { cleanupName, getImage, SongInfo } from '../../providers/song-info';
@@ -31,6 +33,7 @@ import { injectCSS } from '../utils';
 import { cache } from '../../providers/decorators';
 
 import type { GetPlayerResponse } from '../../types/get-player-response';
+
 
 type CustomSongInfo = SongInfo & { trackId?: string };
 
@@ -68,7 +71,7 @@ const sendError = (error: Error, source?: string) => {
 
 export default async (win_: BrowserWindow) => {
   win = win_;
-  injectCSS(win.webContents, join(__dirname, 'style.css'));
+  injectCSS(win.webContents, style);
 
   const cookie = (await win.webContents.session.cookies.get({ url: 'https://music.youtube.com' })).map((it) =>
     it.name + '=' + it.value + ';'
@@ -77,6 +80,24 @@ export default async (win_: BrowserWindow) => {
     cache: new UniversalCache(false),
     cookie,
     generate_session_locally: true,
+    fetch: async (input: RequestInfo | URL, init?: RequestInit) => {
+      const url =
+        typeof input === 'string' ?
+          new URL(input) :
+          input instanceof URL ?
+            input : new URL(input.url);
+
+      if (init?.body && !init.method) {
+        init.method = 'POST';
+      }
+
+      const request = new Request(
+        url,
+        input instanceof Request ? input : undefined,
+      );
+
+      return net.fetch(request, init);
+    }
   });
   ipcMain.on('download-song', (_, url: string) => downloadSong(url));
   ipcMain.on('video-src-changed', (_, data: GetPlayerResponse) => {
@@ -113,8 +134,7 @@ async function downloadSongUnsafe(
   setName: (name: string) => void,
   playlistFolder: string | undefined = undefined,
   trackId: string | undefined = undefined,
-  increasePlaylistProgress: (value: number) => void = () => {
-  },
+  increasePlaylistProgress: (value: number) => void = () => {},
 ) {
   const sendFeedback = (message: unknown, progress?: number) => {
     if (!playlistFolder) {
@@ -540,11 +560,7 @@ const getPlaylistID = (aURL: URL) => {
 };
 
 const getVideoId = (url: URL | string): string | null => {
-  if (typeof url === 'string') {
-    url = new URL(url);
-  }
-
-  return url.searchParams.get('v');
+  return (new URL(url)).searchParams.get('v');
 };
 
 const getMetadata = (info: TrackInfo): CustomSongInfo => ({

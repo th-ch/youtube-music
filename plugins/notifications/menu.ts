@@ -6,11 +6,13 @@ import { snakeToCamel, ToastStyles, urgencyLevels } from './utils';
 
 import config from './config';
 
+import { MenuTemplate } from '../../menu';
+
 import type { ConfigType } from '../../config/dynamic';
 
-export default (_win: BrowserWindow, options: ConfigType<'notifications'>) => [
-  ...(is.linux()
-    ? [
+const getMenu = (options: ConfigType<'notifications'>): MenuTemplate => {
+  if (is.linux()) {
+    return [
       {
         label: 'Notification Priority',
         submenu: urgencyLevels.map((level) => ({
@@ -19,11 +21,10 @@ export default (_win: BrowserWindow, options: ConfigType<'notifications'>) => [
           checked: options.urgency === level.value,
           click: () => config.set('urgency', level.value),
         })),
-      },
-    ]
-    : []),
-  ...(is.windows()
-    ? [
+      }
+    ];
+  } else if (is.windows()) {
+    return [
       {
         label: 'Interactive Notifications',
         type: 'checkbox',
@@ -59,8 +60,14 @@ export default (_win: BrowserWindow, options: ConfigType<'notifications'>) => [
         label: 'Style',
         submenu: getToastStyleMenuItems(options),
       },
-    ]
-    : []),
+    ];
+  } else {
+    return [];
+  }
+};
+
+export default (_win: BrowserWindow, options: ConfigType<'notifications'>): MenuTemplate => [
+  ...getMenu(options),
   {
     label: 'Show notification on unpause',
     type: 'checkbox',
@@ -79,8 +86,8 @@ export function getToastStyleMenuItems(options: ConfigType<'notifications'>) {
       type: 'radio',
       checked: options.toastStyle === index,
       click: () => config.set('toastStyle', index),
-    };
+    } satisfies Electron.MenuItemConstructorOptions;
   }
 
-  return array;
+  return array as Electron.MenuItemConstructorOptions[];
 }

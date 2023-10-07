@@ -40,7 +40,7 @@ this [wiki page](https://wiki.archlinux.org/index.php/Arch_User_Repository#Insta
 
 If you get an error "is damaged and can’t be opened." when launching the app, run the following in the Terminal:
 
-```
+```bash
 xattr -cr /Applications/YouTube\ Music.app
 ```
 
@@ -49,7 +49,7 @@ xattr -cr /Applications/YouTube\ Music.app
 You can use the [Scoop package manager](https://scoop.sh) to install the `youtube-music` package from
 the [`extras` bucket](https://github.com/ScoopInstaller/Extras).
 
-```
+```bash
 scoop bucket add extras
 scoop install extras/youtube-music
 ```
@@ -61,7 +61,7 @@ official CLI package manager to install the `th-ch.YouTubeMusic` package.
 true for the manual installation when trying to run the executable(.exe) after a manual download here on github (same
 file).*
 
-```
+```bash
 winget install th-ch.YouTubeMusic
 ```
 
@@ -166,7 +166,7 @@ Some predefined themes are available in https://github.com/kerichdev/themes-for-
 
 ## Dev
 
-```sh
+```bash
 git clone https://github.com/th-ch/youtube-music
 cd youtube-music
 npm
@@ -184,20 +184,46 @@ Using plugins, you can:
 
 Create a folder in `plugins/YOUR-PLUGIN-NAME`:
 
-- if you need to manipulate the BrowserWindow, create a file `back.js` with the following template:
+- if you need to manipulate the BrowserWindow, create a file with the following template:
 
-```node
-module.exports = win => {
-  // win is the BrowserWindow object
+```typescript
+// file: back.ts
+export default (win: Electron.BrowserWindow, config: ConfigType<'YOUR-PLUGIN-NAME'>) => {
+  // something
 };
 ```
 
-- if you need to change the front, create a file `front.js` with the following template:
+then, register the plugin in `index.ts`:
 
-```node
-module.exports = () => {
+```typescript
+import yourPlugin from './plugins/YOUR-PLUGIN-NAME/back';
+
+// ...
+
+const mainPlugins = {
+  // ...
+  'YOUR-PLUGIN-NAME': yourPlugin,
+};
+```
+
+- if you need to change the front, create a file with the following template:
+
+```typescript
+// file: front.ts
+export default (config: ConfigType<'YOUR-PLUGIN-NAME'>) => {
   // This function will be called as a preload script
   // So you can use front features like `document.querySelector`
+};
+```
+
+then, register the plugin in `preload.ts`:
+
+```typescript
+import yourPlugin from './plugins/YOUR-PLUGIN-NAME/front';
+
+const rendererPlugins: PluginMapper<'renderer'> = {
+  // ...
+  'YOUR-PLUGIN-NAME': yourPlugin,
 };
 ```
 
@@ -205,21 +231,21 @@ module.exports = () => {
 
 - injecting custom CSS: create a `style.css` file in the same folder then:
 
-```node
-const path = require("path");
-const {injectCSS} = require("../utils");
+```typescript
+import path from 'node:path';
+import { injectCSS } from '../utils';
 
-// back.js
-module.exports = win => {
-  injectCSS(win.webContents, path.join(__dirname, "style.css"));
+// back.ts
+export default (win: Electron.BrowserWindow) => {
+  injectCSS(win.webContents, path.join(__dirname, 'style.css'));
 };
 ```
 
 - changing the HTML:
 
-```node
-// front.js
-module.exports = () => {
+```typescript
+// front.ts
+export default () => {
   // Remove the login button
   document.querySelector(".sign-in-link.ytmusic-nav-bar").remove();
 };
@@ -243,7 +269,7 @@ using [electron-builder](https://github.com/electron-userland/electron-builder).
 
 ## Tests
 
-```sh
+```bash
 npm run test
 ```
 
