@@ -79,7 +79,7 @@ export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
             const getPluginMenu = pluginMenus[pluginName as keyof typeof pluginMenus];
 
             let pluginLabel = pluginName;
-            if (betaPlugins.includes(plugin)) {
+            if (betaPlugins.includes(pluginLabel)) {
               pluginLabel += ' [beta]';
             }
 
