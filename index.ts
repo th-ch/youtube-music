@@ -225,16 +225,6 @@ function createMainWindow() {
   });
   loadPlugins(win);
 
-  const scaleFactor = screen.getAllDisplays().length > 1 ? screen.getPrimaryDisplay().scaleFactor : 1;
-
-  if (windowSize) {
-    const scaledSize = {
-      width: windowSize.width / scaleFactor,
-      height: windowSize.height / scaleFactor,
-    };
-    win.setSize(scaledSize.width, scaledSize.height);
-  }
-
   if (windowPosition) {
     const { x: windowX, y: windowY } = windowPosition;
     const winSize = win.getSize();
@@ -253,11 +243,7 @@ function createMainWindow() {
         );
       }
     } else {
-      const scaledPosition = {
-        x: windowX / scaleFactor,
-        y: windowY / scaleFactor,
-      };
-      win.setPosition(scaledPosition.x, scaledPosition.y);
+      win.setPosition(windowX, windowY);
     }
   }
 
