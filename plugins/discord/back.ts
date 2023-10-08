@@ -39,12 +39,9 @@ const resetInfo = () => {
     console.log('discord disconnected');
   }
 
-  setTimeout(() => {
-    for (const cb of refreshCallbacks) {
-      cb();
-    }
-  }, 100);
-
+  for (const cb of refreshCallbacks) {
+    cb();
+  }
 };
 
 const connectTimeout = () => new Promise((resolve, reject) => setTimeout(() => {
