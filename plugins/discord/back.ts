@@ -4,7 +4,7 @@ import { dev } from 'electron-is';
 
 import { SetActivity } from '@xhayper/discord-rpc/dist/structures/ClientUser';
 
-import registerCallback from '../../providers/song-info';
+import registerCallback, { type SongInfoCallback, type SongInfo } from '../../providers/song-info';
 
 import type { ConfigType } from '../../config/dynamic';
 
@@ -15,7 +15,7 @@ export interface Info {
   rpc: DiscordClient;
   ready: boolean;
   autoReconnect: boolean;
-  lastSongInfo?: import('../../providers/song-info').SongInfo;
+  lastSongInfo?: SongInfo;
 }
 
 const info: Info = {
@@ -39,35 +39,13 @@ const resetInfo = () => {
     console.log('discord disconnected');
   }
 
-  for (const cb of refreshCallbacks) {
-    cb();
-  }
+  setTimeout(() => {
+    for (const cb of refreshCallbacks) {
+      cb();
+    }
+  }, 100);
+
 };
-
-info.rpc.on('connected', () => {
-  if (dev()) {
-    console.log('discord connected');
-  }
-
-  for (const cb of refreshCallbacks) {
-    cb();
-  }
-});
-
-info.rpc.on('ready', () => {
-  info.ready = true;
-  if (info.lastSongInfo) {
-    updateActivity(info.lastSongInfo);
-  }
-});
-
-info.rpc.on('disconnected', () => {
-  resetInfo();
-
-  if (info.autoReconnect) {
-    connectTimeout();
-  }
-});
 
 const connectTimeout = () => new Promise((resolve, reject) => setTimeout(() => {
   if (!info.autoReconnect || info.rpc.isConnected) {
@@ -117,7 +95,7 @@ export const connect = (showError = false) => {
 };
 
 let clearActivity: NodeJS.Timeout | undefined;
-let updateActivity: import('../../providers/song-info').SongInfoCallback;
+let updateActivity: SongInfoCallback;
 
 type DiscordOptions = ConfigType<'discord'>;
 
@@ -125,6 +103,31 @@ export default (
   win: Electron.BrowserWindow,
   options: DiscordOptions,
 ) => {
+  info.rpc.on('connected', () => {
+    if (dev()) {
+      console.log('discord connected');
+    }
+
+    for (const cb of refreshCallbacks) {
+      cb();
+    }
+  });
+
+  info.rpc.on('ready', () => {
+    info.ready = true;
+    if (info.lastSongInfo) {
+      updateActivity(info.lastSongInfo);
+    }
+  });
+
+  info.rpc.on('disconnected', () => {
+    resetInfo();
+
+    if (info.autoReconnect) {
+      connectTimeout();
+    }
+  });
+
   info.autoReconnect = options.autoReconnect;
 
   window = win;
