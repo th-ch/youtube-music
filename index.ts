@@ -236,15 +236,15 @@ function createMainWindow() {
   }
 
   if (windowPosition) {
-    const { x, y } = windowPosition;
+    const { x: windowX, y: windowY } = windowPosition;
     const winSize = win.getSize();
     const displaySize
       = screen.getDisplayNearestPoint(windowPosition).bounds;
     if (
-      x + winSize[0] < displaySize.x - 8
-      || x - winSize[0] > displaySize.x + displaySize.width
-      || y < displaySize.y - 8
-      || y > displaySize.y + displaySize.height
+      windowX + winSize[0] < displaySize.x - 8
+      || windowX - winSize[0] > displaySize.x + displaySize.width
+      || windowY < displaySize.y - 8
+      || windowY > displaySize.y + displaySize.height
     ) {
       // Window is offscreen
       if (is.dev()) {
@@ -254,8 +254,8 @@ function createMainWindow() {
       }
     } else {
       const scaledPosition = {
-        x: windowPosition.x / scaleFactor,
-        y: windowPosition.y / scaleFactor,
+        x: windowX / scaleFactor,
+        y: windowY / scaleFactor,
       };
       win.setPosition(scaledPosition.x, scaledPosition.y);
     }
