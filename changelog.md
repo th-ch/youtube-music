@@ -2,7 +2,16 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v2.0.2](https://github.com/th-ch/youtube-music/compare/v2.0.1...v2.0.2)
+
+- fix: discord-rpc [`#1278`](https://github.com/th-ch/youtube-music/pull/1278)
+- Bump version to 2.0.2 [`b5dbfaf`](https://github.com/th-ch/youtube-music/commit/b5dbfaf68691a546d72f5c1818fd3a44802eb0fa)
+- Merge pull request #1272 from th-ch/feat/resolves-1265 [`6b7fd5b`](https://github.com/th-ch/youtube-music/commit/6b7fd5ba630888de08004105179c059c6d93e028)
+- Merge pull request #1279 from th-ch/fix/1274 [`73a049a`](https://github.com/th-ch/youtube-music/commit/73a049a7bc5161f0d53c252cf510f1e2a6f6eeb3)
+
 #### [v2.0.1](https://github.com/th-ch/youtube-music/compare/v2.0.0...v2.0.1)
+
+> 8 October 2023
 
 - Update changelog for v2.0.0 [`2d69dfd`](https://github.com/th-ch/youtube-music/commit/2d69dfd333c3223ecc7de13a0abc98fd99aa3a2b)
 - hotfix: hotfix for #1267 [`c002263`](https://github.com/th-ch/youtube-music/commit/c002263c3bdd51890b8ffb431283afb60405d8fe)
