@@ -147,7 +147,6 @@ menu-separator {
   border: none;
   cursor: pointer;
   display: flex;
-  justify-content: center;
   align-items: center;
   color: #f1f1f1;
   font-size: 14px;
