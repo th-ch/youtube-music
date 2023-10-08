@@ -2,14 +2,14 @@ import path from 'node:path';
 
 import { app, BrowserWindow, ipcMain, Notification } from 'electron';
 
-import { icons, notificationImage, saveTempIcon, secondsToMinutes, ToastStyles } from './utils';
+import { notificationImage, secondsToMinutes, ToastStyles } from './utils';
 import config from './config';
 
 import getSongControls from '../../providers/song-controls';
 import registerCallback, { SongInfo } from '../../providers/song-info';
 import { changeProtocolHandler } from '../../providers/protocol-handler';
 import { setTrayOnClick, setTrayOnDoubleClick } from '../../tray';
-import { getMediaIconLocation } from '../utils';
+import { getMediaIconLocation, mediaIcons, saveMediaIcon } from '../utils';
 
 let songControls: ReturnType<typeof getSongControls>;
 let savedNotification: Notification | undefined;
@@ -23,7 +23,7 @@ export default (win: BrowserWindow) => {
   ipcMain.on('timeChanged', (_, t: number) => currentSeconds = t);
 
   if (app.isPackaged) {
-    saveTempIcon();
+    saveMediaIcon();
   }
 
   let savedSongInfo: SongInfo;
@@ -152,9 +152,9 @@ const getXml = (songInfo: SongInfo, iconSrc: string) => {
     }
   }
 };
-const display = (kind: keyof typeof icons) => {
+const display = (kind: keyof typeof mediaIcons) => {
   if (config.get('toastStyle') === ToastStyles.legacy) {
-    return `content="${icons[kind]}"`;
+    return `content="${mediaIcons[kind]}"`;
   }
 
   return `\
@@ -163,7 +163,7 @@ const display = (kind: keyof typeof icons) => {
         `;
 };
 
-const getButton = (kind: keyof typeof icons) =>
+const getButton = (kind: keyof typeof mediaIcons) =>
   `<action ${display(kind)} activationType="protocol" arguments="youtubemusic://${kind}"/>`;
 
 const getButtons = (isPaused: boolean) => `\
