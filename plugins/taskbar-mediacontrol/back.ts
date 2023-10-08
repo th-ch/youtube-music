@@ -1,15 +1,19 @@
 import path from 'node:path';
 
-import { BrowserWindow, nativeImage } from 'electron';
+import { app, BrowserWindow, nativeImage } from 'electron';
 
 import getSongControls from '../../providers/song-controls';
 import registerCallback, { SongInfo } from '../../providers/song-info';
-import { getMediaIconLocation } from '../utils';
+import { getMediaIconLocation, saveMediaIcon } from '../utils';
 
 export default (win: BrowserWindow) => {
   let currentSongInfo: SongInfo;
 
   const { playPause, next, previous } = getSongControls(win);
+
+  if (app.isPackaged) {
+    saveMediaIcon();
+  }
 
   const setThumbar = (win: BrowserWindow, songInfo: SongInfo) => {
     // Wait for song to start before setting thumbar
