@@ -101,6 +101,15 @@ export const createPanel = (
     }
 
     panel.setAttribute('open', 'true');
+
+    // Children are placed below their parent item, which can cause
+    // long lists to squeeze their children at the bottom of the screen
+    // (This needs to be done *after* setAttribute)
+    panel.classList.remove('position-by-bottom');
+    if (options.placement === 'right' && panel.scrollHeight > panel.clientHeight ) {
+      panel.style.setProperty('--y', `${rect.y + rect.height}px`);
+      panel.classList.add('position-by-bottom');
+    }
   };
 
   anchor.addEventListener('click', () => {
