@@ -80,6 +80,11 @@ menu-panel[open="true"] {
   opacity: 1;
   transform: scale(1);
 }
+menu-panel.position-by-bottom {
+  top: unset;
+  bottom: calc(100vh - var(--y, 100%));
+  max-height: calc(var(--y, 0) - var(--menu-bar-height, 36px) - 16px);
+}
 
 menu-item {
   -webkit-app-region: none;
