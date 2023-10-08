@@ -261,26 +261,6 @@ function createMainWindow() {
   win.webContents.loadURL(urlToLoad);
   win.on('closed', onClosed);
 
-  const scaleFactor = screen.getAllDisplays().length > 1 ? screen.getPrimaryDisplay().scaleFactor : 1;
-  const size = config.get('window-size');
-  const position = config.get('window-position');
-
-  if (size && size.width && size.height) {
-    const scaledSize = {
-      width: size.width / scaleFactor,
-      height: size.height / scaleFactor,
-    };
-    win.setSize(scaledSize.width, scaledSize.height);
-  }
-
-  if (position && position.x && position.y) {
-    const scaledPosition = {
-      x: position.x / scaleFactor,
-      y: position.y / scaleFactor,
-    };
-    win.setPosition(scaledPosition.x, scaledPosition.y);
-  }
-
   type PiPOptions = typeof config.defaultConfig.plugins['picture-in-picture'];
   const setPiPOptions = config.plugins.isEnabled('picture-in-picture')
     // eslint-disable-next-line @typescript-eslint/no-var-requires
