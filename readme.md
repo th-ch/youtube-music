@@ -65,6 +65,16 @@ file).*
 winget install th-ch.YouTubeMusic
 ```
 
+#### How to install without a network connection? (in Windows)
+
+- Download the `*.nsis.7z` file for _your device architecture_ in [release page](https://github.com/th-ch/youtube-music/releases/latest).
+  - `x64` for 64-bit Windows
+  - `ia32` for 32-bit Windows
+  - `arm64` for ARM64 Windows
+- Download installer in release page. (`*-Setup.exe`)
+- Place them in the **same directory**.
+- Run the installer.
+
 ## Available plugins:
 
 - **Ad Blocker**: Block all ads and tracking out of the box
