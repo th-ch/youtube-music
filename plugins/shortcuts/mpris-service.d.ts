@@ -75,6 +75,8 @@ declare module 'mpris-service' {
 
     objectPath(subpath?: string): string;
 
+    getPosition(): number;
+
     seeked(position: number): void;
 
     getTrackIndex(trackId: string): number;
