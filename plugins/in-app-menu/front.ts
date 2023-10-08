@@ -2,7 +2,12 @@ import { ipcRenderer, Menu } from 'electron';
 
 import { createPanel } from './menu/panel';
 
-import logo from '../../assets/menu.svg';
+import logo from './assets/menu.svg';
+import close from './assets/close.svg';
+import minimize from './assets/minimize.svg';
+import maximize from './assets/maximize.svg';
+import unmaximize from './assets/unmaximize.svg';
+
 import { isEnabled } from '../../config/plugins';
 import config from '../../config';
 
@@ -11,8 +16,9 @@ function $<E extends Element = Element>(selector: string) {
 }
 
 const isMacOS = navigator.userAgent.includes('Macintosh');
+const isNotWindowsOrMacOS = !navigator.userAgent.includes('Windows') && !isMacOS;
 
-export default () => {
+export default async () => {
   let hideMenu = config.get('options.hideMenu');
   const titleBar = document.createElement('title-bar');
   const navBar = document.querySelector<HTMLDivElement>('#nav-bar-background');
@@ -38,6 +44,60 @@ export default () => {
 
   if (!isMacOS) titleBar.appendChild(logo);
   document.body.appendChild(titleBar);
+
+  titleBar.appendChild(logo);
+
+  const addWindowControls = async () => {
+
+    // Create window control buttons
+    const minimizeButton = document.createElement('button');
+    minimizeButton.classList.add('window-control');
+    minimizeButton.appendChild(minimize);
+    minimizeButton.onclick = () => ipcRenderer.invoke('window-minimize');
+
+    const maximizeButton = document.createElement('button');
+    if (await ipcRenderer.invoke('window-is-maximized')) {
+      maximizeButton.classList.add('window-control');
+      maximizeButton.appendChild(unmaximize);
+    } else {
+      maximizeButton.classList.add('window-control');
+      maximizeButton.appendChild(maximize);
+    }
+    maximizeButton.onclick = async () => {
+      if (await ipcRenderer.invoke('window-is-maximized')) {
+        // change icon to maximize
+        maximizeButton.removeChild(maximizeButton.firstChild!);
+        maximizeButton.appendChild(maximize);
+
+        // call unmaximize
+        await ipcRenderer.invoke('window-unmaximize');
+      } else {
+        // change icon to unmaximize
+        maximizeButton.removeChild(maximizeButton.firstChild!);
+        maximizeButton.appendChild(unmaximize);
+
+        // call maximize
+        await ipcRenderer.invoke('window-maximize');
+      }
+    };
+
+    const closeButton = document.createElement('button');
+    closeButton.classList.add('window-control');
+    closeButton.appendChild(close);
+    closeButton.onclick = () => ipcRenderer.invoke('window-close');
+
+    // Create a container div for the window control buttons
+    const windowControlsContainer = document.createElement('div');
+    windowControlsContainer.classList.add('window-controls-container');
+    windowControlsContainer.appendChild(minimizeButton);
+    windowControlsContainer.appendChild(maximizeButton);
+    windowControlsContainer.appendChild(closeButton);
+
+    // Add window control buttons to the title bar
+    titleBar.appendChild(windowControlsContainer);
+  };
+
+  if (isNotWindowsOrMacOS) await addWindowControls();
 
   if (navBar) {
     const observer = new MutationObserver((mutations) => {
@@ -69,8 +129,9 @@ export default () => {
         menu.style.visibility = 'hidden';
       }
     });
+    if (isNotWindowsOrMacOS) await addWindowControls();
   };
-  updateMenu();
+  await updateMenu();
 
   document.title = 'Youtube Music';
 
