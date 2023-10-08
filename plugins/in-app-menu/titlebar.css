@@ -121,6 +121,34 @@ menu-separator {
   margin-left: -4px;
 }
 
+/* Window control container */
+
+.window-controls-container {
+  -webkit-app-region: no-drag;
+  display: flex;
+  justify-content: flex-end; /* Align to the right end of the title-bar */
+  align-items: center;
+  gap: 4px; /* Add spacing between the window control buttons */
+  position: absolute; /* Position it absolutely within title-bar */
+  right: 4px; /* Adjust the right position as needed */
+}
+
+/* Window control buttons */
+
+.window-control {
+  width: 24px;
+  height: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #f1f1f1;
+  font-size: 14px;
+  padding: 0;
+}
+
 /* youtube-music style */
 
 ytmusic-app-layout {

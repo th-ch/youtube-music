@@ -1,5 +1,3 @@
-import path from 'node:path';
-
 import { register } from 'electron-localshortcut';
 
 import { BrowserWindow, Menu, MenuItem, ipcMain } from 'electron';
@@ -25,7 +23,7 @@ export default (win: BrowserWindow) => {
       (key: string, value: unknown) => (key !== 'commandsMap' && key !== 'menu') ? value : undefined),
     ),
   );
-  
+
   const getMenuItemById = (commandId: number): MenuItem | null => {
     const menu = Menu.getApplicationMenu();
 
@@ -40,7 +38,7 @@ export default (win: BrowserWindow) => {
         break;
       }
     }
-    
+
     return target;
   };
 
@@ -57,4 +55,11 @@ export default (win: BrowserWindow) => {
       (key: string, value: unknown) => (key !== 'commandsMap' && key !== 'menu') ? value : undefined),
     );
   });
+
+  ipcMain.handle('window-is-maximized', () => win.isMaximized());
+
+  ipcMain.handle('window-close', () => win.close());
+  ipcMain.handle('window-minimize', () => win.minimize());
+  ipcMain.handle('window-maximize', () => win.maximize());
+  ipcMain.handle('window-unmaximize', () => win.unmaximize());
 };
