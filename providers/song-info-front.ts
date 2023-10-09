@@ -62,8 +62,8 @@ export const setupRepeatChangedListener = singleton(() => {
   ipcRenderer.send(
     'repeatChanged',
     $<HTMLElement & {
-      GetState: () => GetState;
-    }>('ytmusic-player-bar')?.GetState().queue.repeatMode,
+      getState: () => GetState;
+    }>('ytmusic-player-bar')?.getState().queue.repeatMode,
   );
 });
 
