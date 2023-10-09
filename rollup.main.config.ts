@@ -59,7 +59,6 @@ export default defineConfig({
   external: [
     'electron',
     'custom-electron-prompt',
-    'youtubei.js', // https://github.com/LuanRT/YouTube.js/pull/509
     ...builtinModules,
   ],
 });
