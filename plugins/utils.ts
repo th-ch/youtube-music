@@ -19,7 +19,7 @@ export const mediaIcons = {
   pause: '\u{2016}', // ‖
   next: '\u{1433}', // ᐳ
   previous: '\u{1438}', // ᐸ
-};
+} as const;
 
 export const saveMediaIcon = () => {
   for (const kind of Object.keys(mediaIcons)) {
