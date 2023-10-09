@@ -56,6 +56,15 @@ export default (win: Electron.BrowserWindow, options: DiscordOptions, refreshMen
       },
     },
     {
+      label: 'Hide GitHub link Button',
+      type: 'checkbox',
+      checked: options.hideGitHubButton,
+      click(item: Electron.MenuItem) {
+        options.hideGitHubButton = item.checked;
+        setMenuOptions('discord', options);
+      },
+    },
+    {
       label: 'Hide duration left',
       type: 'checkbox',
       checked: options.hideDurationLeft,
