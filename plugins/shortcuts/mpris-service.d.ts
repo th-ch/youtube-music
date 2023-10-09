@@ -1,4 +1,4 @@
-declare module 'mpris-service' {
+declare module '@jellybrick/mpris-service' {
   import { EventEmitter } from 'events';
 
   import dbus from 'dbus-next';
