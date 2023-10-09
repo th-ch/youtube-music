@@ -1,4 +1,4 @@
-import { app, dialog } from 'electron';
+import { app, dialog, ipcMain } from 'electron';
 import { Client as DiscordClient } from '@xhayper/discord-rpc';
 import { dev } from 'electron-is';
 
@@ -188,8 +188,20 @@ export default (
 
   // If the page is ready, register the callback
   win.once('ready-to-show', () => {
-    registerCallback(updateActivity);
+    let lastSongInfo: SongInfo;
+    registerCallback((songInfo) => {
+      lastSongInfo = songInfo;
+    });
     connect();
+    let lastSent = Date.now();
+    ipcMain.on('timeChanged', (_, t: number) => {
+      // if lastSent is more than 5 seconds ago, send the new time
+      if (Date.now() - lastSent > 5000) {
+        lastSent = Date.now();
+        lastSongInfo.elapsedSeconds = t;
+        updateActivity(lastSongInfo);
+      }
+    });
   });
   app.on('window-all-closed', clear);
 };
