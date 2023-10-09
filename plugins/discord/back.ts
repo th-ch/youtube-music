@@ -163,7 +163,7 @@ export default (
       largeImageText: songInfo.album ?? '',
       buttons: [
         ...(options.listenAlong ? [{ label: 'Listen Along', url: songInfo.url ?? '' }] : []),
-        { label: 'View App On GitHub', url: 'https://github.com/th-ch/youtube-music' },
+        ...(options.hideGitHubButton ? [] : [{ label: 'View App On GitHub', url: 'https://github.com/th-ch/youtube-music' }]),
       ],
     };
 
