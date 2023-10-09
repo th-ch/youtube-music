@@ -187,7 +187,7 @@ function onApiLoaded() {
   // Remove upgrade button
   if (config.get('options.removeUpgradeButton')) {
     const styles = document.createElement('style');
-    styles.innerHTML = `ytmusic-guide-section-renderer #items ytmusic-guide-entry-renderer:last-child {
+    styles.innerHTML = `ytmusic-guide-section-renderer #items ytmusic-guide-entry-renderer:nth-child(4) {
       display: none;
     }`;
     document.head.appendChild(styles);
