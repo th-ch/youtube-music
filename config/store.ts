@@ -10,16 +10,6 @@ const setDefaultPluginOptions = (store: Conf<Record<string, unknown>>, plugin: k
 };
 
 const migrations = {
-  '>=2.0.3'(store: Conf<Record<string, unknown>>) {
-    if (store.get('plugins.discord.hideGitHubButton') === undefined) {
-      store.set('plugins.discord.hideGitHubButton', false);
-    }
-  },
-  '>=2.0.0'(store: Conf<Record<string, unknown>>) {
-    if (store.get('plugins.disable-autoplay.applyOnce') === undefined) {
-      store.set('plugins.disable-autoplay.applyOnce', false);
-    }
-  },
   '>=1.20.0'(store: Conf<Record<string, unknown>>) {
     setDefaultPluginOptions(store, 'visualizer');
 
