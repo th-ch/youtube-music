@@ -97,7 +97,7 @@
     "start": "npm run build && electron ./dist/index.js",
     "start:debug": "ELECTRON_ENABLE_LOGGING=1 npm run start",
     "generate:package": "node utils/generate-package-json.js",
-    "postinstall": "npm run plugins && npm run clean",
+    "postinstall": "patch-package && npm run plugins && npm run clean",
     "clean": "del-cli dist && del-cli pack",
     "dist": "npm run clean && npm run build && electron-builder --win --mac --linux -p never",
     "dist:linux": "npm run clean && npm run build && electron-builder --linux -p never",
