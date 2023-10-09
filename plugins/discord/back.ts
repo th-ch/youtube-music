@@ -196,9 +196,10 @@ export default (
     connect();
     let lastSent = Date.now();
     ipcMain.on('timeChanged', (_, t: number) => {
+      const currentTime = Date.now();
       // if lastSent is more than 5 seconds ago, send the new time
-      if (Date.now() - lastSent > 5000) {
-        lastSent = Date.now();
+      if (currentTime - lastSent > 5000) {
+        lastSent = currentTime;
         lastSongInfo.elapsedSeconds = t;
         updateActivity(lastSongInfo);
       }
