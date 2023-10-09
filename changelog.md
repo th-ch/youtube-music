@@ -2,7 +2,22 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v2.0.3](https://github.com/th-ch/youtube-music/compare/v2.0.2...v2.0.3)
+
+- feat(discord): add `Hide GitHub link Button` [`#1293`](https://github.com/th-ch/youtube-music/pull/1293)
+- feat(deps): bundle `youtubei.js` (temporary solution) [`#1292`](https://github.com/th-ch/youtube-music/pull/1292)
+- fix(mpris): fixed an issue where MPRIS information was incorrect [`#1291`](https://github.com/th-ch/youtube-music/pull/1291)
+- fix(discord): fixed an issue where `timeChanged` was not being applied to Discord activities [`#1290`](https://github.com/th-ch/youtube-music/pull/1290)
+- Fix: typo in README [`#1286`](https://github.com/th-ch/youtube-music/pull/1286)
+- fix: chore(deps): update dependency @jellybrick/mpris-service to 2.1.4 (fix #971) [`#971`](https://github.com/th-ch/youtube-music/issues/971)
+- chore(deps): Bump `@cliqz/adblocker-electron` to 1.26.8 (fix #1269) [`#1269`](https://github.com/th-ch/youtube-music/issues/1269)
+- fix: missing icons taskbar-mediacontrol [`fbf4b3b`](https://github.com/th-ch/youtube-music/commit/fbf4b3b8b5e39c61975e67efc990c45f62de76d8)
+- remove: migration scripts [`52ba2dc`](https://github.com/th-ch/youtube-music/commit/52ba2dc9ffd8e235251d1279686f55e33b3fa3bb)
+- feat: add migration script [`926b9fb`](https://github.com/th-ch/youtube-music/commit/926b9fb5e6db69b69935ec5d7be9a76a84e54ceb)
+
 #### [v2.0.2](https://github.com/th-ch/youtube-music/compare/v2.0.1...v2.0.2)
+
+> 8 October 2023
 
 - fix: discord-rpc [`#1278`](https://github.com/th-ch/youtube-music/pull/1278)
 - Bump version to 2.0.2 [`b5dbfaf`](https://github.com/th-ch/youtube-music/commit/b5dbfaf68691a546d72f5c1818fd3a44802eb0fa)
