@@ -191,6 +191,7 @@ export default (
     let lastSongInfo: SongInfo;
     registerCallback((songInfo) => {
       lastSongInfo = songInfo;
+      updateActivity(songInfo);
     });
     connect();
     let lastSent = Date.now();
