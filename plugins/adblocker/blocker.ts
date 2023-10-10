@@ -3,7 +3,7 @@ import path from 'node:path';
 import fs, { promises } from 'node:fs';
 
 import { ElectronBlocker } from '@cliqz/adblocker-electron';
-import { app } from 'electron';
+import { app, net } from 'electron';
 
 const SOURCES = [
   'https://raw.githubusercontent.com/kbinani/adblock-youtube-ads/master/signed.txt',
@@ -17,7 +17,7 @@ const SOURCES = [
   'https://secure.fanboy.co.nz/fanboy-annoyance_ubo.txt',
 ];
 
-export const loadAdBlockerEngine = (
+export const loadAdBlockerEngine = async (
   session: Electron.Session | undefined = undefined,
   cache = true,
   additionalBlockLists = [],
@@ -49,25 +49,24 @@ export const loadAdBlockerEngine = (
     ...additionalBlockLists,
   ];
 
-  ElectronBlocker.fromLists(
-    fetch,
-    lists,
-    {
-      // When generating the engine for caching, do not load network filters
-      // So that enhancing the session works as expected
-      // Allowing to define multiple webRequest listeners
-      loadNetworkFilters: session !== undefined,
-    },
-    cachingOptions,
-  )
-    .then((blocker) => {
-      if (session) {
-        blocker.enableBlockingInSession(session);
-      } else {
-        console.log('Successfully generated adBlocker engine.');
-      }
-    })
-    .catch((error) => console.log('Error loading adBlocker engine', error));
+  try {
+    const blocker = await ElectronBlocker.fromLists(
+      (url: string) => net.fetch(url),
+      lists,
+      {
+        // When generating the engine for caching, do not load network filters
+        // So that enhancing the session works as expected
+        // Allowing to define multiple webRequest listeners
+        loadNetworkFilters: session !== undefined,
+      },
+      cachingOptions,
+    );
+    if (session) {
+      blocker.enableBlockingInSession(session);
+    }
+  } catch (error) {
+    console.log('Error loading adBlocker engine', error);
+  }
 };
 
 export default { loadAdBlockerEngine };

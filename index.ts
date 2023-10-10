@@ -144,7 +144,7 @@ if (is.windows()) {
 
 ipcMain.handle('get-main-plugin-names', () => Object.keys(mainPlugins));
 
-function loadPlugins(win: BrowserWindow) {
+async function loadPlugins(win: BrowserWindow) {
   injectCSS(win.webContents, youtubeMusicCSS);
   // Load user CSS
   const themes: string[] = config.get('options.themes');
@@ -175,7 +175,7 @@ function loadPlugins(win: BrowserWindow) {
         console.log('Loaded plugin - ' + plugin);
         const handler = mainPlugins[plugin as keyof typeof mainPlugins];
         if (handler) {
-          handler(win, options as never);
+          await handler(win, options as never);
         }
       }
     } catch (e) {
@@ -184,7 +184,7 @@ function loadPlugins(win: BrowserWindow) {
   }
 }
 
-function createMainWindow() {
+async function createMainWindow() {
   const windowSize = config.get('window-size');
   const windowMaximized = config.get('window-maximized');
   const windowPosition: Electron.Point = config.get('window-position');
@@ -223,7 +223,7 @@ function createMainWindow() {
         : 'default'),
     autoHideMenuBar: config.get('options.hideMenu'),
   });
-  loadPlugins(win);
+  await loadPlugins(win);
 
   if (windowPosition) {
     const { x: windowX, y: windowY } = windowPosition;
@@ -258,7 +258,6 @@ function createMainWindow() {
   const urlToLoad = config.get('options.resumeOnStart')
     ? config.get('url')
     : config.defaultConfig.url;
-  win.webContents.loadURL(urlToLoad);
   win.on('closed', onClosed);
 
   type PiPOptions = typeof config.defaultConfig.plugins['picture-in-picture'];
@@ -338,6 +337,8 @@ function createMainWindow() {
 
   removeContentSecurityPolicy();
 
+  await win.webContents.loadURL(urlToLoad);
+
   return win;
 }
 
@@ -414,17 +415,17 @@ app.on('window-all-closed', () => {
   globalShortcut.unregisterAll();
 });
 
-app.on('activate', () => {
+app.on('activate', async () => {
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) {
-    mainWindow = createMainWindow();
+    mainWindow = await createMainWindow();
   } else if (!mainWindow.isVisible()) {
     mainWindow.show();
   }
 });
 
-app.on('ready', () => {
+app.on('ready', async () => {
   if (config.get('options.autoResetAppCache')) {
     // Clear cache after 20s
     const clearCacheTimeout = setTimeout(() => {
@@ -469,7 +470,7 @@ app.on('ready', () => {
     }
   }
 
-  mainWindow = createMainWindow();
+  mainWindow = await createMainWindow();
   setApplicationMenu(mainWindow);
   setUpTray(app, mainWindow);
 

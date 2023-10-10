@@ -7,7 +7,7 @@ import { PluginConfig } from '../../config/dynamic';
 
 const config = new PluginConfig('adblocker', { enableFront: true });
 
-export const shouldUseBlocklists = async () => await config.get('blocker') !== blockers.InPlayer;
+export const shouldUseBlocklists = () => config.get('blocker') !== blockers.InPlayer;
 
 export default Object.assign(config, {
   shouldUseBlocklists,
