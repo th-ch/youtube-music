@@ -199,10 +199,13 @@ async function downloadSongUnsafe(
     presetSetting = presets[preset];
   }
 
-  const filename = filenamify(`${name}.${presetSetting?.extension ?? 'mp3'}`, {
+  let filename = filenamify(`${name}.${presetSetting?.extension ?? 'mp3'}`, {
     replacement: '_',
     maxLength: 255,
   });
+  if (!is.macOS()) {
+    filename = filename.normalize('NFC');
+  }
   const filePath = join(dir, filename);
 
   if (config.get('skipExisting') && existsSync(filePath)) {

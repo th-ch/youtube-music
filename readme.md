@@ -178,7 +178,7 @@ Some predefined themes are available in https://github.com/kerichdev/themes-for-
 ```bash
 git clone https://github.com/th-ch/youtube-music
 cd youtube-music
-npm
+npm ci
 npm run start
 ```
 
