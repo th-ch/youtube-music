@@ -155,7 +155,7 @@
     "xml2js": "0.6.2",
     "node-fetch": "2.7.0",
     "@electron/universal": "1.4.2",
-    "electron": "27.0.0-beta.9"
+    "electron": "27.0.0"
   },
   "devDependencies": {
     "@playwright/test": "1.38.1",
@@ -170,10 +170,10 @@
     "@types/electron-localshortcut": "3.1.1",
     "@types/howler": "2.2.9",
     "@types/html-to-text": "9.0.2",
-    "@typescript-eslint/eslint-plugin": "6.7.4",
+    "@typescript-eslint/eslint-plugin": "6.7.5",
     "auto-changelog": "2.4.0",
     "del-cli": "5.1.0",
-    "electron": "27.0.0-beta.9",
+    "electron": "27.0.0",
     "electron-builder": "24.6.4",
     "electron-devtools-installer": "3.2.0",
     "eslint": "8.51.0",
