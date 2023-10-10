@@ -269,9 +269,9 @@ export default () => {
 2. Run `npm i` to install dependencies
 3. Run `npm run build:OS`
 
-- `npm run build:win` - Windows
-- `npm run build:linux` - Linux
-- `npm run build:mac` - MacOS
+- `npm run dist:win` - Windows
+- `npm run dist:linux` - Linux
+- `npm run dist:mac` - MacOS
 
 Builds the app for macOS, Linux, and Windows,
 using [electron-builder](https://github.com/electron-userland/electron-builder).
