@@ -5,8 +5,6 @@ import { Visualizer } from './visualizer';
 
 import { ConfigType } from '../../../config/dynamic';
 
-const presets = ButterchurnPresets.getPresets();
-
 class ButterchurnVisualizer extends Visualizer<Butterchurn> {
   name = 'butterchurn';
 
@@ -41,7 +39,7 @@ class ButterchurnVisualizer extends Visualizer<Butterchurn> {
       }
     );
 
-    const preset = presets[options.butterchurn.preset];
+    const preset = ButterchurnPresets[options.butterchurn.preset];
     this.visualizer.loadPreset(preset, options.butterchurn.blendTimeInSeconds);
 
     this.visualizer.connectAudio(audioNode);
