@@ -2,7 +2,17 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v2.0.4](https://github.com/th-ch/youtube-music/compare/v2.0.3...v2.0.4)
+
+- hotfix(adblocker): fix `ipcRenderer.sendSync() with ...` [`#1301`](https://github.com/th-ch/youtube-music/pull/1301)
+- fix(downloader): Korean filename is broken on non-macOS devices [`#1297`](https://github.com/th-ch/youtube-music/pull/1297)
+- chore(deps): bump deps [`b6894dc`](https://github.com/th-ch/youtube-music/commit/b6894dca2974c63fa2945d3a4995665d11eb2a78)
+- fix: bump dependencies [`7aa970c`](https://github.com/th-ch/youtube-music/commit/7aa970cebc8e1407ff6937b402ba303e14c73efd)
+- fix(downloader): private playlist download [`1d5b299`](https://github.com/th-ch/youtube-music/commit/1d5b2997bd0c72c1c007c57b145509e4a8f77fef)
+
 #### [v2.0.3](https://github.com/th-ch/youtube-music/compare/v2.0.2...v2.0.3)
+
+> 10 October 2023
 
 - feat(discord): add `Hide GitHub link Button` [`#1293`](https://github.com/th-ch/youtube-music/pull/1293)
 - feat(deps): bundle `youtubei.js` (temporary solution) [`#1292`](https://github.com/th-ch/youtube-music/pull/1292)
