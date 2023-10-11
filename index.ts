@@ -335,7 +335,7 @@ async function createMainWindow() {
 
   removeContentSecurityPolicy();
 
-  await win.webContents.loadURL(urlToLoad);
+  win.webContents.loadURL(urlToLoad);
 
   return win;
 }
