@@ -393,7 +393,7 @@ app.once('browser-window-created', (event, win) => {
       console.log(log);
     }
 
-    if (!(config.plugins.isEnabled('in-app-menu') && errorCode === -3)) { // -3 is a false positive with in-app-menu
+    if (errorCode !== -3) { // -3 is a false positive
       win.webContents.send('log', log);
       win.webContents.loadFile(path.join(__dirname, 'error.html'));
     }
