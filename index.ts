@@ -8,7 +8,7 @@ import { autoUpdater } from 'electron-updater';
 import electronDebug from 'electron-debug';
 
 import config from './config';
-import { setApplicationMenu } from './menu';
+import { refreshMenu, setApplicationMenu } from './menu';
 import { fileExists, injectCSS, injectCSSAsFile } from './plugins/utils';
 import { isTesting } from './utils/testing';
 import { setUpTray } from './tray';
@@ -470,6 +470,7 @@ app.on('ready', async () => {
 
   mainWindow = await createMainWindow();
   setApplicationMenu(mainWindow);
+  refreshMenu(mainWindow);
   setUpTray(app, mainWindow);
 
   setupProtocolHandler(mainWindow);

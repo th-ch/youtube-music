@@ -21,8 +21,6 @@
       "!node_modules",
       "node_modules/custom-electron-prompt/**",
       "node_modules/@cliqz/adblocker-electron-preload/**",
-      "node_modules/@cliqz/adblocker-content/**",
-      "node_modules/@cliqz/adblocker-extended-selectors/**",
       "node_modules/@ffmpeg.wasm/core-mt/**",
       "!node_modules/**/*.map",
       "!node_modules/**/*.ts"

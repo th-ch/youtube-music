@@ -62,13 +62,15 @@ const pluginEnabledMenu = (plugin: string, label = '', hasSubmenu = false, refre
   },
 });
 
+export const refreshMenu = (win: BrowserWindow) => {
+  setApplicationMenu(win);
+  if (inAppMenuActive) {
+    win.webContents.send('refreshMenu');
+  }
+};
+
 export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
-  const refreshMenu = () => {
-    setApplicationMenu(win);
-    if (inAppMenuActive) {
-      win.webContents.send('refreshMenu');
-    }
-  };
+  const innerRefreshMenu = () => refreshMenu(win);
 
   return [
     {
@@ -84,15 +86,15 @@ export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
             const getPluginMenu = pluginMenus[pluginName as keyof typeof pluginMenus];
 
             if (!config.plugins.isEnabled(pluginName)) {
-              return pluginEnabledMenu(pluginName, pluginLabel, true, refreshMenu);
+              return pluginEnabledMenu(pluginName, pluginLabel, true, innerRefreshMenu);
             }
 
             return {
               label: pluginLabel,
               submenu: [
-                pluginEnabledMenu(pluginName, 'Enabled', true, refreshMenu),
+                pluginEnabledMenu(pluginName, 'Enabled', true, innerRefreshMenu),
                 { type: 'separator' },
-                ...getPluginMenu(win, config.plugins.getOptions(pluginName), refreshMenu),
+                ...getPluginMenu(win, config.plugins.getOptions(pluginName), innerRefreshMenu),
               ],
             } satisfies Electron.MenuItemConstructorOptions;
           }
