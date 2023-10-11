@@ -74,7 +74,7 @@ const defaultConfig = {
     'adblocker': {
       enabled: true,
       cache: true,
-      blocker: blockers.WithBlocklists as string,
+      blocker: blockers.InPlayer as string, // Fixed an issue with the initial launch in certain regions, such as South Korea.
       additionalBlockLists: [], // Additional list of filters, e.g "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters.txt"
       disableDefaultLists: false,
     },

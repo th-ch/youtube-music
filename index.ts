@@ -1,16 +1,14 @@
 import path from 'node:path';
 
 import { BrowserWindow, app, screen, globalShortcut, session, shell, dialog, ipcMain } from 'electron';
-import enhanceWebRequest from 'electron-better-web-request';
+import enhanceWebRequest, { BetterSession } from '@jellybrick/electron-better-web-request';
 import is from 'electron-is';
 import unhandled from 'electron-unhandled';
 import { autoUpdater } from 'electron-updater';
 import electronDebug from 'electron-debug';
 
-import { BetterWebRequest } from 'electron-better-web-request/lib/electron-better-web-request';
-
 import config from './config';
-import { setApplicationMenu } from './menu';
+import { refreshMenu, setApplicationMenu } from './menu';
 import { fileExists, injectCSS, injectCSSAsFile } from './plugins/utils';
 import { isTesting } from './utils/testing';
 import { setUpTray } from './tray';
@@ -337,7 +335,7 @@ async function createMainWindow() {
 
   removeContentSecurityPolicy();
 
-  await win.webContents.loadURL(urlToLoad);
+  win.webContents.loadURL(urlToLoad);
 
   return win;
 }
@@ -472,6 +470,7 @@ app.on('ready', async () => {
 
   mainWindow = await createMainWindow();
   setApplicationMenu(mainWindow);
+  refreshMenu(mainWindow);
   setUpTray(app, mainWindow);
 
   setupProtocolHandler(mainWindow);
@@ -603,8 +602,6 @@ function showUnresponsiveDialog(win: BrowserWindow, details: Electron.RenderProc
   });
 }
 
-// HACK: electron-better-web-request's typing is wrong
-type BetterSession = Omit<Electron.Session, 'webRequest'> & { webRequest: BetterWebRequest & Electron.WebRequest };
 function removeContentSecurityPolicy(
   betterSession: BetterSession = session.defaultSession as BetterSession,
 ) {
@@ -624,11 +621,10 @@ function removeContentSecurityPolicy(
     callback({ cancel: false, responseHeaders: details.responseHeaders });
   });
 
-  type ResolverListener = { apply: () => Promise<Record<string, unknown>>; context: unknown };
   // When multiple listeners are defined, apply them all
-  betterSession.webRequest.setResolver('onHeadersReceived', async (listeners: ResolverListener[]) => {
-    return listeners.reduce<Promise<Record<string, unknown>>>(
-      async (accumulator: Promise<Record<string, unknown>>, listener: ResolverListener) => {
+  betterSession.webRequest.setResolver('onHeadersReceived', async (listeners) => {
+    return listeners.reduce(
+      async (accumulator, listener) => {
         const acc = await accumulator;
         if (acc.cancel) {
           return acc;
