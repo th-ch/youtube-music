@@ -115,7 +115,7 @@ const defaultConfig = {
       enabled: false,
       downloadFolder: undefined as string | undefined, // Custom download folder (absolute path)
       selectedPreset: 'mp3 (256kbps)', // Selected preset
-      customPresetSetting: DefaultPresetList['Custom'], // Presets
+      customPresetSetting: DefaultPresetList['mp3 (256kbps)'], // Presets
       skipExisting: false,
       playlistMaxItems: undefined as number | undefined,
     },

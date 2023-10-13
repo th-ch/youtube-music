@@ -3,7 +3,7 @@ import Conf from 'conf';
 
 import defaults from './defaults';
 
-import type { Preset } from '../plugins/downloader/types';
+import { DefaultPresetList, type Preset } from '../plugins/downloader/types';
 
 const setDefaultPluginOptions = (store: Conf<Record<string, unknown>>, plugin: keyof typeof defaults.plugins) => {
   if (!store.get(`plugins.${plugin}`)) {
@@ -19,7 +19,7 @@ const migrations = {
         store.set('plugins.downloader.selectedPreset', 'Custom');
         store.set('plugins.downloader.customPresetSetting', {
           extension: 'mp3',
-          ffmpegArgs: store.get('plugins.downloader.ffmpegArgs') as string[] ?? [],
+          ffmpegArgs: store.get('plugins.downloader.ffmpegArgs') as string[] ?? DefaultPresetList['mp3 (256kbps)'].ffmpegArgs,
         } satisfies Preset);
       } else {
         store.set('plugins.downloader.selectedPreset', 'Source');
