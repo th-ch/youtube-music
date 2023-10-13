@@ -3,6 +3,8 @@ import Conf from 'conf';
 
 import defaults from './defaults';
 
+import type { Preset } from '../plugins/downloader/types';
+
 const setDefaultPluginOptions = (store: Conf<Record<string, unknown>>, plugin: keyof typeof defaults.plugins) => {
   if (!store.get(`plugins.${plugin}`)) {
     store.set(`plugins.${plugin}`, defaults.plugins[plugin]);
@@ -10,6 +12,26 @@ const setDefaultPluginOptions = (store: Conf<Record<string, unknown>>, plugin: k
 };
 
 const migrations = {
+  '>=2.1.0'(store: Conf<Record<string, unknown>>) {
+    const originalPreset = store.get('plugins.downloader.preset') as string | undefined;
+    if (originalPreset) {
+      if (originalPreset !== 'opus') {
+        store.set('plugins.downloader.selectedPreset', 'Custom');
+        store.set('plugins.downloader.customPresetSetting', {
+          extension: 'mp3',
+          ffmpegArgs: store.get('plugins.downloader.ffmpegArgs') as string[] ?? [],
+        } satisfies Preset);
+      } else {
+        store.set('plugins.downloader.selectedPreset', 'Source');
+        store.set('plugins.downloader.customPresetSetting', {
+          extension: null,
+          ffmpegArgs: store.get('plugins.downloader.ffmpegArgs') as string[] ?? [],
+        } satisfies Preset);
+      }
+      store.delete('plugins.downloader.preset');
+      store.delete('plugins.downloader.ffmpegArgs');
+    }
+  },
   '>=1.20.0'(store: Conf<Record<string, unknown>>) {
     setDefaultPluginOptions(store, 'visualizer');
 
