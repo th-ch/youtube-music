@@ -120,7 +120,12 @@ const defaultConfig = {
       playlistMaxItems: undefined as number | undefined,
     },
     'exponential-volume': {},
-    'in-app-menu': {},
+    'in-app-menu': {
+      /**
+       * true in Windows, false in Linux and macOS (see youtube-music/config/store.ts)
+       */
+      enabled: false,
+    },
     'last-fm': {
       enabled: false,
       token: undefined as string | undefined, // Token used for authentication

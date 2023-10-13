@@ -1,9 +1,17 @@
 import Store from 'electron-store';
 import Conf from 'conf';
+import is from 'electron-is';
 
 import defaults from './defaults';
 
 import { DefaultPresetList, type Preset } from '../plugins/downloader/types';
+
+const getDefaults = () => {
+  if (is.windows()) {
+    defaults.plugins['in-app-menu'].enabled = true;
+  }
+  return defaults;
+};
 
 const setDefaultPluginOptions = (store: Conf<Record<string, unknown>>, plugin: keyof typeof defaults.plugins) => {
   if (!store.get(`plugins.${plugin}`)) {
@@ -140,7 +148,7 @@ const migrations = {
 };
 
 export default new Store({
-  defaults,
+  defaults: getDefaults(),
   clearInvalidConfig: false,
   migrations,
 });

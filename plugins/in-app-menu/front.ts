@@ -22,6 +22,7 @@ export default async () => {
   let hideMenu = config.get('options.hideMenu');
   const titleBar = document.createElement('title-bar');
   const navBar = document.querySelector<HTMLDivElement>('#nav-bar-background');
+  let maximizeButton: HTMLButtonElement;
   if (isMacOS) titleBar.style.setProperty('--offset-left', '70px');
 
   logo.classList.add('title-bar-icon');
@@ -55,7 +56,7 @@ export default async () => {
     minimizeButton.appendChild(minimize);
     minimizeButton.onclick = () => ipcRenderer.invoke('window-minimize');
 
-    const maximizeButton = document.createElement('button');
+    maximizeButton = document.createElement('button');
     if (await ipcRenderer.invoke('window-is-maximized')) {
       maximizeButton.classList.add('window-control');
       maximizeButton.appendChild(unmaximize);
@@ -135,8 +136,14 @@ export default async () => {
 
   document.title = 'Youtube Music';
 
-  ipcRenderer.on('refreshMenu', () => {
-    updateMenu();
+  ipcRenderer.on('refreshMenu', () => updateMenu());
+  ipcRenderer.on('window-maximize', () => {
+    maximizeButton.removeChild(maximizeButton.firstChild!);
+    maximizeButton.appendChild(unmaximize);
+  });
+  ipcRenderer.on('window-unmaximize', () => {
+    maximizeButton.removeChild(maximizeButton.firstChild!);
+    maximizeButton.appendChild(maximize);
   });
 
   if (isEnabled('picture-in-picture')) {

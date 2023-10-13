@@ -61,5 +61,7 @@ export default (win: BrowserWindow) => {
   ipcMain.handle('window-close', () => win.close());
   ipcMain.handle('window-minimize', () => win.minimize());
   ipcMain.handle('window-maximize', () => win.maximize());
+  win.on('maximize', () => win.webContents.send('window-maximize'));
   ipcMain.handle('window-unmaximize', () => win.unmaximize());
+  win.on('unmaximize', () => win.webContents.send('window-unmaximize'));
 };
