@@ -1,5 +1,7 @@
 import { blockers } from '../plugins/adblocker/blocker-types';
 
+import { DefaultPresetList } from '../plugins/downloader/types';
+
 export interface WindowSizeConfig {
   width: number;
   height: number;
@@ -111,9 +113,9 @@ const defaultConfig = {
     },
     'downloader': {
       enabled: false,
-      ffmpegArgs: ['-b:a', '256k'], // E.g. ["-b:a", "192k"] for an audio bitrate of 192kb/s
       downloadFolder: undefined as string | undefined, // Custom download folder (absolute path)
-      preset: 'mp3',
+      selectedPreset: 'mp3 (256kbps)', // Selected preset
+      customPresetSetting: DefaultPresetList['mp3 (256kbps)'], // Presets
       skipExisting: false,
       playlistMaxItems: undefined as number | undefined,
     },
