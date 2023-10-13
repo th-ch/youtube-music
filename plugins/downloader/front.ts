@@ -47,7 +47,7 @@ const menuObserver = new MutationObserver(() => {
 (global as any).download = () => {
   let videoUrl = getSongMenu()
     // Selector of first button which is always "Start Radio"
-    ?.querySelector('ytmusic-menu-navigation-item-renderer[tabindex="0"] #navigation-endpoint')
+    ?.querySelector('ytmusic-menu-navigation-item-renderer[tabindex="-1"] #navigation-endpoint')
     ?.getAttribute('href');
   if (videoUrl) {
     if (videoUrl.startsWith('watch?')) {
