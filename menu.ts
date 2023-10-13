@@ -420,6 +420,12 @@ export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
         { role: 'quit' },
       ],
     },
+    {
+      label: 'About',
+      submenu: [
+        { role: 'about' },
+      ],
+    }
   ];
 };
 export const setApplicationMenu = (win: Electron.BrowserWindow) => {
