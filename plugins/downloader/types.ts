@@ -15,7 +15,7 @@ export const DefaultPresetList: Record<string, Preset> = {
   },
   'Custom': {
     extension: null,
-    ffmpegArgs: ['-b:a', '320k'],
+    ffmpegArgs: [],
   }
 };
 
