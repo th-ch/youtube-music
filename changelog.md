@@ -2,7 +2,19 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v2.1.0](https://github.com/th-ch/youtube-music/compare/v2.0.4...v2.1.0)
+
+- feat(downloader): Added support for audio format auto-detection [`#1310`](https://github.com/th-ch/youtube-music/pull/1310)
+- feat(in-app-menu): enable in-app-menu by default (in Windows) [`#1311`](https://github.com/th-ch/youtube-music/pull/1311)
+- fix: winget publish [`#1307`](https://github.com/th-ch/youtube-music/pull/1307)
+- hotfix(downloader): fix invalid query selector (fix #1308) [`#1308`](https://github.com/th-ch/youtube-music/issues/1308)
+- chore(deps): bump dependencies [`3c6b3ae`](https://github.com/th-ch/youtube-music/commit/3c6b3aeff0aae32adb2f2ad9c091b0a9701d3c24)
+- chore(actions): create winget-cla.yml [`37181a7`](https://github.com/th-ch/youtube-music/commit/37181a7b5e2aa5bed6a36298eac3a66aac2762b8)
+- Update changelog for v2.0.4 [`e9398ad`](https://github.com/th-ch/youtube-music/commit/e9398adac34a8abb11801e32999a915a8be0ece6)
+
 #### [v2.0.4](https://github.com/th-ch/youtube-music/compare/v2.0.3...v2.0.4)
+
+> 12 October 2023
 
 - hotfix(adblocker): fix `ipcRenderer.sendSync() with ...` [`#1301`](https://github.com/th-ch/youtube-music/pull/1301)
 - fix(downloader): Korean filename is broken on non-macOS devices [`#1297`](https://github.com/th-ch/youtube-music/pull/1297)
