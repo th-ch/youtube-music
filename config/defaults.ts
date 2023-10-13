@@ -120,7 +120,7 @@ const defaultConfig = {
     'exponential-volume': {},
     'in-app-menu': {
       /**
-       * true in Windows, false in Linux and macOS (see ./default.ts)
+       * true in Windows, false in Linux and macOS (see youtube-music/config/store.ts)
        */
       enabled: false,
     },
