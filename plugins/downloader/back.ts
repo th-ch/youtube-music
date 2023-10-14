@@ -460,11 +460,18 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
     return;
   }
 
-  let playlistTitle = playlist.header?.title?.text ?? '';
-  const isAlbum = playlistTitle?.startsWith('Album - ');
-  if (isAlbum) {
-    playlistTitle = playlistTitle.slice(8);
-  }
+  const normalPlaylistTitle = playlist.header?.title?.text;
+  const playlistTitle = normalPlaylistTitle ??
+    playlist
+      .page
+      .contents_memo
+      ?.get('MusicResponsiveListItemFlexColumn')
+      ?.at(2)
+      ?.as(YTNodes.MusicResponsiveListItemFlexColumn)
+      ?.title
+      ?.text ??
+    '';
+  const isAlbum = !normalPlaylistTitle;
 
   let safePlaylistTitle = filenamify(playlistTitle, { replacement: ' ' });
   if (!is.macOS()) {
@@ -572,8 +579,7 @@ const getMetadata = (info: TrackInfo): CustomSongInfo => ({
   videoId: info.basic_info.id!,
   title: cleanupName(info.basic_info.title!),
   artist: cleanupName(info.basic_info.author!),
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-explicit-any
-  album: (info.player_overlays?.browser_media_session as any)?.album?.text as string | undefined,
+  album: info.player_overlays?.browser_media_session?.as(YTNodes.BrowserMediaSession).album?.text,
   imageSrc: info.basic_info.thumbnail?.find((t) => !t.url.endsWith('.webp'))?.url,
   views: info.basic_info.view_count!,
   songDuration: info.basic_info.duration!,
