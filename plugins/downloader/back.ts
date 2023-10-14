@@ -470,7 +470,7 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
       ?.as(YTNodes.MusicResponsiveListItemFlexColumn)
       ?.title
       ?.text ??
-    '';
+    'NO_TITLE';
   const isAlbum = !normalPlaylistTitle;
 
   let safePlaylistTitle = filenamify(playlistTitle, { replacement: ' ' });
