@@ -2,7 +2,16 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v2.1.1](https://github.com/th-ch/youtube-music/compare/v2.1.0...v2.1.1)
+
+- hotfix(downloader): can't get an album title (fix #1313) [`#1313`](https://github.com/th-ch/youtube-music/issues/1313)
+- Update changelog for v2.1.0 [`92cab89`](https://github.com/th-ch/youtube-music/commit/92cab89d17175741e60e65ea61633e23ebdc1f45)
+- Bump version to 2.1.1 [`3bb5bc2`](https://github.com/th-ch/youtube-music/commit/3bb5bc2ca1856f4e222ee1e01e865f1ab804fdba)
+- Add "about" menu to show app version [`21c45fa`](https://github.com/th-ch/youtube-music/commit/21c45faf2043cf72a7c14d5cf6c8d848d0448528)
+
 #### [v2.1.0](https://github.com/th-ch/youtube-music/compare/v2.0.4...v2.1.0)
+
+> 14 October 2023
 
 - feat(downloader): Added support for audio format auto-detection [`#1310`](https://github.com/th-ch/youtube-music/pull/1310)
 - feat(in-app-menu): enable in-app-menu by default (in Windows) [`#1311`](https://github.com/th-ch/youtube-music/pull/1311)
