@@ -87,25 +87,26 @@
     }
   },
   "scripts": {
-    "test": "pnpm build && playwright test",
-    "test:debug": "DEBUG=pw:browser* pnpm build && playwright test",
+    "test": "yarpm run build && playwright test",
+    "test:debug": "DEBUG=pw:browser* yarpm run build && playwright test",
     "rollup:preload": "rollup -c rollup.preload.config.ts --configPlugin @rollup/plugin-typescript --bundleConfigAsCjs",
     "rollup:main": "rollup -c rollup.main.config.ts --configPlugin @rollup/plugin-typescript --bundleConfigAsCjs",
-    "build": "pnpm rollup:preload && pnpm rollup:main",
-    "start": "pnpm build && electron ./dist/index.js",
-    "start:debug": "ELECTRON_ENABLE_LOGGING=1 pnpm start",
+    "build": "yarpm run rollup:preload && yarpm run rollup:main",
+    "start": "yarpm run build && electron ./dist/index.js",
+    "start:debug": "ELECTRON_ENABLE_LOGGING=1 yarpm run start",
+    "postinstall": "patch-package",
     "clean": "del-cli dist && del-cli pack",
-    "dist": "pnpm clean && pnpm build && electron-builder --win --mac --linux -p never",
-    "dist:linux": "pnpm clean && pnpm build && electron-builder --linux -p never",
-    "dist:mac": "pnpm clean && pnpm build && electron-builder --mac dmg:x64 -p never",
-    "dist:mac:arm64": "pnpm clean && pnpm build && electron-builder --mac dmg:arm64 -p never",
-    "dist:win": "pnpm clean && pnpm build && electron-builder --win -p never",
-    "dist:win:x64": "pnpm clean && pnpm build && electron-builder --win nsis-web:x64 -p never",
+    "dist": "yarpm run clean && yarpm run build && electron-builder --win --mac --linux -p never",
+    "dist:linux": "yarpm run clean && yarpm run build && electron-builder --linux -p never",
+    "dist:mac": "yarpm run clean && yarpm run build && electron-builder --mac dmg:x64 -p never",
+    "dist:mac:arm64": "yarpm run clean && yarpm run build && electron-builder --mac dmg:arm64 -p never",
+    "dist:win": "yarpm run clean && yarpm run build && electron-builder --win -p never",
+    "dist:win:x64": "yarpm run clean && yarpm run build && electron-builder --win nsis-web:x64 -p never",
     "lint": "eslint .",
     "changelog": "auto-changelog",
-    "release:linux": "pnpm clean && pnpm build && electron-builder --linux -p always -c.snap.publish=github",
-    "release:mac": "pnpm clean && pnpm build && electron-builder --mac -p always",
-    "release:win": "pnpm clean && pnpm build && electron-builder --win -p always",
+    "release:linux": "yarpm run clean && yarpm run build && electron-builder --linux -p always -c.snap.publish=github",
+    "release:mac": "yarpm run clean && yarpm run build && electron-builder --mac -p always",
+    "release:win": "yarpm run clean && yarpm run build && electron-builder --win -p always",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "engines": {
@@ -119,10 +120,15 @@
       "node-fetch": "2.7.0",
       "@electron/universal": "1.4.2",
       "@babel/runtime": "7.23.2"
-    },
-    "patchedDependencies": {
-      "youtubei.js@6.4.1": "patches/youtubei.js@6.4.1.patch"
     }
+  },
+  "overrides": {
+    "rollup": "4.1.0",
+    "node-gyp": "9.4.0",
+    "xml2js": "0.6.2",
+    "node-fetch": "2.7.0",
+    "@electron/universal": "1.4.2",
+    "@babel/runtime": "7.23.2"
   },
   "dependencies": {
     "@cliqz/adblocker-electron": "1.26.8",
@@ -158,6 +164,7 @@
     "ytpl": "2.3.0"
   },
   "devDependencies": {
+    "@milahu/patch-package": "6.4.14",
     "@playwright/test": "1.39.0",
     "@rollup/plugin-commonjs": "25.0.5",
     "@rollup/plugin-image": "3.0.3",
@@ -186,7 +193,8 @@
     "rollup-plugin-copy": "3.5.0",
     "rollup-plugin-import-css": "3.3.5",
     "rollup-plugin-string": "3.0.0",
-    "typescript": "5.2.2"
+    "typescript": "5.2.2",
+    "yarpm": "1.2.0"
   },
   "auto-changelog": {
     "hideCredit": true,
