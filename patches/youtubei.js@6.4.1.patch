@@ -1,7 +1,7 @@
-diff --git a/node_modules/youtubei.js/bundle/node.cjs b/node_modules/youtubei.js/bundle/node.cjs
-index 7e3072e..bf5be6a 100644
---- a/node_modules/youtubei.js/bundle/node.cjs
-+++ b/node_modules/youtubei.js/bundle/node.cjs
+diff --git a/bundle/node.cjs b/bundle/node.cjs
+index 7e3072ebd19f69f55d11bd96ca0d6e2cc459a497..bf5be6ae43cebd98d81a8a50de582a43f6598aef 100644
+--- a/bundle/node.cjs
++++ b/bundle/node.cjs
 @@ -16969,7 +16969,13 @@ var _Cache_createCache;
  var meta_url = import_meta.url;
  var is_cjs = !meta_url;
@@ -17,10 +17,10 @@ index 7e3072e..bf5be6a 100644
  var repo_url = (_a3 = package_json.homepage) === null || _a3 === void 0 ? void 0 : _a3.split("#")[0];
  var Cache = class {
    constructor(persistent = false, persistent_directory) {
-diff --git a/node_modules/youtubei.js/dist/src/platform/node.js b/node_modules/youtubei.js/dist/src/platform/node.js
-index 0e1b2ca..17b437c 100644
---- a/node_modules/youtubei.js/dist/src/platform/node.js
-+++ b/node_modules/youtubei.js/dist/src/platform/node.js
+diff --git a/dist/src/platform/node.js b/dist/src/platform/node.js
+index 0e1b2caf89c7dd86449659dfc5f063a64b972cdc..17b437cac40a34586b41253f0630db4e34ea8071 100644
+--- a/dist/src/platform/node.js
++++ b/dist/src/platform/node.js
 @@ -16,7 +16,13 @@ import evaluate from './jsruntime/jinter.js';
  const meta_url = import.meta.url;
  const is_cjs = !meta_url;

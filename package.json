@@ -87,33 +87,47 @@
     }
   },
   "scripts": {
-    "test": "npm run build && playwright test",
-    "test:debug": "DEBUG=pw:browser* npm run build && playwright test",
+    "test": "pnpm build && playwright test",
+    "test:debug": "DEBUG=pw:browser* pnpm build && playwright test",
     "rollup:preload": "rollup -c rollup.preload.config.ts --configPlugin @rollup/plugin-typescript --bundleConfigAsCjs",
     "rollup:main": "rollup -c rollup.main.config.ts --configPlugin @rollup/plugin-typescript --bundleConfigAsCjs",
-    "build": "npm run rollup:preload && npm run rollup:main",
-    "start": "npm run build && electron ./dist/index.js",
-    "start:debug": "ELECTRON_ENABLE_LOGGING=1 npm run start",
+    "build": "pnpm rollup:preload && pnpm rollup:main",
+    "start": "pnpm build && electron ./dist/index.js",
+    "start:debug": "ELECTRON_ENABLE_LOGGING=1 pnpm start",
     "postinstall": "patch-package",
     "clean": "del-cli dist && del-cli pack",
-    "dist": "npm run clean && npm run build && electron-builder --win --mac --linux -p never",
-    "dist:linux": "npm run clean && npm run build && electron-builder --linux -p never",
-    "dist:mac": "npm run clean && npm run build && electron-builder --mac dmg:x64 -p never",
-    "dist:mac:arm64": "npm run clean && npm run build && electron-builder --mac dmg:arm64 -p never",
-    "dist:win": "npm run clean && npm run build && electron-builder --win -p never",
-    "dist:win:x64": "npm run clean && npm run build && electron-builder --win nsis-web:x64 -p never",
+    "dist": "pnpm clean && pnpm build && electron-builder --win --mac --linux -p never",
+    "dist:linux": "pnpm clean && pnpm build && electron-builder --linux -p never",
+    "dist:mac": "pnpm clean && pnpm build && electron-builder --mac dmg:x64 -p never",
+    "dist:mac:arm64": "pnpm clean && pnpm build && electron-builder --mac dmg:arm64 -p never",
+    "dist:win": "pnpm clean && pnpm build && electron-builder --win -p never",
+    "dist:win:x64": "pnpm clean && pnpm build && electron-builder --win nsis-web:x64 -p never",
     "lint": "eslint .",
     "changelog": "auto-changelog",
-    "release:linux": "npm run clean && npm run build && electron-builder --linux -p always -c.snap.publish=github",
-    "release:mac": "npm run clean && npm run build && electron-builder --mac -p always",
-    "release:win": "npm run clean && npm run build && electron-builder --win -p always",
+    "release:linux": "pnpm clean && pnpm build && electron-builder --linux -p always -c.snap.publish=github",
+    "release:mac": "pnpm clean && pnpm build && electron-builder --mac -p always",
+    "release:win": "pnpm clean && pnpm build && electron-builder --win -p always",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "engines": {
     "node": ">=16.0.0"
   },
+  "pnpm": {
+    "overrides": {
+      "rollup": "4.1.0",
+      "node-gyp": "9.4.0",
+      "xml2js": "0.6.2",
+      "node-fetch": "2.7.0",
+      "@electron/universal": "1.4.2",
+      "@babel/runtime": "7.23.2"
+    },
+    "patchedDependencies": {
+      "youtubei.js@6.4.1": "patches/youtubei.js@6.4.1.patch"
+    }
+  },
   "dependencies": {
     "@cliqz/adblocker-electron": "1.26.8",
+    "@cliqz/adblocker-electron-preload": "1.26.8",
     "@ffmpeg.wasm/core-mt": "0.12.0",
     "@ffmpeg.wasm/main": "0.12.0",
     "@foobar404/wave": "2.0.4",
@@ -144,14 +158,6 @@
     "youtubei.js": "6.4.1",
     "ytpl": "2.3.0"
   },
-  "overrides": {
-    "rollup": "4.1.0",
-    "node-gyp": "9.4.0",
-    "xml2js": "0.6.2",
-    "node-fetch": "2.7.0",
-    "@electron/universal": "1.4.2",
-    "@babel/runtime": "7.23.2"
-  },
   "devDependencies": {
     "@playwright/test": "1.39.0",
     "@rollup/plugin-commonjs": "25.0.5",
@@ -167,6 +173,7 @@
     "@types/html-to-text": "9.0.2",
     "@typescript-eslint/eslint-plugin": "6.7.5",
     "auto-changelog": "2.4.0",
+    "builtin-modules": "^3.3.0",
     "del-cli": "5.1.0",
     "electron": "27.0.0",
     "electron-builder": "24.6.4",
@@ -175,7 +182,6 @@
     "eslint-plugin-import": "2.28.1",
     "eslint-plugin-prettier": "5.0.1",
     "node-gyp": "9.4.0",
-    "patch-package": "8.0.0",
     "playwright": "1.39.0",
     "rollup": "4.1.0",
     "rollup-plugin-copy": "3.5.0",
@@ -188,5 +194,6 @@
     "package": true,
     "unreleased": true,
     "output": "changelog.md"
-  }
+  },
+  "packageManager": "pnpm@8.9.0"
 }
