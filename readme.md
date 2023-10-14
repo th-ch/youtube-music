@@ -16,7 +16,7 @@
 
 <div align="center">
 	<a href="https://github.com/th-ch/youtube-music/releases/latest">
-		<img src="web/youtube-music.svg" width="400" height="100">
+		<img src="web/youtube-music.svg" width="400" height="100" alt="YouTube Music SVG">
 	</a>
 </div>
 
@@ -178,8 +178,8 @@ Some predefined themes are available in https://github.com/kerichdev/themes-for-
 ```bash
 git clone https://github.com/th-ch/youtube-music
 cd youtube-music
-npm ci
-npm run start
+pnpm install --frozen-lockfile
+pnpm start
 ```
 
 ## Build your own plugins
@@ -266,12 +266,12 @@ export default () => {
 ## Build
 
 1. Clone the repo
-2. Run `npm i` to install dependencies
-3. Run `npm run build:OS`
+2. Run `pnpm install --frozen-lockfile` to install dependencies
+3. Run `pnpm build:OS`
 
-- `npm run dist:win` - Windows
-- `npm run dist:linux` - Linux
-- `npm run dist:mac` - MacOS
+- `pnpm dist:win` - Windows
+- `pnpm dist:linux` - Linux
+- `pnpm dist:mac` - MacOS
 
 Builds the app for macOS, Linux, and Windows,
 using [electron-builder](https://github.com/electron-userland/electron-builder).
@@ -279,7 +279,7 @@ using [electron-builder](https://github.com/electron-userland/electron-builder).
 ## Tests
 
 ```bash
-npm run test
+pnpm test
 ```
 
 Uses [Playwright](https://playwright.dev/) to test the app.
