@@ -51,11 +51,11 @@ function registerMPRIS(win: BrowserWindow) {
           break;
         }
         case 'ONE': {
-          player.loopStatus = mpris.LOOP_STATUS_PLAYLIST;
+          player.loopStatus = mpris.LOOP_STATUS_TRACK;
           break;
         }
         case 'ALL': {
-          player.loopStatus = mpris.LOOP_STATUS_TRACK;
+          player.loopStatus = mpris.LOOP_STATUS_PLAYLIST;
           // No default
           break;
         }
