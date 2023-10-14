@@ -94,7 +94,6 @@
     "build": "pnpm rollup:preload && pnpm rollup:main",
     "start": "pnpm build && electron ./dist/index.js",
     "start:debug": "ELECTRON_ENABLE_LOGGING=1 pnpm start",
-    "postinstall": "patch-package",
     "clean": "del-cli dist && del-cli pack",
     "dist": "pnpm clean && pnpm build && electron-builder --win --mac --linux -p never",
     "dist:linux": "pnpm clean && pnpm build && electron-builder --linux -p never",
