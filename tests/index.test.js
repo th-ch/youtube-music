@@ -7,7 +7,7 @@ const { test, expect } = require('@playwright/test');
 
 process.env.NODE_ENV = 'test';
 
-const appPath = path.resolve(__dirname, '..');
+const appPath = path.resolve(__dirname, '..', 'src');
 
 test('YouTube Music App - With default settings, app is launched and visible', async () => {
   const app = await electron.launch({
