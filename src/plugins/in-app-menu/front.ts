@@ -138,12 +138,16 @@ export default async () => {
 
   ipcRenderer.on('refreshMenu', () => updateMenu());
   ipcRenderer.on('window-maximize', () => {
-    maximizeButton.removeChild(maximizeButton.firstChild!);
-    maximizeButton.appendChild(unmaximize);
+    if (isNotWindowsOrMacOS && maximizeButton.firstChild) {
+      maximizeButton.removeChild(maximizeButton.firstChild);
+      maximizeButton.appendChild(unmaximize);
+    }
   });
   ipcRenderer.on('window-unmaximize', () => {
-    maximizeButton.removeChild(maximizeButton.firstChild!);
-    maximizeButton.appendChild(maximize);
+    if (isNotWindowsOrMacOS && maximizeButton.firstChild) {
+      maximizeButton.removeChild(maximizeButton.firstChild);
+      maximizeButton.appendChild(unmaximize);
+    }
   });
 
   if (isEnabled('picture-in-picture')) {
