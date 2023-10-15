@@ -24,17 +24,23 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          cache: 'pnpm'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Test
-        uses: GabrielBB/xvfb-action@v1
+        uses: coactions/setup-xvfb@@v1
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
         with:
-          run: npm run test
+          run: pnpm test
 
       # Build and release if it's the main repository
       - name: Build and release on Mac
@@ -42,37 +48,37 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          npm run release:mac
+          pnpm release:mac
 
       - name: Build and release on Linux
         if: startsWith(matrix.os, 'ubuntu') && github.repository == 'th-ch/youtube-music'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          npm run release:linux
+          pnpm release:linux
 
       - name: Build and release on Windows
         if: startsWith(matrix.os, 'windows') && github.repository == 'th-ch/youtube-music'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          npm run release:win
+          pnpm release:win
 
       # Only build without release if it is a fork
       - name: Build on Mac
         if: startsWith(matrix.os, 'macOS') && github.repository != 'th-ch/youtube-music'
         run: |
-          npm run build:mac
+          pnpm build:mac
 
       - name: Build on Linux
         if: startsWith(matrix.os, 'ubuntu') && github.repository != 'th-ch/youtube-music'
         run: |
-          npm run build:linux
+          pnpm build:linux
 
       - name: Build on Windows
         if: startsWith(matrix.os, 'windows') && github.repository != 'th-ch/youtube-music'
         run: |
-          npm run build:win
+          pnpm build:win
 
   release:
     runs-on: ubuntu-latest
@@ -88,10 +94,16 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          cache: 'pnpm'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Get version
         run: |
@@ -132,7 +144,7 @@ jobs:
       - name: Update changelog
         if: ${{ env.VERSION_HASH == '' }}
         run: |
-          npm run changelog
+          pnpm changelog
 
       - name: Commit changelog
         if: ${{ env.VERSION_HASH == '' }}
