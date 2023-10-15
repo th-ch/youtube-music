@@ -7,16 +7,14 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "moduleResolution": "node",
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "outDir": "./dist",
     "strict": true,
     "noImplicitAny": true,
     "strictFunctionTypes": true,
     "skipLibCheck": true
   },
-  "exclude": [
-    "./dist"
-  ],
+  "exclude": ["./dist"],
   "paths": {
     "*": ["*.d.ts"]
   }

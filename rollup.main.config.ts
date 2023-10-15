@@ -18,7 +18,7 @@ export default defineConfig({
     nodeResolvePlugin({
       browser: false,
       preferBuiltins: true,
-      exportConditions: ['node', 'default', 'module', 'import'] ,
+      exportConditions: ['node', 'default', 'module', 'import'],
     }),
     commonjs({
       ignoreDynamicRequires: true,
@@ -34,7 +34,7 @@ export default defineConfig({
     css(),
     copy({
       targets: [
-        { src: 'error.html', dest: 'dist/' },
+        { src: 'src/error.html', dest: 'dist/' },
         { src: 'assets', dest: 'dist/' },
       ],
     }),
@@ -47,18 +47,14 @@ export default defineConfig({
           setTimeout(() => process.exit(0));
         }
       },
-      name: 'force-close'
+      name: 'force-close',
     },
   ],
-  input: './index.ts',
+  input: './src/index.ts',
   output: {
     format: 'cjs',
     name: '[name].js',
     dir: './dist',
   },
-  external: [
-    'electron',
-    'custom-electron-prompt',
-    ...builtinModules,
-  ],
+  external: ['electron', 'custom-electron-prompt', ...builtinModules],
 });

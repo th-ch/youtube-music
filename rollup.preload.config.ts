@@ -41,18 +41,14 @@ export default defineConfig({
           setTimeout(() => process.exit(0));
         }
       },
-      name: 'force-close'
+      name: 'force-close',
     },
   ],
-  input: './preload.ts',
+  input: './src/preload.ts',
   output: {
     format: 'cjs',
     name: '[name].js',
     dir: './dist',
   },
-  external: [
-    'electron',
-    'custom-electron-prompt',
-    ...builtinModules,
-  ],
+  external: ['electron', 'custom-electron-prompt', ...builtinModules],
 });
