@@ -36,11 +36,11 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Test
-        uses: GabrielBB/xvfb-action@v1
+        uses: coactions/setup-xvfb@v1
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
         with:
-          run: pnpm test
+          run: pnpm test:debug
 
       # Build and release if it's the main repository
       - name: Build and release on Mac
