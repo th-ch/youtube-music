@@ -24,12 +24,7 @@ export const loadAdBlockerEngine = async (
   disableDefaultLists: boolean | unknown[] = false,
 ) => {
   // Only use cache if no additional blocklists are passed
-  let cacheDirectory: string;
-  if (app.isPackaged) {
-    cacheDirectory = path.join(app.getPath('userData'), 'adblock_cache');
-  } else {
-    cacheDirectory = path.resolve(__dirname, 'adblock_cache');
-  }
+  const cacheDirectory = path.join(app.getPath('userData'), 'adblock_cache');
   if (!fs.existsSync(cacheDirectory)) {
     fs.mkdirSync(cacheDirectory);
   }
