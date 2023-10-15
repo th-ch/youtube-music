@@ -266,8 +266,9 @@ export default () => {
 ## Build
 
 1. Clone the repo
-2. Run `pnpm install --frozen-lockfile` to install dependencies
-3. Run `pnpm build:OS`
+2. Follow [this guide](https://pnpm.io/installation) to install `pnpm`
+3. Run `pnpm install --frozen-lockfile` to install dependencies
+4. Run `pnpm build:OS`
 
 - `pnpm dist:win` - Windows
 - `pnpm dist:linux` - Linux
