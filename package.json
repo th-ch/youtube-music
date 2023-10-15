@@ -166,7 +166,7 @@
   "devDependencies": {
     "@milahu/patch-package": "6.4.14",
     "@playwright/test": "1.39.0",
-    "@rollup/plugin-commonjs": "25.0.5",
+    "@rollup/plugin-commonjs": "25.0.7",
     "@rollup/plugin-image": "3.0.3",
     "@rollup/plugin-json": "6.0.1",
     "@rollup/plugin-node-resolve": "15.2.3",
@@ -203,5 +203,5 @@
     "unreleased": true,
     "output": "changelog.md"
   },
-  "packageManager": "pnpm@8.9.0"
+  "packageManager": "pnpm@8.9.1"
 }
