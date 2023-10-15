@@ -1,19 +1,19 @@
-import { defineConfig } from "rollup";
-import builtinModules from "builtin-modules";
-import typescript from "@rollup/plugin-typescript";
-import commonjs from "@rollup/plugin-commonjs";
-import nodeResolvePlugin from "@rollup/plugin-node-resolve";
-import json from "@rollup/plugin-json";
-import terser from "@rollup/plugin-terser";
-import { string } from "rollup-plugin-string";
-import css from "rollup-plugin-import-css";
-import wasmPlugin from "@rollup/plugin-wasm";
-import image from "@rollup/plugin-image";
+import { defineConfig } from 'rollup';
+import builtinModules from 'builtin-modules';
+import typescript from '@rollup/plugin-typescript';
+import commonjs from '@rollup/plugin-commonjs';
+import nodeResolvePlugin from '@rollup/plugin-node-resolve';
+import json from '@rollup/plugin-json';
+import terser from '@rollup/plugin-terser';
+import { string } from 'rollup-plugin-string';
+import css from 'rollup-plugin-import-css';
+import wasmPlugin from '@rollup/plugin-wasm';
+import image from '@rollup/plugin-image';
 
 export default defineConfig({
   plugins: [
     typescript({
-      module: "ESNext",
+      module: 'ESNext',
     }),
     nodeResolvePlugin({
       browser: false,
@@ -24,12 +24,12 @@ export default defineConfig({
     }),
     json(),
     string({
-      include: "**/*.html",
+      include: '**/*.html',
     }),
     css(),
     wasmPlugin({
       maxFileSize: 0,
-      targetEnv: "browser",
+      targetEnv: 'browser',
     }),
     image({ dom: true }),
     terser({
@@ -41,14 +41,14 @@ export default defineConfig({
           setTimeout(() => process.exit(0));
         }
       },
-      name: "force-close",
+      name: 'force-close',
     },
   ],
-  input: "./src/preload.ts",
+  input: './src/preload.ts',
   output: {
-    format: "cjs",
-    name: "[name].js",
-    dir: "./dist",
+    format: 'cjs',
+    name: '[name].js',
+    dir: './dist',
   },
-  external: ["electron", "custom-electron-prompt", ...builtinModules],
+  external: ['electron', 'custom-electron-prompt', ...builtinModules],
 });
