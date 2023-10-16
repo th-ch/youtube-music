@@ -27,10 +27,17 @@ jobs:
           run_install: false
 
       - name: Setup NodeJS
+        if: startsWith(matrix.os, 'macOS') != true && github.repository != 'th-ch/youtube-music'
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'pnpm'
+
+      - name: Setup NodeJS for macOS
+        if: startsWith(matrix.os, 'macOS') && github.repository != 'th-ch/youtube-music'
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -97,10 +104,17 @@ jobs:
           run_install: false
 
       - name: Setup NodeJS
+        if: startsWith(matrix.os, 'macOS') != true && github.repository != 'th-ch/youtube-music'
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'pnpm'
+
+      - name: Setup NodeJS for macOS
+        if: startsWith(matrix.os, 'macOS') && github.repository != 'th-ch/youtube-music'
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
