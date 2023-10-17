@@ -79,6 +79,10 @@ winget install th-ch.YouTubeMusic
 
 - **Ad Blocker**: Block all ads and tracking out of the box
 
+- **Album Color Theme**: Applies a dynamic theme and visual effects based on the album color palette
+
+- **Ambient Mode**: Applies a lighting effect by casting gentle colors from the video, into your screen’s background.
+
 - **Audio Compressor**: Apply compression to audio (lowers the volume of the loudest parts of the signal and raises the
   volume of the softest parts)
 
@@ -110,6 +114,8 @@ winget install th-ch.YouTubeMusic
   accessing the menu after enabling this plugin and hide-menu option)
 
 - [**Last.fm**](https://www.last.fm/): Scrobbles support
+
+- **Lumia Stream**: Adds [Lumia Stream](https://lumiastream.com/) support
 
 - **Lyrics Genius**: Adds lyrics support for most songs
 
