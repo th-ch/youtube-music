@@ -136,14 +136,14 @@ devDependencies:
     specifier: 0.5.1
     version: 0.5.1
   '@types/electron-localshortcut':
-    specifier: 3.1.1
-    version: 3.1.1
+    specifier: 3.1.2
+    version: 3.1.2
   '@types/howler':
-    specifier: 2.2.9
-    version: 2.2.9
+    specifier: 2.2.10
+    version: 2.2.10
   '@types/html-to-text':
-    specifier: 9.0.2
-    version: 9.0.2
+    specifier: 9.0.3
+    version: 9.0.3
   '@typescript-eslint/eslint-plugin':
     specifier: 6.8.0
     version: 6.8.0(@typescript-eslint/parser@6.7.5)(eslint@8.51.0)(typescript@5.2.2)
@@ -909,8 +909,8 @@ packages:
       '@types/ms': 0.7.32
     dev: true
 
-  /@types/electron-localshortcut@3.1.1:
-    resolution: {integrity: sha512-wKmSZF2j+20/1SVbhcnqi0k+cLEMFjz4PPgNmUFjRdr+KiDRhX7f9hZd1wY56UhPtp9TJm4KAUQncrXcGfpGqw==}
+  /@types/electron-localshortcut@3.1.2:
+    resolution: {integrity: sha512-eWnTxzZHtYLL7PZuWP/hizUyX6VVjI5eUa5lzyA0gCDeLqHbgyccD8JsJ1Ew+vtjY2XUA8y05hwS6XOf3kIOCw==}
     dependencies:
       electron: 27.0.0
     transitivePeerDependencies:
@@ -958,12 +958,12 @@ packages:
     resolution: {integrity: sha512-PwBsCBD3lDODn4xpje3Y1di0aDJp4Ww7aSfMRVw6ysnxD4I7Wmq2mBkSKaDtN403hqH5sp6c9xQUvFYY3+lkBg==}
     dev: false
 
-  /@types/howler@2.2.9:
-    resolution: {integrity: sha512-kNi8mBM+IAmMzo1xhFlR8pKUWqCz9kEtiT1Xp5hZW0ynQl2wUg0EAm+brsHvhahMzxlADt0Xhu0jV/NHmk/Ibg==}
+  /@types/howler@2.2.10:
+    resolution: {integrity: sha512-MnDUQZBaDhIFTQATeO4tzOCBobtPjo2MmR0co70tMyk+HNUJB0loojn+PRkky7SrKzfvU90SqufIlQlCrtjr+A==}
     dev: true
 
-  /@types/html-to-text@9.0.2:
-    resolution: {integrity: sha512-cO9qsPwfIJ2GKFJ4AgpgmmFoUr0IulsN1clwOiPdChpsY/LVmbpGenUGrvZiYsSXSg/dWsj4NTzWZeIlv3D22w==}
+  /@types/html-to-text@9.0.3:
+    resolution: {integrity: sha512-ImzcLdHN3+zghCoZcA+vWd/t0GhM10S7lnvSq9YA6lbo4HGK10WIJ7n+NI7mbeVZeUtgrmK5fXM66kZcws1oHA==}
     dev: true
 
   /@types/http-cache-semantics@4.0.2:
