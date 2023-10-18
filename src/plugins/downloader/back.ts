@@ -361,7 +361,7 @@ async function iterableStreamToTargetFile(
 
     ffmpeg.setProgress(({ ratio }) => {
       sendFeedback(`Converting: ${Math.floor(ratio * 100)}%`, ratio);
-      increasePlaylistProgress(0.15 + ratio * 0.85);
+      increasePlaylistProgress(0.15 + (ratio * 0.85));
     });
 
     const safeVideoNameWithExtension = `${safeVideoName}.${extension}`;
@@ -468,8 +468,12 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
   console.log(`trying to get playlist ID: '${playlistId}'`);
   sendFeedback('Getting playlist info…');
   let playlist: Playlist;
+  const items: YTNodes.MusicResponsiveListItem[] = [];
   try {
     playlist = await yt.music.getPlaylist(playlistId);
+    if (playlist?.items) {
+      items.push(...playlist.items.as(YTNodes.MusicResponsiveListItem));
+    }
   } catch (error: unknown) {
     sendError(
       Error(
@@ -485,13 +489,6 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
     sendError(new Error('Playlist is empty'));
   }
 
-  const items = playlist.items!.as(YTNodes.MusicResponsiveListItem);
-  if (items.length === 1) {
-    sendFeedback('Playlist has only one item, downloading it directly');
-    await downloadSongFromId(items.at(0)!.id!);
-    return;
-  }
-
   const normalPlaylistTitle = playlist.header?.title?.text;
   const playlistTitle =
     normalPlaylistTitle ??
@@ -501,6 +498,19 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
       ?.as(YTNodes.MusicResponsiveListItemFlexColumn)?.title?.text ??
     'NO_TITLE';
   const isAlbum = !normalPlaylistTitle;
+
+  while (playlist.has_continuation) {
+    playlist = await playlist.getContinuation();
+    if (playlist?.items) {
+      items.push(...playlist.items.as(YTNodes.MusicResponsiveListItem));
+    }
+  }
+
+  if (items.length === 1) {
+    sendFeedback('Playlist has only one item, downloading it directly');
+    await downloadSongFromId(items.at(0)!.id!);
+    return;
+  }
 
   let safePlaylistTitle = filenamify(playlistTitle, { replacement: ' ' });
   if (!is.macOS()) {
@@ -542,7 +552,7 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
 
   const increaseProgress = (itemPercentage: number) => {
     const currentProgress = (counter - 1) / (items.length ?? 1);
-    const newProgress = currentProgress + progressStep * itemPercentage;
+    const newProgress = currentProgress + (progressStep * itemPercentage);
     win.setProgressBar(newProgress);
   };
 
