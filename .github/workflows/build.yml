@@ -42,21 +42,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      # Only build without release if it is a fork
-      - name: Build on Mac
-        if: startsWith(matrix.os, 'macOS') && (github.repository == 'th-ch/youtube-music' && github.event_name == 'pull_request')
+      # Only rollup build without release if it is a fork
+      - name: Rollup Build
+        if: github.repository == 'th-ch/youtube-music' && github.event_name == 'pull_request'
         run: |
-          pnpm build:mac
-
-      - name: Build on Linux
-        if: startsWith(matrix.os, 'ubuntu') && (github.repository == 'th-ch/youtube-music' && github.event_name == 'pull_request')
-        run: |
-          pnpm build:linux
-
-      - name: Build on Windows
-        if: startsWith(matrix.os, 'windows') && (github.repository == 'th-ch/youtube-music' && github.event_name == 'pull_request')
-        run: |
-          pnpm build:win
+          pnpm build
 
       # Build and release if it's the main repository and is not pull-request
       - name: Build and release on Mac
