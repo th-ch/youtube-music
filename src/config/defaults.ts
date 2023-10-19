@@ -125,6 +125,7 @@ const defaultConfig = {
        * true in Windows, false in Linux and macOS (see youtube-music/config/store.ts)
        */
       enabled: false,
+      hideDOMWindowControls: false,
     },
     'last-fm': {
       enabled: false,
