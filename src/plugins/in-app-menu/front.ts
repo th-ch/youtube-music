@@ -19,6 +19,7 @@ const isMacOS = navigator.userAgent.includes('Macintosh');
 const isNotWindowsOrMacOS = !navigator.userAgent.includes('Windows') && !isMacOS;
 
 export default async () => {
+  const hideDOMWindowControls = config.get('plugins.in-app-menu.hideDOMWindowControls');
   let hideMenu = config.get('options.hideMenu');
   const titleBar = document.createElement('title-bar');
   const navBar = document.querySelector<HTMLDivElement>('#nav-bar-background');
@@ -98,7 +99,7 @@ export default async () => {
     titleBar.appendChild(windowControlsContainer);
   };
 
-  if (isNotWindowsOrMacOS) await addWindowControls();
+  if (isNotWindowsOrMacOS && !hideDOMWindowControls) await addWindowControls();
 
   if (navBar) {
     const observer = new MutationObserver((mutations) => {
@@ -130,7 +131,7 @@ export default async () => {
         menu.style.visibility = 'hidden';
       }
     });
-    if (isNotWindowsOrMacOS) await addWindowControls();
+    if (isNotWindowsOrMacOS && !hideDOMWindowControls) await addWindowControls();
   };
   await updateMenu();
 
@@ -138,13 +139,13 @@ export default async () => {
 
   ipcRenderer.on('refreshMenu', () => updateMenu());
   ipcRenderer.on('window-maximize', () => {
-    if (isNotWindowsOrMacOS && maximizeButton.firstChild) {
+    if (isNotWindowsOrMacOS && !hideDOMWindowControls && maximizeButton.firstChild) {
       maximizeButton.removeChild(maximizeButton.firstChild);
       maximizeButton.appendChild(unmaximize);
     }
   });
   ipcRenderer.on('window-unmaximize', () => {
-    if (isNotWindowsOrMacOS && maximizeButton.firstChild) {
+    if (isNotWindowsOrMacOS && !hideDOMWindowControls && maximizeButton.firstChild) {
       maximizeButton.removeChild(maximizeButton.firstChild);
       maximizeButton.appendChild(unmaximize);
     }

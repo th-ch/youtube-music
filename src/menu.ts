@@ -13,6 +13,7 @@ import crossfadeMenu from './plugins/crossfade/menu';
 import disableAutoplayMenu from './plugins/disable-autoplay/menu';
 import discordMenu from './plugins/discord/menu';
 import downloaderMenu from './plugins/downloader/menu';
+import inAppMenuTitlebarMenu from './plugins/in-app-menu/menu';
 import lyricsGeniusMenu from './plugins/lyrics-genius/menu';
 import notificationsMenu from './plugins/notifications/menu';
 import pictureInPictureMenu from './plugins/picture-in-picture/menu';
@@ -36,6 +37,7 @@ const pluginMenus = {
   'crossfade': crossfadeMenu,
   'discord': discordMenu,
   'downloader': downloaderMenu,
+  'in-app-menu': inAppMenuTitlebarMenu,
   'lyrics-genius': lyricsGeniusMenu,
   'notifications': notificationsMenu,
   'picture-in-picture': pictureInPictureMenu,
