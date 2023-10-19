@@ -15,10 +15,10 @@ overrides:
 dependencies:
   '@cliqz/adblocker-electron':
     specifier: 1.26.8
-    version: 1.26.8(electron@27.0.0)
+    version: 1.26.8(electron@27.0.1)
   '@cliqz/adblocker-electron-preload':
     specifier: 1.26.8
-    version: 1.26.8(electron@27.0.0)
+    version: 1.26.8(electron@27.0.1)
   '@ffmpeg.wasm/core-mt':
     specifier: 0.12.0
     version: 0.12.0
@@ -51,7 +51,7 @@ dependencies:
     version: 10.2.0
   custom-electron-prompt:
     specifier: 1.5.7
-    version: 1.5.7(electron@27.0.0)
+    version: 1.5.7(electron@27.0.1)
   electron-debug:
     specifier: 3.2.0
     version: 3.2.0
@@ -160,8 +160,8 @@ devDependencies:
     specifier: 5.1.0
     version: 5.1.0
   electron:
-    specifier: 27.0.0
-    version: 27.0.0
+    specifier: 27.0.1
+    version: 27.0.1
   electron-builder:
     specifier: 24.6.4
     version: 24.6.4
@@ -252,23 +252,23 @@ packages:
       '@cliqz/adblocker-extended-selectors': 1.26.8
     dev: false
 
-  /@cliqz/adblocker-electron-preload@1.26.8(electron@27.0.0):
+  /@cliqz/adblocker-electron-preload@1.26.8(electron@27.0.1):
     resolution: {integrity: sha512-sWhND23IrP6f7wUtUt3+lAbNdmMYucwKVsMcMtInAk6vKz5bxpECsp+QBHXE7Z3MXLwa0dATGRVcC4RTLZBb/A==}
     peerDependencies:
       electron: '>11'
     dependencies:
       '@cliqz/adblocker-content': 1.26.8
-      electron: 27.0.0
+      electron: 27.0.1
     dev: false
 
-  /@cliqz/adblocker-electron@1.26.8(electron@27.0.0):
+  /@cliqz/adblocker-electron@1.26.8(electron@27.0.1):
     resolution: {integrity: sha512-8vuqiPMCOzGPfUehfvv7eDwQRw3sm3sdR3eZYU2wNGPNbUHf6gZbSBcsx12n3QNcbAxbdydtc/a3X4Eu5VOlxg==}
     peerDependencies:
       electron: '>11'
     dependencies:
       '@cliqz/adblocker': 1.26.8
-      '@cliqz/adblocker-electron-preload': 1.26.8(electron@27.0.0)
-      electron: 27.0.0
+      '@cliqz/adblocker-electron-preload': 1.26.8(electron@27.0.1)
+      electron: 27.0.1
       tldts-experimental: 6.0.16
     dev: false
 
@@ -889,7 +889,7 @@ packages:
     dependencies:
       '@types/http-cache-semantics': 4.0.2
       '@types/keyv': 3.1.4
-      '@types/node': 18.18.5
+      '@types/node': 20.8.6
       '@types/responselike': 1.0.1
 
   /@types/chrome@0.0.246:
@@ -912,7 +912,7 @@ packages:
   /@types/electron-localshortcut@3.1.2:
     resolution: {integrity: sha512-eWnTxzZHtYLL7PZuWP/hizUyX6VVjI5eUa5lzyA0gCDeLqHbgyccD8JsJ1Ew+vtjY2XUA8y05hwS6XOf3kIOCw==}
     dependencies:
-      electron: 27.0.0
+      electron: 27.0.1
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -980,7 +980,7 @@ packages:
   /@types/keyv@3.1.4:
     resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
     dependencies:
-      '@types/node': 18.18.5
+      '@types/node': 20.8.6
 
   /@types/minimatch@5.1.2:
     resolution: {integrity: sha512-K0VQKziLUWkVKiRVrx4a40iPaxTUefQmjtkQofBkYRcoaaL/8rhwDWww9qWbrgicNOgnpIsMxyNIUM4+n6dUIA==}
@@ -1001,7 +1001,6 @@ packages:
     resolution: {integrity: sha512-eWO4K2Ji70QzKUqRy6oyJWUeB7+g2cRagT3T/nxYibYcT4y2BDL8lqolRXjTHmkZCdJfIPaY73KbJAZmcryxTQ==}
     dependencies:
       undici-types: 5.25.3
-    dev: true
 
   /@types/normalize-package-data@2.4.2:
     resolution: {integrity: sha512-lqa4UEhhv/2sjjIQgjX8B+RBjj47eo0mzGasklVJ78UKGQY1r0VpB9XHDaZZO9qzEFDdy4MrXLuEaSmPrPSe/A==}
@@ -1023,7 +1022,7 @@ packages:
   /@types/responselike@1.0.1:
     resolution: {integrity: sha512-TiGnitEDxj2X0j+98Eqk5lv/Cij8oHd32bU4D/Yw6AOq7vvTk0gSD2GPj0G/HkvhMoVsdlhYF4yqqlyPBTM6Sg==}
     dependencies:
-      '@types/node': 18.18.5
+      '@types/node': 20.8.6
 
   /@types/semver@7.5.3:
     resolution: {integrity: sha512-OxepLK9EuNEIPxWNME+C6WwbRAOOI2o2BaQEGzz5Lu2e4Z5eDnEo+/aVEDMIXywoJitJ7xWd641wrGLZdtwRyw==}
@@ -1039,7 +1038,7 @@ packages:
     resolution: {integrity: sha512-CHzgNU3qYBnp/O4S3yv2tXPlvMTq0YWSTVg2/JYLqWZGHwwgJGAwd00poay/11asPq8wLFwHzubyInqHIFmmiw==}
     requiresBuild: true
     dependencies:
-      '@types/node': 18.18.5
+      '@types/node': 20.8.6
     optional: true
 
   /@typescript-eslint/eslint-plugin@6.8.0(@typescript-eslint/parser@6.7.5)(eslint@8.51.0)(typescript@5.2.2):
@@ -1930,12 +1929,12 @@ packages:
       shebang-command: 2.0.0
       which: 2.0.2
 
-  /custom-electron-prompt@1.5.7(electron@27.0.0):
+  /custom-electron-prompt@1.5.7(electron@27.0.1):
     resolution: {integrity: sha512-ptRPJr6CpT06GWLMtg3GD2Lr7gWfXdWI+hR1S39eq+m/mUa2E118YmX6mPCbHdg5QB/W9UVhSpRqBM8FUh1G8w==}
     peerDependencies:
       electron: '>=10.0.0'
     dependencies:
-      electron: 27.0.0
+      electron: 27.0.1
     dev: false
 
   /dashdash@2.0.0:
@@ -2373,8 +2372,8 @@ packages:
       - supports-color
     dev: false
 
-  /electron@27.0.0:
-    resolution: {integrity: sha512-mr3Zoy82l8XKK/TgguE5FeNeHZ9KHXIGIpUMjbjZWIREfAv+X2Q3vdX6RG0Pmi1K23AFAxANXQezIHBA2Eypwg==}
+  /electron@27.0.1:
+    resolution: {integrity: sha512-AjDGgpf2thNxVXoNqEG+0GCUK4upAEa2B+IoM5Yk9YrOLd6uUOEMfGI9rhPtj+jC14iKOvBdefY2uAzcDC0qng==}
     engines: {node: '>= 12.20.55'}
     hasBin: true
     requiresBuild: true
@@ -5347,7 +5346,6 @@ packages:
 
   /undici-types@5.25.3:
     resolution: {integrity: sha512-Ga1jfYwRn7+cP9v8auvEXN1rX3sWqlayd4HP7OKk4mZWylEmu3KzXDUGrQUN6Ol7qo1gPvB2e5gX6udnyEPgdA==}
-    dev: true
 
   /undici@5.26.3:
     resolution: {integrity: sha512-H7n2zmKEWgOllKkIUkLvFmsJQj062lSm3uA4EYApG8gLuiOM0/go9bIoC3HVaSnfg4xunowDE2i9p8drkXuvDw==}
