@@ -2,7 +2,25 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v2.1.2](https://github.com/th-ch/youtube-music/compare/v2.1.1...v2.1.2)
+
+- feat(in-app-menu): add an option to hide the window controls [`#1335`](https://github.com/th-ch/youtube-music/pull/1335)
+- fix: fixed an issue where the album name was missing [`#1334`](https://github.com/th-ch/youtube-music/pull/1334)
+- chore(deps): update dependency electron to v27.0.1 [`#1331`](https://github.com/th-ch/youtube-music/pull/1331)
+- fix: fixed an issue where only the first 100 songs in a playlist were downloaded [`#1329`](https://github.com/th-ch/youtube-music/pull/1329)
+- Updated readme plugins list [`#1326`](https://github.com/th-ch/youtube-music/pull/1326)
+- QOL: Move source code under the src directory. [`#1318`](https://github.com/th-ch/youtube-music/pull/1318)
+- feat: migrate from `npm` to `pnpm` [`#1316`](https://github.com/th-ch/youtube-music/pull/1316)
+- fix: fix unresponsive (fix #1325) [`#1325`](https://github.com/th-ch/youtube-music/issues/1325)
+- fix(blocker): remove the `app.isPackaged` check (fix #1315) [`#1315`](https://github.com/th-ch/youtube-music/issues/1315)
+- fix(discord): `Discord RPC fails if a song's title is only one character` (fix #1314) [`#1314`](https://github.com/th-ch/youtube-music/issues/1314)
+- chore(deps): Bump @rollup/plugin-commonjs, pnpm version, Remove ytpl [`9705f84`](https://github.com/th-ch/youtube-music/commit/9705f8489d7bf262bfd8b15ab84c2d3485f10eae)
+- chore(deps): Bump rollup, @xhayper/discord-rpc version [`00a3e8d`](https://github.com/th-ch/youtube-music/commit/00a3e8d35ec335e1913be19f30ae09dbe0b7acdd)
+- chore(deps): update dependency rollup to v4.1.4 [`6774d54`](https://github.com/th-ch/youtube-music/commit/6774d54f5eca432edc2e11743d9d1b1c2fda9ac8)
+
 #### [v2.1.1](https://github.com/th-ch/youtube-music/compare/v2.1.0...v2.1.1)
+
+> 14 October 2023
 
 - hotfix(downloader): can't get an album title (fix #1313) [`#1313`](https://github.com/th-ch/youtube-music/issues/1313)
 - Update changelog for v2.1.0 [`92cab89`](https://github.com/th-ch/youtube-music/commit/92cab89d17175741e60e65ea61633e23ebdc1f45)
