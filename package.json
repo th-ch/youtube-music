@@ -87,8 +87,8 @@
     }
   },
   "scripts": {
-    "test": "yarpm-pnpm run build && playwright test",
-    "test:debug": "yarpm-pnpm run build && cross-env DEBUG=pw:*,-pw:test:protocol playwright test",
+    "test": "playwright test",
+    "test:debug": "cross-env DEBUG=pw:*,-pw:test:protocol playwright test",
     "rollup:preload": "rollup -c rollup.preload.config.ts --configPlugin @rollup/plugin-typescript --bundleConfigAsCjs",
     "rollup:main": "rollup -c rollup.main.config.ts --configPlugin @rollup/plugin-typescript --bundleConfigAsCjs",
     "build": "yarpm-pnpm run rollup:preload && yarpm-pnpm run rollup:main",
