@@ -5,6 +5,7 @@ import { getImage, SongInfo } from './song-info';
 
 import { YoutubePlayer } from '../types/youtube-player';
 import { GetState } from '../types/datahost-get-state';
+import { VideoDataChangeValue } from '../types/player-api-events';
 
 let songInfo: SongInfo = {} as SongInfo;
 export const getSongInfo = () => songInfo;
@@ -107,18 +108,22 @@ export default () => {
       pause: (e: Event) => playPausedHandler(e, 'pause'),
     };
 
+    const waitingEvent = new Set<string>();
     // Name = "dataloaded" and abit later "dataupdated"
-    apiEvent.detail.addEventListener('videodatachange', (name: string) => {
-      if (name !== 'dataloaded') {
-        return;
-      }
-      const video = $<HTMLVideoElement>('video');
-      video?.dispatchEvent(srcChangedEvent);
+    apiEvent.detail.addEventListener('videodatachange', (name: string, videoData) => {
+      if (name === 'dataupdated' && waitingEvent.has(videoData.videoId)) {
+        waitingEvent.delete(videoData.videoId);
+        sendSongInfo(videoData);
+      } else if (name === 'dataloaded') {
+        const video = $<HTMLVideoElement>('video');
+        video?.dispatchEvent(srcChangedEvent);
 
-      for (const status of ['playing', 'pause'] as const) { // for fix issue that pause event not fired
-        video?.addEventListener(status, playPausedHandlers[status]);
+        for (const status of ['playing', 'pause'] as const) { // for fix issue that pause event not fired
+          video?.addEventListener(status, playPausedHandlers[status]);
+        }
+
+        waitingEvent.add(videoData.videoId);
       }
-      setTimeout(sendSongInfo, 200);
     });
 
     const video = $('video')!;
@@ -126,16 +131,10 @@ export default () => {
       video.addEventListener(status, playPausedHandlers[status]);
     }
 
-    function sendSongInfo() {
+    function sendSongInfo(videoData: VideoDataChangeValue) {
       const data = apiEvent.detail.getPlayerResponse();
 
-      for (const e of $$<HTMLAnchorElement>('.byline.ytmusic-player-bar > .yt-simple-endpoint')) {
-        if (e.href?.includes('browse/FEmusic_library_privately_owned_release') || e.href?.includes('browse/MPREb')) {
-          data.videoDetails.album = e.textContent;
-          break;
-        }
-      }
-
+      data.videoDetails.album = videoData?.Hd?.playerOverlays?.playerOverlayRenderer?.browserMediaSession?.browserMediaSessionRenderer?.album.runs?.at(0)?.text;
       data.videoDetails.elapsedSeconds = 0;
       data.videoDetails.isPaused = false;
       ipcRenderer.send('video-src-changed', data);
