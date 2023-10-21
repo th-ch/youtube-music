@@ -84,8 +84,8 @@ export const getCookieFromWindow = async (win: BrowserWindow) => {
       url: 'https://music.youtube.com',
     })
   )
-    .map((it) => it.name + '=' + it.value + ';')
-    .join('');
+    .map((it) => it.name + '=' + it.value)
+    .join(';');
 };
 
 export default async (win_: BrowserWindow) => {
