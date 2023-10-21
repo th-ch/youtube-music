@@ -128,6 +128,7 @@ const defaultConfig = {
       skipExisting: false,
       playlistMaxItems: undefined as number | undefined,
     },
+    'http-api': {},
     'exponential-volume': {},
     'in-app-menu': {
       /**

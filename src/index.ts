@@ -24,6 +24,7 @@ import captionsSelector from './plugins/captions-selector/back';
 import crossfade from './plugins/crossfade/back';
 import discord from './plugins/discord/back';
 import downloader from './plugins/downloader/back';
+import httpApi from './plugins/http-api/back';
 import inAppMenu from './plugins/in-app-menu/back';
 import lastFm from './plugins/last-fm/back';
 import lumiaStream from './plugins/lumiastream/back';
@@ -109,6 +110,7 @@ const mainPlugins = {
   'crossfade': crossfade,
   'discord': discord,
   'downloader': downloader,
+  'http-api': httpApi,
   'in-app-menu': inAppMenu,
   'last-fm': lastFm,
   'lumiastream': lumiaStream,
