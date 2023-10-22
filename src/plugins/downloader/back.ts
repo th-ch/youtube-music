@@ -84,8 +84,8 @@ export const getCookieFromWindow = async (win: BrowserWindow) => {
       url: 'https://music.youtube.com',
     })
   )
-    .map((it) => it.name + '=' + it.value + ';')
-    .join('');
+    .map((it) => it.name + '=' + it.value)
+    .join(';');
 };
 
 export default async (win_: BrowserWindow) => {
@@ -450,12 +450,11 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
   try {
     givenUrl = new URL(givenUrl ?? '');
   } catch {
-    return;
+    givenUrl = new URL(win.webContents.getURL());
   }
 
   const playlistId =
     getPlaylistID(givenUrl) ||
-    getPlaylistID(new URL(win.webContents.getURL())) ||
     getPlaylistID(new URL(playingUrl));
 
   if (!playlistId) {
@@ -604,7 +603,7 @@ function getFFmpegMetadataArgs(metadata: CustomSongInfo) {
 // Playlist radio modifier needs to be cut from playlist ID
 const INVALID_PLAYLIST_MODIFIER = 'RDAMPL';
 
-const getPlaylistID = (aURL: URL) => {
+const getPlaylistID = (aURL?: URL): string | null | undefined => {
   const result =
     aURL?.searchParams.get('list') || aURL?.searchParams.get('playlist');
   if (result?.startsWith(INVALID_PLAYLIST_MODIFIER)) {
