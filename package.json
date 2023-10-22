@@ -1,7 +1,7 @@
 {
   "name": "youtube-music",
   "productName": "YouTube Music",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "description": "YouTube Music Desktop App - including custom plugins",
   "main": "./dist/index.js",
   "license": "MIT",
