@@ -2,7 +2,17 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v2.1.3](https://github.com/th-ch/youtube-music/compare/v2.1.2...v2.1.3)
+
+- fix: fixed bugs in downloader [`#1342`](https://github.com/th-ch/youtube-music/pull/1342)
+- feat(discord): rename `Listen Along` to `Play on YTM` [`#1341`](https://github.com/th-ch/youtube-music/issues/1341)
+- chore(deps): bump deps [`4333891`](https://github.com/th-ch/youtube-music/commit/4333891ccabe42aedf756fd48618be715db13262)
+- Update changelog for v2.1.2 [`fa4c69d`](https://github.com/th-ch/youtube-music/commit/fa4c69d228d4e06a7858e2b22fcdfa075a8ca766)
+- fix(store): fix listenAlong statement [`bceaa05`](https://github.com/th-ch/youtube-music/commit/bceaa05197d47a4a4bbd22e767d1e4d6ec277514)
+
 #### [v2.1.2](https://github.com/th-ch/youtube-music/compare/v2.1.1...v2.1.2)
+
+> 19 October 2023
 
 - feat(in-app-menu): add an option to hide the window controls [`#1335`](https://github.com/th-ch/youtube-music/pull/1335)
 - fix: fixed an issue where the album name was missing [`#1334`](https://github.com/th-ch/youtube-music/pull/1334)
