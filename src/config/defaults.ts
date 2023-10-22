@@ -107,7 +107,7 @@ const defaultConfig = {
       autoReconnect: true, // If enabled, will try to reconnect to discord every 5 seconds after disconnecting or failing to connect
       activityTimoutEnabled: true, // If enabled, the discord rich presence gets cleared when music paused after the time specified below
       activityTimoutTime: 10 * 60 * 1000, // 10 minutes
-      listenAlong: true, // Add a "listen along" button to rich presence
+      playOnYouTubeMusic: true, // Add a "Play on YouTube Music" button to rich presence
       hideGitHubButton: false, // Disable the "View App On GitHub" button
       hideDurationLeft: false, // Hides the start and end time of the song to rich presence
     },

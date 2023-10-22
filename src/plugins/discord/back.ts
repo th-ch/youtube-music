@@ -170,7 +170,7 @@ export default (
       largeImageKey: songInfo.imageSrc ?? '',
       largeImageText: songInfo.album ?? '',
       buttons: [
-        ...(options.listenAlong ? [{ label: 'Listen Along', url: songInfo.url ?? '' }] : []),
+        ...(options.playOnYouTubeMusic ? [{ label: 'Play on YouTube Music', url: songInfo.url ?? '' }] : []),
         ...(options.hideGitHubButton ? [] : [{ label: 'View App On GitHub', url: 'https://github.com/th-ch/youtube-music' }]),
       ],
     };
