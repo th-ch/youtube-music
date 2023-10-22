@@ -81,7 +81,7 @@ export default (win: BrowserWindow) => {
         break;
       case 'seek':
         console.log('seek', action.get('value'));
-        win.webContents.send('seekBy', action.get('value'));
+        win.webContents.send('seekTo', action.get('value'));
         break;
       default:
         throw Error(`web-interface: Requested action "${action.get('action')}" not found`);
