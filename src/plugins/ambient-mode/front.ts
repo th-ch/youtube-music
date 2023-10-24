@@ -1,9 +1,15 @@
+import { ipcRenderer } from 'electron';
+
 import { ConfigType } from '../../config/dynamic';
 
-export default (_: ConfigType<'ambient-mode'>) => {
-  const interpolationTime = 3000; // interpolation time (ms)
-  const framerate = 30; // frame
-  const qualityRatio = 50; // width size (pixel)
+export default (config: ConfigType<'ambient-mode'>) => {
+  let interpolationTime = config.interpolationTime; // interpolation time (ms)
+  let buffer = config.buffer; // frame
+  let qualityRatio = config.quality; // width size (pixel)
+  let sizeRatio = config.size / 100; // size ratio (percent)
+  let blur = config.blur; // blur (pixel)
+  let opacity = config.opacity; // opacity (percent)
+  let isFullscreen = config.fullscreen; // fullscreen (boolean)
 
   let unregister: (() => void) | null = null;
 
@@ -37,7 +43,7 @@ export default (_: ConfigType<'ambient-mode'>) => {
 
         context.globalAlpha = 1;
         if (lastImageData) {
-          const frameOffset = (1 / framerate) * (1000 / interpolationTime);
+          const frameOffset = (1 / buffer) * (1000 / interpolationTime);
           context.globalAlpha = 1 - (frameOffset * 2); // because of alpha value must be < 1
           context.putImageData(lastImageData, 0, 0);
           context.globalAlpha = frameOffset;
@@ -61,8 +67,18 @@ export default (_: ConfigType<'ambient-mode'>) => {
 
       blurCanvas.width = qualityRatio;
       blurCanvas.height = Math.floor(newHeight / newWidth * qualityRatio);
-      blurCanvas.style.width = `${newWidth}px`;
-      blurCanvas.style.height = `${newHeight}px`;
+      blurCanvas.style.width = `${newWidth * sizeRatio}px`;
+      blurCanvas.style.height = `${newHeight * sizeRatio}px`;
+
+      if (isFullscreen) blurCanvas.classList.add('fullscreen');
+      else blurCanvas.classList.remove('fullscreen');
+
+      const leftOffset = newWidth * (sizeRatio - 1) / 2;
+      const topOffset = newHeight * (sizeRatio - 1) / 2;
+      blurCanvas.style.setProperty('--left', `${-1 * leftOffset}px`);
+      blurCanvas.style.setProperty('--top', `${-1 * topOffset}px`);
+      blurCanvas.style.setProperty('--blur', `${blur}px`);
+      blurCanvas.style.setProperty('--opacity', `${opacity}`);
     };
 
     const observer = new MutationObserver((mutations) => {
@@ -75,10 +91,22 @@ export default (_: ConfigType<'ambient-mode'>) => {
     const resizeObserver = new ResizeObserver(() => {
       applyVideoAttributes();
     });
+    const onConfigSync = (_: Electron.IpcRendererEvent, newConfig: ConfigType<'ambient-mode'>) => {
+      if (typeof newConfig.interpolationTime === 'number') interpolationTime = newConfig.interpolationTime;
+      if (typeof newConfig.buffer === 'number') buffer = newConfig.buffer;
+      if (typeof newConfig.quality === 'number') qualityRatio = newConfig.quality;
+      if (typeof newConfig.size === 'number') sizeRatio = newConfig.size / 100;
+      if (typeof newConfig.blur === 'number') blur = newConfig.blur;
+      if (typeof newConfig.opacity === 'number') opacity = newConfig.opacity;
+      if (typeof newConfig.fullscreen === 'boolean') isFullscreen = newConfig.fullscreen;
 
+      applyVideoAttributes();
+    };
+    ipcRenderer.on('ambient-mode:config-change', onConfigSync);
+  
     /* hooking */
     let canvasInterval: NodeJS.Timeout | null = null;
-    canvasInterval = setInterval(onSync, Math.max(1, Math.ceil(1000 / framerate)));
+    canvasInterval = setInterval(onSync, Math.max(1, Math.ceil(1000 / buffer)));
     applyVideoAttributes();
     observer.observe(songVideo, { attributes: true });
     resizeObserver.observe(songVideo);
@@ -90,7 +118,7 @@ export default (_: ConfigType<'ambient-mode'>) => {
     };
     const onPlay = () => {
       if (canvasInterval) clearInterval(canvasInterval);
-      canvasInterval = setInterval(onSync, Math.max(1, Math.ceil(1000 / framerate)));
+      canvasInterval = setInterval(onSync, Math.max(1, Math.ceil(1000 / buffer)));
     };
     songVideo.addEventListener('pause', onPause);
     songVideo.addEventListener('play', onPlay);
@@ -107,6 +135,7 @@ export default (_: ConfigType<'ambient-mode'>) => {
 
       observer.disconnect();
       resizeObserver.disconnect();
+      ipcRenderer.off('ambient-mode:config-change', onConfigSync);
       window.removeEventListener('resize', applyVideoAttributes);
 
       wrapper.removeChild(blurCanvas);
