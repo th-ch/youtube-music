@@ -1,6 +1,8 @@
 #song-video canvas.html5-blur-canvas {
   filter: blur(var(--blur, 100px));
   opacity: var(--opacity, 1);
+
+  pointer-events: none;
 }
 
 #song-video canvas.html5-blur-canvas:not(.fullscreen) {
@@ -16,5 +18,9 @@
   width: 100% !important;
   height: 100% !important;
   left: 0 !important;
+  top: 0 !important;
+}
+
+#song-video .html5-video-container > video {
   top: 0 !important;
 }
