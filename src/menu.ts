@@ -8,6 +8,7 @@ import { startingPages } from './providers/extracted-data';
 import promptOptions from './providers/prompt-options';
 
 import adblockerMenu from './plugins/adblocker/menu';
+import ambientModeMenu from './plugins/ambient-mode/menu';
 import captionsSelectorMenu from './plugins/captions-selector/menu';
 import crossfadeMenu from './plugins/crossfade/menu';
 import disableAutoplayMenu from './plugins/disable-autoplay/menu';
@@ -32,6 +33,7 @@ const betaPlugins = ['crossfade', 'lumiastream'];
 
 const pluginMenus = {
   'adblocker': adblockerMenu,
+  'ambient-mode': ambientModeMenu,
   'disable-autoplay': disableAutoplayMenu,
   'captions-selector': captionsSelectorMenu,
   'crossfade': crossfadeMenu,
