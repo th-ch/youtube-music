@@ -2,7 +2,16 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v2.2.0](https://github.com/th-ch/youtube-music/compare/v2.1.3...v2.2.0)
+
+- feat(ambient-mode): add config for `ambient-mode` plugin [`#1349`](https://github.com/th-ch/youtube-music/pull/1349)
+- bump deps [`4248d20`](https://github.com/th-ch/youtube-music/commit/4248d20e8ef926ce7b1d07eb83743755a341d9f6)
+- Update changelog for v2.1.3 [`dc73561`](https://github.com/th-ch/youtube-music/commit/dc73561c8a8acfc8ba91aff2dc78e4267869f2fd)
+- Bump version to 2.2.0 [`6288d0b`](https://github.com/th-ch/youtube-music/commit/6288d0b171a65ea015922cdf3af6c7bd9a1f269b)
+
 #### [v2.1.3](https://github.com/th-ch/youtube-music/compare/v2.1.2...v2.1.3)
+
+> 23 October 2023
 
 - fix: fixed bugs in downloader [`#1342`](https://github.com/th-ch/youtube-music/pull/1342)
 - feat(discord): rename `Listen Along` to `Play on YTM` [`#1341`](https://github.com/th-ch/youtube-music/issues/1341)
