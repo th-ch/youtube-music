@@ -102,7 +102,7 @@
     "dist:win": "yarpm-pnpm run clean && yarpm-pnpm run build && electron-builder --win -p never",
     "dist:win:x64": "yarpm-pnpm run clean && yarpm-pnpm run build && electron-builder --win nsis-web:x64 -p never",
     "lint": "eslint .",
-    "changelog": "auto-changelog",
+    "changelog": "npx --yes auto-changelog",
     "release:linux": "yarpm-pnpm run clean && yarpm-pnpm run build && electron-builder --linux -p always -c.snap.publish=github",
     "release:mac": "yarpm-pnpm run clean && yarpm-pnpm run build && electron-builder --mac -p always",
     "release:win": "yarpm-pnpm run clean && yarpm-pnpm run build && electron-builder --win -p always",
@@ -116,7 +116,7 @@
       "rollup": "4.1.5",
       "node-gyp": "9.4.1",
       "xml2js": "0.6.2",
-      "node-fetch": "2.7.0",
+      "node-fetch": "3.3.2",
       "@electron/universal": "1.4.2",
       "@babel/runtime": "7.23.2"
     }
@@ -125,7 +125,7 @@
     "rollup": "4.1.5",
     "node-gyp": "9.4.1",
     "xml2js": "0.6.2",
-    "node-fetch": "2.7.0",
+    "node-fetch": "3.3.2",
     "@electron/universal": "1.4.2",
     "@babel/runtime": "7.23.2"
   },
@@ -175,7 +175,6 @@
     "@types/howler": "2.2.10",
     "@types/html-to-text": "9.0.3",
     "@typescript-eslint/eslint-plugin": "6.9.0",
-    "auto-changelog": "2.4.0",
     "builtin-modules": "^3.3.0",
     "cross-env": "7.0.3",
     "del-cli": "5.1.0",
