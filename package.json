@@ -94,7 +94,6 @@
     "build": "yarpm-pnpm run rollup:preload && yarpm-pnpm run rollup:main",
     "start": "yarpm-pnpm run build && electron ./dist/index.js",
     "start:debug": "cross-env ELECTRON_ENABLE_LOGGING=1 yarpm-pnpm run start",
-    "postinstall": "patch-package",
     "clean": "del-cli dist && del-cli pack",
     "dist": "yarpm-pnpm run clean && yarpm-pnpm run build && electron-builder --win --mac --linux -p never",
     "dist:linux": "yarpm-pnpm run clean && yarpm-pnpm run build && electron-builder --linux -p never",
@@ -163,7 +162,6 @@
     "youtubei.js": "7.0.0"
   },
   "devDependencies": {
-    "@milahu/patch-package": "6.4.14",
     "@playwright/test": "1.39.0",
     "@rollup/plugin-commonjs": "25.0.7",
     "@rollup/plugin-image": "3.0.3",
