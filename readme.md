@@ -40,7 +40,7 @@ this [wiki page](https://wiki.archlinux.org/index.php/Arch_User_Repository#Insta
 
 You can install the app using Homebrew:
 ```bash
-brew install --cask https://raw.githubusercontent.com/j-szulc/youtube-music/master/youtube-music.rb
+brew install --cask https://raw.githubusercontent.com/th-ch/youtube-music/master/youtube-music.rb
 ```
 
 If you install the app manually and get an error "is damaged and can’t be opened." when launching the app, run the following in the Terminal:
