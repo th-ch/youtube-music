@@ -2,11 +2,11 @@ name: Build YouTube Music
 
 on:
   push:
-    branches: [ custom-version ]
+    branches: [ master ]
   pull_request:
 
 env:
-  NODE_VERSION: "18.x"
+  NODE_VERSION: "20.x"
 
 jobs:
   build:
@@ -20,78 +20,95 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+
       - name: Setup NodeJS
-        uses: actions/setup-node@v3
+        if: startsWith(matrix.os, 'macOS') != true
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          cache: 'pnpm'
+
+      - name: Setup NodeJS for macOS
+        if: startsWith(matrix.os, 'macOS')
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
+
+      # Only rollup build without release if it is a fork
+      - name: Rollup Build
+        if: github.repository == 'th-ch/youtube-music' && github.event_name == 'pull_request'
+        run: |
+          pnpm build
+
+      # Build and release if it's the main repository and is not pull-request
+      - name: Build and release on Mac
+        if: startsWith(matrix.os, 'macOS') && (github.repository == 'th-ch/youtube-music' && github.event_name != 'pull_request')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          pnpm release:mac
+
+      - name: Build and release on Linux
+        if: startsWith(matrix.os, 'ubuntu') && (github.repository == 'th-ch/youtube-music' && github.event_name != 'pull_request')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          pnpm release:linux
+
+      - name: Build and release on Windows
+        if: startsWith(matrix.os, 'windows') && (github.repository == 'th-ch/youtube-music' && github.event_name != 'pull_request')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          pnpm release:win
 
       - name: Test
-        uses: GabrielBB/xvfb-action@v1
+        uses: coactions/setup-xvfb@v1
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
         with:
-          run: npm run test
+          run: pnpm test:debug
 
-      # Build and release if it's the main repository
-      - name: Build and release on Mac
-        if: startsWith(matrix.os, 'macOS') && github.repository == 'organization/youtube-music-next'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          npm run release:mac
-
-      - name: Build and release on Linux
-        if: startsWith(matrix.os, 'ubuntu') && github.repository == 'organization/youtube-music-next'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          npm run release:linux
-
-      - name: Build and release on Windows
-        if: startsWith(matrix.os, 'windows') && github.repository == 'organization/youtube-music-next'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          npm run release:win
-
-      # Only build without release if it is a fork
-      - name: Build on Mac
-        if: startsWith(matrix.os, 'macOS') && github.repository != 'organization/youtube-music-next'
-        run: |
-          npm run dist:mac
-
-      - name: Build on Linux
-        if: startsWith(matrix.os, 'ubuntu') && github.repository != 'organization/youtube-music-next'
-        run: |
-          npm run dist:linux
-
-      - name: Build on Windows
-        if: startsWith(matrix.os, 'windows') && github.repository != 'organization/youtube-music-next'
-        run: |
-          npm run dist:win
 
   release:
     runs-on: ubuntu-latest
     name: Release YouTube Music
-    if: github.repository == 'organization/youtube-music-next' && github.ref == 'refs/heads/custom-version'
+    if: github.repository == 'th-ch/youtube-music' && github.ref == 'refs/heads/master'
     needs: build
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+
       - name: Setup NodeJS
-        uses: actions/setup-node@v3
+        if: startsWith(matrix.os, 'macOS') != true
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          cache: 'pnpm'
+
+      - name: Setup NodeJS for macOS
+        if: startsWith(matrix.os, 'macOS')
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Get version
         run: |
@@ -117,7 +134,7 @@ jobs:
         if: ${{ env.VERSION_HASH == '' }}
         uses: irongut/EditRelease@v1.2.0
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_TOKEN }}
           id: ${{ steps.get_draft_release.outputs.id }}
           draft: false
           prerelease: false
@@ -125,19 +142,20 @@ jobs:
           name: ${{ env.VERSION_TAG }}
           replacebody: true
           body: |
-            See [changelog](https://github.com/organization/youtube-music-next/blob/custom-version/changelog.md#${{ env.CHANGELOG_ANCHOR }}) for the list of updates and the full diff.
+            See [changelog](https://github.com/th-ch/youtube-music/blob/master/changelog.md#${{ env.CHANGELOG_ANCHOR }}) for the list of updates and the full diff.
 
             Thanks to all contributors! 🏅
 
       - name: Update changelog
         if: ${{ env.VERSION_HASH == '' }}
         run: |
-          npm run changelog
+          pnpm changelog
 
       - name: Commit changelog
         if: ${{ env.VERSION_HASH == '' }}
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Update changelog for ${{ env.VERSION_TAG }}
           file_pattern: "changelog.md"
           commit_user_name: CI
+          commit_user_email: th-ch@users.noreply.github.com

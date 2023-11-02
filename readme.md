@@ -1,13 +1,13 @@
-# YouTube Music Next
+# YouTube Music
 
 <div align="center">
 
-[![GitHub release](https://img.shields.io/github/release/organization/youtube-music-next.svg?style=for-the-badge&logo=youtube-music)](https://github.com/organization/youtube-music-next/releases/)
-[![GitHub license](https://img.shields.io/github/license/organization/youtube-music-next.svg?style=for-the-badge)](https://github.com/organization/youtube-music-next/blob/master/LICENSE)
-[![eslint code style](https://img.shields.io/badge/code_style-eslint-5ed9c7.svg?style=for-the-badge)](https://github.com/organization/youtube-music-next/blob/master/.eslintrc.js)
-[![Build status](https://img.shields.io/github/actions/workflow/status/organization/youtube-music-next/build.yml?branch=custom-version&style=for-the-badge&logo=youtube-music)](https://github.com/organization/youtube-music-next/releases/)
-[![Known Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/github/organization/youtube-music-next?style=for-the-badge)](https://snyk.io/test/github/organization/youtube-music-next)
-[![GitHub All Releases](https://img.shields.io/github/downloads/organization/youtube-music-next/total?style=for-the-badge&logo=youtube-music)](https://github.com/organization/youtube-music-next/releases/)
+[![GitHub release](https://img.shields.io/github/release/th-ch/youtube-music.svg?style=for-the-badge&logo=youtube-music)](https://github.com/th-ch/youtube-music/releases/)
+[![GitHub license](https://img.shields.io/github/license/th-ch/youtube-music.svg?style=for-the-badge)](https://github.com/th-ch/youtube-music/blob/master/LICENSE)
+[![eslint code style](https://img.shields.io/badge/code_style-eslint-5ed9c7.svg?style=for-the-badge)](https://github.com/th-ch/youtube-music/blob/master/.eslintrc.js)
+[![Build status](https://img.shields.io/github/actions/workflow/status/th-ch/youtube-music/build.yml?branch=master&style=for-the-badge&logo=youtube-music)](https://GitHub.com/th-ch/youtube-music/releases/)
+[![Known Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/github/th-ch/youtube-music?style=for-the-badge)](https://snyk.io/test/github/th-ch/youtube-music)
+[![GitHub All Releases](https://img.shields.io/github/downloads/th-ch/youtube-music/total?style=for-the-badge&logo=youtube-music)](https://GitHub.com/th-ch/youtube-music/releases/)
 [![AUR](https://img.shields.io/aur/version/youtube-music-bin?color=blueviolet&style=for-the-badge&logo=youtube-music)](https://aur.archlinux.org/packages/youtube-music-bin)
 
 </div>
@@ -16,7 +16,7 @@
 
 <div align="center">
 	<a href="https://github.com/th-ch/youtube-music/releases/latest">
-		<img src="web/youtube-music.svg" width="400" height="100">
+		<img src="web/youtube-music.svg" width="400" height="100" alt="YouTube Music SVG">
 	</a>
 </div>
 
@@ -28,7 +28,7 @@
 
 ## Download
 
-You can check out the [latest release](https://github.com/organization/youtube-music-next/releases/latest) to quickly find the
+You can check out the [latest release](https://github.com/th-ch/youtube-music/releases/latest) to quickly find the
 latest version.
 
 ### Arch Linux
@@ -38,7 +38,12 @@ this [wiki page](https://wiki.archlinux.org/index.php/Arch_User_Repository#Insta
 
 ### MacOS
 
-If you get an error "is damaged and can’t be opened." when launching the app, run the following in the Terminal:
+You can install the app using Homebrew:
+```bash
+brew install --cask https://raw.githubusercontent.com/th-ch/youtube-music/master/youtube-music.rb
+```
+
+If you install the app manually and get an error "is damaged and can’t be opened." when launching the app, run the following in the Terminal:
 
 ```bash
 xattr -cr /Applications/YouTube\ Music.app
@@ -65,9 +70,23 @@ file).*
 winget install th-ch.YouTubeMusic
 ```
 
+#### How to install without a network connection? (in Windows)
+
+- Download the `*.nsis.7z` file for _your device architecture_ in [release page](https://github.com/th-ch/youtube-music/releases/latest).
+  - `x64` for 64-bit Windows
+  - `ia32` for 32-bit Windows
+  - `arm64` for ARM64 Windows
+- Download installer in release page. (`*-Setup.exe`)
+- Place them in the **same directory**.
+- Run the installer.
+
 ## Available plugins:
 
 - **Ad Blocker**: Block all ads and tracking out of the box
+
+- **Album Color Theme**: Applies a dynamic theme and visual effects based on the album color palette
+
+- **Ambient Mode**: Applies a lighting effect by casting gentle colors from the video, into your screen’s background.
 
 - **Audio Compressor**: Apply compression to audio (lowers the volume of the loudest parts of the signal and raises the
   volume of the softest parts)
@@ -94,13 +113,14 @@ winget install th-ch.YouTubeMusic
   slider [exponential](https://greasyfork.org/en/scripts/397686-youtube-music-fix-volume-ratio/) so it's easier to
   select lower volumes.
 
-- **In-App Menu
-  **: [gives bars a fancy, dark look](https://user-images.githubusercontent.com/78568641/112215894-923dbf00-8c29-11eb-95c3-3ce15db27eca.png)
+- **In-App Menu**: [gives bars a fancy, dark look](https://user-images.githubusercontent.com/78568641/112215894-923dbf00-8c29-11eb-95c3-3ce15db27eca.png)
 
   > (see [this post](https://github.com/th-ch/youtube-music/issues/410#issuecomment-952060709) if you have problem
   accessing the menu after enabling this plugin and hide-menu option)
 
 - [**Last.fm**](https://www.last.fm/): Scrobbles support
+
+- **Lumia Stream**: Adds [Lumia Stream](https://lumiastream.com/) support
 
 - **Lyrics Genius**: Adds lyrics support for most songs
 
@@ -169,8 +189,8 @@ Some predefined themes are available in https://github.com/kerichdev/themes-for-
 ```bash
 git clone https://github.com/th-ch/youtube-music
 cd youtube-music
-npm
-npm run start
+pnpm install --frozen-lockfile
+pnpm start
 ```
 
 ## Build your own plugins
@@ -184,20 +204,46 @@ Using plugins, you can:
 
 Create a folder in `plugins/YOUR-PLUGIN-NAME`:
 
-- if you need to manipulate the BrowserWindow, create a file `back.ts` with the following template:
+- if you need to manipulate the BrowserWindow, create a file with the following template:
 
 ```typescript
-export default (win: Electron.BrowserWindow) => {
+// file: back.ts
+export default (win: Electron.BrowserWindow, config: ConfigType<'YOUR-PLUGIN-NAME'>) => {
   // something
 };
 ```
 
-- if you need to change the front, create a file `front.ts` with the following template:
+then, register the plugin in `index.ts`:
 
 ```typescript
-export default () => {
+import yourPlugin from './plugins/YOUR-PLUGIN-NAME/back';
+
+// ...
+
+const mainPlugins = {
+  // ...
+  'YOUR-PLUGIN-NAME': yourPlugin,
+};
+```
+
+- if you need to change the front, create a file with the following template:
+
+```typescript
+// file: front.ts
+export default (config: ConfigType<'YOUR-PLUGIN-NAME'>) => {
   // This function will be called as a preload script
   // So you can use front features like `document.querySelector`
+};
+```
+
+then, register the plugin in `preload.ts`:
+
+```typescript
+import yourPlugin from './plugins/YOUR-PLUGIN-NAME/front';
+
+const rendererPlugins: PluginMapper<'renderer'> = {
+  // ...
+  'YOUR-PLUGIN-NAME': yourPlugin,
 };
 ```
 
@@ -231,12 +277,13 @@ export default () => {
 ## Build
 
 1. Clone the repo
-2. Run `npm i` to install dependencies
-3. Run `npm run build:OS`
+2. Follow [this guide](https://pnpm.io/installation) to install `pnpm`
+3. Run `pnpm install --frozen-lockfile` to install dependencies
+4. Run `pnpm build:OS`
 
-- `npm run build:win` - Windows
-- `npm run build:linux` - Linux
-- `npm run build:mac` - MacOS
+- `pnpm dist:win` - Windows
+- `pnpm dist:linux` - Linux
+- `pnpm dist:mac` - MacOS
 
 Builds the app for macOS, Linux, and Windows,
 using [electron-builder](https://github.com/electron-userland/electron-builder).
@@ -244,7 +291,7 @@ using [electron-builder](https://github.com/electron-userland/electron-builder).
 ## Tests
 
 ```bash
-npm run test
+pnpm test
 ```
 
 Uses [Playwright](https://playwright.dev/) to test the app.

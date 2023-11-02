@@ -80,6 +80,11 @@ menu-panel[open="true"] {
   opacity: 1;
   transform: scale(1);
 }
+menu-panel.position-by-bottom {
+  top: unset;
+  bottom: calc(100vh - var(--y, 100%));
+  max-height: calc(var(--y, 0) - var(--menu-bar-height, 36px) - 16px);
+}
 
 menu-item {
   -webkit-app-region: none;
@@ -119,6 +124,33 @@ menu-separator {
   height: calc(100% - 8px);
   object-fit: cover;
   margin-left: -4px;
+}
+
+/* Window control container */
+
+.window-controls-container {
+  -webkit-app-region: no-drag;
+  display: flex;
+  justify-content: flex-end; /* Align to the right end of the title-bar */
+  align-items: center;
+  gap: 4px; /* Add spacing between the window control buttons */
+  position: absolute; /* Position it absolutely within title-bar */
+  right: 4px; /* Adjust the right position as needed */
+}
+
+/* Window control buttons */
+
+.window-control {
+  width: 24px;
+  height: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: #f1f1f1;
+  font-size: 14px;
+  padding: 0;
 }
 
 /* youtube-music style */

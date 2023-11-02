@@ -1,7 +1,8 @@
 import { dialog } from 'electron';
 
 import { downloadPlaylist } from './back';
-import { defaultMenuDownloadLabel, getFolder, presets } from './utils';
+import { defaultMenuDownloadLabel, getFolder } from './utils';
+import { DefaultPresetList } from './types';
 import config from './config';
 
 import { MenuTemplate } from '../../menu';
@@ -25,12 +26,12 @@ export default (): MenuTemplate => [
   },
   {
     label: 'Presets',
-    submenu: Object.keys(presets).map((preset) => ({
+    submenu: Object.keys(DefaultPresetList).map((preset) => ({
       label: preset,
       type: 'radio',
-      checked: config.get('preset') === preset,
+      checked: config.get('selectedPreset') === preset,
       click() {
-        config.set('preset', preset);
+        config.set('selectedPreset', preset);
       },
     })),
   },

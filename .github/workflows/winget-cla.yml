@@ -1,0 +1,20 @@
+name: Submit CLA to Winget PR
+
+on:
+  workflow_dispatch:
+    inputs:
+      pr_url:
+        description: "Specific PR URL"
+        required: true
+        type: string
+
+jobs:
+  comment:
+    name: Comment to PR
+    runs-on: ubuntu-latest
+    steps:
+      - name: Submit CLA to Windows Package Manager Community Repository Pull Request
+        run: gh pr comment $PR_URL --body "@microsoft-github-policy-service agree"
+        env:
+          GITHUB_TOKEN: ${{ secrets.WINGET_ACC_TOKEN }}
+          PR_URL: ${{ inputs.pr_url }}

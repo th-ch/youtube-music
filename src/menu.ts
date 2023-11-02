@@ -8,11 +8,13 @@ import { startingPages } from './providers/extracted-data';
 import promptOptions from './providers/prompt-options';
 
 import adblockerMenu from './plugins/adblocker/menu';
+import ambientModeMenu from './plugins/ambient-mode/menu';
 import captionsSelectorMenu from './plugins/captions-selector/menu';
 import crossfadeMenu from './plugins/crossfade/menu';
 import disableAutoplayMenu from './plugins/disable-autoplay/menu';
 import discordMenu from './plugins/discord/menu';
 import downloaderMenu from './plugins/downloader/menu';
+import inAppMenuTitlebarMenu from './plugins/in-app-menu/menu';
 import lyricsGeniusMenu from './plugins/lyrics-genius/menu';
 import notificationsMenu from './plugins/notifications/menu';
 import pictureInPictureMenu from './plugins/picture-in-picture/menu';
@@ -27,13 +29,17 @@ export type MenuTemplate = Electron.MenuItemConstructorOptions[];
 // True only if in-app-menu was loaded on launch
 const inAppMenuActive = config.plugins.isEnabled('in-app-menu');
 
+const betaPlugins = ['crossfade', 'lumiastream'];
+
 const pluginMenus = {
   'adblocker': adblockerMenu,
+  'ambient-mode': ambientModeMenu,
   'disable-autoplay': disableAutoplayMenu,
   'captions-selector': captionsSelectorMenu,
   'crossfade': crossfadeMenu,
   'discord': discordMenu,
   'downloader': downloaderMenu,
+  'in-app-menu': inAppMenuTitlebarMenu,
   'lyrics-genius': lyricsGeniusMenu,
   'notifications': notificationsMenu,
   'picture-in-picture': pictureInPictureMenu,
@@ -60,42 +66,44 @@ const pluginEnabledMenu = (plugin: string, label = '', hasSubmenu = false, refre
   },
 });
 
+export const refreshMenu = (win: BrowserWindow) => {
+  setApplicationMenu(win);
+  if (inAppMenuActive) {
+    win.webContents.send('refreshMenu');
+  }
+};
+
 export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
-  const refreshMenu = () => {
-    setApplicationMenu(win);
-    if (inAppMenuActive) {
-      win.webContents.send('refreshMenu');
-    }
-  };
+  const innerRefreshMenu = () => refreshMenu(win);
 
   return [
     {
       label: 'Plugins',
       submenu:
         getAvailablePluginNames().map((pluginName) => {
+          let pluginLabel = pluginName;
+          if (betaPlugins.includes(pluginLabel)) {
+            pluginLabel += ' [beta]';
+          }
+
           if (Object.hasOwn(pluginMenus, pluginName)) {
             const getPluginMenu = pluginMenus[pluginName as keyof typeof pluginMenus];
 
-            let pluginLabel = pluginName;
-            if (pluginLabel === 'crossfade') {
-              pluginLabel = 'crossfade [beta]';
-            }
-
             if (!config.plugins.isEnabled(pluginName)) {
-              return pluginEnabledMenu(pluginName, pluginLabel, true, refreshMenu);
+              return pluginEnabledMenu(pluginName, pluginLabel, true, innerRefreshMenu);
             }
 
             return {
               label: pluginLabel,
               submenu: [
-                pluginEnabledMenu(pluginName, 'Enabled', true, refreshMenu),
+                pluginEnabledMenu(pluginName, 'Enabled', true, innerRefreshMenu),
                 { type: 'separator' },
-                ...getPluginMenu(win, config.plugins.getOptions(pluginName), refreshMenu),
+                ...getPluginMenu(win, config.plugins.getOptions(pluginName), innerRefreshMenu),
               ],
             } satisfies Electron.MenuItemConstructorOptions;
           }
 
-          return pluginEnabledMenu(pluginName);
+          return pluginEnabledMenu(pluginName, pluginLabel);
         }),
     },
     {
@@ -307,11 +315,10 @@ export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
           label: 'Advanced options',
           submenu: [
             {
-              label: 'Proxy',
-              type: 'checkbox',
-              checked: !!(config.get('options.proxy')) && config.get('options.proxy') !== '',
-              click(item) {
-                setProxy(item, win);
+              label: 'Set Proxy',
+              type: 'normal',
+              async click(item) {
+                await setProxy(item, win);
               },
             },
             {
@@ -377,8 +384,8 @@ export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
         { role: 'reload' },
         { role: 'forceReload' },
         { type: 'separator' },
-        { role: 'zoomIn' },
-        { role: 'zoomOut' },
+        { role: 'zoomIn', accelerator: process.platform === 'darwin' ? 'Cmd+I' : 'Ctrl+I' },
+        { role: 'zoomOut', accelerator: process.platform === 'darwin' ? 'Cmd+O' : 'Ctrl+O' },
         { role: 'resetZoom' },
         { type: 'separator' },
         { role: 'togglefullscreen' },
@@ -417,6 +424,12 @@ export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
         { role: 'quit' },
       ],
     },
+    {
+      label: 'About',
+      submenu: [
+        { role: 'about' },
+      ],
+    }
   ];
 };
 export const setApplicationMenu = (win: Electron.BrowserWindow) => {

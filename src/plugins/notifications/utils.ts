@@ -9,7 +9,7 @@ import { cache } from '../../providers/decorators';
 import { SongInfo } from '../../providers/song-info';
 import { getAssetsDirectoryLocation } from '../utils';
 
-const icon = 'assets/youtube-music.png';
+const defaultIcon = path.join(getAssetsDirectoryLocation(), 'youtube-music.png');
 const userData = app.getPath('userData');
 const temporaryIcon = path.join(userData, 'tempIcon.png');
 const temporaryBanner = path.join(userData, 'tempBanner.png');
@@ -23,13 +23,6 @@ export const ToastStyles = {
   banner_centered_bottom: 5,
   banner_bottom: 6,
   legacy: 7,
-};
-
-export const icons = {
-  play: '\u{1405}', // ᐅ
-  pause: '\u{2016}', // ‖
-  next: '\u{1433}', // ᐳ
-  previous: '\u{1438}', // ᐸ
 };
 
 export const urgencyLevels = [
@@ -52,7 +45,7 @@ const nativeImageToLogo = cache((nativeImage: NativeImage) => {
 
 export const notificationImage = (songInfo: SongInfo) => {
   if (!songInfo.image) {
-    return icon;
+    return defaultIcon;
   }
 
   if (!config.get('interactive')) {
@@ -76,24 +69,11 @@ export const saveImage = cache((img: NativeImage, savePath: string) => {
     fs.writeFileSync(savePath, img.toPNG());
   } catch (error: unknown) {
     console.log(`Error writing song icon to disk:\n${String(error)}`);
-    return icon;
+    return defaultIcon;
   }
 
   return savePath;
 });
-
-export const saveTempIcon = () => {
-  for (const kind of Object.keys(icons)) {
-    const destinationPath = path.join(userData, 'icons', `${kind}.png`);
-    if (fs.existsSync(destinationPath)) {
-      continue;
-    }
-
-    const iconPath = path.resolve(path.resolve(getAssetsDirectoryLocation(), 'media-icons-black'), `${kind}.png`);
-    fs.mkdirSync(path.dirname(destinationPath), { recursive: true });
-    fs.copyFile(iconPath, destinationPath, () => {});
-  }
-};
 
 export const snakeToCamel = (string_: string) => string_.replaceAll(/([-_][a-z]|^[a-z])/g, (group) =>
   group.toUpperCase()

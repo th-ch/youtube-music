@@ -1,7 +1,26 @@
-#song-video canvas.html5-blur-canvas{
-  position: absolute;
-  left: 0;
-  top: 0;
+#song-video canvas.html5-blur-canvas {
+  filter: blur(var(--blur, 100px));
+  opacity: var(--opacity, 1);
 
-  filter: blur(100px);
+  pointer-events: none;
+}
+
+#song-video canvas.html5-blur-canvas:not(.fullscreen) {
+  position: absolute;
+
+  left: var(--left, 0px);
+  top: var(--top, 0px);
+}
+
+#song-video canvas.html5-blur-canvas.fullscreen {
+  position: fixed;
+
+  width: 100% !important;
+  height: 100% !important;
+  left: 0 !important;
+  top: 0 !important;
+}
+
+#song-video .html5-video-container > video {
+  top: 0 !important;
 }

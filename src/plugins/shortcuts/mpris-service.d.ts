@@ -1,4 +1,4 @@
-declare module 'mpris-service' {
+declare module '@jellybrick/mpris-service' {
   import { EventEmitter } from 'events';
 
   import dbus from 'dbus-next';
@@ -74,6 +74,8 @@ declare module 'mpris-service' {
     init(opts: RootInterfaceOptions): void;
 
     objectPath(subpath?: string): string;
+
+    getPosition(): number;
 
     seeked(position: number): void;
 

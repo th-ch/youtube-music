@@ -1,6 +1,6 @@
 import { BrowserWindow, ipcMain } from 'electron';
 
-import mpris, { Track } from 'mpris-service';
+import mpris, { Track } from '@jellybrick/mpris-service';
 
 import registerCallback from '../../providers/song-info';
 import getSongControls from '../../providers/song-controls';
@@ -50,18 +50,13 @@ function registerMPRIS(win: BrowserWindow) {
           player.loopStatus = mpris.LOOP_STATUS_NONE;
           break;
         }
-
         case 'ONE': {
-          player.loopStatus = mpris.LOOP_STATUS_PLAYLIST;
+          player.loopStatus = mpris.LOOP_STATUS_TRACK;
           break;
         }
-
         case 'ALL': {
-          {
-            player.loopStatus = mpris.LOOP_STATUS_TRACK;
-            // No default
-          }
-
+          player.loopStatus = mpris.LOOP_STATUS_PLAYLIST;
+          // No default
           break;
         }
       }
@@ -76,6 +71,7 @@ function registerMPRIS(win: BrowserWindow) {
       const delta = (targetIndex - currentIndex + 3) % 3;
       songControls.switchRepeat(delta);
     });
+    player.getPosition = () => secToMicro(currentSeconds);
 
     player.on('raise', () => {
       win.setSkipTaskbar(false);
@@ -110,6 +106,7 @@ function registerMPRIS(win: BrowserWindow) {
         shuffle();
       }
     });
+    player.on('open', (args: { uri: string }) => { win.loadURL(args.uri); });
 
     let mprisVolNewer = false;
     let autoUpdate = false;

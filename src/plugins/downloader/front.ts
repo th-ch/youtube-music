@@ -2,7 +2,7 @@ import downloadHTML from './templates/download.html';
 
 import defaultConfig from '../../config/defaults';
 import { getSongMenu } from '../../providers/dom-elements';
-import { ElementFromHtml } from '../utils-renderer';
+import { ElementFromHtml } from '../utils';
 import { getSongInfo } from '../../providers/song-info-front';
 
 let menu: Element | null = null;
@@ -41,7 +41,7 @@ const menuObserver = new MutationObserver(() => {
 window.download = () => {
   let videoUrl = getSongMenu()
     // Selector of first button which is always "Start Radio"
-    ?.querySelector('ytmusic-menu-navigation-item-renderer[tabindex="0"] #navigation-endpoint')
+    ?.querySelector('ytmusic-menu-navigation-item-renderer[tabindex="-1"] #navigation-endpoint')
     ?.getAttribute('href');
   if (videoUrl) {
     if (videoUrl.startsWith('watch?')) {

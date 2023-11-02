@@ -1,10 +1,10 @@
-import {register} from 'electron-localshortcut';
+import { register } from 'electron-localshortcut';
 
-import {BrowserWindow, ipcMain, Menu, MenuItem, nativeImage} from 'electron';
+import { BrowserWindow, Menu, MenuItem, ipcMain } from 'electron';
 
 import titlebarStyle from './titlebar.css';
 
-import {injectCSS} from '../utils';
+import { injectCSS } from '../utils';
 
 // Tracks menu visibility
 export default (win: BrowserWindow) => {
@@ -55,6 +55,15 @@ export default (win: BrowserWindow) => {
       (key: string, value: unknown) => (key !== 'commandsMap' && key !== 'menu') ? value : undefined),
     );
   });
+
+  ipcMain.handle('window-is-maximized', () => win.isMaximized());
+
+  ipcMain.handle('window-close', () => win.close());
+  ipcMain.handle('window-minimize', () => win.minimize());
+  ipcMain.handle('window-maximize', () => win.maximize());
+  win.on('maximize', () => win.webContents.send('window-maximize'));
+  ipcMain.handle('window-unmaximize', () => win.unmaximize());
+  win.on('unmaximize', () => win.webContents.send('window-unmaximize'));
 
   ipcMain.handle('image-path-to-data-url', (_, imagePath: string) => {
     const nativeImageIcon = nativeImage.createFromPath(imagePath);

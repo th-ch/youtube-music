@@ -1,28 +1,34 @@
-import { createWriteStream, existsSync, mkdirSync, writeFileSync, } from 'node:fs';
+import {
+  createWriteStream,
+  existsSync,
+  mkdirSync,
+  writeFileSync,
+} from 'node:fs';
 import { join } from 'node:path';
 import { randomBytes } from 'node:crypto';
 
 import { app, BrowserWindow, dialog, ipcMain, net } from 'electron';
-import { ClientType, Innertube, UniversalCache, Utils } from 'youtubei.js';
+import {
+  ClientType,
+  Innertube,
+  UniversalCache,
+  Utils,
+  YTNodes,
+} from 'youtubei.js';
 import is from 'electron-is';
-import ytpl from 'ytpl';
-// REPLACE with youtubei getplaylist https://github.com/LuanRT/YouTube.js#getplaylistid
 import filenamify from 'filenamify';
 import { Mutex } from 'async-mutex';
 import { createFFmpeg } from '@ffmpeg.wasm/main';
-
 import NodeID3, { TagConstants } from 'node-id3';
 
-import PlayerErrorMessage from 'youtubei.js/dist/src/parser/classes/PlayerErrorMessage';
-import { FormatOptions } from 'youtubei.js/dist/src/types/FormatUtils';
-
-import TrackInfo from 'youtubei.js/dist/src/parser/ytmusic/TrackInfo';
-
-import { VideoInfo } from 'youtubei.js/dist/src/parser/youtube';
-
-import { cropMaxWidth, getFolder, presets, sendFeedback as sendFeedback_, setBadge } from './utils';
-
+import {
+  cropMaxWidth,
+  getFolder,
+  sendFeedback as sendFeedback_,
+  setBadge,
+} from './utils';
 import config from './config';
+import { YoutubeFormatList, type Preset, DefaultPresetList } from './types';
 
 import style from './style.css';
 
@@ -32,17 +38,20 @@ import { cleanupName, getImage, SongInfo } from '../../providers/song-info';
 import { injectCSS } from '../utils';
 import { cache } from '../../providers/decorators';
 
-import type { GetPlayerResponse } from '../../types/get-player-response';
+import type { FormatOptions } from 'youtubei.js/dist/src/types/FormatUtils';
+import type PlayerErrorMessage from 'youtubei.js/dist/src/parser/classes/PlayerErrorMessage';
+import type { Playlist } from 'youtubei.js/dist/src/parser/ytmusic';
+import type { VideoInfo } from 'youtubei.js/dist/src/parser/youtube';
+import type TrackInfo from 'youtubei.js/dist/src/parser/ytmusic/TrackInfo';
 
+import type { GetPlayerResponse } from '../../types/get-player-response';
 
 type CustomSongInfo = SongInfo & { trackId?: string };
 
 const ffmpeg = createFFmpeg({
   log: false,
-  logger() {
-  }, // Console.log,
-  progress() {
-  }, // Console.log,
+  logger() {}, // Console.log,
+  progress() {}, // Console.log,
 });
 const ffmpegMutex = new Mutex();
 
@@ -69,23 +78,31 @@ const sendError = (error: Error, source?: string) => {
   });
 };
 
+export const getCookieFromWindow = async (win: BrowserWindow) => {
+  return (
+    await win.webContents.session.cookies.get({
+      url: 'https://music.youtube.com',
+    })
+  )
+    .map((it) => it.name + '=' + it.value)
+    .join(';');
+};
+
 export default async (win_: BrowserWindow) => {
   win = win_;
   injectCSS(win.webContents, style);
 
-  const cookie = (await win.webContents.session.cookies.get({ url: 'https://music.youtube.com' })).map((it) =>
-    it.name + '=' + it.value + ';'
-  ).join('');
   yt = await Innertube.create({
     cache: new UniversalCache(false),
-    cookie,
+    cookie: await getCookieFromWindow(win),
     generate_session_locally: true,
-    fetch: async (input: RequestInfo | URL, init?: RequestInit) => {
+    fetch: (async (input: RequestInfo | URL, init?: RequestInit) => {
       const url =
-        typeof input === 'string' ?
-          new URL(input) :
-          input instanceof URL ?
-            input : new URL(input.url);
+        typeof input === 'string'
+          ? new URL(input)
+          : input instanceof URL
+          ? input
+          : new URL(input.url);
 
       if (init?.body && !init.method) {
         init.method = 'POST';
@@ -97,7 +114,7 @@ export default async (win_: BrowserWindow) => {
       );
 
       return net.fetch(request, init);
-    }
+    }) as typeof fetch,
   });
   ipcMain.on('download-song', (_, url: string) => downloadSong(url));
   ipcMain.on('video-src-changed', (_, data: GetPlayerResponse) => {
@@ -112,14 +129,14 @@ export async function downloadSong(
   url: string,
   playlistFolder: string | undefined = undefined,
   trackId: string | undefined = undefined,
-  increasePlaylistProgress: (value: number) => void = () => {
-  },
+  increasePlaylistProgress: (value: number) => void = () => {},
 ) {
   let resolvedName;
   try {
     await downloadSongUnsafe(
+      false,
       url,
-      (name: string) => resolvedName = name,
+      (name: string) => (resolvedName = name),
       playlistFolder,
       trackId,
       increasePlaylistProgress,
@@ -129,8 +146,30 @@ export async function downloadSong(
   }
 }
 
+export async function downloadSongFromId(
+  id: string,
+  playlistFolder: string | undefined = undefined,
+  trackId: string | undefined = undefined,
+  increasePlaylistProgress: (value: number) => void = () => {},
+) {
+  let resolvedName;
+  try {
+    await downloadSongUnsafe(
+      true,
+      id,
+      (name: string) => (resolvedName = name),
+      playlistFolder,
+      trackId,
+      increasePlaylistProgress,
+    );
+  } catch (error: unknown) {
+    sendError(error as Error, resolvedName || id);
+  }
+}
+
 async function downloadSongUnsafe(
-  url: string,
+  isId: boolean,
+  idOrUrl: string,
   setName: (name: string) => void,
   playlistFolder: string | undefined = undefined,
   trackId: string | undefined = undefined,
@@ -147,8 +186,13 @@ async function downloadSongUnsafe(
 
   sendFeedback('Downloading...', 2);
 
-  const id = getVideoId(url);
-  if (typeof id !== 'string') throw new Error('Video not found');
+  let id: string | null;
+  if (isId) {
+    id = idOrUrl;
+  } else {
+    id = getVideoId(idOrUrl);
+    if (typeof id !== 'string') throw new Error('Video not found');
+  }
 
   let info: TrackInfo | VideoInfo = await yt.music.getInfo(id);
 
@@ -163,8 +207,8 @@ async function downloadSongUnsafe(
 
   metadata.trackId = trackId;
 
-  const dir
-    = playlistFolder || config.get('downloadFolder') || app.getPath('downloads');
+  const dir =
+    playlistFolder || config.get('downloadFolder') || app.getPath('downloads');
   const name = `${metadata.artist ? `${metadata.artist} - ` : ''}${
     metadata.title
   }`;
@@ -187,27 +231,22 @@ async function downloadSongUnsafe(
   }
 
   if (playabilityStatus.status === 'UNPLAYABLE') {
-    const errorScreen = playabilityStatus.error_screen as PlayerErrorMessage | null;
+    const errorScreen =
+      playabilityStatus.error_screen as PlayerErrorMessage | null;
     throw new Error(
       `[${playabilityStatus.status}] ${errorScreen?.reason.text}: ${errorScreen?.subreason.text}`,
     );
   }
 
-  const preset = config.get('preset') ?? 'mp3';
-  let presetSetting: { extension: string; ffmpegArgs: string[] } | null = null;
-  if (preset === 'opus') {
-    presetSetting = presets[preset];
-  }
-
-  const filename = filenamify(`${name}.${presetSetting?.extension ?? 'mp3'}`, {
-    replacement: '_',
-    maxLength: 255,
-  });
-  const filePath = join(dir, filename);
-
-  if (config.get('skipExisting') && existsSync(filePath)) {
-    sendFeedback(null, -1);
-    return;
+  const selectedPreset = config.get('selectedPreset') ?? 'mp3 (256kbps)';
+  let presetSetting: Preset;
+  if (selectedPreset === 'Custom') {
+    presetSetting =
+      config.get('customPresetSetting') ?? DefaultPresetList['Custom'];
+  } else if (selectedPreset === 'Source') {
+    presetSetting = DefaultPresetList['Source'];
+  } else {
+    presetSetting = DefaultPresetList['mp3 (256kbps)'];
   }
 
   const downloadOptions: FormatOptions = {
@@ -217,6 +256,30 @@ async function downloadSongUnsafe(
   };
 
   const format = info.chooseFormat(downloadOptions);
+
+  let targetFileExtension: string;
+  if (!presetSetting?.extension) {
+    targetFileExtension =
+      YoutubeFormatList.find((it) => it.itag === format.itag)?.container ??
+      'mp3';
+  } else {
+    targetFileExtension = presetSetting?.extension ?? 'mp3';
+  }
+
+  let filename = filenamify(`${name}.${targetFileExtension}`, {
+    replacement: '_',
+    maxLength: 255,
+  });
+  if (!is.macOS()) {
+    filename = filename.normalize('NFC');
+  }
+  const filePath = join(dir, filename);
+
+  if (config.get('skipExisting') && existsSync(filePath)) {
+    sendFeedback(null, -1);
+    return;
+  }
+
   const stream = await info.download(downloadOptions);
 
   console.info(
@@ -229,40 +292,25 @@ async function downloadSongUnsafe(
     mkdirSync(dir);
   }
 
-  const ffmpegArgs = config.get('ffmpegArgs');
+  const fileBuffer = await iterableStreamToTargetFile(
+    iterableStream,
+    targetFileExtension,
+    metadata,
+    presetSetting?.ffmpegArgs ?? [],
+    format.content_length ?? 0,
+    sendFeedback,
+    increasePlaylistProgress,
+  );
 
-  if (presetSetting && presetSetting?.extension !== 'mp3') {
-    const file = createWriteStream(filePath);
-    let downloaded = 0;
-    const total: number = format.content_length ?? 1;
-
-    for await (const chunk of iterableStream) {
-      downloaded += chunk.length;
-      const ratio = downloaded / total;
-      const progress = Math.floor(ratio * 100);
-      sendFeedback(`Download: ${progress}%`, ratio);
-      increasePlaylistProgress(ratio);
-      file.write(chunk);
-    }
-
-    await ffmpegWriteTags(
-      filePath,
-      metadata,
-      presetSetting.ffmpegArgs,
-      ffmpegArgs,
-    );
-    sendFeedback(null, -1);
-  } else {
-    const fileBuffer = await iterableStreamToMP3(
-      iterableStream,
-      metadata,
-      ffmpegArgs,
-      format.content_length ?? 0,
-      sendFeedback,
-      increasePlaylistProgress,
-    );
-    if (fileBuffer) {
-      const buffer = await writeID3(Buffer.from(fileBuffer), metadata, sendFeedback);
+  if (fileBuffer) {
+    if (targetFileExtension !== 'mp3') {
+      createWriteStream(filePath).write(fileBuffer);
+    } else {
+      const buffer = await writeID3(
+        Buffer.from(fileBuffer),
+        metadata,
+        sendFeedback,
+      );
       if (buffer) {
         writeFileSync(filePath, buffer);
       }
@@ -273,14 +321,14 @@ async function downloadSongUnsafe(
   console.info(`Done: "${filePath}"`);
 }
 
-async function iterableStreamToMP3(
+async function iterableStreamToTargetFile(
   stream: AsyncGenerator<Uint8Array, void>,
+  extension: string,
   metadata: CustomSongInfo,
-  ffmpegArgs: string[],
+  presetFfmpegArgs: string[],
   contentLength: number,
   sendFeedback: (str: string, value?: number) => void,
-  increasePlaylistProgress: (value: number) => void = () => {
-  },
+  increasePlaylistProgress: (value: number) => void = () => {},
 ) {
   const chunks = [];
   let downloaded = 0;
@@ -316,13 +364,14 @@ async function iterableStreamToMP3(
       increasePlaylistProgress(0.15 + (ratio * 0.85));
     });
 
+    const safeVideoNameWithExtension = `${safeVideoName}.${extension}`;
     try {
       await ffmpeg.run(
         '-i',
         safeVideoName,
-        ...ffmpegArgs,
+        ...presetFfmpegArgs,
         ...getFFmpegMetadataArgs(metadata),
-        `${safeVideoName}.mp3`,
+        safeVideoNameWithExtension,
       );
     } finally {
       ffmpeg.FS('unlink', safeVideoName);
@@ -331,9 +380,9 @@ async function iterableStreamToMP3(
     sendFeedback('Saving…');
 
     try {
-      return ffmpeg.FS('readFile', `${safeVideoName}.mp3`);
+      return ffmpeg.FS('readFile', safeVideoNameWithExtension);
     } finally {
-      ffmpeg.FS('unlink', `${safeVideoName}.mp3`);
+      ffmpeg.FS('unlink', safeVideoNameWithExtension);
     }
   } catch (error: unknown) {
     sendError(error as Error, safeVideoName);
@@ -347,7 +396,11 @@ const getCoverBuffer = cache(async (url: string) => {
   return nativeImage && !nativeImage.isEmpty() ? nativeImage.toPNG() : null;
 });
 
-async function writeID3(buffer: Buffer, metadata: CustomSongInfo, sendFeedback: (str: string, value?: number) => void) {
+async function writeID3(
+  buffer: Buffer,
+  metadata: CustomSongInfo,
+  sendFeedback: (str: string, value?: number) => void,
+) {
   try {
     sendFeedback('Writing ID3 tags...');
     const tags: NodeID3.Tags = {};
@@ -397,13 +450,12 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
   try {
     givenUrl = new URL(givenUrl ?? '');
   } catch {
-    return;
+    givenUrl = new URL(win.webContents.getURL());
   }
 
-  const playlistId
-    = getPlaylistID(givenUrl)
-    || getPlaylistID(new URL(win.webContents.getURL()))
-    || getPlaylistID(new URL(playingUrl));
+  const playlistId =
+    getPlaylistID(givenUrl) ||
+    getPlaylistID(new URL(playingUrl));
 
   if (!playlistId) {
     sendError(new Error('No playlist ID found'));
@@ -414,34 +466,55 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
 
   console.log(`trying to get playlist ID: '${playlistId}'`);
   sendFeedback('Getting playlist info…');
-  let playlist: ytpl.Result;
+  let playlist: Playlist;
+  const items: YTNodes.MusicResponsiveListItem[] = [];
   try {
-    playlist = await ytpl(playlistId, {
-      limit: config.get('playlistMaxItems') || Number.POSITIVE_INFINITY,
-    });
+    playlist = await yt.music.getPlaylist(playlistId);
+    if (playlist?.items) {
+      items.push(...playlist.items.as(YTNodes.MusicResponsiveListItem));
+    }
   } catch (error: unknown) {
     sendError(
-      Error(`Error getting playlist info: make sure it isn't a private or "Mixed for you" playlist\n\n${String(error)}`),
+      Error(
+        `Error getting playlist info: make sure it isn't a private or "Mixed for you" playlist\n\n${String(
+          error,
+        )}`,
+      ),
     );
     return;
   }
 
-  if (playlist.items.length === 0) {
+  if (!playlist || !playlist.items || playlist.items.length === 0) {
     sendError(new Error('Playlist is empty'));
   }
 
-  if (playlist.items.length === 1) {
+  const normalPlaylistTitle = playlist.header?.title?.text;
+  const playlistTitle =
+    normalPlaylistTitle ??
+    playlist.page.contents_memo
+      ?.get('MusicResponsiveListItemFlexColumn')
+      ?.at(2)
+      ?.as(YTNodes.MusicResponsiveListItemFlexColumn)?.title?.text ??
+    'NO_TITLE';
+  const isAlbum = !normalPlaylistTitle;
+
+  while (playlist.has_continuation) {
+    playlist = await playlist.getContinuation();
+    if (playlist?.items) {
+      items.push(...playlist.items.as(YTNodes.MusicResponsiveListItem));
+    }
+  }
+
+  if (items.length === 1) {
     sendFeedback('Playlist has only one item, downloading it directly');
-    await downloadSong(playlist.items[0].url);
+    await downloadSongFromId(items.at(0)!.id!);
     return;
   }
 
-  const isAlbum = playlist.title.startsWith('Album - ');
-  if (isAlbum) {
-    playlist.title = playlist.title.slice(8);
+  let safePlaylistTitle = filenamify(playlistTitle, { replacement: ' ' });
+  if (!is.macOS()) {
+    safePlaylistTitle = safePlaylistTitle.normalize('NFC');
   }
-
-  const safePlaylistTitle = filenamify(playlist.title, { replacement: ' ' });
 
   const folder = getFolder(config.get('downloadFolder') ?? '');
   const playlistFolder = join(folder, safePlaylistTitle);
@@ -458,47 +531,51 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
     type: 'info',
     buttons: ['OK'],
     title: 'Started Download',
-    message: `Downloading Playlist "${playlist.title}"`,
-    detail: `(${playlist.items.length} songs)`,
+    message: `Downloading Playlist "${playlistTitle}"`,
+    detail: `(${items.length} songs)`,
   });
 
   if (is.dev()) {
     console.log(
-      `Downloading playlist "${playlist.title}" - ${playlist.items.length} songs (${playlistId})`,
+      `Downloading playlist "${playlistTitle}" - ${items.length} songs (${playlistId})`,
     );
   }
 
   win.setProgressBar(2); // Starts with indefinite bar
 
-  setBadge(playlist.items.length);
+  setBadge(items.length);
 
   let counter = 1;
 
-  const progressStep = 1 / playlist.items.length;
+  const progressStep = 1 / items.length;
 
   const increaseProgress = (itemPercentage: number) => {
-    const currentProgress = (counter - 1) / (playlist.items.length ?? 1);
+    const currentProgress = (counter - 1) / (items.length ?? 1);
     const newProgress = currentProgress + (progressStep * itemPercentage);
     win.setProgressBar(newProgress);
   };
 
   try {
-    for (const song of playlist.items) {
-      sendFeedback(`Downloading ${counter}/${playlist.items.length}...`);
+    for (const song of items) {
+      sendFeedback(`Downloading ${counter}/${items.length}...`);
       const trackId = isAlbum ? counter : undefined;
-      await downloadSong(
-        song.url,
+      await downloadSongFromId(
+        song.id!,
         playlistFolder,
         trackId?.toString(),
         increaseProgress,
       ).catch((error) =>
         sendError(
-          new Error(`Error downloading "${song.author.name} - ${song.title}":\n  ${error}`)
+          new Error(
+            `Error downloading "${
+              song.author!.name
+            } - ${song.title!}":\n  ${error}`,
+          ),
         ),
       );
 
-      win.setProgressBar(counter / playlist.items.length);
-      setBadge(playlist.items.length - counter);
+      win.setProgressBar(counter / items.length);
+      setBadge(items.length - counter);
       counter++;
     }
   } catch (error: unknown) {
@@ -507,29 +584,6 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
     win.setProgressBar(-1); // Close progress bar
     setBadge(0); // Close badge counter
     sendFeedback(); // Clear feedback
-  }
-}
-
-async function ffmpegWriteTags(filePath: string, metadata: CustomSongInfo, presetFFmpegArgs: string[] = [], ffmpegArgs: string[] = []) {
-  const releaseFFmpegMutex = await ffmpegMutex.acquire();
-
-  try {
-    if (!ffmpeg.isLoaded()) {
-      await ffmpeg.load();
-    }
-
-    await ffmpeg.run(
-      '-i',
-      filePath,
-      ...getFFmpegMetadataArgs(metadata),
-      ...presetFFmpegArgs,
-      ...ffmpegArgs,
-      filePath,
-    );
-  } catch (error: unknown) {
-    sendError(error as Error);
-  } finally {
-    releaseFFmpegMutex();
   }
 }
 
@@ -549,9 +603,9 @@ function getFFmpegMetadataArgs(metadata: CustomSongInfo) {
 // Playlist radio modifier needs to be cut from playlist ID
 const INVALID_PLAYLIST_MODIFIER = 'RDAMPL';
 
-const getPlaylistID = (aURL: URL) => {
-  const result
-    = aURL?.searchParams.get('list') || aURL?.searchParams.get('playlist');
+const getPlaylistID = (aURL?: URL): string | null | undefined => {
+  const result =
+    aURL?.searchParams.get('list') || aURL?.searchParams.get('playlist');
   if (result?.startsWith(INVALID_PLAYLIST_MODIFIER)) {
     return result.slice(INVALID_PLAYLIST_MODIFIER.length);
   }
@@ -560,16 +614,18 @@ const getPlaylistID = (aURL: URL) => {
 };
 
 const getVideoId = (url: URL | string): string | null => {
-  return (new URL(url)).searchParams.get('v');
+  return new URL(url).searchParams.get('v');
 };
 
 const getMetadata = (info: TrackInfo): CustomSongInfo => ({
   videoId: info.basic_info.id!,
   title: cleanupName(info.basic_info.title!),
   artist: cleanupName(info.basic_info.author!),
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-explicit-any
-  album: (info.player_overlays?.browser_media_session as any)?.album?.text as string | undefined,
-  imageSrc: info.basic_info.thumbnail?.find((t) => !t.url.endsWith('.webp'))?.url,
+  album: info.player_overlays?.browser_media_session?.as(
+    YTNodes.BrowserMediaSession,
+  ).album?.text,
+  imageSrc: info.basic_info.thumbnail?.find((t) => !t.url.endsWith('.webp'))
+    ?.url,
   views: info.basic_info.view_count!,
   songDuration: info.basic_info.duration!,
 });

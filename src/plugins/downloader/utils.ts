@@ -10,7 +10,7 @@ export const sendFeedback = (win: BrowserWindow, message?: unknown) => {
 
 export const cropMaxWidth = (image: Electron.NativeImage) => {
   const imageSize = image.getSize();
-  // Standart youtube artwork width with margins from both sides is 280 + 720 + 280
+  // Standart YouTube artwork width with margins from both sides is 280 + 720 + 280
   if (imageSize.width === 1280 && imageSize.height === 720) {
     return image.crop({
       x: 280,
@@ -21,15 +21,6 @@ export const cropMaxWidth = (image: Electron.NativeImage) => {
   }
 
   return image;
-};
-
-// Presets for FFmpeg
-export const presets = {
-  'None (defaults to mp3)': undefined,
-  'opus': {
-    extension: 'opus',
-    ffmpegArgs: ['-acodec', 'libopus'],
-  },
 };
 
 export const setBadge = (n: number) => {

@@ -1,15 +1,15 @@
 {
   "name": "youtube-music",
   "productName": "YouTube Music",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "YouTube Music Desktop App - including custom plugins",
   "main": "./dist/index.js",
   "license": "MIT",
-  "repository": "organization/youtube-music-next",
+  "repository": "th-ch/youtube-music",
   "author": {
-    "name": "organization",
-    "email": "organization@users.noreply.github.com",
-    "url": "https://github.com/organization/youtube-music-next"
+    "name": "th-ch",
+    "email": "th-ch@users.noreply.github.com",
+    "url": "https://github.com/th-ch/youtube-music"
   },
   "build": {
     "appId": "com.github.th-ch.youtube-music",
@@ -20,24 +20,7 @@
       "license",
       "!node_modules",
       "node_modules/custom-electron-prompt/**",
-      "node_modules/youtubei.js/**",
-      "node_modules/undici/**",
-      "node_modules/@fastify/busboy/**",
-      "node_modules/jintr/**",
-      "node_modules/acorn/**",
-      "node_modules/tslib/**",
-      "node_modules/semver/**",
-      "node_modules/lru-cache/**",
-      "node_modules/detect-libc/**",
-      "node_modules/color/**",
-      "node_modules/color-convert/**",
-      "node_modules/color-string/**",
-      "node_modules/color-name/**",
-      "node_modules/simple-swizzle/**",
-      "node_modules/is-arrayish/**",
       "node_modules/@cliqz/adblocker-electron-preload/**",
-      "node_modules/@cliqz/adblocker-content/**",
-      "node_modules/@cliqz/adblocker-extended-selectors/**",
       "node_modules/@ffmpeg.wasm/core-mt/**",
       "!node_modules/**/*.map",
       "!node_modules/**/*.ts"
@@ -59,9 +42,10 @@
       "icon": "assets/generated/icons/win/icon.ico",
       "target": [
         {
-          "target": "nsis",
+          "target": "nsis-web",
           "arch": [
             "x64",
+            "ia32",
             "arm64"
           ]
         },
@@ -69,12 +53,13 @@
           "target": "portable",
           "arch": [
             "x64",
+            "ia32",
             "arm64"
           ]
         }
       ]
     },
-    "nsis": {
+    "nsisWeb": {
       "runAfterFinish": false
     },
     "linux": {
@@ -102,47 +87,62 @@
     }
   },
   "scripts": {
-    "test": "npm run build && playwright test",
-    "test:debug": "DEBUG=pw:browser* npm run build && playwright test",
-    "rollup:renderer": "rollup -c rollup.renderer.config.ts --configPlugin @rollup/plugin-typescript --bundleConfigAsCjs",
+    "test": "playwright test",
+    "test:debug": "cross-env DEBUG=pw:*,-pw:test:protocol playwright test",
     "rollup:preload": "rollup -c rollup.preload.config.ts --configPlugin @rollup/plugin-typescript --bundleConfigAsCjs",
     "rollup:main": "rollup -c rollup.main.config.ts --configPlugin @rollup/plugin-typescript --bundleConfigAsCjs",
-    "build": "npm run rollup:renderer && npm run rollup:preload && npm run rollup:main",
-    "start": "npm run build && electron ./dist/index.js",
-    "start:debug": "ELECTRON_ENABLE_LOGGING=1 npm run start",
-    "generate:package": "node utils/generate-package-json.js",
-    "postinstall": "npm run plugins && npm run clean",
+    "build": "yarpm-pnpm run rollup:renderer && yarpm-pnpm run rollup:preload && yarpm-pnpm run rollup:main",
+    "start": "yarpm-pnpm run build && electron ./dist/index.js",
+    "start:debug": "cross-env ELECTRON_ENABLE_LOGGING=1 yarpm-pnpm run start",
     "clean": "del-cli dist && del-cli pack",
-    "dist": "npm run clean && npm run build && electron-builder --win --mac --linux -p never",
-    "dist:linux": "npm run clean && npm run build && electron-builder --linux -p never",
-    "dist:mac": "npm run clean && npm run build && electron-builder --mac dmg:x64 -p never",
-    "dist:mac:arm64": "npm run clean && npm run build && electron-builder --mac dmg:arm64 -p never",
-    "dist:win": "npm run clean && npm run build && electron-builder --win -p never",
-    "dist:win:x64": "npm run clean && npm run build && electron-builder --win nsis:x64 -p never",
+    "dist": "yarpm-pnpm run clean && yarpm-pnpm run build && electron-builder --win --mac --linux -p never",
+    "dist:linux": "yarpm-pnpm run clean && yarpm-pnpm run build && electron-builder --linux -p never",
+    "dist:mac": "yarpm-pnpm run clean && yarpm-pnpm run build && electron-builder --mac dmg:x64 -p never",
+    "dist:mac:arm64": "yarpm-pnpm run clean && yarpm-pnpm run build && electron-builder --mac dmg:arm64 -p never",
+    "dist:win": "yarpm-pnpm run clean && yarpm-pnpm run build && electron-builder --win -p never",
+    "dist:win:x64": "yarpm-pnpm run clean && yarpm-pnpm run build && electron-builder --win nsis-web:x64 -p never",
     "lint": "eslint .",
-    "changelog": "auto-changelog",
-    "plugins": "npm run plugin:bypass-age-restrictions",
-    "plugin:bypass-age-restrictions": "del-cli node_modules/simple-youtube-age-restriction-bypass/package.json && npm run generate:package simple-youtube-age-restriction-bypass",
-    "release:linux": "npm run clean && npm run build && electron-builder --linux -p always -c.snap.publish=github",
-    "release:mac": "npm run clean && npm run build && electron-builder --mac -p always",
-    "release:win": "npm run clean && npm run build && electron-builder --win -p always",
+    "changelog": "npx --yes auto-changelog",
+    "release:linux": "yarpm-pnpm run clean && yarpm-pnpm run build && electron-builder --linux -p always -c.snap.publish=github",
+    "release:mac": "yarpm-pnpm run clean && yarpm-pnpm run build && electron-builder --mac -p always",
+    "release:win": "yarpm-pnpm run clean && yarpm-pnpm run build && electron-builder --win -p always",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "engines": {
     "node": ">=16.0.0"
   },
+  "pnpm": {
+    "overrides": {
+      "rollup": "4.2.0",
+      "node-gyp": "10.0.0",
+      "xml2js": "0.6.2",
+      "node-fetch": "3.3.2",
+      "@electron/universal": "1.4.2",
+      "@babel/runtime": "7.23.2"
+    }
+  },
+  "overrides": {
+    "rollup": "4.2.0",
+    "node-gyp": "10.0.0",
+    "xml2js": "0.6.2",
+    "node-fetch": "3.3.2",
+    "@electron/universal": "1.4.2",
+    "@babel/runtime": "7.23.2"
+  },
   "dependencies": {
-    "@cliqz/adblocker-electron": "1.26.7",
+    "@cliqz/adblocker-electron": "1.26.10",
+    "@cliqz/adblocker-electron-preload": "1.26.10",
     "@ffmpeg.wasm/core-mt": "0.12.0",
     "@ffmpeg.wasm/main": "0.12.0",
     "@foobar404/wave": "2.0.4",
-    "@xhayper/discord-rpc": "1.0.23",
+    "@jellybrick/electron-better-web-request": "1.0.4",
+    "@jellybrick/mpris-service": "2.1.4",
+    "@xhayper/discord-rpc": "1.0.24",
     "async-mutex": "0.4.0",
-    "butterchurn": "2.6.7",
-    "butterchurn-presets": "2.4.7",
+    "butterchurn": "3.0.0-beta.4",
+    "butterchurn-presets": "3.0.0-beta.4",
     "conf": "10.2.0",
     "custom-electron-prompt": "1.5.7",
-    "electron-better-web-request": "1.0.1",
     "electron-debug": "3.2.0",
     "electron-is": "3.0.0",
     "electron-localshortcut": "3.2.1",
@@ -155,57 +155,49 @@
     "html-to-text": "9.0.5",
     "keyboardevent-from-electron-accelerator": "2.0.0",
     "keyboardevents-areequal": "0.2.2",
-    "mpris-service": "2.1.2",
     "node-id3": "0.2.6",
-    "simple-youtube-age-restriction-bypass": "git+https://github.com/MiepHD/Simple-YouTube-Age-Restriction-Bypass.git#v2.5.5",
+    "simple-youtube-age-restriction-bypass": "git+https://github.com/organization/Simple-YouTube-Age-Restriction-Bypass.git#v2.5.8",
     "vudio": "2.1.1",
     "x11": "2.3.0",
-    "youtubei.js": "6.4.1",
-    "ytpl": "2.3.0"
-  },
-  "overrides": {
-    "rollup": "4.0.0",
-    "node-gyp": "9.4.0",
-    "xml2js": "0.6.2",
-    "dbus-next": "0.10.2",
-    "node-fetch": "2.7.0",
-    "@electron/universal": "1.4.2",
-    "electron": "27.0.0-beta.9"
+    "youtubei.js": "7.0.0"
   },
   "devDependencies": {
-    "@playwright/test": "1.38.1",
-    "@rollup/plugin-commonjs": "25.0.5",
+    "@playwright/test": "1.39.0",
+    "@rollup/plugin-commonjs": "25.0.7",
     "@rollup/plugin-image": "3.0.3",
     "@rollup/plugin-json": "6.0.1",
-    "@rollup/plugin-node-resolve": "15.2.2",
+    "@rollup/plugin-node-resolve": "15.2.3",
     "@rollup/plugin-terser": "0.4.4",
     "@rollup/plugin-typescript": "11.1.5",
     "@rollup/plugin-wasm": "6.2.2",
     "@total-typescript/ts-reset": "0.5.1",
-    "@types/electron-localshortcut": "3.1.1",
-    "@types/howler": "2.2.9",
-    "@types/html-to-text": "9.0.2",
-    "@typescript-eslint/eslint-plugin": "6.7.4",
-    "auto-changelog": "2.4.0",
+    "@types/electron-localshortcut": "3.1.2",
+    "@types/howler": "2.2.10",
+    "@types/html-to-text": "9.0.3",
+    "@typescript-eslint/eslint-plugin": "6.9.1",
+    "builtin-modules": "^3.3.0",
+    "cross-env": "7.0.3",
     "del-cli": "5.1.0",
-    "electron": "27.0.0-beta.9",
+    "electron": "27.0.3",
     "electron-builder": "24.6.4",
     "electron-devtools-installer": "3.2.0",
-    "eslint": "8.50.0",
-    "eslint-plugin-import": "2.28.1",
-    "eslint-plugin-prettier": "5.0.0",
-    "node-gyp": "9.4.0",
-    "playwright": "1.38.1",
-    "rollup": "4.0.0",
+    "eslint": "8.52.0",
+    "eslint-plugin-import": "2.29.0",
+    "eslint-plugin-prettier": "5.0.1",
+    "node-gyp": "10.0.0",
+    "playwright": "1.39.0",
+    "rollup": "4.2.0",
     "rollup-plugin-copy": "3.5.0",
-    "rollup-plugin-import-css": "3.3.4",
+    "rollup-plugin-import-css": "3.3.5",
     "rollup-plugin-string": "3.0.0",
-    "typescript": "5.2.2"
+    "typescript": "5.2.2",
+    "yarpm": "1.2.0"
   },
   "auto-changelog": {
     "hideCredit": true,
     "package": true,
     "unreleased": true,
     "output": "changelog.md"
-  }
+  },
+  "packageManager": "pnpm@8.10.2"
 }

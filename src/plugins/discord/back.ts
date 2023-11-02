@@ -1,10 +1,10 @@
-import { app, dialog } from 'electron';
+import { app, dialog, ipcMain } from 'electron';
 import { Client as DiscordClient } from '@xhayper/discord-rpc';
 import { dev } from 'electron-is';
 
 import { SetActivity } from '@xhayper/discord-rpc/dist/structures/ClientUser';
 
-import registerCallback from '../../providers/song-info';
+import registerCallback, { type SongInfoCallback, type SongInfo } from '../../providers/song-info';
 
 import type { ConfigType } from '../../config/dynamic';
 
@@ -15,7 +15,7 @@ export interface Info {
   rpc: DiscordClient;
   ready: boolean;
   autoReconnect: boolean;
-  lastSongInfo?: import('../../providers/song-info').SongInfo;
+  lastSongInfo?: SongInfo;
 }
 
 const info: Info = {
@@ -43,31 +43,6 @@ const resetInfo = () => {
     cb();
   }
 };
-
-info.rpc.on('connected', () => {
-  if (dev()) {
-    console.log('discord connected');
-  }
-
-  for (const cb of refreshCallbacks) {
-    cb();
-  }
-});
-
-info.rpc.on('ready', () => {
-  info.ready = true;
-  if (info.lastSongInfo) {
-    updateActivity(info.lastSongInfo);
-  }
-});
-
-info.rpc.on('disconnected', () => {
-  resetInfo();
-
-  if (info.autoReconnect) {
-    connectTimeout();
-  }
-});
 
 const connectTimeout = () => new Promise((resolve, reject) => setTimeout(() => {
   if (!info.autoReconnect || info.rpc.isConnected) {
@@ -117,7 +92,7 @@ export const connect = (showError = false) => {
 };
 
 let clearActivity: NodeJS.Timeout | undefined;
-let updateActivity: import('../../providers/song-info').SongInfoCallback;
+let updateActivity: SongInfoCallback;
 
 type DiscordOptions = ConfigType<'discord'>;
 
@@ -125,6 +100,31 @@ export default (
   win: Electron.BrowserWindow,
   options: DiscordOptions,
 ) => {
+  info.rpc.on('connected', () => {
+    if (dev()) {
+      console.log('discord connected');
+    }
+
+    for (const cb of refreshCallbacks) {
+      cb();
+    }
+  });
+
+  info.rpc.on('ready', () => {
+    info.ready = true;
+    if (info.lastSongInfo) {
+      updateActivity(info.lastSongInfo);
+    }
+  });
+
+  info.rpc.on('disconnected', () => {
+    resetInfo();
+
+    if (info.autoReconnect) {
+      connectTimeout();
+    }
+  });
+
   info.autoReconnect = options.autoReconnect;
 
   window = win;
@@ -156,14 +156,23 @@ export default (
     // Song information changed, so lets update the rich presence
     // @see https://discord.com/developers/docs/topics/gateway#activity-object
     // not all options are transfered through https://github.com/discordjs/RPC/blob/6f83d8d812c87cb7ae22064acd132600407d7d05/src/client.js#L518-530
+    const hangulFillerUnicodeCharacter = '\u3164'; // This is an empty character
+    if (songInfo.title.length < 2) {
+      songInfo.title += hangulFillerUnicodeCharacter.repeat(2 - songInfo.title.length);
+    }
+    if (songInfo.artist.length < 2) {
+      songInfo.artist += hangulFillerUnicodeCharacter.repeat(2 - songInfo.title.length);
+    }
+
     const activityInfo: SetActivity = {
       details: songInfo.title,
       state: songInfo.artist,
       largeImageKey: songInfo.imageSrc ?? '',
       largeImageText: songInfo.album ?? '',
-      buttons: options.listenAlong ? [
-        { label: 'Listen Along', url: songInfo.url ?? '' },
-      ] : undefined,
+      buttons: [
+        ...(options.playOnYouTubeMusic ? [{ label: 'Play on YouTube Music', url: songInfo.url ?? '' }] : []),
+        ...(options.hideGitHubButton ? [] : [{ label: 'View App On GitHub', url: 'https://github.com/th-ch/youtube-music' }]),
+      ],
     };
 
     if (songInfo.isPaused) {
@@ -187,8 +196,22 @@ export default (
 
   // If the page is ready, register the callback
   win.once('ready-to-show', () => {
-    registerCallback(updateActivity);
+    let lastSongInfo: SongInfo;
+    registerCallback((songInfo) => {
+      lastSongInfo = songInfo;
+      updateActivity(songInfo);
+    });
     connect();
+    let lastSent = Date.now();
+    ipcMain.on('timeChanged', (_, t: number) => {
+      const currentTime = Date.now();
+      // if lastSent is more than 5 seconds ago, send the new time
+      if (currentTime - lastSent > 5000) {
+        lastSent = currentTime;
+        lastSongInfo.elapsedSeconds = t;
+        updateActivity(lastSongInfo);
+      }
+    });
   });
   app.on('window-all-closed', clear);
 };

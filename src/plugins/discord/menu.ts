@@ -47,11 +47,20 @@ export default (win: Electron.BrowserWindow, options: DiscordOptions, refreshMen
       },
     },
     {
-      label: 'Listen Along',
+      label: 'Play on YouTube Music',
       type: 'checkbox',
-      checked: options.listenAlong,
+      checked: options.playOnYouTubeMusic,
       click(item: Electron.MenuItem) {
-        options.listenAlong = item.checked;
+        options.playOnYouTubeMusic = item.checked;
+        setMenuOptions('discord', options);
+      },
+    },
+    {
+      label: 'Hide GitHub link Button',
+      type: 'checkbox',
+      checked: options.hideGitHubButton,
+      click(item: Electron.MenuItem) {
+        options.hideGitHubButton = item.checked;
         setMenuOptions('discord', options);
       },
     },

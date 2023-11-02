@@ -49,5 +49,7 @@ declare module 'butterchurn' {
 }
 
 declare module 'butterchurn-presets' {
-  export function getPresets(): Record<string, unknown>;
+  const presets: Record<string, unknown>;
+
+  export default presets;
 }

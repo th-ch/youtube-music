@@ -1,3 +1,7 @@
+import { blockers } from '../plugins/adblocker/blocker-types';
+
+import { DefaultPresetList } from '../plugins/downloader/types';
+
 export interface WindowSizeConfig {
   width: number;
   height: number;
@@ -72,12 +76,21 @@ const defaultConfig = {
     'adblocker': {
       enabled: true,
       cache: true,
-      blocker: 'With blocklists',
+      blocker: blockers.InPlayer as string,
       additionalBlockLists: [], // Additional list of filters, e.g "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters.txt"
       disableDefaultLists: false,
     },
     'album-color-theme': {},
-    'ambient-mode': {},
+    'ambient-mode': {
+      enabled: false,
+      quality: 50,
+      buffer: 30,
+      interpolationTime: 1500,
+      blur: 100,
+      size: 100,
+      opacity: 1,
+      fullscreen: false,
+    },
     'audio-compressor': {},
     'blur-nav-bar': {},
     'bypass-age-restrictions': {},
@@ -86,7 +99,6 @@ const defaultConfig = {
       disableCaptions: false,
       autoload: false,
       lastCaptionsCode: '',
-      disabledCaptions: false,
     },
     'compact-sidebar': {},
     'crossfade': {
@@ -104,19 +116,26 @@ const defaultConfig = {
       autoReconnect: true, // If enabled, will try to reconnect to discord every 5 seconds after disconnecting or failing to connect
       activityTimoutEnabled: true, // If enabled, the discord rich presence gets cleared when music paused after the time specified below
       activityTimoutTime: 10 * 60 * 1000, // 10 minutes
-      listenAlong: true, // Add a "listen along" button to rich presence
+      playOnYouTubeMusic: true, // Add a "Play on YouTube Music" button to rich presence
+      hideGitHubButton: false, // Disable the "View App On GitHub" button
       hideDurationLeft: false, // Hides the start and end time of the song to rich presence
     },
     'downloader': {
       enabled: false,
-      ffmpegArgs: ['-b:a', '256k'], // E.g. ["-b:a", "192k"] for an audio bitrate of 192kb/s
       downloadFolder: undefined as string | undefined, // Custom download folder (absolute path)
-      preset: 'mp3',
+      selectedPreset: 'mp3 (256kbps)', // Selected preset
+      customPresetSetting: DefaultPresetList['mp3 (256kbps)'], // Presets
       skipExisting: false,
       playlistMaxItems: undefined as number | undefined,
     },
     'exponential-volume': {},
-    'in-app-menu': {},
+    'in-app-menu': {
+      /**
+       * true in Windows, false in Linux and macOS (see youtube-music/config/store.ts)
+       */
+      enabled: false,
+      hideDOMWindowControls: false,
+    },
     'last-fm': {
       enabled: false,
       token: undefined as string | undefined, // Token used for authentication
@@ -125,6 +144,7 @@ const defaultConfig = {
       api_key: '04d76faaac8726e60988e14c105d421a', // Api key registered by @semvis123
       secret: 'a5d2a36fdf64819290f6982481eaffa2',
     },
+    'lumiastream': {},
     'lyrics-genius': {
       romanizedLyrics: false,
     },
