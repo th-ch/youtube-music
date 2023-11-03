@@ -6,10 +6,10 @@ settings:
 
 overrides:
   rollup: 4.2.0
-  node-gyp: 10.0.0
+  node-gyp: 10.0.1
   xml2js: 0.6.2
   node-fetch: 3.3.2
-  '@electron/universal': 1.4.2
+  '@electron/universal': 1.4.4
   '@babel/runtime': 7.23.2
 
 dependencies:
@@ -172,8 +172,8 @@ devDependencies:
     specifier: 5.0.1
     version: 5.0.1(eslint@8.52.0)(prettier@3.0.3)
   node-gyp:
-    specifier: 10.0.0
-    version: 10.0.0
+    specifier: 10.0.1
+    version: 10.0.1
   playwright:
     specifier: 1.39.0
     version: 1.39.0
@@ -343,8 +343,8 @@ packages:
       - supports-color
     dev: true
 
-  /@electron/universal@1.4.2:
-    resolution: {integrity: sha512-ymGwXYBUGFS1DuTqYJwZ0p1gIlELKOf21zPJefij/amzV66vTXRNJ2mAtW0uRsaHfV+pzYTJVrt5oco44DFOMg==}
+  /@electron/universal@1.4.4:
+    resolution: {integrity: sha512-dWwlhSXrpw3MTSkUWLkBEyv58qVcxQ2gVaZzYYRUYqEV5Or4J+SsLSbDthiKEaD404GDceZpdLLuntyHtCAywg==}
     engines: {node: '>=8.6'}
     dependencies:
       '@electron/asar': 3.2.7
@@ -1338,7 +1338,7 @@ packages:
       '@develar/schema-utils': 2.6.5
       '@electron/notarize': 2.1.0
       '@electron/osx-sign': 1.0.5
-      '@electron/universal': 1.4.2
+      '@electron/universal': 1.4.4
       '@malept/flatpak-bundler': 0.4.0
       '@types/fs-extra': 9.0.13
       async-exit-hook: 2.0.1
@@ -3023,7 +3023,7 @@ packages:
       foreground-child: 3.1.1
       jackspeak: 2.3.6
       minimatch: 9.0.3
-      minipass: 5.0.0
+      minipass: 7.0.4
       path-scurry: 1.10.1
 
   /glob@7.2.3:
@@ -4093,8 +4093,8 @@ packages:
       formdata-polyfill: 4.0.10
     dev: false
 
-  /node-gyp@10.0.0:
-    resolution: {integrity: sha512-LkaKUbjyacJGRHiuhUeUblzZNxTF1/XNooyAl6aiaJ6ZpeurR4Mk9sjxncGNSI7pETqyqM+hLAER0788oSxt0A==}
+  /node-gyp@10.0.1:
+    resolution: {integrity: sha512-gg3/bHehQfZivQVfqIyy8wTdSymF9yTyP4CJifK73imyNMU8AIGQE2pUa7dNWfmMeG9cDVF2eehiRMv0LC1iAg==}
     engines: {node: ^16.14.0 || >=18.0.0}
     hasBin: true
     dependencies:
@@ -4359,7 +4359,7 @@ packages:
     engines: {node: '>=16 || 14 >=14.17'}
     dependencies:
       lru-cache: 10.0.1
-      minipass: 5.0.0
+      minipass: 7.0.4
 
   /path-type@4.0.0:
     resolution: {integrity: sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==}
@@ -5291,7 +5291,7 @@ packages:
     dependencies:
       bindings: 1.5.0
       nan: 2.18.0
-      node-gyp: 10.0.0
+      node-gyp: 10.0.1
     transitivePeerDependencies:
       - supports-color
     dev: false
