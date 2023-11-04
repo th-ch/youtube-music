@@ -27,7 +27,8 @@ declare global {
     _lact: number;
     navigation: Navigation;
     download: () => void;
-    togglePictureInPicture: () => Promise<boolean>;
+    togglePictureInPicture: () => void;
+    reload: () => void;
   }
 }
 

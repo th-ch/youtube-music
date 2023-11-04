@@ -172,7 +172,7 @@ const defaultConfig = {
       'pip-position': [10, 10],
       'pip-size': [450, 275],
       'isInPiP': false,
-      'useNativePiP': false,
+      'useNativePiP': true,
     },
     'playback-speed': {},
     'precise-volume': {
