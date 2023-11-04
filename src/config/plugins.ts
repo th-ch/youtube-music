@@ -1,4 +1,4 @@
-import deepmerge from 'deepmerge';
+import { deepmerge } from '@fastify/deepmerge';
 
 import store from './store';
 import defaultConfig from './defaults';
@@ -11,11 +11,12 @@ interface Plugin {
 }
 
 type DefaultPluginsConfig = typeof defaultConfig.plugins;
+const deepmergeFn = deepmerge();
 
 export function getEnabled() {
-  const plugins = deepmerge(defaultConfig.plugins, (store.get('plugins') as DefaultPluginsConfig)) as DefaultPluginsConfig;
-  return (Object.entries(plugins) as Entries<DefaultPluginsConfig>).filter(([plugin]) =>
-    isEnabled(plugin),
+  const plugins = deepmergeFn(defaultConfig.plugins, (store.get('plugins') as DefaultPluginsConfig));
+  return (Object.entries(plugins) as Entries<DefaultPluginsConfig>).filter(([, options]) =>
+    (options as Plugin).enabled,
   );
 }
 
