@@ -32,9 +32,9 @@ export default defineConfig({
       targetEnv: 'browser',
     }),
     image({ dom: true }),
-    /*terser({
+    terser({
       ecma: 2020,
-    }),*/
+    }),
     {
       closeBundle() {
         if (!process.env.ROLLUP_WATCH) {
