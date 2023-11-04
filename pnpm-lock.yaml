@@ -53,7 +53,7 @@ dependencies:
     specifier: 1.5.7
     version: 1.5.7(electron@27.0.3)
   deepmerge:
-    specifier: ^4.3.1
+    specifier: 4.3.1
     version: 4.3.1
   electron-debug:
     specifier: 3.2.0
