@@ -10,9 +10,8 @@ let songInfo: SongInfo = {} as SongInfo;
 export const getSongInfo = () => songInfo;
 
 const $ = <E extends Element = Element>(s: string): E | null => document.querySelector<E>(s);
-const $$ = <E extends Element = Element>(s: string): NodeListOf<E> => document.querySelectorAll<E>(s);
 
-window.ipcRenderer.on('update-song-info', async (_, extractedSongInfo: SongInfo) => {
+window.ipcRenderer.on('update-song-info', (_, extractedSongInfo: SongInfo) => {
   songInfo = extractedSongInfo;
 });
 

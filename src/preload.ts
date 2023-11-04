@@ -40,7 +40,7 @@ contextBridge.exposeInMainWorld('ipcRenderer', {
   on: (channel: string, listener: (event: IpcRendererEvent, ...args: unknown[]) => void) => ipcRenderer.on(channel, listener),
   off: (channel: string, listener: (...args: unknown[]) => void) => ipcRenderer.off(channel, listener),
   once: (channel: string, listener: (event: IpcRendererEvent, ...args: unknown[]) => void) => ipcRenderer.once(channel, listener),
-  send: (channel: string, ...args: unknown[]) => ipcRenderer.send(channel, args),
+  send: (channel: string, ...args: unknown[]) => ipcRenderer.send(channel, ...args),
   removeListener: (channel: string, listener: (...args: unknown[]) => void) => ipcRenderer.removeListener(channel, listener),
   removeAllListeners: (channel: string) => ipcRenderer.removeAllListeners(channel),
   invoke: async (channel: string, ...args: unknown[]): Promise<unknown> => ipcRenderer.invoke(channel, ...args),

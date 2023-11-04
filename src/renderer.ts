@@ -150,14 +150,14 @@ function onApiLoaded() {
     }
   });
 
-  // Wait for complete load of YouTube api
-  listenForApiLoad();
-
   // Inject song-info provider
   setupSongInfo();
 
   // Inject song-controls
   setupSongControls();
+
+  // Wait for complete load of YouTube api
+  listenForApiLoad();
 
   // Blocks the "Are You Still There?" popup by setting the last active time to Date.now every 15min
   setInterval(() => window._lact = Date.now(), 900_000);
