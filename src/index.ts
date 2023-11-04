@@ -199,7 +199,6 @@ async function createMainWindow() {
     webPreferences: {
       contextIsolation: true,
       preload: path.join(__dirname, 'preload.js'),
-      nodeIntegrationInSubFrames: true,
       ...(isTesting()
         ? undefined
         : {
