@@ -32,9 +32,9 @@ export default defineConfig({
       targetEnv: 'browser',
     }),
     image({ dom: true }),
-    terser({
+    /*terser({
       ecma: 2020,
-    }),
+    }),*/
     {
       closeBundle() {
         if (!process.env.ROLLUP_WATCH) {
@@ -44,7 +44,7 @@ export default defineConfig({
       name: 'force-close'
     },
   ],
-  input: './renderer.ts',
+  input: './src/renderer.ts',
   output: {
     format: 'cjs',
     name: '[name].js',

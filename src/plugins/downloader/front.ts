@@ -2,7 +2,7 @@ import downloadHTML from './templates/download.html';
 
 import defaultConfig from '../../config/defaults';
 import { getSongMenu } from '../../providers/dom-elements';
-import { ElementFromHtml } from '../utils';
+import { ElementFromHtml } from '../utils-renderer';
 import { getSongInfo } from '../../providers/song-info-front';
 
 let menu: Element | null = null;

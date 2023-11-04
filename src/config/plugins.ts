@@ -1,3 +1,5 @@
+import deepmerge from 'deepmerge';
+
 import store from './store';
 import defaultConfig from './defaults';
 
@@ -11,7 +13,7 @@ interface Plugin {
 type DefaultPluginsConfig = typeof defaultConfig.plugins;
 
 export function getEnabled() {
-  const plugins = store.get('plugins') as DefaultPluginsConfig;
+  const plugins = deepmerge(defaultConfig.plugins, (store.get('plugins') as DefaultPluginsConfig)) as DefaultPluginsConfig;
   return (Object.entries(plugins) as Entries<DefaultPluginsConfig>).filter(([plugin]) =>
     isEnabled(plugin),
   );

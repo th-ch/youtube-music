@@ -1,6 +1,6 @@
 import { register } from 'electron-localshortcut';
 
-import { BrowserWindow, Menu, MenuItem, ipcMain } from 'electron';
+import { BrowserWindow, Menu, MenuItem, ipcMain, nativeImage } from 'electron';
 
 import titlebarStyle from './titlebar.css';
 

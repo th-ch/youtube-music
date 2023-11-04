@@ -1,6 +1,4 @@
-import { ipcRenderer } from 'electron';
-
-import { ConfigType } from '../../config/dynamic';
+import type { ConfigType } from '../../config/dynamic';
 
 export default (config: ConfigType<'ambient-mode'>) => {
   let interpolationTime = config.interpolationTime; // interpolation time (ms)
@@ -30,7 +28,7 @@ export default (config: ConfigType<'ambient-mode'>) => {
     /* effect */
     let lastEffectWorkId: number | null = null;
     let lastImageData: ImageData | null = null;
-    
+
     const onSync = () => {
       if (typeof lastEffectWorkId === 'number') cancelAnimationFrame(lastEffectWorkId);
 
@@ -40,6 +38,7 @@ export default (config: ConfigType<'ambient-mode'>) => {
         const width = qualityRatio;
         let height = Math.max(Math.floor(blurCanvas.height / blurCanvas.width * width), 1);
         if (!Number.isFinite(height)) height = width;
+        if (!height) return;
 
         context.globalAlpha = 1;
         if (lastImageData) {
@@ -50,8 +49,7 @@ export default (config: ConfigType<'ambient-mode'>) => {
         }
         context.drawImage(video, 0, 0, width, height);
 
-        const nowImageData = context.getImageData(0, 0, width, height);
-        lastImageData = nowImageData;
+        lastImageData = context.getImageData(0, 0, width, height); // current image data
 
         lastEffectWorkId = null;
       });
@@ -102,8 +100,8 @@ export default (config: ConfigType<'ambient-mode'>) => {
 
       applyVideoAttributes();
     };
-    ipcRenderer.on('ambient-mode:config-change', onConfigSync);
-  
+    window.ipcRenderer.on('ambient-mode:config-change', onConfigSync);
+
     /* hooking */
     let canvasInterval: NodeJS.Timeout | null = null;
     canvasInterval = setInterval(onSync, Math.max(1, Math.ceil(1000 / buffer)));
@@ -135,17 +133,17 @@ export default (config: ConfigType<'ambient-mode'>) => {
 
       observer.disconnect();
       resizeObserver.disconnect();
-      ipcRenderer.off('ambient-mode:config-change', onConfigSync);
+      window.ipcRenderer.removeListener('ambient-mode:config-change', onConfigSync);
       window.removeEventListener('resize', applyVideoAttributes);
 
       wrapper.removeChild(blurCanvas);
     };
   };
 
-  
+
   const playerPage = document.querySelector<HTMLElement>('#player-page');
   const ytmusicAppLayout = document.querySelector<HTMLElement>('#layout');
-  
+
   const observer = new MutationObserver((mutationsList) => {
     for (const mutation of mutationsList) {
       if (mutation.type === 'attributes') {

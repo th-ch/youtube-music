@@ -19,7 +19,7 @@ export const createPanel = (
   const panel = document.createElement('menu-panel');
   panel.style.zIndex = `${options.order}`;
 
-  const updateIconState = (iconWrapper: HTMLElement, item: MenuItem) => {
+  const updateIconState = async (iconWrapper: HTMLElement, item: MenuItem) => {
     if (item.type === 'checkbox') {
       if (item.checked) iconWrapper.innerHTML = Icons.checkbox;
       else iconWrapper.innerHTML = '';

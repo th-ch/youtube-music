@@ -3,7 +3,7 @@ import ButterchurnPresets from 'butterchurn-presets';
 
 import { Visualizer } from './visualizer';
 
-import { ConfigType } from '../../../config/dynamic';
+import type { ConfigType } from '../../../config/dynamic';
 
 class ButterchurnVisualizer extends Visualizer<Butterchurn> {
   name = 'butterchurn';
