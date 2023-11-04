@@ -1,4 +1,5 @@
 import path from 'node:path';
+import url from 'node:url';
 import fs from 'node:fs';
 
 import { BrowserWindow, app, screen, globalShortcut, session, shell, dialog, ipcMain } from 'electron';
@@ -335,7 +336,11 @@ async function createMainWindow() {
   removeContentSecurityPolicy();
 
   win.webContents.on('dom-ready', () => {
-    win.webContents.executeJavaScript(fs.readFileSync(path.join(__dirname, 'renderer.js'), 'utf-8') + ';0', true);
+    const rendererScriptPath = path.join(__dirname, 'renderer.js');
+    win.webContents.executeJavaScriptInIsolatedWorld(0, [{
+      code: fs.readFileSync(rendererScriptPath, 'utf-8') + ';0',
+      url: url.pathToFileURL(rendererScriptPath).toString(),
+    }], true);
   });
 
   win.webContents.loadURL(urlToLoad);
