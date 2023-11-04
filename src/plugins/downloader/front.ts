@@ -40,11 +40,7 @@ const menuObserver = new MutationObserver(() => {
   setTimeout(() => doneFirstLoad ||= true, 500);
 });
 
-// TODO: re-enable once contextIsolation is set to true
-// contextBridge.exposeInMainWorld("downloader", {
-// download: () => {
-// eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-unsafe-member-access
-(global as any).download = () => {
+window.download = () => {
   let videoUrl = getSongMenu()
     // Selector of first button which is always "Start Radio"
     ?.querySelector('ytmusic-menu-navigation-item-renderer[tabindex="-1"] #navigation-endpoint')

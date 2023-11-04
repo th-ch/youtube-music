@@ -89,8 +89,7 @@ const togglePictureInPicture = async () => {
   return false;
 };
 // For UI (HTML)
-// eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-unsafe-member-access
-(global as any).togglePictureInPicture = togglePictureInPicture;
+window.togglePictureInPicture = togglePictureInPicture;
 
 const listenForToggle = () => {
   const originalExitButton = $<HTMLButtonElement>('.exit-fullscreen-button');
