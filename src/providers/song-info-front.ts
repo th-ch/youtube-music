@@ -137,6 +137,12 @@ export default () => {
       data.videoDetails.album = videoData?.Hd?.playerOverlays?.playerOverlayRenderer?.browserMediaSession?.browserMediaSessionRenderer?.album.runs?.at(0)?.text;
       data.videoDetails.elapsedSeconds = 0;
       data.videoDetails.isPaused = false;
+
+      // HACK: This is a workaround for "podcast" type video. GREAT JOB GOOGLE.
+      if (data.playabilityStatus.transportControlsConfig) {
+        data.videoDetails.author = data.microformat.microformatDataRenderer.pageOwnerDetails.name;
+      }
+
       ipcRenderer.send('video-src-changed', data);
     }
   }, { once: true, passive: true });

@@ -217,6 +217,17 @@ export interface PlayabilityStatus {
   audioOnlyPlayability: AudioOnlyPlayability;
   miniplayer: Miniplayer;
   contextParams: string;
+  transportControlsConfig?: TransportControlsConfig;
+}
+
+type ReplaceDefaultType = {
+  replaceDefault: boolean,
+};
+
+export interface TransportControlsConfig {
+  seekForwardStatus: ReplaceDefaultType;
+  seekBackwardStatus: ReplaceDefaultType;
+  playbackRateStatus: ReplaceDefaultType;
 }
 
 export interface AudioOnlyPlayability {
