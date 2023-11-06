@@ -213,7 +213,7 @@ export default (win: Electron.BrowserWindow, config: ConfigType<'YOUR-PLUGIN-NAM
 };
 ```
 
-then, register the plugin in `index.ts`:
+then, register the plugin in `src/index.ts`:
 
 ```typescript
 import yourPlugin from './plugins/YOUR-PLUGIN-NAME/back';
@@ -236,7 +236,7 @@ export default (config: ConfigType<'YOUR-PLUGIN-NAME'>) => {
 };
 ```
 
-then, register the plugin in `preload.ts`:
+then, register the plugin in `src/renderer.ts`:
 
 ```typescript
 import yourPlugin from './plugins/YOUR-PLUGIN-NAME/front';
@@ -247,17 +247,31 @@ const rendererPlugins: PluginMapper<'renderer'> = {
 };
 ```
 
+Finally, add the plugin to the default config file `src/config/default.ts`:
+
+```typescript
+export default {
+  // ...
+  'plugins': {
+    // ...
+    'YOUR-PLUGIN-NAME': {
+      // ...
+    },
+  },
+};
+```
+
 ### Common use cases
 
 - injecting custom CSS: create a `style.css` file in the same folder then:
 
 ```typescript
 import path from 'node:path';
-import { injectCSS } from '../utils';
+import style from './style.css';
 
 // back.ts
 export default (win: Electron.BrowserWindow) => {
-  injectCSS(win.webContents, path.join(__dirname, 'style.css'));
+  injectCSS(win.webContents, style);
 };
 ```
 
