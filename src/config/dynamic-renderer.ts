@@ -21,7 +21,7 @@ export const isActive
  * @param {object} [options.initialOptions] - The initial options for the plugin. Default: loaded from store.
  *
  * @example
- * const { PluginConfig } = require("../../config/dynamic");
+ * const { PluginConfig } = require("../../config/dynamic-renderer");
  * const config = new PluginConfig("plugin-name", { enableFront: true });
  * module.exports = { ...config };
  *
