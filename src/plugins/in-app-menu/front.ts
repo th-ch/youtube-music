@@ -1,5 +1,3 @@
-import { ipcRenderer, Menu } from 'electron';
-
 import { createPanel } from './menu/panel';
 
 import logo from './assets/menu.svg';
@@ -8,8 +6,7 @@ import minimize from './assets/minimize.svg';
 import maximize from './assets/maximize.svg';
 import unmaximize from './assets/unmaximize.svg';
 
-import { isEnabled } from '../../config/plugins';
-import config from '../../config';
+import type { Menu } from 'electron';
 
 function $<E extends Element = Element>(selector: string) {
   return document.querySelector<E>(selector);
@@ -19,8 +16,8 @@ const isMacOS = navigator.userAgent.includes('Macintosh');
 const isNotWindowsOrMacOS = !navigator.userAgent.includes('Windows') && !isMacOS;
 
 export default async () => {
-  const hideDOMWindowControls = config.get('plugins.in-app-menu.hideDOMWindowControls');
-  let hideMenu = config.get('options.hideMenu');
+  const hideDOMWindowControls = window.mainConfig.get('plugins.in-app-menu.hideDOMWindowControls');
+  let hideMenu = window.mainConfig.get('options.hideMenu');
   const titleBar = document.createElement('title-bar');
   const navBar = document.querySelector<HTMLDivElement>('#nav-bar-background');
   let maximizeButton: HTMLButtonElement;
@@ -42,7 +39,7 @@ export default async () => {
   };
   logo.onclick = logoClick;
 
-  ipcRenderer.on('toggleMenu', logoClick);
+  window.ipcRenderer.on('toggleMenu', logoClick);
 
   if (!isMacOS) titleBar.appendChild(logo);
   document.body.appendChild(titleBar);
@@ -55,10 +52,10 @@ export default async () => {
     const minimizeButton = document.createElement('button');
     minimizeButton.classList.add('window-control');
     minimizeButton.appendChild(minimize);
-    minimizeButton.onclick = () => ipcRenderer.invoke('window-minimize');
+    minimizeButton.onclick = () => window.ipcRenderer.invoke('window-minimize');
 
     maximizeButton = document.createElement('button');
-    if (await ipcRenderer.invoke('window-is-maximized')) {
+    if (await window.ipcRenderer.invoke('window-is-maximized')) {
       maximizeButton.classList.add('window-control');
       maximizeButton.appendChild(unmaximize);
     } else {
@@ -66,27 +63,27 @@ export default async () => {
       maximizeButton.appendChild(maximize);
     }
     maximizeButton.onclick = async () => {
-      if (await ipcRenderer.invoke('window-is-maximized')) {
+      if (await window.ipcRenderer.invoke('window-is-maximized')) {
         // change icon to maximize
         maximizeButton.removeChild(maximizeButton.firstChild!);
         maximizeButton.appendChild(maximize);
 
         // call unmaximize
-        await ipcRenderer.invoke('window-unmaximize');
+        await window.ipcRenderer.invoke('window-unmaximize');
       } else {
         // change icon to unmaximize
         maximizeButton.removeChild(maximizeButton.firstChild!);
         maximizeButton.appendChild(unmaximize);
 
         // call maximize
-        await ipcRenderer.invoke('window-maximize');
+        await window.ipcRenderer.invoke('window-maximize');
       }
     };
 
     const closeButton = document.createElement('button');
     closeButton.classList.add('window-control');
     closeButton.appendChild(close);
-    closeButton.onclick = () => ipcRenderer.invoke('window-close');
+    closeButton.onclick = () => window.ipcRenderer.invoke('window-close');
 
     // Create a container div for the window control buttons
     const windowControlsContainer = document.createElement('div');
@@ -118,7 +115,7 @@ export default async () => {
       if (child !== logo) child.remove();
     });
 
-    const menu = await ipcRenderer.invoke('get-menu') as Menu | null;
+    const menu = await window.ipcRenderer.invoke('get-menu') as Menu | null;
     if (!menu) return;
 
     menu.items.forEach((menuItem) => {
@@ -137,22 +134,22 @@ export default async () => {
 
   document.title = 'Youtube Music';
 
-  ipcRenderer.on('refreshMenu', () => updateMenu());
-  ipcRenderer.on('window-maximize', () => {
+  window.ipcRenderer.on('refreshMenu', () => updateMenu());
+  window.ipcRenderer.on('window-maximize', () => {
     if (isNotWindowsOrMacOS && !hideDOMWindowControls && maximizeButton.firstChild) {
       maximizeButton.removeChild(maximizeButton.firstChild);
       maximizeButton.appendChild(unmaximize);
     }
   });
-  ipcRenderer.on('window-unmaximize', () => {
+  window.ipcRenderer.on('window-unmaximize', () => {
     if (isNotWindowsOrMacOS && !hideDOMWindowControls && maximizeButton.firstChild) {
       maximizeButton.removeChild(maximizeButton.firstChild);
       maximizeButton.appendChild(unmaximize);
     }
   });
 
-  if (isEnabled('picture-in-picture')) {
-    ipcRenderer.on('pip-toggle', () => {
+  if (window.mainConfig.plugins.isEnabled('picture-in-picture')) {
+    window.ipcRenderer.on('pip-toggle', () => {
       updateMenu();
     });
   }

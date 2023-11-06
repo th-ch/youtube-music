@@ -1,12 +1,10 @@
-import { ipcRenderer } from 'electron';
-
 import forwardHTML from './templates/forward.html';
 import backHTML from './templates/back.html';
 
-import { ElementFromHtml } from '../utils';
+import { ElementFromHtml } from '../utils-renderer';
 
 export function run() {
-  ipcRenderer.on('navigation-css-ready', () => {
+  window.ipcRenderer.on('navigation-css-ready', () => {
     const forwardButton = ElementFromHtml(forwardHTML);
     const backButton = ElementFromHtml(backHTML);
     const menu = document.querySelector('#right-content');

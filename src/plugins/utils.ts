@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-import { app, ipcMain, ipcRenderer } from 'electron';
+import { app } from 'electron';
 import is from 'electron-is';
 
 import { ValueOf } from '../utils/type-utils';
@@ -33,31 +33,6 @@ export const saveMediaIcon = () => {
     fs.copyFile(iconPath, destinationPath, () => {});
   }
 };
-
-// Creates a DOM element from an HTML string
-export const ElementFromHtml = (html: string): HTMLElement => {
-  const template = document.createElement('template');
-  html = html.trim(); // Never return a text node of whitespace as the result
-  template.innerHTML = html;
-
-  return template.content.firstElementChild as HTMLElement;
-};
-
-// Creates a DOM element from a HTML file
-export const ElementFromFile = (filepath: fs.PathOrFileDescriptor) => ElementFromHtml(fs.readFileSync(filepath, 'utf8'));
-
-export const templatePath = (pluginPath: string, name: string) => path.join(pluginPath, 'templates', name);
-
-export const Actions = {
-  NEXT: 'next',
-  BACK: 'back',
-};
-
-export const triggerAction = <Parameters extends unknown[]>(channel: string, action: ValueOf<typeof Actions>, ...args: Parameters) => ipcRenderer.send(channel, action, ...args);
-
-export const triggerActionSync = <Parameters extends unknown[]>(channel: string, action: ValueOf<typeof Actions>, ...args: Parameters): unknown => ipcRenderer.sendSync(channel, action, ...args);
-
-export const listenAction = (channel: string, callback: (event: Electron.IpcMainEvent, action: string) => void) => ipcMain.on(channel, callback);
 
 export const fileExists = (
   path: fs.PathLike,

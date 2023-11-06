@@ -89,9 +89,10 @@
   "scripts": {
     "test": "playwright test",
     "test:debug": "cross-env DEBUG=pw:*,-pw:test:protocol playwright test",
+    "rollup:renderer": "rollup -c rollup.renderer.config.ts --configPlugin @rollup/plugin-typescript --bundleConfigAsCjs",
     "rollup:preload": "rollup -c rollup.preload.config.ts --configPlugin @rollup/plugin-typescript --bundleConfigAsCjs",
     "rollup:main": "rollup -c rollup.main.config.ts --configPlugin @rollup/plugin-typescript --bundleConfigAsCjs",
-    "build": "yarpm-pnpm run rollup:preload && yarpm-pnpm run rollup:main",
+    "build": "yarpm-pnpm run rollup:renderer && yarpm-pnpm run rollup:preload && yarpm-pnpm run rollup:main",
     "start": "yarpm-pnpm run build && electron ./dist/index.js",
     "start:debug": "cross-env ELECTRON_ENABLE_LOGGING=1 yarpm-pnpm run start",
     "clean": "del-cli dist && del-cli pack",
@@ -132,6 +133,7 @@
   "dependencies": {
     "@cliqz/adblocker-electron": "1.26.11",
     "@cliqz/adblocker-electron-preload": "1.26.11",
+    "@fastify/deepmerge": "1.3.0",
     "@ffmpeg.wasm/core-mt": "0.12.0",
     "@ffmpeg.wasm/main": "0.12.0",
     "@foobar404/wave": "2.0.4",

@@ -1,4 +1,6 @@
 import path from 'node:path';
+import url from 'node:url';
+import fs from 'node:fs';
 
 import { BrowserWindow, app, screen, globalShortcut, session, shell, dialog, ipcMain } from 'electron';
 import enhanceWebRequest, { BetterSession } from '@jellybrick/electron-better-web-request';
@@ -195,11 +197,8 @@ async function createMainWindow() {
     backgroundColor: '#000',
     show: false,
     webPreferences: {
-      // TODO: re-enable contextIsolation once it can work with FFMpeg.wasm
-      // Possible bundling? https://github.com/ffmpegwasm/ffmpeg.wasm/issues/126
-      contextIsolation: false,
+      contextIsolation: true,
       preload: path.join(__dirname, 'preload.js'),
-      nodeIntegrationInSubFrames: true,
       ...(isTesting()
         ? undefined
         : {
@@ -334,6 +333,14 @@ async function createMainWindow() {
   });
 
   removeContentSecurityPolicy();
+
+  win.webContents.on('dom-ready', () => {
+    const rendererScriptPath = path.join(__dirname, 'renderer.js');
+    win.webContents.executeJavaScriptInIsolatedWorld(0, [{
+      code: fs.readFileSync(rendererScriptPath, 'utf-8') + ';0',
+      url: url.pathToFileURL(rendererScriptPath).toString(),
+    }], true);
+  });
 
   win.webContents.loadURL(urlToLoad);
 

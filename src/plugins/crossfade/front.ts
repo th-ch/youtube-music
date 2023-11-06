@@ -1,13 +1,9 @@
-/* eslint-disable @typescript-eslint/await-thenable */
-/* renderer */
-
-import { ipcRenderer } from 'electron';
 import { Howl } from 'howler';
 
 // Extracted from https://github.com/bitfasching/VolumeFader
 import { VolumeFader } from './fader';
 
-import configProvider from './config';
+import configProvider from './config-renderer';
 
 import defaultConfigs from '../../config/defaults';
 
@@ -19,11 +15,11 @@ let waitForTransition: Promise<unknown>;
 
 const defaultConfig = defaultConfigs.plugins.crossfade;
 
-let config: ConfigType<'crossfade'>;
+let crossfadeConfig: ConfigType<'crossfade'>;
 
-const configGetNumber = (key: keyof ConfigType<'crossfade'>): number => Number(config[key]) || (defaultConfig[key] as number);
+const configGetNumber = (key: keyof ConfigType<'crossfade'>): number => Number(crossfadeConfig[key]) || (defaultConfig[key] as number);
 
-const getStreamURL = async (videoID: string) => ipcRenderer.invoke('audio-url', videoID) as Promise<string>;
+const getStreamURL = async (videoID: string) => window.ipcRenderer.invoke('audio-url', videoID) as Promise<string>;
 
 const getVideoIDFromURL = (url: string) => new URLSearchParams(url.split('?')?.at(-1)).get('v');
 
@@ -119,7 +115,7 @@ const onApiLoaded = () => {
       return;
     }
 
-    await createAudioForCrossfade(url);
+    createAudioForCrossfade(url);
   });
 };
 
@@ -150,11 +146,11 @@ const crossfade = (cb: () => void) => {
   });
 };
 
-export default async () => {
-  config = await configProvider.getAll();
+export default () => {
+  crossfadeConfig = configProvider.getAll();
 
   configProvider.subscribeAll((newConfig) => {
-    config = newConfig;
+    crossfadeConfig = newConfig;
   });
 
   document.addEventListener('apiLoaded', onApiLoaded, {

@@ -1,21 +1,18 @@
-import { ipcRenderer } from 'electron';
-
 import { singleton } from './decorators';
-import { getImage, SongInfo } from './song-info';
 
-import { YoutubePlayer } from '../types/youtube-player';
-import { GetState } from '../types/datahost-get-state';
-import { VideoDataChangeValue } from '../types/player-api-events';
+import type { YoutubePlayer } from '../types/youtube-player';
+import type { GetState } from '../types/datahost-get-state';
+import type { VideoDataChangeValue } from '../types/player-api-events';
+
+import type { SongInfo } from './song-info';
 
 let songInfo: SongInfo = {} as SongInfo;
 export const getSongInfo = () => songInfo;
 
 const $ = <E extends Element = Element>(s: string): E | null => document.querySelector<E>(s);
-const $$ = <E extends Element = Element>(s: string): NodeListOf<E> => document.querySelectorAll<E>(s);
 
-ipcRenderer.on('update-song-info', async (_, extractedSongInfo: SongInfo) => {
+window.ipcRenderer.on('update-song-info', (_, extractedSongInfo: SongInfo) => {
   songInfo = extractedSongInfo;
-  if (songInfo.imageSrc) songInfo.image = await getImage(songInfo.imageSrc);
 });
 
 // Used because 'loadeddata' or 'loadedmetadata' weren't firing on song start for some users (https://github.com/th-ch/youtube-music/issues/473)
@@ -24,7 +21,7 @@ const srcChangedEvent = new CustomEvent('srcChanged');
 export const setupSeekedListener = singleton(() => {
   $('video')?.addEventListener('seeked', (v) => {
     if (v.target instanceof HTMLVideoElement) {
-      ipcRenderer.send('seeked', v.target.currentTime);
+      window.ipcRenderer.send('seeked', v.target.currentTime);
     }
   });
 });
@@ -33,7 +30,7 @@ export const setupTimeChangedListener = singleton(() => {
   const progressObserver = new MutationObserver((mutations) => {
     for (const mutation of mutations) {
       const target = mutation.target as Node & { value: string };
-      ipcRenderer.send('timeChanged', target.value);
+      window.ipcRenderer.send('timeChanged', target.value);
       songInfo.elapsedSeconds = Number(target.value);
     }
   });
@@ -47,7 +44,7 @@ export const setupRepeatChangedListener = singleton(() => {
   const repeatObserver = new MutationObserver((mutations) => {
 
     // provided by YouTube Music
-    ipcRenderer.send(
+    window.ipcRenderer.send(
       'repeatChanged',
       (mutations[0].target as Node & {
         __dataHost: {
@@ -60,7 +57,7 @@ export const setupRepeatChangedListener = singleton(() => {
 
   // Emit the initial value as well; as it's persistent between launches.
   // provided by YouTube Music
-  ipcRenderer.send(
+  window.ipcRenderer.send(
     'repeatChanged',
     $<HTMLElement & {
       getState: () => GetState;
@@ -70,33 +67,33 @@ export const setupRepeatChangedListener = singleton(() => {
 
 export const setupVolumeChangedListener = singleton((api: YoutubePlayer) => {
   $('video')?.addEventListener('volumechange', () => {
-    ipcRenderer.send('volumeChanged', api.getVolume());
+    window.ipcRenderer.send('volumeChanged', api.getVolume());
   });
   // Emit the initial value as well; as it's persistent between launches.
-  ipcRenderer.send('volumeChanged', api.getVolume());
+  window.ipcRenderer.send('volumeChanged', api.getVolume());
 });
 
 export default () => {
   document.addEventListener('apiLoaded', (apiEvent) => {
-    ipcRenderer.on('setupTimeChangedListener', () => {
+    window.ipcRenderer.on('setupTimeChangedListener', () => {
       setupTimeChangedListener();
     });
 
-    ipcRenderer.on('setupRepeatChangedListener', () => {
+    window.ipcRenderer.on('setupRepeatChangedListener', () => {
       setupRepeatChangedListener();
     });
 
-    ipcRenderer.on('setupVolumeChangedListener', () => {
+    window.ipcRenderer.on('setupVolumeChangedListener', () => {
       setupVolumeChangedListener(apiEvent.detail);
     });
 
-    ipcRenderer.on('setupSeekedListener', () => {
+    window.ipcRenderer.on('setupSeekedListener', () => {
       setupSeekedListener();
     });
 
     const playPausedHandler = (e: Event, status: string) => {
       if (e.target instanceof HTMLVideoElement && Math.round(e.target.currentTime) > 0) {
-        ipcRenderer.send('playPaused', {
+        window.ipcRenderer.send('playPaused', {
           isPaused: status === 'pause',
           elapsedSeconds: Math.floor(e.target.currentTime),
         });
@@ -143,7 +140,7 @@ export default () => {
         data.videoDetails.author = data.microformat.microformatDataRenderer.pageOwnerDetails.name;
       }
 
-      ipcRenderer.send('video-src-changed', data);
+      window.ipcRenderer.send('video-src-changed', data);
     }
   }, { once: true, passive: true });
 };

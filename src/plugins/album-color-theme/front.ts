@@ -1,6 +1,6 @@
 import { FastAverageColor } from 'fast-average-color';
 
-import { ConfigType } from '../../config/dynamic';
+import type { ConfigType } from '../../config/dynamic';
 
 function hexToHSL(H: string) {
   // Convert hex to RGB first

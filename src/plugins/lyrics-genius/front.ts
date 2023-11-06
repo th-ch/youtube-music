@@ -1,6 +1,3 @@
-import { ipcRenderer } from 'electron';
-import is from 'electron-is';
-
 import type { SongInfo } from '../../providers/song-info';
 
 export default () => {
@@ -22,9 +19,9 @@ export default () => {
     }
   };
 
-  let unregister: (() => void) | null = null; 
+  let unregister: (() => void) | null = null;
 
-  ipcRenderer.on('update-song-info', (_, extractedSongInfo: SongInfo) => {
+  window.ipcRenderer.on('update-song-info', (_, extractedSongInfo: SongInfo) => {
     unregister?.();
 
     setTimeout(async () => {
@@ -38,7 +35,7 @@ export default () => {
       // Check if disabled
       if (!tabs.lyrics?.hasAttribute('disabled')) return;
 
-      const lyrics = await ipcRenderer.invoke(
+      const lyrics = await window.ipcRenderer.invoke(
         'search-genius-lyrics',
         extractedSongInfo,
       ) as string | null;
@@ -50,7 +47,7 @@ export default () => {
         return;
       }
 
-      if (is.dev()) {
+      if (window.electronIs.dev()) {
         console.log('Fetched lyrics from Genius');
       }
 
@@ -58,7 +55,7 @@ export default () => {
         const lyricsContainer = document.querySelector(
           '[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"] > ytmusic-message-renderer',
         );
-    
+
         if (lyricsContainer) {
           callback?.();
 

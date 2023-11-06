@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/await-thenable */
 /* renderer */
 
 import { blockers } from './blocker-types';

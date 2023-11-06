@@ -1,6 +1,6 @@
 import { register } from 'electron-localshortcut';
 
-import { BrowserWindow, Menu, MenuItem, ipcMain } from 'electron';
+import { BrowserWindow, Menu, MenuItem, ipcMain, nativeImage } from 'electron';
 
 import titlebarStyle from './titlebar.css';
 
@@ -64,4 +64,9 @@ export default (win: BrowserWindow) => {
   win.on('maximize', () => win.webContents.send('window-maximize'));
   ipcMain.handle('window-unmaximize', () => win.unmaximize());
   win.on('unmaximize', () => win.webContents.send('window-unmaximize'));
+
+  ipcMain.handle('image-path-to-data-url', (_, imagePath: string) => {
+    const nativeImageIcon = nativeImage.createFromPath(imagePath);
+    return nativeImageIcon?.toDataURL();
+  });
 };

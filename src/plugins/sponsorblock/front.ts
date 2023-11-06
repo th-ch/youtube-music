@@ -1,12 +1,9 @@
-import { ipcRenderer } from 'electron';
-import is from 'electron-is';
-
 import { Segment } from './types';
 
 let currentSegments: Segment[] = [];
 
 export default () => {
-  ipcRenderer.on('sponsorblock-skip', (_, segments: Segment[]) => {
+  window.ipcRenderer.on('sponsorblock-skip', (_, segments: Segment[]) => {
     currentSegments = segments;
   });
 
@@ -24,7 +21,7 @@ export default () => {
             && target.currentTime < segment[1]
           ) {
             target.currentTime = segment[1];
-            if (is.dev()) {
+            if (window.electronIs.dev()) {
               console.log('SponsorBlock: skipping segment', segment);
             }
           }

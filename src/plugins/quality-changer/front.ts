@@ -1,8 +1,6 @@
-import { ipcRenderer } from 'electron';
-
 import qualitySettingsTemplate from './templates/qualitySettingsTemplate.html';
 
-import { ElementFromHtml } from '../utils';
+import { ElementFromHtml } from '../utils-renderer';
 import { YoutubePlayer } from '../../types/youtube-player';
 
 function $(selector: string): HTMLElement | null {
@@ -23,7 +21,7 @@ function setup(event: CustomEvent<YoutubePlayer>) {
 
     const currentIndex = qualityLevels.indexOf(api.getPlaybackQuality());
 
-    ipcRenderer.invoke('qualityChanger', api.getAvailableQualityLabels(), currentIndex).then((promise: { response: number }) => {
+    window.ipcRenderer.invoke('qualityChanger', api.getAvailableQualityLabels(), currentIndex).then((promise: { response: number }) => {
       if (promise.response === -1) {
         return;
       }

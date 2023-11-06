@@ -1,13 +1,8 @@
-/* eslint-disable @typescript-eslint/await-thenable */
-/* renderer */
-
-import { ipcRenderer } from 'electron';
-
-import configProvider from './config';
+import configProvider from './config-renderer';
 
 import CaptionsSettingsButtonHTML from './templates/captions-settings-template.html';
 
-import { ElementFromHtml } from '../utils';
+import { ElementFromHtml } from '../utils-renderer';
 import { YoutubePlayer } from '../../types/youtube-player';
 
 import type { ConfigType } from '../../config/dynamic';
@@ -25,18 +20,17 @@ interface LanguageOptions {
   vss_id: string;
 }
 
-let config: ConfigType<'captions-selector'>;
+let captionsSelectorConfig: ConfigType<'captions-selector'>;
 
 const $ = <Element extends HTMLElement>(selector: string): Element => document.querySelector(selector)!;
 
 const captionsSettingsButton = ElementFromHtml(CaptionsSettingsButtonHTML);
 
-export default async () => {
-  // RENDERER
-  config = await configProvider.getAll();
+export default () => {
+  captionsSelectorConfig = configProvider.getAll();
 
   configProvider.subscribeAll((newConfig) => {
-    config = newConfig;
+    captionsSelectorConfig = newConfig;
   });
   document.addEventListener('apiLoaded', (event) => setup(event.detail), { once: true, passive: true });
 };
@@ -47,7 +41,7 @@ function setup(api: YoutubePlayer) {
   let captionTrackList = api.getOption<LanguageOptions[]>('captions', 'tracklist') ?? [];
 
   $('video').addEventListener('srcChanged', () => {
-    if (config.disableCaptions) {
+    if (captionsSelectorConfig.disableCaptions) {
       setTimeout(() => api.unloadModule('captions'), 100);
       captionsSettingsButton.style.display = 'none';
       return;
@@ -58,9 +52,9 @@ function setup(api: YoutubePlayer) {
     setTimeout(() => {
       captionTrackList = api.getOption('captions', 'tracklist') ?? [];
 
-      if (config.autoload && config.lastCaptionsCode) {
+      if (captionsSelectorConfig.autoload && captionsSelectorConfig.lastCaptionsCode) {
         api.setOption('captions', 'track', {
-          languageCode: config.lastCaptionsCode,
+          languageCode: captionsSelectorConfig.lastCaptionsCode,
         });
       }
 
@@ -82,7 +76,7 @@ function setup(api: YoutubePlayer) {
         'None',
       ];
 
-      currentIndex = await ipcRenderer.invoke('captionsSelector', captionLabels, currentIndex) as number;
+      currentIndex = await window.ipcRenderer.invoke('captionsSelector', captionLabels, currentIndex) as number;
       if (currentIndex === null) {
         return;
       }

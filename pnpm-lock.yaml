@@ -19,6 +19,9 @@ dependencies:
   '@cliqz/adblocker-electron-preload':
     specifier: 1.26.11
     version: 1.26.11(electron@27.0.3)
+  '@fastify/deepmerge':
+    specifier: 1.3.0
+    version: 1.3.0
   '@ffmpeg.wasm/core-mt':
     specifier: 0.12.0
     version: 0.12.0
@@ -398,6 +401,10 @@ packages:
   /@fastify/busboy@2.0.0:
     resolution: {integrity: sha512-JUFJad5lv7jxj926GPgymrWQxxjPYuJNiNjNMzqT+HiuP6Vl3dk5xzG+8sTX96np0ZAluvaMzPsjhHZ5rNuNQQ==}
     engines: {node: '>=14'}
+    dev: false
+
+  /@fastify/deepmerge@1.3.0:
+    resolution: {integrity: sha512-J8TOSBq3SoZbDhM9+R/u77hP93gz/rajSA+K2kGyijPpORPWUXHUpTaleoj+92As0S9uPRP7Oi8IqMf0u+ro6A==}
     dev: false
 
   /@ffmpeg.wasm/core-mt@0.12.0:
