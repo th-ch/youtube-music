@@ -1,4 +1,2 @@
 .eslintrc.js
-rollup.main.config.ts
-rollup.preload.config.ts
-rollup.renderer.config.ts
+electron.vite.config.ts

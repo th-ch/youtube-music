@@ -44,6 +44,7 @@ import tunaObs from './plugins/tuna-obs/back';
 import videoToggle from './plugins/video-toggle/back';
 import visualizer from './plugins/visualizer/back';
 
+import rendererScriptUrl from './renderer.ts?importChunkUrl';
 import youtubeMusicCSS from './youtube-music.css';
 
 // Catch errors and log them
@@ -335,10 +336,13 @@ async function createMainWindow() {
   removeContentSecurityPolicy();
 
   win.webContents.on('dom-ready', () => {
-    const rendererScriptPath = path.join(__dirname, 'renderer.js');
+    const filePath = new URL(rendererScriptUrl).pathname;
+    // On Windows, URL paths start with a leading slash if they're absolute. Strip it off.
+    const isWindows = process.platform === 'win32';
+    const rendererScriptPath = isWindows ? filePath.substring(1) : filePath;
     win.webContents.executeJavaScriptInIsolatedWorld(0, [{
       code: fs.readFileSync(rendererScriptPath, 'utf-8') + ';0',
-      url: url.pathToFileURL(rendererScriptPath).toString(),
+      url: rendererScriptUrl,
     }], true);
   });
 

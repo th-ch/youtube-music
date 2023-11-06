@@ -1,6 +1,6 @@
 import configProvider from './config-renderer';
 
-import CaptionsSettingsButtonHTML from './templates/captions-settings-template.html';
+import CaptionsSettingsButtonHTML from './templates/captions-settings-template.html?raw';
 
 import { ElementFromHtml } from '../utils-renderer';
 import { YoutubePlayer } from '../../types/youtube-player';

@@ -1,7 +1,7 @@
 import { toKeyEvent } from 'keyboardevent-from-electron-accelerator';
 import keyEventAreEqual from 'keyboardevents-areequal';
 
-import pipHTML from './templates/picture-in-picture.html';
+import pipHTML from './templates/picture-in-picture.html?raw';
 
 import { getSongMenu } from '../../providers/dom-elements';
 
