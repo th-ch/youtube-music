@@ -18,7 +18,7 @@ jobs:
       - name: Set winget version env
         env:
           TAG_NAME: ${{ inputs.tag_name || github.event.release.tag_name }}
-        run: echo "WINGET_TAG_NAME=$(echo ${TEST_VERSION#v})" >> $GITHUB_ENV
+        run: echo "WINGET_TAG_NAME=$(echo ${TAG_NAME#v})" >> $GITHUB_ENV
       - name: Submit package to Windows Package Manager Community Repository
         uses: vedantmgoyal2009/winget-releaser@v2
         with:
