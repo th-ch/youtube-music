@@ -7,9 +7,10 @@ import config from './config';
 
 import { cache } from '../../providers/decorators';
 import { SongInfo } from '../../providers/song-info';
-import { getAssetsDirectoryLocation } from '../utils';
 
-const defaultIcon = path.join(getAssetsDirectoryLocation(), 'youtube-music.png');
+import youtubeMusicIcon from '../../../assets/youtube-music.png?asset';
+
+
 const userData = app.getPath('userData');
 const temporaryIcon = path.join(userData, 'tempIcon.png');
 const temporaryBanner = path.join(userData, 'tempBanner.png');
@@ -45,7 +46,7 @@ const nativeImageToLogo = cache((nativeImage: NativeImage) => {
 
 export const notificationImage = (songInfo: SongInfo) => {
   if (!songInfo.image) {
-    return defaultIcon;
+    return youtubeMusicIcon;
   }
 
   if (!config.get('interactive')) {
@@ -68,8 +69,9 @@ export const saveImage = cache((img: NativeImage, savePath: string) => {
   try {
     fs.writeFileSync(savePath, img.toPNG());
   } catch (error: unknown) {
-    console.log(`Error writing song icon to disk:\n${String(error)}`);
-    return defaultIcon;
+    console.error('Error writing song icon to disk:');
+    console.trace(error);
+    return youtubeMusicIcon;
   }
 
   return savePath;

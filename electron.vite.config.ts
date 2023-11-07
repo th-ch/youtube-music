@@ -1,13 +1,13 @@
 import { defineConfig } from 'electron-vite';
 import builtinModules from 'builtin-modules';
 import { importChunkUrl } from '@lightningjs/vite-plugin-import-chunk-url';
-import magicalSvg from 'vite-plugin-magical-svg';
 
 export default defineConfig({
   main: {
     plugins: [
       importChunkUrl(),
     ],
+    publicDir: 'assets',
     build: {
       lib: {
         entry: 'src/index.ts',
@@ -40,14 +40,13 @@ export default defineConfig({
     },
   },
   renderer: {
-    plugins: [
-      // HACK: electron-vite doesn't enable 'allowSyntheticDefaultImports'
-      (magicalSvg as unknown as {
-        default: typeof magicalSvg
-      }).default({}),
-    ],
     root: './src/',
     build: {
+      lib: {
+        entry: 'src/index.html',
+        formats: ['iife'],
+        name: 'renderer',
+      },
       outDir: 'dist/renderer',
       commonjsOptions: {
         ignoreDynamicRequires: true,

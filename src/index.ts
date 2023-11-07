@@ -1,5 +1,4 @@
 import path from 'node:path';
-import url from 'node:url';
 import fs from 'node:fs';
 
 import { BrowserWindow, app, screen, globalShortcut, session, shell, dialog, ipcMain } from 'electron';
@@ -8,6 +7,7 @@ import is from 'electron-is';
 import unhandled from 'electron-unhandled';
 import { autoUpdater } from 'electron-updater';
 import electronDebug from 'electron-debug';
+import { parse } from 'node-html-parser';
 
 import config from './config';
 import { refreshMenu, setApplicationMenu } from './menu';
@@ -334,12 +334,25 @@ async function createMainWindow() {
 
   removeContentSecurityPolicy();
 
-  win.webContents.on('dom-ready', () => {
+  const escapeXml = (unsafe: string) => {
+    return unsafe.replace(/[<>&'"]/g, (c) => {
+      switch (c) {
+        case '<': return '&lt;';
+        case '>': return '&gt;';
+        case '&': return '&amp;';
+        case '\'': return '&apos;';
+        case '"': return '&quot;';
+        default: return c;
+      }
+    });
+  };
+
+  win.webContents.on('dom-ready', async () => {
     // Inject index.html file as string using insertAdjacentHTML
     // In dev mode, get string from process.env.VITE_DEV_SERVER_URL, else use fs.readFileSync
-    if (is.dev()) {
+    if (is.dev() && process.env.ELECTRON_RENDERER_URL) {
       // HACK: to make vite work with electron renderer (supports hot reload)
-      win.webContents.executeJavaScript(`
+      await win.webContents.executeJavaScript(`
         console.log('Loading vite from dev server');
         const viteScript = document.createElement('script');
         viteScript.type = 'module';
@@ -352,10 +365,11 @@ async function createMainWindow() {
         0
       `);
     } else {
-      const indexHTML = fs.readFileSync(path.join(__dirname, '..', 'renderer', 'index.html'), 'utf-8');
-      win.webContents.executeJavaScript(`
-        document.documentElement.insertAdjacentHTML('beforeend', '${indexHTML}');
-      `);
+      const rendererPath = path.join(__dirname, '..', 'renderer');
+      const indexHTML = parse(fs.readFileSync(path.join(rendererPath, 'index.html'), 'utf-8'));
+      const scriptSrc = indexHTML.querySelector('script')!;
+      const scriptString = fs.readFileSync(path.join(rendererPath, scriptSrc.getAttribute('src')!), 'utf-8');
+      await win.webContents.executeJavaScript(scriptString + `;0`);
     }
   });
 

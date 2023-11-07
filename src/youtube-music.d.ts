@@ -15,10 +15,10 @@ declare module '*?importChunkUrl' {
 
   export default source;
 }
-declare module '*.svg' {
-  const element: SVGAElement;
+declare module '*.svg?inline' {
+  const base64: string;
 
-  export default () => element;
+  export default base64;
 }
 declare module '*.png' {
   const element: HTMLImageElement;

@@ -4,10 +4,9 @@ import path from 'node:path';
 import { app } from 'electron';
 import is from 'electron-is';
 
-import { ValueOf } from '../utils/type-utils';
 import defaultConfig from '../config/defaults';
 
-export const getAssetsDirectoryLocation = () => path.resolve(__dirname, 'assets');
+export const getAssetsDirectoryLocation = () => path.resolve(__dirname, '..', 'assets');
 
 export const getMediaIconLocation = () =>
   app.isPackaged

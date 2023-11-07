@@ -21,6 +21,7 @@ declare global {
     ipcRenderer: typeof electronIpcRenderer;
     mainConfig: typeof config;
     electronIs: typeof is;
+    ELECTRON_RENDERER_URL: string | undefined;
     /**
      * YouTube Music internal variable (Last interaction time)
      */

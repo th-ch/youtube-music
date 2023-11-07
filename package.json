@@ -14,6 +14,7 @@
   "build": {
     "appId": "com.github.th-ch.youtube-music",
     "productName": "YouTube Music",
+    "extraResources": ["assets"],
     "files": [
       "!*",
       "dist",
@@ -156,6 +157,7 @@
     "html-to-text": "9.0.5",
     "keyboardevent-from-electron-accelerator": "2.0.0",
     "keyboardevents-areequal": "0.2.2",
+    "node-html-parser": "6.1.11",
     "node-id3": "0.2.6",
     "simple-youtube-age-restriction-bypass": "git+https://github.com/organization/Simple-YouTube-Age-Restriction-Bypass.git#v2.5.8",
     "vudio": "2.1.1",
