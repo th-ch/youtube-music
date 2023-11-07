@@ -3,10 +3,13 @@ import builtinModules from 'builtin-modules';
 
 import type { UserConfig } from 'vite';
 
+import autoImportPlugins from "./vite-plugins/auto-import-plugins";
+
 export default defineConfig({
   main: defineViteConfig(({ mode }) => {
     const commonConfig: UserConfig = {
       publicDir: 'assets',
+      // plugins: [autoImportPlugins()],
       build: {
         lib: {
           entry: 'src/index.ts',
@@ -38,6 +41,7 @@ export default defineConfig({
   }),
   preload: defineViteConfig(({ mode }) => {
     const commonConfig: UserConfig = {
+      plugins: [autoImportPlugins()],
       build: {
         lib: {
           entry: 'src/preload.ts',
@@ -50,7 +54,7 @@ export default defineConfig({
         rollupOptions: {
           external: ['electron', 'custom-electron-prompt', ...builtinModules],
           input: './src/preload.ts',
-        }
+        },
       },
     };
 
@@ -70,6 +74,7 @@ export default defineConfig({
   renderer: defineViteConfig(({ mode }) => {
     const commonConfig: UserConfig = {
       root: './src/',
+      plugins: [autoImportPlugins()],
       build: {
         lib: {
           entry: 'src/index.html',

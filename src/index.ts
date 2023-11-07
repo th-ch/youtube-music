@@ -1,3 +1,5 @@
+import "../env.d.ts";
+
 import path from 'node:path';
 import url from 'node:url';
 import fs from 'node:fs';
@@ -45,7 +47,7 @@ import tunaObs from './plugins/tuna-obs/back';
 import videoToggle from './plugins/video-toggle/back';
 import visualizer from './plugins/visualizer/back';
 
-import youtubeMusicCSS from './youtube-music.css';
+import youtubeMusicCSS from './youtube-music.css?inline';
 
 // Catch errors and log them
 unhandled({

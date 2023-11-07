@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "lib": ["dom", "dom.iterable", "es2022"],
-    "module": "CommonJS",
+    "lib": ["dom", "dom.iterable", "ESNext"],
+    "module": "ESNext",
     "types": ["electron-vite/node"],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
@@ -15,6 +15,7 @@
     "strictFunctionTypes": true,
     "skipLibCheck": true
   },
+  "include": ["vite-plugins/*.ts", "env.d.ts"],
   "exclude": ["./dist"],
   "paths": {
     "*": ["*.d.ts"]

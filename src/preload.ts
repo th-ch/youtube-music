@@ -1,25 +1,8 @@
 import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
 import is from 'electron-is';
 
+import "../env.d.ts";
 import config from './config';
-
-import adblockerPreload from './plugins/adblocker/preload';
-import preciseVolumePreload from './plugins/precise-volume/preload';
-
-import type { ConfigType, OneOfDefaultConfigKey } from './config/dynamic';
-
-export type PluginMapper<Type extends 'renderer' | 'preload' | 'backend'> = {
-  [Key in OneOfDefaultConfigKey]?: (
-    Type extends 'renderer' ? (options: ConfigType<Key>) => (Promise<void> | void) :
-      Type extends 'preload' ? () => (Promise<void> | void) :
-    never
-  )
-};
-
-const preloadPlugins: PluginMapper<'preload'> = {
-  'adblocker': adblockerPreload,
-  'precise-volume': preciseVolumePreload,
-};
 
 const enabledPluginNameAndOptions = config.plugins.getEnabled();
 
