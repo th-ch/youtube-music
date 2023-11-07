@@ -162,6 +162,9 @@ devDependencies:
   eslint-plugin-prettier:
     specifier: 5.0.1
     version: 5.0.1(eslint@8.53.0)(prettier@3.0.3)
+  glob:
+    specifier: 10.3.10
+    version: 10.3.10
   node-gyp:
     specifier: 10.0.1
     version: 10.0.1
@@ -180,6 +183,9 @@ devDependencies:
   vite:
     specifier: 4.5.0
     version: 4.5.0
+  vite-plugin-resolve:
+    specifier: 2.5.1
+    version: 2.5.1
   ws:
     specifier: 8.14.2
     version: 8.14.2(bufferutil@4.0.8)(utf-8-validate@6.0.3)
@@ -4049,6 +4055,10 @@ packages:
       type-check: 0.4.0
     dev: true
 
+  /lib-esm@0.4.1:
+    resolution: {integrity: sha512-tdSqfyryhnl5k09357x2iWmw3WeU84SaoP/vMGw/nw8z8RPTrfu9sxwRApn6p6GyStuBNyASgwXIV8ctZWlG1A==}
+    dev: true
+
   /lie@3.3.0:
     resolution: {integrity: sha512-UaiMJzeWRlEujzAuw5LokY1L5ecNQYZKfmyZ9L7wDHb/p5etKaxXhohBcrw0EYby+G/NA52vRSN4N39dxHAIwQ==}
     dependencies:
@@ -5622,6 +5632,12 @@ packages:
       extsprintf: 1.4.1
     dev: true
     optional: true
+
+  /vite-plugin-resolve@2.5.1:
+    resolution: {integrity: sha512-9dD0Yq5JT1RxHQGZOyhC7e/JlhyhMCftCpQ8TPzQa7KEB/3ERnoCPinH3VJk/0C8qHsA+l41bIcHh5BcHBTmAw==}
+    dependencies:
+      lib-esm: 0.4.1
+    dev: true
 
   /vite@4.5.0:
     resolution: {integrity: sha512-ulr8rNLA6rkyFAlVWw2q5YJ91v098AFQ2R0PRFwPzREXOUJQPtFUG0t+/ZikhaOCDqFoDhN6/v8Sq0o4araFAw==}
