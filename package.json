@@ -165,7 +165,6 @@
     "youtubei.js": "7.0.0"
   },
   "devDependencies": {
-    "@lightningjs/vite-plugin-import-chunk-url": "0.3.0",
     "@playwright/test": "1.39.0",
     "@total-typescript/ts-reset": "0.5.1",
     "@types/electron-localshortcut": "3.1.2",
@@ -189,8 +188,6 @@
     "typescript": "5.2.2",
     "utf-8-validate": "6.0.3",
     "vite": "4.5.0",
-    "vite-plugin-magical-svg": "1.0.3",
-    "vite-plugin-string": "1.2.2",
     "ws": "8.14.2",
     "yarpm": "1.2.0"
   },

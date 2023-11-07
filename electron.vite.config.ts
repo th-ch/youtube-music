@@ -1,12 +1,8 @@
 import { defineConfig } from 'electron-vite';
 import builtinModules from 'builtin-modules';
-import { importChunkUrl } from '@lightningjs/vite-plugin-import-chunk-url';
 
 export default defineConfig({
   main: {
-    plugins: [
-      importChunkUrl(),
-    ],
     publicDir: 'assets',
     build: {
       lib: {

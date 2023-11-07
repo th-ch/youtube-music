@@ -10,11 +10,6 @@ declare module '*.html?raw' {
 
   export default html;
 }
-declare module '*?importChunkUrl' {
-  const source: string;
-
-  export default source;
-}
 declare module '*.svg?inline' {
   const base64: string;
 
