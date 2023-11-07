@@ -208,8 +208,10 @@ export default (
       // if lastSent is more than 5 seconds ago, send the new time
       if (currentTime - lastSent > 5000) {
         lastSent = currentTime;
-        lastSongInfo.elapsedSeconds = t;
-        updateActivity(lastSongInfo);
+        if (lastSongInfo) {
+          lastSongInfo.elapsedSeconds = t;
+          updateActivity(lastSongInfo);
+        }
       }
     });
   });

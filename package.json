@@ -187,6 +187,7 @@
     "typescript": "5.2.2",
     "utf-8-validate": "6.0.3",
     "vite": "4.5.0",
+    "vite-plugin-magical-svg": "1.0.3",
     "vite-plugin-string": "1.2.2",
     "ws": "8.14.2",
     "yarpm": "1.2.0"

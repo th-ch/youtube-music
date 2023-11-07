@@ -145,7 +145,8 @@ function onApiLoaded() {
       try {
         await handler?.(options as never);
       } catch (error) {
-        console.error(`Error in plugin "${pluginName}": ${String(error)}`);
+        console.error(`Error in plugin "${pluginName}"`);
+        console.trace(error);
       }
     }
   });

@@ -18,7 +18,7 @@ declare module '*?importChunkUrl' {
 declare module '*.svg' {
   const element: SVGAElement;
 
-  export default element;
+  export default () => element;
 }
 declare module '*.png' {
   const element: HTMLImageElement;

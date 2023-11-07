@@ -1,10 +1,10 @@
 import { createPanel } from './menu/panel';
 
-import logo from './assets/menu.svg';
-import close from './assets/close.svg';
-import minimize from './assets/minimize.svg';
-import maximize from './assets/maximize.svg';
-import unmaximize from './assets/unmaximize.svg';
+import logoFn from './assets/menu.svg';
+import closeFn from './assets/close.svg';
+import minimizeFn from './assets/minimize.svg';
+import maximizeFn from './assets/maximize.svg';
+import unmaximizeFn from './assets/unmaximize.svg';
 
 import type { Menu } from 'electron';
 
@@ -22,6 +22,12 @@ export default async () => {
   const navBar = document.querySelector<HTMLDivElement>('#nav-bar-background');
   let maximizeButton: HTMLButtonElement;
   if (isMacOS) titleBar.style.setProperty('--offset-left', '70px');
+
+  const logo = logoFn();
+  const close = closeFn();
+  const minimize = minimizeFn();
+  const maximize = maximizeFn();
+  const unmaximize = unmaximizeFn();
 
   logo.classList.add('title-bar-icon');
   const logoClick = () => {

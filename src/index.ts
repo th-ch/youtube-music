@@ -44,7 +44,6 @@ import tunaObs from './plugins/tuna-obs/back';
 import videoToggle from './plugins/video-toggle/back';
 import visualizer from './plugins/visualizer/back';
 
-import rendererScriptUrl from './renderer.ts?importChunkUrl';
 import youtubeMusicCSS from './youtube-music.css';
 
 // Catch errors and log them
@@ -336,14 +335,28 @@ async function createMainWindow() {
   removeContentSecurityPolicy();
 
   win.webContents.on('dom-ready', () => {
-    const filePath = new URL(rendererScriptUrl).pathname;
-    // On Windows, URL paths start with a leading slash if they're absolute. Strip it off.
-    const isWindows = process.platform === 'win32';
-    const rendererScriptPath = isWindows ? filePath.substring(1) : filePath;
-    win.webContents.executeJavaScriptInIsolatedWorld(0, [{
-      code: fs.readFileSync(rendererScriptPath, 'utf-8') + ';0',
-      url: rendererScriptUrl,
-    }], true);
+    // Inject index.html file as string using insertAdjacentHTML
+    // In dev mode, get string from process.env.VITE_DEV_SERVER_URL, else use fs.readFileSync
+    if (is.dev()) {
+      // HACK: to make vite work with electron renderer (supports hot reload)
+      win.webContents.executeJavaScript(`
+        console.log('Loading vite from dev server');
+        const viteScript = document.createElement('script');
+        viteScript.type = 'module';
+        viteScript.src = '${process.env.ELECTRON_RENDERER_URL}/@vite/client';
+        const rendererScript = document.createElement('script');
+        rendererScript.type = 'module';
+        rendererScript.src = '${process.env.ELECTRON_RENDERER_URL}/renderer.ts';
+        document.body.appendChild(viteScript);
+        document.body.appendChild(rendererScript);
+        0
+      `);
+    } else {
+      const indexHTML = fs.readFileSync(path.join(__dirname, '..', 'renderer', 'index.html'), 'utf-8');
+      win.webContents.executeJavaScript(`
+        document.documentElement.insertAdjacentHTML('beforeend', '${indexHTML}');
+      `);
+    }
   });
 
   win.webContents.loadURL(urlToLoad);
