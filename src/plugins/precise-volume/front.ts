@@ -1,7 +1,8 @@
+import { overrideListener } from './override';
+
 import { debounce } from '../../providers/decorators';
 
-import { YoutubePlayer } from '../../types/youtube-player';
-
+import type { YoutubePlayer } from '../../types/youtube-player';
 import type { ConfigType } from '../../config/dynamic';
 
 function $<E extends Element = Element>(selector: string) {
@@ -12,6 +13,8 @@ let api: YoutubePlayer;
 let options: ConfigType<'precise-volume'>;
 
 export default (_options: ConfigType<'precise-volume'>) => {
+  overrideListener();
+
   options = _options;
   document.addEventListener('apiLoaded', (e) => {
     api = e.detail;

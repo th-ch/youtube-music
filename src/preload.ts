@@ -4,7 +4,6 @@ import is from 'electron-is';
 import config from './config';
 
 import adblockerPreload from './plugins/adblocker/preload';
-import preciseVolumePreload from './plugins/precise-volume/preload';
 
 import type { ConfigType, OneOfDefaultConfigKey } from './config/dynamic';
 
@@ -18,7 +17,6 @@ export type PluginMapper<Type extends 'renderer' | 'preload' | 'backend'> = {
 
 const preloadPlugins: PluginMapper<'preload'> = {
   'adblocker': adblockerPreload,
-  'precise-volume': preciseVolumePreload,
 };
 
 const enabledPluginNameAndOptions = config.plugins.getEnabled();
