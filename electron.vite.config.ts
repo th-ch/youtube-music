@@ -23,7 +23,7 @@ export default defineConfig({
       },
     };
 
-    if (command === 'serve' && mode === 'development') {
+    if (mode === 'development') {
       return commonConfig;
     }
 
@@ -54,7 +54,7 @@ export default defineConfig({
       },
     };
 
-    if (command === 'serve' && mode === 'development') {
+    if (mode === 'development') {
       return commonConfig;
     }
 
@@ -87,7 +87,7 @@ export default defineConfig({
       },
     };
 
-    if (command === 'serve' && mode === 'development') {
+    if (mode === 'development') {
       return commonConfig;
     }
 
