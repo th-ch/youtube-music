@@ -26,6 +26,7 @@
       "!node_modules/**/*.map",
       "!node_modules/**/*.ts"
     ],
+    "asarUnpack": ["assets"],
     "mac": {
       "identity": null,
       "target": [

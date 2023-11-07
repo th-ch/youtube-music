@@ -1,17 +1,8 @@
 import fs from 'node:fs';
-import path from 'node:path';
 
-import { app } from 'electron';
 import is from 'electron-is';
 
 import defaultConfig from '../config/defaults';
-
-export const getAssetsDirectoryLocation = () => path.resolve(__dirname, '..', 'assets');
-
-export const getMediaIconLocation = () =>
-  app.isPackaged
-    ? path.resolve(app.getPath('userData'), 'icons')
-    : path.resolve(getAssetsDirectoryLocation(), 'media-icons-black');
 
 export const mediaIcons = {
   play: '\u{1405}', // ᐅ
@@ -19,19 +10,6 @@ export const mediaIcons = {
   next: '\u{1433}', // ᐳ
   previous: '\u{1438}', // ᐸ
 } as const;
-
-export const saveMediaIcon = () => {
-  for (const kind of Object.keys(mediaIcons)) {
-    const destinationPath = path.join(getMediaIconLocation(), `${kind}.png`);
-    if (fs.existsSync(destinationPath)) {
-      continue;
-    }
-
-    const iconPath = path.resolve(path.resolve(getAssetsDirectoryLocation(), 'media-icons-black'), `${kind}.png`);
-    fs.mkdirSync(path.dirname(destinationPath), { recursive: true });
-    fs.copyFile(iconPath, destinationPath, () => {});
-  }
-};
 
 export const fileExists = (
   path: fs.PathLike,

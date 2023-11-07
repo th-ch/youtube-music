@@ -8,7 +8,7 @@ import config from './config';
 import { cache } from '../../providers/decorators';
 import { SongInfo } from '../../providers/song-info';
 
-import youtubeMusicIcon from '../../../assets/youtube-music.png?asset';
+import youtubeMusicIcon from '../../../assets/youtube-music.png?asset&asarUnpack';
 
 
 const userData = app.getPath('userData');

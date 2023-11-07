@@ -1,5 +1,3 @@
-import path from 'node:path';
-
 import { app, BrowserWindow, ipcMain, Notification } from 'electron';
 
 import { notificationImage, secondsToMinutes, ToastStyles } from './utils';
@@ -9,7 +7,12 @@ import getSongControls from '../../providers/song-controls';
 import registerCallback, { SongInfo } from '../../providers/song-info';
 import { changeProtocolHandler } from '../../providers/protocol-handler';
 import { setTrayOnClick, setTrayOnDoubleClick } from '../../tray';
-import { getMediaIconLocation, mediaIcons, saveMediaIcon } from '../utils';
+import { mediaIcons } from '../utils';
+
+import playIcon from '../../../assets/media-icons-black/play.png?asset&asarUnpack';
+import pauseIcon from '../../../assets/media-icons-black/pause.png?asset&asarUnpack';
+import nextIcon from '../../../assets/media-icons-black/next.png?asset&asarUnpack';
+import previousIcon from '../../../assets/media-icons-black/previous.png?asset&asarUnpack';
 
 let songControls: ReturnType<typeof getSongControls>;
 let savedNotification: Notification | undefined;
@@ -21,10 +24,6 @@ export default (win: BrowserWindow) => {
   ipcMain.on('apiLoaded', () => win.webContents.send('setupTimeChangedListener'));
 
   ipcMain.on('timeChanged', (_, t: number) => currentSeconds = t);
-
-  if (app.isPackaged) {
-    saveMediaIcon();
-  }
 
   let savedSongInfo: SongInfo;
   let lastUrl: string | undefined;
@@ -152,6 +151,22 @@ const getXml = (songInfo: SongInfo, iconSrc: string) => {
     }
   }
 };
+
+const selectIcon = (kind: keyof typeof mediaIcons): string => {
+  switch (kind) {
+    case 'play':
+      return playIcon;
+    case 'pause':
+      return pauseIcon;
+    case 'next':
+      return nextIcon;
+    case 'previous':
+      return previousIcon;
+    default:
+      return '';
+  }
+};
+
 const display = (kind: keyof typeof mediaIcons) => {
   if (config.get('toastStyle') === ToastStyles.legacy) {
     return `content="${mediaIcons[kind]}"`;
@@ -159,7 +174,7 @@ const display = (kind: keyof typeof mediaIcons) => {
 
   return `\
             content="${config.get('hideButtonText') ? '' : kind.charAt(0).toUpperCase() + kind.slice(1)}"\
-            imageUri="file:///${path.resolve(getMediaIconLocation(), `${kind}.png`)}"
+            imageUri="file:///${selectIcon(kind)}"
         `;
 };
 

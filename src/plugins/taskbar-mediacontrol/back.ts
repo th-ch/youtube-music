@@ -1,19 +1,18 @@
-import path from 'node:path';
-
-import { app, BrowserWindow, nativeImage } from 'electron';
+import { BrowserWindow, nativeImage } from 'electron';
 
 import getSongControls from '../../providers/song-controls';
 import registerCallback, { SongInfo } from '../../providers/song-info';
-import { getMediaIconLocation, saveMediaIcon } from '../utils';
+import { mediaIcons } from '../utils';
+
+import playIcon from '../../../assets/media-icons-black/play.png?asset&asarUnpack';
+import pauseIcon from '../../../assets/media-icons-black/pause.png?asset&asarUnpack';
+import nextIcon from '../../../assets/media-icons-black/next.png?asset&asarUnpack';
+import previousIcon from '../../../assets/media-icons-black/previous.png?asset&asarUnpack';
 
 export default (win: BrowserWindow) => {
   let currentSongInfo: SongInfo;
 
   const { playPause, next, previous } = getSongControls(win);
-
-  if (app.isPackaged) {
-    saveMediaIcon();
-  }
 
   const setThumbar = (win: BrowserWindow, songInfo: SongInfo) => {
     // Wait for song to start before setting thumbar
@@ -47,8 +46,19 @@ export default (win: BrowserWindow) => {
   };
 
   // Util
-  const get = (kind: string) => {
-    return path.join(getMediaIconLocation(), `${kind}.png`);
+  const get = (kind: keyof typeof mediaIcons): string => {
+    switch (kind) {
+      case 'play':
+        return playIcon;
+      case 'pause':
+        return pauseIcon;
+      case 'next':
+        return nextIcon;
+      case 'previous':
+        return previousIcon;
+      default:
+        return '';
+    }
   };
 
   registerCallback((songInfo) => {
