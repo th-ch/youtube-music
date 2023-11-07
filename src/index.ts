@@ -1,4 +1,5 @@
 import path from 'node:path';
+import url from 'node:url';
 import fs from 'node:fs';
 
 import { BrowserWindow, app, screen, globalShortcut, session, shell, dialog, ipcMain } from 'electron';
@@ -334,19 +335,6 @@ async function createMainWindow() {
 
   removeContentSecurityPolicy();
 
-  const escapeXml = (unsafe: string) => {
-    return unsafe.replace(/[<>&'"]/g, (c) => {
-      switch (c) {
-        case '<': return '&lt;';
-        case '>': return '&gt;';
-        case '&': return '&amp;';
-        case '\'': return '&apos;';
-        case '"': return '&quot;';
-        default: return c;
-      }
-    });
-  };
-
   win.webContents.on('dom-ready', async () => {
     // Inject index.html file as string using insertAdjacentHTML
     // In dev mode, get string from process.env.VITE_DEV_SERVER_URL, else use fs.readFileSync
@@ -368,8 +356,12 @@ async function createMainWindow() {
       const rendererPath = path.join(__dirname, '..', 'renderer');
       const indexHTML = parse(fs.readFileSync(path.join(rendererPath, 'index.html'), 'utf-8'));
       const scriptSrc = indexHTML.querySelector('script')!;
-      const scriptString = fs.readFileSync(path.join(rendererPath, scriptSrc.getAttribute('src')!), 'utf-8');
-      await win.webContents.executeJavaScript(scriptString + `;0`);
+      const scriptPath = path.join(rendererPath, scriptSrc.getAttribute('src')!);
+      const scriptString = fs.readFileSync(scriptPath, 'utf-8');
+      await win.webContents.executeJavaScriptInIsolatedWorld(0, [{
+        code: scriptString + ';0',
+        url: url.pathToFileURL(scriptPath).toString(),
+      }], true);
     }
   });
 
