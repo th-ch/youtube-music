@@ -1,56 +1,103 @@
-import { defineConfig } from 'electron-vite';
+import { defineConfig, defineViteConfig } from 'electron-vite';
 import builtinModules from 'builtin-modules';
 
+import type { UserConfig } from 'vite';
+
 export default defineConfig({
-  main: {
-    publicDir: 'assets',
-    build: {
-      lib: {
-        entry: 'src/index.ts',
-        formats: ['cjs'],
+  main: defineViteConfig(({ command, mode }) => {
+    const commonConfig: UserConfig = {
+      publicDir: 'assets',
+      build: {
+        lib: {
+          entry: 'src/index.ts',
+          formats: ['cjs'],
+        },
+        outDir: 'dist/main',
+        commonjsOptions: {
+          ignoreDynamicRequires: true,
+        },
+        rollupOptions: {
+          external: ['electron', 'custom-electron-prompt', ...builtinModules],
+          input: './src/index.ts',
+        },
       },
-      outDir: 'dist/main',
-      commonjsOptions: {
-        ignoreDynamicRequires: true,
+    };
+
+    if (command === 'serve' && mode === 'development') {
+      return commonConfig;
+    }
+
+    return {
+      ...commonConfig,
+      build: {
+        ...commonConfig.build,
+        minify: true,
+        cssMinify: true,
       },
-      rollupOptions: {
-        external: ['electron', 'custom-electron-prompt', ...builtinModules],
-        input: './src/index.ts',
+    };
+  }),
+  preload: defineViteConfig(({ command, mode }) => {
+    const commonConfig: UserConfig = {
+      build: {
+        lib: {
+          entry: 'src/preload.ts',
+          formats: ['cjs'],
+        },
+        outDir: 'dist/preload',
+        commonjsOptions: {
+          ignoreDynamicRequires: true,
+        },
+        rollupOptions: {
+          external: ['electron', 'custom-electron-prompt', ...builtinModules],
+          input: './src/preload.ts',
+        }
       },
-    },
-  },
-  preload: {
-    build: {
-      lib: {
-        entry: 'src/preload.ts',
-        formats: ['cjs'],
+    };
+
+    if (command === 'serve' && mode === 'development') {
+      return commonConfig;
+    }
+
+    return {
+      ...commonConfig,
+      build: {
+        ...commonConfig.build,
+        minify: true,
+        cssMinify: true,
       },
-      outDir: 'dist/preload',
-      commonjsOptions: {
-        ignoreDynamicRequires: true,
+    };
+  }),
+  renderer: defineViteConfig(({ command, mode }) => {
+    const commonConfig: UserConfig = {
+      root: './src/',
+      build: {
+        lib: {
+          entry: 'src/index.html',
+          formats: ['iife'],
+          name: 'renderer',
+        },
+        outDir: 'dist/renderer',
+        commonjsOptions: {
+          ignoreDynamicRequires: true,
+        },
+        rollupOptions: {
+          external: ['electron', ...builtinModules],
+          input: './src/index.html',
+        },
       },
-      rollupOptions: {
-        external: ['electron', 'custom-electron-prompt', ...builtinModules],
-        input: './src/preload.ts',
-      }
-    },
-  },
-  renderer: {
-    root: './src/',
-    build: {
-      lib: {
-        entry: 'src/index.html',
-        formats: ['iife'],
-        name: 'renderer',
+    };
+
+    if (command === 'serve' && mode === 'development') {
+      return commonConfig;
+    }
+
+    return {
+      ...commonConfig,
+      build: {
+        ...commonConfig.build,
+        minify: true,
+        cssMinify: true,
       },
-      outDir: 'dist/renderer',
-      commonjsOptions: {
-        ignoreDynamicRequires: true,
-      },
-      rollupOptions: {
-        external: ['electron', ...builtinModules],
-        input: './src/index.html',
-      },
-    },
-  },
+    };
+  }),
 });

@@ -14,10 +14,10 @@
   "build": {
     "appId": "com.github.th-ch.youtube-music",
     "productName": "YouTube Music",
-    "extraResources": ["assets"],
     "files": [
       "!*",
       "dist",
+      "assets",
       "license",
       "!node_modules",
       "node_modules/custom-electron-prompt/**",
