@@ -1,4 +1,4 @@
-import qualitySettingsTemplate from './templates/qualitySettingsTemplate.html';
+import qualitySettingsTemplate from './templates/qualitySettingsTemplate.html?raw';
 
 import { ElementFromHtml } from '../utils-renderer';
 import { YoutubePlayer } from '../../types/youtube-player';

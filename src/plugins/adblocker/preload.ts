@@ -1,5 +1,5 @@
 import config, { shouldUseBlocklists } from './config';
-import inject from './inject';
+import { inject } from './inject';
 import injectCliqzPreload from './inject-cliqz-preload';
 
 import { blockers } from './blocker-types';

@@ -8,6 +8,7 @@ import is from 'electron-is';
 import unhandled from 'electron-unhandled';
 import { autoUpdater } from 'electron-updater';
 import electronDebug from 'electron-debug';
+import { parse } from 'node-html-parser';
 
 import config from './config';
 import { refreshMenu, setApplicationMenu } from './menu';
@@ -198,7 +199,7 @@ async function createMainWindow() {
     show: false,
     webPreferences: {
       contextIsolation: true,
-      preload: path.join(__dirname, 'preload.js'),
+      preload: path.join(__dirname, '..', 'preload', 'preload.js'),
       ...(isTesting()
         ? undefined
         : {
@@ -334,12 +335,34 @@ async function createMainWindow() {
 
   removeContentSecurityPolicy();
 
-  win.webContents.on('dom-ready', () => {
-    const rendererScriptPath = path.join(__dirname, 'renderer.js');
-    win.webContents.executeJavaScriptInIsolatedWorld(0, [{
-      code: fs.readFileSync(rendererScriptPath, 'utf-8') + ';0',
-      url: url.pathToFileURL(rendererScriptPath).toString(),
-    }], true);
+  win.webContents.on('dom-ready', async () => {
+    // Inject index.html file as string using insertAdjacentHTML
+    // In dev mode, get string from process.env.VITE_DEV_SERVER_URL, else use fs.readFileSync
+    if (is.dev() && process.env.ELECTRON_RENDERER_URL) {
+      // HACK: to make vite work with electron renderer (supports hot reload)
+      await win.webContents.executeJavaScript(`
+        console.log('Loading vite from dev server');
+        const viteScript = document.createElement('script');
+        viteScript.type = 'module';
+        viteScript.src = '${process.env.ELECTRON_RENDERER_URL}/@vite/client';
+        const rendererScript = document.createElement('script');
+        rendererScript.type = 'module';
+        rendererScript.src = '${process.env.ELECTRON_RENDERER_URL}/renderer.ts';
+        document.body.appendChild(viteScript);
+        document.body.appendChild(rendererScript);
+        0
+      `);
+    } else {
+      const rendererPath = path.join(__dirname, '..', 'renderer');
+      const indexHTML = parse(fs.readFileSync(path.join(rendererPath, 'index.html'), 'utf-8'));
+      const scriptSrc = indexHTML.querySelector('script')!;
+      const scriptPath = path.join(rendererPath, scriptSrc.getAttribute('src')!);
+      const scriptString = fs.readFileSync(scriptPath, 'utf-8');
+      await win.webContents.executeJavaScriptInIsolatedWorld(0, [{
+        code: scriptString + ';0',
+        url: url.pathToFileURL(scriptPath).toString(),
+      }], true);
+    }
   });
 
   win.webContents.loadURL(urlToLoad);

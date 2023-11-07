@@ -1,3 +1,1 @@
-const inject: () => void;
-
-export default inject;
+export const inject: () => void;

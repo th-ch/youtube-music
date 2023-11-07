@@ -1,12 +1,10 @@
-import path from 'node:path';
-
 import { Menu, nativeImage, Tray } from 'electron';
 
 import { restart } from './providers/app-controls';
 import config from './config';
 import getSongControls from './providers/song-controls';
 
-import { getAssetsDirectoryLocation } from './plugins/utils';
+import youtubeMusicTrayIcon from '../assets/youtube-music-tray.png?asset';
 
 import type { MenuTemplate } from './menu';
 
@@ -41,9 +39,8 @@ export const setUpTray = (app: Electron.App, win: Electron.BrowserWindow) => {
   }
 
   const { playPause, next, previous } = getSongControls(win);
-  const iconPath = path.join(getAssetsDirectoryLocation(), 'youtube-music-tray.png');
 
-  const trayIcon = nativeImage.createFromPath(iconPath).resize({
+  const trayIcon = nativeImage.createFromPath(youtubeMusicTrayIcon).resize({
     width: 16,
     height: 16,
   });

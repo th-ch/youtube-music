@@ -1,12 +1,13 @@
 import { createPanel } from './menu/panel';
 
-import logo from './assets/menu.svg';
-import close from './assets/close.svg';
-import minimize from './assets/minimize.svg';
-import maximize from './assets/maximize.svg';
-import unmaximize from './assets/unmaximize.svg';
+import logoRaw from './assets/menu.svg?inline';
+import closeRaw from './assets/close.svg?inline';
+import minimizeRaw from './assets/minimize.svg?inline';
+import maximizeRaw from './assets/maximize.svg?inline';
+import unmaximizeRaw from './assets/unmaximize.svg?inline';
 
 import type { Menu } from 'electron';
+import * as electron from 'electron';
 
 function $<E extends Element = Element>(selector: string) {
   return document.querySelector<E>(selector);
@@ -22,6 +23,26 @@ export default async () => {
   const navBar = document.querySelector<HTMLDivElement>('#nav-bar-background');
   let maximizeButton: HTMLButtonElement;
   if (isMacOS) titleBar.style.setProperty('--offset-left', '70px');
+
+  const logo = document.createElement('img');
+  const close = document.createElement('img');
+  const minimize = document.createElement('img');
+  const maximize = document.createElement('img');
+  const unmaximize = document.createElement('img');
+
+  if (window.ELECTRON_RENDERER_URL) {
+    logo.src = window.ELECTRON_RENDERER_URL + '/' + logoRaw;
+    close.src = window.ELECTRON_RENDERER_URL + '/' + closeRaw;
+    minimize.src = window.ELECTRON_RENDERER_URL + '/' + minimizeRaw;
+    maximize.src = window.ELECTRON_RENDERER_URL + '/' + maximizeRaw;
+    unmaximize.src = window.ELECTRON_RENDERER_URL + '/' + unmaximizeRaw;
+  } else {
+    logo.src = logoRaw;
+    close.src = closeRaw;
+    minimize.src = minimizeRaw;
+    maximize.src = maximizeRaw;
+    unmaximize.src = unmaximizeRaw;
+  }
 
   logo.classList.add('title-bar-icon');
   const logoClick = () => {

@@ -1,5 +1,5 @@
-import forwardHTML from './templates/forward.html';
-import backHTML from './templates/back.html';
+import forwardHTML from './templates/forward.html?raw';
+import backHTML from './templates/back.html?raw';
 
 import { ElementFromHtml } from '../utils-renderer';
 

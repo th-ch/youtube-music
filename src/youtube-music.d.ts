@@ -1,12 +1,19 @@
+/// <reference types="electron-vite/node" />
+
 declare module '*.html' {
   const html: string;
 
   export default html;
 }
-declare module '*.svg' {
-  const element: SVGAElement;
+declare module '*.html?raw' {
+  const html: string;
 
-  export default element;
+  export default html;
+}
+declare module '*.svg?inline' {
+  const base64: string;
+
+  export default base64;
 }
 declare module '*.png' {
   const element: HTMLImageElement;
@@ -15,23 +22,10 @@ declare module '*.png' {
 }
 declare module '*.jpg' {
   const element: HTMLImageElement;
-
   export default element;
 }
 declare module '*.css' {
   const css: string;
 
   export default css;
-}
-
-declare module 'rollup-plugin-string' {
-  import type { Plugin } from 'rollup';
-
-  interface PluginOptions {
-    include?: string[] | string;
-    exclude?: string[] | string;
-    minifier?: unknown;
-  }
-
-  export function string(options?: PluginOptions): Plugin;
 }

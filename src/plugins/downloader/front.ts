@@ -1,4 +1,4 @@
-import downloadHTML from './templates/download.html';
+import downloadHTML from './templates/download.html?raw';
 
 import defaultConfig from '../../config/defaults';
 import { getSongMenu } from '../../providers/dom-elements';
