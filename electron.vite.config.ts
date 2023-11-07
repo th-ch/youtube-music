@@ -4,7 +4,7 @@ import builtinModules from 'builtin-modules';
 import type { UserConfig } from 'vite';
 
 export default defineConfig({
-  main: defineViteConfig(({ command, mode }) => {
+  main: defineViteConfig(({ mode }) => {
     const commonConfig: UserConfig = {
       publicDir: 'assets',
       build: {
@@ -36,7 +36,7 @@ export default defineConfig({
       },
     };
   }),
-  preload: defineViteConfig(({ command, mode }) => {
+  preload: defineViteConfig(({ mode }) => {
     const commonConfig: UserConfig = {
       build: {
         lib: {
@@ -67,7 +67,7 @@ export default defineConfig({
       },
     };
   }),
-  renderer: defineViteConfig(({ command, mode }) => {
+  renderer: defineViteConfig(({ mode }) => {
     const commonConfig: UserConfig = {
       root: './src/',
       build: {
