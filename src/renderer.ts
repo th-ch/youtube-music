@@ -2,8 +2,8 @@ import setupSongInfo from './providers/song-info-front';
 import { setupSongControls } from './providers/song-controls-front';
 import { startingPages } from './providers/extracted-data';
 
-// eslint-disable-next-line import/no-unresolved,import/order
-import { pluginList } from 'rendererPlugins';
+// eslint-disable-next-line import/order
+import { pluginList as rendererPluginList } from 'virtual:RendererPlugins';
 
 const enabledPluginNameAndOptions = window.mainConfig.plugins.getEnabled();
 
@@ -93,8 +93,8 @@ function onApiLoaded() {
 
 (() => {
   enabledPluginNameAndOptions.forEach(async ([pluginName, options]) => {
-    if (Object.hasOwn(pluginList, pluginName)) {
-      const handler = pluginList[pluginName];
+    if (Object.hasOwn(rendererPluginList, pluginName)) {
+      const handler = rendererPluginList[pluginName];
       try {
         await handler?.(options as never);
       } catch (error) {

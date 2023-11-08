@@ -20,8 +20,8 @@ import { setupSongInfo } from './providers/song-info';
 import { restart, setupAppControls } from './providers/app-controls';
 import { APP_PROTOCOL, handleProtocol, setupProtocolHandler } from './providers/protocol-handler';
 
-// eslint-disable-next-line import/no-unresolved,import/order
-import { pluginList as mainPluginList } from 'mainPlugins';
+// eslint-disable-next-line import/order
+import { pluginList as mainPluginList } from 'virtual:MainPlugins';
 
 import { setOptions as pipSetOptions } from './plugins/picture-in-picture/back';
 

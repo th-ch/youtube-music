@@ -3,8 +3,8 @@ import is from 'electron-is';
 
 import config from './config';
 
-// eslint-disable-next-line import/no-unresolved,import/order
-import { pluginList } from 'preloadPlugins';
+// eslint-disable-next-line import/order
+import { pluginList as preloadPluginList } from 'virtual:PreloadPlugins';
 
 import type { ConfigType, OneOfDefaultConfigKey } from './config/dynamic';
 
@@ -19,8 +19,8 @@ export type PluginMapper<Type extends 'renderer' | 'preload' | 'backend'> = {
 const enabledPluginNameAndOptions = config.plugins.getEnabled();
 
 enabledPluginNameAndOptions.forEach(async ([plugin, options]) => {
-  if (Object.hasOwn(pluginList, plugin)) {
-    const handler = pluginList[plugin];
+  if (Object.hasOwn(preloadPluginList, plugin)) {
+    const handler = preloadPluginList[plugin];
     try {
       await handler?.();
     } catch (error) {
