@@ -68,8 +68,9 @@ const sendError = (error: Error, source?: string) => {
   const cause = error.cause ? `\n\n${String(error.cause)}` : '';
   const message = `${error.toString()}${songNameMessage}${cause}`;
 
-  console.error(message, error, error?.stack);
-  dialog.showMessageBox({
+  console.error(message);
+  console.trace(error);
+  dialog.showMessageBox(win, {
     type: 'info',
     buttons: ['OK'],
     title: 'Error in download!',
@@ -527,7 +528,7 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
     mkdirSync(playlistFolder, { recursive: true });
   }
 
-  dialog.showMessageBox({
+  dialog.showMessageBox(win, {
     type: 'info',
     buttons: ['OK'],
     title: 'Started Download',

@@ -1,7 +1,7 @@
-import { ipcMain, dialog } from 'electron';
+import { ipcMain, dialog, BrowserWindow } from 'electron';
 
-export default () => {
-  ipcMain.handle('qualityChanger', async (_, qualityLabels: string[], currentIndex: number) => await dialog.showMessageBox({
+export default (win: BrowserWindow) => {
+  ipcMain.handle('qualityChanger', async (_, qualityLabels: string[], currentIndex: number) => await dialog.showMessageBox(win, {
     type: 'question',
     buttons: qualityLabels,
     defaultId: currentIndex,

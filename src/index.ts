@@ -554,7 +554,15 @@ app.on('ready', async () => {
         message: 'A new version is available',
         detail: `A new version is available and can be downloaded at ${downloadLink}`,
       };
-      dialog.showMessageBox(dialogOptions).then((dialogOutput) => {
+
+      let dialogPromise: Promise<Electron.MessageBoxReturnValue>;
+      if (mainWindow) {
+        dialogPromise = dialog.showMessageBox(mainWindow, dialogOptions);
+      } else {
+        dialogPromise = dialog.showMessageBox(dialogOptions);
+      }
+
+      dialogPromise.then((dialogOutput) => {
         switch (dialogOutput.response) {
           // Download
           case 1: {
