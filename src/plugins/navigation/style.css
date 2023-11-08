@@ -19,11 +19,7 @@
 
 .navigation-icon {
   display: inline-flex;
-  -ms-flex-align: center;
-  -webkit-align-items: center;
   align-items: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
   justify-content: center;
   position: relative;
   vertical-align: middle;
