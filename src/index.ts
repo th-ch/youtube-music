@@ -191,6 +191,12 @@ async function createMainWindow() {
   const windowPosition: Electron.Point = config.get('window-position');
   const useInlineMenu = config.plugins.isEnabled('in-app-menu');
 
+  const defaultTitleBarOverlayOptions: Electron.TitleBarOverlayOptions = {
+    color: '#00000000',
+    symbolColor: '#ffffff',
+    height: 36,
+  };
+
   const win = new BrowserWindow({
     icon,
     width: windowSize.width,
@@ -209,11 +215,7 @@ async function createMainWindow() {
         }),
     },
     frame: !is.macOS() && !useInlineMenu,
-    titleBarOverlay: {
-      color: '#00000000',
-      symbolColor: '#ffffff',
-      height: 36,
-    },
+    titleBarOverlay: defaultTitleBarOverlayOptions,
     titleBarStyle: useInlineMenu
       ? 'hidden'
       : (is.macOS()
@@ -336,6 +338,13 @@ async function createMainWindow() {
   removeContentSecurityPolicy();
 
   win.webContents.on('dom-ready', async () => {
+    if (useInlineMenu) {
+      win.setTitleBarOverlay({
+        ...defaultTitleBarOverlayOptions,
+        height: Math.floor(defaultTitleBarOverlayOptions.height! * win.webContents.getZoomFactor()),
+      });
+    }
+
     // Inject index.html file as string using insertAdjacentHTML
     // In dev mode, get string from process.env.VITE_DEV_SERVER_URL, else use fs.readFileSync
     if (is.dev() && process.env.ELECTRON_RENDERER_URL) {
