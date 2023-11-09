@@ -26,4 +26,9 @@ export interface MenuPlugin<ConfigType extends Config> extends Plugin<ConfigType
   onEnable: (config: ConfigType) => void;
 }
 
-export const defineConfig = <ConfigType extends Config>(config: ConfigType) => config;
+const defaultPluginConfig: Record<string, unknown> = {};
+export const definePluginConfig = <T>(id: string, defaultValue: T): T => {
+  defaultPluginConfig[id] = defaultValue;
+
+  return defaultValue;
+};

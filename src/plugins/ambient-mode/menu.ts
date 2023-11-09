@@ -1,6 +1,4 @@
-import config from './config';
-
-import { MenuTemplate } from '../../menu';
+import builder from './';
 
 const interpolationTimeList = [0, 500, 1000, 1500, 2000, 3000, 4000, 5000];
 const qualityList = [10, 25, 50, 100, 200, 500, 1000];
@@ -9,15 +7,15 @@ const bufferList = [1, 5, 10, 20, 30];
 const blurAmountList = [0, 5, 10, 25, 50, 100, 150, 200, 500];
 const opacityList = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1];
 
-export default (): MenuTemplate => [
+export default builder.createMenu(({ getConfig, setConfig }) => ([
   {
     label: 'Smoothness transition',
     submenu: interpolationTimeList.map((interpolationTime) => ({
       label: `During ${interpolationTime / 1000}s`,
       type: 'radio',
-      checked: config.get('interpolationTime') === interpolationTime,
+      checked: getConfig().interpolationTime === interpolationTime,
       click() {
-        config.set('interpolationTime', interpolationTime);
+        setConfig({ interpolationTime });
       },
     })),
   },
@@ -26,9 +24,9 @@ export default (): MenuTemplate => [
     submenu: qualityList.map((quality) => ({
       label: `${quality} pixels`,
       type: 'radio',
-      checked: config.get('quality') === quality,
+      checked: getConfig().quality === quality,
       click() {
-        config.set('quality', quality);
+        setConfig({ quality });
       },
     })),
   },
@@ -37,9 +35,9 @@ export default (): MenuTemplate => [
     submenu: sizeList.map((size) => ({
       label: `${size}%`,
       type: 'radio',
-      checked: config.get('size') === size,
+      checked: getConfig().size === size,
       click() {
-        config.set('size', size);
+        setConfig({ size });
       },
     })),
   },
@@ -48,9 +46,9 @@ export default (): MenuTemplate => [
     submenu: bufferList.map((buffer) => ({
       label: `${buffer}`,
       type: 'radio',
-      checked: config.get('buffer') === buffer,
+      checked: getConfig().buffer === buffer,
       click() {
-        config.set('buffer', buffer);
+        setConfig({ buffer });
       },
     })),
   },
@@ -59,9 +57,9 @@ export default (): MenuTemplate => [
     submenu: opacityList.map((opacity) => ({
       label: `${opacity * 100}%`,
       type: 'radio',
-      checked: config.get('opacity') === opacity,
+      checked: getConfig().opacity === opacity,
       click() {
-        config.set('opacity', opacity);
+        setConfig({ opacity });
       },
     })),
   },
@@ -70,18 +68,18 @@ export default (): MenuTemplate => [
     submenu: blurAmountList.map((blur) => ({
       label: `${blur} pixels`,
       type: 'radio',
-      checked: config.get('blur') === blur,
+      checked: getConfig().blur === blur,
       click() {
-        config.set('blur', blur);
+        setConfig({ blur });
       },
     })),
   },
   {
     label: 'Using fullscreen',
     type: 'checkbox',
-    checked: config.get('fullscreen'),
+    checked: getConfig().fullscreen,
     click(item) {
-      config.set('fullscreen', item.checked);
+      setConfig({ fullscreen: item.checked });
     },
   },
-];
+]));
