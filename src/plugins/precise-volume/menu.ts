@@ -2,7 +2,7 @@ import prompt, { KeybindOptions } from 'custom-electron-prompt';
 
 import { BrowserWindow, MenuItem } from 'electron';
 
-import { enabled } from './back';
+import { enabled } from './main';
 
 import { setMenuOptions } from '../../config/plugins';
 import promptOptions from '../../providers/prompt-options';

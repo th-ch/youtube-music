@@ -207,7 +207,7 @@ Create a folder in `plugins/YOUR-PLUGIN-NAME`:
 - if you need to manipulate the BrowserWindow, create a file with the following template:
 
 ```typescript
-// file: back.ts
+// file: main.ts
 export default (win: Electron.BrowserWindow, config: ConfigType<'YOUR-PLUGIN-NAME'>) => {
   // something
 };
@@ -229,7 +229,7 @@ const mainPlugins = {
 - if you need to change the front, create a file with the following template:
 
 ```typescript
-// file: front.ts
+// file: renderer.ts
 export default (config: ConfigType<'YOUR-PLUGIN-NAME'>) => {
   // This function will be called as a preload script
   // So you can use front features like `document.querySelector`
@@ -269,7 +269,7 @@ export default {
 import path from 'node:path';
 import style from './style.css';
 
-// back.ts
+// main.ts
 export default (win: Electron.BrowserWindow) => {
   injectCSS(win.webContents, style);
 };
@@ -278,7 +278,7 @@ export default (win: Electron.BrowserWindow) => {
 - changing the HTML:
 
 ```typescript
-// front.ts
+// renderer.ts
 export default () => {
   // Remove the login button
   document.querySelector(".sign-in-link.ytmusic-nav-bar").remove();

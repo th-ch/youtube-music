@@ -21,9 +21,9 @@ import { restart, setupAppControls } from './providers/app-controls';
 import { APP_PROTOCOL, handleProtocol, setupProtocolHandler } from './providers/protocol-handler';
 
 // eslint-disable-next-line import/order
-import { pluginList as mainPluginList } from 'virtual:MainPlugins';
+import { mainPlugins } from 'virtual:MainPlugins';
 
-import { setOptions as pipSetOptions } from './plugins/picture-in-picture/back';
+import { setOptions as pipSetOptions } from './plugins/picture-in-picture/main';
 
 import youtubeMusicCSS from './youtube-music.css';
 
@@ -83,18 +83,18 @@ function onClosed() {
   mainWindow = null;
 }
 
-export const mainPluginNames = Object.keys(mainPluginList);
+export const mainPluginNames = Object.keys(mainPlugins);
 
 if (is.windows()) {
-  delete mainPluginList['touchbar'];
+  delete mainPlugins['touchbar'];
 } else if (is.macOS()) {
-  delete mainPluginList['taskbar-mediacontrol'];
+  delete mainPlugins['taskbar-mediacontrol'];
 } else {
-  delete mainPluginList['touchbar'];
-  delete mainPluginList['taskbar-mediacontrol'];
+  delete mainPlugins['touchbar'];
+  delete mainPlugins['taskbar-mediacontrol'];
 }
 
-ipcMain.handle('get-main-plugin-names', () => Object.keys(mainPluginList));
+ipcMain.handle('get-main-plugin-names', () => Object.keys(mainPlugins));
 
 async function loadPlugins(win: BrowserWindow) {
   injectCSS(win.webContents, youtubeMusicCSS);
@@ -123,9 +123,9 @@ async function loadPlugins(win: BrowserWindow) {
 
   for (const [plugin, options] of config.plugins.getEnabled()) {
     try {
-      if (Object.hasOwn(mainPluginList, plugin)) {
+      if (Object.hasOwn(mainPlugins, plugin)) {
         console.log('Loaded plugin - ' + plugin);
-        const handler = mainPluginList[plugin as keyof typeof mainPluginList];
+        const handler = mainPlugins[plugin as keyof typeof mainPlugins];
         if (handler) {
           await handler(win, options as never);
         }

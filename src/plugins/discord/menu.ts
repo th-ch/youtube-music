@@ -1,6 +1,6 @@
 import prompt from 'custom-electron-prompt';
 
-import { clear, connect, isConnected, registerRefresh } from './back';
+import { clear, connect, isConnected, registerRefresh } from './main';
 
 import { setMenuOptions } from '../../config/plugins';
 import promptOptions from '../../providers/prompt-options';
