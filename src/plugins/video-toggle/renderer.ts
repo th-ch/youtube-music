@@ -2,7 +2,7 @@ import buttonTemplate from './templates/button_template.html?raw';
 
 import { ElementFromHtml } from '../utils/renderer';
 
-import { moveVolumeHud as preciseVolumeMoveVolumeHud } from '../precise-volume/front';
+import { moveVolumeHud as preciseVolumeMoveVolumeHud } from '../precise-volume/renderer';
 
 import { YoutubePlayer } from '../../types/youtube-player';
 import { ThumbnailElement } from '../../types/get-player-response';

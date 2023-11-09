@@ -32,7 +32,7 @@ import { YoutubeFormatList, type Preset, DefaultPresetList } from './types';
 
 import style from './style.css';
 
-import { fetchFromGenius } from '../lyrics-genius/back';
+import { fetchFromGenius } from '../lyrics-genius/main';
 import { isEnabled } from '../../config/plugins';
 import { cleanupName, getImage, SongInfo } from '../../providers/song-info';
 import { injectCSS } from '../utils/main';

@@ -1,6 +1,6 @@
 import { BrowserWindow, MenuItem } from 'electron';
 
-import { LyricGeniusType, toggleRomanized } from './back';
+import { LyricGeniusType, toggleRomanized } from './main';
 
 import { setOptions } from '../../config/plugins';
 import { MenuTemplate } from '../../menu';

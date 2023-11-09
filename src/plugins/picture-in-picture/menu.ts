@@ -2,7 +2,7 @@ import prompt from 'custom-electron-prompt';
 
 import { BrowserWindow } from 'electron';
 
-import { setOptions } from './back';
+import { setOptions } from './main';
 
 import promptOptions from '../../providers/prompt-options';
 

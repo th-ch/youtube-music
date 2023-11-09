@@ -1,6 +1,6 @@
 import { dialog } from 'electron';
 
-import { downloadPlaylist } from './back';
+import { downloadPlaylist } from './main';
 import { defaultMenuDownloadLabel, getFolder } from './utils';
 import { DefaultPresetList } from './types';
 import config from './config';
