@@ -10,9 +10,13 @@ import { injectCSS } from '../utils';
 export default (win: BrowserWindow) => {
   injectCSS(win.webContents, titlebarStyle);
 
+  win.on('close', () => {
+    win.webContents.send('close-all-in-app-menu-panel');
+  });
+
   win.once('ready-to-show', () => {
     register(win, '`', () => {
-      win.webContents.send('toggleMenu');
+      win.webContents.send('toggle-in-app-menu');
     });
   });
 

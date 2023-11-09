@@ -21,6 +21,7 @@ export default async () => {
   const titleBar = document.createElement('title-bar');
   const navBar = document.querySelector<HTMLDivElement>('#nav-bar-background');
   let maximizeButton: HTMLButtonElement;
+  let panelClosers: (() => void)[] = [];
   if (isMacOS) titleBar.style.setProperty('--offset-left', '70px');
 
   const logo = document.createElement('img');
@@ -59,7 +60,7 @@ export default async () => {
   };
   logo.onclick = logoClick;
 
-  window.ipcRenderer.on('toggleMenu', logoClick);
+  window.ipcRenderer.on('toggle-in-app-menu', logoClick);
 
   if (!isMacOS) titleBar.appendChild(logo);
   document.body.appendChild(titleBar);
@@ -134,13 +135,15 @@ export default async () => {
     children.forEach((child) => {
       if (child !== logo) child.remove();
     });
+    panelClosers = [];
 
     const menu = await window.ipcRenderer.invoke('get-menu') as Menu | null;
     if (!menu) return;
 
     menu.items.forEach((menuItem) => {
       const menu = document.createElement('menu-button');
-      createPanel(titleBar, menu, menuItem.submenu?.items ?? []);
+      const [, { close: closer }] = createPanel(titleBar, menu, menuItem.submenu?.items ?? []);
+      panelClosers.push(closer);
 
       menu.append(menuItem.label);
       titleBar.appendChild(menu);
@@ -154,7 +157,10 @@ export default async () => {
 
   document.title = 'Youtube Music';
 
-  window.ipcRenderer.on('refreshMenu', () => updateMenu());
+  window.ipcRenderer.on('close-all-in-app-menu-panel', () => {
+    panelClosers.forEach((closer) => closer());
+  });
+  window.ipcRenderer.on('refresh-in-app-menu', () => updateMenu());
   window.ipcRenderer.on('window-maximize', () => {
     if (isNotWindowsOrMacOS && !hideDOMWindowControls && maximizeButton.firstChild) {
       maximizeButton.removeChild(maximizeButton.firstChild);

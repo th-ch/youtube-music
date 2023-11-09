@@ -39,7 +39,7 @@ const pluginEnabledMenu = (plugin: string, label = '', hasSubmenu = false, refre
 export const refreshMenu = (win: BrowserWindow) => {
   setApplicationMenu(win);
   if (inAppMenuActive) {
-    win.webContents.send('refreshMenu');
+    win.webContents.send('refresh-in-app-menu');
   }
 };
 
