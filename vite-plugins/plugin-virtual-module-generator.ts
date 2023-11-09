@@ -5,7 +5,7 @@ import { globSync } from 'glob';
 
 const snakeToCamel = (text: string) => text.replace(/-(\w)/g, (_, letter: string) => letter.toUpperCase());
 
-export const pluginVirtualModuleGenerator = (mode: 'back' | 'preload' | 'front') => {
+export const pluginVirtualModuleGenerator = (mode: 'back' | 'preload' | 'front' | 'menu') => {
   const srcPath = resolve(__dirname, '..', 'src');
 
   const plugins = globSync(`${srcPath}/plugins/*`)

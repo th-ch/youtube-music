@@ -5,6 +5,14 @@ declare module 'virtual:MainPlugins' {
   export const pluginList: Record<string, (win: BrowserWindow, options: ConfigType) => Promise<void>>;
 }
 
+declare module 'virtual:MenuPlugins' {
+  import type { BrowserWindow } from 'electron';
+  import type { MenuTemplate } from './menu';
+  import type { ConfigType } from './config/dynamic';
+
+  export const pluginList: Record<string, (win: BrowserWindow, options: ConfigType, refreshMenu: () => void) => MenuTemplate>;
+}
+
 declare module 'virtual:PreloadPlugins' {
   export const pluginList: Record<string, () => Promise<void>>;
 }

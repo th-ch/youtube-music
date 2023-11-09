@@ -7,21 +7,9 @@ import config from './config';
 import { startingPages } from './providers/extracted-data';
 import promptOptions from './providers/prompt-options';
 
-import adblockerMenu from './plugins/adblocker/menu';
-import ambientModeMenu from './plugins/ambient-mode/menu';
-import captionsSelectorMenu from './plugins/captions-selector/menu';
-import crossfadeMenu from './plugins/crossfade/menu';
-import disableAutoplayMenu from './plugins/disable-autoplay/menu';
-import discordMenu from './plugins/discord/menu';
-import downloaderMenu from './plugins/downloader/menu';
-import inAppMenuTitlebarMenu from './plugins/in-app-menu/menu';
-import lyricsGeniusMenu from './plugins/lyrics-genius/menu';
-import notificationsMenu from './plugins/notifications/menu';
-import pictureInPictureMenu from './plugins/picture-in-picture/menu';
-import preciseVolumeMenu from './plugins/precise-volume/menu';
-import shortcutsMenu from './plugins/shortcuts/menu';
-import videoToggleMenu from './plugins/video-toggle/menu';
-import visualizerMenu from './plugins/visualizer/menu';
+// eslint-disable-next-line import/order
+import { pluginList as menuList } from 'virtual:MenuPlugins';
+
 import { getAvailablePluginNames } from './plugins/utils';
 
 export type MenuTemplate = Electron.MenuItemConstructorOptions[];
@@ -30,24 +18,6 @@ export type MenuTemplate = Electron.MenuItemConstructorOptions[];
 const inAppMenuActive = config.plugins.isEnabled('in-app-menu');
 
 const betaPlugins = ['crossfade', 'lumiastream'];
-
-const pluginMenus = {
-  'adblocker': adblockerMenu,
-  'ambient-mode': ambientModeMenu,
-  'disable-autoplay': disableAutoplayMenu,
-  'captions-selector': captionsSelectorMenu,
-  'crossfade': crossfadeMenu,
-  'discord': discordMenu,
-  'downloader': downloaderMenu,
-  'in-app-menu': inAppMenuTitlebarMenu,
-  'lyrics-genius': lyricsGeniusMenu,
-  'notifications': notificationsMenu,
-  'picture-in-picture': pictureInPictureMenu,
-  'precise-volume': preciseVolumeMenu,
-  'shortcuts': shortcutsMenu,
-  'video-toggle': videoToggleMenu,
-  'visualizer': visualizerMenu,
-};
 
 const pluginEnabledMenu = (plugin: string, label = '', hasSubmenu = false, refreshMenu: (() => void ) | undefined = undefined): Electron.MenuItemConstructorOptions => ({
   label: label || plugin,
@@ -86,8 +56,8 @@ export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
             pluginLabel += ' [beta]';
           }
 
-          if (Object.hasOwn(pluginMenus, pluginName)) {
-            const getPluginMenu = pluginMenus[pluginName as keyof typeof pluginMenus];
+          if (Object.hasOwn(menuList, pluginName)) {
+            const getPluginMenu = menuList[pluginName];
 
             if (!config.plugins.isEnabled(pluginName)) {
               return pluginEnabledMenu(pluginName, pluginLabel, true, innerRefreshMenu);
@@ -98,7 +68,7 @@ export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
               submenu: [
                 pluginEnabledMenu(pluginName, 'Enabled', true, innerRefreshMenu),
                 { type: 'separator' },
-                ...getPluginMenu(win, config.plugins.getOptions(pluginName), innerRefreshMenu),
+                ...(getPluginMenu(win, config.plugins.getOptions(pluginName), innerRefreshMenu) as MenuTemplate),
               ],
             } satisfies Electron.MenuItemConstructorOptions;
           }

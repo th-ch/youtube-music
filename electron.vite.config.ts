@@ -12,6 +12,7 @@ export default defineConfig({
       plugins: [
         viteResolve({
           'virtual:MainPlugins': pluginVirtualModuleGenerator('back'),
+          'virtual:MenuPlugins': pluginVirtualModuleGenerator('menu'),
         }),
       ],
       publicDir: 'assets',
