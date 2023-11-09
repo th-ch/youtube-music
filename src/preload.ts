@@ -22,7 +22,7 @@ enabledPluginNameAndOptions.forEach(async ([plugin, options]) => {
   if (Object.hasOwn(preloadPluginList, plugin)) {
     const handler = preloadPluginList[plugin];
     try {
-      await handler?.();
+      await handler?.(options);
     } catch (error) {
       console.error(`Error in plugin "${plugin}": ${String(error)}`);
     }

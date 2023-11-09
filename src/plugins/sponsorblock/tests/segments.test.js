@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+
 const { test, expect } = require('@playwright/test');
 
 const { sortSegments } = require('../segments');

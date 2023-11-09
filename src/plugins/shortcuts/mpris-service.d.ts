@@ -1,7 +1,7 @@
 declare module '@jellybrick/mpris-service' {
   import { EventEmitter } from 'events';
 
-  import dbus from 'dbus-next';
+  import { interface as dbusInterface } from 'dbus-next';
 
 
   interface RootInterfaceOptions {
@@ -101,7 +101,7 @@ declare module '@jellybrick/mpris-service' {
     static LOOP_STATUS_PLAYLIST: 'Playlist';
   }
 
-  interface MprisInterface extends dbus.interface.Interface {
+  interface MprisInterface extends dbusInterface.Interface {
     setProperty(property: string, valuePlain: unknown): void;
   }
 

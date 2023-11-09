@@ -7,7 +7,6 @@ import maximizeRaw from './assets/maximize.svg?inline';
 import unmaximizeRaw from './assets/unmaximize.svg?inline';
 
 import type { Menu } from 'electron';
-import * as electron from 'electron';
 
 function $<E extends Element = Element>(selector: string) {
   return document.querySelector<E>(selector);

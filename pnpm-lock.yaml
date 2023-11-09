@@ -55,6 +55,9 @@ dependencies:
   custom-electron-prompt:
     specifier: 1.5.7
     version: 1.5.7(electron@27.0.3)
+  dbus-next:
+    specifier: 0.10.2
+    version: 0.10.2
   electron-debug:
     specifier: 3.2.0
     version: 3.2.0

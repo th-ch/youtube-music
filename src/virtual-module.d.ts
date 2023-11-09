@@ -14,7 +14,9 @@ declare module 'virtual:MenuPlugins' {
 }
 
 declare module 'virtual:PreloadPlugins' {
-  export const pluginList: Record<string, () => Promise<void>>;
+  import type { ConfigType } from './config/dynamic';
+
+  export const pluginList: Record<string, (options: ConfigType) => Promise<void>>;
 }
 
 declare module 'virtual:RendererPlugins' {
