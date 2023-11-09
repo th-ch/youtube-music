@@ -3,7 +3,8 @@ import is from 'electron-is';
 
 import config from './config';
 
-import adblockerPreload from './plugins/adblocker/preload';
+// eslint-disable-next-line import/order
+import { pluginList as preloadPluginList } from 'virtual:PreloadPlugins';
 
 import type { ConfigType, OneOfDefaultConfigKey } from './config/dynamic';
 
@@ -15,15 +16,11 @@ export type PluginMapper<Type extends 'renderer' | 'preload' | 'backend'> = {
   )
 };
 
-const preloadPlugins: PluginMapper<'preload'> = {
-  'adblocker': adblockerPreload,
-};
-
 const enabledPluginNameAndOptions = config.plugins.getEnabled();
 
 enabledPluginNameAndOptions.forEach(async ([plugin, options]) => {
-  if (Object.hasOwn(preloadPlugins, plugin)) {
-    const handler = preloadPlugins[plugin];
+  if (Object.hasOwn(preloadPluginList, plugin)) {
+    const handler = preloadPluginList[plugin];
     try {
       await handler?.();
     } catch (error) {

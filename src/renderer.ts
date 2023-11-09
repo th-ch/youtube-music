@@ -2,55 +2,8 @@ import setupSongInfo from './providers/song-info-front';
 import { setupSongControls } from './providers/song-controls-front';
 import { startingPages } from './providers/extracted-data';
 
-import albumColorThemeRenderer from './plugins/album-color-theme/front';
-import ambientModeRenderer from './plugins/ambient-mode/front';
-import audioCompressorRenderer from './plugins/audio-compressor/front';
-import bypassAgeRestrictionsRenderer from './plugins/bypass-age-restrictions/front';
-import captionsSelectorRenderer from './plugins/captions-selector/front';
-import compactSidebarRenderer from './plugins/compact-sidebar/front';
-import crossfadeRenderer from './plugins/crossfade/front';
-import disableAutoplayRenderer from './plugins/disable-autoplay/front';
-import downloaderRenderer from './plugins/downloader/front';
-import exponentialVolumeRenderer from './plugins/exponential-volume/front';
-import inAppMenuRenderer from './plugins/in-app-menu/front';
-import lyricsGeniusRenderer from './plugins/lyrics-genius/front';
-import navigationRenderer from './plugins/navigation/front';
-import noGoogleLogin from './plugins/no-google-login/front';
-import pictureInPictureRenderer from './plugins/picture-in-picture/front';
-import playbackSpeedRenderer from './plugins/playback-speed/front';
-import preciseVolumeRenderer from './plugins/precise-volume/front';
-import qualityChangerRenderer from './plugins/quality-changer/front';
-import skipSilencesRenderer from './plugins/skip-silences/front';
-import sponsorblockRenderer from './plugins/sponsorblock/front';
-import videoToggleRenderer from './plugins/video-toggle/front';
-import visualizerRenderer from './plugins/visualizer/front';
-
-import type { PluginMapper } from './preload';
-
-const rendererPlugins: PluginMapper<'renderer'> = {
-  'album-color-theme': albumColorThemeRenderer,
-  'ambient-mode': ambientModeRenderer,
-  'audio-compressor': audioCompressorRenderer,
-  'bypass-age-restrictions': bypassAgeRestrictionsRenderer,
-  'captions-selector': captionsSelectorRenderer,
-  'compact-sidebar': compactSidebarRenderer,
-  'crossfade': crossfadeRenderer,
-  'disable-autoplay': disableAutoplayRenderer,
-  'downloader': downloaderRenderer,
-  'exponential-volume': exponentialVolumeRenderer,
-  'in-app-menu': inAppMenuRenderer,
-  'lyrics-genius': lyricsGeniusRenderer,
-  'navigation': navigationRenderer,
-  'no-google-login': noGoogleLogin,
-  'picture-in-picture': pictureInPictureRenderer,
-  'playback-speed': playbackSpeedRenderer,
-  'precise-volume': preciseVolumeRenderer,
-  'quality-changer': qualityChangerRenderer,
-  'skip-silences': skipSilencesRenderer,
-  'sponsorblock': sponsorblockRenderer,
-  'video-toggle': videoToggleRenderer,
-  'visualizer': visualizerRenderer,
-};
+// eslint-disable-next-line import/order
+import { pluginList as rendererPluginList } from 'virtual:RendererPlugins';
 
 const enabledPluginNameAndOptions = window.mainConfig.plugins.getEnabled();
 
@@ -140,8 +93,8 @@ function onApiLoaded() {
 
 (() => {
   enabledPluginNameAndOptions.forEach(async ([pluginName, options]) => {
-    if (Object.hasOwn(rendererPlugins, pluginName)) {
-      const handler = rendererPlugins[pluginName];
+    if (Object.hasOwn(rendererPluginList, pluginName)) {
+      const handler = rendererPluginList[pluginName];
       try {
         await handler?.(options as never);
       } catch (error) {

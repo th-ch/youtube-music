@@ -26,7 +26,9 @@
       "!node_modules/**/*.map",
       "!node_modules/**/*.ts"
     ],
-    "asarUnpack": ["assets"],
+    "asarUnpack": [
+      "assets"
+    ],
     "mac": {
       "identity": null,
       "target": [
@@ -183,12 +185,14 @@
     "eslint": "8.53.0",
     "eslint-plugin-import": "2.29.0",
     "eslint-plugin-prettier": "5.0.1",
+    "glob": "10.3.10",
     "node-gyp": "10.0.1",
     "playwright": "1.39.0",
     "rollup": "4.3.0",
     "typescript": "5.2.2",
     "utf-8-validate": "6.0.3",
     "vite": "4.5.0",
+    "vite-plugin-resolve": "2.5.1",
     "ws": "8.14.2",
     "yarpm": "1.2.0"
   },

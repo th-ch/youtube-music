@@ -11,6 +11,7 @@ import electronDebug from 'electron-debug';
 import { parse } from 'node-html-parser';
 
 import config from './config';
+
 import { refreshMenu, setApplicationMenu } from './menu';
 import { fileExists, injectCSS, injectCSSAsFile } from './plugins/utils';
 import { isTesting } from './utils/testing';
@@ -19,31 +20,10 @@ import { setupSongInfo } from './providers/song-info';
 import { restart, setupAppControls } from './providers/app-controls';
 import { APP_PROTOCOL, handleProtocol, setupProtocolHandler } from './providers/protocol-handler';
 
-import adblocker from './plugins/adblocker/back';
-import albumColorTheme from './plugins/album-color-theme/back';
-import ambientMode from './plugins/ambient-mode/back';
-import blurNavigationBar from './plugins/blur-nav-bar/back';
-import captionsSelector from './plugins/captions-selector/back';
-import crossfade from './plugins/crossfade/back';
-import discord from './plugins/discord/back';
-import downloader from './plugins/downloader/back';
-import inAppMenu from './plugins/in-app-menu/back';
-import lastFm from './plugins/last-fm/back';
-import lumiaStream from './plugins/lumiastream/back';
-import lyricsGenius from './plugins/lyrics-genius/back';
-import navigation from './plugins/navigation/back';
-import noGoogleLogin from './plugins/no-google-login/back';
-import notifications from './plugins/notifications/back';
-import pictureInPicture, { setOptions as pipSetOptions } from './plugins/picture-in-picture/back';
-import preciseVolume from './plugins/precise-volume/back';
-import qualityChanger from './plugins/quality-changer/back';
-import shortcuts from './plugins/shortcuts/back';
-import sponsorBlock from './plugins/sponsorblock/back';
-import taskbarMediaControl from './plugins/taskbar-mediacontrol/back';
-import touchbar from './plugins/touchbar/back';
-import tunaObs from './plugins/tuna-obs/back';
-import videoToggle from './plugins/video-toggle/back';
-import visualizer from './plugins/visualizer/back';
+// eslint-disable-next-line import/order
+import { pluginList as mainPluginList } from 'virtual:MainPlugins';
+
+import { setOptions as pipSetOptions } from './plugins/picture-in-picture/back';
 
 import youtubeMusicCSS from './youtube-music.css';
 
@@ -103,47 +83,18 @@ function onClosed() {
   mainWindow = null;
 }
 
-const mainPlugins = {
-  'adblocker': adblocker,
-  'album-color-theme': albumColorTheme,
-  'ambient-mode': ambientMode,
-  'blur-nav-bar': blurNavigationBar,
-  'captions-selector': captionsSelector,
-  'crossfade': crossfade,
-  'discord': discord,
-  'downloader': downloader,
-  'in-app-menu': inAppMenu,
-  'last-fm': lastFm,
-  'lumiastream': lumiaStream,
-  'lyrics-genius': lyricsGenius,
-  'navigation': navigation,
-  'no-google-login': noGoogleLogin,
-  'notifications': notifications,
-  'picture-in-picture': pictureInPicture,
-  'precise-volume': preciseVolume,
-  'quality-changer': qualityChanger,
-  'shortcuts': shortcuts,
-  'sponsorblock': sponsorBlock,
-  'taskbar-mediacontrol': undefined as typeof taskbarMediaControl | undefined,
-  'touchbar': undefined as typeof touchbar | undefined,
-  'tuna-obs': tunaObs,
-  'video-toggle': videoToggle,
-  'visualizer': visualizer,
-};
-export const mainPluginNames = Object.keys(mainPlugins);
+export const mainPluginNames = Object.keys(mainPluginList);
 
 if (is.windows()) {
-  mainPlugins['taskbar-mediacontrol'] = taskbarMediaControl;
-  delete mainPlugins['touchbar'];
+  delete mainPluginList['touchbar'];
 } else if (is.macOS()) {
-  mainPlugins['touchbar'] = touchbar;
-  delete mainPlugins['taskbar-mediacontrol'];
+  delete mainPluginList['taskbar-mediacontrol'];
 } else {
-  delete mainPlugins['touchbar'];
-  delete mainPlugins['taskbar-mediacontrol'];
+  delete mainPluginList['touchbar'];
+  delete mainPluginList['taskbar-mediacontrol'];
 }
 
-ipcMain.handle('get-main-plugin-names', () => Object.keys(mainPlugins));
+ipcMain.handle('get-main-plugin-names', () => Object.keys(mainPluginList));
 
 async function loadPlugins(win: BrowserWindow) {
   injectCSS(win.webContents, youtubeMusicCSS);
@@ -172,9 +123,9 @@ async function loadPlugins(win: BrowserWindow) {
 
   for (const [plugin, options] of config.plugins.getEnabled()) {
     try {
-      if (Object.hasOwn(mainPlugins, plugin)) {
+      if (Object.hasOwn(mainPluginList, plugin)) {
         console.log('Loaded plugin - ' + plugin);
-        const handler = mainPlugins[plugin as keyof typeof mainPlugins];
+        const handler = mainPluginList[plugin as keyof typeof mainPluginList];
         if (handler) {
           await handler(win, options as never);
         }
@@ -262,7 +213,6 @@ async function createMainWindow() {
 
   type PiPOptions = typeof config.defaultConfig.plugins['picture-in-picture'];
   const setPiPOptions = config.plugins.isEnabled('picture-in-picture')
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
     ? (key: string, value: unknown) => pipSetOptions({ [key]: value })
     : () => {};
 

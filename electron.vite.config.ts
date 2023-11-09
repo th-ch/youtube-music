@@ -1,11 +1,19 @@
 import { defineConfig, defineViteConfig } from 'electron-vite';
 import builtinModules from 'builtin-modules';
+import viteResolve from 'vite-plugin-resolve';
+
+import { pluginVirtualModuleGenerator } from './vite-plugins/plugin-virtual-module-generator';
 
 import type { UserConfig } from 'vite';
 
 export default defineConfig({
   main: defineViteConfig(({ mode }) => {
     const commonConfig: UserConfig = {
+      plugins: [
+        viteResolve({
+          'virtual:MainPlugins': pluginVirtualModuleGenerator('back'),
+        }),
+      ],
       publicDir: 'assets',
       build: {
         lib: {
@@ -38,6 +46,11 @@ export default defineConfig({
   }),
   preload: defineViteConfig(({ mode }) => {
     const commonConfig: UserConfig = {
+      plugins: [
+        viteResolve({
+          'virtual:PreloadPlugins': pluginVirtualModuleGenerator('preload'),
+        }),
+      ],
       build: {
         lib: {
           entry: 'src/preload.ts',
@@ -69,6 +82,11 @@ export default defineConfig({
   }),
   renderer: defineViteConfig(({ mode }) => {
     const commonConfig: UserConfig = {
+      plugins: [
+        viteResolve({
+          'virtual:RendererPlugins': pluginVirtualModuleGenerator('front'),
+        }),
+      ],
       root: './src/',
       build: {
         lib: {

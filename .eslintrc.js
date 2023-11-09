@@ -26,6 +26,7 @@ module.exports = {
     'import/newline-after-import': 'error',
     'import/no-default-export': 'off',
     'import/no-duplicates': 'error',
+    'import/no-unresolved': ['error', { ignore: ['^virtual:'] }],
     'import/order': [
       'error',
       {
