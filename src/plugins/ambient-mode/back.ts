@@ -3,7 +3,7 @@ import { BrowserWindow } from 'electron';
 import config from './config';
 import style from './style.css';
 
-import { injectCSS } from '../utils';
+import { injectCSS } from '../utils/main';
 
 export default (win: BrowserWindow) => {
   config.subscribeAll((newConfig) => {

@@ -5,7 +5,7 @@ import pipHTML from './templates/picture-in-picture.html?raw';
 
 import { getSongMenu } from '../../providers/dom-elements';
 
-import { ElementFromHtml } from '../utils-renderer';
+import { ElementFromHtml } from '../utils/renderer';
 
 import type { ConfigType } from '../../config/dynamic';
 

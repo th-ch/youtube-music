@@ -7,7 +7,7 @@ import { GetGeniusLyric } from './types';
 
 import { cleanupName, SongInfo } from '../../providers/song-info';
 
-import { injectCSS } from '../utils';
+import { injectCSS } from '../utils/main';
 
 import type { ConfigType } from '../../config/dynamic';
 

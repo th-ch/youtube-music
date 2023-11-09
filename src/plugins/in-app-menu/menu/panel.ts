@@ -1,6 +1,6 @@
 import Icons from './icons';
 
-import { ElementFromHtml } from '../../utils-renderer';
+import { ElementFromHtml } from '../../utils/renderer';
 
 import type { MenuItem } from 'electron';
 

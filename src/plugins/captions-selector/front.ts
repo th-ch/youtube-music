@@ -2,7 +2,7 @@ import configProvider from './config-renderer';
 
 import CaptionsSettingsButtonHTML from './templates/captions-settings-template.html?raw';
 
-import { ElementFromHtml } from '../utils-renderer';
+import { ElementFromHtml } from '../utils/renderer';
 import { YoutubePlayer } from '../../types/youtube-player';
 
 import type { ConfigType } from '../../config/dynamic';

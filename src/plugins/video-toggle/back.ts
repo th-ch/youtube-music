@@ -3,7 +3,7 @@ import { BrowserWindow } from 'electron';
 import forceHideStyle from './force-hide.css';
 import buttonSwitcherStyle from './button-switcher.css';
 
-import { injectCSS } from '../utils';
+import { injectCSS } from '../utils/main';
 
 import type { ConfigType } from '../../config/dynamic';
 
