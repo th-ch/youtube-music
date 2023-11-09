@@ -1,6 +1,6 @@
 import buttonTemplate from './templates/button_template.html?raw';
 
-import { ElementFromHtml } from '../utils-renderer';
+import { ElementFromHtml } from '../utils/renderer';
 
 import { moveVolumeHud as preciseVolumeMoveVolumeHud } from '../precise-volume/front';
 

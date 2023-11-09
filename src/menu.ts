@@ -10,7 +10,7 @@ import promptOptions from './providers/prompt-options';
 // eslint-disable-next-line import/order
 import { pluginList as menuList } from 'virtual:MenuPlugins';
 
-import { getAvailablePluginNames } from './plugins/utils';
+import { getAvailablePluginNames } from './plugins/utils/main';
 
 export type MenuTemplate = Electron.MenuItemConstructorOptions[];
 

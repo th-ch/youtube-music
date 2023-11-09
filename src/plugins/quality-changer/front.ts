@@ -1,6 +1,6 @@
 import qualitySettingsTemplate from './templates/qualitySettingsTemplate.html?raw';
 
-import { ElementFromHtml } from '../utils-renderer';
+import { ElementFromHtml } from '../utils/renderer';
 import { YoutubePlayer } from '../../types/youtube-player';
 
 function $(selector: string): HTMLElement | null {

@@ -2,7 +2,7 @@ import { app, BrowserWindow, ipcMain } from 'electron';
 
 import style from './style.css';
 
-import { injectCSS } from '../utils';
+import { injectCSS } from '../utils/main';
 import { setOptions as setPluginOptions } from '../../config/plugins';
 
 import type { ConfigType } from '../../config/dynamic';

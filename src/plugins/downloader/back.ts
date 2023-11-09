@@ -35,7 +35,7 @@ import style from './style.css';
 import { fetchFromGenius } from '../lyrics-genius/back';
 import { isEnabled } from '../../config/plugins';
 import { cleanupName, getImage, SongInfo } from '../../providers/song-info';
-import { injectCSS } from '../utils';
+import { injectCSS } from '../utils/main';
 import { cache } from '../../providers/decorators';
 
 import type { FormatOptions } from 'youtubei.js/dist/src/types/FormatUtils';

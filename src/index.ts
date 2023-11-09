@@ -13,7 +13,7 @@ import { parse } from 'node-html-parser';
 import config from './config';
 
 import { refreshMenu, setApplicationMenu } from './menu';
-import { fileExists, injectCSS, injectCSSAsFile } from './plugins/utils';
+import { fileExists, injectCSS, injectCSSAsFile } from './plugins/utils/main';
 import { isTesting } from './utils/testing';
 import { setUpTray } from './tray';
 import { setupSongInfo } from './providers/song-info';

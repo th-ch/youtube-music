@@ -2,7 +2,7 @@ import { globalShortcut, BrowserWindow } from 'electron';
 
 import volumeHudStyle from './volume-hud.css';
 
-import { injectCSS } from '../utils';
+import { injectCSS } from '../utils/main';
 
 import type { ConfigType } from '../../config/dynamic';
 

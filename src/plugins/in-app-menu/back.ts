@@ -4,7 +4,7 @@ import { BrowserWindow, Menu, MenuItem, ipcMain, nativeImage } from 'electron';
 
 import titlebarStyle from './titlebar.css';
 
-import { injectCSS } from '../utils';
+import { injectCSS } from '../utils/main';
 
 // Tracks menu visibility
 export default (win: BrowserWindow) => {
