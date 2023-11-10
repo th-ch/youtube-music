@@ -80,7 +80,7 @@ body:
   attributes:
     label: Enabled plugins
     description: Provide the list of plugins you enabled.
-    placeholder: - Album Color Theme
+    placeholder: 1. Album Color Theme
   validations:
     required: true
 - type: textarea
