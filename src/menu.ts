@@ -1,5 +1,5 @@
 import is from 'electron-is';
-import { app, BrowserWindow, clipboard, dialog, Menu } from 'electron';
+import { app, BrowserWindow, clipboard, dialog, ipcMain, Menu } from 'electron';
 import prompt from 'custom-electron-prompt';
 
 import { restart } from './providers/app-controls';
@@ -10,7 +10,10 @@ import promptOptions from './providers/prompt-options';
 // eslint-disable-next-line import/order
 import { menuPlugins as menuList } from 'virtual:MenuPlugins';
 
+import ambientModeMenuPlugin from './plugins/ambient-mode/menu';
+
 import { getAvailablePluginNames } from './plugins/utils/main';
+import { PluginBaseConfig, PluginContext } from './plugins/utils/builder';
 
 export type MenuTemplate = Electron.MenuItemConstructorOptions[];
 
@@ -43,14 +46,58 @@ export const refreshMenu = (win: BrowserWindow) => {
   }
 };
 
-export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
+export const mainMenuTemplate = async (win: BrowserWindow): Promise<MenuTemplate> => {
   const innerRefreshMenu = () => refreshMenu(win);
+  const createContext = <Config extends PluginBaseConfig>(name: string): PluginContext<Config> => ({
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    getConfig: () => config.get(`plugins.${name}`) as unknown as Config,
+    setConfig: (newConfig) => {
+      config.setPartial({
+        plugins: {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+          [name]: {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
+            ...config.get(`plugins.${name}`),
+            ...newConfig,
+          },
+        },
+      });
+
+      return Promise.resolve();
+    },
+  });
+
+  const pluginMenus = await Promise.all(
+    [['ambient-mode', ambientModeMenuPlugin] as const].map(async ([id, plugin]) => {
+      let pluginLabel = id;
+      if (betaPlugins.includes(pluginLabel)) {
+        pluginLabel += ' [beta]';
+      }
+
+      if (!config.plugins.isEnabled(id)) {
+        return pluginEnabledMenu(id, pluginLabel, true, innerRefreshMenu);
+      }
+
+      const template = await plugin(createContext(id));
+
+      return {
+        label: pluginLabel,
+        submenu: [
+          pluginEnabledMenu(id, 'Enabled', true, innerRefreshMenu),
+          { type: 'separator' },
+          ...template,
+        ],
+      } satisfies Electron.MenuItemConstructorOptions;
+    }),
+  );
 
   return [
     {
       label: 'Plugins',
-      submenu:
-        getAvailablePluginNames().map((pluginName) => {
+      submenu: [
+        ...getAvailablePluginNames().map((pluginName) => {
           let pluginLabel = pluginName;
           if (betaPlugins.includes(pluginLabel)) {
             pluginLabel += ' [beta]';
@@ -75,6 +122,8 @@ export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
 
           return pluginEnabledMenu(pluginName, pluginLabel);
         }),
+        ...pluginMenus,
+      ],
     },
     {
       label: 'Options',
@@ -402,8 +451,8 @@ export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
     }
   ];
 };
-export const setApplicationMenu = (win: Electron.BrowserWindow) => {
-  const menuTemplate: MenuTemplate = [...mainMenuTemplate(win)];
+export const setApplicationMenu = async (win: Electron.BrowserWindow) => {
+  const menuTemplate: MenuTemplate = [...await mainMenuTemplate(win)];
   if (process.platform === 'darwin') {
     const { name } = app;
     menuTemplate.unshift({

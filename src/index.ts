@@ -22,10 +22,14 @@ import { APP_PROTOCOL, handleProtocol, setupProtocolHandler } from './providers/
 
 // eslint-disable-next-line import/order
 import { mainPlugins } from 'virtual:MainPlugins';
+import ambientModeMainPluginBuilder from './plugins/ambient-mode/index';
+import qualityChangerMainPluginBuilder from './plugins/quality-changer/index';
+import qualityChangerMainPlugin from './plugins/quality-changer/main';
 
 import { setOptions as pipSetOptions } from './plugins/picture-in-picture/main';
 
 import youtubeMusicCSS from './youtube-music.css';
+import { MainPlugin, PluginBaseConfig, MainPluginContext } from './plugins/utils/builder';
 
 // Catch errors and log them
 unhandled({
@@ -96,6 +100,34 @@ if (is.windows()) {
 
 ipcMain.handle('get-main-plugin-names', () => Object.keys(mainPlugins));
 
+const pluginBuilderList = [
+  ['ambient-mode', ambientModeMainPluginBuilder] as const,
+  ['quality-changer', qualityChangerMainPluginBuilder] as const,
+];
+
+const mainPluginList = [
+  ['quality-changer', qualityChangerMainPlugin] as const,
+];
+const initHook = (win: BrowserWindow) => {
+  ipcMain.handle('get-config', (_, name: string) => config.get(`plugins.${name}` as never));
+  ipcMain.handle('set-config', (_, name: string, obj: object) => config.setPartial({
+    plugins: {
+      [name]: obj,
+    }
+  }));
+
+  config.watch((newValue) => {
+    const value = newValue as Record<string, unknown>;
+    const target = pluginBuilderList.find(([name]) => name in value);
+
+    if (target) {
+      win.webContents.send('config-changed', target[0], value[target[0]]);
+      console.log('config-changed', target[0], value[target[0]]);
+    }
+  });
+};
+
+const loadedPluginList: [string, MainPlugin<PluginBaseConfig>][] = [];
 async function loadPlugins(win: BrowserWindow) {
   injectCSS(win.webContents, youtubeMusicCSS);
   // Load user CSS
@@ -121,7 +153,58 @@ async function loadPlugins(win: BrowserWindow) {
     }
   });
 
+  
+  const createContext = <
+    Key extends keyof PluginBuilderList,
+    Config extends PluginBaseConfig = PluginBuilderList[Key]['config'],
+  >(name: Key): MainPluginContext<Config> => ({
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    getConfig: () => config.get(`plugins.${name}`) as unknown as Config,
+    setConfig: (newConfig) => {
+      config.setPartial({
+        plugins: {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+          [name]: {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
+            ...config.get(`plugins.${name}`),
+            ...newConfig,
+          },
+        },
+      });
+
+      return Promise.resolve();
+    },
+  
+    send: (event: string, ...args: unknown[]) => {
+      win.webContents.send(event, ...args);
+    },
+    handle: (event: string, listener) => {
+      ipcMain.handle(event, async (_, ...args) => listener(...args as never));
+    },
+  });
+ 
+
   for (const [plugin, options] of config.plugins.getEnabled()) {
+    const builderTarget = pluginBuilderList.find(([name]) => name === plugin);
+    const mainPluginTarget = mainPluginList.find(([name]) => name === plugin);
+
+    if (mainPluginTarget) {
+      const mainPlugin = mainPluginTarget[1];
+      const context = createContext(mainPluginTarget[0]);
+      const plugin = await mainPlugin(context);
+      loadedPluginList.push([mainPluginTarget[0], plugin]);
+      plugin.onLoad?.(win);
+    }
+
+    if (builderTarget) {
+      const builder = builderTarget[1];
+      builder.styles?.forEach((style) => {
+        injectCSS(win.webContents, style);
+      });
+    }
+
     try {
       if (Object.hasOwn(mainPlugins, plugin)) {
         console.log('Loaded plugin - ' + plugin);
@@ -174,6 +257,7 @@ async function createMainWindow() {
         : 'default'),
     autoHideMenuBar: config.get('options.hideMenu'),
   });
+  initHook(win);
   await loadPlugins(win);
 
   if (windowPosition) {

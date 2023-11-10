@@ -10,6 +10,9 @@ import { restart } from '../providers/app-controls';
 const set = (key: string, value: unknown) => {
   store.set(key, value);
 };
+const setPartial = (value: object) => {
+  store.set(value);
+};
 
 function setMenuOption(key: string, value: unknown) {
   set(key, value);
@@ -43,6 +46,7 @@ export default {
   defaultConfig,
   get,
   set,
+  setPartial,
   setMenuOption,
   edit: () => store.openInEditor(),
   watch(cb: Parameters<Store['onDidChange']>[1]) {

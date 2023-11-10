@@ -1,9 +1,12 @@
-import setupSongInfo from './providers/song-info-front';
-import { setupSongControls } from './providers/song-controls-front';
-import { startingPages } from './providers/extracted-data';
 
 // eslint-disable-next-line import/order
 import { rendererPlugins } from 'virtual:RendererPlugins';
+
+import { PluginBaseConfig, RendererPluginContext } from './plugins/utils/builder';
+
+import { startingPages } from './providers/extracted-data';
+import { setupSongControls } from './providers/song-controls-front';
+import setupSongInfo from './providers/song-info-front';
 
 const enabledPluginNameAndOptions = window.mainConfig.plugins.getEnabled();
 
@@ -91,8 +94,41 @@ function onApiLoaded() {
   }
 }
 
-(() => {
+const createContext = <
+  Key extends keyof PluginBuilderList,
+  Config extends PluginBaseConfig = PluginBuilderList[Key]['config'],
+>(name: Key): RendererPluginContext<Config> => ({
+  getConfig: async () => {
+    return await window.ipcRenderer.invoke('get-config', name) as Config;
+  },
+  setConfig: async (newConfig) => {
+    await window.ipcRenderer.invoke('set-config', name, newConfig);
+  },
+
+  invoke: async <Return>(event: string, ...args: unknown[]): Promise<Return> => {
+    return await window.ipcRenderer.invoke(event, ...args) as Return;
+  },
+  on: (event: string, listener) => {
+    window.ipcRenderer.on(event, async (_, ...args) => listener(...args as never));
+  },
+});
+
+(async () => {
   enabledPluginNameAndOptions.forEach(async ([pluginName, options]) => {
+    if (pluginName === 'ambient-mode') {
+      const builder = rendererPlugins[pluginName];
+
+      try {
+        const context = createContext(pluginName);
+        const plugin = await builder?.(context);
+        console.log(plugin);
+        plugin.onLoad?.();
+      } catch (error) {
+        console.error(`Error in plugin "${pluginName}"`);
+        console.trace(error);
+      }
+    }
+
     if (Object.hasOwn(rendererPlugins, pluginName)) {
       const handler = rendererPlugins[pluginName];
       try {
@@ -101,6 +137,22 @@ function onApiLoaded() {
         console.error(`Error in plugin "${pluginName}"`);
         console.trace(error);
       }
+    }
+  });
+  const rendererPluginList = await Promise.all(
+    newPluginList.map(async ([id, plugin]) => {
+      const context = createContext(id);
+      return [id, await plugin(context)] as const;
+    }),
+  );
+
+  rendererPluginList.forEach(([, plugin]) => plugin.onLoad?.());
+  
+  window.ipcRenderer.on('config-changed', (_event, id: string, newConfig) => {
+    const plugin = rendererPluginList.find(([pluginId]) => pluginId === id);
+
+    if (plugin) {
+      plugin[1].onConfigChange?.(newConfig as never);
     }
   });
 

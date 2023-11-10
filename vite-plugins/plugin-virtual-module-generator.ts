@@ -10,7 +10,14 @@ export const pluginVirtualModuleGenerator = (mode: 'main' | 'preload' | 'rendere
 
   const plugins = globSync(`${srcPath}/plugins/*`)
     .map((path) => ({ name: basename(path), path }))
-    .filter(({ name, path }) => !name.startsWith('utils') && existsSync(resolve(path, `${mode}.ts`)));
+    .filter(({ name, path }) => {
+      if (name.startsWith('utils')) return false;
+      if (path.includes('ambient-mode')) return false;
+      if (path.includes('quality')) return false;
+
+      return existsSync(resolve(path, `${mode}.ts`));
+    });
+  // for test !name.startsWith('ambient-mode')
 
   let result = '';
 

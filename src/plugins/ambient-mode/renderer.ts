@@ -1,7 +1,7 @@
 import builder from './index';
 
-export default builder.createRenderer(({ getConfig }) => {
-  const initConfigData = getConfig();
+export default builder.createRenderer(async ({ getConfig }) => {
+  const initConfigData = await getConfig();
 
   let interpolationTime = initConfigData.interpolationTime;
   let buffer = initConfigData.buffer;
@@ -26,6 +26,7 @@ export default builder.createRenderer(({ getConfig }) => {
         if (!video) return null;
         if (!wrapper) return null;
     
+        console.log('injectBlurVideo', songVideo, video, wrapper);
         const blurCanvas = document.createElement('canvas');
         blurCanvas.classList.add('html5-blur-canvas');
     
@@ -39,6 +40,7 @@ export default builder.createRenderer(({ getConfig }) => {
           if (typeof lastEffectWorkId === 'number') cancelAnimationFrame(lastEffectWorkId);
     
           lastEffectWorkId = requestAnimationFrame(() => {
+            // console.log('context', context);
             if (!context) return;
     
             const width = qualityRatio;

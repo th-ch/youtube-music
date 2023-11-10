@@ -19,20 +19,33 @@ export type PreloadPlugin<Config extends PluginBaseConfig> = BasePlugin<Config>;
 type DeepPartial<T> = {
   [P in keyof T]?: DeepPartial<T[P]>;
 };
-export type PluginContext<Config extends PluginBaseConfig> = {
-  getConfig: () => Config;
-  setConfig: (config: DeepPartial<Config>) => void;
+type IF<T> = (args: T) => T;
+type Promisable<T> = T | Promise<T>;
 
-  send: (event: string, ...args: unknown[]) => void;
-  on: (event: string, listener: (...args: unknown[]) => void) => void;
+export type PluginContext<Config extends PluginBaseConfig = PluginBaseConfig> = {
+  getConfig: () => Promise<Config>;
+  setConfig: (config: DeepPartial<Config>) => Promise<void>;
 };
 
-type IF<T> = (args: T) => T;
+export type MainPluginContext<Config extends PluginBaseConfig = PluginBaseConfig> = PluginContext<Config> & {
+  send: (event: string, ...args: unknown[]) => void;
+  handle: <Arguments extends unknown[], Return>(event: string, listener: (...args: Arguments) => Promisable<Return>) => void;
+};
+export type RendererPluginContext<Config extends PluginBaseConfig = PluginBaseConfig> = PluginContext<Config> & {
+  invoke: <Return>(event: string, ...args: unknown[]) => Promise<Return>;
+  on: <Arguments extends unknown[]>(event: string, listener: (...args: Arguments) => Promisable<void>) => void;
+};
+
+export type RendererPluginFactory<Config extends PluginBaseConfig> = (context: RendererPluginContext<Config>) => Promisable<RendererPlugin<Config>>;
+export type MainPluginFactory<Config extends PluginBaseConfig> = (context: MainPluginContext<Config>) => Promisable<MainPlugin<Config>>;
+export type PreloadPluginFactory<Config extends PluginBaseConfig> = (context: PluginContext<Config>) => Promisable<PreloadPlugin<Config>>;
+export type MenuPluginFactory<Config extends PluginBaseConfig> = (context: PluginContext<Config>) => Promisable<MenuItemConstructorOptions[]>;
+
 export type PluginBuilder<ID extends string, Config extends PluginBaseConfig> = {
-  createRenderer: IF<(context: PluginContext<Config>) => RendererPlugin<Config>>;
-  createMain: IF<(context: PluginContext<Config>) => MainPlugin<Config>>;
-  createPreload: IF<(context: PluginContext<Config>) => PreloadPlugin<Config>>;
-  createMenu: IF<(context: PluginContext<Config>) => MenuItemConstructorOptions[]>;
+  createRenderer: IF<RendererPluginFactory<Config>>;
+  createMain: IF<MainPluginFactory<Config>>;
+  createPreload: IF<PreloadPluginFactory<Config>>;
+  createMenu: IF<MenuPluginFactory<Config>>;
 
   id: ID;
   config: Config;
@@ -48,7 +61,7 @@ export type PluginBuilderOptions<Config extends PluginBaseConfig = PluginBaseCon
 export const createPluginBuilder = <ID extends string, Config extends PluginBaseConfig>(
   id: ID,
   options: PluginBuilderOptions<Config>,
-): PluginBuilder<ID, Config> => ({
+): PluginBuilder<ID, Omit<Config, 'enabled'> & PluginBaseConfig> => ({
   createRenderer: (plugin) => plugin,
   createMain: (plugin) => plugin,
   createPreload: (plugin) => plugin,
