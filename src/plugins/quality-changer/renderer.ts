@@ -43,7 +43,6 @@ export default builder.createRenderer(({ invoke }) => {
 
   return {
     onLoad() {
-      console.log('qc');
       document.addEventListener('apiLoaded', setup, { once: true, passive: true });
     }
   };

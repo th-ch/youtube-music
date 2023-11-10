@@ -11,6 +11,7 @@ export default defineConfig({
     const commonConfig: UserConfig = {
       plugins: [
         viteResolve({
+          'virtual:PluginBuilders': pluginVirtualModuleGenerator('index'),
           'virtual:MainPlugins': pluginVirtualModuleGenerator('main'),
           'virtual:MenuPlugins': pluginVirtualModuleGenerator('menu'),
         }),

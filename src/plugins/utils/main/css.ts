@@ -7,7 +7,6 @@ export const injectCSS = (webContents: Electron.WebContents, css: string, cb: ((
     setupCssInjection(webContents);
   }
 
-  console.log('injectCSS', css);
   cssToInject.set(css, cb);
 };
 

@@ -1,22 +1,25 @@
-import { BrowserWindow } from 'electron';
-
 import is from 'electron-is';
+
+import builder from './';
 
 import { setMenuOptions } from '../../config/plugins';
 
-import type { MenuTemplate } from '../../menu';
-import type { ConfigType } from '../../config/dynamic';
+export default builder.createMenu(async ({ getConfig }) => {
+  const config = await getConfig();
 
-export default (_: BrowserWindow, config: ConfigType<'in-app-menu'>): MenuTemplate => [
-  ...(is.linux() ? [
-    {
-      label: 'Hide DOM Window Controls',
-      type: 'checkbox',
-      checked: config.hideDOMWindowControls,
-      click(item) {
-        config.hideDOMWindowControls = item.checked;
-        setMenuOptions('in-app-menu', config);
+  if (is.linux()) {
+    return [
+      {
+        label: 'Hide DOM Window Controls',
+        type: 'checkbox',
+        checked: config.hideDOMWindowControls,
+        click(item) {
+          config.hideDOMWindowControls = item.checked;
+          setMenuOptions('in-app-menu', config);
+        }
       }
-    }
-  ] : []) satisfies Electron.MenuItemConstructorOptions[],
-];
+    ];
+  }
+
+  return [];
+});

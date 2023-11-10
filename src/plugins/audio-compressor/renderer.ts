@@ -1,17 +1,24 @@
-export default () =>
-  document.addEventListener('audioCanPlay', (e) => {
-    const { audioContext } = e.detail;
+import builder from '.';
 
-    const compressor = audioContext.createDynamicsCompressor();
-    compressor.threshold.value = -50;
-    compressor.ratio.value = 12;
-    compressor.knee.value = 40;
-    compressor.attack.value = 0;
-    compressor.release.value = 0.25;
+export default builder.createRenderer(() => {
+  return {
+    onLoad() {
+      document.addEventListener('audioCanPlay', (e) => {
+        const { audioContext } = e.detail;
 
-    e.detail.audioSource.connect(compressor);
-    compressor.connect(audioContext.destination);
-  }, {
-    once: true, // Only create the audio compressor once, not on each video
-    passive: true,
-  });
+        const compressor = audioContext.createDynamicsCompressor();
+        compressor.threshold.value = -50;
+        compressor.ratio.value = 12;
+        compressor.knee.value = 40;
+        compressor.attack.value = 0;
+        compressor.release.value = 0.25;
+
+        e.detail.audioSource.connect(compressor);
+        compressor.connect(audioContext.destination);
+      }, {
+        once: true, // Only create the audio compressor once, not on each video
+        passive: true,
+      });
+    }
+  };
+});

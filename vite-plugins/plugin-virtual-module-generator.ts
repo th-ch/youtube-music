@@ -3,31 +3,45 @@ import { basename, relative, resolve } from 'node:path';
 
 import { globSync } from 'glob';
 
-const snakeToCamel = (text: string) => text.replace(/-(\w)/g, (_, letter: string) => letter.toUpperCase());
+type PluginType = 'index' | 'main' | 'preload' | 'renderer' | 'menu';
 
-export const pluginVirtualModuleGenerator = (mode: 'main' | 'preload' | 'renderer' | 'menu') => {
+const snakeToCamel = (text: string) => text.replace(/-(\w)/g, (_, letter: string) => letter.toUpperCase());
+const getName = (mode: PluginType, name: string) => {
+  if (mode === 'index') {
+    return snakeToCamel(name);
+  }
+
+  return `${snakeToCamel(name)}Plugin`;
+};
+const getListName = (mode: PluginType) => {
+  if (mode === 'index') return 'pluginBuilders';
+
+  return `${mode}Plugins`;
+};
+
+export const pluginVirtualModuleGenerator = (mode: PluginType) => {
   const srcPath = resolve(__dirname, '..', 'src');
 
   const plugins = globSync(`${srcPath}/plugins/*`)
     .map((path) => ({ name: basename(path), path }))
     .filter(({ name, path }) => {
       if (name.startsWith('utils')) return false;
-      if (path.includes('ambient-mode')) return false;
-      if (path.includes('quality')) return false;
 
       return existsSync(resolve(path, `${mode}.ts`));
     });
-  // for test !name.startsWith('ambient-mode')
+
+    console.log('converted plugin list');
+    console.log(plugins.map((it) => it.name));
 
   let result = '';
 
   for (const { name, path } of plugins) {
-    result += `import ${snakeToCamel(name)}Plugin from "./${relative(resolve(srcPath, '..'), path).replace(/\\/g, '/')}/${mode}";\n`;
+    result += `import ${getName(mode, name)} from "./${relative(resolve(srcPath, '..'), path).replace(/\\/g, '/')}/${mode}";\n`;
   }
 
-  result += `export const ${mode}Plugins = {\n`;
+  result += `export const ${getListName(mode)} = {\n`;
   for (const { name } of plugins) {
-    result += `  "${name}": ${snakeToCamel(name)}Plugin,\n`;
+    result += `  "${name}": ${getName(mode, name)},\n`;
   }
   result += '};';
 

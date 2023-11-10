@@ -11,6 +11,7 @@ const set = (key: string, value: unknown) => {
   store.set(key, value);
 };
 const setPartial = (value: object) => {
+  // deepmerge(store.get, value);
   store.set(value);
 };
 

@@ -35,11 +35,14 @@ export type RendererPluginContext<Config extends PluginBaseConfig = PluginBaseCo
   invoke: <Return>(event: string, ...args: unknown[]) => Promise<Return>;
   on: <Arguments extends unknown[]>(event: string, listener: (...args: Arguments) => Promisable<void>) => void;
 };
+export type MenuPluginContext<Config extends PluginBaseConfig = PluginBaseConfig> = PluginContext<Config> & {
+  window: BrowserWindow;
+};
 
 export type RendererPluginFactory<Config extends PluginBaseConfig> = (context: RendererPluginContext<Config>) => Promisable<RendererPlugin<Config>>;
 export type MainPluginFactory<Config extends PluginBaseConfig> = (context: MainPluginContext<Config>) => Promisable<MainPlugin<Config>>;
 export type PreloadPluginFactory<Config extends PluginBaseConfig> = (context: PluginContext<Config>) => Promisable<PreloadPlugin<Config>>;
-export type MenuPluginFactory<Config extends PluginBaseConfig> = (context: PluginContext<Config>) => Promisable<MenuItemConstructorOptions[]>;
+export type MenuPluginFactory<Config extends PluginBaseConfig> = (context: MenuPluginContext<Config>) => Promisable<MenuItemConstructorOptions[]>;
 
 export type PluginBuilder<ID extends string, Config extends PluginBaseConfig> = {
   createRenderer: IF<RendererPluginFactory<Config>>;

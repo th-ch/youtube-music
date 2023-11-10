@@ -2,14 +2,15 @@ import buttonTemplate from './templates/button_template.html?raw';
 
 import { ElementFromHtml } from '../utils/renderer';
 
-import { moveVolumeHud as preciseVolumeMoveVolumeHud } from '../precise-volume/renderer';
+// import { moveVolumeHud as preciseVolumeMoveVolumeHud } from '../precise-volume/renderer';
 
 import { YoutubePlayer } from '../../types/youtube-player';
 import { ThumbnailElement } from '../../types/get-player-response';
 
 import type { ConfigType } from '../../config/dynamic';
 
-const moveVolumeHud = window.mainConfig.plugins.isEnabled('precise-volume') ? preciseVolumeMoveVolumeHud : () => {};
+// const moveVolumeHud = window.mainConfig.plugins.isEnabled('precise-volume') ? preciseVolumeMoveVolumeHud : () => {};
+const moveVolumeHud = () => {};
 
 function $<E extends Element = Element>(selector: string): E | null {
   return document.querySelector<E>(selector);

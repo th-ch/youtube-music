@@ -1,5 +1,5 @@
 import is from 'electron-is';
-import { app, BrowserWindow, clipboard, dialog, ipcMain, Menu } from 'electron';
+import { app, BrowserWindow, clipboard, dialog, Menu } from 'electron';
 import prompt from 'custom-electron-prompt';
 
 import { restart } from './providers/app-controls';
@@ -7,13 +7,13 @@ import config from './config';
 import { startingPages } from './providers/extracted-data';
 import promptOptions from './providers/prompt-options';
 
-// eslint-disable-next-line import/order
+/* eslint-disable import/order */
 import { menuPlugins as menuList } from 'virtual:MenuPlugins';
-
-import ambientModeMenuPlugin from './plugins/ambient-mode/menu';
+import { pluginBuilders } from 'virtual:PluginBuilders';
+/* eslint-enable import/order */
 
 import { getAvailablePluginNames } from './plugins/utils/main';
-import { PluginBaseConfig, PluginContext } from './plugins/utils/builder';
+import { MenuPluginContext, MenuPluginFactory, PluginBaseConfig, PluginContext } from './plugins/utils/builder';
 
 export type MenuTemplate = Electron.MenuItemConstructorOptions[];
 
@@ -48,7 +48,7 @@ export const refreshMenu = (win: BrowserWindow) => {
 
 export const mainMenuTemplate = async (win: BrowserWindow): Promise<MenuTemplate> => {
   const innerRefreshMenu = () => refreshMenu(win);
-  const createContext = <Config extends PluginBaseConfig>(name: string): PluginContext<Config> => ({
+  const createContext = <Config extends PluginBaseConfig>(name: string): MenuPluginContext<Config> => ({
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
     getConfig: () => config.get(`plugins.${name}`) as unknown as Config,
@@ -67,11 +67,13 @@ export const mainMenuTemplate = async (win: BrowserWindow): Promise<MenuTemplate
 
       return Promise.resolve();
     },
+    window: win,
   });
 
-  const pluginMenus = await Promise.all(
-    [['ambient-mode', ambientModeMenuPlugin] as const].map(async ([id, plugin]) => {
-      let pluginLabel = id;
+  const availablePlugins = getAvailablePluginNames();
+  const menuResult = await Promise.allSettled(
+    availablePlugins.map(async (id) => {
+      let pluginLabel = pluginBuilders[id as keyof PluginBuilderList]?.name ?? id;
       if (betaPlugins.includes(pluginLabel)) {
         pluginLabel += ' [beta]';
       }
@@ -80,7 +82,8 @@ export const mainMenuTemplate = async (win: BrowserWindow): Promise<MenuTemplate
         return pluginEnabledMenu(id, pluginLabel, true, innerRefreshMenu);
       }
 
-      const template = await plugin(createContext(id));
+      const factory = menuList[id] as MenuPluginFactory<PluginBaseConfig>;
+      const template = await factory(createContext(id));
 
       return {
         label: pluginLabel,
@@ -93,37 +96,18 @@ export const mainMenuTemplate = async (win: BrowserWindow): Promise<MenuTemplate
     }),
   );
 
+  const pluginMenus = menuResult.map((it, index) => {
+    if (it.status === 'fulfilled') return it.value;
+    const id = availablePlugins[index];
+    const pluginLabel = pluginBuilders[id as keyof PluginBuilderList]?.name ?? id;
+
+    return pluginEnabledMenu(id, pluginLabel, true, innerRefreshMenu);
+  });
+
   return [
     {
       label: 'Plugins',
-      submenu: [
-        ...getAvailablePluginNames().map((pluginName) => {
-          let pluginLabel = pluginName;
-          if (betaPlugins.includes(pluginLabel)) {
-            pluginLabel += ' [beta]';
-          }
-
-          if (Object.hasOwn(menuList, pluginName)) {
-            const getPluginMenu = menuList[pluginName];
-
-            if (!config.plugins.isEnabled(pluginName)) {
-              return pluginEnabledMenu(pluginName, pluginLabel, true, innerRefreshMenu);
-            }
-
-            return {
-              label: pluginLabel,
-              submenu: [
-                pluginEnabledMenu(pluginName, 'Enabled', true, innerRefreshMenu),
-                { type: 'separator' },
-                ...(getPluginMenu(win, config.plugins.getOptions(pluginName), innerRefreshMenu) as MenuTemplate),
-              ],
-            } satisfies Electron.MenuItemConstructorOptions;
-          }
-
-          return pluginEnabledMenu(pluginName, pluginLabel);
-        }),
-        ...pluginMenus,
-      ],
+      submenu: pluginMenus,
     },
     {
       label: 'Options',

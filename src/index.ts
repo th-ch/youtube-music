@@ -20,16 +20,15 @@ import { setupSongInfo } from './providers/song-info';
 import { restart, setupAppControls } from './providers/app-controls';
 import { APP_PROTOCOL, handleProtocol, setupProtocolHandler } from './providers/protocol-handler';
 
-// eslint-disable-next-line import/order
+/* eslint-disable import/order */
 import { mainPlugins } from 'virtual:MainPlugins';
-import ambientModeMainPluginBuilder from './plugins/ambient-mode/index';
-import qualityChangerMainPluginBuilder from './plugins/quality-changer/index';
-import qualityChangerMainPlugin from './plugins/quality-changer/main';
+import { pluginBuilders } from 'virtual:PluginBuilders';
+/* eslint-enable import/order */
 
 import { setOptions as pipSetOptions } from './plugins/picture-in-picture/main';
 
 import youtubeMusicCSS from './youtube-music.css';
-import { MainPlugin, PluginBaseConfig, MainPluginContext } from './plugins/utils/builder';
+import { MainPlugin, PluginBaseConfig, MainPluginContext, MainPluginFactory } from './plugins/utils/builder';
 
 // Catch errors and log them
 unhandled({
@@ -100,16 +99,8 @@ if (is.windows()) {
 
 ipcMain.handle('get-main-plugin-names', () => Object.keys(mainPlugins));
 
-const pluginBuilderList = [
-  ['ambient-mode', ambientModeMainPluginBuilder] as const,
-  ['quality-changer', qualityChangerMainPluginBuilder] as const,
-];
-
-const mainPluginList = [
-  ['quality-changer', qualityChangerMainPlugin] as const,
-];
 const initHook = (win: BrowserWindow) => {
-  ipcMain.handle('get-config', (_, name: string) => config.get(`plugins.${name}` as never));
+  ipcMain.handle('get-config', (_, id: keyof PluginBuilderList) => config.get(`plugins.${id}` as never) ?? pluginBuilders[id].config);
   ipcMain.handle('set-config', (_, name: string, obj: object) => config.setPartial({
     plugins: {
       [name]: obj,
@@ -118,11 +109,11 @@ const initHook = (win: BrowserWindow) => {
 
   config.watch((newValue) => {
     const value = newValue as Record<string, unknown>;
-    const target = pluginBuilderList.find(([name]) => name in value);
+    const id = Object.keys(pluginBuilders).find((id) => id in value);
 
-    if (target) {
-      win.webContents.send('config-changed', target[0], value[target[0]]);
-      console.log('config-changed', target[0], value[target[0]]);
+    if (id) {
+      win.webContents.send('config-changed', id, value[id]);
+      // console.log('config-changed', id, value[id]);
     }
   });
 };
@@ -186,36 +177,41 @@ async function loadPlugins(win: BrowserWindow) {
   });
  
 
-  for (const [plugin, options] of config.plugins.getEnabled()) {
-    const builderTarget = pluginBuilderList.find(([name]) => name === plugin);
-    const mainPluginTarget = mainPluginList.find(([name]) => name === plugin);
+  for (const [pluginId, options] of config.plugins.getEnabled()) {
+    const builder = pluginBuilders[pluginId as keyof PluginBuilderList];
+    const factory = (mainPlugins as Record<string, MainPluginFactory<PluginBaseConfig>>)[pluginId];
 
-    if (mainPluginTarget) {
-      const mainPlugin = mainPluginTarget[1];
-      const context = createContext(mainPluginTarget[0]);
-      const plugin = await mainPlugin(context);
-      loadedPluginList.push([mainPluginTarget[0], plugin]);
-      plugin.onLoad?.(win);
-    }
-
-    if (builderTarget) {
-      const builder = builderTarget[1];
+    if (builder) {
       builder.styles?.forEach((style) => {
         injectCSS(win.webContents, style);
+        console.log('[YTMusic]', `"${pluginId}" plugin meta data is loaded`);
       });
     }
 
-    try {
-      if (Object.hasOwn(mainPlugins, plugin)) {
-        console.log('Loaded plugin - ' + plugin);
-        const handler = mainPlugins[plugin as keyof typeof mainPlugins];
-        if (handler) {
-          await handler(win, options as never);
-        }
+    if (factory) {
+      try {
+        const context = createContext(pluginId as keyof PluginBuilderList);
+        const plugin = await factory(context);
+        loadedPluginList.push([pluginId, plugin]);
+        plugin.onLoad?.(win);
+        console.log('[YTMusic]', `"${pluginId}" plugin is loaded`);
+      } catch (error) {
+        console.error('[YTMusic]', `Cannot load plugin "${pluginId}"`);
+        console.trace(error);
       }
-    } catch (e) {
-      console.error(`Failed to load plugin "${plugin}"`, e);
     }
+
+    // try {
+    //   if (Object.hasOwn(mainPlugins, plugin)) {
+    //     console.log('Loaded plugin - ' + plugin);
+    //     const handler = mainPlugins[plugin as keyof typeof mainPlugins];
+    //     if (handler) {
+    //       await handler(win, options as never);
+    //     }
+    //   }
+    // } catch (e) {
+    //   console.error(`Failed to load plugin "${plugin}"`, e);
+    // }
   }
 }
 
