@@ -1,21 +1,15 @@
 import Store from 'electron-store';
 import Conf from 'conf';
-import is from 'electron-is';
+
+import { pluginBuilders } from 'virtual:PluginBuilders';
 
 import defaults from './defaults';
 
 import { DefaultPresetList, type Preset } from '../plugins/downloader/types';
 
-const getDefaults = () => {
-  if (is.windows()) {
-    defaults.plugins['in-app-menu'].enabled = true;
-  }
-  return defaults;
-};
-
-const setDefaultPluginOptions = (store: Conf<Record<string, unknown>>, plugin: keyof typeof defaults.plugins) => {
+const setDefaultPluginOptions = (store: Conf<Record<string, unknown>>, plugin: keyof typeof pluginBuilders) => {
   if (!store.get(`plugins.${plugin}`)) {
-    store.set(`plugins.${plugin}`, defaults.plugins[plugin]);
+    store.set(`plugins.${plugin}`, pluginBuilders[plugin].config);
   }
 };
 
@@ -53,7 +47,7 @@ const migrations = {
     if (store.get('plugins.notifications.toastStyle') === undefined) {
       const pluginOptions = store.get('plugins.notifications') || {};
       store.set('plugins.notifications', {
-        ...defaults.plugins.notifications,
+        ...pluginBuilders.notifications.config,
         ...pluginOptions,
       });
     }
@@ -155,7 +149,15 @@ const migrations = {
 };
 
 export default new Store({
-  defaults: getDefaults(),
+  defaults: {
+    ...defaults,
+    plugins: Object
+      .entries(pluginBuilders)
+      .reduce((prev, [id, builder]) => ({
+        ...prev,
+        [id]: (builder as PluginBuilderList[keyof PluginBuilderList]).config,
+      }), {}),
+  },
   clearInvalidConfig: false,
   migrations,
 });
