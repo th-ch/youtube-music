@@ -9,8 +9,8 @@ import unhandled from 'electron-unhandled';
 import { autoUpdater } from 'electron-updater';
 import electronDebug from 'electron-debug';
 import { parse } from 'node-html-parser';
-
-import { deepmerge as createDeepmerge } from '@fastify/deepmerge';
+import { deepmerge } from 'deepmerge-ts';
+import { deepEqual } from 'fast-equals';
 
 import config from './config';
 
@@ -30,8 +30,6 @@ import { pluginBuilders } from 'virtual:PluginBuilders';
 import youtubeMusicCSS from './youtube-music.css?inline';
 
 import type { MainPlugin, PluginBaseConfig, MainPluginContext, MainPluginFactory } from './plugins/utils/builder';
-
-const deepmerge = createDeepmerge();
 
 // Catch errors and log them
 unhandled({
@@ -106,14 +104,19 @@ const initHook = (win: BrowserWindow) => {
   ipcMain.handle('get-config', (_, id: keyof PluginBuilderList) => deepmerge(pluginBuilders[id].config, config.get(`plugins.${id}`) ?? {}) as PluginBuilderList[typeof id]['config']);
   ipcMain.handle('set-config', (_, name: string, obj: object) => config.setPartial(`plugins.${name}`, obj));
 
-  config.watch((newValue) => {
-    const value = newValue as Record<string, unknown>;
-    const id = Object.keys(pluginBuilders).find((id) => id in value);
+  config.watch((newValue, oldValue) => {
+    const newPluginConfigList = (newValue?.plugins ?? {}) as Record<string, unknown>;
+    const oldPluginConfigList = (oldValue?.plugins ?? {}) as Record<string, unknown>;
 
-    if (id) {
-      win.webContents.send('config-changed', id, value[id]);
-      // console.log('config-changed', id, value[id]);
-    }
+    Object.entries(newPluginConfigList).forEach(([id, newPluginConfig]) => {
+      const isEqual = deepEqual(oldPluginConfigList[id], newPluginConfig);
+
+      console.log('check', id, isEqual, ';', oldPluginConfigList[id], newPluginConfig);
+      if (!isEqual) {
+        win.webContents.send('config-changed', id, newPluginConfig);
+        console.log('config-changed', id, newPluginConfig);
+      }
+    });
   });
 };
 
@@ -148,7 +151,7 @@ async function loadPlugins(win: BrowserWindow) {
     Key extends keyof PluginBuilderList,
     Config extends PluginBaseConfig = PluginBuilderList[Key]['config'],
   >(name: Key): MainPluginContext<Config> => ({
-    getConfig: () => deepmerge(pluginBuilders[name].config, config.get(`plugins.${name}`) ?? {}) as Config,
+    getConfig: () => deepmerge(pluginBuilders[name].config, config.get(`plugins.${name}`) ?? {}) as unknown as Config,
     setConfig: (newConfig) => {
       config.setPartial(`plugins.${name}`, newConfig);
     },

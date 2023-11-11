@@ -84,6 +84,7 @@ export default builder.createRenderer(async ({ getConfig }) => {
           blurCanvas.style.setProperty('--top', `${-1 * topOffset}px`);
           blurCanvas.style.setProperty('--blur', `${blur}px`);
           blurCanvas.style.setProperty('--opacity', `${opacity}`);
+          console.log('updated!!!');
         };
         update = applyVideoAttributes;
 
