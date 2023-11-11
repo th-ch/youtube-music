@@ -1,7 +1,7 @@
 import { createPluginBuilder } from '../utils/builder';
 
 const builder = createPluginBuilder('lumiastream', {
-  name: 'Lumia Stream',
+  name: 'Lumia Stream [beta]',
   restartNeeded: true,
   config: {
     enabled: false,

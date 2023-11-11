@@ -9,43 +9,20 @@ import config from './config';
 
 // eslint-disable-next-line import/order
 import { preloadPlugins } from 'virtual:PreloadPlugins';
-import { PluginBaseConfig, PluginContext, PreloadPluginFactory } from './plugins/utils/builder';
+import {
+  PluginBaseConfig,
+  PluginBuilder,
+  PreloadPluginFactory
+} from './plugins/utils/builder';
+import { loadAllPreloadPlugins, registerPreloadPlugin } from './loader/preload';
 
-const createContext = <
-  Key extends keyof PluginBuilderList,
-  Config extends PluginBaseConfig = PluginBuilderList[Key]['config'],
->(name: Key): PluginContext<Config> => ({
-  getConfig: () => deepmerge(pluginBuilders[name].config, config.get(`plugins.${name}`) ?? {}) as unknown as Config,
-  setConfig: (newConfig) => {
-    config.setPartial(`plugins.${name}`, newConfig);
-  },
+Object.entries(pluginBuilders).forEach(([id, builder]) => {
+  const typedBuilder = builder as PluginBuilder<string, PluginBaseConfig>;
+  const plugin = preloadPlugins[id] as PreloadPluginFactory<PluginBaseConfig> | undefined;
+
+  registerPreloadPlugin(id, typedBuilder, plugin);
 });
-
-
-const preloadedPluginList = [];
-
-const pluginConfig = config.plugins.getPlugins();
-Object.entries(preloadPlugins)
-  .filter(([id]) => {
-    const typedId = id as keyof PluginBuilderList;
-    const config = deepmerge(pluginBuilders[typedId].config, pluginConfig[typedId] ?? {});
-
-    return config.enabled;
-  })
-  .forEach(async ([id]) => {
-  if (Object.hasOwn(preloadPlugins, id)) {
-    const factory = (preloadPlugins as Record<string, PreloadPluginFactory<PluginBaseConfig>>)[id];
-
-    try {
-      const context = createContext(id as keyof PluginBuilderList);
-      const plugin = await factory(context);
-      plugin.onLoad?.();
-      preloadedPluginList.push(plugin);
-    } catch (error) {
-      console.error('[YTMusic]', `Cannot load preload plugin "${id}": ${String(error)}`);
-    }
-  }
-});
+loadAllPreloadPlugins();
 
 contextBridge.exposeInMainWorld('mainConfig', config);
 contextBridge.exposeInMainWorld('electronIs', is);

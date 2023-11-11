@@ -1,7 +1,6 @@
 import is from 'electron-is';
 import { app, BrowserWindow, clipboard, dialog, Menu } from 'electron';
 import prompt from 'custom-electron-prompt';
-import { deepmerge } from 'deepmerge-ts';
 
 import { restart } from './providers/app-controls';
 import config from './config';
@@ -14,14 +13,17 @@ import { pluginBuilders } from 'virtual:PluginBuilders';
 /* eslint-enable import/order */
 
 import { getAvailablePluginNames } from './plugins/utils/main';
-import { MenuPluginContext, MenuPluginFactory, PluginBaseConfig } from './plugins/utils/builder';
+import {
+  MenuPluginFactory,
+  PluginBaseConfig,
+  PluginBuilder
+} from './plugins/utils/builder';
+import { getAllMenuTemplate, loadAllMenuPlugins, registerMenuPlugin } from './loader/menu';
 
 export type MenuTemplate = Electron.MenuItemConstructorOptions[];
 
 // True only if in-app-menu was loaded on launch
 const inAppMenuActive = config.plugins.isEnabled('in-app-menu');
-
-const betaPlugins = ['crossfade', 'lumiastream'];
 
 const pluginEnabledMenu = (plugin: string, label = '', hasSubmenu = false, refreshMenu: (() => void ) | undefined = undefined): Electron.MenuItemConstructorOptions => ({
   label: label || plugin,
@@ -47,49 +49,46 @@ export const refreshMenu = (win: BrowserWindow) => {
   }
 };
 
+Object.entries(pluginBuilders).forEach(([id, builder]) => {
+  const typedBuilder = builder as PluginBuilder<string, PluginBaseConfig>;
+  const plugin = menuList[id] as MenuPluginFactory<PluginBaseConfig> | undefined;
+
+  registerMenuPlugin(id, typedBuilder, plugin);
+});
+
 export const mainMenuTemplate = async (win: BrowserWindow): Promise<MenuTemplate> => {
   const innerRefreshMenu = () => refreshMenu(win);
-  const createContext = <
-    Key extends keyof PluginBuilderList,
-    Config extends PluginBaseConfig = PluginBuilderList[Key]['config'],
-  >(name: Key): MenuPluginContext<Config> => ({
-    getConfig: () => deepmerge(pluginBuilders[name].config, config.get(`plugins.${name}`) ?? {}) as unknown as Config,
-    setConfig: (newConfig) => {
-      config.setPartial(`plugins.${name}`, newConfig);
-    },
-    window: win,
-    refresh: () => refreshMenu(win),
-  });
 
-  const availablePlugins = getAvailablePluginNames();
-  const menuResult = await Promise.allSettled(
-    availablePlugins.map(async (id) => {
-      let pluginLabel = pluginBuilders[id as keyof PluginBuilderList]?.name ?? id;
-      if (betaPlugins.includes(pluginLabel)) {
-        pluginLabel += ' [beta]';
-      }
+  await loadAllMenuPlugins(win);
 
-      if (!config.plugins.isEnabled(id)) {
-        return pluginEnabledMenu(id, pluginLabel, true, innerRefreshMenu);
-      }
+  const menuResult = Object.entries(getAllMenuTemplate()).map(([id, template]) => {
+    const pluginLabel = (pluginBuilders[id as keyof PluginBuilderList])?.name ?? id;
 
-      const factory = menuList[id] as MenuPluginFactory<PluginBaseConfig>;
-      const template = await factory(createContext(id as never));
+    if (!config.plugins.isEnabled(id)) {
+      return [
+        id,
+        pluginEnabledMenu(id, pluginLabel, true, innerRefreshMenu),
+      ] as const;
+    }
 
-      return {
+    return [
+      id,
+      {
         label: pluginLabel,
         submenu: [
           pluginEnabledMenu(id, 'Enabled', true, innerRefreshMenu),
           { type: 'separator' },
           ...template,
         ],
-      } satisfies Electron.MenuItemConstructorOptions;
-    }),
-  );
+      } satisfies Electron.MenuItemConstructorOptions
+    ] as const;
+  });
 
-  const pluginMenus = menuResult.map((it, index) => {
-    if (it.status === 'fulfilled') return it.value;
-    const id = availablePlugins[index];
+  const availablePlugins = getAvailablePluginNames();
+  const pluginMenus = availablePlugins.map((id) => {
+    const predefinedTemplate = menuResult.find((it) => it[0] === id);
+    if (predefinedTemplate) return predefinedTemplate[1];
+
     const pluginLabel = pluginBuilders[id as keyof PluginBuilderList]?.name ?? id;
 
     return pluginEnabledMenu(id, pluginLabel, true, innerRefreshMenu);
