@@ -29,15 +29,14 @@ export default builder.createRenderer(({ on }) => {
       on('sponsorblock-skip', (_, segments: Segment[]) => {
         currentSegments = segments;
       });
+    },
+    onPlayerApiReady() {
+      const video = document.querySelector<HTMLVideoElement>('video');
+      if (!video) return;
 
-      document.addEventListener('apiLoaded', () => {
-        const video = document.querySelector<HTMLVideoElement>('video');
-        if (!video) return;
-
-        video.addEventListener('timeupdate', timeUpdateListener);
-        // Reset segments on song end
-        video.addEventListener('emptied', resetSegments);
-      }, { once: true, passive: true });
+      video.addEventListener('timeupdate', timeUpdateListener);
+      // Reset segments on song end
+      video.addEventListener('emptied', resetSegments);
     },
     onUnload() {
       const video = document.querySelector<HTMLVideoElement>('video');

@@ -112,7 +112,7 @@ const initHook = (win: BrowserWindow) => {
         const oldConfig = oldPluginConfigList[id] as PluginBaseConfig;
         const config = deepmerge(pluginBuilders[id as keyof PluginBuilderList].config, newPluginConfig) as PluginBaseConfig;
 
-        if (config.enabled !== oldConfig.enabled) {
+        if (config.enabled !== oldConfig?.enabled) {
           if (config.enabled) {
             win.webContents.send('plugin:enable', id);
             ipcMain.emit('plugin:enable', id);

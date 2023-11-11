@@ -133,11 +133,27 @@ const listenForToggle = () => {
   });
 };
 
-function observeMenu(options: PictureInPicturePluginConfig) {
-  useNativePiP = options.useNativePiP;
-  document.addEventListener(
-    'apiLoaded',
-    () => {
+
+export default builder.createRenderer(({ getConfig }) => {
+  return {
+    async onLoad() {
+      const config = await getConfig();
+
+      useNativePiP = config.useNativePiP;
+
+      if (config.hotkey) {
+        const hotkeyEvent = toKeyEvent(config.hotkey);
+        window.addEventListener('keydown', (event) => {
+          if (
+            keyEventAreEqual(event, hotkeyEvent)
+            && !$<HTMLElement & { opened: boolean }>('ytmusic-search-box')?.opened
+          ) {
+            togglePictureInPicture();
+          }
+        });
+      }
+    },
+    onPlayerApiReady() {
       listenForToggle();
 
       cloneButton('.player-minimize-button')?.addEventListener('click', async () => {
@@ -154,28 +170,5 @@ function observeMenu(options: PictureInPicturePluginConfig) {
         subtree: true,
       });
     },
-    { once: true, passive: true },
-  );
-}
-
-export default builder.createRenderer(({ getConfig }) => {
-  return {
-    async onLoad() {
-      const config = await getConfig();
-
-      observeMenu(config);
-
-      if (config.hotkey) {
-        const hotkeyEvent = toKeyEvent(config.hotkey);
-        window.addEventListener('keydown', (event) => {
-          if (
-            keyEventAreEqual(event, hotkeyEvent)
-            && !$<HTMLElement & { opened: boolean }>('ytmusic-search-box')?.opened
-          ) {
-            togglePictureInPicture();
-          }
-        });
-      }
-    }
   };
 });

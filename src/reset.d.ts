@@ -13,7 +13,6 @@ declare global {
   }
 
   interface DocumentEventMap {
-    'apiLoaded': CustomEvent<YoutubePlayer>;
     'audioCanPlay': CustomEvent<Compressor>;
   }
 

@@ -54,7 +54,7 @@ const post = (data: Data) => {
 export default builder.createMain(({ send, handle, on }) => {
   return {
     onLoad() {
-      on('apiLoaded', () => send('setupTimeChangedListener'));
+      on('ytmd:player-api-loaded', () => send('setupTimeChangedListener'));
       on('timeChanged', (t: number) => {
         if (!data.title) {
           return;

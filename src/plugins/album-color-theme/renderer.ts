@@ -63,15 +63,23 @@ export default builder.createRenderer(() => {
     }
   }
 
+  let playerPage: HTMLElement | null = null;
+  let navBarBackground: HTMLElement | null = null;
+  let ytmusicPlayerBar: HTMLElement | null = null;
+  let playerBarBackground: HTMLElement | null = null;
+  let sidebarBig: HTMLElement | null = null;
+  let sidebarSmall: HTMLElement | null = null;
+  let ytmusicAppLayout: HTMLElement | null = null;
+
   return {
     onLoad() {
-      const playerPage = document.querySelector<HTMLElement>('#player-page');
-      const navBarBackground = document.querySelector<HTMLElement>('#nav-bar-background');
-      const ytmusicPlayerBar = document.querySelector<HTMLElement>('ytmusic-player-bar');
-      const playerBarBackground = document.querySelector<HTMLElement>('#player-bar-background');
-      const sidebarBig = document.querySelector<HTMLElement>('#guide-wrapper');
-      const sidebarSmall = document.querySelector<HTMLElement>('#mini-guide-background');
-      const ytmusicAppLayout = document.querySelector<HTMLElement>('#layout');
+      playerPage = document.querySelector<HTMLElement>('#player-page');
+      navBarBackground = document.querySelector<HTMLElement>('#nav-bar-background');
+      ytmusicPlayerBar = document.querySelector<HTMLElement>('ytmusic-player-bar');
+      playerBarBackground = document.querySelector<HTMLElement>('#player-bar-background');
+      sidebarBig = document.querySelector<HTMLElement>('#guide-wrapper');
+      sidebarSmall = document.querySelector<HTMLElement>('#mini-guide-background');
+      ytmusicAppLayout = document.querySelector<HTMLElement>('#layout');
 
       const observer = new MutationObserver((mutationsList) => {
         for (const mutation of mutationsList) {
@@ -91,39 +99,38 @@ export default builder.createRenderer(() => {
       if (playerPage) {
         observer.observe(playerPage, { attributes: true });
       }
+    },
+    onPlayerApiReady(playerApi) {
+      const fastAverageColor = new FastAverageColor();
 
-      document.addEventListener('apiLoaded', (apiEvent) => {
-        const fastAverageColor = new FastAverageColor();
-
-        apiEvent.detail.addEventListener('videodatachange', (name: string) => {
-          if (name === 'dataloaded') {
-            const playerResponse = apiEvent.detail.getPlayerResponse();
-            const thumbnail = playerResponse?.videoDetails?.thumbnail?.thumbnails?.at(0);
-            if (thumbnail) {
-              fastAverageColor.getColorAsync(thumbnail.url)
-                .then((albumColor) => {
-                  if (albumColor) {
-                    [hue, saturation, lightness] = hexToHSL(albumColor.hex);
-                    changeElementColor(playerPage, hue, saturation, lightness - 30);
-                    changeElementColor(navBarBackground, hue, saturation, lightness - 15);
-                    changeElementColor(ytmusicPlayerBar, hue, saturation, lightness - 15);
-                    changeElementColor(playerBarBackground, hue, saturation, lightness - 15);
-                    changeElementColor(sidebarBig, hue, saturation, lightness - 15);
-                    if (ytmusicAppLayout?.hasAttribute('player-page-open')) {
-                      changeElementColor(sidebarSmall, hue, saturation, lightness - 30);
-                    }
-                    const ytRightClickList = document.querySelector<HTMLElement>('tp-yt-paper-listbox');
-                    changeElementColor(ytRightClickList, hue, saturation, lightness - 15);
-                  } else {
-                    if (playerPage) {
-                      playerPage.style.backgroundColor = '#000000';
-                    }
+      playerApi.addEventListener('videodatachange', (name: string) => {
+        if (name === 'dataloaded') {
+          const playerResponse = playerApi.getPlayerResponse();
+          const thumbnail = playerResponse?.videoDetails?.thumbnail?.thumbnails?.at(0);
+          if (thumbnail) {
+            fastAverageColor.getColorAsync(thumbnail.url)
+              .then((albumColor) => {
+                if (albumColor) {
+                  [hue, saturation, lightness] = hexToHSL(albumColor.hex);
+                  changeElementColor(playerPage, hue, saturation, lightness - 30);
+                  changeElementColor(navBarBackground, hue, saturation, lightness - 15);
+                  changeElementColor(ytmusicPlayerBar, hue, saturation, lightness - 15);
+                  changeElementColor(playerBarBackground, hue, saturation, lightness - 15);
+                  changeElementColor(sidebarBig, hue, saturation, lightness - 15);
+                  if (ytmusicAppLayout?.hasAttribute('player-page-open')) {
+                    changeElementColor(sidebarSmall, hue, saturation, lightness - 30);
                   }
-                })
-                .catch((e) => console.error(e));
-            }
+                  const ytRightClickList = document.querySelector<HTMLElement>('tp-yt-paper-listbox');
+                  changeElementColor(ytRightClickList, hue, saturation, lightness - 15);
+                } else {
+                  if (playerPage) {
+                    playerPage.style.backgroundColor = '#000000';
+                  }
+                }
+              })
+              .catch((e) => console.error(e));
           }
-        });
+        }
       });
     }
   };

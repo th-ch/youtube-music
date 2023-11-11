@@ -32,19 +32,19 @@ export default builder.createRenderer(({ invoke }) => {
         api.setPlaybackQualityRange(newQuality);
         api.setPlaybackQuality(newQuality);
       });
-  }
+  };
 
-  function setup(event: CustomEvent<YoutubePlayer>) {
-    api = event.detail;
-
+  function setup() {
     $('.top-row-buttons.ytmusic-player')?.prepend(qualitySettingsButton);
 
     qualitySettingsButton.addEventListener('click', chooseQuality);
   }
 
   return {
-    onLoad() {
-      document.addEventListener('apiLoaded', setup, { once: true, passive: true });
+    onPlayerApiReady(playerApi) {
+      api = playerApi;
+
+      setup();
     },
     onUnload() {
       $('.top-row-buttons.ytmusic-player')?.removeChild(qualitySettingsButton);

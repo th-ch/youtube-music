@@ -116,12 +116,10 @@ function forcePlaybackRate(e: Event) {
 
 export default builder.createRenderer(() => {
   return {
-    onLoad() {
-      document.addEventListener('apiLoaded', () => {
-        observePopupContainer();
-        observeVideo();
-        setupWheelListener();
-      }, { once: true, passive: true });
+    onPlayerApiReady() {
+      observePopupContainer();
+      observeVideo();
+      setupWheelListener();
     },
     onUnload() {
       const video = $<HTMLVideoElement>('video');

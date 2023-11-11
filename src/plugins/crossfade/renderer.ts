@@ -85,7 +85,7 @@ export default builder.createRenderer(({ getConfig, invoke }) => {
     });
 
     // Exit just before the end for the transition
-    const transitionBeforeEnd = async () => {
+    const transitionBeforeEnd = () => {
       if (
         video.currentTime >= video.duration - config.secondsBeforeEnd
         && isReadyToCrossfade()
@@ -140,14 +140,11 @@ export default builder.createRenderer(({ getConfig, invoke }) => {
   };
 
   return {
-    onLoad() {
-      document.addEventListener('apiLoaded', async () => {
-        config = await getConfig();
-        onApiLoaded();
-      }, {
-        once: true,
-        passive: true,
-      });
+    async onLoad() {
+      config = await getConfig();
+    },
+    onPlayerApiReady() {
+      onApiLoaded();
     },
     onConfigChange(newConfig) {
       config = newConfig;

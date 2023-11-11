@@ -6,22 +6,23 @@ import { pluginBuilders } from 'virtual:PluginBuilders';
 import { PluginBaseConfig, PluginBuilder, RendererPluginFactory } from './plugins/utils/builder';
 
 import { startingPages } from './providers/extracted-data';
-import { setupSongControls } from './providers/song-controls-front';
 import setupSongInfo from './providers/song-info-front';
 import {
   forceLoadRendererPlugin,
   forceUnloadRendererPlugin,
-  getAllLoadedRendererPlugins,
+  getAllLoadedRendererPlugins, getLoadedRendererPlugin,
   loadAllRendererPlugins,
   registerRendererPlugin
 } from './loader/renderer';
+import { YoutubePlayer } from './types/youtube-player';
 
-let api: Element | null = null;
+let api: (Element & YoutubePlayer) | null = null;
 
 function listenForApiLoad() {
   api = document.querySelector('#movie_player');
   if (api) {
     onApiLoaded();
+
     return;
   }
 
@@ -29,6 +30,7 @@ function listenForApiLoad() {
     api = document.querySelector('#movie_player');
     if (api) {
       observer.disconnect();
+
       onApiLoaded();
     }
   });
@@ -41,6 +43,12 @@ interface YouTubeMusicAppElement extends HTMLElement {
 }
 
 function onApiLoaded() {
+  window.ipcRenderer.on('seekTo', (_, t: number) => api!.seekTo(t));
+  window.ipcRenderer.on('seekBy', (_, t: number) => api!.seekBy(t));
+
+  // Inject song-info provider
+  setupSongInfo(api!);
+
   const video = document.querySelector('video')!;
   const audioContext = new AudioContext();
   const audioSource = audioContext.createMediaElementSource(video);
@@ -66,10 +74,14 @@ function onApiLoaded() {
       );
     },
     { passive: true },
-  );!
+  );
 
-  document.dispatchEvent(new CustomEvent('apiLoaded', { detail: api }));
-  window.ipcRenderer.send('apiLoaded');
+  Object.values(getAllLoadedRendererPlugins())
+    .forEach((plugin) => {
+      plugin.onPlayerApiReady?.(api!);
+    });
+
+  window.ipcRenderer.send('ytmd:player-api-loaded');
 
   // Navigate to "Starting page"
   const startingPage: string = window.mainConfig.get('options.startingPage');
@@ -112,8 +124,13 @@ function onApiLoaded() {
   window.ipcRenderer.on('plugin:unload', (_event, id: keyof PluginBuilderList) => {
     forceUnloadRendererPlugin(id);
   });
-  window.ipcRenderer.on('plugin:enable', (_event, id: keyof PluginBuilderList) => {
-    forceLoadRendererPlugin(id);
+  window.ipcRenderer.on('plugin:enable', async (_event, id: keyof PluginBuilderList) => {
+    await forceLoadRendererPlugin(id);
+    if (api) {
+      const plugin = getLoadedRendererPlugin(id);
+
+      if (plugin) plugin.onPlayerApiReady?.(api);
+    }
   });
 
   window.ipcRenderer.on('config-changed', (_event, id: string, newConfig: PluginBaseConfig) => {
@@ -121,12 +138,6 @@ function onApiLoaded() {
 
     if (plugin) plugin.onConfigChange?.(newConfig);
   });
-
-  // Inject song-info provider
-  setupSongInfo();
-
-  // Inject song-controls
-  setupSongControls();
 
   // Wait for complete load of YouTube api
   listenForApiLoad();

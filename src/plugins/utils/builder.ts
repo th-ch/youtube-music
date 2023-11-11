@@ -2,6 +2,7 @@ import type {
   BrowserWindow,
   MenuItemConstructorOptions,
 } from 'electron';
+import type { YoutubePlayer } from '../../types/youtube-player';
 
 export type PluginBaseConfig = {
   enabled: boolean;
@@ -11,7 +12,9 @@ export type BasePlugin<Config extends PluginBaseConfig> = {
   onUnload?: () => void;
   onConfigChange?: (newConfig: Config) => void;
 }
-export type RendererPlugin<Config extends PluginBaseConfig> = BasePlugin<Config>;
+export type RendererPlugin<Config extends PluginBaseConfig> = BasePlugin<Config> & {
+  onPlayerApiReady?: (api: YoutubePlayer) => void;
+};
 export type MainPlugin<Config extends PluginBaseConfig> = Omit<BasePlugin<Config>, 'onLoad' | 'onUnload'> & {
   onLoad?: (window: BrowserWindow) => void;
   onUnload?: (window: BrowserWindow) => void;

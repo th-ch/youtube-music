@@ -17,7 +17,7 @@ export default builder.createRenderer(({ getConfig, invoke, on }) => {
   return {
     async onLoad() {
       const config = await getConfig();
-    
+
       const hideDOMWindowControls = config.hideDOMWindowControls;
 
       let hideMenu = window.mainConfig.get('options.hideMenu');
@@ -26,13 +26,13 @@ export default builder.createRenderer(({ getConfig, invoke, on }) => {
       let maximizeButton: HTMLButtonElement;
       let panelClosers: (() => void)[] = [];
       if (isMacOS) titleBar.style.setProperty('--offset-left', '70px');
-    
+
       const logo = document.createElement('img');
       const close = document.createElement('img');
       const minimize = document.createElement('img');
       const maximize = document.createElement('img');
       const unmaximize = document.createElement('img');
-    
+
       if (window.ELECTRON_RENDERER_URL) {
         logo.src = window.ELECTRON_RENDERER_URL + '/' + logoRaw;
         close.src = window.ELECTRON_RENDERER_URL + '/' + closeRaw;
@@ -46,7 +46,7 @@ export default builder.createRenderer(({ getConfig, invoke, on }) => {
         maximize.src = maximizeRaw;
         unmaximize.src = unmaximizeRaw;
       }
-    
+
       logo.classList.add('title-bar-icon');
       const logoClick = () => {
         hideMenu = !hideMenu;
@@ -62,22 +62,22 @@ export default builder.createRenderer(({ getConfig, invoke, on }) => {
         });
       };
       logo.onclick = logoClick;
-    
+
       on('toggle-in-app-menu', logoClick);
-    
+
       if (!isMacOS) titleBar.appendChild(logo);
       document.body.appendChild(titleBar);
-    
+
       titleBar.appendChild(logo);
-    
+
       const addWindowControls = async () => {
-    
+
         // Create window control buttons
         const minimizeButton = document.createElement('button');
         minimizeButton.classList.add('window-control');
         minimizeButton.appendChild(minimize);
         minimizeButton.onclick = () => invoke('window-minimize');
-    
+
         maximizeButton = document.createElement('button');
         if (await invoke('window-is-maximized')) {
           maximizeButton.classList.add('window-control');
@@ -91,37 +91,37 @@ export default builder.createRenderer(({ getConfig, invoke, on }) => {
             // change icon to maximize
             maximizeButton.removeChild(maximizeButton.firstChild!);
             maximizeButton.appendChild(maximize);
-    
+
             // call unmaximize
             await invoke('window-unmaximize');
           } else {
             // change icon to unmaximize
             maximizeButton.removeChild(maximizeButton.firstChild!);
             maximizeButton.appendChild(unmaximize);
-    
+
             // call maximize
             await invoke('window-maximize');
           }
         };
-    
+
         const closeButton = document.createElement('button');
         closeButton.classList.add('window-control');
         closeButton.appendChild(close);
         closeButton.onclick = () => invoke('window-close');
-    
+
         // Create a container div for the window control buttons
         const windowControlsContainer = document.createElement('div');
         windowControlsContainer.classList.add('window-controls-container');
         windowControlsContainer.appendChild(minimizeButton);
         windowControlsContainer.appendChild(maximizeButton);
         windowControlsContainer.appendChild(closeButton);
-    
+
         // Add window control buttons to the title bar
         titleBar.appendChild(windowControlsContainer);
       };
-    
+
       if (isNotWindowsOrMacOS && !hideDOMWindowControls) await addWindowControls();
-    
+
       if (navBar) {
         const observer = new MutationObserver((mutations) => {
           mutations.forEach(() => {
@@ -129,25 +129,25 @@ export default builder.createRenderer(({ getConfig, invoke, on }) => {
             document.querySelector('html')!.style.setProperty('--titlebar-background-color', navBar.style.backgroundColor);
           });
         });
-    
+
         observer.observe(navBar, { attributes : true, attributeFilter : ['style'] });
       }
-    
+
       const updateMenu = async () => {
         const children = [...titleBar.children];
         children.forEach((child) => {
           if (child !== logo) child.remove();
         });
         panelClosers = [];
-    
+
         const menu = await invoke<Menu | null>('get-menu');
         if (!menu) return;
-    
+
         menu.items.forEach((menuItem) => {
           const menu = document.createElement('menu-button');
           const [, { close: closer }] = createPanel(titleBar, menu, menuItem.submenu?.items ?? []);
           panelClosers.push(closer);
-    
+
           menu.append(menuItem.label);
           titleBar.appendChild(menu);
           if (hideMenu) {
@@ -159,7 +159,7 @@ export default builder.createRenderer(({ getConfig, invoke, on }) => {
       await updateMenu();
 
       document.title = 'Youtube Music';
-    
+
       on('close-all-in-app-menu-panel', () => {
         panelClosers.forEach((closer) => closer());
       });
@@ -176,21 +176,20 @@ export default builder.createRenderer(({ getConfig, invoke, on }) => {
           maximizeButton.appendChild(unmaximize);
         }
       });
-    
+
       if (window.mainConfig.plugins.isEnabled('picture-in-picture')) {
         on('pip-toggle', () => {
           updateMenu();
         });
       }
-    
-      // Increases the right margin of Navbar background when the scrollbar is visible to avoid blocking it (z-index doesn't affect it)
-      document.addEventListener('apiLoaded', () => {
-        const htmlHeadStyle = document.querySelector('head > div > style');
-        if (htmlHeadStyle) {
-          // HACK: This is a hack to remove the scrollbar width
-          htmlHeadStyle.innerHTML = htmlHeadStyle.innerHTML.replace('html::-webkit-scrollbar {width: var(--ytmusic-scrollbar-width);', 'html::-webkit-scrollbar {');
-        }
-      }, { once: true, passive: true });
-    }
+    },
+    // Increases the right margin of Navbar background when the scrollbar is visible to avoid blocking it (z-index doesn't affect it)
+    onPlayerApiReady() {
+      const htmlHeadStyle = document.querySelector('head > div > style');
+      if (htmlHeadStyle) {
+        // HACK: This is a hack to remove the scrollbar width
+        htmlHeadStyle.innerHTML = htmlHeadStyle.innerHTML.replace('html::-webkit-scrollbar {width: var(--ytmusic-scrollbar-width);', 'html::-webkit-scrollbar {');
+      }
+    },
   };
 });

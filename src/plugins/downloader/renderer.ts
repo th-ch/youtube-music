@@ -14,35 +14,35 @@ const downloadButton = ElementFromHtml(downloadHTML);
 let doneFirstLoad = false;
 
 export default builder.createRenderer(({ invoke, on }) => {
+  const menuObserver = new MutationObserver(() => {
+    if (!menu) {
+      menu = getSongMenu();
+      if (!menu) {
+        return;
+      }
+    }
+
+    if (menu.contains(downloadButton)) {
+      return;
+    }
+
+    const menuUrl = document.querySelector<HTMLAnchorElement>('tp-yt-paper-listbox [tabindex="-1"] #navigation-endpoint')?.href;
+    if (!menuUrl?.includes('watch?') && doneFirstLoad) {
+      return;
+    }
+
+    menu.prepend(downloadButton);
+    progress = document.querySelector('#ytmcustom-download');
+
+    if (doneFirstLoad) {
+      return;
+    }
+
+    setTimeout(() => doneFirstLoad ||= true, 500);
+  });
+
   return {
     onLoad() {
-      const menuObserver = new MutationObserver(() => {
-        if (!menu) {
-          menu = getSongMenu();
-          if (!menu) {
-            return;
-          }
-        }
-
-        if (menu.contains(downloadButton)) {
-          return;
-        }
-
-        const menuUrl = document.querySelector<HTMLAnchorElement>('tp-yt-paper-listbox [tabindex="-1"] #navigation-endpoint')?.href;
-        if (!menuUrl?.includes('watch?') && doneFirstLoad) {
-          return;
-        }
-
-        menu.prepend(downloadButton);
-        progress = document.querySelector('#ytmcustom-download');
-
-        if (doneFirstLoad) {
-          return;
-        }
-
-        setTimeout(() => doneFirstLoad ||= true, 500);
-      });
-
       window.download = () => {
         let videoUrl = getSongMenu()
           // Selector of first button which is always "Start Radio"
@@ -64,13 +64,6 @@ export default builder.createRenderer(({ invoke, on }) => {
         invoke('download-song', videoUrl);
       };
 
-      document.addEventListener('apiLoaded', () => {
-        menuObserver.observe(document.querySelector('ytmusic-popup-container')!, {
-          childList: true,
-          subtree: true,
-        });
-      }, { once: true, passive: true });
-
       on('downloader-feedback', (feedback: string) => {
         if (progress) {
           progress.innerHTML = feedback || 'Download';
@@ -78,6 +71,12 @@ export default builder.createRenderer(({ invoke, on }) => {
           console.warn('Cannot update progress');
         }
       });
-    }
+    },
+    onPlayerApiReady() {
+      menuObserver.observe(document.querySelector('ytmusic-popup-container')!, {
+        childList: true,
+        subtree: true,
+      });
+    },
   };
 });

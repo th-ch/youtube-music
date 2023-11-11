@@ -5,7 +5,7 @@ import type { YoutubePlayer } from '../../types/youtube-player';
 export default builder.createRenderer(({ getConfig }) => {
   let config: Awaited<ReturnType<typeof getConfig>>;
 
-  let apiEvent: CustomEvent<YoutubePlayer>;
+  let apiEvent: YoutubePlayer;
 
   const timeUpdateListener = (e: Event) => {
     if (e.target instanceof HTMLVideoElement) {
@@ -15,27 +15,25 @@ export default builder.createRenderer(({ getConfig }) => {
 
   const eventListener = async (name: string) => {
     if (config.applyOnce) {
-      apiEvent.detail.removeEventListener('videodatachange', eventListener);
+      apiEvent.removeEventListener('videodatachange', eventListener);
     }
 
     if (name === 'dataloaded') {
-      apiEvent.detail.pauseVideo();
+      apiEvent.pauseVideo();
       document.querySelector<HTMLVideoElement>('video')?.addEventListener('timeupdate', timeUpdateListener, { once: true });
     }
   };
 
   return {
-    async onLoad() {
+    async onPlayerApiReady(api) {
       config = await getConfig();
 
-      document.addEventListener('apiLoaded', (api) => {
-        apiEvent = api;
+      apiEvent = api;
 
-        apiEvent.detail.addEventListener('videodatachange', eventListener);
-      }, { once: true, passive: true });
+      apiEvent.addEventListener('videodatachange', eventListener);
     },
     onUnload() {
-      apiEvent.detail.removeEventListener('videodatachange', eventListener);
+      apiEvent.removeEventListener('videodatachange', eventListener);
     },
     onConfigChange(newConfig) {
       config = newConfig;

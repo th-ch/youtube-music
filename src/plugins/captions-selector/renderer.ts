@@ -5,8 +5,6 @@ import builder from './index';
 import { ElementFromHtml } from '../utils/renderer';
 import { YoutubePlayer } from '../../types/youtube-player';
 
-import type { ConfigType } from '../../config/dynamic';
-
 interface LanguageOptions {
   displayName: string;
   id: string | null;
@@ -82,30 +80,24 @@ export default builder.createRenderer(({ getConfig, setConfig }) => {
     }
   };
 
-  const listener = ({ detail }: {
-    detail: YoutubePlayer;
-  }) => {
-    api = detail;
-    $('.right-controls-buttons').append(captionsSettingsButton);
-
-    captionTrackList = api.getOption<LanguageOptions[]>('captions', 'tracklist') ?? [];
-
-    $('video').addEventListener('srcChanged', videoChangeListener);
-    captionsSettingsButton.addEventListener('click', captionsButtonClickListener);
-  };
-
   const removeListener = () => {
     $('.right-controls-buttons').removeChild(captionsSettingsButton);
     $<YoutubePlayer & HTMLElement>('#movie_player').unloadModule('captions');
-
-    document.removeEventListener('apiLoaded', listener);
   };
 
   return {
     async onLoad() {
       config = await getConfig();
+    },
+    onPlayerApiReady(playerApi) {
+      api = playerApi;
 
-      document.addEventListener('apiLoaded', listener, { once: true, passive: true });
+      $('.right-controls-buttons').append(captionsSettingsButton);
+
+      captionTrackList = api.getOption<LanguageOptions[]>('captions', 'tracklist') ?? [];
+
+      $('video').addEventListener('srcChanged', videoChangeListener);
+      captionsSettingsButton.addEventListener('click', captionsButtonClickListener);
     },
     onUnload() {
       removeListener();

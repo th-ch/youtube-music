@@ -258,13 +258,13 @@ export default builder.createRenderer(async ({ on, getConfig, setConfig }) => {
   return {
     onLoad() {
       overrideListener();
+    },
+    onPlayerApiReady(playerApi) {
+      api = playerApi;
 
-      document.addEventListener('apiLoaded', (e) => {
-        api = e.detail;
-        on('changeVolume', (toIncrease: boolean) => changeVolume(toIncrease));
-        on('setVolume', (value: number) => setVolume(value));
-        firstRun();
-      }, { once: true, passive: true });
+      on('changeVolume', (toIncrease: boolean) => changeVolume(toIncrease));
+      on('setVolume', (value: number) => setVolume(value));
+      firstRun();
     },
     onConfigChange(config) {
       options = config;

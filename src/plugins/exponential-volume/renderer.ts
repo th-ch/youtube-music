@@ -41,10 +41,7 @@ const exponentialVolume = () => {
 };
 
 export default builder.createRenderer(() => ({
-  onLoad() {
-    return document.addEventListener('apiLoaded', exponentialVolume, {
-      once: true,
-      passive: true,
-    });
+  onPlayerApiReady() {
+    exponentialVolume();
   },
 }));

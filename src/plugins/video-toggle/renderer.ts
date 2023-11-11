@@ -22,8 +22,8 @@ export default builder.createRenderer(({ getConfig }) => {
 
   const switchButtonDiv = ElementFromHtml(buttonTemplate);
 
-  function setup(e: CustomEvent<YoutubePlayer>) {
-    api = e.detail;
+  function setup(playerApi: YoutubePlayer) {
+    api = playerApi;
     player = document.querySelector<(HTMLElement & { videoMode_: boolean; })>('ytmusic-player');
     video = document.querySelector<HTMLVideoElement>('video');
 
@@ -194,12 +194,10 @@ export default builder.createRenderer(({ getConfig }) => {
           document.querySelector('ytmusic-player')?.removeAttribute('has-av-switcher');
           return;
         }
-
-        default:
-        case 'custom': {
-          document.addEventListener('apiLoaded', setup, { once: true, passive: true });
-        }
       }
+    },
+    onPlayerApiReady(playerApi) {
+      if (config.mode !== 'native' && config.mode != 'disabled') setup(playerApi);
     },
     onConfigChange(newConfig) {
       config = newConfig;

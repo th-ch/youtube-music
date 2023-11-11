@@ -211,7 +211,7 @@ export default (
   songControls = getSongControls(win);
 
   let currentSeconds = 0;
-  on('apiLoaded', () => send('setupTimeChangedListener'));
+  on('ytmd:player-api-loaded', () => send('setupTimeChangedListener'));
 
   on('timeChanged', (t: number) => {
     currentSeconds = t;

@@ -73,74 +73,72 @@ export const setupVolumeChangedListener = singleton((api: YoutubePlayer) => {
   window.ipcRenderer.send('volumeChanged', api.getVolume());
 });
 
-export default () => {
-  document.addEventListener('apiLoaded', (apiEvent) => {
-    window.ipcRenderer.on('setupTimeChangedListener', () => {
-      setupTimeChangedListener();
-    });
+export default (api: YoutubePlayer) => {
+  window.ipcRenderer.on('setupTimeChangedListener', () => {
+    setupTimeChangedListener();
+  });
 
-    window.ipcRenderer.on('setupRepeatChangedListener', () => {
-      setupRepeatChangedListener();
-    });
+  window.ipcRenderer.on('setupRepeatChangedListener', () => {
+    setupRepeatChangedListener();
+  });
 
-    window.ipcRenderer.on('setupVolumeChangedListener', () => {
-      setupVolumeChangedListener(apiEvent.detail);
-    });
+  window.ipcRenderer.on('setupVolumeChangedListener', () => {
+    setupVolumeChangedListener(api);
+  });
 
-    window.ipcRenderer.on('setupSeekedListener', () => {
-      setupSeekedListener();
-    });
+  window.ipcRenderer.on('setupSeekedListener', () => {
+    setupSeekedListener();
+  });
 
-    const playPausedHandler = (e: Event, status: string) => {
-      if (e.target instanceof HTMLVideoElement && Math.round(e.target.currentTime) > 0) {
-        window.ipcRenderer.send('playPaused', {
-          isPaused: status === 'pause',
-          elapsedSeconds: Math.floor(e.target.currentTime),
-        });
+  const playPausedHandler = (e: Event, status: string) => {
+    if (e.target instanceof HTMLVideoElement && Math.round(e.target.currentTime) > 0) {
+      window.ipcRenderer.send('playPaused', {
+        isPaused: status === 'pause',
+        elapsedSeconds: Math.floor(e.target.currentTime),
+      });
+    }
+  };
+
+  const playPausedHandlers = {
+    playing: (e: Event) => playPausedHandler(e, 'playing'),
+    pause: (e: Event) => playPausedHandler(e, 'pause'),
+  };
+
+  const waitingEvent = new Set<string>();
+  // Name = "dataloaded" and abit later "dataupdated"
+  api.addEventListener('videodatachange', (name: string, videoData) => {
+    if (name === 'dataupdated' && waitingEvent.has(videoData.videoId)) {
+      waitingEvent.delete(videoData.videoId);
+      sendSongInfo(videoData);
+    } else if (name === 'dataloaded') {
+      const video = $<HTMLVideoElement>('video');
+      video?.dispatchEvent(srcChangedEvent);
+
+      for (const status of ['playing', 'pause'] as const) { // for fix issue that pause event not fired
+        video?.addEventListener(status, playPausedHandlers[status]);
       }
-    };
 
-    const playPausedHandlers = {
-      playing: (e: Event) => playPausedHandler(e, 'playing'),
-      pause: (e: Event) => playPausedHandler(e, 'pause'),
-    };
+      waitingEvent.add(videoData.videoId);
+    }
+  });
 
-    const waitingEvent = new Set<string>();
-    // Name = "dataloaded" and abit later "dataupdated"
-    apiEvent.detail.addEventListener('videodatachange', (name: string, videoData) => {
-      if (name === 'dataupdated' && waitingEvent.has(videoData.videoId)) {
-        waitingEvent.delete(videoData.videoId);
-        sendSongInfo(videoData);
-      } else if (name === 'dataloaded') {
-        const video = $<HTMLVideoElement>('video');
-        video?.dispatchEvent(srcChangedEvent);
+  const video = $('video')!;
+  for (const status of ['playing', 'pause'] as const) {
+    video.addEventListener(status, playPausedHandlers[status]);
+  }
 
-        for (const status of ['playing', 'pause'] as const) { // for fix issue that pause event not fired
-          video?.addEventListener(status, playPausedHandlers[status]);
-        }
+  function sendSongInfo(videoData: VideoDataChangeValue) {
+    const data = api.getPlayerResponse();
 
-        waitingEvent.add(videoData.videoId);
-      }
-    });
+    data.videoDetails.album = videoData?.Hd?.playerOverlays?.playerOverlayRenderer?.browserMediaSession?.browserMediaSessionRenderer?.album.runs?.at(0)?.text;
+    data.videoDetails.elapsedSeconds = 0;
+    data.videoDetails.isPaused = false;
 
-    const video = $('video')!;
-    for (const status of ['playing', 'pause'] as const) {
-      video.addEventListener(status, playPausedHandlers[status]);
+    // HACK: This is a workaround for "podcast" type video. GREAT JOB GOOGLE.
+    if (data.playabilityStatus.transportControlsConfig) {
+      data.videoDetails.author = data.microformat.microformatDataRenderer.pageOwnerDetails.name;
     }
 
-    function sendSongInfo(videoData: VideoDataChangeValue) {
-      const data = apiEvent.detail.getPlayerResponse();
-
-      data.videoDetails.album = videoData?.Hd?.playerOverlays?.playerOverlayRenderer?.browserMediaSession?.browserMediaSessionRenderer?.album.runs?.at(0)?.text;
-      data.videoDetails.elapsedSeconds = 0;
-      data.videoDetails.isPaused = false;
-
-      // HACK: This is a workaround for "podcast" type video. GREAT JOB GOOGLE.
-      if (data.playabilityStatus.transportControlsConfig) {
-        data.videoDetails.author = data.microformat.microformatDataRenderer.pageOwnerDetails.name;
-      }
-
-      window.ipcRenderer.send('video-src-changed', data);
-    }
-  }, { once: true, passive: true });
+    window.ipcRenderer.send('video-src-changed', data);
+  }
 };
