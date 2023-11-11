@@ -12,6 +12,9 @@ import { parse } from 'node-html-parser';
 import { deepmerge } from 'deepmerge-ts';
 import { deepEqual } from 'fast-equals';
 
+import { mainPlugins } from 'virtual:MainPlugins';
+import { pluginBuilders } from 'virtual:PluginBuilders';
+
 import config from './config';
 
 import { refreshMenu, setApplicationMenu } from './menu';
@@ -22,10 +25,6 @@ import { setupSongInfo } from './providers/song-info';
 import { restart, setupAppControls } from './providers/app-controls';
 import { APP_PROTOCOL, handleProtocol, setupProtocolHandler } from './providers/protocol-handler';
 
-/* eslint-disable import/order */
-import { mainPlugins } from 'virtual:MainPlugins';
-import { pluginBuilders } from 'virtual:PluginBuilders';
-/* eslint-enable import/order */
 
 import youtubeMusicCSS from './youtube-music.css?inline';
 

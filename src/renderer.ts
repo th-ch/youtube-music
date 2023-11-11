@@ -1,5 +1,3 @@
-
-// eslint-disable-next-line import/order
 import { rendererPlugins } from 'virtual:RendererPlugins';
 import { pluginBuilders } from 'virtual:PluginBuilders';
 

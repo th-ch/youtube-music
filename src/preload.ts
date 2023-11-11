@@ -2,11 +2,10 @@ import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
 import is from 'electron-is';
 
 import { pluginBuilders } from 'virtual:PluginBuilders';
+import { preloadPlugins } from 'virtual:PreloadPlugins';
 
 import config from './config';
 
-// eslint-disable-next-line import/order
-import { preloadPlugins } from 'virtual:PreloadPlugins';
 import {
   PluginBaseConfig,
   PluginBuilder,
