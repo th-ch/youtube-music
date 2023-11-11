@@ -4,6 +4,7 @@ import { pluginBuilders } from 'virtual:PluginBuilders';
 
 export const getAvailablePluginNames = () => {
   return Object.keys(pluginBuilders)
+    .sort()
     .filter((id) => {
       if (is.windows() && id === 'touchbar') {
         return false;
