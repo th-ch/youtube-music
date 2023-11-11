@@ -138,7 +138,7 @@ async function loadPlugins(win: BrowserWindow) {
 
   win.webContents.once('did-finish-load', () => {
     if (is.dev()) {
-      console.log('did finish load');
+      console.log('[YTMusic]', 'did finish load');
       win.webContents.openDevTools();
     }
   });
@@ -165,6 +165,22 @@ async function loadPlugins(win: BrowserWindow) {
   });
 
   const pluginConfigs = config.plugins.getPlugins();
+  for (const [pluginId, builder] of Object.entries(pluginBuilders)) {
+    const typedBuilder = builder as PluginBuilderList[keyof PluginBuilderList];
+
+    const config = deepmerge(typedBuilder.config, pluginConfigs[pluginId as keyof PluginBuilderList] ?? {});
+
+    if (config.enabled) {
+      typedBuilder.styles?.forEach((style) => {
+        injectCSS(win.webContents, style, () => {
+          console.log('[YTMusic]', `Injected CSS for "${pluginId}" plugin`);
+        });
+      });
+
+      console.log('[YTMusic]', `"${pluginId}" plugin data is loaded`);
+    }
+  }
+
   for (const [pluginId, factory] of Object.entries(mainPlugins)) {
     if (Object.hasOwn(pluginBuilders, pluginId)) {
       try {
@@ -172,11 +188,6 @@ async function loadPlugins(win: BrowserWindow) {
         const config = deepmerge(builder.config, pluginConfigs[pluginId as keyof PluginBuilderList] ?? {});
 
         if (config.enabled) {
-          builder.styles?.forEach((style) => {
-            injectCSS(win.webContents, style);
-          });
-          console.log('[YTMusic]', `"${pluginId}" plugin data is loaded`);
-
           try {
             const context = createContext(pluginId as keyof PluginBuilderList);
             const plugin = await (factory as MainPluginFactory<PluginBaseConfig>)(context);
