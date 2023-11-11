@@ -121,6 +121,10 @@ const initHook = (win: BrowserWindow) => {
             ipcMain.emit('plugin:unload', id);
             forceUnloadMainPlugin(id as keyof PluginBuilderList, win);
           }
+
+          if (pluginBuilders[id as keyof PluginBuilderList].restartNeeded) {
+            showNeedToRestartDialog(id as keyof PluginBuilderList);
+          }
         }
 
         const mainPlugin = getAllLoadedMainPlugins()[id];
@@ -128,10 +132,6 @@ const initHook = (win: BrowserWindow) => {
           if (config.enabled) {
             mainPlugin.onConfigChange?.(config);
           }
-        }
-
-        if (pluginBuilders[id as keyof PluginBuilderList].restartNeeded) {
-          showNeedToRestartDialog(id as keyof PluginBuilderList);
         }
 
         win.webContents.send('config-changed', id, config);
