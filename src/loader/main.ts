@@ -37,7 +37,7 @@ const createContext = <
   },
 });
 
-const forceUnloadPlugin = (id: keyof PluginBuilderList, win: BrowserWindow) => {
+const forceUnloadMainPlugin = (id: keyof PluginBuilderList, win: BrowserWindow) => {
   unregisterStyleMap[id]?.forEach((unregister) => unregister());
   delete unregisterStyleMap[id];
 
@@ -47,7 +47,7 @@ const forceUnloadPlugin = (id: keyof PluginBuilderList, win: BrowserWindow) => {
   console.log('[YTMusic]', `"${id}" plugin is unloaded`);
 };
 
-export const forceLoadPlugin = async (id: keyof PluginBuilderList, win: BrowserWindow) => {
+export const forceLoadMainPlugin = async (id: keyof PluginBuilderList, win: BrowserWindow) => {
   const builder = allPluginBuilders[id];
 
   Promise.allSettled(
@@ -88,7 +88,7 @@ export const forceLoadPlugin = async (id: keyof PluginBuilderList, win: BrowserW
   }
 };
 
-export const loadAllPlugins = async (win: BrowserWindow) => {
+export const loadAllMainPlugins = async (win: BrowserWindow) => {
   const pluginConfigs = config.plugins.getPlugins();
 
   for (const [pluginId, builder] of Object.entries(allPluginBuilders)) {
@@ -97,25 +97,25 @@ export const loadAllPlugins = async (win: BrowserWindow) => {
     const config = deepmerge(typedBuilder.config, pluginConfigs[pluginId as keyof PluginBuilderList] ?? {});
 
     if (config.enabled) {
-      await forceLoadPlugin(pluginId as keyof PluginBuilderList, win);
+      await forceLoadMainPlugin(pluginId as keyof PluginBuilderList, win);
     } else {
       if (loadedPluginMap[pluginId as keyof PluginBuilderList]) {
-        forceUnloadPlugin(pluginId as keyof PluginBuilderList, win);
+        forceUnloadMainPlugin(pluginId as keyof PluginBuilderList, win);
       }
     }
   }
 };
 
-export const unloadAllPlugins = (win: BrowserWindow) => {
+export const unloadAllMainPlugins = (win: BrowserWindow) => {
   for (const id of Object.keys(loadedPluginMap)) {
-    forceUnloadPlugin(id as keyof PluginBuilderList, win);
+    forceUnloadMainPlugin(id as keyof PluginBuilderList, win);
   }
 };
 
-export const getLoadedPlugin = <Key extends keyof PluginBuilderList>(id: Key): MainPlugin<PluginBuilderList[Key]['config']> | undefined => {
+export const getLoadedMainPlugin = <Key extends keyof PluginBuilderList>(id: Key): MainPlugin<PluginBuilderList[Key]['config']> | undefined => {
   return loadedPluginMap[id];
 };
-export const getLoadedAllPlugins = () => {
+export const getAllLoadedMainPlugins = () => {
   return loadedPluginMap;
 };
 export const registerMainPlugin = (

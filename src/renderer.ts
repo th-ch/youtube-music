@@ -1,16 +1,14 @@
 
 // eslint-disable-next-line import/order
 import { rendererPlugins } from 'virtual:RendererPlugins';
-
 import { pluginBuilders } from 'virtual:PluginBuilders';
 
-import { deepmerge } from 'deepmerge-ts';
-
-import { PluginBaseConfig, RendererPluginContext, RendererPluginFactory } from './plugins/utils/builder';
+import { PluginBaseConfig, PluginBuilder, RendererPluginFactory } from './plugins/utils/builder';
 
 import { startingPages } from './providers/extracted-data';
 import { setupSongControls } from './providers/song-controls-front';
 import setupSongInfo from './providers/song-info-front';
+import { getAllLoadedRendererPlugins, loadAllRendererPlugins, registerRendererPlugin } from './loader/renderer';
 
 let api: Element | null = null;
 
@@ -96,73 +94,19 @@ function onApiLoaded() {
   }
 }
 
-const createContext = <
-  Key extends keyof PluginBuilderList,
-  Config extends PluginBaseConfig = PluginBuilderList[Key]['config'],
->(name: Key): RendererPluginContext<Config> => ({
-  getConfig: async () => {
-    const result = await window.ipcRenderer.invoke('get-config', name) as Config;
-
-    return result;
-  },
-  setConfig: async (newConfig) => {
-    await window.ipcRenderer.invoke('set-config', name, newConfig);
-  },
-
-  invoke: async <Return>(event: string, ...args: unknown[]): Promise<Return> => {
-    return await window.ipcRenderer.invoke(event, ...args) as Return;
-  },
-  on: (event: string, listener) => {
-    window.ipcRenderer.on(event, async (_, ...args) => listener(...args as never));
-  },
-});
-
 (async () => {
-  const pluginConfig = window.mainConfig.plugins.getPlugins();
+  Object.entries(pluginBuilders).forEach(([id, builder]) => {
+    const typedBuilder = builder as PluginBuilder<string, PluginBaseConfig>;
+    const plugin = rendererPlugins[id] as RendererPluginFactory<PluginBaseConfig> | undefined;
 
-  const rendererPluginList = Object.entries(rendererPlugins);
-  const rendererPluginResult = await Promise.allSettled(
-    rendererPluginList
-      .filter(([id]) => {
-        const typedId = id as keyof PluginBuilderList;
-        const config = deepmerge(pluginBuilders[typedId].config, pluginConfig[typedId] ?? {});
-
-        return config.enabled;
-      })
-      .map(async ([id, builder]) => {
-        const context = createContext(id as keyof PluginBuilderList);
-        return [id, await (builder as RendererPluginFactory<PluginBaseConfig>)(context)] as const;
-      }),
-  );
-
-  rendererPluginResult.forEach((it, index) => {
-    if (it.status === 'rejected') {
-      const id = rendererPluginList[index][0];
-      console.error('[YTMusic]', `Cannot load plugin "${id}"`);
-      console.trace(it.reason);
-    }
+    registerRendererPlugin(id, typedBuilder, plugin);
   });
-
-  const loadedRendererPluginList = rendererPluginResult
-    .map((it) => it.status === 'fulfilled' ? it.value : null)
-    .filter(Boolean);
-
-  loadedRendererPluginList.forEach(([id, plugin]) => {
-    try {
-      plugin.onLoad?.();
-      console.log('[YTMusic]', `"${id}" plugin is loaded`);
-    } catch (error) {
-      console.error('[YTMusic]', `Cannot load plugin "${id}"`);
-      console.trace(error);
-    }
-  });
+  await loadAllRendererPlugins();
 
   window.ipcRenderer.on('config-changed', (_event, id: string, newConfig: PluginBaseConfig) => {
-    const plugin = loadedRendererPluginList.find(([pluginId]) => pluginId === id);
+    const plugin = getAllLoadedRendererPlugins()[id];
 
-    if (plugin) {
-      plugin[1].onConfigChange?.(newConfig);
-    }
+    if (plugin) plugin.onConfigChange?.(newConfig);
   });
 
   // Inject song-info provider

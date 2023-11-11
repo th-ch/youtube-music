@@ -29,7 +29,7 @@ import { pluginBuilders } from 'virtual:PluginBuilders';
 
 import youtubeMusicCSS from './youtube-music.css?inline';
 
-import { getLoadedAllPlugins, loadAllPlugins, registerMainPlugin } from './loader/main';
+import { getAllLoadedMainPlugins, loadAllMainPlugins, registerMainPlugin } from './loader/main';
 import { MainPluginFactory, PluginBaseConfig, PluginBuilder } from './plugins/utils/builder';
 
 // Catch errors and log them
@@ -104,7 +104,7 @@ const initHook = (win: BrowserWindow) => {
       if (!isEqual) {
         const config = deepmerge(pluginBuilders[id as keyof PluginBuilderList].config, newPluginConfig);
 
-        const mainPlugin = getLoadedAllPlugins()[id];
+        const mainPlugin = getAllLoadedMainPlugins()[id];
         if (mainPlugin) mainPlugin.onConfigChange?.(config as PluginBaseConfig);
 
         win.webContents.send('config-changed', id, config);
@@ -125,7 +125,7 @@ function initTheme(win: BrowserWindow) {
           injectCSSAsFile(win.webContents, cssFile);
         },
         () => {
-          console.warn(`CSS file "${cssFile}" does not exist, ignoring`);
+          console.warn('[YTMusic]', `CSS file "${cssFile}" does not exist, ignoring`);
         },
       );
     }
@@ -186,7 +186,7 @@ async function createMainWindow() {
 
     registerMainPlugin(id, typedBuilder, plugin);
   });
-  await loadAllPlugins(win);
+  await loadAllMainPlugins(win);
 
   if (windowPosition) {
     const { x: windowX, y: windowY } = windowPosition;
