@@ -4,7 +4,6 @@ import { ipcRenderer as electronIpcRenderer } from 'electron';
 import is from 'electron-is';
 
 import config from './config';
-import { YoutubePlayer } from './types/youtube-player';
 
 declare global {
   interface Compressor {

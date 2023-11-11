@@ -3,7 +3,8 @@ import CaptionsSettingsButtonHTML from './templates/captions-settings-template.h
 import builder from './index';
 
 import { ElementFromHtml } from '../utils/renderer';
-import { YoutubePlayer } from '../../types/youtube-player';
+
+import type { YoutubePlayer } from '../../types/youtube-player';
 
 interface LanguageOptions {
   displayName: string;
