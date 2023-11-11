@@ -13,7 +13,7 @@ import { pluginBuilders } from 'virtual:PluginBuilders';
 /* eslint-enable import/order */
 
 import { getAvailablePluginNames } from './plugins/utils/main';
-import { MenuPluginContext, MenuPluginFactory, PluginBaseConfig, PluginContext } from './plugins/utils/builder';
+import { MenuPluginContext, MenuPluginFactory, PluginBaseConfig } from './plugins/utils/builder';
 
 export type MenuTemplate = Electron.MenuItemConstructorOptions[];
 
@@ -48,22 +48,13 @@ export const refreshMenu = (win: BrowserWindow) => {
 
 export const mainMenuTemplate = async (win: BrowserWindow): Promise<MenuTemplate> => {
   const innerRefreshMenu = () => refreshMenu(win);
-  const createContext = <Config extends PluginBaseConfig>(name: string): MenuPluginContext<Config> => ({
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
+  const createContext = <
+    Key extends keyof PluginBuilderList,
+    Config extends PluginBaseConfig = PluginBuilderList[Key]['config'],
+  >(name: Key): MenuPluginContext<Config> => ({
     getConfig: () => config.get(`plugins.${name}`) as unknown as Config,
     setConfig: (newConfig) => {
-      config.setPartial({
-        plugins: {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-          [name]: {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-expect-error
-            ...config.get(`plugins.${name}`),
-            ...newConfig,
-          },
-        },
-      });
+      config.setPartial(`plugins.${name}`, newConfig);
 
       return Promise.resolve();
     },
@@ -83,7 +74,7 @@ export const mainMenuTemplate = async (win: BrowserWindow): Promise<MenuTemplate
       }
 
       const factory = menuList[id] as MenuPluginFactory<PluginBaseConfig>;
-      const template = await factory(createContext(id));
+      const template = await factory(createContext(id as never));
 
       return {
         label: pluginLabel,

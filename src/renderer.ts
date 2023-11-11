@@ -144,10 +144,11 @@ const createContext = <
 
   const rendererPluginResult = await Promise.allSettled(
     enabledPluginNameAndOptions.map(async ([id]) => {
+      // HACK: eslint has a bug detects the type of rendererPlugins as "any"
       const builder = (rendererPlugins as Record<string, RendererPluginFactory<PluginBaseConfig>>)[id];
 
-      const context = createContext(id as never);
-      return [id, await builder(context as never)] as const;
+      const context = createContext(id as keyof PluginBuilderList);
+      return [id, await builder(context)] as const;
     }),
   );
 
@@ -172,12 +173,12 @@ const createContext = <
       console.trace(error);
     }
   });
-  
-  window.ipcRenderer.on('config-changed', (_event, id: string, newConfig) => {
+
+  window.ipcRenderer.on('config-changed', (_event, id: string, newConfig: PluginBaseConfig) => {
     const plugin = rendererPluginList.find(([pluginId]) => pluginId === id);
 
     if (plugin) {
-      plugin[1].onConfigChange?.(newConfig as never);
+      plugin[1].onConfigChange?.(newConfig);
     }
   });
 

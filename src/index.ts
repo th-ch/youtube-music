@@ -101,11 +101,7 @@ ipcMain.handle('get-main-plugin-names', () => Object.keys(mainPlugins));
 
 const initHook = (win: BrowserWindow) => {
   ipcMain.handle('get-config', (_, id: keyof PluginBuilderList) => config.get(`plugins.${id}` as never) ?? pluginBuilders[id].config);
-  ipcMain.handle('set-config', (_, name: string, obj: object) => config.setPartial({
-    plugins: {
-      [name]: obj,
-    }
-  }));
+  ipcMain.handle('set-config', (_, name: string, obj: object) => config.setPartial(`plugins.${name}`, obj));
 
   config.watch((newValue) => {
     const value = newValue as Record<string, unknown>;
@@ -144,30 +140,18 @@ async function loadPlugins(win: BrowserWindow) {
     }
   });
 
-  
+
   const createContext = <
     Key extends keyof PluginBuilderList,
     Config extends PluginBaseConfig = PluginBuilderList[Key]['config'],
   >(name: Key): MainPluginContext<Config> => ({
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
     getConfig: () => config.get(`plugins.${name}`) as unknown as Config,
     setConfig: (newConfig) => {
-      config.setPartial({
-        plugins: {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-          [name]: {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-expect-error
-            ...config.get(`plugins.${name}`),
-            ...newConfig,
-          },
-        },
-      });
+      config.setPartial(`plugins.${name}`, newConfig);
 
       return Promise.resolve();
     },
-  
+
     send: (event: string, ...args: unknown[]) => {
       win.webContents.send(event, ...args);
     },
@@ -175,7 +159,7 @@ async function loadPlugins(win: BrowserWindow) {
       ipcMain.handle(event, async (_, ...args) => listener(...args as never));
     },
   });
- 
+
 
   for (const [pluginId, options] of config.plugins.getEnabled()) {
     const builder = pluginBuilders[pluginId as keyof PluginBuilderList];

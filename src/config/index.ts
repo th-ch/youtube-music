@@ -1,17 +1,20 @@
 import Store from 'electron-store';
 
+import { deepmerge as createDeepmerge } from '@fastify/deepmerge';
+
 import defaultConfig from './defaults';
 import plugins from './plugins';
 import store from './store';
 
 import { restart } from '../providers/app-controls';
 
+const deepmerge = createDeepmerge();
 
 const set = (key: string, value: unknown) => {
   store.set(key, value);
 };
-const setPartial = (value: object) => {
-  // deepmerge(store.get, value);
+const setPartial = (key: string, value: object) => {
+  deepmerge(store.get(key), value);
   store.set(value);
 };
 

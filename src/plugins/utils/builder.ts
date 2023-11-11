@@ -23,8 +23,8 @@ type IF<T> = (args: T) => T;
 type Promisable<T> = T | Promise<T>;
 
 export type PluginContext<Config extends PluginBaseConfig = PluginBaseConfig> = {
-  getConfig: () => Promise<Config>;
-  setConfig: (config: DeepPartial<Config>) => Promise<void>;
+  getConfig: () => Promisable<Config>;
+  setConfig: (config: DeepPartial<Config>) => Promisable<void>;
 };
 
 export type MainPluginContext<Config extends PluginBaseConfig = PluginBaseConfig> = PluginContext<Config> & {
