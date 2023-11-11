@@ -6,7 +6,7 @@ import builder, { PictureInPicturePluginConfig } from './index';
 
 import { injectCSS } from '../utils/main';
 
-export default builder.createMain(({ getConfig, setConfig, send, handle }) => {
+export default builder.createMain(({ getConfig, setConfig, send, handle, on }) => {
   let isInPiP = false;
   let originalPosition: number[];
   let originalSize: number[];
@@ -96,8 +96,7 @@ export default builder.createMain(({ getConfig, setConfig, send, handle }) => {
       config ??= await getConfig();
       win ??= window;
       setConfig({ isInPiP });
-      injectCSS(win.webContents, style);
-      ipcMain.on('picture-in-picture', () => {
+      on('picture-in-picture', () => {
         togglePiP();
       });
 

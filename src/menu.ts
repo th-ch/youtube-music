@@ -56,7 +56,7 @@ export const mainMenuTemplate = async (win: BrowserWindow): Promise<MenuTemplate
     Key extends keyof PluginBuilderList,
     Config extends PluginBaseConfig = PluginBuilderList[Key]['config'],
   >(name: Key): MenuPluginContext<Config> => ({
-    getConfig: () => deepmerge(pluginBuilders[name].config, config.get(`plugins.${name}`)) as Config,
+    getConfig: () => deepmerge(pluginBuilders[name].config, config.get(`plugins.${name}`) ?? {}) as Config,
     setConfig: (newConfig) => {
       config.setPartial(`plugins.${name}`, newConfig);
     },

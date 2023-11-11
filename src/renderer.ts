@@ -4,13 +4,13 @@ import { rendererPlugins } from 'virtual:RendererPlugins';
 
 import { deepmerge as createDeepmerge } from '@fastify/deepmerge';
 
+import { pluginBuilders } from 'virtual:PluginBuilders';
+
 import { PluginBaseConfig, RendererPluginContext, RendererPluginFactory } from './plugins/utils/builder';
 
 import { startingPages } from './providers/extracted-data';
 import { setupSongControls } from './providers/song-controls-front';
 import setupSongInfo from './providers/song-info-front';
-import {mainPlugins} from "virtual:MainPlugins";
-import {pluginBuilders} from "virtual:PluginBuilders";
 
 const deepmerge = createDeepmerge();
 
@@ -125,7 +125,7 @@ const createContext = <
   const rendererPluginList = Object.entries(rendererPlugins);
   const rendererPluginResult = await Promise.allSettled(
     rendererPluginList
-      .filter(([id]) => deepmerge(pluginBuilders[id as keyof PluginBuilderList].config, pluginConfig[id as keyof PluginBuilderList])?.enabled)
+      .filter(([id]) => deepmerge(pluginBuilders[id as keyof PluginBuilderList].config, pluginConfig[id as keyof PluginBuilderList] ?? {}).enabled)
       .map(async ([id, builder]) => {
         const context = createContext(id as keyof PluginBuilderList);
         return [id, await (builder as RendererPluginFactory<PluginBaseConfig>)(context)] as const;

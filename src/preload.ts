@@ -17,7 +17,7 @@ const createContext = <
   Key extends keyof PluginBuilderList,
   Config extends PluginBaseConfig = PluginBuilderList[Key]['config'],
 >(name: Key): PluginContext<Config> => ({
-  getConfig: () => deepmerge(pluginBuilders[name].config, config.get(`plugins.${name}`)) as Config,
+  getConfig: () => deepmerge(pluginBuilders[name].config, config.get(`plugins.${name}`) ?? {}) as Config,
   setConfig: (newConfig) => {
     config.setPartial(`plugins.${name}`, newConfig);
   },
@@ -28,7 +28,7 @@ const preloadedPluginList = [];
 
 const pluginConfig = config.plugins.getPlugins();
 Object.entries(preloadPlugins)
-  .filter(([id]) => deepmerge(pluginBuilders[id as keyof PluginBuilderList].config, pluginConfig[id as keyof PluginBuilderList])?.enabled)
+  .filter(([id]) => deepmerge(pluginBuilders[id as keyof PluginBuilderList].config, pluginConfig[id as keyof PluginBuilderList] ?? {}).enabled)
   .forEach(async ([id]) => {
   if (Object.hasOwn(preloadPlugins, id)) {
     const factory = (preloadPlugins as Record<string, PreloadPluginFactory<PluginBaseConfig>>)[id];
