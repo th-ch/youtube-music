@@ -1,4 +1,4 @@
-import builder from '.';
+import builder from './index';
 
 export default builder.createRenderer(() => {
   return {

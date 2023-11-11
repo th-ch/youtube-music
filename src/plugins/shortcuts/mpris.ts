@@ -32,7 +32,7 @@ function registerMPRIS(win: BrowserWindow) {
 
     const player = setupMPRIS();
 
-    ipcMain.on('apiLoaded', () => {
+    ipcMain.handle('apiLoaded', () => {
       win.webContents.send('setupSeekedListener', 'mpris');
       win.webContents.send('setupTimeChangedListener', 'mpris');
       win.webContents.send('setupRepeatChangedListener', 'mpris');

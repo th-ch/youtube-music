@@ -1,21 +1,22 @@
-import config from './config';
+import { blockers } from './types';
+import builder from './index';
 
-import { blockers } from './blocker-types';
+import type { MenuTemplate } from '../../menu';
 
-import { MenuTemplate } from '../../menu';
+export default builder.createMenu(async ({ getConfig, setConfig }): Promise<MenuTemplate> => {
+  const config = await getConfig();
 
-export default (): MenuTemplate => {
   return [
     {
       label: 'Blocker',
-      submenu: Object.values(blockers).map((blocker: string) => ({
+      submenu: Object.values(blockers).map((blocker) => ({
         label: blocker,
         type: 'radio',
-        checked: (config.get('blocker') || blockers.WithBlocklists) === blocker,
+        checked: (config.blocker || blockers.WithBlocklists) === blocker,
         click() {
-          config.set('blocker', blocker);
+          setConfig({ blocker });
         },
       })),
     },
   ];
-};
+});

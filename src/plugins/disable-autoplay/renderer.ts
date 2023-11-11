@@ -1,23 +1,44 @@
-import type { ConfigType } from '../../config/dynamic';
+import builder from './index';
 
-export default (options: ConfigType<'disable-autoplay'>) => {
+import type { YoutubePlayer } from '../../types/youtube-player';
+
+export default builder.createRenderer(({ getConfig }) => {
+  let config: Awaited<ReturnType<typeof getConfig>>;
+
+  let apiEvent: CustomEvent<YoutubePlayer>;
+
   const timeUpdateListener = (e: Event) => {
     if (e.target instanceof HTMLVideoElement) {
       e.target.pause();
     }
   };
 
-  document.addEventListener('apiLoaded', (apiEvent) => {
-    const eventListener = (name: string) => {
-      if (options.applyOnce) {
-        apiEvent.detail.removeEventListener('videodatachange', eventListener);
-      }
+  const eventListener = async (name: string) => {
+    if (config.applyOnce) {
+      apiEvent.detail.removeEventListener('videodatachange', eventListener);
+    }
 
-      if (name === 'dataloaded') {
-        apiEvent.detail.pauseVideo();
-        document.querySelector<HTMLVideoElement>('video')?.addEventListener('timeupdate', timeUpdateListener, { once: true });
-      }
-    };
-    apiEvent.detail.addEventListener('videodatachange', eventListener);
-  }, { once: true, passive: true });
-};
+    if (name === 'dataloaded') {
+      apiEvent.detail.pauseVideo();
+      document.querySelector<HTMLVideoElement>('video')?.addEventListener('timeupdate', timeUpdateListener, { once: true });
+    }
+  };
+
+  return {
+    async onLoad() {
+      config = await getConfig();
+
+      document.addEventListener('apiLoaded', (api) => {
+        apiEvent = api;
+
+        apiEvent.detail.addEventListener('videodatachange', eventListener);
+      }, { once: true, passive: true });
+    },
+    onUnload() {
+      apiEvent.detail.removeEventListener('videodatachange', eventListener);
+    },
+    onConfigChange(newConfig) {
+      config = newConfig;
+    }
+  };
+});

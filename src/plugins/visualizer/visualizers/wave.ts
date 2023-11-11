@@ -2,8 +2,7 @@ import { Wave } from '@foobar404/wave';
 
 import { Visualizer } from './visualizer';
 
-import type { ConfigType } from '../../../config/dynamic';
-
+import type { VisualizerPluginConfig } from '../index';
 class WaveVisualizer extends Visualizer<Wave> {
   name = 'wave';
 
@@ -16,7 +15,7 @@ class WaveVisualizer extends Visualizer<Wave> {
     canvas: HTMLCanvasElement,
     audioNode: GainNode,
     stream: MediaStream,
-    options: ConfigType<'visualizer'>,
+    options: VisualizerPluginConfig,
   ) {
     super(
       audioContext,

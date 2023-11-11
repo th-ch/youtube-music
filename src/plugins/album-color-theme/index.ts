@@ -4,6 +4,7 @@ import { createPluginBuilder } from '../utils/builder';
 
 const builder = createPluginBuilder('album-color-theme', {
   name: 'Album Color Theme',
+  restartNeeded: true,
   config: {
     enabled: false,
   },

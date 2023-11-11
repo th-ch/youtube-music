@@ -1,37 +1,35 @@
-import { BrowserWindow, ipcMain, net } from 'electron';
+import { net } from 'electron';
 import is from 'electron-is';
 import { convert } from 'html-to-text';
 
-import style from './style.css';
 import { GetGeniusLyric } from './types';
 
-import { cleanupName, SongInfo } from '../../providers/song-info';
+import builder from './index';
 
-import { injectCSS } from '../utils/main';
-
-import type { ConfigType } from '../../config/dynamic';
+import { cleanupName, type SongInfo } from '../../providers/song-info';
 
 const eastAsianChars = /\p{Script=Katakana}|\p{Script=Hiragana}|\p{Script=Hangul}|\p{Script=Han}/u;
 let revRomanized = false;
 
-export type LyricGeniusType = ConfigType<'lyrics-genius'>;
+export default builder.createMain(({ handle, getConfig }) =>{
+  return {
+    async onLoad() {
+      const config = await getConfig();
 
-export default (win: BrowserWindow, options: LyricGeniusType) => {
-  if (options.romanizedLyrics) {
-    revRomanized = true;
-  }
+      if (config.romanizedLyrics) {
+        revRomanized = true;
+      }
 
-  injectCSS(win.webContents, style);
-
-  ipcMain.handle('search-genius-lyrics', async (_, extractedSongInfo: SongInfo) => {
-    const metadata = extractedSongInfo;
-    return await fetchFromGenius(metadata);
-  });
-};
-
-export const toggleRomanized = () => {
-  revRomanized = !revRomanized;
-};
+      handle('search-genius-lyrics', async (_, extractedSongInfo: SongInfo) => {
+        const metadata = extractedSongInfo;
+        return await fetchFromGenius(metadata);
+      });
+    },
+    onConfigChange(newConfig) {
+      revRomanized = newConfig.romanizedLyrics;
+    }
+  };
+});
 
 export const fetchFromGenius = async (metadata: SongInfo) => {
   const songTitle = `${cleanupName(metadata.title)}`;

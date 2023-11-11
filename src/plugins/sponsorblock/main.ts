@@ -1,26 +1,12 @@
-import { BrowserWindow, ipcMain } from 'electron';
 import is from 'electron-is';
 
 import { sortSegments } from './segments';
 
 import { SkipSegment } from './types';
 
-import defaultConfig from '../../config/defaults';
+import builder from './index';
 
 import type { GetPlayerResponse } from '../../types/get-player-response';
-import type { ConfigType } from '../../config/dynamic';
-
-export default (win: BrowserWindow, options: ConfigType<'sponsorblock'>) => {
-  const { apiURL, categories } = {
-    ...defaultConfig.plugins.sponsorblock,
-    ...options,
-  };
-
-  ipcMain.on('video-src-changed', async (_, data: GetPlayerResponse) => {
-    const segments = await fetchSegments(apiURL, categories, data?.videoDetails?.videoId);
-    win.webContents.send('sponsorblock-skip', segments);
-  });
-};
 
 const fetchSegments = async (apiURL: string, categories: string[], videoId: string) => {
   const sponsorBlockURL = `${apiURL}/api/skipSegments?videoID=${videoId}&categories=${JSON.stringify(
@@ -50,3 +36,16 @@ const fetchSegments = async (apiURL: string, categories: string[], videoId: stri
     return [];
   }
 };
+
+export default builder.createMain(({ getConfig, on, send }) => ({
+  async onLoad() {
+    const config = await getConfig();
+
+    const { apiURL, categories } = config;
+
+    on('video-src-changed', async (_, data: GetPlayerResponse) => {
+      const segments = await fetchSegments(apiURL, categories, data?.videoDetails?.videoId);
+      send('sponsorblock-skip', segments);
+    });
+  }
+}));

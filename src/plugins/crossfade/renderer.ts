@@ -3,158 +3,154 @@ import { Howl } from 'howler';
 // Extracted from https://github.com/bitfasching/VolumeFader
 import { VolumeFader } from './fader';
 
-import configProvider from './config-renderer';
+import builder, { CrossfadePluginConfig } from './index';
 
-import defaultConfigs from '../../config/defaults';
+export default builder.createRenderer(({ getConfig, invoke }) => {
+  let config: CrossfadePluginConfig;
 
-import type { ConfigType } from '../../config/dynamic';
+  let transitionAudio: Howl; // Howler audio used to fade out the current music
+  let firstVideo = true;
+  let waitForTransition: Promise<unknown>;
 
-let transitionAudio: Howl; // Howler audio used to fade out the current music
-let firstVideo = true;
-let waitForTransition: Promise<unknown>;
+  const getStreamURL = async (videoID: string): Promise<string> => invoke('audio-url', videoID);
 
-const defaultConfig = defaultConfigs.plugins.crossfade;
+  const getVideoIDFromURL = (url: string) => new URLSearchParams(url.split('?')?.at(-1)).get('v');
 
-let crossfadeConfig: ConfigType<'crossfade'>;
+  const isReadyToCrossfade = () => transitionAudio && transitionAudio.state() === 'loaded';
 
-const configGetNumber = (key: keyof ConfigType<'crossfade'>): number => Number(crossfadeConfig[key]) || (defaultConfig[key] as number);
+  const watchVideoIDChanges = (cb: (id: string) => void) => {
+    window.navigation.addEventListener('navigate', (event) => {
+      const currentVideoID = getVideoIDFromURL(
+        (event.currentTarget as Navigation).currentEntry?.url ?? '',
+      );
+      const nextVideoID = getVideoIDFromURL(event.destination.url ?? '');
 
-const getStreamURL = async (videoID: string) => window.ipcRenderer.invoke('audio-url', videoID) as Promise<string>;
-
-const getVideoIDFromURL = (url: string) => new URLSearchParams(url.split('?')?.at(-1)).get('v');
-
-const isReadyToCrossfade = () => transitionAudio && transitionAudio.state() === 'loaded';
-
-const watchVideoIDChanges = (cb: (id: string) => void) => {
-  window.navigation.addEventListener('navigate', (event) => {
-    const currentVideoID = getVideoIDFromURL(
-      (event.currentTarget as Navigation).currentEntry?.url ?? '',
-    );
-    const nextVideoID = getVideoIDFromURL(event.destination.url ?? '');
-
-    if (
-      nextVideoID
-      && currentVideoID
-      && (firstVideo || nextVideoID !== currentVideoID)
-    ) {
-      if (isReadyToCrossfade()) {
-        crossfade(() => {
+      if (
+        nextVideoID
+        && currentVideoID
+        && (firstVideo || nextVideoID !== currentVideoID)
+      ) {
+        if (isReadyToCrossfade()) {
+          crossfade(() => {
+            cb(nextVideoID);
+          });
+        } else {
           cb(nextVideoID);
-        });
-      } else {
-        cb(nextVideoID);
-        firstVideo = false;
+          firstVideo = false;
+        }
       }
+    });
+  };
+
+  const createAudioForCrossfade = (url: string) => {
+    if (transitionAudio) {
+      transitionAudio.unload();
     }
-  });
-};
 
-const createAudioForCrossfade = (url: string) => {
-  if (transitionAudio) {
-    transitionAudio.unload();
-  }
+    transitionAudio = new Howl({
+      src: url,
+      html5: true,
+      volume: 0,
+    });
+    syncVideoWithTransitionAudio();
+  };
 
-  transitionAudio = new Howl({
-    src: url,
-    html5: true,
-    volume: 0,
-  });
-  syncVideoWithTransitionAudio();
-};
+  const syncVideoWithTransitionAudio = () => {
+    const video = document.querySelector('video')!;
 
-const syncVideoWithTransitionAudio = () => {
-  const video = document.querySelector('video')!;
+    const videoFader = new VolumeFader(video, {
+      fadeScaling: config.fadeScaling,
+      fadeDuration: config.fadeInDuration,
+    });
 
-  const videoFader = new VolumeFader(video, {
-    fadeScaling: configGetNumber('fadeScaling'),
-    fadeDuration: configGetNumber('fadeInDuration'),
-  });
-
-  transitionAudio.play();
-  transitionAudio.seek(video.currentTime);
-
-  video.addEventListener('seeking', () => {
-    transitionAudio.seek(video.currentTime);
-  });
-
-  video.addEventListener('pause', () => {
-    transitionAudio.pause();
-  });
-
-  video.addEventListener('play', () => {
     transitionAudio.play();
     transitionAudio.seek(video.currentTime);
 
-    // Fade in
-    const videoVolume = video.volume;
-    video.volume = 0;
-    videoFader.fadeTo(videoVolume);
-  });
+    video.addEventListener('seeking', () => {
+      transitionAudio.seek(video.currentTime);
+    });
 
-  // Exit just before the end for the transition
-  const transitionBeforeEnd = () => {
-    if (
-      video.currentTime >= video.duration - configGetNumber('secondsBeforeEnd')
-      && isReadyToCrossfade()
-    ) {
-      video.removeEventListener('timeupdate', transitionBeforeEnd);
+    video.addEventListener('pause', () => {
+      transitionAudio.pause();
+    });
 
-      // Go to next video - XXX: does not support "repeat 1" mode
-      document.querySelector<HTMLButtonElement>('.next-button')?.click();
-    }
+    video.addEventListener('play', () => {
+      transitionAudio.play();
+      transitionAudio.seek(video.currentTime);
+
+      // Fade in
+      const videoVolume = video.volume;
+      video.volume = 0;
+      videoFader.fadeTo(videoVolume);
+    });
+
+    // Exit just before the end for the transition
+    const transitionBeforeEnd = async () => {
+      if (
+        video.currentTime >= video.duration - config.secondsBeforeEnd
+        && isReadyToCrossfade()
+      ) {
+        video.removeEventListener('timeupdate', transitionBeforeEnd);
+
+        // Go to next video - XXX: does not support "repeat 1" mode
+        document.querySelector<HTMLButtonElement>('.next-button')?.click();
+      }
+    };
+
+    video.addEventListener('timeupdate', transitionBeforeEnd);
   };
 
-  video.addEventListener('timeupdate', transitionBeforeEnd);
-};
+  const onApiLoaded = () => {
+    watchVideoIDChanges(async (videoID) => {
+      await waitForTransition;
+      const url = await getStreamURL(videoID);
+      if (!url) {
+        return;
+      }
 
-const onApiLoaded = () => {
-  watchVideoIDChanges(async (videoID) => {
-    await waitForTransition;
-    const url = await getStreamURL(videoID);
-    if (!url) {
+      createAudioForCrossfade(url);
+    });
+  };
+
+  const crossfade = (cb: () => void) => {
+    if (!isReadyToCrossfade()) {
+      cb();
       return;
     }
 
-    createAudioForCrossfade(url);
-  });
-};
+    let resolveTransition: () => void;
+    waitForTransition = new Promise<void>((resolve) => {
+      resolveTransition = resolve;
+    });
 
-const crossfade = (cb: () => void) => {
-  if (!isReadyToCrossfade()) {
-    cb();
-    return;
-  }
+    const video = document.querySelector('video')!;
 
-  let resolveTransition: () => void;
-  waitForTransition = new Promise<void>((resolve) => {
-    resolveTransition = resolve;
-  });
+    const fader = new VolumeFader(transitionAudio._sounds[0]._node, {
+      initialVolume: video.volume,
+      fadeScaling: config.fadeScaling,
+      fadeDuration: config.fadeOutDuration,
+    });
 
-  const video = document.querySelector('video')!;
+    // Fade out the music
+    video.volume = 0;
+    fader.fadeOut(() => {
+      resolveTransition();
+      cb();
+    });
+  };
 
-  const fader = new VolumeFader(transitionAudio._sounds[0]._node, {
-    initialVolume: video.volume,
-    fadeScaling: configGetNumber('fadeScaling'),
-    fadeDuration: configGetNumber('fadeOutDuration'),
-  });
-
-  // Fade out the music
-  video.volume = 0;
-  fader.fadeOut(() => {
-    resolveTransition();
-    cb();
-  });
-};
-
-export default () => {
-  crossfadeConfig = configProvider.getAll();
-
-  configProvider.subscribeAll((newConfig) => {
-    crossfadeConfig = newConfig;
-  });
-
-  document.addEventListener('apiLoaded', onApiLoaded, {
-    once: true,
-    passive: true,
-  });
-};
+  return {
+    onLoad() {
+      document.addEventListener('apiLoaded', async () => {
+        config = await getConfig();
+        onApiLoaded();
+      }, {
+        once: true,
+        passive: true,
+      });
+    },
+    onConfigChange(newConfig) {
+      config = newConfig;
+    },
+  };
+});

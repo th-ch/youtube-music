@@ -1,19 +1,18 @@
-import { BrowserWindow, MenuItem } from 'electron';
+import builder from './index';
 
-import { LyricGeniusType, toggleRomanized } from './main';
+export default builder.createMenu(async ({ getConfig, setConfig }) => {
+  const config = await getConfig();
 
-import { setOptions } from '../../config/plugins';
-import { MenuTemplate } from '../../menu';
-
-export default (_: BrowserWindow, options: LyricGeniusType): MenuTemplate => [
-  {
-    label: 'Romanized Lyrics',
-    type: 'checkbox',
-    checked: options.romanizedLyrics,
-    click(item: MenuItem) {
-      options.romanizedLyrics = item.checked;
-      setOptions('lyrics-genius', options);
-      toggleRomanized();
+  return [
+    {
+      label: 'Romanized Lyrics',
+      type: 'checkbox',
+      checked: config.romanizedLyrics,
+      click(item) {
+        setConfig({
+          romanizedLyrics: item.checked,
+        });
+      },
     },
-  },
-];
+  ];
+});

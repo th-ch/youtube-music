@@ -3,13 +3,11 @@ import keyEventAreEqual from 'keyboardevents-areequal';
 
 import pipHTML from './templates/picture-in-picture.html?raw';
 
+import builder, { PictureInPicturePluginConfig } from './index';
+
 import { getSongMenu } from '../../providers/dom-elements';
 
 import { ElementFromHtml } from '../utils/renderer';
-
-import type { ConfigType } from '../../config/dynamic';
-
-type PiPOptions = ConfigType<'picture-in-picture'>;
 
 function $<E extends Element = Element>(selector: string) {
   return document.querySelector<E>(selector);
@@ -135,7 +133,7 @@ const listenForToggle = () => {
   });
 };
 
-function observeMenu(options: PiPOptions) {
+function observeMenu(options: PictureInPicturePluginConfig) {
   useNativePiP = options.useNativePiP;
   document.addEventListener(
     'apiLoaded',
@@ -160,18 +158,24 @@ function observeMenu(options: PiPOptions) {
   );
 }
 
-export default (options: PiPOptions) => {
-  observeMenu(options);
+export default builder.createRenderer(({ getConfig }) => {
+  return {
+    async onLoad() {
+      const config = await getConfig();
 
-  if (options.hotkey) {
-    const hotkeyEvent = toKeyEvent(options.hotkey);
-    window.addEventListener('keydown', (event) => {
-      if (
-        keyEventAreEqual(event, hotkeyEvent)
-        && !$<HTMLElement & { opened: boolean }>('ytmusic-search-box')?.opened
-      ) {
-        togglePictureInPicture();
+      observeMenu(config);
+
+      if (config.hotkey) {
+        const hotkeyEvent = toKeyEvent(config.hotkey);
+        window.addEventListener('keydown', (event) => {
+          if (
+            keyEventAreEqual(event, hotkeyEvent)
+            && !$<HTMLElement & { opened: boolean }>('ytmusic-search-box')?.opened
+          ) {
+            togglePictureInPicture();
+          }
+        });
       }
-    });
-  }
-};
+    }
+  };
+});

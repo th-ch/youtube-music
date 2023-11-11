@@ -27,7 +27,7 @@ export const pluginVirtualModuleGenerator = (mode: PluginType) => {
     .filter(({ name, path }) => {
       if (name.startsWith('utils')) return false;
 
-      return existsSync(resolve(path, `${mode}.ts`));
+      return existsSync(resolve(path, `${mode}.ts`)) || (mode !== 'index' && existsSync(resolve(path, `${mode}`, 'index.ts')));
     });
 
     console.log('converted plugin list');

@@ -7,7 +7,13 @@
   Parts of this code is derived from set-constant.js:
   https://github.com/gorhill/uBlock/blob/5de0ce975753b7565759ac40983d31978d1f84ca/assets/resources/scriptlets.js#L704
   */
+
+let injected = false;
+
+export const isInjected = () => isInjected;
+
 export const inject = () => {
+  injected = true;
   {
     const pruner = function (o) {
       delete o.playerAds;

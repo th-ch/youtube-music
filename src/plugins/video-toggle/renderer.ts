@@ -1,191 +1,210 @@
 import buttonTemplate from './templates/button_template.html?raw';
 
+import builder, { type VideoTogglePluginConfig } from './index';
+
 import { ElementFromHtml } from '../utils/renderer';
 
-// import { moveVolumeHud as preciseVolumeMoveVolumeHud } from '../precise-volume/renderer';
+import { moveVolumeHud as preciseVolumeMoveVolumeHud } from '../precise-volume/renderer';
 
 import { YoutubePlayer } from '../../types/youtube-player';
 import { ThumbnailElement } from '../../types/get-player-response';
 
-import type { ConfigType } from '../../config/dynamic';
 
-// const moveVolumeHud = window.mainConfig.plugins.isEnabled('precise-volume') ? preciseVolumeMoveVolumeHud : () => {};
-const moveVolumeHud = () => {};
+export default builder.createRenderer(({ getConfig }) => {
+  const moveVolumeHud = window.mainConfig.plugins.isEnabled('precise-volume') ?
+    preciseVolumeMoveVolumeHud as (_: boolean) => void
+    : (() => {});
 
-function $<E extends Element = Element>(selector: string): E | null {
-  return document.querySelector<E>(selector);
-}
+  let config: VideoTogglePluginConfig = builder.config;
+  let player: HTMLElement & { videoMode_: boolean } | null;
+  let video: HTMLVideoElement | null;
+  let api: YoutubePlayer;
 
-let options: ConfigType<'video-toggle'>;
-let player: HTMLElement & { videoMode_: boolean } | null;
-let video: HTMLVideoElement | null;
-let api: YoutubePlayer;
+  const switchButtonDiv = ElementFromHtml(buttonTemplate);
 
-const switchButtonDiv = ElementFromHtml(buttonTemplate);
+  function setup(e: CustomEvent<YoutubePlayer>) {
+    api = e.detail;
+    player = document.querySelector<(HTMLElement & { videoMode_: boolean; })>('ytmusic-player');
+    video = document.querySelector<HTMLVideoElement>('video');
 
-export default (_options: ConfigType<'video-toggle'>) => {
-  if (_options.forceHide) {
-    return;
-  }
+    document.querySelector<HTMLVideoElement>('#player')?.prepend(switchButtonDiv);
 
-  switch (_options.mode) {
-    case 'native': {
-      $('ytmusic-player-page')?.setAttribute('has-av-switcher', '');
-      $('ytmusic-player')?.setAttribute('has-av-switcher', '');
-      return;
+    setVideoState(!config.hideVideo);
+    forcePlaybackMode();
+    // Fix black video
+    if (video) {
+      video.style.height = 'auto';
     }
 
-    case 'disabled': {
-      $('ytmusic-player-page')?.removeAttribute('has-av-switcher');
-      $('ytmusic-player')?.removeAttribute('has-av-switcher');
-      return;
-    }
+    //Prevents bubbling to the player which causes it to stop or resume
+    switchButtonDiv.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
 
-    default:
-    case 'custom': {
-      options = _options;
-      document.addEventListener('apiLoaded', setup, { once: true, passive: true });
-    }
-  }
-};
+    // Button checked = show video
+    switchButtonDiv.addEventListener('change', (e) => {
+      const target = e.target as HTMLInputElement;
 
-function setup(e: CustomEvent<YoutubePlayer>) {
-  api = e.detail;
-  player = $<(HTMLElement & { videoMode_: boolean; })>('ytmusic-player');
-  video = $<HTMLVideoElement>('video');
+      setVideoState(target.checked);
+    });
 
-  $<HTMLVideoElement>('#player')?.prepend(switchButtonDiv);
+    video?.addEventListener('srcChanged', videoStarted);
 
-  setVideoState(!options.hideVideo);
-  forcePlaybackMode();
-  // Fix black video
-  if (video) {
-    video.style.height = 'auto';
-  }
+    observeThumbnail();
 
-  //Prevents bubbling to the player which causes it to stop or resume
-  switchButtonDiv.addEventListener('click', (e) => {
-    e.stopPropagation();
-  });
+    switch (config.align) {
+      case 'right': {
+        switchButtonDiv.style.left = 'calc(100% - 240px)';
+        return;
+      }
 
-  // Button checked = show video
-  switchButtonDiv.addEventListener('change', (e) => {
-    const target = e.target as HTMLInputElement;
+      case 'middle': {
+        switchButtonDiv.style.left = 'calc(50% - 120px)';
+        return;
+      }
 
-    setVideoState(target.checked);
-  });
-
-  video?.addEventListener('srcChanged', videoStarted);
-
-  observeThumbnail();
-
-  switch (options.align) {
-    case 'right': {
-      switchButtonDiv.style.left = 'calc(100% - 240px)';
-      return;
-    }
-
-    case 'middle': {
-      switchButtonDiv.style.left = 'calc(50% - 120px)';
-      return;
-    }
-
-    default:
-    case 'left': {
-      switchButtonDiv.style.left = '0px';
+      default:
+      case 'left': {
+        switchButtonDiv.style.left = '0px';
+      }
     }
   }
-}
 
-function setVideoState(showVideo: boolean) {
-  options.hideVideo = !showVideo;
-  window.mainConfig.plugins.setOptions('video-toggle', options);
+  function setVideoState(showVideo: boolean) {
+    config.hideVideo = !showVideo;
+    window.mainConfig.plugins.setOptions('video-toggle', config);
 
-  const checkbox = $<HTMLInputElement>('.video-switch-button-checkbox'); // custom mode
-  if (checkbox) checkbox.checked = !options.hideVideo;
+    const checkbox = document.querySelector<HTMLInputElement>('.video-switch-button-checkbox'); // custom mode
+    if (checkbox) checkbox.checked = !config.hideVideo;
 
-  if (player) {
-    player.style.margin = showVideo ? '' : 'auto 0px';
-    player.setAttribute('playback-mode', showVideo ? 'OMV_PREFERRED' : 'ATV_PREFERRED');
+    if (player) {
+      player.style.margin = showVideo ? '' : 'auto 0px';
+      player.setAttribute('playback-mode', showVideo ? 'OMV_PREFERRED' : 'ATV_PREFERRED');
 
-    $<HTMLElement>('#song-video.ytmusic-player')!.style.display = showVideo ? 'block' : 'none';
-    $<HTMLElement>('#song-image')!.style.display = showVideo ? 'none' : 'block';
+      document.querySelector<HTMLElement>('#song-video.ytmusic-player')!.style.display = showVideo ? 'block' : 'none';
+      document.querySelector<HTMLElement>('#song-image')!.style.display = showVideo ? 'none' : 'block';
 
-    if (showVideo && video && !video.style.top) {
-      video.style.top = `${(player.clientHeight - video.clientHeight) / 2}px`;
+      if (showVideo && video && !video.style.top) {
+        video.style.top = `${(player.clientHeight - video.clientHeight) / 2}px`;
+      }
+
+      moveVolumeHud(showVideo);
     }
-
-    moveVolumeHud(showVideo);
   }
-}
 
-function videoStarted() {
-  if (api.getPlayerResponse().videoDetails.musicVideoType === 'MUSIC_VIDEO_TYPE_ATV') {
-    // Video doesn't exist -> switch to song mode
-    setVideoState(false);
-    // Hide toggle button
-    switchButtonDiv.style.display = 'none';
-  } else {
-    const songImage = $<HTMLImageElement>('#song-image img');
-    if (!songImage) {
-      return;
-    }
-    // Switch to high-res thumbnail
-    forceThumbnail(songImage);
-    // Show toggle button
-    switchButtonDiv.style.display = 'initial';
-    // Change display to video mode if video exist & video is hidden & option.hideVideo = false
-    if (!options.hideVideo && $<HTMLElement>('#song-video.ytmusic-player')?.style.display === 'none') {
-      setVideoState(true);
+  function videoStarted() {
+    if (api.getPlayerResponse().videoDetails.musicVideoType === 'MUSIC_VIDEO_TYPE_ATV') {
+      // Video doesn't exist -> switch to song mode
+      setVideoState(false);
+      // Hide toggle button
+      switchButtonDiv.style.display = 'none';
     } else {
-      moveVolumeHud(!options.hideVideo);
+      const songImage = document.querySelector<HTMLImageElement>('#song-image img');
+      if (!songImage) {
+        return;
+      }
+      // Switch to high-res thumbnail
+      forceThumbnail(songImage);
+      // Show toggle button
+      switchButtonDiv.style.display = 'initial';
+      // Change display to video mode if video exist & video is hidden & option.hideVideo = false
+      if (!config.hideVideo && document.querySelector<HTMLElement>('#song-video.ytmusic-player')?.style.display === 'none') {
+        setVideoState(true);
+      } else {
+        moveVolumeHud(!config.hideVideo);
+      }
     }
   }
-}
 
 // On load, after a delay, the page overrides the playback-mode to 'OMV_PREFERRED' which causes weird aspect ratio in the image container
 // this function fix the problem by overriding that override :)
-function forcePlaybackMode() {
-  if (player) {
-    const playbackModeObserver = new MutationObserver((mutations) => {
-      for (const mutation of mutations) {
-        if (mutation.target instanceof HTMLElement) {
-          const target = mutation.target;
-          if (target.getAttribute('playback-mode') !== 'ATV_PREFERRED') {
-            playbackModeObserver.disconnect();
-            target.setAttribute('playback-mode', 'ATV_PREFERRED');
+  function forcePlaybackMode() {
+    if (player) {
+      const playbackModeObserver = new MutationObserver((mutations) => {
+        for (const mutation of mutations) {
+          if (mutation.target instanceof HTMLElement) {
+            const target = mutation.target;
+            if (target.getAttribute('playback-mode') !== 'ATV_PREFERRED') {
+              playbackModeObserver.disconnect();
+              target.setAttribute('playback-mode', 'ATV_PREFERRED');
+            }
           }
+        }
+      });
+      playbackModeObserver.observe(player, { attributeFilter: ['playback-mode'] });
+    }
+  }
+
+  function observeThumbnail() {
+    const playbackModeObserver = new MutationObserver((mutations) => {
+      if (!player?.videoMode_) {
+        return;
+      }
+
+      for (const mutation of mutations) {
+        if (mutation.target instanceof HTMLImageElement) {
+          const target = mutation.target;
+          if (!target.src.startsWith('data:')) {
+            continue;
+          }
+
+          forceThumbnail(target);
         }
       }
     });
-    playbackModeObserver.observe(player, { attributeFilter: ['playback-mode'] });
+    playbackModeObserver.observe(document.querySelector('#song-image img')!, { attributeFilter: ['src'] });
   }
-}
 
-function observeThumbnail() {
-  const playbackModeObserver = new MutationObserver((mutations) => {
-    if (!player?.videoMode_) {
-      return;
+  function forceThumbnail(img: HTMLImageElement) {
+    const thumbnails: ThumbnailElement[] = (document.querySelector('#movie_player') as unknown as YoutubePlayer).getPlayerResponse()?.videoDetails?.thumbnail?.thumbnails ?? [];
+    if (thumbnails && thumbnails.length > 0) {
+      const thumbnail = thumbnails.at(-1)?.url.split('?')[0];
+      if (typeof thumbnail === 'string') img.src = thumbnail;
     }
+  }
 
-    for (const mutation of mutations) {
-      if (mutation.target instanceof HTMLImageElement) {
-        const target = mutation.target;
-        if (!target.src.startsWith('data:')) {
-          continue;
+  const applyStyleClass = (config: VideoTogglePluginConfig) => {
+    if (config.forceHide) {
+      document.body.classList.add('video-toggle-force-hide');
+      document.body.classList.remove('video-toggle-custom-mode');
+    } else if (!config.mode || config.mode === 'custom') {
+      document.body.classList.add('video-toggle-custom-mode');
+      document.body.classList.remove('video-toggle-force-hide');
+    }
+  };
+
+  return {
+    async onLoad() {
+      config = await getConfig();
+      applyStyleClass(config);
+
+      if (config.forceHide) {
+        return;
+      }
+
+      switch (config.mode) {
+        case 'native': {
+          document.querySelector('ytmusic-player-page')?.setAttribute('has-av-switcher', '');
+          document.querySelector('ytmusic-player')?.setAttribute('has-av-switcher', '');
+          return;
         }
 
-        forceThumbnail(target);
-      }
-    }
-  });
-  playbackModeObserver.observe($('#song-image img')!, { attributeFilter: ['src'] });
-}
+        case 'disabled': {
+          document.querySelector('ytmusic-player-page')?.removeAttribute('has-av-switcher');
+          document.querySelector('ytmusic-player')?.removeAttribute('has-av-switcher');
+          return;
+        }
 
-function forceThumbnail(img: HTMLImageElement) {
-  const thumbnails: ThumbnailElement[] = ($('#movie_player') as unknown as YoutubePlayer).getPlayerResponse()?.videoDetails?.thumbnail?.thumbnails ?? [];
-  if (thumbnails && thumbnails.length > 0) {
-    const thumbnail = thumbnails.at(-1)?.url.split('?')[0];
-    if (typeof thumbnail === 'string') img.src = thumbnail;
-  }
-}
+        default:
+        case 'custom': {
+          document.addEventListener('apiLoaded', setup, { once: true, passive: true });
+        }
+      }
+    },
+    onConfigChange(newConfig) {
+      config = newConfig;
+
+      applyStyleClass(newConfig);
+    }
+  };
+});

@@ -1,46 +1,49 @@
 import { dialog } from 'electron';
 
 import { downloadPlaylist } from './main';
-import { defaultMenuDownloadLabel, getFolder } from './utils';
+import { defaultMenuDownloadLabel, getFolder } from './main/utils';
 import { DefaultPresetList } from './types';
-import config from './config';
 
-import { MenuTemplate } from '../../menu';
+import builder from './index';
 
-export default (): MenuTemplate => [
-  {
-    label: defaultMenuDownloadLabel,
-    click: () => downloadPlaylist(),
-  },
-  {
-    label: 'Choose download folder',
-    click() {
-      const result = dialog.showOpenDialogSync({
-        properties: ['openDirectory', 'createDirectory'],
-        defaultPath: getFolder(config.get('downloadFolder') ?? ''),
-      });
-      if (result) {
-        config.set('downloadFolder', result[0]);
-      } // Else = user pressed cancel
+export default builder.createMenu(async ({ getConfig, setConfig }) => {
+  const config = await getConfig();
+
+  return [
+    {
+      label: defaultMenuDownloadLabel,
+      click: () => downloadPlaylist(),
     },
-  },
-  {
-    label: 'Presets',
-    submenu: Object.keys(DefaultPresetList).map((preset) => ({
-      label: preset,
-      type: 'radio',
-      checked: config.get('selectedPreset') === preset,
+    {
+      label: 'Choose download folder',
       click() {
-        config.set('selectedPreset', preset);
+        const result = dialog.showOpenDialogSync({
+          properties: ['openDirectory', 'createDirectory'],
+          defaultPath: getFolder(config.downloadFolder ?? ''),
+        });
+        if (result) {
+          setConfig({ downloadFolder: result[0] });
+        } // Else = user pressed cancel
       },
-    })),
-  },
-  {
-    label: 'Skip existing files',
-    type: 'checkbox',
-    checked: config.get('skipExisting'),
-    click(item) {
-      config.set('skipExisting', item.checked);
     },
-  },
-];
+    {
+      label: 'Presets',
+      submenu: Object.keys(DefaultPresetList).map((preset) => ({
+        label: preset,
+        type: 'radio',
+        checked: config.selectedPreset === preset,
+        click() {
+          setConfig({ selectedPreset: preset });
+        },
+      })),
+    },
+    {
+      label: 'Skip existing files',
+      type: 'checkbox',
+      checked: config.skipExisting,
+      click(item) {
+        setConfig({ skipExisting: item.checked });
+      },
+    },
+  ];
+});

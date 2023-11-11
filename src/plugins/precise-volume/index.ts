@@ -15,6 +15,7 @@ export type PreciseVolumePluginConfig = {
 
 const builder = createPluginBuilder('precise-volume', {
   name: 'Precise Volume',
+  restartNeeded: true,
   config: {
     enabled: false,
     steps: 1, // Percentage of volume to change

@@ -2,19 +2,19 @@ import { register } from 'electron-localshortcut';
 
 import { BrowserWindow, Menu, MenuItem, ipcMain, nativeImage } from 'electron';
 
-import builder from './';
+import builder from './index';
 
-export default builder.createMain(({ handle }) => {
+export default builder.createMain(({ handle, send }) => {
 
   return {
     onLoad(win) {
       win.on('close', () => {
-        win.webContents.send('close-all-in-app-menu-panel');
+        send('close-all-in-app-menu-panel');
       });
 
       win.once('ready-to-show', () => {
         register(win, '`', () => {
-          win.webContents.send('toggle-in-app-menu');
+          send('toggle-in-app-menu');
         });
       });
 
@@ -63,9 +63,9 @@ export default builder.createMain(({ handle }) => {
       handle('window-close', () => win.close());
       handle('window-minimize', () => win.minimize());
       handle('window-maximize', () => win.maximize());
-      win.on('maximize', () => win.webContents.send('window-maximize'));
+      win.on('maximize', () => send('window-maximize'));
       handle('window-unmaximize', () => win.unmaximize());
-      win.on('unmaximize', () => win.webContents.send('window-unmaximize'));
+      win.on('unmaximize', () => send('window-unmaximize'));
 
       handle('image-path-to-data-url', (_, imagePath: string) => {
         const nativeImageIcon = nativeImage.createFromPath(imagePath);

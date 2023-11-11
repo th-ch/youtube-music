@@ -1,15 +1,27 @@
-import config, { shouldUseBlocklists } from './config';
-import { inject } from './inject';
-import injectCliqzPreload from './inject-cliqz-preload';
+import { inject, isInjected } from './injectors/inject';
+import injectCliqzPreload from './injectors/inject-cliqz-preload';
 
-import { blockers } from './blocker-types';
+import { blockers } from './types';
+import builder from './index';
 
-export default async () => {
-  if (shouldUseBlocklists()) {
-    // Preload adblocker to inject scripts/styles
-    await injectCliqzPreload();
-    // eslint-disable-next-line @typescript-eslint/await-thenable
-  } else if ((config.get('blocker')) === blockers.InPlayer) {
-    inject();
+export default builder.createPreload(({ getConfig }) => ({
+  async onLoad() {
+    const config = await getConfig();
+
+    if (config.blocker === blockers.WithBlocklists) {
+      // Preload adblocker to inject scripts/styles
+      await injectCliqzPreload();
+    } else if (config.blocker === blockers.InPlayer) {
+      inject();
+    }
+  },
+  async onConfigChange(newConfig) {
+    if (newConfig.blocker === blockers.WithBlocklists) {
+      await injectCliqzPreload();
+    } else if (newConfig.blocker === blockers.InPlayer) {
+      if (!isInjected()) {
+        inject();
+      }
+    }
   }
-};
+}));

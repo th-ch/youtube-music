@@ -2,8 +2,9 @@ import titlebarStyle from './titlebar.css?inline';
 
 import { createPluginBuilder } from '../utils/builder';
 
-export const builder = createPluginBuilder('in-app-menu', {
+const builder = createPluginBuilder('in-app-menu', {
   name: 'In-App Menu',
+  restartNeeded: true,
   config: {
     enabled: false,
     hideDOMWindowControls: false,

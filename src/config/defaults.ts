@@ -1,4 +1,4 @@
-import { blockers } from '../plugins/adblocker/blocker-types';
+import { blockers } from '../plugins/adblocker/types';
 
 import { DefaultPresetList } from '../plugins/downloader/types';
 

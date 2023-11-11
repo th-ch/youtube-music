@@ -1,6 +1,6 @@
 import { BrowserWindow } from 'electron';
 
-import style from './style.css';
+import style from './style.css?inline';
 
 import { injectCSS } from '../utils/main';
 

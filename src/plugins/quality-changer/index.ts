@@ -1,7 +1,8 @@
 import { createPluginBuilder } from '../utils/builder';
 
 const builder = createPluginBuilder('quality-changer', {
-  name: 'Quality Changer',
+  name: 'Video Quality Changer',
+  restartNeeded: false,
   config: {
     enabled: false,
   },

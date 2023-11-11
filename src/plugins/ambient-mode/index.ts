@@ -14,6 +14,7 @@ export type AmbientModePluginConfig = {
 };
 const builder = createPluginBuilder('ambient-mode', {
   name: 'Ambient Mode',
+  restartNeeded: true,
   config: {
     enabled: false,
     quality: 50,

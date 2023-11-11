@@ -5,26 +5,34 @@ import config from './config';
 
 // eslint-disable-next-line import/order
 import { preloadPlugins } from 'virtual:PreloadPlugins';
-
-import type { ConfigType, OneOfDefaultConfigKey } from './config/dynamic';
-
-export type PluginMapper<Type extends 'renderer' | 'preload' | 'backend'> = {
-  [Key in OneOfDefaultConfigKey]?: (
-    Type extends 'renderer' ? (options: ConfigType<Key>) => (Promise<void> | void) :
-      Type extends 'preload' ? () => (Promise<void> | void) :
-    never
-  )
-};
+import { PluginBaseConfig, PluginContext, PreloadPluginFactory } from './plugins/utils/builder';
 
 const enabledPluginNameAndOptions = config.plugins.getEnabled();
 
-enabledPluginNameAndOptions.forEach(async ([plugin, options]) => {
-  if (Object.hasOwn(preloadPlugins, plugin)) {
-    const handler = preloadPlugins[plugin];
+const createContext = <
+  Key extends keyof PluginBuilderList,
+  Config extends PluginBaseConfig = PluginBuilderList[Key]['config'],
+>(name: Key): PluginContext<Config> => ({
+  getConfig: () => config.get(`plugins.${name}`) as unknown as Config,
+  setConfig: (newConfig) => {
+    config.setPartial(`plugins.${name}`, newConfig);
+  },
+});
+
+
+const preloadedPluginList = [];
+
+enabledPluginNameAndOptions.forEach(async ([id]) => {
+  if (Object.hasOwn(preloadPlugins, id)) {
+    const factory = (preloadPlugins as Record<string, PreloadPluginFactory<PluginBaseConfig>>)[id];
+
     try {
-      await handler?.(options);
+      const context = createContext(id);
+      const plugin = await factory(context);
+      plugin.onLoad?.();
+      preloadedPluginList.push(plugin);
     } catch (error) {
-      console.error(`Error in plugin "${plugin}": ${String(error)}`);
+      console.error('[YTMusic]', `Cannot load preload plugin "${id}": ${String(error)}`);
     }
   }
 });

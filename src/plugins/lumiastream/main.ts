@@ -1,4 +1,6 @@
-import { BrowserWindow , net } from 'electron';
+import { net } from 'electron';
+
+import builder from './index';
 
 import registerCallback from '../../providers/song-info';
 
@@ -36,8 +38,8 @@ const post = (data: LumiaData) => {
     'Accept': 'application/json',
     'Access-Control-Allow-Headers': '*',
     'Access-Control-Allow-Origin': '*',
-  };
-  const url = `http://localhost:${port}/api/media`;
+  } as const;
+  const url = `http://127.0.0.1:${port}/api/media`;
 
   net.fetch(url, { method: 'POST', body: JSON.stringify({ token: 'lsmedia_ytmsI7812', data }), headers })
     .catch((error: { code: number, errno: number }) => {
@@ -49,34 +51,38 @@ const post = (data: LumiaData) => {
     });
 };
 
-export default (_: BrowserWindow) => {
-  registerCallback((songInfo) => {
-    if (!songInfo.title && !songInfo.artist) {
-      return;
-    }
+export default builder.createMain(() => {
+  return {
+    onLoad() {
+      registerCallback((songInfo) => {
+        if (!songInfo.title && !songInfo.artist) {
+          return;
+        }
 
-    if (previousStatePaused === null) {
-      data.eventType = 'switchSong';
-    } else if (previousStatePaused !== songInfo.isPaused) {
-      data.eventType = 'playPause';
-    }
+        if (previousStatePaused === null) {
+          data.eventType = 'switchSong';
+        } else if (previousStatePaused !== songInfo.isPaused) {
+          data.eventType = 'playPause';
+        }
 
-    data.duration = secToMilisec(songInfo.songDuration);
-    data.progress = secToMilisec(songInfo.elapsedSeconds);
-    data.url = songInfo.url;
-    data.videoId = songInfo.videoId;
-    data.playlistId = songInfo.playlistId;
-    data.cover = songInfo.imageSrc;
-    data.cover_url = songInfo.imageSrc;
-    data.album_url = songInfo.imageSrc;
-    data.title = songInfo.title;
-    data.artists = [songInfo.artist];
-    data.status = songInfo.isPaused ? 'stopped' : 'playing';
-    data.isPaused = songInfo.isPaused;
-    data.album = songInfo.album;
-    data.views = songInfo.views;
-    post(data);
-  });
-};
+        data.duration = secToMilisec(songInfo.songDuration);
+        data.progress = secToMilisec(songInfo.elapsedSeconds);
+        data.url = songInfo.url;
+        data.videoId = songInfo.videoId;
+        data.playlistId = songInfo.playlistId;
+        data.cover = songInfo.imageSrc;
+        data.cover_url = songInfo.imageSrc;
+        data.album_url = songInfo.imageSrc;
+        data.title = songInfo.title;
+        data.artists = [songInfo.artist];
+        data.status = songInfo.isPaused ? 'stopped' : 'playing';
+        data.isPaused = songInfo.isPaused;
+        data.album = songInfo.album;
+        data.views = songInfo.views;
+        post(data);
+      });
+    }
+  };
+});
 
 

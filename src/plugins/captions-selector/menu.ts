@@ -1,22 +1,26 @@
-import config from './config';
+import builder from './index';
 
-import { MenuTemplate } from '../../menu';
+import type { MenuTemplate } from '../../menu';
 
-export default (): MenuTemplate => [
-  {
-    label: 'Automatically select last used caption',
-    type: 'checkbox',
-    checked: config.get('autoload'),
-    click(item) {
-      config.set('autoload', item.checked);
+export default builder.createMenu(async ({ getConfig, setConfig }): Promise<MenuTemplate> => {
+  const config = await getConfig();
+
+  return [
+    {
+      label: 'Automatically select last used caption',
+      type: 'checkbox',
+      checked: config.autoload,
+      click(item) {
+        setConfig({ autoload: item.checked });
+      },
     },
-  },
-  {
-    label: 'No captions by default',
-    type: 'checkbox',
-    checked: config.get('disableCaptions'),
-    click(item) {
-      config.set('disableCaptions', item.checked);
+    {
+      label: 'No captions by default',
+      type: 'checkbox',
+      checked: config.disableCaptions,
+      click(item) {
+        setConfig({ disableCaptions: item.checked });
+      },
     },
-  },
-];
+  ];
+});

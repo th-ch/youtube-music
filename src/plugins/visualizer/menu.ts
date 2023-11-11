@@ -1,23 +1,21 @@
-import { BrowserWindow } from 'electron';
+import builder from './index';
 
-import { MenuTemplate } from '../../menu';
-import { setMenuOptions } from '../../config/plugins';
+const visualizerTypes = ['butterchurn', 'vudio', 'wave'] as const; // For bundling
 
-import type { ConfigType } from '../../config/dynamic';
+export default builder.createMenu(async ({ getConfig, setConfig }) => {
+  const config = await getConfig();
 
-const visualizerTypes = ['butterchurn', 'vudio', 'wave']; // For bundling
-
-export default (win: BrowserWindow, options: ConfigType<'visualizer'>): MenuTemplate => [
-  {
-    label: 'Type',
-    submenu: visualizerTypes.map((visualizerType) => ({
-      label: visualizerType,
-      type: 'radio',
-      checked: options.type === visualizerType,
-      click() {
-        options.type = visualizerType;
-        setMenuOptions('visualizer', options);
-      },
-    })),
-  },
-];
+  return [
+    {
+      label: 'Type',
+      submenu: visualizerTypes.map((visualizerType) => ({
+        label: visualizerType,
+        type: 'radio',
+        checked: config.type === visualizerType,
+        click() {
+          setConfig({ type: visualizerType });
+        },
+      })),
+    },
+  ];
+});

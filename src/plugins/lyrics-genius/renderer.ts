@@ -1,8 +1,11 @@
+import builder from './index';
+
 import type { SongInfo } from '../../providers/song-info';
 
-export default () => {
-  const setLyrics = (lyricsContainer: Element, lyrics: string | null) => {
-    lyricsContainer.innerHTML = `
+export default builder.createRenderer(({ on, invoke }) => ({
+  onLoad() {
+    const setLyrics = (lyricsContainer: Element, lyrics: string | null) => {
+      lyricsContainer.innerHTML = `
       <div id="contents" class="style-scope ytmusic-section-list-renderer description ytmusic-description-shelf-renderer genius-lyrics">
         ${lyrics?.replaceAll(/\r\n|\r|\n/g, '<br/>') ?? 'Could not retrieve lyrics from genius'}
       </div>
@@ -10,96 +13,97 @@ export default () => {
       </yt-formatted-string>
     `;
 
-    if (lyrics) {
-      const footer = lyricsContainer.querySelector('.footer');
+      if (lyrics) {
+        const footer = lyricsContainer.querySelector('.footer');
 
-      if (footer) {
-        footer.textContent = 'Source: Genius';
+        if (footer) {
+          footer.textContent = 'Source: Genius';
+        }
       }
-    }
-  };
+    };
 
-  let unregister: (() => void) | null = null;
+    let unregister: (() => void) | null = null;
 
-  window.ipcRenderer.on('update-song-info', (_, extractedSongInfo: SongInfo) => {
-    unregister?.();
+    on('update-song-info', (_, extractedSongInfo: SongInfo) => {
+      unregister?.();
 
-    setTimeout(async () => {
-      const tabList = document.querySelectorAll<HTMLElement>('tp-yt-paper-tab');
-      const tabs = {
-        upNext: tabList[0],
-        lyrics: tabList[1],
-        discover: tabList[2],
-      };
+      setTimeout(async () => {
+        const tabList = document.querySelectorAll<HTMLElement>('tp-yt-paper-tab');
+        const tabs = {
+          upNext: tabList[0],
+          lyrics: tabList[1],
+          discover: tabList[2],
+        };
 
-      // Check if disabled
-      if (!tabs.lyrics?.hasAttribute('disabled')) return;
+        // Check if disabled
+        if (!tabs.lyrics?.hasAttribute('disabled')) return;
 
-      const lyrics = await window.ipcRenderer.invoke(
-        'search-genius-lyrics',
-        extractedSongInfo,
-      ) as string | null;
-
-      if (!lyrics) {
-        // Delete previous lyrics if tab is open and couldn't get new lyrics
-        tabs.upNext.click();
-
-        return;
-      }
-
-      if (window.electronIs.dev()) {
-        console.log('Fetched lyrics from Genius');
-      }
-
-      const tryToInjectLyric = (callback?: () => void) => {
-        const lyricsContainer = document.querySelector(
-          '[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"] > ytmusic-message-renderer',
+        const lyrics = await invoke<string | null>(
+          'search-genius-lyrics',
+          extractedSongInfo,
         );
 
-        if (lyricsContainer) {
-          callback?.();
+        if (!lyrics) {
+          // Delete previous lyrics if tab is open and couldn't get new lyrics
+          tabs.upNext.click();
 
-          setLyrics(lyricsContainer, lyrics);
-          applyLyricsTabState();
+          return;
         }
-      };
-      const applyLyricsTabState = () => {
-        if (lyrics) {
-          tabs.lyrics.removeAttribute('disabled');
-          tabs.lyrics.removeAttribute('aria-disabled');
-        } else {
-          tabs.lyrics.setAttribute('disabled', '');
-          tabs.lyrics.setAttribute('aria-disabled', '');
+
+        if (window.electronIs.dev()) {
+          console.log('Fetched lyrics from Genius');
         }
-      };
-      const lyricsTabHandler = () => {
-        const tabContainer = document.querySelector('ytmusic-tab-renderer');
-        if (!tabContainer) return;
 
-        const observer = new MutationObserver((_, observer) => {
-          tryToInjectLyric(() => observer.disconnect());
-        });
+        const tryToInjectLyric = (callback?: () => void) => {
+          const lyricsContainer = document.querySelector(
+            '[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"] > ytmusic-message-renderer',
+          );
 
-        observer.observe(tabContainer, {
-          attributes: true,
-          childList: true,
-          subtree: true,
-        });
-      };
+          if (lyricsContainer) {
+            callback?.();
 
-      applyLyricsTabState();
+            setLyrics(lyricsContainer, lyrics);
+            applyLyricsTabState();
+          }
+        };
+        const applyLyricsTabState = () => {
+          if (lyrics) {
+            tabs.lyrics.removeAttribute('disabled');
+            tabs.lyrics.removeAttribute('aria-disabled');
+          } else {
+            tabs.lyrics.setAttribute('disabled', '');
+            tabs.lyrics.setAttribute('aria-disabled', '');
+          }
+        };
+        const lyricsTabHandler = () => {
+          const tabContainer = document.querySelector('ytmusic-tab-renderer');
+          if (!tabContainer) return;
 
-      tabs.discover.addEventListener('click', applyLyricsTabState);
-      tabs.lyrics.addEventListener('click', lyricsTabHandler);
-      tabs.upNext.addEventListener('click', applyLyricsTabState);
+          const observer = new MutationObserver((_, observer) => {
+            tryToInjectLyric(() => observer.disconnect());
+          });
 
-      tryToInjectLyric();
+          observer.observe(tabContainer, {
+            attributes: true,
+            childList: true,
+            subtree: true,
+          });
+        };
 
-      unregister = () => {
-        tabs.discover.removeEventListener('click', applyLyricsTabState);
-        tabs.lyrics.removeEventListener('click', lyricsTabHandler);
-        tabs.upNext.removeEventListener('click', applyLyricsTabState);
-      };
-    }, 500);
-  });
-};
+        applyLyricsTabState();
+
+        tabs.discover.addEventListener('click', applyLyricsTabState);
+        tabs.lyrics.addEventListener('click', lyricsTabHandler);
+        tabs.upNext.addEventListener('click', applyLyricsTabState);
+
+        tryToInjectLyric();
+
+        unregister = () => {
+          tabs.discover.removeEventListener('click', applyLyricsTabState);
+          tabs.lyrics.removeEventListener('click', lyricsTabHandler);
+          tabs.upNext.removeEventListener('click', applyLyricsTabState);
+        };
+      }, 500);
+    });
+  }
+}));

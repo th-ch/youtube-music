@@ -4,6 +4,7 @@ import { createPluginBuilder } from '../utils/builder';
 
 const builder = createPluginBuilder('blur-nav-bar', {
   name: 'Blur Navigation Bar',
+  restartNeeded: true,
   config: {
     enabled: false,
   },

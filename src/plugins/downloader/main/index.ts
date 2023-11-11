@@ -7,7 +7,7 @@ import {
 import { join } from 'node:path';
 import { randomBytes } from 'node:crypto';
 
-import { app, BrowserWindow, dialog, ipcMain, net } from 'electron';
+import { app, BrowserWindow, dialog } from 'electron';
 import {
   ClientType,
   Innertube,
@@ -27,16 +27,16 @@ import {
   sendFeedback as sendFeedback_,
   setBadge,
 } from './utils';
-import config from './config';
-import { YoutubeFormatList, type Preset, DefaultPresetList } from './types';
 
-import style from './style.css';
+import { YoutubeFormatList, type Preset, DefaultPresetList } from '../types';
 
-import { fetchFromGenius } from '../lyrics-genius/main';
-import { isEnabled } from '../../config/plugins';
-import { cleanupName, getImage, SongInfo } from '../../providers/song-info';
-import { injectCSS } from '../utils/main';
-import { cache } from '../../providers/decorators';
+import builder, { DownloaderPluginConfig } from '../index';
+
+import { fetchFromGenius } from '../../lyrics-genius/main';
+import { isEnabled } from '../../../config/plugins';
+import { cleanupName, getImage, SongInfo } from '../../../providers/song-info';
+import { getNetFetchAsFetch } from '../../utils/main';
+import { cache } from '../../../providers/decorators';
 
 import type { FormatOptions } from 'youtubei.js/dist/src/types/FormatUtils';
 import type PlayerErrorMessage from 'youtubei.js/dist/src/parser/classes/PlayerErrorMessage';
@@ -44,7 +44,7 @@ import type { Playlist } from 'youtubei.js/dist/src/parser/ytmusic';
 import type { VideoInfo } from 'youtubei.js/dist/src/parser/youtube';
 import type TrackInfo from 'youtubei.js/dist/src/parser/ytmusic/TrackInfo';
 
-import type { GetPlayerResponse } from '../../types/get-player-response';
+import type { GetPlayerResponse } from '../../../types/get-player-response';
 
 type CustomSongInfo = SongInfo & { trackId?: string };
 
@@ -89,42 +89,30 @@ export const getCookieFromWindow = async (win: BrowserWindow) => {
     .join(';');
 };
 
-export default async (win_: BrowserWindow) => {
-  win = win_;
-  injectCSS(win.webContents, style);
+let config: DownloaderPluginConfig = builder.config;
 
-  yt = await Innertube.create({
-    cache: new UniversalCache(false),
-    cookie: await getCookieFromWindow(win),
-    generate_session_locally: true,
-    fetch: (async (input: RequestInfo | URL, init?: RequestInit) => {
-      const url =
-        typeof input === 'string'
-          ? new URL(input)
-          : input instanceof URL
-          ? input
-          : new URL(input.url);
+export default builder.createMain(({ handle, getConfig, on }) => {
+  return {
+    async onLoad(win) {
+      config = await getConfig();
 
-      if (init?.body && !init.method) {
-        init.method = 'POST';
-      }
-
-      const request = new Request(
-        url,
-        input instanceof Request ? input : undefined,
-      );
-
-      return net.fetch(request, init);
-    }) as typeof fetch,
-  });
-  ipcMain.on('download-song', (_, url: string) => downloadSong(url));
-  ipcMain.on('video-src-changed', (_, data: GetPlayerResponse) => {
-    playingUrl = data.microformat.microformatDataRenderer.urlCanonical;
-  });
-  ipcMain.on('download-playlist-request', async (_event, url: string) =>
-    downloadPlaylist(url),
-  );
-};
+      yt = await Innertube.create({
+        cache: new UniversalCache(false),
+        cookie: await getCookieFromWindow(win),
+        generate_session_locally: true,
+        fetch: getNetFetchAsFetch(),
+      });
+      handle('download-song', (_, url: string) => downloadSong(url));
+      on('video-src-changed', (_, data: GetPlayerResponse) => {
+        playingUrl = data.microformat.microformatDataRenderer.urlCanonical;
+      });
+      handle('download-playlist-request', async (_event, url: string) => downloadPlaylist(url));
+    },
+    onConfigChange(newConfig) {
+      config = newConfig;
+    }
+  };
+});
 
 export async function downloadSong(
   url: string,
@@ -209,7 +197,7 @@ async function downloadSongUnsafe(
   metadata.trackId = trackId;
 
   const dir =
-    playlistFolder || config.get('downloadFolder') || app.getPath('downloads');
+    playlistFolder || config.downloadFolder || app.getPath('downloads');
   const name = `${metadata.artist ? `${metadata.artist} - ` : ''}${
     metadata.title
   }`;
@@ -239,11 +227,11 @@ async function downloadSongUnsafe(
     );
   }
 
-  const selectedPreset = config.get('selectedPreset') ?? 'mp3 (256kbps)';
+  const selectedPreset = config.selectedPreset ?? 'mp3 (256kbps)';
   let presetSetting: Preset;
   if (selectedPreset === 'Custom') {
     presetSetting =
-      config.get('customPresetSetting') ?? DefaultPresetList['Custom'];
+      config.customPresetSetting ?? DefaultPresetList['Custom'];
   } else if (selectedPreset === 'Source') {
     presetSetting = DefaultPresetList['Source'];
   } else {
@@ -276,7 +264,7 @@ async function downloadSongUnsafe(
   }
   const filePath = join(dir, filename);
 
-  if (config.get('skipExisting') && existsSync(filePath)) {
+  if (config.skipExisting && existsSync(filePath)) {
     sendFeedback(null, -1);
     return;
   }
@@ -517,10 +505,10 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
     safePlaylistTitle = safePlaylistTitle.normalize('NFC');
   }
 
-  const folder = getFolder(config.get('downloadFolder') ?? '');
+  const folder = getFolder(config.downloadFolder ?? '');
   const playlistFolder = join(folder, safePlaylistTitle);
   if (existsSync(playlistFolder)) {
-    if (!config.get('skipExisting')) {
+    if (!config.skipExisting) {
       sendError(new Error(`The folder ${playlistFolder} already exists`));
       return;
     }
@@ -637,6 +625,7 @@ const getAndroidTvInfo = async (id: string): Promise<VideoInfo> => {
     client_type: ClientType.TV_EMBEDDED,
     generate_session_locally: true,
     retrieve_player: true,
+    fetch: getNetFetchAsFetch(),
   });
   // GetInfo 404s with the bypass, so we use getBasicInfo instead
   // that's fine as we only need the streaming data

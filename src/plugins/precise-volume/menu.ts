@@ -2,13 +2,13 @@ import prompt, { KeybindOptions } from 'custom-electron-prompt';
 
 import { BrowserWindow, MenuItem } from 'electron';
 
-import builder, { PreciseVolumePluginConfig } from '.';
+import builder, { PreciseVolumePluginConfig } from './index';
 
 import promptOptions from '../../providers/prompt-options';
 
 export default builder.createMenu(async ({ setConfig, getConfig, window }) => {
   const config = await getConfig();
-  
+
   function changeOptions(changedOptions: Partial<PreciseVolumePluginConfig>, options: PreciseVolumePluginConfig, win: BrowserWindow) {
     for (const option in changedOptions) {
       // HACK: Weird TypeScript error

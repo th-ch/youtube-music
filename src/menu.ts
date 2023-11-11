@@ -57,6 +57,7 @@ export const mainMenuTemplate = async (win: BrowserWindow): Promise<MenuTemplate
       config.setPartial(`plugins.${name}`, newConfig);
     },
     window: win,
+    refresh: () => refreshMenu(win),
   });
 
   const availablePlugins = getAvailablePluginNames();

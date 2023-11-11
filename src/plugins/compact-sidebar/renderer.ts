@@ -1,10 +1,27 @@
-export default () => {
-  const compactSidebar = document.querySelector('#mini-guide');
-  const isCompactSidebarDisabled
-    = compactSidebar === null
-    || window.getComputedStyle(compactSidebar).display === 'none';
+import builder from './index';
 
-  if (isCompactSidebarDisabled) {
-    document.querySelector<HTMLButtonElement>('#button')?.click();
-  }
-};
+export default builder.createRenderer(() => {
+  const getCompactSidebar = () => document.querySelector('#mini-guide');
+  const isCompactSidebarDisabled = () => {
+    const compactSidebar = getCompactSidebar();
+    return compactSidebar === null || window.getComputedStyle(compactSidebar).display === 'none';
+  };
+
+  return {
+    onLoad() {
+      if (isCompactSidebarDisabled()) {
+        document.querySelector<HTMLButtonElement>('#button')?.click();
+      }
+    },
+    onUnload() {
+      if (!isCompactSidebarDisabled()) {
+        document.querySelector<HTMLButtonElement>('#button')?.click();
+      }
+    },
+    onConfigChange() {
+      if (isCompactSidebarDisabled()) {
+        document.querySelector<HTMLButtonElement>('#button')?.click();
+      }
+    }
+  };
+});

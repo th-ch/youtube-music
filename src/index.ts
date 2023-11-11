@@ -25,9 +25,7 @@ import { mainPlugins } from 'virtual:MainPlugins';
 import { pluginBuilders } from 'virtual:PluginBuilders';
 /* eslint-enable import/order */
 
-import { setOptions as pipSetOptions } from './plugins/picture-in-picture/main';
-
-import youtubeMusicCSS from './youtube-music.css';
+import youtubeMusicCSS from './youtube-music.css?inline';
 import { MainPlugin, PluginBaseConfig, MainPluginContext, MainPluginFactory } from './plugins/utils/builder';
 
 // Catch errors and log them
@@ -156,6 +154,9 @@ async function loadPlugins(win: BrowserWindow) {
     handle: (event: string, listener) => {
       ipcMain.handle(event, async (_, ...args) => listener(...args as never));
     },
+    on: (event: string, listener) => {
+      ipcMain.on(event, async (_, ...args) => listener(...args as never));
+    },
   });
 
 
@@ -273,39 +274,22 @@ async function createMainWindow() {
     : config.defaultConfig.url;
   win.on('closed', onClosed);
 
-  type PiPOptions = typeof config.defaultConfig.plugins['picture-in-picture'];
-  const setPiPOptions = config.plugins.isEnabled('picture-in-picture')
-    ? (key: string, value: unknown) => pipSetOptions({ [key]: value })
-    : () => {};
-
   win.on('move', () => {
     if (win.isMaximized()) {
       return;
     }
 
-    const position = win.getPosition();
-    const isPiPEnabled: boolean
-      = config.plugins.isEnabled('picture-in-picture')
-      && config.plugins.getOptions<PiPOptions>('picture-in-picture').isInPiP;
-    if (!isPiPEnabled) {
-
-      lateSave('window-position', { x: position[0], y: position[1] });
-    } else if (config.plugins.getOptions<PiPOptions>('picture-in-picture').savePosition) {
-      lateSave('pip-position', position, setPiPOptions);
-    }
+    const [x, y] = win.getPosition();
+    lateSave('window-position', { x, y });
   });
 
   let winWasMaximized: boolean;
 
   win.on('resize', () => {
-    const windowSize = win.getSize();
+    const [width, height] = win.getSize();
     const isMaximized = win.isMaximized();
 
-    const isPiPEnabled
-      = config.plugins.isEnabled('picture-in-picture')
-      && config.plugins.getOptions<PiPOptions>('picture-in-picture').isInPiP;
-
-    if (!isPiPEnabled && winWasMaximized !== isMaximized) {
+    if (winWasMaximized !== isMaximized) {
       winWasMaximized = isMaximized;
       config.set('window-maximized', isMaximized);
     }
@@ -314,14 +298,10 @@ async function createMainWindow() {
       return;
     }
 
-    if (!isPiPEnabled) {
-      lateSave('window-size', {
-        width: windowSize[0],
-        height: windowSize[1],
-      });
-    } else if (config.plugins.getOptions<PiPOptions>('picture-in-picture').saveSize) {
-      lateSave('pip-size', windowSize, setPiPOptions);
-    }
+    lateSave('window-size', {
+      width,
+      height,
+    });
   });
 
   const savedTimeouts: Record<string, NodeJS.Timeout | undefined> = {};

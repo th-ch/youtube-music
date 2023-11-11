@@ -3,12 +3,11 @@ import fs from 'node:fs';
 
 import { app, NativeImage } from 'electron';
 
-import config from './config';
-
 import { cache } from '../../providers/decorators';
 import { SongInfo } from '../../providers/song-info';
 
 import youtubeMusicIcon from '../../../assets/youtube-music.png?asset&asarUnpack';
+import {NotificationsPluginConfig} from "./index";
 
 
 const userData = app.getPath('userData');
@@ -27,9 +26,9 @@ export const ToastStyles = {
 };
 
 export const urgencyLevels = [
-  { name: 'Low', value: 'low' },
-  { name: 'Normal', value: 'normal' },
-  { name: 'High', value: 'critical' },
+  { name: 'Low', value: 'low' } as const,
+  { name: 'Normal', value: 'normal' } as const,
+  { name: 'High', value: 'critical' } as const,
 ];
 
 const nativeImageToLogo = cache((nativeImage: NativeImage) => {
@@ -44,16 +43,16 @@ const nativeImageToLogo = cache((nativeImage: NativeImage) => {
   });
 });
 
-export const notificationImage = (songInfo: SongInfo) => {
+export const notificationImage = (songInfo: SongInfo, config: NotificationsPluginConfig) => {
   if (!songInfo.image) {
     return youtubeMusicIcon;
   }
 
-  if (!config.get('interactive')) {
+  if (!config.interactive) {
     return nativeImageToLogo(songInfo.image);
   }
 
-  switch (config.get('toastStyle')) {
+  switch (config.toastStyle) {
     case ToastStyles.logo:
     case ToastStyles.legacy: {
       return saveImage(nativeImageToLogo(songInfo.image), temporaryIcon);

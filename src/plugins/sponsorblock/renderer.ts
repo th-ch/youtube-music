@@ -1,34 +1,50 @@
 import { Segment } from './types';
+import builder from './index';
 
-let currentSegments: Segment[] = [];
+export default builder.createRenderer(({ on }) => {
+  let currentSegments: Segment[] = [];
 
-export default () => {
-  window.ipcRenderer.on('sponsorblock-skip', (_, segments: Segment[]) => {
-    currentSegments = segments;
-  });
+  const timeUpdateListener = (e: Event) => {
+    if (e.target instanceof HTMLVideoElement) {
+      const target = e.target;
 
-  document.addEventListener('apiLoaded', () => {
-    const video = document.querySelector<HTMLVideoElement>('video');
-    if (!video) return;
-
-    video.addEventListener('timeupdate', (e) => {
-      if (e.target instanceof HTMLVideoElement) {
-        const target = e.target;
-
-        for (const segment of currentSegments) {
-          if (
-            target.currentTime >= segment[0]
-            && target.currentTime < segment[1]
-          ) {
-            target.currentTime = segment[1];
-            if (window.electronIs.dev()) {
-              console.log('SponsorBlock: skipping segment', segment);
-            }
+      for (const segment of currentSegments) {
+        if (
+          target.currentTime >= segment[0]
+          && target.currentTime < segment[1]
+        ) {
+          target.currentTime = segment[1];
+          if (window.electronIs.dev()) {
+            console.log('SponsorBlock: skipping segment', segment);
           }
         }
       }
-    });
-    // Reset segments on song end
-    video.addEventListener('emptied', () => currentSegments = []);
-  }, { once: true, passive: true });
-};
+    }
+  };
+
+  const resetSegments = () => currentSegments = [];
+
+  return ({
+    onLoad() {
+      on('sponsorblock-skip', (_, segments: Segment[]) => {
+        currentSegments = segments;
+      });
+
+      document.addEventListener('apiLoaded', () => {
+        const video = document.querySelector<HTMLVideoElement>('video');
+        if (!video) return;
+
+        video.addEventListener('timeupdate', timeUpdateListener);
+        // Reset segments on song end
+        video.addEventListener('emptied', resetSegments);
+      }, { once: true, passive: true });
+    },
+    onUnload() {
+      const video = document.querySelector<HTMLVideoElement>('video');
+      if (!video) return;
+
+      video.removeEventListener('timeupdate', timeUpdateListener);
+      video.removeEventListener('emptied', resetSegments);
+    }
+  });
+});

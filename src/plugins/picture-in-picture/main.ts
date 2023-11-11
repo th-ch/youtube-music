@@ -1,111 +1,121 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 
-import style from './style.css';
+import style from './style.css?inline';
+
+import builder, { PictureInPicturePluginConfig } from './index';
 
 import { injectCSS } from '../utils/main';
-import { setOptions as setPluginOptions } from '../../config/plugins';
 
-import type { ConfigType } from '../../config/dynamic';
+export default builder.createMain(({ getConfig, setConfig, send, handle }) => {
+  let isInPiP = false;
+  let originalPosition: number[];
+  let originalSize: number[];
+  let originalFullScreen: boolean;
+  let originalMaximized: boolean;
 
-let isInPiP = false;
-let originalPosition: number[];
-let originalSize: number[];
-let originalFullScreen: boolean;
-let originalMaximized: boolean;
+  let win: BrowserWindow;
 
-let win: BrowserWindow;
+  let config: PictureInPicturePluginConfig;
 
-type PiPOptions = ConfigType<'picture-in-picture'>;
+  const pipPosition = () => (config.savePosition && config['pip-position']) || [10, 10];
+  const pipSize = () => (config.saveSize && config['pip-size']) || [450, 275];
 
-let options: Partial<PiPOptions>;
+  const togglePiP = () => {
+    isInPiP = !isInPiP;
+    setConfig({ isInPiP });
 
-const pipPosition = () => (options.savePosition && options['pip-position']) || [10, 10];
-const pipSize = () => (options.saveSize && options['pip-size']) || [450, 275];
+    if (isInPiP) {
+      originalFullScreen = win.isFullScreen();
+      if (originalFullScreen) {
+        win.setFullScreen(false);
+      }
 
-const setLocalOptions = (_options: Partial<PiPOptions>) => {
-  options = { ...options, ..._options };
-  setPluginOptions('picture-in-picture', _options);
-};
+      originalMaximized = win.isMaximized();
+      if (originalMaximized) {
+        win.unmaximize();
+      }
 
-const togglePiP = () => {
-  isInPiP = !isInPiP;
-  setLocalOptions({ isInPiP });
+      originalPosition = win.getPosition();
+      originalSize = win.getSize();
 
-  if (isInPiP) {
-    originalFullScreen = win.isFullScreen();
-    if (originalFullScreen) {
-      win.setFullScreen(false);
+      handle('before-input-event', blockShortcutsInPiP);
+
+      win.setMaximizable(false);
+      win.setFullScreenable(false);
+
+      send('pip-toggle', true);
+
+      app.dock?.hide();
+      win.setVisibleOnAllWorkspaces(true, {
+        visibleOnFullScreen: true,
+      });
+      app.dock?.show();
+      if (config.alwaysOnTop) {
+        win.setAlwaysOnTop(true, 'screen-saver', 1);
+      }
+    } else {
+      win.webContents.removeListener('before-input-event', blockShortcutsInPiP);
+      win.setMaximizable(true);
+      win.setFullScreenable(true);
+
+      send('pip-toggle', false);
+
+      win.setVisibleOnAllWorkspaces(false);
+      win.setAlwaysOnTop(false);
+
+      if (originalFullScreen) {
+        win.setFullScreen(true);
+      }
+
+      if (originalMaximized) {
+        win.maximize();
+      }
     }
 
-    originalMaximized = win.isMaximized();
-    if (originalMaximized) {
-      win.unmaximize();
+    const [x, y] = isInPiP ? pipPosition() : originalPosition;
+    const [w, h] = isInPiP ? pipSize() : originalSize;
+    win.setPosition(x, y);
+    win.setSize(w, h);
+
+    win.setWindowButtonVisibility?.(!isInPiP);
+  };
+
+  const blockShortcutsInPiP = (event: Electron.Event, input: Electron.Input) => {
+    const key = input.key.toLowerCase();
+
+    if (key === 'f') {
+      event.preventDefault();
+    } else if (key === 'escape') {
+      togglePiP();
+      event.preventDefault();
     }
+  };
 
-    originalPosition = win.getPosition();
-    originalSize = win.getSize();
+  return ({
+    async onLoad(window) {
+      config ??= await getConfig();
+      win ??= window;
+      setConfig({ isInPiP });
+      injectCSS(win.webContents, style);
+      ipcMain.on('picture-in-picture', () => {
+        togglePiP();
+      });
 
-    win.webContents.on('before-input-event', blockShortcutsInPiP);
+      window.on('move', () => {
+        if (config.isInPiP && !config.useNativePiP) {
+          setConfig({ 'pip-position': window.getPosition() as [number, number] });
+        }
+      });
 
-    win.setMaximizable(false);
-    win.setFullScreenable(false);
-
-    win.webContents.send('pip-toggle', true);
-
-    app.dock?.hide();
-    win.setVisibleOnAllWorkspaces(true, {
-      visibleOnFullScreen: true,
-    });
-    app.dock?.show();
-    if (options.alwaysOnTop) {
-      win.setAlwaysOnTop(true, 'screen-saver', 1);
+      window.on('resize', () => {
+        if (config.isInPiP && !config.useNativePiP) {
+          setConfig({ 'pip-size': window.getSize() as [number, number] });
+        }
+      });
+    },
+    onConfigChange(newConfig) {
+      config = newConfig;
     }
-  } else {
-    win.webContents.removeListener('before-input-event', blockShortcutsInPiP);
-    win.setMaximizable(true);
-    win.setFullScreenable(true);
-
-    win.webContents.send('pip-toggle', false);
-
-    win.setVisibleOnAllWorkspaces(false);
-    win.setAlwaysOnTop(false);
-
-    if (originalFullScreen) {
-      win.setFullScreen(true);
-    }
-
-    if (originalMaximized) {
-      win.maximize();
-    }
-  }
-
-  const [x, y] = isInPiP ? pipPosition() : originalPosition;
-  const [w, h] = isInPiP ? pipSize() : originalSize;
-  win.setPosition(x, y);
-  win.setSize(w, h);
-
-  win.setWindowButtonVisibility?.(!isInPiP);
-};
-
-const blockShortcutsInPiP = (event: Electron.Event, input: Electron.Input) => {
-  const key = input.key.toLowerCase();
-
-  if (key === 'f') {
-    event.preventDefault();
-  } else if (key === 'escape') {
-    togglePiP();
-    event.preventDefault();
-  }
-};
-
-export default (_win: BrowserWindow, _options: PiPOptions) => {
-  options ??= _options;
-  win ??= _win;
-  setLocalOptions({ isInPiP });
-  injectCSS(win.webContents, style);
-  ipcMain.on('picture-in-picture', () => {
-    togglePiP();
   });
-};
+});
 
-export const setOptions = setLocalOptions;

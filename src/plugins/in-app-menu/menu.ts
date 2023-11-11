@@ -1,6 +1,6 @@
 import is from 'electron-is';
 
-import builder from './';
+import builder from './index';
 
 import { setMenuOptions } from '../../config/plugins';
 

@@ -1,4 +1,4 @@
-import builder from './';
+import builder from './index';
 
 const interpolationTimeList = [0, 500, 1000, 1500, 2000, 3000, 4000, 5000];
 const qualityList = [10, 25, 50, 100, 200, 500, 1000];

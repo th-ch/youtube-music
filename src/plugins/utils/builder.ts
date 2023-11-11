@@ -8,11 +8,13 @@ export type PluginBaseConfig = {
 };
 export type BasePlugin<Config extends PluginBaseConfig> = {
   onLoad?: () => void;
+  onUnload?: () => void;
   onConfigChange?: (newConfig: Config) => void;
 }
 export type RendererPlugin<Config extends PluginBaseConfig> = BasePlugin<Config>;
-export type MainPlugin<Config extends PluginBaseConfig> = Omit<BasePlugin<Config>, 'onLoad'> & {
+export type MainPlugin<Config extends PluginBaseConfig> = Omit<BasePlugin<Config>, 'onLoad' | 'onUnload'> & {
   onLoad?: (window: BrowserWindow) => void;
+  onUnload?: (window: BrowserWindow) => void;
 };
 export type PreloadPlugin<Config extends PluginBaseConfig> = BasePlugin<Config>;
 
@@ -30,6 +32,7 @@ export type PluginContext<Config extends PluginBaseConfig = PluginBaseConfig> = 
 export type MainPluginContext<Config extends PluginBaseConfig = PluginBaseConfig> = PluginContext<Config> & {
   send: (event: string, ...args: unknown[]) => void;
   handle: <Arguments extends unknown[], Return>(event: string, listener: (...args: Arguments) => Promisable<Return>) => void;
+  on: <Arguments extends unknown[]>(event: string, listener: (...args: Arguments) => Promisable<void>) => void;
 };
 export type RendererPluginContext<Config extends PluginBaseConfig = PluginBaseConfig> = PluginContext<Config> & {
   invoke: <Return>(event: string, ...args: unknown[]) => Promise<Return>;
@@ -37,6 +40,8 @@ export type RendererPluginContext<Config extends PluginBaseConfig = PluginBaseCo
 };
 export type MenuPluginContext<Config extends PluginBaseConfig = PluginBaseConfig> = PluginContext<Config> & {
   window: BrowserWindow;
+
+  refresh: () => void;
 };
 
 export type RendererPluginFactory<Config extends PluginBaseConfig> = (context: RendererPluginContext<Config>) => Promisable<RendererPlugin<Config>>;
@@ -57,6 +62,7 @@ export type PluginBuilder<ID extends string, Config extends PluginBaseConfig> = 
 };
 export type PluginBuilderOptions<Config extends PluginBaseConfig = PluginBaseConfig> = {
   name?: string;
+  restartNeeded: boolean;
 
   config: Config;
   styles?: string[];

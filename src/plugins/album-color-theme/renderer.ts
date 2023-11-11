@@ -1,6 +1,6 @@
 import { FastAverageColor } from 'fast-average-color';
 
-import builder from './';
+import builder from './index';
 
 export default builder.createRenderer(() => {
   function hexToHSL(H: string) {
@@ -27,7 +27,7 @@ export default builder.createRenderer(() => {
     let h: number;
     let s: number;
     let l: number;
-  
+
     if (delta == 0) {
       h = 0;
     } else if (cmax == r) {
@@ -37,32 +37,32 @@ export default builder.createRenderer(() => {
     } else {
       h = ((r - g) / delta) + 4;
     }
-  
+
     h = Math.round(h * 60);
-  
+
     if (h < 0) {
       h += 360;
     }
-  
+
     l = (cmax + cmin) / 2;
     s = delta == 0 ? 0 : delta / (1 - Math.abs((2 * l) - 1));
     s = +(s * 100).toFixed(1);
     l = +(l * 100).toFixed(1);
-  
+
     //return "hsl(" + h + "," + s + "%," + l + "%)";
     return [h,s,l];
   }
-  
+
   let hue = 0;
   let saturation = 0;
   let lightness = 0;
-  
+
   function changeElementColor(element: HTMLElement | null, hue: number, saturation: number, lightness: number){
     if (element) {
       element.style.backgroundColor = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
     }
   }
-  
+
   return {
     onLoad() {
       const playerPage = document.querySelector<HTMLElement>('#player-page');

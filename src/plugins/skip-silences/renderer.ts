@@ -1,8 +1,8 @@
-import type { ConfigType } from '../../config/dynamic';
+import builder, { type SkipSilencesPluginConfig } from './index';
 
-type SkipSilencesOptions = ConfigType<'skip-silences'>;
+export default builder.createRenderer(({ getConfig }) => {
+  let config: SkipSilencesPluginConfig;
 
-export default (options: SkipSilencesOptions) => {
   let isSilent = false;
   let hasAudioStarted = false;
 
@@ -12,109 +12,129 @@ export default (options: SkipSilencesOptions) => {
   const history = 10;
   const speakingHistory = Array.from({ length: history }).fill(0) as number[];
 
-  document.addEventListener(
-    'audioCanPlay',
-    (e) => {
-      const video = document.querySelector('video');
-      const { audioContext } = e.detail;
-      const sourceNode = e.detail.audioSource;
+  let playOrSeekHandler: (() => void) | undefined;
 
-      // Use an audio analyser similar to Hark
-      // https://github.com/otalk/hark/blob/master/hark.bundle.js
-      const analyser = audioContext.createAnalyser();
-      analyser.fftSize = 512;
-      analyser.smoothingTimeConstant = smoothing;
-      const fftBins = new Float32Array(analyser.frequencyBinCount);
+  const getMaxVolume = (analyser: AnalyserNode, fftBins: Float32Array) => {
+    let maxVolume = Number.NEGATIVE_INFINITY;
+    analyser.getFloatFrequencyData(fftBins);
 
-      sourceNode.connect(analyser);
-      analyser.connect(audioContext.destination);
+    for (let i = 4, ii = fftBins.length; i < ii; i++) {
+      if (fftBins[i] > maxVolume && fftBins[i] < 0) {
+        maxVolume = fftBins[i];
+      }
+    }
 
-      const looper = () => {
-        setTimeout(() => {
-          const currentVolume = getMaxVolume(analyser, fftBins);
+    return maxVolume;
+  };
 
-          let history = 0;
-          if (currentVolume > threshold && isSilent) {
-            // Trigger quickly, short history
-            for (
-              let i = speakingHistory.length - 3;
-              i < speakingHistory.length;
-              i++
-            ) {
-              history += speakingHistory[i];
-            }
+  const audioCanPlayListener = (e: CustomEvent<Compressor>) => {
+    const video = document.querySelector('video');
+    const { audioContext } = e.detail;
+    const sourceNode = e.detail.audioSource;
 
-            if (history >= 2) {
-              // Not silent
-              isSilent = false;
-              hasAudioStarted = true;
-            }
-          } else if (currentVolume < threshold && !isSilent) {
-            for (const element of speakingHistory) {
-              history += element;
-            }
+    // Use an audio analyser similar to Hark
+    // https://github.com/otalk/hark/blob/master/hark.bundle.js
+    const analyser = audioContext.createAnalyser();
+    analyser.fftSize = 512;
+    analyser.smoothingTimeConstant = smoothing;
+    const fftBins = new Float32Array(analyser.frequencyBinCount);
 
-            if (history == 0 // Silent
+    sourceNode.connect(analyser);
+    analyser.connect(audioContext.destination);
 
-              && !(
-                video && (
-                  video.paused
-                  || video.seeking
-                  || video.ended
-                  || video.muted
-                  || video.volume === 0
-                )
-              )
-            ) {
-              isSilent = true;
-              skipSilence();
-            }
+    const looper = () => {
+      setTimeout(() => {
+        const currentVolume = getMaxVolume(analyser, fftBins);
+
+        let history = 0;
+        if (currentVolume > threshold && isSilent) {
+          // Trigger quickly, short history
+          for (
+            let i = speakingHistory.length - 3;
+            i < speakingHistory.length;
+            i++
+          ) {
+            history += speakingHistory[i];
           }
 
-          speakingHistory.shift();
-          speakingHistory.push(Number(currentVolume > threshold));
+          if (history >= 2) {
+            // Not silent
+            isSilent = false;
+            hasAudioStarted = true;
+          }
+        } else if (currentVolume < threshold && !isSilent) {
+          for (const element of speakingHistory) {
+            history += element;
+          }
 
-          looper();
-        }, interval);
-      };
+          if (history == 0 // Silent
 
-      looper();
-
-      const skipSilence = () => {
-        if (options.onlySkipBeginning && hasAudioStarted) {
-          return;
+            && !(
+              video && (
+                video.paused
+                || video.seeking
+                || video.ended
+                || video.muted
+                || video.volume === 0
+              )
+            )
+          ) {
+            isSilent = true;
+            skipSilence();
+          }
         }
 
-        if (isSilent && video && !video.paused) {
-          video.currentTime += 0.2; // In s
-        }
-      };
+        speakingHistory.shift();
+        speakingHistory.push(Number(currentVolume > threshold));
 
-      video?.addEventListener('play', () => {
-        hasAudioStarted = false;
-        skipSilence();
-      });
+        looper();
+      }, interval);
+    };
 
-      video?.addEventListener('seeked', () => {
-        hasAudioStarted = false;
-        skipSilence();
-      });
+    looper();
+
+    const skipSilence = () => {
+      if (config.onlySkipBeginning && hasAudioStarted) {
+        return;
+      }
+
+      if (isSilent && video && !video.paused) {
+        video.currentTime += 0.2; // In s
+      }
+    };
+
+    playOrSeekHandler = () => {
+      hasAudioStarted = false;
+      skipSilence();
+    };
+
+    video?.addEventListener('play', playOrSeekHandler);
+    video?.addEventListener('seeked', playOrSeekHandler);
+  };
+
+  return {
+    async onLoad() {
+      config = await getConfig();
+
+      document.addEventListener(
+        'audioCanPlay',
+        audioCanPlayListener,
+        {
+          passive: true,
+        },
+      );
     },
-    {
-      passive: true,
-    },
-  );
-};
+    onUnload() {
+      document.removeEventListener(
+        'audioCanPlay',
+        audioCanPlayListener,
+      );
 
-function getMaxVolume(analyser: AnalyserNode, fftBins: Float32Array) {
-  let maxVolume = Number.NEGATIVE_INFINITY;
-  analyser.getFloatFrequencyData(fftBins);
-
-  for (let i = 4, ii = fftBins.length; i < ii; i++) {
-    if (fftBins[i] > maxVolume && fftBins[i] < 0) {
-      maxVolume = fftBins[i];
+      if (playOrSeekHandler) {
+        const video = document.querySelector('video');
+        video?.removeEventListener('play', playOrSeekHandler);
+        video?.removeEventListener('seeked', playOrSeekHandler);
+      }
     }
-  }
-
-  return maxVolume;
-}
+  };
+});

@@ -1,67 +1,55 @@
 import prompt, { KeybindOptions } from 'custom-electron-prompt';
 
-import { BrowserWindow } from 'electron';
-
-import { setMenuOptions } from '../../config/plugins';
-
+import builder, { ShortcutsPluginConfig } from './index';
 
 import promptOptions from '../../providers/prompt-options';
-import { MenuTemplate } from '../../menu';
 
-import type { ConfigType } from '../../config/dynamic';
+import type { BrowserWindow } from 'electron';
 
-export default (win: BrowserWindow, options: ConfigType<'shortcuts'>): MenuTemplate => [
-  {
-    label: 'Set Global Song Controls',
-    click: () => promptKeybind(options, win),
-  },
-  {
-    label: 'Override MediaKeys',
-    type: 'checkbox',
-    checked: options.overrideMediaKeys,
-    click: (item) => setOption(options, 'overrideMediaKeys', item.checked),
-  },
-];
+export default builder.createMenu(async ({ window, getConfig, setConfig }) => {
+  const config = await getConfig();
 
-function setOption<Key extends keyof ConfigType<'shortcuts'> = keyof ConfigType<'shortcuts'>>(
-  options: ConfigType<'shortcuts'>,
-  key: Key | null = null,
-  newValue: ConfigType<'shortcuts'>[Key] | null = null,
-) {
-  if (key && newValue !== null) {
-    options[key] = newValue;
+  /**
+   * Helper function for keybind prompt
+   */
+  const kb = (label_: string, value_: string, default_?: string): KeybindOptions => ({ value: value_, label: label_, default: default_ });
+
+  async function promptKeybind(config: ShortcutsPluginConfig, win: BrowserWindow) {
+    const output = await prompt({
+      title: 'Global Keybinds',
+      label: 'Choose Global Keybinds for Songs Control:',
+      type: 'keybind',
+      keybindOptions: [ // If default=undefined then no default is used
+        kb('Previous', 'previous', config.global?.previous),
+        kb('Play / Pause', 'playPause', config.global?.playPause),
+        kb('Next', 'next', config.global?.next),
+      ],
+      height: 270,
+      ...promptOptions(),
+    }, win);
+
+    if (output) {
+      const newConfig = { ...config };
+
+      for (const { value, accelerator } of output) {
+        newConfig.global[value as keyof ShortcutsPluginConfig['global']] = accelerator;
+      }
+
+      setConfig(config);
+    }
+    // Else -> pressed cancel
   }
 
-  setMenuOptions('shortcuts', options);
-}
-
-// Helper function for keybind prompt
-const kb = (label_: string, value_: string, default_: string): KeybindOptions => ({ value: value_, label: label_, default: default_ });
-
-async function promptKeybind(options: ConfigType<'shortcuts'>, win: BrowserWindow) {
-  const output = await prompt({
-    title: 'Global Keybinds',
-    label: 'Choose Global Keybinds for Songs Control:',
-    type: 'keybind',
-    keybindOptions: [ // If default=undefined then no default is used
-      kb('Previous', 'previous', options.global?.previous),
-      kb('Play / Pause', 'playPause', options.global?.playPause),
-      kb('Next', 'next', options.global?.next),
-    ],
-    height: 270,
-    ...promptOptions(),
-  }, win);
-
-  if (output) {
-    if (!options.global) {
-      options.global = {};
-    }
-
-    for (const { value, accelerator } of output) {
-      options.global[value] = accelerator;
-    }
-
-    setOption(options);
-  }
-  // Else -> pressed cancel
-}
+  return [
+    {
+      label: 'Set Global Song Controls',
+      click: () => promptKeybind(config, window),
+    },
+    {
+      label: 'Override MediaKeys',
+      type: 'checkbox',
+      checked: config.overrideMediaKeys,
+      click: (item) => setConfig({ overrideMediaKeys: item.checked }),
+    },
+  ];
+});

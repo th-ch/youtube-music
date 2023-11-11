@@ -1,7 +1,7 @@
 import forwardHTML from './templates/forward.html?raw';
 import backHTML from './templates/back.html?raw';
 
-import builder from '.';
+import builder from './index';
 
 import { ElementFromHtml } from '../utils/renderer';
 

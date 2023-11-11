@@ -1,5 +1,7 @@
 import sliderHTML from './templates/slider.html?raw';
 
+import builder from './index';
+
 import { getSongMenu } from '../../providers/dom-elements';
 import { ElementFromHtml } from '../utils/renderer';
 import { singleton } from '../../providers/decorators';
@@ -32,15 +34,17 @@ const updatePlayBackSpeed = () => {
 
 let menu: Element | null = null;
 
-const setupSliderListener = singleton(() => {
-  $('#playback-speed-slider')?.addEventListener('immediate-value-changed', (e) => {
-    playbackSpeed = (e as CustomEvent<{ value: number; }>).detail.value || MIN_PLAYBACK_SPEED;
-    if (isNaN(playbackSpeed)) {
-      playbackSpeed = 1;
-    }
+const immediateValueChangedListener = (e: Event) => {
+  playbackSpeed = (e as CustomEvent<{ value: number; }>).detail.value || MIN_PLAYBACK_SPEED;
+  if (isNaN(playbackSpeed)) {
+    playbackSpeed = 1;
+  }
 
-    updatePlayBackSpeed();
-  });
+  updatePlayBackSpeed();
+};
+
+const setupSliderListener = singleton(() => {
+  $('#playback-speed-slider')?.addEventListener('immediate-value-changed', immediateValueChangedListener);
 });
 
 const observePopupContainer = () => {
@@ -77,26 +81,28 @@ const observeVideo = () => {
   }
 };
 
+const wheelEventListener = (e: WheelEvent) => {
+  e.preventDefault();
+  if (isNaN(playbackSpeed)) {
+    playbackSpeed = 1;
+  }
+
+  // E.deltaY < 0 means wheel-up
+  playbackSpeed = roundToTwo(e.deltaY < 0
+    ? Math.min(playbackSpeed + 0.01, MAX_PLAYBACK_SPEED)
+    : Math.max(playbackSpeed - 0.01, MIN_PLAYBACK_SPEED),
+  );
+
+  updatePlayBackSpeed();
+  // Update slider position
+  const playbackSpeedSilder = $<HTMLElement & { value: number }>('#playback-speed-slider');
+  if (playbackSpeedSilder) {
+    playbackSpeedSilder.value = playbackSpeed;
+  }
+};
+
 const setupWheelListener = () => {
-  slider.addEventListener('wheel', (e) => {
-    e.preventDefault();
-    if (isNaN(playbackSpeed)) {
-      playbackSpeed = 1;
-    }
-
-    // E.deltaY < 0 means wheel-up
-    playbackSpeed = roundToTwo(e.deltaY < 0
-      ? Math.min(playbackSpeed + 0.01, MAX_PLAYBACK_SPEED)
-      : Math.max(playbackSpeed - 0.01, MIN_PLAYBACK_SPEED),
-    );
-
-    updatePlayBackSpeed();
-    // Update slider position
-    const playbackSpeedSilder = $<HTMLElement & { value: number }>('#playback-speed-slider');
-    if (playbackSpeedSilder) {
-      playbackSpeedSilder.value = playbackSpeed;
-    }
-  });
+  slider.addEventListener('wheel', wheelEventListener);
 };
 
 function forcePlaybackRate(e: Event) {
@@ -108,10 +114,24 @@ function forcePlaybackRate(e: Event) {
   }
 }
 
-export default () => {
-  document.addEventListener('apiLoaded', () => {
-    observePopupContainer();
-    observeVideo();
-    setupWheelListener();
-  }, { once: true, passive: true });
-};
+export default builder.createRenderer(() => {
+  return {
+    onLoad() {
+      document.addEventListener('apiLoaded', () => {
+        observePopupContainer();
+        observeVideo();
+        setupWheelListener();
+      }, { once: true, passive: true });
+    },
+    onUnload() {
+      const video = $<HTMLVideoElement>('video');
+      if (video) {
+        video.removeEventListener('ratechange', forcePlaybackRate);
+        video.removeEventListener('srcChanged', forcePlaybackRate);
+      }
+      slider.removeEventListener('wheel', wheelEventListener);
+      getSongMenu()?.removeChild(slider);
+      $('#playback-speed-slider')?.removeEventListener('immediate-value-changed', immediateValueChangedListener);
+    }
+  };
+});

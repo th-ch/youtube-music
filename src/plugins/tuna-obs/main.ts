@@ -1,5 +1,7 @@
-import { ipcMain, net, BrowserWindow } from 'electron';
+import { net } from 'electron';
 import is from 'electron-is';
+
+import builder from './index';
 
 import registerCallback from '../../providers/song-info';
 
@@ -49,31 +51,35 @@ const post = (data: Data) => {
   });
 };
 
-export default (win: BrowserWindow) => {
-  ipcMain.on('apiLoaded', () => win.webContents.send('setupTimeChangedListener'));
-  ipcMain.on('timeChanged', (_, t: number) => {
-    if (!data.title) {
-      return;
+export default builder.createMain(({ send, handle, on }) => {
+  return {
+    onLoad() {
+      on('apiLoaded', () => send('setupTimeChangedListener'));
+      on('timeChanged', (t: number) => {
+        if (!data.title) {
+          return;
+        }
+
+        data.progress = secToMilisec(t);
+        post(data);
+      });
+
+      registerCallback((songInfo) => {
+        if (!songInfo.title && !songInfo.artist) {
+          return;
+        }
+
+        data.duration = secToMilisec(songInfo.songDuration);
+        data.progress = secToMilisec(songInfo.elapsedSeconds ?? 0);
+        data.cover = songInfo.imageSrc ?? '';
+        data.cover_url = songInfo.imageSrc ?? '';
+        data.album_url = songInfo.imageSrc ?? '';
+        data.title = songInfo.title;
+        data.artists = [songInfo.artist];
+        data.status = songInfo.isPaused ? 'stopped' : 'playing';
+        data.album = songInfo.album;
+        post(data);
+      });
     }
-
-    data.progress = secToMilisec(t);
-    post(data);
-  });
-
-  registerCallback((songInfo) => {
-    if (!songInfo.title && !songInfo.artist) {
-      return;
-    }
-
-    data.duration = secToMilisec(songInfo.songDuration);
-    data.progress = secToMilisec(songInfo.elapsedSeconds ?? 0);
-    data.cover = songInfo.imageSrc ?? '';
-    data.cover_url = songInfo.imageSrc ?? '';
-    data.album_url = songInfo.imageSrc ?? '';
-    data.title = songInfo.title;
-    data.artists = [songInfo.artist];
-    data.status = songInfo.isPaused ? 'stopped' : 'playing';
-    data.album = songInfo.album;
-    post(data);
-  });
-};
+  };
+});
