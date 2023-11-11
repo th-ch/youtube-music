@@ -93,7 +93,8 @@ let config: DownloaderPluginConfig = builder.config;
 
 export default builder.createMain(({ handle, getConfig, on }) => {
   return {
-    async onLoad(win) {
+    async onLoad(_win) {
+      win = _win;
       config = await getConfig();
 
       yt = await Innertube.create({
@@ -102,8 +103,8 @@ export default builder.createMain(({ handle, getConfig, on }) => {
         generate_session_locally: true,
         fetch: getNetFetchAsFetch(),
       });
-      handle('download-song', (_, url: string) => downloadSong(url));
-      on('video-src-changed', (_, data: GetPlayerResponse) => {
+      handle('download-song', (url: string) => downloadSong(url));
+      on('video-src-changed', (data: GetPlayerResponse) => {
         playingUrl = data.microformat.microformatDataRenderer.urlCanonical;
       });
       handle('download-playlist-request', async (_event, url: string) => downloadPlaylist(url));

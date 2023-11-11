@@ -13,7 +13,7 @@ const downloadButton = ElementFromHtml(downloadHTML);
 
 let doneFirstLoad = false;
 
-export default builder.createRenderer(() => {
+export default builder.createRenderer(({ invoke, on }) => {
   return {
     onLoad() {
       const menuObserver = new MutationObserver(() => {
@@ -54,14 +54,14 @@ export default builder.createRenderer(() => {
           }
 
           if (videoUrl.includes('?playlist=')) {
-            window.ipcRenderer.send('download-playlist-request', videoUrl);
+            invoke('download-playlist-request', videoUrl);
             return;
           }
         } else {
           videoUrl = getSongInfo().url || window.location.href;
         }
 
-        window.ipcRenderer.send('download-song', videoUrl);
+        invoke('download-song', videoUrl);
       };
 
       document.addEventListener('apiLoaded', () => {
@@ -71,7 +71,7 @@ export default builder.createRenderer(() => {
         });
       }, { once: true, passive: true });
 
-      window.ipcRenderer.on('downloader-feedback', (_, feedback: string) => {
+      on('downloader-feedback', (feedback: string) => {
         if (progress) {
           progress.innerHTML = feedback || 'Download';
         } else {
