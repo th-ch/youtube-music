@@ -111,10 +111,10 @@ const initHook = (win: BrowserWindow) => {
     Object.entries(newPluginConfigList).forEach(([id, newPluginConfig]) => {
       const isEqual = deepEqual(oldPluginConfigList[id], newPluginConfig);
 
-      console.log('check', id, isEqual, ';', oldPluginConfigList[id], newPluginConfig);
       if (!isEqual) {
-        win.webContents.send('config-changed', id, newPluginConfig);
-        console.log('config-changed', id, newPluginConfig);
+        const config = deepmerge(pluginBuilders[id as keyof PluginBuilderList].config, newPluginConfig);
+
+        win.webContents.send('config-changed', id, config);
       }
     });
   });

@@ -12,11 +12,10 @@ const set = (key: string, value: unknown) => {
 };
 const setPartial = (key: string, value: object) => {
   const newValue = deepmerge(store.get(key) ?? {}, value);
-  console.log('sival', key, value, newValue);
-  store.set(newValue);
+  store.set(key, newValue);
 };
 
-function setMenuOption(key: string, value: unknown) {
+function setMenuOption(key: string, value: unknown) { 
   set(key, value);
   if (store.get('options.restartOnConfigChanges')) {
     restart();
