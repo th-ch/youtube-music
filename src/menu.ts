@@ -55,8 +55,6 @@ export const mainMenuTemplate = async (win: BrowserWindow): Promise<MenuTemplate
     getConfig: () => config.get(`plugins.${name}`) as unknown as Config,
     setConfig: (newConfig) => {
       config.setPartial(`plugins.${name}`, newConfig);
-
-      return Promise.resolve();
     },
     window: win,
   });

@@ -148,8 +148,6 @@ async function loadPlugins(win: BrowserWindow) {
     getConfig: () => config.get(`plugins.${name}`) as unknown as Config,
     setConfig: (newConfig) => {
       config.setPartial(`plugins.${name}`, newConfig);
-
-      return Promise.resolve();
     },
 
     send: (event: string, ...args: unknown[]) => {
