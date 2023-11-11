@@ -8,7 +8,13 @@ import { PluginBaseConfig, PluginBuilder, RendererPluginFactory } from './plugin
 import { startingPages } from './providers/extracted-data';
 import { setupSongControls } from './providers/song-controls-front';
 import setupSongInfo from './providers/song-info-front';
-import { getAllLoadedRendererPlugins, loadAllRendererPlugins, registerRendererPlugin } from './loader/renderer';
+import {
+  forceLoadRendererPlugin,
+  forceUnloadRendererPlugin,
+  getAllLoadedRendererPlugins,
+  loadAllRendererPlugins,
+  registerRendererPlugin
+} from './loader/renderer';
 
 let api: Element | null = null;
 
@@ -102,6 +108,13 @@ function onApiLoaded() {
     registerRendererPlugin(id, typedBuilder, plugin);
   });
   await loadAllRendererPlugins();
+
+  window.ipcRenderer.on('plugin:unload', (_event, id: keyof PluginBuilderList) => {
+    forceUnloadRendererPlugin(id);
+  });
+  window.ipcRenderer.on('plugin:enable', (_event, id: keyof PluginBuilderList) => {
+    forceLoadRendererPlugin(id);
+  });
 
   window.ipcRenderer.on('config-changed', (_event, id: string, newConfig: PluginBaseConfig) => {
     const plugin = getAllLoadedRendererPlugins()[id];

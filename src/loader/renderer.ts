@@ -31,7 +31,7 @@ const createContext = <
   },
 });
 
-const forceUnloadRendererPlugin = (id: keyof PluginBuilderList) => {
+export const forceUnloadRendererPlugin = (id: keyof PluginBuilderList) => {
   unregisterStyleMap[id]?.forEach((unregister) => unregister());
   delete unregisterStyleMap[id];
 

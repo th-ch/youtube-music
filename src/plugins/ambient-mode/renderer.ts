@@ -11,12 +11,12 @@ export default builder.createRenderer(async ({ getConfig }) => {
   let opacity = initConfigData.opacity;
   let isFullscreen = initConfigData.fullscreen;
 
+  let unregister: (() => void) | null = null;
   let update: (() => void) | null = null;
+  let observer: MutationObserver;
 
   return {
     onLoad() {
-      let unregister: (() => void) | null = null;
-
       const injectBlurVideo = (): (() => void) | null => {
         const songVideo = document.querySelector<HTMLDivElement>('#song-video');
         const video = document.querySelector<HTMLVideoElement>('#song-video .html5-video-container > video');
@@ -84,7 +84,6 @@ export default builder.createRenderer(async ({ getConfig }) => {
           blurCanvas.style.setProperty('--top', `${-1 * topOffset}px`);
           blurCanvas.style.setProperty('--blur', `${blur}px`);
           blurCanvas.style.setProperty('--opacity', `${opacity}`);
-          console.log('updated!!!');
         };
         update = applyVideoAttributes;
 
@@ -140,6 +139,12 @@ export default builder.createRenderer(async ({ getConfig }) => {
       const playerPage = document.querySelector<HTMLElement>('#player-page');
       const ytmusicAppLayout = document.querySelector<HTMLElement>('#layout');
 
+      const isPageOpen = ytmusicAppLayout?.hasAttribute('player-page-open');
+      if (isPageOpen) {
+        unregister?.();
+        unregister = injectBlurVideo() ?? null;
+      }
+
       const observer = new MutationObserver((mutationsList) => {
         for (const mutation of mutationsList) {
           if (mutation.type === 'attributes') {
@@ -170,5 +175,10 @@ export default builder.createRenderer(async ({ getConfig }) => {
 
       update?.();
     },
+    onUnload() {
+      observer?.disconnect();
+      update = null;
+      unregister?.();
+    }
   };
 });

@@ -3,8 +3,6 @@ import is from 'electron-is';
 
 import { pluginBuilders } from 'virtual:PluginBuilders';
 
-import { deepmerge } from 'deepmerge-ts';
-
 import config from './config';
 
 // eslint-disable-next-line import/order
@@ -14,7 +12,12 @@ import {
   PluginBuilder,
   PreloadPluginFactory
 } from './plugins/utils/builder';
-import { loadAllPreloadPlugins, registerPreloadPlugin } from './loader/preload';
+import {
+  forceLoadPreloadPlugin,
+  forceUnloadPreloadPlugin,
+  loadAllPreloadPlugins,
+  registerPreloadPlugin
+} from './loader/preload';
 
 Object.entries(pluginBuilders).forEach(([id, builder]) => {
   const typedBuilder = builder as PluginBuilder<string, PluginBaseConfig>;
@@ -23,6 +26,14 @@ Object.entries(pluginBuilders).forEach(([id, builder]) => {
   registerPreloadPlugin(id, typedBuilder, plugin);
 });
 loadAllPreloadPlugins();
+
+ipcRenderer.on('plugin:unload', (_, id: keyof PluginBuilderList) => {
+  forceUnloadPreloadPlugin(id);
+});
+ipcRenderer.on('plugin:enable', (_, id: keyof PluginBuilderList) => {
+  forceLoadPreloadPlugin(id);
+});
+
 
 contextBridge.exposeInMainWorld('mainConfig', config);
 contextBridge.exposeInMainWorld('electronIs', is);

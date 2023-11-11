@@ -37,7 +37,7 @@ const createContext = <
   },
 });
 
-const forceUnloadMainPlugin = (id: keyof PluginBuilderList, win: BrowserWindow) => {
+export const forceUnloadMainPlugin = (id: keyof PluginBuilderList, win: BrowserWindow) => {
   unregisterStyleMap[id]?.forEach((unregister) => unregister());
   delete unregisterStyleMap[id];
 

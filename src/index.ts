@@ -29,7 +29,13 @@ import { pluginBuilders } from 'virtual:PluginBuilders';
 
 import youtubeMusicCSS from './youtube-music.css?inline';
 
-import { getAllLoadedMainPlugins, loadAllMainPlugins, registerMainPlugin } from './loader/main';
+import {
+  forceLoadMainPlugin,
+  forceUnloadMainPlugin,
+  getAllLoadedMainPlugins,
+  loadAllMainPlugins,
+  registerMainPlugin
+} from './loader/main';
 import { MainPluginFactory, PluginBaseConfig, PluginBuilder } from './plugins/utils/builder';
 
 // Catch errors and log them
@@ -90,6 +96,7 @@ function onClosed() {
 
 ipcMain.handle('get-main-plugin-names', () => Object.keys(mainPlugins));
 
+
 const initHook = (win: BrowserWindow) => {
   ipcMain.handle('get-config', (_, id: keyof PluginBuilderList) => deepmerge(pluginBuilders[id].config, config.get(`plugins.${id}`) ?? {}) as PluginBuilderList[typeof id]['config']);
   ipcMain.handle('set-config', (_, name: string, obj: object) => config.setPartial(`plugins.${name}`, obj));
@@ -102,10 +109,27 @@ const initHook = (win: BrowserWindow) => {
       const isEqual = deepEqual(oldPluginConfigList[id], newPluginConfig);
 
       if (!isEqual) {
-        const config = deepmerge(pluginBuilders[id as keyof PluginBuilderList].config, newPluginConfig);
+        const oldConfig = oldPluginConfigList[id] as PluginBaseConfig;
+        const config = deepmerge(pluginBuilders[id as keyof PluginBuilderList].config, newPluginConfig) as PluginBaseConfig;
+
+        if (config.enabled !== oldConfig.enabled) {
+          if (config.enabled) {
+            win.webContents.send('plugin:enable', id);
+            ipcMain.emit('plugin:enable', id);
+            forceLoadMainPlugin(id as keyof PluginBuilderList, win);
+          } else {
+            win.webContents.send('plugin:unload', id);
+            ipcMain.emit('plugin:unload', id);
+            forceUnloadMainPlugin(id as keyof PluginBuilderList, win);
+          }
+        }
 
         const mainPlugin = getAllLoadedMainPlugins()[id];
-        if (mainPlugin) mainPlugin.onConfigChange?.(config as PluginBaseConfig);
+        if (mainPlugin) {
+          if (config.enabled) {
+            mainPlugin.onConfigChange?.(config);
+          }
+        }
 
         win.webContents.send('config-changed', id, config);
       }

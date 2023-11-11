@@ -24,7 +24,7 @@ const createContext = <
   },
 });
 
-const forceUnloadPreloadPlugin = (id: keyof PluginBuilderList) => {
+export const forceUnloadPreloadPlugin = (id: keyof PluginBuilderList) => {
   unregisterStyleMap[id]?.forEach((unregister) => unregister());
   delete unregisterStyleMap[id];
 
