@@ -2,6 +2,8 @@ import is from 'electron-is';
 import { app, BrowserWindow, clipboard, dialog, Menu } from 'electron';
 import prompt from 'custom-electron-prompt';
 
+import { deepmerge as createDeepmerge } from '@fastify/deepmerge';
+
 import { restart } from './providers/app-controls';
 import config from './config';
 import { startingPages } from './providers/extracted-data';
@@ -21,6 +23,8 @@ export type MenuTemplate = Electron.MenuItemConstructorOptions[];
 const inAppMenuActive = config.plugins.isEnabled('in-app-menu');
 
 const betaPlugins = ['crossfade', 'lumiastream'];
+
+const deepmerge = createDeepmerge();
 
 const pluginEnabledMenu = (plugin: string, label = '', hasSubmenu = false, refreshMenu: (() => void ) | undefined = undefined): Electron.MenuItemConstructorOptions => ({
   label: label || plugin,
@@ -52,7 +56,7 @@ export const mainMenuTemplate = async (win: BrowserWindow): Promise<MenuTemplate
     Key extends keyof PluginBuilderList,
     Config extends PluginBaseConfig = PluginBuilderList[Key]['config'],
   >(name: Key): MenuPluginContext<Config> => ({
-    getConfig: () => config.get(`plugins.${name}`) as unknown as Config,
+    getConfig: () => deepmerge(pluginBuilders[name].config, config.get(`plugins.${name}`)) as Config,
     setConfig: (newConfig) => {
       config.setPartial(`plugins.${name}`, newConfig);
     },

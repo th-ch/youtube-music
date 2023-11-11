@@ -17,7 +17,7 @@ const createContext = <
   Key extends keyof PluginBuilderList,
   Config extends PluginBaseConfig = PluginBuilderList[Key]['config'],
 >(name: Key): PluginContext<Config> => ({
-  getConfig: () => config.get(`plugins.${name}`) as unknown as Config,
+  getConfig: () => deepmerge(pluginBuilders[name].config, config.get(`plugins.${name}`)) as Config,
   setConfig: (newConfig) => {
     config.setPartial(`plugins.${name}`, newConfig);
   },

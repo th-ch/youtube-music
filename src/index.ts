@@ -103,7 +103,7 @@ if (is.windows()) {
 ipcMain.handle('get-main-plugin-names', () => Object.keys(mainPlugins));
 
 const initHook = (win: BrowserWindow) => {
-  ipcMain.handle('get-config', (_, id: keyof PluginBuilderList) => config.get(`plugins.${id}` as never) ?? pluginBuilders[id].config);
+  ipcMain.handle('get-config', (_, id: keyof PluginBuilderList) => deepmerge(pluginBuilders[id].config, config.get(`plugins.${id}`)) as PluginBuilderList[typeof id]['config']);
   ipcMain.handle('set-config', (_, name: string, obj: object) => config.setPartial(`plugins.${name}`, obj));
 
   config.watch((newValue) => {
@@ -148,7 +148,7 @@ async function loadPlugins(win: BrowserWindow) {
     Key extends keyof PluginBuilderList,
     Config extends PluginBaseConfig = PluginBuilderList[Key]['config'],
   >(name: Key): MainPluginContext<Config> => ({
-    getConfig: () => config.get(`plugins.${name}`) as unknown as Config,
+    getConfig: () => deepmerge(pluginBuilders[name].config, config.get(`plugins.${name}`)) as Config,
     setConfig: (newConfig) => {
       config.setPartial(`plugins.${name}`, newConfig);
     },
