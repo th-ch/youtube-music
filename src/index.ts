@@ -131,9 +131,47 @@ const initHook = (win: BrowserWindow) => {
           }
         }
 
+        if (pluginBuilders[id as keyof PluginBuilderList].restartNeeded) {
+          showNeedToRestartDialog(id as keyof PluginBuilderList);
+        }
+
         win.webContents.send('config-changed', id, config);
       }
     });
+  });
+};
+
+const showNeedToRestartDialog = (id: keyof PluginBuilderList) => {
+  const builder = pluginBuilders[id];
+  const dialogOptions: Electron.MessageBoxOptions = {
+    type: 'info',
+    buttons: ['Restart Now', 'Later'],
+    title: 'Restart Required',
+    message: `"${builder.name ?? builder.id}" needs to restart`,
+    detail: `"${builder.name ?? builder.id}" plugin requires a restart to take effect`,
+    defaultId: 0,
+    cancelId: 1,
+  };
+
+  let dialogPromise: Promise<Electron.MessageBoxReturnValue>;
+  if (mainWindow) {
+    dialogPromise = dialog.showMessageBox(mainWindow, dialogOptions);
+  } else {
+    dialogPromise = dialog.showMessageBox(dialogOptions);
+  }
+
+  dialogPromise.then((dialogOutput) => {
+    switch (dialogOutput.response) {
+      case 0: {
+        restart();
+        break;
+      }
+
+      // Ignore
+      default: {
+        break;
+      }
+    }
   });
 };
 

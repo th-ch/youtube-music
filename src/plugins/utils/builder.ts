@@ -62,6 +62,7 @@ export type PluginBuilder<ID extends string, Config extends PluginBaseConfig> = 
   config: Config;
   name?: string;
   styles?: string[];
+  restartNeeded: boolean;
 };
 export type PluginBuilderOptions<Config extends PluginBaseConfig = PluginBaseConfig> = {
   name?: string;
@@ -83,4 +84,5 @@ export const createPluginBuilder = <ID extends string, Config extends PluginBase
   name: options.name,
   config: options.config,
   styles: options.styles,
+  restartNeeded: options.restartNeeded,
 });
