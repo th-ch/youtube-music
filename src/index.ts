@@ -29,7 +29,8 @@ import { pluginBuilders } from 'virtual:PluginBuilders';
 
 import youtubeMusicCSS from './youtube-music.css?inline';
 
-import type { MainPlugin, PluginBaseConfig, MainPluginContext, MainPluginFactory } from './plugins/utils/builder';
+import { getLoadedAllPlugins, loadAllPlugins, registerMainPlugin } from './loader/main';
+import { MainPluginFactory, PluginBaseConfig, PluginBuilder } from './plugins/utils/builder';
 
 // Catch errors and log them
 unhandled({
@@ -87,17 +88,6 @@ function onClosed() {
   mainWindow = null;
 }
 
-export const mainPluginNames = Object.keys(mainPlugins);
-
-if (is.windows()) {
-  delete mainPlugins['touchbar'];
-} else if (is.macOS()) {
-  delete mainPlugins['taskbar-mediacontrol'];
-} else {
-  delete mainPlugins['touchbar'];
-  delete mainPlugins['taskbar-mediacontrol'];
-}
-
 ipcMain.handle('get-main-plugin-names', () => Object.keys(mainPlugins));
 
 const initHook = (win: BrowserWindow) => {
@@ -114,14 +104,16 @@ const initHook = (win: BrowserWindow) => {
       if (!isEqual) {
         const config = deepmerge(pluginBuilders[id as keyof PluginBuilderList].config, newPluginConfig);
 
+        const mainPlugin = getLoadedAllPlugins()[id];
+        if (mainPlugin) mainPlugin.onConfigChange?.(config as PluginBaseConfig);
+
         win.webContents.send('config-changed', id, config);
       }
     });
   });
 };
 
-const loadedPluginList: [string, MainPlugin<PluginBaseConfig>][] = [];
-async function loadPlugins(win: BrowserWindow) {
+function initTheme(win: BrowserWindow) {
   injectCSS(win.webContents, youtubeMusicCSS);
   // Load user CSS
   const themes: string[] = config.get('options.themes');
@@ -145,68 +137,6 @@ async function loadPlugins(win: BrowserWindow) {
       win.webContents.openDevTools();
     }
   });
-
-
-  const createContext = <
-    Key extends keyof PluginBuilderList,
-    Config extends PluginBaseConfig = PluginBuilderList[Key]['config'],
-  >(name: Key): MainPluginContext<Config> => ({
-    getConfig: () => deepmerge(pluginBuilders[name].config, config.get(`plugins.${name}`) ?? {}) as unknown as Config,
-    setConfig: (newConfig) => {
-      config.setPartial(`plugins.${name}`, newConfig);
-    },
-
-    send: (event: string, ...args: unknown[]) => {
-      win.webContents.send(event, ...args);
-    },
-    handle: (event: string, listener) => {
-      ipcMain.handle(event, async (_, ...args) => listener(...args as never));
-    },
-    on: (event: string, listener) => {
-      ipcMain.on(event, async (_, ...args) => listener(...args as never));
-    },
-  });
-
-  const pluginConfigs = config.plugins.getPlugins();
-  for (const [pluginId, builder] of Object.entries(pluginBuilders)) {
-    const typedBuilder = builder as PluginBuilderList[keyof PluginBuilderList];
-
-    const config = deepmerge(typedBuilder.config, pluginConfigs[pluginId as keyof PluginBuilderList] ?? {});
-
-    if (config.enabled) {
-      typedBuilder.styles?.forEach((style) => {
-        injectCSS(win.webContents, style, () => {
-          console.log('[YTMusic]', `Injected CSS for "${pluginId}" plugin`);
-        });
-      });
-
-      console.log('[YTMusic]', `"${pluginId}" plugin data is loaded`);
-    }
-  }
-
-  for (const [pluginId, factory] of Object.entries(mainPlugins)) {
-    if (Object.hasOwn(pluginBuilders, pluginId)) {
-      try {
-        const builder = pluginBuilders[pluginId as keyof PluginBuilderList];
-        const config = deepmerge(builder.config, pluginConfigs[pluginId as keyof PluginBuilderList] ?? {});
-
-        if (config.enabled) {
-          try {
-            const context = createContext(pluginId as keyof PluginBuilderList);
-            const plugin = await (factory as MainPluginFactory<PluginBaseConfig>)(context);
-            loadedPluginList.push([pluginId, plugin]);
-            plugin.onLoad?.(win);
-            console.log('[YTMusic]', `"${pluginId}" plugin is loaded`);
-          } catch (error) {
-            console.error('[YTMusic]', `Cannot load plugin "${pluginId}"`);
-            console.trace(error);
-          }
-        }
-      } catch(err) {
-        console.log('[YTMusic]', `Cannot initialize "${pluginId}" plugin: ${String(err)}`);
-      }
-    }
-  }
 }
 
 async function createMainWindow() {
@@ -248,7 +178,15 @@ async function createMainWindow() {
     autoHideMenuBar: config.get('options.hideMenu'),
   });
   initHook(win);
-  await loadPlugins(win);
+  initTheme(win);
+
+  Object.entries(pluginBuilders).forEach(([id, builder]) => {
+    const typedBuilder = builder as PluginBuilder<string, PluginBaseConfig>;
+    const plugin = mainPlugins[id] as MainPluginFactory<PluginBaseConfig> | undefined;
+
+    registerMainPlugin(id, typedBuilder, plugin);
+  });
+  await loadAllPlugins(win);
 
   if (windowPosition) {
     const { x: windowX, y: windowY } = windowPosition;
