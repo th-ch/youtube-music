@@ -261,8 +261,8 @@ export default builder.createRenderer(async ({ on, getConfig, setConfig }) => {
 
       document.addEventListener('apiLoaded', (e) => {
         api = e.detail;
-        on('changeVolume', (_, toIncrease: boolean) => changeVolume(toIncrease));
-        on('setVolume', (_, value: number) => setVolume(value));
+        on('changeVolume', (toIncrease: boolean) => changeVolume(toIncrease));
+        on('setVolume', (value: number) => setVolume(value));
         firstRun();
       }, { once: true, passive: true });
     },

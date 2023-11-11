@@ -20,7 +20,7 @@ export default builder.createMain(({ handle, getConfig }) =>{
         revRomanized = true;
       }
 
-      handle('search-genius-lyrics', async (_, extractedSongInfo: SongInfo) => {
+      handle('search-genius-lyrics', async (extractedSongInfo: SongInfo) => {
         const metadata = extractedSongInfo;
         return await fetchFromGenius(metadata);
       });

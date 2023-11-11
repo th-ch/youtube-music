@@ -10,6 +10,8 @@ import { autoUpdater } from 'electron-updater';
 import electronDebug from 'electron-debug';
 import { parse } from 'node-html-parser';
 
+import { deepmerge as createDeepmerge } from '@fastify/deepmerge';
+
 import config from './config';
 
 import { refreshMenu, setApplicationMenu } from './menu';
@@ -26,7 +28,10 @@ import { pluginBuilders } from 'virtual:PluginBuilders';
 /* eslint-enable import/order */
 
 import youtubeMusicCSS from './youtube-music.css?inline';
-import { MainPlugin, PluginBaseConfig, MainPluginContext, MainPluginFactory } from './plugins/utils/builder';
+
+import type { MainPlugin, PluginBaseConfig, MainPluginContext, MainPluginFactory } from './plugins/utils/builder';
+
+const deepmerge = createDeepmerge();
 
 // Catch errors and log them
 unhandled({
@@ -159,42 +164,30 @@ async function loadPlugins(win: BrowserWindow) {
     },
   });
 
+  const pluginConfigs = config.plugins.getPlugins();
+  for (const [pluginId, factory] of Object.entries(mainPlugins)) {
+    if (Object.hasOwn(pluginBuilders, pluginId)) {
+      const builder = pluginBuilders[pluginId as keyof PluginBuilderList];
+      const config = deepmerge(builder.config, pluginConfigs[pluginId as keyof PluginBuilderList]);
 
-  for (const [pluginId, options] of config.plugins.getEnabled()) {
-    const builder = pluginBuilders[pluginId as keyof PluginBuilderList];
-    const factory = (mainPlugins as Record<string, MainPluginFactory<PluginBaseConfig>>)[pluginId];
+      if (config?.enabled) {
+        builder.styles?.forEach((style) => {
+          injectCSS(win.webContents, style);
+          console.log('[YTMusic]', `"${pluginId}" plugin meta data is loaded`);
+        });
 
-    if (builder) {
-      builder.styles?.forEach((style) => {
-        injectCSS(win.webContents, style);
-        console.log('[YTMusic]', `"${pluginId}" plugin meta data is loaded`);
-      });
-    }
-
-    if (factory) {
-      try {
-        const context = createContext(pluginId as keyof PluginBuilderList);
-        const plugin = await factory(context);
-        loadedPluginList.push([pluginId, plugin]);
-        plugin.onLoad?.(win);
-        console.log('[YTMusic]', `"${pluginId}" plugin is loaded`);
-      } catch (error) {
-        console.error('[YTMusic]', `Cannot load plugin "${pluginId}"`);
-        console.trace(error);
+        try {
+          const context = createContext(pluginId as keyof PluginBuilderList);
+          const plugin = await (factory as MainPluginFactory<PluginBaseConfig>)(context);
+          loadedPluginList.push([pluginId, plugin]);
+          plugin.onLoad?.(win);
+          console.log('[YTMusic]', `"${pluginId}" plugin is loaded`);
+        } catch (error) {
+          console.error('[YTMusic]', `Cannot load plugin "${pluginId}"`);
+          console.trace(error);
+        }
       }
     }
-
-    // try {
-    //   if (Object.hasOwn(mainPlugins, plugin)) {
-    //     console.log('Loaded plugin - ' + plugin);
-    //     const handler = mainPlugins[plugin as keyof typeof mainPlugins];
-    //     if (handler) {
-    //       await handler(win, options as never);
-    //     }
-    //   }
-    // } catch (e) {
-    //   console.error(`Failed to load plugin "${plugin}"`, e);
-    // }
   }
 }
 

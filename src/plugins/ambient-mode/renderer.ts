@@ -26,7 +26,6 @@ export default builder.createRenderer(async ({ getConfig }) => {
         if (!video) return null;
         if (!wrapper) return null;
 
-        console.log('injectBlurVideo', songVideo, video, wrapper);
         const blurCanvas = document.createElement('canvas');
         blurCanvas.classList.add('html5-blur-canvas');
 

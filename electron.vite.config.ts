@@ -50,6 +50,7 @@ export default defineConfig({
     const commonConfig: UserConfig = {
       plugins: [
         viteResolve({
+          'virtual:PluginBuilders': pluginVirtualModuleGenerator('index'),
           'virtual:PreloadPlugins': pluginVirtualModuleGenerator('preload'),
         }),
       ],
@@ -86,6 +87,7 @@ export default defineConfig({
     const commonConfig: UserConfig = {
       plugins: [
         viteResolve({
+          'virtual:PluginBuilders': pluginVirtualModuleGenerator('index'),
           'virtual:RendererPlugins': pluginVirtualModuleGenerator('renderer'),
         }),
       ],

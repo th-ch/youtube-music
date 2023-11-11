@@ -1,13 +1,17 @@
 import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
 import is from 'electron-is';
 
+import { pluginBuilders } from 'virtual:PluginBuilders';
+
+import { deepmerge as createDeepmerge } from '@fastify/deepmerge';
+
 import config from './config';
 
 // eslint-disable-next-line import/order
 import { preloadPlugins } from 'virtual:PreloadPlugins';
 import { PluginBaseConfig, PluginContext, PreloadPluginFactory } from './plugins/utils/builder';
 
-const enabledPluginNameAndOptions = config.plugins.getEnabled();
+const deepmerge = createDeepmerge();
 
 const createContext = <
   Key extends keyof PluginBuilderList,
@@ -22,12 +26,15 @@ const createContext = <
 
 const preloadedPluginList = [];
 
-enabledPluginNameAndOptions.forEach(async ([id]) => {
+const pluginConfig = config.plugins.getPlugins();
+Object.entries(preloadPlugins)
+  .filter(([id]) => deepmerge(pluginBuilders[id as keyof PluginBuilderList].config, pluginConfig[id as keyof PluginBuilderList])?.enabled)
+  .forEach(async ([id]) => {
   if (Object.hasOwn(preloadPlugins, id)) {
     const factory = (preloadPlugins as Record<string, PreloadPluginFactory<PluginBaseConfig>>)[id];
 
     try {
-      const context = createContext(id);
+      const context = createContext(id as keyof PluginBuilderList);
       const plugin = await factory(context);
       plugin.onLoad?.();
       preloadedPluginList.push(plugin);

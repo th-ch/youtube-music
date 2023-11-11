@@ -49,7 +49,7 @@ export default builder.createMain(({ handle, send }) => {
         if (target) target.click(undefined, BrowserWindow.fromWebContents(event.sender), event.sender);
       });
 
-      handle('get-menu-by-id', (_, commandId: number) => {
+      handle('get-menu-by-id', (commandId: number) => {
         const result = getMenuItemById(commandId);
 
         return JSON.parse(JSON.stringify(
@@ -67,7 +67,7 @@ export default builder.createMain(({ handle, send }) => {
       handle('window-unmaximize', () => win.unmaximize());
       win.on('unmaximize', () => send('window-unmaximize'));
 
-      handle('image-path-to-data-url', (_, imagePath: string) => {
+      handle('image-path-to-data-url', (imagePath: string) => {
         const nativeImageIcon = nativeImage.createFromPath(imagePath);
         return nativeImageIcon?.toDataURL();
       });

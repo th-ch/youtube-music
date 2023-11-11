@@ -24,7 +24,7 @@ export default builder.createRenderer(({ on, invoke }) => ({
 
     let unregister: (() => void) | null = null;
 
-    on('update-song-info', (_, extractedSongInfo: SongInfo) => {
+    on('update-song-info', (extractedSongInfo: SongInfo) => {
       unregister?.();
 
       setTimeout(async () => {

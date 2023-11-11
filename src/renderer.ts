@@ -2,13 +2,17 @@
 // eslint-disable-next-line import/order
 import { rendererPlugins } from 'virtual:RendererPlugins';
 
+import { deepmerge as createDeepmerge } from '@fastify/deepmerge';
+
 import { PluginBaseConfig, RendererPluginContext, RendererPluginFactory } from './plugins/utils/builder';
 
 import { startingPages } from './providers/extracted-data';
 import { setupSongControls } from './providers/song-controls-front';
 import setupSongInfo from './providers/song-info-front';
+import {mainPlugins} from "virtual:MainPlugins";
+import {pluginBuilders} from "virtual:PluginBuilders";
 
-const enabledPluginNameAndOptions = window.mainConfig.plugins.getEnabled();
+const deepmerge = createDeepmerge();
 
 let api: Element | null = null;
 
@@ -116,55 +120,31 @@ const createContext = <
 });
 
 (async () => {
-  // enabledPluginNameAndOptions.forEach(async ([pluginName, options]) => {
-  //   if (pluginName === 'ambient-mode') {
-  //     const builder = rendererPlugins[pluginName];
+  const pluginConfig = window.mainConfig.plugins.getPlugins();
 
-  //     try {
-  //       const context = createContext(pluginName);
-  //       const plugin = await builder?.(context);
-  //       console.log(plugin);
-  //       plugin.onLoad?.();
-  //     } catch (error) {
-  //       console.error(`Error in plugin "${pluginName}"`);
-  //       console.trace(error);
-  //     }
-  //   }
-
-  //   if (Object.hasOwn(rendererPlugins, pluginName)) {
-  //     const handler = rendererPlugins[pluginName];
-  //     try {
-  //       await handler?.(options as never);
-  //     } catch (error) {
-  //       console.error(`Error in plugin "${pluginName}"`);
-  //       console.trace(error);
-  //     }
-  //   }
-  // });
-
+  const rendererPluginList = Object.entries(rendererPlugins);
   const rendererPluginResult = await Promise.allSettled(
-    enabledPluginNameAndOptions.map(async ([id]) => {
-      // HACK: eslint has a bug detects the type of rendererPlugins as "any"
-      const builder = (rendererPlugins as Record<string, RendererPluginFactory<PluginBaseConfig>>)[id];
-
-      const context = createContext(id as keyof PluginBuilderList);
-      return [id, await builder(context)] as const;
-    }),
+    rendererPluginList
+      .filter(([id]) => deepmerge(pluginBuilders[id as keyof PluginBuilderList].config, pluginConfig[id as keyof PluginBuilderList])?.enabled)
+      .map(async ([id, builder]) => {
+        const context = createContext(id as keyof PluginBuilderList);
+        return [id, await (builder as RendererPluginFactory<PluginBaseConfig>)(context)] as const;
+      }),
   );
-
-  const rendererPluginList = rendererPluginResult
-    .map((it) => it.status === 'fulfilled' ? it.value : null)
-    .filter(Boolean);
 
   rendererPluginResult.forEach((it, index) => {
     if (it.status === 'rejected') {
-      const id = enabledPluginNameAndOptions[index][0];
+      const id = rendererPluginList[index][0];
       console.error('[YTMusic]', `Cannot load plugin "${id}"`);
       console.trace(it.reason);
     }
   });
 
-  rendererPluginList.forEach(([id, plugin]) => {
+  const loadedRendererPluginList = rendererPluginResult
+    .map((it) => it.status === 'fulfilled' ? it.value : null)
+    .filter(Boolean);
+
+  loadedRendererPluginList.forEach(([id, plugin]) => {
     try {
       plugin.onLoad?.();
       console.log('[YTMusic]', `"${id}" plugin is loaded`);
@@ -175,7 +155,7 @@ const createContext = <
   });
 
   window.ipcRenderer.on('config-changed', (_event, id: string, newConfig: PluginBaseConfig) => {
-    const plugin = rendererPluginList.find(([pluginId]) => pluginId === id);
+    const plugin = loadedRendererPluginList.find(([pluginId]) => pluginId === id);
 
     if (plugin) {
       plugin[1].onConfigChange?.(newConfig);
