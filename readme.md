@@ -1,8 +1,3 @@
-# Fork for Fixes and stuff
-I made a Fix for the Winodws Scale......
-
-
-
 # YouTube Music
 
 <div align="center">
