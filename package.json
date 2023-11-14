@@ -130,7 +130,7 @@
     "node-gyp": "10.0.1",
     "xml2js": "0.6.2",
     "node-fetch": "3.3.2",
-    "@electron/universal": "1.4.5",
+    "@electron/universal": "1.5.1",
     "@babel/runtime": "7.23.2"
   },
   "dependencies": {
