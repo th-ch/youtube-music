@@ -135,7 +135,7 @@
   },
   "dependencies": {
     "@cliqz/adblocker-electron": "1.26.11",
-    "@cliqz/adblocker-electron-preload": "1.26.11",
+    "@cliqz/adblocker-electron-preload": "1.26.12",
     "@fastify/deepmerge": "1.3.0",
     "@ffmpeg.wasm/core-mt": "0.12.0",
     "@ffmpeg.wasm/main": "0.12.0",
