@@ -3,5 +3,6 @@
   "extends": [
     "config:base"
   ],
-  "labels": ["dependencies"]
+  "labels": ["dependencies"],
+  "postUpdateOptions": ["pnpmDedupe"]
 }
