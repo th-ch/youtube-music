@@ -192,9 +192,6 @@ devDependencies:
   ws:
     specifier: 8.14.2
     version: 8.14.2(bufferutil@4.0.8)(utf-8-validate@6.0.3)
-  yarpm:
-    specifier: 1.2.0
-    version: 1.2.0
 
 packages:
 
@@ -2061,10 +2058,6 @@ packages:
     engines: {node: '>= 0.8'}
     dependencies:
       delayed-stream: 1.0.0
-
-  /command-exists@1.2.9:
-    resolution: {integrity: sha512-LTQ/SGc+s0Xc0Fu5WaKnR0YiygZkm9eKFvyS+fRsU7/ZWFF8ykFM6Pc9aCVf1+xasOOZpO3BAVgVrKvsqKHV7w==}
-    dev: true
 
   /commander@5.1.0:
     resolution: {integrity: sha512-P0CysNDQ7rtVw4QIQtm+MRxV66vKFSvlsQvGYXZWR3qFU0jlMKHZZZgw8e+8DSah4UDKMqnknRDQz+xuQXQ/Zg==}
@@ -5824,14 +5817,6 @@ packages:
       string-width: 4.2.3
       y18n: 5.0.8
       yargs-parser: 21.1.1
-    dev: true
-
-  /yarpm@1.2.0:
-    resolution: {integrity: sha512-gxN4Ali09uey8EpLfbYG+bTXf1hF6TA5oAXFPpKi5Nt5aztXU9AIEksXE0lpuvC50vL4De/KIeP8JXgYOZ8KbQ==}
-    hasBin: true
-    dependencies:
-      command-exists: 1.2.9
-      cross-spawn: 7.0.3
     dev: true
 
   /yauzl@2.10.0:
