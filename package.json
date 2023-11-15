@@ -138,7 +138,7 @@
     "async-mutex": "0.4.0",
     "butterchurn": "3.0.0-beta.4",
     "butterchurn-presets": "3.0.0-beta.4",
-    "conf": "10.2.0",
+    "conf": "12.0.0",
     "custom-electron-prompt": "1.5.7",
     "dbus-next": "0.10.2",
     "electron-debug": "3.2.0",
