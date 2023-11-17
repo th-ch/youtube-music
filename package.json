@@ -95,21 +95,21 @@
     "test:debug": "cross-env DEBUG=pw:*,-pw:test:protocol playwright test",
     "build": "electron-vite build",
     "start": "electron-vite preview",
-    "start:debug": "cross-env ELECTRON_ENABLE_LOGGING=1 yarpm-pnpm run start",
+    "start:debug": "cross-env ELECTRON_ENABLE_LOGGING=1 pnpm start",
     "dev": "electron-vite dev",
-    "dev:debug": "cross-env ELECTRON_ENABLE_LOGGING=1 yarpm-pnpm run dev",
+    "dev:debug": "cross-env ELECTRON_ENABLE_LOGGING=1 pnpm dev",
     "clean": "del-cli dist && del-cli pack",
-    "dist": "yarpm-pnpm run clean && yarpm-pnpm run build && electron-builder --win --mac --linux -p never",
-    "dist:linux": "yarpm-pnpm run clean && yarpm-pnpm run build && electron-builder --linux -p never",
-    "dist:mac": "yarpm-pnpm run clean && yarpm-pnpm run build && electron-builder --mac dmg:x64 -p never",
-    "dist:mac:arm64": "yarpm-pnpm run clean && yarpm-pnpm run build && electron-builder --mac dmg:arm64 -p never",
-    "dist:win": "yarpm-pnpm run clean && yarpm-pnpm run build && electron-builder --win -p never",
-    "dist:win:x64": "yarpm-pnpm run clean && yarpm-pnpm run build && electron-builder --win nsis-web:x64 -p never",
+    "dist": "pnpm clean && pnpm build && electron-builder --win --mac --linux -p never",
+    "dist:linux": "pnpm clean && pnpm build && electron-builder --linux -p never",
+    "dist:mac": "pnpm clean && pnpm build && electron-builder --mac dmg:x64 -p never",
+    "dist:mac:arm64": "pnpm clean && pnpm build && electron-builder --mac dmg:arm64 -p never",
+    "dist:win": "pnpm clean && pnpm build && electron-builder --win -p never",
+    "dist:win:x64": "pnpm clean && pnpm build && electron-builder --win nsis-web:x64 -p never",
     "lint": "eslint .",
     "changelog": "npx --yes auto-changelog",
-    "release:linux": "yarpm-pnpm run clean && yarpm-pnpm run build && electron-builder --linux -p always -c.snap.publish=github",
-    "release:mac": "yarpm-pnpm run clean && yarpm-pnpm run build && electron-builder --mac -p always",
-    "release:win": "yarpm-pnpm run clean && yarpm-pnpm run build && electron-builder --win -p always",
+    "release:linux": "pnpm clean && pnpm build && electron-builder --linux -p always -c.snap.publish=github",
+    "release:mac": "pnpm clean && pnpm build && electron-builder --mac -p always",
+    "release:win": "pnpm clean && pnpm build && electron-builder --win -p always",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "engines": {
@@ -117,25 +117,17 @@
   },
   "pnpm": {
     "overrides": {
-      "rollup": "4.3.0",
+      "rollup": "4.4.1",
       "node-gyp": "10.0.1",
       "xml2js": "0.6.2",
       "node-fetch": "3.3.2",
-      "@electron/universal": "1.4.5",
+      "@electron/universal": "2.0.0",
       "@babel/runtime": "7.23.2"
     }
   },
-  "overrides": {
-    "rollup": "4.3.0",
-    "node-gyp": "10.0.1",
-    "xml2js": "0.6.2",
-    "node-fetch": "3.3.2",
-    "@electron/universal": "1.4.5",
-    "@babel/runtime": "7.23.2"
-  },
   "dependencies": {
-    "@cliqz/adblocker-electron": "1.26.11",
-    "@cliqz/adblocker-electron-preload": "1.26.11",
+    "@cliqz/adblocker-electron": "1.26.12",
+    "@cliqz/adblocker-electron-preload": "1.26.12",
     "@fastify/deepmerge": "1.3.0",
     "@ffmpeg.wasm/core-mt": "0.12.0",
     "@ffmpeg.wasm/main": "0.12.0",
@@ -146,7 +138,7 @@
     "async-mutex": "0.4.0",
     "butterchurn": "3.0.0-beta.4",
     "butterchurn-presets": "3.0.0-beta.4",
-    "conf": "10.2.0",
+    "conf": "12.0.0",
     "custom-electron-prompt": "1.5.7",
     "dbus-next": "0.10.2",
     "electron-debug": "3.2.0",
@@ -174,12 +166,12 @@
     "@types/electron-localshortcut": "3.1.3",
     "@types/howler": "2.2.11",
     "@types/html-to-text": "9.0.4",
-    "@typescript-eslint/eslint-plugin": "6.10.0",
+    "@typescript-eslint/eslint-plugin": "6.11.0",
     "bufferutil": "4.0.8",
     "builtin-modules": "^3.3.0",
     "cross-env": "7.0.3",
     "del-cli": "5.1.0",
-    "electron": "27.0.4",
+    "electron": "27.1.0",
     "electron-builder": "24.6.4",
     "electron-devtools-installer": "3.2.0",
     "electron-vite": "1.0.28",
@@ -189,13 +181,12 @@
     "glob": "10.3.10",
     "node-gyp": "10.0.1",
     "playwright": "1.39.0",
-    "rollup": "4.3.0",
+    "rollup": "4.4.1",
     "typescript": "5.2.2",
     "utf-8-validate": "6.0.3",
     "vite": "4.5.0",
     "vite-plugin-resolve": "2.5.1",
-    "ws": "8.14.2",
-    "yarpm": "1.2.0"
+    "ws": "8.14.2"
   },
   "auto-changelog": {
     "hideCredit": true,
@@ -203,5 +194,5 @@
     "unreleased": true,
     "output": "changelog.md"
   },
-  "packageManager": "pnpm@8.10.2"
+  "packageManager": "pnpm@8.10.5"
 }
