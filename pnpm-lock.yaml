@@ -38,8 +38,8 @@ dependencies:
     specifier: 2.1.4
     version: 2.1.4
   '@xhayper/discord-rpc':
-    specifier: 1.0.24
-    version: 1.0.24(bufferutil@4.0.8)(utf-8-validate@6.0.3)
+    specifier: 1.1.0
+    version: 1.1.0(bufferutil@4.0.8)(utf-8-validate@6.0.3)
   async-mutex:
     specifier: 0.4.0
     version: 0.4.0
@@ -1431,11 +1431,11 @@ packages:
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
     dev: true
 
-  /@xhayper/discord-rpc@1.0.24(bufferutil@4.0.8)(utf-8-validate@6.0.3):
-    resolution: {integrity: sha512-gzC8OaOSz7cGALSHyyq6nANQvBfyfntbSq+Qh+cNanoKX8ybOj+jWKmDP6PbLVDWoBftTU3JYsWXrLml2df2Hw==}
+  /@xhayper/discord-rpc@1.1.0(bufferutil@4.0.8)(utf-8-validate@6.0.3):
+    resolution: {integrity: sha512-R471FBcd6YVZZIZAT76IlPudCAs/K1ReN8wsh0A6oKyHOzIDcheTE4Z0L72YQHhgixW/RJS7nvuITRffIVMBXQ==}
     engines: {node: '>=14.18.0'}
     dependencies:
-      axios: 1.6.1
+      axios: 1.6.2
       ws: 8.14.2(bufferutil@4.0.8)(utf-8-validate@6.0.3)
     transitivePeerDependencies:
       - bufferutil
@@ -1727,8 +1727,8 @@ packages:
     resolution: {integrity: sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==}
     engines: {node: '>= 0.4'}
 
-  /axios@1.6.1:
-    resolution: {integrity: sha512-vfBmhDpKafglh0EldBEbVuoe7DyAavGSLWhuSm5ZSEKQnHhBf0xAAwybbNH1IkrJNGnS/VG4I5yxig1pCEXE4g==}
+  /axios@1.6.2:
+    resolution: {integrity: sha512-7i24Ri4pmDRfJTR7LDBhsOTtcm+9kjX5WiY1X3wIisx6G9So3pfMkEiU7emUBe46oceVImccTEM3k6C5dbVW8A==}
     dependencies:
       follow-redirects: 1.15.3
       form-data: 4.0.0
