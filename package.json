@@ -181,7 +181,7 @@
     "glob": "10.3.10",
     "node-gyp": "10.0.1",
     "playwright": "1.40.0",
-    "rollup": "4.4.1",
+    "rollup": "4.5.0",
     "typescript": "5.2.2",
     "utf-8-validate": "6.0.3",
     "vite": "4.5.0",
