@@ -166,7 +166,7 @@
     "@types/electron-localshortcut": "3.1.3",
     "@types/howler": "2.2.11",
     "@types/html-to-text": "9.0.4",
-    "@typescript-eslint/eslint-plugin": "6.11.0",
+    "@typescript-eslint/eslint-plugin": "6.12.0",
     "bufferutil": "4.0.8",
     "builtin-modules": "^3.3.0",
     "cross-env": "7.0.3",
