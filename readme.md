@@ -80,6 +80,14 @@ winget install th-ch.YouTubeMusic
 - Place them in the **same directory**.
 - Run the installer.
 
+## Features:
+
+- **Auto confirm when paused** (Always Enabled): disable
+  the ["Continue Watching?"](https://user-images.githubusercontent.com/61631665/129977894-01c60740-7ec6-4bf0-9a2c-25da24491b0e.png)
+  popup that pause music after a certain time
+
+ - And more ...
+
 ## Available plugins:
 
 - **Ad Blocker**: Block all ads and tracking out of the box
@@ -168,15 +176,6 @@ winget install th-ch.YouTubeMusic
   switch between Video/Song mode. can also optionally remove the whole video tab
 
 - **Visualizer**: Different music visualizers
-
----
-
-- **Auto confirm when paused** (Always Enabled): disable
-  the ["Continue Watching?"](https://user-images.githubusercontent.com/61631665/129977894-01c60740-7ec6-4bf0-9a2c-25da24491b0e.png)
-  popup that pause music after a certain time
-
-> If `Hide Menu` option is on - you can show the menu with the <kbd>alt</kbd> key (or <kbd>\`</kbd> [backtick] if using
-> the in-app-menu plugin)
 
 ## Themes
 
@@ -313,3 +312,10 @@ Uses [Playwright](https://playwright.dev/) to test the app.
 ## License
 
 MIT © [th-ch](https://github.com/th-ch/youtube-music)
+
+## Most asked questions
+
+### Why apps menu isn't showing up?
+
+If `Hide Menu` option is on - you can show the menu with the <kbd>alt</kbd> key (or <kbd>\`</kbd> [backtick] if using
+the in-app-menu plugin)
