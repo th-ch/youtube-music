@@ -171,7 +171,7 @@
     "builtin-modules": "^3.3.0",
     "cross-env": "7.0.3",
     "del-cli": "5.1.0",
-    "electron": "27.1.0",
+    "electron": "27.1.2",
     "electron-builder": "24.6.4",
     "electron-devtools-installer": "3.2.0",
     "electron-vite": "1.0.29",
