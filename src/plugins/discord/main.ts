@@ -8,8 +8,8 @@ import registerCallback, { type SongInfoCallback, type SongInfo } from '../../pr
 
 import type { ConfigType } from '../../config/dynamic';
 
-// Application ID registered by @Zo-Bro-23
-const clientId = '1043858434585526382';
+// Application ID registered by @th-ch/youtube-music dev team
+const clientId = '1177081335727267940';
 
 export interface Info {
   rpc: DiscordClient;
