@@ -74,8 +74,8 @@ dependencies:
     specifier: 4.0.1
     version: 4.0.1
   electron-updater:
-    specifier: 6.1.4
-    version: 6.1.4
+    specifier: 6.1.7
+    version: 6.1.7
   fast-average-color:
     specifier: 9.4.0
     version: 9.4.0
@@ -1850,6 +1850,17 @@ packages:
       sax: 1.3.0
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /builder-util-runtime@9.2.3:
+    resolution: {integrity: sha512-FGhkqXdFFZ5dNC4C+yuQB9ak311rpGAw+/ASz8ZdxwODCv1GGMWgLDeofRkdi0F3VCHQEWy/aXcJQozx2nOPiw==}
+    engines: {node: '>=12.0.0'}
+    dependencies:
+      debug: 4.3.4
+      sax: 1.3.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
 
   /builder-util@24.5.0:
     resolution: {integrity: sha512-STnBmZN/M5vGcv01u/K8l+H+kplTaq4PAIn3yeuufUKSpcdro0DhJWxPI81k5XcNfC//bjM3+n9nr8F9uV4uAQ==}
@@ -2603,10 +2614,10 @@ packages:
       serialize-error: 8.1.0
     dev: false
 
-  /electron-updater@6.1.4:
-    resolution: {integrity: sha512-yYAJc6RQjjV4WtInZVn+ZcLyXRhbVXoomKEfUUwDqIk5s2wxzLhWaor7lrNgxODyODhipjg4SVPMhJHi5EnsCA==}
+  /electron-updater@6.1.7:
+    resolution: {integrity: sha512-SNOhYizjkm4ET+Y8ilJyUzcVsFJDtINzVN1TyHnZeMidZEG3YoBebMyXc/J6WSiXdUaOjC7ngekN6rNp6ardHA==}
     dependencies:
-      builder-util-runtime: 9.2.1
+      builder-util-runtime: 9.2.3
       fs-extra: 10.1.0
       js-yaml: 4.1.0
       lazy-val: 1.0.5
