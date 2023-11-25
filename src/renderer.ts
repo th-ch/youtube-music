@@ -1,19 +1,22 @@
-import { rendererPlugins } from 'virtual:RendererPlugins';
-import { pluginBuilders } from 'virtual:PluginBuilders';
+import { rendererPlugins } from 'virtual:plugins';
 
-import { PluginBaseConfig, PluginBuilder, RendererPluginFactory } from './plugins/utils/builder';
+import {
+  PluginBaseConfig,
+  PluginBuilder,
+  RendererPluginFactory,
+} from '@/plugins/utils/builder';
 
 import { startingPages } from './providers/extracted-data';
 import setupSongInfo from './providers/song-info-front';
 import {
   forceLoadRendererPlugin,
   forceUnloadRendererPlugin,
-  getAllLoadedRendererPlugins, getLoadedRendererPlugin,
+  getAllLoadedRendererPlugins,
+  getLoadedRendererPlugin,
   loadAllRendererPlugins,
-  registerRendererPlugin
 } from './loader/renderer';
 
-import type { YoutubePlayer } from './types/youtube-player';
+import type { YoutubePlayer } from '@/types/youtube-player';
 
 let api: (Element & YoutubePlayer) | null = null;
 
@@ -34,7 +37,10 @@ function listenForApiLoad() {
     }
   });
 
-  observer.observe(document.documentElement, { childList: true, subtree: true });
+  observer.observe(document.documentElement, {
+    childList: true,
+    subtree: true,
+  });
 }
 
 interface YouTubeMusicAppElement extends HTMLElement {
@@ -75,17 +81,14 @@ function onApiLoaded() {
     { passive: true },
   );
 
-  Object.values(getAllLoadedRendererPlugins())
-    .forEach((plugin) => {
-      plugin.onPlayerApiReady?.(api!);
-    });
-
   window.ipcRenderer.send('ytmd:player-api-loaded');
 
   // Navigate to "Starting page"
   const startingPage: string = window.mainConfig.get('options.startingPage');
   if (startingPage && startingPages[startingPage]) {
-    document.querySelector<YouTubeMusicAppElement>('ytmusic-app')?.navigate_(startingPages[startingPage]);
+    document
+      .querySelector<YouTubeMusicAppElement>('ytmusic-app')
+      ?.navigate_(startingPages[startingPage]);
   }
 
   // Remove upgrade button
@@ -98,51 +101,54 @@ function onApiLoaded() {
   }
 
   // Hide / Force show like buttons
-  const likeButtonsOptions: string = window.mainConfig.get('options.likeButtons');
+  const likeButtonsOptions: string = window.mainConfig.get(
+    'options.likeButtons',
+  );
   if (likeButtonsOptions) {
-    const likeButtons: HTMLElement | null = document.querySelector('ytmusic-like-button-renderer');
+    const likeButtons: HTMLElement | null = document.querySelector(
+      'ytmusic-like-button-renderer',
+    );
     if (likeButtons) {
-      likeButtons.style.display
-        = {
-        hide: 'none',
-        force: 'inherit',
-      }[likeButtonsOptions] || '';
+      likeButtons.style.display =
+        {
+          hide: 'none',
+          force: 'inherit',
+        }[likeButtonsOptions] || '';
     }
   }
 }
 
-(async () => {
-  Object.entries(pluginBuilders).forEach(([id, builder]) => {
-    const typedBuilder = builder as PluginBuilder<string, PluginBaseConfig>;
-    const plugin = rendererPlugins[id] as RendererPluginFactory<PluginBaseConfig> | undefined;
+(() => {
+  loadAllRendererPlugins();
 
-    registerRendererPlugin(id, typedBuilder, plugin);
-  });
-  await loadAllRendererPlugins();
+  window.ipcRenderer.on(
+    'plugin:unload',
+    (_event, id: keyof PluginBuilderList) => {
+      forceUnloadRendererPlugin(id);
+    },
+  );
+  window.ipcRenderer.on(
+    'plugin:enable',
+    (_event, id: keyof PluginBuilderList) => {
+      forceLoadRendererPlugin(id);
+      if (api) {
+        const plugin = getLoadedRendererPlugin(id);
+      }
+    },
+  );
 
-  window.ipcRenderer.on('plugin:unload', (_event, id: keyof PluginBuilderList) => {
-    forceUnloadRendererPlugin(id);
-  });
-  window.ipcRenderer.on('plugin:enable', async (_event, id: keyof PluginBuilderList) => {
-    await forceLoadRendererPlugin(id);
-    if (api) {
-      const plugin = getLoadedRendererPlugin(id);
-
-      if (plugin) plugin.onPlayerApiReady?.(api);
-    }
-  });
-
-  window.ipcRenderer.on('config-changed', (_event, id: string, newConfig: PluginBaseConfig) => {
-    const plugin = getAllLoadedRendererPlugins()[id];
-
-    if (plugin) plugin.onConfigChange?.(newConfig);
-  });
+  window.ipcRenderer.on(
+    'config-changed',
+    (_event, id: string, newConfig: PluginBaseConfig) => {
+      const plugin = getAllLoadedRendererPlugins()[id];
+    },
+  );
 
   // Wait for complete load of YouTube api
   listenForApiLoad();
 
   // Blocks the "Are You Still There?" popup by setting the last active time to Date.now every 15min
-  setInterval(() => window._lact = Date.now(), 900_000);
+  setInterval(() => (window._lact = Date.now()), 900_000);
 
   // Setup back to front logger
   if (window.electronIs.dev()) {

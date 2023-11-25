@@ -1,8 +1,12 @@
+import { fileURLToPath, URL } from 'node:url';
+
 import { defineConfig, defineViteConfig } from 'electron-vite';
 import builtinModules from 'builtin-modules';
 import viteResolve from 'vite-plugin-resolve';
+import Inspect from 'vite-plugin-inspect';
 
-import { pluginVirtualModuleGenerator } from './vite-plugins/plugin-virtual-module-generator';
+import { pluginVirtualModuleGenerator } from './vite-plugins/plugin-importer';
+import pluginLoader from './vite-plugins/plugin-loader';
 
 import type { UserConfig } from 'vite';
 
@@ -10,10 +14,9 @@ export default defineConfig({
   main: defineViteConfig(({ mode }) => {
     const commonConfig: UserConfig = {
       plugins: [
+        pluginLoader('backend'),
         viteResolve({
-          'virtual:PluginBuilders': pluginVirtualModuleGenerator('index'),
-          'virtual:MainPlugins': pluginVirtualModuleGenerator('main'),
-          'virtual:MenuPlugins': pluginVirtualModuleGenerator('menu'),
+          'virtual:plugins': pluginVirtualModuleGenerator('main'),
         }),
       ],
       publicDir: 'assets',
@@ -31,9 +34,18 @@ export default defineConfig({
           input: './src/index.ts',
         },
       },
+      resolve: {
+        alias: {
+          '@': fileURLToPath(new URL('./src', import.meta.url)),
+          '@assets': fileURLToPath(new URL('./assets', import.meta.url)),
+        },
+      },
     };
 
     if (mode === 'development') {
+      commonConfig.plugins?.push(
+        Inspect({ build: true, outputDir: '.vite-inspect/backend' }),
+      );
       return commonConfig;
     }
 
@@ -49,9 +61,9 @@ export default defineConfig({
   preload: defineViteConfig(({ mode }) => {
     const commonConfig: UserConfig = {
       plugins: [
+        pluginLoader('preload'),
         viteResolve({
-          'virtual:PluginBuilders': pluginVirtualModuleGenerator('index'),
-          'virtual:PreloadPlugins': pluginVirtualModuleGenerator('preload'),
+          'virtual:plugins': pluginVirtualModuleGenerator('preload'),
         }),
       ],
       build: {
@@ -66,11 +78,20 @@ export default defineConfig({
         rollupOptions: {
           external: ['electron', 'custom-electron-prompt', ...builtinModules],
           input: './src/preload.ts',
-        }
+        },
+      },
+      resolve: {
+        alias: {
+          '@': fileURLToPath(new URL('./src', import.meta.url)),
+          '@assets': fileURLToPath(new URL('./assets', import.meta.url)),
+        },
       },
     };
 
     if (mode === 'development') {
+      commonConfig.plugins?.push(
+        Inspect({ build: true, outputDir: '.vite-inspect/preload' }),
+      );
       return commonConfig;
     }
 
@@ -86,9 +107,9 @@ export default defineConfig({
   renderer: defineViteConfig(({ mode }) => {
     const commonConfig: UserConfig = {
       plugins: [
+        pluginLoader('renderer'),
         viteResolve({
-          'virtual:PluginBuilders': pluginVirtualModuleGenerator('index'),
-          'virtual:RendererPlugins': pluginVirtualModuleGenerator('renderer'),
+          'virtual:plugins': pluginVirtualModuleGenerator('renderer'),
         }),
       ],
       root: './src/',
@@ -107,9 +128,18 @@ export default defineConfig({
           input: './src/index.html',
         },
       },
+      resolve: {
+        alias: {
+          '@': fileURLToPath(new URL('./src', import.meta.url)),
+          '@assets': fileURLToPath(new URL('./assets', import.meta.url)),
+        },
+      },
     };
 
     if (mode === 'development') {
+      commonConfig.plugins?.push(
+        Inspect({ build: true, outputDir: '.vite-inspect/renderer' }),
+      );
       return commonConfig;
     }
 

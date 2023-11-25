@@ -1,75 +1,75 @@
 import { deepmerge } from 'deepmerge-ts';
 
-import {
-  PluginBaseConfig, PluginBuilder,
-  RendererPlugin,
-  RendererPluginContext,
-  RendererPluginFactory
-} from '../plugins/utils/builder';
+import { rendererPlugins } from 'virtual:plugins';
 
-const allPluginFactoryList: Record<string, RendererPluginFactory<PluginBaseConfig>> = {};
-const allPluginBuilders: Record<string, PluginBuilder<string, PluginBaseConfig>> = {};
+import { RendererContext } from '@/types/contexts';
+
+import { PluginDef } from '@/types/plugins';
+import { startPlugin, stopPlugin } from '@/utils';
+
 const unregisterStyleMap: Record<string, (() => void)[]> = {};
-const loadedPluginMap: Record<string, RendererPlugin<PluginBaseConfig>> = {};
+const loadedPluginMap: Record<string, PluginDef> = {};
 
-const createContext = <
-  Key extends keyof PluginBuilderList,
-  Config extends PluginBaseConfig = PluginBuilderList[Key]['config'],
->(id: Key): RendererPluginContext<Config> => ({
-  getConfig: async () => {
-    return await window.ipcRenderer.invoke('get-config', id) as Config;
-  },
+const createContext = (id: string): RendererContext => ({
+  getConfig: () => window.mainConfig.plugins.getOptions(id),
   setConfig: async (newConfig) => {
     await window.ipcRenderer.invoke('set-config', id, newConfig);
   },
-
-  invoke: async <Return>(event: string, ...args: unknown[]): Promise<Return> => {
-    return await window.ipcRenderer.invoke(event, ...args) as Return;
-  },
-  on: (event: string, listener) => {
-    window.ipcRenderer.on(event, async (_, ...args) => listener(...args as never));
-  },
 });
 
-export const forceUnloadRendererPlugin = (id: keyof PluginBuilderList) => {
+export const forceUnloadRendererPlugin = (id: string) => {
   unregisterStyleMap[id]?.forEach((unregister) => unregister());
-  delete unregisterStyleMap[id];
 
-  loadedPluginMap[id]?.onUnload?.();
+  delete unregisterStyleMap[id];
   delete loadedPluginMap[id];
+
+  const plugin = rendererPlugins[id];
+  if (!plugin) return;
+
+  stopPlugin(id, plugin, { ctx: 'renderer', context: createContext(id) });
+  if (plugin.renderer?.stylesheet)
+    document.querySelector(`style#plugin-${id}`)?.remove();
 
   console.log('[YTMusic]', `"${id}" plugin is unloaded`);
 };
 
-export const forceLoadRendererPlugin = async (id: keyof PluginBuilderList) => {
-  try {
-    const factory = allPluginFactoryList[id];
-    if (!factory) return;
+export const forceLoadRendererPlugin = (id: string) => {
+  const plugin = rendererPlugins[id];
+  if (!plugin) return;
 
-    const context = createContext(id);
-    const plugin = await factory(context);
+  const hasEvaled = startPlugin(id, plugin, {
+    ctx: 'renderer',
+    context: createContext(id),
+  });
+
+  if (hasEvaled || plugin.renderer?.stylesheet) {
     loadedPluginMap[id] = plugin;
-    plugin.onLoad?.();
 
-    console.log('[YTMusic]', `"${id}" plugin is loaded`);
-  } catch (err) {
-    console.log('[YTMusic]', `Cannot initialize "${id}" plugin: ${String(err)}`);
+    if (plugin.renderer?.stylesheet)
+      document.head.appendChild(
+        Object.assign(document.createElement('style'), {
+          id: `plugin-${id}`,
+          innerHTML: plugin.renderer?.stylesheet ?? '',
+        }),
+      );
+
+    if (!hasEvaled) console.log('[YTMusic]', `"${id}" plugin is loaded`);
+  } else {
+    console.log('[YTMusic]', `Cannot initialize "${id}" plugin`);
   }
 };
 
-export const loadAllRendererPlugins = async () => {
+export const loadAllRendererPlugins = () => {
   const pluginConfigs = window.mainConfig.plugins.getPlugins();
 
-  for (const [pluginId, builder] of Object.entries(allPluginBuilders)) {
-    const typedBuilder = builder as PluginBuilderList[keyof PluginBuilderList];
-
-    const config = deepmerge(typedBuilder.config, pluginConfigs[pluginId as keyof PluginBuilderList] ?? {});
+  for (const [pluginId, pluginDef] of Object.entries(rendererPlugins)) {
+    const config = deepmerge(pluginDef.config, pluginConfigs[pluginId] ?? {});
 
     if (config.enabled) {
-      await forceLoadRendererPlugin(pluginId as keyof PluginBuilderList);
+      forceLoadRendererPlugin(pluginId);
     } else {
-      if (loadedPluginMap[pluginId as keyof PluginBuilderList]) {
-        forceUnloadRendererPlugin(pluginId as keyof PluginBuilderList);
+      if (loadedPluginMap[pluginId]) {
+        forceUnloadRendererPlugin(pluginId);
       }
     }
   }
@@ -77,21 +77,14 @@ export const loadAllRendererPlugins = async () => {
 
 export const unloadAllRendererPlugins = () => {
   for (const id of Object.keys(loadedPluginMap)) {
-    forceUnloadRendererPlugin(id as keyof PluginBuilderList);
+    forceUnloadRendererPlugin(id);
   }
 };
 
-export const getLoadedRendererPlugin = <Key extends keyof PluginBuilderList>(id: Key): RendererPlugin<PluginBuilderList[Key]['config']> | undefined => {
+export const getLoadedRendererPlugin = (id: string): PluginDef | undefined => {
   return loadedPluginMap[id];
 };
+
 export const getAllLoadedRendererPlugins = () => {
   return loadedPluginMap;
-};
-export const registerRendererPlugin = (
-  id: string,
-  builder: PluginBuilder<string, PluginBaseConfig>,
-  factory?: RendererPluginFactory<PluginBaseConfig>,
-) => {
-  if (factory) allPluginFactoryList[id] = factory;
-  allPluginBuilders[id] = builder;
 };

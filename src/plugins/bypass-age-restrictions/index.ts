@@ -1,17 +1,9 @@
-import { createPluginBuilder } from '../utils/builder';
+import { createPlugin } from '@/utils';
 
-const builder = createPluginBuilder('bypass-age-restrictions', {
+export default createPlugin({
   name: 'Bypass Age Restrictions',
   restartNeeded: true,
-  config: {
-    enabled: false,
-  },
+
+  // See https://github.com/zerodytrash/Simple-YouTube-Age-Restriction-Bypass#userscript
+  renderer: () => import('simple-youtube-age-restriction-bypass'),
 });
-
-export default builder;
-
-declare global {
-  interface PluginBuilderList {
-    [builder.id]: typeof builder;
-  }
-}
