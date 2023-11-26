@@ -47,7 +47,8 @@ import {
   getAllLoadedMainPlugins,
   loadAllMainPlugins,
 } from '@/loader/main';
-import {PluginConfig, PluginDef} from "@/types/plugins";
+
+import type { PluginConfig, PluginDef } from '@/types/plugins';
 
 // Catch errors and log them
 unhandled({
