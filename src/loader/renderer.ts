@@ -56,13 +56,16 @@ export const forceLoadRendererPlugin = (id: string) => {
   if (hasEvaled || plugin?.stylesheets) {
     loadedPluginMap[id] = plugin;
 
-    if (plugin?.stylesheets)
-      document.head.appendChild(
-        Object.assign(document.createElement('style'), {
-          id: `plugin-${id}`,
-          innerHTML: plugin?.stylesheets ?? '',
-        }),
-      );
+    if (plugin?.stylesheets) {
+      const styleSheetList = plugin.stylesheets.map((style) => {
+        const styleSheet = new CSSStyleSheet();
+        styleSheet.replaceSync(style);
+
+        return styleSheet;
+      });
+
+      document.adoptedStyleSheets = [...document.adoptedStyleSheets, ...styleSheetList];
+    }
 
     if (!hasEvaled) console.log('[YTMusic]', `"${id}" plugin is loaded`);
   } else {
