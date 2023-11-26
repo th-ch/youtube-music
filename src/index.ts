@@ -48,7 +48,7 @@ import {
   loadAllMainPlugins,
 } from '@/loader/main';
 
-import type { PluginConfig, PluginDef } from '@/types/plugins';
+import type { PluginConfig } from '@/types/plugins';
 
 // Catch errors and log them
 unhandled({
@@ -160,7 +160,7 @@ const initHook = (win: BrowserWindow) => {
           }
         }
 
-        const mainPlugin = getAllLoadedMainPlugins()[id] as PluginDef<unknown, unknown, unknown>;
+        const mainPlugin = getAllLoadedMainPlugins()[id];
         if (mainPlugin) {
           if (config.enabled && typeof mainPlugin.backend !== 'function') {
             mainPlugin.backend?.onConfigChange?.(config);
