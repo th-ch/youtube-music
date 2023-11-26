@@ -44,7 +44,7 @@ export const loadAllMenuPlugins = (win: BrowserWindow) => {
   const pluginConfigs = config.plugins.getPlugins();
 
   for (const [pluginId, pluginDef] of Object.entries(allPlugins)) {
-    const config = deepmerge(pluginDef.config, pluginConfigs[pluginId] ?? {}) as PluginConfig;
+    const config = deepmerge(pluginDef.config, pluginConfigs[pluginId] ?? {});
 
     if (config.enabled) {
       forceLoadMenuPlugin(pluginId, win);

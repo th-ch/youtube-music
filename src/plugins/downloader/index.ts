@@ -2,7 +2,9 @@ import { DefaultPresetList, Preset } from './types';
 
 import style from './style.css?inline';
 
-import { createPluginBuilder } from '../utils/builder';
+import { createPlugin } from '@/utils';
+import { onConfigChange, onMainLoad } from '@/plugins/downloader/main';
+import { onPlayerApiReady, onRendererLoad } from '@/plugins/downloader/renderer';
 
 export type DownloaderPluginConfig = {
   enabled: boolean;
@@ -13,7 +15,7 @@ export type DownloaderPluginConfig = {
   playlistMaxItems?: number;
 }
 
-const builder = createPluginBuilder('downloader', {
+export default createPlugin({
   name: 'Downloader',
   restartNeeded: true,
   config: {
@@ -24,13 +26,14 @@ const builder = createPluginBuilder('downloader', {
     skipExisting: false,
     playlistMaxItems: undefined,
   } as DownloaderPluginConfig,
-  styles: [style],
+  stylesheets: [style],
+  backend: {
+    start: onMainLoad,
+    onConfigChange,
+  },
+  renderer: {
+    start: onRendererLoad,
+    onPlayerApiReady,
+  }
 });
 
-export default builder;
-
-declare global {
-  interface PluginBuilderList {
-    [builder.id]: typeof builder;
-  }
-}

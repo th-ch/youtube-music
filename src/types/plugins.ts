@@ -34,7 +34,7 @@ export interface PluginDef<
   description?: string;
   config?: Config;
 
-  menu?: (ctx: MenuContext<Config>) => Promise<Electron.MenuItemConstructorOptions[]>;
+  menu?: (ctx: MenuContext<Config>) => Promise<Electron.MenuItemConstructorOptions[]> | Electron.MenuItemConstructorOptions[];
   stylesheets?: string[];
   restartNeeded?: boolean;
 

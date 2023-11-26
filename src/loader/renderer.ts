@@ -25,6 +25,9 @@ const createContext = <Config extends PluginConfig>(id: string): RendererContext
         listener(...args);
       });
     },
+    removeAllListeners: (event: string) => {
+      window.ipcRenderer.removeAllListeners(event);
+    }
   },
 });
 

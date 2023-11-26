@@ -1,4 +1,6 @@
-import { createPluginBuilder } from '../utils/builder';
+import { createPlugin } from '@/utils';
+import { onLoad, onUnload } from '@/plugins/discord/main';
+import {onMenu} from "@/plugins/discord/menu";
 
 export type DiscordPluginConfig = {
   enabled: boolean;
@@ -32,7 +34,7 @@ export type DiscordPluginConfig = {
   hideDurationLeft: boolean;
 }
 
-const builder = createPluginBuilder('discord', {
+export default createPlugin({
   name: 'Discord Rich Presence',
   restartNeeded: false,
   config: {
@@ -44,12 +46,12 @@ const builder = createPluginBuilder('discord', {
     hideGitHubButton: false,
     hideDurationLeft: false,
   } as DiscordPluginConfig,
+  menu: onMenu,
+  backend: {
+    async start({ window, getConfig }) {
+      await onLoad(window, await getConfig());
+    },
+    stop: onUnload,
+  }
 });
 
-export default builder;
-
-declare global {
-  interface PluginBuilderList {
-    [builder.id]: typeof builder;
-  }
-}

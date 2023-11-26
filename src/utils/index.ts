@@ -13,7 +13,7 @@ export const createPlugin = <
   BackendProperties,
   PreloadProperties,
   RendererProperties,
-  Config extends PluginConfig,
+  Config extends PluginConfig = PluginConfig,
 >(
   def: PluginDef<
     BackendProperties,

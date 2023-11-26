@@ -1,16 +1,17 @@
-import type { BrowserWindow } from 'electron';
+import type { IpcMain, IpcRenderer, WebContents, BrowserWindow } from 'electron';
 import type { PluginConfig } from '@/types/plugins';
 
 export interface BaseContext<Config extends PluginConfig> {
-  getConfig(): Promise<Config>;
-  setConfig(conf: Partial<Omit<Config, 'enabled'>>): void;
+  getConfig(): Promise<Config> | Config;
+  setConfig(conf: Partial<Omit<Config, 'enabled'>>): Promise<void> | void;
 }
 
 export interface BackendContext<Config extends PluginConfig> extends BaseContext<Config> {
   ipc: {
-    send: (event: string, ...args: unknown[]) => void;
+    send: WebContents['send'];
     handle: (event: string, listener: CallableFunction) => void;
     on: (event: string, listener: CallableFunction) => void;
+    removeHandler: IpcMain['removeHandler'];
   };
 
   window: BrowserWindow;
@@ -25,8 +26,9 @@ export interface PreloadContext<Config extends PluginConfig> extends BaseContext
 
 export interface RendererContext<Config extends PluginConfig> extends BaseContext<Config> {
   ipc: {
-    send: (event: string, ...args: unknown[]) => void;
-    invoke: (event: string, ...args: unknown[]) => Promise<unknown>;
+    send: IpcRenderer['send'];
+    invoke: IpcRenderer['invoke'];
     on: (event: string, listener: CallableFunction) => void;
+    removeAllListeners: (event: string) => void;
   };
 }

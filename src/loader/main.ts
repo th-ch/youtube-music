@@ -8,9 +8,9 @@ import { BackendContext } from '@/types/contexts';
 import config from '@/config';
 import { startPlugin, stopPlugin } from '@/utils';
 
-const loadedPluginMap: Record<string, PluginDef> = {};
+const loadedPluginMap: Record<string, PluginDef<unknown, unknown, unknown>> = {};
 
-const createContext = (id: string, win: BrowserWindow): BackendContext => ({
+const createContext = (id: string, win: BrowserWindow): BackendContext<PluginConfig> => ({
   getConfig: () =>
     deepmerge(
       mainPlugins[id].config,
@@ -33,6 +33,9 @@ const createContext = (id: string, win: BrowserWindow): BackendContext => ({
         listener(...args);
       });
     },
+    removeHandler: (event: string) => {
+      ipcMain.removeHandler(event);
+    }
   },
 
   window: win,
@@ -123,7 +126,7 @@ export const unloadAllMainPlugins = (win: BrowserWindow) => {
   }
 };
 
-export const getLoadedMainPlugin = (id: string): PluginDef | undefined => {
+export const getLoadedMainPlugin = (id: string): PluginDef<unknown, unknown, unknown> | undefined => {
   return loadedPluginMap[id];
 };
 
