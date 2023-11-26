@@ -3,5 +3,6 @@ import style from './style.css?inline';
 
 export default createPlugin({
   name: 'Blur Navigation Bar',
-  renderer: { stylesheets: [style] },
+  stylesheets: [style],
+  renderer() {},
 });

@@ -6,33 +6,43 @@ import type {
 
 import type {
   PluginDef,
-  PluginConfig,
-  PluginLifecycleExtra,
-  PluginLifecycleSimple,
+  PluginConfig, PluginLifecycleExtra, PluginLifecycleSimple,
 } from '@/types/plugins';
 
-export const createPlugin = (
-  def: Omit<PluginDef, 'config'> & {
-    config?: Omit<PluginConfig, 'enabled'>;
+export const createPlugin = <
+  BackendProperties,
+  PreloadProperties,
+  RendererProperties,
+  Config extends PluginConfig,
+>(
+  def: PluginDef<
+    BackendProperties,
+    PreloadProperties,
+    RendererProperties,
+    Config
+  > & {
+    config?: Omit<Config, 'enabled'> & {
+      enabled: boolean;
+    };
   },
-): PluginDef => def as PluginDef;
+) => def;
 
-type Options =
-  | { ctx: 'backend'; context: BackendContext }
-  | { ctx: 'preload'; context: PreloadContext }
-  | { ctx: 'renderer'; context: RendererContext };
+type Options<Config extends PluginConfig> =
+  | { ctx: 'backend'; context: BackendContext<Config> }
+  | { ctx: 'preload'; context: PreloadContext<Config> }
+  | { ctx: 'renderer'; context: RendererContext<Config> };
 
-export const startPlugin = (id: string, def: PluginDef, options: Options) => {
+export const startPlugin = <Config extends PluginConfig>(id: string, def: PluginDef<unknown, unknown, unknown, Config>, options: Options<Config>) => {
   const lifecycle =
     typeof def[options.ctx] === 'function'
-      ? def[options.ctx] as PluginLifecycleSimple<Options['context']>
-      : (def[options.ctx] as PluginLifecycleExtra<Options['context']>)?.start;
+      ? def[options.ctx] as PluginLifecycleSimple<Config, unknown>
+      : (def[options.ctx] as PluginLifecycleExtra<Config, typeof options.context, unknown>)?.start;
 
   if (!lifecycle) return false;
 
   try {
     const start = performance.now();
-    lifecycle(options.context);
+    lifecycle(options.context as Config & typeof options.context);
 
     console.log(`[YTM] Executed ${id}::${options.ctx} in ${performance.now() - start} ms`);
 
@@ -43,16 +53,16 @@ export const startPlugin = (id: string, def: PluginDef, options: Options) => {
   }
 };
 
-export const stopPlugin = (id: string, def: PluginDef, options: Options) => {
+export const stopPlugin = <Config extends PluginConfig>(id: string, def: PluginDef<unknown, unknown, unknown, Config>, options: Options<Config>) => {
   if (!def[options.ctx]) return false;
   if (typeof def[options.ctx] === 'function') return false;
 
-  const stop = def[options.ctx] as PluginLifecycleExtra<Options['context']>['stop'];
+  const stop = def[options.ctx] as PluginLifecycleSimple<Config, unknown>;
   if (!stop) return false;
 
   try {
     const start = performance.now();
-    stop(options.context);
+    stop(options.context as Config & typeof options.context);
 
     console.log(`[YTM] Executed ${id}::${options.ctx} in ${performance.now() - start} ms`);
 

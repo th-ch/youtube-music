@@ -11,31 +11,40 @@ type Author = string;
 
 export type PluginConfig = {
   enabled: boolean;
-} & Record<string, unknown>;
+};
 
-type PluginExtra = Record<string, unknown>;
+export type PluginLifecycleSimple<Context, This> = (this: This, ctx: Context) => void | Promise<void>;
+export type PluginLifecycleExtra<Config, Context, This> = This & {
+  start?: PluginLifecycleSimple<Context, This>;
+  stop?: PluginLifecycleSimple<Context, This>;
+  onConfigChange?: (this: This, newConfig: Config) => void | Promise<void>;
+  onPlayerApiReady?: (this: This, playerApi: YoutubePlayer) => void | Promise<void>;
+};
 
-export type PluginLifecycleSimple<T> = (ctx: T) => void | Promise<void>;
-export type PluginLifecycleExtra<T> = {
-  start?: PluginLifecycleSimple<T>;
-  stop?: PluginLifecycleSimple<T>;
-  onConfigChange?: (newConfig: PluginConfig) => void | Promise<void>;
-  onPlayerApiReady?: (playerApi: YoutubePlayer) => void | Promise<void>;
-} & PluginExtra;
+export type PluginLifecycle<Config, Context, This> = PluginLifecycleSimple<Context, This> | PluginLifecycleExtra<Config, Context, This>;
 
-export type PluginLifecycle<T> = PluginLifecycleSimple<T> | PluginLifecycleExtra<T>;
-
-export interface PluginDef {
+export interface PluginDef<
+  BackendProperties,
+  PreloadProperties,
+  RendererProperties,
+  Config extends PluginConfig = PluginConfig,
+> {
   name: string;
   authors?: Author[];
   description?: string;
-  config: PluginConfig;
+  config?: Config;
 
-  menu?: (ctx: MenuContext) => Electron.MenuItemConstructorOptions[];
+  menu?: (ctx: MenuContext<Config>) => Promise<Electron.MenuItemConstructorOptions[]>;
   stylesheets?: string[];
   restartNeeded?: boolean;
 
-  backend?: PluginLifecycle<BackendContext>;
-  preload?: PluginLifecycle<PreloadContext>;
-  renderer?: PluginLifecycle<RendererContext>;
+  backend?: {
+    [Key in keyof BackendProperties]: BackendProperties[Key]
+  } & PluginLifecycle<Config, BackendContext<Config>, BackendProperties>;
+  preload?: {
+    [Key in keyof PreloadProperties]: PreloadProperties[Key]
+  } & PluginLifecycle<Config, PreloadContext<Config>, PreloadProperties>;
+  renderer?: {
+    [Key in keyof RendererProperties]: RendererProperties[Key]
+  } & PluginLifecycle<Config, RendererContext<Config>, RendererProperties>;
 }

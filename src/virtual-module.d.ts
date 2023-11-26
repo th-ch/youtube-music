@@ -1,13 +1,15 @@
 declare module 'virtual:plugins' {
-  import type { PluginDef } from '@/types/plugins';
+  import type { PluginConfig, PluginDef } from '@/types/plugins';
 
-  export const mainPlugins: Record<string, PluginDef>;
-  export const menuPlugins: Record<string, PluginDef>;
-  export const preloadPlugins: Record<string, PluginDef>;
-  export const rendererPlugins: Record<string, PluginDef>;
+  type Plugin = PluginDef<unknown, unknown, unknown, PluginConfig>;
+
+  export const mainPlugins: Record<string, Plugin>;
+  export const menuPlugins: Record<string, Plugin>;
+  export const preloadPlugins: Record<string, Plugin>;
+  export const rendererPlugins: Record<string, Plugin>;
 
   export const allPlugins: Record<
     string,
-    Omit<PluginDef, 'backend' | 'preload' | 'renderer'>
+    Omit<Plugin, 'backend' | 'preload' | 'renderer'>
   >;
 }

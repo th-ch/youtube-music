@@ -1,12 +1,12 @@
 import type { BrowserWindow } from 'electron';
 import type { PluginConfig } from '@/types/plugins';
 
-export interface BaseContext {
-  getConfig(): PluginConfig;
-  setConfig(conf: Omit<PluginConfig, 'enabled'>): void;
+export interface BaseContext<Config extends PluginConfig> {
+  getConfig(): Promise<Config>;
+  setConfig(conf: Partial<Omit<Config, 'enabled'>>): void;
 }
 
-export interface BackendContext extends BaseContext {
+export interface BackendContext<Config extends PluginConfig> extends BaseContext<Config> {
   ipc: {
     send: (event: string, ...args: unknown[]) => void;
     handle: (event: string, listener: CallableFunction) => void;
@@ -16,14 +16,14 @@ export interface BackendContext extends BaseContext {
   window: BrowserWindow;
 }
 
-export interface MenuContext extends BaseContext {
+export interface MenuContext<Config extends PluginConfig> extends BaseContext<Config> {
   window: BrowserWindow;
   refresh: () => Promise<void> | void;
 }
 
-export interface PreloadContext extends BaseContext {}
+export interface PreloadContext<Config extends PluginConfig> extends BaseContext<Config> {}
 
-export interface RendererContext extends BaseContext {
+export interface RendererContext<Config extends PluginConfig> extends BaseContext<Config> {
   ipc: {
     send: (event: string, ...args: unknown[]) => void;
     invoke: (event: string, ...args: unknown[]) => Promise<unknown>;
