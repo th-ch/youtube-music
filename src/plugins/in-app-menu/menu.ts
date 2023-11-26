@@ -1,10 +1,12 @@
 import is from 'electron-is';
 
-import builder from './index';
+import { setMenuOptions } from '@/config/plugins';
 
-import { setMenuOptions } from '../../config/plugins';
+import type { InAppMenuConfig } from './index';
+import type { MenuContext } from '@/types/contexts';
+import type { MenuTemplate } from '@/menu';
 
-export default builder.createMenu(async ({ getConfig }) => {
+export const onMenu = async ({ getConfig }: MenuContext<InAppMenuConfig>): Promise<MenuTemplate> => {
   const config = await getConfig();
 
   if (is.linux()) {
@@ -22,4 +24,4 @@ export default builder.createMenu(async ({ getConfig }) => {
   }
 
   return [];
-});
+};
