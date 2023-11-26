@@ -8,7 +8,7 @@ import { PluginConfig, PluginDef } from '@/types/plugins';
 import { startPlugin, stopPlugin } from '@/utils';
 
 const unregisterStyleMap: Record<string, (() => void)[]> = {};
-const loadedPluginMap: Record<string, PluginDef<unknown, unknown, unknown, PluginConfig>> = {};
+const loadedPluginMap: Record<string, PluginDef<unknown, unknown, unknown>> = {};
 
 const createContext = <Config extends PluginConfig>(id: string): RendererContext<Config> => ({
   getConfig: () => window.mainConfig.plugins.getOptions(id),
@@ -77,7 +77,7 @@ export const loadAllRendererPlugins = () => {
   const pluginConfigs = window.mainConfig.plugins.getPlugins();
 
   for (const [pluginId, pluginDef] of Object.entries(rendererPlugins)) {
-    const config = deepmerge(pluginDef.config, pluginConfigs[pluginId] ?? {});
+    const config = deepmerge(pluginDef.config, pluginConfigs[pluginId] ?? {}) as PluginConfig;
 
     if (config.enabled) {
       forceLoadRendererPlugin(pluginId);
@@ -95,7 +95,7 @@ export const unloadAllRendererPlugins = () => {
   }
 };
 
-export const getLoadedRendererPlugin = (id: string): PluginDef | undefined => {
+export const getLoadedRendererPlugin = (id: string): PluginDef<unknown, unknown, unknown> | undefined => {
   return loadedPluginMap[id];
 };
 

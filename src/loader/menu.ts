@@ -7,8 +7,10 @@ import { MenuContext } from '@/types/contexts';
 import config from '@/config';
 import { setApplicationMenu } from '@/menu';
 
+import type { PluginConfig } from '@/types/plugins';
+
 const menuTemplateMap: Record<string, MenuItemConstructorOptions[]> = {};
-const createContext = (id: string, win: BrowserWindow): MenuContext => ({
+const createContext = (id: string, win: BrowserWindow): MenuContext<PluginConfig> => ({
   getConfig: () => config.plugins.getOptions(id),
   setConfig: (newConfig) => {
     config.setPartial(`plugins.${id}`, newConfig);
@@ -23,13 +25,13 @@ const createContext = (id: string, win: BrowserWindow): MenuContext => ({
   },
 });
 
-export const forceLoadMenuPlugin = (id: string, win: BrowserWindow) => {
+export const forceLoadMenuPlugin = async (id: string, win: BrowserWindow) => {
   try {
     const plugin = allPlugins[id];
     if (!plugin) return;
 
     const menu = plugin.menu?.(createContext(id, win));
-    if (menu) menuTemplateMap[id] = menu;
+    if (menu) menuTemplateMap[id] = await menu;
     else return;
 
     console.log('[YTMusic]', `Successfully loaded '${id}::menu'`);
@@ -42,7 +44,7 @@ export const loadAllMenuPlugins = (win: BrowserWindow) => {
   const pluginConfigs = config.plugins.getPlugins();
 
   for (const [pluginId, pluginDef] of Object.entries(allPlugins)) {
-    const config = deepmerge(pluginDef.config, pluginConfigs[pluginId] ?? {});
+    const config = deepmerge(pluginDef.config, pluginConfigs[pluginId] ?? {}) as PluginConfig;
 
     if (config.enabled) {
       forceLoadMenuPlugin(pluginId, win);

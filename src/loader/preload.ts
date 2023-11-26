@@ -1,14 +1,14 @@
 import { deepmerge } from 'deepmerge-ts';
 import { preloadPlugins } from 'virtual:plugins';
 
-import { type PluginDef } from '@/types/plugins';
+import type { PluginConfig, PluginDef } from '@/types/plugins';
 import { type PreloadContext } from '@/types/contexts';
 import { startPlugin, stopPlugin } from '@/utils';
 
 import config from '@/config';
 
-const loadedPluginMap: Record<string, PluginDef> = {};
-const createContext = (id: string): PreloadContext => ({
+const loadedPluginMap: Record<string, PluginDef<unknown, unknown, unknown>> = {};
+const createContext = (id: string): PreloadContext<PluginConfig> => ({
   getConfig: () => config.plugins.getOptions(id),
   setConfig: (newConfig) => {
     config.setPartial(`plugins.${id}`, newConfig);
@@ -52,7 +52,7 @@ export const loadAllPreloadPlugins = () => {
   const pluginConfigs = config.plugins.getPlugins();
 
   for (const [pluginId, pluginDef] of Object.entries(preloadPlugins)) {
-    const config = deepmerge(pluginDef.config, pluginConfigs[pluginId] ?? {});
+    const config = deepmerge(pluginDef.config, pluginConfigs[pluginId] ?? {}) as PluginConfig;
 
     if (config.enabled) {
       forceLoadPreloadPlugin(pluginId);
@@ -70,7 +70,7 @@ export const unloadAllPreloadPlugins = () => {
   }
 };
 
-export const getLoadedPreloadPlugin = (id: string): PluginDef | undefined => {
+export const getLoadedPreloadPlugin = (id: string): PluginDef<unknown, unknown, unknown> | undefined => {
   return loadedPluginMap[id];
 };
 

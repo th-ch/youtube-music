@@ -47,7 +47,7 @@ import {
   getAllLoadedMainPlugins,
   loadAllMainPlugins,
 } from '@/loader/main';
-import { PluginBaseConfig } from '@/plugins/utils/builder';
+import {PluginConfig, PluginDef} from "@/types/plugins";
 
 // Catch errors and log them
 unhandled({
@@ -113,11 +113,11 @@ ipcMain.handle('get-main-plugin-names', () => Object.keys(mainPlugins));
 const initHook = (win: BrowserWindow) => {
   ipcMain.handle(
     'get-config',
-    (_, id: keyof PluginBuilderList) =>
+    (_, id: string) =>
       deepmerge(
         mainPlugins[id].config,
         config.get(`plugins.${id}`) ?? {},
-      ) as PluginBuilderList[typeof id]['config'],
+      ) as PluginConfig,
   );
   ipcMain.handle('set-config', (_, name: string, obj: object) =>
     config.setPartial(`plugins.${name}`, obj),
@@ -137,11 +137,11 @@ const initHook = (win: BrowserWindow) => {
       const isEqual = deepEqual(oldPluginConfigList[id], newPluginConfig);
 
       if (!isEqual) {
-        const oldConfig = oldPluginConfigList[id] as PluginBaseConfig;
+        const oldConfig = oldPluginConfigList[id] as PluginConfig;
         const config = deepmerge(
           mainPlugins[id].config,
           newPluginConfig,
-        ) as PluginBaseConfig;
+        ) as PluginConfig;
 
         if (config.enabled !== oldConfig?.enabled) {
           if (config.enabled) {
@@ -159,9 +159,10 @@ const initHook = (win: BrowserWindow) => {
           }
         }
 
-        const mainPlugin = getAllLoadedMainPlugins()[id];
+        const mainPlugin = getAllLoadedMainPlugins()[id] as PluginDef<unknown, unknown, unknown>;
         if (mainPlugin) {
-          if (config.enabled) {
+          if (config.enabled && typeof mainPlugin.backend !== 'function') {
+            mainPlugin.backend?.onConfigChange?.(config);
           }
         }
 

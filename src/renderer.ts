@@ -1,7 +1,3 @@
-import {
-  PluginBaseConfig,
-} from '@/plugins/utils/builder';
-
 import { startingPages } from './providers/extracted-data';
 import setupSongInfo from './providers/song-info-front';
 import {
@@ -12,6 +8,7 @@ import {
   loadAllRendererPlugins,
 } from './loader/renderer';
 
+import type { PluginConfig } from '@/types/plugins';
 import type { YoutubePlayer } from '@/types/youtube-player';
 
 let api: (Element & YoutubePlayer) | null = null;
@@ -126,13 +123,13 @@ function onApiLoaded() {
 
   window.ipcRenderer.on(
     'plugin:unload',
-    (_event, id: keyof PluginBuilderList) => {
+    (_event, id: string) => {
       forceUnloadRendererPlugin(id);
     },
   );
   window.ipcRenderer.on(
     'plugin:enable',
-    (_event, id: keyof PluginBuilderList) => {
+    (_event, id: string) => {
       forceLoadRendererPlugin(id);
       if (api) {
         const plugin = getLoadedRendererPlugin(id);
@@ -145,7 +142,7 @@ function onApiLoaded() {
 
   window.ipcRenderer.on(
     'config-changed',
-    (_event, id: string, newConfig: PluginBaseConfig) => {
+    (_event, id: string, newConfig: PluginConfig) => {
       const plugin = getAllLoadedRendererPlugins()[id];
       if (plugin && typeof plugin.renderer !== 'function') {
         plugin.renderer?.onConfigChange?.(newConfig);
