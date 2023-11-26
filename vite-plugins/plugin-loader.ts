@@ -6,13 +6,13 @@ import { Project, ts, ObjectLiteralExpression } from 'ts-morph';
 
 import type { PluginOption } from 'vite';
 
-export default function (mode: 'backend' | 'preload' | 'renderer' | 'none') {
+export default function (mode: 'backend' | 'preload' | 'renderer' | 'none'): PluginOption {
   const pluginFilter = createFilter([
     'src/plugins/*/index.{js,ts}',
     'src/plugins/*',
   ]);
 
-  return <PluginOption>{
+  return {
     name: 'ytm-plugin-loader',
     async load(id) {
       if (!pluginFilter(id)) return null;
@@ -98,7 +98,6 @@ export default function (mode: 'backend' | 'preload' | 'renderer' | 'none') {
 
       return {
         code: src.getText(),
-        ast: src,
       };
     },
   };

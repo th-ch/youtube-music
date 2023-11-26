@@ -1,11 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { BrowserWindow, ipcMain } from 'electron';
 
 import { deepmerge } from 'deepmerge-ts';
 import { mainPlugins } from 'virtual:plugins';
 
-import { PluginDef } from '@/types/plugins';
+import { PluginConfig, PluginDef } from '@/types/plugins';
 import { BackendContext } from '@/types/contexts';
 import config from '@/config';
 import { startPlugin, stopPlugin } from '@/utils';
@@ -14,35 +12,37 @@ const loadedPluginMap: Record<string, PluginDef> = {};
 
 const createContext = (id: string, win: BrowserWindow): BackendContext => ({
   getConfig: () =>
-    // @ts-expect-error ts dum dum
     deepmerge(
       mainPlugins[id].config,
       config.get(`plugins.${id}`) ?? { enabled: false },
-    ),
+    ) as PluginConfig,
   setConfig: (newConfig) => {
     config.setPartial(`plugins.${id}`, newConfig);
   },
 
-  send: (event: string, ...args: unknown[]) => {
-    win.webContents.send(event, ...args);
+  ipc: {
+    send: (event: string, ...args: unknown[]) => {
+      win.webContents.send(event, ...args);
+    },
+    handle: (event: string, listener: CallableFunction) => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+      ipcMain.handle(event, (_, ...args: unknown[]) => listener(...args));
+    },
+    on: (event: string, listener: CallableFunction) => {
+      ipcMain.on(event, (_, ...args: unknown[]) => {
+        listener(...args);
+      });
+    },
   },
-  // @ts-expect-error ts dum dum
-  handle: (event: string, listener) => {
-    // @ts-expect-error ts dum dum
-    ipcMain.handle(event, (_, ...args) => listener(...(args as never)));
-  },
-  // @ts-expect-error ts dum dum
-  on: (event: string, listener) => {
-    // @ts-expect-error ts dum dum
-    ipcMain.on(event, (_, ...args) => listener(...(args as never)));
-  },
+
+  window: win,
 });
 
 export const forceUnloadMainPlugin = async (
   id: string,
   win: BrowserWindow,
 ): Promise<void> => {
-  const plugin = loadedPluginMap[id]!;
+  const plugin = loadedPluginMap[id];
   if (!plugin) return;
 
   return new Promise<void>((resolve, reject) => {

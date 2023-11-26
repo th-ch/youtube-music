@@ -1,9 +1,5 @@
-import { rendererPlugins } from 'virtual:plugins';
-
 import {
   PluginBaseConfig,
-  PluginBuilder,
-  RendererPluginFactory,
 } from '@/plugins/utils/builder';
 
 import { startingPages } from './providers/extracted-data';
@@ -81,6 +77,13 @@ function onApiLoaded() {
     { passive: true },
   );
 
+  Object.values(getAllLoadedRendererPlugins())
+    .forEach((plugin) => {
+      if (typeof plugin.renderer !== 'function') {
+        plugin.renderer?.onPlayerApiReady?.(api!);
+      }
+    });
+
   window.ipcRenderer.send('ytmd:player-api-loaded');
 
   // Navigate to "Starting page"
@@ -133,6 +136,9 @@ function onApiLoaded() {
       forceLoadRendererPlugin(id);
       if (api) {
         const plugin = getLoadedRendererPlugin(id);
+        if (plugin && typeof plugin.renderer !== 'function') {
+          plugin.renderer?.onPlayerApiReady?.(api);
+        }
       }
     },
   );
@@ -141,6 +147,9 @@ function onApiLoaded() {
     'config-changed',
     (_event, id: string, newConfig: PluginBaseConfig) => {
       const plugin = getAllLoadedRendererPlugins()[id];
+      if (plugin && typeof plugin.renderer !== 'function') {
+        plugin.renderer?.onConfigChange?.(newConfig);
+      }
     },
   );
 

@@ -15,6 +15,17 @@ const createContext = (id: string): RendererContext => ({
   setConfig: async (newConfig) => {
     await window.ipcRenderer.invoke('set-config', id, newConfig);
   },
+  ipc: {
+    send: (event: string, ...args: unknown[]) => {
+      window.ipcRenderer.send(event, ...args);
+    },
+    invoke: (event: string, ...args: unknown[]) => window.ipcRenderer.invoke(event, ...args),
+    on: (event: string, listener: CallableFunction) => {
+      window.ipcRenderer.on(event, (_, ...args: unknown[]) => {
+        listener(...args);
+      });
+    },
+  },
 });
 
 export const forceUnloadRendererPlugin = (id: string) => {
@@ -27,7 +38,7 @@ export const forceUnloadRendererPlugin = (id: string) => {
   if (!plugin) return;
 
   stopPlugin(id, plugin, { ctx: 'renderer', context: createContext(id) });
-  if (plugin.renderer?.stylesheet)
+  if (plugin?.stylesheets)
     document.querySelector(`style#plugin-${id}`)?.remove();
 
   console.log('[YTMusic]', `"${id}" plugin is unloaded`);
@@ -42,14 +53,14 @@ export const forceLoadRendererPlugin = (id: string) => {
     context: createContext(id),
   });
 
-  if (hasEvaled || plugin.renderer?.stylesheet) {
+  if (hasEvaled || plugin?.stylesheets) {
     loadedPluginMap[id] = plugin;
 
-    if (plugin.renderer?.stylesheet)
+    if (plugin?.stylesheets)
       document.head.appendChild(
         Object.assign(document.createElement('style'), {
           id: `plugin-${id}`,
-          innerHTML: plugin.renderer?.stylesheet ?? '',
+          innerHTML: plugin?.stylesheets ?? '',
         }),
       );
 

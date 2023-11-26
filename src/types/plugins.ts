@@ -1,3 +1,5 @@
+import type { YoutubePlayer } from '@/types/youtube-player';
+
 import type {
   BackendContext,
   MenuContext,
@@ -11,15 +13,17 @@ export type PluginConfig = {
   enabled: boolean;
 } & Record<string, unknown>;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type PluginExtra = Record<string, any>;
+type PluginExtra = Record<string, unknown>;
 
-type PluginLifecycle<T> =
-  | ((ctx: T) => void | Promise<void>)
-  | ({
-      start?(ctx: T): void | Promise<void>;
-      stop?(ctx: T): void | Promise<void>;
-    } & PluginExtra);
+export type PluginLifecycleSimple<T> = (ctx: T) => void | Promise<void>;
+export type PluginLifecycleExtra<T> = {
+  start?: PluginLifecycleSimple<T>;
+  stop?: PluginLifecycleSimple<T>;
+  onConfigChange?: (newConfig: PluginConfig) => void | Promise<void>;
+  onPlayerApiReady?: (playerApi: YoutubePlayer) => void | Promise<void>;
+} & PluginExtra;
+
+export type PluginLifecycle<T> = PluginLifecycleSimple<T> | PluginLifecycleExtra<T>;
 
 export interface PluginDef {
   name: string;
@@ -28,11 +32,10 @@ export interface PluginDef {
   config: PluginConfig;
 
   menu?: (ctx: MenuContext) => Electron.MenuItemConstructorOptions[];
+  stylesheets?: string[];
   restartNeeded?: boolean;
 
   backend?: PluginLifecycle<BackendContext>;
   preload?: PluginLifecycle<PreloadContext>;
-  renderer?: PluginLifecycle<RendererContext> & {
-    stylesheet?: string;
-  };
+  renderer?: PluginLifecycle<RendererContext>;
 }

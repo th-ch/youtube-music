@@ -1,9 +1,15 @@
-import {
+import type {
   BackendContext,
   PreloadContext,
   RendererContext,
 } from '@/types/contexts';
-import { PluginDef, PluginConfig } from '@/types/plugins';
+
+import type {
+  PluginDef,
+  PluginConfig,
+  PluginLifecycleExtra,
+  PluginLifecycleSimple,
+} from '@/types/plugins';
 
 export const createPlugin = (
   def: Omit<PluginDef, 'config'> & {
@@ -17,11 +23,10 @@ type Options =
   | { ctx: 'renderer'; context: RendererContext };
 
 export const startPlugin = (id: string, def: PluginDef, options: Options) => {
-  const lifecycle: (ctx: (typeof options)['context']) => void =
+  const lifecycle =
     typeof def[options.ctx] === 'function'
-      ? def[options.ctx]
-      : // @ts-expect-error TS is dum dum
-        def[options.ctx]?.start;
+      ? def[options.ctx] as PluginLifecycleSimple<Options['context']>
+      : (def[options.ctx] as PluginLifecycleExtra<Options['context']>)?.start;
 
   if (!lifecycle) return false;
 
@@ -29,7 +34,6 @@ export const startPlugin = (id: string, def: PluginDef, options: Options) => {
     const start = performance.now();
     lifecycle(options.context);
 
-    // prettier-ignore
     console.log(`[YTM] Executed ${id}::${options.ctx} in ${performance.now() - start} ms`);
 
     return true;
@@ -43,15 +47,13 @@ export const stopPlugin = (id: string, def: PluginDef, options: Options) => {
   if (!def[options.ctx]) return false;
   if (typeof def[options.ctx] === 'function') return false;
 
-  // @ts-expect-error TS is dum dum
-  const stop: (ctx: typeof options.context) => void = def[options.ctx]?.stop;
+  const stop = def[options.ctx] as PluginLifecycleExtra<Options['context']>['stop'];
   if (!stop) return false;
 
   try {
     const start = performance.now();
     stop(options.context);
 
-    // prettier-ignore
     console.log(`[YTM] Executed ${id}::${options.ctx} in ${performance.now() - start} ms`);
 
     return true;
