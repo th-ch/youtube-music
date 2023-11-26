@@ -363,7 +363,7 @@ async function createMainWindow() {
     }, 600);
   }
 
-  app.on('render-process-gone', (event, webContents, details) => {
+  app.on('render-process-gone', (_event, _webContents, details) => {
     showUnresponsiveDialog(win, details);
   });
 
@@ -431,7 +431,7 @@ async function createMainWindow() {
   return win;
 }
 
-app.once('browser-window-created', (event, win) => {
+app.once('browser-window-created', (_event, win) => {
   if (config.get('options.overrideUserAgent')) {
     // User agents are from https://developers.whatismybrowser.com/useragents/explore/
     const originalUserAgent = win.webContents.userAgent;

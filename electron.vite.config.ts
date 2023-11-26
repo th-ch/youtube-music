@@ -1,4 +1,4 @@
-import { fileURLToPath, URL } from 'node:url';
+import { resolve } from 'node:path';
 
 import { defineConfig, defineViteConfig } from 'electron-vite';
 import builtinModules from 'builtin-modules';
@@ -9,6 +9,11 @@ import { pluginVirtualModuleGenerator } from './vite-plugins/plugin-importer';
 import pluginLoader from './vite-plugins/plugin-loader';
 
 import type { UserConfig } from 'vite';
+
+const resolveAlias = {
+  '@': resolve(__dirname, './src'),
+  '@assets': resolve(__dirname, './assets'),
+};
 
 export default defineConfig({
   main: defineViteConfig(({ mode }) => {
@@ -35,10 +40,7 @@ export default defineConfig({
         },
       },
       resolve: {
-        alias: {
-          '@': fileURLToPath(new URL('./src', import.meta.url)),
-          '@assets': fileURLToPath(new URL('./assets', import.meta.url)),
-        },
+        alias: resolveAlias,
       },
     };
 
@@ -81,10 +83,7 @@ export default defineConfig({
         },
       },
       resolve: {
-        alias: {
-          '@': fileURLToPath(new URL('./src', import.meta.url)),
-          '@assets': fileURLToPath(new URL('./assets', import.meta.url)),
-        },
+        alias: resolveAlias,
       },
     };
 
@@ -129,10 +128,7 @@ export default defineConfig({
         },
       },
       resolve: {
-        alias: {
-          '@': fileURLToPath(new URL('./src', import.meta.url)),
-          '@assets': fileURLToPath(new URL('./assets', import.meta.url)),
-        },
+        alias: resolveAlias,
       },
     };
 
