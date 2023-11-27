@@ -85,28 +85,29 @@ const migrations = {
           shortcut: unknown;
         }[]
       | Record<string, unknown>
-    >;
-    let updated = false;
-    for (const optionType of ['global', 'local']) {
-      if (Object.hasOwn(options, optionType) && Array.isArray(options[optionType])) {
-        const optionsArray = options[optionType] as {
-          action: string;
-          shortcut: unknown;
-        }[];
-        const updatedOptions: Record<string, unknown> = {};
-        for (const optionObject of optionsArray) {
-          if (optionObject.action && optionObject.shortcut) {
-            updatedOptions[optionObject.action] = optionObject.shortcut;
+    > | undefined;
+    if (options) {
+      let updated = false;
+      for (const optionType of ['global', 'local']) {
+        if (Object.hasOwn(options, optionType) && Array.isArray(options[optionType])) {
+          const optionsArray = options[optionType] as {
+            action: string;
+            shortcut: unknown;
+          }[];
+          const updatedOptions: Record<string, unknown> = {};
+          for (const optionObject of optionsArray) {
+            if (optionObject.action && optionObject.shortcut) {
+              updatedOptions[optionObject.action] = optionObject.shortcut;
+            }
           }
+
+          options[optionType] = updatedOptions;
+          updated = true;
         }
-
-        options[optionType] = updatedOptions;
-        updated = true;
       }
-    }
-
-    if (updated) {
-      store.set('plugins.shortcuts', options);
+      if (updated) {
+        store.set('plugins.shortcuts', options);
+      }
     }
   },
   '>=1.11.0'(store: Conf<Record<string, unknown>>) {
