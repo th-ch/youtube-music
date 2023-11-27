@@ -1,14 +1,14 @@
 import is from 'electron-is';
-
 import { MenuItem } from 'electron';
 
 import { snakeToCamel, ToastStyles, urgencyLevels } from './utils';
 
-import builder, { NotificationsPluginConfig } from './index';
+import type { NotificationsPluginConfig } from './index';
 
-import type { MenuTemplate } from '../../menu';
+import type { MenuTemplate } from '@/menu';
+import type { MenuContext } from '@/types/contexts';
 
-export default builder.createMenu(async ({ getConfig, setConfig }) => {
+export const onMenu = async ({ getConfig, setConfig }: MenuContext<NotificationsPluginConfig>): Promise<MenuTemplate> => {
   const config = await getConfig();
 
   const getToastStyleMenuItems = (options: NotificationsPluginConfig) => {
@@ -25,7 +25,7 @@ export default builder.createMenu(async ({ getConfig, setConfig }) => {
     }
 
     return array as Electron.MenuItemConstructorOptions[];
-  }
+  };
 
   const getMenu = (): MenuTemplate => {
     if (is.linux()) {
@@ -92,4 +92,4 @@ export default builder.createMenu(async ({ getConfig, setConfig }) => {
       click: (item) => setConfig({ unpauseNotification: item.checked }),
     },
   ];
-});
+};

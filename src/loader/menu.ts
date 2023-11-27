@@ -1,26 +1,22 @@
 import { deepmerge } from 'deepmerge-ts';
+import { allPlugins } from 'virtual:plugins';
 
-import { MenuPluginContext, MenuPluginFactory, PluginBaseConfig, PluginBuilder } from '../plugins/utils/builder';
-import config from '../config';
-import { setApplicationMenu } from '../menu';
+import config from '@/config';
+import { setApplicationMenu } from '@/menu';
 
+import type { MenuContext } from '@/types/contexts';
 import type { BrowserWindow, MenuItemConstructorOptions } from 'electron';
+import type { PluginConfig } from '@/types/plugins';
 
-const allPluginFactoryList: Record<string, MenuPluginFactory<PluginBaseConfig>> = {};
-const allPluginBuilders: Record<string, PluginBuilder<string, PluginBaseConfig>> = {};
 const menuTemplateMap: Record<string, MenuItemConstructorOptions[]> = {};
-
-const createContext = <
-  Key extends keyof PluginBuilderList,
-  Config extends PluginBaseConfig = PluginBuilderList[Key]['config'],
->(id: Key, win: BrowserWindow): MenuPluginContext<Config> => ({
-  getConfig: () => deepmerge(allPluginBuilders[id].config, config.get(`plugins.${id}`) ?? {}) as Config,
+const createContext = (id: string, win: BrowserWindow): MenuContext<PluginConfig> => ({
+  getConfig: () => config.plugins.getOptions(id),
   setConfig: (newConfig) => {
     config.setPartial(`plugins.${id}`, newConfig);
   },
   window: win,
-  refresh: async () => {
-    await setApplicationMenu(win);
+  refresh: () => {
+    setApplicationMenu(win);
 
     if (config.plugins.isEnabled('in-app-menu')) {
       win.webContents.send('refresh-in-app-menu');
@@ -28,45 +24,40 @@ const createContext = <
   },
 });
 
-export const forceLoadMenuPlugin = async (id: keyof PluginBuilderList, win: BrowserWindow) => {
+export const forceLoadMenuPlugin = async (id: string, win: BrowserWindow) => {
   try {
-    const factory = allPluginFactoryList[id];
-    if (!factory) return;
+    const plugin = allPlugins[id];
+    if (!plugin) return;
 
-    const context = createContext(id, win);
-    menuTemplateMap[id] = await factory(context);
+    const menu = plugin.menu?.(createContext(id, win));
+    if (menu) menuTemplateMap[id] = await menu;
+    else return;
 
-    console.log('[YTMusic]', `"${id}" plugin is loaded`);
+    console.log('[YTMusic]', `Successfully loaded '${id}::menu'`);
   } catch (err) {
-    console.log('[YTMusic]', `Cannot initialize "${id}" plugin: ${String(err)}`);
+    console.error('[YTMusic]', `Cannot initialize '${id}::menu': `);
+    console.trace(err);
   }
 };
 
-export const loadAllMenuPlugins = async (win: BrowserWindow) => {
+export const loadAllMenuPlugins = (win: BrowserWindow) => {
   const pluginConfigs = config.plugins.getPlugins();
 
-  for (const [pluginId, builder] of Object.entries(allPluginBuilders)) {
-    const typedBuilder = builder as PluginBuilderList[keyof PluginBuilderList];
-
-    const config = deepmerge(typedBuilder.config, pluginConfigs[pluginId as keyof PluginBuilderList] ?? {});
+  for (const [pluginId, pluginDef] of Object.entries(allPlugins)) {
+    const config = deepmerge(pluginDef.config, pluginConfigs[pluginId] ?? {});
 
     if (config.enabled) {
-      await forceLoadMenuPlugin(pluginId as keyof PluginBuilderList, win);
+      forceLoadMenuPlugin(pluginId, win);
     }
   }
 };
 
-export const getMenuTemplate = <Key extends keyof PluginBuilderList>(id: Key): MenuItemConstructorOptions[] | undefined => {
+export const getMenuTemplate = (
+  id: string,
+): MenuItemConstructorOptions[] | undefined => {
   return menuTemplateMap[id];
 };
+
 export const getAllMenuTemplate = () => {
   return menuTemplateMap;
-};
-export const registerMenuPlugin = (
-  id: string,
-  builder: PluginBuilder<string, PluginBaseConfig>,
-  factory?: MenuPluginFactory<PluginBaseConfig>,
-) => {
-  if (factory) allPluginFactoryList[id] = factory;
-  allPluginBuilders[id] = builder;
 };

@@ -1,12 +1,13 @@
 import prompt, { KeybindOptions } from 'custom-electron-prompt';
 
-import builder, { ShortcutsPluginConfig } from './index';
+import promptOptions from '@/providers/prompt-options';
 
-import promptOptions from '../../providers/prompt-options';
-
+import type { ShortcutsPluginConfig } from './index';
 import type { BrowserWindow } from 'electron';
+import type { MenuContext } from '@/types/contexts';
+import type { MenuTemplate } from '@/menu';
 
-export default builder.createMenu(async ({ window, getConfig, setConfig }) => {
+export const onMenu = async ({ window, getConfig, setConfig }: MenuContext<ShortcutsPluginConfig>): Promise<MenuTemplate> => {
   const config = await getConfig();
 
   /**
@@ -52,4 +53,4 @@ export default builder.createMenu(async ({ window, getConfig, setConfig }) => {
       click: (item) => setConfig({ overrideMediaKeys: item.checked }),
     },
   ];
-});
+};

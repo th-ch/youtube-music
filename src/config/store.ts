@@ -1,15 +1,18 @@
 import Store from 'electron-store';
 import Conf from 'conf';
 
-import { pluginBuilders } from 'virtual:PluginBuilders';
+import { allPlugins } from 'virtual:plugins';
 
 import defaults from './defaults';
 
-import { DefaultPresetList, type Preset } from '../plugins/downloader/types';
+import { DefaultPresetList, type Preset } from '@/plugins/downloader/types';
 
-const setDefaultPluginOptions = (store: Conf<Record<string, unknown>>, plugin: keyof typeof pluginBuilders) => {
+const setDefaultPluginOptions = (
+  store: Conf<Record<string, unknown>>,
+  plugin: string,
+) => {
   if (!store.get(`plugins.${plugin}`)) {
-    store.set(`plugins.${plugin}`, pluginBuilders[plugin].config);
+    store.set(`plugins.${plugin}`, allPlugins[plugin].config);
   }
 };
 
@@ -22,19 +25,24 @@ const migrations = {
     }
   },
   '>=2.1.0'(store: Conf<Record<string, unknown>>) {
-    const originalPreset = store.get('plugins.downloader.preset') as string | undefined;
+    const originalPreset = store.get('plugins.downloader.preset') as
+      | string
+      | undefined;
     if (originalPreset) {
       if (originalPreset !== 'opus') {
         store.set('plugins.downloader.selectedPreset', 'Custom');
         store.set('plugins.downloader.customPresetSetting', {
           extension: 'mp3',
-          ffmpegArgs: store.get('plugins.downloader.ffmpegArgs') as string[] ?? DefaultPresetList['mp3 (256kbps)'].ffmpegArgs,
+          ffmpegArgs:
+            (store.get('plugins.downloader.ffmpegArgs') as string[]) ??
+            DefaultPresetList['mp3 (256kbps)'].ffmpegArgs,
         } satisfies Preset);
       } else {
         store.set('plugins.downloader.selectedPreset', 'Source');
         store.set('plugins.downloader.customPresetSetting', {
           extension: null,
-          ffmpegArgs: store.get('plugins.downloader.ffmpegArgs') as string[] ?? [],
+          ffmpegArgs:
+            (store.get('plugins.downloader.ffmpegArgs') as string[]) ?? [],
         } satisfies Preset);
       }
       store.delete('plugins.downloader.preset');
@@ -47,7 +55,7 @@ const migrations = {
     if (store.get('plugins.notifications.toastStyle') === undefined) {
       const pluginOptions = store.get('plugins.notifications') || {};
       store.set('plugins.notifications', {
-        ...pluginBuilders.notifications.config,
+        ...allPlugins.notifications.config,
         ...pluginOptions,
       });
     }
@@ -82,10 +90,14 @@ const migrations = {
     }
   },
   '>=1.12.0'(store: Conf<Record<string, unknown>>) {
-    const options = store.get('plugins.shortcuts') as Record<string, {
-      action: string;
-      shortcut: unknown;
-    }[] | Record<string, unknown>>;
+    const options = store.get('plugins.shortcuts') as Record<
+      string,
+      | {
+          action: string;
+          shortcut: unknown;
+        }[]
+      | Record<string, unknown>
+    >;
     let updated = false;
     for (const optionType of ['global', 'local']) {
       if (Array.isArray(options[optionType])) {
@@ -151,12 +163,7 @@ const migrations = {
 export default new Store({
   defaults: {
     ...defaults,
-    plugins: Object
-      .entries(pluginBuilders)
-      .reduce((prev, [id, builder]) => ({
-        ...prev,
-        [id]: (builder as PluginBuilderList[keyof PluginBuilderList]).config,
-      }), {}),
+    // README: 'plugin' uses deepmerge to populate the default values, so it is not necessary to include it here
   },
   clearInvalidConfig: false,
   migrations,

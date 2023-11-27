@@ -28,15 +28,17 @@ import {
   setBadge,
 } from './utils';
 
+import { fetchFromGenius } from '@/plugins/lyrics-genius/main';
+import { isEnabled } from '@/config/plugins';
+import { cleanupName, getImage, SongInfo } from '@/providers/song-info';
+import { getNetFetchAsFetch } from '@/plugins/utils/main';
+import { cache } from '@/providers/decorators';
+
 import { YoutubeFormatList, type Preset, DefaultPresetList } from '../types';
 
-import builder, { DownloaderPluginConfig } from '../index';
+import type { DownloaderPluginConfig } from '../index';
 
-import { fetchFromGenius } from '../../lyrics-genius/main';
-import { isEnabled } from '../../../config/plugins';
-import { cleanupName, getImage, SongInfo } from '../../../providers/song-info';
-import { getNetFetchAsFetch } from '../../utils/main';
-import { cache } from '../../../providers/decorators';
+import type { BackendContext } from '@/types/contexts';
 
 import type { FormatOptions } from 'youtubei.js/dist/src/types/FormatUtils';
 import type PlayerErrorMessage from 'youtubei.js/dist/src/parser/classes/PlayerErrorMessage';
@@ -44,7 +46,7 @@ import type { Playlist } from 'youtubei.js/dist/src/parser/ytmusic';
 import type { VideoInfo } from 'youtubei.js/dist/src/parser/youtube';
 import type TrackInfo from 'youtubei.js/dist/src/parser/ytmusic/TrackInfo';
 
-import type { GetPlayerResponse } from '../../../types/get-player-response';
+import type { GetPlayerResponse } from '@/types/get-player-response';
 
 type CustomSongInfo = SongInfo & { trackId?: string };
 
@@ -89,31 +91,28 @@ export const getCookieFromWindow = async (win: BrowserWindow) => {
     .join(';');
 };
 
-let config: DownloaderPluginConfig = builder.config;
+let config: DownloaderPluginConfig;
 
-export default builder.createMain(({ handle, getConfig, on }) => {
-  return {
-    async onLoad(_win) {
-      win = _win;
-      config = await getConfig();
+export const onMainLoad = async ({ window: _win, getConfig, ipc }: BackendContext<DownloaderPluginConfig>) => {
+  win = _win;
+  config = await getConfig();
 
-      yt = await Innertube.create({
-        cache: new UniversalCache(false),
-        cookie: await getCookieFromWindow(win),
-        generate_session_locally: true,
-        fetch: getNetFetchAsFetch(),
-      });
-      handle('download-song', (url: string) => downloadSong(url));
-      on('video-src-changed', (data: GetPlayerResponse) => {
-        playingUrl = data.microformat.microformatDataRenderer.urlCanonical;
-      });
-      handle('download-playlist-request', async (_event, url: string) => downloadPlaylist(url));
-    },
-    onConfigChange(newConfig) {
-      config = newConfig;
-    }
-  };
-});
+  yt = await Innertube.create({
+    cache: new UniversalCache(false),
+    cookie: await getCookieFromWindow(win),
+    generate_session_locally: true,
+    fetch: getNetFetchAsFetch(),
+  });
+  ipc.handle('download-song', (url: string) => downloadSong(url));
+  ipc.on('video-src-changed', (data: GetPlayerResponse) => {
+    playingUrl = data.microformat.microformatDataRenderer.urlCanonical;
+  });
+  ipc.handle('download-playlist-request', async (url: string) => downloadPlaylist(url));
+};
+
+export const onConfigChange = (newConfig: DownloaderPluginConfig) => {
+  config = newConfig;
+};
 
 export async function downloadSong(
   url: string,
@@ -319,7 +318,7 @@ async function iterableStreamToTargetFile(
   contentLength: number,
   sendFeedback: (str: string, value?: number) => void,
   increasePlaylistProgress: (value: number) => void = () => {},
-) {
+): Promise<Uint8Array | null> {
   const chunks = [];
   let downloaded = 0;
   for await (const chunk of stream) {
@@ -379,6 +378,7 @@ async function iterableStreamToTargetFile(
   } finally {
     releaseFFmpegMutex();
   }
+  return null;
 }
 
 const getCoverBuffer = cache(async (url: string) => {

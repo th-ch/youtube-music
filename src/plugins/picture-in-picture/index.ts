@@ -1,6 +1,9 @@
 import style from './style.css?inline';
+import { createPlugin } from '@/utils';
 
-import { createPluginBuilder } from '../utils/builder';
+import { onConfigChange, onMainLoad } from './main';
+import { onMenu } from './menu';
+import { onPlayerApiReady, onRendererLoad } from './renderer';
 
 export type PictureInPicturePluginConfig = {
   'enabled': boolean;
@@ -14,7 +17,7 @@ export type PictureInPicturePluginConfig = {
   'useNativePiP': boolean;
 }
 
-const builder = createPluginBuilder('picture-in-picture', {
+export default createPlugin({
   name: 'Picture In Picture',
   restartNeeded: true,
   config: {
@@ -28,13 +31,15 @@ const builder = createPluginBuilder('picture-in-picture', {
     'isInPiP': false,
     'useNativePiP': true,
   } as PictureInPicturePluginConfig,
-  styles: [style],
-});
+  stylesheets: [style],
+  menu: onMenu,
 
-export default builder;
-
-declare global {
-  interface PluginBuilderList {
-    [builder.id]: typeof builder;
+  backend: {
+    start: onMainLoad,
+    onConfigChange,
+  },
+  renderer: {
+    start: onRendererLoad,
+    onPlayerApiReady,
   }
-}
+});

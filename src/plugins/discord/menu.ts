@@ -2,22 +2,20 @@ import prompt from 'custom-electron-prompt';
 
 import { clear, connect, isConnected, registerRefresh } from './main';
 
-import builder from './index';
+import { singleton } from '@/providers/decorators';
+import promptOptions from '@/providers/prompt-options';
+import { setMenuOptions } from '@/config/plugins';
 
-import { setMenuOptions } from '../../config/plugins';
-import promptOptions from '../../providers/prompt-options';
-import { singleton } from '../../providers/decorators';
+import type { MenuContext } from '@/types/contexts';
+import type { DiscordPluginConfig } from './index';
 
-import type { MenuTemplate } from '../../menu';
-import type { ConfigType } from '../../config/dynamic';
+import type { MenuTemplate } from '@/menu';
 
 const registerRefreshOnce = singleton((refreshMenu: () => void) => {
   registerRefresh(refreshMenu);
 });
 
-type DiscordOptions = ConfigType<'discord'>;
-
-export default builder.createMenu(async ({ window, getConfig, setConfig, refresh }): Promise<MenuTemplate> => {
+export const onMenu = async ({ window, getConfig, setConfig, refresh }: MenuContext<DiscordPluginConfig>): Promise<MenuTemplate> => {
   const config = await getConfig();
   registerRefreshOnce(refresh);
 
@@ -86,9 +84,9 @@ export default builder.createMenu(async ({ window, getConfig, setConfig, refresh
       click: () => setInactivityTimeout(window, config),
     },
   ];
-});
+};
 
-async function setInactivityTimeout(win: Electron.BrowserWindow, options: DiscordOptions) {
+async function setInactivityTimeout(win: Electron.BrowserWindow, options: DiscordPluginConfig) {
   const output = await prompt({
     title: 'Set Inactivity Timeout',
     label: 'Enter inactivity timeout in seconds:',

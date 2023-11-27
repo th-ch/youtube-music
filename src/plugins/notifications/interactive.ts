@@ -1,21 +1,20 @@
 import { app, BrowserWindow, Notification } from 'electron';
 
+import playIcon from '@assets/media-icons-black/play.png?asset&asarUnpack';
+import pauseIcon from '@assets/media-icons-black/pause.png?asset&asarUnpack';
+import nextIcon from '@assets/media-icons-black/next.png?asset&asarUnpack';
+import previousIcon from '@assets/media-icons-black/previous.png?asset&asarUnpack';
+
 import { notificationImage, secondsToMinutes, ToastStyles } from './utils';
 
-import getSongControls from '../../providers/song-controls';
-import registerCallback, { SongInfo } from '../../providers/song-info';
-import { changeProtocolHandler } from '../../providers/protocol-handler';
-import { setTrayOnClick, setTrayOnDoubleClick } from '../../tray';
-import { mediaIcons } from '../../types/media-icons';
-
-import playIcon from '../../../assets/media-icons-black/play.png?asset&asarUnpack';
-import pauseIcon from '../../../assets/media-icons-black/pause.png?asset&asarUnpack';
-import nextIcon from '../../../assets/media-icons-black/next.png?asset&asarUnpack';
-import previousIcon from '../../../assets/media-icons-black/previous.png?asset&asarUnpack';
-
-import { MainPluginContext } from '../utils/builder';
+import getSongControls from '@/providers/song-controls';
+import registerCallback, { SongInfo } from '@/providers/song-info';
+import { changeProtocolHandler } from '@/providers/protocol-handler';
+import { setTrayOnClick, setTrayOnDoubleClick } from '@/tray';
+import { mediaIcons } from '@/types/media-icons';
 
 import type { NotificationsPluginConfig } from './index';
+import type { BackendContext } from '@/types/contexts';
 
 let songControls: ReturnType<typeof getSongControls>;
 let savedNotification: Notification | undefined;
@@ -25,7 +24,7 @@ type Accessor<T> = () => T;
 export default (
   win: BrowserWindow,
   config: Accessor<NotificationsPluginConfig>,
-  { on, send }: MainPluginContext<NotificationsPluginConfig>,
+  { ipc: { on, send } }: BackendContext<NotificationsPluginConfig>,
 ) => {
   const sendNotification = (songInfo: SongInfo) => {
     const iconSrc = notificationImage(songInfo, config());

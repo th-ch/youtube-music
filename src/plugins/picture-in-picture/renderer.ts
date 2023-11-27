@@ -3,11 +3,12 @@ import keyEventAreEqual from 'keyboardevents-areequal';
 
 import pipHTML from './templates/picture-in-picture.html?raw';
 
-import builder, { PictureInPicturePluginConfig } from './index';
-
-import { getSongMenu } from '../../providers/dom-elements';
+import { getSongMenu } from '@/providers/dom-elements';
 
 import { ElementFromHtml } from '../utils/renderer';
+
+import type { PictureInPicturePluginConfig } from './index';
+import type { RendererContext } from '@/types/contexts';
 
 function $<E extends Element = Element>(selector: string) {
   return document.querySelector<E>(selector);
@@ -133,42 +134,38 @@ const listenForToggle = () => {
   });
 };
 
+export const onRendererLoad = async ({ getConfig }: RendererContext<PictureInPicturePluginConfig>) => {
+  const config = await getConfig();
 
-export default builder.createRenderer(({ getConfig }) => {
-  return {
-    async onLoad() {
-      const config = await getConfig();
+  useNativePiP = config.useNativePiP;
 
-      useNativePiP = config.useNativePiP;
-
-      if (config.hotkey) {
-        const hotkeyEvent = toKeyEvent(config.hotkey);
-        window.addEventListener('keydown', (event) => {
-          if (
-            keyEventAreEqual(event, hotkeyEvent)
-            && !$<HTMLElement & { opened: boolean }>('ytmusic-search-box')?.opened
-          ) {
-            togglePictureInPicture();
-          }
-        });
+  if (config.hotkey) {
+    const hotkeyEvent = toKeyEvent(config.hotkey);
+    window.addEventListener('keydown', (event) => {
+      if (
+        keyEventAreEqual(event, hotkeyEvent)
+        && !$<HTMLElement & { opened: boolean }>('ytmusic-search-box')?.opened
+      ) {
+        togglePictureInPicture();
       }
-    },
-    onPlayerApiReady() {
-      listenForToggle();
+    });
+  }
+};
 
-      cloneButton('.player-minimize-button')?.addEventListener('click', async () => {
-        await togglePictureInPicture();
-        setTimeout(() => $<HTMLButtonElement>('#player')?.click());
-      });
+export const onPlayerApiReady = () => {
+  listenForToggle();
 
-      // Allows easily closing the menu by programmatically clicking outside of it
-      $('#expanding-menu')?.removeAttribute('no-cancel-on-outside-click');
-      // TODO: think about wether an additional button in songMenu is needed
-      const popupContainer = $('ytmusic-popup-container');
-      if (popupContainer) observer.observe(popupContainer, {
-        childList: true,
-        subtree: true,
-      });
-    },
-  };
-});
+  cloneButton('.player-minimize-button')?.addEventListener('click', async () => {
+    await togglePictureInPicture();
+    setTimeout(() => $<HTMLButtonElement>('#player')?.click());
+  });
+
+  // Allows easily closing the menu by programmatically clicking outside of it
+  $('#expanding-menu')?.removeAttribute('no-cancel-on-outside-click');
+  // TODO: think about wether an additional button in songMenu is needed
+  const popupContainer = $('ytmusic-popup-container');
+  if (popupContainer) observer.observe(popupContainer, {
+    childList: true,
+    subtree: true,
+  });
+};

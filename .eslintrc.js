@@ -26,7 +26,7 @@ module.exports = {
     'import/newline-after-import': 'error',
     'import/no-default-export': 'off',
     'import/no-duplicates': 'error',
-    'import/no-unresolved': ['error', { ignore: ['^virtual:', '\\?inline$', '\\?raw$', '\\?asset&asarUnpack', '^youtubei.js$'] }],
+    'import/no-unresolved': ['error', { ignore: ['^virtual:', '\\?inline$', '\\?raw$', '\\?asset&asarUnpack'] }],
     'import/order': [
       'error',
       {
@@ -67,4 +67,14 @@ module.exports = {
     es6: true,
   },
   ignorePatterns: ['dist', 'node_modules'],
+  root: true,
+  settings: {
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts']
+    },
+    'import/resolver': {
+      typescript: {},
+      exports: {},
+    },
+  },
 };

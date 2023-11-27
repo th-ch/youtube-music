@@ -1,9 +1,9 @@
 import '@total-typescript/ts-reset';
 
-import { ipcRenderer as electronIpcRenderer } from 'electron';
-import is from 'electron-is';
+import type { ipcRenderer as electronIpcRenderer } from 'electron';
+import type is from 'electron-is';
 
-import config from './config';
+import type config from './config';
 
 declare global {
   interface Compressor {

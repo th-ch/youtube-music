@@ -2,7 +2,9 @@ import { DefaultPresetList, Preset } from './types';
 
 import style from './style.css?inline';
 
-import { createPluginBuilder } from '../utils/builder';
+import { createPlugin } from '@/utils';
+import { onConfigChange, onMainLoad } from './main';
+import { onPlayerApiReady, onRendererLoad } from './renderer';
 
 export type DownloaderPluginConfig = {
   enabled: boolean;
@@ -13,24 +15,27 @@ export type DownloaderPluginConfig = {
   playlistMaxItems?: number;
 }
 
-const builder = createPluginBuilder('downloader', {
+export const defaultConfig: DownloaderPluginConfig = {
+  enabled: false,
+  downloadFolder: undefined,
+  selectedPreset: 'mp3 (256kbps)', // Selected preset
+  customPresetSetting: DefaultPresetList['mp3 (256kbps)'], // Presets
+  skipExisting: false,
+  playlistMaxItems: undefined,
+};
+
+export default createPlugin({
   name: 'Downloader',
   restartNeeded: true,
-  config: {
-    enabled: false,
-    downloadFolder: undefined,
-    selectedPreset: 'mp3 (256kbps)', // Selected preset
-    customPresetSetting: DefaultPresetList['mp3 (256kbps)'], // Presets
-    skipExisting: false,
-    playlistMaxItems: undefined,
-  } as DownloaderPluginConfig,
-  styles: [style],
+  config: defaultConfig,
+  stylesheets: [style],
+  backend: {
+    start: onMainLoad,
+    onConfigChange,
+  },
+  renderer: {
+    start: onRendererLoad,
+    onPlayerApiReady,
+  }
 });
 
-export default builder;
-
-declare global {
-  interface PluginBuilderList {
-    [builder.id]: typeof builder;
-  }
-}

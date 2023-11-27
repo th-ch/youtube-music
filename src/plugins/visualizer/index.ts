@@ -1,6 +1,11 @@
 import emptyStyle from './empty-player.css?inline';
-
-import { createPluginBuilder } from '../utils/builder';
+import { createPlugin } from '@/utils';
+import { Visualizer } from './visualizers/visualizer';
+import {
+  ButterchurnVisualizer as butterchurn,
+  VudioVisualizer as vudio,
+  WaveVisualizer as wave
+} from './visualizers';
 
 type WaveColor = {
   gradient: string[];
@@ -51,7 +56,7 @@ export type VisualizerPluginConfig = {
   };
 };
 
-const builder = createPluginBuilder('visualizer', {
+export default createPlugin({
   name: 'Visualizer',
   restartNeeded: true,
   config: {
@@ -120,13 +125,97 @@ const builder = createPluginBuilder('visualizer', {
       ],
     },
   } as VisualizerPluginConfig,
-  styles: [emptyStyle],
+  stylesheets: [emptyStyle],
+  menu: async ({ getConfig, setConfig }) => {
+    const config = await getConfig();
+    const visualizerTypes = ['butterchurn', 'vudio', 'wave'] as const; // For bundling
+
+    return [
+      {
+        label: 'Type',
+        submenu: visualizerTypes.map((visualizerType) => ({
+          label: visualizerType,
+          type: 'radio',
+          checked: config.type === visualizerType,
+          click() {
+            setConfig({ type: visualizerType });
+          },
+        })),
+      },
+    ];
+  },
+
+  async renderer({ getConfig }) {
+    const config = await getConfig();
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let visualizerType: { new(...args: any[]): Visualizer<unknown> } = vudio;
+
+    if (config.type === 'wave') {
+      visualizerType = wave;
+    } else if (config.type === 'butterchurn') {
+      visualizerType = butterchurn;
+    }
+
+    document.addEventListener(
+      'audioCanPlay',
+      (e) => {
+        const video = document.querySelector<HTMLVideoElement & { captureStream(): MediaStream; }>('video');
+        if (!video) {
+          return;
+        }
+
+        const visualizerContainer = document.querySelector<HTMLElement>('#player');
+        if (!visualizerContainer) {
+          return;
+        }
+
+        let canvas = document.querySelector<HTMLCanvasElement>('#visualizer');
+        if (!canvas) {
+          canvas = document.createElement('canvas');
+          canvas.id = 'visualizer';
+          visualizerContainer?.prepend(canvas);
+        }
+
+        const resizeCanvas = () => {
+          if (canvas) {
+            canvas.width = visualizerContainer.clientWidth;
+            canvas.height = visualizerContainer.clientHeight;
+          }
+        };
+
+        resizeCanvas();
+
+        const gainNode = e.detail.audioContext.createGain();
+        gainNode.gain.value = 1.25;
+        e.detail.audioSource.connect(gainNode);
+
+        const visualizer = new visualizerType(
+          e.detail.audioContext,
+          e.detail.audioSource,
+          visualizerContainer,
+          canvas,
+          gainNode,
+          video.captureStream(),
+          config,
+        );
+
+        const resizeVisualizer = (width: number, height: number) => {
+          resizeCanvas();
+          visualizer.resize(width, height);
+        };
+
+        resizeVisualizer(canvas.width, canvas.height);
+        const visualizerContainerObserver = new ResizeObserver((entries) => {
+          for (const entry of entries) {
+            resizeVisualizer(entry.contentRect.width, entry.contentRect.height);
+          }
+        });
+        visualizerContainerObserver.observe(visualizerContainer);
+
+        visualizer.render();
+      },
+      { passive: true },
+    );
+  },
 });
-
-export default builder;
-
-declare global {
-  interface PluginBuilderList {
-    [builder.id]: typeof builder;
-  }
-}

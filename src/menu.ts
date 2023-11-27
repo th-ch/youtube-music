@@ -1,31 +1,35 @@
 import is from 'electron-is';
-import { app, BrowserWindow, clipboard, dialog, Menu } from 'electron';
+import {
+  app,
+  BrowserWindow,
+  clipboard,
+  dialog,
+  Menu,
+  MenuItem,
+} from 'electron';
 import prompt from 'custom-electron-prompt';
 
-import { restart } from './providers/app-controls';
+import { allPlugins } from 'virtual:plugins';
+
 import config from './config';
+
+import { restart } from './providers/app-controls';
 import { startingPages } from './providers/extracted-data';
 import promptOptions from './providers/prompt-options';
 
-/* eslint-disable import/order */
-import { menuPlugins as menuList } from 'virtual:MenuPlugins';
-import { pluginBuilders } from 'virtual:PluginBuilders';
-/* eslint-enable import/order */
-
-import { getAvailablePluginNames } from './plugins/utils/main';
-import {
-  MenuPluginFactory,
-  PluginBaseConfig,
-  PluginBuilder
-} from './plugins/utils/builder';
-import { getAllMenuTemplate, loadAllMenuPlugins, registerMenuPlugin } from './loader/menu';
+import { getAllMenuTemplate, loadAllMenuPlugins } from './loader/menu';
 
 export type MenuTemplate = Electron.MenuItemConstructorOptions[];
 
 // True only if in-app-menu was loaded on launch
 const inAppMenuActive = config.plugins.isEnabled('in-app-menu');
 
-const pluginEnabledMenu = (plugin: string, label = '', hasSubmenu = false, refreshMenu: (() => void ) | undefined = undefined): Electron.MenuItemConstructorOptions => ({
+const pluginEnabledMenu = (
+  plugin: string,
+  label = '',
+  hasSubmenu = false,
+  refreshMenu: (() => void) | undefined = undefined,
+): Electron.MenuItemConstructorOptions => ({
   label: label || plugin,
   type: 'checkbox',
   checked: config.plugins.isEnabled(plugin),
@@ -49,50 +53,52 @@ export const refreshMenu = (win: BrowserWindow) => {
   }
 };
 
-Object.entries(pluginBuilders).forEach(([id, builder]) => {
-  const typedBuilder = builder as PluginBuilder<string, PluginBaseConfig>;
-  const plugin = menuList[id] as MenuPluginFactory<PluginBaseConfig> | undefined;
-
-  registerMenuPlugin(id, typedBuilder, plugin);
-});
-
-export const mainMenuTemplate = async (win: BrowserWindow): Promise<MenuTemplate> => {
+export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
   const innerRefreshMenu = () => refreshMenu(win);
 
-  await loadAllMenuPlugins(win);
+  loadAllMenuPlugins(win);
 
-  const menuResult = Object.entries(getAllMenuTemplate()).map(([id, template]) => {
-    const pluginLabel = (pluginBuilders[id as keyof PluginBuilderList])?.name ?? id;
+  const menuResult = Object.entries(getAllMenuTemplate()).map(
+    ([id, template]) => {
+      const pluginLabel = allPlugins[id]?.name ?? id;
 
-    if (!config.plugins.isEnabled(id)) {
+      if (!config.plugins.isEnabled(id)) {
+        return [
+          id,
+          pluginEnabledMenu(id, pluginLabel, true, innerRefreshMenu),
+        ] as const;
+      }
+
       return [
         id,
-        pluginEnabledMenu(id, pluginLabel, true, innerRefreshMenu),
+        {
+          label: pluginLabel,
+          submenu: [
+            pluginEnabledMenu(id, 'Enabled', true, innerRefreshMenu),
+            { type: 'separator' },
+            ...template,
+          ],
+        } satisfies Electron.MenuItemConstructorOptions,
       ] as const;
-    }
+    },
+  );
 
-    return [
-      id,
-      {
-        label: pluginLabel,
-        submenu: [
-          pluginEnabledMenu(id, 'Enabled', true, innerRefreshMenu),
-          { type: 'separator' },
-          ...template,
-        ],
-      } satisfies Electron.MenuItemConstructorOptions
-    ] as const;
-  });
+  const availablePlugins = Object.keys(allPlugins);
+  const pluginMenus = availablePlugins
+    .sort((a, b) => {
+      const aPluginLabel = allPlugins[a]?.name ?? a;
+      const bPluginLabel = allPlugins[b]?.name ?? b;
 
-  const availablePlugins = getAvailablePluginNames();
-  const pluginMenus = availablePlugins.map((id) => {
-    const predefinedTemplate = menuResult.find((it) => it[0] === id);
-    if (predefinedTemplate) return predefinedTemplate[1];
+      return aPluginLabel.localeCompare(bPluginLabel);
+    })
+    .map((id) => {
+      const predefinedTemplate = menuResult.find((it) => it[0] === id);
+      if (predefinedTemplate) return predefinedTemplate[1];
 
-    const pluginLabel = pluginBuilders[id as keyof PluginBuilderList]?.name ?? id;
+      const pluginLabel = allPlugins[id]?.name ?? id;
 
-    return pluginEnabledMenu(id, pluginLabel, true, innerRefreshMenu);
-  });
+      return pluginEnabledMenu(id, pluginLabel, true, innerRefreshMenu);
+    });
 
   return [
     {
@@ -106,7 +112,7 @@ export const mainMenuTemplate = async (win: BrowserWindow): Promise<MenuTemplate
           label: 'Auto-update',
           type: 'checkbox',
           checked: config.get('options.autoUpdates'),
-          click(item) {
+          click(item: MenuItem) {
             config.setMenuOption('options.autoUpdates', item.checked);
           },
         },
@@ -114,21 +120,22 @@ export const mainMenuTemplate = async (win: BrowserWindow): Promise<MenuTemplate
           label: 'Resume last song when app starts',
           type: 'checkbox',
           checked: config.get('options.resumeOnStart'),
-          click(item) {
+          click(item: MenuItem) {
             config.setMenuOption('options.resumeOnStart', item.checked);
           },
         },
         {
           label: 'Starting page',
           submenu: (() => {
-            const subMenuArray: Electron.MenuItemConstructorOptions[] = Object.keys(startingPages).map((name) => ({
-              label: name,
-              type: 'radio',
-              checked: config.get('options.startingPage') === name,
-              click() {
-                config.set('options.startingPage', name);
-              },
-            }));
+            const subMenuArray: Electron.MenuItemConstructorOptions[] =
+              Object.keys(startingPages).map((name) => ({
+                label: name,
+                type: 'radio',
+                checked: config.get('options.startingPage') === name,
+                click() {
+                  config.set('options.startingPage', name);
+                },
+              }));
             subMenuArray.unshift({
               label: 'Unset',
               type: 'radio',
@@ -147,8 +154,11 @@ export const mainMenuTemplate = async (win: BrowserWindow): Promise<MenuTemplate
               label: 'Remove upgrade button',
               type: 'checkbox',
               checked: config.get('options.removeUpgradeButton'),
-              click(item) {
-                config.setMenuOption('options.removeUpgradeButton', item.checked);
+              click(item: MenuItem) {
+                config.setMenuOption(
+                  'options.removeUpgradeButton',
+                  item.checked,
+                );
               },
             },
             {
@@ -213,7 +223,7 @@ export const mainMenuTemplate = async (win: BrowserWindow): Promise<MenuTemplate
           label: 'Single instance lock',
           type: 'checkbox',
           checked: true,
-          click(item) {
+          click(item: MenuItem) {
             if (!item.checked && app.hasSingleInstanceLock()) {
               app.releaseSingleInstanceLock();
             } else if (item.checked && !app.hasSingleInstanceLock()) {
@@ -225,43 +235,45 @@ export const mainMenuTemplate = async (win: BrowserWindow): Promise<MenuTemplate
           label: 'Always on top',
           type: 'checkbox',
           checked: config.get('options.alwaysOnTop'),
-          click(item) {
+          click(item: MenuItem) {
             config.setMenuOption('options.alwaysOnTop', item.checked);
             win.setAlwaysOnTop(item.checked);
           },
         },
-        ...(is.windows() || is.linux()
+        ...((is.windows() || is.linux()
           ? [
-            {
-              label: 'Hide menu',
-              type: 'checkbox',
-              checked: config.get('options.hideMenu'),
-              click(item) {
-                config.setMenuOption('options.hideMenu', item.checked);
-                if (item.checked && !config.get('options.hideMenuWarned')) {
-                  dialog.showMessageBox(win, {
-                    type: 'info', title: 'Hide Menu Enabled',
-                    message: 'Menu will be hidden on next launch, use [Alt] to show it (or backtick [`] if using in-app-menu)',
-                  });
-                }
+              {
+                label: 'Hide menu',
+                type: 'checkbox',
+                checked: config.get('options.hideMenu'),
+                click(item) {
+                  config.setMenuOption('options.hideMenu', item.checked);
+                  if (item.checked && !config.get('options.hideMenuWarned')) {
+                    dialog.showMessageBox(win, {
+                      type: 'info',
+                      title: 'Hide Menu Enabled',
+                      message:
+                        'Menu will be hidden on next launch, use [Alt] to show it (or backtick [`] if using in-app-menu)',
+                    });
+                  }
+                },
               },
-            },
-          ]
-          : []) satisfies Electron.MenuItemConstructorOptions[],
-        ...(is.windows() || is.macOS()
+            ]
+          : []) satisfies Electron.MenuItemConstructorOptions[]),
+        ...((is.windows() || is.macOS()
           ? // Only works on Win/Mac
-          // https://www.electronjs.org/docs/api/app#appsetloginitemsettingssettings-macos-windows
-          [
-            {
-              label: 'Start at login',
-              type: 'checkbox',
-              checked: config.get('options.startAtLogin'),
-              click(item) {
-                config.setMenuOption('options.startAtLogin', item.checked);
+            // https://www.electronjs.org/docs/api/app#appsetloginitemsettingssettings-macos-windows
+            [
+              {
+                label: 'Start at login',
+                type: 'checkbox',
+                checked: config.get('options.startAtLogin'),
+                click(item) {
+                  config.setMenuOption('options.startAtLogin', item.checked);
+                },
               },
-            },
-          ]
-          : []) satisfies Electron.MenuItemConstructorOptions[],
+            ]
+          : []) satisfies Electron.MenuItemConstructorOptions[]),
         {
           label: 'Tray',
           submenu: [
@@ -277,7 +289,8 @@ export const mainMenuTemplate = async (win: BrowserWindow): Promise<MenuTemplate
             {
               label: 'Enabled + app visible',
               type: 'radio',
-              checked: config.get('options.tray') && config.get('options.appVisible'),
+              checked:
+                config.get('options.tray') && config.get('options.appVisible'),
               click() {
                 config.setMenuOption('options.tray', true);
                 config.setMenuOption('options.appVisible', true);
@@ -286,7 +299,8 @@ export const mainMenuTemplate = async (win: BrowserWindow): Promise<MenuTemplate
             {
               label: 'Enabled + app hidden',
               type: 'radio',
-              checked: config.get('options.tray') && !config.get('options.appVisible'),
+              checked:
+                config.get('options.tray') && !config.get('options.appVisible'),
               click() {
                 config.setMenuOption('options.tray', true);
                 config.setMenuOption('options.appVisible', false);
@@ -297,8 +311,11 @@ export const mainMenuTemplate = async (win: BrowserWindow): Promise<MenuTemplate
               label: 'Play/Pause on click',
               type: 'checkbox',
               checked: config.get('options.trayClickPlayPause'),
-              click(item) {
-                config.setMenuOption('options.trayClickPlayPause', item.checked);
+              click(item: MenuItem) {
+                config.setMenuOption(
+                  'options.trayClickPlayPause',
+                  item.checked,
+                );
               },
             },
           ],
@@ -310,7 +327,7 @@ export const mainMenuTemplate = async (win: BrowserWindow): Promise<MenuTemplate
             {
               label: 'Set Proxy',
               type: 'normal',
-              async click(item) {
+              async click(item: MenuItem) {
                 await setProxy(item, win);
               },
             },
@@ -318,7 +335,7 @@ export const mainMenuTemplate = async (win: BrowserWindow): Promise<MenuTemplate
               label: 'Override useragent',
               type: 'checkbox',
               checked: config.get('options.overrideUserAgent'),
-              click(item) {
+              click(item: MenuItem) {
                 config.setMenuOption('options.overrideUserAgent', item.checked);
               },
             },
@@ -326,40 +343,46 @@ export const mainMenuTemplate = async (win: BrowserWindow): Promise<MenuTemplate
               label: 'Disable hardware acceleration',
               type: 'checkbox',
               checked: config.get('options.disableHardwareAcceleration'),
-              click(item) {
-                config.setMenuOption('options.disableHardwareAcceleration', item.checked);
+              click(item: MenuItem) {
+                config.setMenuOption(
+                  'options.disableHardwareAcceleration',
+                  item.checked,
+                );
               },
             },
             {
               label: 'Restart on config changes',
               type: 'checkbox',
               checked: config.get('options.restartOnConfigChanges'),
-              click(item) {
-                config.setMenuOption('options.restartOnConfigChanges', item.checked);
+              click(item: MenuItem) {
+                config.setMenuOption(
+                  'options.restartOnConfigChanges',
+                  item.checked,
+                );
               },
             },
             {
               label: 'Reset App cache when app starts',
               type: 'checkbox',
               checked: config.get('options.autoResetAppCache'),
-              click(item) {
+              click(item: MenuItem) {
                 config.setMenuOption('options.autoResetAppCache', item.checked);
               },
             },
             { type: 'separator' },
             is.macOS()
               ? {
-                label: 'Toggle DevTools',
-                // Cannot use "toggleDevTools" role in macOS
-                click() {
-                  const { webContents } = win;
-                  if (webContents.isDevToolsOpened()) {
-                    webContents.closeDevTools();
-                  } else {
-                    webContents.openDevTools();
-                  }
-                },
-              }
+                  label: 'Toggle DevTools',
+                  // Cannot use "toggleDevTools" role in macOS
+                  click() {
+                    const { webContents } = win;
+                    if (webContents.isDevToolsOpened()) {
+                      webContents.closeDevTools();
+                    } else {
+                      webContents.openDevTools();
+                    }
+                  },
+                }
               : { role: 'toggleDevTools' },
             {
               label: 'Edit config.json',
@@ -377,8 +400,14 @@ export const mainMenuTemplate = async (win: BrowserWindow): Promise<MenuTemplate
         { role: 'reload' },
         { role: 'forceReload' },
         { type: 'separator' },
-        { role: 'zoomIn', accelerator: process.platform === 'darwin' ? 'Cmd+I' : 'Ctrl+I' },
-        { role: 'zoomOut', accelerator: process.platform === 'darwin' ? 'Cmd+O' : 'Ctrl+O' },
+        {
+          role: 'zoomIn',
+          accelerator: process.platform === 'darwin' ? 'Cmd+I' : 'Ctrl+I',
+        },
+        {
+          role: 'zoomOut',
+          accelerator: process.platform === 'darwin' ? 'Cmd+O' : 'Ctrl+O',
+        },
         { role: 'resetZoom' },
         { type: 'separator' },
         { role: 'togglefullscreen' },
@@ -419,14 +448,12 @@ export const mainMenuTemplate = async (win: BrowserWindow): Promise<MenuTemplate
     },
     {
       label: 'About',
-      submenu: [
-        { role: 'about' },
-      ],
-    }
+      submenu: [{ role: 'about' }],
+    },
   ];
 };
-export const setApplicationMenu = async (win: Electron.BrowserWindow) => {
-  const menuTemplate: MenuTemplate = [...await mainMenuTemplate(win)];
+export const setApplicationMenu = (win: Electron.BrowserWindow) => {
+  const menuTemplate: MenuTemplate = [...mainMenuTemplate(win)];
   if (process.platform === 'darwin') {
     const { name } = app;
     menuTemplate.unshift({
@@ -455,23 +482,27 @@ export const setApplicationMenu = async (win: Electron.BrowserWindow) => {
 };
 
 async function setProxy(item: Electron.MenuItem, win: BrowserWindow) {
-  const output = await prompt({
-    title: 'Set Proxy',
-    label: 'Enter Proxy Address: (leave empty to disable)',
-    value: config.get('options.proxy'),
-    type: 'input',
-    inputAttrs: {
-      type: 'url',
-      placeholder: "Example: 'socks5://127.0.0.1:9999",
+  const output = await prompt(
+    {
+      title: 'Set Proxy',
+      label: 'Enter Proxy Address: (leave empty to disable)',
+      value: config.get('options.proxy'),
+      type: 'input',
+      inputAttrs: {
+        type: 'url',
+        placeholder: "Example: 'socks5://127.0.0.1:9999",
+      },
+      width: 450,
+      ...promptOptions(),
     },
-    width: 450,
-    ...promptOptions(),
-  }, win);
+    win,
+  );
 
   if (typeof output === 'string') {
     config.setMenuOption('options.proxy', output);
     item.checked = output !== '';
-  } else { // User pressed cancel
+  } else {
+    // User pressed cancel
     item.checked = !item.checked; // Reset checkbox
   }
 }

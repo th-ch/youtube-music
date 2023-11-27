@@ -1,16 +1,16 @@
 
 import store from './store';
 
-import { restart } from '../providers/app-controls';
+import { restart } from '@/providers/app-controls';
 
-import type { PluginBaseConfig } from '../plugins/utils/builder';
+import type { PluginConfig } from '@/types/plugins';
 
 export function getPlugins() {
-  return store.get('plugins') as Record<string, PluginBaseConfig>;
+  return store.get('plugins') as Record<string, PluginConfig>;
 }
 
 export function isEnabled(plugin: string) {
-  const pluginConfig = (store.get('plugins') as Record<string, PluginBaseConfig>)[plugin];
+  const pluginConfig = (store.get('plugins') as Record<string, PluginConfig>)[plugin];
   return pluginConfig !== undefined && pluginConfig.enabled;
 }
 

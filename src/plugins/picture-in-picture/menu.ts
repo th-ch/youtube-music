@@ -1,11 +1,14 @@
 import prompt from 'custom-electron-prompt';
 
-import builder from './index';
+import promptOptions from '@/providers/prompt-options';
 
-import promptOptions from '../../providers/prompt-options';
+import type { PictureInPicturePluginConfig } from './index';
+
+import type { MenuContext } from '@/types/contexts';
+import type { MenuTemplate } from '@/menu';
 
 
-export default builder.createMenu(async ({ window, getConfig, setConfig }) => {
+export const onMenu = async ({ window, getConfig, setConfig }: MenuContext<PictureInPicturePluginConfig>): Promise<MenuTemplate> => {
   const config = await getConfig();
 
   return [
@@ -71,4 +74,4 @@ export default builder.createMenu(async ({ window, getConfig, setConfig }) => {
       },
     },
   ];
-});
+};

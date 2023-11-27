@@ -1,15 +1,9 @@
 import sliderHTML from './templates/slider.html?raw';
 
-import builder from './index';
+import { getSongMenu } from '@/providers/dom-elements';
+import { singleton } from '@/providers/decorators';
 
-import { getSongMenu } from '../../providers/dom-elements';
 import { ElementFromHtml } from '../utils/renderer';
-import { singleton } from '../../providers/decorators';
-
-
-function $<E extends Element = Element>(selector: string) {
-  return document.querySelector<E>(selector);
-}
 
 const slider = ElementFromHtml(sliderHTML);
 
@@ -21,12 +15,12 @@ const MAX_PLAYBACK_SPEED = 16;
 let playbackSpeed = 1;
 
 const updatePlayBackSpeed = () => {
-  const videoElement = $<HTMLVideoElement>('video');
+  const videoElement = document.querySelector<HTMLVideoElement>('video');
   if (videoElement) {
     videoElement.playbackRate = playbackSpeed;
   }
 
-  const playbackSpeedElement = $('#playback-speed-value');
+  const playbackSpeedElement = document.querySelector('#playback-speed-value');
   if (playbackSpeedElement) {
     playbackSpeedElement.innerHTML = String(playbackSpeed);
   }
@@ -44,7 +38,7 @@ const immediateValueChangedListener = (e: Event) => {
 };
 
 const setupSliderListener = singleton(() => {
-  $('#playback-speed-slider')?.addEventListener('immediate-value-changed', immediateValueChangedListener);
+  document.querySelector('#playback-speed-slider')?.addEventListener('immediate-value-changed', immediateValueChangedListener);
 });
 
 const observePopupContainer = () => {
@@ -64,7 +58,7 @@ const observePopupContainer = () => {
     }
   });
 
-  const popupContainer = $('ytmusic-popup-container');
+  const popupContainer = document.querySelector('ytmusic-popup-container');
   if (popupContainer) {
     observer.observe(popupContainer, {
       childList: true,
@@ -74,7 +68,7 @@ const observePopupContainer = () => {
 };
 
 const observeVideo = () => {
-  const video = $<HTMLVideoElement>('video');
+  const video = document.querySelector<HTMLVideoElement>('video');
   if (video) {
     video.addEventListener('ratechange', forcePlaybackRate);
     video.addEventListener('srcChanged', forcePlaybackRate);
@@ -95,7 +89,7 @@ const wheelEventListener = (e: WheelEvent) => {
 
   updatePlayBackSpeed();
   // Update slider position
-  const playbackSpeedSilder = $<HTMLElement & { value: number }>('#playback-speed-slider');
+  const playbackSpeedSilder = document.querySelector<HTMLElement & { value: number }>('#playback-speed-slider');
   if (playbackSpeedSilder) {
     playbackSpeedSilder.value = playbackSpeed;
   }
@@ -114,22 +108,19 @@ function forcePlaybackRate(e: Event) {
   }
 }
 
-export default builder.createRenderer(() => {
-  return {
-    onPlayerApiReady() {
-      observePopupContainer();
-      observeVideo();
-      setupWheelListener();
-    },
-    onUnload() {
-      const video = $<HTMLVideoElement>('video');
-      if (video) {
-        video.removeEventListener('ratechange', forcePlaybackRate);
-        video.removeEventListener('srcChanged', forcePlaybackRate);
-      }
-      slider.removeEventListener('wheel', wheelEventListener);
-      getSongMenu()?.removeChild(slider);
-      $('#playback-speed-slider')?.removeEventListener('immediate-value-changed', immediateValueChangedListener);
-    }
-  };
-});
+export const onPlayerApiReady = () => {
+  observePopupContainer();
+  observeVideo();
+  setupWheelListener();
+};
+
+export const onUnload = () => {
+  const video = document.querySelector<HTMLVideoElement>('video');
+  if (video) {
+    video.removeEventListener('ratechange', forcePlaybackRate);
+    video.removeEventListener('srcChanged', forcePlaybackRate);
+  }
+  slider.removeEventListener('wheel', wheelEventListener);
+  getSongMenu()?.removeChild(slider);
+  document.querySelector('#playback-speed-slider')?.removeEventListener('immediate-value-changed', immediateValueChangedListener);
+};

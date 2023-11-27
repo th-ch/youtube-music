@@ -1,8 +1,8 @@
 import { singleton } from './decorators';
 
-import type { YoutubePlayer } from '../types/youtube-player';
-import type { GetState } from '../types/datahost-get-state';
-import type { VideoDataChangeValue } from '../types/player-api-events';
+import type { YoutubePlayer } from '@/types/youtube-player';
+import type { GetState } from '@/types/datahost-get-state';
+import type { VideoDataChangeValue } from '@/types/player-api-events';
 
 import type { SongInfo } from './song-info';
 

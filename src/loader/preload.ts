@@ -1,68 +1,66 @@
 import { deepmerge } from 'deepmerge-ts';
+import { preloadPlugins } from 'virtual:plugins';
 
-import {
-  PluginBaseConfig,
-  PluginBuilder,
-  PreloadPlugin,
-  PluginContext,
-  PreloadPluginFactory
-} from '../plugins/utils/builder';
-import config from '../config';
+import { startPlugin, stopPlugin } from '@/utils';
 
-const allPluginFactoryList: Record<string, PreloadPluginFactory<PluginBaseConfig>> = {};
-const allPluginBuilders: Record<string, PluginBuilder<string, PluginBaseConfig>> = {};
-const unregisterStyleMap: Record<string, (() => void)[]> = {};
-const loadedPluginMap: Record<string, PreloadPlugin<PluginBaseConfig>> = {};
+import config from '@/config';
 
-const createContext = <
-  Key extends keyof PluginBuilderList,
-  Config extends PluginBaseConfig = PluginBuilderList[Key]['config'],
->(id: Key): PluginContext<Config> => ({
-  getConfig: () => deepmerge(allPluginBuilders[id].config, config.get(`plugins.${id}`) ?? {}) as Config,
+import type { PreloadContext } from '@/types/contexts';
+import type { PluginConfig, PluginDef } from '@/types/plugins';
+
+const loadedPluginMap: Record<string, PluginDef<unknown, unknown, unknown>> = {};
+const createContext = (id: string): PreloadContext<PluginConfig> => ({
+  getConfig: () => config.plugins.getOptions(id),
   setConfig: (newConfig) => {
     config.setPartial(`plugins.${id}`, newConfig);
   },
 });
 
-export const forceUnloadPreloadPlugin = (id: keyof PluginBuilderList) => {
-  unregisterStyleMap[id]?.forEach((unregister) => unregister());
-  delete unregisterStyleMap[id];
-
-  loadedPluginMap[id]?.onUnload?.();
-  delete loadedPluginMap[id];
-
+export const forceUnloadPreloadPlugin = (id: string) => {
+  const hasStopped = stopPlugin(id, loadedPluginMap[id], {
+    ctx: 'preload',
+    context: createContext(id),
+  });
+  if (!hasStopped) {
+    console.log('[YTMusic]', `Cannot stop "${id}" plugin`);
+    return;
+  }
   console.log('[YTMusic]', `"${id}" plugin is unloaded`);
 };
 
-export const forceLoadPreloadPlugin = async (id: keyof PluginBuilderList) => {
+export const forceLoadPreloadPlugin = (id: string) => {
   try {
-    const factory = allPluginFactoryList[id];
-    if (!factory) return;
+    const plugin = preloadPlugins[id];
+    if (!plugin) return;
 
-    const context = createContext(id);
-    const plugin = await factory(context);
-    loadedPluginMap[id] = plugin;
-    plugin.onLoad?.();
+    const hasStarted = startPlugin(id, plugin, {
+      ctx: 'preload',
+      context: createContext(id),
+    });
+
+    if (hasStarted) loadedPluginMap[id] = plugin;
 
     console.log('[YTMusic]', `"${id}" plugin is loaded`);
   } catch (err) {
-    console.log('[YTMusic]', `Cannot initialize "${id}" plugin: ${String(err)}`);
+    console.error(
+      '[YTMusic]',
+      `Cannot initialize "${id}" plugin: `,
+    );
+    console.trace(err);
   }
 };
 
-export const loadAllPreloadPlugins = async () => {
+export const loadAllPreloadPlugins = () => {
   const pluginConfigs = config.plugins.getPlugins();
 
-  for (const [pluginId, builder] of Object.entries(allPluginBuilders)) {
-    const typedBuilder = builder as PluginBuilderList[keyof PluginBuilderList];
-
-    const config = deepmerge(typedBuilder.config, pluginConfigs[pluginId as keyof PluginBuilderList] ?? {});
+  for (const [pluginId, pluginDef] of Object.entries(preloadPlugins)) {
+    const config = deepmerge(pluginDef.config, pluginConfigs[pluginId] ?? {}) ;
 
     if (config.enabled) {
-      await forceLoadPreloadPlugin(pluginId as keyof PluginBuilderList);
+      forceLoadPreloadPlugin(pluginId);
     } else {
-      if (loadedPluginMap[pluginId as keyof PluginBuilderList]) {
-        forceUnloadPreloadPlugin(pluginId as keyof PluginBuilderList);
+      if (loadedPluginMap[pluginId]) {
+        forceUnloadPreloadPlugin(pluginId);
       }
     }
   }
@@ -70,21 +68,14 @@ export const loadAllPreloadPlugins = async () => {
 
 export const unloadAllPreloadPlugins = () => {
   for (const id of Object.keys(loadedPluginMap)) {
-    forceUnloadPreloadPlugin(id as keyof PluginBuilderList);
+    forceUnloadPreloadPlugin(id);
   }
 };
 
-export const getLoadedPreloadPlugin = <Key extends keyof PluginBuilderList>(id: Key): PreloadPlugin<PluginBuilderList[Key]['config']> | undefined => {
+export const getLoadedPreloadPlugin = (id: string): PluginDef<unknown, unknown, unknown> | undefined => {
   return loadedPluginMap[id];
 };
+
 export const getAllLoadedPreloadPlugins = () => {
   return loadedPluginMap;
-};
-export const registerPreloadPlugin = (
-  id: string,
-  builder: PluginBuilder<string, PluginBaseConfig>,
-  factory?: PreloadPluginFactory<PluginBaseConfig>,
-) => {
-  if (factory) allPluginFactoryList[id] = factory;
-  allPluginBuilders[id] = builder;
 };
