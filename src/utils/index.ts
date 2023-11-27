@@ -41,6 +41,15 @@ export const startPlugin = <Config extends PluginConfig>(id: string, def: Plugin
   if (!lifecycle) return false;
 
   try {
+    const defContext = def[options.ctx];
+    if (defContext && typeof defContext !== 'function') {
+      Object.entries(defContext)
+        .forEach(([key, value]) => {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
+          if (typeof value === 'function') defContext[key as keyof typeof defContext] = value.bind(defContext);
+        });
+    }
+
     const start = performance.now();
     lifecycle.bind(def[options.ctx])(options.context as Config & typeof options.context);
 

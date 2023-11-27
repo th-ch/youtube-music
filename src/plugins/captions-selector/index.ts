@@ -102,7 +102,7 @@ export default createPlugin<
     api: null,
     config: null,
     setConfig: () => {},
-    async videoChangeListener() {
+    async captionsButtonClickListener() {
       if (this.captionTrackList?.length) {
         const currentCaptionTrack = this.api!.getOption<LanguageOptions>('captions', 'track');
         let currentIndex = currentCaptionTrack
@@ -130,8 +130,8 @@ export default createPlugin<
         setTimeout(() => this.api?.playVideo());
       }
     },
-    captionsButtonClickListener() {
-      if (this.config!.disableCaptions) {
+    videoChangeListener() {
+      if (this.config?.disableCaptions) {
         setTimeout(() => this.api!.unloadModule('captions'), 100);
         this.captionsSettingsButton.style.display = 'none';
         return;
