@@ -140,7 +140,7 @@ const initHook = (win: BrowserWindow) => {
       if (!isEqual) {
         const oldConfig = oldPluginConfigList[id] as PluginConfig;
         const config = deepmerge(
-          mainPlugins[id].config,
+          allPlugins[id].config,
           newPluginConfig,
         ) as PluginConfig;
 
@@ -155,7 +155,7 @@ const initHook = (win: BrowserWindow) => {
             forceUnloadMainPlugin(id, win);
           }
 
-          if (mainPlugins[id].restartNeeded) {
+          if (mainPlugins[id]?.restartNeeded) {
             showNeedToRestartDialog(id);
           }
         }

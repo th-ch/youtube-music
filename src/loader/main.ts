@@ -79,7 +79,7 @@ export const forceLoadMainPlugin = async (
   win: BrowserWindow,
 ): Promise<void> => {
   const plugin = mainPlugins[id];
-  if (!plugin.backend) return;
+  if (!plugin) return;
 
   return new Promise<void>((resolve, reject) => {
     try {
