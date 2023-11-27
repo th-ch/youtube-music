@@ -59,14 +59,28 @@ body:
     placeholder: 1.20.0
 - type: textarea
   attributes:
+    label: Reproduction steps
+    description: Provide steps to reproduce the issue.
+    placeholder: 1. Enable the X plugin.
+  validations:
+    required: true
+- type: textarea
+  attributes:
     label: Expected Behavior
-    description: A clear and concise description of what you expected to happen. (Add a replication step if applicable)
+    description: A clear and concise description of what you expected to happen.
   validations:
     required: true
 - type: textarea
   attributes:
     label: Actual Behavior
     description: A clear description of what actually happens.
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Enabled plugins
+    description: Provide the list of plugins you enabled.
+    placeholder: 1. Album Color Theme
   validations:
     required: true
 - type: textarea
