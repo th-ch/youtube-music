@@ -9,6 +9,8 @@ import type {
   PluginConfig,
   PluginLifecycleExtra,
   PluginLifecycleSimple,
+  PluginLifecycle,
+  RendererPluginLifecycle,
 } from '@/types/plugins';
 
 export const createPlugin = <
@@ -28,6 +30,37 @@ export const createPlugin = <
     };
   },
 ) => def;
+
+export const createBackend = <
+  BackendProperties,
+  Config extends PluginConfig = PluginConfig,
+>(
+  back: {
+    [Key in keyof BackendProperties]: BackendProperties[Key];
+  } & PluginLifecycle<Config, BackendContext<Config>, BackendProperties>,
+) => back;
+
+export const createPreload = <
+  PreloadProperties,
+  Config extends PluginConfig = PluginConfig,
+>(
+  preload: {
+    [Key in keyof PreloadProperties]: PreloadProperties[Key];
+  } & PluginLifecycle<Config, PreloadContext<Config>, PreloadProperties>,
+) => preload;
+
+export const createRenderer = <
+  RendererProperties,
+  Config extends PluginConfig = PluginConfig,
+>(
+  renderer: {
+    [Key in keyof RendererProperties]: RendererProperties[Key];
+  } & RendererPluginLifecycle<
+    Config,
+    RendererContext<Config>,
+    RendererProperties
+  >,
+) => renderer;
 
 type Options<Config extends PluginConfig> =
   | { ctx: 'backend'; context: BackendContext<Config> }
