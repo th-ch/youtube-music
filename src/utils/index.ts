@@ -38,7 +38,7 @@ export const startPlugin = <Config extends PluginConfig>(id: string, def: Plugin
       ? def[options.ctx] as PluginLifecycleSimple<Config, unknown>
       : (def[options.ctx] as PluginLifecycleExtra<Config, typeof options.context, unknown>)?.start;
 
-  if (!lifecycle) return false;
+  if (!lifecycle) return null;
 
   try {
     const defContext = def[options.ctx];
@@ -57,17 +57,18 @@ export const startPlugin = <Config extends PluginConfig>(id: string, def: Plugin
 
     return true;
   } catch (err) {
-    console.log(`[YTM] Failed to start ${id}::${options.ctx}: ${String(err)}`);
+    console.error(`[YTM] Failed to start ${id}::${options.ctx}`);
+    console.trace(err);
     return false;
   }
 };
 
 export const stopPlugin = <Config extends PluginConfig>(id: string, def: PluginDef<unknown, unknown, unknown, Config>, options: Options<Config>) => {
-  if (!def[options.ctx]) return false;
+  if (!def || !def[options.ctx]) return false;
   if (typeof def[options.ctx] === 'function') return false;
 
   const stop = def[options.ctx] as PluginLifecycleSimple<Config, unknown>;
-  if (!stop) return false;
+  if (!stop) return null;
 
   try {
     const start = performance.now();
@@ -77,9 +78,10 @@ export const stopPlugin = <Config extends PluginConfig>(id: string, def: PluginD
 
     return true;
   } catch (err) {
-    console.log(
-      `[YTM] Failed to execute ${id}::${options.ctx}: ${String(err)}`,
+    console.error(
+      `[YTM] Failed to execute ${id}::${options.ctx}`,
     );
+    console.trace(err);
     return false;
   }
 };

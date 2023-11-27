@@ -55,18 +55,24 @@ export const forceUnloadMainPlugin = async (
         ctx: 'backend',
         context: createContext(id, win),
       });
-      if (!hasStopped) {
+      if (
+        hasStopped ||
+        (
+          hasStopped === null &&
+          typeof plugin.backend !== 'function' && plugin.backend
+        )
+      ) {
+        delete loadedPluginMap[id];
+        console.log('[YTMusic]', `"${id}" plugin is unloaded`);
+        resolve();
+      } else {
         console.log(
           '[YTMusic]',
-          `Cannot unload "${id}" plugin: no stop function`,
+          `Cannot unload "${id}" plugin`,
         );
         reject();
         return;
       }
-
-      delete loadedPluginMap[id];
-      console.log('[YTMusic]', `"${id}" plugin is unloaded`);
-      resolve();
     } catch (err) {
       console.log('[YTMusic]', `Cannot unload "${id}" plugin: ${String(err)}`);
       reject(err);
@@ -87,14 +93,20 @@ export const forceLoadMainPlugin = async (
         ctx: 'backend',
         context: createContext(id, win),
       });
-      if (!hasStarted) {
-        console.log('[YTMusic]', `Cannot load "${id}" plugin`);
-        reject();
-        return;
+      if (
+        hasStarted ||
+        (
+          hasStarted === null &&
+          typeof plugin.backend !== 'function' && plugin.backend
+        )
+      ) {
+        loadedPluginMap[id] = plugin;
+        resolve();
       }
 
-      loadedPluginMap[id] = plugin;
-      resolve();
+      console.log('[YTMusic]', `Cannot load "${id}" plugin`);
+      reject();
+      return;
     } catch (err) {
       console.error(
         '[YTMusic]',

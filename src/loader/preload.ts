@@ -21,11 +21,18 @@ export const forceUnloadPreloadPlugin = (id: string) => {
     ctx: 'preload',
     context: createContext(id),
   });
-  if (!hasStopped) {
-    console.log('[YTMusic]', `Cannot stop "${id}" plugin`);
-    return;
+  if (
+    hasStopped ||
+    (
+      hasStopped === null &&
+      typeof loadedPluginMap[id].preload !== 'function' && loadedPluginMap[id].preload
+    )
+  ) {
+    console.log('[YTMusic]', `"${id}" plugin is unloaded`);
+    delete loadedPluginMap[id];
+  } else {
+    console.error('[YTMusic]', `Cannot stop "${id}" plugin`);
   }
-  console.log('[YTMusic]', `"${id}" plugin is unloaded`);
 };
 
 export const forceLoadPreloadPlugin = (id: string) => {
@@ -38,7 +45,15 @@ export const forceLoadPreloadPlugin = (id: string) => {
       context: createContext(id),
     });
 
-    if (hasStarted) loadedPluginMap[id] = plugin;
+    if (
+      hasStarted ||
+      (
+        hasStarted === null &&
+        typeof plugin.preload !== 'function' && plugin.preload
+      )
+    ) {
+      loadedPluginMap[id] = plugin;
+    }
 
     console.log('[YTMusic]', `"${id}" plugin is loaded`);
   } catch (err) {

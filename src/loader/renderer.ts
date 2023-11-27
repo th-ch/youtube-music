@@ -40,11 +40,21 @@ export const forceUnloadRendererPlugin = (id: string) => {
   const plugin = rendererPlugins[id];
   if (!plugin) return;
 
-  stopPlugin(id, plugin, { ctx: 'renderer', context: createContext(id) });
-  if (plugin?.stylesheets)
+  const hasStopped = stopPlugin(id, plugin, { ctx: 'renderer', context: createContext(id) });
+  if (plugin?.stylesheets) {
     document.querySelector(`style#plugin-${id}`)?.remove();
-
-  console.log('[YTMusic]', `"${id}" plugin is unloaded`);
+  }
+  if (
+    hasStopped ||
+    (
+      hasStopped === null &&
+      typeof plugin?.renderer !== 'function' && plugin?.renderer
+    )
+  ) {
+    console.log('[YTMusic]', `"${id}" plugin is unloaded`);
+  } else {
+    console.error('[YTMusic]', `Cannot stop "${id}" plugin`);
+  }
 };
 
 export const forceLoadRendererPlugin = (id: string) => {
@@ -56,7 +66,14 @@ export const forceLoadRendererPlugin = (id: string) => {
     context: createContext(id),
   });
 
-  if (hasEvaled || plugin?.stylesheets) {
+  if (
+    hasEvaled ||
+    plugin?.stylesheets ||
+    (
+      hasEvaled === null &&
+      typeof plugin?.renderer !== 'function' && plugin?.renderer
+    )
+  ) {
     loadedPluginMap[id] = plugin;
 
     if (plugin?.stylesheets) {
@@ -70,7 +87,7 @@ export const forceLoadRendererPlugin = (id: string) => {
       document.adoptedStyleSheets = [...document.adoptedStyleSheets, ...styleSheetList];
     }
 
-    if (!hasEvaled) console.log('[YTMusic]', `"${id}" plugin is loaded`);
+    console.log('[YTMusic]', `"${id}" plugin is loaded`);
   } else {
     console.log('[YTMusic]', `Cannot initialize "${id}" plugin`);
   }
