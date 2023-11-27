@@ -84,14 +84,21 @@ export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
   );
 
   const availablePlugins = Object.keys(allPlugins);
-  const pluginMenus = availablePlugins.map((id) => {
-    const predefinedTemplate = menuResult.find((it) => it[0] === id);
-    if (predefinedTemplate) return predefinedTemplate[1];
+  const pluginMenus = availablePlugins
+    .sort((a, b) => {
+      const aPluginLabel = allPlugins[a]?.name ?? a;
+      const bPluginLabel = allPlugins[b]?.name ?? b;
 
-    const pluginLabel = allPlugins[id]?.name ?? id;
+      return aPluginLabel.localeCompare(bPluginLabel);
+    })
+    .map((id) => {
+      const predefinedTemplate = menuResult.find((it) => it[0] === id);
+      if (predefinedTemplate) return predefinedTemplate[1];
 
-    return pluginEnabledMenu(id, pluginLabel, true, innerRefreshMenu);
-  });
+      const pluginLabel = allPlugins[id]?.name ?? id;
+
+      return pluginEnabledMenu(id, pluginLabel, true, innerRefreshMenu);
+    });
 
   return [
     {
