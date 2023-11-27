@@ -118,10 +118,7 @@ export default createPlugin({
             fastAverageColor.getColorAsync(thumbnail.url)
               .then((albumColor) => {
                 if (albumColor) {
-                  const [hue, saturation, lightness] = this.hexToHSL(albumColor.hex);
-                  this.hue = hue;
-                  this.saturation = saturation;
-                  this.lightness = lightness;
+                  const [hue, saturation, lightness] = [this.hue, this.saturation, this.lightness] = this.hexToHSL(albumColor.hex);
                   this.changeElementColor(this.playerPage, hue, saturation, lightness - 30);
                   this.changeElementColor(this.navBarBackground, hue, saturation, lightness - 15);
                   this.changeElementColor(this.ytmusicPlayerBar, hue, saturation, lightness - 15);
