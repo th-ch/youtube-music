@@ -22,6 +22,9 @@ dependencies:
   '@electron-toolkit/tsconfig':
     specifier: ^1.0.1
     version: 1.0.1(@types/node@20.8.6)
+  '@electron/remote':
+    specifier: 2.1.0
+    version: 2.1.0(electron@27.0.4)
   '@ffmpeg.wasm/core-mt':
     specifier: 0.12.0
     version: 0.12.0
@@ -567,6 +570,14 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /@electron/remote@2.1.0(electron@27.0.4):
+    resolution: {integrity: sha512-38jzz2beoYTo0DNS+aoaGyLS/fHeNTAc1Aom6HlYsxKnvVWjcg4xriC7J2IUkYSEDHGKX/D7jUst+mH4dHR6QA==}
+    peerDependencies:
+      electron: '>= 13.0.0'
+    dependencies:
+      electron: 27.0.4
+    dev: false
 
   /@electron/universal@1.4.5:
     resolution: {integrity: sha512-3vE9WBQnvlulKylrPbyc+9M4xnD7t1JxuCOF0nrFz00XrrkgbqeqxDf90PNcjLiuB4hAZKr1JooVA6KwsXj94w==}

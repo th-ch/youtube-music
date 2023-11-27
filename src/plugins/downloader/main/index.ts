@@ -36,7 +36,7 @@ import { cache } from '@/providers/decorators';
 
 import { YoutubeFormatList, type Preset, DefaultPresetList } from '../types';
 
-import { defaultConfig, type DownloaderPluginConfig } from '../index';
+import type { DownloaderPluginConfig } from '../index';
 
 import type { BackendContext } from '@/types/contexts';
 
@@ -91,7 +91,7 @@ export const getCookieFromWindow = async (win: BrowserWindow) => {
     .join(';');
 };
 
-let config: DownloaderPluginConfig = defaultConfig;
+let config: DownloaderPluginConfig;
 
 export const onMainLoad = async ({ window: _win, getConfig, ipc }: BackendContext<DownloaderPluginConfig>) => {
   win = _win;

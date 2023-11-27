@@ -42,7 +42,7 @@ export const startPlugin = <Config extends PluginConfig>(id: string, def: Plugin
 
   try {
     const start = performance.now();
-    lifecycle(options.context as Config & typeof options.context);
+    lifecycle.bind(def[options.ctx])(options.context as Config & typeof options.context);
 
     console.log(`[YTM] Executed ${id}::${options.ctx} in ${performance.now() - start} ms`);
 
@@ -62,7 +62,7 @@ export const stopPlugin = <Config extends PluginConfig>(id: string, def: PluginD
 
   try {
     const start = performance.now();
-    stop(options.context as Config & typeof options.context);
+    stop.bind(def[options.ctx])(options.context as Config & typeof options.context);
 
     console.log(`[YTM] Executed ${id}::${options.ctx} in ${performance.now() - start} ms`);
 

@@ -35,7 +35,8 @@ export const forceLoadMenuPlugin = async (id: string, win: BrowserWindow) => {
 
     console.log('[YTMusic]', `Successfully loaded '${id}::menu'`);
   } catch (err) {
-    console.log('[YTMusic]', `Cannot initialize '${id}::menu': ${String(err)}`);
+    console.error('[YTMusic]', `Cannot initialize '${id}::menu': `);
+    console.trace(err);
   }
 };
 

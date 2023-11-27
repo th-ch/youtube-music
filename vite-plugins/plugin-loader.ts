@@ -2,7 +2,7 @@ import { readFile } from 'node:fs/promises';
 import { resolve, basename } from 'node:path';
 
 import { createFilter } from 'vite';
-import { Project, ts, ObjectLiteralExpression } from 'ts-morph';
+import { Project, ts, ObjectLiteralExpression, VariableDeclarationKind } from 'ts-morph';
 
 import type { PluginOption } from 'vite';
 
@@ -78,7 +78,7 @@ export default function (mode: 'backend' | 'preload' | 'renderer' | 'none'): Plu
         }
       });
 
-      const contexts = ['backend', 'preload', 'renderer'];
+      const contexts = ['backend', 'preload', 'renderer', 'menu'];
       for (const ctx of contexts) {
         if (mode === 'none') {
           const index = propertyNames.indexOf(ctx);
@@ -89,11 +89,51 @@ export default function (mode: 'backend' | 'preload' | 'renderer' | 'none'): Plu
         }
 
         if (ctx === mode) continue;
+        if (ctx === 'menu' && mode === 'backend') continue;
 
         const index = propertyNames.indexOf(ctx);
         if (index === -1) continue;
 
         objExpr.getProperty(propertyNames[index])?.remove();
+      }
+
+      const stubObjExpr = src.addVariableStatement({
+        isExported: true,
+        declarationKind: VariableDeclarationKind.Const,
+        declarations: [{
+          name: 'pluginStub',
+          initializer: (writer) => writer.write(objExpr!.getText()),
+        }]
+      })
+        .getDeclarations()[0]
+        .getInitializer() as ObjectLiteralExpression;
+
+      const stubProperties = stubObjExpr.getProperties();
+      const stubPropertyNames = stubProperties.map((prop) => {
+        switch (prop.getKind()) {
+          case ts.SyntaxKind.PropertyAssignment:
+            return prop
+              .asKindOrThrow(ts.SyntaxKind.PropertyAssignment)
+              .getName();
+          case ts.SyntaxKind.ShorthandPropertyAssignment:
+            return prop
+              .asKindOrThrow(ts.SyntaxKind.ShorthandPropertyAssignment)
+              .getName();
+          case ts.SyntaxKind.MethodDeclaration:
+            return prop
+              .asKindOrThrow(ts.SyntaxKind.MethodDeclaration)
+              .getName();
+          default:
+            throw new Error('Not implemented');
+        }
+      });
+
+      if (mode === 'backend') contexts.pop();
+      for (const ctx of contexts) {
+        const index = stubPropertyNames.indexOf(ctx);
+        if (index === -1) continue;
+
+        stubObjExpr.getProperty(stubPropertyNames[index])?.remove();
       }
 
       return {

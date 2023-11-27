@@ -78,7 +78,7 @@ function onApiLoaded() {
   Object.entries(getAllLoadedRendererPlugins())
     .forEach(([id, plugin]) => {
       if (typeof plugin.renderer !== 'function') {
-        plugin.renderer?.onPlayerApiReady?.(api!, createContext(id));
+        plugin.renderer?.onPlayerApiReady?.bind(plugin.renderer)?.(api!, createContext(id));
       }
     });
 
@@ -135,7 +135,7 @@ function onApiLoaded() {
       if (api) {
         const plugin = getLoadedRendererPlugin(id);
         if (plugin && typeof plugin.renderer !== 'function') {
-          plugin.renderer?.onPlayerApiReady?.(api, createContext(id));
+          plugin.renderer?.onPlayerApiReady?.bind(plugin.renderer)?.(api, createContext(id));
         }
       }
     },
@@ -146,7 +146,7 @@ function onApiLoaded() {
     (_event, id: string, newConfig: PluginConfig) => {
       const plugin = getAllLoadedRendererPlugins()[id];
       if (plugin && typeof plugin.renderer !== 'function') {
-        plugin.renderer?.onConfigChange?.(newConfig);
+        plugin.renderer?.onConfigChange?.bind(plugin.renderer)?.(newConfig);
       }
     },
   );

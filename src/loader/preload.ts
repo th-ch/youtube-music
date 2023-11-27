@@ -42,10 +42,11 @@ export const forceLoadPreloadPlugin = (id: string) => {
 
     console.log('[YTMusic]', `"${id}" plugin is loaded`);
   } catch (err) {
-    console.log(
+    console.error(
       '[YTMusic]',
-      `Cannot initialize "${id}" plugin: ${String(err)}`,
+      `Cannot initialize "${id}" plugin: `,
     );
+    console.trace(err);
   }
 };
 

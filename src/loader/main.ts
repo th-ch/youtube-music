@@ -96,16 +96,18 @@ export const forceLoadMainPlugin = async (
       loadedPluginMap[id] = plugin;
       resolve();
     } catch (err) {
-      console.log(
+      console.error(
         '[YTMusic]',
-        `Cannot initialize "${id}" plugin: ${String(err)}`,
+        `Cannot initialize "${id}" plugin: `,
       );
+      console.trace(err);
       reject(err);
     }
   });
 };
 
 export const loadAllMainPlugins = async (win: BrowserWindow) => {
+  console.log('[YTMusic]', 'Loading all plugins');
   const pluginConfigs = config.plugins.getPlugins();
   const queue: Promise<void>[] = [];
 
@@ -118,7 +120,7 @@ export const loadAllMainPlugins = async (win: BrowserWindow) => {
     }
   }
 
-  await Promise.all(queue);
+  await Promise.allSettled(queue);
 };
 
 export const unloadAllMainPlugins = (win: BrowserWindow) => {

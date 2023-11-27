@@ -7,7 +7,7 @@ const snakeToCamel = (text: string) =>
   text.replace(/-(\w)/g, (_, letter: string) => letter.toUpperCase());
 
 export const pluginVirtualModuleGenerator = (
-  mode: 'main' | 'preload' | 'renderer' | 'menu',
+  mode: 'main' | 'preload' | 'renderer',
 ) => {
   const project = new Project({
     tsConfigFilePath: resolve(__dirname, '..', 'tsconfig.json'),
@@ -37,7 +37,7 @@ export const pluginVirtualModuleGenerator = (
     // prettier-ignore
     for (const { name, path } of plugins) {
       const relativePath = relative(resolve(srcPath, '..'), path).replace(/\\/g, '/');
-      writer.writeLine(`import ${snakeToCamel(name)}Plugin from "./${relativePath}";`);
+      writer.writeLine(`import ${snakeToCamel(name)}Plugin, { pluginStub as ${snakeToCamel(name)}PluginStub } from "./${relativePath}";`);
     }
 
     writer.blankLine();
@@ -45,15 +45,17 @@ export const pluginVirtualModuleGenerator = (
     // Context-specific exports
     writer.writeLine(`export const ${mode}Plugins = {`);
     for (const { name } of plugins) {
-      writer.writeLine(`  "${name}": ${snakeToCamel(name)}Plugin,`);
+      const checkMode = mode === 'main' ? 'backend' : mode;
+      // HACK: To avoid situation like importing renderer plugins in main
+      writer.writeLine(`  ...(${snakeToCamel(name)}Plugin['${checkMode}'] ? { "${name}": ${snakeToCamel(name)}Plugin } : {}),`);
     }
     writer.writeLine('};');
     writer.blankLine();
 
-    // All plugins export
+    // All plugins export (stub only) // Omit<Plugin, 'backend' | 'preload' | 'renderer'>
     writer.writeLine('export const allPlugins = {');
     for (const { name } of plugins) {
-      writer.writeLine(`  "${name}": ${snakeToCamel(name)}Plugin,`);
+      writer.writeLine(`  "${name}": ${snakeToCamel(name)}PluginStub,`);
     }
     writer.writeLine('};');
     writer.blankLine();

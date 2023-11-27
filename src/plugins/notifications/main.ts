@@ -5,12 +5,12 @@ import is from 'electron-is';
 import { notificationImage } from './utils';
 import interactive from './interactive';
 
-import { defaultConfig, type NotificationsPluginConfig } from './index';
 import registerCallback, { type SongInfo } from '@/providers/song-info';
 
+import type { NotificationsPluginConfig } from './index';
 import type { BackendContext } from '@/types/contexts';
 
-let config: NotificationsPluginConfig = defaultConfig;
+let config: NotificationsPluginConfig;
 
 const notify = (info: SongInfo) => {
   // Send the notification

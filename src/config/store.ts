@@ -163,13 +163,7 @@ const migrations = {
 export default new Store({
   defaults: {
     ...defaults,
-    plugins: Object.entries(allPlugins).reduce(
-      (prev, [id, plugin]) => ({
-        ...prev,
-        [id]: plugin.config,
-      }),
-      {},
-    ),
+    // README: 'plugin' uses deepmerge to populate the default values, so it is not necessary to include it here
   },
   clearInvalidConfig: false,
   migrations,

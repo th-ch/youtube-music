@@ -4,7 +4,6 @@ declare module 'virtual:plugins' {
   type Plugin = PluginDef<unknown, unknown, unknown, PluginConfig>;
 
   export const mainPlugins: Record<string, Plugin>;
-  export const menuPlugins: Record<string, Plugin>;
   export const preloadPlugins: Record<string, Plugin>;
   export const rendererPlugins: Record<string, Plugin>;
 

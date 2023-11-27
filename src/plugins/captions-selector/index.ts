@@ -28,12 +28,11 @@ interface CaptionsSelectorConfig {
   lastCaptionsCode: string;
 }
 
-const captionsSettingsButton = ElementFromHtml(CaptionsSettingsButtonHTML);
-
 export default createPlugin<
   unknown,
   unknown,
   {
+    captionsSettingsButton: HTMLElement;
     captionTrackList: LanguageOptions[] | null;
     api: YoutubePlayer | null;
     config: CaptionsSelectorConfig | null;
@@ -98,6 +97,7 @@ export default createPlugin<
   },
 
   renderer: {
+    captionsSettingsButton: ElementFromHtml(CaptionsSettingsButtonHTML),
     captionTrackList: null,
     api: null,
     config: null,
@@ -133,7 +133,7 @@ export default createPlugin<
     captionsButtonClickListener() {
       if (this.config!.disableCaptions) {
         setTimeout(() => this.api!.unloadModule('captions'), 100);
-        captionsSettingsButton.style.display = 'none';
+        this.captionsSettingsButton.style.display = 'none';
         return;
       }
 
@@ -148,7 +148,7 @@ export default createPlugin<
           });
         }
 
-        captionsSettingsButton.style.display = this.captionTrackList?.length
+        this.captionsSettingsButton.style.display = this.captionTrackList?.length
           ? 'inline-block'
           : 'none';
       }, 250);
@@ -158,20 +158,20 @@ export default createPlugin<
       this.setConfig = setConfig;
     },
     stop() {
-      document.querySelector('.right-controls-buttons')?.removeChild(captionsSettingsButton);
+      document.querySelector('.right-controls-buttons')?.removeChild(this.captionsSettingsButton);
       document.querySelector<YoutubePlayer & HTMLElement>('#movie_player')?.unloadModule('captions');
       document.querySelector('video')?.removeEventListener('srcChanged', this.videoChangeListener);
-      captionsSettingsButton.removeEventListener('click', this.captionsButtonClickListener);
+      this.captionsSettingsButton.removeEventListener('click', this.captionsButtonClickListener);
     },
     onPlayerApiReady(playerApi) {
       this.api = playerApi;
 
-      document.querySelector('.right-controls-buttons')?.append(captionsSettingsButton);
+      document.querySelector('.right-controls-buttons')?.append(this.captionsSettingsButton);
 
       this.captionTrackList = this.api.getOption<LanguageOptions[]>('captions', 'tracklist') ?? [];
 
       document.querySelector('video')?.addEventListener('srcChanged', this.videoChangeListener);
-      captionsSettingsButton.addEventListener('click', this.captionsButtonClickListener);
+      this.captionsSettingsButton.addEventListener('click', this.captionsButtonClickListener);
     },
     onConfigChange(newConfig) {
       this.config = newConfig;

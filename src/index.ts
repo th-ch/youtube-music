@@ -163,7 +163,7 @@ const initHook = (win: BrowserWindow) => {
         const mainPlugin = getAllLoadedMainPlugins()[id];
         if (mainPlugin) {
           if (config.enabled && typeof mainPlugin.backend !== 'function') {
-            mainPlugin.backend?.onConfigChange?.(config);
+            mainPlugin.backend?.onConfigChange?.bind(mainPlugin.backend)?.(config);
           }
         }
 
