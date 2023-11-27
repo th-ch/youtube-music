@@ -1,20 +1,9 @@
 import Store from 'electron-store';
 import Conf from 'conf';
 
-import { allPlugins } from 'virtual:plugins';
-
 import defaults from './defaults';
 
 import { DefaultPresetList, type Preset } from '@/plugins/downloader/types';
-
-const setDefaultPluginOptions = (
-  store: Conf<Record<string, unknown>>,
-  plugin: string,
-) => {
-  if (!store.get(`plugins.${plugin}`)) {
-    store.set(`plugins.${plugin}`, allPlugins[plugin].config);
-  }
-};
 
 const migrations = {
   '>=2.1.3'(store: Conf<Record<string, unknown>>) {
@@ -50,12 +39,11 @@ const migrations = {
     }
   },
   '>=1.20.0'(store: Conf<Record<string, unknown>>) {
-    setDefaultPluginOptions(store, 'visualizer');
+    store.delete('plugins.visualizer'); // default value is now in the plugin
 
     if (store.get('plugins.notifications.toastStyle') === undefined) {
       const pluginOptions = store.get('plugins.notifications') || {};
       store.set('plugins.notifications', {
-        ...allPlugins.notifications.config,
         ...pluginOptions,
       });
     }
@@ -66,7 +54,7 @@ const migrations = {
     }
   },
   '>=1.17.0'(store: Conf<Record<string, unknown>>) {
-    setDefaultPluginOptions(store, 'picture-in-picture');
+    store.delete('plugins.picture-in-picture'); // default value is now in the plugin
 
     if (store.get('plugins.video-toggle.mode') === undefined) {
       store.set('plugins.video-toggle.mode', 'custom');
