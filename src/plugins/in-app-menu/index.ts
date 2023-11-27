@@ -1,8 +1,8 @@
 import titlebarStyle from './titlebar.css?inline';
 import { createPlugin } from '@/utils';
-import { onMainLoad } from '@/plugins/in-app-menu/main';
-import { onMenu } from '@/plugins/in-app-menu/menu';
-import { onPlayerApiReady, onRendererLoad } from '@/plugins/in-app-menu/renderer';
+import { onMainLoad } from './main';
+import { onMenu } from './menu';
+import { onPlayerApiReady, onRendererLoad } from './renderer';
 
 export interface InAppMenuConfig {
   enabled: boolean;

@@ -1,9 +1,9 @@
 import { blockers } from './types';
 import { createPlugin } from '@/utils';
-import { isBlockerEnabled, loadAdBlockerEngine, unloadAdBlockerEngine } from '@/plugins/adblocker/blocker';
+import { isBlockerEnabled, loadAdBlockerEngine, unloadAdBlockerEngine } from './blocker';
 
-import injectCliqzPreload from '@/plugins/adblocker/injectors/inject-cliqz-preload';
-import { inject, isInjected } from '@/plugins/adblocker/injectors/inject';
+import injectCliqzPreload from './injectors/inject-cliqz-preload';
+import { inject, isInjected } from './injectors/inject';
 
 import type { BrowserWindow } from 'electron';
 

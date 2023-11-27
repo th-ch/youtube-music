@@ -1,26 +1,41 @@
 import style from './style.css?inline';
-
-import { createPluginBuilder } from '../utils/builder';
+import { createPlugin } from '@/utils';
+import { onConfigChange, onMainLoad } from './main';
+import { onRendererLoad } from './renderer';
 
 export type LyricsGeniusPluginConfig = {
   enabled: boolean;
   romanizedLyrics: boolean;
 }
 
-const builder = createPluginBuilder('lyrics-genius', {
+export default createPlugin({
   name: 'Lyrics Genius',
   restartNeeded: true,
   config: {
     enabled: false,
     romanizedLyrics: false,
   } as LyricsGeniusPluginConfig,
-  styles: [style],
+  stylesheets: [style],
+  async menu({ getConfig, setConfig }) {
+    const config = await getConfig();
+
+    return [
+      {
+        label: 'Romanized Lyrics',
+        type: 'checkbox',
+        checked: config.romanizedLyrics,
+        click(item) {
+          setConfig({
+            romanizedLyrics: item.checked,
+          });
+        },
+      },
+    ];
+  },
+
+  backend: {
+    start: onMainLoad,
+    onConfigChange,
+  },
+  renderer: onRendererLoad,
 });
-
-export default builder;
-
-declare global {
-  interface PluginBuilderList {
-    [builder.id]: typeof builder;
-  }
-}

@@ -1,10 +1,9 @@
-import { overrideListener } from './override';
+import { type PreciseVolumePluginConfig } from './index';
 
-import builder, { type PreciseVolumePluginConfig } from './index';
+import { debounce } from '@/providers/decorators';
 
-import { debounce } from '../../providers/decorators';
-
-import type { YoutubePlayer } from '../../types/youtube-player';
+import type { RendererContext } from '@/types/contexts';
+import type { YoutubePlayer } from '@/types/youtube-player';
 
 function $<E extends Element = Element>(selector: string) {
   return document.querySelector<E>(selector);
@@ -23,12 +22,14 @@ export const moveVolumeHud = debounce((showVideo: boolean) => {
     : '0';
 }, 250);
 
-export default builder.createRenderer(async ({ on, getConfig, setConfig }) => {
-  let options: PreciseVolumePluginConfig = await getConfig();
+let options: PreciseVolumePluginConfig;
+
+export const onPlayerApiReady = (playerApi: YoutubePlayer, context: RendererContext<PreciseVolumePluginConfig>) => {
+  api = playerApi;
 
   // Without this function it would rewrite config 20 time when volume change by 20
   const writeOptions = debounce(() => {
-    setConfig(options);
+    context.setConfig(options);
   }, 1000);
 
   const hideVolumeHud = debounce((volumeHud: HTMLElement) => {
@@ -254,20 +255,12 @@ export default builder.createRenderer(async ({ on, getConfig, setConfig }) => {
     }
   }
 
+  context.ipc.on('changeVolume', (toIncrease: boolean) => changeVolume(toIncrease));
+  context.ipc.on('setVolume', (value: number) => setVolume(value));
 
-  return {
-    onLoad() {
-      overrideListener();
-    },
-    onPlayerApiReady(playerApi) {
-      api = playerApi;
+  firstRun();
+};
 
-      on('changeVolume', (toIncrease: boolean) => changeVolume(toIncrease));
-      on('setVolume', (value: number) => setVolume(value));
-      firstRun();
-    },
-    onConfigChange(config) {
-      options = config;
-    }
-  };
-});
+export const onConfigChange = (config: PreciseVolumePluginConfig) => {
+  options = config;
+};

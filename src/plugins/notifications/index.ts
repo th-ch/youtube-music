@@ -1,36 +1,46 @@
-import { createPluginBuilder } from '../utils/builder';
+import { createPlugin } from '@/utils';
+
+import { onConfigChange, onMainLoad } from './main';
+import { onMenu } from './menu';
 
 export interface NotificationsPluginConfig {
   enabled: boolean;
   unpauseNotification: boolean;
+  /**
+   * Has effect only on Linux
+   */
   urgency: 'low' | 'normal' | 'critical';
+  /**
+   * the following has effect only on Windows
+   */
   interactive: boolean;
+  /**
+   * See plugins/notifications/utils for more info
+   */
   toastStyle: number;
   refreshOnPlayPause: boolean;
   trayControls: boolean;
   hideButtonText: boolean;
 }
 
-const builder = createPluginBuilder('notifications', {
+export const defaultConfig: NotificationsPluginConfig = {
+  enabled: false,
+  unpauseNotification: false,
+  urgency: 'normal',
+  interactive: true,
+  toastStyle: 1,
+  refreshOnPlayPause: false,
+  trayControls: true,
+  hideButtonText: false,
+};
+
+export default createPlugin({
   name: 'Notifications',
   restartNeeded: true,
-  config: {
-    enabled: false,
-    unpauseNotification: false,
-    urgency: 'normal', // Has effect only on Linux
-    // the following has effect only on Windows
-    interactive: true,
-    toastStyle: 1, // See plugins/notifications/utils for more info
-    refreshOnPlayPause: false,
-    trayControls: true,
-    hideButtonText: false,
-  } as NotificationsPluginConfig,
+  config: defaultConfig,
+  menu: onMenu,
+  backend: {
+    start: onMainLoad,
+    onConfigChange,
+  },
 });
-
-export default builder;
-
-declare global {
-  interface PluginBuilderList {
-    [builder.id]: typeof builder;
-  }
-}

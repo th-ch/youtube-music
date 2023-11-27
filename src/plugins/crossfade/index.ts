@@ -8,7 +8,7 @@ import { Howl } from 'howler';
 import promptOptions from '@/providers/prompt-options';
 import { getNetFetchAsFetch } from '@/plugins/utils/main';
 import { createPlugin } from '@/utils';
-import { VolumeFader } from '@/plugins/crossfade/fader';
+import { VolumeFader } from './fader';
 
 import type { RendererContext } from '@/types/contexts';
 

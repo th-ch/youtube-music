@@ -1,6 +1,7 @@
 import { startingPages } from './providers/extracted-data';
 import setupSongInfo from './providers/song-info-front';
 import {
+  createContext,
   forceLoadRendererPlugin,
   forceUnloadRendererPlugin,
   getAllLoadedRendererPlugins,
@@ -74,10 +75,10 @@ function onApiLoaded() {
     { passive: true },
   );
 
-  Object.values(getAllLoadedRendererPlugins())
-    .forEach((plugin) => {
+  Object.entries(getAllLoadedRendererPlugins())
+    .forEach(([id, plugin]) => {
       if (typeof plugin.renderer !== 'function') {
-        plugin.renderer?.onPlayerApiReady?.(api!);
+        plugin.renderer?.onPlayerApiReady?.(api!, createContext(id));
       }
     });
 
@@ -134,7 +135,7 @@ function onApiLoaded() {
       if (api) {
         const plugin = getLoadedRendererPlugin(id);
         if (plugin && typeof plugin.renderer !== 'function') {
-          plugin.renderer?.onPlayerApiReady?.(api);
+          plugin.renderer?.onPlayerApiReady?.(api, createContext(id));
         }
       }
     },

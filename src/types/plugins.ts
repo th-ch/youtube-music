@@ -18,10 +18,13 @@ export type PluginLifecycleExtra<Config, Context, This> = This & {
   start?: PluginLifecycleSimple<Context, This>;
   stop?: PluginLifecycleSimple<Context, This>;
   onConfigChange?: (this: This, newConfig: Config) => void | Promise<void>;
-  onPlayerApiReady?: (this: This, playerApi: YoutubePlayer) => void | Promise<void>;
 };
+export type RendererPluginLifecycleExtra<Config, Context, This> = This & PluginLifecycleExtra<Config, Context, This> & {
+  onPlayerApiReady?: (this: This, playerApi: YoutubePlayer, context: Context) => void | Promise<void>;
+}
 
 export type PluginLifecycle<Config, Context, This> = PluginLifecycleSimple<Context, This> | PluginLifecycleExtra<Config, Context, This>;
+export type RendererPluginLifecycle<Config, Context, This> = PluginLifecycleSimple<Context, This> | RendererPluginLifecycleExtra<Config, Context, This>;
 
 export interface PluginDef<
   BackendProperties,
@@ -46,5 +49,5 @@ export interface PluginDef<
   } & PluginLifecycle<Config, PreloadContext<Config>, PreloadProperties>;
   renderer?: {
     [Key in keyof RendererProperties]: RendererProperties[Key]
-  } & PluginLifecycle<Config, RendererContext<Config>, RendererProperties>;
+  } & RendererPluginLifecycle<Config, RendererContext<Config>, RendererProperties>;
 }

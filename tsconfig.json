@@ -17,7 +17,7 @@
     "skipLibCheck": true,
     "paths": {
       "@/*": ["./src/*"],
-      "@assets": ["./assets/*"]
+      "@assets/*": ["./assets/*"]
     }
   },
   "exclude": ["./dist"],

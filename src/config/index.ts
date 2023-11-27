@@ -6,7 +6,7 @@ import defaultConfig from './defaults';
 import store from './store';
 import plugins from './plugins';
 
-import { restart } from '../providers/app-controls';
+import { restart } from '@/providers/app-controls';
 
 const set = (key: string, value: unknown) => {
   store.set(key, value);

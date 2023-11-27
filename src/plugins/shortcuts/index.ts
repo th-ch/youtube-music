@@ -1,4 +1,6 @@
-import { createPluginBuilder } from '../utils/builder';
+import { createPlugin } from '@/utils';
+import { onMainLoad } from './main';
+import { onMenu } from './menu';
 
 export type ShortcutMappingType = {
   previous: string;
@@ -12,7 +14,7 @@ export type ShortcutsPluginConfig = {
   local: ShortcutMappingType;
 }
 
-const builder = createPluginBuilder('shortcuts', {
+export default createPlugin({
   name: 'Shortcuts (& MPRIS)',
   restartNeeded: true,
   config: {
@@ -29,12 +31,7 @@ const builder = createPluginBuilder('shortcuts', {
       next: '',
     },
   } as ShortcutsPluginConfig,
+  menu: onMenu,
+
+  backend: onMainLoad,
 });
-
-export default builder;
-
-declare global {
-  interface PluginBuilderList {
-    [builder.id]: typeof builder;
-  }
-}

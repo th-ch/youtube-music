@@ -1,6 +1,6 @@
 import { createPlugin } from '@/utils';
-import { onLoad, onUnload } from '@/plugins/discord/main';
-import {onMenu} from "@/plugins/discord/menu";
+import { onLoad, onUnload } from './main';
+import { onMenu } from './menu';
 
 export type DiscordPluginConfig = {
   enabled: boolean;

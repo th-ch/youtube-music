@@ -37,7 +37,7 @@ import { BackendContext } from '@/types/contexts';
 
 import { YoutubeFormatList, type Preset, DefaultPresetList } from '../types';
 
-import { DownloaderPluginConfig } from '../index';
+import { defaultConfig, type DownloaderPluginConfig } from '../index';
 
 import type { FormatOptions } from 'youtubei.js/dist/src/types/FormatUtils';
 import type PlayerErrorMessage from 'youtubei.js/dist/src/parser/classes/PlayerErrorMessage';
@@ -90,7 +90,7 @@ export const getCookieFromWindow = async (win: BrowserWindow) => {
     .join(';');
 };
 
-let config: DownloaderPluginConfig;
+let config: DownloaderPluginConfig = defaultConfig;
 
 export const onMainLoad = async ({ window: _win, getConfig, ipc }: BackendContext<DownloaderPluginConfig>) => {
   win = _win;

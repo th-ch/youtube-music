@@ -1,20 +1,24 @@
 import style from './style.css?inline';
+import { createPlugin } from '@/utils';
+import { ElementFromHtml } from '@/plugins/utils/renderer';
 
-import { createPluginBuilder } from '../utils/builder';
+import forwardHTML from './templates/forward.html?raw';
+import backHTML from './templates/back.html?raw';
 
-const builder = createPluginBuilder('navigation', {
+export default createPlugin({
   name: 'Navigation',
   restartNeeded: true,
   config: {
     enabled: false,
   },
-  styles: [style],
+  stylesheets: [style],
+  renderer() {
+    const forwardButton = ElementFromHtml(forwardHTML);
+    const backButton = ElementFromHtml(backHTML);
+    const menu = document.querySelector('#right-content');
+
+    if (menu) {
+      menu.prepend(backButton, forwardButton);
+    }
+  },
 });
-
-export default builder;
-
-declare global {
-  interface PluginBuilderList {
-    [builder.id]: typeof builder;
-  }
-}

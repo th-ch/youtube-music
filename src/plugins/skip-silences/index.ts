@@ -1,23 +1,20 @@
-import { createPluginBuilder } from '../utils/builder';
+import { createPlugin } from '@/utils';
+import { onRendererLoad, onRendererUnload } from './renderer';
 
 export type SkipSilencesPluginConfig = {
   enabled: boolean;
   onlySkipBeginning: boolean;
 };
 
-const builder = createPluginBuilder('skip-silences', {
+export default createPlugin({
   name: 'Skip Silences',
   restartNeeded: true,
   config: {
     enabled: false,
     onlySkipBeginning: false,
   } as SkipSilencesPluginConfig,
-});
-
-export default builder;
-
-declare global {
-  interface PluginBuilderList {
-    [builder.id]: typeof builder;
+  renderer: {
+    start: onRendererLoad,
+    stop: onRendererUnload,
   }
-}
+});

@@ -9,14 +9,12 @@ import {
 } from 'electron';
 import prompt from 'custom-electron-prompt';
 
+import { allPlugins } from 'virtual:plugins';
+
 import { restart } from './providers/app-controls';
 import config from './config';
 import { startingPages } from './providers/extracted-data';
 import promptOptions from './providers/prompt-options';
-
-/* eslint-disable import/order */
-import { allPlugins } from 'virtual:plugins';
-/* eslint-enable import/order */
 
 import { getAllMenuTemplate, loadAllMenuPlugins } from './loader/menu';
 

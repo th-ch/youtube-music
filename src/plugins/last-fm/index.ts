@@ -1,4 +1,6 @@
-import { createPluginBuilder } from '../utils/builder';
+import { createPlugin } from '@/utils';
+import registerCallback from '@/providers/song-info';
+import { addScrobble, getAndSetSessionKey, setNowPlaying } from './main';
 
 export interface LastFmPluginConfig {
   enabled: boolean;
@@ -30,7 +32,7 @@ export interface LastFmPluginConfig {
   secret: string;
 }
 
-const builder = createPluginBuilder('last-fm', {
+export default createPlugin({
   name: 'Last.fm',
   restartNeeded: true,
   config: {
@@ -39,12 +41,34 @@ const builder = createPluginBuilder('last-fm', {
     api_key: '04d76faaac8726e60988e14c105d421a',
     secret: 'a5d2a36fdf64819290f6982481eaffa2',
   } as LastFmPluginConfig,
-});
+  async backend({ getConfig, setConfig }) {
+    let config = await getConfig();
+    // This will store the timeout that will trigger addScrobble
+    let scrobbleTimer: number | undefined;
 
-export default builder;
+    if (!config.api_root) {
+      config.enabled = true;
+      setConfig(config);
+    }
 
-declare global {
-  interface PluginBuilderList {
-    [builder.id]: typeof builder;
+    if (!config.session_key) {
+      // Not authenticated
+      config = await getAndSetSessionKey(config, setConfig);
+    }
+
+    registerCallback((songInfo) => {
+      // Set remove the old scrobble timer
+      clearTimeout(scrobbleTimer);
+      if (!songInfo.isPaused) {
+        setNowPlaying(songInfo, config, setConfig);
+        // Scrobble when the song is halfway through, or has passed the 4-minute mark
+        const scrobbleTime = Math.min(Math.ceil(songInfo.songDuration / 2), 4 * 60);
+        if (scrobbleTime > (songInfo.elapsedSeconds ?? 0)) {
+          // Scrobble still needs to happen
+          const timeToWait = (scrobbleTime - (songInfo.elapsedSeconds ?? 0)) * 1000;
+          scrobbleTimer = setTimeout(addScrobble, timeToWait, songInfo, config);
+        }
+      }
+    });
   }
-}
+});

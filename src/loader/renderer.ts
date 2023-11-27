@@ -10,7 +10,7 @@ import { startPlugin, stopPlugin } from '@/utils';
 const unregisterStyleMap: Record<string, (() => void)[]> = {};
 const loadedPluginMap: Record<string, PluginDef<unknown, unknown, unknown>> = {};
 
-const createContext = <Config extends PluginConfig>(id: string): RendererContext<Config> => ({
+export const createContext = <Config extends PluginConfig>(id: string): RendererContext<Config> => ({
   getConfig: () => window.mainConfig.plugins.getOptions(id),
   setConfig: async (newConfig) => {
     await window.ipcRenderer.invoke('set-config', id, newConfig);

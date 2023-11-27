@@ -5,11 +5,12 @@ import is from 'electron-is';
 import { notificationImage } from './utils';
 import interactive from './interactive';
 
-import builder, { NotificationsPluginConfig } from './index';
+import { defaultConfig, type NotificationsPluginConfig } from './index';
+import registerCallback, { type SongInfo } from '@/providers/song-info';
 
-import registerCallback, { SongInfo } from '../../providers/song-info';
+import type { BackendContext } from '@/types/contexts';
 
-let config: NotificationsPluginConfig = builder.config;
+let config: NotificationsPluginConfig = defaultConfig;
 
 const notify = (info: SongInfo) => {
   // Send the notification
@@ -42,17 +43,14 @@ const setup = () => {
   });
 };
 
-export default builder.createMain((context) => {
-  return {
-    async onLoad(win) {
-      config = await context.getConfig();
+export const onMainLoad = async (context: BackendContext<NotificationsPluginConfig>) => {
+  config = await context.getConfig();
 
-      // Register the callback for new song information
-      if (is.windows() && config.interactive) interactive(win, () => config, context);
-      else setup();
-    },
-    onConfigChange(newConfig) {
-      config = newConfig;
-    }
-  };
-});
+  // Register the callback for new song information
+  if (is.windows() && config.interactive) interactive(context.window, () => config, context);
+  else setup();
+};
+
+export const onConfigChange = (newConfig: NotificationsPluginConfig) => {
+  config = newConfig;
+};

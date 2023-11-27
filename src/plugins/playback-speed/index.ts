@@ -1,17 +1,14 @@
-import { createPluginBuilder } from '../utils/builder';
+import { createPlugin } from '@/utils';
+import { onPlayerApiReady, onUnload } from './renderer';
 
-const builder = createPluginBuilder('playback-speed', {
+export default createPlugin({
   name: 'Playback Speed',
   restartNeeded: false,
   config: {
     enabled: false,
   },
-});
-
-export default builder;
-
-declare global {
-  interface PluginBuilderList {
-    [builder.id]: typeof builder;
+  renderer: {
+    stop: onUnload,
+    onPlayerApiReady,
   }
-}
+});

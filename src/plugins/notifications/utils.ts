@@ -3,12 +3,12 @@ import fs from 'node:fs';
 
 import { app, NativeImage } from 'electron';
 
-import { cache } from '../../providers/decorators';
-import { SongInfo } from '../../providers/song-info';
+import youtubeMusicIcon from '@assets/youtube-music.png?asset&asarUnpack';
 
-import youtubeMusicIcon from '../../../assets/youtube-music.png?asset&asarUnpack';
-import {NotificationsPluginConfig} from "./index";
+import { cache } from '@/providers/decorators';
+import { SongInfo } from '@/providers/song-info';
 
+import type { NotificationsPluginConfig } from './index';
 
 const userData = app.getPath('userData');
 const temporaryIcon = path.join(userData, 'tempIcon.png');

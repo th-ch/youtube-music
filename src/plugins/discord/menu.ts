@@ -3,11 +3,10 @@ import prompt from 'custom-electron-prompt';
 import { clear, connect, isConnected, registerRefresh } from './main';
 
 import { singleton } from '@/providers/decorators';
+import promptOptions from '@/providers/prompt-options';
 import { setMenuOptions } from '@/config/plugins';
 import { MenuContext } from '@/types/contexts';
 import { DiscordPluginConfig } from '@/plugins/discord/index';
-
-import promptOptions from '../../providers/prompt-options';
 
 import type { MenuTemplate } from '@/menu';
 

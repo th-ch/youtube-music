@@ -5,7 +5,7 @@ import { allPlugins } from 'virtual:plugins';
 
 import defaults from './defaults';
 
-import { DefaultPresetList, type Preset } from '../plugins/downloader/types';
+import { DefaultPresetList, type Preset } from '@/plugins/downloader/types';
 
 const setDefaultPluginOptions = (
   store: Conf<Record<string, unknown>>,

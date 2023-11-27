@@ -4,7 +4,7 @@ import { dev } from 'electron-is';
 
 import { SetActivity } from '@xhayper/discord-rpc/dist/structures/ClientUser';
 
-import registerCallback, { type SongInfoCallback, type SongInfo } from '../../providers/song-info';
+import registerCallback, { type SongInfoCallback, type SongInfo } from '@/providers/song-info';
 
 import type { DiscordPluginConfig } from './index';
 

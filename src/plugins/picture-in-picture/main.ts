@@ -1,21 +1,17 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app } from 'electron';
 
-import style from './style.css?inline';
+import type { PictureInPicturePluginConfig } from './index';
 
-import builder, { PictureInPicturePluginConfig } from './index';
+import type { BackendContext } from '@/types/contexts';
 
-import { injectCSS } from '../utils/main';
+let config: PictureInPicturePluginConfig;
 
-export default builder.createMain(({ getConfig, setConfig, send, handle, on }) => {
+export const onMainLoad = async ({ window, getConfig, setConfig, ipc: { send, handle, on } }: BackendContext<PictureInPicturePluginConfig>) => {
   let isInPiP = false;
   let originalPosition: number[];
   let originalSize: number[];
   let originalFullScreen: boolean;
   let originalMaximized: boolean;
-
-  let win: BrowserWindow;
-
-  let config: PictureInPicturePluginConfig;
 
   const pipPosition = () => (config.savePosition && config['pip-position']) || [10, 10];
   const pipSize = () => (config.saveSize && config['pip-size']) || [450, 275];
@@ -25,59 +21,59 @@ export default builder.createMain(({ getConfig, setConfig, send, handle, on }) =
     setConfig({ isInPiP });
 
     if (isInPiP) {
-      originalFullScreen = win.isFullScreen();
+      originalFullScreen = window.isFullScreen();
       if (originalFullScreen) {
-        win.setFullScreen(false);
+        window.setFullScreen(false);
       }
 
-      originalMaximized = win.isMaximized();
+      originalMaximized = window.isMaximized();
       if (originalMaximized) {
-        win.unmaximize();
+        window.unmaximize();
       }
 
-      originalPosition = win.getPosition();
-      originalSize = win.getSize();
+      originalPosition = window.getPosition();
+      originalSize = window.getSize();
 
       handle('before-input-event', blockShortcutsInPiP);
 
-      win.setMaximizable(false);
-      win.setFullScreenable(false);
+      window.setMaximizable(false);
+      window.setFullScreenable(false);
 
       send('pip-toggle', true);
 
       app.dock?.hide();
-      win.setVisibleOnAllWorkspaces(true, {
+      window.setVisibleOnAllWorkspaces(true, {
         visibleOnFullScreen: true,
       });
       app.dock?.show();
       if (config.alwaysOnTop) {
-        win.setAlwaysOnTop(true, 'screen-saver', 1);
+        window.setAlwaysOnTop(true, 'screen-saver', 1);
       }
     } else {
-      win.webContents.removeListener('before-input-event', blockShortcutsInPiP);
-      win.setMaximizable(true);
-      win.setFullScreenable(true);
+      window.webContents.removeListener('before-input-event', blockShortcutsInPiP);
+      window.setMaximizable(true);
+      window.setFullScreenable(true);
 
       send('pip-toggle', false);
 
-      win.setVisibleOnAllWorkspaces(false);
-      win.setAlwaysOnTop(false);
+      window.setVisibleOnAllWorkspaces(false);
+      window.setAlwaysOnTop(false);
 
       if (originalFullScreen) {
-        win.setFullScreen(true);
+        window.setFullScreen(true);
       }
 
       if (originalMaximized) {
-        win.maximize();
+        window.maximize();
       }
     }
 
     const [x, y] = isInPiP ? pipPosition() : originalPosition;
     const [w, h] = isInPiP ? pipSize() : originalSize;
-    win.setPosition(x, y);
-    win.setSize(w, h);
+    window.setPosition(x, y);
+    window.setSize(w, h);
 
-    win.setWindowButtonVisibility?.(!isInPiP);
+    window.setWindowButtonVisibility?.(!isInPiP);
   };
 
   const blockShortcutsInPiP = (event: Electron.Event, input: Electron.Input) => {
@@ -91,30 +87,25 @@ export default builder.createMain(({ getConfig, setConfig, send, handle, on }) =
     }
   };
 
-  return ({
-    async onLoad(window) {
-      config ??= await getConfig();
-      win ??= window;
-      setConfig({ isInPiP });
-      on('picture-in-picture', () => {
-        togglePiP();
-      });
+  config ??= await getConfig();
+  setConfig({ isInPiP });
+  on('picture-in-picture', () => {
+    togglePiP();
+  });
 
-      window.on('move', () => {
-        if (config.isInPiP && !config.useNativePiP) {
-          setConfig({ 'pip-position': window.getPosition() as [number, number] });
-        }
-      });
-
-      window.on('resize', () => {
-        if (config.isInPiP && !config.useNativePiP) {
-          setConfig({ 'pip-size': window.getSize() as [number, number] });
-        }
-      });
-    },
-    onConfigChange(newConfig) {
-      config = newConfig;
+  window.on('move', () => {
+    if (config.isInPiP && !config.useNativePiP) {
+      setConfig({ 'pip-position': window.getPosition() as [number, number] });
     }
   });
-});
 
+  window.on('resize', () => {
+    if (config.isInPiP && !config.useNativePiP) {
+      setConfig({ 'pip-size': window.getSize() as [number, number] });
+    }
+  });
+};
+
+export const onConfigChange = (newConfig: PictureInPicturePluginConfig) => {
+  config = newConfig;
+};
