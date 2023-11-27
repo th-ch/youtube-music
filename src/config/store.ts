@@ -88,7 +88,7 @@ const migrations = {
     >;
     let updated = false;
     for (const optionType of ['global', 'local']) {
-      if (Array.isArray(options[optionType])) {
+      if (Object.hasOwn(options, optionType) && Array.isArray(options[optionType])) {
         const optionsArray = options[optionType] as {
           action: string;
           shortcut: unknown;
