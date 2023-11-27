@@ -11,8 +11,9 @@ import prompt from 'custom-electron-prompt';
 
 import { allPlugins } from 'virtual:plugins';
 
-import { restart } from './providers/app-controls';
 import config from './config';
+
+import { restart } from './providers/app-controls';
 import { startingPages } from './providers/extracted-data';
 import promptOptions from './providers/prompt-options';
 

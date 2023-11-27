@@ -2,8 +2,9 @@ import { Menu, nativeImage, Tray } from 'electron';
 
 import youtubeMusicTrayIcon from '@assets/youtube-music-tray.png?asset&asarUnpack';
 
-import { restart } from './providers/app-controls';
 import config from './config';
+
+import { restart } from './providers/app-controls';
 import getSongControls from './providers/song-controls';
 
 import type { MenuTemplate } from './menu';

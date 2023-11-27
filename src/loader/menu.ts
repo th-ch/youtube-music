@@ -1,12 +1,11 @@
 import { deepmerge } from 'deepmerge-ts';
 import { allPlugins } from 'virtual:plugins';
-import { BrowserWindow, MenuItemConstructorOptions } from 'electron';
-
-import { MenuContext } from '@/types/contexts';
 
 import config from '@/config';
 import { setApplicationMenu } from '@/menu';
 
+import type { MenuContext } from '@/types/contexts';
+import type { BrowserWindow, MenuItemConstructorOptions } from 'electron';
 import type { PluginConfig } from '@/types/plugins';
 
 const menuTemplateMap: Record<string, MenuItemConstructorOptions[]> = {};

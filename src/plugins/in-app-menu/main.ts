@@ -2,8 +2,8 @@ import { register } from 'electron-localshortcut';
 
 import { BrowserWindow, Menu, MenuItem, ipcMain, nativeImage } from 'electron';
 
-import { BackendContext } from '@/types/contexts';
-import { InAppMenuConfig } from '@/plugins/in-app-menu/index';
+import type { BackendContext } from '@/types/contexts';
+import type { InAppMenuConfig } from './index';
 
 export const onMainLoad = ({ window: win, ipc: { handle, send } }: BackendContext<InAppMenuConfig>) => {
   win.on('close', () => {

@@ -23,7 +23,7 @@ import { parse } from 'node-html-parser';
 import { deepmerge } from 'deepmerge-ts';
 import { deepEqual } from 'fast-equals';
 
-import { mainPlugins } from 'virtual:plugins';
+import { allPlugins, mainPlugins } from 'virtual:plugins';
 
 import config from '@/config';
 
@@ -116,7 +116,7 @@ const initHook = (win: BrowserWindow) => {
     'get-config',
     (_, id: string) =>
       deepmerge(
-        mainPlugins[id].config,
+        allPlugins[id].config,
         config.get(`plugins.${id}`) ?? {},
       ) as PluginConfig,
   );

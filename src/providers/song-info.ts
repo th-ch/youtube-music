@@ -2,9 +2,9 @@ import { BrowserWindow, ipcMain, nativeImage, net } from 'electron';
 
 import { cache } from './decorators';
 
-import config from '../config';
+import config from '@/config';
 
-import type { GetPlayerResponse } from '../types/get-player-response';
+import type { GetPlayerResponse } from '@/types/get-player-response';
 
 export interface SongInfo {
   title: string;

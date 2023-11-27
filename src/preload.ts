@@ -11,10 +11,10 @@ import {
 
 loadAllPreloadPlugins();
 
-ipcRenderer.on('plugin:unload', (_, id: keyof PluginBuilderList) => {
+ipcRenderer.on('plugin:unload', (_, id: string) => {
   forceUnloadPreloadPlugin(id);
 });
-ipcRenderer.on('plugin:enable', (_, id: keyof PluginBuilderList) => {
+ipcRenderer.on('plugin:enable', (_, id: string) => {
   forceLoadPreloadPlugin(id);
 });
 

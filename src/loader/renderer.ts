@@ -2,16 +2,16 @@ import { deepmerge } from 'deepmerge-ts';
 
 import { rendererPlugins } from 'virtual:plugins';
 
-import { RendererContext } from '@/types/contexts';
-
-import { PluginConfig, PluginDef } from '@/types/plugins';
 import { startPlugin, stopPlugin } from '@/utils';
+
+import type { RendererContext } from '@/types/contexts';
+import type { PluginConfig, PluginDef } from '@/types/plugins';
 
 const unregisterStyleMap: Record<string, (() => void)[]> = {};
 const loadedPluginMap: Record<string, PluginDef<unknown, unknown, unknown>> = {};
 
 export const createContext = <Config extends PluginConfig>(id: string): RendererContext<Config> => ({
-  getConfig: () => window.mainConfig.plugins.getOptions(id),
+  getConfig: async () => window.ipcRenderer.invoke('get-config', id),
   setConfig: async (newConfig) => {
     await window.ipcRenderer.invoke('set-config', id, newConfig);
   },
@@ -80,7 +80,7 @@ export const loadAllRendererPlugins = () => {
   const pluginConfigs = window.mainConfig.plugins.getPlugins();
 
   for (const [pluginId, pluginDef] of Object.entries(rendererPlugins)) {
-    const config = deepmerge(pluginDef.config, pluginConfigs[pluginId] ?? {}) as PluginConfig;
+    const config = deepmerge(pluginDef.config, pluginConfigs[pluginId] ?? {}) ;
 
     if (config.enabled) {
       forceLoadRendererPlugin(pluginId);

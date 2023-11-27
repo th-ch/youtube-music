@@ -1,11 +1,12 @@
 import { deepmerge } from 'deepmerge-ts';
 import { preloadPlugins } from 'virtual:plugins';
 
-import type { PluginConfig, PluginDef } from '@/types/plugins';
-import { type PreloadContext } from '@/types/contexts';
 import { startPlugin, stopPlugin } from '@/utils';
 
 import config from '@/config';
+
+import type { PreloadContext } from '@/types/contexts';
+import type { PluginConfig, PluginDef } from '@/types/plugins';
 
 const loadedPluginMap: Record<string, PluginDef<unknown, unknown, unknown>> = {};
 const createContext = (id: string): PreloadContext<PluginConfig> => ({
@@ -52,7 +53,7 @@ export const loadAllPreloadPlugins = () => {
   const pluginConfigs = config.plugins.getPlugins();
 
   for (const [pluginId, pluginDef] of Object.entries(preloadPlugins)) {
-    const config = deepmerge(pluginDef.config, pluginConfigs[pluginId] ?? {}) as PluginConfig;
+    const config = deepmerge(pluginDef.config, pluginConfigs[pluginId] ?? {}) ;
 
     if (config.enabled) {
       forceLoadPreloadPlugin(pluginId);
@@ -66,7 +67,7 @@ export const loadAllPreloadPlugins = () => {
 
 export const unloadAllPreloadPlugins = () => {
   for (const id of Object.keys(loadedPluginMap)) {
-    forceUnloadPreloadPlugin(id as keyof PluginBuilderList);
+    forceUnloadPreloadPlugin(id);
   }
 };
 

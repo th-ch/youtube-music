@@ -3,10 +3,11 @@ import { BrowserWindow, ipcMain } from 'electron';
 import { deepmerge } from 'deepmerge-ts';
 import { mainPlugins } from 'virtual:plugins';
 
-import { PluginConfig, PluginDef } from '@/types/plugins';
-import { BackendContext } from '@/types/contexts';
 import config from '@/config';
 import { startPlugin, stopPlugin } from '@/utils';
+
+import type { PluginConfig, PluginDef } from '@/types/plugins';
+import type { BackendContext } from '@/types/contexts';
 
 const loadedPluginMap: Record<string, PluginDef<unknown, unknown, unknown>> = {};
 
@@ -122,7 +123,7 @@ export const loadAllMainPlugins = async (win: BrowserWindow) => {
 
 export const unloadAllMainPlugins = (win: BrowserWindow) => {
   for (const id of Object.keys(loadedPluginMap)) {
-    forceUnloadMainPlugin(id as keyof PluginBuilderList, win);
+    forceUnloadMainPlugin(id, win);
   }
 };
 

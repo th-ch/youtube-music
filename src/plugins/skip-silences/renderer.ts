@@ -1,5 +1,4 @@
-import { RendererContext } from '@/types/contexts';
-
+import type { RendererContext } from '@/types/contexts';
 import type { SkipSilencesPluginConfig } from './index';
 
 let config: SkipSilencesPluginConfig;

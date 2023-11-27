@@ -33,11 +33,12 @@ import { isEnabled } from '@/config/plugins';
 import { cleanupName, getImage, SongInfo } from '@/providers/song-info';
 import { getNetFetchAsFetch } from '@/plugins/utils/main';
 import { cache } from '@/providers/decorators';
-import { BackendContext } from '@/types/contexts';
 
 import { YoutubeFormatList, type Preset, DefaultPresetList } from '../types';
 
 import { defaultConfig, type DownloaderPluginConfig } from '../index';
+
+import type { BackendContext } from '@/types/contexts';
 
 import type { FormatOptions } from 'youtubei.js/dist/src/types/FormatUtils';
 import type PlayerErrorMessage from 'youtubei.js/dist/src/parser/classes/PlayerErrorMessage';

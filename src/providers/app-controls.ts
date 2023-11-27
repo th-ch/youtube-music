@@ -1,12 +1,10 @@
 import path from 'node:path';
 
-import { app, BrowserWindow, ipcMain, ipcRenderer } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 
-import config from '../config';
+import config from '@/config';
 
-export const restart = () => {
-  process.type === 'browser' ? restartInternal() : ipcRenderer.send('restart');
-};
+export const restart = () => restartInternal();
 
 export const setupAppControls = () => {
   ipcMain.on('restart', restart);
