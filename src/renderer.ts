@@ -41,7 +41,7 @@ interface YouTubeMusicAppElement extends HTMLElement {
   navigate_(page: string): void;
 }
 
-function onApiLoaded() {
+async function onApiLoaded() {
   window.ipcRenderer.on('seekTo', (_, t: number) => api!.seekTo(t));
   window.ipcRenderer.on('seekBy', (_, t: number) => api!.seekBy(t));
 
@@ -53,34 +53,41 @@ function onApiLoaded() {
   const audioSource = audioContext.createMediaElementSource(video);
   audioSource.connect(audioContext.destination);
 
+  for (const [id, plugin] of Object.entries(getAllLoadedRendererPlugins())) {
+    if (typeof plugin.renderer !== 'function') {
+      await plugin.renderer?.onPlayerApiReady?.bind(plugin.renderer)?.(api!, createContext(id));
+    }
+  }
+
+  const audioCanPlayEventDispatcher = () => {
+    document.dispatchEvent(
+      new CustomEvent('audioCanPlay', {
+        detail: {
+          audioContext,
+          audioSource,
+        },
+      }),
+    );
+  };
+
+  const loadstartListener = () => {
+    // Emit "audioCanPlay" for each video
+    video.addEventListener(
+      'canplaythrough',
+      audioCanPlayEventDispatcher,
+      { once: true },
+    );
+  };
+
+  if (video.readyState === 4 /* HAVE_ENOUGH_DATA (loaded) */) {
+    audioCanPlayEventDispatcher();
+  }
+
   video.addEventListener(
     'loadstart',
-    () => {
-      // Emit "audioCanPlay" for each video
-      video.addEventListener(
-        'canplaythrough',
-        () => {
-          document.dispatchEvent(
-            new CustomEvent('audioCanPlay', {
-              detail: {
-                audioContext,
-                audioSource,
-              },
-            }),
-          );
-        },
-        { once: true },
-      );
-    },
+    loadstartListener,
     { passive: true },
   );
-
-  Object.entries(getAllLoadedRendererPlugins())
-    .forEach(([id, plugin]) => {
-      if (typeof plugin.renderer !== 'function') {
-        plugin.renderer?.onPlayerApiReady?.bind(plugin.renderer)?.(api!, createContext(id));
-      }
-    });
 
   window.ipcRenderer.send('ytmd:player-api-loaded');
 
