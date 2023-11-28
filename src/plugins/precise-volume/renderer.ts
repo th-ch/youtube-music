@@ -24,7 +24,8 @@ export const moveVolumeHud = debounce((showVideo: boolean) => {
 
 let options: PreciseVolumePluginConfig;
 
-export const onPlayerApiReady = (playerApi: YoutubePlayer, context: RendererContext<PreciseVolumePluginConfig>) => {
+export const onPlayerApiReady = async (playerApi: YoutubePlayer, context: RendererContext<PreciseVolumePluginConfig>) => {
+  options = await context.getConfig();
   api = playerApi;
 
   // Without this function it would rewrite config 20 time when volume change by 20
