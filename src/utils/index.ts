@@ -85,8 +85,6 @@ export const startPlugin = <Config extends PluginConfig>(
           >
         )?.start;
 
-  if (!lifecycle) return null;
-
   try {
     // HACK: for bind 'this' to context
     const defContext = def[options.ctx];
@@ -100,7 +98,9 @@ export const startPlugin = <Config extends PluginConfig>(
     }
 
     const start = performance.now();
-    lifecycle.bind(def[options.ctx])(
+
+    lifecycle?.call(
+      defContext,
       options.context as Config & typeof options.context,
     );
 
@@ -110,7 +110,7 @@ export const startPlugin = <Config extends PluginConfig>(
       } ms`,
     );
 
-    return true;
+    return lifecycle ? true : null;
   } catch (err) {
     console.error(LoggerPrefix, `Failed to start ${id}::${options.ctx}`);
     console.trace(err);
@@ -132,7 +132,8 @@ export const stopPlugin = <Config extends PluginConfig>(
   try {
     const stop = defCtx.stop;
     const start = performance.now();
-    stop.bind(def[options.ctx])(
+    stop.call(
+      def[options.ctx],
       options.context as Config & typeof options.context,
     );
 

@@ -55,7 +55,7 @@ async function onApiLoaded() {
 
   for (const [id, plugin] of Object.entries(getAllLoadedRendererPlugins())) {
     if (typeof plugin.renderer !== 'function') {
-      await plugin.renderer?.onPlayerApiReady?.bind(plugin.renderer)?.(api!, createContext(id));
+      await plugin.renderer?.onPlayerApiReady?.call(plugin.renderer, api!, createContext(id));
     }
   }
 
@@ -142,7 +142,7 @@ async function onApiLoaded() {
       if (api) {
         const plugin = getLoadedRendererPlugin(id);
         if (plugin && typeof plugin.renderer !== 'function') {
-          plugin.renderer?.onPlayerApiReady?.bind(plugin.renderer)?.(api, createContext(id));
+          plugin.renderer?.onPlayerApiReady?.call(plugin.renderer, api, createContext(id));
         }
       }
     },
@@ -153,7 +153,7 @@ async function onApiLoaded() {
     (_event, id: string, newConfig: PluginConfig) => {
       const plugin = getAllLoadedRendererPlugins()[id];
       if (plugin && typeof plugin.renderer !== 'function') {
-        plugin.renderer?.onConfigChange?.bind(plugin.renderer)?.(newConfig);
+        plugin.renderer?.onConfigChange?.call(plugin.renderer, newConfig);
       }
     },
   );
