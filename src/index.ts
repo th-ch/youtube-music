@@ -542,7 +542,7 @@ app.on('activate', async () => {
   }
 });
 
-app.on('ready', async () => {
+app.whenReady().then(async () => {
   if (config.get('options.autoResetAppCache')) {
     // Clear cache after 20s
     const clearCacheTimeout = setTimeout(() => {
