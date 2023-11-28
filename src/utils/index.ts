@@ -86,12 +86,14 @@ export const startPlugin = <Config extends PluginConfig>(
   if (!lifecycle) return null;
 
   try {
+    // HACK: for bind 'this' to context
     const defContext = def[options.ctx];
     if (defContext && typeof defContext !== 'function') {
       Object.entries(defContext).forEach(([key, value]) => {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
-        if (typeof value === 'function')
+        if (typeof value === 'function') {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
           defContext[key as keyof typeof defContext] = value.bind(defContext);
+        }
       });
     }
 
@@ -101,14 +103,14 @@ export const startPlugin = <Config extends PluginConfig>(
     );
 
     console.log(
-      `[YTMusic] Executed ${id}::${options.ctx} in ${
+      '[YTMusic]', `Executed ${id}::${options.ctx} in ${
         performance.now() - start
       } ms`,
     );
 
     return true;
   } catch (err) {
-    console.error(`[YTMusic] Failed to start ${id}::${options.ctx}`);
+    console.error('[YTMusic]', `Failed to start ${id}::${options.ctx}`);
     console.trace(err);
     return false;
   }
@@ -132,14 +134,14 @@ export const stopPlugin = <Config extends PluginConfig>(
     );
 
     console.log(
-      `[YTMusic] Executed ${id}::${options.ctx} in ${
+      '[YTMusic]', `Executed ${id}::${options.ctx} in ${
         performance.now() - start
       } ms`,
     );
 
     return true;
   } catch (err) {
-    console.error(`[YTMusic] Failed to execute ${id}::${options.ctx}`);
+    console.error('[YTMusic]', `Failed to execute ${id}::${options.ctx}`);
     console.trace(err);
     return false;
   }
