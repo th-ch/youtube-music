@@ -48,7 +48,7 @@ export const forceUnloadRendererPlugin = (id: string) => {
     hasStopped ||
     (
       hasStopped === null &&
-      typeof plugin?.renderer !== 'function' && plugin?.renderer
+      plugin?.renderer
     )
   ) {
     console.log(LoggerPrefix, `"${id}" plugin is unloaded`);

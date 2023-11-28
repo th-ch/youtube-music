@@ -157,7 +157,7 @@ const initHook = (win: BrowserWindow) => {
             forceUnloadMainPlugin(id, win);
           }
 
-          if (mainPlugins[id]?.restartNeeded) {
+          if (allPlugins[id]?.restartNeeded) {
             showNeedToRestartDialog(id);
           }
         }
@@ -176,14 +176,14 @@ const initHook = (win: BrowserWindow) => {
 };
 
 const showNeedToRestartDialog = (id: string) => {
-  const plugin = mainPlugins[id];
+  const plugin = allPlugins[id];
 
   const dialogOptions: Electron.MessageBoxOptions = {
     type: 'info',
     buttons: ['Restart Now', 'Later'],
     title: 'Restart Required',
-    message: `"${plugin.name ?? id}" needs to restart`,
-    detail: `"${plugin.name ?? id}" plugin requires a restart to take effect`,
+    message: `"${plugin?.name ?? id}" needs to restart`,
+    detail: `"${plugin?.name ?? id}" plugin requires a restart to take effect`,
     defaultId: 0,
     cancelId: 1,
   };

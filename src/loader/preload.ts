@@ -29,7 +29,7 @@ export const forceUnloadPreloadPlugin = (id: string) => {
     hasStopped ||
     (
       hasStopped === null &&
-      typeof loadedPluginMap[id].preload !== 'function' && loadedPluginMap[id].preload
+      loadedPluginMap[id].preload
     )
   ) {
     console.log(LoggerPrefix, `"${id}" plugin is unloaded`);
