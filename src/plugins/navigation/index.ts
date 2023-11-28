@@ -9,7 +9,7 @@ export default createPlugin({
   name: 'Navigation',
   restartNeeded: true,
   config: {
-    enabled: false,
+    enabled: true,
   },
   stylesheets: [style],
   renderer() {

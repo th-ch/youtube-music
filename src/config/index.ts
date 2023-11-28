@@ -11,8 +11,8 @@ import { restart } from '@/providers/app-controls';
 const set = (key: string, value: unknown) => {
   store.set(key, value);
 };
-const setPartial = (key: string, value: object) => {
-  const newValue = deepmerge(store.get(key) ?? {}, value);
+const setPartial = (key: string, value: object, defaultValue?: object) => {
+  const newValue = deepmerge(defaultValue ?? {}, store.get(key) ?? {}, value);
   store.set(key, newValue);
 };
 

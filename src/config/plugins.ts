@@ -1,3 +1,5 @@
+import { deepmerge } from 'deepmerge-ts';
+import { allPlugins } from 'virtual:plugins';
 
 import store from './store';
 
@@ -10,7 +12,7 @@ export function getPlugins() {
 }
 
 export function isEnabled(plugin: string) {
-  const pluginConfig = (store.get('plugins') as Record<string, PluginConfig>)[plugin];
+  const pluginConfig = deepmerge(allPlugins[plugin].config ?? { enabled: false }, (store.get('plugins') as Record<string, PluginConfig>)[plugin] ?? {});
   return pluginConfig !== undefined && pluginConfig.enabled;
 }
 

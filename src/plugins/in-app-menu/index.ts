@@ -13,7 +13,13 @@ export default createPlugin({
   name: 'In-App Menu',
   restartNeeded: true,
   config: {
-    enabled: false,
+    enabled: (
+      typeof window !== 'undefined' &&
+      !window.navigator?.userAgent?.includes('mac')
+    ) || (
+      typeof global !== 'undefined' &&
+      global.process?.platform !== 'darwin'
+    ),
     hideDOMWindowControls: false,
   } as InAppMenuConfig,
   stylesheets: [titlebarStyle],

@@ -1,7 +1,7 @@
 import { BrowserWindow, ipcMain } from 'electron';
 
 import { deepmerge } from 'deepmerge-ts';
-import { mainPlugins } from 'virtual:plugins';
+import { allPlugins, mainPlugins } from 'virtual:plugins';
 
 import config from '@/config';
 import { startPlugin, stopPlugin } from '@/utils';
@@ -14,11 +14,11 @@ const loadedPluginMap: Record<string, PluginDef<unknown, unknown, unknown>> = {}
 const createContext = (id: string, win: BrowserWindow): BackendContext<PluginConfig> => ({
   getConfig: () =>
     deepmerge(
-      mainPlugins[id].config,
-      config.get(`plugins.${id}`) ?? { enabled: false },
+      allPlugins[id].config ?? { enabled: false },
+      config.get(`plugins.${id}`) ?? {},
     ) as PluginConfig,
   setConfig: (newConfig) => {
-    config.setPartial(`plugins.${id}`, newConfig);
+    config.setPartial(`plugins.${id}`, newConfig, allPlugins[id].config);
   },
 
   ipc: {
@@ -102,11 +102,10 @@ export const forceLoadMainPlugin = async (
       ) {
         loadedPluginMap[id] = plugin;
         resolve();
+      } else {
+        console.log('[YTMusic]', `Cannot load "${id}" plugin`);
+        reject();
       }
-
-      console.log('[YTMusic]', `Cannot load "${id}" plugin`);
-      reject();
-      return;
     } catch (err) {
       console.error(
         '[YTMusic]',

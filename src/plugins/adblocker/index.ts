@@ -84,7 +84,6 @@ export default createPlugin({
       }
     },
     async onConfigChange(newConfig) {
-      console.log('Adblocker config changed', newConfig);
       if (this.mainWindow) {
         if (newConfig.blocker === blockers.WithBlocklists && !isBlockerEnabled(this.mainWindow.webContents.session)) {
           await loadAdBlockerEngine(

@@ -10,9 +10,13 @@ import type { PluginConfig } from '@/types/plugins';
 
 const menuTemplateMap: Record<string, MenuItemConstructorOptions[]> = {};
 const createContext = (id: string, win: BrowserWindow): MenuContext<PluginConfig> => ({
-  getConfig: () => config.plugins.getOptions(id),
+  getConfig: () =>
+    deepmerge(
+      allPlugins[id].config ?? { enabled: false },
+      config.get(`plugins.${id}`) ?? {},
+    ) as PluginConfig,
   setConfig: (newConfig) => {
-    config.setPartial(`plugins.${id}`, newConfig);
+    config.setPartial(`plugins.${id}`, newConfig, allPlugins[id].config);
   },
   window: win,
   refresh: () => {
@@ -44,7 +48,7 @@ export const loadAllMenuPlugins = (win: BrowserWindow) => {
   const pluginConfigs = config.plugins.getPlugins();
 
   for (const [pluginId, pluginDef] of Object.entries(allPlugins)) {
-    const config = deepmerge(pluginDef.config, pluginConfigs[pluginId] ?? {});
+    const config = deepmerge(pluginDef.config ?? { enabled: false }, pluginConfigs[pluginId] ?? {});
 
     if (config.enabled) {
       forceLoadMenuPlugin(pluginId, win);

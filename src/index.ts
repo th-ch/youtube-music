@@ -116,12 +116,12 @@ const initHook = (win: BrowserWindow) => {
     'get-config',
     (_, id: string) =>
       deepmerge(
-        allPlugins[id].config,
+        allPlugins[id].config ?? { enabled: false },
         config.get(`plugins.${id}`) ?? {},
       ) as PluginConfig,
   );
   ipcMain.handle('set-config', (_, name: string, obj: object) =>
-    config.setPartial(`plugins.${name}`, obj),
+    config.setPartial(`plugins.${name}`, obj, allPlugins[name].config),
   );
 
   config.watch((newValue, oldValue) => {
@@ -140,8 +140,8 @@ const initHook = (win: BrowserWindow) => {
       if (!isEqual) {
         const oldConfig = oldPluginConfigList[id] as PluginConfig;
         const config = deepmerge(
-          allPlugins[id].config,
-          newPluginConfig,
+          allPlugins[id].config ?? { enabled: false },
+          newPluginConfig ?? {},
         ) as PluginConfig;
 
         if (config.enabled !== oldConfig?.enabled) {

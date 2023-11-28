@@ -1,5 +1,5 @@
 import { deepmerge } from 'deepmerge-ts';
-import { preloadPlugins } from 'virtual:plugins';
+import { allPlugins, preloadPlugins } from 'virtual:plugins';
 
 import { startPlugin, stopPlugin } from '@/utils';
 
@@ -10,9 +10,13 @@ import type { PluginConfig, PluginDef } from '@/types/plugins';
 
 const loadedPluginMap: Record<string, PluginDef<unknown, unknown, unknown>> = {};
 const createContext = (id: string): PreloadContext<PluginConfig> => ({
-  getConfig: () => config.plugins.getOptions(id),
+  getConfig: () =>
+    deepmerge(
+      allPlugins[id].config ?? { enabled: false },
+      config.get(`plugins.${id}`) ?? {},
+    ) as PluginConfig,
   setConfig: (newConfig) => {
-    config.setPartial(`plugins.${id}`, newConfig);
+    config.setPartial(`plugins.${id}`, newConfig, allPlugins[id].config);
   },
 });
 

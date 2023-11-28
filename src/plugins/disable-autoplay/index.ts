@@ -1,5 +1,6 @@
 import { createPlugin } from '@/utils';
-import {YoutubePlayer} from "@/types/youtube-player";
+
+import type { YoutubePlayer } from '@/types/youtube-player';
 
 export type DisableAutoPlayPluginConfig = {
   enabled: boolean;
