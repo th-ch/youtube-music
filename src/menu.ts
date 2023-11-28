@@ -46,17 +46,17 @@ const pluginEnabledMenu = (
   },
 });
 
-export const refreshMenu = (win: BrowserWindow) => {
-  setApplicationMenu(win);
+export const refreshMenu = async (win: BrowserWindow) => {
+  await setApplicationMenu(win);
   if (inAppMenuActive) {
     win.webContents.send('refresh-in-app-menu');
   }
 };
 
-export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
+export const mainMenuTemplate = async (win: BrowserWindow): Promise<MenuTemplate> => {
   const innerRefreshMenu = () => refreshMenu(win);
 
-  loadAllMenuPlugins(win);
+  await loadAllMenuPlugins(win);
 
   const menuResult = Object.entries(getAllMenuTemplate()).map(
     ([id, template]) => {
@@ -452,8 +452,8 @@ export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
     },
   ];
 };
-export const setApplicationMenu = (win: Electron.BrowserWindow) => {
-  const menuTemplate: MenuTemplate = [...mainMenuTemplate(win)];
+export const setApplicationMenu = async (win: Electron.BrowserWindow) => {
+  const menuTemplate: MenuTemplate = [...await mainMenuTemplate(win)];
   if (process.platform === 'darwin') {
     const { name } = app;
     menuTemplate.unshift({

@@ -21,8 +21,8 @@ const createContext = (id: string, win: BrowserWindow): MenuContext<PluginConfig
     config.setPartial(`plugins.${id}`, newConfig, allPlugins[id].config);
   },
   window: win,
-  refresh: () => {
-    setApplicationMenu(win);
+  refresh: async () => {
+    await setApplicationMenu(win);
 
     if (config.plugins.isEnabled('in-app-menu')) {
       win.webContents.send('refresh-in-app-menu');
@@ -46,14 +46,14 @@ export const forceLoadMenuPlugin = async (id: string, win: BrowserWindow) => {
   }
 };
 
-export const loadAllMenuPlugins = (win: BrowserWindow) => {
+export const loadAllMenuPlugins = async (win: BrowserWindow) => {
   const pluginConfigs = config.plugins.getPlugins();
 
   for (const [pluginId, pluginDef] of Object.entries(allPlugins)) {
     const config = deepmerge(pluginDef.config ?? { enabled: false }, pluginConfigs[pluginId] ?? {});
 
     if (config.enabled) {
-      forceLoadMenuPlugin(pluginId, win);
+      await forceLoadMenuPlugin(pluginId, win);
     }
   }
 };

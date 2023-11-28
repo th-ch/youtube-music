@@ -600,8 +600,8 @@ app.whenReady().then(async () => {
   }
 
   mainWindow = await createMainWindow();
-  setApplicationMenu(mainWindow);
-  refreshMenu(mainWindow);
+  await setApplicationMenu(mainWindow);
+  await refreshMenu(mainWindow);
   setUpTray(app, mainWindow);
 
   setupProtocolHandler(mainWindow);
