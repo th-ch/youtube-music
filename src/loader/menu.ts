@@ -4,6 +4,8 @@ import { allPlugins } from 'virtual:plugins';
 import config from '@/config';
 import { setApplicationMenu } from '@/menu';
 
+import { LoggerPrefix } from '@/utils';
+
 import type { MenuContext } from '@/types/contexts';
 import type { BrowserWindow, MenuItemConstructorOptions } from 'electron';
 import type { PluginConfig } from '@/types/plugins';
@@ -37,9 +39,9 @@ export const forceLoadMenuPlugin = async (id: string, win: BrowserWindow) => {
     if (menu) menuTemplateMap[id] = await menu;
     else return;
 
-    console.log('[YTMusic]', `Successfully loaded '${id}::menu'`);
+    console.log(LoggerPrefix, `Successfully loaded '${id}::menu'`);
   } catch (err) {
-    console.error('[YTMusic]', `Cannot initialize '${id}::menu': `);
+    console.error(LoggerPrefix, `Cannot initialize '${id}::menu': `);
     console.trace(err);
   }
 };

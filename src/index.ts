@@ -48,6 +48,8 @@ import {
   loadAllMainPlugins,
 } from '@/loader/main';
 
+import { LoggerPrefix } from '@/utils';
+
 import type { PluginConfig } from '@/types/plugins';
 
 // Catch errors and log them
@@ -221,7 +223,7 @@ function initTheme(win: BrowserWindow) {
         },
         () => {
           console.warn(
-            '[YTMusic]',
+            LoggerPrefix,
             `CSS file "${cssFile}" does not exist, ignoring`,
           );
         },
@@ -231,7 +233,7 @@ function initTheme(win: BrowserWindow) {
 
   win.webContents.once('did-finish-load', () => {
     if (is.dev()) {
-      console.log('[YTMusic]', 'did finish load');
+      console.log(LoggerPrefix, 'did finish load');
       win.webContents.openDevTools();
     }
   });

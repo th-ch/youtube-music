@@ -13,6 +13,8 @@ import type {
   RendererPluginLifecycle,
 } from '@/types/plugins';
 
+export const LoggerPrefix = '[YTMusic]';
+
 export const createPlugin = <
   BackendProperties,
   PreloadProperties,
@@ -103,14 +105,14 @@ export const startPlugin = <Config extends PluginConfig>(
     );
 
     console.log(
-      '[YTMusic]', `Executed ${id}::${options.ctx} in ${
+      LoggerPrefix, `Executed ${id}::${options.ctx} in ${
         performance.now() - start
       } ms`,
     );
 
     return true;
   } catch (err) {
-    console.error('[YTMusic]', `Failed to start ${id}::${options.ctx}`);
+    console.error(LoggerPrefix, `Failed to start ${id}::${options.ctx}`);
     console.trace(err);
     return false;
   }
@@ -134,14 +136,14 @@ export const stopPlugin = <Config extends PluginConfig>(
     );
 
     console.log(
-      '[YTMusic]', `Executed ${id}::${options.ctx} in ${
+      LoggerPrefix, `Executed ${id}::${options.ctx} in ${
         performance.now() - start
       } ms`,
     );
 
     return true;
   } catch (err) {
-    console.error('[YTMusic]', `Failed to execute ${id}::${options.ctx}`);
+    console.error(LoggerPrefix, `Failed to execute ${id}::${options.ctx}`);
     console.trace(err);
     return false;
   }

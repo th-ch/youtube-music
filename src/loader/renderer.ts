@@ -2,7 +2,7 @@ import { deepmerge } from 'deepmerge-ts';
 
 import { rendererPlugins } from 'virtual:plugins';
 
-import { startPlugin, stopPlugin } from '@/utils';
+import { LoggerPrefix, startPlugin, stopPlugin } from '@/utils';
 
 import type { RendererContext } from '@/types/contexts';
 import type { PluginConfig, PluginDef } from '@/types/plugins';
@@ -51,9 +51,9 @@ export const forceUnloadRendererPlugin = (id: string) => {
       typeof plugin?.renderer !== 'function' && plugin?.renderer
     )
   ) {
-    console.log('[YTMusic]', `"${id}" plugin is unloaded`);
+    console.log(LoggerPrefix, `"${id}" plugin is unloaded`);
   } else {
-    console.error('[YTMusic]', `Cannot stop "${id}" plugin`);
+    console.error(LoggerPrefix, `Cannot stop "${id}" plugin`);
   }
 };
 
@@ -87,9 +87,9 @@ export const forceLoadRendererPlugin = (id: string) => {
       document.adoptedStyleSheets = [...document.adoptedStyleSheets, ...styleSheetList];
     }
 
-    console.log('[YTMusic]', `"${id}" plugin is loaded`);
+    console.log(LoggerPrefix, `"${id}" plugin is loaded`);
   } else {
-    console.log('[YTMusic]', `Cannot initialize "${id}" plugin`);
+    console.log(LoggerPrefix, `Cannot initialize "${id}" plugin`);
   }
 };
 

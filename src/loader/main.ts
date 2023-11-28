@@ -4,7 +4,7 @@ import { deepmerge } from 'deepmerge-ts';
 import { allPlugins, mainPlugins } from 'virtual:plugins';
 
 import config from '@/config';
-import { startPlugin, stopPlugin } from '@/utils';
+import { LoggerPrefix, startPlugin, stopPlugin } from '@/utils';
 
 import type { PluginConfig, PluginDef } from '@/types/plugins';
 import type { BackendContext } from '@/types/contexts';
@@ -63,18 +63,18 @@ export const forceUnloadMainPlugin = async (
         )
       ) {
         delete loadedPluginMap[id];
-        console.log('[YTMusic]', `"${id}" plugin is unloaded`);
+        console.log(LoggerPrefix, `"${id}" plugin is unloaded`);
         resolve();
       } else {
         console.log(
-          '[YTMusic]',
+          LoggerPrefix,
           `Cannot unload "${id}" plugin`,
         );
         reject();
         return;
       }
     } catch (err) {
-      console.log('[YTMusic]', `Cannot unload "${id}" plugin: ${String(err)}`);
+      console.log(LoggerPrefix, `Cannot unload "${id}" plugin: ${String(err)}`);
       reject(err);
     }
   });
@@ -103,12 +103,12 @@ export const forceLoadMainPlugin = async (
         loadedPluginMap[id] = plugin;
         resolve();
       } else {
-        console.log('[YTMusic]', `Cannot load "${id}" plugin`);
+        console.log(LoggerPrefix, `Cannot load "${id}" plugin`);
         reject();
       }
     } catch (err) {
       console.error(
-        '[YTMusic]',
+        LoggerPrefix,
         `Cannot initialize "${id}" plugin: `,
       );
       console.trace(err);
@@ -118,7 +118,7 @@ export const forceLoadMainPlugin = async (
 };
 
 export const loadAllMainPlugins = async (win: BrowserWindow) => {
-  console.log('[YTMusic]', 'Loading all plugins');
+  console.log(LoggerPrefix, 'Loading all plugins');
   const pluginConfigs = config.plugins.getPlugins();
   const queue: Promise<void>[] = [];
 

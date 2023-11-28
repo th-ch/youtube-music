@@ -1,7 +1,7 @@
 import { deepmerge } from 'deepmerge-ts';
 import { allPlugins, preloadPlugins } from 'virtual:plugins';
 
-import { startPlugin, stopPlugin } from '@/utils';
+import { LoggerPrefix, startPlugin, stopPlugin } from '@/utils';
 
 import config from '@/config';
 
@@ -32,10 +32,10 @@ export const forceUnloadPreloadPlugin = (id: string) => {
       typeof loadedPluginMap[id].preload !== 'function' && loadedPluginMap[id].preload
     )
   ) {
-    console.log('[YTMusic]', `"${id}" plugin is unloaded`);
+    console.log(LoggerPrefix, `"${id}" plugin is unloaded`);
     delete loadedPluginMap[id];
   } else {
-    console.error('[YTMusic]', `Cannot stop "${id}" plugin`);
+    console.error(LoggerPrefix, `Cannot stop "${id}" plugin`);
   }
 };
 
@@ -59,10 +59,10 @@ export const forceLoadPreloadPlugin = (id: string) => {
       loadedPluginMap[id] = plugin;
     }
 
-    console.log('[YTMusic]', `"${id}" plugin is loaded`);
+    console.log(LoggerPrefix, `"${id}" plugin is loaded`);
   } catch (err) {
     console.error(
-      '[YTMusic]',
+      LoggerPrefix,
       `Cannot initialize "${id}" plugin: `,
     );
     console.trace(err);
