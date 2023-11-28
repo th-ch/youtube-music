@@ -146,7 +146,7 @@ jobs:
 
             Thanks to all contributors! 🏅
 
-            (Note for Windows: `YouTube-Music-Web-Setup-$VERSION.exe` is an installer, and `YouTube-Music-$VERSION.exe` is a portable version)
+            (Note for Windows: `YouTube-Music-Web-Setup-${{ env.VERSION_TAG }}.exe` is an installer, and `YouTube-Music-${{ env.VERSION_TAG }}.exe` is a portable version)
 
       - name: Update changelog
         if: ${{ env.VERSION_HASH == '' }}
