@@ -21,6 +21,8 @@ const createContext = (id: string): PreloadContext<PluginConfig> => ({
 });
 
 export const forceUnloadPreloadPlugin = (id: string) => {
+  if (!loadedPluginMap[id]) return;
+
   const hasStopped = stopPlugin(id, loadedPluginMap[id], {
     ctx: 'preload',
     context: createContext(id),
@@ -73,7 +75,7 @@ export const loadAllPreloadPlugins = () => {
   const pluginConfigs = config.plugins.getPlugins();
 
   for (const [pluginId, pluginDef] of Object.entries(preloadPlugins)) {
-    const config = deepmerge(pluginDef.config, pluginConfigs[pluginId] ?? {}) ;
+    const config = deepmerge(pluginDef.config ?? { enable: false }, pluginConfigs[pluginId] ?? {}) ;
 
     if (config.enabled) {
       forceLoadPreloadPlugin(pluginId);

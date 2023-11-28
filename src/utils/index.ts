@@ -126,10 +126,11 @@ export const stopPlugin = <Config extends PluginConfig>(
   if (!def || !def[options.ctx]) return false;
   if (typeof def[options.ctx] === 'function') return false;
 
-  const stop = def[options.ctx] as PluginLifecycleSimple<Config, unknown>;
-  if (!stop) return null;
+  const defCtx = def[options.ctx] as { stop: PluginLifecycleSimple<Config, unknown> } | undefined;
+  if (!defCtx?.stop) return null;
 
   try {
+    const stop = defCtx.stop;
     const start = performance.now();
     stop.bind(def[options.ctx])(
       options.context as Config & typeof options.context,
