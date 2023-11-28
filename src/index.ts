@@ -503,9 +503,9 @@ app.on('ready', async () => {
     mainWindow.focus();
   });
 
-  // Autostart at login
+  // Autostart at PC login
   app.setLoginItemSettings({
-    openAtLogin: config.get('options.startAtLogin'),
+    openAtLogin: config.get('options.startAtPCLogin'),
   });
 
   if (!is.dev() && config.get('options.autoUpdates')) {

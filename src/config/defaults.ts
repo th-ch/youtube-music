@@ -25,7 +25,7 @@ export interface DefaultConfig {
     alwaysOnTop: boolean;
     hideMenu: boolean;
     hideMenuWarned: boolean;
-    startAtLogin: boolean;
+    startAtPCLogin: boolean;
     disableHardwareAcceleration: boolean;
     removeUpgradeButton: boolean;
     restartOnConfigChanges: boolean;
@@ -58,7 +58,7 @@ const defaultConfig = {
     alwaysOnTop: false,
     hideMenu: false,
     hideMenuWarned: false,
-    startAtLogin: false,
+    startAtPCLogin: false,
     disableHardwareAcceleration: false,
     removeUpgradeButton: false,
     restartOnConfigChanges: false,

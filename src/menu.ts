@@ -230,11 +230,11 @@ export const mainMenuTemplate = (win: BrowserWindow): MenuTemplate => {
           // https://www.electronjs.org/docs/api/app#appsetloginitemsettingssettings-macos-windows
           [
             {
-              label: 'Start at login',
+              label: 'Start at PC login',
               type: 'checkbox',
-              checked: config.get('options.startAtLogin'),
+              checked: config.get('options.startAtPCLogin'),
               click(item) {
-                config.setMenuOption('options.startAtLogin', item.checked);
+                config.setMenuOption('options.startAtPCLogin', item.checked);
               },
             },
           ]
