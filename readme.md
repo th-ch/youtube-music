@@ -207,100 +207,65 @@ Create a folder in `plugins/YOUR-PLUGIN-NAME`:
 ```typescript
 import style from './style.css?inline'; // import style as inline
 
-import { createPluginBuilder } from '../utils/builder';
+import { createPlugin } from '@/utils';
 
-const builder = createPluginBuilder('plugin-id', {
+export default createPlugin({
   name: 'Plugin Label',
   restartNeeded: true, // if value is true, ytmusic show restart dialog
   config: {
     enabled: false,
   }, // your custom config
-  styles: [style], // your custom style
-});
+  stylesheets: [style], // your custom style,
+  menu: async ({ getConfig, setConfig }) => {
+    // All *Config methods are wrapped Promise<T>
+    const config = await getConfig();
+    return [
+      {
+        label: 'menu',
+        submenu: [1, 2, 3].map((value) => ({
+          label: `value ${value}`,
+          type: 'radio',
+          checked: config.value === value,
+          click() {
+            setConfig({ value });
+          },
+        })),
+      },
+    ];
+  },
+  backend: {
+    start({ window, ipc }) {
+      window.maximize();
 
-export default builder;
-
-// below code must be included in `index.ts` for type checking
-declare global {
-  interface PluginBuilderList {
-    [builder.id]: typeof builder;
-  }
-}
-```
-
-- `main.ts` (optional): executed in the main process
-```typescript
-import builder from './index';
-
-export default builder.createMain((context) => {
-  return {
-    onLoad(win: BrowserWindow) {
-      win.maximize();
-
-      context.handle('some-event', () => {
+      // you can communicate with renderer plugin
+      ipc.handle('some-event', () => {
         return 'hello';
       });
     },
+    // it fired when config changed
     onConfigChange(newConfig) { /* ... */ },
-    onUnload(win) { /* ... */ },
-  };
-});
-```
-
-- `renderer.ts` (optional): executed in the renderer process
-```typescript
-import builder from './index';
-
-import type { YoutubePlayer } from '../../types/youtube-player';
-
-export default builder.createRenderer((context) => {
-  return {
-    async onLoad() {
-      console.log(await context.invoke('some-event'));
+    // you can also clean up plugin
+    stop(context) { /* ... */ },
+  },
+  renderer: {
+    async start(context) {
+      console.log(await context.ipc.invoke('some-event'));
     },
-    onPlayerApiReady(api: YoutubePlayer) {
+    // Only renderer available hook
+    onPlayerApiReady(api: YoutubePlayer, context: RendererContext) {
+      // set plugin config easily
       context.setConfig({ myConfig: api.getVolume() });
     },
     onConfigChange(newConfig) { /* ... */ },
-    onUnload() { /* ... */ },
-  };
-});
-```
-
-- `preload.ts` (optional): executed in the renderer process before `renderer.ts`
-```typescript
-import builder from './index';
-
-export default builder.createPreload(({ getConfig }) => ({
-  async onLoad() {
-    const config = await getConfig();
-
-    // some logic...
+    stop(_context) { /* ... */ },
   },
-  async onConfigChange(newConfig) {}
-}));
-```
-
-- `menu.ts` (optional): executed in the main process for registering menu
-```typescript
-import builder from './index';
-
-export default builder.createMenu(async ({ getConfig, setConfig }) => {
-  const config = await getConfig();
-
-  return [
-    {
-      label: 'menu',
-      submenu: [1, 2, 3].map((value) => ({
-        label: `value ${value}`,
-        type: 'radio',
-        checked: config.value === value,
-        click() {
-          setConfig({ value });
-        },
-      }))
+  preload: {
+    async start({ getConfig }) {
+      const config = await getConfig();
     },
-  ] satisfies Electron.MenuItemConstructorOptions[];
+    onConfigChange(newConfig) {},
+    stop(_context) {},
+  },
 });
 ```
 
@@ -312,31 +277,34 @@ export default builder.createMenu(async ({ getConfig, setConfig }) => {
 // index.ts
 import style from './style.css?inline'; // import style as inline
 
-import { createPluginBuilder } from '../utils/builder';
+import { createPlugin } from '@/utils';
 
-const builder = createPluginBuilder('plugin-id', {
+const builder = createPlugin({
   name: 'Plugin Label',
   restartNeeded: true, // if value is true, ytmusic show restart dialog
   config: {
     enabled: false,
   }, // your custom config
-  styles: [style], // your custom style
+  stylesheets: [style], // your custom style
+  renderer() {} // define renderer hook
 });
 ```
 
 - If you want to change the HTML:
 
 ```typescript
-// renderer.ts
-import builder from './index';
+import { createPlugin } from '@/utils';
 
-export default builder.createRenderer((context) => {
-  return {
-    async onLoad() {
-      // Remove the login button
-      document.querySelector(".sign-in-link.ytmusic-nav-bar").remove();
-    },
-  };
+const builder = createPlugin({
+  name: 'Plugin Label',
+  restartNeeded: true, // if value is true, ytmusic show restart dialog
+  config: {
+    enabled: false,
+  }, // your custom config
+  renderer() {
+    // Remove the login button
+    document.querySelector(".sign-in-link.ytmusic-nav-bar").remove();
+  } // define renderer hook
 });
 ```
 
