@@ -13,28 +13,48 @@ import type { PluginConfig } from '@/types/plugins';
 import type { YoutubePlayer } from '@/types/youtube-player';
 
 let api: (Element & YoutubePlayer) | null = null;
+let isPluginLoaded = false;
+let isApiLoaded = false;
+let firstDataLoaded = false;
 
-async function listenForApiLoad() {
-  api = document.querySelector('#movie_player');
-  if (api) {
-    await onApiLoaded();
+const observer = new MutationObserver(() => {
+  const playerApi = document.querySelector<Element & YoutubePlayer>('#movie_player');
+  if (playerApi) {
+    observer.disconnect();
 
-    return;
-  }
+    // Inject song-info provider
+    setupSongInfo(playerApi);
+    const dataLoadedListener = (name: string) => {
+      if (!firstDataLoaded && name === 'dataloaded') {
+        firstDataLoaded = true;
+        playerApi.removeEventListener('videodatachange', dataLoadedListener);
+      }
+    };
+    playerApi.addEventListener('videodatachange', dataLoadedListener);
 
-  const observer = new MutationObserver(() => {
-    api = document.querySelector('#movie_player');
-    if (api) {
-      observer.disconnect();
+    if (isPluginLoaded && !isApiLoaded) {
+      api = playerApi;
+      isApiLoaded = true;
 
       onApiLoaded();
     }
-  });
+  }
+});
 
-  observer.observe(document.documentElement, {
-    childList: true,
-    subtree: true,
-  });
+observer.observe(document.documentElement, {
+  childList: true,
+  subtree: true,
+});
+
+async function listenForApiLoad() {
+  if (!isApiLoaded) {
+    api = document.querySelector('#movie_player');
+    if (api) {
+      await onApiLoaded();
+
+      return;
+    }
+  }
 }
 
 interface YouTubeMusicAppElement extends HTMLElement {
@@ -45,9 +65,6 @@ async function onApiLoaded() {
   window.ipcRenderer.on('seekTo', (_, t: number) => api!.seekTo(t));
   window.ipcRenderer.on('seekBy', (_, t: number) => api!.seekBy(t));
 
-  // Inject song-info provider
-  setupSongInfo(api!);
-
   const video = document.querySelector('video')!;
   const audioContext = new AudioContext();
   const audioSource = audioContext.createMediaElementSource(video);
@@ -57,6 +74,10 @@ async function onApiLoaded() {
     if (typeof plugin.renderer !== 'function') {
       await plugin.renderer?.onPlayerApiReady?.call(plugin.renderer, api!, createContext(id));
     }
+  }
+
+  if (firstDataLoaded) {
+    document.dispatchEvent(new CustomEvent('videodatachange', { detail: { name: 'dataloaded' } }));
   }
 
   const audioCanPlayEventDispatcher = () => {
@@ -128,6 +149,7 @@ async function onApiLoaded() {
 
 (async () => {
   await loadAllRendererPlugins();
+  isPluginLoaded = true;
 
   window.ipcRenderer.on(
     'plugin:unload',

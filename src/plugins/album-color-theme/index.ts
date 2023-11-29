@@ -4,6 +4,8 @@ import style from './style.css?inline';
 
 import { createPlugin } from '@/utils';
 
+import type { VideoDataChanged } from '@/types/video-data-changed';
+
 export default createPlugin({
   name: 'Album Color Theme',
   restartNeeded: true,
@@ -110,8 +112,8 @@ export default createPlugin({
     onPlayerApiReady(playerApi) {
       const fastAverageColor = new FastAverageColor();
 
-      playerApi.addEventListener('videodatachange', (name: string) => {
-        if (name === 'dataloaded') {
+      document.addEventListener('videodatachange', (event: CustomEvent<VideoDataChanged>) => {
+        if (event.detail.name === 'dataloaded') {
           const playerResponse = playerApi.getPlayerResponse();
           const thumbnail = playerResponse?.videoDetails?.thumbnail?.thumbnails?.at(0);
           if (thumbnail) {

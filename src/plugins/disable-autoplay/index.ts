@@ -1,5 +1,6 @@
 import { createPlugin } from '@/utils';
 
+import type { VideoDataChanged } from '@/types/video-data-changed';
 import type { YoutubePlayer } from '@/types/youtube-player';
 
 export type DisableAutoPlayPluginConfig = {
@@ -13,7 +14,7 @@ export default createPlugin<
   {
     config: DisableAutoPlayPluginConfig | null;
     api: YoutubePlayer | null;
-    eventListener: (name: string) => void;
+    eventListener: (event: CustomEvent<VideoDataChanged>) => void;
     timeUpdateListener: (e: Event) => void;
   },
   DisableAutoPlayPluginConfig
@@ -44,12 +45,12 @@ export default createPlugin<
   renderer: {
     config: null,
     api: null,
-    eventListener(name: string) {
+    eventListener(event: CustomEvent<VideoDataChanged>) {
       if (this.config?.applyOnce) {
-        this.api?.removeEventListener('videodatachange', this.eventListener);
+        document.removeEventListener('videodatachange', this.eventListener);
       }
 
-      if (name === 'dataloaded') {
+      if (event.detail.name === 'dataloaded') {
         this.api?.pauseVideo();
         document.querySelector<HTMLVideoElement>('video')?.addEventListener('timeupdate', this.timeUpdateListener, { once: true });
       }
@@ -65,10 +66,10 @@ export default createPlugin<
     onPlayerApiReady(api) {
       this.api = api;
 
-      api.addEventListener('videodatachange', this.eventListener);
+      document.addEventListener('videodatachange', this.eventListener);
     },
     stop() {
-      this.api?.removeEventListener('videodatachange', this.eventListener);
+      document.removeEventListener('videodatachange', this.eventListener);
     },
     onConfigChange(newConfig) {
       this.config = newConfig;

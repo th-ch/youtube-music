@@ -4,6 +4,7 @@ import type { ipcRenderer as electronIpcRenderer } from 'electron';
 import type is from 'electron-is';
 
 import type config from './config';
+import type { VideoDataChanged } from '@/types/video-data-changed';
 
 declare global {
   interface Compressor {
@@ -13,6 +14,7 @@ declare global {
 
   interface DocumentEventMap {
     'audioCanPlay': CustomEvent<Compressor>;
+    'videodatachange': CustomEvent<VideoDataChanged>;
   }
 
   interface Window {
