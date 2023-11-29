@@ -244,7 +244,7 @@ export default createPlugin({
           resizeObserver.disconnect();
           window.removeEventListener('resize', applyVideoAttributes);
 
-          wrapper.removeChild(blurCanvas);
+          if (blurCanvas.isConnected) blurCanvas.remove();
         };
       };
 
