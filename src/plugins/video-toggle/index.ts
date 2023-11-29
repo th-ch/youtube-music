@@ -4,7 +4,6 @@ import buttonSwitcherStyle from './button-switcher.css?inline';
 
 import { createPlugin } from '@/utils';
 import { moveVolumeHud as preciseVolumeMoveVolumeHud } from '@/plugins/precise-volume/renderer';
-import { YoutubePlayer } from '@/types/youtube-player';
 import { ElementFromHtml } from '@/plugins/utils/renderer';
 import { ThumbnailElement } from '@/types/get-player-response';
 
@@ -150,7 +149,7 @@ export default createPlugin({
       const switchButtonDiv = ElementFromHtml(buttonTemplate);
 
       const forceThumbnail = (img: HTMLImageElement) => {
-        const thumbnails: ThumbnailElement[] = (document.querySelector('#movie_player') as unknown as YoutubePlayer).getPlayerResponse()?.videoDetails?.thumbnail?.thumbnails ?? [];
+        const thumbnails: ThumbnailElement[] = api?.getPlayerResponse()?.videoDetails?.thumbnail?.thumbnails ?? [];
         if (thumbnails && thumbnails.length > 0) {
           const thumbnail = thumbnails.at(-1)?.url.split('?')[0];
           if (thumbnail) img.src = thumbnail;
