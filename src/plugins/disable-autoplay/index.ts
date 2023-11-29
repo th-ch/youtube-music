@@ -59,6 +59,9 @@ export default createPlugin<
         e.target.pause();
       }
     },
+    async start({ getConfig }) {
+      this.config = await getConfig();
+    },
     onPlayerApiReady(api) {
       this.api = api;
 
