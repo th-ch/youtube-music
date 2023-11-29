@@ -49,35 +49,33 @@ export const forceUnloadMainPlugin = async (
   const plugin = loadedPluginMap[id];
   if (!plugin) return;
 
-  return new Promise<void>((resolve, reject) => {
-    try {
-      const hasStopped = stopPlugin(id, plugin, {
-        ctx: 'backend',
-        context: createContext(id, win),
-      });
-      if (
-        hasStopped ||
-        (
-          hasStopped === null &&
-          typeof plugin.backend !== 'function' && plugin.backend
-        )
-      ) {
-        delete loadedPluginMap[id];
-        console.log(LoggerPrefix, `"${id}" plugin is unloaded`);
-        resolve();
-      } else {
-        console.log(
-          LoggerPrefix,
-          `Cannot unload "${id}" plugin`,
-        );
-        reject();
-        return;
-      }
-    } catch (err) {
-      console.log(LoggerPrefix, `Cannot unload "${id}" plugin: ${String(err)}`);
-      reject(err);
+  try {
+    const hasStopped = await stopPlugin(id, plugin, {
+      ctx: 'backend',
+      context: createContext(id, win),
+    });
+    if (
+      hasStopped ||
+      (
+        hasStopped === null &&
+        typeof plugin.backend !== 'function' && plugin.backend
+      )
+    ) {
+      delete loadedPluginMap[id];
+      console.log(LoggerPrefix, `"${id}" plugin is unloaded`);
+      return;
+    } else {
+      console.log(
+        LoggerPrefix,
+        `Cannot unload "${id}" plugin`,
+      );
+      return Promise.reject();
     }
-  });
+  } catch (err) {
+    console.error(LoggerPrefix, `Cannot unload "${id}" plugin`);
+    console.trace(err);
+    return Promise.reject(err);
+  }
 };
 
 export const forceLoadMainPlugin = async (
@@ -87,34 +85,31 @@ export const forceLoadMainPlugin = async (
   const plugin = mainPlugins[id];
   if (!plugin) return;
 
-  return new Promise<void>((resolve, reject) => {
-    try {
-      const hasStarted = startPlugin(id, plugin, {
-        ctx: 'backend',
-        context: createContext(id, win),
-      });
-      if (
-        hasStarted ||
-        (
-          hasStarted === null &&
-          typeof plugin.backend !== 'function' && plugin.backend
-        )
-      ) {
-        loadedPluginMap[id] = plugin;
-        resolve();
-      } else {
-        console.log(LoggerPrefix, `Cannot load "${id}" plugin`);
-        reject();
-      }
-    } catch (err) {
-      console.error(
-        LoggerPrefix,
-        `Cannot initialize "${id}" plugin: `,
-      );
-      console.trace(err);
-      reject(err);
+  try {
+    const hasStarted = await startPlugin(id, plugin, {
+      ctx: 'backend',
+      context: createContext(id, win),
+    });
+    if (
+      hasStarted ||
+      (
+        hasStarted === null &&
+        typeof plugin.backend !== 'function' && plugin.backend
+      )
+    ) {
+      loadedPluginMap[id] = plugin;
+    } else {
+      console.log(LoggerPrefix, `Cannot load "${id}" plugin`);
+      return Promise.reject();
     }
-  });
+  } catch (err) {
+    console.error(
+      LoggerPrefix,
+      `Cannot initialize "${id}" plugin: `,
+    );
+    console.trace(err);
+    return Promise.reject(err);
+  }
 };
 
 export const loadAllMainPlugins = async (win: BrowserWindow) => {
@@ -134,9 +129,9 @@ export const loadAllMainPlugins = async (win: BrowserWindow) => {
   await Promise.allSettled(queue);
 };
 
-export const unloadAllMainPlugins = (win: BrowserWindow) => {
+export const unloadAllMainPlugins = async (win: BrowserWindow) => {
   for (const id of Object.keys(loadedPluginMap)) {
-    forceUnloadMainPlugin(id, win);
+    await forceUnloadMainPlugin(id, win);
   }
 };
 

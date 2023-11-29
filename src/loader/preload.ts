@@ -20,10 +20,10 @@ const createContext = (id: string): PreloadContext<PluginConfig> => ({
   },
 });
 
-export const forceUnloadPreloadPlugin = (id: string) => {
+export const forceUnloadPreloadPlugin = async (id: string) => {
   if (!loadedPluginMap[id]) return;
 
-  const hasStopped = stopPlugin(id, loadedPluginMap[id], {
+  const hasStopped = await stopPlugin(id, loadedPluginMap[id], {
     ctx: 'preload',
     context: createContext(id),
   });
@@ -41,12 +41,12 @@ export const forceUnloadPreloadPlugin = (id: string) => {
   }
 };
 
-export const forceLoadPreloadPlugin = (id: string) => {
+export const forceLoadPreloadPlugin = async (id: string) => {
   try {
     const plugin = preloadPlugins[id];
     if (!plugin) return;
 
-    const hasStarted = startPlugin(id, plugin, {
+    const hasStarted = await startPlugin(id, plugin, {
       ctx: 'preload',
       context: createContext(id),
     });
@@ -71,25 +71,25 @@ export const forceLoadPreloadPlugin = (id: string) => {
   }
 };
 
-export const loadAllPreloadPlugins = () => {
+export const loadAllPreloadPlugins = async () => {
   const pluginConfigs = config.plugins.getPlugins();
 
   for (const [pluginId, pluginDef] of Object.entries(preloadPlugins)) {
-    const config = deepmerge(pluginDef.config ?? { enable: false }, pluginConfigs[pluginId] ?? {}) ;
+    const config = deepmerge(pluginDef.config ?? { enable: false }, pluginConfigs[pluginId] ?? {});
 
     if (config.enabled) {
-      forceLoadPreloadPlugin(pluginId);
+      await forceLoadPreloadPlugin(pluginId);
     } else {
       if (loadedPluginMap[pluginId]) {
-        forceUnloadPreloadPlugin(pluginId);
+        await forceUnloadPreloadPlugin(pluginId);
       }
     }
   }
 };
 
-export const unloadAllPreloadPlugins = () => {
+export const unloadAllPreloadPlugins = async () => {
   for (const id of Object.keys(loadedPluginMap)) {
-    forceUnloadPreloadPlugin(id);
+    await forceUnloadPreloadPlugin(id);
   }
 };
 

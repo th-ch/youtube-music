@@ -31,7 +31,7 @@ export const createContext = <Config extends PluginConfig>(id: string): Renderer
   },
 });
 
-export const forceUnloadRendererPlugin = (id: string) => {
+export const forceUnloadRendererPlugin = async (id: string) => {
   unregisterStyleMap[id]?.forEach((unregister) => unregister());
 
   delete unregisterStyleMap[id];
@@ -40,7 +40,7 @@ export const forceUnloadRendererPlugin = (id: string) => {
   const plugin = rendererPlugins[id];
   if (!plugin) return;
 
-  const hasStopped = stopPlugin(id, plugin, { ctx: 'renderer', context: createContext(id) });
+  const hasStopped = await stopPlugin(id, plugin, { ctx: 'renderer', context: createContext(id) });
   if (plugin?.stylesheets) {
     document.querySelector(`style#plugin-${id}`)?.remove();
   }
@@ -57,11 +57,11 @@ export const forceUnloadRendererPlugin = (id: string) => {
   }
 };
 
-export const forceLoadRendererPlugin = (id: string) => {
+export const forceLoadRendererPlugin = async (id: string) => {
   const plugin = rendererPlugins[id];
   if (!plugin) return;
 
-  const hasEvaled = startPlugin(id, plugin, {
+  const hasEvaled = await startPlugin(id, plugin, {
     ctx: 'renderer',
     context: createContext(id),
   });
@@ -93,25 +93,25 @@ export const forceLoadRendererPlugin = (id: string) => {
   }
 };
 
-export const loadAllRendererPlugins = () => {
+export const loadAllRendererPlugins = async () => {
   const pluginConfigs = window.mainConfig.plugins.getPlugins();
 
   for (const [pluginId, pluginDef] of Object.entries(rendererPlugins)) {
     const config = deepmerge(pluginDef.config, pluginConfigs[pluginId] ?? {}) ;
 
     if (config.enabled) {
-      forceLoadRendererPlugin(pluginId);
+      await forceLoadRendererPlugin(pluginId);
     } else {
       if (loadedPluginMap[pluginId]) {
-        forceUnloadRendererPlugin(pluginId);
+        await forceUnloadRendererPlugin(pluginId);
       }
     }
   }
 };
 
-export const unloadAllRendererPlugins = () => {
+export const unloadAllRendererPlugins = async () => {
   for (const id of Object.keys(loadedPluginMap)) {
-    forceUnloadRendererPlugin(id);
+    await forceUnloadRendererPlugin(id);
   }
 };
 

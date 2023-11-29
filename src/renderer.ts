@@ -14,10 +14,10 @@ import type { YoutubePlayer } from '@/types/youtube-player';
 
 let api: (Element & YoutubePlayer) | null = null;
 
-function listenForApiLoad() {
+async function listenForApiLoad() {
   api = document.querySelector('#movie_player');
   if (api) {
-    onApiLoaded();
+    await onApiLoaded();
 
     return;
   }
@@ -53,7 +53,7 @@ async function onApiLoaded() {
   const audioSource = audioContext.createMediaElementSource(video);
   audioSource.connect(audioContext.destination);
 
-  for (const [id, plugin] of Object.entries(getAllLoadedRendererPlugins())) {
+  for await (const [id, plugin] of Object.entries(getAllLoadedRendererPlugins())) {
     if (typeof plugin.renderer !== 'function') {
       await plugin.renderer?.onPlayerApiReady?.call(plugin.renderer, api!, createContext(id));
     }
@@ -126,23 +126,23 @@ async function onApiLoaded() {
   }
 }
 
-(() => {
-  loadAllRendererPlugins();
+(async () => {
+  await loadAllRendererPlugins();
 
   window.ipcRenderer.on(
     'plugin:unload',
-    (_event, id: string) => {
-      forceUnloadRendererPlugin(id);
+    async (_event, id: string) => {
+      await forceUnloadRendererPlugin(id);
     },
   );
   window.ipcRenderer.on(
     'plugin:enable',
-    (_event, id: string) => {
-      forceLoadRendererPlugin(id);
+    async (_event, id: string) => {
+      await forceLoadRendererPlugin(id);
       if (api) {
         const plugin = getLoadedRendererPlugin(id);
         if (plugin && typeof plugin.renderer !== 'function') {
-          plugin.renderer?.onPlayerApiReady?.call(plugin.renderer, api, createContext(id));
+          await plugin.renderer?.onPlayerApiReady?.call(plugin.renderer, api, createContext(id));
         }
       }
     },
@@ -159,7 +159,7 @@ async function onApiLoaded() {
   );
 
   // Wait for complete load of YouTube api
-  listenForApiLoad();
+  await listenForApiLoad();
 
   // Blocks the "Are You Still There?" popup by setting the last active time to Date.now every 15min
   setInterval(() => (window._lact = Date.now()), 900_000);

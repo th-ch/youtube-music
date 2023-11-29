@@ -69,7 +69,7 @@ type Options<Config extends PluginConfig> =
   | { ctx: 'preload'; context: PreloadContext<Config> }
   | { ctx: 'renderer'; context: RendererContext<Config> };
 
-export const startPlugin = <Config extends PluginConfig>(
+export const startPlugin = async <Config extends PluginConfig>(
   id: string,
   def: PluginDef<unknown, unknown, unknown, Config>,
   options: Options<Config>,
@@ -99,7 +99,7 @@ export const startPlugin = <Config extends PluginConfig>(
 
     const start = performance.now();
 
-    lifecycle?.call(
+    await lifecycle?.call(
       defContext,
       options.context as Config & typeof options.context,
     );
@@ -118,7 +118,7 @@ export const startPlugin = <Config extends PluginConfig>(
   }
 };
 
-export const stopPlugin = <Config extends PluginConfig>(
+export const stopPlugin = async <Config extends PluginConfig>(
   id: string,
   def: PluginDef<unknown, unknown, unknown, Config>,
   options: Options<Config>,
@@ -132,7 +132,7 @@ export const stopPlugin = <Config extends PluginConfig>(
   try {
     const stop = defCtx.stop;
     const start = performance.now();
-    stop.call(
+    await stop.call(
       def[options.ctx],
       options.context as Config & typeof options.context,
     );

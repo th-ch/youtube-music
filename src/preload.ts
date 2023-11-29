@@ -11,11 +11,11 @@ import {
 
 loadAllPreloadPlugins();
 
-ipcRenderer.on('plugin:unload', (_, id: string) => {
-  forceUnloadPreloadPlugin(id);
+ipcRenderer.on('plugin:unload', async (_, id: string) => {
+  await forceUnloadPreloadPlugin(id);
 });
-ipcRenderer.on('plugin:enable', (_, id: string) => {
-  forceLoadPreloadPlugin(id);
+ipcRenderer.on('plugin:enable', async (_, id: string) => {
+  await forceLoadPreloadPlugin(id);
 });
 
 contextBridge.exposeInMainWorld('mainConfig', config);
