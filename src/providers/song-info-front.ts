@@ -5,6 +5,7 @@ import type { GetState } from '@/types/datahost-get-state';
 import type { VideoDataChangeValue } from '@/types/player-api-events';
 
 import type { SongInfo } from './song-info';
+import type { VideoDataChanged } from '@/types/video-data-changed';
 
 let songInfo: SongInfo = {} as SongInfo;
 export const getSongInfo = () => songInfo;
@@ -107,7 +108,7 @@ export default (api: YoutubePlayer) => {
   const waitingEvent = new Set<string>();
   // Name = "dataloaded" and abit later "dataupdated"
   api.addEventListener('videodatachange', (name: string, videoData) => {
-    document.dispatchEvent(new CustomEvent('videodatachange', { detail: { name, videoData } }));
+    document.dispatchEvent(new CustomEvent<VideoDataChanged>('videodatachange', { detail: { name, videoData } }));
 
     if (name === 'dataupdated' && waitingEvent.has(videoData.videoId)) {
       waitingEvent.delete(videoData.videoId);
