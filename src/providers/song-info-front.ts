@@ -107,6 +107,8 @@ export default (api: YoutubePlayer) => {
   const waitingEvent = new Set<string>();
   // Name = "dataloaded" and abit later "dataupdated"
   api.addEventListener('videodatachange', (name: string, videoData) => {
+    document.dispatchEvent(new CustomEvent('videodatachange', { detail: { name, videoData } }));
+
     if (name === 'dataupdated' && waitingEvent.has(videoData.videoId)) {
       waitingEvent.delete(videoData.videoId);
       sendSongInfo(videoData);
