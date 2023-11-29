@@ -71,17 +71,17 @@ export const forceLoadPreloadPlugin = async (id: string) => {
   }
 };
 
-export const loadAllPreloadPlugins = async () => {
+export const loadAllPreloadPlugins = () => {
   const pluginConfigs = config.plugins.getPlugins();
 
   for (const [pluginId, pluginDef] of Object.entries(preloadPlugins)) {
     const config = deepmerge(pluginDef.config ?? { enable: false }, pluginConfigs[pluginId] ?? {});
 
     if (config.enabled) {
-      await forceLoadPreloadPlugin(pluginId);
+      forceLoadPreloadPlugin(pluginId);
     } else {
       if (loadedPluginMap[pluginId]) {
-        await forceUnloadPreloadPlugin(pluginId);
+        forceUnloadPreloadPlugin(pluginId);
       }
     }
   }
