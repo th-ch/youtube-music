@@ -42,10 +42,10 @@ export const onMenu = async ({ window, getConfig, setConfig, refresh }: MenuCont
     {
       label: 'Clear activity after timeout',
       type: 'checkbox',
-      checked: config.activityTimoutEnabled,
+      checked: config.activityTimeoutEnabled,
       click(item: Electron.MenuItem) {
         setConfig({
-          activityTimoutEnabled: item.checked,
+          activityTimeoutEnabled: item.checked,
         });
       },
     },
@@ -90,7 +90,7 @@ async function setInactivityTimeout(win: Electron.BrowserWindow, options: Discor
   const output = await prompt({
     title: 'Set Inactivity Timeout',
     label: 'Enter inactivity timeout in seconds:',
-    value: String(Math.round((options.activityTimoutTime ?? 0) / 1e3)),
+    value: String(Math.round((options.activityTimeoutTime ?? 0) / 1e3)),
     type: 'counter',
     counterOptions: { minimum: 0, multiFire: true },
     width: 450,
@@ -98,7 +98,7 @@ async function setInactivityTimeout(win: Electron.BrowserWindow, options: Discor
   }, win);
 
   if (output) {
-    options.activityTimoutTime = Math.round(~~output * 1e3);
+    options.activityTimeoutTime = Math.round(~~output * 1e3);
     setMenuOptions('discord', options);
   }
 }

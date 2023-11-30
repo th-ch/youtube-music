@@ -122,7 +122,7 @@ export const backend = createBackend<{
 
     info.lastSongInfo = songInfo;
 
-    // Stop the clear activity timout
+    // Stop the clear activity timeout
     clearTimeout(clearActivity);
 
     // Stop early if discord connection is not ready
@@ -132,7 +132,7 @@ export const backend = createBackend<{
     }
 
     // Clear directly if timeout is 0
-    if (songInfo.isPaused && config.activityTimoutEnabled && config.activityTimoutTime === 0) {
+    if (songInfo.isPaused && config.activityTimeoutEnabled && config.activityTimeoutTime === 0) {
       info.rpc.user?.clearActivity().catch(console.error);
       return;
     }
@@ -167,8 +167,8 @@ export const backend = createBackend<{
       activityInfo.smallImageKey = 'paused';
       activityInfo.smallImageText = 'Paused';
       // Set start the timer so the activity gets cleared after a while if enabled
-      if (config.activityTimoutEnabled) {
-        clearActivity = setTimeout(() => info.rpc.user?.clearActivity().catch(console.error), config.activityTimoutTime ?? 10_000);
+      if (config.activityTimeoutEnabled) {
+        clearActivity = setTimeout(() => info.rpc.user?.clearActivity().catch(console.error), config.activityTimeoutTime ?? 10_000);
       }
     } else if (!config.hideDurationLeft) {
       // Add the start and end time of the song

@@ -13,13 +13,13 @@ export type DiscordPluginConfig = {
   /**
    * If enabled, the discord rich presence gets cleared when music paused after the time specified below
    */
-  activityTimoutEnabled: boolean;
+  activityTimeoutEnabled: boolean;
   /**
    * The time in milliseconds after which the discord rich presence gets cleared when music paused
    *
    * @default 10 * 60 * 1000 (10 minutes)
    */
-  activityTimoutTime: number;
+  activityTimeoutTime: number;
   /**
    * Add a "Play on YouTube Music" button to rich presence
    */
@@ -40,8 +40,8 @@ export default createPlugin({
   config: {
     enabled: false,
     autoReconnect: true,
-    activityTimoutEnabled: true,
-    activityTimoutTime: 10 * 60 * 1000,
+    activityTimeoutEnabled: true,
+    activityTimeoutTime: 10 * 60 * 1000,
     playOnYouTubeMusic: true,
     hideGitHubButton: false,
     hideDurationLeft: false,

@@ -6,6 +6,21 @@ import defaults from './defaults';
 import { DefaultPresetList, type Preset } from '@/plugins/downloader/types';
 
 const migrations = {
+  '>=3.0.0'(store: Conf<Record<string, unknown>>) {
+    const discordConfig = store.get('plugins.discord') as Record<string, unknown>;
+    if (discordConfig) {
+      const oldActivityTimoutEnabled = store.get('plugins.discord.activityTimoutEnabled') as boolean | undefined;
+      const oldActivityTimoutTime = store.get('plugins.discord.activityTimoutTime') as number | undefined;
+      if (oldActivityTimoutEnabled !== undefined) {
+        discordConfig.activityTimeoutEnabled = oldActivityTimoutEnabled;
+        store.set('plugins.discord', discordConfig);
+      }
+      if (oldActivityTimoutTime !== undefined) {
+        discordConfig.activityTimeoutTime = oldActivityTimoutTime;
+        store.set('plugins.discord', discordConfig);
+      }
+    }
+  },
   '>=2.1.3'(store: Conf<Record<string, unknown>>) {
     const listenAlong = store.get('plugins.discord.listenAlong');
     if (listenAlong !== undefined) {
