@@ -36,7 +36,14 @@ export const forceLoadMenuPlugin = async (id: string, win: BrowserWindow) => {
     if (!plugin) return;
 
     const menu = plugin.menu?.(createContext(id, win));
-    if (menu) menuTemplateMap[id] = await menu;
+    if (menu) {
+      const result = await menu;
+      if (result.length > 0) {
+        menuTemplateMap[id] = result;
+      } else {
+        return;
+      }
+    }
     else return;
 
     console.log(LoggerPrefix, `Successfully loaded '${id}::menu'`);
