@@ -1,17 +1,24 @@
-import { use } from 'i18next';
-import backend from 'i18next-electron-fs-backend';
+import i18next, { init, t as i18t } from 'i18next';
 
-export const i18n = use(backend).createInstance({
-  backend: {
-    loadPath: './app/localization/locales/{{lng}}/{{ns}}.json',
-    addPath: './app/localization/locales/{{lng}}/{{ns}}.missing.json',
-    contextBridgeApiKey: 'api' // needs to match first parameter of contextBridge.exposeInMainWorld in preload file; defaults to "api"
-  },
+import enJson from './resources/en.json';
+import koJson from './resources/ko.json';
 
-  // other options you might configure
-  debug: true,
-  saveMissing: true,
-  saveMissingTo: 'current',
-  lng: 'en'
-});
+export const loadI18n = async () =>
+  await init({
+    resources: {
+      en: {
+        translation: enJson
+      },
+      ko: {
+        translation: koJson
+      }
+    },
+    lng: 'en',
+    interpolation: {
+      escapeValue: false
+    }
+  });
+loadI18n();
+
+export const t = i18t.bind(i18next);
 

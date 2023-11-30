@@ -25,7 +25,6 @@ import { deepmerge } from 'deepmerge-ts';
 import { deepEqual } from 'fast-equals';
 
 import { allPlugins, mainPlugins } from 'virtual:plugins';
-import { clearMainBindings, mainBindings } from 'i18next-electron-fs-backend';
 
 import config from '@/config';
 
@@ -51,8 +50,11 @@ import {
 } from '@/loader/main';
 
 import { LoggerPrefix } from '@/utils';
+import { loadI18n, t } from '@/i18n';
 
 import type { PluginConfig } from '@/types/plugins';
+
+loadI18n().then(() => console.log(LoggerPrefix, t('main.console.i18n.loaded')));
 
 // Catch errors and log them
 unhandled({
@@ -185,10 +187,17 @@ const showNeedToRestartDialog = (id: string) => {
 
   const dialogOptions: Electron.MessageBoxOptions = {
     type: 'info',
-    buttons: ['Restart Now', 'Later'],
-    title: 'Restart Required',
-    message: `"${plugin?.name ?? id}" needs to restart`,
-    detail: `"${plugin?.name ?? id}" plugin requires a restart to take effect`,
+    buttons: [
+      t('main.dialog.need-to-restart.buttons.restart-now'),
+      t('main.dialog.need-to-restart.buttons.later'),
+    ],
+    title: t('main.dialog.need-to-restart.title'),
+    message: t('main.dialog.need-to-restart.message', {
+      pluginName: plugin?.name ?? id,
+    }),
+    detail: t('main.dialog.need-to-restart.detail', {
+      pluginName: plugin?.name ?? id,
+    }),
     defaultId: 0,
     cancelId: 1,
   };
@@ -229,7 +238,7 @@ function initTheme(win: BrowserWindow) {
         () => {
           console.warn(
             LoggerPrefix,
-            `CSS file "${cssFile}" does not exist, ignoring`,
+            t('main.console.theme.css-file-not-found', { cssFile }),
           );
         },
       );
@@ -238,7 +247,7 @@ function initTheme(win: BrowserWindow) {
 
   win.webContents.once('did-finish-load', () => {
     if (is.dev()) {
-      console.log(LoggerPrefix, 'did finish load');
+      console.debug(LoggerPrefix, t('main.console.did-finish-load.dev-tools'));
       win.webContents.openDevTools();
     }
   });
@@ -282,7 +291,6 @@ async function createMainWindow() {
       : 'default',
     autoHideMenuBar: config.get('options.hideMenu'),
   });
-  mainBindings(ipcMain, win, fs);
   initHook(win);
   initTheme(win);
 
@@ -308,13 +316,13 @@ async function createMainWindow() {
     ) {
       // Window is offscreen
       if (is.dev()) {
-        console.log(
-          `Window tried to render offscreen, windowSize=${String(
-            winSize,
-          )}, displaySize=${String(display.bounds)}, position=${String(
-            windowPosition,
-          )}`,
-        );
+        console.warn(
+          LoggerPrefix,
+          t('main.console.window.tried-to-render-offscreen', {
+            winSize: String(winSize),
+            displaySize: String(display.bounds),
+            windowPosition: String(windowPosition),
+          }));
       }
     } else {
       win.setSize(scaledWidth, scaledHeight);
@@ -530,8 +538,6 @@ app.once('browser-window-created', (_event, win) => {
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
-  } else {
-    clearMainBindings(ipcMain);
   }
 
   // Unregister all shortcuts.
@@ -553,7 +559,10 @@ app.whenReady().then(async () => {
     // Clear cache after 20s
     const clearCacheTimeout = setTimeout(() => {
       if (is.dev()) {
-        console.log('Clearing app cache.');
+        console.log(
+          LoggerPrefix,
+          t('main.console.when-ready.clearing-cache-after-20s'),
+        );
       }
 
       session.defaultSession.clearCache();
@@ -619,7 +628,7 @@ app.whenReady().then(async () => {
       const lastIndex = protocolArgv.endsWith('/') ? -1 : undefined;
       const command = protocolArgv.slice(uri.length, lastIndex);
       if (is.dev()) {
-        console.debug(`Received command over protocol: "${command}"`);
+        console.debug(LoggerPrefix, t('main.console.second-instance.receive-command', { command }));
       }
 
       handleProtocol(command);
@@ -656,10 +665,14 @@ app.whenReady().then(async () => {
         'https://github.com/th-ch/youtube-music/releases/latest';
       const dialogOptions: Electron.MessageBoxOptions = {
         type: 'info',
-        buttons: ['OK', 'Download', 'Disable updates'],
-        title: 'Application Update',
-        message: 'A new version is available',
-        detail: `A new version is available and can be downloaded at ${downloadLink}`,
+        buttons: [
+          t('main.dialog.update-available.buttons.download'),
+          t('main.dialog.update-available.buttons.later'),
+          t('main.dialog.update-available.buttons.disable'),
+        ],
+        title: t('main.dialog.update-available.title'),
+        message: t('main.dialog.update-available.message'),
+        detail: t('main.dialog.update-available.detail', { downloadLink }),
       };
 
       let dialogPromise: Promise<Electron.MessageBoxReturnValue>;
@@ -694,9 +707,8 @@ app.whenReady().then(async () => {
   if (config.get('options.hideMenu') && !config.get('options.hideMenuWarned')) {
     dialog.showMessageBox(mainWindow, {
       type: 'info',
-      title: 'Hide Menu Enabled',
-      message:
-        "Menu is hidden, use 'Alt' to show it (or 'Escape' if using in-app-menu)",
+      title: t('main.dialog.hide-menu-enabled.title'),
+      message: t('main.dialog.hide-menu-enabled.message'),
     });
     config.set('options.hideMenuWarned', true);
   }
@@ -727,16 +739,25 @@ function showUnresponsiveDialog(
   details: Electron.RenderProcessGoneDetails,
 ) {
   if (details) {
-    console.log('Unresponsive Error!\n' + JSON.stringify(details, null, '\t'));
+    console.error(
+      LoggerPrefix,
+      t('main.console.unresponsive.details', {
+        error: JSON.stringify(details, null, '\t'),
+      }),
+    );
   }
 
   dialog
     .showMessageBox(win, {
       type: 'error',
-      title: 'Window Unresponsive',
-      message: 'The Application is Unresponsive',
-      detail: 'We are sorry for the inconvenience! please choose what to do:',
-      buttons: ['Wait', 'Relaunch', 'Quit'],
+      title: t('main.dialog.unresponsive.title'),
+      message: t('main.dialog.unresponsive.message'),
+      detail: t('main.dialog.unresponsive.detail'),
+      buttons: [
+        t('main.dialog.unresponsive.buttons.wait'),
+        t('main.dialog.unresponsive.buttons.relaunch'),
+        t('main.dialog.unresponsive.buttons.quit'),
+      ],
       cancelId: 0,
     })
     .then((result) => {

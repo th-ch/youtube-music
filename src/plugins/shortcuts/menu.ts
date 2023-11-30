@@ -2,6 +2,8 @@ import prompt, { KeybindOptions } from 'custom-electron-prompt';
 
 import promptOptions from '@/providers/prompt-options';
 
+import { t } from '@/i18n';
+
 import type { ShortcutsPluginConfig } from './index';
 import type { BrowserWindow } from 'electron';
 import type { MenuContext } from '@/types/contexts';
@@ -29,14 +31,14 @@ export const onMenu = async ({
   ) {
     const output = await prompt(
       {
-        title: 'Global Keybinds',
-        label: 'Choose Global Keybinds for Songs Control:',
+        title: t('plugins.shortcuts.prompt.keybind.title'),
+        label: t('plugins.shortcuts.prompt.keybind.label'),
         type: 'keybind',
         keybindOptions: [
           // If default=undefined then no default is used
-          kb('Previous', 'previous', config.global?.previous),
-          kb('Play / Pause', 'playPause', config.global?.playPause),
-          kb('Next', 'next', config.global?.next),
+          kb(t('plugins.shortcuts.prompt.keybind.keybind-options.previous'), 'previous', config.global?.previous),
+          kb(t('plugins.shortcuts.prompt.keybind.keybind-options.play-pause'), 'playPause', config.global?.playPause),
+          kb(t('plugins.shortcuts.prompt.keybind.keybind-options.next'), 'next', config.global?.next),
         ],
         height: 270,
         ...promptOptions(),
@@ -59,11 +61,11 @@ export const onMenu = async ({
 
   return [
     {
-      label: 'Set Global Song Controls',
+      label: t('plugins.shortcuts.menu.set-keybinds'),
       click: () => promptKeybind(config, window),
     },
     {
-      label: 'Override MediaKeys',
+      label: t('plugins.shortcuts.menu.override-media-keys'),
       type: 'checkbox',
       checked: config.overrideMediaKeys,
       click: (item) => setConfig({ overrideMediaKeys: item.checked }),

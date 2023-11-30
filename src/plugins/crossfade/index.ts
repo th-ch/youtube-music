@@ -11,6 +11,7 @@ import { createPlugin } from '@/utils';
 import { VolumeFader } from './fader';
 
 import type { RendererContext } from '@/types/contexts';
+import { t } from '@/i18n';
 
 export type CrossfadePluginConfig = {
   enabled: boolean;
@@ -29,8 +30,8 @@ export default createPlugin<
   },
   CrossfadePluginConfig
 >({
-  name: 'Crossfade [beta]',
-  description: 'Crossfade between songs',
+  name: t('plugins.crossfade.name'),
+  description: t('plugins.crossfade.description'),
   restartNeeded: true,
   config: {
     enabled: false,
@@ -67,11 +68,11 @@ export default createPlugin<
     ): Promise<Omit<CrossfadePluginConfig, 'enabled'> | undefined> => {
       const res = await prompt(
         {
-          title: 'Crossfade Options',
+          title: t('plugins.crossfade.prompt.options'),
           type: 'multiInput',
           multiInputOptions: [
             {
-              label: 'Fade in duration (ms)',
+              label: t('plugins.crossfade.prompt.options.multi-input.fade-in-duration'),
               value: options.fadeInDuration,
               inputAttrs: {
                 type: 'number',
@@ -81,7 +82,7 @@ export default createPlugin<
               },
             },
             {
-              label: 'Fade out duration (ms)',
+              label: t('plugins.crossfade.prompt.options.multi-input.fade-out-duration'),
               value: options.fadeOutDuration,
               inputAttrs: {
                 type: 'number',
@@ -91,7 +92,7 @@ export default createPlugin<
               },
             },
             {
-              label: 'Crossfade x seconds before end',
+              label: t('plugins.crossfade.prompt.options.multi-input.seconds-before-end'),
               value: options.secondsBeforeEnd,
               inputAttrs: {
                 type: 'number',
@@ -100,8 +101,11 @@ export default createPlugin<
               },
             },
             {
-              label: 'Fade scaling',
-              selectOptions: { linear: 'Linear', logarithmic: 'Logarithmic' },
+              label: t('plugins.crossfade.prompt.options.multi-input.fade-scaling.label'),
+              selectOptions: {
+                linear: t('plugins.crossfade.prompt.options.multi-input.fade-scaling.linear'),
+                logarithmic: t('plugins.crossfade.prompt.options.multi-input.fade-scaling.logarithmic'),
+              },
               value: options.fadeScaling,
             },
           ],
@@ -135,7 +139,7 @@ export default createPlugin<
 
     return [
       {
-        label: 'Advanced',
+        label: t('plugins.crossfade.menu.advanced'),
         async click() {
           const newOptions = await promptCrossfadeValues(
             window,

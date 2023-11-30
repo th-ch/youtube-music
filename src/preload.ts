@@ -2,7 +2,6 @@ import process from 'node:process';
 
 import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
 import is from 'electron-is';
-import { preloadBindings } from 'i18next-electron-fs-backend';
 
 import config from './config';
 
@@ -52,6 +51,3 @@ contextBridge.exposeInMainWorld(
   'ELECTRON_RENDERER_URL',
   process.env.ELECTRON_RENDERER_URL,
 );
-contextBridge.exposeInMainWorld('api', {
-  i18nextElectronBackend: preloadBindings(ipcRenderer, process) as unknown,
-});

@@ -1,5 +1,7 @@
 import is from 'electron-is';
 
+import { t } from '@/i18n';
+
 import type { InAppMenuConfig } from './index';
 import type { MenuContext } from '@/types/contexts';
 import type { MenuTemplate } from '@/menu';
@@ -13,7 +15,7 @@ export const onMenu = async ({
   if (is.linux()) {
     return [
       {
-        label: 'Hide DOM Window Controls',
+        label: t('plugins.in-app-menu.hide-dom-window-controls'),
         type: 'checkbox',
         checked: config.hideDOMWindowControls,
         click(item) {

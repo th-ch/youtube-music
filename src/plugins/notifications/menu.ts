@@ -3,6 +3,8 @@ import { MenuItem } from 'electron';
 
 import { snakeToCamel, ToastStyles, urgencyLevels } from './utils';
 
+import { t } from '@/i18n';
+
 import type { NotificationsPluginConfig } from './index';
 
 import type { MenuTemplate } from '@/menu';
@@ -34,7 +36,7 @@ export const onMenu = async ({
     if (is.linux()) {
       return [
         {
-          label: 'Notification Priority',
+          label: t('plugins.notifications.menu.priority'),
           submenu: urgencyLevels.map((level) => ({
             label: level.name,
             type: 'radio',
@@ -46,7 +48,7 @@ export const onMenu = async ({
     } else if (is.windows()) {
       return [
         {
-          label: 'Interactive Notifications',
+          label: t('plugins.notifications.menu.interactive'),
           type: 'checkbox',
           checked: config.interactive,
           // Doesn't update until restart
@@ -54,24 +56,24 @@ export const onMenu = async ({
         },
         {
           // Submenu with settings for interactive notifications (name shouldn't be too long)
-          label: 'Interactive Settings',
+          label: t('plugins.notifications.menu.interactive-settings.label'),
           submenu: [
             {
-              label: 'Open/Close on tray click',
+              label: t('plugins.notifications.menu.interactive-settings.submenu.tray-controls'),
               type: 'checkbox',
               checked: config.trayControls,
               click: (item: MenuItem) =>
                 setConfig({ trayControls: item.checked }),
             },
             {
-              label: 'Hide Button Text',
+              label: t('plugins.notifications.menu.interactive-settings.submenu.hide-button-text'),
               type: 'checkbox',
               checked: config.hideButtonText,
               click: (item: MenuItem) =>
                 setConfig({ hideButtonText: item.checked }),
             },
             {
-              label: 'Refresh on Play/Pause',
+              label: t('plugins.notifications.menu.interactive-settings.submenu.refresh-on-play-pause'),
               type: 'checkbox',
               checked: config.refreshOnPlayPause,
               click: (item: MenuItem) =>
@@ -80,7 +82,7 @@ export const onMenu = async ({
           ],
         },
         {
-          label: 'Style',
+          label: t('plugins.notifications.menu.toast-style'),
           submenu: getToastStyleMenuItems(config),
         },
       ];
@@ -92,7 +94,7 @@ export const onMenu = async ({
   return [
     ...getMenu(),
     {
-      label: 'Show notification on unpause',
+      label: t('plugins.notifications.menu.unpause-notification'),
       type: 'checkbox',
       checked: config.unpauseNotification,
       click: (item) => setConfig({ unpauseNotification: item.checked }),

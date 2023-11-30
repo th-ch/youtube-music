@@ -5,6 +5,8 @@ import { LoggerPrefix, startPlugin, stopPlugin } from '@/utils';
 
 import config from '@/config';
 
+import { t } from '@/i18n';
+
 import type { PreloadContext } from '@/types/contexts';
 import type { PluginConfig, PluginDef } from '@/types/plugins';
 
@@ -31,10 +33,13 @@ export const forceUnloadPreloadPlugin = async (id: string) => {
     context: createContext(id),
   });
   if (hasStopped || (hasStopped === null && loadedPluginMap[id].preload)) {
-    console.log(LoggerPrefix, `"${id}" plugin is unloaded`);
+    console.log(
+      LoggerPrefix,
+      t('common.console.plugins.unloaded', { pluginName: id }),
+    );
     delete loadedPluginMap[id];
   } else {
-    console.error(LoggerPrefix, `Cannot stop "${id}" plugin`);
+    console.error(LoggerPrefix, t('common.console.plugins.unload-failed', { pluginName: id }));
   }
 };
 
@@ -57,9 +62,9 @@ export const forceLoadPreloadPlugin = async (id: string) => {
       loadedPluginMap[id] = plugin;
     }
 
-    console.log(LoggerPrefix, `"${id}" plugin is loaded`);
+    console.log(LoggerPrefix, t('common.console.plugins.loaded', { pluginName: id }));
   } catch (err) {
-    console.error(LoggerPrefix, `Cannot initialize "${id}" plugin: `);
+    console.error(LoggerPrefix, t('common.console.plugins.initialize-failed', { pluginName: id }));
     console.trace(err);
   }
 };

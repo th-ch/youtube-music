@@ -9,6 +9,8 @@ import {
 import injectCliqzPreload from './injectors/inject-cliqz-preload';
 import { inject, isInjected } from './injectors/inject';
 
+import { t } from '@/i18n';
+
 import type { BrowserWindow } from 'electron';
 
 interface AdblockerConfig {
@@ -41,8 +43,8 @@ interface AdblockerConfig {
 }
 
 export default createPlugin({
-  name: 'Adblocker',
-  description: 'Block all ads and tracking out of the box',
+  name: t('plugins.adblocker.name'),
+  description: t('plugins.adblocker.description'),
   restartNeeded: false,
   config: {
     enabled: true,
@@ -56,7 +58,7 @@ export default createPlugin({
 
     return [
       {
-        label: 'Blocker',
+        label: t('plugins.adblocker.menu.blocker'),
         submenu: Object.values(blockers).map((blocker) => ({
           label: blocker,
           type: 'radio',

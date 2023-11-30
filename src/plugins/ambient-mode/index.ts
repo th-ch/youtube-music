@@ -1,6 +1,7 @@
 import style from './style.css?inline';
 
 import { createPlugin } from '@/utils';
+import { t } from '@/i18n';
 
 export type AmbientModePluginConfig = {
   enabled: boolean;
@@ -24,9 +25,8 @@ const defaultConfig: AmbientModePluginConfig = {
 };
 
 export default createPlugin({
-  name: 'Ambient Mode',
-  description:
-    'Applies a lighting effect by casting gentle colors from the video, into your screen’s background.',
+  name: t('plugins.ambient-mode.name'),
+  description: t('plugins.ambient-mode.description'),
   restartNeeded: false,
   config: defaultConfig,
   stylesheets: [style],
@@ -42,9 +42,11 @@ export default createPlugin({
 
     return [
       {
-        label: 'Smoothness transition',
+        label: t('plugins.ambient-mode.menu.smoothness-transition.label'),
         submenu: interpolationTimeList.map((interpolationTime) => ({
-          label: `During ${interpolationTime / 1000}s`,
+          label: t('plugins.ambient-mode.menu.smoothness-transition.submenu.during', {
+            interpolationTime: interpolationTime / 1000,
+          }),
           type: 'radio',
           checked: config.interpolationTime === interpolationTime,
           click() {
@@ -53,9 +55,9 @@ export default createPlugin({
         })),
       },
       {
-        label: 'Quality',
+        label: t('plugins.ambient-mode.menu.quality.label'),
         submenu: qualityList.map((quality) => ({
-          label: `${quality} pixels`,
+          label: t('plugins.ambient-mode.menu.quality.submenu.pixels', { quality }),
           type: 'radio',
           checked: config.quality === quality,
           click() {
@@ -64,9 +66,9 @@ export default createPlugin({
         })),
       },
       {
-        label: 'Size',
+        label: t('plugins.ambient-mode.menu.size.label'),
         submenu: sizeList.map((size) => ({
-          label: `${size}%`,
+          label: t('plugins.ambient-mode.menu.size.submenu.percent', { size }),
           type: 'radio',
           checked: config.size === size,
           click() {
@@ -75,9 +77,9 @@ export default createPlugin({
         })),
       },
       {
-        label: 'Buffer',
+        label: t('plugins.ambient-mode.menu.buffer.label'),
         submenu: bufferList.map((buffer) => ({
-          label: `${buffer}`,
+          label: t('plugins.ambient-mode.menu.buffer.submenu.buffer', { buffer }),
           type: 'radio',
           checked: config.buffer === buffer,
           click() {
@@ -86,9 +88,9 @@ export default createPlugin({
         })),
       },
       {
-        label: 'Opacity',
+        label: t('plugins.ambient-mode.menu.opacity.label'),
         submenu: opacityList.map((opacity) => ({
-          label: `${opacity * 100}%`,
+          label: t('plugins.ambient-mode.menu.opacity.submenu.percent', { opacity: opacity * 100 }),
           type: 'radio',
           checked: config.opacity === opacity,
           click() {
@@ -97,9 +99,9 @@ export default createPlugin({
         })),
       },
       {
-        label: 'Blur amount',
+        label: t('plugins.ambient-mode.menu.blur-amount.label'),
         submenu: blurAmountList.map((blur) => ({
-          label: `${blur} pixels`,
+          label: t('plugins.ambient-mode.menu.blur-amount.submenu.pixels', { blurAmount: blur }),
           type: 'radio',
           checked: config.blur === blur,
           click() {
@@ -108,7 +110,7 @@ export default createPlugin({
         })),
       },
       {
-        label: 'Using fullscreen',
+        label: t('plugins.ambient-mode.menu.use-fullscreen.label'),
         type: 'checkbox',
         checked: config.fullscreen,
         click(item) {

@@ -1,6 +1,9 @@
+import { LoggerPrefix } from '@/utils';
+
 import type { SongInfo } from '@/providers/song-info';
 import type { RendererContext } from '@/types/contexts';
 import type { LyricsGeniusPluginConfig } from '@/plugins/lyrics-genius/index';
+import { t } from '@/i18n';
 
 export const onRendererLoad = ({
   ipc: { invoke, on },
@@ -55,7 +58,10 @@ export const onRendererLoad = ({
       }
 
       if (window.electronIs.dev()) {
-        console.log('Fetched lyrics from Genius');
+        console.log(
+          LoggerPrefix,
+          t('plugins.lyric-genius.renderer.fetched-lyrics'),
+        );
       }
 
       const tryToInjectLyric = (callback?: () => void) => {

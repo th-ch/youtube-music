@@ -3,13 +3,13 @@ import { FastAverageColor } from 'fast-average-color';
 import style from './style.css?inline';
 
 import { createPlugin } from '@/utils';
+import { t } from '@/i18n';
 
 import type { VideoDataChanged } from '@/types/video-data-changed';
 
 export default createPlugin({
-  name: 'Album Color Theme',
-  description:
-    'Applies a dynamic theme and visual effects based on the album color palette',
+  name: t('plugins.album-color-theme.name'),
+  description: t('plugins.album-color-theme.description'),
   restartNeeded: true,
   config: {
     enabled: false,

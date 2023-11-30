@@ -99,7 +99,7 @@ export const createPanel = (
       children.push(...children);
     }
 
-    panel.appendChild(menu);
+    return panel.appendChild(menu);
   });
 
   /* methods */

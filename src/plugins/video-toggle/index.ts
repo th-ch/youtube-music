@@ -6,6 +6,8 @@ import { createPlugin } from '@/utils';
 import { moveVolumeHud as preciseVolumeMoveVolumeHud } from '@/plugins/precise-volume/renderer';
 import { ElementFromHtml } from '@/plugins/utils/renderer';
 import { ThumbnailElement } from '@/types/get-player-response';
+import { t } from '@/i18n';
+import { MenuTemplate } from '@/menu';
 
 export type VideoTogglePluginConfig = {
   enabled: boolean;
@@ -16,9 +18,8 @@ export type VideoTogglePluginConfig = {
 };
 
 export default createPlugin({
-  name: 'Video Toggle',
-  description:
-    'Adds a button to switch between Video/Song mode. can also optionally remove the whole video tab',
+  name: t('plugins.video-toggle.name'),
+  description: t('plugins.video-toggle.description'),
   restartNeeded: true,
   config: {
     enabled: false,
@@ -28,15 +29,15 @@ export default createPlugin({
     align: 'left',
   } as VideoTogglePluginConfig,
   stylesheets: [buttonSwitcherStyle, forceHideStyle],
-  menu: async ({ getConfig, setConfig }) => {
+  menu: async ({ getConfig, setConfig }): Promise<MenuTemplate> => {
     const config = await getConfig();
 
     return [
       {
-        label: 'Mode',
+        label: t('plugins.video-toggle.menu.mode.label'),
         submenu: [
           {
-            label: 'Custom toggle',
+            label: t('plugins.video-toggle.menu.mode.submenu.custom'),
             type: 'radio',
             checked: config.mode === 'custom',
             click() {
@@ -44,7 +45,7 @@ export default createPlugin({
             },
           },
           {
-            label: 'Native toggle',
+            label: t('plugins.video-toggle.menu.mode.submenu.native'),
             type: 'radio',
             checked: config.mode === 'native',
             click() {
@@ -52,7 +53,7 @@ export default createPlugin({
             },
           },
           {
-            label: 'Disabled',
+            label: t('plugins.video-toggle.menu.mode.submenu.disabled'),
             type: 'radio',
             checked: config.mode === 'disabled',
             click() {
@@ -62,10 +63,10 @@ export default createPlugin({
         ],
       },
       {
-        label: 'Alignment',
+        label: t('plugins.video-toggle.menu.align.label'),
         submenu: [
           {
-            label: 'Left',
+            label: t('plugins.video-toggle.menu.align.submenu.left'),
             type: 'radio',
             checked: config.align === 'left',
             click() {
@@ -73,7 +74,7 @@ export default createPlugin({
             },
           },
           {
-            label: 'Middle',
+            label: t('plugins.video-toggle.menu.align.submenu.middle'),
             type: 'radio',
             checked: config.align === 'middle',
             click() {
@@ -81,7 +82,7 @@ export default createPlugin({
             },
           },
           {
-            label: 'Right',
+            label: t('plugins.video-toggle.menu.align.submenu.right'),
             type: 'radio',
             checked: config.align === 'right',
             click() {
@@ -91,7 +92,7 @@ export default createPlugin({
         ],
       },
       {
-        label: 'Force Remove Video Tab',
+        label: t('plugins.video-toggle.menu.force-hide'),
         type: 'checkbox',
         checked: config.forceHide,
         click(item) {

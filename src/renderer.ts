@@ -1,3 +1,5 @@
+import i18next from 'i18next';
+
 import { startingPages } from './providers/extracted-data';
 import setupSongInfo from './providers/song-info-front';
 import {
@@ -8,6 +10,8 @@ import {
   getLoadedRendererPlugin,
   loadAllRendererPlugins,
 } from './loader/renderer';
+
+import { loadI18n, t as i18t } from '@/i18n';
 
 import type { PluginConfig } from '@/types/plugins';
 import type { YoutubePlayer } from '@/types/youtube-player';
@@ -151,7 +155,31 @@ async function onApiLoaded() {
   }
 }
 
+/**
+ * YouTube Music still using ES5, so we need to define custom elements using ES5 style
+ */
+const defineYTMDTransElements = () => {
+  const YTMDTrans = function() {};
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  YTMDTrans.prototype = Object.create(HTMLElement.prototype);
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  YTMDTrans.prototype.connectedCallback = function() {
+    const that = (this as HTMLElement);
+    const key = that.getAttribute('key');
+    if (key) {
+      that.innerHTML = i18t(key);
+    }
+  };
+  customElements.define('ytmd-trans', YTMDTrans as unknown as CustomElementConstructor);
+};
+
 (async () => {
+  await loadI18n();
+  window.i18n = {
+    t: i18t.bind(i18next),
+  };
+  defineYTMDTransElements();
+
   await loadAllRendererPlugins();
   isPluginLoaded = true;
 

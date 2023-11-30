@@ -4,11 +4,14 @@ import defaultConfig from '@/config/defaults';
 import { getSongMenu } from '@/providers/dom-elements';
 import { getSongInfo } from '@/providers/song-info-front';
 
+import { LoggerPrefix } from '@/utils';
+
 import { ElementFromHtml } from '../utils/renderer';
 
 import type { RendererContext } from '@/types/contexts';
 
 import type { DownloaderPluginConfig } from './index';
+import { t } from '@/i18n';
 
 let menu: Element | null = null;
 let progress: Element | null = null;
@@ -75,7 +78,10 @@ export const onRendererLoad = ({
     if (progress) {
       progress.innerHTML = feedback || 'Download';
     } else {
-      console.warn('Cannot update progress');
+      console.warn(
+        LoggerPrefix,
+        t('plugins.downloader.renderer.can-not-update-progress'),
+      );
     }
   });
 };

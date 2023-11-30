@@ -4,13 +4,13 @@ import QualitySettingsTemplate from './templates/qualitySettingsTemplate.html?ra
 
 import { createPlugin } from '@/utils';
 import { ElementFromHtml } from '@/plugins/utils/renderer';
+import { t } from '@/i18n';
 
 import type { YoutubePlayer } from '@/types/youtube-player';
 
 export default createPlugin({
-  name: 'Video Quality Changer',
-  description:
-    'Allows changing the video quality with a button on the video overlay',
+  name: t('plugins.quality-changer.name'),
+  description: t('plugins.quality-changer.description'),
   restartNeeded: false,
   config: {
     enabled: false,
@@ -24,9 +24,11 @@ export default createPlugin({
           type: 'question',
           buttons: qualityLabels,
           defaultId: currentIndex,
-          title: 'Choose Video Quality',
-          message: 'Choose Video Quality:',
-          detail: `Current Quality: ${qualityLabels[currentIndex]}`,
+          title: t('plugins.quality-changer.backend.dialog.title'),
+          message: t('plugins.quality-changer.backend.dialog.message'),
+          detail: t('plugins.quality-changer.backend.dialog.detail', {
+            quality: qualityLabels[currentIndex],
+          }),
           cancelId: -1,
         }),
     );

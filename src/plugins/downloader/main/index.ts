@@ -34,6 +34,8 @@ import { cleanupName, getImage, SongInfo } from '@/providers/song-info';
 import { getNetFetchAsFetch } from '@/plugins/utils/main';
 import { cache } from '@/providers/decorators';
 
+import { t } from '@/i18n';
+
 import { YoutubeFormatList, type Preset, DefaultPresetList } from '../types';
 
 import type { DownloaderPluginConfig } from '../index';
@@ -74,9 +76,9 @@ const sendError = (error: Error, source?: string) => {
   console.trace(error);
   dialog.showMessageBox(win, {
     type: 'info',
-    buttons: ['OK'],
-    title: 'Error in download!',
-    message: 'Argh! Apologies, download failed…',
+    buttons: [t('plugins.downloader.backend.dialog.error.buttons.ok')],
+    title: t('plugins.downloader.backend.dialog.error.title'),
+    message: t('plugins.downloader.backend.dialog.error.message'),
     detail: message,
   });
 };
@@ -179,20 +181,27 @@ async function downloadSongUnsafe(
     }
   };
 
-  sendFeedback('Downloading...', 2);
+  sendFeedback(
+    t('plugins.downloader.backend.feedback.downloading'),
+    2,
+  );
 
   let id: string | null;
   if (isId) {
     id = idOrUrl;
   } else {
     id = getVideoId(idOrUrl);
-    if (typeof id !== 'string') throw new Error('Video not found');
+    if (typeof id !== 'string') throw new Error(
+      t('plugins.downloader.backend.feedback.video-id-not-found'),
+    );
   }
 
   let info: TrackInfo | VideoInfo = await yt.music.getInfo(id);
 
   if (!info) {
-    throw new Error('Video not found');
+    throw new Error(
+      t('plugins.downloader.backend.feedback.video-id-not-found'),
+    );
   }
 
   const metadata = getMetadata(info);
@@ -277,7 +286,11 @@ async function downloadSongUnsafe(
   const stream = await info.download(downloadOptions);
 
   console.info(
-    `Downloading ${metadata.artist} - ${metadata.title} [${metadata.videoId}]`,
+    t('plugins.downloader.backend.feedback.download-info', {
+      artist: metadata.artist,
+      title: metadata.title,
+      videoId: metadata.videoId,
+    }),
   );
 
   const iterableStream = Utils.streamToIterable(stream);
@@ -312,7 +325,9 @@ async function downloadSongUnsafe(
   }
 
   sendFeedback(null, -1);
-  console.info(`Done: "${filePath}"`);
+  console.info(t('plugins.downloader.backend.feedback.done', {
+    filePath,
+  }));
 }
 
 async function iterableStreamToTargetFile(
@@ -331,13 +346,21 @@ async function iterableStreamToTargetFile(
     chunks.push(chunk);
     const ratio = downloaded / contentLength;
     const progress = Math.floor(ratio * 100);
-    sendFeedback(`Download: ${progress}%`, ratio);
+    sendFeedback(
+      t('plugins.downloader.backend.feedback.downloading-progress', {
+        percent: progress,
+      }),
+      ratio,
+    );
     // 15% for download, 85% for conversion
     // This is a very rough estimate, trying to make the progress bar look nice
     increasePlaylistProgress(ratio * 0.15);
   }
 
-  sendFeedback('Loading…', 2); // Indefinite progress bar after download
+  sendFeedback(
+    t('plugins.downloader.backend.feedback.loading'),
+    2,
+  ); // Indefinite progress bar after download
 
   const buffer = Buffer.concat(chunks);
   const safeVideoName = randomBytes(32).toString('hex');
@@ -348,13 +371,18 @@ async function iterableStreamToTargetFile(
       await ffmpeg.load();
     }
 
-    sendFeedback('Preparing file…');
+    sendFeedback(t('plugins.downloader.backend.feedback.preparing-file'));
     ffmpeg.FS('writeFile', safeVideoName, buffer);
 
-    sendFeedback('Converting…');
+    sendFeedback(t('plugins.downloader.backend.feedback.converting'));
 
     ffmpeg.setProgress(({ ratio }) => {
-      sendFeedback(`Converting: ${Math.floor(ratio * 100)}%`, ratio);
+      sendFeedback(
+        t('plugins.downloader.backend.feedback.conversion-progress', {
+          percent: Math.floor(ratio * 100),
+        }),
+        ratio,
+      );
       increasePlaylistProgress(0.15 + (ratio * 0.85));
     });
 
@@ -371,7 +399,9 @@ async function iterableStreamToTargetFile(
       ffmpeg.FS('unlink', safeVideoName);
     }
 
-    sendFeedback('Saving…');
+    sendFeedback(
+      t('plugins.downloader.backend.feedback.saving'),
+    );
 
     try {
       return ffmpeg.FS('readFile', safeVideoNameWithExtension);
@@ -397,7 +427,9 @@ async function writeID3(
   sendFeedback: (str: string, value?: number) => void,
 ) {
   try {
-    sendFeedback('Writing ID3 tags...');
+    sendFeedback(
+      t('plugins.downloader.backend.feedback.writing-id3'),
+    );
     const tags: NodeID3.Tags = {};
 
     // Create the metadata tags
@@ -452,14 +484,22 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
     getPlaylistID(givenUrl) || getPlaylistID(new URL(playingUrl));
 
   if (!playlistId) {
-    sendError(new Error('No playlist ID found'));
+    sendError(new Error(
+      t('plugins.downloader.backend.feedback.playlist-id-not-found'),
+    ));
     return;
   }
 
   const sendFeedback = (message?: unknown) => sendFeedback_(win, message);
 
-  console.log(`trying to get playlist ID: '${playlistId}'`);
-  sendFeedback('Getting playlist info…');
+  console.log(
+    t('plugins.downloader.backend.feedback.trying-to-get-playlist-id', {
+      playlistId,
+    }),
+  );
+  sendFeedback(
+    t('plugins.downloader.backend.feedback.getting-playlist-info'),
+  );
   let playlist: Playlist;
   const items: YTNodes.MusicResponsiveListItem[] = [];
   try {
@@ -470,16 +510,18 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
   } catch (error: unknown) {
     sendError(
       Error(
-        `Error getting playlist info: make sure it isn't a private or "Mixed for you" playlist\n\n${String(
-          error,
-        )}`,
+        t('plugins.downloader.backend.feedback.playlist-is-mix-or-private', {
+          error: String(error),
+        }),
       ),
     );
     return;
   }
 
   if (!playlist || !playlist.items || playlist.items.length === 0) {
-    sendError(new Error('Playlist is empty'));
+    sendError(new Error(
+      t('plugins.downloader.backend.feedback.playlist-is-empty'),
+    ));
   }
 
   const normalPlaylistTitle = playlist.header?.title?.text;
@@ -500,7 +542,9 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
   }
 
   if (items.length === 1) {
-    sendFeedback('Playlist has only one item, downloading it directly');
+    sendFeedback(
+      t('plugins.downloader.backend.feedback.playlist-has-only-one-song'),
+    );
     await downloadSongFromId(items.at(0)!.id!);
     return;
   }
@@ -514,7 +558,11 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
   const playlistFolder = join(folder, safePlaylistTitle);
   if (existsSync(playlistFolder)) {
     if (!config.skipExisting) {
-      sendError(new Error(`The folder ${playlistFolder} already exists`));
+      sendError(new Error(
+        t('plugins.downloader.backend.feedback.folder-already-exists', {
+          playlistFolder,
+        })
+      ));
       return;
     }
   } else {
@@ -523,15 +571,23 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
 
   dialog.showMessageBox(win, {
     type: 'info',
-    buttons: ['OK'],
-    title: 'Started Download',
-    message: `Downloading Playlist "${playlistTitle}"`,
-    detail: `(${items.length} songs)`,
+    buttons: [t('plugins.downloader.backend.dialog.start-download-playlist.buttons.ok')],
+    title: t('plugins.downloader.backend.dialog.start-download-playlist.title'),
+    message: t('plugins.downloader.backend.dialog.start-download-playlist.message', {
+      playlistTitle,
+    }),
+    detail: t('plugins.downloader.backend.dialog.start-download-playlist.detail', {
+      playlistSize: items.length,
+    }),
   });
 
   if (is.dev()) {
     console.log(
-      `Downloading playlist "${playlistTitle}" - ${items.length} songs (${playlistId})`,
+      t('plugins.downloader.backend.feedback.downloading-playlist', {
+        playlistTitle,
+        playlistSize: items.length,
+        playlistId,
+      }),
     );
   }
 
@@ -551,7 +607,12 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
 
   try {
     for (const song of items) {
-      sendFeedback(`Downloading ${counter}/${items.length}...`);
+      sendFeedback(
+        t('plugins.downloader.backend.feedback.downloading-counter', {
+          current: counter,
+          total: items.length,
+        })
+      );
       const trackId = isAlbum ? counter : undefined;
       await downloadSongFromId(
         song.id!,
@@ -561,9 +622,11 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
       ).catch((error) =>
         sendError(
           new Error(
-            `Error downloading "${
-              song.author!.name
-            } - ${song.title!}":\n  ${error}`,
+            t('plugins.downloader.backend.feedback.error-while-downloading', {
+              author: song.author!.name,
+              title: song.title!,
+              error: String(error),
+            }),
           ),
         ),
       );

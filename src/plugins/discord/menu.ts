@@ -6,6 +6,8 @@ import { singleton } from '@/providers/decorators';
 import promptOptions from '@/providers/prompt-options';
 import { setMenuOptions } from '@/config/plugins';
 
+import { t } from '@/i18n';
+
 import type { MenuContext } from '@/types/contexts';
 import type { DiscordPluginConfig } from './index';
 
@@ -31,7 +33,7 @@ export const onMenu = async ({
       click: () => connect(),
     },
     {
-      label: 'Auto reconnect',
+      label: t('plugins.discord.menu.auto-reconnect'),
       type: 'checkbox',
       checked: config.autoReconnect,
       click(item: Electron.MenuItem) {
@@ -41,11 +43,11 @@ export const onMenu = async ({
       },
     },
     {
-      label: 'Clear activity',
+      label: t('plugins.discord.menu.clear-activity'),
       click: clear,
     },
     {
-      label: 'Clear activity after timeout',
+      label: t('plugins.discord.menu.clear-activity-after-timeout'),
       type: 'checkbox',
       checked: config.activityTimeoutEnabled,
       click(item: Electron.MenuItem) {
@@ -55,7 +57,7 @@ export const onMenu = async ({
       },
     },
     {
-      label: 'Play on YouTube Music',
+      label: t('plugins.discord.menu.play-on-youtube-music'),
       type: 'checkbox',
       checked: config.playOnYouTubeMusic,
       click(item: Electron.MenuItem) {
@@ -65,7 +67,7 @@ export const onMenu = async ({
       },
     },
     {
-      label: 'Hide GitHub link Button',
+      label: t('plugins.discord.menu.hide-github-button'),
       type: 'checkbox',
       checked: config.hideGitHubButton,
       click(item: Electron.MenuItem) {
@@ -75,7 +77,7 @@ export const onMenu = async ({
       },
     },
     {
-      label: 'Hide duration left',
+      label: t('plugins.discord.menu.hide-duration-left'),
       type: 'checkbox',
       checked: config.hideDurationLeft,
       click(item: Electron.MenuItem) {
@@ -85,7 +87,7 @@ export const onMenu = async ({
       },
     },
     {
-      label: 'Set inactivity timeout',
+      label: t('plugins.discord.menu.set-inactivity-timeout'),
       click: () => setInactivityTimeout(window, config),
     },
   ];
@@ -97,8 +99,8 @@ async function setInactivityTimeout(
 ) {
   const output = await prompt(
     {
-      title: 'Set Inactivity Timeout',
-      label: 'Enter inactivity timeout in seconds:',
+      title: t('plugins.discord.prompt.set-inactivity-timeout.title'),
+      label: t('plugins.discord.prompt.set-inactivity-timeout.label'),
       value: String(Math.round((options.activityTimeoutTime ?? 0) / 1e3)),
       type: 'counter',
       counterOptions: { minimum: 0, multiFire: true },

@@ -1,5 +1,6 @@
 import { createPlugin } from '@/utils';
 import { onRendererLoad, onRendererUnload } from './renderer';
+import { t } from '@/i18n';
 
 export type SkipSilencesPluginConfig = {
   enabled: boolean;
@@ -7,8 +8,8 @@ export type SkipSilencesPluginConfig = {
 };
 
 export default createPlugin({
-  name: 'Skip Silences',
-  description: 'Automatically skip silenced sections',
+  name: t('plugins.skip-silences.name'),
+  description: t('plugins.skip-silences.description'),
   restartNeeded: true,
   config: {
     enabled: false,

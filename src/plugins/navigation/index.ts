@@ -2,13 +2,14 @@ import style from './style.css?inline';
 import { createPlugin } from '@/utils';
 import { ElementFromHtml } from '@/plugins/utils/renderer';
 
+import { t } from '@/i18n';
+
 import forwardHTML from './templates/forward.html?raw';
 import backHTML from './templates/back.html?raw';
 
 export default createPlugin({
-  name: 'Navigation',
-  description:
-    'Next/Back navigation arrows directly integrated in the interface, like in your favorite browser',
+  name: t('plugins.navigation.name'),
+  description: t('plugins.navigation.description'),
   restartNeeded: true,
   config: {
     enabled: true,

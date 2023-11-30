@@ -3,10 +3,11 @@ import { type NativeImage, TouchBar } from 'electron';
 import { createPlugin } from '@/utils';
 import getSongControls from '@/providers/song-controls';
 import registerCallback from '@/providers/song-info';
+import { t } from '@/i18n';
 
 export default createPlugin({
-  name: 'TouchBar',
-  description: 'Custom TouchBar layout for macOS',
+  name: t('plugins.touchbar.name'),
+  description: t('plugins.touchbar.description'),
   restartNeeded: true,
   config: {
     enabled: false,

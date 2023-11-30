@@ -1,4 +1,5 @@
 import { createPlugin } from '@/utils';
+import { t } from '@/i18n';
 
 export default createPlugin<
   unknown,
@@ -8,8 +9,8 @@ export default createPlugin<
     isCompactSidebarDisabled: () => boolean;
   }
 >({
-  name: 'Compact Sidebar',
-  description: 'Always set the sidebar in compact mode',
+  name: t('plugins.compact-sidebar.name'),
+  description: t('plugins.compact-sidebar.description'),
   restartNeeded: false,
   config: {
     enabled: false,

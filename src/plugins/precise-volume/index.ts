@@ -7,32 +7,41 @@ import { createPlugin } from '@/utils';
 import promptOptions from '@/providers/prompt-options';
 import { overrideListener } from './override';
 import { onConfigChange, onPlayerApiReady } from './renderer';
+import { t } from '@/i18n';
 
 export type PreciseVolumePluginConfig = {
   enabled: boolean;
+  /**
+   * Percentage of volume to change
+   */
   steps: number;
+  /**
+   * Enable ArrowUp + ArrowDown local shortcuts
+   */
   arrowsShortcut: boolean;
   globalShortcuts: {
     volumeUp: string;
     volumeDown: string;
   };
+  /**
+   * Plugin save volume between session here
+   */
   savedVolume: number | undefined;
 };
 
 export default createPlugin({
-  name: 'Precise Volume',
-  description:
-    'Control the volume precisely using mousewheel/hotkeys, with a custom HUD and customizable volume steps',
+  name: t('plugins.precise-volume.name'),
+  description: t('plugins.precise-volume.description'),
   restartNeeded: true,
   config: {
     enabled: false,
-    steps: 1, // Percentage of volume to change
-    arrowsShortcut: true, // Enable ArrowUp + ArrowDown local shortcuts
+    steps: 1,
+    arrowsShortcut: true,
     globalShortcuts: {
       volumeUp: '',
       volumeDown: '',
     },
-    savedVolume: undefined, // Plugin save volume between session here
+    savedVolume: undefined,
   } as PreciseVolumePluginConfig,
   stylesheets: [hudStyle],
   menu: async ({ setConfig, getConfig, window }) => {
@@ -66,8 +75,8 @@ export default createPlugin({
     async function promptVolumeSteps(options: PreciseVolumePluginConfig) {
       const output = await prompt(
         {
-          title: 'Volume Steps',
-          label: 'Choose Volume Increase/Decrease Steps',
+          title: t('plugins.precise-volume.prompt.volume-steps.title'),
+          label: t('plugins.precise-volume.prompt.volume-steps.label'),
           value: options.steps || 1,
           type: 'counter',
           counterOptions: { minimum: 0, maximum: 100, multiFire: true },
@@ -89,17 +98,17 @@ export default createPlugin({
     ) {
       const output = await prompt(
         {
-          title: 'Global Volume Keybinds',
-          label: 'Choose Global Volume Keybinds:',
+          title: t('plugins.precise-volume.prompt.global-shortcuts.title'),
+          label: t('plugins.precise-volume.prompt.global-shortcuts.label'),
           type: 'keybind',
           keybindOptions: [
             kb(
-              'Increase Volume',
+              t('plugins.precise-volume.prompt.global-shortcuts.keybind-options.increase'),
               'volumeUp',
               options.globalShortcuts?.volumeUp,
             ),
             kb(
-              'Decrease Volume',
+              t('plugins.precise-volume.prompt.global-shortcuts.keybind-options.decrease'),
               'volumeDown',
               options.globalShortcuts?.volumeDown,
             ),
@@ -132,7 +141,7 @@ export default createPlugin({
 
     return [
       {
-        label: 'Local Arrowkeys Controls',
+        label: t('plugins.precise-volume.menu.arrows-shortcuts'),
         type: 'checkbox',
         checked: Boolean(config.arrowsShortcut),
         click(item) {
@@ -140,7 +149,7 @@ export default createPlugin({
         },
       },
       {
-        label: 'Global Hotkeys',
+        label: t('plugins.precise-volume.menu.global-shortcuts'),
         type: 'checkbox',
         checked: Boolean(
           config.globalShortcuts?.volumeUp ??
@@ -149,7 +158,7 @@ export default createPlugin({
         click: (item) => promptGlobalShortcuts(config, item),
       },
       {
-        label: 'Set Custom Volume Steps',
+        label: t('plugins.precise-volume.menu.custom-volume-steps'),
         click: () => promptVolumeSteps(config),
       },
     ];

@@ -1,9 +1,9 @@
 import { createPlugin } from '@/utils';
+import { t } from '@/i18n';
 
 export default createPlugin({
-  name: 'Audio Compressor',
-  description:
-    'Apply compression to audio (lowers the volume of the loudest parts of the signal and raises the volume of the softest parts)',
+  name: t('plugins.audio-compressor.name'),
+  description: t('plugins.audio-compressor.description'),
 
   renderer() {
     document.addEventListener(

@@ -3,6 +3,7 @@ import { YoutubePlayer } from '@/types/youtube-player';
 
 import backend from './back';
 import renderer, { CaptionsSelectorConfig, LanguageOptions } from './renderer';
+import { t } from '@/i18n';
 
 export default createPlugin<
   unknown,
@@ -18,8 +19,8 @@ export default createPlugin<
   },
   CaptionsSelectorConfig
 >({
-  name: 'Captions Selector',
-  description: 'Caption selector for YouTube Music audio tracks',
+  name: t('plugins.captions-selector.name'),
+  description: t('plugins.captions-selector.description'),
   config: {
     enabled: false,
     disableCaptions: false,
@@ -31,7 +32,7 @@ export default createPlugin<
     const config = await getConfig();
     return [
       {
-        label: 'Automatically select last used caption',
+        label: t('plugins.captions-selector.menu.autoload'),
         type: 'checkbox',
         checked: config.autoload as boolean,
         click(item) {
@@ -39,7 +40,7 @@ export default createPlugin<
         },
       },
       {
-        label: 'No captions by default',
+        label: t('plugins.captions-selector.menu.disable-captions'),
         type: 'checkbox',
         checked: config.disableCaptions as boolean,
         click(item) {

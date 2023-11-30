@@ -6,6 +6,7 @@ import {
   VudioVisualizer as vudio,
   WaveVisualizer as wave,
 } from './visualizers';
+import { t } from '@/i18n';
 
 type WaveColor = {
   gradient: string[];
@@ -57,8 +58,8 @@ export type VisualizerPluginConfig = {
 };
 
 export default createPlugin({
-  name: 'Visualizer',
-  description: 'Adds a visualizer to the player',
+  name: t('plugins.visualizer.name'),
+  description: t('plugins.visualizer.description'),
   restartNeeded: true,
   config: {
     enabled: false,
@@ -133,7 +134,7 @@ export default createPlugin({
 
     return [
       {
-        label: 'Type',
+        label: t('plugins.visualizer.menu.visualizer-type'),
         submenu: visualizerTypes.map((visualizerType) => ({
           label: visualizerType,
           type: 'radio',

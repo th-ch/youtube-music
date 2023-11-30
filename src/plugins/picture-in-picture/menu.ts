@@ -2,6 +2,8 @@ import prompt from 'custom-electron-prompt';
 
 import promptOptions from '@/providers/prompt-options';
 
+import { t } from '@/i18n';
+
 import type { PictureInPicturePluginConfig } from './index';
 
 import type { MenuContext } from '@/types/contexts';
@@ -16,7 +18,7 @@ export const onMenu = async ({
 
   return [
     {
-      label: 'Always on top',
+      label: t('plugins.picture-in-picture.menu.always-on-top'),
       type: 'checkbox',
       checked: config.alwaysOnTop,
       click(item) {
@@ -25,7 +27,7 @@ export const onMenu = async ({
       },
     },
     {
-      label: 'Save window position',
+      label: t('plugins.picture-in-picture.menu.save-window-position'),
       type: 'checkbox',
       checked: config.savePosition,
       click(item) {
@@ -33,7 +35,7 @@ export const onMenu = async ({
       },
     },
     {
-      label: 'Save window size',
+      label: t('plugins.picture-in-picture.menu.save-window-size'),
       type: 'checkbox',
       checked: config.saveSize,
       click(item) {
@@ -41,19 +43,19 @@ export const onMenu = async ({
       },
     },
     {
-      label: 'Hotkey',
+      label: t('plugins.picture-in-picture.menu.hotkey.label'),
       type: 'checkbox',
       checked: !!config.hotkey,
       async click(item) {
         const output = await prompt(
           {
-            title: 'Picture in Picture Hotkey',
-            label: 'Choose a hotkey for toggling Picture in Picture',
+            title: t('plugins.picture-in-picture.menu.prompt.title'),
+            label: t('plugins.picture-in-picture.menu.prompt.label'),
             type: 'keybind',
             keybindOptions: [
               {
                 value: 'hotkey',
-                label: 'Hotkey',
+                label: t('plugins.picture-in-picture.menu.prompt.keybind-options.hotkey'),
                 default: config.hotkey,
               },
             ],
@@ -74,7 +76,7 @@ export const onMenu = async ({
       },
     },
     {
-      label: 'Use native PiP',
+      label: t('plugins.picture-in-picture.menu.use-native-pip'),
       type: 'checkbox',
       checked: config.useNativePiP,
       click(item) {

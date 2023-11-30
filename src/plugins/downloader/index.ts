@@ -5,6 +5,7 @@ import style from './style.css?inline';
 import { createPlugin } from '@/utils';
 import { onConfigChange, onMainLoad } from './main';
 import { onPlayerApiReady, onRendererLoad } from './renderer';
+import { t } from '@/i18n';
 
 export type DownloaderPluginConfig = {
   enabled: boolean;
@@ -25,8 +26,8 @@ export const defaultConfig: DownloaderPluginConfig = {
 };
 
 export default createPlugin({
-  name: 'Downloader',
-  description: 'Downloads MP3 / source audio directly from the interface',
+  name: t('plugins.downloader.name'),
+  description: t('plugins.downloader.description'),
   restartNeeded: true,
   config: defaultConfig,
   stylesheets: [style],

@@ -100,9 +100,6 @@ dependencies:
   i18next:
     specifier: 23.7.7
     version: 23.7.7
-  i18next-electron-fs-backend:
-    specifier: 3.0.1
-    version: 3.0.1
   keyboardevent-from-electron-accelerator:
     specifier: 2.0.0
     version: 2.0.0
@@ -3862,13 +3859,6 @@ packages:
     engines: {node: '>=14.18.0'}
     dev: true
 
-  /i18next-electron-fs-backend@3.0.1:
-    resolution: {integrity: sha512-Chh69vPlNOsYKsFWRgOR6aw5qZSxS1cBbJsIlDd70uNdumKWSSdNWnzsNWr3zSFRjdbYcu/FQBx6dGd8nuNjgg==}
-    dependencies:
-      lodash.clonedeep: 4.5.0
-      lodash.merge: 4.6.2
-    dev: false
-
   /i18next@23.7.7:
     resolution: {integrity: sha512-peTvdT+Lma+o0LfLFD7IC2M37N9DJ04dH0IJYOyOHRhDfLo6nK36v7LkrQH35C2l8NHiiXZqGirhKESlEb/5PA==}
     dependencies:
@@ -4364,10 +4354,6 @@ packages:
       p-locate: 5.0.0
     dev: true
 
-  /lodash.clonedeep@4.5.0:
-    resolution: {integrity: sha512-H5ZhCF25riFd9uB5UCkVKo61m3S/xZk1x4wA6yp/L3RFP6Z/eHH1ymQcGLo7J3GMPfm0V/7m1tryHuGVxpqEBQ==}
-    dev: false
-
   /lodash.debounce@4.0.8:
     resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
     dev: false
@@ -4382,6 +4368,7 @@ packages:
 
   /lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
+    dev: true
 
   /lodash@4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
