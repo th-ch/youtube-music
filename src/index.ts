@@ -1,6 +1,7 @@
 import path from 'node:path';
 import url from 'node:url';
 import fs from 'node:fs';
+import process from 'node:process';
 
 import {
   BrowserWindow,
@@ -24,6 +25,7 @@ import { deepmerge } from 'deepmerge-ts';
 import { deepEqual } from 'fast-equals';
 
 import { allPlugins, mainPlugins } from 'virtual:plugins';
+import { clearMainBindings, mainBindings } from 'i18next-electron-fs-backend';
 
 import config from '@/config';
 
@@ -280,6 +282,7 @@ async function createMainWindow() {
       : 'default',
     autoHideMenuBar: config.get('options.hideMenu'),
   });
+  mainBindings(ipcMain, win, fs);
   initHook(win);
   initTheme(win);
 
@@ -527,6 +530,8 @@ app.once('browser-window-created', (_event, win) => {
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
+  } else {
+    clearMainBindings(ipcMain);
   }
 
   // Unregister all shortcuts.
