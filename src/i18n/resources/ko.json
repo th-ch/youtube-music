@@ -6,49 +6,49 @@
     },
     "plugins": {
         "ambient-mode": {
-            "name": "Ambient Mode",
+            "name": "앰비언트 모드",
             "menu": {
                 "opacity": {
-                    "label": "Opacity",
+                    "label": "불투명도",
                     "submenu": {
                         "percent": "{{opacity}}%"
                     }
                 },
                 "quality": {
-                    "label": "Quality",
+                    "label": "품질",
                     "submenu": {
-                        "pixels": "{{quality}} pixels"
+                        "pixels": "{{quality}} 픽셀"
                     }
                 },
                 "size": {
                     "submenu": {
                         "percent": "{{size}}%"
                     },
-                    "label": "Size"
+                    "label": "크기"
                 },
                 "blur-amount": {
                     "submenu": {
-                        "pixels": "{{blurAmount}} pixels"
+                        "pixels": "{{blurAmount}} 픽셀"
                     },
-                    "label": "Blur amount"
+                    "label": "흐림 효과 강도"
                 },
                 "buffer": {
                     "submenu": {
                         "buffer": "{{buffer}}"
                     },
-                    "label": "Buffer"
+                    "label": "버퍼링"
                 },
                 "use-fullscreen": {
-                    "label": "Using fullscreen"
+                    "label": "전체 화면 모드 사용"
                 },
                 "smoothness-transition": {
                     "submenu": {
-                        "during": "During {{interpolationTime}}s"
+                        "during": "{{interpolationTime}}초 동안 전환"
                     },
-                    "label": "Smoothness transition"
+                    "label": "부드러운 전환"
                 }
             },
-            "description": "Applies a lighting effect by casting gentle colors from the video, into your screen’s background."
+            "description": "영상의 간접 조명을 화면 배경에 투사합니다."
         },
         "in-app-menu": {
             "menu": {
@@ -161,20 +161,20 @@
         "captions-selector": {
             "prompt": {
                 "selector": {
-                    "label": "Current caption language: {{language}}",
-                    "none": "None",
-                    "title": "Select caption language"
+                    "label": "현재 선택된 언어: {{language}}",
+                    "none": "없음",
+                    "title": "자막 언어 선택"
                 }
             },
-            "description": "Caption selector for YouTube Music audio tracks",
+            "description": "YouTube Music 트랙 용 자막 선택기입니다",
             "menu": {
-                "disable-captions": "No captions by default",
-                "autoload": "Automatically select last used caption"
+                "disable-captions": "기본 자막 제거",
+                "autoload": "마지막으로 사용한 자막을 자동으로 선택"
             },
             "templates": {
-                "title": "Open captions selector"
+                "title": "자막 선택기 열기"
             },
-            "name": "Captions Selector"
+            "name": "자막 선택기"
         },
         "touchbar": {
             "description": "Adds a TouchBar widget for macOS users",
@@ -204,8 +204,8 @@
             "description": "Allows to switch the app to picture-in-picture mode"
         },
         "album-color-theme": {
-            "description": "Applies a dynamic theme and visual effects based on the album color palette",
-            "name": "Album Color Theme"
+            "description": "앨범 색상 팔레트를 기반으로 동적 테마 및 시각 효과를 적용합니다",
+            "name": "앨범 컬러 기반 테마"
         },
         "discord": {
             "menu": {
@@ -229,7 +229,7 @@
                 "connected": "Connected to Discord",
                 "disconnected": "Disconnected from Discord"
             },
-            "name": "Discord Rich Presence"
+            "name": "디스코드 활동 설정"
         },
         "quality-changer": {
             "backend": {
@@ -295,21 +295,21 @@
                 "options": {
                     "multi-input": {
                         "fade-scaling": {
-                            "logarithmic": "Logarithmic",
-                            "linear": "Linear",
-                            "label": "Fade scaling"
+                            "logarithmic": "로그",
+                            "linear": "선형",
+                            "label": "페이드 스케일링"
                         },
-                        "seconds-before-end": "Crossfade N seconds before end",
-                        "fade-in-duration": "Fade in duration (milliseconds)",
-                        "fade-out-duration": "Fade out duration (milliseconds)"
+                        "seconds-before-end": "종료되기 N초 전에 크로스페이드 적용",
+                        "fade-in-duration": "페이드인 지속 시간 (밀리초)",
+                        "fade-out-duration": "페이드아웃 지속 시간 (밀리초)"
                     },
-                    "title": "Crossfade options"
+                    "title": "크로스페이드 설정"
                 }
             },
-            "name": "Crossfade [beta]",
-            "description": "Crossfade between songs",
+            "name": "크로스페이드 [베타]",
+            "description": "노래 사이에 크로스페이드 효과를 적용합니다",
             "menu": {
-                "advanced": "Advanced"
+                "advanced": "고급 설정"
             }
         },
         "taskbar-mediacontrol": {
@@ -317,25 +317,25 @@
             "name": "Taskbar Media Control"
         },
         "compact-sidebar": {
-            "description": "Always set the sidebar in compact mode",
-            "name": "Compact Sidebar"
+            "description": "사이드바를 항상 컴팩트 모드로 설정합니다",
+            "name": "컴팩트 사이드바"
         },
         "disable-autoplay": {
-            "description": "Makes song start in \"paused\" mode",
-            "name": "Disable Autoplay",
+            "description": "노래를 '일시 정지' 모드로 시작하게 합니다",
+            "name": "자동 재생 해제",
             "menu": {
-                "apply-once": "Applies only on startup"
+                "apply-once": "첫 시작 시에만 적용"
             }
         },
         "audio-compressor": {
-            "description": "Apply compression to audio (lowers the volume of the loudest parts of the signal and raises the volume of the softest parts)",
-            "name": "Audio Compressor"
+            "description": "오디오에 컴프레서를 적용합니다 (신호에서 가장 시끄러운 부분의 볼륨을 낮추고 가장 조용한 부분의 볼륨을 높임)",
+            "name": "오디오 컴프레서"
         },
         "adblocker": {
-            "name": "Adblocker",
-            "description": "Block all ads and tracking out of the box",
+            "name": "애드블록",
+            "description": "모든 광고와 트래커를 즉시 차단하세요",
             "menu": {
-                "blocker": "Blocker"
+                "blocker": "애드블록 타입"
             }
         },
         "playback-speed": {
@@ -354,8 +354,8 @@
             "description": "Makes the volume slider exponential so it's easier to select lower volumes."
         },
         "bypass-age-restrictions": {
-            "description": "Bypass YouTube's age verification",
-            "name": "Bypass Age Restrictions"
+            "description": "유튜브의 나이 제한을 우회합니다.",
+            "name": "나이 제한 우회"
         },
         "lumiastream": {
             "description": "Adds Lumia Stream support",
@@ -387,8 +387,8 @@
             "name": "SponsorBlock"
         },
         "blur-nav-bar": {
-            "description": "Makes navigation bar transparent and blurry",
-            "name": "Blur Navigation Bar"
+            "description": "내비게이션 바를 투명하고 흐릿하게 만듭니다",
+            "name": "네비게이션 바 흐림 효과"
         },
         "no-google-login": {
             "description": "Remove Google login buttons and links from the interface",
