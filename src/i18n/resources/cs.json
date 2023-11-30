@@ -4,7 +4,7 @@
             "name": "Ambient Mode",
             "menu": {
                 "opacity": {
-                    "label": "Opacity",
+                    "label": "Neprůhlednost",
                     "submenu": {
                         "percent": "{{opacity}}%"
                     }
@@ -12,18 +12,18 @@
                 "quality": {
                     "label": "Quality",
                     "submenu": {
-                        "pixels": "{{quality}} pixels"
+                        "pixels": "{{quality}} pixelů"
                     }
                 },
                 "size": {
                     "submenu": {
                         "percent": "{{size}}%"
                     },
-                    "label": "Size"
+                    "label": "Velikost"
                 },
                 "blur-amount": {
                     "submenu": {
-                        "pixels": "{{blurAmount}} pixels"
+                        "pixels": "{{blurAmount}} pixelů"
                     },
                     "label": "Blur amount"
                 },
@@ -57,11 +57,11 @@
                 "force-hide": "Force remove video tab",
                 "align": {
                     "submenu": {
-                        "left": "Left",
-                        "right": "Right",
+                        "left": "Vlevo",
+                        "right": "Pravo",
                         "middle": "Middle"
                     },
-                    "label": "Alignment"
+                    "label": "Zarovnání"
                 },
                 "mode": {
                     "submenu": {
@@ -73,7 +73,7 @@
                 }
             },
             "templates": {
-                "button": "Song"
+                "button": "Písnička"
             },
             "description": "Adds a button to switch between Video/Song mode. can also optionally remove the whole video tab",
             "name": "Video Toggle"
@@ -81,45 +81,45 @@
         "notifications": {
             "menu": {
                 "interactive-settings": {
-                    "label": "Interactive Settings",
+                    "label": "Interactive Nastavení",
                     "submenu": {
-                        "tray-controls": "Open/Close on tray click",
-                        "hide-button-text": "Hide button text",
+                        "tray-controls": "Otevřít/Zavřít on tray click",
+                        "hide-button-text": "Skrýt text tlačítka",
                         "refresh-on-play-pause": "Refresh on Play/Pause"
                     }
                 },
                 "toast-style": "Toast style",
                 "unpause-notification": "Show notification on unpause",
                 "interactive": "Interactive Notifications",
-                "priority": "Notification Priority"
+                "priority": "Priorita Oznámení"
             },
             "description": "Display a notification when a song starts playing (interactive notifications are available on Windows)",
-            "name": "Notifications"
+            "name": "Oznámení"
         },
         "downloader": {
             "backend": {
                 "feedback": {
-                    "video-id-not-found": "Video not found",
+                    "video-id-not-found": "Video nebylo nalezeno",
                     "conversion-progress": "Conversion: {{percent}}%",
                     "getting-playlist-info": "Getting playlist info…",
-                    "downloading-playlist": "Downloading playlist \"{{playlistTitle}}\" - {{playlistSize}} songs ({{playlistId}})",
+                    "downloading-playlist": "Downloading playlist \"{{playlistTitle}}\" - {{playlistSize}} písničky ({{playlistId}})",
                     "download-info": "Downloading {{artist}} - {{title}} [{{videoId}}",
-                    "playlist-is-empty": "Playlist is empty",
-                    "downloading-counter": "Downloading {{current}}/{{total}}…",
-                    "playlist-id-not-found": "No playlist ID found",
+                    "playlist-is-empty": "Playlist je prázdný",
+                    "downloading-counter": "Stahování {{current}}/{{total}}…",
+                    "playlist-id-not-found": "Žádný playlist ID nenalezen",
                     "preparing-file": "Preparing file…",
-                    "downloading": "Downloading…",
+                    "downloading": "Stahování…",
                     "trying-to-get-playlist-id": "Trying to get playlist ID: {{playlistId}}",
-                    "playlist-has-only-one-song": "Playlist has only one item, downloading it directly",
-                    "done": "Done: {{filePath}}",
+                    "playlist-has-only-one-song": "Playlist má jenom jeden položku, downloading it directly",
+                    "done": "Hotovo: {{filePath}}",
                     "writing-id3": "Writing ID3 tags…",
                     "converting": "Converting…",
                     "playlist-is-mix-or-private": "Error getting playlist info: make sure it isn't a private or \"Mixed for you\" playlist\n\n{{error}}",
                     "download-progress": "Download: {{percent}}%",
-                    "folder-already-exists": "The folder {{playlistFolder}} already exists",
+                    "folder-already-exists": "Složka {{playlistFolder}} již existuje",
                     "error-while-downloading": "Error downloading \"{{author}} - {{title}}\": {{error}}",
-                    "saving": "Saving…",
-                    "loading": "Loading…"
+                    "saving": "Ukládání…",
+                    "loading": "Načítání…"
                 },
                 "dialog": {
                     "start-download-playlist": {
@@ -127,47 +127,47 @@
                             "ok": "OK"
                         },
                         "message": "Downloading Playlist {{playlistTitle}}",
-                        "title": "Download started",
-                        "detail": "({{playlistSize}} songs)"
+                        "title": "Stahování začalo",
+                        "detail": "({{playlistSize}} písničky)"
                     },
                     "error": {
                         "buttons": {
                             "ok": "OK"
                         },
-                        "title": "Error in download!",
+                        "title": "Chyba ve stáhování!",
                         "message": "Argh! Apologies, download failed…"
                     }
                 }
             },
             "menu": {
-                "choose-download-folder": "Choose download folder",
-                "skip-existing": "Skip existing files",
+                "choose-download-folder": "Choose download složku",
+                "skip-existing": "Přeskočit existující soubory",
                 "presets": "Presets"
             },
-            "name": "Downloader",
+            "name": "Stahovač",
             "renderer": {
                 "can-not-update-progress": "Cannot update progress"
             },
             "description": "Downloads MP3 / source audio directly from the interface",
             "templates": {
-                "button": "Download"
+                "button": "Stáhnout"
             }
         },
         "captions-selector": {
             "prompt": {
                 "selector": {
-                    "label": "Current caption language: {{language}}",
-                    "none": "None",
-                    "title": "Select caption language"
+                    "label": "Aktuální jazyk titulků: {{language}}",
+                    "none": "Žádný",
+                    "title": "Vybrat jazyk titulků"
                 }
             },
             "description": "Caption selector for YouTube Music audio tracks",
             "menu": {
-                "disable-captions": "No captions by default",
+                "disable-captions": "Žádné titulky ve vychozím nastavení",
                 "autoload": "Automatically select last used caption"
             },
             "templates": {
-                "title": "Open captions selector"
+                "title": "Otevřít titulový selector"
             },
             "name": "Captions Selector"
         },
@@ -182,15 +182,15 @@
                         "title": "Picture in Picture Hotkey",
                         "label": "Choose a hotkey for toggle Picture in Picture",
                         "keybind-options": {
-                            "hotkey": "Hotkey"
+                            "hotkey": "Klávesová zkratka"
                         }
                     },
-                    "label": "Hotkey"
+                    "label": "Klávesová zkratka"
                 },
-                "use-native-pip": "Use browser native PiP",
+                "use-native-pip": "Použít browser native PiP",
                 "always-on-top": "Always on top",
                 "save-window-position": "Save window position",
-                "save-window-size": "Save window size"
+                "save-window-size": "Uložit velikost okna"
             },
             "name": "Picture in Picture",
             "templates": {
@@ -200,14 +200,14 @@
         },
         "album-color-theme": {
             "description": "Applies a dynamic theme and visual effects based on the album color palette",
-            "name": "Album Color Theme"
+            "name": "Album Color Motiv"
         },
         "discord": {
             "menu": {
                 "auto-reconnect": "Auto reconnect",
                 "clear-activity-after-timeout": "Clear activity after timeout",
                 "hide-duration-left": "Hide duration left",
-                "hide-github-button": "Hide GitHub link Button",
+                "hide-github-button": "Skrýt tlačítko s odkazem na GitHub",
                 "clear-activity": "Clear activity",
                 "set-inactivity-timeout": "Set inactivity timeout",
                 "play-on-youtube-music": "Play on YouTube Music"
@@ -221,8 +221,8 @@
             },
             "backend": {
                 "already-connected": "Attempted to connect with active connection",
-                "connected": "Connected to Discord",
-                "disconnected": "Disconnected from Discord"
+                "connected": "Připojeno k Discordu",
+                "disconnected": "Odpojeno od Discordu"
             },
             "name": "Discord Rich Presence"
         },
@@ -230,7 +230,7 @@
             "backend": {
                 "dialog": {
                     "quality-changer": {
-                        "detail": "Current Quality: {{quality}}",
+                        "detail": "Aktuální kvalita: {{quality}}",
                         "message": "Choose Video Quality:",
                         "title": "Choose Video Quality"
                     }
@@ -249,14 +249,14 @@
                 "keybind": {
                     "label": "Choose Global Keybinds for Songs Control:",
                     "keybind-options": {
-                        "previous": "Previous",
-                        "next": "Next",
-                        "play-pause": "Play / Pause"
+                        "previous": "Předchozí",
+                        "next": "Další",
+                        "play-pause": "Přehrát / Pozastavit"
                     },
                     "title": "Global Keybinds"
                 }
             },
-            "name": "Shortcuts (& MPRIS)"
+            "name": "Zkratky (& MPRIS)"
         },
         "tuna-obs": {
             "name": "Tuna OBS",
@@ -266,8 +266,8 @@
             "prompt": {
                 "global-shortcuts": {
                     "keybind-options": {
-                        "increase": "Increase Volume",
-                        "decrease": "Decrease Volume"
+                        "increase": "Zvýšit hlasitost",
+                        "decrease": "Snížit hlasitost"
                     },
                     "label": "Choose Global Volume Keybinds:",
                     "title": "Global Volume Keybinds"
@@ -281,9 +281,9 @@
             "menu": {
                 "custom-volume-steps": "Set Custom Volume Steps",
                 "arrows-shortcuts": "Local Arrow-keys Controls",
-                "global-shortcuts": "Global Hotkeys"
+                "global-shortcuts": "Globální klávesové zkratky"
             },
-            "name": "Precise Volume"
+            "name": "Precise hlasitost"
         },
         "crossfade": {
             "prompt": {
@@ -291,20 +291,20 @@
                     "multi-input": {
                         "fade-scaling": {
                             "logarithmic": "Logarithmic",
-                            "linear": "Linear",
+                            "linear": "Lineární",
                             "label": "Fade scaling"
                         },
                         "seconds-before-end": "Crossfade N seconds before end",
                         "fade-in-duration": "Fade in duration (milliseconds)",
                         "fade-out-duration": "Fade out duration (milliseconds)"
                     },
-                    "title": "Crossfade options"
+                    "title": "Crossfade možnosti"
                 }
             },
             "name": "Crossfade [beta]",
-            "description": "Crossfade between songs",
+            "description": "Crossfade mezi písničkami",
             "menu": {
-                "advanced": "Advanced"
+                "advanced": "Pokročilý"
             }
         },
         "taskbar-mediacontrol": {
@@ -317,7 +317,7 @@
         },
         "disable-autoplay": {
             "description": "Makes song start in \"paused\" mode",
-            "name": "Disable Autoplay",
+            "name": "Zrušit automatické přehrávání",
             "menu": {
                 "apply-once": "Applies only on startup"
             }
@@ -336,28 +336,28 @@
         "playback-speed": {
             "description": "Listen fast, listen slow! Adds a slider that controls song speed",
             "templates": {
-                "button": "Speed"
+                "button": "Rychlost"
             },
             "name": "Playback Speed"
         },
         "navigation": {
-            "name": "Navigation",
+            "name": "Navigace",
             "description": "Next/Back navigation arrows directly integrated in the interface, like in your favorite browser"
         },
         "exponential-volume": {
-            "name": "Exponential Volume",
+            "name": "Exponenciální hlasitost",
             "description": "Makes the volume slider exponential so it's easier to select lower volumes."
         },
         "bypass-age-restrictions": {
-            "description": "Bypass YouTube's age verification",
-            "name": "Bypass Age Restrictions"
+            "description": "Obejít ověření věku na YouTube",
+            "name": "Obejít věková omezení"
         },
         "lumiastream": {
             "description": "Adds Lumia Stream support",
             "name": "Lumia Stream [beta]"
         },
         "skip-silences": {
-            "name": "Skip Silences",
+            "name": "Přeskočit Tichá místa",
             "description": "Automatically skip silences sections in songs"
         },
         "visualizer": {
@@ -386,7 +386,7 @@
             "name": "Blur Navigation Bar"
         },
         "no-google-login": {
-            "description": "Remove Google login buttons and links from the interface",
+            "description": "Odstranit Google login tlačítka a odkazy z interface",
             "name": "No Google Login"
         },
         "last-fm": {
@@ -398,8 +398,8 @@
         "dialog": {
             "need-to-restart": {
                 "buttons": {
-                    "later": "Later",
-                    "restart-now": "Restart Now"
+                    "later": "Později",
+                    "restart-now": "Restartovat nyní"
                 },
                 "title": "Restart Required",
                 "message": "\"{{pluginName}}\" needs to restart",
@@ -407,13 +407,13 @@
             },
             "update-available": {
                 "buttons": {
-                    "download": "Download",
+                    "download": "Stáhnout",
                     "disable": "Disable Updates",
                     "ok": "OK"
                 },
-                "title": "Update Available",
+                "title": "Aktualizace k dispozici",
                 "detail": "A new version is available and can be downloaded at {{downloadLink}}",
-                "message": "A new version is available"
+                "message": "Nová verze je dostupná"
             },
             "hide-menu-enabled": {
                 "message": "Hide Menu is enabled",
@@ -421,10 +421,10 @@
                 "detail": "Menu is hidden, use 'Alt' to show it (or 'Escape' if using in-app-menu)"
             },
             "unresponsive": {
-                "message": "The Application is Unresponsive",
+                "message": "Aplikace nereaguje",
                 "buttons": {
                     "quit": "Quit",
-                    "wait": "Wait",
+                    "wait": "Počkat",
                     "relaunch": "Relaunch"
                 },
                 "title": "Window Unresponsive",
@@ -436,7 +436,7 @@
                 "loaded": "i18n loaded"
             },
             "when-ready": {
-                "clearing-cache-after-20s": "Clearing app cache"
+                "clearing-cache-after-20s": "Clearing mezipaměti aplikace"
             },
             "did-finish-load": {
                 "dev-tools": "did finish load. dev tools opened"
@@ -445,7 +445,7 @@
                 "css-file-not-found": "CSS file \"{{cssFile}}\" does not exist, ignoring"
             },
             "second-instance": {
-                "receive-command": "Received command over protocol: \"{{command}}\""
+                "receive-command": "Received command přes protokol: \"{{command}}\""
             },
             "window": {
                 "tried-to-render-offscreen": "Window tried to render offscreen, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
@@ -462,15 +462,15 @@
                             "like-buttons": {
                                 "force-show": "Force show",
                                 "label": "Like buttons",
-                                "default": "Default",
-                                "hide": "Hide"
+                                "default": "Výchozí",
+                                "hide": "Schovat"
                             },
                             "theme": {
                                 "submenu": {
                                     "import-css-file": "Import custom CSS file",
-                                    "no-theme": "No theme"
+                                    "no-theme": "Žádný motiv"
                                 },
-                                "label": "Theme"
+                                "label": "Motiv"
                             },
                             "remove-upgrade-button": "Remove upgrade button"
                         },
@@ -478,29 +478,29 @@
                     },
                     "language": {
                         "dialog": {
-                            "title": "Language Changed",
+                            "title": "Jazyk Změněn",
                             "message": "Language will be changed after restart"
                         },
-                        "label": "Language"
+                        "label": "Jazyk"
                     },
                     "advanced-options": {
                         "submenu": {
-                            "edit-config-json": "Edit config.json",
-                            "restart-on-config-changes": "Restart on config changes",
+                            "edit-config-json": "Upravit config.json",
+                            "restart-on-config-changes": "Restartovat na změny v configu",
                             "set-proxy": {
                                 "prompt": {
-                                    "placeholder": "Example: socks5://127.0.0.1:9999",
+                                    "placeholder": "Příklad: socks5://127.0.0.1:9999",
                                     "title": "Set proxy",
                                     "label": "Enter Proxy Address: (leave empty to disable)"
                                 },
-                                "label": "Set proxy"
+                                "label": "Nastavit proxy"
                             },
                             "disable-hardware-acceleration": "Disable hardware acceleration",
                             "override-user-agent": "Override User-Agent",
                             "toggle-dev-tools": "Toggle DevTools",
                             "auto-reset-app-cache": "Reset App cache when app starts"
                         },
-                        "label": "Advanced options"
+                        "label": "Pokročilé možnosti"
                     },
                     "resume-on-start": "Resume last song when app starts",
                     "starting-page": {
@@ -509,56 +509,56 @@
                     },
                     "tray": {
                         "submenu": {
-                            "play-pause-on-click": "Play/Pause on click",
+                            "play-pause-on-click": "Přehrát/Pozastavit na kliknutí",
                             "disabled": "Disabled",
                             "enabled-and-hide-app": "Enabled and hide app",
                             "enabled-and-show-app": "Enabled and show app"
                         },
                         "label": "Tray"
                     },
-                    "auto-update": "Auto Update",
+                    "auto-update": "Automatické aktualizace",
                     "hide-menu": {
                         "dialog": {
                             "message": "Menu will be hidden on next launch, use [Alt] to show it (or backtick [`] if using in-app-menu)",
                             "title": "Hide Menu Enabled"
                         },
-                        "label": "Hide Menu"
+                        "label": "Skrýt menu"
                     },
-                    "always-on-top": "Always on top",
+                    "always-on-top": "Vždy na vrchu",
                     "start-at-login": "Start at login",
                     "single-instance-lock": "Single Instance Lock"
                 },
-                "label": "Options"
+                "label": "Možnosti"
             },
             "navigation": {
                 "submenu": {
-                    "go-back": "Go back",
-                    "copy-current-url": "Copy current URL",
-                    "go-forward": "Go forward",
-                    "restart": "Restart App"
+                    "go-back": "Jít zpátky",
+                    "copy-current-url": "Kopírovat aktuální URL adresu",
+                    "go-forward": "Jít dopředu",
+                    "restart": "Restartovat aplikaci"
                 },
-                "label": "Navigation"
+                "label": "Navigace"
             },
-            "about": "About",
+            "about": "O Aplikaci",
             "view": {
                 "label": "View"
             },
             "plugins": {
-                "label": "Plugins",
-                "enabled": "Enabled"
+                "label": "Pluginy",
+                "enabled": "Povoleno"
             }
         }
     },
     "language": {
         "code": "en",
-        "name": "English",
-        "local-name": "English"
+        "name": "Angličtina",
+        "local-name": "Angličtina"
     },
     "common": {
         "console": {
             "plugins": {
                 "unloaded": "Plugin \"{{pluginName}}\" unloaded",
-                "load-all": "Loading all plugins",
+                "load-all": "Načítání všech pluginů",
                 "unload-failed": "Failed to unload plugin \"{{pluginName}}\"",
                 "execute-failed": "Failed to execute plugin {{pluginName}}::{{contextName}}",
                 "initialize-failed": "Failed to initialize plugin \"{{pluginName}}\"",
