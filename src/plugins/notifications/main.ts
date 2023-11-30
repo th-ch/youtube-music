@@ -1,25 +1,25 @@
-import { BrowserWindow, Notification } from 'electron';
+import { Notification } from 'electron';
 
 import is from 'electron-is';
 
 import { notificationImage } from './utils';
-import config from './config';
 import interactive from './interactive';
 
-import registerCallback, { SongInfo } from '../../providers/song-info';
+import registerCallback, { type SongInfo } from '@/providers/song-info';
 
-import type { ConfigType } from '../../config/dynamic';
+import type { NotificationsPluginConfig } from './index';
+import type { BackendContext } from '@/types/contexts';
 
-type NotificationOptions = ConfigType<'notifications'>;
+let config: NotificationsPluginConfig;
 
 const notify = (info: SongInfo) => {
   // Send the notification
   const currentNotification = new Notification({
     title: info.title || 'Playing',
     body: info.artist,
-    icon: notificationImage(info),
+    icon: notificationImage(info, config),
     silent: true,
-    urgency: config.get('urgency') as 'normal' | 'critical' | 'low',
+    urgency: config.urgency,
   });
   currentNotification.show();
 
@@ -31,7 +31,7 @@ const setup = () => {
   let currentUrl: string | undefined;
 
   registerCallback((songInfo: SongInfo) => {
-    if (!songInfo.isPaused && (songInfo.url !== currentUrl || config.get('unpauseNotification'))) {
+    if (!songInfo.isPaused && (songInfo.url !== currentUrl || config.unpauseNotification)) {
       // Close the old notification
       oldNotification?.close();
       currentUrl = songInfo.url;
@@ -43,9 +43,14 @@ const setup = () => {
   });
 };
 
-export default (win: BrowserWindow, options: NotificationOptions) => {
+export const onMainLoad = async (context: BackendContext<NotificationsPluginConfig>) => {
+  config = await context.getConfig();
+
   // Register the callback for new song information
-  is.windows() && options.interactive
-    ? interactive(win)
-    : setup();
+  if (is.windows() && config.interactive) interactive(context.window, () => config, context);
+  else setup();
+};
+
+export const onConfigChange = (newConfig: NotificationsPluginConfig) => {
+  config = newConfig;
 };

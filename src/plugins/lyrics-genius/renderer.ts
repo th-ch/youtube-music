@@ -1,6 +1,8 @@
-import type { SongInfo } from '../../providers/song-info';
+import type { SongInfo } from '@/providers/song-info';
+import type { RendererContext } from '@/types/contexts';
+import type { LyricsGeniusPluginConfig } from '@/plugins/lyrics-genius/index';
 
-export default () => {
+export const onRendererLoad = ({ ipc: { invoke, on } }: RendererContext<LyricsGeniusPluginConfig>) => {
   const setLyrics = (lyricsContainer: Element, lyrics: string | null) => {
     lyricsContainer.innerHTML = `
       <div id="contents" class="style-scope ytmusic-section-list-renderer description ytmusic-description-shelf-renderer genius-lyrics">
@@ -21,7 +23,7 @@ export default () => {
 
   let unregister: (() => void) | null = null;
 
-  window.ipcRenderer.on('update-song-info', (_, extractedSongInfo: SongInfo) => {
+  on('update-song-info', (extractedSongInfo: SongInfo) => {
     unregister?.();
 
     setTimeout(async () => {
@@ -35,7 +37,7 @@ export default () => {
       // Check if disabled
       if (!tabs.lyrics?.hasAttribute('disabled')) return;
 
-      const lyrics = await window.ipcRenderer.invoke(
+      const lyrics = await invoke(
         'search-genius-lyrics',
         extractedSongInfo,
       ) as string | null;

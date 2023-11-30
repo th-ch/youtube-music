@@ -1,75 +1,77 @@
 import prompt from 'custom-electron-prompt';
 
-import { BrowserWindow } from 'electron';
+import promptOptions from '@/providers/prompt-options';
 
-import { setOptions } from './main';
+import type { PictureInPicturePluginConfig } from './index';
 
-import promptOptions from '../../providers/prompt-options';
+import type { MenuContext } from '@/types/contexts';
+import type { MenuTemplate } from '@/menu';
 
-import { MenuTemplate } from '../../menu';
 
-import type { ConfigType } from '../../config/dynamic';
+export const onMenu = async ({ window, getConfig, setConfig }: MenuContext<PictureInPicturePluginConfig>): Promise<MenuTemplate> => {
+  const config = await getConfig();
 
-export default (win: BrowserWindow, options: ConfigType<'picture-in-picture'>): MenuTemplate => [
-  {
-    label: 'Always on top',
-    type: 'checkbox',
-    checked: options.alwaysOnTop,
-    click(item) {
-      setOptions({ alwaysOnTop: item.checked });
-      win.setAlwaysOnTop(item.checked);
+  return [
+    {
+      label: 'Always on top',
+      type: 'checkbox',
+      checked: config.alwaysOnTop,
+      click(item) {
+        setConfig({ alwaysOnTop: item.checked });
+        window.setAlwaysOnTop(item.checked);
+      },
     },
-  },
-  {
-    label: 'Save window position',
-    type: 'checkbox',
-    checked: options.savePosition,
-    click(item) {
-      setOptions({ savePosition: item.checked });
+    {
+      label: 'Save window position',
+      type: 'checkbox',
+      checked: config.savePosition,
+      click(item) {
+        setConfig({ savePosition: item.checked });
+      },
     },
-  },
-  {
-    label: 'Save window size',
-    type: 'checkbox',
-    checked: options.saveSize,
-    click(item) {
-      setOptions({ saveSize: item.checked });
+    {
+      label: 'Save window size',
+      type: 'checkbox',
+      checked: config.saveSize,
+      click(item) {
+        setConfig({ saveSize: item.checked });
+      },
     },
-  },
-  {
-    label: 'Hotkey',
-    type: 'checkbox',
-    checked: !!options.hotkey,
-    async click(item) {
-      const output = await prompt({
-        title: 'Picture in Picture Hotkey',
-        label: 'Choose a hotkey for toggling Picture in Picture',
-        type: 'keybind',
-        keybindOptions: [{
-          value: 'hotkey',
-          label: 'Hotkey',
-          default: options.hotkey,
-        }],
-        ...promptOptions(),
-      }, win);
+    {
+      label: 'Hotkey',
+      type: 'checkbox',
+      checked: !!config.hotkey,
+      async click(item) {
+        const output = await prompt({
+          title: 'Picture in Picture Hotkey',
+          label: 'Choose a hotkey for toggling Picture in Picture',
+          type: 'keybind',
+          keybindOptions: [{
+            value: 'hotkey',
+            label: 'Hotkey',
+            default: config.hotkey,
+          }],
+          ...promptOptions(),
+        }, window);
 
-      if (output) {
-        const { value, accelerator } = output[0];
-        setOptions({ [value]: accelerator });
+        if (output) {
+          const { value, accelerator } = output[0];
+          setConfig({ [value]: accelerator });
 
-        item.checked = !!accelerator;
-      } else {
-        // Reset checkbox if prompt was canceled
-        item.checked = !item.checked;
-      }
+          item.checked = !!accelerator;
+        } else {
+          // Reset checkbox if prompt was canceled
+          item.checked = !item.checked;
+        }
+      },
     },
-  },
-  {
-    label: 'Use native PiP',
-    type: 'checkbox',
-    checked: options.useNativePiP,
-    click(item) {
-      setOptions({ useNativePiP: item.checked });
+    {
+      label: 'Use native PiP',
+      type: 'checkbox',
+      checked: config.useNativePiP,
+      click(item) {
+        setConfig({ useNativePiP: item.checked });
+      },
     },
-  },
-];
+  ];
+};

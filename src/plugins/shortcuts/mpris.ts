@@ -2,9 +2,9 @@ import { BrowserWindow, ipcMain } from 'electron';
 
 import mpris, { Track } from '@jellybrick/mpris-service';
 
-import registerCallback from '../../providers/song-info';
-import getSongControls from '../../providers/song-controls';
-import config from '../../config';
+import registerCallback from '@/providers/song-info';
+import getSongControls from '@/providers/song-controls';
+import config from '@/config';
 
 function setupMPRIS() {
   const instance = new mpris({
@@ -32,7 +32,7 @@ function registerMPRIS(win: BrowserWindow) {
 
     const player = setupMPRIS();
 
-    ipcMain.on('apiLoaded', () => {
+    ipcMain.on('ytmd:player-api-loaded', () => {
       win.webContents.send('setupSeekedListener', 'mpris');
       win.webContents.send('setupTimeChangedListener', 'mpris');
       win.webContents.send('setupRepeatChangedListener', 'mpris');

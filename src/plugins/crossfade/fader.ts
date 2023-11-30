@@ -15,8 +15,6 @@
  * v0.2.0, 07/2016
  */
 
-'use strict';
-
 // Internal utility: check if value is a valid volume level and throw if not
 const validateVolumeLevel = (value: number) => {
   // Number between 0 and 1?

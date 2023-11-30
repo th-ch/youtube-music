@@ -3,13 +3,12 @@ import keyEventAreEqual from 'keyboardevents-areequal';
 
 import pipHTML from './templates/picture-in-picture.html?raw';
 
-import { getSongMenu } from '../../providers/dom-elements';
+import { getSongMenu } from '@/providers/dom-elements';
 
 import { ElementFromHtml } from '../utils/renderer';
 
-import type { ConfigType } from '../../config/dynamic';
-
-type PiPOptions = ConfigType<'picture-in-picture'>;
+import type { PictureInPicturePluginConfig } from './index';
+import type { RendererContext } from '@/types/contexts';
 
 function $<E extends Element = Element>(selector: string) {
   return document.querySelector<E>(selector);
@@ -135,36 +134,13 @@ const listenForToggle = () => {
   });
 };
 
-function observeMenu(options: PiPOptions) {
-  useNativePiP = options.useNativePiP;
-  document.addEventListener(
-    'apiLoaded',
-    () => {
-      listenForToggle();
+export const onRendererLoad = async ({ getConfig }: RendererContext<PictureInPicturePluginConfig>) => {
+  const config = await getConfig();
 
-      cloneButton('.player-minimize-button')?.addEventListener('click', async () => {
-        await togglePictureInPicture();
-        setTimeout(() => $<HTMLButtonElement>('#player')?.click());
-      });
+  useNativePiP = config.useNativePiP;
 
-      // Allows easily closing the menu by programmatically clicking outside of it
-      $('#expanding-menu')?.removeAttribute('no-cancel-on-outside-click');
-      // TODO: think about wether an additional button in songMenu is needed
-      const popupContainer = $('ytmusic-popup-container');
-      if (popupContainer) observer.observe(popupContainer, {
-        childList: true,
-        subtree: true,
-      });
-    },
-    { once: true, passive: true },
-  );
-}
-
-export default (options: PiPOptions) => {
-  observeMenu(options);
-
-  if (options.hotkey) {
-    const hotkeyEvent = toKeyEvent(options.hotkey);
+  if (config.hotkey) {
+    const hotkeyEvent = toKeyEvent(config.hotkey);
     window.addEventListener('keydown', (event) => {
       if (
         keyEventAreEqual(event, hotkeyEvent)
@@ -174,4 +150,22 @@ export default (options: PiPOptions) => {
       }
     });
   }
+};
+
+export const onPlayerApiReady = () => {
+  listenForToggle();
+
+  cloneButton('.player-minimize-button')?.addEventListener('click', async () => {
+    await togglePictureInPicture();
+    setTimeout(() => $<HTMLButtonElement>('#player')?.click());
+  });
+
+  // Allows easily closing the menu by programmatically clicking outside of it
+  $('#expanding-menu')?.removeAttribute('no-cancel-on-outside-click');
+  // TODO: think about wether an additional button in songMenu is needed
+  const popupContainer = $('ytmusic-popup-container');
+  if (popupContainer) observer.observe(popupContainer, {
+    childList: true,
+    subtree: true,
+  });
 };

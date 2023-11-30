@@ -1,12 +1,14 @@
 import { BrowserWindow, globalShortcut } from 'electron';
 import is from 'electron-is';
-import electronLocalshortcut from 'electron-localshortcut';
+import { register as registerElectronLocalShortcut } from 'electron-localshortcut';
 
 import registerMPRIS from './mpris';
+import getSongControls from '@/providers/song-controls';
 
-import getSongControls from '../../providers/song-controls';
+import type { ShortcutMappingType, ShortcutsPluginConfig } from './index';
 
-import type { ConfigType } from '../../config/dynamic';
+import type { BackendContext } from '@/types/contexts';
+
 
 function _registerGlobalShortcut(webContents: Electron.WebContents, shortcut: string, action: (webContents: Electron.WebContents) => void) {
   globalShortcut.register(shortcut, () => {
@@ -15,55 +17,58 @@ function _registerGlobalShortcut(webContents: Electron.WebContents, shortcut: st
 }
 
 function _registerLocalShortcut(win: BrowserWindow, shortcut: string, action: (webContents: Electron.WebContents) => void) {
-  electronLocalshortcut.register(win, shortcut, () => {
+  registerElectronLocalShortcut(win, shortcut, () => {
     action(win.webContents);
   });
 }
 
-function registerShortcuts(win: BrowserWindow, options: ConfigType<'shortcuts'>) {
-  const songControls = getSongControls(win);
+export const onMainLoad = async ({ getConfig, window }: BackendContext<ShortcutsPluginConfig>) => {
+  const config = await getConfig();
+
+  const songControls = getSongControls(window);
   const { playPause, next, previous, search } = songControls;
 
-  if (options.overrideMediaKeys) {
-    _registerGlobalShortcut(win.webContents, 'MediaPlayPause', playPause);
-    _registerGlobalShortcut(win.webContents, 'MediaNextTrack', next);
-    _registerGlobalShortcut(win.webContents, 'MediaPreviousTrack', previous);
+  if (config.overrideMediaKeys) {
+    _registerGlobalShortcut(window.webContents, 'MediaPlayPause', playPause);
+    _registerGlobalShortcut(window.webContents, 'MediaNextTrack', next);
+    _registerGlobalShortcut(window.webContents, 'MediaPreviousTrack', previous);
   }
 
-  _registerLocalShortcut(win, 'CommandOrControl+F', search);
-  _registerLocalShortcut(win, 'CommandOrControl+L', search);
+  _registerLocalShortcut(window, 'CommandOrControl+F', search);
+  _registerLocalShortcut(window, 'CommandOrControl+L', search);
 
   if (is.linux()) {
-    registerMPRIS(win);
+    registerMPRIS(window);
   }
 
-  const { global, local } = options;
+  const { global, local } = config;
   const shortcutOptions = { global, local };
 
   for (const optionType in shortcutOptions) {
     registerAllShortcuts(shortcutOptions[optionType as 'global' | 'local'], optionType);
   }
 
-  function registerAllShortcuts(container: Record<string, string>, type: string) {
-    for (const action in container) {
+  function registerAllShortcuts(container: ShortcutMappingType, type: string) {
+    for (const _action in container) {
+      // HACK: _action is detected as string, but it's actually a key of ShortcutMappingType
+      const action = _action as keyof ShortcutMappingType;
+
       if (!container[action]) {
         continue; // Action accelerator is empty
       }
 
       console.debug(`Registering ${type} shortcut`, container[action], ':', action);
-      const actionCallback: () => void = songControls[action as keyof typeof songControls];
+      const actionCallback: () => void = songControls[action];
       if (typeof actionCallback !== 'function') {
         console.warn('Invalid action', action);
         continue;
       }
 
       if (type === 'global') {
-        _registerGlobalShortcut(win.webContents, container[action], actionCallback);
+        _registerGlobalShortcut(window.webContents, container[action], actionCallback);
       } else { // Type === "local"
-        _registerLocalShortcut(win, local[action], actionCallback);
+        _registerLocalShortcut(window, local[action], actionCallback);
       }
     }
   }
-}
-
-export default registerShortcuts;
+};

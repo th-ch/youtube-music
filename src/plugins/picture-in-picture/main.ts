@@ -1,111 +1,111 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app } from 'electron';
 
-import style from './style.css';
+import type { PictureInPicturePluginConfig } from './index';
 
-import { injectCSS } from '../utils/main';
-import { setOptions as setPluginOptions } from '../../config/plugins';
+import type { BackendContext } from '@/types/contexts';
 
-import type { ConfigType } from '../../config/dynamic';
+let config: PictureInPicturePluginConfig;
 
-let isInPiP = false;
-let originalPosition: number[];
-let originalSize: number[];
-let originalFullScreen: boolean;
-let originalMaximized: boolean;
+export const onMainLoad = async ({ window, getConfig, setConfig, ipc: { send, handle, on } }: BackendContext<PictureInPicturePluginConfig>) => {
+  let isInPiP = false;
+  let originalPosition: number[];
+  let originalSize: number[];
+  let originalFullScreen: boolean;
+  let originalMaximized: boolean;
 
-let win: BrowserWindow;
+  const pipPosition = () => (config.savePosition && config['pip-position']) || [10, 10];
+  const pipSize = () => (config.saveSize && config['pip-size']) || [450, 275];
 
-type PiPOptions = ConfigType<'picture-in-picture'>;
+  const togglePiP = () => {
+    isInPiP = !isInPiP;
+    setConfig({ isInPiP });
 
-let options: Partial<PiPOptions>;
+    if (isInPiP) {
+      originalFullScreen = window.isFullScreen();
+      if (originalFullScreen) {
+        window.setFullScreen(false);
+      }
 
-const pipPosition = () => (options.savePosition && options['pip-position']) || [10, 10];
-const pipSize = () => (options.saveSize && options['pip-size']) || [450, 275];
+      originalMaximized = window.isMaximized();
+      if (originalMaximized) {
+        window.unmaximize();
+      }
 
-const setLocalOptions = (_options: Partial<PiPOptions>) => {
-  options = { ...options, ..._options };
-  setPluginOptions('picture-in-picture', _options);
-};
+      originalPosition = window.getPosition();
+      originalSize = window.getSize();
 
-const togglePiP = () => {
-  isInPiP = !isInPiP;
-  setLocalOptions({ isInPiP });
+      handle('before-input-event', blockShortcutsInPiP);
 
-  if (isInPiP) {
-    originalFullScreen = win.isFullScreen();
-    if (originalFullScreen) {
-      win.setFullScreen(false);
+      window.setMaximizable(false);
+      window.setFullScreenable(false);
+
+      send('pip-toggle', true);
+
+      app.dock?.hide();
+      window.setVisibleOnAllWorkspaces(true, {
+        visibleOnFullScreen: true,
+      });
+      app.dock?.show();
+      if (config.alwaysOnTop) {
+        window.setAlwaysOnTop(true, 'screen-saver', 1);
+      }
+    } else {
+      window.webContents.removeListener('before-input-event', blockShortcutsInPiP);
+      window.setMaximizable(true);
+      window.setFullScreenable(true);
+
+      send('pip-toggle', false);
+
+      window.setVisibleOnAllWorkspaces(false);
+      window.setAlwaysOnTop(false);
+
+      if (originalFullScreen) {
+        window.setFullScreen(true);
+      }
+
+      if (originalMaximized) {
+        window.maximize();
+      }
     }
 
-    originalMaximized = win.isMaximized();
-    if (originalMaximized) {
-      win.unmaximize();
+    const [x, y] = isInPiP ? pipPosition() : originalPosition;
+    const [w, h] = isInPiP ? pipSize() : originalSize;
+    window.setPosition(x, y);
+    window.setSize(w, h);
+
+    window.setWindowButtonVisibility?.(!isInPiP);
+  };
+
+  const blockShortcutsInPiP = (event: Electron.Event, input: Electron.Input) => {
+    const key = input.key.toLowerCase();
+
+    if (key === 'f') {
+      event.preventDefault();
+    } else if (key === 'escape') {
+      togglePiP();
+      event.preventDefault();
     }
+  };
 
-    originalPosition = win.getPosition();
-    originalSize = win.getSize();
-
-    win.webContents.on('before-input-event', blockShortcutsInPiP);
-
-    win.setMaximizable(false);
-    win.setFullScreenable(false);
-
-    win.webContents.send('pip-toggle', true);
-
-    app.dock?.hide();
-    win.setVisibleOnAllWorkspaces(true, {
-      visibleOnFullScreen: true,
-    });
-    app.dock?.show();
-    if (options.alwaysOnTop) {
-      win.setAlwaysOnTop(true, 'screen-saver', 1);
-    }
-  } else {
-    win.webContents.removeListener('before-input-event', blockShortcutsInPiP);
-    win.setMaximizable(true);
-    win.setFullScreenable(true);
-
-    win.webContents.send('pip-toggle', false);
-
-    win.setVisibleOnAllWorkspaces(false);
-    win.setAlwaysOnTop(false);
-
-    if (originalFullScreen) {
-      win.setFullScreen(true);
-    }
-
-    if (originalMaximized) {
-      win.maximize();
-    }
-  }
-
-  const [x, y] = isInPiP ? pipPosition() : originalPosition;
-  const [w, h] = isInPiP ? pipSize() : originalSize;
-  win.setPosition(x, y);
-  win.setSize(w, h);
-
-  win.setWindowButtonVisibility?.(!isInPiP);
-};
-
-const blockShortcutsInPiP = (event: Electron.Event, input: Electron.Input) => {
-  const key = input.key.toLowerCase();
-
-  if (key === 'f') {
-    event.preventDefault();
-  } else if (key === 'escape') {
+  config ??= await getConfig();
+  setConfig({ isInPiP });
+  on('picture-in-picture', () => {
     togglePiP();
-    event.preventDefault();
-  }
-};
+  });
 
-export default (_win: BrowserWindow, _options: PiPOptions) => {
-  options ??= _options;
-  win ??= _win;
-  setLocalOptions({ isInPiP });
-  injectCSS(win.webContents, style);
-  ipcMain.on('picture-in-picture', () => {
-    togglePiP();
+  window.on('move', () => {
+    if (config.isInPiP && !config.useNativePiP) {
+      setConfig({ 'pip-position': window.getPosition() as [number, number] });
+    }
+  });
+
+  window.on('resize', () => {
+    if (config.isInPiP && !config.useNativePiP) {
+      setConfig({ 'pip-size': window.getSize() as [number, number] });
+    }
   });
 };
 
-export const setOptions = setLocalOptions;
+export const onConfigChange = (newConfig: PictureInPicturePluginConfig) => {
+  config = newConfig;
+};

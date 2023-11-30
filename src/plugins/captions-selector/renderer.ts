@@ -1,13 +1,11 @@
-import configProvider from './config-renderer';
+import { ElementFromHtml } from '@/plugins/utils/renderer';
+import { createRenderer } from '@/utils';
 
 import CaptionsSettingsButtonHTML from './templates/captions-settings-template.html?raw';
 
-import { ElementFromHtml } from '../utils/renderer';
-import { YoutubePlayer } from '../../types/youtube-player';
+import { YoutubePlayer } from '@/types/youtube-player';
 
-import type { ConfigType } from '../../config/dynamic';
-
-interface LanguageOptions {
+export interface LanguageOptions {
   displayName: string;
   id: string | null;
   is_default: boolean;
@@ -20,76 +18,134 @@ interface LanguageOptions {
   vss_id: string;
 }
 
-let captionsSelectorConfig: ConfigType<'captions-selector'>;
+export interface CaptionsSelectorConfig {
+  enabled: boolean;
+  disableCaptions: boolean;
+  autoload: boolean;
+  lastCaptionsCode: string;
+}
 
-const $ = <Element extends HTMLElement>(selector: string): Element => document.querySelector(selector)!;
-
-const captionsSettingsButton = ElementFromHtml(CaptionsSettingsButtonHTML);
-
-export default () => {
-  captionsSelectorConfig = configProvider.getAll();
-
-  configProvider.subscribeAll((newConfig) => {
-    captionsSelectorConfig = newConfig;
-  });
-  document.addEventListener('apiLoaded', (event) => setup(event.detail), { once: true, passive: true });
-};
-
-function setup(api: YoutubePlayer) {
-  $('.right-controls-buttons').append(captionsSettingsButton);
-
-  let captionTrackList = api.getOption<LanguageOptions[]>('captions', 'tracklist') ?? [];
-
-  $('video').addEventListener('srcChanged', () => {
-    if (captionsSelectorConfig.disableCaptions) {
-      setTimeout(() => api.unloadModule('captions'), 100);
-      captionsSettingsButton.style.display = 'none';
-      return;
-    }
-
-    api.loadModule('captions');
-
-    setTimeout(() => {
-      captionTrackList = api.getOption('captions', 'tracklist') ?? [];
-
-      if (captionsSelectorConfig.autoload && captionsSelectorConfig.lastCaptionsCode) {
-        api.setOption('captions', 'track', {
-          languageCode: captionsSelectorConfig.lastCaptionsCode,
-        });
-      }
-
-      captionsSettingsButton.style.display = captionTrackList?.length
-        ? 'inline-block'
-        : 'none';
-    }, 250);
-  });
-
-  captionsSettingsButton.addEventListener('click', async () => {
-    if (captionTrackList?.length) {
-      const currentCaptionTrack = api.getOption<LanguageOptions>('captions', 'track')!;
+export default createRenderer<
+  {
+    captionsSettingsButton: HTMLElement;
+    captionTrackList: LanguageOptions[] | null;
+    api: YoutubePlayer | null;
+    config: CaptionsSelectorConfig | null;
+    setConfig: (config: Partial<CaptionsSelectorConfig>) => void;
+    videoChangeListener: () => void;
+    captionsButtonClickListener: () => void;
+  },
+  CaptionsSelectorConfig
+>({
+  captionsSettingsButton: ElementFromHtml(CaptionsSettingsButtonHTML),
+  captionTrackList: null,
+  api: null,
+  config: null,
+  setConfig: () => {},
+  async captionsButtonClickListener() {
+    if (this.captionTrackList?.length) {
+      const currentCaptionTrack = this.api!.getOption<LanguageOptions>(
+        'captions',
+        'track',
+      );
       let currentIndex = currentCaptionTrack
-        ? captionTrackList.indexOf(captionTrackList.find((track) => track.languageCode === currentCaptionTrack.languageCode)!)
+        ? this.captionTrackList.indexOf(
+            this.captionTrackList.find(
+              (track) =>
+                track.languageCode === currentCaptionTrack.languageCode,
+            )!,
+          )
         : null;
 
       const captionLabels = [
-        ...captionTrackList.map((track) => track.displayName),
+        ...this.captionTrackList.map((track) => track.displayName),
         'None',
       ];
 
-      currentIndex = await window.ipcRenderer.invoke('captionsSelector', captionLabels, currentIndex) as number;
+      currentIndex = (await window.ipcRenderer.invoke(
+        'captionsSelector',
+        captionLabels,
+        currentIndex,
+      )) as number;
       if (currentIndex === null) {
         return;
       }
 
-      const newCaptions = captionTrackList[currentIndex];
-      configProvider.set('lastCaptionsCode', newCaptions?.languageCode);
+      const newCaptions = this.captionTrackList[currentIndex];
+      this.setConfig({ lastCaptionsCode: newCaptions?.languageCode });
       if (newCaptions) {
-        api.setOption('captions', 'track', { languageCode: newCaptions.languageCode });
+        this.api?.setOption('captions', 'track', {
+          languageCode: newCaptions.languageCode,
+        });
       } else {
-        api.setOption('captions', 'track', {});
+        this.api?.setOption('captions', 'track', {});
       }
 
-      setTimeout(() => api.playVideo());
+      setTimeout(() => this.api?.playVideo());
     }
-  });
-}
+  },
+  videoChangeListener() {
+    if (this.config?.disableCaptions) {
+      setTimeout(() => this.api!.unloadModule('captions'), 100);
+      this.captionsSettingsButton.style.display = 'none';
+      return;
+    }
+
+    this.api!.loadModule('captions');
+
+    setTimeout(() => {
+      this.captionTrackList =
+        this.api!.getOption('captions', 'tracklist') ?? [];
+
+      if (this.config!.autoload && this.config!.lastCaptionsCode) {
+        this.api?.setOption('captions', 'track', {
+          languageCode: this.config!.lastCaptionsCode,
+        });
+      }
+
+      this.captionsSettingsButton.style.display = this.captionTrackList?.length
+        ? 'inline-block'
+        : 'none';
+    }, 250);
+  },
+  async start({ getConfig, setConfig }) {
+    this.config = await getConfig();
+    this.setConfig = setConfig;
+  },
+  stop() {
+    document
+      .querySelector('.right-controls-buttons')
+      ?.removeChild(this.captionsSettingsButton);
+    document
+      .querySelector<YoutubePlayer & HTMLElement>('#movie_player')
+      ?.unloadModule('captions');
+    document
+      .querySelector('video')
+      ?.removeEventListener('srcChanged', this.videoChangeListener);
+    this.captionsSettingsButton.removeEventListener(
+      'click',
+      this.captionsButtonClickListener,
+    );
+  },
+  onPlayerApiReady(playerApi) {
+    this.api = playerApi;
+
+    document
+      .querySelector('.right-controls-buttons')
+      ?.append(this.captionsSettingsButton);
+
+    this.captionTrackList =
+      this.api.getOption<LanguageOptions[]>('captions', 'tracklist') ?? [];
+
+    document
+      .querySelector('video')
+      ?.addEventListener('srcChanged', this.videoChangeListener);
+    this.captionsSettingsButton.addEventListener(
+      'click',
+      this.captionsButtonClickListener,
+    );
+  },
+  onConfigChange(newConfig) {
+    this.config = newConfig;
+  },
+});

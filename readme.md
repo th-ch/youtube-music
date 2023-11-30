@@ -189,7 +189,7 @@ Some predefined themes are available in https://github.com/kerichdev/themes-for-
 git clone https://github.com/th-ch/youtube-music
 cd youtube-music
 pnpm install --frozen-lockfile
-pnpm start
+pnpm dev
 ```
 
 ## Build your own plugins
@@ -203,61 +203,70 @@ Using plugins, you can:
 
 Create a folder in `plugins/YOUR-PLUGIN-NAME`:
 
-- if you need to manipulate the BrowserWindow, create a file with the following template:
-
+- `index.ts`: the main file of the plugin
 ```typescript
-// file: main.ts
-export default (win: Electron.BrowserWindow, config: ConfigType<'YOUR-PLUGIN-NAME'>) => {
-  // something
-};
-```
+import style from './style.css?inline'; // import style as inline
 
-then, register the plugin in `src/index.ts`:
+import { createPlugin } from '@/utils';
 
-```typescript
-import yourPlugin from './plugins/YOUR-PLUGIN-NAME/back';
-
-// ...
-
-const mainPlugins = {
-  // ...
-  'YOUR-PLUGIN-NAME': yourPlugin,
-};
-```
-
-- if you need to change the front, create a file with the following template:
-
-```typescript
-// file: renderer.ts
-export default (config: ConfigType<'YOUR-PLUGIN-NAME'>) => {
-  // This function will be called as a preload script
-  // So you can use front features like `document.querySelector`
-};
-```
-
-then, register the plugin in `src/renderer.ts`:
-
-```typescript
-import yourPlugin from './plugins/YOUR-PLUGIN-NAME/front';
-
-const rendererPlugins: PluginMapper<'renderer'> = {
-  // ...
-  'YOUR-PLUGIN-NAME': yourPlugin,
-};
-```
-
-Finally, add the plugin to the default config file `src/config/default.ts`:
-
-```typescript
-export default {
-  // ...
-  'plugins': {
-    // ...
-    'YOUR-PLUGIN-NAME': {
-      // ...
-    },
+export default createPlugin({
+  name: 'Plugin Label',
+  restartNeeded: true, // if value is true, ytmusic show restart dialog
+  config: {
+    enabled: false,
+  }, // your custom config
+  stylesheets: [style], // your custom style,
+  menu: async ({ getConfig, setConfig }) => {
+    // All *Config methods are wrapped Promise<T>
+    const config = await getConfig();
+    return [
+      {
+        label: 'menu',
+        submenu: [1, 2, 3].map((value) => ({
+          label: `value ${value}`,
+          type: 'radio',
+          checked: config.value === value,
+          click() {
+            setConfig({ value });
+          },
+        })),
+      },
+    ];
   },
-};
+  backend: {
+    start({ window, ipc }) {
+      window.maximize();
+
+      // you can communicate with renderer plugin
+      ipc.handle('some-event', () => {
+        return 'hello';
+      });
+    },
+    // it fired when config changed
+    onConfigChange(newConfig) { /* ... */ },
+    // you can also clean up plugin
+    stop(context) { /* ... */ },
+  },
+  renderer: {
+    async start(context) {
+      console.log(await context.ipc.invoke('some-event'));
+    },
+    // Only renderer available hook
+    onPlayerApiReady(api: YoutubePlayer, context: RendererContext) {
+      // set plugin config easily
+      context.setConfig({ myConfig: api.getVolume() });
+    },
+    onConfigChange(newConfig) { /* ... */ },
+    stop(_context) { /* ... */ },
+  },
+  preload: {
+    async start({ getConfig }) {
+      const config = await getConfig();
+    },
+    onConfigChange(newConfig) {},
+    stop(_context) {},
+  },
+});
 ```
 
 ### Common use cases
@@ -265,27 +274,42 @@ export default {
 - injecting custom CSS: create a `style.css` file in the same folder then:
 
 ```typescript
-import path from 'node:path';
-import style from './style.css';
+// index.ts
+import style from './style.css?inline'; // import style as inline
 
-// main.ts
-export default (win: Electron.BrowserWindow) => {
-  injectCSS(win.webContents, style);
-};
+import { createPlugin } from '@/utils';
+
+const builder = createPlugin({
+  name: 'Plugin Label',
+  restartNeeded: true, // if value is true, ytmusic show restart dialog
+  config: {
+    enabled: false,
+  }, // your custom config
+  stylesheets: [style], // your custom style
+  renderer() {} // define renderer hook
+});
 ```
 
-- changing the HTML:
+- If you want to change the HTML:
 
 ```typescript
-// renderer.ts
-export default () => {
-  // Remove the login button
-  document.querySelector(".sign-in-link.ytmusic-nav-bar").remove();
-};
+import { createPlugin } from '@/utils';
+
+const builder = createPlugin({
+  name: 'Plugin Label',
+  restartNeeded: true, // if value is true, ytmusic show restart dialog
+  config: {
+    enabled: false,
+  }, // your custom config
+  renderer() {
+    // Remove the login button
+    document.querySelector(".sign-in-link.ytmusic-nav-bar").remove();
+  } // define renderer hook
+});
 ```
 
 - communicating between the front and back: can be done using the ipcMain module from electron. See `utils.js` file and
-  example in `navigation` plugin.
+  example in `sponsorblock` plugin.
 
 ## Build
 
@@ -300,6 +324,12 @@ export default () => {
 
 Builds the app for macOS, Linux, and Windows,
 using [electron-builder](https://github.com/electron-userland/electron-builder).
+
+## Production Preview
+
+```bash
+pnpm start
+```
 
 ## Tests
 

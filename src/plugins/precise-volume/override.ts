@@ -1,5 +1,4 @@
 /* what */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 
 const ignored = {
   id: ['volume-slider', 'expand-volume-slider'],
@@ -9,7 +8,8 @@ const ignored = {
 function overrideAddEventListener() {
   // YO WHAT ARE YOU DOING NOW?!?!
   // Save native addEventListener
-  // @ts-ignore
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error - We know what we're doing
   // eslint-disable-next-line @typescript-eslint/unbound-method
   Element.prototype._addEventListener = Element.prototype.addEventListener;
   // Override addEventListener to Ignore specific events in volume-slider

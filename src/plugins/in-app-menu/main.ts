@@ -2,25 +2,21 @@ import { register } from 'electron-localshortcut';
 
 import { BrowserWindow, Menu, MenuItem, ipcMain, nativeImage } from 'electron';
 
-import titlebarStyle from './titlebar.css';
+import type { BackendContext } from '@/types/contexts';
+import type { InAppMenuConfig } from './index';
 
-import { injectCSS } from '../utils/main';
-
-// Tracks menu visibility
-export default (win: BrowserWindow) => {
-  injectCSS(win.webContents, titlebarStyle);
-
+export const onMainLoad = ({ window: win, ipc: { handle, send } }: BackendContext<InAppMenuConfig>) => {
   win.on('close', () => {
-    win.webContents.send('close-all-in-app-menu-panel');
+    send('close-all-in-app-menu-panel');
   });
 
   win.once('ready-to-show', () => {
     register(win, '`', () => {
-      win.webContents.send('toggle-in-app-menu');
+      send('toggle-in-app-menu');
     });
   });
 
-  ipcMain.handle(
+  handle(
     'get-menu',
     () => JSON.parse(JSON.stringify(
       Menu.getApplicationMenu(),
@@ -51,7 +47,7 @@ export default (win: BrowserWindow) => {
     if (target) target.click(undefined, BrowserWindow.fromWebContents(event.sender), event.sender);
   });
 
-  ipcMain.handle('get-menu-by-id', (_, commandId: number) => {
+  handle('get-menu-by-id', (commandId: number) => {
     const result = getMenuItemById(commandId);
 
     return JSON.parse(JSON.stringify(
@@ -60,16 +56,16 @@ export default (win: BrowserWindow) => {
     );
   });
 
-  ipcMain.handle('window-is-maximized', () => win.isMaximized());
+  handle('window-is-maximized', () => win.isMaximized());
 
-  ipcMain.handle('window-close', () => win.close());
-  ipcMain.handle('window-minimize', () => win.minimize());
-  ipcMain.handle('window-maximize', () => win.maximize());
-  win.on('maximize', () => win.webContents.send('window-maximize'));
-  ipcMain.handle('window-unmaximize', () => win.unmaximize());
-  win.on('unmaximize', () => win.webContents.send('window-unmaximize'));
+  handle('window-close', () => win.close());
+  handle('window-minimize', () => win.minimize());
+  handle('window-maximize', () => win.maximize());
+  win.on('maximize', () => send('window-maximize'));
+  handle('window-unmaximize', () => win.unmaximize());
+  win.on('unmaximize', () => send('window-unmaximize'));
 
-  ipcMain.handle('image-path-to-data-url', (_, imagePath: string) => {
+  handle('image-path-to-data-url', (imagePath: string) => {
     const nativeImageIcon = nativeImage.createFromPath(imagePath);
     return nativeImageIcon?.toDataURL();
   });

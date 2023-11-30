@@ -29,3 +29,9 @@ declare module '*.css' {
 
   export default css;
 }
+declare module '*.css?inline' {
+  const css: string;
+
+  export default css;
+}
+

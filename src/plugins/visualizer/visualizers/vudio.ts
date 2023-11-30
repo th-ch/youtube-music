@@ -2,7 +2,7 @@ import Vudio from 'vudio/umd/vudio';
 
 import { Visualizer } from './visualizer';
 
-import type { ConfigType } from '../../../config/dynamic';
+import type { VisualizerPluginConfig } from '../index';
 
 class VudioVisualizer extends Visualizer<Vudio> {
   name = 'vudio';
@@ -16,7 +16,7 @@ class VudioVisualizer extends Visualizer<Vudio> {
     canvas: HTMLCanvasElement,
     audioNode: GainNode,
     stream: MediaStream,
-    options: ConfigType<'visualizer'>,
+    options: VisualizerPluginConfig,
   ) {
     super(
       audioContext,

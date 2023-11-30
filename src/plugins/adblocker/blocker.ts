@@ -17,10 +17,12 @@ const SOURCES = [
   'https://secure.fanboy.co.nz/fanboy-annoyance_ubo.txt',
 ];
 
+let blocker: ElectronBlocker | undefined;
+
 export const loadAdBlockerEngine = async (
   session: Electron.Session | undefined = undefined,
-  cache = true,
-  additionalBlockLists = [],
+  cache: boolean = true,
+  additionalBlockLists: string[] = [],
   disableDefaultLists: boolean | unknown[] = false,
 ) => {
   // Only use cache if no additional blocklists are passed
@@ -45,7 +47,7 @@ export const loadAdBlockerEngine = async (
   ];
 
   try {
-    const blocker = await ElectronBlocker.fromLists(
+    blocker = await ElectronBlocker.fromLists(
       (url: string) => net.fetch(url),
       lists,
       {
@@ -64,4 +66,10 @@ export const loadAdBlockerEngine = async (
   }
 };
 
-export default { loadAdBlockerEngine };
+export const unloadAdBlockerEngine = (session: Electron.Session) => {
+  if (blocker) {
+    blocker.disableBlockingInSession(session);
+  }
+};
+
+export const isBlockerEnabled = (session: Electron.Session) => blocker !== undefined && blocker.isBlockingEnabled(session);

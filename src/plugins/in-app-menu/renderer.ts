@@ -8,15 +8,17 @@ import unmaximizeRaw from './assets/unmaximize.svg?inline';
 
 import type { Menu } from 'electron';
 
-function $<E extends Element = Element>(selector: string) {
-  return document.querySelector<E>(selector);
-}
+import type { RendererContext } from '@/types/contexts';
+import type { InAppMenuConfig } from '@/plugins/in-app-menu/index';
 
 const isMacOS = navigator.userAgent.includes('Macintosh');
 const isNotWindowsOrMacOS = !navigator.userAgent.includes('Windows') && !isMacOS;
 
-export default async () => {
-  const hideDOMWindowControls = window.mainConfig.get('plugins.in-app-menu.hideDOMWindowControls');
+export const onRendererLoad = async ({ getConfig, ipc: { invoke, on } }: RendererContext<InAppMenuConfig>) => {
+  const config = await getConfig();
+
+  const hideDOMWindowControls = config.hideDOMWindowControls;
+
   let hideMenu = window.mainConfig.get('options.hideMenu');
   const titleBar = document.createElement('title-bar');
   const navBar = document.querySelector<HTMLDivElement>('#nav-bar-background');
@@ -60,7 +62,7 @@ export default async () => {
   };
   logo.onclick = logoClick;
 
-  window.ipcRenderer.on('toggle-in-app-menu', logoClick);
+  on('toggle-in-app-menu', logoClick);
 
   if (!isMacOS) titleBar.appendChild(logo);
   document.body.appendChild(titleBar);
@@ -73,10 +75,10 @@ export default async () => {
     const minimizeButton = document.createElement('button');
     minimizeButton.classList.add('window-control');
     minimizeButton.appendChild(minimize);
-    minimizeButton.onclick = () => window.ipcRenderer.invoke('window-minimize');
+    minimizeButton.onclick = () => invoke('window-minimize');
 
     maximizeButton = document.createElement('button');
-    if (await window.ipcRenderer.invoke('window-is-maximized')) {
+    if (await invoke('window-is-maximized')) {
       maximizeButton.classList.add('window-control');
       maximizeButton.appendChild(unmaximize);
     } else {
@@ -84,27 +86,27 @@ export default async () => {
       maximizeButton.appendChild(maximize);
     }
     maximizeButton.onclick = async () => {
-      if (await window.ipcRenderer.invoke('window-is-maximized')) {
+      if (await invoke('window-is-maximized')) {
         // change icon to maximize
         maximizeButton.removeChild(maximizeButton.firstChild!);
         maximizeButton.appendChild(maximize);
 
         // call unmaximize
-        await window.ipcRenderer.invoke('window-unmaximize');
+        await invoke('window-unmaximize');
       } else {
         // change icon to unmaximize
         maximizeButton.removeChild(maximizeButton.firstChild!);
         maximizeButton.appendChild(unmaximize);
 
         // call maximize
-        await window.ipcRenderer.invoke('window-maximize');
+        await invoke('window-maximize');
       }
     };
 
     const closeButton = document.createElement('button');
     closeButton.classList.add('window-control');
     closeButton.appendChild(close);
-    closeButton.onclick = () => window.ipcRenderer.invoke('window-close');
+    closeButton.onclick = () => invoke('window-close');
 
     // Create a container div for the window control buttons
     const windowControlsContainer = document.createElement('div');
@@ -137,7 +139,7 @@ export default async () => {
     });
     panelClosers = [];
 
-    const menu = await window.ipcRenderer.invoke('get-menu') as Menu | null;
+    const menu = await invoke('get-menu') as Menu | null;
     if (!menu) return;
 
     menu.items.forEach((menuItem) => {
@@ -157,17 +159,17 @@ export default async () => {
 
   document.title = 'Youtube Music';
 
-  window.ipcRenderer.on('close-all-in-app-menu-panel', () => {
+  on('close-all-in-app-menu-panel', () => {
     panelClosers.forEach((closer) => closer());
   });
-  window.ipcRenderer.on('refresh-in-app-menu', () => updateMenu());
-  window.ipcRenderer.on('window-maximize', () => {
+  on('refresh-in-app-menu', () => updateMenu());
+  on('window-maximize', () => {
     if (isNotWindowsOrMacOS && !hideDOMWindowControls && maximizeButton.firstChild) {
       maximizeButton.removeChild(maximizeButton.firstChild);
       maximizeButton.appendChild(unmaximize);
     }
   });
-  window.ipcRenderer.on('window-unmaximize', () => {
+  on('window-unmaximize', () => {
     if (isNotWindowsOrMacOS && !hideDOMWindowControls && maximizeButton.firstChild) {
       maximizeButton.removeChild(maximizeButton.firstChild);
       maximizeButton.appendChild(unmaximize);
@@ -175,17 +177,16 @@ export default async () => {
   });
 
   if (window.mainConfig.plugins.isEnabled('picture-in-picture')) {
-    window.ipcRenderer.on('pip-toggle', () => {
+    on('pip-toggle', () => {
       updateMenu();
     });
   }
+};
 
-  // Increases the right margin of Navbar background when the scrollbar is visible to avoid blocking it (z-index doesn't affect it)
-  document.addEventListener('apiLoaded', () => {
-    const htmlHeadStyle = $('head > div > style');
-    if (htmlHeadStyle) {
-      // HACK: This is a hack to remove the scrollbar width
-      htmlHeadStyle.innerHTML = htmlHeadStyle.innerHTML.replace('html::-webkit-scrollbar {width: var(--ytmusic-scrollbar-width);', 'html::-webkit-scrollbar {');
-    }
-  }, { once: true, passive: true });
+export const onPlayerApiReady = () => {
+  const htmlHeadStyle = document.querySelector('head > div > style');
+  if (htmlHeadStyle) {
+    // HACK: This is a hack to remove the scrollbar width
+    htmlHeadStyle.innerHTML = htmlHeadStyle.innerHTML.replace('html::-webkit-scrollbar {width: var(--ytmusic-scrollbar-width);', 'html::-webkit-scrollbar {');
+  }
 };

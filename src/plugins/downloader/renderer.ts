@@ -1,9 +1,14 @@
 import downloadHTML from './templates/download.html?raw';
 
-import defaultConfig from '../../config/defaults';
-import { getSongMenu } from '../../providers/dom-elements';
+import defaultConfig from '@/config/defaults';
+import { getSongMenu } from '@/providers/dom-elements';
+import { getSongInfo } from '@/providers/song-info-front';
+
 import { ElementFromHtml } from '../utils/renderer';
-import { getSongInfo } from '../../providers/song-info-front';
+
+import type { RendererContext } from '@/types/contexts';
+
+import type { DownloaderPluginConfig } from './index';
 
 let menu: Element | null = null;
 let progress: Element | null = null;
@@ -11,34 +16,34 @@ const downloadButton = ElementFromHtml(downloadHTML);
 
 let doneFirstLoad = false;
 
-export default () => {
-  const menuObserver = new MutationObserver(() => {
+const menuObserver = new MutationObserver(() => {
+  if (!menu) {
+    menu = getSongMenu();
     if (!menu) {
-      menu = getSongMenu();
-      if (!menu) {
-        return;
-      }
-    }
-
-    if (menu.contains(downloadButton)) {
       return;
     }
+  }
 
-    const menuUrl = document.querySelector<HTMLAnchorElement>('tp-yt-paper-listbox [tabindex="-1"] #navigation-endpoint')?.href;
-    if (!menuUrl?.includes('watch?') && doneFirstLoad) {
-      return;
-    }
+  if (menu.contains(downloadButton)) {
+    return;
+  }
 
-    menu.prepend(downloadButton);
-    progress = document.querySelector('#ytmcustom-download');
+  const menuUrl = document.querySelector<HTMLAnchorElement>('tp-yt-paper-listbox [tabindex="-1"] #navigation-endpoint')?.href;
+  if (!menuUrl?.includes('watch?') && doneFirstLoad) {
+    return;
+  }
 
-    if (doneFirstLoad) {
-      return;
-    }
+  menu.prepend(downloadButton);
+  progress = document.querySelector('#ytmcustom-download');
 
-    setTimeout(() => doneFirstLoad ||= true, 500);
-  });
+  if (doneFirstLoad) {
+    return;
+  }
 
+  setTimeout(() => doneFirstLoad ||= true, 500);
+});
+
+export const onRendererLoad = ({ ipc }: RendererContext<DownloaderPluginConfig>) => {
   window.download = () => {
     let videoUrl = getSongMenu()
       // Selector of first button which is always "Start Radio"
@@ -50,28 +55,28 @@ export default () => {
       }
 
       if (videoUrl.includes('?playlist=')) {
-        window.ipcRenderer.send('download-playlist-request', videoUrl);
+        ipc.invoke('download-playlist-request', videoUrl);
         return;
       }
     } else {
       videoUrl = getSongInfo().url || window.location.href;
     }
 
-    window.ipcRenderer.send('download-song', videoUrl);
+    ipc.invoke('download-song', videoUrl);
   };
 
-  document.addEventListener('apiLoaded', () => {
-    menuObserver.observe(document.querySelector('ytmusic-popup-container')!, {
-      childList: true,
-      subtree: true,
-    });
-  }, { once: true, passive: true });
-
-  window.ipcRenderer.on('downloader-feedback', (_, feedback: string) => {
+  ipc.on('downloader-feedback', (feedback: string) => {
     if (progress) {
       progress.innerHTML = feedback || 'Download';
     } else {
       console.warn('Cannot update progress');
     }
+  });
+};
+
+export const onPlayerApiReady = () => {
+  menuObserver.observe(document.querySelector('ytmusic-popup-container')!, {
+    childList: true,
+    subtree: true,
   });
 };

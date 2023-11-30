@@ -1,27 +1,18 @@
-import { deepmerge } from '@fastify/deepmerge';
+import { deepmerge } from 'deepmerge-ts';
+import { allPlugins } from 'virtual:plugins';
 
 import store from './store';
-import defaultConfig from './defaults';
 
-import { restart } from '../providers/app-controls';
-import { Entries } from '../utils/type-utils';
+import { restart } from '@/providers/app-controls';
 
-interface Plugin {
-  enabled: boolean;
-}
+import type { PluginConfig } from '@/types/plugins';
 
-type DefaultPluginsConfig = typeof defaultConfig.plugins;
-const deepmergeFn = deepmerge();
-
-export function getEnabled() {
-  const plugins = deepmergeFn(defaultConfig.plugins, (store.get('plugins') as DefaultPluginsConfig));
-  return (Object.entries(plugins) as Entries<DefaultPluginsConfig>).filter(([, options]) =>
-    (options as Plugin).enabled,
-  );
+export function getPlugins() {
+  return store.get('plugins') as Record<string, PluginConfig>;
 }
 
 export function isEnabled(plugin: string) {
-  const pluginConfig = (store.get('plugins') as Record<string, Plugin>)[plugin];
+  const pluginConfig = deepmerge(allPlugins[plugin].config ?? { enabled: false }, (store.get('plugins') as Record<string, PluginConfig>)[plugin] ?? {});
   return pluginConfig !== undefined && pluginConfig.enabled;
 }
 
@@ -69,7 +60,7 @@ export function disable(plugin: string) {
 
 export default {
   isEnabled,
-  getEnabled,
+  getPlugins,
   enable,
   disable,
   setOptions,

@@ -1,13 +1,9 @@
 import sliderHTML from './templates/slider.html?raw';
 
-import { getSongMenu } from '../../providers/dom-elements';
+import { getSongMenu } from '@/providers/dom-elements';
+import { singleton } from '@/providers/decorators';
+
 import { ElementFromHtml } from '../utils/renderer';
-import { singleton } from '../../providers/decorators';
-
-
-function $<E extends Element = Element>(selector: string) {
-  return document.querySelector<E>(selector);
-}
 
 const slider = ElementFromHtml(sliderHTML);
 
@@ -19,12 +15,12 @@ const MAX_PLAYBACK_SPEED = 16;
 let playbackSpeed = 1;
 
 const updatePlayBackSpeed = () => {
-  const videoElement = $<HTMLVideoElement>('video');
+  const videoElement = document.querySelector<HTMLVideoElement>('video');
   if (videoElement) {
     videoElement.playbackRate = playbackSpeed;
   }
 
-  const playbackSpeedElement = $('#playback-speed-value');
+  const playbackSpeedElement = document.querySelector('#playback-speed-value');
   if (playbackSpeedElement) {
     playbackSpeedElement.innerHTML = String(playbackSpeed);
   }
@@ -32,15 +28,17 @@ const updatePlayBackSpeed = () => {
 
 let menu: Element | null = null;
 
-const setupSliderListener = singleton(() => {
-  $('#playback-speed-slider')?.addEventListener('immediate-value-changed', (e) => {
-    playbackSpeed = (e as CustomEvent<{ value: number; }>).detail.value || MIN_PLAYBACK_SPEED;
-    if (isNaN(playbackSpeed)) {
-      playbackSpeed = 1;
-    }
+const immediateValueChangedListener = (e: Event) => {
+  playbackSpeed = (e as CustomEvent<{ value: number; }>).detail.value || MIN_PLAYBACK_SPEED;
+  if (isNaN(playbackSpeed)) {
+    playbackSpeed = 1;
+  }
 
-    updatePlayBackSpeed();
-  });
+  updatePlayBackSpeed();
+};
+
+const setupSliderListener = singleton(() => {
+  document.querySelector('#playback-speed-slider')?.addEventListener('immediate-value-changed', immediateValueChangedListener);
 });
 
 const observePopupContainer = () => {
@@ -60,7 +58,7 @@ const observePopupContainer = () => {
     }
   });
 
-  const popupContainer = $('ytmusic-popup-container');
+  const popupContainer = document.querySelector('ytmusic-popup-container');
   if (popupContainer) {
     observer.observe(popupContainer, {
       childList: true,
@@ -70,33 +68,35 @@ const observePopupContainer = () => {
 };
 
 const observeVideo = () => {
-  const video = $<HTMLVideoElement>('video');
+  const video = document.querySelector<HTMLVideoElement>('video');
   if (video) {
     video.addEventListener('ratechange', forcePlaybackRate);
     video.addEventListener('srcChanged', forcePlaybackRate);
   }
 };
 
+const wheelEventListener = (e: WheelEvent) => {
+  e.preventDefault();
+  if (isNaN(playbackSpeed)) {
+    playbackSpeed = 1;
+  }
+
+  // E.deltaY < 0 means wheel-up
+  playbackSpeed = roundToTwo(e.deltaY < 0
+    ? Math.min(playbackSpeed + 0.01, MAX_PLAYBACK_SPEED)
+    : Math.max(playbackSpeed - 0.01, MIN_PLAYBACK_SPEED),
+  );
+
+  updatePlayBackSpeed();
+  // Update slider position
+  const playbackSpeedSilder = document.querySelector<HTMLElement & { value: number }>('#playback-speed-slider');
+  if (playbackSpeedSilder) {
+    playbackSpeedSilder.value = playbackSpeed;
+  }
+};
+
 const setupWheelListener = () => {
-  slider.addEventListener('wheel', (e) => {
-    e.preventDefault();
-    if (isNaN(playbackSpeed)) {
-      playbackSpeed = 1;
-    }
-
-    // E.deltaY < 0 means wheel-up
-    playbackSpeed = roundToTwo(e.deltaY < 0
-      ? Math.min(playbackSpeed + 0.01, MAX_PLAYBACK_SPEED)
-      : Math.max(playbackSpeed - 0.01, MIN_PLAYBACK_SPEED),
-    );
-
-    updatePlayBackSpeed();
-    // Update slider position
-    const playbackSpeedSilder = $<HTMLElement & { value: number }>('#playback-speed-slider');
-    if (playbackSpeedSilder) {
-      playbackSpeedSilder.value = playbackSpeed;
-    }
-  });
+  slider.addEventListener('wheel', wheelEventListener);
 };
 
 function forcePlaybackRate(e: Event) {
@@ -108,10 +108,19 @@ function forcePlaybackRate(e: Event) {
   }
 }
 
-export default () => {
-  document.addEventListener('apiLoaded', () => {
-    observePopupContainer();
-    observeVideo();
-    setupWheelListener();
-  }, { once: true, passive: true });
+export const onPlayerApiReady = () => {
+  observePopupContainer();
+  observeVideo();
+  setupWheelListener();
+};
+
+export const onUnload = () => {
+  const video = document.querySelector<HTMLVideoElement>('video');
+  if (video) {
+    video.removeEventListener('ratechange', forcePlaybackRate);
+    video.removeEventListener('srcChanged', forcePlaybackRate);
+  }
+  slider.removeEventListener('wheel', wheelEventListener);
+  getSongMenu()?.removeChild(slider);
+  document.querySelector('#playback-speed-slider')?.removeEventListener('immediate-value-changed', immediateValueChangedListener);
 };

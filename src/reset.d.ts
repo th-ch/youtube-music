@@ -1,10 +1,10 @@
 import '@total-typescript/ts-reset';
 
-import { ipcRenderer as electronIpcRenderer } from 'electron';
-import is from 'electron-is';
+import type { ipcRenderer as electronIpcRenderer } from 'electron';
+import type is from 'electron-is';
 
-import config from './config';
-import { YoutubePlayer } from './types/youtube-player';
+import type config from './config';
+import type { VideoDataChanged } from '@/types/video-data-changed';
 
 declare global {
   interface Compressor {
@@ -13,8 +13,8 @@ declare global {
   }
 
   interface DocumentEventMap {
-    'apiLoaded': CustomEvent<YoutubePlayer>;
     'audioCanPlay': CustomEvent<Compressor>;
+    'videodatachange': CustomEvent<VideoDataChanged>;
   }
 
   interface Window {

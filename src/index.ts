@@ -2,30 +2,55 @@ import path from 'node:path';
 import url from 'node:url';
 import fs from 'node:fs';
 
-import { BrowserWindow, app, screen, globalShortcut, session, shell, dialog, ipcMain } from 'electron';
-import enhanceWebRequest, { BetterSession } from '@jellybrick/electron-better-web-request';
+import {
+  BrowserWindow,
+  app,
+  screen,
+  globalShortcut,
+  session,
+  shell,
+  dialog,
+  ipcMain,
+} from 'electron';
+import enhanceWebRequest, {
+  BetterSession,
+} from '@jellybrick/electron-better-web-request';
 import is from 'electron-is';
 import unhandled from 'electron-unhandled';
 import { autoUpdater } from 'electron-updater';
 import electronDebug from 'electron-debug';
 import { parse } from 'node-html-parser';
+import { deepmerge } from 'deepmerge-ts';
+import { deepEqual } from 'fast-equals';
 
-import config from './config';
+import { allPlugins, mainPlugins } from 'virtual:plugins';
 
-import { refreshMenu, setApplicationMenu } from './menu';
-import { fileExists, injectCSS, injectCSSAsFile } from './plugins/utils/main';
-import { isTesting } from './utils/testing';
-import { setUpTray } from './tray';
-import { setupSongInfo } from './providers/song-info';
-import { restart, setupAppControls } from './providers/app-controls';
-import { APP_PROTOCOL, handleProtocol, setupProtocolHandler } from './providers/protocol-handler';
+import config from '@/config';
 
-// eslint-disable-next-line import/order
-import { mainPlugins } from 'virtual:MainPlugins';
+import { refreshMenu, setApplicationMenu } from '@/menu';
+import { fileExists, injectCSS, injectCSSAsFile } from '@/plugins/utils/main';
+import { isTesting } from '@/utils/testing';
+import { setUpTray } from '@/tray';
+import { setupSongInfo } from '@/providers/song-info';
+import { restart, setupAppControls } from '@/providers/app-controls';
+import {
+  APP_PROTOCOL,
+  handleProtocol,
+  setupProtocolHandler,
+} from '@/providers/protocol-handler';
 
-import { setOptions as pipSetOptions } from './plugins/picture-in-picture/main';
+import youtubeMusicCSS from '@/youtube-music.css?inline';
 
-import youtubeMusicCSS from './youtube-music.css';
+import {
+  forceLoadMainPlugin,
+  forceUnloadMainPlugin,
+  getAllLoadedMainPlugins,
+  loadAllMainPlugins,
+} from '@/loader/main';
+
+import { LoggerPrefix } from '@/utils';
+
+import type { PluginConfig } from '@/types/plugins';
 
 // Catch errors and log them
 unhandled({
@@ -47,7 +72,10 @@ if (!gotTheLock) {
 
 // SharedArrayBuffer: Required for downloader (@ffmpeg/core-mt)
 // OverlayScrollbar: Required for overlay scrollbars
-app.commandLine.appendSwitch('enable-features', 'OverlayScrollbar,SharedArrayBuffer');
+app.commandLine.appendSwitch(
+  'enable-features',
+  'OverlayScrollbar,SharedArrayBuffer',
+);
 if (config.get('options.disableHardwareAcceleration')) {
   if (is.dev()) {
     console.log('Disabling hardware acceleration');
@@ -83,20 +111,106 @@ function onClosed() {
   mainWindow = null;
 }
 
-export const mainPluginNames = Object.keys(mainPlugins);
-
-if (is.windows()) {
-  delete mainPlugins['touchbar'];
-} else if (is.macOS()) {
-  delete mainPlugins['taskbar-mediacontrol'];
-} else {
-  delete mainPlugins['touchbar'];
-  delete mainPlugins['taskbar-mediacontrol'];
-}
-
 ipcMain.handle('get-main-plugin-names', () => Object.keys(mainPlugins));
 
-async function loadPlugins(win: BrowserWindow) {
+const initHook = (win: BrowserWindow) => {
+  ipcMain.handle(
+    'get-config',
+    (_, id: string) =>
+      deepmerge(
+        allPlugins[id].config ?? { enabled: false },
+        config.get(`plugins.${id}`) ?? {},
+      ) as PluginConfig,
+  );
+  ipcMain.handle('set-config', (_, name: string, obj: object) =>
+    config.setPartial(`plugins.${name}`, obj, allPlugins[name].config),
+  );
+
+  config.watch((newValue, oldValue) => {
+    const newPluginConfigList = (newValue?.plugins ?? {}) as Record<
+      string,
+      unknown
+    >;
+    const oldPluginConfigList = (oldValue?.plugins ?? {}) as Record<
+      string,
+      unknown
+    >;
+
+    Object.entries(newPluginConfigList).forEach(([id, newPluginConfig]) => {
+      const isEqual = deepEqual(oldPluginConfigList[id], newPluginConfig);
+
+      if (!isEqual) {
+        const oldConfig = oldPluginConfigList[id] as PluginConfig;
+        const config = deepmerge(
+          allPlugins[id].config ?? { enabled: false },
+          newPluginConfig ?? {},
+        ) as PluginConfig;
+
+        if (config.enabled !== oldConfig?.enabled) {
+          if (config.enabled) {
+            win.webContents.send('plugin:enable', id);
+            ipcMain.emit('plugin:enable', id);
+            forceLoadMainPlugin(id, win);
+          } else {
+            win.webContents.send('plugin:unload', id);
+            ipcMain.emit('plugin:unload', id);
+            forceUnloadMainPlugin(id, win);
+          }
+
+          if (allPlugins[id]?.restartNeeded) {
+            showNeedToRestartDialog(id);
+          }
+        }
+
+        const mainPlugin = getAllLoadedMainPlugins()[id];
+        if (mainPlugin) {
+          if (config.enabled && typeof mainPlugin.backend !== 'function') {
+            mainPlugin.backend?.onConfigChange?.call(mainPlugin.backend, config);
+          }
+        }
+
+        win.webContents.send('config-changed', id, config);
+      }
+    });
+  });
+};
+
+const showNeedToRestartDialog = (id: string) => {
+  const plugin = allPlugins[id];
+
+  const dialogOptions: Electron.MessageBoxOptions = {
+    type: 'info',
+    buttons: ['Restart Now', 'Later'],
+    title: 'Restart Required',
+    message: `"${plugin?.name ?? id}" needs to restart`,
+    detail: `"${plugin?.name ?? id}" plugin requires a restart to take effect`,
+    defaultId: 0,
+    cancelId: 1,
+  };
+
+  let dialogPromise: Promise<Electron.MessageBoxReturnValue>;
+  if (mainWindow) {
+    dialogPromise = dialog.showMessageBox(mainWindow, dialogOptions);
+  } else {
+    dialogPromise = dialog.showMessageBox(dialogOptions);
+  }
+
+  dialogPromise.then((dialogOutput) => {
+    switch (dialogOutput.response) {
+      case 0: {
+        restart();
+        break;
+      }
+
+      // Ignore
+      default: {
+        break;
+      }
+    }
+  });
+};
+
+function initTheme(win: BrowserWindow) {
   injectCSS(win.webContents, youtubeMusicCSS);
   // Load user CSS
   const themes: string[] = config.get('options.themes');
@@ -108,7 +222,10 @@ async function loadPlugins(win: BrowserWindow) {
           injectCSSAsFile(win.webContents, cssFile);
         },
         () => {
-          console.warn(`CSS file "${cssFile}" does not exist, ignoring`);
+          console.warn(
+            LoggerPrefix,
+            `CSS file "${cssFile}" does not exist, ignoring`,
+          );
         },
       );
     }
@@ -116,24 +233,10 @@ async function loadPlugins(win: BrowserWindow) {
 
   win.webContents.once('did-finish-load', () => {
     if (is.dev()) {
-      console.log('did finish load');
+      console.log(LoggerPrefix, 'did finish load');
       win.webContents.openDevTools();
     }
   });
-
-  for (const [plugin, options] of config.plugins.getEnabled()) {
-    try {
-      if (Object.hasOwn(mainPlugins, plugin)) {
-        console.log('Loaded plugin - ' + plugin);
-        const handler = mainPlugins[plugin as keyof typeof mainPlugins];
-        if (handler) {
-          await handler(win, options as never);
-        }
-      }
-    } catch (e) {
-      console.error(`Failed to load plugin "${plugin}"`, e);
-    }
-  }
 }
 
 async function createMainWindow() {
@@ -160,21 +263,24 @@ async function createMainWindow() {
       ...(isTesting()
         ? undefined
         : {
-          // Sandbox is only enabled in tests for now
-          // See https://www.electronjs.org/docs/latest/tutorial/sandbox#preload-scripts
-          sandbox: false,
-        }),
+            // Sandbox is only enabled in tests for now
+            // See https://www.electronjs.org/docs/latest/tutorial/sandbox#preload-scripts
+            sandbox: false,
+          }),
     },
     frame: !is.macOS() && !useInlineMenu,
     titleBarOverlay: defaultTitleBarOverlayOptions,
     titleBarStyle: useInlineMenu
       ? 'hidden'
-      : (is.macOS()
-        ? 'hiddenInset'
-        : 'default'),
+      : is.macOS()
+      ? 'hiddenInset'
+      : 'default',
     autoHideMenuBar: config.get('options.hideMenu'),
   });
-  await loadPlugins(win);
+  initHook(win);
+  initTheme(win);
+
+  await loadAllMainPlugins(win);
 
 
   if (windowPosition) {
@@ -198,7 +304,11 @@ async function createMainWindow() {
       // Window is offscreen
       if (is.dev()) {
         console.log(
-          `Window tried to render offscreen, windowSize=${String(winSize)}, displaySize=${String(display.bounds)}, position=${String(windowPosition)}`,
+          `Window tried to render offscreen, windowSize=${String(
+            winSize,
+          )}, displaySize=${String(display.bounds)}, position=${String(
+            windowPosition,
+          )}`,
         );
       }
     } else {
@@ -221,39 +331,22 @@ async function createMainWindow() {
     : config.defaultConfig.url;
   win.on('closed', onClosed);
 
-  type PiPOptions = typeof config.defaultConfig.plugins['picture-in-picture'];
-  const setPiPOptions = config.plugins.isEnabled('picture-in-picture')
-    ? (key: string, value: unknown) => pipSetOptions({ [key]: value })
-    : () => {};
-
   win.on('move', () => {
     if (win.isMaximized()) {
       return;
     }
 
-    const position = win.getPosition();
-    const isPiPEnabled: boolean
-      = config.plugins.isEnabled('picture-in-picture')
-      && config.plugins.getOptions<PiPOptions>('picture-in-picture').isInPiP;
-    if (!isPiPEnabled) {
-
-      lateSave('window-position', { x: position[0], y: position[1] });
-    } else if (config.plugins.getOptions<PiPOptions>('picture-in-picture').savePosition) {
-      lateSave('pip-position', position, setPiPOptions);
-    }
+    const [x, y] = win.getPosition();
+    lateSave('window-position', { x, y });
   });
 
   let winWasMaximized: boolean;
 
   win.on('resize', () => {
-    const windowSize = win.getSize();
+    const [width, height] = win.getSize();
     const isMaximized = win.isMaximized();
 
-    const isPiPEnabled
-      = config.plugins.isEnabled('picture-in-picture')
-      && config.plugins.getOptions<PiPOptions>('picture-in-picture').isInPiP;
-
-    if (!isPiPEnabled && winWasMaximized !== isMaximized) {
+    if (winWasMaximized !== isMaximized) {
       winWasMaximized = isMaximized;
       config.set('window-maximized', isMaximized);
     }
@@ -262,19 +355,19 @@ async function createMainWindow() {
       return;
     }
 
-    if (!isPiPEnabled) {
-      lateSave('window-size', {
-        width: windowSize[0],
-        height: windowSize[1],
-      });
-    } else if (config.plugins.getOptions<PiPOptions>('picture-in-picture').saveSize) {
-      lateSave('pip-size', windowSize, setPiPOptions);
-    }
+    lateSave('window-size', {
+      width,
+      height,
+    });
   });
 
   const savedTimeouts: Record<string, NodeJS.Timeout | undefined> = {};
 
-  function lateSave(key: string, value: unknown, fn: (key: string, value: unknown) => void = config.set) {
+  function lateSave(
+    key: string,
+    value: unknown,
+    fn: (key: string, value: unknown) => void = config.set,
+  ) {
     if (savedTimeouts[key]) {
       clearTimeout(savedTimeouts[key]);
     }
@@ -285,7 +378,7 @@ async function createMainWindow() {
     }, 600);
   }
 
-  app.on('render-process-gone', (event, webContents, details) => {
+  app.on('render-process-gone', (_event, _webContents, details) => {
     showUnresponsiveDialog(win, details);
   });
 
@@ -301,7 +394,10 @@ async function createMainWindow() {
     if (useInlineMenu) {
       win.setTitleBarOverlay({
         ...defaultTitleBarOverlayOptions,
-        height: Math.floor(defaultTitleBarOverlayOptions.height! * win.webContents.getZoomFactor()),
+        height: Math.floor(
+          defaultTitleBarOverlayOptions.height! *
+            win.webContents.getZoomFactor(),
+        ),
       });
     }
 
@@ -323,14 +419,25 @@ async function createMainWindow() {
       `);
     } else {
       const rendererPath = path.join(__dirname, '..', 'renderer');
-      const indexHTML = parse(fs.readFileSync(path.join(rendererPath, 'index.html'), 'utf-8'));
+      const indexHTML = parse(
+        fs.readFileSync(path.join(rendererPath, 'index.html'), 'utf-8'),
+      );
       const scriptSrc = indexHTML.querySelector('script')!;
-      const scriptPath = path.join(rendererPath, scriptSrc.getAttribute('src')!);
+      const scriptPath = path.join(
+        rendererPath,
+        scriptSrc.getAttribute('src')!,
+      );
       const scriptString = fs.readFileSync(scriptPath, 'utf-8');
-      await win.webContents.executeJavaScriptInIsolatedWorld(0, [{
-        code: scriptString + ';0',
-        url: url.pathToFileURL(scriptPath).toString(),
-      }], true);
+      await win.webContents.executeJavaScriptInIsolatedWorld(
+        0,
+        [
+          {
+            code: scriptString + ';0',
+            url: url.pathToFileURL(scriptPath).toString(),
+          },
+        ],
+        true,
+      );
     }
   });
 
@@ -339,27 +446,32 @@ async function createMainWindow() {
   return win;
 }
 
-app.once('browser-window-created', (event, win) => {
+app.once('browser-window-created', (_event, win) => {
   if (config.get('options.overrideUserAgent')) {
     // User agents are from https://developers.whatismybrowser.com/useragents/explore/
     const originalUserAgent = win.webContents.userAgent;
     const userAgents = {
       mac: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 12.1; rv:95.0) Gecko/20100101 Firefox/95.0',
-      windows: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:95.0) Gecko/20100101 Firefox/95.0',
+      windows:
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:95.0) Gecko/20100101 Firefox/95.0',
       linux: 'Mozilla/5.0 (Linux x86_64; rv:95.0) Gecko/20100101 Firefox/95.0',
     };
 
-    const updatedUserAgent
-      = is.macOS() ? userAgents.mac
-      : (is.windows() ? userAgents.windows
-        : userAgents.linux);
+    const updatedUserAgent = is.macOS()
+      ? userAgents.mac
+      : is.windows()
+      ? userAgents.windows
+      : userAgents.linux;
 
     win.webContents.userAgent = updatedUserAgent;
     app.userAgentFallback = updatedUserAgent;
 
     win.webContents.session.webRequest.onBeforeSendHeaders((details, cb) => {
       // This will only happen if login failed, and "retry" was pressed
-      if (win.webContents.getURL().startsWith('https://accounts.google.com') && details.url.startsWith('https://accounts.google.com')) {
+      if (
+        win.webContents.getURL().startsWith('https://accounts.google.com') &&
+        details.url.startsWith('https://accounts.google.com')
+      ) {
         details.requestHeaders['User-Agent'] = originalUserAgent;
       }
 
@@ -370,33 +482,41 @@ app.once('browser-window-created', (event, win) => {
   setupSongInfo(win);
   setupAppControls();
 
-  win.webContents.on('did-fail-load', (
-    _event,
-    errorCode,
-    errorDescription,
-    validatedURL,
-    isMainFrame,
-    frameProcessId,
-    frameRoutingId,
-  ) => {
-    const log = JSON.stringify({
-      error: 'did-fail-load',
+  win.webContents.on(
+    'did-fail-load',
+    (
+      _event,
       errorCode,
       errorDescription,
       validatedURL,
       isMainFrame,
       frameProcessId,
       frameRoutingId,
-    }, null, '\t');
-    if (is.dev()) {
-      console.log(log);
-    }
+    ) => {
+      const log = JSON.stringify(
+        {
+          error: 'did-fail-load',
+          errorCode,
+          errorDescription,
+          validatedURL,
+          isMainFrame,
+          frameProcessId,
+          frameRoutingId,
+        },
+        null,
+        '\t',
+      );
+      if (is.dev()) {
+        console.log(log);
+      }
 
-    if (errorCode !== -3) { // -3 is a false positive
-      win.webContents.send('log', log);
-      win.webContents.loadFile(path.join(__dirname, 'error.html'));
-    }
-  });
+      if (errorCode !== -3) {
+        // -3 is a false positive
+        win.webContents.send('log', log);
+        win.webContents.loadFile(path.join(__dirname, 'error.html'));
+      }
+    },
+  );
 
   win.webContents.on('will-prevent-unload', (event) => {
     event.preventDefault();
@@ -422,7 +542,7 @@ app.on('activate', async () => {
   }
 });
 
-app.on('ready', async () => {
+app.whenReady().then(async () => {
   if (config.get('options.autoResetAppCache')) {
     // Clear cache after 20s
     const clearCacheTimeout = setTimeout(() => {
@@ -442,17 +562,29 @@ app.on('ready', async () => {
     const appLocation = process.execPath;
     const appData = app.getPath('appData');
     // Check shortcut validity if not in dev mode / running portable app
-    if (!is.dev() && !appLocation.startsWith(path.join(appData, '..', 'Local', 'Temp'))) {
-      const shortcutPath = path.join(appData, 'Microsoft', 'Windows', 'Start Menu', 'Programs', 'YouTube Music.lnk');
-      try { // Check if shortcut is registered and valid
+    if (
+      !is.dev() &&
+      !appLocation.startsWith(path.join(appData, '..', 'Local', 'Temp'))
+    ) {
+      const shortcutPath = path.join(
+        appData,
+        'Microsoft',
+        'Windows',
+        'Start Menu',
+        'Programs',
+        'YouTube Music.lnk',
+      );
+      try {
+        // Check if shortcut is registered and valid
         const shortcutDetails = shell.readShortcutLink(shortcutPath); // Throw error if doesn't exist yet
         if (
-          shortcutDetails.target !== appLocation
-          || shortcutDetails.appUserModelId !== appID
+          shortcutDetails.target !== appLocation ||
+          shortcutDetails.appUserModelId !== appID
         ) {
           throw 'needUpdate';
         }
-      } catch (error) { // If not valid -> Register shortcut
+      } catch (error) {
+        // If not valid -> Register shortcut
         shell.writeShortcutLink(
           shortcutPath,
           error === 'needUpdate' ? 'update' : 'create',
@@ -468,8 +600,8 @@ app.on('ready', async () => {
   }
 
   mainWindow = await createMainWindow();
-  setApplicationMenu(mainWindow);
-  refreshMenu(mainWindow);
+  await setApplicationMenu(mainWindow);
+  await refreshMenu(mainWindow);
   setUpTray(app, mainWindow);
 
   setupProtocolHandler(mainWindow);
@@ -514,8 +646,8 @@ app.on('ready', async () => {
       clearTimeout(updateTimeout);
     }, 2000);
     autoUpdater.on('update-available', () => {
-      const downloadLink
-        = 'https://github.com/th-ch/youtube-music/releases/latest';
+      const downloadLink =
+        'https://github.com/th-ch/youtube-music/releases/latest';
       const dialogOptions: Electron.MessageBoxOptions = {
         type: 'info',
         buttons: ['OK', 'Download', 'Disable updates'],
@@ -555,8 +687,10 @@ app.on('ready', async () => {
 
   if (config.get('options.hideMenu') && !config.get('options.hideMenuWarned')) {
     dialog.showMessageBox(mainWindow, {
-      type: 'info', title: 'Hide Menu Enabled',
-      message: "Menu is hidden, use 'Alt' to show it (or 'Escape' if using in-app-menu)",
+      type: 'info',
+      title: 'Hide Menu Enabled',
+      message:
+        "Menu is hidden, use 'Alt' to show it (or 'Escape' if using in-app-menu)",
     });
     config.set('options.hideMenuWarned', true);
   }
@@ -582,31 +716,36 @@ app.on('ready', async () => {
   }
 });
 
-function showUnresponsiveDialog(win: BrowserWindow, details: Electron.RenderProcessGoneDetails) {
+function showUnresponsiveDialog(
+  win: BrowserWindow,
+  details: Electron.RenderProcessGoneDetails,
+) {
   if (details) {
     console.log('Unresponsive Error!\n' + JSON.stringify(details, null, '\t'));
   }
 
-  dialog.showMessageBox(win, {
-    type: 'error',
-    title: 'Window Unresponsive',
-    message: 'The Application is Unresponsive',
-    detail: 'We are sorry for the inconvenience! please choose what to do:',
-    buttons: ['Wait', 'Relaunch', 'Quit'],
-    cancelId: 0,
-  }).then((result) => {
-    switch (result.response) {
-      case 1: {
-        restart();
-        break;
-      }
+  dialog
+    .showMessageBox(win, {
+      type: 'error',
+      title: 'Window Unresponsive',
+      message: 'The Application is Unresponsive',
+      detail: 'We are sorry for the inconvenience! please choose what to do:',
+      buttons: ['Wait', 'Relaunch', 'Quit'],
+      cancelId: 0,
+    })
+    .then((result) => {
+      switch (result.response) {
+        case 1: {
+          restart();
+          break;
+        }
 
-      case 2: {
-        app.quit();
-        break;
+        case 2: {
+          app.quit();
+          break;
+        }
       }
-    }
-  });
+    });
 }
 
 function removeContentSecurityPolicy(
@@ -629,18 +768,21 @@ function removeContentSecurityPolicy(
   });
 
   // When multiple listeners are defined, apply them all
-  betterSession.webRequest.setResolver('onHeadersReceived', async (listeners) => {
-    return listeners.reduce(
-      async (accumulator, listener) => {
-        const acc = await accumulator;
-        if (acc.cancel) {
-          return acc;
-        }
+  betterSession.webRequest.setResolver(
+    'onHeadersReceived',
+    async (listeners) => {
+      return listeners.reduce(
+        async (accumulator, listener) => {
+          const acc = await accumulator;
+          if (acc.cancel) {
+            return acc;
+          }
 
-        const result = await listener.apply();
-        return { ...accumulator, ...result };
-      },
-      Promise.resolve({ cancel: false }),
-    );
-  });
+          const result = await listener.apply();
+          return { ...accumulator, ...result };
+        },
+        Promise.resolve({ cancel: false }),
+      );
+    },
+  );
 }

@@ -1,14 +1,9 @@
 import crypto from 'node:crypto';
 
-import { BrowserWindow, net, shell } from 'electron';
+import { net, shell } from 'electron';
 
-import { setOptions } from '../../config/plugins';
-import registerCallback, { SongInfo } from '../../providers/song-info';
-import defaultConfig from '../../config/defaults';
-
-import type { ConfigType } from '../../config/dynamic';
-
-type LastFMOptions = ConfigType<'last-fm'>;
+import type { LastFmPluginConfig } from './index';
+import type { SongInfo } from '@/providers/song-info';
 
 interface LastFmData {
   method: string,
@@ -56,7 +51,7 @@ const createApiSig = (parameters: LastFmSongData, secret: string) => {
   keys.sort();
   let sig = '';
   for (const key of keys) {
-    if (String(key) === 'format') {
+    if (key === 'format') {
       continue;
     }
 
@@ -68,7 +63,7 @@ const createApiSig = (parameters: LastFmSongData, secret: string) => {
   return sig;
 };
 
-const createToken = async ({ api_key: apiKey, api_root: apiRoot, secret }: LastFMOptions) => {
+const createToken = async ({ api_key: apiKey, api_root: apiRoot, secret }: LastFmPluginConfig) => {
   // Creates and stores the auth token
   const data = {
     method: 'auth.gettoken',
@@ -81,12 +76,14 @@ const createToken = async ({ api_key: apiKey, api_root: apiRoot, secret }: LastF
   return json?.token;
 };
 
-const authenticate = async (config: LastFMOptions) => {
+const authenticate = async (config: LastFmPluginConfig) => {
   // Asks the user for authentication
   await shell.openExternal(`https://www.last.fm/api/auth/?api_key=${config.api_key}&token=${config.token}`);
 };
 
-const getAndSetSessionKey = async (config: LastFMOptions) => {
+type SetConfType = (conf: Partial<Omit<LastFmPluginConfig, 'enabled'>>) => (void | Promise<void>);
+
+export const getAndSetSessionKey = async (config: LastFmPluginConfig, setConfig: SetConfType) => {
   // Get and store the session key
   const data = {
     api_key: config.api_key,
@@ -105,19 +102,19 @@ const getAndSetSessionKey = async (config: LastFMOptions) => {
   if (json.error) {
     config.token = await createToken(config);
     await authenticate(config);
-    setOptions('last-fm', config);
+    setConfig(config);
   }
   if (json.session) {
     config.session_key = json.session.key;
   }
-  setOptions('last-fm', config);
+  setConfig(config);
   return config;
 };
 
-const postSongDataToAPI = async (songInfo: SongInfo, config: LastFMOptions, data: LastFmData) => {
+const postSongDataToAPI = async (songInfo: SongInfo, config: LastFmPluginConfig, data: LastFmData, setConfig: SetConfType) => {
   // This sends a post request to the api, and adds the common data
   if (!config.session_key) {
-    await getAndSetSessionKey(config);
+    await getAndSetSessionKey(config, setConfig);
   }
 
   const postData: LastFmSongData = {
@@ -146,58 +143,24 @@ const postSongDataToAPI = async (songInfo: SongInfo, config: LastFMOptions, data
         config.session_key = undefined;
         config.token = await createToken(config);
         await authenticate(config);
-        setOptions('last-fm', config);
+        setConfig(config);
       }
     });
 };
 
-const addScrobble = (songInfo: SongInfo, config: LastFMOptions) => {
+export const addScrobble = (songInfo: SongInfo, config: LastFmPluginConfig, setConfig: SetConfType) => {
   // This adds one scrobbled song to last.fm
   const data = {
     method: 'track.scrobble',
     timestamp: Math.trunc((Date.now() - (songInfo.elapsedSeconds ?? 0)) / 1000),
   };
-  postSongDataToAPI(songInfo, config, data);
+  postSongDataToAPI(songInfo, config, data, setConfig);
 };
 
-const setNowPlaying = (songInfo: SongInfo, config: LastFMOptions) => {
+export const setNowPlaying = (songInfo: SongInfo, config: LastFmPluginConfig, setConfig: SetConfType) => {
   // This sets the now playing status in last.fm
   const data = {
     method: 'track.updateNowPlaying',
   };
-  postSongDataToAPI(songInfo, config, data);
+  postSongDataToAPI(songInfo, config, data, setConfig);
 };
-
-// This will store the timeout that will trigger addScrobble
-let scrobbleTimer: NodeJS.Timeout | undefined;
-
-const lastfm = async (_win: BrowserWindow, config: LastFMOptions) => {
-  if (!config.api_root) {
-    // Settings are not present, creating them with the default values
-    config = defaultConfig.plugins['last-fm'];
-    config.enabled = true;
-    setOptions('last-fm', config);
-  }
-
-  if (!config.session_key) {
-    // Not authenticated
-    config = await getAndSetSessionKey(config);
-  }
-
-  registerCallback((songInfo) => {
-    // Set remove the old scrobble timer
-    clearTimeout(scrobbleTimer);
-    if (!songInfo.isPaused) {
-      setNowPlaying(songInfo, config);
-      // Scrobble when the song is halfway through, or has passed the 4-minute mark
-      const scrobbleTime = Math.min(Math.ceil(songInfo.songDuration / 2), 4 * 60);
-      if (scrobbleTime > (songInfo.elapsedSeconds ?? 0)) {
-        // Scrobble still needs to happen
-        const timeToWait = (scrobbleTime - (songInfo.elapsedSeconds ?? 0)) * 1000;
-        scrobbleTimer = setTimeout(addScrobble, timeToWait, songInfo, config);
-      }
-    }
-  });
-};
-
-export default lastfm;

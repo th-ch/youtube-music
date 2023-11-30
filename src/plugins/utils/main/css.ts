@@ -1,33 +1,56 @@
 import fs from 'node:fs';
 
-const cssToInject = new Map<string, (() => void) | undefined>();
-const cssToInjectFile = new Map<string, (() => void) | undefined>();
-export const injectCSS = (webContents: Electron.WebContents, css: string, cb: (() => void) | undefined = undefined) => {
-  if (cssToInject.size === 0 && cssToInjectFile.size === 0) {
-    setupCssInjection(webContents);
+type Unregister = () => void;
+
+let isLoaded = false;
+
+const cssToInject = new Map<string, ((unregister: Unregister) => void) | undefined>();
+const cssToInjectFile = new Map<string, ((unregister: Unregister) => void) | undefined>();
+export const injectCSS = async (webContents: Electron.WebContents, css: string): Promise<Unregister> => {
+  if (isLoaded) {
+    const key = await webContents.insertCSS(css);
+    return async () => await webContents.removeInsertedCSS(key);
   }
 
-  cssToInject.set(css, cb);
+  return new Promise((resolve) => {
+    if (cssToInject.size === 0 && cssToInjectFile.size === 0) {
+      setupCssInjection(webContents);
+    }
+    cssToInject.set(css, resolve);
+  });
 };
 
-export const injectCSSAsFile = (webContents: Electron.WebContents, filepath: string, cb: (() => void) | undefined = undefined) => {
-  if (cssToInject.size === 0 && cssToInjectFile.size === 0) {
-    setupCssInjection(webContents);
+export const injectCSSAsFile = async (webContents: Electron.WebContents, filepath: string): Promise<Unregister> => {
+  if (isLoaded) {
+    const key = await webContents.insertCSS(fs.readFileSync(filepath, 'utf-8'));
+    return async () => await webContents.removeInsertedCSS(key);
   }
 
-  cssToInjectFile.set(filepath, cb);
+  return new Promise((resolve) => {
+    if (cssToInject.size === 0 && cssToInjectFile.size === 0) {
+      setupCssInjection(webContents);
+    }
+
+    cssToInjectFile.set(filepath, resolve);
+  });
 };
 
 const setupCssInjection = (webContents: Electron.WebContents) => {
   webContents.on('did-finish-load', () => {
+    isLoaded = true;
+
     cssToInject.forEach(async (callback, css) => {
-      await webContents.insertCSS(css);
-      callback?.();
+      const key = await webContents.insertCSS(css);
+      const remove = async () => await webContents.removeInsertedCSS(key);
+
+      callback?.(remove);
     });
 
     cssToInjectFile.forEach(async (callback, filepath) => {
-      await webContents.insertCSS(fs.readFileSync(filepath, 'utf-8'));
-      callback?.();
+      const key = await webContents.insertCSS(fs.readFileSync(filepath, 'utf-8'));
+      const remove = async () => await webContents.removeInsertedCSS(key);
+
+      callback?.(remove);
     });
   });
 };

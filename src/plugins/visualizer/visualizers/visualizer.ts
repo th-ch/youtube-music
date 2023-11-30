@@ -1,4 +1,4 @@
-import type { ConfigType } from '../../../config/dynamic';
+import type { VisualizerPluginConfig } from '../index';
 
 export abstract class Visualizer<T> {
   /**
@@ -14,7 +14,7 @@ export abstract class Visualizer<T> {
     _canvas: HTMLCanvasElement,
     _audioNode: GainNode,
     _stream: MediaStream,
-    _options: ConfigType<'visualizer'>,
+    _options: VisualizerPluginConfig,
   ) {}
 
   abstract resize(width: number, height: number): void;

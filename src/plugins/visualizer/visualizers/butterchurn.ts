@@ -3,7 +3,7 @@ import ButterchurnPresets from 'butterchurn-presets';
 
 import { Visualizer } from './visualizer';
 
-import type { ConfigType } from '../../../config/dynamic';
+import type { VisualizerPluginConfig } from '../index';
 
 class ButterchurnVisualizer extends Visualizer<Butterchurn> {
   name = 'butterchurn';
@@ -18,7 +18,7 @@ class ButterchurnVisualizer extends Visualizer<Butterchurn> {
     canvas: HTMLCanvasElement,
     audioNode: GainNode,
     stream: MediaStream,
-    options: ConfigType<'visualizer'>,
+    options: VisualizerPluginConfig,
   ) {
     super(
       audioContext,
