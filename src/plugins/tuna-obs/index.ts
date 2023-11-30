@@ -4,6 +4,7 @@ import is from 'electron-is';
 
 import { createPlugin } from '@/utils';
 import registerCallback from '@/providers/song-info';
+import { t } from '@/i18n';
 
 interface Data {
   album: string | null | undefined;
@@ -18,8 +19,8 @@ interface Data {
 }
 
 export default createPlugin({
-  name: 'Tuna OBS',
-  description: "Integration with OBS's plugin Tuna",
+  name: t('plugins.tuna-obs.name'),
+  description: t('plugins.tuna-obs.description'),
   restartNeeded: true,
   config: {
     enabled: false,

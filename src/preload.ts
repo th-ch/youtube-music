@@ -1,3 +1,5 @@
+import process from 'node:process';
+
 import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
 import is from 'electron-is';
 
@@ -8,8 +10,12 @@ import {
   forceUnloadPreloadPlugin,
   loadAllPreloadPlugins,
 } from './loader/preload';
+import { loadI18n, setLanguage } from '@/i18n';
 
-loadAllPreloadPlugins();
+loadI18n().then(async () => {
+  await setLanguage(config.get('options.language') ?? 'en');
+  loadAllPreloadPlugins();
+});
 
 ipcRenderer.on('plugin:unload', async (_, id: string) => {
   await forceUnloadPreloadPlugin(id);

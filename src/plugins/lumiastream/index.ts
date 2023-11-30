@@ -2,6 +2,7 @@ import { net } from 'electron';
 
 import { createPlugin } from '@/utils';
 import registerCallback from '@/providers/song-info';
+import { t } from '@/i18n';
 
 type LumiaData = {
   origin: string;
@@ -23,8 +24,8 @@ type LumiaData = {
 };
 
 export default createPlugin({
-  name: 'Lumia Stream [beta]',
-  description: 'Adds Lumia Stream support',
+  name: t('plugins.lumiastream.name'),
+  description: t('plugins.lumiastream.description'),
   restartNeeded: true,
   config: {
     enabled: false,

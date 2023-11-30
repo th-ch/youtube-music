@@ -6,6 +6,8 @@ import { allPlugins, mainPlugins } from 'virtual:plugins';
 import config from '@/config';
 import { LoggerPrefix, startPlugin, stopPlugin } from '@/utils';
 
+import { t } from '@/i18n';
+
 import type { PluginConfig, PluginDef } from '@/types/plugins';
 import type { BackendContext } from '@/types/contexts';
 
@@ -67,14 +69,23 @@ export const forceUnloadMainPlugin = async (
         plugin.backend)
     ) {
       delete loadedPluginMap[id];
-      console.log(LoggerPrefix, `"${id}" plugin is unloaded`);
+      console.log(LoggerPrefix, t(
+        'common.console.plugins.unloaded',
+        { pluginName: id },
+      ));
       return;
     } else {
-      console.log(LoggerPrefix, `Cannot unload "${id}" plugin`);
+      console.log(
+        LoggerPrefix,
+        t('common.console.plugins.unload-failed', { pluginName: id }),
+      );
       return Promise.reject();
     }
   } catch (err) {
-    console.error(LoggerPrefix, `Cannot unload "${id}" plugin`);
+    console.error(
+      LoggerPrefix,
+      t('common.console.plugins.unload-failed', { pluginName: id }),
+    );
     console.trace(err);
     return Promise.reject(err);
   }
@@ -100,18 +111,24 @@ export const forceLoadMainPlugin = async (
     ) {
       loadedPluginMap[id] = plugin;
     } else {
-      console.log(LoggerPrefix, `Cannot load "${id}" plugin`);
+      console.log(
+        LoggerPrefix,
+        t('common.console.plugins.load-failed', { pluginName: id }),
+      );
       return Promise.reject();
     }
   } catch (err) {
-    console.error(LoggerPrefix, `Cannot initialize "${id}" plugin: `);
+    console.error(
+      LoggerPrefix,
+      t('common.console.plugins.initialize-failed', { pluginName: id }),
+    );
     console.trace(err);
     return Promise.reject(err);
   }
 };
 
 export const loadAllMainPlugins = async (win: BrowserWindow) => {
-  console.log(LoggerPrefix, 'Loading all plugins');
+  console.log(LoggerPrefix, t('common.console.plugins.load-all'));
   const pluginConfigs = config.plugins.getPlugins();
   const queue: Promise<void>[] = [];
 

@@ -1,6 +1,7 @@
 import { createPlugin } from '@/utils';
 import registerCallback from '@/providers/song-info';
 import { addScrobble, getAndSetSessionKey, setNowPlaying } from './main';
+import { t } from '@/i18n';
 
 export interface LastFmPluginConfig {
   enabled: boolean;
@@ -33,8 +34,8 @@ export interface LastFmPluginConfig {
 }
 
 export default createPlugin({
-  name: 'Last.fm',
-  description: 'Add scrobbling support for Last.fm',
+  name: t('plugins.last-fm.name'),
+  description: t('plugins.last-fm.description'),
   restartNeeded: true,
   config: {
     enabled: false,

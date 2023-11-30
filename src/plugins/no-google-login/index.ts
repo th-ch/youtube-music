@@ -1,9 +1,10 @@
 import style from './style.css?inline';
 import { createPlugin } from '@/utils';
+import { t } from '@/i18n';
 
 export default createPlugin({
-  name: 'Remove Google Login',
-  description: 'Remove Google login buttons and links from the interface',
+  name: t('plugins.no-google-login.name'),
+  description: t('plugins.no-google-login.description'),
   restartNeeded: true,
   config: {
     enabled: false,

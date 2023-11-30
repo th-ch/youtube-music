@@ -6,6 +6,7 @@ import { LoggerPrefix, startPlugin, stopPlugin } from '@/utils';
 
 import type { RendererContext } from '@/types/contexts';
 import type { PluginConfig, PluginDef } from '@/types/plugins';
+import { t } from '@/i18n';
 
 const unregisterStyleMap: Record<string, (() => void)[]> = {};
 const loadedPluginMap: Record<
@@ -54,9 +55,9 @@ export const forceUnloadRendererPlugin = async (id: string) => {
     document.querySelector(`style#plugin-${id}`)?.remove();
   }
   if (hasStopped || (hasStopped === null && plugin?.renderer)) {
-    console.log(LoggerPrefix, `"${id}" plugin is unloaded`);
+    console.log(LoggerPrefix, t('common.console.plugins.unloaded', { pluginName: id }));
   } else {
-    console.error(LoggerPrefix, `Cannot stop "${id}" plugin`);
+    console.error(LoggerPrefix, t('common.console.plugins.unload-failed', { pluginName: id }));
   }
 };
 
@@ -92,9 +93,9 @@ export const forceLoadRendererPlugin = async (id: string) => {
       ];
     }
 
-    console.log(LoggerPrefix, `"${id}" plugin is loaded`);
+    console.log(LoggerPrefix, t('common.console.plugins.loaded', { pluginName: id }));
   } else {
-    console.log(LoggerPrefix, `Cannot initialize "${id}" plugin`);
+    console.log(LoggerPrefix, t('common.console.plugins.initialize-failed', { pluginName: id }));
   }
 };
 

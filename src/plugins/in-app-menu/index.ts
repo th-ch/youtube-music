@@ -3,14 +3,15 @@ import { createPlugin } from '@/utils';
 import { onMainLoad } from './main';
 import { onMenu } from './menu';
 import { onPlayerApiReady, onRendererLoad } from './renderer';
+import { t } from '@/i18n';
 
 export interface InAppMenuConfig {
   enabled: boolean;
   hideDOMWindowControls: boolean;
 }
 export default createPlugin({
-  name: 'In-App Menu',
-  description: 'gives menu-bars a fancy, dark or album-color look',
+  name: t('plugins.in-app-menu.name'),
+  description: t('plugins.in-app-menu.description'),
   restartNeeded: true,
   config: {
     enabled:

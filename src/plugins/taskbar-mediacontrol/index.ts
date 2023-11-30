@@ -9,10 +9,11 @@ import { createPlugin } from '@/utils';
 import getSongControls from '@/providers/song-controls';
 import registerCallback, { type SongInfo } from '@/providers/song-info';
 import { mediaIcons } from '@/types/media-icons';
+import { t } from '@/i18n';
 
 export default createPlugin({
-  name: 'Taskbar Media Control',
-  description: 'Control playback from your Windows taskbar',
+  name: t('plugins.taskbar-mediacontrol.name'),
+  description: t('plugins.taskbar-mediacontrol.description'),
   restartNeeded: true,
   config: {
     enabled: false,

@@ -2,6 +2,7 @@ import { createPlugin } from '@/utils';
 
 import { onConfigChange, onMainLoad } from './main';
 import { onMenu } from './menu';
+import { t } from '@/i18n';
 
 export interface NotificationsPluginConfig {
   enabled: boolean;
@@ -35,9 +36,8 @@ export const defaultConfig: NotificationsPluginConfig = {
 };
 
 export default createPlugin({
-  name: 'Notifications',
-  description:
-    'Display a notification when a song starts playing (interactive notifications are available on windows)',
+  name: t('plugins.notifications.name'),
+  description: t('plugins.notifications.description'),
   restartNeeded: true,
   config: defaultConfig,
   menu: onMenu,

@@ -1,5 +1,7 @@
 import { createPlugin } from '@/utils';
 
+import { t } from '@/i18n';
+
 import type { VideoDataChanged } from '@/types/video-data-changed';
 import type { YoutubePlayer } from '@/types/youtube-player';
 
@@ -19,8 +21,8 @@ export default createPlugin<
   },
   DisableAutoPlayPluginConfig
 >({
-  name: 'Disable Autoplay',
-  description: 'Makes every song start in "paused" mode',
+  name: t('plugins.disable-autoplay.name'),
+  description: t('plugins.disable-autoplay.description'),
   restartNeeded: false,
   config: {
     enabled: false,
@@ -31,7 +33,7 @@ export default createPlugin<
 
     return [
       {
-        label: 'Applies only on startup',
+        label: t('plugins.disable-autoplay.menu.apply-once'),
         type: 'checkbox',
         checked: config.applyOnce,
         async click() {

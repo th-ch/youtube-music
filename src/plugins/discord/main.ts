@@ -6,7 +6,9 @@ import { SetActivity } from '@xhayper/discord-rpc/dist/structures/ClientUser';
 
 import registerCallback, { type SongInfo } from '@/providers/song-info';
 
-import { createBackend } from '@/utils';
+import { createBackend, LoggerPrefix } from '@/utils';
+
+import { t } from '@/i18n';
 
 import type { DiscordPluginConfig } from './index';
 
@@ -38,7 +40,10 @@ const resetInfo = () => {
   info.ready = false;
   clearTimeout(clearActivity);
   if (dev()) {
-    console.log('discord disconnected');
+    console.log(
+      LoggerPrefix,
+      t('plugins.discord.backend.disconnected')
+    );
   }
 
   for (const cb of refreshCallbacks) {
@@ -68,7 +73,10 @@ let window: Electron.BrowserWindow;
 export const connect = (showError = false) => {
   if (info.rpc.isConnected) {
     if (dev()) {
-      console.log('Attempted to connect with active connection');
+      console.log(
+        LoggerPrefix,
+        t('plugins.discord.backend.already-connected')
+      );
     }
 
     return;
@@ -206,7 +214,10 @@ export const backend = createBackend<
 
     info.rpc.on('connected', () => {
       if (dev()) {
-        console.log('discord connected');
+        console.log(
+          LoggerPrefix,
+          t('plugins.discord.backend.connected')
+        );
       }
 
       for (const cb of refreshCallbacks) {

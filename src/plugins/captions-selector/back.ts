@@ -2,6 +2,7 @@ import prompt from 'custom-electron-prompt';
 
 import promptOptions from '@/providers/prompt-options';
 import { createBackend } from '@/utils';
+import { t } from '@/i18n';
 
 export default createBackend({
   start({ ipc: { handle }, window }) {
@@ -10,8 +11,10 @@ export default createBackend({
       async (captionLabels: Record<string, string>, currentIndex: string) =>
         await prompt(
           {
-            title: 'Choose Caption',
-            label: `Current Caption: ${captionLabels[currentIndex] || 'None'}`,
+            title: t('plugins.captions-selector.prompt.selector.title'),
+            label: t('plugins.captions-selector.prompt.selector.label', {
+              language: captionLabels[currentIndex] || t('plugins.captions-selector.prompt.selector.none'),
+            }),
             type: 'select',
             value: currentIndex,
             selectOptions: captionLabels,

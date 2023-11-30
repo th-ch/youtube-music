@@ -1,9 +1,9 @@
 import { createPlugin } from '@/utils';
+import { t } from '@/i18n';
 
 export default createPlugin({
-  name: 'Exponential Volume',
-  description:
-    "Makes the volume slider exponential so it's easier to select lower volumes.",
+  name: t('plugins.exponential-volume.name'),
+  description: t('plugins.exponential-volume.description'),
   restartNeeded: true,
   config: {
     enabled: false,

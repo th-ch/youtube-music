@@ -1,6 +1,7 @@
 import { createPlugin } from '@/utils';
 import { backend } from './main';
 import { onMenu } from './menu';
+import { t } from '@/i18n';
 
 export type DiscordPluginConfig = {
   enabled: boolean;
@@ -35,8 +36,8 @@ export type DiscordPluginConfig = {
 };
 
 export default createPlugin({
-  name: 'Discord Rich Presence',
-  description: 'Show your friends what you listen to with Rich Presence',
+  name: t('plugins.discord.name'),
+  description: t('plugins.discord.description'),
   restartNeeded: false,
   config: {
     enabled: false,

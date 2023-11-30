@@ -4,6 +4,7 @@ import { createPlugin } from '@/utils';
 import { onConfigChange, onMainLoad } from './main';
 import { onMenu } from './menu';
 import { onPlayerApiReady, onRendererLoad } from './renderer';
+import { t } from '@/i18n';
 
 export type PictureInPicturePluginConfig = {
   enabled: boolean;
@@ -18,8 +19,8 @@ export type PictureInPicturePluginConfig = {
 };
 
 export default createPlugin({
-  name: 'Picture In Picture',
-  description: 'Allows to switch the app to picture-in-picture mode',
+  name: t('plugins.picture-in-picture.name'),
+  description: t('plugins.picture-in-picture.description'),
   restartNeeded: true,
   config: {
     'enabled': false,

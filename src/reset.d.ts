@@ -5,6 +5,7 @@ import type is from 'electron-is';
 
 import type config from './config';
 import type { VideoDataChanged } from '@/types/video-data-changed';
+import type { t } from '@/i18n';
 
 declare global {
   interface Compressor {
@@ -30,6 +31,9 @@ declare global {
     download: () => void;
     togglePictureInPicture: () => void;
     reload: () => void;
+    i18n: {
+      t: typeof t,
+    }
   }
 }
 

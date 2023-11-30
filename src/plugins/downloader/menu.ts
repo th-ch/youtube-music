@@ -8,6 +8,7 @@ import type { MenuContext } from '@/types/contexts';
 import type { MenuTemplate } from '@/menu';
 
 import type { DownloaderPluginConfig } from './index';
+import { t } from '@/i18n';
 
 export const onMenu = async ({
   getConfig,
@@ -21,7 +22,7 @@ export const onMenu = async ({
       click: () => downloadPlaylist(),
     },
     {
-      label: 'Choose download folder',
+      label: t('plugins.downloader.menu.choose-download-folder'),
       click() {
         const result = dialog.showOpenDialogSync({
           properties: ['openDirectory', 'createDirectory'],
@@ -33,7 +34,7 @@ export const onMenu = async ({
       },
     },
     {
-      label: 'Presets',
+      label: t('plugins.downloader.menu.presets'),
       submenu: Object.keys(DefaultPresetList).map((preset) => ({
         label: preset,
         type: 'radio',
@@ -44,7 +45,7 @@ export const onMenu = async ({
       })),
     },
     {
-      label: 'Skip existing files',
+      label: t('plugins.downloader.menu.skip-existing'),
       type: 'checkbox',
       checked: config.skipExisting,
       click(item) {

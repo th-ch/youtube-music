@@ -6,6 +6,8 @@ import { setApplicationMenu } from '@/menu';
 
 import { LoggerPrefix } from '@/utils';
 
+import { t } from '@/i18n';
+
 import type { MenuContext } from '@/types/contexts';
 import type { BrowserWindow, MenuItemConstructorOptions } from 'electron';
 import type { PluginConfig } from '@/types/plugins';
@@ -48,9 +50,15 @@ export const forceLoadMenuPlugin = async (id: string, win: BrowserWindow) => {
       }
     } else return;
 
-    console.log(LoggerPrefix, `Successfully loaded '${id}::menu'`);
+    console.log(
+      LoggerPrefix,
+      t('common.console.plugins.loaded', { pluginName: `${id}::menu` })
+    );
   } catch (err) {
-    console.error(LoggerPrefix, `Cannot initialize '${id}::menu': `);
+    console.error(
+      LoggerPrefix,
+      t('common.console.plugins.initialize-failed', { pluginName: `${id}::menu` }),
+    );
     console.trace(err);
   }
 };

@@ -2,6 +2,7 @@ import style from './style.css?inline';
 import { createPlugin } from '@/utils';
 import { onConfigChange, onMainLoad } from './main';
 import { onRendererLoad } from './renderer';
+import { t } from '@/i18n';
 
 export type LyricsGeniusPluginConfig = {
   enabled: boolean;
@@ -9,8 +10,8 @@ export type LyricsGeniusPluginConfig = {
 };
 
 export default createPlugin({
-  name: 'Lyrics Genius',
-  description: 'Adds lyrics support for most songs',
+  name: t('plugins.lyrics-genius.name'),
+  description: t('plugins.lyrics-genius.description'),
   restartNeeded: true,
   config: {
     enabled: false,
@@ -22,7 +23,7 @@ export default createPlugin({
 
     return [
       {
-        label: 'Romanized Lyrics',
+        label: t('plugins.lyrics-genius.menu.romanized-lyrics'),
         type: 'checkbox',
         checked: config.romanizedLyrics,
         click(item) {

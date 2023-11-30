@@ -18,6 +18,8 @@ import { startingPages } from './providers/extracted-data';
 import promptOptions from './providers/prompt-options';
 
 import { getAllMenuTemplate, loadAllMenuPlugins } from './loader/menu';
+import { setLanguage, t } from '@/i18n';
+import { languageResources } from '@/i18n/resources';
 
 export type MenuTemplate = Electron.MenuItemConstructorOptions[];
 
@@ -76,7 +78,7 @@ export const mainMenuTemplate = async (
         {
           label: pluginLabel,
           submenu: [
-            pluginEnabledMenu(id, 'Enabled', true, innerRefreshMenu),
+            pluginEnabledMenu(id, t('main.menu.plugins.enabled'), true, innerRefreshMenu),
             { type: 'separator' },
             ...template,
           ],
@@ -102,16 +104,18 @@ export const mainMenuTemplate = async (
       return pluginEnabledMenu(id, pluginLabel, true, innerRefreshMenu);
     });
 
+  const availableLanguages = Object.keys(languageResources) as unknown as (keyof typeof languageResources)[];
+
   return [
     {
-      label: 'Plugins',
+      label: t('main.menu.plugins.label'),
       submenu: pluginMenus,
     },
     {
-      label: 'Options',
+      label: t('main.menu.options.label'),
       submenu: [
         {
-          label: 'Auto-update',
+          label: t('main.menu.options.submenu.auto-update'),
           type: 'checkbox',
           checked: config.get('options.autoUpdates'),
           click(item: MenuItem) {
@@ -119,7 +123,7 @@ export const mainMenuTemplate = async (
           },
         },
         {
-          label: 'Resume last song when app starts',
+          label: t('main.menu.options.submenu.resume-on-start'),
           type: 'checkbox',
           checked: config.get('options.resumeOnStart'),
           click(item: MenuItem) {
@@ -127,7 +131,7 @@ export const mainMenuTemplate = async (
           },
         },
         {
-          label: 'Starting page',
+          label: t('main.menu.options.submenu.starting-page.label'),
           submenu: (() => {
             const subMenuArray: Electron.MenuItemConstructorOptions[] =
               Object.keys(startingPages).map((name) => ({
@@ -139,7 +143,7 @@ export const mainMenuTemplate = async (
                 },
               }));
             subMenuArray.unshift({
-              label: 'Unset',
+              label: t('main.menu.options.submenu.starting-page.unset'),
               type: 'radio',
               checked: config.get('options.startingPage') === '',
               click() {
@@ -150,10 +154,10 @@ export const mainMenuTemplate = async (
           })(),
         },
         {
-          label: 'Visual Tweaks',
+          label: t('main.menu.options.submenu.visual-tweaks.label'),
           submenu: [
             {
-              label: 'Remove upgrade button',
+              label: t('main.menu.options.submenu.visual-tweaks.submenu.remove-upgrade-button'),
               type: 'checkbox',
               checked: config.get('options.removeUpgradeButton'),
               click(item: MenuItem) {
@@ -164,10 +168,10 @@ export const mainMenuTemplate = async (
               },
             },
             {
-              label: 'Like buttons',
+              label: t('main.menu.options.submenu.visual-tweaks.submenu.like-buttons.label'),
               submenu: [
                 {
-                  label: 'Default',
+                  label: t('main.menu.options.submenu.visual-tweaks.submenu.like-buttons.default'),
                   type: 'radio',
                   checked: !config.get('options.likeButtons'),
                   click() {
@@ -175,7 +179,7 @@ export const mainMenuTemplate = async (
                   },
                 },
                 {
-                  label: 'Force show',
+                  label: t('main.menu.options.submenu.visual-tweaks.submenu.like-buttons.force-show'),
                   type: 'radio',
                   checked: config.get('options.likeButtons') === 'force',
                   click() {
@@ -183,7 +187,7 @@ export const mainMenuTemplate = async (
                   },
                 },
                 {
-                  label: 'Hide',
+                  label: t('main.menu.options.submenu.visual-tweaks.submenu.like-buttons.hide'),
                   type: 'radio',
                   checked: config.get('options.likeButtons') === 'hide',
                   click() {
@@ -193,10 +197,10 @@ export const mainMenuTemplate = async (
               ],
             },
             {
-              label: 'Theme',
+              label: t('main.menu.options.submenu.visual-tweaks.submenu.theme.label'),
               submenu: [
                 {
-                  label: 'No theme',
+                  label: t('main.menu.options.submenu.visual-tweaks.submenu.theme.submenu.no-theme'),
                   type: 'radio',
                   checked: config.get('options.themes')?.length === 0, // Todo rename "themes"
                   click() {
@@ -205,7 +209,7 @@ export const mainMenuTemplate = async (
                 },
                 { type: 'separator' },
                 {
-                  label: 'Import custom CSS file',
+                  label: t('main.menu.options.submenu.visual-tweaks.submenu.theme.submenu.import-css-file'),
                   type: 'normal',
                   async click() {
                     const { filePaths } = await dialog.showOpenDialog({
@@ -222,7 +226,7 @@ export const mainMenuTemplate = async (
           ],
         },
         {
-          label: 'Single instance lock',
+          label: t('main.menu.options.submenu.single-instance-lock'),
           type: 'checkbox',
           checked: true,
           click(item: MenuItem) {
@@ -234,7 +238,7 @@ export const mainMenuTemplate = async (
           },
         },
         {
-          label: 'Always on top',
+          label: t('main.menu.options.submenu.always-on-top'),
           type: 'checkbox',
           checked: config.get('options.alwaysOnTop'),
           click(item: MenuItem) {
@@ -245,7 +249,7 @@ export const mainMenuTemplate = async (
         ...((is.windows() || is.linux()
           ? [
               {
-                label: 'Hide menu',
+                label: t('main.menu.options.submenu.hide-menu.label'),
                 type: 'checkbox',
                 checked: config.get('options.hideMenu'),
                 click(item) {
@@ -253,9 +257,8 @@ export const mainMenuTemplate = async (
                   if (item.checked && !config.get('options.hideMenuWarned')) {
                     dialog.showMessageBox(win, {
                       type: 'info',
-                      title: 'Hide Menu Enabled',
-                      message:
-                        'Menu will be hidden on next launch, use [Alt] to show it (or backtick [`] if using in-app-menu)',
+                      title: t('main.menu.options.submenu.hide-menu.dialog.title'),
+                      message: t('main.menu.options.submenu.hide-menu.dialog.message'),
                     });
                   }
                 },
@@ -267,7 +270,7 @@ export const mainMenuTemplate = async (
             // https://www.electronjs.org/docs/api/app#appsetloginitemsettingssettings-macos-windows
             [
               {
-                label: 'Start at login',
+                label: t('main.menu.options.submenu.start-at-login'),
                 type: 'checkbox',
                 checked: config.get('options.startAtLogin'),
                 click(item) {
@@ -277,10 +280,10 @@ export const mainMenuTemplate = async (
             ]
           : []) satisfies Electron.MenuItemConstructorOptions[]),
         {
-          label: 'Tray',
+          label: t('main.menu.options.submenu.tray.label'),
           submenu: [
             {
-              label: 'Disabled',
+              label: t('main.menu.options.submenu.tray.submenu.disabled'),
               type: 'radio',
               checked: !config.get('options.tray'),
               click() {
@@ -289,7 +292,7 @@ export const mainMenuTemplate = async (
               },
             },
             {
-              label: 'Enabled + app visible',
+              label: t('main.menu.options.submenu.tray.submenu.enabled-and-show-app'),
               type: 'radio',
               checked:
                 config.get('options.tray') && config.get('options.appVisible'),
@@ -299,7 +302,7 @@ export const mainMenuTemplate = async (
               },
             },
             {
-              label: 'Enabled + app hidden',
+              label: t('main.menu.options.submenu.tray.submenu.enabled-and-hide-app'),
               type: 'radio',
               checked:
                 config.get('options.tray') && !config.get('options.appVisible'),
@@ -310,7 +313,7 @@ export const mainMenuTemplate = async (
             },
             { type: 'separator' },
             {
-              label: 'Play/Pause on click',
+              label: t('main.menu.options.submenu.tray.submenu.play-pause-on-click'),
               type: 'checkbox',
               checked: config.get('options.trayClickPlayPause'),
               click(item: MenuItem) {
@@ -322,19 +325,39 @@ export const mainMenuTemplate = async (
             },
           ],
         },
+        {
+          label: t('main.menu.options.submenu.language.label'),
+          submenu: availableLanguages.map((lang): Electron.MenuItemConstructorOptions => ({
+            label: `${languageResources[lang].translation.language.name} (${languageResources[lang].translation.language['local-name']})`,
+            type: 'checkbox',
+            checked: config.get('options.language') === lang,
+            click() {
+              config.setMenuOption('options.language', lang);
+              refreshMenu(win);
+              setLanguage(lang);
+              dialog.showMessageBox(
+                win,
+                {
+                  title: t('main.menu.options.submenu.language.dialog.title'),
+                  message: t('main.menu.options.submenu.language.dialog.message'),
+                }
+              );
+            },
+          })),
+        },
         { type: 'separator' },
         {
-          label: 'Advanced options',
+          label: t('main.menu.options.submenu.advanced-options.label'),
           submenu: [
             {
-              label: 'Set Proxy',
+              label: t('main.menu.options.submenu.advanced-options.submenu.set-proxy.label'),
               type: 'normal',
               async click(item: MenuItem) {
                 await setProxy(item, win);
               },
             },
             {
-              label: 'Override useragent',
+              label: t('main.menu.options.submenu.advanced-options.submenu.override-user-agent'),
               type: 'checkbox',
               checked: config.get('options.overrideUserAgent'),
               click(item: MenuItem) {
@@ -342,7 +365,7 @@ export const mainMenuTemplate = async (
               },
             },
             {
-              label: 'Disable hardware acceleration',
+              label: t('main.menu.options.submenu.advanced-options.submenu.disable-hardware-acceleration'),
               type: 'checkbox',
               checked: config.get('options.disableHardwareAcceleration'),
               click(item: MenuItem) {
@@ -353,7 +376,7 @@ export const mainMenuTemplate = async (
               },
             },
             {
-              label: 'Restart on config changes',
+              label: t('main.menu.options.submenu.advanced-options.submenu.restart-on-config-changes'),
               type: 'checkbox',
               checked: config.get('options.restartOnConfigChanges'),
               click(item: MenuItem) {
@@ -364,7 +387,7 @@ export const mainMenuTemplate = async (
               },
             },
             {
-              label: 'Reset App cache when app starts',
+              label: t('main.menu.options.submenu.advanced-options.submenu.auto-reset-app-cache'),
               type: 'checkbox',
               checked: config.get('options.autoResetAppCache'),
               click(item: MenuItem) {
@@ -374,7 +397,7 @@ export const mainMenuTemplate = async (
             { type: 'separator' },
             is.macOS()
               ? {
-                  label: 'Toggle DevTools',
+                  label: t('main.menu.options.submenu.advanced-options.submenu.toggle-dev-tools'),
                   // Cannot use "toggleDevTools" role in macOS
                   click() {
                     const { webContents } = win;
@@ -387,7 +410,7 @@ export const mainMenuTemplate = async (
                 }
               : { role: 'toggleDevTools' },
             {
-              label: 'Edit config.json',
+              label: t('main.menu.options.submenu.advanced-options.submenu.edit-config-json'),
               click() {
                 config.edit();
               },
@@ -397,7 +420,7 @@ export const mainMenuTemplate = async (
       ],
     },
     {
-      label: 'View',
+      label: t('main.menu.view.label'),
       submenu: [
         { role: 'reload' },
         { role: 'forceReload' },
@@ -416,10 +439,10 @@ export const mainMenuTemplate = async (
       ],
     },
     {
-      label: 'Navigation',
+      label: t('main.menu.navigation.label'),
       submenu: [
         {
-          label: 'Go back',
+          label: t('main.menu.navigation.submenu.go-back'),
           click() {
             if (win.webContents.canGoBack()) {
               win.webContents.goBack();
@@ -427,7 +450,7 @@ export const mainMenuTemplate = async (
           },
         },
         {
-          label: 'Go forward',
+          label: t('main.menu.navigation.submenu.go-forward'),
           click() {
             if (win.webContents.canGoForward()) {
               win.webContents.goForward();
@@ -435,21 +458,21 @@ export const mainMenuTemplate = async (
           },
         },
         {
-          label: 'Copy current URL',
+          label: t('main.menu.navigation.submenu.copy-current-url'),
           click() {
             const currentURL = win.webContents.getURL();
             clipboard.writeText(currentURL);
           },
         },
         {
-          label: 'Restart App',
+          label: t('main.menu.navigation.submenu.restart'),
           click: restart,
         },
         { role: 'quit' },
       ],
     },
     {
-      label: 'About',
+      label: t('main.menu.about'),
       submenu: [{ role: 'about' }],
     },
   ];
@@ -486,13 +509,13 @@ export const setApplicationMenu = async (win: Electron.BrowserWindow) => {
 async function setProxy(item: Electron.MenuItem, win: BrowserWindow) {
   const output = await prompt(
     {
-      title: 'Set Proxy',
-      label: 'Enter Proxy Address: (leave empty to disable)',
+      title: t('main.menu.options.submenu.advanced-options.submenu.set-proxy.prompt.title'),
+      label: t('main.menu.options.submenu.advanced-options.submenu.set-proxy.prompt.label'),
       value: config.get('options.proxy'),
       type: 'input',
       inputAttrs: {
         type: 'url',
-        placeholder: "Example: 'socks5://127.0.0.1:9999",
+        placeholder: t('main.menu.options.submenu.advanced-options.submenu.set-proxy.prompt.placeholder'),
       },
       width: 450,
       ...promptOptions(),

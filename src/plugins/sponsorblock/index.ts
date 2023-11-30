@@ -4,6 +4,8 @@ import { createPlugin } from '@/utils';
 
 import { sortSegments } from './segments';
 
+import { t } from '@/i18n';
+
 import type { GetPlayerResponse } from '@/types/get-player-response';
 import type { Segment, SkipSegment } from './types';
 
@@ -23,9 +25,8 @@ export type SponsorBlockPluginConfig = {
 let currentSegments: Segment[] = [];
 
 export default createPlugin({
-  name: 'SponsorBlock',
-  description:
-    "Automatically Skips non-music parts like intro/outro or parts of music videos where the song isn't playing",
+  name: t('plugins.sponsorblock.name'),
+  description: t('plugins.sponsorblock.description'),
   restartNeeded: true,
   config: {
     enabled: false,

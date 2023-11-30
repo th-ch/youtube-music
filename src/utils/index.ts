@@ -1,3 +1,5 @@
+import { t } from '@/i18n';
+
 import type {
   BackendContext,
   PreloadContext,
@@ -106,12 +108,25 @@ export const startPlugin = async <Config extends PluginConfig>(
 
     console.log(
       LoggerPrefix,
-      `Executed ${id}::${options.ctx} in ${performance.now() - start} ms`,
+      t('common.console.plugins.executed-at-ms', {
+        pluginName: id,
+        contextName: options.ctx,
+        ms: performance.now() - start,
+      }),
     );
 
     return lifecycle ? true : null;
   } catch (err) {
-    console.error(LoggerPrefix, `Failed to start ${id}::${options.ctx}`);
+    console.error(
+      LoggerPrefix,
+      t(
+        'common.console.plugins.execute-failed',
+        {
+          pluginName: id,
+          contextName: options.ctx,
+        },
+      ),
+    );
     console.trace(err);
     return false;
   }
@@ -140,12 +155,25 @@ export const stopPlugin = async <Config extends PluginConfig>(
 
     console.log(
       LoggerPrefix,
-      `Executed ${id}::${options.ctx} in ${performance.now() - start} ms`,
+      t('common.console.plugins.executed-at-ms', {
+        pluginName: id,
+        contextName: options.ctx,
+        ms: performance.now() - start,
+      }),
     );
 
     return true;
   } catch (err) {
-    console.error(LoggerPrefix, `Failed to execute ${id}::${options.ctx}`);
+    console.error(
+      LoggerPrefix,
+      t(
+        'common.console.plugins.execute-failed',
+        {
+          pluginName: id,
+          contextName: options.ctx,
+        },
+      ),
+    );
     console.trace(err);
     return false;
   }
