@@ -11,7 +11,7 @@ import {
   loadAllRendererPlugins,
 } from './loader/renderer';
 
-import { loadI18n, t as i18t } from '@/i18n';
+import { loadI18n, setLanguage, t as i18t } from '@/i18n';
 
 import type { PluginConfig } from '@/types/plugins';
 import type { YoutubePlayer } from '@/types/youtube-player';
@@ -175,6 +175,7 @@ const defineYTMDTransElements = () => {
 
 (async () => {
   await loadI18n();
+  await setLanguage(window.mainConfig.get('options.language') ?? 'en');
   window.i18n = {
     t: i18t.bind(i18next),
   };

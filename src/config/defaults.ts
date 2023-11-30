@@ -14,6 +14,7 @@ export interface DefaultConfig {
   'window-position': WindowPositionConfig;
   url: string;
   options: {
+    language?: string;
     tray: boolean;
     appVisible: boolean;
     autoUpdates: boolean;

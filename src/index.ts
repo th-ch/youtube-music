@@ -50,11 +50,11 @@ import {
 } from '@/loader/main';
 
 import { LoggerPrefix } from '@/utils';
-import { loadI18n, t } from '@/i18n';
+import { loadI18n, setLanguage, t } from '@/i18n';
+
+import { languageResources } from '@/i18n/resources';
 
 import type { PluginConfig } from '@/types/plugins';
-
-loadI18n().then(() => console.log(LoggerPrefix, t('main.console.i18n.loaded')));
 
 // Catch errors and log them
 unhandled({
@@ -554,7 +554,19 @@ app.on('activate', async () => {
   }
 });
 
+const getDefaultLocale = (locale: string) =>
+  Object.keys(languageResources).includes(locale) ? locale : 'en';
+
 app.whenReady().then(async () => {
+  if (!config.get('options.language')) {
+    config.set('options.language', getDefaultLocale(app.getLocale()));
+  }
+
+  await loadI18n().then(async () => {
+    await setLanguage(config.get('options.language') ?? 'en');
+    console.log(LoggerPrefix, t('main.console.i18n.loaded'));
+  });
+
   if (config.get('options.autoResetAppCache')) {
     // Clear cache after 20s
     const clearCacheTimeout = setTimeout(() => {

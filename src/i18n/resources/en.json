@@ -1,4 +1,10 @@
 {
+  "language": {
+    "name": "English",
+    "local-name": "English",
+    "code": "en"
+  },
+
   "plugins": {
     "adblocker": {
       "name": "Adblocker",

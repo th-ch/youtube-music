@@ -1,24 +1,18 @@
-import i18next, { init, t as i18t } from 'i18next';
+import i18next, { init, t as i18t, changeLanguage } from 'i18next';
 
-import enJson from './resources/en.json';
-import koJson from './resources/ko.json';
+import { languageResources } from '@/i18n/resources';
 
 export const loadI18n = async () =>
   await init({
-    resources: {
-      en: {
-        translation: enJson
-      },
-      ko: {
-        translation: koJson
-      }
-    },
+    resources: languageResources,
     lng: 'en',
+    fallbackLng: 'en',
     interpolation: {
       escapeValue: false
     }
   });
-loadI18n();
+
+export const setLanguage = async (language: string) => await changeLanguage(language);
 
 export const t = i18t.bind(i18next);
 
