@@ -19,6 +19,7 @@ export default createPlugin<
   CaptionsSelectorConfig
 >({
   name: 'Captions Selector',
+  description: 'Caption selector for YouTube Music audio tracks',
   config: {
     enabled: false,
     disableCaptions: false,

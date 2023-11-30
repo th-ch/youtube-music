@@ -3,6 +3,7 @@ import { createPlugin } from '@/utils';
 
 export default createPlugin({
   name: 'Remove Google Login',
+  description: 'Remove Google login buttons and links from the interface',
   restartNeeded: true,
   config: {
     enabled: false,

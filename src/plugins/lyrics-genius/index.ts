@@ -10,6 +10,7 @@ export type LyricsGeniusPluginConfig = {
 
 export default createPlugin({
   name: 'Lyrics Genius',
+  description: 'Adds lyrics support for most songs',
   restartNeeded: true,
   config: {
     enabled: false,

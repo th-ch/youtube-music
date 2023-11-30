@@ -8,6 +8,7 @@ export type SkipSilencesPluginConfig = {
 
 export default createPlugin({
   name: 'Skip Silences',
+  description: 'Automatically skip silenced sections',
   restartNeeded: true,
   config: {
     enabled: false,

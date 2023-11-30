@@ -34,6 +34,7 @@ export interface LastFmPluginConfig {
 
 export default createPlugin({
   name: 'Last.fm',
+  description: 'Add scrobbling support for Last.fm',
   restartNeeded: true,
   config: {
     enabled: false,

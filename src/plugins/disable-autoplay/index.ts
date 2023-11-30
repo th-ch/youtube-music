@@ -20,6 +20,7 @@ export default createPlugin<
   DisableAutoPlayPluginConfig
 >({
   name: 'Disable Autoplay',
+  description: 'Makes every song start in "paused" mode',
   restartNeeded: false,
   config: {
     enabled: false,

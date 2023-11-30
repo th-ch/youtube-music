@@ -19,6 +19,7 @@ export type PictureInPicturePluginConfig = {
 
 export default createPlugin({
   name: 'Picture In Picture',
+  description: 'Allows to switch the app to picture-in-picture mode',
   restartNeeded: true,
   config: {
     'enabled': false,

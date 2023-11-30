@@ -30,6 +30,7 @@ export default createPlugin<
   CrossfadePluginConfig
 >({
   name: 'Crossfade [beta]',
+  description: 'Crossfade between songs',
   restartNeeded: true,
   config: {
     enabled: false,

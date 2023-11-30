@@ -9,6 +9,7 @@ import type { YoutubePlayer } from '@/types/youtube-player';
 
 export default createPlugin({
   name: 'Video Quality Changer',
+  description: 'Allows changing the video quality with a button on the video overlay',
   restartNeeded: false,
   config: {
     enabled: false,

@@ -2,6 +2,7 @@ import { createPlugin } from '@/utils';
 
 export default createPlugin({
   name: 'Exponential Volume',
+  description: 'Makes the volume slider exponential so it\'s easier to select lower volumes.',
   restartNeeded: true,
   config: {
     enabled: false,

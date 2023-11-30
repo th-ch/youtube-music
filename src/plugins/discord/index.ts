@@ -36,6 +36,7 @@ export type DiscordPluginConfig = {
 
 export default createPlugin({
   name: 'Discord Rich Presence',
+  description: 'Show your friends what you listen to with Rich Presence',
   restartNeeded: false,
   config: {
     enabled: false,

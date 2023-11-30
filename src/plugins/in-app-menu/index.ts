@@ -8,9 +8,9 @@ export interface InAppMenuConfig {
   enabled: boolean;
   hideDOMWindowControls: boolean;
 }
-
 export default createPlugin({
   name: 'In-App Menu',
+  description: 'gives menu-bars a fancy, dark or album-color look',
   restartNeeded: true,
   config: {
     enabled: (

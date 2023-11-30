@@ -26,6 +26,7 @@ export const defaultConfig: DownloaderPluginConfig = {
 
 export default createPlugin({
   name: 'Downloader',
+  description: 'Downloads MP3 / source audio directly from the interface',
   restartNeeded: true,
   config: defaultConfig,
   stylesheets: [style],

@@ -17,6 +17,7 @@ export type VideoTogglePluginConfig = {
 
 export default createPlugin({
   name: 'Video Toggle',
+  description: 'Adds a button to switch between Video/Song mode. can also optionally remove the whole video tab',
   restartNeeded: true,
   config: {
     enabled: false,

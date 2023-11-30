@@ -9,6 +9,7 @@ export default createPlugin<
   }
 >({
   name: 'Compact Sidebar',
+  description: 'Always set the sidebar in compact mode',
   restartNeeded: false,
   config: {
     enabled: false,

@@ -21,6 +21,7 @@ export type PreciseVolumePluginConfig = {
 
 export default createPlugin({
   name: 'Precise Volume',
+  description: 'Control the volume precisely using mousewheel/hotkeys, with a custom HUD and customizable volume steps',
   restartNeeded: true,
   config: {
     enabled: false,

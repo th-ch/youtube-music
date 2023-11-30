@@ -58,6 +58,7 @@ export type VisualizerPluginConfig = {
 
 export default createPlugin({
   name: 'Visualizer',
+  description: 'Adds a visualizer to the player',
   restartNeeded: true,
   config: {
     enabled: false,

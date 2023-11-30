@@ -17,6 +17,7 @@ let currentSegments: Segment[] = [];
 
 export default createPlugin({
   name: 'SponsorBlock',
+  description: 'Automatically Skips non-music parts like intro/outro or parts of music videos where the song isn\'t playing',
   restartNeeded: true,
   config: {
     enabled: false,

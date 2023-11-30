@@ -25,6 +25,7 @@ const defaultConfig: AmbientModePluginConfig = {
 
 export default createPlugin({
   name: 'Ambient Mode',
+  description: 'Applies a lighting effect by casting gentle colors from the video, into your screen’s background.',
   restartNeeded: false,
   config: defaultConfig,
   stylesheets: [style],

@@ -38,6 +38,7 @@ interface AdblockerConfig {
 
 export default createPlugin({
   name: 'Adblocker',
+  description: 'Block all ads and tracking out of the box',
   restartNeeded: false,
   config: {
     enabled: true,

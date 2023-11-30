@@ -1,9 +1,9 @@
+import { nativeImage } from 'electron';
+
 import playIcon from '@assets/media-icons-black/play.png?asset&asarUnpack';
 import pauseIcon from '@assets/media-icons-black/pause.png?asset&asarUnpack';
 import nextIcon from '@assets/media-icons-black/next.png?asset&asarUnpack';
 import previousIcon from '@assets/media-icons-black/previous.png?asset&asarUnpack';
-
-import { nativeImage } from 'electron';
 
 import { createPlugin } from '@/utils';
 import getSongControls from '@/providers/song-controls';
@@ -12,6 +12,7 @@ import { mediaIcons } from '@/types/media-icons';
 
 export default createPlugin({
   name: 'Taskbar Media Control',
+  description: 'Control playback from your Windows taskbar',
   restartNeeded: true,
   config: {
     enabled: false,

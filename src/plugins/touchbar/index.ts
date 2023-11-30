@@ -6,6 +6,7 @@ import registerCallback from '@/providers/song-info';
 
 export default createPlugin({
   name: 'TouchBar',
+  description: 'Custom TouchBar layout for macOS',
   restartNeeded: true,
   config: {
     enabled: false,

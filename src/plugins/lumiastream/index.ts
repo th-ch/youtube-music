@@ -24,6 +24,7 @@ type LumiaData = {
 
 export default createPlugin({
   name: 'Lumia Stream [beta]',
+  description: 'Adds Lumia Stream support',
   restartNeeded: true,
   config: {
     enabled: false,

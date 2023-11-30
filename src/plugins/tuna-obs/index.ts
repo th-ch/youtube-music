@@ -19,6 +19,7 @@ interface Data {
 
 export default createPlugin({
   name: 'Tuna OBS',
+  description: 'Integration with OBS\'s plugin Tuna',
   restartNeeded: true,
   config: {
     enabled: false,
