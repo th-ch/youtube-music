@@ -52,10 +52,10 @@
         },
         "in-app-menu": {
             "menu": {
-                "hide-dom-window-controls": "Hide DOM window controls"
+                "hide-dom-window-controls": "DOM 윈도우 컨트롤 숨기기"
             },
-            "name": "In-App Menu",
-            "description": "Gives menu-bars a fancy, dark or album-color look"
+            "name": "인앱 메뉴",
+            "description": "메뉴 표시줄을 더 멋지게, 그리고 다크 또는 앨범의 색상으로 만듭니다"
         },
         "video-toggle": {
             "menu": {
@@ -86,76 +86,76 @@
         "notifications": {
             "menu": {
                 "interactive-settings": {
-                    "label": "Interactive Settings",
+                    "label": "대화형 알림 설정",
                     "submenu": {
-                        "tray-controls": "Open/Close on tray click",
-                        "hide-button-text": "Hide button text",
+                        "tray-controls": "트레이 클릭 시 열기/닫기",
+                        "hide-button-text": "버튼 텍스트 숨기기",
                         "refresh-on-play-pause": "Refresh on Play/Pause"
                     }
                 },
                 "toast-style": "Toast style",
                 "unpause-notification": "Show notification on unpause",
-                "interactive": "Interactive Notifications",
-                "priority": "Notification Priority"
+                "interactive": "대화형 알림",
+                "priority": "알림 우선순위"
             },
-            "description": "Display a notification when a song starts playing (interactive notifications are available on Windows)",
-            "name": "Notifications"
+            "description": "노래 재생이 시작되면 알림을 표시 (Windows에서는 대화형 알림 사용 가능)",
+            "name": "알림"
         },
         "downloader": {
             "backend": {
                 "feedback": {
-                    "video-id-not-found": "Video not found",
-                    "conversion-progress": "Conversion: {{percent}}%",
-                    "getting-playlist-info": "Getting playlist info…",
-                    "downloading-playlist": "Downloading playlist \"{{playlistTitle}}\" - {{playlistSize}} songs ({{playlistId}})",
-                    "download-info": "Downloading {{artist}} - {{title}} [{{videoId}}",
-                    "playlist-is-empty": "Playlist is empty",
-                    "downloading-counter": "Downloading {{current}}/{{total}}…",
-                    "playlist-id-not-found": "No playlist ID found",
-                    "preparing-file": "Preparing file…",
-                    "downloading": "Downloading…",
-                    "trying-to-get-playlist-id": "Trying to get playlist ID: {{playlistId}}",
-                    "playlist-has-only-one-song": "Playlist has only one item, downloading it directly",
-                    "done": "Done: {{filePath}}",
-                    "writing-id3": "Writing ID3 tags…",
-                    "converting": "Converting…",
-                    "playlist-is-mix-or-private": "Error getting playlist info: make sure it isn't a private or \"Mixed for you\" playlist\n\n{{error}}",
-                    "download-progress": "Download: {{percent}}%",
-                    "folder-already-exists": "The folder {{playlistFolder}} already exists",
-                    "error-while-downloading": "Error downloading \"{{author}} - {{title}}\": {{error}}",
-                    "saving": "Saving…",
-                    "loading": "Loading…"
+                    "video-id-not-found": "영상을 찾을 수 없습니다",
+                    "conversion-progress": "변환: {{percent}}%",
+                    "getting-playlist-info": "재생목록 정보를 가져오는 중…",
+                    "downloading-playlist": "재생목록 다운로드 중: \"{{playlistTitle}}\" - {{playlistSize}} 곡 ({{playlistId}})",
+                    "download-info": "{{artist}} - {{title}} [{{videoId}} 다운로드 중",
+                    "playlist-is-empty": "재생목록이 비어있습니다",
+                    "downloading-counter": "다운로드 중 {{current}}/{{total}}…",
+                    "playlist-id-not-found": "재생목록 ID를 찾을 수 없습니다",
+                    "preparing-file": "파일 준비 중…",
+                    "downloading": "다운로드 중…",
+                    "trying-to-get-playlist-id": "재생목록 ID를 가져오는 중: {{playlistId}}",
+                    "playlist-has-only-one-song": "재생목록에 한 항목만 존재합니다. 직접 다운로드합니다",
+                    "done": "완료: {{filePath}}",
+                    "writing-id3": "ID3 태그 작성 중…",
+                    "converting": "변환 중…",
+                    "playlist-is-mix-or-private": "재생목록 정보 가져오는 중 오류 발생: 비공개 재생목록 또는 '유튜브 Mix' 재생목록이 아닌지 확인하세요\n\n{{error}}",
+                    "download-progress": "다운로드: {{percent}}%",
+                    "folder-already-exists": "{{playlistFolder}} 폴더가 이미 존재합니다",
+                    "error-while-downloading": "\"{{author}} - {{title}}\" 다운로드 중 오류 발생: {{error}}",
+                    "saving": "저장 중…",
+                    "loading": "로딩 중…"
                 },
                 "dialog": {
                     "start-download-playlist": {
                         "buttons": {
-                            "ok": "OK"
+                            "ok": "확인"
                         },
-                        "message": "Downloading Playlist {{playlistTitle}}",
-                        "title": "Download started",
-                        "detail": "({{playlistSize}} songs)"
+                        "message": "재생목록 {{playlistTitle}} 다운로드 중",
+                        "title": "다운로드 시작 됨",
+                        "detail": "({{playlistSize}} 곡)"
                     },
                     "error": {
                         "buttons": {
-                            "ok": "OK"
+                            "ok": "확인"
                         },
-                        "title": "Error in download!",
-                        "message": "Argh! Apologies, download failed…"
+                        "title": "다운로드 중 오류 발생!",
+                        "message": "죄송합니다. 다운로드가 실패했습니다…"
                     }
                 }
             },
             "menu": {
-                "choose-download-folder": "Choose download folder",
-                "skip-existing": "Skip existing files",
-                "presets": "Presets"
+                "choose-download-folder": "다운로드 폴더 선택",
+                "skip-existing": "이미 존재하는 파일 넘기기",
+                "presets": "프리셋"
             },
-            "name": "Downloader",
+            "name": "다운로더",
             "renderer": {
-                "can-not-update-progress": "Cannot update progress"
+                "can-not-update-progress": "진행 상황을 업데이트 할 수 없음"
             },
-            "description": "Downloads MP3 / source audio directly from the interface",
+            "description": "UI에서 직접 MP3/소스 오디오를 다운로드하세요",
             "templates": {
-                "button": "Download"
+                "button": "다운로드"
             }
         },
         "captions-selector": {
@@ -209,27 +209,27 @@
         },
         "discord": {
             "menu": {
-                "auto-reconnect": "Auto reconnect",
-                "clear-activity-after-timeout": "Clear activity after timeout",
-                "hide-duration-left": "Hide duration left",
-                "hide-github-button": "Hide GitHub link Button",
-                "clear-activity": "Clear activity",
-                "set-inactivity-timeout": "Set inactivity timeout",
-                "play-on-youtube-music": "Play on YouTube Music"
+                "auto-reconnect": "자동 연결",
+                "clear-activity-after-timeout": "시간 초과시 활동 제거",
+                "hide-duration-left": "남은 재생 시간 숨기기",
+                "hide-github-button": "GitHub 링크 버튼 숨기기",
+                "clear-activity": "활동 제거",
+                "set-inactivity-timeout": "비활성 시간 제한 설정",
+                "play-on-youtube-music": "유튜브 뮤직에서 재생"
             },
-            "description": "Show your friends what you listen to with Rich Presence",
+            "description": "활동 상태를 사용하여 친구들에게 내가 듣는 음악을 보여주세요",
             "prompt": {
                 "set-inactivity-timeout": {
-                    "label": "Enter inactivity timeout in seconds:",
-                    "title": "Set inactivity timeout"
+                    "label": "비활성 시간 제한을 초 단위로 입력하세요:",
+                    "title": "비활성 시간 제한 설정"
                 }
             },
             "backend": {
-                "already-connected": "Attempted to connect with active connection",
-                "connected": "Connected to Discord",
-                "disconnected": "Disconnected from Discord"
+                "already-connected": "활성화 된 연결에 연결을 시도했습니다",
+                "connected": "디스코드에 연결 됨",
+                "disconnected": "디스코드에서 연결이 끊김"
             },
-            "name": "디스코드 활동 설정"
+            "name": "디스코드 활동 상태"
         },
         "quality-changer": {
             "backend": {
@@ -346,20 +346,20 @@
             "name": "Playback Speed"
         },
         "navigation": {
-            "name": "Navigation",
-            "description": "Next/Back navigation arrows directly integrated in the interface, like in your favorite browser"
+            "name": "네비게이션",
+            "description": "브라우저에서처럼, UI에 직접 통합된 앞으로/뒤로 탐색하는 화살표"
         },
         "exponential-volume": {
-            "name": "Exponential Volume",
-            "description": "Makes the volume slider exponential so it's easier to select lower volumes."
+            "name": "지수 볼륨",
+            "description": "볼륨 슬라이더를 지수적으로 만들어 더 낮은 볼륨을 쉽게 선택할 수 있도록 합니다."
         },
         "bypass-age-restrictions": {
             "description": "유튜브의 나이 제한을 우회합니다.",
             "name": "나이 제한 우회"
         },
         "lumiastream": {
-            "description": "Adds Lumia Stream support",
-            "name": "Lumia Stream [beta]"
+            "description": "Lumia Stream 지원을 추가합니다",
+            "name": "Lumia Stream [베타]"
         },
         "skip-silences": {
             "name": "Skip Silences",
@@ -374,13 +374,13 @@
         },
         "lyrics-genius": {
             "renderer": {
-                "fetched-lyrics": "Fetched lyrics for Genius"
+                "fetched-lyrics": "Genius에서 가사 불러옴"
             },
             "menu": {
-                "romanized-lyrics": "Romanized Lyrics"
+                "romanized-lyrics": "가사 로마자화"
             },
-            "description": "Adds lyrics support for most songs",
-            "name": "Lyrics Genius"
+            "description": "더 많은 곡에 대해 가사 지원을 추가합니다",
+            "name": "Genius 가사"
         },
         "sponsorblock": {
             "description": "Automatically Skips non-music parts like intro/outro or parts of music videos where the song isn't playing",
@@ -391,11 +391,11 @@
             "name": "네비게이션 바 흐림 효과"
         },
         "no-google-login": {
-            "description": "Remove Google login buttons and links from the interface",
-            "name": "No Google Login"
+            "description": "UI에서 Google 로그인 버튼 및 링크 제거하기",
+            "name": "Google 로그인 제거"
         },
         "last-fm": {
-            "description": "Add scrobbling support for Last.fm",
+            "description": "Last.fm에 대한 스크러블 지원을 추가합니다",
             "name": "Last.fm"
         }
     },
