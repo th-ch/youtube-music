@@ -53,33 +53,45 @@ declare module 'custom-electron-prompt' {
   export interface CounterPromptOptions extends BasePromptOptions<'counter'> {
     counterOptions: CounterOptions;
   }
-  export interface MultiInputPromptOptions extends BasePromptOptions<'multiInput'> {
+  export interface MultiInputPromptOptions
+    extends BasePromptOptions<'multiInput'> {
     multiInputOptions: InputOptions[];
   }
   export interface KeybindPromptOptions extends BasePromptOptions<'keybind'> {
     keybindOptions: KeybindOptions[];
   }
 
-  export type PromptOptions<T extends string> = (
-    T extends 'input' ? InputPromptOptions :
-    T extends 'select' ? SelectPromptOptions :
-    T extends 'counter' ? CounterPromptOptions :
-    T extends 'keybind' ? KeybindPromptOptions :
-    T extends 'multiInput' ? MultiInputPromptOptions :
-      never
-  );
+  export type PromptOptions<T extends string> = T extends 'input'
+    ? InputPromptOptions
+    : T extends 'select'
+    ? SelectPromptOptions
+    : T extends 'counter'
+    ? CounterPromptOptions
+    : T extends 'keybind'
+    ? KeybindPromptOptions
+    : T extends 'multiInput'
+    ? MultiInputPromptOptions
+    : never;
 
-  type PromptResult<T extends string> = T extends 'input' ? string :
-    T extends 'select' ? string :
-    T extends 'counter' ? number :
-    T extends 'keybind' ? {
-      value: string;
-      accelerator: string
-    }[] :
-    T extends 'multiInput' ? string[] :
-    never;
+  type PromptResult<T extends string> = T extends 'input'
+    ? string
+    : T extends 'select'
+    ? string
+    : T extends 'counter'
+    ? number
+    : T extends 'keybind'
+    ? {
+        value: string;
+        accelerator: string;
+      }[]
+    : T extends 'multiInput'
+    ? string[]
+    : never;
 
-  const prompt: <T extends Type>(options?: PromptOptions<T> & { type: T }, parent?: BrowserWindow) => Promise<PromptResult<T> | null>;
+  const prompt: <T extends Type>(
+    options?: PromptOptions<T> & { type: T },
+    parent?: BrowserWindow,
+  ) => Promise<PromptResult<T> | null>;
 
   export default prompt;
 }

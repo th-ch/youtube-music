@@ -1,6 +1,10 @@
 import { blockers } from './types';
 import { createPlugin } from '@/utils';
-import { isBlockerEnabled, loadAdBlockerEngine, unloadAdBlockerEngine } from './blocker';
+import {
+  isBlockerEnabled,
+  loadAdBlockerEngine,
+  unloadAdBlockerEngine,
+} from './blocker';
 
 import injectCliqzPreload from './injectors/inject-cliqz-preload';
 import { inject, isInjected } from './injectors/inject';
@@ -22,7 +26,7 @@ interface AdblockerConfig {
    * Which adblocker to use.
    * @default blockers.InPlayer
    */
-  blocker: typeof blockers[keyof typeof blockers];
+  blocker: (typeof blockers)[keyof typeof blockers];
   /**
    * Additional list of filters to use.
    * @example ["https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters.txt"]
@@ -86,7 +90,10 @@ export default createPlugin({
     },
     async onConfigChange(newConfig) {
       if (this.mainWindow) {
-        if (newConfig.blocker === blockers.WithBlocklists && !isBlockerEnabled(this.mainWindow.webContents.session)) {
+        if (
+          newConfig.blocker === blockers.WithBlocklists &&
+          !isBlockerEnabled(this.mainWindow.webContents.session)
+        ) {
           await loadAdBlockerEngine(
             this.mainWindow.webContents.session,
             newConfig.cache,
@@ -117,5 +124,5 @@ export default createPlugin({
         }
       }
     },
-  }
+  },
 });

@@ -10,14 +10,22 @@ import type { Segment, SkipSegment } from './types';
 export type SponsorBlockPluginConfig = {
   enabled: boolean;
   apiURL: string;
-  categories: ('sponsor' | 'intro' | 'outro' | 'interaction' | 'selfpromo' | 'music_offtopic')[];
+  categories: (
+    | 'sponsor'
+    | 'intro'
+    | 'outro'
+    | 'interaction'
+    | 'selfpromo'
+    | 'music_offtopic'
+  )[];
 };
 
 let currentSegments: Segment[] = [];
 
 export default createPlugin({
   name: 'SponsorBlock',
-  description: 'Automatically Skips non-music parts like intro/outro or parts of music videos where the song isn\'t playing',
+  description:
+    "Automatically Skips non-music parts like intro/outro or parts of music videos where the song isn't playing",
   restartNeeded: true,
   config: {
     enabled: false,
@@ -32,7 +40,11 @@ export default createPlugin({
     ],
   } as SponsorBlockPluginConfig,
   async backend({ getConfig, ipc }) {
-    const fetchSegments = async (apiURL: string, categories: string[], videoId: string) => {
+    const fetchSegments = async (
+      apiURL: string,
+      categories: string[],
+      videoId: string,
+    ) => {
       const sponsorBlockURL = `${apiURL}/api/skipSegments?videoID=${videoId}&categories=${JSON.stringify(
         categories,
       )}`;
@@ -48,10 +60,8 @@ export default createPlugin({
           return [];
         }
 
-        const segments = await resp.json() as SkipSegment[];
-        return sortSegments(
-          segments.map((submission) => submission.segment),
-        );
+        const segments = (await resp.json()) as SkipSegment[];
+        return sortSegments(segments.map((submission) => submission.segment));
       } catch (error) {
         if (is.dev()) {
           console.log('error on sponsorblock request:', error);
@@ -66,7 +76,11 @@ export default createPlugin({
     const { apiURL, categories } = config;
 
     ipc.on('video-src-changed', async (data: GetPlayerResponse) => {
-      const segments = await fetchSegments(apiURL, categories, data?.videoDetails?.videoId);
+      const segments = await fetchSegments(
+        apiURL,
+        categories,
+        data?.videoDetails?.videoId,
+      );
       ipc.send('sponsorblock-skip', segments);
     });
   },
@@ -77,8 +91,8 @@ export default createPlugin({
 
         for (const segment of currentSegments) {
           if (
-            target.currentTime >= segment[0]
-            && target.currentTime < segment[1]
+            target.currentTime >= segment[0] &&
+            target.currentTime < segment[1]
           ) {
             target.currentTime = segment[1];
             if (window.electronIs.dev()) {
@@ -88,7 +102,7 @@ export default createPlugin({
         }
       }
     },
-    resetSegments: () => currentSegments = [],
+    resetSegments: () => (currentSegments = []),
     start({ ipc }) {
       ipc.on('sponsorblock-skip', (segments: Segment[]) => {
         currentSegments = segments;
@@ -108,6 +122,6 @@ export default createPlugin({
 
       video.removeEventListener('timeupdate', this.timeUpdateListener);
       video.removeEventListener('emptied', this.resetSegments);
-    }
-  }
+    },
+  },
 });

@@ -9,10 +9,14 @@ import type { LyricsGeniusPluginConfig } from './index';
 
 import type { BackendContext } from '@/types/contexts';
 
-const eastAsianChars = /\p{Script=Katakana}|\p{Script=Hiragana}|\p{Script=Hangul}|\p{Script=Han}/u;
+const eastAsianChars =
+  /\p{Script=Katakana}|\p{Script=Hiragana}|\p{Script=Hangul}|\p{Script=Han}/u;
 let revRomanized = false;
 
-export const onMainLoad = async ({ ipc, getConfig }: BackendContext<LyricsGeniusPluginConfig>) => {
+export const onMainLoad = async ({
+  ipc,
+  getConfig,
+}: BackendContext<LyricsGeniusPluginConfig>) => {
   const config = await getConfig();
 
   if (config.romanizedLyrics) {
@@ -38,7 +42,10 @@ export const fetchFromGenius = async (metadata: SongInfo) => {
   Genius Lyrics behavior is observed.
   */
   let hasAsianChars = false;
-  if (revRomanized && (eastAsianChars.test(songTitle) || eastAsianChars.test(songArtist))) {
+  if (
+    revRomanized &&
+    (eastAsianChars.test(songTitle) || eastAsianChars.test(songArtist))
+  ) {
     lyrics = await getLyricsList(`${songArtist} ${songTitle} Romanized`);
     hasAsianChars = true;
   } else {
@@ -62,7 +69,9 @@ export const fetchFromGenius = async (metadata: SongInfo) => {
  */
 const getLyricsList = async (queryString: string): Promise<string | null> => {
   const response = await net.fetch(
-    `https://genius.com/api/search/multi?per_page=5&q=${encodeURIComponent(queryString)}`,
+    `https://genius.com/api/search/multi?per_page=5&q=${encodeURIComponent(
+      queryString,
+    )}`,
   );
   if (!response.ok) {
     return null;
@@ -71,11 +80,10 @@ const getLyricsList = async (queryString: string): Promise<string | null> => {
   /* Fetch the first URL with the api, giving a collection of song results.
   Pick the first song, parsing the json given by the API.
   */
-  const info = await response.json() as GetGeniusLyric;
-  const url = info
-    ?.response
-    ?.sections
-    ?.find((section) => section.type === 'song')?.hits[0]?.result?.url;
+  const info = (await response.json()) as GetGeniusLyric;
+  const url = info?.response?.sections?.find(
+    (section) => section.type === 'song',
+  )?.hits[0]?.result?.url;
 
   if (url) {
     return await getLyrics(url);

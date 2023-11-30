@@ -32,7 +32,7 @@ export type DiscordPluginConfig = {
    * Hide the "duration left" in the rich presence
    */
   hideDurationLeft: boolean;
-}
+};
 
 export default createPlugin({
   name: 'Discord Rich Presence',
@@ -50,4 +50,3 @@ export default createPlugin({
   menu: onMenu,
   backend,
 });
-

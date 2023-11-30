@@ -4,7 +4,10 @@ import type { InAppMenuConfig } from './index';
 import type { MenuContext } from '@/types/contexts';
 import type { MenuTemplate } from '@/menu';
 
-export const onMenu = async ({ getConfig, setConfig }: MenuContext<InAppMenuConfig>): Promise<MenuTemplate> => {
+export const onMenu = async ({
+  getConfig,
+  setConfig,
+}: MenuContext<InAppMenuConfig>): Promise<MenuTemplate> => {
   const config = await getConfig();
 
   if (is.linux()) {
@@ -16,8 +19,8 @@ export const onMenu = async ({ getConfig, setConfig }: MenuContext<InAppMenuConf
         click(item) {
           config.hideDOMWindowControls = item.checked;
           setConfig(config);
-        }
-      }
+        },
+      },
     ];
   }
 

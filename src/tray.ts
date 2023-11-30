@@ -12,7 +12,10 @@ import type { MenuTemplate } from './menu';
 // Prevent tray being garbage collected
 let tray: Electron.Tray | undefined;
 
-type TrayEvent = (event: Electron.KeyboardEvent, bounds: Electron.Rectangle) => void;
+type TrayEvent = (
+  event: Electron.KeyboardEvent,
+  bounds: Electron.Rectangle,
+) => void;
 
 export const setTrayOnClick = (fn: TrayEvent) => {
   if (!tray) {

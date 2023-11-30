@@ -2,11 +2,16 @@ import type { SongInfo } from '@/providers/song-info';
 import type { RendererContext } from '@/types/contexts';
 import type { LyricsGeniusPluginConfig } from '@/plugins/lyrics-genius/index';
 
-export const onRendererLoad = ({ ipc: { invoke, on } }: RendererContext<LyricsGeniusPluginConfig>) => {
+export const onRendererLoad = ({
+  ipc: { invoke, on },
+}: RendererContext<LyricsGeniusPluginConfig>) => {
   const setLyrics = (lyricsContainer: Element, lyrics: string | null) => {
     lyricsContainer.innerHTML = `
       <div id="contents" class="style-scope ytmusic-section-list-renderer description ytmusic-description-shelf-renderer genius-lyrics">
-        ${lyrics?.replaceAll(/\r\n|\r|\n/g, '<br/>') ?? 'Could not retrieve lyrics from genius'}
+        ${
+          lyrics?.replaceAll(/\r\n|\r|\n/g, '<br/>') ??
+          'Could not retrieve lyrics from genius'
+        }
       </div>
       <yt-formatted-string class="footer style-scope ytmusic-description-shelf-renderer" style="align-self: baseline">
       </yt-formatted-string>
@@ -37,10 +42,10 @@ export const onRendererLoad = ({ ipc: { invoke, on } }: RendererContext<LyricsGe
       // Check if disabled
       if (!tabs.lyrics?.hasAttribute('disabled')) return;
 
-      const lyrics = await invoke(
+      const lyrics = (await invoke(
         'search-genius-lyrics',
         extractedSongInfo,
-      ) as string | null;
+      )) as string | null;
 
       if (!lyrics) {
         // Delete previous lyrics if tab is open and couldn't get new lyrics

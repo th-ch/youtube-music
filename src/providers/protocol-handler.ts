@@ -10,11 +10,9 @@ let protocolHandler: ((cmd: string) => void) | undefined;
 
 export function setupProtocolHandler(win: BrowserWindow) {
   if (process.defaultApp && process.argv.length >= 2) {
-    app.setAsDefaultProtocolClient(
-      APP_PROTOCOL,
-      process.execPath,
-      [path.resolve(process.argv[1])],
-    );
+    app.setAsDefaultProtocolClient(APP_PROTOCOL, process.execPath, [
+      path.resolve(process.argv[1]),
+    ]);
   } else {
     app.setAsDefaultProtocolClient(APP_PROTOCOL);
   }
@@ -42,4 +40,3 @@ export default {
   handleProtocol,
   changeProtocolHandler,
 };
-

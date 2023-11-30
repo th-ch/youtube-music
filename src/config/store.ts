@@ -7,10 +7,17 @@ import { DefaultPresetList, type Preset } from '@/plugins/downloader/types';
 
 const migrations = {
   '>=3.0.0'(store: Conf<Record<string, unknown>>) {
-    const discordConfig = store.get('plugins.discord') as Record<string, unknown>;
+    const discordConfig = store.get('plugins.discord') as Record<
+      string,
+      unknown
+    >;
     if (discordConfig) {
-      const oldActivityTimoutEnabled = store.get('plugins.discord.activityTimoutEnabled') as boolean | undefined;
-      const oldActivityTimoutTime = store.get('plugins.discord.activityTimoutTime') as number | undefined;
+      const oldActivityTimoutEnabled = store.get(
+        'plugins.discord.activityTimoutEnabled',
+      ) as boolean | undefined;
+      const oldActivityTimoutTime = store.get(
+        'plugins.discord.activityTimoutTime',
+      ) as number | undefined;
       if (oldActivityTimoutEnabled !== undefined) {
         discordConfig.activityTimeoutEnabled = oldActivityTimoutEnabled;
         store.set('plugins.discord', discordConfig);
@@ -93,18 +100,23 @@ const migrations = {
     }
   },
   '>=1.12.0'(store: Conf<Record<string, unknown>>) {
-    const options = store.get('plugins.shortcuts') as Record<
-      string,
-      | {
-          action: string;
-          shortcut: unknown;
-        }[]
-      | Record<string, unknown>
-    > | undefined;
+    const options = store.get('plugins.shortcuts') as
+      | Record<
+          string,
+          | {
+              action: string;
+              shortcut: unknown;
+            }[]
+          | Record<string, unknown>
+        >
+      | undefined;
     if (options) {
       let updated = false;
       for (const optionType of ['global', 'local']) {
-        if (Object.hasOwn(options, optionType) && Array.isArray(options[optionType])) {
+        if (
+          Object.hasOwn(options, optionType) &&
+          Array.isArray(options[optionType])
+        ) {
           const optionsArray = options[optionType] as {
             action: string;
             shortcut: unknown;

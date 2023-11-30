@@ -12,11 +12,12 @@ export type ShortcutsPluginConfig = {
   overrideMediaKeys: boolean;
   global: ShortcutMappingType;
   local: ShortcutMappingType;
-}
+};
 
 export default createPlugin({
   name: 'Shortcuts (& MPRIS)',
-  description: 'Allows setting global hotkeys for playback (play/pause/next/previous) + disable media osd by overriding media keys + enable Ctrl/CMD + F to search + enable linux mpris support for mediakeys + custom hotkeys for advanced users',
+  description:
+    'Allows setting global hotkeys for playback (play/pause/next/previous) + disable media osd by overriding media keys + enable Ctrl/CMD + F to search + enable linux mpris support for mediakeys + custom hotkeys for advanced users',
   restartNeeded: true,
   config: {
     enabled: false,

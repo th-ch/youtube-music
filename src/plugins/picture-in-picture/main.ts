@@ -6,14 +6,20 @@ import type { BackendContext } from '@/types/contexts';
 
 let config: PictureInPicturePluginConfig;
 
-export const onMainLoad = async ({ window, getConfig, setConfig, ipc: { send, handle, on } }: BackendContext<PictureInPicturePluginConfig>) => {
+export const onMainLoad = async ({
+  window,
+  getConfig,
+  setConfig,
+  ipc: { send, handle, on },
+}: BackendContext<PictureInPicturePluginConfig>) => {
   let isInPiP = false;
   let originalPosition: number[];
   let originalSize: number[];
   let originalFullScreen: boolean;
   let originalMaximized: boolean;
 
-  const pipPosition = () => (config.savePosition && config['pip-position']) || [10, 10];
+  const pipPosition = () =>
+    (config.savePosition && config['pip-position']) || [10, 10];
   const pipSize = () => (config.saveSize && config['pip-size']) || [450, 275];
 
   const togglePiP = () => {
@@ -50,7 +56,10 @@ export const onMainLoad = async ({ window, getConfig, setConfig, ipc: { send, ha
         window.setAlwaysOnTop(true, 'screen-saver', 1);
       }
     } else {
-      window.webContents.removeListener('before-input-event', blockShortcutsInPiP);
+      window.webContents.removeListener(
+        'before-input-event',
+        blockShortcutsInPiP,
+      );
       window.setMaximizable(true);
       window.setFullScreenable(true);
 
@@ -76,7 +85,10 @@ export const onMainLoad = async ({ window, getConfig, setConfig, ipc: { send, ha
     window.setWindowButtonVisibility?.(!isInPiP);
   };
 
-  const blockShortcutsInPiP = (event: Electron.Event, input: Electron.Input) => {
+  const blockShortcutsInPiP = (
+    event: Electron.Event,
+    input: Electron.Input,
+  ) => {
     const key = input.key.toLowerCase();
 
     if (key === 'f') {

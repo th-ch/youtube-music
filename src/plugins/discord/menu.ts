@@ -15,7 +15,12 @@ const registerRefreshOnce = singleton((refreshMenu: () => void) => {
   registerRefresh(refreshMenu);
 });
 
-export const onMenu = async ({ window, getConfig, setConfig, refresh }: MenuContext<DiscordPluginConfig>): Promise<MenuTemplate> => {
+export const onMenu = async ({
+  window,
+  getConfig,
+  setConfig,
+  refresh,
+}: MenuContext<DiscordPluginConfig>): Promise<MenuTemplate> => {
   const config = await getConfig();
   registerRefreshOnce(refresh);
 
@@ -86,16 +91,22 @@ export const onMenu = async ({ window, getConfig, setConfig, refresh }: MenuCont
   ];
 };
 
-async function setInactivityTimeout(win: Electron.BrowserWindow, options: DiscordPluginConfig) {
-  const output = await prompt({
-    title: 'Set Inactivity Timeout',
-    label: 'Enter inactivity timeout in seconds:',
-    value: String(Math.round((options.activityTimeoutTime ?? 0) / 1e3)),
-    type: 'counter',
-    counterOptions: { minimum: 0, multiFire: true },
-    width: 450,
-    ...promptOptions(),
-  }, win);
+async function setInactivityTimeout(
+  win: Electron.BrowserWindow,
+  options: DiscordPluginConfig,
+) {
+  const output = await prompt(
+    {
+      title: 'Set Inactivity Timeout',
+      label: 'Enter inactivity timeout in seconds:',
+      value: String(Math.round((options.activityTimeoutTime ?? 0) / 1e3)),
+      type: 'counter',
+      counterOptions: { minimum: 0, multiFire: true },
+      width: 450,
+      ...promptOptions(),
+    },
+    win,
+  );
 
   if (output) {
     options.activityTimeoutTime = Math.round(~~output * 1e3);

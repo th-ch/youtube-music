@@ -1,5 +1,9 @@
 .navigation-item {
-  font-family: Roboto, Noto Naskh Arabic UI, Arial, sans-serif;
+  font-family:
+    Roboto,
+    Noto Naskh Arabic UI,
+    Arial,
+    sans-serif;
   font-size: 20px;
   line-height: var(--ytmusic-title-1_-_line-height);
   font-weight: 500;

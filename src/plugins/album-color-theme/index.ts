@@ -8,7 +8,8 @@ import type { VideoDataChanged } from '@/types/video-data-changed';
 
 export default createPlugin({
   name: 'Album Color Theme',
-  description: 'Applies a dynamic theme and visual effects based on the album color palette',
+  description:
+    'Applies a dynamic theme and visual effects based on the album color palette',
   restartNeeded: true,
   config: {
     enabled: false,
@@ -62,13 +63,18 @@ export default createPlugin({
       l = +(l * 100).toFixed(1);
 
       //return "hsl(" + h + "," + s + "%," + l + "%)";
-      return [h,s,l];
+      return [h, s, l];
     },
     hue: 0,
     saturation: 0,
     lightness: 0,
 
-    changeElementColor: (element: HTMLElement | null, hue: number, saturation: number, lightness: number) => {
+    changeElementColor: (
+      element: HTMLElement | null,
+      hue: number,
+      saturation: number,
+      lightness: number,
+    ) => {
       if (element) {
         element.style.backgroundColor = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
       }
@@ -84,19 +90,32 @@ export default createPlugin({
 
     start() {
       this.playerPage = document.querySelector<HTMLElement>('#player-page');
-      this.navBarBackground = document.querySelector<HTMLElement>('#nav-bar-background');
-      this.ytmusicPlayerBar = document.querySelector<HTMLElement>('ytmusic-player-bar');
-      this.playerBarBackground = document.querySelector<HTMLElement>('#player-bar-background');
+      this.navBarBackground = document.querySelector<HTMLElement>(
+        '#nav-bar-background',
+      );
+      this.ytmusicPlayerBar =
+        document.querySelector<HTMLElement>('ytmusic-player-bar');
+      this.playerBarBackground = document.querySelector<HTMLElement>(
+        '#player-bar-background',
+      );
       this.sidebarBig = document.querySelector<HTMLElement>('#guide-wrapper');
-      this.sidebarSmall = document.querySelector<HTMLElement>('#mini-guide-background');
+      this.sidebarSmall = document.querySelector<HTMLElement>(
+        '#mini-guide-background',
+      );
       this.ytmusicAppLayout = document.querySelector<HTMLElement>('#layout');
 
       const observer = new MutationObserver((mutationsList) => {
         for (const mutation of mutationsList) {
           if (mutation.type === 'attributes') {
-            const isPageOpen = this.ytmusicAppLayout?.hasAttribute('player-page-open');
+            const isPageOpen =
+              this.ytmusicAppLayout?.hasAttribute('player-page-open');
             if (isPageOpen) {
-              this.changeElementColor(this.sidebarSmall, this.hue, this.saturation, this.lightness - 30);
+              this.changeElementColor(
+                this.sidebarSmall,
+                this.hue,
+                this.saturation,
+                this.lightness - 30,
+              );
             } else {
               if (this.sidebarSmall) {
                 this.sidebarSmall.style.backgroundColor = 'black';
@@ -113,35 +132,84 @@ export default createPlugin({
     onPlayerApiReady(playerApi) {
       const fastAverageColor = new FastAverageColor();
 
-      document.addEventListener('videodatachange', (event: CustomEvent<VideoDataChanged>) => {
-        if (event.detail.name === 'dataloaded') {
-          const playerResponse = playerApi.getPlayerResponse();
-          const thumbnail = playerResponse?.videoDetails?.thumbnail?.thumbnails?.at(0);
-          if (thumbnail) {
-            fastAverageColor.getColorAsync(thumbnail.url)
-              .then((albumColor) => {
-                if (albumColor) {
-                  const [hue, saturation, lightness] = [this.hue, this.saturation, this.lightness] = this.hexToHSL(albumColor.hex);
-                  this.changeElementColor(this.playerPage, hue, saturation, lightness - 30);
-                  this.changeElementColor(this.navBarBackground, hue, saturation, lightness - 15);
-                  this.changeElementColor(this.ytmusicPlayerBar, hue, saturation, lightness - 15);
-                  this.changeElementColor(this.playerBarBackground, hue, saturation, lightness - 15);
-                  this.changeElementColor(this.sidebarBig, hue, saturation, lightness - 15);
-                  if (this.ytmusicAppLayout?.hasAttribute('player-page-open')) {
-                    this.changeElementColor(this.sidebarSmall, hue, saturation, lightness - 30);
+      document.addEventListener(
+        'videodatachange',
+        (event: CustomEvent<VideoDataChanged>) => {
+          if (event.detail.name === 'dataloaded') {
+            const playerResponse = playerApi.getPlayerResponse();
+            const thumbnail =
+              playerResponse?.videoDetails?.thumbnail?.thumbnails?.at(0);
+            if (thumbnail) {
+              fastAverageColor
+                .getColorAsync(thumbnail.url)
+                .then((albumColor) => {
+                  if (albumColor) {
+                    const [hue, saturation, lightness] = ([
+                      this.hue,
+                      this.saturation,
+                      this.lightness,
+                    ] = this.hexToHSL(albumColor.hex));
+                    this.changeElementColor(
+                      this.playerPage,
+                      hue,
+                      saturation,
+                      lightness - 30,
+                    );
+                    this.changeElementColor(
+                      this.navBarBackground,
+                      hue,
+                      saturation,
+                      lightness - 15,
+                    );
+                    this.changeElementColor(
+                      this.ytmusicPlayerBar,
+                      hue,
+                      saturation,
+                      lightness - 15,
+                    );
+                    this.changeElementColor(
+                      this.playerBarBackground,
+                      hue,
+                      saturation,
+                      lightness - 15,
+                    );
+                    this.changeElementColor(
+                      this.sidebarBig,
+                      hue,
+                      saturation,
+                      lightness - 15,
+                    );
+                    if (
+                      this.ytmusicAppLayout?.hasAttribute('player-page-open')
+                    ) {
+                      this.changeElementColor(
+                        this.sidebarSmall,
+                        hue,
+                        saturation,
+                        lightness - 30,
+                      );
+                    }
+                    const ytRightClickList =
+                      document.querySelector<HTMLElement>(
+                        'tp-yt-paper-listbox',
+                      );
+                    this.changeElementColor(
+                      ytRightClickList,
+                      hue,
+                      saturation,
+                      lightness - 15,
+                    );
+                  } else {
+                    if (this.playerPage) {
+                      this.playerPage.style.backgroundColor = '#000000';
+                    }
                   }
-                  const ytRightClickList = document.querySelector<HTMLElement>('tp-yt-paper-listbox');
-                  this.changeElementColor(ytRightClickList, hue, saturation, lightness - 15);
-                } else {
-                  if (this.playerPage) {
-                    this.playerPage.style.backgroundColor = '#000000';
-                  }
-                }
-              })
-              .catch((e) => console.error(e));
+                })
+                .catch((e) => console.error(e));
+            }
           }
-        }
-      });
+        },
+      );
     },
-  }
+  },
 });

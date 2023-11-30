@@ -5,7 +5,10 @@ import { BrowserWindow, Menu, MenuItem, ipcMain, nativeImage } from 'electron';
 import type { BackendContext } from '@/types/contexts';
 import type { InAppMenuConfig } from './index';
 
-export const onMainLoad = ({ window: win, ipc: { handle, send } }: BackendContext<InAppMenuConfig>) => {
+export const onMainLoad = ({
+  window: win,
+  ipc: { handle, send },
+}: BackendContext<InAppMenuConfig>) => {
   win.on('close', () => {
     send('close-all-in-app-menu-panel');
   });
@@ -16,11 +19,13 @@ export const onMainLoad = ({ window: win, ipc: { handle, send } }: BackendContex
     });
   });
 
-  handle(
-    'get-menu',
-    () => JSON.parse(JSON.stringify(
-      Menu.getApplicationMenu(),
-      (key: string, value: unknown) => (key !== 'commandsMap' && key !== 'menu') ? value : undefined),
+  handle('get-menu', () =>
+    JSON.parse(
+      JSON.stringify(
+        Menu.getApplicationMenu(),
+        (key: string, value: unknown) =>
+          key !== 'commandsMap' && key !== 'menu' ? value : undefined,
+      ),
     ),
   );
 
@@ -28,7 +33,7 @@ export const onMainLoad = ({ window: win, ipc: { handle, send } }: BackendContex
     const menu = Menu.getApplicationMenu();
 
     let target: MenuItem | null = null;
-    const stack = [...menu?.items ?? []];
+    const stack = [...(menu?.items ?? [])];
     while (stack.length > 0) {
       const now = stack.shift();
       now?.submenu?.items.forEach((item) => stack.push(item));
@@ -44,15 +49,21 @@ export const onMainLoad = ({ window: win, ipc: { handle, send } }: BackendContex
 
   ipcMain.handle('menu-event', (event, commandId: number) => {
     const target = getMenuItemById(commandId);
-    if (target) target.click(undefined, BrowserWindow.fromWebContents(event.sender), event.sender);
+    if (target)
+      target.click(
+        undefined,
+        BrowserWindow.fromWebContents(event.sender),
+        event.sender,
+      );
   });
 
   handle('get-menu-by-id', (commandId: number) => {
     const result = getMenuItemById(commandId);
 
-    return JSON.parse(JSON.stringify(
-      result,
-      (key: string, value: unknown) => (key !== 'commandsMap' && key !== 'menu') ? value : undefined),
+    return JSON.parse(
+      JSON.stringify(result, (key: string, value: unknown) =>
+        key !== 'commandsMap' && key !== 'menu' ? value : undefined,
+      ),
     );
   });
 

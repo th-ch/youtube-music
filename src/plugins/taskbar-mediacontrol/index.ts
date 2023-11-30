@@ -37,14 +37,18 @@ export default createPlugin({
           click() {
             previous();
           },
-        }, {
+        },
+        {
           tooltip: 'Play/Pause',
           // Update icon based on play state
-          icon: nativeImage.createFromPath(songInfo.isPaused ? get('play') : get('pause')),
+          icon: nativeImage.createFromPath(
+            songInfo.isPaused ? get('play') : get('pause'),
+          ),
           click() {
             playPause();
           },
-        }, {
+        },
+        {
           tooltip: 'Next',
           icon: nativeImage.createFromPath(get('next')),
           click() {
@@ -81,5 +85,5 @@ export default createPlugin({
     window.on('show', () => {
       setThumbar(currentSongInfo);
     });
-  }
+  },
 });

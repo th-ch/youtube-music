@@ -13,7 +13,7 @@ export type DownloaderPluginConfig = {
   customPresetSetting: Preset;
   skipExisting: boolean;
   playlistMaxItems?: number;
-}
+};
 
 export const defaultConfig: DownloaderPluginConfig = {
   enabled: false,
@@ -37,6 +37,5 @@ export default createPlugin({
   renderer: {
     start: onRendererLoad,
     onPlayerApiReady,
-  }
+  },
 });
-

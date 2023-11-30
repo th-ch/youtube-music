@@ -30,19 +30,19 @@ export const loadAdBlockerEngine = async (
   if (!fs.existsSync(cacheDirectory)) {
     fs.mkdirSync(cacheDirectory);
   }
-  const cachingOptions
-    = cache && additionalBlockLists.length === 0
-    ? {
-      path: path.join(cacheDirectory, 'adblocker-engine.bin'),
-      read: promises.readFile,
-      write: promises.writeFile,
-    }
-    : undefined;
+  const cachingOptions =
+    cache && additionalBlockLists.length === 0
+      ? {
+          path: path.join(cacheDirectory, 'adblocker-engine.bin'),
+          read: promises.readFile,
+          write: promises.writeFile,
+        }
+      : undefined;
   const lists = [
-    ...(
-      (disableDefaultLists && !Array.isArray(disableDefaultLists)) ||
-      (Array.isArray(disableDefaultLists) && disableDefaultLists.length > 0) ? [] : SOURCES
-    ),
+    ...((disableDefaultLists && !Array.isArray(disableDefaultLists)) ||
+    (Array.isArray(disableDefaultLists) && disableDefaultLists.length > 0)
+      ? []
+      : SOURCES),
     ...additionalBlockLists,
   ];
 
@@ -72,4 +72,5 @@ export const unloadAdBlockerEngine = (session: Electron.Session) => {
   }
 };
 
-export const isBlockerEnabled = (session: Electron.Session) => blocker !== undefined && blocker.isBlockingEnabled(session);
+export const isBlockerEnabled = (session: Electron.Session) =>
+  blocker !== undefined && blocker.isBlockingEnabled(session);

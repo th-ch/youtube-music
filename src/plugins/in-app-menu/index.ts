@@ -13,13 +13,10 @@ export default createPlugin({
   description: 'gives menu-bars a fancy, dark or album-color look',
   restartNeeded: true,
   config: {
-    enabled: (
-      typeof window !== 'undefined' &&
-      !window.navigator?.userAgent?.includes('mac')
-    ) || (
-      typeof global !== 'undefined' &&
-      global.process?.platform !== 'darwin'
-    ),
+    enabled:
+      (typeof window !== 'undefined' &&
+        !window.navigator?.userAgent?.includes('mac')) ||
+      (typeof global !== 'undefined' && global.process?.platform !== 'darwin'),
     hideDOMWindowControls: false,
   } as InAppMenuConfig,
   stylesheets: [titlebarStyle],
@@ -31,4 +28,3 @@ export default createPlugin({
     onPlayerApiReady,
   },
 });
-

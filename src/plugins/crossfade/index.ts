@@ -18,7 +18,7 @@ export type CrossfadePluginConfig = {
   fadeOutDuration: number;
   secondsBeforeEnd: number;
   fadeScaling: 'linear' | 'logarithmic' | number;
-}
+};
 
 export default createPlugin<
   unknown,
@@ -61,7 +61,10 @@ export default createPlugin<
     fadeScaling: 'linear',
   },
   menu({ window, getConfig, setConfig }) {
-    const promptCrossfadeValues = async (win: BrowserWindow, options: CrossfadePluginConfig): Promise<Omit<CrossfadePluginConfig, 'enabled'> | undefined> => {
+    const promptCrossfadeValues = async (
+      win: BrowserWindow,
+      options: CrossfadePluginConfig,
+    ): Promise<Omit<CrossfadePluginConfig, 'enabled'> | undefined> => {
       const res = await prompt(
         {
           title: 'Crossfade Options',
@@ -89,8 +92,7 @@ export default createPlugin<
             },
             {
               label: 'Crossfade x seconds before end',
-              value:
-              options.secondsBeforeEnd,
+              value: options.secondsBeforeEnd,
               inputAttrs: {
                 type: 'number',
                 required: true,
@@ -135,7 +137,10 @@ export default createPlugin<
       {
         label: 'Advanced',
         async click() {
-          const newOptions = await promptCrossfadeValues(window, await getConfig());
+          const newOptions = await promptCrossfadeValues(
+            window,
+            await getConfig(),
+          );
           if (newOptions) {
             setConfig(newOptions);
           }
@@ -170,11 +175,14 @@ export default createPlugin<
       let firstVideo = true;
       let waitForTransition: Promise<unknown>;
 
-      const getStreamURL = async (videoID: string): Promise<string> => this.ipc?.invoke('audio-url', videoID);
+      const getStreamURL = async (videoID: string): Promise<string> =>
+        this.ipc?.invoke('audio-url', videoID);
 
-      const getVideoIDFromURL = (url: string) => new URLSearchParams(url.split('?')?.at(-1)).get('v');
+      const getVideoIDFromURL = (url: string) =>
+        new URLSearchParams(url.split('?')?.at(-1)).get('v');
 
-      const isReadyToCrossfade = () => transitionAudio && transitionAudio.state() === 'loaded';
+      const isReadyToCrossfade = () =>
+        transitionAudio && transitionAudio.state() === 'loaded';
 
       const watchVideoIDChanges = (cb: (id: string) => void) => {
         window.navigation.addEventListener('navigate', (event) => {
@@ -184,9 +192,9 @@ export default createPlugin<
           const nextVideoID = getVideoIDFromURL(event.destination.url ?? '');
 
           if (
-            nextVideoID
-            && currentVideoID
-            && (firstVideo || nextVideoID !== currentVideoID)
+            nextVideoID &&
+            currentVideoID &&
+            (firstVideo || nextVideoID !== currentVideoID)
           ) {
             if (isReadyToCrossfade()) {
               crossfade(() => {
@@ -245,8 +253,9 @@ export default createPlugin<
         // Exit just before the end for the transition
         const transitionBeforeEnd = () => {
           if (
-            video.currentTime >= video.duration - this.config!.secondsBeforeEnd
-            && isReadyToCrossfade()
+            video.currentTime >=
+              video.duration - this.config!.secondsBeforeEnd &&
+            isReadyToCrossfade()
           ) {
             video.removeEventListener('timeupdate', transitionBeforeEnd);
 
@@ -294,6 +303,6 @@ export default createPlugin<
 
         createAudioForCrossfade(url);
       });
-    }
-  }
+    },
+  },
 });

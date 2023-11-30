@@ -70,8 +70,8 @@ export default createPlugin({
       ],
     });
 
-
-    const { playPause, next, previous, dislike, like } = getSongControls(window);
+    const { playPause, next, previous, dislike, like } =
+      getSongControls(window);
 
     // If the page is ready, register the callback
     window.once('ready-to-show', () => {
@@ -95,5 +95,5 @@ export default createPlugin({
         window.setTouchBar(touchBar);
       });
     });
-  }
+  },
 });

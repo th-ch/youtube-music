@@ -10,7 +10,6 @@ import { createBackend } from '@/utils';
 
 import type { DiscordPluginConfig } from './index';
 
-
 // Application ID registered by @th-ch/youtube-music dev team
 const clientId = '1177081335727267940';
 
@@ -47,13 +46,16 @@ const resetInfo = () => {
   }
 };
 
-const connectTimeout = () => new Promise((resolve, reject) => setTimeout(() => {
-  if (!info.autoReconnect || info.rpc.isConnected) {
-    return;
-  }
+const connectTimeout = () =>
+  new Promise((resolve, reject) =>
+    setTimeout(() => {
+      if (!info.autoReconnect || info.rpc.isConnected) {
+        return;
+      }
 
-  info.rpc.login().then(resolve).catch(reject);
-}, 5000));
+      info.rpc.login().then(resolve).catch(reject);
+    }, 5000),
+  );
 const connectRecursive = () => {
   if (!info.autoReconnect || info.rpc.isConnected) {
     return;
@@ -106,10 +108,13 @@ export const clear = () => {
 export const registerRefresh = (cb: () => void) => refreshCallbacks.push(cb);
 export const isConnected = () => info.rpc !== null;
 
-export const backend = createBackend<{
-  config?: DiscordPluginConfig;
-  updateActivity: (songInfo: SongInfo, config: DiscordPluginConfig) => void;
-}, DiscordPluginConfig>({
+export const backend = createBackend<
+  {
+    config?: DiscordPluginConfig;
+    updateActivity: (songInfo: SongInfo, config: DiscordPluginConfig) => void;
+  },
+  DiscordPluginConfig
+>({
   /**
    * We get multiple events
    * Next song: PAUSE(n), PAUSE(n+1), PLAY(n+1)
@@ -132,7 +137,11 @@ export const backend = createBackend<{
     }
 
     // Clear directly if timeout is 0
-    if (songInfo.isPaused && config.activityTimeoutEnabled && config.activityTimeoutTime === 0) {
+    if (
+      songInfo.isPaused &&
+      config.activityTimeoutEnabled &&
+      config.activityTimeoutTime === 0
+    ) {
       info.rpc.user?.clearActivity().catch(console.error);
       return;
     }
@@ -142,10 +151,14 @@ export const backend = createBackend<{
     // not all options are transfered through https://github.com/discordjs/RPC/blob/6f83d8d812c87cb7ae22064acd132600407d7d05/src/client.js#L518-530
     const hangulFillerUnicodeCharacter = '\u3164'; // This is an empty character
     if (songInfo.title.length < 2) {
-      songInfo.title += hangulFillerUnicodeCharacter.repeat(2 - songInfo.title.length);
+      songInfo.title += hangulFillerUnicodeCharacter.repeat(
+        2 - songInfo.title.length,
+      );
     }
     if (songInfo.artist.length < 2) {
-      songInfo.artist += hangulFillerUnicodeCharacter.repeat(2 - songInfo.title.length);
+      songInfo.artist += hangulFillerUnicodeCharacter.repeat(
+        2 - songInfo.title.length,
+      );
     }
 
     const activityInfo: SetActivity = {
@@ -154,11 +167,17 @@ export const backend = createBackend<{
       largeImageKey: songInfo.imageSrc ?? '',
       largeImageText: songInfo.album ?? '',
       buttons: [
-        ...(config.playOnYouTubeMusic ? [{ label: 'Play on YouTube Music', url: songInfo.url ?? '' }] : []),
-        ...(config.hideGitHubButton ? [] : [{
-          label: 'View App On GitHub',
-          url: 'https://github.com/th-ch/youtube-music'
-        }]),
+        ...(config.playOnYouTubeMusic
+          ? [{ label: 'Play on YouTube Music', url: songInfo.url ?? '' }]
+          : []),
+        ...(config.hideGitHubButton
+          ? []
+          : [
+              {
+                label: 'View App On GitHub',
+                url: 'https://github.com/th-ch/youtube-music',
+              },
+            ]),
       ],
     };
 
@@ -168,14 +187,16 @@ export const backend = createBackend<{
       activityInfo.smallImageText = 'Paused';
       // Set start the timer so the activity gets cleared after a while if enabled
       if (config.activityTimeoutEnabled) {
-        clearActivity = setTimeout(() => info.rpc.user?.clearActivity().catch(console.error), config.activityTimeoutTime ?? 10_000);
+        clearActivity = setTimeout(
+          () => info.rpc.user?.clearActivity().catch(console.error),
+          config.activityTimeoutTime ?? 10_000,
+        );
       }
     } else if (!config.hideDurationLeft) {
       // Add the start and end time of the song
       const songStartTime = Date.now() - ((songInfo.elapsedSeconds ?? 0) * 1000);
       activityInfo.startTimestamp = songStartTime;
-      activityInfo.endTimestamp
-        = songStartTime + (songInfo.songDuration * 1000);
+      activityInfo.endTimestamp = songStartTime + (songInfo.songDuration * 1000);
     }
 
     info.rpc.user?.setActivity(activityInfo).catch(console.error);

@@ -10,7 +10,8 @@ import type { VideoDataChanged } from '@/types/video-data-changed';
 let songInfo: SongInfo = {} as SongInfo;
 export const getSongInfo = () => songInfo;
 
-const $ = <E extends Element = Element>(s: string): E | null => document.querySelector<E>(s);
+const $ = <E extends Element = Element>(s: string): E | null =>
+  document.querySelector<E>(s);
 
 window.ipcRenderer.on('update-song-info', (_, extractedSongInfo: SongInfo) => {
   songInfo = extractedSongInfo;
@@ -43,26 +44,31 @@ export const setupTimeChangedListener = singleton(() => {
 
 export const setupRepeatChangedListener = singleton(() => {
   const repeatObserver = new MutationObserver((mutations) => {
-
     // provided by YouTube Music
     window.ipcRenderer.send(
       'repeatChanged',
-      (mutations[0].target as Node & {
-        __dataHost: {
-          getState: () => GetState;
+      (
+        mutations[0].target as Node & {
+          __dataHost: {
+            getState: () => GetState;
+          };
         }
-      }).__dataHost.getState().queue.repeatMode,
+      ).__dataHost.getState().queue.repeatMode,
     );
   });
-  repeatObserver.observe($('#right-controls .repeat')!, { attributeFilter: ['title'] });
+  repeatObserver.observe($('#right-controls .repeat')!, {
+    attributeFilter: ['title'],
+  });
 
   // Emit the initial value as well; as it's persistent between launches.
   // provided by YouTube Music
   window.ipcRenderer.send(
     'repeatChanged',
-    $<HTMLElement & {
-      getState: () => GetState;
-    }>('ytmusic-player-bar')?.getState().queue.repeatMode,
+    $<
+      HTMLElement & {
+        getState: () => GetState;
+      }
+    >('ytmusic-player-bar')?.getState().queue.repeatMode,
   );
 });
 
@@ -92,7 +98,10 @@ export default (api: YoutubePlayer) => {
   });
 
   const playPausedHandler = (e: Event, status: string) => {
-    if (e.target instanceof HTMLVideoElement && Math.round(e.target.currentTime) > 0) {
+    if (
+      e.target instanceof HTMLVideoElement &&
+      Math.round(e.target.currentTime) > 0
+    ) {
       window.ipcRenderer.send('playPaused', {
         isPaused: status === 'pause',
         elapsedSeconds: Math.floor(e.target.currentTime),
@@ -108,7 +117,11 @@ export default (api: YoutubePlayer) => {
   const waitingEvent = new Set<string>();
   // Name = "dataloaded" and abit later "dataupdated"
   api.addEventListener('videodatachange', (name: string, videoData) => {
-    document.dispatchEvent(new CustomEvent<VideoDataChanged>('videodatachange', { detail: { name, videoData } }));
+    document.dispatchEvent(
+      new CustomEvent<VideoDataChanged>('videodatachange', {
+        detail: { name, videoData },
+      }),
+    );
 
     if (name === 'dataupdated' && waitingEvent.has(videoData.videoId)) {
       waitingEvent.delete(videoData.videoId);
@@ -117,7 +130,8 @@ export default (api: YoutubePlayer) => {
       const video = $<HTMLVideoElement>('video');
       video?.dispatchEvent(srcChangedEvent);
 
-      for (const status of ['playing', 'pause'] as const) { // for fix issue that pause event not fired
+      for (const status of ['playing', 'pause'] as const) {
+        // for fix issue that pause event not fired
         video?.addEventListener(status, playPausedHandlers[status]);
       }
 
@@ -133,13 +147,17 @@ export default (api: YoutubePlayer) => {
   function sendSongInfo(videoData: VideoDataChangeValue) {
     const data = api.getPlayerResponse();
 
-    data.videoDetails.album = videoData?.Hd?.playerOverlays?.playerOverlayRenderer?.browserMediaSession?.browserMediaSessionRenderer?.album.runs?.at(0)?.text;
+    data.videoDetails.album =
+      videoData?.Hd?.playerOverlays?.playerOverlayRenderer?.browserMediaSession?.browserMediaSessionRenderer?.album.runs?.at(
+        0,
+      )?.text;
     data.videoDetails.elapsedSeconds = 0;
     data.videoDetails.isPaused = false;
 
     // HACK: This is a workaround for "podcast" type video. GREAT JOB GOOGLE.
     if (data.playabilityStatus.transportControlsConfig) {
-      data.videoDetails.author = data.microformat.microformatDataRenderer.pageOwnerDetails.name;
+      data.videoDetails.author =
+        data.microformat.microformatDataRenderer.pageOwnerDetails.name;
     }
 
     window.ipcRenderer.send('video-src-changed', data);

@@ -63,13 +63,17 @@ export default createPlugin({
       if (!songInfo.isPaused) {
         setNowPlaying(songInfo, config, setConfig);
         // Scrobble when the song is halfway through, or has passed the 4-minute mark
-        const scrobbleTime = Math.min(Math.ceil(songInfo.songDuration / 2), 4 * 60);
+        const scrobbleTime = Math.min(
+          Math.ceil(songInfo.songDuration / 2),
+          4 * 60,
+        );
         if (scrobbleTime > (songInfo.elapsedSeconds ?? 0)) {
           // Scrobble still needs to happen
-          const timeToWait = (scrobbleTime - (songInfo.elapsedSeconds ?? 0)) * 1000;
+          const timeToWait =
+            (scrobbleTime - (songInfo.elapsedSeconds ?? 0)) * 1000;
           scrobbleTimer = setTimeout(addScrobble, timeToWait, songInfo, config);
         }
       }
     });
-  }
+  },
 });

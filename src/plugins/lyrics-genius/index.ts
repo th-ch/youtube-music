@@ -6,7 +6,7 @@ import { onRendererLoad } from './renderer';
 export type LyricsGeniusPluginConfig = {
   enabled: boolean;
   romanizedLyrics: boolean;
-}
+};
 
 export default createPlugin({
   name: 'Lyrics Genius',

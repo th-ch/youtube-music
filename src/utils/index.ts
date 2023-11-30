@@ -105,9 +105,8 @@ export const startPlugin = async <Config extends PluginConfig>(
     );
 
     console.log(
-      LoggerPrefix, `Executed ${id}::${options.ctx} in ${
-        performance.now() - start
-      } ms`,
+      LoggerPrefix,
+      `Executed ${id}::${options.ctx} in ${performance.now() - start} ms`,
     );
 
     return lifecycle ? true : null;
@@ -126,7 +125,9 @@ export const stopPlugin = async <Config extends PluginConfig>(
   if (!def || !def[options.ctx]) return false;
   if (typeof def[options.ctx] === 'function') return false;
 
-  const defCtx = def[options.ctx] as { stop: PluginLifecycleSimple<Config, unknown> } | undefined;
+  const defCtx = def[options.ctx] as
+    | { stop: PluginLifecycleSimple<Config, unknown> }
+    | undefined;
   if (!defCtx?.stop) return null;
 
   try {
@@ -138,9 +139,8 @@ export const stopPlugin = async <Config extends PluginConfig>(
     );
 
     console.log(
-      LoggerPrefix, `Executed ${id}::${options.ctx} in ${
-        performance.now() - start
-      } ms`,
+      LoggerPrefix,
+      `Executed ${id}::${options.ctx} in ${performance.now() - start} ms`,
     );
 
     return true;

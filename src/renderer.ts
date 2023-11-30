@@ -18,7 +18,9 @@ let isApiLoaded = false;
 let firstDataLoaded = false;
 
 const observer = new MutationObserver(() => {
-  const playerApi = document.querySelector<Element & YoutubePlayer>('#movie_player');
+  const playerApi = document.querySelector<Element & YoutubePlayer>(
+    '#movie_player',
+  );
   if (playerApi) {
     observer.disconnect();
 
@@ -70,14 +72,22 @@ async function onApiLoaded() {
   const audioSource = audioContext.createMediaElementSource(video);
   audioSource.connect(audioContext.destination);
 
-  for await (const [id, plugin] of Object.entries(getAllLoadedRendererPlugins())) {
+  for await (const [id, plugin] of Object.entries(
+    getAllLoadedRendererPlugins(),
+  )) {
     if (typeof plugin.renderer !== 'function') {
-      await plugin.renderer?.onPlayerApiReady?.call(plugin.renderer, api!, createContext(id));
+      await plugin.renderer?.onPlayerApiReady?.call(
+        plugin.renderer,
+        api!,
+        createContext(id),
+      );
     }
   }
 
   if (firstDataLoaded) {
-    document.dispatchEvent(new CustomEvent('videodatachange', { detail: { name: 'dataloaded' } }));
+    document.dispatchEvent(
+      new CustomEvent('videodatachange', { detail: { name: 'dataloaded' } }),
+    );
   }
 
   const audioCanPlayEventDispatcher = () => {
@@ -93,22 +103,16 @@ async function onApiLoaded() {
 
   const loadstartListener = () => {
     // Emit "audioCanPlay" for each video
-    video.addEventListener(
-      'canplaythrough',
-      audioCanPlayEventDispatcher,
-      { once: true },
-    );
+    video.addEventListener('canplaythrough', audioCanPlayEventDispatcher, {
+      once: true,
+    });
   };
 
   if (video.readyState === 4 /* HAVE_ENOUGH_DATA (loaded) */) {
     audioCanPlayEventDispatcher();
   }
 
-  video.addEventListener(
-    'loadstart',
-    loadstartListener,
-    { passive: true },
-  );
+  video.addEventListener('loadstart', loadstartListener, { passive: true });
 
   window.ipcRenderer.send('ytmd:player-api-loaded');
 
@@ -151,24 +155,22 @@ async function onApiLoaded() {
   await loadAllRendererPlugins();
   isPluginLoaded = true;
 
-  window.ipcRenderer.on(
-    'plugin:unload',
-    async (_event, id: string) => {
-      await forceUnloadRendererPlugin(id);
-    },
-  );
-  window.ipcRenderer.on(
-    'plugin:enable',
-    async (_event, id: string) => {
-      await forceLoadRendererPlugin(id);
-      if (api) {
-        const plugin = getLoadedRendererPlugin(id);
-        if (plugin && typeof plugin.renderer !== 'function') {
-          await plugin.renderer?.onPlayerApiReady?.call(plugin.renderer, api, createContext(id));
-        }
+  window.ipcRenderer.on('plugin:unload', async (_event, id: string) => {
+    await forceUnloadRendererPlugin(id);
+  });
+  window.ipcRenderer.on('plugin:enable', async (_event, id: string) => {
+    await forceLoadRendererPlugin(id);
+    if (api) {
+      const plugin = getLoadedRendererPlugin(id);
+      if (plugin && typeof plugin.renderer !== 'function') {
+        await plugin.renderer?.onPlayerApiReady?.call(
+          plugin.renderer,
+          api,
+          createContext(id),
+        );
       }
-    },
-  );
+    }
+  });
 
   window.ipcRenderer.on(
     'config-changed',

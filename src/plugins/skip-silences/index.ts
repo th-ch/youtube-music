@@ -17,5 +17,5 @@ export default createPlugin({
   renderer: {
     start: onRendererLoad,
     stop: onRendererUnload,
-  }
+  },
 });

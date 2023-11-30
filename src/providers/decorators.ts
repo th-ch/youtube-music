@@ -11,7 +11,10 @@ export function singleton<T extends (...params: never[]) => unknown>(fn: T): T {
   }) as T;
 }
 
-export function debounce<T extends (...params: never[]) => unknown>(fn: T, delay: number): T {
+export function debounce<T extends (...params: never[]) => unknown>(
+  fn: T,
+  delay: number,
+): T {
   let timeout: NodeJS.Timeout;
   return ((...args) => {
     clearTimeout(timeout);
@@ -19,13 +22,15 @@ export function debounce<T extends (...params: never[]) => unknown>(fn: T, delay
   }) as T;
 }
 
-export function cache<T extends (...params: P) => R, P extends never[], R>(fn: T): T {
+export function cache<T extends (...params: P) => R, P extends never[], R>(
+  fn: T,
+): T {
   let lastArgs: P;
   let lastResult: R;
   return ((...args: P) => {
     if (
-      args.length !== lastArgs?.length
-      || args.some((arg, i) => arg !== lastArgs[i])
+      args.length !== lastArgs?.length ||
+      args.some((arg, i) => arg !== lastArgs[i])
     ) {
       lastArgs = args;
       lastResult = fn(...args);
@@ -39,7 +44,10 @@ export function cache<T extends (...params: P) => R, P extends never[], R>(fn: T
   The following are currently unused, but potentially useful in the future
 */
 
-export function throttle<T extends (...params: unknown[]) => unknown>(fn: T, delay: number): T {
+export function throttle<T extends (...params: unknown[]) => unknown>(
+  fn: T,
+  delay: number,
+): T {
   let timeout: NodeJS.Timeout | undefined;
   return ((...args) => {
     if (timeout) {
@@ -66,7 +74,10 @@ function memoize<T extends (...params: unknown[]) => unknown>(fn: T): T {
   }) as T;
 }
 
-function retry<T extends (...params: unknown[]) => unknown>(fn: T, { retries = 3, delay = 1000 } = {}): T {
+function retry<T extends (...params: unknown[]) => unknown>(
+  fn: T,
+  { retries = 3, delay = 1000 } = {},
+): T {
   return ((...args) => {
     try {
       return fn(...args);

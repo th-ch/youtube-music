@@ -42,11 +42,11 @@ export const songInfo: SongInfo = {
 // Grab the native image using the src
 export const getImage = cache(
   async (src: string): Promise<Electron.NativeImage> => {
-
     const result = await net.fetch(src);
     const buffer = await result.arrayBuffer();
     const output = nativeImage.createFromBuffer(Buffer.from(buffer));
-    if (output.isEmpty() && !src.endsWith('.jpg') && src.includes('.jpg')) { // Fix hidden webp files (https://github.com/th-ch/youtube-music/issues/315)
+    if (output.isEmpty() && !src.endsWith('.jpg') && src.includes('.jpg')) {
+      // Fix hidden webp files (https://github.com/th-ch/youtube-music/issues/315)
       return getImage(src.slice(0, src.lastIndexOf('.jpg') + 4));
     }
 
@@ -54,7 +54,10 @@ export const getImage = cache(
   },
 );
 
-const handleData = async (data: GetPlayerResponse, win: Electron.BrowserWindow) => {
+const handleData = async (
+  data: GetPlayerResponse,
+  win: Electron.BrowserWindow,
+) => {
   if (!data) {
     return;
   }
@@ -63,7 +66,8 @@ const handleData = async (data: GetPlayerResponse, win: Electron.BrowserWindow) 
   if (microformat) {
     songInfo.uploadDate = microformat.uploadDate;
     songInfo.url = microformat.urlCanonical?.split('&')[0];
-    songInfo.playlistId = new URL(microformat.urlCanonical).searchParams.get('list') ?? '';
+    songInfo.playlistId =
+      new URL(microformat.urlCanonical).searchParams.get('list') ?? '';
     // Used for options.resumeOnStart
     config.set('url', microformat.urlCanonical);
   }
@@ -108,17 +112,26 @@ const registerProvider = (win: BrowserWindow) => {
       c(songInfo, 'video-src-changed');
     }
   });
-  ipcMain.on('playPaused', (_, { isPaused, elapsedSeconds }: { isPaused: boolean, elapsedSeconds: number }) => {
-    songInfo.isPaused = isPaused;
-    songInfo.elapsedSeconds = elapsedSeconds;
-    if (handlingData) {
-      return;
-    }
+  ipcMain.on(
+    'playPaused',
+    (
+      _,
+      {
+        isPaused,
+        elapsedSeconds,
+      }: { isPaused: boolean; elapsedSeconds: number },
+    ) => {
+      songInfo.isPaused = isPaused;
+      songInfo.elapsedSeconds = elapsedSeconds;
+      if (handlingData) {
+        return;
+      }
 
-    for (const c of callbacks) {
-      c(songInfo, 'playPaused');
-    }
-  });
+      for (const c of callbacks) {
+        c(songInfo, 'playPaused');
+      }
+    },
+  );
 };
 
 const suffixesToRemove = [
@@ -133,7 +146,10 @@ export function cleanupName(name: string): string {
     return name;
   }
 
-  name = name.replace(/\((?:official)? ?(?:music)? ?(?:lyrics?)? ?(?:video)?\)$/i, '');
+  name = name.replace(
+    /\((?:official)? ?(?:music)? ?(?:lyrics?)? ?(?:video)?\)$/i,
+    '',
+  );
   const lowCaseName = name.toLowerCase();
   for (const suffix of suffixesToRemove) {
     if (lowCaseName.endsWith(suffix)) {

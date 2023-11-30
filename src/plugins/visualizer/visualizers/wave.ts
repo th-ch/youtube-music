@@ -3,6 +3,7 @@ import { Wave } from '@foobar404/wave';
 import { Visualizer } from './visualizer';
 
 import type { VisualizerPluginConfig } from '../index';
+
 class WaveVisualizer extends Visualizer<Wave> {
   name = 'wave';
 
@@ -32,7 +33,10 @@ class WaveVisualizer extends Visualizer<Wave> {
       canvas,
     );
     for (const animation of options.wave.animations) {
-      const TargetVisualizer = this.visualizer.animations[animation.type as keyof typeof this.visualizer.animations];
+      const TargetVisualizer =
+        this.visualizer.animations[
+          animation.type as keyof typeof this.visualizer.animations
+        ];
 
       this.visualizer.addAnimation(
         new TargetVisualizer(animation.config as never), // Magic of Typescript
@@ -40,11 +44,9 @@ class WaveVisualizer extends Visualizer<Wave> {
     }
   }
 
-  resize(_: number, __: number) {
-  }
+  resize(_: number, __: number) {}
 
-  render() {
-  }
+  render() {}
 }
 
 export default WaveVisualizer;

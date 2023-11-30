@@ -73,8 +73,7 @@ export const inject = () => {
       }
 
       case 'noopFunc': {
-        cValue = function () {
-        };
+        cValue = function () {};
 
         break;
       }
@@ -103,7 +102,7 @@ export const inject = () => {
             return;
           }
 
-          if (Math.abs(cValue) > 0x7F_FF) {
+          if (Math.abs(cValue) > 0x7f_ff) {
             return;
           }
         } else {
@@ -119,12 +118,12 @@ export const inject = () => {
         return true;
       }
 
-      aborted
-        = v !== undefined
-        && v !== null
-        && cValue !== undefined
-        && cValue !== null
-        && typeof v !== typeof cValue;
+      aborted =
+        v !== undefined &&
+        v !== null &&
+        cValue !== undefined &&
+        cValue !== null &&
+        typeof v !== typeof cValue;
       return aborted;
     };
 
@@ -272,8 +271,7 @@ export const inject = () => {
       }
 
       case 'noopFunc': {
-        cValue = function () {
-        };
+        cValue = function () {};
 
         break;
       }
@@ -302,7 +300,7 @@ export const inject = () => {
             return;
           }
 
-          if (Math.abs(cValue) > 0x7F_FF) {
+          if (Math.abs(cValue) > 0x7f_ff) {
             return;
           }
         } else {
@@ -318,12 +316,12 @@ export const inject = () => {
         return true;
       }
 
-      aborted
-        = v !== undefined
-        && v !== null
-        && cValue !== undefined
-        && cValue !== null
-        && typeof v !== typeof cValue;
+      aborted =
+        v !== undefined &&
+        v !== null &&
+        cValue !== undefined &&
+        cValue !== null &&
+        typeof v !== typeof cValue;
       return aborted;
     };
 

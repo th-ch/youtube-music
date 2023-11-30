@@ -165,7 +165,10 @@ const initHook = (win: BrowserWindow) => {
         const mainPlugin = getAllLoadedMainPlugins()[id];
         if (mainPlugin) {
           if (config.enabled && typeof mainPlugin.backend !== 'function') {
-            mainPlugin.backend?.onConfigChange?.call(mainPlugin.backend, config);
+            mainPlugin.backend?.onConfigChange?.call(
+              mainPlugin.backend,
+              config,
+            );
           }
         }
 
@@ -282,7 +285,6 @@ async function createMainWindow() {
 
   await loadAllMainPlugins(win);
 
-
   if (windowPosition) {
     const { x: windowX, y: windowY } = windowPosition;
     const winSize = win.getSize();
@@ -316,7 +318,6 @@ async function createMainWindow() {
       win.setPosition(scaledX, scaledY);
     }
   }
-
 
   if (windowMaximized) {
     win.maximize();

@@ -21,14 +21,17 @@ function setupMPRIS() {
 
 function registerMPRIS(win: BrowserWindow) {
   const songControls = getSongControls(win);
-  const { playPause, next, previous, volumeMinus10, volumePlus10, shuffle } = songControls;
+  const { playPause, next, previous, volumeMinus10, volumePlus10, shuffle } =
+    songControls;
   try {
     // TODO: "Typing" for this arguments
     const secToMicro = (n: unknown) => Math.round(Number(n) * 1e6);
     const microToSec = (n: unknown) => Math.round(Number(n) / 1e6);
 
-    const seekTo = (e: { position: unknown }) => win.webContents.send('seekTo', microToSec(e.position));
-    const seekBy = (o: unknown) => win.webContents.send('seekBy', microToSec(o));
+    const seekTo = (e: { position: unknown }) =>
+      win.webContents.send('seekTo', microToSec(e.position));
+    const seekBy = (o: unknown) =>
+      win.webContents.send('seekBy', microToSec(o));
 
     const player = setupMPRIS();
 
@@ -42,7 +45,7 @@ function registerMPRIS(win: BrowserWindow) {
     ipcMain.on('seeked', (_, t: number) => player.seeked(secToMicro(t)));
 
     let currentSeconds = 0;
-    ipcMain.on('timeChanged', (_, t: number) => currentSeconds = t);
+    ipcMain.on('timeChanged', (_, t: number) => (currentSeconds = t));
 
     ipcMain.on('repeatChanged', (_, mode: string) => {
       switch (mode) {
@@ -63,7 +66,11 @@ function registerMPRIS(win: BrowserWindow) {
     });
     player.on('loopStatus', (status: string) => {
       // SwitchRepeat cycles between states in that order
-      const switches = [mpris.LOOP_STATUS_NONE, mpris.LOOP_STATUS_PLAYLIST, mpris.LOOP_STATUS_TRACK];
+      const switches = [
+        mpris.LOOP_STATUS_NONE,
+        mpris.LOOP_STATUS_PLAYLIST,
+        mpris.LOOP_STATUS_TRACK,
+      ];
       const currentIndex = switches.indexOf(player.loopStatus);
       const targetIndex = switches.indexOf(status);
 
@@ -91,7 +98,10 @@ function registerMPRIS(win: BrowserWindow) {
       }
     });
     player.on('playpause', () => {
-      player.playbackStatus = player.playbackStatus === mpris.PLAYBACK_STATUS_PLAYING ? mpris.PLAYBACK_STATUS_PAUSED : mpris.PLAYBACK_STATUS_PLAYING;
+      player.playbackStatus =
+        player.playbackStatus === mpris.PLAYBACK_STATUS_PLAYING
+          ? mpris.PLAYBACK_STATUS_PAUSED
+          : mpris.PLAYBACK_STATUS_PLAYING;
       playPause();
     });
 
@@ -106,7 +116,9 @@ function registerMPRIS(win: BrowserWindow) {
         shuffle();
       }
     });
-    player.on('open', (args: { uri: string }) => { win.loadURL(args.uri); });
+    player.on('open', (args: { uri: string }) => {
+      win.loadURL(args.uri);
+    });
 
     let mprisVolNewer = false;
     let autoUpdate = false;
@@ -166,7 +178,9 @@ function registerMPRIS(win: BrowserWindow) {
 
         player.metadata = data;
         player.seeked(secToMicro(songInfo.elapsedSeconds));
-        player.playbackStatus = songInfo.isPaused ? mpris.PLAYBACK_STATUS_PAUSED : mpris.PLAYBACK_STATUS_PLAYING;
+        player.playbackStatus = songInfo.isPaused
+          ? mpris.PLAYBACK_STATUS_PAUSED
+          : mpris.PLAYBACK_STATUS_PLAYING;
       }
     });
   } catch (error) {

@@ -11,7 +11,10 @@ import type { BrowserWindow, MenuItemConstructorOptions } from 'electron';
 import type { PluginConfig } from '@/types/plugins';
 
 const menuTemplateMap: Record<string, MenuItemConstructorOptions[]> = {};
-const createContext = (id: string, win: BrowserWindow): MenuContext<PluginConfig> => ({
+const createContext = (
+  id: string,
+  win: BrowserWindow,
+): MenuContext<PluginConfig> => ({
   getConfig: () =>
     deepmerge(
       allPlugins[id].config ?? { enabled: false },
@@ -43,8 +46,7 @@ export const forceLoadMenuPlugin = async (id: string, win: BrowserWindow) => {
       } else {
         return;
       }
-    }
-    else return;
+    } else return;
 
     console.log(LoggerPrefix, `Successfully loaded '${id}::menu'`);
   } catch (err) {
@@ -57,7 +59,10 @@ export const loadAllMenuPlugins = async (win: BrowserWindow) => {
   const pluginConfigs = config.plugins.getPlugins();
 
   for (const [pluginId, pluginDef] of Object.entries(allPlugins)) {
-    const config = deepmerge(pluginDef.config ?? { enabled: false }, pluginConfigs[pluginId] ?? {});
+    const config = deepmerge(
+      pluginDef.config ?? { enabled: false },
+      pluginConfigs[pluginId] ?? {},
+    );
 
     if (config.enabled) {
       await forceLoadMenuPlugin(pluginId, win);

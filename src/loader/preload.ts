@@ -8,7 +8,10 @@ import config from '@/config';
 import type { PreloadContext } from '@/types/contexts';
 import type { PluginConfig, PluginDef } from '@/types/plugins';
 
-const loadedPluginMap: Record<string, PluginDef<unknown, unknown, unknown>> = {};
+const loadedPluginMap: Record<
+  string,
+  PluginDef<unknown, unknown, unknown>
+> = {};
 const createContext = (id: string): PreloadContext<PluginConfig> => ({
   getConfig: () =>
     deepmerge(
@@ -27,13 +30,7 @@ export const forceUnloadPreloadPlugin = async (id: string) => {
     ctx: 'preload',
     context: createContext(id),
   });
-  if (
-    hasStopped ||
-    (
-      hasStopped === null &&
-      loadedPluginMap[id].preload
-    )
-  ) {
+  if (hasStopped || (hasStopped === null && loadedPluginMap[id].preload)) {
     console.log(LoggerPrefix, `"${id}" plugin is unloaded`);
     delete loadedPluginMap[id];
   } else {
@@ -53,20 +50,16 @@ export const forceLoadPreloadPlugin = async (id: string) => {
 
     if (
       hasStarted ||
-      (
-        hasStarted === null &&
-        typeof plugin.preload !== 'function' && plugin.preload
-      )
+      (hasStarted === null &&
+        typeof plugin.preload !== 'function' &&
+        plugin.preload)
     ) {
       loadedPluginMap[id] = plugin;
     }
 
     console.log(LoggerPrefix, `"${id}" plugin is loaded`);
   } catch (err) {
-    console.error(
-      LoggerPrefix,
-      `Cannot initialize "${id}" plugin: `,
-    );
+    console.error(LoggerPrefix, `Cannot initialize "${id}" plugin: `);
     console.trace(err);
   }
 };
@@ -75,7 +68,10 @@ export const loadAllPreloadPlugins = () => {
   const pluginConfigs = config.plugins.getPlugins();
 
   for (const [pluginId, pluginDef] of Object.entries(preloadPlugins)) {
-    const config = deepmerge(pluginDef.config ?? { enable: false }, pluginConfigs[pluginId] ?? {});
+    const config = deepmerge(
+      pluginDef.config ?? { enable: false },
+      pluginConfigs[pluginId] ?? {},
+    );
 
     if (config.enabled) {
       forceLoadPreloadPlugin(pluginId);
@@ -93,7 +89,9 @@ export const unloadAllPreloadPlugins = async () => {
   }
 };
 
-export const getLoadedPreloadPlugin = (id: string): PluginDef<unknown, unknown, unknown> | undefined => {
+export const getLoadedPreloadPlugin = (
+  id: string,
+): PluginDef<unknown, unknown, unknown> | undefined => {
   return loadedPluginMap[id];
 };
 

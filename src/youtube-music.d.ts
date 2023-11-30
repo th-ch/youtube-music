@@ -34,4 +34,3 @@ declare module '*.css?inline' {
 
   export default css;
 }
-

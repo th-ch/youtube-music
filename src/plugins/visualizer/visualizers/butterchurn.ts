@@ -30,14 +30,10 @@ class ButterchurnVisualizer extends Visualizer<Butterchurn> {
       options,
     );
 
-    this.visualizer = Butterchurn.createVisualizer(
-      audioContext,
-      canvas,
-      {
-        width: canvas.width,
-        height: canvas.height,
-      }
-    );
+    this.visualizer = Butterchurn.createVisualizer(audioContext, canvas, {
+      width: canvas.width,
+      height: canvas.height,
+    });
 
     const preset = ButterchurnPresets[options.butterchurn.preset];
     this.visualizer.loadPreset(preset, options.butterchurn.blendTimeInSeconds);

@@ -3,7 +3,6 @@ declare module '@jellybrick/mpris-service' {
 
   import { interface as dbusInterface } from 'dbus-next';
 
-
   interface RootInterfaceOptions {
     identity: string;
     supportedUriSchemes: string[];
@@ -105,14 +104,11 @@ declare module '@jellybrick/mpris-service' {
     setProperty(property: string, valuePlain: unknown): void;
   }
 
-  interface RootInterface {
-  }
+  interface RootInterface {}
 
-  interface PlayerInterface {
-  }
+  interface PlayerInterface {}
 
   interface TracklistInterface {
-
     TrackListReplaced(tracks: Track[]): void;
 
     TrackAdded(afterTrack: string): void;
@@ -121,7 +117,6 @@ declare module '@jellybrick/mpris-service' {
   }
 
   interface PlaylistsInterface {
-
     PlaylistChanged(playlist: unknown[]): void;
 
     setActivePlaylistId(playlistId: string): void;

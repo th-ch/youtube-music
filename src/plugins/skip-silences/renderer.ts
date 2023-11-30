@@ -67,16 +67,15 @@ const audioCanPlayListener = (e: CustomEvent<Compressor>) => {
           history += element;
         }
 
-        if (history == 0 // Silent
-
-          && !(
-            video && (
-              video.paused
-              || video.seeking
-              || video.ended
-              || video.muted
-              || video.volume === 0
-            )
+        if (
+          history == 0 && // Silent
+          !(
+            video &&
+            (video.paused ||
+              video.seeking ||
+              video.ended ||
+              video.muted ||
+              video.volume === 0)
           )
         ) {
           isSilent = true;
@@ -112,23 +111,18 @@ const audioCanPlayListener = (e: CustomEvent<Compressor>) => {
   video?.addEventListener('seeked', playOrSeekHandler);
 };
 
-export const onRendererLoad = async ({ getConfig }: RendererContext<SkipSilencesPluginConfig>) => {
+export const onRendererLoad = async ({
+  getConfig,
+}: RendererContext<SkipSilencesPluginConfig>) => {
   config = await getConfig();
 
-  document.addEventListener(
-    'audioCanPlay',
-    audioCanPlayListener,
-    {
-      passive: true,
-    },
-  );
+  document.addEventListener('audioCanPlay', audioCanPlayListener, {
+    passive: true,
+  });
 };
 
 export const onRendererUnload = () => {
-  document.removeEventListener(
-    'audioCanPlay',
-    audioCanPlayListener,
-  );
+  document.removeEventListener('audioCanPlay', audioCanPlayListener);
 
   if (playOrSeekHandler) {
     const video = document.querySelector('video');

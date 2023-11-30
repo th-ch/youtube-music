@@ -51,14 +51,16 @@ const observer = new MutationObserver(() => {
 
   if (
     menu.contains(pipButton) ||
-    !(menu.parentElement as (HTMLElement & { eventSink_: Element }) | null)
-    ?.eventSink_
-    ?.matches('ytmusic-menu-renderer.ytmusic-player-bar')
+    !(
+      menu.parentElement as (HTMLElement & { eventSink_: Element }) | null
+    )?.eventSink_?.matches('ytmusic-menu-renderer.ytmusic-player-bar')
   ) {
     return;
   }
 
-  const menuUrl = $<HTMLAnchorElement>('tp-yt-paper-listbox [tabindex="0"] #navigation-endpoint')?.href;
+  const menuUrl = $<HTMLAnchorElement>(
+    'tp-yt-paper-listbox [tabindex="0"] #navigation-endpoint',
+  )?.href;
   if (!menuUrl?.includes('watch?')) {
     return;
   }
@@ -79,8 +81,7 @@ const togglePictureInPicture = async () => {
       await togglePiP();
       $<HTMLButtonElement>('#icon')?.click(); // Close the menu
       return true;
-    } catch {
-    }
+    } catch {}
   }
 
   window.ipcRenderer.send('picture-in-picture');
@@ -94,10 +95,16 @@ const listenForToggle = () => {
   const appLayout = $<HTMLElement>('ytmusic-app-layout');
   const expandMenu = $<HTMLElement>('#expanding-menu');
   const middleControls = $<HTMLButtonElement>('.middle-controls');
-  const playerPage = $<HTMLElement & { playerPageOpen_: boolean }>('ytmusic-player-page');
-  const togglePlayerPageButton = $<HTMLButtonElement>('.toggle-player-page-button');
+  const playerPage = $<HTMLElement & { playerPageOpen_: boolean }>(
+    'ytmusic-player-page',
+  );
+  const togglePlayerPageButton = $<HTMLButtonElement>(
+    '.toggle-player-page-button',
+  );
   const fullScreenButton = $<HTMLButtonElement>('.fullscreen-button');
-  const player = $<HTMLVideoElement & { onDoubleClick_: (() => void) | undefined }>('#player');
+  const player = $<
+    HTMLVideoElement & { onDoubleClick_: (() => void) | undefined }
+  >('#player');
   const onPlayerDblClick = player?.onDoubleClick_;
   const mouseLeaveEventListener = () => middleControls?.click();
 
@@ -106,9 +113,11 @@ const listenForToggle = () => {
   window.ipcRenderer.on('pip-toggle', (_, isPip: boolean) => {
     if (originalExitButton && player) {
       if (isPip) {
-        replaceButton('.exit-fullscreen-button', originalExitButton)?.addEventListener('click', () => togglePictureInPicture());
-        player.onDoubleClick_ = () => {
-        };
+        replaceButton(
+          '.exit-fullscreen-button',
+          originalExitButton,
+        )?.addEventListener('click', () => togglePictureInPicture());
+        player.onDoubleClick_ = () => {};
 
         expandMenu?.addEventListener('mouseleave', mouseLeaveEventListener);
         if (!playerPage?.playerPageOpen_) {
@@ -134,7 +143,9 @@ const listenForToggle = () => {
   });
 };
 
-export const onRendererLoad = async ({ getConfig }: RendererContext<PictureInPicturePluginConfig>) => {
+export const onRendererLoad = async ({
+  getConfig,
+}: RendererContext<PictureInPicturePluginConfig>) => {
   const config = await getConfig();
 
   useNativePiP = config.useNativePiP;
@@ -143,8 +154,8 @@ export const onRendererLoad = async ({ getConfig }: RendererContext<PictureInPic
     const hotkeyEvent = toKeyEvent(config.hotkey);
     window.addEventListener('keydown', (event) => {
       if (
-        keyEventAreEqual(event, hotkeyEvent)
-        && !$<HTMLElement & { opened: boolean }>('ytmusic-search-box')?.opened
+        keyEventAreEqual(event, hotkeyEvent) &&
+        !$<HTMLElement & { opened: boolean }>('ytmusic-search-box')?.opened
       ) {
         togglePictureInPicture();
       }
@@ -155,17 +166,21 @@ export const onRendererLoad = async ({ getConfig }: RendererContext<PictureInPic
 export const onPlayerApiReady = () => {
   listenForToggle();
 
-  cloneButton('.player-minimize-button')?.addEventListener('click', async () => {
-    await togglePictureInPicture();
-    setTimeout(() => $<HTMLButtonElement>('#player')?.click());
-  });
+  cloneButton('.player-minimize-button')?.addEventListener(
+    'click',
+    async () => {
+      await togglePictureInPicture();
+      setTimeout(() => $<HTMLButtonElement>('#player')?.click());
+    },
+  );
 
   // Allows easily closing the menu by programmatically clicking outside of it
   $('#expanding-menu')?.removeAttribute('no-cancel-on-outside-click');
   // TODO: think about wether an additional button in songMenu is needed
   const popupContainer = $('ytmusic-popup-container');
-  if (popupContainer) observer.observe(popupContainer, {
-    childList: true,
-    subtree: true,
-  });
+  if (popupContainer)
+    observer.observe(popupContainer, {
+      childList: true,
+      subtree: true,
+    });
 };

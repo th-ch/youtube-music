@@ -19,7 +19,7 @@ interface Data {
 
 export default createPlugin({
   name: 'Tuna OBS',
-  description: 'Integration with OBS\'s plugin Tuna',
+  description: "Integration with OBS's plugin Tuna",
   restartNeeded: true,
   config: {
     enabled: false,
@@ -48,18 +48,26 @@ export default createPlugin({
           'Access-Control-Allow-Origin': '*',
         };
         const url = `http://127.0.0.1:${port}/`;
-        net.fetch(url, {
-          method: 'POST',
-          headers,
-          body: JSON.stringify({ data }),
-        }).catch((error: { code: number, errno: number }) => {
-          if (is.dev()) {
-            console.debug(`Error: '${error.code || error.errno}' - when trying to access obs-tuna webserver at port ${port}`);
-          }
-        });
+        net
+          .fetch(url, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({ data }),
+          })
+          .catch((error: { code: number; errno: number }) => {
+            if (is.dev()) {
+              console.debug(
+                `Error: '${
+                  error.code || error.errno
+                }' - when trying to access obs-tuna webserver at port ${port}`,
+              );
+            }
+          });
       };
 
-      ipc.on('ytmd:player-api-loaded', () => ipc.send('setupTimeChangedListener'));
+      ipc.on('ytmd:player-api-loaded', () =>
+        ipc.send('setupTimeChangedListener'),
+      );
       ipc.on('timeChanged', (t: number) => {
         if (!this.data.title) {
           return;
@@ -85,6 +93,6 @@ export default createPlugin({
         this.data.album = songInfo.album;
         post(this.data);
       });
-    }
-  }
+    },
+  },
 });

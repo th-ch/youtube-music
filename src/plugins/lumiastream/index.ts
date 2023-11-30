@@ -9,18 +9,18 @@ type LumiaData = {
   url?: string;
   videoId?: string;
   playlistId?: string;
-  cover?: string|null;
-  cover_url?: string|null;
+  cover?: string | null;
+  cover_url?: string | null;
   title?: string;
   artists?: string[];
   status?: string;
   progress?: number;
   duration?: number;
-  album_url?: string|null;
-  album?: string|null;
+  album_url?: string | null;
+  album?: string | null;
   views?: number;
   isPaused?: boolean;
-}
+};
 
 export default createPlugin({
   name: 'Lumia Stream [beta]',
@@ -30,7 +30,8 @@ export default createPlugin({
     enabled: false,
   },
   backend() {
-    const secToMilisec = (t?: number) => t ? Math.round(Number(t) * 1e3) : undefined;
+    const secToMilisec = (t?: number) =>
+      t ? Math.round(Number(t) * 1e3) : undefined;
     const previousStatePaused = null;
 
     const data: LumiaData = {
@@ -48,12 +49,17 @@ export default createPlugin({
       } as const;
       const url = `http://127.0.0.1:${port}/api/media`;
 
-      net.fetch(url, { method: 'POST', body: JSON.stringify({ token: 'lsmedia_ytmsI7812', data }), headers })
-        .catch((error: { code: number, errno: number }) => {
+      net
+        .fetch(url, {
+          method: 'POST',
+          body: JSON.stringify({ token: 'lsmedia_ytmsI7812', data }),
+          headers,
+        })
+        .catch((error: { code: number; errno: number }) => {
           console.log(
             `Error: '${
               error.code || error.errno
-            }' - when trying to access lumiastream webserver at port ${port}`
+            }' - when trying to access lumiastream webserver at port ${port}`,
           );
         });
     };
@@ -85,5 +91,5 @@ export default createPlugin({
       data.views = songInfo.views;
       post(data);
     });
-  }
+  },
 });

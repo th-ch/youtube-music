@@ -45,8 +45,7 @@ class VudioVisualizer extends Visualizer<Vudio> {
     });
   }
 
-  render() {
-  }
+  render() {}
 }
 
 export default VudioVisualizer;

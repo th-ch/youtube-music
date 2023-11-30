@@ -9,7 +9,7 @@ declare module 'vudio/umd/vudio' {
     fadeSide?: boolean;
   }
 
-  interface WaveformOptions extends NoneWaveformOptions{
+  interface WaveformOptions extends NoneWaveformOptions {
     horizontalAlign: 'left' | 'center' | 'right';
     verticalAlign: 'top' | 'middle' | 'bottom';
   }
@@ -19,11 +19,15 @@ declare module 'vudio/umd/vudio' {
     accuracy?: number;
     width?: number;
     height?: number;
-    waveform?: WaveformOptions
+    waveform?: WaveformOptions;
   }
 
   class Vudio {
-    constructor(audio: HTMLAudioElement | MediaStream, canvas: HTMLCanvasElement, options: VudioOptions = {});
+    constructor(
+      audio: HTMLAudioElement | MediaStream,
+      canvas: HTMLCanvasElement,
+      options: VudioOptions = {},
+    );
 
     dance(): void;
     pause(): void;

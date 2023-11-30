@@ -29,7 +29,8 @@ const updatePlayBackSpeed = () => {
 let menu: Element | null = null;
 
 const immediateValueChangedListener = (e: Event) => {
-  playbackSpeed = (e as CustomEvent<{ value: number; }>).detail.value || MIN_PLAYBACK_SPEED;
+  playbackSpeed =
+    (e as CustomEvent<{ value: number }>).detail.value || MIN_PLAYBACK_SPEED;
   if (isNaN(playbackSpeed)) {
     playbackSpeed = 1;
   }
@@ -38,7 +39,12 @@ const immediateValueChangedListener = (e: Event) => {
 };
 
 const setupSliderListener = singleton(() => {
-  document.querySelector('#playback-speed-slider')?.addEventListener('immediate-value-changed', immediateValueChangedListener);
+  document
+    .querySelector('#playback-speed-slider')
+    ?.addEventListener(
+      'immediate-value-changed',
+      immediateValueChangedListener,
+    );
 });
 
 const observePopupContainer = () => {
@@ -49,9 +55,10 @@ const observePopupContainer = () => {
 
     if (
       menu &&
-      (menu.parentElement as HTMLElement & { eventSink_: Element | null })
-        ?.eventSink_
-        ?.matches('ytmusic-menu-renderer.ytmusic-player-bar')&& !menu.contains(slider)
+      (
+        menu.parentElement as HTMLElement & { eventSink_: Element | null }
+      )?.eventSink_?.matches('ytmusic-menu-renderer.ytmusic-player-bar') &&
+      !menu.contains(slider)
     ) {
       menu.prepend(slider);
       setupSliderListener();
@@ -82,14 +89,17 @@ const wheelEventListener = (e: WheelEvent) => {
   }
 
   // E.deltaY < 0 means wheel-up
-  playbackSpeed = roundToTwo(e.deltaY < 0
-    ? Math.min(playbackSpeed + 0.01, MAX_PLAYBACK_SPEED)
-    : Math.max(playbackSpeed - 0.01, MIN_PLAYBACK_SPEED),
+  playbackSpeed = roundToTwo(
+    e.deltaY < 0
+      ? Math.min(playbackSpeed + 0.01, MAX_PLAYBACK_SPEED)
+      : Math.max(playbackSpeed - 0.01, MIN_PLAYBACK_SPEED),
   );
 
   updatePlayBackSpeed();
   // Update slider position
-  const playbackSpeedSilder = document.querySelector<HTMLElement & { value: number }>('#playback-speed-slider');
+  const playbackSpeedSilder = document.querySelector<
+    HTMLElement & { value: number }
+  >('#playback-speed-slider');
   if (playbackSpeedSilder) {
     playbackSpeedSilder.value = playbackSpeed;
   }
@@ -122,5 +132,10 @@ export const onUnload = () => {
   }
   slider.removeEventListener('wheel', wheelEventListener);
   getSongMenu()?.removeChild(slider);
-  document.querySelector('#playback-speed-slider')?.removeEventListener('immediate-value-changed', immediateValueChangedListener);
+  document
+    .querySelector('#playback-speed-slider')
+    ?.removeEventListener(
+      'immediate-value-changed',
+      immediateValueChangedListener,
+    );
 };

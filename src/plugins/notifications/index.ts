@@ -36,7 +36,8 @@ export const defaultConfig: NotificationsPluginConfig = {
 
 export default createPlugin({
   name: 'Notifications',
-  description: 'Display a notification when a song starts playing (interactive notifications are available on windows)',
+  description:
+    'Display a notification when a song starts playing (interactive notifications are available on windows)',
   restartNeeded: true,
   config: defaultConfig,
   menu: onMenu,

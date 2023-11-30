@@ -108,8 +108,7 @@ export interface Endpoint {
   watchEndpoint: WatchEndpoint;
 }
 
-export interface CommandMetadata {
-}
+export interface CommandMetadata {}
 
 export interface WatchEndpoint {
   videoId: string;
@@ -221,7 +220,7 @@ export interface PlayabilityStatus {
 }
 
 type ReplaceDefaultType = {
-  replaceDefault: boolean,
+  replaceDefault: boolean;
 };
 
 export interface TransportControlsConfig {

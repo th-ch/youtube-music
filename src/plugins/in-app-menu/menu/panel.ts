@@ -27,8 +27,12 @@ export const createPanel = (
       if (item.checked) iconWrapper.innerHTML = Icons.radio.checked;
       else iconWrapper.innerHTML = Icons.radio.unchecked;
     } else {
-      const iconURL = typeof item.icon === 'string' ?
-        await window.ipcRenderer.invoke('image-path-to-data-url') as string : item.icon?.toDataURL();
+      const iconURL =
+        typeof item.icon === 'string'
+          ? ((await window.ipcRenderer.invoke(
+              'image-path-to-data-url',
+            )) as string)
+          : item.icon?.toDataURL();
 
       if (iconURL) iconWrapper.style.background = `url(${iconURL})`;
     }
@@ -36,7 +40,8 @@ export const createPanel = (
 
   const radioGroups: [MenuItem, HTMLElement][] = [];
   items.map((item) => {
-    if (item.type === 'separator') return panel.appendChild(document.createElement('menu-separator'));
+    if (item.type === 'separator')
+      return panel.appendChild(document.createElement('menu-separator'));
 
     const menu = document.createElement('menu-item');
     const iconWrapper = document.createElement('menu-icon');
@@ -47,7 +52,10 @@ export const createPanel = (
 
     menu.addEventListener('click', async () => {
       await window.ipcRenderer.invoke('menu-event', item.commandId);
-      const menuItem = await window.ipcRenderer.invoke('get-menu-by-id', item.commandId) as MenuItem | null;
+      const menuItem = (await window.ipcRenderer.invoke(
+        'get-menu-by-id',
+        item.commandId,
+      )) as MenuItem | null;
 
       if (menuItem) {
         updateIconState(iconWrapper, menuItem);
@@ -56,10 +64,13 @@ export const createPanel = (
           await Promise.all(
             radioGroups.map(async ([item, iconWrapper]) => {
               if (item.commandId === menuItem.commandId) return;
-              const newItem = await window.ipcRenderer.invoke('get-menu-by-id', item.commandId) as MenuItem | null;
+              const newItem = (await window.ipcRenderer.invoke(
+                'get-menu-by-id',
+                item.commandId,
+              )) as MenuItem | null;
 
               if (newItem) updateIconState(iconWrapper, newItem);
-            })
+            }),
           );
         }
       }
@@ -74,10 +85,15 @@ export const createPanel = (
       subMenuIcon.appendChild(ElementFromHtml(Icons.submenu));
       menu.appendChild(subMenuIcon);
 
-      const [child, , children] = createPanel(parent, menu, item.submenu?.items ?? [], {
-        placement: 'right',
-        order: (options?.order ?? 0) + 1,
-      });
+      const [child, , children] = createPanel(
+        parent,
+        menu,
+        item.submenu?.items ?? [],
+        {
+          placement: 'right',
+          order: (options?.order ?? 0) + 1,
+        },
+      );
 
       childPanels.push(child);
       children.push(...children);
@@ -106,7 +122,10 @@ export const createPanel = (
     // long lists to squeeze their children at the bottom of the screen
     // (This needs to be done *after* setAttribute)
     panel.classList.remove('position-by-bottom');
-    if (options.placement === 'right' && panel.scrollHeight > panel.clientHeight ) {
+    if (
+      options.placement === 'right' &&
+      panel.scrollHeight > panel.clientHeight
+    ) {
       panel.style.setProperty('--y', `${rect.y + rect.height}px`);
       panel.classList.add('position-by-bottom');
     }
@@ -119,16 +138,17 @@ export const createPanel = (
 
   document.body.addEventListener('click', (event) => {
     const path = event.composedPath();
-    const isInside = path.some((it) => it === panel || it === anchor || childPanels.includes(it as HTMLElement));
+    const isInside = path.some(
+      (it) =>
+        it === panel ||
+        it === anchor ||
+        childPanels.includes(it as HTMLElement),
+    );
 
     if (!isInside) close();
   });
 
   parent.appendChild(panel);
 
-  return [
-    panel,
-    { isOpened, close, open },
-    childPanels,
-  ] as const;
+  return [panel, { isOpened, close, open }, childPanels] as const;
 };

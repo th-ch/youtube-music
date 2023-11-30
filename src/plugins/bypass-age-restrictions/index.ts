@@ -2,7 +2,7 @@ import { createPlugin } from '@/utils';
 
 export default createPlugin({
   name: 'Bypass Age Restrictions',
-  description: 'bypass YouTube\'s age verification',
+  description: "bypass YouTube's age verification",
   restartNeeded: true,
 
   // See https://github.com/zerodytrash/Simple-YouTube-Age-Restriction-Bypass#userscript

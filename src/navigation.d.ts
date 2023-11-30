@@ -62,7 +62,10 @@ interface Navigation extends EventTarget {
   onnavigateerror: ((this: Navigation, ev: Event) => any) | null;
   oncurrententrychange: ((this: Navigation, ev: Event) => any) | null;
 
-  addEventListener<K extends keyof NavigationEventsMap>(name: K, listener: (event: NavigationEventsMap[K]) => void);
+  addEventListener<K extends keyof NavigationEventsMap>(
+    name: K,
+    listener: (event: NavigationEventsMap[K]) => void,
+  );
 }
 
 declare class NavigateEvent extends Event {
@@ -84,5 +87,5 @@ type NavigationHistoryBehavior = 'auto' | 'push' | 'replace';
 
 declare const Navigation: {
   prototype: Navigation;
-  new(): Navigation;
+  new (): Navigation;
 };

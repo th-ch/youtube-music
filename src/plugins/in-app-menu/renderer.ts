@@ -12,9 +12,13 @@ import type { RendererContext } from '@/types/contexts';
 import type { InAppMenuConfig } from '@/plugins/in-app-menu/index';
 
 const isMacOS = navigator.userAgent.includes('Macintosh');
-const isNotWindowsOrMacOS = !navigator.userAgent.includes('Windows') && !isMacOS;
+const isNotWindowsOrMacOS =
+  !navigator.userAgent.includes('Windows') && !isMacOS;
 
-export const onRendererLoad = async ({ getConfig, ipc: { invoke, on } }: RendererContext<InAppMenuConfig>) => {
+export const onRendererLoad = async ({
+  getConfig,
+  ipc: { invoke, on },
+}: RendererContext<InAppMenuConfig>) => {
   const config = await getConfig();
 
   const hideDOMWindowControls = config.hideDOMWindowControls;
@@ -70,7 +74,6 @@ export const onRendererLoad = async ({ getConfig, ipc: { invoke, on } }: Rendere
   titleBar.appendChild(logo);
 
   const addWindowControls = async () => {
-
     // Create window control buttons
     const minimizeButton = document.createElement('button');
     minimizeButton.classList.add('window-control');
@@ -124,12 +127,20 @@ export const onRendererLoad = async ({ getConfig, ipc: { invoke, on } }: Rendere
   if (navBar) {
     const observer = new MutationObserver((mutations) => {
       mutations.forEach(() => {
-        titleBar.style.setProperty('--titlebar-background-color', navBar.style.backgroundColor);
-        document.querySelector('html')!.style.setProperty('--titlebar-background-color', navBar.style.backgroundColor);
+        titleBar.style.setProperty(
+          '--titlebar-background-color',
+          navBar.style.backgroundColor,
+        );
+        document
+          .querySelector('html')!
+          .style.setProperty(
+            '--titlebar-background-color',
+            navBar.style.backgroundColor,
+          );
       });
     });
 
-    observer.observe(navBar, { attributes : true, attributeFilter : ['style'] });
+    observer.observe(navBar, { attributes: true, attributeFilter: ['style'] });
   }
 
   const updateMenu = async () => {
@@ -139,12 +150,16 @@ export const onRendererLoad = async ({ getConfig, ipc: { invoke, on } }: Rendere
     });
     panelClosers = [];
 
-    const menu = await invoke('get-menu') as Menu | null;
+    const menu = (await invoke('get-menu')) as Menu | null;
     if (!menu) return;
 
     menu.items.forEach((menuItem) => {
       const menu = document.createElement('menu-button');
-      const [, { close: closer }] = createPanel(titleBar, menu, menuItem.submenu?.items ?? []);
+      const [, { close: closer }] = createPanel(
+        titleBar,
+        menu,
+        menuItem.submenu?.items ?? [],
+      );
       panelClosers.push(closer);
 
       menu.append(menuItem.label);
@@ -153,7 +168,8 @@ export const onRendererLoad = async ({ getConfig, ipc: { invoke, on } }: Rendere
         menu.style.visibility = 'hidden';
       }
     });
-    if (isNotWindowsOrMacOS && !hideDOMWindowControls) await addWindowControls();
+    if (isNotWindowsOrMacOS && !hideDOMWindowControls)
+      await addWindowControls();
   };
   await updateMenu();
 
@@ -164,13 +180,21 @@ export const onRendererLoad = async ({ getConfig, ipc: { invoke, on } }: Rendere
   });
   on('refresh-in-app-menu', () => updateMenu());
   on('window-maximize', () => {
-    if (isNotWindowsOrMacOS && !hideDOMWindowControls && maximizeButton.firstChild) {
+    if (
+      isNotWindowsOrMacOS &&
+      !hideDOMWindowControls &&
+      maximizeButton.firstChild
+    ) {
       maximizeButton.removeChild(maximizeButton.firstChild);
       maximizeButton.appendChild(unmaximize);
     }
   });
   on('window-unmaximize', () => {
-    if (isNotWindowsOrMacOS && !hideDOMWindowControls && maximizeButton.firstChild) {
+    if (
+      isNotWindowsOrMacOS &&
+      !hideDOMWindowControls &&
+      maximizeButton.firstChild
+    ) {
       maximizeButton.removeChild(maximizeButton.firstChild);
       maximizeButton.appendChild(unmaximize);
     }
@@ -187,6 +211,9 @@ export const onPlayerApiReady = () => {
   const htmlHeadStyle = document.querySelector('head > div > style');
   if (htmlHeadStyle) {
     // HACK: This is a hack to remove the scrollbar width
-    htmlHeadStyle.innerHTML = htmlHeadStyle.innerHTML.replace('html::-webkit-scrollbar {width: var(--ytmusic-scrollbar-width);', 'html::-webkit-scrollbar {');
+    htmlHeadStyle.innerHTML = htmlHeadStyle.innerHTML.replace(
+      'html::-webkit-scrollbar {width: var(--ytmusic-scrollbar-width);',
+      'html::-webkit-scrollbar {',
+    );
   }
 };

@@ -25,7 +25,8 @@ const defaultConfig: AmbientModePluginConfig = {
 
 export default createPlugin({
   name: 'Ambient Mode',
-  description: 'Applies a lighting effect by casting gentle colors from the video, into your screen’s background.',
+  description:
+    'Applies a lighting effect by casting gentle colors from the video, into your screen’s background.',
   restartNeeded: false,
   config: defaultConfig,
   stylesheets: [style],
@@ -133,7 +134,9 @@ export default createPlugin({
     start() {
       const injectBlurVideo = (): (() => void) | null => {
         const songVideo = document.querySelector<HTMLDivElement>('#song-video');
-        const video = document.querySelector<HTMLVideoElement>('#song-video .html5-video-container > video');
+        const video = document.querySelector<HTMLVideoElement>(
+          '#song-video .html5-video-container > video',
+        );
         const wrapper = document.querySelector('#song-video > .player-wrapper');
 
         if (!songVideo) return null;
@@ -143,27 +146,34 @@ export default createPlugin({
         const blurCanvas = document.createElement('canvas');
         blurCanvas.classList.add('html5-blur-canvas');
 
-        const context = blurCanvas.getContext('2d', { willReadFrequently: true });
+        const context = blurCanvas.getContext('2d', {
+          willReadFrequently: true,
+        });
 
         /* effect */
         let lastEffectWorkId: number | null = null;
         let lastImageData: ImageData | null = null;
 
         const onSync = () => {
-          if (typeof lastEffectWorkId === 'number') cancelAnimationFrame(lastEffectWorkId);
+          if (typeof lastEffectWorkId === 'number')
+            cancelAnimationFrame(lastEffectWorkId);
 
           lastEffectWorkId = requestAnimationFrame(() => {
             // console.log('context', context);
             if (!context) return;
 
             const width = this.qualityRatio;
-            let height = Math.max(Math.floor(blurCanvas.height / blurCanvas.width * width), 1);
+            let height = Math.max(
+              Math.floor((blurCanvas.height / blurCanvas.width) * width),
+              1,
+            );
             if (!Number.isFinite(height)) height = width;
             if (!height) return;
 
             context.globalAlpha = 1;
             if (lastImageData) {
-              const frameOffset = (1 / this.buffer) * (1000 / this.interpolationTime);
+              const frameOffset =
+                (1 / this.buffer) * (1000 / this.interpolationTime);
               context.globalAlpha = 1 - (frameOffset * 2); // because of alpha value must be < 1
               context.putImageData(lastImageData, 0, 0);
               context.globalAlpha = frameOffset;
@@ -185,15 +195,17 @@ export default createPlugin({
           if (newWidth === 0 || newHeight === 0) return;
 
           blurCanvas.width = this.qualityRatio;
-          blurCanvas.height = Math.floor(newHeight / newWidth * this.qualityRatio);
+          blurCanvas.height = Math.floor(
+            (newHeight / newWidth) * this.qualityRatio,
+          );
           blurCanvas.style.width = `${newWidth * this.sizeRatio}px`;
           blurCanvas.style.height = `${newHeight * this.sizeRatio}px`;
 
           if (this.isFullscreen) blurCanvas.classList.add('fullscreen');
           else blurCanvas.classList.remove('fullscreen');
 
-          const leftOffset = newWidth * (this.sizeRatio - 1) / 2;
-          const topOffset = newHeight * (this.sizeRatio - 1) / 2;
+          const leftOffset = (newWidth * (this.sizeRatio - 1)) / 2;
+          const topOffset = (newHeight * (this.sizeRatio - 1)) / 2;
           blurCanvas.style.setProperty('--left', `${-1 * leftOffset}px`);
           blurCanvas.style.setProperty('--top', `${-1 * topOffset}px`);
           blurCanvas.style.setProperty('--blur', `${this.blur}px`);
@@ -214,7 +226,10 @@ export default createPlugin({
 
         /* hooking */
         let canvasInterval: NodeJS.Timeout | null = null;
-        canvasInterval = setInterval(onSync, Math.max(1, Math.ceil(1000 / this.buffer)));
+        canvasInterval = setInterval(
+          onSync,
+          Math.max(1, Math.ceil(1000 / this.buffer)),
+        );
         applyVideoAttributes();
         observer.observe(songVideo, { attributes: true });
         resizeObserver.observe(songVideo);
@@ -226,7 +241,10 @@ export default createPlugin({
         };
         const onPlay = () => {
           if (canvasInterval) clearInterval(canvasInterval);
-          canvasInterval = setInterval(onSync, Math.max(1, Math.ceil(1000 / this.buffer)));
+          canvasInterval = setInterval(
+            onSync,
+            Math.max(1, Math.ceil(1000 / this.buffer)),
+          );
         };
         songVideo.addEventListener('pause', onPause);
         songVideo.addEventListener('play', onPlay);
@@ -249,7 +267,6 @@ export default createPlugin({
         };
       };
 
-
       const playerPage = document.querySelector<HTMLElement>('#player-page');
       const ytmusicAppLayout = document.querySelector<HTMLElement>('#layout');
 
@@ -262,7 +279,8 @@ export default createPlugin({
       const observer = new MutationObserver((mutationsList) => {
         for (const mutation of mutationsList) {
           if (mutation.type === 'attributes') {
-            const isPageOpen = ytmusicAppLayout?.hasAttribute('player-page-open');
+            const isPageOpen =
+              ytmusicAppLayout?.hasAttribute('player-page-open');
             if (isPageOpen) {
               this.unregister?.();
               this.unregister = injectBlurVideo() ?? null;
@@ -293,6 +311,6 @@ export default createPlugin({
       this.observer?.disconnect();
       this.update = null;
       this.unregister?.();
-    }
-  }
+    },
+  },
 });

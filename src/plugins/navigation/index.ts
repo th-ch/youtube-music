@@ -7,7 +7,8 @@ import backHTML from './templates/back.html?raw';
 
 export default createPlugin({
   name: 'Navigation',
-  description: 'Next/Back navigation arrows directly integrated in the interface, like in your favorite browser',
+  description:
+    'Next/Back navigation arrows directly integrated in the interface, like in your favorite browser',
   restartNeeded: true,
   config: {
     enabled: true,

@@ -108,13 +108,19 @@ export default (
     }
 
     return `\
-            content="${config().toastStyle ? '' : kind.charAt(0).toUpperCase() + kind.slice(1)}"\
+            content="${
+              config().toastStyle
+                ? ''
+                : kind.charAt(0).toUpperCase() + kind.slice(1)
+            }"\
             imageUri="file:///${selectIcon(kind)}"
         `;
   };
 
   const getButton = (kind: keyof typeof mediaIcons) =>
-    `<action ${display(kind)} activationType="protocol" arguments="youtubemusic://${kind}"/>`;
+    `<action ${display(
+      kind,
+    )} activationType="protocol" arguments="youtubemusic://${kind}"/>`;
 
   const getButtons = (isPaused: boolean) => `\
     <actions>
@@ -136,19 +142,32 @@ export default (
     ${getButtons(isPaused)}
 </toast>`;
 
-  const xmlImage = ({ title, artist, isPaused }: SongInfo, imgSrc: string, placement: string) => toast(`\
+  const xmlImage = (
+    { title, artist, isPaused }: SongInfo,
+    imgSrc: string,
+    placement: string,
+  ) =>
+    toast(
+      `\
             <image id="1" src="${imgSrc}" name="Image" ${placement}/>
             <text id="1">${title}</text>
             <text id="2">${artist}</text>\
-`, isPaused ?? false);
+`,
+      isPaused ?? false,
+    );
 
-  const xmlLogo = (songInfo: SongInfo, imgSrc: string) => xmlImage(songInfo, imgSrc, 'placement="appLogoOverride"');
+  const xmlLogo = (songInfo: SongInfo, imgSrc: string) =>
+    xmlImage(songInfo, imgSrc, 'placement="appLogoOverride"');
 
-  const xmlHero = (songInfo: SongInfo, imgSrc: string) => xmlImage(songInfo, imgSrc, 'placement="hero"');
+  const xmlHero = (songInfo: SongInfo, imgSrc: string) =>
+    xmlImage(songInfo, imgSrc, 'placement="hero"');
 
-  const xmlBannerBottom = (songInfo: SongInfo, imgSrc: string) => xmlImage(songInfo, imgSrc, '');
+  const xmlBannerBottom = (songInfo: SongInfo, imgSrc: string) =>
+    xmlImage(songInfo, imgSrc, '');
 
-  const xmlBannerTopCustom = (songInfo: SongInfo, imgSrc: string) => toast(`\
+  const xmlBannerTopCustom = (songInfo: SongInfo, imgSrc: string) =>
+    toast(
+      `\
             <image id="1" src="${imgSrc}" name="Image" />
             <text>ㅤ</text>
             <group>
@@ -158,37 +177,62 @@ export default (
                 </subgroup>
                 ${xmlMoreData(songInfo)}
             </group>\
-`, songInfo.isPaused ?? false);
+`,
+      songInfo.isPaused ?? false,
+    );
 
   const xmlMoreData = ({ album, elapsedSeconds, songDuration }: SongInfo) => `\
 <subgroup hint-textStacking="bottom">
-    ${album
-    ? `<text hint-style="captionSubtle" hint-wrap="true" hint-align="right">${album}</text>` : ''}
-    <text hint-style="captionSubtle" hint-wrap="true" hint-align="right">${secondsToMinutes(elapsedSeconds ?? 0)} / ${secondsToMinutes(songDuration)}</text>
+    ${
+      album
+        ? `<text hint-style="captionSubtle" hint-wrap="true" hint-align="right">${album}</text>`
+        : ''
+    }
+    <text hint-style="captionSubtle" hint-wrap="true" hint-align="right">${secondsToMinutes(
+      elapsedSeconds ?? 0,
+    )} / ${secondsToMinutes(songDuration)}</text>
 </subgroup>\
 `;
 
-  const xmlBannerCenteredBottom = ({ title, artist, isPaused }: SongInfo, imgSrc: string) => toast(`\
+  const xmlBannerCenteredBottom = (
+    { title, artist, isPaused }: SongInfo,
+    imgSrc: string,
+  ) =>
+    toast(
+      `\
             <text>ㅤ</text>
             <group>
                 <subgroup hint-weight="1" hint-textStacking="center">
-                    <text hint-align="center" hint-style="${titleFontPicker(title)}">${title}</text>
+                    <text hint-align="center" hint-style="${titleFontPicker(
+                      title,
+                    )}">${title}</text>
                     <text hint-align="center" hint-style="SubtitleSubtle">${artist}</text>
                 </subgroup>
             </group>
             <image id="1" src="${imgSrc}" name="Image"  hint-removeMargin="true" />\
-`, isPaused ?? false);
+`,
+      isPaused ?? false,
+    );
 
-  const xmlBannerCenteredTop = ({ title, artist, isPaused }: SongInfo, imgSrc: string) => toast(`\
+  const xmlBannerCenteredTop = (
+    { title, artist, isPaused }: SongInfo,
+    imgSrc: string,
+  ) =>
+    toast(
+      `\
             <image id="1" src="${imgSrc}" name="Image" />
             <text>ㅤ</text>
             <group>
                 <subgroup hint-weight="1" hint-textStacking="center">
-                    <text hint-align="center" hint-style="${titleFontPicker(title)}">${title}</text>
+                    <text hint-align="center" hint-style="${titleFontPicker(
+                      title,
+                    )}">${title}</text>
                     <text hint-align="center" hint-style="SubtitleSubtle">${artist}</text>
                 </subgroup>
             </group>\
-`, isPaused ?? false);
+`,
+      isPaused ?? false,
+    );
 
   const titleFontPicker = (title: string) => {
     if (title.length <= 13) {
@@ -205,7 +249,6 @@ export default (
 
     return 'Subtitle';
   };
-
 
   songControls = getSongControls(win);
 
@@ -226,8 +269,9 @@ export default (
     }
 
     savedSongInfo = { ...songInfo };
-    if (!songInfo.isPaused
-      && (songInfo.url !== lastUrl || config().unpauseNotification)
+    if (
+      !songInfo.isPaused &&
+      (songInfo.url !== lastUrl || config().unpauseNotification)
     ) {
       lastUrl = songInfo.url;
       sendNotification(songInfo);
@@ -260,24 +304,21 @@ export default (
     savedNotification?.close();
   });
 
-  changeProtocolHandler(
-    (cmd) => {
-      if (Object.keys(songControls).includes(cmd)) {
-        songControls[cmd as keyof typeof songControls]();
-        if (config().refreshOnPlayPause && (
-          cmd === 'pause'
-          || (cmd === 'play' && !config().unpauseNotification)
-        )
-        ) {
-          setImmediate(() =>
-            sendNotification({
-              ...savedSongInfo,
-              isPaused: cmd === 'pause',
-              elapsedSeconds: currentSeconds,
-            }),
-          );
-        }
+  changeProtocolHandler((cmd) => {
+    if (Object.keys(songControls).includes(cmd)) {
+      songControls[cmd as keyof typeof songControls]();
+      if (
+        config().refreshOnPlayPause &&
+        (cmd === 'pause' || (cmd === 'play' && !config().unpauseNotification))
+      ) {
+        setImmediate(() =>
+          sendNotification({
+            ...savedSongInfo,
+            isPaused: cmd === 'pause',
+            elapsedSeconds: currentSeconds,
+          }),
+        );
       }
-    },
-  );
+    }
+  });
 };

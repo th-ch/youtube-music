@@ -18,7 +18,10 @@ export default createPlugin<
     getCompactSidebar: () => document.querySelector('#mini-guide'),
     isCompactSidebarDisabled() {
       const compactSidebar = this.getCompactSidebar();
-      return compactSidebar === null || window.getComputedStyle(compactSidebar).display === 'none';
+      return (
+        compactSidebar === null ||
+        window.getComputedStyle(compactSidebar).display === 'none'
+      );
     },
     start() {
       if (this.isCompactSidebarDisabled()) {
@@ -34,6 +37,6 @@ export default createPlugin<
       if (this.isCompactSidebarDisabled()) {
         document.querySelector<HTMLButtonElement>('#button')?.click();
       }
-    }
+    },
   },
 });

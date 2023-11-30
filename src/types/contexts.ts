@@ -1,4 +1,9 @@
-import type { IpcMain, IpcRenderer, WebContents, BrowserWindow } from 'electron';
+import type {
+  IpcMain,
+  IpcRenderer,
+  WebContents,
+  BrowserWindow,
+} from 'electron';
 import type { PluginConfig } from '@/types/plugins';
 
 export interface BaseContext<Config extends PluginConfig> {
@@ -6,7 +11,8 @@ export interface BaseContext<Config extends PluginConfig> {
   setConfig(conf: Partial<Omit<Config, 'enabled'>>): Promise<void> | void;
 }
 
-export interface BackendContext<Config extends PluginConfig> extends BaseContext<Config> {
+export interface BackendContext<Config extends PluginConfig>
+  extends BaseContext<Config> {
   ipc: {
     send: WebContents['send'];
     handle: (event: string, listener: CallableFunction) => void;
@@ -17,14 +23,17 @@ export interface BackendContext<Config extends PluginConfig> extends BaseContext
   window: BrowserWindow;
 }
 
-export interface MenuContext<Config extends PluginConfig> extends BaseContext<Config> {
+export interface MenuContext<Config extends PluginConfig>
+  extends BaseContext<Config> {
   window: BrowserWindow;
   refresh: () => Promise<void> | void;
 }
 
-export interface PreloadContext<Config extends PluginConfig> extends BaseContext<Config> {}
+export interface PreloadContext<Config extends PluginConfig>
+  extends BaseContext<Config> {}
 
-export interface RendererContext<Config extends PluginConfig> extends BaseContext<Config> {
+export interface RendererContext<Config extends PluginConfig>
+  extends BaseContext<Config> {
   ipc: {
     send: IpcRenderer['send'];
     invoke: IpcRenderer['invoke'];

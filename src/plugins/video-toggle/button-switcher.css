@@ -25,7 +25,7 @@
 }
 
 .video-toggle-custom-mode .video-switch-button:before {
-  content: "Video";
+  content: 'Video';
   position: absolute;
   top: 0;
   bottom: 0;
@@ -54,12 +54,16 @@
   position: relative;
 }
 
-.video-toggle-custom-mode .video-switch-button-checkbox:checked + .video-switch-button-label:before {
+.video-toggle-custom-mode
+  .video-switch-button-checkbox:checked
+  + .video-switch-button-label:before {
   transform: translateX(10rem);
   transition: transform 300ms linear;
 }
 
-.video-toggle-custom-mode .video-switch-button-checkbox + .video-switch-button-label {
+.video-toggle-custom-mode
+  .video-switch-button-checkbox
+  + .video-switch-button-label {
   position: relative;
   padding: 15px 0;
   display: block;
@@ -67,8 +71,10 @@
   pointer-events: none;
 }
 
-.video-toggle-custom-mode .video-switch-button-checkbox + .video-switch-button-label:before {
-  content: "";
+.video-toggle-custom-mode
+  .video-switch-button-checkbox
+  + .video-switch-button-label:before {
+  content: '';
   background: rgba(60, 60, 60, 0.4);
   height: 100%;
   width: 100%;

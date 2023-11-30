@@ -7,8 +7,11 @@ import type { PictureInPicturePluginConfig } from './index';
 import type { MenuContext } from '@/types/contexts';
 import type { MenuTemplate } from '@/menu';
 
-
-export const onMenu = async ({ window, getConfig, setConfig }: MenuContext<PictureInPicturePluginConfig>): Promise<MenuTemplate> => {
+export const onMenu = async ({
+  window,
+  getConfig,
+  setConfig,
+}: MenuContext<PictureInPicturePluginConfig>): Promise<MenuTemplate> => {
   const config = await getConfig();
 
   return [
@@ -42,17 +45,22 @@ export const onMenu = async ({ window, getConfig, setConfig }: MenuContext<Pictu
       type: 'checkbox',
       checked: !!config.hotkey,
       async click(item) {
-        const output = await prompt({
-          title: 'Picture in Picture Hotkey',
-          label: 'Choose a hotkey for toggling Picture in Picture',
-          type: 'keybind',
-          keybindOptions: [{
-            value: 'hotkey',
-            label: 'Hotkey',
-            default: config.hotkey,
-          }],
-          ...promptOptions(),
-        }, window);
+        const output = await prompt(
+          {
+            title: 'Picture in Picture Hotkey',
+            label: 'Choose a hotkey for toggling Picture in Picture',
+            type: 'keybind',
+            keybindOptions: [
+              {
+                value: 'hotkey',
+                label: 'Hotkey',
+                default: config.hotkey,
+              },
+            ],
+            ...promptOptions(),
+          },
+          window,
+        );
 
         if (output) {
           const { value, accelerator } = output[0];

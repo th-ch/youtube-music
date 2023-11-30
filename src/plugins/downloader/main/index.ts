@@ -93,7 +93,11 @@ export const getCookieFromWindow = async (win: BrowserWindow) => {
 
 let config: DownloaderPluginConfig;
 
-export const onMainLoad = async ({ window: _win, getConfig, ipc }: BackendContext<DownloaderPluginConfig>) => {
+export const onMainLoad = async ({
+  window: _win,
+  getConfig,
+  ipc,
+}: BackendContext<DownloaderPluginConfig>) => {
   win = _win;
   config = await getConfig();
 
@@ -107,7 +111,9 @@ export const onMainLoad = async ({ window: _win, getConfig, ipc }: BackendContex
   ipc.on('video-src-changed', (data: GetPlayerResponse) => {
     playingUrl = data.microformat.microformatDataRenderer.urlCanonical;
   });
-  ipc.handle('download-playlist-request', async (url: string) => downloadPlaylist(url));
+  ipc.handle('download-playlist-request', async (url: string) =>
+    downloadPlaylist(url),
+  );
 };
 
 export const onConfigChange = (newConfig: DownloaderPluginConfig) => {
@@ -230,8 +236,7 @@ async function downloadSongUnsafe(
   const selectedPreset = config.selectedPreset ?? 'mp3 (256kbps)';
   let presetSetting: Preset;
   if (selectedPreset === 'Custom') {
-    presetSetting =
-      config.customPresetSetting ?? DefaultPresetList['Custom'];
+    presetSetting = config.customPresetSetting ?? DefaultPresetList['Custom'];
   } else if (selectedPreset === 'Source') {
     presetSetting = DefaultPresetList['Source'];
   } else {
@@ -444,8 +449,7 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
   }
 
   const playlistId =
-    getPlaylistID(givenUrl) ||
-    getPlaylistID(new URL(playingUrl));
+    getPlaylistID(givenUrl) || getPlaylistID(new URL(playingUrl));
 
   if (!playlistId) {
     sendError(new Error('No playlist ID found'));

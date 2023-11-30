@@ -9,7 +9,11 @@ export const restart = () => restartInternal();
 export const setupAppControls = () => {
   ipcMain.on('restart', restart);
   ipcMain.handle('getDownloadsFolder', () => app.getPath('downloads'));
-  ipcMain.on('reload', () => BrowserWindow.getFocusedWindow()?.webContents.loadURL(config.get('url')));
+  ipcMain.on(
+    'reload',
+    () =>
+      BrowserWindow.getFocusedWindow()?.webContents.loadURL(config.get('url')),
+  );
   ipcMain.handle('getPath', (_, ...args: string[]) => path.join(...args));
 };
 
@@ -25,9 +29,9 @@ function sendToFrontInternal(channel: string, ...args: unknown[]) {
   }
 }
 
-export const sendToFront
-  = process.type === 'browser'
-  ? sendToFrontInternal
-  : () => {
-    console.error('sendToFront called from renderer');
-  };
+export const sendToFront =
+  process.type === 'browser'
+    ? sendToFrontInternal
+    : () => {
+        console.error('sendToFront called from renderer');
+      };

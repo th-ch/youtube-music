@@ -24,7 +24,10 @@ export const moveVolumeHud = debounce((showVideo: boolean) => {
 
 let options: PreciseVolumePluginConfig;
 
-export const onPlayerApiReady = async (playerApi: YoutubePlayer, context: RendererContext<PreciseVolumePluginConfig>) => {
+export const onPlayerApiReady = async (
+  playerApi: YoutubePlayer,
+  context: RendererContext<PreciseVolumePluginConfig>,
+) => {
   options = await context.getConfig();
   api = playerApi;
 
@@ -57,14 +60,20 @@ export const onPlayerApiReady = async (playerApi: YoutubePlayer, context: Render
     setupLocalArrowShortcuts();
 
     // Workaround: computedStyleMap().get(string) returns CSSKeywordValue instead of CSSStyleValue
-    const noVid = ($('#main-panel')?.computedStyleMap().get('display') as CSSKeywordValue)?.value === 'none';
+    const noVid =
+      ($('#main-panel')?.computedStyleMap().get('display') as CSSKeywordValue)
+        ?.value === 'none';
     injectVolumeHud(noVid);
     if (!noVid) {
       setupVideoPlayerOnwheel();
       if (!window.mainConfig.plugins.isEnabled('video-toggle')) {
         // Video-toggle handles hud positioning on its own
-        const videoMode = () => api.getPlayerResponse().videoDetails?.musicVideoType !== 'MUSIC_VIDEO_TYPE_ATV';
-        $('video')?.addEventListener('srcChanged', () => moveVolumeHud(videoMode()));
+        const videoMode = () =>
+          api.getPlayerResponse().videoDetails?.musicVideoType !==
+          'MUSIC_VIDEO_TYPE_ATV';
+        $('video')?.addEventListener('srcChanged', () =>
+          moveVolumeHud(videoMode()),
+        );
       }
     }
   }
@@ -80,7 +89,8 @@ export const onPlayerApiReady = async (playerApi: YoutubePlayer, context: Render
       );
     } else {
       const position = 'top: 10px; left: 10px;';
-      const mainStyle = 'font-size: xxx-large; webkit-text-stroke: 1px black; font-weight: 600;';
+      const mainStyle =
+        'font-size: xxx-large; webkit-text-stroke: 1px black; font-weight: 600;';
 
       $('#song-video')?.insertAdjacentHTML(
         'afterend',
@@ -149,8 +159,11 @@ export const onPlayerApiReady = async (playerApi: YoutubePlayer, context: Render
           // This checks that volume-slider was manually set
           const target = mutation.target;
           const targetValueNumeric = Number(target.value);
-          if (mutation.oldValue !== target.value
-            && (typeof options.savedVolume !== 'number' || Math.abs(options.savedVolume - targetValueNumeric) > 4)) {
+          if (
+            mutation.oldValue !== target.value &&
+            (typeof options.savedVolume !== 'number' ||
+              Math.abs(options.savedVolume - targetValueNumeric) > 4)
+          ) {
             // Diff>4 means it was manually set
             setTooltip(targetValueNumeric);
             saveVolume(targetValueNumeric);
@@ -189,9 +202,11 @@ export const onPlayerApiReady = async (playerApi: YoutubePlayer, context: Render
   function changeVolume(toIncrease: boolean) {
     // Apply volume change if valid
     const steps = Number(options.steps || 1);
-    setVolume(toIncrease
-      ? Math.min(api.getVolume() + steps, 100)
-      : Math.max(api.getVolume() - steps, 0));
+    setVolume(
+      toIncrease
+        ? Math.min(api.getVolume() + steps, 100)
+        : Math.max(api.getVolume() - steps, 0),
+    );
   }
 
   function updateVolumeSlider() {
@@ -200,7 +215,9 @@ export const onPlayerApiReady = async (playerApi: YoutubePlayer, context: Render
     for (const slider of ['#volume-slider', '#expand-volume-slider']) {
       const silderElement = $<HTMLInputElement>(slider);
       if (silderElement) {
-        silderElement.value = String(savedVolume > 0 && savedVolume < 5 ? 5 : savedVolume);
+        silderElement.value = String(
+          savedVolume > 0 && savedVolume < 5 ? 5 : savedVolume,
+        );
       }
     }
   }
@@ -235,7 +252,9 @@ export const onPlayerApiReady = async (playerApi: YoutubePlayer, context: Render
   function setupLocalArrowShortcuts() {
     if (options.arrowsShortcut) {
       window.addEventListener('keydown', (event) => {
-        if ($<HTMLElement & { opened: boolean }>('ytmusic-search-box')?.opened) {
+        if (
+          $<HTMLElement & { opened: boolean }>('ytmusic-search-box')?.opened
+        ) {
           return;
         }
 
@@ -256,7 +275,9 @@ export const onPlayerApiReady = async (playerApi: YoutubePlayer, context: Render
     }
   }
 
-  context.ipc.on('changeVolume', (toIncrease: boolean) => changeVolume(toIncrease));
+  context.ipc.on('changeVolume', (toIncrease: boolean) =>
+    changeVolume(toIncrease),
+  );
   context.ipc.on('setVolume', (value: number) => setVolume(value));
 
   firstRun();

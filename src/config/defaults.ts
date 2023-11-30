@@ -32,8 +32,8 @@ export interface DefaultConfig {
     startingPage: string;
     overrideUserAgent: boolean;
     themes: string[];
-  },
-  plugins: Record<string, unknown>,
+  };
+  plugins: Record<string, unknown>;
 }
 
 const defaultConfig: DefaultConfig = {

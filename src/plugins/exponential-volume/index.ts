@@ -2,7 +2,8 @@ import { createPlugin } from '@/utils';
 
 export default createPlugin({
   name: 'Exponential Volume',
-  description: 'Makes the volume slider exponential so it\'s easier to select lower volumes.',
+  description:
+    "Makes the volume slider exponential so it's easier to select lower volumes.",
   restartNeeded: true,
   config: {
     enabled: false,
@@ -24,7 +25,8 @@ export default createPlugin({
       );
       Object.defineProperty(HTMLMediaElement.prototype, 'volume', {
         get(this: HTMLMediaElement) {
-          const lowVolume = propertyDescriptor?.get?.call(this) as number ?? 0;
+          const lowVolume =
+            (propertyDescriptor?.get?.call(this) as number) ?? 0;
           const calculatedOriginalVolume = lowVolume ** (1 / EXPONENT);
 
           // The calculated value has some accuracy issues which can lead to problems for implementations that expect exact values.
@@ -46,6 +48,6 @@ export default createPlugin({
           propertyDescriptor?.set?.call(this, lowVolume);
         },
       });
-    }
-  }
+    },
+  },
 });

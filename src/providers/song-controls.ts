@@ -1,8 +1,16 @@
 // This is used for to control the songs
 import { BrowserWindow } from 'electron';
 
-type Modifiers = (Electron.MouseInputEvent | Electron.MouseWheelInputEvent | Electron.KeyboardInputEvent)['modifiers'];
-export const pressKey = (window: BrowserWindow, key: string, modifiers: Modifiers = []) => {
+type Modifiers = (
+  | Electron.MouseInputEvent
+  | Electron.MouseWheelInputEvent
+  | Electron.KeyboardInputEvent
+)['modifiers'];
+export const pressKey = (
+  window: BrowserWindow,
+  key: string,
+  modifiers: Modifiers = [],
+) => {
   window.webContents.sendInputEvent({
     type: 'keyDown',
     modifiers,

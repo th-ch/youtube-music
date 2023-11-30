@@ -4,23 +4,33 @@ yt-page-navigation-progress {
 }
 
 #player-page {
-  transition: transform 300ms,background-color 300ms cubic-bezier(0.2,0,0.6,1) !important;
+  transition:
+    transform 300ms,
+    background-color 300ms cubic-bezier(0.2, 0, 0.6, 1) !important;
 }
 
 #nav-bar-background {
-  transition: opacity 200ms,background-color 300ms cubic-bezier(0.2,0,0.6,1) !important;
+  transition:
+    opacity 200ms,
+    background-color 300ms cubic-bezier(0.2, 0, 0.6, 1) !important;
 }
 
 #mini-guide-background {
-  transition: opacity 200ms,background-color 300ms cubic-bezier(0.2,0,0.6,1) !important;
+  transition:
+    opacity 200ms,
+    background-color 300ms cubic-bezier(0.2, 0, 0.6, 1) !important;
   border-right: 0px !important;
 }
 
 #guide-wrapper {
-  transition: opacity 200ms,background-color 300ms cubic-bezier(0.2,0,0.6,1) !important;
+  transition:
+    opacity 200ms,
+    background-color 300ms cubic-bezier(0.2, 0, 0.6, 1) !important;
 }
 
-#img, #player, .song-media-controls.style-scope.ytmusic-player {
+#img,
+#player,
+.song-media-controls.style-scope.ytmusic-player {
   border-radius: 2% !important;
 }
 

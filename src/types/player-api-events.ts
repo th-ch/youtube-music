@@ -242,21 +242,21 @@ export interface FlagEndpoint {
 }
 
 export type VideoDataChangeValue = Record<string, unknown> & {
-  videoId: string
-  title: string
-  author: string
+  videoId: string;
+  title: string;
+  author: string;
 
-  Hd?: AlbumDetails
+  Hd?: AlbumDetails;
 
-  playlistId: string
-  isUpcoming: boolean
-  loading: boolean
+  playlistId: string;
+  isUpcoming: boolean;
+  loading: boolean;
 
-  lengthSeconds: number
+  lengthSeconds: number;
 };
 
 export interface PlayerAPIEvents {
   videodatachange: {
-    value: VideoDataChangeValue
-  } & ({ name: 'dataloaded' } | { name: 'dataupdated ' })
+    value: VideoDataChangeValue;
+  } & ({ name: 'dataloaded' } | { name: 'dataupdated ' });
 }

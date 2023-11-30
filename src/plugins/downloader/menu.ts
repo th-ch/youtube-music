@@ -9,7 +9,10 @@ import type { MenuTemplate } from '@/menu';
 
 import type { DownloaderPluginConfig } from './index';
 
-export const onMenu = async ({ getConfig, setConfig }: MenuContext<DownloaderPluginConfig>): Promise<MenuTemplate> => {
+export const onMenu = async ({
+  getConfig,
+  setConfig,
+}: MenuContext<DownloaderPluginConfig>): Promise<MenuTemplate> => {
   const config = await getConfig();
 
   return [

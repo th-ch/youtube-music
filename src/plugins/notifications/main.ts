@@ -31,7 +31,10 @@ const setup = () => {
   let currentUrl: string | undefined;
 
   registerCallback((songInfo: SongInfo) => {
-    if (!songInfo.isPaused && (songInfo.url !== currentUrl || config.unpauseNotification)) {
+    if (
+      !songInfo.isPaused &&
+      (songInfo.url !== currentUrl || config.unpauseNotification)
+    ) {
       // Close the old notification
       oldNotification?.close();
       currentUrl = songInfo.url;
@@ -43,11 +46,14 @@ const setup = () => {
   });
 };
 
-export const onMainLoad = async (context: BackendContext<NotificationsPluginConfig>) => {
+export const onMainLoad = async (
+  context: BackendContext<NotificationsPluginConfig>,
+) => {
   config = await context.getConfig();
 
   // Register the callback for new song information
-  if (is.windows() && config.interactive) interactive(context.window, () => config, context);
+  if (is.windows() && config.interactive)
+    interactive(context.window, () => config, context);
   else setup();
 };
 

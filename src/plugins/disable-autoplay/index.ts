@@ -6,7 +6,7 @@ import type { YoutubePlayer } from '@/types/youtube-player';
 export type DisableAutoPlayPluginConfig = {
   enabled: boolean;
   applyOnce: boolean;
-}
+};
 
 export default createPlugin<
   unknown,
@@ -53,7 +53,11 @@ export default createPlugin<
 
       if (event.detail.name === 'dataloaded') {
         this.api?.pauseVideo();
-        document.querySelector<HTMLVideoElement>('video')?.addEventListener('timeupdate', this.timeUpdateListener, { once: true });
+        document
+          .querySelector<HTMLVideoElement>('video')
+          ?.addEventListener('timeupdate', this.timeUpdateListener, {
+            once: true,
+          });
       }
     },
     timeUpdateListener(e: Event) {
@@ -74,7 +78,6 @@ export default createPlugin<
     },
     onConfigChange(newConfig) {
       this.config = newConfig;
-    }
-  }
+    },
+  },
 });
-

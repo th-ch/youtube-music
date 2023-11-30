@@ -29,8 +29,7 @@ export interface Download {
   isLeaderTab: boolean;
 }
 
-export interface Entities {
-}
+export interface Entities {}
 
 export interface LikeStatus {
   videos: Videos;

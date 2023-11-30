@@ -4,7 +4,7 @@ import { Visualizer } from './visualizers/visualizer';
 import {
   ButterchurnVisualizer as butterchurn,
   VudioVisualizer as vudio,
-  WaveVisualizer as wave
+  WaveVisualizer as wave,
 } from './visualizers';
 
 type WaveColor = {
@@ -19,7 +19,7 @@ export type VisualizerPluginConfig = {
     preset: string;
     renderingFrequencyInMs: number;
     blendTimeInSeconds: number;
-  },
+  };
   vudio: {
     effect: string;
     accuracy: number;
@@ -35,7 +35,7 @@ export type VisualizerPluginConfig = {
       horizontalAlign: string;
       verticalAlign: string;
       dottify: boolean;
-    }
+    };
   };
   wave: {
     animations: {
@@ -51,7 +51,7 @@ export type VisualizerPluginConfig = {
         lineColor?: string | WaveColor;
         radius?: number;
         frequencyBand?: string;
-      }
+      };
     }[];
   };
 };
@@ -151,7 +151,7 @@ export default createPlugin({
       const config = await getConfig();
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      let visualizerType: { new(...args: any[]): Visualizer<unknown> } = vudio;
+      let visualizerType: { new (...args: any[]): Visualizer<unknown> } = vudio;
 
       if (config.type === 'wave') {
         visualizerType = wave;
@@ -162,12 +162,15 @@ export default createPlugin({
       document.addEventListener(
         'audioCanPlay',
         (e) => {
-          const video = document.querySelector<HTMLVideoElement & { captureStream(): MediaStream; }>('video');
+          const video = document.querySelector<
+            HTMLVideoElement & { captureStream(): MediaStream }
+          >('video');
           if (!video) {
             return;
           }
 
-          const visualizerContainer = document.querySelector<HTMLElement>('#player');
+          const visualizerContainer =
+            document.querySelector<HTMLElement>('#player');
           if (!visualizerContainer) {
             return;
           }
@@ -210,7 +213,10 @@ export default createPlugin({
           resizeVisualizer(canvas.width, canvas.height);
           const visualizerContainerObserver = new ResizeObserver((entries) => {
             for (const entry of entries) {
-              resizeVisualizer(entry.contentRect.width, entry.contentRect.height);
+              resizeVisualizer(
+                entry.contentRect.width,
+                entry.contentRect.height,
+              );
             }
           });
           visualizerContainerObserver.observe(visualizerContainer);

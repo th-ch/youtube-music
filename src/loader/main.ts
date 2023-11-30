@@ -9,9 +9,15 @@ import { LoggerPrefix, startPlugin, stopPlugin } from '@/utils';
 import type { PluginConfig, PluginDef } from '@/types/plugins';
 import type { BackendContext } from '@/types/contexts';
 
-const loadedPluginMap: Record<string, PluginDef<unknown, unknown, unknown>> = {};
+const loadedPluginMap: Record<
+  string,
+  PluginDef<unknown, unknown, unknown>
+> = {};
 
-const createContext = (id: string, win: BrowserWindow): BackendContext<PluginConfig> => ({
+const createContext = (
+  id: string,
+  win: BrowserWindow,
+): BackendContext<PluginConfig> => ({
   getConfig: () =>
     deepmerge(
       allPlugins[id].config ?? { enabled: false },
@@ -36,7 +42,7 @@ const createContext = (id: string, win: BrowserWindow): BackendContext<PluginCon
     },
     removeHandler: (event: string) => {
       ipcMain.removeHandler(event);
-    }
+    },
   },
 
   window: win,
@@ -56,19 +62,15 @@ export const forceUnloadMainPlugin = async (
     });
     if (
       hasStopped ||
-      (
-        hasStopped === null &&
-        typeof plugin.backend !== 'function' && plugin.backend
-      )
+      (hasStopped === null &&
+        typeof plugin.backend !== 'function' &&
+        plugin.backend)
     ) {
       delete loadedPluginMap[id];
       console.log(LoggerPrefix, `"${id}" plugin is unloaded`);
       return;
     } else {
-      console.log(
-        LoggerPrefix,
-        `Cannot unload "${id}" plugin`,
-      );
+      console.log(LoggerPrefix, `Cannot unload "${id}" plugin`);
       return Promise.reject();
     }
   } catch (err) {
@@ -92,10 +94,9 @@ export const forceLoadMainPlugin = async (
     });
     if (
       hasStarted ||
-      (
-        hasStarted === null &&
-        typeof plugin.backend !== 'function' && plugin.backend
-      )
+      (hasStarted === null &&
+        typeof plugin.backend !== 'function' &&
+        plugin.backend)
     ) {
       loadedPluginMap[id] = plugin;
     } else {
@@ -103,10 +104,7 @@ export const forceLoadMainPlugin = async (
       return Promise.reject();
     }
   } catch (err) {
-    console.error(
-      LoggerPrefix,
-      `Cannot initialize "${id}" plugin: `,
-    );
+    console.error(LoggerPrefix, `Cannot initialize "${id}" plugin: `);
     console.trace(err);
     return Promise.reject(err);
   }
@@ -135,7 +133,9 @@ export const unloadAllMainPlugins = async (win: BrowserWindow) => {
   }
 };
 
-export const getLoadedMainPlugin = (id: string): PluginDef<unknown, unknown, unknown> | undefined => {
+export const getLoadedMainPlugin = (
+  id: string,
+): PluginDef<unknown, unknown, unknown> | undefined => {
   return loadedPluginMap[id];
 };
 

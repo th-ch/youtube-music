@@ -13,8 +13,8 @@ declare global {
   }
 
   interface DocumentEventMap {
-    'audioCanPlay': CustomEvent<Compressor>;
-    'videodatachange': CustomEvent<VideoDataChanged>;
+    audioCanPlay: CustomEvent<Compressor>;
+    videodatachange: CustomEvent<VideoDataChanged>;
   }
 
   interface Window {
@@ -33,7 +33,7 @@ declare global {
   }
 }
 
-  // import { Howl as _Howl } from 'howler';
+// import { Howl as _Howl } from 'howler';
 declare module 'howler' {
   interface Howl {
     _sounds: {

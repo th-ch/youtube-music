@@ -53,7 +53,9 @@ export const refreshMenu = async (win: BrowserWindow) => {
   }
 };
 
-export const mainMenuTemplate = async (win: BrowserWindow): Promise<MenuTemplate> => {
+export const mainMenuTemplate = async (
+  win: BrowserWindow,
+): Promise<MenuTemplate> => {
   const innerRefreshMenu = () => refreshMenu(win);
 
   await loadAllMenuPlugins(win);
@@ -453,7 +455,7 @@ export const mainMenuTemplate = async (win: BrowserWindow): Promise<MenuTemplate
   ];
 };
 export const setApplicationMenu = async (win: Electron.BrowserWindow) => {
-  const menuTemplate: MenuTemplate = [...await mainMenuTemplate(win)];
+  const menuTemplate: MenuTemplate = [...(await mainMenuTemplate(win))];
   if (process.platform === 'darwin') {
     const { name } = app;
     menuTemplate.unshift({

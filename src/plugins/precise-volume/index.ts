@@ -21,7 +21,8 @@ export type PreciseVolumePluginConfig = {
 
 export default createPlugin({
   name: 'Precise Volume',
-  description: 'Control the volume precisely using mousewheel/hotkeys, with a custom HUD and customizable volume steps',
+  description:
+    'Control the volume precisely using mousewheel/hotkeys, with a custom HUD and customizable volume steps',
   restartNeeded: true,
   config: {
     enabled: false,
@@ -37,45 +38,76 @@ export default createPlugin({
   menu: async ({ setConfig, getConfig, window }) => {
     const config = await getConfig();
 
-    function changeOptions(changedOptions: Partial<PreciseVolumePluginConfig>, options: PreciseVolumePluginConfig) {
+    function changeOptions(
+      changedOptions: Partial<PreciseVolumePluginConfig>,
+      options: PreciseVolumePluginConfig,
+    ) {
       for (const option in changedOptions) {
         // HACK: Weird TypeScript error
-        (options as Record<string, unknown>)[option] = (changedOptions as Record<string, unknown>)[option];
+        (options as Record<string, unknown>)[option] = (
+          changedOptions as Record<string, unknown>
+        )[option];
       }
 
       setConfig(options);
     }
 
     // Helper function for globalShortcuts prompt
-    const kb = (label_: string, value_: string, default_: string): KeybindOptions => ({ 'value': value_, 'label': label_, 'default': default_ || undefined });
+    const kb = (
+      label_: string,
+      value_: string,
+      default_: string,
+    ): KeybindOptions => ({
+      value: value_,
+      label: label_,
+      default: default_ || undefined,
+    });
 
     async function promptVolumeSteps(options: PreciseVolumePluginConfig) {
-      const output = await prompt({
-        title: 'Volume Steps',
-        label: 'Choose Volume Increase/Decrease Steps',
-        value: options.steps || 1,
-        type: 'counter',
-        counterOptions: { minimum: 0, maximum: 100, multiFire: true },
-        width: 380,
-        ...promptOptions(),
-      }, window);
+      const output = await prompt(
+        {
+          title: 'Volume Steps',
+          label: 'Choose Volume Increase/Decrease Steps',
+          value: options.steps || 1,
+          type: 'counter',
+          counterOptions: { minimum: 0, maximum: 100, multiFire: true },
+          width: 380,
+          ...promptOptions(),
+        },
+        window,
+      );
 
-      if (output || output === 0) { // 0 is somewhat valid
+      if (output || output === 0) {
+        // 0 is somewhat valid
         changeOptions({ steps: output }, options);
       }
     }
 
-    async function promptGlobalShortcuts(options: PreciseVolumePluginConfig, item: MenuItem) {
-      const output = await prompt({
-        title: 'Global Volume Keybinds',
-        label: 'Choose Global Volume Keybinds:',
-        type: 'keybind',
-        keybindOptions: [
-          kb('Increase Volume', 'volumeUp', options.globalShortcuts?.volumeUp),
-          kb('Decrease Volume', 'volumeDown', options.globalShortcuts?.volumeDown),
-        ],
-        ...promptOptions(),
-      }, window);
+    async function promptGlobalShortcuts(
+      options: PreciseVolumePluginConfig,
+      item: MenuItem,
+    ) {
+      const output = await prompt(
+        {
+          title: 'Global Volume Keybinds',
+          label: 'Choose Global Volume Keybinds:',
+          type: 'keybind',
+          keybindOptions: [
+            kb(
+              'Increase Volume',
+              'volumeUp',
+              options.globalShortcuts?.volumeUp,
+            ),
+            kb(
+              'Decrease Volume',
+              'volumeDown',
+              options.globalShortcuts?.volumeDown,
+            ),
+          ],
+          ...promptOptions(),
+        },
+        window,
+      );
 
       if (output) {
         const newGlobalShortcuts: {
@@ -83,12 +115,15 @@ export default createPlugin({
           volumeDown: string;
         } = { volumeUp: '', volumeDown: '' };
         for (const { value, accelerator } of output) {
-          newGlobalShortcuts[value as keyof typeof newGlobalShortcuts] = accelerator;
+          newGlobalShortcuts[value as keyof typeof newGlobalShortcuts] =
+            accelerator;
         }
 
         changeOptions({ globalShortcuts: newGlobalShortcuts }, options);
 
-        item.checked = Boolean(options.globalShortcuts.volumeUp) || Boolean(options.globalShortcuts.volumeDown);
+        item.checked =
+          Boolean(options.globalShortcuts.volumeUp) ||
+          Boolean(options.globalShortcuts.volumeDown);
       } else {
         // Reset checkbox if prompt was canceled
         item.checked = !item.checked;
@@ -107,7 +142,10 @@ export default createPlugin({
       {
         label: 'Global Hotkeys',
         type: 'checkbox',
-        checked: Boolean(config.globalShortcuts?.volumeUp ?? config.globalShortcuts?.volumeDown),
+        checked: Boolean(
+          config.globalShortcuts?.volumeUp ??
+            config.globalShortcuts?.volumeDown,
+        ),
         click: (item) => promptGlobalShortcuts(config, item),
       },
       {
@@ -121,11 +159,15 @@ export default createPlugin({
     const config = await getConfig();
 
     if (config.globalShortcuts?.volumeUp) {
-      globalShortcut.register(config.globalShortcuts.volumeUp, () => ipc.send('changeVolume', true));
+      globalShortcut.register(config.globalShortcuts.volumeUp, () =>
+        ipc.send('changeVolume', true),
+      );
     }
 
     if (config.globalShortcuts?.volumeDown) {
-      globalShortcut.register(config.globalShortcuts.volumeDown, () => ipc.send('changeVolume', false));
+      globalShortcut.register(config.globalShortcuts.volumeDown, () =>
+        ipc.send('changeVolume', false),
+      );
     }
   },
 
@@ -135,5 +177,5 @@ export default createPlugin({
     },
     onPlayerApiReady,
     onConfigChange,
-  }
+  },
 });

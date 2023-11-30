@@ -12,7 +12,10 @@ export function getPlugins() {
 }
 
 export function isEnabled(plugin: string) {
-  const pluginConfig = deepmerge(allPlugins[plugin].config ?? { enabled: false }, (store.get('plugins') as Record<string, PluginConfig>)[plugin] ?? {});
+  const pluginConfig = deepmerge(
+    allPlugins[plugin].config ?? { enabled: false },
+    (store.get('plugins') as Record<string, PluginConfig>)[plugin] ?? {},
+  );
   return pluginConfig !== undefined && pluginConfig.enabled;
 }
 
@@ -22,7 +25,11 @@ export function isEnabled(plugin: string) {
  * @param options Options to set
  * @param exclude Options to exclude from the options object
  */
-export function setOptions<T>(plugin: string, options: T, exclude: string[] = ['enabled']) {
+export function setOptions<T>(
+  plugin: string,
+  options: T,
+  exclude: string[] = ['enabled'],
+) {
   const plugins = store.get('plugins') as Record<string, T>;
   // HACK: This is a workaround for preventing changed options from being overwritten
   exclude.forEach((key) => {
@@ -39,7 +46,11 @@ export function setOptions<T>(plugin: string, options: T, exclude: string[] = ['
   });
 }
 
-export function setMenuOptions<T>(plugin: string, options: T, exclude: string[] = ['enabled']) {
+export function setMenuOptions<T>(
+  plugin: string,
+  options: T,
+  exclude: string[] = ['enabled'],
+) {
   setOptions(plugin, options, exclude);
   if (store.get('options.restartOnConfigChanges')) {
     restart();

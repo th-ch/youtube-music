@@ -6,16 +6,16 @@ import { onMenu } from './menu';
 import { onPlayerApiReady, onRendererLoad } from './renderer';
 
 export type PictureInPicturePluginConfig = {
-  'enabled': boolean;
-  'alwaysOnTop': boolean;
-  'savePosition': boolean;
-  'saveSize': boolean;
-  'hotkey': 'P',
+  enabled: boolean;
+  alwaysOnTop: boolean;
+  savePosition: boolean;
+  saveSize: boolean;
+  hotkey: 'P';
   'pip-position': [number, number];
   'pip-size': [number, number];
-  'isInPiP': boolean;
-  'useNativePiP': boolean;
-}
+  isInPiP: boolean;
+  useNativePiP: boolean;
+};
 
 export default createPlugin({
   name: 'Picture In Picture',
@@ -42,5 +42,5 @@ export default createPlugin({
   renderer: {
     start: onRendererLoad,
     onPlayerApiReady,
-  }
+  },
 });

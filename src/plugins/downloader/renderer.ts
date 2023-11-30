@@ -28,7 +28,9 @@ const menuObserver = new MutationObserver(() => {
     return;
   }
 
-  const menuUrl = document.querySelector<HTMLAnchorElement>('tp-yt-paper-listbox [tabindex="-1"] #navigation-endpoint')?.href;
+  const menuUrl = document.querySelector<HTMLAnchorElement>(
+    'tp-yt-paper-listbox [tabindex="-1"] #navigation-endpoint',
+  )?.href;
   if (!menuUrl?.includes('watch?') && doneFirstLoad) {
     return;
   }
@@ -40,14 +42,18 @@ const menuObserver = new MutationObserver(() => {
     return;
   }
 
-  setTimeout(() => doneFirstLoad ||= true, 500);
+  setTimeout(() => (doneFirstLoad ||= true), 500);
 });
 
-export const onRendererLoad = ({ ipc }: RendererContext<DownloaderPluginConfig>) => {
+export const onRendererLoad = ({
+  ipc,
+}: RendererContext<DownloaderPluginConfig>) => {
   window.download = () => {
     let videoUrl = getSongMenu()
       // Selector of first button which is always "Start Radio"
-      ?.querySelector('ytmusic-menu-navigation-item-renderer[tabindex="-1"] #navigation-endpoint')
+      ?.querySelector(
+        'ytmusic-menu-navigation-item-renderer[tabindex="-1"] #navigation-endpoint',
+      )
       ?.getAttribute('href');
     if (videoUrl) {
       if (videoUrl.startsWith('watch?')) {

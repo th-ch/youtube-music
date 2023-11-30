@@ -14,7 +14,6 @@ const userData = app.getPath('userData');
 const temporaryIcon = path.join(userData, 'tempIcon.png');
 const temporaryBanner = path.join(userData, 'tempBanner.png');
 
-
 export const ToastStyles = {
   logo: 1,
   banner_centered_top: 2,
@@ -43,7 +42,10 @@ const nativeImageToLogo = cache((nativeImage: NativeImage) => {
   });
 });
 
-export const notificationImage = (songInfo: SongInfo, config: NotificationsPluginConfig) => {
+export const notificationImage = (
+  songInfo: SongInfo,
+  config: NotificationsPluginConfig,
+) => {
   if (!songInfo.image) {
     return youtubeMusicIcon;
   }
@@ -76,11 +78,10 @@ export const saveImage = cache((img: NativeImage, savePath: string) => {
   return savePath;
 });
 
-export const snakeToCamel = (string_: string) => string_.replaceAll(/([-_][a-z]|^[a-z])/g, (group) =>
-  group.toUpperCase()
-    .replace('-', ' ')
-    .replace('_', ' '),
-);
+export const snakeToCamel = (string_: string) =>
+  string_.replaceAll(/([-_][a-z]|^[a-z])/g, (group) =>
+    group.toUpperCase().replace('-', ' ').replace('_', ' '),
+  );
 
 export const secondsToMinutes = (seconds: number) => {
   const minutes = Math.floor(seconds / 60);

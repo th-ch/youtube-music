@@ -8,7 +8,10 @@ import type { NotificationsPluginConfig } from './index';
 import type { MenuTemplate } from '@/menu';
 import type { MenuContext } from '@/types/contexts';
 
-export const onMenu = async ({ getConfig, setConfig }: MenuContext<NotificationsPluginConfig>): Promise<MenuTemplate> => {
+export const onMenu = async ({
+  getConfig,
+  setConfig,
+}: MenuContext<NotificationsPluginConfig>): Promise<MenuTemplate> => {
   const config = await getConfig();
 
   const getToastStyleMenuItems = (options: NotificationsPluginConfig) => {
@@ -38,7 +41,7 @@ export const onMenu = async ({ getConfig, setConfig }: MenuContext<Notifications
             checked: config.urgency === level.value,
             click: () => setConfig({ urgency: level.value }),
           })),
-        }
+        },
       ];
     } else if (is.windows()) {
       return [
@@ -57,19 +60,22 @@ export const onMenu = async ({ getConfig, setConfig }: MenuContext<Notifications
               label: 'Open/Close on tray click',
               type: 'checkbox',
               checked: config.trayControls,
-              click: (item: MenuItem) => setConfig({ trayControls: item.checked }),
+              click: (item: MenuItem) =>
+                setConfig({ trayControls: item.checked }),
             },
             {
               label: 'Hide Button Text',
               type: 'checkbox',
               checked: config.hideButtonText,
-              click: (item: MenuItem) => setConfig({ hideButtonText: item.checked }),
+              click: (item: MenuItem) =>
+                setConfig({ hideButtonText: item.checked }),
             },
             {
               label: 'Refresh on Play/Pause',
               type: 'checkbox',
               checked: config.refreshOnPlayPause,
-              click: (item: MenuItem) => setConfig({ refreshOnPlayPause: item.checked }),
+              click: (item: MenuItem) =>
+                setConfig({ refreshOnPlayPause: item.checked }),
             },
           ],
         },
