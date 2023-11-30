@@ -26,6 +26,13 @@
 - Framework for custom plugins: change YouTube Music to your needs (style, content, features), enable/disable plugins in
   one click
 
+## Translation
+
+<a href="https://hosted.weblate.org/engage/youtube-music/">
+  <img src="https://hosted.weblate.org/widget/youtube-music/i18n/multi-auto.svg" alt="translation status" />
+  <img src="https://hosted.weblate.org/widget/youtube-music/i18n/287x66-black.png" alt="translation status 2" />
+</a>
+
 ## Download
 
 You can check out the [latest release](https://github.com/th-ch/youtube-music/releases/latest) to quickly find the
