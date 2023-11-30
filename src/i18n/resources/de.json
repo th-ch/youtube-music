@@ -10,20 +10,20 @@
                     }
                 },
                 "quality": {
-                    "label": "Quality",
+                    "label": "Qualität",
                     "submenu": {
-                        "pixels": "{{quality}} pixels"
+                        "pixels": "{{quality}} Pixel"
                     }
                 },
                 "size": {
                     "submenu": {
                         "percent": "{{size}}%"
                     },
-                    "label": "Size"
+                    "label": "Größe"
                 },
                 "blur-amount": {
                     "submenu": {
-                        "pixels": "{{blurAmount}} pixels"
+                        "pixels": "{{blurAmount}} Pixel"
                     },
                     "label": "Blur amount"
                 },
@@ -49,7 +49,7 @@
             "menu": {
                 "hide-dom-window-controls": "Hide DOM window controls"
             },
-            "name": "In-App Menu",
+            "name": "In-App Menü",
             "description": "Gives menu-bars a fancy, dark or album-color look"
         },
         "video-toggle": {
@@ -57,23 +57,23 @@
                 "force-hide": "Force remove video tab",
                 "align": {
                     "submenu": {
-                        "left": "Left",
-                        "right": "Right",
-                        "middle": "Middle"
+                        "left": "Links",
+                        "right": "Rechts",
+                        "middle": "Mitte"
                     },
-                    "label": "Alignment"
+                    "label": "Ausrichtung"
                 },
                 "mode": {
                     "submenu": {
                         "native": "Native toggle",
                         "custom": "Custom toggle",
-                        "disabled": "Disabled"
+                        "disabled": "Deaktiviert"
                     },
-                    "label": "Mode"
+                    "label": "Modus"
                 }
             },
             "templates": {
-                "button": "Song"
+                "button": "Lied"
             },
             "description": "Adds a button to switch between Video/Song mode. can also optionally remove the whole video tab",
             "name": "Video Toggle"
@@ -81,7 +81,7 @@
         "notifications": {
             "menu": {
                 "interactive-settings": {
-                    "label": "Interactive Settings",
+                    "label": "Interaktive Einstellungen",
                     "submenu": {
                         "tray-controls": "Open/Close on tray click",
                         "hide-button-text": "Hide button text",
@@ -90,45 +90,45 @@
                 },
                 "toast-style": "Toast style",
                 "unpause-notification": "Show notification on unpause",
-                "interactive": "Interactive Notifications",
+                "interactive": "Interaktive Benachrichtigungen",
                 "priority": "Notification Priority"
             },
-            "description": "Display a notification when a song starts playing (interactive notifications are available on Windows)",
-            "name": "Notifications"
+            "description": "Zeige eine Benachrichtigung, wenn ein Lied beginnt zu spielen (interaktive Benachrichtigungen sind unter Windows verfügbar)",
+            "name": "Benachrichtigungen"
         },
         "downloader": {
             "backend": {
                 "feedback": {
-                    "video-id-not-found": "Video not found",
+                    "video-id-not-found": "Video nicht gefunden",
                     "conversion-progress": "Conversion: {{percent}}%",
                     "getting-playlist-info": "Getting playlist info…",
                     "downloading-playlist": "Downloading playlist \"{{playlistTitle}}\" - {{playlistSize}} songs ({{playlistId}})",
-                    "download-info": "Downloading {{artist}} - {{title}} [{{videoId}}",
-                    "playlist-is-empty": "Playlist is empty",
+                    "download-info": "Lade {{artist}} - {{title}} [{{videoId}} herunter",
+                    "playlist-is-empty": "Playlist ist leer",
                     "downloading-counter": "Downloading {{current}}/{{total}}…",
-                    "playlist-id-not-found": "No playlist ID found",
-                    "preparing-file": "Preparing file…",
-                    "downloading": "Downloading…",
+                    "playlist-id-not-found": "Keine Playlist-ID gefunden",
+                    "preparing-file": "Bereite Datei vor…",
+                    "downloading": "Lade herunter…",
                     "trying-to-get-playlist-id": "Trying to get playlist ID: {{playlistId}}",
-                    "playlist-has-only-one-song": "Playlist has only one item, downloading it directly",
+                    "playlist-has-only-one-song": "Playlist hat nur ein Lied, lade es direkt herunter",
                     "done": "Done: {{filePath}}",
                     "writing-id3": "Writing ID3 tags…",
                     "converting": "Converting…",
                     "playlist-is-mix-or-private": "Error getting playlist info: make sure it isn't a private or \"Mixed for you\" playlist\n\n{{error}}",
                     "download-progress": "Download: {{percent}}%",
-                    "folder-already-exists": "The folder {{playlistFolder}} already exists",
+                    "folder-already-exists": "Der Ordner {{playlistFolder}} existiert bereits",
                     "error-while-downloading": "Error downloading \"{{author}} - {{title}}\": {{error}}",
                     "saving": "Saving…",
-                    "loading": "Loading…"
+                    "loading": "Laden…"
                 },
                 "dialog": {
                     "start-download-playlist": {
                         "buttons": {
                             "ok": "OK"
                         },
-                        "message": "Downloading Playlist {{playlistTitle}}",
-                        "title": "Download started",
-                        "detail": "({{playlistSize}} songs)"
+                        "message": "Lade Playlist {{playlistTitle}} herunter",
+                        "title": "Download begonnen",
+                        "detail": "({{playlistSize}} Lieder)"
                     },
                     "error": {
                         "buttons": {
@@ -141,7 +141,7 @@
             },
             "menu": {
                 "choose-download-folder": "Choose download folder",
-                "skip-existing": "Skip existing files",
+                "skip-existing": "Vorhandene Dateien überspringen",
                 "presets": "Presets"
             },
             "name": "Downloader",
@@ -150,26 +150,26 @@
             },
             "description": "Downloads MP3 / source audio directly from the interface",
             "templates": {
-                "button": "Download"
+                "button": "Herunterladen"
             }
         },
         "captions-selector": {
             "prompt": {
                 "selector": {
-                    "label": "Current caption language: {{language}}",
-                    "none": "None",
-                    "title": "Select caption language"
+                    "label": "Aktuelle Untertitelsprache: {{language}}",
+                    "none": "Keine",
+                    "title": "Wähle Untertitelsprache"
                 }
             },
             "description": "Caption selector for YouTube Music audio tracks",
             "menu": {
-                "disable-captions": "No captions by default",
-                "autoload": "Automatically select last used caption"
+                "disable-captions": "Standartmäßig keine Untertitel",
+                "autoload": "Wähle automatisch den zuletzt verwendeten Untertitel"
             },
             "templates": {
                 "title": "Open captions selector"
             },
-            "name": "Captions Selector"
+            "name": "Untertitelwähler"
         },
         "touchbar": {
             "description": "Adds a TouchBar widget for macOS users",
@@ -189,28 +189,28 @@
                 },
                 "use-native-pip": "Use browser native PiP",
                 "always-on-top": "Always on top",
-                "save-window-position": "Save window position",
-                "save-window-size": "Save window size"
+                "save-window-position": "Fensterposition speichern",
+                "save-window-size": "Fenstergröße speichern"
             },
-            "name": "Picture in Picture",
+            "name": "Bild im Bild",
             "templates": {
-                "button": "Picture in Picture"
+                "button": "Bild im Bild"
             },
-            "description": "Allows to switch the app to picture-in-picture mode"
+            "description": "Erlaubt die App in den Bild-im-Bild-Modus zu wechseln"
         },
         "album-color-theme": {
-            "description": "Applies a dynamic theme and visual effects based on the album color palette",
-            "name": "Album Color Theme"
+            "description": "Wendet ein dynamisches Farbthema und visuelle Effekte auf Basis der Farbpalette des Albumcovers an",
+            "name": "Albumfarbenthema"
         },
         "discord": {
             "menu": {
                 "auto-reconnect": "Auto reconnect",
-                "clear-activity-after-timeout": "Clear activity after timeout",
-                "hide-duration-left": "Hide duration left",
+                "clear-activity-after-timeout": "Aktivität nach Timeout leeren",
+                "hide-duration-left": "Verstecke verbleibende Zeit",
                 "hide-github-button": "Hide GitHub link Button",
-                "clear-activity": "Clear activity",
+                "clear-activity": "Aktivität leeren",
                 "set-inactivity-timeout": "Set inactivity timeout",
-                "play-on-youtube-music": "Play on YouTube Music"
+                "play-on-youtube-music": "Auf YouTube Music spielen"
             },
             "description": "Show your friends what you listen to with Rich Presence",
             "prompt": {
@@ -221,7 +221,7 @@
             },
             "backend": {
                 "already-connected": "Attempted to connect with active connection",
-                "connected": "Connected to Discord",
+                "connected": "Mit Discord verbunden",
                 "disconnected": "Disconnected from Discord"
             },
             "name": "Discord Rich Presence"
@@ -230,9 +230,9 @@
             "backend": {
                 "dialog": {
                     "quality-changer": {
-                        "detail": "Current Quality: {{quality}}",
-                        "message": "Choose Video Quality:",
-                        "title": "Choose Video Quality"
+                        "detail": "Aktuelle Videoqualität: {{quality}}",
+                        "message": "Wähle Videoqualität:",
+                        "title": "Videoqualität wählen"
                     }
                 }
             },
@@ -266,8 +266,8 @@
             "prompt": {
                 "global-shortcuts": {
                     "keybind-options": {
-                        "increase": "Increase Volume",
-                        "decrease": "Decrease Volume"
+                        "increase": "Lautstärke erhöhen",
+                        "decrease": "Lautstärke verringern"
                     },
                     "label": "Choose Global Volume Keybinds:",
                     "title": "Global Volume Keybinds"
@@ -283,14 +283,14 @@
                 "arrows-shortcuts": "Local Arrow-keys Controls",
                 "global-shortcuts": "Global Hotkeys"
             },
-            "name": "Precise Volume"
+            "name": "Genaue Lautstärke"
         },
         "crossfade": {
             "prompt": {
                 "options": {
                     "multi-input": {
                         "fade-scaling": {
-                            "logarithmic": "Logarithmic",
+                            "logarithmic": "Logarithmisch",
                             "linear": "Linear",
                             "label": "Fade scaling"
                         },
@@ -304,7 +304,7 @@
             "name": "Crossfade [beta]",
             "description": "Crossfade between songs",
             "menu": {
-                "advanced": "Advanced"
+                "advanced": "Erweitert"
             }
         },
         "taskbar-mediacontrol": {
@@ -313,22 +313,22 @@
         },
         "compact-sidebar": {
             "description": "Always set the sidebar in compact mode",
-            "name": "Compact Sidebar"
+            "name": "Kompakte Seitenleiste"
         },
         "disable-autoplay": {
             "description": "Makes song start in \"paused\" mode",
-            "name": "Disable Autoplay",
+            "name": "Deaktiviere Autoplay",
             "menu": {
                 "apply-once": "Applies only on startup"
             }
         },
         "audio-compressor": {
             "description": "Apply compression to audio (lowers the volume of the loudest parts of the signal and raises the volume of the softest parts)",
-            "name": "Audio Compressor"
+            "name": "Audio-Komprimierer"
         },
         "adblocker": {
             "name": "Adblocker",
-            "description": "Block all ads and tracking out of the box",
+            "description": "Blockiere jegliche Werbung und Tracker",
             "menu": {
                 "blocker": "Blocker"
             }
@@ -336,36 +336,36 @@
         "playback-speed": {
             "description": "Listen fast, listen slow! Adds a slider that controls song speed",
             "templates": {
-                "button": "Speed"
+                "button": "Geschwindigkeit"
             },
-            "name": "Playback Speed"
+            "name": "Wiedergabegeschwindigkeit"
         },
         "navigation": {
             "name": "Navigation",
-            "description": "Next/Back navigation arrows directly integrated in the interface, like in your favorite browser"
+            "description": "Vorwärts/Zurück Navigationspfeile direkt in die Oberfläche integriert - wie in deinem geliebten Browser"
         },
         "exponential-volume": {
-            "name": "Exponential Volume",
+            "name": "Exponentielle Lautstärke",
             "description": "Makes the volume slider exponential so it's easier to select lower volumes."
         },
         "bypass-age-restrictions": {
-            "description": "Bypass YouTube's age verification",
-            "name": "Bypass Age Restrictions"
+            "description": "Youtubes Altersbestätigung umgehen",
+            "name": "Altersbeschränkungen umgehen"
         },
         "lumiastream": {
-            "description": "Adds Lumia Stream support",
-            "name": "Lumia Stream [beta]"
+            "description": "Fügt Unterstützung für Lumia Stream hinzu",
+            "name": "Lumia Stream [Beta]"
         },
         "skip-silences": {
-            "name": "Skip Silences",
-            "description": "Automatically skip silences sections in songs"
+            "name": "Stille überspringen",
+            "description": "Automatisch stille Abschnitte in Liedern überspringen"
         },
         "visualizer": {
             "description": "Adds a visualizer to the player",
             "menu": {
                 "visualizer-type": "Visualizer Type"
             },
-            "name": "Visualizer"
+            "name": "Visualisierer"
         },
         "lyrics-genius": {
             "renderer": {
@@ -387,7 +387,7 @@
         },
         "no-google-login": {
             "description": "Remove Google login buttons and links from the interface",
-            "name": "No Google Login"
+            "name": "Keine Google-Anmeldung"
         },
         "last-fm": {
             "description": "Add scrobbling support for Last.fm",
@@ -398,22 +398,22 @@
         "dialog": {
             "need-to-restart": {
                 "buttons": {
-                    "later": "Later",
-                    "restart-now": "Restart Now"
+                    "later": "Später",
+                    "restart-now": "Jetzt neustarten"
                 },
-                "title": "Restart Required",
-                "message": "\"{{pluginName}}\" needs to restart",
-                "detail": "\"{{pluginName}}\" plugin requires a restart to take effect"
+                "title": "Neustart Erforderlich",
+                "message": "\"{{pluginName}}\" muss neugestartet werden",
+                "detail": "\"{{pluginName}}\"-Plugin erfordert einen Neustart, um in Kraft zu treten"
             },
             "update-available": {
                 "buttons": {
-                    "download": "Download",
-                    "disable": "Disable Updates",
+                    "download": "Herunterladen",
+                    "disable": "Aktualisierungen deaktivieren",
                     "ok": "OK"
                 },
-                "title": "Update Available",
+                "title": "Aktualisierung Verfügbar",
                 "detail": "A new version is available and can be downloaded at {{downloadLink}}",
-                "message": "A new version is available"
+                "message": "Eine neue Version ist verfügbar"
             },
             "hide-menu-enabled": {
                 "message": "Hide Menu is enabled",
@@ -423,8 +423,8 @@
             "unresponsive": {
                 "message": "The Application is Unresponsive",
                 "buttons": {
-                    "quit": "Quit",
-                    "wait": "Wait",
+                    "quit": "Beenden",
+                    "wait": "Warten",
                     "relaunch": "Relaunch"
                 },
                 "title": "Window Unresponsive",
@@ -436,7 +436,7 @@
                 "loaded": "i18n loaded"
             },
             "when-ready": {
-                "clearing-cache-after-20s": "Clearing app cache"
+                "clearing-cache-after-20s": "Leere App-Cache"
             },
             "did-finish-load": {
                 "dev-tools": "did finish load. dev tools opened"
@@ -544,14 +544,14 @@
                 "label": "View"
             },
             "plugins": {
-                "label": "Plugins",
+                "label": "„Plugins",
                 "enabled": "Enabled"
             }
         }
     },
     "language": {
         "code": "en",
-        "name": "English",
+        "name": "Englisch",
         "local-name": "English"
     },
     "common": {
