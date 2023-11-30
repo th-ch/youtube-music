@@ -495,7 +495,13 @@
           },
           "single-instance-lock": "Single Instance Lock",
           "always-on-top": "Always on top",
-          "hide-menu": "Hide Menu",
+          "hide-menu": {
+            "label": "Hide Menu",
+            "dialog": {
+              "title": "Hide Menu Enabled",
+              "message": "Menu will be hidden on next launch, use [Alt] to show it (or backtick [`] if using in-app-menu)"
+            }
+          },
           "start-at-login": "Start at login",
           "tray": {
             "label": "Tray",
@@ -504,6 +510,13 @@
               "enabled-and-show-app": "Enabled and show app",
               "enabled-and-hide-app": "Enabled and hide app",
               "play-pause-on-click": "Play/Pause on click"
+            }
+          },
+          "language": {
+            "label": "Language",
+            "dialog": {
+              "title": "Language Changed",
+              "message": "Language will be changed after restart"
             }
           },
           "advanced-options": {

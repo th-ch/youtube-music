@@ -18,7 +18,8 @@ import { startingPages } from './providers/extracted-data';
 import promptOptions from './providers/prompt-options';
 
 import { getAllMenuTemplate, loadAllMenuPlugins } from './loader/menu';
-import { t } from '@/i18n';
+import { setLanguage, t } from '@/i18n';
+import { languageResources } from '@/i18n/resources';
 
 export type MenuTemplate = Electron.MenuItemConstructorOptions[];
 
@@ -102,6 +103,8 @@ export const mainMenuTemplate = async (
 
       return pluginEnabledMenu(id, pluginLabel, true, innerRefreshMenu);
     });
+
+  const availableLanguages = Object.keys(languageResources) as unknown as (keyof typeof languageResources)[];
 
   return [
     {
@@ -246,7 +249,7 @@ export const mainMenuTemplate = async (
         ...((is.windows() || is.linux()
           ? [
               {
-                label: t('main.menu.options.submenu.hide-menu'),
+                label: t('main.menu.options.submenu.hide-menu.label'),
                 type: 'checkbox',
                 checked: config.get('options.hideMenu'),
                 click(item) {
@@ -254,9 +257,8 @@ export const mainMenuTemplate = async (
                   if (item.checked && !config.get('options.hideMenuWarned')) {
                     dialog.showMessageBox(win, {
                       type: 'info',
-                      title: 'Hide Menu Enabled',
-                      message:
-                        'Menu will be hidden on next launch, use [Alt] to show it (or backtick [`] if using in-app-menu)',
+                      title: t('main.menu.options.submenu.hide-menu.dialog.title'),
+                      message: t('main.menu.options.submenu.hide-menu.dialog.message'),
                     });
                   }
                 },
@@ -322,6 +324,26 @@ export const mainMenuTemplate = async (
               },
             },
           ],
+        },
+        {
+          label: t('main.menu.options.submenu.language.label'),
+          submenu: availableLanguages.map((lang): Electron.MenuItemConstructorOptions => ({
+            label: `${languageResources[lang].translation.language.name} (${languageResources[lang].translation.language['local-name']})`,
+            type: 'checkbox',
+            checked: config.get('options.language') === lang,
+            click() {
+              config.setMenuOption('options.language', lang);
+              refreshMenu(win);
+              setLanguage(lang);
+              dialog.showMessageBox(
+                win,
+                {
+                  title: t('main.menu.options.submenu.language.dialog.title'),
+                  message: t('main.menu.options.submenu.language.dialog.message'),
+                }
+              );
+            },
+          })),
         },
         { type: 'separator' },
         {
