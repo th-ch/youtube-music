@@ -1,5 +1,5 @@
 import { createPlugin } from '@/utils';
-import { onLoad, onUnload } from './main';
+import { backend } from './main';
 import { onMenu } from './menu';
 
 export type DiscordPluginConfig = {
@@ -47,11 +47,6 @@ export default createPlugin({
     hideDurationLeft: false,
   } as DiscordPluginConfig,
   menu: onMenu,
-  backend: {
-    async start({ window, getConfig }) {
-      await onLoad(window, await getConfig());
-    },
-    stop: onUnload,
-  }
+  backend,
 });
 

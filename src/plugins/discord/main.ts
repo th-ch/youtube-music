@@ -4,7 +4,9 @@ import { dev } from 'electron-is';
 
 import { SetActivity } from '@xhayper/discord-rpc/dist/structures/ClientUser';
 
-import registerCallback, { type SongInfoCallback, type SongInfo } from '@/providers/song-info';
+import registerCallback, { type SongInfo } from '@/providers/song-info';
+
+import { createBackend } from '@/utils';
 
 import type { DiscordPluginConfig } from './index';
 
@@ -92,7 +94,7 @@ export const connect = (showError = false) => {
 };
 
 let clearActivity: NodeJS.Timeout | undefined;
-let updateActivity: SongInfoCallback;
+
 export const clear = () => {
   if (info.rpc) {
     info.rpc.user?.clearActivity();
@@ -104,39 +106,16 @@ export const clear = () => {
 export const registerRefresh = (cb: () => void) => refreshCallbacks.push(cb);
 export const isConnected = () => info.rpc !== null;
 
-export const onLoad = async (win: Electron.BrowserWindow, options: DiscordPluginConfig) => {
-  info.rpc.on('connected', () => {
-    if (dev()) {
-      console.log('discord connected');
-    }
-
-    for (const cb of refreshCallbacks) {
-      cb();
-    }
-  });
-
-  info.rpc.on('ready', () => {
-    info.ready = true;
-    if (info.lastSongInfo) {
-      updateActivity(info.lastSongInfo);
-    }
-  });
-
-  info.rpc.on('disconnected', () => {
-    resetInfo();
-
-    if (info.autoReconnect) {
-      connectTimeout();
-    }
-  });
-
-  info.autoReconnect = options.autoReconnect;
-
-  window = win;
-  // We get multiple events
-  // Next song: PAUSE(n), PAUSE(n+1), PLAY(n+1)
-  // Skip time: PAUSE(N), PLAY(N)
-  updateActivity = (songInfo) => {
+export const backend = createBackend<{
+  config?: DiscordPluginConfig;
+  updateActivity: (songInfo: SongInfo, config: DiscordPluginConfig) => void;
+}, DiscordPluginConfig>({
+  /**
+   * We get multiple events
+   * Next song: PAUSE(n), PAUSE(n+1), PLAY(n+1)
+   * Skip time: PAUSE(N), PLAY(N)
+   */
+  updateActivity: (songInfo, config) => {
     if (songInfo.title.length === 0 && songInfo.artist.length === 0) {
       return;
     }
@@ -153,7 +132,7 @@ export const onLoad = async (win: Electron.BrowserWindow, options: DiscordPlugin
     }
 
     // Clear directly if timeout is 0
-    if (songInfo.isPaused && options.activityTimoutEnabled && options.activityTimoutTime === 0) {
+    if (songInfo.isPaused && config.activityTimoutEnabled && config.activityTimoutTime === 0) {
       info.rpc.user?.clearActivity().catch(console.error);
       return;
     }
@@ -175,8 +154,11 @@ export const onLoad = async (win: Electron.BrowserWindow, options: DiscordPlugin
       largeImageKey: songInfo.imageSrc ?? '',
       largeImageText: songInfo.album ?? '',
       buttons: [
-        ...(options.playOnYouTubeMusic ? [{ label: 'Play on YouTube Music', url: songInfo.url ?? '' }] : []),
-        ...(options.hideGitHubButton ? [] : [{ label: 'View App On GitHub', url: 'https://github.com/th-ch/youtube-music' }]),
+        ...(config.playOnYouTubeMusic ? [{ label: 'Play on YouTube Music', url: songInfo.url ?? '' }] : []),
+        ...(config.hideGitHubButton ? [] : [{
+          label: 'View App On GitHub',
+          url: 'https://github.com/th-ch/youtube-music'
+        }]),
       ],
     };
 
@@ -185,10 +167,10 @@ export const onLoad = async (win: Electron.BrowserWindow, options: DiscordPlugin
       activityInfo.smallImageKey = 'paused';
       activityInfo.smallImageText = 'Paused';
       // Set start the timer so the activity gets cleared after a while if enabled
-      if (options.activityTimoutEnabled) {
-        clearActivity = setTimeout(() => info.rpc.user?.clearActivity().catch(console.error), options.activityTimoutTime ?? 10_000);
+      if (config.activityTimoutEnabled) {
+        clearActivity = setTimeout(() => info.rpc.user?.clearActivity().catch(console.error), config.activityTimoutTime ?? 10_000);
       }
-    } else if (!options.hideDurationLeft) {
+    } else if (!config.hideDurationLeft) {
       // Add the start and end time of the song
       const songStartTime = Date.now() - ((songInfo.elapsedSeconds ?? 0) * 1000);
       activityInfo.startTimestamp = songStartTime;
@@ -197,33 +179,70 @@ export const onLoad = async (win: Electron.BrowserWindow, options: DiscordPlugin
     }
 
     info.rpc.user?.setActivity(activityInfo).catch(console.error);
-  };
+  },
+  async start({ window: win, getConfig }) {
+    this.config = await getConfig();
 
-  // If the page is ready, register the callback
-  win.once('ready-to-show', () => {
-    let lastSongInfo: SongInfo;
-    registerCallback((songInfo) => {
-      lastSongInfo = songInfo;
-      updateActivity(songInfo);
-    });
-    connect();
-    let lastSent = Date.now();
-    ipcMain.on('timeChanged', (_, t: number) => {
-      const currentTime = Date.now();
-      // if lastSent is more than 5 seconds ago, send the new time
-      if (currentTime - lastSent > 5000) {
-        lastSent = currentTime;
-        if (lastSongInfo) {
-          lastSongInfo.elapsedSeconds = t;
-          updateActivity(lastSongInfo);
-        }
+    info.rpc.on('connected', () => {
+      if (dev()) {
+        console.log('discord connected');
+      }
+
+      for (const cb of refreshCallbacks) {
+        cb();
       }
     });
-  });
-  app.on('window-all-closed', clear);
-};
 
-export const onUnload = () => {
-  resetInfo();
-};
+    info.rpc.on('ready', () => {
+      info.ready = true;
+      if (info.lastSongInfo && this.config) {
+        this.updateActivity(info.lastSongInfo, this.config);
+      }
+    });
 
+    info.rpc.on('disconnected', () => {
+      resetInfo();
+
+      if (info.autoReconnect) {
+        connectTimeout();
+      }
+    });
+
+    info.autoReconnect = this.config.autoReconnect;
+
+    window = win;
+
+    // If the page is ready, register the callback
+    win.once('ready-to-show', () => {
+      let lastSongInfo: SongInfo;
+      registerCallback((songInfo) => {
+        lastSongInfo = songInfo;
+        if (this.config) this.updateActivity(songInfo, this.config);
+      });
+      connect();
+      let lastSent = Date.now();
+      ipcMain.on('timeChanged', (_, t: number) => {
+        const currentTime = Date.now();
+        // if lastSent is more than 5 seconds ago, send the new time
+        if (currentTime - lastSent > 5000) {
+          lastSent = currentTime;
+          if (lastSongInfo) {
+            lastSongInfo.elapsedSeconds = t;
+            if (this.config) this.updateActivity(lastSongInfo, this.config);
+          }
+        }
+      });
+    });
+    app.on('window-all-closed', clear);
+  },
+  stop() {
+    resetInfo();
+  },
+  onConfigChange(newConfig) {
+    this.config = newConfig;
+    info.autoReconnect = newConfig.autoReconnect;
+    if (info.lastSongInfo) {
+      this.updateActivity(info.lastSongInfo, newConfig);
+    }
+  },
+});
