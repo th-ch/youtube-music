@@ -38,12 +38,12 @@
                 },
                 "smoothness-transition": {
                     "submenu": {
-                        "during": "During {{interpolationTime}}s"
+                        "during": "Σε {{interpolationTime}} δεύτερα"
                     },
                     "label": "Smoothness transition"
                 }
             },
-            "description": "Applies a lighting effect by casting gentle colors from the video, into your screen’s background."
+            "description": "Εφαρμόζει ένα εφέ φωτισμού ρίχνοντας απαλά χρώματα από το βίντεο, στο φόντο της οθόνης σας."
         },
         "in-app-menu": {
             "menu": {
@@ -199,20 +199,20 @@
             "description": "Allows to switch the app to picture-in-picture mode"
         },
         "album-color-theme": {
-            "description": "Applies a dynamic theme and visual effects based on the album color palette",
+            "description": "Εφαρμόζει ένα δυναμικό θέμα και εφέ με βάση τη χρωματική παλέτα του άλμπουμ",
             "name": "Album Color Theme"
         },
         "discord": {
             "menu": {
                 "auto-reconnect": "Auto reconnect",
                 "clear-activity-after-timeout": "Clear activity after timeout",
-                "hide-duration-left": "Hide duration left",
-                "hide-github-button": "Hide GitHub link Button",
+                "hide-duration-left": "Απόκρυψη της διάρκειας που απομένει",
+                "hide-github-button": "Απόκρυψη του συνδέσμου προς GitHub",
                 "clear-activity": "Clear activity",
-                "set-inactivity-timeout": "Set inactivity timeout",
+                "set-inactivity-timeout": "Ορισμός χρονικού ορίου αδράνειας",
                 "play-on-youtube-music": "Play on YouTube Music"
             },
-            "description": "Show your friends what you listen to with Rich Presence",
+            "description": "Δείξτε στους φίλους σας τι ακούτε με το Rich Presence",
             "prompt": {
                 "set-inactivity-timeout": {
                     "label": "Enter inactivity timeout in seconds:",
@@ -290,8 +290,8 @@
                 "options": {
                     "multi-input": {
                         "fade-scaling": {
-                            "logarithmic": "Logarithmic",
-                            "linear": "Linear",
+                            "logarithmic": "Λογαριθμική",
+                            "linear": "Γραμμική",
                             "label": "Fade scaling"
                         },
                         "seconds-before-end": "Crossfade N seconds before end",
@@ -304,7 +304,7 @@
             "name": "Crossfade [beta]",
             "description": "Crossfade between songs",
             "menu": {
-                "advanced": "Advanced"
+                "advanced": "Για προχωρημένους"
             }
         },
         "taskbar-mediacontrol": {
@@ -312,25 +312,25 @@
             "name": "Taskbar Media Control"
         },
         "compact-sidebar": {
-            "description": "Always set the sidebar in compact mode",
+            "description": "Να είναι πάντα συμπαγές το sidebar",
             "name": "Compact Sidebar"
         },
         "disable-autoplay": {
-            "description": "Makes song start in \"paused\" mode",
+            "description": "Κάνει τα τραγούδια να είναι αυτόματα σε παύση.",
             "name": "Disable Autoplay",
             "menu": {
-                "apply-once": "Applies only on startup"
+                "apply-once": "Εφαρμόζεται μόνο στο πρώτο τραγούδι."
             }
         },
         "audio-compressor": {
-            "description": "Apply compression to audio (lowers the volume of the loudest parts of the signal and raises the volume of the softest parts)",
+            "description": "Συμπίεση ήχου (μειώνει την ένταση των πιο δυνατών τμημάτων του κύματος και αυξάνει την ένταση των πιο μαλακών τμημάτων)",
             "name": "Audio Compressor"
         },
         "adblocker": {
             "name": "Adblocker",
-            "description": "Block all ads and tracking out of the box",
+            "description": "Αποκλεισμός όλων των διαφημίσεων και tracker",
             "menu": {
-                "blocker": "Blocker"
+                "blocker": "Μέθοδος αποκλεισμού"
             }
         },
         "playback-speed": {
@@ -349,7 +349,7 @@
             "description": "Makes the volume slider exponential so it's easier to select lower volumes."
         },
         "bypass-age-restrictions": {
-            "description": "Bypass YouTube's age verification",
+            "description": "Παράκαμψη της επαλήθευσης ηλικίας του YouTube",
             "name": "Bypass Age Restrictions"
         },
         "lumiastream": {
@@ -382,7 +382,7 @@
             "name": "SponsorBlock"
         },
         "blur-nav-bar": {
-            "description": "Makes navigation bar transparent and blurry",
+            "description": "Κάνει τη γραμμή πλοήγησης διαφανή και θολή",
             "name": "Blur Navigation Bar"
         },
         "no-google-login": {
@@ -481,7 +481,7 @@
                             "title": "Language Changed",
                             "message": "Language will be changed after restart"
                         },
-                        "label": "Language"
+                        "label": "Γλώσσα"
                     },
                     "advanced-options": {
                         "submenu": {
@@ -509,9 +509,9 @@
                     },
                     "tray": {
                         "submenu": {
-                            "play-pause-on-click": "Play/Pause on click",
+                            "play-pause-on-click": "Play/Pause στο πάτημα",
                             "disabled": "Disabled",
-                            "enabled-and-hide-app": "Enabled and hide app",
+                            "enabled-and-hide-app": "Ενεργοποιημένο και απόκρυψη της εφαρμογής",
                             "enabled-and-show-app": "Enabled and show app"
                         },
                         "label": "Tray"
@@ -550,9 +550,9 @@
         }
     },
     "language": {
-        "code": "en",
-        "name": "English",
-        "local-name": "English"
+        "code": "el",
+        "name": "Greek",
+        "local-name": "Ελληνικά"
     },
     "common": {
         "console": {
