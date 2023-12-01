@@ -9,7 +9,8 @@
                     "downloading": "Laster ned …",
                     "converting": "Konverterer …",
                     "saving": "Lagrer …",
-                    "loading": "Laster inn …"
+                    "loading": "Laster inn …",
+                    "done": "Ferdig: {{filePath}}"
                 },
                 "dialog": {
                     "start-download-playlist": {
@@ -24,6 +25,15 @@
                         }
                     }
                 }
+            },
+            "menu": {
+                "choose-download-folder": "Velg nedlastningsmappe",
+                "skip-existing": "Hopp over eksisterende filer",
+                "presets": "Forhåndsinnstillinger"
+            },
+            "name": "Nedlaster",
+            "templates": {
+                "button": "Last ned"
             }
         },
         "video-toggle": {
@@ -33,6 +43,13 @@
             "menu": {
                 "mode": {
                     "label": "Modus"
+                },
+                "align": {
+                    "submenu": {
+                        "left": "Venstre",
+                        "right": "Høyre",
+                        "middle": "Midten"
+                    }
                 }
             }
         },
@@ -65,6 +82,87 @@
         },
         "notifications": {
             "name": "Merknader"
+        },
+        "captions-selector": {
+            "prompt": {
+                "selector": {
+                    "label": "Nåværende tekstingsspråk: {{language}}",
+                    "none": "Ingen",
+                    "title": "Velg tekstingsspråk"
+                }
+            },
+            "templates": {
+                "title": "Åpne undertekstvelger"
+            }
+        },
+        "album-color-theme": {
+            "description": "Ifører dynamisk drakt og visuelle effekter basert på albumsfargepaletten",
+            "name": "Albumsfargedrakt"
+        },
+        "ambient-mode": {
+            "menu": {
+                "opacity": {
+                    "label": "Dekkevne",
+                    "submenu": {
+                        "percent": "{{opacity}}%"
+                    }
+                },
+                "quality": {
+                    "label": "Kvalitet",
+                    "submenu": {
+                        "pixels": "{{quality}} piksler"
+                    }
+                },
+                "size": {
+                    "submenu": {
+                        "percent": "{{size}}%"
+                    },
+                    "label": "Størrelse"
+                },
+                "blur-amount": {
+                    "submenu": {
+                        "pixels": "{{blurAmount}} piksler"
+                    },
+                    "label": "Tilsløringsmengde"
+                }
+            }
+        },
+        "quality-changer": {
+            "backend": {
+                "dialog": {
+                    "quality-changer": {
+                        "detail": "Nåværende: {{quality}}",
+                        "message": "Velg videokvalitet:",
+                        "title": "Velg videokvalitet"
+                    }
+                }
+            }
+        },
+        "crossfade": {
+            "prompt": {
+                "options": {
+                    "multi-input": {
+                        "fade-scaling": {
+                            "logarithmic": "Logaritmisk",
+                            "linear": "Lineær"
+                        }
+                    }
+                }
+            },
+            "menu": {
+                "advanced": "Avansert"
+            }
+        },
+        "disable-autoplay": {
+            "name": "Skru av autospilling"
+        },
+        "discord": {
+            "backend": {
+                "disconnected": "Frakoblet fra Discord"
+            }
+        },
+        "last-fm": {
+            "name": "Last.fm"
         }
     },
     "main": {
