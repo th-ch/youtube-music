@@ -550,9 +550,9 @@
         }
     },
     "language": {
-        "code": "en",
-        "name": "Englisch",
-        "local-name": "English"
+        "code": "de",
+        "name": "German",
+        "local-name": "Deutsch"
     },
     "common": {
         "console": {
