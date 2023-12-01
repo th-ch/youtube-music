@@ -41,8 +41,8 @@ dependencies:
     specifier: 2.1.4
     version: 2.1.4
   '@xhayper/discord-rpc':
-    specifier: 1.1.0
-    version: 1.1.0(bufferutil@4.0.8)(utf-8-validate@6.0.3)
+    specifier: 1.1.1
+    version: 1.1.1(bufferutil@4.0.8)(utf-8-validate@6.0.3)
   async-mutex:
     specifier: 0.4.0
     version: 0.4.0
@@ -1503,8 +1503,8 @@ packages:
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
     dev: true
 
-  /@xhayper/discord-rpc@1.1.0(bufferutil@4.0.8)(utf-8-validate@6.0.3):
-    resolution: {integrity: sha512-R471FBcd6YVZZIZAT76IlPudCAs/K1ReN8wsh0A6oKyHOzIDcheTE4Z0L72YQHhgixW/RJS7nvuITRffIVMBXQ==}
+  /@xhayper/discord-rpc@1.1.1(bufferutil@4.0.8)(utf-8-validate@6.0.3):
+    resolution: {integrity: sha512-F3HC0zfeBGV9bOKCzsiumQrUunH5JW5jPwvC6TXoCrOKo7Iog+B8Iw90UdPDoUDLopA1WnWDXvnzauNJ7hWjqA==}
     engines: {node: '>=14.18.0'}
     dependencies:
       axios: 1.6.2
