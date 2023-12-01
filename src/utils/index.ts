@@ -111,7 +111,7 @@ export const startPlugin = async <Config extends PluginConfig>(
       t('common.console.plugins.executed-at-ms', {
         pluginName: id,
         contextName: options.ctx,
-        ms: performance.now() - start,
+        ms: (performance.now() - start).toFixed(2),
       }),
     );
 
