@@ -382,6 +382,7 @@
       "description": "UI에서 직접 MP3/소스 오디오를 다운로드하세요",
       "menu": {
         "choose-download-folder": "다운로드 폴더 선택",
+        "download-playlist": "재생목록 다운로드",
         "presets": "프리셋",
         "skip-existing": "이미 존재하는 파일 넘기기"
       },
