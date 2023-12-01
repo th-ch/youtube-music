@@ -114,6 +114,7 @@ export default (api: YoutubePlayer) => {
     pause: (e: Event) => playPausedHandler(e, 'pause'),
   };
 
+  // eslint-disable-next-line @typescript-eslint/require-await
   const videoEventDispatcher = async (name: string, videoData: VideoDataChangeValue) => document.dispatchEvent(
     new CustomEvent<VideoDataChanged>('videodatachange', {
       detail: { name, videoData },
