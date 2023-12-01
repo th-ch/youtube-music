@@ -126,7 +126,10 @@
               "message": "재시작 후 언어가 변경됩니다",
               "title": "언어 변경됨"
             },
-            "label": "언어"
+            "label": "언어",
+            "submenu": {
+              "to-help-translate": "번역을 돕고 싶으신가요? 여기를 누르세요"
+            }
           },
           "resume-on-start": "앱 시작 시 마지막 곡 다시 듣기",
           "single-instance-lock": "단일 인스턴스 잠금",
