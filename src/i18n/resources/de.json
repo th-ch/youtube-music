@@ -290,7 +290,8 @@
                     "multi-input": {
                         "fade-scaling": {
                             "logarithmic": "Logarithmisch",
-                            "linear": "Linear"
+                            "linear": "Linear",
+                            "label": "Fade-Skalierung"
                         },
                         "seconds-before-end": "Übergang N Sekunden vor dem Ende starten",
                         "fade-in-duration": "Einblendezeit (Millisekunden)",
