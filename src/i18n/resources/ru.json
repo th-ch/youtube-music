@@ -1,571 +1,571 @@
 {
-    "plugins": {
-        "ambient-mode": {
-            "name": "Режим Ambient",
-            "menu": {
-                "opacity": {
-                    "label": "Прозрачность",
-                    "submenu": {
-                        "percent": "{{opacity}}%"
-                    }
-                },
-                "quality": {
-                    "label": "Качество",
-                    "submenu": {
-                        "pixels": "{{quality}} пикселей"
-                    }
-                },
-                "size": {
-                    "submenu": {
-                        "percent": "{{size}}%"
-                    },
-                    "label": "Размер"
-                },
-                "blur-amount": {
-                    "submenu": {
-                        "pixels": "{{blurAmount}} пикселей"
-                    },
-                    "label": "Степень размытия"
-                },
-                "buffer": {
-                    "submenu": {
-                        "buffer": "{{buffer}}"
-                    },
-                    "label": "Буфер"
-                },
-                "use-fullscreen": {
-                    "label": "Использовать полноэкранный режим"
-                },
-                "smoothness-transition": {
-                    "submenu": {
-                        "during": "В течение {{interpolationTime}}s"
-                    },
-                    "label": "Плавный переход"
-                }
-            },
-            "description": "Применяет световой эффект, отбрасывая мягкие цвета из видео на задний фон вашего экрана"
-        },
-        "in-app-menu": {
-            "menu": {
-                "hide-dom-window-controls": "Hide DOM window controls"
-            },
-            "name": "In-App Menu",
-            "description": "Gives menu-bars a fancy, dark or album-color look"
-        },
-        "video-toggle": {
-            "menu": {
-                "force-hide": "Force remove video tab",
-                "align": {
-                    "submenu": {
-                        "left": "Left",
-                        "right": "Right",
-                        "middle": "Middle"
-                    },
-                    "label": "Alignment"
-                },
-                "mode": {
-                    "submenu": {
-                        "native": "Native toggle",
-                        "custom": "Custom toggle",
-                        "disabled": "Disabled"
-                    },
-                    "label": "Mode"
-                }
-            },
-            "templates": {
-                "button": "Song"
-            },
-            "description": "Adds a button to switch between Video/Song mode. can also optionally remove the whole video tab",
-            "name": "Video Toggle"
-        },
-        "notifications": {
-            "menu": {
-                "interactive-settings": {
-                    "label": "Interactive Settings",
-                    "submenu": {
-                        "tray-controls": "Open/Close on tray click",
-                        "hide-button-text": "Hide button text",
-                        "refresh-on-play-pause": "Refresh on Play/Pause"
-                    }
-                },
-                "toast-style": "Toast style",
-                "unpause-notification": "Show notification on unpause",
-                "interactive": "Interactive Notifications",
-                "priority": "Notification Priority"
-            },
-            "description": "Display a notification when a song starts playing (interactive notifications are available on Windows)",
-            "name": "Notifications"
-        },
-        "downloader": {
-            "backend": {
-                "feedback": {
-                    "video-id-not-found": "Video not found",
-                    "conversion-progress": "Conversion: {{percent}}%",
-                    "getting-playlist-info": "Getting playlist info…",
-                    "downloading-playlist": "Downloading playlist \"{{playlistTitle}}\" - {{playlistSize}} songs ({{playlistId}})",
-                    "download-info": "Downloading {{artist}} - {{title}} [{{videoId}}",
-                    "playlist-is-empty": "Playlist is empty",
-                    "downloading-counter": "Downloading {{current}}/{{total}}…",
-                    "playlist-id-not-found": "No playlist ID found",
-                    "preparing-file": "Preparing file…",
-                    "downloading": "Downloading…",
-                    "trying-to-get-playlist-id": "Trying to get playlist ID: {{playlistId}}",
-                    "playlist-has-only-one-song": "Playlist has only one item, downloading it directly",
-                    "done": "Done: {{filePath}}",
-                    "writing-id3": "Writing ID3 tags…",
-                    "converting": "Converting…",
-                    "playlist-is-mix-or-private": "Error getting playlist info: make sure it isn't a private or \"Mixed for you\" playlist\n\n{{error}}",
-                    "download-progress": "Download: {{percent}}%",
-                    "folder-already-exists": "The folder {{playlistFolder}} already exists",
-                    "error-while-downloading": "Error downloading \"{{author}} - {{title}}\": {{error}}",
-                    "saving": "Saving…",
-                    "loading": "Loading…"
-                },
-                "dialog": {
-                    "start-download-playlist": {
-                        "buttons": {
-                            "ok": "OK"
-                        },
-                        "message": "Downloading Playlist {{playlistTitle}}",
-                        "title": "Download started",
-                        "detail": "({{playlistSize}} songs)"
-                    },
-                    "error": {
-                        "buttons": {
-                            "ok": "OK"
-                        },
-                        "title": "Error in download!",
-                        "message": "Argh! Apologies, download failed…"
-                    }
-                }
-            },
-            "menu": {
-                "choose-download-folder": "Choose download folder",
-                "skip-existing": "Skip existing files",
-                "presets": "Presets"
-            },
-            "name": "Downloader",
-            "renderer": {
-                "can-not-update-progress": "Cannot update progress"
-            },
-            "description": "Downloads MP3 / source audio directly from the interface",
-            "templates": {
-                "button": "Download"
-            }
-        },
-        "captions-selector": {
-            "prompt": {
-                "selector": {
-                    "label": "Current caption language: {{language}}",
-                    "none": "None",
-                    "title": "Select caption language"
-                }
-            },
-            "description": "Выбор субтитров для аудиотреков в YouTube Music",
-            "menu": {
-                "disable-captions": "No captions by default",
-                "autoload": "Automatically select last used caption"
-            },
-            "templates": {
-                "title": "Open captions selector"
-            },
-            "name": "Выбор субтитров"
-        },
-        "touchbar": {
-            "description": "Adds a TouchBar widget for macOS users",
-            "name": "TouchBar"
-        },
-        "picture-in-picture": {
-            "menu": {
-                "hotkey": {
-                    "prompt": {
-                        "title": "Picture in Picture Hotkey",
-                        "label": "Choose a hotkey for toggle Picture in Picture",
-                        "keybind-options": {
-                            "hotkey": "Hotkey"
-                        }
-                    },
-                    "label": "Hotkey"
-                },
-                "use-native-pip": "Use browser native PiP",
-                "always-on-top": "Always on top",
-                "save-window-position": "Save window position",
-                "save-window-size": "Save window size"
-            },
-            "name": "Picture in Picture",
-            "templates": {
-                "button": "Picture in Picture"
-            },
-            "description": "Allows to switch the app to picture-in-picture mode"
-        },
-        "album-color-theme": {
-            "description": "Применяет динамическую тему и визуальные эффекты на основе цветовой палитры альбома",
-            "name": "Цветовая тема альбома"
-        },
-        "discord": {
-            "menu": {
-                "auto-reconnect": "Auto reconnect",
-                "clear-activity-after-timeout": "Clear activity after timeout",
-                "hide-duration-left": "Hide duration left",
-                "hide-github-button": "Hide GitHub link Button",
-                "clear-activity": "Clear activity",
-                "set-inactivity-timeout": "Set inactivity timeout",
-                "play-on-youtube-music": "Play on YouTube Music"
-            },
-            "description": "Show your friends what you listen to with Rich Presence",
-            "prompt": {
-                "set-inactivity-timeout": {
-                    "label": "Enter inactivity timeout in seconds:",
-                    "title": "Set inactivity timeout"
-                }
-            },
-            "backend": {
-                "already-connected": "Attempted to connect with active connection",
-                "connected": "Connected to Discord",
-                "disconnected": "Disconnected from Discord"
-            },
-            "name": "Discord Rich Presence"
-        },
-        "quality-changer": {
-            "backend": {
-                "dialog": {
-                    "quality-changer": {
-                        "detail": "Current Quality: {{quality}}",
-                        "message": "Choose Video Quality:",
-                        "title": "Choose Video Quality"
-                    }
-                }
-            },
-            "description": "Allows changing the video quality with a button on the video overlay",
-            "name": "Video Quality Changer"
-        },
-        "shortcuts": {
-            "menu": {
-                "override-media-keys": "Override Media Keys",
-                "set-keybinds": "Set Global Song Controls"
-            },
-            "description": "Allows setting global hotkeys for playback (play/pause/next/previous) + disable media osd by overriding media keys + enable Ctrl/CMD + F to search + enable linux mpris support for mediakeys + custom hotkeys for advanced users",
-            "prompt": {
-                "keybind": {
-                    "label": "Choose Global Keybinds for Songs Control:",
-                    "keybind-options": {
-                        "previous": "Previous",
-                        "next": "Next",
-                        "play-pause": "Play / Pause"
-                    },
-                    "title": "Global Keybinds"
-                }
-            },
-            "name": "Shortcuts (& MPRIS)"
-        },
-        "tuna-obs": {
-            "name": "Tuna OBS",
-            "description": "Integration with OBS's plugin Tuna"
-        },
-        "precise-volume": {
-            "prompt": {
-                "global-shortcuts": {
-                    "keybind-options": {
-                        "increase": "Increase Volume",
-                        "decrease": "Decrease Volume"
-                    },
-                    "label": "Choose Global Volume Keybinds:",
-                    "title": "Global Volume Keybinds"
-                },
-                "volume-steps": {
-                    "label": "Choose Volume Increase/Decrease Steps",
-                    "title": "Volume Steps"
-                }
-            },
-            "description": "Control the volume precisely using mousewheel/hotkeys, with a custom HUD and customizable volume steps",
-            "menu": {
-                "custom-volume-steps": "Set Custom Volume Steps",
-                "arrows-shortcuts": "Local Arrow-keys Controls",
-                "global-shortcuts": "Global Hotkeys"
-            },
-            "name": "Precise Volume"
-        },
-        "crossfade": {
-            "prompt": {
-                "options": {
-                    "multi-input": {
-                        "fade-scaling": {
-                            "logarithmic": "Logarithmic",
-                            "linear": "Linear",
-                            "label": "Fade scaling"
-                        },
-                        "seconds-before-end": "Crossfade N seconds before end",
-                        "fade-in-duration": "Fade in duration (milliseconds)",
-                        "fade-out-duration": "Fade out duration (milliseconds)"
-                    },
-                    "title": "Crossfade options"
-                }
-            },
-            "name": "Crossfade [beta]",
-            "description": "Crossfade between songs",
-            "menu": {
-                "advanced": "Advanced"
-            }
-        },
-        "taskbar-mediacontrol": {
-            "description": "Control playback from your Windows taskbar",
-            "name": "Taskbar Media Control"
-        },
-        "compact-sidebar": {
-            "description": "Always set the sidebar in compact mode",
-            "name": "Compact Sidebar"
-        },
-        "disable-autoplay": {
-            "description": "Makes song start in \"paused\" mode",
-            "name": "Disable Autoplay",
-            "menu": {
-                "apply-once": "Applies only on startup"
-            }
-        },
-        "audio-compressor": {
-            "description": "Применяет компрессию к аудио (уменьшает громкость самых громких частей сигнала и повышает громкость самых тихих частей)",
-            "name": "Аудио компрессор"
-        },
-        "adblocker": {
-            "name": "Блокировщик рекламы",
-            "description": "Блокируйте всю рекламу и трекинг сразу после установки",
-            "menu": {
-                "blocker": "Блокировщик"
-            }
-        },
-        "playback-speed": {
-            "description": "Listen fast, listen slow! Adds a slider that controls song speed",
-            "templates": {
-                "button": "Speed"
-            },
-            "name": "Playback Speed"
-        },
-        "navigation": {
-            "name": "Navigation",
-            "description": "Next/Back navigation arrows directly integrated in the interface, like in your favorite browser"
-        },
-        "exponential-volume": {
-            "name": "Exponential Volume",
-            "description": "Makes the volume slider exponential so it's easier to select lower volumes."
-        },
-        "bypass-age-restrictions": {
-            "description": "Обход проверки возраста на YouTube",
-            "name": "Обход возрастных ограничений"
-        },
-        "lumiastream": {
-            "description": "Adds Lumia Stream support",
-            "name": "Lumia Stream [beta]"
-        },
-        "skip-silences": {
-            "name": "Skip Silences",
-            "description": "Automatically skip silences sections in songs"
-        },
-        "visualizer": {
-            "description": "Adds a visualizer to the player",
-            "menu": {
-                "visualizer-type": "Visualizer Type"
-            },
-            "name": "Visualizer"
-        },
-        "lyrics-genius": {
-            "renderer": {
-                "fetched-lyrics": "Fetched lyrics for Genius"
-            },
-            "menu": {
-                "romanized-lyrics": "Romanized Lyrics"
-            },
-            "description": "Adds lyrics support for most songs",
-            "name": "Lyrics Genius"
-        },
-        "sponsorblock": {
-            "description": "Automatically Skips non-music parts like intro/outro or parts of music videos where the song isn't playing",
-            "name": "SponsorBlock"
-        },
-        "blur-nav-bar": {
-            "description": "Делает панель навигации прозрачной и размытой",
-            "name": "Размытие панели навигации"
-        },
-        "no-google-login": {
-            "description": "Remove Google login buttons and links from the interface",
-            "name": "No Google Login"
-        },
-        "last-fm": {
-            "description": "Add scrobbling support for Last.fm",
-            "name": "Last.fm"
-        }
-    },
-    "main": {
-        "dialog": {
-            "need-to-restart": {
-                "buttons": {
-                    "later": "Later",
-                    "restart-now": "Restart Now"
-                },
-                "title": "Restart Required",
-                "message": "\"{{pluginName}}\" needs to restart",
-                "detail": "\"{{pluginName}}\" plugin requires a restart to take effect"
-            },
-            "update-available": {
-                "buttons": {
-                    "download": "Download",
-                    "disable": "Disable Updates",
-                    "ok": "OK"
-                },
-                "title": "Update Available",
-                "detail": "A new version is available and can be downloaded at {{downloadLink}}",
-                "message": "A new version is available"
-            },
-            "hide-menu-enabled": {
-                "message": "Hide Menu is enabled",
-                "title": "Hide Menu Enabled",
-                "detail": "Menu is hidden, use 'Alt' to show it (or 'Escape' if using in-app-menu)"
-            },
-            "unresponsive": {
-                "message": "The Application is Unresponsive",
-                "buttons": {
-                    "quit": "Quit",
-                    "wait": "Wait",
-                    "relaunch": "Relaunch"
-                },
-                "title": "Window Unresponsive",
-                "detail": "We are sorry for the inconvenience! please choose what to do:"
-            }
-        },
-        "console": {
-            "i18n": {
-                "loaded": "i18n loaded"
-            },
-            "when-ready": {
-                "clearing-cache-after-20s": "Clearing app cache"
-            },
-            "did-finish-load": {
-                "dev-tools": "did finish load. dev tools opened"
-            },
-            "theme": {
-                "css-file-not-found": "CSS file \"{{cssFile}}\" does not exist, ignoring"
-            },
-            "second-instance": {
-                "receive-command": "Received command over protocol: \"{{command}}\""
-            },
-            "window": {
-                "tried-to-render-offscreen": "Window tried to render offscreen, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
-            },
-            "unresponsive": {
-                "details": "Unresponsive Error!\n{{error}}"
-            }
-        },
-        "menu": {
-            "options": {
-                "submenu": {
-                    "visual-tweaks": {
-                        "submenu": {
-                            "like-buttons": {
-                                "force-show": "Force show",
-                                "label": "Like buttons",
-                                "default": "Default",
-                                "hide": "Hide"
-                            },
-                            "theme": {
-                                "submenu": {
-                                    "import-css-file": "Import custom CSS file",
-                                    "no-theme": "No theme"
-                                },
-                                "label": "Theme"
-                            },
-                            "remove-upgrade-button": "Remove upgrade button"
-                        },
-                        "label": "Visual Tweaks"
-                    },
-                    "language": {
-                        "dialog": {
-                            "title": "Language Changed",
-                            "message": "Language will be changed after restart"
-                        },
-                        "label": "Language"
-                    },
-                    "advanced-options": {
-                        "submenu": {
-                            "edit-config-json": "Edit config.json",
-                            "restart-on-config-changes": "Restart on config changes",
-                            "set-proxy": {
-                                "prompt": {
-                                    "placeholder": "Example: socks5://127.0.0.1:9999",
-                                    "title": "Set proxy",
-                                    "label": "Enter Proxy Address: (leave empty to disable)"
-                                },
-                                "label": "Set proxy"
-                            },
-                            "disable-hardware-acceleration": "Disable hardware acceleration",
-                            "override-user-agent": "Override User-Agent",
-                            "toggle-dev-tools": "Toggle DevTools",
-                            "auto-reset-app-cache": "Reset App cache when app starts"
-                        },
-                        "label": "Advanced options"
-                    },
-                    "resume-on-start": "Resume last song when app starts",
-                    "starting-page": {
-                        "label": "Starting page",
-                        "unset": "Unset"
-                    },
-                    "tray": {
-                        "submenu": {
-                            "play-pause-on-click": "Play/Pause on click",
-                            "disabled": "Disabled",
-                            "enabled-and-hide-app": "Enabled and hide app",
-                            "enabled-and-show-app": "Enabled and show app"
-                        },
-                        "label": "Tray"
-                    },
-                    "auto-update": "Auto Update",
-                    "hide-menu": {
-                        "dialog": {
-                            "message": "Menu will be hidden on next launch, use [Alt] to show it (or backtick [`] if using in-app-menu)",
-                            "title": "Hide Menu Enabled"
-                        },
-                        "label": "Hide Menu"
-                    },
-                    "always-on-top": "Always on top",
-                    "start-at-login": "Start at login",
-                    "single-instance-lock": "Single Instance Lock"
-                },
-                "label": "Options"
-            },
-            "navigation": {
-                "submenu": {
-                    "go-back": "Go back",
-                    "copy-current-url": "Copy current URL",
-                    "go-forward": "Go forward",
-                    "restart": "Restart App"
-                },
-                "label": "Navigation"
-            },
-            "about": "About",
-            "view": {
-                "label": "View"
-            },
-            "plugins": {
-                "label": "Plugins",
-                "enabled": "Enabled"
-            }
-        }
-    },
-    "language": {
-        "code": "ru",
-        "name": "Russian",
-        "local-name": "Русский"
-    },
-    "common": {
-        "console": {
-            "plugins": {
-                "unloaded": "Plugin \"{{pluginName}}\" unloaded",
-                "load-all": "Loading all plugins",
-                "unload-failed": "Failed to unload plugin \"{{pluginName}}\"",
-                "execute-failed": "Failed to execute plugin {{pluginName}}::{{contextName}}",
-                "initialize-failed": "Failed to initialize plugin \"{{pluginName}}\"",
-                "loaded": "Plugin \"{{pluginName}}\" loaded",
-                "load-failed": "Failed to load plugin \"{{pluginName}}\"",
-                "executed-at-ms": "Plugin {{pluginName}}::{{contextName}} executed at {{ms}}ms"
-            }
-        }
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "",
+        "executed-at-ms": "",
+        "initialize-failed": "",
+        "load-all": "",
+        "load-failed": "",
+        "loaded": "",
+        "unload-failed": "",
+        "unloaded": ""
+      }
     }
+  },
+  "language": {
+    "code": "ru",
+    "local-name": "Русский",
+    "name": "Russian"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": ""
+      },
+      "i18n": {
+        "loaded": ""
+      },
+      "second-instance": {
+        "receive-command": ""
+      },
+      "theme": {
+        "css-file-not-found": ""
+      },
+      "unresponsive": {
+        "details": ""
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": ""
+      },
+      "window": {
+        "tried-to-render-offscreen": ""
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "detail": "",
+        "message": "",
+        "title": ""
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "",
+          "restart-now": ""
+        },
+        "detail": "",
+        "message": "",
+        "title": ""
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "",
+          "relaunch": "",
+          "wait": ""
+        },
+        "detail": "",
+        "message": "",
+        "title": ""
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "",
+          "download": "Download",
+          "ok": "OK"
+        },
+        "detail": "",
+        "message": "",
+        "title": ""
+      }
+    },
+    "menu": {
+      "about": "",
+      "navigation": {
+        "label": "Navigation",
+        "submenu": {
+          "copy-current-url": "",
+          "go-back": "",
+          "go-forward": "",
+          "restart": ""
+        }
+      },
+      "options": {
+        "label": "Options",
+        "submenu": {
+          "advanced-options": {
+            "label": "",
+            "submenu": {
+              "auto-reset-app-cache": "",
+              "disable-hardware-acceleration": "",
+              "edit-config-json": "",
+              "override-user-agent": "",
+              "restart-on-config-changes": "",
+              "set-proxy": {
+                "label": "Set proxy",
+                "prompt": {
+                  "label": "",
+                  "placeholder": "",
+                  "title": "Set proxy"
+                }
+              },
+              "toggle-dev-tools": ""
+            }
+          },
+          "always-on-top": "",
+          "auto-update": "Auto Update",
+          "hide-menu": {
+            "dialog": {
+              "message": "",
+              "title": ""
+            },
+            "label": ""
+          },
+          "language": {
+            "dialog": {
+              "message": "",
+              "title": ""
+            },
+            "label": ""
+          },
+          "resume-on-start": "",
+          "single-instance-lock": "",
+          "start-at-login": "Start at login",
+          "starting-page": {
+            "label": "",
+            "unset": ""
+          },
+          "tray": {
+            "label": "Tray",
+            "submenu": {
+              "disabled": "",
+              "enabled-and-hide-app": "",
+              "enabled-and-show-app": "",
+              "play-pause-on-click": ""
+            }
+          },
+          "visual-tweaks": {
+            "label": "",
+            "submenu": {
+              "like-buttons": {
+                "default": "Default",
+                "force-show": "",
+                "hide": "",
+                "label": ""
+              },
+              "remove-upgrade-button": "",
+              "theme": {
+                "label": "Theme",
+                "submenu": {
+                  "import-css-file": "",
+                  "no-theme": "No theme"
+                }
+              }
+            }
+          }
+        }
+      },
+      "plugins": {
+        "enabled": "",
+        "label": "Plugins"
+      },
+      "view": {
+        "label": "View"
+      }
+    }
+  },
+  "plugins": {
+    "adblocker": {
+      "description": "Блокируйте всю рекламу и трекинг сразу после установки",
+      "menu": {
+        "blocker": "Блокировщик"
+      },
+      "name": "Блокировщик рекламы"
+    },
+    "album-color-theme": {
+      "description": "Применяет динамическую тему и визуальные эффекты на основе цветовой палитры альбома",
+      "name": "Цветовая тема альбома"
+    },
+    "ambient-mode": {
+      "description": "Применяет световой эффект, отбрасывая мягкие цвета из видео на задний фон вашего экрана.",
+      "menu": {
+        "blur-amount": {
+          "label": "Степень размытия",
+          "submenu": {
+            "pixels": "{{blurAmount}} пикселей"
+          }
+        },
+        "buffer": {
+          "label": "Буфер",
+          "submenu": {
+            "buffer": "{{buffer}}"
+          }
+        },
+        "opacity": {
+          "label": "Прозрачность",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "quality": {
+          "label": "Качество",
+          "submenu": {
+            "pixels": "{{quality}} пикселей"
+          }
+        },
+        "size": {
+          "label": "Размер",
+          "submenu": {
+            "percent": "{{size}}%"
+          }
+        },
+        "smoothness-transition": {
+          "label": "Плавный переход",
+          "submenu": {
+            "during": "В течение {{interpolationTime}}s"
+          }
+        },
+        "use-fullscreen": {
+          "label": "Использовать полноэкранный режим"
+        }
+      },
+      "name": "Режим Ambient"
+    },
+    "audio-compressor": {
+      "description": "Применяет компрессию к аудио (уменьшает громкость самых громких частей сигнала и повышает громкость самых тихих частей)",
+      "name": "Аудио компрессор"
+    },
+    "blur-nav-bar": {
+      "description": "Делает панель навигации прозрачной и размытой",
+      "name": "Размытие панели навигации"
+    },
+    "bypass-age-restrictions": {
+      "description": "Обход проверки возраста на YouTube",
+      "name": "Обход возрастных ограничений"
+    },
+    "captions-selector": {
+      "description": "Выбор субтитров для аудиотреков в YouTube Music",
+      "menu": {
+        "autoload": "",
+        "disable-captions": ""
+      },
+      "name": "Выбор субтитров",
+      "prompt": {
+        "selector": {
+          "label": "",
+          "none": "None",
+          "title": ""
+        }
+      },
+      "templates": {
+        "title": ""
+      }
+    },
+    "compact-sidebar": {
+      "description": "",
+      "name": ""
+    },
+    "crossfade": {
+      "description": "",
+      "menu": {
+        "advanced": ""
+      },
+      "name": "",
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "fade-in-duration": "",
+            "fade-out-duration": "",
+            "fade-scaling": {
+              "label": "",
+              "linear": "Linear",
+              "logarithmic": ""
+            },
+            "seconds-before-end": ""
+          },
+          "title": ""
+        }
+      }
+    },
+    "disable-autoplay": {
+      "description": "",
+      "menu": {
+        "apply-once": ""
+      },
+      "name": ""
+    },
+    "discord": {
+      "backend": {
+        "already-connected": "",
+        "connected": "",
+        "disconnected": ""
+      },
+      "description": "",
+      "menu": {
+        "auto-reconnect": "",
+        "clear-activity": "",
+        "clear-activity-after-timeout": "",
+        "hide-duration-left": "",
+        "hide-github-button": "",
+        "play-on-youtube-music": "",
+        "set-inactivity-timeout": ""
+      },
+      "name": "",
+      "prompt": {
+        "set-inactivity-timeout": {
+          "label": "",
+          "title": ""
+        }
+      }
+    },
+    "downloader": {
+      "backend": {
+        "dialog": {
+          "error": {
+            "buttons": {
+              "ok": "OK"
+            },
+            "message": "",
+            "title": "Error in download!"
+          },
+          "start-download-playlist": {
+            "buttons": {
+              "ok": "OK"
+            },
+            "detail": "",
+            "message": "",
+            "title": ""
+          }
+        },
+        "feedback": {
+          "conversion-progress": "",
+          "converting": "",
+          "done": "",
+          "download-info": "",
+          "download-progress": "Download: {{percent}}%",
+          "downloading": "",
+          "downloading-counter": "",
+          "downloading-playlist": "",
+          "error-while-downloading": "",
+          "folder-already-exists": "",
+          "getting-playlist-info": "",
+          "loading": "",
+          "playlist-has-only-one-song": "",
+          "playlist-id-not-found": "",
+          "playlist-is-empty": "",
+          "playlist-is-mix-or-private": "",
+          "preparing-file": "",
+          "saving": "",
+          "trying-to-get-playlist-id": "",
+          "video-id-not-found": "",
+          "writing-id3": ""
+        }
+      },
+      "description": "",
+      "menu": {
+        "choose-download-folder": "",
+        "presets": "",
+        "skip-existing": ""
+      },
+      "name": "",
+      "renderer": {
+        "can-not-update-progress": ""
+      },
+      "templates": {
+        "button": "Download"
+      }
+    },
+    "exponential-volume": {
+      "description": "",
+      "name": ""
+    },
+    "in-app-menu": {
+      "description": "",
+      "menu": {
+        "hide-dom-window-controls": ""
+      },
+      "name": ""
+    },
+    "last-fm": {
+      "description": "",
+      "name": "Last.fm"
+    },
+    "lumiastream": {
+      "description": "",
+      "name": ""
+    },
+    "lyrics-genius": {
+      "description": "",
+      "menu": {
+        "romanized-lyrics": ""
+      },
+      "name": "",
+      "renderer": {
+        "fetched-lyrics": ""
+      }
+    },
+    "navigation": {
+      "description": "",
+      "name": "Navigation"
+    },
+    "no-google-login": {
+      "description": "",
+      "name": "No Google Login"
+    },
+    "notifications": {
+      "description": "",
+      "menu": {
+        "interactive": "",
+        "interactive-settings": {
+          "label": "",
+          "submenu": {
+            "hide-button-text": "",
+            "refresh-on-play-pause": "",
+            "tray-controls": ""
+          }
+        },
+        "priority": "",
+        "toast-style": "",
+        "unpause-notification": ""
+      },
+      "name": "Notifications"
+    },
+    "picture-in-picture": {
+      "description": "",
+      "menu": {
+        "always-on-top": "",
+        "hotkey": {
+          "label": "",
+          "prompt": {
+            "keybind-options": {
+              "hotkey": ""
+            },
+            "label": "",
+            "title": ""
+          }
+        },
+        "save-window-position": "",
+        "save-window-size": "",
+        "use-native-pip": ""
+      },
+      "name": "",
+      "templates": {
+        "button": ""
+      }
+    },
+    "playback-speed": {
+      "description": "",
+      "name": "",
+      "templates": {
+        "button": ""
+      }
+    },
+    "precise-volume": {
+      "description": "",
+      "menu": {
+        "arrows-shortcuts": "",
+        "custom-volume-steps": "",
+        "global-shortcuts": ""
+      },
+      "name": "",
+      "prompt": {
+        "global-shortcuts": {
+          "keybind-options": {
+            "decrease": "",
+            "increase": ""
+          },
+          "label": "",
+          "title": ""
+        },
+        "volume-steps": {
+          "label": "",
+          "title": ""
+        }
+      }
+    },
+    "quality-changer": {
+      "backend": {
+        "dialog": {
+          "quality-changer": {
+            "detail": "",
+            "message": "",
+            "title": ""
+          }
+        }
+      },
+      "description": "",
+      "name": ""
+    },
+    "shortcuts": {
+      "description": "",
+      "menu": {
+        "override-media-keys": "",
+        "set-keybinds": ""
+      },
+      "name": "",
+      "prompt": {
+        "keybind": {
+          "keybind-options": {
+            "next": "Next",
+            "play-pause": "",
+            "previous": ""
+          },
+          "label": "",
+          "title": ""
+        }
+      }
+    },
+    "skip-silences": {
+      "description": "",
+      "name": ""
+    },
+    "sponsorblock": {
+      "description": "",
+      "name": "SponsorBlock"
+    },
+    "taskbar-mediacontrol": {
+      "description": "",
+      "name": ""
+    },
+    "touchbar": {
+      "description": "",
+      "name": "TouchBar"
+    },
+    "tuna-obs": {
+      "description": "",
+      "name": "Tuna OBS"
+    },
+    "video-toggle": {
+      "description": "",
+      "menu": {
+        "align": {
+          "label": "",
+          "submenu": {
+            "left": "",
+            "middle": "Middle",
+            "right": "Right"
+          }
+        },
+        "force-hide": "",
+        "mode": {
+          "label": "Mode",
+          "submenu": {
+            "custom": "",
+            "disabled": "",
+            "native": ""
+          }
+        }
+      },
+      "name": "",
+      "templates": {
+        "button": "Song"
+      }
+    },
+    "visualizer": {
+      "description": "",
+      "menu": {
+        "visualizer-type": ""
+      },
+      "name": ""
+    }
+  }
 }
