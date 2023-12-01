@@ -124,7 +124,62 @@
                 "auto-reconnect": "自動接続",
                 "connected": "接続中",
                 "hide-github-button": "GitHubリンクボタンを隠す",
-                "play-on-youtube-music": "YouTube Musicで再生"
+                "play-on-youtube-music": "YouTube Musicで再生",
+                "hide-duration-left": "残りの再生時間を隠す",
+                "set-inactivity-timeout": "タイムアウト時間を設定"
+            },
+            "prompt": {
+                "set-inactivity-timeout": {
+                    "label": "不活動タイムアウト時間を秒単位で入力してください：",
+                    "title": "不活動タイムアウト時間設定"
+                }
+            },
+            "backend": {
+                "connected": "ディスコードに接続中"
+            }
+        },
+        "downloader": {
+            "backend": {
+                "feedback": {
+                    "video-id-not-found": "動画が見つかりません",
+                    "conversion-progress": "変換：{{percent}}％",
+                    "download-info": "{{artist}}ー{{title}} {{videoId}} ダウンロード中",
+                    "playlist-id-not-found": "プレイリストIDが見つかりません",
+                    "preparing-file": "ファイル準備中…",
+                    "downloading": "ダウンロード中…",
+                    "done": "完了：{{filePath}}",
+                    "writing-id3": "ID3タグ作成中…",
+                    "converting": "変換中…",
+                    "download-progress": "ダウンロード：{{percent}}％",
+                    "saving": "保存中…",
+                    "loading": "ロード中…"
+                },
+                "dialog": {
+                    "start-download-playlist": {
+                        "buttons": {
+                            "ok": "確認"
+                        },
+                        "message": "プレイリスト {{playlistTitle}} ダウンロード中",
+                        "title": "ダウンロード開始",
+                        "detail": "（{{playlistSize}}曲）"
+                    },
+                    "error": {
+                        "buttons": {
+                            "ok": "確認"
+                        },
+                        "title": "ダウンロード中にエラー発生！",
+                        "message": "ダウンロード失敗！ごめんね・・・"
+                    }
+                }
+            },
+            "menu": {
+                "choose-download-folder": "ダウンロードフォルダ",
+                "presets": "プリセット"
+            },
+            "name": "ダウンローダー",
+            "description": "UIから直にMP3・ソースオーディオをダウンロードします",
+            "templates": {
+                "button": "ダウンロード"
             }
         }
     },
