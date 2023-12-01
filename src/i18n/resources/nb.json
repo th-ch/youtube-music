@@ -1,205 +1,205 @@
 {
-    "plugins": {
-        "downloader": {
-            "backend": {
-                "feedback": {
-                    "conversion-progress": "Konvertering: {{percent}}%",
-                    "playlist-is-empty": "Tom spilleliste",
-                    "preparing-file": "Forbereder fil …",
-                    "downloading": "Laster ned …",
-                    "converting": "Konverterer …",
-                    "saving": "Lagrer …",
-                    "loading": "Laster inn …",
-                    "done": "Ferdig: {{filePath}}"
-                },
-                "dialog": {
-                    "start-download-playlist": {
-                        "buttons": {
-                            "ok": "OK"
-                        },
-                        "title": "Nedlasting startet"
-                    },
-                    "error": {
-                        "buttons": {
-                            "ok": "OK"
-                        }
-                    }
-                }
-            },
-            "menu": {
-                "choose-download-folder": "Velg nedlastningsmappe",
-                "skip-existing": "Hopp over eksisterende filer",
-                "presets": "Forhåndsinnstillinger"
-            },
-            "name": "Nedlaster",
-            "templates": {
-                "button": "Last ned"
+  "language": {
+    "code": "nb_NO",
+    "local-name": "Norsk bokmål",
+    "name": "Norwegian Bokmål"
+  },
+  "main": {
+    "menu": {
+      "options": {
+        "label": "Alternativer",
+        "submenu": {
+          "hide-menu": {
+            "label": "Skjul meny"
+          },
+          "tray": {
+            "label": "Systemkurv",
+            "submenu": {
+              "disabled": "Avskrudd"
             }
-        },
-        "video-toggle": {
-            "templates": {
-                "button": "Spor"
-            },
-            "menu": {
-                "mode": {
-                    "label": "Modus"
-                },
-                "align": {
-                    "submenu": {
-                        "left": "Venstre",
-                        "right": "Høyre",
-                        "middle": "Midten"
-                    }
-                }
-            }
-        },
-        "adblocker": {
-            "name": "Reklameblokkering",
-            "description": "Stenger ute reklame og sporing",
-            "menu": {
-                "blocker": "Blokkering"
-            }
-        },
-        "skip-silences": {
-            "name": "Hopp over pauser"
-        },
-        "playback-speed": {
-            "templates": {
-                "button": "Hastighet"
-            },
-            "name": "Avspillingshastighet"
-        },
-        "precise-volume": {
-            "name": "Presis lydstyrkejustering"
-        },
-        "picture-in-picture": {
-            "menu": {
-                "save-window-position": "Lagre vindusposisjon"
-            }
-        },
-        "sponsorblock": {
-            "name": "SponsorBlock"
-        },
-        "notifications": {
-            "name": "Merknader"
-        },
-        "captions-selector": {
-            "prompt": {
-                "selector": {
-                    "label": "Nåværende tekstingsspråk: {{language}}",
-                    "none": "Ingen",
-                    "title": "Velg tekstingsspråk"
-                }
-            },
-            "templates": {
-                "title": "Åpne undertekstvelger"
-            }
-        },
-        "album-color-theme": {
-            "description": "Ifører dynamisk drakt og visuelle effekter basert på albumsfargepaletten",
-            "name": "Albumsfargedrakt"
-        },
-        "ambient-mode": {
-            "menu": {
-                "opacity": {
-                    "label": "Dekkevne",
-                    "submenu": {
-                        "percent": "{{opacity}}%"
-                    }
-                },
-                "quality": {
-                    "label": "Kvalitet",
-                    "submenu": {
-                        "pixels": "{{quality}} piksler"
-                    }
-                },
-                "size": {
-                    "submenu": {
-                        "percent": "{{size}}%"
-                    },
-                    "label": "Størrelse"
-                },
-                "blur-amount": {
-                    "submenu": {
-                        "pixels": "{{blurAmount}} piksler"
-                    },
-                    "label": "Tilsløringsmengde"
-                }
-            }
-        },
-        "quality-changer": {
-            "backend": {
-                "dialog": {
-                    "quality-changer": {
-                        "detail": "Nåværende: {{quality}}",
-                        "message": "Velg videokvalitet:",
-                        "title": "Velg videokvalitet"
-                    }
-                }
-            }
-        },
-        "crossfade": {
-            "prompt": {
-                "options": {
-                    "multi-input": {
-                        "fade-scaling": {
-                            "logarithmic": "Logaritmisk",
-                            "linear": "Lineær"
-                        }
-                    }
-                }
-            },
-            "menu": {
-                "advanced": "Avansert"
-            }
-        },
-        "disable-autoplay": {
-            "name": "Skru av autospilling"
-        },
-        "discord": {
-            "backend": {
-                "disconnected": "Frakoblet fra Discord"
-            }
-        },
-        "last-fm": {
-            "name": "Last.fm"
-        }
-    },
-    "main": {
-        "menu": {
-            "options": {
+          },
+          "visual-tweaks": {
+            "submenu": {
+              "theme": {
+                "label": "Drakt",
                 "submenu": {
-                    "visual-tweaks": {
-                        "submenu": {
-                            "theme": {
-                                "submenu": {
-                                    "import-css-file": "Importer egendefinert CSS-fil",
-                                    "no-theme": "Ingen"
-                                },
-                                "label": "Drakt"
-                            }
-                        }
-                    },
-                    "tray": {
-                        "submenu": {
-                            "disabled": "Avskrudd"
-                        },
-                        "label": "Systemkurv"
-                    },
-                    "hide-menu": {
-                        "label": "Skjul meny"
-                    }
-                },
-                "label": "Alternativer"
-            },
-            "plugins": {
-                "label": "Programtillegg"
+                  "import-css-file": "Importer egendefinert CSS-fil",
+                  "no-theme": "Ingen"
+                }
+              }
             }
+          }
         }
-    },
-    "language": {
-        "code": "nb_NO",
-        "name": "Norwegian Bokmål",
-        "local-name": "Norsk bokmål"
+      },
+      "plugins": {
+        "label": "Programtillegg"
+      }
     }
+  },
+  "plugins": {
+    "adblocker": {
+      "description": "Stenger ute reklame og sporing",
+      "menu": {
+        "blocker": "Blokkering"
+      },
+      "name": "Reklameblokkering"
+    },
+    "album-color-theme": {
+      "description": "Ifører dynamisk drakt og visuelle effekter basert på albumsfargepaletten",
+      "name": "Albumsfargedrakt"
+    },
+    "ambient-mode": {
+      "menu": {
+        "blur-amount": {
+          "label": "Tilsløringsmengde",
+          "submenu": {
+            "pixels": "{{blurAmount}} piksler"
+          }
+        },
+        "opacity": {
+          "label": "Dekkevne",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "quality": {
+          "label": "Kvalitet",
+          "submenu": {
+            "pixels": "{{quality}} piksler"
+          }
+        },
+        "size": {
+          "label": "Størrelse",
+          "submenu": {
+            "percent": "{{size}}%"
+          }
+        }
+      }
+    },
+    "captions-selector": {
+      "prompt": {
+        "selector": {
+          "label": "Nåværende tekstingsspråk: {{language}}",
+          "none": "Ingen",
+          "title": "Velg tekstingsspråk"
+        }
+      },
+      "templates": {
+        "title": "Åpne undertekstvelger"
+      }
+    },
+    "crossfade": {
+      "menu": {
+        "advanced": "Avansert"
+      },
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "fade-scaling": {
+              "linear": "Lineær",
+              "logarithmic": "Logaritmisk"
+            }
+          }
+        }
+      }
+    },
+    "disable-autoplay": {
+      "name": "Skru av autospilling"
+    },
+    "discord": {
+      "backend": {
+        "disconnected": "Frakoblet fra Discord"
+      }
+    },
+    "downloader": {
+      "backend": {
+        "dialog": {
+          "error": {
+            "buttons": {
+              "ok": "OK"
+            }
+          },
+          "start-download-playlist": {
+            "buttons": {
+              "ok": "OK"
+            },
+            "title": "Nedlasting startet"
+          }
+        },
+        "feedback": {
+          "conversion-progress": "Konvertering: {{percent}}%",
+          "converting": "Konverterer …",
+          "done": "Ferdig: {{filePath}}",
+          "downloading": "Laster ned …",
+          "loading": "Laster inn …",
+          "playlist-is-empty": "Tom spilleliste",
+          "preparing-file": "Forbereder fil …",
+          "saving": "Lagrer …"
+        }
+      },
+      "menu": {
+        "choose-download-folder": "Velg nedlastningsmappe",
+        "presets": "Forhåndsinnstillinger",
+        "skip-existing": "Hopp over eksisterende filer"
+      },
+      "name": "Nedlaster",
+      "templates": {
+        "button": "Last ned"
+      }
+    },
+    "last-fm": {
+      "name": "Last.fm"
+    },
+    "notifications": {
+      "name": "Merknader"
+    },
+    "picture-in-picture": {
+      "menu": {
+        "save-window-position": "Lagre vindusposisjon"
+      }
+    },
+    "playback-speed": {
+      "name": "Avspillingshastighet",
+      "templates": {
+        "button": "Hastighet"
+      }
+    },
+    "precise-volume": {
+      "name": "Presis lydstyrkejustering"
+    },
+    "quality-changer": {
+      "backend": {
+        "dialog": {
+          "quality-changer": {
+            "detail": "Nåværende kvalitet: {{quality}}",
+            "message": "Velg videokvalitet:",
+            "title": "Velg videokvalitet"
+          }
+        }
+      }
+    },
+    "skip-silences": {
+      "name": "Hopp over pauser"
+    },
+    "sponsorblock": {
+      "name": "SponsorBlock"
+    },
+    "video-toggle": {
+      "menu": {
+        "align": {
+          "submenu": {
+            "left": "Venstre",
+            "middle": "Midten",
+            "right": "Høyre"
+          }
+        },
+        "mode": {
+          "label": "Modus"
+        }
+      },
+      "templates": {
+        "button": "Spor"
+      }
+    }
+  }
 }
