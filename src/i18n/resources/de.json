@@ -180,7 +180,7 @@
                 "hotkey": {
                     "prompt": {
                         "title": "Bild-im-Bild Tastenkürzel",
-                        "label": "Choose a hotkey for toggle Picture in Picture",
+                        "label": "Tastenkürzel für Bild-im-Bild wählen",
                         "keybind-options": {
                             "hotkey": "Tastenkürzel"
                         }
@@ -269,7 +269,7 @@
                         "decrease": "Lautstärke verringern"
                     },
                     "label": "Choose Global Volume Keybinds:",
-                    "title": "Global Volume Keybinds"
+                    "title": "Globale Lautstärketastenbelegungen"
                 },
                 "volume-steps": {
                     "label": "Choose Volume Increase/Decrease Steps",
@@ -360,9 +360,9 @@
             "description": "Automatisch stille Abschnitte in Liedern überspringen"
         },
         "visualizer": {
-            "description": "Adds a visualizer to the player",
+            "description": "Fügt einen Visualisierer zum Player hinzu",
             "menu": {
-                "visualizer-type": "Visualizer Type"
+                "visualizer-type": "Visualisierertyp"
             },
             "name": "Visualisierer"
         },
@@ -415,16 +415,16 @@
                 "message": "Eine neue Version ist verfügbar"
             },
             "hide-menu-enabled": {
-                "message": "Hide Menu is enabled",
-                "title": "Hide Menu Enabled",
-                "detail": "Menu is hidden, use 'Alt' to show it (or 'Escape' if using in-app-menu)"
+                "message": "Menü verstecken ist aktiviert",
+                "title": "Menü Verstecken Aktiviert",
+                "detail": "Menü ist versteckt, nutze 'Alt', um es zu zeigen (oder 'Escape' beim Verwenden des In-App-Menüs)"
             },
             "unresponsive": {
                 "message": "Die Anwendung reagiert nicht",
                 "buttons": {
                     "quit": "Beenden",
                     "wait": "Warten",
-                    "relaunch": "Relaunch"
+                    "relaunch": "Neustarten"
                 },
                 "title": "Fenster reagiert nicht",
                 "detail": "We are sorry for the inconvenience! please choose what to do:"
@@ -432,7 +432,7 @@
         },
         "console": {
             "i18n": {
-                "loaded": "i18n loaded"
+                "loaded": "i18n geladen"
             },
             "when-ready": {
                 "clearing-cache-after-20s": "Leere App-Cache"
@@ -447,7 +447,7 @@
                 "receive-command": "Befehl über Protokoll empfangen: \"{{command}}\""
             },
             "window": {
-                "tried-to-render-offscreen": "Window tried to render offscreen, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
+                "tried-to-render-offscreen": "Fenster vesucht außerhalb des Bildschirms zu rendern, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
             },
             "unresponsive": {
                 "details": "Unresponsive Error!\n{{error}}"
@@ -473,38 +473,38 @@
                             },
                             "remove-upgrade-button": "Remove upgrade button"
                         },
-                        "label": "Visual Tweaks"
+                        "label": "Visuelle Optimierungen"
                     },
                     "language": {
                         "dialog": {
                             "title": "Sprache Geändert",
-                            "message": "Language will be changed after restart"
+                            "message": "Sprache wird nach Neustart geändert"
                         },
                         "label": "Sprache"
                     },
                     "advanced-options": {
                         "submenu": {
-                            "edit-config-json": "Edit config.json",
-                            "restart-on-config-changes": "Restart on config changes",
+                            "edit-config-json": "config.json ändern",
+                            "restart-on-config-changes": "Neustarten bei Änderungen der Konfiguration",
                             "set-proxy": {
                                 "prompt": {
-                                    "placeholder": "Example: socks5://127.0.0.1:9999",
-                                    "title": "Set proxy",
-                                    "label": "Enter Proxy Address: (leave empty to disable)"
+                                    "placeholder": "Beispiel:\nsocks5://127.0.0.1:9999",
+                                    "title": "Proxy setzen",
+                                    "label": "Proxy-Adresse eingeben: (leer lassen zum Ausschalten)"
                                 },
-                                "label": "Set proxy"
+                                "label": "Proxy setzen"
                             },
-                            "disable-hardware-acceleration": "Disable hardware acceleration",
+                            "disable-hardware-acceleration": "Hardware-Beschleunigung deaktivieren",
                             "override-user-agent": "Override User-Agent",
-                            "toggle-dev-tools": "Toggle DevTools",
-                            "auto-reset-app-cache": "Reset App cache when app starts"
+                            "toggle-dev-tools": "Entwicklerwerkzeuge umschalten",
+                            "auto-reset-app-cache": "Anwendungscache beim Start der Anwendung zurücksetzen"
                         },
-                        "label": "Advanced options"
+                        "label": "Erweiterte Einstellungen"
                     },
                     "resume-on-start": "Letztes Lied weiter abspielen, wenn Anwendung startet",
                     "starting-page": {
-                        "label": "Starting page",
-                        "unset": "Unset"
+                        "label": "Startseite",
+                        "unset": "Ungesetzt"
                     },
                     "tray": {
                         "submenu": {
@@ -530,16 +530,16 @@
             },
             "navigation": {
                 "submenu": {
-                    "go-back": "Go back",
+                    "go-back": "Zurück gehen",
                     "copy-current-url": "Aktuelle URL kopieren",
-                    "go-forward": "Go forward",
+                    "go-forward": "Vorwärts gehen",
                     "restart": "Anwendung Neustarten"
                 },
                 "label": "Navigation"
             },
             "about": "Über",
             "view": {
-                "label": "View"
+                "label": "Ansicht"
             },
             "plugins": {
                 "label": "„Plugins",
