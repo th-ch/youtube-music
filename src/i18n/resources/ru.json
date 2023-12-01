@@ -1,49 +1,49 @@
 {
     "plugins": {
         "ambient-mode": {
-            "name": "Ambient Mode",
+            "name": "Режим Ambient",
             "menu": {
                 "opacity": {
-                    "label": "Opacity",
+                    "label": "Прозрачность",
                     "submenu": {
                         "percent": "{{opacity}}%"
                     }
                 },
                 "quality": {
-                    "label": "Quality",
+                    "label": "Качество",
                     "submenu": {
-                        "pixels": "{{quality}} pixels"
+                        "pixels": "{{quality}} пикселей"
                     }
                 },
                 "size": {
                     "submenu": {
                         "percent": "{{size}}%"
                     },
-                    "label": "Size"
+                    "label": "Размер"
                 },
                 "blur-amount": {
                     "submenu": {
-                        "pixels": "{{blurAmount}} pixels"
+                        "pixels": "{{blurAmount}} пикселей"
                     },
-                    "label": "Blur amount"
+                    "label": "Степень размытия"
                 },
                 "buffer": {
                     "submenu": {
                         "buffer": "{{buffer}}"
                     },
-                    "label": "Buffer"
+                    "label": "Буфер"
                 },
                 "use-fullscreen": {
-                    "label": "Using fullscreen"
+                    "label": "Использовать полноэкранный режим"
                 },
                 "smoothness-transition": {
                     "submenu": {
-                        "during": "During {{interpolationTime}}s"
+                        "during": "В течение {{interpolationTime}}s"
                     },
-                    "label": "Smoothness transition"
+                    "label": "Плавный переход"
                 }
             },
-            "description": "Applies a lighting effect by casting gentle colors from the video, into your screen’s background."
+            "description": "Применяет световой эффект, отбрасывая мягкие цвета из видео на задний фон вашего экрана"
         },
         "in-app-menu": {
             "menu": {
@@ -161,7 +161,7 @@
                     "title": "Select caption language"
                 }
             },
-            "description": "Caption selector for YouTube Music audio tracks",
+            "description": "Выбор субтитров для аудиотреков в YouTube Music",
             "menu": {
                 "disable-captions": "No captions by default",
                 "autoload": "Automatically select last used caption"
@@ -169,7 +169,7 @@
             "templates": {
                 "title": "Open captions selector"
             },
-            "name": "Captions Selector"
+            "name": "Выбор субтитров"
         },
         "touchbar": {
             "description": "Adds a TouchBar widget for macOS users",
@@ -199,8 +199,8 @@
             "description": "Allows to switch the app to picture-in-picture mode"
         },
         "album-color-theme": {
-            "description": "Applies a dynamic theme and visual effects based on the album color palette",
-            "name": "Album Color Theme"
+            "description": "Применяет динамическую тему и визуальные эффекты на основе цветовой палитры альбома",
+            "name": "Цветовая тема альбома"
         },
         "discord": {
             "menu": {
@@ -323,14 +323,14 @@
             }
         },
         "audio-compressor": {
-            "description": "Apply compression to audio (lowers the volume of the loudest parts of the signal and raises the volume of the softest parts)",
-            "name": "Audio Compressor"
+            "description": "Применяет компрессию к аудио (уменьшает громкость самых громких частей сигнала и повышает громкость самых тихих частей)",
+            "name": "Аудио компрессор"
         },
         "adblocker": {
-            "name": "Adblocker",
-            "description": "Block all ads and tracking out of the box",
+            "name": "Блокировщик рекламы",
+            "description": "Блокируйте всю рекламу и трекинг сразу после установки",
             "menu": {
-                "blocker": "Blocker"
+                "blocker": "Блокировщик"
             }
         },
         "playback-speed": {
@@ -349,8 +349,8 @@
             "description": "Makes the volume slider exponential so it's easier to select lower volumes."
         },
         "bypass-age-restrictions": {
-            "description": "Bypass YouTube's age verification",
-            "name": "Bypass Age Restrictions"
+            "description": "Обход проверки возраста на YouTube",
+            "name": "Обход возрастных ограничений"
         },
         "lumiastream": {
             "description": "Adds Lumia Stream support",
@@ -382,8 +382,8 @@
             "name": "SponsorBlock"
         },
         "blur-nav-bar": {
-            "description": "Makes navigation bar transparent and blurry",
-            "name": "Blur Navigation Bar"
+            "description": "Делает панель навигации прозрачной и размытой",
+            "name": "Размытие панели навигации"
         },
         "no-google-login": {
             "description": "Remove Google login buttons and links from the interface",
