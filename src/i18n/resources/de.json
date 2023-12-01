@@ -4,7 +4,7 @@
             "name": "Ambient Mode",
             "menu": {
                 "opacity": {
-                    "label": "Opacity",
+                    "label": "Durchsichtigkeit",
                     "submenu": {
                         "percent": "{{opacity}}%"
                     }
@@ -25,7 +25,7 @@
                     "submenu": {
                         "pixels": "{{blurAmount}} Pixel"
                     },
-                    "label": "Blur amount"
+                    "label": "Unschärfemenge"
                 },
                 "buffer": {
                     "submenu": {
@@ -54,7 +54,7 @@
         },
         "video-toggle": {
             "menu": {
-                "force-hide": "Force remove video tab",
+                "force-hide": "Entfernen des Videoabschnitts erzwingen",
                 "align": {
                     "submenu": {
                         "left": "Links",
@@ -65,7 +65,7 @@
                 },
                 "mode": {
                     "submenu": {
-                        "native": "Native toggle",
+                        "native": "Eingebauter Umschalter",
                         "custom": "Custom toggle",
                         "disabled": "Deaktiviert"
                     },
@@ -75,8 +75,8 @@
             "templates": {
                 "button": "Lied"
             },
-            "description": "Adds a button to switch between Video/Song mode. can also optionally remove the whole video tab",
-            "name": "Video Toggle"
+            "description": "Fügt einen Knopf hinzu, um zwischen Video-/Liedmodus zu wechseln. kann auch genutzt werden, um den ganzen Videoabschnitt zu entfernen",
+            "name": "Videoumschalter"
         },
         "notifications": {
             "menu": {
@@ -89,9 +89,9 @@
                     }
                 },
                 "toast-style": "Toast style",
-                "unpause-notification": "Show notification on unpause",
+                "unpause-notification": "Benachrichtigung durch Abspielen anzeigen",
                 "interactive": "Interaktive Benachrichtigungen",
-                "priority": "Notification Priority"
+                "priority": "Benachrichtigungspriorität"
             },
             "description": "Zeige eine Benachrichtigung, wenn ein Lied beginnt zu spielen (interaktive Benachrichtigungen sind unter Windows verfügbar)",
             "name": "Benachrichtigungen"
@@ -100,26 +100,26 @@
             "backend": {
                 "feedback": {
                     "video-id-not-found": "Video nicht gefunden",
-                    "conversion-progress": "Conversion: {{percent}}%",
-                    "getting-playlist-info": "Getting playlist info…",
-                    "downloading-playlist": "Downloading playlist \"{{playlistTitle}}\" - {{playlistSize}} songs ({{playlistId}})",
+                    "conversion-progress": "Konvertieren: {{percent}}%",
+                    "getting-playlist-info": "Hole Playlist-Informationen…",
+                    "downloading-playlist": "Lade Playlist \"{{playlistTitle}}\" herunter - {{playlistSize}} Lieder ({{playlistId}})",
                     "download-info": "Lade {{artist}} - {{title}} [{{videoId}} herunter",
                     "playlist-is-empty": "Playlist ist leer",
-                    "downloading-counter": "Downloading {{current}}/{{total}}…",
+                    "downloading-counter": "Lade herunter {{current}}/{{total}}…",
                     "playlist-id-not-found": "Keine Playlist-ID gefunden",
                     "preparing-file": "Bereite Datei vor…",
                     "downloading": "Lade herunter…",
-                    "trying-to-get-playlist-id": "Trying to get playlist ID: {{playlistId}}",
-                    "playlist-has-only-one-song": "Playlist hat nur ein Lied, lade es direkt herunter",
-                    "done": "Done: {{filePath}}",
-                    "writing-id3": "Writing ID3 tags…",
-                    "converting": "Converting…",
+                    "trying-to-get-playlist-id": "Versuche Playlist-ID zu bekommen: {{playlistId}}",
+                    "playlist-has-only-one-song": "Playlist hat nur ein Element, wird direkt heruntergeladen",
+                    "done": "Abgeschlossen: {{filePath}}",
+                    "writing-id3": "Schreibe ID3 tags…",
+                    "converting": "Konvertiere…",
                     "playlist-is-mix-or-private": "Error getting playlist info: make sure it isn't a private or \"Mixed for you\" playlist\n\n{{error}}",
-                    "download-progress": "Download: {{percent}}%",
+                    "download-progress": "Herunterladen: {{percent}}%",
                     "folder-already-exists": "Der Ordner {{playlistFolder}} existiert bereits",
-                    "error-while-downloading": "Error downloading \"{{author}} - {{title}}\": {{error}}",
-                    "saving": "Saving…",
-                    "loading": "Laden…"
+                    "error-while-downloading": "Fehler beim Herunterladen \"{{author}} - {{title}}\": {{error}}",
+                    "saving": "Speichere…",
+                    "loading": "Lade…"
                 },
                 "dialog": {
                     "start-download-playlist": {
@@ -140,13 +140,13 @@
                 }
             },
             "menu": {
-                "choose-download-folder": "Choose download folder",
+                "choose-download-folder": "Downloadordner wählen",
                 "skip-existing": "Vorhandene Dateien überspringen",
                 "presets": "Presets"
             },
             "name": "Downloader",
             "renderer": {
-                "can-not-update-progress": "Cannot update progress"
+                "can-not-update-progress": "Fortschritt kann nicht aktualisiert werden"
             },
             "description": "Downloads MP3 / source audio directly from the interface",
             "templates": {
@@ -167,7 +167,7 @@
                 "autoload": "Wähle automatisch den zuletzt verwendeten Untertitel"
             },
             "templates": {
-                "title": "Open captions selector"
+                "title": "Untertitelwähler öffnen"
             },
             "name": "Untertitelwähler"
         },
@@ -179,16 +179,16 @@
             "menu": {
                 "hotkey": {
                     "prompt": {
-                        "title": "Picture in Picture Hotkey",
+                        "title": "Bild-im-Bild Tastenkürzel",
                         "label": "Choose a hotkey for toggle Picture in Picture",
                         "keybind-options": {
-                            "hotkey": "Hotkey"
+                            "hotkey": "Tastenkürzel"
                         }
                     },
-                    "label": "Hotkey"
+                    "label": "Tastenkürzel"
                 },
                 "use-native-pip": "Use browser native PiP",
-                "always-on-top": "Always on top",
+                "always-on-top": "Immer im Vordergrund",
                 "save-window-position": "Fensterposition speichern",
                 "save-window-size": "Fenstergröße speichern"
             },
@@ -204,7 +204,7 @@
         },
         "discord": {
             "menu": {
-                "auto-reconnect": "Auto reconnect",
+                "auto-reconnect": "Automatisch erneut verbinden",
                 "clear-activity-after-timeout": "Aktivität nach Timeout leeren",
                 "hide-duration-left": "Verstecke verbleibende Zeit",
                 "hide-github-button": "Hide GitHub link Button",
@@ -222,7 +222,7 @@
             "backend": {
                 "already-connected": "Attempted to connect with active connection",
                 "connected": "Mit Discord verbunden",
-                "disconnected": "Disconnected from Discord"
+                "disconnected": "Verbindung zu Discord getrennt"
             },
             "name": "Discord Rich Presence"
         },
@@ -236,7 +236,7 @@
                     }
                 }
             },
-            "description": "Allows changing the video quality with a button on the video overlay",
+            "description": "Erlaubt die Videoqualität über einen Knopf auf dem Video",
             "name": "Video Quality Changer"
         },
         "shortcuts": {
@@ -249,9 +249,9 @@
                 "keybind": {
                     "label": "Choose Global Keybinds for Songs Control:",
                     "keybind-options": {
-                        "previous": "Previous",
-                        "next": "Next",
-                        "play-pause": "Play / Pause"
+                        "previous": "Vorheriges",
+                        "next": "Nächstes",
+                        "play-pause": "Abspielen / Pausieren"
                     },
                     "title": "Global Keybinds"
                 }
@@ -274,14 +274,14 @@
                 },
                 "volume-steps": {
                     "label": "Choose Volume Increase/Decrease Steps",
-                    "title": "Volume Steps"
+                    "title": "Lautstärkestufen"
                 }
             },
             "description": "Control the volume precisely using mousewheel/hotkeys, with a custom HUD and customizable volume steps",
             "menu": {
-                "custom-volume-steps": "Set Custom Volume Steps",
+                "custom-volume-steps": "Eigene Lautstärkestufen setzen",
                 "arrows-shortcuts": "Local Arrow-keys Controls",
-                "global-shortcuts": "Global Hotkeys"
+                "global-shortcuts": "Globale Tastenkürzel"
             },
             "name": "Genaue Lautstärke"
         },
@@ -294,32 +294,32 @@
                             "linear": "Linear",
                             "label": "Fade scaling"
                         },
-                        "seconds-before-end": "Crossfade N seconds before end",
-                        "fade-in-duration": "Fade in duration (milliseconds)",
-                        "fade-out-duration": "Fade out duration (milliseconds)"
+                        "seconds-before-end": "Übergang N Sekunden vor dem Ende starten",
+                        "fade-in-duration": "Einblendezeit (Millisekunden)",
+                        "fade-out-duration": "Ausblendezeit (Millisekunden)"
                     },
-                    "title": "Crossfade options"
+                    "title": "Übergangseinstellungen"
                 }
             },
-            "name": "Crossfade [beta]",
-            "description": "Crossfade between songs",
+            "name": "Übergang [Beta]",
+            "description": "Übergang zwischen Liedern",
             "menu": {
                 "advanced": "Erweitert"
             }
         },
         "taskbar-mediacontrol": {
-            "description": "Control playback from your Windows taskbar",
+            "description": "Wiedergabe aus der Windows Taskleiste kontrollieren",
             "name": "Taskbar Media Control"
         },
         "compact-sidebar": {
-            "description": "Always set the sidebar in compact mode",
+            "description": "Seitenleiste immer in den kompakten Modus setzen",
             "name": "Kompakte Seitenleiste"
         },
         "disable-autoplay": {
-            "description": "Makes song start in \"paused\" mode",
-            "name": "Deaktiviere Autoplay",
+            "description": "Startet Lied im pausierten Modus",
+            "name": "Deaktiviere automatisches Abspielen",
             "menu": {
-                "apply-once": "Applies only on startup"
+                "apply-once": "Wird nur beim Starten der Anwendungen angewendet"
             }
         },
         "audio-compressor": {
@@ -327,7 +327,7 @@
             "name": "Audio-Komprimierer"
         },
         "adblocker": {
-            "name": "Adblocker",
+            "name": "Werbeblocker",
             "description": "Blockiere jegliche Werbung und Tracker",
             "menu": {
                 "blocker": "Blocker"
@@ -346,7 +346,7 @@
         },
         "exponential-volume": {
             "name": "Exponentielle Lautstärke",
-            "description": "Makes the volume slider exponential so it's easier to select lower volumes."
+            "description": "Macht den Lautstärkeregler exponentiell, damit es einfacher ist leise Lautstärken zu wählen."
         },
         "bypass-age-restrictions": {
             "description": "Youtubes Altersbestätigung umgehen",
@@ -372,9 +372,9 @@
                 "fetched-lyrics": "Fetched lyrics for Genius"
             },
             "menu": {
-                "romanized-lyrics": "Romanized Lyrics"
+                "romanized-lyrics": "Romanisierte Songtexte"
             },
-            "description": "Adds lyrics support for most songs",
+            "description": "Für Songtextunterstützung für die meisten Lieder hinzu",
             "name": "Lyrics Genius"
         },
         "sponsorblock": {
@@ -382,8 +382,8 @@
             "name": "SponsorBlock"
         },
         "blur-nav-bar": {
-            "description": "Makes navigation bar transparent and blurry",
-            "name": "Blur Navigation Bar"
+            "description": "Macht Navigationsleiste durchsichtig und unscharf",
+            "name": "Verschwommene Navigationsleiste"
         },
         "no-google-login": {
             "description": "Remove Google login buttons and links from the interface",
@@ -403,7 +403,7 @@
                 },
                 "title": "Neustart Erforderlich",
                 "message": "\"{{pluginName}}\" muss neugestartet werden",
-                "detail": "\"{{pluginName}}\"-Plugin erfordert einen Neustart, um in Kraft zu treten"
+                "detail": "\"{{pluginName}}\"-Erweiterung erfordert einen Neustart, um in Kraft zu treten"
             },
             "update-available": {
                 "buttons": {
@@ -421,13 +421,13 @@
                 "detail": "Menu is hidden, use 'Alt' to show it (or 'Escape' if using in-app-menu)"
             },
             "unresponsive": {
-                "message": "The Application is Unresponsive",
+                "message": "Die Anwendung reagiert nicht",
                 "buttons": {
                     "quit": "Beenden",
                     "wait": "Warten",
                     "relaunch": "Relaunch"
                 },
-                "title": "Window Unresponsive",
+                "title": "Fenster reagiert nicht",
                 "detail": "We are sorry for the inconvenience! please choose what to do:"
             }
         },
@@ -442,7 +442,7 @@
                 "dev-tools": "did finish load. dev tools opened"
             },
             "theme": {
-                "css-file-not-found": "CSS file \"{{cssFile}}\" does not exist, ignoring"
+                "css-file-not-found": "CSS-Datei \"{{cssFile}}\" existiert nicht, ignoriere"
             },
             "second-instance": {
                 "receive-command": "Received command over protocol: \"{{command}}\""
