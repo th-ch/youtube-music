@@ -262,7 +262,7 @@ async function createMainWindow() {
   const defaultTitleBarOverlayOptions: Electron.TitleBarOverlayOptions = {
     color: '#00000000',
     symbolColor: '#ffffff',
-    height: 36,
+    height: 32,
   };
 
   const win = new BrowserWindow({

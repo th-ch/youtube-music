@@ -1,6 +1,6 @@
 :root {
   --titlebar-background-color: #030303;
-  --menu-bar-height: 36px;
+  --menu-bar-height: 32px;
 }
 
 title-bar {
@@ -21,7 +21,7 @@ title-bar {
   gap: 4px;
 
   color: #f1f1f1;
-  font-size: 14px;
+  font-size: 12px;
   padding: 4px 12px;
   padding-left: var(--offset-left, 12px);
   background-color: var(--titlebar-background-color, #030303);
