@@ -3,45 +3,117 @@
         "ambient-mode": {
             "menu": {
                 "quality": {
-                    "label": "クオリティー"
+                    "label": "品質",
+                    "submenu": {
+                        "pixels": "{{quality}} ピクセル"
+                    }
                 },
                 "size": {
                     "submenu": {
                         "percent": "{{size}}%"
-                    }
+                    },
+                    "label": "大きさ"
                 },
                 "buffer": {
                     "submenu": {
                         "buffer": "{{buffer}}"
-                    }
+                    },
+                    "label": "バッファリング"
                 },
                 "opacity": {
                     "submenu": {
                         "percent": "{{opacity}}%"
-                    }
+                    },
+                    "label": "不透明度"
+                },
+                "blur-amount": {
+                    "submenu": {
+                        "pixels": "{{blurAmount}} ピクセル"
+                    },
+                    "label": "曇り効果の強さ"
+                },
+                "use-fullscreen": {
+                    "label": "全体画面モード使用"
+                },
+                "smoothness-transition": {
+                    "submenu": {
+                        "during": "{{interpolationTime}}秒間切り替えり"
+                    },
+                    "label": "スムーズな切り替えり"
                 }
-            }
+            },
+            "name": "アンビエント モード",
+            "description": "動画の間接照明を画面背景に投射します。"
         },
         "audio-compressor": {
-            "description": "オーディオにコンプレッサーを適用する（信号での一番大きい部分の音量を下げ、小さい部分の音量を上げる）"
+            "description": "オーディオにコンプレッサーを適用します（信号での一番大きい部分の音量を下げ、小さい部分の音量を上げる）",
+            "name": "オーディオコンプレッサー"
         },
         "adblocker": {
             "description": "すべての広告とトラッカーを遮断します",
             "name": "アドブロック",
             "menu": {
-                "blocker": "アドブロックのタイプ"
+                "blocker": "遮断方法"
             }
         },
         "compact-sidebar": {
-            "description": "サイドバーを常にコンパクトモードに設定する"
+            "description": "サイドバーを常にコンパクトモードに設定します",
+            "name": "コンパクト·サイドバー"
         },
         "crossfade": {
             "prompt": {
                 "options": {
-                    "title": "クロスフェード設定"
+                    "title": "クロスフェード設定",
+                    "multi-input": {
+                        "fade-scaling": {
+                            "logarithmic": "対数スケール",
+                            "linear": "線形",
+                            "label": "フェードスケーリング"
+                        },
+                        "seconds-before-end": "終了「N秒」前にクロスフェードを適用",
+                        "fade-in-duration": "フェードイン持続時間(ミリ秒)",
+                        "fade-out-duration": "フェードアウト持続時間(ミリ秒)"
+                    }
                 }
             },
-            "description": "曲の間にクロスフェードエフェクトを適用する"
+            "description": "曲の間にクロスフェード効果を適用します",
+            "name": "クロスフェード[ベータ]",
+            "menu": {
+                "advanced": "高級"
+            }
+        },
+        "captions-selector": {
+            "prompt": {
+                "selector": {
+                    "label": "選択した字幕言語: {{language}}",
+                    "none": "無",
+                    "title": "字幕言語選択"
+                }
+            },
+            "description": "YouTube Musicトラック用字幕選択機",
+            "menu": {
+                "disable-captions": "基本字幕無し",
+                "autoload": "最後の字幕を自動に選択"
+            },
+            "templates": {
+                "title": "字幕選択機を開く"
+            },
+            "name": "字幕選択機"
+        },
+        "album-color-theme": {
+            "description": "アルバムカバーの色をベースにして動的テーマと視覚効果を適用します",
+            "name": "アルバムカラーベースのテーマ"
+        },
+        "bypass-age-restrictions": {
+            "description": "ユーチューブの年齢制限を迂回します",
+            "name": "年齢制限迂回"
+        },
+        "disable-autoplay": {
+            "name": "自動再生解除"
+        },
+        "blur-nav-bar": {
+            "description": "ナビゲーションバーを透明かつぼやけにします",
+            "name": "ナビゲーションバーの曇り効果"
         }
     },
     "language": {
