@@ -297,7 +297,7 @@
                 "options": {
                     "multi-input": {
                         "fade-scaling": {
-                            "logarithmic": "로그",
+                            "logarithmic": "로그스케일",
                             "linear": "선형",
                             "label": "페이드 스케일링"
                         },
