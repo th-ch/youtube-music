@@ -1,7 +1,7 @@
 import { dialog } from 'electron';
 
 import { downloadPlaylist } from './main';
-import { defaultMenuDownloadLabel, getFolder } from './main/utils';
+import { getFolder } from './main/utils';
 import { DefaultPresetList } from './types';
 
 import { t } from '@/i18n';
@@ -19,7 +19,7 @@ export const onMenu = async ({
 
   return [
     {
-      label: defaultMenuDownloadLabel,
+      label: t('plugins.downloader.menu.download-playlist'),
       click: () => downloadPlaylist(),
     },
     {
