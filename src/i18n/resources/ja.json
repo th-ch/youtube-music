@@ -109,11 +109,23 @@
             "name": "年齢制限迂回"
         },
         "disable-autoplay": {
-            "name": "自動再生解除"
+            "name": "自動再生解除",
+            "description": "曲を「一時停止」モードで始めさせます",
+            "menu": {
+                "apply-once": "初起動時にのみ適用"
+            }
         },
         "blur-nav-bar": {
             "description": "ナビゲーションバーを透明かつぼやけにします",
             "name": "ナビゲーションバーの曇り効果"
+        },
+        "discord": {
+            "menu": {
+                "auto-reconnect": "自動接続",
+                "connected": "接続中",
+                "hide-github-button": "GitHubリンクボタンを隠す",
+                "play-on-youtube-music": "YouTube Musicで再生"
+            }
         }
     },
     "language": {
