@@ -28,6 +28,8 @@
 
 ## Translation
 
+You can help with translation on [Hosted Weblate](https://hosted.weblate.org/projects/youtube-music/).
+
 <a href="https://hosted.weblate.org/engage/youtube-music/">
   <img src="https://hosted.weblate.org/widget/youtube-music/i18n/multi-auto.svg" alt="translation status" />
   <img src="https://hosted.weblate.org/widget/youtube-music/i18n/287x66-black.png" alt="translation status 2" />
