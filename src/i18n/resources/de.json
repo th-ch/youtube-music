@@ -31,10 +31,10 @@
                     "submenu": {
                         "buffer": "{{buffer}}"
                     },
-                    "label": "Buffer"
+                    "label": "Puffer"
                 },
                 "use-fullscreen": {
-                    "label": "Using fullscreen"
+                    "label": "Nutze Vollbild"
                 },
                 "smoothness-transition": {
                     "submenu": {
@@ -43,7 +43,7 @@
                     "label": "Smoothness transition"
                 }
             },
-            "description": "Applies a lighting effect by casting gentle colors from the video, into your screen’s background."
+            "description": "Fügt einen Lichteffekt durch sanftes Abstreifen der Farben des Videos in deinen Bildschirmhintergrund hinzu"
         },
         "in-app-menu": {
             "menu": {
@@ -66,7 +66,7 @@
                 "mode": {
                     "submenu": {
                         "native": "Eingebauter Umschalter",
-                        "custom": "Custom toggle",
+                        "custom": "Angepasster Wechsler",
                         "disabled": "Deaktiviert"
                     },
                     "label": "Modus"
@@ -83,8 +83,8 @@
                 "interactive-settings": {
                     "label": "Interaktive Einstellungen",
                     "submenu": {
-                        "tray-controls": "Open/Close on tray click",
-                        "hide-button-text": "Hide button text",
+                        "tray-controls": "Öffnen/Schließen beim Klicken des Tray-Icons",
+                        "hide-button-text": "Text der Knöpfe verstecken",
                         "refresh-on-play-pause": "Refresh on Play/Pause"
                     }
                 },
@@ -114,7 +114,7 @@
                     "done": "Abgeschlossen: {{filePath}}",
                     "writing-id3": "Schreibe ID3 tags…",
                     "converting": "Konvertiere…",
-                    "playlist-is-mix-or-private": "Error getting playlist info: make sure it isn't a private or \"Mixed for you\" playlist\n\n{{error}}",
+                    "playlist-is-mix-or-private": "Fehler beim Sammeln der Playlist-Informationen: stelle sicher, dass es keine private oder \"Mixed for you\"-Playlist ist\n\n{{error}}",
                     "download-progress": "Herunterladen: {{percent}}%",
                     "folder-already-exists": "Der Ordner {{playlistFolder}} existiert bereits",
                     "error-while-downloading": "Fehler beim Herunterladen \"{{author}} - {{title}}\": {{error}}",
@@ -134,8 +134,8 @@
                         "buttons": {
                             "ok": "OK"
                         },
-                        "title": "Error in download!",
-                        "message": "Argh! Apologies, download failed…"
+                        "title": "Fehler beim Herunterladen!",
+                        "message": "Argh! Entschuldigung, herunterladen fehlgeschlagen…"
                     }
                 }
             },
@@ -161,7 +161,7 @@
                     "title": "Wähle Untertitelsprache"
                 }
             },
-            "description": "Caption selector for YouTube Music audio tracks",
+            "description": "Untertitelwähler für YouTube Music-Audio-Lieder",
             "menu": {
                 "disable-captions": "Standartmäßig keine Untertitel",
                 "autoload": "Wähle automatisch den zuletzt verwendeten Untertitel"
@@ -209,18 +209,18 @@
                 "hide-duration-left": "Verstecke verbleibende Zeit",
                 "hide-github-button": "Hide GitHub link Button",
                 "clear-activity": "Aktivität leeren",
-                "set-inactivity-timeout": "Set inactivity timeout",
+                "set-inactivity-timeout": "Inaktivitätstimeout setzen",
                 "play-on-youtube-music": "Auf YouTube Music spielen"
             },
-            "description": "Show your friends what you listen to with Rich Presence",
+            "description": "Zeige deinen Freunden, was du hörst mit Rich Presence",
             "prompt": {
                 "set-inactivity-timeout": {
-                    "label": "Enter inactivity timeout in seconds:",
-                    "title": "Set inactivity timeout"
+                    "label": "Inaktivitätstimeout in Sekunden eingeben:",
+                    "title": "Inaktivitätstimeout setzen"
                 }
             },
             "backend": {
-                "already-connected": "Attempted to connect with active connection",
+                "already-connected": "",
                 "connected": "Mit Discord verbunden",
                 "disconnected": "Verbindung zu Discord getrennt"
             },
@@ -237,7 +237,7 @@
                 }
             },
             "description": "Erlaubt die Videoqualität über einen Knopf auf dem Video",
-            "name": "Video Quality Changer"
+            "name": "Videoqualitätsänderer"
         },
         "shortcuts": {
             "menu": {
@@ -253,10 +253,10 @@
                         "next": "Nächstes",
                         "play-pause": "Abspielen / Pausieren"
                     },
-                    "title": "Global Keybinds"
+                    "title": "Globale Tastenkombinationen"
                 }
             },
-            "name": "Shortcuts (& MPRIS)"
+            "name": "Abkürzungen (& MPRIS)"
         },
         "tuna-obs": {
             "name": "Tuna OBS",
@@ -292,7 +292,7 @@
                         "fade-scaling": {
                             "logarithmic": "Logarithmisch",
                             "linear": "Linear",
-                            "label": "Fade scaling"
+                            "label": ""
                         },
                         "seconds-before-end": "Übergang N Sekunden vor dem Ende starten",
                         "fade-in-duration": "Einblendezeit (Millisekunden)",
@@ -369,7 +369,7 @@
         },
         "lyrics-genius": {
             "renderer": {
-                "fetched-lyrics": "Fetched lyrics for Genius"
+                "fetched-lyrics": "Liedtexte für Genius abgerufen"
             },
             "menu": {
                 "romanized-lyrics": "Romanisierte Songtexte"
@@ -386,7 +386,7 @@
             "name": "Verschwommene Navigationsleiste"
         },
         "no-google-login": {
-            "description": "Remove Google login buttons and links from the interface",
+            "description": "Googles Anmelden-Knöpfe und -Links von der Oberfläche entfernen",
             "name": "Keine Google-Anmeldung"
         },
         "last-fm": {
@@ -439,13 +439,13 @@
                 "clearing-cache-after-20s": "Leere App-Cache"
             },
             "did-finish-load": {
-                "dev-tools": "did finish load. dev tools opened"
+                "dev-tools": "Laden fertiggestellt. Entwicklerwerkzeuge geöffnet"
             },
             "theme": {
                 "css-file-not-found": "CSS-Datei \"{{cssFile}}\" existiert nicht, ignoriere"
             },
             "second-instance": {
-                "receive-command": "Received command over protocol: \"{{command}}\""
+                "receive-command": "Befehl über Protokoll empfangen: \"{{command}}\""
             },
             "window": {
                 "tried-to-render-offscreen": "Window tried to render offscreen, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
@@ -460,17 +460,17 @@
                     "visual-tweaks": {
                         "submenu": {
                             "like-buttons": {
-                                "force-show": "Force show",
-                                "label": "Like buttons",
-                                "default": "Default",
-                                "hide": "Hide"
+                                "force-show": "Zeigen erzwingen",
+                                "label": "Gefällt mir-Knopf",
+                                "default": "Standard",
+                                "hide": "Verstecken"
                             },
                             "theme": {
                                 "submenu": {
-                                    "import-css-file": "Import custom CSS file",
-                                    "no-theme": "No theme"
+                                    "import-css-file": "Importiere eigene CSS-Datei",
+                                    "no-theme": "Kein Thema"
                                 },
-                                "label": "Theme"
+                                "label": "Thema"
                             },
                             "remove-upgrade-button": "Remove upgrade button"
                         },
@@ -478,10 +478,10 @@
                     },
                     "language": {
                         "dialog": {
-                            "title": "Language Changed",
+                            "title": "Sprache Geändert",
                             "message": "Language will be changed after restart"
                         },
-                        "label": "Language"
+                        "label": "Sprache"
                     },
                     "advanced-options": {
                         "submenu": {
@@ -502,50 +502,50 @@
                         },
                         "label": "Advanced options"
                     },
-                    "resume-on-start": "Resume last song when app starts",
+                    "resume-on-start": "Letztes Lied weiter abspielen, wenn Anwendung startet",
                     "starting-page": {
                         "label": "Starting page",
                         "unset": "Unset"
                     },
                     "tray": {
                         "submenu": {
-                            "play-pause-on-click": "Play/Pause on click",
-                            "disabled": "Disabled",
-                            "enabled-and-hide-app": "Enabled and hide app",
-                            "enabled-and-show-app": "Enabled and show app"
+                            "play-pause-on-click": "Abspielen/Pausieren durch Klick",
+                            "disabled": "Deaktiviert",
+                            "enabled-and-hide-app": "Aktiviert und verstecke Anwendung",
+                            "enabled-and-show-app": "Aktiviert und zeige Anwendung"
                         },
                         "label": "Tray"
                     },
-                    "auto-update": "Auto Update",
+                    "auto-update": "Automatisch Aktualisieren",
                     "hide-menu": {
                         "dialog": {
-                            "message": "Menu will be hidden on next launch, use [Alt] to show it (or backtick [`] if using in-app-menu)",
-                            "title": "Hide Menu Enabled"
+                            "message": "Menü wird beim nächsten Start versteckt, verwende [Alt], um es zu zeigen (oder Backtick [`], wenn du das In-App-Menü benutzt)",
+                            "title": "Menü Verstecken Aktiviert"
                         },
-                        "label": "Hide Menu"
+                        "label": "Menü Verstecken"
                     },
-                    "always-on-top": "Always on top",
+                    "always-on-top": "Immer im Vordergrund",
                     "start-at-login": "Start at login",
-                    "single-instance-lock": "Single Instance Lock"
+                    "single-instance-lock": ""
                 },
-                "label": "Options"
+                "label": "Einstellungen"
             },
             "navigation": {
                 "submenu": {
                     "go-back": "Go back",
-                    "copy-current-url": "Copy current URL",
+                    "copy-current-url": "Aktuelle URL kopieren",
                     "go-forward": "Go forward",
-                    "restart": "Restart App"
+                    "restart": "Anwendung Neustarten"
                 },
                 "label": "Navigation"
             },
-            "about": "About",
+            "about": "Über",
             "view": {
                 "label": "View"
             },
             "plugins": {
                 "label": "„Plugins",
-                "enabled": "Enabled"
+                "enabled": "Aktiviert"
             }
         }
     },
@@ -557,14 +557,14 @@
     "common": {
         "console": {
             "plugins": {
-                "unloaded": "Plugin \"{{pluginName}}\" unloaded",
-                "load-all": "Loading all plugins",
-                "unload-failed": "Failed to unload plugin \"{{pluginName}}\"",
+                "unloaded": "Erweiterung \"{{pluginName}}\" entladen",
+                "load-all": "Lade alle Erweiterungen",
+                "unload-failed": "Entladen der Erweiterung \"{{pluginName}}\" fehlgeschlagen",
                 "execute-failed": "Failed to execute plugin {{pluginName}}::{{contextName}}",
-                "initialize-failed": "Failed to initialize plugin \"{{pluginName}}\"",
-                "loaded": "Plugin \"{{pluginName}}\" loaded",
-                "load-failed": "Failed to load plugin \"{{pluginName}}\"",
-                "executed-at-ms": "Plugin {{pluginName}}::{{contextName}} executed at {{ms}}ms"
+                "initialize-failed": "Initialisierung der Erweiterung \"{{pluginName}}\" fehlgeschlagen",
+                "loaded": "Erweiterung \"{{pluginName}}\" geladen",
+                "load-failed": "Laden der Erweiterung \"{{pluginName}}\" fehlgeschlagen",
+                "executed-at-ms": "Erweiterung {{pluginName}}::{{contextName}} ausgeführt in {{ms}}ms"
             }
         }
     }
