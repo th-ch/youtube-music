@@ -7,6 +7,8 @@ import config from './config';
 import { restart } from './providers/app-controls';
 import getSongControls from './providers/song-controls';
 
+import { t } from '@/i18n';
+
 import type { MenuTemplate } from './menu';
 
 // Prevent tray being garbage collected
@@ -70,35 +72,38 @@ export const setUpTray = (app: Electron.App, win: Electron.BrowserWindow) => {
 
   const template: MenuTemplate = [
     {
-      label: 'Play/Pause',
+      label: t('main.tray.play-pause'),
       click() {
         playPause();
       },
     },
     {
-      label: 'Next',
+      label: t('main.tray.next'),
       click() {
         next();
       },
     },
     {
-      label: 'Previous',
+      label: t('main.tray.previous'),
       click() {
         previous();
       },
     },
     {
-      label: 'Show',
+      label: t('main.tray.show'),
       click() {
         win.show();
         app.dock?.show();
       },
     },
     {
-      label: 'Restart App',
+      label: t('main.tray.restart'),
       click: restart,
     },
-    { role: 'quit' },
+    {
+      label: t('main.tray.quit'),
+      role: 'quit',
+    },
   ];
 
   const trayMenu = Menu.buildFromTemplate(template);

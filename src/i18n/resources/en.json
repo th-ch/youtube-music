@@ -542,7 +542,15 @@
                 }
             },
             "view": {
-                "label": "View"
+                "label": "View",
+                "submenu": {
+                    "reload": "Reload",
+                    "force-reload": "Force Reload",
+                    "toggle-fullscreen": "Toggle Full Screen",
+                    "reset-zoom": "Actual Size",
+                    "zoom-in": "Zoom In",
+                    "zoom-out": "Zoom Out"
+                }
             },
             "navigation": {
                 "label": "Navigation",
@@ -550,10 +558,19 @@
                     "go-back": "Go back",
                     "go-forward": "Go forward",
                     "copy-current-url": "Copy current URL",
-                    "restart": "Restart App"
+                    "restart": "Restart App",
+                    "quit": "Exit2"
                 }
             },
             "about": "About"
+        },
+        "tray": {
+            "play-pause": "Play/Pause",
+            "next": "Next",
+            "previous": "Previous",
+            "show": "Show",
+            "restart": "Restart App",
+            "quit": "Quit"
         }
     },
     "common": {

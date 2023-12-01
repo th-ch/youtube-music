@@ -1,3 +1,5 @@
+import process from 'node:process';
+
 import is from 'electron-is';
 import {
   app,
@@ -410,7 +412,10 @@ export const mainMenuTemplate = async (
                     }
                   },
                 }
-              : { role: 'toggleDevTools' },
+              : {
+                label: t('main.menu.options.submenu.advanced-options.submenu.toggle-dev-tools'),
+                role: 'toggleDevTools'
+              },
             {
               label: t('main.menu.options.submenu.advanced-options.submenu.edit-config-json'),
               click() {
@@ -424,20 +429,34 @@ export const mainMenuTemplate = async (
     {
       label: t('main.menu.view.label'),
       submenu: [
-        { role: 'reload' },
-        { role: 'forceReload' },
+        {
+          label: t('main.menu.view.submenu.reload'),
+          role: 'reload',
+        },
+        {
+          label: t('main.menu.view.submenu.force-reload'),
+          role: 'forceReload',
+        },
         { type: 'separator' },
         {
+          label: t('main.menu.view.submenu.zoom-in'),
           role: 'zoomIn',
           accelerator: process.platform === 'darwin' ? 'Cmd+I' : 'Ctrl+I',
         },
         {
+          label: t('main.menu.view.submenu.zoom-out'),
           role: 'zoomOut',
           accelerator: process.platform === 'darwin' ? 'Cmd+O' : 'Ctrl+O',
         },
-        { role: 'resetZoom' },
+        {
+          label: t('main.menu.view.submenu.reset-zoom'),
+          role: 'resetZoom',
+        },
         { type: 'separator' },
-        { role: 'togglefullscreen' },
+        {
+          label: t('main.menu.view.submenu.toggle-fullscreen'),
+          role: 'togglefullscreen',
+        },
       ],
     },
     {
@@ -470,7 +489,10 @@ export const mainMenuTemplate = async (
           label: t('main.menu.navigation.submenu.restart'),
           click: restart,
         },
-        { role: 'quit' },
+        {
+          label: t('main.menu.navigation.submenu.quit'),
+          role: 'quit',
+        },
       ],
     },
     {
