@@ -24,9 +24,9 @@ export default createPlugin({
           type: 'question',
           buttons: qualityLabels,
           defaultId: currentIndex,
-          title: t('plugins.quality-changer.backend.dialog.title'),
-          message: t('plugins.quality-changer.backend.dialog.message'),
-          detail: t('plugins.quality-changer.backend.dialog.detail', {
+          title: t('plugins.quality-changer.backend.dialog.quality-changer.title'),
+          message: t('plugins.quality-changer.backend.dialog.quality-changer.message'),
+          detail: t('plugins.quality-changer.backend.dialog.quality-changer.detail', {
             quality: qualityLabels[currentIndex],
           }),
           cancelId: -1,
