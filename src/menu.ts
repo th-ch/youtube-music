@@ -8,6 +8,7 @@ import {
   dialog,
   Menu,
   MenuItem,
+  shell,
 } from 'electron';
 import prompt from 'custom-electron-prompt';
 
@@ -361,23 +362,40 @@ export const mainMenuTemplate = async (
         },
         {
           label: t('main.menu.options.submenu.language.label') + ' (Language)',
-          submenu: availableLanguages.map(
-            (lang): Electron.MenuItemConstructorOptions => ({
-              label: `${languageResources[lang].translation.language.name} (${languageResources[lang].translation.language['local-name']})`,
-              type: 'checkbox',
-              checked: config.get('options.language') === lang,
+          submenu: [
+            {
+              label: t(
+                'main.menu.options.submenu.language.submenu.to-help-translate',
+              ),
+              type: 'normal',
               click() {
-                config.setMenuOption('options.language', lang);
-                refreshMenu(win);
-                setLanguage(lang);
-                dialog.showMessageBox(win, {
-                  title: t('main.menu.options.submenu.language.dialog.title'),
-                  message: t(
-                    'main.menu.options.submenu.language.dialog.message',
-                  ),
-                });
+                const url = 'https://hosted.weblate.org/engage/youtube-music/';
+                shell.openExternal(url);
               },
-            }),
+            } as Electron.MenuItemConstructorOptions,
+          ].concat(
+            availableLanguages
+              .map(
+                (lang): Electron.MenuItemConstructorOptions => ({
+                  label: `${languageResources[lang].translation.language.name} (${languageResources[lang].translation.language['local-name']})`,
+                  type: 'checkbox',
+                  checked: config.get('options.language') === lang,
+                  click() {
+                    config.setMenuOption('options.language', lang);
+                    refreshMenu(win);
+                    setLanguage(lang);
+                    dialog.showMessageBox(win, {
+                      title: t(
+                        'main.menu.options.submenu.language.dialog.title',
+                      ),
+                      message: t(
+                        'main.menu.options.submenu.language.dialog.message',
+                      ),
+                    });
+                  },
+                }),
+              )
+              .sort((a, b) => a.label!.localeCompare(b.label!)),
           ),
         },
         { type: 'separator' },
