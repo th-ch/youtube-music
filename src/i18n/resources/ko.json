@@ -215,7 +215,9 @@
                 "hide-github-button": "GitHub 링크 버튼 숨기기",
                 "clear-activity": "활동 제거",
                 "set-inactivity-timeout": "비활성 시간 제한 설정",
-                "play-on-youtube-music": "유튜브 뮤직에서 재생"
+                "play-on-youtube-music": "유튜브 뮤직에서 재생",
+                "connected": "연결 됨",
+                "disconnected": "연결 해제 됨"
             },
             "description": "활동 상태를 사용하여 친구들에게 내가 듣는 음악을 보여주세요",
             "prompt": {
