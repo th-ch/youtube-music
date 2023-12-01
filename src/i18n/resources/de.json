@@ -1,7 +1,7 @@
 {
     "plugins": {
         "ambient-mode": {
-            "name": "Ambient Mode",
+            "name": "Ambiente Modus",
             "menu": {
                 "opacity": {
                     "label": "Durchsichtigkeit",
@@ -38,9 +38,9 @@
                 },
                 "smoothness-transition": {
                     "submenu": {
-                        "during": "During {{interpolationTime}}s"
+                        "during": "Während {{interpolationTime}}s"
                     },
-                    "label": "Smoothness transition"
+                    "label": "Glatter Übergang"
                 }
             },
             "description": "Fügt einen Lichteffekt durch sanftes Abstreifen der Farben des Videos in deinen Bildschirmhintergrund hinzu."
@@ -210,7 +210,9 @@
                 "hide-github-button": "Hide GitHub link Button",
                 "clear-activity": "Aktivität leeren",
                 "set-inactivity-timeout": "Inaktivitätstimeout setzen",
-                "play-on-youtube-music": "Auf YouTube Music spielen"
+                "play-on-youtube-music": "Auf YouTube Music spielen",
+                "connected": "Verbunden",
+                "disconnected": "Getrennt"
             },
             "description": "Zeige deinen Freunden, was du hörst mit Rich Presence",
             "prompt": {
@@ -323,7 +325,7 @@
             }
         },
         "audio-compressor": {
-            "description": "Apply compression to audio (lowers the volume of the loudest parts of the signal and raises the volume of the softest parts)",
+            "description": "Kompressor auf Audio anwenden (senkt die Lautstärke der lautesten Teile des Signals und hebt die Lautstärke der leisesten Teile an)",
             "name": "Audio-Komprimierer"
         },
         "adblocker": {
