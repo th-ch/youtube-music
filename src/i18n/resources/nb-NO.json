@@ -1,1 +1,107 @@
-{}
+{
+    "plugins": {
+        "downloader": {
+            "backend": {
+                "feedback": {
+                    "conversion-progress": "Konvertering: {{percent}}%",
+                    "playlist-is-empty": "Tom spilleliste",
+                    "preparing-file": "Forbereder fil …",
+                    "downloading": "Laster ned …",
+                    "converting": "Konverterer …",
+                    "saving": "Lagrer …",
+                    "loading": "Laster inn …"
+                },
+                "dialog": {
+                    "start-download-playlist": {
+                        "buttons": {
+                            "ok": "OK"
+                        },
+                        "title": "Nedlasting startet"
+                    },
+                    "error": {
+                        "buttons": {
+                            "ok": "OK"
+                        }
+                    }
+                }
+            }
+        },
+        "video-toggle": {
+            "templates": {
+                "button": "Spor"
+            },
+            "menu": {
+                "mode": {
+                    "label": "Modus"
+                }
+            }
+        },
+        "adblocker": {
+            "name": "Reklameblokkering",
+            "description": "Stenger ute reklame og sporing",
+            "menu": {
+                "blocker": "Blokkering"
+            }
+        },
+        "skip-silences": {
+            "name": "Hopp over pauser"
+        },
+        "playback-speed": {
+            "templates": {
+                "button": "Hastighet"
+            },
+            "name": "Avspillingshastighet"
+        },
+        "precise-volume": {
+            "name": "Presis lydstyrkejustering"
+        },
+        "picture-in-picture": {
+            "menu": {
+                "save-window-position": "Lagre vindusposisjon"
+            }
+        },
+        "sponsorblock": {
+            "name": "SponsorBlock"
+        },
+        "notifications": {
+            "name": "Merknader"
+        }
+    },
+    "main": {
+        "menu": {
+            "options": {
+                "submenu": {
+                    "visual-tweaks": {
+                        "submenu": {
+                            "theme": {
+                                "submenu": {
+                                    "import-css-file": "Importer egendefinert CSS-fil",
+                                    "no-theme": "Ingen"
+                                },
+                                "label": "Drakt"
+                            }
+                        }
+                    },
+                    "tray": {
+                        "submenu": {
+                            "disabled": "Avskrudd"
+                        },
+                        "label": "Systemkurv"
+                    },
+                    "hide-menu": {
+                        "label": "Skjul meny"
+                    }
+                },
+                "label": "Alternativer"
+            },
+            "plugins": {
+                "label": "Programtillegg"
+            }
+        }
+    },
+    "language": {
+        "code": "nb_NO",
+        "name": "Norwegian Bokmål",
+        "local-name": "Norsk bokmål"
+    }
+}
