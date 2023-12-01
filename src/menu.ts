@@ -360,7 +360,7 @@ export const mainMenuTemplate = async (
           ],
         },
         {
-          label: t('main.menu.options.submenu.language.label'),
+          label: t('main.menu.options.submenu.language.label') + ' (Language)',
           submenu: availableLanguages.map(
             (lang): Electron.MenuItemConstructorOptions => ({
               label: `${languageResources[lang].translation.language.name} (${languageResources[lang].translation.language['local-name']})`,
