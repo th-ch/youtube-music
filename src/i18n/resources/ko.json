@@ -542,18 +542,35 @@
                     "go-back": "뒤로 가기",
                     "copy-current-url": "현재 URL 복사",
                     "go-forward": "앞으로 가기",
-                    "restart": "앱 재시작"
+                    "restart": "앱 재시작",
+                    "quit": "종료"
                 },
                 "label": "네비게이션"
             },
             "about": "정보",
             "view": {
-                "label": "보기"
+                "label": "보기",
+                "submenu": {
+                    "force-reload": "강제로 다시 로드",
+                    "reset-zoom": "원래 크기",
+                    "toggle-fullscreen": "전체 화면 전환",
+                    "zoom-in": "확대",
+                    "reload": "다시 로드",
+                    "zoom-out": "축소"
+                }
             },
             "plugins": {
                 "label": "플러그인",
                 "enabled": "활성화"
             }
+        },
+        "tray": {
+            "show": "표시",
+            "previous": "이전",
+            "restart": "앱 재시작",
+            "play-pause": "재생/일시정지",
+            "quit": "종료",
+            "next": "다음"
         }
     },
     "common": {
