@@ -220,7 +220,6 @@
                 }
             },
             "backend": {
-                "already-connected": "",
                 "connected": "Mit Discord verbunden",
                 "disconnected": "Verbindung zu Discord getrennt"
             },
@@ -291,8 +290,7 @@
                     "multi-input": {
                         "fade-scaling": {
                             "logarithmic": "Logarithmisch",
-                            "linear": "Linear",
-                            "label": ""
+                            "linear": "Linear"
                         },
                         "seconds-before-end": "Übergang N Sekunden vor dem Ende starten",
                         "fade-in-duration": "Einblendezeit (Millisekunden)",
@@ -525,8 +523,7 @@
                         "label": "Menü Verstecken"
                     },
                     "always-on-top": "Immer im Vordergrund",
-                    "start-at-login": "Start at login",
-                    "single-instance-lock": ""
+                    "start-at-login": "Start at login"
                 },
                 "label": "Einstellungen"
             },
