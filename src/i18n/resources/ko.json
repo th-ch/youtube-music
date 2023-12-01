@@ -1,590 +1,590 @@
 {
-    "language": {
-        "name": "Korean",
-        "local-name": "한국어",
-        "code": "ko"
-    },
-    "plugins": {
-        "ambient-mode": {
-            "name": "앰비언트 모드",
-            "menu": {
-                "opacity": {
-                    "label": "불투명도",
-                    "submenu": {
-                        "percent": "{{opacity}}%"
-                    }
-                },
-                "quality": {
-                    "label": "품질",
-                    "submenu": {
-                        "pixels": "{{quality}} 픽셀"
-                    }
-                },
-                "size": {
-                    "submenu": {
-                        "percent": "{{size}}%"
-                    },
-                    "label": "크기"
-                },
-                "blur-amount": {
-                    "submenu": {
-                        "pixels": "{{blurAmount}} 픽셀"
-                    },
-                    "label": "흐림 효과 강도"
-                },
-                "buffer": {
-                    "submenu": {
-                        "buffer": "{{buffer}}"
-                    },
-                    "label": "버퍼링"
-                },
-                "use-fullscreen": {
-                    "label": "전체 화면 모드 사용"
-                },
-                "smoothness-transition": {
-                    "submenu": {
-                        "during": "{{interpolationTime}}초 동안 전환"
-                    },
-                    "label": "부드러운 전환"
-                }
-            },
-            "description": "영상의 간접 조명을 화면 배경에 투사합니다."
-        },
-        "in-app-menu": {
-            "menu": {
-                "hide-dom-window-controls": "DOM 윈도우 컨트롤 숨기기"
-            },
-            "name": "인앱 메뉴",
-            "description": "메뉴 표시줄을 더 멋지게, 그리고 다크 또는 앨범의 색상으로 만듭니다"
-        },
-        "video-toggle": {
-            "menu": {
-                "force-hide": "영상 탭 강제 제거",
-                "align": {
-                    "submenu": {
-                        "left": "왼쪽",
-                        "right": "오른쪽",
-                        "middle": "가운데"
-                    },
-                    "label": "정렬"
-                },
-                "mode": {
-                    "submenu": {
-                        "native": "기본 토글",
-                        "custom": "사용자 지정 전환",
-                        "disabled": "비활성화"
-                    },
-                    "label": "모드"
-                }
-            },
-            "templates": {
-                "button": "노래"
-            },
-            "description": "영상/노래 모드를 전환하는 버튼을 추가합니다. 선택적으로 전체 영상 탭을 제거할 수도 있습니다",
-            "name": "영상 전환"
-        },
-        "notifications": {
-            "menu": {
-                "interactive-settings": {
-                    "label": "대화형 알림 설정",
-                    "submenu": {
-                        "tray-controls": "트레이 클릭 시 열기/닫기",
-                        "hide-button-text": "버튼 텍스트 숨기기",
-                        "refresh-on-play-pause": "재생/일시정지 시 새로고침"
-                    }
-                },
-                "toast-style": "토스트 스타일",
-                "unpause-notification": "일시정지 시 알림 표시",
-                "interactive": "대화형 알림",
-                "priority": "알림 우선순위"
-            },
-            "description": "노래 재생이 시작되면 알림을 표시 (Windows에서는 대화형 알림 사용 가능)",
-            "name": "알림"
-        },
-        "downloader": {
-            "backend": {
-                "feedback": {
-                    "video-id-not-found": "영상을 찾을 수 없습니다",
-                    "conversion-progress": "변환: {{percent}}%",
-                    "getting-playlist-info": "재생목록 정보를 가져오는 중…",
-                    "downloading-playlist": "재생목록 다운로드 중: \"{{playlistTitle}}\" - {{playlistSize}} 곡 ({{playlistId}})",
-                    "download-info": "{{artist}} - {{title}} [{{videoId}} 다운로드 중",
-                    "playlist-is-empty": "재생목록이 비어있습니다",
-                    "downloading-counter": "다운로드 중 {{current}}/{{total}}…",
-                    "playlist-id-not-found": "재생목록 ID를 찾을 수 없습니다",
-                    "preparing-file": "파일 준비 중…",
-                    "downloading": "다운로드 중…",
-                    "trying-to-get-playlist-id": "재생목록 ID를 가져오는 중: {{playlistId}}",
-                    "playlist-has-only-one-song": "재생목록에 한 항목만 존재합니다. 직접 다운로드합니다",
-                    "done": "완료: {{filePath}}",
-                    "writing-id3": "ID3 태그 작성 중…",
-                    "converting": "변환 중…",
-                    "playlist-is-mix-or-private": "재생목록 정보 가져오는 중 오류 발생: 비공개 재생목록 또는 '유튜브 Mix' 재생목록이 아닌지 확인하세요\n\n{{error}}",
-                    "download-progress": "다운로드: {{percent}}%",
-                    "folder-already-exists": "{{playlistFolder}} 폴더가 이미 존재합니다",
-                    "error-while-downloading": "\"{{author}} - {{title}}\" 다운로드 중 오류 발생: {{error}}",
-                    "saving": "저장 중…",
-                    "loading": "로딩 중…"
-                },
-                "dialog": {
-                    "start-download-playlist": {
-                        "buttons": {
-                            "ok": "확인"
-                        },
-                        "message": "재생목록 {{playlistTitle}} 다운로드 중",
-                        "title": "다운로드 시작 됨",
-                        "detail": "({{playlistSize}} 곡)"
-                    },
-                    "error": {
-                        "buttons": {
-                            "ok": "확인"
-                        },
-                        "title": "다운로드 중 오류 발생!",
-                        "message": "죄송합니다. 다운로드가 실패했습니다…"
-                    }
-                }
-            },
-            "menu": {
-                "choose-download-folder": "다운로드 폴더 선택",
-                "skip-existing": "이미 존재하는 파일 넘기기",
-                "presets": "프리셋"
-            },
-            "name": "다운로더",
-            "renderer": {
-                "can-not-update-progress": "진행 상황을 업데이트 할 수 없음"
-            },
-            "description": "UI에서 직접 MP3/소스 오디오를 다운로드하세요",
-            "templates": {
-                "button": "다운로드"
-            }
-        },
-        "captions-selector": {
-            "prompt": {
-                "selector": {
-                    "label": "현재 선택된 언어: {{language}}",
-                    "none": "없음",
-                    "title": "자막 언어 선택"
-                }
-            },
-            "description": "YouTube Music 트랙 용 자막 선택기입니다",
-            "menu": {
-                "disable-captions": "기본 자막 제거",
-                "autoload": "마지막으로 사용한 자막을 자동으로 선택"
-            },
-            "templates": {
-                "title": "자막 선택기 열기"
-            },
-            "name": "자막 선택기"
-        },
-        "touchbar": {
-            "description": "macOS 사용자를 위한 TouchBar 위젯을 추가합니다",
-            "name": "TouchBar"
-        },
-        "picture-in-picture": {
-            "menu": {
-                "hotkey": {
-                    "prompt": {
-                        "title": "PiP 단축키",
-                        "label": "PiP를 전환하기 위한 단축키를 선택하세요",
-                        "keybind-options": {
-                            "hotkey": "단축키"
-                        }
-                    },
-                    "label": "단축키"
-                },
-                "use-native-pip": "브라우저 내장 PiP 사용",
-                "always-on-top": "항상 맨 위에 표시",
-                "save-window-position": "창 위치 저장",
-                "save-window-size": "창 크기 저장"
-            },
-            "name": "PiP",
-            "templates": {
-                "button": "PiP"
-            },
-            "description": "앱을 PiP 모드로 전환할 수 있게 허용합니다"
-        },
-        "album-color-theme": {
-            "description": "앨범 색상 팔레트를 기반으로 동적 테마 및 시각 효과를 적용합니다",
-            "name": "앨범 컬러 기반 테마"
-        },
-        "discord": {
-            "menu": {
-                "auto-reconnect": "자동 연결",
-                "clear-activity-after-timeout": "시간 초과시 활동 제거",
-                "hide-duration-left": "남은 재생 시간 숨기기",
-                "hide-github-button": "GitHub 링크 버튼 숨기기",
-                "clear-activity": "활동 제거",
-                "set-inactivity-timeout": "비활성 시간 제한 설정",
-                "play-on-youtube-music": "유튜브 뮤직에서 재생",
-                "connected": "연결 됨",
-                "disconnected": "연결 해제 됨"
-            },
-            "description": "활동 상태를 사용하여 친구들에게 내가 듣는 음악을 보여주세요",
-            "prompt": {
-                "set-inactivity-timeout": {
-                    "label": "비활성 시간 제한을 초 단위로 입력하세요:",
-                    "title": "비활성 시간 제한 설정"
-                }
-            },
-            "backend": {
-                "already-connected": "활성화 된 연결에 연결을 시도했습니다",
-                "connected": "디스코드에 연결 됨",
-                "disconnected": "디스코드에서 연결이 끊김"
-            },
-            "name": "디스코드 활동 상태"
-        },
-        "quality-changer": {
-            "backend": {
-                "dialog": {
-                    "quality-changer": {
-                        "detail": "현재 품질: {{quality}}",
-                        "message": "영상 품질 선택:",
-                        "title": "영상 품질 선택"
-                    }
-                }
-            },
-            "description": "영상 오버레이의 버튼으로 영상 품질을 변경할 수 있습니다",
-            "name": "영상 품질 체인저"
-        },
-        "shortcuts": {
-            "menu": {
-                "override-media-keys": "미디어 키 재정의",
-                "set-keybinds": "전역 노래 제어 설정"
-            },
-            "description": "재생을 위한 전역 단축키 설정 허용 (재생/일시 정지/다음/이전) + 미디어 키를 재정의하여 미디어 OSD 비활성화 + Ctrl/CMD + F 검색 활성화 + 미디어 키에 대한 리눅스 MPRIS 지원 활성화 + 고급 사용자를 위한 사용자 지정 단축키 지원",
-            "prompt": {
-                "keybind": {
-                    "label": "노래 조작을 위한 전역 키를 선택하세요:",
-                    "keybind-options": {
-                        "previous": "이전",
-                        "next": "다음",
-                        "play-pause": "재생 / 일시정지"
-                    },
-                    "title": "전역 키 지정"
-                }
-            },
-            "name": "단축키 (& MPRIS)"
-        },
-        "tuna-obs": {
-            "name": "Tuna OBS",
-            "description": "OBS의 플러그인 Tuna와 통합을 활성화합니다"
-        },
-        "precise-volume": {
-            "prompt": {
-                "global-shortcuts": {
-                    "keybind-options": {
-                        "increase": "볼륨 증가",
-                        "decrease": "볼륨 감소"
-                    },
-                    "label": "전역 볼륨 키를 지정하세요:",
-                    "title": "전역 볼륨 키 지정"
-                },
-                "volume-steps": {
-                    "label": "볼륨 증가/감소 단계를 선택하세요",
-                    "title": "볼륨 단계"
-                }
-            },
-            "description": "사용자 지정 HUD와 사용자 지정 볼륨 단계로 마우스 휠/단축키를 사용하여 볼륨을 정확하게 제어하세요",
-            "menu": {
-                "custom-volume-steps": "사용자 지정 볼륨 단계 설정",
-                "arrows-shortcuts": "로컬 화살표 키 컨트롤",
-                "global-shortcuts": "전역 단축키"
-            },
-            "name": "정확한 볼륨"
-        },
-        "crossfade": {
-            "prompt": {
-                "options": {
-                    "multi-input": {
-                        "fade-scaling": {
-                            "logarithmic": "로그스케일",
-                            "linear": "선형",
-                            "label": "페이드 스케일링"
-                        },
-                        "seconds-before-end": "종료되기 N초 전에 크로스페이드 적용",
-                        "fade-in-duration": "페이드인 지속 시간 (밀리초)",
-                        "fade-out-duration": "페이드아웃 지속 시간 (밀리초)"
-                    },
-                    "title": "크로스페이드 설정"
-                }
-            },
-            "name": "크로스페이드 [베타]",
-            "description": "노래 사이에 크로스페이드 효과를 적용합니다",
-            "menu": {
-                "advanced": "고급 설정"
-            }
-        },
-        "taskbar-mediacontrol": {
-            "description": "Windows 작업 표시줄에서 재생을 제어하세요",
-            "name": "작업표시줄 미디어 컨트롤"
-        },
-        "compact-sidebar": {
-            "description": "사이드바를 항상 컴팩트 모드로 설정합니다",
-            "name": "컴팩트 사이드바"
-        },
-        "disable-autoplay": {
-            "description": "노래를 '일시 정지' 모드로 시작하게 합니다",
-            "name": "자동 재생 해제",
-            "menu": {
-                "apply-once": "첫 시작 시에만 적용"
-            }
-        },
-        "audio-compressor": {
-            "description": "오디오에 컴프레서를 적용합니다 (신호에서 가장 시끄러운 부분의 볼륨을 낮추고 가장 조용한 부분의 볼륨을 높임)",
-            "name": "오디오 컴프레서"
-        },
-        "adblocker": {
-            "name": "애드블록",
-            "description": "모든 광고와 트래커를 즉시 차단합니다",
-            "menu": {
-                "blocker": "애드블록 타입"
-            }
-        },
-        "playback-speed": {
-            "description": "빨리 듣거나, 천천히 들어보세요! 노래 속도를 제어하는 슬라이더를 추가합니다",
-            "templates": {
-                "button": "배속"
-            },
-            "name": "재생 속도"
-        },
-        "navigation": {
-            "name": "네비게이션",
-            "description": "브라우저에서처럼, UI에 직접 통합된 앞으로/뒤로 탐색하는 화살표"
-        },
-        "exponential-volume": {
-            "name": "지수 볼륨",
-            "description": "볼륨 슬라이더를 지수적으로 만들어 더 낮은 볼륨을 쉽게 선택할 수 있도록 합니다."
-        },
-        "bypass-age-restrictions": {
-            "description": "유튜브의 나이 제한을 우회합니다",
-            "name": "나이 제한 우회"
-        },
-        "lumiastream": {
-            "description": "Lumia Stream 지원을 추가합니다",
-            "name": "Lumia Stream [베타]"
-        },
-        "skip-silences": {
-            "name": "무음 건너뛰기",
-            "description": "노래의 무음 부분을 자동으로 건너뜁니다"
-        },
-        "visualizer": {
-            "description": "플레이어에 시각화 도구 추가",
-            "menu": {
-                "visualizer-type": "비주얼라이저 타입"
-            },
-            "name": "비주얼라이저"
-        },
-        "lyrics-genius": {
-            "renderer": {
-                "fetched-lyrics": "Genius에서 가사 불러옴"
-            },
-            "menu": {
-                "romanized-lyrics": "가사 로마자화"
-            },
-            "description": "더 많은 곡에 대해 가사 지원을 추가합니다",
-            "name": "Genius 가사"
-        },
-        "sponsorblock": {
-            "description": "인트로/아웃트로와 같은 음악이 아닌 부분이나, 노래가 재생되지 않는 뮤직 비디오의 일부를 자동으로 건너뜁니다",
-            "name": "SponsorBlock"
-        },
-        "blur-nav-bar": {
-            "description": "내비게이션 바를 투명하고 흐릿하게 만듭니다",
-            "name": "네비게이션 바 흐림 효과"
-        },
-        "no-google-login": {
-            "description": "UI에서 Google 로그인 버튼 및 링크 제거하기",
-            "name": "Google 로그인 제거"
-        },
-        "last-fm": {
-            "description": "Last.fm에 대한 스크러블 지원을 추가합니다",
-            "name": "Last.fm"
-        }
-    },
-    "main": {
-        "dialog": {
-            "need-to-restart": {
-                "buttons": {
-                    "later": "나중에 하기",
-                    "restart-now": "지금 재시작하기"
-                },
-                "title": "재시작 필요",
-                "message": "\"{{pluginName}}\"은(는) 재시작이 필요합니다",
-                "detail": "\"{{pluginName}}\" 플러그인을 적용하려면 재시작해야 합니다"
-            },
-            "update-available": {
-                "buttons": {
-                    "download": "다운로드",
-                    "disable": "업데이트 비활성화",
-                    "ok": "확인"
-                },
-                "title": "업데이트 사용 가능",
-                "detail": "새 버전이 출시되었습니다. {{downloadLink}}에서 다운로드할 수 있습니다",
-                "message": "새 버전이 사용 가능합니다"
-            },
-            "hide-menu-enabled": {
-                "message": "메뉴 숨기기가 활성화되어 있습니다",
-                "title": "메뉴 숨기기 활성화됨",
-                "detail": "'Alt' 키를 눌러 숨겨진 메뉴를 표시할 수 있습니다 (인앱 메뉴를 사용하는 경우 'esc' 키를 사용)"
-            },
-            "unresponsive": {
-                "message": "애플리케이션이 응답하지 않습니다",
-                "buttons": {
-                    "quit": "종료",
-                    "wait": "기다리기",
-                    "relaunch": "재시작"
-                },
-                "title": "창이 응답하지 않음",
-                "detail": "불편을 드려 죄송합니다! 방법을 선택해 주세요:"
-            }
-        },
-        "console": {
-            "i18n": {
-                "loaded": "국제화 로드됨"
-            },
-            "when-ready": {
-                "clearing-cache-after-20s": "앱 캐시 지우기"
-            },
-            "did-finish-load": {
-                "dev-tools": "로드가 완료되었습니다. 개발자 도구가 열렸습니다"
-            },
-            "theme": {
-                "css-file-not-found": "CSS 파일 \"{{cssFile}}\"이(가) 존재하지 않습니다. 무시합니다"
-            },
-            "second-instance": {
-                "receive-command": "프로토콜을 통해 명령을 받았습니다: \"{{command}}\""
-            },
-            "window": {
-                "tried-to-render-offscreen": "창이 오프스크린 렌더링을 시도했습니다. windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
-            },
-            "unresponsive": {
-                "details": "응답 없음 오류!\n{{error}}"
-            }
-        },
-        "menu": {
-            "options": {
-                "submenu": {
-                    "visual-tweaks": {
-                        "submenu": {
-                            "like-buttons": {
-                                "force-show": "강제로 표시",
-                                "label": "좋아요 버튼",
-                                "default": "기본",
-                                "hide": "숨기기"
-                            },
-                            "theme": {
-                                "submenu": {
-                                    "import-css-file": "사용자 정의 CSS 파일 가져오기",
-                                    "no-theme": "테마 없음"
-                                },
-                                "label": "테마"
-                            },
-                            "remove-upgrade-button": "업그레이드 버튼 제거"
-                        },
-                        "label": "시각적 변경"
-                    },
-                    "language": {
-                        "dialog": {
-                            "title": "언어 변경됨",
-                            "message": "재시작 후 언어가 변경됩니다"
-                        },
-                        "label": "언어"
-                    },
-                    "advanced-options": {
-                        "submenu": {
-                            "edit-config-json": "config.json 편집",
-                            "restart-on-config-changes": "설정 변경 시 재시작",
-                            "set-proxy": {
-                                "prompt": {
-                                    "placeholder": "예제: socks5://127.0.0.1:9999",
-                                    "title": "프록시 설정",
-                                    "label": "프록시 주소를 입력하세요: (비워두면 비활성화됨)"
-                                },
-                                "label": "프록시 설정"
-                            },
-                            "disable-hardware-acceleration": "하드웨어 가속 비활성화",
-                            "override-user-agent": "User-Agent 재정의",
-                            "toggle-dev-tools": "DevTools 열기",
-                            "auto-reset-app-cache": "앱 시작 시 앱 캐시 초기화"
-                        },
-                        "label": "고급 설정"
-                    },
-                    "resume-on-start": "앱 시작 시 마지막 곡 다시 듣기",
-                    "starting-page": {
-                        "label": "시작 페이지",
-                        "unset": "지정 안 됨"
-                    },
-                    "tray": {
-                        "submenu": {
-                            "play-pause-on-click": "클릭 시 재생/일시 정지",
-                            "disabled": "비활성화",
-                            "enabled-and-hide-app": "활성화 및 앱 숨기기",
-                            "enabled-and-show-app": "활성화 및 앱 표시"
-                        },
-                        "label": "트레이"
-                    },
-                    "auto-update": "자동 업데이트",
-                    "hide-menu": {
-                        "dialog": {
-                            "message": "다음 실행 시 메뉴가 숨겨집니다. 표시하려면 [Alt] 키를 사용하세요 (인앱 메뉴를 사용하는 경우 백틱 [`] 키를 사용하세요)",
-                            "title": "메뉴 숨기기 활성화됨"
-                        },
-                        "label": "메뉴 숨기기"
-                    },
-                    "always-on-top": "항상 최상단에 표시",
-                    "start-at-login": "로그온 시 자동 실행",
-                    "single-instance-lock": "단일 인스턴스 잠금"
-                },
-                "label": "설정"
-            },
-            "navigation": {
-                "submenu": {
-                    "go-back": "뒤로 가기",
-                    "copy-current-url": "현재 URL 복사",
-                    "go-forward": "앞으로 가기",
-                    "restart": "앱 재시작",
-                    "quit": "종료"
-                },
-                "label": "네비게이션"
-            },
-            "about": "정보",
-            "view": {
-                "label": "보기",
-                "submenu": {
-                    "force-reload": "강제로 다시 로드",
-                    "reset-zoom": "원래 크기",
-                    "toggle-fullscreen": "전체 화면 전환",
-                    "zoom-in": "확대",
-                    "reload": "다시 로드",
-                    "zoom-out": "축소"
-                }
-            },
-            "plugins": {
-                "label": "플러그인",
-                "enabled": "활성화"
-            }
-        },
-        "tray": {
-            "show": "표시",
-            "previous": "이전",
-            "restart": "앱 재시작",
-            "play-pause": "재생/일시정지",
-            "quit": "종료",
-            "next": "다음"
-        }
-    },
-    "common": {
-        "console": {
-            "plugins": {
-                "unloaded": "플러그인 \"{{pluginName}}\" 언로드 됨",
-                "load-all": "모든 플러그인 로드 중",
-                "unload-failed": "플러그인 \"{{pluginName}}\"을(를) 언로드하지 못했습니다",
-                "execute-failed": "플러그인 {{pluginName}}::{{contextName}}을(를) 실행하지 못했습니다",
-                "initialize-failed": "플러그인 \"{{pluginName}}\"을(를) 초기화하지 못했습니다",
-                "loaded": "플러그인 \"{{pluginName}}\" 로드됨",
-                "load-failed": "플러그인 \"{{pluginName}}\"을(를) 로드하지 못했습니다",
-                "executed-at-ms": "플러그인 {{pluginName}}::{{contextName}}이 {{ms}}ms 만에 실행됨"
-            }
-        }
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "플러그인 {{pluginName}}::{{contextName}}을(를) 실행하지 못했습니다",
+        "executed-at-ms": "플러그인 {{pluginName}}::{{contextName}}이 {{ms}}ms 만에 실행됨",
+        "initialize-failed": "플러그인 \"{{pluginName}}\"을(를) 초기화하지 못했습니다",
+        "load-all": "모든 플러그인 로드 중",
+        "load-failed": "플러그인 \"{{pluginName}}\"을(를) 로드하지 못했습니다",
+        "loaded": "플러그인 \"{{pluginName}}\" 로드됨",
+        "unload-failed": "플러그인 \"{{pluginName}}\"을(를) 언로드하지 못했습니다",
+        "unloaded": "플러그인 \"{{pluginName}}\" 언로드 됨"
+      }
     }
+  },
+  "language": {
+    "code": "ko",
+    "local-name": "한국어",
+    "name": "Korean"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "로드가 완료되었습니다. 개발자 도구가 열렸습니다"
+      },
+      "i18n": {
+        "loaded": "국제화 로드됨"
+      },
+      "second-instance": {
+        "receive-command": "프로토콜을 통해 명령을 받았습니다: \"{{command}}\""
+      },
+      "theme": {
+        "css-file-not-found": "CSS 파일 \"{{cssFile}}\"이(가) 존재하지 않습니다. 무시합니다"
+      },
+      "unresponsive": {
+        "details": "응답 없음 오류!\n{{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "앱 캐시 지우기"
+      },
+      "window": {
+        "tried-to-render-offscreen": "창이 오프스크린 렌더링을 시도했습니다. windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "detail": "'Alt' 키를 눌러 숨겨진 메뉴를 표시할 수 있습니다 (인앱 메뉴를 사용하는 경우 'esc' 키를 사용)",
+        "message": "메뉴 숨기기가 활성화되어 있습니다",
+        "title": "메뉴 숨기기 활성화됨"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "나중에 하기",
+          "restart-now": "지금 재시작하기"
+        },
+        "detail": "\"{{pluginName}}\" 플러그인을 적용하려면 재시작해야 합니다",
+        "message": "\"{{pluginName}}\"은(는) 재시작이 필요합니다",
+        "title": "재시작 필요"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "종료",
+          "relaunch": "재시작",
+          "wait": "기다리기"
+        },
+        "detail": "불편을 드려 죄송합니다! 방법을 선택해 주세요:",
+        "message": "애플리케이션이 응답하지 않습니다",
+        "title": "창이 응답하지 않음"
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "업데이트 비활성화",
+          "download": "다운로드",
+          "ok": "확인"
+        },
+        "detail": "새 버전이 출시되었습니다. {{downloadLink}}에서 다운로드할 수 있습니다",
+        "message": "새 버전이 사용 가능합니다",
+        "title": "업데이트 사용 가능"
+      }
+    },
+    "menu": {
+      "about": "정보",
+      "navigation": {
+        "label": "네비게이션",
+        "submenu": {
+          "copy-current-url": "현재 URL 복사",
+          "go-back": "뒤로 가기",
+          "go-forward": "앞으로 가기",
+          "quit": "종료",
+          "restart": "앱 재시작"
+        }
+      },
+      "options": {
+        "label": "설정",
+        "submenu": {
+          "advanced-options": {
+            "label": "고급 설정",
+            "submenu": {
+              "auto-reset-app-cache": "앱 시작 시 앱 캐시 초기화",
+              "disable-hardware-acceleration": "하드웨어 가속 비활성화",
+              "edit-config-json": "config.json 편집",
+              "override-user-agent": "User-Agent 재정의",
+              "restart-on-config-changes": "설정 변경 시 재시작",
+              "set-proxy": {
+                "label": "프록시 설정",
+                "prompt": {
+                  "label": "프록시 주소를 입력하세요: (비워두면 비활성화됨)",
+                  "placeholder": "예제: socks5://127.0.0.1:9999",
+                  "title": "프록시 설정"
+                }
+              },
+              "toggle-dev-tools": "DevTools 열기"
+            }
+          },
+          "always-on-top": "항상 최상단에 표시",
+          "auto-update": "자동 업데이트",
+          "hide-menu": {
+            "dialog": {
+              "message": "다음 실행 시 메뉴가 숨겨집니다. 표시하려면 [Alt] 키를 사용하세요 (인앱 메뉴를 사용하는 경우 백틱 [`] 키를 사용하세요)",
+              "title": "메뉴 숨기기 활성화됨"
+            },
+            "label": "메뉴 숨기기"
+          },
+          "language": {
+            "dialog": {
+              "message": "재시작 후 언어가 변경됩니다",
+              "title": "언어 변경됨"
+            },
+            "label": "언어"
+          },
+          "resume-on-start": "앱 시작 시 마지막 곡 다시 듣기",
+          "single-instance-lock": "단일 인스턴스 잠금",
+          "start-at-login": "로그온 시 자동 실행",
+          "starting-page": {
+            "label": "시작 페이지",
+            "unset": "지정 안 됨"
+          },
+          "tray": {
+            "label": "트레이",
+            "submenu": {
+              "disabled": "비활성화",
+              "enabled-and-hide-app": "활성화 및 앱 숨기기",
+              "enabled-and-show-app": "활성화 및 앱 표시",
+              "play-pause-on-click": "클릭 시 재생/일시 정지"
+            }
+          },
+          "visual-tweaks": {
+            "label": "시각적 변경",
+            "submenu": {
+              "like-buttons": {
+                "default": "기본",
+                "force-show": "강제로 표시",
+                "hide": "숨기기",
+                "label": "좋아요 버튼"
+              },
+              "remove-upgrade-button": "업그레이드 버튼 제거",
+              "theme": {
+                "label": "테마",
+                "submenu": {
+                  "import-css-file": "사용자 정의 CSS 파일 가져오기",
+                  "no-theme": "테마 없음"
+                }
+              }
+            }
+          }
+        }
+      },
+      "plugins": {
+        "enabled": "활성화",
+        "label": "플러그인"
+      },
+      "view": {
+        "label": "보기",
+        "submenu": {
+          "force-reload": "강제로 다시 로드",
+          "reload": "다시 로드",
+          "reset-zoom": "원래 크기",
+          "toggle-fullscreen": "전체 화면 전환",
+          "zoom-in": "확대",
+          "zoom-out": "축소"
+        }
+      }
+    },
+    "tray": {
+      "next": "다음",
+      "play-pause": "재생/일시정지",
+      "previous": "이전",
+      "quit": "종료",
+      "restart": "앱 재시작",
+      "show": "표시"
+    }
+  },
+  "plugins": {
+    "adblocker": {
+      "description": "모든 광고와 트래커를 즉시 차단합니다",
+      "menu": {
+        "blocker": "애드블록 타입"
+      },
+      "name": "애드블록"
+    },
+    "album-color-theme": {
+      "description": "앨범 색상 팔레트를 기반으로 동적 테마 및 시각 효과를 적용합니다",
+      "name": "앨범 컬러 기반 테마"
+    },
+    "ambient-mode": {
+      "description": "영상의 간접 조명을 화면 배경에 투사합니다.",
+      "menu": {
+        "blur-amount": {
+          "label": "흐림 효과 강도",
+          "submenu": {
+            "pixels": "{{blurAmount}} 픽셀"
+          }
+        },
+        "buffer": {
+          "label": "버퍼링",
+          "submenu": {
+            "buffer": "{{buffer}}"
+          }
+        },
+        "opacity": {
+          "label": "불투명도",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "quality": {
+          "label": "품질",
+          "submenu": {
+            "pixels": "{{quality}} 픽셀"
+          }
+        },
+        "size": {
+          "label": "크기",
+          "submenu": {
+            "percent": "{{size}}%"
+          }
+        },
+        "smoothness-transition": {
+          "label": "부드러운 전환",
+          "submenu": {
+            "during": "{{interpolationTime}}초 동안 전환"
+          }
+        },
+        "use-fullscreen": {
+          "label": "전체 화면 모드 사용"
+        }
+      },
+      "name": "앰비언트 모드"
+    },
+    "audio-compressor": {
+      "description": "오디오에 컴프레서를 적용합니다 (신호에서 가장 시끄러운 부분의 음량을 낮추고 가장 조용한 부분의 음량을 높임)",
+      "name": "오디오 컴프레서"
+    },
+    "blur-nav-bar": {
+      "description": "내비게이션 바를 투명하고 흐릿하게 만듭니다",
+      "name": "네비게이션 바 흐림 효과"
+    },
+    "bypass-age-restrictions": {
+      "description": "유튜브의 나이 제한을 우회합니다",
+      "name": "나이 제한 우회"
+    },
+    "captions-selector": {
+      "description": "YouTube Music 트랙 용 자막 선택기입니다",
+      "menu": {
+        "autoload": "마지막으로 사용한 자막을 자동으로 선택",
+        "disable-captions": "기본 자막 제거"
+      },
+      "name": "자막 선택기",
+      "prompt": {
+        "selector": {
+          "label": "현재 선택된 언어: {{language}}",
+          "none": "없음",
+          "title": "자막 언어 선택"
+        }
+      },
+      "templates": {
+        "title": "자막 선택기 열기"
+      }
+    },
+    "compact-sidebar": {
+      "description": "사이드바를 항상 컴팩트 모드로 설정합니다",
+      "name": "컴팩트 사이드바"
+    },
+    "crossfade": {
+      "description": "노래 사이에 크로스페이드 효과를 적용합니다",
+      "menu": {
+        "advanced": "고급 설정"
+      },
+      "name": "크로스페이드 [베타]",
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "fade-in-duration": "페이드인 지속 시간 (밀리초)",
+            "fade-out-duration": "페이드아웃 지속 시간 (밀리초)",
+            "fade-scaling": {
+              "label": "페이드 스케일링",
+              "linear": "선형",
+              "logarithmic": "로그스케일"
+            },
+            "seconds-before-end": "종료되기 N초 전에 크로스페이드 적용"
+          },
+          "title": "크로스페이드 설정"
+        }
+      }
+    },
+    "disable-autoplay": {
+      "description": "노래를 '일시 정지' 모드로 시작하게 합니다",
+      "menu": {
+        "apply-once": "첫 시작 시에만 적용"
+      },
+      "name": "자동 재생 해제"
+    },
+    "discord": {
+      "backend": {
+        "already-connected": "활성화 된 연결에 연결을 시도했습니다",
+        "connected": "디스코드에 연결 됨",
+        "disconnected": "디스코드에서 연결이 끊김"
+      },
+      "description": "활동 상태를 사용하여 친구들에게 내가 듣는 음악을 보여주세요",
+      "menu": {
+        "auto-reconnect": "자동 연결",
+        "clear-activity": "활동 제거",
+        "clear-activity-after-timeout": "시간 초과시 활동 제거",
+        "connected": "연결 됨",
+        "disconnected": "연결 해제 됨",
+        "hide-duration-left": "남은 재생 시간 숨기기",
+        "hide-github-button": "GitHub 링크 버튼 숨기기",
+        "play-on-youtube-music": "유튜브 뮤직에서 재생",
+        "set-inactivity-timeout": "비활성 시간 제한 설정"
+      },
+      "name": "디스코드 활동 상태",
+      "prompt": {
+        "set-inactivity-timeout": {
+          "label": "비활성 시간 제한을 초 단위로 입력하세요:",
+          "title": "비활성 시간 제한 설정"
+        }
+      }
+    },
+    "downloader": {
+      "backend": {
+        "dialog": {
+          "error": {
+            "buttons": {
+              "ok": "확인"
+            },
+            "message": "죄송합니다. 다운로드가 실패했습니다…",
+            "title": "다운로드 중 오류 발생!"
+          },
+          "start-download-playlist": {
+            "buttons": {
+              "ok": "확인"
+            },
+            "detail": "({{playlistSize}} 곡)",
+            "message": "재생목록 {{playlistTitle}} 다운로드 중",
+            "title": "다운로드 시작 됨"
+          }
+        },
+        "feedback": {
+          "conversion-progress": "변환: {{percent}}%",
+          "converting": "변환 중…",
+          "done": "완료: {{filePath}}",
+          "download-info": "{{artist}} - {{title}} [{{videoId}} 다운로드 중",
+          "download-progress": "다운로드: {{percent}}%",
+          "downloading": "다운로드 중…",
+          "downloading-counter": "다운로드 중 {{current}}/{{total}}…",
+          "downloading-playlist": "재생목록 다운로드 중: \"{{playlistTitle}}\" - {{playlistSize}} 곡 ({{playlistId}})",
+          "error-while-downloading": "\"{{author}} - {{title}}\" 다운로드 중 오류 발생: {{error}}",
+          "folder-already-exists": "{{playlistFolder}} 폴더가 이미 존재합니다",
+          "getting-playlist-info": "재생목록 정보를 가져오는 중…",
+          "loading": "로딩 중…",
+          "playlist-has-only-one-song": "재생목록에 한 항목만 존재합니다. 직접 다운로드합니다",
+          "playlist-id-not-found": "재생목록 ID를 찾을 수 없습니다",
+          "playlist-is-empty": "재생목록이 비어있습니다",
+          "playlist-is-mix-or-private": "재생목록 정보 가져오는 중 오류 발생: 비공개 재생목록 또는 '유튜브 Mix' 재생목록이 아닌지 확인하세요\n\n{{error}}",
+          "preparing-file": "파일 준비 중…",
+          "saving": "저장 중…",
+          "trying-to-get-playlist-id": "재생목록 ID를 가져오는 중: {{playlistId}}",
+          "video-id-not-found": "영상을 찾을 수 없습니다",
+          "writing-id3": "ID3 태그 작성 중…"
+        }
+      },
+      "description": "UI에서 직접 MP3/소스 오디오를 다운로드하세요",
+      "menu": {
+        "choose-download-folder": "다운로드 폴더 선택",
+        "presets": "프리셋",
+        "skip-existing": "이미 존재하는 파일 넘기기"
+      },
+      "name": "다운로더",
+      "renderer": {
+        "can-not-update-progress": "진행 상황을 업데이트 할 수 없음"
+      },
+      "templates": {
+        "button": "다운로드"
+      }
+    },
+    "exponential-volume": {
+      "description": "음량 슬라이더를 지수적으로 만들어 더 낮은 음량을 쉽게 선택할 수 있도록 합니다.",
+      "name": "지수 음량"
+    },
+    "in-app-menu": {
+      "description": "메뉴 표시줄을 더 멋지게, 그리고 다크 또는 앨범의 색상으로 만듭니다",
+      "menu": {
+        "hide-dom-window-controls": "DOM 윈도우 컨트롤 숨기기"
+      },
+      "name": "인앱 메뉴"
+    },
+    "last-fm": {
+      "description": "Last.fm에 대한 스크러블 지원을 추가합니다",
+      "name": "Last.fm"
+    },
+    "lumiastream": {
+      "description": "Lumia Stream 지원을 추가합니다",
+      "name": "Lumia Stream [베타]"
+    },
+    "lyrics-genius": {
+      "description": "더 많은 곡에 대해 가사 지원을 추가합니다",
+      "menu": {
+        "romanized-lyrics": "가사 로마자화"
+      },
+      "name": "Genius 가사",
+      "renderer": {
+        "fetched-lyrics": "Genius에서 가사 불러옴"
+      }
+    },
+    "navigation": {
+      "description": "브라우저에서처럼, UI에 직접 통합된 앞으로/뒤로 탐색하는 화살표",
+      "name": "네비게이션"
+    },
+    "no-google-login": {
+      "description": "UI에서 Google 로그인 버튼 및 링크 제거하기",
+      "name": "Google 로그인 제거"
+    },
+    "notifications": {
+      "description": "노래 재생이 시작되면 알림을 표시 (Windows에서는 대화형 알림 사용 가능)",
+      "menu": {
+        "interactive": "대화형 알림",
+        "interactive-settings": {
+          "label": "대화형 알림 설정",
+          "submenu": {
+            "hide-button-text": "버튼 텍스트 숨기기",
+            "refresh-on-play-pause": "재생/일시정지 시 새로고침",
+            "tray-controls": "트레이 클릭 시 열기/닫기"
+          }
+        },
+        "priority": "알림 우선순위",
+        "toast-style": "토스트 스타일",
+        "unpause-notification": "일시정지 시 알림 표시"
+      },
+      "name": "알림"
+    },
+    "picture-in-picture": {
+      "description": "앱을 PiP 모드로 전환할 수 있게 허용합니다",
+      "menu": {
+        "always-on-top": "항상 맨 위에 표시",
+        "hotkey": {
+          "label": "단축키",
+          "prompt": {
+            "keybind-options": {
+              "hotkey": "단축키"
+            },
+            "label": "PiP를 전환하기 위한 단축키를 선택하세요",
+            "title": "PiP 단축키"
+          }
+        },
+        "save-window-position": "창 위치 저장",
+        "save-window-size": "창 크기 저장",
+        "use-native-pip": "브라우저 내장 PiP 사용"
+      },
+      "name": "PiP",
+      "templates": {
+        "button": "PiP"
+      }
+    },
+    "playback-speed": {
+      "description": "빨리 듣거나, 천천히 들어보세요! 노래 속도를 제어하는 슬라이더를 추가합니다",
+      "name": "재생 속도",
+      "templates": {
+        "button": "배속"
+      }
+    },
+    "precise-volume": {
+      "description": "사용자 지정 HUD와 사용자 지정 음량 단계로 마우스 휠/단축키를 사용하여 음량을 정확하게 제어하세요",
+      "menu": {
+        "arrows-shortcuts": "로컬 화살표 키 컨트롤",
+        "custom-volume-steps": "사용자 지정 음량 단계 설정",
+        "global-shortcuts": "전역 단축키"
+      },
+      "name": "정확한 음량",
+      "prompt": {
+        "global-shortcuts": {
+          "keybind-options": {
+            "decrease": "음량 감소",
+            "increase": "음량 증가"
+          },
+          "label": "전역 음량 키를 지정하세요:",
+          "title": "전역 음량 키 지정"
+        },
+        "volume-steps": {
+          "label": "음량 증가/감소 단계를 선택하세요",
+          "title": "음량 단계"
+        }
+      }
+    },
+    "quality-changer": {
+      "backend": {
+        "dialog": {
+          "quality-changer": {
+            "detail": "현재 품질: {{quality}}",
+            "message": "영상 품질 선택:",
+            "title": "영상 품질 선택"
+          }
+        }
+      },
+      "description": "영상 오버레이의 버튼으로 영상 품질을 변경할 수 있습니다",
+      "name": "영상 품질 체인저"
+    },
+    "shortcuts": {
+      "description": "재생을 위한 전역 단축키 설정 허용 (재생/일시 정지/다음/이전) + 미디어 키를 재정의하여 미디어 OSD 비활성화 + Ctrl/CMD + F 검색 활성화 + 미디어 키에 대한 리눅스 MPRIS 지원 활성화 + 고급 사용자를 위한 사용자 지정 단축키 지원",
+      "menu": {
+        "override-media-keys": "미디어 키 재정의",
+        "set-keybinds": "전역 노래 제어 설정"
+      },
+      "name": "단축키 (& MPRIS)",
+      "prompt": {
+        "keybind": {
+          "keybind-options": {
+            "next": "다음",
+            "play-pause": "재생 / 일시정지",
+            "previous": "이전"
+          },
+          "label": "노래 조작을 위한 전역 키를 선택하세요:",
+          "title": "전역 키 지정"
+        }
+      }
+    },
+    "skip-silences": {
+      "description": "노래의 무음 부분을 자동으로 건너뜁니다",
+      "name": "무음 건너뛰기"
+    },
+    "sponsorblock": {
+      "description": "인트로/아웃트로와 같은 음악이 아닌 부분이나, 노래가 재생되지 않는 뮤직 비디오의 일부를 자동으로 건너뜁니다",
+      "name": "SponsorBlock"
+    },
+    "taskbar-mediacontrol": {
+      "description": "Windows 작업 표시줄에서 재생을 제어하세요",
+      "name": "작업표시줄 미디어 컨트롤"
+    },
+    "touchbar": {
+      "description": "macOS 사용자를 위한 TouchBar 위젯을 추가합니다",
+      "name": "TouchBar"
+    },
+    "tuna-obs": {
+      "description": "OBS의 플러그인 Tuna와 통합을 활성화합니다",
+      "name": "Tuna OBS"
+    },
+    "video-toggle": {
+      "description": "영상/노래 모드를 전환하는 버튼을 추가합니다. 선택적으로 전체 영상 탭을 제거할 수도 있습니다",
+      "menu": {
+        "align": {
+          "label": "정렬",
+          "submenu": {
+            "left": "왼쪽",
+            "middle": "가운데",
+            "right": "오른쪽"
+          }
+        },
+        "force-hide": "영상 탭 강제 제거",
+        "mode": {
+          "label": "모드",
+          "submenu": {
+            "custom": "사용자 지정 전환",
+            "disabled": "비활성화",
+            "native": "기본 토글"
+          }
+        }
+      },
+      "name": "영상 전환",
+      "templates": {
+        "button": "노래"
+      }
+    },
+    "visualizer": {
+      "description": "플레이어에 시각화 도구 추가",
+      "menu": {
+        "visualizer-type": "비주얼라이저 타입"
+      },
+      "name": "비주얼라이저"
+    }
+  }
 }
