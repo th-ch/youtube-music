@@ -1,197 +1,223 @@
 {
-    "plugins": {
-        "ambient-mode": {
-            "menu": {
-                "quality": {
-                    "label": "品質",
-                    "submenu": {
-                        "pixels": "{{quality}} ピクセル"
-                    }
-                },
-                "size": {
-                    "submenu": {
-                        "percent": "{{size}}%"
-                    },
-                    "label": "大きさ"
-                },
-                "buffer": {
-                    "submenu": {
-                        "buffer": "{{buffer}}"
-                    },
-                    "label": "バッファリング"
-                },
-                "opacity": {
-                    "submenu": {
-                        "percent": "{{opacity}}%"
-                    },
-                    "label": "不透明度"
-                },
-                "blur-amount": {
-                    "submenu": {
-                        "pixels": "{{blurAmount}} ピクセル"
-                    },
-                    "label": "曇り効果の強さ"
-                },
-                "use-fullscreen": {
-                    "label": "全体画面モード使用"
-                },
-                "smoothness-transition": {
-                    "submenu": {
-                        "during": "{{interpolationTime}}秒間切り替えり"
-                    },
-                    "label": "スムーズな切り替えり"
-                }
-            },
-            "name": "アンビエント モード",
-            "description": "動画の間接照明を画面背景に投射します。"
-        },
-        "audio-compressor": {
-            "description": "オーディオにコンプレッサーを適用します（信号での一番大きい部分の音量を下げ、小さい部分の音量を上げる）",
-            "name": "オーディオコンプレッサー"
-        },
-        "adblocker": {
-            "description": "すべての広告とトラッカーを遮断します",
-            "name": "アドブロック",
-            "menu": {
-                "blocker": "遮断方法"
-            }
-        },
-        "compact-sidebar": {
-            "description": "サイドバーを常にコンパクトモードに設定します",
-            "name": "コンパクト·サイドバー"
-        },
-        "crossfade": {
-            "prompt": {
-                "options": {
-                    "title": "クロスフェード設定",
-                    "multi-input": {
-                        "fade-scaling": {
-                            "logarithmic": "対数スケール",
-                            "linear": "線形",
-                            "label": "フェードスケーリング"
-                        },
-                        "seconds-before-end": "終了N秒前にクロスフェードを適用",
-                        "fade-in-duration": "フェードイン持続時間(ミリ秒)",
-                        "fade-out-duration": "フェードアウト持続時間(ミリ秒)"
-                    }
-                }
-            },
-            "description": "曲の間にクロスフェード効果を適用します",
-            "name": "クロスフェード[ベータ]",
-            "menu": {
-                "advanced": "高級"
-            }
-        },
-        "captions-selector": {
-            "prompt": {
-                "selector": {
-                    "label": "選択した字幕言語: {{language}}",
-                    "none": "無",
-                    "title": "字幕言語選択"
-                }
-            },
-            "description": "YouTube Musicトラック用字幕選択機",
-            "menu": {
-                "disable-captions": "基本字幕無し",
-                "autoload": "最後の字幕を自動に選択"
-            },
-            "templates": {
-                "title": "字幕選択機を開く"
-            },
-            "name": "字幕選択機"
-        },
-        "album-color-theme": {
-            "description": "アルバムカバーの色をベースにして動的テーマと視覚効果を適用します",
-            "name": "アルバムカラーベースのテーマ"
-        },
-        "bypass-age-restrictions": {
-            "description": "ユーチューブの年齢制限を迂回します",
-            "name": "年齢制限迂回"
-        },
-        "disable-autoplay": {
-            "name": "自動再生解除",
-            "description": "曲を「一時停止」モードで始めさせます",
-            "menu": {
-                "apply-once": "初起動時にのみ適用"
-            }
-        },
-        "blur-nav-bar": {
-            "description": "ナビゲーションバーを透明かつぼやけにします",
-            "name": "ナビゲーションバーの曇り効果"
-        },
-        "discord": {
-            "menu": {
-                "auto-reconnect": "自動接続",
-                "connected": "接続中",
-                "hide-github-button": "GitHubリンクボタンを隠す",
-                "play-on-youtube-music": "YouTube Musicで再生",
-                "hide-duration-left": "残りの再生時間を隠す",
-                "set-inactivity-timeout": "タイムアウト時間を設定"
-            },
-            "prompt": {
-                "set-inactivity-timeout": {
-                    "label": "不活動タイムアウト時間を秒単位で入力してください：",
-                    "title": "不活動タイムアウト時間設定"
-                }
-            },
-            "backend": {
-                "connected": "ディスコードに接続中"
-            }
-        },
-        "downloader": {
-            "backend": {
-                "feedback": {
-                    "video-id-not-found": "動画が見つかりません",
-                    "conversion-progress": "変換：{{percent}}％",
-                    "download-info": "{{artist}}ー{{title}} {{videoId}} ダウンロード中",
-                    "playlist-id-not-found": "プレイリストIDが見つかりません",
-                    "preparing-file": "ファイル準備中…",
-                    "downloading": "ダウンロード中…",
-                    "done": "完了：{{filePath}}",
-                    "writing-id3": "ID3タグ作成中…",
-                    "converting": "変換中…",
-                    "download-progress": "ダウンロード：{{percent}}％",
-                    "saving": "保存中…",
-                    "loading": "ロード中…",
-                    "getting-playlist-info": "プレイリスト情報を取得中…",
-                    "downloading-playlist": "プレイリストダウンロード中：”{{playlistTitle}}”ー{{playlistSize}}曲（{{playlistId}}）",
-                    "downloading-counter": "ダウンロード中：{{current}}/{{total}}…",
-                    "trying-to-get-playlist-id": "プレイリストIDを取得中：{{playlistId}}",
-                    "playlist-has-only-one-song": "プレイリストに１曲しかありません。直接ダウンロードします",
-                    "folder-already-exists": "{{playlistFolder}}フォルダが既に存在します"
-                },
-                "dialog": {
-                    "start-download-playlist": {
-                        "buttons": {
-                            "ok": "確認"
-                        },
-                        "message": "プレイリスト {{playlistTitle}} ダウンロード中",
-                        "title": "ダウンロード開始",
-                        "detail": "（{{playlistSize}}曲）"
-                    },
-                    "error": {
-                        "buttons": {
-                            "ok": "確認"
-                        },
-                        "title": "ダウンロード中にエラー発生！",
-                        "message": "ダウンロード失敗！ごめんね…"
-                    }
-                }
-            },
-            "menu": {
-                "choose-download-folder": "ダウンロードフォルダ",
-                "presets": "プリセット"
-            },
-            "name": "ダウンローダー",
-            "description": "UIから直にMP3・ソースオーディオをダウンロードします",
-            "templates": {
-                "button": "ダウンロード"
-            }
-        }
+  "language": {
+    "code": "ja",
+    "local-name": "日本語",
+    "name": "Japanese"
+  },
+  "plugins": {
+    "adblocker": {
+      "description": "すべての広告とトラッカーを遮断します",
+      "menu": {
+        "blocker": "遮断方法"
+      },
+      "name": "アドブロック"
     },
-    "language": {
-        "code": "ja",
-        "name": "Japanese",
-        "local-name": "日本語"
+    "album-color-theme": {
+      "description": "アルバムカバーの色をベースにして動的テーマと視覚効果を適用します",
+      "name": "アルバムカラーベースのテーマ"
+    },
+    "ambient-mode": {
+      "description": "動画の間接照明を画面背景に投射します。",
+      "menu": {
+        "blur-amount": {
+          "label": "曇り効果の強さ",
+          "submenu": {
+            "pixels": "{{blurAmount}} ピクセル"
+          }
+        },
+        "buffer": {
+          "label": "バッファリング",
+          "submenu": {
+            "buffer": "{{buffer}}"
+          }
+        },
+        "opacity": {
+          "label": "不透明度",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "quality": {
+          "label": "品質",
+          "submenu": {
+            "pixels": "{{quality}} ピクセル"
+          }
+        },
+        "size": {
+          "label": "大きさ",
+          "submenu": {
+            "percent": "{{size}}%"
+          }
+        },
+        "smoothness-transition": {
+          "label": "スムーズな切り替えり",
+          "submenu": {
+            "during": "{{interpolationTime}}秒間切り替えり"
+          }
+        },
+        "use-fullscreen": {
+          "label": "全体画面モード使用"
+        }
+      },
+      "name": "アンビエント モード"
+    },
+    "audio-compressor": {
+      "description": "オーディオにコンプレッサーを適用します（信号での一番大きい部分の音量を下げ、小さい部分の音量を上げる）",
+      "name": "オーディオコンプレッサー"
+    },
+    "blur-nav-bar": {
+      "description": "ナビゲーションバーを透明かつぼやけにします",
+      "name": "ナビゲーションバーの曇り効果"
+    },
+    "bypass-age-restrictions": {
+      "description": "ユーチューブの年齢制限を迂回します",
+      "name": "年齢制限迂回"
+    },
+    "captions-selector": {
+      "description": "YouTube Musicトラック用字幕選択機",
+      "menu": {
+        "autoload": "最後の字幕を自動に選択",
+        "disable-captions": "基本字幕無し"
+      },
+      "name": "字幕選択機",
+      "prompt": {
+        "selector": {
+          "label": "選択した字幕言語: {{language}}",
+          "none": "無",
+          "title": "字幕言語選択"
+        }
+      },
+      "templates": {
+        "title": "字幕選択機を開く"
+      }
+    },
+    "compact-sidebar": {
+      "description": "サイドバーを常にコンパクトモードに設定します",
+      "name": "コンパクト·サイドバー"
+    },
+    "crossfade": {
+      "description": "曲の間にクロスフェード効果を適用します",
+      "menu": {
+        "advanced": "高級"
+      },
+      "name": "クロスフェード[ベータ]",
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "fade-in-duration": "フェードイン持続時間(ミリ秒)",
+            "fade-out-duration": "フェードアウト持続時間(ミリ秒)",
+            "fade-scaling": {
+              "label": "フェードスケーリング",
+              "linear": "線形",
+              "logarithmic": "対数スケール"
+            },
+            "seconds-before-end": "終了N秒前にクロスフェードを適用"
+          },
+          "title": "クロスフェード設定"
+        }
+      }
+    },
+    "disable-autoplay": {
+      "description": "曲を「一時停止」モードで始めさせます",
+      "menu": {
+        "apply-once": "初起動時にのみ適用"
+      },
+      "name": "自動再生解除"
+    },
+    "discord": {
+      "backend": {
+        "connected": "ディスコードに接続中"
+      },
+      "menu": {
+        "auto-reconnect": "自動接続",
+        "connected": "接続中",
+        "hide-duration-left": "残りの再生時間を隠す",
+        "hide-github-button": "GitHubリンクボタンを隠す",
+        "play-on-youtube-music": "YouTube Musicで再生",
+        "set-inactivity-timeout": "タイムアウト時間を設定"
+      },
+      "prompt": {
+        "set-inactivity-timeout": {
+          "label": "不活動タイムアウト時間を秒単位で入力してください：",
+          "title": "不活動タイムアウト時間設定"
+        }
+      }
+    },
+    "downloader": {
+      "backend": {
+        "dialog": {
+          "error": {
+            "buttons": {
+              "ok": "確認"
+            },
+            "message": "ダウンロード失敗！ごめんね…",
+            "title": "ダウンロード中にエラー発生！"
+          },
+          "start-download-playlist": {
+            "buttons": {
+              "ok": "確認"
+            },
+            "detail": "（{{playlistSize}}曲）",
+            "message": "プレイリスト {{playlistTitle}} ダウンロード中",
+            "title": "ダウンロード開始"
+          }
+        },
+        "feedback": {
+          "conversion-progress": "変換：{{percent}}％",
+          "converting": "変換中…",
+          "done": "完了：{{filePath}}",
+          "download-info": "{{artist}}ー{{title}} {{videoId}} ダウンロード中",
+          "download-progress": "ダウンロード：{{percent}}％",
+          "downloading": "ダウンロード中…",
+          "downloading-counter": "ダウンロード中：{{current}}/{{total}}…",
+          "downloading-playlist": "プレイリストダウンロード中：”{{playlistTitle}}”ー{{playlistSize}}曲（{{playlistId}}）",
+          "error-while-downloading": "”{{author}}ー{{title}}”ダウンロード中エラー発生：{{error}}",
+          "folder-already-exists": "{{playlistFolder}}フォルダが既に存在します",
+          "getting-playlist-info": "プレイリスト情報を取得中…",
+          "loading": "ロード中…",
+          "playlist-has-only-one-song": "プレイリストに１曲しかありません。直接ダウンロードします",
+          "playlist-id-not-found": "プレイリストIDが見つかりません",
+          "preparing-file": "ファイル準備中…",
+          "saving": "保存中…",
+          "trying-to-get-playlist-id": "プレイリストIDを取得中：{{playlistId}}",
+          "video-id-not-found": "動画が見つかりません",
+          "writing-id3": "ID3タグ作成中…"
+        }
+      },
+      "description": "UIから直にMP3・ソースオーディオをダウンロードします",
+      "menu": {
+        "choose-download-folder": "ダウンロードフォルダ",
+        "presets": "プリセット"
+      },
+      "name": "ダウンローダー",
+      "templates": {
+        "button": "ダウンロード"
+      }
+    },
+    "exponential-volume": {
+      "description": "音量スライダを指数関数的にさせ、低い音量に設定しやすくなります。",
+      "name": "指数音量"
+    },
+    "in-app-menu": {
+      "menu": {
+        "hide-dom-window-controls": "DOMウィンドウコントロールを隠す"
+      }
+    },
+    "last-fm": {
+      "name": "Last.fm"
+    },
+    "lyrics-genius": {
+      "description": "より広い範囲の曲に歌詞を付けます",
+      "menu": {
+        "romanized-lyrics": "ローマ字歌詞"
+      },
+      "renderer": {
+        "fetched-lyrics": "Geniusから歌詞取得完了"
+      }
+    },
+    "navigation": {
+      "description": "ブラウザの戻る・進むボタンのようにUIからコントロールできるボタン",
+      "name": "ナビゲーション"
     }
+  }
 }
