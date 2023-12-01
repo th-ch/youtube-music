@@ -335,7 +335,7 @@
         },
         "adblocker": {
             "name": "애드블록",
-            "description": "모든 광고와 트래커를 즉시 차단하세요",
+            "description": "모든 광고와 트래커를 즉시 차단합니다",
             "menu": {
                 "blocker": "애드블록 타입"
             }
