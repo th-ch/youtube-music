@@ -1,162 +1,58 @@
 {
-  "common": {
-    "console": {
-      "plugins": {
-        "execute-failed": "",
-        "executed-at-ms": "",
-        "initialize-failed": "",
-        "load-all": "",
-        "load-failed": "",
-        "loaded": "",
-        "unload-failed": "",
-        "unloaded": ""
-      }
-    }
-  },
   "language": {
     "code": "el",
     "local-name": "Ελληνικά",
     "name": "Greek"
   },
   "main": {
-    "console": {
-      "did-finish-load": {
-        "dev-tools": ""
-      },
-      "i18n": {
-        "loaded": ""
-      },
-      "second-instance": {
-        "receive-command": ""
-      },
-      "theme": {
-        "css-file-not-found": ""
-      },
-      "unresponsive": {
-        "details": ""
-      },
-      "when-ready": {
-        "clearing-cache-after-20s": ""
-      },
-      "window": {
-        "tried-to-render-offscreen": ""
-      }
-    },
     "dialog": {
       "hide-menu-enabled": {
-        "detail": "",
-        "message": "Απόκρυψη μενού είναι ενεργοποιημένο",
-        "title": ""
-      },
-      "need-to-restart": {
-        "buttons": {
-          "later": "",
-          "restart-now": ""
-        },
-        "detail": "",
-        "message": "",
-        "title": ""
-      },
-      "unresponsive": {
-        "buttons": {
-          "quit": "",
-          "relaunch": "",
-          "wait": ""
-        },
-        "detail": "",
-        "message": "",
-        "title": ""
+        "message": "Απόκρυψη μενού είναι ενεργοποιημένο"
       },
       "update-available": {
         "buttons": {
-          "disable": "",
           "download": "Download",
           "ok": "OK"
-        },
-        "detail": "",
-        "message": "",
-        "title": ""
+        }
       }
     },
     "menu": {
-      "about": "",
       "navigation": {
-        "label": "Navigation",
-        "submenu": {
-          "copy-current-url": "",
-          "go-back": "",
-          "go-forward": "",
-          "restart": ""
-        }
+        "label": "Navigation"
       },
       "options": {
         "label": "Options",
         "submenu": {
           "advanced-options": {
-            "label": "",
             "submenu": {
-              "auto-reset-app-cache": "",
-              "disable-hardware-acceleration": "",
-              "edit-config-json": "",
-              "override-user-agent": "",
-              "restart-on-config-changes": "",
               "set-proxy": {
                 "label": "Set proxy",
                 "prompt": {
-                  "label": "",
-                  "placeholder": "",
                   "title": "Set proxy"
                 }
-              },
-              "toggle-dev-tools": ""
+              }
             }
           },
-          "always-on-top": "",
           "auto-update": "Auto Update",
-          "hide-menu": {
-            "dialog": {
-              "message": "",
-              "title": ""
-            },
-            "label": ""
-          },
           "language": {
-            "dialog": {
-              "message": "",
-              "title": ""
-            },
             "label": "Γλώσσα"
           },
-          "resume-on-start": "",
-          "single-instance-lock": "",
           "start-at-login": "Start at login",
-          "starting-page": {
-            "label": "",
-            "unset": ""
-          },
           "tray": {
             "label": "Tray",
             "submenu": {
-              "disabled": "",
               "enabled-and-hide-app": "Ενεργοποιημένο και απόκρυψη της εφαρμογής",
-              "enabled-and-show-app": "",
               "play-pause-on-click": "Play/Pause στο πάτημα"
             }
           },
           "visual-tweaks": {
-            "label": "",
             "submenu": {
               "like-buttons": {
-                "default": "Default",
-                "force-show": "",
-                "hide": "",
-                "label": ""
+                "default": "Default"
               },
-              "remove-upgrade-button": "",
               "theme": {
                 "label": "Theme",
                 "submenu": {
-                  "import-css-file": "",
                   "no-theme": "No theme"
                 }
               }
@@ -165,7 +61,6 @@
         }
       },
       "plugins": {
-        "enabled": "",
         "label": "Plugins"
       },
       "view": {
@@ -189,7 +84,6 @@
       "description": "Εφαρμόζει ένα εφέ φωτισμού ρίχνοντας απαλά χρώματα από το βίντεο, στο φόντο της οθόνης σας.",
       "menu": {
         "blur-amount": {
-          "label": "",
           "submenu": {
             "pixels": "{{blurAmount}} pixels"
           }
@@ -207,82 +101,53 @@
           }
         },
         "quality": {
-          "label": "",
           "submenu": {
             "pixels": "{{quality}} pixels"
           }
         },
         "size": {
-          "label": "",
           "submenu": {
             "percent": "{{size}}%"
           }
         },
         "smoothness-transition": {
-          "label": "",
           "submenu": {
             "during": "Σε {{interpolationTime}} δεύτερα"
           }
-        },
-        "use-fullscreen": {
-          "label": ""
         }
-      },
-      "name": ""
+      }
     },
     "audio-compressor": {
-      "description": "Συμπίεση ήχου (μειώνει την ένταση των πιο δυνατών τμημάτων του κύματος και αυξάνει την ένταση των πιο μαλακών τμημάτων)",
-      "name": ""
+      "description": "Συμπίεση ήχου (μειώνει την ένταση των πιο δυνατών τμημάτων του κύματος και αυξάνει την ένταση των πιο μαλακών τμημάτων)"
     },
     "blur-nav-bar": {
-      "description": "Κάνει τη γραμμή πλοήγησης διαφανή και θολή",
-      "name": ""
+      "description": "Κάνει τη γραμμή πλοήγησης διαφανή και θολή"
     },
     "bypass-age-restrictions": {
-      "description": "Παράκαμψη της επαλήθευσης ηλικίας του YouTube",
-      "name": ""
+      "description": "Παράκαμψη της επαλήθευσης ηλικίας του YouTube"
     },
     "captions-selector": {
-      "description": "",
-      "menu": {
-        "autoload": "",
-        "disable-captions": ""
-      },
-      "name": "",
       "prompt": {
         "selector": {
-          "label": "",
-          "none": "None",
-          "title": ""
+          "none": "None"
         }
-      },
-      "templates": {
-        "title": ""
       }
     },
     "compact-sidebar": {
-      "description": "Να είναι πάντα συμπαγές το sidebar",
-      "name": ""
+      "description": "Να είναι πάντα συμπαγές το sidebar"
     },
     "crossfade": {
-      "description": "",
       "menu": {
         "advanced": "Για προχωρημένους"
       },
-      "name": "",
       "prompt": {
         "options": {
           "multi-input": {
-            "fade-in-duration": "",
-            "fade-out-duration": "",
             "fade-scaling": {
-              "label": "",
               "linear": "Γραμμική",
               "logarithmic": "Λογαριθμική"
-            },
-            "seconds-before-end": ""
-          },
-          "title": ""
+            }
+          }
         }
       }
     },
@@ -290,31 +155,14 @@
       "description": "Κάνει τα τραγούδια να είναι αυτόματα σε παύση",
       "menu": {
         "apply-once": "Εφαρμόζεται μόνο στο πρώτο τραγούδι"
-      },
-      "name": ""
+      }
     },
     "discord": {
-      "backend": {
-        "already-connected": "",
-        "connected": "",
-        "disconnected": ""
-      },
       "description": "Δείξτε στους φίλους σας τι ακούτε με το Rich Presence",
       "menu": {
-        "auto-reconnect": "",
-        "clear-activity": "",
-        "clear-activity-after-timeout": "",
         "hide-duration-left": "Απόκρυψη της διάρκειας που απομένει",
         "hide-github-button": "Απόκρυψη του συνδέσμου προς GitHub",
-        "play-on-youtube-music": "",
         "set-inactivity-timeout": "Ορισμός χρονικού ορίου αδράνειας"
-      },
-      "name": "",
-      "prompt": {
-        "set-inactivity-timeout": {
-          "label": "",
-          "title": ""
-        }
       }
     },
     "downloader": {
@@ -324,248 +172,71 @@
             "buttons": {
               "ok": "OK"
             },
-            "message": "",
             "title": "Error in download!"
           },
           "start-download-playlist": {
             "buttons": {
               "ok": "OK"
             },
-            "detail": "",
             "message": "Λήψη λίστας αναπαραγωγής {{playlistTitle}}",
             "title": "Λήψη ξεκίνησε"
           }
         },
         "feedback": {
           "conversion-progress": "Μετατροπή: {{percent}}%",
-          "converting": "",
-          "done": "",
-          "download-info": "",
           "download-progress": "Download: {{percent}}%",
-          "downloading": "",
-          "downloading-counter": "",
-          "downloading-playlist": "",
-          "error-while-downloading": "",
-          "folder-already-exists": "",
-          "getting-playlist-info": "",
-          "loading": "",
-          "playlist-has-only-one-song": "",
-          "playlist-id-not-found": "",
-          "playlist-is-empty": "",
-          "playlist-is-mix-or-private": "",
-          "preparing-file": "Προετοιμασία αρχείου…",
-          "saving": "",
-          "trying-to-get-playlist-id": "",
-          "video-id-not-found": "",
-          "writing-id3": ""
+          "preparing-file": "Προετοιμασία αρχείου…"
         }
-      },
-      "description": "",
-      "menu": {
-        "choose-download-folder": "",
-        "presets": "",
-        "skip-existing": ""
-      },
-      "name": "",
-      "renderer": {
-        "can-not-update-progress": ""
       },
       "templates": {
         "button": "Download"
       }
     },
-    "exponential-volume": {
-      "description": "",
-      "name": ""
-    },
-    "in-app-menu": {
-      "description": "",
-      "menu": {
-        "hide-dom-window-controls": ""
-      },
-      "name": ""
-    },
     "last-fm": {
-      "description": "",
       "name": "Last.fm"
     },
-    "lumiastream": {
-      "description": "",
-      "name": ""
-    },
-    "lyrics-genius": {
-      "description": "",
-      "menu": {
-        "romanized-lyrics": ""
-      },
-      "name": "",
-      "renderer": {
-        "fetched-lyrics": ""
-      }
-    },
     "navigation": {
-      "description": "",
       "name": "Navigation"
     },
     "no-google-login": {
-      "description": "",
       "name": "No Google Login"
     },
     "notifications": {
-      "description": "",
-      "menu": {
-        "interactive": "",
-        "interactive-settings": {
-          "label": "",
-          "submenu": {
-            "hide-button-text": "",
-            "refresh-on-play-pause": "",
-            "tray-controls": ""
-          }
-        },
-        "priority": "",
-        "toast-style": "",
-        "unpause-notification": ""
-      },
       "name": "Notifications"
     },
-    "picture-in-picture": {
-      "description": "",
-      "menu": {
-        "always-on-top": "",
-        "hotkey": {
-          "label": "",
-          "prompt": {
-            "keybind-options": {
-              "hotkey": ""
-            },
-            "label": "",
-            "title": ""
-          }
-        },
-        "save-window-position": "",
-        "save-window-size": "",
-        "use-native-pip": ""
-      },
-      "name": "",
-      "templates": {
-        "button": ""
-      }
-    },
-    "playback-speed": {
-      "description": "",
-      "name": "",
-      "templates": {
-        "button": ""
-      }
-    },
-    "precise-volume": {
-      "description": "",
-      "menu": {
-        "arrows-shortcuts": "",
-        "custom-volume-steps": "",
-        "global-shortcuts": ""
-      },
-      "name": "",
-      "prompt": {
-        "global-shortcuts": {
-          "keybind-options": {
-            "decrease": "",
-            "increase": ""
-          },
-          "label": "",
-          "title": ""
-        },
-        "volume-steps": {
-          "label": "",
-          "title": ""
-        }
-      }
-    },
-    "quality-changer": {
-      "backend": {
-        "dialog": {
-          "quality-changer": {
-            "detail": "",
-            "message": "",
-            "title": ""
-          }
-        }
-      },
-      "description": "",
-      "name": ""
-    },
     "shortcuts": {
-      "description": "",
-      "menu": {
-        "override-media-keys": "",
-        "set-keybinds": ""
-      },
-      "name": "",
       "prompt": {
         "keybind": {
           "keybind-options": {
-            "next": "Next",
-            "play-pause": "",
-            "previous": ""
-          },
-          "label": "",
-          "title": ""
+            "next": "Next"
+          }
         }
       }
     },
-    "skip-silences": {
-      "description": "",
-      "name": ""
-    },
     "sponsorblock": {
-      "description": "",
       "name": "SponsorBlock"
     },
-    "taskbar-mediacontrol": {
-      "description": "",
-      "name": ""
-    },
     "touchbar": {
-      "description": "",
       "name": "TouchBar"
     },
     "tuna-obs": {
-      "description": "",
       "name": "Tuna OBS"
     },
     "video-toggle": {
-      "description": "",
       "menu": {
         "align": {
-          "label": "",
           "submenu": {
-            "left": "",
             "middle": "Middle",
             "right": "Right"
           }
         },
-        "force-hide": "",
         "mode": {
-          "label": "Mode",
-          "submenu": {
-            "custom": "",
-            "disabled": "",
-            "native": ""
-          }
+          "label": "Mode"
         }
       },
-      "name": "",
       "templates": {
         "button": "Song"
       }
-    },
-    "visualizer": {
-      "description": "",
-      "menu": {
-        "visualizer-type": ""
-      },
-      "name": ""
     }
   }
 }

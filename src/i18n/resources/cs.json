@@ -2,14 +2,7 @@
   "common": {
     "console": {
       "plugins": {
-        "execute-failed": "",
-        "executed-at-ms": "",
-        "initialize-failed": "",
-        "load-all": "Načítání všech pluginů",
-        "load-failed": "",
-        "loaded": "",
-        "unload-failed": "",
-        "unloaded": ""
+        "load-all": "Načítání všech pluginů"
       }
     }
   },
@@ -20,60 +13,33 @@
   },
   "main": {
     "console": {
-      "did-finish-load": {
-        "dev-tools": ""
-      },
-      "i18n": {
-        "loaded": ""
-      },
       "second-instance": {
         "receive-command": "Received command přes protokol: \"{{command}}\""
       },
-      "theme": {
-        "css-file-not-found": ""
-      },
-      "unresponsive": {
-        "details": ""
-      },
       "when-ready": {
         "clearing-cache-after-20s": "Clearing mezipaměti aplikace"
-      },
-      "window": {
-        "tried-to-render-offscreen": ""
       }
     },
     "dialog": {
-      "hide-menu-enabled": {
-        "detail": "",
-        "message": "",
-        "title": ""
-      },
       "need-to-restart": {
         "buttons": {
           "later": "Později",
           "restart-now": "Restartovat nyní"
-        },
-        "detail": "",
-        "message": "",
-        "title": ""
+        }
       },
       "unresponsive": {
         "buttons": {
-          "quit": "",
           "relaunch": "Spustit znovu",
           "wait": "Počkat"
         },
         "detail": "Omlouváme se za způsobené nepříjemnosti! prosím vyberte, co to do:",
-        "message": "Aplikace nereaguje",
-        "title": ""
+        "message": "Aplikace nereaguje"
       },
       "update-available": {
         "buttons": {
-          "disable": "",
           "download": "Stáhnout",
           "ok": "OK"
         },
-        "detail": "",
         "message": "Nová verze je dostupná",
         "title": "Aktualizace k dispozici"
       }
@@ -95,60 +61,38 @@
           "advanced-options": {
             "label": "Pokročilé možnosti",
             "submenu": {
-              "auto-reset-app-cache": "",
-              "disable-hardware-acceleration": "",
               "edit-config-json": "Upravit config.json",
-              "override-user-agent": "",
               "restart-on-config-changes": "Restartovat na změny v configu",
               "set-proxy": {
                 "label": "Nastavit proxy",
                 "prompt": {
-                  "label": "",
                   "placeholder": "Příklad: socks5://127.0.0.1:9999",
                   "title": "Nastavit proxy"
                 }
-              },
-              "toggle-dev-tools": ""
+              }
             }
           },
           "always-on-top": "Vždy na vrchu",
           "auto-update": "Automatické aktualizace",
           "hide-menu": {
-            "dialog": {
-              "message": "",
-              "title": ""
-            },
             "label": "Skrýt menu"
           },
           "language": {
             "dialog": {
-              "message": "",
               "title": "Jazyk Změněn"
             },
             "label": "Jazyk"
           },
-          "resume-on-start": "",
-          "single-instance-lock": "",
-          "start-at-login": "",
-          "starting-page": {
-            "label": "",
-            "unset": ""
-          },
           "tray": {
-            "label": "",
             "submenu": {
-              "disabled": "",
               "enabled-and-hide-app": "Povolit a skrýt aplikaci",
-              "enabled-and-show-app": "",
               "play-pause-on-click": "Přehrát/Pozastavit na kliknutí"
             }
           },
           "visual-tweaks": {
-            "label": "",
             "submenu": {
               "like-buttons": {
                 "default": "Výchozí",
-                "force-show": "",
                 "hide": "Schovat",
                 "label": "Like tlačítka"
               },
@@ -167,9 +111,6 @@
       "plugins": {
         "enabled": "Povoleno",
         "label": "Pluginy"
-      },
-      "view": {
-        "label": ""
       }
     }
   },
@@ -189,7 +130,6 @@
       "description": "Applies a lighting efekty by casting gentle colors z videa, into your screen’s pozadí.",
       "menu": {
         "blur-amount": {
-          "label": "",
           "submenu": {
             "pixels": "{{blurAmount}} pixelů"
           }
@@ -223,32 +163,22 @@
           "submenu": {
             "during": "Během {{interpolationTime}}s"
           }
-        },
-        "use-fullscreen": {
-          "label": ""
         }
       },
       "name": "Ambientní režim"
     },
-    "audio-compressor": {
-      "description": "",
-      "name": ""
-    },
     "blur-nav-bar": {
-      "description": "Udělá navigační panel průhledným a rozmazaným",
-      "name": ""
+      "description": "Udělá navigační panel průhledným a rozmazaným"
     },
     "bypass-age-restrictions": {
       "description": "Obejít ověření věku na YouTube",
       "name": "Obejít věková omezení"
     },
     "captions-selector": {
-      "description": "",
       "menu": {
         "autoload": "Automaticky vybrat naposledy použité titulky",
         "disable-captions": "Žádné titulky ve vychozím nastavení"
       },
-      "name": "",
       "prompt": {
         "selector": {
           "label": "Aktuální jazyk titulků: {{language}}",
@@ -261,22 +191,17 @@
       }
     },
     "compact-sidebar": {
-      "description": "Vždy set the sidebar in compact mode",
-      "name": ""
+      "description": "Vždy set the sidebar in compact mode"
     },
     "crossfade": {
       "description": "Crossfade mezi písničkami",
       "menu": {
         "advanced": "Pokročilý"
       },
-      "name": "",
       "prompt": {
         "options": {
           "multi-input": {
-            "fade-in-duration": "",
-            "fade-out-duration": "",
             "fade-scaling": {
-              "label": "",
               "linear": "Lineární",
               "logarithmic": "Logaritmické"
             },
@@ -287,34 +212,17 @@
       }
     },
     "disable-autoplay": {
-      "description": "",
-      "menu": {
-        "apply-once": ""
-      },
       "name": "Zrušit automatické přehrávání"
     },
     "discord": {
       "backend": {
-        "already-connected": "",
         "connected": "Připojeno k Discordu",
         "disconnected": "Odpojeno od Discordu"
       },
       "description": "Ukažte svým přátelům, co posloucháte s Rich Presence",
       "menu": {
-        "auto-reconnect": "",
-        "clear-activity": "",
-        "clear-activity-after-timeout": "",
-        "hide-duration-left": "",
         "hide-github-button": "Skrýt tlačítko s odkazem na GitHub",
-        "play-on-youtube-music": "Hrát na YouTube Music",
-        "set-inactivity-timeout": ""
-      },
-      "name": "",
-      "prompt": {
-        "set-inactivity-timeout": {
-          "label": "",
-          "title": ""
-        }
+        "play-on-youtube-music": "Hrát na YouTube Music"
       }
     },
     "downloader": {
@@ -324,7 +232,6 @@
             "buttons": {
               "ok": "OK"
             },
-            "message": "",
             "title": "Chyba ve stáhování!"
           },
           "start-download-playlist": {
@@ -332,79 +239,42 @@
               "ok": "OK"
             },
             "detail": "({{playlistSize}} písničky)",
-            "message": "",
             "title": "Stahování začalo"
           }
         },
         "feedback": {
-          "conversion-progress": "",
-          "converting": "",
           "done": "Hotovo: {{filePath}}",
-          "download-info": "",
-          "download-progress": "",
           "downloading": "Stahování…",
           "downloading-counter": "Stahování {{current}}/{{total}}…",
           "downloading-playlist": "Downloading playlist \"{{playlistTitle}}\" - {{playlistSize}} písničky ({{playlistId}})",
-          "error-while-downloading": "",
           "folder-already-exists": "Složka {{playlistFolder}} již existuje",
-          "getting-playlist-info": "",
           "loading": "Načítání…",
           "playlist-has-only-one-song": "Playlist má jenom jeden položku, downloading it directly",
           "playlist-id-not-found": "Žádný playlist ID nenalezen",
           "playlist-is-empty": "Playlist je prázdný",
-          "playlist-is-mix-or-private": "",
-          "preparing-file": "",
           "saving": "Ukládání…",
-          "trying-to-get-playlist-id": "",
-          "video-id-not-found": "Video nebylo nalezeno",
-          "writing-id3": ""
+          "video-id-not-found": "Video nebylo nalezeno"
         }
       },
-      "description": "",
       "menu": {
         "choose-download-folder": "Vybrat download složku",
-        "presets": "",
         "skip-existing": "Přeskočit existující soubory"
       },
       "name": "Stahovač",
-      "renderer": {
-        "can-not-update-progress": ""
-      },
       "templates": {
         "button": "Stáhnout"
       }
     },
     "exponential-volume": {
-      "description": "",
       "name": "Exponenciální hlasitost"
     },
-    "in-app-menu": {
-      "description": "",
-      "menu": {
-        "hide-dom-window-controls": ""
-      },
-      "name": ""
-    },
     "last-fm": {
-      "description": "",
       "name": "Last.fm"
     },
-    "lumiastream": {
-      "description": "",
-      "name": ""
-    },
     "lyrics-genius": {
-      "description": "Přidat lyrics podporu pro většinu písniček",
-      "menu": {
-        "romanized-lyrics": ""
-      },
-      "name": "",
-      "renderer": {
-        "fetched-lyrics": ""
-      }
+      "description": "Přidat lyrics podporu pro většinu písniček"
     },
     "navigation": {
-      "description": "",
       "name": "Navigace"
     },
     "no-google-login": {
@@ -414,56 +284,38 @@
     "notifications": {
       "description": "Display oznámení when a písnička starts hraje (interactive notifications are available on Windows)",
       "menu": {
-        "interactive": "",
         "interactive-settings": {
           "label": "Interactive Nastavení",
           "submenu": {
             "hide-button-text": "Skrýt text tlačítka",
-            "refresh-on-play-pause": "",
             "tray-controls": "Otevřít/Zavřít on tray click"
           }
         },
-        "priority": "Priorita Oznámení",
-        "toast-style": "",
-        "unpause-notification": ""
+        "priority": "Priorita Oznámení"
       },
       "name": "Oznámení"
     },
     "picture-in-picture": {
-      "description": "",
       "menu": {
-        "always-on-top": "",
         "hotkey": {
           "label": "Klávesová zkratka",
           "prompt": {
             "keybind-options": {
               "hotkey": "Klávesová zkratka"
-            },
-            "label": "",
-            "title": ""
+            }
           }
         },
-        "save-window-position": "",
         "save-window-size": "Uložit velikost okna",
         "use-native-pip": "Použít browser native PiP"
-      },
-      "name": "",
-      "templates": {
-        "button": ""
       }
     },
     "playback-speed": {
-      "description": "",
-      "name": "",
       "templates": {
         "button": "Rychlost"
       }
     },
     "precise-volume": {
-      "description": "",
       "menu": {
-        "arrows-shortcuts": "",
-        "custom-volume-steps": "",
         "global-shortcuts": "Globální klávesové zkratky"
       },
       "name": "Precise hlasitost",
@@ -472,13 +324,7 @@
           "keybind-options": {
             "decrease": "Snížit hlasitost",
             "increase": "Zvýšit hlasitost"
-          },
-          "label": "",
-          "title": ""
-        },
-        "volume-steps": {
-          "label": "",
-          "title": ""
+          }
         }
       }
     },
@@ -491,16 +337,9 @@
             "title": "Vybrat kvalitu videa"
           }
         }
-      },
-      "description": "",
-      "name": ""
+      }
     },
     "shortcuts": {
-      "description": "",
-      "menu": {
-        "override-media-keys": "",
-        "set-keybinds": ""
-      },
       "name": "Zkratky (& MPRIS)",
       "prompt": {
         "keybind": {
@@ -508,9 +347,7 @@
             "next": "Další",
             "play-pause": "Přehrát / Pozastavit",
             "previous": "Předchozí"
-          },
-          "label": "",
-          "title": ""
+          }
         }
       }
     },
@@ -518,54 +355,22 @@
       "description": "Automaticky přeskakovat tichá místa v písničkách",
       "name": "Přeskočit Tichá místa"
     },
-    "sponsorblock": {
-      "description": "",
-      "name": ""
-    },
-    "taskbar-mediacontrol": {
-      "description": "",
-      "name": ""
-    },
-    "touchbar": {
-      "description": "",
-      "name": ""
-    },
-    "tuna-obs": {
-      "description": "",
-      "name": ""
-    },
     "video-toggle": {
-      "description": "",
       "menu": {
         "align": {
           "label": "Zarovnání",
           "submenu": {
             "left": "Vlevo",
-            "middle": "",
             "right": "Pravo"
           }
         },
-        "force-hide": "",
         "mode": {
-          "label": "Režim",
-          "submenu": {
-            "custom": "",
-            "disabled": "",
-            "native": ""
-          }
+          "label": "Režim"
         }
       },
-      "name": "",
       "templates": {
         "button": "Písnička"
       }
-    },
-    "visualizer": {
-      "description": "",
-      "menu": {
-        "visualizer-type": ""
-      },
-      "name": ""
     }
   }
 }
