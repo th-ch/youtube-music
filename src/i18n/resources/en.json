@@ -381,8 +381,8 @@
       },
       "description": "Downloads MP3 / source audio directly from the interface",
       "menu": {
-        "download-playlist": "Download playlist",
         "choose-download-folder": "Choose download folder",
+        "download-playlist": "Download playlist",
         "presets": "Presets",
         "skip-existing": "Skip existing files"
       },
