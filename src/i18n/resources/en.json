@@ -559,7 +559,7 @@
                     "go-forward": "Go forward",
                     "copy-current-url": "Copy current URL",
                     "restart": "Restart App",
-                    "quit": "Exit2"
+                    "quit": "Exit"
                 }
             },
             "about": "About"
@@ -570,7 +570,7 @@
             "previous": "Previous",
             "show": "Show",
             "restart": "Restart App",
-            "quit": "Quit"
+            "quit": "Exit"
         }
     },
     "common": {
