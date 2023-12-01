@@ -59,29 +59,29 @@
         },
         "video-toggle": {
             "menu": {
-                "force-hide": "Force remove video tab",
+                "force-hide": "영상 탭 강제 제거",
                 "align": {
                     "submenu": {
-                        "left": "Left",
-                        "right": "Right",
-                        "middle": "Middle"
+                        "left": "왼쪽",
+                        "right": "오른쪽",
+                        "middle": "가운데"
                     },
-                    "label": "Alignment"
+                    "label": "정렬"
                 },
                 "mode": {
                     "submenu": {
-                        "native": "Native toggle",
-                        "custom": "Custom toggle",
-                        "disabled": "Disabled"
+                        "native": "기본 토글",
+                        "custom": "사용자 지정 전환",
+                        "disabled": "비활성화"
                     },
-                    "label": "Mode"
+                    "label": "모드"
                 }
             },
             "templates": {
-                "button": "Song"
+                "button": "노래"
             },
-            "description": "Adds a button to switch between Video/Song mode. can also optionally remove the whole video tab",
-            "name": "Video Toggle"
+            "description": "영상/노래 모드를 전환하는 버튼을 추가합니다. 선택적으로 전체 영상 탭을 제거할 수도 있습니다",
+            "name": "영상 전환"
         },
         "notifications": {
             "menu": {
@@ -177,7 +177,7 @@
             "name": "자막 선택기"
         },
         "touchbar": {
-            "description": "Adds a TouchBar widget for macOS users",
+            "description": "macOS 사용자를 위한 TouchBar 위젯을 추가합니다",
             "name": "TouchBar"
         },
         "picture-in-picture": {
@@ -246,8 +246,8 @@
         },
         "shortcuts": {
             "menu": {
-                "override-media-keys": "Override Media Keys",
-                "set-keybinds": "Set Global Song Controls"
+                "override-media-keys": "미디어 키 재정의",
+                "set-keybinds": "전역 노래 제어 설정"
             },
             "description": "재생을 위한 전역 단축키 설정 허용 (재생/일시 정지/다음/이전) + 미디어 키를 재정의하여 미디어 OSD 비활성화 + Ctrl/CMD + F 검색 활성화 + 미디어 키에 대한 리눅스 MPRIS 지원 활성화 + 고급 사용자를 위한 사용자 지정 단축키 지원",
             "prompt": {
@@ -265,7 +265,7 @@
         },
         "tuna-obs": {
             "name": "Tuna OBS",
-            "description": "Integration with OBS's plugin Tuna"
+            "description": "OBS의 플러그인 Tuna와 통합을 활성화합니다"
         },
         "precise-volume": {
             "prompt": {
@@ -313,8 +313,8 @@
             }
         },
         "taskbar-mediacontrol": {
-            "description": "Control playback from your Windows taskbar",
-            "name": "Taskbar Media Control"
+            "description": "Windows 작업 표시줄에서 재생을 제어하세요",
+            "name": "작업표시줄 미디어 컨트롤"
         },
         "compact-sidebar": {
             "description": "사이드바를 항상 컴팩트 모드로 설정합니다",
@@ -354,7 +354,7 @@
             "description": "볼륨 슬라이더를 지수적으로 만들어 더 낮은 볼륨을 쉽게 선택할 수 있도록 합니다."
         },
         "bypass-age-restrictions": {
-            "description": "유튜브의 나이 제한을 우회합니다.",
+            "description": "유튜브의 나이 제한을 우회합니다",
             "name": "나이 제한 우회"
         },
         "lumiastream": {
@@ -362,15 +362,15 @@
             "name": "Lumia Stream [베타]"
         },
         "skip-silences": {
-            "name": "Skip Silences",
-            "description": "Automatically skip silences sections in songs"
+            "name": "무음 건너뛰기",
+            "description": "노래의 무음 부분을 자동으로 건너뜁니다"
         },
         "visualizer": {
-            "description": "Adds a visualizer to the player",
+            "description": "플레이어에 시각화 도구 추가",
             "menu": {
-                "visualizer-type": "Visualizer Type"
+                "visualizer-type": "비주얼라이저 타입"
             },
-            "name": "Visualizer"
+            "name": "비주얼라이저"
         },
         "lyrics-genius": {
             "renderer": {
@@ -383,7 +383,7 @@
             "name": "Genius 가사"
         },
         "sponsorblock": {
-            "description": "Automatically Skips non-music parts like intro/outro or parts of music videos where the song isn't playing",
+            "description": "인트로/아웃트로와 같은 음악이 아닌 부분이나, 노래가 재생되지 않는 뮤직 비디오의 일부를 자동으로 건너뜁니다",
             "name": "SponsorBlock"
         },
         "blur-nav-bar": {
@@ -403,60 +403,60 @@
         "dialog": {
             "need-to-restart": {
                 "buttons": {
-                    "later": "Later",
-                    "restart-now": "Restart Now"
+                    "later": "나중에 하기",
+                    "restart-now": "지금 재시작하기"
                 },
-                "title": "Restart Required",
-                "message": "\"{{pluginName}}\" needs to restart",
-                "detail": "\"{{pluginName}}\" plugin requires a restart to take effect"
+                "title": "재시작 필요",
+                "message": "\"{{pluginName}}\"은(는) 재시작이 필요합니다",
+                "detail": "\"{{pluginName}}\" 플러그인을 적용하려면 재시작해야 합니다"
             },
             "update-available": {
                 "buttons": {
-                    "download": "Download",
-                    "disable": "Disable Updates",
-                    "ok": "OK"
+                    "download": "다운로드",
+                    "disable": "업데이트 비활성화",
+                    "ok": "확인"
                 },
-                "title": "Update Available",
-                "detail": "A new version is available and can be downloaded at {{downloadLink}}",
-                "message": "A new version is available"
+                "title": "업데이트 사용 가능",
+                "detail": "새 버전이 출시되었습니다. {{downloadLink}}에서 다운로드할 수 있습니다",
+                "message": "새 버전이 사용 가능합니다"
             },
             "hide-menu-enabled": {
-                "message": "Hide Menu is enabled",
-                "title": "Hide Menu Enabled",
-                "detail": "Menu is hidden, use 'Alt' to show it (or 'Escape' if using in-app-menu)"
+                "message": "메뉴 숨기기가 활성화되어 있습니다",
+                "title": "메뉴 숨기기 활성화됨",
+                "detail": "'Alt' 키를 눌러 숨겨진 메뉴를 표시할 수 있습니다 (인앱 메뉴를 사용하는 경우 'esc' 키를 사용)"
             },
             "unresponsive": {
-                "message": "The Application is Unresponsive",
+                "message": "애플리케이션이 응답하지 않습니다",
                 "buttons": {
-                    "quit": "Quit",
-                    "wait": "Wait",
-                    "relaunch": "Relaunch"
+                    "quit": "종료",
+                    "wait": "기다리기",
+                    "relaunch": "재시작"
                 },
-                "title": "Window Unresponsive",
-                "detail": "We are sorry for the inconvenience! please choose what to do:"
+                "title": "창이 응답하지 않음",
+                "detail": "불편을 드려 죄송합니다! 방법을 선택해 주세요:"
             }
         },
         "console": {
             "i18n": {
-                "loaded": "i18n loaded"
+                "loaded": "국제화 로드됨"
             },
             "when-ready": {
-                "clearing-cache-after-20s": "Clearing app cache"
+                "clearing-cache-after-20s": "앱 캐시 지우기"
             },
             "did-finish-load": {
-                "dev-tools": "did finish load. dev tools opened"
+                "dev-tools": "로드가 완료되었습니다. 개발자 도구가 열렸습니다"
             },
             "theme": {
-                "css-file-not-found": "CSS file \"{{cssFile}}\" does not exist, ignoring"
+                "css-file-not-found": "CSS 파일 \"{{cssFile}}\"이(가) 존재하지 않습니다. 무시합니다"
             },
             "second-instance": {
-                "receive-command": "Received command over protocol: \"{{command}}\""
+                "receive-command": "프로토콜을 통해 명령을 받았습니다: \"{{command}}\""
             },
             "window": {
-                "tried-to-render-offscreen": "Window tried to render offscreen, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
+                "tried-to-render-offscreen": "창이 오프스크린 렌더링을 시도했습니다. windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
             },
             "unresponsive": {
-                "details": "Unresponsive Error!\n{{error}}"
+                "details": "응답 없음 오류!\n{{error}}"
             }
         },
         "menu": {
@@ -465,106 +465,106 @@
                     "visual-tweaks": {
                         "submenu": {
                             "like-buttons": {
-                                "force-show": "Force show",
-                                "label": "Like buttons",
-                                "default": "Default",
-                                "hide": "Hide"
+                                "force-show": "강제로 표시",
+                                "label": "좋아요 버튼",
+                                "default": "기본",
+                                "hide": "숨기기"
                             },
                             "theme": {
                                 "submenu": {
-                                    "import-css-file": "Import custom CSS file",
-                                    "no-theme": "No theme"
+                                    "import-css-file": "사용자 정의 CSS 파일 가져오기",
+                                    "no-theme": "테마 없음"
                                 },
-                                "label": "Theme"
+                                "label": "테마"
                             },
-                            "remove-upgrade-button": "Remove upgrade button"
+                            "remove-upgrade-button": "업그레이드 버튼 제거"
                         },
-                        "label": "Visual Tweaks"
+                        "label": "시각적 변경"
                     },
                     "language": {
                         "dialog": {
-                            "title": "Language Changed",
-                            "message": "Language will be changed after restart"
+                            "title": "언어 변경됨",
+                            "message": "재시작 후 언어가 변경됩니다"
                         },
-                        "label": "Language"
+                        "label": "언어"
                     },
                     "advanced-options": {
                         "submenu": {
-                            "edit-config-json": "Edit config.json",
-                            "restart-on-config-changes": "Restart on config changes",
+                            "edit-config-json": "config.json 편집",
+                            "restart-on-config-changes": "설정 변경 시 재시작",
                             "set-proxy": {
                                 "prompt": {
-                                    "placeholder": "Example: socks5://127.0.0.1:9999",
-                                    "title": "Set proxy",
-                                    "label": "Enter Proxy Address: (leave empty to disable)"
+                                    "placeholder": "예제: socks5://127.0.0.1:9999",
+                                    "title": "프록시 설정",
+                                    "label": "프록시 주소를 입력하세요: (비워두면 비활성화됨)"
                                 },
-                                "label": "Set proxy"
+                                "label": "프록시 설정"
                             },
-                            "disable-hardware-acceleration": "Disable hardware acceleration",
-                            "override-user-agent": "Override User-Agent",
-                            "toggle-dev-tools": "Toggle DevTools",
-                            "auto-reset-app-cache": "Reset App cache when app starts"
+                            "disable-hardware-acceleration": "하드웨어 가속 비활성화",
+                            "override-user-agent": "User-Agent 재정의",
+                            "toggle-dev-tools": "DevTools 열기",
+                            "auto-reset-app-cache": "앱 시작 시 앱 캐시 초기화"
                         },
-                        "label": "Advanced options"
+                        "label": "고급 설정"
                     },
-                    "resume-on-start": "Resume last song when app starts",
+                    "resume-on-start": "앱 시작 시 마지막 곡 다시 듣기",
                     "starting-page": {
-                        "label": "Starting page",
-                        "unset": "Unset"
+                        "label": "시작 페이지",
+                        "unset": "지정 안 됨"
                     },
                     "tray": {
                         "submenu": {
-                            "play-pause-on-click": "Play/Pause on click",
-                            "disabled": "Disabled",
-                            "enabled-and-hide-app": "Enabled and hide app",
-                            "enabled-and-show-app": "Enabled and show app"
+                            "play-pause-on-click": "클릭 시 재생/일시 정지",
+                            "disabled": "비활성화",
+                            "enabled-and-hide-app": "활성화 및 앱 숨기기",
+                            "enabled-and-show-app": "활성화 및 앱 표시"
                         },
-                        "label": "Tray"
+                        "label": "트레이"
                     },
-                    "auto-update": "Auto Update",
+                    "auto-update": "자동 업데이트",
                     "hide-menu": {
                         "dialog": {
-                            "message": "Menu will be hidden on next launch, use [Alt] to show it (or backtick [`] if using in-app-menu)",
-                            "title": "Hide Menu Enabled"
+                            "message": "다음 실행 시 메뉴가 숨겨집니다. 표시하려면 [Alt] 키를 사용하세요 (인앱 메뉴를 사용하는 경우 백틱 [`] 키를 사용하세요)",
+                            "title": "메뉴 숨기기 활성화됨"
                         },
-                        "label": "Hide Menu"
+                        "label": "메뉴 숨기기"
                     },
-                    "always-on-top": "Always on top",
-                    "start-at-login": "Start at login",
-                    "single-instance-lock": "Single Instance Lock"
+                    "always-on-top": "항상 최상단에 표시",
+                    "start-at-login": "로그온 시 자동 실행",
+                    "single-instance-lock": "단일 인스턴스 잠금"
                 },
-                "label": "Options"
+                "label": "설정"
             },
             "navigation": {
                 "submenu": {
-                    "go-back": "Go back",
-                    "copy-current-url": "Copy current URL",
-                    "go-forward": "Go forward",
-                    "restart": "Restart App"
+                    "go-back": "뒤로 가기",
+                    "copy-current-url": "현재 URL 복사",
+                    "go-forward": "앞으로 가기",
+                    "restart": "앱 재시작"
                 },
-                "label": "Navigation"
+                "label": "네비게이션"
             },
-            "about": "About",
+            "about": "정보",
             "view": {
-                "label": "View"
+                "label": "보기"
             },
             "plugins": {
-                "label": "Plugins",
-                "enabled": "Enabled"
+                "label": "플러그인",
+                "enabled": "활성화"
             }
         }
     },
     "common": {
         "console": {
             "plugins": {
-                "unloaded": "Plugin \"{{pluginName}}\" unloaded",
-                "load-all": "Loading all plugins",
-                "unload-failed": "Failed to unload plugin \"{{pluginName}}\"",
-                "execute-failed": "Failed to execute plugin {{pluginName}}::{{contextName}}",
-                "initialize-failed": "Failed to initialize plugin \"{{pluginName}}\"",
-                "loaded": "Plugin \"{{pluginName}}\" loaded",
-                "load-failed": "Failed to load plugin \"{{pluginName}}\"",
-                "executed-at-ms": "Plugin {{pluginName}}::{{contextName}} executed at {{ms}}ms"
+                "unloaded": "플러그인 \"{{pluginName}}\" 언로드 됨",
+                "load-all": "모든 플러그인 로드 중",
+                "unload-failed": "플러그인 \"{{pluginName}}\"을(를) 언로드하지 못했습니다",
+                "execute-failed": "플러그인 {{pluginName}}::{{contextName}}을(를) 실행하지 못했습니다",
+                "initialize-failed": "플러그인 \"{{pluginName}}\"을(를) 초기화하지 못했습니다",
+                "loaded": "플러그인 \"{{pluginName}}\" 로드됨",
+                "load-failed": "플러그인 \"{{pluginName}}\"을(를) 로드하지 못했습니다",
+                "executed-at-ms": "플러그인 {{pluginName}}::{{contextName}}이 {{ms}}ms 만에 실행됨"
             }
         }
     }
