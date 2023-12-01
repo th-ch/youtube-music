@@ -40,6 +40,7 @@ export const createPanel = (
 
   const radioGroups: [MenuItem, HTMLElement][] = [];
   items.map((item) => {
+    if (!item.visible) return;
     if (item.type === 'separator')
       return panel.appendChild(document.createElement('menu-separator'));
 
