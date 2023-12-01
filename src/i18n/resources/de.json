@@ -222,7 +222,7 @@
             "backend": {
                 "connected": "Mit Discord verbunden",
                 "disconnected": "Verbindung zu Discord getrennt",
-                "already-connected": "Versuchter Verbindungsaufbau bei aktiver Verbindung"
+                "already-connected": "Verbindungsaufbau bei aktiver Verbindung versucht"
             },
             "name": "Discord Rich Presence"
         },
