@@ -126,16 +126,23 @@
     },
     "discord": {
       "backend": {
-        "connected": "ディスコードに接続中"
+        "already-connected": "すでに有効になっている接続に接続を試みました",
+        "connected": "ディスコードに接続中",
+        "disconnected": "Discordからの接続が切れる"
       },
+      "description": "「アクティビティステータス」を使って、あなたが聴いている曲を友達に見せましょう",
       "menu": {
         "auto-reconnect": "自動接続",
+        "clear-activity": "アクティビティの削除",
+        "clear-activity-after-timeout": "タイムアウト発生時にアクティビティを削除",
         "connected": "接続中",
+        "disconnected": "接続切れ",
         "hide-duration-left": "残りの再生時間を隠す",
         "hide-github-button": "GitHubリンクボタンを隠す",
         "play-on-youtube-music": "YouTube Musicで再生",
         "set-inactivity-timeout": "タイムアウト時間を設定"
       },
+      "name": "Discordアクティビティステータス",
       "prompt": {
         "set-inactivity-timeout": {
           "label": "不活動タイムアウト時間を秒単位で入力してください：",
