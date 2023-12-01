@@ -382,6 +382,7 @@
       "description": "MP3-/Original-Audio direkt von der Schnittstelle herunterladen",
       "menu": {
         "choose-download-folder": "Downloadordner wählen",
+        "download-playlist": "Wiedergabeliste herunterladen",
         "presets": "Voreinstellungen",
         "skip-existing": "Vorhandene Dateien überspringen"
       },
