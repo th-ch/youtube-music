@@ -516,7 +516,6 @@
       "name": "Videoqualitätsänderer"
     },
     "shortcuts": {
-      "description": "",
       "menu": {
         "override-media-keys": "Medienschlüssel außer Kraft setzen",
         "set-keybinds": "Globale Songkontrollen einstellen"
