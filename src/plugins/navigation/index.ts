@@ -8,8 +8,8 @@ import forwardHTML from './templates/forward.html?raw';
 import backHTML from './templates/back.html?raw';
 
 export default createPlugin({
-  name: t('plugins.navigation.name'),
-  description: t('plugins.navigation.description'),
+  name: () => t('plugins.navigation.name'),
+  description: () => t('plugins.navigation.description'),
   restartNeeded: true,
   config: {
     enabled: true,

@@ -2,8 +2,8 @@ import { createPlugin } from '@/utils';
 import { t } from '@/i18n';
 
 export default createPlugin({
-  name: t('plugins.exponential-volume.name'),
-  description: t('plugins.exponential-volume.description'),
+  name: () => t('plugins.exponential-volume.name'),
+  description: () => t('plugins.exponential-volume.description'),
   restartNeeded: true,
   config: {
     enabled: false,

@@ -58,8 +58,8 @@ export type VisualizerPluginConfig = {
 };
 
 export default createPlugin({
-  name: t('plugins.visualizer.name'),
-  description: t('plugins.visualizer.description'),
+  name: () => t('plugins.visualizer.name'),
+  description: () => t('plugins.visualizer.description'),
   restartNeeded: true,
   config: {
     enabled: false,

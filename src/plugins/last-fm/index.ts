@@ -34,8 +34,8 @@ export interface LastFmPluginConfig {
 }
 
 export default createPlugin({
-  name: t('plugins.last-fm.name'),
-  description: t('plugins.last-fm.description'),
+  name: () => t('plugins.last-fm.name'),
+  description: () => t('plugins.last-fm.description'),
   restartNeeded: true,
   config: {
     enabled: false,

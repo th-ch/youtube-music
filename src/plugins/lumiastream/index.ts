@@ -24,8 +24,8 @@ type LumiaData = {
 };
 
 export default createPlugin({
-  name: t('plugins.lumiastream.name'),
-  description: t('plugins.lumiastream.description'),
+  name: () => t('plugins.lumiastream.name'),
+  description: () => t('plugins.lumiastream.description'),
   restartNeeded: true,
   config: {
     enabled: false,

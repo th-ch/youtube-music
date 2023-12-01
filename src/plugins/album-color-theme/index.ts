@@ -8,8 +8,8 @@ import { t } from '@/i18n';
 import type { VideoDataChanged } from '@/types/video-data-changed';
 
 export default createPlugin({
-  name: t('plugins.album-color-theme.name'),
-  description: t('plugins.album-color-theme.description'),
+  name: () => t('plugins.album-color-theme.name'),
+  description: () => t('plugins.album-color-theme.description'),
   restartNeeded: true,
   config: {
     enabled: false,

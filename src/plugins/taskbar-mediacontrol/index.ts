@@ -12,8 +12,8 @@ import { mediaIcons } from '@/types/media-icons';
 import { t } from '@/i18n';
 
 export default createPlugin({
-  name: t('plugins.taskbar-mediacontrol.name'),
-  description: t('plugins.taskbar-mediacontrol.description'),
+  name: () => t('plugins.taskbar-mediacontrol.name'),
+  description: () => t('plugins.taskbar-mediacontrol.description'),
   restartNeeded: true,
   config: {
     enabled: false,

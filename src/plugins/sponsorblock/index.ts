@@ -25,8 +25,8 @@ export type SponsorBlockPluginConfig = {
 let currentSegments: Segment[] = [];
 
 export default createPlugin({
-  name: t('plugins.sponsorblock.name'),
-  description: t('plugins.sponsorblock.description'),
+  name: () => t('plugins.sponsorblock.name'),
+  description: () => t('plugins.sponsorblock.description'),
   restartNeeded: true,
   config: {
     enabled: false,

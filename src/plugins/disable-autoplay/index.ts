@@ -21,8 +21,8 @@ export default createPlugin<
   },
   DisableAutoPlayPluginConfig
 >({
-  name: t('plugins.disable-autoplay.name'),
-  description: t('plugins.disable-autoplay.description'),
+  name: () => t('plugins.disable-autoplay.name'),
+  description: () => t('plugins.disable-autoplay.description'),
   restartNeeded: false,
   config: {
     enabled: false,

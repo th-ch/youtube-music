@@ -25,8 +25,8 @@ const defaultConfig: AmbientModePluginConfig = {
 };
 
 export default createPlugin({
-  name: t('plugins.ambient-mode.name'),
-  description: t('plugins.ambient-mode.description'),
+  name: () => t('plugins.ambient-mode.name'),
+  description: () => t('plugins.ambient-mode.description'),
   restartNeeded: false,
   config: defaultConfig,
   stylesheets: [style],

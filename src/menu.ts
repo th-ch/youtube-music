@@ -66,7 +66,7 @@ export const mainMenuTemplate = async (
 
   const menuResult = Object.entries(getAllMenuTemplate()).map(
     ([id, template]) => {
-      const pluginLabel = allPlugins[id]?.name ?? id;
+      const pluginLabel = allPlugins[id]?.name?.() ?? id;
 
       if (!config.plugins.isEnabled(id)) {
         return [
@@ -92,8 +92,8 @@ export const mainMenuTemplate = async (
   const availablePlugins = Object.keys(allPlugins);
   const pluginMenus = availablePlugins
     .sort((a, b) => {
-      const aPluginLabel = allPlugins[a]?.name ?? a;
-      const bPluginLabel = allPlugins[b]?.name ?? b;
+      const aPluginLabel = allPlugins[a]?.name?.() ?? a;
+      const bPluginLabel = allPlugins[b]?.name?.() ?? b;
 
       return aPluginLabel.localeCompare(bPluginLabel);
     })
@@ -101,7 +101,7 @@ export const mainMenuTemplate = async (
       const predefinedTemplate = menuResult.find((it) => it[0] === id);
       if (predefinedTemplate) return predefinedTemplate[1];
 
-      const pluginLabel = allPlugins[id]?.name ?? id;
+      const pluginLabel = allPlugins[id]?.name?.() ?? id;
 
       return pluginEnabledMenu(id, pluginLabel, true, innerRefreshMenu);
     });

@@ -18,8 +18,8 @@ export type VideoTogglePluginConfig = {
 };
 
 export default createPlugin({
-  name: t('plugins.video-toggle.name'),
-  description: t('plugins.video-toggle.description'),
+  name: () => t('plugins.video-toggle.name'),
+  description: () => t('plugins.video-toggle.description'),
   restartNeeded: true,
   config: {
     enabled: false,

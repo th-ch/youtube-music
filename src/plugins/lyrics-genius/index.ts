@@ -10,8 +10,8 @@ export type LyricsGeniusPluginConfig = {
 };
 
 export default createPlugin({
-  name: t('plugins.lyrics-genius.name'),
-  description: t('plugins.lyrics-genius.description'),
+  name: () => t('plugins.lyrics-genius.name'),
+  description: () => t('plugins.lyrics-genius.description'),
   restartNeeded: true,
   config: {
     enabled: false,

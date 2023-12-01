@@ -9,8 +9,8 @@ export default createPlugin<
     isCompactSidebarDisabled: () => boolean;
   }
 >({
-  name: t('plugins.compact-sidebar.name'),
-  description: t('plugins.compact-sidebar.description'),
+  name: () => t('plugins.compact-sidebar.name'),
+  description: () => t('plugins.compact-sidebar.description'),
   restartNeeded: false,
   config: {
     enabled: false,

@@ -16,8 +16,8 @@ export type ShortcutsPluginConfig = {
 };
 
 export default createPlugin({
-  name: t('plugins.shortcuts.name'),
-  description: t('plugins.shortcuts.description'),
+  name: () => t('plugins.shortcuts.name'),
+  description: () => t('plugins.shortcuts.description'),
   restartNeeded: true,
   config: {
     enabled: false,

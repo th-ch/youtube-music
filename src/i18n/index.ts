@@ -12,8 +12,6 @@ export const loadI18n = async () =>
     }
   });
 
-loadI18n();
-
 export const setLanguage = async (language: string) => await changeLanguage(language);
 
 export const t = i18t.bind(i18next);

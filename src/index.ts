@@ -193,10 +193,10 @@ const showNeedToRestartDialog = (id: string) => {
     ],
     title: t('main.dialog.need-to-restart.title'),
     message: t('main.dialog.need-to-restart.message', {
-      pluginName: plugin?.name ?? id,
+      pluginName: plugin?.name?.() ?? id,
     }),
     detail: t('main.dialog.need-to-restart.detail', {
-      pluginName: plugin?.name ?? id,
+      pluginName: plugin?.name?.() ?? id,
     }),
     defaultId: 0,
     cancelId: 1,

@@ -10,8 +10,8 @@ export interface InAppMenuConfig {
   hideDOMWindowControls: boolean;
 }
 export default createPlugin({
-  name: t('plugins.in-app-menu.name'),
-  description: t('plugins.in-app-menu.description'),
+  name: () => t('plugins.in-app-menu.name'),
+  description: () => t('plugins.in-app-menu.description'),
   restartNeeded: true,
   config: {
     enabled:

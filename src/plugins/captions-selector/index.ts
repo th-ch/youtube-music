@@ -19,8 +19,8 @@ export default createPlugin<
   },
   CaptionsSelectorConfig
 >({
-  name: t('plugins.captions-selector.name'),
-  description: t('plugins.captions-selector.description'),
+  name: () => t('plugins.captions-selector.name'),
+  description: () => t('plugins.captions-selector.description'),
   config: {
     enabled: false,
     disableCaptions: false,

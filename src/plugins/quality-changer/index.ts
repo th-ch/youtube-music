@@ -9,8 +9,8 @@ import { t } from '@/i18n';
 import type { YoutubePlayer } from '@/types/youtube-player';
 
 export default createPlugin({
-  name: t('plugins.quality-changer.name'),
-  description: t('plugins.quality-changer.description'),
+  name: () => t('plugins.quality-changer.name'),
+  description: () => t('plugins.quality-changer.description'),
   restartNeeded: false,
   config: {
     enabled: false,

@@ -3,8 +3,8 @@ import { createPlugin } from '@/utils';
 import { t } from '@/i18n';
 
 export default createPlugin({
-  name: t('plugins.no-google-login.name'),
-  description: t('plugins.no-google-login.description'),
+  name: () => t('plugins.no-google-login.name'),
+  description: () => t('plugins.no-google-login.description'),
   restartNeeded: true,
   config: {
     enabled: false,

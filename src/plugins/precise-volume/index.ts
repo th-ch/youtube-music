@@ -30,8 +30,8 @@ export type PreciseVolumePluginConfig = {
 };
 
 export default createPlugin({
-  name: t('plugins.precise-volume.name'),
-  description: t('plugins.precise-volume.description'),
+  name: () => t('plugins.precise-volume.name'),
+  description: () => t('plugins.precise-volume.description'),
   restartNeeded: true,
   config: {
     enabled: false,

@@ -19,8 +19,8 @@ interface Data {
 }
 
 export default createPlugin({
-  name: t('plugins.tuna-obs.name'),
-  description: t('plugins.tuna-obs.description'),
+  name: () => t('plugins.tuna-obs.name'),
+  description: () => t('plugins.tuna-obs.description'),
   restartNeeded: true,
   config: {
     enabled: false,

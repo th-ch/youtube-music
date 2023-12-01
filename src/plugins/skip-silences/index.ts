@@ -8,8 +8,8 @@ export type SkipSilencesPluginConfig = {
 };
 
 export default createPlugin({
-  name: t('plugins.skip-silences.name'),
-  description: t('plugins.skip-silences.description'),
+  name: () => t('plugins.skip-silences.name'),
+  description: () => t('plugins.skip-silences.description'),
   restartNeeded: true,
   config: {
     enabled: false,

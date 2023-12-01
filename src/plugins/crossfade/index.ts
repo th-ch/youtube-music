@@ -30,8 +30,8 @@ export default createPlugin<
   },
   CrossfadePluginConfig
 >({
-  name: t('plugins.crossfade.name'),
-  description: t('plugins.crossfade.description'),
+  name: () => t('plugins.crossfade.name'),
+  description: () => t('plugins.crossfade.description'),
   restartNeeded: true,
   config: {
     enabled: false,

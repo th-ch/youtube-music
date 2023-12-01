@@ -43,8 +43,8 @@ interface AdblockerConfig {
 }
 
 export default createPlugin({
-  name: t('plugins.adblocker.name'),
-  description: t('plugins.adblocker.description'),
+  name: () => t('plugins.adblocker.name'),
+  description: () => t('plugins.adblocker.description'),
   restartNeeded: false,
   config: {
     enabled: true,

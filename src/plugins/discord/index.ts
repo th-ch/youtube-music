@@ -36,8 +36,8 @@ export type DiscordPluginConfig = {
 };
 
 export default createPlugin({
-  name: t('plugins.discord.name'),
-  description: t('plugins.discord.description'),
+  name: () => t('plugins.discord.name'),
+  description: () => t('plugins.discord.description'),
   restartNeeded: false,
   config: {
     enabled: false,

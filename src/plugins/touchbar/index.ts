@@ -6,8 +6,8 @@ import registerCallback from '@/providers/song-info';
 import { t } from '@/i18n';
 
 export default createPlugin({
-  name: t('plugins.touchbar.name'),
-  description: t('plugins.touchbar.description'),
+  name: () => t('plugins.touchbar.name'),
+  description: () => t('plugins.touchbar.description'),
   restartNeeded: true,
   config: {
     enabled: false,

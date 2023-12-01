@@ -2,8 +2,8 @@ import { createPlugin } from '@/utils';
 import { t } from '@/i18n';
 
 export default createPlugin({
-  name: t('plugins.audio-compressor.name'),
-  description: t('plugins.audio-compressor.description'),
+  name: () => t('plugins.audio-compressor.name'),
+  description: () => t('plugins.audio-compressor.description'),
 
   renderer() {
     document.addEventListener(

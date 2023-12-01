@@ -44,9 +44,9 @@ export interface PluginDef<
   RendererProperties,
   Config extends PluginConfig = PluginConfig,
 > {
-  name: string;
+  name: () => string;
   authors?: Author[];
-  description?: string;
+  description?: () => string;
   config?: Config;
 
   menu?: (
