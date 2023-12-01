@@ -96,10 +96,12 @@ export const setUpTray = (app: Electron.App, win: Electron.BrowserWindow) => {
         app.dock?.show();
       },
     },
+    { type: 'separator' },
     {
       label: t('main.tray.restart'),
       click: restart,
     },
+    { type: 'separator' },
     {
       label: t('main.tray.quit'),
       role: 'quit',
