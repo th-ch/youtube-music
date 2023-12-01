@@ -172,8 +172,8 @@
       "view": {
         "label": "보기",
         "submenu": {
-          "force-reload": "강제로 다시 로드",
-          "reload": "다시 로드",
+          "force-reload": "강제 새로고침",
+          "reload": "새로고침",
           "reset-zoom": "원래 크기",
           "toggle-fullscreen": "전체 화면 전환",
           "zoom-in": "확대",
@@ -187,7 +187,7 @@
       "previous": "이전",
       "quit": "종료",
       "restart": "앱 재시작",
-      "show": "표시"
+      "show": "창 표시"
     }
   },
   "plugins": {
