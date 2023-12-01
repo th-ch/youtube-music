@@ -5,6 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
+  usocket: 1.0.1
   rollup: 4.6.1
   node-gyp: 10.0.1
   xml2js: 0.6.2
@@ -2352,7 +2353,7 @@ packages:
       safe-buffer: 5.2.1
       xml2js: 0.6.2
     optionalDependencies:
-      usocket: 0.3.0
+      usocket: 1.0.1
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -6002,11 +6003,12 @@ packages:
     dependencies:
       punycode: 2.3.0
 
-  /usocket@0.3.0:
-    resolution: {integrity: sha512-V/H02RNiaOCJZuPoKont/y12VJaImC6C5xW7OzPFjYu9qnig0yv9hyp9E7Wqjm6d8yZuZouH3NAfDATVMgh2SQ==}
+  /usocket@1.0.1:
+    resolution: {integrity: sha512-ojgcMbCG6Nym8qi9EPkw1rPWe9kjhLdTfNQGWrEjJRvS6ZbIK/9XLjQTgIejFIAYoqun2vZ8CgINaqYMaxMxMA==}
     requiresBuild: true
     dependencies:
       bindings: 1.5.0
+      debug: 4.3.4
       nan: 2.18.0
       node-gyp: 10.0.1
     transitivePeerDependencies:

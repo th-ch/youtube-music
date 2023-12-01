@@ -118,6 +118,7 @@
   },
   "pnpm": {
     "overrides": {
+      "usocket": "1.0.1",
       "rollup": "4.6.1",
       "node-gyp": "10.0.1",
       "xml2js": "0.6.2",
