@@ -11,6 +11,8 @@ import prompt from 'custom-electron-prompt';
 
 import { allPlugins } from 'virtual:plugins';
 
+import { languageResources } from 'virtual:i18n';
+
 import config from './config';
 
 import { restart } from './providers/app-controls';
@@ -19,7 +21,7 @@ import promptOptions from './providers/prompt-options';
 
 import { getAllMenuTemplate, loadAllMenuPlugins } from './loader/menu';
 import { setLanguage, t } from '@/i18n';
-import { languageResources } from '@/i18n/resources';
+
 
 export type MenuTemplate = Electron.MenuItemConstructorOptions[];
 
@@ -104,7 +106,7 @@ export const mainMenuTemplate = async (
       return pluginEnabledMenu(id, pluginLabel, true, innerRefreshMenu);
     });
 
-  const availableLanguages = Object.keys(languageResources) as unknown as (keyof typeof languageResources)[];
+  const availableLanguages = Object.keys(languageResources);
 
   return [
     {

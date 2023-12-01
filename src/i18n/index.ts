@@ -1,6 +1,6 @@
 import i18next, { init, t as i18t, changeLanguage } from 'i18next';
 
-import { languageResources } from '@/i18n/resources';
+import { languageResources } from 'virtual:i18n';
 
 export const loadI18n = async () =>
   await init({

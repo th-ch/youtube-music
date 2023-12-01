@@ -12,3 +12,9 @@ declare module 'virtual:plugins' {
     Omit<Plugin, 'backend' | 'preload' | 'renderer'>
   >;
 }
+
+declare module 'virtual:i18n' {
+  import type { LanguageResources } from '@/i18n/resources/@types';
+
+  export const languageResources: LanguageResources;
+}

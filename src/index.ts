@@ -26,6 +26,8 @@ import { deepEqual } from 'fast-equals';
 
 import { allPlugins, mainPlugins } from 'virtual:plugins';
 
+import { languageResources } from 'virtual:i18n';
+
 import config from '@/config';
 
 import { refreshMenu, setApplicationMenu } from '@/menu';
@@ -51,8 +53,6 @@ import {
 
 import { LoggerPrefix } from '@/utils';
 import { loadI18n, setLanguage, t } from '@/i18n';
-
-import { languageResources } from '@/i18n/resources';
 
 import type { PluginConfig } from '@/types/plugins';
 

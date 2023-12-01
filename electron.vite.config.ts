@@ -9,6 +9,7 @@ import { pluginVirtualModuleGenerator } from './vite-plugins/plugin-importer';
 import pluginLoader from './vite-plugins/plugin-loader';
 
 import type { UserConfig } from 'vite';
+import { i18nImporter } from './vite-plugins/i18n-importer';
 
 const resolveAlias = {
   '@': resolve(__dirname, './src'),
@@ -21,6 +22,7 @@ export default defineConfig({
       plugins: [
         pluginLoader('backend'),
         viteResolve({
+          'virtual:i18n': i18nImporter(),
           'virtual:plugins': pluginVirtualModuleGenerator('main'),
         }),
       ],
@@ -65,6 +67,7 @@ export default defineConfig({
       plugins: [
         pluginLoader('preload'),
         viteResolve({
+          'virtual:i18n': i18nImporter(),
           'virtual:plugins': pluginVirtualModuleGenerator('preload'),
         }),
       ],
@@ -108,6 +111,7 @@ export default defineConfig({
       plugins: [
         pluginLoader('renderer'),
         viteResolve({
+          'virtual:i18n': i18nImporter(),
           'virtual:plugins': pluginVirtualModuleGenerator('renderer'),
         }),
       ],
