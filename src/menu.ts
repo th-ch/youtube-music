@@ -488,12 +488,24 @@ export const mainMenuTemplate = async (
         {
           label: t('main.menu.view.submenu.zoom-in'),
           role: 'zoomIn',
-          accelerator: process.platform === 'darwin' ? 'Cmd+I' : 'Ctrl+I',
+          accelerator: 'CmdOrCtrl+=',
+          visible: false,
+        },
+        {
+          label: t('main.menu.view.submenu.zoom-in'),
+          role: 'zoomIn',
+          accelerator: 'CmdOrCtrl+Plus',
         },
         {
           label: t('main.menu.view.submenu.zoom-out'),
           role: 'zoomOut',
-          accelerator: process.platform === 'darwin' ? 'Cmd+O' : 'Ctrl+O',
+          accelerator: 'CmdOrCtrl+-',
+        },
+        {
+          label: t('main.menu.view.submenu.zoom-out'),
+          role: 'zoomOut',
+          accelerator: 'CmdOrCtrl+Shift+-',
+          visible: false,
         },
         {
           label: t('main.menu.view.submenu.reset-zoom'),
