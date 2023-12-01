@@ -114,14 +114,16 @@ export default (api: YoutubePlayer) => {
     pause: (e: Event) => playPausedHandler(e, 'pause'),
   };
 
+  const videoEventDispatcher = async (name: string, videoData: VideoDataChangeValue) => document.dispatchEvent(
+    new CustomEvent<VideoDataChanged>('videodatachange', {
+      detail: { name, videoData },
+    }),
+  );
+
   const waitingEvent = new Set<string>();
   // Name = "dataloaded" and abit later "dataupdated"
   api.addEventListener('videodatachange', (name: string, videoData) => {
-    document.dispatchEvent(
-      new CustomEvent<VideoDataChanged>('videodatachange', {
-        detail: { name, videoData },
-      }),
-    );
+    videoEventDispatcher(name, videoData);
 
     if (name === 'dataupdated' && waitingEvent.has(videoData.videoId)) {
       waitingEvent.delete(videoData.videoId);
