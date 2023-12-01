@@ -550,9 +550,9 @@
         }
     },
     "language": {
-        "code": "en",
-        "name": "Angličtina",
-        "local-name": "Angličtina"
+        "code": "cs",
+        "name": "Czech",
+        "local-name": "Čeština"
     },
     "common": {
         "console": {
