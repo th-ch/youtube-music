@@ -10,8 +10,9 @@ import { getNetFetchAsFetch } from '@/plugins/utils/main';
 import { createPlugin } from '@/utils';
 import { VolumeFader } from './fader';
 
-import type { RendererContext } from '@/types/contexts';
 import { t } from '@/i18n';
+
+import type { RendererContext } from '@/types/contexts';
 
 export type CrossfadePluginConfig = {
   enabled: boolean;
@@ -72,7 +73,9 @@ export default createPlugin<
           type: 'multiInput',
           multiInputOptions: [
             {
-              label: t('plugins.crossfade.prompt.options.multi-input.fade-in-duration'),
+              label: t(
+                'plugins.crossfade.prompt.options.multi-input.fade-in-duration',
+              ),
               value: options.fadeInDuration,
               inputAttrs: {
                 type: 'number',
@@ -82,7 +85,9 @@ export default createPlugin<
               },
             },
             {
-              label: t('plugins.crossfade.prompt.options.multi-input.fade-out-duration'),
+              label: t(
+                'plugins.crossfade.prompt.options.multi-input.fade-out-duration',
+              ),
               value: options.fadeOutDuration,
               inputAttrs: {
                 type: 'number',
@@ -92,7 +97,9 @@ export default createPlugin<
               },
             },
             {
-              label: t('plugins.crossfade.prompt.options.multi-input.seconds-before-end'),
+              label: t(
+                'plugins.crossfade.prompt.options.multi-input.seconds-before-end',
+              ),
               value: options.secondsBeforeEnd,
               inputAttrs: {
                 type: 'number',
@@ -101,10 +108,16 @@ export default createPlugin<
               },
             },
             {
-              label: t('plugins.crossfade.prompt.options.multi-input.fade-scaling.label'),
+              label: t(
+                'plugins.crossfade.prompt.options.multi-input.fade-scaling.label',
+              ),
               selectOptions: {
-                linear: t('plugins.crossfade.prompt.options.multi-input.fade-scaling.linear'),
-                logarithmic: t('plugins.crossfade.prompt.options.multi-input.fade-scaling.logarithmic'),
+                linear: t(
+                  'plugins.crossfade.prompt.options.multi-input.fade-scaling.linear',
+                ),
+                logarithmic: t(
+                  'plugins.crossfade.prompt.options.multi-input.fade-scaling.logarithmic',
+                ),
               },
               value: options.fadeScaling,
             },

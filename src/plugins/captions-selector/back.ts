@@ -13,7 +13,9 @@ export default createBackend({
           {
             title: t('plugins.captions-selector.prompt.selector.title'),
             label: t('plugins.captions-selector.prompt.selector.label', {
-              language: captionLabels[currentIndex] || t('plugins.captions-selector.prompt.selector.none'),
+              language:
+                captionLabels[currentIndex] ||
+                t('plugins.captions-selector.prompt.selector.none'),
             }),
             type: 'select',
             value: currentIndex,

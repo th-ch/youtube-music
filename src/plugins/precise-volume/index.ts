@@ -103,12 +103,16 @@ export default createPlugin({
           type: 'keybind',
           keybindOptions: [
             kb(
-              t('plugins.precise-volume.prompt.global-shortcuts.keybind-options.increase'),
+              t(
+                'plugins.precise-volume.prompt.global-shortcuts.keybind-options.increase',
+              ),
               'volumeUp',
               options.globalShortcuts?.volumeUp,
             ),
             kb(
-              t('plugins.precise-volume.prompt.global-shortcuts.keybind-options.decrease'),
+              t(
+                'plugins.precise-volume.prompt.global-shortcuts.keybind-options.decrease',
+              ),
               'volumeDown',
               options.globalShortcuts?.volumeDown,
             ),

@@ -114,12 +114,16 @@ export default (api: YoutubePlayer) => {
     pause: (e: Event) => playPausedHandler(e, 'pause'),
   };
 
-  // eslint-disable-next-line @typescript-eslint/require-await
-  const videoEventDispatcher = async (name: string, videoData: VideoDataChangeValue) => document.dispatchEvent(
-    new CustomEvent<VideoDataChanged>('videodatachange', {
-      detail: { name, videoData },
-    }),
-  );
+  const videoEventDispatcher = async (
+    name: string,
+    videoData: VideoDataChangeValue,
+    // eslint-disable-next-line @typescript-eslint/require-await
+  ) =>
+    document.dispatchEvent(
+      new CustomEvent<VideoDataChanged>('videodatachange', {
+        detail: { name, videoData },
+      }),
+    );
 
   const waitingEvent = new Set<string>();
   // Name = "dataloaded" and abit later "dataupdated"

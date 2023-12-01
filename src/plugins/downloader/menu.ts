@@ -4,11 +4,12 @@ import { downloadPlaylist } from './main';
 import { defaultMenuDownloadLabel, getFolder } from './main/utils';
 import { DefaultPresetList } from './types';
 
+import { t } from '@/i18n';
+
 import type { MenuContext } from '@/types/contexts';
 import type { MenuTemplate } from '@/menu';
 
 import type { DownloaderPluginConfig } from './index';
-import { t } from '@/i18n';
 
 export const onMenu = async ({
   getConfig,

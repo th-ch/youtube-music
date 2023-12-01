@@ -59,21 +59,27 @@ export const onMenu = async ({
           label: t('plugins.notifications.menu.interactive-settings.label'),
           submenu: [
             {
-              label: t('plugins.notifications.menu.interactive-settings.submenu.tray-controls'),
+              label: t(
+                'plugins.notifications.menu.interactive-settings.submenu.tray-controls',
+              ),
               type: 'checkbox',
               checked: config.trayControls,
               click: (item: MenuItem) =>
                 setConfig({ trayControls: item.checked }),
             },
             {
-              label: t('plugins.notifications.menu.interactive-settings.submenu.hide-button-text'),
+              label: t(
+                'plugins.notifications.menu.interactive-settings.submenu.hide-button-text',
+              ),
               type: 'checkbox',
               checked: config.hideButtonText,
               click: (item: MenuItem) =>
                 setConfig({ hideButtonText: item.checked }),
             },
             {
-              label: t('plugins.notifications.menu.interactive-settings.submenu.refresh-on-play-pause'),
+              label: t(
+                'plugins.notifications.menu.interactive-settings.submenu.refresh-on-play-pause',
+              ),
               type: 'checkbox',
               checked: config.refreshOnPlayPause,
               click: (item: MenuItem) =>

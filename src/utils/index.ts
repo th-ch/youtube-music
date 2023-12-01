@@ -119,13 +119,10 @@ export const startPlugin = async <Config extends PluginConfig>(
   } catch (err) {
     console.error(
       LoggerPrefix,
-      t(
-        'common.console.plugins.execute-failed',
-        {
-          pluginName: id,
-          contextName: options.ctx,
-        },
-      ),
+      t('common.console.plugins.execute-failed', {
+        pluginName: id,
+        contextName: options.ctx,
+      }),
     );
     console.trace(err);
     return false;
@@ -166,13 +163,10 @@ export const stopPlugin = async <Config extends PluginConfig>(
   } catch (err) {
     console.error(
       LoggerPrefix,
-      t(
-        'common.console.plugins.execute-failed',
-        {
-          pluginName: id,
-          contextName: options.ctx,
-        },
-      ),
+      t('common.console.plugins.execute-failed', {
+        pluginName: id,
+        contextName: options.ctx,
+      }),
     );
     console.trace(err);
     return false;

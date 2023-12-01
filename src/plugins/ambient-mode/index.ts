@@ -44,9 +44,12 @@ export default createPlugin({
       {
         label: t('plugins.ambient-mode.menu.smoothness-transition.label'),
         submenu: interpolationTimeList.map((interpolationTime) => ({
-          label: t('plugins.ambient-mode.menu.smoothness-transition.submenu.during', {
-            interpolationTime: interpolationTime / 1000,
-          }),
+          label: t(
+            'plugins.ambient-mode.menu.smoothness-transition.submenu.during',
+            {
+              interpolationTime: interpolationTime / 1000,
+            },
+          ),
           type: 'radio',
           checked: config.interpolationTime === interpolationTime,
           click() {
@@ -57,7 +60,9 @@ export default createPlugin({
       {
         label: t('plugins.ambient-mode.menu.quality.label'),
         submenu: qualityList.map((quality) => ({
-          label: t('plugins.ambient-mode.menu.quality.submenu.pixels', { quality }),
+          label: t('plugins.ambient-mode.menu.quality.submenu.pixels', {
+            quality,
+          }),
           type: 'radio',
           checked: config.quality === quality,
           click() {
@@ -79,7 +84,9 @@ export default createPlugin({
       {
         label: t('plugins.ambient-mode.menu.buffer.label'),
         submenu: bufferList.map((buffer) => ({
-          label: t('plugins.ambient-mode.menu.buffer.submenu.buffer', { buffer }),
+          label: t('plugins.ambient-mode.menu.buffer.submenu.buffer', {
+            buffer,
+          }),
           type: 'radio',
           checked: config.buffer === buffer,
           click() {
@@ -90,7 +97,9 @@ export default createPlugin({
       {
         label: t('plugins.ambient-mode.menu.opacity.label'),
         submenu: opacityList.map((opacity) => ({
-          label: t('plugins.ambient-mode.menu.opacity.submenu.percent', { opacity: opacity * 100 }),
+          label: t('plugins.ambient-mode.menu.opacity.submenu.percent', {
+            opacity: opacity * 100,
+          }),
           type: 'radio',
           checked: config.opacity === opacity,
           click() {
@@ -101,7 +110,9 @@ export default createPlugin({
       {
         label: t('plugins.ambient-mode.menu.blur-amount.label'),
         submenu: blurAmountList.map((blur) => ({
-          label: t('plugins.ambient-mode.menu.blur-amount.submenu.pixels', { blurAmount: blur }),
+          label: t('plugins.ambient-mode.menu.blur-amount.submenu.pixels', {
+            blurAmount: blur,
+          }),
           type: 'radio',
           checked: config.blur === blur,
           click() {

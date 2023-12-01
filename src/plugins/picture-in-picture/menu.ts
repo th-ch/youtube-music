@@ -55,7 +55,9 @@ export const onMenu = async ({
             keybindOptions: [
               {
                 value: 'hotkey',
-                label: t('plugins.picture-in-picture.menu.prompt.keybind-options.hotkey'),
+                label: t(
+                  'plugins.picture-in-picture.menu.prompt.keybind-options.hotkey',
+                ),
                 default: config.hotkey,
               },
             ],

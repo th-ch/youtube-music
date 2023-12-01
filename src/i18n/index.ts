@@ -8,11 +8,11 @@ export const loadI18n = async () =>
     lng: 'en',
     fallbackLng: 'en',
     interpolation: {
-      escapeValue: false
-    }
+      escapeValue: false,
+    },
   });
 
-export const setLanguage = async (language: string) => await changeLanguage(language);
+export const setLanguage = async (language: string) =>
+  await changeLanguage(language);
 
 export const t = i18t.bind(i18next);
-

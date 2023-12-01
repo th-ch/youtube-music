@@ -69,10 +69,10 @@ export const forceUnloadMainPlugin = async (
         plugin.backend)
     ) {
       delete loadedPluginMap[id];
-      console.log(LoggerPrefix, t(
-        'common.console.plugins.unloaded',
-        { pluginName: id },
-      ));
+      console.log(
+        LoggerPrefix,
+        t('common.console.plugins.unloaded', { pluginName: id }),
+      );
       return;
     } else {
       console.log(

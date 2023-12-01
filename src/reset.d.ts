@@ -32,8 +32,8 @@ declare global {
     togglePictureInPicture: () => void;
     reload: () => void;
     i18n: {
-      t: typeof t,
-    }
+      t: typeof t;
+    };
   }
 }
 

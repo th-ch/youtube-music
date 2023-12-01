@@ -40,10 +40,7 @@ const resetInfo = () => {
   info.ready = false;
   clearTimeout(clearActivity);
   if (dev()) {
-    console.log(
-      LoggerPrefix,
-      t('plugins.discord.backend.disconnected')
-    );
+    console.log(LoggerPrefix, t('plugins.discord.backend.disconnected'));
   }
 
   for (const cb of refreshCallbacks) {
@@ -73,10 +70,7 @@ let window: Electron.BrowserWindow;
 export const connect = (showError = false) => {
   if (info.rpc.isConnected) {
     if (dev()) {
-      console.log(
-        LoggerPrefix,
-        t('plugins.discord.backend.already-connected')
-      );
+      console.log(LoggerPrefix, t('plugins.discord.backend.already-connected'));
     }
 
     return;
@@ -214,10 +208,7 @@ export const backend = createBackend<
 
     info.rpc.on('connected', () => {
       if (dev()) {
-        console.log(
-          LoggerPrefix,
-          t('plugins.discord.backend.connected')
-        );
+        console.log(LoggerPrefix, t('plugins.discord.backend.connected'));
       }
 
       for (const cb of refreshCallbacks) {

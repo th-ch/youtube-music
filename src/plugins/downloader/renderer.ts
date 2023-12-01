@@ -6,12 +6,13 @@ import { getSongInfo } from '@/providers/song-info-front';
 
 import { LoggerPrefix } from '@/utils';
 
+import { t } from '@/i18n';
+
 import { ElementFromHtml } from '../utils/renderer';
 
 import type { RendererContext } from '@/types/contexts';
 
 import type { DownloaderPluginConfig } from './index';
-import { t } from '@/i18n';
 
 let menu: Element | null = null;
 let progress: Element | null = null;

@@ -322,7 +322,8 @@ async function createMainWindow() {
             winSize: String(winSize),
             displaySize: String(display.bounds),
             windowPosition: String(windowPosition),
-          }));
+          }),
+        );
       }
     } else {
       win.setSize(scaledWidth, scaledHeight);
@@ -640,7 +641,10 @@ app.whenReady().then(async () => {
       const lastIndex = protocolArgv.endsWith('/') ? -1 : undefined;
       const command = protocolArgv.slice(uri.length, lastIndex);
       if (is.dev()) {
-        console.debug(LoggerPrefix, t('main.console.second-instance.receive-command', { command }));
+        console.debug(
+          LoggerPrefix,
+          t('main.console.second-instance.receive-command', { command }),
+        );
       }
 
       handleProtocol(command);

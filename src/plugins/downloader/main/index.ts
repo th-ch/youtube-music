@@ -181,19 +181,17 @@ async function downloadSongUnsafe(
     }
   };
 
-  sendFeedback(
-    t('plugins.downloader.backend.feedback.downloading'),
-    2,
-  );
+  sendFeedback(t('plugins.downloader.backend.feedback.downloading'), 2);
 
   let id: string | null;
   if (isId) {
     id = idOrUrl;
   } else {
     id = getVideoId(idOrUrl);
-    if (typeof id !== 'string') throw new Error(
-      t('plugins.downloader.backend.feedback.video-id-not-found'),
-    );
+    if (typeof id !== 'string')
+      throw new Error(
+        t('plugins.downloader.backend.feedback.video-id-not-found'),
+      );
   }
 
   let info: TrackInfo | VideoInfo = await yt.music.getInfo(id);
@@ -325,9 +323,11 @@ async function downloadSongUnsafe(
   }
 
   sendFeedback(null, -1);
-  console.info(t('plugins.downloader.backend.feedback.done', {
-    filePath,
-  }));
+  console.info(
+    t('plugins.downloader.backend.feedback.done', {
+      filePath,
+    }),
+  );
 }
 
 async function iterableStreamToTargetFile(
@@ -357,10 +357,7 @@ async function iterableStreamToTargetFile(
     increasePlaylistProgress(ratio * 0.15);
   }
 
-  sendFeedback(
-    t('plugins.downloader.backend.feedback.loading'),
-    2,
-  ); // Indefinite progress bar after download
+  sendFeedback(t('plugins.downloader.backend.feedback.loading'), 2); // Indefinite progress bar after download
 
   const buffer = Buffer.concat(chunks);
   const safeVideoName = randomBytes(32).toString('hex');
@@ -399,9 +396,7 @@ async function iterableStreamToTargetFile(
       ffmpeg.FS('unlink', safeVideoName);
     }
 
-    sendFeedback(
-      t('plugins.downloader.backend.feedback.saving'),
-    );
+    sendFeedback(t('plugins.downloader.backend.feedback.saving'));
 
     try {
       return ffmpeg.FS('readFile', safeVideoNameWithExtension);
@@ -427,9 +422,7 @@ async function writeID3(
   sendFeedback: (str: string, value?: number) => void,
 ) {
   try {
-    sendFeedback(
-      t('plugins.downloader.backend.feedback.writing-id3'),
-    );
+    sendFeedback(t('plugins.downloader.backend.feedback.writing-id3'));
     const tags: NodeID3.Tags = {};
 
     // Create the metadata tags
@@ -484,9 +477,9 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
     getPlaylistID(givenUrl) || getPlaylistID(new URL(playingUrl));
 
   if (!playlistId) {
-    sendError(new Error(
-      t('plugins.downloader.backend.feedback.playlist-id-not-found'),
-    ));
+    sendError(
+      new Error(t('plugins.downloader.backend.feedback.playlist-id-not-found')),
+    );
     return;
   }
 
@@ -497,9 +490,7 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
       playlistId,
     }),
   );
-  sendFeedback(
-    t('plugins.downloader.backend.feedback.getting-playlist-info'),
-  );
+  sendFeedback(t('plugins.downloader.backend.feedback.getting-playlist-info'));
   let playlist: Playlist;
   const items: YTNodes.MusicResponsiveListItem[] = [];
   try {
@@ -519,9 +510,9 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
   }
 
   if (!playlist || !playlist.items || playlist.items.length === 0) {
-    sendError(new Error(
-      t('plugins.downloader.backend.feedback.playlist-is-empty'),
-    ));
+    sendError(
+      new Error(t('plugins.downloader.backend.feedback.playlist-is-empty')),
+    );
   }
 
   const normalPlaylistTitle = playlist.header?.title?.text;
@@ -558,11 +549,13 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
   const playlistFolder = join(folder, safePlaylistTitle);
   if (existsSync(playlistFolder)) {
     if (!config.skipExisting) {
-      sendError(new Error(
-        t('plugins.downloader.backend.feedback.folder-already-exists', {
-          playlistFolder,
-        })
-      ));
+      sendError(
+        new Error(
+          t('plugins.downloader.backend.feedback.folder-already-exists', {
+            playlistFolder,
+          }),
+        ),
+      );
       return;
     }
   } else {
@@ -571,14 +564,22 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
 
   dialog.showMessageBox(win, {
     type: 'info',
-    buttons: [t('plugins.downloader.backend.dialog.start-download-playlist.buttons.ok')],
+    buttons: [
+      t('plugins.downloader.backend.dialog.start-download-playlist.buttons.ok'),
+    ],
     title: t('plugins.downloader.backend.dialog.start-download-playlist.title'),
-    message: t('plugins.downloader.backend.dialog.start-download-playlist.message', {
-      playlistTitle,
-    }),
-    detail: t('plugins.downloader.backend.dialog.start-download-playlist.detail', {
-      playlistSize: items.length,
-    }),
+    message: t(
+      'plugins.downloader.backend.dialog.start-download-playlist.message',
+      {
+        playlistTitle,
+      },
+    ),
+    detail: t(
+      'plugins.downloader.backend.dialog.start-download-playlist.detail',
+      {
+        playlistSize: items.length,
+      },
+    ),
   });
 
   if (is.dev()) {
@@ -611,7 +612,7 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
         t('plugins.downloader.backend.feedback.downloading-counter', {
           current: counter,
           total: items.length,
-        })
+        }),
       );
       const trackId = isAlbum ? counter : undefined;
       await downloadSongFromId(

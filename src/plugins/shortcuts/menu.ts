@@ -36,9 +36,21 @@ export const onMenu = async ({
         type: 'keybind',
         keybindOptions: [
           // If default=undefined then no default is used
-          kb(t('plugins.shortcuts.prompt.keybind.keybind-options.previous'), 'previous', config.global?.previous),
-          kb(t('plugins.shortcuts.prompt.keybind.keybind-options.play-pause'), 'playPause', config.global?.playPause),
-          kb(t('plugins.shortcuts.prompt.keybind.keybind-options.next'), 'next', config.global?.next),
+          kb(
+            t('plugins.shortcuts.prompt.keybind.keybind-options.previous'),
+            'previous',
+            config.global?.previous,
+          ),
+          kb(
+            t('plugins.shortcuts.prompt.keybind.keybind-options.play-pause'),
+            'playPause',
+            config.global?.playPause,
+          ),
+          kb(
+            t('plugins.shortcuts.prompt.keybind.keybind-options.next'),
+            'next',
+            config.global?.next,
+          ),
         ],
         height: 270,
         ...promptOptions(),

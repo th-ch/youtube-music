@@ -39,7 +39,10 @@ export const forceUnloadPreloadPlugin = async (id: string) => {
     );
     delete loadedPluginMap[id];
   } else {
-    console.error(LoggerPrefix, t('common.console.plugins.unload-failed', { pluginName: id }));
+    console.error(
+      LoggerPrefix,
+      t('common.console.plugins.unload-failed', { pluginName: id }),
+    );
   }
 };
 
@@ -62,9 +65,15 @@ export const forceLoadPreloadPlugin = async (id: string) => {
       loadedPluginMap[id] = plugin;
     }
 
-    console.log(LoggerPrefix, t('common.console.plugins.loaded', { pluginName: id }));
+    console.log(
+      LoggerPrefix,
+      t('common.console.plugins.loaded', { pluginName: id }),
+    );
   } catch (err) {
-    console.error(LoggerPrefix, t('common.console.plugins.initialize-failed', { pluginName: id }));
+    console.error(
+      LoggerPrefix,
+      t('common.console.plugins.initialize-failed', { pluginName: id }),
+    );
     console.trace(err);
   }
 };

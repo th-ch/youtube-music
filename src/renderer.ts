@@ -159,18 +159,21 @@ async function onApiLoaded() {
  * YouTube Music still using ES5, so we need to define custom elements using ES5 style
  */
 const defineYTMDTransElements = () => {
-  const YTMDTrans = function() {};
+  const YTMDTrans = function () {};
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   YTMDTrans.prototype = Object.create(HTMLElement.prototype);
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  YTMDTrans.prototype.connectedCallback = function() {
-    const that = (this as HTMLElement);
+  YTMDTrans.prototype.connectedCallback = function () {
+    const that = this as HTMLElement;
     const key = that.getAttribute('key');
     if (key) {
       that.innerHTML = i18t(key);
     }
   };
-  customElements.define('ytmd-trans', YTMDTrans as unknown as CustomElementConstructor);
+  customElements.define(
+    'ytmd-trans',
+    YTMDTrans as unknown as CustomElementConstructor,
+  );
 };
 
 (async () => {

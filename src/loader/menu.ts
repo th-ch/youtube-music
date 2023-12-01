@@ -52,12 +52,14 @@ export const forceLoadMenuPlugin = async (id: string, win: BrowserWindow) => {
 
     console.log(
       LoggerPrefix,
-      t('common.console.plugins.loaded', { pluginName: `${id}::menu` })
+      t('common.console.plugins.loaded', { pluginName: `${id}::menu` }),
     );
   } catch (err) {
     console.error(
       LoggerPrefix,
-      t('common.console.plugins.initialize-failed', { pluginName: `${id}::menu` }),
+      t('common.console.plugins.initialize-failed', {
+        pluginName: `${id}::menu`,
+      }),
     );
     console.trace(err);
   }

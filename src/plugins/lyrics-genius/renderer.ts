@@ -1,9 +1,10 @@
 import { LoggerPrefix } from '@/utils';
 
+import { t } from '@/i18n';
+
 import type { SongInfo } from '@/providers/song-info';
 import type { RendererContext } from '@/types/contexts';
 import type { LyricsGeniusPluginConfig } from '@/plugins/lyrics-genius/index';
-import { t } from '@/i18n';
 
 export const onRendererLoad = ({
   ipc: { invoke, on },
