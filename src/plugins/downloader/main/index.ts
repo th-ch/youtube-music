@@ -347,7 +347,7 @@ async function iterableStreamToTargetFile(
     const ratio = downloaded / contentLength;
     const progress = Math.floor(ratio * 100);
     sendFeedback(
-      t('plugins.downloader.backend.feedback.downloading-progress', {
+      t('plugins.downloader.backend.feedback.download-progress', {
         percent: progress,
       }),
       ratio,
