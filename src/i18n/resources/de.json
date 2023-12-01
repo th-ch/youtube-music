@@ -43,7 +43,7 @@
                     "label": "Smoothness transition"
                 }
             },
-            "description": "Fügt einen Lichteffekt durch sanftes Abstreifen der Farben des Videos in deinen Bildschirmhintergrund hinzu"
+            "description": "Fügt einen Lichteffekt durch sanftes Abstreifen der Farben des Videos in deinen Bildschirmhintergrund hinzu."
         },
         "in-app-menu": {
             "menu": {
@@ -221,7 +221,8 @@
             },
             "backend": {
                 "connected": "Mit Discord verbunden",
-                "disconnected": "Verbindung zu Discord getrennt"
+                "disconnected": "Verbindung zu Discord getrennt",
+                "already-connected": "Versuchter Verbindungsaufbau bei aktiver Verbindung"
             },
             "name": "Discord Rich Presence"
         },
@@ -524,7 +525,8 @@
                         "label": "Menü Verstecken"
                     },
                     "always-on-top": "Immer im Vordergrund",
-                    "start-at-login": "Start at login"
+                    "start-at-login": "Start at login",
+                    "single-instance-lock": "Einzelne Instanz sperren"
                 },
                 "label": "Einstellungen"
             },
