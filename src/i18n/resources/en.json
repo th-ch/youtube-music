@@ -129,6 +129,8 @@
       "name": "Discord Rich Presence",
       "description": "Show your friends what you listen to with Rich Presence",
       "menu": {
+        "connected": "Connected",
+        "disconnected": "Disconnected",
         "auto-reconnect": "Auto reconnect",
         "clear-activity": "Clear activity",
         "clear-activity-after-timeout": "Clear activity after timeout",

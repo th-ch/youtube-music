@@ -28,7 +28,7 @@ export const onMenu = async ({
 
   return [
     {
-      label: isConnected() ? 'Connected' : 'Reconnect',
+      label: isConnected() ? t('plugins.discord.menu.connected') : t('plugins.discord.menu.disconnected'),
       enabled: !isConnected(),
       click: () => connect(),
     },
