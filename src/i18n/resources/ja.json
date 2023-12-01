@@ -152,7 +152,13 @@
                     "converting": "変換中…",
                     "download-progress": "ダウンロード：{{percent}}％",
                     "saving": "保存中…",
-                    "loading": "ロード中…"
+                    "loading": "ロード中…",
+                    "getting-playlist-info": "プレイリスト情報を取得中…",
+                    "downloading-playlist": "プレイリストダウンロード中：”{{playlistTitle}}”ー{{playlistSize}}曲（{{playlistId}}）",
+                    "downloading-counter": "ダウンロード中：{{current}}/{{total}}…",
+                    "trying-to-get-playlist-id": "プレイリストIDを取得中：{{playlistId}}",
+                    "playlist-has-only-one-song": "プレイリストに１曲しかありません。直接ダウンロードします",
+                    "folder-already-exists": "{{playlistFolder}}フォルダが既に存在します"
                 },
                 "dialog": {
                     "start-download-playlist": {
