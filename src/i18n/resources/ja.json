@@ -31,6 +31,17 @@
             "menu": {
                 "blocker": "アドブロックのタイプ"
             }
+        },
+        "compact-sidebar": {
+            "description": "サイドバーを常にコンパクトモードに設定する"
+        },
+        "crossfade": {
+            "prompt": {
+                "options": {
+                    "title": "クロスフェード設定"
+                }
+            },
+            "description": "曲の間にクロスフェードエフェクトを適用する"
         }
     },
     "language": {
