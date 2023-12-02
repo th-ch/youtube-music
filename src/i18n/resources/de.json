@@ -521,7 +521,7 @@
     "shortcuts": {
       "description": "Ermöglicht das Festlegen globaler Hotkeys für die Wiedergabe (Abspielen/Pause/Nächstes/Vorheriges) + Deaktivieren des Medien-OSD durch Überschreiben der Medientasten + Aktivieren von Strg/CMD + F zum Suchen + Aktivieren der Linux mpris-Unterstützung für Medientasten + Angepasste Tastenkürzel für fortgeschrittene Benutzer",
       "menu": {
-        "override-media-keys": "Medienschlüssel überschreiben",
+        "override-media-keys": "Medientasten überschreiben",
         "set-keybinds": "Globale Liedsteuerung setzen"
       },
       "name": "Abkürzungen (& MPRIS)",
