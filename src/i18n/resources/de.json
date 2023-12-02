@@ -59,7 +59,7 @@
       },
       "unresponsive": {
         "buttons": {
-          "quit": "Beenden",
+          "quit": "Verlassen",
           "relaunch": "Neustarten",
           "wait": "Warten"
         },
@@ -296,7 +296,7 @@
             "fade-in-duration": "Einblendezeit (Millisekunden)",
             "fade-out-duration": "Ausblendezeit (Millisekunden)",
             "fade-scaling": {
-              "label": "Fade-Skalierung",
+              "label": "Übergangsskalierung",
               "linear": "Linear",
               "logarithmic": "Logarithmisch"
             },
@@ -421,7 +421,7 @@
       "menu": {
         "romanized-lyrics": "Romanisierte Songtexte"
       },
-      "name": "Liedtext von Genius",
+      "name": "Liedtexte von Genius",
       "renderer": {
         "fetched-lyrics": "Liedtexte für Genius abgerufen"
       }
@@ -500,7 +500,7 @@
           "title": "Globale Lautstärketastenbelegungen"
         },
         "volume-steps": {
-          "label": "Wähle Schritte zur Erhöhung/Senkung der Lautstärke",
+          "label": "Wähle Schritte zur Lautstärkehebung/-senkung",
           "title": "Lautstärkestufen"
         }
       }
@@ -519,6 +519,7 @@
       "name": "Videoqualitätsänderer"
     },
     "shortcuts": {
+      "description": "Ermöglicht das Festlegen globaler Hotkeys für die Wiedergabe (Abspielen/Pause/Nächstes/Vorheriges) + Deaktivieren des Medien-OSD durch Überschreiben der Medientasten + Aktivieren von Strg/CMD + F zum Suchen + Aktivieren der Linux mpris-Unterstützung für Medientasten + Angepasste Tastenkürzel für fortgeschrittene Benutzer",
       "menu": {
         "override-media-keys": "Medienschlüssel überschreiben",
         "set-keybinds": "Globale Liedsteuerung setzen"
@@ -571,9 +572,9 @@
         "mode": {
           "label": "Modus",
           "submenu": {
-            "custom": "Angepasster Wechsler",
+            "custom": "Angepasster Schalter",
             "disabled": "Deaktiviert",
-            "native": "Eingebauter Umschalter"
+            "native": "Eingebauter Schalter"
           }
         }
       },
