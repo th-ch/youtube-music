@@ -15,7 +15,7 @@ export const onMenu = async ({
   if (is.linux()) {
     return [
       {
-        label: t('plugins.in-app-menu.hide-dom-window-controls'),
+        label: t('plugins.in-app-menu.menu.hide-dom-window-controls'),
         type: 'checkbox',
         checked: config.hideDOMWindowControls,
         click(item) {
