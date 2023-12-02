@@ -2,7 +2,8 @@
   "common": {
     "console": {
       "plugins": {
-        "load-all": "Načítání všech pluginů"
+        "load-all": "Načítání všech pluginů",
+        "loaded": "Plugin \"{{pluginName}}\" načten"
       }
     }
   },
@@ -13,11 +14,17 @@
   },
   "main": {
     "console": {
+      "i18n": {
+        "loaded": "i18n načteno"
+      },
       "second-instance": {
         "receive-command": "Received command přes protokol: \"{{command}}\""
       },
+      "theme": {
+        "css-file-not-found": "CSS soubor \"{{cssFile}}\" neexistuje, ignoring"
+      },
       "when-ready": {
-        "clearing-cache-after-20s": "Clearing mezipaměti aplikace"
+        "clearing-cache-after-20s": "Čištění mezipaměti aplikace"
       }
     },
     "dialog": {
@@ -29,14 +36,16 @@
       },
       "unresponsive": {
         "buttons": {
+          "quit": "Ukončení",
           "relaunch": "Spustit znovu",
           "wait": "Počkat"
         },
-        "detail": "Omlouváme se za způsobené nepříjemnosti! prosím vyberte, co to do:",
+        "detail": "Omlouváme se za způsobené nepříjemnosti! prosím vyberte, co dělat:",
         "message": "Aplikace nereaguje"
       },
       "update-available": {
         "buttons": {
+          "disable": "Vypnout aktualizace",
           "download": "Stáhnout",
           "ok": "OK"
         },
@@ -61,7 +70,9 @@
           "advanced-options": {
             "label": "Pokročilé možnosti",
             "submenu": {
+              "disable-hardware-acceleration": "Vypnout hardware zrychlení",
               "edit-config-json": "Upravit config.json",
+              "override-user-agent": "Přepsat User-Agent",
               "restart-on-config-changes": "Restartovat na změny v configu",
               "set-proxy": {
                 "label": "Nastavit proxy",
@@ -79,9 +90,13 @@
           },
           "language": {
             "dialog": {
-              "title": "Jazyk Změněn"
+              "message": "Jazyk bude změněn po restartu",
+              "title": "Jazyk změněn"
             },
-            "label": "Jazyk"
+            "label": "Jazyk",
+            "submenu": {
+              "to-help-translate": "Chcete pomoc s překladem? Klikněte zde"
+            }
           },
           "tray": {
             "submenu": {
@@ -111,12 +126,26 @@
       "plugins": {
         "enabled": "Povoleno",
         "label": "Pluginy"
+      },
+      "view": {
+        "submenu": {
+          "zoom-in": "Přiblížit",
+          "zoom-out": "Oddálit"
+        }
       }
+    },
+    "tray": {
+      "next": "Další",
+      "play-pause": "Hrát/Zastavit",
+      "previous": "Minulý",
+      "quit": "Ukončit",
+      "restart": "Restartovat aplikaci",
+      "show": "Ukázat okno"
     }
   },
   "plugins": {
     "adblocker": {
-      "description": "Blokuje všechny reklamy a sledování out of the box",
+      "description": "Blokuje všechny reklamy a sledování ihned od začátku",
       "menu": {
         "blocker": "Blokátor"
       },
@@ -175,10 +204,12 @@
       "name": "Obejít věková omezení"
     },
     "captions-selector": {
+      "description": "Titulkový selector pro YouTube Music audio tracks",
       "menu": {
         "autoload": "Automaticky vybrat naposledy použité titulky",
         "disable-captions": "Žádné titulky ve vychozím nastavení"
       },
+      "name": "Titulkový selector",
       "prompt": {
         "selector": {
           "label": "Aktuální jazyk titulků: {{language}}",
@@ -221,6 +252,8 @@
       },
       "description": "Ukažte svým přátelům, co posloucháte s Rich Presence",
       "menu": {
+        "connected": "Připojeno",
+        "disconnected": "Odpojeno",
         "hide-github-button": "Skrýt tlačítko s odkazem na GitHub",
         "play-on-youtube-music": "Hrát na YouTube Music"
       }
@@ -232,6 +265,7 @@
             "buttons": {
               "ok": "OK"
             },
+            "message": "Argh! Omlouvám se, stáhnutí selhalo…",
             "title": "Chyba ve stáhování!"
           },
           "start-download-playlist": {
@@ -239,11 +273,13 @@
               "ok": "OK"
             },
             "detail": "({{playlistSize}} písničky)",
+            "message": "Stahování Playlistu {{playlistTitle}}",
             "title": "Stahování začalo"
           }
         },
         "feedback": {
           "done": "Hotovo: {{filePath}}",
+          "download-info": "Stahování {{artist}} - {{title}} [{{videoId}}",
           "downloading": "Stahování…",
           "downloading-counter": "Stahování {{current}}/{{total}}…",
           "downloading-playlist": "Downloading playlist \"{{playlistTitle}}\" - {{playlistSize}} písničky ({{playlistId}})",
@@ -252,12 +288,14 @@
           "playlist-has-only-one-song": "Playlist má jenom jeden položku, downloading it directly",
           "playlist-id-not-found": "Žádný playlist ID nenalezen",
           "playlist-is-empty": "Playlist je prázdný",
+          "preparing-file": "Připravování souboru…",
           "saving": "Ukládání…",
           "video-id-not-found": "Video nebylo nalezeno"
         }
       },
       "menu": {
         "choose-download-folder": "Vybrat download složku",
+        "download-playlist": "Stáhnout playlist",
         "skip-existing": "Přeskočit existující soubory"
       },
       "name": "Stahovač",
@@ -297,6 +335,7 @@
     },
     "picture-in-picture": {
       "menu": {
+        "always-on-top": "Vždy na vrchu",
         "hotkey": {
           "label": "Klávesová zkratka",
           "prompt": {
@@ -305,11 +344,18 @@
             }
           }
         },
+        "save-window-position": "Uložit pozici okna",
         "save-window-size": "Uložit velikost okna",
         "use-native-pip": "Použít browser native PiP"
+      },
+      "name": "Obrázek v obrázku",
+      "templates": {
+        "button": "Obrázek v obrázku"
       }
     },
     "playback-speed": {
+      "description": "Posloiuchej rychle, poslouchej pomalu! Adds a slider, který kontroluje rychlost písníčky",
+      "name": "Playback rychlost",
       "templates": {
         "button": "Rychlost"
       }
@@ -354,6 +400,9 @@
     "skip-silences": {
       "description": "Automaticky přeskakovat tichá místa v písničkách",
       "name": "Přeskočit Tichá místa"
+    },
+    "taskbar-mediacontrol": {
+      "description": "Kontrolovat playback z vašeho Windows taskbar"
     },
     "video-toggle": {
       "menu": {
