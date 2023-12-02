@@ -10,7 +10,7 @@
 
 let injected = false;
 
-export const isInjected = () => isInjected;
+export const isInjected = () => injected;
 
 export const inject = () => {
   injected = true;
