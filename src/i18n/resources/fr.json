@@ -20,16 +20,33 @@
   },
   "main": {
     "console": {
+      "did-finish-load": {
+        "dev-tools": "Chargement terminé. DevTools ouvert"
+      },
+      "i18n": {
+        "loaded": "i18n chargé"
+      },
+      "second-instance": {
+        "receive-command": "Received command over protocol : \"{{command}}\""
+      },
       "theme": {
         "css-file-not-found": "Le fichier de CSS \"{{cssFile}}\" n'existe pas, ignorer"
       },
+      "unresponsive": {
+        "details": "Erreur qui ne répond pas !\n{{error}}"
+      },
       "when-ready": {
         "clearing-cache-after-20s": "Effacement du cache de l'application"
+      },
+      "window": {
+        "tried-to-render-offscreen": "La fenêtre a essayé d'effectuer un rendu hors écran, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
       }
     },
     "dialog": {
       "hide-menu-enabled": {
-        "message": "Le masquage du menu est activé"
+        "detail": "Le menu est masqué, utilisez « Alt » pour l'afficher (ou « Échap » si vous utilisez le menu de l'application)",
+        "message": "Le masquage du menu est activé",
+        "title": "Masquer le menu activé"
       },
       "need-to-restart": {
         "buttons": {
@@ -42,11 +59,17 @@
       },
       "unresponsive": {
         "buttons": {
-          "quit": "Quitté"
-        }
+          "quit": "Quitté",
+          "relaunch": "Relancer",
+          "wait": "Attendre"
+        },
+        "detail": "Nous sommes désolés du dérangement ! veuillez choisir quoi faire :",
+        "message": "L'application ne répond pas",
+        "title": "La fenêtre ne répond pas"
       },
       "update-available": {
         "buttons": {
+          "disable": "Désactiver les mises à jour",
           "download": "Télécharger",
           "ok": "Ok"
         },
@@ -60,7 +83,11 @@
       "navigation": {
         "label": "Navigation",
         "submenu": {
-          "quit": "Quitter"
+          "copy-current-url": "Copier l'URL actuelle",
+          "go-back": "Retour",
+          "go-forward": "Avancer",
+          "quit": "Quitter",
+          "restart": "Redémarrer l'application"
         }
       },
       "options": {
@@ -69,102 +96,424 @@
           "advanced-options": {
             "label": "Options avancée",
             "submenu": {
+              "auto-reset-app-cache": "Réinitialiser le cache de l'application au démarrage",
               "disable-hardware-acceleration": "Désactiver les accélérations matérielles",
               "edit-config-json": "Modifier config.json",
+              "override-user-agent": "Remplacer le User-Agent",
               "restart-on-config-changes": "Redémarrer quand la configuration change",
               "set-proxy": {
+                "label": "Définir un proxy",
                 "prompt": {
-                  "placeholder": "Exemple: socks5://127.0.0.1:9999"
+                  "label": "Entrez l'adresse proxy : (laissez vide pour désactiver)",
+                  "placeholder": "Exemple: socks5://127.0.0.1:9999",
+                  "title": "Définir un proxy"
                 }
-              }
+              },
+              "toggle-dev-tools": "Ouvrir/fermer les outils de développement"
             }
           },
+          "always-on-top": "Toujours au dessus",
           "auto-update": "Mise à jour automatique",
+          "hide-menu": {
+            "dialog": {
+              "message": "Le menu sera masqué au prochain lancement, utilisez [Alt] pour l'afficher (ou backtick [`] si vous utilisez le menu intégré à l'application)",
+              "title": "Masquer le menu activé"
+            },
+            "label": "Cacher le menu"
+          },
           "language": {
+            "dialog": {
+              "message": "La langue sera changée après le redémarrage",
+              "title": "Langue modifiée"
+            },
             "label": "Langue",
             "submenu": {
               "to-help-translate": "Envie d'aider à la traduction ? Cliquer ici"
             }
           },
+          "resume-on-start": "Reprendre la dernière chanson quand l'application démarre",
+          "single-instance-lock": "Verrouillage d'instance unique",
+          "start-at-login": "Démarrer à la connexion",
+          "starting-page": {
+            "label": "Page de démarrage",
+            "unset": "Non défini"
+          },
           "tray": {
+            "label": "Plateau",
             "submenu": {
               "disabled": "Désactivé",
-              "enabled-and-hide-app": "Activé et cacher l'app"
+              "enabled-and-hide-app": "Activé et cacher l'app",
+              "enabled-and-show-app": "Activé et afficher l'application",
+              "play-pause-on-click": "Lecture/Pause au clic"
             }
           },
           "visual-tweaks": {
+            "label": "Ajustements visuels",
             "submenu": {
               "like-buttons": {
-                "hide": "Cacher"
+                "default": "Par défaut",
+                "force-show": "Forcer à apparaître",
+                "hide": "Cacher",
+                "label": "Boutons « J'aime »"
+              },
+              "remove-upgrade-button": "Supprimer le bouton de mise à niveau",
+              "theme": {
+                "label": "Thème",
+                "submenu": {
+                  "import-css-file": "Importer fichier CSS personnalisé",
+                  "no-theme": "Pas de thème"
+                }
               }
             }
           }
         }
+      },
+      "plugins": {
+        "enabled": "Activé",
+        "label": "Extensions"
+      },
+      "view": {
+        "label": "Vue",
+        "submenu": {
+          "force-reload": "Forcer l'actualisation",
+          "reload": "Actualiser",
+          "reset-zoom": "Taille réelle",
+          "toggle-fullscreen": "Basculer en plein écran",
+          "zoom-in": "Zoom avant",
+          "zoom-out": "Zoom arrière"
+        }
       }
+    },
+    "tray": {
+      "next": "Suivant",
+      "play-pause": "Lecture/Pause",
+      "previous": "Précédent",
+      "quit": "Quitter",
+      "restart": "Redémarrer l'application",
+      "show": "Afficher la fenêtre"
     }
   },
   "plugins": {
-    "ambient-mode": {
+    "adblocker": {
+      "description": "Bloquer toutes les annonces et le suivi par défaut",
       "menu": {
+        "blocker": "Bloqueur"
+      },
+      "name": "Bloqueur de publicités"
+    },
+    "album-color-theme": {
+      "description": "Applique un thème dynamique et des effets visuels basés sur la palette des couleurs de l'album",
+      "name": "Thème de couleur d'album"
+    },
+    "ambient-mode": {
+      "description": "Applique un effet d'éclairage en jetant des couleurs douces de la vidéo, dans le fond de votre écran.",
+      "menu": {
+        "blur-amount": {
+          "label": "Quantité de flou",
+          "submenu": {
+            "pixels": "{{blurAmount}} pixels"
+          }
+        },
         "buffer": {
+          "label": "Tampon",
           "submenu": {
             "buffer": "{{buffer}}"
           }
         },
         "opacity": {
+          "label": "Opacité",
           "submenu": {
             "percent": "{{opacity}}%"
           }
         },
+        "quality": {
+          "label": "Qualité",
+          "submenu": {
+            "pixels": "{{quality}} pixels"
+          }
+        },
         "size": {
+          "label": "Taille",
           "submenu": {
             "percent": "{{size}}%"
           }
+        },
+        "smoothness-transition": {
+          "label": "Transition en douceur",
+          "submenu": {
+            "during": "Pendant {{interpolationTime}} s"
+          }
+        },
+        "use-fullscreen": {
+          "label": "Utilisation du mode plein écran"
         }
-      }
+      },
+      "name": "Mode ambiant"
+    },
+    "audio-compressor": {
+      "description": "Appliquer une compression à l'audio (diminue le volume des parties les plus fortes du signal et augmente le volume des parties les plus faibles)",
+      "name": "Compresseur audio"
+    },
+    "blur-nav-bar": {
+      "description": "Rend la barre de navigation transparente et floue",
+      "name": "Barre de navigation floue"
+    },
+    "bypass-age-restrictions": {
+      "description": "Contourner la vérification de l'âge de YouTube",
+      "name": "Contourner les restrictions d’âge"
     },
     "captions-selector": {
+      "description": "Sélecteur de sous-titres pour les pistes audio YouTube Music",
+      "menu": {
+        "autoload": "Sélectionner automatiquement la dernière légende utilisée",
+        "disable-captions": "Pas de sous-titres par défaut"
+      },
+      "name": "Sélecteur de sous-titres",
       "prompt": {
         "selector": {
-          "none": "Aucun"
+          "label": "Langue de sous-titrage actuelle : {{language}}",
+          "none": "Aucun",
+          "title": "Sélectionnez la langue des sous-titres"
         }
+      },
+      "templates": {
+        "title": "Ouvrir le sélecteur de sous-titres"
       }
     },
+    "compact-sidebar": {
+      "description": "Toujours définir la barre latérale en mode compact",
+      "name": "Barre latérale compacte"
+    },
     "crossfade": {
+      "description": "Fondu enchaîné entre les chansons",
+      "menu": {
+        "advanced": "Avancé"
+      },
+      "name": "Fondu enchaîné [bêta]",
       "prompt": {
         "options": {
           "multi-input": {
+            "fade-in-duration": "Durée du fondu (millisecondes)",
+            "fade-out-duration": "Durée du fondu (millisecondes)",
             "fade-scaling": {
+              "label": "Mise à l'échelle du fondu",
               "linear": "Linéaire",
               "logarithmic": "Logarithmique"
-            }
-          }
+            },
+            "seconds-before-end": "Fondu enchaîné N secondes avant la fin"
+          },
+          "title": "Options de fondu enchaîné"
+        }
+      }
+    },
+    "disable-autoplay": {
+      "description": "Fait démarrer la chanson en mode \"pause\"",
+      "menu": {
+        "apply-once": "S'applique seulement au démarrage"
+      },
+      "name": "Désactiver la lecture automatique"
+    },
+    "discord": {
+      "backend": {
+        "already-connected": "Tentative de connexion avec une connexion active",
+        "connected": "Connecté à Discord",
+        "disconnected": "Déconnecté de Discord"
+      },
+      "description": "Montrez à vos amis ce que vous écoutez avec Rich Presence",
+      "menu": {
+        "auto-reconnect": "Reconnexion automatique",
+        "clear-activity": "Effacer l'activité",
+        "clear-activity-after-timeout": "Effacer l’activité après un délai d’attente",
+        "connected": "Connecté",
+        "disconnected": "Déconnecté",
+        "hide-duration-left": "Masquer la durée restante",
+        "hide-github-button": "Masquer le bouton du lien GitHub",
+        "play-on-youtube-music": "Jouer sur YouTube Music",
+        "set-inactivity-timeout": "Définir le délai d'inactivité"
+      },
+      "name": "Discord Rich Presence",
+      "prompt": {
+        "set-inactivity-timeout": {
+          "label": "Entrez le délai d'inactivité en secondes :",
+          "title": "Définir le délai d'inactivité"
         }
       }
     },
     "downloader": {
       "backend": {
         "dialog": {
+          "error": {
+            "buttons": {
+              "ok": "Ok"
+            },
+            "message": "Argh ! Désolé, le téléchargement a échoué…",
+            "title": "Erreur de téléchargement !"
+          },
           "start-download-playlist": {
+            "buttons": {
+              "ok": "Ok"
+            },
             "detail": "({{playlistSize}} chansons)",
+            "message": "Téléchargement de la playlist {{playlistTitle}}",
             "title": "Téléchargement a commencé"
           }
         },
         "feedback": {
+          "conversion-progress": "Conversion : {{percent}} %",
+          "converting": "Conversion…",
+          "done": "Terminé : {{filePath}}",
+          "download-info": "Téléchargement {{artist}} - {{title}} [{{videoId}}",
           "download-progress": "Télécharger: {{percent}}%",
           "downloading": "Télécharge…",
           "downloading-counter": "Télécharge {{current}}/{{total}}…",
+          "downloading-playlist": "Téléchargement de la playlist \"{{playlistTitle}}\" – {{playlistSize}} chansons ({{playlistId}})",
+          "error-while-downloading": "Erreur lors du téléchargement de \"{{author}} - {{title}}\" : {{error}}",
+          "folder-already-exists": "Le dossier {{playlistFolder}} existe déjà",
+          "getting-playlist-info": "Obtention d'informations sur la liste de lecture…",
+          "loading": "Chargement…",
+          "playlist-has-only-one-song": "La liste de lecture ne contient qu'un seul élément, téléchargement du morceau seul",
+          "playlist-id-not-found": "Aucun ID de liste de lecture trouvé",
+          "playlist-is-empty": "La liste de lecture est vide",
+          "playlist-is-mix-or-private": "Erreur lors de l'obtention des informations sur la liste de lecture : assurez-vous qu'il ne s'agit pas d'une liste privée ou \"Mixée pour vous\"\n\n{{error}}",
           "preparing-file": "Péparer des fichier…",
-          "saving": "Sauvegarde…"
+          "saving": "Sauvegarde…",
+          "trying-to-get-playlist-id": "Obtention de l'ID de la liste de lecture : {{playlistId}}",
+          "video-id-not-found": "Vidéo non trouvée",
+          "writing-id3": "Écriture des balises ID3…"
         }
       },
+      "description": "Télécharge les fichiers MP3/source audio directement depuis l'interface",
+      "menu": {
+        "choose-download-folder": "Choisissez le dossier de téléchargement",
+        "download-playlist": "Télécharger la liste de lecture",
+        "presets": "Préconfigurations",
+        "skip-existing": "Passer les fichiers existants"
+      },
       "name": "Téléchargeur",
+      "renderer": {
+        "can-not-update-progress": "Impossible de mettre à jour la progression"
+      },
       "templates": {
         "button": "Télécharger"
       }
     },
+    "exponential-volume": {
+      "description": "Rend le curseur de volume exponentiel afin qu'il soit plus facile de sélectionner des volumes plus faibles.",
+      "name": "Volume exponentiel"
+    },
+    "in-app-menu": {
+      "description": "Donne aux barres de menus un aspect élégant, sombre ou aux couleurs de l'album",
+      "menu": {
+        "hide-dom-window-controls": "Masquer les contrôles de la fenêtre DOM"
+      },
+      "name": "Menu intégré à l'application"
+    },
     "last-fm": {
+      "description": "Ajouter le support du scrobbling pour Last.fm",
       "name": "Last.fm"
+    },
+    "lumiastream": {
+      "description": "Ajoute la prise en charge de Lumia Stream",
+      "name": "Lumia Stream [bêta]"
+    },
+    "lyrics-genius": {
+      "description": "Ajoute la prise en charge des paroles pour la plupart des chansons",
+      "menu": {
+        "romanized-lyrics": "Paroles romanisées"
+      },
+      "name": "Paroles Genius",
+      "renderer": {
+        "fetched-lyrics": "Paroles récupérées pour Genius"
+      }
+    },
+    "navigation": {
+      "description": "Flèches de navigation Suivant/Retour directement intégrées dans l'interface, comme dans votre navigateur préféré",
+      "name": "Navigation"
+    },
+    "no-google-login": {
+      "description": "Supprimer les boutons et liens de connexion Google de l'interface",
+      "name": "Pas de connexion Google"
+    },
+    "notifications": {
+      "description": "Afficher une notification quand une chanson commence à jouer (les notifications interactives sont disponibles sur Windows)",
+      "menu": {
+        "interactive": "Notifications interactives",
+        "interactive-settings": {
+          "label": "Paramètres interactifs",
+          "submenu": {
+            "hide-button-text": "Masquer le texte du bouton",
+            "refresh-on-play-pause": "Actualiser lors de la lecture/pause",
+            "tray-controls": "Ouvrir/Fermer sur le plateau, cliquez"
+          }
+        },
+        "priority": "Priorité des notifications",
+        "toast-style": "Style des notifications \"Toast\"",
+        "unpause-notification": "Afficher la notification lors de la reprise"
+      },
+      "name": "Notifications"
+    },
+    "picture-in-picture": {
+      "description": "Permet de basculer l’application en mode image dans image",
+      "menu": {
+        "always-on-top": "Toujours en haut",
+        "hotkey": {
+          "label": "Raccourci clavier",
+          "prompt": {
+            "keybind-options": {
+              "hotkey": "Raccourci clavier"
+            },
+            "label": "Choisissez un raccourci clavier pour activer l'image dans l'image",
+            "title": "Touche de raccourci Image dans l'image"
+          }
+        },
+        "save-window-position": "Enregistrer la position de la fenêtre",
+        "save-window-size": "Enregistrer la taille de la fenêtre",
+        "use-native-pip": "Utiliser le mode image dans image natif du navigateur"
+      },
+      "name": "Image dans l'image",
+      "templates": {
+        "button": "Image dans l'image"
+      }
+    },
+    "playback-speed": {
+      "description": "Écoutez vite, écoutez lentement ! Ajoute un curseur qui contrôle la vitesse de la chanson",
+      "name": "Vitesse de lecture",
+      "templates": {
+        "button": "Vitesse"
+      }
+    },
+    "precise-volume": {
+      "description": "Contrôlez le volume avec précision à l'aide de la molette de la souris/des raccourcis clavier, avec une interface personnalisée et des étapes de volume personnalisables",
+      "menu": {
+        "arrows-shortcuts": "Commandes locales des touches fléchées",
+        "custom-volume-steps": "Définir des étapes de volume personnalisées",
+        "global-shortcuts": "Raccourcis clavier globaux"
+      },
+      "name": "Volume précis",
+      "prompt": {
+        "global-shortcuts": {
+          "keybind-options": {
+            "decrease": "Diminuer le volume",
+            "increase": "Augmenter le volume"
+          },
+          "label": "Choisissez les raccourcis clavier du volume global :",
+          "title": "Raccourcis clavier de volume global"
+        },
+        "volume-steps": {
+          "label": "Choisissez les étapes d'augmentation/diminution du volume",
+          "title": "Étapes de volume"
+        }
+      }
+    },
+    "quality-changer": {
+      "backend": {
+        "dialog": {
+          "quality-changer": {
+            "detail": "Qualité actuelle : {{quality}}",
+            "message": "Choisissez la qualité vidéo :"
+          }
+        }
+      }
     }
   }
 }
