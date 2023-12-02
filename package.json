@@ -163,7 +163,7 @@
     "node-id3": "0.2.6",
     "serve": "14.2.1",
     "simple-youtube-age-restriction-bypass": "github:organization/Simple-YouTube-Age-Restriction-Bypass#v2.5.9",
-    "ts-morph": "20.0.0",
+    "ts-morph": "21.0.1",
     "vudio": "2.1.1",
     "x11": "2.3.0",
     "youtubei.js": "8.0.0"
