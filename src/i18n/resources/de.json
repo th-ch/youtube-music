@@ -36,7 +36,7 @@
         "details": "Nicht reagierender Fehler!\n{{error}}"
       },
       "when-ready": {
-        "clearing-cache-after-20s": "Leere App-Cache"
+        "clearing-cache-after-20s": "Leere Anwendungscache"
       },
       "window": {
         "tried-to-render-offscreen": "Fenster vesucht außerhalb des Bildschirms zu rendern, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
