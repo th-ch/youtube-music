@@ -1,7 +1,121 @@
 {
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "插件 {{pluginName}} 無法被執行::{{contextName}}",
+        "executed-at-ms": "插件 {{pluginName}} ::{{contextName}} 用了 {{ms}} ms 來執行",
+        "initialize-failed": "初始化插件 \"{{pluginName}}\" 失敗",
+        "load-all": "載入所有插件",
+        "load-failed": "載入插件 \"{{pluginName}}\" 失敗",
+        "loaded": "插件 \"{{pluginName}}\" 已被載入",
+        "unload-failed": "解除安裝插件 \"{{pluginName}}\" 失敗",
+        "unloaded": "插件 \"{{pluginName}}\" 已被解除安裝"
+      }
+    }
+  },
   "language": {
     "code": "zh-TW",
     "local-name": "正體字",
     "name": "Traditional Chinese"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "載入完成。開發者工具已開啟"
+      },
+      "i18n": {
+        "loaded": "i18n 已載入"
+      },
+      "second-instance": {
+        "receive-command": "使用協定來接收指令: \"{{command}}\""
+      },
+      "theme": {
+        "css-file-not-found": "CSS 檔案 \"{{cssFile}}\" 不存在，已忽略"
+      },
+      "unresponsive": {
+        "details": "無回應錯誤！\n{{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "清理程式的快取資料"
+      },
+      "window": {
+        "tried-to-render-offscreen": "視窗正嘗試在螢幕外渲染，視窗大小 = {{windowSize}}，螢幕大小 = {{displaySize}}，位置 = {{position}}"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "detail": "選單已隱藏，使用 'Alt' 鍵來重新顯示（或是使用空白鍵來使用程式內選單）",
+        "message": "隱藏選單已經啟用",
+        "title": "隱藏選單已啟用"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "稍後",
+          "restart-now": "立即重啟"
+        },
+        "detail": "插件 \"{{pluginName}}\" 需要程式重新啟動之後才會生效",
+        "message": "\"{{pluginName}}\" 需要重新啟動",
+        "title": "需要重新啟動"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "離開",
+          "relaunch": "重新啟動",
+          "wait": "等一下"
+        },
+        "detail": "造成不便我們深表歉意！請選擇動作：",
+        "message": "應用程式無回應",
+        "title": "視窗無回應"
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "關閉更新",
+          "download": "下載",
+          "ok": "OK"
+        },
+        "detail": "新的版本已經推出，你可以到 {{downloadLink}} 下載",
+        "message": "有新版本可用",
+        "title": "有可用的更新"
+      }
+    },
+    "menu": {
+      "about": "關於",
+      "navigation": {
+        "label": "導覽列",
+        "submenu": {
+          "copy-current-url": "複製目前的網址",
+          "go-back": "回到上一頁",
+          "go-forward": "回到下一頁",
+          "quit": "退出",
+          "restart": "重啟程式"
+        }
+      },
+      "options": {
+        "label": "選項",
+        "submenu": {
+          "advanced-options": {
+            "label": "進階選項",
+            "submenu": {
+              "auto-reset-app-cache": "當程式啟動時重置應用程式快取",
+              "disable-hardware-acceleration": "關閉硬體加速",
+              "edit-config-json": "編輯 config.json",
+              "override-user-agent": "複寫用戶代理",
+              "restart-on-config-changes": "重新啟動來更改配置",
+              "set-proxy": {
+                "label": "設定代理伺服器",
+                "prompt": {
+                  "label": "輸入代理伺服器位置：（留空以停用本設定）",
+                  "placeholder": "示例： socks5://127.0.0.1:9999",
+                  "title": "設定代理伺服器"
+                }
+              },
+              "toggle-dev-tools": "切換開發者工具"
+            }
+          },
+          "always-on-top": "永遠顯示在最上層",
+          "auto-update": "自動更新"
+        }
+      }
+    }
   }
 }
