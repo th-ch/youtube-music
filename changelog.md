@@ -2,7 +2,41 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v3.0.0](https://github.com/th-ch/youtube-music/compare/v2.2.0...v3.0.0)
+
+- Add text to Translation section [`#1470`](https://github.com/th-ch/youtube-music/pull/1470)
+- fix(deps): update dependency youtubei.js to v8 [`#1473`](https://github.com/th-ch/youtube-music/pull/1473)
+- chore(deps): update dependency electron to v27.1.3 [`#1471`](https://github.com/th-ch/youtube-music/pull/1471)
+- fix(deps): update dependency @xhayper/discord-rpc to v1.1.1 [`#1472`](https://github.com/th-ch/youtube-music/pull/1472)
+- feat: add support i18n [`#1468`](https://github.com/th-ch/youtube-music/pull/1468)
+- chore(deps): update dependency electron to v27.1.2 [`#1441`](https://github.com/th-ch/youtube-music/pull/1441)
+- Nicer Readme [`#1439`](https://github.com/th-ch/youtube-music/pull/1439)
+- Windows Zoom, ScaleFactor [`#1402`](https://github.com/th-ch/youtube-music/pull/1402)
+- chore(deps): bump axios from 1.5.1 to 1.6.1 [`#1400`](https://github.com/th-ch/youtube-music/pull/1400)
+- Updated mac icon to better reflect the Mac styling [`#1395`](https://github.com/th-ch/youtube-music/pull/1395)
+- feat: rename plugins to clarify context [`#1392`](https://github.com/th-ch/youtube-music/pull/1392)
+- feat: refactor plugin utils [`#1391`](https://github.com/th-ch/youtube-music/pull/1391)
+- feat: plugin auto-importer with `vite-plugin-resolve` [`#1385`](https://github.com/th-ch/youtube-music/pull/1385)
+- feat: migrate from `rollup` to `electron-vite` [`#1364`](https://github.com/th-ch/youtube-music/pull/1364)
+- feat: enable `context-isolation` [`#1361`](https://github.com/th-ch/youtube-music/pull/1361)
+- fix: add workaround for `podcast` type video [`#1362`](https://github.com/th-ch/youtube-music/pull/1362)
+- fix: fix broken menu-layout [`#1360`](https://github.com/th-ch/youtube-music/pull/1360)
+- Add Homebrew cask install option for MacOS. [`#1357`](https://github.com/th-ch/youtube-music/pull/1357)
+- feat: changed Zoom shortcuts to standard [`#1458`](https://github.com/th-ch/youtube-music/issues/1458)
+- fix(in-app-menu): fix #1436 [`#1436`](https://github.com/th-ch/youtube-music/issues/1436)
+- fix(discord): update application client-id [`#1431`](https://github.com/th-ch/youtube-music/issues/1431)
+- chore(deps): update dependency electron to v27.0.4 [`#1324`](https://github.com/th-ch/youtube-music/issues/1324)
+- fix(in-app-menu): panel should close with the window when it is closed [`#1389`](https://github.com/th-ch/youtube-music/issues/1389)
+- fix: change titleBarOverlay height based on zoomFactor [`#1375`](https://github.com/th-ch/youtube-music/issues/1375)
+- fix: fixed an issue if "Always on top" is enabled, the dialog is displayed below the window [`#1379`](https://github.com/th-ch/youtube-music/issues/1379)
+- fix: fix winget version (fix #1363) [`#1363`](https://github.com/th-ch/youtube-music/issues/1363)
+- feat: run prettier [`a3104fd`](https://github.com/th-ch/youtube-music/commit/a3104fda4b0d58b076d0c737111636a66e468acc)
+- Translated using Weblate (Korean) [`b4b7ad8`](https://github.com/th-ch/youtube-music/commit/b4b7ad824b8c489ae483eba139b46e5b200231fc)
+- Translated using Weblate (English) [`d2eabaa`](https://github.com/th-ch/youtube-music/commit/d2eabaa4bbccd89eae529eae52cec035e8e2620c)
+
 #### [v2.2.0](https://github.com/th-ch/youtube-music/compare/v2.1.3...v2.2.0)
+
+> 27 October 2023
 
 - feat(ambient-mode): add config for `ambient-mode` plugin [`#1349`](https://github.com/th-ch/youtube-music/pull/1349)
 - bump deps [`4248d20`](https://github.com/th-ch/youtube-music/commit/4248d20e8ef926ce7b1d07eb83743755a341d9f6)
