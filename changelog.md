@@ -2,7 +2,16 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
-#### [v3.0.0](https://github.com/th-ch/youtube-music/compare/v2.2.0...v3.0.0)
+#### [v3.0.1](https://github.com/th-ch/youtube-music/compare/v3.0.0...v3.0.1)
+
+- hotfix(adblocker): fix #1475 [`#1475`](https://github.com/th-ch/youtube-music/issues/1475)
+- Translated using Weblate (French) [`7f02afc`](https://github.com/th-ch/youtube-music/commit/7f02afc5a6839adfe8437d4e2cc8dee13a93b311)
+- Update changelog for v3.0.0 [`d8c8bd1`](https://github.com/th-ch/youtube-music/commit/d8c8bd17ecfbdf96ebd29eb4c5748c07876ee242)
+- Translated using Weblate (German) [`0660f0b`](https://github.com/th-ch/youtube-music/commit/0660f0b7ce6895ef5800f48ade1da2d7f8e0c1f7)
+
+### [v3.0.0](https://github.com/th-ch/youtube-music/compare/v2.2.0...v3.0.0)
+
+> 2 December 2023
 
 - Add text to Translation section [`#1470`](https://github.com/th-ch/youtube-music/pull/1470)
 - fix(deps): update dependency youtubei.js to v8 [`#1473`](https://github.com/th-ch/youtube-music/pull/1473)
