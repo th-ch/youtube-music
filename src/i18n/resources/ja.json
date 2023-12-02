@@ -2,7 +2,7 @@
   "common": {
     "console": {
       "plugins": {
-        "execute-failed": "プラグインの実行に失敗 {{pluginName}}::{{contextName}}",
+        "execute-failed": "プラグイン・{{pluginName}}:{{contextName}}を実行できませんでした",
         "executed-at-ms": "プラグイン {{pluginName}}::{{contextName}} は {{ms}}ms で実行されました",
         "initialize-failed": "プラグイン \"{{pluginName}}\" の初期化に失敗",
         "load-all": "すべてのプラグインをロード中",
