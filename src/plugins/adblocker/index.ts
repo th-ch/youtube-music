@@ -113,8 +113,6 @@ export default createPlugin({
       if (config.blocker === blockers.WithBlocklists) {
         // Preload adblocker to inject scripts/styles
         await injectCliqzPreload();
-      } else if (config.blocker === blockers.InPlayer) {
-        inject();
       }
     },
     async onConfigChange(newConfig) {
