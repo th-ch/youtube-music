@@ -2,7 +2,7 @@
   "common": {
     "console": {
       "plugins": {
-        "execute-failed": "Plugin {{pluginName}}::{{contextName}} konnte nicht ausgeführt werden",
+        "execute-failed": "Erweiterung {{pluginName}}::{{contextName}} konnte nicht ausgeführt werden",
         "executed-at-ms": "Erweiterung {{pluginName}}::{{contextName}} ausgeführt in {{ms}}ms",
         "initialize-failed": "Initialisierung der Erweiterung \"{{pluginName}}\" fehlgeschlagen",
         "load-all": "Lade alle Erweiterungen",
@@ -63,7 +63,7 @@
           "relaunch": "Neustarten",
           "wait": "Warten"
         },
-        "detail": "Wir entschuldigen uns für die Unannehmlichkeiten! Bitte entscheiden Sie, was Sie tun möchten:",
+        "detail": "Wir entschuldigen uns für die Unannehmlichkeiten! Bitte entscheide, was du tun möchtest:",
         "message": "Die Anwendung reagiert nicht",
         "title": "Fenster reagiert nicht"
       },
@@ -149,8 +149,8 @@
             "submenu": {
               "like-buttons": {
                 "default": "Standard",
-                "force-show": "Zeigen erzwingen",
-                "hide": "Verstecken",
+                "force-show": "Zeigen erzwungen",
+                "hide": "Versteckt",
                 "label": "Gefällt mir-Knopf"
               },
               "remove-upgrade-button": "Upgrade-Schaltfläche entfernen",
@@ -167,7 +167,7 @@
       },
       "plugins": {
         "enabled": "Aktiviert",
-        "label": "„Plugins"
+        "label": "Erweiterungen"
       },
       "view": {
         "label": "Ansicht",
@@ -182,9 +182,9 @@
       }
     },
     "tray": {
-      "next": "Nächster",
-      "play-pause": "Wiedergabe/Pause",
-      "previous": "Vorheriger",
+      "next": "Nächstes",
+      "play-pause": "Weiter/Pause",
+      "previous": "Vorheriges",
       "quit": "Beenden",
       "restart": "Anwendung neu starten",
       "show": "Fenster anzeigen"
@@ -242,10 +242,10 @@
           }
         },
         "use-fullscreen": {
-          "label": "Nutze Vollbild"
+          "label": "Vollbild nutzen"
         }
       },
-      "name": "Ambiente Modus"
+      "name": "Ambiente-Modus"
     },
     "audio-compressor": {
       "description": "Kompressor auf Audio anwenden (senkt die Lautstärke der lautesten Teile des Signals und hebt die Lautstärke der leisesten Teile an)",
@@ -525,7 +525,7 @@
         "keybind": {
           "keybind-options": {
             "next": "Nächstes",
-            "play-pause": "Abspielen / Pausieren",
+            "play-pause": "Weiter / Pause",
             "previous": "Vorheriges"
           },
           "label": "Wählen Sie globale Keybinds für die Songsteuerung:",
