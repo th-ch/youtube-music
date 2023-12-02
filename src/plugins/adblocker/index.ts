@@ -120,11 +120,20 @@ export default createPlugin({
     async onConfigChange(newConfig) {
       if (newConfig.blocker === blockers.WithBlocklists) {
         await injectCliqzPreload();
-      } else if (newConfig.blocker === blockers.InPlayer) {
-        if (!isInjected()) {
-          inject();
-        }
       }
     },
   },
+  renderer: {
+    async start({ getConfig }) {
+      const config = await getConfig();
+      if (config.blocker === blockers.InPlayer && !isInjected()) {
+        inject();
+      }
+    },
+    onConfigChange(newConfig) {
+      if (newConfig.blocker === blockers.InPlayer && !isInjected()) {
+        inject();
+      }
+    },
+  }
 });
