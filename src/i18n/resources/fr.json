@@ -96,7 +96,6 @@
           "download-progress": "Télécharger: {{percent}}%",
           "downloading": "Télécharge…",
           "downloading-counter": "Télécharge {{current}}/{{total}}…",
-          "preparing-file": "",
           "saving": "Sauvegarde…"
         }
       },
@@ -107,9 +106,6 @@
     },
     "last-fm": {
       "name": "Last.fm"
-    },
-    "lumiastream": {
-      "name": ""
     }
   }
 }
