@@ -96,6 +96,7 @@
           "download-progress": "Télécharger: {{percent}}%",
           "downloading": "Télécharge…",
           "downloading-counter": "Télécharge {{current}}/{{total}}…",
+          "preparing-file": "Péparer des fichier…",
           "saving": "Sauvegarde…"
         }
       },
