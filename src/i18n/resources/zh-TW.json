@@ -33,7 +33,7 @@
         "css-file-not-found": "CSS 檔案「{{cssFile}}」不存在，已忽略"
       },
       "unresponsive": {
-        "details": "無回應錯誤！\n{{error}}"
+        "details": "沒有回應錯誤！\n{{error}}"
       },
       "when-ready": {
         "clearing-cache-after-20s": "清理程式的快取資料"
@@ -122,32 +122,32 @@
           },
           "language": {
             "dialog": {
-              "message": "語言會在下一次重啟應用時變更",
+              "message": "語言會在下一次重啟應用程式時變更",
               "title": "語言已變更"
             },
             "label": "語言",
             "submenu": {
-              "to-help-translate": "想要協助翻譯?點擊這裡"
+              "to-help-translate": "想要協助翻譯？按一下這裡"
             }
           },
-          "resume-on-start": "繼續上次關閉應用前的音樂",
+          "resume-on-start": "繼續上次關閉應用程式前的音樂",
           "single-instance-lock": "禁止多開應用程式",
           "start-at-login": "開機時啟動",
           "starting-page": {
             "label": "啟動頁面",
-            "unset": "未設置"
+            "unset": "未設定"
           },
           "tray": {
             "label": "系統閘",
             "submenu": {
               "disabled": "已停用",
-              "enabled-and-hide-app": "啟用並隱藏應用",
-              "enabled-and-show-app": "啟用並顯示應用",
-              "play-pause-on-click": "點擊時播放/暫停"
+              "enabled-and-hide-app": "啟用並隱藏應用程式",
+              "enabled-and-show-app": "啟用並顯示應用程式",
+              "play-pause-on-click": "點擊時開始／暫停播放"
             }
           },
           "visual-tweaks": {
-            "label": "視覺設置",
+            "label": "視覺設定",
             "submenu": {
               "like-buttons": {
                 "default": "預設",
@@ -159,7 +159,7 @@
               "theme": {
                 "label": "主題",
                 "submenu": {
-                  "import-css-file": "匯入自訂CSS檔案",
+                  "import-css-file": "匯入自訂 CSS 檔案",
                   "no-theme": "無主題"
                 }
               }
@@ -185,7 +185,7 @@
     },
     "tray": {
       "next": "下一首",
-      "play-pause": "播放/暫停",
+      "play-pause": "開始／暫停播放",
       "previous": "上一首",
       "quit": "關閉",
       "restart": "重啟應用",
@@ -283,7 +283,17 @@
       "name": "收合側邊欄"
     },
     "crossfade": {
-      "description": "在歌曲之間使用交叉淡化"
+      "description": "在歌曲之間使用交叉淡化",
+      "menu": {
+        "advanced": "進階"
+      },
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "fade-in-duration": "淡入時間（毫秒）"
+          }
+        }
+      }
     }
   }
 }
