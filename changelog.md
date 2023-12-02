@@ -2,7 +2,17 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v3.0.2](https://github.com/th-ch/youtube-music/compare/v3.0.1...v3.0.2)
+
+- fix(adblocker): fix In-Player adblocker [`#1478`](https://github.com/th-ch/youtube-music/issues/1478)
+- fix(menu): crash on linux [`#1477`](https://github.com/th-ch/youtube-music/issues/1477)
+- fix: update pnpm-lock.yaml [`9e2c6b1`](https://github.com/th-ch/youtube-music/commit/9e2c6b1afa33b5708853c8328946e68ec45b09c3)
+- Translated using Weblate (Chinese (Traditional)) [`125b69f`](https://github.com/th-ch/youtube-music/commit/125b69fd75a05c3eb893886119e2d9f2332b3e56)
+- Translated using Weblate (French) [`15c4551`](https://github.com/th-ch/youtube-music/commit/15c455105b5100a8ee2bd0a4631548d3d455f047)
+
 #### [v3.0.1](https://github.com/th-ch/youtube-music/compare/v3.0.0...v3.0.1)
+
+> 2 December 2023
 
 - hotfix(adblocker): fix #1475 [`#1475`](https://github.com/th-ch/youtube-music/issues/1475)
 - Translated using Weblate (French) [`7f02afc`](https://github.com/th-ch/youtube-music/commit/7f02afc5a6839adfe8437d4e2cc8dee13a93b311)
