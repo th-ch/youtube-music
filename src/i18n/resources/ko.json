@@ -81,7 +81,7 @@
     "menu": {
       "about": "정보",
       "navigation": {
-        "label": "내비게이션",
+        "label": "탐색",
         "submenu": {
           "copy-current-url": "현재 URL 복사",
           "go-back": "뒤로 가기",
@@ -255,7 +255,7 @@
       "name": "오디오 컴프레서"
     },
     "blur-nav-bar": {
-      "description": "내비게이션 바를 투명하고 흐릿하게 만듭니다",
+      "description": "탐색 바를 투명하고 흐릿하게 만듭니다",
       "name": "네비게이션 바 흐림 효과"
     },
     "bypass-age-restrictions": {
