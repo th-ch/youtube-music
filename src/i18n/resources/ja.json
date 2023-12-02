@@ -17,6 +17,21 @@
     "console": {
       "did-finish-load": {
         "dev-tools": "ロード完了。デベロッパーツールが開きました"
+      },
+      "i18n": {
+        "loaded": "翻訳ロード完了"
+      },
+      "second-instance": {
+        "receive-command": "プロトコルより命令を受けました：”{{command}}”"
+      },
+      "theme": {
+        "css-file-not-found": "CSSファイル”{{cssFile}}”が存在しません。無視します"
+      },
+      "unresponsive": {
+        "details": "応答なしエラー！\n{{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "アプリキャッシュ削除"
       }
     },
     "dialog": {
