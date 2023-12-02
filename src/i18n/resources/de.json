@@ -128,7 +128,7 @@
             },
             "label": "Sprache",
             "submenu": {
-              "to-help-translate": "Möchten Sie bei der Übersetzung helfen? Klicken Sie auf diese Schaltfläche"
+              "to-help-translate": "Willst du beim Übersetzen helfen? Klicke hier"
             }
           },
           "resume-on-start": "Letztes Lied weiter abspielen, wenn Anwendung startet",
@@ -175,7 +175,7 @@
       "view": {
         "label": "Ansicht",
         "submenu": {
-          "force-reload": "Nachladen erzwingen",
+          "force-reload": "Neuladen erzwingen",
           "reload": "Neu laden",
           "reset-zoom": "Tatsächliche Größe",
           "toggle-fullscreen": "Vollbild umschalten",
@@ -203,7 +203,7 @@
     },
     "album-color-theme": {
       "description": "Wendet ein dynamisches Farbthema und visuelle Effekte auf Basis der Farbpalette des Albumcovers an",
-      "name": "Albumfarbenthema"
+      "name": "Thema aus Albumfarbe"
     },
     "ambient-mode": {
       "description": "Fügt einen Lichteffekt durch sanftes Abstreifen der Farben des Videos in deinen Bildschirmhintergrund hinzu.",
@@ -309,7 +309,7 @@
     "disable-autoplay": {
       "description": "Startet Lied im pausierten Modus",
       "menu": {
-        "apply-once": "Wird nur beim Starten der Anwendungen angewendet"
+        "apply-once": "Nur beim Start der Anwendung anwenden"
       },
       "name": "Deaktiviere automatisches Abspielen"
     },
@@ -319,19 +319,19 @@
         "connected": "Mit Discord verbunden",
         "disconnected": "Verbindung zu Discord getrennt"
       },
-      "description": "Zeige deinen Freunden, was du hörst mit Rich Presence",
+      "description": "Zeige deinen Freunden, was du hörst mit Discords Aktivitätsstatus",
       "menu": {
         "auto-reconnect": "Automatisch erneut verbinden",
         "clear-activity": "Aktivität leeren",
         "clear-activity-after-timeout": "Aktivität nach Timeout leeren",
         "connected": "Verbunden",
         "disconnected": "Getrennt",
-        "hide-duration-left": "Verstecke verbleibende Zeit",
-        "hide-github-button": "Die Schaltfläche mit dem Link zu GitHub ausblenden",
-        "play-on-youtube-music": "Auf YouTube Music spielen",
+        "hide-duration-left": "Verbleibende Zeit verstecken",
+        "hide-github-button": "Knopf mit Link zu GitHub ausblenden",
+        "play-on-youtube-music": "Auf YouTube Music abspielen",
         "set-inactivity-timeout": "Inaktivitätstimeout setzen"
       },
-      "name": "Discord-reiche Präsenz",
+      "name": "Discords Aktivitätsstatus",
       "prompt": {
         "set-inactivity-timeout": {
           "label": "Inaktivitätstimeout in Sekunden eingeben:",
@@ -382,7 +382,7 @@
           "writing-id3": "Schreibe ID3 tags…"
         }
       },
-      "description": "MP3-/Original-Audio direkt von der Schnittstelle herunterladen",
+      "description": "Lädt MP3-/Original-Audio direkt von der Schnittstelle herunter",
       "menu": {
         "choose-download-folder": "Downloadordner wählen",
         "download-playlist": "Wiedergabeliste herunterladen",
@@ -485,7 +485,7 @@
     "precise-volume": {
       "description": "Präzise Steuerung der Lautstärke mit dem Mausrad/Numpad mit einem benutzerdefinierten HUD und benutzerdefinierten Lautstärkestufen",
       "menu": {
-        "arrows-shortcuts": "Lokale Pfeiltasten Steuerelemente",
+        "arrows-shortcuts": "Lokale Pfeiltasten als Steuerung",
         "custom-volume-steps": "Eigene Lautstärkestufen setzen",
         "global-shortcuts": "Globale Tastenkürzel"
       },
@@ -520,8 +520,8 @@
     },
     "shortcuts": {
       "menu": {
-        "override-media-keys": "Medienschlüssel außer Kraft setzen",
-        "set-keybinds": "Globale Songkontrollen einstellen"
+        "override-media-keys": "Medienschlüssel überschreiben",
+        "set-keybinds": "Globale Liedsteuerung setzen"
       },
       "name": "Abkürzungen (& MPRIS)",
       "prompt": {
@@ -531,7 +531,7 @@
             "play-pause": "Weiter / Pause",
             "previous": "Vorheriges"
           },
-          "label": "Wählen Sie globale Keybinds für die Songsteuerung:",
+          "label": "Wähle globale Tastenkombinationen für die Liedsteuerung:",
           "title": "Globale Tastenkombinationen"
         }
       }
