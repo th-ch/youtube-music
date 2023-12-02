@@ -20,6 +20,8 @@
 	</a>
 </div>
 
+Read this in other languages: [🇰🇷](./docs/readme/README-ko.md)
+
 **Electron wrapper around YouTube Music featuring:**
 
 - Native look & feel, aims at keeping the original interface
@@ -253,7 +255,7 @@ export default createPlugin({
     },
     // it fired when config changed
     onConfigChange(newConfig) { /* ... */ },
-    // you can also clean up plugin
+    // it fired when plugin disabled
     stop(context) { /* ... */ },
   },
   renderer: {
@@ -317,7 +319,7 @@ const builder = createPlugin({
 });
 ```
 
-- communicating between the front and back: can be done using the ipcMain module from electron. See `utils.js` file and
+- communicating between the front and back: can be done using the ipcMain module from electron. See `index.ts` file and
   example in `sponsorblock` plugin.
 
 ## Build
