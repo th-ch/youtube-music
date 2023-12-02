@@ -44,7 +44,7 @@
     },
     "dialog": {
       "hide-menu-enabled": {
-        "detail": "'Alt' 키를 눌러 숨겨진 메뉴를 표시할 수 있습니다 (인앱 메뉴를 사용하는 경우 'esc' 키를 사용)",
+        "detail": "'Alt' 키를 눌러 숨겨진 메뉴를 표시할 수 있습니다 (인앱 메뉴를 사용하는 경우 'Esc' 키를 사용)",
         "message": "메뉴 숨기기가 활성화되어 있습니다",
         "title": "메뉴 숨기기 활성화됨"
       },
@@ -74,14 +74,14 @@
           "ok": "확인"
         },
         "detail": "새 버전이 출시되었습니다. {{downloadLink}}에서 다운로드할 수 있습니다",
-        "message": "새 버전이 사용 가능합니다",
+        "message": "새 버전을 사용할 수 있습니다",
         "title": "업데이트 사용 가능"
       }
     },
     "menu": {
       "about": "정보",
       "navigation": {
-        "label": "네비게이션",
+        "label": "내비게이션",
         "submenu": {
           "copy-current-url": "현재 URL 복사",
           "go-back": "뒤로 가기",
@@ -263,7 +263,7 @@
       "name": "나이 제한 우회"
     },
     "captions-selector": {
-      "description": "YouTube Music 트랙 용 자막 선택기입니다",
+      "description": "YouTube Music 트랙용 자막 선택기입니다",
       "menu": {
         "autoload": "마지막으로 사용한 자막을 자동으로 선택",
         "disable-captions": "기본 자막 제거"
@@ -316,14 +316,14 @@
     "discord": {
       "backend": {
         "already-connected": "활성화 된 연결에 연결을 시도했습니다",
-        "connected": "디스코드에 연결 됨",
+        "connected": "디스코드에 연결됨",
         "disconnected": "디스코드에서 연결이 끊김"
       },
       "description": "활동 상태를 사용하여 친구들에게 내가 듣는 음악을 보여주세요",
       "menu": {
         "auto-reconnect": "자동 연결",
         "clear-activity": "활동 제거",
-        "clear-activity-after-timeout": "시간 초과시 활동 제거",
+        "clear-activity-after-timeout": "시간 초과 시 활동 제거",
         "connected": "연결 됨",
         "disconnected": "연결 해제 됨",
         "hide-duration-left": "남은 재생 시간 숨기기",
@@ -355,7 +355,7 @@
             },
             "detail": "({{playlistSize}} 곡)",
             "message": "재생목록 {{playlistTitle}} 다운로드 중",
-            "title": "다운로드 시작 됨"
+            "title": "다운로드 시작됨"
           }
         },
         "feedback": {
