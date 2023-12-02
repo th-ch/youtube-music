@@ -256,7 +256,7 @@
     },
     "blur-nav-bar": {
       "description": "탐색 바를 투명하고 흐릿하게 만듭니다",
-      "name": "네비게이션 바 흐림 효과"
+      "name": "탐색 바 흐림 효과"
     },
     "bypass-age-restrictions": {
       "description": "유튜브의 나이 제한을 우회합니다",
@@ -428,7 +428,7 @@
     },
     "navigation": {
       "description": "브라우저에서처럼, UI에 직접 통합된 앞으로/뒤로 탐색하는 화살표",
-      "name": "네비게이션"
+      "name": "탐색"
     },
     "no-google-login": {
       "description": "UI에서 Google 로그인 버튼 및 링크 제거하기",
