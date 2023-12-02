@@ -115,6 +115,9 @@
           "always-on-top": "永遠顯示在最上層",
           "auto-update": "自動更新",
           "hide-menu": {
+            "dialog": {
+              "title": "隱藏菜單欄已啟用"
+            },
             "label": "隱藏選單"
           },
           "language": {
@@ -128,16 +131,83 @@
             }
           },
           "resume-on-start": "繼續上次關閉應用前的音樂",
+          "single-instance-lock": "禁止多開應用程式",
           "start-at-login": "開機時啟動",
           "starting-page": {
             "label": "啟動頁面",
             "unset": "未設置"
           },
           "tray": {
+            "label": "系統閘",
             "submenu": {
-              "disabled": "已停用"
+              "disabled": "已停用",
+              "enabled-and-hide-app": "啟用並隱藏應用",
+              "enabled-and-show-app": "啟用並顯示應用",
+              "play-pause-on-click": "點擊時播放/暫停"
+            }
+          },
+          "visual-tweaks": {
+            "label": "視覺設置",
+            "submenu": {
+              "like-buttons": {
+                "default": "預設",
+                "force-show": "強制顯示",
+                "hide": "隱藏",
+                "label": "按讚按鈕"
+              },
+              "remove-upgrade-button": "移除升級按鈕",
+              "theme": {
+                "label": "主題",
+                "submenu": {
+                  "import-css-file": "匯入自訂CSS檔案",
+                  "no-theme": "無主題"
+                }
+              }
             }
           }
+        }
+      },
+      "plugins": {
+        "enabled": "啟用",
+        "label": "外掛功能"
+      },
+      "view": {
+        "label": "視窗",
+        "submenu": {
+          "force-reload": "強制重新整理",
+          "reload": "重新整理",
+          "reset-zoom": "重設大小",
+          "toggle-fullscreen": "全螢幕",
+          "zoom-in": "放大",
+          "zoom-out": "縮小"
+        }
+      }
+    },
+    "tray": {
+      "next": "下一首",
+      "play-pause": "播放/暫停",
+      "previous": "上一首",
+      "quit": "關閉",
+      "restart": "重啟應用",
+      "show": "顯示視窗"
+    }
+  },
+  "plugins": {
+    "adblocker": {
+      "menu": {
+        "blocker": "阻擋方式"
+      },
+      "name": "廣告阻擋"
+    },
+    "album-color-theme": {
+      "description": "依歌曲專輯色調動態改變主題顏色",
+      "name": "動態專輯主題色調"
+    },
+    "ambient-mode": {
+      "description": "將影片內容的淺色畫面投放至螢幕背景, 讓觀眾在觀賞影片時更有臨場感",
+      "menu": {
+        "blur-amount": {
+          "label": "模糊等級"
         }
       }
     }
