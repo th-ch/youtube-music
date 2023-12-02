@@ -556,11 +556,14 @@ app.on('activate', async () => {
 });
 
 const getDefaultLocale = (locale: string) =>
-  Object.keys(languageResources).includes(locale) ? locale : 'en';
+  Object.keys(languageResources).includes(locale) ? locale : null;
 
 app.whenReady().then(async () => {
   if (!config.get('options.language')) {
-    config.set('options.language', getDefaultLocale(app.getLocale()));
+    const locale = getDefaultLocale(app.getLocale());
+    if (locale) {
+      config.set('options.language', locale);
+    }
   }
 
   await loadI18n().then(async () => {

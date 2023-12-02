@@ -379,7 +379,7 @@ export const mainMenuTemplate = async (
                 (lang): Electron.MenuItemConstructorOptions => ({
                   label: `${languageResources[lang].translation.language.name} (${languageResources[lang].translation.language['local-name']})`,
                   type: 'checkbox',
-                  checked: config.get('options.language') === lang,
+                  checked: (config.get('options.language') ?? 'en') === lang,
                   click() {
                     config.setMenuOption('options.language', lang);
                     refreshMenu(win);
