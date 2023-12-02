@@ -113,7 +113,31 @@
             }
           },
           "always-on-top": "永遠顯示在最上層",
-          "auto-update": "自動更新"
+          "auto-update": "自動更新",
+          "hide-menu": {
+            "label": "隱藏選單"
+          },
+          "language": {
+            "dialog": {
+              "message": "語言會在下一次重啟應用時變更",
+              "title": "語言已變更"
+            },
+            "label": "語言",
+            "submenu": {
+              "to-help-translate": "想要協助翻譯?點擊這裡"
+            }
+          },
+          "resume-on-start": "繼續上次關閉應用前的音樂",
+          "start-at-login": "開機時啟動",
+          "starting-page": {
+            "label": "啟動頁面",
+            "unset": "未設置"
+          },
+          "tray": {
+            "submenu": {
+              "disabled": "停用"
+            }
+          }
         }
       }
     }
