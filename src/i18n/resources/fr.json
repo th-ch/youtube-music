@@ -44,5 +44,72 @@
         }
       }
     }
+  },
+  "plugins": {
+    "ambient-mode": {
+      "menu": {
+        "buffer": {
+          "submenu": {
+            "buffer": "{{buffer}}"
+          }
+        },
+        "opacity": {
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "size": {
+          "submenu": {
+            "percent": "{{size}}%"
+          }
+        }
+      }
+    },
+    "captions-selector": {
+      "prompt": {
+        "selector": {
+          "none": "Aucun"
+        }
+      }
+    },
+    "crossfade": {
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "fade-scaling": {
+              "linear": "Linéaire",
+              "logarithmic": "Logarithmique"
+            }
+          }
+        }
+      }
+    },
+    "downloader": {
+      "backend": {
+        "dialog": {
+          "start-download-playlist": {
+            "detail": "({{playlistSize}} chansons)",
+            "title": "Téléchargement a commencé"
+          }
+        },
+        "feedback": {
+          "download-progress": "Télécharger: {{percent}}%",
+          "downloading": "Télécharge…",
+          "downloading-counter": "Télécharge {{current}}/{{total}}…",
+          "preparing-file": "",
+          "saving": "Sauvegarde…"
+        }
+      },
+      "name": "Téléchargeur",
+      "templates": {
+        "button": "Télécharger"
+      }
+    },
+    "last-fm": {
+      "name": "Last.fm"
+    },
+    "lumiastream": {
+      "name": ""
+    }
   }
 }
