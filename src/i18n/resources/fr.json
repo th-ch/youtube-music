@@ -1,4 +1,18 @@
 {
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "Échec de l'exécution du plugin {{pluginName}}::{{contextName}}",
+        "executed-at-ms": "Plugin {{pluginName}}::{{contextName}} exécuté en {{ms}}ms",
+        "initialize-failed": "Échec de l'initialisation du plugin \"{{pluginName}}\"",
+        "load-all": "Chargement des plugins",
+        "load-failed": "Échec du chargement du plugin \"{{pluginName}}\"",
+        "loaded": "Plugin \"{{pluginName}}\" chargé",
+        "unload-failed": "Échec du déchargement du plugin \"{{pluginName}}\"",
+        "unloaded": "Plugin \"{{pluginName}}\" déchargé"
+      }
+    }
+  },
   "language": {
     "code": "fr",
     "local-name": "Français",
@@ -8,22 +22,56 @@
     "console": {
       "theme": {
         "css-file-not-found": "Le fichier de CSS \"{{cssFile}}\" n'existe pas, ignorer"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "Effacement du cache de l'application"
       }
     },
     "dialog": {
+      "hide-menu-enabled": {
+        "message": "Le masquage du menu est activé"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "Plus tard",
+          "restart-now": "Redémarrer maintenant"
+        },
+        "detail": "\"{{pluginName}}\" plugin nécessite un redémarrage pour qu'il soit pris en compte",
+        "message": "\"{{pluginName}}\" a besoin d'un redémarrage",
+        "title": "Redémarrage requis"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "Quitté"
+        }
+      },
       "update-available": {
         "buttons": {
-          "download": "Sauvegarder"
-        }
+          "download": "Télécharger",
+          "ok": "Ok"
+        },
+        "detail": "Une nouvelle version est disponible et peut-être télécharger sur {{downloadLink}}",
+        "message": "Une nouvelle version est disponible",
+        "title": "Mise à jour disponible"
       }
     },
     "menu": {
+      "about": "À-propos",
+      "navigation": {
+        "label": "Navigation",
+        "submenu": {
+          "quit": "Quitter"
+        }
+      },
       "options": {
         "label": "Paramètres",
         "submenu": {
           "advanced-options": {
+            "label": "Options avancée",
             "submenu": {
+              "disable-hardware-acceleration": "Désactiver les accélérations matérielles",
               "edit-config-json": "Modifier config.json",
+              "restart-on-config-changes": "Redémarrer quand la configuration change",
               "set-proxy": {
                 "prompt": {
                   "placeholder": "Exemple: socks5://127.0.0.1:9999"
@@ -31,8 +79,18 @@
               }
             }
           },
+          "auto-update": "Mise à jour automatique",
           "language": {
-            "label": "Langue"
+            "label": "Langue",
+            "submenu": {
+              "to-help-translate": "Envie d'aider à la traduction ? Cliquer ici"
+            }
+          },
+          "tray": {
+            "submenu": {
+              "disabled": "Désactivé",
+              "enabled-and-hide-app": "Activé et cacher l'app"
+            }
           },
           "visual-tweaks": {
             "submenu": {
