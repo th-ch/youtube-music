@@ -289,7 +289,7 @@
       "menu": {
         "advanced": "進階"
       },
-      "name": "交叉淡化 [實驗階段]",
+      "name": "交叉淡化 [Beta]",
       "prompt": {
         "options": {
           "multi-input": {
@@ -328,7 +328,7 @@
         "disconnected": "已斷開連接",
         "hide-duration-left": "隱藏音樂剩餘時間狀態",
         "hide-github-button": "隱藏Github頁面按鈕",
-        "play-on-youtube-music": "在Youtube Music播放按鈕",
+        "play-on-youtube-music": "顯示Play on YouTube Music按鈕",
         "set-inactivity-timeout": "設置歌曲暫停後幾秒清除狀態"
       },
       "name": "Discord狀態",
@@ -382,7 +382,7 @@
           "writing-id3": "正在寫入ID3標籤…"
         }
       },
-      "description": "在應用程式內下載MP3 / 原始音樂檔",
+      "description": "在應用程式內下載MP3／原始音樂檔",
       "menu": {
         "choose-download-folder": "選擇下載位置",
         "download-playlist": "下載播放清單",
@@ -414,20 +414,20 @@
     },
     "lumiastream": {
       "description": "新增對Lumia Stream的支援",
-      "name": "Lumia Stream [測試階段]"
+      "name": "Lumia Stream [Beta]"
     },
     "lyrics-genius": {
-      "description": "新增更多歌曲的字幕支援",
+      "description": "為更多歌曲新增字幕支援",
       "menu": {
         "romanized-lyrics": "羅馬拼音字幕"
       },
-      "name": "字幕Genius",
+      "name": "第三方字幕",
       "renderer": {
         "fetched-lyrics": "為Genius獲取字幕"
       }
     },
     "navigation": {
-      "description": "將上一頁/下一頁按鈕新增至應用程式內, 就像你最熟悉的瀏覽器",
+      "description": "將上一頁／下一頁按鈕新增至應用程式上方, 就像你最熟悉的瀏覽器",
       "name": "導覽列"
     },
     "no-google-login": {
@@ -442,8 +442,8 @@
           "label": "通知互動設定",
           "submenu": {
             "hide-button-text": "隱藏按鈕文字",
-            "refresh-on-play-pause": "在播放/暫停時刷新",
-            "tray-controls": "點擊系統閘圖示時打開/關閉"
+            "refresh-on-play-pause": "在播放／暫停時刷新",
+            "tray-controls": "點擊系統閘圖示時打開／關閉"
           }
         },
         "priority": "通知優先權",
@@ -483,7 +483,7 @@
       }
     },
     "precise-volume": {
-      "description": "讓你可使用滑鼠滾輪/快捷鍵控制音量",
+      "description": "讓你可使用滑鼠滾輪／快捷鍵控制音量",
       "menu": {
         "arrows-shortcuts": "本地方向鍵控制",
         "custom-volume-steps": "自訂音量層級",
@@ -500,7 +500,7 @@
           "title": "全域音量控制快捷鍵"
         },
         "volume-steps": {
-          "label": "設定音量一次增加/降低的層級",
+          "label": "設定音量一次增加／降低的層級",
           "title": "音量層級設定"
         }
       }
@@ -519,17 +519,17 @@
       "name": "影片畫質更改器"
     },
     "shortcuts": {
-      "description": "使用全域快捷鍵控制音樂 (播放/暫停/下一首/上一首) + 透過覆寫媒體快捷鍵停用媒體OSD + 允許Ctrl/CMD + F來搜尋 + 支援Linux MPRIS媒體快捷鍵 + 更多自訂快捷鍵給進階使用者",
+      "description": "使用全域快捷鍵控制音樂 (播放／暫停／下一首／上一首) + 透過覆寫媒體快捷鍵停用媒體OSD + 允許Ctrl/CMD + F來搜尋 + 支援Linux MPRIS媒體快捷鍵 + 更多自訂快捷鍵給進階使用者",
       "menu": {
         "override-media-keys": "覆寫媒體快捷鍵",
-        "set-keybinds": "設定全域音樂控制"
+        "set-keybinds": "設定全域歌曲控制"
       },
       "name": "Shortcuts (& MPRIS)",
       "prompt": {
         "keybind": {
           "keybind-options": {
             "next": "下一首",
-            "play-pause": "播放/暫停",
+            "play-pause": "播放／暫停",
             "previous": "上一首"
           },
           "label": "選擇全域音樂控制快捷鍵:",
@@ -542,8 +542,8 @@
       "name": "跳過無聲"
     },
     "sponsorblock": {
-      "description": "自動跳過音樂贊助片段",
-      "name": "贊助片段阻擋"
+      "description": "自動跳過贊助片段",
+      "name": "贊助阻擋"
     },
     "taskbar-mediacontrol": {
       "description": "透過工作列應用程式圖式控制媒體播放",
@@ -558,7 +558,7 @@
       "name": "Tuna OBS"
     },
     "video-toggle": {
-      "description": "新增一個按鈕可以控制影片/音樂切換, 附加完全移除整個影片頁面的功能",
+      "description": "新增一個按鈕可以控制影片／歌曲切換和完全移除整個影片頁面的功能",
       "menu": {
         "align": {
           "label": "按鈕位置",
