@@ -195,7 +195,7 @@
     "typescript": "5.3.2",
     "utf-8-validate": "6.0.3",
     "vite": "4.5.0",
-    "vite-plugin-inspect": "0.8.0",
+    "vite-plugin-inspect": "0.8.1",
     "vite-plugin-resolve": "2.5.1",
     "ws": "8.14.2"
   },
