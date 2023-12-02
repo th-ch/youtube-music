@@ -404,7 +404,7 @@ async function createMainWindow() {
   removeContentSecurityPolicy();
 
   win.webContents.on('dom-ready', async () => {
-    if (useInlineMenu) {
+    if (useInlineMenu && !is.linux()) {
       win.setTitleBarOverlay({
         ...defaultTitleBarOverlayOptions,
         height: Math.floor(
