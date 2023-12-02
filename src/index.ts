@@ -683,7 +683,7 @@ app.whenReady().then(async () => {
         type: 'info',
         buttons: [
           t('main.dialog.update-available.buttons.download'),
-          t('main.dialog.update-available.buttons.later'),
+          t('main.dialog.update-available.buttons.ok'),
           t('main.dialog.update-available.buttons.disable'),
         ],
         title: t('main.dialog.update-available.title'),
