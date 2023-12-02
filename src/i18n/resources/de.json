@@ -126,7 +126,10 @@
               "message": "Sprache wird nach Neustart geändert",
               "title": "Sprache Geändert"
             },
-            "label": "Sprache"
+            "label": "Sprache",
+            "submenu": {
+              "to-help-translate": "Möchten Sie bei der Übersetzung helfen? Klicken Sie auf diese Schaltfläche"
+            }
           },
           "resume-on-start": "Letztes Lied weiter abspielen, wenn Anwendung startet",
           "single-instance-lock": "Sperren einer einzelnen Instanz",
