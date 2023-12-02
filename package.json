@@ -162,7 +162,7 @@
     "node-html-parser": "6.1.11",
     "node-id3": "0.2.6",
     "serve": "14.2.1",
-    "simple-youtube-age-restriction-bypass": "git+https://github.com/organization/Simple-YouTube-Age-Restriction-Bypass.git#v2.5.8",
+    "simple-youtube-age-restriction-bypass": "git+https://github.com/organization/Simple-YouTube-Age-Restriction-Bypass.git#v2.5.9",
     "ts-morph": "20.0.0",
     "vudio": "2.1.1",
     "x11": "2.3.0",
