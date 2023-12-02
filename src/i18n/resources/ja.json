@@ -2,9 +2,14 @@
   "common": {
     "console": {
       "plugins": {
+        "execute-failed": "プラグインの実行に失敗 {{pluginName}}::{{contextName}}",
+        "executed-at-ms": "プラグイン {{pluginName}}::{{contextName}} は {{ms}}ms で実行されました",
+        "initialize-failed": "プラグイン \"{{pluginName}}\" の初期化に失敗",
         "load-all": "すべてのプラグインをロード中",
         "load-failed": "プラグイン”{{pluginName}}”のロードが失敗しました",
-        "loaded": "プラグイン”{{pluginName}}”ロード完了"
+        "loaded": "プラグイン”{{pluginName}}”ロード完了",
+        "unload-failed": "プラグインのアンロードに失敗 \"{{pluginName}}\"",
+        "unloaded": "プラグイン {{pluginName}} がアンロードされました"
       }
     }
   },
@@ -31,28 +36,170 @@
         "details": "応答なしエラー！\n{{error}}"
       },
       "when-ready": {
-        "clearing-cache-after-20s": "アプリキャッシュ削除"
+        "clearing-cache-after-20s": "アプリのキャッシュを削除中"
+      },
+      "window": {
+        "tried-to-render-offscreen": "ウィンドウは画面外をレンダリングしようとしました, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
       }
     },
     "dialog": {
+      "hide-menu-enabled": {
+        "detail": "メニューは非表示です。'Alt'で表示します。(アプリ内メニューには'Escape'を使用します)",
+        "message": "メニューの非表示が有効です",
+        "title": "メニューの非表示が有効"
+      },
       "need-to-restart": {
-        "detail": "”{{pluginName}}”プラグインを適用するには再起動が必要です",
-        "message": "”{{pluginName}}”は再起動が必要です"
+        "buttons": {
+          "later": "あとで",
+          "restart-now": "今すぐ再起動する"
+        },
+        "detail": "プラグイン ”{{pluginName}}” を有効にするには再起動が必要です",
+        "message": "”{{pluginName}}”は再起動が必要です",
+        "title": "再起動が必要"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "閉じる",
+          "relaunch": "再起動",
+          "wait": "待つ"
+        },
+        "detail": "ご不便をおかけして申し訳ございません! 何をするか選んでください:",
+        "message": "アプリケーションは応答しません",
+        "title": "ウィンドウが応答しません"
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "更新を無効化",
+          "download": "ダウンロード",
+          "ok": "OK"
+        },
+        "detail": "新しいバージョンが利用可能です。{{downloadLink}} からダウンロードできます",
+        "message": "新しいバージョンが利用可能",
+        "title": "アップデートが利用可能"
       }
     },
     "menu": {
+      "about": "このアプリについて",
+      "navigation": {
+        "label": "移動",
+        "submenu": {
+          "copy-current-url": "現在のURLをコピー",
+          "go-back": "戻る",
+          "go-forward": "進む",
+          "quit": "終了",
+          "restart": "アプリを再起動"
+        }
+      },
+      "options": {
+        "label": "設定",
+        "submenu": {
+          "advanced-options": {
+            "label": "高度な設定",
+            "submenu": {
+              "auto-reset-app-cache": "アプリの開始時にキャッシュをリセット",
+              "disable-hardware-acceleration": "ハードウェアアクセラレーションの無効化",
+              "edit-config-json": "config.json を編集する",
+              "override-user-agent": "ユーザーエージェントの上書き",
+              "restart-on-config-changes": "設定変更時に再起動",
+              "set-proxy": {
+                "label": "プロキシ",
+                "prompt": {
+                  "label": "プロキシのアドレスを入力: (空にすると無効化)",
+                  "placeholder": "例: socks5://127.0.0.1:9999",
+                  "title": "プロキシ"
+                }
+              },
+              "toggle-dev-tools": "DevToolsの切り替え"
+            }
+          },
+          "always-on-top": "常に最前面に表示",
+          "auto-update": "自動アップデート",
+          "hide-menu": {
+            "dialog": {
+              "message": "メニューは次の起動から非表示になります。表示するには[Alt]キーを使用します (in-app-menuを使用している場合は[`]を使用します)",
+              "title": "メニューの非表示が有効"
+            },
+            "label": "メニューの非表示"
+          },
+          "language": {
+            "dialog": {
+              "message": "言語は再起動後に変更されます",
+              "title": "言語が変更されました"
+            },
+            "label": "言語設定",
+            "submenu": {
+              "to-help-translate": "翻訳をサポートしたいですか？こちらをクリック"
+            }
+          },
+          "resume-on-start": "起動時に最後の曲を再開する",
+          "single-instance-lock": "単一インスタンスロック",
+          "start-at-login": "windowsのログイン時に起動",
+          "starting-page": {
+            "label": "スターティングページ",
+            "unset": "未設定"
+          },
+          "tray": {
+            "label": "トレイアイコン",
+            "submenu": {
+              "disabled": "無効",
+              "enabled-and-hide-app": "有効 + アプリを非表示",
+              "enabled-and-show-app": "有効 + アプリを表示",
+              "play-pause-on-click": "クリックで再生/一時停止"
+            }
+          },
+          "visual-tweaks": {
+            "label": "見た目の微調整",
+            "submenu": {
+              "like-buttons": {
+                "default": "デフォルト",
+                "force-show": "強制的に表示",
+                "hide": "非表示",
+                "label": "いいねボタン"
+              },
+              "remove-upgrade-button": "アップグレードボタンを削除",
+              "theme": {
+                "label": "テーマ",
+                "submenu": {
+                  "import-css-file": "CSSファイルをインポート",
+                  "no-theme": "テーマなし"
+                }
+              }
+            }
+          }
+        }
+      },
       "plugins": {
+        "enabled": "有効",
         "label": "プラグイン"
+      },
+      "view": {
+        "label": "表示",
+        "submenu": {
+          "force-reload": "強制再読み込み",
+          "reload": "再読み込み",
+          "reset-zoom": "実際のサイズ",
+          "toggle-fullscreen": "全画面表示を切り替え",
+          "zoom-in": "拡大",
+          "zoom-out": "縮小"
+        }
       }
+    },
+    "tray": {
+      "next": "次の曲",
+      "play-pause": "再生/一時停止",
+      "previous": "前の曲",
+      "quit": "終了",
+      "restart": "アプリを再起動",
+      "show": "ウィンドウを表示"
     }
   },
   "plugins": {
     "adblocker": {
-      "description": "すべての広告とトラッカーを遮断します",
+      "description": "すべての広告とトラッカーをブロックj",
       "menu": {
-        "blocker": "遮断方法"
+        "blocker": "ブロッカー"
       },
-      "name": "アドブロック"
+      "name": "Adblocker"
     },
     "album-color-theme": {
       "description": "アルバムカバーの色をベースにして動的テーマと視覚効果を適用します",
@@ -62,7 +209,7 @@
       "description": "動画の間接照明を画面背景に投射します。",
       "menu": {
         "blur-amount": {
-          "label": "曇り効果の強さ",
+          "label": "ぼかしの強さ",
           "submenu": {
             "pixels": "{{blurAmount}} ピクセル"
           }
@@ -119,14 +266,14 @@
       "description": "YouTube Musicトラック用字幕選択機",
       "menu": {
         "autoload": "最後の字幕を自動に選択",
-        "disable-captions": "基本字幕無し"
+        "disable-captions": "デフォルトで字幕を無効化"
       },
       "name": "字幕選択機",
       "prompt": {
         "selector": {
           "label": "選択した字幕言語: {{language}}",
-          "none": "無",
-          "title": "字幕言語選択"
+          "none": "なし",
+          "title": "字幕の言語を選択"
         }
       },
       "templates": {
@@ -135,12 +282,12 @@
     },
     "compact-sidebar": {
       "description": "サイドバーを常にコンパクトモードに設定します",
-      "name": "コンパクト·サイドバー"
+      "name": "コンパクトなサイドバー"
     },
     "crossfade": {
       "description": "曲の間にクロスフェード効果を適用します",
       "menu": {
-        "advanced": "高級"
+        "advanced": "詳細設定"
       },
       "name": "クロスフェード[ベータ]",
       "prompt": {
@@ -162,23 +309,23 @@
     "disable-autoplay": {
       "description": "曲を「一時停止」モードで始めさせます",
       "menu": {
-        "apply-once": "初起動時にのみ適用"
+        "apply-once": "起動時のみ適用"
       },
-      "name": "自動再生解除"
+      "name": "自動再生を無効化"
     },
     "discord": {
       "backend": {
         "already-connected": "すでに有効になっている接続に接続を試みました",
         "connected": "ディスコードに接続中",
-        "disconnected": "Discordからの接続が切れる"
+        "disconnected": "Discordから切断されました"
       },
-      "description": "「アクティビティステータス」を使って、あなたが聴いている曲を友達に見せましょう",
+      "description": "アクティビティ ステータスで、あなたが聴いている曲を友達に見せましょう",
       "menu": {
-        "auto-reconnect": "自動接続",
+        "auto-reconnect": "自動再接続",
         "clear-activity": "アクティビティの削除",
         "clear-activity-after-timeout": "タイムアウト発生時にアクティビティを削除",
-        "connected": "接続中",
-        "disconnected": "接続切れ",
+        "connected": "接続済み",
+        "disconnected": "切断済み",
         "hide-duration-left": "残りの再生時間を隠す",
         "hide-github-button": "GitHubリンクボタンを隠す",
         "play-on-youtube-music": "YouTube Musicで再生",
@@ -187,8 +334,8 @@
       "name": "Discordアクティビティステータス",
       "prompt": {
         "set-inactivity-timeout": {
-          "label": "不活動タイムアウト時間を秒単位で入力してください：",
-          "title": "不活動タイムアウト時間設定"
+          "label": "非アクティブ時のタイムアウトを秒単位で入力：",
+          "title": "非アクティブタイムアウト"
         }
       }
     },
@@ -197,17 +344,17 @@
         "dialog": {
           "error": {
             "buttons": {
-              "ok": "確認"
+              "ok": "OK"
             },
             "message": "ダウンロード失敗！ごめんね…",
-            "title": "ダウンロード中にエラー発生！"
+            "title": "ダウンロード中にエラーが発生しました！"
           },
           "start-download-playlist": {
             "buttons": {
-              "ok": "確認"
+              "ok": "OK"
             },
             "detail": "（{{playlistSize}}曲）",
-            "message": "プレイリスト {{playlistTitle}} ダウンロード中",
+            "message": "プレイリスト {{playlistTitle}} をダウンロード中",
             "title": "ダウンロード開始"
           }
         },
@@ -215,18 +362,20 @@
           "conversion-progress": "変換：{{percent}}％",
           "converting": "変換中…",
           "done": "完了：{{filePath}}",
-          "download-info": "{{artist}}ー{{title}} {{videoId}} ダウンロード中",
+          "download-info": "{{artist}}ー{{title}} {{videoId}} をダウンロード中",
           "download-progress": "ダウンロード：{{percent}}％",
           "downloading": "ダウンロード中…",
           "downloading-counter": "ダウンロード中：{{current}}/{{total}}…",
-          "downloading-playlist": "プレイリストダウンロード中：”{{playlistTitle}}”ー{{playlistSize}}曲（{{playlistId}}）",
-          "error-while-downloading": "”{{author}}ー{{title}}”ダウンロード中エラー発生：{{error}}",
-          "folder-already-exists": "{{playlistFolder}}フォルダが既に存在します",
+          "downloading-playlist": "プレイリストをダウンロード中：\"{{playlistTitle}}\" -{{playlistSize}}曲（{{playlistId}}）",
+          "error-while-downloading": "\"{{author}}ー{{title}}\"ダウンロード中にエラー発生：{{error}}",
+          "folder-already-exists": "フォルダー {{playlistFolder}}が既に存在します",
           "getting-playlist-info": "プレイリスト情報を取得中…",
           "loading": "ロード中…",
           "playlist-has-only-one-song": "プレイリストに１曲しかありません。直接ダウンロードします",
           "playlist-id-not-found": "プレイリストIDが見つかりません",
-          "preparing-file": "ファイル準備中…",
+          "playlist-is-empty": "プレイリストは空です",
+          "playlist-is-mix-or-private": "プレイリスト情報をダウンロード中にエラーが発生しました: プレイリストが非公開ではないこと、\"Mixed for you\"ではないことを確認してください\n\n{{error}}",
+          "preparing-file": "ファイルを準備中…",
           "saving": "保存中…",
           "trying-to-get-playlist-id": "プレイリストIDを取得中：{{playlistId}}",
           "video-id-not-found": "動画が見つかりません",
@@ -236,9 +385,14 @@
       "description": "UIから直にMP3・ソースオーディオをダウンロードします",
       "menu": {
         "choose-download-folder": "ダウンロードフォルダ",
-        "presets": "プリセット"
+        "download-playlist": "プレイリストをダウンロード",
+        "presets": "プリセット",
+        "skip-existing": "存在するファイルをスキップ"
       },
       "name": "ダウンローダー",
+      "renderer": {
+        "can-not-update-progress": "進捗を更新できません"
+      },
       "templates": {
         "button": "ダウンロード"
       }
@@ -248,18 +402,26 @@
       "name": "指数音量"
     },
     "in-app-menu": {
+      "description": "メニューバーをファンシー、ダーク、またはアルバムカラーの外観にする",
       "menu": {
         "hide-dom-window-controls": "DOMウィンドウコントロールを隠す"
-      }
+      },
+      "name": "アプリ内メニュー"
     },
     "last-fm": {
+      "description": "Last.fmのscrobblingサポートを追加",
       "name": "Last.fm"
+    },
+    "lumiastream": {
+      "description": "Lumia Streamのサポートを追加",
+      "name": "Lumia Stream [ベータ]"
     },
     "lyrics-genius": {
       "description": "より広い範囲の曲に歌詞を付けます",
       "menu": {
         "romanized-lyrics": "ローマ字歌詞"
       },
+      "name": "Genius 歌詞",
       "renderer": {
         "fetched-lyrics": "Geniusから歌詞取得完了"
       }
@@ -267,6 +429,166 @@
     "navigation": {
       "description": "ブラウザの戻る・進むボタンのようにUIからコントロールできるボタン",
       "name": "ナビゲーション"
+    },
+    "no-google-login": {
+      "description": "インターフェースからGoogleのログインボタンとリンクを削除",
+      "name": "No Google Login"
+    },
+    "notifications": {
+      "description": "曲の再生開始時に通知を表示する(Windowsではインタラクティブ通知が利用可能)",
+      "menu": {
+        "interactive": "インタラクティブ通知",
+        "interactive-settings": {
+          "label": "インタラクティブ通知 設定",
+          "submenu": {
+            "hide-button-text": "ボタンのテキストを非表示",
+            "refresh-on-play-pause": "再生/一時停止時に更新",
+            "tray-controls": "トレイアイコンのクリック時に開閉"
+          }
+        },
+        "priority": "通知の優先度",
+        "toast-style": "トーストのスタイル",
+        "unpause-notification": "再生再開時に通知を表示"
+      },
+      "name": "通知"
+    },
+    "picture-in-picture": {
+      "description": "アプリでピクチャ・イン・ピクチャを切り替えられるようになります",
+      "menu": {
+        "always-on-top": "常に最前面に表示",
+        "hotkey": {
+          "label": "ホットキー",
+          "prompt": {
+            "keybind-options": {
+              "hotkey": "ホットキー"
+            },
+            "label": "ピクチャインピクチャを切り替えるためのホットキーを選択",
+            "title": "ピクチャインピクチャのホットキー"
+          }
+        },
+        "save-window-position": "ウィンドウの位置を保存",
+        "save-window-size": "ウィンドウのサイズを保存",
+        "use-native-pip": "ブラウザ標準のPiPを使用"
+      },
+      "name": "ピクチャインピクチャ",
+      "templates": {
+        "button": "ピクチャインピクチャ"
+      }
+    },
+    "playback-speed": {
+      "description": "速く聴く、遅く聴く！曲のスピードをコントロールするスライダーを追加",
+      "name": "再生速度",
+      "templates": {
+        "button": "速度"
+      }
+    },
+    "precise-volume": {
+      "description": "カスタムHUDとカスタマイズ可能な音量ステップで、マウスホイール/ホットキーを使って音量を正確にコントロールします",
+      "menu": {
+        "arrows-shortcuts": "ローカル矢印キー操作",
+        "custom-volume-steps": "カスタム音量ステップを設定",
+        "global-shortcuts": "グローバル ホットキー"
+      },
+      "name": "正確な音量",
+      "prompt": {
+        "global-shortcuts": {
+          "keybind-options": {
+            "decrease": "音量を下げる",
+            "increase": "音量を上げる"
+          },
+          "label": "グローバルキーバインドを選択:",
+          "title": "グローバル 音量 キーバインド"
+        },
+        "volume-steps": {
+          "label": "音量の増減ステップを選択",
+          "title": "音量ステップ"
+        }
+      }
+    },
+    "quality-changer": {
+      "backend": {
+        "dialog": {
+          "quality-changer": {
+            "detail": "現在の品質: {{quality}}",
+            "message": "ビデオ品質を選択:",
+            "title": "ビデオ品質を選択:"
+          }
+        }
+      },
+      "description": "ビデオオーバーレイのボタンを使用してビデオ品質を変更できるようにします",
+      "name": "ビデオ品質チェンジャー"
+    },
+    "shortcuts": {
+      "description": "再生用のグローバル ホットキー (再生/一時停止/次/前) の設定 + メディア キーをオーバーライドしてメディア OSD を無効にする + Ctrl/CMD + F による検索を有効にする + メディアキーの Linux mpris サポートを有効にする + 上級ユーザー向けのカスタム ホットキー を可能にします",
+      "menu": {
+        "override-media-keys": "メディアキーを上書き",
+        "set-keybinds": "グローバルソングコントロールを設定する"
+      },
+      "name": "ショートカット (および MPRIS)",
+      "prompt": {
+        "keybind": {
+          "keybind-options": {
+            "next": "次",
+            "play-pause": "再生/一時停止",
+            "previous": "前の"
+          },
+          "label": "曲コントロールのグローバルキーバインドを選択:",
+          "title": "グローバル キーバインド"
+        }
+      }
+    },
+    "skip-silences": {
+      "description": "曲の無音区間を自動でスキップ",
+      "name": "無音区間をスキップ"
+    },
+    "sponsorblock": {
+      "description": "イントロ/アウトロなどの音楽以外の部分や、曲が再生されていないミュージック ビデオの部分を自動的にスキップします",
+      "name": "SponsorBlock"
+    },
+    "taskbar-mediacontrol": {
+      "description": "Windowsタスクバーから再生をコントロール",
+      "name": "Taskbar Media Control"
+    },
+    "touchbar": {
+      "description": "masOSユーザー向けにTouchBarウィジェットを追加",
+      "name": "TouchBar"
+    },
+    "tuna-obs": {
+      "description": "OBSのプラグインTunaの統合",
+      "name": "Tuna OBS"
+    },
+    "video-toggle": {
+      "description": "ビデオ/ソングモードを切り替えるボタンを追加します。オプションでビデオタブ全体を削除することもできます",
+      "menu": {
+        "align": {
+          "label": "位置",
+          "submenu": {
+            "left": "左",
+            "middle": "中央",
+            "right": "右"
+          }
+        },
+        "force-hide": "強制的にビデオタブを削除",
+        "mode": {
+          "label": "モード",
+          "submenu": {
+            "custom": "カスタム切り替え",
+            "disabled": "無効",
+            "native": "標準の切り替え"
+          }
+        }
+      },
+      "name": "動画の切り替え",
+      "templates": {
+        "button": "曲"
+      }
+    },
+    "visualizer": {
+      "description": "視覚効果(ビジュアライザー)をプレイヤーに追加します",
+      "menu": {
+        "visualizer-type": "ビジュアライザーの種類"
+      },
+      "name": "視覚効果"
     }
   }
 }
