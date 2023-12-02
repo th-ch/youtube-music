@@ -1,1 +1,48 @@
-{}
+{
+  "language": {
+    "code": "fr",
+    "local-name": "Français",
+    "name": "French"
+  },
+  "main": {
+    "console": {
+      "theme": {
+        "css-file-not-found": "Le fichier de CSS \"{{cssFile}}\" n'existe pas, ignorer"
+      }
+    },
+    "dialog": {
+      "update-available": {
+        "buttons": {
+          "download": "Sauvegarder"
+        }
+      }
+    },
+    "menu": {
+      "options": {
+        "label": "Paramètres",
+        "submenu": {
+          "advanced-options": {
+            "submenu": {
+              "edit-config-json": "Modifier config.json",
+              "set-proxy": {
+                "prompt": {
+                  "placeholder": "Exemple: socks5://127.0.0.1:9999"
+                }
+              }
+            }
+          },
+          "language": {
+            "label": "Langue"
+          },
+          "visual-tweaks": {
+            "submenu": {
+              "like-buttons": {
+                "hide": "Cacher"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
