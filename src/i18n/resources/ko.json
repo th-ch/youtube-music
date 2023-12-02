@@ -2,14 +2,14 @@
   "common": {
     "console": {
       "plugins": {
-        "execute-failed": "플러그인 {{pluginName}}::{{contextName}}을(를) 실행하지 못했습니다",
-        "executed-at-ms": "플러그인 {{pluginName}}::{{contextName}}이 {{ms}}ms 만에 실행됨",
-        "initialize-failed": "플러그인 \"{{pluginName}}\"을(를) 초기화하지 못했습니다",
-        "load-all": "모든 플러그인 로드 중",
-        "load-failed": "플러그인 \"{{pluginName}}\"을(를) 로드하지 못했습니다",
-        "loaded": "플러그인 \"{{pluginName}}\" 로드됨",
-        "unload-failed": "플러그인 \"{{pluginName}}\"을(를) 언로드하지 못했습니다",
-        "unloaded": "플러그인 \"{{pluginName}}\" 언로드 됨"
+        "execute-failed": "확장 {{pluginName}}::{{contextName}}을(를) 실행하지 못했습니다",
+        "executed-at-ms": "확장 {{pluginName}}::{{contextName}}이 {{ms}}ms 만에 실행됨",
+        "initialize-failed": "확장 \"{{pluginName}}\"을(를) 초기화하지 못했습니다",
+        "load-all": "모든 확장 로드 중",
+        "load-failed": "확장 \"{{pluginName}}\"을(를) 로드하지 못했습니다",
+        "loaded": "확장 \"{{pluginName}}\" 로드됨",
+        "unload-failed": "확장 \"{{pluginName}}\"을(를) 언로드하지 못했습니다",
+        "unloaded": "확장 \"{{pluginName}}\" 언로드 됨"
       }
     }
   },
@@ -53,7 +53,7 @@
           "later": "나중에 하기",
           "restart-now": "지금 재시작하기"
         },
-        "detail": "\"{{pluginName}}\" 플러그인을 적용하려면 재시작해야 합니다",
+        "detail": "\"{{pluginName}}\" 확장을 적용하려면 재시작해야 합니다",
         "message": "\"{{pluginName}}\"은(는) 재시작이 필요합니다",
         "title": "재시작 필요"
       },
@@ -170,7 +170,7 @@
       },
       "plugins": {
         "enabled": "활성화",
-        "label": "플러그인"
+        "label": "확장"
       },
       "view": {
         "label": "보기",
@@ -554,7 +554,7 @@
       "name": "TouchBar"
     },
     "tuna-obs": {
-      "description": "OBS의 플러그인 Tuna와 통합을 활성화합니다",
+      "description": "OBS의 확장인 Tuna와의 통합을 활성화합니다",
       "name": "Tuna OBS"
     },
     "video-toggle": {
