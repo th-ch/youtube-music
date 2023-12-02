@@ -204,12 +204,86 @@
       "name": "動態專輯主題色調"
     },
     "ambient-mode": {
-      "description": "將影片內容的淺色畫面投放至螢幕背景, 讓觀眾在觀賞影片時更有臨場感",
+      "description": "將影片內容的淺色畫面投放至螢幕背景, 讓觀眾在觀賞影片時更有臨場感。",
       "menu": {
         "blur-amount": {
-          "label": "模糊等級"
+          "label": "模糊等級",
+          "submenu": {
+            "pixels": "{{blurAmount}} 像素"
+          }
+        },
+        "buffer": {
+          "label": "緩衝",
+          "submenu": {
+            "buffer": "{{buffer}}"
+          }
+        },
+        "opacity": {
+          "label": "不透明度",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "quality": {
+          "label": "品質",
+          "submenu": {
+            "pixels": "{{quality}} 像素"
+          }
+        },
+        "size": {
+          "label": "大小",
+          "submenu": {
+            "percent": "{{size}}%"
+          }
+        },
+        "smoothness-transition": {
+          "label": "平滑轉換時長",
+          "submenu": {
+            "during": "{{interpolationTime}} 秒"
+          }
+        },
+        "use-fullscreen": {
+          "label": "使用全螢幕"
         }
+      },
+      "name": "微光效果"
+    },
+    "audio-compressor": {
+      "description": "使用音效壓縮 (降低音樂大聲部份的音量, 提高音樂柔和部份的音量)",
+      "name": "音效壓縮器"
+    },
+    "blur-nav-bar": {
+      "description": "使導覽列透明及模糊",
+      "name": "模糊導覽列"
+    },
+    "bypass-age-restrictions": {
+      "description": "繞過Youtube年齡驗證",
+      "name": "繞過年齡驗證"
+    },
+    "captions-selector": {
+      "description": "音軌標題選擇",
+      "menu": {
+        "autoload": "自動選擇最後使用的標題",
+        "disable-captions": "預設無標題"
+      },
+      "name": "標題選擇器",
+      "prompt": {
+        "selector": {
+          "label": "目前標題語言: {{language}}",
+          "none": "無",
+          "title": "選擇標題語言"
+        }
+      },
+      "templates": {
+        "title": "打開標題選擇器"
       }
+    },
+    "compact-sidebar": {
+      "description": "永遠讓側邊欄保持收合狀態",
+      "name": "收合側邊欄"
+    },
+    "crossfade": {
+      "description": "在歌曲之間使用交叉淡化"
     }
   }
 }
