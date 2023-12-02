@@ -135,7 +135,7 @@
           },
           "tray": {
             "submenu": {
-              "disabled": "停用"
+              "disabled": "已停用"
             }
           }
         }
