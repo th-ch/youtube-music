@@ -436,7 +436,7 @@
       "menu": {
         "interactive": "Interaktive Benachrichtigungen",
         "interactive-settings": {
-          "label": "Interaktive Einstellungen",
+          "label": "Interaktivitätseinstellungen",
           "submenu": {
             "hide-button-text": "Text der Knöpfe verstecken",
             "refresh-on-play-pause": "Aktualisieren bei Wiedergabe/Pause",
