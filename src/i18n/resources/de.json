@@ -493,14 +493,14 @@
       "prompt": {
         "global-shortcuts": {
           "keybind-options": {
-            "decrease": "Lautstärke verringern",
+            "decrease": "Lautstärke senken",
             "increase": "Lautstärke erhöhen"
           },
-          "label": "Wählen Sie Globale Lautstärketastenbindungen:",
+          "label": "Wähle globale Tastenkombinationen für Lautstärke:",
           "title": "Globale Lautstärketastenbelegungen"
         },
         "volume-steps": {
-          "label": "Wählen Sie Schritte zur Erhöhung/Verringerung des Volumens",
+          "label": "Wähle Schritte zur Erhöhung/Senkung der Lautstärke",
           "title": "Lautstärkestufen"
         }
       }
