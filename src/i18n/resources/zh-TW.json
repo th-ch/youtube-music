@@ -5,11 +5,11 @@
         "execute-failed": "外掛 {{pluginName}} 無法被執行::{{contextName}}",
         "executed-at-ms": "外掛 {{pluginName}}::{{contextName}} 用了 {{ms}} 毫秒來執行",
         "initialize-failed": "初始化外掛「{{pluginName}}」失敗",
-        "load-all": "載入所有外掛",
+        "load-all": "正在載入所有外掛",
         "load-failed": "載入外掛「{{pluginName}}」失敗",
-        "loaded": "外掛「{{pluginName}}」已被載入",
-        "unload-failed": "解除安裝外掛「{{pluginName}}」失敗",
-        "unloaded": "外掛「{{pluginName}}」已被解除安裝"
+        "loaded": "外掛「{{pluginName}}」已載入",
+        "unload-failed": "移除外掛「{{pluginName}}」失敗",
+        "unloaded": "外掛「{{pluginName}}」已被移除"
       }
     }
   },
@@ -44,7 +44,7 @@
     },
     "dialog": {
       "hide-menu-enabled": {
-        "detail": "選單已隱藏，使用 Alt 鍵來重新顯示（或是使用 Esc 鍵來使用程式內選單）",
+        "detail": "選單已隱藏，使用 Alt 鍵來重新顯示（或是使用 Esc 鍵）",
         "message": "隱藏選單已經啟用",
         "title": "隱藏選單已啟用"
       },
@@ -69,11 +69,11 @@
       },
       "update-available": {
         "buttons": {
-          "disable": "關閉更新",
+          "disable": "停用更新",
           "download": "下載",
           "ok": "確定"
         },
-        "detail": "新的版本已經推出，你可以到 {{downloadLink}} 下載",
+        "detail": "新版本已經推出，你可以至 {{downloadLink}} 下載",
         "message": "有新版本可用",
         "title": "有可用的更新"
       }
@@ -100,7 +100,7 @@
               "disable-hardware-acceleration": "關閉硬體加速",
               "edit-config-json": "編輯 config.json",
               "override-user-agent": "覆寫使用者代理",
-              "restart-on-config-changes": "重新啟動來變更配置",
+              "restart-on-config-changes": "設定檔變更時重啟程式",
               "set-proxy": {
                 "label": "設定代理伺服器",
                 "prompt": {
@@ -109,13 +109,14 @@
                   "title": "設定代理伺服器"
                 }
               },
-              "toggle-dev-tools": "切換開發人員工具"
+              "toggle-dev-tools": "切換開發者人員工具"
             }
           },
           "always-on-top": "永遠顯示在最上層",
           "auto-update": "自動更新",
           "hide-menu": {
             "dialog": {
+              "message": "選單會在程式下次啟動時隱藏，使用 Alt 鍵來重新顯示（或是使用 ` 鍵）",
               "title": "隱藏選單欄已啟用"
             },
             "label": "隱藏選單"
@@ -138,12 +139,12 @@
             "unset": "未設定"
           },
           "tray": {
-            "label": "系統閘",
+            "label": "系統閘圖式",
             "submenu": {
               "disabled": "已停用",
               "enabled-and-hide-app": "啟用並隱藏應用程式",
               "enabled-and-show-app": "啟用並顯示應用程式",
-              "play-pause-on-click": "點擊時開始／暫停播放"
+              "play-pause-on-click": "點擊時播放／暫停"
             }
           },
           "visual-tweaks": {
@@ -185,15 +186,16 @@
     },
     "tray": {
       "next": "下一首",
-      "play-pause": "開始／暫停播放",
+      "play-pause": "播放／暫停",
       "previous": "上一首",
       "quit": "關閉",
-      "restart": "重啟應用",
+      "restart": "重啟程式",
       "show": "顯示視窗"
     }
   },
   "plugins": {
     "adblocker": {
+      "description": "阻擋所有廣告",
       "menu": {
         "blocker": "阻擋方式"
       },
@@ -237,7 +239,7 @@
           }
         },
         "smoothness-transition": {
-          "label": "平滑轉換時長",
+          "label": "微光轉換時長",
           "submenu": {
             "during": "{{interpolationTime}} 秒"
           }
@@ -249,7 +251,7 @@
       "name": "微光效果"
     },
     "audio-compressor": {
-      "description": "使用音效壓縮 (降低音樂大聲部份的音量, 提高音樂柔和部份的音量)",
+      "description": "使用音效壓縮 (大聲部份的音量降低, 柔和部份的音量提高)",
       "name": "音效壓縮器"
     },
     "blur-nav-bar": {
@@ -287,13 +289,306 @@
       "menu": {
         "advanced": "進階"
       },
+      "name": "交叉淡化 [實驗階段]",
       "prompt": {
         "options": {
           "multi-input": {
-            "fade-in-duration": "淡入時間（毫秒）"
-          }
+            "fade-in-duration": "淡入時間（毫秒）",
+            "fade-out-duration": "淡出時間（毫秒）",
+            "fade-scaling": {
+              "label": "淡化計算方式",
+              "linear": "線性",
+              "logarithmic": "對數"
+            },
+            "seconds-before-end": "交叉淡化持續時間 (秒)"
+          },
+          "title": "交叉淡化選項"
         }
       }
+    },
+    "disable-autoplay": {
+      "description": "讓歌曲開始時為暫停模式",
+      "menu": {
+        "apply-once": "只在啟動程式時套用"
+      },
+      "name": "停用自動播放"
+    },
+    "discord": {
+      "backend": {
+        "already-connected": "已嘗試可用連接",
+        "connected": "已連接至Discord",
+        "disconnected": "與Discord斷開連接"
+      },
+      "description": "使用Discord狀態與你的好友分享你正在收聽的音樂",
+      "menu": {
+        "auto-reconnect": "自動重新連接",
+        "clear-activity": "清除狀態",
+        "clear-activity-after-timeout": "在音樂暫停後清除狀態",
+        "connected": "已連接",
+        "disconnected": "已斷開連接",
+        "hide-duration-left": "隱藏音樂剩餘時間狀態",
+        "hide-github-button": "隱藏Github頁面按鈕",
+        "play-on-youtube-music": "在Youtube Music播放按鈕",
+        "set-inactivity-timeout": "設置歌曲暫停後幾秒清除狀態"
+      },
+      "name": "Discord狀態",
+      "prompt": {
+        "set-inactivity-timeout": {
+          "label": "設置多少秒後清除狀態:",
+          "title": "設置歌曲暫停後幾秒清除狀態"
+        }
+      }
+    },
+    "downloader": {
+      "backend": {
+        "dialog": {
+          "error": {
+            "buttons": {
+              "ok": "完成"
+            },
+            "message": "啊!抱歉,下載失敗了…",
+            "title": "下載出現錯誤!"
+          },
+          "start-download-playlist": {
+            "buttons": {
+              "ok": "完成"
+            },
+            "detail": "({{playlistSize}} 首歌曲)",
+            "message": "正在下載 {{playlistTitle}} 播放清單",
+            "title": "開始下載"
+          }
+        },
+        "feedback": {
+          "conversion-progress": "轉檔進度: {{percent}}%",
+          "converting": "轉檔中…",
+          "done": "完成下載: {{filePath}}",
+          "download-info": "正在下載 {{artist}} - {{title}} [{{videoId}}",
+          "download-progress": "下載進度: {{percent}}%",
+          "downloading": "下載中…",
+          "downloading-counter": "正在下載第 {{current}}/{{total}}…",
+          "downloading-playlist": "正在下載 \"{{playlistTitle}}\" 播放清單 - 共 {{playlistSize}} 首歌 ({{playlistId}})",
+          "error-while-downloading": "無法下載 \"{{author}} - {{title}}\": {{error}}",
+          "folder-already-exists": "資料夾 {{playlistFolder}} 已經存在",
+          "getting-playlist-info": "正在獲取播放清單資訊…",
+          "loading": "載入中…",
+          "playlist-has-only-one-song": "播放清單內只有一首歌曲, 直接下載",
+          "playlist-id-not-found": "沒有找到播放清單ID",
+          "playlist-is-empty": "播放清單為空",
+          "playlist-is-mix-or-private": "獲取播放清單資訊時發生錯誤: 請確認非私人播放清單或是\"為你推薦的合輯\"\n\n{{error}}",
+          "preparing-file": "正在準備檔案…",
+          "saving": "儲存中…",
+          "trying-to-get-playlist-id": "正在嘗試獲取播放清單ID: {{playlistId}}",
+          "video-id-not-found": "未找到影片",
+          "writing-id3": "正在寫入ID3標籤…"
+        }
+      },
+      "description": "在應用程式內下載MP3 / 原始音樂檔",
+      "menu": {
+        "choose-download-folder": "選擇下載位置",
+        "download-playlist": "下載播放清單",
+        "presets": "預設格式",
+        "skip-existing": "跳過已存在的檔案"
+      },
+      "name": "下載器",
+      "renderer": {
+        "can-not-update-progress": "無法更新進度"
+      },
+      "templates": {
+        "button": "下載"
+      }
+    },
+    "exponential-volume": {
+      "description": "使音量滑桿呈指數增加，以便更容易選擇較低的音量。",
+      "name": "指數音量調整"
+    },
+    "in-app-menu": {
+      "description": "優化選單欄外觀, 選單欄顏色將會隨主題變色或預設黑色",
+      "menu": {
+        "hide-dom-window-controls": "隱藏DOM視窗控制"
+      },
+      "name": "程式內選單欄"
+    },
+    "last-fm": {
+      "description": "新增對Last.fm的scrobbling支援",
+      "name": "Last.fm"
+    },
+    "lumiastream": {
+      "description": "新增對Lumia Stream的支援",
+      "name": "Lumia Stream [測試階段]"
+    },
+    "lyrics-genius": {
+      "description": "新增更多歌曲的字幕支援",
+      "menu": {
+        "romanized-lyrics": "羅馬拼音字幕"
+      },
+      "name": "字幕Genius",
+      "renderer": {
+        "fetched-lyrics": "為Genius獲取字幕"
+      }
+    },
+    "navigation": {
+      "description": "將上一頁/下一頁按鈕新增至應用程式內, 就像你最熟悉的瀏覽器",
+      "name": "導覽列"
+    },
+    "no-google-login": {
+      "description": "移除Google登入按鈕及連結",
+      "name": "禁用Google登入"
+    },
+    "notifications": {
+      "description": "在歌曲播放時發送一個系統通知 (可互動通知僅限Windows)",
+      "menu": {
+        "interactive": "可互動通知",
+        "interactive-settings": {
+          "label": "通知互動設定",
+          "submenu": {
+            "hide-button-text": "隱藏按鈕文字",
+            "refresh-on-play-pause": "在播放/暫停時刷新",
+            "tray-controls": "點擊系統閘圖示時打開/關閉"
+          }
+        },
+        "priority": "通知優先權",
+        "toast-style": "通知樣式",
+        "unpause-notification": "在取消暫停時發送通知"
+      },
+      "name": "歌曲播放通知"
+    },
+    "picture-in-picture": {
+      "description": "允許應用程式切換至畫中畫模式",
+      "menu": {
+        "always-on-top": "永遠顯示在最上層",
+        "hotkey": {
+          "label": "快捷鍵",
+          "prompt": {
+            "keybind-options": {
+              "hotkey": "快捷鍵"
+            },
+            "label": "選擇一個快捷鍵來切換畫中畫模式",
+            "title": "畫中畫模式快捷鍵"
+          }
+        },
+        "save-window-position": "記住視窗位置",
+        "save-window-size": "記住視窗大小",
+        "use-native-pip": "使用瀏覽器原生畫中畫模式"
+      },
+      "name": "畫中畫模式",
+      "templates": {
+        "button": "畫中畫模式"
+      }
+    },
+    "playback-speed": {
+      "description": "傷心的人別聽慢歌, 新增一個滑桿控制歌曲速度",
+      "name": "控制歌曲速度",
+      "templates": {
+        "button": "速度"
+      }
+    },
+    "precise-volume": {
+      "description": "讓你可使用滑鼠滾輪/快捷鍵控制音量",
+      "menu": {
+        "arrows-shortcuts": "本地方向鍵控制",
+        "custom-volume-steps": "自訂音量層級",
+        "global-shortcuts": "全域快捷鍵"
+      },
+      "name": "精確音量控制",
+      "prompt": {
+        "global-shortcuts": {
+          "keybind-options": {
+            "decrease": "降低音量",
+            "increase": "增加音量"
+          },
+          "label": "選擇全域音量控制快捷鍵:",
+          "title": "全域音量控制快捷鍵"
+        },
+        "volume-steps": {
+          "label": "設定音量一次增加/降低的層級",
+          "title": "音量層級設定"
+        }
+      }
+    },
+    "quality-changer": {
+      "backend": {
+        "dialog": {
+          "quality-changer": {
+            "detail": "目前畫質: {{quality}}",
+            "message": "選擇影片畫質:",
+            "title": "選擇影片畫質"
+          }
+        }
+      },
+      "description": "允許在影片畫面內調整影片畫質",
+      "name": "影片畫質更改器"
+    },
+    "shortcuts": {
+      "description": "使用全域快捷鍵控制音樂 (播放/暫停/下一首/上一首) + 透過覆寫媒體快捷鍵停用媒體OSD + 允許Ctrl/CMD + F來搜尋 + 支援Linux MPRIS媒體快捷鍵 + 更多自訂快捷鍵給進階使用者",
+      "menu": {
+        "override-media-keys": "覆寫媒體快捷鍵",
+        "set-keybinds": "設定全域音樂控制"
+      },
+      "name": "Shortcuts (& MPRIS)",
+      "prompt": {
+        "keybind": {
+          "keybind-options": {
+            "next": "下一首",
+            "play-pause": "播放/暫停",
+            "previous": "上一首"
+          },
+          "label": "選擇全域音樂控制快捷鍵:",
+          "title": "全域快捷鍵"
+        }
+      }
+    },
+    "skip-silences": {
+      "description": "自動跳過音樂無聲片段",
+      "name": "跳過無聲"
+    },
+    "sponsorblock": {
+      "description": "自動跳過音樂贊助片段",
+      "name": "贊助片段阻擋"
+    },
+    "taskbar-mediacontrol": {
+      "description": "透過工作列應用程式圖式控制媒體播放",
+      "name": "工作列媒體控制"
+    },
+    "touchbar": {
+      "description": "為macOS使用者新增支援觸控列",
+      "name": "觸控列"
+    },
+    "tuna-obs": {
+      "description": "與OBS外掛Tuna連接",
+      "name": "Tuna OBS"
+    },
+    "video-toggle": {
+      "description": "新增一個按鈕可以控制影片/音樂切換, 附加完全移除整個影片頁面的功能",
+      "menu": {
+        "align": {
+          "label": "按鈕位置",
+          "submenu": {
+            "left": "靠左",
+            "middle": "中間",
+            "right": "靠右"
+          }
+        },
+        "force-hide": "強制移除整個影片頁面",
+        "mode": {
+          "label": "樣式",
+          "submenu": {
+            "custom": "自訂樣式",
+            "disabled": "停用",
+            "native": "原生樣式"
+          }
+        }
+      },
+      "name": "影片切換",
+      "templates": {
+        "button": "歌曲"
+      }
+    },
+    "visualizer": {
+      "description": "新增一個可視化音樂效果",
+      "menu": {
+        "visualizer-type": "樣式"
+      },
+      "name": "可視化音樂效果"
     }
   }
 }
