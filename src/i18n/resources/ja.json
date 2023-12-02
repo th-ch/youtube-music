@@ -1,8 +1,35 @@
 {
+  "common": {
+    "console": {
+      "plugins": {
+        "load-all": "すべてのプラグインをロード中",
+        "load-failed": "プラグイン”{{pluginName}}”のロードが失敗しました",
+        "loaded": "プラグイン”{{pluginName}}”ロード完了"
+      }
+    }
+  },
   "language": {
     "code": "ja",
     "local-name": "日本語",
     "name": "Japanese"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "ロード完了。デベロッパーツールが開きました"
+      }
+    },
+    "dialog": {
+      "need-to-restart": {
+        "detail": "”{{pluginName}}”プラグインを適用するには再起動が必要です",
+        "message": "”{{pluginName}}”は再起動が必要です"
+      }
+    },
+    "menu": {
+      "plugins": {
+        "label": "プラグイン"
+      }
+    }
   },
   "plugins": {
     "adblocker": {
