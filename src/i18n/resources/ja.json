@@ -169,7 +169,7 @@
         }
       },
       "plugins": {
-        "enabled": "有効",
+        "enabled": "作動中",
         "label": "プラグイン"
       },
       "view": {
