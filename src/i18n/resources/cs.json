@@ -294,7 +294,7 @@
               "ok": "OK"
             },
             "detail": "({{playlistSize}} písničky)",
-            "message": "Stahování Playlistu {{playlistTitle}}",
+            "message": "Stahování seznamu skladeb {{playlistTitle}}",
             "title": "Stahování začalo"
           }
         },
@@ -304,15 +304,17 @@
           "download-progress": "Stahování: {{percent}}%",
           "downloading": "Stahování…",
           "downloading-counter": "Stahování {{current}}/{{total}}…",
-          "downloading-playlist": "Stahování playlistu \"{{playlistTitle}}\" - {{playlistSize}} písničky ({{playlistId}})",
+          "downloading-playlist": "Stahování seznamu skladeb \"{{playlistTitle}}\" - {{playlistSize}} písničky ({{playlistId}})",
           "error-while-downloading": "Chyba při stahování \"{{author}} - {{title}}\": {{error}}",
           "folder-already-exists": "Složka {{playlistFolder}} již existuje",
+          "getting-playlist-info": "Getting informace o seznamu skladeb…",
           "loading": "Načítání…",
-          "playlist-has-only-one-song": "Playlist má pouze jednu položku, stáhnout jej přímo",
-          "playlist-id-not-found": "Žádný playlist ID nenalezen",
-          "playlist-is-empty": "Playlist je prázdný",
+          "playlist-has-only-one-song": "Seznam skladeb má pouze jednu položku, downloading it directly",
+          "playlist-id-not-found": "Žádné ID seznamu skladeb nenalezeno",
+          "playlist-is-empty": "Seznam skladeb je prázdný",
           "preparing-file": "Připravování souboru…",
           "saving": "Ukládání…",
+          "trying-to-get-playlist-id": "Trying to get ID seznamu skladeb: {{playlistId}}",
           "video-id-not-found": "Video nebylo nalezeno"
         }
       },
