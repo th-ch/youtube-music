@@ -308,7 +308,7 @@
           "error-while-downloading": "Chyba při stahování \"{{author}} - {{title}}\": {{error}}",
           "folder-already-exists": "Složka {{playlistFolder}} již existuje",
           "loading": "Načítání…",
-          "playlist-has-only-one-song": "Playlist má jenom jeden položku, downloading it directly",
+          "playlist-has-only-one-song": "Playlist má pouze jednu položku, stáhnout jej přímo",
           "playlist-id-not-found": "Žádný playlist ID nenalezen",
           "playlist-is-empty": "Playlist je prázdný",
           "preparing-file": "Připravování souboru…",
