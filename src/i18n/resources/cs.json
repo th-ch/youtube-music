@@ -87,7 +87,7 @@
               "set-proxy": {
                 "label": "Nastavit proxy",
                 "prompt": {
-                  "label": "Zadejte adresu proxy: (nechejte prázdné zakázat)",
+                  "label": "Zadejte adresu proxy: (nechejte prázdné to disable)",
                   "placeholder": "Příklad: socks5://127.0.0.1:9999",
                   "title": "Nastavit proxy"
                 }
