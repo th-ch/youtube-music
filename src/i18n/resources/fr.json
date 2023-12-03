@@ -33,7 +33,7 @@
         "css-file-not-found": "Le fichier de CSS \"{{cssFile}}\" n'existe pas, ignorer"
       },
       "unresponsive": {
-        "details": "Erreur qui ne répond pas !\n{{error}}"
+        "details": "Erreur : ne répond pas !\n{{error}}"
       },
       "when-ready": {
         "clearing-cache-after-20s": "Effacement du cache de l'application"
@@ -136,7 +136,7 @@
           "start-at-login": "Démarrer à la connexion",
           "starting-page": {
             "label": "Page de démarrage",
-            "unset": "Non défini"
+            "unset": "Définir à vide"
           },
           "tray": {
             "label": "Plateau",
@@ -510,10 +510,85 @@
         "dialog": {
           "quality-changer": {
             "detail": "Qualité actuelle : {{quality}}",
-            "message": "Choisissez la qualité vidéo :"
+            "message": "Choisissez la qualité vidéo :",
+            "title": "Choisissez la qualité vidéo"
           }
         }
+      },
+      "description": "Permet de changer la qualité vidéo avec un bouton sur la vidéo",
+      "name": "Changeur de qualité vidéo"
+    },
+    "shortcuts": {
+      "description": "Permet de définir des raccourcis clavier globaux pour la lecture (lecture/pause/suivant/précédent) + désactiver l'OSD multimédia en remplaçant les touches multimédias + activer Ctrl/CMD + F pour rechercher + activer la prise en charge Linux MPRIS pour les touches multimédias + raccourcis clavier personnalisés pour les utilisateurs avancés",
+      "menu": {
+        "override-media-keys": "Remplacer les touches multimédias",
+        "set-keybinds": "Définir les contrôles globaux des morceaux"
+      },
+      "name": "Raccourcis (& MPRIS)",
+      "prompt": {
+        "keybind": {
+          "keybind-options": {
+            "next": "Suivant",
+            "play-pause": "Lecture / Pause",
+            "previous": "Précédent"
+          },
+          "label": "Choisissez les raccourcis clavier globaux pour le contrôle des morceaux :",
+          "title": "Raccourcis clavier globaux"
+        }
       }
+    },
+    "skip-silences": {
+      "description": "Ignorer automatiquement les sections de silence dans les chansons",
+      "name": "Passer les silences"
+    },
+    "sponsorblock": {
+      "description": "Saute automatiquement les parties non musicales comme l'intro/outro ou les parties de clips vidéo où la chanson n'est pas lue",
+      "name": "SponsorBlock"
+    },
+    "taskbar-mediacontrol": {
+      "description": "Contrôlez la lecture depuis votre barre des tâches Windows",
+      "name": "Contrôle multimédia de la barre des tâches"
+    },
+    "touchbar": {
+      "description": "Ajoute un widget TouchBar pour les utilisateurs de macOS",
+      "name": "TouchBar"
+    },
+    "tuna-obs": {
+      "description": "Intégration avec le plugin OBS Tuna",
+      "name": "Tuna OBS"
+    },
+    "video-toggle": {
+      "description": "Ajoute un bouton pour basculer entre le mode Vidéo/Chanson. peut également supprimer tout l'onglet vidéo",
+      "menu": {
+        "align": {
+          "label": "Alignement",
+          "submenu": {
+            "left": "Gauche",
+            "middle": "Milieu",
+            "right": "Droite"
+          }
+        },
+        "force-hide": "Forcer la suppression de l'onglet vidéo",
+        "mode": {
+          "label": "Mode",
+          "submenu": {
+            "custom": "Bascule personnalisée",
+            "disabled": "Désactivé",
+            "native": "Bascule native"
+          }
+        }
+      },
+      "name": "Basculer la vidéo",
+      "templates": {
+        "button": "Musique"
+      }
+    },
+    "visualizer": {
+      "description": "Ajoute un visualiseur au lecteur",
+      "menu": {
+        "visualizer-type": "Type de visualiseur"
+      },
+      "name": "Visualiseur"
     }
   }
 }
