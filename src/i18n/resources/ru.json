@@ -1,4 +1,16 @@
 {
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "Ошибка загрузки плагина {{pluginName}}::{{contextName}}",
+        "executed-at-ms": "Плагин {{pluginName}}::{{contextName}} загружен за {{ms}}мс",
+        "initialize-failed": "Ошибка инициализации плагина \"{{pluginName}}\"",
+        "load-all": "Загружаем все плагины",
+        "load-failed": "Ошибка загрузки плагина \"{{pluginName}}\"",
+        "loaded": "Плагин \"{{pluginName}}\" загружен"
+      }
+    }
+  },
   "language": {
     "code": "ru",
     "local-name": "Русский",
