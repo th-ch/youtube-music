@@ -33,6 +33,7 @@
     },
     "dialog": {
       "hide-menu-enabled": {
+        "detail": "Menu je skrytý, použití 'Alt' ukázat (nebo 'Escape', pokud používáte in-app-menu)",
         "message": "Skrýt Menu je povoleno",
         "title": "Skrýt Menu Povolené"
       },
@@ -60,6 +61,7 @@
           "download": "Stáhnout",
           "ok": "OK"
         },
+        "detail": "Nová verze je k dispozici a lze stáhnout na {{downloadLink}}",
         "message": "Nová verze je dostupná",
         "title": "Aktualizace k dispozici"
       }
@@ -119,6 +121,7 @@
           "resume-on-start": "Resume poslední skladbu při spuštění aplikace",
           "single-instance-lock": "Zámek pro jednu instanci",
           "starting-page": {
+            "label": "Úvodní stránka",
             "unset": "Nenastaveno"
           },
           "tray": {
