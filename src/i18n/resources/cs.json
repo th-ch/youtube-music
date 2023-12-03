@@ -238,7 +238,7 @@
       }
     },
     "compact-sidebar": {
-      "description": "Vždy set the sidebar in compact režim"
+      "description": "Vždy set the sidebar v kompaktním režimu"
     },
     "crossfade": {
       "description": "Crossfade mezi písničkami",
@@ -272,6 +272,11 @@
         "disconnected": "Odpojeno",
         "hide-github-button": "Skrýt tlačítko s odkazem na GitHub",
         "play-on-youtube-music": "Hrát na YouTube Music"
+      },
+      "prompt": {
+        "set-inactivity-timeout": {
+          "label": "Zadejte inactivity timeout v sekundách:"
+        }
       }
     },
     "downloader": {
@@ -300,6 +305,7 @@
           "downloading": "Stahování…",
           "downloading-counter": "Stahování {{current}}/{{total}}…",
           "downloading-playlist": "Stahování playlistu \"{{playlistTitle}}\" - {{playlistSize}} písničky ({{playlistId}})",
+          "error-while-downloading": "Chyba při stahování \"{{author}} - {{title}}\": {{error}}",
           "folder-already-exists": "Složka {{playlistFolder}} již existuje",
           "loading": "Načítání…",
           "playlist-has-only-one-song": "Playlist má jenom jeden položku, downloading it directly",
@@ -327,10 +333,13 @@
       "name": "Last.fm"
     },
     "lyrics-genius": {
-      "description": "Přidat lyrics podporu pro většinu písniček"
+      "description": "Přidat lyrics podporu pro většinu písniček",
+      "renderer": {
+        "fetched-lyrics": "Fetched lyrics pro Genius"
+      }
     },
     "navigation": {
-      "description": "Next/Back navigační šipky přímo integrován do rozhraní, jako ve vašem oblíbeném prohlížeči",
+      "description": "Další/Zpátky navigační šipky přímo integrovány do rozhraní, jako ve vašem oblíbeném prohlížeči",
       "name": "Navigace"
     },
     "no-google-login": {
