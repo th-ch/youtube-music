@@ -14,11 +14,14 @@
   },
   "main": {
     "console": {
+      "did-finish-load": {
+        "dev-tools": "Dokončeno načítání. DevTools otevřeny"
+      },
       "i18n": {
         "loaded": "i18n načteno"
       },
       "second-instance": {
-        "receive-command": "Received command přes protokol: \"{{command}}\""
+        "receive-command": "Přijmut příkaz přes protokol: \"{{command}}\""
       },
       "theme": {
         "css-file-not-found": "CSS soubor \"{{cssFile}}\" neexistuje, ignoring"
@@ -32,7 +35,9 @@
         "buttons": {
           "later": "Později",
           "restart-now": "Restartovat nyní"
-        }
+        },
+        "message": "\"{{pluginName}}\" potřebuje restartovat",
+        "title": "Restart vyžadován"
       },
       "unresponsive": {
         "buttons": {
@@ -87,6 +92,9 @@
           "always-on-top": "Vždy na vrchu",
           "auto-update": "Automatické aktualizace",
           "hide-menu": {
+            "dialog": {
+              "title": "Skrýt Menu Povoleno"
+            },
             "label": "Skrýt menu"
           },
           "language": {
@@ -129,7 +137,9 @@
         "label": "Pluginy"
       },
       "view": {
+        "label": "Zobrazení",
         "submenu": {
+          "reset-zoom": "Actual velikost",
           "zoom-in": "Přiblížit",
           "zoom-out": "Oddálit"
         }
@@ -223,7 +233,7 @@
       }
     },
     "compact-sidebar": {
-      "description": "Vždy set the sidebar in compact mode"
+      "description": "Vždy set the sidebar in compact režim"
     },
     "crossfade": {
       "description": "Crossfade mezi písničkami",
@@ -281,9 +291,10 @@
         "feedback": {
           "done": "Hotovo: {{filePath}}",
           "download-info": "Stahování {{artist}} - {{title}} [{{videoId}}",
+          "download-progress": "Stahování: {{percent}}%",
           "downloading": "Stahování…",
           "downloading-counter": "Stahování {{current}}/{{total}}…",
-          "downloading-playlist": "Downloading playlist \"{{playlistTitle}}\" - {{playlistSize}} písničky ({{playlistId}})",
+          "downloading-playlist": "Stahování playlistu \"{{playlistTitle}}\" - {{playlistSize}} písničky ({{playlistId}})",
           "folder-already-exists": "Složka {{playlistFolder}} již existuje",
           "loading": "Načítání…",
           "playlist-has-only-one-song": "Playlist má jenom jeden položku, downloading it directly",
@@ -387,6 +398,9 @@
       }
     },
     "shortcuts": {
+      "menu": {
+        "override-media-keys": "Přepsat Media Keys"
+      },
       "name": "Zkratky (& MPRIS)",
       "prompt": {
         "keybind": {
