@@ -31,6 +31,10 @@
       }
     },
     "dialog": {
+      "hide-menu-enabled": {
+        "message": "Skrýt Menu je povoleno",
+        "title": "Skrýt Menu Povolené"
+      },
       "need-to-restart": {
         "buttons": {
           "later": "Později",
@@ -83,6 +87,7 @@
               "set-proxy": {
                 "label": "Nastavit proxy",
                 "prompt": {
+                  "label": "Zadejte adresu proxy: (nechejte prázdné zakázat)",
                   "placeholder": "Příklad: socks5://127.0.0.1:9999",
                   "title": "Nastavit proxy"
                 }
@@ -307,7 +312,7 @@
       },
       "menu": {
         "choose-download-folder": "Vybrat download složku",
-        "download-playlist": "Stáhnout playlist",
+        "download-playlist": "Stáhnout seznam skladeb",
         "skip-existing": "Přeskočit existující soubory"
       },
       "name": "Stahovač",
