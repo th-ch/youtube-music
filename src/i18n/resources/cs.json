@@ -2,6 +2,7 @@
   "common": {
     "console": {
       "plugins": {
+        "executed-at-ms": "Plugin {{pluginName}}::{{contextName}} proveden na {{ms}}ms",
         "load-all": "Načítání všech pluginů",
         "loaded": "Plugin \"{{pluginName}}\" načten"
       }
