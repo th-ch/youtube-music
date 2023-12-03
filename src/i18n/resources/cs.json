@@ -330,6 +330,7 @@
       "description": "Přidat lyrics podporu pro většinu písniček"
     },
     "navigation": {
+      "description": "Next/Back navigační šipky přímo integrován do rozhraní, jako ve vašem oblíbeném prohlížeči",
       "name": "Navigace"
     },
     "no-google-login": {
