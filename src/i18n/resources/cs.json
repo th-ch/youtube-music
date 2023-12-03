@@ -381,7 +381,7 @@
       "menu": {
         "global-shortcuts": "Globální klávesové zkratky"
       },
-      "name": "Precise hlasitost",
+      "name": "Přesná hlasitost",
       "prompt": {
         "global-shortcuts": {
           "keybind-options": {
@@ -423,6 +423,9 @@
     },
     "taskbar-mediacontrol": {
       "description": "Kontrolovat playback z vašeho Windows taskbar"
+    },
+    "touchbar": {
+      "description": "Adds a TouchBar widget pro macOS uživatele"
     },
     "video-toggle": {
       "menu": {
