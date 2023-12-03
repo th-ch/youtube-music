@@ -1,5 +1,3 @@
-import process from 'node:process';
-
 import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
 import is from 'electron-is';
 

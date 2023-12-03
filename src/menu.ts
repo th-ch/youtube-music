@@ -1,5 +1,3 @@
-import process from 'node:process';
-
 import is from 'electron-is';
 import {
   app,
