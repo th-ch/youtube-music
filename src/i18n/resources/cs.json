@@ -33,7 +33,7 @@
     },
     "dialog": {
       "hide-menu-enabled": {
-        "detail": "Menu je skrytý, použití 'Alt' ukázat (nebo 'Escape', pokud používáte in-app-menu)",
+        "detail": "Menu je skrytý, use 'Alt' to show it (nebo 'Escape', pokud používáte in-app-menu)",
         "message": "Skrýt Menu je povoleno",
         "title": "Skrýt Menu Povolené"
       },
@@ -53,7 +53,8 @@
           "wait": "Počkat"
         },
         "detail": "Omlouváme se za způsobené nepříjemnosti! prosím vyberte, co dělat:",
-        "message": "Aplikace nereaguje"
+        "message": "Aplikace nereaguje",
+        "title": "Okno Unresponsive"
       },
       "update-available": {
         "buttons": {
@@ -475,7 +476,11 @@
       }
     },
     "visualizer": {
-      "description": "Přidá vizualizátor do přehrávače"
+      "description": "Přidá vizualizátor do přehrávače",
+      "menu": {
+        "visualizer-type": "Typ vizualizéru"
+      },
+      "name": "Vizualizér"
     }
   }
 }
