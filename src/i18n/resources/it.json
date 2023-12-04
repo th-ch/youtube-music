@@ -1,1 +1,32 @@
-{}
+{
+  "common": {
+    "console": {
+      "plugins": {
+        "initialize-failed": "Inizializzazione del plugin \"{{pluginName}}\" fallita",
+        "load-all": "Caricamento di tutti i plugins",
+        "load-failed": "Caricamento del plugin \"{{pluginName}}\" fallito",
+        "loaded": "Plugin \"{{pluginName}}\" caricato",
+        "unload-failed": "Scaricamento del plugin \"{{pluginName}}\" fallito",
+        "unloaded": "Plugin \"{{pluginName}}\" scaricato"
+      }
+    }
+  },
+  "language": {
+    "code": "it",
+    "local-name": "Inglese",
+    "name": "Inglese"
+  },
+  "main": {
+    "console": {
+      "i18n": {
+        "loaded": "i18n caricato"
+      },
+      "theme": {
+        "css-file-not-found": "Il file CSS \"{{cssFile}}\" non esiste, ignorato"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "Cancellazione della cache dell'app"
+      }
+    }
+  }
+}
