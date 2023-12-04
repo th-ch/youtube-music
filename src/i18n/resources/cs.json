@@ -29,7 +29,7 @@
         "receive-command": "Přijmut příkaz přes protokol: \"{{command}}\""
       },
       "theme": {
-        "css-file-not-found": "CSS soubor \"{{cssFile}}\" neexistuje, ignoring"
+        "css-file-not-found": "CSS soubor \"{{cssFile}}\" neexistuje, ignorováno"
       },
       "unresponsive": {
         "details": "Unresponsive chyba!\n{{error}}"
@@ -38,7 +38,7 @@
         "clearing-cache-after-20s": "Čištění mezipaměti aplikace"
       },
       "window": {
-        "tried-to-render-offscreen": "Okno se pokusilo render offscreen, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
+        "tried-to-render-offscreen": "Okno se pokusilo render na pozadí, Velikost okna ={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
       }
     },
     "dialog": {
@@ -64,7 +64,7 @@
         },
         "detail": "Omlouváme se za způsobené nepříjemnosti! prosím vyberte, co dělat:",
         "message": "Aplikace nereaguje",
-        "title": "Okno Unresponsive"
+        "title": "Okno nereaguje"
       },
       "update-available": {
         "buttons": {
@@ -95,7 +95,7 @@
           "advanced-options": {
             "label": "Pokročilé možnosti",
             "submenu": {
-              "auto-reset-app-cache": "Reset mezipaměti, když aplikace starts",
+              "auto-reset-app-cache": "Při spuštění aplikace, se resetuje její mezipaměť",
               "disable-hardware-acceleration": "Vypnout hardware zrychlení",
               "edit-config-json": "Upravit config.json",
               "override-user-agent": "Přepsat User-Agent",
@@ -115,6 +115,7 @@
           "auto-update": "Automatické aktualizace",
           "hide-menu": {
             "dialog": {
+              "message": "Menu bude skryto na dalším launch, use [Alt] to show it (nebo backtick [`] pokud používáte in-app-menu)",
               "title": "Skrýt Menu Povoleno"
             },
             "label": "Skrýt menu"
@@ -138,21 +139,24 @@
           "tray": {
             "submenu": {
               "enabled-and-hide-app": "Povolit a skrýt aplikaci",
+              "enabled-and-show-app": "Enabled a show aplikaci",
               "play-pause-on-click": "Přehrát/Pozastavit na kliknutí"
             }
           },
           "visual-tweaks": {
+            "label": "Vzhledové vylepšení",
             "submenu": {
               "like-buttons": {
                 "default": "Výchozí",
+                "force-show": "Vynutit show",
                 "hide": "Schovat",
                 "label": "Like tlačítka"
               },
-              "remove-upgrade-button": "Odebrat tlačítko upgrade",
+              "remove-upgrade-button": "Odebrat upgrade tlačítko",
               "theme": {
                 "label": "Motiv",
                 "submenu": {
-                  "import-css-file": "Import custom CSS soubor",
+                  "import-css-file": "Import vlastní CSS soubor",
                   "no-theme": "Žádný motiv"
                 }
               }
@@ -167,6 +171,7 @@
       "view": {
         "label": "Zobrazení",
         "submenu": {
+          "force-reload": "Vynutit znovu načtení",
           "reset-zoom": "Actual velikost",
           "zoom-in": "Přiblížit",
           "zoom-out": "Oddálit"
@@ -175,7 +180,7 @@
     },
     "tray": {
       "next": "Další",
-      "play-pause": "Hrát/Zastavit",
+      "play-pause": "Přehrát/Pozastavit",
       "previous": "Minulý",
       "quit": "Ukončit",
       "restart": "Restartovat aplikaci",
@@ -191,11 +196,11 @@
       "name": "Blokovač reklam"
     },
     "album-color-theme": {
-      "description": "Použije dynamický motiv a visuální efekty based na paletě barev alba",
-      "name": "Album Color Motiv"
+      "description": "Použije dynamický motiv a vizuální efekty na základě palety barev alba",
+      "name": "Motiv podle barvy Alba"
     },
     "ambient-mode": {
-      "description": "Applies a lighting efekty by casting gentle colors z videa, into your screen’s pozadí.",
+      "description": "Applies a lighting efekty pomocí casting gentle barvy z videa, do vašeho screen’s pozadí.",
       "menu": {
         "blur-amount": {
           "submenu": {
@@ -235,15 +240,19 @@
       },
       "name": "Ambientní režim"
     },
+    "audio-compressor": {
+      "name": "Audio kompresor"
+    },
     "blur-nav-bar": {
-      "description": "Udělá navigační panel průhledným a rozmazaným"
+      "description": "Udělá navigační panel průhledným a rozmazaným",
+      "name": "Rozmazaný navigační Bar"
     },
     "bypass-age-restrictions": {
       "description": "Obejít ověření věku na YouTube",
       "name": "Obejít věková omezení"
     },
     "captions-selector": {
-      "description": "Titulkový selector pro YouTube Music audio tracks",
+      "description": "Titulkový selector pro zvukové stopy v YouTube Music",
       "menu": {
         "autoload": "Automaticky vybrat naposledy použité titulky",
         "disable-captions": "Žádné titulky ve vychozím nastavení"
@@ -284,6 +293,9 @@
       }
     },
     "disable-autoplay": {
+      "menu": {
+        "apply-once": "Applies jenom na spuštění aplikace"
+      },
       "name": "Zrušit automatické přehrávání"
     },
     "discord": {
@@ -357,7 +369,11 @@
     "exponential-volume": {
       "name": "Exponenciální hlasitost"
     },
+    "in-app-menu": {
+      "description": "Dává menu-bars a fancy, tmavý nebo album-color vzhled"
+    },
     "last-fm": {
+      "description": "Přidat scrobbling podporu pro Last.fm",
       "name": "Last.fm"
     },
     "lumiastream": {
@@ -385,6 +401,7 @@
           "label": "Interactive Nastavení",
           "submenu": {
             "hide-button-text": "Skrýt text tlačítka",
+            "refresh-on-play-pause": "Refresh na Přehrát/Pozastavit",
             "tray-controls": "Otevřít/Zavřít on tray click"
           }
         },
@@ -481,6 +498,7 @@
       "description": "Integrace s OBS's plugin Tuna"
     },
     "video-toggle": {
+      "description": "Přidává tlačítko switch mezi videem/písničkou mode. Může také optionally remove celou video kartu",
       "menu": {
         "align": {
           "label": "Zarovnání",
@@ -490,6 +508,7 @@
             "right": "Pravo"
           }
         },
+        "force-hide": "Vynutit odstranění karty videa",
         "mode": {
           "label": "Režim"
         }
