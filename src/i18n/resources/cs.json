@@ -148,7 +148,7 @@
                 "hide": "Schovat",
                 "label": "Like tlačítka"
               },
-              "remove-upgrade-button": "Remove upgrade tlačítko",
+              "remove-upgrade-button": "Odebrat tlačítko upgrade",
               "theme": {
                 "label": "Motiv",
                 "submenu": {
