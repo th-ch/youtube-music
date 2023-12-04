@@ -473,6 +473,9 @@
       "templates": {
         "button": "Písnička"
       }
+    },
+    "visualizer": {
+      "description": "Přidá vizualizátor do přehrávače"
     }
   }
 }
