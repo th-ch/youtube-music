@@ -2,6 +2,7 @@
   "common": {
     "console": {
       "plugins": {
+        "execute-failed": "Selhalo execute pluginu {{pluginName}}::{{contextName}}",
         "executed-at-ms": "Plugin {{pluginName}}::{{contextName}} executed at {{ms}}ms",
         "initialize-failed": "Selhala initialize \"{{pluginName}}\" pluginu",
         "load-all": "Načítání všech pluginů",
@@ -30,13 +31,19 @@
       "theme": {
         "css-file-not-found": "CSS soubor \"{{cssFile}}\" neexistuje, ignoring"
       },
+      "unresponsive": {
+        "details": "Unresponsive chyba!\n{{error}}"
+      },
       "when-ready": {
         "clearing-cache-after-20s": "Čištění mezipaměti aplikace"
+      },
+      "window": {
+        "tried-to-render-offscreen": "Okno se pokusilo render offscreen, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
       }
     },
     "dialog": {
       "hide-menu-enabled": {
-        "detail": "Menu je skrytý, use 'Alt' to show it (nebo 'Escape', pokud používáte in-app-menu)",
+        "detail": "Menu je skryté, use 'Alt' to show it (nebo 'Escape', pokud používáte in-app-menu)",
         "message": "Skrýt Menu je povoleno",
         "title": "Skrýt Menu Povolené"
       },
@@ -336,6 +343,7 @@
           "video-id-not-found": "Video nebylo nalezeno"
         }
       },
+      "description": "Stahuje MP3 / source audio přímo z rozhraní",
       "menu": {
         "choose-download-folder": "Vybrat download složku",
         "download-playlist": "Stáhnout seznam skladeb",
@@ -372,6 +380,7 @@
     "notifications": {
       "description": "Display oznámení when a písnička starts hraje (interactive notifications are available on Windows)",
       "menu": {
+        "interactive": "Interaktivní oznámení",
         "interactive-settings": {
           "label": "Interactive Nastavení",
           "submenu": {
@@ -379,7 +388,8 @@
             "tray-controls": "Otevřít/Zavřít on tray click"
           }
         },
-        "priority": "Priorita Oznámení"
+        "priority": "Priorita Oznámení",
+        "unpause-notification": "Zobrazit oznámení na unpause"
       },
       "name": "Oznámení"
     },
@@ -391,7 +401,9 @@
           "prompt": {
             "keybind-options": {
               "hotkey": "Klávesová zkratka"
-            }
+            },
+            "label": "Vybrat klávesovou zkratku pro toggle obrázek v obrázku",
+            "title": "Obrázek v obrázku klávesová zkratka"
           }
         },
         "save-window-position": "Uložit pozici okna",
@@ -462,7 +474,8 @@
       "name": "Hlavní panel Media Control"
     },
     "touchbar": {
-      "description": "Adds a TouchBar widget pro macOS uživatele"
+      "description": "Přidává Touch Bar widget pro macOS uživatele",
+      "name": "Touch Bar"
     },
     "tuna-obs": {
       "description": "Integrace s OBS's plugin Tuna"
@@ -473,6 +486,7 @@
           "label": "Zarovnání",
           "submenu": {
             "left": "Vlevo",
+            "middle": "Uprostřed",
             "right": "Pravo"
           }
         },
