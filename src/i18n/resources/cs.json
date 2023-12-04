@@ -3,8 +3,11 @@
     "console": {
       "plugins": {
         "executed-at-ms": "Plugin {{pluginName}}::{{contextName}} executed at {{ms}}ms",
+        "initialize-failed": "Selhala initialize \"{{pluginName}}\" pluginu",
         "load-all": "Načítání všech pluginů",
-        "loaded": "Plugin \"{{pluginName}}\" načten"
+        "load-failed": "Selhalo načtení \"{{pluginName}}\" pluginu",
+        "loaded": "Plugin \"{{pluginName}}\" načten",
+        "unload-failed": "Selhalo unload \"{{pluginName}}\" pluginu"
       }
     }
   },
@@ -89,7 +92,7 @@
               "disable-hardware-acceleration": "Vypnout hardware zrychlení",
               "edit-config-json": "Upravit config.json",
               "override-user-agent": "Přepsat User-Agent",
-              "restart-on-config-changes": "Restartovat na změny v configu",
+              "restart-on-config-changes": "Restartovat na změny v konfiguraci",
               "set-proxy": {
                 "label": "Nastavit proxy",
                 "prompt": {
@@ -119,7 +122,7 @@
               "to-help-translate": "Chcete pomoc s překladem? Klikněte zde"
             }
           },
-          "resume-on-start": "Resume poslední skladbu při spuštění aplikace",
+          "resume-on-start": "Resume poslední písničku při spuštění aplikace",
           "single-instance-lock": "Zámek pro jednu instanci",
           "starting-page": {
             "label": "Úvodní stránka",
@@ -349,6 +352,9 @@
     "last-fm": {
       "name": "Last.fm"
     },
+    "lumiastream": {
+      "description": "Přidává Lumia Stream podporu"
+    },
     "lyrics-genius": {
       "description": "Přidat lyrics podporu pro většinu písniček",
       "renderer": {
@@ -458,6 +464,9 @@
     "touchbar": {
       "description": "Adds a TouchBar widget pro macOS uživatele"
     },
+    "tuna-obs": {
+      "description": "Integrace s OBS's plugin Tuna"
+    },
     "video-toggle": {
       "menu": {
         "align": {
@@ -476,7 +485,7 @@
       }
     },
     "visualizer": {
-      "description": "Přidá vizualizátor do přehrávače",
+      "description": "Přidá vizualizér do přehrávače",
       "menu": {
         "visualizer-type": "Typ vizualizéru"
       },
