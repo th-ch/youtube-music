@@ -2,7 +2,7 @@
   "common": {
     "console": {
       "plugins": {
-        "executed-at-ms": "Plugin {{pluginName}}::{{contextName}} proveden na {{ms}}ms",
+        "executed-at-ms": "Plugin {{pluginName}}::{{contextName}} executed at {{ms}}ms",
         "load-all": "Načítání všech pluginů",
         "loaded": "Plugin \"{{pluginName}}\" načten"
       }
@@ -41,12 +41,13 @@
           "later": "Později",
           "restart-now": "Restartovat nyní"
         },
+        "detail": "\"{{pluginName}}\" plugin vyžaduje restart, aby se projevil",
         "message": "\"{{pluginName}}\" potřebuje restartovat",
         "title": "Restart vyžadován"
       },
       "unresponsive": {
         "buttons": {
-          "quit": "Ukončení",
+          "quit": "Ukončit",
           "relaunch": "Spustit znovu",
           "wait": "Počkat"
         },
@@ -81,6 +82,7 @@
           "advanced-options": {
             "label": "Pokročilé možnosti",
             "submenu": {
+              "auto-reset-app-cache": "Reset mezipaměti, když aplikace starts",
               "disable-hardware-acceleration": "Vypnout hardware zrychlení",
               "edit-config-json": "Upravit config.json",
               "override-user-agent": "Přepsat User-Agent",
@@ -92,7 +94,8 @@
                   "placeholder": "Příklad: socks5://127.0.0.1:9999",
                   "title": "Nastavit proxy"
                 }
-              }
+              },
+              "toggle-dev-tools": "Toggle Vývojářské nástroje"
             }
           },
           "always-on-top": "Vždy na vrchu",
@@ -112,6 +115,11 @@
             "submenu": {
               "to-help-translate": "Chcete pomoc s překladem? Klikněte zde"
             }
+          },
+          "resume-on-start": "Resume poslední skladbu při spuštění aplikace",
+          "single-instance-lock": "Zámek pro jednu instanci",
+          "starting-page": {
+            "unset": "Nenastaveno"
           },
           "tray": {
             "submenu": {
@@ -239,13 +247,15 @@
       }
     },
     "compact-sidebar": {
-      "description": "Vždy set the sidebar v kompaktním režimu"
+      "description": "Vždy set the sidebar v kompaktním režimu",
+      "name": "Kompaktní Sidebar"
     },
     "crossfade": {
       "description": "Crossfade mezi písničkami",
       "menu": {
         "advanced": "Pokročilý"
       },
+      "name": "Prolínání [beta]",
       "prompt": {
         "options": {
           "multi-input": {
@@ -385,7 +395,7 @@
     },
     "playback-speed": {
       "description": "Posloiuchej rychle, poslouchej pomalu! Adds a slider, který kontroluje rychlost písníčky",
-      "name": "Playback rychlost",
+      "name": "Rychlost přehrávání",
       "templates": {
         "button": "Rychlost"
       }
@@ -434,8 +444,12 @@
       "description": "Automaticky přeskakovat tichá místa v písničkách",
       "name": "Přeskočit Tichá místa"
     },
+    "sponsorblock": {
+      "description": "Automaticky přeskakuje non-music části jako intro/outro nebo části of music videos, kde nehraje písnčka"
+    },
     "taskbar-mediacontrol": {
-      "description": "Kontrolovat playback z vašeho Windows taskbar"
+      "description": "Ovládejte přehrávání z vašeho hlavního panelu Windows",
+      "name": "Hlavní panel Media Control"
     },
     "touchbar": {
       "description": "Adds a TouchBar widget pro macOS uživatele"
