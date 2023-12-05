@@ -27,6 +27,14 @@
       "when-ready": {
         "clearing-cache-after-20s": "Cancellazione della cache dell'app"
       }
+    },
+    "dialog": {
+      "need-to-restart": {
+        "buttons": {
+          "later": "Più tardi",
+          "restart-now": "Riavvia ora"
+        }
+      }
     }
   }
 }
