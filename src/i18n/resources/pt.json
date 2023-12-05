@@ -51,6 +51,7 @@
           "ok": "Ok"
         },
         "detail": "Uma nova versão está disponível e pode ser baixada em {{downloadLink}}",
+        "message": "Uma nova versão está disponível",
         "title": "Atualização disponível"
       }
     },
