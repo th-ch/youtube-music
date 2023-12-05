@@ -2,13 +2,13 @@
   "common": {
     "console": {
       "plugins": {
-        "execute-failed": "Non è stato possibile eseguire il plugin {{pluginName}}::{{contextName}}",
+        "execute-failed": "È stato impossibile eseguire il plugin {{pluginName}}::{{contextName}}",
         "initialize-failed": "Inizializzazione del plugin \"{{pluginName}}\" fallita",
-        "load-all": "Caricamento di tutti i plugins",
-        "load-failed": "Caricamento del plugin \"{{pluginName}}\" fallito",
+        "load-all": "Carica tutti i plugins",
+        "load-failed": "Caricamento del plugin \"{{pluginName}}\" non riuscito",
         "loaded": "Plugin \"{{pluginName}}\" caricato",
-        "unload-failed": "Scaricamento del plugin \"{{pluginName}}\" fallito",
-        "unloaded": "Plugin \"{{pluginName}}\" scaricato"
+        "unload-failed": "Rimozione del plugin \"{{pluginName}}\" fallita",
+        "unloaded": "Plugin \"{{pluginName}}\" rimosso"
       }
     }
   },
@@ -19,8 +19,14 @@
   },
   "main": {
     "console": {
+      "did-finish-load": {
+        "dev-tools": "Caricamento concluso. DevTools aperto"
+      },
       "i18n": {
         "loaded": "i18n caricato"
+      },
+      "second-instance": {
+        "receive-command": "Comando ricevuto tramite protocollo: \"{{command}}\""
       },
       "theme": {
         "css-file-not-found": "Il file CSS \"{{cssFile}}\" non esiste, ignorato"
@@ -29,18 +35,21 @@
         "details": "Errore di mancata risposta!\n{{error}}"
       },
       "when-ready": {
-        "clearing-cache-after-20s": "Cancellazione della cache dell'app"
+        "clearing-cache-after-20s": "Sto liberando la cache dell'app"
+      },
+      "window": {
+        "tried-to-render-offscreen": "La finestra ha cercato di renderizzare fuori schermo, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}\""
       }
     },
     "dialog": {
       "hide-menu-enabled": {
-        "detail": "\"Menu nascosto, utilizza 'Alt' per visualizzarlo (o 'Escape' se si utilizza il menu in-app)\"",
-        "message": "Nascondi Menu è abilitato",
-        "title": "Nascondi Menu Abilitato"
+        "detail": "Il menu è nascosto, utilizza 'Alt' per visualizzarlo (o 'Escape' se si utilizza il menu in-app)\"",
+        "message": "'Nascondi menu' è attivo",
+        "title": "'Nascondi menu' attivo"
       },
       "need-to-restart": {
         "buttons": {
-          "later": "Più tardi",
+          "later": "In seguito",
           "restart-now": "Riavvia ora"
         },
         "detail": "Riavviare per attivare il plugin\"{{pluginName}}\"",
@@ -50,8 +59,8 @@
       "unresponsive": {
         "buttons": {
           "quit": "Arresta",
-          "relaunch": "Rilancia",
-          "wait": "Aspetta"
+          "relaunch": "Riavvia",
+          "wait": "Attendi"
         },
         "detail": "Ci dispiace per l'inconveniente! Scegli cosa fare:",
         "message": "L'applicazione non risponde",
@@ -74,9 +83,84 @@
         "label": "Navigazione",
         "submenu": {
           "copy-current-url": "Copia l'URL corrente",
-          "go-back": "Torna indietro"
+          "go-back": "Pagina indietro",
+          "quit": "Esci",
+          "restart": "Riavvia l'app"
+        }
+      },
+      "options": {
+        "submenu": {
+          "advanced-options": {
+            "submenu": {
+              "auto-reset-app-cache": "Resetta la cache dell'app quando viene riavviata",
+              "disable-hardware-acceleration": "Disabilita l'accelerazione hardware",
+              "override-user-agent": "Sovrascrivi User-Agent",
+              "restart-on-config-changes": "Riavvia in caso di modifiche alla configurazione",
+              "set-proxy": {
+                "label": "Imposta il proxy",
+                "prompt": {
+                  "label": "Inserisci l'indirizzo proxy: (lascia vuoto per disabilitare)",
+                  "placeholder": "Esempio: socks5://127.0.0.1:9999",
+                  "title": "Imposta il proxy"
+                }
+              },
+              "toggle-dev-tools": "Attiva/disattiva DevTools"
+            }
+          },
+          "hide-menu": {
+            "dialog": {
+              "message": "Il menu verrà nascosto al prossimo avvio. Utilizzare [Alt] per mostrarlo (o backtick [`] se si utilizza in-app-menu)",
+              "title": "Nascondi menu abilitato"
+            },
+            "label": "Nascondi menu"
+          },
+          "language": {
+            "dialog": {
+              "message": "La lingua verrà cambiata dopo il riavvio",
+              "title": "Lingua cambiata"
+            },
+            "label": "Lingua"
+          },
+          "resume-on-start": "Riprendi a riprodurre l'ultimo brano all'avvio dell'app",
+          "single-instance-lock": "Blocco a istanza singola",
+          "start-at-login": "Avvia al login",
+          "starting-page": {
+            "unset": "Non impostato"
+          },
+          "tray": {
+            "submenu": {
+              "disabled": "Disabilita",
+              "enabled-and-hide-app": "Abilita e nascondi l'app",
+              "enabled-and-show-app": "Abilita e mostra l'app",
+              "play-pause-on-click": "Riproduci/Pausa al clic"
+            }
+          },
+          "visual-tweaks": {
+            "label": "Miglioramenti visivi",
+            "submenu": {
+              "like-buttons": {
+                "force-show": "Forza la visualizzazione",
+                "hide": "Nascondi",
+                "label": "Pulsanti Like"
+              },
+              "remove-upgrade-button": "Rimuovi il pulsante aggiorna"
+            }
+          }
+        }
+      },
+      "view": {
+        "submenu": {
+          "force-reload": "Forza l'aggiornamento",
+          "reload": "Aggiorna",
+          "reset-zoom": "Dimensione attuale",
+          "toggle-fullscreen": "Attiva/disattiva schermo intero",
+          "zoom-in": "Zoom in",
+          "zoom-out": "Zoom out"
         }
       }
+    },
+    "tray": {
+      "next": "Prossimo"
     }
   }
 }
