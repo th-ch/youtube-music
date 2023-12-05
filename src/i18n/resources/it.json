@@ -44,6 +44,19 @@
           "restart-now": "Riavvia ora"
         },
         "detail": "Riavviare per attivare il plugin\"{{pluginName}}\""
+      },
+      "unresponsive": {
+        "message": "L'applicazione non risponde"
+      }
+    },
+    "menu": {
+      "about": "Informazioni",
+      "navigation": {
+        "label": "Navigazione",
+        "submenu": {
+          "copy-current-url": "Copia l'URL corrente",
+          "go-back": "Torna indietro"
+        }
       }
     }
   }
