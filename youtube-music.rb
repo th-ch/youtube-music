@@ -6,7 +6,7 @@ cask "youtube-music" do
   homepage "https://github.com/th-ch/youtube-music"
 
   # Fetch the latest release version from GitHub API
-  latest_release = JSON.parse(open("https://api.github.com/repos/th-ch/youtube-music/releases/latest").read)['tag_name']
+  latest_release = JSON.parse(URI.open("https://api.github.com/repos/th-ch/youtube-music/releases/latest").read)['tag_name']
   version latest_release
 
   base_url = "https://github.com/th-ch/youtube-music/releases/download/#{latest_release}/YouTube-Music-#{latest_release.delete_prefix('v')}"
