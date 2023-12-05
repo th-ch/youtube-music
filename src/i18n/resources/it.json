@@ -85,7 +85,7 @@
         "submenu": {
           "copy-current-url": "Copia l'URL corrente",
           "go-back": "Pagina indietro",
-          "go-forward": "Avanti",
+          "go-forward": "Pagina avanti",
           "quit": "Esci",
           "restart": "Riavvia l'app"
         }
@@ -100,7 +100,7 @@
               "disable-hardware-acceleration": "Disabilita l'accelerazione hardware",
               "edit-config-json": "Modificare config.json",
               "override-user-agent": "Sovrascrivi User-Agent",
-              "restart-on-config-changes": "Riavvia in caso di modifiche alla configurazione",
+              "restart-on-config-changes": "Riavvia in caso di modifiche della configurazione",
               "set-proxy": {
                 "label": "Imposta il proxy",
                 "prompt": {
