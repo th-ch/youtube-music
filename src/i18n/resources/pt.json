@@ -1,1 +1,179 @@
-{}
+{
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "Falha ao executar o plugin {{pluginName}}::{{contextName}}",
+        "executed-at-ms": "Plugin {{pluginName}}::{{contextName}} executado com {{ms}}ms",
+        "initialize-failed": "Falha ao inicializar o plugin \"{{pluginName}}\"",
+        "load-all": "Carregando todos os plugins",
+        "load-failed": "Falha ao carregar o plugin \"{{pluginName}}\"",
+        "loaded": "Plugin \"{{pluginName}}\" carregado",
+        "unload-failed": "Falha ao descarregar o plugin \"{{pluginName}}\"",
+        "unloaded": "Plugin \"{{pluginName}}\" descarregado"
+      }
+    }
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "Carregamento finalizado. DevTools aberto"
+      },
+      "i18n": {
+        "loaded": "i18n carregado"
+      },
+      "second-instance": {
+        "receive-command": "Comando recebido através do protocolo: \"{{command}}\""
+      },
+      "theme": {
+        "css-file-not-found": "Arquivo CSS \"{{cssFile}}\" não existe, ignorando"
+      }
+    },
+    "dialog": {
+      "need-to-restart": {
+        "detail": "O plugin {{pluginName}} precisa ser reiniciado para ter efeito",
+        "message": "\"{{pluginName}}\" precisa ser reiniciado",
+        "title": "É necessário reiniciar"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "Sair",
+          "relaunch": "Reiniciar",
+          "wait": "Espere"
+        },
+        "detail": "Lamentamos o inconveniente! Por favor escolha o que fazer:",
+        "message": "A aplicação não está respondendo",
+        "title": "Janela não está respondendo"
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "Desabilitar atualizações",
+          "download": "Baixar",
+          "ok": "Ok"
+        },
+        "detail": "Uma nova versão está disponível e pode ser baixada em {{downloadLink}}",
+        "title": "Atualização disponível"
+      }
+    },
+    "menu": {
+      "about": "Sobre",
+      "navigation": {
+        "label": "Navegação",
+        "submenu": {
+          "copy-current-url": "Copiar URL atual",
+          "go-back": "Voltar",
+          "go-forward": "Avançar",
+          "quit": "Saída",
+          "restart": "Reiniciar aplicativo"
+        }
+      },
+      "options": {
+        "label": "Opções",
+        "submenu": {
+          "advanced-options": {
+            "label": "Opções avançadas",
+            "submenu": {
+              "auto-reset-app-cache": "Reiniciar cache do aplicativo quando o aplicativo abrir",
+              "disable-hardware-acceleration": "Desabilitar aceleração por hardware",
+              "edit-config-json": "Editar config.json",
+              "set-proxy": {
+                "label": "Definir proxy",
+                "prompt": {
+                  "label": "Inserir Endereço do Proxy: (deixe em branco para desativar)",
+                  "placeholder": "Exemplo: socks5://127.0.0.1:9999",
+                  "title": "Definir proxy"
+                }
+              },
+              "toggle-dev-tools": "Ativar DevTools"
+            }
+          },
+          "always-on-top": "Sempre no topo",
+          "auto-update": "Atualização automática",
+          "hide-menu": {
+            "dialog": {
+              "message": "O menu será ocultado na próxima inicialização, use [Alt] para mostrá-lo (ou acento grave [`] se estiver usando o menu interno do aplicativo)",
+              "title": "Ocultar Menu Ativado"
+            },
+            "label": "Ocultar Menu"
+          },
+          "language": {
+            "dialog": {
+              "message": "Idioma será alterado após reiniciar",
+              "title": "Idioma Alterado"
+            },
+            "label": "Idioma",
+            "submenu": {
+              "to-help-translate": "Quer ajudar na tradução? Clique aqui"
+            }
+          },
+          "resume-on-start": "Continuar última música ao iniciar o aplicativo",
+          "single-instance-lock": "Trava de instância única",
+          "start-at-login": "Iniciar no login",
+          "starting-page": {
+            "label": "Página inicial",
+            "unset": "Indefinido"
+          },
+          "tray": {
+            "label": "Bandeja",
+            "submenu": {
+              "disabled": "Desabilitado",
+              "enabled-and-hide-app": "Ativado e esconder aplicativo",
+              "enabled-and-show-app": "Ativado e mostrar aplicativo",
+              "play-pause-on-click": "Play/Pausa ao clicar"
+            }
+          },
+          "visual-tweaks": {
+            "label": "Tweaks Visuais",
+            "submenu": {
+              "like-buttons": {
+                "default": "Padrão",
+                "force-show": "Forçar mostrar",
+                "hide": "Esconder",
+                "label": "Botões de curtida"
+              },
+              "remove-upgrade-button": "Remover botão upgrade",
+              "theme": {
+                "label": "Tema",
+                "submenu": {
+                  "import-css-file": "Importar arquivo CSS personalizado",
+                  "no-theme": "Sem tema"
+                }
+              }
+            }
+          }
+        }
+      },
+      "plugins": {
+        "enabled": "Ativado",
+        "label": "Plugins"
+      },
+      "view": {
+        "label": "Ver",
+        "submenu": {
+          "force-reload": "Forçar Recarregamento",
+          "reload": "Recarregar",
+          "reset-zoom": "Tamanho Atual",
+          "toggle-fullscreen": "Ativar Tela Cheia",
+          "zoom-in": "Zoom Dentro",
+          "zoom-out": "Zoom Fora"
+        }
+      }
+    },
+    "tray": {
+      "next": "Próximo",
+      "play-pause": "Play/Pausa",
+      "previous": "Anterior",
+      "quit": "Sair",
+      "restart": "Reiniciar aplicativo",
+      "show": "Mostrar janela"
+    }
+  },
+  "plugins": {
+    "adblocker": {
+      "description": "Bloquear todos os anúncios e rastreamento automaticamente",
+      "name": "Adblocker"
+    },
+    "album-color-theme": {
+      "description": "\"Aplica um tema dinâmico e efeitos visuais com base na paleta de cores do álbum."
+    }
+  }
+}
