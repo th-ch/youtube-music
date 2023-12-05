@@ -43,10 +43,29 @@
           "later": "Più tardi",
           "restart-now": "Riavvia ora"
         },
-        "detail": "Riavviare per attivare il plugin\"{{pluginName}}\""
+        "detail": "Riavviare per attivare il plugin\"{{pluginName}}\"",
+        "message": "\"{{pluginName}}\" deve essere riavviato",
+        "title": "Riavvio richiesto"
       },
       "unresponsive": {
-        "message": "L'applicazione non risponde"
+        "buttons": {
+          "quit": "Arresta",
+          "relaunch": "Rilancia",
+          "wait": "Aspetta"
+        },
+        "detail": "Ci dispiace per l'inconveniente! Scegli cosa fare:",
+        "message": "L'applicazione non risponde",
+        "title": "La finestra non risponde"
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "Disattiva gli aggiornamenti",
+          "download": "Download",
+          "ok": "OK"
+        },
+        "detail": "È disponibile una nuova versione scaricabile all'indirizzo {{downloadLink}}",
+        "message": "È disponibile una nuova versione",
+        "title": "Aggiornamento disponibile"
       }
     },
     "menu": {
