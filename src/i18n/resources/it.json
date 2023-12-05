@@ -3,6 +3,7 @@
     "console": {
       "plugins": {
         "execute-failed": "È stato impossibile eseguire il plugin {{pluginName}}::{{contextName}}",
+        "executed-at-ms": "Plugin {{pluginName}}:{{contextName}} eseguito a {{ms}}ms",
         "initialize-failed": "Inizializzazione del plugin \"{{pluginName}}\" fallita",
         "load-all": "Carica tutti i plugins",
         "load-failed": "Caricamento del plugin \"{{pluginName}}\" non riuscito",
@@ -84,16 +85,20 @@
         "submenu": {
           "copy-current-url": "Copia l'URL corrente",
           "go-back": "Pagina indietro",
+          "go-forward": "Avanti",
           "quit": "Esci",
           "restart": "Riavvia l'app"
         }
       },
       "options": {
+        "label": "Opzioni",
         "submenu": {
           "advanced-options": {
+            "label": "Opzioni avanzate",
             "submenu": {
               "auto-reset-app-cache": "Resetta la cache dell'app quando viene riavviata",
               "disable-hardware-acceleration": "Disabilita l'accelerazione hardware",
+              "edit-config-json": "Modificare config.json",
               "override-user-agent": "Sovrascrivi User-Agent",
               "restart-on-config-changes": "Riavvia in caso di modifiche alla configurazione",
               "set-proxy": {
@@ -107,6 +112,8 @@
               "toggle-dev-tools": "Attiva/disattiva DevTools"
             }
           },
+          "always-on-top": "Sempre in cima",
+          "auto-update": "Aggiornamento automatico",
           "hide-menu": {
             "dialog": {
               "message": "Il menu verrà nascosto al prossimo avvio. Utilizzare [Alt] per mostrarlo (o backtick [`] se si utilizza in-app-menu)",
@@ -119,12 +126,16 @@
               "message": "La lingua verrà cambiata dopo il riavvio",
               "title": "Lingua cambiata"
             },
-            "label": "Lingua"
+            "label": "Lingua",
+            "submenu": {
+              "to-help-translate": "Vuoi aiutare a tradurre? Clicca qui"
+            }
           },
           "resume-on-start": "Riprendi a riprodurre l'ultimo brano all'avvio dell'app",
           "single-instance-lock": "Blocco a istanza singola",
           "start-at-login": "Avvia al login",
           "starting-page": {
+            "label": "Pagina iniziale",
             "unset": "Non impostato"
           },
           "tray": {
@@ -139,16 +150,29 @@
             "label": "Miglioramenti visivi",
             "submenu": {
               "like-buttons": {
+                "default": "Predefinito",
                 "force-show": "Forza la visualizzazione",
                 "hide": "Nascondi",
                 "label": "Pulsanti Like"
               },
-              "remove-upgrade-button": "Rimuovi il pulsante aggiorna"
+              "remove-upgrade-button": "Rimuovi il pulsante aggiorna",
+              "theme": {
+                "label": "Tema",
+                "submenu": {
+                  "import-css-file": "Importa file CSS personalizzato",
+                  "no-theme": "Nessun tema"
+                }
+              }
             }
           }
         }
       },
+      "plugins": {
+        "enabled": "Abilitato",
+        "label": "Plugin"
+      },
       "view": {
+        "label": "Vista",
         "submenu": {
           "force-reload": "Forza l'aggiornamento",
           "reload": "Aggiorna",
