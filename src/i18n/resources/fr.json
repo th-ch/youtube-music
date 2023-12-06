@@ -485,7 +485,7 @@
     "precise-volume": {
       "description": "Contrôlez le volume avec précision à l'aide de la molette de la souris/des raccourcis clavier, avec une interface personnalisée et des étapes de volume personnalisables",
       "menu": {
-        "arrows-shortcuts": "Commandes locales des touches fléchées",
+        "arrows-shortcuts": "Contrôles avec les touches fléchées",
         "custom-volume-steps": "Définir des étapes de volume personnalisées",
         "global-shortcuts": "Raccourcis clavier globaux"
       },
