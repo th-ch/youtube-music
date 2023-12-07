@@ -290,10 +290,13 @@
             "fade-in-duration": "Durata dissolvenza in entrata (millisecondi)",
             "fade-out-duration": "Durata dissolvenza in uscita (millisecondi)",
             "fade-scaling": {
-              "label": "Transizione dissolvenza"
+              "label": "Transizione dissolvenza",
+              "linear": "Lineare",
+              "logarithmic": "Logaritmica"
             },
             "seconds-before-end": "N° secondi di crossfade prima della fine"
-          }
+          },
+          "title": "Opzioni crossfade"
         }
       }
     },
@@ -301,12 +304,16 @@
       "description": "Fa iniziare i brani in modalità \"pausa\"",
       "menu": {
         "apply-once": "Solo all'avvio"
-      }
+      },
+      "name": "Disattivare Autoplay"
     },
     "discord": {
       "backend": {
-        "already-connected": "Tenta di connettersi con connessione attiva"
+        "already-connected": "Tenta di connettersi con connessione attiva",
+        "connected": "Collegato a Discord",
+        "disconnected": "Scollegato da Discord"
       },
+      "description": "Mostra ai tuoi amici cosa ascolti con Rich Presence",
       "menu": {
         "auto-reconnect": "Riconnessione automatica"
       }
