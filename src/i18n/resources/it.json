@@ -275,10 +275,14 @@
       }
     },
     "compact-sidebar": {
-      "description": "Imposta sempre la barra laterale in modalità compatta"
+      "description": "Imposta sempre la barra laterale in modalità compatta",
+      "name": "Barra laterale compatta"
     },
     "crossfade": {
       "description": "Crossfade tra i brani",
+      "menu": {
+        "advanced": "Avanzato"
+      },
       "name": "Crossfade [beta]",
       "prompt": {
         "options": {
