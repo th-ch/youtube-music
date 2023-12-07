@@ -1,7 +1,23 @@
 {
+  "common": {
+    "console": {
+      "plugins": {
+        "load-all": "Cargando todos los plugins",
+        "loaded": "Plugin \"{{pluginName}}\" cargado",
+        "unloaded": "Plugin \"{{pluginName}}\" descargado"
+      }
+    }
+  },
   "language": {
     "code": "es",
     "local-name": "Español",
-    "name": "Spanish"
+    "name": "Inglés"
+  },
+  "main": {
+    "console": {
+      "i18n": {
+        "loaded": "i18n cargado"
+      }
+    }
   }
 }
