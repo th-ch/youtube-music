@@ -255,9 +255,15 @@
       "name": "Compressore audio"
     },
     "blur-nav-bar": {
-      "description": "Rende la barra di navigazione trasparente e sfuocata"
+      "description": "Rende la barra di navigazione trasparente e sfuocata",
+      "name": "Sfuoca la barra di navigazione"
+    },
+    "bypass-age-restrictions": {
+      "description": "Bypassa la verifica dell'età di YouTube",
+      "name": "Bypassa le Restrizioni d'età"
     },
     "captions-selector": {
+      "description": "Selettore sottotitolo per le tracce audio di YouTube",
       "menu": {
         "autoload": "Seleziona automaticamente l'ultimo sottotitolo utilizzato",
         "disable-captions": "Disattiva i sottotitoli"
@@ -310,18 +316,42 @@
     "discord": {
       "backend": {
         "already-connected": "Tenta di connettersi con connessione attiva",
-        "connected": "Collegato a Discord",
+        "connected": "Connesso a Discord",
         "disconnected": "Scollegato da Discord"
       },
       "description": "Mostra ai tuoi amici cosa ascolti con Rich Presence",
       "menu": {
-        "auto-reconnect": "Riconnessione automatica"
+        "auto-reconnect": "Riconnessione automatica",
+        "clear-activity": "Cancella attività",
+        "clear-activity-after-timeout": "Cancella attività dopo il timeout",
+        "connected": "Connesso",
+        "disconnected": "Disconnesso",
+        "hide-duration-left": "Nascondi la durata rimasta",
+        "hide-github-button": "Nascondi il pulsante  link a GitHub",
+        "play-on-youtube-music": "Riproduci su YouTube Music",
+        "set-inactivity-timeout": "Imposta il timeout di inattività"
+      },
+      "prompt": {
+        "set-inactivity-timeout": {
+          "label": "Inserisci il timeout di inattività in secondi:",
+          "title": "Imposta il timeout di inattività"
+        }
       }
     },
     "downloader": {
       "backend": {
         "dialog": {
+          "error": {
+            "buttons": {
+              "ok": "OK"
+            },
+            "message": "Acc! Spiacente, download fallito…",
+            "title": "Errore nel download!"
+          },
           "start-download-playlist": {
+            "buttons": {
+              "ok": "OK"
+            },
             "detail": "({{playlistSize}} canzoni)",
             "message": "Scarica Playlist {{playlistTitle}}",
             "title": "Download iniziato"
@@ -329,10 +359,24 @@
         },
         "feedback": {
           "conversion-progress": "Conversione: {{percent}}%",
+          "converting": "Sto convertendo…",
           "done": "Fatto: {{filePath}}",
+          "download-info": "Sto scaricando {{artist}} - {{title}} [{{videoId}}",
+          "download-progress": "Download: {{percent}}%",
+          "downloading": "Sto scaricando…",
+          "downloading-counter": "Sto scaricando {{current}}/{{total}}…",
+          "downloading-playlist": "Sto scaricando la playlist \"{{playlistTitle}}\" - {{playlistSize}} brani({{playlistId}})",
           "error-while-downloading": "Errore di download \"{{author}} - {{title}}\": {{error}}",
+          "folder-already-exists": "La cartella {{playlistFolder}} è già esistente",
+          "getting-playlist-info": "Sto ottenendo le info sulla playlist…",
           "loading": "Caricamento..",
+          "playlist-has-only-one-song": "La playlist ha un solo elemento, lo sto scaricando direttamente",
           "playlist-id-not-found": "Nessun ID playlist trovato",
+          "playlist-is-empty": "La playlist è vuota",
+          "playlist-is-mix-or-private": "Errore nell'ottenere info sulla playlist: assicurati che non sia una playlist privata o un \"Mixtape per te\"\n\n{{error}}",
+          "preparing-file": "Sto preparando il file…",
+          "saving": "Sto salvando…",
+          "trying-to-get-playlist-id": "Sto cercando di ottenere l'ID della playlist: {{playlistId}}",
           "video-id-not-found": "Video non trovato"
         }
       }
