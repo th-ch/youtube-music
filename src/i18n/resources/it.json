@@ -139,6 +139,7 @@
             "unset": "Non impostato"
           },
           "tray": {
+            "label": "Icona nella traybar",
             "submenu": {
               "disabled": "Disabilita",
               "enabled-and-hide-app": "Abilita e nascondi l'app",
@@ -172,7 +173,7 @@
         "label": "Plugin"
       },
       "view": {
-        "label": "Vista",
+        "label": "Visualizza",
         "submenu": {
           "force-reload": "Forza l'aggiornamento",
           "reload": "Aggiorna",
@@ -184,7 +185,54 @@
       }
     },
     "tray": {
-      "next": "Prossimo"
+      "next": "Prossimo",
+      "play-pause": "Play/Pausa",
+      "previous": "Precedente",
+      "quit": "Esci",
+      "restart": "Riavvia l'app"
+    }
+  },
+  "plugins": {
+    "adblocker": {
+      "description": "Blocca immediatamente tutti gli ads e il tracciamento",
+      "menu": {
+        "blocker": "Blocco"
+      },
+      "name": "Adblocker"
+    },
+    "album-color-theme": {
+      "description": "Applica un tema dinamico e degli effetti visivi basandosi sul colore dell'album",
+      "name": "Tema Colore Album"
+    },
+    "ambient-mode": {
+      "description": "Applica un effetto di illuminazione proiettando i colori delicati del video sullo sfondo dello schermo.",
+      "menu": {
+        "blur-amount": {
+          "label": "Intensità sfocatura",
+          "submenu": {
+            "pixels": "{{blurAmount}} pixel"
+          }
+        },
+        "buffer": {
+          "label": "Buffer"
+        },
+        "opacity": {
+          "label": "Trasparenza"
+        },
+        "smoothness-transition": {
+          "label": "Fluidità transizione",
+          "submenu": {
+            "during": "Per {{interpolationTime}}"
+          }
+        }
+      },
+      "name": "Modalità ambiente"
+    },
+    "audio-compressor": {
+      "description": "Attiva la compressione audio (abbassa il volume delle parti più alte e alza quello delle parti più basse del segnale)"
+    },
+    "blur-nav-bar": {
+      "description": "Rende la barra di navigazione trasparente e sfuocata"
     }
   }
 }
