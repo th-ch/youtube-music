@@ -189,7 +189,8 @@
       "play-pause": "Play/Pausa",
       "previous": "Precedente",
       "quit": "Esci",
-      "restart": "Riavvia l'app"
+      "restart": "Riavvia l'app",
+      "show": "Mostra finestra"
     }
   },
   "plugins": {
@@ -214,22 +215,44 @@
           }
         },
         "buffer": {
-          "label": "Buffer"
+          "label": "Buffer",
+          "submenu": {
+            "buffer": "{{buffer}}"
+          }
         },
         "opacity": {
-          "label": "Trasparenza"
+          "label": "Trasparenza",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "quality": {
+          "label": "Qualità",
+          "submenu": {
+            "pixels": "{{quality}} pixel"
+          }
+        },
+        "size": {
+          "label": "Dimensione",
+          "submenu": {
+            "percent": "{{size}}%"
+          }
         },
         "smoothness-transition": {
           "label": "Fluidità transizione",
           "submenu": {
             "during": "Per {{interpolationTime}}"
           }
+        },
+        "use-fullscreen": {
+          "label": "Utilizzo di schermo intero"
         }
       },
       "name": "Modalità ambiente"
     },
     "audio-compressor": {
-      "description": "Attiva la compressione audio (abbassa il volume delle parti più alte e alza quello delle parti più basse del segnale)"
+      "description": "Attiva la compressione audio (abbassa il volume delle parti più alte e alza quello delle parti più basse del segnale)",
+      "name": "Compressore audio"
     },
     "blur-nav-bar": {
       "description": "Rende la barra di navigazione trasparente e sfuocata"
