@@ -384,30 +384,40 @@
       },
       "description": "Download MP3 / sorgenti audio direttamente dall'interfaccia",
       "menu": {
-        "choose-download-folder": "Scegli cartella download"
+        "choose-download-folder": "Scegli cartella download",
+        "download-playlist": "Scarica la playlist",
+        "presets": "Preimpostazioni",
+        "skip-existing": "Salta i file esistenti"
       },
       "name": "Downloader",
       "renderer": {
         "can-not-update-progress": "Impossibile aggiornare l'avanzamento"
+      },
+      "templates": {
+        "button": "Scarica"
       }
     },
     "exponential-volume": {
-      "description": "Rende esponenziale il cursore del volume, in modo da facilitare la selezione di volumi più bassi."
+      "description": "Rende esponenziale il cursore del volume, in modo da facilitare la selezione di volumi più bassi.",
+      "name": "Volume esponenziale"
     },
     "in-app-menu": {
       "description": "Migliora l'aspetto delle barre del menu dando un look scuro o basato sul colore dell'album",
       "menu": {
         "hide-dom-window-controls": "Nascondi i controlli delle finestre DOM"
-      }
+      },
+      "name": "Menu In-App"
     },
     "last-fm": {
       "description": "Aggiungi supporto per lo scrobbling su Last.fm",
       "name": "Last.fm"
     },
     "lumiastream": {
-      "description": "Aggiungi supporto per Lumia Stream"
+      "description": "Aggiungi supporto per Lumia Stream",
+      "name": "Lumia Stream [beta]"
     },
     "lyrics-genius": {
+      "description": "Aggiunge il supporto dei testi per la maggior parte delle canzoni",
       "menu": {
         "romanized-lyrics": "Alfabeto latino per i brani con testo in caratteri orientali"
       },
@@ -431,10 +441,13 @@
         "interactive-settings": {
           "label": "Impostazioni dell'interazione",
           "submenu": {
+            "hide-button-text": "Nascondi il testo del pulsante",
             "refresh-on-play-pause": "Refresh quando si preme Riproduci/Pausa",
             "tray-controls": "Apri/chiudi cliccando l'icona nel tray"
           }
         },
+        "priority": "Priorità di notifica",
+        "toast-style": "Stile Toast",
         "unpause-notification": "Mostra notifica quando riprendi ascolto"
       },
       "name": "Notifiche"
@@ -444,11 +457,17 @@
       "menu": {
         "always-on-top": "Sempre in primo piano",
         "hotkey": {
+          "label": "Hotkey",
           "prompt": {
+            "keybind-options": {
+              "hotkey": "Hotkey"
+            },
             "label": "Scegliere un'hotkey per attivare Picture-in-Picture",
             "title": "Picture-in-Picture Hotkey"
           }
         },
+        "save-window-position": "Salva la posizione della finestra",
+        "save-window-size": "Salva la dimensione della finestra",
         "use-native-pip": "Usa il PiP nativo del browser"
       },
       "name": "Picture in Picture",
@@ -457,7 +476,11 @@
       }
     },
     "playback-speed": {
-      "description": "Ascolto veloce, ascolto lento! Aggiunge un cursore che controlla la velocità di riproduzione del brano"
+      "description": "Ascolto veloce, ascolto lento! Aggiunge un cursore che controlla la velocità di riproduzione del brano",
+      "name": "Velocità di riproduzione",
+      "templates": {
+        "button": "Velocità"
+      }
     },
     "precise-volume": {
       "description": "Controlla con precisione il volume utilizzando la rotella del mouse, le hotkey o i tasti freccia e usando incrementi di volume personalizzabili",
