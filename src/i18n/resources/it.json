@@ -281,16 +281,34 @@
     "crossfade": {
       "description": "Crossfade tra i brani",
       "menu": {
-        "advanced": "Avanzato"
+        "advanced": "Impostazioni avanzate"
       },
       "name": "Crossfade [beta]",
       "prompt": {
         "options": {
           "multi-input": {
             "fade-in-duration": "Durata dissolvenza in entrata (millisecondi)",
-            "fade-out-duration": "Durata dissolvenza in uscita (millisecondi)"
+            "fade-out-duration": "Durata dissolvenza in uscita (millisecondi)",
+            "fade-scaling": {
+              "label": "Transizione dissolvenza"
+            },
+            "seconds-before-end": "N° secondi di crossfade prima della fine"
           }
         }
+      }
+    },
+    "disable-autoplay": {
+      "description": "Fa iniziare i brani in modalità \"pausa\"",
+      "menu": {
+        "apply-once": "Solo all'avvio"
+      }
+    },
+    "discord": {
+      "backend": {
+        "already-connected": "Tenta di connettersi con connessione attiva"
+      },
+      "menu": {
+        "auto-reconnect": "Riconnessione automatica"
       }
     }
   }
