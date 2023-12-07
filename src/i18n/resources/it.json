@@ -317,6 +317,25 @@
       "menu": {
         "auto-reconnect": "Riconnessione automatica"
       }
+    },
+    "downloader": {
+      "backend": {
+        "dialog": {
+          "start-download-playlist": {
+            "detail": "({{playlistSize}} canzoni)",
+            "message": "Scarica Playlist {{playlistTitle}}",
+            "title": "Download iniziato"
+          }
+        },
+        "feedback": {
+          "conversion-progress": "Conversione: {{percent}}%",
+          "done": "Fatto: {{filePath}}",
+          "error-while-downloading": "Errore di download \"{{author}} - {{title}}\": {{error}}",
+          "loading": "Caricamento..",
+          "playlist-id-not-found": "Nessun ID playlist trovato",
+          "video-id-not-found": "Video non trovato"
+        }
+      }
     }
   }
 }
