@@ -256,6 +256,38 @@
     },
     "blur-nav-bar": {
       "description": "Rende la barra di navigazione trasparente e sfuocata"
+    },
+    "captions-selector": {
+      "menu": {
+        "autoload": "Seleziona automaticamente l'ultimo sottotitolo utilizzato",
+        "disable-captions": "Disattiva i sottotitoli"
+      },
+      "name": "Sottotitoli per i video",
+      "prompt": {
+        "selector": {
+          "label": "Lingua del sottotitolo attuale: {{language}}",
+          "none": "Nessuno",
+          "title": "Scegli la lingua del sottotitolo"
+        }
+      },
+      "templates": {
+        "title": "Apri il selettore dei sottotitoli"
+      }
+    },
+    "compact-sidebar": {
+      "description": "Imposta sempre la barra laterale in modalità compatta"
+    },
+    "crossfade": {
+      "description": "Crossfade tra i brani",
+      "name": "Crossfade [beta]",
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "fade-in-duration": "Durata dissolvenza in entrata (millisecondi)",
+            "fade-out-duration": "Durata dissolvenza in uscita (millisecondi)"
+          }
+        }
+      }
     }
   }
 }
