@@ -17,7 +17,7 @@ export default createPlugin({
                 { attributes: true, childList: false, subtree: false });
         },
         stop() {
-            this.observer.disconnect();
+            this.observer?.disconnect();
         },
         waitForElem(selector) {
             return new Promise(resolve => {
