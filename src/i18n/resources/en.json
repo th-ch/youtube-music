@@ -589,6 +589,10 @@
         "visualizer-type": "Visualizer Type"
       },
       "name": "Visualizer"
+    },
+    "skip-disliked-songs": {
+      "description": "Skips disliked songs",
+      "name": "Skip Disliked Songs"
     }
   }
 }
