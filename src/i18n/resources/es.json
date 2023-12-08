@@ -231,6 +231,11 @@
           "submenu": {
             "pixels": "{{Calidad}} pixeles"
           }
+        },
+        "size": {
+          "submenu": {
+            "percent": "{{Tamaño}}"
+          }
         }
       }
     }
