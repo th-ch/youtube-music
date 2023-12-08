@@ -235,7 +235,147 @@
         "size": {
           "label": "Tamaño",
           "submenu": {
-            "percent": "{{Tamaño}}"
+            "percent": "{{size}}%"
+          }
+        },
+        "smoothness-transition": {
+          "submenu": {
+            "during": "Durante {{interpolationTime}}s"
+          }
+        }
+      },
+      "name": "Modo ambiente"
+    },
+    "audio-compressor": {
+      "name": "Compresor de audio"
+    },
+    "captions-selector": {
+      "prompt": {
+        "selector": {
+          "label": "Idioma actual: {{language}}",
+          "none": "Ninguno"
+        }
+      }
+    },
+    "compact-sidebar": {
+      "name": "Barra lateral compacta"
+    },
+    "crossfade": {
+      "description": "Crossfade entre canciones",
+      "name": "Crossfade [beta]",
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "seconds-before-end": "Crossfade N segundos antes del final"
+          },
+          "title": "Opciones de crossfade"
+        }
+      }
+    },
+    "disable-autoplay": {
+      "description": "Hace que la canción comience en modo \"pausado\""
+    },
+    "discord": {
+      "menu": {
+        "connected": "Conectado",
+        "disconnected": "Desconectado",
+        "set-inactivity-timeout": "Establecer tiempo de inactividad"
+      },
+      "name": "Discord Rich Presence",
+      "prompt": {
+        "set-inactivity-timeout": {
+          "label": "Introduzca el tiempo de inactividad en segundos:",
+          "title": "Establecer tiempo de inactividad"
+        }
+      }
+    },
+    "downloader": {
+      "backend": {
+        "dialog": {
+          "error": {
+            "buttons": {
+              "ok": "OK"
+            }
+          },
+          "start-download-playlist": {
+            "buttons": {
+              "ok": "OK"
+            },
+            "detail": "({{playlistSize}} canciones)",
+            "message": "Descargar Playlist {{playlistTitle}}"
+          }
+        },
+        "feedback": {
+          "conversion-progress": "Conversión: {{percent}}%",
+          "downloading": "Descargando..",
+          "downloading-playlist": "Descargar lista de reproducción \"{{playlistTitle}}\" - {{playlistSize}} canciones ({{playlistId}})",
+          "folder-already-exists": "La carpeta {{playlistFolder}} ya existe",
+          "playlist-is-mix-or-private": "Error obteniendo información de la lista de reproducción: asegúrese de que no es una lista privada o \"Mixed for you\"\n\n{{error}}",
+          "video-id-not-found": "Video no encontrado",
+          "writing-id3": "Escribiendo etiquetas ID3.."
+        }
+      },
+      "menu": {
+        "skip-existing": "Saltar archivos existentes"
+      }
+    },
+    "exponential-volume": {
+      "name": "Volumen exponencial"
+    },
+    "in-app-menu": {
+      "name": "Menú de aplicación"
+    },
+    "last-fm": {
+      "name": "Last.fm"
+    },
+    "lumiastream": {
+      "name": "Lumia Stream [beta]"
+    },
+    "lyrics-genius": {
+      "menu": {
+        "romanized-lyrics": "Letras Romanizadas"
+      }
+    },
+    "navigation": {
+      "name": "Navegación"
+    },
+    "notifications": {
+      "menu": {
+        "interactive": "Notificaciones interactivas",
+        "interactive-settings": {
+          "label": "Ajustes interactivos"
+        },
+        "priority": "Prioridad de notificación"
+      },
+      "name": "Notificaciones"
+    },
+    "picture-in-picture": {
+      "description": "Permite cambiar la aplicación al modo de imagen en imagen",
+      "menu": {
+        "always-on-top": "Siempre encima",
+        "save-window-size": "Guardar tamaño de la ventana"
+      },
+      "name": "Imagen en Imagen",
+      "templates": {
+        "button": "Imagen en Imagen"
+      }
+    },
+    "precise-volume": {
+      "name": "Volumen preciso",
+      "prompt": {
+        "global-shortcuts": {
+          "keybind-options": {
+            "decrease": "Disminuir el volumen"
+          }
+        }
+      }
+    },
+    "quality-changer": {
+      "backend": {
+        "dialog": {
+          "quality-changer": {
+            "detail": "Calidad actual: {{quality}}",
+            "title": "Elija la calidad de vídeo"
           }
         }
       }
