@@ -44,7 +44,6 @@
     },
     "dialog": {
       "hide-menu-enabled": {
-        "detail": "",
         "message": "Menu oculto esta deshabilitado",
         "title": "Menú oculto activado"
       },
