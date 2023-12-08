@@ -1,18 +1,18 @@
-import { t } from "@/i18n";
-import { createPlugin } from "@/utils";
+import { t } from '@/i18n';
+import { createPlugin } from '@/utils';
 
 export default createPlugin({
-  name: () => t("plugins.skip-disliked-songs.name"),
-  description: () => t("plugins.skip-disliked-songs.description"),
+  name: () => t('plugins.skip-disliked-songs.name'),
+  description: () => t('plugins.skip-disliked-songs.description'),
   restartNeeded: false,
   renderer: {
     observer: null as MutationObserver | null,
     start() {
-      this.waitForElem("#like-button-renderer").then((likeBtn) => {
+      this.waitForElem('#like-button-renderer').then((likeBtn) => {
         this.observer = new MutationObserver(() => {
-          if (likeBtn?.getAttribute("like-status") == "DISLIKE") {
+          if (likeBtn?.getAttribute('like-status') == 'DISLIKE') {
             document
-              .querySelector("tp-yt-paper-icon-button.next-button")
+              .querySelector('tp-yt-paper-icon-button.next-button')
               ?.click();
           }
         });
