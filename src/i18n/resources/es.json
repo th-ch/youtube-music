@@ -20,23 +20,52 @@
   },
   "main": {
     "console": {
+      "did-finish-load": {
+        "dev-tools": "Carga Finalizada. DevTools abiertas"
+      },
       "i18n": {
         "loaded": "i18n cargado"
+      },
+      "second-instance": {
+        "receive-command": "Comando recibido sobre protocolo: \"{{comando}}\""
+      },
+      "theme": {
+        "css-file-not-found": "Archivo CSS \"{{archivocss}}\" no existe, ignorando"
+      },
+      "unresponsive": {
+        "details": "Error que no responde! {{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "Borrar caché de la aplicación"
+      },
+      "window": {
+        "tried-to-render-offscreen": "La ventana intentó mostrarse fuera de la pantalla, tamañoventana={{tamañoVentana}}, tamañoVisualizacion={{tamañoVisualizacion}}, posicion={{posición}}"
       }
     },
     "dialog": {
+      "hide-menu-enabled": {
+        "detail": "",
+        "message": "Menu oculto esta deshabilitado",
+        "title": "Menú oculto activado"
+      },
       "need-to-restart": {
         "buttons": {
           "later": "Más tarde",
           "restart-now": "Reiniciar ahora"
         },
-        "message": "\"{{pluginName}}\" necesita reiniciar"
+        "detail": "\"{{pluginName}}\" se requiere reiniciar para que el plugin tome efecto",
+        "message": "\"{{pluginName}}\" necesita reiniciar",
+        "title": "Se requiere reinicio"
       },
       "unresponsive": {
         "buttons": {
+          "quit": "Salir",
+          "relaunch": "Volver a abrir",
           "wait": "Espera"
         },
-        "message": "La aplicación no responde"
+        "detail": "Sentimos las molestias. Por favor, elija qué hacer:",
+        "message": "La aplicación no responde",
+        "title": "La ventana no responde"
       }
     }
   }
