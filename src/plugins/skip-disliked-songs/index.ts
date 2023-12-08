@@ -6,7 +6,7 @@ export default createPlugin({
     description: () => t('plugins.skip-disliked-songs.description'),
     restartNeeded: false,
     renderer: {
-        observer: MutationObserver,
+        observer: null as MutationObserver | null,
         async start() {
             const likeBtn = await this.waitForElem('#like-button-renderer');
             this.observer = new MutationObserver(() => {
