@@ -44,7 +44,7 @@
     },
     "dialog": {
       "hide-menu-enabled": {
-        "detail": "Il menu è nascosto, utilizza 'Alt' per visualizzarlo (o 'Escape' se si utilizza il menu in-app)\"",
+        "detail": "Il menu è nascosto, utilizza 'Alt' per visualizzarlo (o 'Escape' se si utilizza il menu In-App)\"",
         "message": "'Nascondi menu' è attivo",
         "title": "'Nascondi menu' attivo"
       },
@@ -116,7 +116,7 @@
           "auto-update": "Aggiornamento automatico",
           "hide-menu": {
             "dialog": {
-              "message": "Il menu verrà nascosto al prossimo avvio. Utilizzare [Alt] per mostrarlo (o backtick [`] se si utilizza in-app-menu)",
+              "message": "Il menu verrà nascosto al prossimo avvio. Utilizzare [Alt] per mostrarlo (o backtick [`] se si utilizza il menu In-App)",
               "title": "Nascondi menu abilitato"
             },
             "label": "Nascondi menu"
@@ -203,7 +203,7 @@
     },
     "album-color-theme": {
       "description": "Applica un tema dinamico e degli effetti visivi basandosi sul colore dell'album",
-      "name": "Tema combinato con il Colore Album"
+      "name": "Tema Colore Album"
     },
     "ambient-mode": {
       "description": "Applica un effetto di illuminazione proiettando i colori delicati del video sullo sfondo dello schermo.",
@@ -248,19 +248,19 @@
           "label": "Utilizzo di schermo intero"
         }
       },
-      "name": "Ambient mode"
+      "name": "Modalità Ambiente"
     },
     "audio-compressor": {
       "description": "Attiva la compressione audio (abbassa il volume delle parti più alte e alza quello delle parti più basse del segnale)",
-      "name": "Compressore audio"
+      "name": "Compressore Audio"
     },
     "blur-nav-bar": {
       "description": "Rende la barra di navigazione trasparente e sfuocata",
-      "name": "Sfuoca la barra di navigazione"
+      "name": "Sfuoca Barra di Navigazione"
     },
     "bypass-age-restrictions": {
       "description": "Bypassa la verifica dell'età di YouTube",
-      "name": "Bypassa le Restrizioni d'età"
+      "name": "Bypassa le Restrizioni d'Età"
     },
     "captions-selector": {
       "description": "Selettore sottotitolo per le tracce audio di YouTube",
@@ -268,7 +268,7 @@
         "autoload": "Seleziona automaticamente l'ultimo sottotitolo utilizzato",
         "disable-captions": "Disattiva i sottotitoli"
       },
-      "name": "Sottotitoli per i video",
+      "name": "Selettore Sottotitoli",
       "prompt": {
         "selector": {
           "label": "Lingua del sottotitolo attuale: {{language}}",
@@ -282,7 +282,7 @@
     },
     "compact-sidebar": {
       "description": "Imposta sempre la barra laterale in modalità compatta",
-      "name": "Barra laterale compatta"
+      "name": "Barra Laterale Compatta"
     },
     "crossfade": {
       "description": "Crossfade tra i brani",
@@ -311,7 +311,7 @@
       "menu": {
         "apply-once": "Solo all'avvio"
       },
-      "name": "Disattivare Autoplay"
+      "name": "Disattiva Autoplay"
     },
     "discord": {
       "backend": {
@@ -346,7 +346,7 @@
             "buttons": {
               "ok": "OK"
             },
-            "message": "Acc! Spiacente, download fallito…",
+            "message": "Mi dispiace, download fallito…",
             "title": "Errore nel download!"
           },
           "start-download-playlist": {
@@ -399,10 +399,10 @@
     },
     "exponential-volume": {
       "description": "Rende esponenziale il cursore del volume, in modo da facilitare la selezione di volumi più bassi.",
-      "name": "Volume esponenziale"
+      "name": "Volume Esponenziale"
     },
     "in-app-menu": {
-      "description": "Migliora l'aspetto delle barre del menu dando un look scuro o basato sul colore dell'album",
+      "description": "Migliora l'aspetto delle barre del menu con un look scuro o basato sul colore dell'album",
       "menu": {
         "hide-dom-window-controls": "Nascondi i controlli delle finestre DOM"
       },
@@ -432,7 +432,7 @@
     },
     "no-google-login": {
       "description": "Rimuovi i pulsanti di accesso e i link di Google dall'interfaccia",
-      "name": "Nascondi il login di Google"
+      "name": "Nessun Login di Google"
     },
     "notifications": {
       "description": "Mostra una notifica quando viene riprodotto un brano (le notifiche interattive sono disponibili su Windows)",
@@ -477,7 +477,7 @@
     },
     "playback-speed": {
       "description": "Ascolto veloce, ascolto lento! Aggiunge un cursore che controlla la velocità di riproduzione del brano",
-      "name": "Velocità di riproduzione",
+      "name": "Velocità Riproduzione",
       "templates": {
         "button": "Velocità"
       }
@@ -489,7 +489,7 @@
         "custom-volume-steps": "Imposta incrementi di volume personalizzati",
         "global-shortcuts": "Hotkey globali"
       },
-      "name": "Volume preciso",
+      "name": "Volume Preciso",
       "prompt": {
         "global-shortcuts": {
           "keybind-options": {
@@ -510,7 +510,7 @@
         "dialog": {
           "quality-changer": {
             "detail": "Qualità attuale: {{quality}}",
-            "message": "Scegli la qualità video:",
+            "message": "Qualità Video:",
             "title": "Scegli la qualità video"
           }
         }
@@ -539,7 +539,7 @@
     },
     "skip-silences": {
       "description": "Salta automaticamente le parti silenziose nei brani",
-      "name": "Salta i silenzi"
+      "name": "Salta Silenzi"
     },
     "sponsorblock": {
       "description": "Salta automaticamente le parti non musicali, come l'intro/outro delle canzoni o le parti dei video musicali in cui non viene riprodotto il brano",
@@ -578,7 +578,7 @@
           }
         }
       },
-      "name": "Selettore Video",
+      "name": "Selettore Brano/Video",
       "templates": {
         "button": "Brano"
       }
