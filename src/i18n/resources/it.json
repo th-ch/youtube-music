@@ -3,9 +3,9 @@
     "console": {
       "plugins": {
         "execute-failed": "È stato impossibile eseguire il plugin {{pluginName}}::{{contextName}}",
-        "executed-at-ms": "Plugin {{pluginName}}:{{contextName}} eseguito a {{ms}}ms",
+        "executed-at-ms": "Il plugin {{pluginName}}:{{contextName}} è stato eseguito a {{ms}}ms",
         "initialize-failed": "Inizializzazione del plugin \"{{pluginName}}\" fallita",
-        "load-all": "Carica tutti i plugins",
+        "load-all": "Carica tutti i plugin",
         "load-failed": "Caricamento del plugin \"{{pluginName}}\" non riuscito",
         "loaded": "Plugin \"{{pluginName}}\" caricato",
         "unload-failed": "Rimozione del plugin \"{{pluginName}}\" fallita",
@@ -100,7 +100,7 @@
               "disable-hardware-acceleration": "Disabilita l'accelerazione hardware",
               "edit-config-json": "Modificare config.json",
               "override-user-agent": "Sovrascrivi User-Agent",
-              "restart-on-config-changes": "Riavvia in caso di modifiche della configurazione",
+              "restart-on-config-changes": "Riavvia alla modifica delle impostazioni",
               "set-proxy": {
                 "label": "Imposta il proxy",
                 "prompt": {
@@ -139,12 +139,12 @@
             "unset": "Non impostato"
           },
           "tray": {
-            "label": "Icona nella traybar",
+            "label": "Mostra icona nel tray",
             "submenu": {
               "disabled": "Disabilita",
               "enabled-and-hide-app": "Abilita e nascondi l'app",
               "enabled-and-show-app": "Abilita e mostra l'app",
-              "play-pause-on-click": "Riproduci/Pausa al clic"
+              "play-pause-on-click": "Riproduci/Pausa al click sull'icona"
             }
           },
           "visual-tweaks": {
@@ -173,12 +173,12 @@
         "label": "Plugin"
       },
       "view": {
-        "label": "Visualizza",
+        "label": "Visualizzazione",
         "submenu": {
           "force-reload": "Forza l'aggiornamento",
           "reload": "Aggiorna",
           "reset-zoom": "Dimensione attuale",
-          "toggle-fullscreen": "Attiva/disattiva schermo intero",
+          "toggle-fullscreen": "Attiva/disattiva Schermo Intero",
           "zoom-in": "Zoom in",
           "zoom-out": "Zoom out"
         }
@@ -186,7 +186,7 @@
     },
     "tray": {
       "next": "Prossimo",
-      "play-pause": "Play/Pausa",
+      "play-pause": "Riproduci/Pausa",
       "previous": "Precedente",
       "quit": "Esci",
       "restart": "Riavvia l'app",
@@ -195,7 +195,7 @@
   },
   "plugins": {
     "adblocker": {
-      "description": "Blocca immediatamente tutti gli ads e il tracciamento",
+      "description": "Blocca tutti gli annunci e i tracker",
       "menu": {
         "blocker": "Blocco"
       },
@@ -203,7 +203,7 @@
     },
     "album-color-theme": {
       "description": "Applica un tema dinamico e degli effetti visivi basandosi sul colore dell'album",
-      "name": "Tema Colore Album"
+      "name": "Tema combinato con il Colore Album"
     },
     "ambient-mode": {
       "description": "Applica un effetto di illuminazione proiettando i colori delicati del video sullo sfondo dello schermo.",
@@ -248,7 +248,7 @@
           "label": "Utilizzo di schermo intero"
         }
       },
-      "name": "Modalità ambiente"
+      "name": "Ambient mode"
     },
     "audio-compressor": {
       "description": "Attiva la compressione audio (abbassa il volume delle parti più alte e alza quello delle parti più basse del segnale)",
@@ -322,15 +322,16 @@
       "description": "Mostra ai tuoi amici cosa ascolti con Rich Presence",
       "menu": {
         "auto-reconnect": "Riconnessione automatica",
-        "clear-activity": "Cancella attività",
+        "clear-activity": "Rimuovi attività",
         "clear-activity-after-timeout": "Cancella attività dopo il timeout",
         "connected": "Connesso",
         "disconnected": "Disconnesso",
         "hide-duration-left": "Nascondi la durata rimasta",
-        "hide-github-button": "Nascondi il pulsante  link a GitHub",
+        "hide-github-button": "Nascondi il pulsante link a GitHub",
         "play-on-youtube-music": "Riproduci su YouTube Music",
         "set-inactivity-timeout": "Imposta il timeout di inattività"
       },
+      "name": "Discord Rich Presence",
       "prompt": {
         "set-inactivity-timeout": {
           "label": "Inserisci il timeout di inattività in secondi:",
@@ -369,7 +370,7 @@
           "error-while-downloading": "Errore di download \"{{author}} - {{title}}\": {{error}}",
           "folder-already-exists": "La cartella {{playlistFolder}} è già esistente",
           "getting-playlist-info": "Sto ottenendo le info sulla playlist…",
-          "loading": "Caricamento..",
+          "loading": "Caricamento…",
           "playlist-has-only-one-song": "La playlist ha un solo elemento, lo sto scaricando direttamente",
           "playlist-id-not-found": "Nessun ID playlist trovato",
           "playlist-is-empty": "La playlist è vuota",
@@ -377,9 +378,194 @@
           "preparing-file": "Sto preparando il file…",
           "saving": "Sto salvando…",
           "trying-to-get-playlist-id": "Sto cercando di ottenere l'ID della playlist: {{playlistId}}",
-          "video-id-not-found": "Video non trovato"
+          "video-id-not-found": "Video non trovato",
+          "writing-id3": "Sto scrivendo i tag ID3…"
+        }
+      },
+      "description": "Download MP3 / sorgenti audio direttamente dall'interfaccia",
+      "menu": {
+        "choose-download-folder": "Scegli cartella download"
+      },
+      "name": "Downloader",
+      "renderer": {
+        "can-not-update-progress": "Impossibile aggiornare l'avanzamento"
+      }
+    },
+    "exponential-volume": {
+      "description": "Rende esponenziale il cursore del volume, in modo da facilitare la selezione di volumi più bassi."
+    },
+    "in-app-menu": {
+      "description": "Migliora l'aspetto delle barre del menu dando un look scuro o basato sul colore dell'album",
+      "menu": {
+        "hide-dom-window-controls": "Nascondi i controlli delle finestre DOM"
+      }
+    },
+    "last-fm": {
+      "description": "Aggiungi supporto per lo scrobbling su Last.fm",
+      "name": "Last.fm"
+    },
+    "lumiastream": {
+      "description": "Aggiungi supporto per Lumia Stream"
+    },
+    "lyrics-genius": {
+      "menu": {
+        "romanized-lyrics": "Alfabeto latino per i brani con testo in caratteri orientali"
+      },
+      "name": "Lyrics Genius",
+      "renderer": {
+        "fetched-lyrics": "Testi recuperati per Genius"
+      }
+    },
+    "navigation": {
+      "description": "Frecce di navigazione Avanti/Indietro integrate direttamente nell'interfaccia, come nel tuo browser preferito",
+      "name": "Navigazione"
+    },
+    "no-google-login": {
+      "description": "Rimuovi i pulsanti di accesso e i link di Google dall'interfaccia",
+      "name": "Nascondi il login di Google"
+    },
+    "notifications": {
+      "description": "Mostra una notifica quando viene riprodotto un brano (le notifiche interattive sono disponibili su Windows)",
+      "menu": {
+        "interactive": "Notifiche interattive",
+        "interactive-settings": {
+          "label": "Impostazioni dell'interazione",
+          "submenu": {
+            "refresh-on-play-pause": "Refresh quando si preme Riproduci/Pausa",
+            "tray-controls": "Apri/chiudi cliccando l'icona nel tray"
+          }
+        },
+        "unpause-notification": "Mostra notifica quando riprendi ascolto"
+      },
+      "name": "Notifiche"
+    },
+    "picture-in-picture": {
+      "description": "Consente di far passare l'app alla modalità Picture-in-Picture",
+      "menu": {
+        "always-on-top": "Sempre in primo piano",
+        "hotkey": {
+          "prompt": {
+            "label": "Scegliere un'hotkey per attivare Picture-in-Picture",
+            "title": "Picture-in-Picture Hotkey"
+          }
+        },
+        "use-native-pip": "Usa il PiP nativo del browser"
+      },
+      "name": "Picture in Picture",
+      "templates": {
+        "button": "Picture in Picture"
+      }
+    },
+    "playback-speed": {
+      "description": "Ascolto veloce, ascolto lento! Aggiunge un cursore che controlla la velocità di riproduzione del brano"
+    },
+    "precise-volume": {
+      "description": "Controlla con precisione il volume utilizzando la rotella del mouse, le hotkey o i tasti freccia e usando incrementi di volume personalizzabili",
+      "menu": {
+        "arrows-shortcuts": "Controlla con i tasti freccia",
+        "custom-volume-steps": "Imposta incrementi di volume personalizzati",
+        "global-shortcuts": "Hotkey globali"
+      },
+      "name": "Volume preciso",
+      "prompt": {
+        "global-shortcuts": {
+          "keybind-options": {
+            "decrease": "Diminuisci volume",
+            "increase": "Aumenta volume"
+          },
+          "label": "Scegli i tasti di scelta rapida regolazione volume:",
+          "title": "Tasti di scelta rapida regolazione volume"
+        },
+        "volume-steps": {
+          "label": "Seleziona l'incremento/decremento del volume",
+          "title": "Incrementi volume"
         }
       }
+    },
+    "quality-changer": {
+      "backend": {
+        "dialog": {
+          "quality-changer": {
+            "detail": "Qualità attuale: {{quality}}",
+            "message": "Scegli la qualità video:",
+            "title": "Scegli la qualità video"
+          }
+        }
+      },
+      "description": "Permette di cambiare la qualità del video con un pulsante in sovrimpressione",
+      "name": "Cambia qualità video"
+    },
+    "shortcuts": {
+      "description": "Consente di impostare tasti di scelta rapida globali per la riproduzione (riproduci/pausa/successivo/precedente) + disabilita l'OSD multimediale sovrascrivendo i tasti multimediali + abilita Ctrl/CMD + F per la ricerca + abilita il supporto Linux MPRIS per i tasti multimediali + tasti di scelta rapida personalizzati per utenti avanzati",
+      "menu": {
+        "override-media-keys": "Ridefinisci i tasti multimediali",
+        "set-keybinds": "Imposta i controlli brano globali"
+      },
+      "name": "Scorciatoie (& MPRIS)",
+      "prompt": {
+        "keybind": {
+          "keybind-options": {
+            "next": "Prossimo",
+            "play-pause": "Riproduci / Pausa",
+            "previous": "Precedente"
+          },
+          "label": "Scegli combinazioni di tasti per il controllo dei brani:",
+          "title": "Combinazioni di tasti"
+        }
+      }
+    },
+    "skip-silences": {
+      "description": "Salta automaticamente le parti silenziose nei brani",
+      "name": "Salta i silenzi"
+    },
+    "sponsorblock": {
+      "description": "Salta automaticamente le parti non musicali, come l'intro/outro delle canzoni o le parti dei video musicali in cui non viene riprodotto il brano",
+      "name": "SponsorBlock"
+    },
+    "taskbar-mediacontrol": {
+      "description": "Controlla riproduzione dalla taskbar di Windows",
+      "name": "Controlli Multimediali Taskbar"
+    },
+    "touchbar": {
+      "description": "Aggiunge un widget TouchBar per gli utenti macOS",
+      "name": "Touch Bar"
+    },
+    "tuna-obs": {
+      "description": "Integrazione con il plugin OBS Tuna",
+      "name": "Tuna OBS"
+    },
+    "video-toggle": {
+      "description": "Aggiunge un pulsante per passare dalla modalità Video a quella Brano. Può anche rimuovere l'intera scheda Brano/Video",
+      "menu": {
+        "align": {
+          "label": "Allineamento",
+          "submenu": {
+            "left": "Sinistra",
+            "middle": "Centro",
+            "right": "Destra"
+          }
+        },
+        "force-hide": "Rimuovi la scheda Brano/Video",
+        "mode": {
+          "label": "Modalità",
+          "submenu": {
+            "custom": "Brano/Video personalizzato",
+            "disabled": "Disabilitato",
+            "native": "Brano/Video nativo"
+          }
+        }
+      },
+      "name": "Selettore Video",
+      "templates": {
+        "button": "Brano"
+      }
+    },
+    "visualizer": {
+      "description": "Sostituisce al Video un visualizzatore grafico",
+      "menu": {
+        "visualizer-type": "Tipo di visualizzazione"
+      },
+      "name": "Visualizzatore"
     }
   }
 }
