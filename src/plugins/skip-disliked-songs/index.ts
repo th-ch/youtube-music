@@ -8,15 +8,27 @@ export default createPlugin({
     renderer: {
         observer: MutationObserver,
         async start() {
+            const likeBtn = await this.waitForElem('#like-button-renderer');
             this.observer = new MutationObserver(() => {
-                if (document.querySelector("#like-button-renderer")?.getAttribute("like-status") == "DISLIKE")
+                if (likeBtn?.getAttribute("like-status") == "DISLIKE")
                     document.querySelector("tp-yt-paper-icon-button.next-button")?.click();
             });
-            this.observer.observe(document.querySelector("#like-button-renderer"),
+            this.observer.observe(likeBtn,
                 { attributes: true, childList: false, subtree: false });
         },
         stop() {
             this.observer.disconnect();
+        },
+        waitForElem(selector) {
+            return new Promise(resolve => {
+                const interval = setInterval(() => {
+                    const elem = document.querySelector(selector);
+                    if (!elem) return;
+        
+                    clearInterval(interval);
+                    resolve(elem);
+                });
+            });
         }
     }
-  });  
+});
