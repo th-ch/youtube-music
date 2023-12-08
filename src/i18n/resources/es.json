@@ -239,33 +239,67 @@
           }
         },
         "smoothness-transition": {
+          "label": "Transición suave",
           "submenu": {
             "during": "Durante {{interpolationTime}}s"
           }
+        },
+        "use-fullscreen": {
+          "label": "Usando Pantalla Completa"
         }
       },
       "name": "Modo ambiente"
     },
     "audio-compressor": {
+      "description": "Aplicar compresión al audio (reduce la diferencia entre las partes más fuertes y más suaves de una pista para que tenga un nivel más consistente)",
       "name": "Compresor de audio"
     },
+    "blur-nav-bar": {
+      "description": "Hace que la barra de navegación sea transparente y borrosa",
+      "name": "Desenfocar barra de navegación"
+    },
+    "bypass-age-restrictions": {
+      "description": "Saltar la verificación de edad de YouTube",
+      "name": "Saltar las restricciones de edad"
+    },
     "captions-selector": {
+      "description": "Selector de subtítulos para pistas de audio de YouTube Music",
+      "menu": {
+        "autoload": "Seleccionar automáticamente el último subtítulo utilizado",
+        "disable-captions": "Sin subtítulos por defecto"
+      },
+      "name": "Selector de subtítulos",
       "prompt": {
         "selector": {
           "label": "Idioma actual: {{language}}",
-          "none": "Ninguno"
+          "none": "Ninguno",
+          "title": "Seleccionar idioma de los subtítulos"
         }
+      },
+      "templates": {
+        "title": "Abra el selector de subtítulos"
       }
     },
     "compact-sidebar": {
+      "description": "Poner siempre la barra lateral en modo compacto",
       "name": "Barra lateral compacta"
     },
     "crossfade": {
       "description": "Crossfade entre canciones",
+      "menu": {
+        "advanced": "Avanzado"
+      },
       "name": "Crossfade [beta]",
       "prompt": {
         "options": {
           "multi-input": {
+            "fade-in-duration": "Duración del fundido (milliseconds)",
+            "fade-out-duration": "Duración del fundido de salida (milliseconds)",
+            "fade-scaling": {
+              "label": "Escala de fundido",
+              "linear": "Lineal",
+              "logarithmic": "Logarítmico"
+            },
             "seconds-before-end": "Crossfade N segundos antes del final"
           },
           "title": "Opciones de crossfade"
@@ -273,12 +307,28 @@
       }
     },
     "disable-autoplay": {
-      "description": "Hace que la canción comience en modo \"pausado\""
+      "description": "Hace que la canción comience en modo \"pausado\"",
+      "menu": {
+        "apply-once": "Sólo se aplica al inicio"
+      },
+      "name": "Desactivar reproducción automática"
     },
     "discord": {
+      "backend": {
+        "already-connected": "Se intentó conectar con una conexión activa",
+        "connected": "Conectado a Discord",
+        "disconnected": "Desconectado de Discord"
+      },
+      "description": "Muestra a tus amigos lo que escuchas con Rich Presence",
       "menu": {
+        "auto-reconnect": "Reconectar automáticamente",
+        "clear-activity": "Borrar actividad",
+        "clear-activity-after-timeout": "Borrar actividad después de un tiempo",
         "connected": "Conectado",
         "disconnected": "Desconectado",
+        "hide-duration-left": "Ocultar la duración restante",
+        "hide-github-button": "Ocultar el botón de enlace a GitHub",
+        "play-on-youtube-music": "Reproducir en YouTube Music",
         "set-inactivity-timeout": "Establecer tiempo de inactividad"
       },
       "name": "Discord Rich Presence",
@@ -295,27 +345,47 @@
           "error": {
             "buttons": {
               "ok": "OK"
-            }
+            },
+            "message": "¡Argh! Lo siento, la descarga falló…",
+            "title": "Error en la descarga"
           },
           "start-download-playlist": {
             "buttons": {
               "ok": "OK"
             },
             "detail": "({{playlistSize}} canciones)",
-            "message": "Descargar Playlist {{playlistTitle}}"
+            "message": "Descargar Playlist {{playlistTitle}}",
+            "title": "Descarga iniciada"
           }
         },
         "feedback": {
           "conversion-progress": "Conversión: {{percent}}%",
+          "converting": "Convirtiendo…",
+          "done": "Listo: {{filePath}}",
+          "download-info": "Descargando {{artist}} - {{title}} [{{videoId}}",
+          "download-progress": "Descarga: {{percent}}%",
           "downloading": "Descargando..",
+          "downloading-counter": "Descargando {{current}}/{{total}}…",
           "downloading-playlist": "Descargar lista de reproducción \"{{playlistTitle}}\" - {{playlistSize}} canciones ({{playlistId}})",
+          "error-while-downloading": "Error al descargar \"{{author}} - {{title}}\": {{error}}",
           "folder-already-exists": "La carpeta {{playlistFolder}} ya existe",
+          "getting-playlist-info": "Obteniendo información de la lista de reproducción…",
+          "loading": "Cargando…",
+          "playlist-has-only-one-song": "La lista de reproducción sólo tiene un elemento, descárgala directamente",
+          "playlist-id-not-found": "No se ha encontrado el ID de la lista de reproducción",
+          "playlist-is-empty": "La lista de reproducción está vacía",
           "playlist-is-mix-or-private": "Error obteniendo información de la lista de reproducción: asegúrese de que no es una lista privada o \"Mixed for you\"\n\n{{error}}",
+          "preparing-file": "Preparando archivo…",
+          "saving": "Guardando…",
+          "trying-to-get-playlist-id": "Intentando obtener el ID de la lista de reproducción: {{playlistId}}",
           "video-id-not-found": "Video no encontrado",
           "writing-id3": "Escribiendo etiquetas ID3.."
         }
       },
+      "description": "Descarga MP3 / audio fuente directamente desde la interfaz",
       "menu": {
+        "choose-download-folder": "Elija la carpeta de descarga",
+        "download-playlist": "Descargar lista de reproducción",
         "skip-existing": "Saltar archivos existentes"
       },
       "renderer": {
