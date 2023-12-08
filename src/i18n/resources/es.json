@@ -23,6 +23,21 @@
       "i18n": {
         "loaded": "i18n cargado"
       }
+    },
+    "dialog": {
+      "need-to-restart": {
+        "buttons": {
+          "later": "Más tarde",
+          "restart-now": "Reiniciar ahora"
+        },
+        "message": "\"{{pluginName}}\" necesita reiniciar"
+      },
+      "unresponsive": {
+        "buttons": {
+          "wait": "Espera"
+        },
+        "message": "La aplicación no responde"
+      }
     }
   }
 }
