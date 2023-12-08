@@ -69,9 +69,12 @@
       },
       "update-available": {
         "buttons": {
+          "disable": "Desactivar actualizaciones",
           "download": "Descargar",
           "ok": "OK"
         },
+        "detail": "Una nueva versión está disponible y puede descargarse en {{downloadLink}}",
+        "message": "Ya está disponible una nueva versión",
         "title": "Actualización disponible"
       }
     },
@@ -81,7 +84,9 @@
         "label": "Navegación",
         "submenu": {
           "copy-current-url": "Copiar la URL actual",
+          "go-back": "Regresar",
           "go-forward": "Adelante",
+          "quit": "Salir",
           "restart": "Reiniciar la aplicación"
         }
       },
@@ -91,32 +96,72 @@
           "advanced-options": {
             "label": "Opciones avanzadas",
             "submenu": {
-              "edit-config-json": "Editar config.json"
+              "auto-reset-app-cache": "Restablecer la caché cuando se inicie la aplicación",
+              "disable-hardware-acceleration": "Desactivar la aceleración por hardware",
+              "edit-config-json": "Editar config.json",
+              "override-user-agent": "sobrescribir User-Agent",
+              "restart-on-config-changes": "Reinicie al cambiar la configuración",
+              "set-proxy": {
+                "label": "Definir proxy",
+                "prompt": {
+                  "label": "Introduzca la dirección del proxy: (déjela vacía para desactivarla)",
+                  "placeholder": "Ejemplo: socks5://127.0.0.1:9999",
+                  "title": "Establecer proxy"
+                }
+              },
+              "toggle-dev-tools": "Activar DevTools"
             }
           },
+          "always-on-top": "Siempre arriba",
           "auto-update": "Actualización automática",
           "hide-menu": {
             "dialog": {
+              "message": "El menú se ocultará la próxima vez que inicies la aplicación, usa [Alt] para mostrarlo (o pulsa [`] si usas el menú dentro de la aplicación).",
               "title": "Ocultar menú habilitado"
             },
             "label": "Ocultar menú"
           },
           "language": {
             "dialog": {
-              "message": "El idioma se cambiará después de reiniciar"
+              "message": "El idioma se cambiará después de reiniciar",
+              "title": "Se cambio el idioma"
             },
-            "label": "Idioma"
+            "label": "Idioma",
+            "submenu": {
+              "to-help-translate": "¿Quieres ayudar a traducir? Haz clic aquí"
+            }
           },
+          "resume-on-start": "Reanudar la última canción al iniciar la aplicación",
+          "single-instance-lock": "Bloquear en una instancia unica",
+          "start-at-login": "Comenzar al iniciar sesión",
           "starting-page": {
-            "label": "Página de inicio"
+            "label": "Página de inicio",
+            "unset": "Sin configurar"
+          },
+          "tray": {
+            "label": "Bandeja",
+            "submenu": {
+              "disabled": "Desactivado",
+              "enabled-and-hide-app": "Activar y ocultar la aplicación",
+              "enabled-and-show-app": "Activado y mostrar aplicación",
+              "play-pause-on-click": "Reproducir/Pausar al hacer clic"
+            }
           },
           "visual-tweaks": {
             "label": "Ajustes visuales",
             "submenu": {
+              "like-buttons": {
+                "default": "Predeterminado",
+                "force-show": "Forzar la visualización",
+                "hide": "Ocultar",
+                "label": "Botones de \"Me Gusta\""
+              },
+              "remove-upgrade-button": "Remover el botón de Actualización",
               "theme": {
                 "label": "Tema",
                 "submenu": {
-                  "import-css-file": "Importar archivo CSS personalizado"
+                  "import-css-file": "Importar archivo CSS personalizado",
+                  "no-theme": "Sin temas"
                 }
               }
             }
@@ -124,31 +169,51 @@
         }
       },
       "plugins": {
+        "enabled": "Habilitado",
         "label": "Plugins"
       },
       "view": {
-        "label": "Ver"
+        "label": "Ver",
+        "submenu": {
+          "force-reload": "Forzar la recarga",
+          "reload": "Recargar",
+          "reset-zoom": "Tamaño actual",
+          "toggle-fullscreen": "Alternar pantalla completa",
+          "zoom-in": "Acercar",
+          "zoom-out": "Alejar"
+        }
       }
     },
     "tray": {
       "next": "Siguiente",
+      "play-pause": "Reproducir/Pausar",
       "previous": "Anterior",
+      "quit": "Salir",
       "restart": "Reiniciar la aplicación",
       "show": "Mostrar ventana"
     }
   },
   "plugins": {
     "adblocker": {
+      "description": "Bloquear todos los anuncios y el rastreo",
       "menu": {
         "blocker": "Bloqueador"
       },
       "name": "Adblocker"
     },
     "album-color-theme": {
-      "description": "Aplica un tema dinámico y efectos visuales basados en la paleta de colores del álbum"
+      "description": "Aplica un tema dinámico y efectos visuales basados en la paleta de colores del álbum",
+      "name": "Color del álbum"
     },
     "ambient-mode": {
+      "description": "Aplica un efecto de iluminación proyectando colores suaves del vídeo en el fondo de la pantalla.",
       "menu": {
+        "blur-amount": {
+          "label": "Cantidad de desenfoque",
+          "submenu": {
+            "pixels": "{{blurAmount}} pixeles"
+          }
+        },
         "buffer": {
           "label": "Buffer",
           "submenu": {
@@ -156,12 +221,16 @@
           }
         },
         "opacity": {
+          "label": "Transparencia",
           "submenu": {
             "percent": "{{opacity}}%"
           }
         },
         "quality": {
-          "label": "Calidad"
+          "label": "Calidad",
+          "submenu": {
+            "pixels": "{{Calidad}} pixeles"
+          }
         }
       }
     }
