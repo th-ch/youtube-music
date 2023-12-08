@@ -229,10 +229,11 @@
         "quality": {
           "label": "Calidad",
           "submenu": {
-            "pixels": "{{Calidad}} pixeles"
+            "pixels": "Píxeles"
           }
         },
         "size": {
+          "label": "Tamaño",
           "submenu": {
             "percent": "{{Tamaño}}"
           }
