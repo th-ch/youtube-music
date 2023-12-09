@@ -205,5 +205,5 @@
     "unreleased": true,
     "output": "changelog.md"
   },
-  "packageManager": "pnpm@8.11.0"
+  "packageManager": "pnpm@8.12.0"
 }
