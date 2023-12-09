@@ -1,0 +1,242 @@
+{
+  "language": {
+    "code": "tr",
+    "local-name": "Türkçe",
+    "name": "Turkish"
+  },
+  "main": {
+    "dialog": {
+      "hide-menu-enabled": {
+        "message": "Gizli menüyü etkinleştir"
+      },
+      "update-available": {
+        "buttons": {
+          "download": "İndir",
+          "ok": "Tamam"
+        }
+      }
+    },
+    "menu": {
+      "navigation": {
+        "label": "Navigasyon"
+      },
+      "options": {
+        "label": "Seçenekler",
+        "submenu": {
+          "advanced-options": {
+            "submenu": {
+              "set-proxy": {
+                "label": "Proxy ayarla",
+                "prompt": {
+                  "title": "Proxy ayarla"
+                }
+              }
+            }
+          },
+          "auto-update": "Otomatik Güncelleme",
+          "language": {
+            "label": "Dil"
+          },
+          "start-at-login": "Başlangıçta çalıştır",
+          "tray": {
+            "label": "Tepsi",
+            "submenu": {
+              "enabled-and-hide-app": "Uygulamayı etkinleştirin gizleyin.",
+              "play-pause-on-click": "Tıklaynınca Oynat-Duraklat"
+            }
+          },
+          "visual-tweaks": {
+            "submenu": {
+              "like-buttons": {
+                "default": "Varsayılan"
+              },
+              "theme": {
+                "label": "Tema",
+                "submenu": {
+                  "no-theme": "Tema Yok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "plugins": {
+        "label": "Eklentiler"
+      },
+      "view": {
+        "label": "Görüntü"
+      }
+    }
+  },
+  "plugins": {
+    "adblocker": {
+      "description": "Tüm reklamları ve izleyicileri engelle",
+      "menu": {
+        "blocker": "Engelleme Yöntemi"
+      },
+      "name": "Adblocker"
+    },
+    "album-color-theme": {
+      "description": "Albümün renk paletine dayalı dinamik bir tema ve efektler uygular.",
+      "name": "Albüm Renk Teması"
+    },
+    "ambient-mode": {
+      "description": "Videodaki yumuşak renkleri ekranınızın arka planına yansıtarak bir ışık efekti uygular..",
+      "menu": {
+        "blur-amount": {
+          "submenu": {
+            "pixels": "{{blurAmount}} pixels"
+          }
+        },
+        "buffer": {
+          "label": "Önbellek",
+          "submenu": {
+            "buffer": "{{buffer}}"
+          }
+        },
+        "opacity": {
+          "label": "Opaklık Miktarı",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "quality": {
+          "submenu": {
+            "pixels": "{{quality}} pixels"
+          }
+        },
+        "size": {
+          "submenu": {
+            "percent": "{{size}}%"
+          }
+        },
+        "smoothness-transition": {
+          "submenu": {
+            "during": "{{interpolationTime}} saniye içinde"
+          }
+        }
+      }
+    },
+    "audio-compressor": {
+      "description": "Ses sıkıştırma (dalganın en gürültülü bölümlerinin ses düzeyini azaltır ve daha yumuşak bölümlerin ses düzeyini artırır)"
+    },
+    "blur-nav-bar": {
+      "description": "Gezinme çubuğunu şeffaf ve bulanık yapar"
+    },
+    "bypass-age-restrictions": {
+      "description": "YouTube yaş doğrulamasını atla"
+    },
+    "captions-selector": {
+      "prompt": {
+        "selector": {
+          "none": "Hiçbiri"
+        }
+      }
+    },
+    "compact-sidebar": {
+      "description": "Her zaman kompakt kenar çubugu"
+    },
+    "crossfade": {
+      "menu": {
+        "advanced": "İleri düzey için"
+      },
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "fade-scaling": {
+              "linear": "Doğrusal",
+              "logarithmic": "Logaritmik"
+            }
+          }
+        }
+      }
+    },
+    "disable-autoplay": {
+      "description": "Şarkıların otomatik olarak duraklatılmasını sağlar",
+      "menu": {
+        "apply-once": "Yalnızca ilk şarkı için geçerlidir"
+      }
+    },
+    "discord": {
+      "description": "Rich Presence ile Discord'da ne dinlediğinizi gösterin.",
+      "menu": {
+        "hide-duration-left": "Kalan süreyi gizle",
+        "hide-github-button": "GitHub bağlantısını gizle",
+        "set-inactivity-timeout": "Hareketsizlik zaman aşımını ayarla"
+      }
+    },
+    "downloader": {
+      "backend": {
+        "dialog": {
+          "error": {
+            "buttons": {
+              "ok": "Tamam"
+            },
+            "title": "İndirmede hata meydana geldi!"
+          },
+          "start-download-playlist": {
+            "buttons": {
+              "ok": "Tamam"
+            },
+            "message": "Çalma listesini indir : {{playlistTitle}}",
+            "title": "İndirme Başladı"
+          }
+        },
+        "feedback": {
+          "conversion-progress": "Dönüştürme : {{percent}}%",
+          "download-progress": "İndirme : {{percent}}%",
+          "preparing-file": "Dosya Hazırlanıyor…"
+        }
+      },
+      "templates": {
+        "button": "İndir"
+      }
+    },
+    "last-fm": {
+      "name": "Last.fm"
+    },
+    "navigation": {
+      "name": "Navigasyon"
+    },
+    "no-google-login": {
+      "name": "Google Girişini Kaldır"
+    },
+    "notifications": {
+      "name": "Bildirimler"
+    },
+    "shortcuts": {
+      "prompt": {
+        "keybind": {
+          "keybind-options": {
+            "next": "İler"
+          }
+        }
+      }
+    },
+    "sponsorblock": {
+      "name": "SponsorBlock"
+    },
+    "touchbar": {
+      "name": "TouchBar"
+    },
+    "tuna-obs": {
+      "name": "Tuna OBS"
+    },
+    "video-toggle": {
+      "menu": {
+        "align": {
+          "submenu": {
+            "middle": "Orta",
+            "right": "Sağ"
+          }
+        },
+        "mode": {
+          "label": "Mod"
+        }
+      },
+      "templates": {
+        "button": "Şarkı"
+      }
+    }
+  }
+}
