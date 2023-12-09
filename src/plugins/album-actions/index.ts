@@ -27,7 +27,6 @@ export default createPlugin({
       });
     },
     onPageChange() {
-      console.log('Running 1');
       const buttons: Array<HTMLElement> = [
         ElementFromHtml(undislikeHTML),
         ElementFromHtml(dislikeHTML),
@@ -36,7 +35,6 @@ export default createPlugin({
       ];
       const menu = document.querySelector('.detail-page-menu');
       if (menu && !document.querySelector('.like-menu')) {
-        console.log('Running 2');
         for (const button of buttons) {
           menu.appendChild(button);
           button.addEventListener('click', this.applyToList);
