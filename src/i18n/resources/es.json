@@ -33,7 +33,7 @@
         "css-file-not-found": "Archivo CSS \"{{archivocss}}\" no existe, ignorando"
       },
       "unresponsive": {
-        "details": "Error que no responde! {{error}}"
+        "details": "¡Error sin repuesta!\n{{error}}"
       },
       "when-ready": {
         "clearing-cache-after-20s": "Borrar caché de la aplicación"
@@ -317,35 +317,65 @@
       },
       "menu": {
         "skip-existing": "Saltar archivos existentes"
+      },
+      "renderer": {
+        "can-not-update-progress": "No se puede actualizar el progreso"
+      },
+      "templates": {
+        "button": "Descargar"
       }
     },
     "exponential-volume": {
+      "description": "Hace que el control deslizante de volumen sea exponencial para que sea más fácil seleccionar volúmenes más bajos.",
       "name": "Volumen exponencial"
     },
     "in-app-menu": {
+      "description": "Da a las barras de menú un aspecto elegante, oscuro o del color de un álbum",
+      "menu": {
+        "hide-dom-window-controls": "Ocultar controles de ventana DOM"
+      },
       "name": "Menú de aplicación"
     },
     "last-fm": {
+      "description": "Añade soporte de scrobbling para Last.fm",
       "name": "Last.fm"
     },
     "lumiastream": {
+      "description": "Agrega soporte para Lumia Stream",
       "name": "Lumia Stream [beta]"
     },
     "lyrics-genius": {
+      "description": "Añade soporte de lyrics para la mayoría de las canciones.",
       "menu": {
         "romanized-lyrics": "Letras Romanizadas"
+      },
+      "name": "Lyrics Genius",
+      "renderer": {
+        "fetched-lyrics": "Letras recuperadas de Genius"
       }
     },
     "navigation": {
+      "description": "Flechas de navegación Siguiente/Atrás directamente integradas en la interfaz, como en tu navegador favorito",
       "name": "Navegación"
     },
+    "no-google-login": {
+      "description": "Eliminar los botones y enlaces de inicio de sesión de Google de la interfaz",
+      "name": "Sin inicio de sesión de Google"
+    },
     "notifications": {
+      "description": "Mostrar una notificación cuando empiece a sonar una canción (las notificaciones interactivas están disponibles en Windows)",
       "menu": {
         "interactive": "Notificaciones interactivas",
         "interactive-settings": {
-          "label": "Ajustes interactivos"
+          "label": "Ajustes interactivos",
+          "submenu": {
+            "refresh-on-play-pause": "Actualizar al reproducir/pausar",
+            "tray-controls": "Abrir/Cerrar al hacer clic en la bandeja"
+          }
         },
-        "priority": "Prioridad de notificación"
+        "priority": "Prioridad de notificación",
+        "toast-style": "Estilo de mensaje emergente",
+        "unpause-notification": "Mostrar notificación al reanudar"
       },
       "name": "Notificaciones"
     },
@@ -353,6 +383,15 @@
       "description": "Permite cambiar la aplicación al modo de imagen en imagen",
       "menu": {
         "always-on-top": "Siempre encima",
+        "hotkey": {
+          "label": "Tecla de acceso rápido",
+          "prompt": {
+            "keybind-options": {
+              "hotkey": "Tecla de acceso rápido"
+            }
+          }
+        },
+        "save-window-position": "Guardar la posición de la ventana",
         "save-window-size": "Guardar tamaño de la ventana"
       },
       "name": "Imagen en Imagen",
@@ -360,13 +399,27 @@
         "button": "Imagen en Imagen"
       }
     },
+    "playback-speed": {
+      "name": "Velocidad de reproducción",
+      "templates": {
+        "button": "Velocidad"
+      }
+    },
     "precise-volume": {
+      "menu": {
+        "custom-volume-steps": "Establecer niveles de volumen personalizados",
+        "global-shortcuts": "Teclas de acceso rápido globales"
+      },
       "name": "Volumen preciso",
       "prompt": {
         "global-shortcuts": {
           "keybind-options": {
-            "decrease": "Disminuir el volumen"
+            "decrease": "Disminuir el volumen",
+            "increase": "Aumentar el volumen"
           }
+        },
+        "volume-steps": {
+          "title": "Niveles de volumen"
         }
       }
     },
@@ -375,6 +428,7 @@
         "dialog": {
           "quality-changer": {
             "detail": "Calidad actual: {{quality}}",
+            "message": "Elija la calidad de vídeo:",
             "title": "Elija la calidad de vídeo"
           }
         }
