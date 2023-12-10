@@ -531,9 +531,56 @@
             "next": "Siguiente",
             "play-pause": "Reproducir / Pausa",
             "previous": "Anterior"
-          }
+          },
+          "label": "Escoge Atajos de teclado globales para el control de canciones",
+          "title": "Atajos de teclado globales"
         }
       }
+    },
+    "skip-silences": {
+      "description": "Salta automáticamente las secciones silenciosas de las canciones",
+      "name": "Saltar silencios"
+    },
+    "sponsorblock": {
+      "description": "Salta automáticamente las partes no musicales como la introducción/final o secciones de videos musicales donde la canción no está sonando",
+      "name": "SponsorBlock"
+    },
+    "taskbar-mediacontrol": {
+      "description": "Controla la reproducción desde la barra de tareas de Windows",
+      "name": "Control de medios de la barra de tareas"
+    },
+    "touchbar": {
+      "description": "Añade un widget TouchBar para los usuarios de macOS"
+    },
+    "tuna-obs": {
+      "description": "Integración con el complemento Tuna de OBS"
+    },
+    "video-toggle": {
+      "description": "Añade un botón para cambiar entre el modo Vídeo/Canción. también puede eliminar opcionalmente toda la pestaña de vídeo",
+      "menu": {
+        "align": {
+          "submenu": {
+            "middle": "Medio",
+            "right": "Derecha"
+          }
+        },
+        "force-hide": "Forzar eliminación de la pestaña de vídeo",
+        "mode": {
+          "submenu": {
+            "custom": "Alternador personalizado",
+            "disabled": "Desactivado",
+            "native": "Alternador nativo"
+          }
+        }
+      },
+      "name": "Alternador de vídeo"
+    },
+    "visualizer": {
+      "description": "Añadir un visualizador al reproductor",
+      "menu": {
+        "visualizer-type": "Tipo de visualizador"
+      },
+      "name": "Visualizador"
     }
   }
 }
