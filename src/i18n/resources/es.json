@@ -27,10 +27,10 @@
         "loaded": "i18n cargado"
       },
       "second-instance": {
-        "receive-command": "Comando recibido sobre protocolo: \"{{comando}}\""
+        "receive-command": "Comando recibido sobre el protocolo: \"{{command}}\""
       },
       "theme": {
-        "css-file-not-found": "Archivo CSS \"{{archivocss}}\" no existe, ignorando"
+        "css-file-not-found": "El archivo CSS \"{{cssFile}}\" no existe, ignorando"
       },
       "unresponsive": {
         "details": "¡Error sin repuesta!\n{{error}}"
@@ -39,7 +39,7 @@
         "clearing-cache-after-20s": "Borrar caché de la aplicación"
       },
       "window": {
-        "tried-to-render-offscreen": "La ventana intentó mostrarse fuera de la pantalla, tamañoventana={{tamañoVentana}}, tamañoVisualizacion={{tamañoVisualizacion}}, posicion={{posición}}"
+        "tried-to-render-offscreen": "La ventana intentó mostrarse fuera de la pantalla, windowSize={{windowSize}}, displaySize={{displaySize}}, posicion={{position}}"
       }
     },
     "dialog": {
@@ -59,7 +59,7 @@
       },
       "unresponsive": {
         "buttons": {
-          "quit": "Salir",
+          "quit": "Dejar",
           "relaunch": "Volver a abrir",
           "wait": "Espera"
         },
@@ -116,7 +116,7 @@
           "auto-update": "Actualización automática",
           "hide-menu": {
             "dialog": {
-              "message": "El menú se ocultará la próxima vez que inicies la aplicación, usa [Alt] para mostrarlo (o pulsa [`] si usas el menú dentro de la aplicación).",
+              "message": "El menú se ocultará la próxima vez que lo inicies, usa [Alt] para mostrarlo (o pulsa [`] si usas el menú dentro de la aplicación)",
               "title": "Ocultar menú habilitado"
             },
             "label": "Ocultar menú"
@@ -229,7 +229,7 @@
         "quality": {
           "label": "Calidad",
           "submenu": {
-            "pixels": "Píxeles"
+            "pixels": "{{quality}} píxeles"
           }
         },
         "size": {
@@ -331,7 +331,7 @@
         "play-on-youtube-music": "Reproducir en YouTube Music",
         "set-inactivity-timeout": "Establecer tiempo de inactividad"
       },
-      "name": "Discord Rich Presence",
+      "name": "Estado de actividad de Discord",
       "prompt": {
         "set-inactivity-timeout": {
           "label": "Introduzca el tiempo de inactividad en segundos:",
@@ -347,7 +347,7 @@
               "ok": "OK"
             },
             "message": "¡Argh! Lo siento, la descarga falló…",
-            "title": "Error en la descarga"
+            "title": "¡Error en la descarga!"
           },
           "start-download-playlist": {
             "buttons": {
@@ -364,7 +364,7 @@
           "done": "Listo: {{filePath}}",
           "download-info": "Descargando {{artist}} - {{title}} [{{videoId}}",
           "download-progress": "Descarga: {{percent}}%",
-          "downloading": "Descargando..",
+          "downloading": "Descargando…",
           "downloading-counter": "Descargando {{current}}/{{total}}…",
           "downloading-playlist": "Descargar lista de reproducción \"{{playlistTitle}}\" - {{playlistSize}} canciones ({{playlistId}})",
           "error-while-downloading": "Error al descargar \"{{author}} - {{title}}\": {{error}}",
@@ -379,7 +379,7 @@
           "saving": "Guardando…",
           "trying-to-get-playlist-id": "Intentando obtener el ID de la lista de reproducción: {{playlistId}}",
           "video-id-not-found": "Video no encontrado",
-          "writing-id3": "Escribiendo etiquetas ID3.."
+          "writing-id3": "Escribiendo las etiquetas ID3…"
         }
       },
       "description": "Descarga MP3 / audio fuente directamente desde la interfaz",
@@ -417,7 +417,7 @@
       "name": "Lumia Stream [beta]"
     },
     "lyrics-genius": {
-      "description": "Añade soporte de lyrics para la mayoría de las canciones.",
+      "description": "Añade el soporte para las letras para la mayoría de las canciones",
       "menu": {
         "romanized-lyrics": "Letras Romanizadas"
       },
@@ -496,8 +496,8 @@
             "decrease": "Disminuir el volumen",
             "increase": "Aumentar el volumen"
           },
-          "label": "Escoge Atajos de teclado generales para el volumen",
-          "title": "Atajos de teclado generales para el  volumen"
+          "label": "Elija combinaciones de teclas para el volumen:",
+          "title": "Combinaciones de teclas para el volumen global"
         },
         "volume-steps": {
           "label": "Escoge los pasos de aumento o disminución del volumen",
