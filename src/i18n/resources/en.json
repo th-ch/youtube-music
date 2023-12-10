@@ -537,6 +537,10 @@
         }
       }
     },
+    "skip-disliked-songs": {
+      "description": "Skips disliked songs",
+      "name": "Skip Disliked Songs"
+    },
     "skip-silences": {
       "description": "Automatically skip silences sections in songs",
       "name": "Skip Silences"
