@@ -386,8 +386,10 @@
       "menu": {
         "choose-download-folder": "Elija la carpeta de descarga",
         "download-playlist": "Descargar lista de reproducción",
+        "presets": "Preajustes",
         "skip-existing": "Saltar archivos existentes"
       },
+      "name": "Descargador",
       "renderer": {
         "can-not-update-progress": "No se puede actualizar el progreso"
       },
@@ -439,6 +441,7 @@
         "interactive-settings": {
           "label": "Ajustes interactivos",
           "submenu": {
+            "hide-button-text": "Ocultar el texto del botón",
             "refresh-on-play-pause": "Actualizar al reproducir/pausar",
             "tray-controls": "Abrir/Cerrar al hacer clic en la bandeja"
           }
@@ -458,11 +461,14 @@
           "prompt": {
             "keybind-options": {
               "hotkey": "Tecla de acceso rápido"
-            }
+            },
+            "label": "Elige una tecla de acceso rápido para alternar al modo \"Dos imágenes a la vez\" PiP",
+            "title": "Tecla de acceso rápido al modo \"Dos imágenes a la vez\" PiP"
           }
         },
         "save-window-position": "Guardar la posición de la ventana",
-        "save-window-size": "Guardar tamaño de la ventana"
+        "save-window-size": "Guardar tamaño de la ventana",
+        "use-native-pip": "Utilizar \"Dos imágenes a la vez\" PiP nativo del navegador"
       },
       "name": "Imagen en Imagen",
       "templates": {
@@ -470,13 +476,16 @@
       }
     },
     "playback-speed": {
+      "description": "Escucha rápido, escucha despacio! Añade un control deslizante que ajusta la velocidad de la canción",
       "name": "Velocidad de reproducción",
       "templates": {
         "button": "Velocidad"
       }
     },
     "precise-volume": {
+      "description": "Controla el volumen de manera precisa utilizando la rueda del ratón/teclas de acceso rápido, con una interfaz personalizada y pasos de volumen personalizables",
       "menu": {
+        "arrows-shortcuts": "Controles de teclas de flechas locales",
         "custom-volume-steps": "Establecer niveles de volumen personalizados",
         "global-shortcuts": "Teclas de acceso rápido globales"
       },
@@ -486,9 +495,12 @@
           "keybind-options": {
             "decrease": "Disminuir el volumen",
             "increase": "Aumentar el volumen"
-          }
+          },
+          "label": "Escoge Atajos de teclado generales para el volumen",
+          "title": "Atajos de teclado generales para el  volumen"
         },
         "volume-steps": {
+          "label": "Escoge los pasos de aumento o disminución del volumen",
           "title": "Niveles de volumen"
         }
       }
@@ -500,6 +512,23 @@
             "detail": "Calidad actual: {{quality}}",
             "message": "Elija la calidad de vídeo:",
             "title": "Elija la calidad de vídeo"
+          }
+        }
+      },
+      "description": "Permite cambiar la calidad del vídeo con un botón sobre puesto en el vídeo",
+      "name": "Ajustador de calidad de vídeo"
+    },
+    "shortcuts": {
+      "description": "Permite ajustar atajos de teclado generales para reproducción (reproducir/pausar/siguiente/previo) + deshabilita OSD de medios mediante la anulación de las teclas de medios + habilitar Ctrl/CMD + F para buscar + habilitar soporte mpris de linux para teclas de medios + atajos de teclado personalizados para usuarios avanzados",
+      "menu": {
+        "override-media-keys": "Anular teclas de medios",
+        "set-keybinds": "Configurar controles globales de canciones"
+      },
+      "name": "Atajos (& MPRIS)",
+      "prompt": {
+        "keybind": {
+          "keybind-options": {
+            "play-pause": "Reproducir / Pausa"
           }
         }
       }
