@@ -528,7 +528,9 @@
       "prompt": {
         "keybind": {
           "keybind-options": {
-            "play-pause": "Reproducir / Pausa"
+            "next": "Siguiente",
+            "play-pause": "Reproducir / Pausa",
+            "previous": "Anterior"
           }
         }
       }
