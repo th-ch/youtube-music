@@ -19,24 +19,12 @@ export default createPlugin({
     start() {
       const forwardButton = ElementFromHtml(forwardHTML);
       const backButton = ElementFromHtml(backHTML);
-      this.waitForElem('#right-content').then((menu: HTMLElement) => {
-        menu.prepend(backButton, forwardButton);
-      });
+      const menu = document.querySelector('#right-content');
+      menu?.prepend(backButton, forwardButton);
     },
     stop() {
       document.querySelector('[tab-id=FEmusic_back]')?.remove();
       document.querySelector('[tab-id=FEmusic_next]')?.remove();
     },
-    waitForElem(selector: string): Promise<Element> {
-      return new Promise((resolve) => {
-        const interval = setInterval(() => {
-          const elem = document.querySelector(selector);
-          if (!elem) return;
-
-          clearInterval(interval);
-          resolve(elem);
-        });
-      });
-    }
   },
 });
