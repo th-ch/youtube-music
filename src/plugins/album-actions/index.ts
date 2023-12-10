@@ -37,14 +37,32 @@ export default createPlugin({
       if (menu && !document.querySelector('.like-menu')) {
         for (const button of buttons) {
           menu.appendChild(button);
-          button.addEventListener('click', this.applyToList);
+          button.addEventListener('click', this.loadFullList);
         }
       }
     },
-    applyToList(event) {
+    loadFullList(event) {
       event.stopPropagation();
+      const id: string = event.currentTarget.id,
+        loader: HTMLElement = document.getElementById('continuations'),
+        loadobserver = new MutationObserver(() => {
+          if (loader.children.length == 0) {
+            this.applyToList(id);
+            loadobserver.disconnect();
+          }
+        });
+      loadobserver.observe(loader, {
+        attributes: true,
+        childList: true,
+        subtree: true,
+      });
+      loader.style.top = '50%';
+      loader.style.left = '50%';
+      loader.style.position = 'absolute';
+    },
+    applyToList(id: string) {
       let playlistbuttons: NodeListOf<Element> | undefined;
-      switch (event.currentTarget.id) {
+      switch (id) {
         case 'allundislike':
           playlistbuttons = document
             .querySelector('ytmusic-shelf-renderer')
