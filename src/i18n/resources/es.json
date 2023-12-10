@@ -550,22 +550,27 @@
       "name": "Control de medios de la barra de tareas"
     },
     "touchbar": {
-      "description": "Añade un widget TouchBar para los usuarios de macOS"
+      "description": "Añade un widget TouchBar para los usuarios de macOS",
+      "name": "TouchBar"
     },
     "tuna-obs": {
-      "description": "Integración con el complemento Tuna de OBS"
+      "description": "Integración con el complemento Tuna de OBS",
+      "name": "Tuna OBS"
     },
     "video-toggle": {
       "description": "Añade un botón para cambiar entre el modo Vídeo/Canción. también puede eliminar opcionalmente toda la pestaña de vídeo",
       "menu": {
         "align": {
+          "label": "Alineación",
           "submenu": {
+            "left": "Izquierda",
             "middle": "Medio",
             "right": "Derecha"
           }
         },
         "force-hide": "Forzar eliminación de la pestaña de vídeo",
         "mode": {
+          "label": "Modo",
           "submenu": {
             "custom": "Alternador personalizado",
             "disabled": "Desactivado",
@@ -573,7 +578,10 @@
           }
         }
       },
-      "name": "Alternador de vídeo"
+      "name": "Alternador de vídeo",
+      "templates": {
+        "button": "Canción"
+      }
     },
     "visualizer": {
       "description": "Añadir un visualizador al reproductor",
