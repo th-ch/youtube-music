@@ -13,6 +13,7 @@ export default createPlugin({
   restartNeeded: false,
   renderer: {
     observer: null as MutationObserver | null,
+    loadobserver: null as MutationObserver | null,
     start() {
       this.onPageChange();
       this.waitForElem('#browse-page').then((page: HTMLElement) => {
@@ -44,52 +45,47 @@ export default createPlugin({
     loadFullList(event) {
       event.stopPropagation();
       const id: string = event.currentTarget.id,
-        loader: HTMLElement = document.getElementById('continuations'),
-        loadobserver = new MutationObserver(() => {
-          if (loader.children.length == 0) {
-            this.applyToList(id);
-            loadobserver.disconnect();
-          }
-        });
-      loadobserver.observe(loader, {
+        loader = document.getElementById('continuations');
+      this.loadobserver = new MutationObserver(() => {
+        this.applyToList(id, loader);
+      });
+      this.applyToList(id, loader);
+      this.loadobserver.observe(loader, {
         attributes: true,
         childList: true,
         subtree: true,
       });
-      loader.style.top = '50%';
-      loader.style.left = '50%';
-      loader.style.position = 'absolute';
+      loader?.style.setProperty('top', '0');
+      loader?.style.setProperty('left', '50%');
+      loader?.style.setProperty('position', 'absolute');
     },
-    applyToList(id: string) {
+    applyToList(id: string, loader: HTMLElement) {
+      if (loader.children.length != 0) return;
+      this.loadobserver?.disconnect();
       let playlistbuttons: NodeListOf<Element> | undefined;
+      const playlist = document.querySelector('ytmusic-shelf-renderer')
+        ? document.querySelector('ytmusic-shelf-renderer')
+        : document.querySelector('ytmusic-playlist-shelf-renderer');
       switch (id) {
         case 'allundislike':
-          playlistbuttons = document
-            .querySelector('ytmusic-shelf-renderer')
-            ?.querySelectorAll(
-              '#button-shape-dislike[aria-pressed=true] > button',
-            );
+          playlistbuttons = playlist?.querySelectorAll(
+            '#button-shape-dislike[aria-pressed=true] > button',
+          );
           break;
         case 'alldislike':
-          playlistbuttons = document
-            .querySelector('ytmusic-shelf-renderer')
-            ?.querySelectorAll(
-              '#button-shape-dislike[aria-pressed=false] > button',
-            );
+          playlistbuttons = playlist?.querySelectorAll(
+            '#button-shape-dislike[aria-pressed=false] > button',
+          );
           break;
         case 'alllike':
-          playlistbuttons = document
-            .querySelector('ytmusic-shelf-renderer')
-            ?.querySelectorAll(
-              '#button-shape-like[aria-pressed=false] > button',
-            );
+          playlistbuttons = playlist?.querySelectorAll(
+            '#button-shape-like[aria-pressed=false] > button',
+          );
           break;
         case 'allunlike':
-          playlistbuttons = document
-            .querySelector('ytmusic-shelf-renderer')
-            ?.querySelectorAll(
-              '#button-shape-like[aria-pressed=true] > button',
-            );
+          playlistbuttons = playlist?.querySelectorAll(
+            '#button-shape-like[aria-pressed=true] > button',
+          );
           break;
         default:
       }
