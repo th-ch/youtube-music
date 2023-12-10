@@ -497,7 +497,7 @@
             "increase": "Aumentar el volumen"
           },
           "label": "Elija combinaciones de teclas para el volumen:",
-          "title": "Combinaciones de teclas para el volumen global"
+          "title": "Combinaciones de teclas para el volumen"
         },
         "volume-steps": {
           "label": "Escoge los pasos de aumento o disminución del volumen",
@@ -532,10 +532,14 @@
             "play-pause": "Reproducir / Pausa",
             "previous": "Anterior"
           },
-          "label": "Escoge Atajos de teclado globales para el control de canciones",
+          "label": "Elija combinaciones de teclas para el control de las canciones:",
           "title": "Atajos de teclado globales"
         }
       }
+    },
+    "skip-disliked-songs": {
+      "description": "Omite las canciones que no le gustan",
+      "name": "Saltar canciones que no me gustan"
     },
     "skip-silences": {
       "description": "Salta automáticamente las secciones silenciosas de las canciones",
