@@ -537,6 +537,10 @@
         }
       }
     },
+    "skip-disliked-songs": {
+      "description": "低評価と表示された曲をスキップします",
+      "name": "低評価曲をスキップ"
+    },
     "skip-silences": {
       "description": "曲の無音区間を自動でスキップ",
       "name": "無音区間をスキップ"
