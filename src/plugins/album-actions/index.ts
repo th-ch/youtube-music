@@ -11,6 +11,9 @@ export default createPlugin({
   name: () => t('plugins.album-actions.name'),
   description: () => t('plugins.album-actions.description'),
   restartNeeded: false,
+  config: {
+    enabled: true,
+  },
   renderer: {
     observer: null as MutationObserver | null,
     loadobserver: null as MutationObserver | null,
