@@ -13,6 +13,11 @@
       }
     }
   },
+  "language": {
+    "code": "pt",
+    "local-name": "Português",
+    "name": "Portuguese"
+  },
   "main": {
     "console": {
       "did-finish-load": {
