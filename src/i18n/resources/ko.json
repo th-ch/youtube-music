@@ -537,6 +537,10 @@
         }
       }
     },
+    "skip-disliked-songs": {
+      "description": "싫어요 표시된 노래를 건너뜁니다",
+      "name": "싫어요 표시 노래 건너뛰기"
+    },
     "skip-silences": {
       "description": "노래의 무음 부분을 자동으로 건너뜁니다",
       "name": "무음 건너뛰기"
