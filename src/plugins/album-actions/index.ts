@@ -16,15 +16,13 @@ export default createPlugin({
     loadobserver: null as MutationObserver | null,
     start() {
       this.onPageChange();
-      this.waitForElem('#browse-page').then((page: HTMLElement) => {
-        this.observer = new MutationObserver(() => {
-          this.onPageChange();
-        });
-        this.observer.observe(page, {
-          attributes: false,
-          childList: true,
-          subtree: true,
-        });
+      this.observer = new MutationObserver(() => {
+        this.onPageChange();
+      });
+      this.observer.observe(document.querySelector('#browse-page'), {
+        attributes: false,
+        childList: true,
+        subtree: true,
       });
     },
     onPageChange() {
@@ -99,17 +97,6 @@ export default createPlugin({
       for (const button of document.querySelectorAll('.like-menu')) {
         button.remove();
       }
-    },
-    waitForElem(selector: string): Promise<Element> {
-      return new Promise((resolve) => {
-        const interval = setInterval(() => {
-          const elem = document.querySelector(selector);
-          if (!elem) return;
-
-          clearInterval(interval);
-          resolve(elem);
-        });
-      });
     },
   },
 });
