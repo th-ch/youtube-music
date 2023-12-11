@@ -44,7 +44,7 @@
     },
     "dialog": {
       "hide-menu-enabled": {
-        "detail": "Menu is hidden, use 'Alt' to show it (or 'Escape' if using in-app-menu)",
+        "detail": "Menu is hidden, use 'Alt' to show it (or 'Escape' if using In-App Menu)",
         "message": "Hide Menu is enabled",
         "title": "Hide Menu Enabled"
       },
