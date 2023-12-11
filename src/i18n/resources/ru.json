@@ -7,7 +7,9 @@
         "initialize-failed": "Ошибка инициализации плагина \"{{pluginName}}\"",
         "load-all": "Загружаем все плагины",
         "load-failed": "Ошибка загрузки плагина \"{{pluginName}}\"",
-        "loaded": "Плагин \"{{pluginName}}\" загружен"
+        "loaded": "Плагин \"{{pluginName}}\" загружен",
+        "unload-failed": "Ошибка выгрузки плагина \"{{pluginName}}\"",
+        "unloaded": "Плагин \"{{pluginName}}\" выгружен"
       }
     }
   },
@@ -17,45 +19,143 @@
     "name": "Russian"
   },
   "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "Загрузка завершена. DevTools открыт"
+      },
+      "i18n": {
+        "loaded": "i18n загружен"
+      },
+      "second-instance": {
+        "receive-command": "Получена команда по протоколу: \"{{command}}\""
+      },
+      "theme": {
+        "css-file-not-found": "CSS файл \"{{cssFile}}\" не существует, игнорирую"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "Очищаю кеш приложения"
+      },
+      "window": {
+        "tried-to-render-offscreen": "Окно попробовало открыться за пределами экрана, размер окна={{windowSize}}, разрешение экрана={{displaySize}}, местоположение={{position}}"
+      }
+    },
     "dialog": {
+      "hide-menu-enabled": {
+        "detail": "Меню скрыто, 'Alt' чтобы показать его ('Escape' если используете меню внутри приложения)",
+        "message": "Скрытие меню включено",
+        "title": "Включено скрытие меню"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "Позже",
+          "restart-now": "Перезапустить сейчас"
+        },
+        "detail": "Перезагрузите приложение для включения плагина {{pluginName}}",
+        "message": "{{pluginName}} нуждается в перезагрузке",
+        "title": "Нужна перезагрузка"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "Выйти",
+          "relaunch": "Перезапустить",
+          "wait": "Подождать"
+        },
+        "detail": "Извиняемся за неувязку! пожалуйста выберите что вы хотите сделать:",
+        "message": "Приложение не отвечает",
+        "title": "Окно не отвечает"
+      },
       "update-available": {
         "buttons": {
-          "download": "Download",
+          "disable": "Отключить обновления",
+          "download": "Скачать",
           "ok": "OK"
-        }
+        },
+        "detail": "Новая версия доступна для загрузки на {{downloadLink}}",
+        "message": "Доступная новая версия",
+        "title": "Доступно обновление"
       }
     },
     "menu": {
+      "about": "О приложении",
       "navigation": {
-        "label": "Navigation"
+        "label": "Навигация",
+        "submenu": {
+          "copy-current-url": "Скопировать текущий URL",
+          "go-back": "Вернуться",
+          "go-forward": "Вперед",
+          "quit": "Выйти",
+          "restart": "Перезапустить приложение"
+        }
       },
       "options": {
-        "label": "Options",
+        "label": "Настройки",
         "submenu": {
           "advanced-options": {
+            "label": "Расширенные настройки",
             "submenu": {
+              "auto-reset-app-cache": "Очищать кеш при запуске приложения",
+              "disable-hardware-acceleration": "Отключить аппаратное ускорение",
+              "edit-config-json": "Редактировать config.json",
+              "restart-on-config-changes": "Перезапускать при изменениях конфига",
               "set-proxy": {
-                "label": "Set proxy",
+                "label": "Задать прокси",
                 "prompt": {
-                  "title": "Set proxy"
+                  "label": "Введите прокси адрес (оставьте поле пустым для отключения)",
+                  "placeholder": "Пример: socks5://127.0.0.1:9999",
+                  "title": "Задать прокси"
                 }
-              }
+              },
+              "toggle-dev-tools": "Включить DevTools"
             }
           },
-          "auto-update": "Auto Update",
-          "start-at-login": "Start at login",
+          "always-on-top": "Поверх остальных окон",
+          "auto-update": "Автообновление",
+          "hide-menu": {
+            "dialog": {
+              "message": "Меню будет скрыто при следующем запуске, используйте [Alt] чтобы показать его (или [`] если используйте меню внутри приложения)",
+              "title": "Скрытие меню включено"
+            },
+            "label": "Скрыть меню"
+          },
+          "language": {
+            "dialog": {
+              "message": "Язык будет сменён после перезапуска",
+              "title": "Язык изменён"
+            },
+            "label": "Язык",
+            "submenu": {
+              "to-help-translate": "Хотите помочь с переводом? Кликните сюда"
+            }
+          },
+          "resume-on-start": "Продолжать последнюю песню при запуске приложения",
+          "start-at-login": "Запуск при включении компьютера",
+          "starting-page": {
+            "label": "Стартовая страница",
+            "unset": "Не настроено"
+          },
           "tray": {
-            "label": "Tray"
+            "label": "Трей",
+            "submenu": {
+              "disabled": "Отключено",
+              "enabled-and-hide-app": "Включено и скрывать приложение",
+              "enabled-and-show-app": "Включено и показывать приложение",
+              "play-pause-on-click": "Пауза/продолжить при нажатии"
+            }
           },
           "visual-tweaks": {
+            "label": "Визуальные настройки",
             "submenu": {
               "like-buttons": {
-                "default": "Default"
+                "default": "Default",
+                "force-show": "Всегда показывать",
+                "hide": "Скрывать",
+                "label": "Кнопка лайка"
               },
               "theme": {
-                "label": "Theme",
+                "label": "Тема",
                 "submenu": {
-                  "no-theme": "No theme"
+                  "import-css-file": "Импортировать кастомный CSS файл",
+                  "no-theme": "Без темы"
                 }
               }
             }
@@ -63,11 +163,28 @@
         }
       },
       "plugins": {
-        "label": "Plugins"
+        "enabled": "Включено",
+        "label": "Плагины"
       },
       "view": {
-        "label": "View"
+        "label": "Вид",
+        "submenu": {
+          "force-reload": "Принудительная перезагрузка",
+          "reload": "Перезагрузить",
+          "reset-zoom": "Настоящий размер",
+          "toggle-fullscreen": "Включить полноэкранный режим",
+          "zoom-in": "Приблизить",
+          "zoom-out": "Отдалить"
+        }
       }
+    },
+    "tray": {
+      "next": "Следующий",
+      "play-pause": "Пауза/Продолжить",
+      "previous": "Предыдущий",
+      "quit": "Выйти",
+      "restart": "Перезагрузить приложение",
+      "show": "Показать окно"
     }
   },
   "plugins": {
@@ -141,22 +258,51 @@
     },
     "captions-selector": {
       "description": "Выбор субтитров для аудиотреков в YouTube Music",
+      "menu": {
+        "autoload": "Автоматически выбирать последние использованные субтитры",
+        "disable-captions": "Без субтитров по умолчанию"
+      },
       "name": "Выбор субтитров",
       "prompt": {
         "selector": {
-          "none": "None"
+          "label": "Текущий язык субтитров:{{language}}",
+          "none": "Нет",
+          "title": "Выберите язык субтитров"
         }
+      },
+      "templates": {
+        "title": "Открыть выбор субтитров"
       }
     },
     "crossfade": {
+      "description": "Плавный переход между песнями",
+      "menu": {
+        "advanced": "Расширенное"
+      },
+      "name": "Плавный переход [бета]",
       "prompt": {
         "options": {
           "multi-input": {
             "fade-scaling": {
-              "linear": "Linear"
+              "linear": "Линейный",
+              "logarithmic": "Логарифмический"
             }
-          }
+          },
+          "title": "Настройки плавного перехода"
         }
+      }
+    },
+    "disable-autoplay": {
+      "description": "Запускает песню сразу на паузе",
+      "menu": {
+        "apply-once": "Применимо только при запуске"
+      },
+      "name": "Отключить Автопроигрыш"
+    },
+    "discord": {
+      "backend": {
+        "connected": "Подключено к Discord",
+        "disconnected": "Отключено от Discord"
       }
     },
     "downloader": {
@@ -207,7 +353,7 @@
       "name": "SponsorBlock"
     },
     "touchbar": {
-      "name": "TouchBar"
+      "name": "Тачбар"
     },
     "tuna-obs": {
       "name": "Tuna OBS"
@@ -227,6 +373,9 @@
       "templates": {
         "button": "Song"
       }
+    },
+    "visualizer": {
+      "name": "Визуалайзер"
     }
   }
 }
