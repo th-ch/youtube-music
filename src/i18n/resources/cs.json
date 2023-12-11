@@ -20,7 +20,7 @@
   "main": {
     "console": {
       "did-finish-load": {
-        "dev-tools": "Dokončeno načítání. DevTools otevřeny"
+        "dev-tools": "Načítání dokončeno. Vývojářské nástroje se otevřely"
       },
       "i18n": {
         "loaded": "i18n načteno"
