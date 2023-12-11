@@ -17,6 +17,7 @@ export default createPlugin({
   renderer: {
     observer: null as MutationObserver | null,
     loadobserver: null as MutationObserver | null,
+    changeobserver: null as MutationObserver | null,
     start() {
       this.onPageChange();
       this.observer = new MutationObserver(() => {
@@ -29,19 +30,65 @@ export default createPlugin({
       });
     },
     onPageChange() {
-      const buttons: Array<HTMLElement> = [
-        ElementFromHtml(undislikeHTML),
-        ElementFromHtml(dislikeHTML),
-        ElementFromHtml(likeHTML),
-        ElementFromHtml(unlikeHTML),
-      ];
-      const menu = document.querySelector('.detail-page-menu');
-      if (menu && !document.querySelector('.like-menu')) {
-        for (const button of buttons) {
-          menu.appendChild(button);
-          button.addEventListener('click', this.loadFullList);
+      this.waitForElem('#continuations').then(() => {
+        const buttons: Array<HTMLElement> = [
+          ElementFromHtml(undislikeHTML),
+          ElementFromHtml(dislikeHTML),
+          ElementFromHtml(likeHTML),
+          ElementFromHtml(unlikeHTML),
+        ];
+        const playlist = document.querySelector('ytmusic-shelf-renderer')
+          ? document.querySelector('ytmusic-shelf-renderer')
+          : document.querySelector('ytmusic-playlist-shelf-renderer');
+        this.changeobserver?.disconnect();
+        this.changeobserver = new MutationObserver(() => {
+          this.stop();
+          this.start();
+        });
+        for (const btn of playlist.querySelectorAll(
+          'yt-button-shape.ytmusic-like-button-renderer',
+        ))
+          this.changeobserver.observe(btn, {
+            attributes: true,
+            childList: false,
+            subtree: false,
+          });
+        if (
+          document.getElementById('continuations')?.children.length == 0 &&
+          playlist.querySelectorAll('#button-shape-dislike > button').length > 0
+        ) {
+          const counts = [
+            playlist?.querySelectorAll(
+              '#button-shape-dislike[aria-pressed=true] > button',
+            ).length,
+            playlist?.querySelectorAll(
+              '#button-shape-dislike[aria-pressed=false] > button',
+            ).length,
+            playlist?.querySelectorAll(
+              '#button-shape-like[aria-pressed=false] > button',
+            ).length,
+            playlist?.querySelectorAll(
+              '#button-shape-like[aria-pressed=true] > button',
+            ).length,
+          ];
+          let i = 0;
+          for (const count of counts) {
+            console.log(count);
+            if (count == 0) {
+              buttons.splice(i, 1);
+              i--;
+            }
+            i++;
+          }
         }
-      }
+        const menu = document.querySelector('.detail-page-menu');
+        if (menu && !document.querySelector('.like-menu')) {
+          for (const button of buttons) {
+            menu.appendChild(button);
+            button.addEventListener('click', this.loadFullList);
+          }
+        }
+      });
     },
     loadFullList(event) {
       event.stopPropagation();
@@ -90,16 +137,29 @@ export default createPlugin({
           break;
         default:
       }
-      if (playlistbuttons)
+      if (playlistbuttons) {
         for (const elem of playlistbuttons) {
           elem.click();
         }
+      }
     },
     stop() {
       this.observer?.disconnect();
+      this.changeobserver?.disconnect();
       for (const button of document.querySelectorAll('.like-menu')) {
         button.remove();
       }
+    },
+    waitForElem(selector: string) {
+      return new Promise((resolve) => {
+        const interval = setInterval(() => {
+          const elem = document.querySelector(selector);
+          if (!elem) return;
+
+          clearInterval(interval);
+          resolve(elem);
+        });
+      });
     },
   },
 });
