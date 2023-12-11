@@ -1,16 +1,77 @@
 {
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "Klarte ikke å kjøre programtillegg {{pluginName}}::{{contextName}}",
+        "executed-at-ms": "Det tok {{ms}} ms å kjøre {{pluginName}}::{{contextName}}",
+        "initialize-failed": "Klarte ikke å igangsette «{{pluginName}}»"
+      }
+    }
+  },
   "language": {
     "code": "nb_NO",
     "local-name": "Norsk bokmål",
     "name": "Norwegian Bokmål"
   },
   "main": {
+    "dialog": {
+      "need-to-restart": {
+        "buttons": {
+          "later": "Senere",
+          "restart-now": "Start på ny nå"
+        }
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "Avslutt",
+          "wait": "Vent"
+        },
+        "message": "Programmet svarer ikke"
+      }
+    },
     "menu": {
+      "about": "Om",
+      "navigation": {
+        "label": "Navigasjon",
+        "submenu": {
+          "copy-current-url": "Kopier nåværende nettadresse",
+          "go-back": "Tilbake",
+          "go-forward": "Forover",
+          "quit": "Avslutt",
+          "restart": "Programomstart"
+        }
+      },
       "options": {
         "label": "Alternativer",
         "submenu": {
+          "advanced-options": {
+            "label": "Avanserte alternativer",
+            "submenu": {
+              "set-proxy": {
+                "label": "Sett mellomtjener",
+                "prompt": {
+                  "title": "Sett mellomtjener"
+                }
+              }
+            }
+          },
+          "always-on-top": "Alltid på toppen",
           "hide-menu": {
             "label": "Skjul meny"
+          },
+          "language": {
+            "dialog": {
+              "title": "Språk endret"
+            },
+            "label": "Språk",
+            "submenu": {
+              "to-help-translate": "Klikk her for å bistå oversettelsen"
+            }
+          },
+          "resume-on-start": "Gjenoppta siste spor ved programstart",
+          "start-at-login": "Start ved innlogging",
+          "starting-page": {
+            "label": "Startside"
           },
           "tray": {
             "label": "Systemkurv",
@@ -19,7 +80,13 @@
             }
           },
           "visual-tweaks": {
+            "label": "Visuelle tilpasninger",
             "submenu": {
+              "like-buttons": {
+                "default": "Forvalg",
+                "force-show": "Tving visning",
+                "hide": "Skjul"
+              },
               "theme": {
                 "label": "Drakt",
                 "submenu": {
@@ -32,8 +99,25 @@
         }
       },
       "plugins": {
+        "enabled": "Påskrudd",
         "label": "Programtillegg"
+      },
+      "view": {
+        "label": "Vis",
+        "submenu": {
+          "reset-zoom": "Faktisk størrelse",
+          "toggle-fullscreen": "Veksle fullskjermsvisning",
+          "zoom-in": "Forstørr",
+          "zoom-out": "Forminsk"
+        }
       }
+    },
+    "tray": {
+      "next": "Neste",
+      "play-pause": "Spill av/pause",
+      "previous": "Forrige",
+      "quit": "Avslutt",
+      "show": "Vis vindu"
     }
   },
   "plugins": {
@@ -56,6 +140,11 @@
             "pixels": "{{blurAmount}} piksler"
           }
         },
+        "buffer": {
+          "submenu": {
+            "buffer": "{{buffer}}"
+          }
+        },
         "opacity": {
           "label": "Dekkevne",
           "submenu": {
@@ -76,7 +165,21 @@
         }
       }
     },
+    "audio-compressor": {
+      "name": "Lydkompressor"
+    },
+    "blur-nav-bar": {
+      "name": "Tilslør navigasjonsfelt"
+    },
+    "bypass-age-restrictions": {
+      "description": "Omgå YouTube sin aldersgrenser",
+      "name": "Omgå aldersgrense"
+    },
     "captions-selector": {
+      "menu": {
+        "disable-captions": "Ingen undertekst som forvalg"
+      },
+      "name": "Undertekstvelger",
       "prompt": {
         "selector": {
           "label": "Nåværende tekstingsspråk: {{language}}",
@@ -87,6 +190,10 @@
       "templates": {
         "title": "Åpne undertekstvelger"
       }
+    },
+    "compact-sidebar": {
+      "description": "Alltid sett sidefeltet i kompakt modus",
+      "name": "Kompakt sidefelt"
     },
     "crossfade": {
       "menu": {
@@ -108,7 +215,18 @@
     },
     "discord": {
       "backend": {
+        "connected": "Tilkoblet Discord",
         "disconnected": "Frakoblet fra Discord"
+      },
+      "menu": {
+        "auto-reconnect": "Automatisk retilkobling",
+        "clear-activity": "Tøm aktivitet",
+        "clear-activity-after-timeout": "Tøm aktivitet etter tidsavbrudd",
+        "connected": "Tilkoblet",
+        "disconnected": "Frakoblet",
+        "hide-duration-left": "Skjul gjenværende tid",
+        "play-on-youtube-music": "Spill på YouTube Music",
+        "set-inactivity-timeout": "Sett tid før tidsavbrudd"
       }
     },
     "downloader": {
@@ -131,14 +249,18 @@
           "converting": "Konverterer …",
           "done": "Ferdig: {{filePath}}",
           "downloading": "Laster ned …",
+          "downloading-counter": "Laster ned {{current}}/{{total}} …",
+          "getting-playlist-info": "Henter spillelisteinfo …",
           "loading": "Laster inn …",
           "playlist-is-empty": "Tom spilleliste",
           "preparing-file": "Forbereder fil …",
-          "saving": "Lagrer …"
+          "saving": "Lagrer …",
+          "writing-id3": "Skriver ID3-tagger …"
         }
       },
       "menu": {
         "choose-download-folder": "Velg nedlastningsmappe",
+        "download-playlist": "Last ned spilleliste",
         "presets": "Forhåndsinnstillinger",
         "skip-existing": "Hopp over eksisterende filer"
       },
@@ -147,15 +269,37 @@
         "button": "Last ned"
       }
     },
+    "exponential-volume": {
+      "name": "Eksponentiell lydstyrke"
+    },
     "last-fm": {
       "name": "Last.fm"
     },
+    "navigation": {
+      "name": "Navigasjon"
+    },
+    "no-google-login": {
+      "name": "Ingen Google-innlogging"
+    },
     "notifications": {
+      "menu": {
+        "interactive": "Interaktive merknader",
+        "interactive-settings": {
+          "label": "Interaktive innstillinger",
+          "submenu": {
+            "hide-button-text": "Skjul knappetekst",
+            "tray-controls": "Åpne/lukk med klikk i systemkurven"
+          }
+        },
+        "priority": "Merknadsprioritet"
+      },
       "name": "Merknader"
     },
     "picture-in-picture": {
       "menu": {
-        "save-window-position": "Lagre vindusposisjon"
+        "always-on-top": "Alltid på toppen",
+        "save-window-position": "Lagre vindusposisjon",
+        "save-window-size": "Lagre vindusstørrelse"
       }
     },
     "playback-speed": {
@@ -165,7 +309,18 @@
       }
     },
     "precise-volume": {
-      "name": "Presis lydstyrkejustering"
+      "name": "Presis lydstyrkejustering",
+      "prompt": {
+        "global-shortcuts": {
+          "keybind-options": {
+            "decrease": "Senk lydstyrke",
+            "increase": "Øk lydstyrke"
+          }
+        },
+        "volume-steps": {
+          "title": "Lydstyrkesteg"
+        }
+      }
     },
     "quality-changer": {
       "backend": {
@@ -174,6 +329,21 @@
             "detail": "Nåværende kvalitet: {{quality}}",
             "message": "Velg videokvalitet:",
             "title": "Velg videokvalitet"
+          }
+        }
+      },
+      "name": "Vindukvalitetsvelger"
+    },
+    "shortcuts": {
+      "menu": {
+        "override-media-keys": "Overstyr mediataster"
+      },
+      "prompt": {
+        "keybind": {
+          "keybind-options": {
+            "next": "Neste",
+            "play-pause": "Spill av/pause",
+            "previous": "Forrige"
           }
         }
       }
