@@ -96,7 +96,7 @@
           "advanced-options": {
             "label": "Advanced options",
             "submenu": {
-              "auto-reset-app-cache": "Reset App cache when app starts",
+              "auto-reset-app-cache": "Reset app cache when app starts",
               "disable-hardware-acceleration": "Disable hardware acceleration",
               "edit-config-json": "Edit config.json",
               "override-user-agent": "Override User-Agent",
@@ -241,7 +241,7 @@
         "smoothness-transition": {
           "label": "Smoothness transition",
           "submenu": {
-            "during": "During {{interpolationTime}}s"
+            "during": "During {{interpolationTime}} s"
           }
         },
         "use-fullscreen": {
@@ -293,8 +293,8 @@
       "prompt": {
         "options": {
           "multi-input": {
-            "fade-in-duration": "Fade in duration (milliseconds)",
-            "fade-out-duration": "Fade out duration (milliseconds)",
+            "fade-in-duration": "Fade in duration (ms)",
+            "fade-out-duration": "Fade out duration (ms)",
             "fade-scaling": {
               "label": "Fade scaling",
               "linear": "Linear",
@@ -462,17 +462,17 @@
             "keybind-options": {
               "hotkey": "Hotkey"
             },
-            "label": "Choose a hotkey for toggle Picture in Picture",
-            "title": "Picture in Picture Hotkey"
+            "label": "Choose a hotkey to toggle picture-in-picture",
+            "title": "Picture-in-picture Hotkey"
           }
         },
         "save-window-position": "Save window position",
         "save-window-size": "Save window size",
         "use-native-pip": "Use browser native PiP"
       },
-      "name": "Picture in Picture",
+      "name": "Picture-in-picture",
       "templates": {
-        "button": "Picture in Picture"
+        "button": "Picture-in-picture"
       }
     },
     "playback-speed": {
