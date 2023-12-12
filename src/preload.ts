@@ -53,3 +53,5 @@ contextBridge.exposeInMainWorld(
   'ELECTRON_RENDERER_URL',
   process.env.ELECTRON_RENDERER_URL,
 );
+
+ipcRenderer.invoke('load-renderer-plugins');
