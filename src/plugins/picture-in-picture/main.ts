@@ -107,13 +107,15 @@ export const onMainLoad = async ({
 
   window.on('move', () => {
     if (config.isInPiP && !config.useNativePiP) {
-      setConfig({ 'pip-position': window.getPosition() as [number, number] });
+      const [x, y] = window.getPosition();
+      setConfig({ 'pip-position': [x, y] });
     }
   });
 
   window.on('resize', () => {
     if (config.isInPiP && !config.useNativePiP) {
-      setConfig({ 'pip-size': window.getSize() as [number, number] });
+      const [width, height] = window.getSize();
+      setConfig({ 'pip-size': [width, height] });
     }
   });
 };
