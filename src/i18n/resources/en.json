@@ -519,7 +519,7 @@
       "name": "Video Quality Changer"
     },
     "shortcuts": {
-      "description": "Allows setting global hotkeys for playback (play/pause/next/previous) and turn off media OSD by overriding media keys, toturn on Ctrl/CMD + F to search, toturn on Linux MPRIS support for mediakeys, and custom hotkeys for advanced users.",
+      "description": "Allows setting global hotkeys for playback (play/pause/next/previous) and turning off media OSD by overriding media keys, turning on Ctrl/CMD + F to search, turning on Linux MPRIS support for media keys, and custom hotkeys for advanced users.",
       "menu": {
         "override-media-keys": "Override Media Keys",
         "set-keybinds": "Set Global Song Controls"
