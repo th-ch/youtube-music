@@ -594,12 +594,8 @@
       },
       "name": "Visualizer"
     },
-    "skip-disliked-songs": {
-      "description": "Skips disliked songs",
-      "name": "Skip Disliked Songs"
-    },
     "album-actions": {
-      "description": "Adds Undislike, Dislike, Like and Unlike buttons to apply this to all songs in a playlist or album.",
+      "description": "Adds Undislike, Dislike, Like, and Unlike buttons to apply this to all songs in a playlist or album.",
       "name": "Album actions"
     }
   }
