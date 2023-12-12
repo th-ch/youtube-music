@@ -459,6 +459,7 @@
             "keybind-options": {
               "hotkey": "Hurtigtast"
             },
+            "label": "Velg en hurtigtast for veksling av bilde-i-bilde",
             "title": "Hurtigtast for bilde-i-bilde"
           }
         },
@@ -515,6 +516,7 @@
       "name": "Vindukvalitetsvelger"
     },
     "shortcuts": {
+      "description": "Tillater bruk av hurtigtaster for hele programmet til avspilling (spill/pause/neste/forrige) + skru av media-videooverlag ved å overstyre mediataster + skru på Ctrl+CMD+F for å søke, pluss å egge til MPRIS støtte på linux for mediataster pluss egendefinerte hurtigtaster for avanserte brukere",
       "menu": {
         "override-media-keys": "Overstyr mediataster",
         "set-keybinds": "Sett kontroller for spor i hele programmet"
