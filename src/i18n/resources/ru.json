@@ -32,6 +32,9 @@
       "theme": {
         "css-file-not-found": "CSS файл \"{{cssFile}}\" не существует, игнорирую"
       },
+      "unresponsive": {
+        "details": "Приложение не отвечает\n{{error}}"
+      },
       "when-ready": {
         "clearing-cache-after-20s": "Очищаю кеш приложения"
       },
@@ -41,7 +44,7 @@
     },
     "dialog": {
       "hide-menu-enabled": {
-        "detail": "Меню скрыто, 'Alt' чтобы показать его ('Escape' если используете меню внутри приложения)",
+        "detail": "Меню скрыто, 'Alt' чтобы показать его ('Escape' если используете внутреннее меню приложения)",
         "message": "Скрытие меню включено",
         "title": "Включено скрытие меню"
       },
@@ -101,7 +104,7 @@
                 "label": "Задать прокси",
                 "prompt": {
                   "label": "Введите прокси адрес (оставьте поле пустым для отключения)",
-                  "placeholder": "Пример: socks5://127.0.0.1:9999",
+                  "placeholder": "Пример: SOCKS5://127.0.0.1:9999",
                   "title": "Задать прокси"
                 }
               },
@@ -151,6 +154,7 @@
                 "hide": "Скрывать",
                 "label": "Кнопка лайка"
               },
+              "remove-upgrade-button": "Убрать кнопку Youtube Premium",
               "theme": {
                 "label": "Тема",
                 "submenu": {
@@ -235,7 +239,7 @@
         "smoothness-transition": {
           "label": "Плавный переход",
           "submenu": {
-            "during": "В течение {{interpolationTime}}s"
+            "during": "В течение {{interpolationTime}} s"
           }
         },
         "use-fullscreen": {
@@ -301,8 +305,28 @@
     },
     "discord": {
       "backend": {
+        "already-connected": "Попытка подключения при уже существующем соединении",
         "connected": "Подключено к Discord",
         "disconnected": "Отключено от Discord"
+      },
+      "description": "Покажите своим друзьям что вы слушаете с помощью Rich Presence",
+      "menu": {
+        "auto-reconnect": "Авто переподключение",
+        "clear-activity": "Очистить активность",
+        "clear-activity-after-timeout": "Очищать активность после таймаута",
+        "connected": "Подключено",
+        "disconnected": "Отключено",
+        "hide-duration-left": "Скрыть сколько осталось времени",
+        "hide-github-button": "Скрыть ссылку на GitHub",
+        "play-on-youtube-music": "Воспроизвести на YouTube Music",
+        "set-inactivity-timeout": "Поставить таймер неактивности"
+      },
+      "name": "Discord Rich Presence",
+      "prompt": {
+        "set-inactivity-timeout": {
+          "label": "Введите таймер неактивности в секундах:",
+          "title": "Задать таймер неактивности"
+        }
       }
     },
     "downloader": {
@@ -312,16 +336,40 @@
             "buttons": {
               "ok": "OK"
             },
+            "message": "Ой-ой! Прошу простить, загрузка дала сбой…",
             "title": "Error in download!"
           },
           "start-download-playlist": {
             "buttons": {
               "ok": "OK"
-            }
+            },
+            "detail": "({{playlistSize}} песен)",
+            "message": "Скачиваем плейлист {{playlistTitle}}",
+            "title": "Загрузка началась"
           }
         },
         "feedback": {
-          "download-progress": "Download: {{percent}}%"
+          "conversion-progress": "Конвертация: {{percent}}%",
+          "converting": "Конвертация…",
+          "done": "Выполнено: {{filePath}}",
+          "download-info": "Скачиваем {{artist}}-{{title}} {{videoId}}",
+          "download-progress": "Download: {{percent}}%",
+          "downloading": "Скачиваем…",
+          "downloading-counter": "Скачиваем {{current}}/{{total}}…",
+          "downloading-playlist": "Скачиваем плейлист \"{{playlistTitle}}\" - {{playlistSize}} песен {{playlistId}}",
+          "error-while-downloading": "Ошибка при скачивании \"{{author}} - {{title}}\": {{error}}",
+          "folder-already-exists": "Папка {{playlistFolder}} уже существует",
+          "getting-playlist-info": "Получаем информацию о плейлисте…",
+          "loading": "Загрузка…",
+          "playlist-has-only-one-song": "В плейлисте только одна песня, скачиваем напрямую",
+          "playlist-id-not-found": "Плейлист не найден",
+          "playlist-is-empty": "Плейлист пуст",
+          "playlist-is-mix-or-private": "Ошибка при получении данных о плейлисте: убедитесь что он не приватный или \"Только для вас\" плейлист\n\n{{error}}",
+          "preparing-file": "Подготавливаем файл…",
+          "saving": "Сохраняем…",
+          "trying-to-get-playlist-id": "Пытаемся получить ID плейлиста: {{playlistId}}",
+          "video-id-not-found": "Видео не найдено",
+          "writing-id3": "Пишем ID3 теги…"
         }
       },
       "templates": {
