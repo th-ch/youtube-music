@@ -43,7 +43,7 @@
     },
     "dialog": {
       "hide-menu-enabled": {
-        "detail": "Menu je skryté, use 'Alt' to show it (nebo 'Escape', pokud používáte in-app-menu)",
+        "detail": "Menu je skryté, stiskněte 'Alt' k zobrazení (nebo 'Escape', pokud používáte in-app-menu)",
         "message": "Skrýt Menu je povoleno",
         "title": "Skrýt Menu Povolené"
       },
@@ -138,6 +138,7 @@
           },
           "tray": {
             "submenu": {
+              "disabled": "Vypnuté",
               "enabled-and-hide-app": "Povolit a skrýt aplikaci",
               "enabled-and-show-app": "Enabled a show aplikaci",
               "play-pause-on-click": "Přehrát/Pozastavit na kliknutí"
@@ -172,7 +173,9 @@
         "label": "Zobrazení",
         "submenu": {
           "force-reload": "Vynutit znovu načtení",
+          "reload": "Obnovit",
           "reset-zoom": "Actual velikost",
+          "toggle-fullscreen": "Přepnout režim celé obrazovky",
           "zoom-in": "Přiblížit",
           "zoom-out": "Oddálit"
         }
