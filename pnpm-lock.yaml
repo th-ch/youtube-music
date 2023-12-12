@@ -218,8 +218,8 @@ devDependencies:
     specifier: 2.5.1
     version: 2.5.1
   ws:
-    specifier: 8.15.0
-    version: 8.15.0(bufferutil@4.0.8)(utf-8-validate@6.0.3)
+    specifier: 8.15.1
+    version: 8.15.1(bufferutil@4.0.8)(utf-8-validate@6.0.3)
 
 packages:
 
@@ -1477,7 +1477,7 @@ packages:
     engines: {node: '>=14.18.0'}
     dependencies:
       axios: 1.6.2
-      ws: 8.15.0(bufferutil@4.0.8)(utf-8-validate@6.0.3)
+      ws: 8.15.1(bufferutil@4.0.8)(utf-8-validate@6.0.3)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -6169,8 +6169,8 @@ packages:
   /wrappy@1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
 
-  /ws@8.15.0(bufferutil@4.0.8)(utf-8-validate@6.0.3):
-    resolution: {integrity: sha512-H/Z3H55mrcrgjFwI+5jKavgXvwQLtfPCUEp6pi35VhoB0pfcHnSoyuTzkBEZpzq49g1193CUEwIvmsjcotenYw==}
+  /ws@8.15.1(bufferutil@4.0.8)(utf-8-validate@6.0.3):
+    resolution: {integrity: sha512-W5OZiCjXEmk0yZ66ZN82beM5Sz7l7coYxpRkzS+p9PP+ToQry8szKh+61eNktr7EA9DOwvFGhfC605jDHbP6QQ==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       bufferutil: ^4.0.1

@@ -202,7 +202,7 @@
     "vite": "4.5.1",
     "vite-plugin-inspect": "0.8.1",
     "vite-plugin-resolve": "2.5.1",
-    "ws": "8.15.0"
+    "ws": "8.15.1"
   },
   "auto-changelog": {
     "hideCredit": true,
