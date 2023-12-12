@@ -1,1 +1,19 @@
-{}
+{
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "Gagal saat mengeksekusi plugin {{pluginName}}::{{contextName}}",
+        "executed-at-ms": "Plugin {{pluginName}}::{{contextName}} dieksekusi pada {{ms}}ms",
+        "initialize-failed": "Gagal dalam menginisialisasi plugin \"{{pluginName}}\"",
+        "load-all": "Memuat semua plugin",
+        "load-failed": "Gagal memuat plugin \"{{pluginName}}\"",
+        "loaded": "Plugin \"{{pluginName}}\" dimuat"
+      }
+    }
+  },
+  "language": {
+    "code": "id",
+    "local-name": "Bahasa Indonesia",
+    "name": "Indonesian"
+  }
+}
