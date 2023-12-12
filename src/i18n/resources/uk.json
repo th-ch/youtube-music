@@ -1,7 +1,282 @@
 {
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "Не вдалося запустити плагін {{pluginName}}::{{contextName}}",
+        "executed-at-ms": "Плагін {{pluginName}}::{{contextName}} запущено за {{ms}}ms",
+        "initialize-failed": "Не вдалося ініціалізувати плагін \"{{pluginName}}\"",
+        "load-all": "Завантаження всіх плагінів",
+        "load-failed": "Не вдалося завантажити плагін \"{{pluginName}}\"",
+        "loaded": "Плагін \"{{pluginName}}\" завантажено",
+        "unload-failed": "Не вдалося вивантажити плагін \"{{pluginName}}\"",
+        "unloaded": "Плагін \"{{pluginName}}\" вивантажено"
+      }
+    }
+  },
   "language": {
     "code": "uk",
     "local-name": "Українська",
     "name": "Ukrainian"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "Завантаження завершено. Відкрито DevTools"
+      },
+      "i18n": {
+        "loaded": "i18n завантажено"
+      },
+      "second-instance": {
+        "receive-command": "Отримано команду за протоколом: \"{{command}}\""
+      },
+      "theme": {
+        "css-file-not-found": "Файл CSS \"{{cssFile}}\" не існує, ігноруємо"
+      },
+      "unresponsive": {
+        "details": "Невідповідна помилка!\n{{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "Очищення кешу програми"
+      },
+      "window": {
+        "tried-to-render-offscreen": "Вікно намагалися відобразитися поза екраном, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "detail": "Меню приховано, використовуйте \"Alt\", щоб показати його (або \"Escape\", якщо ви використовуєте меню в додатку)",
+        "message": "Приховане меню увімкнено",
+        "title": "Увімкнути Приховане Меню"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "Пізніше",
+          "restart-now": "Перезапустити зараз"
+        },
+        "detail": "\"{{pluginName}}\" плагін потребує перезапуску, щоб набути чинності",
+        "message": "\"{{pluginName}}\" необхідно перезапустити",
+        "title": "Потрібен перезапуск"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "Вийти",
+          "relaunch": "Перезапустити",
+          "wait": "Чекати"
+        },
+        "detail": "Перепрошуємо за незручності! Будь ласка, оберіть, що робити:",
+        "message": "Програма не відповідає",
+        "title": "Вікно не відповідає"
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "Вимкнути оновлення",
+          "download": "Завантажити",
+          "ok": "Так"
+        },
+        "detail": "Доступна нова версія, яку можна завантажити за посиланням {{downloadLink}}",
+        "message": "Доступна нова версія",
+        "title": "Доступне оновлення"
+      }
+    },
+    "menu": {
+      "about": "Про нас",
+      "navigation": {
+        "label": "Навігація",
+        "submenu": {
+          "copy-current-url": "Копіювати поточну URL-адресу",
+          "go-back": "Назад",
+          "go-forward": "Вперед",
+          "quit": "Вихід",
+          "restart": "Перезапустити програму"
+        }
+      },
+      "options": {
+        "label": "Параметри",
+        "submenu": {
+          "advanced-options": {
+            "label": "Додаткові опції",
+            "submenu": {
+              "auto-reset-app-cache": "Очищення кешу програми при її запуску",
+              "disable-hardware-acceleration": "Вимкнути апаратне прискорення",
+              "edit-config-json": "Редагувати config.json",
+              "override-user-agent": "Змінити User-Agent",
+              "restart-on-config-changes": "Перезапуск після зміни конфігурації",
+              "set-proxy": {
+                "label": "Задати проксі",
+                "prompt": {
+                  "label": "Введіть адресу проксі-сервера: (залиште порожнім, щоб вимкнути)",
+                  "placeholder": "Приклад: SOCKS5://127.0.0.1:9999",
+                  "title": "Задати проксі"
+                }
+              },
+              "toggle-dev-tools": "Перемкнути DevTools"
+            }
+          },
+          "always-on-top": "Завжди зверху",
+          "auto-update": "Автооновлення",
+          "hide-menu": {
+            "dialog": {
+              "message": "Меню буде приховано при наступному запуску, використовуйте [Alt], щоб показати його (або клавішу [`], якщо ви використовуєте вбудоване меню)",
+              "title": "Приховане меню Увімкнено"
+            },
+            "label": "Приховане меню"
+          },
+          "language": {
+            "dialog": {
+              "message": "Мова буде змінена після перезапуску",
+              "title": "Мову змінено"
+            },
+            "label": "Мова",
+            "submenu": {
+              "to-help-translate": "Хочете допомогти з перекладом? Клацніть тут"
+            }
+          },
+          "resume-on-start": "Відновлювати останню пісню при запуску програми",
+          "start-at-login": "Запустити при вході в систему",
+          "starting-page": {
+            "label": "Початкова сторінка",
+            "unset": "Не задано"
+          },
+          "tray": {
+            "label": "Таця",
+            "submenu": {
+              "disabled": "Вимкнено",
+              "enabled-and-hide-app": "Запустити та приховати програму",
+              "enabled-and-show-app": "Запустити та відобразити додаток",
+              "play-pause-on-click": "Відтворення/Пауза за натисканням"
+            }
+          },
+          "visual-tweaks": {
+            "label": "Візуальні налаштування",
+            "submenu": {
+              "like-buttons": {
+                "default": "За замовчуванням",
+                "hide": "Приховати",
+                "label": "Як кнопки"
+              },
+              "remove-upgrade-button": "Прибрати кнопку оновлення",
+              "theme": {
+                "label": "Тема",
+                "submenu": {
+                  "import-css-file": "Імпортувати власний CSS файл",
+                  "no-theme": "Без теми"
+                }
+              }
+            }
+          }
+        }
+      },
+      "plugins": {
+        "enabled": "Увімкнено",
+        "label": "Плагіни"
+      },
+      "view": {
+        "label": "Вид",
+        "submenu": {
+          "force-reload": "Примусове перезавантаження",
+          "reload": "Перезавантажити",
+          "reset-zoom": "Фактичний розмір",
+          "toggle-fullscreen": "Включити повноекранний режим",
+          "zoom-in": "Збільшити",
+          "zoom-out": "Зменшити"
+        }
+      }
+    },
+    "tray": {
+      "next": "Далі",
+      "play-pause": "Відтворення/Пауза",
+      "previous": "Попередній",
+      "quit": "Вихід",
+      "restart": "Перезапустити програму",
+      "show": "Показати вікно"
+    }
+  },
+  "plugins": {
+    "adblocker": {
+      "description": "Блокувати всю рекламу та відстеження з коробки",
+      "menu": {
+        "blocker": "Блокувальник"
+      },
+      "name": "Блокувальник реклами"
+    },
+    "album-color-theme": {
+      "description": "Застосовує динамічну тему та візуальні ефекти на основі колірної палітри альбому",
+      "name": "Кольорова тема альбому"
+    },
+    "ambient-mode": {
+      "description": "Застосовує ефект освітлення, накладаючи ніжні кольори з відео на фон екрана.",
+      "menu": {
+        "blur-amount": {
+          "label": "Обсяг розмиття",
+          "submenu": {
+            "pixels": "{{blurAmount}} пікселів"
+          }
+        },
+        "buffer": {
+          "label": "Буфер",
+          "submenu": {
+            "buffer": "{{buffer}}"
+          }
+        },
+        "opacity": {
+          "label": "Прозорість",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "quality": {
+          "label": "Якість",
+          "submenu": {
+            "pixels": "{{quality}} пікселів"
+          }
+        },
+        "size": {
+          "label": "Розмір",
+          "submenu": {
+            "percent": "{{size}}%"
+          }
+        },
+        "smoothness-transition": {
+          "label": "Плавність переходу",
+          "submenu": {
+            "during": "Протягом {{interpolationTime}} с"
+          }
+        },
+        "use-fullscreen": {
+          "label": "Повноекранний режим"
+        }
+      },
+      "name": "Режим навколишнього середовища"
+    },
+    "audio-compressor": {
+      "description": "Застосувати стиснення аудіо (зменшити гучність найгучніших фрагментів сигналу та збільшити гучність тихих фрагментів)",
+      "name": "Аудіокомпресор"
+    },
+    "blur-nav-bar": {
+      "description": "Робить панель навігації прозорою та розмитою",
+      "name": "Розмиття панелі навігації"
+    },
+    "bypass-age-restrictions": {
+      "description": "Обхід перевірки віку на YouTube",
+      "name": "Обхід вікових обмежень"
+    },
+    "captions-selector": {
+      "description": "Вибір субтитрів для аудіодоріжок YouTube Music",
+      "menu": {
+        "autoload": "Автоматичний вибір останніх використаних субтитрів",
+        "disable-captions": "За замовчуванням субтитри відсутні"
+      },
+      "name": "Вибір субтитрів",
+      "prompt": {
+        "selector": {
+          "label": "Поточна мова субтитрів: {{language}}",
+          "none": "Нема",
+          "title": "Виберіть мову субтитрів"
+        }
+      },
+      "templates": {
+        "title": "Відкрити селектор субтитрів"
+      }
+    }
   }
 }
