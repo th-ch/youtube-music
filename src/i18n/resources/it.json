@@ -44,7 +44,7 @@
     },
     "dialog": {
       "hide-menu-enabled": {
-        "detail": "Il menu è nascosto, utilizza 'Alt' per visualizzarlo (o 'Escape' se si utilizza il menu In-App)\"",
+        "detail": "Il menu è nascosto, utilizza 'Alt' per visualizzarlo (o 'Escape' se si utilizza il Menu In-App)\"",
         "message": "'Nascondi menu' è attivo",
         "title": "'Nascondi menu' attivo"
       },
@@ -96,7 +96,7 @@
           "advanced-options": {
             "label": "Opzioni avanzate",
             "submenu": {
-              "auto-reset-app-cache": "Resetta la cache dell'app quando viene riavviata",
+              "auto-reset-app-cache": "Reimposta la cache dell'app quando viene riavviata",
               "disable-hardware-acceleration": "Disabilita l'accelerazione hardware",
               "edit-config-json": "Modificare config.json",
               "override-user-agent": "Sovrascrivi User-Agent",
@@ -105,7 +105,7 @@
                 "label": "Imposta il proxy",
                 "prompt": {
                   "label": "Inserisci l'indirizzo proxy: (lascia vuoto per disabilitare)",
-                  "placeholder": "Esempio: socks5://127.0.0.1:9999",
+                  "placeholder": "Esempio: SOKS5://127.0.0.1:9999",
                   "title": "Imposta il proxy"
                 }
               },
@@ -116,7 +116,7 @@
           "auto-update": "Aggiornamento automatico",
           "hide-menu": {
             "dialog": {
-              "message": "Il menu verrà nascosto al prossimo avvio. Utilizzare [Alt] per mostrarlo (o backtick [`] se si utilizza il menu In-App)",
+              "message": "Il menu verrà nascosto al prossimo avvio. Utilizzare [Alt] per mostrarlo (o backtick [`] se si utilizza il Menu In-App)",
               "title": "Nascondi menu abilitato"
             },
             "label": "Nascondi menu"
@@ -241,7 +241,7 @@
         "smoothness-transition": {
           "label": "Fluidità transizione",
           "submenu": {
-            "during": "Per {{interpolationTime}}"
+            "during": "Per {{interpolationTime}} _s"
           }
         },
         "use-fullscreen": {
@@ -293,8 +293,8 @@
       "prompt": {
         "options": {
           "multi-input": {
-            "fade-in-duration": "Durata dissolvenza in entrata (millisecondi)",
-            "fade-out-duration": "Durata dissolvenza in uscita (millisecondi)",
+            "fade-in-duration": "Durata dissolvenza in entrata (ms)",
+            "fade-out-duration": "Durata dissolvenza in uscita (ms)",
             "fade-scaling": {
               "label": "Transizione dissolvenza",
               "linear": "Lineare",
@@ -462,17 +462,17 @@
             "keybind-options": {
               "hotkey": "Hotkey"
             },
-            "label": "Scegliere un'hotkey per attivare Picture-in-Picture",
-            "title": "Picture-in-Picture Hotkey"
+            "label": "Scegliere un'hotkey per attivare Picture-in-picture",
+            "title": "Picture-in-picture Hotkey"
           }
         },
         "save-window-position": "Salva la posizione della finestra",
         "save-window-size": "Salva la dimensione della finestra",
         "use-native-pip": "Usa il PiP nativo del browser"
       },
-      "name": "Picture in Picture",
+      "name": "Picture-in-Picture",
       "templates": {
-        "button": "Picture in Picture"
+        "button": "Picture-in-Picture"
       }
     },
     "playback-speed": {
@@ -519,7 +519,7 @@
       "name": "Cambia qualità video"
     },
     "shortcuts": {
-      "description": "Consente di impostare tasti di scelta rapida globali per la riproduzione (riproduci/pausa/successivo/precedente) + disabilita l'OSD multimediale sovrascrivendo i tasti multimediali + abilita Ctrl/CMD + F per la ricerca + abilita il supporto Linux MPRIS per i tasti multimediali + tasti di scelta rapida personalizzati per utenti avanzati",
+      "description": "Consente di impostare tasti di scelta rapida globali per la riproduzione (riproduci/pausa/successivo/precedente) + disabilita l'OSD multimediale sovrascrivendo i tasti multimediali + abilita Ctrl/CMD + F per la ricerca + abilita il supporto Linux MPRIS per i tasti multimediali + tasti di scelta rapida personalizzati per utenti avanzati.",
       "menu": {
         "override-media-keys": "Ridefinisci i tasti multimediali",
         "set-keybinds": "Imposta i controlli brano globali"
@@ -536,6 +536,10 @@
           "title": "Combinazioni di tasti"
         }
       }
+    },
+    "skip-disliked-songs": {
+      "description": "Salta i brani che non ti piacciono",
+      "name": "Salta i brani che non ti piacciono"
     },
     "skip-silences": {
       "description": "Salta automaticamente le parti silenziose nei brani",
