@@ -44,9 +44,9 @@
     },
     "dialog": {
       "hide-menu-enabled": {
-        "detail": "選單已隱藏，使用 Alt 鍵來重新顯示（或是使用 Esc 鍵）",
-        "message": "隱藏選單已經啟用",
-        "title": "隱藏選單已啟用"
+        "detail": "選單列已隱藏，使用 Alt 鍵來重新顯示（或是使用 Esc 鍵）",
+        "message": "隱藏選單列已經啟用",
+        "title": "隱藏選單列已啟用"
       },
       "need-to-restart": {
         "buttons": {
@@ -100,7 +100,7 @@
               "disable-hardware-acceleration": "關閉硬體加速",
               "edit-config-json": "編輯 config.json",
               "override-user-agent": "覆寫使用者代理",
-              "restart-on-config-changes": "設定檔變更時重啟程式",
+              "restart-on-config-changes": "在設定檔更動時自動重啟應用程式",
               "set-proxy": {
                 "label": "設定代理伺服器",
                 "prompt": {
@@ -116,10 +116,10 @@
           "auto-update": "自動更新",
           "hide-menu": {
             "dialog": {
-              "message": "選單會在程式下次啟動時隱藏，使用 Alt 鍵來重新顯示（或是使用 ` 鍵）",
-              "title": "隱藏選單欄已啟用"
+              "message": "選單列會在程式下次啟動時隱藏，使用 Alt 鍵來重新顯示（或是使用 ` 鍵）",
+              "title": "隱藏選單列已啟用"
             },
-            "label": "隱藏選單"
+            "label": "隱藏選單列"
           },
           "language": {
             "dialog": {
@@ -202,8 +202,8 @@
       "name": "廣告阻擋"
     },
     "album-color-theme": {
-      "description": "依歌曲專輯色調動態改變主題顏色",
-      "name": "動態專輯主題色調"
+      "description": "依歌曲色調自動更改應用程式主題",
+      "name": "隨歌曲色調變更主題"
     },
     "ambient-mode": {
       "description": "將影片內容的淺色畫面投放至螢幕背景, 讓觀眾在觀賞影片時更有臨場感。",
@@ -329,13 +329,13 @@
         "hide-duration-left": "隱藏音樂剩餘時間狀態",
         "hide-github-button": "隱藏Github頁面按鈕",
         "play-on-youtube-music": "顯示Play on YouTube Music按鈕",
-        "set-inactivity-timeout": "設置歌曲暫停後幾秒清除狀態"
+        "set-inactivity-timeout": "設定閒置狀態時長"
       },
       "name": "Discord狀態",
       "prompt": {
         "set-inactivity-timeout": {
-          "label": "設置多少秒後清除狀態:",
-          "title": "設置歌曲暫停後幾秒清除狀態"
+          "label": "設定多少秒後清除狀態:",
+          "title": "設定閒置狀態時長"
         }
       }
     },
@@ -354,7 +354,7 @@
               "ok": "完成"
             },
             "detail": "({{playlistSize}} 首歌曲)",
-            "message": "正在下載 {{playlistTitle}} 播放清單",
+            "message": "正在下載播放清單 {{playlistTitle}}",
             "title": "開始下載"
           }
         },
@@ -366,30 +366,30 @@
           "download-progress": "下載進度: {{percent}}%",
           "downloading": "下載中…",
           "downloading-counter": "正在下載第 {{current}}/{{total}}…",
-          "downloading-playlist": "正在下載 \"{{playlistTitle}}\" 播放清單 - 共 {{playlistSize}} 首歌 ({{playlistId}})",
+          "downloading-playlist": "正在下載播放清單 \"{{playlistTitle}}\" - 共 {{playlistSize}} 首歌 ({{playlistId}})",
           "error-while-downloading": "無法下載 \"{{author}} - {{title}}\": {{error}}",
           "folder-already-exists": "資料夾 {{playlistFolder}} 已經存在",
           "getting-playlist-info": "正在獲取播放清單資訊…",
           "loading": "載入中…",
-          "playlist-has-only-one-song": "播放清單內只有一首歌曲, 直接下載",
-          "playlist-id-not-found": "沒有找到播放清單ID",
-          "playlist-is-empty": "播放清單為空",
+          "playlist-has-only-one-song": "播放清單內只有一首歌曲, 將直接下載",
+          "playlist-id-not-found": "沒有找到播放清單 ID",
+          "playlist-is-empty": "播放清單是空的",
           "playlist-is-mix-or-private": "獲取播放清單資訊時發生錯誤: 請確認非私人播放清單或是\"為你推薦的合輯\"\n\n{{error}}",
           "preparing-file": "正在準備檔案…",
           "saving": "儲存中…",
-          "trying-to-get-playlist-id": "正在嘗試獲取播放清單ID: {{playlistId}}",
-          "video-id-not-found": "未找到影片",
-          "writing-id3": "正在寫入ID3標籤…"
+          "trying-to-get-playlist-id": "正在嘗試獲取播放清單 ID: {{playlistId}}",
+          "video-id-not-found": "未能找到該影片",
+          "writing-id3": "正在寫入 ID3 標籤…"
         }
       },
-      "description": "在應用程式內下載MP3／原始音樂檔",
+      "description": "在應用程式內下載 MP3／原始音樂檔",
       "menu": {
         "choose-download-folder": "選擇下載位置",
         "download-playlist": "下載播放清單",
         "presets": "預設格式",
         "skip-existing": "跳過已存在的檔案"
       },
-      "name": "下載器",
+      "name": "歌曲下載",
       "renderer": {
         "can-not-update-progress": "無法更新進度"
       },
@@ -398,15 +398,15 @@
       }
     },
     "exponential-volume": {
-      "description": "使音量滑桿呈指數增加，以便更容易選擇較低的音量。",
-      "name": "指數音量調整"
+      "description": "使音量滑桿指數化，以便更容易選擇較低的音量。",
+      "name": "指數化音量調整"
     },
     "in-app-menu": {
-      "description": "優化選單欄外觀, 選單欄顏色將會隨主題變色或預設黑色",
+      "description": "使選單列變更為黑色或隨主題變色",
       "menu": {
         "hide-dom-window-controls": "隱藏DOM視窗控制"
       },
-      "name": "程式內選單欄"
+      "name": "程式內選單列"
     },
     "last-fm": {
       "description": "新增對Last.fm的scrobbling支援",
@@ -453,7 +453,7 @@
       "name": "歌曲播放通知"
     },
     "picture-in-picture": {
-      "description": "允許應用程式切換至畫中畫模式",
+      "description": "允許應用程式切換至子母畫面模式",
       "menu": {
         "always-on-top": "永遠顯示在最上層",
         "hotkey": {
@@ -462,17 +462,17 @@
             "keybind-options": {
               "hotkey": "快捷鍵"
             },
-            "label": "選擇一個快捷鍵來切換畫中畫模式",
-            "title": "畫中畫模式快捷鍵"
+            "label": "選擇一個快捷鍵來切換子母畫面模式",
+            "title": "子母畫面模式快捷鍵"
           }
         },
         "save-window-position": "記住視窗位置",
         "save-window-size": "記住視窗大小",
-        "use-native-pip": "使用瀏覽器原生畫中畫模式"
+        "use-native-pip": "使用瀏覽器原生子母畫面模式"
       },
-      "name": "畫中畫模式",
+      "name": "子母畫面",
       "templates": {
-        "button": "畫中畫模式"
+        "button": "子母畫面"
       }
     },
     "playback-speed": {
@@ -483,13 +483,13 @@
       }
     },
     "precise-volume": {
-      "description": "讓你可使用滑鼠滾輪／快捷鍵控制音量",
+      "description": "讓你可使用滑鼠滾輪／快捷鍵控制音量，並顯示目前音量大小",
       "menu": {
-        "arrows-shortcuts": "本地方向鍵控制",
-        "custom-volume-steps": "自訂音量層級",
+        "arrows-shortcuts": "方向鍵音量控制",
+        "custom-volume-steps": "自訂音量調整時層級",
         "global-shortcuts": "全域快捷鍵"
       },
-      "name": "精確音量控制",
+      "name": "進階音量控制",
       "prompt": {
         "global-shortcuts": {
           "keybind-options": {
@@ -500,8 +500,8 @@
           "title": "全域音量控制快捷鍵"
         },
         "volume-steps": {
-          "label": "設定音量一次增加／降低的層級",
-          "title": "音量層級設定"
+          "label": "設定音量每一次增加／降低的層級",
+          "title": "自訂音量調整時層級"
         }
       }
     },
@@ -515,8 +515,8 @@
           }
         }
       },
-      "description": "允許在影片畫面內調整影片畫質",
-      "name": "影片畫質更改器"
+      "description": "允許在影片內進行畫質更改",
+      "name": "允許變更影片畫質"
     },
     "shortcuts": {
       "description": "使用全域快捷鍵控制音樂 (播放／暫停／下一首／上一首) + 透過覆寫媒體快捷鍵停用媒體OSD + 允許Ctrl/CMD + F來搜尋 + 支援Linux MPRIS媒體快捷鍵 + 更多自訂快捷鍵給進階使用者。",
@@ -543,7 +543,7 @@
     },
     "skip-silences": {
       "description": "自動跳過音樂無聲片段",
-      "name": "跳過無聲"
+      "name": "自動跳過無聲片段"
     },
     "sponsorblock": {
       "description": "自動跳過贊助片段",
@@ -554,8 +554,8 @@
       "name": "工作列媒體控制"
     },
     "touchbar": {
-      "description": "為macOS使用者新增支援觸控列",
-      "name": "觸控列"
+      "description": "為macOS使用者新增觸控列支援",
+      "name": "觸控列 (Touchbar) 支援"
     },
     "tuna-obs": {
       "description": "與OBS外掛Tuna連接",
@@ -582,7 +582,7 @@
           }
         }
       },
-      "name": "影片切換",
+      "name": "歌曲／影片切換",
       "templates": {
         "button": "歌曲"
       }
