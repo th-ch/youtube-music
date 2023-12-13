@@ -278,6 +278,10 @@
         "title": "Открыть выбор субтитров"
       }
     },
+    "compact-sidebar": {
+      "description": "Боковая панель всегда в компактном режиме",
+      "name": "Компактная боковая панель"
+    },
     "crossfade": {
       "description": "Плавный переход между песнями",
       "menu": {
@@ -287,10 +291,14 @@
       "prompt": {
         "options": {
           "multi-input": {
+            "fade-in-duration": "Длительность постепенного появления (мс)",
+            "fade-out-duration": "Длительность затухания (мс)",
             "fade-scaling": {
+              "label": "Сила перехода",
               "linear": "Линейный",
               "logarithmic": "Логарифмический"
-            }
+            },
+            "seconds-before-end": "Плавных переход за N секунд перед концом"
           },
           "title": "Настройки плавного перехода"
         }
@@ -372,9 +380,24 @@
           "writing-id3": "Пишем ID3 теги…"
         }
       },
+      "description": "Скачивать MP3 / исходное аудио напрямую из интерфейса",
+      "menu": {
+        "choose-download-folder": "Выберите папку для загрузок",
+        "download-playlist": "Скачать плейлист",
+        "presets": "Пресеты",
+        "skip-existing": "Пропускать уже существующие файлы"
+      },
+      "name": "Загрузчик",
+      "renderer": {
+        "can-not-update-progress": "Невозможно обновить прогресс"
+      },
       "templates": {
         "button": "Download"
       }
+    },
+    "exponential-volume": {
+      "description": "Делает слайдер громкости расширенным чтобы было легче выбирать низкие уровни.",
+      "name": "Расширенная громкость"
     },
     "last-fm": {
       "name": "Last.fm"
