@@ -105,7 +105,7 @@
                 "label": "Definir proxy",
                 "prompt": {
                   "label": "Introduzca la dirección del proxy: (déjela vacía para desactivarla)",
-                  "placeholder": "Ejemplo: socks5://127.0.0.1:9999",
+                  "placeholder": "Ejemplo: SOCKS5://127.0.0.1:9999",
                   "title": "Establecer proxy"
                 }
               },
@@ -241,7 +241,7 @@
         "smoothness-transition": {
           "label": "Transición suave",
           "submenu": {
-            "during": "Durante {{interpolationTime}}s"
+            "during": "Durante {{interpolationTime}} s"
           }
         },
         "use-fullscreen": {
@@ -293,8 +293,8 @@
       "prompt": {
         "options": {
           "multi-input": {
-            "fade-in-duration": "Duración del fundido (milliseconds)",
-            "fade-out-duration": "Duración del fundido de salida (milliseconds)",
+            "fade-in-duration": "Duración del fundido (ms)",
+            "fade-out-duration": "Duración del fundido de salida (ms)",
             "fade-scaling": {
               "label": "Escala de fundido",
               "linear": "Lineal",
