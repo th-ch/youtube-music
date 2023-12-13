@@ -44,7 +44,7 @@
     },
     "dialog": {
       "hide-menu-enabled": {
-        "detail": "Menu jest ukryte, użyj 'Alt' aby je pokazać (lub 'Escape' jeśli używasz in-app-menu)",
+        "detail": "Menu jest ukryte, użyj przycisku [Alt] aby je pokazać (lub [Escape], jeśli używasz menu w aplikacji)",
         "message": "Ukrywanie menu jest włączone",
         "title": "Ukrywanie Menu Włączone"
       },
@@ -116,7 +116,7 @@
           "auto-update": "Automatyczne aktualizacje",
           "hide-menu": {
             "dialog": {
-              "message": "Menu będzie ukryte po następnym uruchomieniu, użyj [Alt] aby je pokazać (lub [`] jeśli używasz in-app-menu)",
+              "message": "Menu będzie ukryte po następnym uruchomieniu, użyj przycisku [Alt] aby je pokazać (lub [`], jeśli używasz menu w aplikacji)",
               "title": "Ukrywanie menu włączone"
             },
             "label": "Ukryj menu"
@@ -406,7 +406,7 @@
       "menu": {
         "hide-dom-window-controls": "Ukryj kontrolki okna DOM"
       },
-      "name": "In-App menu"
+      "name": "Menu w aplikacji"
     },
     "last-fm": {
       "description": "Dodanie obsługi scrobblingu dla Last.fm",
@@ -537,6 +537,10 @@
         }
       }
     },
+    "skip-disliked-songs": {
+      "description": "Pomija nieulubione piosenki (zaznaczone łapką w dół)",
+      "name": "Pomijanie nieulubionych piosenek"
+    },
     "skip-silences": {
       "description": "Automatycznie pomijaj sekcje bez dźwięku w utworach",
       "name": "Pomiń ciszę"
@@ -547,7 +551,7 @@
     },
     "taskbar-mediacontrol": {
       "description": "Steruj odtwarzaniem z paska zadań systemu Windows",
-      "name": "Kontrola odtwarzania z paska zadań"
+      "name": "Kontroler odtwarzania z paska zadań"
     },
     "touchbar": {
       "description": "Dodaje widżet do paska dotykowego dla użytkowników systemu macOS",
