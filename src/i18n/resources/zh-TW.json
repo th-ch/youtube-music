@@ -105,7 +105,7 @@
                 "label": "設定代理伺服器",
                 "prompt": {
                   "label": "輸入代理伺服器位置：（留空以停用本設定）",
-                  "placeholder": "範例：socks5://127.0.0.1:9999",
+                  "placeholder": "範例：SOCKS5://127.0.0.1:9999",
                   "title": "設定代理伺服器"
                 }
               },
@@ -519,7 +519,7 @@
       "name": "影片畫質更改器"
     },
     "shortcuts": {
-      "description": "使用全域快捷鍵控制音樂 (播放／暫停／下一首／上一首) + 透過覆寫媒體快捷鍵停用媒體OSD + 允許Ctrl/CMD + F來搜尋 + 支援Linux MPRIS媒體快捷鍵 + 更多自訂快捷鍵給進階使用者",
+      "description": "使用全域快捷鍵控制音樂 (播放／暫停／下一首／上一首) + 透過覆寫媒體快捷鍵停用媒體OSD + 允許Ctrl/CMD + F來搜尋 + 支援Linux MPRIS媒體快捷鍵 + 更多自訂快捷鍵給進階使用者。",
       "menu": {
         "override-media-keys": "覆寫媒體快捷鍵",
         "set-keybinds": "設定全域歌曲控制"
@@ -536,6 +536,10 @@
           "title": "全域快捷鍵"
         }
       }
+    },
+    "skip-disliked-songs": {
+      "description": "自動跳過不喜歡的歌曲",
+      "name": "自動跳過不喜歡的歌曲"
     },
     "skip-silences": {
       "description": "自動跳過音樂無聲片段",
