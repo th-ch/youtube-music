@@ -463,7 +463,7 @@
               "hotkey": "Klawisz skrótu"
             },
             "label": "Wybierz klawisz skrótu do przełączania trybu obrazu w obrazie",
-            "title": "Klawisz skrótu Obraz w obrazie"
+            "title": "Klawisz skrótu obrazu w obrazie"
           }
         },
         "save-window-position": "Zapisz pozycję okna",
@@ -519,7 +519,7 @@
       "name": "Zmieniacz jakości wideo"
     },
     "shortcuts": {
-      "description": "Umożliwia ustawienie globalnych skrótów klawiszowych do odtwarzania (odtwarzanie/pauza/następny/poprzedni) + wyłączanie OSD multimediów poprzez zastąpienie klawiszy multimediów + włączanie Ctrl/CMD + F w celu wyszukiwania + włączanie obsługi linux mpris dla klawiszy multimediów + niestandardowe skróty klawiszowe dla zaawansowanych użytkowników",
+      "description": "Umożliwia ustawienie globalnych skrótów klawiszowych do odtwarzania (odtwarzanie/pauza/następny/poprzedni) + wyłączanie OSD multimediów poprzez zastąpienie klawiszy multimediów, włączając kombinację klawiszy Ctrl/CMD + F w celu wyszukiwania, obsługę Linux MPRIS dla klawiszy multimediów oraz niestandardowe skróty klawiszowe dla zaawansowanych użytkowników.",
       "menu": {
         "override-media-keys": "Zastąp klawisze multimediów",
         "set-keybinds": "Ustaw globalne sterowanie utworem"
