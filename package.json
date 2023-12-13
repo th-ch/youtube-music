@@ -136,7 +136,7 @@
     "@cliqz/adblocker-electron": "1.26.12",
     "@cliqz/adblocker-electron-preload": "1.26.12",
     "@electron-toolkit/tsconfig": "1.0.1",
-    "@electron/remote": "2.1.0",
+    "@electron/remote": "2.1.1",
     "@ffmpeg.wasm/core-mt": "0.12.0",
     "@ffmpeg.wasm/main": "0.12.0",
     "@foobar404/wave": "2.0.4",
