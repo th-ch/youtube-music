@@ -151,6 +151,7 @@
             "submenu": {
               "like-buttons": {
                 "default": "За замовчуванням",
+                "force-show": "Завжди показувати",
                 "hide": "Приховати",
                 "label": "Як кнопки"
               },
@@ -276,6 +277,119 @@
       },
       "templates": {
         "title": "Відкрити селектор субтитрів"
+      }
+    },
+    "compact-sidebar": {
+      "description": "Бічна панель завжди в компактному режимі",
+      "name": "Компактна бічна панель"
+    },
+    "crossfade": {
+      "description": "Плавний перехід між піснями",
+      "menu": {
+        "advanced": "Розширене"
+      },
+      "name": "Плавний перехід[бета-версія]",
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "fade-in-duration": "Тривалість згасання (мс)",
+            "fade-out-duration": "Тривалість згасання (ms)",
+            "fade-scaling": {
+              "linear": "Лінійна",
+              "logarithmic": "Логарифмічна"
+            },
+            "seconds-before-end": "Плавний перехід за N секунд до кінця"
+          },
+          "title": "Параметри плавного переходу"
+        }
+      }
+    },
+    "disable-autoplay": {
+      "description": "Запуск пісні в режимі \"пауза\"",
+      "menu": {
+        "apply-once": "Застосовується тільки при запуску"
+      },
+      "name": "Вимкнути автовідтворення"
+    },
+    "discord": {
+      "backend": {
+        "already-connected": "Спроба підключення при активному з'єднанні",
+        "connected": "Під'єднано до Discord",
+        "disconnected": "Від'єднано від Discord"
+      },
+      "description": "Покажіть друзям, що ви слухаєте за допомогою Rich Presence",
+      "menu": {
+        "auto-reconnect": "Автоматичне перепідключення",
+        "clear-activity": "Очистити активність",
+        "clear-activity-after-timeout": "Очистити активність після тайм-ауту",
+        "connected": "Під'єднано",
+        "disconnected": "Від'єднано",
+        "hide-duration-left": "Приховати тривалість, яка залишилася",
+        "hide-github-button": "Приховати посилання на GitHub",
+        "play-on-youtube-music": "Слухати на YouTube Music",
+        "set-inactivity-timeout": "Встановити тайм-аут бездіяльності"
+      },
+      "name": "Discord Rich Presence",
+      "prompt": {
+        "set-inactivity-timeout": {
+          "label": "Введіть тайм-аут бездіяльності в секундах:",
+          "title": "Встановлення тайм-ауту бездіяльності"
+        }
+      }
+    },
+    "downloader": {
+      "backend": {
+        "dialog": {
+          "error": {
+            "buttons": {
+              "ok": "Добре"
+            },
+            "message": "Йой! При завантаженні виникла помилка…",
+            "title": "Помилка при завантаженні!"
+          },
+          "start-download-playlist": {
+            "buttons": {
+              "ok": "OK"
+            },
+            "detail": "({{playlistSize}} пісень)",
+            "message": "Завантаження списку відтворення {{playlistTitle}}",
+            "title": "Завантаження розпочато"
+          }
+        },
+        "feedback": {
+          "conversion-progress": "Конвертація: {{percent}}%",
+          "converting": "Конвертація…",
+          "done": "Готово: {{filePath}}",
+          "download-info": "Завантаження {{artist}} - {{title}} [{{videoId}}]",
+          "download-progress": "Завантажено: {{percent}}%",
+          "downloading": "Завантаження…",
+          "downloading-counter": "Завантажено {{current}}/{{total}}…",
+          "downloading-playlist": "Завантаження плейлисту \"{{playlistTitle}}\" - {{playlistSize}} пісень ({{playlistId}})",
+          "error-while-downloading": "Помилка завантаження \"{{author}} - {{title}}\": {{error}}",
+          "folder-already-exists": "Папка {{playlistFolder}} вже існує",
+          "getting-playlist-info": "Отримання інформації про плейлист…",
+          "loading": "Завантаження…",
+          "playlist-has-only-one-song": "Плейлист має лише один елемент, завантаження якого відбувається безпосередньо",
+          "playlist-id-not-found": "Ідентифікатор плейлиста не знайдено",
+          "playlist-is-empty": "Плейлист порожній",
+          "playlist-is-mix-or-private": "Помилка при отриманні інформації про плейлист: переконайтеся, що це не приватний плейлист або плейлист \"Мікс для вас\"\n\n{{error}}",
+          "preparing-file": "Готуємо файл…",
+          "saving": "Збереження…",
+          "trying-to-get-playlist-id": "Спроба отримати ідентифікатора плейлиста: {{playlistId}}",
+          "video-id-not-found": "Відео не знайдено",
+          "writing-id3": "Пишемо ID3-теги…"
+        }
+      },
+      "description": "Завантажує MP3 / джерело аудіо безпосередньо з інтерфейсу",
+      "menu": {
+        "choose-download-folder": "Оберіть папку для завантаження",
+        "download-playlist": "Завантажити плейлист",
+        "presets": "Попередні налаштування",
+        "skip-existing": "Пропустити наявні файли"
+      },
+      "name": "Завантажувач",
+      "renderer": {
+        "can-not-update-progress": "Неможливо оновити прогрес"
       }
     }
   }
