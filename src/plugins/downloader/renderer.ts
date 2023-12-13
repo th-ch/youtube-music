@@ -77,7 +77,7 @@ export const onRendererLoad = ({
 
   ipc.on('downloader-feedback', (feedback: string) => {
     if (progress) {
-      progress.innerHTML = feedback || 'Download';
+      progress.innerHTML = feedback || t('plugins.downloader.templates.button');
     } else {
       console.warn(
         LoggerPrefix,
