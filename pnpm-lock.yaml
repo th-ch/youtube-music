@@ -24,8 +24,8 @@ dependencies:
     specifier: 1.0.1
     version: 1.0.1(@types/node@20.10.4)
   '@electron/remote':
-    specifier: 2.1.0
-    version: 2.1.0(electron@28.0.0)
+    specifier: 2.1.1
+    version: 2.1.1(electron@28.0.0)
   '@ffmpeg.wasm/core-mt':
     specifier: 0.12.0
     version: 0.12.0
@@ -572,8 +572,8 @@ packages:
       - supports-color
     dev: true
 
-  /@electron/remote@2.1.0(electron@28.0.0):
-    resolution: {integrity: sha512-38jzz2beoYTo0DNS+aoaGyLS/fHeNTAc1Aom6HlYsxKnvVWjcg4xriC7J2IUkYSEDHGKX/D7jUst+mH4dHR6QA==}
+  /@electron/remote@2.1.1(electron@28.0.0):
+    resolution: {integrity: sha512-Lfxul2yBxL+FBVaKszNAkuUqSIDbUQ1I7BC394iRXyqA2XGz7im2bAxroNIM51jhySSPKUaOLHaFLxfV6pC9VQ==}
     peerDependencies:
       electron: '>= 13.0.0'
     dependencies:
