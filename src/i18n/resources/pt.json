@@ -31,10 +31,25 @@
       },
       "theme": {
         "css-file-not-found": "Arquivo CSS \"{{cssFile}}\" não existe, ignorando"
+      },
+      "unresponsive": {
+        "details": "Erro sem resposta!\n{{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "Limpando o cache do aplicativo"
       }
     },
     "dialog": {
+      "hide-menu-enabled": {
+        "detail": "O menu está oculto, use a tecla 'Alt' para mostra-lo (ou 'Esc' se estiver usando o menu do aplicativo)",
+        "message": "Ocultar menu está ativado",
+        "title": "Ocultar menu ativado"
+      },
       "need-to-restart": {
+        "buttons": {
+          "later": "Depois",
+          "restart-now": "Reiniciar agora"
+        },
         "detail": "O plugin {{pluginName}} precisa ser reiniciado para ter efeito",
         "message": "\"{{pluginName}}\" precisa ser reiniciado",
         "title": "É necessário reiniciar"
@@ -81,11 +96,12 @@
               "auto-reset-app-cache": "Reiniciar cache do aplicativo quando o aplicativo abrir",
               "disable-hardware-acceleration": "Desabilitar aceleração por hardware",
               "edit-config-json": "Editar config.json",
+              "restart-on-config-changes": "Reinicie as alterações de configurações feitas",
               "set-proxy": {
                 "label": "Definir proxy",
                 "prompt": {
                   "label": "Inserir Endereço do Proxy: (deixe em branco para desativar)",
-                  "placeholder": "Exemplo: socks5://127.0.0.1:9999",
+                  "placeholder": "Exemplo: SOCKS5://127.0.0.1:9999",
                   "title": "Definir proxy"
                 }
               },
@@ -176,10 +192,83 @@
   "plugins": {
     "adblocker": {
       "description": "Bloquear todos os anúncios e rastreamento automaticamente",
+      "menu": {
+        "blocker": "Bloqueador"
+      },
       "name": "Adblocker"
     },
     "album-color-theme": {
-      "description": "\"Aplica um tema dinâmico e efeitos visuais com base na paleta de cores do álbum."
+      "description": "\"Aplica um tema dinâmico e efeitos visuais com base na paleta de cores do álbum.",
+      "name": "Tema de cores do álbum"
+    },
+    "ambient-mode": {
+      "description": "Aplica um efeito de iluminação lançando cores suaves do vídeo no fundo da tela.",
+      "menu": {
+        "blur-amount": {
+          "label": "Quantidade de desfoque",
+          "submenu": {
+            "pixels": "{{blurAmount}} píxeis"
+          }
+        },
+        "buffer": {
+          "submenu": {
+            "buffer": "{{buffer}}"
+          }
+        },
+        "opacity": {
+          "label": "Opacidade",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "quality": {
+          "label": "Qualidade",
+          "submenu": {
+            "pixels": "{{quality}} píxeis"
+          }
+        },
+        "size": {
+          "label": "Tamanho",
+          "submenu": {
+            "percent": "{{size}}%"
+          }
+        },
+        "smoothness-transition": {
+          "label": "Transição suave",
+          "submenu": {
+            "during": "Durante {{interpolationTime}}s"
+          }
+        },
+        "use-fullscreen": {
+          "label": "Tela cheia"
+        }
+      },
+      "name": "Modo Ambiente"
+    },
+    "audio-compressor": {
+      "name": "Compressor de áudio"
+    },
+    "blur-nav-bar": {
+      "description": "Torna a barra de navegação transparente e desfocada",
+      "name": "Barra de navegação desfocada"
+    },
+    "bypass-age-restrictions": {
+      "description": "Ignorar a verificação de idade do YouTube",
+      "name": "Ignorar restrições de idade"
+    },
+    "captions-selector": {
+      "menu": {
+        "autoload": "Selecionar automaticamente a última legenda usada",
+        "disable-captions": "Sem legendas por padrão"
+      },
+      "name": "Seletor de legendas",
+      "prompt": {
+        "selector": {
+          "label": "Idioma da legenda atual: {{language}}",
+          "none": "Nenhuma",
+          "title": "Selecione o idioma da legenda"
+        }
+      }
     }
   }
 }
