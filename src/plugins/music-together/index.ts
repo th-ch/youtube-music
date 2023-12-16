@@ -69,8 +69,8 @@ export default createPlugin({
       const id = await this.showPrompt('Music Together', 'Enter host id');
       if (typeof id !== 'string') return false;
 
-      this.peer = new Peer();
-      console.log('start guest', this.connection);
+      this.onStart();
+      console.log('start guest');
       this.connection(this.peer.connect(id));
 
       return true;
