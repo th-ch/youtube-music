@@ -1,8 +1,9 @@
+import { DataConnection, Peer } from 'peerjs';
+import prompt from 'custom-electron-prompt';
+
 import { createPlugin } from '@/utils';
 import { t } from '@/i18n';
 
-import { DataConnection, Peer } from 'peerjs';
-import prompt from 'custom-electron-prompt';
 import promptOptions from '@/providers/prompt-options';
 
 type QueueAPI = {
@@ -56,7 +57,7 @@ export default createPlugin({
 
     onStart() {
       this.peer = new Peer();
-      this.peer.on('open', (id) => console.log('host-open', id));
+      this.peer.on('open', (id) => console.log('open', id));
       this.peer.on('connection', (conn) => this.connection(conn));
     },
 
@@ -79,11 +80,9 @@ export default createPlugin({
     sendPing(ping: string) {
       if (!this.peer) return false;
 
-      this.realConnection?.send({
-        type: 'ping',
-        data: ping
-      });
-      return !!this.connection;
+      console.log(ping);
+      this.realConnection?.send(ping);
+      return !!this.realConnection;
     },
 
     start({ ipc }) {
