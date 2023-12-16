@@ -35,7 +35,7 @@ export default createPlugin({
   },
   renderer: {
     peer: null as Peer | null,
-    connection: null as DataConnection | null,
+    realConnection: null as DataConnection | null,
 
     queue: null as (HTMLElement & QueueAPI) | null,
     showPrompt: (async () => null) as ((title: string, label: string) => Promise<string | null>),
@@ -46,32 +46,23 @@ export default createPlugin({
       });
     },
 
+    connection(conn: DataConnection) {
+      this.realConnection = conn;
+      conn.on('open', () => {
+        conn.on('data', (data) => console.log('data-received', data));
+        conn.on('close', () => console.log('data-close'));
+      });
+    },
+
     onStart() {
       this.peer = new Peer();
-      this.peer.on('connection', (conn) => {
-        this.connection = conn;
-        conn.on('data', (data) => {
-          console.log('host-received', data);
-        });
-
-        conn.on('open', () => {
-          console.log('host-open');
-          conn.send('hello!');
-        });
-
-        conn.on('error', (error) => {
-          console.error('host-error', error);
-        });
-      });
-      this.peer.on('open', function(id) {
-        console.log(`My peer ID is: "${id}"`);
-      });
+      this.peer.on('open', (id) => console.log('host-open', id));
+      this.peer.on('connection', (conn) => this.connection(conn));
     },
 
     onStop() {
       this.peer?.destroy();
       this.peer = null;
-      this.connection = null;
     },
 
     async onJoin() {
@@ -79,26 +70,8 @@ export default createPlugin({
       if (typeof id !== 'string') return false;
 
       this.peer = new Peer();
-      this.connection = this.peer.connect(id);
       console.log('start guest', this.connection);
-
-      this.peer.on('connection', () => {
-        console.log(`trying to connect ${id}`);
-
-        this.connection?.on('open', () => {
-          console.log('guest-open');
-          this.connection?.send('hello!');
-        });
-        this.connection?.on('data', (data) => {
-          console.log('guest-dat', data);
-        });
-        this.connection?.on('error', (error) => {
-          console.error('guest-error', error);
-        });
-      });
-      this.peer.on('open', function(id) {
-        console.log(`My peer ID is: "${id}"`);
-      });
+      this.connection(this.peer.connect(id));
 
       return true;
     },
@@ -106,7 +79,7 @@ export default createPlugin({
     sendPing(ping: string) {
       if (!this.peer) return false;
 
-      this.connection?.send({
+      this.realConnection?.send({
         type: 'ping',
         data: ping
       });
