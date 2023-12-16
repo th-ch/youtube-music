@@ -170,17 +170,13 @@ export interface YoutubePlayer {
   channelUnsubscribed: <Parameters extends unknown[], Return>(
     ...params: Parameters
   ) => Return;
-  togglePictureInPicture: <Parameters extends unknown[], Return>(
-    ...params: Parameters
-  ) => Return;
+  togglePictureInPicture: () => void;
   supportsGaplessAudio: () => boolean;
   supportsGaplessShorts: () => boolean;
   enqueueVideoByPlayerVars: <Parameters extends unknown[], Return>(
     ...params: Parameters
   ) => Return;
-  clearQueue: <Parameters extends unknown[], Return>(
-    ...params: Parameters
-  ) => Return;
+  clearQueue: () => void;
   getAudioTrack: <Parameters extends unknown[], Return>(
     ...params: Parameters
   ) => Return;
@@ -284,14 +280,10 @@ export interface YoutubePlayer {
   handleGlobalKeyDown: () => void;
   handleGlobalKeyUp: () => void;
   wakeUpControls: () => void;
-  cueVideoById: (videoId: string) => void;
-  loadVideoById: (videoId: string) => void;
-  cueVideoByUrl: <Parameters extends unknown[], Return>(
-    ...params: Parameters
-  ) => Return;
-  loadVideoByUrl: <Parameters extends unknown[], Return>(
-    ...params: Parameters
-  ) => Return;
+  cueVideoById: (videoId: string, startSeconds: number, suggestedQuality: string) => void;
+  loadVideoById: (videoId: string, startSeconds: number, suggestedQuality: string) => void;
+  cueVideoByUrl: (mediaContentUrl: string, startSeconds: number, suggestedQuality: string, playerType: string) => void;
+  loadVideoByUrl: (mediaContentUrl: string, startSeconds: number, suggestedQuality: string, playerType: string) => void;
   /**
    * Note: This doesn't resume playback, it plays from the start.
    */
@@ -363,9 +355,7 @@ export interface YoutubePlayer {
   addCueRange: <Parameters extends unknown[], Return>(
     ...params: Parameters
   ) => Return;
-  removeCueRange: <Parameters extends unknown[], Return>(
-    ...params: Parameters
-  ) => Return;
+  removeCueRange: (range: unknown[]) => void;
   setSize: (size: { width: number; height: number }) => void;
   destroy: <Parameters extends unknown[], Return>(
     ...params: Parameters
@@ -383,12 +373,8 @@ export interface YoutubePlayer {
   getVideoUrl: () => string;
   getMediaReferenceTime: () => number;
   getSize: () => { width: number; height: number };
-  logImaAdEvent: <Parameters extends unknown[], Return>(
-    ...params: Parameters
-  ) => Return;
-  preloadVideoById: <Parameters extends unknown[], Return>(
-    ...params: Parameters
-  ) => Return;
+  logImaAdEvent: (eventType: unknown, breakType: unknown) => void;
+  preloadVideoById: (videoId: string, startSeconds: number, suggestedQuality: string) => void;
   setAccountLinkState: <Parameters extends unknown[], Return>(
     ...params: Parameters
   ) => Return;
