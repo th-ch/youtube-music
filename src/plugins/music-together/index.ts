@@ -55,7 +55,12 @@ export default createPlugin({
         });
 
         conn.on('open', () => {
+          console.log('host-open');
           conn.send('hello!');
+        });
+
+        conn.on('error', (error) => {
+          console.error('host-error', error);
         });
       });
       this.peer.on('open', function(id) {
@@ -75,14 +80,24 @@ export default createPlugin({
 
       this.peer = new Peer();
       this.connection = this.peer.connect(id);
-      this.connection.on('open', () => {
-        this.connection?.send('hello!');
+      console.log('start guest', this.connection);
+
+      this.peer.on('connection', () => {
+        console.log(`trying to connect ${id}`);
+
+        this.connection?.on('open', () => {
+          console.log('guest-open');
+          this.connection?.send('hello!');
+        });
+        this.connection?.on('data', (data) => {
+          console.log('guest-dat', data);
+        });
+        this.connection?.on('error', (error) => {
+          console.error('guest-error', error);
+        });
       });
-      this.connection.on('data', (data) => {
-        console.log('guest-received', data);
-      });
-      this.connection.on('error', (error) => {
-        console.error(error);
+      this.peer.on('open', function(id) {
+        console.log(`My peer ID is: "${id}"`);
       });
 
       return true;
@@ -110,6 +125,7 @@ export default createPlugin({
       `);
 
       document.querySelector('#music-together-host')?.addEventListener('click', () => {
+        this.onStop();
         this.onStart();
       });
       document.querySelector('#music-together-join')?.addEventListener('click', () => {
