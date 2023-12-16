@@ -2,6 +2,8 @@ import { createPlugin } from '@/utils';
 import { t } from '@/i18n';
 
 import { DataConnection, Peer } from 'peerjs';
+import prompt from 'custom-electron-prompt';
+import promptOptions from '@/providers/prompt-options';
 
 type QueueAPI = {
   dispatch(obj: {
@@ -17,11 +19,27 @@ export default createPlugin({
   config: {
     enabled: true
   },
+  backend: {
+    start({ ipc }) {
+      ipc.handle('music-together:prompt', async (title: string, label: string) => {
+        const result = await prompt({
+          title,
+          label,
+          type: 'input',
+          ...promptOptions(),
+        });
+
+        return result;
+      });
+    }
+  },
   renderer: {
     peer: null as Peer | null,
     connection: null as DataConnection | null,
 
     queue: null as (HTMLElement & QueueAPI) | null,
+    showPrompt: (async () => null) as ((title: string, label: string) => Promise<string | null>),
+
     resetQueue() {
       this.queue?.dispatch({
         type: 'CLEAR'
@@ -51,8 +69,8 @@ export default createPlugin({
       this.connection = null;
     },
 
-    onJoin() {
-      const id = prompt('Enter host id');
+    async onJoin() {
+      const id = await this.showPrompt('Music Together', 'Enter host id');
       if (typeof id !== 'string') return false;
 
       this.peer = new Peer();
@@ -75,17 +93,19 @@ export default createPlugin({
 
       this.connection?.send({
         type: 'ping',
-        data: ping,
+        data: ping
       });
       return !!this.connection;
     },
 
-    start() {
+    start({ ipc }) {
+      this.showPrompt = async (title: string, label: string) => ipc.invoke('music-together:prompt', title, label);
+
       document.querySelector('#right-content')?.insertAdjacentHTML('beforeend', `
-        <div class="button-group">
-          <button id="music-together-host">Host</button>
-          <button id="music-together-join">Join</button>
-          <button id="music-together-ping">Ping!</button>
+        <div class='button-group'>
+          <button id='music-together-host'>Host</button>
+          <button id='music-together-join'>Join</button>
+          <button id='music-together-ping'>Ping!</button>
         </div>
       `);
 
@@ -95,8 +115,8 @@ export default createPlugin({
       document.querySelector('#music-together-join')?.addEventListener('click', () => {
         this.onJoin();
       });
-      document.querySelector('#music-together-ping')?.addEventListener('click', () => {
-        const data = prompt('write test data');
+      document.querySelector('#music-together-ping')?.addEventListener('click', async () => {
+        const data = await this.showPrompt('Music Together', 'write test data');
         this.sendPing(data ?? 'test');
       });
 
