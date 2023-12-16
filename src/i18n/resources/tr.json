@@ -1,10 +1,30 @@
 {
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "{{pluginName}}::{{contextName}} eklentisi çalıştırılamadı",
+        "executed-at-ms": "{{pluginName}}::{{contextName}} eklentisi {{ms}}ms'de çalıştırıldı",
+        "initialize-failed": "\"{{pluginName}}\" eklentisi başlatılamadı",
+        "load-all": "Tüm eklentiler yükleniyor",
+        "load-failed": "\"{{pluginName}}\" eklentisi yüklenemedi",
+        "loaded": "\"{{pluginName}}\" eklentisi yüklendi"
+      }
+    }
+  },
   "language": {
     "code": "tr",
     "local-name": "Türkçe",
     "name": "Turkish"
   },
   "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "Yükleme tamamlandı. Geliştirici araçları açıldı"
+      },
+      "i18n": {
+        "loaded": "i18n yüklendi"
+      }
+    },
     "dialog": {
       "hide-menu-enabled": {
         "message": "Gizli menüyü etkinleştir"
