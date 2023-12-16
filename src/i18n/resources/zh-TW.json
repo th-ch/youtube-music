@@ -2,14 +2,14 @@
   "common": {
     "console": {
       "plugins": {
-        "execute-failed": "外掛 {{pluginName}} 無法被執行::{{contextName}}",
+        "execute-failed": "外掛 {{pluginName}} 無法執行::{{contextName}}",
         "executed-at-ms": "外掛 {{pluginName}}::{{contextName}} 用了 {{ms}} 毫秒來執行",
         "initialize-failed": "初始化外掛「{{pluginName}}」失敗",
         "load-all": "正在載入所有外掛",
         "load-failed": "載入外掛「{{pluginName}}」失敗",
         "loaded": "外掛「{{pluginName}}」已載入",
         "unload-failed": "移除外掛「{{pluginName}}」失敗",
-        "unloaded": "外掛「{{pluginName}}」已被移除"
+        "unloaded": "外掛「{{pluginName}}」已移除"
       }
     }
   },
@@ -87,7 +87,7 @@
           "go-back": "回到上一頁",
           "go-forward": "回到下一頁",
           "quit": "退出",
-          "restart": "重啟程式"
+          "restart": "重新啟動應用程式"
         }
       },
       "options": {
@@ -432,7 +432,7 @@
     },
     "no-google-login": {
       "description": "移除Google登入按鈕及連結",
-      "name": "禁用Google登入"
+      "name": "停用Google登入"
     },
     "notifications": {
       "description": "在歌曲播放時發送一個系統通知 (可互動通知僅限Windows)",
