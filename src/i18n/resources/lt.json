@@ -1,1 +1,598 @@
-{}
+{
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "Nepavyko įvykdyti įskiepio {{pluginName}}::{{contextName}}",
+        "executed-at-ms": "Įskiepis {{pluginName}}::{{contextName}} įvykdytas per {{ms}}ms",
+        "initialize-failed": "Nepavyko inicijuoti įskiepio \"{{pluginName}}\"",
+        "load-all": "Kraunama visus įskiepius",
+        "load-failed": "Nepavyko užkrauti įskiepio \"{{pluginName}}\"",
+        "loaded": "Įskiepis \"{{pluginName}}\" užkrautas",
+        "unload-failed": "Nepavyko iškrauti įskiepio \"{{pluginName}}\"",
+        "unloaded": "Įskiepis \"{{pluginName}}\" iškrautas"
+      }
+    }
+  },
+  "language": {
+    "code": "en",
+    "local-name": "Lietuvių kalba",
+    "name": "Lithuanian"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "Baigta krauti. \"DevTools\" atidaryta"
+      },
+      "i18n": {
+        "loaded": "\"i18n\" užkrauta"
+      },
+      "second-instance": {
+        "receive-command": "Gauta komanda per protokolą: \"{{command}}\""
+      },
+      "theme": {
+        "css-file-not-found": "CSS failas \"{{cssFile}}\" neegzistuoja, ignoruojama"
+      },
+      "unresponsive": {
+        "details": "Nereguojanti paklaida\n{{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "Išvaloma programos talpykla"
+      },
+      "window": {
+        "tried-to-render-offscreen": "Langas bandė vaizduotis už ekrano ribų, langoDydis={{windowSize}}, ekranoDydis={{displaySize}}, pozicija={{position}}"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "detail": "Meniu yra paslėpta, naudokite 'Alt', kad ją parodyti (arba 'Escape' jei naudojama programos meniu)",
+        "message": "\"Paslėpti Meniu\" yra įjungta",
+        "title": "Įjungta \"Paslėpti Meniu\""
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "Vėliau",
+          "restart-now": "Perkrauti Dabar"
+        },
+        "detail": "\"{{pluginName}}\" įskiepis reikalauja perkrovimą, kad veiktų",
+        "message": "\"{{pluginName}}\" reikia perkrovimo",
+        "title": "Reikiamas perkrovimas"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "Išeiti",
+          "relaunch": "Perleisti",
+          "wait": "Palaukti"
+        },
+        "detail": "Mes apgailestaujame dėl nepatogumų! prašau pasirinkti ką daryti:",
+        "message": "Programa Neatsako",
+        "title": "Langas Neatsako"
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "Išjungti Atnaujinimus",
+          "download": "Atsisiųsti",
+          "ok": "Gerai"
+        },
+        "detail": "Nauja versija yra prieinama ir gali būti atsisiųsta {{downloadLink}}",
+        "message": "Nauja versija yra prieinama",
+        "title": "Prieinamas Atnaujinimas"
+      }
+    },
+    "menu": {
+      "about": "Apie",
+      "navigation": {
+        "label": "Navigacija",
+        "submenu": {
+          "copy-current-url": "Nukopijuoti dabartinį URL",
+          "go-back": "Grįžti Atgal",
+          "go-forward": "Eiti į priekį",
+          "quit": "Išeiti",
+          "restart": "Perkrauti programą"
+        }
+      },
+      "options": {
+        "label": "Nustatymai",
+        "submenu": {
+          "advanced-options": {
+            "label": "Išplėstiniai nustatymai",
+            "submenu": {
+              "auto-reset-app-cache": "Perkrauti programos talpyklą, kai programa paleidžiama",
+              "disable-hardware-acceleration": "Išjungti aparatūros pagreitį",
+              "edit-config-json": "Redaguoti config.json",
+              "override-user-agent": "Perrašyti User-Agent",
+              "restart-on-config-changes": "Perkrauti po config pasikeitimo",
+              "set-proxy": {
+                "label": "Nustatyti įgaliotajį serverį",
+                "prompt": {
+                  "label": "Įvesti Įgaliotojo serverio adresą: (palikti tuščią, kad išjungti)",
+                  "placeholder": "Pavyzdys: SOCKS5://127.0.0.1:9999",
+                  "title": "Nustatyti įgaliotajį serverį"
+                }
+              },
+              "toggle-dev-tools": "Įjungti/Išjungti DevTools"
+            }
+          },
+          "always-on-top": "Visada viršuje",
+          "auto-update": "Automatinis Atnaujinimas",
+          "hide-menu": {
+            "dialog": {
+              "message": "Meniu bus paslėpta per kitą paleidimą, naudokite [Alt], kad ją parodyti (arba [`] jei naudojama programos meniu)",
+              "title": "\"Paslėpti Meniu\" įjungtas"
+            },
+            "label": "Paslėpti Meniu"
+          },
+          "language": {
+            "dialog": {
+              "message": "Kalba bus pakeista po perkrovimo",
+              "title": "Kalba Pakeista"
+            },
+            "label": "Kalba",
+            "submenu": {
+              "to-help-translate": "Norite padėti išversti? Paspauskite čia"
+            }
+          },
+          "resume-on-start": "Tęsti paskutinę dainą, kai programa bus paleista",
+          "single-instance-lock": "Vienkartinis užraktas",
+          "start-at-login": "Pradėti nuo prisijungimo",
+          "starting-page": {
+            "label": "Pradžios puslapis",
+            "unset": "Nenustatyta"
+          },
+          "tray": {
+            "label": "Padėklas",
+            "submenu": {
+              "disabled": "Išjungta",
+              "enabled-and-hide-app": "Įjungta ir slėpti programos langą",
+              "enabled-and-show-app": "Įjungta ir rodyti programos langą",
+              "play-pause-on-click": "Leisti/Sustabdyti ant paspaudimo"
+            }
+          },
+          "visual-tweaks": {
+            "label": "Vizualiniai patobulinimai",
+            "submenu": {
+              "like-buttons": {
+                "default": "Numatytasis",
+                "force-show": "Priversti rodyti",
+                "hide": "Slėpti",
+                "label": "\"Patinka\" mygtukai"
+              },
+              "remove-upgrade-button": "Nerodyti \"Patobulinti\" mygtuko",
+              "theme": {
+                "label": "Tema",
+                "submenu": {
+                  "import-css-file": "Įkelti pasirinktinį CSS failą",
+                  "no-theme": "Be temos"
+                }
+              }
+            }
+          }
+        }
+      },
+      "plugins": {
+        "enabled": "Įjungta",
+        "label": "Įskiepiai"
+      },
+      "view": {
+        "label": "Vaizdas",
+        "submenu": {
+          "force-reload": "Priverstinis perkrovimas",
+          "reload": "Perkrauti",
+          "reset-zoom": "Tikras dydis",
+          "toggle-fullscreen": "Įjungti/Išjungti Pilną Ekraną",
+          "zoom-in": "Priartinti",
+          "zoom-out": "Nutolinti"
+        }
+      }
+    },
+    "tray": {
+      "next": "Kitas",
+      "play-pause": "Leisti/Sustabdyti",
+      "previous": "Ankstesnis",
+      "quit": "Išeiti",
+      "restart": "Perkrauti programą",
+      "show": "Rodyti langą"
+    }
+  },
+  "plugins": {
+    "adblocker": {
+      "description": "Blokuoti visas reklamas ir seklius",
+      "menu": {
+        "blocker": "Blokuotojas"
+      },
+      "name": "Reklamų blokuotojas"
+    },
+    "album-color-theme": {
+      "description": "Pritaiko dinamišką temą ir vizualinius efektus pagal albumo spalvų paletę",
+      "name": "Albumo Spalvų Tema"
+    },
+    "ambient-mode": {
+      "description": "Pritaiko apšvietimo efektą, perteikdamas švelnias vaizdo įrašo spalvas į ekrano foną.",
+      "menu": {
+        "blur-amount": {
+          "label": "Suliejimo kiekis",
+          "submenu": {
+            "pixels": "{{blurAmount}} pikseliai"
+          }
+        },
+        "buffer": {
+          "label": "Buferis",
+          "submenu": {
+            "buffer": "{{buffer}}"
+          }
+        },
+        "opacity": {
+          "label": "Skaidrumas",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "quality": {
+          "label": "Kokybė",
+          "submenu": {
+            "pixels": "{{quality}} pikseliai"
+          }
+        },
+        "size": {
+          "label": "Dydis",
+          "submenu": {
+            "percent": "{{size}}%"
+          }
+        },
+        "smoothness-transition": {
+          "label": "Perėjimo švelnumas",
+          "submenu": {
+            "during": "Per {{interpolationTime}}s"
+          }
+        },
+        "use-fullscreen": {
+          "label": "Naudojamas visas ekranas"
+        }
+      },
+      "name": "Aplinkos rėžimas"
+    },
+    "audio-compressor": {
+      "description": "Pritaikyti garso kompresiją (sumažina garsiausių signalo dalių garsumą ir padidina švelniausių dalių garsumą)",
+      "name": "Garso Kompresorius"
+    },
+    "blur-nav-bar": {
+      "description": "Padaro navigacijos lentą permatomą ir susiliejusią",
+      "name": "Sulieti Navigacijos Lentą"
+    },
+    "bypass-age-restrictions": {
+      "description": "Apeiti \"Youtube\" amžiaus patikrinimą",
+      "name": "Apeiti Amžiaus Apribojimus"
+    },
+    "captions-selector": {
+      "description": "„YouTube Music“ Garso takelių antraščių parinkiklis",
+      "menu": {
+        "autoload": "Automatiškai pasirinkti paskutinę naudotą antraštę",
+        "disable-captions": "Pagal numatytuosius nustatymus išjungti antraštės"
+      },
+      "name": "Antraščių parinkiklis",
+      "prompt": {
+        "selector": {
+          "label": "Dabartinė antraščių kalba: {{language}}",
+          "none": "Joks",
+          "title": "Pasirinkti antraščių kalbą"
+        }
+      },
+      "templates": {
+        "title": "Atidaryti antraščių parinkiklį"
+      }
+    },
+    "compact-sidebar": {
+      "description": "Visada nustatyti šoninę juostą kompaktiniame rėžime",
+      "name": "Kompaktinė šoninė juosta"
+    },
+    "crossfade": {
+      "description": "Perliejimas tarp dainų",
+      "menu": {
+        "advanced": "Išplėstinė"
+      },
+      "name": "Perliejimas [beta]",
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "fade-in-duration": "Išblukimo trukmė (ms)",
+            "fade-out-duration": "Išnykimo trukmė (ms)",
+            "fade-scaling": {
+              "label": "Išblukimo stiprumas",
+              "linear": "Linijinis",
+              "logarithmic": "Logaritminis"
+            },
+            "seconds-before-end": "Pradėti lieti dainas N sekundžių prieš pabaigą"
+          },
+          "title": "Perliejimo nustatymai"
+        }
+      }
+    },
+    "disable-autoplay": {
+      "description": "Pradeda dainą sustabdytame rėžime",
+      "menu": {
+        "apply-once": "Pritaiko tik per programos paleidimą"
+      },
+      "name": "Išjungti Automatinį leidimą"
+    },
+    "discord": {
+      "backend": {
+        "already-connected": "Bandyta prisijungti naudojant aktyvų ryšį",
+        "connected": "Prisijungta prie \"Discord\"",
+        "disconnected": "Atsijungta nuo \"Discord\""
+      },
+      "description": "Parodyk savo draugams ko tu klausaisi su \"Turtingas Buvimas\"",
+      "menu": {
+        "auto-reconnect": "Automatiškai prisijungti",
+        "clear-activity": "Išvalyti veiksmus",
+        "clear-activity-after-timeout": "Išvalyti veiksmus po skirtojo laiko",
+        "connected": "Prisijungta",
+        "disconnected": "Atsijungta",
+        "hide-duration-left": "Slėpti kiek liko laiko",
+        "hide-github-button": "Slėpti \"GitHub\" nuorodos mygtuką",
+        "play-on-youtube-music": "Leisti ant \"Youtube Music\"",
+        "set-inactivity-timeout": "Nustatyti neveiklumo laiką"
+      },
+      "name": "\"Discord\" Turtingas Buvimas",
+      "prompt": {
+        "set-inactivity-timeout": {
+          "label": "Įveskite neveiklumo skirtąjį laiką sekundėmis:",
+          "title": "Nustatyti neveiklumo laiką"
+        }
+      }
+    },
+    "downloader": {
+      "backend": {
+        "dialog": {
+          "error": {
+            "buttons": {
+              "ok": "Gerai"
+            },
+            "message": "Aaa! Apgailestaujame, nepavyko atsisiųsti…",
+            "title": "Paklaida atsisiunčiant!"
+          },
+          "start-download-playlist": {
+            "buttons": {
+              "ok": "Gerai"
+            },
+            "detail": "({{playlistSize}} dainos)",
+            "message": "Atsisiunčiama {{playlistTitle}} grojaraštį",
+            "title": "Prasidėjo atsisiuntimas"
+          }
+        },
+        "feedback": {
+          "conversion-progress": "Konversija: {{percent}}%",
+          "converting": "Konvertuojama…",
+          "done": "Baigta: {{filePath}}",
+          "download-info": "Atsiunčiama {{artist}} - {{title}} {{videoId}}",
+          "download-progress": "Atsisiuntimas: {{percent}}%",
+          "downloading": "Atsisiunčiama…",
+          "downloading-counter": "Atsisiunčiama {{current}}/{{total}}…",
+          "downloading-playlist": "Atsisiunčiamas grojaraštis \"{{playlistTitle}}\" - {{playlistSize}} dainų {{playlistId}}",
+          "error-while-downloading": "Paklaida atsisiunčiant \"{{author}} - {{title}}\": {{error}}",
+          "folder-already-exists": "Aplankas {{playlistFolder}} jau egzistuoja",
+          "getting-playlist-info": "Gaunama grojaraščio informacija…",
+          "loading": "Kraunama…",
+          "playlist-has-only-one-song": "Grojaraštis turi tik vieną daiktą, jis atsisiunčiamas tiesiogiai",
+          "playlist-id-not-found": "Grojaraščio ID nerastas",
+          "playlist-is-empty": "Grojaraštis yra tuščias",
+          "playlist-is-mix-or-private": "Paklaida gaunant grojaraščio informaciją: Pasitikrink, kad nėra privatus ar \"Surinkta specialiai jums\" grojaraštis\n\n{{error}}",
+          "preparing-file": "Failas paruošiamas…",
+          "saving": "Išsaugojama…",
+          "trying-to-get-playlist-id": "Bandoma gauti grojaraščio ID: {{playlistId}}",
+          "video-id-not-found": "Vaizdo įrašas nerastas",
+          "writing-id3": "Rašoma ID3 žymes…"
+        }
+      },
+      "description": "Atsisiunčia MP3 / šaltinio garsą tiesiogiai iš sąsajos",
+      "menu": {
+        "choose-download-folder": "Pasirinkti atsisiuntimų aplanką",
+        "download-playlist": "Atsisiųsti grojaraštį",
+        "presets": "Iš anksto nustatyti nustatymai",
+        "skip-existing": "Praleisti egzistuojančius failus"
+      },
+      "name": "Atsiuntėjas",
+      "renderer": {
+        "can-not-update-progress": "Nepavyko atnaujinti eigos"
+      },
+      "templates": {
+        "button": "Atsisiųsti"
+      }
+    },
+    "exponential-volume": {
+      "description": "Padaro garsumo slankiklį eksponentinį, kad būtų lengviau pasirinkti mažesnį garsumą.",
+      "name": "Eksponentinis garsas"
+    },
+    "in-app-menu": {
+      "description": "Duoda meniu lentoms įmantrią, tamsią ar albumo spalvos išvaizdą",
+      "menu": {
+        "hide-dom-window-controls": "Slėpti DOM lango kontroles"
+      },
+      "name": "Programos Meniu"
+    },
+    "last-fm": {
+      "description": "Pridėkite Last.fm scrobble palaikymą",
+      "name": "Last.fm"
+    },
+    "lumiastream": {
+      "description": "Prideda \"Lumia Stream\" palaikymą",
+      "name": "Lumia Stream [beta]"
+    },
+    "lyrics-genius": {
+      "description": "Prideda daugumai dainių žodžių tekstus",
+      "menu": {
+        "romanized-lyrics": "Romanizuoti dainų tekstai"
+      },
+      "name": "\"Genius\" Žodžių tekstai",
+      "renderer": {
+        "fetched-lyrics": "Gauti žodžiai iš „Genius“."
+      }
+    },
+    "navigation": {
+      "description": "Kitas/Ankstenis navigacijos rodyklės tiesiogiai integruotos sąsajoje, kaip tavo mėgstamiausioje naršyklėje",
+      "name": "Navigacija"
+    },
+    "no-google-login": {
+      "description": "Pašalinti \"Google\" prisijungimo mygtukus ir nuorodas iš sąsjos",
+      "name": "Be \"Google\" Prisijungimo"
+    },
+    "notifications": {
+      "description": "Rodyti pranešimą, kai pradeda groti daina (interaktyvūs pranešimai pasiekiami sistemoje \"Windows\")",
+      "menu": {
+        "interactive": "Interaktyvūs pranešimai",
+        "interactive-settings": {
+          "label": "Interaktyvūs nustatymai",
+          "submenu": {
+            "hide-button-text": "Paslėpti mygtuko tekstą",
+            "refresh-on-play-pause": "Atnaujinti ant Leisti/Sustabdyti",
+            "tray-controls": "Atidaryti/Uždaryti ant padėklo paspaudimo"
+          }
+        },
+        "priority": "Pranešimų pirminybė",
+        "toast-style": "Skrudintas stilius",
+        "unpause-notification": "Rodyti pranešimus po dainos paleidimo"
+      },
+      "name": "Pranešimai"
+    },
+    "picture-in-picture": {
+      "description": "Leidžia pakeisti programą į \"picture-in-picture\" rėžimą",
+      "menu": {
+        "always-on-top": "Visada viršuje",
+        "hotkey": {
+          "label": "Spartusis klavišas",
+          "prompt": {
+            "keybind-options": {
+              "hotkey": "Spartusis klavišas"
+            },
+            "label": "Pasirinkti spartujį klaviša, kad įjungti/išjungti \"picture-in-picture\"",
+            "title": "\"Picture-in-picture\" Spartusis klavišas"
+          }
+        },
+        "save-window-position": "Išsaugoti lango poziciją",
+        "save-window-size": "Išsaugoti lango dydį",
+        "use-native-pip": "Naudoti naršyklės savajį PiP"
+      },
+      "name": "Picture-in-picture",
+      "templates": {
+        "button": "Picture-in-picture"
+      }
+    },
+    "playback-speed": {
+      "description": "Klausyk greitai, klausyk lėtai! Prideda slankiklį, kuris valdo dainos greitį",
+      "name": "Atkūrimo Greitis",
+      "templates": {
+        "button": "Greitis"
+      }
+    },
+    "precise-volume": {
+      "description": "Tiksliai valdykite garsumą naudodami pelės ratuką / sparčiuosius klavišus, naudodami pritaikytą HUD ir pritaikomus garsumo žingsnius",
+      "menu": {
+        "arrows-shortcuts": "Vietiniai rodyklių klavišai valdikliai",
+        "custom-volume-steps": "Nustatykite Pasirinktinius Garsumo Žingsnius",
+        "global-shortcuts": "Pasauliniai spartieji klavišai"
+      },
+      "name": "Tikslus Garsas",
+      "prompt": {
+        "global-shortcuts": {
+          "keybind-options": {
+            "decrease": "Pamažinti Garsą",
+            "increase": "Padidinti Garsą"
+          },
+          "label": "Pasirinkti Pasaulinius garso klavišus:",
+          "title": "Pasauliniai Garso Klavišai"
+        },
+        "volume-steps": {
+          "label": "Pasirinkti Garso Didinimo/Mažinimo Žingsnius",
+          "title": "Garso Žingsniai"
+        }
+      }
+    },
+    "quality-changer": {
+      "backend": {
+        "dialog": {
+          "quality-changer": {
+            "detail": "Dabartinė Kokybė: {{quality}}",
+            "message": "Pasirinkite Vaizdo Kokybę:",
+            "title": "Pasirinkite Vaizdo Kokybę"
+          }
+        }
+      },
+      "description": "Leidžia pakeisti vaizdo kokybę su mygtuku ant vaizdo perdangos",
+      "name": "Vaizdo Kokybės Pakeitėjas"
+    },
+    "shortcuts": {
+      "description": "Leidžia nustatyti visuotinius atkūrimo sparčiuosius klavišus (paleisti / pristabdyti / kitą / ankstesnį) ir išjungti medijos OSD nepaisant medijos klavišų, įjungti Ctrl / CMD + F ieškoti, įjungti Linux MPRIS palaikymą medijos klavišams ir pasirinktinius sparčiuosius klavišus pažengusiems vartotojams.",
+      "menu": {
+        "override-media-keys": "Perrašyti Medijos klavišus",
+        "set-keybinds": "Nustatyti Pasaulines Dainų Kontroles"
+      },
+      "name": "Spartieji klavišai (& MPRIS)",
+      "prompt": {
+        "keybind": {
+          "keybind-options": {
+            "next": "Kitas",
+            "play-pause": "Paleisti / Pristabdyti",
+            "previous": "Ankstesnis"
+          },
+          "label": "Pasirinkti Pasaulinius Klavišus Dainų Kontroliavimui:",
+          "title": "Pasauliniai Klavišai"
+        }
+      }
+    },
+    "skip-disliked-songs": {
+      "description": "Praleidžia nepatinkančias dainas",
+      "name": "Praleisti Nepatinkančias Dainas"
+    },
+    "skip-silences": {
+      "description": "Automatiškai praleisti tylos dalis dainose",
+      "name": "Praleisti Tylas"
+    },
+    "sponsorblock": {
+      "description": "Automatiškai praleidžia ne muzikines dalis, pvz., įžangą/užvedimą arba muzikinių vaizdo įrašų dalis, kuriose daina negrojama",
+      "name": "Rėmėjų blokuotojas"
+    },
+    "taskbar-mediacontrol": {
+      "description": "Valdykite atkūrimą iš „Windows“ užduočių juostos",
+      "name": "Užduočių juostos medijos valdymas"
+    },
+    "touchbar": {
+      "description": "Pridedamas jutiklinės juostos valdiklis MacOS vartotojams",
+      "name": "TouchBar"
+    },
+    "tuna-obs": {
+      "description": "Integracija su OBS papildiniu \"Tuna\"",
+      "name": "Tuna OBS"
+    },
+    "video-toggle": {
+      "description": "Pridedamas mygtukas, skirtas perjungti vaizdo įrašo/dainos režimą. taip pat galite pasirinktinai pašalinti visą vaizdo įrašo skirtuką",
+      "menu": {
+        "align": {
+          "label": "Lygiavimas",
+          "submenu": {
+            "left": "Kairė",
+            "middle": "Vidurys",
+            "right": "Dešinė"
+          }
+        },
+        "force-hide": "Priverstinai pašalinti vaizdo įrašo skirtuką",
+        "mode": {
+          "label": "Rėžimas",
+          "submenu": {
+            "custom": "Pasirinktinis perjungimas",
+            "disabled": "Išjungta",
+            "native": "Vietinis perjungimas"
+          }
+        }
+      },
+      "name": "Vaizdo įrašo perjungimas",
+      "templates": {
+        "button": "Daina"
+      }
+    },
+    "visualizer": {
+      "description": "Prie grotuvo pridedamas vizualizatorius",
+      "menu": {
+        "visualizer-type": "Vizualizatoriaus tipas"
+      },
+      "name": "Vizualizatorius"
+    }
+  }
+}
