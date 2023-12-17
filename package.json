@@ -196,7 +196,7 @@
     "glob": "10.3.10",
     "node-gyp": "10.0.1",
     "playwright": "1.41.0-alpha-dec-12-2023",
-    "rollup": "4.9.0",
+    "rollup": "4.9.1",
     "typescript": "5.3.3",
     "utf-8-validate": "6.0.3",
     "vite": "4.5.1",
