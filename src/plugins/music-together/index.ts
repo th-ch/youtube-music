@@ -27,7 +27,7 @@ export default createPlugin({
           title,
           label,
           type: 'input',
-          ...promptOptions(),
+          ...promptOptions()
         });
 
         return result;
@@ -55,10 +55,16 @@ export default createPlugin({
       });
     },
 
-    onStart() {
-      this.peer = new Peer();
-      this.peer.on('open', (id) => console.log('open', id));
-      this.peer.on('connection', (conn) => this.connection(conn));
+    async onStart() {
+      return new Promise((resolve) => {
+        this.peer = new Peer({ debug: 3 });
+        this.peer.on('open', (id) => {
+          console.log('open', id);
+
+          resolve(id);
+        });
+        this.peer.on('connection', (conn) => this.connection(conn));
+      });
     },
 
     onStop() {
@@ -70,8 +76,7 @@ export default createPlugin({
       const id = await this.showPrompt('Music Together', 'Enter host id');
       if (typeof id !== 'string') return false;
 
-      this.onStart();
-      console.log('start guest');
+      await this.onStart();
       this.connection(this.peer.connect(id));
 
       return true;
