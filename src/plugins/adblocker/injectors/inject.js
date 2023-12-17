@@ -32,16 +32,6 @@ export const inject = (contextBridge) => {
       return o;
     };
 
-    contextBridge.exposeInMainWorld('_proxyJson', {
-      parse: new Proxy(JSON.parse, {
-        apply() {
-          return pruner(Reflect.apply(...arguments));
-        },
-      }),
-      stringify: JSON.stringify,
-      [Symbol.toStringTag]: JSON[Symbol.toStringTag],
-    });
-
     const withPrototype = (obj) => {
       const protos = Object.getPrototypeOf(obj);
       for (const [key, value] of Object.entries(protos)) {
@@ -56,6 +46,13 @@ export const inject = (contextBridge) => {
       }
       return obj;
     };
+
+    JSON.parse = new Proxy(JSON.parse, {
+      apply() {
+        return pruner(Reflect.apply(...arguments));
+      },
+    });
+    contextBridge.exposeInMainWorld('_proxyJson', withPrototype(JSON));
 
     Response.prototype.json = new Proxy(Response.prototype.json, {
       apply() {
