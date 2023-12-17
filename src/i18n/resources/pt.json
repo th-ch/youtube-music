@@ -65,7 +65,7 @@
         },
         "detail": "Lamentamos o inconveniente! Por favor escolha o que fazer:",
         "message": "A aplicação não está respondendo",
-        "title": "Janela não está respondendo"
+        "title": "A janela não está respondendo"
       },
       "update-available": {
         "buttons": {
@@ -198,10 +198,10 @@
       "menu": {
         "blocker": "Bloqueador"
       },
-      "name": "Adblocker"
+      "name": "Bloqueador de anúncios"
     },
     "album-color-theme": {
-      "description": "\"Aplica um tema dinâmico e efeitos visuais com base na paleta de cores do álbum.",
+      "description": "Aplica um tema dinâmico e efeitos visuais com base na paleta de cores do álbum",
       "name": "Tema de cores do álbum"
     },
     "ambient-mode": {
@@ -249,6 +249,7 @@
       "name": "Modo Ambiente"
     },
     "audio-compressor": {
+      "description": "Aplicar compressão ao áudio (diminui o volume das partes mais altas do sinal e aumenta o volume das partes mais suaves)",
       "name": "Compressor de áudio"
     },
     "blur-nav-bar": {
@@ -260,6 +261,7 @@
       "name": "Ignorar restrições de idade"
     },
     "captions-selector": {
+      "description": "Seletor de legenda para faixas de áudio do YouTube Music",
       "menu": {
         "autoload": "Selecionar automaticamente a última legenda usada",
         "disable-captions": "Sem legendas por padrão"
@@ -271,6 +273,166 @@
           "none": "Nenhuma",
           "title": "Selecione o idioma da legenda"
         }
+      },
+      "templates": {
+        "title": "Seletor de legendas aberto"
+      }
+    },
+    "compact-sidebar": {
+      "description": "Definir sempre a barra lateral no modo compacto",
+      "name": "Barra lateral compacta"
+    },
+    "crossfade": {
+      "description": "Transição entre músicas",
+      "menu": {
+        "advanced": "Avançado"
+      },
+      "name": "Transição entre músicas [beta]",
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "fade-in-duration": "Duração da transição no início (ms)",
+            "fade-out-duration": "Duração da transição no final (ms)",
+            "fade-scaling": {
+              "label": "Escala da transição",
+              "linear": "Linear",
+              "logarithmic": "Logarítmica"
+            },
+            "seconds-before-end": "Realizar transição N segundos antes do final"
+          },
+          "title": "Opções de transição"
+        }
+      }
+    },
+    "disable-autoplay": {
+      "description": "Faz a música começar no modo \"pausado\"",
+      "menu": {
+        "apply-once": "Aplicar apenas na inicialização"
+      },
+      "name": "Desativar reprodução automática"
+    },
+    "discord": {
+      "backend": {
+        "already-connected": "Tentativa de conexão com conexão já ativa",
+        "connected": "Conectado ao Discord",
+        "disconnected": "Desconectado do Discord"
+      },
+      "description": "Mostre aos seus amigos o que você ouve com Rich Presence",
+      "menu": {
+        "auto-reconnect": "Reconexão automática",
+        "clear-activity": "Limpar atividade",
+        "clear-activity-after-timeout": "Limpar atividade após o tempo limite",
+        "connected": "Conectado",
+        "disconnected": "Desconectado",
+        "hide-duration-left": "Ocultar duração restante",
+        "hide-github-button": "Ocultar botão de link do GitHub",
+        "play-on-youtube-music": "Reproduzir no YouTube Music",
+        "set-inactivity-timeout": "Definir tempo limite de inatividade"
+      },
+      "name": "Discord Rich Presence",
+      "prompt": {
+        "set-inactivity-timeout": {
+          "label": "Insira o tempo limite de inatividade em segundos:",
+          "title": "Definir tempo limite de inatividade"
+        }
+      }
+    },
+    "downloader": {
+      "backend": {
+        "dialog": {
+          "error": {
+            "buttons": {
+              "ok": "OK"
+            },
+            "message": "Poxa! Desculpe, o download falhou…",
+            "title": "Erro no download!"
+          },
+          "start-download-playlist": {
+            "buttons": {
+              "ok": "OK"
+            },
+            "detail": "({{playlistSize}} músicas)",
+            "message": "Baixando lista de reprodução {{playlistTitle}}",
+            "title": "Download iniciado"
+          }
+        },
+        "feedback": {
+          "conversion-progress": "Conversão: {{percent}}%",
+          "converting": "Convertendo…",
+          "done": "Finalizado: {{filePath}}",
+          "download-info": "Baixando {{artist}} - {{title}} {{videoId}}",
+          "download-progress": "Baixando: {{percent}}%",
+          "downloading": "Baixando…",
+          "downloading-counter": "Baixando {{current}}/{{total}}…",
+          "downloading-playlist": "Baixando lista de reprodução \"{{playlistTitle}}\" - {{playlistSize}} músicas ({{playlistId}})",
+          "error-while-downloading": "Erro ao baixar \"{{author}} - {{title}}\": {{error}}",
+          "folder-already-exists": "A pasta {{playlistFolder}} já existe",
+          "getting-playlist-info": "Obtendo informações da lista de reprodução…",
+          "loading": "Carregando…",
+          "playlist-has-only-one-song": "A lista de reprodução possui apenas um item, baixando-o diretamente",
+          "playlist-id-not-found": "ID da lista de reprodução não encontrado",
+          "playlist-is-empty": "Lista de reprodução vazia",
+          "playlist-is-mix-or-private": "Erro ao obter informações da lista de reprodução: tenha certeza que ela não está privada ou não seja \"Mixtapes criadas para você\"\n\n{{error}}",
+          "preparing-file": "Preparando arquivos…",
+          "saving": "Salvando…",
+          "trying-to-get-playlist-id": "Tentando pegar ID da lista de reprodução: {{playlistId}}",
+          "video-id-not-found": "Vídeo não encontrado",
+          "writing-id3": "Escrevendo tags ID3…"
+        }
+      },
+      "description": "Baixa MP3 / fonte de áudio diretamente da interface",
+      "menu": {
+        "choose-download-folder": "Escolha a pasta de download",
+        "download-playlist": "Baixar lista de reprodução",
+        "presets": "Predefinições",
+        "skip-existing": "Ignorar arquivos existentes"
+      },
+      "name": "Downloader",
+      "renderer": {
+        "can-not-update-progress": "Não é possível atualizar o progresso"
+      },
+      "templates": {
+        "button": "Baixar"
+      }
+    },
+    "exponential-volume": {
+      "description": "Torna o controle deslizante de volume exponencial, facilitando a seleção de volumes mais baixos.",
+      "name": "Volume Exponencial"
+    },
+    "in-app-menu": {
+      "description": "Dá às barras de menu uma aparência sofisticada, escura ou com a cor do álbum",
+      "name": "Menu no aplicativo"
+    },
+    "last-fm": {
+      "description": "Adiciona suporte de scrobbling para Last.fm",
+      "name": "Last.fm"
+    },
+    "lumiastream": {
+      "description": "Adiciona suporte Lumia Stream",
+      "name": "Lumia Stream [beta]"
+    },
+    "lyrics-genius": {
+      "description": "Adiciona suporte a letras para a maioria das músicas",
+      "menu": {
+        "romanized-lyrics": "Letras romanizadas"
+      },
+      "name": "Letras Genius",
+      "renderer": {
+        "fetched-lyrics": "Buscar letras no Genius"
+      }
+    },
+    "navigation": {
+      "description": "Setas de navegação Próximo/Voltar integradas diretamente na interface, como no seu navegador favorito",
+      "name": "Navegação"
+    },
+    "no-google-login": {
+      "description": "Remove os botões e links de login do Google da interface",
+      "name": "Sem login do Google"
+    },
+    "notifications": {
+      "description": "Exibir uma notificação quando uma música começar a tocar (notificações interativas estão disponíveis no Windows)",
+      "menu": {
+        "interactive": "Notificações interativas"
       }
     }
   }
