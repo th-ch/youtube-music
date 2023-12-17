@@ -32,34 +32,17 @@ export const inject = (contextBridge) => {
       return o;
     };
 
-    const withPrototype = (obj) => {
-      const protos = Object.getPrototypeOf(obj);
-      for (const [key, value] of Object.entries(protos)) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) continue;
-        if (typeof value === 'function') {
-          obj[key] = function (...args) {
-            return value.call(obj, ...args);
-          }
-        } else {
-          obj[key] = value;
-        }
-      }
-      return obj;
-    };
-
-    JSON.parse = new Proxy(JSON.parse, {
+    contextBridge.exposeInMainWorld('_proxyJsonParse', new Proxy(JSON.parse, {
       apply() {
         return pruner(Reflect.apply(...arguments));
       },
-    });
-    contextBridge.exposeInMainWorld('_proxyJson', withPrototype(JSON));
+    }));
 
-    Response.prototype.json = new Proxy(Response.prototype.json, {
+    contextBridge.exposeInMainWorld('_proxyResponseJson', new Proxy(Response.prototype.json, {
       apply() {
         return Reflect.apply(...arguments).then((o) => pruner(o));
       },
-    });
-    contextBridge.exposeInMainWorld('_proxyResponse', withPrototype(Response));
+    }));
   }
 
   (function () {

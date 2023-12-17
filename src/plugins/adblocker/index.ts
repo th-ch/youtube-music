@@ -109,7 +109,7 @@ export default createPlugin({
     },
   },
   preload: {
-    script: 'window.JSON = window._proxyJson; window._proxyJson = undefined; window.Response = window._proxyResponse; window._proxyResponse = undefined; 0',
+    script: 'window.JSON.parse = window._proxyJsonParse; window._proxyJsonParse = undefined; window.Response.prototype.json = window._proxyResponseJson; window._proxyResponseJson = undefined; 0',
     async start({ getConfig }) {
       const config = await getConfig();
 
