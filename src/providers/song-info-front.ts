@@ -157,8 +157,8 @@ export default (api: YoutubePlayer) => {
     data.videoDetails.album =
       (
         Object.entries(videoData)
-          .find(([, value]) => value && Object.hasOwn(value, 'playerOverlays')) as AlbumDetails | undefined
-      )?.playerOverlays?.playerOverlayRenderer?.browserMediaSession?.browserMediaSessionRenderer?.album?.runs?.at(
+          .find(([, value]) => value && Object.hasOwn(value, 'playerOverlays')) as [string, AlbumDetails | undefined]
+      )?.[1]?.playerOverlays?.playerOverlayRenderer?.browserMediaSession?.browserMediaSessionRenderer?.album?.runs?.at(
         0,
       )?.text;
     data.videoDetails.elapsedSeconds = 0;
