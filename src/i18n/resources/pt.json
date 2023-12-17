@@ -37,6 +37,9 @@
       },
       "when-ready": {
         "clearing-cache-after-20s": "Limpando o cache do aplicativo"
+      },
+      "window": {
+        "tried-to-render-offscreen": "Janela tentou desenhar fora do ecrã, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
       }
     },
     "dialog": {
