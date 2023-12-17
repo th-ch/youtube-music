@@ -246,8 +246,6 @@ export type VideoDataChangeValue = Record<string, unknown> & {
   title: string;
   author: string;
 
-  Hd?: AlbumDetails;
-
   playlistId: string;
   isUpcoming: boolean;
   loading: boolean;
