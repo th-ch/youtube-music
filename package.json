@@ -102,7 +102,7 @@
     "vite:inspect": "pnpm clean && electron-vite build --mode development && pnpm exec serve .vite-inspect",
     "start": "electron-vite preview",
     "start:debug": "cross-env ELECTRON_ENABLE_LOGGING=1 pnpm start",
-    "dev": "electron-vite dev",
+    "dev": "electron-vite dev --watch",
     "dev:debug": "cross-env ELECTRON_ENABLE_LOGGING=1 pnpm dev",
     "clean": "del-cli dist && del-cli pack && del-cli .vite-inspect",
     "dist": "pnpm clean && pnpm build && electron-builder --win --mac --linux -p never",
