@@ -99,7 +99,7 @@
               "auto-reset-app-cache": "Perkrauti programos talpyklą, kai programa paleidžiama",
               "disable-hardware-acceleration": "Išjungti aparatūros pagreitį",
               "edit-config-json": "Redaguoti config.json",
-              "override-user-agent": "Perrašyti User-Agent",
+              "override-user-agent": "Perrašyti \"User-Agent\"",
               "restart-on-config-changes": "Perkrauti po config pasikeitimo",
               "set-proxy": {
                 "label": "Nustatyti įgaliotajį serverį",
@@ -116,7 +116,7 @@
           "auto-update": "Automatinis Atnaujinimas",
           "hide-menu": {
             "dialog": {
-              "message": "Meniu bus paslėpta per kitą paleidimą, naudokite [Alt], kad ją parodyti (arba [`] jei naudojama programos meniu)",
+              "message": "Meniu bus paslėpta per kitą paleidimą, naudokite [Alt], kad ją parodyti (arba kairinio kirčio ženklą [`] jei naudojama programos meniu)",
               "title": "\"Paslėpti Meniu\" įjungtas"
             },
             "label": "Paslėpti Meniu"
@@ -144,7 +144,7 @@
               "disabled": "Išjungta",
               "enabled-and-hide-app": "Įjungta ir slėpti programos langą",
               "enabled-and-show-app": "Įjungta ir rodyti programos langą",
-              "play-pause-on-click": "Leisti/Sustabdyti ant paspaudimo"
+              "play-pause-on-click": "Paleisti/Pristabdyti ant paspaudimo"
             }
           },
           "visual-tweaks": {
@@ -175,7 +175,7 @@
       "view": {
         "label": "Vaizdas",
         "submenu": {
-          "force-reload": "Priverstinis perkrovimas",
+          "force-reload": "Priverstinai perkrauti",
           "reload": "Perkrauti",
           "reset-zoom": "Tikras dydis",
           "toggle-fullscreen": "Įjungti/Išjungti Pilną Ekraną",
@@ -186,7 +186,7 @@
     },
     "tray": {
       "next": "Kitas",
-      "play-pause": "Leisti/Sustabdyti",
+      "play-pause": "Paleisti/Pristabdyti",
       "previous": "Ankstesnis",
       "quit": "Išeiti",
       "restart": "Perkrauti programą",
@@ -239,7 +239,7 @@
           }
         },
         "smoothness-transition": {
-          "label": "Perėjimo švelnumas",
+          "label": "Perliejimo švelnumas",
           "submenu": {
             "during": "Per {{interpolationTime}}s"
           }
@@ -307,7 +307,7 @@
       }
     },
     "disable-autoplay": {
-      "description": "Pradeda dainą sustabdytame rėžime",
+      "description": "Pradeda dainą pristabdytame rėžime",
       "menu": {
         "apply-once": "Pritaiko tik per programos paleidimą"
       },
@@ -319,11 +319,11 @@
         "connected": "Prisijungta prie \"Discord\"",
         "disconnected": "Atsijungta nuo \"Discord\""
       },
-      "description": "Parodyk savo draugams ko tu klausaisi su \"Turtingas Buvimas\"",
+      "description": "Parodyk savo draugams ko tu klausaisi su \"Turtingas Buvimas\" (Rich Presence)",
       "menu": {
         "auto-reconnect": "Automatiškai prisijungti",
-        "clear-activity": "Išvalyti veiksmus",
-        "clear-activity-after-timeout": "Išvalyti veiksmus po skirtojo laiko",
+        "clear-activity": "Išvalyti veiklą",
+        "clear-activity-after-timeout": "Išvalyti veiklą po skirtojo laiko",
         "connected": "Prisijungta",
         "disconnected": "Atsijungta",
         "hide-duration-left": "Slėpti kiek liko laiko",
@@ -331,7 +331,7 @@
         "play-on-youtube-music": "Leisti ant \"Youtube Music\"",
         "set-inactivity-timeout": "Nustatyti neveiklumo laiką"
       },
-      "name": "\"Discord\" Turtingas Buvimas",
+      "name": "\"Discord\" Turtingas Buvimas (Rich Presence)",
       "prompt": {
         "set-inactivity-timeout": {
           "label": "Įveskite neveiklumo skirtąjį laiką sekundėmis:",
@@ -371,10 +371,10 @@
           "folder-already-exists": "Aplankas {{playlistFolder}} jau egzistuoja",
           "getting-playlist-info": "Gaunama grojaraščio informacija…",
           "loading": "Kraunama…",
-          "playlist-has-only-one-song": "Grojaraštis turi tik vieną daiktą, jis atsisiunčiamas tiesiogiai",
+          "playlist-has-only-one-song": "Grojaraštis turi tik vieną elementą, jis atsisiunčiamas tiesiogiai",
           "playlist-id-not-found": "Grojaraščio ID nerastas",
           "playlist-is-empty": "Grojaraštis yra tuščias",
-          "playlist-is-mix-or-private": "Paklaida gaunant grojaraščio informaciją: Pasitikrink, kad nėra privatus ar \"Surinkta specialiai jums\" grojaraštis\n\n{{error}}",
+          "playlist-is-mix-or-private": "Paklaida gaunant grojaraščio informaciją: Pasitikrink, kad jis nėra privatus ar \"Surinkta specialiai jums\" grojaraštis\n\n{{error}}",
           "preparing-file": "Failas paruošiamas…",
           "saving": "Išsaugojama…",
           "trying-to-get-playlist-id": "Bandoma gauti grojaraščio ID: {{playlistId}}",
@@ -423,7 +423,7 @@
       },
       "name": "\"Genius\" Žodžių tekstai",
       "renderer": {
-        "fetched-lyrics": "Gauti žodžiai iš „Genius“."
+        "fetched-lyrics": "Gauti žodžiai iš „Genius“"
       }
     },
     "navigation": {
@@ -442,7 +442,7 @@
           "label": "Interaktyvūs nustatymai",
           "submenu": {
             "hide-button-text": "Paslėpti mygtuko tekstą",
-            "refresh-on-play-pause": "Atnaujinti ant Leisti/Sustabdyti",
+            "refresh-on-play-pause": "Atnaujinti ant Paleidimo/Pristabdymo",
             "tray-controls": "Atidaryti/Uždaryti ant padėklo paspaudimo"
           }
         },
@@ -455,7 +455,7 @@
     "picture-in-picture": {
       "description": "Leidžia pakeisti programą į \"picture-in-picture\" rėžimą",
       "menu": {
-        "always-on-top": "Visada viršuje",
+        "always-on-top": "Visada ant viršaus",
         "hotkey": {
           "label": "Spartusis klavišas",
           "prompt": {
@@ -543,7 +543,7 @@
     },
     "skip-silences": {
       "description": "Automatiškai praleisti tylos dalis dainose",
-      "name": "Praleisti Tylas"
+      "name": "Praleisti Tylumas"
     },
     "sponsorblock": {
       "description": "Automatiškai praleidžia ne muzikines dalis, pvz., įžangą/užvedimą arba muzikinių vaizdo įrašų dalis, kuriose daina negrojama",
