@@ -202,13 +202,11 @@ const main = async () => {
 const initObserver = async () => {
   // check document.documentElement is ready
   await new Promise<void>((resolve) => {
-    document.addEventListener(
-      'DOMContentLoaded',
-      () => {
-        resolve();
-      },
-      { once: true },
-    );
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => resolve(), { once: true });
+    } else {
+      resolve();
+    }
   });
 
   const observer = new MutationObserver(() => {
