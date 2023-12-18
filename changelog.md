@@ -2,7 +2,16 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v3.1.1](https://github.com/th-ch/youtube-music/compare/v3.1.0...v3.1.1)
+
+- fix: fix renderer plugin load timing [`#1522`](https://github.com/th-ch/youtube-music/issues/1522)
+- chore(i18n): Translated using Weblate (Lithuanian) [`fc1a7cd`](https://github.com/th-ch/youtube-music/commit/fc1a7cda62b6e33e5f5d57a5a6e0adef6a32bf9a)
+- chore(i18n): Translated using Weblate (Chinese (Simplified)) [`eba7026`](https://github.com/th-ch/youtube-music/commit/eba7026b89bbfdd3ac07cf728a66ba9bdd274ec0)
+- chore(deps): update dependency rollup to v4.8.0 [`a601d0b`](https://github.com/th-ch/youtube-music/commit/a601d0b3d2dee0fabad79a18e1a7dd0ca84ccf01)
+
 #### [v3.1.0](https://github.com/th-ch/youtube-music/compare/v3.0.2...v3.1.0)
+
+> 11 December 2023
 
 - chore(deps): update dependency electron to v28 [`#1498`](https://github.com/th-ch/youtube-music/pull/1498)
 - Enable/Disable Navigation without restart [`#1507`](https://github.com/th-ch/youtube-music/pull/1507)
