@@ -1,0 +1,73 @@
+.music-together-button {
+  display: inline-flex;
+
+  cursor: pointer;
+  margin-left: 8px;
+
+  & svg {
+    width: 24px;
+    height: 24px;
+    fill: rgba(255, 255, 255, .5);
+  }
+
+  &:hover svg:hover {
+    fill: #fff;
+  }
+}
+
+.music-together-divider {
+  width: 1px;
+  height: 26px;
+  background-color: rgba(255, 255, 255, .15);
+  margin-left: 16px;
+  margin-right: 8px;
+}
+
+.music-together-tool {
+  position: absolute;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  opacity: 0;
+  translate: 50%;
+  pointer-events: none;
+
+  transition: all 0.225s ease-out;
+
+  &.open {
+    position: unset;
+    opacity: 1;
+    translate: 0;
+    pointer-events: all;
+  }
+}
+
+.music-together-spinner {
+
+}
+
+.music-together-popup {
+  position: fixed;
+
+  z-index: 1000;
+}
+.music-together-popup-container {
+  border-radius: 10px !important;
+}
+
+.music-together-item {
+  display: flex;
+  height: 48px;
+  align-items: center;
+  padding: 0 8px;
+  --iron-icon-fill-color: #fff;
+
+  &:not([is-disabled]) {
+    cursor: pointer;
+  }
+  &:hover {
+    background-color: var(--ytmusic-menu-item-hover-background-color, rgba(255,255,255,0.05));
+  }
+}
