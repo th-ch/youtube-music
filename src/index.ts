@@ -590,12 +590,12 @@ app.whenReady().then(async () => {
     }
   }
 
-  ipcMain.handle('load-renderer-plugins', async () => {
+  ipcMain.on('get-renderer-script', (event) => {
     // Inject index.html file as string using insertAdjacentHTML
     // In dev mode, get string from process.env.VITE_DEV_SERVER_URL, else use fs.readFileSync
     if (is.dev() && process.env.ELECTRON_RENDERER_URL) {
       // HACK: to make vite work with electron renderer (supports hot reload)
-      await mainWindow?.webContents.executeJavaScript(`
+      event.returnValue = [null, `
         console.log('Loading vite from dev server');
         const viteScript = document.createElement('script');
         viteScript.type = 'module';
@@ -606,7 +606,7 @@ app.whenReady().then(async () => {
         document.body.appendChild(viteScript);
         document.body.appendChild(rendererScript);
         0
-      `);
+      `];
     } else {
       const rendererPath = path.join(__dirname, '..', 'renderer');
       const indexHTML = parse(
@@ -618,16 +618,7 @@ app.whenReady().then(async () => {
         scriptSrc.getAttribute('src')!,
       );
       const scriptString = fs.readFileSync(scriptPath, 'utf-8');
-      await mainWindow?.webContents.executeJavaScriptInIsolatedWorld(
-        0,
-        [
-          {
-            code: scriptString + ';0',
-            url: url.pathToFileURL(scriptPath).toString(),
-          },
-        ],
-        true,
-      );
+      event.returnValue = [url.pathToFileURL(scriptPath).toString(), scriptString + ';0'];
     }
   });
 

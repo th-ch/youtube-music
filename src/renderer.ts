@@ -21,37 +21,6 @@ let isPluginLoaded = false;
 let isApiLoaded = false;
 let firstDataLoaded = false;
 
-const observer = new MutationObserver(() => {
-  const playerApi = document.querySelector<Element & YoutubePlayer>(
-    '#movie_player',
-  );
-  if (playerApi) {
-    observer.disconnect();
-
-    // Inject song-info provider
-    setupSongInfo(playerApi);
-    const dataLoadedListener = (name: string) => {
-      if (!firstDataLoaded && name === 'dataloaded') {
-        firstDataLoaded = true;
-        playerApi.removeEventListener('videodatachange', dataLoadedListener);
-      }
-    };
-    playerApi.addEventListener('videodatachange', dataLoadedListener);
-
-    if (isPluginLoaded && !isApiLoaded) {
-      api = playerApi;
-      isApiLoaded = true;
-
-      onApiLoaded();
-    }
-  }
-});
-
-observer.observe(document.documentElement, {
-  childList: true,
-  subtree: true,
-});
-
 async function listenForApiLoad() {
   if (!isApiLoaded) {
     api = document.querySelector('#movie_player');
@@ -176,14 +145,16 @@ const defineYTMDTransElements = () => {
   );
 };
 
-(async () => {
+const preload = async () => {
   await loadI18n();
   await setLanguage(window.mainConfig.get('options.language') ?? 'en');
   window.i18n = {
     t: i18t.bind(i18next),
   };
   defineYTMDTransElements();
+};
 
+const main = async () => {
   await loadAllRendererPlugins();
   isPluginLoaded = true;
 
@@ -226,4 +197,50 @@ const defineYTMDTransElements = () => {
       console.log(JSON.parse(log));
     });
   }
-})();
+};
+
+const initObserver = async () => {
+  // check document.documentElement is ready
+  await new Promise<void>((resolve) => {
+    document.addEventListener(
+      'DOMContentLoaded',
+      () => {
+        resolve();
+      },
+      { once: true },
+    );
+  });
+
+  const observer = new MutationObserver(() => {
+    const playerApi = document.querySelector<Element & YoutubePlayer>(
+      '#movie_player',
+    );
+    if (playerApi) {
+      observer.disconnect();
+
+      // Inject song-info provider
+      setupSongInfo(playerApi);
+      const dataLoadedListener = (name: string) => {
+        if (!firstDataLoaded && name === 'dataloaded') {
+          firstDataLoaded = true;
+          playerApi.removeEventListener('videodatachange', dataLoadedListener);
+        }
+      };
+      playerApi.addEventListener('videodatachange', dataLoadedListener);
+
+      if (isPluginLoaded && !isApiLoaded) {
+        api = playerApi;
+        isApiLoaded = true;
+
+        onApiLoaded();
+      }
+    }
+  });
+
+  observer.observe(document.documentElement, {
+    childList: true,
+    subtree: true,
+  });
+};
+
+initObserver().then(preload).then(main);
