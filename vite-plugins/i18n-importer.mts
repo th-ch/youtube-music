@@ -1,4 +1,5 @@
-import { basename, relative, resolve, extname } from 'node:path';
+import { basename, relative, resolve, extname, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import { globSync } from 'glob';
 import { Project } from 'ts-morph';
@@ -7,6 +8,7 @@ const snakeToCamel = (text: string) =>
   text.replace(/-(\w)/g, (_, letter: string) => letter.toUpperCase());
 
 export const i18nImporter = () => {
+  const __dirname = dirname(fileURLToPath(import.meta.url));
   const project = new Project({
     tsConfigFilePath: resolve(__dirname, '..', 'tsconfig.json'),
     skipAddingFilesFromTsConfig: true,

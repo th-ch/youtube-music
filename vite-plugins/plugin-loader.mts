@@ -1,5 +1,6 @@
 import { readFile } from 'node:fs/promises';
-import { resolve, basename } from 'node:path';
+import { resolve, basename, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import { createFilter } from 'vite';
 import { Project, ts, ObjectLiteralExpression, VariableDeclarationKind } from 'ts-morph';
@@ -16,6 +17,8 @@ export default function (mode: 'backend' | 'preload' | 'renderer' | 'none'): Plu
     name: 'ytm-plugin-loader',
     async load(id) {
       if (!pluginFilter(id)) return null;
+
+      const __dirname = dirname(fileURLToPath(import.meta.url));
 
       const project = new Project({
         tsConfigFilePath: resolve(__dirname, '..', 'tsconfig.json'),

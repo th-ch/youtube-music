@@ -5,6 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
+  esbuild: 0.18.20
   usocket: 1.0.1
   rollup: 4.9.1
   node-gyp: 10.0.1
@@ -173,8 +174,11 @@ devDependencies:
     specifier: 3.2.0
     version: 3.2.0
   electron-vite:
-    specifier: 1.0.29
-    version: 1.0.29(vite@4.5.1)
+    specifier: 2.0.0-beta.1
+    version: 2.0.0-beta.1(vite@5.0.10)
+  esbuild:
+    specifier: 0.18.20
+    version: 0.18.20
   eslint:
     specifier: 8.56.0
     version: 8.56.0
@@ -209,11 +213,11 @@ devDependencies:
     specifier: 6.0.3
     version: 6.0.3
   vite:
-    specifier: 4.5.1
-    version: 4.5.1(@types/node@20.10.5)
+    specifier: 5.0.10
+    version: 5.0.10(@types/node@20.10.5)
   vite-plugin-inspect:
     specifier: 0.8.1
-    version: 0.8.1(rollup@4.9.1)(vite@4.5.1)
+    version: 0.8.1(rollup@4.9.1)(vite@5.0.10)
   vite-plugin-resolve:
     specifier: 2.5.1
     version: 2.5.1
@@ -2758,13 +2762,13 @@ packages:
       - supports-color
     dev: false
 
-  /electron-vite@1.0.29(vite@4.5.1):
-    resolution: {integrity: sha512-BDTmVTLIri8W4Lz1tn5RAV1slSTinBBb6G77+qKcjkF0vEwdiUp2ntSU6FDqwP9pmy1t96U1CZqIYIStF8H6Jw==}
-    engines: {node: ^14.18.0 || >=16.0.0}
+  /electron-vite@2.0.0-beta.1(vite@5.0.10):
+    resolution: {integrity: sha512-4KNb6+yWYEnmHG2exTUiS470Z38dllgkYy7rIV9kkIT4dVLVXu0ShBGct/94tDW004o++vCtd/Blqogv9nUI6Q==}
+    engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
     peerDependencies:
       '@swc/core': ^1.0.0
-      vite: ^3.0.0 || ^4.0.0
+      vite: ^4.0.0 || ^5.0.0
     peerDependenciesMeta:
       '@swc/core':
         optional: true
@@ -2775,7 +2779,7 @@ packages:
       esbuild: 0.18.20
       magic-string: 0.30.5
       picocolors: 1.0.0
-      vite: 4.5.1(@types/node@20.10.5)
+      vite: 5.0.10(@types/node@20.10.5)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -6026,7 +6030,7 @@ packages:
     dev: true
     optional: true
 
-  /vite-plugin-inspect@0.8.1(rollup@4.9.1)(vite@4.5.1):
+  /vite-plugin-inspect@0.8.1(rollup@4.9.1)(vite@5.0.10):
     resolution: {integrity: sha512-oPBPVGp6tBd5KdY/qY6lrbLXqrbHRG0hZLvEaJfiZ/GQfDB+szRuLHblQh1oi1Hhh8GeLit/50l4xfs2SA+TCA==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -6044,7 +6048,7 @@ packages:
       open: 9.1.0
       picocolors: 1.0.0
       sirv: 2.0.3
-      vite: 4.5.1(@types/node@20.10.5)
+      vite: 5.0.10(@types/node@20.10.5)
     transitivePeerDependencies:
       - rollup
       - supports-color
@@ -6056,12 +6060,12 @@ packages:
       lib-esm: 0.4.1
     dev: true
 
-  /vite@4.5.1(@types/node@20.10.5):
-    resolution: {integrity: sha512-AXXFaAJ8yebyqzoNB9fu2pHoo/nWX+xZlaRwoeYUxEqBO+Zj4msE5G+BhGBll9lYEKv9Hfks52PAF2X7qDYXQA==}
-    engines: {node: ^14.18.0 || >=16.0.0}
+  /vite@5.0.10(@types/node@20.10.5):
+    resolution: {integrity: sha512-2P8J7WWgmc355HUMlFrwofacvr98DAjoE52BfdbwQtyLH06XKwaL/FMnmKM2crF0iX4MpmMKoDlNCB1ok7zHCw==}
+    engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
     peerDependencies:
-      '@types/node': '>= 14'
+      '@types/node': ^18.0.0 || >=20.0.0
       less: '*'
       lightningcss: ^1.21.0
       sass: '*'
