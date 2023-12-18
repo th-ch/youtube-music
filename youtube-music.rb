@@ -1,12 +1,14 @@
 require 'json'
-require 'open-uri'
+require 'net/http'
 
 cask "youtube-music" do
   desc "YouTube Music Desktop App"
   homepage "https://github.com/th-ch/youtube-music"
 
   # Fetch the latest release version from GitHub API
-  latest_release = JSON.parse(URI.open("https://api.github.com/repos/th-ch/youtube-music/releases/latest").read)['tag_name']
+  uri = URI("https://api.github.com/repos/th-ch/youtube-music/releases/latest")
+  response = Net::HTTP.get(uri)
+  latest_release = JSON.parse(response)['tag_name']
   version latest_release
 
   base_url = "https://github.com/th-ch/youtube-music/releases/download/#{latest_release}/YouTube-Music-#{latest_release.delete_prefix('v')}"
@@ -24,5 +26,4 @@ cask "youtube-music" do
   end
 
   auto_updates true
-
 end
