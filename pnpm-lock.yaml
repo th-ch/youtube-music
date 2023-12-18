@@ -134,8 +134,8 @@ dependencies:
 
 devDependencies:
   '@playwright/test':
-    specifier: 1.41.0-alpha-dec-12-2023
-    version: 1.41.0-alpha-dec-12-2023
+    specifier: 1.41.0-alpha-dec-18-2023
+    version: 1.41.0-alpha-dec-18-2023
   '@total-typescript/ts-reset':
     specifier: 0.5.1
     version: 0.5.1
@@ -197,8 +197,8 @@ devDependencies:
     specifier: 10.0.1
     version: 10.0.1
   playwright:
-    specifier: 1.41.0-alpha-dec-12-2023
-    version: 1.41.0-alpha-dec-12-2023
+    specifier: 1.41.0-alpha-dec-18-2023
+    version: 1.41.0-alpha-dec-18-2023
   rollup:
     specifier: 4.9.1
     version: 4.9.1
@@ -1008,12 +1008,12 @@ packages:
       tslib: 2.6.2
     dev: true
 
-  /@playwright/test@1.41.0-alpha-dec-12-2023:
-    resolution: {integrity: sha512-odmer37mEZPtWTGYp4maWFcbEKOGvu5gRnLyjNe1i1SN0ZOG3Fw0Q8dFDfU0+QCNmSTiihp/JGZq5CLR40ExPA==}
+  /@playwright/test@1.41.0-alpha-dec-18-2023:
+    resolution: {integrity: sha512-rxSQVGljKdqEpc9V1j6BmByXKvKQuvE45TALttF33fYwkmsZG/YN35PbcSEfsVlUn0aVjs9DFKkgYb9m58TA1w==}
     engines: {node: '>=16'}
     hasBin: true
     dependencies:
-      playwright: 1.41.0-alpha-dec-12-2023
+      playwright: 1.41.0-alpha-dec-18-2023
     dev: true
 
   /@polka/url@1.0.0-next.24:
@@ -4995,18 +4995,18 @@ packages:
       find-up: 3.0.0
     dev: false
 
-  /playwright-core@1.41.0-alpha-dec-12-2023:
-    resolution: {integrity: sha512-D5wegTHeuzMVE7vAWRHTn/KqDtM3MaUeg9UiCD46Nrz8H4thgIoqQRQpcqZImanBiCUlIlnbtPo7tg+75D6ocg==}
+  /playwright-core@1.41.0-alpha-dec-18-2023:
+    resolution: {integrity: sha512-Oq0CbX6wvd7Srh1LCRLYZAJ7FSnjnH4UPPR4Qcyk97v+CwCK12lTwKA+2+t8VOcUA5k7KoziWsS62ekZPrsIGA==}
     engines: {node: '>=16'}
     hasBin: true
     dev: true
 
-  /playwright@1.41.0-alpha-dec-12-2023:
-    resolution: {integrity: sha512-fKnUn9kJDItuUsXbNbYyl9XV9+x/A8Bp1kX1opejErlHLm/xMk6gYpgGHiwr5SuWC5gc04Zr4oPmMP7LQB8UQA==}
+  /playwright@1.41.0-alpha-dec-18-2023:
+    resolution: {integrity: sha512-lV0zEYSuNAfz6hogEK9yH/bjA1vjzRjm/6a7ckwVnjj9Stxz5ttUtZ942BH+d5a1cj6g1FcTDU3xLIsqxOhjpg==}
     engines: {node: '>=16'}
     hasBin: true
     dependencies:
-      playwright-core: 1.41.0-alpha-dec-12-2023
+      playwright-core: 1.41.0-alpha-dec-18-2023
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
