@@ -140,7 +140,7 @@
     "@electron/remote": "2.1.1",
     "@ffmpeg.wasm/core-mt": "0.12.0",
     "@ffmpeg.wasm/main": "0.12.0",
-    "@foobar404/wave": "2.0.4",
+    "@foobar404/wave": "2.0.5",
     "@jellybrick/electron-better-web-request": "1.0.4",
     "@jellybrick/mpris-service": "2.1.4",
     "@xhayper/discord-rpc": "1.1.1",
