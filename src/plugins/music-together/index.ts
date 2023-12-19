@@ -12,13 +12,30 @@ import settingHTML from './templates/setting.html?raw';
 import IconKey from './icons/key.svg?raw';
 import IconOff from './icons/off.svg?raw';
 import style from './style.css?inline';
-import { YoutubePlayer } from '@/types/youtube-player';
+
+import type { YoutubePlayer } from '@/types/youtube-player';
+import { RendererContext } from '@/types/contexts';
+import { getMusicQueueRenderer } from '@/plugins/music-together/parser/song';
+
+type StoreState = any;
+type Store = {
+  dispatch: (obj: {
+    type: string;
+    payload?: unknown;
+  }) => void;
+
+  getState: () => StoreState;
+  replaceReducer: (param1: unknown) => unknown;
+  subscribe: (callback: () => void) => unknown;
+};
 
 type QueueAPI = {
   dispatch(obj: {
     type: string;
     payload?: unknown;
   }): void;
+  getItems(): unknown[];
+  store: Store;
 };
 
 type AppAPI = {
@@ -38,7 +55,7 @@ export default createPlugin({
   },
   stylesheets: [style],
   backend: {
-    start({ ipc }) {
+    async start({ ipc, window }) {
       ipc.handle('music-together:prompt', async (title: string, label: string) => {
         const result = await prompt({
           title,
@@ -54,6 +71,7 @@ export default createPlugin({
   renderer: {
     peer: null as Peer | null,
     realConnection: null as DataConnection | null,
+    ipc: null as RendererContext<never>['ipc'] | null,
 
     api: null as (HTMLElement & AppAPI) | null,
     queue: null as (HTMLElement & QueueAPI) | null,
@@ -68,18 +86,49 @@ export default createPlugin({
       joinSpinner: HTMLElement;
     },
 
-    resetQueue() {
-      this.queue?.dispatch({
-        type: 'CLEAR'
-      });
-    },
-
     async connection(conn: DataConnection) {
       return new Promise<void>((resolve) => {
         this.realConnection = conn;
 
         conn.on('open', () => {
-          conn.on('data', (data) => console.log('data-received', data));
+          conn.on('data', (data) => {
+            try { // for test
+              data = JSON.parse(data);
+              console.log('for dev', data);
+            } catch {}
+            if (!data || typeof data !== 'object' || !('type' in data) || !('payload' in data) || !data.type || !data.payload) {
+              console.warn('Music Together: Invalid data', data);
+              return;
+            }
+
+            switch (data.type) {
+              case 'ADD_SONG': {
+                const videoID = (data.payload as Record<string, unknown>).videoID;
+                if (typeof videoID !== 'string') return;
+
+                this.onAddSong(videoID);
+                break;
+              }
+              case 'REMOVE_SONG': {
+                const index = (data.payload as Record<string, unknown>).index;
+                if (typeof index !== 'number') return;
+
+                this.onRemoveSong(index);
+                break;
+              }
+              case 'SYNC_QUEUE': {
+                const videoIDs = (data.payload as Record<string, unknown>).videoIDs;
+                if (!Array.isArray(videoIDs)) return;
+
+                this.syncQueue(videoIDs);
+                break;
+              }
+              default: {
+                console.warn('Music Together: Unknown Event', data);
+                break;
+              }
+            }
+          });
           conn.on('close', () => console.log('data-close'));
           resolve();
         });
@@ -87,10 +136,11 @@ export default createPlugin({
     },
 
     async onStart() {
-      return new Promise((resolve) => {
+      return new Promise<string>((resolve, reject) => {
         this.peer = new Peer({ debug: 3 });
         this.peer.on('open', (id) => resolve(id));
         this.peer.on('connection', (conn) => this.connection(conn));
+        this.peer.on('error', (err) => reject(err));
       });
     },
 
@@ -109,6 +159,46 @@ export default createPlugin({
       return true;
     },
 
+    syncQueue(videoIDs: string[] = []) {
+      this.queue?.dispatch({
+        type: 'UPDATE_ITEMS',
+        payload: {
+          items: videoIDs, // TODO: replace with real items
+          nextQueueItemId: this.queue.store.getState().queue.nextQueueItemId,
+          shouldAssignIds: false,
+          currentIndex: 0,
+        },
+      });
+    },
+
+    async onAddSong(videoID: string) {
+      const response = await getMusicQueueRenderer([videoID]);
+      if (!response) return false;
+
+      const item = response.queueDatas[0]?.content;
+      if (!item) return false;
+
+      this.queue?.dispatch({
+        type: 'ADD_ITEMS',
+        payload: {
+          nextQueueItemId: this.queue.store.getState().queue.nextQueueItemId,
+          index: this.queue.store.getState().queue.items.length ?? 0,
+          items: [item],
+          shuffleEnabled: false,
+          shouldAssignIds: true,
+        }
+      });
+
+      return true;
+    },
+
+    async onRemoveSong(index: number) {
+      this.queue?.dispatch({
+        type: 'REMOVE_ITEMS',
+        payload: index,
+      });
+    },
+
     send(type: string, payload?: unknown) {
       if (!this.peer) return false;
 
@@ -120,6 +210,7 @@ export default createPlugin({
     },
 
     start({ ipc }) {
+      this.ipc = ipc;
       this.showPrompt = async (title: string, label: string) => ipc.invoke('music-together:prompt', title, label);
       this.api = document.querySelector<HTMLElement & AppAPI>('ytmusic-app');
 
@@ -148,6 +239,7 @@ export default createPlugin({
       setting.addEventListener('click', () => {
         toolbar.classList.toggle('open');
       });
+
 
       const hostIdPopup = Popup({
         data: [
@@ -183,22 +275,33 @@ export default createPlugin({
         hostSpinner.removeAttribute('hidden');
         hostSpinner.setAttribute('active', '');
         hostButton.setAttribute('hidden', '');
-        await this.onStart();
+        const result = await this.onStart().catch(() => null);
         hostSpinner.removeAttribute('active');
         hostSpinner.setAttribute('hidden', '');
         hostButton.removeAttribute('hidden');
 
-        navigator.clipboard.writeText(this.peer?.id ?? '');
-        this.api?.openToast('Copied Music Together ID to clipboard');
+        if (result) {
+          navigator.clipboard.writeText(this.peer?.id ?? '');
+          this.api?.openToast('Copied Music Together ID to clipboard');
+          hostIdPopup.showAtAnchor(hostButton);
+        } else {
+          this.api?.openToast('Failed to start Music Together Host');
+        }
       });
       joinButton.addEventListener('click', async () => {
         joinSpinner.removeAttribute('hidden');
         joinSpinner.setAttribute('active', '');
         joinButton.setAttribute('hidden', '');
-        await this.onJoin();
+        const result = await this.onJoin().catch(() => false);
         joinSpinner.removeAttribute('active');
         joinSpinner.setAttribute('hidden', '');
         joinButton.removeAttribute('hidden');
+
+        if (result) {
+          this.api?.openToast('Joined Music Together');
+        } else {
+          this.api?.openToast('Failed to join Music Together');
+        }
       });
     },
     onPlayerApiReady() {
