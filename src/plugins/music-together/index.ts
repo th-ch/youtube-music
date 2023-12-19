@@ -85,17 +85,25 @@ export default createPlugin({
       hostSpinner: HTMLElement;
       joinSpinner: HTMLElement;
     },
+    replaceObserver: null as MutationObserver | null,
+
+    get isConnected() {
+      return !!this.realConnection;
+    },
 
     async connection(conn: DataConnection) {
       return new Promise<void>((resolve) => {
         this.realConnection = conn;
 
         conn.on('open', () => {
+          resolve();
+
           conn.on('data', (data) => {
             try { // for test
               data = JSON.parse(data);
               console.log('for dev', data);
-            } catch {}
+            } catch {
+            }
             if (!data || typeof data !== 'object' || !('type' in data) || !('payload' in data) || !data.type || !data.payload) {
               console.warn('Music Together: Invalid data', data);
               return;
@@ -129,8 +137,10 @@ export default createPlugin({
               }
             }
           });
-          conn.on('close', () => console.log('data-close'));
-          resolve();
+          conn.on('close', () => {
+            this.realConnection = null;
+            console.log('data-close');
+          });
         });
       });
     },
@@ -166,8 +176,8 @@ export default createPlugin({
           items: videoIDs, // TODO: replace with real items
           nextQueueItemId: this.queue.store.getState().queue.nextQueueItemId,
           shouldAssignIds: false,
-          currentIndex: 0,
-        },
+          currentIndex: 0
+        }
       });
     },
 
@@ -185,7 +195,7 @@ export default createPlugin({
           index: this.queue.store.getState().queue.items.length ?? 0,
           items: [item],
           shuffleEnabled: false,
-          shouldAssignIds: true,
+          shouldAssignIds: true
         }
       });
 
@@ -194,8 +204,8 @@ export default createPlugin({
 
     async onRemoveSong(index: number) {
       this.queue?.dispatch({
-        type: 'REMOVE_ITEMS',
-        payload: index,
+        type: 'REMOVE_ITEM',
+        payload: index
       });
     },
 
@@ -234,12 +244,77 @@ export default createPlugin({
         joinButton,
         hostSpinner,
         joinSpinner
-      }
+      };
+      const availableTags = [
+        'ytmusic-toggle-menu-service-item-renderer',
+        'ytmusic-menu-navigation-item-renderer',
+        'ytmusic-menu-service-item-renderer'
+      ];
+      const addSongIcons = [
+        'ADD_TO_REMOTE_QUEUE',
+        'QUEUE_PLAY_NEXT'
+      ];
+      const removeSongIcon = [
+        'REMOVE'
+      ];
+
+      this.replaceObserver = new MutationObserver((entries) => {
+        if (!this.isConnected) return;
+
+        for (const entry of entries) {
+          entry.addedNodes.forEach((node) => {
+            if (!(node instanceof HTMLElement)) return;
+            if (!availableTags.includes(node.tagName.toLowerCase())) return;
+            if (!('data' in node)) return;
+
+            const iconType = (node.data as Record<string, Record<string, string>>)?.icon?.iconType;
+            if (addSongIcons.includes(iconType)) {
+              node.addEventListener('click', (event) => {
+                event.stopImmediatePropagation();
+
+                const videoId = (node.data as any)?.serviceEndpoint?.queueAddEndpoint?.queueTarget?.videoId;
+                if (!videoId) {
+                  this.api?.openToast('Failed to add song to Music Together');
+                  return;
+                }
+
+                this.send('ADD_SONG', { videoID: videoId });
+                this.onAddSong(videoId);
+              }, true);
+            }
+
+            if (removeSongIcon.includes(iconType)) {
+              node.addEventListener('click', (event) => {
+                event.stopImmediatePropagation();
+
+                const videoId = (node.data as any)?.serviceEndpoint?.removeFromQueueEndpoint?.videoId;
+                const itemIndex = Number((node.data as any)?.serviceEndpoint?.removeFromQueueEndpoint?.itemId?.toString());
+
+                if (!videoId) {
+                  this.api?.openToast('Failed to remove song to Music Together');
+                  return;
+                }
+
+                const index = Number.isFinite(itemIndex) ? itemIndex : -1;
+                if (index >= 0) {
+                  this.send('REMOVE_SONG', { index });
+                  this.onRemoveSong(index);
+                } else {
+                  console.warn('Music Together: Cannot find song index');
+                }
+              }, true);
+            }
+          });
+        }
+      });
+      this.replaceObserver.observe(document.querySelector('ytmusic-popup-container')!, {
+        childList: true,
+        subtree: true
+      });
 
       setting.addEventListener('click', () => {
         toolbar.classList.toggle('open');
       });
-
 
       const hostIdPopup = Popup({
         data: [
@@ -260,11 +335,11 @@ export default createPlugin({
               this.onStop();
               this.api?.openToast('Music Together Host Closed');
               hostIdPopup.dismiss();
-            },
-          },
+            }
+          }
         ],
         anchorAt: 'bottom-right',
-        popupAt: 'top-right',
+        popupAt: 'top-right'
       });
       hostButton.addEventListener('click', async () => {
         if (this.peer?.open) {
@@ -313,6 +388,7 @@ export default createPlugin({
 
       this.elements.setting.remove();
       this.elements.toolbar.remove();
-    },
-  },
+      this.replaceObserver?.disconnect();
+    }
+  }
 });
