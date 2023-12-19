@@ -290,9 +290,9 @@ import style from './style.css?inline'; // import style as inline
 
 import { createPlugin } from '@/utils';
 
-const builder = createPlugin({
+export default createPlugin({
   name: 'Plugin Label',
-  restartNeeded: true, // if value is true, ytmusic show restart dialog
+  restartNeeded: true, // if value is true, ytmusic will show a restart dialog
   config: {
     enabled: false,
   }, // your custom config
@@ -306,9 +306,9 @@ const builder = createPlugin({
 ```typescript
 import { createPlugin } from '@/utils';
 
-const builder = createPlugin({
+export default createPlugin({
   name: 'Plugin Label',
-  restartNeeded: true, // if value is true, ytmusic show restart dialog
+  restartNeeded: true, // if value is true, ytmusic will show the restart dialog
   config: {
     enabled: false,
   }, // your custom config

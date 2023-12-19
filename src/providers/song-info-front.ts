@@ -2,7 +2,7 @@ import { singleton } from './decorators';
 
 import type { YoutubePlayer } from '@/types/youtube-player';
 import type { GetState } from '@/types/datahost-get-state';
-import type { VideoDataChangeValue } from '@/types/player-api-events';
+import type { AlbumDetails, VideoDataChangeValue } from '@/types/player-api-events';
 
 import type { SongInfo } from './song-info';
 import type { VideoDataChanged } from '@/types/video-data-changed';
@@ -155,7 +155,10 @@ export default (api: YoutubePlayer) => {
     const data = api.getPlayerResponse();
 
     data.videoDetails.album =
-      videoData?.Hd?.playerOverlays?.playerOverlayRenderer?.browserMediaSession?.browserMediaSessionRenderer?.album.runs?.at(
+      (
+        Object.entries(videoData)
+          .find(([, value]) => value && Object.hasOwn(value, 'playerOverlays')) as [string, AlbumDetails | undefined]
+      )?.[1]?.playerOverlays?.playerOverlayRenderer?.browserMediaSession?.browserMediaSessionRenderer?.album?.runs?.at(
         0,
       )?.text;
     data.videoDetails.elapsedSeconds = 0;

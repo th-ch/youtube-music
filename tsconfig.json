@@ -1,9 +1,9 @@
 {
   "extends": "@electron-toolkit/tsconfig/tsconfig.node.json",
   "compilerOptions": {
-    "target": "ESNext",
+    "target": "esnext",
     "lib": ["dom", "dom.iterable", "es2022"],
-    "module": "CommonJS",
+    "module": "esnext",
     "types": ["electron-vite/node"],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
@@ -21,5 +21,8 @@
     }
   },
   "exclude": ["./dist"],
-  "include": ["electron.vite.config.ts", "./src/**/*"]
+  "include": [
+    "electron.vite.config.mts",
+    "./src/**/*"
+  ]
 }

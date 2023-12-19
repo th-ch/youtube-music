@@ -590,23 +590,33 @@ app.whenReady().then(async () => {
     }
   }
 
-  ipcMain.handle('load-renderer-plugins', async () => {
+  ipcMain.on('get-renderer-script', (event) => {
     // Inject index.html file as string using insertAdjacentHTML
     // In dev mode, get string from process.env.VITE_DEV_SERVER_URL, else use fs.readFileSync
     if (is.dev() && process.env.ELECTRON_RENDERER_URL) {
       // HACK: to make vite work with electron renderer (supports hot reload)
-      await mainWindow?.webContents.executeJavaScript(`
-        console.log('Loading vite from dev server');
-        const viteScript = document.createElement('script');
-        viteScript.type = 'module';
-        viteScript.src = '${process.env.ELECTRON_RENDERER_URL}/@vite/client';
-        const rendererScript = document.createElement('script');
-        rendererScript.type = 'module';
-        rendererScript.src = '${process.env.ELECTRON_RENDERER_URL}/renderer.ts';
-        document.body.appendChild(viteScript);
-        document.body.appendChild(rendererScript);
+      event.returnValue = [null, `
+        console.log('${LoggerPrefix}', 'Loading vite from dev server');
+        (async () => {
+          await new Promise((resolve) => {
+            if (document.readyState === 'loading') {
+              console.log('${LoggerPrefix}', 'Waiting for DOM to load');
+              document.addEventListener('DOMContentLoaded', () => resolve(), { once: true });
+            } else {
+              resolve();
+            }
+          });
+          const viteScript = document.createElement('script');
+          viteScript.type = 'module';
+          viteScript.src = '${process.env.ELECTRON_RENDERER_URL}/@vite/client';
+          const rendererScript = document.createElement('script');
+          rendererScript.type = 'module';
+          rendererScript.src = '${process.env.ELECTRON_RENDERER_URL}/renderer.ts';
+          document.body.appendChild(viteScript);
+          document.body.appendChild(rendererScript);
+        })();
         0
-      `);
+      `];
     } else {
       const rendererPath = path.join(__dirname, '..', 'renderer');
       const indexHTML = parse(
@@ -618,16 +628,7 @@ app.whenReady().then(async () => {
         scriptSrc.getAttribute('src')!,
       );
       const scriptString = fs.readFileSync(scriptPath, 'utf-8');
-      await mainWindow?.webContents.executeJavaScriptInIsolatedWorld(
-        0,
-        [
-          {
-            code: scriptString + ';0',
-            url: url.pathToFileURL(scriptPath).toString(),
-          },
-        ],
-        true,
-      );
+      event.returnValue = [url.pathToFileURL(scriptPath).toString(), scriptString + ';0'];
     }
   });
 

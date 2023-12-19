@@ -44,7 +44,7 @@
     },
     "dialog": {
       "hide-menu-enabled": {
-        "detail": "Menü ist versteckt, nutze 'Alt', um es zu zeigen (oder 'Escape' beim Verwenden des In-App-Menüs)",
+        "detail": "Das Menü ist versteckt, nutze 'Alt', um es zu aufzurufen (oder 'Escape' beim Verwenden des In-App-Menüs)",
         "message": "Menü verstecken ist aktiviert",
         "title": "Menü Verstecken Aktiviert"
       },
@@ -105,7 +105,7 @@
                 "label": "Proxy setzen",
                 "prompt": {
                   "label": "Proxy-Adresse eingeben: (leer lassen zum Ausschalten)",
-                  "placeholder": "Beispiel: socks5://127.0.0.1:9999",
+                  "placeholder": "Beispiel: SOCKS5://127.0.0.1:9999",
                   "title": "Proxy setzen"
                 }
               },
@@ -470,9 +470,9 @@
         "save-window-size": "Fenstergröße speichern",
         "use-native-pip": "Browsereigenes PiP verwenden"
       },
-      "name": "Bild im Bild",
+      "name": "Bild-im-Bild",
       "templates": {
-        "button": "Bild im Bild"
+        "button": "Bild-im-Bild"
       }
     },
     "playback-speed": {
@@ -519,7 +519,7 @@
       "name": "Videoqualitätsänderer"
     },
     "shortcuts": {
-      "description": "Ermöglicht das Festlegen globaler Hotkeys für die Wiedergabe (Abspielen/Pause/Nächstes/Vorheriges) + Deaktivieren des Medien-OSD durch Überschreiben der Medientasten + Aktivieren von Strg/CMD + F zum Suchen + Aktivieren der Linux mpris-Unterstützung für Medientasten + Angepasste Tastenkürzel für fortgeschrittene Benutzer",
+      "description": "Ermöglicht das Festlegen globaler Hotkeys für die Wiedergabe (Abspielen/Pause/Nächster/Vorheriger) + Deaktivieren des Medien-OSD durch Überschreiben der Medientasten + Aktivieren von Strg/CMD + F zum Suchen + Aktivieren der Linux mpris-Unterstützung für Medientasten + Angepasste Tastenkürzel für fortgeschrittene Benutzer.",
       "menu": {
         "override-media-keys": "Medientasten überschreiben",
         "set-keybinds": "Globale Liedsteuerung setzen"
@@ -536,6 +536,10 @@
           "title": "Globale Tastenkombinationen"
         }
       }
+    },
+    "skip-disliked-songs": {
+      "description": "Überspringt Lieder, die ihnen nicht gefallen",
+      "name": "Überspring Lieder, die ihnen nicht gefallen"
     },
     "skip-silences": {
       "description": "Automatisch stille Abschnitte in Liedern überspringen",

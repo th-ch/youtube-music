@@ -197,9 +197,9 @@
     "adblocker": {
       "description": "모든 광고와 트래커를 즉시 차단합니다",
       "menu": {
-        "blocker": "애드블록 타입"
+        "blocker": "광고 차단 타입"
       },
-      "name": "애드블록"
+      "name": "광고 차단기"
     },
     "album-color-theme": {
       "description": "앨범 색상 팔레트를 기반으로 동적 테마 및 시각 효과를 적용합니다",
