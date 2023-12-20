@@ -301,19 +301,21 @@ export default createPlugin({
           items: items,
           nextQueueItemId: this.queue.store.getState().queue.nextQueueItemId,
           shouldAssignIds: true,
-          currentIndex: 0,
+          currentIndex: -1,
         }
       });
       setTimeout(() => {
-        this.playerApi?.nextVideo();
-        this.onRemoveSong(0);
-
         this.queue?.dispatch({
           type: 'SET_IS_INFINITE',
           payload: false,
         });
         this.queue?.dispatch({
-          type: 'CLEAR_STEERING_CHIPS',
+          type: 'SET_IS_PREFETCHING_CONTINUATIONS',
+          payload: false,
+        });
+        this.queue?.dispatch({
+          type: 'SET_IS_GENERATING',
+          payload: false,
         });
       }, 0);
 
@@ -390,8 +392,8 @@ export default createPlugin({
       this.elements.spinner.setAttribute('hidden', '');
     },
 
-    mapQueueItem<T>(map: (item: any | null) => T): T[] {
-      return this.queue?.store.getState().queue.items
+    mapQueueItem<T>(map: (item: any | null) => T, array?: unknown[]): T[] {
+      return (array ?? this.queue?.store.getState().queue.items)
         .map((item) => {
           if ('playlistPanelVideoWrapperRenderer' in item) {
             const keys = Object.keys(item.playlistPanelVideoWrapperRenderer.primaryRenderer);
