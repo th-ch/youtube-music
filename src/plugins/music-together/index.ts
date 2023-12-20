@@ -59,8 +59,8 @@ type QueueAPI = {
 };
 
 type AppAPI = {
-  _queue: QueueAPI;
-  _playerApi: YoutubePlayer;
+  queue_: QueueAPI;
+  playerApi_: YoutubePlayer;
   openToast: (message: string) => void;
 
   // TODO: Add more
@@ -68,7 +68,7 @@ type AppAPI = {
 
 const getDefaultProfile = (connectionID: string) => ({
   id: `#music-together:${connectionID}`,
-  name: `Guest ${connectionID.slice(0, 4)}`,
+  name: `Guest ${connectionID.slice(0, 4)}`
 });
 
 export default createPlugin({
@@ -100,6 +100,7 @@ export default createPlugin({
     id: null as string | null,
 
     api: null as (HTMLElement & AppAPI) | null,
+    playerApi: null as YoutubePlayer | null,
     queue: null as (HTMLElement & QueueAPI) | null,
     showPrompt: (async () => null) as ((title: string, label: string) => Promise<string | null>),
 
@@ -117,6 +118,7 @@ export default createPlugin({
     isHost: false,
     me: null as Profile | null,
     profiles: {} as Record<string, Profile>,
+    stateInterval: null as number | null,
 
     /* connection */
 
@@ -167,6 +169,12 @@ export default createPlugin({
                 this.onRemoveSong(index);
                 break;
               }
+              case 'IDENTIFY': {
+                const profile = data.payload as Profile | undefined;
+
+                this.putProfile(conn.connectionId, profile);
+                break;
+              }
               case 'SYNC_QUEUE': {
                 if (this.isHost) {
                   const videoIdList = this.queue.store.getState().queue.items.map((item) => {
@@ -189,12 +197,6 @@ export default createPlugin({
                 }
                 break;
               }
-              case 'IDENTIFY': {
-                const profile = data.payload as Profile | undefined;
-
-                this.putProfile(conn.connectionId, profile);
-                break;
-              }
               case 'SYNC_PROFILE': {
                 if (this.isHost) { // distributes
                   this.send('SYNC_PROFILE', this.profiles);
@@ -204,6 +206,19 @@ export default createPlugin({
 
                   Object.entries(profiles).forEach(([id, profile]) => {
                     this.putProfile(id, profile);
+                  });
+                }
+                break;
+              }
+              case 'SYNC_PROGRESS': {
+                const payload = data.payload as Record<string, unknown> | undefined;
+                if (typeof payload?.progress === 'number') this.playerApi?.seekTo(payload.progress);
+                if (payload?.state === 2) this.playerApi?.pauseVideo();
+                if (payload?.state === 1) this.playerApi?.playVideo();
+                if (typeof payload?.index === 'number') {
+                  this.queue?.dispatch({
+                    type: 'SET_INDEX',
+                    payload: payload.index,
                   });
                 }
                 break;
@@ -269,11 +284,11 @@ export default createPlugin({
         payload: {
           items,
           nextQueueItemId: this.queue.store.getState().queue.nextQueueItemId,
-          shouldAssignIds: false,
-          currentIndex: 0
+          shouldAssignIds: true,
+          currentIndex: 0,
         }
       });
-      this.api?._playerApi.nextVideo();
+      this.playerApi?.nextVideo();
 
       return true;
     },
@@ -355,6 +370,7 @@ export default createPlugin({
       this.showPrompt = async (title: string, label: string) => ipc.invoke('music-together:prompt', title, label);
       this.api = document.querySelector<HTMLElement & AppAPI>('ytmusic-app');
 
+      /* setup */
       document.querySelector('#right-content > ytmusic-settings-button')?.insertAdjacentHTML('beforebegin', settingHTML);
       const setting = document.querySelector<HTMLElement>('#music-together-setting-button');
       const icon = document.querySelector<SVGElement>('#music-together-setting-button > svg');
@@ -370,6 +386,8 @@ export default createPlugin({
         icon,
         spinner
       };
+
+      /* Injector */
       const availableTags = [
         'ytmusic-toggle-menu-service-item-renderer',
         'ytmusic-menu-navigation-item-renderer',
@@ -437,6 +455,28 @@ export default createPlugin({
         subtree: true
       });
 
+      this.stateInterval = window.setInterval(() => {
+        if (this.isConnected && this.isHost && this.playerApi) {
+          const index = this.queue?.store.getState().queue.items.findIndex((item) => {
+            if ('playlistPanelVideoWrapperRenderer' in item) {
+              return item.playlistPanelVideoWrapperRenderer.primaryRenderer.playlistPanelVideoRenderer.selected;
+            }
+            if ('playlistVideoRenderer' in item) {
+              return item.playlistPanelVideoRenderer.selected;
+            }
+
+            return false;
+          }) ?? 0;
+
+          this.send('SYNC_PROGRESS', {
+            progress: this.playerApi.getCurrentTime(),
+            state: this.playerApi.getPlayerState(),
+            index,
+          });
+        }
+      }, 1000);
+
+      /* UI */
       const hostPopup = createHostPopup({
         onItemClick: (id) => {
           if (id === 'music-together-close') {
@@ -497,7 +537,7 @@ export default createPlugin({
       this.popups = {
         host: hostPopup,
         guest: guestPopup,
-        setting: settingPopup,
+        setting: settingPopup
       };
       setting.addEventListener('click', async () => {
         let popup = settingPopup;
@@ -526,12 +566,13 @@ export default createPlugin({
         this.me = {
           id: accountData.channelHandle.runs[0].text,
           name: accountData.accountName.runs[0].text,
-          thumbnail: accountData.accountPhoto.thumbnails[0].url,
+          thumbnail: accountData.accountPhoto.thumbnails[0].url
         };
       }, 0);
     },
-    onPlayerApiReady() {
+    onPlayerApiReady(playerApi) {
       this.queue = document.querySelector('#queue');
+      this.playerApi = playerApi;
     },
     stop() {
       const dividers = Array.from(document.querySelectorAll('.music-together-divider'));
@@ -539,6 +580,7 @@ export default createPlugin({
 
       this.elements.setting.remove();
       this.replaceObserver?.disconnect();
+      if (typeof this.stateInterval === 'number') clearInterval(this.stateInterval);
     }
   }
 });
