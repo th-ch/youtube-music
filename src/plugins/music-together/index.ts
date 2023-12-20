@@ -274,6 +274,7 @@ export default createPlugin({
       this.realConnection = null;
       this.isHost = false;
       this.id = null;
+      this.profiles = {};
     },
 
     send(type: string, payload?: unknown) {
@@ -293,7 +294,6 @@ export default createPlugin({
       if (!response) return false;
 
       const items = response.queueDatas.map((it) => it.content);
-      const currentIndex = this.mapQueueItem((it) => it?.selected).findIndex(Boolean) ?? 0;
 
       this.queue?.dispatch({
         type: 'UPDATE_ITEMS',
@@ -301,13 +301,21 @@ export default createPlugin({
           items: items,
           nextQueueItemId: this.queue.store.getState().queue.nextQueueItemId,
           shouldAssignIds: true,
-          currentIndex,
+          currentIndex: 0,
         }
       });
       setTimeout(() => {
         this.playerApi?.nextVideo();
         this.onRemoveSong(0);
-      }, 500);
+
+        this.queue?.dispatch({
+          type: 'SET_IS_INFINITE',
+          payload: false,
+        });
+        this.queue?.dispatch({
+          type: 'CLEAR_STEERING_CHIPS',
+        });
+      }, 0);
 
       return true;
     },
@@ -508,14 +516,14 @@ export default createPlugin({
         onItemClick: (id) => {
           if (id === 'music-together-close') {
             this.onStop();
-            this.api?.openToast('Music Together Host Closed');
+            this.api?.openToast(t('plugins.music-together.toast.closed'));
             hostPopup.dismiss();
           }
 
           if (id === 'music-together-copy-id') {
             navigator.clipboard.writeText(this.peer?.id ?? '');
 
-            this.api?.openToast('Copied Music Together ID to clipboard');
+            this.api?.openToast(t('plugins.music-together.toast.id-copied'));
             hostPopup.dismiss();
           }
         }
@@ -524,7 +532,7 @@ export default createPlugin({
         onItemClick: (id) => {
           if (id === 'music-together-disconnect') {
             this.onStop();
-            this.api?.openToast('Music Together Disconnected');
+            this.api?.openToast(t('plugins.music-together.toast.disconnected'));
             guestPopup.dismiss();
           }
         }
@@ -539,10 +547,10 @@ export default createPlugin({
 
             if (result) {
               navigator.clipboard.writeText(this.peer?.id ?? '');
-              this.api?.openToast('Copied Music Together ID to clipboard');
+              this.api?.openToast(t('plugins.music-together.toast.id-copied'));
               hostPopup.showAtAnchor(setting);
             } else {
-              this.api?.openToast('Failed to start Music Together Host');
+              this.api?.openToast(t('plugins.music-together.toast.host-failed'));
             }
           }
 
@@ -553,10 +561,10 @@ export default createPlugin({
             this.hideSpinner();
 
             if (result) {
-              this.api?.openToast('Joined Music Together');
+              this.api?.openToast(t('plugins.muic-together.toast.joined'));
               guestPopup.showAtAnchor(setting);
             } else {
-              this.api?.openToast('Failed to join Music Together');
+              this.api?.openToast(t('plugins.music-together.toast.join-failed'));
             }
           }
         }
@@ -595,6 +603,12 @@ export default createPlugin({
           name: accountData.accountName.runs[0].text,
           thumbnail: accountData.accountPhoto.thumbnails[0].url
         };
+
+        if (this.me.thumbnail) {
+          this.popups.host.setProfile(this.me.thumbnail);
+          this.popups.guest.setProfile(this.me.thumbnail);
+          this.popups.setting.setProfile(this.me.thumbnail);
+        }
       }, 0);
     },
     onPlayerApiReady(playerApi) {

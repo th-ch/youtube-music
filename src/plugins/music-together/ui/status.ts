@@ -1,5 +1,6 @@
 import { ElementFromHtml } from '@/plugins/utils/renderer';
 import statusHTML from '../templates/status.html?raw';
+import { t } from '@/i18n';
 
 type Profile = {
   id: string;
@@ -17,19 +18,23 @@ export const createStatus = () => {
 
   const setStatus = (status: 'disconnected' | 'host' | 'guest') => {
     if (status === 'disconnected') {
-      label.textContent = 'Disconnected';
+      label.textContent = t('plugins.music-together.menu.status.disconnected');
       label.style.color = 'rgba(255, 255, 255, 0.5)';
     }
 
     if (status === 'host') {
-      label.textContent = 'Host';
+      label.textContent = t('plugins.music-together.menu.status.host');
       label.style.color = 'rgba(255, 0, 0, 1)';
     }
 
     if (status === 'guest') {
-      label.textContent = 'Guest';
+      label.textContent = t('plugins.music-together.menu.status.guest');
       label.style.color = 'rgba(255, 255, 255, 1)';
     }
+  };
+
+  const setProfile = (src: string) => {
+    profile.src = src;
   };
 
   const setUsers = (users: Profile[]) => {
@@ -57,5 +62,6 @@ export const createStatus = () => {
     element,
     setStatus,
     setUsers,
+    setProfile,
   };
 };

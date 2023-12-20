@@ -4,6 +4,7 @@ import { Popup } from '../element';
 import { createStatus } from '../ui/status';
 
 import IconOff from '../icons/off.svg?raw';
+import { t } from '@/i18n';
 
 
 export type GuestPopupProps = {
@@ -26,7 +27,7 @@ export const createGuestPopup = (props: GuestPopupProps) => {
         type: 'item',
         id: 'music-together-disconnect',
         icon: ElementFromHtml(IconOff),
-        text: 'Disconnect Music Together',
+        text: t('plugins.music-together.menu.disconnect'),
         onClick: () => props.onItemClick('music-together-disconnect'),
       },
     ],

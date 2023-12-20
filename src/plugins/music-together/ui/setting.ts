@@ -4,11 +4,12 @@ import { ElementFromHtml } from '@/plugins/utils/renderer';
 import IconMusicCast from '../icons/music-cast.svg?raw';
 import IconConnect from '../icons/connect.svg?raw';
 import { createStatus } from './status';
+import { t } from '@/i18n';
 
 export type SettingPopupProps = {
   onItemClick: (id: string) => void;
 };
-export const createSettingPopup = (props: SettingPopupProps): ReturnType<typeof Popup> => {
+export const createSettingPopup = (props: SettingPopupProps) => {
   const status = createStatus();
   status.setStatus('disconnected');
 
@@ -25,13 +26,13 @@ export const createSettingPopup = (props: SettingPopupProps): ReturnType<typeof 
         id: 'music-together-host',
         type: 'item',
         icon: ElementFromHtml(IconMusicCast),
-        text: 'Host Music Together',
+        text: t('plugins.music-together.menu.host'),
         onClick: () => props.onItemClick('music-together-host'),
       },
       {
         type: 'item',
         icon: ElementFromHtml(IconConnect),
-        text: 'Join Music Together',
+        text: t('plugins.music-together.menu.join'),
         onClick: () => props.onItemClick('music-together-join'),
       },
     ],

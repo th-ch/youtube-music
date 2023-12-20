@@ -4,6 +4,7 @@ import { ElementFromHtml } from '@/plugins/utils/renderer';
 import IconKey from '../icons/key.svg?raw';
 import IconOff from '../icons/off.svg?raw';
 import { createStatus } from '@/plugins/music-together/ui/status';
+import { t } from '@/i18n';
 
 export type HostPopupProps = {
   onItemClick: (id: string) => void;
@@ -25,7 +26,7 @@ export const createHostPopup = (props: HostPopupProps) => {
         id: 'music-together-copy-id',
         type: 'item',
         icon: ElementFromHtml(IconKey),
-        text: 'Click to Copy ID',
+        text: t('plugins.music-together.menu.click-to-copy-id'),
         onClick: () => props.onItemClick('music-together-copy-id'),
       },
       {
@@ -35,7 +36,7 @@ export const createHostPopup = (props: HostPopupProps) => {
         type: 'item',
         id: 'music-together-close',
         icon: ElementFromHtml(IconOff),
-        text: 'Close Music Together',
+        text: t('plugins.music-together.menu.close'),
         onClick: () => props.onItemClick('music-together-close'),
       },
     ],
