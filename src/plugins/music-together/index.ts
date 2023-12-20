@@ -16,6 +16,7 @@ import type { RendererContext } from '@/types/contexts';
 import { createSettingPopup } from '@/plugins/music-together/ui/setting';
 import { createHostPopup } from '@/plugins/music-together/ui/host';
 import { createGuestPopup } from '@/plugins/music-together/ui/guest';
+import { VideoDataChanged } from '@/types/video-data-changed';
 
 type RawAccountData = {
   accountName: {
@@ -119,6 +120,17 @@ export default createPlugin({
     me: null as Profile | null,
     profiles: {} as Record<string, Profile>,
     stateInterval: null as number | null,
+
+    /* events */
+    videoChangeListener(event: CustomEvent<VideoDataChanged>) {
+      if (!this.isConnected || !this.isHost) return;
+
+      if (event.detail.name === 'dataloaded') {
+        const videoIdList = this.mapQueueItem((it) => it?.videoId).filter(Boolean);
+
+        this.send('SYNC_QUEUE', { videoIDs: videoIdList });
+      }
+    },
 
     /* connection */
 
@@ -292,10 +304,10 @@ export default createPlugin({
           currentIndex,
         }
       });
-      // setTimeout(() => {
-      //   this.playerApi?.nextVideo();
-      //   this.onRemoveSong(0);
-      // }, 500);
+      setTimeout(() => {
+        this.playerApi?.nextVideo();
+        this.onRemoveSong(0);
+      }, 500);
 
       return true;
     },
@@ -588,6 +600,8 @@ export default createPlugin({
     onPlayerApiReady(playerApi) {
       this.queue = document.querySelector('#queue');
       this.playerApi = playerApi;
+
+      document.addEventListener('videodatachange', this.videoChangeListener);
     },
     stop() {
       const dividers = Array.from(document.querySelectorAll('.music-together-divider'));
@@ -596,6 +610,7 @@ export default createPlugin({
       this.elements.setting.remove();
       this.replaceObserver?.disconnect();
       if (typeof this.stateInterval === 'number') clearInterval(this.stateInterval);
+      if (this.videoChangeListener) document.removeEventListener('videodatachange', this.videoChangeListener);
     }
   }
 });
