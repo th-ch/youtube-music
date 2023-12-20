@@ -320,7 +320,8 @@
       },
       "prompt": {
         "set-inactivity-timeout": {
-          "label": "Zadejte timeout neaktivity v sekundách:"
+          "label": "Zadejte timeout neaktivity v sekundách:",
+          "title": "Nastavit timeout pro neaktivitu"
         }
       }
     },
