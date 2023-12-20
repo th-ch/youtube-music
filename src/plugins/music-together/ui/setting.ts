@@ -12,7 +12,7 @@ export const createSettingPopup = (props: SettingPopupProps): ReturnType<typeof 
   const status = createStatus();
   status.setStatus('disconnected');
 
-  return Popup({
+  const result = Popup({
     data: [
       {
         type: 'custom',
@@ -38,4 +38,9 @@ export const createSettingPopup = (props: SettingPopupProps): ReturnType<typeof 
     anchorAt: 'bottom-right',
     popupAt: 'top-right'
   });
+
+  return {
+    ...status,
+    ...result,
+  };
 }

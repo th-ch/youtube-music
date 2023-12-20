@@ -13,7 +13,7 @@ export const createGuestPopup = (props: GuestPopupProps) => {
   const status = createStatus();
   status.setStatus('guest');
 
-  return Popup({
+  const result = Popup({
     data: [
       {
         type: 'custom',
@@ -33,4 +33,9 @@ export const createGuestPopup = (props: GuestPopupProps) => {
     anchorAt: 'bottom-right',
     popupAt: 'top-right'
   });
+
+  return {
+    ...status,
+    ...result,
+  };
 }

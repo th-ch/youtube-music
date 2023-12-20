@@ -12,7 +12,7 @@ export const createHostPopup = (props: HostPopupProps) => {
   const status = createStatus();
   status.setStatus('host');
 
-  return Popup({
+  const result = Popup({
     data: [
       {
         type: 'custom',
@@ -42,4 +42,9 @@ export const createHostPopup = (props: HostPopupProps) => {
     anchorAt: 'bottom-right',
     popupAt: 'top-right',
   });
+
+  return {
+    ...status,
+    ...result,
+  };
 };

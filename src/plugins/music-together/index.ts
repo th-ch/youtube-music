@@ -17,6 +17,26 @@ import { createSettingPopup } from '@/plugins/music-together/ui/setting';
 import { createHostPopup } from '@/plugins/music-together/ui/host';
 import { createGuestPopup } from '@/plugins/music-together/ui/guest';
 
+type RawAccountData = {
+  accountName: {
+    runs: { text: string }[];
+  };
+  accountPhoto: {
+    thumbnails: { url: string; width: number; height: number; }[];
+  };
+  settingsEndpoint: unknown;
+  manageAccountTitle: unknown;
+  trackingParams: string;
+  channelHandle: {
+    runs: { text: string }[];
+  };
+};
+type Profile = {
+  id: string;
+  name: string;
+  thumbnail?: string;
+};
+
 type StoreState = any;
 type Store = {
   dispatch: (obj: {
@@ -45,6 +65,11 @@ type AppAPI = {
 
   // TODO: Add more
 };
+
+const getDefaultProfile = (connectionID: string) => ({
+  id: `#music-together:${connectionID}`,
+  name: `Guest ${connectionID.slice(0, 4)}`,
+});
 
 export default createPlugin({
   name: () => t('plugins.music-together.name'),
@@ -83,8 +108,15 @@ export default createPlugin({
       icon: SVGElement;
       spinner: HTMLElement;
     },
+    popups: {} as {
+      host: ReturnType<typeof createHostPopup>;
+      guest: ReturnType<typeof createGuestPopup>;
+      setting: ReturnType<typeof createSettingPopup>;
+    },
     replaceObserver: null as MutationObserver | null,
     isHost: false,
+    me: null as Profile | null,
+    profiles: {} as Record<string, Profile>,
 
     /* connection */
 
@@ -104,6 +136,7 @@ export default createPlugin({
     async connection(conn: DataConnection) {
       return new Promise<void>((resolve) => {
         this.realConnection = conn;
+        if (!this.me) this.me = getDefaultProfile(conn.connectionId);
 
         conn.on('open', () => {
           resolve();
@@ -114,7 +147,7 @@ export default createPlugin({
               console.log('for dev', data);
             } catch {
             }
-            if (!data || typeof data !== 'object' || !('type' in data) || !('payload' in data) || !data.type || !data.payload) {
+            if (!data || typeof data !== 'object' || !('type' in data) || !('payload' in data) || !data.type) {
               console.warn('Music Together: Invalid data', data);
               return;
             }
@@ -135,10 +168,44 @@ export default createPlugin({
                 break;
               }
               case 'SYNC_QUEUE': {
-                const videoIDs = (data.payload as Record<string, unknown>).videoIDs;
-                if (!Array.isArray(videoIDs)) return;
+                if (this.isHost) {
+                  const videoIdList = this.queue.store.getState().queue.items.map((item) => {
+                    if ('playlistPanelVideoWrapperRenderer' in item) {
+                      return item.playlistPanelVideoWrapperRenderer.primaryRenderer.playlistPanelVideoRenderer.videoId;
+                    }
+                    if ('playlistVideoRenderer' in item) {
+                      return item.playlistPanelVideoRenderer.videoId;
+                    }
 
-                this.syncQueue(videoIDs);
+                    return null;
+                  }).filter(Boolean);
+
+                  this.send('SYNC_QUEUE', { videoIDs: videoIdList });
+                } else {
+                  const videoIDs = (data.payload as Record<string, unknown>).videoIDs;
+                  if (!Array.isArray(videoIDs)) return;
+
+                  this.syncQueue(videoIDs);
+                }
+                break;
+              }
+              case 'IDENTIFY': {
+                const profile = data.payload as Profile | undefined;
+
+                this.putProfile(conn.connectionId, profile);
+                break;
+              }
+              case 'SYNC_PROFILE': {
+                if (this.isHost) { // distributes
+                  this.send('SYNC_PROFILE', this.profiles);
+                } else {
+                  const profiles = data.payload as Record<string, Profile> | undefined;
+                  if (!profiles) return;
+
+                  Object.entries(profiles).forEach(([id, profile]) => {
+                    this.putProfile(id, profile);
+                  });
+                }
                 break;
               }
               default: {
@@ -149,7 +216,8 @@ export default createPlugin({
           });
           conn.on('close', () => {
             this.realConnection = null;
-            console.log('data-close');
+            delete this.profiles[conn.connectionId];
+            console.log('Closed', conn.connectionId);
           });
         });
       });
@@ -162,6 +230,10 @@ export default createPlugin({
       await this.onStart();
       await this.connection(this.peer.connect(id));
       this.isHost = false;
+
+      this.send('IDENTIFY', this.me);
+      this.send('SYNC_PROFILE', undefined);
+      this.send('SYNC_QUEUE', undefined);
 
       return true;
     },
@@ -186,16 +258,24 @@ export default createPlugin({
 
     /* methods */
 
-    syncQueue(videoIDs: string[] = []) {
+    async syncQueue(videoIDs: string[]) {
+      const response = await getMusicQueueRenderer(videoIDs);
+      if (!response) return false;
+
+      const items = response.queueDatas.map((it) => it.content);
+
       this.queue?.dispatch({
         type: 'UPDATE_ITEMS',
         payload: {
-          items: videoIDs, // TODO: replace with real items
+          items,
           nextQueueItemId: this.queue.store.getState().queue.nextQueueItemId,
           shouldAssignIds: false,
           currentIndex: 0
         }
       });
+      this.api?._playerApi.nextVideo();
+
+      return true;
     },
 
     async onAddSong(videoID: string) {
@@ -224,6 +304,17 @@ export default createPlugin({
         type: 'REMOVE_ITEM',
         payload: index
       });
+    },
+
+    putProfile(id: string, profile?: Profile) {
+      if (profile === undefined) {
+        delete this.profiles[id];
+        return;
+      }
+
+      this.profiles[id] = profile;
+      this.popups.host.setUsers(Object.values(this.profiles));
+      this.popups.guest.setUsers(Object.values(this.profiles));
     },
 
     /* utils */
@@ -403,6 +494,11 @@ export default createPlugin({
           }
         }
       });
+      this.popups = {
+        host: hostPopup,
+        guest: guestPopup,
+        setting: settingPopup,
+      };
       setting.addEventListener('click', async () => {
         let popup = settingPopup;
         if (this.state === 'host') popup = hostPopup;
@@ -411,6 +507,28 @@ export default createPlugin({
         if (popup.isShowing()) popup.dismiss();
         else popup.showAtAnchor(setting);
       });
+
+      /* account data getter */
+      const accountButton = document.querySelector<HTMLElement & {
+        onButtonTap: () => void
+      }>('ytmusic-settings-button');
+
+      accountButton?.onButtonTap();
+      setTimeout(() => {
+        accountButton?.onButtonTap();
+        const renderer = document.querySelector<HTMLElement & { data: unknown }>('ytd-active-account-header-renderer');
+        if (!accountButton || !renderer) {
+          console.warn('Music Together: Cannot find account');
+          return;
+        }
+
+        const accountData = renderer.data as RawAccountData;
+        this.me = {
+          id: accountData.channelHandle.runs[0].text,
+          name: accountData.accountName.runs[0].text,
+          thumbnail: accountData.accountPhoto.thumbnails[0].url,
+        };
+      }, 0);
     },
     onPlayerApiReady() {
       this.queue = document.querySelector('#queue');
