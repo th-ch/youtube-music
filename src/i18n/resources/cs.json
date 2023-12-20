@@ -3,7 +3,7 @@
     "console": {
       "plugins": {
         "execute-failed": "Selhalo execute pluginu {{pluginName}}::{{contextName}}",
-        "executed-at-ms": "Plugin {{pluginName}}::{{contextName}} executed at {{ms}}ms",
+        "executed-at-ms": "",
         "initialize-failed": "Selhala initialize \"{{pluginName}}\" pluginu",
         "load-all": "Načítání všech pluginů",
         "load-failed": "Selhalo načtení \"{{pluginName}}\" pluginu",
@@ -207,6 +207,7 @@
       "description": "Applies a lighting efekty pomocí casting gentle barvy z videa, do vašeho screen’s pozadí.",
       "menu": {
         "blur-amount": {
+          "label": "Množství rozmazání",
           "submenu": {
             "pixels": "{{blurAmount}} pixelů"
           }
@@ -309,16 +310,18 @@
       },
       "description": "Ukažte svým přátelům, co posloucháte s Rich Presence",
       "menu": {
+        "auto-reconnect": "Automaticky reconnect",
         "clear-activity": "Vymazat activity",
         "clear-activity-after-timeout": "Vymazat activity po timeout",
         "connected": "Připojeno",
         "disconnected": "Odpojeno",
         "hide-github-button": "Skrýt tlačítko s odkazem na GitHub",
-        "play-on-youtube-music": "Hrát na YouTube Music"
+        "play-on-youtube-music": "Hrát na YouTube Music",
+        "set-inactivity-timeout": "Nastavit timeout pro neaktivitu"
       },
       "prompt": {
         "set-inactivity-timeout": {
-          "label": "Zadejte inactivity timeout v sekundách:"
+          "label": "Zadejte timeout neaktivity v sekundách:"
         }
       }
     },
@@ -342,6 +345,7 @@
           }
         },
         "feedback": {
+          "conversion-progress": "Konverze: {{percent}}%",
           "done": "Hotovo: {{filePath}}",
           "download-info": "Stahování {{artist}} - {{title}} [{{videoId}}",
           "download-progress": "Stahování: {{percent}}%",
@@ -425,7 +429,7 @@
             "keybind-options": {
               "hotkey": "Klávesová zkratka"
             },
-            "label": "Vybrat klávesovou zkratku pro toggle obrázek v obrázku",
+            "label": "Vybrat klávesovou zkratku pro přepínání obrázek v obrázku",
             "title": "Obrázek v obrázku klávesová zkratka"
           }
         },
