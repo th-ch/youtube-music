@@ -130,7 +130,10 @@ export default createPlugin({
           this.id = id;
           resolve(id);
         });
-        this.peer.on('connection', (conn) => this.connection(conn));
+        this.peer.on('connection', (conn) => {
+          this.connection(conn);
+          if (this.id && !this.profiles[this.id]) this.putProfile(this.id, this.me);
+        });
         this.peer.on('error', (err) => reject(err));
       });
     },
@@ -144,11 +147,6 @@ export default createPlugin({
           resolve();
 
           conn.on('data', (data) => {
-            try { // for test
-              data = JSON.parse(data);
-              console.log('for dev', data);
-            } catch {
-            }
             if (!data || typeof data !== 'object' || !('type' in data) || !('payload' in data) || !data.type) {
               console.warn('Music Together: Invalid data', data);
               return;
@@ -177,16 +175,7 @@ export default createPlugin({
               }
               case 'SYNC_QUEUE': {
                 if (this.isHost) {
-                  const videoIdList = this.queue.store.getState().queue.items.map((item) => {
-                    if ('playlistPanelVideoWrapperRenderer' in item) {
-                      return item.playlistPanelVideoWrapperRenderer.primaryRenderer.playlistPanelVideoRenderer.videoId;
-                    }
-                    if ('playlistVideoRenderer' in item) {
-                      return item.playlistPanelVideoRenderer.videoId;
-                    }
-
-                    return null;
-                  }).filter(Boolean);
+                  const videoIdList = this.mapQueueItem((it) => it?.videoId).filter(Boolean);
 
                   this.send('SYNC_QUEUE', { videoIDs: videoIdList });
                 } else {
@@ -212,14 +201,24 @@ export default createPlugin({
               }
               case 'SYNC_PROGRESS': {
                 const payload = data.payload as Record<string, unknown> | undefined;
-                if (typeof payload?.progress === 'number') this.playerApi?.seekTo(payload.progress);
-                if (payload?.state === 2) this.playerApi?.pauseVideo();
-                if (payload?.state === 1) this.playerApi?.playVideo();
+
+                if (typeof payload?.progress === 'number') {
+                  const currentTime = this.playerApi?.getCurrentTime() ?? 0;
+                  if (Math.abs(payload.progress - currentTime) > 3) this.playerApi?.seekTo(payload.progress);
+                }
+                if (this.playerApi?.getPlayerState() !== payload?.state) {
+                  if (payload?.state === 2) this.playerApi?.pauseVideo();
+                  if (payload?.state === 1) this.playerApi?.playVideo();
+                }
                 if (typeof payload?.index === 'number') {
-                  this.queue?.dispatch({
-                    type: 'SET_INDEX',
-                    payload: payload.index,
-                  });
+                  const nowIndex = this.mapQueueItem((item) => item?.selected).findIndex(Boolean) ?? 0;
+
+                  if (nowIndex !== payload.index) {
+                    this.queue?.dispatch({
+                      type: 'SET_INDEX',
+                      payload: payload.index
+                    });
+                  }
                 }
                 break;
               }
@@ -229,20 +228,24 @@ export default createPlugin({
               }
             }
           });
-          conn.on('close', () => {
+
+          const onClose = () => {
             this.realConnection = null;
             delete this.profiles[conn.connectionId];
             console.log('Closed', conn.connectionId);
-          });
+          };
+          conn.on('error', onClose);
+          conn.on('close', onClose);
         });
       });
     },
 
     async onJoin() {
-      const id = await this.showPrompt('Music Together', 'Enter host id');
+      const id = await this.showPrompt(t('plugins.music-together.name'), t('plugins.music-together.dialog.enter-host'));
       if (typeof id !== 'string') return false;
 
       await this.onStart();
+      this.isHost = false;
       await this.connection(this.peer.connect(id));
       this.isHost = false;
 
@@ -278,17 +281,21 @@ export default createPlugin({
       if (!response) return false;
 
       const items = response.queueDatas.map((it) => it.content);
+      const currentIndex = this.mapQueueItem((it) => it?.selected).findIndex(Boolean) ?? 0;
 
       this.queue?.dispatch({
         type: 'UPDATE_ITEMS',
         payload: {
-          items,
+          items: items,
           nextQueueItemId: this.queue.store.getState().queue.nextQueueItemId,
           shouldAssignIds: true,
-          currentIndex: 0,
+          currentIndex,
         }
       });
-      this.playerApi?.nextVideo();
+      // setTimeout(() => {
+      //   this.playerApi?.nextVideo();
+      //   this.onRemoveSong(0);
+      // }, 500);
 
       return true;
     },
@@ -363,6 +370,23 @@ export default createPlugin({
       this.elements.spinner.setAttribute('hidden', '');
     },
 
+    mapQueueItem<T>(map: (item: any | null) => T): T[] {
+      return this.queue?.store.getState().queue.items
+        .map((item) => {
+          if ('playlistPanelVideoWrapperRenderer' in item) {
+            const keys = Object.keys(item.playlistPanelVideoWrapperRenderer.primaryRenderer);
+            return item.playlistPanelVideoWrapperRenderer.primaryRenderer[keys[0]];
+          }
+          if ('playlistPanelVideoRenderer' in item) {
+            return item.playlistPanelVideoRenderer;
+          }
+
+          console.log('what?', item);
+          return null;
+        })
+        .map(map);
+    },
+
     /* hooks */
 
     start({ ipc }) {
@@ -417,7 +441,7 @@ export default createPlugin({
 
                 const videoId = (node.data as any)?.serviceEndpoint?.queueAddEndpoint?.queueTarget?.videoId;
                 if (!videoId) {
-                  this.api?.openToast('Failed to add song to Music Together');
+                  this.api?.openToast(t('plugins.music-together.toast.failed-to-add-song'));
                   return;
                 }
 
@@ -434,7 +458,7 @@ export default createPlugin({
                 const itemIndex = Number((node.data as any)?.serviceEndpoint?.removeFromQueueEndpoint?.itemId?.toString());
 
                 if (!videoId) {
-                  this.api?.openToast('Failed to remove song to Music Together');
+                  this.api?.openToast(t('plugins.music-together.toast.failed-to-remove-song'));
                   return;
                 }
 
@@ -457,21 +481,12 @@ export default createPlugin({
 
       this.stateInterval = window.setInterval(() => {
         if (this.isConnected && this.isHost && this.playerApi) {
-          const index = this.queue?.store.getState().queue.items.findIndex((item) => {
-            if ('playlistPanelVideoWrapperRenderer' in item) {
-              return item.playlistPanelVideoWrapperRenderer.primaryRenderer.playlistPanelVideoRenderer.selected;
-            }
-            if ('playlistVideoRenderer' in item) {
-              return item.playlistPanelVideoRenderer.selected;
-            }
-
-            return false;
-          }) ?? 0;
+          const index = this.mapQueueItem((it) => it?.selected).findIndex(Boolean) ?? 0;
 
           this.send('SYNC_PROGRESS', {
             progress: this.playerApi.getCurrentTime(),
             state: this.playerApi.getPlayerState(),
-            index,
+            index
           });
         }
       }, 1000);
