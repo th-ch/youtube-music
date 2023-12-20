@@ -136,3 +136,12 @@
   color: rgba(255, 255, 255, .5);
   text-align: center;
 }
+
+.music-together-owner {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  border-radius: 50%;
+
+  margin-left: 8px;
+}

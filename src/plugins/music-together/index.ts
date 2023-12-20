@@ -120,10 +120,17 @@ export default createPlugin({
     me: null as Profile | null,
     profiles: {} as Record<string, Profile>,
     stateInterval: null as number | null,
+    queueItemOwner: [] as string[],
+    oldPlaylistId: '',
 
     /* events */
     videoChangeListener(event: CustomEvent<VideoDataChanged>) {
       if (!this.isConnected || !this.isHost) return;
+
+      if (event.detail.videoData?.playlistId !== this.oldPlaylistId) {
+        this.oldPlaylistId = event.detail.videoData?.playlistId ?? '';
+        this.queueItemOwner = [];
+      }
 
       if (event.detail.name === 'dataloaded') {
         const videoIdList = this.mapQueueItem((it) => it?.videoId).filter(Boolean);
@@ -137,7 +144,7 @@ export default createPlugin({
     async onStart() {
       return new Promise<string>((resolve, reject) => {
         this.isHost = true;
-        this.peer = new Peer({ debug: 3 });
+        this.peer = new Peer();
         this.peer.on('open', (id) => {
           this.id = id;
           resolve(id);
@@ -169,7 +176,9 @@ export default createPlugin({
                 const videoID = (data.payload as Record<string, unknown>).videoID;
                 if (typeof videoID !== 'string') return;
 
+                const index = this.queue?.store.getState().queue.items.length ?? 0;
                 this.onAddSong(videoID);
+                this.queueItemOwner[index] = conn.connectionId;
                 break;
               }
               case 'REMOVE_SONG': {
@@ -177,6 +186,7 @@ export default createPlugin({
                 if (typeof index !== 'number') return;
 
                 this.onRemoveSong(index);
+                this.queueItemOwner.splice(index, 1);
                 break;
               }
               case 'IDENTIFY': {
@@ -188,13 +198,19 @@ export default createPlugin({
               case 'SYNC_QUEUE': {
                 if (this.isHost) {
                   const videoIdList = this.mapQueueItem((it) => it?.videoId).filter(Boolean);
+                  this.queueItemOwner.length = videoIdList.length;
 
-                  this.send('SYNC_QUEUE', { videoIDs: videoIdList });
+                  this.send('SYNC_QUEUE', {
+                    videoIDs: videoIdList,
+                    owners: this.queueItemOwner.slice(0, videoIdList.length).map((it) => it ?? this.peer?.id),
+                  });
                 } else {
                   const videoIDs = (data.payload as Record<string, unknown>).videoIDs;
+                  const owners = (data.payload as Record<string, unknown>).owners;
                   if (!Array.isArray(videoIDs)) return;
 
                   this.syncQueue(videoIDs);
+                  if (Array.isArray(owners)) this.queueItemOwner = owners as string[];
                 }
                 break;
               }
@@ -288,6 +304,25 @@ export default createPlugin({
     },
 
     /* methods */
+    async syncQueueOwner() {
+      const allQueue = document.querySelectorAll('#queue');
+
+      allQueue.forEach((queue) => {
+        const list = Array.from(queue?.querySelectorAll<HTMLElement>(':not(#counterpart-renderer) > ytmusic-player-queue-item') ?? []);
+        list.forEach((item, index) => {
+          const ownerId = this.queueItemOwner[index] ?? this.peer?.id ?? '';
+
+          const profile = item.querySelector<HTMLImageElement>('.music-together-owner') ?? document.createElement('img');
+          profile.classList.add('music-together-owner');
+
+          profile.src = this.profiles[ownerId]?.thumbnail ?? '';
+          profile.title = this.profiles[ownerId]?.name ?? '';
+          profile.alt = this.profiles[ownerId]?.id ?? '';
+
+          if (!profile.isConnected) item.append(profile);
+        });
+      })
+    },
 
     async syncQueue(videoIDs: string[]) {
       const response = await getMusicQueueRenderer(videoIDs);
@@ -317,6 +352,8 @@ export default createPlugin({
           type: 'SET_IS_GENERATING',
           payload: false,
         });
+
+        this.syncQueueOwner();
       }, 0);
 
       return true;
@@ -340,6 +377,7 @@ export default createPlugin({
         }
       });
 
+      setTimeout(() => this.syncQueueOwner(), 0);
       return true;
     },
 
@@ -348,6 +386,7 @@ export default createPlugin({
         type: 'REMOVE_ITEM',
         payload: index
       });
+      setTimeout(() => this.syncQueueOwner(), 0);
     },
 
     putProfile(id: string, profile?: Profile) {
@@ -468,6 +507,7 @@ export default createPlugin({
                 }
 
                 this.send('ADD_SONG', { videoID: videoId });
+                this.queueItemOwner.push(this.peer?.id ?? '');
                 this.onAddSong(videoId);
               }, true);
             }
@@ -487,6 +527,7 @@ export default createPlugin({
                 const index = Number.isFinite(itemIndex) ? itemIndex : -1;
                 if (index >= 0) {
                   this.send('REMOVE_SONG', { index });
+                  this.queueItemOwner.splice(index, 1);
                   this.onRemoveSong(index);
                 } else {
                   console.warn('Music Together: Cannot find song index');
@@ -563,7 +604,7 @@ export default createPlugin({
             this.hideSpinner();
 
             if (result) {
-              this.api?.openToast(t('plugins.muic-together.toast.joined'));
+              this.api?.openToast(t('plugins.music-together.toast.joined'));
               guestPopup.showAtAnchor(setting);
             } else {
               this.api?.openToast(t('plugins.music-together.toast.join-failed'));
