@@ -5,17 +5,17 @@ import { createPlugin } from '@/utils';
 import { t } from '@/i18n';
 
 import promptOptions from '@/providers/prompt-options';
-import { ElementFromHtml } from '@/plugins/utils/renderer';
-import { Popup } from './element';
+import { getMusicQueueRenderer } from './parser/song';
 
 import settingHTML from './templates/setting.html?raw';
-import IconKey from './icons/key.svg?raw';
-import IconOff from './icons/off.svg?raw';
+
 import style from './style.css?inline';
 
 import type { YoutubePlayer } from '@/types/youtube-player';
-import { RendererContext } from '@/types/contexts';
-import { getMusicQueueRenderer } from '@/plugins/music-together/parser/song';
+import type { RendererContext } from '@/types/contexts';
+import { createSettingPopup } from '@/plugins/music-together/ui/setting';
+import { createHostPopup } from '@/plugins/music-together/ui/host';
+import { createGuestPopup } from '@/plugins/music-together/ui/guest';
 
 type StoreState = any;
 type Store = {
@@ -72,6 +72,7 @@ export default createPlugin({
     peer: null as Peer | null,
     realConnection: null as DataConnection | null,
     ipc: null as RendererContext<never>['ipc'] | null,
+    id: null as string | null,
 
     api: null as (HTMLElement & AppAPI) | null,
     queue: null as (HTMLElement & QueueAPI) | null,
@@ -79,16 +80,25 @@ export default createPlugin({
 
     elements: {} as {
       setting: HTMLElement;
-      toolbar: HTMLElement;
-      hostButton: HTMLElement;
-      joinButton: HTMLElement;
-      hostSpinner: HTMLElement;
-      joinSpinner: HTMLElement;
+      icon: SVGElement;
+      spinner: HTMLElement;
     },
     replaceObserver: null as MutationObserver | null,
+    isHost: false,
 
-    get isConnected() {
-      return !!this.realConnection;
+    /* connection */
+
+    async onStart() {
+      return new Promise<string>((resolve, reject) => {
+        this.isHost = true;
+        this.peer = new Peer({ debug: 3 });
+        this.peer.on('open', (id) => {
+          this.id = id;
+          resolve(id);
+        });
+        this.peer.on('connection', (conn) => this.connection(conn));
+        this.peer.on('error', (err) => reject(err));
+      });
     },
 
     async connection(conn: DataConnection) {
@@ -145,29 +155,36 @@ export default createPlugin({
       });
     },
 
-    async onStart() {
-      return new Promise<string>((resolve, reject) => {
-        this.peer = new Peer({ debug: 3 });
-        this.peer.on('open', (id) => resolve(id));
-        this.peer.on('connection', (conn) => this.connection(conn));
-        this.peer.on('error', (err) => reject(err));
-      });
-    },
-
-    onStop() {
-      this.peer?.destroy();
-      this.peer = null;
-    },
-
     async onJoin() {
       const id = await this.showPrompt('Music Together', 'Enter host id');
       if (typeof id !== 'string') return false;
 
       await this.onStart();
       await this.connection(this.peer.connect(id));
+      this.isHost = false;
 
       return true;
     },
+
+    onStop() {
+      this.peer?.destroy();
+      this.peer = null;
+      this.realConnection = null;
+      this.isHost = false;
+      this.id = null;
+    },
+
+    send(type: string, payload?: unknown) {
+      if (!this.peer) return false;
+
+      this.realConnection?.send({
+        type,
+        payload
+      });
+      return !!this.realConnection;
+    },
+
+    /* methods */
 
     syncQueue(videoIDs: string[] = []) {
       this.queue?.dispatch({
@@ -209,15 +226,38 @@ export default createPlugin({
       });
     },
 
-    send(type: string, payload?: unknown) {
-      if (!this.peer) return false;
+    /* utils */
 
-      this.realConnection?.send({
-        type,
-        payload
-      });
+    get isOpen(): boolean {
+      return !!this.id;
+    },
+
+    get isConnected(): boolean {
       return !!this.realConnection;
     },
+
+    get state(): 'not-connected' | 'host' | 'guest' {
+      if (this.isOpen) {
+        if (this.isHost) return 'host';
+        return 'guest';
+      }
+
+      return 'not-connected';
+    },
+
+    showSpinner() {
+      this.elements.icon.style.setProperty('display', 'none');
+      this.elements.spinner.removeAttribute('hidden');
+      this.elements.spinner.setAttribute('active', '');
+    },
+
+    hideSpinner() {
+      this.elements.icon.style.removeProperty('display');
+      this.elements.spinner.removeAttribute('active');
+      this.elements.spinner.setAttribute('hidden', '');
+    },
+
+    /* hooks */
 
     start({ ipc }) {
       this.ipc = ipc;
@@ -226,24 +266,18 @@ export default createPlugin({
 
       document.querySelector('#right-content > ytmusic-settings-button')?.insertAdjacentHTML('beforebegin', settingHTML);
       const setting = document.querySelector<HTMLElement>('#music-together-setting-button');
-      const toolbar = document.querySelector<HTMLElement>('#music-together-setting-tool');
-      const hostButton = toolbar?.querySelector<HTMLElement>('#music-together-host-button');
-      const joinButton = toolbar?.querySelector<HTMLElement>('#music-together-join-button');
-      const hostSpinner = document.querySelector<HTMLElement>('#music-together-host-spinner');
-      const joinSpinner = document.querySelector<HTMLElement>('#music-together-join-spinner');
-      if (!setting || !toolbar || !hostButton || !joinButton || !hostSpinner || !joinSpinner) {
+      const icon = document.querySelector<SVGElement>('#music-together-setting-button > svg');
+      const spinner = document.querySelector<HTMLElement>('#music-together-setting-button > tp-yt-paper-spinner-lite');
+      if (!setting || !icon || !spinner) {
         console.warn('Music Together: Cannot inject html');
-        console.log(setting, toolbar, hostButton, joinButton, hostSpinner, joinSpinner);
+        console.log(setting, icon, spinner);
         return;
       }
 
       this.elements = {
         setting,
-        toolbar,
-        hostButton,
-        joinButton,
-        hostSpinner,
-        joinSpinner
+        icon,
+        spinner
       };
       const availableTags = [
         'ytmusic-toggle-menu-service-item-renderer',
@@ -312,71 +346,70 @@ export default createPlugin({
         subtree: true
       });
 
-      setting.addEventListener('click', () => {
-        toolbar.classList.toggle('open');
+      const hostPopup = createHostPopup({
+        onItemClick: (id) => {
+          if (id === 'music-together-close') {
+            this.onStop();
+            this.api?.openToast('Music Together Host Closed');
+            hostPopup.dismiss();
+          }
+
+          if (id === 'music-together-copy-id') {
+            navigator.clipboard.writeText(this.peer?.id ?? '');
+
+            this.api?.openToast('Copied Music Together ID to clipboard');
+            hostPopup.dismiss();
+          }
+        }
       });
+      const guestPopup = createGuestPopup({
+        onItemClick: (id) => {
+          if (id === 'music-together-disconnect') {
+            this.onStop();
+            this.api?.openToast('Music Together Disconnected');
+            guestPopup.dismiss();
+          }
+        }
+      });
+      const settingPopup = createSettingPopup({
+        onItemClick: async (id) => {
+          if (id === 'music-together-host') {
+            settingPopup.dismiss();
+            this.showSpinner();
+            const result = await this.onStart().catch(() => null);
+            this.hideSpinner();
 
-      const hostIdPopup = Popup({
-        data: [
-          {
-            icon: ElementFromHtml(IconKey),
-            text: 'Click to Copy ID',
-            onClick: () => {
+            if (result) {
               navigator.clipboard.writeText(this.peer?.id ?? '');
-
               this.api?.openToast('Copied Music Together ID to clipboard');
-              hostIdPopup.dismiss();
-            }
-          },
-          {
-            icon: ElementFromHtml(IconOff),
-            text: 'Close Music Together',
-            onClick: () => {
-              this.onStop();
-              this.api?.openToast('Music Together Host Closed');
-              hostIdPopup.dismiss();
+              hostPopup.showAtAnchor(setting);
+            } else {
+              this.api?.openToast('Failed to start Music Together Host');
             }
           }
-        ],
-        anchorAt: 'bottom-right',
-        popupAt: 'top-right'
-      });
-      hostButton.addEventListener('click', async () => {
-        if (this.peer?.open) {
-          if (hostIdPopup.isShowing()) hostIdPopup.dismiss();
-          else hostIdPopup.showAtAnchor(hostButton);
-          return;
-        }
-        hostSpinner.removeAttribute('hidden');
-        hostSpinner.setAttribute('active', '');
-        hostButton.setAttribute('hidden', '');
-        const result = await this.onStart().catch(() => null);
-        hostSpinner.removeAttribute('active');
-        hostSpinner.setAttribute('hidden', '');
-        hostButton.removeAttribute('hidden');
 
-        if (result) {
-          navigator.clipboard.writeText(this.peer?.id ?? '');
-          this.api?.openToast('Copied Music Together ID to clipboard');
-          hostIdPopup.showAtAnchor(hostButton);
-        } else {
-          this.api?.openToast('Failed to start Music Together Host');
+          if (id === 'music-together-join') {
+            settingPopup.dismiss();
+            this.showSpinner();
+            const result = await this.onJoin().catch(() => false);
+            this.hideSpinner();
+
+            if (result) {
+              this.api?.openToast('Joined Music Together');
+              guestPopup.showAtAnchor(setting);
+            } else {
+              this.api?.openToast('Failed to join Music Together');
+            }
+          }
         }
       });
-      joinButton.addEventListener('click', async () => {
-        joinSpinner.removeAttribute('hidden');
-        joinSpinner.setAttribute('active', '');
-        joinButton.setAttribute('hidden', '');
-        const result = await this.onJoin().catch(() => false);
-        joinSpinner.removeAttribute('active');
-        joinSpinner.setAttribute('hidden', '');
-        joinButton.removeAttribute('hidden');
+      setting.addEventListener('click', async () => {
+        let popup = settingPopup;
+        if (this.state === 'host') popup = hostPopup;
+        if (this.state === 'guest') popup = guestPopup;
 
-        if (result) {
-          this.api?.openToast('Joined Music Together');
-        } else {
-          this.api?.openToast('Failed to join Music Together');
-        }
+        if (popup.isShowing()) popup.dismiss();
+        else popup.showAtAnchor(setting);
       });
     },
     onPlayerApiReady() {
@@ -387,7 +420,6 @@ export default createPlugin({
       dividers.forEach((divider) => divider.remove());
 
       this.elements.setting.remove();
-      this.elements.toolbar.remove();
       this.replaceObserver?.disconnect();
     }
   }

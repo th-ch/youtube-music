@@ -3,16 +3,41 @@ import { ElementFromHtml } from '@/plugins/utils/renderer';
 import itemHTML from './templates/item.html?raw';
 import popupHTML from './templates/popup.html?raw';
 
-type Placement = 'top' | 'bottom' | 'right' | 'left' | 'center' | 'middle' | 'center-middle' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+type Placement =
+  'top'
+  | 'bottom'
+  | 'right'
+  | 'left'
+  | 'center'
+  | 'middle'
+  | 'center-middle'
+  | 'top-left'
+  | 'top-right'
+  | 'bottom-left'
+  | 'bottom-right';
+type PopupItem = (ItemRendererProps & { type: 'item'; })
+  | { type: 'divider'; }
+  | { type: 'custom'; element: HTMLElement; };
+
 type PopupProps = {
-  data: ItemRendererProps[];
+  data: PopupItem[];
   anchorAt?: Placement;
   popupAt?: Placement;
 }
 export const Popup = (props: PopupProps) => {
   const popup = ElementFromHtml(popupHTML);
   const container = popup.querySelector<HTMLElement>('.music-together-popup-container')!;
-  const items = props.data.map((props) => ItemRenderer(props));
+  const items = props.data
+    .map((props) => {
+      if (props.type === 'item') return ItemRenderer(props);
+      if (props.type === 'divider') return {
+        element: ElementFromHtml('<div class="music-together-divider horizontal"></div>'),
+      };
+      if (props.type === 'custom') return props;
+
+      return null;
+    })
+    .filter(Boolean);
 
   container.append(...items.map(({ element }) => element));
   popup.style.setProperty('opacity', '0');
@@ -58,11 +83,12 @@ export const Popup = (props: PopupProps) => {
     dismiss() {
       popup.style.setProperty('opacity', '0');
       popup.style.setProperty('pointer-events', 'none');
-    },
+    }
   };
 };
 
 type ItemRendererProps = {
+  id?: string;
   icon?: Element;
   text: string;
   onClick?: () => void;
@@ -79,6 +105,7 @@ export const ItemRenderer = (props: ItemRendererProps) => {
       props.onClick?.();
     });
   }
+  if (props.id) element.id = props.id;
 
   return {
     element,
@@ -88,5 +115,6 @@ export const ItemRenderer = (props: ItemRendererProps) => {
     setText(text: string) {
       textContainer.replaceChildren(text);
     },
+    id: props.id
   };
 };

@@ -1,0 +1,45 @@
+import { Popup } from '@/plugins/music-together/element';
+import { ElementFromHtml } from '@/plugins/utils/renderer';
+
+import IconKey from '../icons/key.svg?raw';
+import IconOff from '../icons/off.svg?raw';
+import { createStatus } from '@/plugins/music-together/ui/status';
+
+export type HostPopupProps = {
+  onItemClick: (id: string) => void;
+};
+export const createHostPopup = (props: HostPopupProps) => {
+  const status = createStatus();
+  status.setStatus('host');
+
+  return Popup({
+    data: [
+      {
+        type: 'custom',
+        element: status.element,
+      },
+      {
+        type: 'divider'
+      },
+      {
+        id: 'music-together-copy-id',
+        type: 'item',
+        icon: ElementFromHtml(IconKey),
+        text: 'Click to Copy ID',
+        onClick: () => props.onItemClick('music-together-copy-id'),
+      },
+      {
+        type: 'divider',
+      },
+      {
+        type: 'item',
+        id: 'music-together-close',
+        icon: ElementFromHtml(IconOff),
+        text: 'Close Music Together',
+        onClick: () => props.onItemClick('music-together-close'),
+      },
+    ],
+    anchorAt: 'bottom-right',
+    popupAt: 'top-right',
+  });
+};
