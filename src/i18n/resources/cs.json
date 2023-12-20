@@ -98,12 +98,12 @@
               "auto-reset-app-cache": "Při spuštění aplikace se resetuje její mezipaměť",
               "disable-hardware-acceleration": "Vypnout hardware zrychlení",
               "edit-config-json": "Upravit config.json",
-              "override-user-agent": "Přepsat User-Agent",
+              "override-user-agent": "Přepsat uživatelského agenta",
               "restart-on-config-changes": "Restartovat aplikaci na změny v konfiguraci",
               "set-proxy": {
                 "label": "Nastavit proxy",
                 "prompt": {
-                  "label": "Zadejte adresu proxy: (nechejte pole prázdné k vypnutí)",
+                  "label": "Zadejte adresu proxy: (k vypnutí nechte pole prázdné)",
                   "placeholder": "Příklad: SOCKS5://127.0.0.1:9999",
                   "title": "Nastavit proxy"
                 }
@@ -130,8 +130,9 @@
               "to-help-translate": "Chcete pomoc s překladem? Klikněte zde"
             }
           },
-          "resume-on-start": "Resume poslední písničku při spuštění aplikace",
+          "resume-on-start": "Při spuštění aplikace, pokračovat na poslední písničce",
           "single-instance-lock": "Zámek pro jednu instanci",
+          "start-at-login": "Zapnutí aplikace po přihlášení",
           "starting-page": {
             "label": "Úvodní stránka",
             "unset": "Nenastaveno"
@@ -139,7 +140,7 @@
           "tray": {
             "label": "Tray",
             "submenu": {
-              "disabled": "Vypnuté",
+              "disabled": "Vypnuto",
               "enabled-and-hide-app": "Povolit a skrýt aplikaci",
               "enabled-and-show-app": "Enabled a show aplikaci",
               "play-pause-on-click": "Přehrát/Pozastavit na kliknutí"
@@ -305,7 +306,7 @@
       "menu": {
         "apply-once": "Applies jenom na spuštění aplikace"
       },
-      "name": "Zrušit automatické přehrávání"
+      "name": "Vypnout automatické přehrávání"
     },
     "discord": {
       "backend": {
@@ -364,6 +365,7 @@
           "playlist-has-only-one-song": "Seznam písniček má pouze jednu položku, downloading it přímo",
           "playlist-id-not-found": "Žádné ID seznamu písnček nenalezeno",
           "playlist-is-empty": "Seznam písniček je prázdný",
+          "playlist-is-mix-or-private": "Chyba při získávání informací o seznamu písniček: ujistite se, že se nejedná o soukromý nebo \"Namíchaný pro vás\" seznam písniček\n\n{{error}}",
           "preparing-file": "Připravování souboru…",
           "saving": "Ukládání…",
           "trying-to-get-playlist-id": "Trying se získat ID seznamu písniček: {{playlistId}}",
@@ -375,14 +377,19 @@
       "menu": {
         "choose-download-folder": "Vybrat složku pro stahování",
         "download-playlist": "Stáhnout seznam písniček",
+        "presets": "Předvolby",
         "skip-existing": "Přeskočit existující soubory"
       },
       "name": "Stahovač",
+      "renderer": {
+        "can-not-update-progress": "Progress nemůže být aktualizován"
+      },
       "templates": {
         "button": "Stáhnout"
       }
     },
     "exponential-volume": {
+      "description": "Dělá posuvník hlasitosti exponenciální, takže je snazší vybrat nižší hlasitost.",
       "name": "Exponenciální hlasitost"
     },
     "in-app-menu": {
@@ -456,7 +463,7 @@
       }
     },
     "precise-volume": {
-      "description": "Přesná kontrola hlasitosti pomocí mousewheel/klávesových zkratek, s vlastní HUD a customizable volume steps",
+      "description": "Přesná kontrola hlasitosti pomocí kolečka myši/klávesnicových zkratek, s vlastní HUD a hlasitostních steps",
       "menu": {
         "global-shortcuts": "Globální klávesové zkratky"
       },
@@ -485,6 +492,7 @@
           }
         }
       },
+      "description": "Umožňuje měnit kvalitu videa pomocí tlačítka na video overlay",
       "name": "Měnič kvality videa"
     },
     "shortcuts": {
@@ -499,6 +507,7 @@
             "play-pause": "Přehrát / Pozastavit",
             "previous": "Předchozí"
           },
+          "label": "Vybrat globální klávesnicové zkratky pro ovládání písniček:",
           "title": "Globální klávesnicové zkratky"
         }
       }
@@ -523,7 +532,8 @@
       "name": "Touch Bar"
     },
     "tuna-obs": {
-      "description": "Integrace s OBS's plugin Tuna"
+      "description": "Integrace s OBS's plugin Tuna",
+      "name": "Tuna OBS"
     },
     "video-toggle": {
       "description": "Přidává tlačítko switch mezi videem/písničkou mode. Může také optionally remove celou video kartu",
@@ -540,7 +550,9 @@
         "mode": {
           "label": "Režim",
           "submenu": {
-            "custom": "Vlastní přepínač"
+            "custom": "Vlastní přepínač",
+            "disabled": "Vypnuto",
+            "native": "Původní přepínač"
           }
         }
       },
