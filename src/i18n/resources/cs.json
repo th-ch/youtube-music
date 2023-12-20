@@ -104,7 +104,7 @@
                 "label": "Nastavit proxy",
                 "prompt": {
                   "label": "Zadejte adresu proxy: (nechejte prázdné to disable)",
-                  "placeholder": "Příklad: socks5://127.0.0.1:9999",
+                  "placeholder": "Příklad: SOCKS5://127.0.0.1:9999",
                   "title": "Nastavit proxy"
                 }
               },
@@ -137,6 +137,7 @@
             "unset": "Nenastaveno"
           },
           "tray": {
+            "label": "Tray",
             "submenu": {
               "disabled": "Vypnuté",
               "enabled-and-hide-app": "Povolit a skrýt aplikaci",
@@ -237,7 +238,7 @@
         "smoothness-transition": {
           "label": "Plynulý přechod",
           "submenu": {
-            "during": "Během {{interpolationTime}}s"
+            "during": "Během {{interpolationTime}} s"
           }
         }
       },
@@ -308,6 +309,8 @@
       },
       "description": "Ukažte svým přátelům, co posloucháte s Rich Presence",
       "menu": {
+        "clear-activity": "Vymazat activity",
+        "clear-activity-after-timeout": "Vymazat activity po timeout",
         "connected": "Připojeno",
         "disconnected": "Odpojeno",
         "hide-github-button": "Skrýt tlačítko s odkazem na GitHub",
