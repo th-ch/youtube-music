@@ -351,7 +351,6 @@
           }
         },
         "feedback": {
-          "conversion-progress": "",
           "done": "Hotovo: {{filePath}}",
           "download-info": "Stahování {{artist}} - {{title}} [{{videoId}}",
           "download-progress": "Stahování: {{percent}}%",
