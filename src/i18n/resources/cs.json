@@ -3,7 +3,6 @@
     "console": {
       "plugins": {
         "execute-failed": "Selhalo execute pluginu {{pluginName}}::{{contextName}}",
-        "executed-at-ms": "",
         "initialize-failed": "Selhala initialize \"{{pluginName}}\" pluginu",
         "load-all": "Načítání všech pluginů",
         "load-failed": "Selhalo načtení \"{{pluginName}}\" pluginu",
