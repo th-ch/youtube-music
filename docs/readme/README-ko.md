@@ -258,7 +258,7 @@ import style from './style.css?inline'; // 스타일을 인라인으로 가져�
 
 import { createPlugin } from '@/utils';
 
-const builder = createPlugin({
+export default createPlugin({
   name: 'Plugin Label',
   restartNeeded: true, // 값이 true면, YTM은 재시작 다이얼로그를 표시합니다
   config: {
@@ -274,7 +274,7 @@ const builder = createPlugin({
 ```typescript
 import { createPlugin } from '@/utils';
 
-const builder = createPlugin({
+export default createPlugin({
   name: 'Plugin Label',
   restartNeeded: true, // 값이 true면, YTM은 재시작 다이얼로그를 표시합니다
   config: {
