@@ -21,20 +21,41 @@ export type QueueAPI = {
   }): void;
   getItems(): unknown[];
   store: Store;
+  continuation?: string;
 };
 export type QueueOptions = {
   videoList?: VideoData[];
 }
+
 export class Queue {
-  private _videoList: VideoData[] = [];
   private queue: (HTMLElement & QueueAPI) | null = null;
 
   constructor(
     options: QueueOptions = {},
-    element = document.querySelector<HTMLElement & QueueAPI>('#queue'),
+    element = document.querySelector<HTMLElement & QueueAPI>('#queue')
   ) {
     this.queue = element;
     this._videoList = options.videoList ?? [];
+  }
+
+  private _videoList: VideoData[] = [];
+
+  /* utils */
+  get videoList() {
+    return this._videoList;
+  }
+
+  get selectedIndex() {
+    return mapQueueItem((it) => it?.selected, this.queue?.store.getState().queue.items).findIndex(Boolean) ?? 0;
+  }
+
+  get rawItems() {
+    console.log(this.queue);
+    return this.queue?.store.getState().queue.items;
+  }
+
+  get flatItems() {
+    return mapQueueItem((it) => it, this.rawItems);
   }
 
   /* public */
@@ -83,43 +104,33 @@ export class Queue {
     });
   }
 
-  /* utils */
-  get videoList() {
-    return this._videoList;
-  }
-
-  get selectedIndex() {
-    return mapQueueItem((it) => it?.selected, this.queue?.store.getState().queue.items).findIndex(Boolean) ?? 0;
-  }
-  get rawItems() {
-    console.log(this.queue)
-    return this.queue?.store.getState().queue.items;
-  }
-
-  get flatItems() {
-    return mapQueueItem((it) => it, this.rawItems);
-  }
-
   /* sync */
   async initQueue() {
-    this.queue?.dispatch({
+    if (!this.queue) return;
+
+    this.queue.continuation = undefined;
+    this.queue.dispatch({
       type: 'SET_IS_INFINITE',
       payload: false
     });
-    this.queue?.dispatch({
+    this.queue.dispatch({
       type: 'SET_IS_PREFETCHING_CONTINUATIONS',
       payload: false
     });
-    this.queue?.dispatch({
+    this.queue.dispatch({
       type: 'SET_IS_GENERATING',
       payload: false
     });
-    this.queue?.dispatch({
+    this.queue.dispatch({
       type: 'SET_AUTOPLAY_ENABLED',
       payload: false
     });
-    this.queue?.dispatch({
+    this.queue.dispatch({
       type: 'HAS_USER_CHANGED_DEFAULT_AUTOPLAY_MODE',
+      payload: false
+    });
+    this.queue.dispatch({
+      type: 'HAS_SHOWN_AUTOPLAY',
       payload: false
     });
   }
