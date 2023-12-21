@@ -2,7 +2,7 @@ export type Profile = {
   id: string;
   handleId: string;
   name: string;
-  thumbnail?: string;
+  thumbnail: string;
 };
 export type VideoData = {
   videoId: string;
@@ -10,8 +10,13 @@ export type VideoData = {
 };
 export type Permission = 'host-only' | 'all';
 
-export const getDefaultProfile = (connectionID: string, id: string = Date.now().toString()): Profile => ({
-  id: connectionID,
-  handleId: `#music-together:${id}`,
-  name: `Guest ${id.slice(0, 4)}`
-});
+export const getDefaultProfile = (connectionID: string, id: string = Date.now().toString()): Profile => {
+  const name = `Guest ${id.slice(0, 4)}`;
+
+  return {
+    id: connectionID,
+    handleId: `#music-together:${id}`,
+    name,
+    thumbnail: `https://ui-avatars.com/api/?name=${name}&background=random`
+  };
+};
