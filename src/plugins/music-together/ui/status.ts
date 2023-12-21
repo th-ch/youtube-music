@@ -1,12 +1,8 @@
 import { ElementFromHtml } from '@/plugins/utils/renderer';
 import statusHTML from '../templates/status.html?raw';
 import { t } from '@/i18n';
+import type { Profile } from '../types';
 
-type Profile = {
-  id: string;
-  name: string;
-  thumbnail?: string;
-};
 export const createStatus = () => {
   const element = ElementFromHtml(statusHTML);
   const icon = document.querySelector<HTMLImageElement>('ytmusic-settings-button > tp-yt-paper-icon-button > tp-yt-iron-icon#icon img');

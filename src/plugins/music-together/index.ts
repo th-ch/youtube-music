@@ -1,22 +1,22 @@
-import { DataConnection, Peer } from 'peerjs';
 import prompt from 'custom-electron-prompt';
 
-import { createPlugin } from '@/utils';
 import { t } from '@/i18n';
-
+import { createPlugin } from '@/utils';
 import promptOptions from '@/providers/prompt-options';
-import { getMusicQueueRenderer } from './parser/song';
+
+import { Profile, VideoData } from './types';
+import { Queue, QueueAPI } from './queue';
+import { Connection } from './connection';
+import { createHostPopup } from './ui/host';
+import { createGuestPopup } from './ui/guest';
+import { createSettingPopup } from './ui/setting';
 
 import settingHTML from './templates/setting.html?raw';
-
 import style from './style.css?inline';
 
 import type { YoutubePlayer } from '@/types/youtube-player';
 import type { RendererContext } from '@/types/contexts';
-import { createSettingPopup } from '@/plugins/music-together/ui/setting';
-import { createHostPopup } from '@/plugins/music-together/ui/host';
-import { createGuestPopup } from '@/plugins/music-together/ui/guest';
-import { VideoDataChanged } from '@/types/video-data-changed';
+import type { VideoDataChanged } from '@/types/video-data-changed';
 
 type RawAccountData = {
   accountName: {
@@ -32,32 +32,6 @@ type RawAccountData = {
     runs: { text: string }[];
   };
 };
-type Profile = {
-  id: string;
-  name: string;
-  thumbnail?: string;
-};
-
-type StoreState = any;
-type Store = {
-  dispatch: (obj: {
-    type: string;
-    payload?: unknown;
-  }) => void;
-
-  getState: () => StoreState;
-  replaceReducer: (param1: unknown) => unknown;
-  subscribe: (callback: () => void) => unknown;
-};
-
-type QueueAPI = {
-  dispatch(obj: {
-    type: string;
-    payload?: unknown;
-  }): void;
-  getItems(): unknown[];
-  store: Store;
-};
 
 type AppAPI = {
   queue_: QueueAPI;
@@ -66,11 +40,6 @@ type AppAPI = {
 
   // TODO: Add more
 };
-
-const getDefaultProfile = (connectionID: string) => ({
-  id: `#music-together:${connectionID}`,
-  name: `Guest ${connectionID.slice(0, 4)}`
-});
 
 export default createPlugin({
   name: () => t('plugins.music-together.name'),
@@ -81,28 +50,21 @@ export default createPlugin({
   },
   stylesheets: [style],
   backend: {
-    async start({ ipc, window }) {
-      ipc.handle('music-together:prompt', async (title: string, label: string) => {
-        const result = await prompt({
-          title,
-          label,
-          type: 'input',
-          ...promptOptions()
-        });
-
-        return result;
-      });
+    async start({ ipc }) {
+      ipc.handle('music-together:prompt', async (title: string, label: string) => prompt({
+        title,
+        label,
+        type: 'input',
+        ...promptOptions()
+      }));
     }
   },
   renderer: {
-    peer: null as Peer | null,
-    realConnection: null as DataConnection | null,
+    connection: null as Connection | null,
     ipc: null as RendererContext<never>['ipc'] | null,
-    id: null as string | null,
 
     api: null as (HTMLElement & AppAPI) | null,
     playerApi: null as YoutubePlayer | null,
-    queue: null as (HTMLElement & QueueAPI) | null,
     showPrompt: (async () => null) as ((title: string, label: string) => Promise<string | null>),
 
     elements: {} as {
@@ -116,279 +78,144 @@ export default createPlugin({
       setting: ReturnType<typeof createSettingPopup>;
     },
     replaceObserver: null as MutationObserver | null,
-    isHost: false,
-    me: null as Profile | null,
+    me: null as Omit<Profile, 'id'> | null,
     profiles: {} as Record<string, Profile>,
     stateInterval: null as number | null,
-    queueItemOwner: [] as string[],
     oldPlaylistId: '',
+
+    queue: null as Queue | null,
 
     /* events */
     videoChangeListener(event: CustomEvent<VideoDataChanged>) {
-      if (!this.isConnected || !this.isHost) return;
+      if (this.connection?.mode !== 'host') return;
 
       if (event.detail.videoData?.playlistId !== this.oldPlaylistId) {
         this.oldPlaylistId = event.detail.videoData?.playlistId ?? '';
-        this.queueItemOwner = [];
       }
 
       if (event.detail.name === 'dataloaded') {
-        const videoIdList = this.mapQueueItem((it) => it?.videoId).filter(Boolean);
+        const videoList: VideoData[] = this.queue?.rawItems.map((it: any) => ({
+          videoId: it.videoId,
+          owner: {
+            id: this.connection!.id,
+            ...this.me!
+          },
+        } satisfies VideoData));
 
-        this.send('SYNC_QUEUE', { videoIDs: videoIdList });
+        this.connection.broadcast('SYNC_QUEUE', {
+          videoList,
+        });
       }
     },
 
     /* connection */
+    async onHost() {
+      this.connection = new Connection();
+      await this.connection.waitForReady();
 
-    async onStart() {
-      return new Promise<string>((resolve, reject) => {
-        this.isHost = true;
-        this.peer = new Peer();
-        this.peer.on('open', (id) => {
-          this.id = id;
-          resolve(id);
-        });
-        this.peer.on('connection', (conn) => {
-          this.connection(conn);
-          if (this.id && !this.profiles[this.id]) this.putProfile(this.id, this.me);
-        });
-        this.peer.on('error', (err) => reject(err));
+      this.connection.on((event, conn) => {
+        switch (event.type) {
+          case 'ADD_SONG': {
+            this.queue?.addVideo(event.payload.video);
+            this.connection?.broadcast('ADD_SONG', event.payload);
+            break;
+          }
+          case 'REMOVE_SONG': {
+            this.queue?.removeVideo(event.payload.index);
+            this.connection?.broadcast('REMOVE_SONG', event.payload);
+            break;
+          }
+          case 'IDENTIFY': {
+            this.putProfile(conn.connectionId, event.payload);
+            break;
+          }
+          case 'SYNC_PROFILE': {
+            this.connection?.broadcast('SYNC_PROFILE', { profiles: this.profiles });
+
+            break;
+          }
+          case 'SYNC_QUEUE':
+          case 'SYNC_PROGRESS': {
+            console.warn(`Music Together [Host]: Received "${event.type}" event from host`, event);
+            break;
+          }
+          default: {
+            console.warn('Music Together [Host]: Unknown Event', event);
+            break;
+          }
+        }
       });
-    },
-
-    async connection(conn: DataConnection) {
-      return new Promise<void>((resolve) => {
-        this.realConnection = conn;
-        if (!this.me) this.me = getDefaultProfile(conn.connectionId);
-
-        conn.on('open', () => {
-          resolve();
-
-          conn.on('data', (data) => {
-            if (!data || typeof data !== 'object' || !('type' in data) || !('payload' in data) || !data.type) {
-              console.warn('Music Together: Invalid data', data);
-              return;
-            }
-
-            switch (data.type) {
-              case 'ADD_SONG': {
-                const videoID = (data.payload as Record<string, unknown>).videoID;
-                if (typeof videoID !== 'string') return;
-
-                const index = this.queue?.store.getState().queue.items.length ?? 0;
-                this.onAddSong(videoID);
-                this.queueItemOwner[index] = conn.connectionId;
-                break;
-              }
-              case 'REMOVE_SONG': {
-                const index = (data.payload as Record<string, unknown>).index;
-                if (typeof index !== 'number') return;
-
-                this.onRemoveSong(index);
-                this.queueItemOwner.splice(index, 1);
-                break;
-              }
-              case 'IDENTIFY': {
-                const profile = data.payload as Profile | undefined;
-
-                this.putProfile(conn.connectionId, profile);
-                break;
-              }
-              case 'SYNC_QUEUE': {
-                if (this.isHost) {
-                  const videoIdList = this.mapQueueItem((it) => it?.videoId).filter(Boolean);
-                  this.queueItemOwner.length = videoIdList.length;
-
-                  this.send('SYNC_QUEUE', {
-                    videoIDs: videoIdList,
-                    owners: this.queueItemOwner.slice(0, videoIdList.length).map((it) => it ?? this.peer?.id),
-                  });
-                } else {
-                  const videoIDs = (data.payload as Record<string, unknown>).videoIDs;
-                  const owners = (data.payload as Record<string, unknown>).owners;
-                  if (!Array.isArray(videoIDs)) return;
-
-                  this.syncQueue(videoIDs);
-                  if (Array.isArray(owners)) this.queueItemOwner = owners as string[];
-                }
-                break;
-              }
-              case 'SYNC_PROFILE': {
-                if (this.isHost) { // distributes
-                  this.send('SYNC_PROFILE', this.profiles);
-                } else {
-                  const profiles = data.payload as Record<string, Profile> | undefined;
-                  if (!profiles) return;
-
-                  Object.entries(profiles).forEach(([id, profile]) => {
-                    this.putProfile(id, profile);
-                  });
-                }
-                break;
-              }
-              case 'SYNC_PROGRESS': {
-                const payload = data.payload as Record<string, unknown> | undefined;
-
-                if (typeof payload?.progress === 'number') {
-                  const currentTime = this.playerApi?.getCurrentTime() ?? 0;
-                  if (Math.abs(payload.progress - currentTime) > 3) this.playerApi?.seekTo(payload.progress);
-                }
-                if (this.playerApi?.getPlayerState() !== payload?.state) {
-                  if (payload?.state === 2) this.playerApi?.pauseVideo();
-                  if (payload?.state === 1) this.playerApi?.playVideo();
-                }
-                if (typeof payload?.index === 'number') {
-                  const nowIndex = this.mapQueueItem((item) => item?.selected).findIndex(Boolean) ?? 0;
-
-                  if (nowIndex !== payload.index) {
-                    this.queue?.dispatch({
-                      type: 'SET_INDEX',
-                      payload: payload.index
-                    });
-                  }
-                }
-                break;
-              }
-              default: {
-                console.warn('Music Together: Unknown Event', data);
-                break;
-              }
-            }
-          });
-
-          const onClose = () => {
-            this.realConnection = null;
-            delete this.profiles[conn.connectionId];
-            console.log('Closed', conn.connectionId);
-          };
-          conn.on('error', onClose);
-          conn.on('close', onClose);
-        });
-      });
+      return true;
     },
 
     async onJoin() {
+      this.connection = new Connection();
+      await this.connection.waitForReady();
+
       const id = await this.showPrompt(t('plugins.music-together.name'), t('plugins.music-together.dialog.enter-host'));
       if (typeof id !== 'string') return false;
 
-      await this.onStart();
-      this.isHost = false;
-      await this.connection(this.peer.connect(id));
-      this.isHost = false;
+      const connection = await this.connection.connect(id).catch(() => false);
 
-      this.send('IDENTIFY', this.me);
-      this.send('SYNC_PROFILE', undefined);
-      this.send('SYNC_QUEUE', undefined);
+      this.connection.on((event) => {
+        switch (event.type) {
+          case 'ADD_SONG': {
+            this.queue?.addVideo(event.payload.video);
+            break;
+          }
+          case 'REMOVE_SONG': {
+            this.queue?.removeVideo(event.payload.index);
+            break;
+          }
+          case 'IDENTIFY': {
+            console.warn('Music Together [Guest]: Received "IDENTIFY" event from guest');
+            break;
+          }
+          case 'SYNC_QUEUE': {
+            if (Array.isArray(event.payload?.videoList)) {
+              this.queue?.setVideoList(event.payload.videoList);
+            }
+            break;
+          }
+          case 'SYNC_PROFILE': {
+            if (!event.payload) {
+              console.warn('Music Together [Guest]: Received "SYNC_PROFILE" event without payload');
+              return;
+            }
 
-      return true;
-    },
+            Object.entries(event.payload.profiles).forEach(([id, profile]) => {
+              this.putProfile(id, profile);
+            });
+            break;
+          }
+          case 'SYNC_PROGRESS': {
+            if (typeof event.payload?.progress === 'number') {
+              const currentTime = this.playerApi?.getCurrentTime() ?? 0;
+              if (Math.abs(event.payload.progress - currentTime) > 3) this.playerApi?.seekTo(event.payload.progress);
+            }
+            if (this.playerApi?.getPlayerState() !== event.payload?.state) {
+              if (event.payload?.state === 2) this.playerApi?.pauseVideo();
+              if (event.payload?.state === 1) this.playerApi?.playVideo();
+            }
+            if (typeof event.payload?.index === 'number') {
+              const nowIndex = this.queue?.selectedIndex ?? 0;
 
-    onStop() {
-      this.peer?.destroy();
-      this.peer = null;
-      this.realConnection = null;
-      this.isHost = false;
-      this.id = null;
-      this.profiles = {};
-    },
-
-    send(type: string, payload?: unknown) {
-      if (!this.peer) return false;
-
-      this.realConnection?.send({
-        type,
-        payload
+              if (nowIndex !== event.payload.index) {
+                this.queue?.setIndex(event.payload.index);
+              }
+            }
+            break;
+          }
+          default: {
+            console.warn('Music Together [Guest]: Unknown Event', event);
+            break;
+          }
+        }
       });
-      return !!this.realConnection;
+      return !!connection;
     },
 
     /* methods */
-    async syncQueueOwner() {
-      const allQueue = document.querySelectorAll('#queue');
-
-      allQueue.forEach((queue) => {
-        const list = Array.from(queue?.querySelectorAll<HTMLElement>(':not(#counterpart-renderer) > ytmusic-player-queue-item') ?? []);
-        list.forEach((item, index) => {
-          const ownerId = this.queueItemOwner[index] ?? this.peer?.id ?? '';
-
-          const profile = item.querySelector<HTMLImageElement>('.music-together-owner') ?? document.createElement('img');
-          profile.classList.add('music-together-owner');
-
-          profile.src = this.profiles[ownerId]?.thumbnail ?? '';
-          profile.title = this.profiles[ownerId]?.name ?? '';
-          profile.alt = this.profiles[ownerId]?.id ?? '';
-
-          if (!profile.isConnected) item.append(profile);
-        });
-      })
-    },
-
-    async syncQueue(videoIDs: string[]) {
-      const response = await getMusicQueueRenderer(videoIDs);
-      if (!response) return false;
-
-      const items = response.queueDatas.map((it) => it.content);
-
-      this.queue?.dispatch({
-        type: 'UPDATE_ITEMS',
-        payload: {
-          items: items,
-          nextQueueItemId: this.queue.store.getState().queue.nextQueueItemId,
-          shouldAssignIds: true,
-          currentIndex: -1,
-        }
-      });
-      setTimeout(() => {
-        this.queue?.dispatch({
-          type: 'SET_IS_INFINITE',
-          payload: false,
-        });
-        this.queue?.dispatch({
-          type: 'SET_IS_PREFETCHING_CONTINUATIONS',
-          payload: false,
-        });
-        this.queue?.dispatch({
-          type: 'SET_IS_GENERATING',
-          payload: false,
-        });
-
-        this.syncQueueOwner();
-      }, 0);
-
-      return true;
-    },
-
-    async onAddSong(videoID: string) {
-      const response = await getMusicQueueRenderer([videoID]);
-      if (!response) return false;
-
-      const item = response.queueDatas[0]?.content;
-      if (!item) return false;
-
-      this.queue?.dispatch({
-        type: 'ADD_ITEMS',
-        payload: {
-          nextQueueItemId: this.queue.store.getState().queue.nextQueueItemId,
-          index: this.queue.store.getState().queue.items.length ?? 0,
-          items: [item],
-          shuffleEnabled: false,
-          shouldAssignIds: true
-        }
-      });
-
-      setTimeout(() => this.syncQueueOwner(), 0);
-      return true;
-    },
-
-    async onRemoveSong(index: number) {
-      this.queue?.dispatch({
-        type: 'REMOVE_ITEM',
-        payload: index
-      });
-      setTimeout(() => this.syncQueueOwner(), 0);
-    },
-
     putProfile(id: string, profile?: Profile) {
       if (profile === undefined) {
         delete this.profiles[id];
@@ -398,25 +225,6 @@ export default createPlugin({
       this.profiles[id] = profile;
       this.popups.host.setUsers(Object.values(this.profiles));
       this.popups.guest.setUsers(Object.values(this.profiles));
-    },
-
-    /* utils */
-
-    get isOpen(): boolean {
-      return !!this.id;
-    },
-
-    get isConnected(): boolean {
-      return !!this.realConnection;
-    },
-
-    get state(): 'not-connected' | 'host' | 'guest' {
-      if (this.isOpen) {
-        if (this.isHost) return 'host';
-        return 'guest';
-      }
-
-      return 'not-connected';
     },
 
     showSpinner() {
@@ -431,23 +239,34 @@ export default createPlugin({
       this.elements.spinner.setAttribute('hidden', '');
     },
 
-    mapQueueItem<T>(map: (item: any | null) => T, array?: unknown[]): T[] {
-      return (array ?? this.queue?.store.getState().queue.items)
-        .map((item) => {
-          if ('playlistPanelVideoWrapperRenderer' in item) {
-            const keys = Object.keys(item.playlistPanelVideoWrapperRenderer.primaryRenderer);
-            return item.playlistPanelVideoWrapperRenderer.primaryRenderer[keys[0]];
-          }
-          if ('playlistPanelVideoRenderer' in item) {
-            return item.playlistPanelVideoRenderer;
-          }
+    initMyProfile() {
+      const accountButton = document.querySelector<HTMLElement & {
+        onButtonTap: () => void
+      }>('ytmusic-settings-button');
 
-          console.log('what?', item);
-          return null;
-        })
-        .map(map);
+      accountButton?.onButtonTap();
+      setTimeout(() => {
+        accountButton?.onButtonTap();
+        const renderer = document.querySelector<HTMLElement & { data: unknown }>('ytd-active-account-header-renderer');
+        if (!accountButton || !renderer) {
+          console.warn('Music Together: Cannot find account');
+          return;
+        }
+
+        const accountData = renderer.data as RawAccountData;
+        this.me = {
+          handleId: accountData.channelHandle.runs[0].text,
+          name: accountData.accountName.runs[0].text,
+          thumbnail: accountData.accountPhoto.thumbnails[0].url
+        };
+
+        if (this.me.thumbnail) {
+          this.popups.host.setProfile(this.me.thumbnail);
+          this.popups.guest.setProfile(this.me.thumbnail);
+          this.popups.setting.setProfile(this.me.thumbnail);
+        }
+      }, 0);
     },
-
     /* hooks */
 
     start({ ipc }) {
@@ -487,7 +306,7 @@ export default createPlugin({
       ];
 
       this.replaceObserver = new MutationObserver((entries) => {
-        if (!this.isConnected) return;
+        if (this.connection?.mode !== 'host' && this.connection?.mode !== 'guest') return;
 
         for (const entry of entries) {
           entry.addedNodes.forEach((node) => {
@@ -500,15 +319,21 @@ export default createPlugin({
               node.addEventListener('click', (event) => {
                 event.stopImmediatePropagation();
 
-                const videoId = (node.data as any)?.serviceEndpoint?.queueAddEndpoint?.queueTarget?.videoId;
+                const videoId: string | undefined = (node.data as any)?.serviceEndpoint?.queueAddEndpoint?.queueTarget?.videoId;
                 if (!videoId) {
                   this.api?.openToast(t('plugins.music-together.toast.failed-to-add-song'));
                   return;
                 }
 
-                this.send('ADD_SONG', { videoID: videoId });
-                this.queueItemOwner.push(this.peer?.id ?? '');
-                this.onAddSong(videoId);
+                const videoData: VideoData = {
+                  videoId,
+                  owner: {
+                    id: this.connection!.id,
+                    ...this.me!
+                  },
+                };
+                this.connection?.broadcast('ADD_SONG', { video: videoData });
+                if (this.connection?.mode === 'host') this.queue?.addVideo(videoData);
               }, true);
             }
 
@@ -516,7 +341,7 @@ export default createPlugin({
               node.addEventListener('click', (event) => {
                 event.stopImmediatePropagation();
 
-                const videoId = (node.data as any)?.serviceEndpoint?.removeFromQueueEndpoint?.videoId;
+                const videoId: string | undefined = (node.data as any)?.serviceEndpoint?.removeFromQueueEndpoint?.videoId;
                 const itemIndex = Number((node.data as any)?.serviceEndpoint?.removeFromQueueEndpoint?.itemId?.toString());
 
                 if (!videoId) {
@@ -526,9 +351,8 @@ export default createPlugin({
 
                 const index = Number.isFinite(itemIndex) ? itemIndex : -1;
                 if (index >= 0) {
-                  this.send('REMOVE_SONG', { index });
-                  this.queueItemOwner.splice(index, 1);
-                  this.onRemoveSong(index);
+                  this.connection?.broadcast('REMOVE_SONG', { index });
+                  if (this.connection?.mode === 'host') this.queue?.removeVideo(index);
                 } else {
                   console.warn('Music Together: Cannot find song index');
                 }
@@ -543,28 +367,27 @@ export default createPlugin({
       });
 
       this.stateInterval = window.setInterval(() => {
-        if (this.isConnected && this.isHost && this.playerApi) {
-          const index = this.mapQueueItem((it) => it?.selected).findIndex(Boolean) ?? 0;
+        if (this.connection?.mode !== 'host') return;
+        const index = this.queue?.selectedIndex ?? 0;
 
-          this.send('SYNC_PROGRESS', {
-            progress: this.playerApi.getCurrentTime(),
-            state: this.playerApi.getPlayerState(),
-            index
-          });
-        }
+        this.connection.broadcast('SYNC_PROGRESS', {
+          progress: this.playerApi?.getCurrentTime(),
+          state: this.playerApi?.getPlayerState(),
+          index
+        });
       }, 1000);
 
       /* UI */
       const hostPopup = createHostPopup({
         onItemClick: (id) => {
           if (id === 'music-together-close') {
-            this.onStop();
+            this.connection?.disconnect();
             this.api?.openToast(t('plugins.music-together.toast.closed'));
             hostPopup.dismiss();
           }
 
           if (id === 'music-together-copy-id') {
-            navigator.clipboard.writeText(this.peer?.id ?? '');
+            navigator.clipboard.writeText(this.connection?.id ?? '');
 
             this.api?.openToast(t('plugins.music-together.toast.id-copied'));
             hostPopup.dismiss();
@@ -574,7 +397,7 @@ export default createPlugin({
       const guestPopup = createGuestPopup({
         onItemClick: (id) => {
           if (id === 'music-together-disconnect') {
-            this.onStop();
+            this.connection?.disconnect();
             this.api?.openToast(t('plugins.music-together.toast.disconnected'));
             guestPopup.dismiss();
           }
@@ -585,11 +408,11 @@ export default createPlugin({
           if (id === 'music-together-host') {
             settingPopup.dismiss();
             this.showSpinner();
-            const result = await this.onStart().catch(() => null);
+            const result = await this.onHost();
             this.hideSpinner();
 
             if (result) {
-              navigator.clipboard.writeText(this.peer?.id ?? '');
+              navigator.clipboard.writeText(this.connection?.id ?? '');
               this.api?.openToast(t('plugins.music-together.toast.id-copied'));
               hostPopup.showAtAnchor(setting);
             } else {
@@ -600,7 +423,7 @@ export default createPlugin({
           if (id === 'music-together-join') {
             settingPopup.dismiss();
             this.showSpinner();
-            const result = await this.onJoin().catch(() => false);
+            const result = await this.onJoin();
             this.hideSpinner();
 
             if (result) {
@@ -619,43 +442,20 @@ export default createPlugin({
       };
       setting.addEventListener('click', async () => {
         let popup = settingPopup;
-        if (this.state === 'host') popup = hostPopup;
-        if (this.state === 'guest') popup = guestPopup;
+        if (this.connection?.mode === 'host') popup = hostPopup;
+        if (this.connection?.mode === 'guest') popup = guestPopup;
 
         if (popup.isShowing()) popup.dismiss();
         else popup.showAtAnchor(setting);
       });
 
       /* account data getter */
-      const accountButton = document.querySelector<HTMLElement & {
-        onButtonTap: () => void
-      }>('ytmusic-settings-button');
-
-      accountButton?.onButtonTap();
-      setTimeout(() => {
-        accountButton?.onButtonTap();
-        const renderer = document.querySelector<HTMLElement & { data: unknown }>('ytd-active-account-header-renderer');
-        if (!accountButton || !renderer) {
-          console.warn('Music Together: Cannot find account');
-          return;
-        }
-
-        const accountData = renderer.data as RawAccountData;
-        this.me = {
-          id: accountData.channelHandle.runs[0].text,
-          name: accountData.accountName.runs[0].text,
-          thumbnail: accountData.accountPhoto.thumbnails[0].url
-        };
-
-        if (this.me.thumbnail) {
-          this.popups.host.setProfile(this.me.thumbnail);
-          this.popups.guest.setProfile(this.me.thumbnail);
-          this.popups.setting.setProfile(this.me.thumbnail);
-        }
-      }, 0);
+      this.initMyProfile();
     },
     onPlayerApiReady(playerApi) {
-      this.queue = document.querySelector('#queue');
+      this.queue = new Queue({
+        getProfile: (id) => this.profiles[id],
+      });
       this.playerApi = playerApi;
 
       document.addEventListener('videodatachange', this.videoChangeListener);
