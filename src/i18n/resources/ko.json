@@ -437,10 +437,15 @@
         "join": "Music Together 참여",
         "connected-users": "연결된 사용자",
         "empty-user": "연결된 사용자 없음",
+        "set-permission": "권한 변경: (현재: {{permission}})",
         "status": {
           "disconnected": "연결 끊김",
           "host": "호스트로 연결됨",
           "guest": "게스트로 연결됨"
+        },
+        "permission": {
+          "host-only": "호스트만 제어 가능",
+          "all": "모두 제어 가능"
         }
       },
       "dialog": {
@@ -454,7 +459,8 @@
         "id-copied": "호스트 아이디가 클립보드에 복사되었습니다",
         "host-failed": "Music Together를 열 수 없습니다",
         "joined": "Music Together에 참여했습니다",
-        "join-failed": "Music Together에 참여할 수 없습니다"
+        "join-failed": "Music Together에 참여할 수 없습니다",
+        "permission-changed": "Music Together 제어 권한이 \"{{permission}}\" 변경되었습니다"
       }
     },
     "navigation": {

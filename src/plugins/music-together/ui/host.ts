@@ -1,10 +1,12 @@
-import { Popup } from '@/plugins/music-together/element';
+import { t } from '@/i18n';
 import { ElementFromHtml } from '@/plugins/utils/renderer';
+
+import { Popup } from '../element';
+import { createStatus } from '../ui/status';
 
 import IconKey from '../icons/key.svg?raw';
 import IconOff from '../icons/off.svg?raw';
-import { createStatus } from '@/plugins/music-together/ui/status';
-import { t } from '@/i18n';
+import IconTune from '../icons/tune.svg?raw';
 
 export type HostPopupProps = {
   onItemClick: (id: string) => void;
@@ -28,6 +30,13 @@ export const createHostPopup = (props: HostPopupProps) => {
         icon: ElementFromHtml(IconKey),
         text: t('plugins.music-together.menu.click-to-copy-id'),
         onClick: () => props.onItemClick('music-together-copy-id'),
+      },
+      {
+        id: 'music-together-permission',
+        type: 'item',
+        icon: ElementFromHtml(IconTune),
+        text: t('plugins.music-together.menu.set-permission', { permission: t('plugins.music-together.menu.permission.host-only') }),
+        onClick: () => props.onItemClick('music-together-permission'),
       },
       {
         type: 'divider',

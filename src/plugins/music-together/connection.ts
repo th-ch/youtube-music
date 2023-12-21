@@ -1,7 +1,6 @@
 import { DataConnection, Peer } from 'peerjs';
 
-import type { Profile } from './types';
-import { VideoData } from './types';
+import type { Permission, Profile, VideoData } from './types';
 
 type ConnectionEventMap = {
   ADD_SONG: { video: VideoData };
@@ -10,6 +9,7 @@ type ConnectionEventMap = {
   SYNC_PROFILE: { profiles: Record<string, Profile> } | undefined;
   SYNC_QUEUE: { videoList: VideoData[] } | undefined;
   SYNC_PROGRESS: { progress?: number; state?: number; index?: number; } | undefined;
+  PERMISSION: Permission | undefined;
 };
 type ConnectionEventUnion = {
   [Event in keyof ConnectionEventMap]: {

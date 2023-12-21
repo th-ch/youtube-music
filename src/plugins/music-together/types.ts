@@ -8,6 +8,7 @@ export type VideoData = {
   videoId: string;
   owner: Profile;
 };
+export type Permission = 'host-only' | 'all';
 
 export const getDefaultProfile = (connectionID: string, id: string = Date.now().toString()): Profile => ({
   id: connectionID,

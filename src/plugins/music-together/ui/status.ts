@@ -1,31 +1,44 @@
 import { ElementFromHtml } from '@/plugins/utils/renderer';
 import statusHTML from '../templates/status.html?raw';
 import { t } from '@/i18n';
-import type { Profile } from '../types';
+import type { Permission, Profile } from '../types';
 
 export const createStatus = () => {
   const element = ElementFromHtml(statusHTML);
   const icon = document.querySelector<HTMLImageElement>('ytmusic-settings-button > tp-yt-paper-icon-button > tp-yt-iron-icon#icon img');
 
   const profile = element.querySelector<HTMLImageElement>('.music-together-profile')!;
-  const label = element.querySelector<HTMLDivElement>('#music-together-status-label')!;
+  const statusLabel = element.querySelector<HTMLSpanElement>('#music-together-status-label')!;
+  const permisisonLabel = element.querySelector<HTMLSpanElement>('#music-together-permission-label')!;
 
   profile.src = icon?.src ?? '';
 
   const setStatus = (status: 'disconnected' | 'host' | 'guest') => {
     if (status === 'disconnected') {
-      label.textContent = t('plugins.music-together.menu.status.disconnected');
-      label.style.color = 'rgba(255, 255, 255, 0.5)';
+      statusLabel.textContent = t('plugins.music-together.menu.status.disconnected');
+      statusLabel.style.color = 'rgba(255, 255, 255, 0.5)';
     }
 
     if (status === 'host') {
-      label.textContent = t('plugins.music-together.menu.status.host');
-      label.style.color = 'rgba(255, 0, 0, 1)';
+      statusLabel.textContent = t('plugins.music-together.menu.status.host');
+      statusLabel.style.color = 'rgba(255, 0, 0, 1)';
     }
 
     if (status === 'guest') {
-      label.textContent = t('plugins.music-together.menu.status.guest');
-      label.style.color = 'rgba(255, 255, 255, 1)';
+      statusLabel.textContent = t('plugins.music-together.menu.status.guest');
+      statusLabel.style.color = 'rgba(255, 255, 255, 1)';
+    }
+  };
+
+  const setPermission = (permission: Permission) => {
+    if (permission === 'host-only') {
+      permisisonLabel.textContent = t('plugins.music-together.menu.permission.host-only');
+      permisisonLabel.style.color = 'rgba(255, 255, 255, 0.5)';
+    }
+
+    if (permission === 'all') {
+      permisisonLabel.textContent = t('plugins.music-together.menu.permission.all');
+      permisisonLabel.style.color = 'rgba(255, 255, 255, 1)';
     }
   };
 
@@ -59,5 +72,6 @@ export const createStatus = () => {
     setStatus,
     setUsers,
     setProfile,
+    setPermission,
   };
 };

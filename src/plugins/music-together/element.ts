@@ -29,11 +29,18 @@ export const Popup = (props: PopupProps) => {
   const container = popup.querySelector<HTMLElement>('.music-together-popup-container')!;
   const items = props.data
     .map((props) => {
-      if (props.type === 'item') return ItemRenderer(props);
+      if (props.type === 'item') return {
+        type: 'item' as const,
+        ...ItemRenderer(props),
+      };
       if (props.type === 'divider') return {
+        type: 'divider' as const,
         element: ElementFromHtml('<div class="music-together-divider horizontal"></div>'),
       };
-      if (props.type === 'custom') return props;
+      if (props.type === 'custom') return {
+        type: 'custom' as const,
+        element: props.element,
+      };
 
       return null;
     })

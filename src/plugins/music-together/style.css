@@ -94,6 +94,7 @@
   height: 24px;
   border-radius: 50%;
   overflow: hidden;
+  flex-shrink: 0;
 }
 .music-together-profile.big {
   width: 32px;
