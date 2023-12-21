@@ -114,6 +114,22 @@ export default createPlugin({
       this.connection = new Connection();
       await this.connection.waitForReady();
 
+      if (!this.me) this.me = getDefaultProfile(this.connection.id);
+      const rawItems = this.queue?.flatItems?.map((it: any) => ({
+        videoId: it.videoId,
+        owner: {
+          id: this.connection!.id,
+          ...this.me!
+        }
+      } satisfies VideoData)) ?? [];
+      this.queue?.setVideoList(rawItems, false);
+
+      this.profiles = {};
+      this.profiles[this.connection.id] = {
+        id: this.connection.id,
+        ...this.me
+      };
+
       this.connection.on((event, conn) => {
         switch (event.type) {
           case 'ADD_SONG': {
@@ -127,7 +143,12 @@ export default createPlugin({
             break;
           }
           case 'IDENTIFY': {
-            this.putProfile(conn.connectionId, event.payload);
+            if (!event.payload) {
+              console.warn('Music Together [Host]: Received "IDENTIFY" event without payload');
+              return;
+            }
+
+            this.putProfile(conn.connectionId, event.payload.profile);
             break;
           }
           case 'SYNC_PROFILE': {
@@ -137,6 +158,9 @@ export default createPlugin({
           }
           case 'PERMISSION': {
             this.connection?.broadcast('PERMISSION', this.permission);
+            this.popups.guest.setPermission(this.permission);
+            this.popups.host.setPermission(this.permission);
+            this.popups.setting.setPermission(this.permission);
             break;
           }
           case 'SYNC_QUEUE': {
@@ -239,6 +263,13 @@ export default createPlugin({
             }
 
             this.permission = event.payload;
+            this.popups.guest.setPermission(this.permission);
+            this.popups.host.setPermission(this.permission);
+            this.popups.setting.setPermission(this.permission);
+
+            const permissionLabel = t(`plugins.music-together.menu.permission.${this.permission}`);
+
+            this.api?.openToast(t('plugins.music-together.toast.permission-changed', { permission: permissionLabel }));
             break;
           }
           default: {

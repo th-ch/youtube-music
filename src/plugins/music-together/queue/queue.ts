@@ -23,6 +23,7 @@ export type QueueAPI = {
 };
 export type QueueOptions = {
   getProfile: (id: string) => Profile | null;
+  videoList?: VideoData[];
 }
 export class Queue {
   private _videoList: VideoData[] = [];
@@ -34,13 +35,14 @@ export class Queue {
   ) {
     this.queue = element;
     this.getProfile = options.getProfile;
+    this._videoList = options.videoList ?? [];
   }
 
   /* public */
-  async setVideoList(videoList: VideoData[]) {
+  async setVideoList(videoList: VideoData[], sync = true) {
     this._videoList = videoList;
 
-    await this.syncVideo();
+    if (sync) await this.syncVideo();
   }
 
   async addVideo(video: VideoData) {
@@ -89,7 +91,12 @@ export class Queue {
     return mapQueueItem((it) => it?.selected, this.queue?.store.getState().queue.items).findIndex(Boolean) ?? 0;
   }
   get rawItems() {
+    console.log(this.queue)
     return this.queue?.store.getState().queue.items;
+  }
+
+  get flatItems() {
+    return mapQueueItem((it) => it, this.rawItems);
   }
 
   /* sync */
