@@ -139,6 +139,12 @@ export default createPlugin({
             this.connection?.broadcast('PERMISSION', this.permission);
             break;
           }
+          case 'SYNC_QUEUE': {
+            this.connection?.broadcast('SYNC_QUEUE', {
+              videoList: this.queue?.videoList ?? [],
+            });
+            break;
+          }
           case 'SYNC_PROGRESS': {
             if (this.permission !== 'all') return;
 
@@ -157,10 +163,6 @@ export default createPlugin({
                 this.queue?.setIndex(event.payload.index);
               }
             }
-            break;
-          }
-          case 'SYNC_QUEUE': {
-            console.warn(`Music Together [Host]: Received "${event.type}" event from host`, event);
             break;
           }
           default: {
@@ -245,6 +247,20 @@ export default createPlugin({
           }
         }
       });
+
+      if (!this.me) this.me = getDefaultProfile(this.connection.id);
+      this.connection.broadcast('IDENTIFY', {
+        profile: {
+          id: this.connection.id,
+          handleId: this.me.handleId,
+          name: this.me.name,
+          thumbnail: this.me.thumbnail
+        },
+      });
+      this.connection.broadcast('SYNC_PROFILE', undefined);
+      this.connection.broadcast('PERMISSION', undefined);
+      this.connection.broadcast('SYNC_QUEUE', undefined);
+
       return !!connection;
     },
 

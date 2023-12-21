@@ -25,10 +25,9 @@ export type QueueOptions = {
   getProfile: (id: string) => Profile | null;
 }
 export class Queue {
-  private videoList: VideoData[] = [];
+  private _videoList: VideoData[] = [];
   private queue: (HTMLElement & QueueAPI) | null = null;
   private getProfile: (id: string) => Profile | null;
-
   constructor(
     options: QueueOptions,
     element = document.querySelector<HTMLElement & QueueAPI>('#queue'),
@@ -39,7 +38,7 @@ export class Queue {
 
   /* public */
   async setVideoList(videoList: VideoData[]) {
-    this.videoList = videoList;
+    this._videoList = videoList;
 
     await this.syncVideo();
   }
@@ -82,6 +81,10 @@ export class Queue {
   }
 
   /* utils */
+  get videoList() {
+    return this._videoList;
+  }
+
   get selectedIndex() {
     return mapQueueItem((it) => it?.selected, this.queue?.store.getState().queue.items).findIndex(Boolean) ?? 0;
   }
@@ -91,7 +94,7 @@ export class Queue {
 
   /* sync */
   async syncVideo() {
-    const response = await getMusicQueueRenderer(this.videoList.map((it) => it.videoId));
+    const response = await getMusicQueueRenderer(this._videoList.map((it) => it.videoId));
     if (!response) return false;
 
     const items = response.queueDatas.map((it) => it.content);
@@ -132,7 +135,7 @@ export class Queue {
       const list = Array.from(queue?.querySelectorAll<HTMLElement>(':not(#counterpart-renderer) > ytmusic-player-queue-item') ?? []);
 
       list.forEach((item, index) => {
-        const ownerId = this.videoList[index]?.owner.id;
+        const ownerId = this._videoList[index]?.owner.id;
 
         const profile = item.querySelector<HTMLImageElement>('.music-together-owner') ?? document.createElement('img');
         profile.classList.add('music-together-owner');
