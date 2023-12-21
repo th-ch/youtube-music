@@ -1,6 +1,7 @@
 import { getMusicQueueRenderer } from './song';
-import type { Profile, VideoData } from '../types';
 import { mapQueueItem } from './utils';
+
+import type { VideoData } from '../types';
 
 type StoreState = any;
 type Store = {
@@ -22,19 +23,17 @@ export type QueueAPI = {
   store: Store;
 };
 export type QueueOptions = {
-  getProfile: (id: string) => Profile | null;
   videoList?: VideoData[];
 }
 export class Queue {
   private _videoList: VideoData[] = [];
   private queue: (HTMLElement & QueueAPI) | null = null;
-  private getProfile: (id: string) => Profile | null;
+
   constructor(
-    options: QueueOptions,
+    options: QueueOptions = {},
     element = document.querySelector<HTMLElement & QueueAPI>('#queue'),
   ) {
     this.queue = element;
-    this.getProfile = options.getProfile;
     this._videoList = options.videoList ?? [];
   }
 
@@ -52,6 +51,7 @@ export class Queue {
     const item = response.queueDatas[0]?.content;
     if (!item) return false;
 
+    this._videoList.push(video);
     this.queue?.dispatch({
       type: 'ADD_ITEMS',
       payload: {
@@ -68,6 +68,7 @@ export class Queue {
   }
 
   async removeVideo(index: number) {
+    this._videoList.splice(index, 1);
     this.queue?.dispatch({
       type: 'REMOVE_ITEM',
       payload: index
@@ -100,6 +101,29 @@ export class Queue {
   }
 
   /* sync */
+  async initQueue() {
+    this.queue?.dispatch({
+      type: 'SET_IS_INFINITE',
+      payload: false
+    });
+    this.queue?.dispatch({
+      type: 'SET_IS_PREFETCHING_CONTINUATIONS',
+      payload: false
+    });
+    this.queue?.dispatch({
+      type: 'SET_IS_GENERATING',
+      payload: false
+    });
+    this.queue?.dispatch({
+      type: 'SET_AUTOPLAY_ENABLED',
+      payload: false
+    });
+    this.queue?.dispatch({
+      type: 'HAS_USER_CHANGED_DEFAULT_AUTOPLAY_MODE',
+      payload: false
+    });
+  }
+
   async syncVideo() {
     const response = await getMusicQueueRenderer(this._videoList.map((it) => it.videoId));
     if (!response) return false;
@@ -116,19 +140,7 @@ export class Queue {
       }
     });
     setTimeout(() => {
-      this.queue?.dispatch({
-        type: 'SET_IS_INFINITE',
-        payload: false
-      });
-      this.queue?.dispatch({
-        type: 'SET_IS_PREFETCHING_CONTINUATIONS',
-        payload: false
-      });
-      this.queue?.dispatch({
-        type: 'SET_IS_GENERATING',
-        payload: false
-      });
-
+      this.initQueue();
       this.syncQueueOwner();
     }, 0);
 
@@ -139,19 +151,26 @@ export class Queue {
     const allQueue = document.querySelectorAll('#queue');
 
     allQueue.forEach((queue) => {
-      const list = Array.from(queue?.querySelectorAll<HTMLElement>(':not(#counterpart-renderer) > ytmusic-player-queue-item') ?? []);
+      const list = Array.from(queue?.querySelectorAll<HTMLElement>('ytmusic-player-queue-item') ?? []);
 
-      list.forEach((item, index) => {
-        const ownerId = this._videoList[index]?.owner.id;
+      list.forEach((item) => {
+        const index = (item as any).data?.navigationEndpoint?.watchEndpoint?.index;
+        if (typeof index !== 'number') return;
+
+        const data = this._videoList[index]?.owner;
 
         const profile = item.querySelector<HTMLImageElement>('.music-together-owner') ?? document.createElement('img');
         profile.classList.add('music-together-owner');
 
-        const data = this.getProfile(ownerId);
         if (data) {
+          profile.dataset.thumbnail = data.thumbnail ?? '';
+          profile.dataset.name = data.name ?? '';
+          profile.dataset.handleId = data.handleId ?? '';
+          profile.dataset.id = data.id ?? '';
+
           profile.src = data.thumbnail ?? '';
           profile.title = data.name ?? '';
-          profile.alt = data.id ?? '';
+          profile.alt = data.handleId ?? '';
         }
 
         if (!profile.isConnected) item.append(profile);

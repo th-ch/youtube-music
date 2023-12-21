@@ -95,19 +95,19 @@ export default createPlugin({
         this.oldPlaylistId = event.detail.videoData?.playlistId ?? '';
       }
 
-      if (event.detail.name === 'dataloaded') {
-        const videoList: VideoData[] = this.queue?.rawItems.map((it: any) => ({
-          videoId: it.videoId,
-          owner: {
-            id: this.connection!.id,
-            ...this.me!
-          }
-        } satisfies VideoData));
+      const videoList: VideoData[] = this.queue?.flatItems.map((it: any) => ({
+        videoId: it.videoId,
+        owner: {
+          id: this.connection!.id,
+          ...this.me!
+        }
+      } satisfies VideoData)) ?? [];
 
-        this.connection.broadcast('SYNC_QUEUE', {
-          videoList
-        });
-      }
+      this.queue?.setVideoList(videoList, false);
+      this.queue?.syncQueueOwner();
+      this.connection.broadcast('SYNC_QUEUE', {
+        videoList
+      });
     },
 
     videoStateChangeListener() {
@@ -138,6 +138,8 @@ export default createPlugin({
         }
       } satisfies VideoData)) ?? [];
       this.queue?.setVideoList(rawItems, false);
+      this.queue?.syncQueueOwner();
+      this.queue?.initQueue();
 
       this.profiles = {};
       this.profiles[this.connection.id] = {
@@ -222,6 +224,7 @@ export default createPlugin({
     async onJoin() {
       this.connection = new Connection();
       await this.connection.waitForReady();
+      this.profiles = {};
 
       const id = await this.showPrompt(t('plugins.music-together.name'), t('plugins.music-together.dialog.enter-host'));
       if (typeof id !== 'string') return false;
@@ -317,6 +320,9 @@ export default createPlugin({
       this.connection.broadcast('SYNC_PROFILE', undefined);
       this.connection.broadcast('PERMISSION', undefined);
       this.connection.broadcast('SYNC_QUEUE', undefined);
+
+      this.queue?.syncQueueOwner();
+      this.queue?.initQueue();
 
       return !!connection;
     },
@@ -432,11 +438,12 @@ export default createPlugin({
                   return;
                 }
 
+                if (!this.me) this.me = getDefaultProfile(this.connection?.id ?? '');
                 const videoData: VideoData = {
                   videoId,
                   owner: {
                     id: this.connection!.id,
-                    ...this.me!
+                    ...this.me
                   }
                 };
                 this.connection?.broadcast('ADD_SONG', { video: videoData });
@@ -502,6 +509,7 @@ export default createPlugin({
 
           if (id === 'music-together-permission') {
             this.permission = this.permission === 'host-only' ? 'all' : 'host-only';
+            this.connection?.broadcast('PERMISSION', this.permission);
 
             hostPopup.setPermission(this.permission);
             guestPopup.setPermission(this.permission);
@@ -575,9 +583,7 @@ export default createPlugin({
       this.initMyProfile();
     },
     onPlayerApiReady(playerApi) {
-      this.queue = new Queue({
-        getProfile: (id) => this.profiles[id]
-      });
+      this.queue = new Queue();
       this.playerApi = playerApi;
 
       this.playerApi.addEventListener('onStateChange', this.videoStateChangeListener);
