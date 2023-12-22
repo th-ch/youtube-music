@@ -2,16 +2,17 @@ import { DataConnection, Peer } from 'peerjs';
 
 import type { Permission, Profile, VideoData } from './types';
 
-type ConnectionEventMap = {
-  ADD_SONG: { video: VideoData };
+export type ConnectionEventMap = {
+  ADD_SONGS: { videoList: VideoData[] };
   REMOVE_SONG: { index: number };
+  MOVE_SONG: { fromIndex: number; toIndex: number };
   IDENTIFY: { profile: Profile } | undefined;
   SYNC_PROFILE: { profiles: Record<string, Profile> } | undefined;
   SYNC_QUEUE: { videoList: VideoData[] } | undefined;
   SYNC_PROGRESS: { progress?: number; state?: number; index?: number; } | undefined;
   PERMISSION: Permission | undefined;
 };
-type ConnectionEventUnion = {
+export type ConnectionEventUnion = {
   [Event in keyof ConnectionEventMap]: {
     type: Event;
     payload: ConnectionEventMap[Event];

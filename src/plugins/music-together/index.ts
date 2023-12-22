@@ -6,7 +6,7 @@ import promptOptions from '@/providers/prompt-options';
 
 import { getDefaultProfile, Permission, Profile, VideoData } from './types';
 import { Queue, QueueAPI } from './queue';
-import { Connection } from './connection';
+import { Connection, ConnectionEventUnion } from './connection';
 import { createHostPopup } from './ui/host';
 import { createGuestPopup } from './ui/guest';
 import { createSettingPopup } from './ui/setting';
@@ -17,6 +17,7 @@ import style from './style.css?inline';
 import type { YoutubePlayer } from '@/types/youtube-player';
 import type { RendererContext } from '@/types/contexts';
 import type { VideoDataChanged } from '@/types/video-data-changed';
+import { DataConnection } from 'peerjs';
 
 type RawAccountData = {
   accountName: {
@@ -137,6 +138,10 @@ export default createPlugin({
           ...this.me!
         }
       } satisfies VideoData)) ?? [];
+      this.queue?.setOwner({
+        id: this.connection.id,
+        ...this.me
+      });
       this.queue?.setVideoList(rawItems, false);
       this.queue?.syncQueueOwner();
       this.queue?.initQueue();
@@ -148,13 +153,13 @@ export default createPlugin({
         ...this.me
       };
 
-      this.connection.on((event, conn) => {
+      const listener = (event: ConnectionEventUnion, conn?: DataConnection) => {
         this.ignoreChange = true;
 
         switch (event.type) {
-          case 'ADD_SONG': {
-            this.queue?.addVideo(event.payload.video);
-            this.connection?.broadcast('ADD_SONG', event.payload);
+          case 'ADD_SONGS': {
+            this.queue?.addVideos(event.payload.videoList);
+            this.connection?.broadcast('ADD_SONGS', event.payload);
             break;
           }
           case 'REMOVE_SONG': {
@@ -162,9 +167,14 @@ export default createPlugin({
             this.connection?.broadcast('REMOVE_SONG', event.payload);
             break;
           }
+          case 'MOVE_SONG': {
+            this.queue?.moveItem(event.payload.fromIndex, event.payload.toIndex);
+            this.connection?.broadcast('MOVE_SONG', event.payload);
+            break;
+          }
           case 'IDENTIFY': {
-            if (!event.payload) {
-              console.warn('Music Together [Host]: Received "IDENTIFY" event without payload');
+            if (!event.payload || !conn) {
+              console.warn('Music Together [Host]: Received "IDENTIFY" event without payload or connection');
               break;
             }
 
@@ -214,7 +224,9 @@ export default createPlugin({
             break;
           }
         }
-      });
+      };
+      this.connection.on(listener);
+      this.queue?.on(listener);
 
       setTimeout(() => {
         this.ignoreChange = false;
@@ -232,15 +244,19 @@ export default createPlugin({
 
       const connection = await this.connection.connect(id).catch(() => false);
 
-      this.connection.on((event) => {
+      const listener = (event: ConnectionEventUnion) => {
         this.ignoreChange = true;
         switch (event.type) {
-          case 'ADD_SONG': {
-            this.queue?.addVideo(event.payload.video);
+          case 'ADD_SONGS': {
+            this.queue?.addVideos(event.payload.videoList);
             break;
           }
           case 'REMOVE_SONG': {
             this.queue?.removeVideo(event.payload.index);
+            break;
+          }
+          case 'MOVE_SONG': {
+            this.queue?.moveItem(event.payload.fromIndex, event.payload.toIndex);
             break;
           }
           case 'IDENTIFY': {
@@ -307,9 +323,18 @@ export default createPlugin({
         setTimeout(() => {
           this.ignoreChange = false;
         }, 16); // wait 1 frame
-      });
+      };
+
+      this.connection.on(listener);
+      this.queue?.on(listener);
 
       if (!this.me) this.me = getDefaultProfile(this.connection.id);
+      this.queue?.injection();
+      this.queue?.setOwner({
+        id: this.connection.id,
+        ...this.me
+      });
+
       this.connection.broadcast('IDENTIFY', {
         profile: {
           id: this.connection.id,
@@ -318,7 +343,6 @@ export default createPlugin({
           thumbnail: this.me.thumbnail
         },
       });
-      this.queue?.injection();
 
       this.connection.broadcast('SYNC_PROFILE', undefined);
       this.connection.broadcast('PERMISSION', undefined);
@@ -461,8 +485,8 @@ export default createPlugin({
                     ...this.me
                   }
                 };
-                this.connection?.broadcast('ADD_SONG', { video: videoData });
-                if (this.connection?.mode === 'host') this.queue?.addVideo(videoData);
+                this.connection?.broadcast('ADD_SONGS', { videoList: [videoData] });
+                if (this.connection?.mode === 'host') this.queue?.addVideos([videoData]);
               }, true);
             }
 
@@ -490,10 +514,10 @@ export default createPlugin({
           });
         }
       });
-      this.replaceObserver.observe(document.querySelector('ytmusic-popup-container')!, {
-        childList: true,
-        subtree: true
-      });
+      // this.replaceObserver.observe(document.querySelector('ytmusic-popup-container')!, {
+      //   childList: true,
+      //   subtree: true
+      // });
 
       this.stateInterval = window.setInterval(() => {
         if (this.connection?.mode !== 'host') return;
@@ -598,7 +622,12 @@ export default createPlugin({
       this.initMyProfile();
     },
     onPlayerApiReady(playerApi) {
-      this.queue = new Queue();
+      this.queue = new Queue({
+        owner: {
+          id: this.connection?.id ?? '',
+          ...this.me!
+        },
+      });
       this.playerApi = playerApi;
 
       this.playerApi.addEventListener('onStateChange', this.videoStateChangeListener);

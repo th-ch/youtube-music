@@ -1,7 +1,8 @@
 import { getMusicQueueRenderer } from './song';
 import { mapQueueItem } from './utils';
 
-import type { VideoData } from '../types';
+import type { Profile, VideoData } from '../types';
+import { ConnectionEventUnion } from '@/plugins/music-together/connection';
 
 type StoreState = any;
 type Store = {
@@ -26,7 +27,9 @@ export type QueueAPI = {
 };
 export type QueueOptions = {
   videoList?: VideoData[];
+  owner?: Profile;
 }
+export type QueueEventListener = (event: ConnectionEventUnion) => void;
 
 export class Queue {
   private queue: (HTMLElement & QueueAPI) | null = null;
@@ -35,12 +38,15 @@ export class Queue {
     payload?: unknown;
   }) => void) | null = null;
   private isInternalDispatch = false;
+  private listeners: QueueEventListener[] = [];
+  private owner: Profile | null = null;
 
   constructor(
     options: QueueOptions = {},
     element = document.querySelector<HTMLElement & QueueAPI>('#queue')
   ) {
     this.queue = element;
+    this.owner = options.owner ?? null;
     this._videoList = options.videoList ?? [];
   }
 
@@ -63,6 +69,10 @@ export class Queue {
     return mapQueueItem((it) => it, this.rawItems);
   }
 
+  setOwner(owner: Profile) {
+    this.owner = owner;
+  }
+
   /* public */
   async setVideoList(videoList: VideoData[], sync = true) {
     this._videoList = videoList;
@@ -70,15 +80,15 @@ export class Queue {
     if (sync) await this.syncVideo();
   }
 
-  async addVideo(video: VideoData) {
-    const response = await getMusicQueueRenderer([video.videoId]);
+  async addVideos(videos: VideoData[]) {
+    const response = await getMusicQueueRenderer(videos.map((it) => it.videoId));
     if (!response) return false;
 
     const item = response.queueDatas[0]?.content;
     if (!item) return false;
 
     this.isInternalDispatch = true;
-    this._videoList.push(video);
+    this._videoList.push(...videos);
     this.queue?.dispatch({
       type: 'ADD_ITEMS',
       payload: {
@@ -111,6 +121,27 @@ export class Queue {
     });
   }
 
+  moveItem(fromIndex: number, toIndex: number) {
+    this.isInternalDispatch = true;
+    this.queue?.dispatch({
+      type: 'MOVE_ITEM',
+      payload: {
+        fromIndex,
+        toIndex
+      }
+    });
+    this.isInternalDispatch = false;
+    setTimeout(() => this.syncQueueOwner(), 0);
+  }
+
+  on(listener: QueueEventListener) {
+    this.listeners.push(listener);
+  }
+
+  off(listener: QueueEventListener) {
+    this.listeners = this.listeners.filter((it) => it !== listener);
+  }
+
   rollbackInjection() {
     if (!this.queue) {
       console.error('Queue is not initialized!');
@@ -128,14 +159,51 @@ export class Queue {
 
     this.originalDispatch = this.queue.store.dispatch;
     this.queue.store.dispatch = (event) => {
-      if (!this.queue) {
+      if (!this.queue || !this.owner) {
         console.error('Queue is not initialized!');
         return;
       }
 
       if (!this.isInternalDispatch) {
-        if (event.type === 'ADD_ITEMS') return;
+        if (event.type === 'CLEAR') {
+          this.isInternalDispatch = true;
+        }
+        if (event.type === 'ADD_ITEMS') {
+          if (((event.payload as any)?.items?.length ?? 0) > 1) return;
+        }
+        if (event.type === 'MOVE_ITEM') {
+          this.broadcast({
+            type: 'MOVE_SONG',
+            payload: {
+              fromIndex: (event.payload as any).fromIndex,
+              toIndex: (event.payload as any).toIndex
+            }
+          });
+        }
+        if (event.type === 'REMOVE_ITEM') {
+          this.broadcast({
+            type: 'REMOVE_SONG',
+            payload: {
+              index: (event.payload as any).index
+            }
+          });
+        }
+      } else {
+        if (event.type === 'ADD_ITEMS') {
+          this.broadcast({
+            type: 'ADD_SONGS',
+            payload: {
+              videoList: (event.payload as any)?.items?.map((it: any) => ({
+                videoId: it.videoId,
+                owner: this.owner!,
+              } satisfies VideoData))
+            }
+          });
+          this.isInternalDispatch = false;
+        }
       }
+
+      // console.log('dispatch', event);
 
       const fakeContext = {
         ...this.queue,
@@ -266,5 +334,10 @@ export class Queue {
         profile?.remove();
       });
     });
+  }
+
+  /* private */
+  private broadcast(event: ConnectionEventUnion) {
+    this.listeners.forEach((listener) => listener(event));
   }
 }
