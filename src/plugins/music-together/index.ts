@@ -89,25 +89,43 @@ export default createPlugin({
 
     /* events */
     videoChangeListener(event: CustomEvent<VideoDataChanged>) {
-      if (this.connection?.mode !== 'host') return;
-
       if (event.detail.videoData?.playlistId !== this.oldPlaylistId) {
         this.oldPlaylistId = event.detail.videoData?.playlistId ?? '';
       }
 
-      const videoList: VideoData[] = this.queue?.flatItems.map((it: any) => ({
-        videoId: it.videoId,
-        owner: {
-          id: this.connection!.id,
-          ...this.me!
-        }
-      } satisfies VideoData)) ?? [];
+      if (this.connection?.mode === 'host') {
+        const videoList: VideoData[] = this.queue?.flatItems.map((it: any) => ({
+          videoId: it.videoId,
+          owner: {
+            id: this.connection!.id,
+            ...this.me!
+          }
+        } satisfies VideoData)) ?? [];
 
-      this.queue?.setVideoList(videoList, false);
-      this.queue?.syncQueueOwner();
-      this.connection.broadcast('SYNC_QUEUE', {
-        videoList
-      });
+        this.queue?.setVideoList(videoList, false);
+        this.queue?.syncQueueOwner();
+        this.connection.broadcast('SYNC_QUEUE', {
+          videoList
+        });
+      }
+
+      if (this.connection?.mode === 'guest') {
+        if (this.permission === 'host-only') return;
+        // if (this.oldPlaylistId === event.detail.videoData?.playlistId)
+        if (!event.detail.videoData?.videoId) return;
+
+        const videoData: VideoData = {
+          videoId: event.detail.videoData.videoId,
+          owner: {
+            id: this.connection.id,
+            ...this.me!
+          }
+        };
+
+        this.connection.broadcast('ADD_SONGS', {
+          videoList: [videoData],
+        });
+      }
     },
 
     videoStateChangeListener() {
@@ -148,10 +166,10 @@ export default createPlugin({
       this.queue?.injection();
 
       this.profiles = {};
-      this.profiles[this.connection.id] = {
+      this.putProfile(this.connection.id, {
         id: this.connection.id,
         ...this.me
-      };
+      });
 
       const listener = (event: ConnectionEventUnion, conn?: DataConnection) => {
         this.ignoreChange = true;
@@ -172,13 +190,15 @@ export default createPlugin({
             break;
           }
           case 'MOVE_SONG': {
-            if (conn && this.permission === 'host-only') return;
+            if (conn && this.permission === 'host-only') {
+              this.connection?.broadcast('SYNC_QUEUE', {
+                videoList: this.queue?.videoList ?? [],
+              });
+              return;
+            }
 
             this.queue?.moveItem(event.payload.fromIndex, event.payload.toIndex);
-            // this.connection?.broadcast('MOVE_SONG', event.payload);
-            this.connection?.broadcast('SYNC_QUEUE', {
-              videoList: this.queue?.videoList ?? [],
-            });
+            this.connection?.broadcast('MOVE_SONG', event.payload);
             break;
           }
           case 'IDENTIFY': {
@@ -390,6 +410,8 @@ export default createPlugin({
       this.queue?.removeQueueOwner();
 
       this.profiles = {};
+      this.popups.host.setUsers(Object.values(this.profiles));
+      this.popups.guest.setUsers(Object.values(this.profiles));
 
       this.popups.host.dismiss();
       this.popups.guest.dismiss();
