@@ -77,6 +77,17 @@ export const Popup = (props: PopupProps) => {
       popup.style.setProperty('top', `${top}px`);
       popup.style.setProperty('opacity', '1');
       popup.style.setProperty('pointer-events', 'unset');
+
+      setTimeout(() => {
+        const onClose = (event: MouseEvent) => {
+          const isPopupClick = event.composedPath().some((element) => element === popup);
+          if (!isPopupClick) {
+            this.dismiss();
+            document.removeEventListener('click', onClose);
+          }
+        };
+        document.addEventListener('click', onClose);
+      }, 16);
     },
     showAtAnchor(anchor: HTMLElement) {
       const { x, y } = anchor.getBoundingClientRect();
