@@ -37,7 +37,7 @@ export class Queue {
     type: string;
     payload?: unknown;
   }) => void) | null = null;
-  private isInternalDispatch = false;
+  private internalDispatch = 0;
   private listeners: QueueEventListener[] = [];
   private owner: Profile | null = null;
 
@@ -87,7 +87,7 @@ export class Queue {
     const item = response.queueDatas[0]?.content;
     if (!item) return false;
 
-    this.isInternalDispatch = true;
+    this.internalDispatch = Number.POSITIVE_INFINITY;
     this._videoList.push(...videos);
     this.queue?.dispatch({
       type: 'ADD_ITEMS',
@@ -99,7 +99,7 @@ export class Queue {
         shouldAssignIds: true
       }
     });
-    this.isInternalDispatch = false;
+    this.internalDispatch = 0;
     setTimeout(() => {
       this.initQueue();
       this.syncQueueOwner();
@@ -109,13 +109,13 @@ export class Queue {
   }
 
   async removeVideo(index: number) {
-    this.isInternalDispatch = true;
+    this.internalDispatch = Number.POSITIVE_INFINITY;
     this._videoList.splice(index, 1);
     this.queue?.dispatch({
       type: 'REMOVE_ITEM',
       payload: index
     });
-    this.isInternalDispatch = false;
+    this.internalDispatch = 0;
     setTimeout(() => {
       this.initQueue();
       this.syncQueueOwner();
@@ -123,16 +123,16 @@ export class Queue {
   }
 
   setIndex(index: number) {
-    this.isInternalDispatch = true;
+    this.internalDispatch = Number.POSITIVE_INFINITY;
     this.queue?.dispatch({
       type: 'SET_INDEX',
       payload: index
     });
-    this.isInternalDispatch = false;
+    this.internalDispatch = 0;
   }
 
   moveItem(fromIndex: number, toIndex: number) {
-    this.isInternalDispatch = true;
+    this.internalDispatch = Number.POSITIVE_INFINITY;
     const data = this._videoList.splice(fromIndex, 1)[0];
     this._videoList.splice(toIndex, 0, data);
     this.queue?.dispatch({
@@ -142,7 +142,7 @@ export class Queue {
         toIndex
       }
     });
-    this.isInternalDispatch = false;
+    this.internalDispatch = 0;
     setTimeout(() => {
       this.initQueue();
       this.syncQueueOwner();
@@ -179,9 +179,9 @@ export class Queue {
         return;
       }
 
-      if (!this.isInternalDispatch) {
+      if (this.internalDispatch <= 0) {
         if (event.type === 'CLEAR') {
-          this.isInternalDispatch = true;
+          this.internalDispatch = 1;
         }
         if (event.type === 'ADD_ITEMS') {
           if (((event.payload as any)?.items?.length ?? 0) > 1) return;
@@ -217,18 +217,31 @@ export class Queue {
           });
           return;
         }
+        if (event.type === 'SET_INDEX') {
+          this.broadcast({
+            type: 'SYNC_PROGRESS',
+            payload: {
+              index: event.payload as number
+            }
+          });
+          return;
+        }
       } else {
         if (event.type === 'ADD_ITEMS') {
-          // this.broadcast({
-          //   type: 'ADD_SONGS',
-          //   payload: {
-          //     videoList: mapQueueItem((it: any) => ({
-          //       videoId: it.videoId,
-          //       owner: this.owner!,
-          //     } satisfies VideoData), (event.payload as any).items)
-          //   }
-          // });
-          this.isInternalDispatch = false;
+          this.internalDispatch -= 1;
+          if (this.internalDispatch <= 0) {
+            this.broadcast({
+              type: 'ADD_SONGS',
+              payload: {
+                videoList: mapQueueItem((it: any) => ({
+                  videoId: it.videoId,
+                  owner: this.owner!,
+                } satisfies VideoData), (event.payload as any).items)
+              }
+            });
+
+            return;
+          }
         }
       }
 
@@ -302,7 +315,7 @@ export class Queue {
 
     const items = response.queueDatas.map((it) => it.content);
 
-    this.isInternalDispatch = true;
+    this.internalDispatch = Number.POSITIVE_INFINITY;
     this.queue?.dispatch({
       type: 'UPDATE_ITEMS',
       payload: {
@@ -312,7 +325,7 @@ export class Queue {
         currentIndex: -1
       }
     });
-    this.isInternalDispatch = false;
+    this.internalDispatch = 0;
     setTimeout(() => {
       this.initQueue();
       this.syncQueueOwner();

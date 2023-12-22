@@ -115,12 +115,13 @@ export default createPlugin({
       if (this.ignoreChange) return;
       if (this.permission !== 'all') return;
 
-      const index = this.queue?.selectedIndex ?? 0;
+      const state = this.playerApi?.getPlayerState();
+      if (state !== 1 && state !== 2) return;
 
       this.connection.broadcast('SYNC_PROGRESS', {
-        progress: this.playerApi?.getCurrentTime(),
+        // progress: this.playerApi?.getCurrentTime(),
         state: this.playerApi?.getPlayerState(),
-        index
+        // index: this.queue?.selectedIndex ?? 0,
       });
     },
 
@@ -174,7 +175,10 @@ export default createPlugin({
             if (conn && this.permission === 'host-only') return;
 
             this.queue?.moveItem(event.payload.fromIndex, event.payload.toIndex);
-            this.connection?.broadcast('MOVE_SONG', event.payload);
+            // this.connection?.broadcast('MOVE_SONG', event.payload);
+            this.connection?.broadcast('SYNC_QUEUE', {
+              videoList: this.queue?.videoList ?? [],
+            });
             break;
           }
           case 'IDENTIFY': {
@@ -206,7 +210,7 @@ export default createPlugin({
             break;
           }
           case 'SYNC_PROGRESS': {
-            if (this.permission !== 'all') break;
+            if (this.permission !== 'all' && conn) break;
 
             if (typeof event.payload?.progress === 'number') {
               const currentTime = this.playerApi?.getCurrentTime() ?? 0;
@@ -348,6 +352,10 @@ export default createPlugin({
             break;
           }
         }
+
+        setTimeout(() => {
+          this.ignoreChange = false;
+        }, 16); // wait 1 frame
       });
 
       if (!this.me) this.me = getDefaultProfile(this.connection.id);
