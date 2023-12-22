@@ -461,6 +461,7 @@
         "host-failed": "Music Together를 열 수 없습니다",
         "joined": "Music Together에 참여했습니다",
         "user-connected": "{{name}}님이 Music Together에 참여했습니다",
+        "user-disconnected": "{{name}}님이 Music Together에서 나갔습니다",
         "join-failed": "Music Together에 참여할 수 없습니다",
         "permission-changed": "Music Together 제어 권한이 \"{{permission}}\" 변경되었습니다"
       }

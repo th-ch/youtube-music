@@ -148,6 +148,15 @@ export class Queue {
       this.syncQueueOwner();
     }, 0);
   }
+  
+  clear() {
+    this.internalDispatch = Number.POSITIVE_INFINITY;
+    this._videoList = [];
+    this.queue?.dispatch({
+      type: 'CLEAR'
+    });
+    this.internalDispatch = 0;
+  }
 
   on(listener: QueueEventListener) {
     this.listeners.push(listener);
@@ -185,19 +194,21 @@ export class Queue {
         }
         if (event.type === 'ADD_ITEMS') {
           if (((event.payload as any)?.items?.length ?? 0) > 1) return;
+
           this.broadcast({
             type: 'ADD_SONGS',
             payload: {
               // index: (event.payload as any).index,
               videoList: mapQueueItem((it: any) => ({
                 videoId: it.videoId,
-                owner: this.owner!,
+                owner: this.owner!
               } satisfies VideoData), (event.payload as any).items)
             }
           });
 
           return;
         }
+
         if (event.type === 'MOVE_ITEM') {
           this.broadcast({
             type: 'MOVE_SONG',
@@ -235,7 +246,7 @@ export class Queue {
               payload: {
                 videoList: mapQueueItem((it: any) => ({
                   videoId: it.videoId,
-                  owner: this.owner!,
+                  owner: this.owner!
                 } satisfies VideoData), (event.payload as any).items)
               }
             });

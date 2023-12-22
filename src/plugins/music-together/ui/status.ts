@@ -9,7 +9,7 @@ export const createStatus = () => {
 
   const profile = element.querySelector<HTMLImageElement>('.music-together-profile')!;
   const statusLabel = element.querySelector<HTMLSpanElement>('#music-together-status-label')!;
-  const permisisonLabel = element.querySelector<HTMLSpanElement>('#music-together-permission-label')!;
+  const permissionLabel = element.querySelector<HTMLSpanElement>('#music-together-permission-label')!;
 
   profile.src = icon?.src ?? '';
 
@@ -32,18 +32,18 @@ export const createStatus = () => {
 
   const setPermission = (permission: Permission) => {
     if (permission === 'host-only') {
-      permisisonLabel.textContent = t('plugins.music-together.menu.permission.host-only');
-      permisisonLabel.style.color = 'rgba(255, 255, 255, 0.5)';
+      permissionLabel.textContent = t('plugins.music-together.menu.permission.host-only');
+      permissionLabel.style.color = 'rgba(255, 255, 255, 0.5)';
     }
 
     if (permission === 'playlist') {
-      permisisonLabel.textContent = t('plugins.music-together.menu.permission.playlist');
-      permisisonLabel.style.color = 'rgba(255, 255, 255, 0.75)';
+      permissionLabel.textContent = t('plugins.music-together.menu.permission.playlist');
+      permissionLabel.style.color = 'rgba(255, 255, 255, 0.75)';
     }
 
     if (permission === 'all') {
-      permisisonLabel.textContent = t('plugins.music-together.menu.permission.all');
-      permisisonLabel.style.color = 'rgba(255, 255, 255, 1)';
+      permissionLabel.textContent = t('plugins.music-together.menu.permission.all');
+      permissionLabel.style.color = 'rgba(255, 255, 255, 1)';
     }
   };
 
@@ -53,8 +53,8 @@ export const createStatus = () => {
 
   const setUsers = (users: Profile[]) => {
     const container = element.querySelector<HTMLDivElement>('.music-together-user-container')!;
-    const empty = document.querySelector<HTMLElement>('.music-together-empty')!;
-    for (const child of container.children) {
+    const empty = element.querySelector<HTMLElement>('.music-together-empty')!;
+    for (const child of Array.from(container.children)) {
       if (child !== empty) child.remove();
     }
 

@@ -120,7 +120,7 @@ export default createPlugin({
 
       this.connection.broadcast('SYNC_PROGRESS', {
         // progress: this.playerApi?.getCurrentTime(),
-        state: this.playerApi?.getPlayerState(),
+        state: this.playerApi?.getPlayerState()
         // index: this.queue?.selectedIndex ?? 0,
       });
     },
@@ -150,7 +150,10 @@ export default createPlugin({
       this.profiles = {};
       this.connection.onConnections((connection) => {
         if (!connection.open) {
-          this.putProfile(connection.connectionId, undefined);
+          this.api?.openToast(t('plugins.music-together.toast.user-disconnected', {
+            name: this.profiles[connection.peer]?.name
+          }));
+          this.putProfile(connection.peer, undefined);
         }
       });
       this.putProfile(this.connection.id, {
@@ -179,7 +182,7 @@ export default createPlugin({
           case 'MOVE_SONG': {
             if (conn && this.permission === 'host-only') {
               this.connection?.broadcast('SYNC_QUEUE', {
-                videoList: this.queue?.videoList ?? [],
+                videoList: this.queue?.videoList ?? []
               });
               return;
             }
@@ -195,7 +198,7 @@ export default createPlugin({
             }
 
             this.api?.openToast(t('plugins.music-together.toast.user-connected', { name: event.payload.profile.name }));
-            this.putProfile(conn.connectionId, event.payload.profile);
+            this.putProfile(conn.peer, event.payload.profile);
             break;
           }
           case 'SYNC_PROFILE': {
@@ -212,7 +215,7 @@ export default createPlugin({
           }
           case 'SYNC_QUEUE': {
             this.connection?.broadcast('SYNC_QUEUE', {
-              videoList: this.queue?.videoList ?? [],
+              videoList: this.queue?.videoList ?? []
             });
             break;
           }
@@ -389,15 +392,17 @@ export default createPlugin({
           handleId: this.me.handleId,
           name: this.me.name,
           thumbnail: this.me.thumbnail
-        },
+        }
       });
 
       this.connection.broadcast('SYNC_PROFILE', undefined);
       this.connection.broadcast('PERMISSION', undefined);
-      this.connection.broadcast('SYNC_QUEUE', undefined);
 
+      this.queue?.clear();
       this.queue?.syncQueueOwner();
       this.queue?.initQueue();
+
+      this.connection.broadcast('SYNC_QUEUE', undefined);
 
       return !!connection;
     },
@@ -420,10 +425,10 @@ export default createPlugin({
     putProfile(id: string, profile?: Profile) {
       if (profile === undefined) {
         delete this.profiles[id];
-        return;
+      } else {
+        this.profiles[id] = profile;
       }
 
-      this.profiles[id] = profile;
       this.popups.host.setUsers(Object.values(this.profiles));
       this.popups.guest.setUsers(Object.values(this.profiles));
     },
@@ -524,7 +529,6 @@ export default createPlugin({
             if (this.permission === 'all') this.permission = 'host-only';
             else if (this.permission === 'playlist') this.permission = 'all';
             else if (this.permission === 'host-only') this.permission = 'playlist';
-            console.log('permission', this.permission)
             this.connection?.broadcast('PERMISSION', this.permission);
 
             hostPopup.setPermission(this.permission);
@@ -603,7 +607,7 @@ export default createPlugin({
         owner: {
           id: this.connection?.id ?? '',
           ...this.me!
-        },
+        }
       });
       this.playerApi = playerApi;
 
