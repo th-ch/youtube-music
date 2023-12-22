@@ -36,6 +36,11 @@ export const createStatus = () => {
       permisisonLabel.style.color = 'rgba(255, 255, 255, 0.5)';
     }
 
+    if (permission === 'playlist') {
+      permisisonLabel.textContent = t('plugins.music-together.menu.permission.playlist');
+      permisisonLabel.style.color = 'rgba(255, 255, 255, 0.75)';
+    }
+
     if (permission === 'all') {
       permisisonLabel.textContent = t('plugins.music-together.menu.permission.all');
       permisisonLabel.style.color = 'rgba(255, 255, 255, 1)';

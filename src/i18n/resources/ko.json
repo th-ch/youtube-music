@@ -431,13 +431,13 @@
       "description": "",
       "menu": {
         "disconnect": "Music Together 연결 끊기",
-        "click-to-copy-id": "클릭하여 아이디 복사",
+        "click-to-copy-id": "호스트 아이디 복사",
         "close": "Music Together 닫기",
         "host": "Music Together 호스트",
         "join": "Music Together 참여",
         "connected-users": "연결된 사용자",
         "empty-user": "연결된 사용자 없음",
-        "set-permission": "권한 변경: (현재: {{permission}})",
+        "set-permission": "제어 권한 변경",
         "status": {
           "disconnected": "연결 끊김",
           "host": "호스트로 연결됨",
@@ -445,6 +445,7 @@
         },
         "permission": {
           "host-only": "호스트만 제어 가능",
+          "playlist": "재생목록 제어 가능",
           "all": "모두 제어 가능"
         }
       },
@@ -459,6 +460,7 @@
         "id-copied": "호스트 아이디가 클립보드에 복사되었습니다",
         "host-failed": "Music Together를 열 수 없습니다",
         "joined": "Music Together에 참여했습니다",
+        "user-connected": "{{name}}님이 Music Together에 참여했습니다",
         "join-failed": "Music Together에 참여할 수 없습니다",
         "permission-changed": "Music Together 제어 권한이 \"{{permission}}\" 변경되었습니다"
       }

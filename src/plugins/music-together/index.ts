@@ -85,7 +85,7 @@ export default createPlugin({
 
     me: null as Omit<Profile, 'id'> | null,
     profiles: {} as Record<string, Profile>,
-    permission: 'host-only' as Permission,
+    permission: 'playlist' as Permission,
 
     /* events */
     videoChangeListener(event: CustomEvent<VideoDataChanged>) {
@@ -157,16 +157,22 @@ export default createPlugin({
 
         switch (event.type) {
           case 'ADD_SONGS': {
+            if (conn && this.permission === 'host-only') return;
+
             this.queue?.addVideos(event.payload.videoList, event.payload.index);
             this.connection?.broadcast('ADD_SONGS', event.payload);
             break;
           }
           case 'REMOVE_SONG': {
+            if (conn && this.permission === 'host-only') return;
+
             this.queue?.removeVideo(event.payload.index);
             this.connection?.broadcast('REMOVE_SONG', event.payload);
             break;
           }
           case 'MOVE_SONG': {
+            if (conn && this.permission === 'host-only') return;
+
             this.queue?.moveItem(event.payload.fromIndex, event.payload.toIndex);
             this.connection?.broadcast('MOVE_SONG', event.payload);
             break;
@@ -177,6 +183,7 @@ export default createPlugin({
               break;
             }
 
+            this.api?.openToast(t('plugins.music-together.toast.user-connected', { name: event.payload.profile.name }));
             this.putProfile(conn.connectionId, event.payload.profile);
             break;
           }
@@ -486,7 +493,10 @@ export default createPlugin({
           }
 
           if (id === 'music-together-permission') {
-            this.permission = this.permission === 'host-only' ? 'all' : 'host-only';
+            if (this.permission === 'all') this.permission = 'host-only';
+            else if (this.permission === 'playlist') this.permission = 'all';
+            else if (this.permission === 'host-only') this.permission = 'playlist';
+            console.log('permission', this.permission)
             this.connection?.broadcast('PERMISSION', this.permission);
 
             hostPopup.setPermission(this.permission);
@@ -497,7 +507,7 @@ export default createPlugin({
             this.api?.openToast(t('plugins.music-together.toast.permission-changed', { permission: permissionLabel }));
             const item = hostPopup.items.find((it) => it?.element.id === id);
             if (item?.type === 'item') {
-              item.setText(t('plugins.music-together.menu.set-permission', { permission: permissionLabel }));
+              item.setText(t('plugins.music-together.menu.set-permission'));
             }
           }
         }
