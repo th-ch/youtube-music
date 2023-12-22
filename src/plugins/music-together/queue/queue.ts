@@ -100,29 +100,41 @@ export class Queue {
       }
     });
     this.isInternalDispatch = false;
-    setTimeout(() => this.syncQueueOwner(), 0);
+    setTimeout(() => {
+      this.initQueue();
+      this.syncQueueOwner();
+    }, 0);
 
     return true;
   }
 
   async removeVideo(index: number) {
+    this.isInternalDispatch = true;
     this._videoList.splice(index, 1);
     this.queue?.dispatch({
       type: 'REMOVE_ITEM',
       payload: index
     });
-    setTimeout(() => this.syncQueueOwner(), 0);
+    this.isInternalDispatch = false;
+    setTimeout(() => {
+      this.initQueue();
+      this.syncQueueOwner();
+    }, 0);
   }
 
   setIndex(index: number) {
+    this.isInternalDispatch = true;
     this.queue?.dispatch({
       type: 'SET_INDEX',
       payload: index
     });
+    this.isInternalDispatch = false;
   }
 
   moveItem(fromIndex: number, toIndex: number) {
     this.isInternalDispatch = true;
+    const data = this._videoList.splice(fromIndex, 1)[0];
+    this._videoList.splice(toIndex, 0, data);
     this.queue?.dispatch({
       type: 'MOVE_ITEM',
       payload: {
@@ -131,7 +143,10 @@ export class Queue {
       }
     });
     this.isInternalDispatch = false;
-    setTimeout(() => this.syncQueueOwner(), 0);
+    setTimeout(() => {
+      this.initQueue();
+      this.syncQueueOwner();
+    }, 0);
   }
 
   on(listener: QueueEventListener) {
@@ -197,7 +212,7 @@ export class Queue {
           this.broadcast({
             type: 'REMOVE_SONG',
             payload: {
-              index: (event.payload as any).index
+              index: event.payload as number
             }
           });
           return;
@@ -217,7 +232,7 @@ export class Queue {
         }
       }
 
-      console.log('dispatch', event);
+      // console.log('dispatch', event);
 
       const fakeContext = {
         ...this.queue,

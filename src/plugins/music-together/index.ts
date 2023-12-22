@@ -325,7 +325,23 @@ export default createPlugin({
       };
 
       this.connection.on(listener);
-      this.queue?.on(listener);
+      this.queue?.on((event: ConnectionEventUnion) => {
+        this.ignoreChange = true;
+        switch (event.type) {
+          case 'ADD_SONGS': {
+            this.connection?.broadcast('ADD_SONGS', event.payload);
+            break;
+          }
+          case 'REMOVE_SONG': {
+            this.connection?.broadcast('REMOVE_SONG', event.payload);
+            break;
+          }
+          case 'MOVE_SONG': {
+            this.connection?.broadcast('MOVE_SONG', event.payload);
+            break;
+          }
+        }
+      });
 
       if (!this.me) this.me = getDefaultProfile(this.connection.id);
       this.queue?.injection();
