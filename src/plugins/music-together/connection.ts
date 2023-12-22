@@ -3,7 +3,7 @@ import { DataConnection, Peer } from 'peerjs';
 import type { Permission, Profile, VideoData } from './types';
 
 export type ConnectionEventMap = {
-  ADD_SONGS: { videoList: VideoData[] };
+  ADD_SONGS: { videoList: VideoData[], index?: number };
   REMOVE_SONG: { index: number };
   MOVE_SONG: { fromIndex: number; toIndex: number };
   IDENTIFY: { profile: Profile } | undefined;

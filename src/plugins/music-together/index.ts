@@ -79,7 +79,6 @@ export default createPlugin({
       guest: ReturnType<typeof createGuestPopup>;
       setting: ReturnType<typeof createSettingPopup>;
     },
-    replaceObserver: null as MutationObserver | null,
     stateInterval: null as number | null,
     oldPlaylistId: '',
     ignoreChange: false,
@@ -158,7 +157,7 @@ export default createPlugin({
 
         switch (event.type) {
           case 'ADD_SONGS': {
-            this.queue?.addVideos(event.payload.videoList);
+            this.queue?.addVideos(event.payload.videoList, event.payload.index);
             this.connection?.broadcast('ADD_SONGS', event.payload);
             break;
           }
@@ -248,7 +247,7 @@ export default createPlugin({
         this.ignoreChange = true;
         switch (event.type) {
           case 'ADD_SONGS': {
-            this.queue?.addVideos(event.payload.videoList);
+            this.queue?.addVideos(event.payload.videoList, event.payload.index);
             break;
           }
           case 'REMOVE_SONG': {
@@ -442,82 +441,6 @@ export default createPlugin({
         icon,
         spinner
       };
-
-      /* Injector */
-      const availableTags = [
-        'ytmusic-toggle-menu-service-item-renderer',
-        'ytmusic-menu-navigation-item-renderer',
-        'ytmusic-menu-service-item-renderer'
-      ];
-      const addSongIcons = [
-        'ADD_TO_REMOTE_QUEUE',
-        'QUEUE_PLAY_NEXT'
-      ];
-      const removeSongIcon = [
-        'REMOVE'
-      ];
-
-      this.replaceObserver = new MutationObserver((entries) => {
-        if (this.connection?.mode !== 'host' && this.connection?.mode !== 'guest') return;
-
-        for (const entry of entries) {
-          entry.addedNodes.forEach((node) => {
-            if (!(node instanceof HTMLElement)) return;
-            if (!availableTags.includes(node.tagName.toLowerCase())) return;
-            if (!('data' in node)) return;
-
-            const iconType = (node.data as Record<string, Record<string, string>>)?.icon?.iconType;
-            if (addSongIcons.includes(iconType)) {
-              node.addEventListener('click', (event) => {
-                event.stopImmediatePropagation();
-
-                const videoId: string | undefined = (node.data as any)?.serviceEndpoint?.queueAddEndpoint?.queueTarget?.videoId;
-                if (!videoId) {
-                  this.api?.openToast(t('plugins.music-together.toast.failed-to-add-song'));
-                  return;
-                }
-
-                if (!this.me) this.me = getDefaultProfile(this.connection?.id ?? '');
-                const videoData: VideoData = {
-                  videoId,
-                  owner: {
-                    id: this.connection!.id,
-                    ...this.me
-                  }
-                };
-                this.connection?.broadcast('ADD_SONGS', { videoList: [videoData] });
-                if (this.connection?.mode === 'host') this.queue?.addVideos([videoData]);
-              }, true);
-            }
-
-            if (removeSongIcon.includes(iconType)) {
-              node.addEventListener('click', (event) => {
-                event.stopImmediatePropagation();
-
-                const videoId: string | undefined = (node.data as any)?.serviceEndpoint?.removeFromQueueEndpoint?.videoId;
-                const itemIndex = Number((node.data as any)?.serviceEndpoint?.removeFromQueueEndpoint?.itemId?.toString());
-
-                if (!videoId) {
-                  this.api?.openToast(t('plugins.music-together.toast.failed-to-remove-song'));
-                  return;
-                }
-
-                const index = Number.isFinite(itemIndex) ? itemIndex : -1;
-                if (index >= 0) {
-                  this.connection?.broadcast('REMOVE_SONG', { index });
-                  if (this.connection?.mode === 'host') this.queue?.removeVideo(index);
-                } else {
-                  console.warn('Music Together: Cannot find song index');
-                }
-              }, true);
-            }
-          });
-        }
-      });
-      // this.replaceObserver.observe(document.querySelector('ytmusic-popup-container')!, {
-      //   childList: true,
-      //   subtree: true
-      // });
 
       this.stateInterval = window.setInterval(() => {
         if (this.connection?.mode !== 'host') return;

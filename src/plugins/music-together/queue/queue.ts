@@ -80,7 +80,7 @@ export class Queue {
     if (sync) await this.syncVideo();
   }
 
-  async addVideos(videos: VideoData[]) {
+  async addVideos(videos: VideoData[], index?: number) {
     const response = await getMusicQueueRenderer(videos.map((it) => it.videoId));
     if (!response) return false;
 
@@ -93,7 +93,7 @@ export class Queue {
       type: 'ADD_ITEMS',
       payload: {
         nextQueueItemId: this.queue.store.getState().queue.nextQueueItemId,
-        index: this.queue.store.getState().queue.items.length ?? 0,
+        index: index ?? this.queue.store.getState().queue.items.length ?? 0,
         items: [item],
         shuffleEnabled: false,
         shouldAssignIds: true
@@ -170,6 +170,18 @@ export class Queue {
         }
         if (event.type === 'ADD_ITEMS') {
           if (((event.payload as any)?.items?.length ?? 0) > 1) return;
+          this.broadcast({
+            type: 'ADD_SONGS',
+            payload: {
+              index: (event.payload as any).index,
+              videoList: mapQueueItem((it: any) => ({
+                videoId: it.videoId,
+                owner: this.owner!,
+              } satisfies VideoData), (event.payload as any).items)
+            }
+          });
+
+          return;
         }
         if (event.type === 'MOVE_ITEM') {
           this.broadcast({
@@ -179,6 +191,7 @@ export class Queue {
               toIndex: (event.payload as any).toIndex
             }
           });
+          return;
         }
         if (event.type === 'REMOVE_ITEM') {
           this.broadcast({
@@ -187,23 +200,24 @@ export class Queue {
               index: (event.payload as any).index
             }
           });
+          return;
         }
       } else {
         if (event.type === 'ADD_ITEMS') {
-          this.broadcast({
-            type: 'ADD_SONGS',
-            payload: {
-              videoList: (event.payload as any)?.items?.map((it: any) => ({
-                videoId: it.videoId,
-                owner: this.owner!,
-              } satisfies VideoData))
-            }
-          });
+          // this.broadcast({
+          //   type: 'ADD_SONGS',
+          //   payload: {
+          //     videoList: mapQueueItem((it: any) => ({
+          //       videoId: it.videoId,
+          //       owner: this.owner!,
+          //     } satisfies VideoData), (event.payload as any).items)
+          //   }
+          // });
           this.isInternalDispatch = false;
         }
       }
 
-      // console.log('dispatch', event);
+      console.log('dispatch', event);
 
       const fakeContext = {
         ...this.queue,
