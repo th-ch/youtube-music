@@ -22,6 +22,7 @@ export type QueueAPI = {
   getItems(): unknown[];
   store: Store;
   continuation?: string;
+  autoPlaying?: boolean;
 };
 export type QueueOptions = {
   videoList?: VideoData[];
@@ -29,6 +30,11 @@ export type QueueOptions = {
 
 export class Queue {
   private queue: (HTMLElement & QueueAPI) | null = null;
+  private originalDispatch: ((obj: {
+    type: string;
+    payload?: unknown;
+  }) => void) | null = null;
+  private isInternalDispatch = false;
 
   constructor(
     options: QueueOptions = {},
@@ -50,7 +56,6 @@ export class Queue {
   }
 
   get rawItems() {
-    console.log(this.queue);
     return this.queue?.store.getState().queue.items;
   }
 
@@ -72,6 +77,7 @@ export class Queue {
     const item = response.queueDatas[0]?.content;
     if (!item) return false;
 
+    this.isInternalDispatch = true;
     this._videoList.push(video);
     this.queue?.dispatch({
       type: 'ADD_ITEMS',
@@ -83,6 +89,7 @@ export class Queue {
         shouldAssignIds: true
       }
     });
+    this.isInternalDispatch = false;
     setTimeout(() => this.syncQueueOwner(), 0);
 
     return true;
@@ -104,13 +111,54 @@ export class Queue {
     });
   }
 
+  rollbackInjection() {
+    if (!this.queue) {
+      console.error('Queue is not initialized!');
+      return;
+    }
+
+    if (this.originalDispatch) this.queue.store.dispatch = this.originalDispatch;
+  }
+
+  injection() {
+    if (!this.queue) {
+      console.error('Queue is not initialized!');
+      return;
+    }
+
+    this.originalDispatch = this.queue.store.dispatch;
+    this.queue.store.dispatch = (event) => {
+      if (!this.queue) {
+        console.error('Queue is not initialized!');
+        return;
+      }
+
+      if (!this.isInternalDispatch) {
+        if (event.type === 'ADD_ITEMS') return;
+      }
+
+      const fakeContext = {
+        ...this.queue,
+        store: {
+          ...this.queue.store,
+          dispatch: this.originalDispatch
+        }
+      };
+      this.originalDispatch!.call(fakeContext, event);
+    };
+  }
+
   /* sync */
   async initQueue() {
     if (!this.queue) return;
 
+    this.queue.autoPlaying = false;
     this.queue.continuation = undefined;
     this.queue.dispatch({
-      type: 'SET_IS_INFINITE',
+      type: 'SHIFT_AUTOPLAY_ITEMS'
+    });
+    this.queue.dispatch({
+      type: 'SET_SHUFFLE_ENABLED',
       payload: false
     });
     this.queue.dispatch({
@@ -118,8 +166,24 @@ export class Queue {
       payload: false
     });
     this.queue.dispatch({
-      type: 'SET_IS_GENERATING',
+      type: 'SET_PLAYER_PAGE_WATCH_NEXT_METADATA',
+      payload: null
+    });
+    this.queue.dispatch({
+      type: 'SET_PLAYER_PAGE_WATCH_NEXT_AUTOMIX_PARAMS',
+      payload: ''
+    });
+    this.queue.dispatch({
+      type: 'SET_PLAYER_PAGE_WATCH_NEXT_CONTINUATION_PARAMS',
+      payload: ''
+    });
+    this.queue.dispatch({
+      type: 'SET_IS_INFINITE',
       payload: false
+    });
+    this.queue.dispatch({
+      type: 'SET_IS_GENERATING',
+      payload: true
     });
     this.queue.dispatch({
       type: 'SET_AUTOPLAY_ENABLED',
@@ -141,6 +205,7 @@ export class Queue {
 
     const items = response.queueDatas.map((it) => it.content);
 
+    this.isInternalDispatch = true;
     this.queue?.dispatch({
       type: 'UPDATE_ITEMS',
       payload: {
@@ -150,6 +215,7 @@ export class Queue {
         currentIndex: -1
       }
     });
+    this.isInternalDispatch = false;
     setTimeout(() => {
       this.initQueue();
       this.syncQueueOwner();
@@ -185,6 +251,19 @@ export class Queue {
         }
 
         if (!profile.isConnected) item.append(profile);
+      });
+    });
+  }
+
+  removeQueueOwner() {
+    const allQueue = document.querySelectorAll('#queue');
+
+    allQueue.forEach((queue) => {
+      const list = Array.from(queue?.querySelectorAll<HTMLElement>('ytmusic-player-queue-item') ?? []);
+
+      list.forEach((item) => {
+        const profile = item.querySelector<HTMLImageElement>('.music-together-owner');
+        profile?.remove();
       });
     });
   }

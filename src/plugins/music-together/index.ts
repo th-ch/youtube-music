@@ -140,6 +140,7 @@ export default createPlugin({
       this.queue?.setVideoList(rawItems, false);
       this.queue?.syncQueueOwner();
       this.queue?.initQueue();
+      this.queue?.injection();
 
       this.profiles = {};
       this.profiles[this.connection.id] = {
@@ -317,6 +318,8 @@ export default createPlugin({
           thumbnail: this.me.thumbnail
         },
       });
+      this.queue?.injection();
+
       this.connection.broadcast('SYNC_PROFILE', undefined);
       this.connection.broadcast('PERMISSION', undefined);
       this.connection.broadcast('SYNC_QUEUE', undefined);
@@ -325,6 +328,18 @@ export default createPlugin({
       this.queue?.initQueue();
 
       return !!connection;
+    },
+
+    onStop() {
+      this.connection?.disconnect();
+      this.queue?.rollbackInjection();
+      this.queue?.removeQueueOwner();
+
+      this.profiles = {};
+
+      this.popups.host.dismiss();
+      this.popups.guest.dismiss();
+      this.popups.setting.dismiss();
     },
 
     /* methods */
@@ -495,7 +510,7 @@ export default createPlugin({
       const hostPopup = createHostPopup({
         onItemClick: (id) => {
           if (id === 'music-together-close') {
-            this.connection?.disconnect();
+            this.onStop();
             this.api?.openToast(t('plugins.music-together.toast.closed'));
             hostPopup.dismiss();
           }
@@ -527,7 +542,7 @@ export default createPlugin({
       const guestPopup = createGuestPopup({
         onItemClick: (id) => {
           if (id === 'music-together-disconnect') {
-            this.connection?.disconnect();
+            this.onStop();
             this.api?.openToast(t('plugins.music-together.toast.disconnected'));
             guestPopup.dismiss();
           }
@@ -594,7 +609,7 @@ export default createPlugin({
       dividers.forEach((divider) => divider.remove());
 
       this.elements.setting.remove();
-      this.replaceObserver?.disconnect();
+      this.onStop();
       if (typeof this.stateInterval === 'number') clearInterval(this.stateInterval);
       if (this.playerApi) this.playerApi.removeEventListener('onStateChange', this.videoStateChangeListener);
       if (this.videoChangeListener) document.removeEventListener('videodatachange', this.videoChangeListener);
