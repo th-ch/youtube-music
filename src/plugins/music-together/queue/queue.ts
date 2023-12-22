@@ -188,7 +188,7 @@ export class Queue {
           this.broadcast({
             type: 'ADD_SONGS',
             payload: {
-              index: (event.payload as any).index,
+              // index: (event.payload as any).index,
               videoList: mapQueueItem((it: any) => ({
                 videoId: it.videoId,
                 owner: this.owner!,
@@ -244,8 +244,6 @@ export class Queue {
           }
         }
       }
-
-      // console.log('dispatch', event);
 
       const fakeContext = {
         ...this.queue,
@@ -335,6 +333,7 @@ export class Queue {
   }
 
   async syncQueueOwner() {
+    console.trace('syncQueueOwner');
     const allQueue = document.querySelectorAll('#queue');
 
     allQueue.forEach((queue) => {

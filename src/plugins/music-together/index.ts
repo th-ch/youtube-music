@@ -80,7 +80,7 @@ export default createPlugin({
       setting: ReturnType<typeof createSettingPopup>;
     },
     stateInterval: null as number | null,
-    oldPlaylistId: '',
+    updateNext: false,
     ignoreChange: false,
 
     me: null as Omit<Profile, 'id'> | null,
@@ -89,42 +89,24 @@ export default createPlugin({
 
     /* events */
     videoChangeListener(event: CustomEvent<VideoDataChanged>) {
-      if (event.detail.videoData?.playlistId !== this.oldPlaylistId) {
-        this.oldPlaylistId = event.detail.videoData?.playlistId ?? '';
-      }
+      if (event.detail.name === 'dataloaded' || this.updateNext) {
+        if (this.connection?.mode === 'host') {
+          const videoList: VideoData[] = this.queue?.flatItems.map((it: any) => ({
+            videoId: it.videoId,
+            owner: {
+              id: this.connection!.id,
+              ...this.me!
+            }
+          } satisfies VideoData)) ?? [];
 
-      if (this.connection?.mode === 'host') {
-        const videoList: VideoData[] = this.queue?.flatItems.map((it: any) => ({
-          videoId: it.videoId,
-          owner: {
-            id: this.connection!.id,
-            ...this.me!
-          }
-        } satisfies VideoData)) ?? [];
+          this.queue?.setVideoList(videoList, false);
+          this.queue?.syncQueueOwner();
+          this.connection.broadcast('SYNC_QUEUE', {
+            videoList
+          });
 
-        this.queue?.setVideoList(videoList, false);
-        this.queue?.syncQueueOwner();
-        this.connection.broadcast('SYNC_QUEUE', {
-          videoList
-        });
-      }
-
-      if (this.connection?.mode === 'guest') {
-        if (this.permission === 'host-only') return;
-        // if (this.oldPlaylistId === event.detail.videoData?.playlistId)
-        if (!event.detail.videoData?.videoId) return;
-
-        const videoData: VideoData = {
-          videoId: event.detail.videoData.videoId,
-          owner: {
-            id: this.connection.id,
-            ...this.me!
-          }
-        };
-
-        this.connection.broadcast('ADD_SONGS', {
-          videoList: [videoData],
-        });
+          this.updateNext = event.detail.name === 'dataloaded';
+        }
       }
     },
 
@@ -166,6 +148,11 @@ export default createPlugin({
       this.queue?.injection();
 
       this.profiles = {};
+      this.connection.onConnections((connection) => {
+        if (!connection.open) {
+          this.putProfile(connection.connectionId, undefined);
+        }
+      });
       this.putProfile(this.connection.id, {
         id: this.connection.id,
         ...this.me
@@ -274,6 +261,14 @@ export default createPlugin({
 
       const connection = await this.connection.connect(id).catch(() => false);
 
+      this.connection.onConnections((connection) => {
+        if (!connection.open) {
+          this.api?.openToast(t('plugins.music-together.toast.disconnected'));
+          this.onStop();
+        }
+      });
+
+      let resolveIgnore: number | null = null;
       const listener = (event: ConnectionEventUnion) => {
         this.ignoreChange = true;
         switch (event.type) {
@@ -350,7 +345,8 @@ export default createPlugin({
           }
         }
 
-        setTimeout(() => {
+        if (typeof resolveIgnore === 'number') clearTimeout(resolveIgnore);
+        resolveIgnore = window.setTimeout(() => {
           this.ignoreChange = false;
         }, 16); // wait 1 frame
       };
@@ -361,6 +357,7 @@ export default createPlugin({
         switch (event.type) {
           case 'ADD_SONGS': {
             this.connection?.broadcast('ADD_SONGS', event.payload);
+            this.connection?.broadcast('SYNC_QUEUE', undefined);
             break;
           }
           case 'REMOVE_SONG': {
@@ -373,7 +370,8 @@ export default createPlugin({
           }
         }
 
-        setTimeout(() => {
+        if (typeof resolveIgnore === 'number') clearTimeout(resolveIgnore);
+        resolveIgnore = window.setTimeout(() => {
           this.ignoreChange = false;
         }, 16); // wait 1 frame
       });

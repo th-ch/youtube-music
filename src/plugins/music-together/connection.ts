@@ -34,6 +34,7 @@ export class Connection {
 
   private waitOpen: PromiseUtil<string> = {} as PromiseUtil<string>;
   private listeners: ConnectionListener[] = [];
+  private connectionListeners: ((connection: DataConnection) => void)[] = [];
 
   constructor() {
     this.peer = new Peer();
@@ -100,12 +101,17 @@ export class Connection {
     this.listeners.push(listener);
   }
 
+  public onConnections(listener: (connections: DataConnection) => void) {
+    this.connectionListeners.push(listener);
+  }
+
   /* privates */
   private async registerConnection(conn: DataConnection) {
     return new Promise<DataConnection>((resolve) => {
       conn.on('open', () => {
         this.connections[conn.connectionId] = conn;
         resolve(conn);
+        this.connectionListeners.forEach((listener) => listener(conn));
 
         conn.on('data', (data) => {
           if (!data || typeof data !== 'object' || !('type' in data) || !('payload' in data) || !data.type) {
@@ -121,6 +127,7 @@ export class Connection {
 
       const onClose = () => {
         delete this.connections[conn.connectionId];
+        this.connectionListeners.forEach((listener) => listener(conn));
       };
       conn.on('error', onClose);
       conn.on('close', onClose);
