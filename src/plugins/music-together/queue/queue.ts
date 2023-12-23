@@ -4,6 +4,52 @@ import { mapQueueItem } from './utils';
 import type { Profile, VideoData } from '../types';
 import { ConnectionEventUnion } from '@/plugins/music-together/connection';
 
+const HEADER_PAYLOAD = {
+  title: {
+    runs: [
+      {
+        text: '재생 중인 트랙 출처'
+      }
+    ]
+  },
+  subtitle: {
+    runs: [
+      {
+        text: 'Music Together'
+      }
+    ]
+  },
+  buttons: [
+    {
+      chipCloudChipRenderer: {
+        style: {
+          styleType: 'STYLE_TRANSPARENT'
+        },
+        text: {
+          runs: [
+            {
+              text: '저장'
+            }
+          ]
+        },
+        navigationEndpoint: {
+          saveQueueToPlaylistCommand: {}
+        },
+        icon: {
+          iconType: 'ADD_TO_PLAYLIST'
+        },
+        accessibilityData: {
+          accessibilityData: {
+            label: '저장'
+          }
+        },
+        isSelected: false,
+        uniqueId: '저장'
+      }
+    }
+  ]
+};
+
 type StoreState = any;
 type Store = {
   dispatch: (obj: {
@@ -84,8 +130,8 @@ export class Queue {
     const response = await getMusicQueueRenderer(videos.map((it) => it.videoId));
     if (!response) return false;
 
-    const item = response.queueDatas[0]?.content;
-    if (!item) return false;
+    const items = response.queueDatas.map((it) => it?.content).filter(Boolean);
+    if (!items) return false;
 
     this.internalDispatch = Number.POSITIVE_INFINITY;
     this._videoList.push(...videos);
@@ -94,7 +140,7 @@ export class Queue {
       payload: {
         nextQueueItemId: this.queue.store.getState().queue.nextQueueItemId,
         index: index ?? this.queue.store.getState().queue.items.length ?? 0,
-        items: [item],
+        items,
         shuffleEnabled: false,
         shouldAssignIds: true
       }
@@ -148,7 +194,7 @@ export class Queue {
       this.syncQueueOwner();
     }, 0);
   }
-  
+
   clear() {
     this.internalDispatch = Number.POSITIVE_INFINITY;
     this._videoList = [];
@@ -188,13 +234,10 @@ export class Queue {
         return;
       }
 
-      if (this.internalDispatch <= 0) {
-        if (event.type === 'CLEAR') {
-          this.internalDispatch = 1;
-        }
-        if (event.type === 'ADD_ITEMS') {
-          if (((event.payload as any)?.items?.length ?? 0) > 1) return;
+      // console.log('dispatch', this.internalDispatch, event);
 
+      if (this.internalDispatch <= 0) {
+        if (event.type === 'ADD_ITEMS') {
           this.broadcast({
             type: 'ADD_SONGS',
             payload: {
@@ -237,22 +280,16 @@ export class Queue {
           });
           return;
         }
-      } else {
-        if (event.type === 'ADD_ITEMS') {
-          this.internalDispatch -= 1;
-          if (this.internalDispatch <= 0) {
-            this.broadcast({
-              type: 'ADD_SONGS',
-              payload: {
-                videoList: mapQueueItem((it: any) => ({
-                  videoId: it.videoId,
-                  owner: this.owner!
-                } satisfies VideoData), (event.payload as any).items)
-              }
-            });
 
-            return;
-          }
+        if (event.type === 'SET_HEADER') event.payload = HEADER_PAYLOAD;
+        if (event.type === 'ADD_STEERING_CHIPS') {
+          event.type = 'CLEAR_STEERING_CHIPS';
+          event.payload = undefined;
+        }
+        if (event.type === 'HAS_SHOWN_AUTOPLAY') return;
+        if (event.type === 'ADD_AUTOMIX_ITEMS') return;
+        if (event.type === 'CLEAR') {
+          event.payload = Array.from({ length: this._videoList.length }).map((_, index) => index);
         }
       }
 
@@ -271,51 +308,19 @@ export class Queue {
   async initQueue() {
     if (!this.queue) return;
 
-    this.queue.autoPlaying = false;
-    this.queue.continuation = undefined;
-    this.queue.dispatch({
-      type: 'SHIFT_AUTOPLAY_ITEMS'
-    });
-    this.queue.dispatch({
-      type: 'SET_SHUFFLE_ENABLED',
-      payload: false
-    });
-    this.queue.dispatch({
-      type: 'SET_IS_PREFETCHING_CONTINUATIONS',
-      payload: false
-    });
-    this.queue.dispatch({
-      type: 'SET_PLAYER_PAGE_WATCH_NEXT_METADATA',
-      payload: null
-    });
-    this.queue.dispatch({
-      type: 'SET_PLAYER_PAGE_WATCH_NEXT_AUTOMIX_PARAMS',
-      payload: ''
-    });
-    this.queue.dispatch({
-      type: 'SET_PLAYER_PAGE_WATCH_NEXT_CONTINUATION_PARAMS',
-      payload: ''
-    });
-    this.queue.dispatch({
-      type: 'SET_IS_INFINITE',
-      payload: false
-    });
-    this.queue.dispatch({
-      type: 'SET_IS_GENERATING',
-      payload: true
-    });
-    this.queue.dispatch({
-      type: 'SET_AUTOPLAY_ENABLED',
-      payload: false
-    });
-    this.queue.dispatch({
-      type: 'HAS_USER_CHANGED_DEFAULT_AUTOPLAY_MODE',
-      payload: false
-    });
+    this.internalDispatch = Number.POSITIVE_INFINITY;
     this.queue.dispatch({
       type: 'HAS_SHOWN_AUTOPLAY',
       payload: false
     });
+    this.queue.dispatch({
+      type: 'SET_HEADER',
+      payload: HEADER_PAYLOAD,
+    });
+    this.queue.dispatch({
+      type: 'CLEAR_STEERING_CHIPS'
+    });
+    this.internalDispatch = 0;
   }
 
   async syncVideo() {
@@ -344,7 +349,6 @@ export class Queue {
   }
 
   async syncQueueOwner() {
-    console.trace('syncQueueOwner');
     const allQueue = document.querySelectorAll('#queue');
 
     allQueue.forEach((queue) => {
