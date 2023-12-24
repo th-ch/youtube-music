@@ -194,7 +194,7 @@
     "eslint-import-resolver-exports": "1.0.0-beta.5",
     "eslint-import-resolver-typescript": "3.6.1",
     "eslint-plugin-import": "2.29.1",
-    "eslint-plugin-prettier": "5.1.0",
+    "eslint-plugin-prettier": "5.1.2",
     "glob": "10.3.10",
     "node-gyp": "10.0.1",
     "playwright": "1.41.0-alpha-dec-18-2023",
