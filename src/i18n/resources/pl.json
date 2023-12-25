@@ -105,7 +105,7 @@
                 "label": "Ustaw proxy",
                 "prompt": {
                   "label": "Podaj adres Proxy: (zostaw pusty aby wyłączyć)",
-                  "placeholder": "Przykład: socks5://127.0.0.1:9999",
+                  "placeholder": "Przykład: SOCKS5://127.0.0.1:9999",
                   "title": "Ustaw proxy"
                 }
               },
