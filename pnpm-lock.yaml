@@ -109,8 +109,8 @@ dependencies:
     specifier: 0.2.2
     version: 0.2.2
   node-html-parser:
-    specifier: 6.1.11
-    version: 6.1.11
+    specifier: 6.1.12
+    version: 6.1.12
   node-id3:
     specifier: 0.2.6
     version: 0.2.6
@@ -4725,8 +4725,8 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /node-html-parser@6.1.11:
-    resolution: {integrity: sha512-FAgwwZ6h0DSDWxfD0Iq1tsDcBCxdJB1nXpLPPxX8YyVWzbfCjKWEzaynF4gZZ/8hziUmp7ZSaKylcn0iKhufUQ==}
+  /node-html-parser@6.1.12:
+    resolution: {integrity: sha512-/bT/Ncmv+fbMGX96XG9g05vFt43m/+SYKIs9oAemQVYyVcZmDAI2Xq/SbNcpOA35eF0Zk2av3Ksf+Xk8Vt8abA==}
     dependencies:
       css-select: 5.1.0
       he: 1.2.0
