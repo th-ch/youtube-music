@@ -241,7 +241,7 @@
         "smoothness-transition": {
           "label": "Płynność przejścia",
           "submenu": {
-            "during": "W czasie {{interpolationTime}}s"
+            "during": "W czasie {{interpolationTime}} s"
           }
         },
         "use-fullscreen": {
@@ -293,8 +293,8 @@
       "prompt": {
         "options": {
           "multi-input": {
-            "fade-in-duration": "Czas wnikania (milisekundy)",
-            "fade-out-duration": "Czas zanikania (milisekundy)",
+            "fade-in-duration": "Czas wnikania (ms)",
+            "fade-out-duration": "Czas zanikania (ms)",
             "fade-scaling": {
               "label": "Skalowanie zanikania",
               "linear": "Liniowe",
