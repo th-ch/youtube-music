@@ -99,6 +99,7 @@
               "auto-reset-app-cache": "Очищать кеш при запуске приложения",
               "disable-hardware-acceleration": "Отключить аппаратное ускорение",
               "edit-config-json": "Редактировать config.json",
+              "override-user-agent": "Переопределить User-Agent",
               "restart-on-config-changes": "Перезапускать при изменениях конфига",
               "set-proxy": {
                 "label": "Задать прокси",
@@ -131,6 +132,7 @@
             }
           },
           "resume-on-start": "Продолжать последнюю песню при запуске приложения",
+          "single-instance-lock": "Запрет запуска нескольких экземпляров",
           "start-at-login": "Запуск при включении компьютера",
           "starting-page": {
             "label": "Стартовая страница",
@@ -399,6 +401,9 @@
       "description": "Делает слайдер громкости расширенным чтобы было легче выбирать низкие уровни.",
       "name": "Расширенная громкость"
     },
+    "in-app-menu": {
+      "description": "Придает меню модный вид"
+    },
     "last-fm": {
       "name": "Last.fm"
     },
@@ -453,15 +458,26 @@
             "right": "Right"
           }
         },
+        "force-hide": "Скрыть обложку",
         "mode": {
-          "label": "Mode"
+          "label": "Mode",
+          "submenu": {
+            "custom": "Кастомный переключатель",
+            "disabled": "Отключен",
+            "native": "Стандартный переключатель"
+          }
         }
       },
+      "name": "Переключатель видео",
       "templates": {
         "button": "Song"
       }
     },
     "visualizer": {
+      "description": "Заменяет обложку визуализатором музыки",
+      "menu": {
+        "visualizer-type": "Вид визуализации"
+      },
       "name": "Визуалайзер"
     }
   }
