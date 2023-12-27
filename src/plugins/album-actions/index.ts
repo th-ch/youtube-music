@@ -18,6 +18,7 @@ export default createPlugin({
     observer: null as MutationObserver | null,
     loadObserver: null as MutationObserver | null,
     changeObserver: null as MutationObserver | null,
+    waiting: false as boolean,
     start() {
       //Waits for pagechange
       this.onPageChange();
@@ -31,7 +32,13 @@ export default createPlugin({
       });
     },
     onPageChange() {
+      if (this.waiting) {
+        return;
+      } else {
+        this.waiting = true;
+      }
       this.waitForElem('#continuations').then((continuations: HTMLElement) => {
+        this.waiting = false;
         //Gets the for buttons
         let buttons: Array<HTMLElement> = [
           ElementFromHtml(undislikeHTML),
