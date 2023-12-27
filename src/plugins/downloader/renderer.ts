@@ -42,11 +42,9 @@ const menuObserver = new MutationObserver(() => {
   menu.prepend(downloadButton);
   progress = document.querySelector('#ytmcustom-download');
 
-  if (doneFirstLoad) {
-    return;
+  if (!doneFirstLoad) {
+    setTimeout(() => (doneFirstLoad ||= true), 500);
   }
-
-  setTimeout(() => (doneFirstLoad ||= true), 500);
 });
 
 export const onRendererLoad = ({

@@ -18,6 +18,8 @@ let useNativePiP = false;
 let menu: Element | null = null;
 const pipButton = ElementFromHtml(pipHTML);
 
+let doneFirstLoad = false;
+
 // Will also clone
 function replaceButton(query: string, button: Element) {
   const svg = button.querySelector('#icon svg')?.cloneNode(true);
@@ -61,11 +63,15 @@ const observer = new MutationObserver(() => {
   const menuUrl = $<HTMLAnchorElement>(
     'tp-yt-paper-listbox [tabindex="0"] #navigation-endpoint',
   )?.href;
-  if (!menuUrl?.includes('watch?')) {
+  if (!menuUrl?.includes('watch?') && doneFirstLoad) {
     return;
   }
 
   menu.prepend(pipButton);
+
+  if (!doneFirstLoad) {
+    setTimeout(() => (doneFirstLoad ||= true), 500);
+  }
 });
 
 const togglePictureInPicture = async () => {
