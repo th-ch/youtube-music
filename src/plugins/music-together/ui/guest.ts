@@ -1,10 +1,11 @@
 import { ElementFromHtml } from '@/plugins/utils/renderer';
 
+import { t } from '@/i18n';
+
 import { Popup } from '../element';
 import { createStatus } from '../ui/status';
 
 import IconOff from '../icons/off.svg?raw';
-import { t } from '@/i18n';
 
 
 export type GuestPopupProps = {
@@ -39,4 +40,4 @@ export const createGuestPopup = (props: GuestPopupProps) => {
     ...status,
     ...result,
   };
-}
+};

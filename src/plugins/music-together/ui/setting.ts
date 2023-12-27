@@ -1,10 +1,12 @@
 import { Popup } from '@/plugins/music-together/element';
 import { ElementFromHtml } from '@/plugins/utils/renderer';
 
+import { createStatus } from './status';
+
+import { t } from '@/i18n';
+
 import IconMusicCast from '../icons/music-cast.svg?raw';
 import IconConnect from '../icons/connect.svg?raw';
-import { createStatus } from './status';
-import { t } from '@/i18n';
 
 export type SettingPopupProps = {
   onItemClick: (id: string) => void;
@@ -44,4 +46,4 @@ export const createSettingPopup = (props: SettingPopupProps) => {
     ...status,
     ...result,
   };
-}
+};
