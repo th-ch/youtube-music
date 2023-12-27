@@ -35,7 +35,7 @@ export class Connection {
 
   private waitOpen: PromiseUtil<string> = {} as PromiseUtil<string>;
   private listeners: ConnectionListener[] = [];
-  private connectionListeners: ((connection: DataConnection) => void)[] = [];
+  private connectionListeners: ((connection?: DataConnection) => void)[] = [];
 
   constructor() {
     this.peer = new Peer();
@@ -55,6 +55,9 @@ export class Connection {
     });
     this.peer.on('error', (err) => {
       this._mode = 'disconnected';
+
+      this.waitOpen.reject(err);
+      this.connectionListeners.forEach((listener) => listener());
       console.log(err);
     });
   }
@@ -102,13 +105,20 @@ export class Connection {
     this.listeners.push(listener);
   }
 
-  public onConnections(listener: (connections: DataConnection) => void) {
+  public onConnections(listener: (connections?: DataConnection) => void) {
     this.connectionListeners.push(listener);
   }
 
   /* privates */
   private async registerConnection(conn: DataConnection) {
-    return new Promise<DataConnection>((resolve) => {
+    return new Promise<DataConnection>((resolve, reject) => {
+      this.peer.once('error', (err) => {
+        this._mode = 'disconnected';
+
+        reject(err);
+        this.connectionListeners.forEach((listener) => listener());
+      });
+
       conn.on('open', () => {
         this.connections[conn.connectionId] = conn;
         resolve(conn);
@@ -126,7 +136,9 @@ export class Connection {
         });
       });
 
-      const onClose = () => {
+      const onClose = (err?: Error) => {
+        if (err) reject(err);
+
         delete this.connections[conn.connectionId];
         this.connectionListeners.forEach((listener) => listener(conn));
       };

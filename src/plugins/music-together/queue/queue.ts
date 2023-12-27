@@ -207,7 +207,7 @@ export class Queue {
     if (this.originalDispatch) this.queue.store.dispatch = this.originalDispatch;
   }
 
-  injection() {
+  injection(isHost = true) {
     if (!this.queue) {
       console.error('Queue is not initialized!');
       return;

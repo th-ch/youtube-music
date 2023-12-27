@@ -122,7 +122,8 @@ export default createPlugin({
     /* connection */
     async onHost() {
       this.connection = new Connection();
-      await this.connection.waitForReady();
+      const wait = await this.connection.waitForReady().catch(() => null);
+      if (!wait) return false;
 
       if (!this.me) this.me = getDefaultProfile(this.connection.id);
       const rawItems = this.queue?.flatItems?.map((it: any) => ({
@@ -143,6 +144,12 @@ export default createPlugin({
 
       this.profiles = {};
       this.connection.onConnections((connection) => {
+        if (!connection) {
+          this.api?.openToast(t('plugins.music-together.toast.disconnected'));
+          this.onStop();
+          return;
+        }
+
         if (!connection.open) {
           this.api?.openToast(t('plugins.music-together.toast.user-disconnected', {
             name: this.profiles[connection.peer]?.name
@@ -214,23 +221,28 @@ export default createPlugin({
             break;
           }
           case 'SYNC_PROGRESS': {
-            if (this.permission !== 'all' && conn) break;
+            if (conn) break;
 
-            if (typeof event.payload?.progress === 'number') {
-              const currentTime = this.playerApi?.getCurrentTime() ?? 0;
-              if (Math.abs(event.payload.progress - currentTime) > 3) this.playerApi?.seekTo(event.payload.progress);
-            }
-            if (this.playerApi?.getPlayerState() !== event.payload?.state) {
-              if (event.payload?.state === 2) this.playerApi?.pauseVideo();
-              if (event.payload?.state === 1) this.playerApi?.playVideo();
-            }
-            if (typeof event.payload?.index === 'number') {
-              const nowIndex = this.queue?.selectedIndex ?? 0;
-
-              if (nowIndex !== event.payload.index) {
-                this.queue?.setIndex(event.payload.index);
+            if (this.permission === 'all') {
+              if (typeof event.payload?.progress === 'number') {
+                const currentTime = this.playerApi?.getCurrentTime() ?? 0;
+                if (Math.abs(event.payload.progress - currentTime) > 3) this.playerApi?.seekTo(event.payload.progress);
+              }
+              if (this.playerApi?.getPlayerState() !== event.payload?.state) {
+                if (event.payload?.state === 2) this.playerApi?.pauseVideo();
+                if (event.payload?.state === 1) this.playerApi?.playVideo();
               }
             }
+            if (this.permission === 'playlist' || this.permission === 'all') {
+              if (typeof event.payload?.index === 'number') {
+                const nowIndex = this.queue?.selectedIndex ?? 0;
+
+                if (nowIndex !== event.payload.index) {
+                  this.queue?.setIndex(event.payload.index);
+                }
+              }
+            }
+
             break;
           }
           default: {
@@ -258,20 +270,23 @@ export default createPlugin({
 
     async onJoin() {
       this.connection = new Connection();
-      await this.connection.waitForReady();
+      const wait = await this.connection.waitForReady().catch(() => null);
+      if (!wait) return false;
+
       this.profiles = {};
 
       const id = await this.showPrompt(t('plugins.music-together.name'), t('plugins.music-together.dialog.enter-host'));
       if (typeof id !== 'string') return false;
 
       const connection = await this.connection.connect(id).catch(() => false);
-
+      if (!connection) return false;
       this.connection.onConnections((connection) => {
-        if (!connection.open) {
+        if (!connection?.open) {
           this.api?.openToast(t('plugins.music-together.toast.disconnected'));
           this.onStop();
         }
       });
+
 
       let resolveIgnore: number | null = null;
       const listener = async (event: ConnectionEventUnion) => {
@@ -374,6 +389,10 @@ export default createPlugin({
             await this.connection?.broadcast('SYNC_QUEUE', undefined);
             break;
           }
+          case 'SYNC_PROGRESS': {
+            await this.connection?.broadcast('SYNC_PROGRESS', event.payload);
+            break;
+          }
         }
 
         if (typeof resolveIgnore === 'number') clearTimeout(resolveIgnore);
@@ -407,7 +426,7 @@ export default createPlugin({
 
       this.connection.broadcast('SYNC_QUEUE', undefined);
 
-      return !!connection;
+      return true;
     },
 
     onStop() {
@@ -613,6 +632,8 @@ export default createPlugin({
         }
       });
       this.playerApi = playerApi;
+
+      console.log(this.queue);
 
       this.playerApi.addEventListener('onStateChange', this.videoStateChangeListener);
       document.addEventListener('videodatachange', this.videoChangeListener);
