@@ -7,7 +7,9 @@
         "initialize-failed": "\"{{pluginName}}\" eklentisi başlatılamadı",
         "load-all": "Tüm eklentiler yükleniyor",
         "load-failed": "\"{{pluginName}}\" eklentisi yüklenemedi",
-        "loaded": "\"{{pluginName}}\" eklentisi yüklendi"
+        "loaded": "\"{{pluginName}}\" eklentisi yüklendi",
+        "unload-failed": "Eklentinin yüklenmesi başarısız oldu \"{{pluginName}}\"",
+        "unloaded": "\"{{pluginName}}\" eklentisi kaldırıldı"
       }
     }
   },
@@ -23,11 +25,28 @@
       },
       "i18n": {
         "loaded": "i18n yüklendi"
+      },
+      "second-instance": {
+        "receive-command": "Protokol üzerinden alınan komut: \"{{command}}\""
+      },
+      "theme": {
+        "css-file-not-found": "\"{{cssFile}}\" adlı CSS dosyası bulunamadı, yok sayılıyor"
+      },
+      "unresponsive": {
+        "details": "Yanıt verilmedi!\n{{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "Uygulama ön belleği temizleme"
+      },
+      "window": {
+        "tried-to-render-offscreen": "Pencere ekranın dışında oluşturulmaya çalışıldı, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
       }
     },
     "dialog": {
       "hide-menu-enabled": {
-        "message": "Gizli menüyü etkinleştir"
+        "detail": "Menü gizli, göstermek için 'Alt' tuşunu kullanın (veya Uygulama İçi Menüyü kullanıyorsanız 'Escape' tuşunu kullanın)",
+        "message": "Menüyü gizle etkinleştirildi",
+        "title": "Menüyü gizle etkinleştirildi"
       },
       "update-available": {
         "buttons": {

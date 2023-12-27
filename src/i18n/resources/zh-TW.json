@@ -53,9 +53,9 @@
           "later": "稍後",
           "restart-now": "立即重啟"
         },
-        "detail": "外掛「{{pluginName}}」需要程式重新啟動之後才會生效",
-        "message": "「{{pluginName}}」需要重新啟動",
-        "title": "需要重新啟動"
+        "detail": "\"{{pluginName}}\" 外掛需要重啟應用之後才會生效",
+        "message": "\"{{pluginName}}\" 需要重啟應用",
+        "title": "需要重啟應用"
       },
       "unresponsive": {
         "buttons": {
@@ -87,7 +87,7 @@
           "go-back": "回到上一頁",
           "go-forward": "回到下一頁",
           "quit": "退出",
-          "restart": "重新啟動應用程式"
+          "restart": "重啟應用"
         }
       },
       "options": {
@@ -131,12 +131,12 @@
               "to-help-translate": "想要協助翻譯？按一下這裡"
             }
           },
-          "resume-on-start": "繼續上次關閉應用程式前的音樂",
-          "single-instance-lock": "禁止多開應用程式",
+          "resume-on-start": "應用啟動時繼續上次播放的歌曲",
+          "single-instance-lock": "單視窗鎖定",
           "start-at-login": "開機時啟動",
           "starting-page": {
             "label": "啟動頁面",
-            "unset": "未設定"
+            "unset": "不指定"
           },
           "tray": {
             "label": "系統閘圖式",
@@ -148,7 +148,7 @@
             }
           },
           "visual-tweaks": {
-            "label": "視覺設定",
+            "label": "介面設定",
             "submenu": {
               "like-buttons": {
                 "default": "預設",
@@ -413,7 +413,7 @@
       "name": "Last.fm"
     },
     "lumiastream": {
-      "description": "新增對Lumia Stream的支援",
+      "description": "新增對 Lumia Stream 的支援",
       "name": "Lumia Stream [Beta]"
     },
     "lyrics-genius": {
@@ -558,7 +558,7 @@
       "name": "觸控列 (Touchbar) 支援"
     },
     "tuna-obs": {
-      "description": "與OBS外掛Tuna連接",
+      "description": "與 OBS 的 Tuna 外掛連接",
       "name": "Tuna OBS"
     },
     "video-toggle": {
