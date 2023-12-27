@@ -33,7 +33,7 @@ const menuObserver = new MutationObserver(() => {
   }
 
   const menuUrl = document.querySelector<HTMLAnchorElement>(
-    'tp-yt-paper-listbox [tabindex="-1"] #navigation-endpoint',
+    'tp-yt-paper-listbox [tabindex="0"] #navigation-endpoint',
   )?.href;
   if (!menuUrl?.includes('watch?') && doneFirstLoad) {
     return;
@@ -56,7 +56,7 @@ export const onRendererLoad = ({
     let videoUrl = getSongMenu()
       // Selector of first button which is always "Start Radio"
       ?.querySelector(
-        'ytmusic-menu-navigation-item-renderer[tabindex="-1"] #navigation-endpoint',
+        'ytmusic-menu-navigation-item-renderer[tabindex="0"] #navigation-endpoint',
       )
       ?.getAttribute('href');
     if (videoUrl) {
