@@ -16,9 +16,10 @@ export default createPlugin({
   },
   renderer: {
     observer: null as MutationObserver | null,
-    loadobserver: null as MutationObserver | null,
-    changeobserver: null as MutationObserver | null,
+    loadObserver: null as MutationObserver | null,
+    changeObserver: null as MutationObserver | null,
     start() {
+      //Waits for pagechange
       this.onPageChange();
       this.observer = new MutationObserver(() => {
         this.onPageChange();
@@ -30,33 +31,38 @@ export default createPlugin({
       });
     },
     onPageChange() {
-      this.waitForElem('#continuations').then(() => {
-        const buttons: Array<HTMLElement> = [
+      this.waitForElem('#continuations').then((continuations: HTMLElement) => {
+        //Gets the for buttons
+        let buttons: Array<HTMLElement> = [
           ElementFromHtml(undislikeHTML),
           ElementFromHtml(dislikeHTML),
           ElementFromHtml(likeHTML),
           ElementFromHtml(unlikeHTML),
         ];
-        const playlist = document.querySelector('ytmusic-shelf-renderer')
-          ? document.querySelector('ytmusic-shelf-renderer')
-          : document.querySelector('ytmusic-playlist-shelf-renderer');
-        this.changeobserver?.disconnect();
-        this.changeobserver = new MutationObserver(() => {
+        //Finds the playlist
+        const playlist =
+          document.querySelector('ytmusic-shelf-renderer') ??
+          document.querySelector('ytmusic-playlist-shelf-renderer');
+        //Adds an observer for every button so it gets updated when one is clicked
+        this.changeObserver?.disconnect();
+        this.changeObserver = new MutationObserver(() => {
           this.stop();
           this.start();
         });
-        for (const btn of playlist.querySelectorAll(
+        const allButtons = playlist.querySelectorAll(
           'yt-button-shape.ytmusic-like-button-renderer',
-        ))
-          this.changeobserver.observe(btn, {
+        );
+        for (const btn of allButtons)
+          this.changeObserver.observe(btn, {
             attributes: true,
             childList: false,
             subtree: false,
           });
-        if (
-          document.getElementById('continuations')?.children.length == 0 &&
-          playlist.querySelectorAll('#button-shape-dislike > button').length > 0
-        ) {
+        //Determine if button is needed and colors the percentage
+        const listsLength = playlist.querySelectorAll(
+          '#button-shape-dislike > button',
+        ).length;
+        if (continuations.children.length == 0 && listsLength > 0) {
           const counts = [
             playlist?.querySelectorAll(
               '#button-shape-dislike[aria-pressed=true] > button',
@@ -73,10 +79,14 @@ export default createPlugin({
           ];
           let i = 0;
           for (const count of counts) {
-            console.log(count);
             if (count == 0) {
               buttons.splice(i, 1);
               i--;
+            } else {
+              buttons[i].children[0].children[0].style.setProperty(
+                '-webkit-mask-size',
+                `100% ${100 - (count / listsLength) * 100}%`,
+              );
             }
             i++;
           }
@@ -94,11 +104,11 @@ export default createPlugin({
       event.stopPropagation();
       const id: string = event.currentTarget.id,
         loader = document.getElementById('continuations');
-      this.loadobserver = new MutationObserver(() => {
+      this.loadObserver = new MutationObserver(() => {
         this.applyToList(id, loader);
       });
       this.applyToList(id, loader);
-      this.loadobserver.observe(loader, {
+      this.loadObserver.observe(loader, {
         attributes: true,
         childList: true,
         subtree: true,
@@ -109,7 +119,7 @@ export default createPlugin({
     },
     applyToList(id: string, loader: HTMLElement) {
       if (loader.children.length != 0) return;
-      this.loadobserver?.disconnect();
+      this.loadObserver?.disconnect();
       let playlistbuttons: NodeListOf<Element> | undefined;
       const playlist = document.querySelector('ytmusic-shelf-renderer')
         ? document.querySelector('ytmusic-shelf-renderer')
@@ -145,7 +155,7 @@ export default createPlugin({
     },
     stop() {
       this.observer?.disconnect();
-      this.changeobserver?.disconnect();
+      this.changeObserver?.disconnect();
       for (const button of document.querySelectorAll('.like-menu')) {
         button.remove();
       }
