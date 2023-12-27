@@ -147,11 +147,7 @@ export default createPlugin({
           break;
         default:
       }
-      if (playlistbuttons) {
-        for (const elem of playlistbuttons) {
-          elem.click();
-        }
-      }
+      playlistButtons?.forEach((elem) => elem.click());
     },
     stop() {
       this.observer?.disconnect();
