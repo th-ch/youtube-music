@@ -537,6 +537,9 @@
         }
       }
     },
+    "skip-disliked-songs": {
+      "description": "Passer les musiques que je n'aime pas"
+    },
     "skip-silences": {
       "description": "Ignorer automatiquement les sections de silence dans les chansons",
       "name": "Passer les silences"

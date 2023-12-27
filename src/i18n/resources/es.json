@@ -16,12 +16,12 @@
   "language": {
     "code": "es",
     "local-name": "Inglés",
-    "name": "Inglés"
+    "name": "Spanish"
   },
   "main": {
     "console": {
       "did-finish-load": {
-        "dev-tools": "Carga Finalizada. DevTools abiertas"
+        "dev-tools": "Carga finalizada. DevTools abiertos"
       },
       "i18n": {
         "loaded": "i18n cargado"
@@ -44,7 +44,7 @@
     },
     "dialog": {
       "hide-menu-enabled": {
-        "detail": "El menú está oculto, use 'Alt' para mostrarlo (o 'Escape' si usa en-app-menu)",
+        "detail": "El menú está oculto, utiliza \"Alt\" para mostrarlo (o \"Escape\" si utilizas el menú integrado en la aplicación)",
         "message": "Menu oculto esta deshabilitado",
         "title": "Menú oculto activado"
       },
@@ -96,7 +96,7 @@
           "advanced-options": {
             "label": "Opciones avanzadas",
             "submenu": {
-              "auto-reset-app-cache": "Restablecer la caché cuando se inicie la aplicación",
+              "auto-reset-app-cache": "Restablecer la caché de la aplicación al iniciarla",
               "disable-hardware-acceleration": "Desactivar la aceleración por hardware",
               "edit-config-json": "Editar config.json",
               "override-user-agent": "sobrescribir User-Agent",
@@ -105,7 +105,7 @@
                 "label": "Definir proxy",
                 "prompt": {
                   "label": "Introduzca la dirección del proxy: (déjela vacía para desactivarla)",
-                  "placeholder": "Ejemplo: socks5://127.0.0.1:9999",
+                  "placeholder": "Ejemplo: SOCKS5://127.0.0.1:9999",
                   "title": "Establecer proxy"
                 }
               },
@@ -241,7 +241,7 @@
         "smoothness-transition": {
           "label": "Transición suave",
           "submenu": {
-            "during": "Durante {{interpolationTime}}s"
+            "during": "Durante {{interpolationTime}} s"
           }
         },
         "use-fullscreen": {
@@ -293,8 +293,8 @@
       "prompt": {
         "options": {
           "multi-input": {
-            "fade-in-duration": "Duración del fundido (milliseconds)",
-            "fade-out-duration": "Duración del fundido de salida (milliseconds)",
+            "fade-in-duration": "Duración del fundido (ms)",
+            "fade-out-duration": "Duración del fundido de salida (ms)",
             "fade-scaling": {
               "label": "Escala de fundido",
               "linear": "Lineal",
@@ -462,17 +462,17 @@
             "keybind-options": {
               "hotkey": "Tecla de acceso rápido"
             },
-            "label": "Elige una tecla de acceso rápido para alternar al modo \"Dos imágenes a la vez\" PiP",
-            "title": "Tecla de acceso rápido al modo \"Dos imágenes a la vez\" PiP"
+            "label": "Elige una tecla de acceso rápido para activar la función de imagen en imagen",
+            "title": "Tecla de acceso directo a imagen en imagen"
           }
         },
         "save-window-position": "Guardar la posición de la ventana",
         "save-window-size": "Guardar tamaño de la ventana",
         "use-native-pip": "Utilizar \"Dos imágenes a la vez\" PiP nativo del navegador"
       },
-      "name": "Imagen en Imagen",
+      "name": "Imagen en imagen",
       "templates": {
-        "button": "Imagen en Imagen"
+        "button": "Imagen en imagen"
       }
     },
     "playback-speed": {
@@ -497,7 +497,7 @@
             "increase": "Aumentar el volumen"
           },
           "label": "Elija combinaciones de teclas para el volumen:",
-          "title": "Combinaciones de teclas para el volumen global"
+          "title": "Combinaciones de teclas para el volumen"
         },
         "volume-steps": {
           "label": "Escoge los pasos de aumento o disminución del volumen",
@@ -519,7 +519,7 @@
       "name": "Ajustador de calidad de vídeo"
     },
     "shortcuts": {
-      "description": "Permite ajustar atajos de teclado generales para reproducción (reproducir/pausar/siguiente/previo) + deshabilita OSD de medios mediante la anulación de las teclas de medios + habilitar Ctrl/CMD + F para buscar + habilitar soporte mpris de linux para teclas de medios + atajos de teclado personalizados para usuarios avanzados",
+      "description": "Permite configurar teclas de acceso rápido globales para la reproducción (reproducir/pausa/siguiente/anterior) y desactivar el OSD multimedia anulando las teclas multimedia, activar Ctrl/CMD + F para buscar, activar la compatibilidad con MPRIS de Linux para las teclas multimedia y teclas de acceso rápido personalizadas para usuarios avanzados.",
       "menu": {
         "override-media-keys": "Anular teclas de medios",
         "set-keybinds": "Configurar controles globales de canciones"
@@ -532,10 +532,14 @@
             "play-pause": "Reproducir / Pausa",
             "previous": "Anterior"
           },
-          "label": "Escoge Atajos de teclado globales para el control de canciones",
+          "label": "Elija combinaciones de teclas para el control de las canciones:",
           "title": "Atajos de teclado globales"
         }
       }
+    },
+    "skip-disliked-songs": {
+      "description": "Omite las canciones que no le gustan",
+      "name": "Saltar canciones que no me gustan"
     },
     "skip-silences": {
       "description": "Salta automáticamente las secciones silenciosas de las canciones",

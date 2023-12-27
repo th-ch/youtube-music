@@ -12,7 +12,11 @@ let injected = false;
 
 export const isInjected = () => injected;
 
-export const inject = () => {
+/**
+ * @param {Electron.ContextBridge} contextBridge
+ * @returns {*}
+ */
+export const inject = (contextBridge) => {
   injected = true;
   {
     const pruner = function (o) {
@@ -28,17 +32,37 @@ export const inject = () => {
       return o;
     };
 
-    JSON.parse = new Proxy(JSON.parse, {
-      apply() {
-        return pruner(Reflect.apply(...arguments));
-      },
+    contextBridge.exposeInMainWorld('_proxyJson', {
+      parse: new Proxy(JSON.parse, {
+        apply() {
+          return pruner(Reflect.apply(...arguments));
+        },
+      }),
+      stringify: JSON.stringify,
+      [Symbol.toStringTag]: JSON[Symbol.toStringTag],
     });
+
+    const withPrototype = (obj) => {
+      const protos = Object.getPrototypeOf(obj);
+      for (const [key, value] of Object.entries(protos)) {
+        if (Object.prototype.hasOwnProperty.call(obj, key)) continue;
+        if (typeof value === 'function') {
+          obj[key] = function (...args) {
+            return value.call(obj, ...args);
+          }
+        } else {
+          obj[key] = value;
+        }
+      }
+      return obj;
+    };
 
     Response.prototype.json = new Proxy(Response.prototype.json, {
       apply() {
         return Reflect.apply(...arguments).then((o) => pruner(o));
       },
     });
+    contextBridge.exposeInMainWorld('_proxyResponse', withPrototype(Response));
   }
 
   (function () {

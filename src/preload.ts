@@ -1,4 +1,4 @@
-import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
+import { contextBridge, ipcRenderer, IpcRendererEvent, webFrame } from 'electron';
 import is from 'electron-is';
 
 import config from './config';
@@ -53,3 +53,19 @@ contextBridge.exposeInMainWorld(
   'ELECTRON_RENDERER_URL',
   process.env.ELECTRON_RENDERER_URL,
 );
+
+const [path, script] = ipcRenderer.sendSync('get-renderer-script') as [string | null, string];
+let blocked = true;
+if (path) {
+  webFrame.executeJavaScriptInIsolatedWorld(0, [
+    {
+      code: script,
+      url: path,
+    },
+  ], true, () => blocked = false);
+} else {
+  webFrame.executeJavaScript(script, true, () => blocked = false);
+}
+
+// HACK: Wait for the script to be executed
+while (blocked);

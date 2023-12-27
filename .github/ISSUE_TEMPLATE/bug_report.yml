@@ -24,6 +24,11 @@ body:
     placeholder: 2.0.0
   validations:
     required: true
+- type: checkboxes
+  attributes:
+    label: Are you using the portable version of the YouTube Music Application?
+    options:
+      - label: I use the portable version of the YouTube Music Application.
 - type: dropdown
   attributes:
     label: What operating system are you using?

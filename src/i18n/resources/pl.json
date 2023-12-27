@@ -44,7 +44,7 @@
     },
     "dialog": {
       "hide-menu-enabled": {
-        "detail": "Menu jest ukryte, użyj 'Alt' aby je pokazać (lub 'Escape' jeśli używasz in-app-menu)",
+        "detail": "Menu jest ukryte, użyj przycisku [Alt] aby je pokazać (lub [Escape], jeśli używasz menu w aplikacji)",
         "message": "Ukrywanie menu jest włączone",
         "title": "Ukrywanie Menu Włączone"
       },
@@ -105,7 +105,7 @@
                 "label": "Ustaw proxy",
                 "prompt": {
                   "label": "Podaj adres Proxy: (zostaw pusty aby wyłączyć)",
-                  "placeholder": "Przykład: socks5://127.0.0.1:9999",
+                  "placeholder": "Przykład: SOCKS5://127.0.0.1:9999",
                   "title": "Ustaw proxy"
                 }
               },
@@ -116,7 +116,7 @@
           "auto-update": "Automatyczne aktualizacje",
           "hide-menu": {
             "dialog": {
-              "message": "Menu będzie ukryte po następnym uruchomieniu, użyj [Alt] aby je pokazać (lub [`] jeśli używasz in-app-menu)",
+              "message": "Menu będzie ukryte po następnym uruchomieniu, użyj przycisku [Alt] aby je pokazać (lub [`], jeśli używasz menu w aplikacji)",
               "title": "Ukrywanie menu włączone"
             },
             "label": "Ukryj menu"
@@ -406,7 +406,7 @@
       "menu": {
         "hide-dom-window-controls": "Ukryj kontrolki okna DOM"
       },
-      "name": "In-App menu"
+      "name": "Menu w aplikacji"
     },
     "last-fm": {
       "description": "Dodanie obsługi scrobblingu dla Last.fm",
@@ -463,7 +463,7 @@
               "hotkey": "Klawisz skrótu"
             },
             "label": "Wybierz klawisz skrótu do przełączania trybu obrazu w obrazie",
-            "title": "Klawisz skrótu Obraz w obrazie"
+            "title": "Klawisz skrótu obrazu w obrazie"
           }
         },
         "save-window-position": "Zapisz pozycję okna",
@@ -519,7 +519,7 @@
       "name": "Zmieniacz jakości wideo"
     },
     "shortcuts": {
-      "description": "Umożliwia ustawienie globalnych skrótów klawiszowych do odtwarzania (odtwarzanie/pauza/następny/poprzedni) + wyłączanie OSD multimediów poprzez zastąpienie klawiszy multimediów + włączanie Ctrl/CMD + F w celu wyszukiwania + włączanie obsługi linux mpris dla klawiszy multimediów + niestandardowe skróty klawiszowe dla zaawansowanych użytkowników",
+      "description": "Umożliwia ustawienie globalnych skrótów klawiszowych do odtwarzania (odtwarzanie/pauza/następny/poprzedni) + wyłączanie OSD multimediów poprzez zastąpienie klawiszy multimediów, włączając kombinację klawiszy Ctrl/CMD + F w celu wyszukiwania, obsługę Linux MPRIS dla klawiszy multimediów oraz niestandardowe skróty klawiszowe dla zaawansowanych użytkowników.",
       "menu": {
         "override-media-keys": "Zastąp klawisze multimediów",
         "set-keybinds": "Ustaw globalne sterowanie utworem"
@@ -537,6 +537,10 @@
         }
       }
     },
+    "skip-disliked-songs": {
+      "description": "Pomija nieulubione piosenki (zaznaczone łapką w dół)",
+      "name": "Pomijanie nieulubionych piosenek"
+    },
     "skip-silences": {
       "description": "Automatycznie pomijaj sekcje bez dźwięku w utworach",
       "name": "Pomiń ciszę"
@@ -547,7 +551,7 @@
     },
     "taskbar-mediacontrol": {
       "description": "Steruj odtwarzaniem z paska zadań systemu Windows",
-      "name": "Kontrola odtwarzania z paska zadań"
+      "name": "Kontroler odtwarzania z paska zadań"
     },
     "touchbar": {
       "description": "Dodaje widżet do paska dotykowego dla użytkowników systemu macOS",

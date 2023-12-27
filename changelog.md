@@ -2,7 +2,32 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v3.1.1](https://github.com/th-ch/youtube-music/compare/v3.1.0...v3.1.1)
+
+- fix: fix renderer plugin load timing [`#1522`](https://github.com/th-ch/youtube-music/issues/1522)
+- chore(i18n): Translated using Weblate (Lithuanian) [`fc1a7cd`](https://github.com/th-ch/youtube-music/commit/fc1a7cda62b6e33e5f5d57a5a6e0adef6a32bf9a)
+- chore(i18n): Translated using Weblate (Chinese (Simplified)) [`eba7026`](https://github.com/th-ch/youtube-music/commit/eba7026b89bbfdd3ac07cf728a66ba9bdd274ec0)
+- chore(deps): update dependency rollup to v4.8.0 [`a601d0b`](https://github.com/th-ch/youtube-music/commit/a601d0b3d2dee0fabad79a18e1a7dd0ca84ccf01)
+
+#### [v3.1.0](https://github.com/th-ch/youtube-music/compare/v3.0.2...v3.1.0)
+
+> 11 December 2023
+
+- chore(deps): update dependency electron to v28 [`#1498`](https://github.com/th-ch/youtube-music/pull/1498)
+- Enable/Disable Navigation without restart [`#1507`](https://github.com/th-ch/youtube-music/pull/1507)
+- Turkish(tr)_lang_file [`#1513`](https://github.com/th-ch/youtube-music/pull/1513)
+- Skip Disliked Songs [`#1505`](https://github.com/th-ch/youtube-music/pull/1505)
+- chore(deps): update dependency @typescript-eslint/eslint-plugin to v6.13.2 [`#1452`](https://github.com/th-ch/youtube-music/pull/1452)
+- fix: Homebrew latest release url parsing [`#1496`](https://github.com/th-ch/youtube-music/pull/1496)
+- fix: in-player adblocker inject timing issue [`#1478`](https://github.com/th-ch/youtube-music/issues/1478)
+- fix(package.json): fix RPM version `libuuid` issue [`#1508`](https://github.com/th-ch/youtube-music/issues/1508)
+- Translated using Weblate (Polish) [`7b78ba6`](https://github.com/th-ch/youtube-music/commit/7b78ba67613f14be65a45751efeb06431b405a91)
+- Translated using Weblate (French) [`ebc0879`](https://github.com/th-ch/youtube-music/commit/ebc087963b23265ff00528c8305d51597abf587a)
+- Translated using Weblate (Chinese (Traditional)) [`020bdc0`](https://github.com/th-ch/youtube-music/commit/020bdc0811ea45ad6c2853c62a05ae6695c5c4f9)
+
 #### [v3.0.2](https://github.com/th-ch/youtube-music/compare/v3.0.1...v3.0.2)
+
+> 3 December 2023
 
 - fix(adblocker): fix In-Player adblocker [`#1478`](https://github.com/th-ch/youtube-music/issues/1478)
 - fix(menu): crash on linux [`#1477`](https://github.com/th-ch/youtube-music/issues/1477)

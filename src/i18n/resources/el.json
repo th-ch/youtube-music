@@ -1,4 +1,11 @@
 {
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "Αποτυχία εκτέλεσης προσθέτου {{pluginName}}::{{contextName}}"
+      }
+    }
+  },
   "language": {
     "code": "el",
     "local-name": "Ελληνικά",

@@ -15,8 +15,8 @@
   },
   "language": {
     "code": "it",
-    "local-name": "Inglese",
-    "name": "Inglese"
+    "local-name": "Italiano",
+    "name": "Italian"
   },
   "main": {
     "console": {
@@ -44,7 +44,7 @@
     },
     "dialog": {
       "hide-menu-enabled": {
-        "detail": "Il menu è nascosto, utilizza 'Alt' per visualizzarlo (o 'Escape' se si utilizza il menu In-App)\"",
+        "detail": "Il menu è nascosto, utilizza 'Alt' per visualizzarlo (o 'Escape' se si utilizza il Menu In-App)\"",
         "message": "'Nascondi menu' è attivo",
         "title": "'Nascondi menu' attivo"
       },
@@ -96,7 +96,7 @@
           "advanced-options": {
             "label": "Opzioni avanzate",
             "submenu": {
-              "auto-reset-app-cache": "Resetta la cache dell'app quando viene riavviata",
+              "auto-reset-app-cache": "Reimposta la cache dell'app quando viene riavviata",
               "disable-hardware-acceleration": "Disabilita l'accelerazione hardware",
               "edit-config-json": "Modificare config.json",
               "override-user-agent": "Sovrascrivi User-Agent",
@@ -105,7 +105,7 @@
                 "label": "Imposta il proxy",
                 "prompt": {
                   "label": "Inserisci l'indirizzo proxy: (lascia vuoto per disabilitare)",
-                  "placeholder": "Esempio: socks5://127.0.0.1:9999",
+                  "placeholder": "Esempio: SOKS5://127.0.0.1:9999",
                   "title": "Imposta il proxy"
                 }
               },
@@ -116,7 +116,7 @@
           "auto-update": "Aggiornamento automatico",
           "hide-menu": {
             "dialog": {
-              "message": "Il menu verrà nascosto al prossimo avvio. Utilizzare [Alt] per mostrarlo (o backtick [`] se si utilizza il menu In-App)",
+              "message": "Il menu verrà nascosto al prossimo avvio. Utilizzare [Alt] per mostrarlo (o backtick [`] se si utilizza il Menu In-App)",
               "title": "Nascondi menu abilitato"
             },
             "label": "Nascondi menu"
@@ -132,7 +132,7 @@
             }
           },
           "resume-on-start": "Riprendi a riprodurre l'ultimo brano all'avvio dell'app",
-          "single-instance-lock": "Blocco a istanza singola",
+          "single-instance-lock": "Permetti una sola istanza dell'app",
           "start-at-login": "Avvia al login",
           "starting-page": {
             "label": "Pagina iniziale",
@@ -169,7 +169,7 @@
         }
       },
       "plugins": {
-        "enabled": "Abilitato",
+        "enabled": "Attivato",
         "label": "Plugin"
       },
       "view": {
@@ -177,7 +177,7 @@
         "submenu": {
           "force-reload": "Forza l'aggiornamento",
           "reload": "Aggiorna",
-          "reset-zoom": "Dimensione attuale",
+          "reset-zoom": "Ripristina dimensione",
           "toggle-fullscreen": "Attiva/disattiva Schermo Intero",
           "zoom-in": "Zoom in",
           "zoom-out": "Zoom out"
@@ -203,7 +203,7 @@
     },
     "album-color-theme": {
       "description": "Applica un tema dinamico e degli effetti visivi basandosi sul colore dell'album",
-      "name": "Tema Colore Album"
+      "name": "Tema abbinato a colore album"
     },
     "ambient-mode": {
       "description": "Applica un effetto di illuminazione proiettando i colori delicati del video sullo sfondo dello schermo.",
@@ -241,7 +241,7 @@
         "smoothness-transition": {
           "label": "Fluidità transizione",
           "submenu": {
-            "during": "Per {{interpolationTime}}"
+            "during": "Per {{interpolationTime}} _s"
           }
         },
         "use-fullscreen": {
@@ -252,15 +252,15 @@
     },
     "audio-compressor": {
       "description": "Attiva la compressione audio (abbassa il volume delle parti più alte e alza quello delle parti più basse del segnale)",
-      "name": "Compressore Audio"
+      "name": "Compressore audio"
     },
     "blur-nav-bar": {
       "description": "Rende la barra di navigazione trasparente e sfuocata",
-      "name": "Sfuoca Barra di Navigazione"
+      "name": "Barra di navigazione trasparente"
     },
     "bypass-age-restrictions": {
       "description": "Bypassa la verifica dell'età di YouTube",
-      "name": "Bypassa le Restrizioni d'Età"
+      "name": "Aggira i limiti d'età"
     },
     "captions-selector": {
       "description": "Selettore sottotitolo per le tracce audio di YouTube",
@@ -282,7 +282,7 @@
     },
     "compact-sidebar": {
       "description": "Imposta sempre la barra laterale in modalità compatta",
-      "name": "Barra Laterale Compatta"
+      "name": "Barra laterale compatta"
     },
     "crossfade": {
       "description": "Crossfade tra i brani",
@@ -293,8 +293,8 @@
       "prompt": {
         "options": {
           "multi-input": {
-            "fade-in-duration": "Durata dissolvenza in entrata (millisecondi)",
-            "fade-out-duration": "Durata dissolvenza in uscita (millisecondi)",
+            "fade-in-duration": "Durata dissolvenza in entrata (ms)",
+            "fade-out-duration": "Durata dissolvenza in uscita (ms)",
             "fade-scaling": {
               "label": "Transizione dissolvenza",
               "linear": "Lineare",
@@ -311,7 +311,7 @@
       "menu": {
         "apply-once": "Solo all'avvio"
       },
-      "name": "Disattiva Autoplay"
+      "name": "Disattiva autoplay"
     },
     "discord": {
       "backend": {
@@ -399,7 +399,7 @@
     },
     "exponential-volume": {
       "description": "Rende esponenziale il cursore del volume, in modo da facilitare la selezione di volumi più bassi.",
-      "name": "Volume Esponenziale"
+      "name": "Volume esponenziale"
     },
     "in-app-menu": {
       "description": "Migliora l'aspetto delle barre del menu con un look scuro o basato sul colore dell'album",
@@ -432,7 +432,7 @@
     },
     "no-google-login": {
       "description": "Rimuovi i pulsanti di accesso e i link di Google dall'interfaccia",
-      "name": "Nessun Login di Google"
+      "name": "Nessun login di Google"
     },
     "notifications": {
       "description": "Mostra una notifica quando viene riprodotto un brano (le notifiche interattive sono disponibili su Windows)",
@@ -462,22 +462,22 @@
             "keybind-options": {
               "hotkey": "Hotkey"
             },
-            "label": "Scegliere un'hotkey per attivare Picture-in-Picture",
-            "title": "Picture-in-Picture Hotkey"
+            "label": "Scegliere un'hotkey per attivare Picture-in-picture",
+            "title": "Picture-in-picture Hotkey"
           }
         },
         "save-window-position": "Salva la posizione della finestra",
         "save-window-size": "Salva la dimensione della finestra",
         "use-native-pip": "Usa il PiP nativo del browser"
       },
-      "name": "Picture in Picture",
+      "name": "Picture-in-Picture",
       "templates": {
-        "button": "Picture in Picture"
+        "button": "Picture-in-Picture"
       }
     },
     "playback-speed": {
       "description": "Ascolto veloce, ascolto lento! Aggiunge un cursore che controlla la velocità di riproduzione del brano",
-      "name": "Velocità Riproduzione",
+      "name": "Velocità riproduzione",
       "templates": {
         "button": "Velocità"
       }
@@ -489,7 +489,7 @@
         "custom-volume-steps": "Imposta incrementi di volume personalizzati",
         "global-shortcuts": "Hotkey globali"
       },
-      "name": "Volume Preciso",
+      "name": "Volume preciso",
       "prompt": {
         "global-shortcuts": {
           "keybind-options": {
@@ -519,7 +519,7 @@
       "name": "Cambia qualità video"
     },
     "shortcuts": {
-      "description": "Consente di impostare tasti di scelta rapida globali per la riproduzione (riproduci/pausa/successivo/precedente) + disabilita l'OSD multimediale sovrascrivendo i tasti multimediali + abilita Ctrl/CMD + F per la ricerca + abilita il supporto Linux MPRIS per i tasti multimediali + tasti di scelta rapida personalizzati per utenti avanzati",
+      "description": "Consente di impostare tasti di scelta rapida globali per la riproduzione (riproduci/pausa/successivo/precedente) + disabilita l'OSD multimediale sovrascrivendo i tasti multimediali + abilita Ctrl/CMD + F per la ricerca + abilita il supporto Linux MPRIS per i tasti multimediali + tasti di scelta rapida personalizzati per utenti avanzati.",
       "menu": {
         "override-media-keys": "Ridefinisci i tasti multimediali",
         "set-keybinds": "Imposta i controlli brano globali"
@@ -537,21 +537,25 @@
         }
       }
     },
+    "skip-disliked-songs": {
+      "description": "Salta i brani che non ti piacciono",
+      "name": "Salta i brani che non ti piacciono"
+    },
     "skip-silences": {
       "description": "Salta automaticamente le parti silenziose nei brani",
-      "name": "Salta Silenzi"
+      "name": "Salta silenzi"
     },
     "sponsorblock": {
       "description": "Salta automaticamente le parti non musicali, come l'intro/outro delle canzoni o le parti dei video musicali in cui non viene riprodotto il brano",
-      "name": "SponsorBlock"
+      "name": "Blocco sponsor"
     },
     "taskbar-mediacontrol": {
       "description": "Controlla riproduzione dalla taskbar di Windows",
-      "name": "Controlli Multimediali Taskbar"
+      "name": "Controlli multimediali sulla taskbar"
     },
     "touchbar": {
       "description": "Aggiunge un widget TouchBar per gli utenti macOS",
-      "name": "Touch Bar"
+      "name": "Touch Bar (per MacOS)"
     },
     "tuna-obs": {
       "description": "Integrazione con il plugin OBS Tuna",
@@ -573,7 +577,7 @@
           "label": "Modalità",
           "submenu": {
             "custom": "Brano/Video personalizzato",
-            "disabled": "Disabilitato",
+            "disabled": "Disattivato",
             "native": "Brano/Video nativo"
           }
         }
@@ -588,7 +592,7 @@
       "menu": {
         "visualizer-type": "Tipo di visualizzazione"
       },
-      "name": "Visualizzatore"
+      "name": "Visualizzatore grafico"
     }
   }
 }

@@ -1,4 +1,5 @@
-import { basename, relative, resolve, extname } from 'node:path';
+import { basename, relative, resolve, extname, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import { globSync } from 'glob';
 import { Project } from 'ts-morph';
@@ -9,6 +10,7 @@ const snakeToCamel = (text: string) =>
 export const pluginVirtualModuleGenerator = (
   mode: 'main' | 'preload' | 'renderer',
 ) => {
+  const __dirname = dirname(fileURLToPath(import.meta.url));
   const project = new Project({
     tsConfigFilePath: resolve(__dirname, '..', 'tsconfig.json'),
     skipAddingFilesFromTsConfig: true,

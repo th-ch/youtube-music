@@ -1,3 +1,5 @@
+import { contextBridge, webFrame } from 'electron';
+
 import { blockers } from './types';
 import { createPlugin } from '@/utils';
 import {
@@ -107,31 +109,25 @@ export default createPlugin({
     },
   },
   preload: {
+    script: 'window.JSON = window._proxyJson; window._proxyJson = undefined; window.Response = window._proxyResponse; window._proxyResponse = undefined; 0',
     async start({ getConfig }) {
       const config = await getConfig();
 
       if (config.blocker === blockers.WithBlocklists) {
         // Preload adblocker to inject scripts/styles
         await injectCliqzPreload();
+      } else if (config.blocker === blockers.InPlayer && !isInjected()) {
+        inject(contextBridge);
+        await webFrame.executeJavaScript(this.script);
       }
     },
     async onConfigChange(newConfig) {
       if (newConfig.blocker === blockers.WithBlocklists) {
         await injectCliqzPreload();
+      } else if (newConfig.blocker === blockers.InPlayer && !isInjected()) {
+        inject(contextBridge);
+        await webFrame.executeJavaScript(this.script);
       }
     },
   },
-  renderer: {
-    async start({ getConfig }) {
-      const config = await getConfig();
-      if (config.blocker === blockers.InPlayer && !isInjected()) {
-        inject();
-      }
-    },
-    onConfigChange(newConfig) {
-      if (newConfig.blocker === blockers.InPlayer && !isInjected()) {
-        inject();
-      }
-    },
-  }
 });
