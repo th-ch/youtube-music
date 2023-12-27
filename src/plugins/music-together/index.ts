@@ -221,9 +221,13 @@ export default createPlugin({
             break;
           }
           case 'SYNC_PROGRESS': {
-            if (conn) break;
+            let permissionLevel = 0;
+            if (this.permission === 'all') permissionLevel = 2;
+            if (this.permission === 'playlist') permissionLevel = 1;
+            if (this.permission === 'host-only') permissionLevel = 0;
+            if (!conn) permissionLevel = 3;
 
-            if (this.permission === 'all') {
+            if (permissionLevel >= 2) {
               if (typeof event.payload?.progress === 'number') {
                 const currentTime = this.playerApi?.getCurrentTime() ?? 0;
                 if (Math.abs(event.payload.progress - currentTime) > 3) this.playerApi?.seekTo(event.payload.progress);
@@ -233,7 +237,7 @@ export default createPlugin({
                 if (event.payload?.state === 1) this.playerApi?.playVideo();
               }
             }
-            if (this.permission === 'playlist' || this.permission === 'all') {
+            if (permissionLevel >= 1) {
               if (typeof event.payload?.index === 'number') {
                 const nowIndex = this.queue?.selectedIndex ?? 0;
 
@@ -390,7 +394,8 @@ export default createPlugin({
             break;
           }
           case 'SYNC_PROGRESS': {
-            await this.connection?.broadcast('SYNC_PROGRESS', event.payload);
+            if (this.permission === 'host-only') await this.connection?.broadcast('SYNC_QUEUE', undefined);
+            else await this.connection?.broadcast('SYNC_PROGRESS', event.payload);
             break;
           }
         }

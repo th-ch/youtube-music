@@ -207,7 +207,7 @@ export class Queue {
     if (this.originalDispatch) this.queue.store.dispatch = this.originalDispatch;
   }
 
-  injection(isHost = true) {
+  injection() {
     if (!this.queue) {
       console.error('Queue is not initialized!');
       return;
@@ -235,20 +235,22 @@ export class Queue {
             } satisfies VideoData), (event.payload as any).items);
             const index = this._videoList.length + videoList.length - 1;
 
-            this.broadcast({ // play
-              type: 'ADD_SONGS',
-              payload: {
-                videoList,
-              },
-              after: [
-                {
-                  type: 'SYNC_PROGRESS',
-                  payload: {
-                    index
+            if (videoList.length > 0) {
+              this.broadcast({ // play
+                type: 'ADD_SONGS',
+                payload: {
+                  videoList,
+                },
+                after: [
+                  {
+                    type: 'SYNC_PROGRESS',
+                    payload: {
+                      index
+                    }
                   }
-                }
-              ]
-            });
+                ]
+              });
+            }
           } else if ((event.payload as any).items.length === 1) {
             this.broadcast({ // add playlist
               type: 'ADD_SONGS',
@@ -301,9 +303,6 @@ export class Queue {
         }
         if (event.type === 'HAS_SHOWN_AUTOPLAY') return;
         if (event.type === 'ADD_AUTOMIX_ITEMS') return;
-        if (event.type === 'CLEAR') {
-          event.payload = Array.from({ length: this._videoList.length }).map((_, index) => index);
-        }
       }
 
       const fakeContext = {
