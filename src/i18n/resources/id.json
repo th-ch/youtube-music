@@ -8,8 +8,8 @@
         "load-all": "Memuat semua plugin",
         "load-failed": "Gagal memuat plugin \"{{pluginName}}\"",
         "loaded": "Plugin \"{{pluginName}}\" dimuat",
-        "unload-failed": "Gagal untuk memuat plugin",
-        "unloaded": "Plugin telah dikeluarkan"
+        "unload-failed": "Gagal untuk memuat plugin \"{{pluginName}}\"",
+        "unloaded": "Plugin \"{{pluginName}}\" telah dikeluarkan"
       }
     }
   },
