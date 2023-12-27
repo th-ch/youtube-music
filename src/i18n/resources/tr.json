@@ -8,7 +8,7 @@
         "load-all": "Tüm eklentiler yükleniyor",
         "load-failed": "\"{{pluginName}}\" eklentisi yüklenemedi",
         "loaded": "\"{{pluginName}}\" eklentisi yüklendi",
-        "unload-failed": "Eklentinin yüklenmesi başarısız oldu \"{{pluginName}}\"",
+        "unload-failed": "\"{{pluginName}}\" eklentisi kaldırılamadı.",
         "unloaded": "\"{{pluginName}}\" eklentisi kaldırıldı"
       }
     }
