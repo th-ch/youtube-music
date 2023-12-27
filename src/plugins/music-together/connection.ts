@@ -16,6 +16,7 @@ export type ConnectionEventUnion = {
   [Event in keyof ConnectionEventMap]: {
     type: Event;
     payload: ConnectionEventMap[Event];
+    after?: ConnectionEventUnion[];
   };
 }[keyof ConnectionEventMap];
 
@@ -91,10 +92,10 @@ export class Connection {
     return Object.values(this.connections);
   }
 
-  public broadcast<Event extends keyof ConnectionEventMap>(type: Event, payload: ConnectionEventMap[Event]) {
-    for (const conn of this.getConnections()) {
-      conn.send({ type, payload });
-    }
+  public async broadcast<Event extends keyof ConnectionEventMap>(type: Event, payload: ConnectionEventMap[Event]) {
+    await Promise.all(
+      this.getConnections().map((conn) => conn.send({ type, payload }))
+    );
   }
 
   public on(listener: ConnectionListener) {

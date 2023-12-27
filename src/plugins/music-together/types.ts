@@ -1,3 +1,35 @@
+import { YoutubePlayer } from '@/types/youtube-player';
+type StoreState = any;
+type Store = {
+  dispatch: (obj: {
+    type: string;
+    payload?: unknown;
+  }) => void;
+
+  getState: () => StoreState;
+  replaceReducer: (param1: unknown) => unknown;
+  subscribe: (callback: () => void) => unknown;
+};
+export type QueueAPI = {
+  dispatch(obj: {
+    type: string;
+    payload?: unknown;
+  }): void;
+  getItems(): unknown[];
+  store: Store;
+  continuation?: string;
+  autoPlaying?: boolean;
+};
+export type AppAPI = {
+  queue_: QueueAPI;
+  playerApi_: YoutubePlayer;
+  openToast: (message: string) => void;
+
+  // TODO: Add more
+};
+
+
+
 export type Profile = {
   id: string;
   handleId: string;

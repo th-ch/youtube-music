@@ -1,7 +1,7 @@
 import { getMusicQueueRenderer } from './song';
 import { mapQueueItem } from './utils';
 
-import type { Profile, VideoData } from '../types';
+import type { AppAPI, Profile, QueueAPI, VideoData } from '../types';
 import { ConnectionEventUnion } from '@/plugins/music-together/connection';
 
 const HEADER_PAYLOAD = {
@@ -50,35 +50,17 @@ const HEADER_PAYLOAD = {
   ]
 };
 
-type StoreState = any;
-type Store = {
-  dispatch: (obj: {
-    type: string;
-    payload?: unknown;
-  }) => void;
-
-  getState: () => StoreState;
-  replaceReducer: (param1: unknown) => unknown;
-  subscribe: (callback: () => void) => unknown;
-};
-export type QueueAPI = {
-  dispatch(obj: {
-    type: string;
-    payload?: unknown;
-  }): void;
-  getItems(): unknown[];
-  store: Store;
-  continuation?: string;
-  autoPlaying?: boolean;
-};
 export type QueueOptions = {
   videoList?: VideoData[];
   owner?: Profile;
+  queue?: HTMLElement & QueueAPI;
+  app?: HTMLElement & AppAPI;
 }
 export type QueueEventListener = (event: ConnectionEventUnion) => void;
 
 export class Queue {
   private queue: (HTMLElement & QueueAPI) | null = null;
+  private app: (HTMLElement & AppAPI) | null = null;
   private originalDispatch: ((obj: {
     type: string;
     payload?: unknown;
@@ -89,10 +71,13 @@ export class Queue {
   private owner: Profile | null = null;
 
   constructor(
-    options: QueueOptions = {},
-    element = document.querySelector<HTMLElement & QueueAPI>('#queue')
+    options: QueueOptions = {
+      queue: document.querySelector<HTMLElement & QueueAPI>('#queue') ?? undefined,
+      app: document.querySelector<HTMLElement & AppAPI>('ytmusic-app') ?? undefined,
+    },
   ) {
-    this.queue = element;
+    this.queue = options.queue ?? document.querySelector<HTMLElement & QueueAPI>('#queue');
+    this.app = options.app ?? document.querySelector<HTMLElement & AppAPI>('ytmusic-app');
     this.owner = options.owner ?? null;
     this._videoList = options.videoList ?? [];
   }
@@ -235,7 +220,7 @@ export class Queue {
         return;
       }
 
-      // console.log('dispatch', this.internalDispatch, this.ignoreFlag, event);
+      console.log('dispatch', this.internalDispatch, this.ignoreFlag, event);
 
       if (!this.internalDispatch) {
         if (event.type === 'CLEAR') {
@@ -244,7 +229,28 @@ export class Queue {
         if (event.type === 'ADD_ITEMS') {
           if (this.ignoreFlag) {
             this.ignoreFlag = false;
-            this.broadcast({
+            const videoList = mapQueueItem((it: any) => ({
+              videoId: it.videoId,
+              owner: this.owner!
+            } satisfies VideoData), (event.payload as any).items);
+            const index = this._videoList.length + videoList.length - 1;
+
+            this.broadcast({ // play
+              type: 'ADD_SONGS',
+              payload: {
+                videoList,
+              },
+              after: [
+                {
+                  type: 'SYNC_PROGRESS',
+                  payload: {
+                    index
+                  }
+                }
+              ]
+            });
+          } else if ((event.payload as any).items.length === 1) {
+            this.broadcast({ // add playlist
               type: 'ADD_SONGS',
               payload: {
                 // index: (event.payload as any).index,

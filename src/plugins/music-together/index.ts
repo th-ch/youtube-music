@@ -34,14 +34,6 @@ type RawAccountData = {
   };
 };
 
-type AppAPI = {
-  queue_: QueueAPI;
-  playerApi_: YoutubePlayer;
-  openToast: (message: string) => void;
-
-  // TODO: Add more
-};
-
 export default createPlugin({
   name: () => t('plugins.music-together.name'),
   description: () => t('plugins.music-together.description'),
@@ -98,6 +90,8 @@ export default createPlugin({
               ...this.me!
             }
           } satisfies VideoData)) ?? [];
+
+          console.log('videoChange', event);
 
           this.queue?.setVideoList(videoList, false);
           this.queue?.syncQueueOwner();
@@ -161,34 +155,34 @@ export default createPlugin({
         ...this.me
       });
 
-      const listener = (event: ConnectionEventUnion, conn?: DataConnection) => {
+      const listener = async (event: ConnectionEventUnion, conn?: DataConnection) => {
         this.ignoreChange = true;
 
         switch (event.type) {
           case 'ADD_SONGS': {
             if (conn && this.permission === 'host-only') return;
 
-            this.queue?.addVideos(event.payload.videoList, event.payload.index);
-            this.connection?.broadcast('ADD_SONGS', event.payload);
+            await this.queue?.addVideos(event.payload.videoList, event.payload.index);
+            await this.connection?.broadcast('ADD_SONGS', event.payload);
             break;
           }
           case 'REMOVE_SONG': {
             if (conn && this.permission === 'host-only') return;
 
-            this.queue?.removeVideo(event.payload.index);
-            this.connection?.broadcast('REMOVE_SONG', event.payload);
+            await this.queue?.removeVideo(event.payload.index);
+            await this.connection?.broadcast('REMOVE_SONG', event.payload);
             break;
           }
           case 'MOVE_SONG': {
             if (conn && this.permission === 'host-only') {
-              this.connection?.broadcast('SYNC_QUEUE', {
+              await this.connection?.broadcast('SYNC_QUEUE', {
                 videoList: this.queue?.videoList ?? []
               });
-              return;
+              break;
             }
 
             this.queue?.moveItem(event.payload.fromIndex, event.payload.toIndex);
-            this.connection?.broadcast('MOVE_SONG', event.payload);
+            await this.connection?.broadcast('MOVE_SONG', event.payload);
             break;
           }
           case 'IDENTIFY': {
@@ -202,19 +196,19 @@ export default createPlugin({
             break;
           }
           case 'SYNC_PROFILE': {
-            this.connection?.broadcast('SYNC_PROFILE', { profiles: this.profiles });
+            await this.connection?.broadcast('SYNC_PROFILE', { profiles: this.profiles });
 
             break;
           }
           case 'PERMISSION': {
-            this.connection?.broadcast('PERMISSION', this.permission);
+            await this.connection?.broadcast('PERMISSION', this.permission);
             this.popups.guest.setPermission(this.permission);
             this.popups.host.setPermission(this.permission);
             this.popups.setting.setPermission(this.permission);
             break;
           }
           case 'SYNC_QUEUE': {
-            this.connection?.broadcast('SYNC_QUEUE', {
+            await this.connection?.broadcast('SYNC_QUEUE', {
               videoList: this.queue?.videoList ?? []
             });
             break;
@@ -242,6 +236,14 @@ export default createPlugin({
           default: {
             console.warn('Music Together [Host]: Unknown Event', event);
             break;
+          }
+        }
+
+        if (event.after) {
+          const now = event.after.shift();
+          if (now) {
+            now.after = event.after;
+            await listener(now, conn);
           }
         }
       };
@@ -272,19 +274,19 @@ export default createPlugin({
       });
 
       let resolveIgnore: number | null = null;
-      const listener = (event: ConnectionEventUnion) => {
+      const listener = async (event: ConnectionEventUnion) => {
         this.ignoreChange = true;
         switch (event.type) {
           case 'ADD_SONGS': {
-            this.queue?.addVideos(event.payload.videoList, event.payload.index);
+            await this.queue?.addVideos(event.payload.videoList, event.payload.index);
             break;
           }
           case 'REMOVE_SONG': {
-            this.queue?.removeVideo(event.payload.index);
+            await this.queue?.removeVideo(event.payload.index);
             break;
           }
           case 'MOVE_SONG': {
-            this.queue?.moveItem(event.payload.fromIndex, event.payload.toIndex);
+            await this.queue?.moveItem(event.payload.fromIndex, event.payload.toIndex);
             break;
           }
           case 'IDENTIFY': {
@@ -293,7 +295,7 @@ export default createPlugin({
           }
           case 'SYNC_QUEUE': {
             if (Array.isArray(event.payload?.videoList)) {
-              this.queue?.setVideoList(event.payload.videoList);
+              await this.queue?.setVideoList(event.payload.videoList);
             }
             break;
           }
@@ -355,20 +357,21 @@ export default createPlugin({
       };
 
       this.connection.on(listener);
-      this.queue?.on((event: ConnectionEventUnion) => {
+      this.queue?.on(async (event: ConnectionEventUnion) => {
         this.ignoreChange = true;
         switch (event.type) {
           case 'ADD_SONGS': {
-            this.connection?.broadcast('ADD_SONGS', event.payload);
-            this.connection?.broadcast('SYNC_QUEUE', undefined);
+            await this.connection?.broadcast('ADD_SONGS', event.payload);
+            await this.connection?.broadcast('SYNC_QUEUE', undefined);
             break;
           }
           case 'REMOVE_SONG': {
-            this.connection?.broadcast('REMOVE_SONG', event.payload);
+            await this.connection?.broadcast('REMOVE_SONG', event.payload);
             break;
           }
           case 'MOVE_SONG': {
-            this.connection?.broadcast('MOVE_SONG', event.payload);
+            await this.connection?.broadcast('MOVE_SONG', event.payload);
+            await this.connection?.broadcast('SYNC_QUEUE', undefined);
             break;
           }
         }
