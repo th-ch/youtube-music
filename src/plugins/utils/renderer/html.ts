@@ -6,3 +6,9 @@ export const ElementFromHtml = (html: string): HTMLElement => {
 
   return template.content.firstElementChild as HTMLElement;
 };
+
+export const ImageElementFromSrc = (src: string): HTMLImageElement => {
+  const image = document.createElement('img');
+  image.src = src;
+  return image;
+};
