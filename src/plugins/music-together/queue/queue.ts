@@ -5,51 +5,61 @@ import type { Profile, QueueAPI, VideoData } from '../types';
 import { ConnectionEventUnion } from '@/plugins/music-together/connection';
 import { t } from '@/i18n';
 
-const HEADER_PAYLOAD = {
-  title: {
-    runs: [
-      {
-        text: '재생 중인 트랙 출처'
-      }
-    ]
-  },
-  subtitle: {
-    runs: [
-      {
-        text: 'Music Together'
-      }
-    ]
-  },
-  buttons: [
-    {
-      chipCloudChipRenderer: {
-        style: {
-          styleType: 'STYLE_TRANSPARENT'
-        },
-        text: {
+const getHeaderPayload = (() => {
+  let payload: unknown = null;
+
+  return () => {
+    if (!payload) {
+      payload = {
+        title: {
           runs: [
             {
-              text: '저장'
+              text: t('plugins.music-together.internal.track-source')
             }
           ]
         },
-        navigationEndpoint: {
-          saveQueueToPlaylistCommand: {}
+        subtitle: {
+          runs: [
+            {
+              text: t('plugins.music-together.name')
+            }
+          ]
         },
-        icon: {
-          iconType: 'ADD_TO_PLAYLIST'
-        },
-        accessibilityData: {
-          accessibilityData: {
-            label: '저장'
+        buttons: [
+          {
+            chipCloudChipRenderer: {
+              style: {
+                styleType: 'STYLE_TRANSPARENT'
+              },
+              text: {
+                runs: [
+                  {
+                    text: t('plugins.music-together.internal.save')
+                  }
+                ]
+              },
+              navigationEndpoint: {
+                saveQueueToPlaylistCommand: {}
+              },
+              icon: {
+                iconType: 'ADD_TO_PLAYLIST'
+              },
+              accessibilityData: {
+                accessibilityData: {
+                  label: t('plugins.music-together.internal.save')
+                }
+              },
+              isSelected: false,
+              uniqueId: t('plugins.music-together.internal.save')
+            }
           }
-        },
-        isSelected: false,
-        uniqueId: '저장'
-      }
+        ]
+      };
     }
-  ]
-};
+
+    return payload;
+  }
+})();
 
 export type QueueOptions = {
   videoList?: VideoData[];
@@ -235,7 +245,7 @@ export class Queue {
               this.broadcast({ // play
                 type: 'ADD_SONGS',
                 payload: {
-                  videoList,
+                  videoList
                 },
                 after: [
                   {
@@ -254,7 +264,7 @@ export class Queue {
                 // index: (event.payload as any).index,
                 videoList: mapQueueItem((it: any) => ({
                   videoId: it.videoId,
-                  ownerId: this.owner!.id,
+                  ownerId: this.owner!.id
                 } satisfies VideoData), (event.payload as any).items)
               }
             });
@@ -292,7 +302,7 @@ export class Queue {
           return;
         }
 
-        if (event.type === 'SET_HEADER') event.payload = HEADER_PAYLOAD;
+        if (event.type === 'SET_HEADER') event.payload = getHeaderPayload();
         if (event.type === 'ADD_STEERING_CHIPS') {
           event.type = 'CLEAR_STEERING_CHIPS';
           event.payload = undefined;
@@ -323,7 +333,7 @@ export class Queue {
     });
     this.queue.dispatch({
       type: 'SET_HEADER',
-      payload: HEADER_PAYLOAD,
+      payload: getHeaderPayload(),
     });
     this.queue.dispatch({
       type: 'CLEAR_STEERING_CHIPS'
@@ -376,7 +386,7 @@ export class Queue {
 
         const name = item.querySelector<HTMLElement>('.music-together-name') ?? document.createElement('div');
         name.classList.add('music-together-name');
-        name.textContent = data?.name ?? t('plugins.music-together.unknown-user');
+        name.textContent = data?.name ?? t('plugins.music-together.internal.unknown-user');
 
         if (data) {
           profile.dataset.thumbnail = data.thumbnail ?? '';

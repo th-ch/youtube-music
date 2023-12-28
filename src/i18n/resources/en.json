@@ -434,6 +434,51 @@
       "description": "Remove Google login buttons and links from the interface",
       "name": "No Google Login"
     },
+    "music-together": {
+      "name": "Music Together [Beta]",
+      "description": "Share a playlist with others. When the host plays a song, everyone else will hear the same song",
+      "internal": {
+        "unknown-user": "Unknown User",
+        "track-source": "Track Source",
+        "save": "Save"
+      },
+      "menu": {
+        "disconnect": "Disconnect Music Together",
+        "click-to-copy-id": "Copy Host ID",
+        "close": "Close Music Together",
+        "host": "Music Together Host",
+        "join": "Join Music Together",
+        "connected-users": "Connected Users",
+        "empty-user": "No connected users",
+        "set-permission": "Change Control Permission",
+        "status": {
+          "disconnected": "Disconnected",
+          "host": "Connected as Host",
+          "guest": "Connected as Guest"
+        },
+        "permission": {
+          "host-only": "Host Only",
+          "playlist": "Playlist Control",
+          "all": "All Control"
+        }
+      },
+      "dialog": {
+        "enter-host": "Enter Host ID"
+      },
+      "toast": {
+        "add-song-failed": "Failed to add song",
+        "remove-song-failed": "Failed to remove song",
+        "closed": "Music Together closed",
+        "disconnected": "Music Together disconnected",
+        "id-copied": "Host ID copied to clipboard",
+        "host-failed": "Failed to host Music Together",
+        "joined": "Joined Music Together",
+        "user-connected": "{{name}} joined Music Together",
+        "user-disconnected": "{{name}} left Music Together",
+        "join-failed": "Failed to join Music Together",
+        "permission-changed": "Music Together permission changed to \"{{permission}}\""
+      }
+    },
     "notifications": {
       "description": "Display a notification when a song starts playing (interactive notifications are available on Windows)",
       "menu": {
