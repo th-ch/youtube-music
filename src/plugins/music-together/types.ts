@@ -38,7 +38,7 @@ export type Profile = {
 };
 export type VideoData = {
   videoId: string;
-  owner: Profile;
+  ownerId: string;
 };
 export type Permission = 'host-only' | 'playlist' | 'all';
 

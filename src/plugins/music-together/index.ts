@@ -4,8 +4,8 @@ import { t } from '@/i18n';
 import { createPlugin } from '@/utils';
 import promptOptions from '@/providers/prompt-options';
 
-import { getDefaultProfile, Permission, Profile, VideoData } from './types';
-import { Queue, QueueAPI } from './queue';
+import { AppAPI, getDefaultProfile, Permission, Profile, VideoData } from './types';
+import { Queue } from './queue';
 import { Connection, ConnectionEventUnion } from './connection';
 import { createHostPopup } from './ui/host';
 import { createGuestPopup } from './ui/guest';
@@ -85,10 +85,7 @@ export default createPlugin({
         if (this.connection?.mode === 'host') {
           const videoList: VideoData[] = this.queue?.flatItems.map((it: any) => ({
             videoId: it.videoId,
-            owner: {
-              id: this.connection!.id,
-              ...this.me!
-            }
+            ownerId: this.connection!.id,
           } satisfies VideoData)) ?? [];
 
           console.log('videoChange', event);
@@ -128,10 +125,7 @@ export default createPlugin({
       if (!this.me) this.me = getDefaultProfile(this.connection.id);
       const rawItems = this.queue?.flatItems?.map((it: any) => ({
         videoId: it.videoId,
-        owner: {
-          id: this.connection!.id,
-          ...this.me!
-        }
+        ownerId: this.connection!.id,
       } satisfies VideoData)) ?? [];
       this.queue?.setOwner({
         id: this.connection.id,
@@ -634,7 +628,8 @@ export default createPlugin({
         owner: {
           id: this.connection?.id ?? '',
           ...this.me!
-        }
+        },
+        getProfile: (id) => this.profiles[id],
       });
       this.playerApi = playerApi;
 

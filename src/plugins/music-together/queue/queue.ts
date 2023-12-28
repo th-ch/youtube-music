@@ -1,8 +1,9 @@
 import { getMusicQueueRenderer } from './song';
 import { mapQueueItem } from './utils';
 
-import type { AppAPI, Profile, QueueAPI, VideoData } from '../types';
+import type { Profile, QueueAPI, VideoData } from '../types';
 import { ConnectionEventUnion } from '@/plugins/music-together/connection';
+import { t } from '@/i18n';
 
 const HEADER_PAYLOAD = {
   title: {
@@ -54,13 +55,12 @@ export type QueueOptions = {
   videoList?: VideoData[];
   owner?: Profile;
   queue?: HTMLElement & QueueAPI;
-  app?: HTMLElement & AppAPI;
+  getProfile: (id: string) => Profile | undefined;
 }
 export type QueueEventListener = (event: ConnectionEventUnion) => void;
 
 export class Queue {
   private queue: (HTMLElement & QueueAPI) | null = null;
-  private app: (HTMLElement & AppAPI) | null = null;
   private originalDispatch: ((obj: {
     type: string;
     payload?: unknown;
@@ -69,15 +69,11 @@ export class Queue {
   private ignoreFlag = false;
   private listeners: QueueEventListener[] = [];
   private owner: Profile | null = null;
+  private getProfile: (id: string) => Profile | undefined;
 
-  constructor(
-    options: QueueOptions = {
-      queue: document.querySelector<HTMLElement & QueueAPI>('#queue') ?? undefined,
-      app: document.querySelector<HTMLElement & AppAPI>('ytmusic-app') ?? undefined,
-    },
-  ) {
+  constructor(options: QueueOptions) {
+    this.getProfile = options.getProfile;
     this.queue = options.queue ?? document.querySelector<HTMLElement & QueueAPI>('#queue');
-    this.app = options.app ?? document.querySelector<HTMLElement & AppAPI>('ytmusic-app');
     this.owner = options.owner ?? null;
     this._videoList = options.videoList ?? [];
   }
@@ -231,7 +227,7 @@ export class Queue {
             this.ignoreFlag = false;
             const videoList = mapQueueItem((it: any) => ({
               videoId: it.videoId,
-              owner: this.owner!
+              ownerId: this.owner!.id
             } satisfies VideoData), (event.payload as any).items);
             const index = this._videoList.length + videoList.length - 1;
 
@@ -258,7 +254,7 @@ export class Queue {
                 // index: (event.payload as any).index,
                 videoList: mapQueueItem((it: any) => ({
                   videoId: it.videoId,
-                  owner: this.owner!
+                  ownerId: this.owner!.id,
                 } satisfies VideoData), (event.payload as any).items)
               }
             });
@@ -366,14 +362,21 @@ export class Queue {
     allQueue.forEach((queue) => {
       const list = Array.from(queue?.querySelectorAll<HTMLElement>('ytmusic-player-queue-item') ?? []);
 
-      list.forEach((item) => {
-        const index = (item as any).data?.navigationEndpoint?.watchEndpoint?.index;
+      list.forEach((item, index) => {
+        // const index = (item as any).data?.navigationEndpoint?.watchEndpoint?.index;
         if (typeof index !== 'number') return;
 
-        const data = this._videoList[index]?.owner;
+        const id = this._videoList[index]?.ownerId;
+        const data = this.getProfile(id);
 
         const profile = item.querySelector<HTMLImageElement>('.music-together-owner') ?? document.createElement('img');
         profile.classList.add('music-together-owner');
+        profile.dataset.id = id;
+        profile.dataset.index = index.toString();
+
+        const name = item.querySelector<HTMLElement>('.music-together-name') ?? document.createElement('div');
+        name.classList.add('music-together-name');
+        name.textContent = data?.name ?? t('plugins.music-together.unknown-user');
 
         if (data) {
           profile.dataset.thumbnail = data.thumbnail ?? '';
@@ -387,6 +390,7 @@ export class Queue {
         }
 
         if (!profile.isConnected) item.append(profile);
+        if (!name.isConnected) item.append(name);
       });
     });
   }

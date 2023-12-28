@@ -146,3 +146,15 @@
 
   margin-left: 8px;
 }
+
+.music-together-name {
+  display: none;
+
+  color: #fff;
+  font-size: 14px;
+  margin-left: 8px;
+}
+
+ytmusic-player-queue-item:hover .music-together-name {
+  display: unset;
+}
