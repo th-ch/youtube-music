@@ -74,6 +74,7 @@ export default createPlugin({
     stateInterval: null as number | null,
     updateNext: false,
     ignoreChange: false,
+    rollbackInjector: null as (() => void) | null,
 
     me: null as Omit<Profile, 'id'> | null,
     profiles: {} as Record<string, Profile>,
@@ -85,7 +86,7 @@ export default createPlugin({
         if (this.connection?.mode === 'host') {
           const videoList: VideoData[] = this.queue?.flatItems.map((it: any) => ({
             videoId: it.videoId,
-            ownerId: this.connection!.id,
+            ownerId: this.connection!.id
           } satisfies VideoData)) ?? [];
 
           console.log('videoChange', event);
@@ -125,7 +126,7 @@ export default createPlugin({
       if (!this.me) this.me = getDefaultProfile(this.connection.id);
       const rawItems = this.queue?.flatItems?.map((it: any) => ({
         videoId: it.videoId,
-        ownerId: this.connection!.id,
+        ownerId: this.connection!.id
       } satisfies VideoData)) ?? [];
       this.queue?.setOwner({
         id: this.connection.id,
@@ -407,6 +408,33 @@ export default createPlugin({
         ...this.me
       });
 
+      const progress = Array.from(document.querySelectorAll<HTMLElement & {
+        _update: (...args: unknown[]) => void
+      }>('tp-yt-paper-progress'));
+      const rollbackList = progress.map((progress) => {
+        const original = progress._update;
+        progress._update = (...args) => {
+          const now = args[0];
+
+          if (this.permission === 'all' && typeof now === 'number') {
+            const currentTime = this.playerApi?.getCurrentTime() ?? 0;
+            if (Math.abs(now - currentTime) > 3) this.connection?.broadcast('SYNC_PROGRESS', {
+              progress: now,
+              state: this.playerApi?.getPlayerState()
+            });
+          }
+
+          original.call(progress, ...args);
+        };
+
+        return () => {
+          progress._update = original;
+        };
+      });
+      this.rollbackInjector = () => {
+        rollbackList.forEach((rollback) => rollback());
+      };
+
       this.connection.broadcast('IDENTIFY', {
         profile: {
           id: this.connection.id,
@@ -432,6 +460,10 @@ export default createPlugin({
       this.connection?.disconnect();
       this.queue?.rollbackInjection();
       this.queue?.removeQueueOwner();
+      if (this.rollbackInjector) {
+        this.rollbackInjector();
+        this.rollbackInjector = null;
+      }
 
       this.profiles = {};
       this.popups.host.setUsers(Object.values(this.profiles));
@@ -629,7 +661,7 @@ export default createPlugin({
           id: this.connection?.id ?? '',
           ...this.me!
         },
-        getProfile: (id) => this.profiles[id],
+        getProfile: (id) => this.profiles[id]
       });
       this.playerApi = playerApi;
 
