@@ -8,7 +8,8 @@
         "load-all": "Načítání všech pluginů",
         "load-failed": "Selhalo načtení \"{{pluginName}}\" pluginu",
         "loaded": "Plugin \"{{pluginName}}\" načten",
-        "unload-failed": "Selhalo unload \"{{pluginName}}\" pluginu"
+        "unload-failed": "Selhalo unload \"{{pluginName}}\" pluginu",
+        "unloaded": "Plugin \"{{pluginName}}\" unloaded"
       }
     }
   },
@@ -151,7 +152,7 @@
             "submenu": {
               "like-buttons": {
                 "default": "Výchozí",
-                "force-show": "Vynutit show",
+                "force-show": "Vynutit zobrazení",
                 "hide": "Skrýt",
                 "label": "Like tlačítka"
               },
@@ -189,7 +190,7 @@
       "previous": "Minulý",
       "quit": "Ukončit",
       "restart": "Restartovat aplikaci",
-      "show": "Ukázat okno"
+      "show": "Zobrazit okno"
     }
   },
   "plugins": {
@@ -200,12 +201,16 @@
       },
       "name": "Blokovač reklam"
     },
+    "album-actions": {
+      "description": "Přidává Undislike, Dislike, Like, a Unlike tlačítka k apply this ke všem písničkám v seznamu písniček nebo albumu.",
+      "name": "Album akce"
+    },
     "album-color-theme": {
       "description": "Používá dynamický motiv a vizuální efekty na základě palety barev alba",
       "name": "Motiv podle barvy Alba"
     },
     "ambient-mode": {
-      "description": "Applies bleskové efekty pomocí casting jemných barev z videa, do vašeho screen’s pozadí.",
+      "description": "Applies bleskové efekty pomocí casting jemných barev z videa, do vašeho pozadí obrazovky.",
       "menu": {
         "blur-amount": {
           "label": "Množství rozmazání",
@@ -280,8 +285,8 @@
       }
     },
     "compact-sidebar": {
-      "description": "Vždy nastavit sidebar do kompaktního režimu",
-      "name": "Kompaktní Sidebar"
+      "description": "Vždy nastavit postranní panel do kompaktního režimu",
+      "name": "Kompaktní postranní panel"
     },
     "crossfade": {
       "description": "Prolínání mezi písničkami",
@@ -311,16 +316,18 @@
     },
     "discord": {
       "backend": {
+        "already-connected": "Pokusilo se spojit s aktivním spojením",
         "connected": "Připojeno k Discordu",
         "disconnected": "Odpojeno od Discordu"
       },
       "description": "Ukažte svým přátelům, co posloucháte s Bohatou přítomností",
       "menu": {
-        "auto-reconnect": "Automaticky reconnect",
+        "auto-reconnect": "Automaticky znovu připojit",
         "clear-activity": "Vymazat aktivitu",
         "clear-activity-after-timeout": "Vymazat aktivitu po timeout",
         "connected": "Připojeno",
         "disconnected": "Odpojeno",
+        "hide-duration-left": "Skrýt zbývající duration",
         "hide-github-button": "Skrýt tlačítko s odkazem na GitHub",
         "play-on-youtube-music": "Hrát na YouTube Music",
         "set-inactivity-timeout": "Nastavit timeout pro neaktivitu"
@@ -363,7 +370,7 @@
           "folder-already-exists": "Složka {{playlistFolder}} již existuje",
           "getting-playlist-info": "Získávání informací o seznamu písniček…",
           "loading": "Načítání…",
-          "playlist-has-only-one-song": "Seznam písniček má pouze jednu položku, downloading it přímo",
+          "playlist-has-only-one-song": "Seznam písniček má pouze jednu položku, stahuje se přímo",
           "playlist-id-not-found": "Žádné ID seznamu písnček nenalezeno",
           "playlist-is-empty": "Seznam písniček je prázdný",
           "playlist-is-mix-or-private": "Chyba při získávání informací o seznamu písniček: ujistite se, že se nejedná o soukromý nebo \"Namíchaný pro vás\" seznam písniček\n\n{{error}}",
@@ -371,7 +378,7 @@
           "saving": "Ukládání…",
           "trying-to-get-playlist-id": "Trying se získat ID seznamu písniček: {{playlistId}}",
           "video-id-not-found": "Video nebylo nalezeno",
-          "writing-id3": "Writing ID3 značky…"
+          "writing-id3": "Psaní ID3 značek…"
         }
       },
       "description": "Stahuje MP3 / source audio přímo z rozhraní",
@@ -394,14 +401,15 @@
       "name": "Exponenciální hlasitost"
     },
     "in-app-menu": {
-      "description": "Dává menu-bars fancy, tmavý nebo album-color vzhled"
+      "description": "Dává menu panelům fancy, tmavý nebo album-color vzhled"
     },
     "last-fm": {
       "description": "Přidat scrobbling podporu pro Last.fm",
       "name": "Last.fm"
     },
     "lumiastream": {
-      "description": "Přidává Lumia Stream podporu"
+      "description": "Přidává Lumia Stream podporu",
+      "name": "Lumia Stream [beta]"
     },
     "lyrics-genius": {
       "description": "Přidává lyrics podporu pro většinu písniček",
@@ -418,7 +426,7 @@
       "name": "Žádné Google přihlášení"
     },
     "notifications": {
-      "description": "Display oznámení, když písnička začne hrát (interactive notifikace jsou dostupné na Windows)",
+      "description": "Zobrazit oznámení, když písnička začne hrát (interaktivní notifikace jsou dostupné na Windows)",
       "menu": {
         "interactive": "Interaktivní oznámení",
         "interactive-settings": {
@@ -435,6 +443,7 @@
       "name": "Oznámení"
     },
     "picture-in-picture": {
+      "description": "Povoluje switch aplikaci do režimu obrázek v obrázku",
       "menu": {
         "always-on-top": "Vždy na vrchu",
         "hotkey": {
@@ -464,8 +473,9 @@
       }
     },
     "precise-volume": {
-      "description": "Přesná kontrola hlasitosti pomocí kolečka myši/klávesnicových zkratek, s vlastní HUD a hlasitostních steps",
+      "description": "Přesná kontrola hlasitosti pomocí kolečka myši/klávesnicových zkratek, s vlastní HUD a customizable hlasitostních steps",
       "menu": {
+        "custom-volume-steps": "Nastavit vlastní hlasitostní steps",
         "global-shortcuts": "Globální klávesové zkratky"
       },
       "name": "Přesná hlasitost",
@@ -479,7 +489,8 @@
           "title": "Globální klávesnicové zkratky hlasitosti"
         },
         "volume-steps": {
-          "label": "Vybrat Zvýšení/Snížení hlasitost Steps"
+          "label": "Vybrat Zvýšení/Snížení hlasitost Steps",
+          "title": "Hlasitostní steps"
         }
       }
     },
@@ -497,8 +508,10 @@
       "name": "Měnič kvality videa"
     },
     "shortcuts": {
+      "description": "Dovoluje nastavit globální klávesové zkratky pro playback (přehrát/pozastavit/další/předchozí) a vypínání media OSD pomocí přepisování media klíčů, zapínání Ctrl/CMD + F k vyhledávání, zapínání Linux MPRIS podporu pro media klíče, a vlastní klávesové zkratky pro pokročilé uživatele.",
       "menu": {
-        "override-media-keys": "Přepsat Media Keys"
+        "override-media-keys": "Přepsat media klíče",
+        "set-keybinds": "Nastavit globální Controls písniček"
       },
       "name": "Zkratky (& MPRIS)",
       "prompt": {
@@ -522,7 +535,8 @@
       "name": "Přeskakovat Tichá místa"
     },
     "sponsorblock": {
-      "description": "Automaticky přeskakuje nehudební části jako intro/outro nebo části hudebních videí, kde nehraje písnčka"
+      "description": "Automaticky přeskakuje nehudební části jako intro/outro nebo části hudebních videí, kde nehraje písnčka",
+      "name": "SponsorBlock"
     },
     "taskbar-mediacontrol": {
       "description": "Ovládejte přehrávání z vašeho hlavního panelu Windows",
@@ -537,7 +551,7 @@
       "name": "Tuna OBS"
     },
     "video-toggle": {
-      "description": "Přidává tlačítko switch mezi videem/písničkou mode. Může také optionally remove celou video kartu",
+      "description": "Přidává tlačítko k switch mezi video/písničko režimem. Může také odstranit celou video kartu",
       "menu": {
         "align": {
           "label": "Zarovnání",
