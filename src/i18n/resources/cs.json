@@ -3,7 +3,7 @@
     "console": {
       "plugins": {
         "execute-failed": "Selhalo spuštění pluginu {{pluginName}}::{{contextName}}",
-        "executed-at-ms": "Plugin {{pluginName}}::{{contextName}} spuštěn at {{ms}}ms",
+        "executed-at-ms": "Plugin {{pluginName}}::{{contextName}} spuštěn za {{ms}}ms",
         "initialize-failed": "Selhalo zapnutí \"{{pluginName}}\" pluginu",
         "load-all": "Načítání všech pluginů",
         "load-failed": "Selhalo načtení \"{{pluginName}}\" pluginu",
@@ -250,6 +250,7 @@
       "name": "Ambientní režim"
     },
     "audio-compressor": {
+      "description": "Apply compression k audiu (snižuje hlasitost nejhlasitěších částí signálu and zvyšuje hlasitost nejjemnějších částí)",
       "name": "Audio kompresor"
     },
     "blur-nav-bar": {
