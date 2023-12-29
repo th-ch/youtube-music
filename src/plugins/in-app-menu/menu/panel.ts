@@ -7,13 +7,14 @@ import type { MenuItem } from 'electron';
 interface PanelOptions {
   placement?: 'bottom' | 'right';
   order?: number;
+  openOnHover?: boolean;
 }
 
 export const createPanel = (
   parent: HTMLElement,
   anchor: HTMLElement,
   items: MenuItem[],
-  options: PanelOptions = { placement: 'bottom', order: 0 },
+  options: PanelOptions = { placement: 'bottom', order: 0, openOnHover: false },
 ) => {
   const childPanels: HTMLElement[] = [];
   const panel = document.createElement('menu-panel');
@@ -93,11 +94,12 @@ export const createPanel = (
         {
           placement: 'right',
           order: (options?.order ?? 0) + 1,
+          openOnHover: true,
         },
       );
 
       childPanels.push(child);
-      children.push(...children);
+      childPanels.push(...children);
     }
 
     return panel.appendChild(menu);
@@ -131,6 +133,46 @@ export const createPanel = (
       panel.classList.add('position-by-bottom');
     }
   };
+
+  if (options.openOnHover) {
+    let timeout: number | null = null;
+    anchor.addEventListener('mouseenter', () => {
+      if (timeout) window.clearTimeout(timeout);
+      timeout = window.setTimeout(() => {
+        if (!isOpened()) open();
+      }, 225);
+    });
+    anchor.addEventListener('mouseleave', () => {
+      if (timeout) window.clearTimeout(timeout);
+      let mouseX = 0, mouseY = 0;
+      const onMouseMove = (event: MouseEvent) => {
+        mouseX = event.clientX;
+        mouseY = event.clientY;
+      };
+      document.addEventListener('mousemove', onMouseMove);
+      timeout = window.setTimeout(() => {
+        document.removeEventListener('mousemove', onMouseMove);
+        const now = document.elementFromPoint(mouseX, mouseY);
+        if (now === panel || panel.contains(now)) {
+          const onLeave = () => {
+            document.addEventListener('mousemove', onMouseMove);
+            timeout = window.setTimeout(() => {
+              document.removeEventListener('mousemove', onMouseMove);
+              const now = document.elementFromPoint(mouseX, mouseY);
+              if (now === panel || panel.contains(now) || childPanels.some((it) => it.contains(now))) return;
+
+              if (isOpened()) close();
+              panel.removeEventListener('mouseleave', onLeave);
+            }, 225);
+          };
+          panel.addEventListener('mouseleave', onLeave);
+          return;
+        }
+
+        if (isOpened()) close();
+      }, 225);
+    });
+  }
 
   anchor.addEventListener('click', () => {
     if (isOpened()) close();
