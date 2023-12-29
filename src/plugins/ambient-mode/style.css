@@ -24,3 +24,17 @@
 #song-video .html5-video-container > video {
   top: 0 !important;
 }
+
+#song-image .html5-blur-image {
+  position: absolute;
+
+  left: var(--left, 0px);
+  top: var(--top, 0px);
+  width: var(--width, 100%) !important;
+  height: var(--height, 100%) !important;
+
+  filter: blur(var(--blur, 100px));
+  opacity: var(--opacity, 1);
+
+  pointer-events: none;
+}

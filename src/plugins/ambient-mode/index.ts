@@ -145,6 +145,73 @@ export default createPlugin({
     observer: null as MutationObserver | null,
 
     start() {
+      const injectBlurImage = () => {
+        const songImage = document.querySelector<HTMLImageElement>(
+          '#song-image',
+        );
+        const image = document.querySelector<HTMLImageElement>(
+          '#song-image yt-img-shadow > img',
+        );
+
+        if (!songImage) return null;
+        if (!image) return null;
+
+        const blurImage = document.createElement('img');
+        blurImage.classList.add('html5-blur-image');
+        blurImage.src = image.src;
+
+        const applyImageAttribute = () => {
+          const rect = image.getBoundingClientRect();
+
+          const newWidth = Math.floor(image.width || rect.width);
+          const newHeight = Math.floor(image.height || rect.height);
+
+          if (newWidth === 0 || newHeight === 0) return;
+
+          if (this.isFullscreen) blurImage.classList.add('fullscreen');
+          else blurImage.classList.remove('fullscreen');
+
+          const leftOffset = (newWidth * (this.sizeRatio - 1)) / 2;
+          const topOffset = (newHeight * (this.sizeRatio - 1)) / 2;
+          blurImage.style.setProperty('--left', `${-1 * leftOffset}px`);
+          blurImage.style.setProperty('--top', `${-1 * topOffset}px`);
+          blurImage.style.setProperty('--width', `${newWidth * this.sizeRatio}px`);
+          blurImage.style.setProperty('--height', `${newHeight * this.sizeRatio}px`);
+          blurImage.style.setProperty('--blur', `${this.blur}px`);
+          blurImage.style.setProperty('--opacity', `${this.opacity}`);
+        };
+
+        this.update = applyImageAttribute;
+
+        const observer = new MutationObserver((mutations) => {
+          mutations.forEach((mutation) => {
+            if (mutation.type === 'attributes') {
+              applyImageAttribute();
+            }
+          });
+        });
+        const resizeObserver = new ResizeObserver(() => {
+          applyImageAttribute();
+        });
+
+        applyImageAttribute();
+        observer.observe(songImage, { attributes: true });
+        resizeObserver.observe(songImage);
+        window.addEventListener('resize', applyImageAttribute);
+
+        /* injecting */
+        songImage.prepend(blurImage);
+
+        /* cleanup */
+        return () => {
+          observer.disconnect();
+          resizeObserver.disconnect();
+          window.removeEventListener('resize', applyImageAttribute);
+
+          if (blurImage.isConnected) blurImage.remove();
+        };
+      };
+
       const injectBlurVideo = (): (() => void) | null => {
         const songVideo = document.querySelector<HTMLDivElement>('#song-video');
         const video = document.querySelector<HTMLVideoElement>(
@@ -280,13 +347,21 @@ export default createPlugin({
         };
       };
 
+      const isVideoMode = () => {
+        const songVideo = document.querySelector<HTMLDivElement>('#song-video');
+        if (!songVideo) return false;
+        console.log(getComputedStyle(songVideo).display);
+
+        return getComputedStyle(songVideo).display !== 'none';
+      };
+
       const playerPage = document.querySelector<HTMLElement>('#player-page');
       const ytmusicAppLayout = document.querySelector<HTMLElement>('#layout');
 
       const isPageOpen = ytmusicAppLayout?.hasAttribute('player-page-open');
       if (isPageOpen) {
         this.unregister?.();
-        this.unregister = injectBlurVideo() ?? null;
+        this.unregister = (isVideoMode() ? injectBlurVideo() : injectBlurImage()) ?? null;
       }
 
       const observer = new MutationObserver((mutationsList) => {
@@ -296,7 +371,7 @@ export default createPlugin({
               ytmusicAppLayout?.hasAttribute('player-page-open');
             if (isPageOpen) {
               this.unregister?.();
-              this.unregister = injectBlurVideo() ?? null;
+              this.unregister = (isVideoMode() ? injectBlurVideo() : injectBlurImage()) ?? null;
             } else {
               this.unregister?.();
               this.unregister = null;
