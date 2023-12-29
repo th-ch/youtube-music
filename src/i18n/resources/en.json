@@ -593,6 +593,10 @@
         "visualizer-type": "Visualizer Type"
       },
       "name": "Visualizer"
+    },
+    "album-actions": {
+      "description": "Adds Undislike, Dislike, Like, and Unlike buttons to apply this to all songs in a playlist or album.",
+      "name": "Album actions"
     }
   }
 }
