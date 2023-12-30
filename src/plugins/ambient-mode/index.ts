@@ -239,7 +239,6 @@ export default createPlugin({
             cancelAnimationFrame(lastEffectWorkId);
 
           lastEffectWorkId = requestAnimationFrame(() => {
-            // console.log('context', context);
             if (!context) return;
 
             const width = this.qualityRatio;
@@ -350,7 +349,6 @@ export default createPlugin({
       const isVideoMode = () => {
         const songVideo = document.querySelector<HTMLDivElement>('#song-video');
         if (!songVideo) return false;
-        console.log(getComputedStyle(songVideo).display);
 
         return getComputedStyle(songVideo).display !== 'none';
       };
