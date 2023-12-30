@@ -89,8 +89,6 @@ export default createPlugin({
             ownerId: this.connection!.id
           } satisfies VideoData)) ?? [];
 
-          console.log('videoChange', event);
-
           this.queue?.setVideoList(videoList, false);
           this.queue?.syncQueueOwner();
           this.connection.broadcast('SYNC_QUEUE', {
@@ -664,8 +662,6 @@ export default createPlugin({
         getProfile: (id) => this.profiles[id]
       });
       this.playerApi = playerApi;
-
-      console.log(this.queue);
 
       this.playerApi.addEventListener('onStateChange', this.videoStateChangeListener);
       document.addEventListener('videodatachange', this.videoChangeListener);

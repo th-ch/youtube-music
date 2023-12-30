@@ -226,8 +226,6 @@ export class Queue {
         return;
       }
 
-      console.log('dispatch', this.internalDispatch, this.ignoreFlag, event);
-
       if (!this.internalDispatch) {
         if (event.type === 'CLEAR') {
           this.ignoreFlag = true;
@@ -307,6 +305,11 @@ export class Queue {
           event.type = 'CLEAR_STEERING_CHIPS';
           event.payload = undefined;
         }
+        if (event.type === 'SET_PLAYER_UI_STATE') {
+          if (event.payload === 'INACTIVE' && this.videoList.length > 0) {
+            return;
+          }
+        }
         if (event.type === 'HAS_SHOWN_AUTOPLAY') return;
         if (event.type === 'ADD_AUTOMIX_ITEMS') return;
       }
@@ -373,7 +376,6 @@ export class Queue {
       const list = Array.from(queue?.querySelectorAll<HTMLElement>('ytmusic-player-queue-item') ?? []);
 
       list.forEach((item, index) => {
-        // const index = (item as any).data?.navigationEndpoint?.watchEndpoint?.index;
         if (typeof index !== 'number') return;
 
         const id = this._videoList[index]?.ownerId;
@@ -413,7 +415,9 @@ export class Queue {
 
       list.forEach((item) => {
         const profile = item.querySelector<HTMLImageElement>('.music-together-owner');
+        const name = item.querySelector<HTMLElement>('.music-together-name');
         profile?.remove();
+        name?.remove();
       });
     });
   }

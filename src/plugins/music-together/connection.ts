@@ -38,7 +38,7 @@ export class Connection {
   private connectionListeners: ((connection?: DataConnection) => void)[] = [];
 
   constructor() {
-    this.peer = new Peer();
+    this.peer = new Peer({ debug: 0 });
 
     this.waitOpen.promise = new Promise<string>((resolve, reject) => {
       this.waitOpen.resolve = resolve;
