@@ -257,4 +257,5 @@ export interface PlayerAPIEvents {
   videodatachange: {
     value: VideoDataChangeValue;
   } & ({ name: 'dataloaded' } | { name: 'dataupdated ' });
+  onStateChange: number;
 }

@@ -262,7 +262,23 @@ export interface YoutubePlayer {
   showControls: () => void;
   hideControls: () => void;
   cancelPlayback: () => void;
-  getProgressState: <Return>() => Return;
+  getProgressState: () => {
+    airingEnd: number;
+    airingStart: number;
+    allowSeeking: boolean;
+    clipEnd: number;
+    clipStart: number;
+    current: number;
+    displayedStart: number;
+    duration: number;
+    ingestionTime: number;
+    isAtLiveHead: boolean;
+    loaded: number;
+    offset: number;
+    seekableEnd: number;
+    seekableStart: number;
+    viewerLivestreamJoinMediaTime: number;
+  };
   isInline: () => boolean;
   setInline: (isInline: boolean) => void;
   setLoopVideo: (value: boolean) => void;
@@ -320,6 +336,10 @@ export interface YoutubePlayer {
   getVolume: () => number;
   seekTo: (seconds: number) => void;
   getPlayerMode: <Return>() => Return;
+  /**
+   * 1: playing
+   * 2: paused
+   */
   getPlayerState: () => number;
   getAvailablePlaybackRates: () => number[];
   getPlaybackQuality: () => string;
