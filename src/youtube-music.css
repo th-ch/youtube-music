@@ -24,10 +24,6 @@ ytmusic-app-layout {
   --ytmusic-nav-bar-height: 90px;
 }
 
-ytmusic-search-box.ytmusic-nav-bar {
-  margin-top: 15px;
-}
-
 /* Blocking annoying elements */
 ytmusic-mealbar-promo-renderer {
   display: none !important;
