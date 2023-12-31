@@ -2,7 +2,32 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v3.2.0](https://github.com/th-ch/youtube-music/compare/v3.1.1...v3.2.0)
+
+- feat(album-color-theme): improve `Album Color Theme` style [`#1571`](https://github.com/th-ch/youtube-music/pull/1571)
+- feat(menu): add more detail in Menu [`#1570`](https://github.com/th-ch/youtube-music/pull/1570)
+- feat(music-together): Add new plugin `Music Together` [`#1562`](https://github.com/th-ch/youtube-music/pull/1562)
+- chore(deps): update dependency rollup to v4.9.2 [`#1567`](https://github.com/th-ch/youtube-music/pull/1567)
+- fix(deps): update dependency i18next to v23.7.13 [`#1569`](https://github.com/th-ch/youtube-music/pull/1569)
+- feat: Add new plugin `Album actions` [`#1515`](https://github.com/th-ch/youtube-music/pull/1515)
+- fix(deps): update dependency i18next to v23.7.12 [`#1564`](https://github.com/th-ch/youtube-music/pull/1564)
+- fix: Only apply scale factor on Windows [`#1565`](https://github.com/th-ch/youtube-music/pull/1565)
+- chore(deps): update dependency @typescript-eslint/eslint-plugin to v6.16.0 [`#1556`](https://github.com/th-ch/youtube-music/pull/1556)
+- chore(deps): update pnpm to v8.13.1 [`#1557`](https://github.com/th-ch/youtube-music/pull/1557)
+- chore(deps): update dependency ws to v8.16.0 [`#1559`](https://github.com/th-ch/youtube-music/pull/1559)
+- fix(deps): update dependency youtubei.js to v8.1.0 [`#1560`](https://github.com/th-ch/youtube-music/pull/1560)
+- fix(deps): update dependency node-html-parser to v6.1.12 [`#1554`](https://github.com/th-ch/youtube-music/pull/1554)
+- Revert "fix(deps): update dependency @xhayper/discord-rpc to v1.1.2" [`#1552`](https://github.com/th-ch/youtube-music/pull/1552)
+- feat(ambient-mode): support ambient mode on `Song section` [`#1555`](https://github.com/th-ch/youtube-music/issues/1555)
+- fix: fixed an issue with the download button disappearing [`#1551`](https://github.com/th-ch/youtube-music/issues/1551)
+- fix: fix `homebrew cask` [`#1514`](https://github.com/th-ch/youtube-music/issues/1514)
+- fix: pnpm build error [`13ef856`](https://github.com/th-ch/youtube-music/commit/13ef8560ff43353030537403be7da82542ba535e)
+- chore(i18n): Translated using Weblate (Czech) [`0dc9c6a`](https://github.com/th-ch/youtube-music/commit/0dc9c6a1a90bce6505614617b827e816cbaaf875)
+- chore(deps): update dependency @typescript-eslint/eslint-plugin to v6.15.0 [`c5bcd89`](https://github.com/th-ch/youtube-music/commit/c5bcd89f164b51d7380486a8ae35edd0caeea842)
+
 #### [v3.1.1](https://github.com/th-ch/youtube-music/compare/v3.1.0...v3.1.1)
+
+> 18 December 2023
 
 - fix: fix renderer plugin load timing [`#1522`](https://github.com/th-ch/youtube-music/issues/1522)
 - chore(i18n): Translated using Weblate (Lithuanian) [`fc1a7cd`](https://github.com/th-ch/youtube-music/commit/fc1a7cda62b6e33e5f5d57a5a6e0adef6a32bf9a)
