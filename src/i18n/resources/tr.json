@@ -48,6 +48,11 @@
         "message": "Menüyü gizle etkinleştirildi",
         "title": "Menüyü gizle etkinleştirildi"
       },
+      "need-to-restart": {
+        "buttons": {
+          "restart-now": "Şimdi yeniden başlat"
+        }
+      },
       "update-available": {
         "buttons": {
           "download": "İndir",
