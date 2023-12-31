@@ -22,8 +22,7 @@ title-bar {
 
   color: #f1f1f1;
   font-size: 12px;
-  padding: 4px 12px;
-  padding-left: var(--offset-left, 12px);
+  padding: 4px 12px 4px var(--offset-left, 12px);
   background-color: var(--titlebar-background-color, #030303);
   user-select: none;
 
@@ -233,10 +232,7 @@ ytmusic-app-layout > [slot='nav-bar'],
     var(--ytmusic-nav-bar-height) + var(--menu-bar-height, 36px)
   ) !important;
 }
-ytmusic-app[is-bauhaus-sidenav-enabled] #guide-spacer.ytmusic-app {
-  margin-top: calc(var(--menu-bar-height, 36px)) !important;
-}
-
+ytmusic-app[is-bauhaus-sidenav-enabled] #guide-spacer.ytmusic-app,
 ytmusic-app[is-bauhaus-sidenav-enabled] #mini-guide-spacer.ytmusic-app {
   margin-top: calc(
     var(--ytmusic-nav-bar-height) + var(--menu-bar-height, 36px)
