@@ -47,6 +47,7 @@ export interface PluginDef<
   name: () => string;
   authors?: Author[];
   description?: () => string;
+  addedVersion?: string;
   config?: Config;
 
   menu?: (

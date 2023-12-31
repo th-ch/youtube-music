@@ -97,6 +97,8 @@ menu-panel.position-by-bottom {
 }
 
 menu-item {
+  position: relative;
+
   -webkit-app-region: none;
   min-height: 32px;
   height: 32px;
@@ -108,6 +110,9 @@ menu-item {
 
   border-radius: 4px;
   cursor: pointer;
+}
+menu-item.badge {
+  grid-template-columns: 32px 1fr auto minmax(32px, auto);
 }
 menu-item:hover {
   background-color: rgba(255, 255, 255, 0.1);
@@ -126,6 +131,56 @@ menu-separator {
   margin: 4px 0;
 
   background-color: rgba(255, 255, 255, 0.2);
+}
+
+menu-item-badge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  margin-left: 8px;
+
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #f1f1f1;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+menu-item-tooltip {
+  position: absolute;
+
+  left: 0;
+  top: calc(100% + 4px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  min-width: 32px;
+  padding: 4px;
+
+  border-radius: 4px;
+  background-color: rgba(25, 25, 25, 0.8);
+  color: #f1f1f1;
+  font-size: 10px;
+
+  pointer-events: none;
+  z-index: 1000;
+
+  opacity: 0;
+  scale: 0.9;
+
+  transform-origin: 50% 0;
+  transition: all 0.225s ease-out;
+}
+menu-item:hover > menu-item-tooltip {
+  opacity: 1;
+  scale: 1.0;
 }
 
 /* classes */

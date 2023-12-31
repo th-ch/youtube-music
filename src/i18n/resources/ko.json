@@ -170,7 +170,8 @@
       },
       "plugins": {
         "enabled": "활성화",
-        "label": "확장"
+        "label": "확장",
+        "new": "NEW"
       },
       "view": {
         "label": "보기",

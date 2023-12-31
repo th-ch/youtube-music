@@ -170,7 +170,8 @@
       },
       "plugins": {
         "enabled": "Enabled",
-        "label": "Plugins"
+        "label": "Plugins",
+        "new": "NEW"
       },
       "view": {
         "label": "View",

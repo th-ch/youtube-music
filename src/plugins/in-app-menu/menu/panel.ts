@@ -52,6 +52,18 @@ export const createPanel = (
     menu.appendChild(iconWrapper);
     menu.append(item.label);
 
+    if (item.sublabel) {
+      menu.classList.add('badge');
+      const menuBadge = document.createElement('menu-item-badge');
+      menuBadge.append(item.sublabel);
+      menu.append(menuBadge);
+    }
+    if (item.toolTip) {
+      const menuTooltip = document.createElement('menu-item-tooltip');
+      menuTooltip.append(item.toolTip);
+      menu.append(menuTooltip);
+    }
+
     menu.addEventListener('click', async () => {
       await window.ipcRenderer.invoke('menu-event', item.commandId);
       const menuItem = (await window.ipcRenderer.invoke(
