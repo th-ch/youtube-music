@@ -61,7 +61,18 @@ export const createPanel = (
     if (item.toolTip) {
       const menuTooltip = document.createElement('menu-item-tooltip');
       menuTooltip.append(item.toolTip);
-      menu.append(menuTooltip);
+
+      menu.addEventListener('mouseenter', () => {
+        const rect = menu.getBoundingClientRect();
+        menuTooltip.style.setProperty('max-width', `${rect.width - 8}px`);
+        menuTooltip.style.setProperty('--x', `${rect.left}px`);
+        menuTooltip.style.setProperty('--y', `${rect.top + rect.height}px`);
+        menuTooltip.classList.add('show');
+      });
+      menu.addEventListener('mouseleave', () => {
+        menuTooltip.classList.remove('show');
+      });
+      parent.append(menuTooltip);
     }
 
     menu.addEventListener('click', async () => {
