@@ -105,17 +105,17 @@
     "dev": "electron-vite dev --watch",
     "dev:debug": "cross-env ELECTRON_ENABLE_LOGGING=1 pnpm dev",
     "clean": "del-cli dist && del-cli pack && del-cli .vite-inspect",
-    "dist": "pnpm clean && pnpm build && electron-builder --win --mac --linux -p never",
-    "dist:linux": "pnpm clean && pnpm build && electron-builder --linux -p never",
-    "dist:mac": "pnpm clean && pnpm build && electron-builder --mac dmg:x64 -p never",
-    "dist:mac:arm64": "pnpm clean && pnpm build && electron-builder --mac dmg:arm64 -p never",
-    "dist:win": "pnpm clean && pnpm build && electron-builder --win -p never",
-    "dist:win:x64": "pnpm clean && pnpm build && electron-builder --win nsis-web:x64 -p never",
+    "dist": "pnpm clean && pnpm build && pnpm electron-builder --win --mac --linux -p never",
+    "dist:linux": "pnpm clean && pnpm build && pnpm electron-builder --linux -p never",
+    "dist:mac": "pnpm clean && pnpm build && pnpm electron-builder --mac dmg:x64 -p never",
+    "dist:mac:arm64": "pnpm clean && pnpm build && pnpm electron-builder --mac dmg:arm64 -p never",
+    "dist:win": "pnpm clean && pnpm build && pnpm electron-builder --win -p never",
+    "dist:win:x64": "pnpm clean && pnpm build && pnpm electron-builder --win nsis-web:x64 -p never",
     "lint": "eslint .",
     "changelog": "npx --yes auto-changelog",
-    "release:linux": "pnpm clean && pnpm build && electron-builder --linux -p always -c.snap.publish=github",
-    "release:mac": "pnpm clean && pnpm build && electron-builder --mac -p always",
-    "release:win": "pnpm clean && pnpm build && electron-builder --win -p always",
+    "release:linux": "pnpm clean && pnpm build && pnpm electron-builder --linux -p always -c.snap.publish=github",
+    "release:mac": "pnpm clean && pnpm build && pnpm electron-builder --mac -p always",
+    "release:win": "pnpm clean && pnpm build && pnpm electron-builder --win -p always",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "engines": {
@@ -125,12 +125,12 @@
     "overrides": {
       "esbuild": "0.18.20",
       "usocket": "1.0.1",
-      "rollup": "4.9.1",
+      "rollup": "4.9.2",
       "node-gyp": "10.0.1",
       "xml2js": "0.6.2",
       "node-fetch": "3.3.2",
-      "@electron/universal": "2.0.0",
-      "@babel/runtime": "7.23.2"
+      "@electron/universal": "2.0.1",
+      "@babel/runtime": "7.23.7"
     }
   },
   "dependencies": {
