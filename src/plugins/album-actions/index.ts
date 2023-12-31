@@ -12,7 +12,7 @@ export default createPlugin({
   description: () => t('plugins.album-actions.description'),
   restartNeeded: false,
   config: {
-    enabled: true,
+    enabled: false,
   },
   renderer: {
     observer: null as MutationObserver | null,

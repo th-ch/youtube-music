@@ -39,7 +39,7 @@ export default createPlugin({
   description: () => t('plugins.music-together.description'),
   restartNeeded: false,
   config: {
-    enabled: true
+    enabled: false
   },
   stylesheets: [style],
   backend: {
@@ -670,7 +670,7 @@ export default createPlugin({
       const dividers = Array.from(document.querySelectorAll('.music-together-divider'));
       dividers.forEach((divider) => divider.remove());
 
-      this.elements.setting.remove();
+      this.elements.setting?.remove();
       this.onStop();
       if (typeof this.stateInterval === 'number') clearInterval(this.stateInterval);
       if (this.playerApi) this.playerApi.removeEventListener('onStateChange', this.videoStateChangeListener);
