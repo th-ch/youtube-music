@@ -170,7 +170,8 @@
       },
       "plugins": {
         "enabled": "Habilitado",
-        "label": "Plugins"
+        "label": "Plugins",
+        "new": "NUEVO"
       },
       "view": {
         "label": "Ver",
@@ -200,6 +201,10 @@
         "blocker": "Bloqueador"
       },
       "name": "Adblocker"
+    },
+    "album-actions": {
+      "description": "Añade los botones \"No me gusta\", \"No me gusta\", \"Me gusta\" y \"No me gusta\" para aplicarlos a todas las canciones de una lista de reproducción o un álbum.",
+      "name": "Acciones del álbum"
     },
     "album-color-theme": {
       "description": "Aplica un tema dinámico y efectos visuales basados en la paleta de colores del álbum",
@@ -424,6 +429,51 @@
       "name": "Lyrics Genius",
       "renderer": {
         "fetched-lyrics": "Letras recuperadas de Genius"
+      }
+    },
+    "music-together": {
+      "description": "Comparte una lista de reproducción con los demás. Cuando el anfitrión reproduzca una canción, todos los demás escucharán la misma",
+      "dialog": {
+        "enter-host": "Introduzca el ID del host"
+      },
+      "internal": {
+        "save": "Guardar",
+        "track-source": "Fuente de la pista",
+        "unknown-user": "Usuario desconocido"
+      },
+      "menu": {
+        "click-to-copy-id": "Copiar el ID del host",
+        "close": "Cerrar Music Together",
+        "connected-users": "Usuarios conectados",
+        "disconnect": "Desactivar Music Together",
+        "empty-user": "No hay usuarios conectados",
+        "host": "Host de Music Together",
+        "join": "Únase a Music Together",
+        "permission": {
+          "all": "Todo el control",
+          "host-only": "Solo anfitrión",
+          "playlist": "Control de las listas de reproducción"
+        },
+        "set-permission": "Permiso de control de cambios",
+        "status": {
+          "disconnected": "Desconectado",
+          "guest": "Conectado como invitado",
+          "host": "Conectado como anfitrión"
+        }
+      },
+      "name": "Music Together [Beta]",
+      "toast": {
+        "add-song-failed": "No se puede añadir la canción",
+        "closed": "Music Together cerrado",
+        "disconnected": "Music Together desconectados",
+        "host-failed": "Fallo el host de Music Together",
+        "id-copied": "ID del host copiado en el portapapeles",
+        "join-failed": "Fallo en la unión a Music Together",
+        "joined": "Unido a Music Together",
+        "permission-changed": "Permiso de Music Together cambiado a \"{{permission}}\"",
+        "remove-song-failed": "Error al eliminar la canción",
+        "user-connected": "{{name}} se unió a Music Together",
+        "user-disconnected": "{{name}} dejó Music Together"
       }
     },
     "navigation": {
