@@ -147,6 +147,7 @@
     "async-mutex": "0.4.0",
     "butterchurn": "3.0.0-beta.4",
     "butterchurn-presets": "3.0.0-beta.4",
+    "color": "4.2.3",
     "conf": "10.2.0",
     "custom-electron-prompt": "1.5.7",
     "dbus-next": "0.10.2",
@@ -179,6 +180,7 @@
   "devDependencies": {
     "@playwright/test": "1.41.0-alpha-dec-18-2023",
     "@total-typescript/ts-reset": "0.5.1",
+    "@types/color": "3.0.6",
     "@types/electron-localshortcut": "3.1.3",
     "@types/howler": "2.2.11",
     "@types/html-to-text": "9.0.4",
