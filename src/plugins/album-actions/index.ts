@@ -11,6 +11,7 @@ export default createPlugin({
   name: () => t('plugins.album-actions.name'),
   description: () => t('plugins.album-actions.description'),
   restartNeeded: false,
+  addedVersion: '3.2.0',
   config: {
     enabled: false,
   },

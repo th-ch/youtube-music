@@ -9,6 +9,7 @@ import {
   shell,
 } from 'electron';
 import prompt from 'custom-electron-prompt';
+import { satisfies } from 'semver';
 
 import { allPlugins } from 'virtual:plugins';
 
@@ -23,6 +24,8 @@ import promptOptions from './providers/prompt-options';
 import { getAllMenuTemplate, loadAllMenuPlugins } from './loader/menu';
 import { setLanguage, t } from '@/i18n';
 
+import packageJson from '../package.json';
+
 export type MenuTemplate = Electron.MenuItemConstructorOptions[];
 
 // True only if in-app-menu was loaded on launch
@@ -31,10 +34,14 @@ const inAppMenuActive = config.plugins.isEnabled('in-app-menu');
 const pluginEnabledMenu = (
   plugin: string,
   label = '',
+  description: string | undefined = undefined,
+  isNew = false,
   hasSubmenu = false,
   refreshMenu: (() => void) | undefined = undefined,
 ): Electron.MenuItemConstructorOptions => ({
   label: label || plugin,
+  sublabel: isNew ? t('main.menu.plugins.new') : undefined,
+  toolTip: description,
   type: 'checkbox',
   checked: config.plugins.isEnabled(plugin),
   click(item: Electron.MenuItem) {
@@ -66,12 +73,15 @@ export const mainMenuTemplate = async (
 
   const menuResult = Object.entries(getAllMenuTemplate()).map(
     ([id, template]) => {
-      const pluginLabel = allPlugins[id]?.name?.() ?? id;
+      const plugin = allPlugins[id];
+      const pluginLabel = plugin?.name?.() ?? id;
+      const pluginDescription = plugin?.description?.() ?? undefined;
+      const isNew = plugin?.addedVersion ? satisfies(packageJson.version, plugin.addedVersion) : false;
 
       if (!config.plugins.isEnabled(id)) {
         return [
           id,
-          pluginEnabledMenu(id, pluginLabel, true, innerRefreshMenu),
+          pluginEnabledMenu(id, pluginLabel, pluginDescription, isNew, true, innerRefreshMenu),
         ] as const;
       }
 
@@ -79,10 +89,14 @@ export const mainMenuTemplate = async (
         id,
         {
           label: pluginLabel,
+          sublabel: isNew ? t('main.menu.plugins.new') : undefined,
+          toolTip: pluginDescription,
           submenu: [
             pluginEnabledMenu(
               id,
               t('main.menu.plugins.enabled'),
+              undefined,
+              false,
               true,
               innerRefreshMenu,
             ),
@@ -106,9 +120,12 @@ export const mainMenuTemplate = async (
       const predefinedTemplate = menuResult.find((it) => it[0] === id);
       if (predefinedTemplate) return predefinedTemplate[1];
 
-      const pluginLabel = allPlugins[id]?.name?.() ?? id;
+      const plugin = allPlugins[id];
+      const pluginLabel = plugin?.name?.() ?? id;
+      const pluginDescription = plugin?.description?.() ?? undefined;
+      const isNew = plugin?.addedVersion ? satisfies(packageJson.version, plugin.addedVersion) : false;
 
-      return pluginEnabledMenu(id, pluginLabel, true, innerRefreshMenu);
+      return pluginEnabledMenu(id, pluginLabel, pluginDescription, isNew, true, innerRefreshMenu);
     });
 
   const availableLanguages = Object.keys(languageResources);
