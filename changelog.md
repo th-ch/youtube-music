@@ -2,7 +2,17 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v3.2.1](https://github.com/th-ch/youtube-music/compare/v3.2.0...v3.2.1)
+
+- fix: fix #1574 [`#1574`](https://github.com/th-ch/youtube-music/issues/1574)
+- fix: fix #1575 [`#1575`](https://github.com/th-ch/youtube-music/issues/1575)
+- chore(i18n): Translated using Weblate [`f5aa179`](https://github.com/th-ch/youtube-music/commit/f5aa179cd639eb4b8f70f1264b5b459ebcc16695)
+- chore(i18n): Translated using Weblate (English) [`e409165`](https://github.com/th-ch/youtube-music/commit/e409165e1bed85f3d1aea3a565e7b9e462b1e05b)
+- chore(i18n): Translated using Weblate (Czech) [`0ca4e34`](https://github.com/th-ch/youtube-music/commit/0ca4e34efd86e877314e5a245f266065b4cf0013)
+
 #### [v3.2.0](https://github.com/th-ch/youtube-music/compare/v3.1.1...v3.2.0)
+
+> 1 January 2024
 
 - feat(album-color-theme): improve `Album Color Theme` style [`#1571`](https://github.com/th-ch/youtube-music/pull/1571)
 - feat(menu): add more detail in Menu [`#1570`](https://github.com/th-ch/youtube-music/pull/1570)
