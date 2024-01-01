@@ -9,7 +9,7 @@
         "load-failed": "Selhalo načtení \"{{pluginName}}\" pluginu",
         "loaded": "Plugin \"{{pluginName}}\" načten",
         "unload-failed": "Selhalo unload \"{{pluginName}}\" pluginu",
-        "unloaded": "Plugin \"{{pluginName}}\" unloaded"
+        "unloaded": ""
       }
     }
   },
@@ -361,6 +361,7 @@
           }
         },
         "feedback": {
+          "conversion-progress": "Konverze: {{percent}}%",
           "done": "Hotovo: {{filePath}}",
           "download-info": "Stahování {{artist}} - {{title}} [{{videoId}}",
           "download-progress": "Stahování: {{percent}}%",
