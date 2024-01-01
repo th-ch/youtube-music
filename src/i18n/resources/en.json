@@ -461,7 +461,7 @@
           "host": "Connected as Host"
         }
       },
-      "name": "Music Together [Beta]",
+      "name": "Music Together [beta]",
       "toast": {
         "add-song-failed": "Failed to add song",
         "closed": "Music Together closed",
