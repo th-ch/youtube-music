@@ -450,9 +450,9 @@
         "host": "Music Together Host",
         "join": "Join Music Together",
         "permission": {
-          "all": "All Control",
-          "host-only": "Host-Only",
-          "playlist": "Can control Playlist"
+          "all": "Allow guests to control playlist and player",
+          "host-only": "Only the host can control playlist and player",
+          "playlist": "Allow guests to control playlist"
         },
         "set-permission": "Change Control Permission",
         "status": {
