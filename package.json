@@ -123,7 +123,7 @@
   },
   "pnpm": {
     "overrides": {
-      "esbuild": "0.18.20",
+      "esbuild": "0.19.11",
       "usocket": "1.0.1",
       "rollup": "4.9.2",
       "node-gyp": "10.0.1",
@@ -194,7 +194,7 @@
     "electron-builder": "24.9.1",
     "electron-devtools-installer": "3.2.0",
     "electron-vite": "2.0.0-beta.2",
-    "esbuild": "0.18.20",
+    "esbuild": "0.19.11",
     "eslint": "8.56.0",
     "eslint-import-resolver-exports": "1.0.0-beta.5",
     "eslint-import-resolver-typescript": "3.6.1",
