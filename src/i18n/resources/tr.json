@@ -8,7 +8,7 @@
         "load-all": "Tüm eklentiler yükleniyor",
         "load-failed": "\"{{pluginName}}\" eklentisi yüklenemedi",
         "loaded": "\"{{pluginName}}\" eklentisi yüklendi",
-        "unload-failed": "\"{{pluginName}}\" eklentisi kaldırılamadı.",
+        "unload-failed": "\"{{pluginName}}\" eklentisi çıkartılamadı",
         "unloaded": "\"{{pluginName}}\" eklentisi kaldırıldı"
       }
     }
@@ -50,53 +50,117 @@
       },
       "need-to-restart": {
         "buttons": {
+          "later": "Daha Sonra",
           "restart-now": "Şimdi yeniden başlat"
-        }
+        },
+        "detail": "\"{{pluginName}}\" eklentisinin çalışabilmesi için yeniden başlatman gerekiyor",
+        "message": "\"{{pluginName}}\" için yeniden başlatman gerekiyor",
+        "title": "Uygulamayı yeniden başlatman gerekiyor"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "Çıkış",
+          "relaunch": "Yeniden Başlat",
+          "wait": "Bekle"
+        },
+        "detail": "Rahatsızlık için özür dileriz! Lütfen ne yapacağınızı seçin:",
+        "message": "Uygulama yanıt vermiyor",
+        "title": "Pencere yanıt vermiyor"
       },
       "update-available": {
         "buttons": {
+          "disable": "Güncellemeleri devre dışı bırak",
           "download": "İndir",
           "ok": "Tamam"
-        }
+        },
+        "detail": "Yeni bir sürüm mevcut. {{downloadLink}} adresi üzerinden indirebilirsin",
+        "message": "Yeni bir sürüm mevcut",
+        "title": "Güncelleme Mevcut"
       }
     },
     "menu": {
+      "about": "Hakkında",
       "navigation": {
-        "label": "Navigasyon"
+        "label": "Navigasyon",
+        "submenu": {
+          "copy-current-url": "Geçerli Url'yi kopyala",
+          "go-back": "Geri dön",
+          "go-forward": "İlerle",
+          "quit": "Çıkış",
+          "restart": "Uygulamayı Yeniden Başlat"
+        }
       },
       "options": {
         "label": "Seçenekler",
         "submenu": {
           "advanced-options": {
+            "label": "Gelişmiş Seçenekler",
             "submenu": {
+              "auto-reset-app-cache": "Uygulama başlatıldığında uygulama önbelleğini sıfırla",
+              "disable-hardware-acceleration": "Donanım hızlandırmayı devre dışı bırak",
+              "edit-config-json": "Düzenle config.json",
+              "override-user-agent": "\"User-Agent \"ı geçersiz kıl",
+              "restart-on-config-changes": "Yapılandırma değişikliğinde yeniden başlat",
               "set-proxy": {
                 "label": "Proxy ayarla",
                 "prompt": {
+                  "label": "Proxy Adresini Gir: (devre dışı bırakmak için boş bırakın)",
+                  "placeholder": "Örnek: SOCKS5://127.0.0.1:9999",
                   "title": "Proxy ayarla"
                 }
-              }
+              },
+              "toggle-dev-tools": "DevTools'u Aç / Kapat"
             }
           },
+          "always-on-top": "Her zaman üstte",
           "auto-update": "Otomatik Güncelleme",
-          "language": {
-            "label": "Dil"
+          "hide-menu": {
+            "dialog": {
+              "message": "Menü bir sonraki açılışta gizlenecektir, göstermek için [Alt] tuşunu kullanın (veya uygulama-içi-menü kullanıyorsanız [`] tuşuna geri basın)",
+              "title": "Gizli Menü Aktif"
+            },
+            "label": "Gizli Menü"
           },
+          "language": {
+            "dialog": {
+              "message": "Dil değişikliği yeniden başlattıktan sonra etkinleşecektir",
+              "title": "Dil değiştirildi"
+            },
+            "label": "Dil",
+            "submenu": {
+              "to-help-translate": "Çeviriye yardım etmek ister misiniz? Buraya tıklayın"
+            }
+          },
+          "resume-on-start": "Uygulama başlatıldığında son şarkıyı devam ettir",
+          "single-instance-lock": "Tek Örnek Kilidi",
           "start-at-login": "Başlangıçta çalıştır",
+          "starting-page": {
+            "label": "Başlangıç sayfası",
+            "unset": "Ayarlanmadı"
+          },
           "tray": {
             "label": "Tepsi",
             "submenu": {
-              "enabled-and-hide-app": "Uygulamayı etkinleştirin gizleyin.",
-              "play-pause-on-click": "Tıklaynınca Oynat-Duraklat"
+              "disabled": "Devre Dışı",
+              "enabled-and-hide-app": "Uygulamayı etkinleştirin gizleyin",
+              "enabled-and-show-app": "Etkinleştir ve uygulamayı göster",
+              "play-pause-on-click": "Tıklandığında Oynat/Duraklat"
             }
           },
           "visual-tweaks": {
+            "label": "Görsel İnce Ayarlar",
             "submenu": {
               "like-buttons": {
-                "default": "Varsayılan"
+                "default": "Varsayılan",
+                "force-show": "Zorla göster",
+                "hide": "Gizle",
+                "label": "Beğenme düğmeleri"
               },
+              "remove-upgrade-button": "Yükseltme düğmesini kaldır",
               "theme": {
                 "label": "Tema",
                 "submenu": {
+                  "import-css-file": "Özel CSS dosyanı içeri aktar",
                   "no-theme": "Tema Yok"
                 }
               }
@@ -105,31 +169,54 @@
         }
       },
       "plugins": {
-        "label": "Eklentiler"
+        "enabled": "Aktif",
+        "label": "Eklentiler",
+        "new": "YENİ"
       },
       "view": {
-        "label": "Görüntü"
+        "label": "Görüntü",
+        "submenu": {
+          "force-reload": "Zorla yeniden başlat",
+          "reload": "Yeniden Başlat",
+          "reset-zoom": "Asıl Boyut",
+          "toggle-fullscreen": "Tam Ekran'a Geçiş",
+          "zoom-in": "Yakınlaştır",
+          "zoom-out": "Uzaklaştır"
+        }
       }
+    },
+    "tray": {
+      "next": "Sonraki",
+      "play-pause": "Oynat/Durdur",
+      "previous": "Önceki",
+      "quit": "Çıkış",
+      "restart": "Yeniden başlat",
+      "show": "Pencereyi görüntüle"
     }
   },
   "plugins": {
     "adblocker": {
       "description": "Tüm reklamları ve izleyicileri engelle",
       "menu": {
-        "blocker": "Engelleme Yöntemi"
+        "blocker": "Engelleyici"
       },
-      "name": "Adblocker"
+      "name": "Reklam Engelleyici"
+    },
+    "album-actions": {
+      "description": "Çalma listesindeki veya albümdeki tüm şarkılara Beğendim ve Beğenmedim düğmeleri ekler.",
+      "name": "Albüm Eylemleri"
     },
     "album-color-theme": {
-      "description": "Albümün renk paletine dayalı dinamik bir tema ve efektler uygular.",
+      "description": "Albümün renk paletine dayalı dinamik bir tema ve efektler uygular",
       "name": "Albüm Renk Teması"
     },
     "ambient-mode": {
       "description": "Videodaki yumuşak renkleri ekranınızın arka planına yansıtarak bir ışık efekti uygular..",
       "menu": {
         "blur-amount": {
+          "label": "Bulanıklık miktarı",
           "submenu": {
-            "pixels": "{{blurAmount}} pixels"
+            "pixels": "{{blurAmount}} piksel"
           }
         },
         "buffer": {
@@ -145,53 +232,82 @@
           }
         },
         "quality": {
+          "label": "Kalite",
           "submenu": {
-            "pixels": "{{quality}} pixels"
+            "pixels": "{{quality}} piksel"
           }
         },
         "size": {
+          "label": "Boyut",
           "submenu": {
             "percent": "{{size}}%"
           }
         },
         "smoothness-transition": {
+          "label": "Yumuşak Geçiş",
           "submenu": {
-            "during": "{{interpolationTime}} saniye içinde"
+            "during": "{{interpolationTime}} saniye boyunca"
           }
+        },
+        "use-fullscreen": {
+          "label": "Tam ekran kullanılıyor"
         }
-      }
+      },
+      "name": "Ambiyans Modu"
     },
     "audio-compressor": {
-      "description": "Ses sıkıştırma (dalganın en gürültülü bölümlerinin ses düzeyini azaltır ve daha yumuşak bölümlerin ses düzeyini artırır)"
+      "description": "Ses sıkıştırma (dalganın en gürültülü bölümlerinin ses düzeyini azaltır ve daha yumuşak bölümlerin ses düzeyini artırır)",
+      "name": "Ses Sıkıştırma"
     },
     "blur-nav-bar": {
-      "description": "Gezinme çubuğunu şeffaf ve bulanık yapar"
+      "description": "Gezinme çubuğunu şeffaf ve bulanık yapar",
+      "name": "Navigasyon barını bulanıklaştır"
     },
     "bypass-age-restrictions": {
-      "description": "YouTube yaş doğrulamasını atla"
+      "description": "YouTube yaş doğrulamasını atla",
+      "name": "Yaş doğrulamasını atla"
     },
     "captions-selector": {
+      "description": "YouTube Music için altyazı seçici",
+      "menu": {
+        "autoload": "Son kullanılan altyazıyı otomatik olarak seç",
+        "disable-captions": "Varsayılan olarak altyazı yok"
+      },
+      "name": "Altyazı Seçici",
       "prompt": {
         "selector": {
-          "none": "Hiçbiri"
+          "label": "Geçerli altyazı dili: {{language}}",
+          "none": "Hiçbiri",
+          "title": "Altyazı dilini seç"
         }
+      },
+      "templates": {
+        "title": "Altyazı seçiciyi aç"
       }
     },
     "compact-sidebar": {
-      "description": "Her zaman kompakt kenar çubugu"
+      "description": "Her zaman kompakt kenar çubugu",
+      "name": "Kompakt Kenar Çubuğu"
     },
     "crossfade": {
+      "description": "Şarkılar arasında Çapraz Geçiş",
       "menu": {
-        "advanced": "İleri düzey için"
+        "advanced": "Gelişmiş"
       },
+      "name": "Çapraz Geçiş [beta]",
       "prompt": {
         "options": {
           "multi-input": {
+            "fade-in-duration": "Güçlenme süresi (ms)",
+            "fade-out-duration": "Zayıflama süresi (ms)",
             "fade-scaling": {
+              "label": "Zayıflama Ölçeği",
               "linear": "Doğrusal",
               "logarithmic": "Logaritmik"
-            }
-          }
+            },
+            "seconds-before-end": "Bitişten N saniye önce çapraz geçiş"
+          },
+          "title": "Çapraz Geçiş ayarları"
         }
       }
     },
@@ -199,14 +315,33 @@
       "description": "Şarkıların otomatik olarak duraklatılmasını sağlar",
       "menu": {
         "apply-once": "Yalnızca ilk şarkı için geçerlidir"
-      }
+      },
+      "name": "Otomatik oynatmayı devre dışı bırak"
     },
     "discord": {
-      "description": "Rich Presence ile Discord'da ne dinlediğinizi gösterin.",
+      "backend": {
+        "already-connected": "Aktif bağlantı olduğu halde bağlantı kurulmaya çalışıldı",
+        "connected": "Discord'a bağlandı",
+        "disconnected": "Discord ile bağlantı kesildi"
+      },
+      "description": "Rich Presence ile Discord'da ne dinlediğinizi gösterin",
       "menu": {
+        "auto-reconnect": "Otomatik yeniden bağlan",
+        "clear-activity": "Etkinliği temizle",
+        "clear-activity-after-timeout": "Zaman aşımından sonra etkinliği temizle",
+        "connected": "Bağlı",
+        "disconnected": "Bağlantı kesildi",
         "hide-duration-left": "Kalan süreyi gizle",
         "hide-github-button": "GitHub bağlantısını gizle",
+        "play-on-youtube-music": "YouTube Music de oynat",
         "set-inactivity-timeout": "Hareketsizlik zaman aşımını ayarla"
+      },
+      "name": "Discord Rich Presence",
+      "prompt": {
+        "set-inactivity-timeout": {
+          "label": "Hareketsizlik zaman aşımını saniye cinsinden girin:",
+          "title": "Hareketsizlik zaman aşımını ayarla"
+        }
       }
     },
     "downloader": {
@@ -216,71 +351,298 @@
             "buttons": {
               "ok": "Tamam"
             },
-            "title": "İndirmede hata meydana geldi!"
+            "message": "Argh! Özür dilerim, indirme başarısız oldu…",
+            "title": "İndirme sırasında bir hata meydana geldi!"
           },
           "start-download-playlist": {
             "buttons": {
               "ok": "Tamam"
             },
-            "message": "Çalma listesini indir : {{playlistTitle}}",
+            "detail": "({{playlistSize}} şarkı)",
+            "message": "Oynatma listesini indir : {{playlistTitle}}",
             "title": "İndirme Başladı"
           }
         },
         "feedback": {
           "conversion-progress": "Dönüştürme : {{percent}}%",
+          "converting": "Dönüştürülüyor…",
+          "done": "Tamamlandı: {{filePath}}",
+          "download-info": "{{artist}} - {{title}} [{{videoId}} indiriliyor",
           "download-progress": "İndirme : {{percent}}%",
-          "preparing-file": "Dosya Hazırlanıyor…"
+          "downloading": "İndiriliyor…",
+          "downloading-counter": "İndiriliyor {{current}}/{{total}}…",
+          "downloading-playlist": "\"{{playlistTitle}}\" şarkı listesi indiriliyor - {{playlistSize}} şarkı ({{playlistId}})",
+          "error-while-downloading": "\"{{author}} - {{title}}\" indirilirken hata oluştu: {{error}}",
+          "folder-already-exists": "{{playlistFolder}} klasörü zaten mevcut",
+          "getting-playlist-info": "Oynatma listesi bilgisi alınıyor…",
+          "loading": "Yükleniyor…",
+          "playlist-has-only-one-song": "Oynatma listesinde yalnızca bir şarkı var, doğrudan indiriliyor",
+          "playlist-id-not-found": "Oynatma listesi ID'si bulunamadı",
+          "playlist-is-empty": "Oynatma listesi boş",
+          "playlist-is-mix-or-private": "Çalma listesi bilgisi alınırken hata oluştu: özel veya \"Size özel karışık\" bir çalma listesi olmadığından emin olun\n\n{{error}}",
+          "preparing-file": "Dosya Hazırlanıyor…",
+          "saving": "Kaydediliyor…",
+          "trying-to-get-playlist-id": "Çalma listesi ID'si alınmaya çalışılıyor: {{playlistId}}",
+          "video-id-not-found": "Video bulunamadı",
+          "writing-id3": "ID3 etiketleri yazılıyor…"
         }
+      },
+      "description": "MP3 / kaynak sesini doğrudan arayüzden indir",
+      "menu": {
+        "choose-download-folder": "İndirme klasörünü seç",
+        "download-playlist": "Oynatma listesini indir",
+        "presets": "Hazır Ayarlar",
+        "skip-existing": "Mevcut dosyaları atla"
+      },
+      "name": "İndirici",
+      "renderer": {
+        "can-not-update-progress": "İlerleme güncellenemiyor"
       },
       "templates": {
         "button": "İndir"
       }
     },
+    "exponential-volume": {
+      "description": "Ses seviyesi kaydırıcısını üstel hale getirir, böylece daha düşük ses seviyelerini seçmek daha kolay olur.",
+      "name": "Üstel Ses Seviyesi"
+    },
+    "in-app-menu": {
+      "description": "Menü çubuklarına süslü, koyu veya albüm renginde bir görünüm verir",
+      "menu": {
+        "hide-dom-window-controls": "DOM penceresi kontrollerini gizle"
+      },
+      "name": "Uygulama İçi Menü"
+    },
     "last-fm": {
+      "description": "Last.fm için scrobbling desteği ekler",
       "name": "Last.fm"
     },
+    "lumiastream": {
+      "description": "Lumia Stream desteği ekler",
+      "name": "Lumia Stream [beta]"
+    },
+    "lyrics-genius": {
+      "description": "Çoğu şarkı için şarkı sözü desteği ekler",
+      "menu": {
+        "romanized-lyrics": "Romanlaştırılmış Şarkı Sözleri"
+      },
+      "name": "Genius Şarkı Sözleri",
+      "renderer": {
+        "fetched-lyrics": "Şarkı sözleri genius tarafından alındı"
+      }
+    },
+    "music-together": {
+      "description": "Oynatma listesini başkalarıyla paylaşın. Sunucu sahibi bir şarkı çaldığında, diğer herkes aynı şarkıyı duyacak",
+      "dialog": {
+        "enter-host": "Sunucu ID'si Girin"
+      },
+      "internal": {
+        "save": "Kaydet",
+        "track-source": "Parça Kaynağı",
+        "unknown-user": "Bilinmeyen Kullanıcı"
+      },
+      "menu": {
+        "click-to-copy-id": "Sunucu ID'sini kopyala",
+        "close": "Birlikte Müziği Kapat",
+        "connected-users": "Bağlanan Kullanıcılar",
+        "disconnect": "Birlikte Müzik Bağlantısını Kesin",
+        "empty-user": "Bağlı kullanıcı bulunmuyor",
+        "host": "Birlikte Müzik Sunucusu",
+        "join": "Birlikte Müziğe Katıl",
+        "permission": {
+          "all": "Konukların oynatma listesini ve oynatıcıyı kontrol etmesine izin verin",
+          "host-only": "Çalma listesini ve oynatıcıyı yalnızca yönetici kontrol edebilir",
+          "playlist": "Konukların oynatma listesini kontrol etmesine izin ver"
+        },
+        "set-permission": "Kontrol İznini Değiştir",
+        "status": {
+          "disconnected": "Bağlantı kesildi",
+          "guest": "Misafir olarak bağlandı",
+          "host": "Ev Sahibi olarak bağlandı"
+        }
+      },
+      "name": "Birlikte Müzik [beta]",
+      "toast": {
+        "add-song-failed": "Şarkı eklenirken bir hata meydana geldi",
+        "closed": "Birlikte Müzik kapatıldı",
+        "disconnected": "Birlikte Müzik bağlantı kesildi",
+        "host-failed": "Birlikte Müzik sunucusu kurulamadı",
+        "id-copied": "Sunucu ID'si kopyalandı",
+        "join-failed": "Birlikte Müziğe katılırken bir hata meydana geldi",
+        "joined": "Birlikte Müziğe Katıldı",
+        "permission-changed": "Birlikte Müzik yetkisi \"{{permission}}\" olarak değiştirildi",
+        "remove-song-failed": "Şarkı kaldırılırken bir hata meydana geldi",
+        "user-connected": "{{name}} Birlikte Müziğe Katıldı",
+        "user-disconnected": "{{name}} Birlikte Müzik'ten ayrıldı"
+      }
+    },
     "navigation": {
+      "description": "Favori tarayıcınızdaki gibi doğrudan arayüze entegre edilmiş İleri/Geri gezinme okları",
       "name": "Navigasyon"
     },
     "no-google-login": {
+      "description": "Google giriş düğmelerini ve bağlantılarını arayüzden kaldır",
       "name": "Google Girişini Kaldır"
     },
     "notifications": {
+      "description": "Bir şarkı çalmaya başladığında bir bildirim görüntüler (etkileşimli bildirimler Windows'ta mevcuttur)",
+      "menu": {
+        "interactive": "İnteraktif Bildirimler",
+        "interactive-settings": {
+          "label": "İnteraktif Ayarlar",
+          "submenu": {
+            "hide-button-text": "Buton metnini gizle",
+            "refresh-on-play-pause": "Oynat/Duraklat'ta Yenile",
+            "tray-controls": "Tepsi tıklamasıyla Aç/Kapat"
+          }
+        },
+        "priority": "Bildirim Önceliği",
+        "toast-style": "Bildirim Tarzı",
+        "unpause-notification": "Şarkı tekrar oynatılınca bildirim göster"
+      },
       "name": "Bildirimler"
     },
-    "shortcuts": {
-      "prompt": {
-        "keybind": {
-          "keybind-options": {
-            "next": "İler"
+    "picture-in-picture": {
+      "description": "Uygulamayı resim-içinde-resim moduna geçirmeye izin verir",
+      "menu": {
+        "always-on-top": "Her zaman üstte",
+        "hotkey": {
+          "label": "Kısayol",
+          "prompt": {
+            "keybind-options": {
+              "hotkey": "Kısayol"
+            },
+            "label": "Resim-içinde-resim arasında geçiş yapmak için bir kısayol tuşu seçin",
+            "title": "Resim-içinde-resim Kısayol Tuşu"
           }
+        },
+        "save-window-position": "Pencere konumunu kaydet",
+        "save-window-size": "Pencere boyutunu kaydet",
+        "use-native-pip": "Tarayıcı yerel PiP'sini kullan"
+      },
+      "name": "Resim-içinde-resim",
+      "templates": {
+        "button": "Resim-içinde-resim"
+      }
+    },
+    "playback-speed": {
+      "description": "Hızlı dinle, yavaş dinle! Şarkı hızını kontrol eden bir kaydırıcı ekler",
+      "name": "Oynatma Hızı",
+      "templates": {
+        "button": "Hız"
+      }
+    },
+    "precise-volume": {
+      "description": "Özel bir HUD ve özelleştirilebilir ses seviyesi adımları ile fare tekerleği / kısayol tuşlarını kullanarak ses seviyesini hassas bir şekilde kontrol edin",
+      "menu": {
+        "arrows-shortcuts": "Yerel Ok Tuşu Kontrolleri",
+        "custom-volume-steps": "Özel Ses Seviyesi Adımlarını Ayarlama",
+        "global-shortcuts": "Genel Kısayol Tuşları"
+      },
+      "name": "Hassas Ses Seviyesi",
+      "prompt": {
+        "global-shortcuts": {
+          "keybind-options": {
+            "decrease": "Ses Seviyesi Azaltma",
+            "increase": "Ses Seviyesi Yükseltme"
+          },
+          "label": "Genel Ses Tuş Atamalarını seçin:",
+          "title": "Genel Ses Tuş Atamaları"
+        },
+        "volume-steps": {
+          "label": "Ses Artırma/Azaltma Kademelerini Seçin",
+          "title": "Ses Kademeleri"
         }
       }
     },
+    "quality-changer": {
+      "backend": {
+        "dialog": {
+          "quality-changer": {
+            "detail": "Mevcut Kalite: {{quality}}",
+            "message": "Video Kalitesini Seçin:",
+            "title": "Video Kalitesini Seçin"
+          }
+        }
+      },
+      "description": "Video katmanı üzerindeki bir düğme ile video kalitesinin değiştirilmesine izin verir",
+      "name": "Video Kalitesi Değiştirici"
+    },
+    "shortcuts": {
+      "description": "Oynatma için global kısayol tuşları (oynat/duraklat/sonraki/önceki) ayarlamaya ve medya tuşlarını geçersiz kılarak medya OSD'sini kapatmaya, arama yapmak için Ctrl/CMD + F tuşlarını açmaya, medya tuşları için Linux MPRIS desteğini açmaya ve ileri düzey kullanıcılar için özel kısayol tuşlarına izin verir.",
+      "menu": {
+        "override-media-keys": "Medya Tuşlarını Geçersiz Kıl",
+        "set-keybinds": "Global Şarkı Kontrollerini Ayarla"
+      },
+      "name": "Kısayollar (& MPRIS)",
+      "prompt": {
+        "keybind": {
+          "keybind-options": {
+            "next": "İler",
+            "play-pause": "Oynat / Durdur",
+            "previous": "Önceki"
+          },
+          "label": "Şarkı Kontrolü için Genel Tuş Atamaları'nı seçin:",
+          "title": "Genel Tuş Atamaları"
+        }
+      }
+    },
+    "skip-disliked-songs": {
+      "description": "Beğenmediğin şarkıları atlar",
+      "name": "Beğenmediklerini Atla"
+    },
+    "skip-silences": {
+      "description": "Şarkılardaki sessiz bölümleri otomatik olarak atlar",
+      "name": "Sessizlikleri Atla"
+    },
     "sponsorblock": {
+      "description": "Giriş/Çıkış gibi müzik olmayan kısımları veya müzik videolarında şarkının çalmadığı kısımları otomatik olarak atlar",
       "name": "SponsorBlock"
     },
+    "taskbar-mediacontrol": {
+      "description": "Windows görev çubuğu üzerinden oynatmayı kontrol edebilmenize olanak sağlar",
+      "name": "Görev Çubuğu Medya Kontrolü"
+    },
     "touchbar": {
+      "description": "macOS kullanıcıları için bir TouchBar widget'ı ekler",
       "name": "TouchBar"
     },
     "tuna-obs": {
+      "description": "OBS eklentisi Tuna ile entegrasyon sağlar",
       "name": "Tuna OBS"
     },
     "video-toggle": {
+      "description": "Video/Şarkı modu arasında geçiş yapmak için bir düğme ekler. ayrıca isteğe bağlı olarak tüm video sekmesini kaldırabilir",
       "menu": {
         "align": {
+          "label": "Hizalama",
           "submenu": {
+            "left": "Sol",
             "middle": "Orta",
             "right": "Sağ"
           }
         },
+        "force-hide": "Video sekmesini kaldırmaya zorla",
         "mode": {
-          "label": "Mod"
+          "label": "Mod",
+          "submenu": {
+            "custom": "Özel Ayar",
+            "disabled": "Devre dışı",
+            "native": "Yerel geçiş"
+          }
         }
       },
+      "name": "Video Geçiş",
       "templates": {
         "button": "Şarkı"
       }
+    },
+    "visualizer": {
+      "description": "Oynatıcıya bir görselleştirici ekler",
+      "menu": {
+        "visualizer-type": "Görselleştirici Tipi"
+      },
+      "name": "Görselleştirici"
     }
   }
 }
