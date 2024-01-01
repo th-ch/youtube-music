@@ -8,8 +8,7 @@
         "load-all": "Načítání všech pluginů",
         "load-failed": "Selhalo načtení \"{{pluginName}}\" pluginu",
         "loaded": "Plugin \"{{pluginName}}\" načten",
-        "unload-failed": "Selhalo unload \"{{pluginName}}\" pluginu",
-        "unloaded": ""
+        "unload-failed": "Selhalo unload \"{{pluginName}}\" pluginu"
       }
     }
   },
