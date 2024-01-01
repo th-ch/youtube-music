@@ -422,6 +422,7 @@
       }
     },
     "music-together": {
+      "description": "Sdílejte seznam písniček s ostatními. Když the host hraje písničku, uslyší jí i všichni ostatní.",
       "dialog": {
         "enter-host": "Zadejte Host ID"
       },
@@ -430,6 +431,7 @@
         "unknown-user": "Neznámý uživatel"
       },
       "menu": {
+        "click-to-copy-id": "Zkopírovat Host ID",
         "close": "Zavřít Hudba Spolu",
         "connected-users": "Připojení uživatelé",
         "disconnect": "Odpojit od Hudby Spolu",
@@ -437,16 +439,18 @@
         "host": "Hudba Spolu Host",
         "join": "Připojit se k Hudbě Spolu",
         "permission": {
-          "playlist": "Seznam písniček Control"
+          "all": "Povolit hostům ovládat seznam písniček a přehrávač",
+          "host-only": "Jenom host může ovládat seznam písniček a přehrávač",
+          "playlist": "Povolit hostům ovládat seznam písniček"
         },
-        "set-permission": "Změnit Control oprávnění",
+        "set-permission": "Změnit ovládací oprávnění",
         "status": {
           "disconnected": "Odpojen",
           "guest": "Připojený/á jako Guest",
           "host": "Připojený/á jako Host"
         }
       },
-      "name": "Hudba Spolu [Beta]",
+      "name": "Hudba Spolu [beta]",
       "toast": {
         "add-song-failed": "Selhalo přidání písničky",
         "closed": "Hudba Spolu zavřena",
@@ -583,7 +587,7 @@
       "name": "SponsorBlock"
     },
     "taskbar-mediacontrol": {
-      "description": "Ovládejte přehrávání z vašeho hlavního panelu Windows",
+      "description": "Ovládejte přehrávání z vašeho Windows hlavního panelu",
       "name": "Hlavní panel Media Control"
     },
     "touchbar": {
