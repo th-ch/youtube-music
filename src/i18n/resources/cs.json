@@ -450,6 +450,7 @@
       "toast": {
         "add-song-failed": "Selhalo přidání písničky",
         "closed": "Hudba Spolu zavřena",
+        "disconnected": "Hudba Spolu odpojena",
         "host-failed": "Selhalo hostování Hudby Spolu",
         "id-copied": "Host ID zkopírováno do schránky",
         "join-failed": "Selhalo připojení k Hudba Spolu",
