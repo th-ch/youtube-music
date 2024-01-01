@@ -450,9 +450,9 @@
         "host": "Host de Music Together",
         "join": "Únase a Music Together",
         "permission": {
-          "all": "Todo el control",
-          "host-only": "Solo anfitrión",
-          "playlist": "Control de las listas de reproducción"
+          "all": "Permite a los invitados controlar la lista de reproducción y el reproductor",
+          "host-only": "Sólo el anfitrión puede controlar la lista de reproducción y el reproductor",
+          "playlist": "Permita que los invitados controlen la lista de reproducción"
         },
         "set-permission": "Permiso de control de cambios",
         "status": {
@@ -461,7 +461,7 @@
           "host": "Conectado como anfitrión"
         }
       },
-      "name": "Music Together [Beta]",
+      "name": "Music Together [beta]",
       "toast": {
         "add-song-failed": "No se puede añadir la canción",
         "closed": "Music Together cerrado",
