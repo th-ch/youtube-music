@@ -450,9 +450,9 @@
         "host": "Music Together 호스트",
         "join": "Music Together 참여",
         "permission": {
-          "all": "모두 제어 가능",
+          "all": "게스트가 모두 제어 가능",
           "host-only": "호스트만 제어 가능",
-          "playlist": "재생목록 제어 가능"
+          "playlist": "게스트가 재생목록 제어 가능"
         },
         "set-permission": "제어 권한 변경",
         "status": {
