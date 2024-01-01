@@ -170,7 +170,8 @@
       },
       "plugins": {
         "enabled": "Povoleno",
-        "label": "Pluginy"
+        "label": "Pluginy",
+        "new": "NOVÉ"
       },
       "view": {
         "label": "Zobrazení",
@@ -401,7 +402,10 @@
       "name": "Exponenciální hlasitost"
     },
     "in-app-menu": {
-      "description": "Dává menu panelům fancy, tmavý nebo album-color vzhled"
+      "description": "Dává menu panelům fancy, tmavý nebo album-color vzhled",
+      "menu": {
+        "hide-dom-window-controls": "Skrýt DOM window controls"
+      }
     },
     "last-fm": {
       "description": "Přidat scrobbling podporu pro Last.fm",
@@ -415,6 +419,45 @@
       "description": "Přidává lyrics podporu pro většinu písniček",
       "renderer": {
         "fetched-lyrics": "Fetched lyrics pro Genius"
+      }
+    },
+    "music-together": {
+      "dialog": {
+        "enter-host": "Zadejte Host ID"
+      },
+      "internal": {
+        "save": "Uložit",
+        "unknown-user": "Neznámý uživatel"
+      },
+      "menu": {
+        "close": "Zavřít Hudba Spolu",
+        "connected-users": "Připojení uživatelé",
+        "disconnect": "Odpojit od Hudby Spolu",
+        "empty-user": "Žadní připojení uživatelé",
+        "host": "Hudba Spolu Host",
+        "join": "Připojit se k Hudbě Spolu",
+        "permission": {
+          "playlist": "Seznam písniček Control"
+        },
+        "set-permission": "Změnit Control oprávnění",
+        "status": {
+          "disconnected": "Odpojen",
+          "guest": "Připojený/á jako Guest",
+          "host": "Připojený/á jako Host"
+        }
+      },
+      "name": "Hudba Spolu [Beta]",
+      "toast": {
+        "add-song-failed": "Selhalo přidání písničky",
+        "closed": "Hudba Spolu zavřena",
+        "host-failed": "Selhalo hostování Hudby Spolu",
+        "id-copied": "Host ID zkopírováno do schránky",
+        "join-failed": "Selhalo připojení k Hudba Spolu",
+        "joined": "Připojil/a jste se k Hudbě Spolu",
+        "permission-changed": "Oprávnění Hudby Spolu se změnilo na \"{{permission}}\"",
+        "remove-song-failed": "Selhalo odstranění písničky",
+        "user-connected": "{{name}} se připojil/a k Hudbě Spolu",
+        "user-disconnected": "{{name}} odpustil/a Hudba Spolu"
       }
     },
     "navigation": {
