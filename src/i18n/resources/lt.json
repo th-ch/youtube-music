@@ -289,7 +289,7 @@
       "menu": {
         "advanced": "Išplėstinė"
       },
-      "name": "Perliejimas [beta]",
+      "name": "Perliejimas [Beta]",
       "prompt": {
         "options": {
           "multi-input": {
@@ -414,7 +414,7 @@
     },
     "lumiastream": {
       "description": "Prideda \"Lumia Stream\" palaikymą",
-      "name": "Lumia Stream [beta]"
+      "name": "Lumia Stream [Beta]"
     },
     "lyrics-genius": {
       "description": "Prideda daugumai dainių žodžių tekstus",
