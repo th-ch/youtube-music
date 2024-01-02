@@ -294,7 +294,7 @@
       "menu": {
         "advanced": "Avanzado"
       },
-      "name": "Crossfade [beta]",
+      "name": "Crossfade [Beta]",
       "prompt": {
         "options": {
           "multi-input": {
@@ -419,7 +419,7 @@
     },
     "lumiastream": {
       "description": "Agrega soporte para Lumia Stream",
-      "name": "Lumia Stream [beta]"
+      "name": "Lumia Stream [Beta]"
     },
     "lyrics-genius": {
       "description": "Añade el soporte para las letras para la mayoría de las canciones",
@@ -461,7 +461,7 @@
           "host": "Conectado como anfitrión"
         }
       },
-      "name": "Music Together [beta]",
+      "name": "Music Together [Beta]",
       "toast": {
         "add-song-failed": "No se puede añadir la canción",
         "closed": "Music Together cerrado",
