@@ -1,1 +1,16 @@
-{}
+{
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "Lỗi khi bắt đầu phần mở rộng {{pluginName}}::{{contextName}}",
+        "executed-at-ms": "Phần mở rộng {{pluginName}}::{{contextName}} đã bắt đầu trong {{ms}}ms",
+        "initialize-failed": "Lỗi khi khởi động phần mở rộng \"{{pluginName}}\"",
+        "load-all": "Đang tải tất cả phần mở rộng",
+        "load-failed": "Lỗi khi tải phần mở rộng\"{{pluginName}}\"",
+        "loaded": "Đã tải phần mở rộng \"{{pluginName}}\"",
+        "unload-failed": "Lỗi khi hủy tải phần mở rộng \"{{pluginName}}\"",
+        "unloaded": "Đã hủy tải phần mở rộng \"{{pluginName}}\""
+      }
+    }
+  }
+}
