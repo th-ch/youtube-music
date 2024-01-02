@@ -293,7 +293,7 @@
       "menu": {
         "advanced": "Pokročilý"
       },
-      "name": "Prolínání [beta]",
+      "name": "Prolínání [Beta]",
       "prompt": {
         "options": {
           "multi-input": {
@@ -413,7 +413,7 @@
     },
     "lumiastream": {
       "description": "Přidává Lumia Stream podporu",
-      "name": "Lumia Stream [beta]"
+      "name": "Lumia Stream [Beta]"
     },
     "lyrics-genius": {
       "description": "Přidává lyrics podporu pro většinu písniček",
@@ -450,7 +450,7 @@
           "host": "Připojený/á jako Host"
         }
       },
-      "name": "Hudba Spolu [beta]",
+      "name": "Hudba Spolu [Beta]",
       "toast": {
         "add-song-failed": "Selhalo přidání písničky",
         "closed": "Hudba Spolu zavřena",
