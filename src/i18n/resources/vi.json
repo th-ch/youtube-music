@@ -12,5 +12,10 @@
         "unloaded": "Đã hủy tải phần mở rộng \"{{pluginName}}\""
       }
     }
+  },
+  "language": {
+    "code": "vi",
+    "local-name": "Tiếng Việt",
+    "name": "Vietnamese"
   }
 }
