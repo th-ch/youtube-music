@@ -287,7 +287,7 @@
       "menu": {
         "advanced": "Avansert"
       },
-      "name": "Overgang [beta]",
+      "name": "Overgang [Beta]",
       "prompt": {
         "options": {
           "multi-input": {
@@ -412,7 +412,7 @@
     },
     "lumiastream": {
       "description": "Legger til Lumia Stream-støtte",
-      "name": "Lumia Stream [beta]"
+      "name": "Lumia Stream [Beta]"
     },
     "lyrics-genius": {
       "description": "Gir sangtekststøtte for de fleste spor",
