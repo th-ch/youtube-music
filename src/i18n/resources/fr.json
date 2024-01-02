@@ -289,7 +289,7 @@
       "menu": {
         "advanced": "Avancé"
       },
-      "name": "Fondu enchaîné [bêta]",
+      "name": "Fondu enchaîné [Bêta]",
       "prompt": {
         "options": {
           "multi-input": {
@@ -414,7 +414,7 @@
     },
     "lumiastream": {
       "description": "Ajoute la prise en charge de Lumia Stream",
-      "name": "Lumia Stream [bêta]"
+      "name": "Lumia Stream [Bêta]"
     },
     "lyrics-genius": {
       "description": "Ajoute la prise en charge des paroles pour la plupart des chansons",
