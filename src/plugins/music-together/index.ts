@@ -38,7 +38,7 @@ export default createPlugin({
   name: () => t('plugins.music-together.name'),
   description: () => t('plugins.music-together.description'),
   restartNeeded: false,
-  addedVersion: '3.2.0',
+  addedVersion: '3.2.X',
   config: {
     enabled: false
   },
