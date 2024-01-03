@@ -37,8 +37,41 @@ interface YouTubeMusicAppElement extends HTMLElement {
 }
 
 async function onApiLoaded() {
+  window.ipcRenderer.on('previous-video', () => {
+    document.querySelector<HTMLElement>('.previous-button.ytmusic-player-bar')?.click();
+  });
+  window.ipcRenderer.on('next-video', () => {
+    document.querySelector<HTMLElement>('.next-button.ytmusic-player-bar')?.click();
+  });
+  window.ipcRenderer.on('toggle-play', (_) => {
+    if (api?.getPlayerState() === 2) api?.playVideo();
+    else api?.pauseVideo();
+  });
   window.ipcRenderer.on('seekTo', (_, t: number) => api!.seekTo(t));
   window.ipcRenderer.on('seekBy', (_, t: number) => api!.seekBy(t));
+  window.ipcRenderer.on('shuffle', () => {
+    document.querySelector<HTMLElement & { queue: { shuffle: () => void } }>('ytmusic-player-bar')?.queue.shuffle();
+  });
+  window.ipcRenderer.on('update-like', (_, status: 'LIKE' | 'DISLIKE' = 'LIKE') => {
+    document.querySelector<HTMLElement & { updateLikeStatus: (status: string) => void }>('#like-button-renderer')?.updateLikeStatus(status);
+  });
+  window.ipcRenderer.on('switch-repeat', (_, repeat = 1) => {
+    for (let i = 0; i < repeat; i++) {
+      document.querySelector<HTMLElement & { onRepeatButtonTap: () => void }>('ytmusic-player-bar')?.onRepeatButtonTap();
+    }
+  });
+  window.ipcRenderer.on('update-volume', (_, volume: number) => {
+    document.querySelector<HTMLElement & { updateVolume: (volume: number) => void }>('ytmusic-player-bar')?.updateVolume(volume);
+  });
+  window.ipcRenderer.on('get-volume', (event) => {
+    event.sender.emit('get-volume-return', api?.getVolume());
+  });
+  window.ipcRenderer.on('toggle-fullscreen', (_) => {
+    document.querySelector<HTMLElement & { toggleFullscreen: () => void }>('ytmusic-player-bar')?.toggleFullscreen();
+  });
+  window.ipcRenderer.on('toggle-mute', (_) => {
+    document.querySelector<HTMLElement & { onVolumeTap: () => void }>('ytmusic-player-bar')?.onVolumeTap();
+  });
 
   const video = document.querySelector('video')!;
   const audioContext = new AudioContext();
