@@ -131,6 +131,9 @@
       "node-fetch": "3.3.2",
       "@electron/universal": "2.0.1",
       "@babel/runtime": "7.23.7"
+    },
+    "patchedDependencies": {
+      "vudio@2.1.1": "patches/vudio@2.1.1.patch"
     }
   },
   "dependencies": {

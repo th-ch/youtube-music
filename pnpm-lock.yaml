@@ -14,6 +14,11 @@ overrides:
   '@electron/universal': 2.0.1
   '@babel/runtime': 7.23.7
 
+patchedDependencies:
+  vudio@2.1.1:
+    hash: 7iux5msqpgl3octdmwy4uspwoe
+    path: patches/vudio@2.1.1.patch
+
 dependencies:
   '@cliqz/adblocker-electron':
     specifier: 1.26.12
@@ -134,7 +139,7 @@ dependencies:
     version: 21.0.1
   vudio:
     specifier: 2.1.1
-    version: 2.1.1
+    version: 2.1.1(patch_hash=7iux5msqpgl3octdmwy4uspwoe)
   x11:
     specifier: 2.3.0
     version: 2.3.0
@@ -6267,9 +6272,10 @@ packages:
       fsevents: 2.3.3
     dev: true
 
-  /vudio@2.1.1:
+  /vudio@2.1.1(patch_hash=7iux5msqpgl3octdmwy4uspwoe):
     resolution: {integrity: sha512-VkFQcFt/b/kpF5Eg5Sq+oXUo1Zp5aRFF4BSmIrOzau5o+5WMWwX9ae/EGJZstCyZFiCTU5iw1Y+u2BCGW6Y6Jw==}
     dev: false
+    patched: true
 
   /web-streams-polyfill@3.3.2:
     resolution: {integrity: sha512-3pRGuxRF5gpuZc0W+EpwQRmCD7gRqcDOMt688KmdlDAgAyaB1XlN0zq2njfDNm44XVdIouE7pZ6GzbdyH47uIQ==}
