@@ -33,8 +33,8 @@ export const getMusicQueueRenderer = async (videoIds: string[]): Promise<QueueRe
       }),
       headers: {
         'Content-Type': 'application/json',
-        Origin: 'https://music.youtube.com',
-        Authorization: getAuthorizationHeader(token)
+        'Origin': 'https://music.youtube.com',
+        'Authorization': await getAuthorizationHeader(token),
       }
     }
   );
