@@ -40,7 +40,6 @@ const audioCanPlayListener = (e: CustomEvent<Compressor>) => {
   const fftBins = new Float32Array(analyser.frequencyBinCount);
 
   sourceNode.connect(analyser);
-  analyser.connect(audioContext.destination);
 
   const looper = () => {
     setTimeout(() => {
