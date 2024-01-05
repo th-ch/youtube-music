@@ -472,6 +472,7 @@
         "disconnected": "Music Together disconnected",
         "host-failed": "Failed to host Music Together",
         "id-copied": "Host ID copied to clipboard",
+        "id-copy-failed": "Failed to copy Host ID to clipboard",
         "join-failed": "Failed to join Music Together",
         "joined": "Joined Music Together",
         "permission-changed": "Music Together permission changed to \"{{permission}}\"",

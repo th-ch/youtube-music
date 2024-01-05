@@ -127,7 +127,7 @@ export default (api: YoutubePlayer) => {
 
   const waitingEvent = new Set<string>();
   // Name = "dataloaded" and abit later "dataupdated"
-  api.addEventListener('videodatachange', (name: string, videoData) => {
+  api.addEventListener('videodatachange', (name, videoData) => {
     videoEventDispatcher(name, videoData);
 
     if (name === 'dataupdated' && waitingEvent.has(videoData.videoId)) {

@@ -1,5 +1,7 @@
 import prompt from 'custom-electron-prompt';
 
+import { DataConnection } from 'peerjs';
+
 import { t } from '@/i18n';
 import { createPlugin } from '@/utils';
 import promptOptions from '@/providers/prompt-options';
@@ -17,7 +19,6 @@ import style from './style.css?inline';
 import type { YoutubePlayer } from '@/types/youtube-player';
 import type { RendererContext } from '@/types/contexts';
 import type { VideoDataChanged } from '@/types/video-data-changed';
-import { DataConnection } from 'peerjs';
 
 type RawAccountData = {
   accountName: {
@@ -34,7 +35,44 @@ type RawAccountData = {
   };
 };
 
-export default createPlugin({
+export default createPlugin<
+  unknown,
+  unknown,
+  {
+    connection?: Connection;
+    ipc?: RendererContext<never>['ipc'];
+    api: HTMLElement & AppAPI | null;
+    queue?: Queue;
+    playerApi?: YoutubePlayer;
+    showPrompt: (title: string, label: string) => Promise<string>;
+    popups: {
+      host: ReturnType<typeof createHostPopup>;
+      guest: ReturnType<typeof createGuestPopup>;
+      setting: ReturnType<typeof createSettingPopup>;
+    };
+    elements: {
+      setting: HTMLElement;
+      icon: SVGElement;
+      spinner: HTMLElement;
+    };
+    stateInterval?: number;
+    updateNext: boolean;
+    ignoreChange: boolean;
+    rollbackInjector?: (() => void);
+    me?: Omit<Profile, 'id'>;
+    profiles: Record<string, Profile>;
+    permission: Permission;
+    videoChangeListener: (event: CustomEvent<VideoDataChanged>) => void;
+    videoStateChangeListener: () => void;
+    onHost: () => Promise<boolean>;
+    onJoin: () => Promise<boolean>;
+    onStop: () => void;
+    putProfile: (id: string, profile?: Profile) => void;
+    showSpinner: () => void;
+    hideSpinner: () => void;
+    initMyProfile: () => void;
+  }
+>({
   name: () => t('plugins.music-together.name'),
   description: () => t('plugins.music-together.description'),
   restartNeeded: false,
@@ -43,50 +81,38 @@ export default createPlugin({
     enabled: false
   },
   stylesheets: [style],
-  backend: {
-    async start({ ipc }) {
-      ipc.handle('music-together:prompt', async (title: string, label: string) => prompt({
-        title,
-        label,
-        type: 'input',
-        ...promptOptions()
-      }));
-    }
+  backend({ ipc }) {
+    ipc.handle('music-together:prompt', async (title: string, label: string) => prompt({
+      title,
+      label,
+      type: 'input',
+      ...promptOptions()
+    }));
   },
   renderer: {
-    connection: null as Connection | null,
-    ipc: null as RendererContext<never>['ipc'] | null,
-
-    api: null as (HTMLElement & AppAPI) | null,
-    queue: null as Queue | null,
-    playerApi: null as YoutubePlayer | null,
-    showPrompt: (async () => null) as ((title: string, label: string) => Promise<string | null>),
-
-    elements: {} as {
-      setting: HTMLElement;
-      icon: SVGElement;
-      spinner: HTMLElement;
-    },
+    updateNext: false,
+    ignoreChange: false,
+    permission: 'playlist',
     popups: {} as {
       host: ReturnType<typeof createHostPopup>;
       guest: ReturnType<typeof createGuestPopup>;
       setting: ReturnType<typeof createSettingPopup>;
     },
-    stateInterval: null as number | null,
-    updateNext: false,
-    ignoreChange: false,
-    rollbackInjector: null as (() => void) | null,
-
-    me: null as Omit<Profile, 'id'> | null,
-    profiles: {} as Record<string, Profile>,
-    permission: 'playlist' as Permission,
+    elements: {} as {
+      setting: HTMLElement;
+      icon: SVGElement;
+      spinner: HTMLElement;
+    },
+    profiles: {},
+    showPrompt: () => Promise.resolve(''),
+    api: null,
 
     /* events */
     videoChangeListener(event: CustomEvent<VideoDataChanged>) {
       if (event.detail.name === 'dataloaded' || this.updateNext) {
         if (this.connection?.mode === 'host') {
-          const videoList: VideoData[] = this.queue?.flatItems.map((it: any) => ({
-            videoId: it.videoId,
+          const videoList: VideoData[] = this.queue?.flatItems.map((it) => ({
+            videoId: it!.videoId,
             ownerId: this.connection!.id
           } satisfies VideoData)) ?? [];
 
@@ -123,8 +149,8 @@ export default createPlugin({
       if (!wait) return false;
 
       if (!this.me) this.me = getDefaultProfile(this.connection.id);
-      const rawItems = this.queue?.flatItems?.map((it: any) => ({
-        videoId: it.videoId,
+      const rawItems = this.queue?.flatItems?.map((it) => ({
+        videoId: it!.videoId,
         ownerId: this.connection!.id
       } satisfies VideoData)) ?? [];
       this.queue?.setOwner({
@@ -170,7 +196,7 @@ export default createPlugin({
           case 'REMOVE_SONG': {
             if (conn && this.permission === 'host-only') return;
 
-            await this.queue?.removeVideo(event.payload.index);
+            this.queue?.removeVideo(event.payload.index);
             await this.connection?.broadcast('REMOVE_SONG', event.payload);
             break;
           }
@@ -295,11 +321,11 @@ export default createPlugin({
             break;
           }
           case 'REMOVE_SONG': {
-            await this.queue?.removeVideo(event.payload.index);
+            this.queue?.removeVideo(event.payload.index);
             break;
           }
           case 'MOVE_SONG': {
-            await this.queue?.moveItem(event.payload.fromIndex, event.payload.toIndex);
+            this.queue?.moveItem(event.payload.fromIndex, event.payload.toIndex);
             break;
           }
           case 'IDENTIFY': {
@@ -461,7 +487,7 @@ export default createPlugin({
       this.queue?.removeQueueOwner();
       if (this.rollbackInjector) {
         this.rollbackInjector();
-        this.rollbackInjector = null;
+        this.rollbackInjector = undefined;
       }
 
       this.profiles = {};
@@ -530,7 +556,7 @@ export default createPlugin({
 
     start({ ipc }) {
       this.ipc = ipc;
-      this.showPrompt = async (title: string, label: string) => ipc.invoke('music-together:prompt', title, label);
+      this.showPrompt = async (title: string, label: string) => ipc.invoke('music-together:prompt', title, label) as Promise<string>;
       this.api = document.querySelector<HTMLElement & AppAPI>('ytmusic-app');
 
       /* setup */
@@ -571,10 +597,15 @@ export default createPlugin({
           }
 
           if (id === 'music-together-copy-id') {
-            navigator.clipboard.writeText(this.connection?.id ?? '');
-
-            this.api?.openToast(t('plugins.music-together.toast.id-copied'));
-            hostPopup.dismiss();
+            navigator.clipboard.writeText(this.connection?.id ?? '')
+              .then(() => {
+                this.api?.openToast(t('plugins.music-together.toast.id-copied'));
+                hostPopup.dismiss();
+              })
+              .catch(() => {
+                this.api?.openToast(t('plugins.music-together.toast.id-copy-failed'));
+                hostPopup.dismiss();
+              });
           }
 
           if (id === 'music-together-permission') {
@@ -614,9 +645,14 @@ export default createPlugin({
             this.hideSpinner();
 
             if (result) {
-              navigator.clipboard.writeText(this.connection?.id ?? '');
-              this.api?.openToast(t('plugins.music-together.toast.id-copied'));
-              hostPopup.showAtAnchor(setting);
+              navigator.clipboard.writeText(this.connection?.id ?? '')
+                .then(() => {
+                  this.api?.openToast(t('plugins.music-together.toast.id-copied'));
+                  hostPopup.showAtAnchor(setting);
+                }).catch(() => {
+                  this.api?.openToast(t('plugins.music-together.toast.id-copy-failed'));
+                  hostPopup.showAtAnchor(setting);
+                });
             } else {
               this.api?.openToast(t('plugins.music-together.toast.host-failed'));
             }
@@ -642,7 +678,7 @@ export default createPlugin({
         guest: guestPopup,
         setting: settingPopup
       };
-      setting.addEventListener('click', async () => {
+      setting.addEventListener('click', () => {
         let popup = settingPopup;
         if (this.connection?.mode === 'host') popup = hostPopup;
         if (this.connection?.mode === 'guest') popup = guestPopup;

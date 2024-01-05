@@ -1,6 +1,8 @@
 import { ElementFromHtml } from '@/plugins/utils/renderer';
-import statusHTML from '../templates/status.html?raw';
 import { t } from '@/i18n';
+
+import statusHTML from '../templates/status.html?raw';
+
 import type { Permission, Profile } from '../types';
 
 export const createStatus = () => {
@@ -9,7 +11,7 @@ export const createStatus = () => {
 
   const profile = element.querySelector<HTMLImageElement>('.music-together-profile')!;
   const statusLabel = element.querySelector<HTMLSpanElement>('#music-together-status-label')!;
-  const permissionLabel = element.querySelector<HTMLSpanElement>('#music-together-permission-label')!;
+  const permissionLabel = element.querySelector<HTMLMarqueeElement>('#music-together-permission-label')!;
 
   profile.src = icon?.src ?? '';
 

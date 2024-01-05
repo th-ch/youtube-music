@@ -256,6 +256,7 @@ export type VideoDataChangeValue = Record<string, unknown> & {
 export interface PlayerAPIEvents {
   videodatachange: {
     value: VideoDataChangeValue;
-  } & ({ name: 'dataloaded' } | { name: 'dataupdated ' });
+    name: 'dataloaded' | 'dataupdated';
+  };
   onStateChange: number;
 }

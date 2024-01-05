@@ -1,12 +1,51 @@
 import { getMusicQueueRenderer } from './song';
 import { mapQueueItem } from './utils';
 
-import type { Profile, QueueAPI, VideoData } from '../types';
 import { ConnectionEventUnion } from '@/plugins/music-together/connection';
 import { t } from '@/i18n';
 
+import type { Profile, QueueAPI, VideoData } from '../types';
+import type { QueueItem } from '@/types/datahost-get-state';
+
 const getHeaderPayload = (() => {
-  let payload: unknown = null;
+  let payload: {
+    items?: QueueItem[] | undefined;
+    title: {
+      runs: {
+        text: string;
+      }[];
+    };
+    subtitle: {
+      runs: {
+        text: string;
+      }[];
+    };
+    buttons: {
+      chipCloudChipRenderer: {
+        style: {
+          styleType: string;
+        };
+        text: {
+          runs: {
+            text: string;
+          }[];
+        };
+        navigationEndpoint: {
+          saveQueueToPlaylistCommand: unknown;
+        };
+        icon: {
+          iconType: string;
+        };
+        accessibilityData: {
+          accessibilityData: {
+            label: string;
+          };
+        };
+        isSelected: boolean;
+        uniqueId: string;
+      };
+    }[];
+  } | null = null;
 
   return () => {
     if (!payload) {
@@ -58,7 +97,7 @@ const getHeaderPayload = (() => {
     }
 
     return payload;
-  }
+  };
 })();
 
 export type QueueOptions = {
@@ -70,11 +109,11 @@ export type QueueOptions = {
 export type QueueEventListener = (event: ConnectionEventUnion) => void;
 
 export class Queue {
-  private queue: (HTMLElement & QueueAPI) | null = null;
-  private originalDispatch: ((obj: {
+  private queue: (HTMLElement & QueueAPI);
+  private originalDispatch?: (obj: {
     type: string;
-    payload?: unknown;
-  }) => void) | null = null;
+    payload?: { items?: QueueItem[] | undefined; };
+  }) => void;
   private internalDispatch = false;
   private ignoreFlag = false;
   private listeners: QueueEventListener[] = [];
@@ -83,7 +122,7 @@ export class Queue {
 
   constructor(options: QueueOptions) {
     this.getProfile = options.getProfile;
-    this.queue = options.queue ?? document.querySelector<HTMLElement & QueueAPI>('#queue');
+    this.queue = options.queue ?? document.querySelector<HTMLElement & QueueAPI>('#queue')!;
     this.owner = options.owner ?? null;
     this._videoList = options.videoList ?? [];
   }
@@ -96,7 +135,7 @@ export class Queue {
   }
 
   get selectedIndex() {
-    return mapQueueItem((it) => it?.selected, this.queue?.store.getState().queue.items).findIndex(Boolean) ?? 0;
+    return mapQueueItem((it) => it?.selected, this.queue.store.getState().queue.items).findIndex(Boolean) ?? 0;
   }
 
   get rawItems() {
@@ -146,7 +185,7 @@ export class Queue {
     return true;
   }
 
-  async removeVideo(index: number) {
+  removeVideo(index: number) {
     this.internalDispatch = true;
     this._videoList.splice(index, 1);
     this.queue?.dispatch({
@@ -233,10 +272,10 @@ export class Queue {
         if (event.type === 'ADD_ITEMS') {
           if (this.ignoreFlag) {
             this.ignoreFlag = false;
-            const videoList = mapQueueItem((it: any) => ({
-              videoId: it.videoId,
+            const videoList = mapQueueItem((it) => ({
+              videoId: it!.videoId,
               ownerId: this.owner!.id
-            } satisfies VideoData), (event.payload as any).items);
+            } satisfies VideoData), event.payload!.items!);
             const index = this._videoList.length + videoList.length - 1;
 
             if (videoList.length > 0) {
@@ -255,15 +294,17 @@ export class Queue {
                 ]
               });
             }
-          } else if ((event.payload as any).items.length === 1) {
+          } else if ((event.payload as {
+            items: unknown[];
+          }).items.length === 1) {
             this.broadcast({ // add playlist
               type: 'ADD_SONGS',
               payload: {
                 // index: (event.payload as any).index,
-                videoList: mapQueueItem((it: any) => ({
-                  videoId: it.videoId,
+                videoList: mapQueueItem((it) => ({
+                  videoId: it!.videoId,
                   ownerId: this.owner!.id
-                } satisfies VideoData), (event.payload as any).items)
+                } satisfies VideoData), event.payload!.items!)
               }
             });
           }
@@ -275,8 +316,12 @@ export class Queue {
           this.broadcast({
             type: 'MOVE_SONG',
             payload: {
-              fromIndex: (event.payload as any).fromIndex,
-              toIndex: (event.payload as any).toIndex
+              fromIndex: (event.payload as {
+                fromIndex: number;
+              }).fromIndex,
+              toIndex: (event.payload as {
+                toIndex: number;
+              }).toIndex
             }
           });
           return;
@@ -306,7 +351,7 @@ export class Queue {
           event.payload = undefined;
         }
         if (event.type === 'SET_PLAYER_UI_STATE') {
-          if (event.payload === 'INACTIVE' && this.videoList.length > 0) {
+          if (event.payload as string === 'INACTIVE' && this.videoList.length > 0) {
             return;
           }
         }
@@ -321,12 +366,12 @@ export class Queue {
           dispatch: this.originalDispatch
         }
       };
-      this.originalDispatch!.call(fakeContext, event);
+      this.originalDispatch?.call(fakeContext, event);
     };
   }
 
   /* sync */
-  async initQueue() {
+  initQueue() {
     if (!this.queue) return;
 
     this.internalDispatch = true;
@@ -369,13 +414,13 @@ export class Queue {
     return true;
   }
 
-  async syncQueueOwner() {
+  syncQueueOwner() {
     const allQueue = document.querySelectorAll('#queue');
 
     allQueue.forEach((queue) => {
       const list = Array.from(queue?.querySelectorAll<HTMLElement>('ytmusic-player-queue-item') ?? []);
 
-      list.forEach((item, index) => {
+      list.forEach((item, index: number | undefined) => {
         if (typeof index !== 'number') return;
 
         const id = this._videoList[index]?.ownerId;
