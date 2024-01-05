@@ -190,7 +190,7 @@ devDependencies:
     version: 3.2.0
   electron-vite:
     specifier: 2.0.0-beta.3
-    version: 2.0.0-beta.3(vite@5.0.10)
+    version: 2.0.0-beta.3(vite@5.0.11)
   esbuild:
     specifier: 0.19.11
     version: 0.19.11
@@ -228,11 +228,11 @@ devDependencies:
     specifier: 6.0.3
     version: 6.0.3
   vite:
-    specifier: 5.0.10
-    version: 5.0.10(@types/node@20.10.5)
+    specifier: 5.0.11
+    version: 5.0.11(@types/node@20.10.5)
   vite-plugin-inspect:
     specifier: 0.8.1
-    version: 0.8.1(rollup@4.9.2)(vite@5.0.10)
+    version: 0.8.1(rollup@4.9.2)(vite@5.0.11)
   vite-plugin-resolve:
     specifier: 2.5.1
     version: 2.5.1
@@ -2935,7 +2935,7 @@ packages:
       - supports-color
     dev: false
 
-  /electron-vite@2.0.0-beta.3(vite@5.0.10):
+  /electron-vite@2.0.0-beta.3(vite@5.0.11):
     resolution: {integrity: sha512-v/ntqF0yxeoZuoLDnvUNTY8qryaOLyB+MMGvwJzU9dtDuIpCYFdDyPZD3hWCV5epo51BRGAqTmyqTR4C/7kP9w==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -2952,7 +2952,7 @@ packages:
       esbuild: 0.19.11
       magic-string: 0.30.5
       picocolors: 1.0.0
-      vite: 5.0.10(@types/node@20.10.5)
+      vite: 5.0.11(@types/node@20.10.5)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -6245,7 +6245,7 @@ packages:
     dev: true
     optional: true
 
-  /vite-plugin-inspect@0.8.1(rollup@4.9.2)(vite@5.0.10):
+  /vite-plugin-inspect@0.8.1(rollup@4.9.2)(vite@5.0.11):
     resolution: {integrity: sha512-oPBPVGp6tBd5KdY/qY6lrbLXqrbHRG0hZLvEaJfiZ/GQfDB+szRuLHblQh1oi1Hhh8GeLit/50l4xfs2SA+TCA==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -6263,7 +6263,7 @@ packages:
       open: 9.1.0
       picocolors: 1.0.0
       sirv: 2.0.3
-      vite: 5.0.10(@types/node@20.10.5)
+      vite: 5.0.11(@types/node@20.10.5)
     transitivePeerDependencies:
       - rollup
       - supports-color
@@ -6275,8 +6275,8 @@ packages:
       lib-esm: 0.4.1
     dev: true
 
-  /vite@5.0.10(@types/node@20.10.5):
-    resolution: {integrity: sha512-2P8J7WWgmc355HUMlFrwofacvr98DAjoE52BfdbwQtyLH06XKwaL/FMnmKM2crF0iX4MpmMKoDlNCB1ok7zHCw==}
+  /vite@5.0.11(@types/node@20.10.5):
+    resolution: {integrity: sha512-XBMnDjZcNAw/G1gEiskiM1v6yzM4GE5aMGvhWTlHAYYhxb7S3/V1s3m2LDHa8Vh6yIWYYB0iJwsEaS523c4oYA==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
     peerDependencies:
