@@ -22,16 +22,16 @@ patchedDependencies:
 dependencies:
   '@cliqz/adblocker-electron':
     specifier: 1.26.12
-    version: 1.26.12(electron@28.1.1)
+    version: 1.26.12(electron@29.0.0-alpha.7)
   '@cliqz/adblocker-electron-preload':
     specifier: 1.26.12
-    version: 1.26.12(electron@28.1.1)
+    version: 1.26.12(electron@29.0.0-alpha.7)
   '@electron-toolkit/tsconfig':
     specifier: 1.0.1
     version: 1.0.1(@types/node@20.10.6)
   '@electron/remote':
     specifier: 2.1.1
-    version: 2.1.1(electron@28.1.1)
+    version: 2.1.1(electron@29.0.0-alpha.7)
   '@ffmpeg.wasm/core-mt':
     specifier: 0.12.0
     version: 0.12.0
@@ -67,7 +67,7 @@ dependencies:
     version: 10.2.0
   custom-electron-prompt:
     specifier: 1.5.7
-    version: 1.5.7(electron@28.1.1)
+    version: 1.5.7(electron@29.0.0-alpha.7)
   dbus-next:
     specifier: 0.10.2
     version: 0.10.2
@@ -185,8 +185,8 @@ devDependencies:
     specifier: 5.1.0
     version: 5.1.0
   electron:
-    specifier: 28.1.1
-    version: 28.1.1
+    specifier: 29.0.0-alpha.7
+    version: 29.0.0-alpha.7
   electron-builder:
     specifier: 24.9.1
     version: 24.9.1
@@ -539,23 +539,23 @@ packages:
       '@cliqz/adblocker-extended-selectors': 1.26.12
     dev: false
 
-  /@cliqz/adblocker-electron-preload@1.26.12(electron@28.1.1):
+  /@cliqz/adblocker-electron-preload@1.26.12(electron@29.0.0-alpha.7):
     resolution: {integrity: sha512-R9ZL5d6M1qKBed9/BCmIh3+RWpoO9MnDDxeVFySfpHM9pdLkRDniZURuP2FTQ43JD2GtWopHgYmfWj3Hc46huw==}
     peerDependencies:
       electron: '>11'
     dependencies:
       '@cliqz/adblocker-content': 1.26.12
-      electron: 28.1.1
+      electron: 29.0.0-alpha.7
     dev: false
 
-  /@cliqz/adblocker-electron@1.26.12(electron@28.1.1):
+  /@cliqz/adblocker-electron@1.26.12(electron@29.0.0-alpha.7):
     resolution: {integrity: sha512-KcteTxbOvnnNSjYobRnJmUKWitIxBvJqN9GTrHYTygJzOtm0te7/QexCP2/wIBbbD56c+9Fn0FsdDU4gZAIyWA==}
     peerDependencies:
       electron: '>11'
     dependencies:
       '@cliqz/adblocker': 1.26.12
-      '@cliqz/adblocker-electron-preload': 1.26.12(electron@28.1.1)
-      electron: 28.1.1
+      '@cliqz/adblocker-electron-preload': 1.26.12(electron@29.0.0-alpha.7)
+      electron: 29.0.0-alpha.7
       tldts-experimental: 6.1.1
     dev: false
 
@@ -644,12 +644,12 @@ packages:
       - supports-color
     dev: true
 
-  /@electron/remote@2.1.1(electron@28.1.1):
+  /@electron/remote@2.1.1(electron@29.0.0-alpha.7):
     resolution: {integrity: sha512-Lfxul2yBxL+FBVaKszNAkuUqSIDbUQ1I7BC394iRXyqA2XGz7im2bAxroNIM51jhySSPKUaOLHaFLxfV6pC9VQ==}
     peerDependencies:
       electron: '>= 13.0.0'
     dependencies:
-      electron: 28.1.1
+      electron: 29.0.0-alpha.7
     dev: false
 
   /@electron/universal@2.0.1:
@@ -1287,7 +1287,7 @@ packages:
     dependencies:
       '@types/http-cache-semantics': 4.0.4
       '@types/keyv': 3.1.4
-      '@types/node': 18.19.4
+      '@types/node': 20.10.6
       '@types/responselike': 1.0.3
 
   /@types/chrome@0.0.248:
@@ -1377,7 +1377,7 @@ packages:
   /@types/keyv@3.1.4:
     resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
     dependencies:
-      '@types/node': 18.19.4
+      '@types/node': 20.10.6
 
   /@types/minimist@1.2.5:
     resolution: {integrity: sha512-hov8bUuiLiyFPGyFPE1lwWhmzYbirOXQNNo40+y3zow8aFVTeyn3VWL0VFFfdNddA8S4Vf0Tc062rzyNr7Paag==}
@@ -1391,6 +1391,7 @@ packages:
     resolution: {integrity: sha512-xNzlUhzoHotIsnFoXmJB+yWmBvFZgKCI9TtPIEdYIMM1KWfwuY8zh7wvc1u1OAXlC7dlf6mZVx/s+Y5KfFz19A==}
     dependencies:
       undici-types: 5.26.5
+    dev: true
 
   /@types/node@20.10.6:
     resolution: {integrity: sha512-Vac8H+NlRNNlAmDfGUP7b5h/KA+AtWIzuXy0E6OyP8f1tCLYAtPvKRRDJjAPqhpCb0t6U2j7/xqAuLEebW2kiw==}
@@ -1413,7 +1414,7 @@ packages:
   /@types/responselike@1.0.3:
     resolution: {integrity: sha512-H/+L+UkTV33uf49PH5pCAUBVPNj2nDBXTN+qS1dOwyyg24l3CcicicCA7ca+HMvJBZcFgl5r8e+RR6elsb4Lyw==}
     dependencies:
-      '@types/node': 18.19.4
+      '@types/node': 20.10.6
 
   /@types/semver@7.5.6:
     resolution: {integrity: sha512-dn1l8LaMea/IjDoHNd9J52uBbInB796CDffS6VdIxvqYCPSG0V0DzHp76GpaWnlhg88uYyPbXCDIowa86ybd5A==}
@@ -1429,7 +1430,7 @@ packages:
     resolution: {integrity: sha512-oJoftv0LSuaDZE3Le4DbKX+KS9G36NzOeSap90UIK0yMA/NhKJhqlSGtNDORNRaIbQfzjXDrQa0ytJ6mNRGz/Q==}
     requiresBuild: true
     dependencies:
-      '@types/node': 18.19.4
+      '@types/node': 20.10.6
     optional: true
 
   /@typescript-eslint/eslint-plugin@6.17.0(@typescript-eslint/parser@6.17.0)(eslint@8.56.0)(typescript@5.3.3):
@@ -2431,12 +2432,12 @@ packages:
     engines: {node: '>= 6'}
     dev: false
 
-  /custom-electron-prompt@1.5.7(electron@28.1.1):
+  /custom-electron-prompt@1.5.7(electron@29.0.0-alpha.7):
     resolution: {integrity: sha512-ptRPJr6CpT06GWLMtg3GD2Lr7gWfXdWI+hR1S39eq+m/mUa2E118YmX6mPCbHdg5QB/W9UVhSpRqBM8FUh1G8w==}
     peerDependencies:
       electron: '>=10.0.0'
     dependencies:
-      electron: 28.1.1
+      electron: 29.0.0-alpha.7
     dev: false
 
   /data-uri-to-buffer@4.0.1:
@@ -2928,6 +2929,19 @@ packages:
     dependencies:
       '@electron/get': 2.0.3
       '@types/node': 18.19.4
+      extract-zip: 2.0.1
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /electron@29.0.0-alpha.7:
+    resolution: {integrity: sha512-GpHq7+MjHpr/2bHFhJ/0li2XoD/S8Vv+QqfdWCJcKo2ylNy24KBH5FOIlC/3MGxJIqY7bcdw0SlI6DRcFJzecg==}
+    engines: {node: '>= 12.20.55'}
+    hasBin: true
+    requiresBuild: true
+    dependencies:
+      '@electron/get': 2.0.3
+      '@types/node': 20.10.6
       extract-zip: 2.0.1
     transitivePeerDependencies:
       - supports-color
