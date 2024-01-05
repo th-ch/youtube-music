@@ -125,7 +125,7 @@
     "overrides": {
       "esbuild": "0.19.11",
       "usocket": "1.0.1",
-      "rollup": "4.9.2",
+      "rollup": "4.9.3",
       "node-gyp": "10.0.1",
       "xml2js": "0.6.2",
       "node-fetch": "3.3.2",
@@ -203,7 +203,7 @@
     "glob": "10.3.10",
     "node-gyp": "10.0.1",
     "playwright": "1.41.0-alpha-dec-18-2023",
-    "rollup": "4.9.2",
+    "rollup": "4.9.3",
     "typescript": "5.3.3",
     "utf-8-validate": "6.0.3",
     "vite": "5.0.11",
