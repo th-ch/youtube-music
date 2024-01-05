@@ -472,6 +472,7 @@
         "disconnected": "Music Together desconectados",
         "host-failed": "Fallo el host de Music Together",
         "id-copied": "ID del host copiado en el portapapeles",
+        "id-copy-failed": "No se ha podido copiar el ID del host en el portapapeles",
         "join-failed": "Fallo en la unión a Music Together",
         "joined": "Unido a Music Together",
         "permission-changed": "Permiso de Music Together cambiado a \"{{permission}}\"",
