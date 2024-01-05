@@ -191,7 +191,11 @@
       "previous": "이전",
       "quit": "종료",
       "restart": "앱 재시작",
-      "show": "창 표시"
+      "show": "창 표시",
+      "tooltip": {
+        "default": "유튜브 뮤직",
+        "with-song-info": "유튜브 뮤직: {{artist}} - {{title}}"
+      }
     }
   },
   "plugins": {
@@ -468,6 +472,7 @@
         "disconnected": "Music Together 연결이 끊어졌습니다",
         "host-failed": "Music Together를 열 수 없습니다",
         "id-copied": "호스트 아이디가 클립보드에 복사되었습니다",
+        "id-copy-failed": "호스트 ID를 클립보드에 복사하지 못했습니다",
         "join-failed": "Music Together에 참여할 수 없습니다",
         "joined": "Music Together에 참여했습니다",
         "permission-changed": "Music Together 제어 권한이 \"{{permission}}\"(으)로 변경되었습니다",
