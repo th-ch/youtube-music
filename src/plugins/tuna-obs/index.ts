@@ -53,6 +53,7 @@ export default createPlugin({
           .fetch(url, {
             method: 'POST',
             headers,
+            keepalive: true,
             body: JSON.stringify({ data }),
           })
           .catch((error: { code: number; errno: number }) => {
