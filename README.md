@@ -220,7 +220,7 @@ Using plugins, you can:
 
 ### Creating a plugin
 
-Create a folder in `plugins/YOUR-PLUGIN-NAME`:
+Create a folder in `src/plugins/YOUR-PLUGIN-NAME`:
 
 - `index.ts`: the main file of the plugin
 ```typescript
