@@ -239,6 +239,19 @@ ytmusic-app[is-bauhaus-sidenav-enabled] #mini-guide-spacer.ytmusic-app {
   ) !important;
 }
 
+@media (max-width: 935px) {
+  ytmusic-app[is-bauhaus-sidenav-enabled] #guide-spacer.ytmusic-app {
+    margin-top: calc(
+      var(--menu-bar-height, 36px)
+    ) !important;
+  }
+  ytmusic-app[is-bauhaus-sidenav-enabled] #mini-guide-spacer.ytmusic-app {
+    margin-top: calc(
+      var(--ytmusic-nav-bar-height) + var(--menu-bar-height, 36px)
+    ) !important;
+  }
+}
+
 ytmusic-app-layout > [slot='player-page'] {
   margin-top: var(--menu-bar-height);
   height: calc(
