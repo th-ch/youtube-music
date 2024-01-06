@@ -32,10 +32,22 @@ const menuObserver = new MutationObserver(() => {
     return;
   }
 
-  const menuUrl = document.querySelector<HTMLAnchorElement>(
+  // check for video (or music)
+  let menuUrl = document.querySelector<HTMLAnchorElement>(
     'tp-yt-paper-listbox [tabindex="0"] #navigation-endpoint',
   )?.href;
-  if (!menuUrl?.includes('watch?') && doneFirstLoad) {
+  if (!menuUrl?.includes('watch?')) {
+    menuUrl = undefined;
+    // check for podcast
+    for (const it of document.querySelectorAll('tp-yt-paper-listbox [tabindex="-1"] #navigation-endpoint')) {
+      if (it.getAttribute('href')?.includes('podcast/')) {
+        menuUrl = it.getAttribute('href')!;
+        break;
+      }
+    }
+  }
+
+  if (!menuUrl && doneFirstLoad) {
     return;
   }
 
@@ -51,15 +63,30 @@ export const onRendererLoad = ({
   ipc,
 }: RendererContext<DownloaderPluginConfig>) => {
   window.download = () => {
-    let videoUrl = getSongMenu()
+    const songMenu = getSongMenu();
+    let videoUrl = songMenu
       // Selector of first button which is always "Start Radio"
       ?.querySelector(
         'ytmusic-menu-navigation-item-renderer[tabindex="0"] #navigation-endpoint',
       )
       ?.getAttribute('href');
+
+    if (!videoUrl && songMenu) {
+      for (const it of songMenu.querySelectorAll('ytmusic-menu-navigation-item-renderer[tabindex="-1"] #navigation-endpoint')) {
+        if (it.getAttribute('href')?.includes('podcast/')) {
+          videoUrl = it.getAttribute('href');
+          break;
+        }
+      }
+    }
+
     if (videoUrl) {
       if (videoUrl.startsWith('watch?')) {
         videoUrl = defaultConfig.url + '/' + videoUrl;
+      }
+
+      if (videoUrl.startsWith('podcast/')) {
+        videoUrl = defaultConfig.url + '/watch?' + videoUrl.replace('podcast/', 'v=');
       }
 
       if (videoUrl.includes('?playlist=')) {

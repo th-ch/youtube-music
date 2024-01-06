@@ -60,10 +60,23 @@ const observer = new MutationObserver(() => {
     return;
   }
 
-  const menuUrl = $<HTMLAnchorElement>(
+  // check for video (or music)
+  let menuUrl = $<HTMLAnchorElement>(
     'tp-yt-paper-listbox [tabindex="0"] #navigation-endpoint',
   )?.href;
-  if (!menuUrl?.includes('watch?') && doneFirstLoad) {
+
+  if (!menuUrl?.includes('watch?')) {
+    menuUrl = undefined;
+    // check for podcast
+    for (const it of document.querySelectorAll('tp-yt-paper-listbox [tabindex="-1"] #navigation-endpoint')) {
+      if (it.getAttribute('href')?.includes('podcast/')) {
+        menuUrl = it.getAttribute('href')!;
+        break;
+      }
+    }
+  }
+
+  if (!menuUrl && doneFirstLoad) {
     return;
   }
 
