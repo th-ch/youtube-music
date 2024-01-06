@@ -428,7 +428,7 @@
     "lyrics-genius": {
       "description": "Додає підтримку текстів для більшості пісень",
       "menu": {
-        "romanized-lyrics": "Романізована лірика"
+        "romanized-lyrics": "Романізовані тексти"
       },
       "name": "Тексти з Genius",
       "renderer": {
