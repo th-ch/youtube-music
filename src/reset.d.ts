@@ -14,7 +14,7 @@ declare global {
   }
 
   interface DocumentEventMap {
-    audioCanPlay: CustomEvent<Compressor>;
+    'ytmd:audio-can-play': CustomEvent<Compressor>;
     videodatachange: CustomEvent<VideoDataChanged>;
   }
 

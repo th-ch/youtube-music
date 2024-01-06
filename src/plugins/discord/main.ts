@@ -244,7 +244,7 @@ export const backend = createBackend<
       });
       connect();
       let lastSent = Date.now();
-      ipcMain.on('timeChanged', (_, t: number) => {
+      ipcMain.on('ytmd:time-changed', (_, t: number) => {
         const currentTime = Date.now();
         // if lastSent is more than 5 seconds ago, send the new time
         if (currentTime - lastSent > 5000) {

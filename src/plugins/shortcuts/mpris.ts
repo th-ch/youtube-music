@@ -29,25 +29,25 @@ function registerMPRIS(win: BrowserWindow) {
     const microToSec = (n: unknown) => Math.round(Number(n) / 1e6);
 
     const seekTo = (e: { position: unknown }) =>
-      win.webContents.send('seekTo', microToSec(e.position));
+      win.webContents.send('ytmd:seek-to', microToSec(e.position));
     const seekBy = (o: unknown) =>
-      win.webContents.send('seekBy', microToSec(o));
+      win.webContents.send('ytmd:seek-by', microToSec(o));
 
     const player = setupMPRIS();
 
     ipcMain.on('ytmd:player-api-loaded', () => {
-      win.webContents.send('setupSeekedListener', 'mpris');
-      win.webContents.send('setupTimeChangedListener', 'mpris');
-      win.webContents.send('setupRepeatChangedListener', 'mpris');
-      win.webContents.send('setupVolumeChangedListener', 'mpris');
+      win.webContents.send('ytmd:setup-seeked-listener', 'mpris');
+      win.webContents.send('ytmd:setup-time-changed-listener', 'mpris');
+      win.webContents.send('ytmd:setup-repeat-changed-listener', 'mpris');
+      win.webContents.send('ytmd:setup-volume-changed-listener', 'mpris');
     });
 
-    ipcMain.on('seeked', (_, t: number) => player.seeked(secToMicro(t)));
+    ipcMain.on('ytmd:seeked', (_, t: number) => player.seeked(secToMicro(t)));
 
     let currentSeconds = 0;
-    ipcMain.on('timeChanged', (_, t: number) => (currentSeconds = t));
+    ipcMain.on('ytmd:time-changed', (_, t: number) => (currentSeconds = t));
 
-    ipcMain.on('repeatChanged', (_, mode: string) => {
+    ipcMain.on('ytmd:repeat-changed', (_, mode: string) => {
       switch (mode) {
         case 'NONE': {
           player.loopStatus = mpris.LOOP_STATUS_NONE;
@@ -122,7 +122,7 @@ function registerMPRIS(win: BrowserWindow) {
 
     let mprisVolNewer = false;
     let autoUpdate = false;
-    ipcMain.on('volumeChanged', (_, newVol) => {
+    ipcMain.on('ytmd:volume-changed', (_, newVol) => {
       if (~~(player.volume * 100) !== newVol) {
         if (mprisVolNewer) {
           mprisVolNewer = false;

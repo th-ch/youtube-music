@@ -7,7 +7,7 @@ export default createPlugin({
 
   renderer() {
     document.addEventListener(
-      'audioCanPlay',
+      'ytmd:audio-can-play',
       ({ detail: { audioSource, audioContext } }) => {
         const compressor = audioContext.createDynamicsCompressor();
 

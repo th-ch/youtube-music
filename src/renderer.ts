@@ -37,8 +37,8 @@ interface YouTubeMusicAppElement extends HTMLElement {
 }
 
 async function onApiLoaded() {
-  window.ipcRenderer.on('seekTo', (_, t: number) => api!.seekTo(t));
-  window.ipcRenderer.on('seekBy', (_, t: number) => api!.seekBy(t));
+  window.ipcRenderer.on('ytmd:seek-to', (_, t: number) => api!.seekTo(t));
+  window.ipcRenderer.on('ytmd:seek-by', (_, t: number) => api!.seekBy(t));
 
   const video = document.querySelector('video')!;
   const audioContext = new AudioContext();
@@ -65,7 +65,7 @@ async function onApiLoaded() {
 
   const audioCanPlayEventDispatcher = () => {
     document.dispatchEvent(
-      new CustomEvent('audioCanPlay', {
+      new CustomEvent('ytmd:audio-can-play', {
         detail: {
           audioContext,
           audioSource,

@@ -114,18 +114,18 @@ function onClosed() {
   mainWindow = null;
 }
 
-ipcMain.handle('get-main-plugin-names', () => Object.keys(mainPlugins));
+ipcMain.handle('ytmd:get-main-plugin-names', () => Object.keys(mainPlugins));
 
 const initHook = (win: BrowserWindow) => {
   ipcMain.handle(
-    'get-config',
+    'ytmd:get-config',
     (_, id: string) =>
       deepmerge(
         allPlugins[id].config ?? { enabled: false },
         config.get(`plugins.${id}`) ?? {},
       ) as PluginConfig,
   );
-  ipcMain.handle('set-config', (_, name: string, obj: object) =>
+  ipcMain.handle('ytmd:set-config', (_, name: string, obj: object) =>
     config.setPartial(`plugins.${name}`, obj, allPlugins[name].config),
   );
 

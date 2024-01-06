@@ -90,7 +90,7 @@ const togglePictureInPicture = async () => {
     } catch {}
   }
 
-  window.ipcRenderer.send('picture-in-picture');
+  window.ipcRenderer.send('plugin:toggle-picture-in-picture');
   return false;
 };
 // For UI (HTML)

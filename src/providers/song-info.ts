@@ -104,16 +104,16 @@ let handlingData = false;
 
 const registerProvider = (win: BrowserWindow) => {
   // This will be called when the song-info-front finds a new request with song data
-  ipcMain.on('video-src-changed', async (_, data: GetPlayerResponse) => {
+  ipcMain.on('ytmd:video-src-changed', async (_, data: GetPlayerResponse) => {
     handlingData = true;
     await handleData(data, win);
     handlingData = false;
     for (const c of callbacks) {
-      c(songInfo, 'video-src-changed');
+      c(songInfo, 'ytmd:video-src-changed');
     }
   });
   ipcMain.on(
-    'playPaused',
+    'ytmd:play-or-paused',
     (
       _,
       {
@@ -128,7 +128,7 @@ const registerProvider = (win: BrowserWindow) => {
       }
 
       for (const c of callbacks) {
-        c(songInfo, 'playPaused');
+        c(songInfo, 'ytmd:play-or-paused');
       }
     },
   );

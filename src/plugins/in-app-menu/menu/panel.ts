@@ -76,7 +76,7 @@ export const createPanel = (
     }
 
     menu.addEventListener('click', async () => {
-      await window.ipcRenderer.invoke('menu-event', item.commandId);
+      await window.ipcRenderer.invoke('ytmd:menu-event', item.commandId);
       const menuItem = (await window.ipcRenderer.invoke(
         'get-menu-by-id',
         item.commandId,
