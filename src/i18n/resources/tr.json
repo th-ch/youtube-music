@@ -191,7 +191,11 @@
       "previous": "Önceki",
       "quit": "Çıkış",
       "restart": "Yeniden başlat",
-      "show": "Pencereyi görüntüle"
+      "show": "Pencereyi görüntüle",
+      "tooltip": {
+        "default": "YouTube Music",
+        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
+      }
     }
   },
   "plugins": {
@@ -450,7 +454,7 @@
         "host": "Birlikte Müzik Sunucusu",
         "join": "Birlikte Müziğe Katıl",
         "permission": {
-          "all": "Konukların oynatma listesini ve oynatıcıyı kontrol etmesine izin verin",
+          "all": "Konukların oynatma listesini ve oynatıcıyı kontrol etmesine izin ver",
           "host-only": "Çalma listesini ve oynatıcıyı yalnızca yönetici kontrol edebilir",
           "playlist": "Konukların oynatma listesini kontrol etmesine izin ver"
         },
@@ -458,7 +462,7 @@
         "status": {
           "disconnected": "Bağlantı kesildi",
           "guest": "Misafir olarak bağlandı",
-          "host": "Ev Sahibi olarak bağlandı"
+          "host": "Sunucu Sahibi olarak bağlandı"
         }
       },
       "name": "Birlikte Müzik [Beta]",
@@ -468,6 +472,7 @@
         "disconnected": "Birlikte Müzik bağlantı kesildi",
         "host-failed": "Birlikte Müzik sunucusu kurulamadı",
         "id-copied": "Sunucu ID'si kopyalandı",
+        "id-copy-failed": "Sunucu ID'si panoya kopyalanamadı",
         "join-failed": "Birlikte Müziğe katılırken bir hata meydana geldi",
         "joined": "Birlikte Müziğe Katıldı",
         "permission-changed": "Birlikte Müzik yetkisi \"{{permission}}\" olarak değiştirildi",
