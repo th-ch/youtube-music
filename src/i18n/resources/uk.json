@@ -430,7 +430,10 @@
       "menu": {
         "romanized-lyrics": "Романізована лірика"
       },
-      "name": "Тексти з Genius"
+      "name": "Тексти з Genius",
+      "renderer": {
+        "fetched-lyrics": "Тексти надано Genius"
+      }
     },
     "music-together": {
       "description": "Поділитись музикою. Коли хост включає пісню, всі інші будуть чути ту ж пісню",
