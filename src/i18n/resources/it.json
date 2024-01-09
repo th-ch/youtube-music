@@ -191,7 +191,11 @@
       "previous": "Precedente",
       "quit": "Esci",
       "restart": "Riavvia l'app",
-      "show": "Mostra finestra"
+      "show": "Mostra finestra",
+      "tooltip": {
+        "default": "YouTube Music",
+        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
+      }
     }
   },
   "plugins": {
@@ -468,6 +472,7 @@
         "disconnected": "Music Together disconnesso",
         "host-failed": "Impossibile ospitare Music Together",
         "id-copied": "L'ID dell Host è stato copiato negli appunti",
+        "id-copy-failed": "Impossibile copiare l'ID dell'host negli appunti",
         "join-failed": "Impossibile unirsi a Music Together",
         "joined": "Unito a Music Together",
         "permission-changed": "L'autorizzazione di Music Together è cambiata in {{permission}}",
