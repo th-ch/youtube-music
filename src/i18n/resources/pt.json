@@ -170,7 +170,8 @@
       },
       "plugins": {
         "enabled": "Ativado",
-        "label": "Plugins"
+        "label": "Plugins",
+        "new": "Novo"
       },
       "view": {
         "label": "Ver",
@@ -200,6 +201,10 @@
         "blocker": "Bloqueador"
       },
       "name": "Bloqueador de anúncios"
+    },
+    "album-actions": {
+      "description": "Adiciona os botões Gostei e Não Gostei para ser aplicado a todas as músicas em uma lista de reprodução ou álbum.",
+      "name": "Ações de álbum"
     },
     "album-color-theme": {
       "description": "Aplica um tema dinâmico e efeitos visuais com base na paleta de cores do álbum",
@@ -424,6 +429,52 @@
       "name": "Letras Genius",
       "renderer": {
         "fetched-lyrics": "Buscar letras no Genius"
+      }
+    },
+    "music-together": {
+      "description": "Compartilhe a lista de reprodução com outros. Quando o anfitrião tocar uma música, todos os outros ouvirão a mesma música",
+      "dialog": {
+        "enter-host": "Inserir código do anfitrião"
+      },
+      "internal": {
+        "save": "Salvar",
+        "track-source": "Fonte da faixa",
+        "unknown-user": "Usuário desconhecido"
+      },
+      "menu": {
+        "click-to-copy-id": "Copiar código de anfitrião",
+        "close": "Fechar Música Juntos",
+        "connected-users": "Usuários conectados",
+        "disconnect": "Desconectar Música Juntos",
+        "empty-user": "Nenhum usuário conectado",
+        "host": "Anfitrião do Música Juntos",
+        "join": "Entrar em Música Juntos",
+        "permission": {
+          "all": "Permite convidados controlar a lista de reprodução e o reprodutor",
+          "host-only": "Somente o anfitrião pode controlar a lista de reprodução e o reprodutor",
+          "playlist": "Permitir convidados a controlar a lista de reprodução"
+        },
+        "set-permission": "Alterar permissões de controle",
+        "status": {
+          "disconnected": "Desconectado",
+          "guest": "Conectado como Convidado",
+          "host": "Conectado como Anfitrião"
+        }
+      },
+      "name": "Música Juntos [Beta]",
+      "toast": {
+        "add-song-failed": "Falha ao adicionar música",
+        "closed": "Música Juntos encerrado",
+        "disconnected": "Música Juntos foi desconectado",
+        "host-failed": "Falha ao hospedar o Música Juntos",
+        "id-copied": "Código de anfitrião copiado para a área de transferência",
+        "id-copy-failed": "Falha ao copiar o código de anfitrião para a área de transferência",
+        "join-failed": "Falha ao entrar em Música Juntos",
+        "joined": "Entrou em Música Juntos",
+        "permission-changed": "A permissão do Música Juntos foi alterada para \"{{permission}}\"",
+        "remove-song-failed": "Falha ao remover música",
+        "user-connected": "{{name}} entrou em Música Juntos",
+        "user-disconnected": "{{name}} saiu do Música Juntos"
       }
     },
     "navigation": {
