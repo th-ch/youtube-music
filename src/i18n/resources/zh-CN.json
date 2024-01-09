@@ -191,7 +191,11 @@
       "previous": "上一首",
       "quit": "退出",
       "restart": "重启应用",
-      "show": "显示窗口"
+      "show": "显示窗口",
+      "tooltip": {
+        "default": "YouTube Music",
+        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
+      }
     }
   },
   "plugins": {
@@ -468,6 +472,7 @@
         "disconnected": "Music Together 已断开连接",
         "host-failed": "发起 Music Together 失败",
         "id-copied": "已将发起者 ID 复制到剪切板",
+        "id-copy-failed": "复制发起者 ID 到剪贴板时失败",
         "join-failed": "加入 Music Together 失败",
         "joined": "已加入 Music Together",
         "permission-changed": "Music Together 权限已改为 \"{{permission}}\"",
