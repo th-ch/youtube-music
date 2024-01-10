@@ -21,8 +21,8 @@ patchedDependencies:
 
 dependencies:
   '@cliqz/adblocker-electron':
-    specifier: 1.26.12
-    version: 1.26.12(electron@29.0.0-alpha.7)
+    specifier: 1.26.15
+    version: 1.26.15(electron@29.0.0-alpha.7)
   '@cliqz/adblocker-electron-preload':
     specifier: 1.26.15
     version: 1.26.15(electron@29.0.0-alpha.7)
@@ -548,12 +548,12 @@ packages:
       electron: 29.0.0-alpha.7
     dev: false
 
-  /@cliqz/adblocker-electron@1.26.12(electron@29.0.0-alpha.7):
-    resolution: {integrity: sha512-KcteTxbOvnnNSjYobRnJmUKWitIxBvJqN9GTrHYTygJzOtm0te7/QexCP2/wIBbbD56c+9Fn0FsdDU4gZAIyWA==}
+  /@cliqz/adblocker-electron@1.26.15(electron@29.0.0-alpha.7):
+    resolution: {integrity: sha512-pOidIXaKoX7R/i/klVOEj/CVkXvXFPKkDp4UTlSOC5Xn7mRtLia8hNJAuLiL3VsJR18PFhBTaPPipd2aVR2+yA==}
     peerDependencies:
       electron: '>11'
     dependencies:
-      '@cliqz/adblocker': 1.26.12
+      '@cliqz/adblocker': 1.26.15
       '@cliqz/adblocker-electron-preload': 1.26.15(electron@29.0.0-alpha.7)
       electron: 29.0.0-alpha.7
       tldts-experimental: 6.1.1
@@ -563,16 +563,16 @@ packages:
     resolution: {integrity: sha512-dM51IMHrRjQPj0JnoYfIBRoG9q9yYKQ7uDW27wfy0QW4pqlGRkEuHjXKK2dC8aOWUgNjDypnzWxfUMf7v0lEXA==}
     dev: false
 
-  /@cliqz/adblocker@1.26.12:
-    resolution: {integrity: sha512-mnFxASJpHfkbBJ9/pmY2MPbOfwWQtk+MvqF044IssBmvpOe9t8miBNwl+PX+moGGIFYqRHk78TwUkZHUNkbGJg==}
+  /@cliqz/adblocker@1.26.15:
+    resolution: {integrity: sha512-qmrQd0a6DC+HXWvamezwtdg91mvdyvrmufcg0l/I2EGJV1nLC81S81/Fln3TnJiJTuC7rqko6pq2E+GfoDdRPg==}
     dependencies:
       '@cliqz/adblocker-content': 1.26.15
       '@cliqz/adblocker-extended-selectors': 1.26.15
       '@remusao/guess-url-type': 1.2.1
       '@remusao/small': 1.2.1
       '@remusao/smaz': 1.9.1
-      '@types/chrome': 0.0.248
-      '@types/firefox-webext-browser': 111.0.5
+      '@types/chrome': 0.0.256
+      '@types/firefox-webext-browser': 120.0.0
       tldts-experimental: 6.1.1
     dev: false
 
@@ -1290,8 +1290,8 @@ packages:
       '@types/node': 20.10.6
       '@types/responselike': 1.0.3
 
-  /@types/chrome@0.0.248:
-    resolution: {integrity: sha512-qtBzxZD1v3eWZn8XxH1i07pAhzJDHnxJBBVy7bmntXxXKxjzNXYxD41teqa5yOcX/Yy8brRFGZESEzGoINvBDg==}
+  /@types/chrome@0.0.256:
+    resolution: {integrity: sha512-NleTQw4DNzhPwObLNuQ3i3nvX1rZ1mgnx5FNHc2KP+Cj1fgd3BrT5yQ6Xvs+7H0kNsYxCY+lxhiCwsqq3JwtEg==}
     dependencies:
       '@types/filesystem': 0.0.35
       '@types/har-format': 1.2.15
@@ -1341,8 +1341,8 @@ packages:
     resolution: {integrity: sha512-Kpi2GXQyYJdjL8mFclL1eDgihn1SIzorMZjD94kdPZh9E4VxGOeyjPxi5LpsM4Zku7P0reqegZTt2GxhmA9VBg==}
     dev: false
 
-  /@types/firefox-webext-browser@111.0.5:
-    resolution: {integrity: sha512-YYE+4MeJvq7DZ+UzPD8c5uN1HJpGu4Fl6O6PEAfBJQmLzQkfTWlgMjZMJQHAmcH3rjVS5fjN+jMkkZ4ZTlKbmA==}
+  /@types/firefox-webext-browser@120.0.0:
+    resolution: {integrity: sha512-L+tDlwNeq0kQGfAYc2sNfKhRWJz9CNRvlbq9HnLibKUiJ3VTThG8sj7xrJF4CtKpEA9eBAr91Z2nnKIAy+xUJg==}
     dev: false
 
   /@types/fs-extra@9.0.13:
