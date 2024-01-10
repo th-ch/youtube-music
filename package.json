@@ -138,7 +138,7 @@
   },
   "dependencies": {
     "@cliqz/adblocker-electron": "1.26.12",
-    "@cliqz/adblocker-electron-preload": "1.26.12",
+    "@cliqz/adblocker-electron-preload": "1.26.15",
     "@electron-toolkit/tsconfig": "1.0.1",
     "@electron/remote": "2.1.1",
     "@ffmpeg.wasm/core-mt": "0.12.0",
