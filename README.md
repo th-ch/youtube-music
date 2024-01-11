@@ -115,7 +115,7 @@ winget install th-ch.YouTubeMusic
 
 - **Album Color Theme**: Applies a dynamic theme and visual effects based on the album color palette
 
-- **Ambient Mode**: Applies a lighting effect by casting gentle colors from the video, into your screen’s background.
+- **Ambient Mode**: Applies a lighting effect by casting gentle colors from the video, into your screen’s background
 
 - **Audio Compressor**: Apply compression to audio (lowers the volume of the loudest parts of the signal and raises the
   volume of the softest parts)
@@ -140,7 +140,7 @@ winget install th-ch.YouTubeMusic
 
 - **Exponential Volume**: Makes the volume
   slider [exponential](https://greasyfork.org/en/scripts/397686-youtube-music-fix-volume-ratio/) so it's easier to
-  select lower volumes.
+  select lower volumes
 
 - **In-App Menu**: [gives bars a fancy, dark look](https://user-images.githubusercontent.com/78568641/112215894-923dbf00-8c29-11eb-95c3-3ce15db27eca.png)
 
