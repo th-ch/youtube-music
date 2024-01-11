@@ -110,6 +110,8 @@ winget install th-ch.YouTubeMusic
 ## Available plugins:
 
 - **Ad Blocker**: Block all ads and tracking out of the box
+  
+- **Album Actions**: Adds Undislike, Dislike, Like, and Unlike buttons to apply this to all songs in a playlist or album
 
 - **Album Color Theme**: Applies a dynamic theme and visual effects based on the album color palette
 
@@ -133,8 +135,7 @@ winget install th-ch.YouTubeMusic
 - **[Discord](https://discord.com/) Rich Presence**: Show your friends what you listen to
   with [Rich Presence](https://user-images.githubusercontent.com/28219076/104362104-a7a0b980-5513-11eb-9744-bb89eabe0016.png)
 
-- **Downloader**: downloads
-  MP3 [directly from the interface](https://user-images.githubusercontent.com/61631665/129977677-83a7d067-c192-45e1-98ae-b5a4927393be.png) [(youtube-dl)](https://github.com/ytdl-org/youtube-dl)
+- **Downloader**: downloads MP3 [directly from the interface](https://user-images.githubusercontent.com/61631665/129977677-83a7d067-c192-45e1-98ae-b5a4927393be.png) [(youtube-dl)](https://github.com/ytdl-org/youtube-dl)
 
 - **Exponential Volume**: Makes the volume
   slider [exponential](https://greasyfork.org/en/scripts/397686-youtube-music-fix-volume-ratio/) so it's easier to
@@ -150,6 +151,8 @@ winget install th-ch.YouTubeMusic
 - **Lumia Stream**: Adds [Lumia Stream](https://lumiastream.com/) support
 
 - **Lyrics Genius**: Adds lyrics support for most songs
+
+- **Music Together**: Share a playlist with others. When the host plays a song, everyone else will hear the same song
 
 - **Navigation**: Next/Back navigation arrows directly integrated in the interface, like in your favorite browser
 
@@ -172,6 +175,8 @@ winget install th-ch.YouTubeMusic
   by overriding media keys + enable Ctrl/CMD + F to search + enable linux mpris support for
   mediakeys + [custom hotkeys](https://github.com/Araxeus/youtube-music/blob/1e591d6a3df98449bcda6e63baab249b28026148/providers/song-controls.js#L13-L50)
   for [advanced users](https://github.com/th-ch/youtube-music/issues/106#issuecomment-952156902)
+
+- **Skip Disliked Song**: Skips disliked songs
 
 - **Skip Silences**: Automatically skip silenced sections
 
