@@ -118,19 +118,19 @@ winget install th-ch.YouTubeMusic
 - **Audio Compressor**: Apply compression to audio (lowers the volume of the loudest parts of the signal and raises the
   volume of the softest parts)
 
-- **Blur Nav Bar**: makes navigation bar transparent and blurry
+- **Blur Naviation Bar**: makes navigation bar transparent and blurry
 
-- **Bypass age restrictions**: bypass YouTube's age verification
+- **Bypass Age Restrictions**: bypass YouTube's age verification
 
-- **Captions selector**: Enable captions
+- **Captions Selector**: Enable captions
 
-- **Compact sidebar**: Always set the sidebar in compact mode
+- **Compact Sidebar**: Always set the sidebar in compact mode
 
 - **Crossfade**: Crossfade between songs
 
 - **Disable Autoplay**: Makes every song start in "paused" mode
 
-- [**Discord**](https://discord.com/): Show your friends what you listen to
+- [**Discord**](https://discord.com/) Rich Presence: Show your friends what you listen to
   with [Rich Presence](https://user-images.githubusercontent.com/28219076/104362104-a7a0b980-5513-11eb-9744-bb89eabe0016.png)
 
 - **Downloader**: downloads
@@ -167,17 +167,13 @@ winget install th-ch.YouTubeMusic
 - **Precise Volume**: Control the volume precisely using mousewheel/hotkeys, with a custom hud and customizable volume
   steps
 
-- **Quality Changer**: Allows changing the video quality with
-  a [button](https://user-images.githubusercontent.com/78568641/138574366-70324a5e-2d64-4f6a-acdd-dc2a2b9cecc5.png) on
-  the video overlay
-
-- **Shortcuts**: Allows setting global hotkeys for playback (play/pause/next/previous) +
+- **Shortcuts (& MPRIS)**: Allows setting global hotkeys for playback (play/pause/next/previous) +
   disable [media osd](https://user-images.githubusercontent.com/84923831/128601225-afa38c1f-dea8-4209-9f72-0f84c1dd8b54.png)
   by overriding media keys + enable Ctrl/CMD + F to search + enable linux mpris support for
   mediakeys + [custom hotkeys](https://github.com/Araxeus/youtube-music/blob/1e591d6a3df98449bcda6e63baab249b28026148/providers/song-controls.js#L13-L50)
   for [advanced users](https://github.com/th-ch/youtube-music/issues/106#issuecomment-952156902)
 
-- **Skip-Silences** - Automatically skip silenced sections
+- **Skip Silences**: Automatically skip silenced sections
 
 - [**SponsorBlock**](https://github.com/ajayyy/SponsorBlock): Automatically Skips non-music parts like intro/outro or
   parts of music videos where the song isn't playing
@@ -185,10 +181,14 @@ winget install th-ch.YouTubeMusic
 - **Taskbar Media Control**: Control playback from
   your [Windows taskbar](https://user-images.githubusercontent.com/78568641/111916130-24a35e80-8a82-11eb-80c8-5021c1aa27f4.png)
 
-- **Touchbar**: Custom TouchBar layout for macOS
+- **TouchBar**: Custom TouchBar layout for macOS
 
-- **Tuna-OBS**: Integration with [OBS](https://obsproject.com/)'s
+- **Tuna OBS**: Integration with [OBS](https://obsproject.com/)'s
   plugin [Tuna](https://obsproject.com/forum/resources/tuna.843/)
+
+  - **Video Quality Changer**: Allows changing the video quality with
+  a [button](https://user-images.githubusercontent.com/78568641/138574366-70324a5e-2d64-4f6a-acdd-dc2a2b9cecc5.png) on
+  the video overlay
 
 - **Video Toggle**: Adds
   a [button](https://user-images.githubusercontent.com/28893833/173663950-63e6610e-a532-49b7-9afa-54cb57ddfc15.png) to
