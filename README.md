@@ -130,7 +130,7 @@ winget install th-ch.YouTubeMusic
 
 - **Disable Autoplay**: Makes every song start in "paused" mode
 
-- [**Discord**](https://discord.com/) Rich Presence: Show your friends what you listen to
+- **[Discord](https://discord.com/) Rich Presence**: Show your friends what you listen to
   with [Rich Presence](https://user-images.githubusercontent.com/28219076/104362104-a7a0b980-5513-11eb-9744-bb89eabe0016.png)
 
 - **Downloader**: downloads
@@ -186,7 +186,7 @@ winget install th-ch.YouTubeMusic
 - **Tuna OBS**: Integration with [OBS](https://obsproject.com/)'s
   plugin [Tuna](https://obsproject.com/forum/resources/tuna.843/)
 
-  - **Video Quality Changer**: Allows changing the video quality with
+- **Video Quality Changer**: Allows changing the video quality with
   a [button](https://user-images.githubusercontent.com/78568641/138574366-70324a5e-2d64-4f6a-acdd-dc2a2b9cecc5.png) on
   the video overlay
 
