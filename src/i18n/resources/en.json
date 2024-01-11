@@ -204,11 +204,11 @@
       "menu": {
         "blocker": "Blocker"
       },
-      "name": "Adblocker"
+      "name": "Ad Blocker"
     },
     "album-actions": {
       "description": "Adds Undislike, Dislike, Like, and Unlike buttons to apply this to all songs in a playlist or album.",
-      "name": "Album actions"
+      "name": "Album Actions"
     },
     "album-color-theme": {
       "description": "Applies a dynamic theme and visual effects based on the album color palette",
