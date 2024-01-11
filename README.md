@@ -118,7 +118,7 @@ winget install th-ch.YouTubeMusic
 - **Audio Compressor**: Apply compression to audio (lowers the volume of the loudest parts of the signal and raises the
   volume of the softest parts)
 
-- **Blur Naviation Bar**: makes navigation bar transparent and blurry
+- **Blur Navigation Bar**: makes navigation bar transparent and blurry
 
 - **Bypass Age Restrictions**: bypass YouTube's age verification
 
