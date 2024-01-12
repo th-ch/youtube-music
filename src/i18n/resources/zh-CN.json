@@ -191,7 +191,11 @@
       "previous": "上一首",
       "quit": "退出",
       "restart": "重启应用",
-      "show": "显示窗口"
+      "show": "显示窗口",
+      "tooltip": {
+        "default": "YouTube Music",
+        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
+      }
     }
   },
   "plugins": {
@@ -201,6 +205,10 @@
         "blocker": "屏蔽器"
       },
       "name": "广告屏蔽器"
+    },
+    "album-actions": {
+      "description": "添加作用于播放列表或专辑中所有歌曲的全局“点赞/取消点赞”与“喜欢/取消喜欢”按钮。",
+      "name": "专辑操作"
     },
     "album-color-theme": {
       "description": "根据专辑封面配色动态改变主题与视觉效果",
@@ -425,6 +433,52 @@
       "name": "Genius 歌词",
       "renderer": {
         "fetched-lyrics": "已从 Genius 获取字幕"
+      }
+    },
+    "music-together": {
+      "description": "与他人共享播放列表。当发起人播放歌曲时，其他人也会听到相同歌曲",
+      "dialog": {
+        "enter-host": "输入发起人 ID"
+      },
+      "internal": {
+        "save": "保存",
+        "track-source": "追踪来源",
+        "unknown-user": "未知用户"
+      },
+      "menu": {
+        "click-to-copy-id": "复制发起者 ID",
+        "close": "关闭 Music Together",
+        "connected-users": "已连接用户",
+        "disconnect": "断开 Music Together 连接",
+        "empty-user": "没有已连接的用户",
+        "host": "Music Together 发起者",
+        "join": "加入 Music Together",
+        "permission": {
+          "all": "允许来宾控制播放列表与播放器",
+          "host-only": "仅发起人可以控制播放列表与播放器",
+          "playlist": "允许来宾控制播放列表"
+        },
+        "set-permission": "更改控制权限",
+        "status": {
+          "disconnected": "已断开连接",
+          "guest": "已作为来宾连接",
+          "host": "已作为发起人连接"
+        }
+      },
+      "name": "Music Together [测试]",
+      "toast": {
+        "add-song-failed": "添加歌曲失败",
+        "closed": "Music Together 已关闭",
+        "disconnected": "Music Together 已断开连接",
+        "host-failed": "发起 Music Together 失败",
+        "id-copied": "已将发起者 ID 复制到剪切板",
+        "id-copy-failed": "复制发起者 ID 到剪贴板时失败",
+        "join-failed": "加入 Music Together 失败",
+        "joined": "已加入 Music Together",
+        "permission-changed": "Music Together 权限已改为 \"{{permission}}\"",
+        "remove-song-failed": "移除歌曲失败",
+        "user-connected": "{{name}} 加入了 Music Together",
+        "user-disconnected": "{{name}} 离开了 Music Together"
       }
     },
     "navigation": {

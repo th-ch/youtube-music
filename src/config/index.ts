@@ -1,5 +1,5 @@
 import Store from 'electron-store';
-import { deepmerge } from 'deepmerge-ts';
+import { deepmergeCustom } from 'deepmerge-ts';
 
 import defaultConfig from './defaults';
 
@@ -7,6 +7,10 @@ import store from './store';
 import plugins from './plugins';
 
 import { restart } from '@/providers/app-controls';
+
+const deepmerge = deepmergeCustom({
+  mergeArrays: false,
+});
 
 const set = (key: string, value: unknown) => {
   store.set(key, value);

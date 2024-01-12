@@ -1,10 +1,12 @@
 import { Menu, nativeImage, Tray } from 'electron';
 
-import youtubeMusicTrayIcon from '@assets/youtube-music-tray.png?asset&asarUnpack';
+import defaultTrayIconAsset from '@assets/youtube-music-tray.png?asset&asarUnpack';
+import pausedTrayIconAsset from '@assets/youtube-music-tray-paused.png?asset&asarUnpack';
 
 import config from './config';
 
 import { restart } from './providers/app-controls';
+import registerCallback from './providers/song-info';
 import getSongControls from './providers/song-controls';
 
 import { t } from '@/i18n';
@@ -46,14 +48,18 @@ export const setUpTray = (app: Electron.App, win: Electron.BrowserWindow) => {
 
   const { playPause, next, previous } = getSongControls(win);
 
-  const trayIcon = nativeImage.createFromPath(youtubeMusicTrayIcon).resize({
+  const defaultTrayIcon = nativeImage.createFromPath(defaultTrayIconAsset).resize({
+    width: 16,
+    height: 16,
+  });
+  const pausedTrayIcon = nativeImage.createFromPath(pausedTrayIconAsset).resize({
     width: 16,
     height: 16,
   });
 
-  tray = new Tray(trayIcon);
+  tray = new Tray(defaultTrayIcon);
 
-  tray.setToolTip('YouTube Music');
+  tray.setToolTip(t('main.tray.tooltip.default'));
 
   // MacOS only
   tray.setIgnoreDoubleClickEvents(true);
@@ -110,4 +116,18 @@ export const setUpTray = (app: Electron.App, win: Electron.BrowserWindow) => {
 
   const trayMenu = Menu.buildFromTemplate(template);
   tray.setContextMenu(trayMenu);
+
+  registerCallback(songInfo => {
+    if (typeof songInfo.isPaused === 'undefined') {
+      tray.setImage(defaultTrayIcon);
+      return;
+    }
+
+    tray.setToolTip(t('main.tray.tooltip.with-song-info', {
+      artist: songInfo.artist,
+      title: songInfo.title,
+    }));
+
+    tray.setImage(songInfo.isPaused ? pausedTrayIcon : defaultTrayIcon);
+  })
 };

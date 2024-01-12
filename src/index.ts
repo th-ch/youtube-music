@@ -114,18 +114,18 @@ function onClosed() {
   mainWindow = null;
 }
 
-ipcMain.handle('get-main-plugin-names', () => Object.keys(mainPlugins));
+ipcMain.handle('ytmd:get-main-plugin-names', () => Object.keys(mainPlugins));
 
 const initHook = (win: BrowserWindow) => {
   ipcMain.handle(
-    'get-config',
+    'ytmd:get-config',
     (_, id: string) =>
       deepmerge(
         allPlugins[id].config ?? { enabled: false },
         config.get(`plugins.${id}`) ?? {},
       ) as PluginConfig,
   );
-  ipcMain.handle('set-config', (_, name: string, obj: object) =>
+  ipcMain.handle('ytmd:set-config', (_, name: string, obj: object) =>
     config.setPartial(`plugins.${name}`, obj, allPlugins[name].config),
   );
 
@@ -687,13 +687,15 @@ app.whenReady().then(async () => {
       const dialogOptions: Electron.MessageBoxOptions = {
         type: 'info',
         buttons: [
-          t('main.dialog.update-available.buttons.download'),
           t('main.dialog.update-available.buttons.ok'),
+          t('main.dialog.update-available.buttons.download'),
           t('main.dialog.update-available.buttons.disable'),
         ],
         title: t('main.dialog.update-available.title'),
         message: t('main.dialog.update-available.message'),
         detail: t('main.dialog.update-available.detail', { downloadLink }),
+        defaultId: 1,
+        cancelId: 0,
       };
 
       let dialogPromise: Promise<Electron.MessageBoxReturnValue>;
@@ -717,7 +719,7 @@ app.whenReady().then(async () => {
             break;
           }
 
-          default: {
+          case 0: {
             break;
           }
         }

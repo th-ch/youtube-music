@@ -78,7 +78,7 @@ const observeVideo = () => {
   const video = document.querySelector<HTMLVideoElement>('video');
   if (video) {
     video.addEventListener('ratechange', forcePlaybackRate);
-    video.addEventListener('srcChanged', forcePlaybackRate);
+    video.addEventListener('ytmd:src-changed', forcePlaybackRate);
   }
 };
 
@@ -128,7 +128,7 @@ export const onUnload = () => {
   const video = document.querySelector<HTMLVideoElement>('video');
   if (video) {
     video.removeEventListener('ratechange', forcePlaybackRate);
-    video.removeEventListener('srcChanged', forcePlaybackRate);
+    video.removeEventListener('ytmd:src-changed', forcePlaybackRate);
   }
   slider.removeEventListener('wheel', wheelEventListener);
   getSongMenu()?.removeChild(slider);

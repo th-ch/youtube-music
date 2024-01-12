@@ -170,7 +170,8 @@
       },
       "plugins": {
         "enabled": "Attivato",
-        "label": "Plugin"
+        "label": "Plugin",
+        "new": "NUOVO"
       },
       "view": {
         "label": "Visualizzazione",
@@ -190,7 +191,11 @@
       "previous": "Precedente",
       "quit": "Esci",
       "restart": "Riavvia l'app",
-      "show": "Mostra finestra"
+      "show": "Mostra finestra",
+      "tooltip": {
+        "default": "YouTube Music",
+        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
+      }
     }
   },
   "plugins": {
@@ -200,6 +205,10 @@
         "blocker": "Blocco"
       },
       "name": "Adblocker"
+    },
+    "album-actions": {
+      "description": "Aggiunge i pulsanti Undislike, Dislike, Like e Unlike a tutti i brani di una playlist o di un album.",
+      "name": "Azioni album"
     },
     "album-color-theme": {
       "description": "Applica un tema dinamico e degli effetti visivi basandosi sul colore dell'album",
@@ -424,6 +433,52 @@
       "name": "Lyrics Genius",
       "renderer": {
         "fetched-lyrics": "Testi recuperati per Genius"
+      }
+    },
+    "music-together": {
+      "description": "Condividi una playlist con altri. Quando l'Host riproduce un brano, tutti gli altri ascolteranno lo stesso brano",
+      "dialog": {
+        "enter-host": "Inserisci l'ID dell'Host"
+      },
+      "internal": {
+        "save": "Salva",
+        "track-source": "Traccia sorgente",
+        "unknown-user": "Utente sconosciuto"
+      },
+      "menu": {
+        "click-to-copy-id": "Copia l'ID dell'Host",
+        "close": "Chiudi Music Together",
+        "connected-users": "Utenti connessi",
+        "disconnect": "Disconetti Music Together",
+        "empty-user": "Utenti non connessi",
+        "host": "Music Together Host",
+        "join": "Unisciti a Music Together",
+        "permission": {
+          "all": "Consenti ai Guest di controllare la playlist e il player",
+          "host-only": "Solo l'Host può controllare la playlist e il player",
+          "playlist": "Consenti ai Guest di controllare la playlist"
+        },
+        "set-permission": "Cambia autorizzazione di controllo",
+        "status": {
+          "disconnected": "Disconnesso",
+          "guest": "Connesso come Guest",
+          "host": "Connesso come Host"
+        }
+      },
+      "name": "Music Together [Beta]",
+      "toast": {
+        "add-song-failed": "Impossibile aggiungere il brano",
+        "closed": "Music Together chiuso",
+        "disconnected": "Music Together disconnesso",
+        "host-failed": "Impossibile ospitare Music Together",
+        "id-copied": "L'ID dell Host è stato copiato negli appunti",
+        "id-copy-failed": "Impossibile copiare l'ID dell'host negli appunti",
+        "join-failed": "Impossibile unirsi a Music Together",
+        "joined": "Unito a Music Together",
+        "permission-changed": "L'autorizzazione di Music Together è cambiata in {{permission}}",
+        "remove-song-failed": "Impossibile rimuovere il brano",
+        "user-connected": "{{name}} si è unito a Music Together",
+        "user-disconnected": "{{name}} ha lasciato Music Together"
       }
     },
     "navigation": {

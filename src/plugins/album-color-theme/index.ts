@@ -9,7 +9,25 @@ import { t } from '@/i18n';
 const COLOR_KEY = '--ytmusic-album-color';
 const DARK_COLOR_KEY = '--ytmusic-album-color-dark';
 
-export default createPlugin({
+export default createPlugin<
+  unknown,
+  unknown,
+  {
+    color?: Color;
+    darkColor?: Color;
+
+    playerPage: HTMLElement | null;
+    navBarBackground: HTMLElement | null;
+    ytmusicPlayerBar: HTMLElement | null;
+    playerBarBackground: HTMLElement | null;
+    sidebarBig: HTMLElement | null;
+    sidebarSmall: HTMLElement | null;
+    ytmusicAppLayout: HTMLElement | null;
+
+    getColor(key: string, alpha?: number): string;
+    updateColor(): void;
+  }
+>({
   name: () => t('plugins.album-color-theme.name'),
   description: () => t('plugins.album-color-theme.description'),
   restartNeeded: true,
@@ -18,16 +36,13 @@ export default createPlugin({
   },
   stylesheets: [style],
   renderer: {
-    color: null as Color | null,
-    darkColor: null as Color | null,
-
-    playerPage: null as HTMLElement | null,
-    navBarBackground: null as HTMLElement | null,
-    ytmusicPlayerBar: null as HTMLElement | null,
-    playerBarBackground: null as HTMLElement | null,
-    sidebarBig: null as HTMLElement | null,
-    sidebarSmall: null as HTMLElement | null,
-    ytmusicAppLayout: null as HTMLElement | null,
+    playerPage: null,
+    navBarBackground: null,
+    ytmusicPlayerBar: null,
+    playerBarBackground: null,
+    sidebarBig: null,
+    sidebarSmall: null,
+    ytmusicAppLayout: null,
 
     start() {
       this.playerPage = document.querySelector<HTMLElement>('#player-page');

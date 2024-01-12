@@ -14,6 +14,7 @@
 
 ![Screenshot](web/screenshot.jpg "Screenshot")
 
+
 <div align="center">
 	<a href="https://github.com/th-ch/youtube-music/releases/latest">
 		<img src="web/youtube-music.svg" width="400" height="100" alt="YouTube Music SVG">
@@ -27,6 +28,12 @@ Read this in other languages: [🇰🇷](./docs/readme/README-ko.md)
 - Native look & feel, aims at keeping the original interface
 - Framework for custom plugins: change YouTube Music to your needs (style, content, features), enable/disable plugins in
   one click
+
+## Demo Image
+
+|                          Player Screen (album color theme & ambient light)                                |
+|:---------------------------------------------------------------------------------------------------------:|
+|![Screenshot2](https://github.com/th-ch/youtube-music/assets/16558115/28ed8f08-c8c4-48ad-811b-7722093e9d81)|
 
 ## Translation
 
@@ -213,7 +220,7 @@ Using plugins, you can:
 
 ### Creating a plugin
 
-Create a folder in `plugins/YOUR-PLUGIN-NAME`:
+Create a folder in `src/plugins/YOUR-PLUGIN-NAME`:
 
 - `index.ts`: the main file of the plugin
 ```typescript

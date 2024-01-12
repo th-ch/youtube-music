@@ -170,7 +170,8 @@
       },
       "plugins": {
         "enabled": "Aktiviert",
-        "label": "Erweiterungen"
+        "label": "Erweiterungen",
+        "new": "NEU"
       },
       "view": {
         "label": "Ansicht",
@@ -190,7 +191,11 @@
       "previous": "Vorheriges",
       "quit": "Beenden",
       "restart": "Anwendung neu starten",
-      "show": "Fenster anzeigen"
+      "show": "Fenster anzeigen",
+      "tooltip": {
+        "default": "YouTube Musik",
+        "with-song-info": "YouTube Musik: {{artist}} - {{title}}"
+      }
     }
   },
   "plugins": {
@@ -200,6 +205,9 @@
         "blocker": "Abfangmethode"
       },
       "name": "Werbeblocker"
+    },
+    "album-actions": {
+      "description": "Undislike, Dislike, Like und Unlike Buttons wirken sich auf alle Lieder in einer Playlist oder einem Album aus."
     },
     "album-color-theme": {
       "description": "Wendet ein dynamisches Farbthema und visuelle Effekte auf Basis der Farbpalette des Albumcovers an",
@@ -424,6 +432,23 @@
       "name": "Liedtexte von Genius",
       "renderer": {
         "fetched-lyrics": "Liedtexte für Genius abgerufen"
+      }
+    },
+    "music-together": {
+      "description": "Teile eine Wiedergabeliste mit anderen. Wenn der Host ein Lied abspielt, hören alle anderen das gleiche Lied",
+      "dialog": {
+        "enter-host": "Host ID eingeben"
+      },
+      "internal": {
+        "save": "Speichern",
+        "unknown-user": "Unbekannter Nutzer"
+      },
+      "menu": {
+        "click-to-copy-id": "Host ID kopieren",
+        "join": "Music Together beitreten",
+        "permission": {
+          "all": "Gästen erlauben, Wiederhabeliste und Player zu bedienen"
+        }
       }
     },
     "navigation": {

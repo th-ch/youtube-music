@@ -1,15 +1,12 @@
 import { SHA1Hash } from './sha1hash';
 
-export const extractToken = (cookie = document.cookie) => cookie.match(/SAPISID=([^;]+);/)?.[1] ?? cookie.match(/__Secure\-3PAPISID=([^;]+);/)?.[1];
+export const extractToken = (cookie = document.cookie) => cookie.match(/SAPISID=([^;]+);/)?.[1] ?? cookie.match(/__Secure-3PAPISID=([^;]+);/)?.[1];
 
-export const getHash = (papisid: string, millis = Date.now(), origin: string = 'https://music.youtube.com') => {
-  const hash = SHA1Hash();
-  hash.update(`${millis} ${papisid} ${origin}`);
-  return hash.digestString().toLowerCase();
-};
+export const getHash = async (papisid: string, millis = Date.now(), origin: string = 'https://music.youtube.com') =>
+  (await SHA1Hash(`${millis} ${papisid} ${origin}`)).toLowerCase();
 
-export const getAuthorizationHeader = (papisid: string, millis = Date.now(), origin: string = 'https://music.youtube.com') => {
-  return `SAPISIDHASH ${millis}_${getHash(papisid, millis, origin)}`;
+export const getAuthorizationHeader = async (papisid: string, millis = Date.now(), origin: string = 'https://music.youtube.com') => {
+  return `SAPISIDHASH ${millis}_${await getHash(papisid, millis, origin)}`;
 };
 
 export const getClient = () => {

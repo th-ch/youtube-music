@@ -7,14 +7,14 @@ import config from '@/config';
 export const restart = () => restartInternal();
 
 export const setupAppControls = () => {
-  ipcMain.on('restart', restart);
-  ipcMain.handle('getDownloadsFolder', () => app.getPath('downloads'));
+  ipcMain.on('ytmd:restart', restart);
+  ipcMain.handle('ytmd:get-downloads-folder', () => app.getPath('downloads'));
   ipcMain.on(
-    'reload',
+    'ytmd:reload',
     () =>
       BrowserWindow.getFocusedWindow()?.webContents.loadURL(config.get('url')),
   );
-  ipcMain.handle('getPath', (_, ...args: string[]) => path.join(...args));
+  ipcMain.handle('ytmd:get-path', (_, ...args: string[]) => path.join(...args));
 };
 
 function restartInternal() {

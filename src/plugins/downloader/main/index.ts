@@ -110,7 +110,7 @@ export const onMainLoad = async ({
     fetch: getNetFetchAsFetch(),
   });
   ipc.handle('download-song', (url: string) => downloadSong(url));
-  ipc.on('video-src-changed', (data: GetPlayerResponse) => {
+  ipc.on('ytmd:video-src-changed', (data: GetPlayerResponse) => {
     playingUrl = data.microformat.microformatDataRenderer.urlCanonical;
   });
   ipc.handle('download-playlist-request', async (url: string) =>

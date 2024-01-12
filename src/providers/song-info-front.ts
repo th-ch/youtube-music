@@ -18,12 +18,12 @@ window.ipcRenderer.on('update-song-info', (_, extractedSongInfo: SongInfo) => {
 });
 
 // Used because 'loadeddata' or 'loadedmetadata' weren't firing on song start for some users (https://github.com/th-ch/youtube-music/issues/473)
-const srcChangedEvent = new CustomEvent('srcChanged');
+const srcChangedEvent = new CustomEvent('ytmd:src-changed');
 
 export const setupSeekedListener = singleton(() => {
   $('video')?.addEventListener('seeked', (v) => {
     if (v.target instanceof HTMLVideoElement) {
-      window.ipcRenderer.send('seeked', v.target.currentTime);
+      window.ipcRenderer.send('ytmd:seeked', v.target.currentTime);
     }
   });
 });
@@ -32,7 +32,7 @@ export const setupTimeChangedListener = singleton(() => {
   const progressObserver = new MutationObserver((mutations) => {
     for (const mutation of mutations) {
       const target = mutation.target as Node & { value: string };
-      window.ipcRenderer.send('timeChanged', target.value);
+      window.ipcRenderer.send('ytmd:time-changed', target.value);
       songInfo.elapsedSeconds = Number(target.value);
     }
   });
@@ -46,7 +46,7 @@ export const setupRepeatChangedListener = singleton(() => {
   const repeatObserver = new MutationObserver((mutations) => {
     // provided by YouTube Music
     window.ipcRenderer.send(
-      'repeatChanged',
+      'ytmd:repeat-changed',
       (
         mutations[0].target as Node & {
           __dataHost: {
@@ -63,7 +63,7 @@ export const setupRepeatChangedListener = singleton(() => {
   // Emit the initial value as well; as it's persistent between launches.
   // provided by YouTube Music
   window.ipcRenderer.send(
-    'repeatChanged',
+    'ytmd:repeat-changed',
     $<
       HTMLElement & {
         getState: () => GetState;
@@ -74,26 +74,26 @@ export const setupRepeatChangedListener = singleton(() => {
 
 export const setupVolumeChangedListener = singleton((api: YoutubePlayer) => {
   $('video')?.addEventListener('volumechange', () => {
-    window.ipcRenderer.send('volumeChanged', api.getVolume());
+    window.ipcRenderer.send('ytmd:volume-changed', api.getVolume());
   });
   // Emit the initial value as well; as it's persistent between launches.
-  window.ipcRenderer.send('volumeChanged', api.getVolume());
+  window.ipcRenderer.send('ytmd:volume-changed', api.getVolume());
 });
 
 export default (api: YoutubePlayer) => {
-  window.ipcRenderer.on('setupTimeChangedListener', () => {
+  window.ipcRenderer.on('ytmd:setup-time-changed-listener', () => {
     setupTimeChangedListener();
   });
 
-  window.ipcRenderer.on('setupRepeatChangedListener', () => {
+  window.ipcRenderer.on('ytmd:setup-repeat-changed-listener', () => {
     setupRepeatChangedListener();
   });
 
-  window.ipcRenderer.on('setupVolumeChangedListener', () => {
+  window.ipcRenderer.on('ytmd:setup-volume-changed-listener', () => {
     setupVolumeChangedListener(api);
   });
 
-  window.ipcRenderer.on('setupSeekedListener', () => {
+  window.ipcRenderer.on('ytmd:setup-seeked-listener', () => {
     setupSeekedListener();
   });
 
@@ -102,7 +102,7 @@ export default (api: YoutubePlayer) => {
       e.target instanceof HTMLVideoElement &&
       Math.round(e.target.currentTime) > 0
     ) {
-      window.ipcRenderer.send('playPaused', {
+      window.ipcRenderer.send('ytmd:play-or-paused', {
         isPaused: status === 'pause',
         elapsedSeconds: Math.floor(e.target.currentTime),
       });
@@ -127,7 +127,7 @@ export default (api: YoutubePlayer) => {
 
   const waitingEvent = new Set<string>();
   // Name = "dataloaded" and abit later "dataupdated"
-  api.addEventListener('videodatachange', (name: string, videoData) => {
+  api.addEventListener('videodatachange', (name, videoData) => {
     videoEventDispatcher(name, videoData);
 
     if (name === 'dataupdated' && waitingEvent.has(videoData.videoId)) {
@@ -170,6 +170,6 @@ export default (api: YoutubePlayer) => {
         data.microformat.microformatDataRenderer.pageOwnerDetails.name;
     }
 
-    window.ipcRenderer.send('video-src-changed', data);
+    window.ipcRenderer.send('ytmd:video-src-changed', data);
   }
 };

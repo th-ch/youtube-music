@@ -53,6 +53,7 @@ export default createPlugin({
           .fetch(url, {
             method: 'POST',
             headers,
+            keepalive: true,
             body: JSON.stringify({ data }),
           })
           .catch((error: { code: number; errno: number }) => {
@@ -67,9 +68,9 @@ export default createPlugin({
       };
 
       ipc.on('ytmd:player-api-loaded', () =>
-        ipc.send('setupTimeChangedListener'),
+        ipc.send('ytmd:setup-time-changed-listener'),
       );
-      ipc.on('timeChanged', (t: number) => {
+      ipc.on('ytmd:time-changed', (t: number) => {
         if (!this.data.title) {
           return;
         }

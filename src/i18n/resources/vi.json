@@ -17,5 +17,181 @@
     "code": "vi",
     "local-name": "Tiếng Việt",
     "name": "Vietnamese"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "Đã tải xong. Đã mở Công cụ dành cho nhà phát triển"
+      },
+      "i18n": {
+        "loaded": "i18n đã được tải"
+      },
+      "second-instance": {
+        "receive-command": "Đã nhận được lệnh qua giao thức: \"{{command}}\""
+      },
+      "theme": {
+        "css-file-not-found": "Tệp tin CSS \"{{cssFile}}\"không tồn tại, bỏ qua..."
+      },
+      "unresponsive": {
+        "details": "Lỗi không phản hồi!\n{{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "Xóa bộ nhớ đệm ứng dụng"
+      },
+      "window": {
+        "tried-to-render-offscreen": "Cửa sổ đã cố gắng hiển thị ngoài màn hình, windowSize={{windowSize}}, displaySize={{displaySize}}, location={{position}}"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "detail": "Menu đã ẩn, ấn phím 'Alt' để hiện menu (hoặc ấn 'Escape' nếu bạn đang bật In-app Menu)",
+        "message": "Ẩn Menu đã được bật",
+        "title": "Ẩn Menu đã được bật"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "Để sau",
+          "restart-now": "Khởi động lại ngay"
+        },
+        "detail": "Tiện ích mở rộng \"{{pluginName}}\" yêu cầu khởi động lại ứng dụng để áp dụng",
+        "message": "\"{{pluginName}}\" cần khởi động lại",
+        "title": "Yêu cầu khởi động lại"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "Thoát",
+          "relaunch": "Khởi chạy lại",
+          "wait": "Đợi"
+        },
+        "detail": "Chúng tôi xin lỗi về sự bất tiện này! hãy chọn việc cần làm:",
+        "message": "Ứng dụng không phản hồi",
+        "title": "Cửa sổ không phản hồi"
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "Tắt cập nhật",
+          "download": "Tải xuống",
+          "ok": "OK"
+        },
+        "detail": "Đã có phiên bản mới hơn, bạn có thể tải xuống tại {{downloadLink}}",
+        "message": "Đã có phiên bản mới",
+        "title": "Cập nhật có sẵn"
+      }
+    },
+    "menu": {
+      "about": "Giới thiệu",
+      "navigation": {
+        "label": "Điều hướng",
+        "submenu": {
+          "copy-current-url": "Copy URL hiện tại",
+          "go-back": "Quay lại",
+          "quit": "Thoát",
+          "restart": "Khởi động lại ứng dụng"
+        }
+      },
+      "options": {
+        "label": "Tùy chọn",
+        "submenu": {
+          "advanced-options": {
+            "label": "Tùy chọn nâng cao",
+            "submenu": {
+              "auto-reset-app-cache": "Làm mới bộ nhớ đệm khi khởi động ứng dụng",
+              "disable-hardware-acceleration": "Vô hiệu hóa tăng tốc phần cứng",
+              "edit-config-json": "Chỉnh sửa config.json",
+              "override-user-agent": "Ghi đè User-Agent",
+              "restart-on-config-changes": "Khởi động lại khi thay đổi cấu hình",
+              "set-proxy": {
+                "label": "Cài đặt proxy",
+                "prompt": {
+                  "label": "Nhập địa chỉ Proxy: (để trống nếu muốn tắt)",
+                  "placeholder": "Ví dụ: SOCKS5://127.0.0.1:9999",
+                  "title": "Cài proxy"
+                }
+              },
+              "toggle-dev-tools": "Bật/tắt DevTools"
+            }
+          },
+          "always-on-top": "Luôn ở trên cùng",
+          "auto-update": "Tự động cập nhật",
+          "hide-menu": {
+            "dialog": {
+              "message": "Menu sẽ bị ẩn khi ứng dụng được chạy vào lần tới, dùng phím [Alt] để hiện nó (hoặc phím [`] nếu sử dụng in-app-menu)",
+              "title": "Ẩn Menu đã được bật"
+            },
+            "label": "Ẩn Menu"
+          },
+          "language": {
+            "dialog": {
+              "message": "Ngôn ngữ sẽ được thay đổi sau khi ứng dụng khởi động lại",
+              "title": "Ngôn ngữ đã thay đổi"
+            },
+            "label": "Ngôn ngữ",
+            "submenu": {
+              "to-help-translate": "Bạn muốn giúp dịch? Bấm vào đây"
+            }
+          },
+          "resume-on-start": "Tiếp tục bài hát cuối cùng khi ứng dụng khởi động",
+          "single-instance-lock": "Khóa một trường hợp",
+          "start-at-login": "Bắt đầu lúc đăng nhập",
+          "starting-page": {
+            "label": "Trang bắt đầu",
+            "unset": "Bỏ thiết đặt"
+          },
+          "tray": {
+            "label": "Khay",
+            "submenu": {
+              "disabled": "Vô hiệu hóa",
+              "enabled-and-hide-app": "Đã bật và ẩn ứng dụng",
+              "enabled-and-show-app": "Đã bật và hiển thị ứng dụng",
+              "play-pause-on-click": "Phát/Tạm dừng khi nhấp chuột"
+            }
+          },
+          "visual-tweaks": {
+            "label": "Tinh chỉnh hình ảnh",
+            "submenu": {
+              "like-buttons": {
+                "default": "Mặc định",
+                "force-show": "Tập trung hiển thị",
+                "hide": "Ẩn",
+                "label": "Nút thích"
+              },
+              "remove-upgrade-button": "Xóa nút nâng cấp",
+              "theme": {
+                "label": "Chủ đề",
+                "submenu": {
+                  "import-css-file": "Nhập tệp CSS tùy chỉnh",
+                  "no-theme": "Không có chủ đề"
+                }
+              }
+            }
+          }
+        }
+      },
+      "plugins": {
+        "enabled": "Đã bật",
+        "label": "Trình cắm bổ sung",
+        "new": "MỚI"
+      },
+      "view": {
+        "label": "Xem",
+        "submenu": {
+          "force-reload": "Buộc tải lại",
+          "reload": "Tải lại",
+          "reset-zoom": "Kích thước thực sự",
+          "toggle-fullscreen": "Bật chế độ toàn màn hình",
+          "zoom-in": "Phóng to",
+          "zoom-out": "Thu nhỏ"
+        }
+      }
+    },
+    "tray": {
+      "next": "Tiếp theo",
+      "play-pause": "Phát/Tạm Dừng",
+      "previous": "Trước",
+      "tooltip": {
+        "default": "YouTube Music",
+        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
+      }
+    }
   }
 }

@@ -357,8 +357,8 @@ export interface YoutubePlayer {
     type: K,
     listener: (
       this: Document,
-      name: PlayerAPIEvents[K]['name'],
-      data: PlayerAPIEvents[K]['value'],
+      name: K extends 'videodatachange' ? PlayerAPIEvents[K]['name'] : never,
+      data: K extends 'videodatachange' ? PlayerAPIEvents[K]['value'] : never,
     ) => void,
     options?: boolean | AddEventListenerOptions | undefined,
   ) => void;
@@ -366,8 +366,8 @@ export interface YoutubePlayer {
     type: K,
     listener: (
       this: Document,
-      name: PlayerAPIEvents[K]['name'],
-      data: PlayerAPIEvents[K]['value'],
+      name: K extends 'videodatachange' ? PlayerAPIEvents[K]['name'] : never,
+      data: K extends 'videodatachange' ? PlayerAPIEvents[K]['value'] : never,
     ) => void,
     options?: boolean | EventListenerOptions | undefined,
   ) => void;

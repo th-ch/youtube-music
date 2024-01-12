@@ -47,8 +47,8 @@ async function onApiLoaded() {
     if (api?.getPlayerState() === 2) api?.playVideo();
     else api?.pauseVideo();
   });
-  window.ipcRenderer.on('seekTo', (_, t: number) => api!.seekTo(t));
-  window.ipcRenderer.on('seekBy', (_, t: number) => api!.seekBy(t));
+  window.ipcRenderer.on('ytmd:seek-to', (_, t: number) => api!.seekTo(t));
+  window.ipcRenderer.on('ytmd:seek-by', (_, t: number) => api!.seekBy(t));
   window.ipcRenderer.on('shuffle', () => {
     document.querySelector<HTMLElement & { queue: { shuffle: () => void } }>('ytmusic-player-bar')?.queue.shuffle();
   });
@@ -98,7 +98,7 @@ async function onApiLoaded() {
 
   const audioCanPlayEventDispatcher = () => {
     document.dispatchEvent(
-      new CustomEvent('audioCanPlay', {
+      new CustomEvent('ytmd:audio-can-play', {
         detail: {
           audioContext,
           audioSource,

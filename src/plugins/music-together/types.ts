@@ -1,15 +1,19 @@
 import { YoutubePlayer } from '@/types/youtube-player';
-type StoreState = any;
+import { GetState, QueueItem } from '@/types/datahost-get-state';
+
+type StoreState = GetState;
 type Store = {
   dispatch: (obj: {
     type: string;
-    payload?: unknown;
+    payload?: {
+      items?: QueueItem[];
+    };
   }) => void;
 
   getState: () => StoreState;
   replaceReducer: (param1: unknown) => unknown;
   subscribe: (callback: () => void) => unknown;
-};
+}
 export type QueueAPI = {
   dispatch(obj: {
     type: string;
@@ -27,8 +31,6 @@ export type AppAPI = {
 
   // TODO: Add more
 };
-
-
 
 export type Profile = {
   id: string;

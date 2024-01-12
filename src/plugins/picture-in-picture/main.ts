@@ -101,7 +101,7 @@ export const onMainLoad = async ({
 
   config ??= await getConfig();
   setConfig({ isInPiP });
-  on('picture-in-picture', () => {
+  on('plugin:toggle-picture-in-picture', () => {
     togglePiP();
   });
 
