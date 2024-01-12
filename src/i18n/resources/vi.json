@@ -21,7 +21,7 @@
   "main": {
     "console": {
       "did-finish-load": {
-        "dev-tools": "Đã tải xong. DevTools đã được mở"
+        "dev-tools": "Đã tải xong. Đã mở Công cụ dành cho nhà phát triển"
       },
       "i18n": {
         "loaded": "i18n đã được tải"
@@ -36,7 +36,10 @@
         "details": "Lỗi không phản hồi!\n{{error}}"
       },
       "when-ready": {
-        "clearing-cache-after-20s": "Đang xóa bộ nhớ đệm"
+        "clearing-cache-after-20s": "Xóa bộ nhớ đệm ứng dụng"
+      },
+      "window": {
+        "tried-to-render-offscreen": "Cửa sổ đã cố gắng hiển thị ngoài màn hình, windowSize={{windowSize}}, displaySize={{displaySize}}, location={{position}}"
       }
     },
     "dialog": {
@@ -52,7 +55,7 @@
         },
         "detail": "Tiện ích mở rộng \"{{pluginName}}\" yêu cầu khởi động lại ứng dụng để áp dụng",
         "message": "\"{{pluginName}}\" cần khởi động lại",
-        "title": "Cần khởi động lại"
+        "title": "Yêu cầu khởi động lại"
       },
       "unresponsive": {
         "buttons": {
@@ -60,13 +63,13 @@
           "relaunch": "Khởi chạy lại",
           "wait": "Đợi"
         },
-        "detail": "Chúng tôi xin lỗi vì sự bất tiện này! Vui lòng chọn việc cần làm:",
+        "detail": "Chúng tôi xin lỗi về sự bất tiện này! hãy chọn việc cần làm:",
         "message": "Ứng dụng không phản hồi",
         "title": "Cửa sổ không phản hồi"
       },
       "update-available": {
         "buttons": {
-          "disable": "Tắt tự động cập nhật",
+          "disable": "Tắt cập nhật",
           "download": "Tải xuống",
           "ok": "OK"
         },
@@ -96,6 +99,7 @@
               "disable-hardware-acceleration": "Vô hiệu hóa tăng tốc phần cứng",
               "edit-config-json": "Chỉnh sửa config.json",
               "override-user-agent": "Ghi đè User-Agent",
+              "restart-on-config-changes": "Khởi động lại khi thay đổi cấu hình",
               "set-proxy": {
                 "label": "Cài đặt proxy",
                 "prompt": {
@@ -121,9 +125,72 @@
               "message": "Ngôn ngữ sẽ được thay đổi sau khi ứng dụng khởi động lại",
               "title": "Ngôn ngữ đã thay đổi"
             },
-            "label": "Ngôn ngữ"
+            "label": "Ngôn ngữ",
+            "submenu": {
+              "to-help-translate": "Bạn muốn giúp dịch? Bấm vào đây"
+            }
+          },
+          "resume-on-start": "Tiếp tục bài hát cuối cùng khi ứng dụng khởi động",
+          "single-instance-lock": "Khóa một trường hợp",
+          "start-at-login": "Bắt đầu lúc đăng nhập",
+          "starting-page": {
+            "label": "Trang bắt đầu",
+            "unset": "Bỏ thiết đặt"
+          },
+          "tray": {
+            "label": "Khay",
+            "submenu": {
+              "disabled": "Vô hiệu hóa",
+              "enabled-and-hide-app": "Đã bật và ẩn ứng dụng",
+              "enabled-and-show-app": "Đã bật và hiển thị ứng dụng",
+              "play-pause-on-click": "Phát/Tạm dừng khi nhấp chuột"
+            }
+          },
+          "visual-tweaks": {
+            "label": "Tinh chỉnh hình ảnh",
+            "submenu": {
+              "like-buttons": {
+                "default": "Mặc định",
+                "force-show": "Tập trung hiển thị",
+                "hide": "Ẩn",
+                "label": "Nút thích"
+              },
+              "remove-upgrade-button": "Xóa nút nâng cấp",
+              "theme": {
+                "label": "Chủ đề",
+                "submenu": {
+                  "import-css-file": "Nhập tệp CSS tùy chỉnh",
+                  "no-theme": "Không có chủ đề"
+                }
+              }
+            }
           }
         }
+      },
+      "plugins": {
+        "enabled": "Đã bật",
+        "label": "Trình cắm bổ sung",
+        "new": "MỚI"
+      },
+      "view": {
+        "label": "Xem",
+        "submenu": {
+          "force-reload": "Buộc tải lại",
+          "reload": "Tải lại",
+          "reset-zoom": "Kích thước thực sự",
+          "toggle-fullscreen": "Bật chế độ toàn màn hình",
+          "zoom-in": "Phóng to",
+          "zoom-out": "Thu nhỏ"
+        }
+      }
+    },
+    "tray": {
+      "next": "Tiếp theo",
+      "play-pause": "Phát/Tạm Dừng",
+      "previous": "Trước",
+      "tooltip": {
+        "default": "YouTube Music",
+        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
       }
     }
   }
