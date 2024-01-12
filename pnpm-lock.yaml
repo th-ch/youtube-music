@@ -147,8 +147,8 @@ dependencies:
 
 devDependencies:
   '@playwright/test':
-    specifier: 1.41.0-alpha-jan-5-2024
-    version: 1.41.0-alpha-jan-5-2024
+    specifier: 1.41.0-beta-1705092460000
+    version: 1.41.0-beta-1705092460000
   '@total-typescript/ts-reset':
     specifier: 0.5.1
     version: 0.5.1
@@ -219,8 +219,8 @@ devDependencies:
     specifier: 10.0.1
     version: 10.0.1
   playwright:
-    specifier: 1.41.0-alpha-jan-5-2024
-    version: 1.41.0-alpha-jan-5-2024
+    specifier: 1.41.0-beta-1705092460000
+    version: 1.41.0-beta-1705092460000
   rollup:
     specifier: 4.9.5
     version: 4.9.5
@@ -1085,12 +1085,12 @@ packages:
     engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
     dev: true
 
-  /@playwright/test@1.41.0-alpha-jan-5-2024:
-    resolution: {integrity: sha512-jAzQJQqXRoSs721vnG2ZNZiDWWj+MpxsjkIhiaCmSbWVZJ6EdRCQumM0lFmhVimwjQsFzg/MOgGE54LUN3OlpA==}
+  /@playwright/test@1.41.0-beta-1705092460000:
+    resolution: {integrity: sha512-1cL11KT0QZYlSfanu/FYs9MTrjra98uWxrvovtDdiiVRk+kZEA2OIAX88IGT1fwdaQ3xpzFMHd2Ui8qUFfUUdw==}
     engines: {node: '>=16'}
     hasBin: true
     dependencies:
-      playwright: 1.41.0-alpha-jan-5-2024
+      playwright: 1.41.0-beta-1705092460000
     dev: true
 
   /@polka/url@1.0.0-next.24:
@@ -5181,18 +5181,18 @@ packages:
       find-up: 3.0.0
     dev: false
 
-  /playwright-core@1.41.0-alpha-jan-5-2024:
-    resolution: {integrity: sha512-KZBM5WC7VlQQlm7rYmkO6Gp3CwyNWk5wgSPzHW4AkFJNYtZVEktvuihFtro5ZNrt7ZpWh3C2mylaCkrQp7GEcw==}
+  /playwright-core@1.41.0-beta-1705092460000:
+    resolution: {integrity: sha512-wssv8qNFOlROlEwrX3c92G8o29tJkLi5ZRImwKZuKaATZcJKkLweuj69yh1qP1xb+Fwdr9pQE9AJ/6lr6CFsmw==}
     engines: {node: '>=16'}
     hasBin: true
     dev: true
 
-  /playwright@1.41.0-alpha-jan-5-2024:
-    resolution: {integrity: sha512-TcsJeb1OUEh4GqsZIkWPwN+IJmeNTMcXIyPrk+oNCFF0Fa4IGENNXJhZDFjp6Gx3c9kYZQtxAxxdNXWN72LaYw==}
+  /playwright@1.41.0-beta-1705092460000:
+    resolution: {integrity: sha512-q20ANN68OW1NaVtHmXJRF56sfMmXqfQWavYhxVtF4JR1tbse1cLVSP6TQ7oqN1btuQ9hW0ZuBptfy0DTuUSEnQ==}
     engines: {node: '>=16'}
     hasBin: true
     dependencies:
-      playwright-core: 1.41.0-alpha-jan-5-2024
+      playwright-core: 1.41.0-beta-1705092460000
     optionalDependencies:
       fsevents: 2.3.2
     dev: true

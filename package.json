@@ -179,7 +179,7 @@
     "youtubei.js": "8.2.0"
   },
   "devDependencies": {
-    "@playwright/test": "1.41.0-alpha-jan-5-2024",
+    "@playwright/test": "1.41.0-beta-1705092460000",
     "@total-typescript/ts-reset": "0.5.1",
     "@types/color": "3.0.6",
     "@types/electron-localshortcut": "3.1.3",
@@ -203,7 +203,7 @@
     "eslint-plugin-prettier": "5.1.3",
     "glob": "10.3.10",
     "node-gyp": "10.0.1",
-    "playwright": "1.41.0-alpha-jan-5-2024",
+    "playwright": "1.41.0-beta-1705092460000",
     "rollup": "4.9.5",
     "typescript": "5.3.3",
     "utf-8-validate": "6.0.3",
