@@ -128,28 +128,28 @@ export default createPlugin({
     applyToList(id: string, loader: HTMLElement) {
       if (loader.children.length != 0) return;
       this.loadObserver?.disconnect();
-      let playlistbuttons: NodeListOf<Element> | undefined;
+      let playlistButtons: NodeListOf<Element> | undefined;
       const playlist = document.querySelector('ytmusic-shelf-renderer')
         ? document.querySelector('ytmusic-shelf-renderer')
         : document.querySelector('ytmusic-playlist-shelf-renderer');
       switch (id) {
         case 'allundislike':
-          playlistbuttons = playlist?.querySelectorAll(
+          playlistButtons = playlist?.querySelectorAll(
             '#button-shape-dislike[aria-pressed=true] > button',
           );
           break;
         case 'alldislike':
-          playlistbuttons = playlist?.querySelectorAll(
+          playlistButtons = playlist?.querySelectorAll(
             '#button-shape-dislike[aria-pressed=false] > button',
           );
           break;
         case 'alllike':
-          playlistbuttons = playlist?.querySelectorAll(
+          playlistButtons = playlist?.querySelectorAll(
             '#button-shape-like[aria-pressed=false] > button',
           );
           break;
         case 'allunlike':
-          playlistbuttons = playlist?.querySelectorAll(
+          playlistButtons = playlist?.querySelectorAll(
             '#button-shape-like[aria-pressed=true] > button',
           );
           break;
