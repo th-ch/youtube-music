@@ -13,6 +13,9 @@ overrides:
   '@babel/runtime': 7.23.8
 
 patchedDependencies:
+  '@xhayper/discord-rpc@1.1.2':
+    hash: 7eeaht6k4r7cw3nunras7mx7iu
+    path: patches/@xhayper__discord-rpc@1.1.2.patch
   vudio@2.1.1:
     hash: 7iux5msqpgl3octdmwy4uspwoe
     path: patches/vudio@2.1.1.patch
@@ -46,8 +49,8 @@ dependencies:
     specifier: 2.1.4
     version: 2.1.4
   '@xhayper/discord-rpc':
-    specifier: 1.1.1
-    version: 1.1.1(bufferutil@4.0.8)(utf-8-validate@6.0.3)
+    specifier: 1.1.2
+    version: 1.1.2(patch_hash=7eeaht6k4r7cw3nunras7mx7iu)
   async-mutex:
     specifier: 0.4.0
     version: 0.4.0
@@ -1671,17 +1674,19 @@ packages:
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
     dev: true
 
-  /@xhayper/discord-rpc@1.1.1(bufferutil@4.0.8)(utf-8-validate@6.0.3):
-    resolution: {integrity: sha512-F3HC0zfeBGV9bOKCzsiumQrUunH5JW5jPwvC6TXoCrOKo7Iog+B8Iw90UdPDoUDLopA1WnWDXvnzauNJ7hWjqA==}
+  /@xhayper/discord-rpc@1.1.2(patch_hash=7eeaht6k4r7cw3nunras7mx7iu):
+    resolution: {integrity: sha512-QOeSFRqEK/pfSNl9PSIIi6ypKzD2zy1B8IHdzpvw4WsqXNoJaymfg9lE0wsei4zD5eT2bfnlcILBW9ociJMnKw==}
     engines: {node: '>=14.18.0'}
     dependencies:
       axios: 1.6.5
       ws: 8.16.0(bufferutil@4.0.8)(utf-8-validate@6.0.3)
+    optionalDependencies:
+      bufferutil: 4.0.8
+      utf-8-validate: 6.0.3
     transitivePeerDependencies:
-      - bufferutil
       - debug
-      - utf-8-validate
     dev: false
+    patched: true
 
   /@xmldom/xmldom@0.8.10:
     resolution: {integrity: sha512-2WALfTl4xo2SkGCYRt6rDTFfk9R1czmBvUQy12gK2KuRKIpWEhcbbzy8EZXtz/jkRqHX8bFEc6FC1HjX4TUWYw==}
