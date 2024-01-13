@@ -1,0 +1,121 @@
+import prompt from 'custom-electron-prompt';
+import { t } from '@/i18n';
+import promptOptions from '@/providers/prompt-options';
+import { ScrobblerPluginConfig } from '@/plugins/scrobbler/index';
+import type { MenuContext } from '@/types/contexts';
+import type { MenuTemplate } from '@/menu';
+import { SetConfType, toggleScrobblers } from '@/plugins/scrobbler/main';
+import { BrowserWindow } from 'electron';
+
+async function promptLastFmOptions(options: ScrobblerPluginConfig, setConfig: SetConfType, window: BrowserWindow) {
+  const output = await prompt(
+    {
+      title: t('plugins.scrobbler.menu.lastfm.api_settings'),
+      label: t('plugins.scrobbler.menu.lastfm.api_settings'),
+      type: 'multiInput',
+      multiInputOptions: [
+        {
+          label: t('plugins.scrobbler.prompt.lastfm.api_key'),
+          value: options.lastfm_options?.api_key,
+          inputAttrs: {
+            type: "text"
+          }
+        },
+        {
+          label: t('plugins.scrobbler.prompt.lastfm.api_secret'),
+          value: options.lastfm_options?.secret,
+          inputAttrs: {
+            type: "text"
+          }
+        }
+      ],
+      resizable: true,
+      height: 360,
+      ...promptOptions(),
+    },
+    window,
+  );
+
+  if (output) {
+    if (output[0]) {
+      options.lastfm_options.api_key = output[0];
+    }
+
+    if (output[1]) {
+      options.lastfm_options.secret = output[1];
+    }
+
+    setConfig(options);
+  }
+}
+
+async function promptListenbrainzOptions(options: ScrobblerPluginConfig, setConfig: SetConfType, window: BrowserWindow) {
+  const output = await prompt(
+    {
+      title: t('plugins.scrobbler.prompt.listenbrainz.token.title'),
+      label: t('plugins.scrobbler.prompt.listenbrainz.token.label'),
+      type: 'input',
+      value: options.listenbrainz_options?.token,
+      ...promptOptions(),
+    },
+    window,
+  );
+
+  if (output) {
+    options.listenbrainz_options.token = output;
+    setConfig(options);
+  }
+}
+
+export const onMenu = async ({
+  window,
+  getConfig,
+  setConfig,
+}: MenuContext<ScrobblerPluginConfig>): Promise<MenuTemplate> => {
+  const config = await getConfig();
+
+  return [
+    {
+      label: "Last.fm",
+      submenu: [
+        {
+          label: t('main.menu.plugins.enabled'),
+          type: 'checkbox',
+          checked: Boolean(config.lastfm_options?.enabled),
+          click(item) {
+            toggleScrobblers(config);
+            config.lastfm_options.enabled = item.checked;
+            setConfig(config);
+          },
+        },
+        {
+          label: t('plugins.scrobbler.menu.lastfm.api_settings'),
+          click() {
+            promptLastFmOptions(config, setConfig, window);
+          },
+        },
+      ],
+    },
+    {
+      label: "ListenBrainz",
+      submenu: [
+        {
+          label: t('main.menu.plugins.enabled'),
+          type: 'checkbox',
+          checked: Boolean(config.listenbrainz_options?.enabled),
+          click(item) {
+            toggleScrobblers(config);
+            config.listenbrainz_options.enabled = item.checked;
+            setConfig(config);
+          },
+        },
+        {
+          label: t('plugins.scrobbler.menu.listenbrainz.token'),
+          click() {
+            promptListenbrainzOptions(config, setConfig, window);
+          },
+        },
+      ],
+    },
+  ];
+}

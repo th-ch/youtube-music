@@ -408,10 +408,6 @@
       },
       "name": "Programos Meniu"
     },
-    "last-fm": {
-      "description": "Pridėkite Last.fm scrobble palaikymą",
-      "name": "Last.fm"
-    },
     "lumiastream": {
       "description": "Prideda \"Lumia Stream\" palaikymą",
       "name": "Lumia Stream [Beta]"

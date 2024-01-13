@@ -417,10 +417,6 @@
       },
       "name": "Menu no aplicativo"
     },
-    "last-fm": {
-      "description": "Adiciona suporte de scrobbling para Last.fm",
-      "name": "Last.fm"
-    },
     "lumiastream": {
       "description": "Adiciona suporte Lumia Stream",
       "name": "Lumia Stream [Beta]"

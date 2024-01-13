@@ -417,10 +417,6 @@
       },
       "name": "应用内菜单"
     },
-    "last-fm": {
-      "description": "添加 Last.fm 记录支持",
-      "name": "Last.fm"
-    },
     "lumiastream": {
       "description": "添加 Lumia Stream 支持",
       "name": "Lumia Stream [测试]"

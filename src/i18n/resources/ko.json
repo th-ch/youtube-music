@@ -417,10 +417,6 @@
       },
       "name": "인앱 메뉴"
     },
-    "last-fm": {
-      "description": "Last.fm에 대한 스크러블 지원을 추가합니다",
-      "name": "Last.fm"
-    },
     "lumiastream": {
       "description": "Lumia Stream 지원을 추가합니다",
       "name": "Lumia Stream [베타]"

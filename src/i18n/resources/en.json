@@ -417,9 +417,29 @@
       },
       "name": "In-App Menu"
     },
-    "last-fm": {
-      "description": "Add scrobbling support for Last.fm",
-      "name": "Last.fm"
+    "scrobbler": {
+      "description": "Add scrobbling support",
+      "name": "Scrobbler",
+      "menu": {
+        "lastfm": {
+          "api_settings": "Last.fm API Settings"
+        },
+        "listenbrainz": {
+          "token": "Enter ListenBrainz user token"
+        }
+      },
+      "prompt": {
+        "lastfm": {
+          "api_key": "Last.fm API key",
+          "api_secret": "Last.fm API secret"
+        },
+        "listenbrainz": {
+          "token": {
+            "label": "Enter your ListenBrainz user token:",
+            "title": "ListenBrainz token"
+          }
+        }
+      }
     },
     "lumiastream": {
       "description": "Adds Lumia Stream support",
