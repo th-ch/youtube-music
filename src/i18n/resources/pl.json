@@ -170,7 +170,8 @@
       },
       "plugins": {
         "enabled": "Włączone",
-        "label": "Wtyczki"
+        "label": "Wtyczki",
+        "new": "NOWOŚĆ"
       },
       "view": {
         "label": "Widok",
@@ -190,7 +191,11 @@
       "previous": "Poprzedni",
       "quit": "Wyjdź",
       "restart": "Uruchom ponownie aplikację",
-      "show": "Pokaż okno"
+      "show": "Pokaż okno",
+      "tooltip": {
+        "default": "YouTube Music",
+        "with-song-info": "{{title}} (autorstwa {{artist}}) - YT Music"
+      }
     }
   },
   "plugins": {
@@ -200,6 +205,10 @@
         "blocker": "Metoda przechwytywania"
       },
       "name": "Blokowanie reklam"
+    },
+    "album-actions": {
+      "description": "Dodaje przyciski łapek w górę i dół do wszystkich piosenek podczas w albumach lub listach odtwarzania.",
+      "name": "Akcje albumu"
     },
     "album-color-theme": {
       "description": "Stosuje dynamiczny motyw i efekty wizualne w oparciu o paletę kolorów albumu",
@@ -289,7 +298,7 @@
       "menu": {
         "advanced": "Zaawansowane"
       },
-      "name": "Przenikanie [Beta]",
+      "name": "Płynne przejście [Beta]",
       "prompt": {
         "options": {
           "multi-input": {
@@ -424,6 +433,15 @@
       "name": "Tekst piosenek od Genius",
       "renderer": {
         "fetched-lyrics": "Tekst dostarczony przez Genius"
+      }
+    },
+    "music-together": {
+      "description": "Pozwala na udostępnianie listy odtwarzania w taki sposób, że osoby po wejściu w link słuchają tego samego utworu co host (jeżeli słucha jej z owej listy odtwarzania)",
+      "dialog": {
+        "enter-host": "Wpisz ID hosta"
+      },
+      "internal": {
+        "save": "Zapisz"
       }
     },
     "navigation": {
