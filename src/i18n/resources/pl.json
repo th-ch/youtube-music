@@ -441,7 +441,44 @@
         "enter-host": "Wpisz ID hosta"
       },
       "internal": {
-        "save": "Zapisz"
+        "save": "Zapisz",
+        "track-source": "Źródło utworu",
+        "unknown-user": "Nieznany użytkownik"
+      },
+      "menu": {
+        "click-to-copy-id": "Kopiuj ID hosta",
+        "close": "Zakończ host",
+        "connected-users": "Połączeni użytkownicy",
+        "disconnect": "Rozłącz z hosta",
+        "empty-user": "Brak połączonych użytkowników",
+        "host": "Host słuchania razem",
+        "join": "Połącz z hostem",
+        "permission": {
+          "all": "Połączeni użytkownicy mają kontrolę nad listą odtwarzania oraz playerem",
+          "host-only": "Tylko host może kontrolować listę odtwarzania oraz playera",
+          "playlist": "Połączeni użytkownicy maja kontrolę tylko nad listą odtwarzania"
+        },
+        "set-permission": "Zmień permisję kontroli",
+        "status": {
+          "disconnected": "Rozłączony",
+          "guest": "Połączony jako Użytkownik",
+          "host": "Połączony jako Host"
+        }
+      },
+      "name": "Słuchanie razem [Beta]",
+      "toast": {
+        "add-song-failed": "Wystąpił błąd z dodaniem muzyki",
+        "closed": "Host słuchania razem został zamknięty pomyślnie",
+        "disconnected": "Pomyślnie rozłączono z hosta słuchania razem",
+        "host-failed": "Wystąpił błąd z hostem słuchania razem",
+        "id-copied": "ID hosta został wklejony do schowka",
+        "id-copy-failed": "Wystąpił błąd z próbą skopiowania ID do schowka",
+        "join-failed": "Wystąpił błąd z dołączeniem do hosta",
+        "joined": "Dołączono pomyślnie do hosta słuchania razem",
+        "permission-changed": "Permisja hosta została zmieniona na \"{{permission}}\"",
+        "remove-song-failed": "Wystąpił błąd z usunięciem utworu",
+        "user-connected": "Do hosta dołączył {{name}}",
+        "user-disconnected": "{{name}} właśnie wyszedł z hosta"
       }
     },
     "navigation": {
