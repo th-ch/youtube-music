@@ -170,7 +170,8 @@
       },
       "plugins": {
         "enabled": "Включено",
-        "label": "Плагины"
+        "label": "Плагины",
+        "new": "НОВИНКА"
       },
       "view": {
         "label": "Вид",
@@ -190,7 +191,11 @@
       "previous": "Предыдущий",
       "quit": "Выйти",
       "restart": "Перезагрузить приложение",
-      "show": "Показать окно"
+      "show": "Показать окно",
+      "tooltip": {
+        "default": "YouTube Music",
+        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
+      }
     }
   },
   "plugins": {
@@ -200,6 +205,10 @@
         "blocker": "Блокировщик"
       },
       "name": "Блокировщик рекламы"
+    },
+    "album-actions": {
+      "description": "Добавляет кнопки Undislike, Dislike и Unlike, чтобы применять их на все композиции в плейлисте или альбоме",
+      "name": "Действия с альбомом"
     },
     "album-color-theme": {
       "description": "Применяет динамическую тему и визуальные эффекты на основе цветовой палитры альбома",
@@ -402,10 +411,29 @@
       "name": "Расширенная громкость"
     },
     "in-app-menu": {
-      "description": "Придает меню модный вид"
+      "description": "Придает меню модный вид",
+      "menu": {
+        "hide-dom-window-controls": "Скрыть элементы управления окном DOM"
+      },
+      "name": "Меню в приложении"
     },
     "last-fm": {
+      "description": "Добавить сбор информации (скробблинг) для Last.fm",
       "name": "Last.fm"
+    },
+    "lumiastream": {
+      "description": "Добавляет поддержку Lumia Stream",
+      "name": "Lumia Stream [бета]"
+    },
+    "lyrics-genius": {
+      "description": "Добавляет поддержку текстов для большинства композиций",
+      "menu": {
+        "romanized-lyrics": "Романизированный текст (any -> en)"
+      },
+      "name": "Тексты песен от Genius",
+      "renderer": {
+        "fetched-lyrics": "Текст от Genius был получен"
+      }
     },
     "navigation": {
       "name": "Навигация"
