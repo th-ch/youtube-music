@@ -207,7 +207,7 @@
       "name": "Blokowanie reklam"
     },
     "album-actions": {
-      "description": "Dodaje przyciski łapek w górę i dół do wszystkich piosenek podczas w albumach lub listach odtwarzania.",
+      "description": "Dodaje przyciski łapek w górę i dół do wszystkich piosenek podczas w albumach lub listach odtwarzania",
       "name": "Akcje albumu"
     },
     "album-color-theme": {
@@ -215,7 +215,7 @@
       "name": "Motyw kolorów albumu"
     },
     "ambient-mode": {
-      "description": "Stosuje efekt świetlny, rzucając delikatne kolory z wideo na tło ekranu.",
+      "description": "Stosuje efekt świetlny, rzucając delikatne kolory z wideo na tło ekranu",
       "menu": {
         "blur-amount": {
           "label": "Ilość rozmycia",
@@ -574,7 +574,7 @@
       "name": "Zmieniacz jakości wideo"
     },
     "shortcuts": {
-      "description": "Umożliwia ustawienie globalnych skrótów klawiszowych do odtwarzania (odtwarzanie/pauza/następny/poprzedni) + wyłączanie OSD multimediów poprzez zastąpienie klawiszy multimediów, włączając kombinację klawiszy Ctrl/CMD + F w celu wyszukiwania, obsługę Linux MPRIS dla klawiszy multimediów oraz niestandardowe skróty klawiszowe dla zaawansowanych użytkowników.",
+      "description": "Umożliwia ustawienie globalnych skrótów klawiszowych do odtwarzania (odtwarzanie/pauza/następny/poprzedni) + wyłączanie OSD multimediów poprzez zastąpienie klawiszy multimediów, włączając kombinację klawiszy Ctrl/CMD + F w celu wyszukiwania, obsługę Linux MPRIS dla klawiszy multimediów oraz niestandardowe skróty klawiszowe dla zaawansowanych użytkowników",
       "menu": {
         "override-media-keys": "Zastąp klawisze multimediów",
         "set-keybinds": "Ustaw globalne sterowanie utworem"
