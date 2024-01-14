@@ -204,18 +204,18 @@
       "menu": {
         "blocker": "Blocker"
       },
-      "name": "Adblocker"
+      "name": "Ad Blocker"
     },
     "album-actions": {
-      "description": "Adds Undislike, Dislike, Like, and Unlike buttons to apply this to all songs in a playlist or album.",
-      "name": "Album actions"
+      "description": "Adds Undislike, Dislike, Like, and Unlike buttons to apply this to all songs in a playlist or album",
+      "name": "Album Actions"
     },
     "album-color-theme": {
       "description": "Applies a dynamic theme and visual effects based on the album color palette",
       "name": "Album Color Theme"
     },
     "ambient-mode": {
-      "description": "Applies a lighting effect by casting gentle colors from the video, into your screen’s background.",
+      "description": "Applies a lighting effect by casting gentle colors from the video, into your screen’s background",
       "menu": {
         "blur-amount": {
           "label": "Blur amount",
@@ -574,7 +574,7 @@
       "name": "Video Quality Changer"
     },
     "shortcuts": {
-      "description": "Allows setting global hotkeys for playback (play/pause/next/previous) and turning off media OSD by overriding media keys, turning on Ctrl/CMD + F to search, turning on Linux MPRIS support for media keys, and custom hotkeys for advanced users.",
+      "description": "Allows setting global hotkeys for playback (play/pause/next/previous) and turning off media OSD by overriding media keys, turning on Ctrl/CMD + F to search, turning on Linux MPRIS support for media keys, and custom hotkeys for advanced users",
       "menu": {
         "override-media-keys": "Override Media Keys",
         "set-keybinds": "Set Global Song Controls"
