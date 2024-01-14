@@ -204,10 +204,10 @@
       "menu": {
         "blocker": "Blocco"
       },
-      "name": "Adblocker"
+      "name": "Ad blocker"
     },
     "album-actions": {
-      "description": "Aggiunge i pulsanti Undislike, Dislike, Like e Unlike a tutti i brani di una playlist o di un album.",
+      "description": "Aggiunge i pulsanti Undislike, Dislike, Like e Unlike a tutti i brani di una playlist o di un album",
       "name": "Azioni album"
     },
     "album-color-theme": {
@@ -215,7 +215,7 @@
       "name": "Tema abbinato a colore album"
     },
     "ambient-mode": {
-      "description": "Applica un effetto di illuminazione proiettando i colori delicati del video sullo sfondo dello schermo.",
+      "description": "Applica un effetto di illuminazione proiettando i colori delicati del video sullo sfondo dello schermo",
       "menu": {
         "blur-amount": {
           "label": "Intensità sfocatura",
@@ -574,7 +574,7 @@
       "name": "Cambia qualità video"
     },
     "shortcuts": {
-      "description": "Consente di impostare tasti di scelta rapida globali per la riproduzione (riproduci/pausa/successivo/precedente) + disabilita l'OSD multimediale sovrascrivendo i tasti multimediali + abilita Ctrl/CMD + F per la ricerca + abilita il supporto Linux MPRIS per i tasti multimediali + tasti di scelta rapida personalizzati per utenti avanzati.",
+      "description": "Consente di impostare tasti di scelta rapida globali per la riproduzione (riproduci/pausa/successivo/precedente) + disabilita l'OSD multimediale sovrascrivendo i tasti multimediali + abilita Ctrl/CMD + F per la ricerca + abilita il supporto Linux MPRIS per i tasti multimediali + tasti di scelta rapida personalizzati per utenti avanzati",
       "menu": {
         "override-media-keys": "Ridefinisci i tasti multimediali",
         "set-keybinds": "Imposta i controlli brano globali"
