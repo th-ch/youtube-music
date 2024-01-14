@@ -10,7 +10,7 @@ export class ListenbrainzScrobbler extends ScrobblerBase {
   };
 
   setNowPlaying(songInfo: SongInfo, config: ScrobblerPluginConfig, _setConfig: SetConfType): void {
-    if (!config.listenbrainz_options.api_root || !config.listenbrainz_options.token) {
+    if (!config.scrobblers.listenbrainz.api_root || !config.scrobblers.listenbrainz.token) {
       return;
     }
 
@@ -19,7 +19,7 @@ export class ListenbrainzScrobbler extends ScrobblerBase {
   };
 
   addScrobble(songInfo: SongInfo, config: ScrobblerPluginConfig, _setConfig: SetConfType): void {
-    if (!config.listenbrainz_options.api_root || !config.listenbrainz_options.token) {
+    if (!config.scrobblers.listenbrainz.api_root || !config.scrobblers.listenbrainz.token) {
       return;
     }
 
@@ -56,12 +56,12 @@ function createRequestBody(listenType: string, songInfo: SongInfo): any {
 function submitListen(body: any, config: ScrobblerPluginConfig) {
   body = JSON.stringify(body, (_k, v) => v ?? undefined)
 
-  net.fetch(config.listenbrainz_options.api_root + "submit-listens",
+  net.fetch(config.scrobblers.listenbrainz.api_root + "submit-listens",
     {
       method: 'POST',
       body,
       headers: {
-        'Authorization': 'Token ' + config.listenbrainz_options.token,
+        'Authorization': 'Token ' + config.scrobblers.listenbrainz.token,
         'Content-Type': 'application/json',
       }
     }).catch(console.error)

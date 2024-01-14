@@ -16,13 +16,13 @@ const enabledScrobblers: { [id: string] : ScrobblerBase | undefined } = {
 };
 
 export function toggleScrobblers(config: ScrobblerPluginConfig) {
-  if (config.lastfm_options && config.lastfm_options.enabled) {
+  if (config.scrobblers.lastfm && config.scrobblers.lastfm.enabled) {
     enabledScrobblers["lastfm"] = new LastFmScrobbler();
   } else {
     enabledScrobblers["lastfm"] = undefined;
   }
 
-  if (config.listenbrainz_options && config.listenbrainz_options.enabled) {
+  if (config.scrobblers.listenbrainz && config.scrobblers.listenbrainz.enabled) {
     enabledScrobblers["listenbrainz"] = new ListenbrainzScrobbler();
   } else {
     enabledScrobblers["listenbrainz"] = undefined;
@@ -57,7 +57,7 @@ export async function onMainLoad({
   let scrobbleTimer: number | undefined;
 
   toggleScrobblers(config);
-  if (config.lastfm_options && !config.lastfm_options.session_key) {
+  if (config.scrobblers.lastfm && !config.scrobblers.lastfm.session_key) {
     await enabledScrobblers["lastfm"]?.createSession(config, setConfig);
   }
 
@@ -84,7 +84,7 @@ export function onConfigChange(newConfig: ScrobblerPluginConfig) {
   unloadScrobblers();
 
   config = newConfig;
-  if (!config.lastfm_options && !config.listenbrainz_options) {
+  if (!config.scrobblers.lastfm && !config.scrobblers.listenbrainz) {
     config.enabled = true;
     setOptions('scrobbler', config);
   }

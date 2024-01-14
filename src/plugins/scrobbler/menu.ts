@@ -16,14 +16,14 @@ async function promptLastFmOptions(options: ScrobblerPluginConfig, setConfig: Se
       multiInputOptions: [
         {
           label: t('plugins.scrobbler.prompt.lastfm.api_key'),
-          value: options.lastfm_options?.api_key,
+          value: options.scrobblers.lastfm?.api_key,
           inputAttrs: {
             type: "text"
           }
         },
         {
           label: t('plugins.scrobbler.prompt.lastfm.api_secret'),
-          value: options.lastfm_options?.secret,
+          value: options.scrobblers.lastfm?.secret,
           inputAttrs: {
             type: "text"
           }
@@ -38,11 +38,11 @@ async function promptLastFmOptions(options: ScrobblerPluginConfig, setConfig: Se
 
   if (output) {
     if (output[0]) {
-      options.lastfm_options.api_key = output[0];
+      options.scrobblers.lastfm.api_key = output[0];
     }
 
     if (output[1]) {
-      options.lastfm_options.secret = output[1];
+      options.scrobblers.lastfm.secret = output[1];
     }
 
     setConfig(options);
@@ -55,14 +55,14 @@ async function promptListenbrainzOptions(options: ScrobblerPluginConfig, setConf
       title: t('plugins.scrobbler.prompt.listenbrainz.token.title'),
       label: t('plugins.scrobbler.prompt.listenbrainz.token.label'),
       type: 'input',
-      value: options.listenbrainz_options?.token,
+      value: options.scrobblers.listenbrainz?.token,
       ...promptOptions(),
     },
     window,
   );
 
   if (output) {
-    options.listenbrainz_options.token = output;
+    options.scrobblers.listenbrainz.token = output;
     setConfig(options);
   }
 }
@@ -81,10 +81,10 @@ export const onMenu = async ({
         {
           label: t('main.menu.plugins.enabled'),
           type: 'checkbox',
-          checked: Boolean(config.lastfm_options?.enabled),
+          checked: Boolean(config.scrobblers.lastfm?.enabled),
           click(item) {
             toggleScrobblers(config);
-            config.lastfm_options.enabled = item.checked;
+            config.scrobblers.lastfm.enabled = item.checked;
             setConfig(config);
           },
         },
@@ -102,10 +102,10 @@ export const onMenu = async ({
         {
           label: t('main.menu.plugins.enabled'),
           type: 'checkbox',
-          checked: Boolean(config.listenbrainz_options?.enabled),
+          checked: Boolean(config.scrobblers.listenbrainz?.enabled),
           click(item) {
             toggleScrobblers(config);
-            config.listenbrainz_options.enabled = item.checked;
+            config.scrobblers.listenbrainz.enabled = item.checked;
             setConfig(config);
           },
         },
