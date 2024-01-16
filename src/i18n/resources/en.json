@@ -186,16 +186,16 @@
       }
     },
     "tray": {
-      "tooltip": {
-        "default": "YouTube Music",
-        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
-      },
       "next": "Next",
       "play-pause": "Play/Pause",
       "previous": "Previous",
       "quit": "Exit",
       "restart": "Restart App",
-      "show": "Show window"
+      "show": "Show window",
+      "tooltip": {
+        "default": "YouTube Music",
+        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
+      }
     }
   },
   "plugins": {
@@ -417,30 +417,6 @@
       },
       "name": "In-App Menu"
     },
-    "scrobbler": {
-      "description": "Add scrobbling support",
-      "name": "Scrobbler",
-      "menu": {
-        "lastfm": {
-          "api_settings": "Last.fm API Settings"
-        },
-        "listenbrainz": {
-          "token": "Enter ListenBrainz user token"
-        }
-      },
-      "prompt": {
-        "lastfm": {
-          "api_key": "Last.fm API key",
-          "api_secret": "Last.fm API secret"
-        },
-        "listenbrainz": {
-          "token": {
-            "label": "Enter your ListenBrainz user token:",
-            "title": "ListenBrainz token"
-          }
-        }
-      }
-    },
     "lumiastream": {
       "description": "Adds Lumia Stream support",
       "name": "Lumia Stream [Beta]"
@@ -592,6 +568,30 @@
       },
       "description": "Allows changing the video quality with a button on the video overlay",
       "name": "Video Quality Changer"
+    },
+    "scrobbler": {
+      "description": "Add scrobbling support (etc. last.fm, Listenbrainz)",
+      "menu": {
+        "lastfm": {
+          "api_settings": "Last.fm API Settings"
+        },
+        "listenbrainz": {
+          "token": "Enter ListenBrainz user token"
+        }
+      },
+      "name": "Scrobbler",
+      "prompt": {
+        "lastfm": {
+          "api_key": "Last.fm API key",
+          "api_secret": "Last.fm API secret"
+        },
+        "listenbrainz": {
+          "token": {
+            "label": "Enter your ListenBrainz user token:",
+            "title": "ListenBrainz token"
+          }
+        }
+      }
     },
     "shortcuts": {
       "description": "Allows setting global hotkeys for playback (play/pause/next/previous) and turning off media OSD by overriding media keys, turning on Ctrl/CMD + F to search, turning on Linux MPRIS support for media keys, and custom hotkeys for advanced users",
