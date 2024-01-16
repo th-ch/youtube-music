@@ -1,7 +1,8 @@
 import { BrowserWindow, ipcMain, nativeImage, net } from 'electron';
 
-import { cache } from './decorators';
+import { Mutex } from 'async-mutex';
 
+import { cache } from './decorators';
 import config from '@/config';
 
 import type { GetPlayerResponse } from '@/types/get-player-response';
@@ -22,23 +23,6 @@ export interface SongInfo {
   playlistId?: string;
 }
 
-// Fill songInfo with empty values
-export const songInfo: SongInfo = {
-  title: '',
-  artist: '',
-  views: 0,
-  uploadDate: '',
-  imageSrc: '',
-  image: null,
-  isPaused: undefined,
-  songDuration: 0,
-  elapsedSeconds: 0,
-  url: '',
-  album: undefined,
-  videoId: '',
-  playlistId: '',
-};
-
 // Grab the native image using the src
 export const getImage = cache(
   async (src: string): Promise<Electron.NativeImage> => {
@@ -57,10 +41,27 @@ export const getImage = cache(
 const handleData = async (
   data: GetPlayerResponse,
   win: Electron.BrowserWindow,
-) => {
+): Promise<SongInfo | null> => {
   if (!data) {
-    return;
+    return null;
   }
+
+  // Fill songInfo with empty values
+  const songInfo: SongInfo = {
+    title: '',
+    artist: '',
+    views: 0,
+    uploadDate: '',
+    imageSrc: '',
+    image: null,
+    isPaused: undefined,
+    songDuration: 0,
+    elapsedSeconds: 0,
+    url: '',
+    album: undefined,
+    videoId: '',
+    playlistId: '',
+  } satisfies SongInfo;
 
   const microformat = data.microformat?.microformatDataRenderer;
   if (microformat) {
@@ -87,8 +88,10 @@ const handleData = async (
     songInfo.imageSrc = thumbnails.at(-1)?.url.split('?')[0];
     if (songInfo.imageSrc) songInfo.image = await getImage(songInfo.imageSrc);
 
-    win.webContents.send('update-song-info', songInfo);
+    win.webContents.send('ytmd:update-song-info', songInfo);
   }
+
+  return songInfo;
 };
 
 // This variable will be filled with the callbacks once they register
@@ -100,35 +103,47 @@ const registerCallback = (callback: SongInfoCallback) => {
   callbacks.add(callback);
 };
 
-let handlingData = false;
-
 const registerProvider = (win: BrowserWindow) => {
+  const dataMutex = new Mutex();
+  let songInfo: SongInfo | null = null;
+
   // This will be called when the song-info-front finds a new request with song data
   ipcMain.on('ytmd:video-src-changed', async (_, data: GetPlayerResponse) => {
-    handlingData = true;
-    await handleData(data, win);
-    handlingData = false;
-    for (const c of callbacks) {
-      c(songInfo, 'ytmd:video-src-changed');
+    const tempSongInfo = await dataMutex.runExclusive<SongInfo | null>(async () => {
+      songInfo = await handleData(data, win);
+      return songInfo;
+    });
+
+    if (tempSongInfo) {
+      for (const c of callbacks) {
+        c(tempSongInfo, 'ytmd:video-src-changed');
+      }
     }
   });
   ipcMain.on(
     'ytmd:play-or-paused',
-    (
+    async (
       _,
       {
         isPaused,
         elapsedSeconds,
       }: { isPaused: boolean; elapsedSeconds: number },
     ) => {
-      songInfo.isPaused = isPaused;
-      songInfo.elapsedSeconds = elapsedSeconds;
-      if (handlingData) {
-        return;
-      }
+      const tempSongInfo = await dataMutex.runExclusive<SongInfo | null>(() => {
+        if (!songInfo) {
+          return null;
+        }
 
-      for (const c of callbacks) {
-        c(songInfo, 'ytmd:play-or-paused');
+        songInfo.isPaused = isPaused;
+        songInfo.elapsedSeconds = elapsedSeconds;
+
+        return songInfo;
+      });
+
+      if (tempSongInfo) {
+        for (const c of callbacks) {
+          c(tempSongInfo, 'ytmd:play-or-paused');
+        }
       }
     },
   );

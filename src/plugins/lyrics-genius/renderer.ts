@@ -32,7 +32,7 @@ export const onRendererLoad = ({
 
   let unregister: (() => void) | null = null;
 
-  on('update-song-info', (extractedSongInfo: SongInfo) => {
+  on('ytmd:update-song-info', (extractedSongInfo: SongInfo) => {
     unregister?.();
 
     setTimeout(async () => {
