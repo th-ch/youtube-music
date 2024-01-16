@@ -2,10 +2,12 @@ import crypto from 'node:crypto';
 
 import { net, shell } from 'electron';
 
-import { ScrobblerPluginConfig } from '@/plugins/scrobbler';
+import { ScrobblerBase } from './base';
+
+import { ScrobblerPluginConfig } from '../index';
+import { SetConfType } from '../main';
+
 import type { SongInfo } from '@/providers/song-info';
-import { SetConfType } from '@/plugins/scrobbler/main';
-import { ScrobblerBase } from '@/plugins/scrobbler/services/base';
 
 interface LastFmData {
   method: string;
@@ -26,6 +28,10 @@ interface LastFmSongData {
 }
 
 export class LastFmScrobbler extends ScrobblerBase {
+  isSessionCreated(config: ScrobblerPluginConfig): boolean {
+    return !!config.scrobblers.lastfm.session_key;
+  }
+
   async createSession(config: ScrobblerPluginConfig, setConfig: SetConfType): Promise<ScrobblerPluginConfig> {
     // Get and store the session key
     const data = {
@@ -54,7 +60,7 @@ export class LastFmScrobbler extends ScrobblerBase {
     }
     setConfig(config);
     return config;
-  };
+  }
 
   setNowPlaying(songInfo: SongInfo, config: ScrobblerPluginConfig, setConfig: SetConfType): void {
     if (!config.scrobblers.lastfm.session_key) {
@@ -66,7 +72,7 @@ export class LastFmScrobbler extends ScrobblerBase {
       method: 'track.updateNowPlaying',
     };
     this.postSongDataToAPI(songInfo, config, data, setConfig);
-  };
+  }
 
   addScrobble(songInfo: SongInfo, config: ScrobblerPluginConfig, setConfig: SetConfType): void {
     if (!config.scrobblers.lastfm.session_key) {
@@ -79,7 +85,7 @@ export class LastFmScrobbler extends ScrobblerBase {
       timestamp: Math.trunc((Date.now() - (songInfo.elapsedSeconds ?? 0)) / 1000),
     };
     this.postSongDataToAPI(songInfo, config, data, setConfig);
-  };
+  }
 
   async postSongDataToAPI(
     songInfo: SongInfo,
@@ -129,7 +135,7 @@ export class LastFmScrobbler extends ScrobblerBase {
           }
         },
       );
-  };
+  }
 }
 
 const createFormData = (parameters: LastFmSongData) => {

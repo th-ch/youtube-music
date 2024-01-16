@@ -1,11 +1,15 @@
 import prompt from 'custom-electron-prompt';
+
+import { BrowserWindow } from 'electron';
+
 import { t } from '@/i18n';
 import promptOptions from '@/providers/prompt-options';
-import { ScrobblerPluginConfig } from '@/plugins/scrobbler/index';
+
+import { ScrobblerPluginConfig } from './index';
+import { SetConfType, backend } from './main';
+
 import type { MenuContext } from '@/types/contexts';
 import type { MenuTemplate } from '@/menu';
-import { SetConfType, toggleScrobblers } from '@/plugins/scrobbler/main';
-import { BrowserWindow } from 'electron';
 
 async function promptLastFmOptions(options: ScrobblerPluginConfig, setConfig: SetConfType, window: BrowserWindow) {
   const output = await prompt(
@@ -18,14 +22,14 @@ async function promptLastFmOptions(options: ScrobblerPluginConfig, setConfig: Se
           label: t('plugins.scrobbler.prompt.lastfm.api_key'),
           value: options.scrobblers.lastfm?.api_key,
           inputAttrs: {
-            type: "text"
+            type: 'text'
           }
         },
         {
           label: t('plugins.scrobbler.prompt.lastfm.api_secret'),
           value: options.scrobblers.lastfm?.secret,
           inputAttrs: {
-            type: "text"
+            type: 'text'
           }
         }
       ],
@@ -76,14 +80,14 @@ export const onMenu = async ({
 
   return [
     {
-      label: "Last.fm",
+      label: 'Last.fm',
       submenu: [
         {
           label: t('main.menu.plugins.enabled'),
           type: 'checkbox',
           checked: Boolean(config.scrobblers.lastfm?.enabled),
           click(item) {
-            toggleScrobblers(config);
+            backend.toggleScrobblers(config);
             config.scrobblers.lastfm.enabled = item.checked;
             setConfig(config);
           },
@@ -97,14 +101,14 @@ export const onMenu = async ({
       ],
     },
     {
-      label: "ListenBrainz",
+      label: 'ListenBrainz',
       submenu: [
         {
           label: t('main.menu.plugins.enabled'),
           type: 'checkbox',
           checked: Boolean(config.scrobblers.listenbrainz?.enabled),
           click(item) {
-            toggleScrobblers(config);
+            backend.toggleScrobblers(config);
             config.scrobblers.listenbrainz.enabled = item.checked;
             setConfig(config);
           },
@@ -118,4 +122,4 @@ export const onMenu = async ({
       ],
     },
   ];
-}
+};

@@ -1,7 +1,8 @@
 import { createPlugin } from '@/utils';
 import { t } from '@/i18n';
+
 import { onMenu } from './menu';
-import { onConfigChange, onMainLoad } from './main';
+import { backend } from './main';
 
 export interface ScrobblerPluginConfig {
   enabled: boolean,
@@ -86,8 +87,5 @@ export default createPlugin({
   restartNeeded: true,
   config: defaultConfig,
   menu: onMenu,
-  backend: {
-    start: onMainLoad,
-    onConfigChange,
-  },
+  backend,
 });

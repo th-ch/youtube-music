@@ -1,94 +1,77 @@
-import registerCallback, { SongInfo } from '@/providers/song-info';
-import { ScrobblerPluginConfig } from '@/plugins/scrobbler/index';
-import { LastFmScrobbler } from '@/plugins/scrobbler/services/lastfm';
-import { ListenbrainzScrobbler } from '@/plugins/scrobbler/services/listenbrainz';
-import { setOptions } from '@/config/plugins';
-import { BackendContext } from '@/types/contexts';
-import { ScrobblerBase } from '@/plugins/scrobbler/services/base';
+import registerCallback, { type SongInfo } from '@/providers/song-info';
+import { createBackend } from '@/utils';
+
+import { ScrobblerPluginConfig } from './index';
+import { LastFmScrobbler } from './services/lastfm';
+import { ListenbrainzScrobbler } from './services/listenbrainz';
+import { ScrobblerBase } from './services/base';
 
 export type SetConfType = (
   conf: Partial<Omit<ScrobblerPluginConfig, 'enabled'>>,
 ) => void | Promise<void>;
 
-const enabledScrobblers: { [id: string] : ScrobblerBase | undefined } = {
-  "lastfm": undefined,
-  "listenbrainz": undefined,
-};
+export const backend = createBackend<{
+  config?: ScrobblerPluginConfig;
+  enabledScrobblers: Map<string, ScrobblerBase>;
+  toggleScrobblers(config: ScrobblerPluginConfig): void;
+}, ScrobblerPluginConfig>({
+  enabledScrobblers: new Map(),
 
-export function toggleScrobblers(config: ScrobblerPluginConfig) {
-  if (config.scrobblers.lastfm && config.scrobblers.lastfm.enabled) {
-    enabledScrobblers["lastfm"] = new LastFmScrobbler();
-  } else {
-    enabledScrobblers["lastfm"] = undefined;
-  }
-
-  if (config.scrobblers.listenbrainz && config.scrobblers.listenbrainz.enabled) {
-    enabledScrobblers["listenbrainz"] = new ListenbrainzScrobbler();
-  } else {
-    enabledScrobblers["listenbrainz"] = undefined;
-  }
-}
-
-function forEachScrobbler(callback: (scrobbler: ScrobblerBase) => void) {
-  let prop: keyof typeof enabledScrobblers;
-  for (prop in enabledScrobblers) {
-    if (enabledScrobblers[prop]) {
-      callback(enabledScrobblers[prop] as ScrobblerBase);
+  toggleScrobblers(config: ScrobblerPluginConfig) {
+    if (config.scrobblers.lastfm && config.scrobblers.lastfm.enabled) {
+      this.enabledScrobblers.set('lastfm', new LastFmScrobbler());
+    } else {
+      this.enabledScrobblers.delete('lastfm');
     }
-  }
-}
 
-function unloadScrobblers() {
-  for (let scrobbler of Object.values(enabledScrobblers)) {
-    if (scrobbler) {
-      scrobbler = undefined;
+    if (config.scrobblers.listenbrainz && config.scrobblers.listenbrainz.enabled) {
+      this.enabledScrobblers.set('listenbrainz', new ListenbrainzScrobbler());
+    } else {
+      this.enabledScrobblers.delete('listenbrainz');
     }
-  }
-}
+  },
 
-let config: ScrobblerPluginConfig;
+  async start({
+    getConfig,
+    setConfig,
+  }) {
+    const config = this.config = await getConfig();
+    // This will store the timeout that will trigger addScrobble
+    let scrobbleTimer: NodeJS.Timeout | undefined;
 
-export async function onMainLoad({
-  getConfig,
-  setConfig,
-}: BackendContext<ScrobblerPluginConfig>){
-  config = await getConfig();
-  // This will store the timeout that will trigger addScrobble
-  let scrobbleTimer: number | undefined;
-
-  toggleScrobblers(config);
-  if (config.scrobblers.lastfm && !config.scrobblers.lastfm.session_key) {
-    await enabledScrobblers["lastfm"]?.createSession(config, setConfig);
-  }
-
-  registerCallback((songInfo: SongInfo) => {
-    // Set remove the old scrobble timer
-    clearTimeout(scrobbleTimer);
-    if (!songInfo.isPaused) {
-      // Scrobble when the song is halfway through, or has passed the 4-minute mark
-      const scrobbleTime = Math.min(Math.ceil(songInfo.songDuration / 2), 4 * 60);
-      if (scrobbleTime > (songInfo.elapsedSeconds ?? 0)) {
-        // Scrobble still needs to happen
-        const timeToWait = (scrobbleTime - (songInfo.elapsedSeconds ?? 0)) * 1000;
-        scrobbleTimer = setTimeout(() => {
-          forEachScrobbler((scrobbler) => scrobbler.addScrobble(songInfo, config, setConfig));
-        }, timeToWait, songInfo, config);
+    this.toggleScrobblers(config);
+    for (const [, scrobbler] of this.enabledScrobblers) {
+      if (!scrobbler.isSessionCreated(config)) {
+        await scrobbler.createSession(config, setConfig);
       }
-
-      forEachScrobbler((scrobbler) => scrobbler.setNowPlaying(songInfo, config, setConfig));
     }
-  });
-}
 
-export function onConfigChange(newConfig: ScrobblerPluginConfig) {
-  unloadScrobblers();
+    registerCallback((songInfo: SongInfo) => {
+      // Set remove the old scrobble timer
+      clearTimeout(scrobbleTimer);
+      if (!songInfo.isPaused) {
+        const configNonnull = this.config!;
+        // Scrobble when the song is halfway through, or has passed the 4-minute mark
+        const scrobbleTime = Math.min(Math.ceil(songInfo.songDuration / 2), 4 * 60);
+        if (scrobbleTime > (songInfo.elapsedSeconds ?? 0)) {
+          // Scrobble still needs to happen
+          const timeToWait = (scrobbleTime - (songInfo.elapsedSeconds ?? 0)) * 1000;
+          scrobbleTimer = setTimeout((info, config) => {
+            this.enabledScrobblers.forEach((scrobbler) => scrobbler.addScrobble(info, config, setConfig));
+          }, timeToWait, songInfo, configNonnull);
+        }
 
-  config = newConfig;
-  if (!config.scrobblers.lastfm && !config.scrobblers.listenbrainz) {
-    config.enabled = true;
-    setOptions('scrobbler', config);
+        this.enabledScrobblers.forEach((scrobbler) => scrobbler.setNowPlaying(songInfo, configNonnull, setConfig));
+      }
+    });
+  },
+
+  onConfigChange(newConfig: ScrobblerPluginConfig) {
+    this.enabledScrobblers.clear();
+
+    this.config = newConfig;
+
+    this.toggleScrobblers(this.config);
   }
-
-  toggleScrobblers(config);
-}
+});
 
