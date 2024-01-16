@@ -14,19 +14,19 @@ import type { MenuTemplate } from '@/menu';
 async function promptLastFmOptions(options: ScrobblerPluginConfig, setConfig: SetConfType, window: BrowserWindow) {
   const output = await prompt(
     {
-      title: t('plugins.scrobbler.menu.lastfm.api_settings'),
-      label: t('plugins.scrobbler.menu.lastfm.api_settings'),
+      title: t('plugins.scrobbler.menu.lastfm.api-settings'),
+      label: t('plugins.scrobbler.menu.lastfm.api-settings'),
       type: 'multiInput',
       multiInputOptions: [
         {
-          label: t('plugins.scrobbler.prompt.lastfm.api_key'),
+          label: t('plugins.scrobbler.prompt.lastfm.api-key'),
           value: options.scrobblers.lastfm?.api_key,
           inputAttrs: {
             type: 'text'
           }
         },
         {
-          label: t('plugins.scrobbler.prompt.lastfm.api_secret'),
+          label: t('plugins.scrobbler.prompt.lastfm.api-secret'),
           value: options.scrobblers.lastfm?.secret,
           inputAttrs: {
             type: 'text'
@@ -93,7 +93,7 @@ export const onMenu = async ({
           },
         },
         {
-          label: t('plugins.scrobbler.menu.lastfm.api_settings'),
+          label: t('plugins.scrobbler.menu.lastfm.api-settings'),
           click() {
             promptLastFmOptions(config, setConfig, window);
           },

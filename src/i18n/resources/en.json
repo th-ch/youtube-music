@@ -573,7 +573,7 @@
       "description": "Add scrobbling support (etc. last.fm, Listenbrainz)",
       "menu": {
         "lastfm": {
-          "api_settings": "Last.fm API Settings"
+          "api-settings": "Last.fm API Settings"
         },
         "listenbrainz": {
           "token": "Enter ListenBrainz user token"
@@ -582,8 +582,8 @@
       "name": "Scrobbler",
       "prompt": {
         "lastfm": {
-          "api_key": "Last.fm API key",
-          "api_secret": "Last.fm API secret"
+          "api-key": "Last.fm API key",
+          "api-secret": "Last.fm API secret"
         },
         "listenbrainz": {
           "token": {

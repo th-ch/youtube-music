@@ -573,7 +573,7 @@
       "description": "스크로블링 지원을 추가합니다 (예: last.fm, Listenbrainz)",
       "menu": {
         "lastfm": {
-          "api_settings": "Last.fm API 설정"
+          "api-settings": "Last.fm API 설정"
         },
         "listenbrainz": {
           "token": "ListenBrainz 유저 토큰 입력"
@@ -582,8 +582,8 @@
       "name": "스크로블러",
       "prompt": {
         "lastfm": {
-          "api_key": "Last.fm API 키",
-          "api_secret": "Last.fm API 비밀 키"
+          "api-key": "Last.fm API 키",
+          "api-secret": "Last.fm API 비밀 키"
         },
         "listenbrainz": {
           "token": {
