@@ -29,6 +29,8 @@ export default (
   const sendNotification = (songInfo: SongInfo) => {
     const iconSrc = notificationImage(songInfo, config());
 
+    savedNotification?.close();
+
     let icon: string;
     if (typeof iconSrc === 'object') {
       icon = iconSrc.toDataURL();
