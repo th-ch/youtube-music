@@ -1,11 +1,4 @@
 {
-  "common": {
-    "console": {
-      "plugins": {
-        "execute-failed": "{{pluginName}}::{{contextName}} נכשל ליצוא פלגין"
-      }
-    }
-  },
   "language": {
     "code": "th",
     "local-name": "ภาษาไทย",

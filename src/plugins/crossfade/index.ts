@@ -26,8 +26,8 @@ export default createPlugin<
   unknown,
   unknown,
   {
-    config?: CrossfadePluginConfig;
-    ipc?: RendererContext<CrossfadePluginConfig>['ipc'];
+    config: CrossfadePluginConfig | null;
+    ipc: RendererContext<CrossfadePluginConfig>['ipc'] | null;
   },
   CrossfadePluginConfig
 >({
@@ -178,8 +178,10 @@ export default createPlugin<
   },
 
   renderer: {
-    async start({ ipc, getConfig }) {
-      this.config = await getConfig();
+    config: null,
+    ipc: null,
+
+    start({ ipc }) {
       this.ipc = ipc;
     },
     onConfigChange(newConfig) {
@@ -269,7 +271,7 @@ export default createPlugin<
         const transitionBeforeEnd = () => {
           if (
             video.currentTime >=
-              video.duration - (this.config?.secondsBeforeEnd ?? 0) &&
+              video.duration - this.config!.secondsBeforeEnd &&
             isReadyToCrossfade()
           ) {
             video.removeEventListener('timeupdate', transitionBeforeEnd);

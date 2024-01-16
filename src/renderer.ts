@@ -37,41 +37,8 @@ interface YouTubeMusicAppElement extends HTMLElement {
 }
 
 async function onApiLoaded() {
-  window.ipcRenderer.on('ytmd:previous-video', () => {
-    document.querySelector<HTMLElement>('.previous-button.ytmusic-player-bar')?.click();
-  });
-  window.ipcRenderer.on('ytmd:next-video', () => {
-    document.querySelector<HTMLElement>('.next-button.ytmusic-player-bar')?.click();
-  });
-  window.ipcRenderer.on('ytmd:toggle-play', (_) => {
-    if (api?.getPlayerState() === 2) api?.playVideo();
-    else api?.pauseVideo();
-  });
   window.ipcRenderer.on('ytmd:seek-to', (_, t: number) => api!.seekTo(t));
   window.ipcRenderer.on('ytmd:seek-by', (_, t: number) => api!.seekBy(t));
-  window.ipcRenderer.on('ytmd:shuffle', () => {
-    document.querySelector<HTMLElement & { queue: { shuffle: () => void } }>('ytmusic-player-bar')?.queue.shuffle();
-  });
-  window.ipcRenderer.on('ytmd:update-like', (_, status: 'LIKE' | 'DISLIKE' = 'LIKE') => {
-    document.querySelector<HTMLElement & { updateLikeStatus: (status: string) => void }>('#like-button-renderer')?.updateLikeStatus(status);
-  });
-  window.ipcRenderer.on('ytmd:switch-repeat', (_, repeat = 1) => {
-    for (let i = 0; i < repeat; i++) {
-      document.querySelector<HTMLElement & { onRepeatButtonTap: () => void }>('ytmusic-player-bar')?.onRepeatButtonTap();
-    }
-  });
-  window.ipcRenderer.on('ytmd:update-volume', (_, volume: number) => {
-    document.querySelector<HTMLElement & { updateVolume: (volume: number) => void }>('ytmusic-player-bar')?.updateVolume(volume);
-  });
-  window.ipcRenderer.on('ytmd:get-volume', (event) => {
-    event.sender.emit('ytmd:get-volume-return', api?.getVolume());
-  });
-  window.ipcRenderer.on('ytmd:toggle-fullscreen', (_) => {
-    document.querySelector<HTMLElement & { toggleFullscreen: () => void }>('ytmusic-player-bar')?.toggleFullscreen();
-  });
-  window.ipcRenderer.on('ytmd:toggle-mute', (_) => {
-    document.querySelector<HTMLElement & { onVolumeTap: () => void }>('ytmusic-player-bar')?.onVolumeTap();
-  });
 
   const video = document.querySelector('video')!;
   const audioContext = new AudioContext();

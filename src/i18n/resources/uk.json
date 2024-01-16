@@ -417,6 +417,10 @@
       },
       "name": "Меню в програмі"
     },
+    "last-fm": {
+      "description": "Додати підтримку скроблінгу для Last.fm",
+      "name": "Last.fm"
+    },
     "lumiastream": {
       "description": "Додано підтримку для Lumia Stream",
       "name": "Lumia Stream [Бета]"

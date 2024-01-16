@@ -10,7 +10,10 @@ import type { VideoDataChanged } from '@/types/video-data-changed';
 let songInfo: SongInfo = {} as SongInfo;
 export const getSongInfo = () => songInfo;
 
-window.ipcRenderer.on('ytmd:update-song-info', (_, extractedSongInfo: SongInfo) => {
+const $ = <E extends Element = Element>(s: string): E | null =>
+  document.querySelector<E>(s);
+
+window.ipcRenderer.on('update-song-info', (_, extractedSongInfo: SongInfo) => {
   songInfo = extractedSongInfo;
 });
 
@@ -18,7 +21,7 @@ window.ipcRenderer.on('ytmd:update-song-info', (_, extractedSongInfo: SongInfo) 
 const srcChangedEvent = new CustomEvent('ytmd:src-changed');
 
 export const setupSeekedListener = singleton(() => {
-  document.querySelector('video')?.addEventListener('seeked', (v) => {
+  $('video')?.addEventListener('seeked', (v) => {
     if (v.target instanceof HTMLVideoElement) {
       window.ipcRenderer.send('ytmd:seeked', v.target.currentTime);
     }
@@ -33,7 +36,7 @@ export const setupTimeChangedListener = singleton(() => {
       songInfo.elapsedSeconds = Number(target.value);
     }
   });
-  const progressBar = document.querySelector('#progress-bar');
+  const progressBar = $('#progress-bar');
   if (progressBar) {
     progressObserver.observe(progressBar, { attributeFilter: ['value'] });
   }
@@ -53,7 +56,7 @@ export const setupRepeatChangedListener = singleton(() => {
       ).__dataHost.getState().queue.repeatMode,
     );
   });
-  repeatObserver.observe(document.querySelector('#right-controls .repeat')!, {
+  repeatObserver.observe($('#right-controls .repeat')!, {
     attributeFilter: ['title'],
   });
 
@@ -61,7 +64,7 @@ export const setupRepeatChangedListener = singleton(() => {
   // provided by YouTube Music
   window.ipcRenderer.send(
     'ytmd:repeat-changed',
-    document.querySelector<
+    $<
       HTMLElement & {
         getState: () => GetState;
       }
@@ -70,7 +73,7 @@ export const setupRepeatChangedListener = singleton(() => {
 });
 
 export const setupVolumeChangedListener = singleton((api: YoutubePlayer) => {
-  document.querySelector('video')?.addEventListener('volumechange', () => {
+  $('video')?.addEventListener('volumechange', () => {
     window.ipcRenderer.send('ytmd:volume-changed', api.getVolume());
   });
   // Emit the initial value as well; as it's persistent between launches.
@@ -131,7 +134,7 @@ export default (api: YoutubePlayer) => {
       waitingEvent.delete(videoData.videoId);
       sendSongInfo(videoData);
     } else if (name === 'dataloaded') {
-      const video = document.querySelector<HTMLVideoElement>('video');
+      const video = $<HTMLVideoElement>('video');
       video?.dispatchEvent(srcChangedEvent);
 
       for (const status of ['playing', 'pause'] as const) {
@@ -143,12 +146,9 @@ export default (api: YoutubePlayer) => {
     }
   });
 
-  const video = document.querySelector('video');
-
-  if (video) {
-    for (const status of ['playing', 'pause'] as const) {
-      video.addEventListener(status, playPausedHandlers[status]);
-    }
+  const video = $('video')!;
+  for (const status of ['playing', 'pause'] as const) {
+    video.addEventListener(status, playPausedHandlers[status]);
   }
 
   function sendSongInfo(videoData: VideoDataChangeValue) {

@@ -204,18 +204,18 @@
       "menu": {
         "blocker": "Bloqueador"
       },
-      "name": "Bloqueador de anuncios"
+      "name": "Adblocker"
     },
     "album-actions": {
-      "description": "Añade los botones \"No me gusta\", \"No me gusta\", \"Me gusta\" y \"No me gusta\" para aplicarlos a todas las canciones de una lista de reproducción o un álbum",
-      "name": "Acciones en el álbum"
+      "description": "Añade los botones \"No me gusta\", \"No me gusta\", \"Me gusta\" y \"No me gusta\" para aplicarlos a todas las canciones de una lista de reproducción o un álbum.",
+      "name": "Acciones del álbum"
     },
     "album-color-theme": {
       "description": "Aplica un tema dinámico y efectos visuales basados en la paleta de colores del álbum",
       "name": "Color del álbum"
     },
     "ambient-mode": {
-      "description": "Aplica un efecto de iluminación mediante la proyección de colores suaves del vídeo en el fondo de la pantalla",
+      "description": "Aplica un efecto de iluminación proyectando colores suaves del vídeo en el fondo de la pantalla.",
       "menu": {
         "blur-amount": {
           "label": "Cantidad de desenfoque",
@@ -417,6 +417,10 @@
       },
       "name": "Menú de aplicación"
     },
+    "last-fm": {
+      "description": "Añade soporte de scrobbling para Last.fm",
+      "name": "Last.fm"
+    },
     "lumiastream": {
       "description": "Agrega soporte para Lumia Stream",
       "name": "Lumia Stream [Beta]"
@@ -570,7 +574,7 @@
       "name": "Ajustador de calidad de vídeo"
     },
     "shortcuts": {
-      "description": "Permite configurar teclas de acceso rápido globales para la reproducción (reproducir/pausa/siguiente/anterior) y desactivar la OSD multimedia anulando las teclas multimedia, activar Ctrl/CMD + F para buscar, activar la compatibilidad con MPRIS de Linux para las teclas multimedia y teclas de acceso rápido personalizadas para usuarios avanzados",
+      "description": "Permite configurar teclas de acceso rápido globales para la reproducción (reproducir/pausa/siguiente/anterior) y desactivar el OSD multimedia anulando las teclas multimedia, activar Ctrl/CMD + F para buscar, activar la compatibilidad con MPRIS de Linux para las teclas multimedia y teclas de acceso rápido personalizadas para usuarios avanzados.",
       "menu": {
         "override-media-keys": "Anular teclas de medios",
         "set-keybinds": "Configurar controles globales de canciones"

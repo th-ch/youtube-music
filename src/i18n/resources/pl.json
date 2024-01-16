@@ -170,8 +170,7 @@
       },
       "plugins": {
         "enabled": "Włączone",
-        "label": "Wtyczki",
-        "new": "NOWOŚĆ"
+        "label": "Wtyczki"
       },
       "view": {
         "label": "Widok",
@@ -191,11 +190,7 @@
       "previous": "Poprzedni",
       "quit": "Wyjdź",
       "restart": "Uruchom ponownie aplikację",
-      "show": "Pokaż okno",
-      "tooltip": {
-        "default": "YouTube Music",
-        "with-song-info": "{{title}} (autorstwa {{artist}}) - YT Music"
-      }
+      "show": "Pokaż okno"
     }
   },
   "plugins": {
@@ -206,16 +201,12 @@
       },
       "name": "Blokowanie reklam"
     },
-    "album-actions": {
-      "description": "Dodaje przyciski łapek w górę i dół do wszystkich piosenek podczas w albumach lub listach odtwarzania",
-      "name": "Akcje albumu"
-    },
     "album-color-theme": {
       "description": "Stosuje dynamiczny motyw i efekty wizualne w oparciu o paletę kolorów albumu",
       "name": "Motyw kolorów albumu"
     },
     "ambient-mode": {
-      "description": "Stosuje efekt świetlny, rzucając delikatne kolory z wideo na tło ekranu",
+      "description": "Stosuje efekt świetlny, rzucając delikatne kolory z wideo na tło ekranu.",
       "menu": {
         "blur-amount": {
           "label": "Ilość rozmycia",
@@ -298,7 +289,7 @@
       "menu": {
         "advanced": "Zaawansowane"
       },
-      "name": "Płynne przejście [Beta]",
+      "name": "Przenikanie [Beta]",
       "prompt": {
         "options": {
           "multi-input": {
@@ -417,6 +408,10 @@
       },
       "name": "Menu w aplikacji"
     },
+    "last-fm": {
+      "description": "Dodanie obsługi scrobblingu dla Last.fm",
+      "name": "Last.fm"
+    },
     "lumiastream": {
       "description": "Dodaje obsługę Lumia Stream",
       "name": "Lumia Stream [Beta]"
@@ -429,52 +424,6 @@
       "name": "Tekst piosenek od Genius",
       "renderer": {
         "fetched-lyrics": "Tekst dostarczony przez Genius"
-      }
-    },
-    "music-together": {
-      "description": "Pozwala na udostępnianie listy odtwarzania w taki sposób, że osoby po wejściu w link słuchają tego samego utworu co host (jeżeli słucha jej z owej listy odtwarzania)",
-      "dialog": {
-        "enter-host": "Wpisz ID hosta"
-      },
-      "internal": {
-        "save": "Zapisz",
-        "track-source": "Źródło utworu",
-        "unknown-user": "Nieznany użytkownik"
-      },
-      "menu": {
-        "click-to-copy-id": "Kopiuj ID hosta",
-        "close": "Zakończ host",
-        "connected-users": "Połączeni użytkownicy",
-        "disconnect": "Rozłącz z hosta",
-        "empty-user": "Brak połączonych użytkowników",
-        "host": "Host słuchania razem",
-        "join": "Połącz z hostem",
-        "permission": {
-          "all": "Połączeni użytkownicy mają kontrolę nad listą odtwarzania oraz playerem",
-          "host-only": "Tylko host może kontrolować listę odtwarzania oraz playera",
-          "playlist": "Połączeni użytkownicy maja kontrolę tylko nad listą odtwarzania"
-        },
-        "set-permission": "Zmień permisję kontroli",
-        "status": {
-          "disconnected": "Rozłączony",
-          "guest": "Połączony jako Użytkownik",
-          "host": "Połączony jako Host"
-        }
-      },
-      "name": "Słuchanie razem [Beta]",
-      "toast": {
-        "add-song-failed": "Wystąpił błąd z dodaniem muzyki",
-        "closed": "Host słuchania razem został zamknięty pomyślnie",
-        "disconnected": "Pomyślnie rozłączono z hosta słuchania razem",
-        "host-failed": "Wystąpił błąd z hostem słuchania razem",
-        "id-copied": "ID hosta został wklejony do schowka",
-        "id-copy-failed": "Wystąpił błąd z próbą skopiowania ID do schowka",
-        "join-failed": "Wystąpił błąd z dołączeniem do hosta",
-        "joined": "Dołączono pomyślnie do hosta słuchania razem",
-        "permission-changed": "Permisja hosta została zmieniona na \"{{permission}}\"",
-        "remove-song-failed": "Wystąpił błąd z usunięciem utworu",
-        "user-connected": "Do hosta dołączył {{name}}",
-        "user-disconnected": "{{name}} właśnie wyszedł z hosta"
       }
     },
     "navigation": {
@@ -570,7 +519,7 @@
       "name": "Zmieniacz jakości wideo"
     },
     "shortcuts": {
-      "description": "Umożliwia ustawienie globalnych skrótów klawiszowych do odtwarzania (odtwarzanie/pauza/następny/poprzedni) + wyłączanie OSD multimediów poprzez zastąpienie klawiszy multimediów, włączając kombinację klawiszy Ctrl/CMD + F w celu wyszukiwania, obsługę Linux MPRIS dla klawiszy multimediów oraz niestandardowe skróty klawiszowe dla zaawansowanych użytkowników",
+      "description": "Umożliwia ustawienie globalnych skrótów klawiszowych do odtwarzania (odtwarzanie/pauza/następny/poprzedni) + wyłączanie OSD multimediów poprzez zastąpienie klawiszy multimediów, włączając kombinację klawiszy Ctrl/CMD + F w celu wyszukiwania, obsługę Linux MPRIS dla klawiszy multimediów oraz niestandardowe skróty klawiszowe dla zaawansowanych użytkowników.",
       "menu": {
         "override-media-keys": "Zastąp klawisze multimediów",
         "set-keybinds": "Ustaw globalne sterowanie utworem"

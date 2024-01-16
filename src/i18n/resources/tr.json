@@ -417,6 +417,10 @@
       },
       "name": "Uygulama İçi Menü"
     },
+    "last-fm": {
+      "description": "Last.fm için scrobbling desteği ekler",
+      "name": "Last.fm"
+    },
     "lumiastream": {
       "description": "Lumia Stream desteği ekler",
       "name": "Lumia Stream [Beta]"

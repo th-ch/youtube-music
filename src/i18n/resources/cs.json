@@ -407,6 +407,10 @@
         "hide-dom-window-controls": "Skrýt DOM window controls"
       }
     },
+    "last-fm": {
+      "description": "Přidat scrobbling podporu pro Last.fm",
+      "name": "Last.fm"
+    },
     "lumiastream": {
       "description": "Přidává Lumia Stream podporu",
       "name": "Lumia Stream [Beta]"

@@ -17,21 +17,5 @@
     "code": "id",
     "local-name": "Bahasa Indonesia",
     "name": "Indonesian"
-  },
-  "main": {
-    "console": {
-      "did-finish-load": {
-        "dev-tools": "Selesai memuat. DevTools dibuka"
-      },
-      "i18n": {
-        "loaded": "i18n selesai dimuat"
-      },
-      "second-instance": {
-        "receive-command": "Menerima instruksi lewat protokol: \"{{command}}\""
-      },
-      "theme": {
-        "css-file-not-found": "CSS file \"{{cssFile}}\" tidak ada, mengabaikan"
-      }
-    }
   }
 }

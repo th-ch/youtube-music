@@ -199,6 +199,9 @@
         "button": "Download"
       }
     },
+    "last-fm": {
+      "name": "Last.fm"
+    },
     "navigation": {
       "name": "Navigation"
     },
