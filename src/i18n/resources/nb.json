@@ -406,10 +406,6 @@
       },
       "name": "Meny i programmet"
     },
-    "last-fm": {
-      "description": "Legg til lyttestatistikkstøtte for Last.fm",
-      "name": "Last.fm"
-    },
     "lumiastream": {
       "description": "Legger til Lumia Stream-støtte",
       "name": "Lumia Stream [Beta]"

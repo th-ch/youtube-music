@@ -417,10 +417,6 @@
       },
       "name": "Меню в приложении"
     },
-    "last-fm": {
-      "description": "Добавить сбор информации (скробблинг) для Last.fm",
-      "name": "Last.fm"
-    },
     "lumiastream": {
       "description": "Добавляет поддержку Lumia Stream",
       "name": "Lumia Stream [бета]"
