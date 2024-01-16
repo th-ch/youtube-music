@@ -29,8 +29,6 @@ export default (
   const sendNotification = (songInfo: SongInfo) => {
     const iconSrc = notificationImage(songInfo, config());
 
-    savedNotification?.close();
-
     let icon: string;
     if (typeof iconSrc === 'object') {
       icon = iconSrc.toDataURL();
@@ -49,6 +47,9 @@ export default (
       // https://learn.microsoft.com/en-us/uwp/api/windows.ui.notifications.toasttemplatetype
       toastXml: getXml(songInfo, icon),
     });
+
+    // To fix the notification not closing
+    setTimeout(() => savedNotification?.close(), 5000);
 
     savedNotification.on('close', () => {
       savedNotification = undefined;
