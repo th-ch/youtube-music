@@ -150,8 +150,8 @@ dependencies:
 
 devDependencies:
   '@playwright/test':
-    specifier: 1.41.0-beta-1705101589000
-    version: 1.41.0-beta-1705101589000
+    specifier: 1.41.0
+    version: 1.41.0
   '@total-typescript/ts-reset':
     specifier: 0.5.1
     version: 0.5.1
@@ -222,8 +222,8 @@ devDependencies:
     specifier: 10.0.1
     version: 10.0.1
   playwright:
-    specifier: 1.41.0-beta-1705101589000
-    version: 1.41.0-beta-1705101589000
+    specifier: 1.41.0
+    version: 1.41.0
   rollup:
     specifier: 4.9.5
     version: 4.9.5
@@ -1088,12 +1088,12 @@ packages:
     engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
     dev: true
 
-  /@playwright/test@1.41.0-beta-1705101589000:
-    resolution: {integrity: sha512-tpaEm+ih0PhJdk6yrRtk40I9ahErhGYZT2lR65ZZ6Il7tMnUgzxF5OOw3XLGJ59T29nMyI1+hKGqQnf8nUKkQw==}
+  /@playwright/test@1.41.0:
+    resolution: {integrity: sha512-Grvzj841THwtpBOrfiHOeYTJQxDRnKofMSzCiV8XeyLWu3o89qftQ4BCKfkziJhSUQRd0utKhrddtIsiraIwmw==}
     engines: {node: '>=16'}
     hasBin: true
     dependencies:
-      playwright: 1.41.0-beta-1705101589000
+      playwright: 1.41.0
     dev: true
 
   /@polka/url@1.0.0-next.24:
@@ -5229,18 +5229,18 @@ packages:
       find-up: 3.0.0
     dev: false
 
-  /playwright-core@1.41.0-beta-1705101589000:
-    resolution: {integrity: sha512-w3aDw2Kp/ZwAUSqLZdmd+mq6khl3ufb2csM51b85r9t8S4m2JYoz1WHFNGNHqFWHBXSrjSBXzFLNgKUmwizRuA==}
+  /playwright-core@1.41.0:
+    resolution: {integrity: sha512-UGKASUhXmvqm2Lxa1fNr8sFwAtqjpgBRr9jQ7XBI8Rn5uFiEowGUGwrruUQsVPIom4bk7Lt+oLGpXobnXzrBIw==}
     engines: {node: '>=16'}
     hasBin: true
     dev: true
 
-  /playwright@1.41.0-beta-1705101589000:
-    resolution: {integrity: sha512-3mMpZXmkw+fGIb+wBpvDZ4OEm7L1QYptgJgTdP8/OEitYjV5Q05MRZWbgelF/9ameoRpMz7rbkZTWUh/1UtrIw==}
+  /playwright@1.41.0:
+    resolution: {integrity: sha512-XOsfl5ZtAik/T9oek4V0jAypNlaCNzuKOwVhqhgYT3os6kH34PzbRb74F0VWcLYa5WFdnmxl7qyAHBXvPv7lqQ==}
     engines: {node: '>=16'}
     hasBin: true
     dependencies:
-      playwright-core: 1.41.0-beta-1705101589000
+      playwright-core: 1.41.0
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
