@@ -74,22 +74,23 @@ function memoize<T extends (...params: unknown[]) => unknown>(fn: T): T {
   }) as T;
 }
 
-function retry<T extends (...params: unknown[]) => unknown>(
+function retry<T extends (...params: unknown[]) => Promise<unknown>>(
   fn: T,
   { retries = 3, delay = 1000 } = {},
-): T {
-  return ((...args) => {
-    try {
-      return fn(...args);
-    } catch (error) {
-      if (retries > 0) {
+) {
+  return async (...args: unknown[]) => {
+    let latestError: unknown;
+    while (retries > 0) {
+      try {
+        return await fn(...args);
+      } catch (error) {
         retries--;
-        setTimeout(() => retry(fn, { retries, delay })(...args), delay);
-      } else {
-        throw error;
+        await new Promise((resolve) => setTimeout(resolve, delay));
+        latestError = error;
       }
     }
-  }) as T;
+    throw latestError;
+  };
 }
 
 export default {
