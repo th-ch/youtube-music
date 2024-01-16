@@ -138,7 +138,7 @@ const suffixesToRemove = [
   ' - topic',
   'vevo',
   ' (performance video)',
-  ' (clip officiel)',
+  ' (clip official)',
 ];
 
 export function cleanupName(name: string): string {
