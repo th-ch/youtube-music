@@ -32,11 +32,9 @@ const migrations = {
         };
       };
 
-      if (lastfmConfig) {
-        scrobblerConfig.enabled = lastfmConfig.enabled;
-        scrobblerConfig.scrobblers.lastfm = lastfmConfig;
-        store.set('plugins.scrobbler', scrobblerConfig);
-      }
+      scrobblerConfig.enabled = lastfmConfig.enabled;
+      scrobblerConfig.scrobblers.lastfm = lastfmConfig;
+      store.set('plugins.scrobbler', scrobblerConfig);
     }
   },
   '>=3.0.0'(store: Conf<Record<string, unknown>>) {
