@@ -93,11 +93,11 @@ const handleData = async (
 
 // This variable will be filled with the callbacks once they register
 export type SongInfoCallback = (songInfo: SongInfo, event?: string) => void;
-const callbacks: SongInfoCallback[] = [];
+const callbacks: Set<SongInfoCallback> = new Set();
 
 // This function will allow plugins to register callback that will be triggered when data changes
 const registerCallback = (callback: SongInfoCallback) => {
-  callbacks.push(callback);
+  callbacks.add(callback);
 };
 
 let handlingData = false;
