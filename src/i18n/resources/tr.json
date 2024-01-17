@@ -207,7 +207,7 @@
       "name": "Reklam Engelleyici"
     },
     "album-actions": {
-      "description": "Çalma listesindeki veya albümdeki tüm şarkılara Beğendim ve Beğenmedim düğmeleri ekler.",
+      "description": "Çalma listesindeki veya albümdeki tüm şarkılara Beğendim ve Beğenmedim düğmeleri ekler",
       "name": "Albüm Eylemleri"
     },
     "album-color-theme": {
@@ -215,7 +215,7 @@
       "name": "Albüm Renk Teması"
     },
     "ambient-mode": {
-      "description": "Videodaki yumuşak renkleri ekranınızın arka planına yansıtarak bir ışık efekti uygular..",
+      "description": "Videodaki yumuşak renkleri ekranınızın arka planına yansıtarak bir ışık efekti uygular",
       "menu": {
         "blur-amount": {
           "label": "Bulanıklık miktarı",
@@ -569,8 +569,32 @@
       "description": "Video katmanı üzerindeki bir düğme ile video kalitesinin değiştirilmesine izin verir",
       "name": "Video Kalitesi Değiştirici"
     },
+    "scrobbler": {
+      "description": "Scrobbling desteği ekler (lastfm, listenbrainz ve benzeri)",
+      "menu": {
+        "lastfm": {
+          "api-settings": "Last.fm API Ayarları"
+        },
+        "listenbrainz": {
+          "token": "ListenBrainz kullanıcı tokeninizi girin"
+        }
+      },
+      "name": "Scrobbler",
+      "prompt": {
+        "lastfm": {
+          "api-key": "Last.fm API anahtarı",
+          "api-secret": "Last.fm API gizli anahtar"
+        },
+        "listenbrainz": {
+          "token": {
+            "label": "ListenBrainz kullanıcı tokeninizi girin:",
+            "title": "ListenBrainz token"
+          }
+        }
+      }
+    },
     "shortcuts": {
-      "description": "Oynatma için global kısayol tuşları (oynat/duraklat/sonraki/önceki) ayarlamaya ve medya tuşlarını geçersiz kılarak medya OSD'sini kapatmaya, arama yapmak için Ctrl/CMD + F tuşlarını açmaya, medya tuşları için Linux MPRIS desteğini açmaya ve ileri düzey kullanıcılar için özel kısayol tuşlarına izin verir.",
+      "description": "Oynatma için global kısayol tuşları (oynat/duraklat/sonraki/önceki) ayarlamaya ve medya tuşlarını geçersiz kılarak medya OSD'sini kapatmaya, arama yapmak için Ctrl/CMD + F tuşlarını açmaya, medya tuşları için Linux MPRIS desteğini açmaya ve ileri düzey kullanıcılar için özel kısayol tuşlarına izin verir",
       "menu": {
         "override-media-keys": "Medya Tuşlarını Geçersiz Kıl",
         "set-keybinds": "Global Şarkı Kontrollerini Ayarla"
