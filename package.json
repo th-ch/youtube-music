@@ -146,7 +146,7 @@
     "@jellybrick/electron-better-web-request": "1.0.4",
     "@jellybrick/mpris-service": "2.1.4",
     "@xhayper/discord-rpc": "1.1.2",
-    "async-mutex": "0.4.0",
+    "async-mutex": "0.4.1",
     "butterchurn": "3.0.0-beta.4",
     "butterchurn-presets": "3.0.0-beta.4",
     "color": "4.2.3",

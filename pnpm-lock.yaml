@@ -52,8 +52,8 @@ dependencies:
     specifier: 1.1.2
     version: 1.1.2(patch_hash=7eeaht6k4r7cw3nunras7mx7iu)
   async-mutex:
-    specifier: 0.4.0
-    version: 0.4.0
+    specifier: 0.4.1
+    version: 0.4.1
   butterchurn:
     specifier: 3.0.0-beta.4
     version: 3.0.0-beta.4
@@ -1912,8 +1912,8 @@ packages:
     engines: {node: '>=0.12.0'}
     dev: true
 
-  /async-mutex@0.4.0:
-    resolution: {integrity: sha512-eJFZ1YhRR8UN8eBLoNzcDPcy/jqjsg6I1AP+KvWQX80BqOSW1oJPJXDylPUEeMr2ZQvHgnQ//Lp6f3RQ1zI7HA==}
+  /async-mutex@0.4.1:
+    resolution: {integrity: sha512-WfoBo4E/TbCX1G95XTjbWTE3X2XLG0m1Xbv2cwOtuPdyH9CZvnaA5nCt1ucjaKEgW2A5IF71hxrRhr83Je5xjA==}
     dependencies:
       tslib: 2.6.2
     dev: false
