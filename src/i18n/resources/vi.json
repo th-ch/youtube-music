@@ -188,9 +188,128 @@
       "next": "Tiếp theo",
       "play-pause": "Phát/Tạm Dừng",
       "previous": "Trước",
+      "quit": "Thoát",
+      "restart": "Khởi động lại ứng dụng",
+      "show": "Hiện cửa sổ",
       "tooltip": {
         "default": "YouTube Music",
         "with-song-info": "YouTube Music: {{artist}} - {{title}}"
+      }
+    }
+  },
+  "plugins": {
+    "adblocker": {
+      "description": "Chặn toàn bộ quảng cáo và trình theo dõi",
+      "menu": {
+        "blocker": "Trình chặn"
+      },
+      "name": "Chặn quảng cáo"
+    },
+    "album-actions": {
+      "description": "Thêm nút hủy không thích, không thích, thích và không thích để áp dụng cho tất cả danh sách phát hoặc album",
+      "name": "Tác vụ với album"
+    },
+    "album-color-theme": {
+      "description": "Áp dụng chủ đề động và hiệu ứng hình ảnh dựa trên bảng màu của album",
+      "name": "Màu nền album"
+    },
+    "ambient-mode": {
+      "description": "Áp dụng hiệu ứng ánh sáng bằng cách truyền các màu nhẹ từ video vào nền màn hình của bạn",
+      "menu": {
+        "blur-amount": {
+          "label": "Lượng mờ",
+          "submenu": {
+            "pixels": "{{blurAmount}} điểm ảnh"
+          }
+        },
+        "buffer": {
+          "label": "Bộ đệm",
+          "submenu": {
+            "buffer": "{{buffer}}"
+          }
+        },
+        "opacity": {
+          "label": "Độ mờ",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "quality": {
+          "label": "Chất lượng",
+          "submenu": {
+            "pixels": "{{quality}} điểm ảnh"
+          }
+        },
+        "size": {
+          "label": "Kích thước",
+          "submenu": {
+            "percent": "{{size}}%"
+          }
+        },
+        "smoothness-transition": {
+          "label": "Độ mượt chuyển cảnh",
+          "submenu": {
+            "during": "Trong {{interpolationTime}} s"
+          }
+        },
+        "use-fullscreen": {
+          "label": "Dùng chế độ toàn màn hình"
+        }
+      },
+      "name": "Chế độ Môi trường xung quanh"
+    },
+    "audio-compressor": {
+      "description": "Áp dụng tính năng nén cho âm thanh (giảm âm lượng của phần to nhất của tín hiệu và tăng âm lượng của phần nhỏ nhất)",
+      "name": "Bộ nén âm thanh"
+    },
+    "blur-nav-bar": {
+      "description": "Làm mờ và trong suốt thanh điều hướng",
+      "name": "Thanh điều hướng mờ"
+    },
+    "bypass-age-restrictions": {
+      "description": "Bỏ qua xác minh độ tuổi của YouTube",
+      "name": "Bỏ qua hạn chế độ tuổi"
+    },
+    "captions-selector": {
+      "description": "Bộ lựa chọn phụ đề cho các bài hát trên Youtube Music",
+      "menu": {
+        "autoload": "Tự động chọn phụ đề vừa sử dụng",
+        "disable-captions": "Không có phụ đề đặt làm mặc định"
+      },
+      "name": "Bộ lựa chọn phụ đề",
+      "prompt": {
+        "selector": {
+          "label": "current caption language: {{language}}",
+          "none": "Không có",
+          "title": "Chọn ngôn ngữ phụ đề"
+        }
+      },
+      "templates": {
+        "title": "Mở lựa chọn phụ đề"
+      }
+    },
+    "compact-sidebar": {
+      "description": "Luôn đặt thanh bên cạnh ở chế độ thu gọn",
+      "name": "Thanh bên thu gọn"
+    },
+    "crossfade": {
+      "description": "Chuyển tiếp giữa các bài hát",
+      "menu": {
+        "advanced": "Nâng cao"
+      },
+      "name": "Xen kẽ [thử nghiệm]",
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "fade-in-duration": "Xuất hiện mờ dần trong khoảng thời gian (ms)",
+            "fade-out-duration": "Khoảng thời gian hoát ra mờ dần (ms)",
+            "fade-scaling": {
+              "label": "Làm mờ theo tỉ lệ",
+              "linear": "Trực tuyến",
+              "logarithmic": "Logarit"
+            }
+          }
+        }
       }
     }
   }
