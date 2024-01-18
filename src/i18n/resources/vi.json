@@ -30,7 +30,7 @@
         "receive-command": "Đã nhận được lệnh qua giao thức: \"{{command}}\""
       },
       "theme": {
-        "css-file-not-found": "Tệp tin CSS \"{{cssFile}}\"không tồn tại, bỏ qua..."
+        "css-file-not-found": "Tệp tin CSS \"{{cssFile}}\"không tồn tại, đang bỏ qua"
       },
       "unresponsive": {
         "details": "Lỗi không phản hồi!\n{{error}}"
@@ -71,7 +71,7 @@
         "buttons": {
           "disable": "Tắt cập nhật",
           "download": "Tải xuống",
-          "ok": "OK"
+          "ok": "Đồng ý"
         },
         "detail": "Đã có phiên bản mới hơn, bạn có thể tải xuống tại {{downloadLink}}",
         "message": "Đã có phiên bản mới",
@@ -85,6 +85,7 @@
         "submenu": {
           "copy-current-url": "Copy URL hiện tại",
           "go-back": "Quay lại",
+          "go-forward": "Tiến về trước",
           "quit": "Thoát",
           "restart": "Khởi động lại ứng dụng"
         }
@@ -169,7 +170,7 @@
       },
       "plugins": {
         "enabled": "Đã bật",
-        "label": "Trình cắm bổ sung",
+        "label": "Trình bổ sung",
         "new": "MỚI"
       },
       "view": {
@@ -177,7 +178,7 @@
         "submenu": {
           "force-reload": "Buộc tải lại",
           "reload": "Tải lại",
-          "reset-zoom": "Kích thước thực sự",
+          "reset-zoom": "Kích thước thực",
           "toggle-fullscreen": "Bật chế độ toàn màn hình",
           "zoom-in": "Phóng to",
           "zoom-out": "Thu nhỏ"
@@ -279,7 +280,7 @@
       "name": "Bộ lựa chọn phụ đề",
       "prompt": {
         "selector": {
-          "label": "current caption language: {{language}}",
+          "label": "Ngôn ngữ phụ đề hiện tại: {{language}}",
           "none": "Không có",
           "title": "Chọn ngôn ngữ phụ đề"
         }
@@ -307,10 +308,366 @@
               "label": "Làm mờ theo tỉ lệ",
               "linear": "Trực tuyến",
               "logarithmic": "Logarit"
-            }
+            },
+            "seconds-before-end": "Xen kẽ N giây trước khi kết thúc"
+          },
+          "title": "Tùy chọn xen kẽ"
+        }
+      }
+    },
+    "disable-autoplay": {
+      "description": "Bắt đầu bài hát khi ở chế độ \"tạm dừng\"",
+      "menu": {
+        "apply-once": "Áp dụng khi khởi động"
+      },
+      "name": "Tắt tự động phát"
+    },
+    "discord": {
+      "backend": {
+        "already-connected": "Đã cố gắng kết nối với kết nối khả dụng",
+        "connected": "Đã kết nối với Discord",
+        "disconnected": "Đã ngắt kết nối với Discord"
+      },
+      "description": "Cho bạn bè của bạn thấy những gì bạn nghe với Rich Presence",
+      "menu": {
+        "auto-reconnect": "Tự động kết nối lại",
+        "clear-activity": "Xoá hoạt động",
+        "clear-activity-after-timeout": "Xóa hoạt động sau khi hết thời gian chờ",
+        "connected": "Đã kết nối",
+        "disconnected": "Đã ngắt kết nối",
+        "hide-duration-left": "Ẩn thời lượng còn lại",
+        "hide-github-button": "Ẩn nút liên kết GitHub",
+        "play-on-youtube-music": "Phát trong Youtube Music",
+        "set-inactivity-timeout": "Đặt thời gian chờ không hoạt động"
+      },
+      "name": "Discord Rich Presence",
+      "prompt": {
+        "set-inactivity-timeout": {
+          "label": "Nhập thời gian chờ không hoạt động tính bằng giây:",
+          "title": "Đặt thời gian chờ không hoạt động"
+        }
+      }
+    },
+    "downloader": {
+      "backend": {
+        "dialog": {
+          "error": {
+            "buttons": {
+              "ok": "Đồng ý"
+            },
+            "message": "Argh! Xin lỗi, tải xuống thất bại…",
+            "title": "Lỗi khi tải xuống!"
+          },
+          "start-download-playlist": {
+            "buttons": {
+              "ok": "Đồng ý"
+            },
+            "detail": "({{playlistSize}} bài hát)",
+            "message": "Đang tải danh sách phát {{playlistTitle}}",
+            "title": "Đã bắt đầu tải xuống"
+          }
+        },
+        "feedback": {
+          "conversion-progress": "Chuyển đổi: {{percent}}%",
+          "converting": "Đang chuyển đổi…",
+          "done": "Đã xong: {{filePath}}",
+          "download-info": "Đang tải {{artist}} - {{title}} [{{videoId}}",
+          "download-progress": "Đang tải: {{percent}}%",
+          "downloading": "Đang tải…",
+          "downloading-counter": "Đang tải {{current}}/{{total}}…",
+          "downloading-playlist": "Đang tải danh sách phát \"{{playlistTitle}}\" - {{playlistSize}} bài hát ({{playlistId}})",
+          "error-while-downloading": "Lỗi tải xuống \"{{author}} - {{title}}\": {{error}}",
+          "folder-already-exists": "Thư mục {{playlistFolder}} đã tồn tại",
+          "getting-playlist-info": "Đang lấy thông tin danh sách phát…",
+          "loading": "Đang tải…",
+          "playlist-has-only-one-song": "Danh sách phát chỉ có một mục, tải trực tiếp",
+          "playlist-id-not-found": "Không tìm thấy ID danh sách phát",
+          "playlist-is-empty": "Danh sách phát trống",
+          "playlist-is-mix-or-private": "Lỗi lấy thông tin danh sách phát: đảm bảo danh sách phát không ở chế độ riêng tư hoặc là danh sách phát \"Dành cho bạn\"\n\n{{error}}",
+          "preparing-file": "Đang chuẩn bị thư mục…",
+          "saving": "Đang lưu…",
+          "trying-to-get-playlist-id": "Đang lấy ID danh sách phát: {{playlistId}}",
+          "video-id-not-found": "Không tìm thấy video",
+          "writing-id3": "Đang ghi thẻ ID3…"
+        }
+      },
+      "description": "Tải xuống MP3 / âm thanh nguồn trực tiếp từ giao diện",
+      "menu": {
+        "choose-download-folder": "Chọn thư mục tải xuống",
+        "download-playlist": "Tải danh sách phát",
+        "presets": "Cài đặt sẵn",
+        "skip-existing": "Bỏ qua các tập tin hiện có"
+      },
+      "name": "Trình tải xuống",
+      "renderer": {
+        "can-not-update-progress": "Không thể cập nhật tiến độ"
+      },
+      "templates": {
+        "button": "Tải xuống"
+      }
+    },
+    "exponential-volume": {
+      "description": "Làm cho thanh trượt âm lượng theo cấp số nhân để dễ dàng chọn âm lượng thấp hơn.",
+      "name": "Âm lượng theo cấp số nhân"
+    },
+    "in-app-menu": {
+      "description": "Mang lại cho thanh menu một giao diện lạ mắt, tối màu hoặc màu album",
+      "menu": {
+        "hide-dom-window-controls": "Ẩn cửa sổ điều khiển DOM"
+      },
+      "name": "Menu trong ứng dụng"
+    },
+    "lumiastream": {
+      "description": "Thêm hỗ trợ Lumia Stream",
+      "name": "Lumia Stream [Thử nghiệm]"
+    },
+    "lyrics-genius": {
+      "description": "Thêm hỗ trợ lời bài hát cho hầu hết các bài hát",
+      "menu": {
+        "romanized-lyrics": "Lời bài hát La Mã"
+      },
+      "name": "Lời bài hát từ Genius",
+      "renderer": {
+        "fetched-lyrics": "Lời bài hát được tìm nạp cho Genius"
+      }
+    },
+    "music-together": {
+      "description": "Chia sẻ danh sách phát với người khác. Khi máy chủ phát một bài hát, những người khác cũng sẽ nghe bài hát đó",
+      "dialog": {
+        "enter-host": "Nhập ID máy chủ"
+      },
+      "internal": {
+        "save": "Lưu",
+        "track-source": "Nguồn âm thanh",
+        "unknown-user": "Người dùng không rõ"
+      },
+      "menu": {
+        "click-to-copy-id": "Sao chép ID máy chủ",
+        "close": "Đóng Music Together",
+        "connected-users": "Người dùng đã kết nối",
+        "disconnect": "Ngắt kết nối Music Together",
+        "empty-user": "Không có người dùng đã kết nối",
+        "host": "Máy chủ Music Together",
+        "join": "Tham gia Music Together",
+        "permission": {
+          "all": "Cho phép người tham gia kiểm soát danh sách phát và trình phát",
+          "host-only": "Chỉ người tạo máy chủ có quyền điều khiển danh sách phát và trình phát",
+          "playlist": "Cho phép người tham gia điều khiển danh sách phát"
+        },
+        "set-permission": "Thay đổi quyền điều khiển",
+        "status": {
+          "disconnected": "Đã ngắt kết nối",
+          "guest": "Đã kết nối với tư cách Người tham gia",
+          "host": "Đã kết nối với tư cách Máy chủ"
+        }
+      },
+      "name": "Music Together [Thử nghiệm]",
+      "toast": {
+        "add-song-failed": "Thêm bài hát thất bại",
+        "closed": "Đã đóng Music Together",
+        "disconnected": "Đã ngắt kết nối Music Together",
+        "host-failed": "Không thể tổ chức Music Together",
+        "id-copied": "Đã sao chép ID máy chủ vào bộ nhớ tạm",
+        "id-copy-failed": "Sao chepd ID máy chủ vào bộ nhớ tạm không thành công",
+        "join-failed": "Không thể tham gia Music Together",
+        "joined": "Đã tham gia Music Together",
+        "permission-changed": "Quyền của Music Together đã thay đổi thành \"{{permission}}\"",
+        "remove-song-failed": "Không thể xoá bài hát",
+        "user-connected": "{{name}} đã tham gia Music Together",
+        "user-disconnected": "{{name}} đã rời khỏi Music Together"
+      }
+    },
+    "navigation": {
+      "description": "Mũi tên điều hướng Tiếp theo/Quay lại được tích hợp trực tiếp trong giao diện, giống như trong trình duyệt yêu thích của bạn",
+      "name": "Điều hướng"
+    },
+    "no-google-login": {
+      "description": "Xóa các nút và liên kết đăng nhập Google khỏi giao diện",
+      "name": "Không đăng nhập Google"
+    },
+    "notifications": {
+      "description": "Hiển thị thông báo khi bài hát bắt đầu phát (thông báo tương tác có sẵn trên Windows)",
+      "menu": {
+        "interactive": "Thông báo tương tác",
+        "interactive-settings": {
+          "label": "Cài đặt tương tác",
+          "submenu": {
+            "hide-button-text": "Ẩn tên nút",
+            "refresh-on-play-pause": "Làm mới khi phát/tạm dừng",
+            "tray-controls": "Mở/Đóng khi nhấp vào khay"
+          }
+        },
+        "priority": "Ưu tiên thông báo",
+        "toast-style": "Kiểu toast",
+        "unpause-notification": "Hiển thị thông báo khi bỏ tạm dừng"
+      },
+      "name": "Thông báo"
+    },
+    "picture-in-picture": {
+      "description": "Cho phép chuyển ứng dụng sang chế độ ảnh trong ảnh",
+      "menu": {
+        "always-on-top": "Luôn ở trên cùng",
+        "hotkey": {
+          "label": "Phím nóng",
+          "prompt": {
+            "keybind-options": {
+              "hotkey": "Phím nóng"
+            },
+            "label": "Chọn phím nóng để chuyển đổi ảnh trong ảnh",
+            "title": "Phím nóng ảnh trong ảnh"
+          }
+        },
+        "save-window-position": "Lưu vị trí cửa sổ",
+        "save-window-size": "Lưu kích thước cửa sổ",
+        "use-native-pip": "Sử dụng PiP gốc của trình duyệt"
+      },
+      "name": "Ảnh trong ảnh",
+      "templates": {
+        "button": "Ảnh trong ảnh"
+      }
+    },
+    "playback-speed": {
+      "description": "Nghe nhanh, nghe chậm! Thêm thanh trượt kiểm soát tốc độ bài hát",
+      "name": "Tốc độ phát lại",
+      "templates": {
+        "button": "Tốc độ"
+      }
+    },
+    "precise-volume": {
+      "description": "Kiểm soát âm lượng chính xác bằng con lăn chuột/phím nóng, với HUD tùy chỉnh và các bước âm lượng có thể tùy chỉnh",
+      "menu": {
+        "arrows-shortcuts": "Điều khiển phím mũi tên cục bộ",
+        "custom-volume-steps": "Đặt các bước âm lượng tùy chỉnh",
+        "global-shortcuts": "Phím nóng chung"
+      },
+      "name": "Âm lượng chính xác",
+      "prompt": {
+        "global-shortcuts": {
+          "keybind-options": {
+            "decrease": "Giảm âm lượng",
+            "increase": "Tăng âm lượng"
+          },
+          "label": "Chọn tổ hợp phím âm lượng chung:",
+          "title": "Liên kết phím âm lượng chung"
+        },
+        "volume-steps": {
+          "label": "Chọn các bước tăng/giảm âm lượng",
+          "title": "Bước âm lượng"
+        }
+      }
+    },
+    "quality-changer": {
+      "backend": {
+        "dialog": {
+          "quality-changer": {
+            "detail": "Chất lượng hiện tại: {{quality}}",
+            "message": "Chọn chất lượng video:",
+            "title": "Chọn chất lượng video:"
+          }
+        }
+      },
+      "description": "Cho phép thay đổi chất lượng video bằng một nút trên lớp phủ video",
+      "name": "Thay đổi chất lượng video"
+    },
+    "scrobbler": {
+      "description": "Thêm hỗ trợ scrobbling (v.v. Last.fm, Listenbrainz)",
+      "menu": {
+        "lastfm": {
+          "api-settings": "Cài đặt API Last.fm"
+        },
+        "listenbrainz": {
+          "token": "Nhập mã người dùng ListenBrainz"
+        }
+      },
+      "name": "Scrobbler",
+      "prompt": {
+        "lastfm": {
+          "api-key": "Khóa API Last.fm",
+          "api-secret": "API Last.fm bảo mật"
+        },
+        "listenbrainz": {
+          "token": {
+            "label": "Nhập mã người dùng ListenBrainz của bạn:",
+            "title": "Mã ListenBrainz"
           }
         }
       }
+    },
+    "shortcuts": {
+      "description": "Cho phép thiết lập các phím nóng chung để phát lại (phát/tạm dừng/tiếp theo/trước) và tắt OSD media bằng cách ghi đè các phím media, bật Ctrl/CMD + F để tìm kiếm, bật hỗ trợ Linux MPRIS cho các phím media và các phím nóng tùy chỉnh cho người dùng nâng cao",
+      "menu": {
+        "override-media-keys": "Ghi đè khóa phương tiện",
+        "set-keybinds": "Đặt điều khiển bài hát chung"
+      },
+      "name": "Phím tắt (& MPRIS)",
+      "prompt": {
+        "keybind": {
+          "keybind-options": {
+            "next": "Tiếp theo",
+            "play-pause": "Phát / Tạm dừng",
+            "previous": "Trước đó"
+          },
+          "label": "Chọn tổ hợp phím chung để kiểm soát bài hát:",
+          "title": "Tổ hợp phím chung"
+        }
+      }
+    },
+    "skip-disliked-songs": {
+      "description": "Bỏ qua những bài hát không thích",
+      "name": "Bỏ qua những bài hát không thích"
+    },
+    "skip-silences": {
+      "description": "Tự động bỏ qua các đoạn im lặng trong bài hát",
+      "name": "Bỏ qua đoạn im lặng"
+    },
+    "sponsorblock": {
+      "description": "Tự động bỏ qua các phần không phải âm nhạc như phần giới thiệu/kết thúc hoặc các phần của video nhạc mà bài hát không được phát",
+      "name": "SponsorBlock"
+    },
+    "taskbar-mediacontrol": {
+      "description": "Kiểm soát phát lại từ thanh tác vụ Windows của bạn",
+      "name": "Kiểm soát phương tiện trên thanh tác vụ"
+    },
+    "touchbar": {
+      "description": "Thêm tiện ích TouchBar cho người dùng macOS",
+      "name": "TouchBar"
+    },
+    "tuna-obs": {
+      "description": "Tích hợp với plugin Tuna của OBS",
+      "name": "Tuna OBS"
+    },
+    "video-toggle": {
+      "description": "Thêm nút để chuyển giữa chế độ Video/Bài hát. Cũng có thể tùy ý xóa toàn bộ tab video",
+      "menu": {
+        "align": {
+          "label": "Căn chỉnh",
+          "submenu": {
+            "left": "Trái",
+            "middle": "Giữa",
+            "right": "Phải"
+          }
+        },
+        "force-hide": "Buộc loại bỏ tab video",
+        "mode": {
+          "label": "Chế độ",
+          "submenu": {
+            "custom": "Chuyển đổi tùy chỉnh",
+            "disabled": "Vô hiệu hoá",
+            "native": "Chuyển đổi gốc"
+          }
+        }
+      },
+      "name": "Chuyển đổi video",
+      "templates": {
+        "button": "Bài hát"
+      }
+    },
+    "visualizer": {
+      "description": "Thêm trình hiển thị cho trình phát",
+      "menu": {
+        "visualizer-type": "Loại trình hiển thị"
+      },
+      "name": "Trình hiển thị"
     }
   }
 }
