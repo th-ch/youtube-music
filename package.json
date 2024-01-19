@@ -208,7 +208,7 @@
     "rollup": "4.9.5",
     "typescript": "5.3.3",
     "utf-8-validate": "6.0.3",
-    "vite": "5.0.11",
+    "vite": "5.0.12",
     "vite-plugin-inspect": "0.8.1",
     "vite-plugin-resolve": "2.5.1",
     "ws": "8.16.0"
