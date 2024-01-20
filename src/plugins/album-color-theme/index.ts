@@ -64,12 +64,24 @@ export default createPlugin({
         if (albumColor) {
           const target = Color(albumColor.hex);
 
-          this.darkColor = target.darken(0.3).rgb();
-          this.color = target.darken(0.15).rgb();
+          // this.darkColor = target.darken(0.3).rgb();
+          // this.color = target.darken(0.15).rgb();
 
-          while (this.color.luminosity() > 0.5) {
+          // while (this.color.luminosity() > 0.5) {
+          //   this.color = this.color?.darken(0.05);
+          //   this.darkColor = this.darkColor?.darken(0.05);
+          // }
+          this.color = target.rgb();
+          this.darkColor = this.color.darken(0.3);
+
+          while (this.darkColor.luminosity() > 0.05) {
             this.color = this.color?.darken(0.05);
             this.darkColor = this.darkColor?.darken(0.05);
+          }
+          
+          if (this.color.saturationl() >= 60) {
+            this.color = this.color?.saturationl(60);
+            this.darkColor = this.darkColor?.saturationl(60);
           }
 
           document.documentElement.style.setProperty(COLOR_KEY, `${~~this.color.red()}, ${~~this.color.green()}, ${~~this.color.blue()}`);
