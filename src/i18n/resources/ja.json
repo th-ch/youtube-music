@@ -170,7 +170,8 @@
       },
       "plugins": {
         "enabled": "有効",
-        "label": "プラグイン"
+        "label": "プラグイン",
+        "new": "新着"
       },
       "view": {
         "label": "表示",
@@ -190,7 +191,10 @@
       "previous": "前の曲",
       "quit": "終了",
       "restart": "アプリを再起動",
-      "show": "ウィンドウを表示"
+      "show": "ウィンドウを表示",
+      "tooltip": {
+        "default": "YouTube ミュージック"
+      }
     }
   },
   "plugins": {
