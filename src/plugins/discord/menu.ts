@@ -84,7 +84,7 @@ export const onMenu = async ({
       checked: config.hideDurationLeft,
       click(item: Electron.MenuItem) {
         setConfig({
-          hideDurationLeft: item.checked,
+          hideGitHubButton: item.checked,
         });
       },
     },

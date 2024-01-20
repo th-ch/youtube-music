@@ -170,8 +170,7 @@
       },
       "plugins": {
         "enabled": "Ativado",
-        "label": "Plugins",
-        "new": "NOVO"
+        "label": "Plugins"
       },
       "view": {
         "label": "Ver",
@@ -191,11 +190,7 @@
       "previous": "Anterior",
       "quit": "Sair",
       "restart": "Reiniciar aplicativo",
-      "show": "Mostrar janela",
-      "tooltip": {
-        "default": "YouTube Music",
-        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
-      }
+      "show": "Mostrar janela"
     }
   },
   "plugins": {
@@ -205,10 +200,6 @@
         "blocker": "Bloqueador"
       },
       "name": "Bloqueador de anúncios"
-    },
-    "album-actions": {
-      "description": "Adiciona os botões Gostei e Não Gostei para ser aplicado a todas as músicas em uma lista de reprodução ou álbum.",
-      "name": "Ações no álbum"
     },
     "album-color-theme": {
       "description": "Aplica um tema dinâmico e efeitos visuais com base na paleta de cores do álbum",
@@ -417,6 +408,10 @@
       },
       "name": "Menu no aplicativo"
     },
+    "last-fm": {
+      "description": "Adiciona suporte de scrobbling para Last.fm",
+      "name": "Last.fm"
+    },
     "lumiastream": {
       "description": "Adiciona suporte Lumia Stream",
       "name": "Lumia Stream [Beta]"
@@ -429,52 +424,6 @@
       "name": "Letras Genius",
       "renderer": {
         "fetched-lyrics": "Buscar letras no Genius"
-      }
-    },
-    "music-together": {
-      "description": "Compartilha a playlist com outros. Quando o host tocar uma música, todos poderão ouvir a mesma canção",
-      "dialog": {
-        "enter-host": "Digite o ID do Host"
-      },
-      "internal": {
-        "save": "Salvar",
-        "track-source": "Fonte da faixa",
-        "unknown-user": "Usuário Desconhecido"
-      },
-      "menu": {
-        "click-to-copy-id": "Copiar ID do Host",
-        "close": "Fechar o Música Juntos",
-        "connected-users": "Usuários Conectados",
-        "disconnect": "Desconectar do Música Juntos",
-        "empty-user": "Sem usuários conectados",
-        "host": "Host do Música Juntos",
-        "join": "Juntar ao Música Juntos",
-        "permission": {
-          "all": "Permita que outros controlem a playlist e ao player",
-          "host-only": "Apenas o host pode controlar a playlist e ao player",
-          "playlist": "Permitir que outros controlem a playlist"
-        },
-        "set-permission": "Alterar permissões de controle",
-        "status": {
-          "disconnected": "Desconectado",
-          "guest": "Conectado como Convidado",
-          "host": "Conectado como Host"
-        }
-      },
-      "name": "Música Juntos [Beta]",
-      "toast": {
-        "add-song-failed": "Falha ao adicionar canção",
-        "closed": "Música Juntos encerrado",
-        "disconnected": "Música Juntos foi desconectado",
-        "host-failed": "Falha ao hospedar o Música Juntos",
-        "id-copied": "ID de anfitrião copiado para a área de transferência",
-        "id-copy-failed": "Falha ao copiar o ID de anfitrião para a área de transferência",
-        "join-failed": "Falha ao entrar em Música Juntos",
-        "joined": "Entrou em Música Juntos",
-        "permission-changed": "A permissão do Música Juntos foi alterada para \"{{permission}}\"",
-        "remove-song-failed": "Falha ao remover música",
-        "user-connected": "{{name}} entrou em Música Juntos",
-        "user-disconnected": "{{name}} saiu do Música Juntos"
       }
     },
     "navigation": {

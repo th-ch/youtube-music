@@ -18,9 +18,9 @@ const loadedPluginMap: Record<
 export const createContext = <Config extends PluginConfig>(
   id: string,
 ): RendererContext<Config> => ({
-  getConfig: async () => window.ipcRenderer.invoke('ytmd:get-config', id),
+  getConfig: async () => window.ipcRenderer.invoke('get-config', id),
   setConfig: async (newConfig) => {
-    await window.ipcRenderer.invoke('ytmd:set-config', id, newConfig);
+    await window.ipcRenderer.invoke('set-config', id, newConfig);
   },
   ipc: {
     send: (event: string, ...args: unknown[]) => {

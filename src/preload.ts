@@ -48,7 +48,7 @@ contextBridge.exposeInMainWorld('ipcRenderer', {
   sendToHost: (channel: string, ...args: unknown[]) =>
     ipcRenderer.sendToHost(channel, ...args),
 });
-contextBridge.exposeInMainWorld('reload', () => ipcRenderer.send('ytmd:reload'));
+contextBridge.exposeInMainWorld('reload', () => ipcRenderer.send('reload'));
 contextBridge.exposeInMainWorld(
   'ELECTRON_RENDERER_URL',
   process.env.ELECTRON_RENDERER_URL,

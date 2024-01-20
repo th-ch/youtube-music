@@ -408,6 +408,10 @@
       },
       "name": "アプリ内メニュー"
     },
+    "last-fm": {
+      "description": "Last.fmのscrobblingサポートを追加",
+      "name": "Last.fm"
+    },
     "lumiastream": {
       "description": "Lumia Streamのサポートを追加",
       "name": "Lumia Stream [ベータ]"

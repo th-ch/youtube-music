@@ -115,13 +115,13 @@ export const onRendererLoad = async ({
 }: RendererContext<SkipSilencesPluginConfig>) => {
   config = await getConfig();
 
-  document.addEventListener('ytmd:audio-can-play', audioCanPlayListener, {
+  document.addEventListener('audioCanPlay', audioCanPlayListener, {
     passive: true,
   });
 };
 
 export const onRendererUnload = () => {
-  document.removeEventListener('ytmd:audio-can-play', audioCanPlayListener);
+  document.removeEventListener('audioCanPlay', audioCanPlayListener);
 
   if (playOrSeekHandler) {
     const video = document.querySelector('video');

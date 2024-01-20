@@ -9,25 +9,7 @@ import { t } from '@/i18n';
 const COLOR_KEY = '--ytmusic-album-color';
 const DARK_COLOR_KEY = '--ytmusic-album-color-dark';
 
-export default createPlugin<
-  unknown,
-  unknown,
-  {
-    color?: Color;
-    darkColor?: Color;
-
-    playerPage: HTMLElement | null;
-    navBarBackground: HTMLElement | null;
-    ytmusicPlayerBar: HTMLElement | null;
-    playerBarBackground: HTMLElement | null;
-    sidebarBig: HTMLElement | null;
-    sidebarSmall: HTMLElement | null;
-    ytmusicAppLayout: HTMLElement | null;
-
-    getColor(key: string, alpha?: number): string;
-    updateColor(): void;
-  }
->({
+export default createPlugin({
   name: () => t('plugins.album-color-theme.name'),
   description: () => t('plugins.album-color-theme.description'),
   restartNeeded: true,
@@ -36,13 +18,16 @@ export default createPlugin<
   },
   stylesheets: [style],
   renderer: {
-    playerPage: null,
-    navBarBackground: null,
-    ytmusicPlayerBar: null,
-    playerBarBackground: null,
-    sidebarBig: null,
-    sidebarSmall: null,
-    ytmusicAppLayout: null,
+    color: null as Color | null,
+    darkColor: null as Color | null,
+
+    playerPage: null as HTMLElement | null,
+    navBarBackground: null as HTMLElement | null,
+    ytmusicPlayerBar: null as HTMLElement | null,
+    playerBarBackground: null as HTMLElement | null,
+    sidebarBig: null as HTMLElement | null,
+    sidebarSmall: null as HTMLElement | null,
+    ytmusicAppLayout: null as HTMLElement | null,
 
     start() {
       this.playerPage = document.querySelector<HTMLElement>('#player-page');
@@ -79,24 +64,12 @@ export default createPlugin<
         if (albumColor) {
           const target = Color(albumColor.hex);
 
-          // this.darkColor = target.darken(0.3).rgb();
-          // this.color = target.darken(0.15).rgb();
+          this.darkColor = target.darken(0.3).rgb();
+          this.color = target.darken(0.15).rgb();
 
-          // while (this.color.luminosity() > 0.5) {
-          //   this.color = this.color?.darken(0.05);
-          //   this.darkColor = this.darkColor?.darken(0.05);
-          // }
-          this.color = target.rgb();
-          this.darkColor = this.color.darken(0.3);
-
-          while (this.darkColor.luminosity() > 0.05) {
+          while (this.color.luminosity() > 0.5) {
             this.color = this.color?.darken(0.05);
             this.darkColor = this.darkColor?.darken(0.05);
-          }
-          
-          if (this.color.saturationl() >= 60) {
-            this.color = this.color?.saturationl(60);
-            this.darkColor = this.darkColor?.saturationl(60);
           }
 
           document.documentElement.style.setProperty(COLOR_KEY, `${~~this.color.red()}, ${~~this.color.green()}, ${~~this.color.blue()}`);

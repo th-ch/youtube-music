@@ -60,23 +60,10 @@ const observer = new MutationObserver(() => {
     return;
   }
 
-  // check for video (or music)
-  let menuUrl = $<HTMLAnchorElement>(
+  const menuUrl = $<HTMLAnchorElement>(
     'tp-yt-paper-listbox [tabindex="0"] #navigation-endpoint',
   )?.href;
-
-  if (!menuUrl?.includes('watch?')) {
-    menuUrl = undefined;
-    // check for podcast
-    for (const it of document.querySelectorAll('tp-yt-paper-listbox [tabindex="-1"] #navigation-endpoint')) {
-      if (it.getAttribute('href')?.includes('podcast/')) {
-        menuUrl = it.getAttribute('href')!;
-        break;
-      }
-    }
-  }
-
-  if (!menuUrl && doneFirstLoad) {
+  if (!menuUrl?.includes('watch?') && doneFirstLoad) {
     return;
   }
 
@@ -103,7 +90,7 @@ const togglePictureInPicture = async () => {
     } catch {}
   }
 
-  window.ipcRenderer.send('plugin:toggle-picture-in-picture');
+  window.ipcRenderer.send('picture-in-picture');
   return false;
 };
 // For UI (HTML)

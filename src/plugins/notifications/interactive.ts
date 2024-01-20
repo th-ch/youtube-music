@@ -50,9 +50,6 @@ export default (
       toastXml: getXml(songInfo, icon),
     });
 
-    // To fix the notification not closing
-    setTimeout(() => savedNotification?.close(), 5000);
-
     savedNotification.on('close', () => {
       savedNotification = undefined;
     });
@@ -256,9 +253,9 @@ export default (
   songControls = getSongControls(win);
 
   let currentSeconds = 0;
-  on('ytmd:player-api-loaded', () => send('ytmd:setup-time-changed-listener'));
+  on('ytmd:player-api-loaded', () => send('setupTimeChangedListener'));
 
-  on('ytmd:time-changed', (t: number) => {
+  on('timeChanged', (t: number) => {
     currentSeconds = t;
   });
 

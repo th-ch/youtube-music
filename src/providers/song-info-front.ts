@@ -10,17 +10,20 @@ import type { VideoDataChanged } from '@/types/video-data-changed';
 let songInfo: SongInfo = {} as SongInfo;
 export const getSongInfo = () => songInfo;
 
-window.ipcRenderer.on('ytmd:update-song-info', (_, extractedSongInfo: SongInfo) => {
+const $ = <E extends Element = Element>(s: string): E | null =>
+  document.querySelector<E>(s);
+
+window.ipcRenderer.on('update-song-info', (_, extractedSongInfo: SongInfo) => {
   songInfo = extractedSongInfo;
 });
 
 // Used because 'loadeddata' or 'loadedmetadata' weren't firing on song start for some users (https://github.com/th-ch/youtube-music/issues/473)
-const srcChangedEvent = new CustomEvent('ytmd:src-changed');
+const srcChangedEvent = new CustomEvent('srcChanged');
 
 export const setupSeekedListener = singleton(() => {
-  document.querySelector('video')?.addEventListener('seeked', (v) => {
+  $('video')?.addEventListener('seeked', (v) => {
     if (v.target instanceof HTMLVideoElement) {
-      window.ipcRenderer.send('ytmd:seeked', v.target.currentTime);
+      window.ipcRenderer.send('seeked', v.target.currentTime);
     }
   });
 });
@@ -29,11 +32,11 @@ export const setupTimeChangedListener = singleton(() => {
   const progressObserver = new MutationObserver((mutations) => {
     for (const mutation of mutations) {
       const target = mutation.target as Node & { value: string };
-      window.ipcRenderer.send('ytmd:time-changed', target.value);
+      window.ipcRenderer.send('timeChanged', target.value);
       songInfo.elapsedSeconds = Number(target.value);
     }
   });
-  const progressBar = document.querySelector('#progress-bar');
+  const progressBar = $('#progress-bar');
   if (progressBar) {
     progressObserver.observe(progressBar, { attributeFilter: ['value'] });
   }
@@ -43,7 +46,7 @@ export const setupRepeatChangedListener = singleton(() => {
   const repeatObserver = new MutationObserver((mutations) => {
     // provided by YouTube Music
     window.ipcRenderer.send(
-      'ytmd:repeat-changed',
+      'repeatChanged',
       (
         mutations[0].target as Node & {
           __dataHost: {
@@ -53,15 +56,15 @@ export const setupRepeatChangedListener = singleton(() => {
       ).__dataHost.getState().queue.repeatMode,
     );
   });
-  repeatObserver.observe(document.querySelector('#right-controls .repeat')!, {
+  repeatObserver.observe($('#right-controls .repeat')!, {
     attributeFilter: ['title'],
   });
 
   // Emit the initial value as well; as it's persistent between launches.
   // provided by YouTube Music
   window.ipcRenderer.send(
-    'ytmd:repeat-changed',
-    document.querySelector<
+    'repeatChanged',
+    $<
       HTMLElement & {
         getState: () => GetState;
       }
@@ -70,27 +73,27 @@ export const setupRepeatChangedListener = singleton(() => {
 });
 
 export const setupVolumeChangedListener = singleton((api: YoutubePlayer) => {
-  document.querySelector('video')?.addEventListener('volumechange', () => {
-    window.ipcRenderer.send('ytmd:volume-changed', api.getVolume());
+  $('video')?.addEventListener('volumechange', () => {
+    window.ipcRenderer.send('volumeChanged', api.getVolume());
   });
   // Emit the initial value as well; as it's persistent between launches.
-  window.ipcRenderer.send('ytmd:volume-changed', api.getVolume());
+  window.ipcRenderer.send('volumeChanged', api.getVolume());
 });
 
 export default (api: YoutubePlayer) => {
-  window.ipcRenderer.on('ytmd:setup-time-changed-listener', () => {
+  window.ipcRenderer.on('setupTimeChangedListener', () => {
     setupTimeChangedListener();
   });
 
-  window.ipcRenderer.on('ytmd:setup-repeat-changed-listener', () => {
+  window.ipcRenderer.on('setupRepeatChangedListener', () => {
     setupRepeatChangedListener();
   });
 
-  window.ipcRenderer.on('ytmd:setup-volume-changed-listener', () => {
+  window.ipcRenderer.on('setupVolumeChangedListener', () => {
     setupVolumeChangedListener(api);
   });
 
-  window.ipcRenderer.on('ytmd:setup-seeked-listener', () => {
+  window.ipcRenderer.on('setupSeekedListener', () => {
     setupSeekedListener();
   });
 
@@ -99,7 +102,7 @@ export default (api: YoutubePlayer) => {
       e.target instanceof HTMLVideoElement &&
       Math.round(e.target.currentTime) > 0
     ) {
-      window.ipcRenderer.send('ytmd:play-or-paused', {
+      window.ipcRenderer.send('playPaused', {
         isPaused: status === 'pause',
         elapsedSeconds: Math.floor(e.target.currentTime),
       });
@@ -131,7 +134,7 @@ export default (api: YoutubePlayer) => {
       waitingEvent.delete(videoData.videoId);
       sendSongInfo(videoData);
     } else if (name === 'dataloaded') {
-      const video = document.querySelector<HTMLVideoElement>('video');
+      const video = $<HTMLVideoElement>('video');
       video?.dispatchEvent(srcChangedEvent);
 
       for (const status of ['playing', 'pause'] as const) {
@@ -143,12 +146,9 @@ export default (api: YoutubePlayer) => {
     }
   });
 
-  const video = document.querySelector('video');
-
-  if (video) {
-    for (const status of ['playing', 'pause'] as const) {
-      video.addEventListener(status, playPausedHandlers[status]);
-    }
+  const video = $('video')!;
+  for (const status of ['playing', 'pause'] as const) {
+    video.addEventListener(status, playPausedHandlers[status]);
   }
 
   function sendSongInfo(videoData: VideoDataChangeValue) {
@@ -170,6 +170,6 @@ export default (api: YoutubePlayer) => {
         data.microformat.microformatDataRenderer.pageOwnerDetails.name;
     }
 
-    window.ipcRenderer.send('ytmd:video-src-changed', data);
+    window.ipcRenderer.send('video-src-changed', data);
   }
 };

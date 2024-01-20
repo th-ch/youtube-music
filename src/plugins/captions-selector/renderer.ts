@@ -121,7 +121,7 @@ export default createRenderer<
       ?.unloadModule('captions');
     document
       .querySelector('video')
-      ?.removeEventListener('ytmd:src-changed', this.videoChangeListener);
+      ?.removeEventListener('srcChanged', this.videoChangeListener);
     this.captionsSettingsButton.removeEventListener(
       'click',
       this.captionsButtonClickListener,
@@ -139,7 +139,7 @@ export default createRenderer<
 
     document
       .querySelector('video')
-      ?.addEventListener('ytmd:src-changed', this.videoChangeListener);
+      ?.addEventListener('srcChanged', this.videoChangeListener);
     this.captionsSettingsButton.addEventListener(
       'click',
       this.captionsButtonClickListener,

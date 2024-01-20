@@ -2,17 +2,7 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
-#### [v3.2.2](https://github.com/th-ch/youtube-music/compare/v3.2.1...v3.2.2)
-
-- feat(tray): Add song info and paused icon [`#1592`](https://github.com/th-ch/youtube-music/pull/1592)
-- fix(skip-silences): fix audio distorted [`#1141`](https://github.com/th-ch/youtube-music/issues/1141)
-- chore(deps): update dependency rollup to v4.9.3 [`0c3c380`](https://github.com/th-ch/youtube-music/commit/0c3c3805918adf2a185a7f1dc67ea3af8135863d)
-- chore(i18n): Translated using Weblate (Turkish) [`64ea1fd`](https://github.com/th-ch/youtube-music/commit/64ea1fdb58fdf2766ae3284ac1a51bfac8894b36)
-- fix(music-together): typing [`895386f`](https://github.com/th-ch/youtube-music/commit/895386f6f8c649f77ea15c88f6fb7ecc5b775554)
-
 #### [v3.2.1](https://github.com/th-ch/youtube-music/compare/v3.2.0...v3.2.1)
-
-> 1 January 2024
 
 - fix: fix #1574 [`#1574`](https://github.com/th-ch/youtube-music/issues/1574)
 - fix: fix #1575 [`#1575`](https://github.com/th-ch/youtube-music/issues/1575)

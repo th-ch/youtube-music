@@ -55,13 +55,6 @@ import { loadI18n, setLanguage, t } from '@/i18n';
 
 import type { PluginConfig } from '@/types/plugins';
 
-if (!is.macOS()) {
-  delete allPlugins['touchbar'];
-}
-if (!is.windows()) {
-  delete allPlugins['taskbar-mediacontrol'];
-}
-
 // Catch errors and log them
 unhandled({
   logger: console.error,
@@ -121,18 +114,18 @@ function onClosed() {
   mainWindow = null;
 }
 
-ipcMain.handle('ytmd:get-main-plugin-names', () => Object.keys(mainPlugins));
+ipcMain.handle('get-main-plugin-names', () => Object.keys(mainPlugins));
 
 const initHook = (win: BrowserWindow) => {
   ipcMain.handle(
-    'ytmd:get-config',
+    'get-config',
     (_, id: string) =>
       deepmerge(
         allPlugins[id].config ?? { enabled: false },
         config.get(`plugins.${id}`) ?? {},
       ) as PluginConfig,
   );
-  ipcMain.handle('ytmd:set-config', (_, name: string, obj: object) =>
+  ipcMain.handle('set-config', (_, name: string, obj: object) =>
     config.setPartial(`plugins.${name}`, obj, allPlugins[name].config),
   );
 

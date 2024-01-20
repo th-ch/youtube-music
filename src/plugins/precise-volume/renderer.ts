@@ -71,7 +71,7 @@ export const onPlayerApiReady = async (
         const videoMode = () =>
           api.getPlayerResponse().videoDetails?.musicVideoType !==
           'MUSIC_VIDEO_TYPE_ATV';
-        $('video')?.addEventListener('ytmd:src-changed', () =>
+        $('video')?.addEventListener('srcChanged', () =>
           moveVolumeHud(videoMode()),
         );
       }
