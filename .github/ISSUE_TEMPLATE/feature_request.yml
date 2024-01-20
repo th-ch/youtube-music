@@ -15,7 +15,7 @@ body:
 - type: textarea
   attributes:
     label: Problem Description
-    description: Please add a clear and concise description of the problem you are seeking to solve with this feature request.
+    description: A clear and concise description of the problem you are seeking to solve with this feature request.
   validations:
     required: true
 - type: textarea
@@ -33,6 +33,6 @@ body:
 - type: textarea
   attributes:
     label: Additional Information
-    description: Add any other context about the problem here.
+    description: Any other context about the problem.
   validations:
     required: false
