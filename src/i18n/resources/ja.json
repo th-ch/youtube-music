@@ -193,7 +193,8 @@
       "restart": "アプリを再起動",
       "show": "ウィンドウを表示",
       "tooltip": {
-        "default": "YouTube ミュージック"
+        "default": "YouTube ミュージック",
+        "with-song-info": "YouTube ミュージック: {{artist}} - {{title}}"
       }
     }
   },
@@ -204,6 +205,10 @@
         "blocker": "ブロッカー"
       },
       "name": "Adblocker"
+    },
+    "album-actions": {
+      "description": "「嫌いではない」、「嫌い」、「好き」、「異なる」ボタンを追加して、これをプレイリストまたはアルバム内のすべての曲に適用します",
+      "name": "アルバムアクション"
     },
     "album-color-theme": {
       "description": "アルバムカバーの色をベースにして動的テーマと視覚効果を適用します",
@@ -424,6 +429,41 @@
       "name": "Genius 歌詞",
       "renderer": {
         "fetched-lyrics": "Geniusから歌詞取得完了"
+      }
+    },
+    "music-together": {
+      "description": "プレイリストを他の人と共有します。 ホストが曲を再生すると、他の全員にも同じ曲が聞こえます",
+      "dialog": {
+        "enter-host": "ホストIDを入力"
+      },
+      "internal": {
+        "save": "保存",
+        "track-source": "トラックソース",
+        "unknown-user": "不明なユーザー"
+      },
+      "menu": {
+        "click-to-copy-id": "ホストIDをコピー",
+        "close": "一緒に音楽を閉じる",
+        "connected-users": "接続されているユーザー",
+        "disconnect": "一緒に音楽を切断する",
+        "empty-user": "接続中のユーザーはいません",
+        "host": "Music Together ホスト",
+        "join": "Music Togetherに登録",
+        "permission": {
+          "all": "ゲストがプレイリストとプレーヤーを制御できるようにする",
+          "host-only": "ホストのみがプレイリストとプレーヤーを制御できます",
+          "playlist": "ゲストによるプレイリストの制御を許可する"
+        },
+        "set-permission": "変更制御権限",
+        "status": {
+          "disconnected": "切断されました",
+          "guest": "ゲストとして接続しました",
+          "host": "ホストとして接続されています"
+        }
+      },
+      "name": "Music Together [ベータ版]",
+      "toast": {
+        "add-song-failed": "曲の追加に失敗しました"
       }
     },
     "navigation": {
