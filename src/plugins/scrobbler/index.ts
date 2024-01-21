@@ -6,6 +6,12 @@ import { backend } from './main';
 
 export interface ScrobblerPluginConfig {
   enabled: boolean,
+  /**
+    * Attempt to scrobble other video types (e.g. Podcasts, normal YouTube videos)
+    *
+    * @default false
+    */
+  scrobble_other_media: boolean,
   scrobblers: {
     lastfm: {
       /**
@@ -64,6 +70,7 @@ export interface ScrobblerPluginConfig {
 
 export const defaultConfig: ScrobblerPluginConfig = {
   enabled: false,
+  scrobble_other_media: false,
   scrobblers: {
     lastfm: {
       enabled: false,

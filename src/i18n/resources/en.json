@@ -572,6 +572,7 @@
     "scrobbler": {
       "description": "Add scrobbling support (etc. last.fm, Listenbrainz)",
       "menu": {
+        "scrobble-other-media": "Scrobble other media",
         "lastfm": {
           "api-settings": "Last.fm API Settings"
         },
