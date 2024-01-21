@@ -31,6 +31,199 @@
       },
       "theme": {
         "css-file-not-found": "CSS file \"{{cssFile}}\" tidak ada, mengabaikan"
+      },
+      "unresponsive": {
+        "details": "Kesalahan Tidak Responsif!\n{{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "Menghapus cache aplikasi"
+      },
+      "window": {
+        "tried-to-render-offscreen": "Window mencoba membuat render di luar layar, windowUkuran={{windowSize}}, displaySize={{displaySize}}, posisi={{position}}"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "detail": "Menu tersembunyi, gunakan 'Alt' untuk menampilkannya (atau 'Escape' jika menggunakan Menu Dalam Aplikasi)",
+        "message": "Menu Sembunyikan diaktifkan",
+        "title": "Sembunyikan Menu Diaktifkan"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "Kemudian",
+          "restart-now": "Restart Sekarang"
+        },
+        "detail": "\"{{pluginName}}\" Plugin memerlukan pengaktifan ulang agar dapat diterapkan",
+        "message": "\"{{pluginName}}\" harus dimulai ulang",
+        "title": "Diperlukan Restart"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "Keluar",
+          "relaunch": "Luncurkan kembali",
+          "wait": "Tunggu"
+        },
+        "detail": "Kami mohon maaf atas ketidaknyamanan ini. silakan pilih apa yang harus dilakukan:",
+        "message": "Aplikasi Tidak Responsif",
+        "title": "Jendela Tidak Responsif"
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "Nonaktifkan Pembaruan",
+          "download": "Unduh",
+          "ok": "OK"
+        },
+        "detail": "Versi baru tersedia dan dapat diunduh di {{downloadLink}}",
+        "message": "Versi baru tersedia",
+        "title": "Pembaruan Tersedia"
+      }
+    },
+    "menu": {
+      "about": "Tentang",
+      "navigation": {
+        "label": "Navigasi",
+        "submenu": {
+          "copy-current-url": "Salin URL saat ini",
+          "go-back": "Kembali",
+          "go-forward": "Maju",
+          "quit": "Keluar",
+          "restart": "Restart Aplikasi"
+        }
+      },
+      "options": {
+        "label": "Option",
+        "submenu": {
+          "advanced-options": {
+            "label": "Opsi lanjutan",
+            "submenu": {
+              "auto-reset-app-cache": "Mengatur ulang cache aplikasi saat aplikasi dimulai",
+              "disable-hardware-acceleration": "Menonaktifkan akselerasi perangkat keras",
+              "edit-config-json": "Edit config.json",
+              "override-user-agent": "Mengesampingkan User-Agent",
+              "restart-on-config-changes": "Mulai ulang pada perubahan konfigurasi",
+              "set-proxy": {
+                "prompt": {
+                  "label": "Masukkan Alamat Proxy: (biarkan kosong untuk menonaktifkan)",
+                  "placeholder": "Contoh: SOCKS5://127.0.0.1:9999"
+                }
+              },
+              "toggle-dev-tools": "Beralih ke DevTools"
+            }
+          },
+          "always-on-top": "Selalu di atas",
+          "auto-update": "Pembaruan Otomatis",
+          "hide-menu": {
+            "dialog": {
+              "message": "Menu akan disembunyikan pada peluncuran berikutnya, gunakan [Alt] untuk menampilkannya (atau centang [`] jika menggunakan menu dalam aplikasi)",
+              "title": "Sembunyikan Menu Diaktifkan"
+            },
+            "label": "Sembunyikan Menu"
+          },
+          "language": {
+            "dialog": {
+              "message": "Bahasa akan berubah setelah restart",
+              "title": "Bahasa Berubah"
+            },
+            "label": "Bahasa",
+            "submenu": {
+              "to-help-translate": "Ingin membantu menerjemahkan? Klik di sini"
+            }
+          },
+          "resume-on-start": "Melanjutkan lagu terakhir saat aplikasi dimulai",
+          "single-instance-lock": "Kunci Instance Tunggal",
+          "start-at-login": "Mulai saat masuk",
+          "starting-page": {
+            "label": "Halaman awal",
+            "unset": "Tidak ditetapkan"
+          },
+          "tray": {
+            "submenu": {
+              "disabled": "Dinonaktifkan",
+              "enabled-and-hide-app": "Mengaktifkan dan menyembunyikan aplikasi",
+              "enabled-and-show-app": "Mengaktifkan dan menampilkan aplikasi",
+              "play-pause-on-click": "Putar/Jeda dengan klik"
+            }
+          },
+          "visual-tweaks": {
+            "label": "Penyesuaian Visual",
+            "submenu": {
+              "like-buttons": {
+                "force-show": "Pertunjukan paksa",
+                "hide": "Sembunyikan",
+                "label": "Tombol suka"
+              },
+              "remove-upgrade-button": "Hapus tombol peningkatan",
+              "theme": {
+                "label": "Tema",
+                "submenu": {
+                  "import-css-file": "Impor file CSS khusus",
+                  "no-theme": "Tidak ada tema"
+                }
+              }
+            }
+          }
+        }
+      },
+      "plugins": {
+        "enabled": "Diaktifkan",
+        "label": "Plugin",
+        "new": "Baru"
+      },
+      "view": {
+        "label": "Lihat",
+        "submenu": {
+          "force-reload": "Paksa Reload",
+          "reload": "Muat ulang",
+          "reset-zoom": "Ukuran sebenarnya",
+          "toggle-fullscreen": "Alihkan Layar Penuh",
+          "zoom-in": "Perbesar",
+          "zoom-out": "Perkecil"
+        }
+      }
+    },
+    "tray": {
+      "next": "Selanjutnya",
+      "play-pause": "Putar/Jeda",
+      "previous": "Sebelumnya",
+      "quit": "Keluar",
+      "restart": "Restart aplikasi",
+      "show": "Tampilkan jendela",
+      "tooltip": {
+        "with-song-info": "YouTube Music: {{artist}} - {{Judul}}"
+      }
+    }
+  },
+  "plugins": {
+    "adblocker": {
+      "description": "Blokir semua iklan dan pelacakan di luar kotak",
+      "menu": {
+        "blocker": "Pemblokir"
+      },
+      "name": "Pemblokir Iklan"
+    },
+    "album-actions": {
+      "description": "Menambahkan tombol Tidak Suka, Tidak Suka, Suka, dan Tidak Suka untuk menerapkannya ke semua lagu dalam daftar putar atau album",
+      "name": "Tindakan Album"
+    },
+    "album-color-theme": {
+      "description": "Menerapkan tema dinamis dan efek visual berdasarkan palet warna album",
+      "name": "Tema Warna Album"
+    },
+    "ambient-mode": {
+      "description": "Menerapkan efek pencahayaan dengan memancarkan warna-warna lembut dari video, ke dalam latar belakang layar Anda",
+      "menu": {
+        "blur-amount": {
+          "label": "Jumlah kabur"
+        },
+        "opacity": {
+          "label": "Keburaman"
+        },
+        "quality": {
+          "label": "Kualitas"
+        },
+        "size": {
+          "label": "Ukuran"
+        }
       }
     }
   }
