@@ -102,9 +102,11 @@
               "override-user-agent": "Mengesampingkan User-Agent",
               "restart-on-config-changes": "Mulai ulang pada perubahan konfigurasi",
               "set-proxy": {
+                "label": "Atur Proxy",
                 "prompt": {
                   "label": "Masukkan Alamat Proxy: (biarkan kosong untuk menonaktifkan)",
-                  "placeholder": "Contoh: SOCKS5://127.0.0.1:9999"
+                  "placeholder": "Contoh: SOCKS5://127.0.0.1:9999",
+                  "title": "Atur proxy"
                 }
               },
               "toggle-dev-tools": "Beralih ke DevTools"
@@ -137,6 +139,7 @@
             "unset": "Tidak ditetapkan"
           },
           "tray": {
+            "label": "Bilah",
             "submenu": {
               "disabled": "Dinonaktifkan",
               "enabled-and-hide-app": "Mengaktifkan dan menyembunyikan aplikasi",
@@ -148,6 +151,7 @@
             "label": "Penyesuaian Visual",
             "submenu": {
               "like-buttons": {
+                "default": "Standar",
                 "force-show": "Pertunjukan paksa",
                 "hide": "Sembunyikan",
                 "label": "Tombol suka"
@@ -189,6 +193,7 @@
       "restart": "Restart aplikasi",
       "show": "Tampilkan jendela",
       "tooltip": {
+        "default": "YouTube Musik",
         "with-song-info": "YouTube Music: {{artist}} - {{Judul}}"
       }
     }
@@ -213,16 +218,154 @@
       "description": "Menerapkan efek pencahayaan dengan memancarkan warna-warna lembut dari video, ke dalam latar belakang layar Anda",
       "menu": {
         "blur-amount": {
-          "label": "Jumlah kabur"
+          "label": "Jumlah kabur",
+          "submenu": {
+            "pixels": "{{blurAmount}} piksel"
+          }
+        },
+        "buffer": {
+          "label": "Buffer",
+          "submenu": {
+            "buffer": "{{buffer}}"
+          }
         },
         "opacity": {
-          "label": "Keburaman"
+          "label": "Keburaman",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
         },
         "quality": {
-          "label": "Kualitas"
+          "label": "Kualitas",
+          "submenu": {
+            "pixels": "{{quality}} piksel"
+          }
         },
         "size": {
-          "label": "Ukuran"
+          "label": "Ukuran",
+          "submenu": {
+            "percent": "{{size}}%"
+          }
+        },
+        "smoothness-transition": {
+          "label": "Kehalusan transisi",
+          "submenu": {
+            "during": "Selama {{interpolationTime}} s"
+          }
+        },
+        "use-fullscreen": {
+          "label": "Gunakan layar penuh"
+        }
+      },
+      "name": "Mode ambient"
+    },
+    "audio-compressor": {
+      "description": "Menerapkan kompresi pada audio (mengurangi volume pada bagian paling keras dari sinyal dan meningkatkan volume pada bagian paling lembut)",
+      "name": "Kompresi suara"
+    },
+    "blur-nav-bar": {
+      "description": "Jadikan bar navigasi blur dan transparan",
+      "name": "buramkan bar navigasi"
+    },
+    "bypass-age-restrictions": {
+      "description": "Lewati verifikasi umur dari YouTube",
+      "name": "Lewati batasan umur"
+    },
+    "captions-selector": {
+      "description": "pemilih caption untuk trek audio YouTube Music",
+      "menu": {
+        "autoload": "pilih caption terakhir secara otomatis",
+        "disable-captions": "bawaannya tanpa caption"
+      },
+      "name": "pemilih caption",
+      "prompt": {
+        "selector": {
+          "label": "bahasa caption yang dipakai sekarang: {{language}}",
+          "none": "tidak ada",
+          "title": "pilih bahasa caption"
+        }
+      },
+      "templates": {
+        "title": "buka pemilih caption"
+      }
+    },
+    "compact-sidebar": {
+      "description": "Selalu atur sidebar dalam mode kompak",
+      "name": "sidebar ringkas"
+    },
+    "crossfade": {
+      "description": "Crossfade antar lagu",
+      "menu": {
+        "advanced": "Lanjutan"
+      },
+      "name": "Crossfade [Beta]",
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "fade-in-duration": "durasi fade in (ms)",
+            "fade-out-duration": "durasi fade out (ms)",
+            "fade-scaling": {
+              "label": "redup perlahan",
+              "linear": "Linear",
+              "logarithmic": "Logaritmik"
+            },
+            "seconds-before-end": "Crossfade N detik sebelum berakhir"
+          },
+          "title": "Pilihan crossfade"
+        }
+      }
+    },
+    "disable-autoplay": {
+      "description": "Buat lagu mulai dalam mode \"jeda\"",
+      "menu": {
+        "apply-once": "Hanya terapkan pada saat startup"
+      },
+      "name": "Matikan Autoplay"
+    },
+    "discord": {
+      "backend": {
+        "already-connected": "Percobaan untuk terhubung dengan koneksi yang aktif",
+        "connected": "Terhubung dengan Discord",
+        "disconnected": "Terputus dari Discord"
+      },
+      "description": "tunjukan apa yang kamu dengarkan dengan Rich Presence",
+      "menu": {
+        "auto-reconnect": "Reconnect otomatis",
+        "clear-activity": "Hapus riwayat aktifitas",
+        "clear-activity-after-timeout": "hapus riwayat aktifitas setelah timeout",
+        "connected": "terhubung",
+        "disconnected": "tidak terhubung",
+        "hide-duration-left": "sembunyikan sisa durasi",
+        "hide-github-button": "sembunyikan tombol link GitHub",
+        "play-on-youtube-music": "Mainkan di YouTube Music",
+        "set-inactivity-timeout": "Tetapkan batas waktu tidak aktif"
+      },
+      "name": "Rich Presence Discord",
+      "prompt": {
+        "set-inactivity-timeout": {
+          "label": "Masukkan batas waktu tidak aktif dalam detik:",
+          "title": "Tetapkan batas waktu tidak aktif"
+        }
+      }
+    },
+    "downloader": {
+      "backend": {
+        "dialog": {
+          "error": {
+            "buttons": {
+              "ok": "Oke"
+            },
+            "message": "Argh! Maaf, dowloadnya gagal…",
+            "title": "Downloadnya error!"
+          },
+          "start-download-playlist": {
+            "buttons": {
+              "ok": "Oke"
+            },
+            "detail": "({{playlistSize}} lagu-lagu)",
+            "message": "Mengunduh Playlist {{playlistTitle}}",
+            "title": "Download dimulai"
+          }
         }
       }
     }
