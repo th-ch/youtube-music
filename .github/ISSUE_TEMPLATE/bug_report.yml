@@ -50,7 +50,7 @@ body:
     required: true
 - type: dropdown
   attributes:
-    label: What arch are you using?
+    label: What CPU architecture are you using?
     options:
       - x64
       - ia32
