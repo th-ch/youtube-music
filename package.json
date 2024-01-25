@@ -187,7 +187,7 @@
     "@types/howler": "2.2.11",
     "@types/html-to-text": "9.0.4",
     "@types/semver": "7.5.6",
-    "@typescript-eslint/eslint-plugin": "6.19.0",
+    "@typescript-eslint/eslint-plugin": "6.19.1",
     "bufferutil": "4.0.8",
     "builtin-modules": "3.3.0",
     "cross-env": "7.0.3",
