@@ -23,16 +23,16 @@ patchedDependencies:
 dependencies:
   '@cliqz/adblocker-electron':
     specifier: 1.26.15
-    version: 1.26.15(electron@29.0.0-alpha.11)
+    version: 1.26.15(electron@29.0.0-beta.1)
   '@cliqz/adblocker-electron-preload':
     specifier: 1.26.15
-    version: 1.26.15(electron@29.0.0-alpha.11)
+    version: 1.26.15(electron@29.0.0-beta.1)
   '@electron-toolkit/tsconfig':
     specifier: 1.0.1
     version: 1.0.1(@types/node@20.11.0)
   '@electron/remote':
     specifier: 2.1.2
-    version: 2.1.2(electron@29.0.0-alpha.11)
+    version: 2.1.2(electron@29.0.0-beta.1)
   '@ffmpeg.wasm/core-mt':
     specifier: 0.12.0
     version: 0.12.0
@@ -68,7 +68,7 @@ dependencies:
     version: 10.2.0
   custom-electron-prompt:
     specifier: 1.5.7
-    version: 1.5.7(electron@29.0.0-alpha.11)
+    version: 1.5.7(electron@29.0.0-beta.1)
   dbus-next:
     specifier: 0.10.2
     version: 0.10.2
@@ -186,8 +186,8 @@ devDependencies:
     specifier: 5.1.0
     version: 5.1.0
   electron:
-    specifier: 29.0.0-alpha.11
-    version: 29.0.0-alpha.11
+    specifier: 29.0.0-beta.1
+    version: 29.0.0-beta.1
   electron-builder:
     specifier: 24.9.1
     version: 24.9.1
@@ -540,23 +540,23 @@ packages:
       '@cliqz/adblocker-extended-selectors': 1.26.15
     dev: false
 
-  /@cliqz/adblocker-electron-preload@1.26.15(electron@29.0.0-alpha.11):
+  /@cliqz/adblocker-electron-preload@1.26.15(electron@29.0.0-beta.1):
     resolution: {integrity: sha512-nGfY84iQitDkiz9JTPdATIGuesPo8xcNJiVjWJ4eVtncNBnVvpGSOBI7HlOAPxKsJMDA42vMujm8dIVavTtnBg==}
     peerDependencies:
       electron: '>11'
     dependencies:
       '@cliqz/adblocker-content': 1.26.15
-      electron: 29.0.0-alpha.11
+      electron: 29.0.0-beta.1
     dev: false
 
-  /@cliqz/adblocker-electron@1.26.15(electron@29.0.0-alpha.11):
+  /@cliqz/adblocker-electron@1.26.15(electron@29.0.0-beta.1):
     resolution: {integrity: sha512-pOidIXaKoX7R/i/klVOEj/CVkXvXFPKkDp4UTlSOC5Xn7mRtLia8hNJAuLiL3VsJR18PFhBTaPPipd2aVR2+yA==}
     peerDependencies:
       electron: '>11'
     dependencies:
       '@cliqz/adblocker': 1.26.15
-      '@cliqz/adblocker-electron-preload': 1.26.15(electron@29.0.0-alpha.11)
-      electron: 29.0.0-alpha.11
+      '@cliqz/adblocker-electron-preload': 1.26.15(electron@29.0.0-beta.1)
+      electron: 29.0.0-beta.1
       tldts-experimental: 6.1.2
     dev: false
 
@@ -645,12 +645,12 @@ packages:
       - supports-color
     dev: true
 
-  /@electron/remote@2.1.2(electron@29.0.0-alpha.11):
+  /@electron/remote@2.1.2(electron@29.0.0-beta.1):
     resolution: {integrity: sha512-EPwNx+nhdrTBxyCqXt/pftoQg/ybtWDW3DUWHafejvnB1ZGGfMpv6e15D8KeempocjXe78T7WreyGGb3mlZxdA==}
     peerDependencies:
       electron: '>= 13.0.0'
     dependencies:
-      electron: 29.0.0-alpha.11
+      electron: 29.0.0-beta.1
     dev: false
 
   /@electron/universal@2.0.1:
@@ -2466,12 +2466,12 @@ packages:
     engines: {node: '>= 6'}
     dev: false
 
-  /custom-electron-prompt@1.5.7(electron@29.0.0-alpha.11):
+  /custom-electron-prompt@1.5.7(electron@29.0.0-beta.1):
     resolution: {integrity: sha512-ptRPJr6CpT06GWLMtg3GD2Lr7gWfXdWI+hR1S39eq+m/mUa2E118YmX6mPCbHdg5QB/W9UVhSpRqBM8FUh1G8w==}
     peerDependencies:
       electron: '>=10.0.0'
     dependencies:
-      electron: 29.0.0-alpha.11
+      electron: 29.0.0-beta.1
     dev: false
 
   /data-uri-to-buffer@4.0.1:
@@ -2963,8 +2963,8 @@ packages:
       - supports-color
     dev: true
 
-  /electron@29.0.0-alpha.11:
-    resolution: {integrity: sha512-Ma6rEzcI4IKPho/03j+XXlcOORCW8qfaj+LxD2E5pmYq+gbojQgeCYJJLA+f6L62YenT+BRIimEw0uATNvVZDg==}
+  /electron@29.0.0-beta.1:
+    resolution: {integrity: sha512-D3ppvGblWZkNfyhwNhyu7jwJdA48TKTS6/C+GbzffZIU+waYcNQR1ykMfKPSTlBOBjIrPrrg+ABk9c8j4Ff1AQ==}
     engines: {node: '>= 12.20.55'}
     hasBin: true
     requiresBuild: true
