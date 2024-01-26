@@ -24,13 +24,13 @@ export default createPlugin<
     sidebarSmall: HTMLElement | null;
     ytmusicAppLayout: HTMLElement | null;
 
-    getColor(key: string, alpha?: number): string;
+    getMixedColor(color: string, key: string, ratio?: number, alpha?: number): string;
     updateColor(): void;
   }
 >({
   name: () => t('plugins.album-color-theme.name'),
   description: () => t('plugins.album-color-theme.description'),
-  restartNeeded: true,
+  restartNeeded: false,
   config: {
     enabled: false,
   },
@@ -97,28 +97,52 @@ export default createPlugin<
         this.updateColor();
       });
     },
-    getColor(key: string, alpha = 1) {
-      return `rgba(var(${key}), ${alpha})`;
+    getMixedColor(color: string, key: string, ratio = 0.2, alpha = 1) {
+      const keyColor = `rgba(var(${key}), ${alpha})`;
+      return `color-mix(in srgb, ${color} ${Math.round((1 - ratio) * 100)}%, ${keyColor} ${Math.round(ratio * 100)}%)`;
     },
     updateColor() {
-      const change = (element: HTMLElement | null, color: string) => {
-        if (element) {
-          element.style.backgroundColor = color;
-        }
+      const variableMap = {
+        '--ytmusic-color-black1': '#212121',
+        '--ytmusic-color-black2': '#181818',
+        '--ytmusic-color-black3': '#030303',
+        '--ytmusic-color-black4': '#030303',
+        '--ytmusic-color-blackpure': '#000',
+        '--dark-theme-background-color': '#212121',
+        '--yt-spec-base-background': '#0f0f0f',
+        '--yt-spec-raised-background': '#212121',
+        '--yt-spec-menu-background': '#282828',
+        '--yt-spec-static-brand-black': '#212121',
+        '--yt-spec-static-overlay-background-solid': '#000',
+        '--yt-spec-static-overlay-background-heavy': 'rgba(0,0,0,0.8)',
+        '--yt-spec-static-overlay-background-medium': 'rgba(0,0,0,0.6)',
+        '--yt-spec-static-overlay-background-medium-light': 'rgba(0,0,0,0.3)',
+        '--yt-spec-static-overlay-background-light': 'rgba(0,0,0,0.1)',
+        '--yt-spec-general-background-a': '#181818',
+        '--yt-spec-general-background-b': '#0f0f0f',
+        '--yt-spec-general-background-c': '#030303',
+        '--yt-spec-snackbar-background': '#030303',
+        '--yt-spec-filled-button-text': '#030303',
+        '--yt-spec-black-1': '#282828',
+        '--yt-spec-black-2': '#1f1f1f',
+        '--yt-spec-black-3': '#161616',
+        '--yt-spec-black-4': '#0d0d0d',
+        '--yt-spec-black-pure': '#000',
+        '--yt-spec-black-pure-alpha-5': 'rgba(0,0,0,0.05)',
+        '--yt-spec-black-pure-alpha-10': 'rgba(0,0,0,0.1)',
+        '--yt-spec-black-pure-alpha-15': 'rgba(0,0,0,0.15)',
+        '--yt-spec-black-pure-alpha-30': 'rgba(0,0,0,0.3)',
+        '--yt-spec-black-pure-alpha-60': 'rgba(0,0,0,0.6)',
+        '--yt-spec-black-pure-alpha-80': 'rgba(0,0,0,0.8)',
+        '--yt-spec-black-1-alpha-98': 'rgba(40,40,40,0.98)',
+        '--yt-spec-black-1-alpha-95': 'rgba(40,40,40,0.95)',
       };
+      Object.entries(variableMap).map(([variable, color]) => {
+        document.documentElement.style.setProperty(variable, this.getMixedColor(color, COLOR_KEY), 'important');
+      });
 
-      change(this.playerPage, this.getColor(DARK_COLOR_KEY));
-      change(this.navBarBackground, this.getColor(COLOR_KEY));
-      change(this.ytmusicPlayerBar, this.getColor(COLOR_KEY));
-      change(this.playerBarBackground, this.getColor(COLOR_KEY));
-      change(this.sidebarBig, this.getColor(COLOR_KEY));
-
-      if (this.ytmusicAppLayout?.hasAttribute('player-page-open')) {
-        change(this.sidebarSmall, this.getColor(DARK_COLOR_KEY));
-      }
-
-      const ytRightClickList = document.querySelector<HTMLElement>('tp-yt-paper-listbox');
-      change(ytRightClickList, this.getColor(COLOR_KEY));
+      document.body.style.setProperty('background', this.getMixedColor('#030303', COLOR_KEY), 'important');
+      document.body.style.setProperty('--ytmusic-background', `linear-gradient(var(--ytmusic-general-background-a), var(--ytmusic-general-background-c))`, 'important');
     },
   },
 });

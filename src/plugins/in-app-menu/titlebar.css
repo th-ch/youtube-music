@@ -1,5 +1,5 @@
 :root {
-  --titlebar-background-color: #030303;
+  --titlebar-background-color: var(--ytmusic-color-black3);
   --menu-bar-height: 32px;
 }
 
