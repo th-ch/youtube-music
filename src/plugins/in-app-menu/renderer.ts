@@ -71,8 +71,6 @@ export const onRendererLoad = async ({
   if (!isMacOS) titleBar.appendChild(logo);
   document.body.appendChild(titleBar);
 
-  titleBar.appendChild(logo);
-
   const addWindowControls = async () => {
     // Create window control buttons
     const minimizeButton = document.createElement('button');
