@@ -8,6 +8,7 @@ import { t } from '@/i18n';
 
 const COLOR_KEY = '--ytmusic-album-color';
 const DARK_COLOR_KEY = '--ytmusic-album-color-dark';
+const RATIO_KEY = '--ytmusic-album-color-ratio';
 
 export default createPlugin<
   unknown,
@@ -24,8 +25,12 @@ export default createPlugin<
     sidebarSmall: HTMLElement | null;
     ytmusicAppLayout: HTMLElement | null;
 
-    getMixedColor(color: string, key: string, ratio?: number, alpha?: number): string;
+    getMixedColor(color: string, key: string, alpha?: number, ratioMultiply?: number): string;
     updateColor(): void;
+  },
+  {
+    enabled: boolean;
+    ratio: number;
   }
 >({
   name: () => t('plugins.album-color-theme.name'),
@@ -33,8 +38,33 @@ export default createPlugin<
   restartNeeded: false,
   config: {
     enabled: false,
+    ratio: 0.5,
   },
   stylesheets: [style],
+  menu: async ({ getConfig, setConfig }) => {
+    const ratioList = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1];
+
+    const config = await getConfig();
+
+    return [
+      {
+        label: t('plugins.album-color-theme.menu.color-mix-ratio.label'),
+        submenu: ratioList.map((ratio) => ({
+          label: t(
+            'plugins.album-color-theme.menu.color-mix-ratio.submenu.percent',
+            {
+              ratio: ratio * 100,
+            },
+          ),
+          type: 'radio',
+          checked: config.ratio === ratio,
+          click() {
+            setConfig({ ratio });
+          },
+        })),
+      },
+    ];
+  },
   renderer: {
     playerPage: null,
     navBarBackground: null,
@@ -44,7 +74,7 @@ export default createPlugin<
     sidebarSmall: null,
     ytmusicAppLayout: null,
 
-    start() {
+    async start({ getConfig }) {
       this.playerPage = document.querySelector<HTMLElement>('#player-page');
       this.navBarBackground = document.querySelector<HTMLElement>(
         '#nav-bar-background',
@@ -59,6 +89,9 @@ export default createPlugin<
         '#mini-guide-background',
       );
       this.ytmusicAppLayout = document.querySelector<HTMLElement>('#layout');
+
+      const config = await getConfig();
+      document.documentElement.style.setProperty(RATIO_KEY, `${~~(config.ratio * 100)}%`);
     },
     onPlayerApiReady(playerApi) {
       const fastAverageColor = new FastAverageColor();
@@ -97,9 +130,19 @@ export default createPlugin<
         this.updateColor();
       });
     },
-    getMixedColor(color: string, key: string, ratio = 0.2, alpha = 1) {
+    onConfigChange(config) {
+      document.documentElement.style.setProperty(RATIO_KEY, `${~~(config.ratio * 100)}%`);
+    },
+    getMixedColor(color: string, key: string, alpha = 1, ratioMultiply) {
       const keyColor = `rgba(var(${key}), ${alpha})`;
-      return `color-mix(in srgb, ${color} ${Math.round((1 - ratio) * 100)}%, ${keyColor} ${Math.round(ratio * 100)}%)`;
+
+      let colorRatio = `var(${RATIO_KEY}, 50%)`;
+      let originalRatio = `calc(100% - var(${RATIO_KEY}, 50%))`;
+      if (ratioMultiply) {
+        colorRatio = `calc(var(${RATIO_KEY}, 50%) * ${ratioMultiply})`;
+        originalRatio = `calc(100% - calc(var(${RATIO_KEY}, 50%) * ${ratioMultiply}))`;
+      }
+      return `color-mix(in srgb, ${color} ${originalRatio}, ${keyColor} ${colorRatio})`;
     },
     updateColor() {
       const variableMap = {
@@ -142,7 +185,7 @@ export default createPlugin<
       });
 
       document.body.style.setProperty('background', this.getMixedColor('#030303', COLOR_KEY), 'important');
-      document.body.style.setProperty('--ytmusic-background', `linear-gradient(var(--ytmusic-general-background-a), var(--ytmusic-general-background-c))`, 'important');
+      document.documentElement.style.setProperty('--ytmusic-background', this.getMixedColor('#030303', DARK_COLOR_KEY), 'important');
     },
   },
 });

@@ -65,3 +65,11 @@ ytmusic-player-bar {
 .volume-slider.ytmusic-player-bar, .expand-volume-slider.ytmusic-player-bar {
   --paper-slider-container-color: rgba(255, 255, 255, 0.5) !important;
 }
+
+/* fix background image */
+ytmusic-fullbleed-thumbnail-renderer img {
+  mask: linear-gradient(to bottom, #000 0%, #000 50%, transparent 100%);
+}
+.background-gradient.style-scope {
+  background: var(--ytmusic-background) !important;
+}
