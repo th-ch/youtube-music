@@ -95,31 +95,6 @@ const handleData = async (
     config.set('url', microformat.urlCanonical);
   }
 
-  switch (data.videoDetails.musicVideoType) {
-    case 'MUSIC_VIDEO_TYPE_ATV':
-      songInfo.mediaType = MediaType.Audio;
-      break;
-    case 'MUSIC_VIDEO_TYPE_OMV':
-      songInfo.mediaType = MediaType.OriginalMusicVideo;
-      break;
-    case 'MUSIC_VIDEO_TYPE_UGC':
-      songInfo.mediaType = MediaType.UserGeneratedContent;
-      break;
-    case 'MUSIC_VIDEO_TYPE_PODCAST_EPISODE':
-      songInfo.mediaType = MediaType.PodcastEpisode;
-      break;
-    default:
-      songInfo.mediaType = MediaType.OtherVideo;
-      break;
-  }
-
-  // HACK: This is a workaround for "podcast" type video. GREAT JOB GOOGLE.
-  if (data.playabilityStatus.transportControlsConfig) {
-    songInfo.mediaType = MediaType.PodcastEpisode;
-    data.videoDetails.author =
-      data.microformat.microformatDataRenderer.pageOwnerDetails.name;
-  }
-
   const { videoDetails } = data;
   if (videoDetails) {
     songInfo.title = cleanupName(videoDetails.title);
@@ -130,6 +105,28 @@ const handleData = async (
     songInfo.isPaused = videoDetails.isPaused;
     songInfo.videoId = videoDetails.videoId;
     songInfo.album = data?.videoDetails?.album; // Will be undefined if video exist
+
+    switch (videoDetails?.musicVideoType) {
+      case 'MUSIC_VIDEO_TYPE_ATV':
+        songInfo.mediaType = MediaType.Audio;
+        break;
+      case 'MUSIC_VIDEO_TYPE_OMV':
+        songInfo.mediaType = MediaType.OriginalMusicVideo;
+        break;
+      case 'MUSIC_VIDEO_TYPE_UGC':
+        songInfo.mediaType = MediaType.UserGeneratedContent;
+        break;
+      case 'MUSIC_VIDEO_TYPE_PODCAST_EPISODE':
+        songInfo.mediaType = MediaType.PodcastEpisode;
+        // HACK: Podcast's participant is not the artist
+        if (!config.get('options.usePodcastParticipantAsArtist')) {
+          songInfo.artist = cleanupName(data.microformat.microformatDataRenderer.pageOwnerDetails.name);
+        }
+        break;
+      default:
+        songInfo.mediaType = MediaType.OtherVideo;
+        break;
+    }
 
     const thumbnails = videoDetails.thumbnail?.thumbnails;
     songInfo.imageSrc = thumbnails.at(-1)?.url.split('?')[0];
