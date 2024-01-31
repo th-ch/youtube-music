@@ -577,7 +577,8 @@
         },
         "listenbrainz": {
           "token": "输入 ListenBrainz 用户令牌"
-        }
+        },
+        "scrobble-other-media": "记录其他媒体文件"
       },
       "name": "歌曲记录器",
       "prompt": {
