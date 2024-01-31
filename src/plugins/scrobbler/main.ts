@@ -51,6 +51,11 @@ export const backend = createBackend<{
       clearTimeout(scrobbleTimer);
       if (!songInfo.isPaused) {
         const configNonnull = this.config!;
+        // Scrobblers normally have no trouble working with official music videos
+        if (!configNonnull.scrobble_other_media && (songInfo.mediaType !== 'AUDIO' && songInfo.mediaType !== 'ORIGINAL_MUSIC_VIDEO')) {
+          return;
+        }
+
         // Scrobble when the song is halfway through, or has passed the 4-minute mark
         const scrobbleTime = Math.min(Math.ceil(songInfo.songDuration / 2), 4 * 60);
         if (scrobbleTime > (songInfo.elapsedSeconds ?? 0)) {

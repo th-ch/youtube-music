@@ -147,7 +147,7 @@ winget install th-ch.YouTubeMusic
   > (see [this post](https://github.com/th-ch/youtube-music/issues/410#issuecomment-952060709) if you have problem
   accessing the menu after enabling this plugin and hide-menu option)
 
-- [**Last.fm**](https://www.last.fm/): Scrobbles support
+- **Scrobbler**: Adds scrobbling support for [Last.fm](https://www.last.fm/) and [ListenBrainz](https://listenbrainz.org/)
 
 - **Lumia Stream**: Adds [Lumia Stream](https://lumiastream.com/) support
 

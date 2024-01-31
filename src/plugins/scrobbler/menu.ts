@@ -80,6 +80,15 @@ export const onMenu = async ({
 
   return [
     {
+      label: t('plugins.scrobbler.menu.scrobble-other-media'),
+      type: 'checkbox',
+      checked: Boolean(config.scrobble_other_media),
+      click(item) {
+        config.scrobble_other_media = item.checked;
+        setConfig(config);
+      },
+    },
+    {
       label: 'Last.fm',
       submenu: [
         {
