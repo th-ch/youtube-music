@@ -10,7 +10,7 @@ export const onMainLoad = async ({
   window,
   getConfig,
   setConfig,
-  ipc: { send, handle, on },
+  ipc: { send, on },
 }: BackendContext<PictureInPicturePluginConfig>) => {
   let isInPiP = false;
   let originalPosition: number[];
@@ -40,7 +40,7 @@ export const onMainLoad = async ({
       originalPosition = window.getPosition();
       originalSize = window.getSize();
 
-      handle('before-input-event', blockShortcutsInPiP);
+      window.webContents.addListener('before-input-event', blockShortcutsInPiP);
 
       window.setMaximizable(false);
       window.setFullScreenable(false);
