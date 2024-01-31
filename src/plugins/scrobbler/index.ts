@@ -9,7 +9,7 @@ export interface ScrobblerPluginConfig {
   /**
     * Attempt to scrobble other video types (e.g. Podcasts, normal YouTube videos)
     *
-    * @default false
+    * @default true
     */
   scrobble_other_media: boolean,
   scrobblers: {
@@ -70,7 +70,7 @@ export interface ScrobblerPluginConfig {
 
 export const defaultConfig: ScrobblerPluginConfig = {
   enabled: false,
-  scrobble_other_media: false,
+  scrobble_other_media: true,
   scrobblers: {
     lastfm: {
       enabled: false,
