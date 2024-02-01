@@ -9,7 +9,7 @@
         "load-failed": "\"{{pluginName}}\" eklentisi yüklenemedi",
         "loaded": "\"{{pluginName}}\" eklentisi yüklendi",
         "unload-failed": "\"{{pluginName}}\" eklentisi çıkartılamadı",
-        "unloaded": "\"{{pluginName}}\" eklentisi kaldırıldı"
+        "unloaded": "\"{{pluginName}}\" eklentisi çıkartıldı"
       }
     }
   },
@@ -60,7 +60,7 @@
       "unresponsive": {
         "buttons": {
           "quit": "Çıkış",
-          "relaunch": "Yeniden Başlat",
+          "relaunch": "Tekrar Başlat",
           "wait": "Bekle"
         },
         "detail": "Rahatsızlık için özür dileriz! Lütfen ne yapacağınızı seçin:",
@@ -193,8 +193,8 @@
       "restart": "Yeniden başlat",
       "show": "Pencereyi görüntüle",
       "tooltip": {
-        "default": "YouTube Music",
-        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
+        "default": "YouTube Müzik",
+        "with-song-info": "YouTube Müzik: {{artist}} - {{title}}"
       }
     }
   },
@@ -340,7 +340,7 @@
         "play-on-youtube-music": "YouTube Music de oynat",
         "set-inactivity-timeout": "Hareketsizlik zaman aşımını ayarla"
       },
-      "name": "Discord Rich Presence",
+      "name": "Discord Etkinlik Durumu",
       "prompt": {
         "set-inactivity-timeout": {
           "label": "Hareketsizlik zaman aşımını saniye cinsinden girin:",
@@ -570,16 +570,17 @@
       "name": "Video Kalitesi Değiştirici"
     },
     "scrobbler": {
-      "description": "Scrobbling desteği ekler (lastfm, listenbrainz ve benzeri)",
+      "description": "Listeleme desteği ekler (lastfm, listenbrainz ve benzeri)",
       "menu": {
         "lastfm": {
           "api-settings": "Last.fm API Ayarları"
         },
         "listenbrainz": {
-          "token": "ListenBrainz kullanıcı tokeninizi girin"
-        }
+          "token": "ListenBrainz kullanıcı kimliğinizi girin"
+        },
+        "scrobble-other-media": "Diğer medya ortamlarında listele"
       },
-      "name": "Scrobbler",
+      "name": "Listeleyici",
       "prompt": {
         "lastfm": {
           "api-key": "Last.fm API anahtarı",
@@ -587,8 +588,8 @@
         },
         "listenbrainz": {
           "token": {
-            "label": "ListenBrainz kullanıcı tokeninizi girin:",
-            "title": "ListenBrainz token"
+            "label": "ListenBrainz kullanıcı kimliğinizi girin:",
+            "title": "ListenBrainz kimliği"
           }
         }
       }
