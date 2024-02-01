@@ -21,7 +21,7 @@
   "main": {
     "console": {
       "did-finish-load": {
-        "dev-tools": "Selesai memuat. DevTools dibuka"
+        "dev-tools": "Selesai memuat. DevTools terbuka"
       },
       "i18n": {
         "loaded": "i18n selesai dimuat"
