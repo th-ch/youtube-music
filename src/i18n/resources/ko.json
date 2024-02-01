@@ -212,6 +212,14 @@
     },
     "album-color-theme": {
       "description": "앨범 색상 팔레트를 기반으로 동적 테마 및 시각 효과를 적용합니다",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "색상 혼합 비율",
+          "submenu": {
+            "percent": "{{ratio}}%"
+          }
+        }
+      },
       "name": "앨범 컬러 기반 테마"
     },
     "ambient-mode": {
@@ -577,7 +585,8 @@
         },
         "listenbrainz": {
           "token": "ListenBrainz 유저 토큰 입력"
-        }
+        },
+        "scrobble-other-media": "다른 미디어 스크로블하기"
       },
       "name": "스크로블러",
       "prompt": {
