@@ -73,3 +73,9 @@ ytmusic-fullbleed-thumbnail-renderer img {
 .background-gradient.style-scope {
   background: var(--ytmusic-background) !important;
 }
+ytmusic-browse-response[has-background]:not([disable-gradient]) .background-gradient.ytmusic-browse-response {
+  background: unset !important;
+}
+#background.immersive-background.style-scope.ytmusic-browse-response {
+  opacity: 0.6;
+}
