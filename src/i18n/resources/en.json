@@ -212,7 +212,15 @@
     },
     "album-color-theme": {
       "description": "Applies a dynamic theme and visual effects based on the album color palette",
-      "name": "Album Color Theme"
+      "name": "Album Color Theme",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "Color mix ratio",
+          "submenu": {
+            "percent": "{{ratio}}%"
+          }
+        }
+      }
     },
     "ambient-mode": {
       "description": "Applies a lighting effect by casting gentle colors from the video, into your screen’s background",
