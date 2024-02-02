@@ -212,6 +212,14 @@
     },
     "album-color-theme": {
       "description": "Albümün renk paletine dayalı dinamik bir tema ve efektler uygular",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "Renk karışım oranı",
+          "submenu": {
+            "percent": "{{ratio}}%"
+          }
+        }
+      },
       "name": "Albüm Renk Teması"
     },
     "ambient-mode": {
