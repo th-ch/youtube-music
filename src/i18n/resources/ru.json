@@ -212,6 +212,14 @@
     },
     "album-color-theme": {
       "description": "Применяет динамическую тему и визуальные эффекты на основе цветовой палитры альбома",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "Соотношение цветов",
+          "submenu": {
+            "percent": "{{ratio}}%"
+          }
+        }
+      },
       "name": "Цветовая тема альбома"
     },
     "ambient-mode": {
@@ -577,7 +585,8 @@
         },
         "listenbrainz": {
           "token": "Введите токен пользователя ListenBrainz"
-        }
+        },
+        "scrobble-other-media": "Скробблинг других медиа"
       },
       "name": "Скробблер",
       "prompt": {
