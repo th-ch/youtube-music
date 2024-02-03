@@ -50,6 +50,9 @@ export default (
       toastXml: getXml(songInfo, icon),
     });
 
+    // To fix the notification not closing
+    setTimeout(() => savedNotification?.close(), 5000);
+
     savedNotification.on('close', () => {
       savedNotification = undefined;
     });

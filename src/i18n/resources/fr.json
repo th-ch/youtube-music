@@ -170,7 +170,8 @@
       },
       "plugins": {
         "enabled": "Activé",
-        "label": "Extensions"
+        "label": "Extensions",
+        "new": "NOUVELLE"
       },
       "view": {
         "label": "Vue",
@@ -204,6 +205,10 @@
         "blocker": "Bloqueur"
       },
       "name": "Bloqueur de publicités"
+    },
+    "album-actions": {
+      "description": "Ajoute les boutons Dislike, Undislike, Like, et Unlike à appliquer sur toutes les chansons dans un playlist ou un album.",
+      "name": "Actions d'Album"
     },
     "album-color-theme": {
       "description": "Applique un thème dynamique et des effets visuels basés sur la palette des couleurs de l'album",
@@ -412,10 +417,6 @@
       },
       "name": "Menu intégré à l'application"
     },
-    "last-fm": {
-      "description": "Ajouter le support du scrobbling pour Last.fm",
-      "name": "Last.fm"
-    },
     "lumiastream": {
       "description": "Ajoute la prise en charge de Lumia Stream",
       "name": "Lumia Stream [Bêta]"
@@ -542,7 +543,8 @@
       }
     },
     "skip-disliked-songs": {
-      "description": "Passer les musiques que je n'aime pas"
+      "description": "Passer les musiques que je n'aime pas",
+      "name": "Passer Chansons Déplaisantes"
     },
     "skip-silences": {
       "description": "Ignorer automatiquement les sections de silence dans les chansons",

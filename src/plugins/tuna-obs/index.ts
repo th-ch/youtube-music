@@ -26,6 +26,7 @@ export default createPlugin({
     enabled: false,
   },
   backend: {
+    liteMode: false,
     data: {
       cover: '',
       cover_url: '',
@@ -51,18 +52,28 @@ export default createPlugin({
         const url = `http://127.0.0.1:${port}/`;
         net
           .fetch(url, {
-            method: 'POST',
+            method: this.liteMode ? 'OPTIONS' : 'POST',
             headers,
             keepalive: true,
-            body: JSON.stringify({ data }),
+            body: this.liteMode ? undefined : JSON.stringify({ data }),
+          })
+          .then(() => {
+            if (this.liteMode) {
+              this.liteMode = false;
+              console.debug(
+                `obs-tuna webserver at port ${port} is now accessible. disable lite mode`,
+              );
+              post(data);
+            }
           })
           .catch((error: { code: number; errno: number }) => {
-            if (is.dev()) {
+            if (!this.liteMode && is.dev()) {
               console.debug(
                 `Error: '${
                   error.code || error.errno
-                }' - when trying to access obs-tuna webserver at port ${port}`,
+                }' - when trying to access obs-tuna webserver at port ${port}. enable lite mode`,
               );
+              this.liteMode = true;
             }
           });
       };

@@ -117,17 +117,19 @@ export const setUpTray = (app: Electron.App, win: Electron.BrowserWindow) => {
   const trayMenu = Menu.buildFromTemplate(template);
   tray.setContextMenu(trayMenu);
 
-  registerCallback(songInfo => {
-    if (typeof songInfo.isPaused === 'undefined') {
-      tray.setImage(defaultTrayIcon);
-      return;
+  registerCallback((songInfo) => {
+    if (tray) {
+      if (typeof songInfo.isPaused === 'undefined') {
+        tray.setImage(defaultTrayIcon);
+        return;
+      }
+
+      tray.setToolTip(t('main.tray.tooltip.with-song-info', {
+        artist: songInfo.artist,
+        title: songInfo.title,
+      }));
+
+      tray.setImage(songInfo.isPaused ? pausedTrayIcon : defaultTrayIcon);
     }
-
-    tray.setToolTip(t('main.tray.tooltip.with-song-info', {
-      artist: songInfo.artist,
-      title: songInfo.title,
-    }));
-
-    tray.setImage(songInfo.isPaused ? pausedTrayIcon : defaultTrayIcon);
-  })
+  });
 };

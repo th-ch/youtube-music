@@ -191,7 +191,11 @@
       "previous": "上一首",
       "quit": "退出",
       "restart": "重启应用",
-      "show": "显示窗口"
+      "show": "显示窗口",
+      "tooltip": {
+        "default": "YouTube Music",
+        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
+      }
     }
   },
   "plugins": {
@@ -203,7 +207,7 @@
       "name": "广告屏蔽器"
     },
     "album-actions": {
-      "description": "添加作用于播放列表或专辑中所有歌曲的全局“点赞/取消点赞”与“喜欢/取消喜欢”按钮。",
+      "description": "添加作用于播放列表或专辑中所有歌曲的全局“点赞/取消点赞”与“喜欢/取消喜欢”按钮",
       "name": "专辑操作"
     },
     "album-color-theme": {
@@ -211,7 +215,7 @@
       "name": "专辑配色主题"
     },
     "ambient-mode": {
-      "description": "将视频中的浅配色作为光效投射到背景中，以增加沉浸感。",
+      "description": "将视频中的浅配色作为光效投射到背景中，以增加沉浸感",
       "menu": {
         "blur-amount": {
           "label": "模糊等级",
@@ -413,10 +417,6 @@
       },
       "name": "应用内菜单"
     },
-    "last-fm": {
-      "description": "添加 Last.fm 记录支持",
-      "name": "Last.fm"
-    },
     "lumiastream": {
       "description": "添加 Lumia Stream 支持",
       "name": "Lumia Stream [测试]"
@@ -468,6 +468,7 @@
         "disconnected": "Music Together 已断开连接",
         "host-failed": "发起 Music Together 失败",
         "id-copied": "已将发起者 ID 复制到剪切板",
+        "id-copy-failed": "复制发起者 ID 到剪贴板时失败",
         "join-failed": "加入 Music Together 失败",
         "joined": "已加入 Music Together",
         "permission-changed": "Music Together 权限已改为 \"{{permission}}\"",
@@ -594,7 +595,7 @@
       }
     },
     "shortcuts": {
-      "description": "允许为音频回放（播放/暂停/上一曲/下一曲）设置全局热键，兼具覆盖物理键以禁用 OSD、启用 Ctrl/CMD + F 搜索、为物理键启用 Linux MPRIS 支持及自定义热键等高级功能。",
+      "description": "允许为音频回放操作（播放/暂停/上一曲/下一曲）设置全局热键，兼具覆盖物理键以禁用 OSD、启用 Ctrl/CMD + F 搜索、为物理键启用 Linux MPRIS 支持及自定义热键等高级功能",
       "menu": {
         "override-media-keys": "覆盖物理媒体热键",
         "set-keybinds": "设置全局歌曲控件"

@@ -6,6 +6,37 @@ import defaults from './defaults';
 import { DefaultPresetList, type Preset } from '@/plugins/downloader/types';
 
 const migrations = {
+  '>=3.3.0'(store: Conf<Record<string, unknown>>) {
+    const lastfmConfig = store.get('plugins.lastfm') as {
+      enabled?: boolean;
+      token?: string;
+      session_key?: string;
+      api_root?: string;
+      api_key?: string;
+      secret?: string;
+    };
+    if (lastfmConfig) {
+      const scrobblerConfig = store.get(
+        'plugins.scrobbler',
+      ) as {
+        enabled?: boolean;
+        scrobblers: {
+          lastfm: {
+            enabled?: boolean;
+            token?: string;
+            session_key?: string;
+            api_root?: string;
+            api_key?: string;
+            secret?: string;
+          };
+        };
+      };
+
+      scrobblerConfig.enabled = lastfmConfig.enabled;
+      scrobblerConfig.scrobblers.lastfm = lastfmConfig;
+      store.set('plugins.scrobbler', scrobblerConfig);
+    }
+  },
   '>=3.0.0'(store: Conf<Record<string, unknown>>) {
     const discordConfig = store.get('plugins.discord') as Record<
       string,

@@ -417,10 +417,6 @@
       },
       "name": "程式內選單列"
     },
-    "last-fm": {
-      "description": "新增對Last.fm的scrobbling支援",
-      "name": "Last.fm"
-    },
     "lumiastream": {
       "description": "新增對 Lumia Stream 的支援",
       "name": "Lumia Stream [Beta]"

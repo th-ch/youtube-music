@@ -55,6 +55,13 @@ import { loadI18n, setLanguage, t } from '@/i18n';
 
 import type { PluginConfig } from '@/types/plugins';
 
+if (!is.macOS()) {
+  delete allPlugins['touchbar'];
+}
+if (!is.windows()) {
+  delete allPlugins['taskbar-mediacontrol'];
+}
+
 // Catch errors and log them
 unhandled({
   logger: console.error,
