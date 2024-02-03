@@ -164,12 +164,6 @@ export default (api: YoutubePlayer) => {
     data.videoDetails.elapsedSeconds = 0;
     data.videoDetails.isPaused = false;
 
-    // HACK: This is a workaround for "podcast" type video. GREAT JOB GOOGLE.
-    if (data.playabilityStatus.transportControlsConfig) {
-      data.videoDetails.author =
-        data.microformat.microformatDataRenderer.pageOwnerDetails.name;
-    }
-
     window.ipcRenderer.send('ytmd:video-src-changed', data);
   }
 };

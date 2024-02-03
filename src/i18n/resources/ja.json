@@ -170,7 +170,8 @@
       },
       "plugins": {
         "enabled": "有効",
-        "label": "プラグイン"
+        "label": "プラグイン",
+        "new": "新着"
       },
       "view": {
         "label": "表示",
@@ -190,7 +191,11 @@
       "previous": "前の曲",
       "quit": "終了",
       "restart": "アプリを再起動",
-      "show": "ウィンドウを表示"
+      "show": "ウィンドウを表示",
+      "tooltip": {
+        "default": "YouTube ミュージック",
+        "with-song-info": "YouTube ミュージック: {{artist}} - {{title}}"
+      }
     }
   },
   "plugins": {
@@ -199,14 +204,18 @@
       "menu": {
         "blocker": "ブロッカー"
       },
-      "name": "Adblocker"
+      "name": "広告ブロッカー"
+    },
+    "album-actions": {
+      "description": "「Undislike（嫌いではない）」「Dislike（嫌い）」「Like（好き）」「Unlike（好きではない）」ボタンを追加し、プレイリストやアルバム内のすべての曲にこれらを適用します",
+      "name": "アルバムアクション"
     },
     "album-color-theme": {
       "description": "アルバムカバーの色をベースにして動的テーマと視覚効果を適用します",
       "name": "アルバムカラーベースのテーマ"
     },
     "ambient-mode": {
-      "description": "動画の間接照明を画面背景に投射します。",
+      "description": "動画の内容に合った淡い色に画面の背景を変化させるライティング効果を適応します",
       "menu": {
         "blur-amount": {
           "label": "ぼかしの強さ",
@@ -239,9 +248,9 @@
           }
         },
         "smoothness-transition": {
-          "label": "スムーズな切り替えり",
+          "label": "スムーズな切り替え",
           "submenu": {
-            "during": "{{interpolationTime}}秒間切り替えり"
+            "during": "{{interpolationTime}}秒間切り替え"
           }
         },
         "use-fullscreen": {
@@ -289,7 +298,7 @@
       "menu": {
         "advanced": "詳細設定"
       },
-      "name": "クロスフェード[ベータ]",
+      "name": "クロスフェード [ベータ]",
       "prompt": {
         "options": {
           "multi-input": {
@@ -426,6 +435,52 @@
         "fetched-lyrics": "Geniusから歌詞取得完了"
       }
     },
+    "music-together": {
+      "description": "プレイリストを他の人と共有します。 ホストが曲を再生すると、他の全員にも同じ曲が聞こえます",
+      "dialog": {
+        "enter-host": "ホストIDを入力"
+      },
+      "internal": {
+        "save": "保存",
+        "track-source": "トラックソース",
+        "unknown-user": "不明なユーザー"
+      },
+      "menu": {
+        "click-to-copy-id": "ホストIDをコピー",
+        "close": "一緒に音楽を閉じる",
+        "connected-users": "接続されているユーザー",
+        "disconnect": "一緒に音楽を切断する",
+        "empty-user": "接続中のユーザーはいません",
+        "host": "Music Together ホスト",
+        "join": "一緒に音楽に参加",
+        "permission": {
+          "all": "ゲストがプレイリストとプレーヤーを制御できるようにする",
+          "host-only": "ホストのみがプレイリストとプレーヤーを制御できます",
+          "playlist": "ゲストによるプレイリストの制御を許可する"
+        },
+        "set-permission": "制御権限を変更",
+        "status": {
+          "disconnected": "切断されました",
+          "guest": "ゲストとして接続しました",
+          "host": "ホストとして接続されています"
+        }
+      },
+      "name": "一緒に音楽 [ベータ版]",
+      "toast": {
+        "add-song-failed": "曲の追加に失敗しました",
+        "closed": "一緒に音楽が閉じられました",
+        "disconnected": "一緒に音楽が切断されました",
+        "host-failed": "一緒に音楽のホストに失敗しました",
+        "id-copied": "ホストIDがクリップボードにコピーされました",
+        "id-copy-failed": "ホストIDをクリップボードにコピー出来ませんでした",
+        "join-failed": "一緒に音楽に参加出来ませんでした",
+        "joined": "一緒に音楽に参加しました",
+        "permission-changed": "一緒に音楽の権限が \"{{permission}}\" に変更されました",
+        "remove-song-failed": "曲の削除に失敗しました",
+        "user-connected": "{{name}} が一緒に音楽に参加しました",
+        "user-disconnected": "{{name}} が一緒に音楽を退出しました"
+      }
+    },
     "navigation": {
       "description": "ブラウザの戻る・進むボタンのようにUIからコントロールできるボタン",
       "name": "ナビゲーション"
@@ -518,6 +573,30 @@
       "description": "ビデオオーバーレイのボタンを使用してビデオ品質を変更できるようにします",
       "name": "ビデオ品質チェンジャー"
     },
+    "scrobbler": {
+      "description": "スクロブリング対応を追加します（例：last.fm、Listenbrainzなど）",
+      "menu": {
+        "lastfm": {
+          "api-settings": "Last.fm API 設定"
+        },
+        "listenbrainz": {
+          "token": "ListenBrainzユーザートークンを入力してください"
+        }
+      },
+      "name": "スクロブラー",
+      "prompt": {
+        "lastfm": {
+          "api-key": "Last.fm APIキー",
+          "api-secret": "Last.fm API シークレット"
+        },
+        "listenbrainz": {
+          "token": {
+            "label": "ListenBrainzのユーザートークンを入力してください:",
+            "title": "ListenBrainzトークン"
+          }
+        }
+      }
+    },
     "shortcuts": {
       "description": "再生用のグローバル ホットキー (再生/一時停止/次/前) の設定、メディア キーをオーバーライドしてメディア OSD を無効にする、Ctrl/CMD + F による検索を有効にする、 メディアキーの Linux mpris サポートを有効にする、 上級ユーザー向けのカスタム ホットキー を可能にします",
       "menu": {
@@ -551,7 +630,7 @@
     },
     "taskbar-mediacontrol": {
       "description": "Windowsタスクバーから再生をコントロール",
-      "name": "Taskbar Media Control"
+      "name": "タスクバーメディアコントロール"
     },
     "touchbar": {
       "description": "masOSユーザー向けにTouchBarウィジェットを追加",

@@ -170,7 +170,8 @@
       },
       "plugins": {
         "enabled": "啟用",
-        "label": "外掛功能"
+        "label": "外掛功能",
+        "new": "新的"
       },
       "view": {
         "label": "視窗",
@@ -190,7 +191,11 @@
       "previous": "上一首",
       "quit": "關閉",
       "restart": "重啟程式",
-      "show": "顯示視窗"
+      "show": "顯示視窗",
+      "tooltip": {
+        "default": "Youtube Music",
+        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
+      }
     }
   },
   "plugins": {
@@ -199,14 +204,18 @@
       "menu": {
         "blocker": "阻擋方式"
       },
-      "name": "廣告阻擋"
+      "name": "廣告攔截器"
+    },
+    "album-actions": {
+      "description": "新增支援對整個播放清單或專輯\"喜歡／不喜歡\"\"取消喜歡／取消不喜歡\"的按鈕",
+      "name": "進階專輯操作"
     },
     "album-color-theme": {
       "description": "依歌曲色調自動更改應用程式主題",
       "name": "隨歌曲色調變更主題"
     },
     "ambient-mode": {
-      "description": "將影片內容的淺色畫面投放至螢幕背景, 讓觀眾在觀賞影片時更有臨場感。",
+      "description": "影片周圍背景根據影片內容改變顏色, 讓觀眾在觀賞影片時更有臨場感",
       "menu": {
         "blur-amount": {
           "label": "模糊等級",
@@ -426,6 +435,52 @@
         "fetched-lyrics": "為Genius獲取字幕"
       }
     },
+    "music-together": {
+      "description": "與他人共享播放清單。當發起人播放歌曲時，其他成員也會同步收聽",
+      "dialog": {
+        "enter-host": "輸入發起人 ID"
+      },
+      "internal": {
+        "save": "儲存",
+        "track-source": "追蹤來源",
+        "unknown-user": "未知使用者"
+      },
+      "menu": {
+        "click-to-copy-id": "複製發起人 ID",
+        "close": "同步關閉音樂",
+        "connected-users": "已連接的使用者",
+        "disconnect": "斷開連接共享音樂",
+        "empty-user": "無已連接的使用者",
+        "host": "發起共享音樂",
+        "join": "加入共享音樂",
+        "permission": {
+          "all": "允許加入的使用者控制播放清單及播放控制",
+          "host-only": "不允許加入的使用者控制播放清單及播放控制",
+          "playlist": "只允許加入的使用者控制播放清單"
+        },
+        "set-permission": "切換共享音樂播放權限",
+        "status": {
+          "disconnected": "已斷開連接",
+          "guest": "以使用者身份加入",
+          "host": "以發起人身份加入"
+        }
+      },
+      "name": "共享音樂 [Beta]",
+      "toast": {
+        "add-song-failed": "歌曲加入失敗",
+        "closed": "關閉共享音樂",
+        "disconnected": "共享音樂已斷開連接",
+        "host-failed": "發起共享音樂失敗",
+        "id-copied": "已複製發起人 ID",
+        "id-copy-failed": "複製發起人 ID 失敗",
+        "join-failed": "加入共享音樂失敗",
+        "joined": "加入共享音樂",
+        "permission-changed": "共享音樂播放權限已切換至 \"{{permission}}\"",
+        "remove-song-failed": "歌曲移除失敗",
+        "user-connected": "{{name}} 已加入共享音樂",
+        "user-disconnected": "{{name}} 離開了共享音樂"
+      }
+    },
     "navigation": {
       "description": "將上一頁／下一頁按鈕新增至應用程式上方, 就像你最熟悉的瀏覽器",
       "name": "導覽列"
@@ -517,6 +572,30 @@
       },
       "description": "允許在影片內進行畫質更改",
       "name": "允許變更影片畫質"
+    },
+    "scrobbler": {
+      "description": "額外新增 scrobbling 支援 (例如：last.fm, Listenbrainz)",
+      "menu": {
+        "lastfm": {
+          "api-settings": "Last.fm API 設定"
+        },
+        "listenbrainz": {
+          "token": "輸入 ListenBrainz 使用者憑證"
+        }
+      },
+      "name": "Scrobbler",
+      "prompt": {
+        "lastfm": {
+          "api-key": "Last.fm API 金鑰",
+          "api-secret": "Last.fm API 密鑰"
+        },
+        "listenbrainz": {
+          "token": {
+            "label": "輸入您的 ListenBrainz 使用者憑證：",
+            "title": "ListenBrainz 使用者憑證"
+          }
+        }
+      }
     },
     "shortcuts": {
       "description": "使用全域快捷鍵控制音樂 (播放／暫停／下一首／上一首) + 透過覆寫媒體快捷鍵停用媒體OSD + 允許Ctrl/CMD + F來搜尋 + 支援Linux MPRIS媒體快捷鍵 + 更多自訂快捷鍵給進階使用者。",

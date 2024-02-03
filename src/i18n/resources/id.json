@@ -17,5 +17,357 @@
     "code": "id",
     "local-name": "Bahasa Indonesia",
     "name": "Indonesian"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "Selesai memuat. DevTools terbuka"
+      },
+      "i18n": {
+        "loaded": "i18n selesai dimuat"
+      },
+      "second-instance": {
+        "receive-command": "Menerima instruksi lewat protokol: \"{{command}}\""
+      },
+      "theme": {
+        "css-file-not-found": "CSS file \"{{cssFile}}\" tidak ada, mengabaikan"
+      },
+      "unresponsive": {
+        "details": "Kesalahan Tidak Responsif!\n{{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "Menghapus cache aplikasi"
+      },
+      "window": {
+        "tried-to-render-offscreen": "Window mencoba membuat render di luar layar, windowUkuran={{windowSize}}, displaySize={{displaySize}}, posisi={{position}}"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "detail": "Menu tersembunyi, gunakan 'Alt' untuk menampilkannya (atau 'Escape' jika menggunakan Menu Dalam Aplikasi)",
+        "message": "Menu Sembunyikan diaktifkan",
+        "title": "Sembunyikan Menu Diaktifkan"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "Kemudian",
+          "restart-now": "Restart Sekarang"
+        },
+        "detail": "\"{{pluginName}}\" Plugin memerlukan pengaktifan ulang agar dapat diterapkan",
+        "message": "\"{{pluginName}}\" harus dimulai ulang",
+        "title": "Diperlukan Restart"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "Keluar",
+          "relaunch": "Luncurkan kembali",
+          "wait": "Tunggu"
+        },
+        "detail": "Kami mohon maaf atas ketidaknyamanan ini. silakan pilih apa yang harus dilakukan:",
+        "message": "Aplikasi Tidak Responsif",
+        "title": "Jendela Tidak Responsif"
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "Nonaktifkan Pembaruan",
+          "download": "Unduh",
+          "ok": "OK"
+        },
+        "detail": "Versi baru tersedia dan dapat diunduh di {{downloadLink}}",
+        "message": "Versi baru tersedia",
+        "title": "Pembaruan Tersedia"
+      }
+    },
+    "menu": {
+      "about": "Tentang",
+      "navigation": {
+        "label": "Navigasi",
+        "submenu": {
+          "copy-current-url": "Salin URL saat ini",
+          "go-back": "Kembali",
+          "go-forward": "Maju",
+          "quit": "Keluar",
+          "restart": "Restart Aplikasi"
+        }
+      },
+      "options": {
+        "label": "Option",
+        "submenu": {
+          "advanced-options": {
+            "label": "Opsi lanjutan",
+            "submenu": {
+              "auto-reset-app-cache": "Mengatur ulang cache aplikasi saat aplikasi dimulai",
+              "disable-hardware-acceleration": "Menonaktifkan akselerasi perangkat keras",
+              "edit-config-json": "Edit config.json",
+              "override-user-agent": "Mengesampingkan User-Agent",
+              "restart-on-config-changes": "Mulai ulang pada perubahan konfigurasi",
+              "set-proxy": {
+                "label": "Atur Proxy",
+                "prompt": {
+                  "label": "Masukkan Alamat Proxy: (biarkan kosong untuk menonaktifkan)",
+                  "placeholder": "Contoh: SOCKS5://127.0.0.1:9999",
+                  "title": "Atur proxy"
+                }
+              },
+              "toggle-dev-tools": "Beralih ke DevTools"
+            }
+          },
+          "always-on-top": "Selalu di atas",
+          "auto-update": "Pembaruan Otomatis",
+          "hide-menu": {
+            "dialog": {
+              "message": "Menu akan disembunyikan pada peluncuran berikutnya, gunakan [Alt] untuk menampilkannya (atau centang [`] jika menggunakan menu dalam aplikasi)",
+              "title": "Sembunyikan Menu Diaktifkan"
+            },
+            "label": "Sembunyikan Menu"
+          },
+          "language": {
+            "dialog": {
+              "message": "Bahasa akan berubah setelah restart",
+              "title": "Bahasa Berubah"
+            },
+            "label": "Bahasa",
+            "submenu": {
+              "to-help-translate": "Ingin membantu menerjemahkan? Klik di sini"
+            }
+          },
+          "resume-on-start": "Melanjutkan lagu terakhir saat aplikasi dimulai",
+          "single-instance-lock": "Kunci Instance Tunggal",
+          "start-at-login": "Mulai saat masuk",
+          "starting-page": {
+            "label": "Halaman awal",
+            "unset": "Tidak ditetapkan"
+          },
+          "tray": {
+            "label": "Bilah",
+            "submenu": {
+              "disabled": "Dinonaktifkan",
+              "enabled-and-hide-app": "Mengaktifkan dan menyembunyikan aplikasi",
+              "enabled-and-show-app": "Mengaktifkan dan menampilkan aplikasi",
+              "play-pause-on-click": "Putar/Jeda dengan klik"
+            }
+          },
+          "visual-tweaks": {
+            "label": "Penyesuaian Visual",
+            "submenu": {
+              "like-buttons": {
+                "default": "Standar",
+                "force-show": "Pertunjukan paksa",
+                "hide": "Sembunyikan",
+                "label": "Tombol suka"
+              },
+              "remove-upgrade-button": "Hapus tombol peningkatan",
+              "theme": {
+                "label": "Tema",
+                "submenu": {
+                  "import-css-file": "Impor file CSS khusus",
+                  "no-theme": "Tidak ada tema"
+                }
+              }
+            }
+          }
+        }
+      },
+      "plugins": {
+        "enabled": "Diaktifkan",
+        "label": "Plugin",
+        "new": "Baru"
+      },
+      "view": {
+        "label": "Lihat",
+        "submenu": {
+          "force-reload": "Paksa Reload",
+          "reload": "Muat ulang",
+          "reset-zoom": "Ukuran sebenarnya",
+          "toggle-fullscreen": "Alihkan Layar Penuh",
+          "zoom-in": "Perbesar",
+          "zoom-out": "Perkecil"
+        }
+      }
+    },
+    "tray": {
+      "next": "Selanjutnya",
+      "play-pause": "Putar/Jeda",
+      "previous": "Sebelumnya",
+      "quit": "Keluar",
+      "restart": "Restart aplikasi",
+      "show": "Tampilkan jendela",
+      "tooltip": {
+        "default": "YouTube Musik",
+        "with-song-info": "YouTube Music: {{artist}} - {{Judul}}"
+      }
+    }
+  },
+  "plugins": {
+    "adblocker": {
+      "description": "Blokir semua iklan dan pelacakan di luar kotak",
+      "menu": {
+        "blocker": "Pemblokir"
+      },
+      "name": "Pemblokir Iklan"
+    },
+    "album-actions": {
+      "description": "Menambahkan tombol Tidak Suka, Tidak Suka, Suka, dan Tidak Suka untuk menerapkannya ke semua lagu dalam daftar putar atau album",
+      "name": "Tindakan Album"
+    },
+    "album-color-theme": {
+      "description": "Menerapkan tema dinamis dan efek visual berdasarkan palet warna album",
+      "name": "Tema Warna Album"
+    },
+    "ambient-mode": {
+      "description": "Menerapkan efek pencahayaan dengan memancarkan warna-warna lembut dari video, ke dalam latar belakang layar Anda",
+      "menu": {
+        "blur-amount": {
+          "label": "Jumlah kabur",
+          "submenu": {
+            "pixels": "{{blurAmount}} piksel"
+          }
+        },
+        "buffer": {
+          "label": "Buffer",
+          "submenu": {
+            "buffer": "{{buffer}}"
+          }
+        },
+        "opacity": {
+          "label": "Keburaman",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "quality": {
+          "label": "Kualitas",
+          "submenu": {
+            "pixels": "{{quality}} piksel"
+          }
+        },
+        "size": {
+          "label": "Ukuran",
+          "submenu": {
+            "percent": "{{size}}%"
+          }
+        },
+        "smoothness-transition": {
+          "label": "Kehalusan transisi",
+          "submenu": {
+            "during": "Selama {{interpolationTime}} s"
+          }
+        },
+        "use-fullscreen": {
+          "label": "Gunakan layar penuh"
+        }
+      },
+      "name": "Mode ambient"
+    },
+    "audio-compressor": {
+      "description": "Menerapkan kompresi pada audio (mengurangi volume pada bagian paling keras dari sinyal dan meningkatkan volume pada bagian paling lembut)",
+      "name": "Kompresi suara"
+    },
+    "blur-nav-bar": {
+      "description": "Jadikan bar navigasi blur dan transparan",
+      "name": "buramkan bar navigasi"
+    },
+    "bypass-age-restrictions": {
+      "description": "Lewati verifikasi umur dari YouTube",
+      "name": "Lewati batasan umur"
+    },
+    "captions-selector": {
+      "description": "pemilih caption untuk trek audio YouTube Music",
+      "menu": {
+        "autoload": "pilih caption terakhir secara otomatis",
+        "disable-captions": "bawaannya tanpa caption"
+      },
+      "name": "pemilih caption",
+      "prompt": {
+        "selector": {
+          "label": "bahasa caption yang dipakai sekarang: {{language}}",
+          "none": "tidak ada",
+          "title": "pilih bahasa caption"
+        }
+      },
+      "templates": {
+        "title": "buka pemilih caption"
+      }
+    },
+    "compact-sidebar": {
+      "description": "Selalu atur sidebar dalam mode kompak",
+      "name": "sidebar ringkas"
+    },
+    "crossfade": {
+      "description": "Crossfade antar lagu",
+      "menu": {
+        "advanced": "Lanjutan"
+      },
+      "name": "Crossfade [Beta]",
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "fade-in-duration": "durasi fade in (ms)",
+            "fade-out-duration": "durasi fade out (ms)",
+            "fade-scaling": {
+              "label": "redup perlahan",
+              "linear": "Linear",
+              "logarithmic": "Logaritmik"
+            },
+            "seconds-before-end": "Crossfade N detik sebelum berakhir"
+          },
+          "title": "Pilihan crossfade"
+        }
+      }
+    },
+    "disable-autoplay": {
+      "description": "Buat lagu mulai dalam mode \"jeda\"",
+      "menu": {
+        "apply-once": "Hanya terapkan pada saat startup"
+      },
+      "name": "Matikan Autoplay"
+    },
+    "discord": {
+      "backend": {
+        "already-connected": "Percobaan untuk terhubung dengan koneksi yang aktif",
+        "connected": "Terhubung dengan Discord",
+        "disconnected": "Terputus dari Discord"
+      },
+      "description": "tunjukan apa yang kamu dengarkan dengan Rich Presence",
+      "menu": {
+        "auto-reconnect": "Reconnect otomatis",
+        "clear-activity": "Hapus riwayat aktifitas",
+        "clear-activity-after-timeout": "hapus riwayat aktifitas setelah timeout",
+        "connected": "terhubung",
+        "disconnected": "tidak terhubung",
+        "hide-duration-left": "sembunyikan sisa durasi",
+        "hide-github-button": "sembunyikan tombol link GitHub",
+        "play-on-youtube-music": "Mainkan di YouTube Music",
+        "set-inactivity-timeout": "Tetapkan batas waktu tidak aktif"
+      },
+      "name": "Rich Presence Discord",
+      "prompt": {
+        "set-inactivity-timeout": {
+          "label": "Masukkan batas waktu tidak aktif dalam detik:",
+          "title": "Tetapkan batas waktu tidak aktif"
+        }
+      }
+    },
+    "downloader": {
+      "backend": {
+        "dialog": {
+          "error": {
+            "buttons": {
+              "ok": "Oke"
+            },
+            "message": "Argh! Maaf, dowloadnya gagal…",
+            "title": "Downloadnya error!"
+          },
+          "start-download-playlist": {
+            "buttons": {
+              "ok": "Oke"
+            },
+            "detail": "({{playlistSize}} lagu-lagu)",
+            "message": "Mengunduh Playlist {{playlistTitle}}",
+            "title": "Download dimulai"
+          }
+        }
+      }
+    }
   }
 }

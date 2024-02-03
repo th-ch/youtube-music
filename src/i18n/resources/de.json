@@ -170,7 +170,8 @@
       },
       "plugins": {
         "enabled": "Aktiviert",
-        "label": "Erweiterungen"
+        "label": "Erweiterungen",
+        "new": "NEU"
       },
       "view": {
         "label": "Ansicht",
@@ -190,7 +191,11 @@
       "previous": "Vorheriges",
       "quit": "Beenden",
       "restart": "Anwendung neu starten",
-      "show": "Fenster anzeigen"
+      "show": "Fenster anzeigen",
+      "tooltip": {
+        "default": "YouTube Musik",
+        "with-song-info": "YouTube Musik: {{artist}} - {{title}}"
+      }
     }
   },
   "plugins": {
@@ -201,12 +206,16 @@
       },
       "name": "Werbeblocker"
     },
+    "album-actions": {
+      "description": "Fügt Undislike, Dislike, Like und Unlike-Knöpfe hinzu, welche sich auf alle Lieder in einer Playlist oder Album auswirken",
+      "name": "Album-Aktionen"
+    },
     "album-color-theme": {
       "description": "Wendet ein dynamisches Farbthema und visuelle Effekte auf Basis der Farbpalette des Albumcovers an",
       "name": "Thema aus Albumfarbe"
     },
     "ambient-mode": {
-      "description": "Fügt einen Lichteffekt durch sanftes Abstreifen der Farben des Videos in deinen Bildschirmhintergrund hinzu.",
+      "description": "Fügt einen Lichteffekt durch sanftes Abstreifen der Farben des Videos in deinen Bildschirmhintergrund hinzu",
       "menu": {
         "blur-amount": {
           "label": "Unschärfemenge",
@@ -408,10 +417,6 @@
       },
       "name": "In-App Menü"
     },
-    "last-fm": {
-      "description": "Scrobbling-Unterstützung für Last.fm hinzufügen",
-      "name": "Last.fm"
-    },
     "lumiastream": {
       "description": "Fügt Unterstützung für Lumia Stream hinzu",
       "name": "Lumia Stream [Beta]"
@@ -424,6 +429,52 @@
       "name": "Liedtexte von Genius",
       "renderer": {
         "fetched-lyrics": "Liedtexte für Genius abgerufen"
+      }
+    },
+    "music-together": {
+      "description": "Teile eine Wiedergabeliste mit anderen. Wenn der Host ein Lied abspielt, hören alle anderen das gleiche Lied",
+      "dialog": {
+        "enter-host": "Host ID eingeben"
+      },
+      "internal": {
+        "save": "Speichern",
+        "track-source": "Quelle verfolgen",
+        "unknown-user": "Unbekannter Nutzer"
+      },
+      "menu": {
+        "click-to-copy-id": "Host ID kopieren",
+        "close": "Music Together schließen",
+        "connected-users": "Verbundene Benutzer",
+        "disconnect": "Verbindung zu Music Together trennen",
+        "empty-user": "Keine verbundenen Benutzer",
+        "host": "Host für Music Together",
+        "join": "Music Together beitreten",
+        "permission": {
+          "all": "Gästen erlauben, Wiederhabeliste und Player zu bedienen",
+          "host-only": "Nur der Host kann die Playlist und den Player kontrollieren",
+          "playlist": "Gäste das Kontrollieren der Playlist erlauben"
+        },
+        "set-permission": "Kontrollberechtigung ändern",
+        "status": {
+          "disconnected": "Verbindung getrennt",
+          "guest": "Als Gast verbunden",
+          "host": "Als Host verbunden"
+        }
+      },
+      "name": "Music Together [Beta]",
+      "toast": {
+        "add-song-failed": "Song hinzufügen gescheitert",
+        "closed": "Music Together geschlossen",
+        "disconnected": "Verbindung zu Music Together getrennt",
+        "host-failed": "Hosten von Music Together gescheitert",
+        "id-copied": "Host ID in die Zwischenablage kopiert",
+        "id-copy-failed": "Kopieren der Host ID in die Zwischenablage gescheitert",
+        "join-failed": "Beitreten zu Music Together gescheitert",
+        "joined": "Music Together beigetreten",
+        "permission-changed": "Music Together-Berechtigung zu \"{{permission}}\" geändert",
+        "remove-song-failed": "Entfernen des Liedes gescheitert",
+        "user-connected": "{{name}} ist Music Together beigetreten",
+        "user-disconnected": "{{name}} hat Music Together verlassen"
       }
     },
     "navigation": {
@@ -517,6 +568,29 @@
       },
       "description": "Erlaubt die Videoqualität über einen Knopf auf dem Video",
       "name": "Videoqualitätsänderer"
+    },
+    "scrobbler": {
+      "description": "Scrobbling-Unterstützung aktivieren (z.B. für last.fm, Listenbrainz)",
+      "menu": {
+        "lastfm": {
+          "api-settings": "Last.fm API Einstellungen"
+        },
+        "listenbrainz": {
+          "token": "ListenBrainz-Benutzer-Token eintragen"
+        }
+      },
+      "name": "Scrobbler",
+      "prompt": {
+        "lastfm": {
+          "api-key": "Last.fm API-Schlüssel",
+          "api-secret": "Last.fm API secret"
+        },
+        "listenbrainz": {
+          "token": {
+            "label": "ListenBrainz-Benutzer-Token eintragen"
+          }
+        }
+      }
     },
     "shortcuts": {
       "description": "Ermöglicht das Festlegen globaler Hotkeys für die Wiedergabe (Abspielen/Pause/Nächster/Vorheriger) + Deaktivieren des Medien-OSD durch Überschreiben der Medientasten + Aktivieren von Strg/CMD + F zum Suchen + Aktivieren der Linux mpris-Unterstützung für Medientasten + Angepasste Tastenkürzel für fortgeschrittene Benutzer.",

@@ -568,6 +568,30 @@
       "description": "Permette di cambiare la qualità del video con un pulsante in sovrimpressione",
       "name": "Cambia qualità video"
     },
+    "scrobbler": {
+      "description": "Aggiunge il supporto per lo scrobbling (Last.fm, Listenbrainz ecc.)",
+      "menu": {
+        "lastfm": {
+          "api-settings": "Impostazione Last.fm API"
+        },
+        "listenbrainz": {
+          "token": "Inserire il token utente per ListenBrainz"
+        }
+      },
+      "name": "Scrobbler",
+      "prompt": {
+        "lastfm": {
+          "api-key": "API key per Last.fm",
+          "api-secret": "API secret per Last.fm"
+        },
+        "listenbrainz": {
+          "token": {
+            "label": "Inserisci il tuo token utente ListenBrainz:",
+            "title": "Token ListenBrainz"
+          }
+        }
+      }
+    },
     "shortcuts": {
       "description": "Consente di impostare tasti di scelta rapida globali per la riproduzione (riproduci/pausa/successivo/precedente) + disabilita l'OSD multimediale sovrascrivendo i tasti multimediali + abilita Ctrl/CMD + F per la ricerca + abilita il supporto Linux MPRIS per i tasti multimediali + tasti di scelta rapida personalizzati per utenti avanzati.",
       "menu": {

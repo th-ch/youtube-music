@@ -1,0 +1,46 @@
+{
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "Неуспешно изпълнение на плъгин {{pluginName}}::{{contextName}}",
+        "executed-at-ms": "Плъгин {{pluginName}}::{{contextName}} изпълнет в {{ms}}ms",
+        "initialize-failed": "Неуспешна инициализация на плъгин \"{{pluginName}}\"",
+        "load-all": "Зареждане на всички плъгини",
+        "load-failed": "Неуспешно зареждане на плъгин \"{{pluginName}}\"",
+        "loaded": "Плъгин \"{{pluginName}}\" зареден",
+        "unload-failed": "Неуспешне разрездане на плъгин \"{{pluginName}}\"",
+        "unloaded": "Плъгин \"{{pluginName}}\" разреден"
+      }
+    }
+  },
+  "language": {
+    "code": "bg",
+    "local-name": "Български",
+    "name": "Bulgarian"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "Завърши зареждането. DevTools отворени"
+      },
+      "i18n": {
+        "loaded": "i18n заредено"
+      },
+      "second-instance": {
+        "receive-command": "Получена команда чрез протокол: \"{{command}}\""
+      },
+      "theme": {
+        "css-file-not-found": "CSS файл \"{{cssFile}}\" не съществува, ингнорира се"
+      },
+      "unresponsive": {
+        "details": "Грешка без отговор!\n{{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "Изчистване на кешът на аппа"
+      },
+      "window": {
+        "tried-to-render-offscreen": "Прозореца се опита да се изрисува извън екрана, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
+      }
+    }
+  }
+}

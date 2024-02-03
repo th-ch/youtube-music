@@ -1,7 +1,128 @@
 {
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "ปลั๊กอิน {{pluginName}}::{{contextName}} ไม่สามารถทำงานได้",
+        "executed-at-ms": "ปลั๊กอิน {{pluginName}}::{{contextName}} ทำงานแล้วที่ {{ms}}ms",
+        "initialize-failed": "ไม่สามารถเริ่มต้นปลั๊กอิน \"{{pluginName}}\"",
+        "load-all": "กำลังโหลดปลั๊กอินทั้งหมด",
+        "load-failed": "ไม่สามารถโหลดปลั๊กอิน \"{{pluginName}}\"",
+        "loaded": "โหลดปลั๊กอิน \"{{pluginName}}\" แล้ว",
+        "unload-failed": "ล้มเหลวในการยกเลิกการโหลดปลั๊กอิน \"{{pluginName}}\"",
+        "unloaded": "ยกเลิกการโหลดปลั๊กอิน \"{{pluginName}}\" แล้ว"
+      }
+    }
+  },
   "language": {
     "code": "th",
     "local-name": "ภาษาไทย",
     "name": "Thai"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "การโหลดเสร็จสิ้น DevTools ได้ถูกเปิดแล้ว"
+      },
+      "i18n": {
+        "loaded": "โหลด i18n แล้ว"
+      },
+      "second-instance": {
+        "receive-command": "คำสั่งที่ได้รับผ่านโปรโตคอล: \"{{command}}\""
+      },
+      "theme": {
+        "css-file-not-found": "กำลังเพิกเฉยไฟล์ CSS \"{{cssFile}}\" เนื่องจากไม่มีอยู่"
+      },
+      "unresponsive": {
+        "details": "มีข้อผิดพลาดจากไม่การตอบสนอง!\n{{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "กำลังล้างแคชของแอป"
+      },
+      "window": {
+        "tried-to-render-offscreen": "หน้าต่างพยายามแสดงผลเกินขนาดหน้าจอ windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
+      }
+    },
+    "dialog": {
+      "unresponsive": {
+        "buttons": {
+          "quit": "เลิก"
+        }
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "ปิดใช้งานการอัปเดต",
+          "download": "ดาวน์โหลด",
+          "ok": "ตกลง"
+        },
+        "detail": "มีเวอร์ชันใหม่ให้ดาวน์โหลดแล้วที่ {{downloadLink}}",
+        "message": "มีเวอร์ชันใหม่ให้ใช้งานแล้ว",
+        "title": "อัปเดตพร้อมใช้งาน"
+      }
+    },
+    "menu": {
+      "about": "เกี่ยวกับ",
+      "navigation": {
+        "submenu": {
+          "copy-current-url": "คัดลอก URL ปัจจุบัน",
+          "go-back": "ก่อนหน้า",
+          "go-forward": "ถัดไป",
+          "quit": "ออก",
+          "restart": "รีสตาร์ทแอป"
+        }
+      },
+      "options": {
+        "label": "ตัวเลือก",
+        "submenu": {
+          "advanced-options": {
+            "label": "ตัวเลือกขั้นสูง",
+            "submenu": {
+              "auto-reset-app-cache": "รีเซตแอปแคชเมื่อเริ่มแอป",
+              "disable-hardware-acceleration": "ปิดการใช้งานตัวเร่งประสิทธิภาพด้วยฮาร์ดแวร์",
+              "edit-config-json": "แก้ไข config.json",
+              "override-user-agent": "แทนที่ User-Agent"
+            }
+          }
+        }
+      }
+    }
+  },
+  "plugins": {
+    "downloader": {
+      "backend": {
+        "feedback": {
+          "download-info": "กำลังดาวน์โหลด {{artist}} - {{title}} [{{videoId}}",
+          "download-progress": "ดาวน์โหลด: {{percent}}%",
+          "downloading": "กำลังดาวน์โหลด…",
+          "downloading-counter": "กำลังดาวน์โหลด {{current}}/{{total}}…",
+          "downloading-playlist": "กำลังดาวน์โหลดเพลย์ลีสต์ \"{{playlistTitle}}\" - {{playlistSize}} เพลง ({{playlistId}})",
+          "error-while-downloading": "เกิดข้อผิดพลาดในการดาวน์โหลด \"{{author}} - {{title}}\": {{error}}",
+          "folder-already-exists": "มีโฟลเดอร์ {{playlistFolder}} อยู่แล้ว",
+          "getting-playlist-info": "กำลังรับข้อมูลเพลย์ลิสต์…",
+          "loading": "กำลังโหลด…",
+          "playlist-has-only-one-song": "เพลย์ลิสต์มีเพียงเพลงเดียวเท่านั้น กำลังดาวน์โหลดเพลงนั้นโดยตรง",
+          "playlist-id-not-found": "ไม่พบ ID เพลย์ลิสต์",
+          "playlist-is-empty": "เพลย์ลิสต์ว่างเปล่า",
+          "playlist-is-mix-or-private": "เกิดข้อผิดพลาดในการรับข้อมูลเพลย์ลิสต์: ตรวจสอบให้แน่ใจว่าไม่ใช่เพลย์ลิสต์ส่วนตัวหรือเพลย์ลิสต์ \"มิกซ์สำหรับคุณ\"\n\n{{error}}",
+          "preparing-file": "กำลังเตรียมไฟล์…",
+          "saving": "กำลังบันทึก…",
+          "trying-to-get-playlist-id": "กำลังพยายามรับ ID เพลย์ลิสต์: {{playlistId}}",
+          "video-id-not-found": "ไม่พบวิดีโอ",
+          "writing-id3": "กำลังเขียนแท็ก ID3…"
+        }
+      },
+      "description": "ดาวน์โหลด MP3 / เสียงต้นฉบับโดยตรงจากอินเทอร์เฟซ",
+      "menu": {
+        "choose-download-folder": "เลือกโฟลเดอร์ดาวน์โหลด",
+        "download-playlist": "ดาวน์โหลดเพลย์ลิสต์",
+        "skip-existing": "ข้ามไฟล์ที่มีอยู่แล้ว"
+      },
+      "name": "ตัวดาวน์โหลด",
+      "renderer": {
+        "can-not-update-progress": "ไม่สามารถอัปเดตความคืบหน้าได้"
+      },
+      "templates": {
+        "button": "ดาวน์โหลด"
+      }
+    }
   }
 }

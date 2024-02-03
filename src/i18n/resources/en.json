@@ -186,16 +186,16 @@
       }
     },
     "tray": {
-      "tooltip": {
-        "default": "YouTube Music",
-        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
-      },
       "next": "Next",
       "play-pause": "Play/Pause",
       "previous": "Previous",
       "quit": "Exit",
       "restart": "Restart App",
-      "show": "Show window"
+      "show": "Show window",
+      "tooltip": {
+        "default": "YouTube Music",
+        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
+      }
     }
   },
   "plugins": {
@@ -204,18 +204,26 @@
       "menu": {
         "blocker": "Blocker"
       },
-      "name": "Adblocker"
+      "name": "Ad Blocker"
     },
     "album-actions": {
-      "description": "Adds Undislike, Dislike, Like, and Unlike buttons to apply this to all songs in a playlist or album.",
-      "name": "Album actions"
+      "description": "Adds Undislike, Dislike, Like, and Unlike buttons to apply this to all songs in a playlist or album",
+      "name": "Album Actions"
     },
     "album-color-theme": {
       "description": "Applies a dynamic theme and visual effects based on the album color palette",
-      "name": "Album Color Theme"
+      "name": "Album Color Theme",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "Color mix ratio",
+          "submenu": {
+            "percent": "{{ratio}}%"
+          }
+        }
+      }
     },
     "ambient-mode": {
-      "description": "Applies a lighting effect by casting gentle colors from the video, into your screen’s background.",
+      "description": "Applies a lighting effect by casting gentle colors from the video, into your screen’s background",
       "menu": {
         "blur-amount": {
           "label": "Blur amount",
@@ -417,10 +425,6 @@
       },
       "name": "In-App Menu"
     },
-    "last-fm": {
-      "description": "Add scrobbling support for Last.fm",
-      "name": "Last.fm"
-    },
     "lumiastream": {
       "description": "Adds Lumia Stream support",
       "name": "Lumia Stream [Beta]"
@@ -573,8 +577,33 @@
       "description": "Allows changing the video quality with a button on the video overlay",
       "name": "Video Quality Changer"
     },
+    "scrobbler": {
+      "description": "Add scrobbling support (etc. last.fm, Listenbrainz)",
+      "menu": {
+        "scrobble-other-media": "Scrobble other media",
+        "lastfm": {
+          "api-settings": "Last.fm API Settings"
+        },
+        "listenbrainz": {
+          "token": "Enter ListenBrainz user token"
+        }
+      },
+      "name": "Scrobbler",
+      "prompt": {
+        "lastfm": {
+          "api-key": "Last.fm API key",
+          "api-secret": "Last.fm API secret"
+        },
+        "listenbrainz": {
+          "token": {
+            "label": "Enter your ListenBrainz user token:",
+            "title": "ListenBrainz token"
+          }
+        }
+      }
+    },
     "shortcuts": {
-      "description": "Allows setting global hotkeys for playback (play/pause/next/previous) and turning off media OSD by overriding media keys, turning on Ctrl/CMD + F to search, turning on Linux MPRIS support for media keys, and custom hotkeys for advanced users.",
+      "description": "Allows setting global hotkeys for playback (play/pause/next/previous) and turning off media OSD by overriding media keys, turning on Ctrl/CMD + F to search, turning on Linux MPRIS support for media keys, and custom hotkeys for advanced users",
       "menu": {
         "override-media-keys": "Override Media Keys",
         "set-keybinds": "Set Global Song Controls"

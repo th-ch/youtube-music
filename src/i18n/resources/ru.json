@@ -33,7 +33,7 @@
         "css-file-not-found": "CSS файл \"{{cssFile}}\" не существует, игнорирую"
       },
       "unresponsive": {
-        "details": "Приложение не отвечает\n{{error}}"
+        "details": "Приложение не отвечает!\n{{error}}"
       },
       "when-ready": {
         "clearing-cache-after-20s": "Очищаю кеш приложения"
@@ -63,7 +63,7 @@
           "relaunch": "Перезапустить",
           "wait": "Подождать"
         },
-        "detail": "Извиняемся за неувязку! пожалуйста выберите что вы хотите сделать:",
+        "detail": "Извините за причиненные неудобства! Пожалуйста, выберите, что делать:",
         "message": "Приложение не отвечает",
         "title": "Окно не отвечает"
       },
@@ -170,14 +170,15 @@
       },
       "plugins": {
         "enabled": "Включено",
-        "label": "Плагины"
+        "label": "Плагины",
+        "new": "НОВИНКА"
       },
       "view": {
         "label": "Вид",
         "submenu": {
           "force-reload": "Принудительная перезагрузка",
           "reload": "Перезагрузить",
-          "reset-zoom": "Настоящий размер",
+          "reset-zoom": "Текущий размер",
           "toggle-fullscreen": "Включить полноэкранный режим",
           "zoom-in": "Приблизить",
           "zoom-out": "Отдалить"
@@ -190,7 +191,11 @@
       "previous": "Предыдущий",
       "quit": "Выйти",
       "restart": "Перезагрузить приложение",
-      "show": "Показать окно"
+      "show": "Показать окно",
+      "tooltip": {
+        "default": "YouTube Music",
+        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
+      }
     }
   },
   "plugins": {
@@ -201,12 +206,24 @@
       },
       "name": "Блокировщик рекламы"
     },
+    "album-actions": {
+      "description": "Добавляет кнопки Undislike, Dislike и Unlike, чтобы применять их на все композиции в плейлисте или альбоме",
+      "name": "Действия с альбомом"
+    },
     "album-color-theme": {
       "description": "Применяет динамическую тему и визуальные эффекты на основе цветовой палитры альбома",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "Соотношение цветов",
+          "submenu": {
+            "percent": "{{ratio}}%"
+          }
+        }
+      },
       "name": "Цветовая тема альбома"
     },
     "ambient-mode": {
-      "description": "Применяет световой эффект, отбрасывая мягкие цвета из видео на задний фон вашего экрана.",
+      "description": "Применяет световой эффект, отбрасывая мягкие цвета из видео на задний фон вашего экрана",
       "menu": {
         "blur-amount": {
           "label": "Степень размытия",
@@ -394,26 +411,104 @@
         "can-not-update-progress": "Невозможно обновить прогресс"
       },
       "templates": {
-        "button": "Download"
+        "button": "Скачать"
       }
     },
     "exponential-volume": {
-      "description": "Делает слайдер громкости расширенным чтобы было легче выбирать низкие уровни.",
+      "description": "Делает слайдер громкости расширенным чтобы было легче понижать громкость.",
       "name": "Расширенная громкость"
     },
     "in-app-menu": {
-      "description": "Придает меню модный вид"
+      "description": "Придает меню цветовую схему альбома",
+      "menu": {
+        "hide-dom-window-controls": "Скрыть элементы управления окном DOM"
+      },
+      "name": "Меню в приложении"
     },
-    "last-fm": {
-      "name": "Last.fm"
+    "lumiastream": {
+      "description": "Добавляет поддержку Lumia Stream",
+      "name": "Lumia Stream [бета]"
+    },
+    "lyrics-genius": {
+      "description": "Добавляет поддержку текстов для большинства композиций",
+      "menu": {
+        "romanized-lyrics": "Романизированный текст (any -> en)"
+      },
+      "name": "Тексты песен от Genius",
+      "renderer": {
+        "fetched-lyrics": "Текст от Genius был получен"
+      }
+    },
+    "music-together": {
+      "description": "Поделитесь плейлистом с другими. Когда хост играет песню, все остальные слышат ту же песню",
+      "dialog": {
+        "enter-host": "Введите ID хоста"
+      },
+      "internal": {
+        "save": "Сохранить",
+        "track-source": "Источник трека",
+        "unknown-user": "Неизвестный пользователь"
+      },
+      "menu": {
+        "click-to-copy-id": "Копировать ID хоста",
+        "close": "Закрыть Music Together",
+        "connected-users": "Подключенные пользователи",
+        "disconnect": "Отключиться от Music Together",
+        "empty-user": "Нет подключенных пользователей",
+        "host": "Хост Music Together",
+        "join": "Подключиться к Music Together",
+        "permission": {
+          "all": "Позволить гостям управлять плейлистом и плеером",
+          "host-only": "Только хост может управлять плейлистом и плеером",
+          "playlist": "Позволить гостям управлять плейлистом"
+        },
+        "set-permission": "Изменить разрешения на управление разрешениями",
+        "status": {
+          "disconnected": "Отключено",
+          "guest": "Подключен как гость",
+          "host": "Подключен как хост"
+        }
+      },
+      "name": "Music Together [Beta]",
+      "toast": {
+        "add-song-failed": "Не удалось добавить песню",
+        "closed": "Music Together закрыт",
+        "disconnected": "Music Together отключен",
+        "host-failed": "Не удалось запустить Music Together",
+        "id-copied": "ID хоста скопирован в буфер обмена",
+        "id-copy-failed": "Не удалось скопировать айди хоста в буфер обмена",
+        "join-failed": "Не удалось присоединиться к Music Together",
+        "joined": "Присоединился к Music Together",
+        "permission-changed": "Разрешения Music Together изменены на \"{{permission}}\"",
+        "remove-song-failed": "Не удалось удалить песню",
+        "user-connected": "{{name}} присоединился к Music Together",
+        "user-disconnected": "{{name}} отключился от Music Together"
+      }
     },
     "navigation": {
+      "description": "Стрелки навигации \"вперед/назад\" интегрированы в интерфейс, как в вашем любимом браузере",
       "name": "Навигация"
     },
     "no-google-login": {
-      "name": "No Google Login"
+      "description": "Убрать из интерфейса кнопки и ссылки для входа через Google",
+      "name": "Нет входа в систему Google"
     },
     "notifications": {
+      "description": "Показывать уведомления о начале воспроизведения песни (интерактивные уведомления доступны в Windows)",
+      "menu": {
+        "interactive": "Интерактивные уведомления",
+        "interactive-settings": {
+          "label": "Интерактивные настройки",
+          "submenu": {
+            "hide-button-text": "Скрыть текст кнопки",
+            "refresh-on-play-pause": "Перезагрузка при воспроизведении/паузе",
+            "tray-controls": "Открывать/закрывать по нажатию в трее"
+          }
+        },
+        "priority": "Приоритет уведомлений",
+        "toast-style": "Стиль уведомления",
+        "unpause-notification": "Показывать уведомление при снятии с паузы"
+      },
       "name": "Уведомления"
     },
     "picture-in-picture": {
@@ -426,42 +521,144 @@
             "keybind-options": {
               "hotkey": "Горячая клавиша"
             },
-            "label": "Выберите горячую клавишу для переключения режима изображения в изображении"
+            "label": "Выберите горячую клавишу для переключения режима изображения в изображении",
+            "title": "Горячая клавиша для картинки в картинке"
           }
         },
         "save-window-position": "Сохранить положение окна",
-        "save-window-size": "Сохранить размер окна"
+        "save-window-size": "Сохранить размер окна",
+        "use-native-pip": "Использовать нативный PiP браузера"
+      },
+      "name": "Картинка в картинке",
+      "templates": {
+        "button": "Картинка в картинке"
       }
     },
-    "shortcuts": {
+    "playback-speed": {
+      "description": "Слушайте быстро, слушайте медленно! Добавляет ползунок, регулирующий скорость композиции",
+      "name": "Скорость воспроизведения",
+      "templates": {
+        "button": "Скорость"
+      }
+    },
+    "precise-volume": {
+      "description": "Точное управление громкостью с помощью колеса мышки/горячих клавиш, пользовательский HUD и настраиваемые ступени громкости",
+      "menu": {
+        "arrows-shortcuts": "Локальное управление со стрелками",
+        "custom-volume-steps": "Настройка пользовательских шагов громкости",
+        "global-shortcuts": "Глобальные горячие клавиши"
+      },
+      "name": "Точная громкость",
       "prompt": {
-        "keybind": {
+        "global-shortcuts": {
           "keybind-options": {
-            "next": "Next"
+            "decrease": "Уменьшение громкости",
+            "increase": "Увеличение громкости"
+          },
+          "label": "Выберите глобальные привязки клавиш к громкости:",
+          "title": "Глобальные привязки клавиш громкости"
+        },
+        "volume-steps": {
+          "label": "Выберите шаги увеличения/уменьшения громкости",
+          "title": "Ступени громкости"
+        }
+      }
+    },
+    "quality-changer": {
+      "backend": {
+        "dialog": {
+          "quality-changer": {
+            "detail": "Текущее качество: {{quality}}",
+            "message": "Выберите качество видео:",
+            "title": "Выберите качество видео"
+          }
+        }
+      },
+      "description": "Позволяет изменять качество видео с помощью кнопки на оверлее видео",
+      "name": "Изменение качества видео"
+    },
+    "scrobbler": {
+      "description": "Добавьте поддержку скробблинга (например, last.fm, Listenbrainz)",
+      "menu": {
+        "lastfm": {
+          "api-settings": "Настройки API Last.fm"
+        },
+        "listenbrainz": {
+          "token": "Введите токен пользователя ListenBrainz"
+        },
+        "scrobble-other-media": "Скробблинг других медиа"
+      },
+      "name": "Скробблер",
+      "prompt": {
+        "lastfm": {
+          "api-key": "Ключ API Last.fm",
+          "api-secret": "Секрет API Last.fm"
+        },
+        "listenbrainz": {
+          "token": {
+            "label": "Введите токен пользователя ListenBrainz:",
+            "title": "Токен ListenBrainz"
           }
         }
       }
     },
+    "shortcuts": {
+      "description": "Позволяет задать глобальные горячие клавиши для воспроизведения (play/pause/next/previous) и отключить экранное мультимедийное меню, изменяя мультимедийные клавиши, также включает Ctrl/CMD + F для поиска, добавляет поддержку Linux MPRIS для мультимедийных клавиш, а также пользовательские горячие клавиши для опытных пользователей",
+      "menu": {
+        "override-media-keys": "Переопределение мультимедийных клавиш",
+        "set-keybinds": "Настройка глобальных элементов управления песней"
+      },
+      "name": "Ярлыки (и MPRIS)",
+      "prompt": {
+        "keybind": {
+          "keybind-options": {
+            "next": "Следующая",
+            "play-pause": "Воспроизведение / Пауза",
+            "previous": "Предыдущая"
+          },
+          "label": "Выберите глобальные привязки клавиш для управления песнями:",
+          "title": "Глобальные привязки клавиш"
+        }
+      }
+    },
+    "skip-disliked-songs": {
+      "description": "Пропускает непонравившиеся песни",
+      "name": "Пропустить непонравившиеся песни"
+    },
+    "skip-silences": {
+      "description": "Автоматически пропускает тихие моменты в песнях",
+      "name": "Пропустить тишину"
+    },
     "sponsorblock": {
+      "description": "Автоматически пропускает не музыкальные фрагменты, например интро/аутро или фрагменты музыкальных клипов, в которых песня не звучит (тишина)",
       "name": "SponsorBlock"
     },
+    "taskbar-mediacontrol": {
+      "description": "Управляйте воспроизведением с панели задач Windows",
+      "name": "Управление мультимедиа на панели задач"
+    },
     "touchbar": {
+      "description": "Добавляет виджет тачбара для пользователей macOS",
       "name": "Тачбар"
     },
     "tuna-obs": {
+      "description": "Интеграция с плагином Tuna от OBS",
       "name": "Tuna OBS"
     },
     "video-toggle": {
+      "description": "Добавляет кнопку для переключения между режимами видео и песни. Также можно удалить всю вкладку с видео",
       "menu": {
         "align": {
+          "label": "Выравнивание",
           "submenu": {
-            "middle": "Middle",
-            "right": "Right"
+            "left": "Слева",
+            "middle": "По центру",
+            "right": "Справа"
           }
         },
-        "force-hide": "Скрыть обложку",
+        "force-hide": "Принудительное скрыть видео",
         "mode": {
-          "label": "Mode",
+          "label": "Режим",
           "submenu": {
             "custom": "Кастомный переключатель",
             "disabled": "Отключен",
@@ -471,7 +668,7 @@
       },
       "name": "Переключатель видео",
       "templates": {
-        "button": "Song"
+        "button": "Песня"
       }
     },
     "visualizer": {

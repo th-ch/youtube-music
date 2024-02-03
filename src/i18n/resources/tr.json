@@ -9,7 +9,7 @@
         "load-failed": "\"{{pluginName}}\" eklentisi yüklenemedi",
         "loaded": "\"{{pluginName}}\" eklentisi yüklendi",
         "unload-failed": "\"{{pluginName}}\" eklentisi çıkartılamadı",
-        "unloaded": "\"{{pluginName}}\" eklentisi kaldırıldı"
+        "unloaded": "\"{{pluginName}}\" eklentisi çıkartıldı"
       }
     }
   },
@@ -60,7 +60,7 @@
       "unresponsive": {
         "buttons": {
           "quit": "Çıkış",
-          "relaunch": "Yeniden Başlat",
+          "relaunch": "Tekrar Başlat",
           "wait": "Bekle"
         },
         "detail": "Rahatsızlık için özür dileriz! Lütfen ne yapacağınızı seçin:",
@@ -193,8 +193,8 @@
       "restart": "Yeniden başlat",
       "show": "Pencereyi görüntüle",
       "tooltip": {
-        "default": "YouTube Music",
-        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
+        "default": "YouTube Müzik",
+        "with-song-info": "YouTube Müzik: {{artist}} - {{title}}"
       }
     }
   },
@@ -207,15 +207,23 @@
       "name": "Reklam Engelleyici"
     },
     "album-actions": {
-      "description": "Çalma listesindeki veya albümdeki tüm şarkılara Beğendim ve Beğenmedim düğmeleri ekler.",
+      "description": "Çalma listesindeki veya albümdeki tüm şarkılara Beğendim ve Beğenmedim düğmeleri ekler",
       "name": "Albüm Eylemleri"
     },
     "album-color-theme": {
       "description": "Albümün renk paletine dayalı dinamik bir tema ve efektler uygular",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "Renk karışım oranı",
+          "submenu": {
+            "percent": "{{ratio}}%"
+          }
+        }
+      },
       "name": "Albüm Renk Teması"
     },
     "ambient-mode": {
-      "description": "Videodaki yumuşak renkleri ekranınızın arka planına yansıtarak bir ışık efekti uygular..",
+      "description": "Videodaki yumuşak renkleri ekranınızın arka planına yansıtarak bir ışık efekti uygular",
       "menu": {
         "blur-amount": {
           "label": "Bulanıklık miktarı",
@@ -340,7 +348,7 @@
         "play-on-youtube-music": "YouTube Music de oynat",
         "set-inactivity-timeout": "Hareketsizlik zaman aşımını ayarla"
       },
-      "name": "Discord Rich Presence",
+      "name": "Discord Etkinlik Durumu",
       "prompt": {
         "set-inactivity-timeout": {
           "label": "Hareketsizlik zaman aşımını saniye cinsinden girin:",
@@ -573,8 +581,33 @@
       "description": "Video katmanı üzerindeki bir düğme ile video kalitesinin değiştirilmesine izin verir",
       "name": "Video Kalitesi Değiştirici"
     },
+    "scrobbler": {
+      "description": "Listeleme desteği ekler (lastfm, listenbrainz ve benzeri)",
+      "menu": {
+        "lastfm": {
+          "api-settings": "Last.fm API Ayarları"
+        },
+        "listenbrainz": {
+          "token": "ListenBrainz kullanıcı kimliğinizi girin"
+        },
+        "scrobble-other-media": "Diğer medya ortamlarında listele"
+      },
+      "name": "Listeleyici",
+      "prompt": {
+        "lastfm": {
+          "api-key": "Last.fm API anahtarı",
+          "api-secret": "Last.fm API gizli anahtar"
+        },
+        "listenbrainz": {
+          "token": {
+            "label": "ListenBrainz kullanıcı kimliğinizi girin:",
+            "title": "ListenBrainz kimliği"
+          }
+        }
+      }
+    },
     "shortcuts": {
-      "description": "Oynatma için global kısayol tuşları (oynat/duraklat/sonraki/önceki) ayarlamaya ve medya tuşlarını geçersiz kılarak medya OSD'sini kapatmaya, arama yapmak için Ctrl/CMD + F tuşlarını açmaya, medya tuşları için Linux MPRIS desteğini açmaya ve ileri düzey kullanıcılar için özel kısayol tuşlarına izin verir.",
+      "description": "Oynatma için global kısayol tuşları (oynat/duraklat/sonraki/önceki) ayarlamaya ve medya tuşlarını geçersiz kılarak medya OSD'sini kapatmaya, arama yapmak için Ctrl/CMD + F tuşlarını açmaya, medya tuşları için Linux MPRIS desteğini açmaya ve ileri düzey kullanıcılar için özel kısayol tuşlarına izin verir",
       "menu": {
         "override-media-keys": "Medya Tuşlarını Geçersiz Kıl",
         "set-keybinds": "Global Şarkı Kontrollerini Ayarla"

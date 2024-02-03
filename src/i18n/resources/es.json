@@ -573,6 +573,30 @@
       "description": "Permite cambiar la calidad del vídeo con un botón sobre puesto en el vídeo",
       "name": "Ajustador de calidad de vídeo"
     },
+    "scrobbler": {
+      "description": "Añadir soporte para scrobbling (last.fm, Listenbrainz, etc.)",
+      "menu": {
+        "lastfm": {
+          "api-settings": "Ajustes de la API de Last.fm"
+        },
+        "listenbrainz": {
+          "token": "Introduzca el token de usuario de ListenBrainz"
+        }
+      },
+      "name": "Scrobbler",
+      "prompt": {
+        "lastfm": {
+          "api-key": "Clave de la API de Last.fm",
+          "api-secret": "Clave secreta de la API de Last.fm"
+        },
+        "listenbrainz": {
+          "token": {
+            "label": "Introduzca su token de usuario de ListenBrainz:",
+            "title": "Token de ListenBrainz"
+          }
+        }
+      }
+    },
     "shortcuts": {
       "description": "Permite configurar teclas de acceso rápido globales para la reproducción (reproducir/pausa/siguiente/anterior) y desactivar el OSD multimedia anulando las teclas multimedia, activar Ctrl/CMD + F para buscar, activar la compatibilidad con MPRIS de Linux para las teclas multimedia y teclas de acceso rápido personalizadas para usuarios avanzados.",
       "menu": {
