@@ -5,7 +5,7 @@ import { Transition } from 'solid-transition-group';
 import { autoUpdate, flip, offset, OffsetOptions, size } from '@floating-ui/dom';
 import { useFloating } from 'solid-floating-ui';
 
-const popupStyle = css`
+const panelStyle = css`
   position: fixed;
   top: var(--offset-y, 0);
   left: var(--offset-x, 0);
@@ -13,19 +13,14 @@ const popupStyle = css`
   max-width: var(--max-width, 100%);
   max-height: var(--max-height, 100%);
 
-  z-index: 100000000;
-  overflow: auto;
-
-  border-radius: 8px;
-`;
-
-const panelStyle = css`
-  width: 100%;
-  height: 100%;
+  z-index: 10000;
+  width: fit-content;
+  height: fit-content;
 
   padding: 4px;
   box-sizing: border-box;
   border-radius: 8px;
+  overflow: auto;
 
   background-color: color-mix(
     in srgb,
@@ -125,33 +120,29 @@ export const Panel = (props: PanelProps) => {
 
   return (
     <Portal>
-      <div
-        ref={setPanel}
-        class={popupStyle}
-        style={{
-          '--offset-x': `${position.x}px`,
-          '--offset-y': `${position.y}px`,
-          '--origin-x': originX(),
-          '--origin-y': originY(),
-        }}
+      <Transition
+        appear
+        enterClass={animationStyle.enter}
+        enterActiveClass={animationStyle.enterActive}
+        exitToClass={animationStyle.exitTo}
+        exitActiveClass={animationStyle.exitActive}
       >
-        <Transition
-          appear
-          enterClass={animationStyle.enter}
-          enterActiveClass={animationStyle.enterActive}
-          exitToClass={animationStyle.exitTo}
-          exitActiveClass={animationStyle.exitActive}
-        >
-          <Show when={local.open}>
-            <ul
-              {...leftProps}
-              class={panelStyle}
-            >
-              {elements.children}
-            </ul>
-          </Show>
-        </Transition>
-      </div>
+        <Show when={local.open}>
+          <ul
+            {...leftProps}
+            ref={setPanel}
+            class={panelStyle}
+            style={{
+              '--offset-x': `${position.x}px`,
+              '--offset-y': `${position.y}px`,
+              '--origin-x': originX(),
+              '--origin-y': originY(),
+            }}
+          >
+            {elements.children}
+          </ul>
+        </Show>
+      </Transition>
     </Portal>
   );
 };
