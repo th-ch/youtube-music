@@ -216,7 +216,7 @@
     "vite": "5.0.12",
     "vite-plugin-inspect": "0.8.3",
     "vite-plugin-resolve": "2.5.1",
-    "vite-plugin-solid": 2.9.1",
+    "vite-plugin-solid": "2.9.1",
     "ws": "8.16.0"
   },
   "auto-changelog": {
