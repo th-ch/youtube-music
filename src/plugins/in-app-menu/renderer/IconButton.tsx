@@ -4,6 +4,8 @@ import { css } from 'solid-styled-components';
 import { cache } from '@/providers/decorators';
 
 const iconButton = cache(() => css`
+  -webkit-app-region: none;
+
   background: transparent;
 
   width: 24px;
