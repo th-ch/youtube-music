@@ -1,6 +1,5 @@
 import { createSignal } from 'solid-js';
 import { render } from 'solid-js/web';
-import { extractCss } from 'solid-styled-components';
 
 import { TitleBar } from './renderer/TitleBar';
 import { defaultInAppMenuConfig, InAppMenuConfig } from './constants';

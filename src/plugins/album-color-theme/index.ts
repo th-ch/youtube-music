@@ -186,6 +186,7 @@ export default createPlugin<
 
       document.body.style.setProperty('background', this.getMixedColor('#030303', COLOR_KEY), 'important');
       document.documentElement.style.setProperty('--ytmusic-background', this.getMixedColor('#030303', DARK_COLOR_KEY), 'important');
+      document.documentElement.style.setProperty('--ytmusic-nav-bar', this.getMixedColor('#030303', DARK_COLOR_KEY), 'important');
     },
   },
 });
