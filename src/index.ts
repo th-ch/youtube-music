@@ -265,7 +265,7 @@ async function createMainWindow() {
   const windowPosition: Electron.Point = config.get('window-position');
   const useInlineMenu = config.plugins.isEnabled('in-app-menu');
 
-  const defaultTitleBarOverlayOptions: Electron.TitleBarOverlayOptions = {
+  const defaultTitleBarOverlayOptions: Electron.TitleBarOverlay = {
     color: '#00000000',
     symbolColor: '#ffffff',
     height: 32,
@@ -418,6 +418,18 @@ async function createMainWindow() {
           win.webContents.getZoomFactor(),
         ),
       });
+    }
+  });
+  win.webContents.on('will-redirect', (event) => {
+    const url = new URL(event.url);
+
+    // Workarounds for regions where YTM is restricted
+    if (url.hostname.endsWith('youtube.com') && url.pathname === '/premium') {
+      event.preventDefault();
+
+      win.webContents.loadURL(
+        'https://accounts.google.com/ServiceLogin?ltmpl=music&service=youtube&continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26next%3Dhttps%253A%252F%252Fmusic.youtube.com%252F'
+      );
     }
   });
 
