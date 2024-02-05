@@ -172,7 +172,7 @@
     "node-html-parser": "6.1.12",
     "node-id3": "0.2.6",
     "peerjs": "1.5.2",
-    "semver": "7.5.4",
+    "semver": "7.6.0",
     "serve": "14.2.1",
     "simple-youtube-age-restriction-bypass": "github:organization/Simple-YouTube-Age-Restriction-Bypass#v2.5.9",
     "solid-floating-ui": "0.3.1",
