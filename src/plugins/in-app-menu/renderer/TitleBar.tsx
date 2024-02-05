@@ -11,8 +11,9 @@ import { WindowController } from './WindowController';
 
 import type { RendererContext } from '@/types/contexts';
 import type { InAppMenuConfig } from '../constants';
+import { cache } from '@/providers/decorators';
 
-const titleStyle = css`
+const titleStyle = cache(() => css`
   -webkit-app-region: drag;
   box-sizing: border-box;
 
@@ -41,17 +42,17 @@ const titleStyle = css`
   &[data-macos="true"] {
     padding: 4px 4px 4px 74px;
   }
-`;
+`);
 
-const separatorStyle = css`
+const separatorStyle = cache(() => css`
   min-height: 1px;
   height: 1px;
   margin: 4px 0;
 
   background-color: rgba(255, 255, 255, 0.2);
-`;
+`);
 
-const animationStyle = {
+const animationStyle = cache(() => ({
   enter: css`
     opacity: 0;
     transform: translateX(-50%) scale(0.8);
@@ -76,7 +77,7 @@ const animationStyle = {
   fake: css`
     transition: all 0.00000000001s;
   `,
-};
+}));
 
 export type PanelRendererProps = {
   items: Electron.Menu['items'];
@@ -140,7 +141,7 @@ const PanelRenderer = (props: PanelRendererProps) => {
               />
             </Match>
             <Match when={subItem().type === 'separator'}>
-              <hr class={separatorStyle}/>
+              <hr class={separatorStyle()}/>
             </Match>
           </Switch>
         </Show>
@@ -251,7 +252,7 @@ export const TitleBar = (props: TitleBarProps) => {
   });
 
   return (
-    <nav class={titleStyle} data-macos={props.isMacOS}>
+    <nav class={titleStyle()} data-macos={props.isMacOS}>
       <IconButton
         onClick={() => setCollapsed(!collapsed())}
         style={{
@@ -266,10 +267,10 @@ export const TitleBar = (props: TitleBarProps) => {
         </svg>
       </IconButton>
       <TransitionGroup
-        enterClass={ignoreTransition() ? animationStyle.fakeTarget : animationStyle.enter}
-        enterActiveClass={ignoreTransition() ? animationStyle.fake : animationStyle.enterActive}
-        exitToClass={ignoreTransition() ? animationStyle.fakeTarget : animationStyle.exitTo}
-        exitActiveClass={ignoreTransition() ? animationStyle.fake : animationStyle.exitActive}
+        enterClass={ignoreTransition() ? animationStyle().fakeTarget : animationStyle().enter}
+        enterActiveClass={ignoreTransition() ? animationStyle().fake : animationStyle().enterActive}
+        exitToClass={ignoreTransition() ? animationStyle().fakeTarget : animationStyle().exitTo}
+        exitActiveClass={ignoreTransition() ? animationStyle().fake : animationStyle().exitActive}
         onBeforeEnter={(element) => {
           if (ignoreTransition()) return;
           const index = Number(element.getAttribute('data-index') ?? 0);

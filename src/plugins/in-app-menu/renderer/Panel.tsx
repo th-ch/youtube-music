@@ -4,8 +4,9 @@ import { css } from 'solid-styled-components';
 import { Transition } from 'solid-transition-group';
 import { autoUpdate, flip, offset, OffsetOptions, size } from '@floating-ui/dom';
 import { useFloating } from 'solid-floating-ui';
+import { cache } from '@/providers/decorators';
 
-const panelStyle = css`
+const panelStyle = cache(() => css`
   position: fixed;
   top: var(--offset-y, 0);
   left: var(--offset-x, 0);
@@ -32,9 +33,9 @@ const panelStyle = css`
   0 2px 8px rgba(0, 0, 0, 0.2);
 
   transform-origin: var(--origin-x, 50%) var(--origin-y, 50%);
-`;
+`);
 
-const animationStyle = {
+const animationStyle = cache(() => ({
   enter: css`
     opacity: 0;
     transform: scale(0.9);
@@ -49,7 +50,7 @@ const animationStyle = {
   exitActive: css`
     transition: opacity 0.225s cubic-bezier(0.32, 0, 0.67, 0), transform 0.225s cubic-bezier(0.32, 0, 0.67, 0);
   `,
-};
+}));
 
 export type Placement =
   'top'
@@ -122,16 +123,16 @@ export const Panel = (props: PanelProps) => {
     <Portal>
       <Transition
         appear
-        enterClass={animationStyle.enter}
-        enterActiveClass={animationStyle.enterActive}
-        exitToClass={animationStyle.exitTo}
-        exitActiveClass={animationStyle.exitActive}
+        enterClass={animationStyle().enter}
+        enterActiveClass={animationStyle().enterActive}
+        exitToClass={animationStyle().exitTo}
+        exitActiveClass={animationStyle().exitActive}
       >
         <Show when={local.open}>
           <ul
             {...leftProps}
             ref={setPanel}
-            class={panelStyle}
+            class={panelStyle()}
             style={{
               '--offset-x': `${position.x}px`,
               '--offset-y': `${position.y}px`,

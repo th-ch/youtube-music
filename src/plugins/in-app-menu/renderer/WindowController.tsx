@@ -2,8 +2,9 @@ import { css } from 'solid-styled-components';
 import { Show } from 'solid-js';
 
 import { IconButton } from './IconButton';
+import { cache } from '@/providers/decorators';
 
-const containerStyle = css`
+const containerStyle = cache(() => css`
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -15,7 +16,7 @@ const containerStyle = css`
       background: rgba(255, 0, 0, 0.5);
     }
   }
-`;
+`);
 
 export type WindowControllerProps = {
   isMaximize?: boolean;
@@ -26,7 +27,7 @@ export type WindowControllerProps = {
 }
 export const WindowController = (props: WindowControllerProps) => {
   return (
-    <div class={containerStyle}>
+    <div class={containerStyle()}>
       <IconButton onClick={props.onMinimize}>
         <svg width={16} height={16} fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path fill="currentColor" d="M3.755 12.5h16.492a.75.75 0 0 0 0-1.5H3.755a.75.75 0 0 0 0 1.5Z"/>
