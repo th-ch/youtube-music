@@ -31,7 +31,7 @@ title-bar {
     background-color 300ms cubic-bezier(0.2, 0, 0.6, 1) 0s;
 }
 
-menu-button {
+.menu-button {
   -webkit-app-region: none;
 
   display: flex;
@@ -44,11 +44,11 @@ menu-button {
 
   cursor: pointer;
 }
-menu-button:hover {
+.menu-button:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-menu-panel {
+.menu-panel {
   position: fixed;
   top: var(--y, 0);
   left: var(--x, 0);
@@ -84,18 +84,18 @@ menu-panel {
     opacity 200ms ease 0s,
     transform 200ms ease 0s;
 }
-menu-panel[open='true'] {
+.menu-panel[open='true'] {
   pointer-events: all;
   opacity: 1;
   transform: scale(1);
 }
-menu-panel.position-by-bottom {
+.menu-panel.position-by-bottom {
   top: unset;
   bottom: calc(100vh - var(--y, 100%));
   max-height: calc(var(--y, 0) - var(--menu-bar-height, 36px) - 16px);
 }
 
-menu-item {
+.menu-item {
   position: relative;
 
   -webkit-app-region: none;
@@ -110,21 +110,21 @@ menu-item {
   border-radius: 4px;
   cursor: pointer;
 }
-menu-item.badge {
+.menu-item.badge {
   grid-template-columns: 32px 1fr auto minmax(32px, auto);
 }
-menu-item:hover {
+.menu-item:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-menu-item > menu-icon {
+.menu-item > .menu-icon {
   height: 32px;
   padding: 4px;
 
   box-sizing: border-box;
 }
 
-menu-separator {
+.menu-separator {
   min-height: 1px;
   height: 1px;
   margin: 4px 0;
@@ -132,7 +132,7 @@ menu-separator {
   background-color: rgba(255, 255, 255, 0.2);
 }
 
-menu-item-badge {
+.menu-item-badge {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -150,7 +150,7 @@ menu-item-badge {
   line-height: 1;
 }
 
-menu-item-tooltip {
+.menu-item-tooltip {
   position: fixed;
 
   left: var(--x, 0);
@@ -177,7 +177,7 @@ menu-item-tooltip {
   transform-origin: 50% 0;
   transition: opacity 0.225s ease-out, scale 0.225s ease-out;
 }
-menu-item-tooltip.show {
+.menu-item-tooltip.show {
   opacity: 1;
   scale: 1.0;
 }

@@ -142,6 +142,7 @@
     "@electron/remote": "2.1.2",
     "@ffmpeg.wasm/core-mt": "0.12.0",
     "@ffmpeg.wasm/main": "0.12.0",
+    "@floating-ui/dom": "1.6.1",
     "@foobar404/wave": "2.0.5",
     "@jellybrick/electron-better-web-request": "1.0.4",
     "@jellybrick/mpris-service": "2.1.4",
@@ -174,6 +175,10 @@
     "semver": "7.5.4",
     "serve": "14.2.1",
     "simple-youtube-age-restriction-bypass": "github:organization/Simple-YouTube-Age-Restriction-Bypass#v2.5.9",
+    "solid-floating-ui": "0.3.1",
+    "solid-js": "1.8.12",
+    "solid-styled-components": "0.28.5",
+    "solid-transition-group": "0.2.3",
     "ts-morph": "21.0.1",
     "vudio": "2.1.1",
     "x11": "2.3.0",
@@ -211,6 +216,7 @@
     "vite": "5.0.12",
     "vite-plugin-inspect": "0.8.3",
     "vite-plugin-resolve": "2.5.1",
+    "vite-plugin-solid": "2.9.1",
     "ws": "8.16.0"
   },
   "auto-changelog": {

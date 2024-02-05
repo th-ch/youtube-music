@@ -3,7 +3,7 @@ import { register } from 'electron-localshortcut';
 import { BrowserWindow, Menu, MenuItem, ipcMain, nativeImage } from 'electron';
 
 import type { BackendContext } from '@/types/contexts';
-import type { InAppMenuConfig } from './index';
+import type { InAppMenuConfig } from './constants';
 
 export const onMainLoad = ({
   window: win,
