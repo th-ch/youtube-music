@@ -212,6 +212,14 @@
     },
     "album-color-theme": {
       "description": "Menerapkan tema dinamis dan efek visual berdasarkan palet warna album",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "Rasio campuran warna",
+          "submenu": {
+            "percent": "{{ratio}}%"
+          }
+        }
+      },
       "name": "Tema Warna Album"
     },
     "ambient-mode": {
@@ -366,6 +374,29 @@
             "message": "Mengunduh Playlist {{playlistTitle}}",
             "title": "Download dimulai"
           }
+        },
+        "feedback": {
+          "conversion-progress": "Konversi: {{percent}}%",
+          "converting": "Mengkonversi…",
+          "done": "Selesai: {{filePath}}",
+          "download-info": "Mengunduh {{artist}} - {{title}} {{videoId}}",
+          "download-progress": "Mengunduh: {{percent}}%",
+          "downloading": "Mengunduh…",
+          "downloading-counter": "Mengunduh {{current}}/{{total}}…",
+          "downloading-playlist": "Mengunduh playlist \"{{playlistTitle}}\" - {{playlistSize}} lagu ({{playlistId}})",
+          "error-while-downloading": "Gagal mengunduh \"{{author}} - {{title}}\": {{error}}",
+          "folder-already-exists": "Folder {{playlistFolder}} sudah ada",
+          "getting-playlist-info": "Mendapatkan informasi playlist…",
+          "loading": "Memuat…",
+          "playlist-has-only-one-song": "Daftar putar hanya memiliki satu item, mengunduhnya secara langsung",
+          "playlist-id-not-found": "ID playlist tidak ditemukan",
+          "playlist-is-empty": "Playlist kosong",
+          "playlist-is-mix-or-private": "Kesalahan mendapatkan info playlist: pastikan bukan playlist pribadi atau \"Campuran untuk Anda\"\n\n{{error}}",
+          "preparing-file": "Menyiapkan file…",
+          "saving": "Menyimpan…",
+          "trying-to-get-playlist-id": "Mencoba mendapatkan ID playlist: {{playlistId}}",
+          "video-id-not-found": "Video tidak ditemukan",
+          "writing-id3": "Menulis tanda ID3…"
         }
       }
     }
