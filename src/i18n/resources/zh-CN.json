@@ -212,6 +212,14 @@
     },
     "album-color-theme": {
       "description": "根据专辑封面配色动态改变主题与视觉效果",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "颜色混合比例",
+          "submenu": {
+            "percent": "{{ratio}}%"
+          }
+        }
+      },
       "name": "专辑配色主题"
     },
     "ambient-mode": {
