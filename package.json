@@ -210,7 +210,7 @@
     "glob": "10.3.10",
     "node-gyp": "10.0.1",
     "playwright": "1.41.2",
-    "rollup": "4.9.6",
+    "rollup": "4.10.0",
     "typescript": "5.3.3",
     "utf-8-validate": "6.0.3",
     "vite": "5.0.12",
