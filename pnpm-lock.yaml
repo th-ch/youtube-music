@@ -40,8 +40,8 @@ dependencies:
     specifier: 0.12.0
     version: 0.12.0
   '@floating-ui/dom':
-    specifier: 1.6.1
-    version: 1.6.1
+    specifier: 1.6.2
+    version: 1.6.2
   '@foobar404/wave':
     specifier: 2.0.5
     version: 2.0.5
@@ -140,7 +140,7 @@ dependencies:
     version: github.com/organization/Simple-YouTube-Age-Restriction-Bypass/4e2db89ccb2fb880c5110add9ff3f1dfb78d0ff6
   solid-floating-ui:
     specifier: 0.3.1
-    version: 0.3.1(@floating-ui/dom@1.6.1)(solid-js@1.8.14)
+    version: 0.3.1(@floating-ui/dom@1.6.2)(solid-js@1.8.14)
   solid-js:
     specifier: 1.8.14
     version: 1.8.14
@@ -1178,8 +1178,8 @@ packages:
       '@floating-ui/utils': 0.2.1
     dev: false
 
-  /@floating-ui/dom@1.6.1:
-    resolution: {integrity: sha512-iA8qE43/H5iGozC3W0YSnVSW42Vh522yyM1gj+BqRwVsTNOyr231PsXDaV04yT39PsO0QL2QpbI/M0ZaLUQgRQ==}
+  /@floating-ui/dom@1.6.2:
+    resolution: {integrity: sha512-xymkSSowKdGqo0SRr2Mp4czH5A8o2Pum35PAD0ftb3gCcPacWzwhvtUeUqmVXm9EVtm2hThD/lRrFNcahMOaSQ==}
     dependencies:
       '@floating-ui/core': 1.6.0
       '@floating-ui/utils': 0.2.1
@@ -6096,14 +6096,14 @@ packages:
       ip: 2.0.0
       smart-buffer: 4.2.0
 
-  /solid-floating-ui@0.3.1(@floating-ui/dom@1.6.1)(solid-js@1.8.14):
+  /solid-floating-ui@0.3.1(@floating-ui/dom@1.6.2)(solid-js@1.8.14):
     resolution: {integrity: sha512-o/QmGsWPS2Z3KidAxP0nDvN7alI7Kqy0kU+wd85Fz+au5SYcnYm7I6Fk3M60Za35azsPX0U+5fEtqfOuk6Ao0Q==}
     engines: {node: '>=10'}
     peerDependencies:
       '@floating-ui/dom': ^1.5
       solid-js: ^1.8
     dependencies:
-      '@floating-ui/dom': 1.6.1
+      '@floating-ui/dom': 1.6.2
       solid-js: 1.8.14
     dev: false
 
