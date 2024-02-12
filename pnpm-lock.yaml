@@ -200,6 +200,9 @@ devDependencies:
   del-cli:
     specifier: 5.1.0
     version: 5.1.0
+  discord-api-types:
+    specifier: 0.37.69
+    version: 0.37.69
   electron:
     specifier: 28.2.2
     version: 28.2.2
@@ -2985,6 +2988,10 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       path-type: 4.0.0
+    dev: true
+
+  /discord-api-types@0.37.69:
+    resolution: {integrity: sha512-c0rHc5YGNIXQkI+V7QwP8y77wxo74ITNeZmMwxtKC/l01aIF/gKBG/U2MKhUt2iaeRH9XwAt9PT3AI9JQVvKVA==}
     dev: true
 
   /dmg-builder@24.9.1:
