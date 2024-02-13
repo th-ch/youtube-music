@@ -13,6 +13,9 @@ overrides:
   '@babel/runtime': 7.23.8
 
 patchedDependencies:
+  '@astronautlabs/mdns@1.0.10':
+    hash: 7fg7wajlckigozdqgqhsj6kfd4
+    path: patches/@astronautlabs__mdns@1.0.10.patch
   '@xhayper/discord-rpc@1.1.2':
     hash: 7eeaht6k4r7cw3nunras7mx7iu
     path: patches/@xhayper__discord-rpc@1.1.2.patch
@@ -48,6 +51,9 @@ dependencies:
   '@jellybrick/electron-better-web-request':
     specifier: 1.0.4
     version: 1.0.4
+  '@jellybrick/electron-chromecast':
+    specifier: 1.2.1
+    version: 1.2.1
   '@jellybrick/mpris-service':
     specifier: 2.1.4
     version: 2.1.4
@@ -293,6 +299,11 @@ packages:
   /@assemblyscript/loader@0.17.14:
     resolution: {integrity: sha512-+PVTOfla/0XMLRTQLJFPg4u40XcdTfon6GGea70hBGi8Pd7ZymIXyVUR+vK8wt5Jb4MVKTKPIz43Myyebw5mZA==}
     dev: false
+
+  /@astronautlabs/mdns@1.0.10(patch_hash=7fg7wajlckigozdqgqhsj6kfd4):
+    resolution: {integrity: sha512-9bVdQ15Tbzpor1z/bteaemC9NvRDZgMD4Cfbu1/r/6Zv6fCBXvIJJoJ6Dh/BMvTlAiT2Xewm36i0VWRnZ4yw6A==}
+    dev: false
+    patched: true
 
   /@babel/code-frame@7.23.5:
     resolution: {integrity: sha512-CgH3s1a96LipHCmSUmYFPwY7MNx8C3avkq7i4Wl3cfa662ldtUe4VM1TPXX70pfmrlWTb6jLqTYrZyT2ZTJBgA==}
@@ -1234,6 +1245,15 @@ packages:
       uuid: 9.0.1
     dev: false
 
+  /@jellybrick/electron-chromecast@1.2.1:
+    resolution: {integrity: sha512-3w/Z9Q9/A/HLWOAE6yBCm0EzDPi1Tk6MoCtE0Fn7/g+g8P9XPlOyzMf9Q/VQaZ+p6JR3iO7iDiYo5uv/ULmWRQ==}
+    dependencies:
+      '@astronautlabs/mdns': 1.0.10(patch_hash=7fg7wajlckigozdqgqhsj6kfd4)
+      castv2: github.com/metaquanta/node-castv2/71419bd736ac859b18fb84a2c459756f2b9ccb5a
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
   /@jellybrick/mpris-service@2.1.4:
     resolution: {integrity: sha512-OwSxYeRRss7+ZhZs/n6D0LjUMWp1QIrAfzBZA6zGs62x80QIQlpeMXO2GKxC6UNyi87wJTiSWsUGDM1jO4eCtQ==}
     dependencies:
@@ -1361,6 +1381,49 @@ packages:
   /@polka/url@1.0.0-next.24:
     resolution: {integrity: sha512-2LuNTFBIO0m7kKIQvvPHN6UE63VjpmL9rnEEaOOaiSPbZK+zUOYIzBAWcED+3XYzhYsd/0mD57VdxAEqqV52CQ==}
     dev: true
+
+  /@protobufjs/aspromise@1.1.2:
+    resolution: {integrity: sha512-j+gKExEuLmKwvz3OgROXtrJ2UG2x8Ch2YZUxahh+s1F2HZ+wAceUNLkvy6zKCPVRkU++ZWQrdxsUeQXmcg4uoQ==}
+    dev: false
+
+  /@protobufjs/base64@1.1.2:
+    resolution: {integrity: sha512-AZkcAA5vnN/v4PDqKyMR5lx7hZttPDgClv83E//FMNhR2TMcLUhfRUBHCmSl0oi9zMgDDqRUJkSxO3wm85+XLg==}
+    dev: false
+
+  /@protobufjs/codegen@2.0.4:
+    resolution: {integrity: sha512-YyFaikqM5sH0ziFZCN3xDC7zeGaB/d0IUb9CATugHWbd1FRFwWwt4ld4OYMPWu5a3Xe01mGAULCdqhMlPl29Jg==}
+    dev: false
+
+  /@protobufjs/eventemitter@1.1.0:
+    resolution: {integrity: sha512-j9ednRT81vYJ9OfVuXG6ERSTdEL1xVsNgqpkxMsbIabzSo3goCjDIveeGv5d03om39ML71RdmrGNjG5SReBP/Q==}
+    dev: false
+
+  /@protobufjs/fetch@1.1.0:
+    resolution: {integrity: sha512-lljVXpqXebpsijW71PZaCYeIcE5on1w5DlQy5WH6GLbFryLUrBD4932W/E2BSpfRJWseIL4v/KPgBFxDOIdKpQ==}
+    dependencies:
+      '@protobufjs/aspromise': 1.1.2
+      '@protobufjs/inquire': 1.1.0
+    dev: false
+
+  /@protobufjs/float@1.0.2:
+    resolution: {integrity: sha512-Ddb+kVXlXst9d+R9PfTIxh1EdNkgoRe5tOX6t01f1lYWOvJnSPDBlG241QLzcyPdoNTsblLUdujGSE4RzrTZGQ==}
+    dev: false
+
+  /@protobufjs/inquire@1.1.0:
+    resolution: {integrity: sha512-kdSefcPdruJiFMVSbn801t4vFK7KB/5gd2fYvrxhuJYg8ILrmn9SKSX2tZdV6V+ksulWqS7aXjBcRXl3wHoD9Q==}
+    dev: false
+
+  /@protobufjs/path@1.1.2:
+    resolution: {integrity: sha512-6JOcJ5Tm08dOHAbdR3GrvP+yUUfkjG5ePsHYczMFLq3ZmMkAD98cDgcT2iA1lJ9NVwFd4tH/iSSoe44YWkltEA==}
+    dev: false
+
+  /@protobufjs/pool@1.1.0:
+    resolution: {integrity: sha512-0kELaGSIDBKvcgS4zkjz1PeddatrjYcmMWOlAuAPwAeccUrPHdUqo/J6LiymHHEiJT5NrF1UVwxY14f+fy4WQw==}
+    dev: false
+
+  /@protobufjs/utf8@1.1.0:
+    resolution: {integrity: sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==}
+    dev: false
 
   /@remusao/guess-url-type@1.2.1:
     resolution: {integrity: sha512-rbOqre2jW8STjheOsOaQHLgYBaBZ9Owbdt8NO7WvNZftJlaG3y/K9oOkl8ZUpuFBisIhmBuMEW6c+YrQl5inRA==}
@@ -1695,6 +1758,10 @@ packages:
     resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
     dependencies:
       '@types/node': 20.11.0
+
+  /@types/long@4.0.2:
+    resolution: {integrity: sha512-MqTGEo5bj5t157U6fA/BiDynNkn0YknVdh48CMPkTSpFTVmvao5UQmm7uEF6xBEo7qIMAlY/JSleYaE6VOdpaA==}
+    dev: false
 
   /@types/minimist@1.2.5:
     resolution: {integrity: sha512-hov8bUuiLiyFPGyFPE1lwWhmzYbirOXQNNo40+y3zow8aFVTeyn3VWL0VFFfdNddA8S4Vf0Tc062rzyNr7Paag==}
@@ -5598,6 +5665,26 @@ packages:
       err-code: 2.0.3
       retry: 0.12.0
 
+  /protobufjs@6.11.4:
+    resolution: {integrity: sha512-5kQWPaJHi1WoCpjTGszzQ32PG2F4+wRY6BmAT4Vfw56Q2FZ4YZzK20xUYQH4YkfehY1e6QSICrJquM6xXZNcrw==}
+    hasBin: true
+    requiresBuild: true
+    dependencies:
+      '@protobufjs/aspromise': 1.1.2
+      '@protobufjs/base64': 1.1.2
+      '@protobufjs/codegen': 2.0.4
+      '@protobufjs/eventemitter': 1.1.0
+      '@protobufjs/fetch': 1.1.0
+      '@protobufjs/float': 1.0.2
+      '@protobufjs/inquire': 1.1.0
+      '@protobufjs/path': 1.1.2
+      '@protobufjs/pool': 1.1.0
+      '@protobufjs/utf8': 1.1.0
+      '@types/long': 4.0.2
+      '@types/node': 20.11.0
+      long: 4.0.0
+    dev: false
+
   /proxy-from-env@1.1.0:
     resolution: {integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==}
     dev: false
@@ -6897,6 +6984,17 @@ packages:
       jintr: 1.1.0
       tslib: 2.6.2
       undici: 5.28.2
+    dev: false
+
+  github.com/metaquanta/node-castv2/71419bd736ac859b18fb84a2c459756f2b9ccb5a:
+    resolution: {tarball: https://codeload.github.com/metaquanta/node-castv2/tar.gz/71419bd736ac859b18fb84a2c459756f2b9ccb5a}
+    name: castv2
+    version: 0.1.10
+    dependencies:
+      debug: 4.3.4
+      protobufjs: 6.11.4
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   github.com/organization/Simple-YouTube-Age-Restriction-Bypass/4e2db89ccb2fb880c5110add9ff3f1dfb78d0ff6:

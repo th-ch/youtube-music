@@ -1,6 +1,8 @@
 import { contextBridge, ipcRenderer, IpcRendererEvent, webFrame } from 'electron';
 import is from 'electron-is';
 
+import { injectChromeCompatToObject, chrome } from '@jellybrick/electron-chromecast';
+
 import config from './config';
 
 import {
@@ -53,6 +55,8 @@ contextBridge.exposeInMainWorld(
   'ELECTRON_RENDERER_URL',
   process.env.ELECTRON_RENDERER_URL,
 );
+injectChromeCompatToObject(global);
+contextBridge.exposeInMainWorld('caster', chrome);
 
 const [path, script] = ipcRenderer.sendSync('get-renderer-script') as [string | null, string];
 let blocked = true;

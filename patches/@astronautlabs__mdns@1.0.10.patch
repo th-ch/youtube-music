@@ -1,0 +1,33 @@
+diff --git a/dist/Responder.js b/dist/Responder.js
+index 7bb0e4e51f131cf257efc44190cf892ca0f1414e..f71688b8d7dc85bb6e23c9ec2aeec5cb98adc70a 100644
+--- a/dist/Responder.js
++++ b/dist/Responder.js
+@@ -32,6 +32,7 @@ const StateMachine_1 = require("./StateMachine");
+ const Probe_1 = require("./Probe");
+ const Response_1 = require("./Response");
+ const constants_1 = require("./constants");
++const { setTimeout, clearTimeout } = require('node:timers');
+ const ONE_SECOND = 1000;
+ /**
+  * Make ids, just to keep track of which responder is which in debug messages
+@@ -43,7 +44,7 @@ const uniqueId = () => `id#${++counter}`;
+  * a responder has more than 15 conflicts in a small window then the responder
+  * should be throttled to prevent it from spamming everyone. Conflict count
+  * gets cleared after 15s w/o any conflicts
+- */
++*/
+ class ConflictCounter {
+     constructor() {
+         this._count = 0;
+diff --git a/dist/sleep.js b/dist/sleep.js
+index 8e11b3900747a68814697943ec16af3280bca8b3..7896d16b43d3eb8fff175c30ea5903d6237cc634 100644
+--- a/dist/sleep.js
++++ b/dist/sleep.js
+@@ -5,6 +5,7 @@
+ Object.defineProperty(exports, "__esModule", { value: true });
+ exports.resetSleep = exports.sleep = void 0;
+ const node_events_1 = require("node:events");
++const { setInterval, clearInterval } = require('node:timers');
+ exports.sleep = new node_events_1.EventEmitter();
+ exports.sleep.setMaxListeners(100);
+ let interval;

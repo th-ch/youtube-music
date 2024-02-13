@@ -132,7 +132,8 @@
     },
     "patchedDependencies": {
       "vudio@2.1.1": "patches/vudio@2.1.1.patch",
-      "@xhayper/discord-rpc@1.1.2": "patches/@xhayper__discord-rpc@1.1.2.patch"
+      "@xhayper/discord-rpc@1.1.2": "patches/@xhayper__discord-rpc@1.1.2.patch",
+      "@astronautlabs/mdns@1.0.10": "patches/@astronautlabs__mdns@1.0.10.patch"
     }
   },
   "dependencies": {
@@ -145,6 +146,7 @@
     "@floating-ui/dom": "1.6.3",
     "@foobar404/wave": "2.0.5",
     "@jellybrick/electron-better-web-request": "1.0.4",
+    "@jellybrick/electron-chromecast": "1.2.1",
     "@jellybrick/mpris-service": "2.1.4",
     "@xhayper/discord-rpc": "1.1.2",
     "async-mutex": "0.4.1",
