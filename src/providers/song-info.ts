@@ -125,6 +125,18 @@ const handleData = async (
         break;
       default:
         songInfo.mediaType = MediaType.OtherVideo;
+        // HACK: This is a workaround for "podcast" types where "musicVideoType" doesn't exist. Google :facepalm:
+        if (
+          !config.get('options.usePodcastParticipantAsArtist') &&
+          (
+            data.responseContext.serviceTrackingParams
+              ?.at(0)
+              ?.params
+              ?.find((it) => it.key === 'ipcc')?.value ?? '1'
+          ) != '0'
+        ) {
+          songInfo.artist = cleanupName(data.microformat.microformatDataRenderer.pageOwnerDetails.name);
+        }
         break;
     }
 
