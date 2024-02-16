@@ -148,7 +148,6 @@ const PanelRenderer = (props: PanelRendererProps) => {
 
 export type TitleBarProps = {
   ipc: RendererContext<InAppMenuConfig>['ipc'];
-  isMacOS?: boolean;
   enableController?: boolean;
   initialCollapsed?: boolean;
 };
@@ -248,7 +247,7 @@ export const TitleBar = (props: TitleBarProps) => {
   });
 
   return (
-    <nav class={titleStyle()} data-macos={props.isMacOS}>
+    <nav class={titleStyle()}>
       <IconButton
         onClick={() => setCollapsed(!collapsed())}
         style={{
