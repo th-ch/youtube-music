@@ -29,14 +29,11 @@ export const onRendererLoad = async ({
   stylesheet.replaceSync(scrollStyle);
   document.adoptedStyleSheets = [...document.adoptedStyleSheets, stylesheet];
 
-  render(() => (
-    <TitleBar
-      ipc={ipc}
-      isMacOS={isMacOS}
-      enableController={isNotWindowsOrMacOS && !config().hideDOMWindowControls}
-      initialCollapsed={window.mainConfig.get('options.hideMenu')}
-    />
-  ), document.body);
+  render(() => isMacOS?<></>:<TitleBar
+  ipc={ipc}
+  enableController={isNotWindowsOrMacOS && !config().hideDOMWindowControls}
+  initialCollapsed={window.mainConfig.get('options.hideMenu')}
+/>, document.body);
 };
 
 export const onPlayerApiReady = () => {

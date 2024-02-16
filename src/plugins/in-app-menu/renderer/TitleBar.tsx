@@ -38,10 +38,6 @@ const titleStyle = cache(() => css`
 
   transition: opacity 200ms ease 0s,
   background-color 300ms cubic-bezier(0.2, 0, 0.6, 1) 0s;
-
-  &[data-macos="true"] {
-    padding: 4px 4px 4px 74px;
-  }
 `);
 
 const separatorStyle = cache(() => css`
