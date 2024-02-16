@@ -2,7 +2,7 @@ import is from 'electron-is';
 
 import { t } from '@/i18n';
 
-import type { InAppMenuConfig } from './index';
+import type { InAppMenuConfig } from './constants';
 import type { MenuContext } from '@/types/contexts';
 import type { MenuTemplate } from '@/menu';
 
