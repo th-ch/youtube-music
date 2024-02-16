@@ -1,7 +1,7 @@
 import style from './style.css?inline';
 
-import { createPlugin } from '@/utils';
 import { t } from '@/i18n';
+import { createPlugin } from '@/utils';
 
 export type AmbientModePluginConfig = {
   enabled: boolean;
@@ -135,7 +135,7 @@ export default createPlugin({
     interpolationTime: defaultConfig.interpolationTime,
     buffer: defaultConfig.buffer,
     qualityRatio: defaultConfig.quality,
-    sizeRatio: defaultConfig.size / 100,
+    size: defaultConfig.size,
     blur: defaultConfig.blur,
     opacity: defaultConfig.opacity,
     isFullscreen: defaultConfig.fullscreen,
@@ -146,9 +146,7 @@ export default createPlugin({
 
     start() {
       const injectBlurImage = () => {
-        const songImage = document.querySelector<HTMLImageElement>(
-          '#song-image',
-        );
+        const songImage = document.querySelector<HTMLImageElement>('#song-image');
         const image = document.querySelector<HTMLImageElement>(
           '#song-image yt-img-shadow > img',
         );
@@ -171,12 +169,8 @@ export default createPlugin({
           if (this.isFullscreen) blurImage.classList.add('fullscreen');
           else blurImage.classList.remove('fullscreen');
 
-          const leftOffset = (newWidth * (this.sizeRatio - 1)) / 2;
-          const topOffset = (newHeight * (this.sizeRatio - 1)) / 2;
-          blurImage.style.setProperty('--left', `${-1 * leftOffset}px`);
-          blurImage.style.setProperty('--top', `${-1 * topOffset}px`);
-          blurImage.style.setProperty('--width', `${newWidth * this.sizeRatio}px`);
-          blurImage.style.setProperty('--height', `${newHeight * this.sizeRatio}px`);
+          blurImage.style.setProperty('--width', `${this.size}%`);
+          blurImage.style.setProperty('--height', `${this.size}%`);
           blurImage.style.setProperty('--blur', `${this.blur}px`);
           blurImage.style.setProperty('--opacity', `${this.opacity}`);
         };
@@ -277,16 +271,12 @@ export default createPlugin({
           blurCanvas.height = Math.floor(
             (newHeight / newWidth) * this.qualityRatio,
           );
-          blurCanvas.style.width = `${newWidth * this.sizeRatio}px`;
-          blurCanvas.style.height = `${newHeight * this.sizeRatio}px`;
 
           if (this.isFullscreen) blurCanvas.classList.add('fullscreen');
           else blurCanvas.classList.remove('fullscreen');
 
-          const leftOffset = (newWidth * (this.sizeRatio - 1)) / 2;
-          const topOffset = (newHeight * (this.sizeRatio - 1)) / 2;
-          blurCanvas.style.setProperty('--left', `${-1 * leftOffset}px`);
-          blurCanvas.style.setProperty('--top', `${-1 * topOffset}px`);
+          blurCanvas.style.setProperty('--width', `${this.size}%`);
+          blurCanvas.style.setProperty('--height', `${this.size}%`);
           blurCanvas.style.setProperty('--blur', `${this.blur}px`);
           blurCanvas.style.setProperty('--opacity', `${this.opacity}`);
         };
@@ -386,7 +376,7 @@ export default createPlugin({
       this.interpolationTime = newConfig.interpolationTime;
       this.buffer = newConfig.buffer;
       this.qualityRatio = newConfig.quality;
-      this.sizeRatio = newConfig.size / 100;
+      this.size = newConfig.size;
       this.blur = newConfig.blur;
       this.opacity = newConfig.opacity;
       this.isFullscreen = newConfig.fullscreen;
