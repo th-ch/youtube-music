@@ -244,6 +244,19 @@ export const TitleBar = (props: TitleBarProps) => {
 
     props.ipc.on('window-maximize', refetchMaximize);
     props.ipc.on('window-unmaximize', refetchMaximize);
+
+    // close menu when the outside of the panel or sub-panel is clicked
+    document.body.addEventListener('click', (e) => {
+      if (
+        e.target instanceof HTMLElement &&
+        !(
+          e.target.closest('#main-panel') ||
+          e.target.closest('#sub-panel')
+        )
+      ) {
+        setOpenTarget(null);
+      }
+    });
   });
 
   createEffect(() => {
@@ -253,7 +266,7 @@ export const TitleBar = (props: TitleBarProps) => {
   });
 
   return (
-    <nav class={titleStyle()} data-macos={props.isMacOS}>
+    <nav id={'main-panel'} class={titleStyle()} data-macos={props.isMacOS}>
       <IconButton
         onClick={() => setCollapsed(!collapsed())}
         style={{

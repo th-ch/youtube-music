@@ -132,6 +132,7 @@ export const Panel = (props: PanelProps) => {
         <Show when={local.open}>
           <ul
             {...leftProps}
+            id={'sub-panel'}
             ref={setPanel}
             class={panelStyle()}
             style={{
