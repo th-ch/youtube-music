@@ -2,7 +2,15 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v3.3.1](https://github.com/th-ch/youtube-music/compare/v3.3.0...v3.3.1)
+
+- Update changelog for v3.3.0 [`6d9bb8e`](https://github.com/th-ch/youtube-music/commit/6d9bb8eb1cc2d892a5552ffb1f7c20859aa80f67)
+- hotfix: in-app-menu position issue [`87acf4c`](https://github.com/th-ch/youtube-music/commit/87acf4cf042ba32a000a4aeaec5c17c93501d333)
+- release 3.3.1 (HOTFIX) [`a6ed8bf`](https://github.com/th-ch/youtube-music/commit/a6ed8bf3aa20ca8e950e85d88f981ccf9edc7498)
+
 #### [v3.3.0](https://github.com/th-ch/youtube-music/compare/v3.2.2...v3.3.0)
+
+> 18 February 2024
 
 - fix(deps): update dependency i18next to v23.8.3 [`#1751`](https://github.com/th-ch/youtube-music/pull/1751)
 - import fixed ./constants [`#1748`](https://github.com/th-ch/youtube-music/pull/1748)
