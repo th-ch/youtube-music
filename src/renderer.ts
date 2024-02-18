@@ -133,7 +133,7 @@ async function onApiLoaded() {
   // Remove upgrade button
   if (window.mainConfig.get('options.removeUpgradeButton')) {
     const styles = document.createElement('style');
-    styles.innerHTML = `ytmusic-guide-signin-promo-renderer {
+    styles.innerHTML = `ytmusic-guide-section-renderer #items ytmusic-guide-entry-renderer:last-child {
       display: none;
     }`;
     document.head.appendChild(styles);
