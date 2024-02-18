@@ -4,8 +4,14 @@ export interface InAppMenuConfig {
 }
 export const defaultInAppMenuConfig: InAppMenuConfig = {
   enabled:
-    (typeof window !== 'undefined' &&
-      !window.navigator?.userAgent?.includes('mac')) ||
-    (typeof global !== 'undefined' && global.process?.platform !== 'darwin'),
+    (
+      (typeof window !== 'undefined' &&
+        !window.navigator?.userAgent?.includes('mac')) ||
+      (typeof global !== 'undefined' && global.process?.platform !== 'darwin')
+    ) && (
+      (typeof window !== 'undefined' &&
+        !window.navigator?.userAgent?.includes('linux')) ||
+      (typeof global !== 'undefined' && global.process?.platform !== 'linux')
+    ),
   hideDOMWindowControls: false,
 };
