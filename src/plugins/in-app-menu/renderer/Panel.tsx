@@ -132,7 +132,7 @@ export const Panel = (props: PanelProps) => {
         <Show when={local.open}>
           <ul
             {...leftProps}
-            id={'sub-panel'}
+            data-ytmd-sub-panel={true}
             ref={setPanel}
             class={panelStyle()}
             style={{

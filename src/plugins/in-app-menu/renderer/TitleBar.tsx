@@ -250,8 +250,8 @@ export const TitleBar = (props: TitleBarProps) => {
       if (
         e.target instanceof HTMLElement &&
         !(
-          e.target.closest('#main-panel') ||
-          e.target.closest('#sub-panel')
+          e.target.closest('nav[data-ytmd-main-panel]') ||
+          e.target.closest('ul[data-ytmd-sub-panel]')
         )
       ) {
         setOpenTarget(null);
@@ -266,7 +266,7 @@ export const TitleBar = (props: TitleBarProps) => {
   });
 
   return (
-    <nav id={'main-panel'} class={titleStyle()} data-macos={props.isMacOS}>
+    <nav data-ytmd-main-panel={true} class={titleStyle()} data-macos={props.isMacOS}>
       <IconButton
         onClick={() => setCollapsed(!collapsed())}
         style={{
