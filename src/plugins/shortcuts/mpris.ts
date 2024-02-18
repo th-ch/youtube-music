@@ -29,7 +29,7 @@ class YTPlayer extends MprisPlayer {
     this.currentPosition = t;
   }
 
-  getPosition(): number {
+  override getPosition(): number {
     return this.currentPosition;
   }
 
