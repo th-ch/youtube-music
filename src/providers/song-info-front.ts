@@ -29,8 +29,9 @@ export const setupTimeChangedListener = singleton(() => {
   const progressObserver = new MutationObserver((mutations) => {
     for (const mutation of mutations) {
       const target = mutation.target as Node & { value: string };
-      window.ipcRenderer.send('ytmd:time-changed', target.value);
-      songInfo.elapsedSeconds = Number(target.value);
+      const numberValue = Number(target.value);
+      window.ipcRenderer.send('ytmd:time-changed', numberValue);
+      songInfo.elapsedSeconds = numberValue;
     }
   });
   const progressBar = document.querySelector('#progress-bar');
