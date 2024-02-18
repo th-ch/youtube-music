@@ -586,7 +586,7 @@ app.whenReady().then(async () => {
       );
       try {
         // Check if shortcut is registered and valid
-        const shortcutDetails = shell.readShortcutLink(shortcutPath); // Throw error if doesn't exist yet
+        const shortcutDetails = shell.readShortcutLink(shortcutPath); // Throw error if it doesn't exist yet
         if (
           shortcutDetails.target !== appLocation ||
           shortcutDetails.appUserModelId !== appID

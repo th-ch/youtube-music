@@ -7,7 +7,7 @@ import config from '@/config';
 
 import type { GetPlayerResponse } from '@/types/get-player-response';
 
-enum MediaType {
+export enum MediaType {
   /**
    * Audio uploaded by the original artist
    */

@@ -4,6 +4,7 @@ import { css } from 'solid-styled-components';
 import { Transition } from 'solid-transition-group';
 import { autoUpdate, flip, offset, OffsetOptions, size } from '@floating-ui/dom';
 import { useFloating } from 'solid-floating-ui';
+
 import { cache } from '@/providers/decorators';
 
 const panelStyle = cache(() => css`

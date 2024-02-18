@@ -9,9 +9,10 @@ import { PanelItem } from './PanelItem';
 import { IconButton } from './IconButton';
 import { WindowController } from './WindowController';
 
+import { cache } from '@/providers/decorators';
+
 import type { RendererContext } from '@/types/contexts';
 import type { InAppMenuConfig } from '../constants';
-import { cache } from '@/providers/decorators';
 
 const titleStyle = cache(() => css`
   -webkit-app-region: drag;

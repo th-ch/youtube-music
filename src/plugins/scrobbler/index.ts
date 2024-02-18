@@ -76,7 +76,7 @@ export const defaultConfig: ScrobblerPluginConfig = {
       enabled: false,
       token: undefined,
       session_key: undefined,
-      api_root: 'http://ws.audioscrobbler.com/2.0/',
+      api_root: 'https://ws.audioscrobbler.com/2.0/',
       api_key: '04d76faaac8726e60988e14c105d421a',
       secret: 'a5d2a36fdf64819290f6982481eaffa2',
     },
