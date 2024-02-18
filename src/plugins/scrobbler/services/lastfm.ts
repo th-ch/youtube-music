@@ -29,20 +29,20 @@ interface LastFmSongData {
 
 export class LastFmScrobbler extends ScrobblerBase {
   isSessionCreated(config: ScrobblerPluginConfig): boolean {
-    return !!config.scrobblers.lastfm.session_key;
+    return !!config.scrobblers.lastfm.sessionKey;
   }
 
   async createSession(config: ScrobblerPluginConfig, setConfig: SetConfType): Promise<ScrobblerPluginConfig> {
     // Get and store the session key
     const data = {
-      api_key: config.scrobblers.lastfm.api_key,
+      api_key: config.scrobblers.lastfm.apiKey,
       format: 'json',
       method: 'auth.getsession',
       token: config.scrobblers.lastfm.token,
     };
     const apiSignature = createApiSig(data, config.scrobblers.lastfm.secret);
     const response = await net.fetch(
-      `${config.scrobblers.lastfm.api_root}${createQueryString(data, apiSignature)}`,
+      `${config.scrobblers.lastfm.apiRoot}${createQueryString(data, apiSignature)}`,
     );
     const json = (await response.json()) as {
       error?: string;
@@ -56,14 +56,14 @@ export class LastFmScrobbler extends ScrobblerBase {
       setConfig(config);
     }
     if (json.session) {
-      config.scrobblers.lastfm.session_key = json.session.key;
+      config.scrobblers.lastfm.sessionKey = json.session.key;
     }
     setConfig(config);
     return config;
   }
 
   setNowPlaying(songInfo: SongInfo, config: ScrobblerPluginConfig, setConfig: SetConfType): void {
-    if (!config.scrobblers.lastfm.session_key) {
+    if (!config.scrobblers.lastfm.sessionKey) {
       return;
     }
 
@@ -75,7 +75,7 @@ export class LastFmScrobbler extends ScrobblerBase {
   }
 
   addScrobble(songInfo: SongInfo, config: ScrobblerPluginConfig, setConfig: SetConfType): void {
-    if (!config.scrobblers.lastfm.session_key) {
+    if (!config.scrobblers.lastfm.sessionKey) {
       return;
     }
 
@@ -94,7 +94,7 @@ export class LastFmScrobbler extends ScrobblerBase {
     setConfig: SetConfType,
   ): Promise<void> {
     // This sends a post request to the api, and adds the common data
-    if (!config.scrobblers.lastfm.session_key) {
+    if (!config.scrobblers.lastfm.sessionKey) {
       await this.createSession(config, setConfig);
     }
 
@@ -103,8 +103,8 @@ export class LastFmScrobbler extends ScrobblerBase {
       duration: songInfo.songDuration,
       artist: songInfo.artist,
       ...(songInfo.album ? { album: songInfo.album } : undefined), // Will be undefined if current song is a video
-      api_key: config.scrobblers.lastfm.api_key,
-      sk: config.scrobblers.lastfm.session_key,
+      api_key: config.scrobblers.lastfm.apiKey,
+      sk: config.scrobblers.lastfm.sessionKey,
       format: 'json',
       ...data,
     };
@@ -126,7 +126,7 @@ export class LastFmScrobbler extends ScrobblerBase {
         }) => {
           if (error?.response?.data?.error === 9) {
             // Session key is invalid, so remove it from the config and reauthenticate
-            config.scrobblers.lastfm.session_key = undefined;
+            config.scrobblers.lastfm.sessionKey = undefined;
             config.scrobblers.lastfm.token = await createToken(config);
             await authenticate(config);
             setConfig(config);
@@ -188,8 +188,8 @@ const createApiSig = (parameters: LastFmSongData, secret: string) => {
 const createToken = async ({
   scrobblers: {
     lastfm: {
-      api_key: apiKey,
-      api_root: apiRoot,
+      apiKey,
+      apiRoot,
       secret,
     }
   }
@@ -211,6 +211,6 @@ const createToken = async ({
 const authenticate = async (config: ScrobblerPluginConfig) => {
   // Asks the user for authentication
   await shell.openExternal(
-    `https://www.last.fm/api/auth/?api_key=${config.scrobblers.lastfm.api_key}&token=${config.scrobblers.lastfm.token}`,
+    `https://www.last.fm/api/auth/?api_key=${config.scrobblers.lastfm.apiKey}&token=${config.scrobblers.lastfm.token}`,
   );
 };

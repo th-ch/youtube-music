@@ -11,7 +11,7 @@ export interface ScrobblerPluginConfig {
     *
     * @default true
     */
-  scrobble_other_media: boolean,
+  scrobbleOtherMedia: boolean,
   scrobblers: {
     lastfm: {
       /**
@@ -27,19 +27,19 @@ export interface ScrobblerPluginConfig {
       /**
        * Session key used for scrobbling
        */
-      session_key: string | undefined,
+      sessionKey: string | undefined,
       /**
        * Root of the Last.fm API
        *
        * @default 'http://ws.audioscrobbler.com/2.0/'
        */
-      api_root: string,
+      apiRoot: string,
       /**
        * Last.fm api key registered by @semvis123
        *
        * @default '04d76faaac8726e60988e14c105d421a'
        */
-      api_key: string,
+      apiKey: string,
       /**
        * Last.fm api secret registered by @semvis123
        *
@@ -63,27 +63,27 @@ export interface ScrobblerPluginConfig {
        *
        * @default 'https://api.listenbrainz.org/1/'
        */
-      api_root: string,
+      apiRoot: string,
     },
   }
 }
 
 export const defaultConfig: ScrobblerPluginConfig = {
   enabled: false,
-  scrobble_other_media: true,
+  scrobbleOtherMedia: true,
   scrobblers: {
     lastfm: {
       enabled: false,
       token: undefined,
-      session_key: undefined,
-      api_root: 'https://ws.audioscrobbler.com/2.0/',
-      api_key: '04d76faaac8726e60988e14c105d421a',
+      sessionKey: undefined,
+      apiRoot: 'https://ws.audioscrobbler.com/2.0/',
+      apiKey: '04d76faaac8726e60988e14c105d421a',
       secret: 'a5d2a36fdf64819290f6982481eaffa2',
     },
     listenbrainz: {
       enabled: false,
       token: undefined,
-      api_root: 'https://api.listenbrainz.org/1/',
+      apiRoot: 'https://api.listenbrainz.org/1/',
     },
   },
 };
