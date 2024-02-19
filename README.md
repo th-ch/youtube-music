@@ -208,10 +208,10 @@ winget install th-ch.YouTubeMusic
 you can add music to queue and/or force play the music immediately.
 `http://localhost:8888/play` & `http://localhost:8888/video` use following headers.
 > 
->>   | **Header** | **Value** | **Description** |
->>   | --- | --- | --- |
->>   | **value** | song name | This header takes the name of the song as input an adds it to the queue |
->>   | **force** | true/false | This header tells the YTMusic app to either add the song to the queue or forcefully play it immediately |
+>    >   | **Header** | **Value** | **Description** |
+>    >   | --- | --- | --- |
+>    >   | **value** | song name | This header takes the name of the song as input an adds it to the queue |
+>    >   | **force** | true/false | This header tells the YTMusic app to either add the song to the queue or forcefully play it immediately |
 > 
 > - Fetch last added song 
 > `http://localhost:8888/lastAdded` gives the name of the last added song.
