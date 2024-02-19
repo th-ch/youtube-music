@@ -56,7 +56,7 @@ class YTPlayer extends MprisPlayer {
 
 function setupMPRIS() {
   const instance = new YTPlayer({
-    name: 'youtube-music',
+    name: 'YoutubeMusic',
     identity: 'YouTube Music',
     supportedMimeTypes: ['audio/mpeg'],
     supportedInterfaces: ['player'],
@@ -232,7 +232,7 @@ function registerMPRIS(win: BrowserWindow) {
           'xesam:title': songInfo.title,
           'xesam:url': songInfo.url,
           'xesam:artist': [songInfo.artist],
-          'mpris:trackid': player.objectPath(),
+          'mpris:trackid': player.objectPath(`Track/${songInfo.videoId}`),
         };
         if (songInfo.album) {
           data['xesam:album'] = songInfo.album;
