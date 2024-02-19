@@ -210,7 +210,7 @@ you can add music to queue and/or force play the music immediately.
 > 
 >    >   | **Header** | **Value** | **Description** |
 >    >   | --- | --- | --- |
->    >   | **value** | song name | This header takes the name of the song as input an adds it to the queue |
+>    >   | **name** | song name | This header takes the name of the song as input an adds it to the queue |
 >    >   | **force** | true/false | This header tells the YTMusic app to either add the song to the queue or forcefully play it immediately |
 > 
 > - Fetch last added song 
