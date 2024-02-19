@@ -46,7 +46,7 @@ export default createPlugin({
   description: () => 'In built web server for external control and information gathering',
   restartNeeded: false, // if value is true, ytmusic show restart dialog
   config: {
-    enabled: true,
+    enabled: false,
     port: '8888',
     // responseWebServerAddress: '127.0.0.1:7474',
   } as WebSrvConfig,
@@ -85,7 +85,7 @@ export default createPlugin({
      });
 
       server.app.get('/play', (req, res) => {
-        const name = req.header('value');
+        const name = req.header('name');
         const force = req.header('force');
         console.log(name);
         ipc.send('web-srv:play', name, force, false);
