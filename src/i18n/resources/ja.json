@@ -212,6 +212,14 @@
     },
     "album-color-theme": {
       "description": "アルバムカバーの色をベースにして動的テーマと視覚効果を適用します",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "カラー混合比率",
+          "submenu": {
+            "percent": "{{ratio}}%"
+          }
+        }
+      },
       "name": "アルバムカラーベースのテーマ"
     },
     "ambient-mode": {
@@ -577,7 +585,8 @@
         },
         "listenbrainz": {
           "token": "ListenBrainzユーザートークンを入力してください"
-        }
+        },
+        "scrobble-other-media": "他のメディアをScrobbleする"
       },
       "name": "スクロブラー",
       "prompt": {

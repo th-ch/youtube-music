@@ -56,7 +56,7 @@ declare module '@jellybrick/mpris-service' {
     playbackStatus: string;
     loopStatus: string;
     shuffle: boolean;
-    metadata: object;
+    metadata: Track;
     volume: number;
     canControl: boolean;
     canPause: boolean;

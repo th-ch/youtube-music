@@ -30,7 +30,7 @@ import {
 
 import { fetchFromGenius } from '@/plugins/lyrics-genius/main';
 import { isEnabled } from '@/config/plugins';
-import { cleanupName, getImage, SongInfo } from '@/providers/song-info';
+import { cleanupName, getImage, MediaType, type SongInfo } from '@/providers/song-info';
 import { getNetFetchAsFetch } from '@/plugins/utils/main';
 import { cache } from '@/providers/decorators';
 
@@ -686,6 +686,7 @@ const getMetadata = (info: TrackInfo): CustomSongInfo => ({
     ?.url,
   views: info.basic_info.view_count!,
   songDuration: info.basic_info.duration!,
+  mediaType: MediaType.Audio,
 });
 
 // This is used to bypass age restrictions

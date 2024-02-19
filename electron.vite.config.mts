@@ -11,6 +11,7 @@ import pluginLoader from './vite-plugins/plugin-loader.mjs';
 
 import type { UserConfig } from 'vite';
 import { i18nImporter } from './vite-plugins/i18n-importer.mjs';
+import solidPlugin from 'vite-plugin-solid';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -117,6 +118,7 @@ export default defineConfig({
           'virtual:i18n': i18nImporter(),
           'virtual:plugins': pluginVirtualModuleGenerator('renderer'),
         }),
+        solidPlugin(),
       ],
       root: './src/',
       build: {

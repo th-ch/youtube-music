@@ -212,6 +212,14 @@
     },
     "album-color-theme": {
       "description": "依歌曲色調自動更改應用程式主題",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "顏色混合程度",
+          "submenu": {
+            "percent": "{{ratio}}%"
+          }
+        }
+      },
       "name": "隨歌曲色調變更主題"
     },
     "ambient-mode": {
@@ -577,7 +585,8 @@
         },
         "listenbrainz": {
           "token": "輸入 ListenBrainz 使用者憑證"
-        }
+        },
+        "scrobble-other-media": "紀錄其他媒體文件"
       },
       "name": "Scrobbler",
       "prompt": {
@@ -594,7 +603,7 @@
       }
     },
     "shortcuts": {
-      "description": "使用全域快捷鍵控制音樂 (播放／暫停／下一首／上一首) + 透過覆寫媒體快捷鍵停用媒體OSD + 允許Ctrl/CMD + F來搜尋 + 支援Linux MPRIS媒體快捷鍵 + 更多自訂快捷鍵給進階使用者。",
+      "description": "使用全域快捷鍵控制音樂 (播放／暫停／下一首／上一首) + 透過覆寫媒體快捷鍵停用媒體OSD + 允許Ctrl/CMD + F來搜尋 + 支援Linux MPRIS媒體快捷鍵 + 更多自訂快捷鍵給進階使用者",
       "menu": {
         "override-media-keys": "覆寫媒體快捷鍵",
         "set-keybinds": "設定全域歌曲控制"

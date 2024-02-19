@@ -2,14 +2,12 @@ import { app, dialog, ipcMain } from 'electron';
 import { Client as DiscordClient } from '@xhayper/discord-rpc';
 import { dev } from 'electron-is';
 
-import { SetActivity } from '@xhayper/discord-rpc/dist/structures/ClientUser';
-
 import registerCallback, { type SongInfo } from '@/providers/song-info';
-
 import { createBackend, LoggerPrefix } from '@/utils';
-
 import { t } from '@/i18n';
 
+import type { GatewayActivityButton } from 'discord-api-types/v10';
+import type { SetActivity } from '@xhayper/discord-rpc/dist/structures/ClientUser';
 import type { DiscordPluginConfig } from './index';
 
 // Application ID registered by @th-ch/youtube-music dev team
@@ -163,24 +161,30 @@ export const backend = createBackend<
       );
     }
 
+    // see https://github.com/th-ch/youtube-music/issues/1664
+    let buttons: GatewayActivityButton[] | undefined = [];
+    if (config.playOnYouTubeMusic) {
+      buttons.push({
+        label: 'Play on YouTube Music',
+        url: songInfo.url ?? 'https://music.youtube.com',
+      });
+    }
+    if (!config.hideGitHubButton) {
+      buttons.push({
+        label: 'View App On GitHub',
+        url: 'https://github.com/th-ch/youtube-music',
+      });
+    }
+    if (buttons.length === 0) {
+      buttons = undefined;
+    }
+
     const activityInfo: SetActivity = {
       details: songInfo.title,
       state: songInfo.artist,
       largeImageKey: songInfo.imageSrc ?? '',
       largeImageText: songInfo.album ?? '',
-      buttons: [
-        ...(config.playOnYouTubeMusic
-          ? [{ label: 'Play on YouTube Music', url: songInfo.url ?? '' }]
-          : []),
-        ...(config.hideGitHubButton
-          ? []
-          : [
-              {
-                label: 'View App On GitHub',
-                url: 'https://github.com/th-ch/youtube-music',
-              },
-            ]),
-      ],
+      buttons,
     };
 
     if (songInfo.isPaused) {

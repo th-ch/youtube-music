@@ -1,37 +1,98 @@
 import { BrowserWindow, ipcMain } from 'electron';
 
-import mpris, { Track } from '@jellybrick/mpris-service';
+import MprisPlayer, { Track } from '@jellybrick/mpris-service';
 
-import registerCallback from '@/providers/song-info';
+import registerCallback, { type SongInfo } from '@/providers/song-info';
 import getSongControls from '@/providers/song-controls';
 import config from '@/config';
+import { LoggerPrefix } from '@/utils';
+
+class YTPlayer extends MprisPlayer {
+  /**
+   * @type {number} The current position in microseconds
+   * @private
+   */
+  private currentPosition: number;
+
+  constructor(opts: {
+    name: string;
+    identity: string;
+    supportedMimeTypes?: string[];
+    supportedInterfaces?: string[];
+  }) {
+    super(opts);
+
+    this.currentPosition = 0;
+  }
+
+  setPosition(t: number) {
+    this.currentPosition = t;
+  }
+
+  override getPosition(): number {
+    return this.currentPosition;
+  }
+
+  setLoopStatus(status: string) {
+    this.loopStatus = status;
+  }
+
+  isPlaying(): boolean {
+    return this.playbackStatus === YTPlayer.PLAYBACK_STATUS_PLAYING;
+  }
+
+  isPaused(): boolean {
+    return this.playbackStatus === YTPlayer.PLAYBACK_STATUS_PAUSED;
+  }
+
+  isStopped(): boolean {
+    return this.playbackStatus === YTPlayer.PLAYBACK_STATUS_STOPPED;
+  }
+
+  setPlaybackStatus(status: string) {
+    this.playbackStatus = status;
+  }
+}
 
 function setupMPRIS() {
-  const instance = new mpris({
+  const instance = new YTPlayer({
     name: 'youtube-music',
     identity: 'YouTube Music',
     supportedMimeTypes: ['audio/mpeg'],
     supportedInterfaces: ['player'],
   });
   instance.canRaise = true;
-  instance.supportedUriSchemes = ['https'];
+  instance.supportedUriSchemes = ['http', 'https'];
   instance.desktopEntry = 'youtube-music';
   return instance;
 }
 
 function registerMPRIS(win: BrowserWindow) {
   const songControls = getSongControls(win);
-  const { playPause, next, previous, volumeMinus10, volumePlus10, shuffle } =
-    songControls;
+  const {
+    playPause,
+    next,
+    previous,
+    volumeMinus10,
+    volumePlus10,
+    shuffle,
+    switchRepeat,
+  } = songControls;
   try {
-    // TODO: "Typing" for this arguments
-    const secToMicro = (n: unknown) => Math.round(Number(n) * 1e6);
-    const microToSec = (n: unknown) => Math.round(Number(n) / 1e6);
+    let currentSongInfo: SongInfo | null = null;
+    const secToMicro = (n: number) => Math.round(Number(n) * 1e6);
+    const microToSec = (n: number) => Math.round(Number(n) / 1e6);
 
-    const seekTo = (e: { position: unknown }) =>
-      win.webContents.send('ytmd:seek-to', microToSec(e.position));
-    const seekBy = (o: unknown) =>
-      win.webContents.send('ytmd:seek-by', microToSec(o));
+    const seekTo = (event: {
+      trackId: string;
+      position: number;
+    }) => {
+      if (event.trackId === currentSongInfo?.videoId) {
+        win.webContents.send('ytmd:seek-to', microToSec(event.position ?? 0));
+      }
+    };
+    const seekBy = (offset: number) =>
+      win.webContents.send('ytmd:seek-by', microToSec(offset));
 
     const player = setupMPRIS();
 
@@ -44,21 +105,22 @@ function registerMPRIS(win: BrowserWindow) {
 
     ipcMain.on('ytmd:seeked', (_, t: number) => player.seeked(secToMicro(t)));
 
-    let currentSeconds = 0;
-    ipcMain.on('ytmd:time-changed', (_, t: number) => (currentSeconds = t));
+    ipcMain.on('ytmd:time-changed', (_, t: number) => {
+      player.setPosition(secToMicro(t));
+    });
 
     ipcMain.on('ytmd:repeat-changed', (_, mode: string) => {
       switch (mode) {
         case 'NONE': {
-          player.loopStatus = mpris.LOOP_STATUS_NONE;
+          player.setLoopStatus(YTPlayer.LOOP_STATUS_NONE);
           break;
         }
         case 'ONE': {
-          player.loopStatus = mpris.LOOP_STATUS_TRACK;
+          player.setLoopStatus(YTPlayer.LOOP_STATUS_TRACK);
           break;
         }
         case 'ALL': {
-          player.loopStatus = mpris.LOOP_STATUS_PLAYLIST;
+          player.setLoopStatus(YTPlayer.LOOP_STATUS_PLAYLIST);
           // No default
           break;
         }
@@ -67,18 +129,17 @@ function registerMPRIS(win: BrowserWindow) {
     player.on('loopStatus', (status: string) => {
       // SwitchRepeat cycles between states in that order
       const switches = [
-        mpris.LOOP_STATUS_NONE,
-        mpris.LOOP_STATUS_PLAYLIST,
-        mpris.LOOP_STATUS_TRACK,
+        YTPlayer.LOOP_STATUS_NONE,
+        YTPlayer.LOOP_STATUS_PLAYLIST,
+        YTPlayer.LOOP_STATUS_TRACK,
       ];
       const currentIndex = switches.indexOf(player.loopStatus);
       const targetIndex = switches.indexOf(status);
 
       // Get a delta in the range [0,2]
       const delta = (targetIndex - currentIndex + 3) % 3;
-      songControls.switchRepeat(delta);
+      switchRepeat(delta);
     });
-    player.getPosition = () => secToMicro(currentSeconds);
 
     player.on('raise', () => {
       win.setSkipTaskbar(false);
@@ -86,22 +147,23 @@ function registerMPRIS(win: BrowserWindow) {
     });
 
     player.on('play', () => {
-      if (player.playbackStatus !== mpris.PLAYBACK_STATUS_PLAYING) {
-        player.playbackStatus = mpris.PLAYBACK_STATUS_PLAYING;
+      if (!player.isPlaying()) {
+        player.setPlaybackStatus(YTPlayer.PLAYBACK_STATUS_PLAYING);
         playPause();
       }
     });
     player.on('pause', () => {
-      if (player.playbackStatus !== mpris.PLAYBACK_STATUS_PAUSED) {
-        player.playbackStatus = mpris.PLAYBACK_STATUS_PAUSED;
+      if (player.playbackStatus !== YTPlayer.PLAYBACK_STATUS_PAUSED) {
+        player.setPlaybackStatus(YTPlayer.PLAYBACK_STATUS_PAUSED);
         playPause();
       }
     });
     player.on('playpause', () => {
-      player.playbackStatus =
-        player.playbackStatus === mpris.PLAYBACK_STATUS_PLAYING
-          ? mpris.PLAYBACK_STATUS_PAUSED
-          : mpris.PLAYBACK_STATUS_PLAYING;
+      player.setPlaybackStatus(
+        player.isPlaying()
+          ? YTPlayer.PLAYBACK_STATUS_PAUSED
+          : YTPlayer.PLAYBACK_STATUS_PLAYING
+      );
       playPause();
     });
 
@@ -170,21 +232,32 @@ function registerMPRIS(win: BrowserWindow) {
           'xesam:title': songInfo.title,
           'xesam:url': songInfo.url,
           'xesam:artist': [songInfo.artist],
-          'mpris:trackid': '/',
+          'mpris:trackid': songInfo.videoId,
         };
         if (songInfo.album) {
           data['xesam:album'] = songInfo.album;
         }
+        currentSongInfo = songInfo;
 
         player.metadata = data;
-        player.seeked(secToMicro(songInfo.elapsedSeconds));
-        player.playbackStatus = songInfo.isPaused
-          ? mpris.PLAYBACK_STATUS_PAUSED
-          : mpris.PLAYBACK_STATUS_PLAYING;
+
+        const currentElapsedMicroSeconds = secToMicro(songInfo.elapsedSeconds ?? 0);
+        player.setPosition(currentElapsedMicroSeconds);
+        player.seeked(currentElapsedMicroSeconds);
+
+        player.setPlaybackStatus(
+          songInfo.isPaused ?
+            YTPlayer.PLAYBACK_STATUS_PAUSED :
+            YTPlayer.PLAYBACK_STATUS_PLAYING
+        );
       }
     });
   } catch (error) {
-    console.warn('Error in MPRIS', error);
+    console.error(
+      LoggerPrefix,
+      'Error in MPRIS'
+    );
+    console.trace(error);
   }
 }
 

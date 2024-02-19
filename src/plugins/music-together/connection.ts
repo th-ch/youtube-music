@@ -74,7 +74,7 @@ export class Connection {
     return conn;
   }
 
-  async disconnect() {
+  disconnect() {
     if (this._mode === 'disconnected') throw new Error('Already disconnected');
 
     this._mode = 'disconnected';

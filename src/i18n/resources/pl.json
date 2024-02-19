@@ -212,6 +212,13 @@
     },
     "album-color-theme": {
       "description": "Stosuje dynamiczny motyw i efekty wizualne w oparciu o paletę kolorów albumu",
+      "menu": {
+        "color-mix-ratio": {
+          "submenu": {
+            "percent": "{{ratio}}%"
+          }
+        }
+      },
       "name": "Motyw kolorów albumu"
     },
     "ambient-mode": {
@@ -568,6 +575,24 @@
       },
       "description": "Umożliwia zmianę jakości wideo za pomocą przycisku na nakładce wideo",
       "name": "Zmieniacz jakości wideo"
+    },
+    "scrobbler": {
+      "menu": {
+        "listenbrainz": {
+          "token": "Podaj token użytkownika ListenBrainz"
+        }
+      },
+      "prompt": {
+        "lastfm": {
+          "api-key": "klucz API Last.fm"
+        },
+        "listenbrainz": {
+          "token": {
+            "label": "Podaj swój token użytkownika ListenBrainz:",
+            "title": "Token ListenBrainz"
+          }
+        }
+      }
     },
     "shortcuts": {
       "description": "Umożliwia ustawienie globalnych skrótów klawiszowych do odtwarzania (odtwarzanie/pauza/następny/poprzedni) + wyłączanie OSD multimediów poprzez zastąpienie klawiszy multimediów, włączając kombinację klawiszy Ctrl/CMD + F w celu wyszukiwania, obsługę Linux MPRIS dla klawiszy multimediów oraz niestandardowe skróty klawiszowe dla zaawansowanych użytkowników",

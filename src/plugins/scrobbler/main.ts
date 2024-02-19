@@ -1,4 +1,4 @@
-import registerCallback, { type SongInfo } from '@/providers/song-info';
+import registerCallback, { MediaType, type SongInfo } from '@/providers/song-info';
 import { createBackend } from '@/utils';
 
 import { ScrobblerPluginConfig } from './index';
@@ -52,7 +52,7 @@ export const backend = createBackend<{
       if (!songInfo.isPaused) {
         const configNonnull = this.config!;
         // Scrobblers normally have no trouble working with official music videos
-        if (!configNonnull.scrobble_other_media && (songInfo.mediaType !== 'AUDIO' && songInfo.mediaType !== 'ORIGINAL_MUSIC_VIDEO')) {
+        if (!configNonnull.scrobble_other_media && (songInfo.mediaType !== MediaType.Audio && songInfo.mediaType !== MediaType.OriginalMusicVideo)) {
           return;
         }
 

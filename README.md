@@ -33,7 +33,7 @@ Read this in other languages: [🇰🇷](./docs/readme/README-ko.md)
 
 |                          Player Screen (album color theme & ambient light)                                |
 |:---------------------------------------------------------------------------------------------------------:|
-|![Screenshot2](https://github.com/th-ch/youtube-music/assets/16558115/28ed8f08-c8c4-48ad-811b-7722093e9d81)|
+|![Screenshot1](https://github.com/th-ch/youtube-music/assets/16558115/53efdf73-b8fa-4d7b-a235-b96b91ea77fc)|
 
 ## Translation
 
