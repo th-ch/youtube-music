@@ -112,8 +112,8 @@ dependencies:
     specifier: 9.0.5
     version: 9.0.5
   i18next:
-    specifier: 23.8.3
-    version: 23.8.3
+    specifier: 23.9.0
+    version: 23.9.0
   keyboardevent-from-electron-accelerator:
     specifier: 2.0.0
     version: 2.0.0
@@ -4327,8 +4327,8 @@ packages:
     engines: {node: '>=10.17.0'}
     dev: false
 
-  /i18next@23.8.3:
-    resolution: {integrity: sha512-IQn6Tfn+XkIRHjC/z3uQSGLhsRC6Y14kgyrsgoPqnFD9MqbNt2B9MF3Ch4p114pEVPQ2qktE2nd0aYr7UxRLKA==}
+  /i18next@23.9.0:
+    resolution: {integrity: sha512-f3MUciKqwzNV//mHG6EtdSlC65+nqH/3zK8sOSWqNV6FVu2tmHhF/rFOp9UF8S4m1odojtuipKaKJrP0Loh60g==}
     dependencies:
       '@babel/runtime': 7.23.8
     dev: false
