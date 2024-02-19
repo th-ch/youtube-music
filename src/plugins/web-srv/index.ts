@@ -95,7 +95,7 @@ export default createPlugin({
 
 
       server.app.get('/video', (req, res) => {
-        const name = req.header('value');
+        const name = req.header('name');
         const force = req.header('force');
         console.log(name);
         ipc.send('web-srv:play', name, force, true);
