@@ -202,6 +202,26 @@ winget install th-ch.YouTubeMusic
 
 - **Visualizer**: Different music visualizers
 
+- These are the things you can do with websrv plugin.
+
+- Play Music 
+you can add music to queue and/or force play the music immediately.
+`http://localhost:8888/play` & `http://localhost:8888/video` use following headers.
+
+  | **Header** | **Value** | **Description** |
+  | --- | --- | --- |
+  | **value** | song name | This header takes the name of the song as input an adds it to the queue |
+  | **force** | true/false | This header tells the YTMusic app to either add the song to the queue or forcefully play it immediately |
+- Fetch last added song 
+`http://localhost:8888/lastAdded` gives the name of the last added song.
+- Play / Pause Music
+`http://localhost:8888/playpause` allows you to toggle the state of music.
+- Play next song or previous song
+  1. `http://localhost:8888/playnext` allows you to skip to the next song.
+  2. `http://localhost:8888/playprevious` allows you to jump to the previous song.
+- Queue
+`http://localhost:8888/queue` gives you song queue list.
+
 ## Themes
 
 You can load CSS files to change the look of the application (Options > Visual Tweaks > Themes).
