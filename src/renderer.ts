@@ -66,9 +66,39 @@ async function onApiLoaded() {
   window.ipcRenderer.on('ytmd:get-volume', (event) => {
     event.sender.emit('ytmd:get-volume-return', api?.getVolume());
   });
-  window.ipcRenderer.on('ytmd:toggle-fullscreen', (_) => {
-    document.querySelector<HTMLElement & { toggleFullscreen: () => void }>('ytmusic-player-bar')?.toggleFullscreen();
+
+  const isFullscreen = () => {
+    const isFullscreen =
+      document
+        .querySelector<HTMLElement>('ytmusic-player-bar')
+        ?.attributes.getNamedItem('player-fullscreened') ?? null;
+
+    return isFullscreen !== null;
+  };
+
+  const setFullscreen = (isFullscreenValue: boolean) => {
+    if (isFullscreenValue == isFullscreen()) {
+      return;
+    }
+
+    if (isFullscreen()) {
+      document.querySelector<HTMLElement>('.exit-fullscreen-button')?.click();
+    } else {
+      document.querySelector<HTMLElement>('.fullscreen-button')?.click();
+    }
+  };
+
+  window.ipcRenderer.on('ytmd:get-fullscreen', (event) => {
+    event.sender.emit('ytmd:get-fullscreen-return', isFullscreen());
   });
+
+  window.ipcRenderer.on(
+    'ytmd:set-fullscreen',
+    (_, isFullscreenValue: boolean) => {
+      setFullscreen(isFullscreenValue);
+    },
+  );
+
   window.ipcRenderer.on('ytmd:toggle-mute', (_) => {
     document.querySelector<HTMLElement & { onVolumeTap: () => void }>('ytmusic-player-bar')?.onVolumeTap();
   });
@@ -236,7 +266,9 @@ const initObserver = async () => {
   // check document.documentElement is ready
   await new Promise<void>((resolve) => {
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => resolve(), { once: true });
+      document.addEventListener('DOMContentLoaded', () => resolve(), {
+        once: true,
+      });
     } else {
       resolve();
     }

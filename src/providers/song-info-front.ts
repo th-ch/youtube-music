@@ -78,6 +78,28 @@ export const setupVolumeChangedListener = singleton((api: YoutubePlayer) => {
   window.ipcRenderer.send('ytmd:volume-changed', api.getVolume());
 });
 
+export const setupFullScreenChangedListener = singleton(() => {
+  const playerBar = document.querySelector('ytmusic-player-bar');
+
+  if (!playerBar) {
+    window.ipcRenderer.send('ytmd:fullscreen-changed-supported', false);
+  }
+
+  const observer = new MutationObserver(() => {
+    window.ipcRenderer.send(
+      'ytmd:fullscreen-changed',
+      (playerBar?.attributes.getNamedItem('player-fullscreened') ?? null) !==
+        null,
+    );
+  });
+
+  observer.observe(playerBar!, {
+    attributes: true,
+    childList: false,
+    subtree: false,
+  });
+});
+
 export default (api: YoutubePlayer) => {
   window.ipcRenderer.on('ytmd:setup-time-changed-listener', () => {
     setupTimeChangedListener();
@@ -89,6 +111,10 @@ export default (api: YoutubePlayer) => {
 
   window.ipcRenderer.on('ytmd:setup-volume-changed-listener', () => {
     setupVolumeChangedListener(api);
+  });
+
+  window.ipcRenderer.on('ytmd:setup-fullscreen-changed-listener', () => {
+    setupFullScreenChangedListener();
   });
 
   window.ipcRenderer.on('ytmd:setup-seeked-listener', () => {
@@ -155,13 +181,13 @@ export default (api: YoutubePlayer) => {
   function sendSongInfo(videoData: VideoDataChangeValue) {
     const data = api.getPlayerResponse();
 
-    data.videoDetails.album =
-      (
-        Object.entries(videoData)
-          .find(([, value]) => value && Object.hasOwn(value, 'playerOverlays')) as [string, AlbumDetails | undefined]
-      )?.[1]?.playerOverlays?.playerOverlayRenderer?.browserMediaSession?.browserMediaSessionRenderer?.album?.runs?.at(
-        0,
-      )?.text;
+    data.videoDetails.album = (
+      Object.entries(videoData).find(
+        ([, value]) => value && Object.hasOwn(value, 'playerOverlays'),
+      ) as [string, AlbumDetails | undefined]
+    )?.[1]?.playerOverlays?.playerOverlayRenderer?.browserMediaSession?.browserMediaSessionRenderer?.album?.runs?.at(
+      0,
+    )?.text;
     data.videoDetails.elapsedSeconds = 0;
     data.videoDetails.isPaused = false;
 

@@ -1536,6 +1536,8 @@ export interface FlagEndpoint {
   flagAction: string;
 }
 
+export type RepeatMode = 'NONE' | 'ONE' | 'ALL';
+
 export interface Queue {
   automixItems: unknown[];
   autoplay: boolean;
@@ -1553,7 +1555,7 @@ export interface Queue {
   nextQueueItemId: number;
   playbackContentMode: string;
   queueContextParams: string;
-  repeatMode: string;
+  repeatMode: RepeatMode;
   responsiveSignals: ResponsiveSignals;
   selectedItemIndex: number;
   shuffleEnabled: boolean;

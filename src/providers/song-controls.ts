@@ -28,16 +28,23 @@ export default (win: BrowserWindow) => {
       });
       win.webContents.send('ytmd:get-volume');
     },
-    fullscreen: () => win.webContents.send('ytmd:toggle-fullscreen'),
+    setFullscreen: (isFullscreen: boolean) =>
+      win.webContents.send('ytmd:set-fullscreen', isFullscreen),
+    requestFullscreenInformation: () => {
+      ipcMain.once(
+        'ytmd:get-fullscreen-return',
+        (_, isFullscreen: boolean | undefined) => {
+          win.webContents.send('ytmd:set-fullscreen', isFullscreen);
+        },
+      );
+      win.webContents.send('ytmd:get-fullscreen');
+    },
     muteUnmute: () => win.webContents.send('ytmd:toggle-mute'),
-    search: () => win.webContents.sendInputEvent({
-      type: 'keyDown',
-      keyCode: '/',
-    }),
+    search: () =>
+      win.webContents.sendInputEvent({
+        type: 'keyDown',
+        keyCode: '/',
+      }),
   };
-  return {
-    ...commands,
-    play: commands.playPause,
-    pause: commands.playPause,
-  };
+  return commands;
 };
