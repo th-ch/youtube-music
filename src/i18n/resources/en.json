@@ -583,7 +583,7 @@
         "lastfm": {
           "auth-failed": {
             "title": "Authentication Failed",
-            "message": "Failed to authenticate with Last.fm"
+            "message": "Failed to authenticate with Last.fm\nHide the popup until the next restart."
           }
         }
       },
