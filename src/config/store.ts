@@ -53,6 +53,7 @@ const migrations = {
         secret: lastfmConfig.secret,
       };
       store.set('plugins.scrobbler', scrobblerConfig);
+      store.delete('plugins.lastfm');
     }
   },
   '>=3.0.0'(store: Conf<Record<string, unknown>>) {
