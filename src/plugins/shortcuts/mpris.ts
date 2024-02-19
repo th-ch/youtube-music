@@ -87,7 +87,7 @@ function registerMPRIS(win: BrowserWindow) {
       trackId: string;
       position: number;
     }) => {
-      if (event.trackId === currentSongInfo?.videoId) {
+      if (currentSongInfo?.videoId && event.trackId.endsWith(currentSongInfo.videoId)) {
         win.webContents.send('ytmd:seek-to', microToSec(event.position ?? 0));
       }
     };
@@ -153,7 +153,7 @@ function registerMPRIS(win: BrowserWindow) {
       }
     });
     player.on('pause', () => {
-      if (player.playbackStatus !== YTPlayer.PLAYBACK_STATUS_PAUSED) {
+      if (player.isPaused()) {
         player.setPlaybackStatus(YTPlayer.PLAYBACK_STATUS_PAUSED);
         playPause();
       }
@@ -232,7 +232,7 @@ function registerMPRIS(win: BrowserWindow) {
           'xesam:title': songInfo.title,
           'xesam:url': songInfo.url,
           'xesam:artist': [songInfo.artist],
-          'mpris:trackid': songInfo.videoId,
+          'mpris:trackid': player.objectPath(songInfo.videoId),
         };
         if (songInfo.album) {
           data['xesam:album'] = songInfo.album;
