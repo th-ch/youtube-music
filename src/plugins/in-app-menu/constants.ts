@@ -7,7 +7,7 @@ export const defaultInAppMenuConfig: InAppMenuConfig = {
     (
       (
         typeof window !== 'undefined' &&
-        !window.navigator?.userAgent?.includes('mac')
+        !window.navigator?.userAgent?.toLowerCase().includes('mac')
       ) ||
       (
         typeof global !== 'undefined' &&
@@ -16,7 +16,7 @@ export const defaultInAppMenuConfig: InAppMenuConfig = {
     ) && (
       (
         typeof window !== 'undefined' &&
-        !window.navigator?.userAgent?.includes('linux')
+        !window.navigator?.userAgent?.toLowerCase().includes('linux')
       ) ||
       (
         typeof global !== 'undefined' &&
