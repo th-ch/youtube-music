@@ -87,7 +87,7 @@ function registerMPRIS(win: BrowserWindow) {
       trackId: string;
       position: number;
     }) => {
-      if (currentSongInfo?.videoId && event.trackId.endsWith(currentSongInfo.videoId)) {
+      if (currentSongInfo?.videoId && event.trackId.endsWith(currentSongInfo.videoId.replace('-', '_MINUS_'))) {
         win.webContents.send('ytmd:seek-to', microToSec(event.position ?? 0));
       }
     };
@@ -228,11 +228,11 @@ function registerMPRIS(win: BrowserWindow) {
       if (player) {
         const data: Track = {
           'mpris:length': secToMicro(songInfo.songDuration),
-          'mpris:artUrl': songInfo.imageSrc ?? undefined,
+          ...songInfo.imageSrc ? { 'mpris:artUrl': songInfo.imageSrc } : undefined,
           'xesam:title': songInfo.title,
           'xesam:url': songInfo.url,
           'xesam:artist': [songInfo.artist],
-          'mpris:trackid': player.objectPath(`Track/${songInfo.videoId}`),
+          'mpris:trackid': player.objectPath(`Track/${songInfo.videoId.replace('-', '_MINUS_')}`),
         };
         if (songInfo.album) {
           data['xesam:album'] = songInfo.album;
