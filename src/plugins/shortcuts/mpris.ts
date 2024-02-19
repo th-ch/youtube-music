@@ -232,7 +232,7 @@ function registerMPRIS(win: BrowserWindow) {
           'xesam:title': songInfo.title,
           'xesam:url': songInfo.url,
           'xesam:artist': [songInfo.artist],
-          'mpris:trackid': player.objectPath(songInfo.videoId),
+          'mpris:trackid': player.objectPath(),
         };
         if (songInfo.album) {
           data['xesam:album'] = songInfo.album;
