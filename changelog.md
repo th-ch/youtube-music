@@ -2,7 +2,23 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v3.3.2](https://github.com/th-ch/youtube-music/compare/v3.3.1...v3.3.2)
+
+- fix: fix bugs in MPRIS, and improve MPRIS [`#1760`](https://github.com/th-ch/youtube-music/pull/1760)
+- fix(deps): update dependency electron-updater to v6.1.8 [`#1770`](https://github.com/th-ch/youtube-music/pull/1770)
+- chore(deps): update dependency electron-builder to v24.12.0 [`#1771`](https://github.com/th-ch/youtube-music/pull/1771)
+- feat(scrobblers): use `BrowserWindow` instead of `shell.openExternal` [`#1758`](https://github.com/th-ch/youtube-music/pull/1758)
+- chore(deps): update dependency @typescript-eslint/eslint-plugin to v7.0.2 [`#1763`](https://github.com/th-ch/youtube-music/pull/1763)
+- chore(deps): update dependency esbuild to v0.20.1 [`#1759`](https://github.com/th-ch/youtube-music/pull/1759)
+- fix(deps): update dependency i18next to v23.9.0 [`#1754`](https://github.com/th-ch/youtube-music/pull/1754)
+- fix: fixed an issue that caused infinite loops when using Music Together [`#1752`](https://github.com/th-ch/youtube-music/issues/1752)
+- chore(deps): rollback dependency electron-builder to v24.9.1 [`8bd05f5`](https://github.com/th-ch/youtube-music/commit/8bd05f525df98671f0a516b159cccab302b7ae99)
+- chore(deps): update dependency electron-builder to v24.13.1 [`47b23b4`](https://github.com/th-ch/youtube-music/commit/47b23b414c8feb25c4d9a23d6adb7cbf1ac818fb)
+- chore(i18n): Translated using Weblate (German) [`47505e9`](https://github.com/th-ch/youtube-music/commit/47505e97482f9e953ee451b968d0950585616ffa)
+
 #### [v3.3.1](https://github.com/th-ch/youtube-music/compare/v3.3.0...v3.3.1)
+
+> 18 February 2024
 
 - Update changelog for v3.3.0 [`6d9bb8e`](https://github.com/th-ch/youtube-music/commit/6d9bb8eb1cc2d892a5552ffb1f7c20859aa80f67)
 - hotfix: in-app-menu position issue [`87acf4c`](https://github.com/th-ch/youtube-music/commit/87acf4cf042ba32a000a4aeaec5c17c93501d333)
