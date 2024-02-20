@@ -61,7 +61,8 @@ export default (win: BrowserWindow) => {
     setFullscreen: (isFullscreen: ArgsType<boolean>) => {
       const isFullscreenValue = parseBooleanFromArgsType(isFullscreen);
       if (isFullscreenValue !== null) {
-        win.webContents.send('ytmd:set-fullscreen', isFullscreenValue);
+        win.setFullScreen(isFullscreenValue);
+        win.webContents.send('ytmd:click-fullscreen-button', isFullscreenValue);
       }
     },
     requestFullscreenInformation: () => {
