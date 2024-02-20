@@ -107,7 +107,7 @@ async function onApiLoaded() {
     document.querySelector<HTMLElement & { onVolumeTap: () => void }>('ytmusic-player-bar')?.onVolumeTap();
   });
 
-  window.ipcRenderer.on('ytmd:get-queue-data', (event) => {
+  window.ipcRenderer.on('ytmd:get-queue', (event) => {
     const queue = document.querySelector<QueueElement>('#queue');
     event.sender.send('ytmd:get-queue-response', {
       items: queue?.queue.getItems(),
