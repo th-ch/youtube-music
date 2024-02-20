@@ -62,11 +62,13 @@ export const setupRepeatChangedListener = singleton(() => {
   // provided by YouTube Music
   window.ipcRenderer.send(
     'ytmd:repeat-changed',
-    document.querySelector<
-      HTMLElement & {
-        getState: () => GetState;
-      }
-    >('ytmusic-player-bar')?.getState().queue.repeatMode,
+    document
+      .querySelector<
+        HTMLElement & {
+          getState: () => GetState;
+        }
+      >('ytmusic-player-bar')
+      ?.getState().queue.repeatMode,
   );
 });
 
@@ -100,6 +102,22 @@ export const setupFullScreenChangedListener = singleton(() => {
   });
 });
 
+export const setupAutoPlayChangedListener = singleton(() => {
+  const autoplaySlider = document.querySelector<HTMLInputElement>(
+    '.autoplay > tp-yt-paper-toggle-button',
+  );
+
+  const observer = new MutationObserver(() => {
+    window.ipcRenderer.send('ytmd:autplay-changed');
+  });
+
+  observer.observe(autoplaySlider!, {
+    attributes: true,
+    childList: false,
+    subtree: false,
+  });
+});
+
 export default (api: YoutubePlayer) => {
   window.ipcRenderer.on('ytmd:setup-time-changed-listener', () => {
     setupTimeChangedListener();
@@ -115,6 +133,10 @@ export default (api: YoutubePlayer) => {
 
   window.ipcRenderer.on('ytmd:setup-fullscreen-changed-listener', () => {
     setupFullScreenChangedListener();
+  });
+
+  window.ipcRenderer.on('ytmd:setup-autoplay-changed-listener', () => {
+    setupAutoPlayChangedListener();
   });
 
   window.ipcRenderer.on('ytmd:setup-seeked-listener', () => {

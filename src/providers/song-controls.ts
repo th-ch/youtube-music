@@ -1,5 +1,5 @@
 // This is used for to control the songs
-import { BrowserWindow, ipcMain } from 'electron';
+import { BrowserWindow } from 'electron';
 
 export default (win: BrowserWindow) => {
   const commands = {
@@ -9,35 +9,22 @@ export default (win: BrowserWindow) => {
     playPause: () => win.webContents.send('ytmd:toggle-play'),
     like: () => win.webContents.send('ytmd:update-like', 'LIKE'),
     dislike: () => win.webContents.send('ytmd:update-like', 'DISLIKE'),
-    go10sBack: () => win.webContents.send('ytmd:seek-by', -10),
-    go10sForward: () => win.webContents.send('ytmd:seek-by', 10),
-    go1sBack: () => win.webContents.send('ytmd:seek-by', -1),
-    go1sForward: () => win.webContents.send('ytmd:seek-by', 1),
+    goBack: (seconds: number) => win.webContents.send('ytmd:seek-by', -seconds),
+    goForward: (seconds: number) =>
+      win.webContents.send('ytmd:seek-by', seconds),
     shuffle: () => win.webContents.send('ytmd:shuffle'),
     switchRepeat: (n = 1) => win.webContents.send('ytmd:switch-repeat', n),
     // General
-    volumeMinus10: () => {
-      ipcMain.once('ytmd:get-volume-return', (_, volume) => {
-        win.webContents.send('ytmd:update-volume', volume - 10);
-      });
-      win.webContents.send('ytmd:get-volume');
-    },
-    volumePlus10: () => {
-      ipcMain.once('ytmd:get-volume-return', (_, volume) => {
-        win.webContents.send('ytmd:update-volume', volume + 10);
-      });
-      win.webContents.send('ytmd:get-volume');
+    setVolume: (volume: number) => {
+      win.webContents.send('ytmd:update-volume', volume);
     },
     setFullscreen: (isFullscreen: boolean) =>
       win.webContents.send('ytmd:set-fullscreen', isFullscreen),
     requestFullscreenInformation: () => {
-      ipcMain.once(
-        'ytmd:get-fullscreen-return',
-        (_, isFullscreen: boolean | undefined) => {
-          win.webContents.send('ytmd:set-fullscreen', isFullscreen);
-        },
-      );
       win.webContents.send('ytmd:get-fullscreen');
+    },
+    requestPlaylistInformation: () => {
+      win.webContents.send('ytmd:get-playlist');
     },
     muteUnmute: () => win.webContents.send('ytmd:toggle-mute'),
     search: () =>

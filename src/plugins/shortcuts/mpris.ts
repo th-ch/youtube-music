@@ -20,6 +20,7 @@ import config from '@/config';
 import { LoggerPrefix } from '@/utils';
 
 import type { RepeatMode } from '@/types/datahost-get-state';
+import type { Queue } from '@/renderer';
 
 class YTPlayer extends MprisPlayer {
   /**
@@ -85,12 +86,12 @@ function registerMPRIS(win: BrowserWindow) {
     playPause,
     next,
     previous,
-    volumeMinus10,
-    volumePlus10,
+    setVolume,
     shuffle,
     switchRepeat,
     setFullscreen,
     requestFullscreenInformation,
+    requestPlaylistInformation,
   } = songControls;
   try {
     let currentSongInfo: SongInfo | null = null;
@@ -120,9 +121,10 @@ function registerMPRIS(win: BrowserWindow) {
       win.webContents.send('ytmd:setup-repeat-changed-listener', 'mpris');
       win.webContents.send('ytmd:setup-volume-changed-listener', 'mpris');
       win.webContents.send('ytmd:setup-fullscreen-changed-listener', 'mpris');
+      win.webContents.send('ytmd:setup-autoplay-changed-listener', 'mpris');
+      requestFullscreenInformation();
+      requestPlaylistInformation();
     });
-
-    ipcMain.on('ytmd:seeked', (_, t: number) => player.seeked(secToMicro(t)));
 
     ipcMain.on('ytmd:seeked', (_, t: number) => player.seeked(secToMicro(t)));
 
@@ -146,6 +148,7 @@ function registerMPRIS(win: BrowserWindow) {
           break;
         }
       }
+      requestPlaylistInformation();
     });
 
     ipcMain.on('ytmd:fullscreen-changed', (_, changedTo: boolean) => {
@@ -174,8 +177,28 @@ function registerMPRIS(win: BrowserWindow) {
         player.canSetFullscreen = isFullscreenSupported;
       },
     );
+    ipcMain.on('ytmd:autplay-changed', (_) => {
+      requestPlaylistInformation();
+    });
 
-    requestFullscreenInformation();
+    ipcMain.on('ytmd:playlist-updated', (_, queue: Queue | null) => {
+      if (!queue) {
+        return;
+      }
+
+      player.canGoPrevious = queue.currentPosition !== 0;
+
+      let hasNext: boolean;
+      if (queue.autoplay) {
+        hasNext = true;
+      } else if (player.loopStatus === LOOP_STATUS_PLAYLIST) {
+        hasNext = true;
+      } else {
+        hasNext = queue.currentPosition !== queue.songs.length - 1;
+      }
+
+      player.canGoNext = hasNext;
+    });
 
     player.on('loopStatus', (status: LoopStatus) => {
       // SwitchRepeat cycles between states in that order
@@ -225,15 +248,11 @@ function registerMPRIS(win: BrowserWindow) {
     });
 
     player.on('next', () => {
-      const hasNext = next();
-      //TODO: detect this
-      // player.canGoNext = hasNext;
+      next();
     });
 
     player.on('previous', () => {
-      const hasPrevious = previous();
-      //TODO: detect this
-      // player.canGoPrevious = hasPrevious;
+      previous();
     });
 
     player.on('seek', seekBy);
@@ -242,10 +261,12 @@ function registerMPRIS(win: BrowserWindow) {
     player.on('shuffle', (enableShuffle) => {
       if (enableShuffle) {
         shuffle();
+        requestPlaylistInformation();
       }
     });
     player.on('open', (args: { uri: string }) => {
       win.loadURL(args.uri);
+      requestPlaylistInformation();
     });
 
     player.on('error', (error: Error) => {
@@ -279,23 +300,11 @@ function registerMPRIS(win: BrowserWindow) {
           win.webContents.send('setVolume', newVol);
         }
       } else {
-        // With keyboard shortcuts we can only change the volume in increments of 10, so round it.
-        let deltaVolume = Math.round((newVolume - player.volume) * 10);
-        while (deltaVolume !== 0 && deltaVolume > 0) {
-          volumePlus10();
-          player.volume += 0.1;
-          deltaVolume--;
-        }
-
-        while (deltaVolume !== 0 && deltaVolume < 0) {
-          volumeMinus10();
-          player.volume -= 0.1;
-          deltaVolume++;
-        }
+        setVolume(newVolume * 100);
       }
     });
 
-    registerCallback((songInfo) => {
+    registerCallback((songInfo: SongInfo) => {
       if (player) {
         const data: Track = {
           'mpris:length': secToMicro(songInfo.songDuration),
@@ -326,6 +335,7 @@ function registerMPRIS(win: BrowserWindow) {
           songInfo.isPaused ? PLAYBACK_STATUS_PAUSED : PLAYBACK_STATUS_PLAYING,
         );
       }
+      requestPlaylistInformation();
     });
   } catch (error) {
     console.error(LoggerPrefix, 'Error in MPRIS');
