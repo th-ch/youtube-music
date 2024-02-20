@@ -94,8 +94,8 @@ dependencies:
     specifier: 4.0.1
     version: 4.0.1
   electron-updater:
-    specifier: 6.1.7
-    version: 6.1.7
+    specifier: 6.1.8
+    version: 6.1.8
   fast-average-color:
     specifier: 9.4.0
     version: 9.4.0
@@ -3257,8 +3257,8 @@ packages:
       serialize-error: 8.1.0
     dev: false
 
-  /electron-updater@6.1.7:
-    resolution: {integrity: sha512-SNOhYizjkm4ET+Y8ilJyUzcVsFJDtINzVN1TyHnZeMidZEG3YoBebMyXc/J6WSiXdUaOjC7ngekN6rNp6ardHA==}
+  /electron-updater@6.1.8:
+    resolution: {integrity: sha512-hhOTfaFAd6wRHAfUaBhnAOYc+ymSGCWJLtFkw4xJqOvtpHmIdNHnXDV9m1MHC+A6q08Abx4Ykgyz/R5DGKNAMQ==}
     dependencies:
       builder-util-runtime: 9.2.3
       fs-extra: 10.1.0
