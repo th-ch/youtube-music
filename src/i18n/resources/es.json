@@ -579,6 +579,14 @@
     },
     "scrobbler": {
       "description": "Añadir soporte para scrobbling (last.fm, Listenbrainz, etc.)",
+      "dialog": {
+        "lastfm": {
+          "auth-failed": {
+            "message": "Error al autenticar con Last.fm\nOcultar la ventana emergente hasta el próximo reinicio.",
+            "title": "Error de autenticación"
+          }
+        }
+      },
       "menu": {
         "lastfm": {
           "api-settings": "Ajustes de la API de Last.fm"
