@@ -1,5 +1,5 @@
-import { YoutubePlayer } from '@/types/youtube-player';
-import { GetState, QueueItem } from '@/types/datahost-get-state';
+import type { YoutubePlayer } from '@/types/youtube-player';
+import type { GetState, QueueItem } from '@/types/datahost-get-state';
 
 type StoreState = GetState;
 type Store = {
@@ -14,16 +14,23 @@ type Store = {
   replaceReducer: (param1: unknown) => unknown;
   subscribe: (callback: () => void) => unknown;
 }
-export type QueueAPI = {
+
+export type QueueElement = HTMLElement & {
   dispatch(obj: {
     type: string;
     payload?: unknown;
   }): void;
+  queue: QueueAPI;
+};
+export type QueueAPI = {
   getItems(): unknown[];
-  store: Store;
+  store: {
+    store: Store,
+  };
   continuation?: string;
   autoPlaying?: boolean;
 };
+export type AppElement = HTMLElement & AppAPI;
 export type AppAPI = {
   queue_: QueueAPI;
   playerApi_: YoutubePlayer;

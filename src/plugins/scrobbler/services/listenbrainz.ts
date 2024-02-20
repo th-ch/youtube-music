@@ -2,10 +2,8 @@ import { net } from 'electron';
 
 import { ScrobblerBase } from './base';
 
-import { SetConfType } from '../main';
-
+import type { SetConfType } from '../main';
 import type { SongInfo } from '@/providers/song-info';
-
 import type { ScrobblerPluginConfig } from '../index';
 
 interface ListenbrainzRequestBody {
@@ -27,15 +25,15 @@ interface ListenbrainzRequestBody {
 }
 
 export class ListenbrainzScrobbler extends ScrobblerBase {
-  isSessionCreated(): boolean {
+  override isSessionCreated(): boolean {
     return true;
   }
 
-  createSession(config: ScrobblerPluginConfig, _setConfig: SetConfType): Promise<ScrobblerPluginConfig> {
+  override createSession(config: ScrobblerPluginConfig, _setConfig: SetConfType): Promise<ScrobblerPluginConfig> {
     return Promise.resolve(config);
   }
 
-  setNowPlaying(songInfo: SongInfo, config: ScrobblerPluginConfig, _setConfig: SetConfType): void {
+  override setNowPlaying(songInfo: SongInfo, config: ScrobblerPluginConfig, _setConfig: SetConfType): void {
     if (!config.scrobblers.listenbrainz.apiRoot || !config.scrobblers.listenbrainz.token) {
       return;
     }
@@ -44,7 +42,7 @@ export class ListenbrainzScrobbler extends ScrobblerBase {
     submitListen(body, config);
   }
 
-  addScrobble(songInfo: SongInfo, config: ScrobblerPluginConfig, _setConfig: SetConfType): void {
+  override addScrobble(songInfo: SongInfo, config: ScrobblerPluginConfig, _setConfig: SetConfType): void {
     if (!config.scrobblers.listenbrainz.apiRoot || !config.scrobblers.listenbrainz.token) {
       return;
     }

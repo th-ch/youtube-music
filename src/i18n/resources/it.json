@@ -212,6 +212,14 @@
     },
     "album-color-theme": {
       "description": "Applica un tema dinamico e degli effetti visivi basandosi sul colore dell'album",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "Percentiuale colore",
+          "submenu": {
+            "percent": "{{ratio}}%"
+          }
+        }
+      },
       "name": "Tema abbinato a colore album"
     },
     "ambient-mode": {
@@ -577,7 +585,8 @@
         },
         "listenbrainz": {
           "token": "Inserire il token utente per ListenBrainz"
-        }
+        },
+        "scrobble-other-media": "Scrobble altri media"
       },
       "name": "Scrobbler",
       "prompt": {

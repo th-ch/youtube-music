@@ -20,7 +20,7 @@ async function promptLastFmOptions(options: ScrobblerPluginConfig, setConfig: Se
       multiInputOptions: [
         {
           label: t('plugins.scrobbler.prompt.lastfm.api-key'),
-          value: options.scrobblers.lastfm?.api_key,
+          value: options.scrobblers.lastfm?.apiKey,
           inputAttrs: {
             type: 'text'
           }
@@ -42,7 +42,7 @@ async function promptLastFmOptions(options: ScrobblerPluginConfig, setConfig: Se
 
   if (output) {
     if (output[0]) {
-      options.scrobblers.lastfm.api_key = output[0];
+      options.scrobblers.lastfm.apiKey = output[0];
     }
 
     if (output[1]) {
@@ -82,9 +82,9 @@ export const onMenu = async ({
     {
       label: t('plugins.scrobbler.menu.scrobble-other-media'),
       type: 'checkbox',
-      checked: Boolean(config.scrobble_other_media),
+      checked: Boolean(config.scrobbleOtherMedia),
       click(item) {
-        config.scrobble_other_media = item.checked;
+        config.scrobbleOtherMedia = item.checked;
         setConfig(config);
       },
     },
@@ -96,7 +96,7 @@ export const onMenu = async ({
           type: 'checkbox',
           checked: Boolean(config.scrobblers.lastfm?.enabled),
           click(item) {
-            backend.toggleScrobblers(config);
+            backend.toggleScrobblers(config, window);
             config.scrobblers.lastfm.enabled = item.checked;
             setConfig(config);
           },
@@ -117,7 +117,7 @@ export const onMenu = async ({
           type: 'checkbox',
           checked: Boolean(config.scrobblers.listenbrainz?.enabled),
           click(item) {
-            backend.toggleScrobblers(config);
+            backend.toggleScrobblers(config, window);
             config.scrobblers.listenbrainz.enabled = item.checked;
             setConfig(config);
           },
