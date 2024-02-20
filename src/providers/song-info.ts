@@ -27,14 +27,6 @@ export enum MediaType {
   OtherVideo = 'OTHER_VIDEO',
 }
 
-export interface PlaylistSongInfo {
-  title: string;
-  artist: string;
-  imageSrc: string;
-  songDuration?: number;
-  isAutoplaySong?: boolean;
-}
-
 export interface SongInfo {
   title: string;
   artist: string;

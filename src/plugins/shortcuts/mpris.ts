@@ -20,7 +20,7 @@ import config from '@/config';
 import { LoggerPrefix } from '@/utils';
 
 import type { RepeatMode } from '@/types/datahost-get-state';
-import type { Queue } from '@/renderer';
+import type { QueueResponse } from '@/types/youtube-music-desktop-internal';
 
 class YTPlayer extends MprisPlayer {
   /**
@@ -91,7 +91,7 @@ function registerMPRIS(win: BrowserWindow) {
     switchRepeat,
     setFullscreen,
     requestFullscreenInformation,
-    requestPlaylistInformation,
+    requestQueueInformation,
   } = songControls;
   try {
     let currentSongInfo: SongInfo | null = null;
@@ -123,7 +123,7 @@ function registerMPRIS(win: BrowserWindow) {
       win.webContents.send('ytmd:setup-fullscreen-changed-listener', 'mpris');
       win.webContents.send('ytmd:setup-autoplay-changed-listener', 'mpris');
       requestFullscreenInformation();
-      requestPlaylistInformation();
+      requestQueueInformation();
     });
 
     ipcMain.on('ytmd:seeked', (_, t: number) => player.seeked(secToMicro(t)));
@@ -148,7 +148,7 @@ function registerMPRIS(win: BrowserWindow) {
           break;
         }
       }
-      requestPlaylistInformation();
+      requestQueueInformation();
     });
 
     ipcMain.on('ytmd:fullscreen-changed', (_, changedTo: boolean) => {
@@ -177,24 +177,29 @@ function registerMPRIS(win: BrowserWindow) {
         player.canSetFullscreen = isFullscreenSupported;
       },
     );
-    ipcMain.on('ytmd:autplay-changed', (_) => {
-      requestPlaylistInformation();
+    ipcMain.on('ytmd:autoplay-changed', (_) => {
+      requestQueueInformation();
     });
 
-    ipcMain.on('ytmd:playlist-updated', (_, queue: Queue | null) => {
+    ipcMain.on('ytmd:get-queue-response', (_, queue: QueueResponse) => {
       if (!queue) {
         return;
       }
 
-      player.canGoPrevious = queue.currentPosition !== 0;
+      const currentPosition = queue.items?.findIndex((it) =>
+        it?.playlistPanelVideoRenderer?.selected ||
+        it?.playlistPanelVideoWrapperRenderer?.primaryRenderer?.playlistPanelVideoRenderer?.selected
+      ) ?? 0;
+      player.canGoPrevious = currentPosition !== 0;
 
       let hasNext: boolean;
-      if (queue.autoplay) {
+      if (queue.autoPlaying) {
         hasNext = true;
       } else if (player.loopStatus === LOOP_STATUS_PLAYLIST) {
         hasNext = true;
       } else {
-        hasNext = queue.currentPosition !== queue.songs.length - 1;
+        // Example: currentPosition = 0, queue.items.length = 29 -> hasNext = true
+        hasNext = !!(currentPosition - (queue?.items?.length ?? 0 - 1));
       }
 
       player.canGoNext = hasNext;
@@ -261,12 +266,13 @@ function registerMPRIS(win: BrowserWindow) {
     player.on('shuffle', (enableShuffle) => {
       if (enableShuffle) {
         shuffle();
-        requestPlaylistInformation();
+        requestQueueInformation();
       }
     });
     player.on('open', (args: { uri: string }) => {
-      win.loadURL(args.uri);
-      requestPlaylistInformation();
+      win.loadURL(args.uri).then(() => {
+        requestQueueInformation();
+      });
     });
 
     player.on('error', (error: Error) => {
@@ -335,7 +341,7 @@ function registerMPRIS(win: BrowserWindow) {
           songInfo.isPaused ? PLAYBACK_STATUS_PAUSED : PLAYBACK_STATUS_PLAYING,
         );
       }
-      requestPlaylistInformation();
+      requestQueueInformation();
     });
   } catch (error) {
     console.error(LoggerPrefix, 'Error in MPRIS');

@@ -1,10 +1,5 @@
 import type { YoutubePlayer } from '@/types/youtube-player';
-import type {
-  GetState,
-  ItemPlaylistPanelVideoRenderer,
-  PlaylistPanelVideoWrapperRenderer,
-  QueueItem,
-} from '@/types/datahost-get-state';
+import type { GetState, QueueItem } from '@/types/datahost-get-state';
 
 type StoreState = GetState;
 type Store = {
@@ -28,7 +23,7 @@ export type QueueElement = HTMLElement & {
   queue: QueueAPI;
 };
 export type QueueAPI = {
-  getItems(): Item[];
+  getItems(): QueueItem[];
   store: {
     store: Store,
   };
@@ -43,8 +38,3 @@ export type AppAPI = {
 
   // TODO: Add more
 };
-
-export interface Item {
-  playlistPanelVideoRenderer?: ItemPlaylistPanelVideoRenderer;
-  playlistPanelVideoWrapperRenderer?: PlaylistPanelVideoWrapperRenderer;
-}

@@ -85,17 +85,19 @@ export const setupFullScreenChangedListener = singleton(() => {
 
   if (!playerBar) {
     window.ipcRenderer.send('ytmd:fullscreen-changed-supported', false);
+    return;
   }
 
   const observer = new MutationObserver(() => {
     window.ipcRenderer.send(
       'ytmd:fullscreen-changed',
-      (playerBar?.attributes.getNamedItem('player-fullscreened') ?? null) !==
-        null,
+      (
+        playerBar?.attributes.getNamedItem('player-fullscreened') ?? null
+      ) !== null,
     );
   });
 
-  observer.observe(playerBar!, {
+  observer.observe(playerBar, {
     attributes: true,
     childList: false,
     subtree: false,
@@ -108,7 +110,7 @@ export const setupAutoPlayChangedListener = singleton(() => {
   );
 
   const observer = new MutationObserver(() => {
-    window.ipcRenderer.send('ytmd:autplay-changed');
+    window.ipcRenderer.send('ytmd:autoplay-changed');
   });
 
   observer.observe(autoplaySlider!, {

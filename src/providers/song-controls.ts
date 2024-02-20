@@ -2,7 +2,7 @@
 import { BrowserWindow } from 'electron';
 
 export default (win: BrowserWindow) => {
-  const commands = {
+  return {
     // Playback
     previous: () => win.webContents.send('ytmd:previous-video'),
     next: () => win.webContents.send('ytmd:next-video'),
@@ -10,28 +10,28 @@ export default (win: BrowserWindow) => {
     like: () => win.webContents.send('ytmd:update-like', 'LIKE'),
     dislike: () => win.webContents.send('ytmd:update-like', 'DISLIKE'),
     goBack: (seconds: number) => win.webContents.send('ytmd:seek-by', -seconds),
-    goForward: (seconds: number) =>
-      win.webContents.send('ytmd:seek-by', seconds),
+    goForward: (seconds: number) => win.webContents.send('ytmd:seek-by', seconds),
     shuffle: () => win.webContents.send('ytmd:shuffle'),
     switchRepeat: (n = 1) => win.webContents.send('ytmd:switch-repeat', n),
     // General
     setVolume: (volume: number) => {
       win.webContents.send('ytmd:update-volume', volume);
     },
-    setFullscreen: (isFullscreen: boolean) =>
-      win.webContents.send('ytmd:set-fullscreen', isFullscreen),
+    setFullscreen: (isFullscreen: boolean) => {
+      win.webContents.send('ytmd:set-fullscreen', isFullscreen);
+    },
     requestFullscreenInformation: () => {
       win.webContents.send('ytmd:get-fullscreen');
     },
-    requestPlaylistInformation: () => {
-      win.webContents.send('ytmd:get-playlist');
+    requestQueueInformation: () => {
+      win.webContents.send('ytmd:get-queue');
     },
     muteUnmute: () => win.webContents.send('ytmd:toggle-mute'),
-    search: () =>
+    search: () => {
       win.webContents.sendInputEvent({
         type: 'keyDown',
         keyCode: '/',
-      }),
+      });
+    },
   };
-  return commands;
 };

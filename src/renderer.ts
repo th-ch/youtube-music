@@ -13,10 +13,10 @@ import {
 
 import { loadI18n, setLanguage, t as i18t } from '@/i18n';
 
-import { type PlaylistSongInfo } from './providers/song-info';
-
 import type { PluginConfig } from '@/types/plugins';
 import type { YoutubePlayer } from '@/types/youtube-player';
+import type { QueueElement } from '@/types/queue';
+import { QueueResponse } from '@/types/youtube-music-desktop-internal';
 
 let api: (Element & YoutubePlayer) | null = null;
 let isPluginLoaded = false;
@@ -32,12 +32,6 @@ async function listenForApiLoad() {
       return;
     }
   }
-}
-
-export interface Queue {
-  currentPosition: number;
-  songs: PlaylistSongInfo[];
-  autoplay: boolean;
 }
 
 interface YouTubeMusicAppElement extends HTMLElement {
@@ -86,11 +80,12 @@ async function onApiLoaded() {
   };
 
   const setFullscreen = (isFullscreenValue: boolean) => {
-    if (isFullscreenValue == isFullscreen()) {
+    const fullscreen = isFullscreen();
+    if (isFullscreenValue === fullscreen) {
       return;
     }
 
-    if (isFullscreen()) {
+    if (fullscreen) {
       document.querySelector<HTMLElement>('.exit-fullscreen-button')?.click();
     } else {
       document.querySelector<HTMLElement>('.fullscreen-button')?.click();
@@ -108,120 +103,17 @@ async function onApiLoaded() {
     },
   );
 
-  const getQueue = (): Queue | null => {
-    const queueElement = document.querySelector<HTMLElement>(
-      'ytmusic-player-queue',
-    );
-    const autoplaySlider = document.querySelector<HTMLInputElement>(
-      '.autoplay > tp-yt-paper-toggle-button',
-    );
-
-    if (!queueElement || !autoplaySlider) {
-      return null;
-    }
-
-    const autoplay: boolean = autoplaySlider.checked;
-
-    const allItems = queueElement.querySelectorAll<HTMLElement>(
-      'ytmusic-player-queue-item',
-    );
-
-    const currentPosition: number = Array.from(allItems)
-      .map((element) => {
-        const value =
-          element.attributes.getNamedItem('play-button-state')?.value ??
-          'default';
-        return value !== 'default';
-      })
-      .reduce((value, isPlaying, index) => (isPlaying ? index : value), -1);
-
-    const getSongDurationFromString = (
-      durationString: string,
-    ): number | null => {
-      let result: number = 0;
-
-      const fragments = durationString.split(':');
-      if (fragments.length > 4) {
-        return null;
-      }
-
-      let multiplierIndex = 0;
-
-      const multipliers = [1, 60, 60 * 60, 60 * 60 * 24];
-
-      fragments.reverse();
-
-      for (const fragment of fragments) {
-        const parsedNumber = parseInt(fragment);
-        if (isNaN(parsedNumber)) {
-          return null;
-        }
-
-        result += parsedNumber * multipliers[multiplierIndex];
-        ++multiplierIndex;
-      }
-
-      return result;
-    };
-
-    const songs: PlaylistSongInfo[] = [];
-
-    for (const playlistElement of allItems) {
-      const parentID = (playlistElement?.parentNode as HTMLElement | undefined)
-        ?.id;
-
-      const isAutoplaySong =
-        parentID === 'contents'
-          ? false
-          : parentID === 'automix-contents'
-            ? true
-            : undefined;
-
-      if (!autoplay && isAutoplaySong) {
-        continue;
-      }
-
-      const image = playlistElement.querySelector<HTMLImageElement>('img')!;
-
-      const songInfoNode =
-        playlistElement.querySelector<HTMLElement>('.song-info')!;
-
-      const title =
-        songInfoNode.querySelector<HTMLElement>('.song-title')!.textContent!;
-      const artist =
-        songInfoNode.querySelector<HTMLElement>('.byline')!.textContent!;
-
-      const durationString =
-        playlistElement.querySelector<HTMLElement>('.duration')!.textContent!;
-
-      const songDuration =
-        getSongDurationFromString(durationString) ?? undefined;
-
-      // we can't get more info from this little html we have :(
-      const songInfo: PlaylistSongInfo = {
-        title,
-        artist,
-        songDuration,
-        imageSrc: image.src,
-        isAutoplaySong,
-      };
-
-      songs.push(songInfo);
-    }
-
-    if (songs.length === 0) {
-      return null;
-    }
-
-    return { autoplay, currentPosition, songs };
-  };
-
-  window.ipcRenderer.on('ytmd:get-playlist', (event) => {
-    window.ipcRenderer.send('ytmd:playlist-updated', getQueue());
-  });
-
   window.ipcRenderer.on('ytmd:toggle-mute', (_) => {
     document.querySelector<HTMLElement & { onVolumeTap: () => void }>('ytmusic-player-bar')?.onVolumeTap();
+  });
+
+  window.ipcRenderer.on('ytmd:get-queue-data', (event) => {
+    const queue = document.querySelector<QueueElement>('#queue');
+    event.sender.send('ytmd:get-queue-response', {
+      items: queue?.queue.getItems(),
+      autoPlaying: queue?.queue.autoPlaying,
+      continuation: queue?.queue.continuation,
+    } satisfies QueueResponse);
   });
 
   const video = document.querySelector('video')!;

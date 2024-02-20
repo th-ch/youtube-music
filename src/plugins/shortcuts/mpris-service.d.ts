@@ -62,6 +62,13 @@ declare module '@jellybrick/mpris-service' {
   }
 
   declare class Player extends EventEmitter {
+    constructor(opts: {
+      name: string;
+      identity: string;
+      supportedMimeTypes?: string[];
+      supportedInterfaces?: string[];
+    });
+
     //RootInterface
     on(event: 'quit', listener: () => void): this;
     on(event: 'raise', listener: () => void): this;
