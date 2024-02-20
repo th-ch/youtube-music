@@ -1,3 +1,5 @@
+import type { PlayerConfig } from '@/types/get-player-response';
+
 export interface GetState {
   castStatus: CastStatus;
   entities: Entities;
@@ -1173,81 +1175,6 @@ export enum HeaderType {
 export interface PtrackingURLClass {
   baseUrl: string;
   headers: HeaderElement[];
-}
-
-export interface PlayerConfig {
-  audioConfig: AudioConfig;
-  streamSelectionConfig: StreamSelectionConfig;
-  mediaCommonConfig: MediaCommonConfig;
-  webPlayerConfig: WebPlayerConfig;
-}
-
-export interface AudioConfig {
-  loudnessDb: number;
-  perceptualLoudnessDb: number;
-  enablePerFormatLoudness: boolean;
-}
-
-export interface MediaCommonConfig {
-  dynamicReadaheadConfig: DynamicReadaheadConfig;
-}
-
-export interface DynamicReadaheadConfig {
-  maxReadAheadMediaTimeMs: number;
-  minReadAheadMediaTimeMs: number;
-  readAheadGrowthRateMs: number;
-}
-
-export interface StreamSelectionConfig {
-  maxBitrate: string;
-}
-
-export interface WebPlayerConfig {
-  useCobaltTvosDash: boolean;
-  webPlayerActionsPorting: WebPlayerActionsPorting;
-  gatewayExperimentGroup: string;
-}
-
-export interface WebPlayerActionsPorting {
-  subscribeCommand: SubscribeCommand;
-  unsubscribeCommand: UnsubscribeCommand;
-  addToWatchLaterCommand: AddToWatchLaterCommand;
-  removeFromWatchLaterCommand: RemoveFromWatchLaterCommand;
-}
-
-export interface AddToWatchLaterCommand {
-  clickTrackingParams: string;
-  playlistEditEndpoint: AddToWatchLaterCommandPlaylistEditEndpoint;
-}
-
-export interface AddToWatchLaterCommandPlaylistEditEndpoint {
-  playlistId: string;
-  actions: PurpleAction[];
-}
-
-export interface PurpleAction {
-  addedVideoId: string;
-  action: string;
-}
-
-export interface RemoveFromWatchLaterCommand {
-  clickTrackingParams: string;
-  playlistEditEndpoint: RemoveFromWatchLaterCommandPlaylistEditEndpoint;
-}
-
-export interface RemoveFromWatchLaterCommandPlaylistEditEndpoint {
-  playlistId: string;
-  actions: FluffyAction[];
-}
-
-export interface FluffyAction {
-  action: string;
-  removedVideoId: string;
-}
-
-export interface SubscribeCommand {
-  clickTrackingParams: string;
-  subscribeEndpoint: SubscribeEndpoint;
 }
 
 export interface Storyboards {

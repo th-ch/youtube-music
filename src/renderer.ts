@@ -16,7 +16,7 @@ import { loadI18n, setLanguage, t as i18t } from '@/i18n';
 import type { PluginConfig } from '@/types/plugins';
 import type { YoutubePlayer } from '@/types/youtube-player';
 import type { QueueElement } from '@/types/queue';
-import { QueueResponse } from '@/types/youtube-music-desktop-internal';
+import type { QueueResponse } from '@/types/youtube-music-desktop-internal';
 
 let api: (Element & YoutubePlayer) | null = null;
 let isPluginLoaded = false;
