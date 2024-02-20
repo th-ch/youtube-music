@@ -32,17 +32,11 @@ export interface Download {
 export interface Entities {}
 
 export interface LikeStatus {
-  videos: Videos;
+  videos: Record<string, LikeType>;
   playlists: Entities;
 }
 
-export interface Videos {
-  tNVTuUEeWP0: Kqp1PyPRBzA;
-  KQP1PyPrBzA: Kqp1PyPRBzA;
-  'o1iz4L-5zkQ': Kqp1PyPRBzA;
-}
-
-export enum Kqp1PyPRBzA {
+export enum LikeType {
   Dislike = 'DISLIKE',
   Indifferent = 'INDIFFERENT',
   Like = 'LIKE',
@@ -195,12 +189,8 @@ export interface Target {
 
 export interface CommandWatchEndpoint {
   videoId: string;
-  params: PurpleParams;
+  params: string;
   watchEndpointMusicSupportedConfigs: PurpleWatchEndpointMusicSupportedConfigs;
-}
-
-export enum PurpleParams {
-  WAEB = 'wAEB',
 }
 
 export interface PurpleWatchEndpointMusicSupportedConfigs {
@@ -381,7 +371,7 @@ export enum SharePanelType {
 export interface PurpleWatchEndpoint {
   videoId: string;
   playlistId: string;
-  params: PurpleParams;
+  params: string;
   loggingContext: LoggingContext;
   watchEndpointMusicSupportedConfigs: PurpleWatchEndpointMusicSupportedConfigs;
 }
@@ -466,7 +456,7 @@ export interface FeedbackEndpoint {
 }
 
 export interface PurpleLikeEndpoint {
-  status: Kqp1PyPRBzA;
+  status: LikeType;
   target: Target;
   actions?: LikeEndpointAction[];
 }
@@ -488,7 +478,7 @@ export interface PurpleToggledServiceEndpoint {
 }
 
 export interface FluffyLikeEndpoint {
-  status: Kqp1PyPRBzA;
+  status: LikeType;
   target: Target;
 }
 
@@ -690,7 +680,7 @@ export interface FluffyDefaultServiceEndpoint {
 }
 
 export interface TentacledLikeEndpoint {
-  status: Kqp1PyPRBzA;
+  status: LikeType;
   target: AddToPlaylistEndpoint;
   actions?: LikeEndpointAction[];
 }
@@ -702,7 +692,7 @@ export interface FluffyToggledServiceEndpoint {
 }
 
 export interface StickyLikeEndpoint {
-  status: Kqp1PyPRBzA;
+  status: LikeType;
   target: AddToPlaylistEndpoint;
 }
 
@@ -1384,7 +1374,7 @@ export interface PlayerOverlayRendererAction {
 
 export interface LikeButtonRenderer {
   target: Target;
-  likeStatus: Kqp1PyPRBzA;
+  likeStatus: LikeType;
   trackingParams: string;
   likesAllowed: boolean;
   serviceEndpoints: ServiceEndpoint[];
@@ -1396,13 +1386,14 @@ export interface ServiceEndpoint {
 }
 
 export interface ServiceEndpointLikeEndpoint {
-  status: Kqp1PyPRBzA;
+  status: LikeType;
   target: Target;
   likeParams?: LikeParams;
   dislikeParams?: LikeParams;
   removeLikeParams?: LikeParams;
 }
 
+// TODO: Add more
 export enum LikeParams {
   Oai3D = 'OAI%3D',
 }
@@ -1467,14 +1458,10 @@ export interface CurrentVideoEndpoint {
 
 export interface CurrentVideoEndpointWatchEndpoint {
   videoId: string;
-  playlistId: PlaylistID;
+  playlistId: string;
   index: number;
   playlistSetVideoId: string;
   loggingContext: LoggingContext;
-}
-
-export enum PlaylistID {
-  RDAMVMrkaNKAvksDE = 'RDAMVMrkaNKAvksDE',
 }
 
 export interface PlayerPageWatchNextResponseResponseContext {
@@ -1644,21 +1631,13 @@ export interface PlaylistPanelVideoRendererNavigationEndpoint {
 
 export interface FluffyWatchEndpoint {
   videoId: string;
-  playlistId?: PlaylistID;
+  playlistId?: string;
   index: number;
-  params: FluffyParams;
-  playerParams?: PlayerParams;
+  params: string;
+  playerParams?: string;
   playlistSetVideoId?: string;
   loggingContext?: LoggingContext;
   watchEndpointMusicSupportedConfigs: FluffyWatchEndpointMusicSupportedConfigs;
-}
-
-export enum FluffyParams {
-  OAHyAQIIAQ3D3D = 'OAHyAQIIAQ%3D%3D',
-}
-
-export enum PlayerParams {
-  The8Aub = '8AUB',
 }
 
 export interface FluffyWatchEndpointMusicSupportedConfigs {
