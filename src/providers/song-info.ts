@@ -120,7 +120,9 @@ const handleData = async (
         songInfo.mediaType = MediaType.PodcastEpisode;
         // HACK: Podcast's participant is not the artist
         if (!config.get('options.usePodcastParticipantAsArtist')) {
-          songInfo.artist = cleanupName(data.microformat.microformatDataRenderer.pageOwnerDetails.name);
+          songInfo.artist = cleanupName(
+            data.microformat.microformatDataRenderer.pageOwnerDetails.name,
+          );
         }
         break;
       default:
@@ -128,14 +130,13 @@ const handleData = async (
         // HACK: This is a workaround for "podcast" types where "musicVideoType" doesn't exist. Google :facepalm:
         if (
           !config.get('options.usePodcastParticipantAsArtist') &&
-          (
-            data.responseContext.serviceTrackingParams
-              ?.at(0)
-              ?.params
-              ?.find((it) => it.key === 'ipcc')?.value ?? '1'
-          ) != '0'
+          (data.responseContext.serviceTrackingParams
+            ?.at(0)
+            ?.params?.find((it) => it.key === 'ipcc')?.value ?? '1') != '0'
         ) {
-          songInfo.artist = cleanupName(data.microformat.microformatDataRenderer.pageOwnerDetails.name);
+          songInfo.artist = cleanupName(
+            data.microformat.microformatDataRenderer.pageOwnerDetails.name,
+          );
         }
         break;
     }
@@ -165,10 +166,12 @@ const registerProvider = (win: BrowserWindow) => {
 
   // This will be called when the song-info-front finds a new request with song data
   ipcMain.on('ytmd:video-src-changed', async (_, data: GetPlayerResponse) => {
-    const tempSongInfo = await dataMutex.runExclusive<SongInfo | null>(async () => {
-      songInfo = await handleData(data, win);
-      return songInfo;
-    });
+    const tempSongInfo = await dataMutex.runExclusive<SongInfo | null>(
+      async () => {
+        songInfo = await handleData(data, win);
+        return songInfo;
+      },
+    );
 
     if (tempSongInfo) {
       for (const c of callbacks) {

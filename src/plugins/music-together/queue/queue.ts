@@ -4,8 +4,9 @@ import { mapQueueItem } from './utils';
 import { t } from '@/i18n';
 
 import type { ConnectionEventUnion } from '@/plugins/music-together/connection';
-import type { Profile, QueueElement, VideoData } from '../types';
+import type { Profile, VideoData } from '../types';
 import type { QueueItem } from '@/types/datahost-get-state';
+import type { QueueElement } from '@/types/queue';
 
 const getHeaderPayload = (() => {
   let payload: {
