@@ -214,7 +214,10 @@
       "description": "Applica un tema dinamico e degli effetti visivi basandosi sul colore dell'album",
       "menu": {
         "color-mix-ratio": {
-          "label": "Percentiuale colore"
+          "label": "Percentiuale colore",
+          "submenu": {
+            "percent": "{{ratio}}%"
+          }
         }
       },
       "name": "Tema abbinato a colore album"

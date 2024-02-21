@@ -673,7 +673,9 @@ app.whenReady().then(async () => {
         );
       }
 
-      handleProtocol(command);
+      const splited = decodeURIComponent(command).split(' ');
+
+      handleProtocol(splited.shift()!, splited);
       return;
     }
 
