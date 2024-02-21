@@ -10,7 +10,7 @@ export const selectors = {
   },
 };
 
-export const enableTab = throttle((header: HTMLElement) => {
+export const toggleTab = throttle((header: HTMLElement) => {
   header.removeAttribute('disabled');
 }, 80);
 
