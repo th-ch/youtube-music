@@ -1,0 +1,139 @@
+{
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "Tókst ekki að keyra viðbót {{pluginName}}::{{contextName}}",
+        "executed-at-ms": "Viðbót {{pluginName}}::{{contextName}} tekinn af lífi kl {{ms}}ms",
+        "initialize-failed": "Tókst ekki að frumstilla viðbót \"{{pluginName}}\"",
+        "load-all": "Er að hlaða öllum viðbótum",
+        "load-failed": "Tókst ekki að hlaða viðbótinni \"{{pluginName}}\"",
+        "loaded": "Viðbót \"{{pluginName}}\" hlaðið",
+        "unload-failed": "Tókst ekki að afhlaða viðbótinni \"{{pluginName}}\"",
+        "unloaded": "Viðbótin „{{pluginName}}“ óhlaðin"
+      }
+    }
+  },
+  "language": {
+    "code": "is",
+    "local-name": "Íslenska",
+    "name": "Icelandic"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "Lokið við hleðslu. DevTools opnuð"
+      },
+      "i18n": {
+        "loaded": "i18n hlaðið"
+      },
+      "second-instance": {
+        "receive-command": "Fengið skipun yfir prótókoll: \"{{command}}\""
+      },
+      "theme": {
+        "css-file-not-found": "CSS skrá \"{{cssFile}}\" er ekki til, er að hunsa"
+      },
+      "unresponsive": {
+        "details": "Viðbragðslaust Villa!\n{{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "Er að hreinsa forritabúfera"
+      },
+      "window": {
+        "tried-to-render-offscreen": "Gluggi reyndi að birta utan skjás, gluggastærð={{windowSize}}, skjástærð={{displaySize}}, stöðu={{position}}"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "detail": "Valmyndin er falin, notaðu 'Breytingarlykil' til að sýna hana (eða 'Útfararlykil' ef þú notar valmynd í forriti)",
+        "message": "Fela Valmynd er virkjuð",
+        "title": "Fela Valmynd Virkjuð"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "Seinna",
+          "restart-now": "Endurræsa Núna"
+        },
+        "detail": "\"{{pluginName}}\" viðbótin þarfnast endurræsingar til að taka gildi",
+        "message": "\"{{pluginName}}\" þarf að endurræsa",
+        "title": "Endurræsa Krafist"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "Hætta",
+          "relaunch": "Endurræsa",
+          "wait": "Bíddu"
+        },
+        "detail": "Við biðjumst velvirðingar á óþægindunum! vinsamlegast veldu hvað á að gera:",
+        "message": "Umsóknin svarar ekki",
+        "title": "Gluggi er svarar ekki"
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "Gera Uppfærslur Óvirkar",
+          "download": "Sækja",
+          "ok": "Í lagi"
+        },
+        "detail": "Ný útgáfa er fáanleg og hægt er að hlaða henni niður á {{downloadLink}}",
+        "message": "Ný útgáfa er fáanleg",
+        "title": "Uppfærsla Fáanleg"
+      }
+    },
+    "menu": {
+      "about": "Um",
+      "navigation": {
+        "label": "Leiðsögn",
+        "submenu": {
+          "copy-current-url": "Afritaðu núverandi vefslóð",
+          "go-back": "Farðu til baka",
+          "go-forward": "Farðu áfram",
+          "quit": "Útganga",
+          "restart": "Endurræstu Forritið"
+        }
+      },
+      "options": {
+        "label": "Valkostir",
+        "submenu": {
+          "advanced-options": {
+            "label": "Ítarlegravalkostir",
+            "submenu": {
+              "auto-reset-app-cache": "Endurstilltu skyndiminni forritsins þegar forritið ræsir",
+              "disable-hardware-acceleration": "Slökktu á vélbúnaðarhröðun",
+              "edit-config-json": "Breyta config.json",
+              "override-user-agent": "Hneka Notandaumboðsmanni",
+              "restart-on-config-changes": "Endurræstu við stillingarbreytingar",
+              "set-proxy": {
+                "label": "Stilla umboð",
+                "prompt": {
+                  "label": "Sláðu inn umboðsfang: (skilið eftir autt til að slökkva á)",
+                  "placeholder": "Dæmi: SOCKS5://127.0.0.1:9999",
+                  "title": "Stilla umboð"
+                }
+              },
+              "toggle-dev-tools": "Virkja/Óvirkja DevTools"
+            }
+          },
+          "always-on-top": "Alltaf á toppnum",
+          "auto-update": "Sjálfvirk Uppfærsla",
+          "hide-menu": {
+            "dialog": {
+              "message": "Valmyndin verður falin við næstu ræsingu, notaðu [Alt] til að sýna hana (eða bakaðu við [`] ef þú notar valmynd í forriti)",
+              "title": "Fela Valmynd Virkjuð"
+            },
+            "label": "Fela Valmynd"
+          },
+          "language": {
+            "dialog": {
+              "message": "Tungumáli verður breytt eftir endurræsingu",
+              "title": "Tungumáli Breytt"
+            },
+            "label": "Tungumál",
+            "submenu": {
+              "to-help-translate": "Viltu hjálpa til við að þýða? Smellið hér"
+            }
+          },
+          "resume-on-start": "Haltu áfram síðasta lagi þegar forritið byrjar"
+        }
+      }
+    }
+  }
+}

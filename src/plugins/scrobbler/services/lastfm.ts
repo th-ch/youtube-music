@@ -1,12 +1,13 @@
 import crypto from 'node:crypto';
 
-import { net, shell } from 'electron';
+import { BrowserWindow, dialog, net } from 'electron';
 
 import { ScrobblerBase } from './base';
 
-import { ScrobblerPluginConfig } from '../index';
-import { SetConfType } from '../main';
+import { t } from '@/i18n';
 
+import type { ScrobblerPluginConfig } from '../index';
+import type { SetConfType } from '../main';
 import type { SongInfo } from '@/providers/song-info';
 
 interface LastFmData {
@@ -28,11 +29,22 @@ interface LastFmSongData {
 }
 
 export class LastFmScrobbler extends ScrobblerBase {
-  isSessionCreated(config: ScrobblerPluginConfig): boolean {
+  mainWindow: BrowserWindow;
+
+  constructor(mainWindow: BrowserWindow) {
+    super();
+
+    this.mainWindow = mainWindow;
+  }
+
+  override isSessionCreated(config: ScrobblerPluginConfig): boolean {
     return !!config.scrobblers.lastfm.sessionKey;
   }
 
-  async createSession(config: ScrobblerPluginConfig, setConfig: SetConfType): Promise<ScrobblerPluginConfig> {
+  override async createSession(
+    config: ScrobblerPluginConfig,
+    setConfig: SetConfType,
+  ): Promise<ScrobblerPluginConfig> {
     // Get and store the session key
     const data = {
       api_key: config.scrobblers.lastfm.apiKey,
@@ -52,8 +64,15 @@ export class LastFmScrobbler extends ScrobblerBase {
     };
     if (json.error) {
       config.scrobblers.lastfm.token = await createToken(config);
-      await authenticate(config);
-      setConfig(config);
+      // If is successful, we need retry the request
+      authenticate(config, this.mainWindow).then((it) => {
+        if (it) {
+          this.createSession(config, setConfig);
+        } else {
+          // failed
+          setConfig(config);
+        }
+      });
     }
     if (json.session) {
       config.scrobblers.lastfm.sessionKey = json.session.key;
@@ -62,7 +81,7 @@ export class LastFmScrobbler extends ScrobblerBase {
     return config;
   }
 
-  setNowPlaying(songInfo: SongInfo, config: ScrobblerPluginConfig, setConfig: SetConfType): void {
+  override setNowPlaying(songInfo: SongInfo, config: ScrobblerPluginConfig, setConfig: SetConfType): void {
     if (!config.scrobblers.lastfm.sessionKey) {
       return;
     }
@@ -74,7 +93,7 @@ export class LastFmScrobbler extends ScrobblerBase {
     this.postSongDataToAPI(songInfo, config, data, setConfig);
   }
 
-  addScrobble(songInfo: SongInfo, config: ScrobblerPluginConfig, setConfig: SetConfType): void {
+  override addScrobble(songInfo: SongInfo, config: ScrobblerPluginConfig, setConfig: SetConfType): void {
     if (!config.scrobblers.lastfm.sessionKey) {
       return;
     }
@@ -87,7 +106,7 @@ export class LastFmScrobbler extends ScrobblerBase {
     this.postSongDataToAPI(songInfo, config, data, setConfig);
   }
 
-  async postSongDataToAPI(
+  private async postSongDataToAPI(
     songInfo: SongInfo,
     config: ScrobblerPluginConfig,
     data: LastFmData,
@@ -128,8 +147,14 @@ export class LastFmScrobbler extends ScrobblerBase {
             // Session key is invalid, so remove it from the config and reauthenticate
             config.scrobblers.lastfm.sessionKey = undefined;
             config.scrobblers.lastfm.token = await createToken(config);
-            await authenticate(config);
-            setConfig(config);
+            authenticate(config, this.mainWindow).then((it) => {
+              if (it) {
+                this.createSession(config, setConfig);
+              } else {
+                // failed
+                setConfig(config);
+              }
+            });
           } else {
             console.error(error);
           }
@@ -168,17 +193,17 @@ const createQueryString = (
 
 const createApiSig = (parameters: LastFmSongData, secret: string) => {
   // This function creates the api signature, see: https://www.last.fm/api/authspec
-  const keys = Object.keys(parameters);
-
-  keys.sort();
   let sig = '';
-  for (const key of keys) {
-    if (key === 'format') {
-      continue;
-    }
 
-    sig += `${key}${parameters[key as keyof LastFmSongData]}`;
-  }
+  Object
+    .entries(parameters)
+    .sort(([a], [b]) => a.localeCompare(b))
+    .forEach(([key, value]) => {
+      if (key === 'format') {
+        return;
+      }
+      sig += key + value;
+    });
 
   sig += secret;
   sig = crypto.createHash('md5').update(sig, 'utf-8').digest('hex');
@@ -195,7 +220,11 @@ const createToken = async ({
   }
 }: ScrobblerPluginConfig) => {
   // Creates and stores the auth token
-  const data = {
+  const data: {
+    method: string;
+    api_key: string;
+    format: string;
+  } = {
     method: 'auth.gettoken',
     api_key: apiKey,
     format: 'json',
@@ -208,9 +237,68 @@ const createToken = async ({
   return json?.token;
 };
 
-const authenticate = async (config: ScrobblerPluginConfig) => {
-  // Asks the user for authentication
-  await shell.openExternal(
-    `https://www.last.fm/api/auth/?api_key=${config.scrobblers.lastfm.apiKey}&token=${config.scrobblers.lastfm.token}`,
-  );
+let authWindowOpened = false;
+let latestAuthResult = false;
+
+const authenticate = async (config: ScrobblerPluginConfig, mainWindow: BrowserWindow) => {
+  return new Promise<boolean>((resolve) => {
+    if (!authWindowOpened) {
+      authWindowOpened = true;
+      const url = `https://www.last.fm/api/auth/?api_key=${config.scrobblers.lastfm.apiKey}&token=${config.scrobblers.lastfm.token}`;
+      const browserWindow = new BrowserWindow({
+        width: 500,
+        height: 600,
+        show: false,
+        webPreferences: {
+          nodeIntegration: false,
+        },
+        autoHideMenuBar: true,
+        parent: mainWindow,
+        minimizable: false,
+        maximizable: false,
+        paintWhenInitiallyHidden: true,
+        modal: true,
+        center: true,
+      });
+      browserWindow.loadURL(url).then(() => {
+        browserWindow.show();
+        browserWindow.webContents.on('did-navigate', async (_, newUrl) => {
+          const url = new URL(newUrl);
+          if (url.hostname.endsWith('last.fm')) {
+            if (url.pathname === '/api/auth') {
+              const isApproveScreen = await browserWindow.webContents.executeJavaScript(
+                '!!document.getElementsByName(\'confirm\').length'
+              ) as boolean;
+              // successful authentication
+              if (!isApproveScreen) {
+                resolve(true);
+                latestAuthResult = true;
+                browserWindow.close();
+              }
+            } else if (url.pathname === '/api/None') {
+              resolve(false);
+              latestAuthResult = false;
+              browserWindow.close();
+            }
+          }
+        });
+        browserWindow.on('closed', () => {
+          if (!latestAuthResult) {
+            dialog.showMessageBox({
+              title: t('plugins.scrobbler.dialog.lastfm.auth-failed.title'),
+              message: t('plugins.scrobbler.dialog.lastfm.auth-failed.message'),
+              type: 'error'
+            });
+          }
+          authWindowOpened = false;
+        });
+      });
+    } else {
+      // wait for the previous window to close
+      while (authWindowOpened) {
+        // wait
+      }
+      resolve(latestAuthResult);
+    }
+  });
 };

@@ -1,3 +1,5 @@
+import type { PlayerConfig } from '@/types/get-player-response';
+
 export interface GetState {
   castStatus: CastStatus;
   entities: Entities;
@@ -32,17 +34,11 @@ export interface Download {
 export interface Entities {}
 
 export interface LikeStatus {
-  videos: Videos;
+  videos: Record<string, LikeType>;
   playlists: Entities;
 }
 
-export interface Videos {
-  tNVTuUEeWP0: Kqp1PyPRBzA;
-  KQP1PyPrBzA: Kqp1PyPRBzA;
-  'o1iz4L-5zkQ': Kqp1PyPRBzA;
-}
-
-export enum Kqp1PyPRBzA {
+export enum LikeType {
   Dislike = 'DISLIKE',
   Indifferent = 'INDIFFERENT',
   Like = 'LIKE',
@@ -195,12 +191,8 @@ export interface Target {
 
 export interface CommandWatchEndpoint {
   videoId: string;
-  params: PurpleParams;
+  params: string;
   watchEndpointMusicSupportedConfigs: PurpleWatchEndpointMusicSupportedConfigs;
-}
-
-export enum PurpleParams {
-  WAEB = 'wAEB',
 }
 
 export interface PurpleWatchEndpointMusicSupportedConfigs {
@@ -381,7 +373,7 @@ export enum SharePanelType {
 export interface PurpleWatchEndpoint {
   videoId: string;
   playlistId: string;
-  params: PurpleParams;
+  params: string;
   loggingContext: LoggingContext;
   watchEndpointMusicSupportedConfigs: PurpleWatchEndpointMusicSupportedConfigs;
 }
@@ -466,7 +458,7 @@ export interface FeedbackEndpoint {
 }
 
 export interface PurpleLikeEndpoint {
-  status: Kqp1PyPRBzA;
+  status: LikeType;
   target: Target;
   actions?: LikeEndpointAction[];
 }
@@ -488,7 +480,7 @@ export interface PurpleToggledServiceEndpoint {
 }
 
 export interface FluffyLikeEndpoint {
-  status: Kqp1PyPRBzA;
+  status: LikeType;
   target: Target;
 }
 
@@ -690,7 +682,7 @@ export interface FluffyDefaultServiceEndpoint {
 }
 
 export interface TentacledLikeEndpoint {
-  status: Kqp1PyPRBzA;
+  status: LikeType;
   target: AddToPlaylistEndpoint;
   actions?: LikeEndpointAction[];
 }
@@ -702,7 +694,7 @@ export interface FluffyToggledServiceEndpoint {
 }
 
 export interface StickyLikeEndpoint {
-  status: Kqp1PyPRBzA;
+  status: LikeType;
   target: AddToPlaylistEndpoint;
 }
 
@@ -1185,81 +1177,6 @@ export interface PtrackingURLClass {
   headers: HeaderElement[];
 }
 
-export interface PlayerConfig {
-  audioConfig: AudioConfig;
-  streamSelectionConfig: StreamSelectionConfig;
-  mediaCommonConfig: MediaCommonConfig;
-  webPlayerConfig: WebPlayerConfig;
-}
-
-export interface AudioConfig {
-  loudnessDb: number;
-  perceptualLoudnessDb: number;
-  enablePerFormatLoudness: boolean;
-}
-
-export interface MediaCommonConfig {
-  dynamicReadaheadConfig: DynamicReadaheadConfig;
-}
-
-export interface DynamicReadaheadConfig {
-  maxReadAheadMediaTimeMs: number;
-  minReadAheadMediaTimeMs: number;
-  readAheadGrowthRateMs: number;
-}
-
-export interface StreamSelectionConfig {
-  maxBitrate: string;
-}
-
-export interface WebPlayerConfig {
-  useCobaltTvosDash: boolean;
-  webPlayerActionsPorting: WebPlayerActionsPorting;
-  gatewayExperimentGroup: string;
-}
-
-export interface WebPlayerActionsPorting {
-  subscribeCommand: SubscribeCommand;
-  unsubscribeCommand: UnsubscribeCommand;
-  addToWatchLaterCommand: AddToWatchLaterCommand;
-  removeFromWatchLaterCommand: RemoveFromWatchLaterCommand;
-}
-
-export interface AddToWatchLaterCommand {
-  clickTrackingParams: string;
-  playlistEditEndpoint: AddToWatchLaterCommandPlaylistEditEndpoint;
-}
-
-export interface AddToWatchLaterCommandPlaylistEditEndpoint {
-  playlistId: string;
-  actions: PurpleAction[];
-}
-
-export interface PurpleAction {
-  addedVideoId: string;
-  action: string;
-}
-
-export interface RemoveFromWatchLaterCommand {
-  clickTrackingParams: string;
-  playlistEditEndpoint: RemoveFromWatchLaterCommandPlaylistEditEndpoint;
-}
-
-export interface RemoveFromWatchLaterCommandPlaylistEditEndpoint {
-  playlistId: string;
-  actions: FluffyAction[];
-}
-
-export interface FluffyAction {
-  action: string;
-  removedVideoId: string;
-}
-
-export interface SubscribeCommand {
-  clickTrackingParams: string;
-  subscribeEndpoint: SubscribeEndpoint;
-}
-
 export interface Storyboards {
   playerStoryboardSpecRenderer: PlayerStoryboardSpecRenderer;
 }
@@ -1384,7 +1301,7 @@ export interface PlayerOverlayRendererAction {
 
 export interface LikeButtonRenderer {
   target: Target;
-  likeStatus: Kqp1PyPRBzA;
+  likeStatus: LikeType;
   trackingParams: string;
   likesAllowed: boolean;
   serviceEndpoints: ServiceEndpoint[];
@@ -1396,13 +1313,14 @@ export interface ServiceEndpoint {
 }
 
 export interface ServiceEndpointLikeEndpoint {
-  status: Kqp1PyPRBzA;
+  status: LikeType;
   target: Target;
   likeParams?: LikeParams;
   dislikeParams?: LikeParams;
   removeLikeParams?: LikeParams;
 }
 
+// TODO: Add more
 export enum LikeParams {
   Oai3D = 'OAI%3D',
 }
@@ -1467,14 +1385,10 @@ export interface CurrentVideoEndpoint {
 
 export interface CurrentVideoEndpointWatchEndpoint {
   videoId: string;
-  playlistId: PlaylistID;
+  playlistId: string;
   index: number;
   playlistSetVideoId: string;
   loggingContext: LoggingContext;
-}
-
-export enum PlaylistID {
-  RDAMVMrkaNKAvksDE = 'RDAMVMrkaNKAvksDE',
 }
 
 export interface PlayerPageWatchNextResponseResponseContext {
@@ -1536,6 +1450,8 @@ export interface FlagEndpoint {
   flagAction: string;
 }
 
+export type RepeatMode = 'NONE' | 'ONE' | 'ALL';
+
 export interface Queue {
   automixItems: unknown[];
   autoplay: boolean;
@@ -1553,7 +1469,7 @@ export interface Queue {
   nextQueueItemId: number;
   playbackContentMode: string;
   queueContextParams: string;
-  repeatMode: string;
+  repeatMode: RepeatMode;
   responsiveSignals: ResponsiveSignals;
   selectedItemIndex: number;
   shuffleEnabled: boolean;
@@ -1642,21 +1558,13 @@ export interface PlaylistPanelVideoRendererNavigationEndpoint {
 
 export interface FluffyWatchEndpoint {
   videoId: string;
-  playlistId?: PlaylistID;
+  playlistId?: string;
   index: number;
-  params: FluffyParams;
-  playerParams?: PlayerParams;
+  params: string;
+  playerParams?: string;
   playlistSetVideoId?: string;
   loggingContext?: LoggingContext;
   watchEndpointMusicSupportedConfigs: FluffyWatchEndpointMusicSupportedConfigs;
-}
-
-export enum FluffyParams {
-  OAHyAQIIAQ3D3D = 'OAHyAQIIAQ%3D%3D',
-}
-
-export enum PlayerParams {
-  The8Aub = '8AUB',
 }
 
 export interface FluffyWatchEndpointMusicSupportedConfigs {

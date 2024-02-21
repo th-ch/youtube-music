@@ -6,9 +6,9 @@ import { t } from '@/i18n';
 import { createPlugin } from '@/utils';
 import promptOptions from '@/providers/prompt-options';
 
-import { AppAPI, getDefaultProfile, Permission, Profile, VideoData } from './types';
+import { getDefaultProfile, type Permission, type Profile, type VideoData } from './types';
 import { Queue } from './queue';
-import { Connection, ConnectionEventUnion } from './connection';
+import { Connection, type ConnectionEventUnion } from './connection';
 import { createHostPopup } from './ui/host';
 import { createGuestPopup } from './ui/guest';
 import { createSettingPopup } from './ui/setting';
@@ -19,6 +19,7 @@ import style from './style.css?inline';
 import type { YoutubePlayer } from '@/types/youtube-player';
 import type { RendererContext } from '@/types/contexts';
 import type { VideoDataChanged } from '@/types/video-data-changed';
+import type { AppElement } from '@/types/queue';
 
 type RawAccountData = {
   accountName: {
@@ -41,7 +42,7 @@ export default createPlugin<
   {
     connection?: Connection;
     ipc?: RendererContext<never>['ipc'];
-    api: HTMLElement & AppAPI | null;
+    api: AppElement | null;
     queue?: Queue;
     playerApi?: YoutubePlayer;
     showPrompt: (title: string, label: string) => Promise<string>;
@@ -557,7 +558,7 @@ export default createPlugin<
     start({ ipc }) {
       this.ipc = ipc;
       this.showPrompt = async (title: string, label: string) => ipc.invoke('music-together:prompt', title, label) as Promise<string>;
-      this.api = document.querySelector<HTMLElement & AppAPI>('ytmusic-app');
+      this.api = document.querySelector<AppElement>('ytmusic-app');
 
       /* setup */
       document.querySelector('#right-content > ytmusic-settings-button')?.insertAdjacentHTML('beforebegin', settingHTML);

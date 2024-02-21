@@ -1,10 +1,13 @@
+import { BrowserWindow } from 'electron';
+
 import registerCallback, { MediaType, type SongInfo } from '@/providers/song-info';
 import { createBackend } from '@/utils';
 
-import { ScrobblerPluginConfig } from './index';
 import { LastFmScrobbler } from './services/lastfm';
 import { ListenbrainzScrobbler } from './services/listenbrainz';
-import { ScrobblerBase } from './services/base';
+
+import type { ScrobblerPluginConfig } from './index';
+import type { ScrobblerBase } from './services/base';
 
 export type SetConfType = (
   conf: Partial<Omit<ScrobblerPluginConfig, 'enabled'>>,
@@ -12,14 +15,17 @@ export type SetConfType = (
 
 export const backend = createBackend<{
   config?: ScrobblerPluginConfig;
+  window?: BrowserWindow;
   enabledScrobblers: Map<string, ScrobblerBase>;
-  toggleScrobblers(config: ScrobblerPluginConfig): void;
+  toggleScrobblers(config: ScrobblerPluginConfig, window: BrowserWindow): void;
+  createSessions(config: ScrobblerPluginConfig, setConfig: SetConfType): Promise<void>;
+  setConfig?: SetConfType;
 }, ScrobblerPluginConfig>({
   enabledScrobblers: new Map(),
 
-  toggleScrobblers(config: ScrobblerPluginConfig) {
+  toggleScrobblers(config: ScrobblerPluginConfig, window: BrowserWindow) {
     if (config.scrobblers.lastfm && config.scrobblers.lastfm.enabled) {
-      this.enabledScrobblers.set('lastfm', new LastFmScrobbler());
+      this.enabledScrobblers.set('lastfm', new LastFmScrobbler(window));
     } else {
       this.enabledScrobblers.delete('lastfm');
     }
@@ -31,20 +37,27 @@ export const backend = createBackend<{
     }
   },
 
-  async start({
-    getConfig,
-    setConfig,
-  }) {
-    const config = this.config = await getConfig();
-    // This will store the timeout that will trigger addScrobble
-    let scrobbleTimer: NodeJS.Timeout | undefined;
-
-    this.toggleScrobblers(config);
+  async createSessions(config: ScrobblerPluginConfig, setConfig: SetConfType) {
     for (const [, scrobbler] of this.enabledScrobblers) {
       if (!scrobbler.isSessionCreated(config)) {
         await scrobbler.createSession(config, setConfig);
       }
     }
+  },
+
+  async start({
+    getConfig,
+    setConfig,
+    window,
+  }) {
+    const config = this.config = await getConfig();
+    // This will store the timeout that will trigger addScrobble
+    let scrobbleTimer: NodeJS.Timeout | undefined;
+
+    this.window = window;
+    this.toggleScrobblers(config, window);
+    await this.createSessions(config, setConfig);
+    this.setConfig = setConfig;
 
     registerCallback((songInfo: SongInfo) => {
       // Set remove the old scrobble timer
@@ -52,7 +65,7 @@ export const backend = createBackend<{
       if (!songInfo.isPaused) {
         const configNonnull = this.config!;
         // Scrobblers normally have no trouble working with official music videos
-        if (!configNonnull.scrobble_other_media && (songInfo.mediaType !== MediaType.Audio && songInfo.mediaType !== MediaType.OriginalMusicVideo)) {
+        if (!configNonnull.scrobbleOtherMedia && (songInfo.mediaType !== MediaType.Audio && songInfo.mediaType !== MediaType.OriginalMusicVideo)) {
           return;
         }
 
@@ -71,12 +84,25 @@ export const backend = createBackend<{
     });
   },
 
-  onConfigChange(newConfig: ScrobblerPluginConfig) {
+  async onConfigChange(newConfig: ScrobblerPluginConfig) {
     this.enabledScrobblers.clear();
 
-    this.config = newConfig;
+    this.toggleScrobblers(newConfig, this.window!);
+    for (const [scrobblerName, scrobblerConfig] of Object.entries(newConfig.scrobblers)) {
+      if (scrobblerConfig.enabled) {
+        const scrobbler = this.enabledScrobblers.get(scrobblerName);
+        if (
+          this.config?.scrobblers?.[scrobblerName as keyof typeof newConfig.scrobblers]?.enabled !== scrobblerConfig.enabled &&
+          scrobbler &&
+          !scrobbler.isSessionCreated(newConfig) &&
+          this.setConfig
+        ) {
+          await scrobbler.createSession(newConfig, this.setConfig);
+        }
+      }
+    }
 
-    this.toggleScrobblers(this.config);
+    this.config = newConfig;
   }
 });
 
