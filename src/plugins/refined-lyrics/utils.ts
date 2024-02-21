@@ -1,16 +1,5 @@
-export const waitForElement = <RT extends HTMLElement>(
-  selector: string,
-): Promise<RT> => {
-  return new Promise((resolve, reject) => {
-    const cb = () => {
-      const node = document.querySelector<RT>(selector);
-      if (node) {
-        resolve(node);
-      } else setTimeout(cb, 50);
-    };
-    cb();
-  });
-};
+import { debounce, throttle } from '@/providers/decorators';
+import { VideoDataChangeValue } from '@/types/player-api-events';
 
 export const selectors = {
   head: '#tabsContent > .tab-header:nth-of-type(2)',
@@ -19,4 +8,17 @@ export const selectors = {
     lyrics: 'yt-formatted-string.non-expandable',
     source: 'yt-formatted-string.footer',
   },
+};
+
+export const enableTab = throttle((header: HTMLElement) => {
+  header.removeAttribute('disabled');
+}, 80);
+
+export const tabStates = {
+  true: debounce(({ author: _author, title: _title }: VideoDataChangeValue) => {
+    // TODO: This is where we fetch lyrics.
+  }, 200),
+  false: debounce(() => {
+    // TODO: Should we do anything here?
+  }, 200),
 };
