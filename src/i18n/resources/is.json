@@ -109,7 +109,7 @@
                   "title": "Stilla umboð"
                 }
               },
-              "toggle-dev-tools": "Virkja/Óvirkja DevTools"
+              "toggle-dev-tools": "Breyta DevTools"
             }
           },
           "always-on-top": "Alltaf á toppnum",
@@ -132,7 +132,7 @@
             }
           },
           "resume-on-start": "Haltu áfram síðasta lagi þegar forritið byrjar",
-          "single-instance-lock": "Eintilvikslás",
+          "single-instance-lock": "Eittdæmilás",
           "start-at-login": "Byrjaðu á innskráningu",
           "starting-page": {
             "label": "Upphafssíða",
@@ -179,7 +179,7 @@
           "force-reload": "Þvingaðu Endurhleðslu",
           "reload": "Endurhlaða",
           "reset-zoom": "Raunveruleg Stærð",
-          "toggle-fullscreen": "Virkja/Óvirkja Fullskjá",
+          "toggle-fullscreen": "Breyta Fullskjá",
           "zoom-in": "Aðdráttur",
           "zoom-out": "Aðdráttur út"
         }
@@ -313,7 +313,7 @@
             "fade-in-duration": "Dvína í lengd (ms)",
             "fade-out-duration": "Dvína út lengd (ms)",
             "fade-scaling": {
-              "label": "Dofnaskala",
+              "label": "Fölunarskala",
               "linear": "Línulegt",
               "logarithmic": "Logaritmískt"
             },
@@ -544,7 +544,7 @@
     "precise-volume": {
       "description": "Stjórnaðu hljóðstyrknum nákvæmlega með músarhjóli/hraðtökkum, með sérsniðnum HUD og sérsniðnum hljóðstyrksþrepum",
       "menu": {
-        "arrows-shortcuts": "Stjórnar með örvalitum á staðnum",
+        "arrows-shortcuts": "Staðbundnar Örvatakkar Stjórna",
         "custom-volume-steps": "Stilltu Sérsniðin Hljóðstyrksskref",
         "global-shortcuts": "Alþjóðlegarflýtilyklar"
       },
