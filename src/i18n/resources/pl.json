@@ -214,6 +214,7 @@
       "description": "Stosuje dynamiczny motyw i efekty wizualne w oparciu o paletę kolorów albumu",
       "menu": {
         "color-mix-ratio": {
+          "label": "Intensywność koloru",
           "submenu": {
             "percent": "{{ratio}}%"
           }
@@ -577,14 +578,29 @@
       "name": "Zmieniacz jakości wideo"
     },
     "scrobbler": {
-      "menu": {
-        "listenbrainz": {
-          "token": "Podaj token użytkownika ListenBrainz"
+      "description": "Umożliwia scrobbling utworów do m.in. last.fm lub Listenbrainz",
+      "dialog": {
+        "lastfm": {
+          "auth-failed": {
+            "message": "Podczas autoryzowania z last.fm wystąpił błąd.\nSchowaj pop-up aż do następnego uruchomienia.",
+            "title": "Podczas autoryzowania wystąpił błąd"
+          }
         }
       },
+      "menu": {
+        "lastfm": {
+          "api-settings": "Ustawienia API Last.fm"
+        },
+        "listenbrainz": {
+          "token": "Podaj token użytkownika ListenBrainz"
+        },
+        "scrobble-other-media": "Scrobbluj pozostałe multimedia"
+      },
+      "name": "Scrobblowanie",
       "prompt": {
         "lastfm": {
-          "api-key": "klucz API Last.fm"
+          "api-key": "klucz API Last.fm",
+          "api-secret": "Sekretny klucz Last.fm API (\"secret key\")"
         },
         "listenbrainz": {
           "token": {
