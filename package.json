@@ -166,7 +166,7 @@
     "filenamify": "6.0.0",
     "howler": "2.2.4",
     "html-to-text": "9.0.5",
-    "i18next": "23.9.0",
+    "i18next": "23.10.0",
     "keyboardevent-from-electron-accelerator": "2.0.0",
     "keyboardevents-areequal": "0.2.2",
     "node-html-parser": "6.1.12",
