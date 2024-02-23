@@ -182,7 +182,7 @@
     "ts-morph": "21.0.1",
     "vudio": "2.1.1",
     "x11": "2.3.0",
-    "youtubei.js": "9.0.2"
+    "youtubei.js": "9.1.0"
   },
   "devDependencies": {
     "@playwright/test": "1.41.2",
