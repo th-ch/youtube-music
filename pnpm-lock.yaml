@@ -201,8 +201,8 @@ devDependencies:
     specifier: 5.1.0
     version: 5.1.0
   discord-api-types:
-    specifier: 0.37.70
-    version: 0.37.70
+    specifier: 0.37.71
+    version: 0.37.71
   electron:
     specifier: 29.0.1
     version: 29.0.1
@@ -3028,8 +3028,8 @@ packages:
       path-type: 4.0.0
     dev: true
 
-  /discord-api-types@0.37.70:
-    resolution: {integrity: sha512-8EtfZR0KwOK+yP5q/llWILdUAPmGmF1LmcVUYf7+gtGigz2pu6WR38ZN+IWtMzohY1Ujl2u3KOdbFvrEz9EC8w==}
+  /discord-api-types@0.37.71:
+    resolution: {integrity: sha512-oYDVWoiQdblr9DpwOgpi5d78dVhPcoN9YZCCqYZf2T0v9+iICs7k2bYGumoHuYMtaIitpp5aQNs+2guVkgjbOA==}
     dev: true
 
   /dmg-builder@24.9.1:
