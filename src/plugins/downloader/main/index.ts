@@ -1,5 +1,4 @@
 import {
-  createWriteStream,
   existsSync,
   mkdirSync,
   writeFileSync,
@@ -297,7 +296,7 @@ async function downloadSongUnsafe(
     mkdirSync(dir);
   }
 
-  const fileBuffer = await iterableStreamToTargetFile(
+  let fileBuffer = await iterableStreamToTargetFile(
     iterableStream,
     targetFileExtension,
     metadata,
@@ -307,19 +306,16 @@ async function downloadSongUnsafe(
     increasePlaylistProgress,
   );
 
+  if (fileBuffer && targetFileExtension === 'mp3') {
+    fileBuffer = await writeID3(
+      Buffer.from(fileBuffer),
+      metadata,
+      sendFeedback,
+    );
+  }
+
   if (fileBuffer) {
-    if (targetFileExtension !== 'mp3') {
-      createWriteStream(filePath).write(fileBuffer);
-    } else {
-      const buffer = await writeID3(
-        Buffer.from(fileBuffer),
-        metadata,
-        sendFeedback,
-      );
-      if (buffer) {
-        writeFileSync(filePath, buffer);
-      }
-    }
+    writeFileSync(filePath, fileBuffer);
   }
 
   sendFeedback(null, -1);
