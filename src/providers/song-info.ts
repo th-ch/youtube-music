@@ -2,7 +2,6 @@ import { BrowserWindow, ipcMain, nativeImage, net } from 'electron';
 
 import { Mutex } from 'async-mutex';
 
-import { cache } from './decorators';
 import config from '@/config';
 
 import type { GetPlayerResponse } from '@/types/get-player-response';
@@ -45,19 +44,20 @@ export interface SongInfo {
 }
 
 // Grab the native image using the src
-export const getImage = cache(
-  async (src: string): Promise<Electron.NativeImage> => {
-    const result = await net.fetch(src);
-    const buffer = await result.arrayBuffer();
-    const output = nativeImage.createFromBuffer(Buffer.from(buffer));
-    if (output.isEmpty() && !src.endsWith('.jpg') && src.includes('.jpg')) {
-      // Fix hidden webp files (https://github.com/th-ch/youtube-music/issues/315)
-      return getImage(src.slice(0, src.lastIndexOf('.jpg') + 4));
-    }
+export const getImage = async (src: string): Promise<Electron.NativeImage> => {
+  const result = await net.fetch(src);
+  const output = nativeImage.createFromBuffer(
+    Buffer.from(
+      await result.arrayBuffer(),
+    ),
+  );
+  if (output.isEmpty() && !src.endsWith('.jpg') && src.includes('.jpg')) {
+    // Fix hidden webp files (https://github.com/th-ch/youtube-music/issues/315)
+    return getImage(src.slice(0, src.lastIndexOf('.jpg') + 4));
+  }
 
-    return output;
-  },
-);
+  return output;
+};
 
 const handleData = async (
   data: GetPlayerResponse,
