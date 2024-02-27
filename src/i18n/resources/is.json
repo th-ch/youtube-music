@@ -273,7 +273,7 @@
     },
     "blur-nav-bar": {
       "description": "Gerir leiðsögustikuna gagnsæja og óskýrt",
-      "name": "Þoka leiðsagnarstika"
+      "name": "Þoka Leiðsagnarstika"
     },
     "bypass-age-restrictions": {
       "description": "Framhjá aldursstaðfestingu YouTube",
@@ -387,7 +387,7 @@
           "error-while-downloading": "Villa við niðurhal \"{{author}} - {{title}}\": {{error}}",
           "folder-already-exists": "Mappan {{playlistFolder}} er þegar til",
           "getting-playlist-info": "Sækir upplýsingar um spilunarlista…",
-          "loading": "Hleðst.…",
+          "loading": "Er að hlaða.…",
           "playlist-has-only-one-song": "Spilunarlista hefur aðeins eitt atriði, það er verið að hlaða því niður beint",
           "playlist-id-not-found": "Ekkert auðkenni spilunarlista fannst",
           "playlist-is-empty": "Spilunarlistinn er tómur",
@@ -494,7 +494,7 @@
       "name": "Engin Google innskráning"
     },
     "notifications": {
-      "description": "Birta tilkynningu þegar lag byrjar að spila (gagnvirkar tilkynningar eru fáanlegar á Windows)",
+      "description": "Birta tilkynningu þegar lag byrjar að spila (gagnvirkartilkynningar eru fáanlegar á Windows)",
       "menu": {
         "interactive": "Gagnvirkartilkynningar",
         "interactive-settings": {
@@ -548,7 +548,7 @@
         "custom-volume-steps": "Stilltu Sérsniðin Hljóðstyrksskref",
         "global-shortcuts": "Alþjóðlegarflýtilyklar"
       },
-      "name": "Nákvæmt Hljóðstyrk",
+      "name": "Nákvæmshljóðstyrkur",
       "prompt": {
         "global-shortcuts": {
           "keybind-options": {
@@ -676,7 +676,7 @@
       },
       "name": "Myndbandsrofi",
       "templates": {
-        "button": "lag"
+        "button": "Lag"
       }
     },
     "visualizer": {
