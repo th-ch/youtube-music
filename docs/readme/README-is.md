@@ -134,13 +134,13 @@ winget install th-ch.YouTubeMusic
 - **[Discord](https://discord.com/) Rík Nærveru**: Sýndu vinum þínum hvað þú hlustar á
    með [Rík Nærveru](https://user-images.githubusercontent.com/28219076/104362104-a7a0b980-5513-11eb-9744-bb89eabe0016.png)
 
-- **Niðurhalari**: niðurhalum
+- **Niðurhalari**: Niðurhalum
 MP3 [beint úr viðmótinu](https://user-images.githubusercontent.com/61631665/129977677-83a7d067-c192-45e1-98ae-b5a4927393be.png) [(youtube-dl)](https://github.com/ytdl-org/youtube-dl)
 
 - **Veldibundiðrúmmál**: Gerir hljóðstyrkssleðann [veldisvísis](https://greasyfork.org/en/scripts/397686-youtube-music-fix-volume-ratio/)
   svo það er auðveldara að velja lægra hljóðstyrk.
 
-- **Valmynd í Forriti**: [gefur börum flott, dökkt útlit](https://user-images.githubusercontent.com/78568641/112215894-923dbf00-8c29-11eb-95c3-3ce15db27eca.png)
+- **Valmynd í Forriti**: [Gefur börum flott, dökkt útlit](https://user-images.githubusercontent.com/78568641/112215894-923dbf00-8c29-11eb-95c3-3ce15db27eca.png)
 
   > (sjá [þessa færslu](https://github.com/th-ch/youtube-music/issues/410#issuecomment-952060709) ef þú átt í vandræðum
   með að fá aðgang að valmyndinni eftir að hafa virkjað þessa viðbót og fela valmyndarvalkostinn)
@@ -162,7 +162,7 @@ MP3 [beint úr viðmótinu](https://user-images.githubusercontent.com/61631665/1
 
 - **Mynd-í-Mynd**: Gerir kleift að skipta forritinu yfir í mynd-í-mynd stillingu
 
-- **Spilunarhraði**:Hlustaðu hratt, hlustaðu hægt!
+- **Spilunarhraði**: Hlustaðu hratt, hlustaðu hægt!
   [Bætir við sleða sem stjórnar lagahraðanum](https://user-images.githubusercontent.com/61631665/129976003-e55db5ba-bf42-448c-a059-26a009775e68.png)
 
 - **Nákvæmshljóðstyrkur**: Stjórnaðu hljóðstyrknum nákvæmlega með músarhjóli/hraðtökkum, með sérsniðnum HUD og sérsniðnum hljóðstyrksþrepum
@@ -179,7 +179,7 @@ MP3 [beint úr viðmótinu](https://user-images.githubusercontent.com/61631665/1
 - [**Styrktarblokk**](https://github.com/ajayyy/SponsorBlock): Sleppur sjálfkrafa hlutum sem ekki eru tónlist, eins og inngangur/lok
   eða hlutar af tónlistarmyndböndum þar sem lag er ekki að spila
 
-- **Miðlunarstýringarverkefnastikunnar**:Stjórnaðu spilun frá [Windows verkefnastikunni þinni](https://user-images.githubusercontent.com/78568641/111916130-24a35e80-8a82-11eb-80c8-5021c1aa27f4.png)
+- **Miðlunarstýringarverkefnastikunnar**: Stjórnaðu spilun frá [Windows verkefnastikunni þinni](https://user-images.githubusercontent.com/78568641/111916130-24a35e80-8a82-11eb-80c8-5021c1aa27f4.png)
 
 - **Snertistiku**: Sérsniðið Snertistikuútlit fyrir macOS
 
