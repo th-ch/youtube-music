@@ -1,1 +1,139 @@
-{}
+{
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "Nu s-a reusit executarea plugin-ului {{pluginName}}::{{contextName}}",
+        "executed-at-ms": "Plugin-ul {{pluginName}}::{{contextName}} s-a executat in {{ms}} ms",
+        "initialize-failed": "Initializarea plugin-ului \"{{pluginName}}\" a esuat",
+        "load-all": "Se incarca toate plugin-urile",
+        "load-failed": "Esec la incarcarea plugin-ului \"{{pluginName}}\"",
+        "loaded": "Plugin-ul \"{{pluginName}}\" s-a incarcat",
+        "unload-failed": "Esec la oprirea plugin-ului \"{{pluginName}}\"",
+        "unloaded": "Plugin-ul \"{{pluginName}}\" s-a terminat"
+      }
+    }
+  },
+  "language": {
+    "code": "ro",
+    "local-name": "Romana",
+    "name": "Romanian"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "S-a terminat incarcarea. Panoul de developer e deschis"
+      },
+      "i18n": {
+        "loaded": "i18n incarcat"
+      },
+      "second-instance": {
+        "receive-command": "Comanda primita prin protocol: \"{{command}}\""
+      },
+      "theme": {
+        "css-file-not-found": "Fisierul CSS \"{{cssFile}}\" nu exista, se ignora"
+      },
+      "unresponsive": {
+        "details": "Eroare, procesul nu raspunde\n{{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "Se sterge cache-ul aplicatiei"
+      },
+      "window": {
+        "tried-to-render-offscreen": "Fereastra a incercat sa fie randata in afara ecranului, marimeaFerestrei={{windowSize}}, marimeaEcranului={{displaySize}}, pozitia={{position}}"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "detail": "Meniul este ascuns, folositi tasta 'Alt' pentru a-l face sa apara (sau tasta 'Esc' daca folositi meniul din aplicatie)",
+        "message": "Ascunderea meniului este activata",
+        "title": "Ascunderea meniului activata"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "Mai tarziu",
+          "restart-now": "Reporneste acum"
+        },
+        "detail": "Plugin-ul \"{{pluginName}}\" necesita o repornire pentru a intra in efect",
+        "message": "Pugin-ul \"{{pluginName}}\" trebuie repornit",
+        "title": "Repornire necesara"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "Iesi",
+          "relaunch": "Reporneste",
+          "wait": "Asteapta"
+        },
+        "detail": "Ne cerem scuze pentru incovenient! va rugam alegeti ce doriti sa faceti:",
+        "message": "Applicatia nu raspunde",
+        "title": "Fereastra nu raspunde"
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "Dezactiveaza actualizarile",
+          "download": "Descarca",
+          "ok": "OK"
+        },
+        "detail": "O noua versiune este disponibila si poate fi descarcata pe {{downloadLink}}",
+        "message": "O noua versiune este disponibila",
+        "title": "Actualizare disponibila"
+      }
+    },
+    "menu": {
+      "about": "Despre",
+      "navigation": {
+        "label": "Navigatie",
+        "submenu": {
+          "copy-current-url": "Copiaza URL-ul actual",
+          "go-back": "Mergi inapoi",
+          "go-forward": "Mergi inainte",
+          "quit": "Iesi",
+          "restart": "Reporneste aplicatia"
+        }
+      },
+      "options": {
+        "label": "Setari",
+        "submenu": {
+          "advanced-options": {
+            "label": "Setari avansate",
+            "submenu": {
+              "auto-reset-app-cache": "Reseteaza cache-ul aplicatiei la pornire",
+              "disable-hardware-acceleration": "Dezactiveaza acceleratia hardware",
+              "edit-config-json": "Editeaza config,json",
+              "override-user-agent": "Suprascrie User-Agent-ul",
+              "restart-on-config-changes": "Reporneste la modificarea configuratiei",
+              "set-proxy": {
+                "label": "Seteaza proxy",
+                "prompt": {
+                  "label": "Introduceti adresa proxy: (lasati liber pentru a dezactiva)",
+                  "placeholder": "Exemplu: SOCKS5://127.0.0.1:9999",
+                  "title": "Seteaza proxy"
+                }
+              },
+              "toggle-dev-tools": "Deschide uneltele de dezvoltator"
+            }
+          },
+          "always-on-top": "Mereu deasupra",
+          "auto-update": "Actualizare automata",
+          "hide-menu": {
+            "dialog": {
+              "message": "Meniul va fi ascuns la urmatoarea pornire, folositi [Alt] pentru a-l face sa apara (sau ghilimea intoarsa [`] daca folositi meniul applicatiei)",
+              "title": "Ascunderea meniului pornita"
+            },
+            "label": "Ascunde meniul"
+          },
+          "language": {
+            "dialog": {
+              "message": "Limba va fi schimbata dupa repornire",
+              "title": "Limba actualizata"
+            },
+            "label": "Limba",
+            "submenu": {
+              "to-help-translate": "Vrei sa ajuti la traducere? Apasa aici"
+            }
+          },
+          "resume-on-start": "Continua ultimul cantec ascultat cand porneste aplicatia"
+        }
+      }
+    }
+  }
+}
