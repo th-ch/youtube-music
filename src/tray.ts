@@ -1,4 +1,5 @@
 import { Menu, screen, nativeImage, Tray } from 'electron';
+import is from 'electron-is';
 
 import defaultTrayIconAsset from '@assets/youtube-music-tray.png?asset&asarUnpack';
 import pausedTrayIconAsset from '@assets/youtube-music-tray-paused.png?asset&asarUnpack';
@@ -48,7 +49,7 @@ export const setUpTray = (app: Electron.App, win: Electron.BrowserWindow) => {
 
   const { playPause, next, previous } = getSongControls(win);
 
-  const pixelRatio = screen.getPrimaryDisplay().scaleFactor || 1;
+  const pixelRatio = is.windows() ? screen.getPrimaryDisplay().scaleFactor || 1 : 1;
   const defaultTrayIcon = nativeImage.createFromPath(defaultTrayIconAsset).resize({
     width: 16 * pixelRatio,
     height: 16 * pixelRatio,
