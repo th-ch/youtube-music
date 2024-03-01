@@ -36,15 +36,15 @@
         "details": "Svarer ikke\n{{error}}"
       },
       "when-ready": {
-        "clearing-cache-after-20s": "Tømmer programhurtiglager"
+        "clearing-cache-after-20s": "Tømmer programhurtigbuffer"
       },
       "window": {
-        "tried-to-render-offscreen": "Prøvde å tegne vindu utenfor skjermen. Størrelse={{windowSize}}, skjermstørrelse={{displaySize}}, posisjon={{position}}"
+        "tried-to-render-offscreen": "Prøvde å tegne vindu utenfor skjermen, størrelse={{windowSize}}, skjermstørrelse={{displaySize}}, posisjon={{position}}"
       }
     },
     "dialog": {
       "hide-menu-enabled": {
-        "detail": "Menyen er skjult. Bruk «Alt» for å vise den, (ller «Esc» for å bruke menyen i programmet).",
+        "detail": "Menyen er skjult, bruk 'Alt' for å vise den (eller 'Escape' for å bruke menyen i programmet)",
         "message": "Meny skjult",
         "title": "Meny vist"
       },
