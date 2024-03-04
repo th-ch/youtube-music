@@ -1,5 +1,4 @@
 import {
-  createWriteStream,
   existsSync,
   mkdirSync,
   writeFileSync,
@@ -32,7 +31,6 @@ import { fetchFromGenius } from '@/plugins/lyrics-genius/main';
 import { isEnabled } from '@/config/plugins';
 import { cleanupName, getImage, MediaType, type SongInfo } from '@/providers/song-info';
 import { getNetFetchAsFetch } from '@/plugins/utils/main';
-import { cache } from '@/providers/decorators';
 
 import { t } from '@/i18n';
 
@@ -297,7 +295,7 @@ async function downloadSongUnsafe(
     mkdirSync(dir);
   }
 
-  const fileBuffer = await iterableStreamToTargetFile(
+  let fileBuffer = await iterableStreamToProcessedUint8Array(
     iterableStream,
     targetFileExtension,
     metadata,
@@ -307,19 +305,16 @@ async function downloadSongUnsafe(
     increasePlaylistProgress,
   );
 
+  if (fileBuffer && targetFileExtension === 'mp3') {
+    fileBuffer = await writeID3(
+      Buffer.from(fileBuffer),
+      metadata,
+      sendFeedback,
+    );
+  }
+
   if (fileBuffer) {
-    if (targetFileExtension !== 'mp3') {
-      createWriteStream(filePath).write(fileBuffer);
-    } else {
-      const buffer = await writeID3(
-        Buffer.from(fileBuffer),
-        metadata,
-        sendFeedback,
-      );
-      if (buffer) {
-        writeFileSync(filePath, buffer);
-      }
-    }
+    writeFileSync(filePath, fileBuffer);
   }
 
   sendFeedback(null, -1);
@@ -330,15 +325,12 @@ async function downloadSongUnsafe(
   );
 }
 
-async function iterableStreamToTargetFile(
+async function downloadChunks(
   stream: AsyncGenerator<Uint8Array, void>,
-  extension: string,
-  metadata: CustomSongInfo,
-  presetFfmpegArgs: string[],
   contentLength: number,
   sendFeedback: (str: string, value?: number) => void,
   increasePlaylistProgress: (value: number) => void = () => {},
-): Promise<Uint8Array | null> {
+) {
   const chunks = [];
   let downloaded = 0;
   for await (const chunk of stream) {
@@ -356,65 +348,80 @@ async function iterableStreamToTargetFile(
     // This is a very rough estimate, trying to make the progress bar look nice
     increasePlaylistProgress(ratio * 0.15);
   }
-
-  sendFeedback(t('plugins.downloader.backend.feedback.loading'), 2); // Indefinite progress bar after download
-
-  const buffer = Buffer.concat(chunks);
-  const safeVideoName = randomBytes(32).toString('hex');
-  const releaseFFmpegMutex = await ffmpegMutex.acquire();
-
-  try {
-    if (!ffmpeg.isLoaded()) {
-      await ffmpeg.load();
-    }
-
-    sendFeedback(t('plugins.downloader.backend.feedback.preparing-file'));
-    ffmpeg.FS('writeFile', safeVideoName, buffer);
-
-    sendFeedback(t('plugins.downloader.backend.feedback.converting'));
-
-    ffmpeg.setProgress(({ ratio }) => {
-      sendFeedback(
-        t('plugins.downloader.backend.feedback.conversion-progress', {
-          percent: Math.floor(ratio * 100),
-        }),
-        ratio,
-      );
-      increasePlaylistProgress(0.15 + (ratio * 0.85));
-    });
-
-    const safeVideoNameWithExtension = `${safeVideoName}.${extension}`;
-    try {
-      await ffmpeg.run(
-        '-i',
-        safeVideoName,
-        ...presetFfmpegArgs,
-        ...getFFmpegMetadataArgs(metadata),
-        safeVideoNameWithExtension,
-      );
-    } finally {
-      ffmpeg.FS('unlink', safeVideoName);
-    }
-
-    sendFeedback(t('plugins.downloader.backend.feedback.saving'));
-
-    try {
-      return ffmpeg.FS('readFile', safeVideoNameWithExtension);
-    } finally {
-      ffmpeg.FS('unlink', safeVideoNameWithExtension);
-    }
-  } catch (error: unknown) {
-    sendError(error as Error, safeVideoName);
-  } finally {
-    releaseFFmpegMutex();
-  }
-  return null;
+  return chunks;
 }
 
-const getCoverBuffer = cache(async (url: string) => {
+async function iterableStreamToProcessedUint8Array(
+  stream: AsyncGenerator<Uint8Array, void>,
+  extension: string,
+  metadata: CustomSongInfo,
+  presetFfmpegArgs: string[],
+  contentLength: number,
+  sendFeedback: (str: string, value?: number) => void,
+  increasePlaylistProgress: (value: number) => void = () => {},
+): Promise<Uint8Array | null> {
+  sendFeedback(t('plugins.downloader.backend.feedback.loading'), 2); // Indefinite progress bar after download
+
+  const safeVideoName = randomBytes(32).toString('hex');
+
+  return await ffmpegMutex.runExclusive(async () => {
+    try {
+      if (!ffmpeg.isLoaded()) {
+        await ffmpeg.load();
+      }
+
+      sendFeedback(t('plugins.downloader.backend.feedback.preparing-file'));
+      ffmpeg.FS(
+        'writeFile',
+        safeVideoName,
+        Buffer.concat(
+          await downloadChunks(stream, contentLength, sendFeedback, increasePlaylistProgress),
+        ),
+      );
+
+      sendFeedback(t('plugins.downloader.backend.feedback.converting'));
+
+      ffmpeg.setProgress(({ ratio }) => {
+        sendFeedback(
+          t('plugins.downloader.backend.feedback.conversion-progress', {
+            percent: Math.floor(ratio * 100),
+          }),
+          ratio,
+        );
+        increasePlaylistProgress(0.15 + (ratio * 0.85));
+      });
+
+      const safeVideoNameWithExtension = `${safeVideoName}.${extension}`;
+      try {
+        await ffmpeg.run(
+          '-i',
+          safeVideoName,
+          ...presetFfmpegArgs,
+          ...getFFmpegMetadataArgs(metadata),
+          safeVideoNameWithExtension,
+        );
+      } finally {
+        ffmpeg.FS('unlink', safeVideoName);
+      }
+
+      sendFeedback(t('plugins.downloader.backend.feedback.saving'));
+
+      try {
+        return ffmpeg.FS('readFile', safeVideoNameWithExtension);
+      } finally {
+        ffmpeg.FS('unlink', safeVideoNameWithExtension);
+      }
+    } catch (error: unknown) {
+      sendError(error as Error, safeVideoName);
+    }
+    return null;
+  });
+}
+
+const getCoverBuffer = async (url: string) => {
   const nativeImage = cropMaxWidth(await getImage(url));
   return nativeImage && !nativeImage.isEmpty() ? nativeImage.toPNG() : null;
-});
+};
 
 async function writeID3(
   buffer: Buffer,

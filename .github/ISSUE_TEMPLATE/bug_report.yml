@@ -29,7 +29,7 @@ body:
     label: Checklists
     options:
       - label: I use the portable version of the YouTube Music Application.
-      - label: I can reproduce this issue in the [official YTM web version](https://music.youtube.com).
+      - label: I can reproduce this issue in the [official version of (WEB) YTM](https://music.youtube.com).
 - type: dropdown
   attributes:
     label: What operating system are you using?

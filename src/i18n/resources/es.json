@@ -15,7 +15,7 @@
   },
   "language": {
     "code": "es",
-    "local-name": "Inglés",
+    "local-name": "Español",
     "name": "Spanish"
   },
   "main": {
@@ -214,7 +214,7 @@
       "description": "Aplica un tema dinámico y efectos visuales basados en la paleta de colores del álbum",
       "menu": {
         "color-mix-ratio": {
-          "label": "Proporción de la mezcla de color",
+          "label": "Proporción de la mezcla de colores",
           "submenu": {
             "percent": "{{ratio}}%"
           }
@@ -434,7 +434,7 @@
       "menu": {
         "romanized-lyrics": "Letras Romanizadas"
       },
-      "name": "Lyrics Genius",
+      "name": "Letras Genius",
       "renderer": {
         "fetched-lyrics": "Letras recuperadas de Genius"
       }

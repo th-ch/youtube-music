@@ -3,14 +3,24 @@
  */
 
 /* Allow window dragging */
-.center-content.ytmusic-nav-bar {
+ytmusic-nav-bar {
+  position: relative;
+}
+ytmusic-nav-bar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+
   -webkit-user-select: none;
   -webkit-app-region: drag;
 }
 
-.center-content.ytmusic-nav-bar > ytmusic-search-box {
+ytmusic-nav-bar > .left-content > *,
+ytmusic-nav-bar > .center-content > *,
+ytmusic-nav-bar > .right-content > * {
   -webkit-app-region: no-drag;
 }
+
 
 iron-icon,
 ytmusic-pivot-bar-item-renderer,
