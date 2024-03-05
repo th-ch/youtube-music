@@ -1,6 +1,6 @@
-# YouTube Music
-
 <div align="center">
+
+# YouTube Music
 
 [![GitHub release](https://img.shields.io/github/release/th-ch/youtube-music.svg?style=for-the-badge&logo=youtube-music)](https://github.com/th-ch/youtube-music/releases/)
 [![GitHub license](https://img.shields.io/github/license/th-ch/youtube-music.svg?style=for-the-badge)](https://github.com/th-ch/youtube-music/blob/master/LICENSE)
@@ -34,70 +34,6 @@ Read this in other languages: [🇰🇷](./docs/readme/README-ko.md), [🇮🇸]
 |                          Player Screen (album color theme & ambient light)                                |
 |:---------------------------------------------------------------------------------------------------------:|
 |![Screenshot1](https://github.com/th-ch/youtube-music/assets/16558115/53efdf73-b8fa-4d7b-a235-b96b91ea77fc)|
-
-## Translation
-
-You can help with translation on [Hosted Weblate](https://hosted.weblate.org/projects/youtube-music/).
-
-<a href="https://hosted.weblate.org/engage/youtube-music/">
-  <img src="https://hosted.weblate.org/widget/youtube-music/i18n/multi-auto.svg" alt="translation status" />
-  <img src="https://hosted.weblate.org/widget/youtube-music/i18n/287x66-black.png" alt="translation status 2" />
-</a>
-
-## Download
-
-You can check out the [latest release](https://github.com/th-ch/youtube-music/releases/latest) to quickly find the
-latest version.
-
-### Arch Linux
-
-Install the `youtube-music-bin` package from the AUR. For AUR installation instructions, take a look at
-this [wiki page](https://wiki.archlinux.org/index.php/Arch_User_Repository#Installing_packages).
-
-### MacOS
-
-You can install the app using Homebrew (see the [cask definition](https://github.com/th-ch/homebrew-youtube-music)):
-
-```bash
-brew install th-ch/youtube-music/youtube-music
-```
-
-If you install the app manually and get an error "is damaged and can’t be opened." when launching the app, run the following in the Terminal:
-
-```bash
-xattr -cr /Applications/YouTube\ Music.app
-```
-
-### Windows
-
-You can use the [Scoop package manager](https://scoop.sh) to install the `youtube-music` package from
-the [`extras` bucket](https://github.com/ScoopInstaller/Extras).
-
-```bash
-scoop bucket add extras
-scoop install extras/youtube-music
-```
-
-Alternately you can use [Winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/), Windows 11s
-official CLI package manager to install the `th-ch.YouTubeMusic` package.
-
-*Note: Microsoft Defender SmartScreen might block the installation since it is from an "unknown publisher". This is also
-true for the manual installation when trying to run the executable(.exe) after a manual download here on github (same
-file).*
-
-```bash
-winget install th-ch.YouTubeMusic
-```
-
-#### How to install without a network connection? (in Windows)
-
-- Download the `*.nsis.7z` file for _your device architecture_ in [release page](https://github.com/th-ch/youtube-music/releases/latest).
-  - `x64` for 64-bit Windows
-  - `ia32` for 32-bit Windows
-  - `arm64` for ARM64 Windows
-- Download installer in release page. (`*-Setup.exe`)
-- Place them in the **same directory**.
-- Run the installer.
 
 ## Features:
 
@@ -201,6 +137,70 @@ winget install th-ch.YouTubeMusic
   switch between Video/Song mode. can also optionally remove the whole video tab
 
 - **Visualizer**: Different music visualizers
+
+## Translation
+
+You can help with translation on [Hosted Weblate](https://hosted.weblate.org/projects/youtube-music/).
+
+<a href="https://hosted.weblate.org/engage/youtube-music/">
+  <img src="https://hosted.weblate.org/widget/youtube-music/i18n/multi-auto.svg" alt="translation status" />
+  <img src="https://hosted.weblate.org/widget/youtube-music/i18n/287x66-black.png" alt="translation status 2" />
+</a>
+
+## Download
+
+You can check out the [latest release](https://github.com/th-ch/youtube-music/releases/latest) to quickly find the
+latest version.
+
+### Arch Linux
+
+Install the `youtube-music-bin` package from the AUR. For AUR installation instructions, take a look at
+this [wiki page](https://wiki.archlinux.org/index.php/Arch_User_Repository#Installing_packages).
+
+### MacOS
+
+You can install the app using Homebrew (see the [cask definition](https://github.com/th-ch/homebrew-youtube-music)):
+
+```bash
+brew install th-ch/youtube-music/youtube-music
+```
+
+If you install the app manually and get an error "is damaged and can’t be opened." when launching the app, run the following in the Terminal:
+
+```bash
+xattr -cr /Applications/YouTube\ Music.app
+```
+
+### Windows
+
+You can use the [Scoop package manager](https://scoop.sh) to install the `youtube-music` package from
+the [`extras` bucket](https://github.com/ScoopInstaller/Extras).
+
+```bash
+scoop bucket add extras
+scoop install extras/youtube-music
+```
+
+Alternately you can use [Winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/), Windows 11s
+official CLI package manager to install the `th-ch.YouTubeMusic` package.
+
+*Note: Microsoft Defender SmartScreen might block the installation since it is from an "unknown publisher". This is also
+true for the manual installation when trying to run the executable(.exe) after a manual download here on github (same
+file).*
+
+```bash
+winget install th-ch.YouTubeMusic
+```
+
+#### How to install without a network connection? (in Windows)
+
+- Download the `*.nsis.7z` file for _your device architecture_ in [release page](https://github.com/th-ch/youtube-music/releases/latest).
+  - `x64` for 64-bit Windows
+  - `ia32` for 32-bit Windows
+  - `arm64` for ARM64 Windows
+- Download installer in release page. (`*-Setup.exe`)
+- Place them in the **same directory**.
+- Run the installer.
 
 ## Themes
 
