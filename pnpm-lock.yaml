@@ -214,7 +214,7 @@ devDependencies:
     version: 3.2.0
   electron-vite:
     specifier: 2.0.0
-    version: 2.0.0(vite@5.1.4)
+    version: 2.0.0(vite@5.1.5)
   esbuild:
     specifier: 0.20.1
     version: 0.20.1
@@ -252,17 +252,17 @@ devDependencies:
     specifier: 6.0.3
     version: 6.0.3
   vite:
-    specifier: 5.1.4
-    version: 5.1.4(@types/node@20.11.0)
+    specifier: 5.1.5
+    version: 5.1.5(@types/node@20.11.0)
   vite-plugin-inspect:
     specifier: 0.8.3
-    version: 0.8.3(rollup@4.12.0)(vite@5.1.4)
+    version: 0.8.3(rollup@4.12.0)(vite@5.1.5)
   vite-plugin-resolve:
     specifier: 2.5.1
     version: 2.5.1
   vite-plugin-solid:
     specifier: 2.10.1
-    version: 2.10.1(solid-js@1.8.15)(vite@5.1.4)
+    version: 2.10.1(solid-js@1.8.15)(vite@5.1.5)
   ws:
     specifier: 8.16.0
     version: 8.16.0(bufferutil@4.0.8)(utf-8-validate@6.0.3)
@@ -3267,7 +3267,7 @@ packages:
       - supports-color
     dev: false
 
-  /electron-vite@2.0.0(vite@5.1.4):
+  /electron-vite@2.0.0(vite@5.1.5):
     resolution: {integrity: sha512-EQiuPVSwJQRPGbZiVrCsCFMDVfNyNtSpDiyUV4fNwPKNadTjBfYMOudnLUpSeBTocKUZYf58SXSzSCAkNg0GTQ==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -3284,7 +3284,7 @@ packages:
       esbuild: 0.19.12
       magic-string: 0.30.5
       picocolors: 1.0.0
-      vite: 5.1.4(@types/node@20.11.0)
+      vite: 5.1.5(@types/node@20.11.0)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -6655,7 +6655,7 @@ packages:
     dev: true
     optional: true
 
-  /vite-plugin-inspect@0.8.3(rollup@4.12.0)(vite@5.1.4):
+  /vite-plugin-inspect@0.8.3(rollup@4.12.0)(vite@5.1.5):
     resolution: {integrity: sha512-SBVzOIdP/kwe6hjkt7LSW4D0+REqqe58AumcnCfRNw4Kt3mbS9pEBkch+nupu2PBxv2tQi69EQHQ1ZA1vgB/Og==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -6674,7 +6674,7 @@ packages:
       perfect-debounce: 1.0.0
       picocolors: 1.0.0
       sirv: 2.0.4
-      vite: 5.1.4(@types/node@20.11.0)
+      vite: 5.1.5(@types/node@20.11.0)
     transitivePeerDependencies:
       - rollup
       - supports-color
@@ -6686,7 +6686,7 @@ packages:
       lib-esm: 0.4.2
     dev: true
 
-  /vite-plugin-solid@2.10.1(solid-js@1.8.15)(vite@5.1.4):
+  /vite-plugin-solid@2.10.1(solid-js@1.8.15)(vite@5.1.5):
     resolution: {integrity: sha512-kfVdNLWaJqaJVL52U6iCCKNW/nXE7bS1VVGOWPGllOkJfcNILymVSY0LCBLSnyy0iYnRtrXpiHm14rMuzeC7CA==}
     peerDependencies:
       '@testing-library/jest-dom': ^5.16.6 || ^5.17.0 || ^6.*
@@ -6702,14 +6702,14 @@ packages:
       merge-anything: 5.1.7
       solid-js: 1.8.15
       solid-refresh: 0.6.3(solid-js@1.8.15)
-      vite: 5.1.4(@types/node@20.11.0)
-      vitefu: 0.2.5(vite@5.1.4)
+      vite: 5.1.5(@types/node@20.11.0)
+      vitefu: 0.2.5(vite@5.1.5)
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /vite@5.1.4(@types/node@20.11.0):
-    resolution: {integrity: sha512-n+MPqzq+d9nMVTKyewqw6kSt+R3CkvF9QAKY8obiQn8g1fwTscKxyfaYnC632HtBXAQGc1Yjomphwn1dtwGAHg==}
+  /vite@5.1.5(@types/node@20.11.0):
+    resolution: {integrity: sha512-BdN1xh0Of/oQafhU+FvopafUp6WaYenLU/NFoL5WyJL++GxkNfieKzBhM24H3HVsPQrlAqB7iJYTHabzaRed5Q==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
     peerDependencies:
@@ -6744,7 +6744,7 @@ packages:
       fsevents: 2.3.3
     dev: true
 
-  /vitefu@0.2.5(vite@5.1.4):
+  /vitefu@0.2.5(vite@5.1.5):
     resolution: {integrity: sha512-SgHtMLoqaeeGnd2evZ849ZbACbnwQCIwRH57t18FxcXoZop0uQu0uzlIhJBlF/eWVzuce0sHeqPcDo+evVcg8Q==}
     peerDependencies:
       vite: ^3.0.0 || ^4.0.0 || ^5.0.0
@@ -6752,7 +6752,7 @@ packages:
       vite:
         optional: true
     dependencies:
-      vite: 5.1.4(@types/node@20.11.0)
+      vite: 5.1.5(@types/node@20.11.0)
     dev: true
 
   /vudio@2.1.1(patch_hash=7iux5msqpgl3octdmwy4uspwoe):
