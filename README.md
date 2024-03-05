@@ -35,6 +35,21 @@ Read this in other languages: [🇰🇷](./docs/readme/README-ko.md), [🇮🇸]
 |:---------------------------------------------------------------------------------------------------------:|
 |![Screenshot1](https://github.com/th-ch/youtube-music/assets/16558115/53efdf73-b8fa-4d7b-a235-b96b91ea77fc)|
 
+## Content
+
+- [Features](#features)
+- [Available plugins](#available-plugins)
+- [Translation](#translation)
+- [Download](#download)
+- [Themes](#themes)
+- [Dev](#dev)
+- [Build your own plugins](#build-your-own-plugins)
+- [Build](#build)
+- [Production Preview](#production-preview)
+- [Tests](#tests)
+- [License](#license)
+- [FAQ](#faq)
+
 ## Features:
 
 - **Auto confirm when paused** (Always Enabled): disable
@@ -368,7 +383,7 @@ Uses [Playwright](https://playwright.dev/) to test the app.
 
 MIT © [th-ch](https://github.com/th-ch/youtube-music)
 
-## Most asked questions
+## FAQ
 
 ### Why apps menu isn't showing up?
 
