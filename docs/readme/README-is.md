@@ -42,7 +42,7 @@
   - [Arch Linux](#arch-linux)
   - [MacOS](#macos)
   - [Windows](#windows)
-  - [Hvernig á að setja upp án nettengingar? (í Windows)](#hvernig-á-að-setja-upp-án-nettengingar-í-windows)
+    - [Hvernig á að setja upp án nettengingar? (í Windows)](#hvernig-á-að-setja-upp-án-nettengingar-í-windows)
 - [Þemu](#þemu)
 - [Þróun](#þróun)
 - [Búðu til þín eigin viðbætur](#búðu-til-þín-eigin-viðbætur)
