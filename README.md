@@ -44,7 +44,7 @@ Read this in other languages: [🇰🇷](./docs/readme/README-ko.md), [🇮🇸]
   - [Arch Linux](#arch-linux)
   - [MacOS](#macos)
   - [Windows](#windows)
-  - [How to install without a network connection? (in Windows)](#how-to-install-without-a-network-connection-in-windows)
+    - [How to install without a network connection? (in Windows)](#how-to-install-without-a-network-connection-in-windows)
 - [Themes](#themes)
 - [Dev](#dev)
 - [Build your own plugins](#build-your-own-plugins)
