@@ -213,8 +213,8 @@ devDependencies:
     specifier: 3.2.0
     version: 3.2.0
   electron-vite:
-    specifier: 2.0.0
-    version: 2.0.0(vite@5.1.5)
+    specifier: 2.1.0
+    version: 2.1.0(vite@5.1.5)
   esbuild:
     specifier: 0.20.1
     version: 0.20.1
@@ -3267,8 +3267,8 @@ packages:
       - supports-color
     dev: false
 
-  /electron-vite@2.0.0(vite@5.1.5):
-    resolution: {integrity: sha512-EQiuPVSwJQRPGbZiVrCsCFMDVfNyNtSpDiyUV4fNwPKNadTjBfYMOudnLUpSeBTocKUZYf58SXSzSCAkNg0GTQ==}
+  /electron-vite@2.1.0(vite@5.1.5):
+    resolution: {integrity: sha512-DjToUW6q3ILoW79b1yBywC6LubnOw5Axr2zo9cHMlYf00zAO8oVzrCcqinJQTTbJLvqCuVcBzuICMl5MYshUnQ==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
     peerDependencies:
