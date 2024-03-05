@@ -1,6 +1,6 @@
-# 유튜브 뮤직 (YouTube Music)
-
 <div align="center">
+
+# 유튜브 뮤직 (YouTube Music)
 
 [![GitHub release](https://img.shields.io/github/release/th-ch/youtube-music.svg?style=for-the-badge&logo=youtube-music)](https://github.com/th-ch/youtube-music/releases/)
 [![GitHub license](https://img.shields.io/github/license/th-ch/youtube-music.svg?style=for-the-badge)](https://github.com/th-ch/youtube-music/blob/master/LICENSE)
