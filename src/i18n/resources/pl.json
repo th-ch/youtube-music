@@ -440,7 +440,7 @@
       }
     },
     "music-together": {
-      "description": "Pozwala na udostępnianie listy odtwarzania w taki sposób, że osoby po wejściu w link słuchają tego samego utworu co host (jeżeli słucha jej z owej listy odtwarzania)",
+      "description": "Pozwala na udostępnianie listy odtwarzania z możliwością słuchania tego samego utworu co host",
       "dialog": {
         "enter-host": "Wpisz ID hosta"
       },
@@ -455,7 +455,7 @@
         "connected-users": "Połączeni użytkownicy",
         "disconnect": "Rozłącz z hosta",
         "empty-user": "Brak połączonych użytkowników",
-        "host": "Host słuchania razem",
+        "host": "Udostępnij tą listę odtwarzania",
         "join": "Połącz z hostem",
         "permission": {
           "all": "Połączeni użytkownicy mają kontrolę nad listą odtwarzania oraz playerem",
