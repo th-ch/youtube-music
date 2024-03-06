@@ -24,7 +24,7 @@
 **Electron umbúðir utan um YouTube Tónlist sem inniheldur:**
 
 - Innfæddur útlit og tilfinning, miðar að því að halda upprunalegu viðmótinu
-- Rammi fyrir sérsniðnar viðbætur: breyttu YouTube Music að þínum þörfum (stíl, efni, eiginleikar), virkjaðu/slökktu á viðbætur í
+- Rammi fyrir sérsniðnar viðbætur: breyttu YouTube Tónlist að þínum þörfum (stíl, efni, eiginleikar), virkjaðu/slökktu á viðbætur í
    einn smellur
 
 ## Sýnishornsmynd
