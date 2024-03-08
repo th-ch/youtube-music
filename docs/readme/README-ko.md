@@ -135,7 +135,7 @@
 
 ### Arch Linux
 
-AUR에서 `youtube-music-bin` 패키지를 설치합니다. AUR 설치 지침은 [이 위키 페이지](https://wiki.archlinux.org/index.php/Arch_User_Repository#Installing_packages)를 참조하세요.
+AUR에서 [`youtube-music-bin`](https://aur.archlinux.org/packages/youtube-music-bin) 패키지를 설치합니다. AUR 설치 지침은 [이 위키 페이지](https://wiki.archlinux.org/index.php/Arch_User_Repository#Installing_packages)를 참조하세요.
 
 ### MacOS
 
