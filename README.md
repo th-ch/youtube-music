@@ -175,7 +175,7 @@ latest version.
 
 ### Arch Linux
 
-Install the `youtube-music-bin` package from the AUR. For AUR installation instructions, take a look at
+Install the [`youtube-music-bin`](https://aur.archlinux.org/packages/youtube-music-bin) package from the AUR. For AUR installation instructions, take a look at
 this [wiki page](https://wiki.archlinux.org/index.php/Arch_User_Repository#Installing_packages).
 
 ### MacOS
