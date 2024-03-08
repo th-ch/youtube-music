@@ -166,7 +166,7 @@ nýjustu útgáfuna.
 
 ### Arch Linux
 
-Settu upp `youtube-music-bin` pakkann frá AUR. Fyrir AUR uppsetningarleiðbeiningar skaltu skoða
+Settu upp [`youtube-music-bin`](https://aur.archlinux.org/packages/youtube-music-bin) pakkann frá AUR. Fyrir AUR uppsetningarleiðbeiningar skaltu skoða
 þessa [wiki síðu](https://wiki.archlinux.org/index.php/Arch_User_Repository#Installing_packages).
 
 ### MacOS
