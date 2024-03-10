@@ -1,1 +1,75 @@
-{}
+{
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "Nem sikerült futtatni a plugint {{pluginName}}::{{contextName}}",
+        "load-all": "Összes bővítmény betöltése"
+      }
+    }
+  },
+  "language": {
+    "code": "hu",
+    "local-name": "Magyar",
+    "name": "Hungarian"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "Betöltés befejezve. DevTools megnyitva"
+      },
+      "i18n": {
+        "loaded": "i18n betöltve"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "message": "A menü elrejtése engedélyezve"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "Később",
+          "restart-now": "Újraindítás most"
+        },
+        "title": "Újraindítás szükséges"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "Kilépés",
+          "relaunch": "Újraindítás",
+          "wait": "Várj"
+        }
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "Frissítések letiltása",
+          "download": "Letöltés",
+          "ok": "OK"
+        },
+        "detail": "Az új verzió elérhető, és letölthető a {{downloadLink}}",
+        "message": "Új verzió áll rendelkezésre",
+        "title": "Elérhető frissítés"
+      }
+    },
+    "menu": {
+      "about": "Névjegy",
+      "navigation": {
+        "label": "Navigálás",
+        "submenu": {
+          "copy-current-url": "Jelenlegi URL másolása",
+          "go-back": "Vissza",
+          "go-forward": "Előre",
+          "quit": "Kilépés",
+          "restart": "App újraindítása"
+        }
+      },
+      "options": {
+        "label": "Beállítások",
+        "submenu": {
+          "advanced-options": {
+            "label": "Speciális beállítások"
+          }
+        }
+      }
+    }
+  }
+}
