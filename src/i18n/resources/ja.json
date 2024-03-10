@@ -579,6 +579,14 @@
     },
     "scrobbler": {
       "description": "スクロブリング対応を追加します（例：last.fm、Listenbrainzなど）",
+      "dialog": {
+        "lastfm": {
+          "auth-failed": {
+            "message": "Last.fm の認証に失敗しました\n次の再起動までポップアップは非表示になります。",
+            "title": "認証に失敗"
+          }
+        }
+      },
       "menu": {
         "lastfm": {
           "api-settings": "Last.fm API 設定"
