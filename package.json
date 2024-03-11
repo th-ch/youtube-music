@@ -158,7 +158,7 @@
     "electron-debug": "3.2.0",
     "electron-is": "3.0.0",
     "electron-localshortcut": "3.2.1",
-    "electron-store": "8.1.0",
+    "electron-store": "8.2.0",
     "electron-unhandled": "4.0.1",
     "electron-updater": "6.1.8",
     "fast-average-color": "9.4.0",
