@@ -3,7 +3,7 @@
     "console": {
       "plugins": {
         "execute-failed": "Неуспешно изпълнение на плъгин {{pluginName}}::{{contextName}}",
-        "executed-at-ms": "Плъгин {{pluginName}}::{{contextName}} изпълнет в {{ms}}ms",
+        "executed-at-ms": "Плъгинът {{pluginName}}::{{contextName}} беше изпълнен на {{ms}}ms",
         "initialize-failed": "Неуспешна инициализация на плъгин \"{{pluginName}}\"",
         "load-all": "Зареждане на всички плъгини",
         "load-failed": "Неуспешно зареждане на плъгин \"{{pluginName}}\"",
@@ -40,6 +40,42 @@
       },
       "window": {
         "tried-to-render-offscreen": "Прозореца се опита да се изрисува извън екрана, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "detail": "Менюто е скрито. Използвайте \"Alt\", за да го покажете, или \"Escape\", ако използвате менюто в приложението",
+        "message": "\"Скриване на менюто\" е активирано",
+        "title": "\"Скриване на менюто\" активирано"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "По-късно",
+          "restart-now": "Рестартиране сега"
+        },
+        "detail": "\"{{pluginName}}\" плъгинът изисква рестартиране, за да влезе в сила",
+        "message": "\"{{pluginName}}\" трябва да рестартира",
+        "title": "Изисква се рестартиране"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "Прекратяване",
+          "relaunch": "Повторно стартиране",
+          "wait": "Изчакване"
+        },
+        "detail": "Съжаляваме за неудобството! Моля, изберете какво да направите:",
+        "message": "Приложението не реагира",
+        "title": "Прозорецът не реагира"
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "Деактивиране на актуализациите",
+          "download": "Изтегляне",
+          "ok": "Добре"
+        },
+        "detail": "Налична е нова версия, която можете да изтеглите от {{downloadLink}}",
+        "message": "Налична е нова версия",
+        "title": "Налична е актуализация"
       }
     }
   }
