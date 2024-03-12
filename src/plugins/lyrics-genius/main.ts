@@ -38,7 +38,7 @@ export const fetchFromGenius = async (metadata: SongInfo) => {
   const songArtist = `${cleanupName(metadata.artist)}`;
   let lyrics: string | null;
 
-  /* Uses Regex to test the title and artist first for said characters if romanization is enabled. Otherwise normal
+  /* Uses Regex to test the title and artist first for said characters if romanization is enabled. Otherwise, normal
   Genius Lyrics behavior is observed.
   */
   let hasAsianChars = false;

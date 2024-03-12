@@ -307,9 +307,9 @@ export default (
     savedNotification?.close();
   });
 
-  changeProtocolHandler((cmd) => {
+  changeProtocolHandler((cmd, args) => {
     if (Object.keys(songControls).includes(cmd)) {
-      songControls[cmd as keyof typeof songControls]();
+      songControls[cmd as keyof typeof songControls](args as never);
       if (
         config().refreshOnPlayPause &&
         (cmd === 'pause' || (cmd === 'play' && !config().unpauseNotification))

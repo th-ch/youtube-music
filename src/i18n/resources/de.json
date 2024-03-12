@@ -46,7 +46,7 @@
       "hide-menu-enabled": {
         "detail": "Das Menü ist versteckt, nutze 'Alt', um es zu aufzurufen (oder 'Escape' beim Verwenden des In-App-Menüs)",
         "message": "Menü verstecken ist aktiviert",
-        "title": "Menü Verstecken Aktiviert"
+        "title": "Menü verstecken aktiviert"
       },
       "need-to-restart": {
         "buttons": {
@@ -55,7 +55,7 @@
         },
         "detail": "\"{{pluginName}}\"-Erweiterung erfordert einen Neustart, um in Kraft zu treten",
         "message": "\"{{pluginName}}\" muss neugestartet werden",
-        "title": "Neustart Erforderlich"
+        "title": "Neustart erforderlich"
       },
       "unresponsive": {
         "buttons": {
@@ -75,7 +75,7 @@
         },
         "detail": "Eine neue Version ist verfügbar und kann unter {{downloadLink}} heruntergeladen werden",
         "message": "Eine neue Version ist verfügbar",
-        "title": "Aktualisierung Verfügbar"
+        "title": "Aktualisierung verfügbar"
       }
     },
     "menu": {
@@ -87,7 +87,7 @@
           "go-back": "Zurück gehen",
           "go-forward": "Vorwärts gehen",
           "quit": "Beenden",
-          "restart": "Anwendung Neustarten"
+          "restart": "Anwendung neustarten"
         }
       },
       "options": {
@@ -124,7 +124,7 @@
           "language": {
             "dialog": {
               "message": "Sprache wird nach Neustart geändert",
-              "title": "Sprache Geändert"
+              "title": "Sprache geändert"
             },
             "label": "Sprache",
             "submenu": {
@@ -212,6 +212,14 @@
     },
     "album-color-theme": {
       "description": "Wendet ein dynamisches Farbthema und visuelle Effekte auf Basis der Farbpalette des Albumcovers an",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "Farbmischungsverhältnis",
+          "submenu": {
+            "percent": "{{ratio}}%"
+          }
+        }
+      },
       "name": "Thema aus Albumfarbe"
     },
     "ambient-mode": {
@@ -230,7 +238,7 @@
           }
         },
         "opacity": {
-          "label": "Durchsichtigkeit",
+          "label": "Transparenz",
           "submenu": {
             "percent": "{{opacity}}%"
           }
@@ -275,7 +283,7 @@
       "description": "Untertitelwähler für YouTube Music-Audio-Lieder",
       "menu": {
         "autoload": "Wähle automatisch den zuletzt verwendeten Untertitel",
-        "disable-captions": "Standartmäßig keine Untertitel"
+        "disable-captions": "Standardmäßig keine Untertitel"
       },
       "name": "Untertitelwähler",
       "prompt": {
@@ -571,29 +579,39 @@
     },
     "scrobbler": {
       "description": "Scrobbling-Unterstützung aktivieren (z.B. für last.fm, Listenbrainz)",
+      "dialog": {
+        "lastfm": {
+          "auth-failed": {
+            "message": "Die Authentifizierung bei Last.fm ist fehlgeschlagen\nBlende das Pop-up bis zum nächsten Neustart aus.",
+            "title": "Authentifizierung Fehlgeschlagen"
+          }
+        }
+      },
       "menu": {
         "lastfm": {
           "api-settings": "Last.fm API Einstellungen"
         },
         "listenbrainz": {
           "token": "ListenBrainz-Benutzer-Token eintragen"
-        }
+        },
+        "scrobble-other-media": "Andere Medien scrobbeln"
       },
       "name": "Scrobbler",
       "prompt": {
         "lastfm": {
           "api-key": "Last.fm API-Schlüssel",
-          "api-secret": "Last.fm API secret"
+          "api-secret": "Last.fm API-Kennwort"
         },
         "listenbrainz": {
           "token": {
-            "label": "ListenBrainz-Benutzer-Token eintragen"
+            "label": "ListenBrainz-Benutzer-Token eintragen:",
+            "title": "ListenBrainz-Token"
           }
         }
       }
     },
     "shortcuts": {
-      "description": "Ermöglicht das Festlegen globaler Hotkeys für die Wiedergabe (Abspielen/Pause/Nächster/Vorheriger) + Deaktivieren des Medien-OSD durch Überschreiben der Medientasten + Aktivieren von Strg/CMD + F zum Suchen + Aktivieren der Linux mpris-Unterstützung für Medientasten + Angepasste Tastenkürzel für fortgeschrittene Benutzer.",
+      "description": "Ermöglicht das Festlegen globaler Hotkeys für die Wiedergabe (Abspielen/Pause/Nächster/Vorheriger) + Deaktivieren des Medien-OSD durch Überschreiben der Medientasten + Aktivieren von Strg/CMD + F zum Suchen + Aktivieren der Linux mpris-Unterstützung für Medientasten + Angepasste Tastenkürzel für fortgeschrittene Benutzer",
       "menu": {
         "override-media-keys": "Medientasten überschreiben",
         "set-keybinds": "Globale Liedsteuerung setzen"

@@ -53,6 +53,8 @@ import {
 import { LoggerPrefix } from '@/utils';
 import { loadI18n, setLanguage, t } from '@/i18n';
 
+import ErrorHtmlAsset from '@assets/error.html?asset';
+
 import type { PluginConfig } from '@/types/plugins';
 
 if (!is.macOS()) {
@@ -505,7 +507,7 @@ app.once('browser-window-created', (_event, win) => {
       if (errorCode !== -3) {
         // -3 is a false positive
         win.webContents.send('log', log);
-        win.webContents.loadFile(path.join(__dirname, 'error.html'));
+        win.webContents.loadFile(ErrorHtmlAsset);
       }
     },
   );
@@ -586,7 +588,7 @@ app.whenReady().then(async () => {
       );
       try {
         // Check if shortcut is registered and valid
-        const shortcutDetails = shell.readShortcutLink(shortcutPath); // Throw error if doesn't exist yet
+        const shortcutDetails = shell.readShortcutLink(shortcutPath); // Throw error if it doesn't exist yet
         if (
           shortcutDetails.target !== appLocation ||
           shortcutDetails.appUserModelId !== appID
@@ -671,7 +673,9 @@ app.whenReady().then(async () => {
         );
       }
 
-      handleProtocol(command);
+      const splited = decodeURIComponent(command).split(' ');
+
+      handleProtocol(splited.shift()!, splited);
       return;
     }
 

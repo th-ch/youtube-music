@@ -212,6 +212,14 @@
     },
     "album-color-theme": {
       "description": "Applica un tema dinamico e degli effetti visivi basandosi sul colore dell'album",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "Percentiuale colore",
+          "submenu": {
+            "percent": "{{ratio}}%"
+          }
+        }
+      },
       "name": "Tema abbinato a colore album"
     },
     "ambient-mode": {
@@ -571,13 +579,22 @@
     },
     "scrobbler": {
       "description": "Aggiunge il supporto per lo scrobbling (Last.fm, Listenbrainz ecc.)",
+      "dialog": {
+        "lastfm": {
+          "auth-failed": {
+            "message": "Impossibile autenticarsi con Last.fm\nNascondi il popup fino al prossimo riavvio.",
+            "title": "Autenticazione fallita"
+          }
+        }
+      },
       "menu": {
         "lastfm": {
           "api-settings": "Impostazione Last.fm API"
         },
         "listenbrainz": {
           "token": "Inserire il token utente per ListenBrainz"
-        }
+        },
+        "scrobble-other-media": "Scrobble altri media"
       },
       "name": "Scrobbler",
       "prompt": {

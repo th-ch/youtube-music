@@ -36,15 +36,15 @@
         "details": "Svarer ikke\n{{error}}"
       },
       "when-ready": {
-        "clearing-cache-after-20s": "Tømmer programhurtiglager"
+        "clearing-cache-after-20s": "Tømmer programhurtigbuffer"
       },
       "window": {
-        "tried-to-render-offscreen": "Prøvde å tegne vindu utenfor skjermen. Størrelse={{windowSize}}, skjermstørrelse={{displaySize}}, posisjon={{position}}"
+        "tried-to-render-offscreen": "Prøvde å tegne vindu utenfor skjermen, størrelse={{windowSize}}, skjermstørrelse={{displaySize}}, posisjon={{position}}"
       }
     },
     "dialog": {
       "hide-menu-enabled": {
-        "detail": "Menyen er skjult. Bruk «Alt» for å vise den, (ller «Esc» for å bruke menyen i programmet).",
+        "detail": "Menyen er skjult, bruk 'Alt' for å vise den (eller 'Escape' for å bruke menyen i programmet)",
         "message": "Meny skjult",
         "title": "Meny vist"
       },
@@ -85,7 +85,7 @@
         "submenu": {
           "copy-current-url": "Kopier nåværende nettadresse",
           "go-back": "Tilbake",
-          "go-forward": "Forover",
+          "go-forward": "Framover",
           "quit": "Avslutt",
           "restart": "Programomstart"
         }
@@ -96,7 +96,7 @@
           "advanced-options": {
             "label": "Avanserte alternativer",
             "submenu": {
-              "auto-reset-app-cache": "Tilbakestill programhurtiglager når programmet startes",
+              "auto-reset-app-cache": "Tilbakestill programhurtigbuffer når programmet startes",
               "disable-hardware-acceleration": "Skru av maskinvareakselerasjon",
               "edit-config-json": "Rediger config.json",
               "override-user-agent": "Overstyr brukeragent",

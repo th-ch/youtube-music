@@ -29,8 +29,9 @@ export const setupTimeChangedListener = singleton(() => {
   const progressObserver = new MutationObserver((mutations) => {
     for (const mutation of mutations) {
       const target = mutation.target as Node & { value: string };
-      window.ipcRenderer.send('ytmd:time-changed', target.value);
-      songInfo.elapsedSeconds = Number(target.value);
+      const numberValue = Number(target.value);
+      window.ipcRenderer.send('ytmd:time-changed', numberValue);
+      songInfo.elapsedSeconds = numberValue;
     }
   });
   const progressBar = document.querySelector('#progress-bar');
@@ -61,11 +62,13 @@ export const setupRepeatChangedListener = singleton(() => {
   // provided by YouTube Music
   window.ipcRenderer.send(
     'ytmd:repeat-changed',
-    document.querySelector<
-      HTMLElement & {
-        getState: () => GetState;
-      }
-    >('ytmusic-player-bar')?.getState().queue.repeatMode,
+    document
+      .querySelector<
+        HTMLElement & {
+          getState: () => GetState;
+        }
+      >('ytmusic-player-bar')
+      ?.getState().queue.repeatMode,
   );
 });
 
@@ -75,6 +78,46 @@ export const setupVolumeChangedListener = singleton((api: YoutubePlayer) => {
   });
   // Emit the initial value as well; as it's persistent between launches.
   window.ipcRenderer.send('ytmd:volume-changed', api.getVolume());
+});
+
+export const setupFullScreenChangedListener = singleton(() => {
+  const playerBar = document.querySelector('ytmusic-player-bar');
+
+  if (!playerBar) {
+    window.ipcRenderer.send('ytmd:fullscreen-changed-supported', false);
+    return;
+  }
+
+  const observer = new MutationObserver(() => {
+    window.ipcRenderer.send(
+      'ytmd:fullscreen-changed',
+      (
+        playerBar?.attributes.getNamedItem('player-fullscreened') ?? null
+      ) !== null,
+    );
+  });
+
+  observer.observe(playerBar, {
+    attributes: true,
+    childList: false,
+    subtree: false,
+  });
+});
+
+export const setupAutoPlayChangedListener = singleton(() => {
+  const autoplaySlider = document.querySelector<HTMLInputElement>(
+    '.autoplay > tp-yt-paper-toggle-button',
+  );
+
+  const observer = new MutationObserver(() => {
+    window.ipcRenderer.send('ytmd:autoplay-changed');
+  });
+
+  observer.observe(autoplaySlider!, {
+    attributes: true,
+    childList: false,
+    subtree: false,
+  });
 });
 
 export default (api: YoutubePlayer) => {
@@ -88,6 +131,14 @@ export default (api: YoutubePlayer) => {
 
   window.ipcRenderer.on('ytmd:setup-volume-changed-listener', () => {
     setupVolumeChangedListener(api);
+  });
+
+  window.ipcRenderer.on('ytmd:setup-fullscreen-changed-listener', () => {
+    setupFullScreenChangedListener();
+  });
+
+  window.ipcRenderer.on('ytmd:setup-autoplay-changed-listener', () => {
+    setupAutoPlayChangedListener();
   });
 
   window.ipcRenderer.on('ytmd:setup-seeked-listener', () => {
@@ -154,13 +205,13 @@ export default (api: YoutubePlayer) => {
   function sendSongInfo(videoData: VideoDataChangeValue) {
     const data = api.getPlayerResponse();
 
-    data.videoDetails.album =
-      (
-        Object.entries(videoData)
-          .find(([, value]) => value && Object.hasOwn(value, 'playerOverlays')) as [string, AlbumDetails | undefined]
-      )?.[1]?.playerOverlays?.playerOverlayRenderer?.browserMediaSession?.browserMediaSessionRenderer?.album?.runs?.at(
-        0,
-      )?.text;
+    data.videoDetails.album = (
+      Object.entries(videoData).find(
+        ([, value]) => value && Object.hasOwn(value, 'playerOverlays'),
+      ) as [string, AlbumDetails | undefined]
+    )?.[1]?.playerOverlays?.playerOverlayRenderer?.browserMediaSession?.browserMediaSessionRenderer?.album?.runs?.at(
+      0,
+    )?.text;
     data.videoDetails.elapsedSeconds = 0;
     data.videoDetails.isPaused = false;
 

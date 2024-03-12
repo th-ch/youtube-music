@@ -5,7 +5,6 @@ import { app, NativeImage } from 'electron';
 
 import youtubeMusicIcon from '@assets/youtube-music.png?asset&asarUnpack';
 
-import { cache } from '@/providers/decorators';
 import { SongInfo } from '@/providers/song-info';
 
 import type { NotificationsPluginConfig } from './index';
@@ -30,7 +29,7 @@ export const urgencyLevels = [
   { name: 'High', value: 'critical' } as const,
 ];
 
-const nativeImageToLogo = cache((nativeImage: NativeImage) => {
+const nativeImageToLogo = (nativeImage: NativeImage) => {
   const temporaryImage = nativeImage.resize({ height: 256 });
   const margin = Math.max(temporaryImage.getSize().width - 256, 0);
 
@@ -40,7 +39,7 @@ const nativeImageToLogo = cache((nativeImage: NativeImage) => {
     width: 256,
     height: 256,
   });
-});
+};
 
 export const notificationImage = (
   songInfo: SongInfo,
@@ -66,7 +65,7 @@ export const notificationImage = (
   }
 };
 
-export const saveImage = cache((img: NativeImage, savePath: string) => {
+export const saveImage = (img: NativeImage, savePath: string) => {
   try {
     fs.writeFileSync(savePath, img.toPNG());
   } catch (error: unknown) {
@@ -76,7 +75,7 @@ export const saveImage = cache((img: NativeImage, savePath: string) => {
   }
 
   return savePath;
-});
+};
 
 export const snakeToCamel = (string_: string) =>
   string_.replaceAll(/([-_][a-z]|^[a-z])/g, (group) =>

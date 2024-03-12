@@ -1,5 +1,6 @@
 import { JSX, splitProps } from 'solid-js';
 import { css } from 'solid-styled-components';
+
 import { cache } from '@/providers/decorators';
 
 const menuStyle = cache(() => css`

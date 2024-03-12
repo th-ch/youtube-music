@@ -579,6 +579,14 @@
     },
     "scrobbler": {
       "description": "添加歌曲追踪支持（如 Last.fm 和 Listenbrainz）",
+      "dialog": {
+        "lastfm": {
+          "auth-failed": {
+            "message": "与 Last.fm 认证时失败\n弹出窗口将在下次重启前隐藏。",
+            "title": "认证失败"
+          }
+        }
+      },
       "menu": {
         "lastfm": {
           "api-settings": "Last.fm API 设置"

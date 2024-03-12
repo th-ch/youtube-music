@@ -2,10 +2,8 @@ import { net } from 'electron';
 
 import { ScrobblerBase } from './base';
 
-import { SetConfType } from '../main';
-
+import type { SetConfType } from '../main';
 import type { SongInfo } from '@/providers/song-info';
-
 import type { ScrobblerPluginConfig } from '../index';
 
 interface ListenbrainzRequestBody {
@@ -27,16 +25,16 @@ interface ListenbrainzRequestBody {
 }
 
 export class ListenbrainzScrobbler extends ScrobblerBase {
-  isSessionCreated(): boolean {
+  override isSessionCreated(): boolean {
     return true;
   }
 
-  createSession(config: ScrobblerPluginConfig, _setConfig: SetConfType): Promise<ScrobblerPluginConfig> {
+  override createSession(config: ScrobblerPluginConfig, _setConfig: SetConfType): Promise<ScrobblerPluginConfig> {
     return Promise.resolve(config);
   }
 
-  setNowPlaying(songInfo: SongInfo, config: ScrobblerPluginConfig, _setConfig: SetConfType): void {
-    if (!config.scrobblers.listenbrainz.api_root || !config.scrobblers.listenbrainz.token) {
+  override setNowPlaying(songInfo: SongInfo, config: ScrobblerPluginConfig, _setConfig: SetConfType): void {
+    if (!config.scrobblers.listenbrainz.apiRoot || !config.scrobblers.listenbrainz.token) {
       return;
     }
 
@@ -44,8 +42,8 @@ export class ListenbrainzScrobbler extends ScrobblerBase {
     submitListen(body, config);
   }
 
-  addScrobble(songInfo: SongInfo, config: ScrobblerPluginConfig, _setConfig: SetConfType): void {
-    if (!config.scrobblers.listenbrainz.api_root || !config.scrobblers.listenbrainz.token) {
+  override addScrobble(songInfo: SongInfo, config: ScrobblerPluginConfig, _setConfig: SetConfType): void {
+    if (!config.scrobblers.listenbrainz.apiRoot || !config.scrobblers.listenbrainz.token) {
       return;
     }
 
@@ -80,7 +78,7 @@ function createRequestBody(listenType: string, songInfo: SongInfo): Listenbrainz
 }
 
 function submitListen(body: ListenbrainzRequestBody, config: ScrobblerPluginConfig) {
-  net.fetch(config.scrobblers.listenbrainz.api_root + 'submit-listens',
+  net.fetch(config.scrobblers.listenbrainz.apiRoot + 'submit-listens',
     {
       method: 'POST',
       body: JSON.stringify(body),

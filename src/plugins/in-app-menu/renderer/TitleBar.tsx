@@ -9,9 +9,10 @@ import { PanelItem } from './PanelItem';
 import { IconButton } from './IconButton';
 import { WindowController } from './WindowController';
 
+import { cache } from '@/providers/decorators';
+
 import type { RendererContext } from '@/types/contexts';
 import type { InAppMenuConfig } from '../constants';
-import { cache } from '@/providers/decorators';
 
 const titleStyle = cache(() => css`
   -webkit-app-region: drag;
@@ -243,6 +244,19 @@ export const TitleBar = (props: TitleBarProps) => {
 
     props.ipc.on('window-maximize', refetchMaximize);
     props.ipc.on('window-unmaximize', refetchMaximize);
+
+    // close menu when the outside of the panel or sub-panel is clicked
+    document.body.addEventListener('click', (e) => {
+      if (
+        e.target instanceof HTMLElement &&
+        !(
+          e.target.closest('nav[data-ytmd-main-panel]') ||
+          e.target.closest('ul[data-ytmd-sub-panel]')
+        )
+      ) {
+        setOpenTarget(null);
+      }
+    });
   });
 
   createEffect(() => {
@@ -252,7 +266,7 @@ export const TitleBar = (props: TitleBarProps) => {
   });
 
   return (
-    <nav class={titleStyle()} data-macos={props.isMacOS}>
+    <nav data-ytmd-main-panel={true} class={titleStyle()} data-macos={props.isMacOS}>
       <IconButton
         onClick={() => setCollapsed(!collapsed())}
         style={{

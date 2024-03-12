@@ -1,11 +1,12 @@
 import { getMusicQueueRenderer } from './song';
 import { mapQueueItem } from './utils';
 
-import { ConnectionEventUnion } from '@/plugins/music-together/connection';
 import { t } from '@/i18n';
 
-import type { Profile, QueueAPI, VideoData } from '../types';
+import type { ConnectionEventUnion } from '@/plugins/music-together/connection';
+import type { Profile, VideoData } from '../types';
 import type { QueueItem } from '@/types/datahost-get-state';
+import type { QueueElement } from '@/types/queue';
 
 const getHeaderPayload = (() => {
   let payload: {
@@ -103,26 +104,29 @@ const getHeaderPayload = (() => {
 export type QueueOptions = {
   videoList?: VideoData[];
   owner?: Profile;
-  queue?: HTMLElement & QueueAPI;
+  queue?: QueueElement;
   getProfile: (id: string) => Profile | undefined;
 }
 export type QueueEventListener = (event: ConnectionEventUnion) => void;
 
 export class Queue {
-  private queue: (HTMLElement & QueueAPI);
+  private readonly queue: QueueElement;
+
   private originalDispatch?: (obj: {
     type: string;
     payload?: { items?: QueueItem[] | undefined; };
   }) => void;
+
   private internalDispatch = false;
   private ignoreFlag = false;
   private listeners: QueueEventListener[] = [];
-  private owner: Profile | null = null;
-  private getProfile: (id: string) => Profile | undefined;
+
+  private owner: Profile | null;
+  private readonly getProfile: (id: string) => Profile | undefined;
 
   constructor(options: QueueOptions) {
     this.getProfile = options.getProfile;
-    this.queue = options.queue ?? document.querySelector<HTMLElement & QueueAPI>('#queue')!;
+    this.queue = options.queue ?? (document.querySelector<QueueElement>('#queue')!);
     this.owner = options.owner ?? null;
     this._videoList = options.videoList ?? [];
   }
@@ -135,11 +139,11 @@ export class Queue {
   }
 
   get selectedIndex() {
-    return mapQueueItem((it) => it?.selected, this.queue.store.getState().queue.items).findIndex(Boolean) ?? 0;
+    return mapQueueItem((it) => it?.selected, this.queue.queue.store.store.getState().queue.items).findIndex(Boolean) ?? 0;
   }
 
   get rawItems() {
-    return this.queue?.store.getState().queue.items;
+    return this.queue?.queue.store.store.getState().queue.items;
   }
 
   get flatItems() {
@@ -169,8 +173,8 @@ export class Queue {
     this.queue?.dispatch({
       type: 'ADD_ITEMS',
       payload: {
-        nextQueueItemId: this.queue.store.getState().queue.nextQueueItemId,
-        index: index ?? this.queue.store.getState().queue.items.length ?? 0,
+        nextQueueItemId: this.queue.queue.store.store.getState().queue.nextQueueItemId,
+        index: index ?? this.queue.queue.store.store.getState().queue.items.length ?? 0,
         items,
         shuffleEnabled: false,
         shouldAssignIds: true
@@ -249,7 +253,7 @@ export class Queue {
       return;
     }
 
-    if (this.originalDispatch) this.queue.store.dispatch = this.originalDispatch;
+    if (this.originalDispatch) this.queue.queue.store.store.dispatch = this.originalDispatch;
   }
 
   injection() {
@@ -258,8 +262,8 @@ export class Queue {
       return;
     }
 
-    this.originalDispatch = this.queue.store.dispatch;
-    this.queue.store.dispatch = (event) => {
+    this.originalDispatch = this.queue.queue.store.store.dispatch;
+    this.queue.queue.store.store.dispatch = (event) => {
       if (!this.queue || !this.owner) {
         console.error('Queue is not initialized!');
         return;
@@ -361,10 +365,13 @@ export class Queue {
 
       const fakeContext = {
         ...this.queue,
-        store: {
-          ...this.queue.store,
-          dispatch: this.originalDispatch
-        }
+        queue: {
+          ...this.queue.queue,
+          store: {
+            ...this.queue.queue.store,
+            dispatch: this.originalDispatch,
+          }
+        },
       };
       this.originalDispatch?.call(fakeContext, event);
     };
@@ -400,7 +407,7 @@ export class Queue {
       type: 'UPDATE_ITEMS',
       payload: {
         items: items,
-        nextQueueItemId: this.queue.store.getState().queue.nextQueueItemId,
+        nextQueueItemId: this.queue.queue.store.store.getState().queue.nextQueueItemId,
         shouldAssignIds: true,
         currentIndex: -1
       }

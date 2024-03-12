@@ -4,6 +4,7 @@ import { css } from 'solid-styled-components';
 import { Transition } from 'solid-transition-group';
 import { autoUpdate, flip, offset, OffsetOptions, size } from '@floating-ui/dom';
 import { useFloating } from 'solid-floating-ui';
+
 import { cache } from '@/providers/decorators';
 
 const panelStyle = cache(() => css`
@@ -131,6 +132,7 @@ export const Panel = (props: PanelProps) => {
         <Show when={local.open}>
           <ul
             {...leftProps}
+            data-ytmd-sub-panel={true}
             ref={setPanel}
             class={panelStyle()}
             style={{

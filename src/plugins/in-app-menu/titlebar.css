@@ -51,3 +51,8 @@ ytmusic-guide-renderer {
     100vh - var(--menu-bar-height) - var(--ytmusic-nav-bar-height)
   ) !important;
 }
+
+/* ytm-bugs: see https://github.com/th-ch/youtube-music/issues/1737 */
+html {
+  scrollbar-color: unset;
+}
