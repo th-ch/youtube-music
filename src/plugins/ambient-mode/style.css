@@ -29,6 +29,7 @@
   top: 0 !important;
 }
 
-#player:not(.video-mode) {
+#player:not([video-mode]):not(.video-mode) {
   margin: 0 auto !important;
+  overflow: visible;
 }
