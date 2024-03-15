@@ -33,7 +33,7 @@
 |:---------------------------------------------------------------------------------------------------------:|
 |![Screenshot1](https://github.com/th-ch/youtube-music/assets/16558115/53efdf73-b8fa-4d7b-a235-b96b91ea77fc)|
 
-## Content
+## Efni
 
 - [Eiginleikar](#eiginleikar)
 - [Tiltæk viðbætur](#tiltæk-viðbætur)
@@ -380,7 +380,7 @@ Notar [Playwright](https://playwright.dev/) til að prófa forritið.
 
 MIT © [th-ch](https://github.com/th-ch/youtube-music)
 
-## Algengustu spurningar
+## Algengustu Spurningar
 
 ### Hvers vegna forritavalmynd birtist ekki?
 
