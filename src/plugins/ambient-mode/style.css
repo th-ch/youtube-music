@@ -25,6 +25,10 @@
   height: 100%;
 }
 
+#song-video .html5-video-container {
+  height: 100%;
+}
+
 #song-video .html5-video-container > video {
   top: 0 !important;
 }
