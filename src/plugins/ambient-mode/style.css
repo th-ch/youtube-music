@@ -34,6 +34,7 @@
 }
 
 #player:not([video-mode]):not(.video-mode) {
+  width: 100%;
   margin: 0 auto !important;
   overflow: visible;
 }
