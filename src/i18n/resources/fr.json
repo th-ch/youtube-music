@@ -194,7 +194,7 @@
       "show": "Afficher la fenêtre",
       "tooltip": {
         "default": "YouTube Music",
-        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
+        "with-song-info": "YouTube Music : {{artist}} - {{title}}"
       }
     }
   },
@@ -372,7 +372,7 @@
           "converting": "Conversion…",
           "done": "Terminé : {{filePath}}",
           "download-info": "Téléchargement {{artist}} - {{title}} [{{videoId}}",
-          "download-progress": "Télécharger: {{percent}}%",
+          "download-progress": "Téléchargé : {{percent}}%",
           "downloading": "Télécharge…",
           "downloading-counter": "Télécharge {{current}}/{{total}}…",
           "downloading-playlist": "Téléchargement de la playlist \"{{playlistTitle}}\" – {{playlistSize}} chansons ({{playlistId}})",
@@ -429,6 +429,52 @@
       "name": "Paroles Genius",
       "renderer": {
         "fetched-lyrics": "Paroles récupérées pour Genius"
+      }
+    },
+    "music-together": {
+      "description": "Partage une playlist avec d'autres personnes. Quand l'hôte joue un son, tout les participants entendront le même son",
+      "dialog": {
+        "enter-host": "Entrer l'identifiant de l'hôte"
+      },
+      "internal": {
+        "save": "Enregistrer",
+        "track-source": "Source de la piste audio",
+        "unknown-user": "Utilisateur inconnu"
+      },
+      "menu": {
+        "click-to-copy-id": "Copier l'identifiant de l'hôte",
+        "close": "Fermer Music Together",
+        "connected-users": "Utilisateurs connectés",
+        "disconnect": "Déconnecter Music Together",
+        "empty-user": "Aucun utilisateur connecté",
+        "host": "Hôte du Music Together",
+        "join": "Rejoindre le Music Together",
+        "permission": {
+          "all": "Autorisez les invités à contrôler la musique et le player",
+          "host-only": "Seulement l'hôte peut contrôler les playlists et le lecteur",
+          "playlist": "Autoriser les invités à contrôler les playlists"
+        },
+        "set-permission": "Changer les permissions de contrôle",
+        "status": {
+          "disconnected": "Déconnecté",
+          "guest": "Connecté en tant qu'invité",
+          "host": "Connecté en tant qu'hôte"
+        }
+      },
+      "name": "Music Together [BETA]",
+      "toast": {
+        "add-song-failed": "Echec d'ajout de musique",
+        "closed": "Music Together fermé",
+        "disconnected": "Music Together déconnecté",
+        "host-failed": "Echec de l'hébergement du Music Together",
+        "id-copied": "Identifiant de l'hôte copié dans le presse papier",
+        "id-copy-failed": "Echec de la copie de l'identifiant de l'hôte dans le presse papier",
+        "join-failed": "Echec en rejoignant le Music Together",
+        "joined": "Rejoint le Music Together",
+        "permission-changed": "Permission du Music Together changé à \"{{permission}}\"",
+        "remove-song-failed": "Echec du retrait de la piste",
+        "user-connected": "{{name}} à rejoint le Music Together",
+        "user-disconnected": "{{name}} à quitté le Music Together"
       }
     },
     "navigation": {
@@ -523,8 +569,41 @@
       "description": "Permet de changer la qualité vidéo avec un bouton sur la vidéo",
       "name": "Changeur de qualité vidéo"
     },
+    "scrobbler": {
+      "description": "Ajouter le support de scrobbling (ex. last.fm, Listenbrainz)",
+      "dialog": {
+        "lastfm": {
+          "auth-failed": {
+            "message": "Erreur lors de l'authetification avec Last.fm\nCachez la popup jusqu'au prochain redémarrage.",
+            "title": "Authentification échouée"
+          }
+        }
+      },
+      "menu": {
+        "lastfm": {
+          "api-settings": "Paramètres API de Last.fm"
+        },
+        "listenbrainz": {
+          "token": "Entrer le token utilisateur de ListenBrainz"
+        },
+        "scrobble-other-media": "Scrobbler d'autres médias"
+      },
+      "name": "Scrobble",
+      "prompt": {
+        "lastfm": {
+          "api-key": "Clé API de Last.fm",
+          "api-secret": "API secret de Last.fm"
+        },
+        "listenbrainz": {
+          "token": {
+            "label": "Entrez votre token utilisateur ListenBrainz :",
+            "title": "Token ListenBrainz"
+          }
+        }
+      }
+    },
     "shortcuts": {
-      "description": "Permet de définir des raccourcis clavier globaux pour la lecture (lecture/pause/suivant/précédent) + désactiver l'OSD multimédia en remplaçant les touches multimédias + activer Ctrl/CMD + F pour rechercher + activer la prise en charge Linux MPRIS pour les touches multimédias + raccourcis clavier personnalisés pour les utilisateurs avancés",
+      "description": "Permet de définir des raccourcis clavier globaux pour la lecture (lecture/pause/suivant/précédent) + désactiver l'OSD multimédia en remplaçant les touches multimédias + activer Ctrl/CMD + F pour rechercher + activer la prise en charge Linux MPRIS pour les touches multimédias + raccourcis clavier personnalisés pour les utilisateurs avancés.",
       "menu": {
         "override-media-keys": "Remplacer les touches multimédias",
         "set-keybinds": "Définir les contrôles globaux des morceaux"
