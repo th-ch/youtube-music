@@ -1,6 +1,6 @@
-# 유튜브 뮤직 (YouTube Music)
-
 <div align="center">
+
+# 유튜브 뮤직 (YouTube Music)
 
 [![GitHub release](https://img.shields.io/github/release/th-ch/youtube-music.svg?style=for-the-badge&logo=youtube-music)](https://github.com/th-ch/youtube-music/releases/)
 [![GitHub license](https://img.shields.io/github/license/th-ch/youtube-music.svg?style=for-the-badge)](https://github.com/th-ch/youtube-music/blob/master/LICENSE)
@@ -25,62 +25,26 @@
 - 원래의 인터페이스를 유지하는 것을 목표로 하는 네이티브 디자인 및 느낌
 - 맞춤 플러그인을 위한 프레임워크: 스타일, 콘텐츠, 기능 등 필요에 따라 유튜브 뮤직을 변경하고, 클릭 한 번으로 플러그인을 활성화/비활성화할 수 있습니다.
 
-## 번역
+## Content
 
-[Hosted Weblate](https://hosted.weblate.org/projects/youtube-music/)에서 번역을 도울 수 있습니다.
-
-<a href="https://hosted.weblate.org/engage/youtube-music/">
-  <img src="https://hosted.weblate.org/widget/youtube-music/i18n/multi-auto.svg" alt="번역 상태" />
-  <img src="https://hosted.weblate.org/widget/youtube-music/i18n/287x66-black.png" alt="번역 상태 2" />
-</a>
-
-## 다운로드
-
-[최신 릴리즈](https://github.com/th-ch/youtube-music/releases/latest)를 확인하여 최신 버전을 빠르게 찾을 수 있습니다.
-
-### Arch Linux
-
-AUR에서 `youtube-music-bin` 패키지를 설치합니다. AUR 설치 지침은 [이 위키 페이지](https://wiki.archlinux.org/index.php/Arch_User_Repository#Installing_packages)를 참조하세요.
-
-### MacOS
-
-Homebrew를 사용하여 앱을 설치할 수 있습니다:
-```bash
-brew install --cask https://raw.githubusercontent.com/th-ch/youtube-music/master/youtube-music.rb
-```
-
-(앱을 수동으로 설치하고) 앱을 실행할 때 `손상되었기 때문에 열 수 없습니다.`라는 오류가 발생하면 터미널에서 다음을 실행하세요:
-
-```bash
-xattr -cr /Applications/YouTube\ Music.app
-```
-
-### Windows
-
-[Scoop 패키지 매니저](https://scoop.sh)를 사용하여 [`extras` 버킷](https://github.com/ScoopInstaller/Extras)에서 `youtube-music` 패키지를 설치할 수 있습니다.
-
-```bash
-scoop bucket add extras
-scoop install extras/youtube-music
-```
-
-또는 Windows 11의 공식 CLI 패키지 관리자인 [Winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/)을 사용하여 `th-ch.YouTubeMusic` 패키지를 설치할 수 있습니다.
-
-*참고: "알 수 없는 게시자"의 파일이기 때문에 Microsoft Defender의 SmartScreen에서 설치를 차단할 수 있습니다. 이는 GitHub에서 동일 파일을 수동으로 다운로드한 후 실행 파일(.exe)을 실행하려고 할 때도 마찬가지로 발생합니다.*
-
-```bash
-winget install th-ch.YouTubeMusic
-```
-
-#### (Windows에서) 네트워크에 연결하지 않고 설치하는 방법은 무엇인가요?
-
-- [릴리즈 페이지](https://github.com/th-ch/youtube-music/releases/latest)에서 _본인 기기 아키텍처_에 맞는 `*.nsis.7z` 파일을 다운로드하세요.
-  - `x64`는 64비트 Windows 용입니다.
-  - `ia32`는 32비트 Windows 용입니다.
-  - `arm64`는 ARM64 Windows 용입니다.
-- 릴리즈 페이지에서 설치기를 다운로드하세요. (`*-Setup.exe`)
-- 두 파일을 **동일한 위치**에 놓아주세요.
-- 설치기를 실행하세요.
+- [기능](#기능)
+- [사용 가능한 플러그인](#사용-가능한-플러그인)
+- [번역](#번역)
+- [다운로드](#다운로드)
+  - [Arch Linux](#arch-linux)
+  - [MacOS](#macos)
+  - [Windows](#windows)
+    - [(Windows에서) 네트워크에 연결하지 않고 설치하는 방법은 무엇인가요?](#windows에서-네트워크에-연결하지-않고-설치하는-방법은-무엇인가요)
+- [테마](#테마)
+- [개발](#개발)
+- [나만의 플러그인 만들기](#나만의-플러그인-만들기)
+  - [플러그인 만들기](#플러그인-만들기)
+  - [일반적인 사용 예](#일반적인-사용-예)
+- [빌드](#빌드)
+- [프로덕션 빌드 미리보기](#프로덕션-빌드-미리보기)
+- [테스트](#테스트)
+- [라이선스](#라이선스)
+- [자주 묻는 질문](#자주-묻는-질문)
 
 ## 기능:
 
@@ -155,6 +119,63 @@ winget install th-ch.YouTubeMusic
 - **영상 전환**: 영상/노래 모드를 전환하는 [버튼](https://user-images.githubusercontent.com/28893833/173663950-63e6610e-a532-49b7-9afa-54cb57ddfc15.png)을 추가합니다. 선택적으로 전체 영상 탭을 제거할 수도 있습니다
 
 - **비주얼라이저**: 플레이어에 시각화 도구 추가
+
+## 번역
+
+[Hosted Weblate](https://hosted.weblate.org/projects/youtube-music/)에서 번역을 도울 수 있습니다.
+
+<a href="https://hosted.weblate.org/engage/youtube-music/">
+  <img src="https://hosted.weblate.org/widget/youtube-music/i18n/multi-auto.svg" alt="번역 상태" />
+  <img src="https://hosted.weblate.org/widget/youtube-music/i18n/287x66-black.png" alt="번역 상태 2" />
+</a>
+
+## 다운로드
+
+[최신 릴리즈](https://github.com/th-ch/youtube-music/releases/latest)를 확인하여 최신 버전을 빠르게 찾을 수 있습니다.
+
+### Arch Linux
+
+AUR에서 [`youtube-music-bin`](https://aur.archlinux.org/packages/youtube-music-bin) 패키지를 설치합니다. AUR 설치 지침은 [이 위키 페이지](https://wiki.archlinux.org/index.php/Arch_User_Repository#Installing_packages)를 참조하세요.
+
+### MacOS
+
+Homebrew를 사용하여 앱을 설치할 수 있습니다:
+```bash
+brew install --cask https://raw.githubusercontent.com/th-ch/youtube-music/master/youtube-music.rb
+```
+
+(앱을 수동으로 설치하고) 앱을 실행할 때 `손상되었기 때문에 열 수 없습니다.`라는 오류가 발생하면 터미널에서 다음을 실행하세요:
+
+```bash
+xattr -cr /Applications/YouTube\ Music.app
+```
+
+### Windows
+
+[Scoop 패키지 매니저](https://scoop.sh)를 사용하여 [`extras` 버킷](https://github.com/ScoopInstaller/Extras)에서 `youtube-music` 패키지를 설치할 수 있습니다.
+
+```bash
+scoop bucket add extras
+scoop install extras/youtube-music
+```
+
+또는 Windows 11의 공식 CLI 패키지 관리자인 [Winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/)을 사용하여 `th-ch.YouTubeMusic` 패키지를 설치할 수 있습니다.
+
+*참고: "알 수 없는 게시자"의 파일이기 때문에 Microsoft Defender의 SmartScreen에서 설치를 차단할 수 있습니다. 이는 GitHub에서 동일 파일을 수동으로 다운로드한 후 실행 파일(.exe)을 실행하려고 할 때도 마찬가지로 발생합니다.*
+
+```bash
+winget install th-ch.YouTubeMusic
+```
+
+#### (Windows에서) 네트워크에 연결하지 않고 설치하는 방법은 무엇인가요?
+
+- [릴리즈 페이지](https://github.com/th-ch/youtube-music/releases/latest)에서 _본인 기기 아키텍처_에 맞는 `*.nsis.7z` 파일을 다운로드하세요.
+  - `x64`는 64비트 Windows 용입니다.
+  - `ia32`는 32비트 Windows 용입니다.
+  - `arm64`는 ARM64 Windows 용입니다.
+- 릴리즈 페이지에서 설치기를 다운로드하세요. (`*-Setup.exe`)
+- 두 파일을 **동일한 위치**에 놓아주세요.
+- 설치기를 실행하세요.
 
 ## 테마
 
