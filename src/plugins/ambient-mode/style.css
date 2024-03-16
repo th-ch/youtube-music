@@ -29,10 +29,6 @@
   height: 100%;
 }
 
-#song-video .html5-video-container > video {
-  top: 0 !important;
-}
-
 #player:not([video-mode]):not(.video-mode) {
   width: 100%;
   margin: 0 auto !important;
