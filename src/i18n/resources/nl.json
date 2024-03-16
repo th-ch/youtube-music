@@ -1,1 +1,43 @@
-{}
+{
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "Kan plug-in {{pluginName}}::{{contextName}} niet uitvoeren",
+        "executed-at-ms": "Plug-in {{pluginName}}::{{contextName}} uitgevoerd in {{ms}}ms",
+        "initialize-failed": "Kan plug-in \"{{pluginName}}\" niet laden",
+        "load-all": "Alle plug-ins laden",
+        "load-failed": "Kan plug-in \"{{pluginName}}\" niet laden",
+        "loaded": "Plug-in \"{{pluginName}}\" geladen",
+        "unload-failed": "Kan plug-in \"{{pluginName}}\" niet verwijderen",
+        "unloaded": "Plug-in \"{{pluginName}}\" geladen"
+      }
+    }
+  },
+  "language": {
+    "code": "nl",
+    "local-name": "Nederlands",
+    "name": "Dutch"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "Klaar met laden, DevTools geopend"
+      },
+      "i18n": {
+        "loaded": "i18n geladen"
+      },
+      "second-instance": {
+        "receive-command": "Ontvangen commando via protocol: \"{{command}}\""
+      },
+      "theme": {
+        "css-file-not-found": "CSS bestand \"{{cssFile}}\" niet gevonden"
+      },
+      "unresponsive": {
+        "details": "Niet reagerend door fout:\n{{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "App-cache wissen"
+      }
+    }
+  }
+}
