@@ -179,19 +179,14 @@ export default createPlugin({
 
         const observer = new MutationObserver((mutations) => {
           mutations.forEach((mutation) => {
-            if (mutation.type === 'attributes') {
+            if (mutation.type === 'attributes' || mutation.type === 'childList') {
               applyImageAttribute();
             }
           });
         });
-        const resizeObserver = new ResizeObserver(() => {
-          applyImageAttribute();
-        });
 
         applyImageAttribute();
-        observer.observe(songImage, { attributes: true });
-        resizeObserver.observe(songImage);
-        window.addEventListener('resize', applyImageAttribute);
+        observer.observe(songImage, { attributes: true, subtree: true });
 
         /* injecting */
         songImage.prepend(blurImage);
@@ -199,7 +194,6 @@ export default createPlugin({
         /* cleanup */
         return () => {
           observer.disconnect();
-          resizeObserver.disconnect();
           window.removeEventListener('resize', applyImageAttribute);
 
           if (blurImage.isConnected) blurImage.remove();
@@ -284,13 +278,10 @@ export default createPlugin({
 
         const observer = new MutationObserver((mutations) => {
           mutations.forEach((mutation) => {
-            if (mutation.type === 'attributes') {
+            if (mutation.type === 'attributes' || mutation.type === 'childList') {
               applyVideoAttributes();
             }
           });
-        });
-        const resizeObserver = new ResizeObserver(() => {
-          applyVideoAttributes();
         });
 
         /* hooking */
@@ -300,9 +291,7 @@ export default createPlugin({
           Math.max(1, Math.ceil(1000 / this.buffer)),
         );
         applyVideoAttributes();
-        observer.observe(songVideo, { attributes: true });
-        resizeObserver.observe(songVideo);
-        window.addEventListener('resize', applyVideoAttributes);
+        observer.observe(songVideo, { attributes: true, subtree: true });
 
         const onPause = () => {
           if (canvasInterval) clearInterval(canvasInterval);
@@ -329,8 +318,6 @@ export default createPlugin({
           songVideo.removeEventListener('play', onPlay);
 
           observer.disconnect();
-          resizeObserver.disconnect();
-          window.removeEventListener('resize', applyVideoAttributes);
 
           if (blurCanvas.isConnected) blurCanvas.remove();
         };
@@ -354,7 +341,7 @@ export default createPlugin({
 
       const observer = new MutationObserver((mutationsList) => {
         for (const mutation of mutationsList) {
-          if (mutation.type === 'attributes') {
+          if (mutation.type === 'attributes' || mutation.type === 'childList') {
             const isPageOpen =
               ytmusicAppLayout?.hasAttribute('player-page-open');
             if (isPageOpen) {
@@ -369,7 +356,7 @@ export default createPlugin({
       });
 
       if (playerPage) {
-        observer.observe(playerPage, { attributes: true });
+        observer.observe(playerPage, { attributes: true, subtree: true });
       }
     },
     onConfigChange(newConfig) {
