@@ -21,7 +21,6 @@ ytmusic-nav-bar > .right-content > * {
   -webkit-app-region: no-drag;
 }
 
-
 iron-icon,
 ytmusic-pivot-bar-item-renderer,
 .tab-title,
@@ -65,7 +64,13 @@ ytmusic-nav-bar > div.left-content > a > picture > img {
 tp-yt-paper-item.ytmusic-guide-entry-renderer::before {
   border-radius: 8px !important;
 }
-/** apply fix when #av-id is exist */
-ytmusic-player-page:not([video-mode]):not([player-fullscreened]) #av-id ~ #player.ytmusic-player-page {
-  margin-top: calc(var(--ytmusic-player-page-vertical-padding) / 2 * -1) !important;
+
+#av-id {
+  padding-bottom: 0;
+}
+
+#av-id ~ #player.ytmusic-player-page {
+  margin-top: auto !important;
+  margin-bottom: auto !important;
+  max-height: calc(100% - (var(--ytmusic-player-page-vertical-padding) * 2));
 }
