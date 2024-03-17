@@ -29,7 +29,7 @@
   height: 100%;
 }
 
-#player:not([video-mode]):not(.video-mode) {
+#player:not([video-mode]):not(.video-mode):not([player-ui-state='MINIPLAYER']) {
   width: 100%;
   margin: 0 auto !important;
   overflow: visible;
