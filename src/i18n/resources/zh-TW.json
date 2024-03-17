@@ -579,6 +579,14 @@
     },
     "scrobbler": {
       "description": "額外新增 scrobbling 支援 (例如：last.fm, Listenbrainz)",
+      "dialog": {
+        "lastfm": {
+          "auth-failed": {
+            "message": "Last.fm認證失敗\n將隱藏彈窗直到重啟。",
+            "title": "認證失敗"
+          }
+        }
+      },
       "menu": {
         "lastfm": {
           "api-settings": "Last.fm API 設定"
