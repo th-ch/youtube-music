@@ -261,8 +261,8 @@ devDependencies:
     specifier: 2.5.1
     version: 2.5.1
   vite-plugin-solid:
-    specifier: 2.10.1
-    version: 2.10.1(solid-js@1.8.15)(vite@5.1.6)
+    specifier: 2.10.2
+    version: 2.10.2(solid-js@1.8.15)(vite@5.1.6)
   ws:
     specifier: 8.16.0
     version: 8.16.0(bufferutil@4.0.8)(utf-8-validate@6.0.3)
@@ -6686,8 +6686,8 @@ packages:
       lib-esm: 0.4.2
     dev: true
 
-  /vite-plugin-solid@2.10.1(solid-js@1.8.15)(vite@5.1.6):
-    resolution: {integrity: sha512-kfVdNLWaJqaJVL52U6iCCKNW/nXE7bS1VVGOWPGllOkJfcNILymVSY0LCBLSnyy0iYnRtrXpiHm14rMuzeC7CA==}
+  /vite-plugin-solid@2.10.2(solid-js@1.8.15)(vite@5.1.6):
+    resolution: {integrity: sha512-AOEtwMe2baBSXMXdo+BUwECC8IFHcKS6WQV/1NEd+Q7vHPap5fmIhLcAzr+DUJ04/KHx/1UBU0l1/GWP+rMAPQ==}
     peerDependencies:
       '@testing-library/jest-dom': ^5.16.6 || ^5.17.0 || ^6.*
       solid-js: ^1.7.2

@@ -579,6 +579,14 @@
     },
     "scrobbler": {
       "description": "Добавьте поддержку скробблинга (например, last.fm, Listenbrainz)",
+      "dialog": {
+        "lastfm": {
+          "auth-failed": {
+            "message": "Не удалось войти с помощью Last.fm\nСкрыть сообщение до следующего запуска",
+            "title": "Ошибка аунтефикации"
+          }
+        }
+      },
       "menu": {
         "lastfm": {
           "api-settings": "Настройки API Last.fm"

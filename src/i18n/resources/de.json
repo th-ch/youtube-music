@@ -582,8 +582,8 @@
       "dialog": {
         "lastfm": {
           "auth-failed": {
-            "message": "Die Authentifizierung bei Last.fm ist fehlgeschlagen\nBlende das Pop-up bis zum nächsten Neustart aus.",
-            "title": "Authentifizierung Fehlgeschlagen"
+            "message": "Die Authentifizierung von Last.fm ist fehlgeschlagen.\nBlende das Pop-up bis zum nächsten Neustart aus.",
+            "title": "Authentifizierung fehlgeschlagen"
           }
         }
       },
