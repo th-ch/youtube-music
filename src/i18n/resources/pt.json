@@ -212,6 +212,13 @@
     },
     "album-color-theme": {
       "description": "Aplica um tema dinâmico e efeitos visuais com base na paleta de cores do álbum",
+      "menu": {
+        "color-mix-ratio": {
+          "submenu": {
+            "percent": "Proporção"
+          }
+        }
+      },
       "name": "Tema de cores do álbum"
     },
     "ambient-mode": {
@@ -569,8 +576,30 @@
       "description": "Permite alterar a qualidade do vídeo com um botão na sobreposição de vídeo",
       "name": "Trocador de qualidade do vídeo"
     },
+    "scrobbler": {
+      "dialog": {
+        "lastfm": {
+          "auth-failed": {
+            "title": "Falha na autenticação"
+          }
+        }
+      },
+      "menu": {
+        "lastfm": {
+          "api-settings": "Configurações de API Last.fm"
+        }
+      },
+      "prompt": {
+        "listenbrainz": {
+          "token": {
+            "label": "Insira seu token de usuário do ListenBrainz:",
+            "title": "Token ListenBrainz"
+          }
+        }
+      }
+    },
     "shortcuts": {
-      "description": "Permite definir teclas de atalho globais para reprodução (reproduzir/pausar/próximo/anterior) e desligar o OSD de mídia substituindo as teclas de mídia, ativando Ctrl/CMD + F para pesquisar, ativando o suporte Linux MPRIS para teclas de mídia e teclas de atalho personalizadas para usuários avançados.",
+      "description": "Permite definir teclas de atalho globais para reprodução (reproduzir/pausar/próximo/anterior) e desligar o OSD de mídia substituindo as teclas de mídia, ativando Ctrl/CMD + F para pesquisar, ativando o suporte Linux MPRIS para teclas de mídia e teclas de atalho personalizadas para usuários avançados",
       "menu": {
         "override-media-keys": "Substituir teclas de mídia",
         "set-keybinds": "Definir controles globais de música"
