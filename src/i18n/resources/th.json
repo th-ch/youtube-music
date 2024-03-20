@@ -4,12 +4,12 @@
       "plugins": {
         "execute-failed": "ปลั๊กอิน {{pluginName}}::{{contextName}} ไม่สามารถทำงานได้",
         "executed-at-ms": "ปลั๊กอิน {{pluginName}}::{{contextName}} ทำงานแล้วที่ {{ms}}ms",
-        "initialize-failed": "ไม่สามารถเริ่มต้นปลั๊กอิน \"{{pluginName}}\"",
+        "initialize-failed": "ไม่สามารถเริ่มปลั๊กอิน \"{{pluginName}}\"ได้",
         "load-all": "กำลังโหลดปลั๊กอินทั้งหมด",
-        "load-failed": "ไม่สามารถโหลดปลั๊กอิน \"{{pluginName}}\"",
-        "loaded": "โหลดปลั๊กอิน \"{{pluginName}}\" แล้ว",
-        "unload-failed": "ล้มเหลวในการยกเลิกการโหลดปลั๊กอิน \"{{pluginName}}\"",
-        "unloaded": "ยกเลิกการโหลดปลั๊กอิน \"{{pluginName}}\" แล้ว"
+        "load-failed": "ไม่สามารถโหลดปลั๊กอิน \"{{pluginName}}\"ได้",
+        "loaded": "โหลดปลั๊กอิน \"{{pluginName}}\" เรียบร้อยแล้ว",
+        "unload-failed": "ไม่่สามรถโหลดปลั๊กอิน \"{{pluginName}}\"ได้",
+        "unloaded": "ยกเลิกโหลดปลั๊กอิน \"{{pluginName}}\" แล้ว"
       }
     }
   },
@@ -21,22 +21,22 @@
   "main": {
     "console": {
       "did-finish-load": {
-        "dev-tools": "การโหลดเสร็จสิ้น DevTools ได้ถูกเปิดแล้ว"
+        "dev-tools": "การโหลดเสร็จสิ้น. โหมดนักพัฒนาสามรถใช้งานได้แล้ว"
       },
       "i18n": {
         "loaded": "โหลด i18n แล้ว"
       },
       "second-instance": {
-        "receive-command": "คำสั่งที่ได้รับผ่านโปรโตคอล: \"{{command}}\""
+        "receive-command": "รับคำสั่งผ่านโปรโตคอล: \"{{command}}\""
       },
       "theme": {
-        "css-file-not-found": "กำลังเพิกเฉยไฟล์ CSS \"{{cssFile}}\" เนื่องจากไม่มีอยู่"
+        "css-file-not-found": "ไม่พบไฟล์ CSS \"{{cssFile}}\" กำลังข้าม"
       },
       "unresponsive": {
-        "details": "มีข้อผิดพลาดจากการไม่ตอบสนอง!\n{{error}}"
+        "details": "พบข้อผิดพลาด!\n{{error}}"
       },
       "when-ready": {
-        "clearing-cache-after-20s": "กำลังล้างแคชของแอป"
+        "clearing-cache-after-20s": "กำลังล้างแคชแอป"
       },
       "window": {
         "tried-to-render-offscreen": "หน้าต่างพยายามแสดงผลเกินขนาดหน้าจอ windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
@@ -53,15 +53,15 @@
           "later": "ภายหลัง",
           "restart-now": "รีสตาร์ทตอนนี้"
         },
-        "detail": "\"{{pluginName}}\" ปลั๊กอินต้องการการรีสตาร์ทเพื่อให้มีผล",
-        "message": "\"{{pluginName}}\" ต้องรีสตาร์ท",
-        "title": "ต้องรีสตาร์ท"
+        "detail": "\"{{pluginName}}\" ปลั๊กอินต้องการการรีสตาร์ทเพื่อแสดงผล",
+        "message": "\"{{pluginName}}\" ต้องการรีสตาร์ท",
+        "title": "แนะนำให้รีสตาร์ท"
       },
       "unresponsive": {
         "buttons": {
           "quit": "ออก",
           "relaunch": "เปิดใหม่",
-          "wait": "รอ"
+          "wait": "รอซักครู่"
         },
         "detail": "ขออภัยในความไม่สะดวก! โปรดเลือกสิ่งที่ต้องการจะทำ:",
         "message": "แอปพลิเคชันไม่ตอบสนอง",
@@ -187,13 +187,13 @@
     },
     "tray": {
       "next": "ค่อไป",
-      "play-pause": "เล่น/หยุดเล่น",
+      "play-pause": "เล่น/พัก",
       "previous": "ก่อนหน้า",
       "quit": "ออก",
       "restart": "รีสตาร์ทแอป",
       "show": "แสดงหน้าต่าง",
       "tooltip": {
-        "default": "ยูทูปมิวสิค",
+        "default": "ยูทุปมิวสิค",
         "with-song-info": "ยูทูปมิวสิค: {{artist}} - {{title}}"
       }
     }
@@ -214,13 +214,16 @@
       "description": "ใช้ธีมและเอฟเฟกต์ไดนามิก โดยขึ้นอยู่กับสีของอัลบั้ม",
       "menu": {
         "color-mix-ratio": {
-          "label": "สัดส่วนการผสมสี"
+          "label": "สัดส่วนการผสมสี",
+          "submenu": {
+            "percent": "{{ratio}}เปอร์เซ็น"
+          }
         }
       },
       "name": "ธีมสีของอัลบั้ม"
     },
     "ambient-mode": {
-      "description": "ใช้เอฟเฟกต์แสงโดยการส่องสีอ่อนๆจากวิดีโอเข้าไปในพื้นหลังของหน้าจอของคุณ",
+      "description": "เอฟเฟกต์แสงจะใช้สีอ่อนๆจากวีดิโอมาเป็พื้นหลังสกรีน",
       "menu": {
         "blur-amount": {
           "label": "ระดับความเบลอ",
@@ -229,10 +232,16 @@
           }
         },
         "buffer": {
-          "label": "บัฟเฟอร์"
+          "label": "บัฟเฟอร์",
+          "submenu": {
+            "buffer": "{{buffer}}"
+          }
         },
         "opacity": {
-          "label": "ความโปร่งใส"
+          "label": "ความโปร่งใส",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
         },
         "quality": {
           "label": "คุณภาพ",
@@ -241,10 +250,13 @@
           }
         },
         "size": {
-          "label": "ขนาด"
+          "label": "ขนาด",
+          "submenu": {
+            "percent": "{{size}}%"
+          }
         },
         "smoothness-transition": {
-          "label": "การเปลี่ยนแปลงแบบสมูท",
+          "label": "การเปลี่ยนแบบสมูท",
           "submenu": {
             "during": "ระหว่าง {{interpolationTime}} วินาที"
           }
@@ -264,14 +276,14 @@
       "name": "เบลอแถบนำทาง"
     },
     "bypass-age-restrictions": {
-      "description": "การข้ามการตรวจสอบอายุของยูทูป",
+      "description": "ข้ามการตรวจสอบอายุของยูทูป",
       "name": "ข้ามข้อจำกัดอายุ"
     },
     "captions-selector": {
-      "description": "ตัวเลือกคำบรรยายสำหรับเพลงในยูทูปมิวสิค",
+      "description": "ตัวเลือกคำบรรยายสำหรับเพลงในYoutube Music",
       "menu": {
         "autoload": "เลือกคำบรรยายที่ใช้ครั้งล่าสุดโดยอัตโนมัติ",
-        "disable-captions": "ไม่มีคำบรรยายตามค่าเริ่มต้น"
+        "disable-captions": "ไม่มีคำบรรยายเป็นค่าเริ่มต้น"
       },
       "name": "ตัวเลือกคำบรรยาย",
       "prompt": {
