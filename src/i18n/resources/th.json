@@ -348,6 +348,7 @@
         "play-on-youtube-music": "เล่นบนยูทูปมิวสุค",
         "set-inactivity-timeout": "ตั้งระยะเวลาไม่มีกิจกรรม"
       },
+      "name": "Discord Rich Presence",
       "prompt": {
         "set-inactivity-timeout": {
           "label": "ป้อนระยะเวลาไม่มีกิจกรรมเป็นวินาที:",
