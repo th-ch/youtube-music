@@ -35,7 +35,10 @@ export default createPlugin({
 
     unregister: null as (() => void) | null,
     update: null as (() => void) | null,
-    observer: null as MutationObserver | null,
+    interval: null as NodeJS.Timeout | null,
+    lastMediaType: null as "video" | "image" | null,
+    lastVideoSource: null as string | null,
+    lastImageSource: null as string | null,
 
     async start({ getConfig }) {
       const config = await getConfig();
@@ -47,17 +50,22 @@ export default createPlugin({
       this.opacity = config.opacity;
       this.isFullscreen = config.fullscreen;
 
-      const injectBlurImage = () => {
-        const songImage = document.querySelector<HTMLImageElement>('#song-image');
-        const image = document.querySelector<HTMLImageElement>('#song-image yt-img-shadow > img');
+      const songImage = document.querySelector<HTMLImageElement>('#song-image');
+      const songVideo = document.querySelector<HTMLDivElement>('#song-video');
+      const image = songImage?.querySelector<HTMLImageElement>('yt-img-shadow > img');
+      const video = songVideo?.querySelector<HTMLVideoElement>('.html5-video-container > video');
+      const videoWrapper = document.querySelector('#song-video > .player-wrapper');
 
+      const injectBlurImage = () => {
         if (!songImage || !image) return null;
+
+        this.lastImageSource = image.src;
 
         const blurImage = document.createElement('img');
         blurImage.classList.add('html5-blur-image');
         blurImage.src = image.src;
 
-        const applyImageAttribute = () => {
+        this.update = () => {
           if (this.isFullscreen) blurImage.classList.add('fullscreen');
           else blurImage.classList.remove('fullscreen');
 
@@ -66,10 +74,7 @@ export default createPlugin({
           blurImage.style.setProperty('--blur', `${this.blur}px`);
           blurImage.style.setProperty('--opacity', `${this.opacity}`);
         };
-
-        this.update = applyImageAttribute;
-
-        applyImageAttribute();
+        this.update();
 
         /* injecting */
         songImage.prepend(blurImage);
@@ -80,12 +85,10 @@ export default createPlugin({
         };
       };
 
-      const injectBlurVideo = (): (() => void) | null => {
-        const songVideo = document.querySelector<HTMLDivElement>('#song-video');
-        const video = document.querySelector<HTMLVideoElement>('#song-video .html5-video-container > video');
-        const wrapper = document.querySelector('#song-video > .player-wrapper');
+      const injectBlurVideo = () => {
+        if (!songVideo || !video || !videoWrapper) return null;
 
-        if (!songVideo || !video || !wrapper) return null;
+        this.lastVideoSource = video.src;
 
         const blurCanvas = document.createElement('canvas');
         blurCanvas.classList.add('html5-blur-canvas');
@@ -123,7 +126,7 @@ export default createPlugin({
           });
         };
 
-        const applyVideoAttributes = () => {
+        this.update = () => {
           const rect = video.getBoundingClientRect();
 
           const newWidth = Math.floor(video.width || rect.width);
@@ -142,10 +145,7 @@ export default createPlugin({
           blurCanvas.style.setProperty('--blur', `${this.blur}px`);
           blurCanvas.style.setProperty('--opacity', `${this.opacity}`);
         };
-
-        this.update = applyVideoAttributes;
-
-        applyVideoAttributes();
+        this.update();
 
         /* hooking */
         let canvasInterval: NodeJS.Timeout | null = null;
@@ -163,7 +163,7 @@ export default createPlugin({
         songVideo.addEventListener('play', onPlay);
 
         /* injecting */
-        wrapper.prepend(blurCanvas);
+        videoWrapper.prepend(blurCanvas);
 
         /* cleanup */
         return () => {
@@ -179,38 +179,49 @@ export default createPlugin({
       const isVideoMode = () => {
         const songVideo = document.querySelector<HTMLDivElement>('#song-video');
         if (!songVideo) {
+          this.lastMediaType = "image";
           return false;
         }
 
-        return getComputedStyle(songVideo).display !== 'none';
+        const isVideo = getComputedStyle(songVideo).display !== 'none';
+        this.lastMediaType = isVideo ? "video" : "image";
+        return isVideo;
       };
 
       const playerPage = document.querySelector<HTMLElement>('#player-page');
       const ytmusicAppLayout = document.querySelector<HTMLElement>('#layout');
 
-      const isPageOpen = ytmusicAppLayout?.hasAttribute('player-page-open');
-      if (isPageOpen) {
-        this.unregister?.();
-        this.unregister = (isVideoMode() ? injectBlurVideo() : injectBlurImage()) ?? null;
+      const injectBlurElement = (force?: boolean): boolean | void => {
+        const isPageOpen = ytmusicAppLayout?.hasAttribute('player-page-open');
+        if (isPageOpen) {
+          const isVideo = isVideoMode();
+          if (!force) {
+            if (this.lastMediaType === "video" && this.lastVideoSource === video?.src) return false;
+            if (this.lastMediaType === "image" && this.lastImageSource === image?.src) return false;
+          }
+          this.unregister?.();
+          this.unregister = (isVideo ? injectBlurVideo() : injectBlurImage()) ?? null;
+        } else {
+          this.unregister?.();
+          this.unregister = null;
+        }
       }
 
+      /* needed for switching between different views (e.g. miniplayer) */
       const observer = new MutationObserver((mutationsList) => {
         for (const mutation of mutationsList) {
           if (mutation.type === 'attributes') {
-            const isPageOpen = ytmusicAppLayout?.hasAttribute('player-page-open');
-            if (isPageOpen) {
-              this.unregister?.();
-              this.unregister = (isVideoMode() ? injectBlurVideo() : injectBlurImage()) ?? null;
-            } else {
-              this.unregister?.();
-              this.unregister = null;
-            }
+            injectBlurElement(true);
+            break;
           }
         }
       });
 
       if (playerPage) {
         observer.observe(playerPage, { attributes: true });
+
+        /* fallback ticker for when the observer isn't triggered */
+        this.interval = setInterval(injectBlurElement, 1000);
       }
     },
     onConfigChange(newConfig) {
@@ -225,9 +236,9 @@ export default createPlugin({
       this.update?.();
     },
     stop() {
-      this.observer?.disconnect();
       this.update = null;
       this.unregister?.();
+      if (this.interval) clearInterval(this.interval);
     },
   },
 });
