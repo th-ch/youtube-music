@@ -52,6 +52,11 @@ ytmusic-guide-renderer {
   ) !important;
 }
 
+/* fix mini player behavior */
+ytmusic-app-layout ytmusic-player-page[is-mweb-modernization-enabled] .side-panel.ytmusic-player-page {
+  transform: translate(0, calc(var(--ytmusic-player-page-inner-height) - var(--ytmusic-player-page-tabs-header-height) - var(--ytmusic-player-page-player-bar-height) - var(--menu-bar-height, 32px) ));
+}
+
 /* ytm-bugs: see https://github.com/th-ch/youtube-music/issues/1737 */
 html {
   scrollbar-color: unset;
