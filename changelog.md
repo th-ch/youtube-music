@@ -2,7 +2,15 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v3.3.4](https://github.com/th-ch/youtube-music/compare/v3.3.3...v3.3.4)
+
+- Update changelog for v3.3.3 [`9769544`](https://github.com/th-ch/youtube-music/commit/97695444affbacb71dd73ae7107d4c987e285a37)
+- fix(style): fix fullscreen style and in-app-menu [`ed700c2`](https://github.com/th-ch/youtube-music/commit/ed700c2916cc7e6ccd2010d0c552364af116eb4f)
+- fix(style): fix miniplayer style [`a8bc539`](https://github.com/th-ch/youtube-music/commit/a8bc53912d1f4137008ecb2d9d5d9d9eb06ee2a8)
+
 #### [v3.3.3](https://github.com/th-ch/youtube-music/compare/v3.3.2...v3.3.3)
+
+> 24 March 2024
 
 - chore(deps): update dependency electron to v29.1.5 [`#1876`](https://github.com/th-ch/youtube-music/pull/1876)
 - chore(deps): update dependency typescript to v5.4.3 [`#1877`](https://github.com/th-ch/youtube-music/pull/1877)
