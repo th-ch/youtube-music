@@ -212,7 +212,7 @@
     "node-gyp": "10.0.1",
     "playwright": "1.42.1",
     "rollup": "4.13.0",
-    "typescript": "5.4.2",
+    "typescript": "5.4.3",
     "utf-8-validate": "6.0.3",
     "vite": "5.2.4",
     "vite-plugin-inspect": "0.8.3",
