@@ -65,12 +65,17 @@ tp-yt-paper-item.ytmusic-guide-entry-renderer::before {
   border-radius: 8px !important;
 }
 
+/* fix video player align */
 #av-id {
   padding-bottom: 0;
 }
 
-#av-id ~ #player.ytmusic-player-page {
+#av-id ~ #player.ytmusic-player-page:not([player-ui-state="FULLSCREEN"]) {
   margin-top: auto !important;
   margin-bottom: auto !important;
   max-height: calc(100% - (var(--ytmusic-player-page-vertical-padding) * 2));
+}
+
+ytmusic-player[player-ui-state=FULLSCREEN] {
+  top: calc(var(--menu-bar-height, 32px) * -1) !important;
 }

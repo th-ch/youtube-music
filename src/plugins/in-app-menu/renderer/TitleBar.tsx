@@ -1,5 +1,5 @@
 import { Menu, MenuItem } from 'electron';
-import { createEffect, createResource, createSignal, Index, Match, onMount, Show, Switch } from 'solid-js';
+import { createEffect, createResource, createSignal, Index, Match, onCleanup, onMount, Show, Switch } from 'solid-js';
 import { css } from 'solid-styled-components';
 import { TransitionGroup } from 'solid-transition-group';
 
@@ -38,10 +38,15 @@ const titleStyle = cache(() => css`
   user-select: none;
 
   transition: opacity 200ms ease 0s,
+  transform 300ms cubic-bezier(0.2, 0, 0.6, 1) 0s,
   background-color 300ms cubic-bezier(0.2, 0, 0.6, 1) 0s;
 
   &[data-macos="true"] {
     padding: 4px 4px 4px 74px;
+  }
+
+  ytmusic-app:has(ytmusic-player[player-ui-state=FULLSCREEN]) ~ &:not([data-show="true"]) {
+    transform: translateY(calc(-1 * var(--menu-bar-height, 32px)));
   }
 `);
 
@@ -162,6 +167,7 @@ export const TitleBar = (props: TitleBarProps) => {
   const [ignoreTransition, setIgnoreTransition] = createSignal(false);
   const [openTarget, setOpenTarget] = createSignal<HTMLElement | null>(null);
   const [menu, setMenu] = createSignal<Menu | null>(null);
+  const [mouseY, setMouseY] = createSignal(0);
 
   const [data, { refetch }] = createResource(async () => await props.ipc.invoke('get-menu') as Promise<Menu | null>);
   const [isMaximized, { refetch: refetchMaximize }] = createResource(async () => await props.ipc.invoke('window-is-maximized') as Promise<boolean>);
@@ -224,6 +230,10 @@ export const TitleBar = (props: TitleBarProps) => {
     setMenu(await refreshMenuItem(menuData, commandId));
   };
 
+  const listener = (e: MouseEvent) => {
+    setMouseY(e.clientY);
+  };
+
   onMount(() => {
     props.ipc.on('close-all-in-app-menu-panel', async () => {
       setIgnoreTransition(true);
@@ -257,6 +267,9 @@ export const TitleBar = (props: TitleBarProps) => {
         setOpenTarget(null);
       }
     });
+
+    // tracking mouse position
+    window.addEventListener('mousemove', listener);
   });
 
   createEffect(() => {
@@ -265,8 +278,12 @@ export const TitleBar = (props: TitleBarProps) => {
     }
   });
 
+  onCleanup(() => {
+    window.removeEventListener('mousemove', listener);
+  });
+
   return (
-    <nav data-ytmd-main-panel={true} class={titleStyle()} data-macos={props.isMacOS}>
+    <nav data-ytmd-main-panel={true} class={titleStyle()} data-macos={props.isMacOS} data-show={mouseY() < 32}>
       <IconButton
         onClick={() => setCollapsed(!collapsed())}
         style={{
