@@ -105,7 +105,7 @@
                 "label": "Définir un proxy",
                 "prompt": {
                   "label": "Entrez l'adresse proxy : (laissez vide pour désactiver)",
-                  "placeholder": "Exemple: socks5://127.0.0.1:9999",
+                  "placeholder": "Exemple: SOCKS5://127.0.0.1:9999",
                   "title": "Définir un proxy"
                 }
               },
@@ -212,10 +212,18 @@
     },
     "album-color-theme": {
       "description": "Applique un thème dynamique et des effets visuels basés sur la palette des couleurs de l'album",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "Ratio de mélange des couleurs",
+          "submenu": {
+            "percent": "{{ratio}}%"
+          }
+        }
+      },
       "name": "Thème de couleur d'album"
     },
     "ambient-mode": {
-      "description": "Applique un effet d'éclairage en jetant des couleurs douces de la vidéo, dans le fond de votre écran.",
+      "description": "Applique un effet d'éclairage en jetant des couleurs douces de la vidéo, dans le fond de votre écran",
       "menu": {
         "blur-amount": {
           "label": "Quantité de flou",
@@ -302,8 +310,8 @@
       "prompt": {
         "options": {
           "multi-input": {
-            "fade-in-duration": "Durée du fondu (millisecondes)",
-            "fade-out-duration": "Durée du fondu (millisecondes)",
+            "fade-in-duration": "Durée du début du fondu (ms)",
+            "fade-out-duration": "Durée de sortie du fondu (ms)",
             "fade-scaling": {
               "label": "Mise à l'échelle du fondu",
               "linear": "Linéaire",
