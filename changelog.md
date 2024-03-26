@@ -2,7 +2,19 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v3.3.5](https://github.com/th-ch/youtube-music/compare/v3.3.4...v3.3.5)
+
+- chore(deps): update dependency node-gyp to v10.1.0 [`#1885`](https://github.com/th-ch/youtube-music/pull/1885)
+- chore(deps): update dependency @typescript-eslint/eslint-plugin to v7.4.0 [`#1886`](https://github.com/th-ch/youtube-music/pull/1886)
+- chore(deps): update dependency vite to v5.2.6 [`#1883`](https://github.com/th-ch/youtube-music/pull/1883)
+- fix(style): resolve #1887 [`#1887`](https://github.com/th-ch/youtube-music/issues/1887)
+- chore(i18n): Translated using Weblate (Swedish) [`69087bb`](https://github.com/th-ch/youtube-music/commit/69087bbf1fac1ba58e992146deb1d6f1706b1e3c)
+- chore(i18n): Translated using Weblate (French) [`af78f15`](https://github.com/th-ch/youtube-music/commit/af78f1596ab8db2fa7069fdb1c4f078099ce4446)
+- Update changelog for v3.3.4 [`62f7d44`](https://github.com/th-ch/youtube-music/commit/62f7d440fab5bdbe9f49a3a5f8c32e7aaf2f28f6)
+
 #### [v3.3.4](https://github.com/th-ch/youtube-music/compare/v3.3.3...v3.3.4)
+
+> 24 March 2024
 
 - Update changelog for v3.3.3 [`9769544`](https://github.com/th-ch/youtube-music/commit/97695444affbacb71dd73ae7107d4c987e285a37)
 - fix(style): fix fullscreen style and in-app-menu [`ed700c2`](https://github.com/th-ch/youtube-music/commit/ed700c2916cc7e6ccd2010d0c552364af116eb4f)
