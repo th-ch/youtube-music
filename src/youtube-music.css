@@ -74,6 +74,7 @@ tp-yt-paper-item.ytmusic-guide-entry-renderer::before {
   margin-top: auto !important;
   margin-bottom: auto !important;
   max-height: calc(100% - (var(--ytmusic-player-page-vertical-padding) * 2));
+  max-width: calc(100% - var(--ytmusic-player-page-vertical-padding) * 2);
 }
 
 ytmusic-player[player-ui-state=FULLSCREEN] {
