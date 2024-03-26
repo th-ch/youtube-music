@@ -1,4 +1,9 @@
 {
+  "language": {
+    "code": "sv",
+    "local-name": "Svenska",
+    "name": "Swedish"
+  },
   "plugins": {
     "navigation": {
       "name": "Navigering"
