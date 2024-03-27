@@ -59,7 +59,7 @@ async function onApiLoaded() {
   });
   window.ipcRenderer.on('ytmd:switch-repeat', (_, repeat = 1) => {
     for (let i = 0; i < repeat; i++) {
-      document.querySelector<HTMLElement & { onRepeatButtonTap: () => void }>('ytmusic-player-bar')?.onRepeatButtonTap();
+      document.querySelector<HTMLElement & { onRepeatButtonClick: () => void }>('ytmusic-player-bar')?.onRepeatButtonClick();
     }
   });
   window.ipcRenderer.on('ytmd:update-volume', (_, volume: number) => {
