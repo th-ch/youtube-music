@@ -37,6 +37,14 @@
       },
       "when-ready": {
         "clearing-cache-after-20s": "App-cache wissen"
+      },
+      "window": {
+        "tried-to-render-offscreen": "Venster probeerde buiten het scherm te renderen, venstergrootte={{windowSize}}, schermgrootte={{displaySize}}, positie={{position}}"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "detail": "Menu is verborgen, gebruik 'Alt' om het te tonen (of 'Escape' als u het In-App Menu gebruikt)"
       }
     }
   }
