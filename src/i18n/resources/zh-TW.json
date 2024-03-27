@@ -83,7 +83,7 @@
       "navigation": {
         "label": "導覽列",
         "submenu": {
-          "copy-current-url": "複製目前的網址",
+          "copy-current-url": "複製當前頁面的網址",
           "go-back": "回到上一頁",
           "go-forward": "回到下一頁",
           "quit": "退出",
@@ -112,7 +112,7 @@
               "toggle-dev-tools": "切換開發者人員工具"
             }
           },
-          "always-on-top": "永遠顯示在最上層",
+          "always-on-top": "最上層顯示",
           "auto-update": "自動更新",
           "hide-menu": {
             "dialog": {
@@ -128,22 +128,22 @@
             },
             "label": "語言",
             "submenu": {
-              "to-help-translate": "想要協助翻譯？按一下這裡"
+              "to-help-translate": "想協助翻譯？按一下這裡"
             }
           },
           "resume-on-start": "應用啟動時繼續上次播放的歌曲",
-          "single-instance-lock": "單視窗鎖定",
+          "single-instance-lock": "單實例模式",
           "start-at-login": "開機時啟動",
           "starting-page": {
             "label": "啟動頁面",
             "unset": "不指定"
           },
           "tray": {
-            "label": "系統閘圖式",
+            "label": "系統閘",
             "submenu": {
               "disabled": "已停用",
-              "enabled-and-hide-app": "啟用並隱藏應用程式",
-              "enabled-and-show-app": "啟用並顯示應用程式",
+              "enabled-and-hide-app": "啟用並最小化應用程式",
+              "enabled-and-show-app": "啟用但持續顯示應用程式",
               "play-pause-on-click": "點擊時播放／暫停"
             }
           },
@@ -514,7 +514,7 @@
     "picture-in-picture": {
       "description": "允許應用程式切換至子母畫面模式",
       "menu": {
-        "always-on-top": "永遠顯示在最上層",
+        "always-on-top": "最上層顯示",
         "hotkey": {
           "label": "快捷鍵",
           "prompt": {
