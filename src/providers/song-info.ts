@@ -209,10 +209,19 @@ const registerProvider = (win: BrowserWindow) => {
 };
 
 const suffixesToRemove = [
-  ' - topic',
-  'vevo',
-  ' (performance video)',
-  ' (clip official)',
+  // Artist names
+  /\s*(- topic)$/i,
+  /\s*vevo$/i,
+
+  // Video titles
+  /\s*[(|\[]official(.*?)[)|\]]/i, // (Official Music Video), [Official Visualizer], etc...
+  /\s*[(|\[]((lyrics?|visualizer|audio)\s*(video)?)[)|\]]/i,
+  /\s*[(|\[](performance video)[)|\]]/i,
+  /\s*[(|\[](clip official)[)|\]]/i,
+  /\s*[(|\[](video version)[)|\]]/i,
+  /\s*[(|\[](HD|HQ)\s*?(?:audio)?[)|\]]$/i,
+  /\s*[(|\[](live)[)|\]]$/i,
+  /\s*[(|\[]4K\s*?(?:upgrade)?[)|\]]$/i,
 ];
 
 export function cleanupName(name: string): string {
@@ -220,15 +229,8 @@ export function cleanupName(name: string): string {
     return name;
   }
 
-  name = name.replace(
-    /\((?:official)? ?(?:music)? ?(?:lyrics?)? ?(?:video)?\)$/i,
-    '',
-  );
-  const lowCaseName = name.toLowerCase();
   for (const suffix of suffixesToRemove) {
-    if (lowCaseName.endsWith(suffix)) {
-      return name.slice(0, -suffix.length);
-    }
+    name = name.replace(suffix, '');
   }
 
   return name;
