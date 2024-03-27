@@ -491,7 +491,7 @@
     },
     "no-google-login": {
       "description": "Убрать из интерфейса кнопки и ссылки для входа через Google",
-      "name": "Нет входа в систему Google"
+      "name": "Без входа в систему Google"
     },
     "notifications": {
       "description": "Показывать уведомления о начале воспроизведения песни (интерактивные уведомления доступны в Windows)",
@@ -578,7 +578,7 @@
       "name": "Изменение качества видео"
     },
     "scrobbler": {
-      "description": "Добавьте поддержку скробблинга (например, last.fm, Listenbrainz)",
+      "description": "Добавляет поддержку скробблинга (last.fm, Listenbrainz)",
       "dialog": {
         "lastfm": {
           "auth-failed": {
