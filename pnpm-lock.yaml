@@ -129,6 +129,9 @@ dependencies:
   peerjs:
     specifier: 1.5.2
     version: 1.5.2
+  reconnecting-websocket:
+    specifier: 4.4.0
+    version: 4.4.0
   semver:
     specifier: 7.6.0
     version: 7.6.0
@@ -156,6 +159,9 @@ dependencies:
   vudio:
     specifier: 2.1.1
     version: 2.1.1(patch_hash=7iux5msqpgl3octdmwy4uspwoe)
+  ws:
+    specifier: 8.16.0
+    version: 8.16.0(bufferutil@4.0.8)(utf-8-validate@6.0.3)
   x11:
     specifier: 2.3.0
     version: 2.3.0
@@ -185,6 +191,9 @@ devDependencies:
   '@types/semver':
     specifier: 7.5.8
     version: 7.5.8
+  '@types/ws':
+    specifier: 8.5.10
+    version: 8.5.10
   '@typescript-eslint/eslint-plugin':
     specifier: 7.4.0
     version: 7.4.0(@typescript-eslint/parser@7.4.0)(eslint@8.57.0)(typescript@5.4.3)
@@ -263,9 +272,6 @@ devDependencies:
   vite-plugin-solid:
     specifier: 2.10.2
     version: 2.10.2(solid-js@1.8.16)(vite@5.2.6)
-  ws:
-    specifier: 8.16.0
-    version: 8.16.0(bufferutil@4.0.8)(utf-8-validate@6.0.3)
 
 packages:
 
@@ -1746,6 +1752,12 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@types/ws@8.5.10:
+    resolution: {integrity: sha512-vmQSUcfalpIq0R9q7uTo2lXs6eGIpt9wtnLdMv9LVpIjCA/+ufZRozlVoVelIYixx1ugCBKDhn89vnsEGOCx9A==}
+    dependencies:
+      '@types/node': 20.11.30
+    dev: true
 
   /@types/yauzl@2.10.3:
     resolution: {integrity: sha512-oJoftv0LSuaDZE3Le4DbKX+KS9G36NzOeSap90UIK0yMA/NhKJhqlSGtNDORNRaIbQfzjXDrQa0ytJ6mNRGz/Q==}
@@ -5711,6 +5723,10 @@ packages:
       util-deprecate: 1.0.2
     dev: true
 
+  /reconnecting-websocket@4.4.0:
+    resolution: {integrity: sha512-D2E33ceRPga0NvTDhJmphEgJ7FUYF0v4lr1ki0csq06OdlxKfugGzN0dSkxM/NfqCxYELK4KcaTOUOjTV6Dcng==}
+    dev: false
+
   /redent@4.0.0:
     resolution: {integrity: sha512-tYkDkVVtYkSVhuQ4zBgfvciymHaeuel+zFKXShfDnFP5SyVEP7qo70Rf1jTOTCx3vGNAbnEi/xFkcfQVMIBWag==}
     engines: {node: '>=12'}
@@ -6851,6 +6867,7 @@ packages:
     dependencies:
       bufferutil: 4.0.8
       utf-8-validate: 6.0.3
+    dev: false
 
   /x11@2.3.0:
     resolution: {integrity: sha512-Ep4DbqZkVHvZNVht+vvELcfdpGKnfh2kZuKdXqyZdtJx3UdvgUGrMQ9lwPNV33tDs86MF4YagC6+E2fZXikF6A==}

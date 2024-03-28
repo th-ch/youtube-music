@@ -172,6 +172,7 @@
     "node-html-parser": "6.1.12",
     "node-id3": "0.2.6",
     "peerjs": "1.5.2",
+    "reconnecting-websocket": "4.4.0",
     "semver": "7.6.0",
     "serve": "14.2.1",
     "simple-youtube-age-restriction-bypass": "github:organization/Simple-YouTube-Age-Restriction-Bypass#v2.5.9",
@@ -181,6 +182,7 @@
     "solid-transition-group": "0.2.3",
     "ts-morph": "22.0.0",
     "vudio": "2.1.1",
+    "ws": "8.16.0",
     "x11": "2.3.0",
     "youtubei.js": "9.1.0"
   },
@@ -192,6 +194,7 @@
     "@types/howler": "2.2.11",
     "@types/html-to-text": "9.0.4",
     "@types/semver": "7.5.8",
+    "@types/ws": "8.5.10",
     "@typescript-eslint/eslint-plugin": "7.4.0",
     "bufferutil": "4.0.8",
     "builtin-modules": "3.3.0",
@@ -217,8 +220,7 @@
     "vite": "5.2.6",
     "vite-plugin-inspect": "0.8.3",
     "vite-plugin-resolve": "2.5.1",
-    "vite-plugin-solid": "2.10.2",
-    "ws": "8.16.0"
+    "vite-plugin-solid": "2.10.2"
   },
   "auto-changelog": {
     "hideCredit": true,
