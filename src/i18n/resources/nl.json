@@ -16,7 +16,7 @@
   "language": {
     "code": "nl",
     "local-name": "Nederlands",
-    "name": "Dutch"
+    "name": "Engels"
   },
   "main": {
     "console": {
@@ -44,7 +44,74 @@
     },
     "dialog": {
       "hide-menu-enabled": {
-        "detail": "Menu is verborgen, gebruik 'Alt' om het te tonen (of 'Escape' als u het In-App Menu gebruikt)"
+        "detail": "Menu is verborgen, gebruik 'Alt' om het te tonen (of 'Escape' als u het In-App Menu gebruikt)",
+        "message": "Verberg menu is ingeschakeld",
+        "title": "Verberg Menu Ingeschakeld"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "Later",
+          "restart-now": "Nu opnieuw opstarten"
+        },
+        "detail": "De '{{pluginName}}' plugin moet opnieuw worden opgestart om van kracht te worden",
+        "message": "\"{{pluginName}}\" moet opnieuw opstarten",
+        "title": "Herstart vereis"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "Afsluiten",
+          "relaunch": "Herstarten",
+          "wait": "Wachten"
+        },
+        "detail": "Excuses voor het ongemak! Kies alstublieft wat u wilt doen:",
+        "message": "De applicatie reageert niet",
+        "title": "Venster reageert niet"
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "Updates uitschakelen",
+          "download": "Download",
+          "ok": "OK"
+        },
+        "detail": "Een nieuwe versie is beschikbaar en kan worden gedownload op {{downloadLink}}",
+        "message": "Een nieuwe versie is beschikbaar",
+        "title": "Update beschikbaar"
+      }
+    },
+    "menu": {
+      "about": "Over het",
+      "navigation": {
+        "label": "Navigatie",
+        "submenu": {
+          "copy-current-url": "Kopieer huidige URL",
+          "go-back": "Ga terug",
+          "go-forward": "Ga vooruit",
+          "quit": "Uitgang",
+          "restart": "App herstarten"
+        }
+      },
+      "options": {
+        "label": "Opties",
+        "submenu": {
+          "advanced-options": {
+            "label": "Toegewezen opties",
+            "submenu": {
+              "auto-reset-app-cache": "Reset app cache als app begint",
+              "disable-hardware-acceleration": "De hardware versnelling",
+              "edit-config-json": "Bewerk config.json",
+              "override-user-agent": "Overschrijf User-Agent",
+              "restart-on-config-changes": "Herstart op config changes",
+              "set-proxy": {
+                "label": "Proxy instellen",
+                "prompt": {
+                  "label": "Voer het proxyadres in: (laat leeg om uit te schakelen)",
+                  "placeholder": "Voorbeeld: SOCKS5://127.0.0.1:9999",
+                  "title": "Proxy instellen"
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
