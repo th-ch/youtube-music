@@ -169,7 +169,7 @@
     "i18next": "23.10.1",
     "keyboardevent-from-electron-accelerator": "2.0.0",
     "keyboardevents-areequal": "0.2.2",
-    "node-html-parser": "6.1.12",
+    "node-html-parser": "6.1.13",
     "node-id3": "0.2.6",
     "peerjs": "1.5.2",
     "semver": "7.6.0",
