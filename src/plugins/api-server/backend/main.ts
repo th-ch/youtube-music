@@ -3,6 +3,7 @@ import { OpenAPIHono as Hono } from '@hono/zod-openapi';
 import { swaggerUI } from '@hono/swagger-ui';
 import { serve } from '@hono/node-server';
 
+import registerCallback from '@/providers/song-info';
 import { createBackend } from '@/utils';
 
 import { JWTPayloadSchema } from './scheme';
@@ -14,7 +15,11 @@ import type { BackendType } from './types';
 export const backend = createBackend<BackendType, APIServerConfig>({
   async start(ctx) {
     const config = await ctx.getConfig();
+
     this.init(ctx);
+    registerCallback((songInfo) => {
+      this.songInfo = songInfo;
+    });
 
     this.run(config.hostname, config.port);
   },
@@ -57,7 +62,7 @@ export const backend = createBackend<BackendType, APIServerConfig>({
     });
 
     // routes
-    registerControl(this.app, ctx);
+    registerControl(this.app, ctx, () => this.songInfo);
     registerAuth(this.app, ctx);
 
     // swagger
