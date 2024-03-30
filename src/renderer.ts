@@ -45,6 +45,12 @@ async function onApiLoaded() {
   window.ipcRenderer.on('ytmd:next-video', () => {
     document.querySelector<HTMLElement>('.next-button.ytmusic-player-bar')?.click();
   });
+  window.ipcRenderer.on('ytmd:play', (_) => {
+    api?.playVideo();
+  });
+  window.ipcRenderer.on('ytmd:pause', (_) => {
+    api?.pauseVideo();
+  });
   window.ipcRenderer.on('ytmd:toggle-play', (_) => {
     if (api?.getPlayerState() === 2) api?.playVideo();
     else api?.pauseVideo();
