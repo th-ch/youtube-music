@@ -22,8 +22,8 @@ patchedDependencies:
 
 dependencies:
   '@cliqz/adblocker-electron':
-    specifier: 1.26.16
-    version: 1.26.16(electron@29.1.6)
+    specifier: 1.27.0
+    version: 1.27.0(electron@29.1.6)
   '@cliqz/adblocker-electron-preload':
     specifier: 1.27.0
     version: 1.27.0(electron@29.1.6)
@@ -587,12 +587,12 @@ packages:
       electron: 29.1.6
     dev: false
 
-  /@cliqz/adblocker-electron@1.26.16(electron@29.1.6):
-    resolution: {integrity: sha512-olpIpWInGoJcDhfY9xvDmA0lCUg9w6Np1vSLIdKiZsFT2n+iLZcN0NJJt5VFSHGaCTGX/h9oNy7ajQJQKpgR6Q==}
+  /@cliqz/adblocker-electron@1.27.0(electron@29.1.6):
+    resolution: {integrity: sha512-KOjeGblm+YsMBityZmQcAtmP1sEFwk8CxlZgY+pOjy8O44cTAWLjYG00xHQ9t0iXVGySp8vB1xRCaVgM0fwdVA==}
     peerDependencies:
       electron: '>11'
     dependencies:
-      '@cliqz/adblocker': 1.26.16
+      '@cliqz/adblocker': 1.27.0
       '@cliqz/adblocker-electron-preload': 1.27.0(electron@29.1.6)
       electron: 29.1.6
       tldts-experimental: 6.1.2
@@ -602,15 +602,15 @@ packages:
     resolution: {integrity: sha512-NeXJSFQ6K2APg6xSHcDNmr5FREyxlMeQvinftGa2wL0UGYRMpAk0jM+lTLxi7IfO7eEqIQzc72hqo0dwUuvbhg==}
     dev: false
 
-  /@cliqz/adblocker@1.26.16:
-    resolution: {integrity: sha512-NQ5WdNeiWiggDhhT/IXbsjKgH44nA9k5GlW00gUWRUpfKHCCInyDJYjM5pbHqxhgC3LkMVmXmU5vIsMUZ4RxFQ==}
+  /@cliqz/adblocker@1.27.0:
+    resolution: {integrity: sha512-et4TMfy5Y2DNRr05pKVsVOuwFhRseaf7Z3xCMBTAuQTAbgiOJtaWsD7Dl5H/mitLxYA7owXRN+afThZ3pb1rYg==}
     dependencies:
       '@cliqz/adblocker-content': 1.27.0
       '@cliqz/adblocker-extended-selectors': 1.27.0
       '@remusao/guess-url-type': 1.2.1
       '@remusao/small': 1.2.1
       '@remusao/smaz': 1.9.1
-      '@types/chrome': 0.0.260
+      '@types/chrome': 0.0.263
       '@types/firefox-webext-browser': 120.0.0
       tldts-experimental: 6.1.2
     dev: false
@@ -1625,8 +1625,8 @@ packages:
       '@types/node': 20.11.30
       '@types/responselike': 1.0.3
 
-  /@types/chrome@0.0.260:
-    resolution: {integrity: sha512-lX6QpgfsZRTDpNcCJ+3vzfFnFXq9bScFRTlfhbK5oecSAjamsno+ejFTCbNtc5O/TPnVK9Tja/PyecvWQe0F2w==}
+  /@types/chrome@0.0.263:
+    resolution: {integrity: sha512-As0vzv99ov3M6ZR7R6VzhMWFZXkPMrFrCEXXVrMN576Cm70fTkj7Df2CF+qEo170JepX50pd11cX6O4DSAtl2Q==}
     dependencies:
       '@types/filesystem': 0.0.35
       '@types/har-format': 1.2.15
