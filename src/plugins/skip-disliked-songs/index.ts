@@ -27,15 +27,15 @@ export default createPlugin<
       });
     },
     start() {
-      this.waitForElem('#like-button-renderer').then((likeBtn) => {
+      this.waitForElem('#dislike-button-renderer').then((dislikeBtn) => {
         this.observer = new MutationObserver(() => {
-          if (likeBtn?.getAttribute('like-status') == 'DISLIKE') {
+          if (dislikeBtn?.getAttribute('like-status') == 'DISLIKE') {
             document
               .querySelector<HTMLButtonElement>('tp-yt-paper-icon-button.next-button')
               ?.click();
           }
         });
-        this.observer.observe(likeBtn, {
+        this.observer.observe(dislikeBtn, {
           attributes: true,
           childList: false,
           subtree: false,
