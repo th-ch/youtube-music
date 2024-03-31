@@ -212,7 +212,6 @@
     },
     "album-color-theme": {
       "description": "Past een dynamisch thema en visuele effecten toe op basis van het kleurenpalet van het album",
-      "name": "Albumkleurthema",
       "menu": {
         "color-mix-ratio": {
           "label": "Kleurmixverhouding",
@@ -220,7 +219,8 @@
             "percent": "{{ratio}}%"
           }
         }
-      }
+      },
+      "name": "Albumkleurthema"
     },
     "ambient-mode": {
       "description": "Past een verlichtingseffect toe door zachte kleuren van de video op het achtergrondscherm te werpen",
@@ -451,148 +451,11 @@
       "menu": {
         "interactive": "Interactieve Meldingen"
       },
-      "name": "Meldingen",
-      "prompt": {
-        "type": {
-          "label": "Type meldingen",
-          "regular": "Regelmatig",
-          "toast": "Toast"
-        }
-      }
-    },
-    "pitch-control": {
-      "description": "Pas de toonhoogte aan van de audio",
-      "name": "Toonhoogteregeling",
-      "menu": {
-        "reset": "Resetten"
-      },
-      "prompt": {
-        "set-pitch": {
-          "label": "Toonhoogte instellen",
-          "title": "Toonhoogte instellen"
-        }
-      }
-    },
-    "replay": {
-      "description": "Automatisch nummer herhalen of de wachtrij",
-      "name": "Herhalen"
-    },
-    "search-bar": {
-      "description": "Een zoekbalk toevoegen aan de navigatiebalk",
-      "name": "Zoekbalk"
-    },
-    "sidebar-tweaks": {
-      "description": "Verwijder onnodige items uit de zijbalk",
-      "name": "Zijbalk Aanpassingen"
-    },
-    "sleep-timer": {
-      "description": "Stel in dat de app na een bepaalde tijd automatisch wordt afgesloten",
-      "menu": {
-        "auto-pause": "Automatisch pauzeren",
-        "auto-play": "Automatisch afspelen",
-        "enable-on-start": "Inschakelen bij opstarten"
-      },
-      "name": "Slaaptimer",
-      "prompt": {
-        "set-duration": {
-          "label": "Stel de duur in (minuten):",
-          "title": "Slaaptimer instellen"
-        }
-      }
-    },
-    "sound-effects": {
-      "description": "Voegt enkele geluidseffecten toe aan de speler",
-      "menu": {
-        "change-volume": "Pas het volumeniveau aan",
-        "enabled": "Ingeschakeld",
-        "volume": {
-          "label": "Volume",
-          "submenu": {
-            "percent": "{{volume}}%"
-          }
-        }
-      },
-      "name": "Geluidseffecten"
-    },
-    "spoof-client-info": {
-      "description": "Doet zich voor als een ander apparaat",
-      "menu": {
-        "device": {
-          "label": "Apparaat",
-          "submenu": {
-            "android-phone": "Android Telefoon",
-            "android-tablet": "Android Tablet",
-            "desktop": "Desktop",
-            "iphone": "iPhone",
-            "tablet": "Tablet"
-          }
-        }
-      },
-      "name": "Client Info Nabootsen",
-      "prompt": {
-        "device": {
-          "label": "Kies een apparaat:"
-        }
-      }
-    },
-    "spotify-api": {
-      "description": "Spotify-integratie (work-in-progress)",
-      "name": "Spotify API"
-    },
-    "spotify-hotkeys": {
-      "description": "Voeg sneltoetsen toe voor het afspelen van Spotify",
-      "name": "Spotify-sneltoetsen"
-    },
-    "spotify-integration": {
-      "description": "Spotify-integratie (work-in-progress)",
-      "name": "Spotify-integratie"
-    },
-    "toast-style": {
-      "description": "Verander het uiterlijk van de toastmeldingen",
-      "name": "Toaststijl",
-      "menu": {
-        "color": "Kleur",
-        "corner-radius": "Hoekstraal",
-        "font-size": "Lettergrootte",
-        "show-close-button": "Toon Sluitknop",
-        "type": "Type"
-      },
-      "prompt": {
-        "color": {
-          "label": "Kies een kleur:"
-        },
-        "corner-radius": {
-          "label": "Kies een hoekstraal:"
-        },
-        "font-size": {
-          "label": "Kies een lettergrootte:"
-        },
-        "show-close-button": {
-          "label": "Toon Sluitknop:"
-        },
-        "type": {
-          "label": "Kies een type:"
-        }
-      }
+      "name": "Meldingen"
     },
     "visualizer": {
       "description": "Voeg een visuele equalizer toe",
-      "menu": {
-        "visualizer": "Visualizer"
-      },
       "name": "Visualizer"
-    },
-    "window-controls": {
-      "description": "Voeg vensterbedieningselementen toe (minimize, maximize, close) naar de menubalk",
-      "name": "Vensterbedieningselementen"
-    },
-    "youtube-api": {
-      "description": "Voegt integratie van YouTube Data API toe (maakt toegang tot gebruikersspecifieke afspeellijsten, enz. mogelijk)",
-      "name": "YouTube API"
-    },
-    "youtube-music-desktop-app": {
-      "description": "YouTube Music als desktop-app",
-      "name": "YouTube Music"
     }
   }
 }
