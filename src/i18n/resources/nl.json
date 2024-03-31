@@ -2,117 +2,597 @@
   "common": {
     "console": {
       "plugins": {
-        "execute-failed": "Kan plug-in {{pluginName}}::{{contextName}} niet uitvoeren",
-        "executed-at-ms": "Plug-in {{pluginName}}::{{contextName}} uitgevoerd in {{ms}}ms",
-        "initialize-failed": "Kan plug-in \"{{pluginName}}\" niet laden",
-        "load-all": "Alle plug-ins laden",
-        "load-failed": "Kan plug-in \"{{pluginName}}\" niet laden",
-        "loaded": "Plug-in \"{{pluginName}}\" geladen",
-        "unload-failed": "Kan plug-in \"{{pluginName}}\" niet verwijderen",
-        "unloaded": "Plug-in \"{{pluginName}}\" geladen"
+        "execute-failed": "Mislukt om plugin {{pluginName}}::{{contextName}} uit te voeren",
+        "executed-at-ms": "Plugin {{pluginName}}::{{contextName}} uitgevoerd in {{ms}}ms",
+        "initialize-failed": "Initialisatie van plugin \"{{pluginName}}\" mislukt",
+        "load-all": "Alle plugins laden",
+        "load-failed": "Mislukt om plugin \"{{pluginName}}\" te laden",
+        "loaded": "Plugin \"{{pluginName}}\" geladen",
+        "unload-failed": "Mislukt om plugin \"{{pluginName}}\" te lossen",
+        "unloaded": "Plugin \"{{pluginName}}\" gelost"
       }
     }
   },
   "language": {
     "code": "nl",
     "local-name": "Nederlands",
-    "name": "Engels"
+    "name": "Nederlands"
   },
   "main": {
     "console": {
       "did-finish-load": {
-        "dev-tools": "Klaar met laden, DevTools geopend"
+        "dev-tools": "Laden voltooid. DevTools geopend"
       },
       "i18n": {
         "loaded": "i18n geladen"
       },
       "second-instance": {
-        "receive-command": "Ontvangen commando via protocol: \"{{command}}\""
+        "receive-command": "Commando ontvangen via protocol: \"{{command}}\""
       },
       "theme": {
-        "css-file-not-found": "CSS bestand \"{{cssFile}}\" niet gevonden"
+        "css-file-not-found": "CSS-bestand \"{{cssFile}}\" bestaat niet, wordt genegeerd"
       },
       "unresponsive": {
-        "details": "Niet reagerend door fout:\n{{error}}"
+        "details": "Onverantwoordelijkheidsfout!\n{{error}}"
       },
       "when-ready": {
         "clearing-cache-after-20s": "App-cache wissen"
       },
       "window": {
-        "tried-to-render-offscreen": "Venster probeerde buiten het scherm te renderen, venstergrootte={{windowSize}}, schermgrootte={{displaySize}}, positie={{position}}"
+        "tried-to-render-offscreen": "Venster probeerde buiten het scherm te renderen, venstergrootte={{windowSize}}, weergavegrootte={{displaySize}}, positie={{position}}"
       }
     },
     "dialog": {
       "hide-menu-enabled": {
-        "detail": "Menu is verborgen, gebruik 'Alt' om het te tonen (of 'Escape' als u het In-App Menu gebruikt)",
-        "message": "Verberg menu is ingeschakeld",
-        "title": "Verberg Menu Ingeschakeld"
+        "detail": "Menu is verborgen, gebruik 'Alt' om het weer te geven (of 'Escape' als u de In-App Menu gebruikt)",
+        "message": "Menu verbergen is ingeschakeld",
+        "title": "Menu Verbergen Ingeschakeld"
       },
       "need-to-restart": {
         "buttons": {
           "later": "Later",
-          "restart-now": "Nu opnieuw opstarten"
+          "restart-now": "Nu Opnieuw Opstarten"
         },
-        "detail": "De '{{pluginName}}' plugin moet opnieuw worden opgestart om van kracht te worden",
-        "message": "\"{{pluginName}}\" moet opnieuw opstarten",
-        "title": "Herstart vereis"
+        "detail": "\"{{pluginName}}\" plugin vereist een herstart om van kracht te worden",
+        "message": "\"{{pluginName}}\" moet opnieuw worden opgestart",
+        "title": "Herstart Vereist"
       },
       "unresponsive": {
         "buttons": {
-          "quit": "Afsluiten",
-          "relaunch": "Herstarten",
+          "quit": "Stoppen",
+          "relaunch": "Opnieuw starten",
           "wait": "Wachten"
         },
-        "detail": "Excuses voor het ongemak! Kies alstublieft wat u wilt doen:",
+        "detail": "Het programma reageert niet!\nKies wat u wilt doen:",
         "message": "De applicatie reageert niet",
-        "title": "Venster reageert niet"
+        "title": "Venster Niet Reagerend"
       },
       "update-available": {
         "buttons": {
           "disable": "Updates uitschakelen",
-          "download": "Download",
+          "download": "Downloaden",
           "ok": "OK"
         },
-        "detail": "Een nieuwe versie is beschikbaar en kan worden gedownload op {{downloadLink}}",
+        "detail": "Er is een nieuwe versie beschikbaar en kan worden gedownload op {{downloadLink}}",
         "message": "Een nieuwe versie is beschikbaar",
-        "title": "Update beschikbaar"
+        "title": "Update Beschikbaar"
       }
     },
     "menu": {
-      "about": "Over het",
+      "about": "Over",
       "navigation": {
         "label": "Navigatie",
         "submenu": {
-          "copy-current-url": "Kopieer huidige URL",
-          "go-back": "Ga terug",
-          "go-forward": "Ga vooruit",
-          "quit": "Uitgang",
-          "restart": "App herstarten"
+          "copy-current-url": "Huidige URL kopiëren",
+          "go-back": "Terug",
+          "go-forward": "Vooruit",
+          "quit": "Afsluiten",
+          "restart": "Applicatie Opnieuw Opstarten"
         }
       },
       "options": {
         "label": "Opties",
         "submenu": {
           "advanced-options": {
-            "label": "Toegewezen opties",
+            "label": "Geavanceerde opties",
             "submenu": {
-              "auto-reset-app-cache": "Reset app cache als app begint",
-              "disable-hardware-acceleration": "De hardware versnelling",
-              "edit-config-json": "Bewerk config.json",
-              "override-user-agent": "Overschrijf User-Agent",
-              "restart-on-config-changes": "Herstart op config changes",
+              "auto-reset-app-cache": "App-cache resetten bij het starten van de app",
+              "disable-hardware-acceleration": "Hardwareversnelling uitschakelen",
+              "edit-config-json": "Config.json bewerken",
+              "override-user-agent": "Gebruikersagent overschrijven",
+              "restart-on-config-changes": "Herstarten bij configuratiewijzigingen",
               "set-proxy": {
                 "label": "Proxy instellen",
                 "prompt": {
-                  "label": "Voer het proxyadres in: (laat leeg om uit te schakelen)",
+                  "label": "Proxy-adres invoeren: (leeg laten om uit te schakelen)",
                   "placeholder": "Voorbeeld: SOCKS5://127.0.0.1:9999",
                   "title": "Proxy instellen"
+                }
+              },
+              "toggle-dev-tools": "DevTools schakelen"
+            }
+          },
+          "always-on-top": "Altijd bovenop",
+          "auto-update": "Automatisch bijwerken",
+          "hide-menu": {
+            "dialog": {
+              "message": "Menu wordt verborgen bij de volgende start, gebruik [Alt] om het weer te geven (of backtick [`] als u de in-app-menu gebruikt)",
+              "title": "Menu Verbergen Ingeschakeld"
+            },
+            "label": "Menu Verbergen"
+          },
+          "language": {
+            "dialog": {
+              "message": "Taal wordt gewijzigd na herstart",
+              "title": "Taal Gewijzigd"
+            },
+            "label": "Taal",
+            "submenu": {
+              "to-help-translate": "Wil je helpen vertalen? Klik hier"
+            }
+          },
+          "resume-on-start": "Hervat laatste liedje bij het opstarten van de app",
+          "single-instance-lock": "Eenmalige instantievergrendeling",
+          "start-at-login": "Starten bij het inloggen",
+          "starting-page": {
+            "label": "Startpagina",
+            "unset": "Niet ingesteld"
+          },
+          "tray": {
+            "label": "Systeemvak",
+            "submenu": {
+              "disabled": "Uitgeschakeld",
+              "enabled-and-hide-app": "Ingeschakeld en applicatie verbergen",
+              "enabled-and-show-app": "Ingeschakeld en applicatie weergeven",
+              "play-pause-on-click": "Afspelen/Pauzeren bij klikken"
+            }
+          },
+          "visual-tweaks": {
+            "label": "Visuele Aanpassingen",
+            "submenu": {
+              "like-buttons": {
+                "default": "Standaard",
+                "force-show": "Forceren weergeven",
+                "hide": "Verbergen",
+                "label": "Vind ik leuk-knoppen"
+              },
+              "remove-upgrade-button": "Upgrade-knop verwijderen",
+              "theme": {
+                "label": "Thema",
+                "submenu": {
+                  "import-css-file": "Aangepast CSS-bestand importeren",
+                  "no-theme": "Geen thema"
                 }
               }
             }
           }
         }
+      },
+      "plugins": {
+        "enabled": "Ingeschakeld",
+        "label": "Plugins",
+        "new": "NIEUW"
+      },
+      "view": {
+        "label": "Weergave",
+        "submenu": {
+          "force-reload": "Forceer Herladen",
+          "reload": "Herladen",
+          "reset-zoom": "Ware Grootte",
+          "toggle-fullscreen": "Volledig Scherm Wisselen",
+          "zoom-in": "Inzoomen",
+          "zoom-out": "Uitzoomen"
+        }
       }
+    },
+    "tray": {
+      "next": "Volgende",
+      "play-pause": "Afspelen/Pauzeren",
+      "previous": "Vorige",
+      "quit": "Afsluiten",
+      "restart": "Applicatie Opnieuw Opstarten",
+      "show": "Venster Weergeven",
+      "tooltip": {
+        "default": "YouTube Music",
+        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
+      }
+    }
+  },
+  "plugins": {
+    "adblocker": {
+      "description": "Blokkeer alle advertenties en tracking vanuit de doos",
+      "menu": {
+        "blocker": "Blokkeerder"
+      },
+      "name": "Advertentieblokkeerder"
+    },
+    "album-actions": {
+      "description": "Voegt knoppen toe voor Ondisliken, Disliken, Liken en Ontliken om dit toe te passen op alle nummers in een afspeellijst of album",
+      "name": "Albumacties"
+    },
+    "album-color-theme": {
+      "description": "Past een dynamisch thema en visuele effecten toe op basis van het kleurenpalet van het album",
+      "name": "Albumkleurthema",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "Kleurmixverhouding",
+          "submenu": {
+            "percent": "{{ratio}}%"
+          }
+        }
+      }
+    },
+    "ambient-mode": {
+      "description": "Past een verlichtingseffect toe door zachte kleuren van de video op het achtergrondscherm te werpen",
+      "menu": {
+        "blur-amount": {
+          "label": "Vervagingshoeveelheid",
+          "submenu": {
+            "pixels": "{{blurAmount}} pixels"
+          }
+        },
+        "buffer": {
+          "label": "Buffer",
+          "submenu": {
+            "buffer": "{{buffer}}"
+          }
+        },
+        "opacity": {
+          "label": "Dekking",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "quality": {
+          "label": "Kwaliteit",
+          "submenu": {
+            "pixels": "{{quality}} pixels"
+          }
+        },
+        "size": {
+          "label": "Formaat",
+          "submenu": {
+            "percent": "{{size}}%"
+          }
+        },
+        "smoothness-transition": {
+          "label": "Soepelheid overgang",
+          "submenu": {
+            "during": "Tijdens {{interpolationTime}} s"
+          }
+        },
+        "use-fullscreen": {
+          "label": "Volledig scherm gebruiken"
+        }
+      },
+      "name": "Omgevingsmodus"
+    },
+    "audio-compressor": {
+      "description": "Past compressie toe op audio (verlaagt het volume van de luidste delen van het signaal en verhoogt het volume van de zachtste delen)",
+      "name": "Audiocompressor"
+    },
+    "blur-nav-bar": {
+      "description": "Maakt de navigatiebalk transparant en wazig",
+      "name": "Vervagen Navigatiebalk"
+    },
+    "bypass-age-restrictions": {
+      "description": "Omzeil de leeftijdsverificatie van YouTube",
+      "name": "Leeftijdsbeperkingen Omzeilen"
+    },
+    "captions-selector": {
+      "description": "Ondertitelkeuze voor YouTube Music-audiotracks",
+      "menu": {
+        "autoload": "Automatisch de laatst gebruikte ondertitel selecteren",
+        "disable-captions": "Standaard geen ondertitels"
+      },
+      "name": "Ondertitelkeuze",
+      "prompt": {
+        "selector": {
+          "label": "Huidige ondertitel taal: {{language}}",
+          "none": "Geen",
+          "title": "Selecteer ondertitel taal"
+        }
+      },
+      "templates": {
+        "title": "Open ondertitelkeuze"
+      }
+    },
+    "compact-sidebar": {
+      "description": "Stel de zijbalk altijd in op compacte modus",
+      "name": "Compacte Zijbalk"
+    },
+    "crossfade": {
+      "description": "Vervagen tussen nummers",
+      "menu": {
+        "advanced": "Geavanceerd"
+      },
+      "name": "Crossfade [Beta]",
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "fade-in-duration": "Fade-in-duur (ms)",
+            "fade-out-duration": "Fade-out-duur (ms)",
+            "fade-scaling": {
+              "label": "Vervagingschaal",
+              "linear": "Lineair",
+              "logarithmic": "Logaritmisch"
+            },
+            "seconds-before-end": "Vervagen N seconden voor het einde"
+          },
+          "title": "Crossfade-opties"
+        }
+      }
+    },
+    "disable-autoplay": {
+      "description": "Zorgt ervoor dat nummers starten in 'gepauzeerde' modus",
+      "menu": {
+        "apply-once": "Alleen toepassen bij opstarten"
+      },
+      "name": "Automatisch afspelen uitschakelen"
+    },
+    "discord": {
+      "description": "Laat je vrienden zien waar je naar luistert met Rich Presence",
+      "menu": {
+        "auto-reconnect": "Automatisch opnieuw verbinden",
+        "clear-activity": "Activiteit wissen",
+        "clear-activity-after-timeout": "Activiteit na time-out wissen",
+        "connected": "Verbonden",
+        "disconnected": "Verbinding verbroken",
+        "hide-duration-left": "Verberg resterende tijd",
+        "hide-github-button": "GitHub-knop verbergen",
+        "play-on-youtube-music": "Afspelen op YouTube Music",
+        "set-inactivity-timeout": "Inactiviteitstime-out instellen"
+      },
+      "name": "Discord Rich Presence",
+      "prompt": {
+        "set-inactivity-timeout": {
+          "label": "Voer inactiviteitstime-out in seconden in:",
+          "title": "Inactiviteitstime-out instellen"
+        }
+      }
+    },
+    "downloader": {
+      "description": "Download MP3 / bron-audio rechtstreeks vanuit de interface",
+      "menu": {
+        "choose-download-folder": "Kies de downloadmap",
+        "download-playlist": "Afspeellijst downloaden",
+        "presets": "Presets",
+        "skip-existing": "Bestaande bestanden overslaan"
+      },
+      "name": "Downloader",
+      "renderer": {
+        "can-not-update-progress": "Kan de voortgang niet bijwerken"
+      },
+      "templates": {
+        "button": "Download"
+      }
+    },
+    "exponential-volume": {
+      "description": "Maakt de volumeschuif exponentieel zodat het gemakkelijker is om lagere volumes te selecteren.",
+      "name": "Exponentieel Volume"
+    },
+    "in-app-menu": {
+      "description": "Geeft menubalken een chique, donkere of albumkleurige uitstraling",
+      "menu": {
+        "hide-dom-window-controls": "Verberg DOM-vensterbedieningselementen"
+      },
+      "name": "In-App Menu"
+    },
+    "lumiastream": {
+      "description": "Voegt ondersteuning voor Lumia Stream toe",
+      "name": "Lumia Stream [Beta]"
+    },
+    "lyrics-genius": {
+      "description": "Voegt tekstondersteuning toe voor de meeste nummers",
+      "menu": {
+        "romanized-lyrics": "Geromaniseerde Teksten"
+      },
+      "name": "Lyrics Genius",
+      "renderer": {
+        "fetched-lyrics": "Teksten opgehaald voor Genius"
+      }
+    },
+    "music-together": {
+      "description": "Deel een afspeellijst met anderen. Wanneer de host een nummer afspeelt, hoort iedereen anders hetzelfde nummer",
+      "dialog": {
+        "enter-host": "Voer Host-ID in"
+      },
+      "internal": {
+        "save": "Opslaan",
+        "track-source": "Bron van nummers",
+        "unknown-user": "Onbekende gebruiker"
+      },
+      "menu": {
+        "click-to-copy-id": "Host-ID kopiëren",
+        "close": "Sluit Music Samen",
+        "connected-users": "Verbonden gebruikers",
+        "disconnect": "Music Samen verbreken",
+        "empty-user": "Geen verbonden gebruikers",
+        "host": "Music Samen Host",
+        "join": "Voeg Music Samen toe",
+        "permission": {
+          "all": "Gasten toestaan de afspeellijst en speler te bedienen",
+          "host-only": "Alleen de host kan de afspeellijst en speler bedienen",
+          "playlist": "Gasten toestaan de afspeellijst te bedienen"
+        },
+        "set-permission": "Bedieningsmachtiging wijzigen",
+        "status": {
+          "disconnected": "Verbroken",
+          "guest": "Verbonden als Gast",
+          "host": "Verbonden als Host"
+        }
+      },
+      "name": "Music Samen [Beta]",
+      "toast": {
+        "add-song-failed": "Toevoegen van nummer mislukt",
+        "closed": "Music Samen gesloten",
+        "disconnected": "Music Samen verbroken",
+        "host-failed": "Hosten van Music Samen mislukt",
+        "id-copied": "Host-ID gekopieerd naar klembord",
+        "id-copy-failed": "Kopiëren van Host-ID naar klembord mislukt",
+        "join-failed": "Aansluiten bij Music Samen mislukt",
+        "joined": "Music Samen toegetreden",
+        "permission-changed": "Music Samen machtiging gewijzigd naar \"{{permission}}\"",
+        "remove-song-failed": "Verwijderen van nummer mislukt",
+        "user-connected": "{{name}} heeft Music Samen toegetreden",
+        "user-disconnected": "{{name}} heeft Music Samen verlaten"
+      }
+    },
+    "navigation": {
+      "description": "Volgende/Vorige navigatiepijlen rechtstreeks geïntegreerd in de interface, zoals in je favoriete browser",
+      "name": "Navigatie"
+    },
+    "no-google-login": {
+      "description": "Verwijder Google aanmeldknoppen en -links uit de interface",
+      "name": "Geen Google Aanmelding"
+    },
+    "notifications": {
+      "description": "Toont een melding wanneer een nummer begint te spelen (interactieve meldingen zijn beschikbaar op Windows)",
+      "menu": {
+        "interactive": "Interactieve Meldingen"
+      },
+      "name": "Meldingen",
+      "prompt": {
+        "type": {
+          "label": "Type meldingen",
+          "regular": "Regelmatig",
+          "toast": "Toast"
+        }
+      }
+    },
+    "pitch-control": {
+      "description": "Pas de toonhoogte aan van de audio",
+      "name": "Toonhoogteregeling",
+      "menu": {
+        "reset": "Resetten"
+      },
+      "prompt": {
+        "set-pitch": {
+          "label": "Toonhoogte instellen",
+          "title": "Toonhoogte instellen"
+        }
+      }
+    },
+    "replay": {
+      "description": "Automatisch nummer herhalen of de wachtrij",
+      "name": "Herhalen"
+    },
+    "search-bar": {
+      "description": "Een zoekbalk toevoegen aan de navigatiebalk",
+      "name": "Zoekbalk"
+    },
+    "sidebar-tweaks": {
+      "description": "Verwijder onnodige items uit de zijbalk",
+      "name": "Zijbalk Aanpassingen"
+    },
+    "sleep-timer": {
+      "description": "Stel in dat de app na een bepaalde tijd automatisch wordt afgesloten",
+      "menu": {
+        "auto-pause": "Automatisch pauzeren",
+        "auto-play": "Automatisch afspelen",
+        "enable-on-start": "Inschakelen bij opstarten"
+      },
+      "name": "Slaaptimer",
+      "prompt": {
+        "set-duration": {
+          "label": "Stel de duur in (minuten):",
+          "title": "Slaaptimer instellen"
+        }
+      }
+    },
+    "sound-effects": {
+      "description": "Voegt enkele geluidseffecten toe aan de speler",
+      "menu": {
+        "change-volume": "Pas het volumeniveau aan",
+        "enabled": "Ingeschakeld",
+        "volume": {
+          "label": "Volume",
+          "submenu": {
+            "percent": "{{volume}}%"
+          }
+        }
+      },
+      "name": "Geluidseffecten"
+    },
+    "spoof-client-info": {
+      "description": "Doet zich voor als een ander apparaat",
+      "menu": {
+        "device": {
+          "label": "Apparaat",
+          "submenu": {
+            "android-phone": "Android Telefoon",
+            "android-tablet": "Android Tablet",
+            "desktop": "Desktop",
+            "iphone": "iPhone",
+            "tablet": "Tablet"
+          }
+        }
+      },
+      "name": "Client Info Nabootsen",
+      "prompt": {
+        "device": {
+          "label": "Kies een apparaat:"
+        }
+      }
+    },
+    "spotify-api": {
+      "description": "Spotify-integratie (work-in-progress)",
+      "name": "Spotify API"
+    },
+    "spotify-hotkeys": {
+      "description": "Voeg sneltoetsen toe voor het afspelen van Spotify",
+      "name": "Spotify-sneltoetsen"
+    },
+    "spotify-integration": {
+      "description": "Spotify-integratie (work-in-progress)",
+      "name": "Spotify-integratie"
+    },
+    "toast-style": {
+      "description": "Verander het uiterlijk van de toastmeldingen",
+      "name": "Toaststijl",
+      "menu": {
+        "color": "Kleur",
+        "corner-radius": "Hoekstraal",
+        "font-size": "Lettergrootte",
+        "show-close-button": "Toon Sluitknop",
+        "type": "Type"
+      },
+      "prompt": {
+        "color": {
+          "label": "Kies een kleur:"
+        },
+        "corner-radius": {
+          "label": "Kies een hoekstraal:"
+        },
+        "font-size": {
+          "label": "Kies een lettergrootte:"
+        },
+        "show-close-button": {
+          "label": "Toon Sluitknop:"
+        },
+        "type": {
+          "label": "Kies een type:"
+        }
+      }
+    },
+    "visualizer": {
+      "description": "Voeg een visuele equalizer toe",
+      "menu": {
+        "visualizer": "Visualizer"
+      },
+      "name": "Visualizer"
+    },
+    "window-controls": {
+      "description": "Voeg vensterbedieningselementen toe (minimize, maximize, close) naar de menubalk",
+      "name": "Vensterbedieningselementen"
+    },
+    "youtube-api": {
+      "description": "Voegt integratie van YouTube Data API toe (maakt toegang tot gebruikersspecifieke afspeellijsten, enz. mogelijk)",
+      "name": "YouTube API"
+    },
+    "youtube-music-desktop-app": {
+      "description": "YouTube Music als desktop-app",
+      "name": "YouTube Music"
     }
   }
 }
