@@ -10,6 +10,7 @@ export default createPlugin({
   description: () => t('plugins.api-server.description'),
   restartNeeded: false,
   config: defaultAPIServerConfig,
+  addedVersion: '3.4.X',
   menu: onMenu,
 
   backend,
