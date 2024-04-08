@@ -124,11 +124,11 @@
   "pnpm": {
     "overrides": {
       "usocket": "1.0.1",
-      "node-gyp": "10.0.1",
+      "node-gyp": "10.1.0",
       "xml2js": "0.6.2",
       "node-fetch": "3.3.2",
       "@electron/universal": "2.0.1",
-      "@babel/runtime": "7.23.8"
+      "@babel/runtime": "7.24.4"
     },
     "patchedDependencies": {
       "vudio@2.1.1": "patches/vudio@2.1.1.patch",

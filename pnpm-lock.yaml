@@ -6,11 +6,11 @@ settings:
 
 overrides:
   usocket: 1.0.1
-  node-gyp: 10.0.1
+  node-gyp: 10.1.0
   xml2js: 0.6.2
   node-fetch: 3.3.2
   '@electron/universal': 2.0.1
-  '@babel/runtime': 7.23.8
+  '@babel/runtime': 7.24.4
 
 patchedDependencies:
   '@xhayper/discord-rpc@1.1.2':
@@ -237,8 +237,8 @@ devDependencies:
     specifier: 10.3.12
     version: 10.3.12
   node-gyp:
-    specifier: 10.0.1
-    version: 10.0.1
+    specifier: 10.1.0
+    version: 10.1.0
   playwright:
     specifier: 1.43.0
     version: 1.43.0
@@ -481,8 +481,8 @@ packages:
       '@babel/helper-plugin-utils': 7.22.5
     dev: true
 
-  /@babel/runtime@7.23.8:
-    resolution: {integrity: sha512-Y7KbAP984rn1VGMbGqKmBLio9V7y5Je9GvU4rQPCPinCyNfUcToxIXl06d59URp/F3LwinvODxab5N/G6qggkw==}
+  /@babel/runtime@7.24.4:
+    resolution: {integrity: sha512-dkxf7+hn8mFBwKjs9bvBlArzLVxVbS8usaPUDd5p2a9JCL9tB8OaOVN1isD4+Xyk4ns89/xeOmbQvgdK7IIVdA==}
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.14.1
@@ -2449,14 +2449,14 @@ packages:
   /butterchurn-presets@3.0.0-beta.4:
     resolution: {integrity: sha512-TbQLUPvGOYMZAtWKoCmBtludh9aQZ6NaMGQU4lvPeadBPy3Du3yNmwBjlTMLP5c5mRWElxQPjTL1PtR7FZK3OQ==}
     dependencies:
-      '@babel/runtime': 7.23.8
+      '@babel/runtime': 7.24.4
     dev: false
 
   /butterchurn@3.0.0-beta.4:
     resolution: {integrity: sha512-hiY1ktHYHQ8MT65nnZi7GjrgZZ6sl/ipT5rBqEfaYJd90L4SvOtB6lVxtKadtzAyJo2TQJc4gJfEca4cpZo0DA==}
     dependencies:
       '@assemblyscript/loader': 0.17.14
-      '@babel/runtime': 7.23.8
+      '@babel/runtime': 7.24.4
       ecma-proposal-math-extensions: 0.0.2
       eel-wasm: 0.0.15
     dev: false
@@ -4379,7 +4379,7 @@ packages:
   /i18next@23.11.0:
     resolution: {integrity: sha512-VwFtlgy2LDbY0Qs6VfekIm6mv5/JmSJrtBf4aszl7Vby8+GcBlri0/7dkMZXmzTfiBMPUPBOmYCdQK7K4emkGQ==}
     dependencies:
-      '@babel/runtime': 7.23.8
+      '@babel/runtime': 7.24.4
     dev: false
 
   /iconv-corefoundation@1.1.7:
@@ -5262,11 +5262,10 @@ packages:
     resolution: {integrity: sha512-u6fs2AEUljNho3EYTJNBfImO5QTo/J/1Etd+NVdCj7qWKUSN/bSLkZwhDv7I+w/MSC6qJ4cknepkAYykDdK8og==}
     hasBin: true
 
-  /node-gyp@10.0.1:
-    resolution: {integrity: sha512-gg3/bHehQfZivQVfqIyy8wTdSymF9yTyP4CJifK73imyNMU8AIGQE2pUa7dNWfmMeG9cDVF2eehiRMv0LC1iAg==}
+  /node-gyp@10.1.0:
+    resolution: {integrity: sha512-B4J5M1cABxPc5PwfjhbV5hoy2DP9p8lFXASnEN6hugXOa61416tnTZ29x9sSwAd0o99XNIcpvDDy1swAExsVKA==}
     engines: {node: ^16.14.0 || >=18.0.0}
     hasBin: true
-    requiresBuild: true
     dependencies:
       env-paths: 2.2.1
       exponential-backoff: 3.1.1
@@ -6646,7 +6645,7 @@ packages:
       bindings: 1.5.0
       debug: 4.3.4
       nan: 2.18.0
-      node-gyp: 10.0.1
+      node-gyp: 10.1.0
     transitivePeerDependencies:
       - supports-color
     dev: false
