@@ -22,8 +22,8 @@ patchedDependencies:
 
 dependencies:
   '@cliqz/adblocker-electron':
-    specifier: 1.27.0
-    version: 1.27.0(electron@29.2.0)
+    specifier: 1.27.1
+    version: 1.27.1(electron@29.2.0)
   '@cliqz/adblocker-electron-preload':
     specifier: 1.27.0
     version: 1.27.0(electron@29.2.0)
@@ -572,10 +572,10 @@ packages:
     dev: false
     optional: true
 
-  /@cliqz/adblocker-content@1.27.0:
-    resolution: {integrity: sha512-53AZF6pXRkrcBPlppe4F9HQtRWtSC4hUHl5RCRlfxHVMDH8kqVHktyeKpB4cjoIyH19av9mYQ66f7JBC+Bk/Bg==}
+  /@cliqz/adblocker-content@1.27.1:
+    resolution: {integrity: sha512-xsQDsjoSsJna/2JI0xj9VTY/WFvFBTDb6lcHDr4gmTs6Lb+4VsWjIZSLO3WKHEOen/9Qk6dXKWtJO0fJyTQFbQ==}
     dependencies:
-      '@cliqz/adblocker-extended-selectors': 1.27.0
+      '@cliqz/adblocker-extended-selectors': 1.27.1
     dev: false
 
   /@cliqz/adblocker-electron-preload@1.27.0(electron@29.2.0):
@@ -583,30 +583,39 @@ packages:
     peerDependencies:
       electron: '>11'
     dependencies:
-      '@cliqz/adblocker-content': 1.27.0
+      '@cliqz/adblocker-content': 1.27.1
       electron: 29.2.0
     dev: false
 
-  /@cliqz/adblocker-electron@1.27.0(electron@29.2.0):
-    resolution: {integrity: sha512-KOjeGblm+YsMBityZmQcAtmP1sEFwk8CxlZgY+pOjy8O44cTAWLjYG00xHQ9t0iXVGySp8vB1xRCaVgM0fwdVA==}
+  /@cliqz/adblocker-electron-preload@1.27.1(electron@29.2.0):
+    resolution: {integrity: sha512-J6qHgqnqpPNwACIuIjtackMRfJbUM+bXc9w4XmPXt1jW7OCuxr8JVjxQamKWWW4PVP7YqtpZCwlvCxQGgCEGoQ==}
     peerDependencies:
       electron: '>11'
     dependencies:
-      '@cliqz/adblocker': 1.27.0
-      '@cliqz/adblocker-electron-preload': 1.27.0(electron@29.2.0)
+      '@cliqz/adblocker-content': 1.27.1
+      electron: 29.2.0
+    dev: false
+
+  /@cliqz/adblocker-electron@1.27.1(electron@29.2.0):
+    resolution: {integrity: sha512-mV49IrXKOUa23T87E0+ewGCtSdgVIZHalKVDabC+g2DY6nU57XjHe4YlAPQCZFRW59HHAxALYjn5wHYGWzus8Q==}
+    peerDependencies:
+      electron: '>11'
+    dependencies:
+      '@cliqz/adblocker': 1.27.1
+      '@cliqz/adblocker-electron-preload': 1.27.1(electron@29.2.0)
       electron: 29.2.0
       tldts-experimental: 6.1.2
     dev: false
 
-  /@cliqz/adblocker-extended-selectors@1.27.0:
-    resolution: {integrity: sha512-NeXJSFQ6K2APg6xSHcDNmr5FREyxlMeQvinftGa2wL0UGYRMpAk0jM+lTLxi7IfO7eEqIQzc72hqo0dwUuvbhg==}
+  /@cliqz/adblocker-extended-selectors@1.27.1:
+    resolution: {integrity: sha512-OQuNXkVZVwDJk5OqixPQNQv8xytPlpATFR0DsAYEGOVgNi6nohU0DGpkLAWyUIKwO88b0Yf6C3fEY1L5TPqAoQ==}
     dev: false
 
-  /@cliqz/adblocker@1.27.0:
-    resolution: {integrity: sha512-et4TMfy5Y2DNRr05pKVsVOuwFhRseaf7Z3xCMBTAuQTAbgiOJtaWsD7Dl5H/mitLxYA7owXRN+afThZ3pb1rYg==}
+  /@cliqz/adblocker@1.27.1:
+    resolution: {integrity: sha512-NcmKqlyqFG/UFTH1Cnc9gmvkG4WMvjLzRSlPeMW35wzXfRvSQwAtfMkbARJX/WIWdMzMW8C/ZihkI3dJCd+8pw==}
     dependencies:
-      '@cliqz/adblocker-content': 1.27.0
-      '@cliqz/adblocker-extended-selectors': 1.27.0
+      '@cliqz/adblocker-content': 1.27.1
+      '@cliqz/adblocker-extended-selectors': 1.27.1
       '@remusao/guess-url-type': 1.2.1
       '@remusao/small': 1.2.1
       '@remusao/smaz': 1.9.1
