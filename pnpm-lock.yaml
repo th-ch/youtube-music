@@ -25,8 +25,8 @@ dependencies:
     specifier: 1.27.1
     version: 1.27.1(electron@29.2.0)
   '@cliqz/adblocker-electron-preload':
-    specifier: 1.27.0
-    version: 1.27.0(electron@29.2.0)
+    specifier: 1.27.1
+    version: 1.27.1(electron@29.2.0)
   '@electron-toolkit/tsconfig':
     specifier: 1.0.1
     version: 1.0.1(@types/node@20.12.5)
@@ -576,15 +576,6 @@ packages:
     resolution: {integrity: sha512-xsQDsjoSsJna/2JI0xj9VTY/WFvFBTDb6lcHDr4gmTs6Lb+4VsWjIZSLO3WKHEOen/9Qk6dXKWtJO0fJyTQFbQ==}
     dependencies:
       '@cliqz/adblocker-extended-selectors': 1.27.1
-    dev: false
-
-  /@cliqz/adblocker-electron-preload@1.27.0(electron@29.2.0):
-    resolution: {integrity: sha512-zWR6K/28Z6zJWCOcBJ7CXfb+fJ2DnBbK1b+WS+5DrFJ5QtUKLNHUdPsB7hbwAK4vVBav74NKsOE01kQw6WBP6g==}
-    peerDependencies:
-      electron: '>11'
-    dependencies:
-      '@cliqz/adblocker-content': 1.27.1
-      electron: 29.2.0
     dev: false
 
   /@cliqz/adblocker-electron-preload@1.27.1(electron@29.2.0):
