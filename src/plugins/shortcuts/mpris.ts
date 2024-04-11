@@ -99,7 +99,7 @@ function registerMPRIS(win: BrowserWindow) {
     const microToSec = (n: number) => Math.round(Number(n) / 1e6);
 
     const correctId = (videoId: string) => {
-      return videoId.replace('-', '_MINUS_');
+      return videoId.replace(/-/g, '_MINUS_');
     };
 
     const seekTo = (event: Position) => {
