@@ -11,6 +11,7 @@ import { t } from '@/i18n';
 export type DownloaderPluginConfig = {
   enabled: boolean;
   downloadFolder?: string;
+  downloadOnFinish: boolean;
   selectedPreset: string;
   customPresetSetting: Preset;
   skipExisting: boolean;
@@ -20,6 +21,7 @@ export type DownloaderPluginConfig = {
 export const defaultConfig: DownloaderPluginConfig = {
   enabled: false,
   downloadFolder: undefined,
+  downloadOnFinish: false,
   selectedPreset: 'mp3 (256kbps)', // Selected preset
   customPresetSetting: DefaultPresetList['mp3 (256kbps)'], // Presets
   skipExisting: false,
