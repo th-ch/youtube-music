@@ -199,7 +199,7 @@
     "del-cli": "5.1.0",
     "discord-api-types": "0.37.79",
     "electron": "29.3.0",
-    "electron-builder": "25.0.0-alpha.6",
+    "electron-builder": "24.9.4",
     "electron-devtools-installer": "3.2.0",
     "electron-vite": "2.1.0",
     "esbuild": "0.20.2",
