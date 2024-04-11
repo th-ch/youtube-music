@@ -207,8 +207,8 @@ devDependencies:
     specifier: 29.3.0
     version: 29.3.0
   electron-builder:
-    specifier: 24.9.4
-    version: 24.9.4
+    specifier: 24.9.3
+    version: 24.9.3
   electron-devtools-installer:
     specifier: 3.2.0
     version: 3.2.0
@@ -2101,10 +2101,11 @@ packages:
     resolution: {integrity: sha512-xwdG0FJPQMe0M0UA4Tz0zEB8rBJTRA5a476ZawAqiBkMv16GRK5xpXThOjMaEOFnZ6zabejjG4J3da0SXG63KA==}
     dev: true
 
-  /app-builder-lib@24.9.4:
-    resolution: {integrity: sha512-V52ikQoqkWbuL6k9tWHJgJpQiD0407XgjkNnGeAux+rKygXgOSRn0vmK2FdzMd4wtdKHhhTIcIA0JrIdqcthAg==}
+  /app-builder-lib@24.9.3:
+    resolution: {integrity: sha512-qQLkbR+1yDXMY+Vq3gNORDG1vp44qUAIy7EqUH0y+S1fs0C1g13e31f7Wr7UAAp0fGT8tkFpDWnD1as1gHwvVA==}
     engines: {node: '>=14.0.0'}
     dependencies:
+      7zip-bin: 5.2.0
       '@develar/schema-utils': 2.6.5
       '@electron/notarize': 2.1.0
       '@electron/osx-sign': 1.0.5
@@ -2113,12 +2114,12 @@ packages:
       '@types/fs-extra': 9.0.13
       async-exit-hook: 2.0.1
       bluebird-lst: 1.0.9
-      builder-util: 24.9.4
+      builder-util: 24.8.1
       builder-util-runtime: 9.2.3
       chromium-pickle-js: 0.2.0
       debug: 4.3.4
       ejs: 3.1.9
-      electron-publish: 24.9.4
+      electron-publish: 24.8.1
       form-data: 4.0.0
       fs-extra: 10.1.0
       hosted-git-info: 4.1.0
@@ -2410,8 +2411,8 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /builder-util@24.9.4:
-    resolution: {integrity: sha512-YNon3rYjPSm4XDDho9wD6jq7vLRJZUy9FR+yFZnHoWvvdVCnZakL4BctTlPABP41MvIH5yk2cTZ2YfkOhGistQ==}
+  /builder-util@24.8.1:
+    resolution: {integrity: sha512-ibmQ4BnnqCnJTNrdmdNlnhF48kfqhNzSeqFMXHLIl+o9/yhn6QfOaVrloZ9YUu3m0k3rexvlT5wcki6LWpjTZw==}
     dependencies:
       7zip-bin: 5.2.0
       '@types/debug': 4.1.12
@@ -3048,11 +3049,11 @@ packages:
     resolution: {integrity: sha512-jblKMZL5f9t/pfUyhHNey8Lb9yVCcBVIPxz/JTY0raAmfj7CuFXdl9m5o/+iiB7E0vv1Kz9V7Ao5HtLRc2gH1Q==}
     dev: true
 
-  /dmg-builder@24.9.4:
-    resolution: {integrity: sha512-fifxbQeOMkPgRrKqjkRdRYHt8ssWJh3J4DkYsA163nOMt/waUs5AgPsS4d1sX4dTPRD7Jfo4vb4wmmHjhgs8nA==}
+  /dmg-builder@24.9.3:
+    resolution: {integrity: sha512-Oft9t6g8etIJQ7rHNbX0fmuwEMP9cUNV6fJdqCHXiR13pEloTu3gcutfDEodXrR7W+VhvMMiYepBrRnkk9CFsQ==}
     dependencies:
-      app-builder-lib: 24.9.4
-      builder-util: 24.9.4
+      app-builder-lib: 24.9.3
+      builder-util: 24.8.1
       builder-util-runtime: 9.2.3
       fs-extra: 10.1.0
       iconv-lite: 0.6.3
@@ -3154,16 +3155,16 @@ packages:
       jake: 10.8.7
     dev: true
 
-  /electron-builder@24.9.4:
-    resolution: {integrity: sha512-jN07OQixVt0wxvRZB4lKAsDUwPIyChhwf3CEExhCDnrIYWciw92yhIHbZkNwebuNcLxScVzH5xsCUVNrYY/LZg==}
+  /electron-builder@24.9.3:
+    resolution: {integrity: sha512-yHkUmE2ZSTA0MlrPjrLmFlyQB/zAqAmavvfFUb+Cnz8gCvOVHT8bMyaucYfNaDgxL4yrBznqeU9kE40DwPiTeQ==}
     engines: {node: '>=14.0.0'}
     hasBin: true
     dependencies:
-      app-builder-lib: 24.9.4
-      builder-util: 24.9.4
+      app-builder-lib: 24.9.3
+      builder-util: 24.8.1
       builder-util-runtime: 9.2.3
       chalk: 4.1.2
-      dmg-builder: 24.9.4
+      dmg-builder: 24.9.3
       fs-extra: 10.1.0
       is-ci: 3.0.1
       lazy-val: 1.0.5
@@ -3226,11 +3227,11 @@ packages:
       - supports-color
     dev: false
 
-  /electron-publish@24.9.4:
-    resolution: {integrity: sha512-FghbeVMfxHneHjsG2xUSC0NMZYWOOWhBxfZKPTbibcJ0CjPH0Ph8yb5CUO62nqywXfA5u1Otq6K8eOdOixxmNg==}
+  /electron-publish@24.8.1:
+    resolution: {integrity: sha512-IFNXkdxMVzUdweoLJNXSupXkqnvgbrn3J4vognuOY06LaS/m0xvfFYIf+o1CM8if6DuWYWoQFKPcWZt/FUjZPw==}
     dependencies:
       '@types/fs-extra': 9.0.13
-      builder-util: 24.9.4
+      builder-util: 24.8.1
       builder-util-runtime: 9.2.3
       chalk: 4.1.2
       fs-extra: 10.1.0
