@@ -167,14 +167,12 @@ export async function downloadSongFromId(
 
 function downloadSongOnFinishSetup({
   ipc,
-  getConfig,
 }: Pick<BackendContext<DownloaderPluginConfig>, 'ipc' | 'getConfig'>) {
   let currentUrl: string | undefined;
   let duration: number | undefined;
   let time = 0;
 
   registerCallback(async (songInfo: SongInfo) => {
-    const config = await getConfig();
     if (
       !songInfo.isPaused &&
       songInfo.url !== currentUrl &&
