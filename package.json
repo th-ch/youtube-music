@@ -132,7 +132,8 @@
     },
     "patchedDependencies": {
       "vudio@2.1.1": "patches/vudio@2.1.1.patch",
-      "@xhayper/discord-rpc@1.1.2": "patches/@xhayper__discord-rpc@1.1.2.patch"
+      "@xhayper/discord-rpc@1.1.2": "patches/@xhayper__discord-rpc@1.1.2.patch",
+      "app-builder-lib@24.13.3": "patches/app-builder-lib@24.13.3.patch"
     }
   },
   "dependencies": {
