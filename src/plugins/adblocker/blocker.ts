@@ -15,6 +15,8 @@ const SOURCES = [
   'https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters-2023.txt',
   // Fanboy Annoyances
   'https://secure.fanboy.co.nz/fanboy-annoyance_ubo.txt',
+  // AdGuard
+  'https://filters.adtidy.org/extension/ublock/filters/122_optimized.txt',
 ];
 
 let blocker: ElectronBlocker | undefined;
