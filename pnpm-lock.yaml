@@ -160,8 +160,8 @@ dependencies:
     specifier: 2.3.0
     version: 2.3.0
   youtubei.js:
-    specifier: 9.2.1
-    version: 9.2.1
+    specifier: 9.3.0
+    version: 9.3.0
 
 devDependencies:
   '@playwright/test':
@@ -6974,8 +6974,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /youtubei.js@9.2.1:
-    resolution: {integrity: sha512-ZcFq5Pcd02uZ4HT6O2NiDpizHtkc030umEwK4uaXPZYVBVEKDFkOzZTkOgusHmHanfDU4LQCLaZMDjisHUnadQ==}
+  /youtubei.js@9.3.0:
+    resolution: {integrity: sha512-hWTDyxNakwURkCpTh1YfGxKWp1JxU94uwtmwqUq6zSwLfyIJRTsyVZqBd3/bm+5d+lyetl+jEO5ajOsRXshefg==}
     dependencies:
       jintr: 1.1.0
       tslib: 2.6.2
