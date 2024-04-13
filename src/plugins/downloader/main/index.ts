@@ -1,12 +1,8 @@
-import {
-  existsSync,
-  mkdirSync,
-  writeFileSync,
-} from 'node:fs';
+import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { randomBytes } from 'node:crypto';
 
-import { app, BrowserWindow, dialog } from 'electron';
+import { app, BrowserWindow, dialog, ipcMain } from 'electron';
 import {
   ClientType,
   Innertube,
@@ -29,7 +25,12 @@ import {
 
 import { fetchFromGenius } from '@/plugins/lyrics-genius/main';
 import { isEnabled } from '@/config/plugins';
-import { cleanupName, getImage, MediaType, type SongInfo } from '@/providers/song-info';
+import registerCallback, {
+  cleanupName,
+  getImage,
+  MediaType,
+  type SongInfo,
+} from '@/providers/song-info';
 import { getNetFetchAsFetch } from '@/plugins/utils/main';
 
 import { t } from '@/i18n';
@@ -114,6 +115,8 @@ export const onMainLoad = async ({
   ipc.handle('download-playlist-request', async (url: string) =>
     downloadPlaylist(url),
   );
+
+  downloadSongOnFinishSetup({ ipc, getConfig });
 };
 
 export const onConfigChange = (newConfig: DownloaderPluginConfig) => {
@@ -160,6 +163,38 @@ export async function downloadSongFromId(
   } catch (error: unknown) {
     sendError(error as Error, resolvedName || id);
   }
+}
+
+function downloadSongOnFinishSetup({
+  ipc,
+}: Pick<BackendContext<DownloaderPluginConfig>, 'ipc' | 'getConfig'>) {
+  let currentUrl: string | undefined;
+  let duration: number | undefined;
+  let time = 0;
+
+  registerCallback(async (songInfo: SongInfo) => {
+    if (
+      !songInfo.isPaused &&
+      songInfo.url !== currentUrl &&
+      config.downloadOnFinish
+    ) {
+      if (duration && duration - time <= 20 && typeof currentUrl === 'string') {
+        downloadSong(currentUrl);
+      }
+
+      currentUrl = songInfo.url;
+      duration = songInfo.songDuration;
+      time = 0;
+    }
+  });
+
+  ipcMain.on('ytmd:player-api-loaded', () => {
+    ipc.send('ytmd:setup-time-changed-listener');
+  });
+
+  ipcMain.on('ytmd:time-changed', (_, t: number) => {
+    if (t > time) time = t;
+  });
 }
 
 async function downloadSongUnsafe(
@@ -375,7 +410,12 @@ async function iterableStreamToProcessedUint8Array(
         'writeFile',
         safeVideoName,
         Buffer.concat(
-          await downloadChunks(stream, contentLength, sendFeedback, increasePlaylistProgress),
+          await downloadChunks(
+            stream,
+            contentLength,
+            sendFeedback,
+            increasePlaylistProgress,
+          ),
         ),
       );
 
@@ -388,7 +428,7 @@ async function iterableStreamToProcessedUint8Array(
           }),
           ratio,
         );
-        increasePlaylistProgress(0.15 + (ratio * 0.85));
+        increasePlaylistProgress(0.15 + ratio * 0.85);
       });
 
       const safeVideoNameWithExtension = `${safeVideoName}.${extension}`;
@@ -609,7 +649,7 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
 
   const increaseProgress = (itemPercentage: number) => {
     const currentProgress = (counter - 1) / (items.length ?? 1);
-    const newProgress = currentProgress + (progressStep * itemPercentage);
+    const newProgress = currentProgress + progressStep * itemPercentage;
     win.setProgressBar(newProgress);
   };
 

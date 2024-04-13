@@ -403,6 +403,7 @@
       "menu": {
         "choose-download-folder": "Choose download folder",
         "download-playlist": "Download playlist",
+        "download-finish": "When song ends download",
         "presets": "Presets",
         "skip-existing": "Skip existing files"
       },

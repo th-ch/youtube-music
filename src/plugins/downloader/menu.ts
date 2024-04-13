@@ -19,6 +19,14 @@ export const onMenu = async ({
 
   return [
     {
+      label: t('plugins.downloader.menu.download-finish'),
+      type: 'checkbox',
+      checked: config.downloadOnFinish,
+      click(item) {
+        setConfig({ downloadOnFinish: item.checked });
+      },
+    },
+    {
       label: t('plugins.downloader.menu.download-playlist'),
       click: () => downloadPlaylist(),
     },
