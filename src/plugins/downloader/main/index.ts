@@ -178,8 +178,18 @@ function downloadSongOnFinishSetup({
       songInfo.url !== currentUrl &&
       config.downloadOnFinish
     ) {
-      if (duration && duration - time <= 20 && typeof currentUrl === 'string') {
-        downloadSong(currentUrl);
+      if (typeof currentUrl === 'string' && duration && duration > 0) {
+        if (
+          config.downloadOnFinishMode === 'seconds' &&
+          duration - time <= config.downloadOnFinishSeconds
+        ) {
+          downloadSong(currentUrl);
+        } else if (
+          config.downloadOnFinishMode === 'percent' &&
+          time >= duration * (config.downloadOnFinishPercent / 100)
+        ) {
+          downloadSong(currentUrl);
+        }
       }
 
       currentUrl = songInfo.url;
