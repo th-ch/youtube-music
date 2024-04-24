@@ -36,7 +36,7 @@
 ## Efni
 
 - [Eiginleikar](#eiginleikar)
-- [Tiltæk tengiforrit](#tiltæk-viðbætur)
+- [Tiltæk tengiforrit](#tiltæk-tengiforrit)
 - [Þýðing](#þýðing)
 - [Sækja](#sækja)
   - [Arch Linux](#arch-linux)
