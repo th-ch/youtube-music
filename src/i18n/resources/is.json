@@ -2,14 +2,14 @@
   "common": {
     "console": {
       "plugins": {
-        "execute-failed": "Tókst ekki að framkvæma viðbót {{pluginName}}::{{contextName}}",
-        "executed-at-ms": "Viðbótin {{pluginName}}::{{contextName}} var framkvæmd í {{ms}}ms",
-        "initialize-failed": "Tókst ekki að frumstilla viðbót \"{{pluginName}}\"",
-        "load-all": "Er að hlaða öllum viðbótum",
-        "load-failed": "Tókst ekki að hlaða viðbótinni \"{{pluginName}}\"",
-        "loaded": "Viðbót \"{{pluginName}}\" hlaðið",
-        "unload-failed": "Tókst ekki að afhlaða viðbótinni \"{{pluginName}}\"",
-        "unloaded": "Viðbótin „{{pluginName}}“ óhlaðin"
+        "execute-failed": "Tókst ekki að framkvæma tengiforrit {{pluginName}}::{{contextName}}",
+        "executed-at-ms": "Tengiforrit {{pluginName}}::{{contextName}} var framkvæmd í {{ms}}ms",
+        "initialize-failed": "Tókst ekki að frumstilla tengiforrit \"{{pluginName}}\"",
+        "load-all": "Er að hlaða öllum tengiforritum",
+        "load-failed": "Tókst ekki að hlaða tengiforritinu \"{{pluginName}}\"",
+        "loaded": "Tengiforrit \"{{pluginName}}\" hlaðið",
+        "unload-failed": "Tókst ekki að afhlaða tengiforritinu \"{{pluginName}}\"",
+        "unloaded": "Tengiforrit „{{pluginName}}“ óhlaðin"
       }
     }
   },
@@ -53,7 +53,7 @@
           "later": "Seinna",
           "restart-now": "Endurræsa Núna"
         },
-        "detail": "\"{{pluginName}}\" viðbótin þarfnast endurræsingar til að taka gildi",
+        "detail": "\"{{pluginName}}\" tengiforrit þarfnast endurræsingar til að taka gildi",
         "message": "\"{{pluginName}}\" þarf að endurræsa",
         "title": "Endurræsa Krafist"
       },
@@ -170,7 +170,7 @@
       },
       "plugins": {
         "enabled": "Virkt",
-        "label": "Viðbætur",
+        "label": "Tengiforrit",
         "new": "NÝR"
       },
       "view": {
@@ -220,7 +220,7 @@
           }
         }
       },
-      "name": "Albúmslitaþema"
+      "name": "Albúmlitaþema"
     },
     "ambient-mode": {
       "description": "Beitir lýsingaráhrifum með því að varpa mildum litum úr myndbandinu í bakgrunn skjásins",
@@ -334,7 +334,7 @@
       "backend": {
         "already-connected": "Reyndi að tengja við virka tengingu",
         "connected": "Tengdur við Discord",
-        "disconnected": "Aftengdur við Discord"
+        "disconnected": "Aftengdur frá Discord"
       },
       "description": "Sýndu vinum þínum hvað þú hlustar á með Rík Nærvera",
       "menu": {
