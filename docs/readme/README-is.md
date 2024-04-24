@@ -24,7 +24,7 @@
 **Electron umbúðir utan um YouTube Tónlist sem inniheldur:**
 
 - Innfæddur útlit og tilfinning, miðar að því að halda upprunalegu viðmótinu
-- Rammi fyrir sérsniðnar viðbætur: breyttu YouTube Tónlist að þínum þörfum (stíl, efni, eiginleikar), virkjaðu/slökktu á viðbætur í
+- Rammi fyrir sérsniðnar tengiforrit: breyttu YouTube Tónlist að þínum þörfum (stíl, efni, eiginleikar), virkjaðu/slökktu á viðbætur í
    einn smellur
 
 ## Sýnishornsmynd
@@ -36,7 +36,7 @@
 ## Efni
 
 - [Eiginleikar](#eiginleikar)
-- [Tiltæk viðbætur](#tiltæk-viðbætur)
+- [Tiltæk tengiforrit](#tiltæk-viðbætur)
 - [Þýðing](#þýðing)
 - [Sækja](#sækja)
   - [Arch Linux](#arch-linux)
@@ -62,7 +62,7 @@
 
  - Og meira...
 
-## Tiltæk viðbætur:
+## Tiltæk tengiforrit:
 
 - **Auglýsingablokkari**: Lokaðu fyrir allar auglýsingar og rakningar úr kassanum
   
@@ -186,7 +186,7 @@ xattr -cr /Applications/YouTube\ Music.app
 ### Windows
 
 Þú getur notað [Scoop pakkastjórnun](https://scoop.sh) til að setja upp `youtube-music` pakkann frá
-[`extras` fötuna](https://github.com/ScoopInstaller/Extras).
+[`extras` fötunni](https://github.com/ScoopInstaller/Extras).
 
 ```bash
 scoop bucket add extras
@@ -229,18 +229,18 @@ pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-## Búðu til þín eigin viðbætur
+## Búðu til þín eigin tengiforrit
 
-Með því að nota viðbætur geturðu:
+Með því að nota tengiforrit geturðu:
 
-- vinna með appið - `BrowserWindow` frá electron er sent til viðbótarstjórans
+- vinna með appið - `BrowserWindow` frá electron er sent til tengiforritsstjórans
 - breyttu framhliðinni með því að vinna með HTML/CSS
 
-### Er að búa til viðbót
+### Er að búa til tengiforrit
 
 Búðu til möppu í `src/plugins/YOUR-PLUGIN-NAME`:
 
-- `index.ts`: aðal skránni af viðbótin
+- `index.ts`: aðal skránni af tengiforritið
 ```typescript
 import style from './style.css?inline'; // flytja inn stíl sem inline
 
@@ -248,7 +248,7 @@ import { createPlugin } from '@/utils';
 
 export default createPlugin({
   name: 'Plugin Label',
-  restartNeeded: true, // ef gildi er satt, ytmusic show endurræsa gluggann
+  restartNeeded: true, // ef gildi er satt, ytmusic sjá endurræsa gluggann
   config: {
     enabled: false,
   }, // sérsniðnastillingar þinn
@@ -274,7 +274,7 @@ export default createPlugin({
     start({ window, ipc }) {
       window.maximize();
 
-      // þú getur tengst við renderer viðbótina
+      // þú getur tengst við renderer tengiforritið
       ipc.handle('some-event', () => {
         return 'hello';
       });
@@ -318,7 +318,7 @@ import { createPlugin } from '@/utils';
 
 export default createPlugin({
   name: 'Plugin Label',
-  restartNeeded: true, // ef gildi er satt, ytmusic show endurræsa gluggann
+  restartNeeded: true, // ef gildi er satt, ytmusic sjá endurræsa gluggann
   config: {
     enabled: false,
   }, // sérsniðnastillingar þinn
@@ -334,7 +334,7 @@ import { createPlugin } from '@/utils';
 
 export default createPlugin({
   name: 'Plugin Label',
-  restartNeeded: true, // ef gildi er satt, ytmusic show endurræsa gluggann
+  restartNeeded: true, // ef gildi er satt, ytmusic sjá endurræsa gluggann
   config: {
     enabled: false,
   }, // sérsniðnastillingar þinn
@@ -346,7 +346,7 @@ export default createPlugin({
 ```
 
 - samskipti á milli að framan og aftan: hægt að gera með því að nota ipcMain eininguna frá electron. Sjá `index.ts` skrá og
-   dæmi í 'styrktarblokk' viðbótinni.
+   dæmi í 'styrktarblokk' tengiforritinu.
 
 ## Byggja
 
