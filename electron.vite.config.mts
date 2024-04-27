@@ -1,4 +1,4 @@
-import { resolve, dirname } from 'node:path';
+import { resolve, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { defineConfig, defineViteConfig } from 'electron-vite';
@@ -52,7 +52,7 @@ export default defineConfig({
 
     if (mode === 'development') {
       commonConfig.plugins?.push(
-        Inspect({ build: true, outputDir: '.vite-inspect/backend' }),
+        Inspect({ build: true, outputDir: join(__dirname, '.vite-inspect/backend') }),
       );
       return commonConfig;
     }
@@ -96,7 +96,7 @@ export default defineConfig({
 
     if (mode === 'development') {
       commonConfig.plugins?.push(
-        Inspect({ build: true, outputDir: '.vite-inspect/preload' }),
+        Inspect({ build: true, outputDir: join(__dirname, '.vite-inspect/preload') }),
       );
       return commonConfig;
     }
@@ -143,7 +143,7 @@ export default defineConfig({
 
     if (mode === 'development') {
       commonConfig.plugins?.push(
-        Inspect({ build: true, outputDir: '.vite-inspect/renderer' }),
+        Inspect({ build: true, outputDir: join(__dirname, '.vite-inspect/renderer') }),
       );
       return commonConfig;
     }
