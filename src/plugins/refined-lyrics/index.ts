@@ -1,83 +1,24 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-
 import { createPlugin } from '@/utils';
 import { RefinedLyricsConfig } from './config';
-import { YoutubePlayer } from '@/types/youtube-player';
-import { VideoDataChangeValue } from '@/types/player-api-events';
-import { toggleTab, selectors, tabStates } from './utils';
+
+import renderer from "./contexts/renderer";
+import backend from "./contexts/backend";
 import sheet from "./style.css?inline"
 
 // Temporary hack to not mess with translations for now.
 // prettier-ignore
 const t = ([txt]: TemplateStringsArray) => () => txt;
 
-type VideoDataChangedCallback = (
-  type: string,
-  data: VideoDataChangeValue,
-) => void;
-
 export default createPlugin({
   name: t`Refined Lyrics`,
   authors: ['Arjix'],
   stylesheets: [sheet],
+  restartNeeded: true,
 
   config: <RefinedLyricsConfig>{
     enabled: false,
   },
 
-  renderer: {
-    api: <YoutubePlayer | null>null,
-    observer: <MutationObserver | null>null,
-    observerCallback(mutations: MutationRecord[]) {
-      for (const mutation of mutations) {
-        const header = <HTMLElement>mutation.target;
-
-        switch (mutation.attributeName) {
-          case 'disabled':
-            toggleTab(header);
-            break;
-          case 'aria-selected':
-            // @ts-expect-error I know what I am doing, fuck off TypeSript
-            tabStates[header.ariaSelected]?.(this.api.getVideoData());
-            break;
-        }
-      }
-    },
-
-    onPlayerApiReady(api) {
-      this.api = api;
-
-      api.addEventListener(
-        'videodatachange',
-        <VideoDataChangedCallback>this.videoDataChange,
-      );
-
-      // @ts-ignore
-      this.videoDataChange();
-    },
-
-    start() {},
-    stop() {
-      this.observer?.disconnect();
-      this.api?.removeEventListener(
-        'videodatachange',
-        <VideoDataChangedCallback>this.videoDataChange,
-      );
-    },
-
-    // prettier-ignore
-    videoDataChange() {
-      const header = document.querySelector<HTMLElement>(selectors.head);
-      if (!header) return;
-
-      this.observer ??= new MutationObserver(<MutationCallback>this.observerCallback);
-
-      // Force the lyrics tab to be enabled at all times.
-      this.observer.disconnect();
-      this.observer.observe(header, { attributes: true });
-
-      // @ts-ignore
-      tabStates['true'](this.api.getVideoData())
-    },
-  },
+  renderer,
+  backend
 });

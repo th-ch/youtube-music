@@ -1,6 +1,8 @@
 import { createSignal, onCleanup, Show } from 'solid-js';
+import { VideoDataChangeValue } from '@/types/player-api-events';
 
-export const [isVisible, setIsVisible] = createSignal<boolean>(false)
+export const [isVisible, setIsVisible] = createSignal<boolean>(false);
+export const [playerState, setPlayerState] = createSignal<VideoDataChangeValue | undefined>();
 
 export const LyricsRenderer = () => {
   const [count, setCount] = createSignal(0);
@@ -11,7 +13,8 @@ export const LyricsRenderer = () => {
   return (
     <Show when={isVisible()}>
       <div>
-        Count: {count()}
+        <p>Author: {playerState()?.author}</p>
+        <p>Title: {playerState()?.title}</p>
       </div>
     </Show>
   );

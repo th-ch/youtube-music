@@ -1,7 +1,6 @@
-import { throttle } from '@/providers/decorators';
 import { VideoDataChangeValue } from '@/types/player-api-events';
 import { render } from 'solid-js/web';
-import { LyricsRenderer, setIsVisible } from '@/plugins/refined-lyrics/LyricsRenderer';
+import { LyricsRenderer, setIsVisible, setPlayerState } from '@/plugins/refined-lyrics/LyricsRenderer';
 
 export const selectors = {
   head: '#tabsContent > .tab-header:nth-of-type(2)',
@@ -11,13 +10,10 @@ export const selectors = {
   },
 };
 
-export const toggleTab = throttle((header: HTMLElement) => {
-  header.removeAttribute('disabled');
-}, 50);
-
 export const tabStates = {
-  true: (_data?: VideoDataChangeValue) => {
-    setIsVisible(true)
+  true: (data?: VideoDataChangeValue) => {
+    setIsVisible(true);
+    setPlayerState(data);
 
     const tabRenderer = document.querySelector<HTMLElement>(selectors.body.tabRenderer);
     if (!tabRenderer) return;

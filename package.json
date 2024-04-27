@@ -164,6 +164,7 @@
     "electron-updater": "6.1.8",
     "fast-average-color": "9.4.0",
     "fast-equals": "5.0.1",
+    "fetch-cookie": "^3.0.1",
     "filenamify": "6.0.0",
     "howler": "2.2.4",
     "html-to-text": "9.0.5",
