@@ -2,7 +2,6 @@ import { BrowserWindow, ipcMain, nativeImage, net } from 'electron';
 
 import { Mutex } from 'async-mutex';
 
-import { cache } from './decorators';
 import config from '@/config';
 
 import type { GetPlayerResponse } from '@/types/get-player-response';
@@ -45,19 +44,20 @@ export interface SongInfo {
 }
 
 // Grab the native image using the src
-export const getImage = cache(
-  async (src: string): Promise<Electron.NativeImage> => {
-    const result = await net.fetch(src);
-    const buffer = await result.arrayBuffer();
-    const output = nativeImage.createFromBuffer(Buffer.from(buffer));
-    if (output.isEmpty() && !src.endsWith('.jpg') && src.includes('.jpg')) {
-      // Fix hidden webp files (https://github.com/th-ch/youtube-music/issues/315)
-      return getImage(src.slice(0, src.lastIndexOf('.jpg') + 4));
-    }
+export const getImage = async (src: string): Promise<Electron.NativeImage> => {
+  const result = await net.fetch(src);
+  const output = nativeImage.createFromBuffer(
+    Buffer.from(
+      await result.arrayBuffer(),
+    ),
+  );
+  if (output.isEmpty() && !src.endsWith('.jpg') && src.includes('.jpg')) {
+    // Fix hidden webp files (https://github.com/th-ch/youtube-music/issues/315)
+    return getImage(src.slice(0, src.lastIndexOf('.jpg') + 4));
+  }
 
-    return output;
-  },
-);
+  return output;
+};
 
 const handleData = async (
   data: GetPlayerResponse,
@@ -209,10 +209,19 @@ const registerProvider = (win: BrowserWindow) => {
 };
 
 const suffixesToRemove = [
-  ' - topic',
-  'vevo',
-  ' (performance video)',
-  ' (clip official)',
+  // Artist names
+  /\s*(- topic)$/i,
+  /\s*vevo$/i,
+
+  // Video titles
+  /\s*[(|\[]official(.*?)[)|\]]/i, // (Official Music Video), [Official Visualizer], etc...
+  /\s*[(|\[]((lyrics?|visualizer|audio)\s*(video)?)[)|\]]/i,
+  /\s*[(|\[](performance video)[)|\]]/i,
+  /\s*[(|\[](clip official)[)|\]]/i,
+  /\s*[(|\[](video version)[)|\]]/i,
+  /\s*[(|\[](HD|HQ)\s*?(?:audio)?[)|\]]$/i,
+  /\s*[(|\[](live)[)|\]]$/i,
+  /\s*[(|\[]4K\s*?(?:upgrade)?[)|\]]$/i,
 ];
 
 export function cleanupName(name: string): string {
@@ -220,15 +229,8 @@ export function cleanupName(name: string): string {
     return name;
   }
 
-  name = name.replace(
-    /\((?:official)? ?(?:music)? ?(?:lyrics?)? ?(?:video)?\)$/i,
-    '',
-  );
-  const lowCaseName = name.toLowerCase();
   for (const suffix of suffixesToRemove) {
-    if (lowCaseName.endsWith(suffix)) {
-      return name.slice(0, -suffix.length);
-    }
+    name = name.replace(suffix, '');
   }
 
   return name;

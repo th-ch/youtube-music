@@ -3,12 +3,21 @@
  */
 
 /* Allow window dragging */
-.center-content.ytmusic-nav-bar {
+ytmusic-nav-bar {
+  position: relative;
+}
+ytmusic-nav-bar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+
   -webkit-user-select: none;
   -webkit-app-region: drag;
 }
 
-.center-content.ytmusic-nav-bar > ytmusic-search-box {
+ytmusic-nav-bar > .left-content > *,
+ytmusic-nav-bar > .center-content > *,
+ytmusic-nav-bar > .right-content > * {
   -webkit-app-region: no-drag;
 }
 
@@ -55,7 +64,19 @@ ytmusic-nav-bar > div.left-content > a > picture > img {
 tp-yt-paper-item.ytmusic-guide-entry-renderer::before {
   border-radius: 8px !important;
 }
-/** apply fix when #av-id is exist */
-ytmusic-player-page:not([video-mode]):not([player-fullscreened]) #av-id ~ #player.ytmusic-player-page {
-  margin-top: calc(var(--ytmusic-player-page-vertical-padding) / 2 * -1) !important;
+
+/* fix video player align */
+#av-id {
+  padding-bottom: 0;
+}
+
+#av-id ~ #player.ytmusic-player-page:not([player-ui-state="FULLSCREEN"]) {
+  margin-top: auto !important;
+  margin-bottom: auto !important;
+  max-height: calc(100% - (var(--ytmusic-player-page-vertical-padding) * 2));
+  max-width: calc(100% - var(--ytmusic-player-page-vertical-padding) * 2);
+}
+
+ytmusic-player[player-ui-state=FULLSCREEN] {
+  top: calc(var(--menu-bar-height, 32px) * -1) !important;
 }

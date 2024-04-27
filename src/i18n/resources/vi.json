@@ -212,6 +212,14 @@
     },
     "album-color-theme": {
       "description": "Áp dụng chủ đề động và hiệu ứng hình ảnh dựa trên bảng màu của album",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "Tỉ lệ trộn màu",
+          "submenu": {
+            "percent": "{{ratio}}%"
+          }
+        }
+      },
       "name": "Màu nền album"
     },
     "ambient-mode": {
@@ -498,7 +506,7 @@
           }
         },
         "priority": "Ưu tiên thông báo",
-        "toast-style": "Kiểu toast",
+        "toast-style": "Kiểu thông báo bật lên",
         "unpause-notification": "Hiển thị thông báo khi bỏ tạm dừng"
       },
       "name": "Thông báo"
@@ -571,13 +579,22 @@
     },
     "scrobbler": {
       "description": "Thêm hỗ trợ scrobbling (v.v. Last.fm, Listenbrainz)",
+      "dialog": {
+        "lastfm": {
+          "auth-failed": {
+            "message": "Không thể xác minh với \nẨn thông báo cho đến lần bật ứng dụng tiếp theo.",
+            "title": "Xác minh thất bại"
+          }
+        }
+      },
       "menu": {
         "lastfm": {
           "api-settings": "Cài đặt API Last.fm"
         },
         "listenbrainz": {
           "token": "Nhập mã người dùng ListenBrainz"
-        }
+        },
+        "scrobble-other-media": "Scrobber nội dung khác"
       },
       "name": "Scrobbler",
       "prompt": {

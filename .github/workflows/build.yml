@@ -61,6 +61,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          sudo snap install snapcraft --classic
           pnpm release:linux
 
       - name: Build and release on Windows

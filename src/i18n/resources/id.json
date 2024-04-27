@@ -579,6 +579,14 @@
     },
     "scrobbler": {
       "description": "Tambahkan dukungan scrobbling (mis. last.fm, Listenbrainz)",
+      "dialog": {
+        "lastfm": {
+          "auth-failed": {
+            "message": "Gagal mengotentikasi Last.fm\nSembunyikan munculan hingga muat ulang selanjutnya.",
+            "title": "Otentikasi Gagal"
+          }
+        }
+      },
       "menu": {
         "lastfm": {
           "api-settings": "Pengaturan API Last.fm"

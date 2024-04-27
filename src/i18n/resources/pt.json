@@ -207,11 +207,19 @@
       "name": "Bloqueador de anúncios"
     },
     "album-actions": {
-      "description": "Adiciona os botões Gostei e Não Gostei para ser aplicado a todas as músicas em uma lista de reprodução ou álbum.",
+      "description": "Adiciona os botões Anular Rejeição, Não Gostei, Gostei e Anular o Gosto para ser aplicado a todas as músicas de uma lista de reprodução ou álbum",
       "name": "Ações no álbum"
     },
     "album-color-theme": {
       "description": "Aplica um tema dinâmico e efeitos visuais com base na paleta de cores do álbum",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "Rácio de mistura das cores",
+          "submenu": {
+            "percent": "Proporção"
+          }
+        }
+      },
       "name": "Tema de cores do álbum"
     },
     "ambient-mode": {
@@ -569,8 +577,41 @@
       "description": "Permite alterar a qualidade do vídeo com um botão na sobreposição de vídeo",
       "name": "Trocador de qualidade do vídeo"
     },
+    "scrobbler": {
+      "description": "Adicionar suporte para scrobbling (Last.fm, ListenBrainz)",
+      "dialog": {
+        "lastfm": {
+          "auth-failed": {
+            "message": "Falha ao autenticar com a Last.fm\nOculte o pop-up até a próxima reinicialização.",
+            "title": "Falha na autenticação"
+          }
+        }
+      },
+      "menu": {
+        "lastfm": {
+          "api-settings": "Configurações de API Last.fm"
+        },
+        "listenbrainz": {
+          "token": "Insira o token de utilizador ListenBrainz"
+        },
+        "scrobble-other-media": "Scrobble outros mídia"
+      },
+      "name": "Scrobbler",
+      "prompt": {
+        "lastfm": {
+          "api-key": "Chave de API Last.fm",
+          "api-secret": "Segredo da API Last.fm"
+        },
+        "listenbrainz": {
+          "token": {
+            "label": "Insira seu token de usuário do ListenBrainz:",
+            "title": "Token ListenBrainz"
+          }
+        }
+      }
+    },
     "shortcuts": {
-      "description": "Permite definir teclas de atalho globais para reprodução (reproduzir/pausar/próximo/anterior) e desligar o OSD de mídia substituindo as teclas de mídia, ativando Ctrl/CMD + F para pesquisar, ativando o suporte Linux MPRIS para teclas de mídia e teclas de atalho personalizadas para usuários avançados.",
+      "description": "Permite definir teclas de atalho globais para reprodução (reproduzir/pausar/próximo/anterior) e desligar o OSD de mídia substituindo as teclas de mídia, ativando Ctrl/CMD + F para pesquisar, ativando o suporte Linux MPRIS para teclas de mídia e teclas de atalho personalizadas para usuários avançados",
       "menu": {
         "override-media-keys": "Substituir teclas de mídia",
         "set-keybinds": "Definir controles globais de música"

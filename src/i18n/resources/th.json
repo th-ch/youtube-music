@@ -4,12 +4,12 @@
       "plugins": {
         "execute-failed": "ปลั๊กอิน {{pluginName}}::{{contextName}} ไม่สามารถทำงานได้",
         "executed-at-ms": "ปลั๊กอิน {{pluginName}}::{{contextName}} ทำงานแล้วที่ {{ms}}ms",
-        "initialize-failed": "ไม่สามารถเริ่มต้นปลั๊กอิน \"{{pluginName}}\"",
+        "initialize-failed": "ไม่สามารถเริ่มปลั๊กอิน \"{{pluginName}}\"ได้",
         "load-all": "กำลังโหลดปลั๊กอินทั้งหมด",
-        "load-failed": "ไม่สามารถโหลดปลั๊กอิน \"{{pluginName}}\"",
-        "loaded": "โหลดปลั๊กอิน \"{{pluginName}}\" แล้ว",
-        "unload-failed": "ล้มเหลวในการยกเลิกการโหลดปลั๊กอิน \"{{pluginName}}\"",
-        "unloaded": "ยกเลิกการโหลดปลั๊กอิน \"{{pluginName}}\" แล้ว"
+        "load-failed": "ไม่สามารถโหลดปลั๊กอิน \"{{pluginName}}\"ได้",
+        "loaded": "โหลดปลั๊กอิน \"{{pluginName}}\" เรียบร้อยแล้ว",
+        "unload-failed": "ไม่่สามรถโหลดปลั๊กอิน \"{{pluginName}}\"ได้",
+        "unloaded": "ยกเลิกโหลดปลั๊กอิน \"{{pluginName}}\" แล้ว"
       }
     }
   },
@@ -21,32 +21,51 @@
   "main": {
     "console": {
       "did-finish-load": {
-        "dev-tools": "การโหลดเสร็จสิ้น DevTools ได้ถูกเปิดแล้ว"
+        "dev-tools": "การโหลดเสร็จสิ้น. โหมดนักพัฒนาสามรถใช้งานได้แล้ว"
       },
       "i18n": {
         "loaded": "โหลด i18n แล้ว"
       },
       "second-instance": {
-        "receive-command": "คำสั่งที่ได้รับผ่านโปรโตคอล: \"{{command}}\""
+        "receive-command": "รับคำสั่งผ่านโปรโตคอล: \"{{command}}\""
       },
       "theme": {
-        "css-file-not-found": "กำลังเพิกเฉยไฟล์ CSS \"{{cssFile}}\" เนื่องจากไม่มีอยู่"
+        "css-file-not-found": "ไม่พบไฟล์ CSS \"{{cssFile}}\" กำลังข้าม"
       },
       "unresponsive": {
-        "details": "มีข้อผิดพลาดจากไม่การตอบสนอง!\n{{error}}"
+        "details": "พบข้อผิดพลาด!\n{{error}}"
       },
       "when-ready": {
-        "clearing-cache-after-20s": "กำลังล้างแคชของแอป"
+        "clearing-cache-after-20s": "กำลังล้างแคชแอป"
       },
       "window": {
         "tried-to-render-offscreen": "หน้าต่างพยายามแสดงผลเกินขนาดหน้าจอ windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
       }
     },
     "dialog": {
+      "hide-menu-enabled": {
+        "detail": "เมนูถูกซ่อนไว้ กด'Alt' เพื่อแสดงเมนู (หรือ 'Escape' หากอยู่ในเมนูแอป)",
+        "message": "การซ่อนเมนูถูกเปิดใช้งาน",
+        "title": "เปิดใช้งานการซ่อนเมนู"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "ภายหลัง",
+          "restart-now": "รีสตาร์ทตอนนี้"
+        },
+        "detail": "\"{{pluginName}}\" ปลั๊กอินต้องการการรีสตาร์ทเพื่อแสดงผล",
+        "message": "\"{{pluginName}}\" ต้องการรีสตาร์ท",
+        "title": "แนะนำให้รีสตาร์ท"
+      },
       "unresponsive": {
         "buttons": {
-          "quit": "เลิก"
-        }
+          "quit": "ออก",
+          "relaunch": "เปิดใหม่",
+          "wait": "รอซักครู่"
+        },
+        "detail": "ขออภัยในความไม่สะดวก! โปรดเลือกสิ่งที่ต้องการจะทำ:",
+        "message": "แอปพลิเคชันไม่ตอบสนอง",
+        "title": "หน้าต่างไม่ตอบสนอง"
       },
       "update-available": {
         "buttons": {
@@ -62,6 +81,7 @@
     "menu": {
       "about": "เกี่ยวกับ",
       "navigation": {
+        "label": "การนำทาง",
         "submenu": {
           "copy-current-url": "คัดลอก URL ปัจจุบัน",
           "go-back": "ก่อนหน้า",
@@ -79,22 +99,291 @@
               "auto-reset-app-cache": "รีเซตแอปแคชเมื่อเริ่มแอป",
               "disable-hardware-acceleration": "ปิดการใช้งานตัวเร่งประสิทธิภาพด้วยฮาร์ดแวร์",
               "edit-config-json": "แก้ไข config.json",
-              "override-user-agent": "แทนที่ User-Agent"
+              "override-user-agent": "แทนที่ User-Agent",
+              "restart-on-config-changes": "รีสตาร์ทเมื่อมีการเปลี่ยนแปลงคอนฟิก",
+              "set-proxy": {
+                "label": "ตั้งค่าพร็อกซี่",
+                "prompt": {
+                  "label": "ใส่ที่อยู่พร็อกซี่: (ปล่อยให้ว่างเพื่อปิดใช้งาน)",
+                  "placeholder": "ตัวอย่าง: SOCKS5://127.0.0.1:9999",
+                  "title": "ตั้งค่าพร็อกซี่"
+                }
+              },
+              "toggle-dev-tools": "เปิด-ปิด DevTools"
+            }
+          },
+          "always-on-top": "อยู่ด้านบนตลอดเวลา",
+          "auto-update": "อัปเดตอัตโนมัติ",
+          "hide-menu": {
+            "dialog": {
+              "message": "เมนูจะถูกซ่อนในการเปิดครั้งถัดไป กด [Alt] เพื่อแสดงเมนู (หรือใช้ backtick [`] หากอยู่ในเมนูแอป)",
+              "title": "เปิดใช้งานการซ่อนเมนู"
+            },
+            "label": "ซ่อนเมนู"
+          },
+          "language": {
+            "dialog": {
+              "message": "ภาษาจะเปลี่ยนหลังจากทำการรีสตาร์ท",
+              "title": "ภาษาถูกเปลี่ยนแล้ว"
+            },
+            "label": "ภาษา",
+            "submenu": {
+              "to-help-translate": "ต้องการช่วยแปล? คลิกที่นี่"
+            }
+          },
+          "resume-on-start": "เล่นเพลงล่าสุดต่อ เมื่อแอปเริ่มต้น",
+          "single-instance-lock": "ล็อกการทำงานเพียงรายการเดียว",
+          "start-at-login": "เริ่มต้นที่การเข้าสู่ระบบ",
+          "starting-page": {
+            "label": "หน้าเริ่มต้น",
+            "unset": "ยกเลิกการตั้งค่า"
+          },
+          "tray": {
+            "label": "ถาดรายการ",
+            "submenu": {
+              "disabled": "ปิดการใช้งาน",
+              "enabled-and-hide-app": "เปิดใช้งานและซ่อนแอป",
+              "enabled-and-show-app": "เปิดใช้งานและแสดงแอป",
+              "play-pause-on-click": "เล่น/หยุดเล่น เมื่อคลิก"
+            }
+          },
+          "visual-tweaks": {
+            "label": "การปรับแต่งหน้าตาแอป",
+            "submenu": {
+              "like-buttons": {
+                "default": "ค่าเริ่มต้น",
+                "force-show": "บังคับให้แสดง",
+                "hide": "ซ่อน",
+                "label": "ปุ่มถูกใจ"
+              },
+              "remove-upgrade-button": "ลบปุ่มอัปเกรด",
+              "theme": {
+                "label": "ธีม",
+                "submenu": {
+                  "import-css-file": "นำเข้าไฟล์ CSS ที่กำหนดเอง",
+                  "no-theme": "ไม่มีธีม"
+                }
+              }
             }
           }
         }
+      },
+      "plugins": {
+        "enabled": "เปิดใช้งาน",
+        "label": "ปลั๊กอิน",
+        "new": "ใหม่"
+      },
+      "view": {
+        "label": "มุมมอง",
+        "submenu": {
+          "force-reload": "บังคับโหลดใหม่",
+          "reload": "โหลดใหม่",
+          "reset-zoom": "ขนาดจริง",
+          "toggle-fullscreen": "สลับเต็มหน้าจอ",
+          "zoom-in": "ซูมเข้า",
+          "zoom-out": "ซูมออก"
+        }
+      }
+    },
+    "tray": {
+      "next": "ค่อไป",
+      "play-pause": "เล่น/พัก",
+      "previous": "ก่อนหน้า",
+      "quit": "ออก",
+      "restart": "รีสตาร์ทแอป",
+      "show": "แสดงหน้าต่าง",
+      "tooltip": {
+        "default": "ยูทุปมิวสิค",
+        "with-song-info": "ยูทูปมิวสิค: {{artist}} - {{title}}"
       }
     }
   },
   "plugins": {
+    "adblocker": {
+      "description": "บล็อกโฆษณาและการติดตามทั้งหมดอย่างอัตโนมัติ",
+      "menu": {
+        "blocker": "เครื่องมือบล็อก"
+      },
+      "name": "ตัวบล็อกโฆษณา"
+    },
+    "album-actions": {
+      "description": "เพิ่ม ยกเลิกไม่ชอบ, ไม่ชอบ, 'ถูกใจ', และ 'ยกเลิกถูกใจ' เพื่อให้สามารถใช้งานกับเพลงทั้งหมดในรายการเพลงหรืออัลบั้ม",
+      "name": "การกระทำที่เกี่ยวกับอัลบั้ม"
+    },
+    "album-color-theme": {
+      "description": "ใช้ธีมและเอฟเฟกต์ไดนามิก โดยขึ้นอยู่กับสีของอัลบั้ม",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "สัดส่วนการผสมสี",
+          "submenu": {
+            "percent": "{{ratio}}เปอร์เซ็น"
+          }
+        }
+      },
+      "name": "ธีมสีของอัลบั้ม"
+    },
+    "ambient-mode": {
+      "description": "เอฟเฟกต์แสงจะใช้สีอ่อนๆจากวีดิโอมาเป็พื้นหลังสกรีน",
+      "menu": {
+        "blur-amount": {
+          "label": "ระดับความเบลอ",
+          "submenu": {
+            "pixels": "{{blurAmount}} พิกเซล"
+          }
+        },
+        "buffer": {
+          "label": "บัฟเฟอร์",
+          "submenu": {
+            "buffer": "{{buffer}}"
+          }
+        },
+        "opacity": {
+          "label": "ความโปร่งใส",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "quality": {
+          "label": "คุณภาพ",
+          "submenu": {
+            "pixels": "{{quality}} พิกเซล"
+          }
+        },
+        "size": {
+          "label": "ขนาด",
+          "submenu": {
+            "percent": "{{size}}%"
+          }
+        },
+        "smoothness-transition": {
+          "label": "การเปลี่ยนแบบสมูท",
+          "submenu": {
+            "during": "ระหว่าง {{interpolationTime}} วินาที"
+          }
+        },
+        "use-fullscreen": {
+          "label": "ใช้โหมดเต็มหน้าจอ"
+        }
+      },
+      "name": "โหมดสภาพแวดล้อม"
+    },
+    "audio-compressor": {
+      "description": "ใช้การบีบอัดเสียง (ลดระดับเสียงของส่วนที่ดังที่สุดของสัญญาณและเพิ่มระดับเสียงของส่วนที่เบาที่สุด)",
+      "name": "เครื่องมือบีบอัดเสียง"
+    },
+    "blur-nav-bar": {
+      "description": "ทำให้แถบนำทางโปร่งแสงและเบลอ",
+      "name": "เบลอแถบนำทาง"
+    },
+    "bypass-age-restrictions": {
+      "description": "ข้ามการตรวจสอบอายุของยูทูป",
+      "name": "ข้ามข้อจำกัดอายุ"
+    },
+    "captions-selector": {
+      "description": "ตัวเลือกคำบรรยายสำหรับเพลงในYoutube Music",
+      "menu": {
+        "autoload": "เลือกคำบรรยายที่ใช้ครั้งล่าสุดโดยอัตโนมัติ",
+        "disable-captions": "ไม่มีคำบรรยายเป็นค่าเริ่มต้น"
+      },
+      "name": "ตัวเลือกคำบรรยาย",
+      "prompt": {
+        "selector": {
+          "label": "ภาษาคำบรรยายปัจจุบัน: {{language}}",
+          "none": "ไม่มี",
+          "title": "เลือกภาษาคำบรรยาย"
+        }
+      },
+      "templates": {
+        "title": "เปิดตัวเลือกคำบรรยาย"
+      }
+    },
+    "compact-sidebar": {
+      "description": "ตั้งค่าแถบข้างให้อยู่ในโหมดกระชับเสมอ",
+      "name": "แถบข้างแบบกระชับ"
+    },
+    "crossfade": {
+      "description": "การเฟดเพลงระหว่างเพลง",
+      "menu": {
+        "advanced": "ขั้นสูง"
+      },
+      "name": "การเฟดเพลง [เบต้า]",
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "fade-in-duration": "ระยะเวลาการเฟดเข้าสู่ (มิลลิวินาที)",
+            "fade-out-duration": "ระยะเวลาการเฟดออก (มิลลิวินาที)",
+            "fade-scaling": {
+              "label": "การปรับขนาดของการเฟด",
+              "linear": "การเปลี่ยนแปลงเชิงเส้น",
+              "logarithmic": "การเปลี่ยนแปลงเชิงลอการิทึม"
+            },
+            "seconds-before-end": "เฟดเพลง N วินาทีก่อนจบ"
+          },
+          "title": "ตัวเลือกเฟดเพลง"
+        }
+      }
+    },
+    "disable-autoplay": {
+      "description": "เริ่มเพลงในโหมดหยุด",
+      "menu": {
+        "apply-once": "ใช้เฉพาะเมื่อเริ่มต้น"
+      },
+      "name": "ปิดใช้งานการเล่นอัตโนมัติ"
+    },
+    "discord": {
+      "backend": {
+        "already-connected": "พยายามเชื่อมต่อกับการเชื่อมต่อที่ทำงานอยู่",
+        "connected": "เชื่อมต่อกับดิสคอร์ดแล้ว",
+        "disconnected": "ตัดการเชื่อมต่อออกจากดิสคอร์ด"
+      },
+      "description": "แสดงให้เพื่อนเห็นว่าคุณกำลังฟังอะไรด้วย Rich Presence",
+      "menu": {
+        "auto-reconnect": "เชื่อมต่อใหม่โดยอัตโนมัติ",
+        "clear-activity": "ล้างกิจกรรม",
+        "clear-activity-after-timeout": "ล้างกิจกรรมหลังจากหมดเวลา",
+        "connected": "เชื่อมต่อแล้ว",
+        "disconnected": "ตัดการเชื่อมต่อ",
+        "hide-duration-left": "ซ่อนระยะเวลาที่เหลือ",
+        "hide-github-button": "ซ่อนปุ่มลิงก์ GitHub",
+        "play-on-youtube-music": "เล่นบนยูทูปมิวสุค",
+        "set-inactivity-timeout": "ตั้งระยะเวลาไม่มีกิจกรรม"
+      },
+      "name": "Discord Rich Presence",
+      "prompt": {
+        "set-inactivity-timeout": {
+          "label": "ป้อนระยะเวลาไม่มีกิจกรรมเป็นวินาที:",
+          "title": "ตั้งระยะเวลาไม่มีกิจกรรม"
+        }
+      }
+    },
     "downloader": {
       "backend": {
+        "dialog": {
+          "error": {
+            "buttons": {
+              "ok": "ตกลง"
+            },
+            "message": "อ๊ะ! ขออภัย ดาวน์โหลดล้มเหลว…",
+            "title": "มีข้อผิดพลาดในการดาวน์โหลด!"
+          },
+          "start-download-playlist": {
+            "buttons": {
+              "ok": "ตกลง"
+            },
+            "detail": "({{playlistSize}} เพลง)",
+            "message": "กำลังดาวน์โหลดเพลย์ลิสต์ {{playlistTitle}}",
+            "title": "เริ่มต้นการดาวน์โหลดแล้ว"
+          }
+        },
         "feedback": {
+          "conversion-progress": "การแปลง: {{percent}}%",
+          "converting": "กำลังแปลง…",
+          "done": "เสร็จสิ้น: {{filePath}}",
           "download-info": "กำลังดาวน์โหลด {{artist}} - {{title}} [{{videoId}}",
           "download-progress": "ดาวน์โหลด: {{percent}}%",
           "downloading": "กำลังดาวน์โหลด…",
           "downloading-counter": "กำลังดาวน์โหลด {{current}}/{{total}}…",
-          "downloading-playlist": "กำลังดาวน์โหลดเพลย์ลีสต์ \"{{playlistTitle}}\" - {{playlistSize}} เพลง ({{playlistId}})",
+          "downloading-playlist": "กำลังดาวน์โหลดเพลย์ลิสต์ \"{{playlistTitle}}\" - {{playlistSize}} เพลง ({{playlistId}})",
           "error-while-downloading": "เกิดข้อผิดพลาดในการดาวน์โหลด \"{{author}} - {{title}}\": {{error}}",
           "folder-already-exists": "มีโฟลเดอร์ {{playlistFolder}} อยู่แล้ว",
           "getting-playlist-info": "กำลังรับข้อมูลเพลย์ลิสต์…",
@@ -114,6 +403,7 @@
       "menu": {
         "choose-download-folder": "เลือกโฟลเดอร์ดาวน์โหลด",
         "download-playlist": "ดาวน์โหลดเพลย์ลิสต์",
+        "presets": "พรีเซ็ต",
         "skip-existing": "ข้ามไฟล์ที่มีอยู่แล้ว"
       },
       "name": "ตัวดาวน์โหลด",
@@ -122,6 +412,67 @@
       },
       "templates": {
         "button": "ดาวน์โหลด"
+      }
+    },
+    "exponential-volume": {
+      "description": "ทำให้ตัวเลือกความดังมีลักษณะเอ็กซ์โปเนนเชียล เพื่อให้ง่ายต่อการเลือกระดับความดังที่ต่ำลง",
+      "name": "ระดับเสียงแบบเอ็กซโปเนนเชียล"
+    },
+    "in-app-menu": {
+      "description": "ให้เมนูบาร์ดูทันสมัย มืดหรือเป็นสีของอัลบั้มอย่างน่าสนใจ",
+      "menu": {
+        "hide-dom-window-controls": "ซ่อนตัวควบคุมหน้าต่าง DOM"
+      },
+      "name": "เมนูในแอป"
+    },
+    "lumiastream": {
+      "description": "เพิ่มการรองรับ ลูเมีย สตรีม",
+      "name": "ลูเมีย สตรีม [เบต้า]"
+    },
+    "lyrics-genius": {
+      "description": "เพิ่มการสนับสนุนเนื้อเพลงสำหรับเพลงหลายๆ เพลง",
+      "menu": {
+        "romanized-lyrics": "เนื้อเพลงโรมันไรซ์"
+      },
+      "name": "เนื้อเพลงแบบอัจฉริยะ",
+      "renderer": {
+        "fetched-lyrics": "ดึงข้อมูลเนื้อเพลงแบบอัจฉริยะแล้ว"
+      }
+    },
+    "music-together": {
+      "description": "แบ่งปันเพลย์ลิสต์กับผู้อื่น โดยเมื่อเจ้าภาพเล่นเพลง ทุกคนอื่นๆ จะได้ยินเพลงเดียวกัน",
+      "dialog": {
+        "enter-host": "ป้อนรหัสโฮสต์"
+      },
+      "internal": {
+        "save": "บันทึก",
+        "track-source": "แหล่งข้อมูลเพลง",
+        "unknown-user": "ผู้ใช้ที่ไม่รู้จัก"
+      },
+      "menu": {
+        "click-to-copy-id": "คัดลอกรหัสโฮสต์",
+        "close": "ปิด Music Together",
+        "connected-users": "ผู้ใช้ที่เชื่อมต่อ",
+        "disconnect": "ตัดการเชื่อมต่อ Music Together",
+        "empty-user": "ไม่มีผู้ใช้ที่เชื่อมต่อ",
+        "host": "โฮสต์ Music Together",
+        "join": "เข้าร่วม Music Together",
+        "permission": {
+          "all": "อนุญาตให้แขกควบคุมเพลย์ลิสต์และเครื่องเล่น",
+          "host-only": "เฉพาะโฮสต์เท่านั้นที่สามารถควบคุมเพลย์ลิสต์และเครื่องเล่นได้",
+          "playlist": "อนุญาตให้แขกควบคุมเพลย์ลิสต์"
+        },
+        "set-permission": "เปลี่ยนการอนุญาตในการควบคุม",
+        "status": {
+          "disconnected": "ตัดการเชื่อมต่อแล้ว",
+          "guest": "เชื่อมต่อเป็นแขก",
+          "host": "เชื่อมต่อเป็นโฮสต์"
+        }
+      },
+      "name": "Music Together [เบต้า]",
+      "toast": {
+        "add-song-failed": "เพิ่มเพลงล้มเหลว",
+        "closed": "ปิด Music Together แล้ว"
       }
     }
   }

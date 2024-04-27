@@ -82,11 +82,15 @@ if (!gotTheLock) {
   app.exit();
 }
 
+// Ozone platform hint: Required for Wayland support
+app.commandLine.appendSwitch('ozone-platform-hint', 'auto');
 // SharedArrayBuffer: Required for downloader (@ffmpeg/core-mt)
 // OverlayScrollbar: Required for overlay scrollbars
+// UseOzonePlatform: Required for Wayland support
+// WaylandWindowDecorations: Required for Wayland decorations
 app.commandLine.appendSwitch(
   'enable-features',
-  'OverlayScrollbar,SharedArrayBuffer',
+  'OverlayScrollbar,SharedArrayBuffer,UseOzonePlatform,WaylandWindowDecorations',
 );
 if (config.get('options.disableHardwareAcceleration')) {
   if (is.dev()) {

@@ -1,0 +1,100 @@
+{
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "Nem sikerült futtatni a plugint {{pluginName}}::{{contextName}}",
+        "executed-at-ms": "Plugin {{pluginName}}::{{contextName}} a {{ms}}ms időpontban végrehajtott",
+        "initialize-failed": "Nem sikerült inicializálni a \"{{pluginName}}\" plugint",
+        "load-all": "Összes bővítmény betöltése",
+        "load-failed": "Nem sikerült betölteni a \"{{pluginName}}\" plugint",
+        "loaded": "Plugin \"{{pluginName}}\" betöltve",
+        "unload-failed": "Nem sikerült a \"{{pluginName}}\" bővítményt letölteni",
+        "unloaded": "A \"{{pluginName}}\" bővítményt nem töltötték be"
+      }
+    }
+  },
+  "language": {
+    "code": "hu",
+    "local-name": "Magyar",
+    "name": "Hungarian"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "Betöltés befejezve. DevTools megnyitva"
+      },
+      "i18n": {
+        "loaded": "i18n betöltve"
+      },
+      "second-instance": {
+        "receive-command": "Fogadott parancs a protokollon keresztül: \"{{command}}\""
+      },
+      "theme": {
+        "css-file-not-found": "CSS fájl \"{{cssFile}}\" nem létezik, figyelmen kívül hagyva"
+      },
+      "unresponsive": {
+        "details": "Nem reagál hiba!\n{{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "Alkalmazás gyorsítótárának törlése"
+      },
+      "window": {
+        "tried-to-render-offscreen": "Az ablak a képernyőn kívül próbált renderelni, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "detail": "A menü el van rejtve, a megjelenítéshez használd az 'Alt' billentyűt (vagy az 'Escape' billentyűt, ha az alkalmazáson belüli menüt használod)",
+        "message": "A menü elrejtése engedélyezve",
+        "title": "Menü elrejtése engedélyezve"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "Később",
+          "restart-now": "Újraindítás most"
+        },
+        "detail": "A \"{{pluginName}}\" plugin újraindítást igényel a hatálybalépéshez",
+        "message": "\"{{pluginName}}\" újra kell indítani",
+        "title": "Újraindítás szükséges"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "Kilépés",
+          "relaunch": "Újraindítás",
+          "wait": "Várj"
+        }
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "Frissítések letiltása",
+          "download": "Letöltés",
+          "ok": "OK"
+        },
+        "detail": "Az új verzió elérhető, és letölthető a {{downloadLink}}",
+        "message": "Új verzió áll rendelkezésre",
+        "title": "Elérhető frissítés"
+      }
+    },
+    "menu": {
+      "about": "Névjegy",
+      "navigation": {
+        "label": "Navigálás",
+        "submenu": {
+          "copy-current-url": "Jelenlegi URL másolása",
+          "go-back": "Vissza",
+          "go-forward": "Előre",
+          "quit": "Kilépés",
+          "restart": "App újraindítása"
+        }
+      },
+      "options": {
+        "label": "Beállítások",
+        "submenu": {
+          "advanced-options": {
+            "label": "Speciális beállítások"
+          }
+        }
+      }
+    }
+  }
+}

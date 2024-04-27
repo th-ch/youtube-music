@@ -24,19 +24,13 @@ yt-page-navigation-progress {
   background-color 300ms cubic-bezier(0.2, 0, 0.6, 1) !important;
 }
 
-#img,
-#player,
-.song-media-controls.style-scope.ytmusic-player {
-  border-radius: 2% !important;
-}
-
 #items {
   border-radius: 10px !important;
 }
 
 /* fix blur navigation bar */
 
-ytmusic-app-layout > [slot='player-page'] {
+ytmusic-app-layout > [slot="player-page"]:not([is-mweb-modernization-enabled]) {
   padding-top: 90px;
   margin-top: calc(-90px + var(--menu-bar-height, 0px)) !important;
 }
