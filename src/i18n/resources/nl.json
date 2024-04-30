@@ -63,7 +63,7 @@
           "relaunch": "Opnieuw starten",
           "wait": "Wachten"
         },
-        "detail": "Het programma reageert niet!\nKies wat u wilt doen:",
+        "detail": "Het programma reageert niet! Kies wat u wilt doen:",
         "message": "De applicatie reageert niet",
         "title": "Venster Niet Reagerend"
       },
@@ -331,6 +331,11 @@
       "name": "Automatisch afspelen uitschakelen"
     },
     "discord": {
+      "backend": {
+        "already-connected": "Geprobeerd verbinding te maken met een actieve verbinding",
+        "connected": "Verbonden met Discord",
+        "disconnected": "Verbinding met Discord verbroken"
+      },
       "description": "Laat je vrienden zien waar je naar luistert met Rich Presence",
       "menu": {
         "auto-reconnect": "Automatisch opnieuw verbinden",
@@ -352,11 +357,51 @@
       }
     },
     "downloader": {
+      "backend": {
+        "dialog": {
+          "error": {
+            "buttons": {
+              "ok": "Oke"
+            },
+            "message": "Excuses, de download is mislukt…",
+            "title": "Er is een fout opgetreden tijdens het downloaden!"
+          },
+          "start-download-playlist": {
+            "buttons": {
+              "ok": "Oke"
+            },
+            "detail": "({{playlistSize}} liederen)",
+            "message": "Afspeellijst \"{{playlistTitle}}\" aan het downloaden",
+            "title": "Download is gestart"
+          }
+        },
+        "feedback": {
+          "done": "Gereed: {{filePath}}",
+          "download-info": "{{artist}} - {{title}} ([{{videoId}}) aan het downloaden",
+          "download-progress": "Downloaden: {{percent}}%",
+          "downloading": "Aan het downloaden…",
+          "downloading-counter": "{{current}}/{{total}} aan het downloaden…",
+          "downloading-playlist": "Afspeellijst \"{{playlistTitle}}\" {{playlistId}} aan het downloaden ({{playlistSize}} liederen)",
+          "error-while-downloading": "Er is een fout opgetreden tijdens het downloaden van \"{{author}} - {{title}}\": {{error}}",
+          "folder-already-exists": "De folder \"{{playlistFolder}}\" bestaat al",
+          "getting-playlist-info": "Afspeellijst informatie ophalen…",
+          "loading": "Laden…",
+          "playlist-has-only-one-song": "Afspeellijst heeft maar 1 item, item direct aan het downloaden",
+          "playlist-id-not-found": "Geen playlist ID gevonden",
+          "playlist-is-empty": "Afspeellijst is leeg",
+          "playlist-is-mix-or-private": "Er is een fout opgetreden tijdens het ophalen van de afspeellijst informatie: zorg ervoor dat het geen verborgen of \"Mixed for you\" afspeellijst is\n\n{{error}}",
+          "preparing-file": "Bestand voorbereiden…",
+          "saving": "Opslaan…",
+          "trying-to-get-playlist-id": "Proberen om het afspeellijst ID op te halen: {{playlistId}}",
+          "video-id-not-found": "Video niet gevonden",
+          "writing-id3": "ID3 tags aan het schrijven…"
+        }
+      },
       "description": "Download MP3 / bron-audio rechtstreeks vanuit de interface",
       "menu": {
         "choose-download-folder": "Kies de downloadmap",
         "download-playlist": "Afspeellijst downloaden",
-        "presets": "Presets",
+        "presets": "Voorinstellingen",
         "skip-existing": "Bestaande bestanden overslaan"
       },
       "name": "Downloader",
@@ -376,7 +421,7 @@
       "menu": {
         "hide-dom-window-controls": "Verberg DOM-vensterbedieningselementen"
       },
-      "name": "In-App Menu"
+      "name": "In-App menu"
     },
     "lumiastream": {
       "description": "Voegt ondersteuning voor Lumia Stream toe",
@@ -449,13 +494,36 @@
     "notifications": {
       "description": "Toont een melding wanneer een nummer begint te spelen (interactieve meldingen zijn beschikbaar op Windows)",
       "menu": {
-        "interactive": "Interactieve Meldingen"
+        "interactive": "Interactieve Meldingen",
+        "interactive-settings": {
+          "label": "Interactieve instellingen",
+          "submenu": {
+            "hide-button-text": "Verberg tekst op de knop",
+            "refresh-on-play-pause": "Herlaad bij het afspelen/pauzeren"
+          }
+        },
+        "unpause-notification": "Laat een notificatie zijn bij het depauzeren"
       },
       "name": "Meldingen"
     },
+    "picture-in-picture": {
+      "menu": {
+        "always-on-top": "Altijd bovenaan",
+        "hotkey": {
+          "label": "Sneltoets",
+          "prompt": {
+            "keybind-options": {
+              "hotkey": "Sneltoets"
+            }
+          }
+        },
+        "save-window-position": "Sla schermpositie op",
+        "save-window-size": "Sla schermgrootte op"
+      }
+    },
     "visualizer": {
       "description": "Voeg een visuele equalizer toe",
-      "name": "Visualizer"
+      "name": "Visualisator"
     }
   }
 }

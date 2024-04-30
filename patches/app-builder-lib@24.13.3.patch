@@ -1,0 +1,21 @@
+diff --git a/out/targets/snap.js b/out/targets/snap.js
+index f72c36355d27cd2d69fc5fdf2d8bb2451db0287f..baae112fe25ebb49ab8e25aaa48efd6bc43b598f 100644
+--- a/out/targets/snap.js
++++ b/out/targets/snap.js
+@@ -212,14 +212,14 @@ class SnapTarget extends core_1.Target {
+             args.push("--template-url", `electron4:${snapArch}`);
+         }
+         await (0, builder_util_1.executeAppBuilder)(args);
+-        const publishConfig = findSnapPublishConfig(this.packager.config);
++
+         await packager.info.callArtifactBuildCompleted({
+             file: artifactPath,
+             safeArtifactName: packager.computeSafeArtifactName(artifactName, "snap", arch, false),
+             target: this,
+             arch,
+             packager,
+-            publishConfig: publishConfig == null ? { provider: "snapStore" } : publishConfig,
++            publishConfig: options.publish == null ? { provider: "snapStore" } : null,
+         });
+     }
+     isElectronVersionGreaterOrEqualThan(version) {
