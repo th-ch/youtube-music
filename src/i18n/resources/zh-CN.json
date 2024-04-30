@@ -1,0 +1,690 @@
+{
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "执行插件 {{pluginName}}::{{contextName}} 失败",
+        "executed-at-ms": "插件 {{pluginName}}::{{contextName}} 已在 {{ms}} 毫秒内执行",
+        "initialize-failed": "初始化插件 “{{pluginName}}” 失败",
+        "load-all": "正在加载所有插件",
+        "load-failed": "加载插件 “{{pluginName}}” 失败",
+        "loaded": "插件 “{{pluginName}}” 已载入",
+        "unload-failed": "卸载插件 “{{pluginName}}” 失败",
+        "unloaded": "插件 “{{pluginName}}” 已卸载"
+      }
+    }
+  },
+  "language": {
+    "code": "zh-CN",
+    "local-name": "简体中文",
+    "name": "Simplified Chinese"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "加载完毕。开发人员工具已启动"
+      },
+      "i18n": {
+        "loaded": "i18n 已载入"
+      },
+      "second-instance": {
+        "receive-command": "已从协议接收到以下指令：“{{command}}”"
+      },
+      "theme": {
+        "css-file-not-found": "CSS 文件 “{{cssFile}}” 不存在，将被忽略"
+      },
+      "unresponsive": {
+        "details": "无响应错误！\n{{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "正在清理应用缓存"
+      },
+      "window": {
+        "tried-to-render-offscreen": "窗口试图于屏幕外绘制, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "detail": "菜单已隐藏，按下 Alt 键来显示（若使用应用内菜单则按 Esc 键）",
+        "message": "隐藏菜单已被启用",
+        "title": "隐藏菜单已启用"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "稍后",
+          "restart-now": "现在重启"
+        },
+        "detail": "“{{pluginName}}” 插件需要重启程序后生效",
+        "message": "“{{pluginName}}” 需要重启",
+        "title": "需要重启"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "退出",
+          "relaunch": "重启",
+          "wait": "等待"
+        },
+        "detail": "对产生的不便我们表示抱歉！请选择接下来要做什么：",
+        "message": "应用程序无响应",
+        "title": "窗口无响应"
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "禁用更新",
+          "download": "下载",
+          "ok": "好的"
+        },
+        "detail": "新版本现已可用，可从 {{downloadLink}} 下载",
+        "message": "新版本可用",
+        "title": "更新可用"
+      }
+    },
+    "menu": {
+      "about": "关于",
+      "navigation": {
+        "label": "导航",
+        "submenu": {
+          "copy-current-url": "复制当前 URL",
+          "go-back": "后退",
+          "go-forward": "前进",
+          "quit": "退出",
+          "restart": "重启应用"
+        }
+      },
+      "options": {
+        "label": "选项",
+        "submenu": {
+          "advanced-options": {
+            "label": "高级选项",
+            "submenu": {
+              "auto-reset-app-cache": "启动时重置应用缓存",
+              "disable-hardware-acceleration": "禁用硬件加速",
+              "edit-config-json": "编辑 config.json",
+              "override-user-agent": "覆盖 User-Agent",
+              "restart-on-config-changes": "配置改变时重启",
+              "set-proxy": {
+                "label": "设置代理",
+                "prompt": {
+                  "label": "输入代理地址（留空以禁用）",
+                  "placeholder": "例如： SOCKS5://127.0.0.1:9999",
+                  "title": "设置代理服务器"
+                }
+              },
+              "toggle-dev-tools": "切换开发人员工具"
+            }
+          },
+          "always-on-top": "保持置顶",
+          "auto-update": "自动更新",
+          "hide-menu": {
+            "dialog": {
+              "message": "菜单将在下次启动时隐藏，按下 Alt 键以显示（若使用应用内菜单则按 ` 键）",
+              "title": "隐藏菜单已启用"
+            },
+            "label": "隐藏菜单"
+          },
+          "language": {
+            "dialog": {
+              "message": "语言会在应用重启后更改",
+              "title": "语言已更改"
+            },
+            "label": "语言",
+            "submenu": {
+              "to-help-translate": "想要协助翻译？点击此处"
+            }
+          },
+          "resume-on-start": "应用启动时继续上次播放的歌曲",
+          "single-instance-lock": "单例模式",
+          "start-at-login": "系统登录时启动",
+          "starting-page": {
+            "label": "启动页面",
+            "unset": "取消设定"
+          },
+          "tray": {
+            "label": "托盘",
+            "submenu": {
+              "disabled": "已禁用",
+              "enabled-and-hide-app": "启用并隐藏应用",
+              "enabled-and-show-app": "启用并显示应用",
+              "play-pause-on-click": "点击时播放/暂停"
+            }
+          },
+          "visual-tweaks": {
+            "label": "视觉调整",
+            "submenu": {
+              "like-buttons": {
+                "default": "默认",
+                "force-show": "强制显示",
+                "hide": "隐藏",
+                "label": "点赞按钮"
+              },
+              "remove-upgrade-button": "移除升级按钮",
+              "theme": {
+                "label": "主题",
+                "submenu": {
+                  "import-css-file": "导入自定义 CSS 文件",
+                  "no-theme": "无主题"
+                }
+              }
+            }
+          }
+        }
+      },
+      "plugins": {
+        "enabled": "已启用",
+        "label": "插件",
+        "new": "新增"
+      },
+      "view": {
+        "label": "视图",
+        "submenu": {
+          "force-reload": "强制刷新",
+          "reload": "刷新",
+          "reset-zoom": "实际缩放大小",
+          "toggle-fullscreen": "切换全屏",
+          "zoom-in": "放大",
+          "zoom-out": "缩小"
+        }
+      }
+    },
+    "tray": {
+      "next": "下一首",
+      "play-pause": "播放/暂停",
+      "previous": "上一首",
+      "quit": "退出",
+      "restart": "重启应用",
+      "show": "显示窗口",
+      "tooltip": {
+        "default": "YouTube Music",
+        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
+      }
+    }
+  },
+  "plugins": {
+    "adblocker": {
+      "description": "屏蔽所有广告与跟踪器",
+      "menu": {
+        "blocker": "屏蔽器"
+      },
+      "name": "广告屏蔽器"
+    },
+    "album-actions": {
+      "description": "添加作用于播放列表或专辑中所有歌曲的全局“点赞/取消点赞”与“喜欢/取消喜欢”按钮",
+      "name": "专辑操作"
+    },
+    "album-color-theme": {
+      "description": "根据专辑封面配色动态改变主题与视觉效果",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "颜色混合比例",
+          "submenu": {
+            "percent": "{{ratio}}%"
+          }
+        }
+      },
+      "name": "专辑配色主题"
+    },
+    "ambient-mode": {
+      "description": "将视频中的浅配色作为光效投射到背景中，以增加沉浸感",
+      "menu": {
+        "blur-amount": {
+          "label": "模糊等级",
+          "submenu": {
+            "pixels": "{{blurAmount}} 像素"
+          }
+        },
+        "buffer": {
+          "label": "缓冲",
+          "submenu": {
+            "buffer": "{{buffer}}"
+          }
+        },
+        "opacity": {
+          "label": "不透明度",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "quality": {
+          "label": "质量",
+          "submenu": {
+            "pixels": "{{quality}} 像素"
+          }
+        },
+        "size": {
+          "label": "大小",
+          "submenu": {
+            "percent": "{{size}}%"
+          }
+        },
+        "smoothness-transition": {
+          "label": "平滑过渡",
+          "submenu": {
+            "during": "持续 {{interpolationTime}} 秒"
+          }
+        },
+        "use-fullscreen": {
+          "label": "使用全屏"
+        }
+      },
+      "name": "沉浸模式"
+    },
+    "audio-compressor": {
+      "description": "对音频应用压缩（压低响亮部分，提升柔和部分）",
+      "name": "音频压缩器"
+    },
+    "blur-nav-bar": {
+      "description": "让导航栏透明及模糊",
+      "name": "模糊导航栏"
+    },
+    "bypass-age-restrictions": {
+      "description": "绕过 YouTube 年龄验证",
+      "name": "绕过年龄验证"
+    },
+    "captions-selector": {
+      "description": "YouTube Music 音轨字幕选择器",
+      "menu": {
+        "autoload": "自动选择上次使用的字幕",
+        "disable-captions": "默认无字幕"
+      },
+      "name": "字幕选择器",
+      "prompt": {
+        "selector": {
+          "label": "当前字幕语言： {{language}}",
+          "none": "无",
+          "title": "选择字幕语言"
+        }
+      },
+      "templates": {
+        "title": "开启字幕选择器"
+      }
+    },
+    "compact-sidebar": {
+      "description": "始终将侧边栏设为紧凑模式",
+      "name": "紧凑式侧边栏"
+    },
+    "crossfade": {
+      "description": "在歌曲间启用交叉淡化效果",
+      "menu": {
+        "advanced": "高级"
+      },
+      "name": "交叉淡化 [Beta]",
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "fade-in-duration": "淡入持续时间（毫秒）",
+            "fade-out-duration": "淡出持续时间（毫秒）",
+            "fade-scaling": {
+              "label": "淡化尺度",
+              "linear": "线性",
+              "logarithmic": "对数"
+            },
+            "seconds-before-end": "歌曲结束前持续交叉淡化时长"
+          },
+          "title": "交叉淡化选项"
+        }
+      }
+    },
+    "disable-autoplay": {
+      "description": "让曲目开始时处于 “暂停” 模式",
+      "menu": {
+        "apply-once": "仅在程序启动时应用"
+      },
+      "name": "禁用自动播放"
+    },
+    "discord": {
+      "backend": {
+        "already-connected": "已尝试使用活跃网络进行连接",
+        "connected": "已连接到 Discord",
+        "disconnected": "已和 Discord 断开连接"
+      },
+      "description": "使用 Rich Presence 与好友分享正在收听的音乐",
+      "menu": {
+        "auto-reconnect": "自动重连",
+        "clear-activity": "清除状态",
+        "clear-activity-after-timeout": "超时后清除状态",
+        "connected": "已连接",
+        "disconnected": "已断开连接",
+        "hide-duration-left": "隐藏剩余时长",
+        "hide-github-button": "隐藏 GitHub 链接按钮",
+        "play-on-youtube-music": "转至 YouTube Music 播放",
+        "set-inactivity-timeout": "设置非活跃时长"
+      },
+      "name": "Discord Rich Presence 状态显示",
+      "prompt": {
+        "set-inactivity-timeout": {
+          "label": "设置非活跃状态超时时长，以秒为单位：",
+          "title": "设置非活跃超时"
+        }
+      }
+    },
+    "downloader": {
+      "backend": {
+        "dialog": {
+          "error": {
+            "buttons": {
+              "ok": "好的"
+            },
+            "message": "啊！抱歉，下载失败…",
+            "title": "下载时发生错误！"
+          },
+          "start-download-playlist": {
+            "buttons": {
+              "ok": "好的"
+            },
+            "detail": "({{playlistSize}} 首歌曲)",
+            "message": "正在下载播放列表 {{playlistTitle}}",
+            "title": "下载已开始"
+          }
+        },
+        "feedback": {
+          "conversion-progress": "转换进度： {{percent}}%",
+          "converting": "正在转换…",
+          "done": "完成下载： {{filePath}}",
+          "download-info": "正在下载 {{artist}} - {{title}} [{{videoId}}",
+          "download-progress": "下载： {{percent}}%",
+          "downloading": "下载中…",
+          "downloading-counter": "当前正下载 {{current}}/{{total}}…",
+          "downloading-playlist": "当前正在下载播放列表 \"{{playlistTitle}}\" - 共有 {{playlistSize}} 首歌曲 ({{playlistId}})",
+          "error-while-downloading": "下载 \"{{author}} - {{title}}\" 时出错： {{error}}",
+          "folder-already-exists": "文件夹 {{playlistFolder}} 已存在",
+          "getting-playlist-info": "正在获取播放列表信息…",
+          "loading": "加载中…",
+          "playlist-has-only-one-song": "播放列表只有一首歌曲，将直接下载",
+          "playlist-id-not-found": "未找到播放列表 ID",
+          "playlist-is-empty": "播放列表是空的",
+          "playlist-is-mix-or-private": "获取播放列表信息时出错：请确认目标不是私有或“为你推荐”列表\n\n{{error}}",
+          "preparing-file": "正在准备文件…",
+          "saving": "正在保存…",
+          "trying-to-get-playlist-id": "正尝试获取播放列表 ID： {{playlistId}}",
+          "video-id-not-found": "视频未找到",
+          "writing-id3": "正在写入 ID3 标签…"
+        }
+      },
+      "description": "在界面内直接下载 MP3 / 源音频",
+      "menu": {
+        "choose-download-folder": "选择下载文件夹",
+        "download-playlist": "下载播放列表",
+        "presets": "预设",
+        "skip-existing": "跳过已存在的文件"
+      },
+      "name": "下载器",
+      "renderer": {
+        "can-not-update-progress": "无法更新进度"
+      },
+      "templates": {
+        "button": "下载"
+      }
+    },
+    "exponential-volume": {
+      "description": "让音量滑块指数化以便选择更低的音量。",
+      "name": "指数化音量"
+    },
+    "in-app-menu": {
+      "description": "为菜单栏启用更精美的外观，可选暗色或专辑配色",
+      "menu": {
+        "hide-dom-window-controls": "隐藏 DOM 窗口控件"
+      },
+      "name": "应用内菜单"
+    },
+    "lumiastream": {
+      "description": "添加 Lumia Stream 支持",
+      "name": "Lumia Stream [测试]"
+    },
+    "lyrics-genius": {
+      "description": "为大多数歌曲添加歌词支持",
+      "menu": {
+        "romanized-lyrics": "罗马化字幕"
+      },
+      "name": "Genius 歌词",
+      "renderer": {
+        "fetched-lyrics": "已从 Genius 获取字幕"
+      }
+    },
+    "music-together": {
+      "description": "与他人共享播放列表。当发起人播放歌曲时，其他人也会听到相同歌曲",
+      "dialog": {
+        "enter-host": "输入发起人 ID"
+      },
+      "internal": {
+        "save": "保存",
+        "track-source": "追踪来源",
+        "unknown-user": "未知用户"
+      },
+      "menu": {
+        "click-to-copy-id": "复制发起者 ID",
+        "close": "关闭 Music Together",
+        "connected-users": "已连接用户",
+        "disconnect": "断开 Music Together 连接",
+        "empty-user": "没有已连接的用户",
+        "host": "Music Together 发起者",
+        "join": "加入 Music Together",
+        "permission": {
+          "all": "允许来宾控制播放列表与播放器",
+          "host-only": "仅发起人可以控制播放列表与播放器",
+          "playlist": "允许来宾控制播放列表"
+        },
+        "set-permission": "更改控制权限",
+        "status": {
+          "disconnected": "已断开连接",
+          "guest": "已作为来宾连接",
+          "host": "已作为发起人连接"
+        }
+      },
+      "name": "Music Together [测试]",
+      "toast": {
+        "add-song-failed": "添加歌曲失败",
+        "closed": "Music Together 已关闭",
+        "disconnected": "Music Together 已断开连接",
+        "host-failed": "发起 Music Together 失败",
+        "id-copied": "已将发起者 ID 复制到剪切板",
+        "id-copy-failed": "复制发起者 ID 到剪贴板时失败",
+        "join-failed": "加入 Music Together 失败",
+        "joined": "已加入 Music Together",
+        "permission-changed": "Music Together 权限已改为 \"{{permission}}\"",
+        "remove-song-failed": "移除歌曲失败",
+        "user-connected": "{{name}} 加入了 Music Together",
+        "user-disconnected": "{{name}} 离开了 Music Together"
+      }
+    },
+    "navigation": {
+      "description": "如同浏览器般，在应用界面内直接显示前进/后退导航按钮",
+      "name": "导航"
+    },
+    "no-google-login": {
+      "description": "从界面内移除 Google 登录按钮和链接",
+      "name": "无 Google 登录"
+    },
+    "notifications": {
+      "description": "歌曲开始时显示通知（交互式通知仅适用于 Windows）",
+      "menu": {
+        "interactive": "交互式通知",
+        "interactive-settings": {
+          "label": "通知交互设定",
+          "submenu": {
+            "hide-button-text": "隐藏按钮文字",
+            "refresh-on-play-pause": "播放/暂停时刷新",
+            "tray-controls": "点击托盘时打开/关闭"
+          }
+        },
+        "priority": "通知优先级",
+        "toast-style": "弹出通知样式",
+        "unpause-notification": "取消暂停时显示通知"
+      },
+      "name": "通知"
+    },
+    "picture-in-picture": {
+      "description": "允许应用切换到画中画模式",
+      "menu": {
+        "always-on-top": "保持置顶",
+        "hotkey": {
+          "label": "热键",
+          "prompt": {
+            "keybind-options": {
+              "hotkey": "热键"
+            },
+            "label": "选择切换画中画模式的热键",
+            "title": "画中画热键"
+          }
+        },
+        "save-window-position": "记住窗口位置",
+        "save-window-size": "记住窗口尺寸",
+        "use-native-pip": "使用浏览器原生画中画功能"
+      },
+      "name": "画中画",
+      "templates": {
+        "button": "画中画"
+      }
+    },
+    "playback-speed": {
+      "description": "快慢随心！为歌曲添加速度控制滑块",
+      "name": "回放速度",
+      "templates": {
+        "button": "速度"
+      }
+    },
+    "precise-volume": {
+      "description": "启用自定义的音量弹窗以及可变步长，以便采用滚轮/热键精确控制音量",
+      "menu": {
+        "arrows-shortcuts": "本地方向键控件",
+        "custom-volume-steps": "设置自定义音量步长",
+        "global-shortcuts": "全局热键"
+      },
+      "name": "精确音量",
+      "prompt": {
+        "global-shortcuts": {
+          "keybind-options": {
+            "decrease": "降低音量",
+            "increase": "提升音量"
+          },
+          "label": "选择全局音量键绑定：",
+          "title": "全局音量键绑定"
+        },
+        "volume-steps": {
+          "label": "选择音量增加/减弱步长",
+          "title": "音量步长"
+        }
+      }
+    },
+    "quality-changer": {
+      "backend": {
+        "dialog": {
+          "quality-changer": {
+            "detail": "当前质量： {{quality}}",
+            "message": "选择视频画质：",
+            "title": "选择视频画质"
+          }
+        }
+      },
+      "description": "允许在视频上显示切换画质按钮",
+      "name": "视频画质切换器"
+    },
+    "scrobbler": {
+      "description": "添加歌曲追踪支持（如 Last.fm 和 Listenbrainz）",
+      "dialog": {
+        "lastfm": {
+          "auth-failed": {
+            "message": "与 Last.fm 认证时失败\n弹出窗口将在下次重启前隐藏。",
+            "title": "认证失败"
+          }
+        }
+      },
+      "menu": {
+        "lastfm": {
+          "api-settings": "Last.fm API 设置"
+        },
+        "listenbrainz": {
+          "token": "输入 ListenBrainz 用户令牌"
+        },
+        "scrobble-other-media": "记录其他媒体文件"
+      },
+      "name": "歌曲记录器",
+      "prompt": {
+        "lastfm": {
+          "api-key": "Last.fm API 密钥（Key）",
+          "api-secret": "Last.fm API 密文（Secret）"
+        },
+        "listenbrainz": {
+          "token": {
+            "label": "输入您的v ListenBrainz 用户令牌：",
+            "title": "ListenBrainz 令牌"
+          }
+        }
+      }
+    },
+    "shortcuts": {
+      "description": "允许为音频回放操作（播放/暂停/上一曲/下一曲）设置全局热键，兼具覆盖物理键以禁用 OSD、启用 Ctrl/CMD + F 搜索、为物理键启用 Linux MPRIS 支持及自定义热键等高级功能",
+      "menu": {
+        "override-media-keys": "覆盖物理媒体热键",
+        "set-keybinds": "设置全局歌曲控件"
+      },
+      "name": "快捷键（以及 MPRIS）",
+      "prompt": {
+        "keybind": {
+          "keybind-options": {
+            "next": "下一曲",
+            "play-pause": "播放/暂停",
+            "previous": "上一曲"
+          },
+          "label": "为歌曲控制选择全局按键绑定：",
+          "title": "全局按键绑定"
+        }
+      }
+    },
+    "skip-disliked-songs": {
+      "description": "自动跳过不喜欢的歌曲",
+      "name": "跳过不喜欢的歌曲"
+    },
+    "skip-silences": {
+      "description": "自动跳过音乐中的无声片段",
+      "name": "跳过无声片段"
+    },
+    "sponsorblock": {
+      "description": "自动跳过非音乐部分，如 MV 的介绍/结语以及歌曲未开始的部分",
+      "name": "SponsorBlock"
+    },
+    "taskbar-mediacontrol": {
+      "description": "从 Windows 任务栏控制音乐回放",
+      "name": "任务栏媒体控件"
+    },
+    "touchbar": {
+      "description": "为 macOS 用户启用 TouchBar 支持",
+      "name": "TouchBar"
+    },
+    "tuna-obs": {
+      "description": "与 OBS 的 Tuna 插件集成",
+      "name": "Tuna OBS"
+    },
+    "video-toggle": {
+      "description": "增加视频/音频模式间的切换按钮。兼具移除整个视频页面的功能",
+      "menu": {
+        "align": {
+          "label": "位置对齐",
+          "submenu": {
+            "left": "左对齐",
+            "middle": "居中",
+            "right": "右对齐"
+          }
+        },
+        "force-hide": "强制移除视频页",
+        "mode": {
+          "label": "模式",
+          "submenu": {
+            "custom": "自定义开关样式",
+            "disabled": "禁用",
+            "native": "原生开关样式"
+          }
+        }
+      },
+      "name": "视频切换开关",
+      "templates": {
+        "button": "歌曲"
+      }
+    },
+    "visualizer": {
+      "description": "在播放器中添加可视化效果",
+      "menu": {
+        "visualizer-type": "可视化类型"
+      },
+      "name": "可视化效果"
+    }
+  }
+}

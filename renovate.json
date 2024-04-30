@@ -1,0 +1,8 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base"
+  ],
+  "labels": ["dependencies"],
+  "postUpdateOptions": ["pnpmDedupe"]
+}

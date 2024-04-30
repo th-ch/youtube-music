@@ -1,0 +1,690 @@
+{
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "Gagal saat mengeksekusi plugin {{pluginName}}::{{contextName}}",
+        "executed-at-ms": "Plugin {{pluginName}}::{{contextName}} dieksekusi pada {{ms}}ms",
+        "initialize-failed": "Gagal dalam menginisialisasi plugin \"{{pluginName}}\"",
+        "load-all": "Memuat semua plugin",
+        "load-failed": "Gagal memuat plugin \"{{pluginName}}\"",
+        "loaded": "Plugin \"{{pluginName}}\" dimuat",
+        "unload-failed": "Gagal untuk memuat plugin \"{{pluginName}}\"",
+        "unloaded": "Plugin \"{{pluginName}}\" telah dikeluarkan"
+      }
+    }
+  },
+  "language": {
+    "code": "id",
+    "local-name": "Bahasa Indonesia",
+    "name": "Indonesian"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "Selesai memuat. DevTools terbuka"
+      },
+      "i18n": {
+        "loaded": "i18n selesai dimuat"
+      },
+      "second-instance": {
+        "receive-command": "Menerima instruksi lewat protokol: \"{{command}}\""
+      },
+      "theme": {
+        "css-file-not-found": "CSS file \"{{cssFile}}\" tidak ada, mengabaikan"
+      },
+      "unresponsive": {
+        "details": "Kesalahan Tidak Responsif!\n{{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "Menghapus cache aplikasi"
+      },
+      "window": {
+        "tried-to-render-offscreen": "Window mencoba membuat render di luar layar, windowUkuran={{windowSize}}, displaySize={{displaySize}}, posisi={{position}}"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "detail": "Menu tersembunyi, gunakan 'Alt' untuk menampilkannya (atau 'Escape' jika menggunakan Menu Dalam Aplikasi)",
+        "message": "Menu Sembunyikan diaktifkan",
+        "title": "Sembunyikan Menu Diaktifkan"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "Kemudian",
+          "restart-now": "Restart Sekarang"
+        },
+        "detail": "\"{{pluginName}}\" Plugin memerlukan pengaktifan ulang agar dapat diterapkan",
+        "message": "\"{{pluginName}}\" harus dimulai ulang",
+        "title": "Diperlukan Restart"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "Keluar",
+          "relaunch": "Luncurkan kembali",
+          "wait": "Tunggu"
+        },
+        "detail": "Kami mohon maaf atas ketidaknyamanan ini. silakan pilih apa yang harus dilakukan:",
+        "message": "Aplikasi Tidak Responsif",
+        "title": "Jendela Tidak Responsif"
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "Nonaktifkan Pembaruan",
+          "download": "Unduh",
+          "ok": "OK"
+        },
+        "detail": "Versi baru tersedia dan dapat diunduh di {{downloadLink}}",
+        "message": "Versi baru tersedia",
+        "title": "Pembaruan Tersedia"
+      }
+    },
+    "menu": {
+      "about": "Tentang",
+      "navigation": {
+        "label": "Navigasi",
+        "submenu": {
+          "copy-current-url": "Salin URL saat ini",
+          "go-back": "Kembali",
+          "go-forward": "Maju",
+          "quit": "Keluar",
+          "restart": "Restart Aplikasi"
+        }
+      },
+      "options": {
+        "label": "Option",
+        "submenu": {
+          "advanced-options": {
+            "label": "Opsi lanjutan",
+            "submenu": {
+              "auto-reset-app-cache": "Mengatur ulang cache aplikasi saat aplikasi dimulai",
+              "disable-hardware-acceleration": "Menonaktifkan akselerasi perangkat keras",
+              "edit-config-json": "Ubah config.json",
+              "override-user-agent": "Mengesampingkan User-Agent",
+              "restart-on-config-changes": "Mulai ulang pada perubahan konfigurasi",
+              "set-proxy": {
+                "label": "Atur Proxy",
+                "prompt": {
+                  "label": "Masukkan Alamat Proxy: (biarkan kosong untuk menonaktifkan)",
+                  "placeholder": "Contoh: SOCKS5://127.0.0.1:9999",
+                  "title": "Atur proxy"
+                }
+              },
+              "toggle-dev-tools": "Beralih ke DevTools"
+            }
+          },
+          "always-on-top": "Selalu di atas",
+          "auto-update": "Pembaruan Otomatis",
+          "hide-menu": {
+            "dialog": {
+              "message": "Menu akan disembunyikan pada peluncuran berikutnya, gunakan [Alt] untuk menampilkannya (atau centang [`] jika menggunakan menu dalam aplikasi)",
+              "title": "Sembunyikan Menu Diaktifkan"
+            },
+            "label": "Sembunyikan Menu"
+          },
+          "language": {
+            "dialog": {
+              "message": "Bahasa akan berubah setelah restart",
+              "title": "Bahasa Berubah"
+            },
+            "label": "Bahasa",
+            "submenu": {
+              "to-help-translate": "Ingin membantu menerjemahkan? Klik di sini"
+            }
+          },
+          "resume-on-start": "Melanjutkan lagu terakhir saat aplikasi dimulai",
+          "single-instance-lock": "Kunci Instance Tunggal",
+          "start-at-login": "Mulai saat masuk",
+          "starting-page": {
+            "label": "Halaman awal",
+            "unset": "Tidak ditetapkan"
+          },
+          "tray": {
+            "label": "Bilah",
+            "submenu": {
+              "disabled": "Dinonaktifkan",
+              "enabled-and-hide-app": "Mengaktifkan dan menyembunyikan aplikasi",
+              "enabled-and-show-app": "Mengaktifkan dan menampilkan aplikasi",
+              "play-pause-on-click": "Putar/Jeda dengan klik"
+            }
+          },
+          "visual-tweaks": {
+            "label": "Penyesuaian Visual",
+            "submenu": {
+              "like-buttons": {
+                "default": "Standar",
+                "force-show": "Pertunjukan paksa",
+                "hide": "Sembunyikan",
+                "label": "Tombol suka"
+              },
+              "remove-upgrade-button": "Hapus tombol peningkatan",
+              "theme": {
+                "label": "Tema",
+                "submenu": {
+                  "import-css-file": "Impor file CSS khusus",
+                  "no-theme": "Tidak ada tema"
+                }
+              }
+            }
+          }
+        }
+      },
+      "plugins": {
+        "enabled": "Diaktifkan",
+        "label": "Plugin",
+        "new": "Baru"
+      },
+      "view": {
+        "label": "Lihat",
+        "submenu": {
+          "force-reload": "Paksa Reload",
+          "reload": "Muat ulang",
+          "reset-zoom": "Ukuran sebenarnya",
+          "toggle-fullscreen": "Alihkan Layar Penuh",
+          "zoom-in": "Perbesar",
+          "zoom-out": "Perkecil"
+        }
+      }
+    },
+    "tray": {
+      "next": "Selanjutnya",
+      "play-pause": "Putar/Jeda",
+      "previous": "Sebelumnya",
+      "quit": "Keluar",
+      "restart": "Restart aplikasi",
+      "show": "Tampilkan jendela",
+      "tooltip": {
+        "default": "YouTube Musik",
+        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
+      }
+    }
+  },
+  "plugins": {
+    "adblocker": {
+      "description": "Blokir semua iklan dan pelacakan di luar kotak",
+      "menu": {
+        "blocker": "Pemblokir"
+      },
+      "name": "Pemblokir Iklan"
+    },
+    "album-actions": {
+      "description": "Tambah tombol Suka, Batal Suka, Tidak Suka dan Batal Tidak Suka untuk diterapkan ke semua lagu dalam daftar putar atau album",
+      "name": "Tindakan Album"
+    },
+    "album-color-theme": {
+      "description": "Menerapkan tema dinamis dan efek visual berdasarkan palet warna album",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "Rasio campuran warna",
+          "submenu": {
+            "percent": "{{ratio}}%"
+          }
+        }
+      },
+      "name": "Tema Warna Album"
+    },
+    "ambient-mode": {
+      "description": "Menerapkan efek pencahayaan dengan memancarkan warna-warna lembut dari video, ke dalam latar belakang layar Anda",
+      "menu": {
+        "blur-amount": {
+          "label": "Jumlah kabur",
+          "submenu": {
+            "pixels": "{{blurAmount}} piksel"
+          }
+        },
+        "buffer": {
+          "label": "Buffer",
+          "submenu": {
+            "buffer": "{{buffer}}"
+          }
+        },
+        "opacity": {
+          "label": "Keburaman",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "quality": {
+          "label": "Kualitas",
+          "submenu": {
+            "pixels": "{{quality}} piksel"
+          }
+        },
+        "size": {
+          "label": "Ukuran",
+          "submenu": {
+            "percent": "{{size}}%"
+          }
+        },
+        "smoothness-transition": {
+          "label": "Kehalusan transisi",
+          "submenu": {
+            "during": "Selama {{interpolationTime}} s"
+          }
+        },
+        "use-fullscreen": {
+          "label": "Gunakan layar penuh"
+        }
+      },
+      "name": "Mode ambient"
+    },
+    "audio-compressor": {
+      "description": "Menerapkan kompresi pada audio (mengurangi volume pada bagian paling keras dari sinyal dan meningkatkan volume pada bagian paling lembut)",
+      "name": "Kompresi suara"
+    },
+    "blur-nav-bar": {
+      "description": "Jadikan bar navigasi blur dan transparan",
+      "name": "buramkan bar navigasi"
+    },
+    "bypass-age-restrictions": {
+      "description": "Lewati verifikasi umur dari YouTube",
+      "name": "Lewati batasan umur"
+    },
+    "captions-selector": {
+      "description": "pemilih caption untuk trek audio YouTube Music",
+      "menu": {
+        "autoload": "pilih caption terakhir secara otomatis",
+        "disable-captions": "bawaannya tanpa caption"
+      },
+      "name": "pemilih caption",
+      "prompt": {
+        "selector": {
+          "label": "bahasa caption yang dipakai sekarang: {{language}}",
+          "none": "tidak ada",
+          "title": "pilih bahasa caption"
+        }
+      },
+      "templates": {
+        "title": "buka pemilih caption"
+      }
+    },
+    "compact-sidebar": {
+      "description": "Selalu atur sidebar dalam mode kompak",
+      "name": "sidebar ringkas"
+    },
+    "crossfade": {
+      "description": "Crossfade antar lagu",
+      "menu": {
+        "advanced": "Lanjutan"
+      },
+      "name": "Crossfade [Beta]",
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "fade-in-duration": "durasi fade in (ms)",
+            "fade-out-duration": "durasi fade out (ms)",
+            "fade-scaling": {
+              "label": "redup perlahan",
+              "linear": "Linear",
+              "logarithmic": "Logaritmik"
+            },
+            "seconds-before-end": "Crossfade N detik sebelum berakhir"
+          },
+          "title": "Pilihan crossfade"
+        }
+      }
+    },
+    "disable-autoplay": {
+      "description": "Buat lagu mulai dalam mode \"jeda\"",
+      "menu": {
+        "apply-once": "Hanya terapkan pada saat startup"
+      },
+      "name": "Matikan Autoplay"
+    },
+    "discord": {
+      "backend": {
+        "already-connected": "Percobaan untuk terhubung dengan koneksi yang aktif",
+        "connected": "Terhubung dengan Discord",
+        "disconnected": "Terputus dari Discord"
+      },
+      "description": "tunjukan apa yang kamu dengarkan dengan Rich Presence",
+      "menu": {
+        "auto-reconnect": "Reconnect otomatis",
+        "clear-activity": "Hapus riwayat aktifitas",
+        "clear-activity-after-timeout": "hapus riwayat aktifitas setelah timeout",
+        "connected": "terhubung",
+        "disconnected": "tidak terhubung",
+        "hide-duration-left": "sembunyikan sisa durasi",
+        "hide-github-button": "sembunyikan tombol link GitHub",
+        "play-on-youtube-music": "Mainkan di YouTube Music",
+        "set-inactivity-timeout": "Tetapkan batas waktu tidak aktif"
+      },
+      "name": "Rich Presence Discord",
+      "prompt": {
+        "set-inactivity-timeout": {
+          "label": "Masukkan batas waktu tidak aktif dalam detik:",
+          "title": "Tetapkan batas waktu tidak aktif"
+        }
+      }
+    },
+    "downloader": {
+      "backend": {
+        "dialog": {
+          "error": {
+            "buttons": {
+              "ok": "Oke"
+            },
+            "message": "Argh! Maaf, dowloadnya gagal…",
+            "title": "Downloadnya error!"
+          },
+          "start-download-playlist": {
+            "buttons": {
+              "ok": "Oke"
+            },
+            "detail": "({{playlistSize}} lagu-lagu)",
+            "message": "Mengunduh Playlist {{playlistTitle}}",
+            "title": "Download dimulai"
+          }
+        },
+        "feedback": {
+          "conversion-progress": "Konversi: {{percent}}%",
+          "converting": "Mengkonversi…",
+          "done": "Selesai: {{filePath}}",
+          "download-info": "Mengunduh {{artist}} - {{title}} {{videoId}}",
+          "download-progress": "Mengunduh: {{percent}}%",
+          "downloading": "Mengunduh…",
+          "downloading-counter": "Mengunduh {{current}}/{{total}}…",
+          "downloading-playlist": "Mengunduh playlist \"{{playlistTitle}}\" - {{playlistSize}} lagu ({{playlistId}})",
+          "error-while-downloading": "Gagal mengunduh \"{{author}} - {{title}}\": {{error}}",
+          "folder-already-exists": "Folder {{playlistFolder}} sudah ada",
+          "getting-playlist-info": "Mendapatkan informasi playlist…",
+          "loading": "Memuat…",
+          "playlist-has-only-one-song": "Daftar putar hanya memiliki satu item, mengunduhnya secara langsung",
+          "playlist-id-not-found": "ID playlist tidak ditemukan",
+          "playlist-is-empty": "Playlist kosong",
+          "playlist-is-mix-or-private": "Kesalahan mendapatkan info playlist: pastikan bukan playlist pribadi atau \"Campuran untuk Anda\"\n\n{{error}}",
+          "preparing-file": "Menyiapkan file…",
+          "saving": "Menyimpan…",
+          "trying-to-get-playlist-id": "Mencoba mendapatkan ID playlist: {{playlistId}}",
+          "video-id-not-found": "Video tidak ditemukan",
+          "writing-id3": "Menulis tanda ID3…"
+        }
+      },
+      "description": "Unduh MP3 / sumber suara secara langsung via antarmuka",
+      "menu": {
+        "choose-download-folder": "Pilih folder unduhan",
+        "download-playlist": "Unduh daftar putar",
+        "presets": "Prasetel",
+        "skip-existing": "Lewati berkas yang sudah ada"
+      },
+      "name": "Pengunduh",
+      "renderer": {
+        "can-not-update-progress": "Tidak dapat memperbarui proses"
+      },
+      "templates": {
+        "button": "Unduh"
+      }
+    },
+    "exponential-volume": {
+      "description": "Buat penggeser volume menjadi eksponen sehingga memudahkan memilih volume yang lebih rendah.",
+      "name": "Volume Eksponen"
+    },
+    "in-app-menu": {
+      "description": "Buat bilah-menu terlihat indah, gelap atau serupa dengan album",
+      "menu": {
+        "hide-dom-window-controls": "Sembunyikan DOM pengendali jendela"
+      },
+      "name": "Menu di Aplikasi"
+    },
+    "lumiastream": {
+      "description": "Tambah dukungan Lumia Stream",
+      "name": "Lumia Stream [Beta]"
+    },
+    "lyrics-genius": {
+      "description": "Tambah dukungan lirik untuk kebanyakan lagu",
+      "menu": {
+        "romanized-lyrics": "Romanisasi Lirik"
+      },
+      "name": "Lirik Genius",
+      "renderer": {
+        "fetched-lyrics": "Lirik yang diambil untuk Genius"
+      }
+    },
+    "music-together": {
+      "description": "Bagikan daftar putar dengan yang lain. Saat host memainkan lagu, semua orang akan mendengarkan lagu yang sama",
+      "dialog": {
+        "enter-host": "Masukkan ID Host"
+      },
+      "internal": {
+        "save": "Simpan",
+        "track-source": "Sumber Trek",
+        "unknown-user": "Pengguna Tidak Diketahui"
+      },
+      "menu": {
+        "click-to-copy-id": "Salin ID Host",
+        "close": "Tutup Musik Bersama",
+        "connected-users": "Pengguna Terhubung",
+        "disconnect": "Putuskan Musik Bersama",
+        "empty-user": "Tidak ada pengguna terhubung",
+        "host": "Host Musik Bersama",
+        "join": "Gabung Musik Bersama",
+        "permission": {
+          "all": "Izinkan tamu untuk mengendalikan daftar putar dan pemutar",
+          "host-only": "Hanya host yang dapat mengendalikan daftar putar dan pemutar",
+          "playlist": "Izinkan tamu untuk mengendalikan daftar putar"
+        },
+        "set-permission": "Ubah Pengendali Izin",
+        "status": {
+          "disconnected": "Terputus",
+          "guest": "Terhubung sebagai Tamu",
+          "host": "Terhubung sebagai Host"
+        }
+      },
+      "name": "Musik Bersama [Beta]",
+      "toast": {
+        "add-song-failed": "Gagal untuk menambahkan lagu",
+        "closed": "Musik Bersama ditutup",
+        "disconnected": "Musik Bersama terputus",
+        "host-failed": "Gagal untuk memulai Musik Bersama",
+        "id-copied": "ID Host tersalin ke papan klip",
+        "id-copy-failed": "Gagal menyalin ID Host ke papan klip",
+        "join-failed": "Gagal untuk bergabung ke Musik Bersama",
+        "joined": "Bergabung ke Musik Bersama",
+        "permission-changed": "Perizinan Musik Bersama diubah ke \"{{permission}}\"",
+        "remove-song-failed": "Gagal menghapus lagu",
+        "user-connected": "{{name}} bergabung ke Musik Bersama",
+        "user-disconnected": "{{name}} meninggalkan Musik Bersama"
+      }
+    },
+    "navigation": {
+      "description": "panah navigasi Selanjutnya/Sebelumnya terintegrasi pada antarmuka, layaknya peramban kesukaan Anda",
+      "name": "Navigasi"
+    },
+    "no-google-login": {
+      "description": "Hapus tombol dan tautan masuk Google dari antarmuka",
+      "name": "Tanpa Google Login"
+    },
+    "notifications": {
+      "description": "Tampilkan pemberitahuan saat lagu dimainkan (pemberitahuan interaktif tersedia di Windows)",
+      "menu": {
+        "interactive": "Pemberitahuan Interaktif",
+        "interactive-settings": {
+          "label": "Pengaturan Interaktif",
+          "submenu": {
+            "hide-button-text": "Sembunyikan teks tombol",
+            "refresh-on-play-pause": "Segarkan saat Putar/Jeda",
+            "tray-controls": "Buka/Tutup saat baki ditekan"
+          }
+        },
+        "priority": "Prioritas Pemberitahuan",
+        "toast-style": "Gaya Toast",
+        "unpause-notification": "Tampilkan pemberitahuan saat tidak dijeda"
+      },
+      "name": "Pemberitahuan"
+    },
+    "picture-in-picture": {
+      "description": "Izinkan untuk memindahkan aplikasi ke mode gambar-dalam-gambar",
+      "menu": {
+        "always-on-top": "Selalu di atas",
+        "hotkey": {
+          "label": "Pintasan",
+          "prompt": {
+            "keybind-options": {
+              "hotkey": "Pintasan"
+            },
+            "label": "Pilih pintasan untuk beralih ke gambar-dalam-gambar",
+            "title": "Pintasan gambar-dalam-gambar"
+          }
+        },
+        "save-window-position": "Simpan posisi jendela",
+        "save-window-size": "Simpan ukuran jendela",
+        "use-native-pip": "Gunakan PiP bawaan peramban"
+      },
+      "name": "Gambar-dalam-gambar",
+      "templates": {
+        "button": "Gambar-dalam-gambar"
+      }
+    },
+    "playback-speed": {
+      "description": "Dengarkan cepat, dengarkan perlahan! Tambahkan penggeser untuk mengendalikan kecepatan lagu",
+      "name": "Kecepatan Pemutar",
+      "templates": {
+        "button": "Kecepatan"
+      }
+    },
+    "precise-volume": {
+      "description": "Kendalikan volume secara presisi menggunakan roda tetikus/pintasan, dengan HUD kustom dan langkah volume yang dapat diatur",
+      "menu": {
+        "arrows-shortcuts": "Kendali Tombol Panah Lokal",
+        "custom-volume-steps": "Atur Langkah Volume Kustom",
+        "global-shortcuts": "Pintasan Global"
+      },
+      "name": "Volume Presisi",
+      "prompt": {
+        "global-shortcuts": {
+          "keybind-options": {
+            "decrease": "Kurangi Volume",
+            "increase": "Tingkatkan Volume"
+          },
+          "label": "Pilih Pintasan Volume Global:",
+          "title": "Pintasan Volume Global"
+        },
+        "volume-steps": {
+          "label": "Pilih Langkah Peningkatan/Pengurangan Volume",
+          "title": "Langkah Volume"
+        }
+      }
+    },
+    "quality-changer": {
+      "backend": {
+        "dialog": {
+          "quality-changer": {
+            "detail": "Kualitas Terkini: {{quality}}",
+            "message": "Pilih Kualitas Video:",
+            "title": "Pilih Kualitas Video"
+          }
+        }
+      },
+      "description": "Izinkan untuk mengubah kualitas video dengan tombol pada hamparan video",
+      "name": "Pengubah Kualitas Video"
+    },
+    "scrobbler": {
+      "description": "Tambahkan dukungan scrobbling (mis. last.fm, Listenbrainz)",
+      "dialog": {
+        "lastfm": {
+          "auth-failed": {
+            "message": "Gagal mengotentikasi Last.fm\nSembunyikan munculan hingga muat ulang selanjutnya.",
+            "title": "Otentikasi Gagal"
+          }
+        }
+      },
+      "menu": {
+        "lastfm": {
+          "api-settings": "Pengaturan API Last.fm"
+        },
+        "listenbrainz": {
+          "token": "Masukkan token pengguna ListenBrainz"
+        },
+        "scrobble-other-media": "Scrobble media lain"
+      },
+      "name": "Scrobbler",
+      "prompt": {
+        "lastfm": {
+          "api-key": "Kunci API Last.fm",
+          "api-secret": "Secret API Last.fm"
+        },
+        "listenbrainz": {
+          "token": {
+            "label": "Masukkan token pengguna ListenBrainz Anda:",
+            "title": "Token ListenBrainz"
+          }
+        }
+      }
+    },
+    "shortcuts": {
+      "description": "Izinkan pengaturan pintasan global untuk pemutar (main/jeda/selanjutnya/sebelumnya) dan mematikan OSD media dengan mengesampingkan tombol media, mengaktifkan Ctrl/CMD + F untuk pencarian, mengaktifkan dukungan MPRIS Linux untuk tombol media, dan tombol pintasan kustom untuk pengguna lanjutan",
+      "menu": {
+        "override-media-keys": "Timpa Tombol Media",
+        "set-keybinds": "Atur Pengendali Lagu Global"
+      },
+      "name": "Pintasan (& MPRIS)",
+      "prompt": {
+        "keybind": {
+          "keybind-options": {
+            "next": "Selanjutnya",
+            "play-pause": "Main / Jeda",
+            "previous": "Sebelumnya"
+          },
+          "label": "Pilih Pintasan Global untuk Pengendali Lagu:",
+          "title": "Pintasan Global"
+        }
+      }
+    },
+    "skip-disliked-songs": {
+      "description": "Lewati lagu yang tidak disukai",
+      "name": "Lewati Lagu yang Tidak Disukai"
+    },
+    "skip-silences": {
+      "description": "Otomatis lewati bagian hening dari lagu",
+      "name": "Lewati Keheningan"
+    },
+    "sponsorblock": {
+      "description": "Otomatis Melewati bagian yang bukan musik seperti intro/outro atau bagian dari video musik di mana lagu tidak dimainkan",
+      "name": "SponsorBlock"
+    },
+    "taskbar-mediacontrol": {
+      "description": "Kendalikan pemutaran dari bilah alat Windows",
+      "name": "Pengendali Media di Bilah Alat"
+    },
+    "touchbar": {
+      "description": "Tambahkan widget TouchBar untuk pengguna macOS",
+      "name": "TouchBar"
+    },
+    "tuna-obs": {
+      "description": "Integrasi dengan plugin Tuna OBS",
+      "name": "Tuna OBS"
+    },
+    "video-toggle": {
+      "description": "Tambahkan tombol untuk beralih antara mode Lagu/Video. secara opsional juga dapat menghapus keseluruhan tab video",
+      "menu": {
+        "align": {
+          "label": "Perataan",
+          "submenu": {
+            "left": "Kiri",
+            "middle": "Tengah",
+            "right": "Kanan"
+          }
+        },
+        "force-hide": "Paksa hapus tab video",
+        "mode": {
+          "label": "Mode",
+          "submenu": {
+            "custom": "Peralih kustom",
+            "disabled": "Mati",
+            "native": "Peralih bawaan"
+          }
+        }
+      },
+      "name": "Peralih Video",
+      "templates": {
+        "button": "Lagu"
+      }
+    },
+    "visualizer": {
+      "description": "Tambahkan visualisator ke pemutar",
+      "menu": {
+        "visualizer-type": "Tipe Visualisator"
+      },
+      "name": "Visualisator"
+    }
+  }
+}

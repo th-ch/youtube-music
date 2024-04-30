@@ -1,46 +1,49 @@
+/* eslint-disable */
+
 // Constants
-const element = document.documentElement,
-  body = document.body,
-  revealOnScroll = (window.sr = ScrollReveal({ mobile: false }));
+const element = document.documentElement;
+const { body } = document;
+const revealOnScroll = (window.sr = ScrollReveal({ mobile: false }));
 
 // Load animations
-element.classList.remove("no-js");
-element.classList.add("js");
-window.addEventListener("load", function () {
-  body.classList.add("is-loaded");
+element.classList.remove('no-js');
+element.classList.add('js');
+window.addEventListener('load', () => {
+  body.classList.add('is-loaded');
 });
 
-if (body.classList.contains("has-animations")) {
-  window.addEventListener("load", function () {
-    revealOnScroll.reveal(".feature-extended .device-mockup", {
+if (body.classList.contains('has-animations')) {
+  window.addEventListener('load', () => {
+    revealOnScroll.reveal('.feature-extended .device-mockup', {
       duration: 600,
-      distance: "100px",
-      easing: "cubic-bezier(0.215, 0.61, 0.355, 1)",
-      origin: "bottom",
+      distance: '100px',
+      easing: 'cubic-bezier(0.215, 0.61, 0.355, 1)',
+      origin: 'bottom',
       viewFactor: 0.6,
     });
-    revealOnScroll.reveal(".feature-extended .feature-extended-body", {
+    revealOnScroll.reveal('.feature-extended .feature-extended-body', {
       duration: 600,
-      distance: "40px",
-      easing: "cubic-bezier(0.215, 0.61, 0.355, 1)",
-      origin: "top",
+      distance: '40px',
+      easing: 'cubic-bezier(0.215, 0.61, 0.355, 1)',
+      origin: 'top',
       viewFactor: 0.6,
     });
   });
 }
 
 // Bubble canvas
-let bubbleCanvas = function (t) {
-  let e = this;
+const bubbleCanvas = function (t) {
+  const e = this;
   e.parentNode = t;
   e.setCanvasSize();
-  window.addEventListener("resize", function () {
+  window.addEventListener('resize', () => {
     e.setCanvasSize();
   });
   e.mouseX = 0;
   e.mouseY = 0;
-  window.addEventListener("mousemove", function (t) {
-    (e.mouseX = t.clientX), (e.mouseY = t.clientY);
+  window.addEventListener('mousemove', (t) => {
+    e.mouseX = t.clientX;
+    e.mouseY = t.clientY;
   });
   e.randomise();
 };
@@ -55,15 +58,15 @@ bubbleCanvas.prototype.generateDecimalBetween = function (start, end) {
 };
 
 bubbleCanvas.prototype.update = function () {
-  let t = this;
-  t.translateX = t.translateX - t.movementX;
-  t.translateY = t.translateY - t.movementY;
+  const t = this;
+  t.translateX -= t.movementX;
+  t.translateY -= t.movementY;
   t.posX += (t.mouseX / (t.staticity / t.magnetism) - t.posX) / t.smoothFactor;
   t.posY += (t.mouseY / (t.staticity / t.magnetism) - t.posY) / t.smoothFactor;
   if (
-    t.translateY + t.posY < 0 ||
-    t.translateX + t.posX < 0 ||
-    t.translateX + t.posX > t.canvasWidth
+    t.translateY + t.posY < 0
+    || t.translateX + t.posX < 0
+    || t.translateX + t.posX > t.canvasWidth
   ) {
     t.randomise();
     t.translateY = t.canvasHeight;
@@ -71,7 +74,7 @@ bubbleCanvas.prototype.update = function () {
 };
 
 bubbleCanvas.prototype.randomise = function () {
-  this.colors = ["195,53,46", "172,54,46"];
+  this.colors = ['195,53,46', '172,54,46'];
 
   this.velocity = 20;
   this.smoothFactor = 50;
@@ -88,17 +91,17 @@ bubbleCanvas.prototype.randomise = function () {
   this.translateY = this.generateDecimalBetween(0, this.canvasHeight);
 };
 
-let drawBubbleCanvas = function (t) {
+const drawBubbleCanvas = function (t) {
   this.canvas = document.getElementById(t);
-  this.ctx = this.canvas.getContext("2d");
+  this.ctx = this.canvas.getContext('2d');
   this.dpr = window.devicePixelRatio;
 };
 
 drawBubbleCanvas.prototype.start = function (bubbleDensity) {
-  let t = this;
+  const t = this;
   t.bubbleDensity = bubbleDensity;
   t.setCanvasSize();
-  window.addEventListener("resize", function () {
+  window.addEventListener('resize', () => {
     t.setCanvasSize();
   });
   t.bubblesList = [];
@@ -114,23 +117,24 @@ drawBubbleCanvas.prototype.setCanvasSize = function () {
   this.hdpi = this.h * this.dpr;
   this.canvas.width = this.wdpi;
   this.canvas.height = this.hdpi;
-  this.canvas.style.width = this.w + "px";
-  this.canvas.style.height = this.h + "px";
+  this.canvas.style.width = this.w + 'px';
+  this.canvas.style.height = this.h + 'px';
   this.ctx.scale(this.dpr, this.dpr);
 };
 
 drawBubbleCanvas.prototype.animate = function () {
-  let t = this;
+  const t = this;
   t.ctx.clearRect(0, 0, t.canvas.clientWidth, t.canvas.clientHeight);
-  t.bubblesList.forEach(function (e) {
+  for (const e of t.bubblesList) {
     e.update();
     t.ctx.translate(e.translateX, e.translateY);
     t.ctx.beginPath();
     t.ctx.arc(e.posX, e.posY, e.size, 0, 2 * Math.PI);
-    t.ctx.fillStyle = "rgba(" + e.color + "," + e.alpha + ")";
+    t.ctx.fillStyle = 'rgba(' + e.color + ',' + e.alpha + ')';
     t.ctx.fill();
     t.ctx.setTransform(t.dpr, 0, 0, t.dpr, 0, 0);
-  });
+  }
+
   requestAnimationFrame(this.animate.bind(this));
 };
 
@@ -139,15 +143,16 @@ drawBubbleCanvas.prototype.addBubble = function (t) {
 };
 
 drawBubbleCanvas.prototype.generateBubbles = function () {
-  let t = this;
-  for (let e = 0; e < t.bubbleDensity; e++)
+  const t = this;
+  for (let e = 0; e < t.bubbleDensity; e++) {
     t.addBubble(new bubbleCanvas(t.canvas.parentNode));
+  }
 };
 
 // Night sky with stars canvas
-let starCanvas = function (t) {
+const starCanvas = function (t) {
   this.canvas = document.getElementById(t);
-  this.ctx = this.canvas.getContext("2d");
+  this.ctx = this.canvas.getContext('2d');
   this.dpr = window.devicePixelRatio;
 };
 
@@ -156,17 +161,17 @@ starCanvas.prototype.start = function () {
   let h;
 
   const setCanvasExtents = () => {
-	w = this.canvas.parentNode.clientWidth;
-	h = this.canvas.parentNode.clientHeight;
+    w = this.canvas.parentNode.clientWidth;
+    h = this.canvas.parentNode.clientHeight;
     this.canvas.width = w;
     this.canvas.height = h;
   };
 
   setCanvasExtents();
 
-  window.onresize = () => {
+  window.addEventListener('resize', () => {
     setCanvasExtents();
-  };
+  });
 
   const makeStars = (count) => {
     const out = [];
@@ -178,19 +183,20 @@ starCanvas.prototype.start = function () {
       };
       out.push(s);
     }
+
     return out;
   };
 
-  let stars = makeStars(10000);
+  const stars = makeStars(10_000);
 
   const clear = () => {
-    this.ctx.fillStyle = "#212121";
+    this.ctx.fillStyle = '#212121';
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
   };
 
   const putPixel = (x, y, brightness) => {
     const intensity = brightness * 255;
-    const rgb = "rgb(" + intensity + "," + intensity + "," + intensity + ")";
+    const rgb = 'rgb(' + intensity + ',' + intensity + ',' + intensity + ')';
     this.ctx.beginPath();
     this.ctx.arc(x, y, 0.9, 0, 2 * Math.PI);
     this.ctx.fillStyle = rgb;
@@ -199,7 +205,7 @@ starCanvas.prototype.start = function () {
 
   const moveStars = (distance) => {
     const count = stars.length;
-    for (var i = 0; i < count; i++) {
+    for (let i = 0; i < count; i++) {
       const s = stars[i];
       s.z -= distance;
       while (s.z <= 1) {
@@ -208,15 +214,15 @@ starCanvas.prototype.start = function () {
     }
   };
 
-  let prevTime;
+  let previousTime;
   const init = (time) => {
-    prevTime = time;
+    previousTime = time;
     requestAnimationFrame(tick);
   };
 
   const tick = (time) => {
-    let elapsed = time - prevTime;
-    prevTime = time;
+    const elapsed = time - previousTime;
+    previousTime = time;
 
     moveStars(elapsed * 0.1);
 
@@ -226,7 +232,7 @@ starCanvas.prototype.start = function () {
     const cy = h / 2;
 
     const count = stars.length;
-    for (var i = 0; i < count; i++) {
+    for (let i = 0; i < count; i++) {
       const star = stars[i];
 
       const x = cx + star.x / (star.z * 0.001);
@@ -236,7 +242,7 @@ starCanvas.prototype.start = function () {
         continue;
       }
 
-      const d = star.z / 1000.0;
+      const d = star.z / 1000;
       const b = 1 - d * d;
 
       putPixel(x, y, b);
@@ -249,12 +255,12 @@ starCanvas.prototype.start = function () {
 };
 
 // Start canvas animations
-window.addEventListener("load", function () {
+window.addEventListener('load', () => {
   // Stars
-  const headCanvas = new starCanvas("hero-particles");
+  const headCanvas = new starCanvas('hero-particles');
   // Bubbles
-  const footerCanvas = new drawBubbleCanvas("footer-particles");
-  const mainCanvas = new drawBubbleCanvas("main-particles");
+  const footerCanvas = new drawBubbleCanvas('footer-particles');
+  const mainCanvas = new drawBubbleCanvas('main-particles');
 
   headCanvas.start();
   footerCanvas.start(30);

@@ -1,0 +1,95 @@
+name: Bug Report
+description: Report a YouTube Music bug
+title: "[Bug]: "
+labels: "bug :beetle:"
+body:
+- type: checkboxes
+  attributes:
+    label: Preflight Checklist
+    description: Please ensure you've completed all of the following.
+    options:
+      - label: I use the latest version of YouTube Music (Application).
+        required: true
+      - label: I have searched the [issue tracker](https://github.com/th-ch/youtube-music/issues) for a bug report that matches the one I want to file, without success.
+        required: true
+      - label: I understand that **th-ch/youtube-music has NO affiliation with Google or YouTube**
+        required: true
+- type: input
+  attributes:
+    label: YouTube Music (Application) Version
+    description: |
+      What version of the YouTube Music Application are you using?
+
+      Note: Please check if this issue is reproducible with the latest stable release.
+    placeholder: 2.0.0
+  validations:
+    required: true
+- type: checkboxes
+  attributes:
+    label: Checklists
+    options:
+      - label: I use the portable version of the YouTube Music Application.
+      - label: I can reproduce this issue in the [official version of (WEB) YTM](https://music.youtube.com).
+- type: dropdown
+  attributes:
+    label: What operating system are you using?
+    options:
+      - Windows
+      - macOS
+      - Ubuntu
+      - Other Linux
+      - Other (specify below)
+  validations:
+    required: true
+- type: input
+  attributes:
+    label: Operating System Version
+    description: What operating system version are you using? On Windows, click the Start button > Settings > System > About. On macOS, click the Apple Menu > About This Mac. On Linux, use lsb_release or uname -a.
+    placeholder: "e.g. Windows 10 version 1909, macOS Catalina 10.15.7, or Ubuntu 20.04"
+  validations:
+    required: true
+- type: dropdown
+  attributes:
+    label: What CPU architecture are you using?
+    options:
+      - x64
+      - ia32
+      - arm64 (including Apple Silicon)
+      - Other (specify below)
+  validations:
+    required: true
+- type: input
+  attributes:
+    label: Last Known Working YouTube Music (Application) version
+    description: (If applicable) What is the last version of YouTube Music this worked in?
+    placeholder: 1.20.0
+- type: textarea
+  attributes:
+    label: Reproduction steps
+    description: Provide steps to reproduce the issue.
+    placeholder: 1. Enable the X plugin.
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Expected Behavior
+    description: A clear and concise description of what you expected to happen.
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Actual Behavior
+    description: A clear description of what actually happens.
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Enabled plugins
+    description: Provide the list of plugins you enabled.
+    placeholder: 1. Album Color Theme
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Additional Information
+    description: If your problem needs further explanation, or if the issue you're seeing cannot be reproduced in a gist, please add more information here. 

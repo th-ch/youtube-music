@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  NODE_VERSION: "16.x"
+  NODE_VERSION: "20.x"
 
 jobs:
   build:
@@ -16,95 +16,69 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
+        os: [ macos-latest, ubuntu-latest, windows-latest ]
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
 
       - name: Setup NodeJS
-        uses: actions/setup-node@v3
+        if: startsWith(matrix.os, 'macOS') != true
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: Setup NodeJS for macOS
+        if: startsWith(matrix.os, 'macOS')
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - name: Expose yarn config as "$GITHUB_OUTPUT"
-        id: yarn-config
-        shell: bash
-        run: |
-          echo "CACHE_FOLDER=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
-
-      # Yarn rotates the downloaded cache archives, @see https://github.com/actions/setup-node/issues/325
-      # Yarn cache is also reusable between arch and os.
-      - name: Restore yarn cache
-        uses: actions/cache@v3
-        id: yarn-download-cache
-        with:
-          path: ${{ steps.yarn-config.outputs.CACHE_FOLDER }}
-          key: yarn-download-cache-${{ hashFiles('yarn.lock') }}
-          restore-keys: |
-            yarn-download-cache-
-
-      # Invalidated on yarn.lock changes
-      - name: Restore yarn install state
-        id: yarn-install-state-cache
-        uses: actions/cache@v3
-        with:
-          path: .yarn/ci-cache/
-          key: ${{ runner.os }}-yarn-install-state-cache-${{ hashFiles('yarn.lock', '.yarnrc.yml') }}
-
       - name: Install dependencies
-        shell: bash
+        run: pnpm install --frozen-lockfile
+
+      # Only vite build without release if it is a fork, or it is a pull-request
+      - name: Vite Build
+        if: github.repository == 'th-ch/youtube-music' && github.event_name == 'pull_request'
         run: |
-          yarn install --immutable --inline-builds
+          pnpm build
+
+      # Build and release if it's the main repository and is not pull-request
+      - name: Build and release on Mac
+        if: startsWith(matrix.os, 'macOS') && (github.repository == 'th-ch/youtube-music' && github.event_name != 'pull_request')
         env:
-          # CI optimizations. Overrides yarnrc.yml options (or their defaults) in the CI action.
-          YARN_ENABLE_GLOBAL_CACHE: "false" # Use local cache folder to keep downloaded archives
-          YARN_NM_MODE: "hardlinks-local" # Hardlinks-(local|global) reduces io / node_modules size
-          YARN_INSTALL_STATE_PATH: .yarn/ci-cache/install-state.gz # Very small speedup when lock does not change
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          pnpm release:mac
+
+      - name: Build and release on Linux
+        if: startsWith(matrix.os, 'ubuntu') && (github.repository == 'th-ch/youtube-music' && github.event_name != 'pull_request')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          sudo snap install snapcraft --classic
+          pnpm release:linux
+
+      - name: Build and release on Windows
+        if: startsWith(matrix.os, 'windows') && (github.repository == 'th-ch/youtube-music' && github.event_name != 'pull_request')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          pnpm release:win
 
       - name: Test
-        uses: GabrielBB/xvfb-action@v1
+        uses: coactions/setup-xvfb@v1
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
         with:
-          run: yarn test
+          run: pnpm test:debug
 
-      # Build and release if it's the main repository
-      - name: Build and release on Mac
-        if: startsWith(matrix.os, 'macOS') && github.repository == 'th-ch/youtube-music'
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: |
-          yarn run release:mac
-
-      - name: Build and release on Linux
-        if: startsWith(matrix.os, 'ubuntu') && github.repository == 'th-ch/youtube-music'
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: |
-          yarn run release:linux
-
-      - name: Build and release on Windows
-        if: startsWith(matrix.os, 'windows') && github.repository == 'th-ch/youtube-music'
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: |
-          yarn run release:win
-
-      # Only build without release if it is a fork
-      - name: Build on Mac
-        if: startsWith(matrix.os, 'macOS') && github.repository != 'th-ch/youtube-music'
-        run: |
-          yarn run build:mac
-
-      - name: Build on Linux
-        if: startsWith(matrix.os, 'ubuntu') && github.repository != 'th-ch/youtube-music'
-        run: |
-          yarn run build:linux
-
-      - name: Build on Windows
-        if: startsWith(matrix.os, 'windows') && github.repository != 'th-ch/youtube-music'
-        run: |
-          yarn run build:win
 
   release:
     runs-on: ubuntu-latest
@@ -112,49 +86,31 @@ jobs:
     if: github.repository == 'th-ch/youtube-music' && github.ref == 'refs/heads/master'
     needs: build
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+
       - name: Setup NodeJS
-        uses: actions/setup-node@v3
+        if: startsWith(matrix.os, 'macOS') != true
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: Setup NodeJS for macOS
+        if: startsWith(matrix.os, 'macOS')
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - name: Expose yarn config as "$GITHUB_OUTPUT"
-        id: yarn-config
-        shell: bash
-        run: |
-          echo "CACHE_FOLDER=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
-
-      # Yarn rotates the downloaded cache archives, @see https://github.com/actions/setup-node/issues/325
-      # Yarn cache is also reusable between arch and os.
-      - name: Restore yarn cache
-        uses: actions/cache@v3
-        id: yarn-download-cache
-        with:
-          path: ${{ steps.yarn-config.outputs.CACHE_FOLDER }}
-          key: yarn-download-cache-${{ hashFiles('yarn.lock') }}
-          restore-keys: |
-            yarn-download-cache-
-
-      # Invalidated on yarn.lock changes
-      - name: Restore yarn install state
-        id: yarn-install-state-cache
-        uses: actions/cache@v3
-        with:
-          path: .yarn/ci-cache/
-          key: ${{ runner.os }}-yarn-install-state-cache-${{ hashFiles('yarn.lock', '.yarnrc.yml') }}
-
       - name: Install dependencies
-        shell: bash
-        run: |
-          yarn install --immutable --inline-builds
-        env:
-          # CI optimizations. Overrides yarnrc.yml options (or their defaults) in the CI action.
-          YARN_ENABLE_GLOBAL_CACHE: "false" # Use local cache folder to keep downloaded archives
-          YARN_NM_MODE: "hardlinks-local" # Hardlinks-(local|global) reduces io / node_modules size
-          YARN_INSTALL_STATE_PATH: .yarn/ci-cache/install-state.gz # Very small speedup when lock does not change
+        run: pnpm install --frozen-lockfile
 
       - name: Get version
         run: |
@@ -170,7 +126,7 @@ jobs:
         uses: cardinalby/git-get-release-action@v1
         id: get_draft_release
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           latest: true
           draft: true
@@ -192,14 +148,16 @@ jobs:
 
             Thanks to all contributors! 🏅
 
+            (Note for Windows: `YouTube-Music-Web-Setup-${{ env.VERSION_TAG }}.exe` is an installer, and `YouTube-Music-${{ env.VERSION_TAG }}.exe` is a portable version)
+
       - name: Update changelog
         if: ${{ env.VERSION_HASH == '' }}
         run: |
-          yarn changelog
+          pnpm changelog
 
       - name: Commit changelog
         if: ${{ env.VERSION_HASH == '' }}
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Update changelog for ${{ env.VERSION_TAG }}
           file_pattern: "changelog.md"

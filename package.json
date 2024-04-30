@@ -1,178 +1,231 @@
 {
-	"name": "youtube-music",
-	"productName": "YouTube Music",
-	"version": "1.20.0",
-	"description": "YouTube Music Desktop App - including custom plugins",
-	"license": "MIT",
-	"repository": "th-ch/youtube-music",
-	"author": {
-		"name": "th-ch",
-		"email": "th-ch@users.noreply.github.com",
-		"url": "https://github.com/th-ch/youtube-music"
-	},
-	"build": {
-		"appId": "com.github.th-ch.youtube-music",
-		"productName": "YouTube Music",
-		"mac": {
-			"identity": null,
-			"files": [
-				"!plugins/taskbar-mediacontrol${/*}"
-			],
-			"target": [
-				{
-					"target": "dmg",
-					"arch": [
-						"x64",
-						"arm64"
-					]
-				}
-			],
-			"icon": "assets/generated/icons/mac/icon.icns"
-		},
-		"win": {
-			"icon": "assets/generated/icons/win/icon.ico",
-			"files": [
-				"!plugins/touchbar${/*}"
-			],
-			"target": [
-				{
-					"target": "nsis",
-					"arch": [
-						"x64",
-						"arm64"
-					]
-				},
-				{
-					"target": "portable",
-					"arch": [
-						"x64",
-						"arm64"
-					]
-				}
-			]
-		},
-		"nsis": {
-			"runAfterFinish": false
-		},
-		"linux": {
-			"icon": "assets/generated/icons/png",
-			"files": [
-				"!plugins/{touchbar,taskbar-mediacontrol}${/*}"
-			],
-			"category": "AudioVideo",
-			"target": [
-				"AppImage",
-				"snap",
-				"freebsd",
-				"deb",
-				"rpm"
-			]
-		},
-		"snap": {
-			"slots": [
-				{
-					"mpris": {
-						"interface": "mpris"
-					}
-				}
-			]
-		}
-	},
-	"scripts": {
-		"test": "playwright test",
-		"test:debug": "DEBUG=pw:browser* playwright test",
-		"start": "electron .",
-		"start:debug": "ELECTRON_ENABLE_LOGGING=1 electron .",
-		"generate:package": "node utils/generate-package-json.js",
-		"postinstall": "yarn run plugins",
-		"clean": "del-cli dist",
-		"build": "yarn run clean && electron-builder --win --mac --linux -p never",
-		"build:linux": "yarn run clean && electron-builder --linux -p never",
-		"build:mac": "yarn run clean && electron-builder --mac dmg:x64 -p never",
-		"build:mac:arm64": "yarn run clean && electron-builder --mac dmg:arm64 -p never",
-		"build:win": "yarn run clean && electron-builder --win -p never",
-		"lint": "xo",
-		"changelog": "auto-changelog",
-		"plugins": "yarn run plugin:adblocker && yarn run plugin:bypass-age-restrictions",
-		"plugin:adblocker": "del-cli plugins/adblocker/ad-blocker-engine.bin && node plugins/adblocker/blocker.js",
-		"plugin:bypass-age-restrictions": "del-cli node_modules/simple-youtube-age-restriction-bypass/package.json && yarn run generate:package simple-youtube-age-restriction-bypass",
-		"release:linux": "yarn run clean && electron-builder --linux -p always -c.snap.publish=github",
-		"release:mac": "yarn run clean && electron-builder --mac -p always",
-		"release:win": "yarn run clean && electron-builder --win -p always"
-	},
-	"engines": {
-		"node": ">=16.0.0",
-		"npm": "Please use yarn instead"
-	},
-	"dependencies": {
-		"@cliqz/adblocker-electron": "^1.26.5",
-		"@ffmpeg/core": "^0.11.0",
-		"@ffmpeg/ffmpeg": "^0.11.6",
-		"@foobar404/wave": "^2.0.4",
-		"@xhayper/discord-rpc": "^1.0.16",
-		"async-mutex": "^0.4.0",
-		"browser-id3-writer": "^5.0.0",
-		"butterchurn": "^2.6.7",
-		"butterchurn-presets": "^2.4.7",
-		"custom-electron-prompt": "^1.5.7",
-		"custom-electron-titlebar": "^4.1.6",
-		"electron-better-web-request": "^1.0.1",
-		"electron-debug": "^3.2.0",
-		"electron-is": "^3.0.0",
-		"electron-localshortcut": "^3.2.1",
-		"electron-store": "^8.1.0",
-		"electron-unhandled": "^4.0.1",
-		"electron-updater": "^5.3.0",
-		"filenamify": "^4.3.0",
-		"howler": "^2.2.3",
-		"html-to-text": "^9.0.5",
-		"keyboardevent-from-electron-accelerator": "^2.0.0",
-		"keyboardevents-areequal": "^0.2.2",
-		"md5": "^2.3.0",
-		"mpris-service": "^2.1.2",
-		"node-fetch": "^2.6.9",
-		"simple-youtube-age-restriction-bypass": "https://gitpkg.now.sh/api/pkg.tgz?url=MiepHD/Simple-YouTube-Age-Restriction-Bypass&commit=v2.5.5",
-		"vudio": "^2.1.1",
-		"youtubei.js": "^4.3.0",
-		"ytpl": "^2.3.0"
-	},
-	"resolutions": {
-		"xml2js": "^0.5.0",
-		"@electron/universal": "^1.3.4",
-		"electron-is-dev": "patch:electron-is-dev@npm%3A2.0.0#./.yarn/patches/electron-is-dev-npm-2.0.0-9d41637d91.patch"
-	},
-	"devDependencies": {
-		"@playwright/test": "^1.29.2",
-		"auto-changelog": "^2.4.0",
-		"del-cli": "^5.0.0",
-		"electron": "^22.3.6",
-		"electron-builder": "^23.6.0",
-		"electron-devtools-installer": "^3.2.0",
-		"node-gyp": "^9.3.1",
-		"playwright": "^1.29.2",
-		"xo": "^0.53.1"
-	},
-	"auto-changelog": {
-		"hideCredit": true,
-		"package": true,
-		"unreleased": true,
-		"output": "changelog.md"
-	},
-	"xo": {
-		"envs": [
-			"node",
-			"browser"
-		],
-		"rules": {
-			"quotes": [
-				"error",
-				"double",
-				{
-					"avoidEscape": true,
-					"allowTemplateLiterals": true
-				}
-			]
-		}
-	},
-	"packageManager": "yarn@3.4.1"
+  "name": "youtube-music",
+  "productName": "YouTube Music",
+  "version": "3.3.6",
+  "description": "YouTube Music Desktop App - including custom plugins",
+  "main": "./dist/main/index.js",
+  "license": "MIT",
+  "repository": "th-ch/youtube-music",
+  "author": {
+    "name": "th-ch",
+    "email": "th-ch@users.noreply.github.com",
+    "url": "https://github.com/th-ch/youtube-music"
+  },
+  "build": {
+    "appId": "com.github.th-ch.youtube-music",
+    "productName": "YouTube Music",
+    "files": [
+      "!*",
+      "dist",
+      "assets",
+      "license",
+      "!node_modules",
+      "node_modules/custom-electron-prompt/**",
+      "node_modules/@cliqz/adblocker-electron-preload/**",
+      "node_modules/@ffmpeg.wasm/core-mt/**",
+      "!node_modules/**/*.map",
+      "!node_modules/**/*.ts"
+    ],
+    "asarUnpack": [
+      "assets"
+    ],
+    "mac": {
+      "identity": null,
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ],
+      "icon": "assets/generated/icons/mac/icon.icns"
+    },
+    "win": {
+      "icon": "assets/generated/icons/win/icon.ico",
+      "target": [
+        {
+          "target": "nsis-web",
+          "arch": [
+            "x64",
+            "ia32",
+            "arm64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64",
+            "ia32",
+            "arm64"
+          ]
+        }
+      ]
+    },
+    "nsisWeb": {
+      "runAfterFinish": false
+    },
+    "linux": {
+      "icon": "assets/generated/icons/png",
+      "category": "AudioVideo",
+      "target": [
+        "AppImage",
+        "snap",
+        "freebsd",
+        "deb",
+        "rpm"
+      ]
+    },
+    "rpm": {
+      "depends": [
+        "/usr/lib64/libuuid.so.1"
+      ]
+    },
+    "snap": {
+      "slots": [
+        {
+          "mpris": {
+            "interface": "mpris"
+          }
+        }
+      ]
+    },
+    "directories": {
+      "output": "./pack/"
+    }
+  },
+  "scripts": {
+    "test": "playwright test",
+    "test:debug": "cross-env DEBUG=pw:*,-pw:test:protocol playwright test",
+    "build": "electron-vite build",
+    "vite:inspect": "pnpm clean && electron-vite build --mode development && pnpm exec serve .vite-inspect",
+    "start": "electron-vite preview",
+    "start:debug": "cross-env ELECTRON_ENABLE_LOGGING=1 pnpm start",
+    "dev": "electron-vite dev --watch",
+    "dev:debug": "cross-env ELECTRON_ENABLE_LOGGING=1 pnpm dev",
+    "clean": "del-cli dist && del-cli pack && del-cli .vite-inspect",
+    "dist": "pnpm clean && pnpm build && pnpm electron-builder --win --mac --linux -p never",
+    "dist:linux": "pnpm clean && pnpm build && pnpm electron-builder --linux -p never",
+    "dist:mac": "pnpm clean && pnpm build && pnpm electron-builder --mac dmg:x64 -p never",
+    "dist:mac:arm64": "pnpm clean && pnpm build && pnpm electron-builder --mac dmg:arm64 -p never",
+    "dist:win": "pnpm clean && pnpm build && pnpm electron-builder --win -p never",
+    "dist:win:x64": "pnpm clean && pnpm build && pnpm electron-builder --win nsis-web:x64 -p never",
+    "lint": "eslint .",
+    "changelog": "npx --yes auto-changelog",
+    "release:linux": "pnpm clean && pnpm build && pnpm electron-builder --linux -p always -c.snap.publish=github",
+    "release:mac": "pnpm clean && pnpm build && pnpm electron-builder --mac -p always",
+    "release:win": "pnpm clean && pnpm build && pnpm electron-builder --win -p always",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "usocket": "1.0.1",
+      "node-gyp": "10.1.0",
+      "xml2js": "0.6.2",
+      "node-fetch": "3.3.2",
+      "@electron/universal": "2.0.1",
+      "@babel/runtime": "7.24.4"
+    },
+    "patchedDependencies": {
+      "vudio@2.1.1": "patches/vudio@2.1.1.patch",
+      "@xhayper/discord-rpc@1.1.2": "patches/@xhayper__discord-rpc@1.1.2.patch",
+      "app-builder-lib@24.13.3": "patches/app-builder-lib@24.13.3.patch"
+    }
+  },
+  "dependencies": {
+    "@cliqz/adblocker-electron": "1.27.1",
+    "@cliqz/adblocker-electron-preload": "1.27.1",
+    "@electron-toolkit/tsconfig": "1.0.1",
+    "@electron/remote": "2.1.2",
+    "@ffmpeg.wasm/core-mt": "0.12.0",
+    "@ffmpeg.wasm/main": "0.12.0",
+    "@floating-ui/dom": "1.6.3",
+    "@foobar404/wave": "2.0.5",
+    "@jellybrick/electron-better-web-request": "1.0.4",
+    "@jellybrick/mpris-service": "2.1.4",
+    "@xhayper/discord-rpc": "1.1.2",
+    "async-mutex": "0.5.0",
+    "butterchurn": "3.0.0-beta.4",
+    "butterchurn-presets": "3.0.0-beta.4",
+    "color": "4.2.3",
+    "conf": "10.2.0",
+    "custom-electron-prompt": "1.5.7",
+    "dbus-next": "0.10.2",
+    "deepmerge-ts": "5.1.0",
+    "electron-debug": "3.2.0",
+    "electron-is": "3.0.0",
+    "electron-localshortcut": "3.2.1",
+    "electron-store": "8.2.0",
+    "electron-unhandled": "4.0.1",
+    "electron-updater": "6.1.8",
+    "fast-average-color": "9.4.0",
+    "fast-equals": "5.0.1",
+    "filenamify": "6.0.0",
+    "howler": "2.2.4",
+    "html-to-text": "9.0.5",
+    "i18next": "23.11.2",
+    "keyboardevent-from-electron-accelerator": "2.0.0",
+    "keyboardevents-areequal": "0.2.2",
+    "node-html-parser": "6.1.13",
+    "node-id3": "0.2.6",
+    "peerjs": "1.5.2",
+    "semver": "7.6.0",
+    "serve": "14.2.1",
+    "simple-youtube-age-restriction-bypass": "github:organization/Simple-YouTube-Age-Restriction-Bypass#v2.5.9",
+    "solid-floating-ui": "0.3.1",
+    "solid-js": "1.8.16",
+    "solid-styled-components": "0.28.5",
+    "solid-transition-group": "0.2.3",
+    "ts-morph": "22.0.0",
+    "vudio": "2.1.1",
+    "x11": "2.3.0",
+    "youtubei.js": "9.3.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.43.1",
+    "@total-typescript/ts-reset": "0.5.1",
+    "@types/color": "3.0.6",
+    "@types/electron-localshortcut": "3.1.3",
+    "@types/howler": "2.2.11",
+    "@types/html-to-text": "9.0.4",
+    "@types/semver": "7.5.8",
+    "@typescript-eslint/eslint-plugin": "7.7.0",
+    "bufferutil": "4.0.8",
+    "builtin-modules": "3.3.0",
+    "cross-env": "7.0.3",
+    "del-cli": "5.1.0",
+    "discord-api-types": "0.37.79",
+    "electron": "30.0.1",
+    "electron-builder": "24.13.3",
+    "electron-devtools-installer": "3.2.0",
+    "electron-vite": "2.1.0",
+    "esbuild": "0.20.2",
+    "eslint": "9.1.0",
+    "eslint-import-resolver-exports": "1.0.0-beta.5",
+    "eslint-import-resolver-typescript": "3.6.1",
+    "eslint-plugin-import": "2.29.1",
+    "eslint-plugin-prettier": "5.1.3",
+    "glob": "10.3.12",
+    "node-gyp": "10.1.0",
+    "playwright": "1.43.1",
+    "rollup": "4.14.3",
+    "typescript": "5.4.5",
+    "utf-8-validate": "6.0.3",
+    "vite": "5.2.10",
+    "vite-plugin-inspect": "0.8.4",
+    "vite-plugin-resolve": "2.5.1",
+    "vite-plugin-solid": "2.10.2",
+    "ws": "8.16.0"
+  },
+  "auto-changelog": {
+    "hideCredit": true,
+    "package": true,
+    "unreleased": true,
+    "output": "changelog.md"
+  },
+  "packageManager": "pnpm@8.15.7"
 }

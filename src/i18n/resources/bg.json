@@ -1,0 +1,178 @@
+{
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "Неуспешно изпълнение на плъгин {{pluginName}}::{{contextName}}",
+        "executed-at-ms": "Плъгинът {{pluginName}}::{{contextName}} беше изпълнен на {{ms}}ms",
+        "initialize-failed": "Неуспешна инициализация на плъгин \"{{pluginName}}\"",
+        "load-all": "Зареждане на всички плъгини",
+        "load-failed": "Неуспешно зареждане на плъгин \"{{pluginName}}\"",
+        "loaded": "Плъгин \"{{pluginName}}\" зареден",
+        "unload-failed": "Неуспешне разрездане на плъгин \"{{pluginName}}\"",
+        "unloaded": "Плъгин \"{{pluginName}}\" разреден"
+      }
+    }
+  },
+  "language": {
+    "code": "bg",
+    "local-name": "Български",
+    "name": "Bulgarian"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "Завърши зареждането. DevTools отворени"
+      },
+      "i18n": {
+        "loaded": "i18n заредено"
+      },
+      "second-instance": {
+        "receive-command": "Получена команда чрез протокол: \"{{command}}\""
+      },
+      "theme": {
+        "css-file-not-found": "CSS файл \"{{cssFile}}\" не съществува, ингнорира се"
+      },
+      "unresponsive": {
+        "details": "Грешка без отговор!\n{{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "Изчистване на кешът на аппа"
+      },
+      "window": {
+        "tried-to-render-offscreen": "Прозореца се опита да се изрисува извън екрана, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "detail": "Менюто е скрито. Използвайте \"Alt\", за да го покажете, или \"Escape\", ако използвате менюто в приложението",
+        "message": "\"Скриване на менюто\" е активирано",
+        "title": "\"Скриване на менюто\" активирано"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "По-късно",
+          "restart-now": "Рестартиране сега"
+        },
+        "detail": "\"{{pluginName}}\" плъгинът изисква рестартиране, за да влезе в сила",
+        "message": "\"{{pluginName}}\" трябва да рестартира",
+        "title": "Изисква се рестартиране"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "Прекратяване",
+          "relaunch": "Повторно стартиране",
+          "wait": "Изчакване"
+        },
+        "detail": "Съжаляваме за неудобството! Моля, изберете какво да направите:",
+        "message": "Приложението не реагира",
+        "title": "Прозорецът не реагира"
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "Деактивиране на актуализациите",
+          "download": "Изтегляне",
+          "ok": "Добре"
+        },
+        "detail": "Налична е нова версия, която можете да изтеглите от {{downloadLink}}",
+        "message": "Налична е нова версия",
+        "title": "Налична е актуализация"
+      }
+    },
+    "menu": {
+      "about": "За нас",
+      "navigation": {
+        "label": "Навигация",
+        "submenu": {
+          "copy-current-url": "Копиране на текущия URL адрес",
+          "go-back": "Назад",
+          "go-forward": "Напред",
+          "quit": "Изход",
+          "restart": "Рестартиране на приложението"
+        }
+      },
+      "options": {
+        "label": "Опции",
+        "submenu": {
+          "advanced-options": {
+            "label": "Разширени опции",
+            "submenu": {
+              "auto-reset-app-cache": "Нулиране на кеша на приложението при стартиране на приложението",
+              "disable-hardware-acceleration": "Деактивиране на хардуерното ускорение",
+              "edit-config-json": "Редактиране на config.json",
+              "override-user-agent": "Замяна на User-Agent",
+              "restart-on-config-changes": "Рестартиране при промени в конфигурацията",
+              "set-proxy": {
+                "label": "Задаване на прокси",
+                "prompt": {
+                  "label": "Въведете адрес на прокси: (оставете празно, за да деактивирате)",
+                  "placeholder": "Пример: SOCKS5://127.0.0.1:9999",
+                  "title": "Задаване на прокси"
+                }
+              },
+              "toggle-dev-tools": "Активиране на DevTools"
+            }
+          },
+          "always-on-top": "Винаги отгоре",
+          "auto-update": "Автоматично актуализиране",
+          "hide-menu": {
+            "dialog": {
+              "message": "Менюто ще бъде скрито при следващото стартиране, използвайте [Alt], за да го покажете, или задния бутон [`], ако използвате менюто в приложението",
+              "title": "\"Скриване на менюто\" активирано"
+            },
+            "label": "Скриване на менюто"
+          },
+          "language": {
+            "dialog": {
+              "message": "Езикът ще бъде променен след рестартиране",
+              "title": "Езикът беше променен"
+            },
+            "label": "Език",
+            "submenu": {
+              "to-help-translate": "Искате да помогнете с езиковия превод? Кликнете тук"
+            }
+          },
+          "resume-on-start": "Възобновяване на последната песен при стартиране на приложението",
+          "single-instance-lock": "Заключване до една инстанция",
+          "start-at-login": "Стартиране при вход",
+          "starting-page": {
+            "label": "Начална страница",
+            "unset": "Неустановена"
+          },
+          "tray": {
+            "label": "Панел",
+            "submenu": {
+              "disabled": "Деактивирано",
+              "enabled-and-hide-app": "Активиране и скриване на приложението",
+              "enabled-and-show-app": "Активиране и показване на приложението",
+              "play-pause-on-click": "Възпроизвеждане/Спиране при кликване"
+            }
+          },
+          "visual-tweaks": {
+            "label": "Визуални настройки",
+            "submenu": {
+              "like-buttons": {
+                "default": "По подразбиране",
+                "force-show": "Принудително показване",
+                "hide": "Скриване",
+                "label": "Показване на \"Харесвам\" бутони"
+              },
+              "remove-upgrade-button": "Премахване на \"Ъпгрейд\" бутона",
+              "theme": {
+                "label": "Тема",
+                "submenu": {
+                  "import-css-file": "Импортиране на потребителски CSS файл",
+                  "no-theme": "Без тема"
+                }
+              }
+            }
+          }
+        }
+      },
+      "plugins": {
+        "enabled": "Активирани",
+        "label": "Плъгини",
+        "new": "НОВО"
+      }
+    }
+  }
+}

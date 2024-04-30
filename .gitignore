@@ -1,5 +1,6 @@
 node_modules
 /dist
+/pack
 electron-builder.yml
 .vscode/settings.json
 .idea
@@ -11,3 +12,4 @@ electron-builder.yml
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+.vite-inspect

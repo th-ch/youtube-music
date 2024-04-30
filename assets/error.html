@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Cannot load YouTube Music</title>
+    <style>
+      body {
+        background: #000;
+      }
+
+      .container {
+        margin: 0;
+        font-family: Roboto, Arial, sans-serif;
+        font-size: 20px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.5);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+      }
+
+      .button {
+        background: #065fd4;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: white;
+        font: inherit;
+        text-transform: uppercase;
+        text-decoration: none;
+        border-radius: 2px;
+        font-size: 16px;
+        font-weight: normal;
+        text-align: center;
+        padding: 8px 22px;
+        display: inline-block;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <p>Cannot load YouTube Music… Internet disconnected?</p>
+      <a class="button" href="#" onclick="reload()">Retry</a>
+    </div>
+  </body>
+</html>

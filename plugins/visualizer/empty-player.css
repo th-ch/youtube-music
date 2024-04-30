@@ -1,9 +1,0 @@
-#player {
-	margin: 0 !important;
-	background: black;
-}
-
-#song-image,
-#song-video {
-	display: none !important;
-}

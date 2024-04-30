@@ -2,7 +2,7 @@ name: Submit to Windows Package Manager Community Repository
 
 on:
   release:
-    types: [released]
+    types: [ released ]
   workflow_dispatch:
     inputs:
       tag_name:
@@ -15,12 +15,16 @@ jobs:
     name: Publish winget package
     runs-on: ubuntu-latest
     steps:
+      - name: Set winget version env
+        env:
+          TAG_NAME: ${{ inputs.tag_name || github.event.release.tag_name }}
+        run: echo "WINGET_TAG_NAME=$(echo ${TAG_NAME#v})" >> $GITHUB_ENV
       - name: Submit package to Windows Package Manager Community Repository
         uses: vedantmgoyal2009/winget-releaser@v2
         with:
           identifier: th-ch.YouTubeMusic
-          installers-regex: '^YouTube-Music-Setup-[\d\.]+\.exe$'
-          version: ${{ inputs.tag_name || github.event.release.tag_name }}
+          installers-regex: '^YouTube-Music-Web-Setup-[\d\.]+\.exe$'
+          version: ${{ env.WINGET_TAG_NAME }}
           release-tag: ${{ inputs.tag_name || github.event.release.tag_name }}
           token: ${{ secrets.WINGET_ACC_TOKEN }}
           fork-user: youtube-music-winget

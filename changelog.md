@@ -2,7 +2,527 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v3.3.6](https://github.com/th-ch/youtube-music/compare/v3.3.5...v3.3.6)
+
+- fix: add AdGuard as blocklist sources [`#1966`](https://github.com/th-ch/youtube-music/pull/1966)
+- chore(deps): update dependency rollup to v4.14.2 [`#1968`](https://github.com/th-ch/youtube-music/pull/1968)
+- fix(deps): update dependency youtubei.js to v9.3.0 [`#1967`](https://github.com/th-ch/youtube-music/pull/1967)
+- chore(deps): update playwright monorepo to v1.43.1 [`#1969`](https://github.com/th-ch/youtube-music/pull/1969)
+- chore(deps): update dependency electron to v29.3.0 [`#1961`](https://github.com/th-ch/youtube-music/pull/1961)
+- fix(mpris): use global regex to replace minus in the video ID [`#1963`](https://github.com/th-ch/youtube-music/pull/1963)
+- fix(deps): update dependency @cliqz/adblocker-electron-preload to v1.27.1 [`#1954`](https://github.com/th-ch/youtube-music/pull/1954)
+- chore(deps): update dependency typescript to v5.4.5 [`#1958`](https://github.com/th-ch/youtube-music/pull/1958)
+- fix(deps): update dependency youtubei.js to v9.2.1 [`#1957`](https://github.com/th-ch/youtube-music/pull/1957)
+- fix(deps): update dependency i18next to v23.11.1 [`#1956`](https://github.com/th-ch/youtube-music/pull/1956)
+- fix(deps): update dependency @cliqz/adblocker-electron to v1.27.1 [`#1953`](https://github.com/th-ch/youtube-music/pull/1953)
+- chore(deps): update dependency @typescript-eslint/eslint-plugin to v7.6.0 [`#1947`](https://github.com/th-ch/youtube-music/pull/1947)
+- fix(deps): update dependency i18next to v23.11.0 [`#1946`](https://github.com/th-ch/youtube-music/pull/1946)
+- chore(deps): update dependency node-gyp to v10.1.0 [`#1941`](https://github.com/th-ch/youtube-music/pull/1941)
+- chore(deps): update dependency eslint to v9 [`#1940`](https://github.com/th-ch/youtube-music/pull/1940)
+- chore(deps): update dependency rollup to v4.14.1 [`#1944`](https://github.com/th-ch/youtube-music/pull/1944)
+- chore(deps): update dependency node-gyp to v10.1.0 [`#1937`](https://github.com/th-ch/youtube-music/pull/1937)
+- chore(deps): update dependency typescript to v5.4.4 [`#1936`](https://github.com/th-ch/youtube-music/pull/1936)
+- chore(deps): update playwright monorepo to v1.43.0 [`#1938`](https://github.com/th-ch/youtube-music/pull/1938)
+- chore(deps): bump undici from 5.28.3 to 5.28.4 [`#1935`](https://github.com/th-ch/youtube-music/pull/1935)
+- chore(deps): update dependency vite to v5.2.8 [`#1930`](https://github.com/th-ch/youtube-music/pull/1930)
+- chore(deps): update dependency discord-api-types to v0.37.79 [`#1933`](https://github.com/th-ch/youtube-music/pull/1933)
+- chore(deps): update dependency node-gyp to v10.1.0 [`#1910`](https://github.com/th-ch/youtube-music/pull/1910)
+- chore(deps): update dependency node-gyp to v10.1.0 [`#1908`](https://github.com/th-ch/youtube-music/pull/1908)
+- fix(deps): update dependency @cliqz/adblocker-electron to v1.27.0 [`#1906`](https://github.com/th-ch/youtube-music/pull/1906)
+- fix(deps): update dependency @cliqz/adblocker-electron-preload to v1.27.0 [`#1907`](https://github.com/th-ch/youtube-music/pull/1907)
+- chore(deps): update dependency rollup to v4.13.2 [`#1901`](https://github.com/th-ch/youtube-music/pull/1901)
+- chore(deps): update dependency glob to v10.3.12 [`#1900`](https://github.com/th-ch/youtube-music/pull/1900)
+- chore(deps): update dependency vite to v5.2.7 [`#1905`](https://github.com/th-ch/youtube-music/pull/1905)
+- fix(deps): update dependency node-html-parser to v6.1.13 [`#1903`](https://github.com/th-ch/youtube-music/pull/1903)
+- chore(deps): update dependency discord-api-types to v0.37.77 [`#1899`](https://github.com/th-ch/youtube-music/pull/1899)
+- chore(deps): update dependency electron to v29.1.6 [`#1898`](https://github.com/th-ch/youtube-music/pull/1898)
+- Improve video title filters [`#1667`](https://github.com/th-ch/youtube-music/pull/1667)
+- chore(deps): update dependency rollup to v4.13.1 [`#1896`](https://github.com/th-ch/youtube-music/pull/1896)
+- chore(deps): update dependency node-gyp to v10.1.0 [`#1890`](https://github.com/th-ch/youtube-music/pull/1890)
+- chore(deps): update dependency node-gyp to v10.1.0 [`#1889`](https://github.com/th-ch/youtube-music/pull/1889)
+- fix: fix `switch-repeat` [`#1810`](https://github.com/th-ch/youtube-music/issues/1810)
+- i18n Translation to Dutch/nl [`0dbf029`](https://github.com/th-ch/youtube-music/commit/0dbf0295b805f9883522ee00983b338060fbddbe)
+- fix: rollback electron-builder version to 24.9.4 [`4a57cc5`](https://github.com/th-ch/youtube-music/commit/4a57cc5ee9ab2ad6835cff75b8b3aead75d9e564)
+- chore: update electron-builder to 25.0.0-alpha.6 [`aef03ab`](https://github.com/th-ch/youtube-music/commit/aef03ab9fd440fe19c41e315cffab27e976c723d)
+
+#### [v3.3.5](https://github.com/th-ch/youtube-music/compare/v3.3.4...v3.3.5)
+
+> 26 March 2024
+
+- chore(deps): update dependency node-gyp to v10.1.0 [`#1885`](https://github.com/th-ch/youtube-music/pull/1885)
+- chore(deps): update dependency @typescript-eslint/eslint-plugin to v7.4.0 [`#1886`](https://github.com/th-ch/youtube-music/pull/1886)
+- chore(deps): update dependency vite to v5.2.6 [`#1883`](https://github.com/th-ch/youtube-music/pull/1883)
+- fix(style): resolve #1887 [`#1887`](https://github.com/th-ch/youtube-music/issues/1887)
+- chore(i18n): Translated using Weblate (Swedish) [`69087bb`](https://github.com/th-ch/youtube-music/commit/69087bbf1fac1ba58e992146deb1d6f1706b1e3c)
+- chore(i18n): Translated using Weblate (French) [`af78f15`](https://github.com/th-ch/youtube-music/commit/af78f1596ab8db2fa7069fdb1c4f078099ce4446)
+- Update changelog for v3.3.4 [`62f7d44`](https://github.com/th-ch/youtube-music/commit/62f7d440fab5bdbe9f49a3a5f8c32e7aaf2f28f6)
+
+#### [v3.3.4](https://github.com/th-ch/youtube-music/compare/v3.3.3...v3.3.4)
+
+> 24 March 2024
+
+- Update changelog for v3.3.3 [`9769544`](https://github.com/th-ch/youtube-music/commit/97695444affbacb71dd73ae7107d4c987e285a37)
+- fix(style): fix fullscreen style and in-app-menu [`ed700c2`](https://github.com/th-ch/youtube-music/commit/ed700c2916cc7e6ccd2010d0c552364af116eb4f)
+- fix(style): fix miniplayer style [`a8bc539`](https://github.com/th-ch/youtube-music/commit/a8bc53912d1f4137008ecb2d9d5d9d9eb06ee2a8)
+
+#### [v3.3.3](https://github.com/th-ch/youtube-music/compare/v3.3.2...v3.3.3)
+
+> 24 March 2024
+
+- chore(deps): update dependency electron to v29.1.5 [`#1876`](https://github.com/th-ch/youtube-music/pull/1876)
+- chore(deps): update dependency typescript to v5.4.3 [`#1877`](https://github.com/th-ch/youtube-music/pull/1877)
+- chore(deps): update dependency discord-api-types to v0.37.76 [`#1878`](https://github.com/th-ch/youtube-music/pull/1878)
+- chore(deps): update dependency vite to v5.2.4 [`#1881`](https://github.com/th-ch/youtube-music/pull/1881)
+- Ambient Plugin cleanup [`#1880`](https://github.com/th-ch/youtube-music/pull/1880)
+- chore(deps): update dependency vite to v5.2.2 [`#1875`](https://github.com/th-ch/youtube-music/pull/1875)
+- fix(deps): update dependency solid-js to v1.8.16 [`#1873`](https://github.com/th-ch/youtube-music/pull/1873)
+- chore(deps): update dependency @typescript-eslint/eslint-plugin to v7.3.1 [`#1868`](https://github.com/th-ch/youtube-music/pull/1868)
+- chore(deps): update dependency discord-api-types to v0.37.75 [`#1867`](https://github.com/th-ch/youtube-music/pull/1867)
+- chore(deps): update pnpm to v8.15.5 [`#1865`](https://github.com/th-ch/youtube-music/pull/1865)
+- fix: Fix Miniplayer image size [`#1863`](https://github.com/th-ch/youtube-music/pull/1863)
+- fix(style): fixed image/video alignment when toggle is active [`#1862`](https://github.com/th-ch/youtube-music/pull/1862)
+- chore: Update README-is.md [`#1858`](https://github.com/th-ch/youtube-music/pull/1858)
+- chore(deps): update dependency vite-plugin-solid to v2.10.2 [`#1859`](https://github.com/th-ch/youtube-music/pull/1859)
+- fix: Ambient Mode intialization improvement [`#1857`](https://github.com/th-ch/youtube-music/pull/1857)
+- chore(deps): bump follow-redirects from 1.15.5 to 1.15.6 [`#1856`](https://github.com/th-ch/youtube-music/pull/1856)
+- chore(README): Nicer Readme 2.0 [`#1833`](https://github.com/th-ch/youtube-music/pull/1833)
+- chore(deps): update dependency discord-api-types to v0.37.74 [`#1854`](https://github.com/th-ch/youtube-music/pull/1854)
+- chore(deps): update dependency esbuild to v0.20.2 [`#1855`](https://github.com/th-ch/youtube-music/pull/1855)
+- Improve ambient mode [`#1853`](https://github.com/th-ch/youtube-music/pull/1853)
+- chore(deps): update dependency electron to v29.1.4 [`#1852`](https://github.com/th-ch/youtube-music/pull/1852)
+- chore(deps): update dependency electron to v29.1.3 [`#1851`](https://github.com/th-ch/youtube-music/pull/1851)
+- chore(deps): update dependency rollup to v4.13.0 [`#1850`](https://github.com/th-ch/youtube-music/pull/1850)
+- fix(deps): update dependency electron-store to v8.2.0 [`#1843`](https://github.com/th-ch/youtube-music/pull/1843)
+- chore(deps): update dependency electron to v29.1.1 [`#1841`](https://github.com/th-ch/youtube-music/pull/1841)
+- fix(deps): update dependency i18next to v23.10.1 [`#1842`](https://github.com/th-ch/youtube-music/pull/1842)
+- chore(deps): update dependency @typescript-eslint/eslint-plugin to v7.2.0 [`#1848`](https://github.com/th-ch/youtube-music/pull/1848)
+- chore(deps): update dependency vite to v5.1.6 [`#1847`](https://github.com/th-ch/youtube-music/pull/1847)
+- fix(deps): update dependency async-mutex to v0.5.0 [`#1849`](https://github.com/th-ch/youtube-music/pull/1849)
+- fix(deps): update dependency ts-morph to v22 [`#1846`](https://github.com/th-ch/youtube-music/pull/1846)
+- chore(deps): update dependency discord-api-types to v0.37.73 [`#1840`](https://github.com/th-ch/youtube-music/pull/1840)
+- chore(deps): update dependency rollup to v4.12.1 [`#1837`](https://github.com/th-ch/youtube-music/pull/1837)
+- chore: Changed a single word (README-is.md) [`#1836`](https://github.com/th-ch/youtube-music/pull/1836)
+- chore(deps): update dependency typescript to v5.4.2 [`#1838`](https://github.com/th-ch/youtube-music/pull/1838)
+- chore(deps): update dependency electron-vite to v2.1.0 [`#1823`](https://github.com/th-ch/youtube-music/pull/1823)
+- chore(deps): update dependency @typescript-eslint/eslint-plugin to v7.1.1 [`#1829`](https://github.com/th-ch/youtube-music/pull/1829)
+- chore(deps): update dependency vite to v5.1.5 [`#1831`](https://github.com/th-ch/youtube-music/pull/1831)
+- Revert "chore(deps): update dependency electron-builder to v24.13.3" [`#1818`](https://github.com/th-ch/youtube-music/pull/1818)
+- chore(deps): update dependency electron-builder to v24.13.3 [`#1774`](https://github.com/th-ch/youtube-music/pull/1774)
+- chore(deps): update playwright monorepo to v1.42.1 [`#1816`](https://github.com/th-ch/youtube-music/pull/1816)
+- fix: Add scale ratio for tray icons [`#1811`](https://github.com/th-ch/youtube-music/pull/1811)
+- Icelandic translation of the readme file [`#1806`](https://github.com/th-ch/youtube-music/pull/1806)
+- chore(deps): update dependency electron to v29.1.0 [`#1808`](https://github.com/th-ch/youtube-music/pull/1808)
+- chore(deps): update playwright monorepo to v1.42.0 [`#1805`](https://github.com/th-ch/youtube-music/pull/1805)
+- chore(deps): update dependency eslint to v8.57.0 [`#1793`](https://github.com/th-ch/youtube-music/pull/1793)
+- chore(deps): update dependency @typescript-eslint/eslint-plugin to v7.1.0 [`#1800`](https://github.com/th-ch/youtube-music/pull/1800)
+- chore(deps): update dependency discord-api-types to v0.37.71 [`#1799`](https://github.com/th-ch/youtube-music/pull/1799)
+- chore(deps): update pnpm to v8.15.4 [`#1795`](https://github.com/th-ch/youtube-music/pull/1795)
+- chore(deps): update dependency @types/semver to v7.5.8 [`#1797`](https://github.com/th-ch/youtube-music/pull/1797)
+- fix: center the pause icon [`#1786`](https://github.com/th-ch/youtube-music/pull/1786)
+- fix(deps): update dependency @cliqz/adblocker-electron to v1.26.16 [`#1788`](https://github.com/th-ch/youtube-music/pull/1788)
+- fix(deps): update dependency @cliqz/adblocker-electron-preload to v1.26.16 [`#1789`](https://github.com/th-ch/youtube-music/pull/1789)
+- fix(deps): update dependency youtubei.js to v9.1.0 [`#1790`](https://github.com/th-ch/youtube-music/pull/1790)
+- fix(deps): update dependency i18next to v23.10.0 [`#1785`](https://github.com/th-ch/youtube-music/pull/1785)
+- chore(deps): update dependency electron to v29 [`#1773`](https://github.com/th-ch/youtube-music/pull/1773)
+- chore(deps): update dependency vite to v5.1.4 [`#1778`](https://github.com/th-ch/youtube-music/pull/1778)
+- chore(deps): bump ip from 2.0.0 to 2.0.1 [`#1777`](https://github.com/th-ch/youtube-music/pull/1777)
+- fix: add support for Wayland [`#1864`](https://github.com/th-ch/youtube-music/issues/1864)
+- fix(style): fix navigation bar items are not working [`#1381`](https://github.com/th-ch/youtube-music/issues/1381) [`#1396`](https://github.com/th-ch/youtube-music/issues/1396) [`#1649`](https://github.com/th-ch/youtube-music/issues/1649)
+- fix(ytm-bugs): fixed a `scrollbar-color` bug that affected Chromium 121 and later [`#1737`](https://github.com/th-ch/youtube-music/issues/1737)
+- chore(i18n): Translated using Weblate (Icelandic) [`82fa871`](https://github.com/th-ch/youtube-music/commit/82fa8719a96abdfaaa8548a0077f4db2164ec09b)
+- chore(i18n): Translated using Weblate (Romanian) [`c871506`](https://github.com/th-ch/youtube-music/commit/c871506a69180308ab4fc587b6e8a33f193087e8)
+- chore(i18n): Translated using Weblate (Thai) [`a7d0350`](https://github.com/th-ch/youtube-music/commit/a7d035022a229f0b245694d1fc7a484befe1c269)
+
+#### [v3.3.2](https://github.com/th-ch/youtube-music/compare/v3.3.1...v3.3.2)
+
+> 20 February 2024
+
+- fix: fix bugs in MPRIS, and improve MPRIS [`#1760`](https://github.com/th-ch/youtube-music/pull/1760)
+- fix(deps): update dependency electron-updater to v6.1.8 [`#1770`](https://github.com/th-ch/youtube-music/pull/1770)
+- chore(deps): update dependency electron-builder to v24.12.0 [`#1771`](https://github.com/th-ch/youtube-music/pull/1771)
+- feat(scrobblers): use `BrowserWindow` instead of `shell.openExternal` [`#1758`](https://github.com/th-ch/youtube-music/pull/1758)
+- chore(deps): update dependency @typescript-eslint/eslint-plugin to v7.0.2 [`#1763`](https://github.com/th-ch/youtube-music/pull/1763)
+- chore(deps): update dependency esbuild to v0.20.1 [`#1759`](https://github.com/th-ch/youtube-music/pull/1759)
+- fix(deps): update dependency i18next to v23.9.0 [`#1754`](https://github.com/th-ch/youtube-music/pull/1754)
+- fix: fixed an issue that caused infinite loops when using Music Together [`#1752`](https://github.com/th-ch/youtube-music/issues/1752)
+- chore(deps): rollback dependency electron-builder to v24.9.1 [`8bd05f5`](https://github.com/th-ch/youtube-music/commit/8bd05f525df98671f0a516b159cccab302b7ae99)
+- chore(deps): update dependency electron-builder to v24.13.1 [`47b23b4`](https://github.com/th-ch/youtube-music/commit/47b23b414c8feb25c4d9a23d6adb7cbf1ac818fb)
+- chore(i18n): Translated using Weblate (German) [`47505e9`](https://github.com/th-ch/youtube-music/commit/47505e97482f9e953ee451b968d0950585616ffa)
+
+#### [v3.3.1](https://github.com/th-ch/youtube-music/compare/v3.3.0...v3.3.1)
+
+> 18 February 2024
+
+- Update changelog for v3.3.0 [`6d9bb8e`](https://github.com/th-ch/youtube-music/commit/6d9bb8eb1cc2d892a5552ffb1f7c20859aa80f67)
+- hotfix: in-app-menu position issue [`87acf4c`](https://github.com/th-ch/youtube-music/commit/87acf4cf042ba32a000a4aeaec5c17c93501d333)
+- release 3.3.1 (HOTFIX) [`a6ed8bf`](https://github.com/th-ch/youtube-music/commit/a6ed8bf3aa20ca8e950e85d88f981ccf9edc7498)
+
+#### [v3.3.0](https://github.com/th-ch/youtube-music/compare/v3.2.2...v3.3.0)
+
+> 18 February 2024
+
+- fix(deps): update dependency i18next to v23.8.3 [`#1751`](https://github.com/th-ch/youtube-music/pull/1751)
+- import fixed ./constants [`#1748`](https://github.com/th-ch/youtube-music/pull/1748)
+- chore(deps): update dependency rollup to v4.12.0 [`#1743`](https://github.com/th-ch/youtube-music/pull/1743)
+- chore(deps): bump undici from 5.28.2 to 5.28.3 [`#1747`](https://github.com/th-ch/youtube-music/pull/1747)
+- chore(deps): update dependency vite to v5.1.3 [`#1742`](https://github.com/th-ch/youtube-music/pull/1742)
+- chore(deps): update dependency vite-plugin-solid to v2.10.1 [`#1734`](https://github.com/th-ch/youtube-music/pull/1734)
+- chore(deps): update dependency discord-api-types to v0.37.70 [`#1740`](https://github.com/th-ch/youtube-music/pull/1740)
+- chore(deps): update dependency electron to v28.2.3 [`#1736`](https://github.com/th-ch/youtube-music/pull/1736)
+- chore(deps): update pnpm to v8.15.3 [`#1739`](https://github.com/th-ch/youtube-music/pull/1739)
+- chore(deps): update dependency rollup to v4.11.0 [`#1738`](https://github.com/th-ch/youtube-music/pull/1738)
+- fix(deps): update dependency solid-js to v1.8.15 [`#1735`](https://github.com/th-ch/youtube-music/pull/1735)
+- chore(deps): update dependency vite to v5.1.2 [`#1733`](https://github.com/th-ch/youtube-music/pull/1733)
+- chore(deps): update dependency vite-plugin-solid to v2.10.0 [`#1732`](https://github.com/th-ch/youtube-music/pull/1732)
+- chore(deps): update pnpm to v8.15.2 [`#1729`](https://github.com/th-ch/youtube-music/pull/1729)
+- Update Copyright - 2024 [`#1730`](https://github.com/th-ch/youtube-music/pull/1730)
+- chore(deps): update dependency @typescript-eslint/eslint-plugin to v7 [`#1728`](https://github.com/th-ch/youtube-music/pull/1728)
+- fix(deps): update dependency @floating-ui/dom to v1.6.3 [`#1727`](https://github.com/th-ch/youtube-music/pull/1727)
+- chore(deps): update dependency electron to v28.2.2 [`#1717`](https://github.com/th-ch/youtube-music/pull/1717)
+- chore(deps): update dependency vite to v5.1.1 [`#1718`](https://github.com/th-ch/youtube-music/pull/1718)
+- chore(deps): update dependency @types/semver to v7.5.7 [`#1724`](https://github.com/th-ch/youtube-music/pull/1724)
+- fix(deps): update dependency @floating-ui/dom to v1.6.2 [`#1725`](https://github.com/th-ch/youtube-music/pull/1725)
+- chore(deps): update dependency rollup to v4.10.0 [`#1719`](https://github.com/th-ch/youtube-music/pull/1719)
+- fix(deps): update dependency solid-js to v1.8.14 [`#1713`](https://github.com/th-ch/youtube-music/pull/1713)
+- chore(deps): update dependency @typescript-eslint/eslint-plugin to v6.21.0 [`#1711`](https://github.com/th-ch/youtube-music/pull/1711)
+- fix(deps): update dependency semver to v7.6.0 [`#1712`](https://github.com/th-ch/youtube-music/pull/1712)
+- refactor(in-app-menu): refactor `in-app-menu` plugin [`#1710`](https://github.com/th-ch/youtube-music/pull/1710)
+- chore(deps): update playwright monorepo to v1.41.2 [`#1706`](https://github.com/th-ch/youtube-music/pull/1706)
+- chore(deps): update dependency electron to v29.0.0-beta.5 [`#1707`](https://github.com/th-ch/youtube-music/pull/1707)
+- feat(album-color-theme): support album color theme in all pages [`#1685`](https://github.com/th-ch/youtube-music/pull/1685)
+- fix(deps): update dependency youtubei.js to v9.0.2 [`#1704`](https://github.com/th-ch/youtube-music/pull/1704)
+- fix(deps): update dependency i18next to v23.8.2 [`#1702`](https://github.com/th-ch/youtube-music/pull/1702)
+- feat: Support disabling scrobbling for non-music content [`#1665`](https://github.com/th-ch/youtube-music/pull/1665)
+- fix(deps): update dependency youtubei.js to v9 [`#1682`](https://github.com/th-ch/youtube-music/pull/1682)
+- chore(deps): update dependency electron to v29.0.0-beta.4 [`#1698`](https://github.com/th-ch/youtube-music/pull/1698)
+- fix(deps): update dependency i18next to v23.8.1 [`#1694`](https://github.com/th-ch/youtube-music/pull/1694)
+- chore(deps): update dependency @typescript-eslint/eslint-plugin to v6.20.0 [`#1700`](https://github.com/th-ch/youtube-music/pull/1700)
+- chore(deps): update pnpm to v8.15.1 [`#1699`](https://github.com/th-ch/youtube-music/pull/1699)
+- chore(deps): update dependency esbuild to v0.20.0 [`#1691`](https://github.com/th-ch/youtube-music/pull/1691)
+- chore(deps): update pnpm to v8.15.0 [`#1692`](https://github.com/th-ch/youtube-music/pull/1692)
+- fix(deps): update dependency i18next to v23.7.20 [`#1684`](https://github.com/th-ch/youtube-music/pull/1684)
+- chore(deps): update dependency electron to v29.0.0-beta.3 [`#1683`](https://github.com/th-ch/youtube-music/pull/1683)
+- chore(deps): update dependency electron to v29.0.0-beta.2 [`#1681`](https://github.com/th-ch/youtube-music/pull/1681)
+- chore(deps): update dependency rollup to v4.9.6 [`#1663`](https://github.com/th-ch/youtube-music/pull/1663)
+- chore(deps): update dependency electron to v29.0.0-beta.1 [`#1670`](https://github.com/th-ch/youtube-music/pull/1670)
+- fix(deps): update dependency i18next to v23.7.19 [`#1680`](https://github.com/th-ch/youtube-music/pull/1680)
+- chore(deps): update dependency @typescript-eslint/eslint-plugin to v6.19.1 [`#1669`](https://github.com/th-ch/youtube-music/pull/1669)
+- chore(deps): update pnpm to v8.14.3 [`#1668`](https://github.com/th-ch/youtube-music/pull/1668)
+- chore(deps): update dependency vite-plugin-inspect to v0.8.3 [`#1672`](https://github.com/th-ch/youtube-music/pull/1672)
+- chore(deps): update dependency esbuild to v0.19.12 [`#1673`](https://github.com/th-ch/youtube-music/pull/1673)
+- fix(deps): update dependency @electron/remote to v2.1.2 [`#1676`](https://github.com/th-ch/youtube-music/pull/1676)
+- chore: Update issue templates [`#1661`](https://github.com/th-ch/youtube-music/pull/1661)
+- chore(deps): update playwright monorepo to v1.41.1 [`#1660`](https://github.com/th-ch/youtube-music/pull/1660)
+- fix(deps): update dependency i18next to v23.7.18 [`#1662`](https://github.com/th-ch/youtube-music/pull/1662)
+- chore(deps): update actions/dependency-review-action action to v4 [`#1654`](https://github.com/th-ch/youtube-music/pull/1654)
+- chore(deps): update dependency electron to v29.0.0-alpha.11 [`#1656`](https://github.com/th-ch/youtube-music/pull/1656)
+- chore(deps): update dependency vite to v5.0.12 [security] [`#1659`](https://github.com/th-ch/youtube-music/pull/1659)
+- fix(deps): update dependency async-mutex to v0.4.1 [`#1653`](https://github.com/th-ch/youtube-music/pull/1653)
+- chore(deps): update playwright monorepo to v1.41.0 [`#1651`](https://github.com/th-ch/youtube-music/pull/1651)
+- feat: Better Scrobbler Plugin [`#1640`](https://github.com/th-ch/youtube-music/pull/1640)
+- chore(deps): update dependency electron to v29.0.0-alpha.10 [`#1645`](https://github.com/th-ch/youtube-music/pull/1645)
+- chore(deps): update dependency @typescript-eslint/eslint-plugin to v6.19.0 [`#1643`](https://github.com/th-ch/youtube-music/pull/1643)
+- chore(README): Fix plugins names and add plugins in/to Readme (in menu too) [`#1624`](https://github.com/th-ch/youtube-music/pull/1624)
+- fix(album-actions): Fixed album actions [`#1639`](https://github.com/th-ch/youtube-music/pull/1639)
+- chore(deps): update playwright monorepo to v1.41.0-beta-1705101589000 [`#1638`](https://github.com/th-ch/youtube-music/pull/1638)
+- fix(#1543): fix song control doesn't work [`#1637`](https://github.com/th-ch/youtube-music/pull/1637)
+- chore(deps): update playwright monorepo to v1.41.0-beta-1705092460000 [`#1635`](https://github.com/th-ch/youtube-music/pull/1635)
+- chore(deps): update dependency rollup to v4.9.5 [`#1629`](https://github.com/th-ch/youtube-music/pull/1629)
+- chore(deps): update dependency electron to v29.0.0-alpha.9 [`#1627`](https://github.com/th-ch/youtube-music/pull/1627)
+- chore(deps): update dependency electron to v29.0.0-alpha.8 [`#1608`](https://github.com/th-ch/youtube-music/pull/1608)
+- fix(deps): update dependency @cliqz/adblocker-electron to v1.26.15 [`#1615`](https://github.com/th-ch/youtube-music/pull/1615)
+- chore(deps): update dependency rollup to v4.9.4 [`#1591`](https://github.com/th-ch/youtube-music/pull/1591)
+- fix(deps): update dependency @cliqz/adblocker-electron-preload to v1.26.15 [`#1616`](https://github.com/th-ch/youtube-music/pull/1616)
+- chore(deps): update pnpm to v8.14.1 [`#1619`](https://github.com/th-ch/youtube-music/pull/1619)
+- chore(deps): update dependency eslint-plugin-prettier to v5.1.3 [`#1618`](https://github.com/th-ch/youtube-music/pull/1618)
+- chore(deps): update dependency @typescript-eslint/eslint-plugin to v6.18.1 [`#1612`](https://github.com/th-ch/youtube-music/pull/1612)
+- fix(deps): update dependency youtubei.js to v8.2.0 [`#1614`](https://github.com/th-ch/youtube-music/pull/1614)
+- chore(deps): update dependency electron-vite to v2.0.0 [`#1609`](https://github.com/th-ch/youtube-music/pull/1609)
+- chore(deps): update dependency @typescript-eslint/eslint-plugin to v6.18.0 [`#1603`](https://github.com/th-ch/youtube-music/pull/1603)
+- chore(deps): update dependency electron-vite to v2.0.0-beta.4 [`#1602`](https://github.com/th-ch/youtube-music/pull/1602)
+- fix: fix upgrade button [`#1199`](https://github.com/th-ch/youtube-music/issues/1199)
+- fix(mpris): fix mpris invalid position [`#1726`](https://github.com/th-ch/youtube-music/issues/1726)
+- fix: discord RPC (fix #1664) [`#1664`](https://github.com/th-ch/youtube-music/issues/1664)
+- fix: remove sign-in button (fix #1199) [`#1199`](https://github.com/th-ch/youtube-music/issues/1199)
+- Fix #1617 [`#1617`](https://github.com/th-ch/youtube-music/issues/1617)
+- fix(crossfade): fix #1633 [`#1633`](https://github.com/th-ch/youtube-music/issues/1633)
+- fix: fix #1621 [`#1621`](https://github.com/th-ch/youtube-music/issues/1621)
+- fix(tuna-obs): partially fix #1596 [`#1596`](https://github.com/th-ch/youtube-music/issues/1596)
+- fix(discord): fix hide duration button [`#1644`](https://github.com/th-ch/youtube-music/issues/1644)
+- fix(in-app-menu): fix invalid `margin-top` [`#1597`](https://github.com/th-ch/youtube-music/issues/1597)
+- fix(README): fix `plugins` path [`#1598`](https://github.com/th-ch/youtube-music/issues/1598)
+- chore(i18n): Translated using Weblate (Vietnamese) [`0528637`](https://github.com/th-ch/youtube-music/commit/05286371353e8b4c36a5b9fe9011ae5dfdc7ee82)
+- chore: update pnpm-lock [`fd8d59b`](https://github.com/th-ch/youtube-music/commit/fd8d59bada56dab4e156d22394fe0c5efec5abc4)
+- fix(in-app-menu): fix app crash in production [`febc63e`](https://github.com/th-ch/youtube-music/commit/febc63edef375bd82db48b7fb460ec5a601ab872)
+
+#### [v3.2.2](https://github.com/th-ch/youtube-music/compare/v3.2.1...v3.2.2)
+
+> 5 January 2024
+
+- feat(tray): Add song info and paused icon [`#1592`](https://github.com/th-ch/youtube-music/pull/1592)
+- fix(skip-silences): fix audio distorted [`#1141`](https://github.com/th-ch/youtube-music/issues/1141)
+- chore(deps): update dependency rollup to v4.9.3 [`0c3c380`](https://github.com/th-ch/youtube-music/commit/0c3c3805918adf2a185a7f1dc67ea3af8135863d)
+- chore(i18n): Translated using Weblate (Turkish) [`64ea1fd`](https://github.com/th-ch/youtube-music/commit/64ea1fdb58fdf2766ae3284ac1a51bfac8894b36)
+- fix(music-together): typing [`895386f`](https://github.com/th-ch/youtube-music/commit/895386f6f8c649f77ea15c88f6fb7ecc5b775554)
+
+#### [v3.2.1](https://github.com/th-ch/youtube-music/compare/v3.2.0...v3.2.1)
+
+> 1 January 2024
+
+- fix: fix #1574 [`#1574`](https://github.com/th-ch/youtube-music/issues/1574)
+- fix: fix #1575 [`#1575`](https://github.com/th-ch/youtube-music/issues/1575)
+- chore(i18n): Translated using Weblate [`f5aa179`](https://github.com/th-ch/youtube-music/commit/f5aa179cd639eb4b8f70f1264b5b459ebcc16695)
+- chore(i18n): Translated using Weblate (English) [`e409165`](https://github.com/th-ch/youtube-music/commit/e409165e1bed85f3d1aea3a565e7b9e462b1e05b)
+- chore(i18n): Translated using Weblate (Czech) [`0ca4e34`](https://github.com/th-ch/youtube-music/commit/0ca4e34efd86e877314e5a245f266065b4cf0013)
+
+#### [v3.2.0](https://github.com/th-ch/youtube-music/compare/v3.1.1...v3.2.0)
+
+> 1 January 2024
+
+- feat(album-color-theme): improve `Album Color Theme` style [`#1571`](https://github.com/th-ch/youtube-music/pull/1571)
+- feat(menu): add more detail in Menu [`#1570`](https://github.com/th-ch/youtube-music/pull/1570)
+- feat(music-together): Add new plugin `Music Together` [`#1562`](https://github.com/th-ch/youtube-music/pull/1562)
+- chore(deps): update dependency rollup to v4.9.2 [`#1567`](https://github.com/th-ch/youtube-music/pull/1567)
+- fix(deps): update dependency i18next to v23.7.13 [`#1569`](https://github.com/th-ch/youtube-music/pull/1569)
+- feat: Add new plugin `Album actions` [`#1515`](https://github.com/th-ch/youtube-music/pull/1515)
+- fix(deps): update dependency i18next to v23.7.12 [`#1564`](https://github.com/th-ch/youtube-music/pull/1564)
+- fix: Only apply scale factor on Windows [`#1565`](https://github.com/th-ch/youtube-music/pull/1565)
+- chore(deps): update dependency @typescript-eslint/eslint-plugin to v6.16.0 [`#1556`](https://github.com/th-ch/youtube-music/pull/1556)
+- chore(deps): update pnpm to v8.13.1 [`#1557`](https://github.com/th-ch/youtube-music/pull/1557)
+- chore(deps): update dependency ws to v8.16.0 [`#1559`](https://github.com/th-ch/youtube-music/pull/1559)
+- fix(deps): update dependency youtubei.js to v8.1.0 [`#1560`](https://github.com/th-ch/youtube-music/pull/1560)
+- fix(deps): update dependency node-html-parser to v6.1.12 [`#1554`](https://github.com/th-ch/youtube-music/pull/1554)
+- Revert "fix(deps): update dependency @xhayper/discord-rpc to v1.1.2" [`#1552`](https://github.com/th-ch/youtube-music/pull/1552)
+- feat(ambient-mode): support ambient mode on `Song section` [`#1555`](https://github.com/th-ch/youtube-music/issues/1555)
+- fix: fixed an issue with the download button disappearing [`#1551`](https://github.com/th-ch/youtube-music/issues/1551)
+- fix: fix `homebrew cask` [`#1514`](https://github.com/th-ch/youtube-music/issues/1514)
+- fix: pnpm build error [`13ef856`](https://github.com/th-ch/youtube-music/commit/13ef8560ff43353030537403be7da82542ba535e)
+- chore(i18n): Translated using Weblate (Czech) [`0dc9c6a`](https://github.com/th-ch/youtube-music/commit/0dc9c6a1a90bce6505614617b827e816cbaaf875)
+- chore(deps): update dependency @typescript-eslint/eslint-plugin to v6.15.0 [`c5bcd89`](https://github.com/th-ch/youtube-music/commit/c5bcd89f164b51d7380486a8ae35edd0caeea842)
+
+#### [v3.1.1](https://github.com/th-ch/youtube-music/compare/v3.1.0...v3.1.1)
+
+> 18 December 2023
+
+- fix: fix renderer plugin load timing [`#1522`](https://github.com/th-ch/youtube-music/issues/1522)
+- chore(i18n): Translated using Weblate (Lithuanian) [`fc1a7cd`](https://github.com/th-ch/youtube-music/commit/fc1a7cda62b6e33e5f5d57a5a6e0adef6a32bf9a)
+- chore(i18n): Translated using Weblate (Chinese (Simplified)) [`eba7026`](https://github.com/th-ch/youtube-music/commit/eba7026b89bbfdd3ac07cf728a66ba9bdd274ec0)
+- chore(deps): update dependency rollup to v4.8.0 [`a601d0b`](https://github.com/th-ch/youtube-music/commit/a601d0b3d2dee0fabad79a18e1a7dd0ca84ccf01)
+
+#### [v3.1.0](https://github.com/th-ch/youtube-music/compare/v3.0.2...v3.1.0)
+
+> 11 December 2023
+
+- chore(deps): update dependency electron to v28 [`#1498`](https://github.com/th-ch/youtube-music/pull/1498)
+- Enable/Disable Navigation without restart [`#1507`](https://github.com/th-ch/youtube-music/pull/1507)
+- Turkish(tr)_lang_file [`#1513`](https://github.com/th-ch/youtube-music/pull/1513)
+- Skip Disliked Songs [`#1505`](https://github.com/th-ch/youtube-music/pull/1505)
+- chore(deps): update dependency @typescript-eslint/eslint-plugin to v6.13.2 [`#1452`](https://github.com/th-ch/youtube-music/pull/1452)
+- fix: Homebrew latest release url parsing [`#1496`](https://github.com/th-ch/youtube-music/pull/1496)
+- fix: in-player adblocker inject timing issue [`#1478`](https://github.com/th-ch/youtube-music/issues/1478)
+- fix(package.json): fix RPM version `libuuid` issue [`#1508`](https://github.com/th-ch/youtube-music/issues/1508)
+- Translated using Weblate (Polish) [`7b78ba6`](https://github.com/th-ch/youtube-music/commit/7b78ba67613f14be65a45751efeb06431b405a91)
+- Translated using Weblate (French) [`ebc0879`](https://github.com/th-ch/youtube-music/commit/ebc087963b23265ff00528c8305d51597abf587a)
+- Translated using Weblate (Chinese (Traditional)) [`020bdc0`](https://github.com/th-ch/youtube-music/commit/020bdc0811ea45ad6c2853c62a05ae6695c5c4f9)
+
+#### [v3.0.2](https://github.com/th-ch/youtube-music/compare/v3.0.1...v3.0.2)
+
+> 3 December 2023
+
+- fix(adblocker): fix In-Player adblocker [`#1478`](https://github.com/th-ch/youtube-music/issues/1478)
+- fix(menu): crash on linux [`#1477`](https://github.com/th-ch/youtube-music/issues/1477)
+- fix: update pnpm-lock.yaml [`9e2c6b1`](https://github.com/th-ch/youtube-music/commit/9e2c6b1afa33b5708853c8328946e68ec45b09c3)
+- Translated using Weblate (Chinese (Traditional)) [`125b69f`](https://github.com/th-ch/youtube-music/commit/125b69fd75a05c3eb893886119e2d9f2332b3e56)
+- Translated using Weblate (French) [`15c4551`](https://github.com/th-ch/youtube-music/commit/15c455105b5100a8ee2bd0a4631548d3d455f047)
+
+#### [v3.0.1](https://github.com/th-ch/youtube-music/compare/v3.0.0...v3.0.1)
+
+> 2 December 2023
+
+- hotfix(adblocker): fix #1475 [`#1475`](https://github.com/th-ch/youtube-music/issues/1475)
+- Translated using Weblate (French) [`7f02afc`](https://github.com/th-ch/youtube-music/commit/7f02afc5a6839adfe8437d4e2cc8dee13a93b311)
+- Update changelog for v3.0.0 [`d8c8bd1`](https://github.com/th-ch/youtube-music/commit/d8c8bd17ecfbdf96ebd29eb4c5748c07876ee242)
+- Translated using Weblate (German) [`0660f0b`](https://github.com/th-ch/youtube-music/commit/0660f0b7ce6895ef5800f48ade1da2d7f8e0c1f7)
+
+### [v3.0.0](https://github.com/th-ch/youtube-music/compare/v2.2.0...v3.0.0)
+
+> 2 December 2023
+
+- Add text to Translation section [`#1470`](https://github.com/th-ch/youtube-music/pull/1470)
+- fix(deps): update dependency youtubei.js to v8 [`#1473`](https://github.com/th-ch/youtube-music/pull/1473)
+- chore(deps): update dependency electron to v27.1.3 [`#1471`](https://github.com/th-ch/youtube-music/pull/1471)
+- fix(deps): update dependency @xhayper/discord-rpc to v1.1.1 [`#1472`](https://github.com/th-ch/youtube-music/pull/1472)
+- feat: add support i18n [`#1468`](https://github.com/th-ch/youtube-music/pull/1468)
+- chore(deps): update dependency electron to v27.1.2 [`#1441`](https://github.com/th-ch/youtube-music/pull/1441)
+- Nicer Readme [`#1439`](https://github.com/th-ch/youtube-music/pull/1439)
+- Windows Zoom, ScaleFactor [`#1402`](https://github.com/th-ch/youtube-music/pull/1402)
+- chore(deps): bump axios from 1.5.1 to 1.6.1 [`#1400`](https://github.com/th-ch/youtube-music/pull/1400)
+- Updated mac icon to better reflect the Mac styling [`#1395`](https://github.com/th-ch/youtube-music/pull/1395)
+- feat: rename plugins to clarify context [`#1392`](https://github.com/th-ch/youtube-music/pull/1392)
+- feat: refactor plugin utils [`#1391`](https://github.com/th-ch/youtube-music/pull/1391)
+- feat: plugin auto-importer with `vite-plugin-resolve` [`#1385`](https://github.com/th-ch/youtube-music/pull/1385)
+- feat: migrate from `rollup` to `electron-vite` [`#1364`](https://github.com/th-ch/youtube-music/pull/1364)
+- feat: enable `context-isolation` [`#1361`](https://github.com/th-ch/youtube-music/pull/1361)
+- fix: add workaround for `podcast` type video [`#1362`](https://github.com/th-ch/youtube-music/pull/1362)
+- fix: fix broken menu-layout [`#1360`](https://github.com/th-ch/youtube-music/pull/1360)
+- Add Homebrew cask install option for MacOS. [`#1357`](https://github.com/th-ch/youtube-music/pull/1357)
+- feat: changed Zoom shortcuts to standard [`#1458`](https://github.com/th-ch/youtube-music/issues/1458)
+- fix(in-app-menu): fix #1436 [`#1436`](https://github.com/th-ch/youtube-music/issues/1436)
+- fix(discord): update application client-id [`#1431`](https://github.com/th-ch/youtube-music/issues/1431)
+- chore(deps): update dependency electron to v27.0.4 [`#1324`](https://github.com/th-ch/youtube-music/issues/1324)
+- fix(in-app-menu): panel should close with the window when it is closed [`#1389`](https://github.com/th-ch/youtube-music/issues/1389)
+- fix: change titleBarOverlay height based on zoomFactor [`#1375`](https://github.com/th-ch/youtube-music/issues/1375)
+- fix: fixed an issue if "Always on top" is enabled, the dialog is displayed below the window [`#1379`](https://github.com/th-ch/youtube-music/issues/1379)
+- fix: fix winget version (fix #1363) [`#1363`](https://github.com/th-ch/youtube-music/issues/1363)
+- feat: run prettier [`a3104fd`](https://github.com/th-ch/youtube-music/commit/a3104fda4b0d58b076d0c737111636a66e468acc)
+- Translated using Weblate (Korean) [`b4b7ad8`](https://github.com/th-ch/youtube-music/commit/b4b7ad824b8c489ae483eba139b46e5b200231fc)
+- Translated using Weblate (English) [`d2eabaa`](https://github.com/th-ch/youtube-music/commit/d2eabaa4bbccd89eae529eae52cec035e8e2620c)
+
+#### [v2.2.0](https://github.com/th-ch/youtube-music/compare/v2.1.3...v2.2.0)
+
+> 27 October 2023
+
+- feat(ambient-mode): add config for `ambient-mode` plugin [`#1349`](https://github.com/th-ch/youtube-music/pull/1349)
+- bump deps [`4248d20`](https://github.com/th-ch/youtube-music/commit/4248d20e8ef926ce7b1d07eb83743755a341d9f6)
+- Update changelog for v2.1.3 [`dc73561`](https://github.com/th-ch/youtube-music/commit/dc73561c8a8acfc8ba91aff2dc78e4267869f2fd)
+- Bump version to 2.2.0 [`6288d0b`](https://github.com/th-ch/youtube-music/commit/6288d0b171a65ea015922cdf3af6c7bd9a1f269b)
+
+#### [v2.1.3](https://github.com/th-ch/youtube-music/compare/v2.1.2...v2.1.3)
+
+> 23 October 2023
+
+- fix: fixed bugs in downloader [`#1342`](https://github.com/th-ch/youtube-music/pull/1342)
+- feat(discord): rename `Listen Along` to `Play on YTM` [`#1341`](https://github.com/th-ch/youtube-music/issues/1341)
+- chore(deps): bump deps [`4333891`](https://github.com/th-ch/youtube-music/commit/4333891ccabe42aedf756fd48618be715db13262)
+- Update changelog for v2.1.2 [`fa4c69d`](https://github.com/th-ch/youtube-music/commit/fa4c69d228d4e06a7858e2b22fcdfa075a8ca766)
+- fix(store): fix listenAlong statement [`bceaa05`](https://github.com/th-ch/youtube-music/commit/bceaa05197d47a4a4bbd22e767d1e4d6ec277514)
+
+#### [v2.1.2](https://github.com/th-ch/youtube-music/compare/v2.1.1...v2.1.2)
+
+> 19 October 2023
+
+- feat(in-app-menu): add an option to hide the window controls [`#1335`](https://github.com/th-ch/youtube-music/pull/1335)
+- fix: fixed an issue where the album name was missing [`#1334`](https://github.com/th-ch/youtube-music/pull/1334)
+- chore(deps): update dependency electron to v27.0.1 [`#1331`](https://github.com/th-ch/youtube-music/pull/1331)
+- fix: fixed an issue where only the first 100 songs in a playlist were downloaded [`#1329`](https://github.com/th-ch/youtube-music/pull/1329)
+- Updated readme plugins list [`#1326`](https://github.com/th-ch/youtube-music/pull/1326)
+- QOL: Move source code under the src directory. [`#1318`](https://github.com/th-ch/youtube-music/pull/1318)
+- feat: migrate from `npm` to `pnpm` [`#1316`](https://github.com/th-ch/youtube-music/pull/1316)
+- fix: fix unresponsive (fix #1325) [`#1325`](https://github.com/th-ch/youtube-music/issues/1325)
+- fix(blocker): remove the `app.isPackaged` check (fix #1315) [`#1315`](https://github.com/th-ch/youtube-music/issues/1315)
+- fix(discord): `Discord RPC fails if a song's title is only one character` (fix #1314) [`#1314`](https://github.com/th-ch/youtube-music/issues/1314)
+- chore(deps): Bump @rollup/plugin-commonjs, pnpm version, Remove ytpl [`9705f84`](https://github.com/th-ch/youtube-music/commit/9705f8489d7bf262bfd8b15ab84c2d3485f10eae)
+- chore(deps): Bump rollup, @xhayper/discord-rpc version [`00a3e8d`](https://github.com/th-ch/youtube-music/commit/00a3e8d35ec335e1913be19f30ae09dbe0b7acdd)
+- chore(deps): update dependency rollup to v4.1.4 [`6774d54`](https://github.com/th-ch/youtube-music/commit/6774d54f5eca432edc2e11743d9d1b1c2fda9ac8)
+
+#### [v2.1.1](https://github.com/th-ch/youtube-music/compare/v2.1.0...v2.1.1)
+
+> 14 October 2023
+
+- hotfix(downloader): can't get an album title (fix #1313) [`#1313`](https://github.com/th-ch/youtube-music/issues/1313)
+- Update changelog for v2.1.0 [`92cab89`](https://github.com/th-ch/youtube-music/commit/92cab89d17175741e60e65ea61633e23ebdc1f45)
+- Bump version to 2.1.1 [`3bb5bc2`](https://github.com/th-ch/youtube-music/commit/3bb5bc2ca1856f4e222ee1e01e865f1ab804fdba)
+- Add "about" menu to show app version [`21c45fa`](https://github.com/th-ch/youtube-music/commit/21c45faf2043cf72a7c14d5cf6c8d848d0448528)
+
+#### [v2.1.0](https://github.com/th-ch/youtube-music/compare/v2.0.4...v2.1.0)
+
+> 14 October 2023
+
+- feat(downloader): Added support for audio format auto-detection [`#1310`](https://github.com/th-ch/youtube-music/pull/1310)
+- feat(in-app-menu): enable in-app-menu by default (in Windows) [`#1311`](https://github.com/th-ch/youtube-music/pull/1311)
+- fix: winget publish [`#1307`](https://github.com/th-ch/youtube-music/pull/1307)
+- hotfix(downloader): fix invalid query selector (fix #1308) [`#1308`](https://github.com/th-ch/youtube-music/issues/1308)
+- chore(deps): bump dependencies [`3c6b3ae`](https://github.com/th-ch/youtube-music/commit/3c6b3aeff0aae32adb2f2ad9c091b0a9701d3c24)
+- chore(actions): create winget-cla.yml [`37181a7`](https://github.com/th-ch/youtube-music/commit/37181a7b5e2aa5bed6a36298eac3a66aac2762b8)
+- Update changelog for v2.0.4 [`e9398ad`](https://github.com/th-ch/youtube-music/commit/e9398adac34a8abb11801e32999a915a8be0ece6)
+
+#### [v2.0.4](https://github.com/th-ch/youtube-music/compare/v2.0.3...v2.0.4)
+
+> 12 October 2023
+
+- hotfix(adblocker): fix `ipcRenderer.sendSync() with ...` [`#1301`](https://github.com/th-ch/youtube-music/pull/1301)
+- fix(downloader): Korean filename is broken on non-macOS devices [`#1297`](https://github.com/th-ch/youtube-music/pull/1297)
+- chore(deps): bump deps [`b6894dc`](https://github.com/th-ch/youtube-music/commit/b6894dca2974c63fa2945d3a4995665d11eb2a78)
+- fix: bump dependencies [`7aa970c`](https://github.com/th-ch/youtube-music/commit/7aa970cebc8e1407ff6937b402ba303e14c73efd)
+- fix(downloader): private playlist download [`1d5b299`](https://github.com/th-ch/youtube-music/commit/1d5b2997bd0c72c1c007c57b145509e4a8f77fef)
+
+#### [v2.0.3](https://github.com/th-ch/youtube-music/compare/v2.0.2...v2.0.3)
+
+> 10 October 2023
+
+- feat(discord): add `Hide GitHub link Button` [`#1293`](https://github.com/th-ch/youtube-music/pull/1293)
+- feat(deps): bundle `youtubei.js` (temporary solution) [`#1292`](https://github.com/th-ch/youtube-music/pull/1292)
+- fix(mpris): fixed an issue where MPRIS information was incorrect [`#1291`](https://github.com/th-ch/youtube-music/pull/1291)
+- fix(discord): fixed an issue where `timeChanged` was not being applied to Discord activities [`#1290`](https://github.com/th-ch/youtube-music/pull/1290)
+- Fix: typo in README [`#1286`](https://github.com/th-ch/youtube-music/pull/1286)
+- fix: chore(deps): update dependency @jellybrick/mpris-service to 2.1.4 (fix #971) [`#971`](https://github.com/th-ch/youtube-music/issues/971)
+- chore(deps): Bump `@cliqz/adblocker-electron` to 1.26.8 (fix #1269) [`#1269`](https://github.com/th-ch/youtube-music/issues/1269)
+- fix: missing icons taskbar-mediacontrol [`fbf4b3b`](https://github.com/th-ch/youtube-music/commit/fbf4b3b8b5e39c61975e67efc990c45f62de76d8)
+- remove: migration scripts [`52ba2dc`](https://github.com/th-ch/youtube-music/commit/52ba2dc9ffd8e235251d1279686f55e33b3fa3bb)
+- feat: add migration script [`926b9fb`](https://github.com/th-ch/youtube-music/commit/926b9fb5e6db69b69935ec5d7be9a76a84e54ceb)
+
+#### [v2.0.2](https://github.com/th-ch/youtube-music/compare/v2.0.1...v2.0.2)
+
+> 8 October 2023
+
+- fix: discord-rpc [`#1278`](https://github.com/th-ch/youtube-music/pull/1278)
+- Bump version to 2.0.2 [`b5dbfaf`](https://github.com/th-ch/youtube-music/commit/b5dbfaf68691a546d72f5c1818fd3a44802eb0fa)
+- Merge pull request #1272 from th-ch/feat/resolves-1265 [`6b7fd5b`](https://github.com/th-ch/youtube-music/commit/6b7fd5ba630888de08004105179c059c6d93e028)
+- Merge pull request #1279 from th-ch/fix/1274 [`73a049a`](https://github.com/th-ch/youtube-music/commit/73a049a7bc5161f0d53c252cf510f1e2a6f6eeb3)
+
+#### [v2.0.1](https://github.com/th-ch/youtube-music/compare/v2.0.0...v2.0.1)
+
+> 8 October 2023
+
+- Update changelog for v2.0.0 [`2d69dfd`](https://github.com/th-ch/youtube-music/commit/2d69dfd333c3223ecc7de13a0abc98fd99aa3a2b)
+- hotfix: hotfix for #1267 [`c002263`](https://github.com/th-ch/youtube-music/commit/c002263c3bdd51890b8ffb431283afb60405d8fe)
+- Bump version to 2.0.1 [`a1f025e`](https://github.com/th-ch/youtube-music/commit/a1f025e23c599fe5eb63b32ea38ee81200d232d6)
+
+### [v2.0.0](https://github.com/th-ch/youtube-music/compare/v1.20.0...v2.0.0)
+
+> 7 October 2023
+
+- Bump version to 2.0.0 [`#1257`](https://github.com/th-ch/youtube-music/pull/1257)
+- feat(GitHub): add issue template [`#1264`](https://github.com/th-ch/youtube-music/pull/1264)
+- feat: I guess it's TypeScript [`#1235`](https://github.com/th-ch/youtube-music/pull/1235)
+- chore(deps): update dependency rollup to v4 [`#44`](https://github.com/th-ch/youtube-music/pull/44)
+- feat: apply rollup 🚀 [`#20`](https://github.com/th-ch/youtube-music/pull/20)
+- fix: Fixes the video-toggle being displayed at the wrong position on fullscreen [`#1218`](https://github.com/th-ch/youtube-music/pull/1218)
+- Change Winget Releaser job to `ubuntu-latest` [`#1225`](https://github.com/th-ch/youtube-music/pull/1225)
+- Fixes the video-toggle being displayed at the wrong position on fullscreen [`#1218`](https://github.com/th-ch/youtube-music/pull/1218)
+- Fix Remove upgrade button [`#1206`](https://github.com/th-ch/youtube-music/pull/1206)
+- Fixed Age Restriction Bypass [`#1221`](https://github.com/th-ch/youtube-music/pull/1221)
+- fix(tuna): handle `playPaused` [`#1`](https://github.com/th-ch/youtube-music/pull/1)
+- Add plugin to always use the compact sidebar [`#1190`](https://github.com/th-ch/youtube-music/pull/1190)
+- Hide login elements [`#1189`](https://github.com/th-ch/youtube-music/pull/1189)
+- Fix navigation arrows [`#1191`](https://github.com/th-ch/youtube-music/pull/1191)
+- MacOS better copy paste in readme.md [`#1156`](https://github.com/th-ch/youtube-music/pull/1156)
+- feat(build-windows): Add support for IA32 (resolves #1110) [`#1110`](https://github.com/th-ch/youtube-music/issues/1110)
+- fix: fix the downloader to work in a proxy environment (resolve #46) [`#46`](https://github.com/th-ch/youtube-music/issues/46)
+- fix: fix #34 [`#34`](https://github.com/th-ch/youtube-music/issues/34)
+- fix: fix #32 [`#32`](https://github.com/th-ch/youtube-music/issues/32)
+- fix: fix #29 [`#29`](https://github.com/th-ch/youtube-music/issues/29)
+- fix: fix #30 [`#30`](https://github.com/th-ch/youtube-music/issues/30)
+- fix: fix #29 [`#29`](https://github.com/th-ch/youtube-music/issues/29)
+- fix: fix #30 [`#30`](https://github.com/th-ch/youtube-music/issues/30)
+- hotfix: fix #28 [`#28`](https://github.com/th-ch/youtube-music/issues/28)
+- fix: resolve #12 [`#12`](https://github.com/th-ch/youtube-music/issues/12)
+- fix(precise-volume): fix slider ui does not sync [`#15`](https://github.com/th-ch/youtube-music/issues/15)
+- fix(video-toggle): fix video config not load config [`#16`](https://github.com/th-ch/youtube-music/issues/16)
+- refactor(in-app-menu): refactor in-app-menu plugin [`#13`](https://github.com/th-ch/youtube-music/issues/13)
+- feat(disable-autoplay): add `apply once`, resolve #9 [`#9`](https://github.com/th-ch/youtube-music/issues/9)
+- fix: fix #4 [`#4`](https://github.com/th-ch/youtube-music/issues/4)
+- fix: fix #7 [`#7`](https://github.com/th-ch/youtube-music/issues/7)
+- fix: fix #1187 [`#1187`](https://github.com/th-ch/youtube-music/issues/1187)
+- fix: resolves #978 [`#978`](https://github.com/th-ch/youtube-music/issues/978)
+- fix: resolves #958 [`#958`](https://github.com/th-ch/youtube-music/issues/958)
+- Merge pull request #1259 from organization/feat/fork-to-main [`457a8b5`](https://github.com/th-ch/youtube-music/commit/457a8b5018695d82b043cb7fa7264fbcf43f996c)
+- fix: remove `xo`, migration to `eslint` [`c722896`](https://github.com/th-ch/youtube-music/commit/c722896a73cfbca3bbbab67bfcdfa639474e9030)
+- fix: rollback changelog [`9048da2`](https://github.com/th-ch/youtube-music/commit/9048da22f98b9091ab606464a6cbdaad8bc185ae)
+
 #### [v1.20.0](https://github.com/th-ch/youtube-music/compare/v1.19.0...v1.20.0)
+
+> 18 May 2023
 
 - Bump version to 1.20.0 [`#1117`](https://github.com/th-ch/youtube-music/pull/1117)
 - Multiple implementations for the Adblocker plugin [`#1134`](https://github.com/th-ch/youtube-music/pull/1134)

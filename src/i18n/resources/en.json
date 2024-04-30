@@ -1,0 +1,705 @@
+{
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "Failed to execute plugin {{pluginName}}::{{contextName}}",
+        "executed-at-ms": "Plugin {{pluginName}}::{{contextName}} executed at {{ms}}ms",
+        "initialize-failed": "Failed to initialize plugin \"{{pluginName}}\"",
+        "load-all": "Loading all plugins",
+        "load-failed": "Failed to load plugin \"{{pluginName}}\"",
+        "loaded": "Plugin \"{{pluginName}}\" loaded",
+        "unload-failed": "Failed to unload plugin \"{{pluginName}}\"",
+        "unloaded": "Plugin \"{{pluginName}}\" unloaded"
+      }
+    }
+  },
+  "language": {
+    "code": "en",
+    "local-name": "English",
+    "name": "English"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "Finished loading. DevTools opened"
+      },
+      "i18n": {
+        "loaded": "i18n loaded"
+      },
+      "second-instance": {
+        "receive-command": "Received command over protocol: \"{{command}}\""
+      },
+      "theme": {
+        "css-file-not-found": "CSS file \"{{cssFile}}\" does not exist, ignoring"
+      },
+      "unresponsive": {
+        "details": "Unresponsive Error!\n{{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "Clearing app cache"
+      },
+      "window": {
+        "tried-to-render-offscreen": "Window tried to render offscreen, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "detail": "Menu is hidden, use 'Alt' to show it (or 'Escape' if using In-App Menu)",
+        "message": "Hide Menu is enabled",
+        "title": "Hide Menu Enabled"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "Later",
+          "restart-now": "Restart Now"
+        },
+        "detail": "\"{{pluginName}}\" plugin requires a restart to take effect",
+        "message": "\"{{pluginName}}\" needs to restart",
+        "title": "Restart Required"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "Quit",
+          "relaunch": "Relaunch",
+          "wait": "Wait"
+        },
+        "detail": "We are sorry for the inconvenience! please choose what to do:",
+        "message": "The Application is Unresponsive",
+        "title": "Window Unresponsive"
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "Disable Updates",
+          "download": "Download",
+          "ok": "OK"
+        },
+        "detail": "A new version is available and can be downloaded at {{downloadLink}}",
+        "message": "A new version is available",
+        "title": "Update Available"
+      }
+    },
+    "menu": {
+      "about": "About",
+      "navigation": {
+        "label": "Navigation",
+        "submenu": {
+          "copy-current-url": "Copy current URL",
+          "go-back": "Go back",
+          "go-forward": "Go forward",
+          "quit": "Exit",
+          "restart": "Restart App"
+        }
+      },
+      "options": {
+        "label": "Options",
+        "submenu": {
+          "advanced-options": {
+            "label": "Advanced options",
+            "submenu": {
+              "auto-reset-app-cache": "Reset app cache when app starts",
+              "disable-hardware-acceleration": "Disable hardware acceleration",
+              "edit-config-json": "Edit config.json",
+              "override-user-agent": "Override User-Agent",
+              "restart-on-config-changes": "Restart on config changes",
+              "set-proxy": {
+                "label": "Set proxy",
+                "prompt": {
+                  "label": "Enter Proxy Address: (leave empty to disable)",
+                  "placeholder": "Example: SOCKS5://127.0.0.1:9999",
+                  "title": "Set proxy"
+                }
+              },
+              "toggle-dev-tools": "Toggle DevTools"
+            }
+          },
+          "always-on-top": "Always on top",
+          "auto-update": "Auto Update",
+          "hide-menu": {
+            "dialog": {
+              "message": "Menu will be hidden on next launch, use [Alt] to show it (or backtick [`] if using in-app-menu)",
+              "title": "Hide Menu Enabled"
+            },
+            "label": "Hide Menu"
+          },
+          "language": {
+            "dialog": {
+              "message": "Language will be changed after restart",
+              "title": "Language Changed"
+            },
+            "label": "Language",
+            "submenu": {
+              "to-help-translate": "Want to help translate? Click here"
+            }
+          },
+          "resume-on-start": "Resume last song when app starts",
+          "single-instance-lock": "Single Instance Lock",
+          "start-at-login": "Start at login",
+          "starting-page": {
+            "label": "Starting page",
+            "unset": "Unset"
+          },
+          "tray": {
+            "label": "Tray",
+            "submenu": {
+              "disabled": "Disabled",
+              "enabled-and-hide-app": "Enabled and hide app",
+              "enabled-and-show-app": "Enabled and show app",
+              "play-pause-on-click": "Play/Pause on click"
+            }
+          },
+          "visual-tweaks": {
+            "label": "Visual Tweaks",
+            "submenu": {
+              "like-buttons": {
+                "default": "Default",
+                "force-show": "Force show",
+                "hide": "Hide",
+                "label": "Like buttons"
+              },
+              "remove-upgrade-button": "Remove upgrade button",
+              "theme": {
+                "label": "Theme",
+                "submenu": {
+                  "import-css-file": "Import custom CSS file",
+                  "no-theme": "No theme"
+                }
+              }
+            }
+          }
+        }
+      },
+      "plugins": {
+        "enabled": "Enabled",
+        "label": "Plugins",
+        "new": "NEW"
+      },
+      "view": {
+        "label": "View",
+        "submenu": {
+          "force-reload": "Force Reload",
+          "reload": "Reload",
+          "reset-zoom": "Actual Size",
+          "toggle-fullscreen": "Toggle Full Screen",
+          "zoom-in": "Zoom In",
+          "zoom-out": "Zoom Out"
+        }
+      }
+    },
+    "tray": {
+      "next": "Next",
+      "play-pause": "Play/Pause",
+      "previous": "Previous",
+      "quit": "Exit",
+      "restart": "Restart App",
+      "show": "Show window",
+      "tooltip": {
+        "default": "YouTube Music",
+        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
+      }
+    }
+  },
+  "plugins": {
+    "adblocker": {
+      "description": "Block all ads and tracking out of the box",
+      "menu": {
+        "blocker": "Blocker"
+      },
+      "name": "Ad Blocker"
+    },
+    "album-actions": {
+      "description": "Adds Undislike, Dislike, Like, and Unlike buttons to apply this to all songs in a playlist or album",
+      "name": "Album Actions"
+    },
+    "album-color-theme": {
+      "description": "Applies a dynamic theme and visual effects based on the album color palette",
+      "name": "Album Color Theme",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "Color mix ratio",
+          "submenu": {
+            "percent": "{{ratio}}%"
+          }
+        }
+      }
+    },
+    "ambient-mode": {
+      "description": "Applies a lighting effect by casting gentle colors from the video, into your screen’s background",
+      "menu": {
+        "blur-amount": {
+          "label": "Blur amount",
+          "submenu": {
+            "pixels": "{{blurAmount}} pixels"
+          }
+        },
+        "buffer": {
+          "label": "Buffer",
+          "submenu": {
+            "buffer": "{{buffer}}"
+          }
+        },
+        "opacity": {
+          "label": "Opacity",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "quality": {
+          "label": "Quality",
+          "submenu": {
+            "pixels": "{{quality}} pixels"
+          }
+        },
+        "size": {
+          "label": "Size",
+          "submenu": {
+            "percent": "{{size}}%"
+          }
+        },
+        "smoothness-transition": {
+          "label": "Smoothness transition",
+          "submenu": {
+            "during": "During {{interpolationTime}} s"
+          }
+        },
+        "use-fullscreen": {
+          "label": "Using fullscreen"
+        }
+      },
+      "name": "Ambient Mode"
+    },
+    "audio-compressor": {
+      "description": "Apply compression to audio (lowers the volume of the loudest parts of the signal and raises the volume of the softest parts)",
+      "name": "Audio Compressor"
+    },
+    "blur-nav-bar": {
+      "description": "Makes navigation bar transparent and blurry",
+      "name": "Blur Navigation Bar"
+    },
+    "bypass-age-restrictions": {
+      "description": "Bypass YouTube's age verification",
+      "name": "Bypass Age Restrictions"
+    },
+    "captions-selector": {
+      "description": "Caption selector for YouTube Music audio tracks",
+      "menu": {
+        "autoload": "Automatically select last used caption",
+        "disable-captions": "No captions by default"
+      },
+      "name": "Captions Selector",
+      "prompt": {
+        "selector": {
+          "label": "Current caption language: {{language}}",
+          "none": "None",
+          "title": "Select caption language"
+        }
+      },
+      "templates": {
+        "title": "Open captions selector"
+      }
+    },
+    "compact-sidebar": {
+      "description": "Always set the sidebar in compact mode",
+      "name": "Compact Sidebar"
+    },
+    "crossfade": {
+      "description": "Crossfade between songs",
+      "menu": {
+        "advanced": "Advanced"
+      },
+      "name": "Crossfade [Beta]",
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "fade-in-duration": "Fade in duration (ms)",
+            "fade-out-duration": "Fade out duration (ms)",
+            "fade-scaling": {
+              "label": "Fade scaling",
+              "linear": "Linear",
+              "logarithmic": "Logarithmic"
+            },
+            "seconds-before-end": "Crossfade N seconds before end"
+          },
+          "title": "Crossfade options"
+        }
+      }
+    },
+    "disable-autoplay": {
+      "description": "Makes song start in \"paused\" mode",
+      "menu": {
+        "apply-once": "Applies only on startup"
+      },
+      "name": "Disable Autoplay"
+    },
+    "discord": {
+      "backend": {
+        "already-connected": "Attempted to connect with active connection",
+        "connected": "Connected to Discord",
+        "disconnected": "Disconnected from Discord"
+      },
+      "description": "Show your friends what you listen to with Rich Presence",
+      "menu": {
+        "auto-reconnect": "Auto reconnect",
+        "clear-activity": "Clear activity",
+        "clear-activity-after-timeout": "Clear activity after timeout",
+        "connected": "Connected",
+        "disconnected": "Disconnected",
+        "hide-duration-left": "Hide duration left",
+        "hide-github-button": "Hide GitHub link Button",
+        "play-on-youtube-music": "Play on YouTube Music",
+        "set-inactivity-timeout": "Set inactivity timeout"
+      },
+      "name": "Discord Rich Presence",
+      "prompt": {
+        "set-inactivity-timeout": {
+          "label": "Enter inactivity timeout in seconds:",
+          "title": "Set inactivity timeout"
+        }
+      }
+    },
+    "downloader": {
+      "backend": {
+        "dialog": {
+          "error": {
+            "buttons": {
+              "ok": "OK"
+            },
+            "message": "Argh! Apologies, download failed…",
+            "title": "Error in download!"
+          },
+          "start-download-playlist": {
+            "buttons": {
+              "ok": "OK"
+            },
+            "detail": "({{playlistSize}} songs)",
+            "message": "Downloading Playlist {{playlistTitle}}",
+            "title": "Download started"
+          }
+        },
+        "feedback": {
+          "conversion-progress": "Conversion: {{percent}}%",
+          "converting": "Converting…",
+          "done": "Done: {{filePath}}",
+          "download-info": "Downloading {{artist}} - {{title}} [{{videoId}}",
+          "download-progress": "Download: {{percent}}%",
+          "downloading": "Downloading…",
+          "downloading-counter": "Downloading {{current}}/{{total}}…",
+          "downloading-playlist": "Downloading playlist \"{{playlistTitle}}\" - {{playlistSize}} songs ({{playlistId}})",
+          "error-while-downloading": "Error downloading \"{{author}} - {{title}}\": {{error}}",
+          "folder-already-exists": "The folder {{playlistFolder}} already exists",
+          "getting-playlist-info": "Getting playlist info…",
+          "loading": "Loading…",
+          "playlist-has-only-one-song": "Playlist has only one item, downloading it directly",
+          "playlist-id-not-found": "No playlist ID found",
+          "playlist-is-empty": "Playlist is empty",
+          "playlist-is-mix-or-private": "Error getting playlist info: make sure it isn't a private or \"Mixed for you\" playlist\n\n{{error}}",
+          "preparing-file": "Preparing file…",
+          "saving": "Saving…",
+          "trying-to-get-playlist-id": "Trying to get playlist ID: {{playlistId}}",
+          "video-id-not-found": "Video not found",
+          "writing-id3": "Writing ID3 tags…"
+        }
+      },
+      "description": "Downloads MP3 / source audio directly from the interface",
+      "menu": {
+        "choose-download-folder": "Choose download folder",
+        "download-playlist": "Download playlist",
+        "presets": "Presets",
+        "skip-existing": "Skip existing files",
+        "download-finish-settings": {
+            "label": "Download on finish",
+            "submenu": {
+              "enabled": "Enabled",
+              "mode": "Time mode",
+              "seconds": "Seconds",
+              "percent": "Percent",
+              "advanced": "Advanced"
+            },
+            "prompt": {
+              "title": "Configure when to download",
+              "last-seconds": "Last x seconds",
+              "last-percent": "After x percent"
+            }
+        }
+      },
+      "name": "Downloader",
+      "renderer": {
+        "can-not-update-progress": "Cannot update progress"
+      },
+      "templates": {
+        "button": "Download"
+      }
+    },
+    "exponential-volume": {
+      "description": "Makes the volume slider exponential so it's easier to select lower volumes.",
+      "name": "Exponential Volume"
+    },
+    "in-app-menu": {
+      "description": "Gives menu-bars a fancy, dark or album-color look",
+      "menu": {
+        "hide-dom-window-controls": "Hide DOM window controls"
+      },
+      "name": "In-App Menu"
+    },
+    "lumiastream": {
+      "description": "Adds Lumia Stream support",
+      "name": "Lumia Stream [Beta]"
+    },
+    "lyrics-genius": {
+      "description": "Adds lyrics support for most songs",
+      "menu": {
+        "romanized-lyrics": "Romanized Lyrics"
+      },
+      "name": "Lyrics Genius",
+      "renderer": {
+        "fetched-lyrics": "Fetched lyrics for Genius"
+      }
+    },
+    "music-together": {
+      "description": "Share a playlist with others. When the host plays a song, everyone else will hear the same song",
+      "dialog": {
+        "enter-host": "Enter Host ID"
+      },
+      "internal": {
+        "save": "Save",
+        "track-source": "Track Source",
+        "unknown-user": "Unknown User"
+      },
+      "menu": {
+        "click-to-copy-id": "Copy Host ID",
+        "close": "Close Music Together",
+        "connected-users": "Connected Users",
+        "disconnect": "Disconnect Music Together",
+        "empty-user": "No connected users",
+        "host": "Music Together Host",
+        "join": "Join Music Together",
+        "permission": {
+          "all": "Allow guests to control playlist and player",
+          "host-only": "Only the host can control playlist and player",
+          "playlist": "Allow guests to control playlist"
+        },
+        "set-permission": "Change Control Permission",
+        "status": {
+          "disconnected": "Disconnected",
+          "guest": "Connected as Guest",
+          "host": "Connected as Host"
+        }
+      },
+      "name": "Music Together [Beta]",
+      "toast": {
+        "add-song-failed": "Failed to add song",
+        "closed": "Music Together closed",
+        "disconnected": "Music Together disconnected",
+        "host-failed": "Failed to host Music Together",
+        "id-copied": "Host ID copied to clipboard",
+        "id-copy-failed": "Failed to copy Host ID to clipboard",
+        "join-failed": "Failed to join Music Together",
+        "joined": "Joined Music Together",
+        "permission-changed": "Music Together permission changed to \"{{permission}}\"",
+        "remove-song-failed": "Failed to remove song",
+        "user-connected": "{{name}} joined Music Together",
+        "user-disconnected": "{{name}} left Music Together"
+      }
+    },
+    "navigation": {
+      "description": "Next/Back navigation arrows directly integrated in the interface, like in your favorite browser",
+      "name": "Navigation"
+    },
+    "no-google-login": {
+      "description": "Remove Google login buttons and links from the interface",
+      "name": "No Google Login"
+    },
+    "notifications": {
+      "description": "Display a notification when a song starts playing (interactive notifications are available on Windows)",
+      "menu": {
+        "interactive": "Interactive Notifications",
+        "interactive-settings": {
+          "label": "Interactive Settings",
+          "submenu": {
+            "hide-button-text": "Hide button text",
+            "refresh-on-play-pause": "Refresh on Play/Pause",
+            "tray-controls": "Open/Close on tray click"
+          }
+        },
+        "priority": "Notification Priority",
+        "toast-style": "Toast style",
+        "unpause-notification": "Show notification on unpause"
+      },
+      "name": "Notifications"
+    },
+    "picture-in-picture": {
+      "description": "Allows to switch the app to picture-in-picture mode",
+      "menu": {
+        "always-on-top": "Always on top",
+        "hotkey": {
+          "label": "Hotkey",
+          "prompt": {
+            "keybind-options": {
+              "hotkey": "Hotkey"
+            },
+            "label": "Choose a hotkey to toggle picture-in-picture",
+            "title": "Picture-in-picture Hotkey"
+          }
+        },
+        "save-window-position": "Save window position",
+        "save-window-size": "Save window size",
+        "use-native-pip": "Use browser native PiP"
+      },
+      "name": "Picture-in-picture",
+      "templates": {
+        "button": "Picture-in-picture"
+      }
+    },
+    "playback-speed": {
+      "description": "Listen fast, listen slow! Adds a slider that controls song speed",
+      "name": "Playback Speed",
+      "templates": {
+        "button": "Speed"
+      }
+    },
+    "precise-volume": {
+      "description": "Control the volume precisely using mousewheel/hotkeys, with a custom HUD and customizable volume steps",
+      "menu": {
+        "arrows-shortcuts": "Local Arrow-keys Controls",
+        "custom-volume-steps": "Set Custom Volume Steps",
+        "global-shortcuts": "Global Hotkeys"
+      },
+      "name": "Precise Volume",
+      "prompt": {
+        "global-shortcuts": {
+          "keybind-options": {
+            "decrease": "Decrease Volume",
+            "increase": "Increase Volume"
+          },
+          "label": "Choose Global Volume Keybinds:",
+          "title": "Global Volume Keybinds"
+        },
+        "volume-steps": {
+          "label": "Choose Volume Increase/Decrease Steps",
+          "title": "Volume Steps"
+        }
+      }
+    },
+    "quality-changer": {
+      "backend": {
+        "dialog": {
+          "quality-changer": {
+            "detail": "Current Quality: {{quality}}",
+            "message": "Choose Video Quality:",
+            "title": "Choose Video Quality"
+          }
+        }
+      },
+      "description": "Allows changing the video quality with a button on the video overlay",
+      "name": "Video Quality Changer"
+    },
+    "scrobbler": {
+      "description": "Add scrobbling support (etc. last.fm, Listenbrainz)",
+      "dialog": {
+        "lastfm": {
+          "auth-failed": {
+            "title": "Authentication Failed",
+            "message": "Failed to authenticate with Last.fm\nHide the popup until the next restart."
+          }
+        }
+      },
+      "menu": {
+        "scrobble-other-media": "Scrobble other media",
+        "lastfm": {
+          "api-settings": "Last.fm API Settings"
+        },
+        "listenbrainz": {
+          "token": "Enter ListenBrainz user token"
+        }
+      },
+      "name": "Scrobbler",
+      "prompt": {
+        "lastfm": {
+          "api-key": "Last.fm API key",
+          "api-secret": "Last.fm API secret"
+        },
+        "listenbrainz": {
+          "token": {
+            "label": "Enter your ListenBrainz user token:",
+            "title": "ListenBrainz token"
+          }
+        }
+      }
+    },
+    "shortcuts": {
+      "description": "Allows setting global hotkeys for playback (play/pause/next/previous) and turning off media OSD by overriding media keys, turning on Ctrl/CMD + F to search, turning on Linux MPRIS support for media keys, and custom hotkeys for advanced users",
+      "menu": {
+        "override-media-keys": "Override Media Keys",
+        "set-keybinds": "Set Global Song Controls"
+      },
+      "name": "Shortcuts (& MPRIS)",
+      "prompt": {
+        "keybind": {
+          "keybind-options": {
+            "next": "Next",
+            "play-pause": "Play / Pause",
+            "previous": "Previous"
+          },
+          "label": "Choose Global Keybinds for Songs Control:",
+          "title": "Global Keybinds"
+        }
+      }
+    },
+    "skip-disliked-songs": {
+      "description": "Skips disliked songs",
+      "name": "Skip Disliked Songs"
+    },
+    "skip-silences": {
+      "description": "Automatically skip silences sections in songs",
+      "name": "Skip Silences"
+    },
+    "sponsorblock": {
+      "description": "Automatically Skips non-music parts like intro/outro or parts of music videos where the song isn't playing",
+      "name": "SponsorBlock"
+    },
+    "taskbar-mediacontrol": {
+      "description": "Control playback from your Windows taskbar",
+      "name": "Taskbar Media Control"
+    },
+    "touchbar": {
+      "description": "Adds a TouchBar widget for macOS users",
+      "name": "TouchBar"
+    },
+    "tuna-obs": {
+      "description": "Integration with OBS's plugin Tuna",
+      "name": "Tuna OBS"
+    },
+    "video-toggle": {
+      "description": "Adds a button to switch between Video/Song mode. can also optionally remove the whole video tab",
+      "menu": {
+        "align": {
+          "label": "Alignment",
+          "submenu": {
+            "left": "Left",
+            "middle": "Middle",
+            "right": "Right"
+          }
+        },
+        "force-hide": "Force remove video tab",
+        "mode": {
+          "label": "Mode",
+          "submenu": {
+            "custom": "Custom toggle",
+            "disabled": "Disabled",
+            "native": "Native toggle"
+          }
+        }
+      },
+      "name": "Video Toggle",
+      "templates": {
+        "button": "Song"
+      }
+    },
+    "visualizer": {
+      "description": "Adds a visualizer to the player",
+      "menu": {
+        "visualizer-type": "Visualizer Type"
+      },
+      "name": "Visualizer"
+    }
+  }
+}

@@ -1,0 +1,591 @@
+{
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "Klarte ikke å kjøre programtillegg {{pluginName}}::{{contextName}}",
+        "executed-at-ms": "Det tok {{ms}} ms å kjøre {{pluginName}}::{{contextName}}",
+        "initialize-failed": "Klarte ikke å igangsette «{{pluginName}}»",
+        "load-all": "Laster inn alle programtillegg",
+        "load-failed": "Klarte ikke å laste inn {{pluginName}}-programtillegget",
+        "loaded": "Lastet inn {{pluginName}}-programtillegget",
+        "unload-failed": "Kunne ikke skru av {{pluginName}}-programtillegget",
+        "unloaded": "{{pluginName}}-programtillegg avskrudd"
+      }
+    }
+  },
+  "language": {
+    "code": "nb_NO",
+    "local-name": "Norsk bokmål",
+    "name": "Norwegian Bokmål"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "Innlasting fullført. Utviklerverktøy åpnet."
+      },
+      "i18n": {
+        "loaded": "språkstøtte innlastet"
+      },
+      "second-instance": {
+        "receive-command": "Mottok kommando over protokoll: \"{{command}}\""
+      },
+      "theme": {
+        "css-file-not-found": "CSS-filen «{{cssFile}}» finnes ikke. Ignorerer."
+      },
+      "unresponsive": {
+        "details": "Svarer ikke\n{{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "Tømmer programhurtigbuffer"
+      },
+      "window": {
+        "tried-to-render-offscreen": "Prøvde å tegne vindu utenfor skjermen, størrelse={{windowSize}}, skjermstørrelse={{displaySize}}, posisjon={{position}}"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "detail": "Menyen er skjult, bruk 'Alt' for å vise den (eller 'Escape' for å bruke menyen i programmet)",
+        "message": "Meny skjult",
+        "title": "Meny vist"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "Senere",
+          "restart-now": "Start på ny nå"
+        },
+        "detail": "{{pluginName}}-programtillegget krever programomstart før bruk.",
+        "message": "{{pluginName}}-programtillegget krever programomstart.",
+        "title": "Programomstart kreves"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "Avslutt",
+          "relaunch": "Start igjen",
+          "wait": "Vent"
+        },
+        "detail": "Velg blandt følgende:",
+        "message": "Programmet svarer ikke",
+        "title": "Vinduet svarer ikke"
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "Skru av oppgraderinger",
+          "download": "Last ned",
+          "ok": "OK"
+        },
+        "detail": "En ny versjon er tilgjengelig og kan lastes ned fra {{downloadLink}}",
+        "message": "En ny versjon er tilgjengelig",
+        "title": "Oppgradering tilgjengelig"
+      }
+    },
+    "menu": {
+      "about": "Om",
+      "navigation": {
+        "label": "Navigasjon",
+        "submenu": {
+          "copy-current-url": "Kopier nåværende nettadresse",
+          "go-back": "Tilbake",
+          "go-forward": "Framover",
+          "quit": "Avslutt",
+          "restart": "Programomstart"
+        }
+      },
+      "options": {
+        "label": "Alternativer",
+        "submenu": {
+          "advanced-options": {
+            "label": "Avanserte alternativer",
+            "submenu": {
+              "auto-reset-app-cache": "Tilbakestill programhurtigbuffer når programmet startes",
+              "disable-hardware-acceleration": "Skru av maskinvareakselerasjon",
+              "edit-config-json": "Rediger config.json",
+              "override-user-agent": "Overstyr brukeragent",
+              "restart-on-config-changes": "Omstart ved oppsettsendringer",
+              "set-proxy": {
+                "label": "Sett mellomtjener",
+                "prompt": {
+                  "label": "Skriv inn mellomtjeneradresse: (la stå tom for å skru av)",
+                  "placeholder": "Eksempel: socks5://127.0.0.1:9999",
+                  "title": "Sett mellomtjener"
+                }
+              },
+              "toggle-dev-tools": "Skru av/på utviklerverktøy"
+            }
+          },
+          "always-on-top": "Alltid på toppen",
+          "auto-update": "Auto-oppdatering",
+          "hide-menu": {
+            "dialog": {
+              "message": "Menyen vil bli skjult ved neste programstart. Bruk [Alt] for å vise den, eller gravistegn [`] hvis du bruker menyen i programmet).",
+              "title": "Skjuler meny"
+            },
+            "label": "Skjul meny"
+          },
+          "language": {
+            "dialog": {
+              "message": "Nytt språk vises når programmet startes på ny",
+              "title": "Språk endret"
+            },
+            "label": "Språk",
+            "submenu": {
+              "to-help-translate": "Klikk her for å bistå oversettelsen"
+            }
+          },
+          "resume-on-start": "Gjenoppta siste spor ved programstart",
+          "single-instance-lock": "Sperr én instans",
+          "start-at-login": "Start ved innlogging",
+          "starting-page": {
+            "label": "Startside",
+            "unset": "Opphev"
+          },
+          "tray": {
+            "label": "Systemkurv",
+            "submenu": {
+              "disabled": "Avskrudd",
+              "play-pause-on-click": "Spill av/pause ved klikk"
+            }
+          },
+          "visual-tweaks": {
+            "label": "Visuelle tilpasninger",
+            "submenu": {
+              "like-buttons": {
+                "default": "Forvalg",
+                "force-show": "Tving visning",
+                "hide": "Skjul",
+                "label": "Begunstningsknapper"
+              },
+              "remove-upgrade-button": "Fjern oppgraderingsknapp",
+              "theme": {
+                "label": "Drakt",
+                "submenu": {
+                  "import-css-file": "Importer egendefinert CSS-fil",
+                  "no-theme": "Ingen"
+                }
+              }
+            }
+          }
+        }
+      },
+      "plugins": {
+        "enabled": "Påskrudd",
+        "label": "Programtillegg"
+      },
+      "view": {
+        "label": "Vis",
+        "submenu": {
+          "force-reload": "Tving gjeninnlasting",
+          "reload": "Gjeninnlast",
+          "reset-zoom": "Faktisk størrelse",
+          "toggle-fullscreen": "Veksle fullskjermsvisning",
+          "zoom-in": "Forstørr",
+          "zoom-out": "Forminsk"
+        }
+      }
+    },
+    "tray": {
+      "next": "Neste",
+      "play-pause": "Spill av/pause",
+      "previous": "Forrige",
+      "quit": "Avslutt",
+      "restart": "Programomstart",
+      "show": "Vis vindu"
+    }
+  },
+  "plugins": {
+    "adblocker": {
+      "description": "Stenger ute reklame og sporing",
+      "menu": {
+        "blocker": "Blokkering"
+      },
+      "name": "Reklameblokkering"
+    },
+    "album-color-theme": {
+      "description": "Ifører dynamisk drakt og visuelle effekter basert på albumsfargepaletten",
+      "name": "Albumsfargedrakt"
+    },
+    "ambient-mode": {
+      "description": "Ifører lyseffekt ved å hente myke farger fra videoen inn i skjermens bakgrunn.",
+      "menu": {
+        "blur-amount": {
+          "label": "Tilsløringsmengde",
+          "submenu": {
+            "pixels": "{{blurAmount}} piksler"
+          }
+        },
+        "buffer": {
+          "label": "Mellomlager",
+          "submenu": {
+            "buffer": "{{buffer}}"
+          }
+        },
+        "opacity": {
+          "label": "Dekkevne",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "quality": {
+          "label": "Kvalitet",
+          "submenu": {
+            "pixels": "{{quality}} piksler"
+          }
+        },
+        "size": {
+          "label": "Størrelse",
+          "submenu": {
+            "percent": "{{size}}%"
+          }
+        },
+        "smoothness-transition": {
+          "label": "Mykhetsovergang",
+          "submenu": {
+            "during": "I løpet av {{interpolationTime}} s"
+          }
+        },
+        "use-fullscreen": {
+          "label": "Ved bruk av fullskjerm"
+        }
+      },
+      "name": "Omgivelsesmodus"
+    },
+    "audio-compressor": {
+      "description": "Anvend kompresjon for lyd (senker lydstyrken for de kraftigste delene av signalet og øker nivået i de svakeste)",
+      "name": "Lydkompressor"
+    },
+    "blur-nav-bar": {
+      "description": "Gjør navigeringsbjelken gjennomsiktig og tilslørt",
+      "name": "Tilslør navigasjonsfelt"
+    },
+    "bypass-age-restrictions": {
+      "description": "Omgå YouTube sin aldersgrenser",
+      "name": "Omgå aldersgrense"
+    },
+    "captions-selector": {
+      "description": "Undertekstverktøy for lydspor i YouTube Music",
+      "menu": {
+        "autoload": "Auto-velg sist brukte undertekst",
+        "disable-captions": "Ingen undertekst som forvalg"
+      },
+      "name": "Undertekstvelger",
+      "prompt": {
+        "selector": {
+          "label": "Nåværende tekstingsspråk: {{language}}",
+          "none": "Ingen",
+          "title": "Velg tekstingsspråk"
+        }
+      },
+      "templates": {
+        "title": "Åpne undertekstvelger"
+      }
+    },
+    "compact-sidebar": {
+      "description": "Alltid sett sidefeltet i kompakt modus",
+      "name": "Kompakt sidefelt"
+    },
+    "crossfade": {
+      "description": "Overgang mellom spor",
+      "menu": {
+        "advanced": "Avansert"
+      },
+      "name": "Overgang [Beta]",
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "fade-in-duration": "Inntoningsvarighet (ms)",
+            "fade-out-duration": "Uttoningsvarighet (ms)",
+            "fade-scaling": {
+              "label": "Overgangsskalering",
+              "linear": "Lineær",
+              "logarithmic": "Logaritmisk"
+            },
+            "seconds-before-end": "Overgang antall sekunder før slutt"
+          },
+          "title": "Overgangsalternativer"
+        }
+      }
+    },
+    "disable-autoplay": {
+      "description": "Merkerer sporstart i «pauset» modus",
+      "menu": {
+        "apply-once": "Har kun innvirkning ved oppstart"
+      },
+      "name": "Skru av autospilling"
+    },
+    "discord": {
+      "backend": {
+        "already-connected": "Forsøkte å koble til med aktiv tilkobling",
+        "connected": "Tilkoblet Discord",
+        "disconnected": "Frakoblet fra Discord"
+      },
+      "description": "Vis venne dine hva du lytter til med rik tilstedeværelse",
+      "menu": {
+        "auto-reconnect": "Automatisk retilkobling",
+        "clear-activity": "Tøm aktivitet",
+        "clear-activity-after-timeout": "Tøm aktivitet etter tidsavbrudd",
+        "connected": "Tilkoblet",
+        "disconnected": "Frakoblet",
+        "hide-duration-left": "Skjul gjenværende tid",
+        "hide-github-button": "Skjul GitHub-lenkeknapp",
+        "play-on-youtube-music": "Spill på YouTube Music",
+        "set-inactivity-timeout": "Sett tid før tidsavbrudd"
+      },
+      "name": "Rik tilstedeværelse for Discord",
+      "prompt": {
+        "set-inactivity-timeout": {
+          "label": "Skriv inn antall sekunder for inaktivitetstidsavbrudd:",
+          "title": "Sett inaktivitetstidsavbrudd"
+        }
+      }
+    },
+    "downloader": {
+      "backend": {
+        "dialog": {
+          "error": {
+            "buttons": {
+              "ok": "OK"
+            },
+            "message": "Nedlasting mislyktes …",
+            "title": "Feil i nedlastning."
+          },
+          "start-download-playlist": {
+            "buttons": {
+              "ok": "OK"
+            },
+            "detail": "({{playlistSize}} spor)",
+            "message": "Laster ned {{playlistTitle}}-spillelisten …",
+            "title": "Nedlasting startet"
+          }
+        },
+        "feedback": {
+          "conversion-progress": "Konvertering: {{percent}}%",
+          "converting": "Konverterer …",
+          "done": "Ferdig: {{filePath}}",
+          "download-info": "Laster ned {{artist}} — {{title}} [{{videoId}} …",
+          "download-progress": "Nedlastet: {{percent}}%",
+          "downloading": "Laster ned …",
+          "downloading-counter": "Laster ned {{current}}/{{total}} …",
+          "downloading-playlist": "Laster ned {{playlistTitle}}-spillelisten — {{playlistSize}} spor ({{playlistId}})",
+          "error-while-downloading": "Kunne ikke laste ned «{{author}} — {{title}}»: {{error}}",
+          "folder-already-exists": "{{playlistFolder}}-mappen finnes allerede",
+          "getting-playlist-info": "Henter spillelisteinfo …",
+          "loading": "Laster inn …",
+          "playlist-has-only-one-song": "Spillelisten har kun ett element. Laster ned direkte.",
+          "playlist-id-not-found": "Fant ingen spilleliste-ID",
+          "playlist-is-empty": "Tom spilleliste",
+          "playlist-is-mix-or-private": "Kunne ikke hente spillelisteinfo. Forsikre deg om at den ikke er privat eller «Mikset for deg».\n\n{{error}}",
+          "preparing-file": "Forbereder fil …",
+          "saving": "Lagrer …",
+          "trying-to-get-playlist-id": "Prøver å hente spilleliste-ID: {{playlistId}}",
+          "video-id-not-found": "Fant ikke videoen",
+          "writing-id3": "Skriver ID3-tagger …"
+        }
+      },
+      "description": "Laster ned MP3/kildelyd direkte fra grensesnittet",
+      "menu": {
+        "choose-download-folder": "Velg nedlastningsmappe",
+        "download-playlist": "Last ned spilleliste",
+        "presets": "Forhåndsinnstillinger",
+        "skip-existing": "Hopp over eksisterende filer"
+      },
+      "name": "Nedlaster",
+      "renderer": {
+        "can-not-update-progress": "Kan ikke oppdatere framdrift"
+      },
+      "templates": {
+        "button": "Last ned"
+      }
+    },
+    "exponential-volume": {
+      "description": "Gjør lydstyrkekontrollen eksponentiell, slik at det er enklere velge lavere lydstyrker.",
+      "name": "Eksponentiell lydstyrke"
+    },
+    "in-app-menu": {
+      "description": "Gir menybjelkene stilig, mørk, eller albumfarget utseende",
+      "menu": {
+        "hide-dom-window-controls": "Skjul DOM-vinduskontroller"
+      },
+      "name": "Meny i programmet"
+    },
+    "lumiastream": {
+      "description": "Legger til Lumia Stream-støtte",
+      "name": "Lumia Stream [Beta]"
+    },
+    "lyrics-genius": {
+      "description": "Gir sangtekststøtte for de fleste spor",
+      "menu": {
+        "romanized-lyrics": "Romaniserte sangtekster"
+      },
+      "name": "Sangtekster fra Genius",
+      "renderer": {
+        "fetched-lyrics": "Henter sangtekster for Genius"
+      }
+    },
+    "navigation": {
+      "description": "Direkte integrering av neste/tilbake-navigasjonspilene i grensesnittet, som din favorittnettleser",
+      "name": "Navigasjon"
+    },
+    "no-google-login": {
+      "description": "Fjern Google-innloggingsknapper og lenker fra grensesnittet",
+      "name": "Ingen Google-innlogging"
+    },
+    "notifications": {
+      "description": "Vis en merknad når et spor starter avspilling (interaktive merknader er tilgjengelig på Windows)",
+      "menu": {
+        "interactive": "Interaktive merknader",
+        "interactive-settings": {
+          "label": "Interaktive innstillinger",
+          "submenu": {
+            "hide-button-text": "Skjul knappetekst",
+            "refresh-on-play-pause": "Gjenoppfrisk ved avspilling/pause",
+            "tray-controls": "Åpne/lukk med klikk i systemkurven"
+          }
+        },
+        "priority": "Merknadsprioritet",
+        "unpause-notification": "Vis merknad ved oppheving av pause"
+      },
+      "name": "Merknader"
+    },
+    "picture-in-picture": {
+      "description": "Tillater å bytte programmet til bilde-i-bilde modus",
+      "menu": {
+        "always-on-top": "Alltid på toppen",
+        "hotkey": {
+          "label": "Hurtigtast",
+          "prompt": {
+            "keybind-options": {
+              "hotkey": "Hurtigtast"
+            },
+            "label": "Velg en hurtigtast for veksling av bilde-i-bilde",
+            "title": "Hurtigtast for bilde-i-bilde"
+          }
+        },
+        "save-window-position": "Lagre vindusposisjon",
+        "save-window-size": "Lagre vindusstørrelse",
+        "use-native-pip": "Bruk nettleserens innebygde bilde-i-bilde"
+      },
+      "name": "Bilde-i-bilde",
+      "templates": {
+        "button": "Bilde-i-bilde"
+      }
+    },
+    "playback-speed": {
+      "description": "Legger til glidebryter som kontrollerer avspillingshastighet",
+      "name": "Avspillingshastighet",
+      "templates": {
+        "button": "Hastighet"
+      }
+    },
+    "precise-volume": {
+      "description": "Kontroller lydstyrken presist ved bruk av musehjul/hurtigtaster, med egendefinert skjermoverlag og tilpassbare steg",
+      "menu": {
+        "arrows-shortcuts": "Kontroller for lokale piltaster",
+        "custom-volume-steps": "Sett egendefinerte lydstyrkesteg",
+        "global-shortcuts": "Hurtigtaster i hele programmet"
+      },
+      "name": "Presis lydstyrkejustering",
+      "prompt": {
+        "global-shortcuts": {
+          "keybind-options": {
+            "decrease": "Senk lydstyrke",
+            "increase": "Øk lydstyrke"
+          },
+          "label": "Velg tastetilknytninger for lydstyrkejusteringskontroller i hele programmet",
+          "title": "Tastetilknytninger for lydstyrkejusteringskontroller i hele programmet"
+        },
+        "volume-steps": {
+          "label": "Velg steg for økning/senking av lydstyrke",
+          "title": "Lydstyrkesteg"
+        }
+      }
+    },
+    "quality-changer": {
+      "backend": {
+        "dialog": {
+          "quality-changer": {
+            "detail": "Nåværende kvalitet: {{quality}}",
+            "message": "Velg videokvalitet:",
+            "title": "Velg videokvalitet"
+          }
+        }
+      },
+      "description": "Tillat endring av videokvalitet med en knapp i videooverlaget",
+      "name": "Vindukvalitetsvelger"
+    },
+    "shortcuts": {
+      "description": "Tillater bruk av hurtigtaster for hele programmet til avspilling (spill/pause/neste/forrige) + skru av media-videooverlag ved å overstyre mediataster + skru på Ctrl+CMD+F for å søke, pluss å egge til MPRIS støtte på linux for mediataster pluss egendefinerte hurtigtaster for avanserte brukere",
+      "menu": {
+        "override-media-keys": "Overstyr mediataster",
+        "set-keybinds": "Sett kontroller for spor i hele programmet"
+      },
+      "name": "Snarveier (og MPRIS)",
+      "prompt": {
+        "keybind": {
+          "keybind-options": {
+            "next": "Neste",
+            "play-pause": "Spill av/pause",
+            "previous": "Forrige"
+          },
+          "label": "Velg kontroller for spor i hele programmet:",
+          "title": "Tastaturtilknytninger i hele programmet"
+        }
+      }
+    },
+    "skip-disliked-songs": {
+      "description": "Hopper over mislikte spor",
+      "name": "Hopp over mislikte spor"
+    },
+    "skip-silences": {
+      "description": "Hopp over stille deler av spor",
+      "name": "Hopp over pauser"
+    },
+    "sponsorblock": {
+      "description": "Hopper over ikke-musikalske deler, som intro/sluttsats, eller deler av musikkvideoer der ingen musikk spilles",
+      "name": "SponsorBlock"
+    },
+    "taskbar-mediacontrol": {
+      "description": "Kontroller avspilling fra din Windows-oppgavelinje",
+      "name": "Oppgavelinje-mediakontroll"
+    },
+    "touchbar": {
+      "description": "Legger til et pekefelt-miniprogram for macOS-brukere",
+      "name": "Pekefelt"
+    },
+    "tuna-obs": {
+      "description": "Integrasjon med Tuna-programtillegget i OBS",
+      "name": "OBS Tuna"
+    },
+    "video-toggle": {
+      "description": "Leger til en knapp for å bytte mellom video/spormodus. Kan også alternativt fjerne hele videofanen.",
+      "menu": {
+        "align": {
+          "label": "Justering",
+          "submenu": {
+            "left": "Venstre",
+            "middle": "Midten",
+            "right": "Høyre"
+          }
+        },
+        "force-hide": "Påtving fjerning av videofane",
+        "mode": {
+          "label": "Modus",
+          "submenu": {
+            "custom": "Egendefinert veksling",
+            "disabled": "Avskrudd",
+            "native": "Innebygd veksling"
+          }
+        }
+      },
+      "name": "Videoveksling",
+      "templates": {
+        "button": "Spor"
+      }
+    },
+    "visualizer": {
+      "description": "Legger til en visualisator i avspilleren",
+      "menu": {
+        "visualizer-type": "Visualisatortype"
+      },
+      "name": "Visualisator"
+    }
+  }
+}

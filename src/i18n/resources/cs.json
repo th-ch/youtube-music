@@ -1,0 +1,632 @@
+{
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "Selhalo spuštění pluginu {{pluginName}}::{{contextName}}",
+        "executed-at-ms": "Plugin {{pluginName}}::{{contextName}} spuštěn za {{ms}}ms",
+        "initialize-failed": "Selhalo zapnutí \"{{pluginName}}\" pluginu",
+        "load-all": "Načítání všech pluginů",
+        "load-failed": "Selhalo načtení \"{{pluginName}}\" pluginu",
+        "loaded": "Plugin \"{{pluginName}}\" načten",
+        "unload-failed": "Selhalo unload \"{{pluginName}}\" pluginu",
+        "unloaded": "Plugin {{pluginName}} byl odnačten"
+      }
+    }
+  },
+  "language": {
+    "code": "cs",
+    "local-name": "Čeština",
+    "name": "Czech"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "Načítání dokončeno. Vývojářské nástroje se otevřely"
+      },
+      "i18n": {
+        "loaded": "i18n načteno"
+      },
+      "second-instance": {
+        "receive-command": "Přijmut příkaz přes protokol: \"{{command}}\""
+      },
+      "theme": {
+        "css-file-not-found": "CSS soubor \"{{cssFile}}\" neexistuje, ignorováno"
+      },
+      "unresponsive": {
+        "details": "Chyba - Aplikace nereaguje!\n{{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "Čištění mezipaměti aplikace"
+      },
+      "window": {
+        "tried-to-render-offscreen": "Okno se pokusilo vykreslit na pozadí, velikost okna = {{windowSize}}, display velikost = {{displaySize}}, pozice = {{position}}"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "detail": "Menu je skryté, stiskněte 'Alt' k jeho zobrazení (nebo 'Escape', pokud používáte in-app-menu)",
+        "message": "Skrýt menu je povoleno",
+        "title": "Skrýt menu Povolené"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "Později",
+          "restart-now": "Restartovat nyní"
+        },
+        "detail": "\"{{pluginName}}\" plugin vyžaduje restart, aby se projevil",
+        "message": "\"{{pluginName}}\" potřebuje restartovat",
+        "title": "Restart vyžadován"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "Ukončit",
+          "relaunch": "Spustit znovu",
+          "wait": "Počkat"
+        },
+        "detail": "Omlouváme se za způsobené nepříjemnosti! prosím vyberte, co dělat:",
+        "message": "Aplikace nereaguje",
+        "title": "Okno nereaguje"
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "Vypnout aktualizace",
+          "download": "Stáhnout",
+          "ok": "OK"
+        },
+        "detail": "Nová verze je k dispozici a lze ji stáhnout na {{downloadLink}}",
+        "message": "Nová verze je dostupná",
+        "title": "Aktualizace je k dispozici"
+      }
+    },
+    "menu": {
+      "about": "O Aplikaci",
+      "navigation": {
+        "label": "Navigace",
+        "submenu": {
+          "copy-current-url": "Zkopírovat aktuální URL adresu",
+          "go-back": "Jít zpátky",
+          "go-forward": "Jít dopředu",
+          "quit": "Ukončit",
+          "restart": "Restartovat aplikaci"
+        }
+      },
+      "options": {
+        "label": "Možnosti",
+        "submenu": {
+          "advanced-options": {
+            "label": "Pokročilé možnosti",
+            "submenu": {
+              "auto-reset-app-cache": "Při spuštění aplikace se resetuje její mezipaměť",
+              "disable-hardware-acceleration": "Vypnout hardware zrychlení",
+              "edit-config-json": "Upravit config.json",
+              "override-user-agent": "Přepsat uživatelského agenta",
+              "restart-on-config-changes": "Restartovat aplikaci na změny v konfiguraci",
+              "set-proxy": {
+                "label": "Nastavit proxy",
+                "prompt": {
+                  "label": "Zadejte adresu proxy: (k vypnutí nechte pole prázdné)",
+                  "placeholder": "Příklad: SOCKS5://127.0.0.1:9999",
+                  "title": "Nastavit proxy"
+                }
+              },
+              "toggle-dev-tools": "Přepínat vývojářské nástroje"
+            }
+          },
+          "always-on-top": "Vždy na vrchu",
+          "auto-update": "Automatické aktualizace",
+          "hide-menu": {
+            "dialog": {
+              "message": "Menu bude skryto na dalším spuštěním, použijte [Alt] k jeho zobrazení (nebo backtick [`] pokud používáte in-app-menu)",
+              "title": "Skrýt menu Povoleno"
+            },
+            "label": "Skrýt menu"
+          },
+          "language": {
+            "dialog": {
+              "message": "Jazyk bude změněn po restartu",
+              "title": "Jazyk změněn"
+            },
+            "label": "Jazyk",
+            "submenu": {
+              "to-help-translate": "Chcete pomoc s překladem? Klikněte zde"
+            }
+          },
+          "resume-on-start": "Při spuštění aplikace, pokračovat na poslední písničce",
+          "single-instance-lock": "Zámek pro jednu instanci",
+          "start-at-login": "Zapnutí aplikace po přihlášení",
+          "starting-page": {
+            "label": "Úvodní stránka",
+            "unset": "Nenastaveno"
+          },
+          "tray": {
+            "label": "Tray",
+            "submenu": {
+              "disabled": "Vypnuto",
+              "enabled-and-hide-app": "Povolit a skrýt aplikaci",
+              "enabled-and-show-app": "Enabled a show aplikaci",
+              "play-pause-on-click": "Přehrát/Pozastavit na kliknutí"
+            }
+          },
+          "visual-tweaks": {
+            "label": "Vzhledové vylepšení",
+            "submenu": {
+              "like-buttons": {
+                "default": "Výchozí",
+                "force-show": "Vynutit zobrazení",
+                "hide": "Skrýt",
+                "label": "Like tlačítka"
+              },
+              "remove-upgrade-button": "Odebrat upgrade tlačítko",
+              "theme": {
+                "label": "Motiv",
+                "submenu": {
+                  "import-css-file": "Vložit vlastní CSS soubor",
+                  "no-theme": "Žádný motiv"
+                }
+              }
+            }
+          }
+        }
+      },
+      "plugins": {
+        "enabled": "Povoleno",
+        "label": "Pluginy",
+        "new": "NOVÉ"
+      },
+      "view": {
+        "label": "Zobrazení",
+        "submenu": {
+          "force-reload": "Vynutit znovu načtení",
+          "reload": "Obnovit",
+          "reset-zoom": "Skutečná velikost",
+          "toggle-fullscreen": "Přepnout režim celé obrazovky",
+          "zoom-in": "Přiblížit",
+          "zoom-out": "Oddálit"
+        }
+      }
+    },
+    "tray": {
+      "next": "Další",
+      "play-pause": "Přehrát/Pozastavit",
+      "previous": "Minulý",
+      "quit": "Ukončit",
+      "restart": "Restartovat aplikaci",
+      "show": "Zobrazit okno"
+    }
+  },
+  "plugins": {
+    "adblocker": {
+      "description": "Blokuje všechny reklamy a sledování ihned od začátku",
+      "menu": {
+        "blocker": "Blokátor"
+      },
+      "name": "Blokovač reklam"
+    },
+    "album-actions": {
+      "description": "Přidává Undislike, Dislike, Like, a Unlike tlačítka k apply this ke všem písničkám v seznamu písniček nebo albumu.",
+      "name": "Album akce"
+    },
+    "album-color-theme": {
+      "description": "Používá dynamický motiv a vizuální efekty na základě palety barev alba",
+      "name": "Motiv podle barvy Alba"
+    },
+    "ambient-mode": {
+      "description": "Applies bleskové efekty pomocí casting jemných barev z videa, do vašeho pozadí obrazovky.",
+      "menu": {
+        "blur-amount": {
+          "label": "Množství rozmazání",
+          "submenu": {
+            "pixels": "{{blurAmount}} pixelů"
+          }
+        },
+        "buffer": {
+          "label": "Vyrovnávací paměť",
+          "submenu": {
+            "buffer": "{{buffer}}"
+          }
+        },
+        "opacity": {
+          "label": "Neprůhlednost",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "quality": {
+          "label": "Kvalita",
+          "submenu": {
+            "pixels": "{{quality}} pixelů"
+          }
+        },
+        "size": {
+          "label": "Velikost",
+          "submenu": {
+            "percent": "{{size}}%"
+          }
+        },
+        "smoothness-transition": {
+          "label": "Plynulý přechod",
+          "submenu": {
+            "during": "Během {{interpolationTime}} s"
+          }
+        },
+        "use-fullscreen": {
+          "label": "Používání režimu celé obrazovky"
+        }
+      },
+      "name": "Ambientní režim"
+    },
+    "audio-compressor": {
+      "description": "Apply compression k audiu (snižuje hlasitost nejhlasitěších částí signálu and zvyšuje hlasitost nejjemnějších částí)",
+      "name": "Audio kompresor"
+    },
+    "blur-nav-bar": {
+      "description": "Udělá navigační panel průhledný a rozmazaný",
+      "name": "Rozmazaný navigační panel"
+    },
+    "bypass-age-restrictions": {
+      "description": "Obejít ověření věku na YouTube",
+      "name": "Obejít věková omezení"
+    },
+    "captions-selector": {
+      "description": "Titulkový selector pro zvukové stopy v YouTube Music",
+      "menu": {
+        "autoload": "Automaticky vybrat naposledy použité titulky",
+        "disable-captions": "Žádné titulky ve vychozím nastavení"
+      },
+      "name": "Titulkový selector",
+      "prompt": {
+        "selector": {
+          "label": "Aktuální jazyk titulků: {{language}}",
+          "none": "Žádný",
+          "title": "Vybrat jazyk titulků"
+        }
+      },
+      "templates": {
+        "title": "Otevřít titulový selector"
+      }
+    },
+    "compact-sidebar": {
+      "description": "Vždy nastavit postranní panel do kompaktního režimu",
+      "name": "Kompaktní postranní panel"
+    },
+    "crossfade": {
+      "description": "Prolínání mezi písničkami",
+      "menu": {
+        "advanced": "Pokročilý"
+      },
+      "name": "Prolínání [Beta]",
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "fade-scaling": {
+              "linear": "Lineární",
+              "logarithmic": "Logaritmické"
+            },
+            "seconds-before-end": "Crossfade N sekund před koncem"
+          },
+          "title": "Možnosti prolínání"
+        }
+      }
+    },
+    "disable-autoplay": {
+      "description": "Spustí písničku v režimu \"pozastaveno\"",
+      "menu": {
+        "apply-once": "Applies jenom na spuštění aplikace"
+      },
+      "name": "Vypnout automatické přehrávání"
+    },
+    "discord": {
+      "backend": {
+        "already-connected": "Pokusilo se spojit s aktivním spojením",
+        "connected": "Připojeno k Discordu",
+        "disconnected": "Odpojeno od Discordu"
+      },
+      "description": "Ukažte svým přátelům, co posloucháte s Bohatou přítomností",
+      "menu": {
+        "auto-reconnect": "Automaticky znovu připojit",
+        "clear-activity": "Vymazat aktivitu",
+        "clear-activity-after-timeout": "Vymazat aktivitu po timeout",
+        "connected": "Připojeno",
+        "disconnected": "Odpojeno",
+        "hide-duration-left": "Skrýt zbývající duration",
+        "hide-github-button": "Skrýt tlačítko s odkazem na GitHub",
+        "play-on-youtube-music": "Hrát na YouTube Music",
+        "set-inactivity-timeout": "Nastavit timeout pro neaktivitu"
+      },
+      "name": "Discord Bohatá přítomnost",
+      "prompt": {
+        "set-inactivity-timeout": {
+          "label": "Zadejte timeout neaktivity v sekundách:",
+          "title": "Nastavit timeout pro neaktivitu"
+        }
+      }
+    },
+    "downloader": {
+      "backend": {
+        "dialog": {
+          "error": {
+            "buttons": {
+              "ok": "OK"
+            },
+            "message": "Argh! Omlouvám se, stáhnutí selhalo…",
+            "title": "Chyba ve stáhování!"
+          },
+          "start-download-playlist": {
+            "buttons": {
+              "ok": "OK"
+            },
+            "detail": "({{playlistSize}} písničky)",
+            "message": "Stahování seznamu písniček {{playlistTitle}}",
+            "title": "Stahování začalo"
+          }
+        },
+        "feedback": {
+          "conversion-progress": "Konverze: {{percent}}%",
+          "done": "Hotovo: {{filePath}}",
+          "download-info": "Stahování {{artist}} - {{title}} [{{videoId}}",
+          "download-progress": "Stahování: {{percent}}%",
+          "downloading": "Stahování…",
+          "downloading-counter": "Stahování {{current}}/{{total}}…",
+          "downloading-playlist": "Stahování seznamu písniček \"{{playlistTitle}}\" - {{playlistSize}} písničky ({{playlistId}})",
+          "error-while-downloading": "Chyba při stahování \"{{author}} - {{title}}\": {{error}}",
+          "folder-already-exists": "Složka {{playlistFolder}} již existuje",
+          "getting-playlist-info": "Získávání informací o seznamu písniček…",
+          "loading": "Načítání…",
+          "playlist-has-only-one-song": "Seznam písniček má pouze jednu položku, stahuje se přímo",
+          "playlist-id-not-found": "Žádné ID seznamu písnček nenalezeno",
+          "playlist-is-empty": "Seznam písniček je prázdný",
+          "playlist-is-mix-or-private": "Chyba při získávání informací o seznamu písniček: ujistite se, že se nejedná o soukromý nebo \"Namíchaný pro vás\" seznam písniček\n\n{{error}}",
+          "preparing-file": "Připravování souboru…",
+          "saving": "Ukládání…",
+          "trying-to-get-playlist-id": "Trying se získat ID seznamu písniček: {{playlistId}}",
+          "video-id-not-found": "Video nebylo nalezeno",
+          "writing-id3": "Psaní ID3 značek…"
+        }
+      },
+      "description": "Stahuje MP3 / source audio přímo z rozhraní",
+      "menu": {
+        "choose-download-folder": "Vybrat složku pro stahování",
+        "download-playlist": "Stáhnout seznam písniček",
+        "presets": "Předvolby",
+        "skip-existing": "Přeskočit existující soubory"
+      },
+      "name": "Stahovač",
+      "renderer": {
+        "can-not-update-progress": "Progress nemůže být aktualizován"
+      },
+      "templates": {
+        "button": "Stáhnout"
+      }
+    },
+    "exponential-volume": {
+      "description": "Dělá posuvník hlasitosti exponenciální, takže je snazší vybrat nižší hlasitost.",
+      "name": "Exponenciální hlasitost"
+    },
+    "in-app-menu": {
+      "description": "Dává menu panelům fancy, tmavý nebo album-color vzhled",
+      "menu": {
+        "hide-dom-window-controls": "Skrýt DOM window controls"
+      }
+    },
+    "lumiastream": {
+      "description": "Přidává Lumia Stream podporu",
+      "name": "Lumia Stream [Beta]"
+    },
+    "lyrics-genius": {
+      "description": "Přidává lyrics podporu pro většinu písniček",
+      "renderer": {
+        "fetched-lyrics": "Fetched lyrics pro Genius"
+      }
+    },
+    "music-together": {
+      "description": "Sdílejte seznam písniček s ostatními. Když the host hraje písničku, uslyší jí i všichni ostatní.",
+      "dialog": {
+        "enter-host": "Zadejte Host ID"
+      },
+      "internal": {
+        "save": "Uložit",
+        "unknown-user": "Neznámý uživatel"
+      },
+      "menu": {
+        "click-to-copy-id": "Zkopírovat Host ID",
+        "close": "Zavřít Hudba Spolu",
+        "connected-users": "Připojení uživatelé",
+        "disconnect": "Odpojit od Hudby Spolu",
+        "empty-user": "Žadní připojení uživatelé",
+        "host": "Hudba Spolu Host",
+        "join": "Připojit se k Hudbě Spolu",
+        "permission": {
+          "all": "Povolit hostům ovládat seznam písniček a přehrávač",
+          "host-only": "Jenom host může ovládat seznam písniček a přehrávač",
+          "playlist": "Povolit hostům ovládat seznam písniček"
+        },
+        "set-permission": "Změnit ovládací oprávnění",
+        "status": {
+          "disconnected": "Odpojen",
+          "guest": "Připojený/á jako Guest",
+          "host": "Připojený/á jako Host"
+        }
+      },
+      "name": "Hudba Spolu [Beta]",
+      "toast": {
+        "add-song-failed": "Selhalo přidání písničky",
+        "closed": "Hudba Spolu zavřena",
+        "disconnected": "Hudba Spolu odpojena",
+        "host-failed": "Selhalo hostování Hudby Spolu",
+        "id-copied": "Host ID zkopírováno do schránky",
+        "join-failed": "Selhalo připojení k Hudba Spolu",
+        "joined": "Připojil/a jste se k Hudbě Spolu",
+        "permission-changed": "Oprávnění Hudby Spolu se změnilo na \"{{permission}}\"",
+        "remove-song-failed": "Selhalo odstranění písničky",
+        "user-connected": "{{name}} se připojil/a k Hudbě Spolu",
+        "user-disconnected": "{{name}} odpustil/a Hudba Spolu"
+      }
+    },
+    "navigation": {
+      "description": "Další/Zpátky navigační šipky přímo integrovány do rozhraní, jako ve vašem oblíbeném prohlížeči",
+      "name": "Navigace"
+    },
+    "no-google-login": {
+      "description": "Odstranit tlačítka Google přihlášení a odkazy z rozhraní",
+      "name": "Žádné Google přihlášení"
+    },
+    "notifications": {
+      "description": "Zobrazit oznámení, když písnička začne hrát (interaktivní notifikace jsou dostupné na Windows)",
+      "menu": {
+        "interactive": "Interaktivní oznámení",
+        "interactive-settings": {
+          "label": "Interactive Nastavení",
+          "submenu": {
+            "hide-button-text": "Skrýt text tlačítka",
+            "refresh-on-play-pause": "Refresh na Přehrát/Pozastavit",
+            "tray-controls": "Otevřít/Zavřít aplikaci na kliknutí na tray ikonu"
+          }
+        },
+        "priority": "Priorita Oznámení",
+        "unpause-notification": "Zobrazit oznámení na unpause"
+      },
+      "name": "Oznámení"
+    },
+    "picture-in-picture": {
+      "description": "Povoluje switch aplikaci do režimu obrázek v obrázku",
+      "menu": {
+        "always-on-top": "Vždy na vrchu",
+        "hotkey": {
+          "label": "Klávesová zkratka",
+          "prompt": {
+            "keybind-options": {
+              "hotkey": "Klávesová zkratka"
+            },
+            "label": "Vybrat klávesovou zkratku pro přepínání obrázek v obrázku",
+            "title": "klávesová zkratka pro obrázek v obrázku"
+          }
+        },
+        "save-window-position": "Uložit pozici okna",
+        "save-window-size": "Uložit velikost okna",
+        "use-native-pip": "Použít browser native PiP"
+      },
+      "name": "Obrázek v obrázku",
+      "templates": {
+        "button": "Obrázek v obrázku"
+      }
+    },
+    "playback-speed": {
+      "description": "Poslouchej rychle, poslouchej pomalu! Přidává slider, který kontroluje rychlost písníčky",
+      "name": "Rychlost přehrávání",
+      "templates": {
+        "button": "Rychlost"
+      }
+    },
+    "precise-volume": {
+      "description": "Přesná kontrola hlasitosti pomocí kolečka myši/klávesnicových zkratek, s vlastní HUD a customizable hlasitostních steps",
+      "menu": {
+        "custom-volume-steps": "Nastavit vlastní hlasitostní steps",
+        "global-shortcuts": "Globální klávesové zkratky"
+      },
+      "name": "Přesná hlasitost",
+      "prompt": {
+        "global-shortcuts": {
+          "keybind-options": {
+            "decrease": "Snížit hlasitost",
+            "increase": "Zvýšit hlasitost"
+          },
+          "label": "Vybrat globální klávesnicové zkratky:",
+          "title": "Globální klávesnicové zkratky hlasitosti"
+        },
+        "volume-steps": {
+          "label": "Vybrat Zvýšení/Snížení hlasitost Steps",
+          "title": "Hlasitostní steps"
+        }
+      }
+    },
+    "quality-changer": {
+      "backend": {
+        "dialog": {
+          "quality-changer": {
+            "detail": "Aktuální kvalita: {{quality}}",
+            "message": "Vybrat kvalitu videa:",
+            "title": "Vybrat kvalitu videa"
+          }
+        }
+      },
+      "description": "Umožňuje měnit kvalitu videa pomocí tlačítka na video overlay",
+      "name": "Měnič kvality videa"
+    },
+    "shortcuts": {
+      "description": "Dovoluje nastavit globální klávesové zkratky pro playback (přehrát/pozastavit/další/předchozí) a vypínání media OSD pomocí přepisování media klíčů, zapínání Ctrl/CMD + F k vyhledávání, zapínání Linux MPRIS podporu pro media klíče, a vlastní klávesové zkratky pro pokročilé uživatele.",
+      "menu": {
+        "override-media-keys": "Přepsat media klíče",
+        "set-keybinds": "Nastavit globální Controls písniček"
+      },
+      "name": "Zkratky (& MPRIS)",
+      "prompt": {
+        "keybind": {
+          "keybind-options": {
+            "next": "Další",
+            "play-pause": "Přehrát / Pozastavit",
+            "previous": "Předchozí"
+          },
+          "label": "Vybrat globální klávesnicové zkratky pro ovládání písniček:",
+          "title": "Globální klávesnicové zkratky"
+        }
+      }
+    },
+    "skip-disliked-songs": {
+      "description": "Přeskakovat disliked písničky",
+      "name": "Přeskočit Disliked písničky"
+    },
+    "skip-silences": {
+      "description": "Automaticky přeskakovat tichá místa v písničkách",
+      "name": "Přeskakovat Tichá místa"
+    },
+    "sponsorblock": {
+      "description": "Automaticky přeskakuje nehudební části jako intro/outro nebo části hudebních videí, kde nehraje písnčka",
+      "name": "SponsorBlock"
+    },
+    "taskbar-mediacontrol": {
+      "description": "Ovládejte přehrávání z vašeho Windows hlavního panelu",
+      "name": "Hlavní panel Media Control"
+    },
+    "touchbar": {
+      "description": "Přidává Touch Bar widget pro macOS uživatele",
+      "name": "Touch Bar"
+    },
+    "tuna-obs": {
+      "description": "Integrace s OBS's plugin Tuna",
+      "name": "Tuna OBS"
+    },
+    "video-toggle": {
+      "description": "Přidává tlačítko k switch mezi video/písničko režimem. Může také odstranit celou video kartu",
+      "menu": {
+        "align": {
+          "label": "Zarovnání",
+          "submenu": {
+            "left": "Vlevo",
+            "middle": "Uprostřed",
+            "right": "Pravo"
+          }
+        },
+        "force-hide": "Vynutit odstranění karty videa",
+        "mode": {
+          "label": "Režim",
+          "submenu": {
+            "custom": "Vlastní přepínač",
+            "disabled": "Vypnuto",
+            "native": "Původní přepínač"
+          }
+        }
+      },
+      "name": "Přepínač videa",
+      "templates": {
+        "button": "Písnička"
+      }
+    },
+    "visualizer": {
+      "description": "Přidá vizualizér do přehrávače",
+      "menu": {
+        "visualizer-type": "Typ vizualizéru"
+      },
+      "name": "Vizualizér"
+    }
+  }
+}

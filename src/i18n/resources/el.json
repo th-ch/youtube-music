@@ -1,0 +1,246 @@
+{
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "Αποτυχία εκτέλεσης προσθέτου {{pluginName}}::{{contextName}}"
+      }
+    }
+  },
+  "language": {
+    "code": "el",
+    "local-name": "Ελληνικά",
+    "name": "Greek"
+  },
+  "main": {
+    "dialog": {
+      "hide-menu-enabled": {
+        "message": "Απόκρυψη μενού είναι ενεργοποιημένο"
+      },
+      "update-available": {
+        "buttons": {
+          "download": "Download",
+          "ok": "OK"
+        }
+      }
+    },
+    "menu": {
+      "navigation": {
+        "label": "Navigation"
+      },
+      "options": {
+        "label": "Options",
+        "submenu": {
+          "advanced-options": {
+            "submenu": {
+              "set-proxy": {
+                "label": "Set proxy",
+                "prompt": {
+                  "title": "Set proxy"
+                }
+              }
+            }
+          },
+          "auto-update": "Auto Update",
+          "language": {
+            "label": "Γλώσσα"
+          },
+          "start-at-login": "Start at login",
+          "tray": {
+            "label": "Tray",
+            "submenu": {
+              "enabled-and-hide-app": "Ενεργοποιημένο και απόκρυψη της εφαρμογής",
+              "play-pause-on-click": "Play/Pause στο πάτημα"
+            }
+          },
+          "visual-tweaks": {
+            "submenu": {
+              "like-buttons": {
+                "default": "Default"
+              },
+              "theme": {
+                "label": "Theme",
+                "submenu": {
+                  "no-theme": "No theme"
+                }
+              }
+            }
+          }
+        }
+      },
+      "plugins": {
+        "label": "Plugins"
+      },
+      "view": {
+        "label": "View"
+      }
+    }
+  },
+  "plugins": {
+    "adblocker": {
+      "description": "Αποκλεισμός όλων των διαφημίσεων και tracker",
+      "menu": {
+        "blocker": "Μέθοδος αποκλεισμού"
+      },
+      "name": "Adblocker"
+    },
+    "album-color-theme": {
+      "description": "Εφαρμόζει ένα δυναμικό θέμα και εφέ με βάση τη χρωματική παλέτα του άλμπουμ",
+      "name": "Album Color Theme"
+    },
+    "ambient-mode": {
+      "description": "Εφαρμόζει ένα εφέ φωτισμού ρίχνοντας απαλά χρώματα από το βίντεο, στο φόντο της οθόνης σας.",
+      "menu": {
+        "blur-amount": {
+          "submenu": {
+            "pixels": "{{blurAmount}} pixels"
+          }
+        },
+        "buffer": {
+          "label": "Buffer",
+          "submenu": {
+            "buffer": "{{buffer}}"
+          }
+        },
+        "opacity": {
+          "label": "Ποσότητα αδιαφάνειας",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "quality": {
+          "submenu": {
+            "pixels": "{{quality}} pixels"
+          }
+        },
+        "size": {
+          "submenu": {
+            "percent": "{{size}}%"
+          }
+        },
+        "smoothness-transition": {
+          "submenu": {
+            "during": "Σε {{interpolationTime}} δεύτερα"
+          }
+        }
+      }
+    },
+    "audio-compressor": {
+      "description": "Συμπίεση ήχου (μειώνει την ένταση των πιο δυνατών τμημάτων του κύματος και αυξάνει την ένταση των πιο μαλακών τμημάτων)"
+    },
+    "blur-nav-bar": {
+      "description": "Κάνει τη γραμμή πλοήγησης διαφανή και θολή"
+    },
+    "bypass-age-restrictions": {
+      "description": "Παράκαμψη της επαλήθευσης ηλικίας του YouTube"
+    },
+    "captions-selector": {
+      "prompt": {
+        "selector": {
+          "none": "None"
+        }
+      }
+    },
+    "compact-sidebar": {
+      "description": "Να είναι πάντα συμπαγές το sidebar"
+    },
+    "crossfade": {
+      "menu": {
+        "advanced": "Για προχωρημένους"
+      },
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "fade-scaling": {
+              "linear": "Γραμμική",
+              "logarithmic": "Λογαριθμική"
+            }
+          }
+        }
+      }
+    },
+    "disable-autoplay": {
+      "description": "Κάνει τα τραγούδια να είναι αυτόματα σε παύση",
+      "menu": {
+        "apply-once": "Εφαρμόζεται μόνο στο πρώτο τραγούδι"
+      }
+    },
+    "discord": {
+      "description": "Δείξτε στους φίλους σας τι ακούτε με το Rich Presence",
+      "menu": {
+        "hide-duration-left": "Απόκρυψη της διάρκειας που απομένει",
+        "hide-github-button": "Απόκρυψη του συνδέσμου προς GitHub",
+        "set-inactivity-timeout": "Ορισμός χρονικού ορίου αδράνειας"
+      }
+    },
+    "downloader": {
+      "backend": {
+        "dialog": {
+          "error": {
+            "buttons": {
+              "ok": "OK"
+            },
+            "title": "Error in download!"
+          },
+          "start-download-playlist": {
+            "buttons": {
+              "ok": "OK"
+            },
+            "message": "Λήψη λίστας αναπαραγωγής {{playlistTitle}}",
+            "title": "Λήψη ξεκίνησε"
+          }
+        },
+        "feedback": {
+          "conversion-progress": "Μετατροπή: {{percent}}%",
+          "download-progress": "Download: {{percent}}%",
+          "preparing-file": "Προετοιμασία αρχείου…"
+        }
+      },
+      "templates": {
+        "button": "Download"
+      }
+    },
+    "navigation": {
+      "name": "Navigation"
+    },
+    "no-google-login": {
+      "name": "No Google Login"
+    },
+    "notifications": {
+      "name": "Notifications"
+    },
+    "shortcuts": {
+      "prompt": {
+        "keybind": {
+          "keybind-options": {
+            "next": "Next"
+          }
+        }
+      }
+    },
+    "sponsorblock": {
+      "name": "SponsorBlock"
+    },
+    "touchbar": {
+      "name": "TouchBar"
+    },
+    "tuna-obs": {
+      "name": "Tuna OBS"
+    },
+    "video-toggle": {
+      "menu": {
+        "align": {
+          "submenu": {
+            "middle": "Middle",
+            "right": "Right"
+          }
+        },
+        "mode": {
+          "label": "Mode"
+        }
+      },
+      "templates": {
+        "button": "Song"
+      }
+    }
+  }
+}

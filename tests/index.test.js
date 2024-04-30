@@ -1,38 +1,40 @@
-const path = require("path");
+/* eslint-disable @typescript-eslint/no-var-requires */
 
-const { _electron: electron } = require("playwright");
-const { test, expect } = require("@playwright/test");
+const path = require('node:path');
 
-process.env.NODE_ENV = "test";
+const { _electron: electron } = require('playwright');
+const { test, expect } = require('@playwright/test');
 
-const appPath = path.resolve(__dirname, "..");
+process.env.NODE_ENV = 'test';
 
-test("YouTube Music App - With default settings, app is launched and visible", async () => {
-	const app = await electron.launch({
-		cwd: appPath,
-		args: [
-			appPath,
-			"--no-sandbox",
-			"--disable-gpu",
-			"--whitelisted-ips=",
-			"--disable-dev-shm-usage",
-		],
-	});
+const appPath = path.resolve(__dirname, '..');
 
-	const window = await app.firstWindow();
+test('YouTube Music App - With default settings, app is launched and visible', async () => {
+  const app = await electron.launch({
+    cwd: appPath,
+    args: [
+      appPath,
+      '--no-sandbox',
+      '--disable-gpu',
+      '--whitelisted-ips=',
+      '--disable-dev-shm-usage',
+    ],
+  });
 
-	const consentForm = await window.$(
-		"form[action='https://consent.youtube.com/save']"
-	);
-	if (consentForm) {
-		await consentForm.click("button");
-	}
+  const window = await app.firstWindow();
 
-	const title = await window.title();
-	expect(title.replace(/\s/g, " ")).toEqual("YouTube Music");
+  const consentForm = await window.$(
+    "form[action='https://consent.youtube.com/save']",
+  );
+  if (consentForm) {
+    await consentForm.click('button');
+  }
 
-	const url = window.url();
-	expect(url.startsWith("https://music.youtube.com")).toBe(true);
+  const title = await window.title();
+  expect(title.replaceAll(/\s/g, ' ')).toEqual('YouTube Music');
 
-	await app.close();
+  const url = window.url();
+  expect(url.startsWith('https://music.youtube.com')).toBe(true);
+
+  await app.close();
 });

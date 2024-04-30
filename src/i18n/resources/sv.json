@@ -1,0 +1,107 @@
+{
+  "language": {
+    "code": "sv",
+    "local-name": "Svenska",
+    "name": "Swedish"
+  },
+  "plugins": {
+    "navigation": {
+      "name": "Navigering"
+    },
+    "no-google-login": {
+      "name": "Inget Google Login"
+    },
+    "notifications": {
+      "name": "Notiser"
+    },
+    "picture-in-picture": {
+      "menu": {
+        "hotkey": {
+          "label": "Snabbkommando",
+          "prompt": {
+            "keybind-options": {
+              "hotkey": "Snabbkommando"
+            },
+            "title": "Bild-I-Bild genväg"
+          }
+        }
+      },
+      "name": "Bild-I-Bild",
+      "templates": {
+        "button": "Bild-i-bild"
+      }
+    },
+    "playback-speed": {
+      "name": "Uppspelningshastighet",
+      "templates": {
+        "button": "Hasighet"
+      }
+    },
+    "precise-volume": {
+      "prompt": {
+        "global-shortcuts": {
+          "keybind-options": {
+            "decrease": "Minska Volym",
+            "increase": "Öka Volym"
+          }
+        },
+        "volume-steps": {
+          "title": "Volymsteg"
+        }
+      }
+    },
+    "quality-changer": {
+      "backend": {
+        "dialog": {
+          "quality-changer": {
+            "detail": "Nuvarande kvalité: {{quality}}",
+            "message": "Välj Video Kvalité:",
+            "title": "Välj Video Kvalité"
+          }
+        }
+      }
+    },
+    "scrobbler": {
+      "prompt": {
+        "lastfm": {
+          "api-key": "Last.fm API nyckel"
+        },
+        "listenbrainz": {
+          "token": {
+            "title": "ListenBrainz token"
+          }
+        }
+      }
+    },
+    "shortcuts": {
+      "prompt": {
+        "keybind": {
+          "keybind-options": {
+            "next": "Nästa",
+            "play-pause": "Spela / Pausa",
+            "previous": "Föregående"
+          }
+        }
+      }
+    },
+    "video-toggle": {
+      "menu": {
+        "align": {
+          "submenu": {
+            "left": "Vänster",
+            "middle": "Mitten",
+            "right": "Höger"
+          }
+        },
+        "mode": {
+          "submenu": {
+            "disabled": "Inaktiverad"
+          }
+        }
+      },
+      "templates": {
+        "button": "Låt"
+      }
+    }
+  }
+}
