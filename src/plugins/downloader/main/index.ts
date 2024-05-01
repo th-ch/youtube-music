@@ -183,12 +183,12 @@ function downloadSongOnFinishSetup({
           config.downloadOnFinishMode === 'seconds' &&
           duration - time <= config.downloadOnFinishSeconds
         ) {
-          downloadSong(currentUrl);
+          downloadSong(currentUrl, config.downloadOnFinishFolder);
         } else if (
           config.downloadOnFinishMode === 'percent' &&
           time >= duration * (config.downloadOnFinishPercent / 100)
         ) {
-          downloadSong(currentUrl);
+          downloadSong(currentUrl, config.downloadOnFinishFolder);
         }
       }
 

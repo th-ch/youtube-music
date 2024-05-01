@@ -38,6 +38,18 @@ export const onMenu = async ({
           type: 'separator',
         },
         {
+          label: t('plugins.downloader.menu.choose-download-folder'),
+          click() {
+            const result = dialog.showOpenDialogSync({
+              properties: ['openDirectory', 'createDirectory'],
+              defaultPath: getFolder(config.downloadOnFinishFolder ?? ''),
+            });
+            if (result) {
+              setConfig({ downloadOnFinishFolder: result[0] });
+            }
+          },
+        },
+        {
           label: t(
             'plugins.downloader.menu.download-finish-settings.submenu.mode',
           ),

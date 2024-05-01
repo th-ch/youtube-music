@@ -15,6 +15,7 @@ export type DownloaderPluginConfig = {
   downloadOnFinishSeconds: number;
   downloadOnFinishPercent: number;
   downloadOnFinishMode: 'percent' | 'seconds';
+  downloadOnFinishFolder?: string;
   selectedPreset: string;
   customPresetSetting: Preset;
   skipExisting: boolean;
@@ -28,6 +29,7 @@ export const defaultConfig: DownloaderPluginConfig = {
   downloadOnFinishSeconds: 20,
   downloadOnFinishPercent: 10,
   downloadOnFinishMode: 'seconds',
+  downloadOnFinishFolder: undefined,
   selectedPreset: 'mp3 (256kbps)', // Selected preset
   customPresetSetting: DefaultPresetList['mp3 (256kbps)'], // Presets
   skipExisting: false,
