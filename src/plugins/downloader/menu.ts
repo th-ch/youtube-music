@@ -46,6 +46,7 @@ export const onMenu = async ({
             });
             if (result) {
               setConfig({ downloadOnFinishFolder: result[0] });
+              config.downloadOnFinishFolder = result[0];
             }
           },
         },
@@ -151,6 +152,7 @@ export const onMenu = async ({
         });
         if (result) {
           setConfig({ downloadFolder: result[0] });
+          config.downloadFolder = result[0];
         } // Else = user pressed cancel
       },
     },
