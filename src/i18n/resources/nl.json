@@ -368,9 +368,9 @@
           },
           "start-download-playlist": {
             "buttons": {
-              "ok": "Oke"
+              "ok": "Oké"
             },
-            "detail": "({{playlistSize}} liederen)",
+            "detail": "({{playlistSize}} nummers)",
             "message": "Afspeellijst \"{{playlistTitle}}\" aan het downloaden",
             "title": "Download is gestart"
           }
@@ -383,7 +383,7 @@
           "downloading-counter": "{{current}}/{{total}} aan het downloaden…",
           "downloading-playlist": "Afspeellijst \"{{playlistTitle}}\" {{playlistId}} aan het downloaden ({{playlistSize}} liederen)",
           "error-while-downloading": "Er is een fout opgetreden tijdens het downloaden van \"{{author}} - {{title}}\": {{error}}",
-          "folder-already-exists": "De folder \"{{playlistFolder}}\" bestaat al",
+          "folder-already-exists": "De map \"{{playlistFolder}}\" bestaat al",
           "getting-playlist-info": "Afspeellijst informatie ophalen…",
           "loading": "Laden…",
           "playlist-has-only-one-song": "Afspeellijst heeft maar 1 item, item direct aan het downloaden",
@@ -438,7 +438,7 @@
       }
     },
     "music-together": {
-      "description": "Deel een afspeellijst met anderen. Wanneer de host een nummer afspeelt, hoort iedereen anders hetzelfde nummer",
+      "description": "Deel een afspeellijst met anderen. Wanneer de host een nummer afspeelt, hoort iedereen hetzelfde nummer",
       "dialog": {
         "enter-host": "Voer Host-ID in"
       },
