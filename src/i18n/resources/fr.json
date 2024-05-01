@@ -521,7 +521,7 @@
             "keybind-options": {
               "hotkey": "Raccourci clavier"
             },
-            "label": "Choisissez un raccourci clavier pour activer l'image dans l'image",
+            "label": "Choisissez un raccourci clavier pour activer le mode Image dans l'image",
             "title": "Touche de raccourci Image dans l'image"
           }
         },
