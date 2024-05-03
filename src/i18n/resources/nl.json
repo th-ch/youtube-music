@@ -376,6 +376,8 @@
           }
         },
         "feedback": {
+          "conversion-progress": "Converteren: {{percent}}%",
+          "converting": "Converteren…",
           "done": "Gereed: {{filePath}}",
           "download-info": "{{artist}} - {{title}} ([{{videoId}}) aan het downloaden",
           "download-progress": "Downloaden: {{percent}}%",
