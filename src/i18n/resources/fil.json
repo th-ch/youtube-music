@@ -1,1 +1,80 @@
-{}
+{
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "Nabigong patakbuin ang plugin {{pluginName}}::{{contextName}}",
+        "executed-at-ms": "Ang plugin na {{pluginName}}::{{contextName}} ay pinatakbo sa loob ng {{ms}}ms",
+        "initialize-failed": "Nabigo ang pagsimula ng plugin na \"{{pluginName}}\"",
+        "load-all": "Nilo-load lahat ng mga plugin",
+        "load-failed": "Nabigong i-load ang plugin na \"{{pluginName}}\"",
+        "loaded": "Na-load ang \"{{pluginName}}\" na plugin",
+        "unload-failed": "Nabigong i-unload ang plugin na \"{{pluginName}}\"",
+        "unloaded": "Na-unload ang \"{{pluginName}}\" na plugin"
+      }
+    }
+  },
+  "language": {
+    "code": "fil",
+    "local-name": "Tagalog",
+    "name": "Filipino"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "Natapos ang pag-load. Nabuksan ang DevTools"
+      },
+      "i18n": {
+        "loaded": "na-load ang i18n"
+      },
+      "second-instance": {
+        "receive-command": "Natanggap ang command sa pamamagitan ng protocol: \"{{command}}\""
+      },
+      "theme": {
+        "css-file-not-found": "Ang CSS file na \"{{cssFile}}\" ay hindi umiiral, hindi papansin"
+      },
+      "unresponsive": {
+        "details": "Hindi tumutugon na Error!\n{{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "Naglilinis ng app cache"
+      },
+      "window": {
+        "tried-to-render-offscreen": "Nasubukan ng window na mag-render sa labas ng screen, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "detail": "Nakatago ang menu, gamitin ang 'Alt' para makita ito (o 'Escape' kung gagamitin ang In-App na Menu)",
+        "message": "Ang Pagtatago ng Menu ay napagana na",
+        "title": "Napagana ang Pagtatago ng Menu"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "Mamaya",
+          "restart-now": "Mag-restart na"
+        },
+        "detail": "Ang plugin na \"{{pluginName}}\" ay kinakailangan ng restart para gumana ito",
+        "message": "Kinakailangan ng \"{{pluginName}}\" na mag-restart",
+        "title": "Kinakailangan ng Restart"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "Lumabas",
+          "relaunch": "Muling patakbuhin",
+          "wait": "Maghintay"
+        },
+        "detail": "Ikinalulungkot namin ang abala! piliin kung ano ang gagawin:",
+        "message": "Ang Application ay Hindi Tumutugon",
+        "title": "Di tumutugon ang Window"
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "Di-paganahin ang mga Update",
+          "download": "I-download",
+          "ok": "OK"
+        },
+        "detail": "Ang isang bagong bersyon ay available at maaaring i-download sa {{downloadLink}}"
+      }
+    }
+  }
+}
