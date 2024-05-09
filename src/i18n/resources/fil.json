@@ -59,7 +59,7 @@
       },
       "unresponsive": {
         "buttons": {
-          "quit": "Lumabas",
+          "quit": "Umalis",
           "relaunch": "Muling patakbuhin",
           "wait": "Maghintay"
         },
@@ -73,8 +73,138 @@
           "download": "I-download",
           "ok": "OK"
         },
-        "detail": "Ang isang bagong bersyon ay available at maaaring i-download sa {{downloadLink}}"
+        "detail": "Ang isang bagong bersyon ay available at maaaring i-download sa {{downloadLink}}",
+        "message": "Mayroong bagong version ay available",
+        "title": "Available ang Update"
       }
+    },
+    "menu": {
+      "about": "Patungkol",
+      "navigation": {
+        "label": "Nabigasyon",
+        "submenu": {
+          "copy-current-url": "Kopyahin ang kasalukuyang URL",
+          "go-back": "Bumalik",
+          "go-forward": "Pasulong",
+          "quit": "Lumabas",
+          "restart": "I-restart ang App"
+        }
+      },
+      "options": {
+        "label": "Mga Opsyon",
+        "submenu": {
+          "advanced-options": {
+            "label": "Mga advance na opsyon",
+            "submenu": {
+              "auto-reset-app-cache": "I-reset ang app cache kapag nagsisimula ang app",
+              "disable-hardware-acceleration": "Di paganahin ang pagpapabilis ng hardware",
+              "edit-config-json": "I-edit ang config.json",
+              "override-user-agent": "I-override ang User-Agent",
+              "restart-on-config-changes": "I-restart kada may pagbabago sa config",
+              "set-proxy": {
+                "label": "I-set ang proxy",
+                "prompt": {
+                  "label": "Ilagay ang Proxy Address: (iwanang walang laman para di-paganahin)",
+                  "placeholder": "Halimbawa: SOCKS5://127.0.0.1:9999",
+                  "title": "I-set ang proxy"
+                }
+              },
+              "toggle-dev-tools": "I-toggle ang DevTools"
+            }
+          },
+          "always-on-top": "Laging nasa ibabaw",
+          "auto-update": "Awto Update",
+          "hide-menu": {
+            "dialog": {
+              "message": "Ang menu ay itatago sa susunod na pag-launch, gamitin ang [Alt] upang ipakita ito (o backtick [`] kung gumagamit ng in-app-menu)",
+              "title": "Pinagana ang Pagtatago ng Menu"
+            },
+            "label": "Pagtatago ng Menu"
+          },
+          "language": {
+            "dialog": {
+              "message": "Ang wika ay mababago pagkatapos mag-restart",
+              "title": "Napalitan ang Wika"
+            },
+            "label": "Wika",
+            "submenu": {
+              "to-help-translate": "Gusto mong tumulong sa pagsasalin? Mag-click dito"
+            }
+          },
+          "resume-on-start": "Ipagpatuloy ang huling kanta kapag nagsisimula ang app",
+          "single-instance-lock": "I-lock sa isang Instance",
+          "start-at-login": "Magsimula sa pag-login",
+          "starting-page": {
+            "label": "Simulang page",
+            "unset": "I-unset"
+          },
+          "tray": {
+            "label": "Tray",
+            "submenu": {
+              "disabled": "Di-napagana",
+              "enabled-and-hide-app": "Napagana at natago ang app",
+              "enabled-and-show-app": "Napagana at napakita ang app",
+              "play-pause-on-click": "Mag play/pause kada click"
+            }
+          },
+          "visual-tweaks": {
+            "label": "Mga Biswal na Tweak",
+            "submenu": {
+              "like-buttons": {
+                "default": "Default",
+                "force-show": "Pilitang ipakita",
+                "hide": "Itago",
+                "label": "Mga Like na button"
+              },
+              "remove-upgrade-button": "Tanggalin ang upgrade na button",
+              "theme": {
+                "label": "Tema",
+                "submenu": {
+                  "import-css-file": "Mag-import ng custom na CSS file",
+                  "no-theme": "Walang tema"
+                }
+              }
+            }
+          }
+        }
+      },
+      "plugins": {
+        "enabled": "Napagana",
+        "label": "Mga Plugin",
+        "new": "BAGO"
+      },
+      "view": {
+        "label": "View",
+        "submenu": {
+          "force-reload": "Pilitang I-reload",
+          "reload": "I-reload",
+          "reset-zoom": "Aktuwal na Size",
+          "toggle-fullscreen": "I-toggle ang Full Screen",
+          "zoom-in": "Mag-zoom in",
+          "zoom-out": "Mag-zoom out"
+        }
+      }
+    },
+    "tray": {
+      "next": "Susunod",
+      "play-pause": "Mag-play/Mag-pause",
+      "previous": "Nakaraan",
+      "quit": "Lumabas",
+      "restart": "I-restart ang App",
+      "show": "Ipakita ang window",
+      "tooltip": {
+        "default": "YouTube Music",
+        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
+      }
+    }
+  },
+  "plugins": {
+    "adblocker": {
+      "description": "I-block lahat ng ad at tracking",
+      "menu": {
+        "blocker": "Blocker"
+      },
+      "name": "Ad Blocker"
     }
   }
 }
