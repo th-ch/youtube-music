@@ -78,5 +78,5 @@ tp-yt-paper-item.ytmusic-guide-entry-renderer::before {
 }
 
 ytmusic-player[player-ui-state=FULLSCREEN] {
-  top: calc(var(--menu-bar-height, 32px) * -1) !important;
+  margin-top: calc(var(--menu-bar-height, 32px) * -1) !important;
 }
