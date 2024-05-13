@@ -180,12 +180,12 @@ export const backend = createBackend<
     }
 
     const activityInfo: SetActivity = {
-      type: ActivityType.Listening,
       details: songInfo.title,
       state: songInfo.artist,
       largeImageKey: songInfo.imageSrc ?? '',
       largeImageText: songInfo.album ?? '',
       buttons,
+      type: ActivityType.Listening,
     };
 
     if (songInfo.isPaused) {
