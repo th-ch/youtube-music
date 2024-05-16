@@ -205,6 +205,97 @@
         "blocker": "Blocker"
       },
       "name": "Ad Blocker"
+    },
+    "album-actions": {
+      "description": "Idadagdag ang Undislike, Dislike, Like, at Unlike na button para ilapat ito sa lahat ng kanta sa isang playlist o album",
+      "name": "Mga aksyon sa Album"
+    },
+    "album-color-theme": {
+      "description": "Naglalapat ng dynamic na tema at visual effect batay sa color palette ng album",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "Ratio ng paghahalo ng kulay",
+          "submenu": {
+            "percent": "{{ratio}}%"
+          }
+        }
+      },
+      "name": "Tema ng Kulay ng Album"
+    },
+    "ambient-mode": {
+      "description": "Naglalapat ng lighting effect sa pamamagitan ng pag-cast ng mga magiliw na kulay mula sa video, sa background ng iyong screen",
+      "menu": {
+        "blur-amount": {
+          "label": "Dami ng blur",
+          "submenu": {
+            "pixels": "{{blurAmount}} na pixel"
+          }
+        },
+        "buffer": {
+          "label": "Buffer",
+          "submenu": {
+            "buffer": "{{buffer}}"
+          }
+        },
+        "opacity": {
+          "label": "Kalabuan (Opacity)",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "quality": {
+          "label": "Kalidad",
+          "submenu": {
+            "pixels": "{{quality}} na pixel"
+          }
+        },
+        "size": {
+          "label": "Laki",
+          "submenu": {
+            "percent": "{{size}}%"
+          }
+        },
+        "smoothness-transition": {
+          "label": "Smoothness transition",
+          "submenu": {
+            "during": "Habang {{interpolationTime}} s"
+          }
+        },
+        "use-fullscreen": {
+          "label": "Gumamit ng fullscreen"
+        }
+      },
+      "name": "Ambient Mode"
+    },
+    "audio-compressor": {
+      "description": "Ilapat ang compression sa audio (pinababa ang volume ng pinakamalakas na bahagi ng signal at pinapataas ang volume ng pinakamalambot na bahagi)",
+      "name": "Compressor ng Audio"
+    },
+    "blur-nav-bar": {
+      "description": "Gawing transparent at malabo ang bar ng nabigasyon",
+      "name": "Palabuin ang Bar ng Nabigasyon"
+    },
+    "bypass-age-restrictions": {
+      "description": "I-bypass ang pag-verify ng edad ng YouTube",
+      "name": "I-bypass ang Restriksyon sa Edad"
+    },
+    "captions-selector": {
+      "description": "Tagapili ng caption para sa mga audio track ng YouTube Music",
+      "menu": {
+        "autoload": "Awtomatikong piliin ang huling ginamit na caption",
+        "disable-captions": "Walang mga caption bilang default"
+      },
+      "name": "Tagapili ng Caption",
+      "prompt": {
+        "selector": {
+          "label": "Kasalukuyang wika ng caption:{{language}}",
+          "none": "Wala",
+          "title": "Pumili ng wika ng caption"
+        }
+      },
+      "templates": {
+        "title": "Bumukas ng pagpilian ng caption"
+      }
     }
   }
 }

@@ -6,7 +6,16 @@
 /* youtube-music style */
 
 ytmusic-app-layout {
+  overflow: scroll;
+  height: calc(100vh - var(--menu-bar-height, 36px));
   margin-top: var(--menu-bar-height, 36px) !important;
+}
+
+ytmusic-app-layout::-webkit-scrollbar{
+  width: var(--ytmusic-scrollbar-width);
+}
+ytmusic-app-layout::-webkit-scrollbar-thumb{
+  background-color: rgb(126, 126, 126);
 }
 
 ytmusic-app-layout > [slot='nav-bar'],
