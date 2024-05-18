@@ -404,7 +404,17 @@
   <recommends>
     <control>keyboard</control>
   </recommends>
-  <content_rating type="oars-1.1" />
+  <content_rating type="oars-1.1">
+    <content_attribute id="drugs-alcohol">mild</content_attribute>
+    <content_attribute id="drugs-narcotics">mild</content_attribute>
+    <content_attribute id="drugs-tobacco">mild</content_attribute>
+    <content_attribute id="sex-nudity">mild</content_attribute>
+    <content_attribute id="sex-themes">mild</content_attribute>
+    <content_attribute id="language-profanity">moderate</content_attribute>
+    <content_attribute id="social-info">intense</content_attribute>
+    <content_attribute id="money-purchasing">intense</content_attribute>
+    <content_attribute id="money-advertising">intense</content_attribute>
+  </content_rating>
   <launchable type="desktop-id">com.github.th_ch.youtube_music.desktop</launchable>
   <keywords>
     <keyword>youtube</keyword>
