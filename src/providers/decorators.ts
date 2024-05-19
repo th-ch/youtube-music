@@ -44,12 +44,12 @@ export function cache<T extends (...params: P) => R, P extends never[], R>(
   The following are currently unused, but potentially useful in the future
 */
 
-export function throttle<T extends (...params: unknown[]) => unknown>(
+export function throttle<T extends (...params: Parameters<T>) => void>(
   fn: T,
   delay: number,
 ): T {
   let timeout: NodeJS.Timeout | undefined;
-  return ((...args) => {
+  return ((...args: Parameters<T>) => {
     if (timeout) {
       return;
     }

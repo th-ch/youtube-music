@@ -1,0 +1,7 @@
+#tab-renderer[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"] > * {
+  display: none !important;
+}
+
+#tab-renderer[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"] > #refined-lyrics-container {
+  display: block !important;
+}
