@@ -1,0 +1,301 @@
+{
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "Nabigong patakbuin ang plugin {{pluginName}}::{{contextName}}",
+        "executed-at-ms": "Ang plugin na {{pluginName}}::{{contextName}} ay pinatakbo sa loob ng {{ms}}ms",
+        "initialize-failed": "Nabigo ang pagsimula ng plugin na \"{{pluginName}}\"",
+        "load-all": "Nilo-load lahat ng mga plugin",
+        "load-failed": "Nabigong i-load ang plugin na \"{{pluginName}}\"",
+        "loaded": "Na-load ang \"{{pluginName}}\" na plugin",
+        "unload-failed": "Nabigong i-unload ang plugin na \"{{pluginName}}\"",
+        "unloaded": "Na-unload ang \"{{pluginName}}\" na plugin"
+      }
+    }
+  },
+  "language": {
+    "code": "fil",
+    "local-name": "Tagalog",
+    "name": "Filipino"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "Natapos ang pag-load. Nabuksan ang DevTools"
+      },
+      "i18n": {
+        "loaded": "na-load ang i18n"
+      },
+      "second-instance": {
+        "receive-command": "Natanggap ang command sa pamamagitan ng protocol: \"{{command}}\""
+      },
+      "theme": {
+        "css-file-not-found": "Ang CSS file na \"{{cssFile}}\" ay hindi umiiral, hindi papansin"
+      },
+      "unresponsive": {
+        "details": "Hindi tumutugon na Error!\n{{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "Naglilinis ng app cache"
+      },
+      "window": {
+        "tried-to-render-offscreen": "Nasubukan ng window na mag-render sa labas ng screen, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "detail": "Nakatago ang menu, gamitin ang 'Alt' para makita ito (o 'Escape' kung gagamitin ang In-App na Menu)",
+        "message": "Ang Pagtatago ng Menu ay napagana na",
+        "title": "Napagana ang Pagtatago ng Menu"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "Mamaya",
+          "restart-now": "Mag-restart na"
+        },
+        "detail": "Ang plugin na \"{{pluginName}}\" ay kinakailangan ng restart para gumana ito",
+        "message": "Kinakailangan ng \"{{pluginName}}\" na mag-restart",
+        "title": "Kinakailangan ng Restart"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "Umalis",
+          "relaunch": "Muling patakbuhin",
+          "wait": "Maghintay"
+        },
+        "detail": "Ikinalulungkot namin ang abala! piliin kung ano ang gagawin:",
+        "message": "Ang Application ay Hindi Tumutugon",
+        "title": "Di tumutugon ang Window"
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "Di-paganahin ang mga Update",
+          "download": "I-download",
+          "ok": "OK"
+        },
+        "detail": "Ang isang bagong bersyon ay available at maaaring i-download sa {{downloadLink}}",
+        "message": "Mayroong bagong version ay available",
+        "title": "Available ang Update"
+      }
+    },
+    "menu": {
+      "about": "Patungkol",
+      "navigation": {
+        "label": "Nabigasyon",
+        "submenu": {
+          "copy-current-url": "Kopyahin ang kasalukuyang URL",
+          "go-back": "Bumalik",
+          "go-forward": "Pasulong",
+          "quit": "Lumabas",
+          "restart": "I-restart ang App"
+        }
+      },
+      "options": {
+        "label": "Mga Opsyon",
+        "submenu": {
+          "advanced-options": {
+            "label": "Mga advance na opsyon",
+            "submenu": {
+              "auto-reset-app-cache": "I-reset ang app cache kapag nagsisimula ang app",
+              "disable-hardware-acceleration": "Di paganahin ang pagpapabilis ng hardware",
+              "edit-config-json": "I-edit ang config.json",
+              "override-user-agent": "I-override ang User-Agent",
+              "restart-on-config-changes": "I-restart kada may pagbabago sa config",
+              "set-proxy": {
+                "label": "I-set ang proxy",
+                "prompt": {
+                  "label": "Ilagay ang Proxy Address: (iwanang walang laman para di-paganahin)",
+                  "placeholder": "Halimbawa: SOCKS5://127.0.0.1:9999",
+                  "title": "I-set ang proxy"
+                }
+              },
+              "toggle-dev-tools": "I-toggle ang DevTools"
+            }
+          },
+          "always-on-top": "Laging nasa ibabaw",
+          "auto-update": "Awto Update",
+          "hide-menu": {
+            "dialog": {
+              "message": "Ang menu ay itatago sa susunod na pag-launch, gamitin ang [Alt] upang ipakita ito (o backtick [`] kung gumagamit ng in-app-menu)",
+              "title": "Pinagana ang Pagtatago ng Menu"
+            },
+            "label": "Pagtatago ng Menu"
+          },
+          "language": {
+            "dialog": {
+              "message": "Ang wika ay mababago pagkatapos mag-restart",
+              "title": "Napalitan ang Wika"
+            },
+            "label": "Wika",
+            "submenu": {
+              "to-help-translate": "Gusto mong tumulong sa pagsasalin? Mag-click dito"
+            }
+          },
+          "resume-on-start": "Ipagpatuloy ang huling kanta kapag nagsisimula ang app",
+          "single-instance-lock": "I-lock sa isang Instance",
+          "start-at-login": "Magsimula sa pag-login",
+          "starting-page": {
+            "label": "Simulang page",
+            "unset": "I-unset"
+          },
+          "tray": {
+            "label": "Tray",
+            "submenu": {
+              "disabled": "Di-napagana",
+              "enabled-and-hide-app": "Napagana at natago ang app",
+              "enabled-and-show-app": "Napagana at napakita ang app",
+              "play-pause-on-click": "Mag play/pause kada click"
+            }
+          },
+          "visual-tweaks": {
+            "label": "Mga Biswal na Tweak",
+            "submenu": {
+              "like-buttons": {
+                "default": "Default",
+                "force-show": "Pilitang ipakita",
+                "hide": "Itago",
+                "label": "Mga Like na button"
+              },
+              "remove-upgrade-button": "Tanggalin ang upgrade na button",
+              "theme": {
+                "label": "Tema",
+                "submenu": {
+                  "import-css-file": "Mag-import ng custom na CSS file",
+                  "no-theme": "Walang tema"
+                }
+              }
+            }
+          }
+        }
+      },
+      "plugins": {
+        "enabled": "Napagana",
+        "label": "Mga Plugin",
+        "new": "BAGO"
+      },
+      "view": {
+        "label": "View",
+        "submenu": {
+          "force-reload": "Pilitang I-reload",
+          "reload": "I-reload",
+          "reset-zoom": "Aktuwal na Size",
+          "toggle-fullscreen": "I-toggle ang Full Screen",
+          "zoom-in": "Mag-zoom in",
+          "zoom-out": "Mag-zoom out"
+        }
+      }
+    },
+    "tray": {
+      "next": "Susunod",
+      "play-pause": "Mag-play/Mag-pause",
+      "previous": "Nakaraan",
+      "quit": "Lumabas",
+      "restart": "I-restart ang App",
+      "show": "Ipakita ang window",
+      "tooltip": {
+        "default": "YouTube Music",
+        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
+      }
+    }
+  },
+  "plugins": {
+    "adblocker": {
+      "description": "I-block lahat ng ad at tracking",
+      "menu": {
+        "blocker": "Blocker"
+      },
+      "name": "Ad Blocker"
+    },
+    "album-actions": {
+      "description": "Idadagdag ang Undislike, Dislike, Like, at Unlike na button para ilapat ito sa lahat ng kanta sa isang playlist o album",
+      "name": "Mga aksyon sa Album"
+    },
+    "album-color-theme": {
+      "description": "Naglalapat ng dynamic na tema at visual effect batay sa color palette ng album",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "Ratio ng paghahalo ng kulay",
+          "submenu": {
+            "percent": "{{ratio}}%"
+          }
+        }
+      },
+      "name": "Tema ng Kulay ng Album"
+    },
+    "ambient-mode": {
+      "description": "Naglalapat ng lighting effect sa pamamagitan ng pag-cast ng mga magiliw na kulay mula sa video, sa background ng iyong screen",
+      "menu": {
+        "blur-amount": {
+          "label": "Dami ng blur",
+          "submenu": {
+            "pixels": "{{blurAmount}} na pixel"
+          }
+        },
+        "buffer": {
+          "label": "Buffer",
+          "submenu": {
+            "buffer": "{{buffer}}"
+          }
+        },
+        "opacity": {
+          "label": "Kalabuan (Opacity)",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "quality": {
+          "label": "Kalidad",
+          "submenu": {
+            "pixels": "{{quality}} na pixel"
+          }
+        },
+        "size": {
+          "label": "Laki",
+          "submenu": {
+            "percent": "{{size}}%"
+          }
+        },
+        "smoothness-transition": {
+          "label": "Smoothness transition",
+          "submenu": {
+            "during": "Habang {{interpolationTime}} s"
+          }
+        },
+        "use-fullscreen": {
+          "label": "Gumamit ng fullscreen"
+        }
+      },
+      "name": "Ambient Mode"
+    },
+    "audio-compressor": {
+      "description": "Ilapat ang compression sa audio (pinababa ang volume ng pinakamalakas na bahagi ng signal at pinapataas ang volume ng pinakamalambot na bahagi)",
+      "name": "Compressor ng Audio"
+    },
+    "blur-nav-bar": {
+      "description": "Gawing transparent at malabo ang bar ng nabigasyon",
+      "name": "Palabuin ang Bar ng Nabigasyon"
+    },
+    "bypass-age-restrictions": {
+      "description": "I-bypass ang pag-verify ng edad ng YouTube",
+      "name": "I-bypass ang Restriksyon sa Edad"
+    },
+    "captions-selector": {
+      "description": "Tagapili ng caption para sa mga audio track ng YouTube Music",
+      "menu": {
+        "autoload": "Awtomatikong piliin ang huling ginamit na caption",
+        "disable-captions": "Walang mga caption bilang default"
+      },
+      "name": "Tagapili ng Caption",
+      "prompt": {
+        "selector": {
+          "label": "Kasalukuyang wika ng caption:{{language}}",
+          "none": "Wala",
+          "title": "Pumili ng wika ng caption"
+        }
+      },
+      "templates": {
+        "title": "Bumukas ng pagpilian ng caption"
+      }
+    }
+  }
+}

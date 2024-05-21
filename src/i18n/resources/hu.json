@@ -62,7 +62,10 @@
           "quit": "Kilépés",
           "relaunch": "Újraindítás",
           "wait": "Várj"
-        }
+        },
+        "detail": "Elnézést a kellemetlenségért! Válaszdd ki mi történjen:",
+        "message": "Az alkalmazás nem válaszol",
+        "title": "Az ablak nem válaszol"
       },
       "update-available": {
         "buttons": {
@@ -91,10 +94,240 @@
         "label": "Beállítások",
         "submenu": {
           "advanced-options": {
-            "label": "Speciális beállítások"
+            "label": "Speciális beállítások",
+            "submenu": {
+              "auto-reset-app-cache": "Az alkalmazás gyorsítótárának törlése indításkor",
+              "disable-hardware-acceleration": "Hardveres gyorsítás kikapcsolása",
+              "edit-config-json": "config.json szerkesztése",
+              "restart-on-config-changes": "Konfigurációváltozások utáni újraindítás",
+              "set-proxy": {
+                "label": "Proxy beállítása",
+                "prompt": {
+                  "label": "Proxy cím megadása: (Hagyja üresen a kikapcsoláshoz)",
+                  "placeholder": "Példa: SOCKS5://127.0.0.1:9999",
+                  "title": "Proxy beállítása"
+                }
+              },
+              "toggle-dev-tools": "Fejlesztőeszközök BE/KI"
+            }
+          },
+          "always-on-top": "Mindig látható",
+          "auto-update": "Automatikus frissítés",
+          "hide-menu": {
+            "dialog": {
+              "message": "A menü a következő indításnál rejtve lesz, használja az [Alt] billentyűt a megjelenítéséhez (vagy a backtick [`] billentyűt, ha az alkalmazás belső menüjét használja)",
+              "title": "Menü elrejtés engedélyezve"
+            },
+            "label": "Menü elrejtése"
+          },
+          "language": {
+            "dialog": {
+              "message": "Az Újraindítást követően változik meg a nyelv",
+              "title": "Megváltozott a nyelv"
+            },
+            "label": "Nyelv",
+            "submenu": {
+              "to-help-translate": "Szeretne a fordításban segíteni? Kattintson ide"
+            }
+          },
+          "resume-on-start": "Indításkor az utolsó zene folytatása",
+          "single-instance-lock": "Csak egy példány engedélyezése",
+          "start-at-login": "Futtatás rendszerindításkor",
+          "starting-page": {
+            "label": "Indítási hely"
+          },
+          "tray": {
+            "label": "Tálca",
+            "submenu": {
+              "disabled": "Letiltva",
+              "enabled-and-hide-app": "Aktív és az alkalmazás elrejtve",
+              "enabled-and-show-app": "Aktív és az alkalmazás megjelenítve",
+              "play-pause-on-click": "Lejátszás/Szünet az ikonra kattintással"
+            }
+          },
+          "visual-tweaks": {
+            "submenu": {
+              "like-buttons": {
+                "default": "Alapértelmezett",
+                "force-show": "Megjelenítés kényszerítése",
+                "hide": "Elrejtése",
+                "label": "Kedvelés gombok"
+              },
+              "remove-upgrade-button": "Előfizetés gombjának eltávolítása",
+              "theme": {
+                "label": "Téma",
+                "submenu": {
+                  "import-css-file": "Egyéni CSS fájl importálása",
+                  "no-theme": "Nincs téma"
+                }
+              }
+            }
+          }
+        }
+      },
+      "plugins": {
+        "enabled": "Bekapcsolva",
+        "label": "Bővítmények",
+        "new": "ÚJ"
+      },
+      "view": {
+        "label": "Nézet",
+        "submenu": {
+          "force-reload": "Kényszerített újratöltés",
+          "reload": "Újratöltés",
+          "reset-zoom": "Valós méret",
+          "toggle-fullscreen": "Teljes képernyő be/ki",
+          "zoom-in": "Nagyítás",
+          "zoom-out": "Kicsinyítés"
+        }
+      }
+    },
+    "tray": {
+      "next": "Következő",
+      "play-pause": "Lejátszás/Szünet",
+      "previous": "Előző",
+      "quit": "Kilépés",
+      "restart": "YT Music újraindítása",
+      "tooltip": {
+        "default": "YouTube Music"
+      }
+    }
+  },
+  "plugins": {
+    "adblocker": {
+      "name": "Reklámblokkoló"
+    },
+    "album-color-theme": {
+      "description": "Dinamikus téma és vizuális effektek alkalmazása az album színpalettája alapján",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "Szín keverés aránya"
+        }
+      },
+      "name": "Album színtéma"
+    },
+    "ambient-mode": {
+      "description": "Fényhatás alkalmazása a videóból származó lágy színek vetítésével a képernyő hátterére",
+      "menu": {
+        "blur-amount": {
+          "label": "Elmosódás mértéke"
+        },
+        "opacity": {
+          "label": "Átlátszóság"
+        },
+        "quality": {
+          "label": "Minőség"
+        },
+        "size": {
+          "label": "Méret"
+        },
+        "use-fullscreen": {
+          "label": "Teljes képernyő használata"
+        }
+      }
+    },
+    "audio-compressor": {
+      "description": "Hang tömörítés alkalmazása (csökkenti a jel legzajosabb részeinek hangerősségét, és emeli a legcsendesebb részek hangerősségét)",
+      "name": "Hangtömörítő"
+    },
+    "bypass-age-restrictions": {
+      "description": "A YouTube korellenőrzését kihagyja, ezáltal nem kel meg erősíteni a zene meghallgatása elött. (Automatikusan megerősítve lesz.)",
+      "name": "Korellenőrzés kihagyása"
+    },
+    "captions-selector": {
+      "menu": {
+        "autoload": "Automatikusan kiválasztja az utoljára használt feliratot",
+        "disable-captions": "Alapértelmezetten nincsenek feliratok"
+      },
+      "name": "Feliratválasztó",
+      "prompt": {
+        "selector": {
+          "label": "Jelenlegi feliratnyelv: {{language}}",
+          "none": "Nincs",
+          "title": "Felirat nyelvének kiválasztása"
+        }
+      },
+      "templates": {
+        "title": "Feliratválasztó megnyitása"
+      }
+    },
+    "compact-sidebar": {
+      "description": "Mindig becsukva tartja a bal oldali savót, ahol a Kezdőlap. Felfedezés, Könyvtár és egyebek láthatók. (Amit bármikor ki lehet nyitni)",
+      "name": "Kompakt oldalsáv"
+    },
+    "crossfade": {
+      "description": "Áttünést biztosít a dalok között, ami folytonossá teszi a zenehallgatást anélkül, hogy érezhető lenne a váltás",
+      "menu": {
+        "advanced": "Haladó"
+      },
+      "name": "Áttünés [Béta]",
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "fade-in-duration": "Áttünés időtartama (ms)"
           }
         }
       }
+    },
+    "disable-autoplay": {
+      "name": "Automatikus lejátszás letiltása"
+    },
+    "discord": {
+      "backend": {
+        "already-connected": "Kapcsolódás kísérlete aktív kapcsolattal",
+        "connected": "Kapcsolódva a Discord-hoz",
+        "disconnected": "Kapcsolat bontva a Discord-al"
+      },
+      "description": "Mutassa meg barátainak, hogy mit hallgat a Rich Presence segítségével. (Ehez a Discord-on is engedélyezve kel lennie a Tevékenységállapot megosztásának [DC Beállítások -> Tevékenyég-adatvédelem -> Megoszthatod az észlelt tevékenységeidet másokkal])",
+      "menu": {
+        "auto-reconnect": "Automatikus újracsatlakozás",
+        "clear-activity": "Tevékenység törlése",
+        "clear-activity-after-timeout": "Tevékenység törlése időkorlát után",
+        "connected": "Kapcsolódva",
+        "disconnected": "Nincs Kapcsolódva",
+        "hide-duration-left": "Hátralévő idő elrejtése",
+        "hide-github-button": "GitHub link gombjának elrejtése",
+        "play-on-youtube-music": "Lejátszás a YouTube Music-on",
+        "set-inactivity-timeout": "Inaktivitási időkorlát beállítása"
+      },
+      "prompt": {
+        "set-inactivity-timeout": {
+          "label": "Írja be az inaktivitási időkorlátot másodpercben:",
+          "title": "Inaktivitási időkorlát beállítása"
+        }
+      }
+    },
+    "downloader": {
+      "backend": {
+        "dialog": {
+          "error": {
+            "message": "Hoppá! Elnézést, a letöltés sikertelen volt…"
+          },
+          "start-download-playlist": {
+            "message": "A(z) {{playlistTitle}} lejátszási lista letöltése",
+            "title": "A letöltés elindult"
+          }
+        },
+        "feedback": {
+          "conversion-progress": "Konvetálás: {{percent}}%",
+          "converting": "Konvertálás…",
+          "done": "Kész: {{filePath}}",
+          "saving": "Mentés…",
+          "video-id-not-found": "Videó nem található"
+        }
+      },
+      "menu": {
+        "choose-download-folder": "Letöltési mappa kiválasztása",
+        "download-playlist": "Lejátszási lista letöltése",
+        "skip-existing": "Meglévő fájlok kihagyása"
+      },
+      "templates": {
+        "button": "Letöltés"
+      }
+    },
+    "exponential-volume": {
+      "description": "Az hangerő csúszka exponenciálissá tételével könnyebbé válik az alacsony hangerő kiválasztása.",
+      "name": "Exponenciális hangerő"
     }
   }
 }
