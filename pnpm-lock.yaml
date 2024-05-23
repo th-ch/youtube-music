@@ -204,8 +204,8 @@ devDependencies:
     specifier: 5.1.0
     version: 5.1.0
   discord-api-types:
-    specifier: 0.37.79
-    version: 0.37.79
+    specifier: 0.37.85
+    version: 0.37.85
   electron:
     specifier: 30.0.1
     version: 30.0.1
@@ -3153,8 +3153,8 @@ packages:
       path-type: 4.0.0
     dev: true
 
-  /discord-api-types@0.37.79:
-    resolution: {integrity: sha512-jblKMZL5f9t/pfUyhHNey8Lb9yVCcBVIPxz/JTY0raAmfj7CuFXdl9m5o/+iiB7E0vv1Kz9V7Ao5HtLRc2gH1Q==}
+  /discord-api-types@0.37.85:
+    resolution: {integrity: sha512-T75aB9JEw9X0rlMChEMHbr9JlXMqdmdKiZVjBeKs91cJo28IuAIldj+VZoC+I+Q9gCaRjHlwRkcksy2XZY6c3A==}
     dev: true
 
   /dmg-builder@24.13.3(electron-builder-squirrel-windows@24.13.3):
@@ -4570,6 +4570,7 @@ packages:
 
   /inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
+    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
     dependencies:
       once: 1.4.0
       wrappy: 1.0.2
