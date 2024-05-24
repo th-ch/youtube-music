@@ -73,8 +73,8 @@ importers:
         specifier: 4.2.3
         version: 4.2.3
       conf:
-        specifier: 10.2.0
-        version: 10.2.0
+        specifier: 12.0.0
+        version: 12.0.0
       custom-electron-prompt:
         specifier: 1.5.7
         version: 1.5.7(electron@30.0.8)
@@ -1392,6 +1392,9 @@ packages:
     resolution: {integrity: sha512-Xcz9l0z7y9yQ9rdDaxlmaI4uJHf/T8g9hOEzJcsEqX2SjCj4J20uK7+ldkDHMbpJDK76wF7xEIgxc/vSlsfw5w==}
     engines: {node: '>=10.12.0'}
 
+  atomically@2.0.3:
+    resolution: {integrity: sha512-kU6FmrwZ3Lx7/7y3hPS5QnbJfaohcIul5fGqf7ok+4KklIEk9tJ0C2IQPdacSbVUWv6zVHXEBWoWd6NrVMT7Cw==}
+
   available-typed-arrays@1.0.5:
     resolution: {integrity: sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==}
     engines: {node: '>= 0.4'}
@@ -1650,6 +1653,10 @@ packages:
     resolution: {integrity: sha512-8fLl9F04EJqjSqH+QjITQfJF8BrOVaYr1jewVgSRAEWePfxT0sku4w2hrGQ60BC/TNLGQ2pgxNlTbWQmMPFvXg==}
     engines: {node: '>=12'}
 
+  conf@12.0.0:
+    resolution: {integrity: sha512-fIWyWUXrJ45cHCIQX+Ck1hrZDIf/9DR0P0Zewn3uNht28hbt5OfGUq8rRWsxi96pZWPyBEd0eY9ama01JTaknA==}
+    engines: {node: '>=18'}
+
   config-file-ts@0.2.6:
     resolution: {integrity: sha512-6boGVaglwblBgJqGyxm4+xCmEGcWgnWHSWHY5jad58awQhB6gftq0G8HbzU39YqCIYHMLAiL1yjwiZ36m/CL8w==}
 
@@ -1712,6 +1719,10 @@ packages:
   debounce-fn@4.0.0:
     resolution: {integrity: sha512-8pYCQiL9Xdcg0UPSD3d+0KMlOjp+KGU5EPwYddgzQ7DATsg4fuUDjQtsYLmWjnk2obnNHgV3vE2Y4jejSOJVBQ==}
     engines: {node: '>=10'}
+
+  debounce-fn@5.1.2:
+    resolution: {integrity: sha512-Sr4SdOZ4vw6eQDvPYNxHogvrxmCIld/VenC5JbNrFwMiwd7lY/Z18ZFfo+EWNG4DD9nFlAujWAo/wGuOPHmy5A==}
+    engines: {node: '>=12'}
 
   debug@2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
@@ -1857,6 +1868,10 @@ packages:
     resolution: {integrity: sha512-tE7ztYzXHIeyvc7N+hR3oi7FIbf/NIjVP9hmAt3yMXzrQ072/fpjGLx2GxNxGxUl5V73MEqYzioOMoVhGMJ5cA==}
     engines: {node: '>=10'}
 
+  dot-prop@8.0.2:
+    resolution: {integrity: sha512-xaBe6ZT4DHPkg0k4Ytbvn5xoxgpG0jOS1dYxSOwAHPuNLjP3/OzN0gH55SrLqpx8cBfSaVt91lXYkApjb+nYdQ==}
+    engines: {node: '>=16'}
+
   dotenv-expand@5.1.0:
     resolution: {integrity: sha512-YXQl1DSa4/PQyRfgrv6aoNjhasp/p4qs9FjJ4q4cQk+8m4r6k4ZSiEyytKG8f8W9gi8WsQtIObNmKd+tMzNTmA==}
 
@@ -1971,6 +1986,10 @@ packages:
   env-paths@2.2.1:
     resolution: {integrity: sha512-+h1lkLKhZMTYjog1VEpJNG7NZJWcuc2DDk/qsqSTRRCOXiLjeQ1d1/udrUGhqMxUgAlwKNZ0cf2uqan5GLuS2A==}
     engines: {node: '>=6'}
+
+  env-paths@3.0.0:
+    resolution: {integrity: sha512-dtJUTepzMW3Lm/NPxRf3wP4642UWhjL2sQxc+ym2YMj1m/H2zDNQOlezafzkHwn6sMstjHTwG6iQQsctDW/b1A==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
   err-code@2.0.3:
     resolution: {integrity: sha512-2bmlRpNKBxT/CRmPOlyISQpNj+qSeYvcym/uT0Jx2bMOlKLtSy1ZmLuVxSEKKyor/N5yhvp/ZiG1oE3DEYMSFA==}
@@ -2755,6 +2774,9 @@ packages:
   json-schema-typed@7.0.3:
     resolution: {integrity: sha512-7DE8mpG+/fVw+dTpjbxnx47TaMnDfOI1jwft9g1VybltZCduyRQPJPvc+zzKY9WPHxhPWczyFuYa6I8Mw4iU5A==}
 
+  json-schema-typed@8.0.1:
+    resolution: {integrity: sha512-XQmWYj2Sm4kn4WeTYvmpKEbyPsL7nBsb647c7pMe6l02/yx2+Jfc4dT6UZkEXnIUb5LhD55r2HPsJ1milQ4rDg==}
+
   json-stable-stringify-without-jsonify@1.0.1:
     resolution: {integrity: sha512-Bdboy+l7tA3OGW6FjyFHWkP5LuByj1Tk33Ljyq0axyzdk9//JSi2u3fP1QSmd1KNwq6VOKYGlAu87CisVir6Pw==}
 
@@ -2941,6 +2963,10 @@ packages:
   mimic-fn@3.1.0:
     resolution: {integrity: sha512-Ysbi9uYW9hFyfrThdDEQuykN4Ey6BuwPD2kpI5ES/nFTDn/98yxYNLZJcgUAKPT/mcrLLKaGzJR9YVxJrIdASQ==}
     engines: {node: '>=8'}
+
+  mimic-fn@4.0.0:
+    resolution: {integrity: sha512-vqiC06CuhBTUdZH+RYl8sFrL096vA45Ok5ISO6sE/Mr1jRbGH4Csnhi8f3wKVl7x8mO4Au7Ir9D3Oyv1VYMFJw==}
+    engines: {node: '>=12'}
 
   mimic-response@1.0.1:
     resolution: {integrity: sha512-j5EctnkH7amfV/q5Hgmoal1g2QHFJRraOtmx0JpIqkxhBhI/lJSl1nMpQ45hVarwNETOoWEimndZ4QK0RHxuxQ==}
@@ -3706,6 +3732,9 @@ packages:
     resolution: {integrity: sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==}
     engines: {node: '>=8'}
 
+  stubborn-fs@1.2.5:
+    resolution: {integrity: sha512-H2N9c26eXjzL/S/K+i/RHHcFanE74dptvvjM8iwzwbVcWY/zjBbgRqF3K0DY4+OD+uTTASTBvDoxPDaPN02D7g==}
+
   sumchecker@3.0.1:
     resolution: {integrity: sha512-MvjXzkz/BOfyVDkG0oFOtBxHX2u3gKbMHIF/dXblZsgD3BWOFLmHovIpZY7BykJdAjcqRCBi1WYBNdEC9yI7vg==}
     engines: {node: '>= 8.0'}
@@ -3817,6 +3846,10 @@ packages:
     resolution: {integrity: sha512-RAH822pAdBgcNMAfWnCBU3CFZcfZ/i1eZjwFU/dsLKumyuuP3niueg2UAukXYF0E2AAoc82ZSSf9J0WQBinzHA==}
     engines: {node: '>=12.20'}
 
+  type-fest@3.13.1:
+    resolution: {integrity: sha512-tLq3bSNx+xSpwvAJnzrK0Ep5CLNWjvFTOp71URMaAEWBfRb9nnJiBoUe0tF8bI4ZFO3omgBR6NvnbzVUT3Ly4g==}
+    engines: {node: '>=14.16'}
+
   typed-array-buffer@1.0.0:
     resolution: {integrity: sha512-Y8KTSIglk9OZEr8zywiIHG/kmQ7KWyjseXs1CbSo8vC42w7hg2HgYTxSWwP0+is7bWDc1H+Fo026CpHFwm8tkw==}
     engines: {node: '>= 0.4'}
@@ -3836,6 +3869,10 @@ packages:
     resolution: {integrity: sha512-vcI4UpRgg81oIRUFwR0WSIHKt11nJ7SAVlYNIu+QpqeyXP+gpQJy/Z4+F0aGxSE4MqwjyXvW/TzgkLAx2AGHwQ==}
     engines: {node: '>=14.17'}
     hasBin: true
+
+  uint8array-extras@0.3.0:
+    resolution: {integrity: sha512-erJsJwQ0tKdwuqI0359U8ijkFmfiTcq25JvvzRVc1VP+2son1NJRXhxcAKJmAW3ajM8JSGAfsAXye8g4s+znxA==}
+    engines: {node: '>=18'}
 
   unbox-primitive@1.0.2:
     resolution: {integrity: sha512-61pPlCD9h51VoreyJ0BReideM3MDKMKnh6+V9L08331ipq6Q8OFXZYiqP6n/tbHx4s5I9uRhcye6BrbkizkBDw==}
@@ -3978,6 +4015,9 @@ packages:
   webrtc-adapter@8.2.3:
     resolution: {integrity: sha512-gnmRz++suzmvxtp3ehQts6s2JtAGPuDPjA1F3a9ckNpG1kYdYuHWYpazoAnL9FS5/B21tKlhkorbdCXat0+4xQ==}
     engines: {node: '>=6.0.0', npm: '>=3.10.0'}
+
+  when-exit@2.1.2:
+    resolution: {integrity: sha512-u9J+toaf3CCxCAzM/484qNAxQE75rFdVgiFEEV8Xps2gzYhf0tx73s1WXDQhkwV17E3MxRMz40m7Ekd2/121Lg==}
 
   which-boxed-primitive@1.0.2:
     resolution: {integrity: sha512-bwZdv0AKLpplFY2KZRX6TvyuN7ojjr7lwkg6ml0roIy9YeuSr7JS372qlNW18UQYzgYK9ziGcerWqZOmEn9VNg==}
@@ -5205,6 +5245,11 @@ snapshots:
 
   atomically@1.7.0: {}
 
+  atomically@2.0.3:
+    dependencies:
+      stubborn-fs: 1.2.5
+      when-exit: 2.1.2
+
   available-typed-arrays@1.0.5: {}
 
   axios@1.6.5:
@@ -5546,6 +5591,18 @@ snapshots:
       pkg-up: 3.1.0
       semver: 7.6.0
 
+  conf@12.0.0:
+    dependencies:
+      ajv: 8.12.0
+      ajv-formats: 2.1.1(ajv@8.12.0)
+      atomically: 2.0.3
+      debounce-fn: 5.1.2
+      dot-prop: 8.0.2
+      env-paths: 3.0.0
+      json-schema-typed: 8.0.1
+      semver: 7.6.0
+      uint8array-extras: 0.3.0
+
   config-file-ts@0.2.6:
     dependencies:
       glob: 10.3.12
@@ -5617,6 +5674,10 @@ snapshots:
   debounce-fn@4.0.0:
     dependencies:
       mimic-fn: 3.1.0
+
+  debounce-fn@5.1.2:
+    dependencies:
+      mimic-fn: 4.0.0
 
   debug@2.6.9:
     dependencies:
@@ -5782,6 +5843,10 @@ snapshots:
     dependencies:
       is-obj: 2.0.0
 
+  dot-prop@8.0.2:
+    dependencies:
+      type-fest: 3.13.1
+
   dotenv-expand@5.1.0: {}
 
   dotenv@9.0.2: {}
@@ -5944,6 +6009,8 @@ snapshots:
   entities@4.5.0: {}
 
   env-paths@2.2.1: {}
+
+  env-paths@3.0.0: {}
 
   err-code@2.0.3: {}
 
@@ -6855,6 +6922,8 @@ snapshots:
 
   json-schema-typed@7.0.3: {}
 
+  json-schema-typed@8.0.1: {}
+
   json-stable-stringify-without-jsonify@1.0.1: {}
 
   json-stringify-safe@5.0.1:
@@ -7033,6 +7102,8 @@ snapshots:
   mimic-fn@2.1.0: {}
 
   mimic-fn@3.1.0: {}
+
+  mimic-fn@4.0.0: {}
 
   mimic-response@1.0.1: {}
 
@@ -7834,6 +7905,8 @@ snapshots:
 
   strip-json-comments@3.1.1: {}
 
+  stubborn-fs@1.2.5: {}
+
   sumchecker@3.0.1:
     dependencies:
       debug: 4.3.4
@@ -7944,6 +8017,8 @@ snapshots:
 
   type-fest@2.19.0: {}
 
+  type-fest@3.13.1: {}
+
   typed-array-buffer@1.0.0:
     dependencies:
       call-bind: 1.0.5
@@ -7972,6 +8047,8 @@ snapshots:
       is-typed-array: 1.1.12
 
   typescript@5.4.5: {}
+
+  uint8array-extras@0.3.0: {}
 
   unbox-primitive@1.0.2:
     dependencies:
@@ -8108,6 +8185,8 @@ snapshots:
   webrtc-adapter@8.2.3:
     dependencies:
       sdp: 3.2.0
+
+  when-exit@2.1.2: {}
 
   which-boxed-primitive@1.0.2:
     dependencies:
