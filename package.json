@@ -216,7 +216,7 @@
     "playwright": "1.43.1",
     "rollup": "4.18.0",
     "typescript": "5.4.5",
-    "utf-8-validate": "6.0.3",
+    "utf-8-validate": "6.0.4",
     "vite": "5.2.10",
     "vite-plugin-inspect": "0.8.4",
     "vite-plugin-resolve": "2.5.1",

@@ -252,8 +252,8 @@ devDependencies:
     specifier: 5.4.5
     version: 5.4.5
   utf-8-validate:
-    specifier: 6.0.3
-    version: 6.0.3
+    specifier: 6.0.4
+    version: 6.0.4
   vite:
     specifier: 5.2.10
     version: 5.2.10(@types/node@20.12.5)
@@ -268,7 +268,7 @@ devDependencies:
     version: 2.10.2(solid-js@1.8.17)(vite@5.2.10)
   ws:
     specifier: 8.16.0
-    version: 8.16.0(bufferutil@4.0.8)(utf-8-validate@6.0.3)
+    version: 8.16.0(bufferutil@4.0.8)(utf-8-validate@6.0.4)
 
 packages:
 
@@ -1949,10 +1949,10 @@ packages:
     engines: {node: '>=14.18.0'}
     dependencies:
       axios: 1.6.5
-      ws: 8.16.0(bufferutil@4.0.8)(utf-8-validate@6.0.3)
+      ws: 8.16.0(bufferutil@4.0.8)(utf-8-validate@6.0.4)
     optionalDependencies:
       bufferutil: 4.0.8
-      utf-8-validate: 6.0.3
+      utf-8-validate: 6.0.4
     transitivePeerDependencies:
       - debug
     dev: false
@@ -6819,8 +6819,8 @@ packages:
     dev: false
     optional: true
 
-  /utf-8-validate@6.0.3:
-    resolution: {integrity: sha512-uIuGf9TWQ/y+0Lp+KGZCMuJWc3N9BHA+l/UmHd/oUHwJJDeysyTRxNQVkbzsIWfGFbRe3OcgML/i0mvVRPOyDA==}
+  /utf-8-validate@6.0.4:
+    resolution: {integrity: sha512-xu9GQDeFp+eZ6LnCywXN/zBancWvOpUMzgjLPSjy4BRHSmTelvn2E0DG0o1sTiw5hkCKBHo8rwSKncfRfv2EEQ==}
     engines: {node: '>=6.14.2'}
     requiresBuild: true
     dependencies:
@@ -7051,7 +7051,7 @@ packages:
   /wrappy@1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
 
-  /ws@8.16.0(bufferutil@4.0.8)(utf-8-validate@6.0.3):
+  /ws@8.16.0(bufferutil@4.0.8)(utf-8-validate@6.0.4):
     resolution: {integrity: sha512-HS0c//TP7Ina87TfiPUz1rQzMhHrl/SG2guqRcTOIUYD2q8uhUdNHZYJUaQ8aTGPzCh+c6oawMKW35nFl1dxyQ==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
@@ -7064,7 +7064,7 @@ packages:
         optional: true
     dependencies:
       bufferutil: 4.0.8
-      utf-8-validate: 6.0.3
+      utf-8-validate: 6.0.4
 
   /x11@2.3.0:
     resolution: {integrity: sha512-Ep4DbqZkVHvZNVht+vvELcfdpGKnfh2kZuKdXqyZdtJx3UdvgUGrMQ9lwPNV33tDs86MF4YagC6+E2fZXikF6A==}
