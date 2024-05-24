@@ -214,7 +214,7 @@
     "glob": "10.3.12",
     "node-gyp": "10.1.0",
     "playwright": "1.43.1",
-    "rollup": "4.14.3",
+    "rollup": "4.18.0",
     "typescript": "5.4.5",
     "utf-8-validate": "6.0.3",
     "vite": "5.2.10",
