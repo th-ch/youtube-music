@@ -229,5 +229,7 @@
     "unreleased": true,
     "output": "changelog.md"
   },
-  "packageManager": "pnpm@9.1.2"
+  "engines": {
+    "pnpm": ">=8"
+  }
 }
