@@ -139,7 +139,7 @@
             "unset": "不指定"
           },
           "tray": {
-            "label": "系統閘",
+            "label": "系統匣",
             "submenu": {
               "disabled": "已停用",
               "enabled-and-hide-app": "啟用並最小化應用程式",
