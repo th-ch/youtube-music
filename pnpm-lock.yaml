@@ -2119,7 +2119,7 @@ packages:
       chromium-pickle-js: 0.2.0
       debug: 4.3.4
       dmg-builder: 24.13.3(electron-builder-squirrel-windows@24.13.3)
-      ejs: 3.1.9
+      ejs: 3.1.10
       electron-builder-squirrel-windows: 24.13.3(dmg-builder@24.13.3)
       electron-publish: 24.13.1
       form-data: 4.0.0
@@ -3238,8 +3238,8 @@ packages:
     resolution: {integrity: sha512-FSTWf6lwGn7Zc3QiV+KxWTznIqq4j9eST/aXmyN/cC39+1Arqs13YOMosHQ7tqUt+OjQmG79Vd41f9gu+w1lvA==}
     dev: false
 
-  /ejs@3.1.9:
-    resolution: {integrity: sha512-rC+QVNMJWv+MtPgkt0y+0rVEIdbtxVADApW9JXrUVlzHetgcyczP/E7DJmWJ4fJCZF2cPcBk0laWO9ZHMG3DmQ==}
+  /ejs@3.1.10:
+    resolution: {integrity: sha512-UeJmFfOrAQS8OJWPZ4qtgHyWExa088/MtK5UEyoJGFH67cDEXkZSviOiKRCZ4Xij0zxI3JECgYs3oKx+AizQBA==}
     engines: {node: '>=0.10.0'}
     hasBin: true
     dependencies:
