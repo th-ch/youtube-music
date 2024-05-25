@@ -21,7 +21,7 @@
 	</a>
 </div>
 
-**Electronwrapper de YouTube Music con las siguientes características:**
+**Electron wrapper de YouTube Music con las siguientes características:**
 
 - Apariencia y sensación nativa, tiene como objetivo mantener la interfaz original
 - Framework para plugins personalizados: cambia YouTube Music según tus necesidades (estilo, contenido, funciones), habilita/deshabilita plugins con un solo clic
