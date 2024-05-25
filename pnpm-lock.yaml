@@ -239,8 +239,8 @@ importers:
         specifier: 5.1.3
         version: 5.1.3(eslint@9.3.0)(prettier@3.2.5)
       glob:
-        specifier: 10.3.12
-        version: 10.3.12
+        specifier: 10.4.1
+        version: 10.4.1
       node-gyp:
         specifier: 10.1.0
         version: 10.1.0
@@ -2441,9 +2441,9 @@ packages:
     resolution: {integrity: sha512-XxwI8EOhVQgWp6iDL+3b0r86f4d6AX6zSU55HfB4ydCEuXLXc5FcYeOu+nnGftS4TEju/11rt4KJPTMgbfmv4A==}
     engines: {node: '>=10.13.0'}
 
-  glob@10.3.12:
-    resolution: {integrity: sha512-TCNv8vJ+xz4QiqTpfOJA7HvYv+tNIRHKfUWw/q+v2jdgN4ebz+KY9tGx5J4rHP0o84mNP+ApH66HRX8us3Khqg==}
-    engines: {node: '>=16 || 14 >=14.17'}
+  glob@10.4.1:
+    resolution: {integrity: sha512-2jelhlq3E4ho74ZyVLN03oKdAZVUa6UDZzFLVH1H7dnoax+y9qyaq8zBkfDIggjniU19z0wU18y16jMB2eyVIw==}
+    engines: {node: '>=16 || 14 >=14.18'}
     hasBin: true
 
   glob@7.2.3:
@@ -2812,8 +2812,8 @@ packages:
     resolution: {integrity: sha512-LpB/54B+/2J5hqQ7imZHfdU31OlgQqx7ZicVlkm9kzg9/w8GKLEcFfJl/t7DCEDueOyBAD6zCCwTO6Fzs0NoEQ==}
     engines: {node: '>=16'}
 
-  jackspeak@2.3.6:
-    resolution: {integrity: sha512-N3yCS/NegsOBokc8GAdM8UcmfsKiSS8cipheD/nivzr700H+nsMOxJjQnvwOcRYVuFkdH0wGUvW2WbXGmrZGbQ==}
+  jackspeak@3.1.2:
+    resolution: {integrity: sha512-kWmLKn2tRtfYMF/BakihVVRzBKOxz4gJMiL2Rj91WnAB5TPZumSH99R/Yf1qE1u4uRimvCSJfm6hnxohXeEXjQ==}
     engines: {node: '>=14'}
 
   jake@10.8.7:
@@ -3106,8 +3106,8 @@ packages:
     resolution: {integrity: sha512-3FnjYuehv9k6ovOEbyOswadCDPX1piCfhV8ncmYtHOjuPwylVWsghTLo7rabjC3Rx5xD4HDx8Wm1xnMF7S5qFQ==}
     engines: {node: '>=8'}
 
-  minipass@7.0.4:
-    resolution: {integrity: sha512-jYofLM5Dam9279rdkWzqHozUo4ybjdZmCsDHePy5V/PbBcVMiSZR97gmAy45aqi8CK1lG2ECd356FU86avfwUQ==}
+  minipass@7.1.2:
+    resolution: {integrity: sha512-qOOzS1cBTWYF4BH8fVePDBOO9iptMnGUEZwNc/cMWnTV2nVLZ7VoNWEPHkYczZA0pdoA7dl6e7FL659nX9S2aw==}
     engines: {node: '>=16 || 14 >=14.17'}
 
   minizlib@2.1.2:
@@ -3329,9 +3329,9 @@ packages:
   path-parse@1.0.7:
     resolution: {integrity: sha512-LDJzPVEEEPR+y48z93A0Ed0yXb8pAByGWo/k5YYdYgpY2/2EsOsksJrq7lOHxryrVOn1ejG6oAp8ahvOIQD8sw==}
 
-  path-scurry@1.10.2:
-    resolution: {integrity: sha512-7xTavNy5RQXnsjANvVvMkEjvloOinkAjv/Z6Ildz9v2RinZ4SBKTWFOVRbaF8p0vpHnyjV/UwNDdKuUv6M5qcA==}
-    engines: {node: '>=16 || 14 >=14.17'}
+  path-scurry@1.11.1:
+    resolution: {integrity: sha512-Xa4Nw17FS9ApQFJ9umLiJS4orGjm7ZzwUrwamcGQuHSzDyth9boKDaycYdDcZDuqYATXw4HFXgaqWTctW/v1HA==}
+    engines: {node: '>=16 || 14 >=14.18'}
 
   path-to-regexp@2.2.1:
     resolution: {integrity: sha512-gu9bD6Ta5bwGrrU8muHzVOBFFREpp2iRkVfhBJahwJ6p6Xw20SjT0MxLnwkjOibQmGSYhiUnf2FLe7k+jcFmGQ==}
@@ -5512,9 +5512,9 @@ snapshots:
     dependencies:
       '@npmcli/fs': 3.1.0
       fs-minipass: 3.0.3
-      glob: 10.3.12
+      glob: 10.4.1
       lru-cache: 10.2.0
-      minipass: 7.0.4
+      minipass: 7.1.2
       minipass-collect: 2.0.1
       minipass-flush: 1.0.5
       minipass-pipeline: 1.2.4
@@ -5681,7 +5681,7 @@ snapshots:
 
   config-file-ts@0.2.6:
     dependencies:
-      glob: 10.3.12
+      glob: 10.4.1
       typescript: 5.4.5
 
   content-disposition@0.5.2: {}
@@ -6557,7 +6557,7 @@ snapshots:
 
   fs-minipass@3.0.3:
     dependencies:
-      minipass: 7.0.4
+      minipass: 7.1.2
 
   fs.realpath@1.0.0: {}
 
@@ -6612,13 +6612,13 @@ snapshots:
     dependencies:
       is-glob: 4.0.3
 
-  glob@10.3.12:
+  glob@10.4.1:
     dependencies:
       foreground-child: 3.1.1
-      jackspeak: 2.3.6
+      jackspeak: 3.1.2
       minimatch: 9.0.4
-      minipass: 7.0.4
-      path-scurry: 1.10.2
+      minipass: 7.1.2
+      path-scurry: 1.11.1
 
   glob@7.2.3:
     dependencies:
@@ -6972,7 +6972,7 @@ snapshots:
 
   isexe@3.1.1: {}
 
-  jackspeak@2.3.6:
+  jackspeak@3.1.2:
     dependencies:
       '@isaacs/cliui': 8.0.2
     optionalDependencies:
@@ -7123,7 +7123,7 @@ snapshots:
       cacache: 18.0.2
       http-cache-semantics: 4.1.1
       is-lambda: 1.0.1
-      minipass: 7.0.4
+      minipass: 7.1.2
       minipass-fetch: 3.0.4
       minipass-flush: 1.0.5
       minipass-pipeline: 1.2.4
@@ -7222,11 +7222,11 @@ snapshots:
 
   minipass-collect@2.0.1:
     dependencies:
-      minipass: 7.0.4
+      minipass: 7.1.2
 
   minipass-fetch@3.0.4:
     dependencies:
-      minipass: 7.0.4
+      minipass: 7.1.2
       minipass-sized: 1.0.3
       minizlib: 2.1.2
     optionalDependencies:
@@ -7250,7 +7250,7 @@ snapshots:
 
   minipass@5.0.0: {}
 
-  minipass@7.0.4: {}
+  minipass@7.1.2: {}
 
   minizlib@2.1.2:
     dependencies:
@@ -7299,7 +7299,7 @@ snapshots:
     dependencies:
       env-paths: 2.2.1
       exponential-backoff: 3.1.1
-      glob: 10.3.12
+      glob: 10.4.1
       graceful-fs: 4.2.11
       make-fetch-happen: 13.0.0
       nopt: 7.2.0
@@ -7467,10 +7467,10 @@ snapshots:
 
   path-parse@1.0.7: {}
 
-  path-scurry@1.10.2:
+  path-scurry@1.11.1:
     dependencies:
       lru-cache: 10.2.0
-      minipass: 7.0.4
+      minipass: 7.1.2
 
   path-to-regexp@2.2.1: {}
 
@@ -7916,7 +7916,7 @@ snapshots:
 
   ssri@10.0.5:
     dependencies:
-      minipass: 7.0.4
+      minipass: 7.1.2
 
   stat-mode@1.0.0: {}
 
