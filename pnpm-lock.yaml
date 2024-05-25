@@ -218,8 +218,8 @@ importers:
         specifier: 3.2.0
         version: 3.2.0
       electron-vite:
-        specifier: 2.1.0
-        version: 2.1.0(vite@5.2.11(@types/node@20.12.5))
+        specifier: 2.2.0
+        version: 2.2.0(vite@5.2.11(@types/node@20.12.5))
       esbuild:
         specifier: 0.20.2
         version: 0.20.2
@@ -1928,8 +1928,8 @@ packages:
   electron-updater@6.1.8:
     resolution: {integrity: sha512-hhOTfaFAd6wRHAfUaBhnAOYc+ymSGCWJLtFkw4xJqOvtpHmIdNHnXDV9m1MHC+A6q08Abx4Ykgyz/R5DGKNAMQ==}
 
-  electron-vite@2.1.0:
-    resolution: {integrity: sha512-DjToUW6q3ILoW79b1yBywC6LubnOw5Axr2zo9cHMlYf00zAO8oVzrCcqinJQTTbJLvqCuVcBzuICMl5MYshUnQ==}
+  electron-vite@2.2.0:
+    resolution: {integrity: sha512-WvE8KlZTiay9uWqBRvnYuxg2JqIicaNqaz9qFvsZkIae2/FmqZC5jctziyduCuuwVxqJG0Sjh8RlTwSn8xcCoQ==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
     peerDependencies:
@@ -5901,7 +5901,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  electron-vite@2.1.0(vite@5.2.11(@types/node@20.12.5)):
+  electron-vite@2.2.0(vite@5.2.11(@types/node@20.12.5)):
     dependencies:
       '@babel/core': 7.23.7
       '@babel/plugin-transform-arrow-functions': 7.23.3(@babel/core@7.23.7)
