@@ -205,7 +205,7 @@
     "electron-builder": "24.13.3",
     "electron-devtools-installer": "3.2.0",
     "electron-vite": "2.2.0",
-    "esbuild": "0.20.2",
+    "esbuild": "0.21.4",
     "eslint": "9.1.0",
     "eslint-import-resolver-exports": "1.0.0-beta.5",
     "eslint-import-resolver-typescript": "3.6.1",
