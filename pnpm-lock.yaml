@@ -269,8 +269,8 @@ importers:
         specifier: 2.10.2
         version: 2.10.2(solid-js@1.8.17)(vite@5.2.11(@types/node@20.12.5))
       ws:
-        specifier: 8.16.0
-        version: 8.16.0(bufferutil@4.0.8)(utf-8-validate@6.0.4)
+        specifier: 8.17.0
+        version: 8.17.0(bufferutil@4.0.8)(utf-8-validate@6.0.4)
 
 packages:
 
@@ -4112,8 +4112,8 @@ packages:
   wrappy@1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
 
-  ws@8.16.0:
-    resolution: {integrity: sha512-HS0c//TP7Ina87TfiPUz1rQzMhHrl/SG2guqRcTOIUYD2q8uhUdNHZYJUaQ8aTGPzCh+c6oawMKW35nFl1dxyQ==}
+  ws@8.17.0:
+    resolution: {integrity: sha512-uJq6108EgZMAl20KagGkzCKfMEjxmKvZHG7Tlq0Z6nOky7YF7aq4mOx6xK8TJ/i1LeK4Qus7INktacctDgY8Ow==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       bufferutil: ^4.0.1
@@ -5121,7 +5121,7 @@ snapshots:
   '@xhayper/discord-rpc@1.1.2(patch_hash=7eeaht6k4r7cw3nunras7mx7iu)':
     dependencies:
       axios: 1.6.5
-      ws: 8.16.0(bufferutil@4.0.8)(utf-8-validate@6.0.4)
+      ws: 8.17.0(bufferutil@4.0.8)(utf-8-validate@6.0.4)
     optionalDependencies:
       bufferutil: 4.0.8
       utf-8-validate: 6.0.4
@@ -8306,7 +8306,7 @@ snapshots:
 
   wrappy@1.0.2: {}
 
-  ws@8.16.0(bufferutil@4.0.8)(utf-8-validate@6.0.4):
+  ws@8.17.0(bufferutil@4.0.8)(utf-8-validate@6.0.4):
     optionalDependencies:
       bufferutil: 4.0.8
       utf-8-validate: 6.0.4
