@@ -197,7 +197,7 @@
     "@types/semver": "7.5.8",
     "@typescript-eslint/eslint-plugin": "7.10.0",
     "bufferutil": "4.0.8",
-    "builtin-modules": "3.3.0",
+    "builtin-modules": "4.0.0",
     "cross-env": "7.0.3",
     "del-cli": "5.1.0",
     "discord-api-types": "0.37.85",
