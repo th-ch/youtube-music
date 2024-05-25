@@ -85,8 +85,8 @@ importers:
         specifier: 5.1.0
         version: 5.1.0
       electron-debug:
-        specifier: 3.2.0
-        version: 3.2.0
+        specifier: 4.0.0
+        version: 4.0.0
       electron-is:
         specifier: 3.0.0
         version: 3.0.0
@@ -1985,8 +1985,9 @@ packages:
     engines: {node: '>=14.0.0'}
     hasBin: true
 
-  electron-debug@3.2.0:
-    resolution: {integrity: sha512-7xZh+LfUvJ52M9rn6N+tPuDw6oRAjxUj9SoxAZfJ0hVCXhZCsdkrSt7TgXOiWiEOBgEV8qwUIO/ScxllsPS7ow==}
+  electron-debug@4.0.0:
+    resolution: {integrity: sha512-GuDHlug+EGBcZezEFzwXyal/YI28rxtSzRPNfRfc+BQ3siEkqy2voN5bI1c0cGEloK40mV/LzRMaiI84KCNvqg==}
+    engines: {node: '>=18'}
 
   electron-devtools-installer@3.2.0:
     resolution: {integrity: sha512-t3UczsYugm4OAbqvdImMCImIMVdFzJAHgbwHpkl5jmfu1izVgUcP/mnrPqJIpEeCK1uZGpt+yHgWEN+9EwoYhQ==}
@@ -1997,11 +1998,12 @@ packages:
   electron-is-dev@0.3.0:
     resolution: {integrity: sha512-jLttuuq8QK67n3mXmIe9pkrO7IH3LGIk12xJkhTmc852U2sCJaRAOpRGPSh+1Xnzck5v9escd9YXzuze9nGejg==}
 
-  electron-is-dev@1.2.0:
-    resolution: {integrity: sha512-R1oD5gMBPS7PVU8gJwH6CtT0e6VSoD0+SzSnYpNm+dBkcijgA+K7VAMHDfnRq/lkKPZArpzplTW6jfiMYosdzw==}
-
   electron-is-dev@2.0.0:
     resolution: {integrity: sha512-3X99K852Yoqu9AcW50qz3ibYBWY79/pBhlMCab8ToEWS48R0T9tyxRiQhwylE7zQdXrMnx2JKqUJyMPmt5FBqA==}
+
+  electron-is-dev@3.0.1:
+    resolution: {integrity: sha512-8TjjAh8Ec51hUi3o4TaU0mD3GMTOESi866oRNavj9A3IQJ7pmv+MJVmdZBFGw4GFT36X7bkqnuDNYvkQgvyI8Q==}
+    engines: {node: '>=18'}
 
   electron-is@3.0.0:
     resolution: {integrity: sha512-aQv1y3WrDZ+mtO8acbhiiip/8fa0Et7cvZyvlqJm2H7fih4hiJWEFRyYxzLgDG2kmiLdF8l3y5tbek5JFOPQkQ==}
@@ -5947,9 +5949,9 @@ snapshots:
       - electron-builder-squirrel-windows
       - supports-color
 
-  electron-debug@3.2.0:
+  electron-debug@4.0.0:
     dependencies:
-      electron-is-dev: 1.2.0
+      electron-is-dev: 3.0.1
       electron-localshortcut: 3.2.1
     transitivePeerDependencies:
       - supports-color
@@ -5965,9 +5967,9 @@ snapshots:
 
   electron-is-dev@0.3.0: {}
 
-  electron-is-dev@1.2.0: {}
-
   electron-is-dev@2.0.0: {}
+
+  electron-is-dev@3.0.1: {}
 
   electron-is@3.0.0:
     dependencies:
