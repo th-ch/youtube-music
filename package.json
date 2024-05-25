@@ -158,7 +158,7 @@
     "custom-electron-prompt": "1.5.7",
     "dbus-next": "0.10.2",
     "deepmerge-ts": "5.1.0",
-    "electron-debug": "3.2.0",
+    "electron-debug": "4.0.0",
     "electron-is": "3.0.0",
     "electron-localshortcut": "3.2.1",
     "electron-store": "8.2.0",
