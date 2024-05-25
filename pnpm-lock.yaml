@@ -219,7 +219,7 @@ importers:
         version: 3.2.0
       electron-vite:
         specifier: 2.1.0
-        version: 2.1.0(vite@5.2.10(@types/node@20.12.5))
+        version: 2.1.0(vite@5.2.11(@types/node@20.12.5))
       esbuild:
         specifier: 0.20.2
         version: 0.20.2
@@ -257,17 +257,17 @@ importers:
         specifier: 6.0.4
         version: 6.0.4
       vite:
-        specifier: 5.2.10
-        version: 5.2.10(@types/node@20.12.5)
+        specifier: 5.2.11
+        version: 5.2.11(@types/node@20.12.5)
       vite-plugin-inspect:
         specifier: 0.8.4
-        version: 0.8.4(rollup@4.18.0)(vite@5.2.10(@types/node@20.12.5))
+        version: 0.8.4(rollup@4.18.0)(vite@5.2.11(@types/node@20.12.5))
       vite-plugin-resolve:
         specifier: 2.5.1
         version: 2.5.1
       vite-plugin-solid:
         specifier: 2.10.2
-        version: 2.10.2(solid-js@1.8.17)(vite@5.2.10(@types/node@20.12.5))
+        version: 2.10.2(solid-js@1.8.17)(vite@5.2.11(@types/node@20.12.5))
       ws:
         specifier: 8.16.0
         version: 8.16.0(bufferutil@4.0.8)(utf-8-validate@6.0.4)
@@ -3932,8 +3932,8 @@ packages:
       '@testing-library/jest-dom':
         optional: true
 
-  vite@5.2.10:
-    resolution: {integrity: sha512-PAzgUZbP7msvQvqdSD+ErD5qGnSFiGOoWmV5yAKUEI0kdhjbH6nMWVyZQC/hSc4aXwc0oJ9aEdIiF9Oje0JFCw==}
+  vite@5.2.11:
+    resolution: {integrity: sha512-HndV31LWW05i1BLPMUCE1B9E9GFbOu1MbenhS58FuK6owSO5qHm7GiCotrNY1YE5rMeQSFBGmT5ZaLEjFizgiQ==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
     peerDependencies:
@@ -5901,7 +5901,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  electron-vite@2.1.0(vite@5.2.10(@types/node@20.12.5)):
+  electron-vite@2.1.0(vite@5.2.11(@types/node@20.12.5)):
     dependencies:
       '@babel/core': 7.23.7
       '@babel/plugin-transform-arrow-functions': 7.23.3(@babel/core@7.23.7)
@@ -5909,7 +5909,7 @@ snapshots:
       esbuild: 0.19.12
       magic-string: 0.30.5
       picocolors: 1.0.0
-      vite: 5.2.10(@types/node@20.12.5)
+      vite: 5.2.11(@types/node@20.12.5)
     transitivePeerDependencies:
       - supports-color
 
@@ -8055,7 +8055,7 @@ snapshots:
       extsprintf: 1.4.1
     optional: true
 
-  vite-plugin-inspect@0.8.4(rollup@4.18.0)(vite@5.2.10(@types/node@20.12.5)):
+  vite-plugin-inspect@0.8.4(rollup@4.18.0)(vite@5.2.11(@types/node@20.12.5)):
     dependencies:
       '@antfu/utils': 0.7.7
       '@rollup/pluginutils': 5.1.0(rollup@4.18.0)
@@ -8066,7 +8066,7 @@ snapshots:
       perfect-debounce: 1.0.0
       picocolors: 1.0.0
       sirv: 2.0.4
-      vite: 5.2.10(@types/node@20.12.5)
+      vite: 5.2.11(@types/node@20.12.5)
     transitivePeerDependencies:
       - rollup
       - supports-color
@@ -8075,7 +8075,7 @@ snapshots:
     dependencies:
       lib-esm: 0.4.2
 
-  vite-plugin-solid@2.10.2(solid-js@1.8.17)(vite@5.2.10(@types/node@20.12.5)):
+  vite-plugin-solid@2.10.2(solid-js@1.8.17)(vite@5.2.11(@types/node@20.12.5)):
     dependencies:
       '@babel/core': 7.23.7
       '@types/babel__core': 7.20.5
@@ -8083,12 +8083,12 @@ snapshots:
       merge-anything: 5.1.7
       solid-js: 1.8.17
       solid-refresh: 0.6.3(solid-js@1.8.17)
-      vite: 5.2.10(@types/node@20.12.5)
-      vitefu: 0.2.5(vite@5.2.10(@types/node@20.12.5))
+      vite: 5.2.11(@types/node@20.12.5)
+      vitefu: 0.2.5(vite@5.2.11(@types/node@20.12.5))
     transitivePeerDependencies:
       - supports-color
 
-  vite@5.2.10(@types/node@20.12.5):
+  vite@5.2.11(@types/node@20.12.5):
     dependencies:
       esbuild: 0.20.2
       postcss: 8.4.38
@@ -8097,9 +8097,9 @@ snapshots:
       '@types/node': 20.12.5
       fsevents: 2.3.3
 
-  vitefu@0.2.5(vite@5.2.10(@types/node@20.12.5)):
+  vitefu@0.2.5(vite@5.2.11(@types/node@20.12.5)):
     optionalDependencies:
-      vite: 5.2.10(@types/node@20.12.5)
+      vite: 5.2.11(@types/node@20.12.5)
 
   vudio@2.1.1(patch_hash=7iux5msqpgl3octdmwy4uspwoe): {}
 
