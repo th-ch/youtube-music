@@ -387,4 +387,4 @@ MIT © [th-ch](https://github.com/th-ch/youtube-music)
 
 ### ¿Por qué no se muestra el menú de aplicaciones?
 
-Si la opción `Ocultar menú` está activada - puedes mostrar el menú con la tecla <kbd>alt</kbd> (o <kbd>\`</kbd> [acento grave] si estás utilizando el plugin in-app-menu).
+Si la opción `Ocultar menú` está activada - puedes mostrar el menú con la tecla <kbd>alt</kbd> (o <kbd>\`</kbd> [acento grave] si estás utilizando el plugin in-app-menu)
