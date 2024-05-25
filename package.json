@@ -174,7 +174,7 @@
     "keyboardevents-areequal": "0.2.2",
     "node-html-parser": "6.1.13",
     "node-id3": "0.2.6",
-    "peerjs": "1.5.2",
+    "peerjs": "1.5.4",
     "semver": "7.6.2",
     "serve": "14.2.3",
     "simple-youtube-age-restriction-bypass": "github:organization/Simple-YouTube-Age-Restriction-Bypass#v2.5.9",
