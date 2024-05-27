@@ -158,6 +158,14 @@
               },
               "remove-upgrade-button": "Remover botão upgrade",
               "theme": {
+                "dialog": {
+                  "button": {
+                    "cancel": "Cancelar",
+                    "remove": "Remover"
+                  },
+                  "remove-theme": "Você tem certeza que quer remover o tema customizado?",
+                  "remove-theme-message": "Isso removerá o tema customizado"
+                },
                 "label": "Tema",
                 "submenu": {
                   "import-css-file": "Importar arquivo CSS personalizado",
