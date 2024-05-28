@@ -206,8 +206,8 @@ importers:
         specifier: 5.1.0
         version: 5.1.0
       discord-api-types:
-        specifier: 0.37.85
-        version: 0.37.85
+        specifier: 0.37.86
+        version: 0.37.86
       electron:
         specifier: 30.0.8
         version: 30.0.8
@@ -1920,8 +1920,8 @@ packages:
     resolution: {integrity: sha512-WkrWp9GR4KXfKGYzOLmTuGVi1UWFfws377n9cc55/tb6DuqyF6pcQ5AbiHEshaDpY9v6oaSr2XCDidGmMwdzIA==}
     engines: {node: '>=8'}
 
-  discord-api-types@0.37.85:
-    resolution: {integrity: sha512-T75aB9JEw9X0rlMChEMHbr9JlXMqdmdKiZVjBeKs91cJo28IuAIldj+VZoC+I+Q9gCaRjHlwRkcksy2XZY6c3A==}
+  discord-api-types@0.37.86:
+    resolution: {integrity: sha512-ofpVLHshKdKl+XuZBbwOBSlgQFPJPzMuUiBpala3+ImPHBVo7ojZpzJUu2NJV/f0t1kqncechDugQpO5AjZnxg==}
 
   dmg-builder@24.13.3:
     resolution: {integrity: sha512-rcJUkMfnJpfCboZoOOPf4L29TRtEieHNOeAbYPWPxlaBw/Z1RKrRA86dOI9rwaI4tQSc/RD82zTNHprfUHXsoQ==}
@@ -5854,7 +5854,7 @@ snapshots:
     dependencies:
       path-type: 4.0.0
 
-  discord-api-types@0.37.85: {}
+  discord-api-types@0.37.86: {}
 
   dmg-builder@24.13.3(electron-builder-squirrel-windows@24.13.3):
     dependencies:
