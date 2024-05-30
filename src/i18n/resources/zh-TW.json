@@ -158,6 +158,14 @@
               },
               "remove-upgrade-button": "移除升級按鈕",
               "theme": {
+                "dialog": {
+                  "button": {
+                    "cancel": "取消",
+                    "remove": "確定移除"
+                  },
+                  "remove-theme": "確定要移除自訂主題嗎？",
+                  "remove-theme-message": "這將會移除自訂主題"
+                },
                 "label": "主題",
                 "submenu": {
                   "import-css-file": "匯入自訂 CSS 檔案",
