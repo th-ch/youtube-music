@@ -121,7 +121,8 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=18.0.0",
+    "pnpm": ">=8"
   },
   "pnpm": {
     "overrides": {
@@ -228,8 +229,5 @@
     "package": true,
     "unreleased": true,
     "output": "changelog.md"
-  },
-  "engines": {
-    "pnpm": ">=8"
   }
 }
