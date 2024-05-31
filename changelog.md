@@ -2,7 +2,15 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v3.3.8](https://github.com/th-ch/youtube-music/compare/v3.3.7...v3.3.8)
+
+- fix(adblocker): fix blank screen [`#1942`](https://github.com/th-ch/youtube-music/issues/1942) [`#2100`](https://github.com/th-ch/youtube-music/issues/2100) [`#2103`](https://github.com/th-ch/youtube-music/issues/2103)
+- Update changelog for v3.3.7 [`b572623`](https://github.com/th-ch/youtube-music/commit/b572623442fc8b45b593dc0c91623fbf814115b4)
+- Bump version to 3.3.8 [`5d99a85`](https://github.com/th-ch/youtube-music/commit/5d99a854e2f29bdb6682beeffa4e6b9b8be0f60f)
+
 #### [v3.3.7](https://github.com/th-ch/youtube-music/compare/v3.3.6...v3.3.7)
+
+> 1 June 2024
 
 - chore(deps): update dependency electron to v30.0.9 [`#2098`](https://github.com/th-ch/youtube-music/pull/2098)
 - Revert "fix(deps): update dependency @cliqz/adblocker-electron to v1.27.6" [`#2101`](https://github.com/th-ch/youtube-music/pull/2101)
