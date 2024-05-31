@@ -158,6 +158,14 @@
               },
               "remove-upgrade-button": "Usuń przycisk subskrypcji premium",
               "theme": {
+                "dialog": {
+                  "button": {
+                    "cancel": "Anuluj",
+                    "remove": "Usuń"
+                  },
+                  "remove-theme": "Czy na pewno chcesz usunąć niestandardowy motyw?",
+                  "remove-theme-message": "Spowoduje to usunięcie niestandarowego motywu"
+                },
                 "label": "Motyw",
                 "submenu": {
                   "import-css-file": "Importuj własny plik CSS",

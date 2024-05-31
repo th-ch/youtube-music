@@ -21,7 +21,7 @@
 	</a>
 </div>
 
-Read this in other languages: [🇰🇷](./docs/readme/README-ko.md), [🇮🇸](./docs/readme/README-is.md)
+Read this in other languages: [🇰🇷](./docs/readme/README-ko.md), [🇮🇸](./docs/readme/README-is.md), [🇨🇱 🇪🇸](./docs/readme/README-es.md)
 
 **Electron wrapper around YouTube Music featuring:**
 
@@ -178,7 +178,7 @@ latest version.
 Install the [`youtube-music-bin`](https://aur.archlinux.org/packages/youtube-music-bin) package from the AUR. For AUR installation instructions, take a look at
 this [wiki page](https://wiki.archlinux.org/index.php/Arch_User_Repository#Installing_packages).
 
-### MacOS
+### macOS
 
 You can install the app using Homebrew (see the [cask definition](https://github.com/th-ch/homebrew-youtube-music)):
 
@@ -365,8 +365,11 @@ export default createPlugin({
 4. Run `pnpm build:OS`
 
 - `pnpm dist:win` - Windows
-- `pnpm dist:linux` - Linux
-- `pnpm dist:mac` - MacOS
+- `pnpm dist:linux` - Linux (amd64)
+- `pnpm dist:linux:deb-arm64` - Linux (arm64 for Debian)
+- `pnpm dist:linux:rpm-arm64` - Linux (arm64 for Fedora)
+- `pnpm dist:mac` - macOS (amd64)
+- `pnpm dist:mac:arm64` - macOS (arm64)
 
 Builds the app for macOS, Linux, and Windows,
 using [electron-builder](https://github.com/electron-userland/electron-builder).
