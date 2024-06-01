@@ -2,7 +2,17 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v3.3.9](https://github.com/th-ch/youtube-music/compare/v3.3.8...v3.3.9)
+
+- chore(deps): update dependency eslint to v9.4.0 [`#2106`](https://github.com/th-ch/youtube-music/pull/2106)
+- fix(adblocker): fix In-Player adblocker [`#1817`](https://github.com/th-ch/youtube-music/issues/1817)
+- feat(adblocker): improve In-Player adblocker [`5b9e947`](https://github.com/th-ch/youtube-music/commit/5b9e947b8feebb57d9a2122ae7b7ab2ff7c37c06)
+- chore(i18n): Translated using Weblate (French) [`9e809b0`](https://github.com/th-ch/youtube-music/commit/9e809b002d10f6ec0202a7d56d3d0b73f8093012)
+- chore(i18n): Translated using Weblate (Malay) [`79151cb`](https://github.com/th-ch/youtube-music/commit/79151cb3aa6c087b8d8bb500322f505797b822bd)
+
 #### [v3.3.8](https://github.com/th-ch/youtube-music/compare/v3.3.7...v3.3.8)
+
+> 1 June 2024
 
 - fix(adblocker): fix blank screen [`#1942`](https://github.com/th-ch/youtube-music/issues/1942) [`#2100`](https://github.com/th-ch/youtube-music/issues/2100) [`#2103`](https://github.com/th-ch/youtube-music/issues/2103)
 - Update changelog for v3.3.7 [`b572623`](https://github.com/th-ch/youtube-music/commit/b572623442fc8b45b593dc0c91623fbf814115b4)
