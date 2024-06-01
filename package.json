@@ -1,7 +1,7 @@
 {
   "name": "youtube-music",
   "productName": "YouTube Music",
-  "version": "3.3.7",
+  "version": "3.3.9",
   "description": "YouTube Music Desktop App - including custom plugins",
   "main": "./dist/main/index.js",
   "license": "MIT",
@@ -121,7 +121,8 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=18.0.0",
+    "pnpm": ">=8"
   },
   "pnpm": {
     "overrides": {
@@ -206,7 +207,7 @@
     "electron-devtools-installer": "3.2.0",
     "electron-vite": "2.2.0",
     "esbuild": "0.21.4",
-    "eslint": "9.3.0",
+    "eslint": "9.4.0",
     "eslint-import-resolver-exports": "1.0.0-beta.5",
     "eslint-import-resolver-typescript": "3.6.1",
     "eslint-plugin-import": "2.29.1",
@@ -228,8 +229,5 @@
     "package": true,
     "unreleased": true,
     "output": "changelog.md"
-  },
-  "engines": {
-    "pnpm": ">=8"
   }
 }
