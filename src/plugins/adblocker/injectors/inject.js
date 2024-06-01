@@ -22,10 +22,17 @@ export const inject = (contextBridge) => {
     const pruner = function (o) {
       delete o.playerAds;
       delete o.adPlacements;
+      delete o.adSlots;
       //
       if (o.playerResponse) {
         delete o.playerResponse.playerAds;
         delete o.playerResponse.adPlacements;
+        delete o.playerResponse.adSlots;
+      }
+      if (o.ytInitialPlayerResponse) {
+        delete o.ytInitialPlayerResponse.playerAds;
+        delete o.ytInitialPlayerResponse.adPlacements;
+        delete o.ytInitialPlayerResponse.adSlots;
       }
 
       //
