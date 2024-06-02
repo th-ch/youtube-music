@@ -59,7 +59,7 @@
       },
       "unresponsive": {
         "buttons": {
-          "quit": "Quitté",
+          "quit": "Quitter",
           "relaunch": "Relancer",
           "wait": "Attendre"
         },
@@ -158,6 +158,14 @@
               },
               "remove-upgrade-button": "Supprimer le bouton de mise à niveau",
               "theme": {
+                "dialog": {
+                  "button": {
+                    "cancel": "Annuler",
+                    "remove": "Supprimer"
+                  },
+                  "remove-theme": "Êtes-vous sûr de supprimer le thème personnalisé ?",
+                  "remove-theme-message": "Cela va supprimer le thème personnalisé"
+                },
                 "label": "Thème",
                 "submenu": {
                   "import-css-file": "Importer fichier CSS personnalisé",
@@ -521,7 +529,7 @@
             "keybind-options": {
               "hotkey": "Raccourci clavier"
             },
-            "label": "Choisissez un raccourci clavier pour activer l'image dans l'image",
+            "label": "Choisissez un raccourci clavier pour activer le mode Image dans l'image",
             "title": "Touche de raccourci Image dans l'image"
           }
         },

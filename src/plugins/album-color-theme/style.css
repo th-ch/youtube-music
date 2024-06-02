@@ -30,7 +30,7 @@ yt-page-navigation-progress {
 
 /* fix blur navigation bar */
 
-ytmusic-app-layout > [slot="player-page"]:not([is-mweb-modernization-enabled]) {
+ytmusic-app-layout > [slot="player-page"]:not([is-mweb-modernization-enabled]):not(:has(ytmusic-player[player-ui-state=FULLSCREEN])) {
   padding-top: 90px;
   margin-top: calc(-90px + var(--menu-bar-height, 0px)) !important;
 }

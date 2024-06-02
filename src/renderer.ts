@@ -225,6 +225,9 @@ const preload = async () => {
     t: i18t.bind(i18next),
   };
   defineYTMDTransElements();
+  if (document.body?.dataset?.os) {
+    document.body.dataset.os = navigator.userAgent;
+  }
 };
 
 const main = async () => {

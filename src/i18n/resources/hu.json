@@ -3,13 +3,13 @@
     "console": {
       "plugins": {
         "execute-failed": "Nem sikerült futtatni a plugint {{pluginName}}::{{contextName}}",
-        "executed-at-ms": "Plugin {{pluginName}}::{{contextName}} a {{ms}}ms időpontban végrehajtott",
+        "executed-at-ms": "Plugin {{pluginName}}::{{contextName}} a {{ms}}ms időpontban lefutott",
         "initialize-failed": "Nem sikerült inicializálni a \"{{pluginName}}\" plugint",
         "load-all": "Összes bővítmény betöltése",
         "load-failed": "Nem sikerült betölteni a \"{{pluginName}}\" plugint",
-        "loaded": "Plugin \"{{pluginName}}\" betöltve",
+        "loaded": "\"{{pluginName}}\" nevű plugin betöltve",
         "unload-failed": "Nem sikerült a \"{{pluginName}}\" bővítményt letölteni",
-        "unloaded": "A \"{{pluginName}}\" bővítményt nem töltötték be"
+        "unloaded": "A \"{{pluginName}}\" bővítmény kikapcsolva"
       }
     }
   },
@@ -39,7 +39,7 @@
         "clearing-cache-after-20s": "Alkalmazás gyorsítótárának törlése"
       },
       "window": {
-        "tried-to-render-offscreen": "Az ablak a képernyőn kívül próbált renderelni, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
+        "tried-to-render-offscreen": "Az ablak a képernyőn kívül próbált betölteni, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
       }
     },
     "dialog": {
@@ -53,8 +53,8 @@
           "later": "Később",
           "restart-now": "Újraindítás most"
         },
-        "detail": "A \"{{pluginName}}\" plugin újraindítást igényel a hatálybalépéshez",
-        "message": "\"{{pluginName}}\" újra kell indítani",
+        "detail": "A \"{{pluginName}}\" plugin újraindítást igényel a bekapcsoláshoz",
+        "message": "\"{{pluginName}}\" nevű plugin-t újra kell indítani",
         "title": "Újraindítás szükséges"
       },
       "unresponsive": {
@@ -62,39 +62,594 @@
           "quit": "Kilépés",
           "relaunch": "Újraindítás",
           "wait": "Várj"
-        }
+        },
+        "detail": "Elnézést a kellemetlenségért! Válaszdd ki mi történjen:",
+        "message": "Az alkalmazás nem válaszol",
+        "title": "Az ablak nem válaszol"
       },
       "update-available": {
         "buttons": {
-          "disable": "Frissítések letiltása",
+          "disable": "Frissítések kikapcsolása",
           "download": "Letöltés",
           "ok": "OK"
         },
-        "detail": "Az új verzió elérhető, és letölthető a {{downloadLink}}",
+        "detail": "Az új verzió elérhető, és letölthető az alábbi linken {{downloadLink}}",
         "message": "Új verzió áll rendelkezésre",
-        "title": "Elérhető frissítés"
+        "title": "Frissítés elérhető"
       }
     },
     "menu": {
       "about": "Névjegy",
       "navigation": {
-        "label": "Navigálás",
+        "label": "Navigáció",
         "submenu": {
           "copy-current-url": "Jelenlegi URL másolása",
           "go-back": "Vissza",
           "go-forward": "Előre",
           "quit": "Kilépés",
-          "restart": "App újraindítása"
+          "restart": "Alkalmazás újraindítása"
         }
       },
       "options": {
         "label": "Beállítások",
         "submenu": {
           "advanced-options": {
-            "label": "Speciális beállítások"
+            "label": "Speciális beállítások",
+            "submenu": {
+              "auto-reset-app-cache": "Az alkalmazás gyorsítótárának törlése indításkor",
+              "disable-hardware-acceleration": "Hardveres gyorsítás kikapcsolása",
+              "edit-config-json": "config.json szerkesztése",
+              "restart-on-config-changes": "Újraindítás a konfigurációs változtatás után",
+              "set-proxy": {
+                "label": "Proxy beállítása",
+                "prompt": {
+                  "label": "Proxy cím megadása: (Hagyja üresen a kikapcsoláshoz)",
+                  "placeholder": "Példa: SOCKS5://127.0.0.1:9999",
+                  "title": "Proxy beállítása"
+                }
+              },
+              "toggle-dev-tools": "Fejlesztőeszközök BE/KI"
+            }
+          },
+          "always-on-top": "Mindig látható",
+          "auto-update": "Automatikus frissítés",
+          "hide-menu": {
+            "dialog": {
+              "message": "A menü a következő indításnál rejtve lesz, használja az [Alt] billentyűt a megjelenítéséhez (vagy a backtick [`] billentyűt, ha az alkalmazás belső menüjét használja)",
+              "title": "Menü elrejtés engedélyezve"
+            },
+            "label": "Menü elrejtése"
+          },
+          "language": {
+            "dialog": {
+              "message": "Az Újraindítást követően változik meg a nyelv",
+              "title": "Megváltozott a nyelv"
+            },
+            "label": "Nyelv",
+            "submenu": {
+              "to-help-translate": "Szeretne a fordításban segíteni? Kattintson ide"
+            }
+          },
+          "resume-on-start": "Indításkor az utolsó zene folytatása",
+          "single-instance-lock": "Csak egy példány engedélyezése",
+          "start-at-login": "Futtatás rendszerindításkor",
+          "starting-page": {
+            "label": "Indítási hely"
+          },
+          "tray": {
+            "label": "Tálca",
+            "submenu": {
+              "disabled": "Letiltva",
+              "enabled-and-hide-app": "Aktív és az alkalmazás elrejtve",
+              "enabled-and-show-app": "Aktív és az alkalmazás megjelenítve",
+              "play-pause-on-click": "Lejátszás/Szünet az ikonra kattintással"
+            }
+          },
+          "visual-tweaks": {
+            "submenu": {
+              "like-buttons": {
+                "default": "Alapértelmezett",
+                "force-show": "Megjelenítés kényszerítése",
+                "hide": "Elrejtése",
+                "label": "Kedvelés gombok"
+              },
+              "remove-upgrade-button": "Előfizetés gombjának eltávolítása",
+              "theme": {
+                "dialog": {
+                  "button": {
+                    "cancel": "Mégse",
+                    "remove": "Eltávolít"
+                  },
+                  "remove-theme": "Biztos, hogy el akarja távolítani az egyéni témát?",
+                  "remove-theme-message": "Ez el fogja távolítani az egyéni témát"
+                },
+                "label": "Téma",
+                "submenu": {
+                  "import-css-file": "Egyéni CSS fájl importálása",
+                  "no-theme": "Nincs téma"
+                }
+              }
+            }
+          }
+        }
+      },
+      "plugins": {
+        "enabled": "Bekapcsolva",
+        "label": "Bővítmények",
+        "new": "ÚJ"
+      },
+      "view": {
+        "label": "Nézet",
+        "submenu": {
+          "force-reload": "Kényszerített újratöltés",
+          "reload": "Újratöltés",
+          "reset-zoom": "Valós méret",
+          "toggle-fullscreen": "Teljes képernyő be/ki",
+          "zoom-in": "Nagyítás",
+          "zoom-out": "Kicsinyítés"
+        }
+      }
+    },
+    "tray": {
+      "next": "Következő",
+      "play-pause": "Lejátszás/Szünet",
+      "previous": "Előző",
+      "quit": "Kilépés",
+      "restart": "YT Music újraindítása",
+      "show": "Ablak megjelenítése",
+      "tooltip": {
+        "default": "YouTube Music",
+        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
+      }
+    }
+  },
+  "plugins": {
+    "adblocker": {
+      "description": "Alapértelmezés szerint blokkolja az összes hirdetést és nyomkövetést",
+      "menu": {
+        "blocker": "Blokkoló"
+      },
+      "name": "Reklámblokkoló"
+    },
+    "album-actions": {
+      "name": "Album műveletek"
+    },
+    "album-color-theme": {
+      "description": "Dinamikus téma és vizuális effektek alkalmazása az album színpalettája alapján",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "Szín keverés aránya",
+          "submenu": {
+            "percent": "{{ratio}}%"
+          }
+        }
+      },
+      "name": "Album színtéma"
+    },
+    "ambient-mode": {
+      "description": "Fényhatás alkalmazása a videóból származó lágy színek vetítésével a képernyő hátterére",
+      "menu": {
+        "blur-amount": {
+          "label": "Elmosódás mértéke",
+          "submenu": {
+            "pixels": "{{blurAmount}} képpontok"
+          }
+        },
+        "buffer": {
+          "submenu": {
+            "buffer": "{{buffer}}"
+          }
+        },
+        "opacity": {
+          "label": "Átlátszóság",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "quality": {
+          "label": "Minőség",
+          "submenu": {
+            "pixels": "{{quality}} képpont"
+          }
+        },
+        "size": {
+          "label": "Méret",
+          "submenu": {
+            "percent": "{{size}}%"
+          }
+        },
+        "use-fullscreen": {
+          "label": "Teljes képernyő használata"
+        }
+      }
+    },
+    "audio-compressor": {
+      "description": "Hang tömörítés alkalmazása (csökkenti a jel legzajosabb részeinek hangerősségét, és emeli a legcsendesebb részek hangerősségét)",
+      "name": "Hangtömörítő"
+    },
+    "blur-nav-bar": {
+      "description": "Átlátszóvá és elmosódottá teszi a navigációs sávot"
+    },
+    "bypass-age-restrictions": {
+      "description": "A YouTube korellenőrzését kihagyja, ezáltal nem kel meg erősíteni a zene meghallgatása elött. (Automatikusan megerősítve lesz.)",
+      "name": "Korellenőrzés kihagyása"
+    },
+    "captions-selector": {
+      "description": "Felirat választó a YouTube Music zenékhez",
+      "menu": {
+        "autoload": "Automatikusan kiválasztja az utoljára használt feliratot",
+        "disable-captions": "Alapértelmezetten nincsenek feliratok"
+      },
+      "name": "Feliratválasztó",
+      "prompt": {
+        "selector": {
+          "label": "Jelenlegi feliratnyelv: {{language}}",
+          "none": "Nincs",
+          "title": "Felirat nyelvének kiválasztása"
+        }
+      },
+      "templates": {
+        "title": "Feliratválasztó megnyitása"
+      }
+    },
+    "compact-sidebar": {
+      "description": "Mindig becsukva tartja a bal oldali savót, ahol a Kezdőlap. Felfedezés, Könyvtár és egyebek láthatók. (Amit bármikor ki lehet nyitni)",
+      "name": "Kompakt oldalsáv"
+    },
+    "crossfade": {
+      "description": "Áttünést biztosít a dalok között, ami folytonossá teszi a zenehallgatást anélkül, hogy érezhető lenne a váltás",
+      "menu": {
+        "advanced": "Haladó"
+      },
+      "name": "Áttünés [Béta]",
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "fade-in-duration": "Áttünés időtartama (ms)"
           }
         }
       }
+    },
+    "disable-autoplay": {
+      "description": "A Zenék nem fognak maguktól elindulni, a bővítmény használata során kézileg kel indítani a zenéket",
+      "menu": {
+        "apply-once": "Csak induláskor alkalmazza"
+      },
+      "name": "Automatikus lejátszás letiltása"
+    },
+    "discord": {
+      "backend": {
+        "already-connected": "Kapcsolódás kísérlete aktív kapcsolattal",
+        "connected": "Kapcsolódva a Discord-hoz",
+        "disconnected": "Kapcsolat bontva a Discord-al"
+      },
+      "description": "Mutassa meg barátainak, hogy mit hallgat a Rich Presence segítségével. (Ehez a Discord-on is engedélyezve kel lennie a Tevékenységállapot megosztásának [DC Beállítások -> Tevékenyég-adatvédelem -> Megoszthatod az észlelt tevékenységeidet másokkal])",
+      "menu": {
+        "auto-reconnect": "Automatikus újracsatlakozás",
+        "clear-activity": "Tevékenység törlése",
+        "clear-activity-after-timeout": "Tevékenység törlése időkorlát után",
+        "connected": "Kapcsolódva",
+        "disconnected": "Nincs Kapcsolódva",
+        "hide-duration-left": "Hátralévő idő elrejtése",
+        "hide-github-button": "GitHub link gombjának elrejtése",
+        "play-on-youtube-music": "Lejátszás a YouTube Music-on",
+        "set-inactivity-timeout": "Inaktivitási időkorlát beállítása"
+      },
+      "name": "Discord Rich Presence",
+      "prompt": {
+        "set-inactivity-timeout": {
+          "label": "Írja be az inaktivitási időkorlátot másodpercben:",
+          "title": "Inaktivitási időkorlát beállítása"
+        }
+      }
+    },
+    "downloader": {
+      "backend": {
+        "dialog": {
+          "error": {
+            "message": "Hoppá! Elnézést, a letöltés sikertelen volt…",
+            "title": "A letöltés során hiba történt!"
+          },
+          "start-download-playlist": {
+            "buttons": {
+              "ok": "Rendben"
+            },
+            "detail": "({{playlistSize}} dal)",
+            "message": "A(z) {{playlistTitle}} lejátszási lista letöltése",
+            "title": "A letöltés elindult"
+          }
+        },
+        "feedback": {
+          "conversion-progress": "Konvetálás: {{percent}}%",
+          "converting": "Konvertálás…",
+          "done": "Kész: {{filePath}}",
+          "download-info": "Letöltés: {{artist}} - {{title}} [{{videoId}}",
+          "download-progress": "Letöltés: {{percent}}%",
+          "downloading": "Letöltés folyamatban…",
+          "downloading-counter": "Letöltés: {{current}}/{{total}}…",
+          "downloading-playlist": "Letöltés a lejátszási listáról \"{{playlistTitle}}\" - {{playlistSize}} dal ({{playlistId}})",
+          "error-while-downloading": "Hiba a \"{{author}} - {{title}}\" letöltésekor: {{error}}",
+          "folder-already-exists": "A {{playlistFolder}} nevű mappa már létezik",
+          "getting-playlist-info": "Lejátszási lista információinak lekérése…",
+          "loading": "Betöltés…",
+          "playlist-has-only-one-song": "A lejátszási listában csak egy elem van, letöltés közvetlenül",
+          "playlist-id-not-found": "Nem található lejátszási lista azonosítója",
+          "playlist-is-empty": "Lejátszási lista üres",
+          "playlist-is-mix-or-private": "Hiba a lejátszási lista információinak lekérésekor: győződjön meg róla, hogy nem privát vagy \"Saját egyveleg\" lejátszási lista\n\n{{error}}",
+          "preparing-file": "Fájl előkészítése…",
+          "saving": "Mentés…",
+          "trying-to-get-playlist-id": "Playlist ID lekérése: {{playlistId}}",
+          "video-id-not-found": "Videó nem található",
+          "writing-id3": "ID3 címkék írása…"
+        }
+      },
+      "description": "MP3 / forrás hanganyag letöltése közvetlenül az interfészről",
+      "menu": {
+        "choose-download-folder": "Letöltési mappa kiválasztása",
+        "download-playlist": "Lejátszási lista letöltése",
+        "skip-existing": "Meglévő fájlok kihagyása"
+      },
+      "name": "Letöltő",
+      "renderer": {
+        "can-not-update-progress": "A haladást nem lehet frissíteni"
+      },
+      "templates": {
+        "button": "Letöltés"
+      }
+    },
+    "exponential-volume": {
+      "description": "Az hangerő csúszka exponenciálissá tételével könnyebbé válik az alacsony hangerő kiválasztása.",
+      "name": "Exponenciális hangerő"
+    },
+    "in-app-menu": {
+      "description": "Menüsávok stílusos, sötét vagy album-színű megjelenítése",
+      "menu": {
+        "hide-dom-window-controls": "DOM ablakvezérlők elrejtése"
+      },
+      "name": "Alkalmazáson belüli menü"
+    },
+    "lumiastream": {
+      "description": "Lumia Stream támogatás hozzáadása",
+      "name": "Lumia Stream [Béta]"
+    },
+    "lyrics-genius": {
+      "description": "Dalszöveg támogatást ad a legtöbb dalhoz",
+      "menu": {
+        "romanized-lyrics": "Latin betűs dalszövegek"
+      },
+      "name": "Lyrics Genius",
+      "renderer": {
+        "fetched-lyrics": "Dalszövegek lekérése a Genius-ról"
+      }
+    },
+    "music-together": {
+      "description": "Lehetővé teszi a lejátszási listák megosztását másokkal. Amikor a házigazda lejátszik egy dalt, mindenki más is ugyanazt a dalt fogja hallani",
+      "dialog": {
+        "enter-host": "Adja meg a házigazda azonosítóját"
+      },
+      "internal": {
+        "save": "Mentés",
+        "track-source": "Zeneszám forrása",
+        "unknown-user": "Ismeretlen felhasználó"
+      },
+      "menu": {
+        "click-to-copy-id": "Házigazda azonosítójának másolása",
+        "close": "Zene együtt bezárása",
+        "connected-users": "Csatlakozott felhasználók",
+        "disconnect": "Zene együtt kapcsolatának megszakítása",
+        "empty-user": "Nincs csatlakozva felhasználó",
+        "host": "Music Together Házigazda",
+        "join": "Csatlakozás a Zene együtt-höz",
+        "permission": {
+          "all": "Engedélyezi a vendégeknek a lejátszási lista és a lejátszó vezérlését",
+          "host-only": "Csak a házigazda tudja vezérelni a lejátszási listát és a lejátszót",
+          "playlist": "Engedélyezi a vendégeknek a lejátszási lista vezérlését"
+        },
+        "status": {
+          "disconnected": "Kapcsolat bontva",
+          "guest": "Csatlakozva vendégként",
+          "host": "Csatlakozva házigazdaként"
+        }
+      },
+      "name": "Zene együtt [Béta]",
+      "toast": {
+        "add-song-failed": "Sikertelen volt a dal hozzáadása",
+        "closed": "Zene együtt bezárva",
+        "disconnected": "Kapcsolat megszakadt a Music Together-el",
+        "host-failed": "Sikertelen volt a Zene együtt indítása",
+        "id-copied": "Házigazda azonosító a vágólapra másolva",
+        "id-copy-failed": "Nem sikerült a Házigazda azonosítóját a vágólapra másolni",
+        "join-failed": "Nem sikerült csatlakozni a Music Together-hez",
+        "joined": "Csatlakozott a Music Together-hez",
+        "permission-changed": "Music Together engedély megváltoztatva \"{{permission}}\" -re",
+        "remove-song-failed": "A dal eltávolítása sikertelen",
+        "user-connected": "{{name}} csatlakozott a Music Together-hez",
+        "user-disconnected": "{{name}} elhagyta a Music Together-t"
+      }
+    },
+    "navigation": {
+      "name": "Navigáció"
+    },
+    "no-google-login": {
+      "description": "A Bejelentkezés gomb eltávolítása az interfészről (Jobb fentről eltünik a bejelentkezés gomb.)",
+      "name": "Nincs Google bejelentkezés"
+    },
+    "notifications": {
+      "description": "Értesítés megjelenítése, amikor egy dal elindul (interaktív értesítések elérhetők Windows-on)",
+      "menu": {
+        "interactive": "Interaktív Értesítések",
+        "interactive-settings": {
+          "label": "Interaktív beállítások",
+          "submenu": {
+            "hide-button-text": "Gombok szövegének elrejtése"
+          }
+        },
+        "priority": "Értesítési prioritás"
+      },
+      "name": "Értesítések"
+    },
+    "picture-in-picture": {
+      "description": "Lehetővé teszi az alkalmazás kép a képben módra váltását",
+      "menu": {
+        "always-on-top": "Mindig látható",
+        "hotkey": {
+          "label": "Gyorsbillentyű",
+          "prompt": {
+            "keybind-options": {
+              "hotkey": "Gyorsbillentyű"
+            },
+            "label": "Válassz egy gyorsbillentyűt a kép a képben mód váltásához",
+            "title": "Kép a képben gyorsbillentyű"
+          }
+        },
+        "save-window-position": "Ablakpozíciójának mentése",
+        "save-window-size": "Ablakméretének mentése",
+        "use-native-pip": "A böngésző natív PiP(Kép a képben) használata"
+      },
+      "name": "Kép a képben",
+      "templates": {
+        "button": "Kép a képben"
+      }
+    },
+    "playback-speed": {
+      "description": "Hallgass gyorsan, hallgass lassan! Hozzáad egy csúszkát, amely szabályozza a dal sebességét",
+      "name": "Lejátszás sebessége",
+      "templates": {
+        "button": "Sebesség"
+      }
+    },
+    "precise-volume": {
+      "description": "A hangerő precíz szabályozása egérgörgővel/gyorsbillentyűkkel, egy egyedi HUD és testreszabható hangerő csuszka segítségével",
+      "menu": {
+        "global-shortcuts": "Globális gyorsbillentyűk"
+      },
+      "name": "Precíz hangerő",
+      "prompt": {
+        "global-shortcuts": {
+          "keybind-options": {
+            "decrease": "Hangerő csökkentése",
+            "increase": "Hangerő növelése"
+          },
+          "label": "Válaszd ki a globális hangerő gyorsbillentyűket:",
+          "title": "Globális hangerő gyorsbillentyűk"
+        }
+      }
+    },
+    "quality-changer": {
+      "backend": {
+        "dialog": {
+          "quality-changer": {
+            "detail": "Jelenlegi minőség: {{quality}}",
+            "message": "Válaszd ki a videó minőségét:",
+            "title": "Válaszd ki a videó minőségét"
+          }
+        }
+      },
+      "description": "Lehetővé teszi a videó minőségének megváltoztatását egy gombbal a videó fedvényen"
+    },
+    "scrobbler": {
+      "description": "Scrobbling támogatás hozzáadása (pl. last.fm, ListenBrainz)",
+      "dialog": {
+        "lastfm": {
+          "auth-failed": {
+            "message": "Last.fm hitelesítése nem sikerült\nA felugró ablak elrejtése a következő újraindításig.",
+            "title": "Hitelesítés sikertelen"
+          }
+        }
+      },
+      "menu": {
+        "lastfm": {
+          "api-settings": "Last.fm API beállítások"
+        },
+        "listenbrainz": {
+          "token": "Add meg a ListenBrainz felhasználói tokenedet"
+        }
+      },
+      "prompt": {
+        "lastfm": {
+          "api-key": "Last.fm API kulcs",
+          "api-secret": "Last.fm titkos API kulcs"
+        },
+        "listenbrainz": {
+          "token": {
+            "label": "Add meg a ListenBrainz felhasználói tokenedet:",
+            "title": "ListenBrainz kulcs"
+          }
+        }
+      }
+    },
+    "shortcuts": {
+      "description": "Lehetővé teszi globális gyorsbillentyűk beállítását a lejátszáshoz (lejátszás/szünet/következő/előző), valamint a média OSD kikapcsolását a médiagombok felülírásával. Bekapcsolja a Ctrl/CMD + F billentyűkombinációt a kereséshez, a Linux MPRIS támogatását a médiagombokhoz, és egyedi gyorsbillentyűket a haladó felhasználók számára",
+      "menu": {
+        "override-media-keys": "Médiagombok felülírása",
+        "set-keybinds": "Globális zenevezérlők beállítása"
+      },
+      "name": "Gyorsbillentyűk (& MPRIS)",
+      "prompt": {
+        "keybind": {
+          "keybind-options": {
+            "next": "Következő",
+            "play-pause": "Lejátszás / Szünet",
+            "previous": "Előző"
+          },
+          "title": "Globális gyorsbillentyűk"
+        }
+      }
+    },
+    "skip-disliked-songs": {
+      "description": "Kihagyja a nem kedvelt dalokat",
+      "name": "Nem kedvelt dal kihagyása"
+    },
+    "skip-silences": {
+      "description": "Automatikusan kihagyja a csendes részeket a dalokban",
+      "name": "Csend kihagyása"
+    },
+    "sponsorblock": {
+      "description": "Automatikusan kihagyja a nem zenés részeket, mint például az intro/outro vagy a zenei videók olyan részeit, ahol a zene nem szól",
+      "name": "SzponzorBlokk"
+    },
+    "taskbar-mediacontrol": {
+      "description": "Lejátszás vezérlése a Windows tálcáról"
+    },
+    "touchbar": {
+      "description": "macOS felhasználók számára hozzáad egy widgetet a TouchBar-hoz",
+      "name": "TouchBar"
+    },
+    "tuna-obs": {
+      "description": "Integráció az OBS Tuna pluginjával",
+      "name": "Tuna OBS"
+    },
+    "video-toggle": {
+      "description": "Hozzáad egy gombot a Videó/Dal mód közötti váltáshoz. Opcionálisan teljesen eltávolíthatja a videó fület is",
+      "menu": {
+        "align": {
+          "label": "Igazítás",
+          "submenu": {
+            "left": "Balra",
+            "middle": "Középre",
+            "right": "Jobbra"
+          }
+        },
+        "force-hide": "Videó fül kényszeritett eltávolítása",
+        "mode": {
+          "label": "Mód",
+          "submenu": {
+            "custom": "Egyedi kapcsoló",
+            "disabled": "Letiltva",
+            "native": "Natív kapcsoló"
+          }
+        }
+      },
+      "name": "Videó váltó",
+      "templates": {
+        "button": "Zeneszám"
+      }
+    },
+    "visualizer": {
+      "menu": {
+        "visualizer-type": "Vizualizáció típus"
+      },
+      "name": "Vizualizáció"
     }
   }
 }

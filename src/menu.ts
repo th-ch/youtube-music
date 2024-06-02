@@ -1,13 +1,5 @@
 import is from 'electron-is';
-import {
-  app,
-  BrowserWindow,
-  clipboard,
-  dialog,
-  Menu,
-  MenuItem,
-  shell,
-} from 'electron';
+import { app, BrowserWindow, clipboard, dialog, Menu, MenuItem, shell, } from 'electron';
 import prompt from 'custom-electron-prompt';
 import { satisfies } from 'semver';
 
@@ -235,16 +227,41 @@ export const mainMenuTemplate = async (
                 'main.menu.options.submenu.visual-tweaks.submenu.theme.label',
               ),
               submenu: [
-                {
-                  label: t(
-                    'main.menu.options.submenu.visual-tweaks.submenu.theme.submenu.no-theme',
-                  ),
-                  type: 'radio',
-                  checked: config.get('options.themes')?.length === 0, // Todo rename "themes"
-                  click() {
-                    config.set('options.themes', []);
-                  },
-                },
+                ...((config.get('options.themes')?.length ?? 0) === 0
+                  ? [
+                    {
+                      label: t(
+                        'main.menu.options.submenu.visual-tweaks.submenu.theme.submenu.no-theme',
+                      ),
+                    }
+                  ]
+                  : []),
+                ...config.get('options.themes')?.map((theme: string) => ({
+                  type: 'normal' as const,
+                  label: theme,
+                  async click() {
+                    const { response } = await dialog.showMessageBox(win, {
+                      type: 'question',
+                      defaultId: 1,
+                      title: t(
+                        'main.menu.options.submenu.visual-tweaks.submenu.theme.dialog.remove-theme',
+                      ),
+                      message: t(
+                        'main.menu.options.submenu.visual-tweaks.submenu.theme.dialog.remove-theme-message',
+                        { theme },
+                      ),
+                      buttons: [
+                        t('main.menu.options.submenu.visual-tweaks.submenu.theme.dialog.button.cancel'),
+                        t('main.menu.options.submenu.visual-tweaks.submenu.theme.dialog.button.remove'),
+                      ],
+                    });
+
+                    if (response === 1) {
+                      config.set('options.themes', config.get('options.themes')?.filter((t) => t !== theme));
+                      innerRefreshMenu();
+                    }
+                  }
+                })),
                 { type: 'separator' },
                 {
                   label: t(
@@ -258,6 +275,7 @@ export const mainMenuTemplate = async (
                     });
                     if (filePaths) {
                       config.set('options.themes', filePaths);
+                      innerRefreshMenu();
                     }
                   },
                 },
@@ -288,40 +306,40 @@ export const mainMenuTemplate = async (
         },
         ...((is.windows() || is.linux()
           ? [
-              {
-                label: t('main.menu.options.submenu.hide-menu.label'),
-                type: 'checkbox',
-                checked: config.get('options.hideMenu'),
-                click(item) {
-                  config.setMenuOption('options.hideMenu', item.checked);
-                  if (item.checked && !config.get('options.hideMenuWarned')) {
-                    dialog.showMessageBox(win, {
-                      type: 'info',
-                      title: t(
-                        'main.menu.options.submenu.hide-menu.dialog.title',
-                      ),
-                      message: t(
-                        'main.menu.options.submenu.hide-menu.dialog.message',
-                      ),
-                    });
-                  }
-                },
+            {
+              label: t('main.menu.options.submenu.hide-menu.label'),
+              type: 'checkbox',
+              checked: config.get('options.hideMenu'),
+              click(item) {
+                config.setMenuOption('options.hideMenu', item.checked);
+                if (item.checked && !config.get('options.hideMenuWarned')) {
+                  dialog.showMessageBox(win, {
+                    type: 'info',
+                    title: t(
+                      'main.menu.options.submenu.hide-menu.dialog.title',
+                    ),
+                    message: t(
+                      'main.menu.options.submenu.hide-menu.dialog.message',
+                    ),
+                  });
+                }
               },
-            ]
+            },
+          ]
           : []) satisfies Electron.MenuItemConstructorOptions[]),
         ...((is.windows() || is.macOS()
           ? // Only works on Win/Mac
             // https://www.electronjs.org/docs/api/app#appsetloginitemsettingssettings-macos-windows
-            [
-              {
-                label: t('main.menu.options.submenu.start-at-login'),
-                type: 'checkbox',
-                checked: config.get('options.startAtLogin'),
-                click(item) {
-                  config.setMenuOption('options.startAtLogin', item.checked);
-                },
+          [
+            {
+              label: t('main.menu.options.submenu.start-at-login'),
+              type: 'checkbox',
+              checked: config.get('options.startAtLogin'),
+              click(item) {
+                config.setMenuOption('options.startAtLogin', item.checked);
               },
-            ]
+            },
+          ]
           : []) satisfies Electron.MenuItemConstructorOptions[]),
         {
           label: t('main.menu.options.submenu.tray.label'),
@@ -475,25 +493,25 @@ export const mainMenuTemplate = async (
             { type: 'separator' },
             is.macOS()
               ? {
-                  label: t(
-                    'main.menu.options.submenu.advanced-options.submenu.toggle-dev-tools',
-                  ),
-                  // Cannot use "toggleDevTools" role in macOS
-                  click() {
-                    const { webContents } = win;
-                    if (webContents.isDevToolsOpened()) {
-                      webContents.closeDevTools();
-                    } else {
-                      webContents.openDevTools();
-                    }
-                  },
-                }
-              : {
-                  label: t(
-                    'main.menu.options.submenu.advanced-options.submenu.toggle-dev-tools',
-                  ),
-                  role: 'toggleDevTools',
+                label: t(
+                  'main.menu.options.submenu.advanced-options.submenu.toggle-dev-tools',
+                ),
+                // Cannot use "toggleDevTools" role in macOS
+                click() {
+                  const { webContents } = win;
+                  if (webContents.isDevToolsOpened()) {
+                    webContents.closeDevTools();
+                  } else {
+                    webContents.openDevTools();
+                  }
                 },
+              }
+              : {
+                label: t(
+                  'main.menu.options.submenu.advanced-options.submenu.toggle-dev-tools',
+                ),
+                role: 'toggleDevTools',
+              },
             {
               label: t(
                 'main.menu.options.submenu.advanced-options.submenu.edit-config-json',
