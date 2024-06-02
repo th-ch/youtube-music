@@ -2,7 +2,34 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v3.3.10](https://github.com/th-ch/youtube-music/compare/v3.3.9...v3.3.10)
+
+- fix(adblocker): fix blank screen [`#2103`](https://github.com/th-ch/youtube-music/issues/2103) [`#2105`](https://github.com/th-ch/youtube-music/issues/2105)
+- chore(i18n): Translated using Weblate (Hungarian) [`25958a7`](https://github.com/th-ch/youtube-music/commit/25958a7bb1fea20e59676e7821f3dd8819602b68)
+- fix(deps): bump deps [`4fa9762`](https://github.com/th-ch/youtube-music/commit/4fa9762a506544ce453894ce2df13033225e6c7d)
+- fix(deps): bump `@typescript-eslint/eslint-plugin` version to 8.0.0-alpha.24 [`1e5bea8`](https://github.com/th-ch/youtube-music/commit/1e5bea85b31da5de868d9eff8758e5d2d888c2c8)
+
+#### [v3.3.9](https://github.com/th-ch/youtube-music/compare/v3.3.8...v3.3.9)
+
+> 1 June 2024
+
+- chore(deps): update dependency eslint to v9.4.0 [`#2106`](https://github.com/th-ch/youtube-music/pull/2106)
+- fix(adblocker): fix In-Player adblocker [`#1817`](https://github.com/th-ch/youtube-music/issues/1817)
+- feat(adblocker): improve In-Player adblocker [`5b9e947`](https://github.com/th-ch/youtube-music/commit/5b9e947b8feebb57d9a2122ae7b7ab2ff7c37c06)
+- chore(i18n): Translated using Weblate (French) [`9e809b0`](https://github.com/th-ch/youtube-music/commit/9e809b002d10f6ec0202a7d56d3d0b73f8093012)
+- chore(i18n): Translated using Weblate (Malay) [`79151cb`](https://github.com/th-ch/youtube-music/commit/79151cb3aa6c087b8d8bb500322f505797b822bd)
+
+#### [v3.3.8](https://github.com/th-ch/youtube-music/compare/v3.3.7...v3.3.8)
+
+> 1 June 2024
+
+- fix(adblocker): fix blank screen [`#1942`](https://github.com/th-ch/youtube-music/issues/1942) [`#2100`](https://github.com/th-ch/youtube-music/issues/2100) [`#2103`](https://github.com/th-ch/youtube-music/issues/2103)
+- Update changelog for v3.3.7 [`b572623`](https://github.com/th-ch/youtube-music/commit/b572623442fc8b45b593dc0c91623fbf814115b4)
+- Bump version to 3.3.8 [`5d99a85`](https://github.com/th-ch/youtube-music/commit/5d99a854e2f29bdb6682beeffa4e6b9b8be0f60f)
+
 #### [v3.3.7](https://github.com/th-ch/youtube-music/compare/v3.3.6...v3.3.7)
+
+> 1 June 2024
 
 - chore(deps): update dependency electron to v30.0.9 [`#2098`](https://github.com/th-ch/youtube-music/pull/2098)
 - Revert "fix(deps): update dependency @cliqz/adblocker-electron to v1.27.6" [`#2101`](https://github.com/th-ch/youtube-music/pull/2101)

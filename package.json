@@ -1,7 +1,7 @@
 {
   "name": "youtube-music",
   "productName": "YouTube Music",
-  "version": "3.3.7",
+  "version": "3.3.10",
   "description": "YouTube Music Desktop App - including custom plugins",
   "main": "./dist/main/index.js",
   "license": "MIT",
@@ -121,7 +121,8 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=18.0.0",
+    "pnpm": ">=8"
   },
   "pnpm": {
     "overrides": {
@@ -130,17 +131,20 @@
       "xml2js": "0.6.2",
       "node-fetch": "3.3.2",
       "@electron/universal": "2.0.1",
-      "@babel/runtime": "7.24.6"
+      "@babel/runtime": "7.24.6",
+      "eslint": "9.4.0",
+      "@typescript-eslint/parser": "8.0.0-alpha.24"
     },
     "patchedDependencies": {
       "vudio@2.1.1": "patches/vudio@2.1.1.patch",
       "@xhayper/discord-rpc@1.1.2": "patches/@xhayper__discord-rpc@1.1.2.patch",
-      "app-builder-lib@24.13.3": "patches/app-builder-lib@24.13.3.patch"
+      "app-builder-lib@24.13.3": "patches/app-builder-lib@24.13.3.patch",
+      "eslint-plugin-import@2.29.1": "patches/eslint-plugin-import@2.29.1.patch"
     }
   },
   "dependencies": {
-    "@cliqz/adblocker-electron": "1.27.3",
-    "@cliqz/adblocker-electron-preload": "1.27.3",
+    "@cliqz/adblocker-electron": "1.27.1",
+    "@cliqz/adblocker-electron-preload": "1.27.1",
     "@electron-toolkit/tsconfig": "1.0.1",
     "@electron/remote": "2.1.2",
     "@ffmpeg.wasm/core-mt": "0.12.0",
@@ -195,7 +199,7 @@
     "@types/howler": "2.2.11",
     "@types/html-to-text": "9.0.4",
     "@types/semver": "7.5.8",
-    "@typescript-eslint/eslint-plugin": "7.11.0",
+    "@typescript-eslint/eslint-plugin": "8.0.0-alpha.24",
     "bufferutil": "4.0.8",
     "builtin-modules": "4.0.0",
     "cross-env": "7.0.3",
@@ -206,7 +210,7 @@
     "electron-devtools-installer": "3.2.0",
     "electron-vite": "2.2.0",
     "esbuild": "0.21.4",
-    "eslint": "9.3.0",
+    "eslint": "9.4.0",
     "eslint-import-resolver-exports": "1.0.0-beta.5",
     "eslint-import-resolver-typescript": "3.6.1",
     "eslint-plugin-import": "2.29.1",
@@ -228,8 +232,5 @@
     "package": true,
     "unreleased": true,
     "output": "changelog.md"
-  },
-  "engines": {
-    "pnpm": ">=8"
   }
 }
