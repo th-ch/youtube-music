@@ -69,9 +69,9 @@
       },
       "update-available": {
         "buttons": {
-          "disable": "停用更新",
-          "download": "下載",
-          "ok": "確定"
+          "disable": "停用新版本通知",
+          "download": "前往下載",
+          "ok": "略過"
         },
         "detail": "新版本已經推出，你可以至 {{downloadLink}} 下載",
         "message": "有新版本可用",
