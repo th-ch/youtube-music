@@ -6,5 +6,10 @@
         "executed-at-ms": "Plugin{{pluginName}}::{{contextName}}{{je izvršen za {{ms}}ms"
       }
     }
+  },
+  "language": {
+    "code": "hr",
+    "local-name": "Hrvatski",
+    "name": "Croatian"
   }
 }
