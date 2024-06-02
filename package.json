@@ -131,12 +131,15 @@
       "xml2js": "0.6.2",
       "node-fetch": "3.3.2",
       "@electron/universal": "2.0.1",
-      "@babel/runtime": "7.24.6"
+      "@babel/runtime": "7.24.6",
+      "eslint": "9.4.0",
+      "@typescript-eslint/parser": "8.0.0-alpha.24"
     },
     "patchedDependencies": {
       "vudio@2.1.1": "patches/vudio@2.1.1.patch",
       "@xhayper/discord-rpc@1.1.2": "patches/@xhayper__discord-rpc@1.1.2.patch",
-      "app-builder-lib@24.13.3": "patches/app-builder-lib@24.13.3.patch"
+      "app-builder-lib@24.13.3": "patches/app-builder-lib@24.13.3.patch",
+      "eslint-plugin-import@2.29.1": "patches/eslint-plugin-import@2.29.1.patch"
     }
   },
   "dependencies": {
