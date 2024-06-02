@@ -28,11 +28,11 @@ importers:
   .:
     dependencies:
       '@cliqz/adblocker-electron':
-        specifier: 1.27.3
-        version: 1.27.3(electron@30.0.9)
+        specifier: 1.27.1
+        version: 1.27.1(electron@30.0.9)
       '@cliqz/adblocker-electron-preload':
-        specifier: 1.27.3
-        version: 1.27.3(electron@30.0.9)
+        specifier: 1.27.1
+        version: 1.27.1(electron@30.0.9)
       '@electron-toolkit/tsconfig':
         specifier: 1.0.1
         version: 1.0.1(@types/node@20.12.5)
@@ -405,13 +405,13 @@ packages:
   '@cliqz/adblocker-content@1.27.6':
     resolution: {integrity: sha512-O7zqrLYNtkBtPMXrnrLDSC2LliKfUcJUL5hWn89QxJ4fw1o4Bow5b6pU3+ye2Hud2Lo5VqaCrICAipJr5BzVog==}
 
-  '@cliqz/adblocker-electron-preload@1.27.3':
-    resolution: {integrity: sha512-yLd7uzOxqBVsWGXBvZ9iyyDs9xAiEKXIVvnzoRCRA1XXvz2ckYxHGtz/eNqR5811jJ2F8tuhOmqE8M/3+MaPpQ==}
+  '@cliqz/adblocker-electron-preload@1.27.1':
+    resolution: {integrity: sha512-J6qHgqnqpPNwACIuIjtackMRfJbUM+bXc9w4XmPXt1jW7OCuxr8JVjxQamKWWW4PVP7YqtpZCwlvCxQGgCEGoQ==}
     peerDependencies:
       electron: '>11'
 
-  '@cliqz/adblocker-electron@1.27.3':
-    resolution: {integrity: sha512-eP0q+NrYrr/CKGYWuDumuaHSX5LXsljyS704kdOl0/XkFwGBeeUpm/cm9Fm43Fs9WZh4rgL3+jbwdyuOmNfrTg==}
+  '@cliqz/adblocker-electron@1.27.1':
+    resolution: {integrity: sha512-mV49IrXKOUa23T87E0+ewGCtSdgVIZHalKVDabC+g2DY6nU57XjHe4YlAPQCZFRW59HHAxALYjn5wHYGWzus8Q==}
     peerDependencies:
       electron: '>11'
 
@@ -4337,15 +4337,15 @@ snapshots:
     dependencies:
       '@cliqz/adblocker-extended-selectors': 1.27.6
 
-  '@cliqz/adblocker-electron-preload@1.27.3(electron@30.0.9)':
+  '@cliqz/adblocker-electron-preload@1.27.1(electron@30.0.9)':
     dependencies:
       '@cliqz/adblocker-content': 1.27.6
       electron: 30.0.9
 
-  '@cliqz/adblocker-electron@1.27.3(electron@30.0.9)':
+  '@cliqz/adblocker-electron@1.27.1(electron@30.0.9)':
     dependencies:
       '@cliqz/adblocker': 1.27.6
-      '@cliqz/adblocker-electron-preload': 1.27.3(electron@30.0.9)
+      '@cliqz/adblocker-electron-preload': 1.27.1(electron@30.0.9)
       electron: 30.0.9
       tldts-experimental: 6.1.2
 
