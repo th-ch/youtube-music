@@ -167,7 +167,7 @@
     "electron-localshortcut": "3.2.1",
     "electron-store": "9.0.0",
     "electron-unhandled": "4.0.1",
-    "electron-updater": "6.1.8",
+    "electron-updater": "6.2.1",
     "fast-average-color": "9.4.0",
     "fast-equals": "5.0.1",
     "filenamify": "6.0.0",
