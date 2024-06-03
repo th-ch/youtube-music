@@ -1,1 +1,151 @@
-{}
+{
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "प्लगइन {{pluginName}}::{{contextName}} को कार्यान्वयन गर्न असफल भयो",
+        "executed-at-ms": "प्लगइन {{pluginName}}::{{contextName}} {{ms}} मिलिसेकेण्डमा कार्यान्वित भयो",
+        "initialize-failed": "प्लगइन \"{{pluginName}}\" आरम्भ गर्न मिलेन",
+        "load-all": "सबै प्लगइनहरू लोड हुँदैछ",
+        "load-failed": "प्लगइन \"{{pluginName}}\" लोड गर्न मिलेन",
+        "loaded": "प्लगइन \"{{pluginName}}\" लोड भयो",
+        "unload-failed": "प्लगइन \"{{pluginName}}\" अनलोड गर्न मिलेन",
+        "unloaded": "प्लगइन \"{{pluginName}}\" अनलोड भयो"
+      }
+    }
+  },
+  "language": {
+    "code": "ne",
+    "local-name": "नेपाली",
+    "name": "Nepali"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "लोडिंग समाप्त भयो। डेभटुल्स खोलियो"
+      },
+      "i18n": {
+        "loaded": "i18n लोड भयो"
+      },
+      "second-instance": {
+        "receive-command": "प्रोटोकल मार्फत कमान प्राप्त गरियो: \"{{command}}\""
+      },
+      "theme": {
+        "css-file-not-found": "CSS फाइल \"{{cssFile}}\" मौजूद छैन, अनदेखी गर्दै छ"
+      },
+      "unresponsive": {
+        "details": "अनाक्रियतामा त्रुटि! \n{{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "अ‍ॅप क्यास खाली गर्दै"
+      },
+      "window": {
+        "tried-to-render-offscreen": "Windowले स्क्रीन बाहिर रेन्डर गर्न कोशिस गर्‍यो, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "detail": "मेनु लुकिएको छ, यसलाई देखाउन 'Alt' प्रयोग गर्नुहोस् (वा 'Escape' यदि इन-एप मेनु प्रयोग गर्नुहोस्)",
+        "message": "हाइड मेनु सक्षम गरिएको छ",
+        "title": "हाइड मेनु इनेबल गरियो"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "पछि",
+          "restart-now": "अहिले पुन: सुरु गर्नुहोस्"
+        },
+        "detail": "{{pluginName}}\" प्लगइनले प्रभाव समेत गर्नका लागि पुन: सुरु गर्नुपर्दछ",
+        "message": "{{pluginName}}\" पुनः सुरु गर्नुपर्छ",
+        "title": "पुनः सुरु गर्नुपर्छ"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "बन्द गर्नुहोस्",
+          "relaunch": "पुन: सुरु गर्नुहोस्",
+          "wait": "प्रतीक्षा गर्नुहोस्"
+        },
+        "detail": "हामी असुविधाका लागि क्षमा गर्दछौं! कृपया के गर्नुहोस् छन् छान्नुहोस्:",
+        "message": "अनुप्रयोग असार्थक छ",
+        "title": "विन्डो संपर्क नाघेको छ"
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "अपडेटहरू निष्क्रिय गर्नुहोस्",
+          "download": "डाउनलोड गर्नुहोस्",
+          "ok": "ठिक छ"
+        },
+        "detail": "नयाँ संस्करण उपलब्ध छ र यसलाई {{downloadLink}} बाट डाउनलोड गर्न सकिन्छ",
+        "message": "नयाँ संस्करण उपलब्ध छ",
+        "title": "अपडेट उपलब्ध छ"
+      }
+    },
+    "menu": {
+      "about": "बारेमा",
+      "navigation": {
+        "label": "नेभिगेसन",
+        "submenu": {
+          "copy-current-url": "हालको URL प्रतिलिपि गर्नुहोस्",
+          "go-back": "पछाडि जानुहोस्",
+          "go-forward": "अघि जानुहोस्",
+          "quit": "बाहिर निस्कनुहोस्",
+          "restart": "अनुप्रयोग पुनः सुरु गर्नुहोस्"
+        }
+      },
+      "options": {
+        "label": "विकल्पहरू",
+        "submenu": {
+          "advanced-options": {
+            "label": "उन्नत विकल्पहरू",
+            "submenu": {
+              "auto-reset-app-cache": "जब अनुप्रयोग सुरु हुन्छ तब अनुप्रयोग क्यास मिलाउनुहोस्",
+              "disable-hardware-acceleration": "हार्डवेयर तेजीगरी निष्क्रिय गर्नुहोस्",
+              "edit-config-json": "config.json सम्पादन गर्नुहोस्",
+              "override-user-agent": "प्रयोगकर्ता-एजेन्ट अधिलेखन गर्नुहोस्",
+              "restart-on-config-changes": "कन्फिगरेसन परिवर्तनमा पुनः सुरु गर्नुहोस्",
+              "set-proxy": {
+                "label": "प्रोक्सी सेट गर्नुहोस्",
+                "prompt": {
+                  "label": "प्रोक्सी ठेगाना प्रविष्टि: (निष्क्रिय गर्नका लागि खाली छोड्नुहोस्)",
+                  "placeholder": "उदाहरण: SOCKS5://127.0.0.1:9999",
+                  "title": "प्रोक्सी सेट गर्नुहोस्"
+                }
+              },
+              "toggle-dev-tools": "डेभटुल्स परिस्थिति परिवर्तन गर्नुहोस्"
+            }
+          },
+          "always-on-top": "सधैं माथिल्लोमा",
+          "auto-update": "स्वत: अपडेट",
+          "hide-menu": {
+            "dialog": {
+              "message": "मेनु अर्को लन्चमा लुकिनेछ, यसलाई देखाउनका लागि [Alt] प्रयोग गर्नुहोस् (वा इन-एप-मेनु प्रयोग गर्दा backtick [`])प्रयोग गर्नुहोस्",
+              "title": "हाइड मेनु इनेबल गरियो"
+            },
+            "label": "हाइड मेनु"
+          },
+          "language": {
+            "dialog": {
+              "message": "भाषा पुनः सुरु गर्नपछि परिवर्तन गरिनेछ",
+              "title": "भाषा परिवर्तित गरियो"
+            },
+            "label": "भाषा",
+            "submenu": {
+              "to-help-translate": "अनुवाद गर्न मद्दत गर्न चाहनुहुन्छ? यहाँ क्लिक गर्नुहोस्"
+            }
+          },
+          "resume-on-start": "अनुप्रयोग सुरु हुँदा अन्तिम गीत पुनः सुरु गर्नुहोस्",
+          "single-instance-lock": "एकल उदाहरण तालिका",
+          "start-at-login": "लगइनमा सुरु गर्नुहोस्",
+          "starting-page": {
+            "label": "सुरु गर्नुहोस्",
+            "unset": "अनसेट"
+          },
+          "tray": {
+            "label": "ट्रे(tray)",
+            "submenu": {
+              "disabled": "हाल बन्द"
+            }
+          }
+        }
+      }
+    }
+  }
+}
