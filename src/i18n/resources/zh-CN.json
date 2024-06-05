@@ -158,6 +158,14 @@
               },
               "remove-upgrade-button": "移除升级按钮",
               "theme": {
+                "dialog": {
+                  "button": {
+                    "cancel": "取消",
+                    "remove": "移除"
+                  },
+                  "remove-theme": "您确定要移除自定义主题？",
+                  "remove-theme-message": "此操作将移除自定义主题"
+                },
                 "label": "主题",
                 "submenu": {
                   "import-css-file": "导入自定义 CSS 文件",
