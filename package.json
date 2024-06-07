@@ -131,7 +131,7 @@
       "xml2js": "0.6.2",
       "node-fetch": "3.3.2",
       "@electron/universal": "2.0.1",
-      "@babel/runtime": "7.24.6",
+      "@babel/runtime": "7.24.7",
       "eslint": "9.4.0",
       "@typescript-eslint/parser": "8.0.0-alpha.28"
     },
