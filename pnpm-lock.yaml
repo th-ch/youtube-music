@@ -105,8 +105,8 @@ importers:
         specifier: 4.0.1
         version: 4.0.1
       electron-updater:
-        specifier: 6.1.8
-        version: 6.1.8
+        specifier: 6.2.1
+        version: 6.2.1
       fast-average-color:
         specifier: 9.4.0
         version: 9.4.0
@@ -1580,10 +1580,6 @@ packages:
     resolution: {integrity: sha512-4T53u4PdgsXqKaIctwF8ifXlRTTmEPJ8iEPWFdGZvcf7sbwYo6FKFEX9eNNAnzFZ7EzJAQ3CJeOtCRA4rDp7Pw==}
     engines: {node: '>=6.14.2'}
 
-  builder-util-runtime@9.2.3:
-    resolution: {integrity: sha512-FGhkqXdFFZ5dNC4C+yuQB9ak311rpGAw+/ASz8ZdxwODCv1GGMWgLDeofRkdi0F3VCHQEWy/aXcJQozx2nOPiw==}
-    engines: {node: '>=12.0.0'}
-
   builder-util-runtime@9.2.4:
     resolution: {integrity: sha512-upp+biKpN/XZMLim7aguUyW8s0FUpDvOtK6sbanMFDAMBzpHDqdhgVYm6zc9HJ6nWo7u2Lxk60i2M6Jd3aiNrA==}
     engines: {node: '>=12.0.0'}
@@ -2029,8 +2025,8 @@ packages:
   electron-unhandled@4.0.1:
     resolution: {integrity: sha512-6BsLnBg+i96eUnbaIFZyYdyfNX3f80/Nlfqy34YEMxXT9JP3ddNsNnUeiOF8ezN4+et4t4D37gjghKTP0V3jyw==}
 
-  electron-updater@6.1.8:
-    resolution: {integrity: sha512-hhOTfaFAd6wRHAfUaBhnAOYc+ymSGCWJLtFkw4xJqOvtpHmIdNHnXDV9m1MHC+A6q08Abx4Ykgyz/R5DGKNAMQ==}
+  electron-updater@6.2.1:
+    resolution: {integrity: sha512-83eKIPW14qwZqUUM6wdsIRwVKZyjmHxQ4/8G+1C6iS5PdDt7b1umYQyj1/qPpH510GmHEQe4q0kCPe3qmb3a0Q==}
 
   electron-vite@2.2.0:
     resolution: {integrity: sha512-WvE8KlZTiay9uWqBRvnYuxg2JqIicaNqaz9qFvsZkIae2/FmqZC5jctziyduCuuwVxqJG0Sjh8RlTwSn8xcCoQ==}
@@ -5454,13 +5450,6 @@ snapshots:
     dependencies:
       node-gyp-build: 4.8.0
 
-  builder-util-runtime@9.2.3:
-    dependencies:
-      debug: 4.3.4
-      sax: 1.3.0
-    transitivePeerDependencies:
-      - supports-color
-
   builder-util-runtime@9.2.4:
     dependencies:
       debug: 4.3.4
@@ -6019,9 +6008,9 @@ snapshots:
       lodash.debounce: 4.0.8
       serialize-error: 8.1.0
 
-  electron-updater@6.1.8:
+  electron-updater@6.2.1:
     dependencies:
-      builder-util-runtime: 9.2.3
+      builder-util-runtime: 9.2.4
       fs-extra: 10.1.0
       js-yaml: 4.1.0
       lazy-val: 1.0.5
