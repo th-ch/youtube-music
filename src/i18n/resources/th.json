@@ -8,7 +8,7 @@
         "load-all": "กำลังโหลดปลั๊กอินทั้งหมด",
         "load-failed": "ไม่สามารถโหลดปลั๊กอิน \"{{pluginName}}\"ได้",
         "loaded": "โหลดปลั๊กอิน \"{{pluginName}}\" เรียบร้อยแล้ว",
-        "unload-failed": "ไม่่สามรถโหลดปลั๊กอิน \"{{pluginName}}\"ได้",
+        "unload-failed": "ไม่สามารถโหลดปลั๊กอิน \"{{pluginName}}\"ได้",
         "unloaded": "ยกเลิกโหลดปลั๊กอิน \"{{pluginName}}\" แล้ว"
       }
     }
