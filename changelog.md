@@ -2,7 +2,15 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v3.3.12](https://github.com/th-ch/youtube-music/compare/v3.3.11...v3.3.12)
+
+- hotfix: Revert "chore(deps): update dependencies `@cliqz/adblocker-electron`, `@cliqz/adblocker-electron-preload`" [`3c4abc1`](https://github.com/th-ch/youtube-music/commit/3c4abc14187e51f7e47c1ae71b3513f6d8c9912a)
+- Update changelog for v3.3.11 [`de22444`](https://github.com/th-ch/youtube-music/commit/de224444c2a6d9030aa22a3b263ceacbc4b41914)
+- Bump version to 3.3.12 [`89ed7d2`](https://github.com/th-ch/youtube-music/commit/89ed7d2345001fea59514944f4c1d56d2b7bd888)
+
 #### [v3.3.11](https://github.com/th-ch/youtube-music/compare/v3.3.10...v3.3.11)
+
+> 8 June 2024
 
 - Revert "fix(deps): update dependency @cliqz/adblocker-electron to v1.27.10" [`#2129`](https://github.com/th-ch/youtube-music/pull/2129)
 - chore(deps): update dependency vite to v5.2.13 [`#2127`](https://github.com/th-ch/youtube-music/pull/2127)
