@@ -158,6 +158,14 @@
               },
               "remove-upgrade-button": "Upgrade-Schaltfläche entfernen",
               "theme": {
+                "dialog": {
+                  "button": {
+                    "cancel": "Abbrechen",
+                    "remove": "Entfernen"
+                  },
+                  "remove-theme": "Sind Sie sich sicher, dass Sie das benutzerdefinierte Aussehen ändern wollen?",
+                  "remove-theme-message": "Dies wird das benutzerdefinierte Aussehen löschen"
+                },
                 "label": "Thema",
                 "submenu": {
                   "import-css-file": "Importiere eigene CSS-Datei",

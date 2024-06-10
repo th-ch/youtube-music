@@ -158,6 +158,12 @@
               },
               "remove-upgrade-button": "アップグレードボタンを削除",
               "theme": {
+                "dialog": {
+                  "button": {
+                    "cancel": "キャンセル",
+                    "remove": "削除"
+                  }
+                },
                 "label": "テーマ",
                 "submenu": {
                   "import-css-file": "CSSファイルをインポート",
@@ -451,15 +457,15 @@
       },
       "menu": {
         "click-to-copy-id": "ホストIDをコピー",
-        "close": "一緒に音楽を閉じる",
-        "connected-users": "接続されているユーザー",
-        "disconnect": "一緒に音楽を切断する",
+        "close": "Music Togetherを閉じる",
+        "connected-users": "接続中のユーザー",
+        "disconnect": "Music Togetherから切断",
         "empty-user": "接続中のユーザーはいません",
-        "host": "Music Together ホスト",
-        "join": "一緒に音楽に参加",
+        "host": "Music Togetherをホスト",
+        "join": "Music Togetherに参加",
         "permission": {
-          "all": "ゲストがプレイリストとプレーヤーを制御できるようにする",
-          "host-only": "ホストのみがプレイリストとプレーヤーを制御できます",
+          "all": "ゲストの再生リストとプレーヤーを制御を許可",
+          "host-only": "ホストのみがプレイリストとプレーヤーを制御",
           "playlist": "ゲストによるプレイリストの制御を許可する"
         },
         "set-permission": "制御権限を変更",
@@ -469,20 +475,20 @@
           "host": "ホストとして接続されています"
         }
       },
-      "name": "一緒に音楽 [ベータ版]",
+      "name": "Music Together [ベータ版]",
       "toast": {
         "add-song-failed": "曲の追加に失敗しました",
-        "closed": "一緒に音楽が閉じられました",
-        "disconnected": "一緒に音楽が切断されました",
-        "host-failed": "一緒に音楽のホストに失敗しました",
+        "closed": "Music Together が閉じられました",
+        "disconnected": "Music Together が切断されました",
+        "host-failed": "Music Together のホストに失敗しました",
         "id-copied": "ホストIDがクリップボードにコピーされました",
         "id-copy-failed": "ホストIDをクリップボードにコピー出来ませんでした",
-        "join-failed": "一緒に音楽に参加出来ませんでした",
-        "joined": "一緒に音楽に参加しました",
-        "permission-changed": "一緒に音楽の権限が \"{{permission}}\" に変更されました",
+        "join-failed": "Music Together に参加出来ませんでした",
+        "joined": "Music Together に参加しました",
+        "permission-changed": "Music Togetherの権限が \"{{permission}}\" に変更されました",
         "remove-song-failed": "曲の削除に失敗しました",
-        "user-connected": "{{name}} が一緒に音楽に参加しました",
-        "user-disconnected": "{{name}} が一緒に音楽を退出しました"
+        "user-connected": "{{name}} がMusic Togetherに参加しました",
+        "user-disconnected": "{{name}} がMusic Togetherを退出しました"
       }
     },
     "navigation": {
