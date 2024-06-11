@@ -158,6 +158,14 @@
               },
               "remove-upgrade-button": "Odebrat upgrade tlačítko",
               "theme": {
+                "dialog": {
+                  "button": {
+                    "cancel": "zrušit",
+                    "remove": "Odstranit"
+                  },
+                  "remove-theme": "Jste si jisti že chcete odstranit tento vlastní motiv?",
+                  "remove-theme-message": "Tohle odstraní vlastní motiv"
+                },
                 "label": "Motiv",
                 "submenu": {
                   "import-css-file": "Vložit vlastní CSS soubor",
@@ -191,7 +199,11 @@
       "previous": "Minulý",
       "quit": "Ukončit",
       "restart": "Restartovat aplikaci",
-      "show": "Zobrazit okno"
+      "show": "Zobrazit okno",
+      "tooltip": {
+        "default": "Youtube Music",
+        "with-song-info": "Youtube Music {{Umělec}} - {{Titul}}"
+      }
     }
   },
   "plugins": {
@@ -203,15 +215,23 @@
       "name": "Blokovač reklam"
     },
     "album-actions": {
-      "description": "Přidává Undislike, Dislike, Like, a Unlike tlačítka k apply this ke všem písničkám v seznamu písniček nebo albumu.",
+      "description": "Přidává Undislike, Dislike, Like, a Unlike tlačítka k aplikování tohoto ke všem písničkám v seznamu písniček nebo albumu",
       "name": "Album akce"
     },
     "album-color-theme": {
       "description": "Používá dynamický motiv a vizuální efekty na základě palety barev alba",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "Poměr míchání barev",
+          "submenu": {
+            "percent": "{{poměr}}%"
+          }
+        }
+      },
       "name": "Motiv podle barvy Alba"
     },
     "ambient-mode": {
-      "description": "Applies bleskové efekty pomocí casting jemných barev z videa, do vašeho pozadí obrazovky.",
+      "description": "Aplikuje světelné efekty pomocí vrhání jemných barev z videa, do vašeho pozadí obrazovky",
       "menu": {
         "blur-amount": {
           "label": "Množství rozmazání",
@@ -298,6 +318,7 @@
       "prompt": {
         "options": {
           "multi-input": {
+            "fade-in-duration": "Délka Slábnutí (ms)",
             "fade-scaling": {
               "linear": "Lineární",
               "logarithmic": "Logaritmické"
