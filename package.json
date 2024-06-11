@@ -204,7 +204,7 @@
     "builtin-modules": "4.0.0",
     "cross-env": "7.0.3",
     "del-cli": "5.1.0",
-    "discord-api-types": "0.37.87",
+    "discord-api-types": "0.37.88",
     "electron": "31.0.0",
     "electron-builder": "24.13.3",
     "electron-devtools-installer": "3.2.0",
