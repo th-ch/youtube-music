@@ -2,11 +2,11 @@
   "common": {
     "console": {
       "plugins": {
-        "execute-failed": "プラグイン・{{pluginName}}:{{contextName}}を実行できませんでした",
+        "execute-failed": "プラグイン・{{pluginName}}:{{contextName}}の実行に失敗しました",
         "executed-at-ms": "プラグイン {{pluginName}}::{{contextName}} は {{ms}}ms で実行されました",
         "initialize-failed": "プラグイン \"{{pluginName}}\" の初期化に失敗",
         "load-all": "すべてのプラグインをロード中",
-        "load-failed": "プラグイン”{{pluginName}}”のロードが失敗しました",
+        "load-failed": "プラグイン”{{pluginName}}”のロードに失敗しました",
         "loaded": "プラグイン”{{pluginName}}”ロード完了",
         "unload-failed": "プラグインのアンロードに失敗 \"{{pluginName}}\"",
         "unloaded": "プラグイン {{pluginName}} がアンロードされました"
@@ -24,10 +24,10 @@
         "dev-tools": "ロード完了。デベロッパーツールが開きました"
       },
       "i18n": {
-        "loaded": "翻訳ロード完了"
+        "loaded": "i18n ロード完了"
       },
       "second-instance": {
-        "receive-command": "プロトコルより命令を受けました：”{{command}}”"
+        "receive-command": "プロトコルから命令を受けました：”{{command}}”"
       },
       "theme": {
         "css-file-not-found": "CSSファイル”{{cssFile}}”が存在しません。無視します"
@@ -51,7 +51,7 @@
       "need-to-restart": {
         "buttons": {
           "later": "あとで",
-          "restart-now": "今すぐ再起動する"
+          "restart-now": "今すぐ再起動"
         },
         "detail": "プラグイン ”{{pluginName}}” を有効にするには再起動が必要です",
         "message": "”{{pluginName}}”は再起動が必要です",
@@ -64,12 +64,12 @@
           "wait": "待つ"
         },
         "detail": "ご不便をおかけして申し訳ございません! 何をするか選んでください:",
-        "message": "アプリケーションは応答しません",
+        "message": "アプリケーションは応答していません",
         "title": "ウィンドウが応答しません"
       },
       "update-available": {
         "buttons": {
-          "disable": "更新を無効化",
+          "disable": "アップデートを無効化",
           "download": "ダウンロード",
           "ok": "OK"
         },
@@ -98,13 +98,13 @@
             "submenu": {
               "auto-reset-app-cache": "アプリの開始時にキャッシュをリセット",
               "disable-hardware-acceleration": "ハードウェアアクセラレーションの無効化",
-              "edit-config-json": "config.json を編集する",
+              "edit-config-json": "config.json を編集",
               "override-user-agent": "ユーザーエージェントの上書き",
               "restart-on-config-changes": "設定変更時に再起動",
               "set-proxy": {
-                "label": "プロキシ",
+                "label": "プロキシ設定",
                 "prompt": {
-                  "label": "プロキシのアドレスを入力: (空にすると無効化)",
+                  "label": "プロキシのアドレスを入力: (空で無効化)",
                   "placeholder": "例: SOCKS5://127.0.0.1:9999",
                   "title": "プロキシ"
                 }
@@ -162,7 +162,9 @@
                   "button": {
                     "cancel": "キャンセル",
                     "remove": "削除"
-                  }
+                  },
+                  "remove-theme": "本当にカスタムテーマを削除しますか？",
+                  "remove-theme-message": "カスタムテーマを削除します"
                 },
                 "label": "テーマ",
                 "submenu": {
@@ -475,7 +477,7 @@
           "host": "ホストとして接続されています"
         }
       },
-      "name": "Music Together [ベータ版]",
+      "name": "Music Together [ベータ]",
       "toast": {
         "add-song-failed": "曲の追加に失敗しました",
         "closed": "Music Together が閉じられました",
