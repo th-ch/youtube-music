@@ -201,18 +201,13 @@
       "restart": "I-restart ang App",
       "show": "Ipakita ang window",
       "tooltip": {
-        "default": "",
         "with-song-info": "YouTube Music: {{artist}} - {{title}}"
       }
     }
   },
   "plugins": {
     "adblocker": {
-      "description": "I-block ang lahat ng ad at tracking",
-      "menu": {
-        "blocker": ""
-      },
-      "name": ""
+      "description": "I-block ang lahat ng ad at tracking"
     },
     "album-actions": {
       "description": "Idadagdag ang Undislike, Dislike, Like, at Unlike na button para ilapat ito sa lahat ng kanta sa isang playlist o album",
@@ -222,10 +217,7 @@
       "description": "Naglalapat ng dynamic na tema at visual effect batay sa color palette ng album",
       "menu": {
         "color-mix-ratio": {
-          "label": "Ratio ng paghahalo ng kulay",
-          "submenu": {
-            "percent": ""
-          }
+          "label": "Ratio ng paghahalo ng kulay"
         }
       },
       "name": "Tema ng Kulay ng Album"
@@ -264,7 +256,6 @@
           }
         },
         "smoothness-transition": {
-          "label": "",
           "submenu": {
             "during": "Habang {{interpolationTime}} s"
           }
@@ -272,8 +263,7 @@
         "use-fullscreen": {
           "label": "Gumamit ng fullscreen"
         }
-      },
-      "name": ""
+      }
     },
     "audio-compressor": {
       "description": "Ilapat ang compression sa audio (pinababa ang volume ng pinakamalakas na bahagi ng signal at pinapataas ang volume ng pinakamalambot na bahagi)",
