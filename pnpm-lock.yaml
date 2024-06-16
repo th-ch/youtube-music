@@ -171,8 +171,8 @@ importers:
         specifier: 2.3.0
         version: 2.3.0
       youtubei.js:
-        specifier: 9.4.0
-        version: 9.4.0
+        specifier: 10.0.0
+        version: 10.0.0
     devDependencies:
       '@playwright/test':
         specifier: 1.44.1
@@ -4022,8 +4022,8 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
-  youtubei.js@9.4.0:
-    resolution: {integrity: sha512-8plCOZD2WabqWSEgZU3RjzigIIeR7sF028EERJENYrC9xO/6awpLMZfeoE1gNrNEbKcA+bzbMvonqlvBdxGdKg==}
+  youtubei.js@10.0.0:
+    resolution: {integrity: sha512-4Mmguxyw1TK1Co+gbx+41SFR55DR3OzMCdFW8OrSENjAjjOY9RDg7sKFbR+ZLsT3ga9AH1/nq+14KUItT9pPHQ==}
 
   zip-stream@4.1.1:
     resolution: {integrity: sha512-9qv4rlDiopXg4E69k+vMHjNN63YFMe9sZMrdlvKnCjlCRWeCBswPPMPUfx+ipsAWq1LXHe70RcbaHdJJpS6hyQ==}
@@ -8094,7 +8094,7 @@ snapshots:
 
   yocto-queue@0.1.0: {}
 
-  youtubei.js@9.4.0:
+  youtubei.js@10.0.0:
     dependencies:
       jintr: 1.1.0
       tslib: 2.6.2
