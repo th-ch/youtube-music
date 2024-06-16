@@ -104,7 +104,7 @@
               "set-proxy": {
                 "label": "Ustaw proxy",
                 "prompt": {
-                  "label": "Podaj adres Proxy: (zostaw pusty aby wyłączyć)",
+                  "label": "Podaj adres proxy: (zostaw pusty aby wyłączyć)",
                   "placeholder": "Przykład: SOCKS5://127.0.0.1:9999",
                   "title": "Ustaw proxy"
                 }
@@ -234,7 +234,7 @@
       "description": "Stosuje efekt świetlny, rzucając delikatne kolory z wideo na tło ekranu",
       "menu": {
         "blur-amount": {
-          "label": "Ilość rozmycia",
+          "label": "Siła rozmycia",
           "submenu": {
             "pixels": "{{blurAmount}} pikseli"
           }
@@ -344,7 +344,7 @@
         "connected": "Połączono z Discordem",
         "disconnected": "Odłączono od Discorda"
       },
-      "description": "Pokaż znajomym, czego słuchasz dzięki Rich Presence",
+      "description": "Pokaż znajomym z Discorda czego słuchasz dzięki Rich Presence",
       "menu": {
         "auto-reconnect": "Automatyczne wznawianie połączenia",
         "clear-activity": "Wyczyść aktywność",
