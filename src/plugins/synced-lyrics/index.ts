@@ -2,8 +2,6 @@ import style from './style.css?inline';
 import { createPlugin } from '@/utils';
 import { RendererContext } from '@/types/contexts';
 import { SongInfo } from '@/providers/song-info';
-import { send } from 'vite';
-import { c, i, s } from 'vite/dist/node/types.d-aGj9QkWt';
 // import { onMainLoad } from './main';
 // import { t } from '@/i18n';
 
@@ -24,7 +22,7 @@ export default createPlugin({
   description: () => 'Synced Lyrics Plugin Description',
   restartNeeded: true,
   config: {
-    enabled: false,
+    enabled: true,
     preciseTiming: true,
   } as SyncedLyricsPluginConfig,
   stylesheets: [style],
@@ -33,7 +31,8 @@ export default createPlugin({
 
     return [
       {
-        label: 'Make the lyrics perfectly synced (can have a small performance impact)',
+        label: 'Make the lyrics perfectly synced',
+        toolTip: '(can have a small performance impact)',
         type: 'checkbox',
         checked: config.preciseTiming,
         click(item) {
@@ -62,128 +61,110 @@ export default createPlugin({
   }, */
 
   backend: {
-    /* async start({ ipc, getConfig }) {
-      const config = await getConfig();
+    async start({ ipc, getConfig }) {
+    //   const config = await getConfig();
 
-      let syncedLyricList: Array<LineLyrics> = [];
-      let currentLyric: LineLyrics | null = null;
-      let nextLyric: LineLyrics | null = null;
+    //   let syncedLyricList: Array<LineLyrics> = [];
+    //   let currentLyric: LineLyrics | null = null;
+    //   let nextLyric: LineLyrics | null = null;
 
-      const extractTimeAndText = (line: string, index: number): LineLyrics|null => {
-        const match = /\[(\d+):(\d+):(\d+)\] (.+)/.exec(line);
-        if (!match) return null;
+    //   const extractTimeAndText = (line: string, index: number): LineLyrics|null => {
+    //     const match = /\[(\d+):(\d+):(\d+)\] (.+)/.exec(line);
+    //     if (!match) return null;
 
-        const minutes = parseInt(match[1]);
-        const seconds = parseInt(match[2]);
-        const milliseconds = parseInt(match[3]);
-        const text = match[4];
+    //     const minutes = parseInt(match[1]);
+    //     const seconds = parseInt(match[2]);
+    //     const milliseconds = parseInt(match[3]);
+    //     const text = match[4];
         
-        const time = `${minutes}:${seconds}:${milliseconds}`;
-        const timeInMs = (minutes * 60 * 1000) + (seconds * 1000) + milliseconds;
+    //     const time = `${minutes}:${seconds}:${milliseconds}`;
+    //     const timeInMs = (minutes * 60 * 1000) + (seconds * 1000) + milliseconds;
 
-        return {
-          index,
-          time,
-          timeInMs,
-          text,
-        }as LineLyrics;
-      }
+    //     return {
+    //       index,
+    //       time,
+    //       timeInMs,
+    //       text,
+    //     }as LineLyrics;
+    //   }
 
-      const makeLyricsRequest = async (extractedSongInfo: SongInfo): Promise<Array<LineLyrics> | null>  => {
+    //   const makeLyricsRequest = async (extractedSongInfo: SongInfo): Promise<Array<LineLyrics> | null>  => {
 
-        const songTitle = `${extractedSongInfo.title}`;
-        const songArtist = `${extractedSongInfo.artist}`;
+    //     const songTitle = `${extractedSongInfo.title}`;
+    //     const songArtist = `${extractedSongInfo.artist}`;
 
-        ipc.send('synced-lyrics:print', `Song Title: ${songTitle}, Song Artist: ${songArtist}`);
+    //     ipc.send('synced-lyrics:print', `Song Title: ${songTitle}, Song Artist: ${songArtist}`);
   
-        return await getLyricsList(songTitle, songArtist);
-      }
+    //     return await getLyricsList(songTitle, songArtist);
+    //   }
       
-      const getLyricsList = async (songTitle: string, songArtist: string): Promise<Array<LineLyrics> | null> => {
+    //   const getLyricsList = async (songTitle: string, songArtist: string): Promise<Array<LineLyrics> | null> => {
   
-        ipc.send('synced-lyrics:print', `https://lrclib.net/api/search?artist_name=${encodeURIComponent(songArtist)}&track_name=${encodeURIComponent(songTitle)}`);
-        const response = await fetch(
-          `https://lrclib.net/api/search?artist_name=${encodeURIComponent(songArtist)}&track_name=${encodeURIComponent(songTitle)}`,
-        );
-        if (!response.ok)
-          return null;
+    //     ipc.send('synced-lyrics:print', `https://lrclib.net/api/search?artist_name=${encodeURIComponent(songArtist)}&track_name=${encodeURIComponent(songTitle)}`);
+    //     const response = await fetch(
+    //       `https://lrclib.net/api/search?artist_name=${encodeURIComponent(songArtist)}&track_name=${encodeURIComponent(songTitle)}`,
+    //     );
+    //     if (!response.ok)
+    //       return null;
   
-        return await response.json().then((data: any) => {
-          ipc.send('synced-lyrics:print', `Response: ${data}`);  
-          if (data.length === 0) return null;
+    //     return await response.json().then((data: any) => {
+    //       ipc.send('synced-lyrics:print', `Response: ${data}`);  
+    //       if (data.length === 0) return null;
 
-          data[0]['syncedLyrics'].forEach((line: string, index: number) => {
-            const syncedLyrics = extractTimeAndText(line, index);
-            if (syncedLyrics)
-              syncedLyricList.push(syncedLyrics);
-          });
+    //       data[0]['syncedLyrics'].forEach((line: string, index: number) => {
+    //         const syncedLyrics = extractTimeAndText(line, index);
+    //         if (syncedLyrics)
+    //           syncedLyricList.push(syncedLyrics);
+    //       });
 
-          return syncedLyricList;
+    //       return syncedLyricList;
           
-        });
-      };
+    //     });
+    //   };
 
-      ipc.on('ytmd:update-song-info', async (extractedSongInfo: SongInfo) => {
-        console.log("Song Info: ", extractedSongInfo);
-        ipc.send('synced-lyrics:print', extractedSongInfo);
+    //   ipc.on('ytmd:update-song-info', async (extractedSongInfo: SongInfo) => {
+    //     console.log("Song Info: ", extractedSongInfo);
+    //     ipc.send('synced-lyrics:print', extractedSongInfo);
 
-        const p = await makeLyricsRequest(extractedSongInfo);
+    //     const p = await makeLyricsRequest(extractedSongInfo);
 
-        ipc.send('synced-lyrics:print', p);   
-      });
+    //     ipc.send('synced-lyrics:print', p);   
+    //   });
 
 
-      const secToMilisec = (t: number) => Math.round(Number(t) * 1e3);
-      let currentTime = 0;
-      let interval: NodeJS.Timeout | null = null;
+    //   const secToMilisec = (t: number) => Math.round(Number(t) * 1e3);
+    //   let currentTime = 0;
+    //   let interval: NodeJS.Timeout | null = null;
 
       ipc.on('ytmd:player-api-loaded', () =>
         ipc.send('ytmd:setup-time-changed-listener'),
       );
       
       ipc.on('ytmd:time-changed', (t: number) => {
-
-        if (config.preciseTiming) {
-          currentTime = secToMilisec(t);
-          clearInterval(interval!);
-          interval = setInterval(() => {
-
-            currentTime += 10;
-            changeActualLyric(currentTime);
-            console.log(currentTime);
-
-          }, 10);
-        } 
-        else {
-          clearInterval(interval!);
-          currentTime = secToMilisec(t);
-          changeActualLyric(currentTime);
-          console.log(currentTime);
-        }
-
+        ipc.send('synced-lyrics:setTime', t);
       });
 
-      const changeActualLyric = (time: number): LineLyrics|void => {
+    //   const changeActualLyric = (time: number): LineLyrics|void => {
         
-        if (!currentLyric) {
-          currentLyric = syncedLyricList[0];
-          nextLyric = syncedLyricList[1];
-          ipc.send('synced-lyrics:print', currentLyric);
-          return;
-        }
+    //     if (!currentLyric) {
+    //       currentLyric = syncedLyricList[0];
+    //       nextLyric = syncedLyricList[1];
+    //       ipc.send('synced-lyrics:print', currentLyric);
+    //       return;
+    //     }
 
-        if (nextLyric && time >= nextLyric.timeInMs) {
-          currentLyric = nextLyric;
-          nextLyric = syncedLyricList[currentLyric.index + 1];
-          //console.log(currentLyric.text);
-          ipc.send('synced-lyrics:print', currentLyric);
-          return;
-        }
+    //     if (nextLyric && time >= nextLyric.timeInMs) {
+    //       currentLyric = nextLyric;
+    //       nextLyric = syncedLyricList[currentLyric.index + 1];
+    //       //console.log(currentLyric.text);
+    //       ipc.send('synced-lyrics:print', currentLyric);
+    //       return;
+    //     }
 
-      }
+    //   }
       
     
-    }, */
+    },
     onConfigChange: () => {
       console.warn('Synced Lyrics Plugin Config Changed HEREEEEEEEEEEEE')
     }
@@ -191,7 +172,7 @@ export default createPlugin({
 
   renderer: async ({
     getConfig,
-    ipc: { /* invoke, */ on, send },
+    ipc: { invoke, on, send },
   }: RendererContext<SyncedLyricsPluginConfig>) => {
 
   
@@ -212,7 +193,7 @@ export default createPlugin({
       const minutes = parseInt(match[1]);
       const seconds = parseInt(match[2]);
       const milliseconds = parseInt(match[3]);
-      const text = match[4];
+      const text = match[4].toString().slice(0) ??= '♪';
       
       const time = `${minutes}:${seconds}:${milliseconds}`;
       const timeInMs = (minutes * 60 * 1000) + (seconds * 1000) + milliseconds;
@@ -258,10 +239,10 @@ export default createPlugin({
       currentLyric = null;
       nextLyric = null;
 
-      setTimeout(async () => {
+      //setTimeout(async () => {
         const p = await makeLyricsRequest(extractedSongInfo);
         console.log(p);
-      }, 500);
+      //}, 500);
     });
 
 
@@ -269,9 +250,10 @@ export default createPlugin({
     let currentTime = 0;
     let interval: NodeJS.Timeout | null = null;
 
-    on('ytmd:player-api-loaded', () =>
-      send('ytmd:setup-time-changed-listener'),
-    );
+    /* on('ytmd:player-api-loaded', () => {
+      console.log('Player API Loaded');
+      send('ytmd:setup-time-changed-listener')
+    });
     
     on('ytmd:time-changed', (t: number) => {
       console.log(t);
@@ -294,6 +276,25 @@ export default createPlugin({
         console.log(currentTime);
       }
 
+    }); */
+
+    on('synced-lyrics:setTime', (t: number) => {
+
+      if (config.preciseTiming) {
+        currentTime = secToMilisec(t);
+        clearInterval(interval!);
+        interval = setInterval(() => {
+
+          currentTime += 10;
+          changeActualLyric(currentTime);
+
+        }, 10);
+      } 
+      else {
+        clearInterval(interval!);
+        currentTime = secToMilisec(t);
+        changeActualLyric(currentTime);
+      }
     });
 
     const changeActualLyric = (time: number): LineLyrics|void => {
