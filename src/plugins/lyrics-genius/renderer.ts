@@ -77,6 +77,7 @@ export const onRendererLoad = ({
           applyLyricsTabState();
         }
       };
+      
       const applyLyricsTabState = () => {
         if (lyrics) {
           tabs.lyrics.removeAttribute('disabled');
@@ -86,6 +87,7 @@ export const onRendererLoad = ({
           tabs.lyrics.setAttribute('aria-disabled', '');
         }
       };
+
       const lyricsTabHandler = () => {
         const tabContainer = document.querySelector('ytmusic-tab-renderer');
         if (!tabContainer) return;
