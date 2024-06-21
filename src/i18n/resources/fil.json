@@ -354,6 +354,7 @@
             "title": "Nagkaroon ng error sa pag-download!"
           },
           "start-download-playlist": {
+            "detail": "({{playlistSize}} na mga kanta)",
             "message": "Dina-download ang Playlist na {{playlistTitle}}",
             "title": "Nasimulan na ang pag-download"
           }
