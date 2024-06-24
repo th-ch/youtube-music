@@ -228,28 +228,37 @@ export default createPlugin({
     
 
     
-    const setLyrics = (lyricsContainer: Element, lyrics: string | null) => {
-      lyricsContainer.innerHTML = `
-        <div id="contents" class="style-scope ytmusic-section-list-renderer description ytmusic-description-shelf-renderer genius-lyrics">
-          ${
-            lyrics?.replaceAll(/\r\n|\r|\n/g, '<br/>') ??
-            'Could not retrieve lyrics from genius'
-          }
-        </div>
-        <yt-formatted-string class="footer style-scope ytmusic-description-shelf-renderer" style="align-self: baseline">
-        </yt-formatted-string>
-      `;
-  
+    const setLyrics = (lyricsContainer: Element, lyrics: Array<LineLyrics> | null) => {
+      let lineList = [];
       if (lyrics) {
         const footer = lyricsContainer.querySelector('.footer');
-  
-        if (footer) {
-          footer.textContent = 'Source: Genius';
+
+        for(let i = 0; i < syncedLyricList.length; i++) {
+          const line = syncedLyricList[i];
+          lineList.push(`
+            <div class="line ${line.status}" data-index="${line.index}">
+              <span class="time">${line.time}</span>
+              <span class="text">${line.text}</span>
+            </div>
+          `);
         }
+
+        lyricsContainer.innerHTML = `
+          <div id="contents" class="style-scope ytmusic-section-list-renderer description ytmusic-description-shelf-renderer synced-lyrics">
+            ${
+              // lyrics?.replaceAll(/\r\n|\r|\n/g, '<br/>') ??
+              // 'Could not retrieve lyrics from genius'
+              lineList.join('')
+            }
+          </div>
+          <yt-formatted-string class="footer style-scope ytmusic-description-shelf-renderer" style="align-self: baseline">
+          </yt-formatted-string>
+        `;
+
+        if (footer) 
+          footer.textContent = 'Source: LRCLIB';
       }
     };
-  
-    let unregister: (() => void) | null = null;
 
     /* on('ytmd:update-song-info', async (extractedSongInfo: SongInfo) => {
       syncedLyricList = [];
@@ -261,33 +270,55 @@ export default createPlugin({
         console.log(p);
       }, 500);
     }); */
+
+    let unregister: (() => void) | null = null;
+    let timeout: NodeJS.Timeout | null = null;
   
     on('ytmd:update-song-info', (extractedSongInfo: SongInfo) => {
-      //unregister?.();
+      unregister?.();
 
+      clearTimeout(timeout!);
       syncedLyricList = [];
       currentLyric = null;
       nextLyric = null;
-  
-      setTimeout(async () => {
-        let songWithLyrics: boolean = false;
-        const tabList = document.querySelectorAll<HTMLElement>('tp-yt-paper-tab');
-        const tabs = {
-          upNext: tabList[0],
-          lyrics: tabList[1],
-          discover: tabList[2],
-        };
-  
-        // Check if disabled
-        if (!tabs.lyrics?.hasAttribute('disabled')) return;
 
-        if (!tabs.lyrics?.hasAttribute('aria-disabled')) songWithLyrics = true;
+      let songWithLyrics: boolean = true;
+      const tabList = document.querySelectorAll<HTMLElement>('tp-yt-paper-tab');
+      const tabs = {
+        upNext: tabList[0],
+        lyrics: tabList[1],
+        discover: tabList[2],
+      };
+
+      // If not disabled, return (if enabled, return)
+      //if (!tabs.lyrics?.hasAttribute('disabled')) return;
+
+      if (tabs.lyrics?.getAttribute('aria-disabled') === 'true') songWithLyrics = false;
+  
+      timeout = setTimeout(async () => {
+        // let songWithLyrics: boolean = true;
+        // const tabList = document.querySelectorAll<HTMLElement>('tp-yt-paper-tab');
+        // const tabs = {
+        //   upNext: tabList[0],
+        //   lyrics: tabList[1],
+        //   discover: tabList[2],
+        // };
+  
+        // If not disabled, return (if enabled, return)
+        //if (!tabs.lyrics?.hasAttribute('disabled')) return;
+
+        // if (tabs.lyrics?.getAttribute('aria-disabled') === 'true') songWithLyrics = false;
   
         // const lyrics = (await invoke(
         //   'search-genius-lyrics',
         //   extractedSongInfo,
         // )) as string | null;
-        const lyrics = 'BONJOUR\nLES\nAMIS\nDE\nLA\nMUSIQUE\n♥'
+
+        const lyrics = await makeLyricsRequest(extractedSongInfo);
+        console.log("LYRICS", lyrics);
+
+        //const lyrics = 'BONJOUR\nLES\nAMIS\nDE\nLA\nMUSIQUE\n♥'
+        //const lyrics = null;
   
         if (!lyrics) {
           // Delete previous lyrics if tab is open and couldn't get new lyrics
@@ -300,13 +331,14 @@ export default createPlugin({
           console.log('tryToInjectLyric');
 
           let lyricsContainer: Element | null = null;
+          console.log(songWithLyrics);
           if (songWithLyrics) {
             lyricsContainer = document.querySelector( // Already has lyrics
-              //'[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"].ytmusic-tab-renderer > ytmusic-description-shelf-renderer[split-line]',
+              //'[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"].ytmusic-tab-renderer > .ytmusic-description-shelf-renderer[split-line]',
               //'ytmusic-section-list-renderer[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"].ytmusic-tab-renderer > .ytmusic-section-list-renderer',
               //'ytmusic-tab-renderer > ytmusic-section-list-renderer[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"].ytmusic-tab-renderer',
-              //'#tab-renderer > ytmusic-section-list-renderer[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"]'
-              '#tab-renderer'
+              '#tab-renderer > ytmusic-section-list-renderer[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"]'
+              //'#tab-renderer'
             );
           } 
           else {
@@ -317,30 +349,7 @@ export default createPlugin({
 
           //ytmusic-tab-renderer
 
-/*           <yt-formatted-string class="non-expandable description style-scope ytmusic-description-shelf-renderer" split-lines="">It's mechanical
-No further use for this camera's roll
-Or so they said when the
-Lights were low
-It's a novelty
-No more than magic and trickery
-There's more to see
-
-It's so talentless
-You think you're special, well
-You aren't the best
-It's a wretched trend
-Won't last no longer than this
-Summer's end
-Oh...
-
-Oh, but I see
-An essence is revealed
-Thoughts beyond my
-Own reality
-Exposing your mind
-A new angle to see
-What will I find
-These fragments mean to me?</yt-formatted-string> */
+          /*<yt-formatted-string class="non-expandable description style-scope ytmusic-description-shelf-renderer" split-lines=""> </yt-formatted-string> */
 
           console.log(lyricsContainer);
   
@@ -355,11 +364,13 @@ These fragments mean to me?</yt-formatted-string> */
         const applyLyricsTabState = () => {
           console.log('applyLyricsTabState');
           if (lyrics) {
+            // tabs.lyrics.setAttribute('disabled', 'false');
+            tabs.lyrics.setAttribute('aria-disabled', 'false');
             tabs.lyrics.removeAttribute('disabled');
-            tabs.lyrics.removeAttribute('aria-disabled');
+            //tabs.lyrics.removeAttribute('aria-disabled');
           } else {
-            tabs.lyrics.setAttribute('disabled', '');
-            tabs.lyrics.setAttribute('aria-disabled', '');
+            tabs.lyrics.setAttribute('disabled', 'true');
+            tabs.lyrics.setAttribute('aria-disabled', 'true');
           }
         };
   
@@ -368,6 +379,14 @@ These fragments mean to me?</yt-formatted-string> */
           const tabContainer = document.querySelector('ytmusic-tab-renderer');
           console.log(tabContainer);
           if (!tabContainer) return;
+
+          /* if (lyrics) {
+            tabs.lyrics.removeAttribute('disabled');
+            tabs.lyrics.removeAttribute('aria-disabled');
+          } else {
+            tabs.lyrics.setAttribute('disabled', '');
+            tabs.lyrics.setAttribute('aria-disabled', '');
+          } */
   
           const observer = new MutationObserver((_, observer) => {
             tryToInjectLyric(() => observer.disconnect());
@@ -380,7 +399,7 @@ These fragments mean to me?</yt-formatted-string> */
           });
         };
   
-        
+        //applyLyricsTabState();
   
         tabs.discover.addEventListener('click', () => {
           console.log('discover clicked');
@@ -398,16 +417,25 @@ These fragments mean to me?</yt-formatted-string> */
           
         });
 
-        applyLyricsTabState();
+        const removeAllEventListeners = (element: HTMLElement) => {
+          let clonedElement = element.cloneNode(true);
+          element.parentNode!.replaceChild(clonedElement, element); // Replace the original element with the clone
+          return clonedElement;
+        }
+        
   
         tryToInjectLyric();
   
         unregister = () => {
+          console.warn('unregistered');
           tabs.discover.removeEventListener('click', applyLyricsTabState);
           tabs.lyrics.removeEventListener('click', lyricsTabHandler);
           tabs.upNext.removeEventListener('click', applyLyricsTabState);
+          // removeAllEventListeners(tabs.discover);
+          // removeAllEventListeners(tabs.lyrics);
+          // removeAllEventListeners(tabs.upNext);
         };
-      }, 500);
+      }, 1);
 
     });
     
