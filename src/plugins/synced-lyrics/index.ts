@@ -1,14 +1,18 @@
 import style from './style.css?inline';
 import { createPlugin } from '@/utils';
-import { RendererContext } from '@/types/contexts';
+import { MenuContext, RendererContext } from '@/types/contexts';
 import { SongInfo } from '@/providers/song-info';
+import { MenuItemConstructorOptions } from 'electron';
+import { Lines } from '@foobar404/wave/dist/src/animations/Lines';
 // import { onMainLoad } from './main';
 // import { t } from '@/i18n';
 
 export type SyncedLyricsPluginConfig = {
   enabled: boolean;
   preciseTiming: boolean;
-  noTextString: string;
+  showTimeCodes: boolean;
+  DefaultTextString: string;
+  showLyricsEvenIfInexact: boolean;
 };
 
 export type LineLyricsStatus = 'previous' | 'current' | 'upcoming';
@@ -33,12 +37,14 @@ export default createPlugin({
   config: {
     enabled: true,
     preciseTiming: true,
-    noTextString: '♪',
+    showLyricsEvenIfInexact: true,
+    showTimeCodes: false,
+    DefaultTextString: '♪',
   } as SyncedLyricsPluginConfig,
   stylesheets: [style],
-  async menu({ getConfig, setConfig }) {
+  async menu({ getConfig, setConfig }: MenuContext<SyncedLyricsPluginConfig>): Promise<MenuItemConstructorOptions[]> {
     const config = await getConfig();
-
+  
     return [
       {
         label: 'Make the lyrics perfectly synced',
@@ -50,6 +56,85 @@ export default createPlugin({
             preciseTiming: item.checked,
           });
         },
+      },
+      {
+        label: 'Show time codes',
+        toolTip: 'Show the time codes next to the lyrics',
+        type: 'checkbox',
+        checked: config.showTimeCodes,
+        click(item) {
+          setConfig({
+            showTimeCodes: item.checked,
+          });
+        },
+      },
+      {
+        label: 'Show lyrics even if inexact',
+        toolTip: 'If the song is not found, the plugin tries again with a different search query.\nThe result from the second attempt may not be exact.',
+        type: 'checkbox',
+        checked: config.showLyricsEvenIfInexact,
+        click(item) {
+          setConfig({
+            showLyricsEvenIfInexact: item.checked,
+          });
+        },
+      },
+      {
+        label: 'Default Espacement For Lyrics',
+        toolTip: 'Choose the default string to use for the espacement of the lyrics',
+        type: 'submenu',
+        submenu: [
+          {
+            label: '♪',
+            type: 'radio',
+            checked: config.DefaultTextString === '♪',
+            click() {
+              setConfig({
+                DefaultTextString: '♪',
+              });
+            },
+          },
+          {
+            label: '[SPACE]',
+            type: 'radio',
+            checked: config.DefaultTextString === ' ',
+            click() {
+              setConfig({
+                DefaultTextString: ' ',
+              });
+            },
+          },
+          {
+            label: '...',
+            type: 'radio',
+            checked: config.DefaultTextString === '...',
+            click() {
+              setConfig({
+                DefaultTextString: '...',
+              });
+            },
+          },
+          {
+            label: '———',
+            type: 'radio',
+            checked: config.DefaultTextString === '———',
+            click() {
+              setConfig({
+                DefaultTextString: '———',
+              });
+            },
+          },
+          {
+            label: '[BACKSPACE]',
+            type: 'radio',
+            checked: config.DefaultTextString === '\n',
+            click() {
+              setConfig({
+                DefaultTextString: '\n',
+              });
+            },
+          },
+        ],
       },
     ];
   },
@@ -76,19 +161,14 @@ export default createPlugin({
 
   renderer: async ({
     getConfig,
-    ipc: { on, invoke },
+    ipc: { on },
   }: RendererContext<SyncedLyricsPluginConfig>) => {
-
-  
-    //let unregister: (() => void) | null = null;
-
-    on('synced-lyrics:print', (t: string) => console.log(t));
-
     const config = await getConfig();
 
     let syncedLyricList: Array<LineLyrics> = [];
     let currentLyric: LineLyrics | null = null;
     let nextLyric: LineLyrics | null = null;
+    let hadSecondAttempt: boolean = false;
 
     const extractTimeAndText = (line: string, index: number): LineLyrics|null => {
       const match = /\[(\d+):(\d+)\.(\d+)\](.+)/.exec(line);
@@ -97,7 +177,7 @@ export default createPlugin({
       const minutes = parseInt(match[1]);
       const seconds = parseInt(match[2]);
       const milliseconds = parseInt(match[3]);
-      const text = match[4] === ' ' ? config.noTextString : match[4].slice(1);
+      const text = match[4] === ' ' ? config.DefaultTextString : match[4].slice(1);
       
       const time = `${minutes}:${seconds}:${milliseconds}`;
       const timeInMs = (minutes * 60 * 1000) + (seconds * 1000) + milliseconds;
@@ -115,24 +195,29 @@ export default createPlugin({
       const songTitle = `${extractedSongInfo.title}`;
       const songArtist = `${extractedSongInfo.artist}`;
       const songAlbum = extractedSongInfo.album ? `${extractedSongInfo.album}` : undefined;
+      const songDuration = extractedSongInfo.songDuration;
       
-      return await getLyricsList(songTitle, songArtist, songAlbum);
+      return await getLyricsList(songTitle, songArtist, songAlbum, songDuration);
     }
     
-    const getLyricsList = async (songTitle: string, songArtist: string, songAlbum: string|undefined): Promise<Array<LineLyrics> | null> => {
-
+    const getLyricsList = async (songTitle: string, songArtist: string, songAlbum: string|undefined, songDuration: number): Promise<Array<LineLyrics> | null> => {
       let url =  `https://lrclib.net/api/search?artist_name=${encodeURIComponent(songArtist)}&track_name=${encodeURIComponent(songTitle)}`
       if (songAlbum !== undefined) url += `&album_name=${encodeURIComponent(songAlbum)}`;
-
-      console.log(url);
 
       const response = await fetch(url);
       if (!response.ok)
         return null;
 
-      return await response.json().then((data: any) => { 
+      return await response.json().then(async (data: any) => { 
         let dataIndex: number = 0;
-        if (!data.length) return null;
+        if (!data.length && config.showLyricsEvenIfInexact) { //If no lyrics are found, try again with a different search query
+          hadSecondAttempt = true;
+          const secondResponse = await fetch(`https://lrclib.net/api/search?q=${encodeURIComponent(songTitle)}`);
+          if (!secondResponse.ok) return null;
+          data = await secondResponse.json();
+        }
+        else if (!data.length) 
+          return null;
 
         for (let i = 0; i < data.length; i++) {
           if (data[i].syncedLyrics && !data[i].instrumental) {
@@ -143,6 +228,7 @@ export default createPlugin({
         }
 
         if (data[dataIndex].instrumental) return null;
+        if (hadSecondAttempt && Math.abs(data[dataIndex].duration - songDuration) > 5) return null;
 
         let raw = data[dataIndex].syncedLyrics.split('\n') //Separate the lyrics into lines
         raw.unshift('[0:0.0] ') //Add a blank line at the beginning
@@ -191,7 +277,7 @@ export default createPlugin({
         currentLyric = syncedLyricList[0];
         nextLyric = syncedLyricList[1];
         currentLyric.status = 'current';
-        console.log(currentLyric);
+        styleLyrics(currentLyric);        
         return;
       }
 
@@ -200,7 +286,7 @@ export default createPlugin({
         currentLyric = nextLyric;
         nextLyric = syncedLyricList[currentLyric.index + 1];
         currentLyric.status = 'current';
-        console.log(currentLyric);
+        styleLyrics(currentLyric);
         return;
       }
 
@@ -210,22 +296,49 @@ export default createPlugin({
           syncedLyricList[i].status = 'upcoming';
 
           if (syncedLyricList[i].timeInMs < time) {
+            clearInterval(interval!);
             currentLyric.status = 'previous';
             currentLyric = syncedLyricList[i];
             nextLyric = syncedLyricList[i + 1];
             currentLyric.status = 'current';
-            console.log(currentLyric);
+            styleLyrics(currentLyric);
             return;
           }
         }
-
-        console.log(syncedLyricList);
       }
 
     }
       
     
-    
+    //on('synced-lyrics:styleLyrics', (actualLyric: LineLyrics) => {
+    const styleLyrics = (actualLyric: LineLyrics) => {
+      const lyrics = document.querySelectorAll('.synced-line');
+      
+      const setStatus = (lyric: Element, status: LineLyricsStatus) => {
+        lyric.classList.remove('current');
+        lyric.classList.remove('previous');
+        lyric.classList.remove('upcoming');
+        lyric.classList.add(status);
+      }
+
+      lyrics.forEach((lyric: Element) => {
+        const index = parseInt(lyric.getAttribute('data-index')!);
+        if (index === actualLyric.index)
+          setStatus(lyric, 'current');
+        else if (index < actualLyric.index)
+          setStatus(lyric, 'previous');
+        else 
+          setStatus(lyric, 'upcoming');
+      });
+
+
+      const container = document.querySelector<HTMLElement>('#tab-renderer.scroller scroller-on-hover');
+      const targetElement = document.querySelector<HTMLElement>('.current');
+
+      if (targetElement && container) {
+        container.scrollTop = targetElement.offsetTop - container.offsetTop;
+      }
+    };
 
     
     const setLyrics = (lyricsContainer: Element, lyrics: Array<LineLyrics> | null) => {
@@ -233,18 +346,19 @@ export default createPlugin({
       if (lyrics) {
         const footer = lyricsContainer.querySelector('.footer');
 
-        for(let i = 0; i < syncedLyricList.length; i++) {
+        let lyricsBegin = syncedLyricList[1].timeInMs < 1000 ? 1 : 0; //If the first real lyric is before 1 second, we skip the first blank line
+        for(let i = lyricsBegin; i < syncedLyricList.length; i++) {
           const line = syncedLyricList[i];
           lineList.push(`
-            <div class="line ${line.status}" data-index="${line.index}">
-              <span class="time">${line.time}</span>
-              <span class="text">${line.text}</span>
+            <div class="synced-line ${line.status}" data-index="${line.index}">
+              <span class="text-lyrics">${config.showTimeCodes ? `[${line.time}] ` : ''}${line.text}</span>
             </div>
           `);
         }
 
         lyricsContainer.innerHTML = `
           <div id="contents" class="style-scope ytmusic-section-list-renderer description ytmusic-description-shelf-renderer synced-lyrics">
+            ${hadSecondAttempt ? '<div class="warning-lyrics">The lyrics for this song may not be exact</div>' : ''}
             ${
               // lyrics?.replaceAll(/\r\n|\r|\n/g, '<br/>') ??
               // 'Could not retrieve lyrics from genius'
@@ -260,17 +374,6 @@ export default createPlugin({
       }
     };
 
-    /* on('ytmd:update-song-info', async (extractedSongInfo: SongInfo) => {
-      syncedLyricList = [];
-      currentLyric = null;
-      nextLyric = null;
-
-      setTimeout(async () => {
-        const p = await makeLyricsRequest(extractedSongInfo);
-        console.log(p);
-      }, 500);
-    }); */
-
     let unregister: (() => void) | null = null;
     let timeout: NodeJS.Timeout | null = null;
   
@@ -281,6 +384,7 @@ export default createPlugin({
       syncedLyricList = [];
       currentLyric = null;
       nextLyric = null;
+      hadSecondAttempt = false;
 
       let songWithLyrics: boolean = true;
       const tabList = document.querySelectorAll<HTMLElement>('tp-yt-paper-tab');
@@ -291,54 +395,23 @@ export default createPlugin({
       };
 
       // If not disabled, return (if enabled, return)
-      //if (!tabs.lyrics?.hasAttribute('disabled')) return;
+      // if (!tabs.lyrics?.hasAttribute('disabled')) return;
 
       if (tabs.lyrics?.getAttribute('aria-disabled') === 'true') songWithLyrics = false;
   
       timeout = setTimeout(async () => {
-        // let songWithLyrics: boolean = true;
-        // const tabList = document.querySelectorAll<HTMLElement>('tp-yt-paper-tab');
-        // const tabs = {
-        //   upNext: tabList[0],
-        //   lyrics: tabList[1],
-        //   discover: tabList[2],
-        // };
-  
-        // If not disabled, return (if enabled, return)
-        //if (!tabs.lyrics?.hasAttribute('disabled')) return;
-
-        // if (tabs.lyrics?.getAttribute('aria-disabled') === 'true') songWithLyrics = false;
-  
-        // const lyrics = (await invoke(
-        //   'search-genius-lyrics',
-        //   extractedSongInfo,
-        // )) as string | null;
 
         const lyrics = await makeLyricsRequest(extractedSongInfo);
-        console.log("LYRICS", lyrics);
-
-        //const lyrics = 'BONJOUR\nLES\nAMIS\nDE\nLA\nMUSIQUE\n♥'
-        //const lyrics = null;
-  
-        if (!lyrics) {
-          // Delete previous lyrics if tab is open and couldn't get new lyrics
+        if (!lyrics) { // Delete previous lyrics if tab is open and couldn't get new lyrics
           tabs.upNext.click();
-  
           return;
         }
   
         const tryToInjectLyric = (callback?: () => void) => {
-          console.log('tryToInjectLyric');
-
           let lyricsContainer: Element | null = null;
-          console.log(songWithLyrics);
           if (songWithLyrics) {
             lyricsContainer = document.querySelector( // Already has lyrics
-              //'[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"].ytmusic-tab-renderer > .ytmusic-description-shelf-renderer[split-line]',
-              //'ytmusic-section-list-renderer[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"].ytmusic-tab-renderer > .ytmusic-section-list-renderer',
-              //'ytmusic-tab-renderer > ytmusic-section-list-renderer[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"].ytmusic-tab-renderer',
               '#tab-renderer > ytmusic-section-list-renderer[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"]'
-              //'#tab-renderer'
             );
           } 
           else {
@@ -347,12 +420,6 @@ export default createPlugin({
             );
           }
 
-          //ytmusic-tab-renderer
-
-          /*<yt-formatted-string class="non-expandable description style-scope ytmusic-description-shelf-renderer" split-lines=""> </yt-formatted-string> */
-
-          console.log(lyricsContainer);
-  
           if (lyricsContainer) {
             callback?.();
   
@@ -362,12 +429,9 @@ export default createPlugin({
         };
         
         const applyLyricsTabState = () => {
-          console.log('applyLyricsTabState');
           if (lyrics) {
-            // tabs.lyrics.setAttribute('disabled', 'false');
             tabs.lyrics.setAttribute('aria-disabled', 'false');
             tabs.lyrics.removeAttribute('disabled');
-            //tabs.lyrics.removeAttribute('aria-disabled');
           } else {
             tabs.lyrics.setAttribute('disabled', 'true');
             tabs.lyrics.setAttribute('aria-disabled', 'true');
@@ -375,18 +439,8 @@ export default createPlugin({
         };
   
         const lyricsTabHandler = () => {
-          console.log('lyrics tab clicked');
           const tabContainer = document.querySelector('ytmusic-tab-renderer');
-          console.log(tabContainer);
           if (!tabContainer) return;
-
-          /* if (lyrics) {
-            tabs.lyrics.removeAttribute('disabled');
-            tabs.lyrics.removeAttribute('aria-disabled');
-          } else {
-            tabs.lyrics.setAttribute('disabled', '');
-            tabs.lyrics.setAttribute('aria-disabled', '');
-          } */
   
           const observer = new MutationObserver((_, observer) => {
             tryToInjectLyric(() => observer.disconnect());
@@ -402,27 +456,17 @@ export default createPlugin({
         //applyLyricsTabState();
   
         tabs.discover.addEventListener('click', () => {
-          console.log('discover clicked');
           applyLyricsTabState();
           
         });
         tabs.lyrics.addEventListener('click', () => {
-          console.log('lyrics clicked');
           lyricsTabHandler();
           
         });
         tabs.upNext.addEventListener('click', () => {
-          console.log('upNext clicked');
           applyLyricsTabState();
           
-        });
-
-        const removeAllEventListeners = (element: HTMLElement) => {
-          let clonedElement = element.cloneNode(true);
-          element.parentNode!.replaceChild(clonedElement, element); // Replace the original element with the clone
-          return clonedElement;
-        }
-        
+        });        
   
         tryToInjectLyric();
   
@@ -431,9 +475,6 @@ export default createPlugin({
           tabs.discover.removeEventListener('click', applyLyricsTabState);
           tabs.lyrics.removeEventListener('click', lyricsTabHandler);
           tabs.upNext.removeEventListener('click', applyLyricsTabState);
-          // removeAllEventListeners(tabs.discover);
-          // removeAllEventListeners(tabs.lyrics);
-          // removeAllEventListeners(tabs.upNext);
         };
       }, 1);
 
