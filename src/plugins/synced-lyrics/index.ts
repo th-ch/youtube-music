@@ -214,22 +214,45 @@ export default createPlugin({
           const secondResponse = await fetch(`https://lrclib.net/api/search?q=${encodeURIComponent(songTitle)}`);
           if (!secondResponse.ok) return null;
           console.log('Second attempt');
-          console.log(`https://lrclib.net/api/search?q=${encodeURIComponent(songTitle)}`, await secondResponse.json);
           data = await secondResponse.json();
         }
         else if (!data.length) 
           return null;
 
-        for (let i = 0; i < data.length; i++) {
+        
+        /* for (let i = 0; i < data.length; i++) {
           if (data[i].syncedLyrics && !data[i].instrumental) {
-            dataIndex = i;
-            break;
+            if(songArtist.includes(data[i].artistName)) { //If the artist name is in the songArtist, we can stop searching
+              dataIndex = i;
+              break;
+            };
+            if (Math.abs(data[i].duration - songDuration) < Math.abs(data[dataIndex].duration - songDuration)) {
+              dataIndex = i;
+            }
           }
-          return null;
+        } */
+
+        //same as the commented code above
+        let songsWithMatchingArtist = data.filter((song: any) => songArtist.includes(song.artistName));
+        console.log(songsWithMatchingArtist);
+        if (!songsWithMatchingArtist.length) return null;
+        dataIndex = 0;
+        if (songsWithMatchingArtist.length > 1) {
+          for (let i = 0; i < songsWithMatchingArtist.length; i++) {
+            if (Math.abs(songsWithMatchingArtist[i].duration - songDuration) < Math.abs(songsWithMatchingArtist[dataIndex].duration - songDuration)) {
+              dataIndex = i;
+            }
+          }
         }
 
-        if (data[dataIndex].instrumental) return null;
-        if (hadSecondAttempt && Math.abs(data[dataIndex].duration - songDuration) > 5) return null;
+        data = songsWithMatchingArtist;
+
+        console.log(data)
+        console.log(dataIndex, data[dataIndex]);
+        if (Math.abs(data[dataIndex].duration - songDuration) > 5) {
+          console.log('big difference', Math.abs(data[dataIndex].duration - songDuration) > 5);
+          return null
+        };
 
         let raw = data[dataIndex].syncedLyrics.split('\n') //Separate the lyrics into lines
         raw.unshift('[0:0.0] ') //Add a blank line at the beginning
@@ -429,7 +452,9 @@ export default createPlugin({
         };
         
         const applyLyricsTabState = () => {
+          console.log(lyrics !== null, songWithLyrics, lyrics !== null || songWithLyrics);
           if (lyrics !== null || songWithLyrics) {
+            tabs.lyrics.style.display = 'block'; //specific case where the lyrics are not available
             tabs.lyrics.removeAttribute('disabled');
             tabs.lyrics.setAttribute('aria-disabled', 'false');
           } else {
@@ -476,7 +501,7 @@ export default createPlugin({
           tabs.lyrics.removeEventListener('click', lyricsTabHandler);
           tabs.upNext.removeEventListener('click', applyLyricsTabState);
         };
-      }, 0);
+      }, songWithLyrics ? 0 : 1000);
 
     });
     
