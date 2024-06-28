@@ -219,22 +219,8 @@ export default createPlugin({
         else if (!data.length) 
           return null;
 
-        
-        /* for (let i = 0; i < data.length; i++) {
-          if (data[i].syncedLyrics && !data[i].instrumental) {
-            if(songArtist.includes(data[i].artistName)) { //If the artist name is in the songArtist, we can stop searching
-              dataIndex = i;
-              break;
-            };
-            if (Math.abs(data[i].duration - songDuration) < Math.abs(data[dataIndex].duration - songDuration)) {
-              dataIndex = i;
-            }
-          }
-        } */
-
-        //same as the commented code above
-        let songsWithMatchingArtist = data.filter((song: any) => songArtist.includes(song.artistName));
-        console.log(songsWithMatchingArtist);
+        let songsWithMatchingArtist = data.filter((song: any) => songArtist.toLowerCase().includes(song.artistName.toLowerCase())); //Lowercase to avoid case sensitivity from API
+        console.log('song with matching artists', songsWithMatchingArtist);
         if (!songsWithMatchingArtist.length) return null;
         dataIndex = 0;
         if (songsWithMatchingArtist.length > 1) {
@@ -249,10 +235,7 @@ export default createPlugin({
 
         console.log(data)
         console.log(dataIndex, data[dataIndex]);
-        if (Math.abs(data[dataIndex].duration - songDuration) > 5) {
-          console.log('big difference', Math.abs(data[dataIndex].duration - songDuration) > 5);
-          return null
-        };
+        if (Math.abs(data[dataIndex].duration - songDuration) > 5) return null;
 
         let raw = data[dataIndex].syncedLyrics.split('\n') //Separate the lyrics into lines
         raw.unshift('[0:0.0] ') //Add a blank line at the beginning
@@ -478,7 +461,7 @@ export default createPlugin({
           });
         };
   
-        //applyLyricsTabState();
+        applyLyricsTabState();
   
         tabs.discover.addEventListener('click', () => {
           applyLyricsTabState();
