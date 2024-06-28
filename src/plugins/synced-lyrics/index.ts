@@ -2,9 +2,7 @@ import style from './style.css?inline';
 import { createPlugin } from '@/utils';
 import { MenuContext, RendererContext } from '@/types/contexts';
 import { SongInfo } from '@/providers/song-info';
-import { MenuItemConstructorOptions } from 'electron';
-import { Lines } from '@foobar404/wave/dist/src/animations/Lines';
-// import { onMainLoad } from './main';
+import { BrowserWindow, MenuItemConstructorOptions } from 'electron';// import { onMainLoad } from './main';
 // import { t } from '@/i18n';
 
 export type SyncedLyricsPluginConfig = {
@@ -169,6 +167,10 @@ export default createPlugin({
     let currentLyric: LineLyrics | null = null;
     let nextLyric: LineLyrics | null = null;
     let hadSecondAttempt: boolean = false;
+    let window: BrowserWindow;
+    let songInfos: SongInfo;
+
+    const secondsToMs = (t: number) => Math.round(Number(t) * 1e3);
 
     const extractTimeAndText = (line: string, index: number): LineLyrics|null => {
       const match = /\[(\d+):(\d+)\.(\d+)\](.+)/.exec(line);
@@ -335,14 +337,19 @@ export default createPlugin({
       const container = document.querySelector<HTMLElement>('#tab-renderer.scroller scroller-on-hover');
       const targetElement = document.querySelector<HTMLElement>('.current');
 
-      if (targetElement && container) {
-        container.scrollTop = targetElement.offsetTop - container.offsetTop;
+      // if (targetElement && container) {
+      //   container.scrollTop = targetElement.offsetTop - container.offsetTop;
+      // }
+      console.log(targetElement, container);
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     };
 
     
     const setLyrics = (lyricsContainer: Element, lyrics: Array<LineLyrics> | null) => {
       let lineList = [];
+      console.log(lyrics, lyricsContainer);
       if (lyrics) {
         const footer = lyricsContainer.querySelector('.footer');
 
@@ -365,7 +372,9 @@ export default createPlugin({
               lineList.join('')
             }
           </div>
+          <span class="footer style-scope ytmusic-description-shelf-renderer" style="align-self: baseline">Source: LRCLIB</span>
           <yt-formatted-string class="footer style-scope ytmusic-description-shelf-renderer" style="align-self: baseline">
+            Source: LRCLIB
           </yt-formatted-string>
         `;
 
@@ -376,8 +385,10 @@ export default createPlugin({
 
     let unregister: (() => void) | null = null;
     let timeout: NodeJS.Timeout | null = null;
+    let lyrics: Array<LineLyrics> | null = null;
   
     on('ytmd:update-song-info', (extractedSongInfo: SongInfo) => {
+      songInfos = extractedSongInfo;
       unregister?.();
 
       clearTimeout(timeout!);
@@ -385,6 +396,7 @@ export default createPlugin({
       currentLyric = null;
       nextLyric = null;
       hadSecondAttempt = false;
+      lyrics = null;
 
       let songWithLyrics: boolean = true;
       const tabList = document.querySelectorAll<HTMLElement>('tp-yt-paper-tab');
@@ -401,7 +413,7 @@ export default createPlugin({
   
       timeout = setTimeout(async () => {
 
-        const lyrics = await makeLyricsRequest(extractedSongInfo);
+        lyrics = await makeLyricsRequest(extractedSongInfo);
         if (!lyrics) { // Delete previous lyrics if tab is open and couldn't get new lyrics
           tabs.upNext.click();
           return;
@@ -411,7 +423,7 @@ export default createPlugin({
           let lyricsContainer: Element | null = null;
           if (songWithLyrics) {
             lyricsContainer = document.querySelector( // Already has lyrics
-              '#tab-renderer > ytmusic-section-list-renderer[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"]'
+              '#tab-renderer > ytmusic-section-list-renderer[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"] > div#contents'
             );
           } 
           else {
@@ -429,9 +441,9 @@ export default createPlugin({
         };
         
         const applyLyricsTabState = () => {
-          if (lyrics) {
-            tabs.lyrics.setAttribute('aria-disabled', 'false');
+          if (lyrics !== null || songWithLyrics) {
             tabs.lyrics.removeAttribute('disabled');
+            tabs.lyrics.setAttribute('aria-disabled', 'false');
           } else {
             tabs.lyrics.setAttribute('disabled', 'true');
             tabs.lyrics.setAttribute('aria-disabled', 'true');
@@ -476,7 +488,7 @@ export default createPlugin({
           tabs.lyrics.removeEventListener('click', lyricsTabHandler);
           tabs.upNext.removeEventListener('click', applyLyricsTabState);
         };
-      }, 1);
+      }, 0);
 
     });
     

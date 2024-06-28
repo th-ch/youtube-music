@@ -12,11 +12,18 @@
 }
 
 
+/* .scroller.ytmusic-player-page {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+} */
+
 
 .synced-lyrics {
-  display: flex;
+  display: block;
   justify-content: left;
   text-align: left;
+  inline-size: min-content;
   margin: 0.5rem 0;
 }
 
