@@ -163,7 +163,8 @@
                     "cancel": "ยกเลิก",
                     "remove": "ลบ"
                   },
-                  "remove-theme": "คุณแน่ใจหรือหรือไม่ที่จะลบธีม?"
+                  "remove-theme": "คุณแน่ใจหรือหรือไม่ที่จะลบธีม?",
+                  "remove-theme-message": "สิ่งนี้จะลบธีมที่กำหนดเอง"
                 },
                 "label": "ธีม",
                 "submenu": {
@@ -505,8 +506,34 @@
       "menu": {
         "interactive": "การแจ้งเตือนแบบโต้ตอบ",
         "interactive-settings": {
-          "label": "การตั้งค่าการโต้ตอบ"
-        }
+          "label": "การตั้งค่าการโต้ตอบ",
+          "submenu": {
+            "hide-button-text": "ซ่อนข้อความปุ่ม",
+            "refresh-on-play-pause": "รีเฟรชเมื่อเล่น/หยุดชั่วคราว",
+            "tray-controls": "เปิด/ปิดเมื่อคลิกถาด"
+          }
+        },
+        "priority": "ลำดับความสำคัญของการแจ้งเตือน",
+        "unpause-notification": "แสดงการแจ้งเตือนเมื่อหยุดพัก"
+      },
+      "name": "การแจ้งเตือน"
+    },
+    "picture-in-picture": {
+      "description": "อนุญาตให้สลับแอปเป็นโหมดภาพในภาพ",
+      "menu": {
+        "always-on-top": "อยู่ด้านบนเสมอ",
+        "hotkey": {
+          "label": "ปุ่มลัด",
+          "prompt": {
+            "keybind-options": {
+              "hotkey": "ปุ่มลัด"
+            },
+            "label": "เลือกปุ่มลัดเพื่อสลับโหมดภาพในภาพ",
+            "title": "ปุ่มลัดสำหรับโหมดภาพในภาพ"
+          }
+        },
+        "save-window-position": "บันทึกตำแหน่งหน้าต่าง",
+        "save-window-size": "บันทึกขนาดหน้าต่าง"
       }
     }
   }
