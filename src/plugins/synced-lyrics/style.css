@@ -1,36 +1,21 @@
-/* Disable links in Genius lyrics */
-/* .genius-lyrics a {
-  color: var(--ytmusic-text-primary);
-  display: inline-block;
-  pointer-events: none;
-  text-decoration: none;
-} */
-
 .description {
   font-size: clamp(1.4rem, 1.1vmax, 3rem) !important;
   text-align: left !important;
 }
 
-
-/* .scroller.ytmusic-player-page {
-  overflow-x: hidden;
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
-} */
-
-
 .synced-lyrics {
   display: block;
   justify-content: left;
   text-align: left;
-  inline-size: min-content;
   margin: 0.5rem 0;
+  margin-right: 20px;
+  transition: all 0.3s ease-in-out;
 }
 
 .text-lyrics {
   display: block;
   text-align: left;
-  margin: 0.5rem 0;
+  margin: 0.7rem 0;
   transition: all 0.3s ease-in-out;
 }
 
@@ -45,15 +30,22 @@
 .previous {
   color: var(--ytmusic-text-primary);
   font-weight: normal;
+  transition: font-size 0.3s ease-in-out;
+  transition: padding-left 0.3s ease-in-out;
 }
 
 .current {
   color: var(--ytmusic-text-primary);
   font-weight: bold;
-  font-size: calc(1em + 0.2em);
+  font-size: 1.2em;
+  /* padding-left: 1em; */
+  transition: font-size 0.3s ease-in-out;
+  transition: padding-left 0.3s ease-in-out;
 }
 
 .upcoming {
   color: var(--ytmusic-text-secondary);
   font-weight: normal;
+  transition: font-size 0.3s ease-in-out;
+  transition: padding-left 0.3s ease-in-out;
 }

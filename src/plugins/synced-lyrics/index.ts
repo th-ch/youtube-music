@@ -167,10 +167,7 @@ export default createPlugin({
     let currentLyric: LineLyrics | null = null;
     let nextLyric: LineLyrics | null = null;
     let hadSecondAttempt: boolean = false;
-    let window: BrowserWindow;
     let songInfos: SongInfo;
-
-    const secondsToMs = (t: number) => Math.round(Number(t) * 1e3);
 
     const extractTimeAndText = (line: string, index: number): LineLyrics|null => {
       const match = /\[(\d+):(\d+)\.(\d+)\](.+)/.exec(line);
@@ -216,6 +213,8 @@ export default createPlugin({
           hadSecondAttempt = true;
           const secondResponse = await fetch(`https://lrclib.net/api/search?q=${encodeURIComponent(songTitle)}`);
           if (!secondResponse.ok) return null;
+          console.log('Second attempt');
+          console.log(`https://lrclib.net/api/search?q=${encodeURIComponent(songTitle)}`, await secondResponse.json);
           data = await secondResponse.json();
         }
         else if (!data.length) 
@@ -333,17 +332,10 @@ export default createPlugin({
           setStatus(lyric, 'upcoming');
       });
 
-
-      const container = document.querySelector<HTMLElement>('#tab-renderer.scroller scroller-on-hover');
       const targetElement = document.querySelector<HTMLElement>('.current');
-
-      // if (targetElement && container) {
-      //   container.scrollTop = targetElement.offsetTop - container.offsetTop;
-      // }
-      console.log(targetElement, container);
-      if (targetElement) {
+      if (targetElement)
         targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
+      
     };
 
     
@@ -362,21 +354,17 @@ export default createPlugin({
             </div>
           `);
         }
-
+        //<div id="contents" class="style-scope ytmusic-section-list-renderer description ytmusic-description-shelf-renderer synced-lyrics">
         lyricsContainer.innerHTML = `
-          <div id="contents" class="style-scope ytmusic-section-list-renderer description ytmusic-description-shelf-renderer synced-lyrics">
-            ${hadSecondAttempt ? '<div class="warning-lyrics">The lyrics for this song may not be exact</div>' : ''}
-            ${
-              // lyrics?.replaceAll(/\r\n|\r|\n/g, '<br/>') ??
-              // 'Could not retrieve lyrics from genius'
-              lineList.join('')
-            }
-          </div>
+          ${hadSecondAttempt ? '<div class="warning-lyrics">The lyrics for this song may not be exact</div>' : ''}
+          ${lineList.join('')}
           <span class="footer style-scope ytmusic-description-shelf-renderer" style="align-self: baseline">Source: LRCLIB</span>
           <yt-formatted-string class="footer style-scope ytmusic-description-shelf-renderer" style="align-self: baseline">
             Source: LRCLIB
           </yt-formatted-string>
         `;
+        lyricsContainer.classList.add('synced-lyrics');
+        lyricsContainer.classList.add('description');
 
         if (footer) 
           footer.textContent = 'Source: LRCLIB';
@@ -413,7 +401,7 @@ export default createPlugin({
   
       timeout = setTimeout(async () => {
 
-        lyrics = await makeLyricsRequest(extractedSongInfo);
+        lyrics = await makeLyricsRequest(songInfos);
         if (!lyrics) { // Delete previous lyrics if tab is open and couldn't get new lyrics
           tabs.upNext.click();
           return;
