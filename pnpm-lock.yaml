@@ -162,8 +162,8 @@ importers:
         specifier: 0.2.3
         version: 0.2.3(solid-js@1.8.17)
       ts-morph:
-        specifier: 22.0.0
-        version: 22.0.0
+        specifier: 23.0.0
+        version: 23.0.0
       vudio:
         specifier: 2.1.1
         version: 2.1.1(patch_hash=7iux5msqpgl3octdmwy4uspwoe)
@@ -877,8 +877,8 @@ packages:
   '@total-typescript/ts-reset@0.5.1':
     resolution: {integrity: sha512-AqlrT8YA1o7Ff5wPfMOL0pvL+1X+sw60NN6CcOCqs658emD6RfiXhF7Gu9QcfKBH7ELY2nInLhKSCWVoNL70MQ==}
 
-  '@ts-morph/common@0.23.0':
-    resolution: {integrity: sha512-m7Lllj9n/S6sOkCkRftpM7L24uvmfXQFedlW/4hENcuJH1HHm9u5EgxZb9uVjQSCGrbBWBkOGgcTxNg36r6ywA==}
+  '@ts-morph/common@0.24.0':
+    resolution: {integrity: sha512-c1xMmNHWpNselmpIqursHeOHHBTIsJLbB+NuovbTTRCNiTLEr/U9dbJ8qy0jd/O2x5pc3seWuOUN5R2IoOTp8A==}
 
   '@types/babel__core@7.20.5':
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
@@ -3585,8 +3585,8 @@ packages:
     peerDependencies:
       typescript: '>=4.2.0'
 
-  ts-morph@22.0.0:
-    resolution: {integrity: sha512-M9MqFGZREyeb5fTl6gNHKZLqBQA0TjA1lea+CR48R8EBTDuWrNqW6ccC5QvjNR4s6wDumD3LTCjOFSp9iwlzaw==}
+  ts-morph@23.0.0:
+    resolution: {integrity: sha512-FcvFx7a9E8TUe6T3ShihXJLiJOiqyafzFKUO4aqIHDUCIvADdGNShcbc2W5PMr3LerXRv7mafvFZ9lRENxJmug==}
 
   tsconfig-paths@3.15.0:
     resolution: {integrity: sha512-2Ac2RgzDe/cn48GvOe3M+o82pEFewD3UPbyoUHHdKasHwJKjds4fLXWf/Ux5kATBKN20oaFGu+jbElp1pos0mg==}
@@ -4472,7 +4472,7 @@ snapshots:
 
   '@total-typescript/ts-reset@0.5.1': {}
 
-  '@ts-morph/common@0.23.0':
+  '@ts-morph/common@0.24.0':
     dependencies:
       fast-glob: 3.3.2
       minimatch: 9.0.4
@@ -7577,9 +7577,9 @@ snapshots:
     dependencies:
       typescript: 5.5.2
 
-  ts-morph@22.0.0:
+  ts-morph@23.0.0:
     dependencies:
-      '@ts-morph/common': 0.23.0
+      '@ts-morph/common': 0.24.0
       code-block-writer: 13.0.1
 
   tsconfig-paths@3.15.0:
