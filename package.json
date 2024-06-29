@@ -70,11 +70,31 @@
       "icon": "assets/generated/icons/png",
       "category": "AudioVideo",
       "target": [
+        "flatpak",
         "AppImage",
         "snap",
         "freebsd",
         "deb",
         "rpm"
+      ]
+    },
+    "flatpak": {
+      "runtimeVersion": "23.08",
+      "baseVersion": "23.08",
+      "useWaylandFlags": true,
+      "finishArgs": [
+        "--socket=wayland",
+        "--socket=x11",
+        "--share=ipc",
+        "--device=dri",
+        "--socket=pulseaudio",
+        "--share=network",
+        "--talk-name=org.freedesktop.Notifications",
+        "--talk-name=org.gnome.SettingsDaemon.MediaKeys",
+        "--talk-name=org.gnome.SessionManager",
+        "--talk-name=org.kde.StatusNotifierWatcher",
+        "--talk-name=com.canonical.AppMenu.Registrar",
+        "--own-name=org.mpris.MediaPlayer2.chromium.*"
       ]
     },
     "rpm": {
