@@ -149,7 +149,7 @@
     "@electron/remote": "2.1.2",
     "@ffmpeg.wasm/core-mt": "0.12.0",
     "@ffmpeg.wasm/main": "0.12.0",
-    "@floating-ui/dom": "1.6.6",
+    "@floating-ui/dom": "1.6.7",
     "@foobar404/wave": "2.0.5",
     "@jellybrick/electron-better-web-request": "1.0.4",
     "@jellybrick/mpris-service": "2.1.4",
