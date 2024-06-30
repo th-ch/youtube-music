@@ -1,1 +1,200 @@
-{}
+{
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "فشل تشغيل الاضافة {{pluginName}}::{{contextName}}",
+        "executed-at-ms": "تم تشغيل الاضافة {{pluginName}}::{{contextName}} خلال {{ms}} جزء من الثانية",
+        "initialize-failed": "فشل تنفيذ الاضافة \"{{pluginName}}\"",
+        "load-all": "جاري تحميل جميع الاضافات",
+        "load-failed": "فشل في تحميل الاضافة \"{{pluginName}}\"",
+        "loaded": "تم تحميل الاضافة \"{{pluginName}}\"",
+        "unload-failed": "فشل ازالة الاضافة \"{{pluginName}}\"",
+        "unloaded": "تم ازالة الاضافة \"{{pluginName}}\""
+      }
+    }
+  },
+  "language": {
+    "code": "إنجليزي",
+    "local-name": "الإنجليزي",
+    "name": "الإنجليزية"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "انتهى التحميل, تم فتح قائمة المطور"
+      },
+      "i18n": {
+        "loaded": "تم تحميل i18n"
+      },
+      "second-instance": {
+        "receive-command": "تم الحصول على أمر عن طريق: \"{{command}}\""
+      },
+      "theme": {
+        "css-file-not-found": "ملف \"{{cssFile}}\" غير متواجد,سيتم التجاهل"
+      },
+      "unresponsive": {
+        "details": "خطء عدم استجابة!\n{{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "ازالة بيانات التطبيق المخزنة"
+      },
+      "window": {
+        "tried-to-render-offscreen": "تم محاولة فتح الصفحة خارج الشاشة, حجم الصفحة={{windowSize}}, حجم الشاشة={{displaySize}}, مكان={{position}}"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "detail": "تم اخفاء القائمة, استخدم 'Alt' لاظهار القائمة (أو 'Escape' اذا كنت تستخدم القائمة داخل التطبيق)",
+        "message": "اخفاء القائمة مفعل",
+        "title": "تم تفعيل اخفاء القائمة"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "لاحقاً",
+          "restart-now": "اعادة التشغيل الأن"
+        },
+        "detail": "\"{{pluginName}}\" هذه الاضافة تتطلب اعادة التشغيل ليتم تفعيلها",
+        "message": "\"{{pluginName}}\" بحاجة الى اعادة التشغيل",
+        "title": "مطلوب اعادة التشغيل"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "خروج",
+          "relaunch": "اعادة التشغيل",
+          "wait": "انتظار"
+        },
+        "detail": "نأسف على الإزعاج! يرجى اختيار ما يجب القيام به:",
+        "message": "التطبيق لا يستجيب",
+        "title": "الصفحة لا تستجيب"
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "ايقاف التحديثات",
+          "download": "تحميل",
+          "ok": "موافق"
+        },
+        "detail": "يوجد نسخة جديدة يمكن تحميلها من خلال {{downloadLink}}",
+        "message": "يوجد نسخة حديثة",
+        "title": "يوجد تحديث"
+      }
+    },
+    "menu": {
+      "about": "عنا",
+      "navigation": {
+        "label": "التنقل",
+        "submenu": {
+          "copy-current-url": "نسخ الرابط الحالي",
+          "go-back": "العودة للخلف",
+          "go-forward": "التقدم",
+          "quit": "الخروج",
+          "restart": "اعادة تشغيل التطبيق"
+        }
+      },
+      "options": {
+        "label": "الاعدادات",
+        "submenu": {
+          "advanced-options": {
+            "label": "الاعدادات المتقدمة",
+            "submenu": {
+              "auto-reset-app-cache": "إعادة تعيين ذاكرة التخزين المؤقت للتطبيق عند بدء التشغيل",
+              "disable-hardware-acceleration": "تعطيل تسريع الأجهزة",
+              "edit-config-json": "تعديل ملف الاعدادات",
+              "override-user-agent": "تجاوز وكيل المستخدم",
+              "restart-on-config-changes": "اعادة التشغيل بعد تعديل الاعدادات",
+              "set-proxy": {
+                "label": "تعيين الوكيل",
+                "prompt": {
+                  "label": "أدخل عنوان الوكيل: (اتركه فارغًا للتعطيل)",
+                  "placeholder": "مثال: SOCKS5://127.0.0.1:9999",
+                  "title": "اضافة الوكيل"
+                }
+              },
+              "toggle-dev-tools": "تثبيت أدوات التطوير"
+            }
+          },
+          "always-on-top": "دائما في القمة",
+          "auto-update": "تحديث تلقائي",
+          "hide-menu": {
+            "dialog": {
+              "message": "سيتم إخفاء القائمة عند التشغيل التالي، استخدم [Alt] لإظهارها (أو ضع علامة اختيار على [`] في حالة استخدام القائمة داخل التطبيق)",
+              "title": "إخفاء القائمة ممكن"
+            },
+            "label": "إخفاء القائمة"
+          },
+          "language": {
+            "dialog": {
+              "message": "سيتم تغيير اللغة بعد اعادة التشغيل",
+              "title": "تم تغير اللغة"
+            },
+            "label": "اللغة",
+            "submenu": {
+              "to-help-translate": "تريد المساعدة في الترجمة؟ اضغط هنا"
+            }
+          },
+          "resume-on-start": "تكملة الأغنية الأخيرة عند بدأ التشغيل",
+          "single-instance-lock": "قفل مثيل واحد",
+          "start-at-login": "‎ابدأ عند تسجيل الدخول",
+          "starting-page": {
+            "label": "صفحة البداية",
+            "unset": "الغاء"
+          },
+          "tray": {
+            "label": "قائمة",
+            "submenu": {
+              "disabled": "غير مفعل",
+              "enabled-and-hide-app": "تمكين وإخفاء التطبيق",
+              "enabled-and-show-app": "ممكين وأظهر التطبيق",
+              "play-pause-on-click": "تشغيل/إيقاف مؤقت عند النقر"
+            }
+          },
+          "visual-tweaks": {
+            "label": "تعديلات المظهر",
+            "submenu": {
+              "like-buttons": {
+                "default": "الافتراضي",
+                "force-show": "اجبار الظهور",
+                "hide": "اخفاء",
+                "label": "أزرار الاعجاب"
+              },
+              "remove-upgrade-button": "ازالة زرار التطوير",
+              "theme": {
+                "dialog": {
+                  "button": {
+                    "cancel": "إلغاء",
+                    "remove": "ازالة"
+                  },
+                  "remove-theme": "هل أنت متأكد أنك تريد إزالة السمة المخصصة؟",
+                  "remove-theme-message": "سيؤدي هذا إلى إزالة السمة المخصصة"
+                },
+                "label": "السمة",
+                "submenu": {
+                  "import-css-file": "استيراد ملف CSS مخصص",
+                  "no-theme": "بدون سمة"
+                }
+              }
+            }
+          }
+        }
+      },
+      "plugins": {
+        "enabled": "مفعل",
+        "label": "الاضافات",
+        "new": "جديد"
+      },
+      "view": {
+        "label": "اظهار",
+        "submenu": {
+          "force-reload": "اجبار اعادة التحميل",
+          "reload": "اعادة التحميل",
+          "reset-zoom": "الحجم الحقيقي",
+          "toggle-fullscreen": "ملء الشاشة",
+          "zoom-in": "تكبير",
+          "zoom-out": "تصغير"
+        }
+      }
+    },
+    "tray": {
+      "next": "التالي"
+    }
+  }
+}

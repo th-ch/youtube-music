@@ -158,6 +158,14 @@
               },
               "remove-upgrade-button": "Tanggalin ang upgrade na button",
               "theme": {
+                "dialog": {
+                  "button": {
+                    "cancel": "Kanselahin",
+                    "remove": "Tanggalin"
+                  },
+                  "remove-theme": "Sigurado ka bang gusto mong alisin ang custom na tema?",
+                  "remove-theme-message": "Aalisin nito ang custom na tema"
+                },
                 "label": "Tema",
                 "submenu": {
                   "import-css-file": "Mag-import ng custom na CSS file",
@@ -193,18 +201,13 @@
       "restart": "I-restart ang App",
       "show": "Ipakita ang window",
       "tooltip": {
-        "default": "YouTube Music",
         "with-song-info": "YouTube Music: {{artist}} - {{title}}"
       }
     }
   },
   "plugins": {
     "adblocker": {
-      "description": "I-block lahat ng ad at tracking",
-      "menu": {
-        "blocker": "Blocker"
-      },
-      "name": "Ad Blocker"
+      "description": "I-block ang lahat ng ad at tracking"
     },
     "album-actions": {
       "description": "Idadagdag ang Undislike, Dislike, Like, at Unlike na button para ilapat ito sa lahat ng kanta sa isang playlist o album",
@@ -214,10 +217,7 @@
       "description": "Naglalapat ng dynamic na tema at visual effect batay sa color palette ng album",
       "menu": {
         "color-mix-ratio": {
-          "label": "Ratio ng paghahalo ng kulay",
-          "submenu": {
-            "percent": "{{ratio}}%"
-          }
+          "label": "Ratio ng paghahalo ng kulay"
         }
       },
       "name": "Tema ng Kulay ng Album"
@@ -256,7 +256,6 @@
           }
         },
         "smoothness-transition": {
-          "label": "Smoothness transition",
           "submenu": {
             "during": "Habang {{interpolationTime}} s"
           }
@@ -264,8 +263,7 @@
         "use-fullscreen": {
           "label": "Gumamit ng fullscreen"
         }
-      },
-      "name": "Ambient Mode"
+      }
     },
     "audio-compressor": {
       "description": "Ilapat ang compression sa audio (pinababa ang volume ng pinakamalakas na bahagi ng signal at pinapataas ang volume ng pinakamalambot na bahagi)",
@@ -296,6 +294,327 @@
       "templates": {
         "title": "Bumukas ng pagpilian ng caption"
       }
+    },
+    "compact-sidebar": {
+      "description": "Laging i-set ang sidebar sa compact mode"
+    },
+    "crossfade": {
+      "description": "I-crossfade kada kanta",
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "fade-in-duration": "Tagal ng pag-fade in (ms)",
+            "fade-out-duration": "Tagal ng pag-fade out (ms)",
+            "fade-scaling": {
+              "label": "Scaling ng pag-fade"
+            },
+            "seconds-before-end": "I-crossfade sa loob ng N segundo bago ang katapusan"
+          },
+          "title": "Pagpipilian sa crossfade"
+        }
+      }
+    },
+    "disable-autoplay": {
+      "description": "Gawing simulan ang kanta sa \"naka-pause\" na mode",
+      "menu": {
+        "apply-once": "Nalalapat lamang sa startup"
+      },
+      "name": "Patayin ang Pag-Autoplay"
+    },
+    "discord": {
+      "backend": {
+        "already-connected": "Sinubukang kumonekta sa aktibong koneksyon",
+        "connected": "Nakakonekta sa Discord",
+        "disconnected": "Nadiskonekta sa Discord"
+      },
+      "description": "Ipakita sa iyong mga kaibigan kung ano ang pinapakinggan mo gamit ang Rich Presence",
+      "menu": {
+        "auto-reconnect": "Awtomatikong kumonekta muli",
+        "clear-activity": "I-clear ang aktibidad",
+        "clear-activity-after-timeout": "I-clear ang aktibidad pagkatapos ng timeout",
+        "connected": "Nakakonekta",
+        "disconnected": "Nadiskonekta",
+        "hide-duration-left": "Itago ang natitirang oras",
+        "hide-github-button": "Itago ang button na GitHub link",
+        "play-on-youtube-music": "Patugtugin sa YouTube Music",
+        "set-inactivity-timeout": "I-set ang inactivity timeout"
+      },
+      "prompt": {
+        "set-inactivity-timeout": {
+          "label": "Ilagay ang inactivity timeout sa ilang segundo:",
+          "title": "I-set ang inactivity timeout"
+        }
+      }
+    },
+    "downloader": {
+      "backend": {
+        "dialog": {
+          "error": {
+            "message": "Argh! Paumanhin, nabigo ang pag-download…",
+            "title": "Nagkaroon ng error sa pag-download!"
+          },
+          "start-download-playlist": {
+            "detail": "({{playlistSize}} na mga kanta)",
+            "message": "Dina-download ang Playlist na {{playlistTitle}}",
+            "title": "Nasimulan na ang pag-download"
+          }
+        },
+        "feedback": {
+          "conversion-progress": "Pag-convert: {{percent}}%",
+          "converting": "Kino-convert…",
+          "done": "Natapos na: {{filePath}}",
+          "download-info": "Dina-download ang {{artist}} - {{title}} [{{videoId}}",
+          "download-progress": "Dina-download: {{percent}}%",
+          "downloading": "Dina-download…",
+          "downloading-counter": "Dina-download {{current}}/{{total}}…",
+          "downloading-playlist": "Dina-download ang playlist \"{{playlistTitle}}\" - {{playlistSize}} na mga kanta ({{playlistId}})",
+          "error-while-downloading": "Error sa pag-download \"{{author}} - {{title}}\": {{error}}",
+          "folder-already-exists": "Ang folder na {{playlistFolder}} ay umiiral na",
+          "getting-playlist-info": "Kinukuha ang impo ng playlist…",
+          "loading": "Naglo-load…",
+          "playlist-has-only-one-song": "May isang aytem lang ang playlist, direktang dina-download na",
+          "playlist-id-not-found": "Walang playlist ID na nahanap",
+          "playlist-is-empty": "Walang laman ang playlist",
+          "playlist-is-mix-or-private": "Error sa pagkuha ng impo ng playlist: tiyaking hindi ito pribado o \"Mixed para sa iyo\" na playlist\n\n{{error}}",
+          "preparing-file": "Inihahanda ang file…",
+          "saving": "Sine-save…",
+          "trying-to-get-playlist-id": "Sinusubukang makuha ang playlist ID: {{playlistId}}",
+          "video-id-not-found": "Hindi nahanap ang video",
+          "writing-id3": "Sinusulat ang mga ID3 na tag…"
+        }
+      },
+      "description": "Dina-download ang mga MP3 / source audio direkta mula sa interface",
+      "menu": {
+        "choose-download-folder": "Pumili ng download folder",
+        "download-playlist": "Dina-download ang playlist",
+        "presets": "Mga preset",
+        "skip-existing": "Laktawan ang mga kasalukuyang file"
+      },
+      "renderer": {
+        "can-not-update-progress": "Hindi ma-update ang progress"
+      }
+    },
+    "exponential-volume": {
+      "description": "Ginagawang exponential ang volume slider para mas madaling pumili ng mas mababang volume."
+    },
+    "in-app-menu": {
+      "description": "Nagbibigay sa mga menu-bar ng magarbo, madilim o kulay ng album",
+      "menu": {
+        "hide-dom-window-controls": "Itago ang mga DOM window control"
+      }
+    },
+    "lumiastream": {
+      "description": "Nabibigay suporta sa Lumia Stream"
+    },
+    "lyrics-genius": {
+      "description": "Nagdaragdag ng suporta sa lyrics para sa karamihan ng kanta",
+      "renderer": {
+        "fetched-lyrics": "Kinuha ang lyrics para sa Genius"
+      }
+    },
+    "music-together": {
+      "description": "Magbahagi ng playlist sa iba. Kapag nagpatugtog ang host ng isang kanta, maririnig ng lahat ang parehong kanta",
+      "dialog": {
+        "enter-host": "Ilagay ang Host ID"
+      },
+      "internal": {
+        "save": "I-save",
+        "unknown-user": "Di-kilalang User"
+      },
+      "menu": {
+        "click-to-copy-id": "Kopyahin ang Host ID",
+        "close": "Isara ang Music Together",
+        "connected-users": "Nakakonektang (mga) User",
+        "disconnect": "Mag-diskonekta sa Music Together",
+        "empty-user": "Walang naka-konektang user",
+        "join": "Sumali sa Music Together",
+        "permission": {
+          "all": "Payagan ang mga guest na kontrolin ang playlist at player",
+          "host-only": "Ang host lamang ang maka-kontrol ng playlist at player",
+          "playlist": "Payagan ang mga guest na kontrolin ang playlist"
+        },
+        "set-permission": "Palitan ng permiso ng pag-control",
+        "status": {
+          "disconnected": "Nadiskonekta",
+          "guest": "Nakakonekta bilang Guest",
+          "host": "Nakakonekta bilang Host"
+        }
+      },
+      "toast": {
+        "add-song-failed": "Nabigong magdagdag ng kanta",
+        "closed": "Nakasara ang Music Together",
+        "disconnected": "Nakadiskonekta ang Music Together",
+        "host-failed": "Nabigong mag-host ng Music Together",
+        "id-copied": "Nakopya na ang Host ID sa clipboard",
+        "id-copy-failed": "Nabigong nakopya ang Host ID sa clipboard",
+        "join-failed": "Nabigong sumali sa Music Together",
+        "joined": "Nakasali sa Music Together",
+        "permission-changed": "Ang permiso ng Music Together ay nabago sa \"{{permission}}\"",
+        "remove-song-failed": "Nabigong natanggal ang kanta",
+        "user-connected": "{{name}} ay sumali sa Music Together",
+        "user-disconnected": "{{name}} ay umalis sa Music Together"
+      }
+    },
+    "navigation": {
+      "description": "Ang Next/Back navigation na arrow ay direktang magamit sa interface, katulad sa iyong paboritong browser",
+      "name": "Nabigasyon"
+    },
+    "no-google-login": {
+      "description": "Tanggalin ang mga Google login na button at mga link mula sa interface"
+    },
+    "notifications": {
+      "description": "Magpakita ng notification kapag nagsimulang tumugtog ang kanta (magagamit ang mga interactive na notification sa Windows)",
+      "menu": {
+        "interactive-settings": {
+          "submenu": {
+            "hide-button-text": "Itago ang button na texto",
+            "refresh-on-play-pause": "I-refresh sa Pag-play/Pag-pause",
+            "tray-controls": "Buksan/Isara sa pag-click sa tray"
+          }
+        },
+        "unpause-notification": "Ipakita ang notification sa pag-unpause"
+      }
+    },
+    "picture-in-picture": {
+      "description": "Payagan ang pag-palit ng app sa picture-in-picture mode",
+      "menu": {
+        "always-on-top": "Laging sa itaas",
+        "hotkey": {
+          "prompt": {
+            "label": "Pumili ng hotkey sa pag-toggle ng picture-in-picture",
+            "title": "Hotkey ng Picture-in-picture"
+          }
+        },
+        "save-window-position": "I-save ang posisyon ng window",
+        "save-window-size": "I-save ang laki ng windo",
+        "use-native-pip": "Gamitin ang browser native na PiP"
+      }
+    },
+    "playback-speed": {
+      "description": "Makinig na mabilisan, makinig na mabagalan! Nagdaragdag ito ng slider upang makontrol ang bilis ng kanta",
+      "templates": {
+        "button": "Bilis"
+      }
+    },
+    "precise-volume": {
+      "description": "Kontrolin nang wasto ang volume gamit ang mousewheel/mga hotkey, na may custom HUD at customizable na volume step",
+      "menu": {
+        "arrows-shortcuts": "Lokal na Arrow-key na Kontrol",
+        "custom-volume-steps": "I-set ang custom na Volume Step"
+      },
+      "prompt": {
+        "global-shortcuts": {
+          "keybind-options": {
+            "decrease": "Bawasan ang Volume",
+            "increase": "Dagdagan ang Volume"
+          },
+          "label": "Pumili ng Keybind para sa Global Volume:"
+        },
+        "volume-steps": {
+          "label": "Pumili ng Dagdagan/Bawasan ang volume step"
+        }
+      }
+    },
+    "quality-changer": {
+      "backend": {
+        "dialog": {
+          "quality-changer": {
+            "detail": "Kasalukuyang Kalidad: {{quality}}",
+            "message": "Pumili ng Kalidad ng Video:",
+            "title": "Pumili ng Kalidad ng Video"
+          }
+        }
+      },
+      "description": "Payagang mapapalitan ang kalidad ng video na may button sa video overlay"
+    },
+    "scrobbler": {
+      "description": "Idagdag ang scrobbling support (last.fm, Listenbrains, atbp.)",
+      "dialog": {
+        "lastfm": {
+          "auth-failed": {
+            "message": "Nabigong mag-authenticate sa Last.fm\nItago ang popup hanggang sa susunod na pag-restart.",
+            "title": "Nabigo ang Authentication"
+          }
+        }
+      },
+      "menu": {
+        "lastfm": {
+          "api-settings": "Mga setting ng API para sa Last.fm"
+        },
+        "listenbrainz": {
+          "token": "Ilagay ang user token ng ListenBrainz"
+        },
+        "scrobble-other-media": "Mag-Scrobble ng ibang media"
+      },
+      "prompt": {
+        "lastfm": {
+          "api-key": "API key ng Last.fm",
+          "api-secret": "API secret ng Last.fm"
+        },
+        "listenbrainz": {
+          "token": {
+            "label": "Ilagay ang ListenBrainz user token:"
+          }
+        }
+      }
+    },
+    "shortcuts": {
+      "description": "Nagbibigay-daan sa pagtatakda ng mga global hotkey para sa playback (play/pause/susunod/nakaraan) at pag-off ng media OSD sa pamamagitan ng pag-override sa mga media key, pag-on sa Ctrl/CMD + F para maghanap, pag-on sa suporta ng Linux MPRIS para sa mga media key, at mga custom na hotkey para sa mga advanced na user",
+      "menu": {
+        "set-keybinds": "I-set ang Global Song Control"
+      },
+      "name": "Mga shortcut (at MPRIS)",
+      "prompt": {
+        "keybind": {
+          "keybind-options": {
+            "next": "Susunod",
+            "previous": "Nakaraan"
+          },
+          "label": "Pumili ng Global na Keybind para sa Songs Control:"
+        }
+      }
+    },
+    "skip-disliked-songs": {
+      "description": "Laktawan ang na-dislike na kanta"
+    },
+    "skip-silences": {
+      "description": "Automatikong laktawan ang mga tahimik na mga seksyon sa kanta"
+    },
+    "sponsorblock": {
+      "description": "Automatikong Laktawan ang di part ng kanta tulad ng intro/outro o part ng mga music video na ang kanta ay di nagple-play"
+    },
+    "taskbar-mediacontrol": {
+      "description": "Kontrolin ang pag-play mula sa iyong taskbar ng Windows"
+    },
+    "touchbar": {
+      "description": "Idaragdag ang TouchBar na widget para sa mga user ng macOS"
+    },
+    "tuna-obs": {
+      "description": "Integrasyon kasama ang Tuna na OBS plugin"
+    },
+    "video-toggle": {
+      "description": "Idaragdag ng button na magpalit sa Video/Kanta na mode. maaari ding opsyonal na alisin ang tab ng video",
+      "menu": {
+        "align": {
+          "submenu": {
+            "left": "Kaliwa",
+            "middle": "Gitna",
+            "right": "Kanan"
+          }
+        },
+        "force-hide": "Piliting tanggalin ang video tab",
+        "mode": {
+          "submenu": {
+            "disabled": "Naka-disable"
+          }
+        }
+      },
+      "templates": {
+        "button": "Kanta"
+      }
+    },
+    "visualizer": {
+      "description": "Idaragdag ng visualizer sa player"
     }
   }
 }

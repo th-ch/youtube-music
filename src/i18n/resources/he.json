@@ -1,4 +1,11 @@
 {
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "נכשל ביצוע תוסף {{pluginName}}::{{contextName}}"
+      }
+    }
+  },
   "language": {
     "code": "he",
     "local-name": "עברית",

@@ -158,6 +158,14 @@
               },
               "remove-upgrade-button": "ลบปุ่มอัปเกรด",
               "theme": {
+                "dialog": {
+                  "button": {
+                    "cancel": "ยกเลิก",
+                    "remove": "ลบ"
+                  },
+                  "remove-theme": "คุณแน่ใจหรือหรือไม่ที่จะลบธีม?",
+                  "remove-theme-message": "สิ่งนี้จะลบธีมที่กำหนดเอง"
+                },
                 "label": "ธีม",
                 "submenu": {
                   "import-css-file": "นำเข้าไฟล์ CSS ที่กำหนดเอง",
@@ -472,7 +480,60 @@
       "name": "Music Together [เบต้า]",
       "toast": {
         "add-song-failed": "เพิ่มเพลงล้มเหลว",
-        "closed": "ปิด Music Together แล้ว"
+        "closed": "ปิด Music Together แล้ว",
+        "disconnected": "การฟังเพลงร่วมกัน ถูกตัดการเชื่อมต่อแล้ว",
+        "host-failed": "มีปัญหาสำหรับโฮสต์ฟังเพลงร่วมกัน",
+        "id-copied": "ID โฮสต์ถูกคัดลอกแล้ว",
+        "id-copy-failed": "ไม่สามรถคัดลอก ID โฮสต์ได้",
+        "join-failed": "ไม่สามรถเข้าร่วมฟังเพลงร่วมกันได้",
+        "joined": "เข้าร่วมฟังเพลงด้วยกันแล้ว",
+        "permission-changed": "สิทธิการฟังเพลงร่วมกันเปลี่ยนเป็น \"{{permission}}\"",
+        "remove-song-failed": "ไม่สารถลบเพลงได้",
+        "user-connected": "{{name}}เข้าร่วมตี้ฟังเพลงด้วยกัน",
+        "user-disconnected": "{{name}}ออกจากตี้ฟังเพลงด้วยกัน"
+      }
+    },
+    "navigation": {
+      "description": "ลูกศรนำทางถัดไป/ย้อนกลับรวมอยู่ในอินเทอร์เฟซโดยตรง เช่นเดียวกับในเบราว์เซอร์ที่คุณชื่นชอบ",
+      "name": "การนำทาง"
+    },
+    "no-google-login": {
+      "description": "ลบปุ่มเข้าสู่ระบบ Google และลิงก์ออกจากอินเทอร์เฟซ",
+      "name": "ไม่ล็อกอิน Google"
+    },
+    "notifications": {
+      "description": "แสดงการแจ้งเตือนเมื่อเพลงเริ่มเล่น (การแจ้งเตือนมีให้ใช้งานบน Windows)",
+      "menu": {
+        "interactive": "การแจ้งเตือนแบบโต้ตอบ",
+        "interactive-settings": {
+          "label": "การตั้งค่าการโต้ตอบ",
+          "submenu": {
+            "hide-button-text": "ซ่อนข้อความปุ่ม",
+            "refresh-on-play-pause": "รีเฟรชเมื่อเล่น/หยุดชั่วคราว",
+            "tray-controls": "เปิด/ปิดเมื่อคลิกถาด"
+          }
+        },
+        "priority": "ลำดับความสำคัญของการแจ้งเตือน",
+        "unpause-notification": "แสดงการแจ้งเตือนเมื่อหยุดพัก"
+      },
+      "name": "การแจ้งเตือน"
+    },
+    "picture-in-picture": {
+      "description": "อนุญาตให้สลับแอปเป็นโหมดภาพในภาพ",
+      "menu": {
+        "always-on-top": "อยู่ด้านบนเสมอ",
+        "hotkey": {
+          "label": "ปุ่มลัด",
+          "prompt": {
+            "keybind-options": {
+              "hotkey": "ปุ่มลัด"
+            },
+            "label": "เลือกปุ่มลัดเพื่อสลับโหมดภาพในภาพ",
+            "title": "ปุ่มลัดสำหรับโหมดภาพในภาพ"
+          }
+        },
+        "save-window-position": "บันทึกตำแหน่งหน้าต่าง",
+        "save-window-size": "บันทึกขนาดหน้าต่าง"
       }
     }
   }
