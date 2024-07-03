@@ -1,1 +1,237 @@
-{}
+{
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "Virhe pluginin lataamisessa: {{pluginName}}, koska {{contextName}}",
+        "executed-at-ms": "Lisäosa: {{pluginName}} ja {{contextName}} on ladattu/liitetty {{ms}}",
+        "initialize-failed": "Laajennuksen alustaminen epäonnistui kohteelle \"{{pluginName}}\"",
+        "load-all": "Ladataan kaikkia lisäosia, odota hetki!",
+        "load-failed": "Virhe lisäosan lataamisessa kohteelle: {{pluginName}}",
+        "loaded": "Lisäosa {{pluginName}} on nyt ladattu!",
+        "unload-failed": "Laajennuksen purkaminen epäonnistui kohtelle: {{pluginName}}",
+        "unloaded": "Lisäosa {{pluginName}} on purettu"
+      }
+    }
+  },
+  "language": {
+    "code": "fi",
+    "local-name": "Suomi",
+    "name": "Finnish"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "Onnistuneesti ladattu. Devtools avautuu"
+      },
+      "i18n": {
+        "loaded": "i18n ladattu"
+      },
+      "second-instance": {
+        "receive-command": "Komento \"{{command}}\" on vastaanotettu"
+      },
+      "theme": {
+        "css-file-not-found": "{{cssFile}} on jätetty väliin, koska tiedosto on virheellinen"
+      },
+      "unresponsive": {
+        "details": "Voi eih, meillä tuli ongelma: {{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "Puhdista välimuisti"
+      },
+      "window": {
+        "tried-to-render-offscreen": "Näyttö yritti renderöidä näyttöäsi asetuksilla: {{windowSize}}, {{displaySize}} sekä {{position}}"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "detail": "Valikko on piilotettu, avaa valikko uudestaan painamalla \"Alt\" näppäintä tai \"Escape\" näppäintä",
+        "message": "Valikon piilotus on nyt päällä",
+        "title": "Piilota valikko päällä"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "Myöhemmin",
+          "restart-now": "Uudelleen käynnistä NYT"
+        },
+        "detail": "{{pluginName}} lisäosa vaatii uudelleen käynnistyksen YT musicille",
+        "message": "{{pluginName}} vaatii uudelleen käynnistyksen YT musicille",
+        "title": "Uudelleen käynnistä sovellus"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "Poistu",
+          "relaunch": "Uudelleen käynnistä",
+          "wait": "Odotas vähän"
+        },
+        "detail": "Pahoittelemme häiriötä! ole hyvä ja valitse mitä teet:",
+        "message": "Sovellus ei ole saataville eli tapahtui virhe",
+        "title": "Ikkuna ei vastaa"
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "Päivityksen pois päältä",
+          "download": "Lataa",
+          "ok": "Selvä"
+        },
+        "detail": "Uusin versio sovelluksesta on nyt saatavilla, lataa se tästä {{downloadLink}}",
+        "message": "Uusin versio on nyt saatavilla",
+        "title": "Päivitys saatavilla"
+      }
+    },
+    "menu": {
+      "about": "Tietoa",
+      "navigation": {
+        "label": "Selaa",
+        "submenu": {
+          "copy-current-url": "Kopio URL osoite",
+          "go-back": "Takaisin",
+          "go-forward": "Eteenpäin",
+          "quit": "Poistu alustalta",
+          "restart": "Uudelleen käynnistä aplikaatio"
+        }
+      },
+      "options": {
+        "label": "Asetukset",
+        "submenu": {
+          "advanced-options": {
+            "label": "Lisäasetukset",
+            "submenu": {
+              "auto-reset-app-cache": "Puhdista sovelluksen välimuisti aina sovelluksen käynnistyksen aikana",
+              "disable-hardware-acceleration": "Poista laitteistokiihdytys käytöstä",
+              "edit-config-json": "Muokkaa \"config.json\" tiedostoa",
+              "override-user-agent": "Ohita käyttäjäagentti",
+              "restart-on-config-changes": "Käynnistä uudelleen asetusten muuton jälkeen",
+              "set-proxy": {
+                "label": "Aseta välityspalvelin (proxy)",
+                "prompt": {
+                  "label": "Aseta välityspalvelimen IP-osoite: (jos jätät tyhjäksi, palvelin ei käynnisty)",
+                  "placeholder": "Esimerkki osoite: penapertti://127.0.0.0:6969",
+                  "title": "Aseta välityspalvelin (proxy)"
+                }
+              },
+              "toggle-dev-tools": "Ota DevTools käyttöön"
+            }
+          },
+          "always-on-top": "Aina päällä",
+          "auto-update": "Automaattisest päivitykset",
+          "hide-menu": {
+            "dialog": {
+              "message": "Valikko piilotetaan seuraavan käynnistyksen yhteydessä. Saat sen päälle painamalla [Alt] näppäintä (tai merkitse takaisin [`], jos käytät sovelluksen sisäistä valikkoa)",
+              "title": "Piilota valikko (päällä)"
+            },
+            "label": "Piilota valikko"
+          },
+          "language": {
+            "dialog": {
+              "message": "Kieli vaihtuu uudelleen käynnistyksen jälkeen (Language will be changed after restart)",
+              "title": "Kieli vaihdettu (Language Changed)"
+            },
+            "label": "Kieli (languages)",
+            "submenu": {
+              "to-help-translate": "Haluatko kääntää puuttuvan kielen? Klkkaa tästä! (Want to help translate? Click here)"
+            }
+          },
+          "resume-on-start": "Jatka kappaleesta, johon jäin aikaisemmin",
+          "single-instance-lock": "Yhden instanssin lukko",
+          "start-at-login": "Aloita kirjautuminen",
+          "starting-page": {
+            "label": "Etusivu",
+            "unset": "Valitsematta"
+          },
+          "tray": {
+            "label": "Suositukset",
+            "submenu": {
+              "disabled": "Pois päältä",
+              "enabled-and-hide-app": "Suositukset ovat käytössä ja piilota valikko",
+              "enabled-and-show-app": "Päällä ja sovellus näkyvissä",
+              "play-pause-on-click": "Soita/pysäytä klikkaamalla"
+            }
+          },
+          "visual-tweaks": {
+            "label": "Visuaalisia tehosteita",
+            "submenu": {
+              "like-buttons": {
+                "default": "Vakio",
+                "force-show": "Pakota näyttämään",
+                "hide": "Piilota",
+                "label": "Tykkäys nappula"
+              },
+              "remove-upgrade-button": "Poista päivitys nappula",
+              "theme": {
+                "dialog": {
+                  "button": {
+                    "cancel": "Peruuta",
+                    "remove": "Poista"
+                  },
+                  "remove-theme": "Oletko aivan varma, että haluat poistaa kustomoidun teeman?",
+                  "remove-theme-message": "Tämä poistaa kustomoidun teeman"
+                },
+                "label": "Teema",
+                "submenu": {
+                  "import-css-file": "Liitä kustomoitu CSS tiedosto",
+                  "no-theme": "Ei teemaa"
+                }
+              }
+            }
+          }
+        }
+      },
+      "plugins": {
+        "enabled": "Päällä",
+        "label": "Lisäosat",
+        "new": "UUSI"
+      },
+      "view": {
+        "label": "Katso",
+        "submenu": {
+          "force-reload": "pakota uudelleen lataamaan",
+          "reload": "Uudelleen lataa",
+          "reset-zoom": "Todellinen koko",
+          "toggle-fullscreen": "Koko näyttö päälle/pois",
+          "zoom-in": "Zoomaa lähemmäksi",
+          "zoom-out": "Zoomaa kauemmaksi"
+        }
+      }
+    },
+    "tray": {
+      "next": "Seuraava",
+      "play-pause": "Soita/pysäytä",
+      "previous": "Edellinen",
+      "quit": "Lähde pois",
+      "restart": "Uudelleen käynnistä appi",
+      "show": "Näytä ikkuna",
+      "tooltip": {
+        "default": "Youtube Music",
+        "with-song-info": "Youtube Music {{artist}} - {{title}}"
+      }
+    }
+  },
+  "plugins": {
+    "adblocker": {
+      "description": "Estä kaikki mainokset ja seuranta",
+      "menu": {
+        "blocker": "Estäjät (blockerit)"
+      },
+      "name": "Mainos estäjä"
+    },
+    "album-actions": {
+      "description": "Alapeukuta musiikki/videota, jotta voimme tarjota sinulle parhaimmat MIX:it",
+      "name": "Albumin toiminnot"
+    },
+    "album-color-theme": {
+      "description": "Käyttää dynaamista teemaa ja visuaalisia tehosteita albumin väripaletin perusteella",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "Värien sekoitussuhde",
+          "submenu": {
+            "percent": "{{ratio}}%"
+          }
+        }
+      },
+      "name": "Albumin värin teema"
+    },
+    "ambient-mode": {
+      "description": "Antaa valaistustehosteen heittämällä videosta lempeitä värejä näytön taustalle"
+    }
+  }
+}
