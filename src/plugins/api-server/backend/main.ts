@@ -16,7 +16,7 @@ export const backend = createBackend<BackendType, APIServerConfig>({
   async start(ctx) {
     const config = await ctx.getConfig();
 
-    this.init(ctx);
+    await this.init(ctx);
     registerCallback((songInfo) => {
       this.songInfo = songInfo;
     });

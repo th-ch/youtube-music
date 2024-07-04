@@ -12,7 +12,7 @@ export type BackendType = {
   oldConfig?: APIServerConfig;
   songInfo?: SongInfo;
 
-  init: (ctx: BackendContext<APIServerConfig>) => void;
+  init: (ctx: BackendContext<APIServerConfig>) => Promise<void>;
   run: (hostname: string, port: number) => void;
   end: () => void;
 }
