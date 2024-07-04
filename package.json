@@ -187,7 +187,7 @@
     "ts-morph": "22.0.0",
     "vudio": "2.1.1",
     "x11": "2.3.0",
-    "youtubei.js": "9.3.0",
+    "youtubei.js": "10.0.0",
     "zod": "3.22.4"
   },
   "devDependencies": {
