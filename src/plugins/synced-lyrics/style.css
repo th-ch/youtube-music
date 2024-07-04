@@ -1,3 +1,17 @@
+/* :root {
+  --ytmusic-text-primary: #fff;
+  --ytmusic-text-secondary: #aaa;
+} */
+
+:root {
+  --previous-lyrics: var(--ytmusic-text-primary);
+  --current-lyrics: var(--ytmusic-text-primary);
+  --upcoming-lyrics: var(--ytmusic-text-secondary);
+  --size-lyrics: 1.2em;
+  --offset-lyrics: 1em;
+}
+
+
 .description {
   font-size: clamp(1.4rem, 1.1vmax, 3rem) !important;
   text-align: left !important;
@@ -28,24 +42,27 @@
 }
 
 .previous {
-  color: var(--ytmusic-text-primary);
+  color: var(--previous-lyrics);
   font-weight: normal;
   transition: font-size 0.3s ease-in-out;
   transition: padding-left 0.3s ease-in-out;
+  transition: color 0.1s ease-in-out;
 }
 
 .current {
-  color: var(--ytmusic-text-primary);
+  color: var(--current-lyrics);
   font-weight: bold;
-  font-size: 1.2em;
-  /* padding-left: 1em; */
+  font-size: var(--size-lyrics);
+  padding-left: var(--offset-lyrics);
   transition: font-size 0.3s ease-in-out;
   transition: padding-left 0.3s ease-in-out;
+  transition: color 0.1s ease-in-out;
 }
 
 .upcoming {
-  color: var(--ytmusic-text-secondary);
+  color: var(--upcoming-lyrics);
   font-weight: normal;
   transition: font-size 0.3s ease-in-out;
   transition: padding-left 0.3s ease-in-out;
+  transition: color 0.1s ease-in-out;
 }

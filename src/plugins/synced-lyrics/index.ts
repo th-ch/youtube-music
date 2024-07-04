@@ -9,8 +9,9 @@ export type SyncedLyricsPluginConfig = {
   enabled: boolean;
   preciseTiming: boolean;
   showTimeCodes: boolean;
-  DefaultTextString: string;
+  defaultTextString: string;
   showLyricsEvenIfInexact: boolean;
+  lineEffect: LineEffect;
 };
 
 export type LineLyricsStatus = 'previous' | 'current' | 'upcoming';
@@ -28,16 +29,21 @@ export type PlayPauseEvent = {
   elapsedSeconds: number;
 };
 
+
+export type LineEffect = 'scale' | 'offset' | 'focus';
+
 export default createPlugin({
   name: () => 'Synced Lyrics',
   description: () => 'Synced Lyrics Plugin Description',
+  authors: ['Non0reo'],
   restartNeeded: true,
   config: {
     enabled: true,
     preciseTiming: true,
     showLyricsEvenIfInexact: true,
     showTimeCodes: false,
-    DefaultTextString: '♪',
+    defaultTextString: '♪',
+    lineEffect: 'scale',
   } as SyncedLyricsPluginConfig,
   stylesheets: [style],
   async menu({ getConfig, setConfig }: MenuContext<SyncedLyricsPluginConfig>): Promise<MenuItemConstructorOptions[]> {
@@ -46,7 +52,7 @@ export default createPlugin({
     return [
       {
         label: 'Make the lyrics perfectly synced',
-        toolTip: '(can have a small performance impact)',
+        toolTip: 'Calculate to the milisecond the display of the next line (can have a small impact on performance)',
         type: 'checkbox',
         checked: config.preciseTiming,
         click(item) {
@@ -78,57 +84,97 @@ export default createPlugin({
         },
       },
       {
-        label: 'Default Espacement For Lyrics',
-        toolTip: 'Choose the default string to use for the espacement of the lyrics',
+        label: 'Line effect',
+        toolTip: 'Choose the effect to apply to the current line',
+        type: 'submenu',
+        submenu: [
+          {
+            label: 'Scale',
+            toolTip: 'Scale the current line',
+            type: 'radio',
+            checked: config.lineEffect === 'scale',
+            click() {
+              setConfig({
+                lineEffect: 'scale',
+              });
+            },
+          },
+          {
+            label: 'Offset',
+            toolTip: 'Offset on the right the current line',
+            type: 'radio',
+            checked: config.lineEffect === 'offset',
+            click() {
+              setConfig({
+                lineEffect: 'offset',
+              });
+            },
+          },
+          {
+            label: 'Focus',
+            toolTip: 'Make only the current line white',
+            type: 'radio',
+            checked: config.lineEffect === 'focus',
+            click() {
+              setConfig({
+                lineEffect: 'focus',
+              });
+            },
+          },
+        ],
+      },
+      {
+        label: 'Default character between lyrics',
+        toolTip: 'Choose the default string to use for the gap between lyrics',
         type: 'submenu',
         submenu: [
           {
             label: '♪',
             type: 'radio',
-            checked: config.DefaultTextString === '♪',
+            checked: config.defaultTextString === '♪',
             click() {
               setConfig({
-                DefaultTextString: '♪',
+                defaultTextString: '♪',
               });
             },
           },
           {
             label: '[SPACE]',
             type: 'radio',
-            checked: config.DefaultTextString === ' ',
+            checked: config.defaultTextString === ' ',
             click() {
               setConfig({
-                DefaultTextString: ' ',
+                defaultTextString: ' ',
               });
             },
           },
           {
             label: '...',
             type: 'radio',
-            checked: config.DefaultTextString === '...',
+            checked: config.defaultTextString === '...',
             click() {
               setConfig({
-                DefaultTextString: '...',
+                defaultTextString: '...',
               });
             },
           },
           {
             label: '———',
             type: 'radio',
-            checked: config.DefaultTextString === '———',
+            checked: config.defaultTextString === '———',
             click() {
               setConfig({
-                DefaultTextString: '———',
+                defaultTextString: '———',
               });
             },
           },
           {
             label: '[BACKSPACE]',
             type: 'radio',
-            checked: config.DefaultTextString === '\n',
+            checked: config.defaultTextString === '\n',
             click() {
               setConfig({
-                DefaultTextString: '\n',
+                defaultTextString: '\n',
               });
             },
           },
@@ -138,7 +184,7 @@ export default createPlugin({
   },
   backend: {
     async start({ ipc }) {
-
+      
       ipc.on('ytmd:player-api-loaded', () =>
         ipc.send('ytmd:setup-time-changed-listener'),
       );
@@ -152,9 +198,6 @@ export default createPlugin({
       });
     
     },
-    onConfigChange: () => {
-      console.warn('Synced Lyrics Plugin Config Changed HEREEEEEEEEEEEE')
-    }
   },
 
   renderer: async ({
@@ -162,6 +205,32 @@ export default createPlugin({
     ipc: { on },
   }: RendererContext<SyncedLyricsPluginConfig>) => {
     const config = await getConfig();
+
+    let root = document.documentElement;
+    switch (config.lineEffect) {
+      case 'scale':
+        root.style.setProperty('--previous-lyrics', 'var(--ytmusic-text-primary)');
+        root.style.setProperty('--current-lyrics', 'var(--ytmusic-text-primary)');
+        root.style.setProperty('--upcoming-lyrics', 'var(--ytmusic-text-secondary)');
+        root.style.setProperty('--size-lyrics', '1.2em');
+        root.style.setProperty('--offset-lyrics', '0');
+        break;
+      case 'offset':
+        root.style.setProperty('--previous-lyrics', 'var(--ytmusic-text-primary)');
+        root.style.setProperty('--current-lyrics', 'var(--ytmusic-text-primary)');
+        root.style.setProperty('--upcoming-lyrics', 'var(--ytmusic-text-secondary)');
+        root.style.setProperty('--size-lyrics', '1em');
+        root.style.setProperty('--offset-lyrics', '1em');
+        break;
+      case 'focus':
+        root.style.setProperty('--previous-lyrics', 'var(--ytmusic-text-secondary)');
+        root.style.setProperty('--current-lyrics', 'var(--ytmusic-text-primary)');
+        root.style.setProperty('--upcoming-lyrics', 'var(--ytmusic-text-secondary)');
+        root.style.setProperty('--size-lyrics', '1em');
+        root.style.setProperty('--offset-lyrics', '0');
+        break;
+    }
+    
 
     let syncedLyricList: Array<LineLyrics> = [];
     let currentLyric: LineLyrics | null = null;
@@ -176,7 +245,7 @@ export default createPlugin({
       const minutes = parseInt(match[1]);
       const seconds = parseInt(match[2]);
       const milliseconds = parseInt(match[3]);
-      const text = match[4] === ' ' ? config.DefaultTextString : match[4].slice(1);
+      const text = match[4] === ' ' ? config.defaultTextString : match[4].slice(1);
       
       const time = `${minutes}:${seconds}:${milliseconds}`;
       const timeInMs = (minutes * 60 * 1000) + (seconds * 1000) + milliseconds;
@@ -219,7 +288,7 @@ export default createPlugin({
         else if (!data.length) 
           return null;
 
-        let songsWithMatchingArtist = data.filter((song: any) => songArtist.toLowerCase().includes(song.artistName.toLowerCase())); //Lowercase to avoid case sensitivity from API
+        let songsWithMatchingArtist = data.filter((song: any) => songArtist.toLowerCase().includes(song.artistName.toLowerCase()) && song.syncedLyrics); //Lowercase to avoid case sensitivity from API
         console.log('song with matching artists', songsWithMatchingArtist);
         if (!songsWithMatchingArtist.length) return null;
         dataIndex = 0;
@@ -440,6 +509,8 @@ export default createPlugin({
             tabs.lyrics.style.display = 'block'; //specific case where the lyrics are not available
             tabs.lyrics.removeAttribute('disabled');
             tabs.lyrics.setAttribute('aria-disabled', 'false');
+            // const globalLyricsDiv = document.querySelector<HTMLElement>('#tab-renderer > ytmusic-section-list-renderer[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"]');
+            // if (globalLyricsDiv) globalLyricsDiv.style.display = 'unset';
           } else {
             tabs.lyrics.setAttribute('disabled', 'true');
             tabs.lyrics.setAttribute('aria-disabled', 'true');
