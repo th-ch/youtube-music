@@ -239,6 +239,9 @@
             "pixels": "{{blurAmount}}pikseliä"
           }
         },
+        "buffer": {
+          "label": "Puskuroi"
+        },
         "opacity": {
           "label": "Läpinäkyvyys",
           "submenu": {
@@ -256,6 +259,9 @@
           "submenu": {
             "percent": "{{size}}%"
           }
+        },
+        "smoothness-transition": {
+          "label": "sujuvuus siirtymässä"
         },
         "use-fullscreen": {
           "label": "Käytetään koko näytön tilaa"
