@@ -1,4 +1,4 @@
-import { BrowserWindow, globalShortcut } from 'electron';
+import { BrowserWindow, ipcMain, globalShortcut } from 'electron';
 import is from 'electron-is';
 import { register as registerElectronLocalShortcut } from 'electron-localshortcut';
 
@@ -48,7 +48,9 @@ export const onMainLoad = async ({
   _registerLocalShortcut(window, 'CommandOrControl+L', search);
 
   if (is.linux()) {
-    registerMPRIS(window);
+    ipcMain.once('ytmd:video-src-changed', (_) => {
+      registerMPRIS(window);
+    });
   }
 
   const { global, local } = config;

@@ -39,12 +39,12 @@
         "clearing-cache-after-20s": "Čištění mezipaměti aplikace"
       },
       "window": {
-        "tried-to-render-offscreen": "Okno se pokusilo vykreslit na pozadí, velikost okna = {{windowSize}}, display velikost = {{displaySize}}, pozice = {{position}}"
+        "tried-to-render-offscreen": "Okno se pokusilo vykreslit na pozadí, velikost okna = {{windowSize}}, zobrazovací velikost = {{displaySize}}, pozice = {{position}}"
       }
     },
     "dialog": {
       "hide-menu-enabled": {
-        "detail": "Menu je skryté, stiskněte 'Alt' k jeho zobrazení (nebo 'Escape', pokud používáte in-app-menu)",
+        "detail": "Menu je skryté, stiskněte 'Alt' k jeho zobrazení (nebo 'ESC', pokud používáte vestavěné menu)",
         "message": "Skrýt menu je povoleno",
         "title": "Skrýt menu Povolené"
       },
@@ -158,6 +158,14 @@
               },
               "remove-upgrade-button": "Odebrat upgrade tlačítko",
               "theme": {
+                "dialog": {
+                  "button": {
+                    "cancel": "zrušit",
+                    "remove": "Odstranit"
+                  },
+                  "remove-theme": "Jste si jisti že chcete odstranit tento vlastní motiv?",
+                  "remove-theme-message": "Tohle odstraní vlastní motiv"
+                },
                 "label": "Motiv",
                 "submenu": {
                   "import-css-file": "Vložit vlastní CSS soubor",
@@ -191,7 +199,11 @@
       "previous": "Minulý",
       "quit": "Ukončit",
       "restart": "Restartovat aplikaci",
-      "show": "Zobrazit okno"
+      "show": "Zobrazit okno",
+      "tooltip": {
+        "default": "Youtube Music",
+        "with-song-info": "Youtube Music {{Umělec}} - {{Titul}}"
+      }
     }
   },
   "plugins": {
@@ -200,18 +212,26 @@
       "menu": {
         "blocker": "Blokátor"
       },
-      "name": "Blokovač reklam"
+      "name": "Blokátor reklam"
     },
     "album-actions": {
-      "description": "Přidává Undislike, Dislike, Like, a Unlike tlačítka k apply this ke všem písničkám v seznamu písniček nebo albumu.",
+      "description": "Přidává Undislike, Dislike, Like, a Unlike tlačítka k aplikování tohoto ke všem písničkám v seznamu písniček nebo albumu",
       "name": "Album akce"
     },
     "album-color-theme": {
       "description": "Používá dynamický motiv a vizuální efekty na základě palety barev alba",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "Poměr míchání barev",
+          "submenu": {
+            "percent": "{{poměr}}%"
+          }
+        }
+      },
       "name": "Motiv podle barvy Alba"
     },
     "ambient-mode": {
-      "description": "Applies bleskové efekty pomocí casting jemných barev z videa, do vašeho pozadí obrazovky.",
+      "description": "Aplikuje světelné efekty pomocí vrhání jemných barev z videa, do vašeho pozadí obrazovky",
       "menu": {
         "blur-amount": {
           "label": "Množství rozmazání",
@@ -298,7 +318,10 @@
       "prompt": {
         "options": {
           "multi-input": {
+            "fade-in-duration": "Délka Sílení (ms)",
+            "fade-out-duration": "Délka Slábnutí (ms)",
             "fade-scaling": {
+              "label": "Škálování Přechodu",
               "linear": "Lineární",
               "logarithmic": "Logaritmické"
             },
@@ -362,6 +385,7 @@
         },
         "feedback": {
           "conversion-progress": "Konverze: {{percent}}%",
+          "converting": "Převádím…",
           "done": "Hotovo: {{filePath}}",
           "download-info": "Stahování {{artist}} - {{title}} [{{videoId}}",
           "download-progress": "Stahování: {{percent}}%",
@@ -406,7 +430,8 @@
       "description": "Dává menu panelům fancy, tmavý nebo album-color vzhled",
       "menu": {
         "hide-dom-window-controls": "Skrýt DOM window controls"
-      }
+      },
+      "name": "Vestavěné Menu"
     },
     "lumiastream": {
       "description": "Přidává Lumia Stream podporu",
@@ -414,21 +439,26 @@
     },
     "lyrics-genius": {
       "description": "Přidává lyrics podporu pro většinu písniček",
+      "menu": {
+        "romanized-lyrics": "Romanizované Lyrics"
+      },
+      "name": "Lyrics Genius",
       "renderer": {
         "fetched-lyrics": "Fetched lyrics pro Genius"
       }
     },
     "music-together": {
-      "description": "Sdílejte seznam písniček s ostatními. Když the host hraje písničku, uslyší jí i všichni ostatní.",
+      "description": "Sdílejte playlist s ostatními. Když hostitel přehrává písničku, uslyší jí i všichni ostatní.",
       "dialog": {
         "enter-host": "Zadejte Host ID"
       },
       "internal": {
         "save": "Uložit",
+        "track-source": "Zdroj Písně",
         "unknown-user": "Neznámý uživatel"
       },
       "menu": {
-        "click-to-copy-id": "Zkopírovat Host ID",
+        "click-to-copy-id": "Zkopírovat ID Hosta",
         "close": "Zavřít Hudba Spolu",
         "connected-users": "Připojení uživatelé",
         "disconnect": "Odpojit od Hudby Spolu",
@@ -437,7 +467,7 @@
         "join": "Připojit se k Hudbě Spolu",
         "permission": {
           "all": "Povolit hostům ovládat seznam písniček a přehrávač",
-          "host-only": "Jenom host může ovládat seznam písniček a přehrávač",
+          "host-only": "Jenom hostitel může ovládat seznam písniček a přehrávač",
           "playlist": "Povolit hostům ovládat seznam písniček"
         },
         "set-permission": "Změnit ovládací oprávnění",
@@ -454,6 +484,7 @@
         "disconnected": "Hudba Spolu odpojena",
         "host-failed": "Selhalo hostování Hudby Spolu",
         "id-copied": "Host ID zkopírováno do schránky",
+        "id-copy-failed": "Kopírování ID Hosta do schránky selhalo",
         "join-failed": "Selhalo připojení k Hudba Spolu",
         "joined": "Připojil/a jste se k Hudbě Spolu",
         "permission-changed": "Oprávnění Hudby Spolu se změnilo na \"{{permission}}\"",
@@ -483,6 +514,7 @@
           }
         },
         "priority": "Priorita Oznámení",
+        "toast-style": "Toast Styl",
         "unpause-notification": "Zobrazit oznámení na unpause"
       },
       "name": "Oznámení"
@@ -520,6 +552,7 @@
     "precise-volume": {
       "description": "Přesná kontrola hlasitosti pomocí kolečka myši/klávesnicových zkratek, s vlastní HUD a customizable hlasitostních steps",
       "menu": {
+        "arrows-shortcuts": "Ovádání Šipkami",
         "custom-volume-steps": "Nastavit vlastní hlasitostní steps",
         "global-shortcuts": "Globální klávesové zkratky"
       },
@@ -551,6 +584,37 @@
       },
       "description": "Umožňuje měnit kvalitu videa pomocí tlačítka na video overlay",
       "name": "Měnič kvality videa"
+    },
+    "scrobbler": {
+      "description": "Přidat scrobbing podporu (např .last.fm , Listenbrainz)",
+      "dialog": {
+        "lastfm": {
+          "auth-failed": {
+            "message": "Selhalo ověření s Last.fm\nSchovat vyskakovací okno do dalšího restartu.",
+            "title": "Ověření Selhalo"
+          }
+        }
+      },
+      "menu": {
+        "lastfm": {
+          "api-settings": "Last.fm API nastavení"
+        },
+        "listenbrainz": {
+          "token": "Vložte Listenbrainz user token"
+        },
+        "scrobble-other-media": "Scrobble jiné média"
+      },
+      "name": "Scrobbler",
+      "prompt": {
+        "lastfm": {
+          "api-key": "Last,fm API klíč"
+        },
+        "listenbrainz": {
+          "token": {
+            "label": "Vložte svůj Listenbrainz user token:"
+          }
+        }
+      }
     },
     "shortcuts": {
       "description": "Dovoluje nastavit globální klávesové zkratky pro playback (přehrát/pozastavit/další/předchozí) a vypínání media OSD pomocí přepisování media klíčů, zapínání Ctrl/CMD + F k vyhledávání, zapínání Linux MPRIS podporu pro media klíče, a vlastní klávesové zkratky pro pokročilé uživatele.",

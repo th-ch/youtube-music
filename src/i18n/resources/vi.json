@@ -158,6 +158,14 @@
               },
               "remove-upgrade-button": "Xóa nút nâng cấp",
               "theme": {
+                "dialog": {
+                  "button": {
+                    "cancel": "Hủy",
+                    "remove": "Loại bỏ"
+                  },
+                  "remove-theme": "Bạn có chắc muốn loại bỏ chủ đề tùy chỉnh không?",
+                  "remove-theme-message": "Tùy chọn này sẽ loại bỏ chủ đề tùy chỉnh"
+                },
                 "label": "Chủ đề",
                 "submenu": {
                   "import-css-file": "Nhập tệp CSS tùy chỉnh",

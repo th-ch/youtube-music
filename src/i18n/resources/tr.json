@@ -158,6 +158,14 @@
               },
               "remove-upgrade-button": "Yükseltme düğmesini kaldır",
               "theme": {
+                "dialog": {
+                  "button": {
+                    "cancel": "İptal",
+                    "remove": "Kaldır"
+                  },
+                  "remove-theme": "Özel temayı kaldırmak istediğinizden emin misiniz?",
+                  "remove-theme-message": "Bu işlem özel temayı kaldıracaktır"
+                },
                 "label": "Tema",
                 "submenu": {
                   "import-css-file": "Özel CSS dosyanı içeri aktar",

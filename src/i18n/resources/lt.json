@@ -158,6 +158,14 @@
               },
               "remove-upgrade-button": "Nerodyti \"Patobulinti\" mygtuko",
               "theme": {
+                "dialog": {
+                  "button": {
+                    "cancel": "Atšaukti",
+                    "remove": "Pašalinti"
+                  },
+                  "remove-theme": "Ar tikrai norite pašalinti pasirinktinę temą?",
+                  "remove-theme-message": "Šis veiksmas pašalins pasirinktinę temą"
+                },
                 "label": "Tema",
                 "submenu": {
                   "import-css-file": "Įkelti pasirinktinį CSS failą",
@@ -191,7 +199,11 @@
       "previous": "Ankstesnis",
       "quit": "Išeiti",
       "restart": "Perkrauti programą",
-      "show": "Rodyti langą"
+      "show": "Rodyti langą",
+      "tooltip": {
+        "default": "Youtube Music",
+        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
+      }
     }
   },
   "plugins": {
@@ -202,8 +214,19 @@
       },
       "name": "Reklamų blokuotojas"
     },
+    "album-actions": {
+      "name": "Albumo Veiksmai"
+    },
     "album-color-theme": {
       "description": "Pritaiko dinamišką temą ir vizualinius efektus pagal albumo spalvų paletę",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "Spalvų maišymo santykis",
+          "submenu": {
+            "percent": "{{ratio}}%"
+          }
+        }
+      },
       "name": "Albumo Spalvų Tema"
     },
     "ambient-mode": {
@@ -421,6 +444,20 @@
       "name": "\"Genius\" Žodžių tekstai",
       "renderer": {
         "fetched-lyrics": "Gauti žodžiai iš „Genius“"
+      }
+    },
+    "music-together": {
+      "description": "Pasidalinti grojaraščiu su kitais. Kai vedėjas paleis dainą, visi kiti girdės tą pačią dainą",
+      "dialog": {
+        "enter-host": "Įveskite vedėjo ID"
+      },
+      "internal": {
+        "save": "Išsaugoti",
+        "track-source": "Dainos kilmė",
+        "unknown-user": "Nežinomas Naudotojas"
+      },
+      "menu": {
+        "click-to-copy-id": "Kopijuoti Vedėjo ID"
       }
     },
     "navigation": {

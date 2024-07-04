@@ -270,7 +270,20 @@ export const TitleBar = (props: TitleBarProps) => {
 
     // tracking mouse position
     window.addEventListener('mousemove', listener);
+    const ytmusicAppLayout = document.querySelector<HTMLElement>('#layout');
+    ytmusicAppLayout?.addEventListener("scroll",()=>{
+    const scrollValue = ytmusicAppLayout.scrollTop;
+    if (scrollValue > 20){
+      ytmusicAppLayout.classList.add("content-scrolled");
+    }
+    else{
+      ytmusicAppLayout.classList.remove("content-scrolled");
+    }
+    })
+
   });
+
+  
 
   createEffect(() => {
     if (!menu() && data()) {

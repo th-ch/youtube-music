@@ -162,6 +162,14 @@
                 "submenu": {
                   "import-css-file": "Import custom CSS file",
                   "no-theme": "No theme"
+                },
+                "dialog": {
+                  "remove-theme": "Are you sure you want to remove the custom theme?",
+                  "remove-theme-message": "This will remove the custom theme",
+                  "button": {
+                    "cancel": "Cancel",
+                    "remove": "Remove"
+                  }
                 }
               }
             }
@@ -404,7 +412,22 @@
         "choose-download-folder": "Choose download folder",
         "download-playlist": "Download playlist",
         "presets": "Presets",
-        "skip-existing": "Skip existing files"
+        "skip-existing": "Skip existing files",
+        "download-finish-settings": {
+            "label": "Download on finish",
+            "submenu": {
+              "enabled": "Enabled",
+              "mode": "Time mode",
+              "seconds": "Seconds",
+              "percent": "Percent",
+              "advanced": "Advanced"
+            },
+            "prompt": {
+              "title": "Configure when to download",
+              "last-seconds": "Last x seconds",
+              "last-percent": "After x percent"
+            }
+        }
       },
       "name": "Downloader",
       "renderer": {
