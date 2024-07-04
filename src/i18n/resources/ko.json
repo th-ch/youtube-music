@@ -162,6 +162,14 @@
                 "submenu": {
                   "import-css-file": "사용자 정의 CSS 파일 가져오기",
                   "no-theme": "테마 없음"
+                },
+                "dialog": {
+                  "remove-theme": "사용자 정의 테마를 제거하시겠습니까?",
+                  "remove-theme-message": "사용자 정의 테마가 제거됩니다. 계속하시겠습니까?",
+                  "button": {
+                    "cancel": "취소",
+                    "remove": "제거"
+                  }
                 }
               }
             }
