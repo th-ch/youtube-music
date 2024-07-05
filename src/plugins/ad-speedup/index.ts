@@ -1,5 +1,7 @@
 import { createPlugin } from '@/utils';
 
+import { t } from '@/i18n';
+
 function skipAd(target: Element) {
   const skipButton = target.querySelector<HTMLButtonElement>('button.ytp-ad-skip-button-modern');
   if (skipButton) {
@@ -20,7 +22,8 @@ function speedUpAndMute(player: Element, isAdShowing: boolean) {
 }
 
 export default createPlugin({
-  name: () => 'Ad Speedup',
+  name: t('plugins.ad-speedup.name'),
+  description: t('plugins.ad-speedup.description'),
   restartNeeded: true,
   config: {
     enabled: false,
