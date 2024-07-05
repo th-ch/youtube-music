@@ -214,7 +214,7 @@
       },
       "name": "Ad Blocker"
     },
-    "ad-speedup: {
+    "ad-speedup": {
       "name": "Ad Speedup",
       "description": "If an ad play it mutes the audio and sets playback speed to 16x"
     },
