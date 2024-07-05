@@ -214,6 +214,10 @@
       },
       "name": "Ad Blocker"
     },
+    "ad-speedup: {
+      "name": "Ad Speedup",
+      "description": "If an ad play it mutes the audio and sets playback speed to 16x"
+    },
     "album-actions": {
       "description": "Adds Undislike, Dislike, Like, and Unlike buttons to apply this to all songs in a playlist or album",
       "name": "Album Actions"
