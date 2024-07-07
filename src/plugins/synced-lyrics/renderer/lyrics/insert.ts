@@ -47,7 +47,7 @@ export const styleLyrics = (actualLyric: LineLyrics) => {
 
     const targetElement = document.querySelector<HTMLElement>('.current');
     if (targetElement)
-    targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
     
 };
 
@@ -56,30 +56,30 @@ export const setLyrics = (lyricsContainer: Element, lyrics: Array<LineLyrics> | 
     let lineList = [];
     console.log(lyrics, lyricsContainer);
     if (lyrics) {
-    const footer = lyricsContainer.querySelector('.footer');
+        const footer = lyricsContainer.querySelector('.footer');
 
-    let lyricsBegin = syncedLyricList[1].timeInMs < 1000 ? 1 : 0; //If the first real lyric is before 1 second, we skip the first blank line
-    for(let i = lyricsBegin; i < syncedLyricList.length; i++) {
-        const line = syncedLyricList[i];
-        lineList.push(`
-        <div class="synced-line ${line.status}" data-index="${line.index}">
-            <span class="text-lyrics">${config.showTimeCodes ? `[${line.time}] ` : ''}${line.text}</span>
-        </div>
-        `);
-    }
-    //<div id="contents" class="style-scope ytmusic-section-list-renderer description ytmusic-description-shelf-renderer synced-lyrics">
-    lyricsContainer.innerHTML = `
-        ${hadSecondAttempt ? '<div class="warning-lyrics">The lyrics for this song may not be exact</div>' : ''}
-        ${lineList.join('')}
-        <span class="footer style-scope ytmusic-description-shelf-renderer" style="align-self: baseline">Source: LRCLIB</span>
-        <yt-formatted-string class="footer style-scope ytmusic-description-shelf-renderer" style="align-self: baseline">
-        Source: LRCLIB
-        </yt-formatted-string>
-    `;
-    lyricsContainer.classList.add('synced-lyrics');
-    lyricsContainer.classList.add('description');
+        let lyricsBegin = syncedLyricList[1].timeInMs < 1000 ? 1 : 0; //If the first real lyric is before 1 second, we skip the first blank line
+        for(let i = lyricsBegin; i < syncedLyricList.length; i++) {
+            const line = syncedLyricList[i];
+            lineList.push(`
+            <div class="synced-line ${line.status}" data-index="${line.index}">
+                <span class="text-lyrics">${config.showTimeCodes ? `[${line.time}] ` : ''}${line.text}</span>
+            </div>
+            `);
+        }
+        //<div id="contents" class="style-scope ytmusic-section-list-renderer description ytmusic-description-shelf-renderer synced-lyrics">
+        lyricsContainer.innerHTML = `
+            ${hadSecondAttempt ? '<div class="warning-lyrics">The lyrics for this song may not be exact</div>' : ''}
+            ${lineList.join('')}
+            <span class="footer style-scope ytmusic-description-shelf-renderer" style="align-self: baseline">Source: LRCLIB</span>
+            <yt-formatted-string class="footer style-scope ytmusic-description-shelf-renderer" style="align-self: baseline">
+            Source: LRCLIB
+            </yt-formatted-string>
+        `;
+        lyricsContainer.classList.add('synced-lyrics');
+        lyricsContainer.classList.add('description');
 
-    if (footer) 
-        footer.textContent = 'Source: LRCLIB';
+        if (footer) 
+            footer.textContent = 'Source: LRCLIB';
     }
 };
