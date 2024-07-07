@@ -1,20 +1,17 @@
 import { RendererContext } from "@/types/contexts";
 import { LineLyrics, SyncedLyricsPluginConfig } from "..";
 import { SongInfo } from "@/providers/song-info";
-import { createProgressEvents } from "./lyrics/progress";
+import { createProgressEvents, interval, resetAllVariables } from "./lyrics/progress";
 import { makeLyricsRequest } from "./lyrics/fetch";
 import { setLyrics } from "./lyrics/insert";
 
-
 export const secToMilisec = (t: number) => Math.round(Number(t) * 1e3);
 export let syncedLyricList: Array<LineLyrics> = [];
-export let currentLyric: LineLyrics | null = null;
-export let nextLyric: LineLyrics | null = null;
 export let hadSecondAttempt: boolean = false;
 export let songInfos: SongInfo;
-export let currentTime = 0;
-export let interval: NodeJS.Timeout | null = null;
 export let config: SyncedLyricsPluginConfig;
+export let lyrics: Array<LineLyrics> | null;
+export let songWithLyrics: boolean = true;
 
 export const onRendererLoad = async ({
     getConfig,
@@ -22,7 +19,7 @@ export const onRendererLoad = async ({
   }: RendererContext<SyncedLyricsPluginConfig>) => {
     config = await getConfig(); //make config global
 
-    createProgressEvents(on);
+    //createProgressEvents(on);
 
 
     let root = document.documentElement;
@@ -50,20 +47,22 @@ export const onRendererLoad = async ({
         
     let unregister: (() => void) | null = null;
     let timeout: NodeJS.Timeout | null = null;
-    let lyrics: Array<LineLyrics> | null = null;
 
     on('ytmd:update-song-info', (extractedSongInfo: SongInfo) => {
+      console.warn('ytmd:update-song-info', extractedSongInfo);
       songInfos = extractedSongInfo;
       unregister?.();
 
       clearTimeout(timeout!);
+      clearInterval(interval!);
       syncedLyricList = [];
-      currentLyric = null;
-      nextLyric = null;
       hadSecondAttempt = false;
       lyrics = null;
+      songWithLyrics = true;
 
-      let songWithLyrics: boolean = true;
+      resetAllVariables();
+
+      //console.log(syncedLyricList, currentLyric, nextLyric, hadSecondAttempt, lyrics)
       const tabList = document.querySelectorAll<HTMLElement>('tp-yt-paper-tab');
       const tabs = {
         upNext: tabList[0],
@@ -75,7 +74,7 @@ export const onRendererLoad = async ({
 
       timeout = setTimeout(async () => {
         lyrics = await makeLyricsRequest(songInfos);
-        if (!lyrics) { // Delete previous lyrics if tab is open and couldn't get new lyrics
+        if (!songWithLyrics && !lyrics) { // Delete previous lyrics if tab is open and couldn't get new lyrics
             tabs.upNext.click();
             return;
         }
@@ -144,5 +143,7 @@ export const onRendererLoad = async ({
       }, songWithLyrics ? 0 : 1000);
 
     });
+
+    createProgressEvents(on);
     
 };

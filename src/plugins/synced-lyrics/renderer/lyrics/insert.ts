@@ -6,10 +6,10 @@ export const styleLyrics = (actualLyric: LineLyrics) => {
     const lyrics = document.querySelectorAll('.synced-line');
     
     const setStatus = (lyric: Element, status: LineLyricsStatus) => {
-    lyric.classList.remove('current');
-    lyric.classList.remove('previous');
-    lyric.classList.remove('upcoming');
-    lyric.classList.add(status);
+        lyric.classList.remove('current');
+        lyric.classList.remove('previous');
+        lyric.classList.remove('upcoming');
+        lyric.classList.add(status);
     }
 
     lyrics.forEach((lyric: Element) => {

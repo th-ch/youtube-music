@@ -17,11 +17,11 @@ export const extractTimeAndText = (line: string, index: number): LineLyrics|null
     const timeInMs = (minutes * 60 * 1000) + (seconds * 1000) + milliseconds;
 
     return {
-    index,
-    time,
-    timeInMs,
-    text,
-    status: 'upcoming',
+        index,
+        time,
+        timeInMs,
+        text,
+        status: 'upcoming',
     } as LineLyrics;
 }
 
