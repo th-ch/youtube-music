@@ -30,7 +30,6 @@ export const onRendererLoad = async ({
   }: RendererContext<SyncedLyricsPluginConfig>) => {
     config = await getConfig(); //make config global
 
-    createProgressEvents(on); 
     initLyricsStyle();
 
     on('ytmd:update-song-info', (extractedSongInfo: SongInfo) => {
@@ -115,7 +114,8 @@ export const onRendererLoad = async ({
             tabs.upNext.removeEventListener('click', applyLyricsTabState);
         };
       }, songWithLyrics ? 0 : 1000);
-
     });
+
+    createProgressEvents(on); 
 
 };

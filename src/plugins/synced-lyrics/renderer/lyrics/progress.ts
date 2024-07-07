@@ -21,7 +21,6 @@ export const createProgressEvents = (on: Function) => {
   });
 
   on('synced-lyrics:setTime', (t: number) => {
-    console.log('synced-lyrics:setTime', t);
       if(!lyrics && !songWithLyrics) return;
       if (config.preciseTiming) {
           currentTime = secToMilisec(t);
@@ -49,8 +48,6 @@ export const changeActualLyric = (time: number): LineLyrics|void => {
     currentLyric.status = 'current';
     styleLyrics(currentLyric);
     return;
-  } else {
-    styleLyrics(currentLyric);
   }
 
   if (nextLyric && time >= nextLyric.timeInMs) {
@@ -69,8 +66,8 @@ export const changeActualLyric = (time: number): LineLyrics|void => {
     }
   }
 
-  //if time is before curent lyric time, replace the current lyric with the lyric associated with the acutal time
-  if (currentLyric.timeInMs > time) {
+  //I check 300ms before the current lyric time to avoid lyrics to overlap and flicker
+  if (currentLyric.timeInMs - 300 > time) {
     for (let i = syncedLyricList.length - 1; i >= 0; i--) {
       syncedLyricList[i].status = 'upcoming';
 
