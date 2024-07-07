@@ -3,15 +3,26 @@ import { LineLyrics, SyncedLyricsPluginConfig } from "..";
 import { SongInfo } from "@/providers/song-info";
 import { createProgressEvents, interval, resetAllVariables } from "./lyrics/progress";
 import { makeLyricsRequest } from "./lyrics/fetch";
-import { setLyrics } from "./lyrics/insert";
+import { initLyricsStyle, setLyrics } from "./lyrics/insert";
 
 export const secToMilisec = (t: number) => Math.round(Number(t) * 1e3);
 export let syncedLyricList: Array<LineLyrics> = [];
 export let hadSecondAttempt: boolean = false;
-export let songInfos: SongInfo;
 export let config: SyncedLyricsPluginConfig;
 export let lyrics: Array<LineLyrics> | null;
 export let songWithLyrics: boolean = true;
+let unregister: (() => void) | null = null;
+let timeout: NodeJS.Timeout | null = null;
+
+const newSongReset = () => {
+    clearTimeout(timeout!);
+    clearInterval(interval!);
+    syncedLyricList = [];
+    hadSecondAttempt = false;
+    lyrics = null;
+    songWithLyrics = true;
+    resetAllVariables();
+}
 
 export const onRendererLoad = async ({
     getConfig,
@@ -19,50 +30,13 @@ export const onRendererLoad = async ({
   }: RendererContext<SyncedLyricsPluginConfig>) => {
     config = await getConfig(); //make config global
 
-    //createProgressEvents(on);
-
-
-    let root = document.documentElement;
-    switch (config.lineEffect) { // Set the line effect
-      case 'scale':
-      root.style.setProperty('--previous-lyrics', 'var(--ytmusic-text-primary)');
-      root.style.setProperty('--current-lyrics', 'var(--ytmusic-text-primary)');
-      root.style.setProperty('--size-lyrics', '1.2em');
-      root.style.setProperty('--offset-lyrics', '0');
-      break;
-      case 'offset':
-      root.style.setProperty('--previous-lyrics', 'var(--ytmusic-text-primary)');
-      root.style.setProperty('--current-lyrics', 'var(--ytmusic-text-primary)');
-      root.style.setProperty('--size-lyrics', '1em');
-      root.style.setProperty('--offset-lyrics', '1em');
-      break;
-      case 'focus':
-      root.style.setProperty('--previous-lyrics', 'var(--ytmusic-text-secondary)');
-      root.style.setProperty('--current-lyrics', 'var(--ytmusic-text-primary)');
-      root.style.setProperty('--size-lyrics', '1em');
-      root.style.setProperty('--offset-lyrics', '0');
-      break;
-    }
-
-        
-    let unregister: (() => void) | null = null;
-    let timeout: NodeJS.Timeout | null = null;
+    createProgressEvents(on); 
+    initLyricsStyle();
 
     on('ytmd:update-song-info', (extractedSongInfo: SongInfo) => {
-      console.warn('ytmd:update-song-info', extractedSongInfo);
-      songInfos = extractedSongInfo;
       unregister?.();
+      newSongReset();
 
-      clearTimeout(timeout!);
-      clearInterval(interval!);
-      syncedLyricList = [];
-      hadSecondAttempt = false;
-      lyrics = null;
-      songWithLyrics = true;
-
-      resetAllVariables();
-
-      //console.log(syncedLyricList, currentLyric, nextLyric, hadSecondAttempt, lyrics)
       const tabList = document.querySelectorAll<HTMLElement>('tp-yt-paper-tab');
       const tabs = {
         upNext: tabList[0],
@@ -73,7 +47,7 @@ export const onRendererLoad = async ({
       if (tabs.lyrics?.getAttribute('aria-disabled') === 'true') songWithLyrics = false;
 
       timeout = setTimeout(async () => {
-        lyrics = await makeLyricsRequest(songInfos);
+        lyrics = await makeLyricsRequest(extractedSongInfo);
         if (!songWithLyrics && !lyrics) { // Delete previous lyrics if tab is open and couldn't get new lyrics
             tabs.upNext.click();
             return;
@@ -144,6 +118,4 @@ export const onRendererLoad = async ({
 
     });
 
-    createProgressEvents(on);
-    
 };

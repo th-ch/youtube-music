@@ -40,7 +40,6 @@ export const createProgressEvents = (on: Function) => {
 }
 
 export const changeActualLyric = (time: number): LineLyrics|void => {
-  console.log('changeActualLyric', time, syncedLyricList.length, currentLyric, nextLyric, nextLyric ? time >= nextLyric.timeInMs : 'nextLyric is null');
   if (!syncedLyricList.length) return;
   
   if (!currentLyric) {
