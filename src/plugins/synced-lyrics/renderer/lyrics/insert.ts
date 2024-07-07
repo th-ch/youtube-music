@@ -54,7 +54,6 @@ export const styleLyrics = (actualLyric: LineLyrics) => {
 
 export const setLyrics = (lyricsContainer: Element, lyrics: Array<LineLyrics> | null) => {
     let lineList = [];
-    console.log(lyrics, lyricsContainer);
     if (lyrics) {
         const footer = lyricsContainer.querySelector('.footer');
 
@@ -67,7 +66,7 @@ export const setLyrics = (lyricsContainer: Element, lyrics: Array<LineLyrics> | 
             </div>
             `);
         }
-        //<div id="contents" class="style-scope ytmusic-section-list-renderer description ytmusic-description-shelf-renderer synced-lyrics">
+        
         lyricsContainer.innerHTML = `
             ${hadSecondAttempt ? '<div class="warning-lyrics">The lyrics for this song may not be exact</div>' : ''}
             ${lineList.join('')}

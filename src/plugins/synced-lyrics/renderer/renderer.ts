@@ -28,7 +28,7 @@ export const onRendererLoad = async ({
     getConfig,
     ipc: { on },
   }: RendererContext<SyncedLyricsPluginConfig>) => {
-    config = await getConfig(); //make config global
+    config = await getConfig();
 
     initLyricsStyle();
 
@@ -73,7 +73,6 @@ export const onRendererLoad = async ({
         };
         
         const applyLyricsTabState = () => {
-          console.log(lyrics !== null, songWithLyrics, lyrics !== null || songWithLyrics);
           if (lyrics !== null || songWithLyrics) {
             tabs.lyrics.style.display = 'block'; //specific case where the lyrics are not available
             tabs.lyrics.removeAttribute('disabled');

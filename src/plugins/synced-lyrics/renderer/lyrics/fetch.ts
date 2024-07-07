@@ -48,14 +48,12 @@ export const getLyricsList = async (songTitle: string, songArtist: string, songA
             hadSecondAttempt = true;
             const secondResponse = await fetch(`https://lrclib.net/api/search?q=${encodeURIComponent(songTitle)}`);
             if (!secondResponse.ok) return null;
-            console.log('Second attempt');
             data = await secondResponse.json();
         }
         else if (!data.length) 
             return null;
 
         let songsWithMatchingArtist = data.filter((song: any) => songArtist.toLowerCase().includes(song.artistName.toLowerCase()) && song.syncedLyrics); //Lowercase to avoid case sensitivity from API
-        console.log('song with matching artists', songsWithMatchingArtist);
         if (!songsWithMatchingArtist.length) return null;
         dataIndex = 0;
         if (songsWithMatchingArtist.length > 1) {
@@ -67,9 +65,6 @@ export const getLyricsList = async (songTitle: string, songArtist: string, songA
         }
 
         data = songsWithMatchingArtist;
-
-        console.log(data)
-        console.log(dataIndex, data[dataIndex]);
         if (Math.abs(data[dataIndex].duration - songDuration) > 5) return null;
 
         let raw = data[dataIndex].syncedLyrics.split('\n') //Separate the lyrics into lines
