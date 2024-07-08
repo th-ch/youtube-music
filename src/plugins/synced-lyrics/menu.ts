@@ -102,16 +102,6 @@ export const menuContent = async ({ getConfig, setConfig }: MenuContext<SyncedLy
 							});
 					},
 				},
-				{
-					label: '[BACKSPACE]',
-					type: 'radio',
-					checked: config.defaultTextString === '\n',
-					click() {
-							setConfig({
-							defaultTextString: '\n',
-							});
-					},
-				},
 			],
 		},
 		{
