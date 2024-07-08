@@ -21,20 +21,20 @@ export const createProgressEvents = (on: Function) => {
   });
 
   on('synced-lyrics:setTime', (t: number) => {
-      if(!lyrics && !songWithLyrics) return;
-      if (config.preciseTiming) {
-          currentTime = secToMilisec(t);
-          clearInterval(interval!);
-          interval = setInterval(() => {
-            currentTime += 10;
-            changeActualLyric(currentTime);
-          }, 10);
-      } 
-      else {
-          clearInterval(interval!);
-          currentTime = secToMilisec(t);
+    if(!lyrics && !songWithLyrics) return;
+    if (config.preciseTiming) {
+        currentTime = secToMilisec(t);
+        clearInterval(interval!);
+        interval = setInterval(() => {
+          currentTime += 10;
           changeActualLyric(currentTime);
-      }
+        }, 10);
+    } 
+    else {
+        clearInterval(interval!);
+        currentTime = secToMilisec(t);
+        changeActualLyric(currentTime);
+    }
   });
 }
 

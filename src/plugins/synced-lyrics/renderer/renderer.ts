@@ -28,7 +28,7 @@ export const onRendererLoad = async ({
     getConfig,
     ipc: { on },
   }: RendererContext<SyncedLyricsPluginConfig>) => {
-    config = await getConfig();
+    config = await getConfig(); //make config global
 
     initLyricsStyle();
 

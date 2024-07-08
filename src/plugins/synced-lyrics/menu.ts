@@ -18,28 +18,6 @@ export const menuContent = async ({ getConfig, setConfig }: MenuContext<SyncedLy
 			},
 		},
 		{
-			label: 'Show time codes',
-			toolTip: 'Show the time codes next to the lyrics',
-			type: 'checkbox',
-			checked: config.showTimeCodes,
-			click(item) {
-					setConfig({
-					showTimeCodes: item.checked,
-					});
-			},
-		},
-		{
-			label: 'Show lyrics even if inexact',
-			toolTip: 'If the song is not found, the plugin tries again with a different search query.\nThe result from the second attempt may not be exact.',
-			type: 'checkbox',
-			checked: config.showLyricsEvenIfInexact,
-			click(item) {
-					setConfig({
-					showLyricsEvenIfInexact: item.checked,
-					});
-			},
-		},
-		{
 			label: 'Line effect',
 			toolTip: 'Choose the effect to apply to the current line',
 			type: 'submenu',
@@ -135,6 +113,28 @@ export const menuContent = async ({ getConfig, setConfig }: MenuContext<SyncedLy
 					},
 				},
 			],
+		},
+		{
+			label: 'Show time codes',
+			toolTip: 'Show the time codes next to the lyrics',
+			type: 'checkbox',
+			checked: config.showTimeCodes,
+			click(item) {
+					setConfig({
+					showTimeCodes: item.checked,
+					});
+			},
+		},
+		{
+			label: 'Show lyrics even if inexact',
+			toolTip: 'If the song is not found, the plugin tries again with a different search query.\nThe result from the second attempt may not be exact.',
+			type: 'checkbox',
+			checked: config.showLyricsEvenIfInexact,
+			click(item) {
+					setConfig({
+					showLyricsEvenIfInexact: item.checked,
+					});
+			},
 		},
 	];
 };

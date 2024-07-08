@@ -4,6 +4,7 @@
 } */
 
 :root {
+  --global-margin: 0.7rem;
   --previous-lyrics: var(--ytmusic-text-primary);
   --current-lyrics: var(--ytmusic-text-primary);
   --upcoming-lyrics: var(--ytmusic-text-secondary);
@@ -29,7 +30,7 @@
 .text-lyrics {
   display: block;
   text-align: left;
-  margin: 0.7rem 0;
+  margin: var(--global-margin) 0;
   transition: all 0.3s ease-in-out;
 }
 

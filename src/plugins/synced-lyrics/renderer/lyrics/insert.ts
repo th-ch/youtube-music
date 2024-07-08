@@ -1,5 +1,5 @@
 import { LineLyrics, LineLyricsStatus } from "../..";
-import { config, hadSecondAttempt, syncedLyricList } from "../renderer";
+import { config, hadSecondAttempt, songWithLyrics, syncedLyricList } from "../renderer";
 
 export const initLyricsStyle = () => {
     let root = document.documentElement;
@@ -81,4 +81,8 @@ export const setLyrics = (lyricsContainer: Element, lyrics: Array<LineLyrics> | 
         if (footer) 
             footer.textContent = 'Source: LRCLIB';
     }
+
+    let root = document.documentElement;
+    if(songWithLyrics) root.style.setProperty('--global-margin', '0.7rem');
+    else root.style.setProperty('--global-margin', '1.4rem'); //Music videos make the space beteween lyrics smaller, so we need to increase the margin
 };
