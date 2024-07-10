@@ -1,3 +1,4 @@
+import { sync } from "glob";
 import { LineLyrics, PlayPauseEvent } from "../..";
 import { config, lyrics, secToMilisec, songWithLyrics, syncedLyricList } from "../renderer";
 import { styleLyrics } from "./insert";
@@ -42,7 +43,6 @@ export const changeActualLyric = (time: number): LineLyrics|void => {
   if (!syncedLyricList.length) return;
   
   if (!currentLyric) {
-    console.warn('currentLyric is null');
     currentLyric = syncedLyricList[0];
     nextLyric = syncedLyricList[1];
     currentLyric.status = 'current';
@@ -50,16 +50,16 @@ export const changeActualLyric = (time: number): LineLyrics|void => {
     return;
   }
 
-  if (nextLyric && time >= nextLyric.timeInMs) {
+  if (nextLyric && time > nextLyric.timeInMs) {
     for (let i = 0; i < syncedLyricList.length; i++) {
-      syncedLyricList[i].status = 'upcoming';
+      syncedLyricList[i].status = 'previous';
 
       if (syncedLyricList[i].timeInMs > time) {
         clearInterval(interval!);
-        currentLyric.status = 'previous';
+        syncedLyricList[i - 1].status = 'current';
+        syncedLyricList[i].status = 'upcoming';
         currentLyric = syncedLyricList[i - 1];
-        nextLyric = syncedLyricList[i];
-        currentLyric.status = 'current';
+        nextLyric = syncedLyricList[i] ? syncedLyricList[i] : null;
         styleLyrics(currentLyric);
         return;
       }
@@ -67,7 +67,7 @@ export const changeActualLyric = (time: number): LineLyrics|void => {
   }
 
   //I check 300ms before the current lyric time to avoid lyrics to overlap and flicker
-  if (currentLyric.timeInMs - 300 > time) {
+  if (time < currentLyric.timeInMs - 300) {
     for (let i = syncedLyricList.length - 1; i >= 0; i--) {
       syncedLyricList[i].status = 'upcoming';
 

@@ -102,12 +102,11 @@ export const onRendererLoad = async ({
 
         tabs.discover.addEventListener('click', applyLyricsTabState);
         tabs.lyrics.addEventListener('click', lyricsTabHandler);
-        tabs.upNext.addEventListener('click', applyLyricsTabState);        
-
+        tabs.upNext.addEventListener('click', applyLyricsTabState);   
+        
         tryToInjectLyric();
 
         unregister = () => {
-            console.warn('unregistered');
             tabs.discover.removeEventListener('click', applyLyricsTabState);
             tabs.lyrics.removeEventListener('click', lyricsTabHandler);
             tabs.upNext.removeEventListener('click', applyLyricsTabState);

@@ -65,6 +65,7 @@ export const getLyricsList = async (songTitle: string, songArtist: string, songA
     }
 
     data = songsWithMatchingArtist;
+    console.log(data, dataIndex, data[dataIndex]);
     if (Math.abs(data[dataIndex].duration - songDuration) > 5) return null;
 
     let raw = data[dataIndex].syncedLyrics.split('\n') //Separate the lyrics into lines
