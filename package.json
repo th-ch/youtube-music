@@ -132,7 +132,7 @@
       "node-fetch": "3.3.2",
       "@electron/universal": "2.0.1",
       "@babel/runtime": "7.24.7",
-      "eslint": "9.5.0",
+      "eslint": "9.6.0",
       "@typescript-eslint/parser": "8.0.0-alpha.40"
     },
     "patchedDependencies": {
@@ -210,7 +210,7 @@
     "electron-devtools-installer": "3.2.0",
     "electron-vite": "2.3.0",
     "esbuild": "0.21.5",
-    "eslint": "9.5.0",
+    "eslint": "9.6.0",
     "eslint-import-resolver-exports": "1.0.0-beta.5",
     "eslint-import-resolver-typescript": "3.6.1",
     "eslint-plugin-import": "2.29.1",
