@@ -36,6 +36,7 @@ export default createPlugin({
   description: () => 'Synced Lyrics Plugin Description',
   authors: ['Non0reo'],
   restartNeeded: true,
+  addedVersion: '3.4.X',
   config: {
     enabled: true,
     preciseTiming: true,
