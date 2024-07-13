@@ -51,7 +51,7 @@ export const onRendererLoad = async ({
             tabs.upNext.click();
             return;
         }
-
+        
         const tryToInjectLyric = (callback?: () => void) => {
           let lyricsContainer: Element | null = null;
           if (songWithLyrics) {

@@ -1,4 +1,3 @@
-import { sync } from "glob";
 import { LineLyrics, PlayPauseEvent } from "../..";
 import { config, lyrics, secToMilisec, songWithLyrics, syncedLyricList } from "../renderer";
 import { styleLyrics } from "./insert";
