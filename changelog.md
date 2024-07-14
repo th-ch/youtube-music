@@ -2,7 +2,34 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v3.3.12](https://github.com/th-ch/youtube-music/compare/v3.3.11...v3.3.12)
+
+- hotfix: Revert "chore(deps): update dependencies `@cliqz/adblocker-electron`, `@cliqz/adblocker-electron-preload`" [`3c4abc1`](https://github.com/th-ch/youtube-music/commit/3c4abc14187e51f7e47c1ae71b3513f6d8c9912a)
+- Update changelog for v3.3.11 [`de22444`](https://github.com/th-ch/youtube-music/commit/de224444c2a6d9030aa22a3b263ceacbc4b41914)
+- Bump version to 3.3.12 [`89ed7d2`](https://github.com/th-ch/youtube-music/commit/89ed7d2345001fea59514944f4c1d56d2b7bd888)
+
+#### [v3.3.11](https://github.com/th-ch/youtube-music/compare/v3.3.10...v3.3.11)
+
+> 8 June 2024
+
+- Revert "fix(deps): update dependency @cliqz/adblocker-electron to v1.27.10" [`#2129`](https://github.com/th-ch/youtube-music/pull/2129)
+- chore(deps): update dependency vite to v5.2.13 [`#2127`](https://github.com/th-ch/youtube-music/pull/2127)
+- chore(deps): update dependency electron to v30.1.0 [`#2126`](https://github.com/th-ch/youtube-music/pull/2126)
+- fix(deps): update dependency deepmerge-ts to v7.0.3 [`#2125`](https://github.com/th-ch/youtube-music/pull/2125)
+- chore(deps): update dependency @babel/runtime to v7.24.7 [`#2124`](https://github.com/th-ch/youtube-music/pull/2124)
+- chore(deps): update typescript-eslint monorepo to v8.0.0-alpha.28 [`#2121`](https://github.com/th-ch/youtube-music/pull/2121)
+- fix(deps): update dependency electron-updater to v6.2.1 [`#2120`](https://github.com/th-ch/youtube-music/pull/2120)
+- chore(deps): update dependency discord-api-types to v0.37.87 [`#2119`](https://github.com/th-ch/youtube-music/pull/2119)
+- fix(deps): update dependency deepmerge-ts to v7.0.2 [`#2118`](https://github.com/th-ch/youtube-music/pull/2118)
+- chore(deps): update typescript-eslint monorepo to v8.0.0-alpha.25 [`#2114`](https://github.com/th-ch/youtube-music/pull/2114)
+- fix(menu): fix menubar items doesn't rendered [`#2113`](https://github.com/th-ch/youtube-music/issues/2113)
+- chore(i18n): Translated using Weblate (Nepali) [`4ae9a28`](https://github.com/th-ch/youtube-music/commit/4ae9a2820e9d453635094956264dd8b42c4997f7)
+- chore(i18n): Translated using Weblate (Nepali) [`7e8d311`](https://github.com/th-ch/youtube-music/commit/7e8d31172ceb175ba07f307d248fc1246265a4c0)
+- fix(deps): update dependency @cliqz/adblocker-electron to v1.27.10 [`d97aa1a`](https://github.com/th-ch/youtube-music/commit/d97aa1a8a003f15eea63c8cb2dabd0f215e885f1)
+
 #### [v3.3.10](https://github.com/th-ch/youtube-music/compare/v3.3.9...v3.3.10)
+
+> 2 June 2024
 
 - fix(adblocker): fix blank screen [`#2103`](https://github.com/th-ch/youtube-music/issues/2103) [`#2105`](https://github.com/th-ch/youtube-music/issues/2105)
 - chore(i18n): Translated using Weblate (Hungarian) [`25958a7`](https://github.com/th-ch/youtube-music/commit/25958a7bb1fea20e59676e7821f3dd8819602b68)

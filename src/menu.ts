@@ -236,7 +236,7 @@ export const mainMenuTemplate = async (
                     }
                   ]
                   : []),
-                ...config.get('options.themes')?.map((theme: string) => ({
+                ...(config.get('options.themes')?.map((theme: string) => ({
                   type: 'normal' as const,
                   label: theme,
                   async click() {
@@ -257,11 +257,11 @@ export const mainMenuTemplate = async (
                     });
 
                     if (response === 1) {
-                      config.set('options.themes', config.get('options.themes')?.filter((t) => t !== theme));
+                      config.set('options.themes', config.get('options.themes')?.filter((t) => t !== theme) ?? []);
                       innerRefreshMenu();
                     }
                   }
-                })),
+                })) ?? []),
                 { type: 'separator' },
                 {
                   label: t(
