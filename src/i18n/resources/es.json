@@ -410,6 +410,21 @@
       "description": "Descarga MP3 / audio fuente directamente desde la interfaz",
       "menu": {
         "choose-download-folder": "Elija la carpeta de descarga",
+        "download-finish-settings": {
+          "label": "Descargar al finalizar",
+          "prompt": {
+            "last-percent": "Después del x por ciento",
+            "last-seconds": "Últimos x segundos",
+            "title": "Configurar cuándo descargar"
+          },
+          "submenu": {
+            "advanced": "Avanzado",
+            "enabled": "Activado",
+            "mode": "Modo de tiempo",
+            "percent": "Porcentaje",
+            "seconds": "Segundos"
+          }
+        },
         "download-playlist": "Descargar lista de reproducción",
         "presets": "Preajustes",
         "skip-existing": "Saltar archivos existentes"
