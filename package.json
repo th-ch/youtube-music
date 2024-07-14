@@ -77,6 +77,20 @@
         "rpm"
       ]
     },
+    "deb": {
+      "depends": [
+        "libgtk-3-0",
+        "libnotify4",
+        "libnss3",
+        "libxss1",
+        "libxtst6",
+        "xdg-utils",
+        "libatspi2.0-0",
+        "libuuid1",
+        "libasound2",
+        "libgbm1"
+      ]
+    },
     "rpm": {
       "depends": [
         "/usr/lib64/libuuid.so.1"
