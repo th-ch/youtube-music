@@ -176,7 +176,7 @@ function downloadSongOnFinishSetup({
     if (
       !songInfo.isPaused &&
       songInfo.url !== currentUrl &&
-      config.downloadOnFinish
+      config.downloadOnFinish?.enabled
     ) {
       if (typeof currentUrl === 'string' && duration && duration > 0) {
         if (

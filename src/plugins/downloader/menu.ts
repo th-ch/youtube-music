@@ -1,5 +1,6 @@
 import { dialog } from 'electron';
 import prompt from 'custom-electron-prompt';
+import { deepmerge } from 'deepmerge-ts';
 
 import { downloadPlaylist } from './main';
 import { getFolder } from './main/utils';
@@ -7,11 +8,12 @@ import { DefaultPresetList } from './types';
 
 import { t } from '@/i18n';
 
+import promptOptions from '@/providers/prompt-options';
+
+import { type DownloaderPluginConfig, defaultConfig } from './index';
+
 import type { MenuContext } from '@/types/contexts';
 import type { MenuTemplate } from '@/menu';
-
-import type { DownloaderPluginConfig } from './index';
-import promptOptions from '@/providers/prompt-options';
 
 export const onMenu = async ({
   getConfig,
@@ -29,9 +31,14 @@ export const onMenu = async ({
             'plugins.downloader.menu.download-finish-settings.submenu.enabled',
           ),
           type: 'checkbox',
-          checked: config.downloadOnFinish,
+          checked: config.downloadOnFinish?.enabled ?? false,
           click(item) {
-            setConfig({ downloadOnFinish: item.checked });
+            setConfig({
+              downloadOnFinish: {
+                ...deepmerge(defaultConfig.downloadOnFinish, config.downloadOnFinish)!,
+                enabled: item.checked,
+              },
+            });
           },
         },
         {
@@ -42,11 +49,15 @@ export const onMenu = async ({
           click() {
             const result = dialog.showOpenDialogSync({
               properties: ['openDirectory', 'createDirectory'],
-              defaultPath: getFolder(config.downloadOnFinishFolder ?? ''),
+              defaultPath: getFolder(config.downloadOnFinish?.folder ?? config.downloadFolder),
             });
             if (result) {
-              setConfig({ downloadOnFinishFolder: result[0] });
-              config.downloadOnFinishFolder = result[0];
+              setConfig({
+                downloadOnFinish: {
+                  ...deepmerge(defaultConfig.downloadOnFinish, config.downloadOnFinish)!,
+                  folder: result[0],
+                }
+              });
             }
           },
         },
@@ -61,9 +72,14 @@ export const onMenu = async ({
                 'plugins.downloader.menu.download-finish-settings.submenu.seconds',
               ),
               type: 'radio',
-              checked: config.downloadOnFinishMode === 'seconds',
+              checked: config.downloadOnFinish?.mode === 'seconds',
               click() {
-                setConfig({ downloadOnFinishMode: 'seconds' });
+                setConfig({
+                  downloadOnFinish: {
+                    ...deepmerge(defaultConfig.downloadOnFinish, config.downloadOnFinish)!,
+                    mode: 'seconds',
+                  },
+                });
               },
             },
             {
@@ -71,9 +87,14 @@ export const onMenu = async ({
                 'plugins.downloader.menu.download-finish-settings.submenu.percent',
               ),
               type: 'radio',
-              checked: config.downloadOnFinishMode === 'percent',
+              checked: config.downloadOnFinish?.mode === 'percent',
               click() {
-                setConfig({ downloadOnFinishMode: 'percent' });
+                setConfig({
+                  downloadOnFinish: {
+                    ...deepmerge(defaultConfig.downloadOnFinish, config.downloadOnFinish)!,
+                    mode: 'percent',
+                  },
+                });
               },
             },
           ],
@@ -99,7 +120,7 @@ export const onMenu = async ({
                     min: '0',
                     step: '1',
                   },
-                  value: config.downloadOnFinishSeconds,
+                  value: config.downloadOnFinish?.seconds ?? defaultConfig.downloadOnFinish!.seconds,
                 },
                 {
                   label: t(
@@ -112,7 +133,7 @@ export const onMenu = async ({
                     max: '100',
                     step: '1',
                   },
-                  value: config.downloadOnFinishPercent,
+                  value: config.downloadOnFinish?.percent ?? defaultConfig.downloadOnFinish!.percent,
                 },
               ],
               ...promptOptions(),
@@ -120,18 +141,16 @@ export const onMenu = async ({
               resizable: true,
             }).catch(console.error);
 
-            console.log(res);
-
             if (!res) {
               return undefined;
             }
 
-            config.downloadOnFinishSeconds = Number(res[0]);
-            config.downloadOnFinishPercent = Number(res[1]);
-
             setConfig({
-              downloadOnFinishSeconds: Number(res[0]),
-              downloadOnFinishPercent: Number(res[1]),
+              downloadOnFinish: {
+                ...deepmerge(defaultConfig.downloadOnFinish, config.downloadOnFinish)!,
+                seconds: Number(res[0]),
+                percent: Number(res[1]),
+              },
             });
             return;
           },
@@ -152,7 +171,6 @@ export const onMenu = async ({
         });
         if (result) {
           setConfig({ downloadFolder: result[0] });
-          config.downloadFolder = result[0];
         } // Else = user pressed cancel
       },
     },

@@ -12,6 +12,7 @@ export type DownloaderPluginConfig = {
   enabled: boolean;
   downloadFolder?: string;
   downloadOnFinish?: {
+    enabled: boolean;
     seconds: number;
     percent: number;
     mode: 'percent' | 'seconds';
@@ -27,6 +28,7 @@ export const defaultConfig: DownloaderPluginConfig = {
   enabled: false,
   downloadFolder: undefined,
   downloadOnFinish: {
+    enabled: false,
     seconds: 20,
     percent: 10,
     mode: 'seconds',
