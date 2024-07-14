@@ -131,15 +131,12 @@
       "xml2js": "0.6.2",
       "node-fetch": "3.3.2",
       "@electron/universal": "2.0.1",
-      "@babel/runtime": "7.24.8",
-      "eslint": "9.7.0",
-      "@typescript-eslint/parser": "8.0.0-alpha.42"
+      "@babel/runtime": "7.24.8"
     },
     "patchedDependencies": {
       "vudio@2.1.1": "patches/vudio@2.1.1.patch",
       "@xhayper/discord-rpc@1.1.2": "patches/@xhayper__discord-rpc@1.1.2.patch",
-      "app-builder-lib@24.13.3": "patches/app-builder-lib@24.13.3.patch",
-      "eslint-plugin-import@2.29.1": "patches/eslint-plugin-import@2.29.1.patch"
+      "app-builder-lib@24.13.3": "patches/app-builder-lib@24.13.3.patch"
     }
   },
   "dependencies": {
@@ -199,7 +196,8 @@
     "@types/howler": "2.2.11",
     "@types/html-to-text": "9.0.4",
     "@types/semver": "7.5.8",
-    "@typescript-eslint/eslint-plugin": "8.0.0-alpha.42",
+    "@typescript-eslint/eslint-plugin": "7.16.0",
+    "@typescript-eslint/parser": "7.16.0",
     "bufferutil": "4.0.8",
     "builtin-modules": "4.0.0",
     "cross-env": "7.0.3",
@@ -210,7 +208,7 @@
     "electron-devtools-installer": "3.2.0",
     "electron-vite": "2.3.0",
     "esbuild": "0.23.0",
-    "eslint": "9.7.0",
+    "eslint": "8.57.0",
     "eslint-import-resolver-exports": "1.0.0-beta.5",
     "eslint-import-resolver-typescript": "3.6.1",
     "eslint-plugin-import": "2.29.1",
