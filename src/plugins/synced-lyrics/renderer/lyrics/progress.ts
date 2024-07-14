@@ -1,6 +1,7 @@
-import { LineLyrics, PlayPauseEvent } from "../..";
-import { config, lyrics, secToMilisec, songWithLyrics, syncedLyricList } from "../renderer";
-import { styleLyrics } from "./insert";
+import { styleLyrics } from './insert';
+
+import { LineLyrics, PlayPauseEvent } from '../..';
+import { config, lyrics, secToMilisec, songWithLyrics, syncedLyricList } from '../renderer';
 
 let currentTime: number = 0;
 let currentLyric: LineLyrics | null = null;
@@ -16,20 +17,21 @@ export const resetAllVariables = () => {
 
 export const createProgressEvents = (on: Function) => {
   on('synced-lyrics:paused', (data: PlayPauseEvent) => {
-      if (data.isPaused) 
+      if (data.isPaused)
           clearInterval(interval!);
   });
 
   on('synced-lyrics:setTime', (t: number) => {
     if(!lyrics && !songWithLyrics) return;
     if (config.preciseTiming) {
-        currentTime = secToMilisec(t);
-        clearInterval(interval!);
-        interval = setInterval(() => {
-          currentTime += 10;
-          changeActualLyric(currentTime);
-        }, 10);
-    } 
+      // MAGIC: Since the transition takes 300ms, we need to add a delay of 300ms to the current time
+      currentTime = secToMilisec(t) + 300;
+      clearInterval(interval!);
+      interval = setInterval(() => {
+        currentTime += 10;
+        changeActualLyric(currentTime);
+      }, 10);
+    }
     else {
         clearInterval(interval!);
         currentTime = secToMilisec(t);
@@ -40,7 +42,7 @@ export const createProgressEvents = (on: Function) => {
 
 export const changeActualLyric = (time: number): LineLyrics|void => {
   if (!syncedLyricList.length) return;
-  
+
   if (!currentLyric) {
     currentLyric = syncedLyricList[0];
     nextLyric = syncedLyricList[1];
