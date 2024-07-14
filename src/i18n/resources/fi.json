@@ -69,7 +69,7 @@
       },
       "update-available": {
         "buttons": {
-          "disable": "Päivityksen pois päältä",
+          "disable": "Poista päivitykset käytöstä",
           "download": "Lataa",
           "ok": "Selvä"
         },
@@ -215,8 +215,8 @@
       "name": "Mainos estäjä"
     },
     "album-actions": {
-      "description": "Alapeukuta musiikki/videota, jotta voimme tarjota sinulle parhaimmat MIX:it",
-      "name": "Albumin toiminnot"
+      "description": "Lisää tykkäysnappulat, joilla voit lisätä tai poistaa tykkäyksiä kerralla kaikille soittolistan tai albumin kappaleille",
+      "name": "Albumin Toiminnot"
     },
     "album-color-theme": {
       "description": "Käyttää dynaamista teemaa ja visuaalisia tehosteita albumin väripaletin perusteella",
@@ -228,7 +228,7 @@
           }
         }
       },
-      "name": "Albumin värin teema"
+      "name": "Albumin Värinen Teema"
     },
     "ambient-mode": {
       "description": "Antaa valaistustehosteen heittämällä videosta lempeitä värejä näytön taustalle",
@@ -236,11 +236,11 @@
         "blur-amount": {
           "label": "Sumennuksen voimakkuus",
           "submenu": {
-            "pixels": "{{blurAmount}}pikseliä"
+            "pixels": "{{blurAmount}} pikseliä"
           }
         },
         "buffer": {
-          "label": "Puskuroi",
+          "label": "Puskurointi",
           "submenu": {
             "buffer": "{{buffer}}"
           }
@@ -254,7 +254,7 @@
         "quality": {
           "label": "Laatu",
           "submenu": {
-            "pixels": "{{quality}}pikseliä"
+            "pixels": "{{quality}} pikseliä"
           }
         },
         "size": {
@@ -264,7 +264,10 @@
           }
         },
         "smoothness-transition": {
-          "label": "sujuvuus siirtymässä"
+          "label": "Siirtymän sujuvuus",
+          "submenu": {
+            "during": "Kesto {{interpolationTime}} s"
+          }
         },
         "use-fullscreen": {
           "label": "Käytetään koko näytön tilaa"
