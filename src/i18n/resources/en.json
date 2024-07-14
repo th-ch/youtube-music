@@ -279,6 +279,33 @@
       "description": "Apply compression to audio (lowers the volume of the loudest parts of the signal and raises the volume of the softest parts)",
       "name": "Audio Compressor"
     },
+    "api-server": {
+      "name": "API Server",
+      "description": "Expose YouTube Music to other applications",
+      "menu":{
+        "hostname": {
+          "label": "Hostname",
+          "title": "Hostname"
+        },
+        "port": {
+          "label": "Port",
+          "title": "Port"
+        },
+        "auth-strategy": {
+          "label": "Auth Strategy",
+            "auth-at-first": "Auth at first",
+            "none": "None"
+        }
+      },
+      "prompt": {
+        "request": {
+          "title": "API Aceess Request",
+          "message": "An application is trying to access your API Server. Do you want to allow it?",
+          "ok": "Yes",
+          "cancel": "No"
+        }
+      }
+    },
     "blur-nav-bar": {
       "description": "Makes navigation bar transparent and blurry",
       "name": "Blur Navigation Bar"
