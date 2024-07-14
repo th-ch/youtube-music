@@ -180,13 +180,13 @@ function downloadSongOnFinishSetup({
     ) {
       if (typeof currentUrl === 'string' && duration && duration > 0) {
         if (
-          config.downloadOnFinishMode === 'seconds' &&
-          duration - time <= config.downloadOnFinishSeconds
+          config.downloadOnFinish.mode === 'seconds' &&
+          duration - time <= config.downloadOnFinish.seconds
         ) {
           downloadSong(currentUrl);
         } else if (
-          config.downloadOnFinishMode === 'percent' &&
-          time >= duration * (config.downloadOnFinishPercent / 100)
+          config.downloadOnFinish.mode === 'percent' &&
+          time >= duration * (config.downloadOnFinish.percent / 100)
         ) {
           downloadSong(currentUrl);
         }
@@ -566,10 +566,11 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
     return;
   }
 
-  if (!playlist || !playlist.items || playlist.items.length === 0) {
+  if (!playlist || !playlist.items || playlist.items.length === 0 || !playlist.header || !('title' in playlist.header)) {
     sendError(
       new Error(t('plugins.downloader.backend.feedback.playlist-is-empty')),
     );
+    return;
   }
 
   const normalPlaylistTitle = playlist.header?.title?.text;

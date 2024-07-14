@@ -1,7 +1,74 @@
 {
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "Pelaksaan plugin gagal {{pluginName}}::{{contextName}}",
+        "executed-at-ms": "Plugin {{pluginName}}::{{contextName}} dilaksanakan pada {{ms}}ms",
+        "initialize-failed": "Gagal untuk memulakan plugin \"{{pluginName}}\"",
+        "loaded": "Plugin \"{{pluginName}}\" dimuatkan",
+        "unload-failed": "Gagal untuk memunggah plugin \"{{pluginName}}\"",
+        "unloaded": "Plugin \"{{pluginName}}\" dipunggahkan"
+      }
+    }
+  },
   "language": {
     "code": "ms",
     "local-name": "Bahasa Malaysia",
     "name": "Malay"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "Selesai memuat. DevTools dibuka"
+      },
+      "i18n": {
+        "loaded": "i18n dimuatkan"
+      },
+      "second-instance": {
+        "receive-command": "Menerima arahan atas protokol: \"{{command}}\""
+      },
+      "theme": {
+        "css-file-not-found": "Fail CSS \"{{cssFile}}\" tidak wujud, mengabaikan"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "Membersihkan cache aplikasi"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "detail": "Menu telah disembunyikan, guna 'Alt' untuk menunjukkannya (atau 'Escape' jika menggunakan In-App Menu)"
+      },
+      "need-to-restart": {
+        "message": "\"{{pluginName}}\" perlu dimulakan semula",
+        "title": "Mulakan Semula Diperlukan"
+      },
+      "unresponsive": {
+        "buttons": {
+          "relaunch": "Lancar Semula",
+          "wait": "Tunggu"
+        },
+        "detail": "Kami memohon maaf atas kesulitan! sila pilih apa yang perlu dilakukan:"
+      },
+      "update-available": {
+        "buttons": {
+          "download": "Muat Turun",
+          "ok": "OK"
+        },
+        "detail": "Versi baharu kini tersedia dan boleh dimuat turun di {{downloadLink}}"
+      }
+    },
+    "menu": {
+      "navigation": {
+        "label": "Navigasi",
+        "submenu": {
+          "copy-current-url": "Salin URL semasa",
+          "go-back": "Pulang",
+          "quit": "Keluar"
+        }
+      },
+      "options": {
+        "label": "Pilihan"
+      }
+    }
   }
 }
