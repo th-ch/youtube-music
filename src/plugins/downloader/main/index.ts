@@ -172,23 +172,23 @@ function downloadSongOnFinishSetup({
   let duration: number | undefined;
   let time = 0;
 
-  registerCallback(async (songInfo: SongInfo) => {
+  registerCallback((songInfo: SongInfo) => {
     if (
       !songInfo.isPaused &&
       songInfo.url !== currentUrl &&
-      config.downloadOnFinish
+      config.downloadOnFinish?.enabled
     ) {
       if (typeof currentUrl === 'string' && duration && duration > 0) {
         if (
-          config.downloadOnFinishMode === 'seconds' &&
-          duration - time <= config.downloadOnFinishSeconds
+          config.downloadOnFinish.mode === 'seconds' &&
+          duration - time <= config.downloadOnFinish.seconds
         ) {
-          downloadSong(currentUrl);
+          downloadSong(currentUrl, config.downloadOnFinish.folder ?? config.downloadFolder);
         } else if (
-          config.downloadOnFinishMode === 'percent' &&
-          time >= duration * (config.downloadOnFinishPercent / 100)
+          config.downloadOnFinish.mode === 'percent' &&
+          time >= duration * (config.downloadOnFinish.percent / 100)
         ) {
-          downloadSong(currentUrl);
+          downloadSong(currentUrl, config.downloadOnFinish.folder ?? config.downloadFolder);
         }
       }
 
@@ -566,10 +566,11 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
     return;
   }
 
-  if (!playlist || !playlist.items || playlist.items.length === 0) {
+  if (!playlist || !playlist.items || playlist.items.length === 0 || !playlist.header || !('title' in playlist.header)) {
     sendError(
       new Error(t('plugins.downloader.backend.feedback.playlist-is-empty')),
     );
+    return;
   }
 
   const normalPlaylistTitle = playlist.header?.title?.text;
