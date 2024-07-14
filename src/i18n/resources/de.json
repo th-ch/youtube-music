@@ -412,7 +412,22 @@
         "choose-download-folder": "Downloadordner wählen",
         "download-playlist": "Wiedergabeliste herunterladen",
         "presets": "Voreinstellungen",
-        "skip-existing": "Vorhandene Dateien überspringen"
+        "skip-existing": "Vorhandene Dateien überspringen",
+        "download-finish-settings": {
+            "label": "Song am Ende runterladen",
+            "submenu": {
+              "enabled": "Aktiviert",
+              "mode": "Zeitmodus",
+              "seconds": "Sekunden",
+              "percent": "Prozent",
+              "advanced": "Erweitert"
+            },
+            "prompt": {
+              "title": "Konfiguriere wann runtergeladen werden soll",
+              "last-seconds": "Letzten x Sekunden",
+              "last-percent": "Nach x Prozent"
+            }
+        }
       },
       "name": "Downloader",
       "renderer": {

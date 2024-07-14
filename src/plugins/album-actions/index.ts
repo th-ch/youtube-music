@@ -112,8 +112,13 @@ export default createPlugin<
           i++;
         }
       }
-      const menu = document.querySelector('.detail-page-menu');
-      if (menu && !document.querySelector('.like-menu')) {
+      const menuParent = document.querySelector('#action-buttons')?.parentElement;
+      if (menuParent && !document.querySelector('.like-menu')) {
+        const menu = document.createElement('div');
+        menu.id = 'ytmd-album-action-buttons';
+        menu.className = 'action-buttons style-scope ytmusic-responsive-header-renderer';
+
+        menuParent.insertBefore(menu, menuParent.children[menuParent.children.length - 1]);
         for (const button of buttons) {
           menu.appendChild(button);
           button.addEventListener('click', this.loadFullList);
