@@ -11,6 +11,13 @@ import { t } from '@/i18n';
 export type DownloaderPluginConfig = {
   enabled: boolean;
   downloadFolder?: string;
+  downloadOnFinish?: {
+    enabled: boolean;
+    seconds: number;
+    percent: number;
+    mode: 'percent' | 'seconds';
+    folder?: string;
+  };
   selectedPreset: string;
   customPresetSetting: Preset;
   skipExisting: boolean;
@@ -20,6 +27,13 @@ export type DownloaderPluginConfig = {
 export const defaultConfig: DownloaderPluginConfig = {
   enabled: false,
   downloadFolder: undefined,
+  downloadOnFinish: {
+    enabled: false,
+    seconds: 20,
+    percent: 10,
+    mode: 'seconds',
+    folder: undefined,
+  },
   selectedPreset: 'mp3 (256kbps)', // Selected preset
   customPresetSetting: DefaultPresetList['mp3 (256kbps)'], // Presets
   skipExisting: false,
