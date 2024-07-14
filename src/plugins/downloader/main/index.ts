@@ -172,7 +172,7 @@ function downloadSongOnFinishSetup({
   let duration: number | undefined;
   let time = 0;
 
-  registerCallback(async (songInfo: SongInfo) => {
+  registerCallback((songInfo: SongInfo) => {
     if (
       !songInfo.isPaused &&
       songInfo.url !== currentUrl &&
@@ -180,15 +180,15 @@ function downloadSongOnFinishSetup({
     ) {
       if (typeof currentUrl === 'string' && duration && duration > 0) {
         if (
-          config.downloadOnFinishMode === 'seconds' &&
-          duration - time <= config.downloadOnFinishSeconds
+          config.downloadOnFinish.mode === 'seconds' &&
+          duration - time <= config.downloadOnFinish.seconds
         ) {
-          downloadSong(currentUrl, config.downloadOnFinishFolder);
+          downloadSong(currentUrl, config.downloadOnFinish.folder ?? config.downloadFolder);
         } else if (
-          config.downloadOnFinishMode === 'percent' &&
-          time >= duration * (config.downloadOnFinishPercent / 100)
+          config.downloadOnFinish.mode === 'percent' &&
+          time >= duration * (config.downloadOnFinish.percent / 100)
         ) {
-          downloadSong(currentUrl, config.downloadOnFinishFolder);
+          downloadSong(currentUrl, config.downloadOnFinish.folder ?? config.downloadFolder);
         }
       }
 
@@ -438,7 +438,7 @@ async function iterableStreamToProcessedUint8Array(
           }),
           ratio,
         );
-        increasePlaylistProgress(0.15 + ratio * 0.85);
+        increasePlaylistProgress(0.15 + (ratio * 0.85));
       });
 
       const safeVideoNameWithExtension = `${safeVideoName}.${extension}`;
@@ -566,10 +566,11 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
     return;
   }
 
-  if (!playlist || !playlist.items || playlist.items.length === 0) {
+  if (!playlist || !playlist.items || playlist.items.length === 0 || !playlist.header || !('title' in playlist.header)) {
     sendError(
       new Error(t('plugins.downloader.backend.feedback.playlist-is-empty')),
     );
+    return;
   }
 
   const normalPlaylistTitle = playlist.header?.title?.text;
@@ -659,7 +660,7 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
 
   const increaseProgress = (itemPercentage: number) => {
     const currentProgress = (counter - 1) / (items.length ?? 1);
-    const newProgress = currentProgress + progressStep * itemPercentage;
+    const newProgress = currentProgress + (progressStep * itemPercentage);
     win.setProgressBar(newProgress);
   };
 
