@@ -33,8 +33,16 @@ const routes = {
       headers: AuthHeadersSchema,
     },
     responses: {
-      204: {
+      200: {
         description: 'Success',
+        content: {
+          'application/json': {
+            schema: SongInfoSchema,
+          }
+        },
+      },
+      204: {
+        description: 'No song info',
       },
     },
   }),
@@ -47,8 +55,16 @@ const routes = {
       headers: AuthHeadersSchema,
     },
     responses: {
-      204: {
+      200: {
         description: 'Success',
+        content: {
+          'application/json': {
+            schema: SongInfoSchema,
+          }
+        },
+      },
+      204: {
+        description: 'No song info',
       },
     },
   }),
@@ -337,14 +353,36 @@ export const register = (app: HonoApp, { window }: BackendContext<APIServerConfi
   app.openapi(routes.previous, (ctx) => {
     controller.previous();
 
-    ctx.status(204);
-    return ctx.body(null);
-  });
-  app.openapi(routes.previous, (ctx) => {
-    controller.previous();
 
-    ctx.status(204);
-    return ctx.body(null);
+    ipcMain.once('ytmd:ytmd:video-src-changed', (_, info: SongInfo) => {
+      if (!info) {
+        ctx.status(200);
+        return ctx.body(null);
+      }
+
+      const body = { ...info };
+      delete body.image;
+
+      ctx.status(204);
+      return ctx.json(body satisfies ResponseSongInfo);
+    })
+
+  });
+  app.openapi(routes.next, (ctx) => {
+    controller.next();
+
+    ipcMain.once('ytmd:ytmd:video-src-changed', (_, info: SongInfo) => {
+      if (!info) {
+        ctx.status(200);
+        return ctx.body(null);
+      }
+
+      const body = { ...info };
+      delete body.image;
+
+      ctx.status(204);
+      return ctx.json(body satisfies ResponseSongInfo);
+    })
   });
   app.openapi(routes.play, (ctx) => {
     controller.play();

@@ -44,6 +44,8 @@ export const register = (app: HonoApp, { getConfig, setConfig }: BackendContext<
     const config = await getConfig();
     const { id } = ctx.req.param();
 
+    console.log("Auth Strategy", config.authStrategy);
+
     if (config.authorizedClients.includes(id)) {
       // SKIP CHECK
     } else if (config.authStrategy === 'AUTH_AT_FIRST') {
@@ -64,8 +66,7 @@ export const register = (app: HonoApp, { getConfig, setConfig }: BackendContext<
 
     setConfig({
       authorizedClients: [
-        ...config.authorizedClients,
-        id,
+        ...new Set(config.authorizedClients).add(id)
       ],
     });
 

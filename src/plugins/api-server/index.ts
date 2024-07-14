@@ -13,5 +13,12 @@ export default createPlugin({
   addedVersion: '3.4.X',
   menu: onMenu,
 
+
+  renderer: {
+    onPlayerApiReady(api,{setConfig}) {
+      setConfig({volume: api.getVolume()})
+    }
+  },
+
   backend,
 });
