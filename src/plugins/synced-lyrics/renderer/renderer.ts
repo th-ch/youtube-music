@@ -26,7 +26,7 @@ const newSongReset = () => {
 
 export const onRendererLoad = async ({
     getConfig,
-    ipc: { on },
+    ipc: { on, send },
   }: RendererContext<SyncedLyricsPluginConfig>) => {
     config = await getConfig(); //make config global
 
@@ -51,7 +51,8 @@ export const onRendererLoad = async ({
             tabs.upNext.click();
             return;
         }
-        
+        //send('synced-lyrics:getPlainLyrics', `${extractedSongInfo.artist} ${extractedSongInfo.title}`);
+
         const tryToInjectLyric = (callback?: () => void) => {
           let lyricsContainer: Element | null = null;
           if (songWithLyrics) {

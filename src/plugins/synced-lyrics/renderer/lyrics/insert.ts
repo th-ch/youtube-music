@@ -58,7 +58,6 @@ export const setLyrics = (lyricsContainer: Element, lyrics: Array<LineLyrics> | 
     const footer = lyricsContainer.querySelector('.footer');
 
     let lyricsBegin = syncedLyricList[1].timeInMs < 1000 ? 1 : 0; //If the first real lyric is before 1 second, we skip the first blank line
-    console.log(syncedLyricList)
     for(let i = lyricsBegin; i < syncedLyricList.length; i++) {
       const line = syncedLyricList[i];
       lineList.push(`
