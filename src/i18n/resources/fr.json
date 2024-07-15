@@ -410,6 +410,17 @@
       "description": "Télécharge les fichiers MP3/source audio directement depuis l'interface",
       "menu": {
         "choose-download-folder": "Choisissez le dossier de téléchargement",
+        "download-finish-settings": {
+          "prompt": {
+            "title": "Configurer quand télécharger"
+          },
+          "submenu": {
+            "advanced": "Avancé",
+            "enabled": "Activé",
+            "percent": "Pourcent",
+            "seconds": "Secondes"
+          }
+        },
         "download-playlist": "Télécharger la liste de lecture",
         "presets": "Préconfigurations",
         "skip-existing": "Passer les fichiers existants"
