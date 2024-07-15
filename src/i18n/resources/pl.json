@@ -410,6 +410,20 @@
       "description": "Pobiera MP3/ źródło audio bezpośrednio z interfejsu",
       "menu": {
         "choose-download-folder": "Wybierz folder pobierania",
+        "download-finish-settings": {
+          "label": "Pobierz po zakończeniu",
+          "prompt": {
+            "last-seconds": "Ostatnie x sekund",
+            "title": "Konfiguruj, kiedy pobierać"
+          },
+          "submenu": {
+            "advanced": "Zaawansowane",
+            "enabled": "Włączone",
+            "mode": "Tryb czasowy",
+            "percent": "Procenty",
+            "seconds": "Sekundy"
+          }
+        },
         "download-playlist": "Pobierz playlistę",
         "presets": "Predefiniowane ustawienia",
         "skip-existing": "Pomiń istniejące pliki"
