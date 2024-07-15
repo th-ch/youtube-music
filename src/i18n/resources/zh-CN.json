@@ -410,6 +410,21 @@
       "description": "在界面内直接下载 MP3 / 源音频",
       "menu": {
         "choose-download-folder": "选择下载文件夹",
+        "download-finish-settings": {
+          "label": "边播边下",
+          "prompt": {
+            "last-percent": "播放超过指定百分比时开始下载",
+            "last-seconds": "歌曲剩余指定秒数时开始下载",
+            "title": "配置在何时开始下载"
+          },
+          "submenu": {
+            "advanced": "高级",
+            "enabled": "已启用",
+            "mode": "激活时机",
+            "percent": "按播放百分比",
+            "seconds": "按播放秒数"
+          }
+        },
         "download-playlist": "下载播放列表",
         "presets": "预设",
         "skip-existing": "跳过已存在的文件"
