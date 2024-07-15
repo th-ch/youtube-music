@@ -96,11 +96,11 @@
           "advanced-options": {
             "label": "進階選項",
             "submenu": {
-              "auto-reset-app-cache": "當程式啟動時重設應用程式快取",
+              "auto-reset-app-cache": "啟動時重設應用快取",
               "disable-hardware-acceleration": "關閉硬體加速",
               "edit-config-json": "編輯 config.json",
               "override-user-agent": "覆寫使用者代理",
-              "restart-on-config-changes": "在設定檔更動時自動重啟應用程式",
+              "restart-on-config-changes": "設定變更時自動重啟應用",
               "set-proxy": {
                 "label": "設定代理伺服器",
                 "prompt": {
@@ -123,7 +123,7 @@
           },
           "language": {
             "dialog": {
-              "message": "語言會在下一次重啟應用程式時變更",
+              "message": "語言會在重啟應用後變更",
               "title": "語言已變更"
             },
             "label": "語言",
@@ -131,7 +131,7 @@
               "to-help-translate": "想協助翻譯？按一下這裡"
             }
           },
-          "resume-on-start": "應用啟動時繼續上次播放的歌曲",
+          "resume-on-start": "應用開啟時繼續播放上次的歌曲",
           "single-instance-lock": "單實例模式",
           "start-at-login": "開機時啟動",
           "starting-page": {
@@ -142,8 +142,8 @@
             "label": "系統匣",
             "submenu": {
               "disabled": "已停用",
-              "enabled-and-hide-app": "啟用並最小化應用程式",
-              "enabled-and-show-app": "啟用但持續顯示應用程式",
+              "enabled-and-hide-app": "啟用並最小化應用",
+              "enabled-and-show-app": "啟用並顯示應用",
               "play-pause-on-click": "點擊時播放／暫停"
             }
           },
@@ -219,7 +219,7 @@
       "name": "進階專輯操作"
     },
     "album-color-theme": {
-      "description": "依歌曲色調自動更改應用程式主題",
+      "description": "根據專輯封面色調更改應用程式主題顏色",
       "menu": {
         "color-mix-ratio": {
           "label": "顏色混合程度",
@@ -407,9 +407,24 @@
           "writing-id3": "正在寫入 ID3 標籤…"
         }
       },
-      "description": "在應用程式內下載 MP3／原始音樂檔",
+      "description": "開啟應用程式內下載 MP3／原始音檔功能",
       "menu": {
         "choose-download-folder": "選擇下載位置",
+        "download-finish-settings": {
+          "label": "智慧下載",
+          "prompt": {
+            "last-percent": "歌曲剩餘多少 % 時下載",
+            "last-seconds": "歌曲剩餘多少秒時下載",
+            "title": "智慧下載進階設定"
+          },
+          "submenu": {
+            "advanced": "進階",
+            "enabled": "啟用",
+            "mode": "判斷方式",
+            "percent": "百分比",
+            "seconds": "秒數"
+          }
+        },
         "download-playlist": "下載播放清單",
         "presets": "預設格式",
         "skip-existing": "跳過已存在的檔案"
@@ -494,7 +509,7 @@
       }
     },
     "navigation": {
-      "description": "將上一頁／下一頁按鈕新增至應用程式上方, 就像你最熟悉的瀏覽器",
+      "description": "允許應用程式上方顯示上一頁／下一頁按鈕",
       "name": "導覽列"
     },
     "no-google-login": {
@@ -650,7 +665,7 @@
       "name": "贊助阻擋"
     },
     "taskbar-mediacontrol": {
-      "description": "透過工作列應用程式圖式控制媒體播放",
+      "description": "允許工作列應用程式預覽介面顯示媒體控制相關按鈕",
       "name": "工作列媒體控制"
     },
     "touchbar": {
