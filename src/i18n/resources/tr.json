@@ -410,6 +410,21 @@
       "description": "MP3 / kaynak sesini doğrudan arayüzden indir",
       "menu": {
         "choose-download-folder": "İndirme klasörünü seç",
+        "download-finish-settings": {
+          "label": "Bittiğinde indir",
+          "prompt": {
+            "last-percent": "Yüzde x'ten sonra",
+            "last-seconds": "Son x saniyede",
+            "title": "Ne zaman indirileceğini ayarla"
+          },
+          "submenu": {
+            "advanced": "Gelişmiş",
+            "enabled": "Etkin",
+            "mode": "Zaman türü",
+            "percent": "Yüzde",
+            "seconds": "Saniye"
+          }
+        },
         "download-playlist": "Oynatma listesini indir",
         "presets": "Hazır Ayarlar",
         "skip-existing": "Mevcut dosyaları atla"
