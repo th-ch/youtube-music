@@ -76,7 +76,6 @@ export default createPlugin({
   renderer: {
     async onPlayerApiReady(_, {getConfig}) {
       const config = await getConfig();
-      console.log(config.blocker)
       if (config.blocker === blockers.AdSpeedup) {
         await loadAdSpeedup()
       }
