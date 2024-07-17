@@ -24,8 +24,7 @@ export const createProgressEvents = (on: Function) => {
   on('synced-lyrics:setTime', (t: number) => {
     if(!lyrics && !songWithLyrics) return;
     if (config.preciseTiming) {
-      // MAGIC: Since the transition takes 300ms, we need to add a delay of 300ms to the current time
-      currentTime = secToMilisec(t) + 300;
+      currentTime = secToMilisec(t);
       clearInterval(interval!);
       interval = setInterval(() => {
         currentTime += 10;
