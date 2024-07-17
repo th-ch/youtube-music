@@ -233,7 +233,7 @@
     "rollup": "4.18.1",
     "typescript": "5.5.3",
     "utf-8-validate": "6.0.4",
-    "vite": "5.3.3",
+    "vite": "5.3.4",
     "vite-plugin-inspect": "0.8.5",
     "vite-plugin-resolve": "2.5.1",
     "vite-plugin-solid": "2.10.2",
