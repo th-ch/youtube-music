@@ -1,8 +1,11 @@
-import { SongInfo } from "@/providers/song-info";
-import { LineLyrics } from "../..";
-import { syncedLyricList, config } from "../renderer";
+import { SongInfo } from '@/providers/song-info';
 
+import { LineLyrics, LRCLIBSearchResponse } from '../../types';
+import { syncedLyricList, config } from '../renderer';
+
+// eslint-disable-next-line prefer-const
 export let hadSecondAttempt = false;
+// eslint-disable-next-line prefer-const
 export let foundPlainTextLyrics = false;
 
 export type SongData = {
@@ -10,81 +13,117 @@ export type SongData = {
   artist: string;
   album: string;
   songDuration: number;
-}
-    
-export const extractTimeAndText = (line: string, index: number): LineLyrics|null => {
-  const match = /\[(\d+):(\d+)\.(\d+)\](.+)/.exec(line);
-  if (!match) return null;
+};
 
-  const minutes = parseInt(match[1]);
-  const seconds = parseInt(match[2]);
-  const milliseconds = parseInt(match[3]);
-  const text = match[4] === ' ' ? config.defaultTextString : match[4].slice(1);
-  
+export const extractTimeAndText = (
+  line: string,
+  index: number,
+): LineLyrics | null => {
+  const groups = /\[(\d+):(\d+)\.(\d+)\](.+)/.exec(line);
+  if (!groups) return null;
+
+  const minutes = parseInt(groups[1]);
+  const seconds = parseInt(groups[2]);
+  const milliseconds = parseInt(groups[3]);
+
+  // prettier-ignore
+  const text = groups[4] === ' '
+      ? config!.defaultTextString
+      : groups[4].slice(1);
+
   const time = `${minutes}:${seconds}:${milliseconds}`;
-  const timeInMs = (minutes * 60 * 1000) + (seconds * 1000) + milliseconds;
+  const timeInMs = minutes * 60 * 1000 + seconds * 1000 + milliseconds;
 
-  return {
+  return <LineLyrics>{
     index,
     time,
     timeInMs,
     text,
     status: 'upcoming',
-  } as LineLyrics;
-}
+  };
+};
 
-export const makeLyricsRequest = async (extractedSongInfo: SongInfo): Promise<Array<LineLyrics> | null>  => {
+export const makeLyricsRequest = async (
+  extractedSongInfo: SongInfo,
+): Promise<Array<LineLyrics> | null> => {
   const songData = {
     title: `${extractedSongInfo.title}`,
     artist: `${extractedSongInfo.artist}`,
-    album: extractedSongInfo.album ? `${extractedSongInfo.album}` : undefined,
-    songDuration: extractedSongInfo.songDuration
+    album: `${extractedSongInfo.album}`,
+    songDuration: extractedSongInfo.songDuration,
   } as SongData;
-  
+
   return await getLyricsList(songData);
-}
-    
-export const getLyricsList = async (songData: SongData): Promise<Array<LineLyrics> | null> => {
-  let url =  `https://lrclib.net/api/search?artist_name=${encodeURIComponent(songData.artist)}&track_name=${encodeURIComponent(songData.title)}`
-  if (songData.album !== undefined) url += `&album_name=${encodeURIComponent(songData.album)}`;
+};
 
-  const response = await fetch(url);
-  if (!response.ok)
-  return null;
+export const getLyricsList = async (
+  songData: SongData,
+): Promise<Array<LineLyrics> | null> => {
+  let query = new URLSearchParams({
+    artist_name: songData.artist,
+    track_name: songData.title,
+  });
 
-  return await response.json().then(async (data: any) => { 
-    let dataIndex: number = 0;
-    if (!data.length && config.showLyricsEvenIfInexact) { //If no lyrics are found, try again with a different search query
-      hadSecondAttempt = true;
-      const secondResponse = await fetch(`https://lrclib.net/api/search?q=${encodeURIComponent(songData.title)}`);
-      if (!secondResponse.ok) return null;
-      data = await secondResponse.json();
-    }
+  if (songData.album) {
+    query.set('album_name', songData.album);
+  }
 
-    else if (!data.length) 
+  let url = `https://lrclib.net/api/search?${query.toString()}`;
+  let response = await fetch(url);
+  if (!response.ok) return null;
+
+  let data = (await response.json()) as LRCLIBSearchResponse;
+
+  // Note: If no lyrics are found, try again with a different search query
+  if (data.length === 0) {
+    if (!config?.showLyricsEvenIfInexact) {
       return null;
-
-    let songsWithMatchingArtist = data.filter((song: any) => songData.artist.toLowerCase().includes(song.artistName.toLowerCase()) && song.syncedLyrics); //Lowercase to avoid case sensitivity from API
-    if (!songsWithMatchingArtist.length) return null;
-    dataIndex = 0;
-    if (songsWithMatchingArtist.length > 1) {
-      for (let i = 0; i < songsWithMatchingArtist.length; i++) {
-        if (Math.abs(songsWithMatchingArtist[i].duration - songData.songDuration) < Math.abs(songsWithMatchingArtist[dataIndex].duration - songData.songDuration)) {
-          dataIndex = i;
-        }
-      }
     }
 
-    data = songsWithMatchingArtist;
-    if (Math.abs(data[dataIndex].duration - songData.songDuration) > 5) return null;
-
-    let raw = data[dataIndex].syncedLyrics.split('\n') //Separate the lyrics into lines
-    raw.unshift('[0:0.0] ') //Add a blank line at the beginning
-    raw.forEach((line: string, index: number) => {
-      const syncedLyrics = extractTimeAndText(line, index);
-      if (syncedLyrics !== null) syncedLyricList.push(syncedLyrics);
+    query = new URLSearchParams({
+      q: songData.title,
     });
 
-    return syncedLyricList;
+    url = `https://lrclib.net/api/search?${query.toString()}`;
+    response = await fetch(url);
+    if (!response.ok) return null;
+    data = (await response.json()) as LRCLIBSearchResponse;
+  }
+
+  // Note: Lowercase to avoid case sensitivity from API
+  // TODO(Arjix): Maybe use levenstein or Jaro-Winkler distances with a similarity ratio instead.
+  const songsWithMatchingArtist = data.filter(
+    (song) =>
+      songData.artist.toLowerCase().includes(song.artistName.toLowerCase()) &&
+      song.syncedLyrics,
+  );
+
+  if (!songsWithMatchingArtist.length) return null;
+
+  let idx = 0;
+  for (let i = 0; i < songsWithMatchingArtist.length; i++) {
+    // Picks the closest result based on the duration.
+    if (
+      Math.abs(songsWithMatchingArtist[i].duration - songData.songDuration) <
+      Math.abs(songsWithMatchingArtist[idx].duration - songData.songDuration)
+    ) {
+      idx = i;
+    }
+  }
+
+  data = songsWithMatchingArtist;
+  if (Math.abs(data[idx].duration - songData.songDuration) > 5) return null;
+
+  // Separate the lyrics into lines
+  const raw = data[idx].syncedLyrics.split('\n');
+
+  // Add a blank line at the beginning
+  raw.unshift('[0:0.0] ');
+
+  raw.forEach((line: string, index: number) => {
+    const syncedLyrics = extractTimeAndText(line, index);
+    if (syncedLyrics !== null) syncedLyricList.push(syncedLyrics);
   });
+
+  return syncedLyricList;
 };
