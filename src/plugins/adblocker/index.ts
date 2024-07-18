@@ -14,6 +14,7 @@ import { inject, isInjected } from './injectors/inject';
 import { t } from '@/i18n';
 
 import type { BrowserWindow } from 'electron';
+import { loadAdSpeedup } from './adSpeedup';
 
 interface AdblockerConfig {
   /**
@@ -71,6 +72,14 @@ export default createPlugin({
         })),
       },
     ];
+  },
+  renderer: {
+    async onPlayerApiReady(_, {getConfig}) {
+      const config = await getConfig();
+      if (config.blocker === blockers.AdSpeedup) {
+        await loadAdSpeedup();
+      }
+    }
   },
   backend: {
     mainWindow: null as BrowserWindow | null,
