@@ -207,6 +207,10 @@
     }
   },
   "plugins": {
+    "ad-speedup": {
+      "description": "Si une publicité apparaît, le son est coupé et la vitesse de lecture est réglée sur 16x",
+      "name": "Accélérer les publicités"
+    },
     "adblocker": {
       "description": "Bloquer toutes les annonces et le suivi par défaut",
       "menu": {
@@ -411,12 +415,16 @@
       "menu": {
         "choose-download-folder": "Choisissez le dossier de téléchargement",
         "download-finish-settings": {
+          "label": "Télécharger une fois terminé",
           "prompt": {
+            "last-percent": "Après x pour cent",
+            "last-seconds": "Dernières x secondes",
             "title": "Configurer quand télécharger"
           },
           "submenu": {
             "advanced": "Avancé",
             "enabled": "Activé",
+            "mode": "Mode de temps",
             "percent": "Pourcent",
             "seconds": "Secondes"
           }
