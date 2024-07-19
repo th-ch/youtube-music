@@ -1,6 +1,6 @@
 import { styleLyrics } from './insert';
 
-import { LineLyrics, PlayPauseEvent } from '../..';
+import { LineLyrics, PlayPauseEvent } from '../../types';
 import { config, lyrics, secToMilisec, songWithLyrics, syncedLyricList } from '../renderer';
 
 let currentTime: number = 0;
@@ -23,7 +23,7 @@ export const createProgressEvents = (on: Function) => {
 
   on('synced-lyrics:setTime', (t: number) => {
     if(!lyrics && !songWithLyrics) return;
-    if (config.preciseTiming) {
+    if (config?.preciseTiming) {
       currentTime = secToMilisec(t);
       clearInterval(interval!);
       interval = setInterval(() => {
