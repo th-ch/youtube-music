@@ -1,1 +1,717 @@
-{}
+{
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "Ha fallat l'execució de l'extensió {{pluginName}}::{{contextName}}",
+        "executed-at-ms": "L'extensió {{pluginName}}::{{contextName}} s'ha executat als {{ms}}ms",
+        "initialize-failed": "Ha fallat la inicialització de l'extensió «{{pluginName}}»",
+        "load-all": "Carregant totes les extensions",
+        "load-failed": "Error al carregar l'extensió «{{pluginName}}»",
+        "loaded": "L'extensió «{{pluginName}}» s'ha carregat",
+        "unload-failed": "Error al deshabilitar l'extensió «{{pluginName}}»",
+        "unloaded": "Extensió «{{pluginName}}» deshabilitada"
+      }
+    }
+  },
+  "language": {
+    "code": "ca",
+    "local-name": "català",
+    "name": "Catalan"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "Càrrega finalitzada. S'han obert les DevTools"
+      },
+      "i18n": {
+        "loaded": "i18n carregat"
+      },
+      "second-instance": {
+        "receive-command": "Comanda rebuda a través del protocol: «{{command}}»"
+      },
+      "theme": {
+        "css-file-not-found": "L'arxiu CSS «{{cssFile}}» no existeix, s'ha ignorat"
+      },
+      "unresponsive": {
+        "details": "Error sense resposta!\n{{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "Netejant la memòria cau de l'aplicació"
+      },
+      "window": {
+        "tried-to-render-offscreen": "La finestra s'ha intentat mostrar fora de la pantalla, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "detail": "El menú es troba amagat, premi «Alt» per mostrar-lo (o «Escapament» si utilitza el menú integrat In-App)",
+        "message": "S'ha habilitat l'amagament del menú",
+        "title": "Amagament del menú habilitat"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "Més tard",
+          "restart-now": "Reinicia ara"
+        },
+        "detail": "L'extensió «{{pluginName}}» requereix reiniciar l'aplicació per fer tenir efecte",
+        "message": "\"{{pluginName}}\" necessita reiniciar-se",
+        "title": "Es requereix reiniciar"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "Marxar",
+          "relaunch": "Rellançar",
+          "wait": "Espera"
+        },
+        "detail": "Ho sentim per les molèsties! si us plau, tria què fer:",
+        "message": "L'aplicació ha deixat de respondre",
+        "title": "La finestra ha deixat de respondre"
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "Deshabilita les actualitzacions",
+          "download": "Descarrega",
+          "ok": "D'acord"
+        },
+        "detail": "Hi ha una nova versió disponible i pot ser descarregada a {{downloadLink}}",
+        "message": "Hi ha una nova versió disponible",
+        "title": "Actualització disponible"
+      }
+    },
+    "menu": {
+      "about": "Quant a",
+      "navigation": {
+        "label": "Navegació",
+        "submenu": {
+          "copy-current-url": "Copia l'URL actual",
+          "go-back": "Anar enrere",
+          "go-forward": "Anar endavant",
+          "quit": "Sortir",
+          "restart": "Reinicia l'aplicació"
+        }
+      },
+      "options": {
+        "label": "Opcions",
+        "submenu": {
+          "advanced-options": {
+            "label": "Opcions avançades",
+            "submenu": {
+              "auto-reset-app-cache": "Reinicialitza la memòria cau de l'aplicació quan es reiniciï",
+              "disable-hardware-acceleration": "Deshabilita l'acceleració per hardware",
+              "edit-config-json": "Edita el config.json",
+              "override-user-agent": "Sobreescriu l'agent d'usuari (User-Agent)",
+              "restart-on-config-changes": "Reinicia quan es canviï la configuració",
+              "set-proxy": {
+                "label": "Definir proxy",
+                "prompt": {
+                  "label": "Introduir l'adreça del proxy: (deixar en blanc per deshabilitar)",
+                  "placeholder": "Exemple: SOCKS5://127.0.0.1:9999",
+                  "title": "Definir proxy"
+                }
+              },
+              "toggle-dev-tools": "Commuta les DevTools"
+            }
+          },
+          "always-on-top": "Mostra sempre per sobre",
+          "auto-update": "Actualitza automàticament",
+          "hide-menu": {
+            "dialog": {
+              "message": "El menú s'amagarà la següent vegada que s'iniciï l'aplicació, prem «Alt» per mostrar-lo (o accent obert « ` » si utilitza el menú integrat In-App)",
+              "title": "Amagament del menú habilitat"
+            },
+            "label": "Amaga el menú"
+          },
+          "language": {
+            "dialog": {
+              "message": "L'idioma es canviarà un cop es reiniciï",
+              "title": "Idioma canviat"
+            },
+            "label": "Idioma",
+            "submenu": {
+              "to-help-translate": "Vols ajudar a traduir? Clica aquí"
+            }
+          },
+          "resume-on-start": "Reprèn l'última cançó quan s'inicia l'aplicació",
+          "single-instance-lock": "Bloqueja en una única instància",
+          "start-at-login": "Obre a l'iniciar sessió",
+          "starting-page": {
+            "label": "Pàgina d'inici",
+            "unset": "Sense establir"
+          },
+          "tray": {
+            "label": "Safata d'icones",
+            "submenu": {
+              "disabled": "Deshabilitat",
+              "enabled-and-hide-app": "Mostra la icona i amaga l'aplicació",
+              "enabled-and-show-app": "Mostra la icona i mostra l'aplicació",
+              "play-pause-on-click": "Reproduir/Pausar en clicar"
+            }
+          },
+          "visual-tweaks": {
+            "label": "Configuració visual",
+            "submenu": {
+              "like-buttons": {
+                "default": "Per defecte",
+                "force-show": "Força que es mostri",
+                "hide": "Amaga",
+                "label": "Botons de «m'agrada»"
+              },
+              "remove-upgrade-button": "Elimina el botó «Actualitza a Music Premium»",
+              "theme": {
+                "dialog": {
+                  "button": {
+                    "cancel": "Cancel·la",
+                    "remove": "Elimina"
+                  },
+                  "remove-theme": "De debó vols eliminar el tema personalitzat?",
+                  "remove-theme-message": "Això eliminarà el tema personalitzat"
+                },
+                "label": "Tema",
+                "submenu": {
+                  "import-css-file": "Importa un arxiu CSS personalitzat",
+                  "no-theme": "Cap tema"
+                }
+              }
+            }
+          }
+        }
+      },
+      "plugins": {
+        "enabled": "Habilitat",
+        "label": "Extensions",
+        "new": "NOU"
+      },
+      "view": {
+        "label": "Mostra",
+        "submenu": {
+          "force-reload": "Força recàrrega",
+          "reload": "Recarrega",
+          "reset-zoom": "Mida real",
+          "toggle-fullscreen": "Commuta la pantalla completa",
+          "zoom-in": "Apropa el zoom",
+          "zoom-out": "Allunya el zoom"
+        }
+      }
+    },
+    "tray": {
+      "next": "Següent",
+      "play-pause": "Reprodueix/Pausa",
+      "previous": "Anterior",
+      "quit": "Tanca",
+      "restart": "Reinicia l'aplicació",
+      "show": "Mostra la finestra",
+      "tooltip": {
+        "default": "YouTube Music",
+        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
+      }
+    }
+  },
+  "plugins": {
+    "ad-speedup": {
+      "description": "Si es reprodueix un anunci, silencia l'àudio i el reprodueix a la velocitat 16x",
+      "name": "Accelera els anuncis"
+    },
+    "adblocker": {
+      "description": "Bloqueja tots els anuncis i el seguiment",
+      "menu": {
+        "blocker": "Bloquejador"
+      },
+      "name": "Bloquejador d'anuncis"
+    },
+    "album-actions": {
+      "description": "Afegeix botons de «no m'agrada / retirar el no m'agrada» i «m'agrada / retirar el m'agrada» per aplicar-ho a totes les cançons en una llista de reproducció o àlbum",
+      "name": "Accions de l'àlbum"
+    },
+    "album-color-theme": {
+      "description": "Aplica un tema dinàmic i efectes visuals basats en la paleta de colors de l'àlbum",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "Proporció de la barreja de colors",
+          "submenu": {
+            "percent": "{{ratio}}%"
+          }
+        }
+      },
+      "name": "Tema de color de l'àlbum"
+    },
+    "ambient-mode": {
+      "description": "Aplica un efecte d'il·luminació que projecta colors difusos del vídeo al fons de la pantalla",
+      "menu": {
+        "blur-amount": {
+          "label": "Quantitat de desenfocament",
+          "submenu": {
+            "pixels": "{{blurAmount}} píxels"
+          }
+        },
+        "buffer": {
+          "label": "Buffer",
+          "submenu": {
+            "buffer": "{{buffer}}"
+          }
+        },
+        "opacity": {
+          "label": "Opacitat",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "quality": {
+          "label": "Qualitat",
+          "submenu": {
+            "pixels": "{{quality}} píxels"
+          }
+        },
+        "size": {
+          "label": "Mida",
+          "submenu": {
+            "percent": "{{size}}%"
+          }
+        },
+        "smoothness-transition": {
+          "label": "Transició suau",
+          "submenu": {
+            "during": "Durant {{interpolationTime}} s"
+          }
+        },
+        "use-fullscreen": {
+          "label": "Utilitza en pantalla completa"
+        }
+      },
+      "name": "Mode ambient"
+    },
+    "audio-compressor": {
+      "description": "Aplica compressió a l'àudio (baixa el volum de les parts més sorolloses de la senyal d'àudio i puja el volum de les parts més fluixes)",
+      "name": "Compressor d'àudio"
+    },
+    "blur-nav-bar": {
+      "description": "Desenfoca i aplica transparència a la barra de navegació",
+      "name": "Desenfoca la barra de navegació"
+    },
+    "bypass-age-restrictions": {
+      "description": "Esquiva la verificació d'edat de YouTube",
+      "name": "Esquiva les restriccions d'edat"
+    },
+    "captions-selector": {
+      "description": "Selector de subtítols per les pistes d'àudio de YouTube Music",
+      "menu": {
+        "autoload": "Selecciona automàticament l'últim subtítol emprat",
+        "disable-captions": "Sense subtítols per defecte"
+      },
+      "name": "Selector de subtítols",
+      "prompt": {
+        "selector": {
+          "label": "Idioma actual dels subtítols: {{language}}",
+          "none": "Cap",
+          "title": "Selecciona l'idioma dels subtítols"
+        }
+      },
+      "templates": {
+        "title": "Obra el selector de subtítols"
+      }
+    },
+    "compact-sidebar": {
+      "description": "Sempre mostrar la barra lateral en mode compacte",
+      "name": "Barra lateral compacta"
+    },
+    "crossfade": {
+      "description": "Transició creuada (crossfade) entre cançons",
+      "menu": {
+        "advanced": "Avançat"
+      },
+      "name": "Transició creuada [Beta]",
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "fade-in-duration": "Durada de la transició d'entrada (ms)",
+            "fade-out-duration": "Durada de la transició de sortida (ms)",
+            "fade-scaling": {
+              "label": "Escala de la transició",
+              "linear": "Linear",
+              "logarithmic": "Logarítmica"
+            },
+            "seconds-before-end": "Transiciona N segons abans del final"
+          },
+          "title": "Opcions de transició creuada"
+        }
+      }
+    },
+    "disable-autoplay": {
+      "description": "Fa que la cançó comenci en mode «pausat»",
+      "menu": {
+        "apply-once": "Tan sols s'aplica a l'inici"
+      },
+      "name": "Deshabilita la reproducció automàtica"
+    },
+    "discord": {
+      "backend": {
+        "already-connected": "S'ha intentat connectar amb una connexió activa",
+        "connected": "Connectat a Discord",
+        "disconnected": "Desconnectat de Discord"
+      },
+      "description": "Mostra als teus amics allò que escoltes a l'estat d'activitat",
+      "menu": {
+        "auto-reconnect": "Reconnecta automàticament",
+        "clear-activity": "Esborra l'activitat",
+        "clear-activity-after-timeout": "Esborra l'activitat al cap d'un temps",
+        "connected": "Connectat",
+        "disconnected": "Desconnectat",
+        "hide-duration-left": "Amaga la durada restant",
+        "hide-github-button": "Amaga el botó de l'enllaç a GitHub",
+        "play-on-youtube-music": "Reprodueix a YouTube Music",
+        "set-inactivity-timeout": "Estableix temps d'espera d'inactivitat"
+      },
+      "name": "Estat d'activitat de Discord",
+      "prompt": {
+        "set-inactivity-timeout": {
+          "label": "Introdueix el temps d'espera d'inactivitat en segons:",
+          "title": "Estableix el temps d'espera d'inactivitat"
+        }
+      }
+    },
+    "downloader": {
+      "backend": {
+        "dialog": {
+          "error": {
+            "buttons": {
+              "ok": "D'acord"
+            },
+            "message": "Caram! Ho sentim, ha fallat la descàrrega…",
+            "title": "Error a la descàrrega!"
+          },
+          "start-download-playlist": {
+            "buttons": {
+              "ok": "D'acord"
+            },
+            "detail": "({{playlistSize}} cançons)",
+            "message": "Descarregant llista de reproducció {{playlistTitle}}",
+            "title": "Descàrrega començada"
+          }
+        },
+        "feedback": {
+          "conversion-progress": "Conversió: {{percent}}%",
+          "converting": "Convertint…",
+          "done": "Fet: {{filePath}}",
+          "download-info": "Descarregant {{artist}} - {{title}} [{{videoId}}",
+          "download-progress": "Descàrrega: {{percent}}%",
+          "downloading": "Descarregant…",
+          "downloading-counter": "Descarregant {{current}}/{{total}}…",
+          "downloading-playlist": "Descarregant la llista de reproducció «{{playlistTitle}}» - {{playlistSize}} cançons ({{playlistId}})",
+          "error-while-downloading": "Error al descarregar «{{author}} - {{title}}»: {{error}}",
+          "folder-already-exists": "La carpeta {{playlistFolder}} ja existeix",
+          "getting-playlist-info": "Obtenint la informació de la llista de reproducció…",
+          "loading": "Carregant…",
+          "playlist-has-only-one-song": "La llista de reproducció té un sol element, descarregant-lo directament",
+          "playlist-id-not-found": "No s'ha trobat cap ID de llista de reproducció",
+          "playlist-is-empty": "La llista de reproducció és buida",
+          "playlist-is-mix-or-private": "Error obtenint la informació de la llista de reproducció: assegura't que no és una llista de reproducció privada o de «Mixos per a tu»\n\n{{error}}",
+          "preparing-file": "Preparant arxiu…",
+          "saving": "Desant…",
+          "trying-to-get-playlist-id": "Intentant obtenir l'ID de la llista de reproducció: {{playlistId}}",
+          "video-id-not-found": "Vídeo no trobat",
+          "writing-id3": "Escrivint les etiquetes ID3…"
+        }
+      },
+      "description": "Descarrega el MP3 / àudio d'origen directament des de la interfície",
+      "menu": {
+        "choose-download-folder": "Tria la carpeta de descàrrega",
+        "download-finish-settings": {
+          "label": "Descarrega en finalitzar",
+          "prompt": {
+            "last-percent": "Desprès del x percent",
+            "last-seconds": "Últims x segons",
+            "title": "Configura quan descarregar"
+          },
+          "submenu": {
+            "advanced": "Avançat",
+            "enabled": "Habilitat",
+            "mode": "Mode de temps",
+            "percent": "Percentatge",
+            "seconds": "Segons"
+          }
+        },
+        "download-playlist": "Descarrega la llista de reproducció",
+        "presets": "Configuracions predefinides",
+        "skip-existing": "Omet els arxius existents"
+      },
+      "name": "Descàrregues",
+      "renderer": {
+        "can-not-update-progress": "No es pot actualitzar el progrés"
+      },
+      "templates": {
+        "button": "Descarrega"
+      }
+    },
+    "exponential-volume": {
+      "description": "Fa que el control lliscant del volum sigui exponencial per que sigui més fàcil seleccionar volums més baixos.",
+      "name": "Volum exponencial"
+    },
+    "in-app-menu": {
+      "description": "Fa que la barra de menú superior tingui un elegant aspecte fosc o basat en el color de l'àlbum",
+      "menu": {
+        "hide-dom-window-controls": "Amaga els controls de la finestra del DOM"
+      },
+      "name": "Menú integrat In-App"
+    },
+    "lumiastream": {
+      "description": "Afegeix suport pel Lumia Stream",
+      "name": "Lumia Stream [Beta]"
+    },
+    "lyrics-genius": {
+      "description": "Afegeix suport per la lletra de la majoria de cançons",
+      "menu": {
+        "romanized-lyrics": "Lletra romanitzada"
+      },
+      "name": "Lletres de Genius",
+      "renderer": {
+        "fetched-lyrics": "S'ha buscat la lletra a Genius"
+      }
+    },
+    "music-together": {
+      "description": "Comparteix una llista de reproducció amb els demés. Quan l'amfitrió reprodueix una cançó, la resta també sentiran la mateixa",
+      "dialog": {
+        "enter-host": "Introdueix l'ID de l'amfitrió"
+      },
+      "internal": {
+        "save": "Desa",
+        "track-source": "Origen de la pista",
+        "unknown-user": "Usuari desconegut"
+      },
+      "menu": {
+        "click-to-copy-id": "Copia l'ID d'amfitrió",
+        "close": "Tanca el Music Together",
+        "connected-users": "Usuaris connectats",
+        "disconnect": "Desconnecta el Music Together",
+        "empty-user": "No hi ha usuaris connectats",
+        "host": "Amfitrió de Music Together",
+        "join": "Uneix-te a Music Together",
+        "permission": {
+          "all": "Permet que els convidats controlin la llista de reproducció i el reproductor",
+          "host-only": "Tan sols l'amfitrió pot controlar la llista de reproducció i el reproductor",
+          "playlist": "Permet que els convidats controlin la llista de reproducció"
+        },
+        "set-permission": "Canvia els permisos de control",
+        "status": {
+          "disconnected": "Desconnectat",
+          "guest": "Connectat com a convidat",
+          "host": "Connectat com amfitrió"
+        }
+      },
+      "name": "Music Together [Beta]",
+      "toast": {
+        "add-song-failed": "Error al afegir la cançó",
+        "closed": "Music Together tancat",
+        "disconnected": "Music Together desconnectat",
+        "host-failed": "No s'ha pogut començar el Music Together",
+        "id-copied": "L'ID d'amfitrió s'ha copiat al porta-retalls",
+        "id-copy-failed": "Error al copiar l'ID d'amfitrió al porta-retalls",
+        "join-failed": "Error al unir-se al Music Together",
+        "joined": "T'has unit al Music Together",
+        "permission-changed": "Els permisos de Music Together han canviat a «{{permission}}»",
+        "remove-song-failed": "Error al eliminar la cançó",
+        "user-connected": "{{name}} s'ha unit al Music Together",
+        "user-disconnected": "{{name}} s'ha desconnectat del Music Together"
+      }
+    },
+    "navigation": {
+      "description": "Fletxes de navegació Següent / Enrere integrades directament a la interfície, com al teu navegador preferit",
+      "name": "Navegació"
+    },
+    "no-google-login": {
+      "description": "Elimina els botons d'inici de sessió de Google de la interfície",
+      "name": "Sense inici de sessió de Google"
+    },
+    "notifications": {
+      "description": "Mostra una notificació quan una cançó es comença a reproduir (les notificacions interactives estan disponibles a Windows)",
+      "menu": {
+        "interactive": "Notificacions interactives",
+        "interactive-settings": {
+          "label": "Configuració interactiva",
+          "submenu": {
+            "hide-button-text": "Amaga text del botó",
+            "refresh-on-play-pause": "Recarrega al Reproduir/Pausar",
+            "tray-controls": "Obra/Tanca en clicar a la safata"
+          }
+        },
+        "priority": "Prioritat de les notificacions",
+        "toast-style": "Estil dels missatges emergents",
+        "unpause-notification": "Mostra notificació en reprendre la reproducció"
+      },
+      "name": "Notificacions"
+    },
+    "picture-in-picture": {
+      "description": "Permet commutar el mode d'imatge en imatge (PiP)",
+      "menu": {
+        "always-on-top": "Mostra sempre a sobre",
+        "hotkey": {
+          "label": "Drecera del teclat",
+          "prompt": {
+            "keybind-options": {
+              "hotkey": "Drecera del teclat"
+            },
+            "label": "Tria una drecera per commutar el mode d'imatge en imatge (PiP)",
+            "title": "Drecera del mode imatge en imatge (PiP)"
+          }
+        },
+        "save-window-position": "Desa la posició de la finestra",
+        "save-window-size": "Desa la mida de la finestra",
+        "use-native-pip": "Utilitza l'imatge en imatge (PiP) nativa del navegador"
+      },
+      "name": "Imatge en imatge (PiP)",
+      "templates": {
+        "button": "Imatge en imatge (PiP)"
+      }
+    },
+    "playback-speed": {
+      "description": "Escolta-ho ràpid, escolta-ho lent! Afegeix un control lliscant per canviar la velocitat de la cançó",
+      "name": "Velocitat de la reproducció",
+      "templates": {
+        "button": "Velocitat"
+      }
+    },
+    "precise-volume": {
+      "description": "Controla el volum de manera precisa a través de la rodeta del ratolí / dreceres del teclat, amb una interfície personalitzada i passos de volum personalitzats",
+      "menu": {
+        "arrows-shortcuts": "Controls locals de tecles de fletxa",
+        "custom-volume-steps": "Estableix passos de volum personalitzats",
+        "global-shortcuts": "Dreceres de teclat globals"
+      },
+      "name": "Volum precís",
+      "prompt": {
+        "global-shortcuts": {
+          "keybind-options": {
+            "decrease": "Baixa el volum",
+            "increase": "Puja el volum"
+          },
+          "label": "Tria les dreceres globals de volum:",
+          "title": "Dreceres globals de volum"
+        },
+        "volume-steps": {
+          "label": "Tria els passos d'augment o disminució del volum",
+          "title": "Passos de volum"
+        }
+      }
+    },
+    "quality-changer": {
+      "backend": {
+        "dialog": {
+          "quality-changer": {
+            "detail": "Qualitat actual: {{quality}}",
+            "message": "Tria la qualitat del vídeo:",
+            "title": "Tria la qualitat del vídeo"
+          }
+        }
+      },
+      "description": "Permet canviar la qualitat del vídeo amb un botó que s'hi mostra a sobre",
+      "name": "Canvia la qualitat del vídeo"
+    },
+    "scrobbler": {
+      "description": "Afegeix suport per scrobbling (Last.fm, ListenBrainz, etc.)",
+      "dialog": {
+        "lastfm": {
+          "auth-failed": {
+            "message": "Error al autenticar amb Last.fm\nAmaga la finestra emergent fins el següent reinici.",
+            "title": "Error d'autenticació"
+          }
+        }
+      },
+      "menu": {
+        "lastfm": {
+          "api-settings": "Configuració de l'API de Last.fm"
+        },
+        "listenbrainz": {
+          "token": "Introduir token d'usuari de ListenBrainz"
+        },
+        "scrobble-other-media": "Scrobble amb altres mitjans"
+      },
+      "name": "Scrobbler",
+      "prompt": {
+        "lastfm": {
+          "api-key": "Clau d'API de Last.fm",
+          "api-secret": "Clau secreta de l'API de Last.fm"
+        },
+        "listenbrainz": {
+          "token": {
+            "label": "Introdueix el teu token de ListenBrainz:",
+            "title": "Token de ListenBrainz"
+          }
+        }
+      }
+    },
+    "shortcuts": {
+      "description": "Permet l'ús de dreceres globals del teclat per la reproducció (reproduir/pausar/següent/anterior) i desactivar l'OSD dels mitjans en sobreescriure les tecles de control multimèdia, habilita el Ctrl/CMD + F per buscar, habilita el suport MPRIS a Linux per tecles de control multimèdia, i dreceres de teclat personalitzades per usuaris avançats",
+      "menu": {
+        "override-media-keys": "Sobreescriu les tecles de control multimèdia",
+        "set-keybinds": "Estableix controls globals de les cançons"
+      },
+      "name": "Dreceres i MPRIS",
+      "prompt": {
+        "keybind": {
+          "keybind-options": {
+            "next": "Següent",
+            "play-pause": "Reproduir / Pausar",
+            "previous": "Anterior"
+          },
+          "label": "Tria combinacions de tecles per controlar les cançons:",
+          "title": "Dreceres globals"
+        }
+      }
+    },
+    "skip-disliked-songs": {
+      "description": "Omet cançons amb «No m'agrada»",
+      "name": "Omet cançons amb «No m'agrada»"
+    },
+    "skip-silences": {
+      "description": "Omet automàticament les seccions amb silenci a les cançons",
+      "name": "Omet els silencis"
+    },
+    "sponsorblock": {
+      "description": "Omet automàticament els segments dels vídeos que no son música, com la intro o el final",
+      "name": "SponsorBlock"
+    },
+    "taskbar-mediacontrol": {
+      "description": "Controla la reproducció des de la barra de tasques del Windows",
+      "name": "Control multimèdia a la barra de tasques"
+    },
+    "touchbar": {
+      "description": "Afegeix un giny a la Touch Bar per usuaris de macOS",
+      "name": "TouchBar"
+    },
+    "tuna-obs": {
+      "description": "Integració amb l'extensió «Tuna» del OBS",
+      "name": "Tuna OBS"
+    },
+    "video-toggle": {
+      "description": "Afegeix un botó per commutar entre el mode de vídeo o de cançó. Opcionalment, es pot eliminar la pestanya de vídeo per complet",
+      "menu": {
+        "align": {
+          "label": "Alineament",
+          "submenu": {
+            "left": "Esquerra",
+            "middle": "Mig",
+            "right": "Dreta"
+          }
+        },
+        "force-hide": "Força amagar la pestanya de vídeo",
+        "mode": {
+          "label": "Mode",
+          "submenu": {
+            "custom": "Commutador personalitzat",
+            "disabled": "Deshabilitat",
+            "native": "Commutador nadiu"
+          }
+        }
+      },
+      "name": "Commutador de vídeo",
+      "templates": {
+        "button": "Cançó"
+      }
+    },
+    "visualizer": {
+      "description": "Afegeix un visualitzador al reproductor",
+      "menu": {
+        "visualizer-type": "Tipus de visualitzador"
+      },
+      "name": "Visualitzador"
+    }
+  }
+}
