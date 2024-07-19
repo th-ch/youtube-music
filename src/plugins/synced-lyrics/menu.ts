@@ -3,7 +3,7 @@ import { MenuItemConstructorOptions } from 'electron';
 import { MenuContext } from '@/types/contexts';
 import { SyncedLyricsPluginConfig } from './types';
 
-export const menuContent = async ({
+export const menu = async ({
   getConfig,
   setConfig,
 }: MenuContext<SyncedLyricsPluginConfig>): Promise<

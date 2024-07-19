@@ -241,7 +241,7 @@ export interface FlagEndpoint {
   flagAction: string;
 }
 
-export type VideoDataChangeValue = Record<string, unknown> & {
+export type VideoDataChangeValue = {
   videoId: string;
   title: string;
   author: string;
