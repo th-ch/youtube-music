@@ -5,7 +5,6 @@ import { SyncedLyricsPluginConfig } from './types';
 
 import { menu } from './menu';
 import { renderer } from './renderer';
-import { backend } from './backend';
 
 // import { t } from '@/i18n';
 
@@ -22,8 +21,8 @@ export default createPlugin({
     defaultTextString: '♪',
     lineEffect: 'scale',
   },
-  stylesheets: [style],
+
   menu,
   renderer,
-  backend,
+  stylesheets: [style],
 });

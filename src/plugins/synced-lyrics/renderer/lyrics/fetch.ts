@@ -1,7 +1,7 @@
 import { SongInfo } from '@/providers/song-info';
 
 import { LineLyrics, LRCLIBSearchResponse } from '../../types';
-import { syncedLyricList, config } from '../renderer';
+import { config } from '../renderer';
 
 // eslint-disable-next-line prefer-const
 export let hadSecondAttempt = false;
@@ -28,10 +28,11 @@ export const extractTimeAndText = (
 
   // prettier-ignore
   const text = groups[4] === ' '
-      ? config!.defaultTextString
+      ? config()!.defaultTextString
       : groups[4].slice(1);
 
   const time = `${minutes}:${seconds}:${milliseconds}`;
+  // eslint-disable-next-line no-mixed-operators
   const timeInMs = minutes * 60 * 1000 + seconds * 1000 + milliseconds;
 
   return <LineLyrics>{
@@ -40,6 +41,7 @@ export const extractTimeAndText = (
     timeInMs,
     text,
     status: 'upcoming',
+    duration: 0,
   };
 };
 
@@ -76,7 +78,7 @@ export const getLyricsList = async (
 
   // Note: If no lyrics are found, try again with a different search query
   if (data.length === 0) {
-    if (!config?.showLyricsEvenIfInexact) {
+    if (!config()?.showLyricsEvenIfInexact) {
       return null;
     }
 
@@ -120,10 +122,24 @@ export const getLyricsList = async (
   // Add a blank line at the beginning
   raw.unshift('[0:0.0] ');
 
-  raw.forEach((line: string, index: number) => {
-    const syncedLyrics = extractTimeAndText(line, index);
-    if (syncedLyrics !== null) syncedLyricList.push(syncedLyrics);
-  });
+  const syncedLyricList = [];
+
+  for (let idx = 0; idx < raw.length; idx++) {
+    const syncedLine = extractTimeAndText(raw[idx], idx);
+    if (syncedLine) {
+      syncedLyricList.push(syncedLine);
+    }
+  }
+
+  for (const line of syncedLyricList) {
+    const next = syncedLyricList[line.index + 1];
+    if (!next) {
+      line.duration = Infinity;
+      break;
+    }
+
+    line.duration = next.timeInMs - line.timeInMs;
+  }
 
   return syncedLyricList;
 };

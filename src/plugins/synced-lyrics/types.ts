@@ -14,7 +14,7 @@ export type LineLyrics = {
   time: string;
   timeInMs: number;
   text: string;
-  status: LineLyricsStatus;
+  duration: number;
 };
 
 export type PlayPauseEvent = {

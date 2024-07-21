@@ -1,3 +1,13 @@
+/* Hides the original lyrics, to only show our own.  */
+#tab-renderer[page-type='MUSIC_PAGE_TYPE_TRACK_LYRICS'] > * {
+  display: none !important;
+}
+
+#tab-renderer[page-type='MUSIC_PAGE_TYPE_TRACK_LYRICS']
+  > #synced-lyrics-container {
+  display: block !important;
+}
+
 /* :root {
   --ytmusic-text-primary: #fff;
   --ytmusic-text-secondary: #aaa;
@@ -11,7 +21,6 @@
   --size-lyrics: 1.2em;
   --offset-lyrics: 1em;
 }
-
 
 .description {
   font-size: clamp(1.4rem, 1.1vmax, 3rem) !important;
