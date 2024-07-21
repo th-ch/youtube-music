@@ -2,7 +2,7 @@
   "common": {
     "console": {
       "plugins": {
-        "execute-failed": "Lỗi khi bắt đầu phần mở rộng {{pluginName}}::{{contextName}}",
+        "execute-failed": "Lỗi thực thi plugin {{pluginName}}::{{contextName}}",
         "executed-at-ms": "Phần mở rộng {{pluginName}}::{{contextName}} đã bắt đầu trong {{ms}}ms",
         "initialize-failed": "Lỗi khi khởi động phần mở rộng \"{{pluginName}}\"",
         "load-all": "Đang tải tất cả phần mở rộng",
@@ -207,6 +207,10 @@
     }
   },
   "plugins": {
+    "ad-speedup": {
+      "description": "Nếu một quảng cáo được phát thì sẽ bị tắt tiếng và tăng tốc độ phát lên 16x",
+      "name": "Tăng tốc quảng cáo"
+    },
     "adblocker": {
       "description": "Chặn toàn bộ quảng cáo và trình theo dõi",
       "menu": {
@@ -410,6 +414,21 @@
       "description": "Tải xuống MP3 / âm thanh nguồn trực tiếp từ giao diện",
       "menu": {
         "choose-download-folder": "Chọn thư mục tải xuống",
+        "download-finish-settings": {
+          "label": "Tải xuống khi hoàn tất",
+          "prompt": {
+            "last-percent": "Sau x phần trăm",
+            "last-seconds": "x giây cuối",
+            "title": "Định cấu hình thời điểm tải xuống"
+          },
+          "submenu": {
+            "advanced": "Nâng cao",
+            "enabled": "Đã kích hoạt",
+            "mode": "Chế độ thời gian",
+            "percent": "Phần trăm",
+            "seconds": "Giây"
+          }
+        },
         "download-playlist": "Tải danh sách phát",
         "presets": "Cài đặt sẵn",
         "skip-existing": "Bỏ qua các tập tin hiện có"
