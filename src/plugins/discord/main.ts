@@ -180,6 +180,7 @@ export const backend = createBackend<
     }
 
     const activityInfo: SetActivity = {
+      type: ActivityType.Listening,
       details: songInfo.title,
       state: songInfo.artist,
       largeImageKey: songInfo.imageSrc ?? '',
