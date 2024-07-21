@@ -207,6 +207,10 @@
     }
   },
   "plugins": {
+    "ad-speedup": {
+      "description": "Wenn eine Werbung spielt, stummt es das Audio und setzt die Wiedergabegeschwindigkeit auf 16x",
+      "name": "Werbungsbeschleunigung"
+    },
     "adblocker": {
       "description": "Blockiere jegliche Werbung und Tracker",
       "menu": {
@@ -410,24 +414,24 @@
       "description": "Lädt MP3-/Original-Audio direkt von der Schnittstelle herunter",
       "menu": {
         "choose-download-folder": "Downloadordner wählen",
+        "download-finish-settings": {
+          "label": "Song am Ende runterladen",
+          "prompt": {
+            "last-percent": "Nach x Prozent",
+            "last-seconds": "Letzten x Sekunden",
+            "title": "Konfiguriere wann runtergeladen werden soll"
+          },
+          "submenu": {
+            "advanced": "Erweitert",
+            "enabled": "Aktiviert",
+            "mode": "Zeitmodus",
+            "percent": "Prozent",
+            "seconds": "Sekunden"
+          }
+        },
         "download-playlist": "Wiedergabeliste herunterladen",
         "presets": "Voreinstellungen",
-        "skip-existing": "Vorhandene Dateien überspringen",
-        "download-finish-settings": {
-            "label": "Song am Ende runterladen",
-            "submenu": {
-              "enabled": "Aktiviert",
-              "mode": "Zeitmodus",
-              "seconds": "Sekunden",
-              "percent": "Prozent",
-              "advanced": "Erweitert"
-            },
-            "prompt": {
-              "title": "Konfiguriere wann runtergeladen werden soll",
-              "last-seconds": "Letzten x Sekunden",
-              "last-percent": "Nach x Prozent"
-            }
-        }
+        "skip-existing": "Vorhandene Dateien überspringen"
       },
       "name": "Downloader",
       "renderer": {
