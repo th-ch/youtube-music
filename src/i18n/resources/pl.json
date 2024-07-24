@@ -207,6 +207,10 @@
     }
   },
   "plugins": {
+    "ad-speedup": {
+      "description": "Wycisza reklamę i przyśpiesza do 16x",
+      "name": "Przyśpieszacz reklam"
+    },
     "adblocker": {
       "description": "Blokuj wszystkie reklamy i śledzenie",
       "menu": {
@@ -413,6 +417,7 @@
         "download-finish-settings": {
           "label": "Pobierz po zakończeniu",
           "prompt": {
+            "last-percent": "Po x procentach",
             "last-seconds": "Ostatnie x sekund",
             "title": "Konfiguruj, kiedy pobierać"
           },
