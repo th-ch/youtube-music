@@ -207,6 +207,10 @@
     }
   },
   "plugins": {
+    "ad-speedup": {
+      "description": "Se um anúncio for reproduzido, ele será silenciado o áudio e será definido a velocidade de reprodução para 16x",
+      "name": "Acelerar os anúncios"
+    },
     "adblocker": {
       "description": "Bloquear todos os anúncios e rastreamento automaticamente",
       "menu": {
@@ -222,9 +226,9 @@
       "description": "Aplica um tema dinâmico e efeitos visuais com base na paleta de cores do álbum",
       "menu": {
         "color-mix-ratio": {
-          "label": "Rácio de mistura das cores",
+          "label": "Relação de mistura de cores",
           "submenu": {
-            "percent": "Proporção"
+            "percent": "{{ratio}}%"
           }
         }
       },
@@ -410,6 +414,21 @@
       "description": "Baixa MP3 / fonte de áudio diretamente da interface",
       "menu": {
         "choose-download-folder": "Escolha a pasta de download",
+        "download-finish-settings": {
+          "label": "Baixar ao terminar",
+          "prompt": {
+            "last-percent": "Depois de x por cento",
+            "last-seconds": "Últimos x segundos",
+            "title": "Configurar quando baixar"
+          },
+          "submenu": {
+            "advanced": "Avançado",
+            "enabled": "Ativado",
+            "mode": "Modo de tempo",
+            "percent": "Porcentagem",
+            "seconds": "Segundos"
+          }
+        },
         "download-playlist": "Baixar lista de reprodução",
         "presets": "Predefinições",
         "skip-existing": "Ignorar arquivos existentes"
@@ -482,15 +501,15 @@
         "add-song-failed": "Falha ao adicionar canção",
         "closed": "Música Juntos encerrado",
         "disconnected": "Música Juntos foi desconectado",
-        "host-failed": "Falha ao hospedar o Música Juntos",
+        "host-failed": "Falha ao hospedar o Music Together",
         "id-copied": "ID de anfitrião copiado para a área de transferência",
         "id-copy-failed": "Falha ao copiar o ID de anfitrião para a área de transferência",
-        "join-failed": "Falha ao entrar em Música Juntos",
-        "joined": "Entrou em Música Juntos",
-        "permission-changed": "A permissão do Música Juntos foi alterada para \"{{permission}}\"",
+        "join-failed": "Falha ao entrar em Music Together",
+        "joined": "Entrou em Music Together",
+        "permission-changed": "A permissão do Music Together foi alterada para \"{{permission}}\"",
         "remove-song-failed": "Falha ao remover música",
-        "user-connected": "{{name}} entrou em Música Juntos",
-        "user-disconnected": "{{name}} saiu do Música Juntos"
+        "user-connected": "{{name}} entrou em Music Together",
+        "user-disconnected": "{{name}} saiu do Music Together"
       }
     },
     "navigation": {
