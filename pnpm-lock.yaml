@@ -76,8 +76,8 @@ importers:
         specifier: 13.0.1
         version: 13.0.1
       custom-electron-prompt:
-        specifier: 1.5.7
-        version: 1.5.7(electron@31.2.1)
+        specifier: 1.5.8
+        version: 1.5.8(electron@31.2.1)
       dbus-next:
         specifier: 0.10.2
         version: 0.10.2
@@ -1647,8 +1647,8 @@ packages:
   csstype@3.1.3:
     resolution: {integrity: sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==}
 
-  custom-electron-prompt@1.5.7:
-    resolution: {integrity: sha512-ptRPJr6CpT06GWLMtg3GD2Lr7gWfXdWI+hR1S39eq+m/mUa2E118YmX6mPCbHdg5QB/W9UVhSpRqBM8FUh1G8w==}
+  custom-electron-prompt@1.5.8:
+    resolution: {integrity: sha512-AJat6JKDROsbxn375ysJEVYjW6c/+1AiPGyZ7qKugdjvgTjQsPCuH5H4pZ365M+gmYc9/WOSv4s31dPnZ+75eg==}
     peerDependencies:
       electron: '>=10.0.0'
 
@@ -5497,7 +5497,7 @@ snapshots:
 
   csstype@3.1.3: {}
 
-  custom-electron-prompt@1.5.7(electron@31.2.1):
+  custom-electron-prompt@1.5.8(electron@31.2.1):
     dependencies:
       electron: 31.2.1
 
