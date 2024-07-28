@@ -7,7 +7,6 @@ import { _ytAPI } from '..';
 
 import type { LineLyrics } from '../../types';
 
-
 interface SyncedLineProps {
   line: LineLyrics;
 }
@@ -44,9 +43,9 @@ export const SyncedLine = ({ line }: SyncedLineProps) => {
               text: '',
             },
             {
-              text: `${config()?.showTimeCodes ? `[${line.time}]` : ''}${line.text}`
-            }
-          ]
+              text: `${config()?.showTimeCodes ? `[${line.time}] ` : ''}${line.text}`,
+            },
+          ],
         }}
       />
     </div>

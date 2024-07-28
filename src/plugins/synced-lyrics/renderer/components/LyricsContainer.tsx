@@ -2,6 +2,7 @@ import { createSignal, For, Match, Show, Switch } from 'solid-js';
 
 import { SyncedLine } from './SyncedLine';
 
+import { t } from '@/i18n';
 import { getSongInfo } from '@/providers/song-info-front';
 
 import { LineLyrics } from '../../types';
@@ -47,7 +48,7 @@ export const LyricsContainer = () => {
             text={{
               runs: [
                 {
-                  text: 'An error occurred while fetching the lyrics. Please try again later.',
+                  text: t('plugins.synced-lyrics.errors.fetch'),
                 },
               ],
             }}
@@ -63,7 +64,7 @@ export const LyricsContainer = () => {
               text={{
                 runs: [
                   {
-                    text: '⚠️ - This is an instrumental song',
+                    text: t('plugins.synced-lyrics.warnings.instrumental'),
                   },
                 ],
               }}
@@ -75,7 +76,7 @@ export const LyricsContainer = () => {
               text={{
                 runs: [
                   {
-                    text: 'No lyrics found for this song.',
+                    text: t('plugins.synced-lyrics.errors.not-found'),
                   },
                 ],
               }}
@@ -88,7 +89,9 @@ export const LyricsContainer = () => {
                 isDisabled: false,
                 style: 'STYLE_DEFAULT',
                 text: {
-                  simpleText: isFetching() ? 'Fetching...' : 'Refetch lyrics',
+                  simpleText: isFetching()
+                    ? t('plugins.synced-lyrics.refetch-btn.fetching')
+                    : t('plugins.synced-lyrics.refetch-btn.normal'),
                 },
               }}
               onClick={onRefetch}
@@ -101,7 +104,7 @@ export const LyricsContainer = () => {
             text={{
               runs: [
                 {
-                  text: '⚠️ - The lyrics for this song may not be exact',
+                  text: t('plugins.synced-lyrics.warnings.inexact'),
                 },
               ],
             }}
@@ -113,7 +116,7 @@ export const LyricsContainer = () => {
             text={{
               runs: [
                 {
-                  text: '⚠️ - The lyrics may be out of sync due to a duration mismatch.',
+                  text: t('plugins.synced-lyrics.warnings.duration-mismatch'),
                 },
               ],
             }}

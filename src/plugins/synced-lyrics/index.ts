@@ -6,11 +6,11 @@ import { SyncedLyricsPluginConfig } from './types';
 import { menu } from './menu';
 import { renderer } from './renderer';
 
-// import { t } from '@/i18n';
+import { t } from '@/i18n';
 
 export default createPlugin({
-  name: () => 'Synced Lyrics',
-  description: () => 'Synced Lyrics Plugin Description',
+  name: () => t('plugins.synced-lyrics.name'),
+  description: () => t('plugins.synced-lyrics.description'),
   authors: ['Non0reo', 'ArjixWasTaken'],
   restartNeeded: true,
   addedVersion: '3.4.X',
