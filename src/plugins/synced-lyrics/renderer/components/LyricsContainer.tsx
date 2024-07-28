@@ -1,11 +1,17 @@
-import { createSignal, For, Match, Switch } from 'solid-js';
+import { createSignal, For, Match, Show, Switch } from 'solid-js';
 
 import { SyncedLine } from './SyncedLine';
 
 import { getSongInfo } from '@/providers/song-info-front';
 
 import { LineLyrics } from '../../types';
-import { differentDuration, hadSecondAttempt, isFetching, makeLyricsRequest } from '../lyrics/fetch';
+import {
+  differentDuration,
+  hadSecondAttempt,
+  isFetching,
+  isInstrumental,
+  makeLyricsRequest,
+} from '../lyrics/fetch';
 
 export const [debugInfo, setDebugInfo] = createSignal<string>();
 export const [lineLyrics, setLineLyrics] = createSignal<LineLyrics[]>([]);
@@ -29,7 +35,10 @@ export const LyricsContainer = () => {
       <Switch>
         <Match when={isFetching()}>
           <div style={'margin-bottom: 8px;'}>
-            <tp-yt-paper-spinner-lite active class={'loading-indicator style-scope'}/>
+            <tp-yt-paper-spinner-lite
+              active
+              class={'loading-indicator style-scope'}
+            />
           </div>
         </Match>
         <Match when={error()}>
@@ -48,29 +57,43 @@ export const LyricsContainer = () => {
 
       <Switch>
         <Match when={!lineLyrics().length}>
-          <yt-formatted-string
-            class="warning-lyrics description ytmusic-description-shelf-renderer"
-            text={{
-              runs: [
-                {
-                  text: 'No lyrics found for this song.',
+          <Show when={isInstrumental()}>
+            <yt-formatted-string
+              class="warning-lyrics description ytmusic-description-shelf-renderer"
+              text={{
+                runs: [
+                  {
+                    text: '⚠️ - This is an instrumental song',
+                  },
+                ],
+              }}
+            />
+          </Show>
+          <Show when={!isInstrumental()}>
+            <yt-formatted-string
+              class="warning-lyrics description ytmusic-description-shelf-renderer"
+              text={{
+                runs: [
+                  {
+                    text: 'No lyrics found for this song.',
+                  },
+                ],
+              }}
+              style={'margin-bottom: 16px;'}
+            />
+            <yt-button-renderer
+              disabled={isFetching()}
+              data={{
+                icon: { iconType: 'REFRESH' },
+                isDisabled: false,
+                style: 'STYLE_DEFAULT',
+                text: {
+                  simpleText: isFetching() ? 'Fetching...' : 'Refetch lyrics',
                 },
-              ],
-            }}
-            style={'margin-bottom: 16px;'}
-          />
-          <yt-button-renderer
-            disabled={isFetching()}
-            data={{
-              icon: { iconType: 'REFRESH' },
-              isDisabled: false,
-              style: 'STYLE_DEFAULT',
-              text: {
-                simpleText: isFetching() ? 'Fetching...' : 'Refetch lyrics'
-              },
-            }}
-            onClick={onRefetch}
-          />
+              }}
+              onClick={onRefetch}
+            />
+          </Show>
         </Match>
         <Match when={lineLyrics().length && !hadSecondAttempt()}>
           <yt-formatted-string
@@ -98,18 +121,16 @@ export const LyricsContainer = () => {
         </Match>
       </Switch>
 
-      <For each={lineLyrics()}>
-        {(item) => <SyncedLine line={item}/>}
-      </For>
+      <For each={lineLyrics()}>{(item) => <SyncedLine line={item} />}</For>
 
       <yt-formatted-string
         class="footer style-scope ytmusic-description-shelf-renderer"
         text={{
           runs: [
             {
-              text: 'Source: LRCLIB'
-            }
-          ]
+              text: 'Source: LRCLIB',
+            },
+          ],
         }}
       />
     </div>

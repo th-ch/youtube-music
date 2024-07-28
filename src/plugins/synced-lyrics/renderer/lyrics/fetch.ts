@@ -8,6 +8,8 @@ import { config } from '../renderer';
 import { setDebugInfo, setLineLyrics } from '../components/LyricsContainer';
 
 // prettier-ignore
+export const [isInstrumental, setIsInstrumental] = createSignal(false);
+// prettier-ignore
 export const [isFetching, setIsFetching] = createSignal(false);
 // prettier-ignore
 export const [hadSecondAttempt, setHadSecondAttempt] = createSignal(false);
@@ -67,9 +69,10 @@ export const getLyricsList = async (
   songData: SongData,
 ): Promise<LineLyrics[] | null> => {
   setIsFetching(true);
-  setDebugInfo('Searching for lyrics...');
+  setIsInstrumental(false);
   setHadSecondAttempt(false);
   setDifferentDuration(false);
+  setDebugInfo('Searching for lyrics...');
 
   let query = new URLSearchParams({
     artist_name: songData.artist,
@@ -89,13 +92,11 @@ export const getLyricsList = async (
     return null;
   }
 
-  let data = (await response
-    .json()
-    .catch((e: Error) => {
-      setDebugInfo(`Error: ${e.message}\n\n${e.stack}`);
+  let data = (await response.json().catch((e: Error) => {
+    setDebugInfo(`Error: ${e.message}\n\n${e.stack}`);
 
-      return null;
-    })) as LRCLIBSearchResponse | null;
+    return null;
+  })) as LRCLIBSearchResponse | null;
   if (!data || !Array.isArray(data)) {
     setIsFetching(false);
     setDebugInfo('Unexpected server response.');
@@ -163,6 +164,8 @@ export const getLyricsList = async (
     // show message that the timings may be wrong
     setDifferentDuration(true);
   }
+
+  setIsInstrumental(closestResult.instrumental);
 
   // Separate the lyrics into lines
   const raw = closestResult.syncedLyrics.split('\n');

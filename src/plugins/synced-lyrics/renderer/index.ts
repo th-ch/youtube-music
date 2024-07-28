@@ -4,7 +4,7 @@ import { createRenderer } from '@/utils';
 import { SongInfo } from '@/providers/song-info';
 import { YoutubePlayer } from '@/types/youtube-player';
 
-import { makeLyricsRequest, initLyricsStyle } from './lyrics';
+import { makeLyricsRequest } from './lyrics';
 import { selectors, tabStates } from './utils';
 import { setConfig } from './renderer';
 import { setCurrentTime } from './components/LyricsContainer';
@@ -16,7 +16,6 @@ export let _ytAPI: YoutubePlayer | null = null;
 export const renderer = createRenderer({
   onConfigChange(newConfig) {
     setConfig(newConfig as SyncedLyricsPluginConfig);
-    initLyricsStyle();
   },
 
   observerCallback(mutations: MutationRecord[]) {
@@ -28,7 +27,9 @@ export const renderer = createRenderer({
           header.removeAttribute('disabled');
           break;
         case 'aria-selected':
-          tabStates[header.ariaSelected as 'true' | 'false']?.(_ytAPI?.getVideoData());
+          tabStates[header.ariaSelected as 'true' | 'false']?.(
+            _ytAPI?.getVideoData(),
+          );
           break;
       }
     }
@@ -59,7 +60,9 @@ export const renderer = createRenderer({
     const header = document.querySelector<HTMLElement>(selectors.head);
     if (!header) return;
 
-    this.observer ??= new MutationObserver(this.observerCallback as MutationCallback);
+    this.observer ??= new MutationObserver(
+      this.observerCallback as MutationCallback,
+    );
 
     // Force the lyrics tab to be enabled at all times.
     this.observer.disconnect();
@@ -79,7 +82,6 @@ export const renderer = createRenderer({
 
   async start({ getConfig, ipc: { on } }) {
     setConfig((await getConfig()) as SyncedLyricsPluginConfig);
-    initLyricsStyle();
 
     on('ytmd:update-song-info', async (info: SongInfo) => {
       await makeLyricsRequest(info);
