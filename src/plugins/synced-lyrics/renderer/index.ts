@@ -7,7 +7,7 @@ import { YoutubePlayer } from '@/types/youtube-player';
 import { makeLyricsRequest, initLyricsStyle } from './lyrics';
 import { selectors, tabStates } from './utils';
 import { setConfig } from './renderer';
-import { setCurrentTime, setLineLyrics } from './components/LyricsContainer';
+import { setCurrentTime } from './components/LyricsContainer';
 
 import type { SyncedLyricsPluginConfig } from '../types';
 
@@ -21,16 +21,14 @@ export const renderer = createRenderer({
 
   observerCallback(mutations: MutationRecord[]) {
     for (const mutation of mutations) {
-      const header = <HTMLElement>mutation.target;
+      const header = mutation.target as HTMLElement;
 
       switch (mutation.attributeName) {
         case 'disabled':
           header.removeAttribute('disabled');
           break;
         case 'aria-selected':
-          // @ts-expect-error I know what I am doing, fuck off TypeSript
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-          tabStates[header.ariaSelected]?.(_ytAPI?.getVideoData());
+          tabStates[header.ariaSelected as 'true' | 'false']?.(_ytAPI?.getVideoData());
           break;
       }
     }
@@ -47,7 +45,7 @@ export const renderer = createRenderer({
   },
 
   hasAddedEvents: false,
-  observer: <MutationObserver | null>null,
+  observer: null as MutationObserver | null,
   videoDataChange() {
     if (!this.hasAddedEvents) {
       const video = document.querySelector('video');
@@ -61,9 +59,7 @@ export const renderer = createRenderer({
     const header = document.querySelector<HTMLElement>(selectors.head);
     if (!header) return;
 
-    this.observer ??= new MutationObserver(
-      <MutationCallback>this.observerCallback,
-    );
+    this.observer ??= new MutationObserver(this.observerCallback as MutationCallback);
 
     // Force the lyrics tab to be enabled at all times.
     this.observer.disconnect();

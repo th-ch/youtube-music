@@ -1,52 +1,117 @@
-/* eslint-disable import/order */
+import { createSignal, For, Match, Switch } from 'solid-js';
 
-import { createSignal, For, Show } from 'solid-js';
 import { SyncedLine } from './SyncedLine';
+
+import { getSongInfo } from '@/providers/song-info-front';
+
 import { LineLyrics } from '../../types';
-import { differentDuration, hadSecondAttempt } from '../lyrics/fetch';
+import { differentDuration, hadSecondAttempt, isFetching, makeLyricsRequest } from '../lyrics/fetch';
 
 export const [debugInfo, setDebugInfo] = createSignal<string>();
 export const [lineLyrics, setLineLyrics] = createSignal<LineLyrics[]>([]);
 export const [currentTime, setCurrentTime] = createSignal<number>(-1);
 
 export const LyricsContainer = () => {
-  return (
-    <div>
-      <Show
-        when={
-          !!lineLyrics().length && (hadSecondAttempt() || differentDuration())
-        }
-      >
-        <div class="warning-lyrics">
-          <Show when={hadSecondAttempt()}>
-            <p>⚠️ - The lyrics for this song may not be exact</p>
-          </Show>
-          <Show when={differentDuration()}>
-            <p>
-              ⚠️ - The lyrics may be out of sync due to a duration mismatch.
-            </p>
-          </Show>
-        </div>
-      </Show>
+  const [error, setError] = createSignal('');
 
-      <Show when={!lineLyrics().length}>
-        <div class="warning-lyrics" style="color: white;">
-          {debugInfo()}
-        </div>
-      </Show>
+  const onRefetch = async () => {
+    if (isFetching()) return;
+    setError('');
+
+    const info = getSongInfo();
+    await makeLyricsRequest(info).catch((err) => {
+      setError(`${err}`);
+    });
+  };
+
+  return (
+    <div class={'lyric-container'}>
+      <Switch>
+        <Match when={isFetching()}>
+          <div style={'margin-bottom: 8px;'}>
+            <tp-yt-paper-spinner-lite active class={'loading-indicator style-scope'}/>
+          </div>
+        </Match>
+        <Match when={error()}>
+          <yt-formatted-string
+            class="warning-lyrics description ytmusic-description-shelf-renderer"
+            text={{
+              runs: [
+                {
+                  text: 'An error occurred while fetching the lyrics. Please try again later.',
+                },
+              ],
+            }}
+          />
+        </Match>
+      </Switch>
+
+      <Switch>
+        <Match when={!lineLyrics().length}>
+          <yt-formatted-string
+            class="warning-lyrics description ytmusic-description-shelf-renderer"
+            text={{
+              runs: [
+                {
+                  text: 'No lyrics found for this song.',
+                },
+              ],
+            }}
+            style={'margin-bottom: 16px;'}
+          />
+          <yt-button-renderer
+            disabled={isFetching()}
+            data={{
+              icon: { iconType: 'REFRESH' },
+              isDisabled: false,
+              style: 'STYLE_DEFAULT',
+              text: {
+                simpleText: isFetching() ? 'Fetching...' : 'Refetch lyrics'
+              },
+            }}
+            onClick={onRefetch}
+          />
+        </Match>
+        <Match when={lineLyrics().length && !hadSecondAttempt()}>
+          <yt-formatted-string
+            class="warning-lyrics description ytmusic-description-shelf-renderer"
+            text={{
+              runs: [
+                {
+                  text: '⚠️ - The lyrics for this song may not be exact',
+                },
+              ],
+            }}
+          />
+        </Match>
+        <Match when={lineLyrics().length && !differentDuration()}>
+          <yt-formatted-string
+            class="warning-lyrics description ytmusic-description-shelf-renderer"
+            text={{
+              runs: [
+                {
+                  text: '⚠️ - The lyrics may be out of sync due to a duration mismatch.',
+                },
+              ],
+            }}
+          />
+        </Match>
+      </Switch>
 
       <For each={lineLyrics()}>
-        {(item) => {
-          return <SyncedLine line={item} />;
-        }}
+        {(item) => <SyncedLine line={item}/>}
       </For>
 
-      <span
+      <yt-formatted-string
         class="footer style-scope ytmusic-description-shelf-renderer"
-        style="align-self: baseline"
-      >
-        Source: LRCLIB
-      </span>
+        text={{
+          runs: [
+            {
+              text: 'Source: LRCLIB'
+            }
+          ]
+        }}
+      />
     </div>
   );
 };

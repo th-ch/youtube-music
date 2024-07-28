@@ -14,13 +14,13 @@ export default createPlugin({
   authors: ['Non0reo', 'ArjixWasTaken'],
   restartNeeded: true,
   addedVersion: '3.4.X',
-  config: <SyncedLyricsPluginConfig>{
+  config: {
     preciseTiming: true,
     showLyricsEvenIfInexact: true,
     showTimeCodes: false,
     defaultTextString: '♪',
     lineEffect: 'scale',
-  },
+  } as SyncedLyricsPluginConfig,
 
   menu,
   renderer,

@@ -8,9 +8,11 @@ import { config } from '../renderer';
 import { setDebugInfo, setLineLyrics } from '../components/LyricsContainer';
 
 // prettier-ignore
-export const [hadSecondAttempt, setHadSecondAttempt] = createSignal<boolean>(false);
+export const [isFetching, setIsFetching] = createSignal(false);
 // prettier-ignore
-export const [differentDuration, setDifferentDuration] = createSignal<boolean>(false);
+export const [hadSecondAttempt, setHadSecondAttempt] = createSignal(false);
+// prettier-ignore
+export const [differentDuration, setDifferentDuration] = createSignal(false);
 // eslint-disable-next-line prefer-const
 export let foundPlainTextLyrics = false;
 
@@ -38,7 +40,7 @@ export const extractTimeAndText = (
   // prettier-ignore
   const timeInMs = (minutes * 60 * 1000) + (seconds * 1000) + millis;
 
-  return <LineLyrics>{
+  return {
     index,
     timeInMs,
     time: `${minutes}:${seconds}:${millis}`,
@@ -50,12 +52,12 @@ export const extractTimeAndText = (
 
 export const makeLyricsRequest = async (extractedSongInfo: SongInfo) => {
   setLineLyrics([]);
-  const songData = {
+  const songData: SongData = {
     title: `${extractedSongInfo.title}`,
     artist: `${extractedSongInfo.artist}`,
     album: `${extractedSongInfo.album}`,
     songDuration: extractedSongInfo.songDuration,
-  } as SongData;
+  };
 
   const lyrics = await getLyricsList(songData);
   setLineLyrics(lyrics ?? []);
@@ -63,7 +65,8 @@ export const makeLyricsRequest = async (extractedSongInfo: SongInfo) => {
 
 export const getLyricsList = async (
   songData: SongData,
-): Promise<Array<LineLyrics> | null> => {
+): Promise<LineLyrics[] | null> => {
+  setIsFetching(true);
   setDebugInfo('Searching for lyrics...');
   setHadSecondAttempt(false);
   setDifferentDuration(false);
@@ -81,16 +84,20 @@ export const getLyricsList = async (
   let response = await fetch(url);
 
   if (!response.ok) {
+    setIsFetching(false);
     setDebugInfo('Got non-OK response from server.');
     return null;
   }
 
   let data = (await response
     .json()
-    .catch((e: Error) =>
-      setDebugInfo(`Error: ${e.message}\n\n${e.stack}`),
-    )) as LRCLIBSearchResponse;
-  if (!Array.isArray(data)) {
+    .catch((e: Error) => {
+      setDebugInfo(`Error: ${e.message}\n\n${e.stack}`);
+
+      return null;
+    })) as LRCLIBSearchResponse | null;
+  if (!data || !Array.isArray(data)) {
+    setIsFetching(false);
     setDebugInfo('Unexpected server response.');
     return null;
   }
@@ -106,12 +113,14 @@ export const getLyricsList = async (
 
     response = await fetch(url);
     if (!response.ok) {
+      setIsFetching(false);
       setDebugInfo('Got non-OK response from server. (2)');
       return null;
     }
 
     data = (await response.json()) as LRCLIBSearchResponse;
     if (!Array.isArray(data)) {
+      setIsFetching(false);
       setDebugInfo('Unexpected server response. (2)');
       return null;
     }
@@ -142,6 +151,7 @@ export const getLyricsList = async (
 
   const closestResult = filteredResults[0];
   if (!closestResult) {
+    setIsFetching(false);
     setDebugInfo('No search result matched the criteria.');
     return null;
   }
@@ -179,5 +189,6 @@ export const getLyricsList = async (
     line.duration = next.timeInMs - line.timeInMs;
   }
 
+  setIsFetching(false);
   return syncedLyricList;
 };
