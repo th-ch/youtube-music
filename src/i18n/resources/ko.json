@@ -207,6 +207,10 @@
     }
   },
   "plugins": {
+    "ad-speedup": {
+      "description": "광고가 재생될 때, 오디오가 음소거되고 재생 속도가 16배로 설정됩니다",
+      "name": "광고 배속"
+    },
     "adblocker": {
       "description": "모든 광고와 트래커를 즉시 차단합니다",
       "menu": {
