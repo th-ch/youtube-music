@@ -85,7 +85,11 @@ export const getLyricsList = async (
     return null;
   }
 
-  let data = (await response.json()) as LRCLIBSearchResponse;
+  let data = (await response
+    .json()
+    .catch((e: Error) =>
+      setDebugInfo(`Error: ${e.message}\n\n${e.stack}`),
+    )) as LRCLIBSearchResponse;
   if (!Array.isArray(data)) {
     setDebugInfo('Unexpected server response.');
     return null;
