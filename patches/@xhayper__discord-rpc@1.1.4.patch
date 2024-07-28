@@ -5,13 +5,13 @@ index 40db5dfbd8a4455ce2987d8115eca9882e1f9f14..414fc6986b9c0cc288908eb0107b90c4
 @@ -25,11 +25,7 @@
      },
      "dependencies": {
-         "axios": "^1.6.2",
--        "ws": "^8.15.1"
+         "axios": "^1.7.2",
+-        "ws": "^8.18.0"
 -    },
 -    "optionalDependencies": {
 -        "bufferutil": "^4.0.8",
--        "utf-8-validate": "^6.0.3"
-+        "ws": "^8.16.0"
+-        "utf-8-validate": "^6.0.4"
++        "ws": "^8.18.0"
      },
      "devDependencies": {
          "@types/node": "^14.*",

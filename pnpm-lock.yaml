@@ -13,9 +13,9 @@ overrides:
   '@babel/runtime': 7.25.0
 
 patchedDependencies:
-  '@xhayper/discord-rpc@1.1.2':
-    hash: 7eeaht6k4r7cw3nunras7mx7iu
-    path: patches/@xhayper__discord-rpc@1.1.2.patch
+  '@xhayper/discord-rpc@1.1.4':
+    hash: n7icacbfxuqlodunyqwwt5lccm
+    path: patches/@xhayper__discord-rpc@1.1.4.patch
   app-builder-lib@24.13.3:
     hash: zcnm2qnjaggm2keyecnhiglkke
     path: patches/app-builder-lib@24.13.3.patch
@@ -58,8 +58,8 @@ importers:
         specifier: 2.1.4
         version: 2.1.4
       '@xhayper/discord-rpc':
-        specifier: 1.1.2
-        version: 1.1.2(patch_hash=7eeaht6k4r7cw3nunras7mx7iu)
+        specifier: 1.1.4
+        version: 1.1.4(patch_hash=n7icacbfxuqlodunyqwwt5lccm)
       async-mutex:
         specifier: 0.5.0
         version: 0.5.0
@@ -1173,8 +1173,8 @@ packages:
   '@ungap/structured-clone@1.2.0':
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
 
-  '@xhayper/discord-rpc@1.1.2':
-    resolution: {integrity: sha512-QOeSFRqEK/pfSNl9PSIIi6ypKzD2zy1B8IHdzpvw4WsqXNoJaymfg9lE0wsei4zD5eT2bfnlcILBW9ociJMnKw==}
+  '@xhayper/discord-rpc@1.1.4':
+    resolution: {integrity: sha512-yq2ybstOWsfAN6LP5vogUpnxkaiKV1yXQ+8N4Sgo8YbE+3atgxuNiZWnGG6yO+XdxswvbD04AkLhnq7f9r8h3w==}
     engines: {node: '>=14.18.0'}
 
   '@xmldom/xmldom@0.8.10':
@@ -1357,8 +1357,8 @@ packages:
     resolution: {integrity: sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==}
     engines: {node: '>= 0.4'}
 
-  axios@1.6.5:
-    resolution: {integrity: sha512-Ii012v05KEVuUoFWmMW/UQv9aRIc3ZwkWDcM+h5Il8izZCtRVpDUfwpoFf7eOtajT3QiGR4yDUx7lPqHJULgbg==}
+  axios@1.7.2:
+    resolution: {integrity: sha512-2A8QhOMrbomlDuiLeK9XibIBzuHeRcqqNOHp0Cyp5EoJ1IFDh+XZH3A6BkXtv0K4gFGCI0Y4BM7B1wOEi0Rmgw==}
 
   babel-plugin-jsx-dom-expressions@0.37.16:
     resolution: {integrity: sha512-ItMD16axbk+FqVb9vIbc7AOpNowy46VaSUHaMYPn+erPGpMCxsahQ1Iv+qhPMthjxtn5ROVMZ5AJtQvzjxjiNA==}
@@ -4886,9 +4886,9 @@ snapshots:
 
   '@ungap/structured-clone@1.2.0': {}
 
-  '@xhayper/discord-rpc@1.1.2(patch_hash=7eeaht6k4r7cw3nunras7mx7iu)':
+  '@xhayper/discord-rpc@1.1.4(patch_hash=n7icacbfxuqlodunyqwwt5lccm)':
     dependencies:
-      axios: 1.6.5
+      axios: 1.7.2
       ws: 8.18.0(bufferutil@4.0.8)(utf-8-validate@6.0.4)
     optionalDependencies:
       bufferutil: 4.0.8
@@ -5134,7 +5134,7 @@ snapshots:
 
   available-typed-arrays@1.0.5: {}
 
-  axios@1.6.5:
+  axios@1.7.2:
     dependencies:
       follow-redirects: 1.15.6
       form-data: 4.0.0

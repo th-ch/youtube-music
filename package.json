@@ -149,7 +149,7 @@
     },
     "patchedDependencies": {
       "vudio@2.1.1": "patches/vudio@2.1.1.patch",
-      "@xhayper/discord-rpc@1.1.2": "patches/@xhayper__discord-rpc@1.1.2.patch",
+      "@xhayper/discord-rpc@1.1.4": "patches/@xhayper__discord-rpc@1.1.4.patch",
       "app-builder-lib@24.13.3": "patches/app-builder-lib@24.13.3.patch"
     }
   },
@@ -164,7 +164,7 @@
     "@foobar404/wave": "2.0.5",
     "@jellybrick/electron-better-web-request": "1.0.4",
     "@jellybrick/mpris-service": "2.1.4",
-    "@xhayper/discord-rpc": "1.1.2",
+    "@xhayper/discord-rpc": "1.1.4",
     "async-mutex": "0.5.0",
     "butterchurn": "3.0.0-beta.4",
     "butterchurn-presets": "3.0.0-beta.4",
