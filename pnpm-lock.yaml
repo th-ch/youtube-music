@@ -266,8 +266,8 @@ importers:
         specifier: 0.8.5
         version: 0.8.5(rollup@4.19.1)(vite@5.3.5(@types/node@20.12.5))
       vite-plugin-resolve:
-        specifier: 2.5.1
-        version: 2.5.1
+        specifier: 2.5.2
+        version: 2.5.2
       vite-plugin-solid:
         specifier: 2.10.2
         version: 2.10.2(solid-js@1.8.18)(vite@5.3.5(@types/node@20.12.5))
@@ -3867,8 +3867,8 @@ packages:
       '@nuxt/kit':
         optional: true
 
-  vite-plugin-resolve@2.5.1:
-    resolution: {integrity: sha512-9dD0Yq5JT1RxHQGZOyhC7e/JlhyhMCftCpQ8TPzQa7KEB/3ERnoCPinH3VJk/0C8qHsA+l41bIcHh5BcHBTmAw==}
+  vite-plugin-resolve@2.5.2:
+    resolution: {integrity: sha512-8twv20M+KIMxkZzAoF1eAUxxxB56NxKdYjIJ309A/30lZ3GAqgiAeGFjVVlLLEpeAcbAwfl9p7jztsQEw7C3Jg==}
 
   vite-plugin-solid@2.10.2:
     resolution: {integrity: sha512-AOEtwMe2baBSXMXdo+BUwECC8IFHcKS6WQV/1NEd+Q7vHPap5fmIhLcAzr+DUJ04/KHx/1UBU0l1/GWP+rMAPQ==}
@@ -7981,7 +7981,7 @@ snapshots:
       - rollup
       - supports-color
 
-  vite-plugin-resolve@2.5.1:
+  vite-plugin-resolve@2.5.2:
     dependencies:
       lib-esm: 0.4.2
 
