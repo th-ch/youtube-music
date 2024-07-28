@@ -1,0 +1,21 @@
+{
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "ප්ලගිනය ක්‍රියාත්මක කිරීමට අසමත් විය {{pluginName}}::{{contextName}}",
+        "executed-at-ms": "ප්ලගිනය {{pluginName}}::{{contextName}} {{ms}}ms හිදී ක්‍රියාත්මක කරන ලදී",
+        "initialize-failed": "\"{{pluginName}}\" ප්ලගිනය ආරම්භ කිරීමට අසමත් විය",
+        "load-all": "සියලුම ප්ලගින පූරණය කරමින්",
+        "load-failed": "\"{{pluginName}}\" ප්ලගිනය පූරණය කිරීමට අසමත් විය",
+        "loaded": "ප්ලගිනය \"{{pluginName}}\" පූරණය කරන ලදී"
+      }
+    }
+  },
+  "main": {
+    "dialog": {
+      "need-to-restart": {
+        "title": "නැවත ආරම්භ කිරීම අවශ්‍යයි"
+      }
+    }
+  }
+}

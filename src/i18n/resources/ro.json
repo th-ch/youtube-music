@@ -128,12 +128,12 @@
             },
             "label": "Limba",
             "submenu": {
-              "to-help-translate": "Vrei sa ajuti la traducere? Apasa aici"
+              "to-help-translate": "Vrei să ajuți la traducere? Apasă aici"
             }
           },
-          "resume-on-start": "Continua ultimul cantec ascultat cand porneste aplicatia",
-          "single-instance-lock": "Oprirea deschiderii mai multor instante",
-          "start-at-login": "Incepe la autentificare",
+          "resume-on-start": "Continuă ultimul cântec ascultat când pornește aplicația",
+          "single-instance-lock": "Blocare cu o singură instanță",
+          "start-at-login": "Începe de la autentificare",
           "starting-page": {
             "label": "Pagina de pornire",
             "unset": "Deselectat"
@@ -142,22 +142,30 @@
             "label": "Tray",
             "submenu": {
               "disabled": "Dezactivat",
-              "enabled-and-hide-app": "Activeaza si ascunde fereastra aplicatiei",
-              "enabled-and-show-app": "Activeaza si arata fereastra aplicatiei",
+              "enabled-and-hide-app": "Activează și ascunde fereastra aplicației",
+              "enabled-and-show-app": "Activează și arata fereastra aplicației",
               "play-pause-on-click": "Start/Pauza la click"
             }
           },
           "visual-tweaks": {
-            "label": "Optimizari vizuale",
+            "label": "Modificări Vizuale",
             "submenu": {
               "like-buttons": {
                 "default": "Default",
-                "force-show": "Forteaza randarea",
+                "force-show": "Forțează randarea",
                 "hide": "Ascunde",
                 "label": "Butoane de like"
               },
               "remove-upgrade-button": "Elimina butonul de upgrade",
               "theme": {
+                "dialog": {
+                  "button": {
+                    "cancel": "Anulează",
+                    "remove": "Elimină"
+                  },
+                  "remove-theme": "Ești sigur că vrei să elimini tema personalizata?",
+                  "remove-theme-message": "Acesta va elimina tema personalizata"
+                },
                 "label": "Tema",
                 "submenu": {
                   "import-css-file": "Importa fisiere CSS proprii",

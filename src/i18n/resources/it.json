@@ -158,6 +158,14 @@
               },
               "remove-upgrade-button": "Rimuovi il pulsante aggiorna",
               "theme": {
+                "dialog": {
+                  "button": {
+                    "cancel": "Cancella",
+                    "remove": "Rimuovi"
+                  },
+                  "remove-theme": "Sicuro di voler rimuovere il tema personalizzato?",
+                  "remove-theme-message": "Questo rimuoverà il tema personalizzato"
+                },
                 "label": "Tema",
                 "submenu": {
                   "import-css-file": "Importa file CSS personalizzato",

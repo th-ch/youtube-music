@@ -59,7 +59,7 @@
       },
       "unresponsive": {
         "buttons": {
-          "quit": "Quitté",
+          "quit": "Quitter",
           "relaunch": "Relancer",
           "wait": "Attendre"
         },
@@ -105,7 +105,7 @@
                 "label": "Définir un proxy",
                 "prompt": {
                   "label": "Entrez l'adresse proxy : (laissez vide pour désactiver)",
-                  "placeholder": "Exemple: SOCKS5://127.0.0.1:9999",
+                  "placeholder": "Exemple : SOCKS5://127.0.0.1:9999",
                   "title": "Définir un proxy"
                 }
               },
@@ -158,6 +158,14 @@
               },
               "remove-upgrade-button": "Supprimer le bouton de mise à niveau",
               "theme": {
+                "dialog": {
+                  "button": {
+                    "cancel": "Annuler",
+                    "remove": "Supprimer"
+                  },
+                  "remove-theme": "Êtes-vous sûr de supprimer le thème personnalisé ?",
+                  "remove-theme-message": "Cela va supprimer le thème personnalisé"
+                },
                 "label": "Thème",
                 "submenu": {
                   "import-css-file": "Importer fichier CSS personnalisé",
@@ -199,6 +207,10 @@
     }
   },
   "plugins": {
+    "ad-speedup": {
+      "description": "Si une publicité apparaît, le son est coupé et la vitesse de lecture est réglée sur 16x",
+      "name": "Accélérer les publicités"
+    },
     "adblocker": {
       "description": "Bloquer toutes les annonces et le suivi par défaut",
       "menu": {
@@ -402,6 +414,21 @@
       "description": "Télécharge les fichiers MP3/source audio directement depuis l'interface",
       "menu": {
         "choose-download-folder": "Choisissez le dossier de téléchargement",
+        "download-finish-settings": {
+          "label": "Télécharger une fois terminé",
+          "prompt": {
+            "last-percent": "Après x pour cent",
+            "last-seconds": "Dernières x secondes",
+            "title": "Configurer quand télécharger"
+          },
+          "submenu": {
+            "advanced": "Avancé",
+            "enabled": "Activé",
+            "mode": "Mode de temps",
+            "percent": "Pourcent",
+            "seconds": "Secondes"
+          }
+        },
         "download-playlist": "Télécharger la liste de lecture",
         "presets": "Préconfigurations",
         "skip-existing": "Passer les fichiers existants"

@@ -100,9 +100,18 @@ if (config.get('options.disableHardwareAcceleration')) {
   app.disableHardwareAcceleration();
 }
 
-if (is.linux() && config.plugins.isEnabled('shortcuts')) {
+if (is.linux()) {
+  const disabledFeatures = [
+    // Workaround for issue #2248
+    'UseMultiPlaneFormatForSoftwareVideo',
+  ];
+
   // Stops chromium from launching its own MPRIS service
-  app.commandLine.appendSwitch('disable-features', 'MediaSessionService');
+  if (config.plugins.isEnabled('shortcuts')) {
+    disabledFeatures.push('MediaSessionService');
+  }
+
+  app.commandLine.appendSwitch('disable-features', disabledFeatures.join());
 }
 
 if (config.get('options.proxy')) {

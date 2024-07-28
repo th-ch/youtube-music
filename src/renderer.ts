@@ -35,7 +35,7 @@ async function listenForApiLoad() {
 }
 
 interface YouTubeMusicAppElement extends HTMLElement {
-  navigate_(page: string): void;
+  navigate(page: string): void;
 }
 
 async function onApiLoaded() {
@@ -173,7 +173,7 @@ async function onApiLoaded() {
   if (startingPage && startingPages[startingPage]) {
     document
       .querySelector<YouTubeMusicAppElement>('ytmusic-app')
-      ?.navigate_(startingPages[startingPage]);
+      ?.navigate(startingPages[startingPage]);
   }
 
   // Remove upgrade button
@@ -231,6 +231,9 @@ const preload = async () => {
     t: i18t.bind(i18next),
   };
   defineYTMDTransElements();
+  if (document.body?.dataset?.os) {
+    document.body.dataset.os = navigator.userAgent;
+  }
 };
 
 const main = async () => {

@@ -1,0 +1,565 @@
+{
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "Virhe pluginin lataamisessa: {{pluginName}}, koska {{contextName}}",
+        "executed-at-ms": "Lisäosa: {{pluginName}} ja {{contextName}} on ladattu/liitetty {{ms}}",
+        "initialize-failed": "Laajennuksen alustaminen epäonnistui kohteelle \"{{pluginName}}\"",
+        "load-all": "Ladataan kaikkia lisäosia",
+        "load-failed": "Virhe lisäosan lataamisessa kohteelle: {{pluginName}}",
+        "loaded": "Lisäosa {{pluginName}} on ladattu",
+        "unload-failed": "Laajennuksen purkaminen epäonnistui kohtelle: {{pluginName}}",
+        "unloaded": "Lisäosa {{pluginName}} on purettu"
+      }
+    }
+  },
+  "language": {
+    "code": "fi",
+    "local-name": "Suomi",
+    "name": "Finnish"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "Onnistuneesti ladattu. Devtools avautuu"
+      },
+      "i18n": {
+        "loaded": "i18n ladattu"
+      },
+      "second-instance": {
+        "receive-command": "Komento \"{{command}}\" on vastaanotettu"
+      },
+      "theme": {
+        "css-file-not-found": "{{cssFile}} on jätetty väliin, koska tiedosto on virheellinen"
+      },
+      "unresponsive": {
+        "details": "Reagoimaton virhe\n{{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "Puhdista välimuisti"
+      },
+      "window": {
+        "tried-to-render-offscreen": "Näyttö yritti renderöidä näyttöäsi asetuksilla: {{windowSize}}, {{displaySize}} sekä {{position}}"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "detail": "Valikko on piilotettu, avaa valikko uudestaan painamalla \"Alt\" näppäintä tai \"Escape\" näppäintä",
+        "message": "Valikon piilotus on nyt päällä",
+        "title": "Piilota valikko päällä"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "Myöhemmin",
+          "restart-now": "Uudelleen käynnistä NYT"
+        },
+        "detail": "{{pluginName}} lisäosa vaatii uudelleen käynnistyksen YT musicille",
+        "message": "{{pluginName}} vaatii uudelleen käynnistyksen YT musicille",
+        "title": "Uudelleen käynnistä sovellus"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "Poistu",
+          "relaunch": "Uudelleen käynnistä",
+          "wait": "Odotas vähän"
+        },
+        "detail": "Pahoittelemme häiriötä! ole hyvä ja valitse mitä teet:",
+        "message": "Sovellus ei ole saataville eli tapahtui virhe",
+        "title": "Ikkuna ei vastaa"
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "Poista päivitykset käytöstä",
+          "download": "Lataa",
+          "ok": "Selvä"
+        },
+        "detail": "Uusin versio sovelluksesta on nyt saatavilla, lataa se tästä {{downloadLink}}",
+        "message": "Uusin versio on nyt saatavilla",
+        "title": "Päivitys saatavilla"
+      }
+    },
+    "menu": {
+      "about": "Tietoa",
+      "navigation": {
+        "label": "Selaa",
+        "submenu": {
+          "copy-current-url": "Kopio URL osoite",
+          "go-back": "Takaisin",
+          "go-forward": "Eteenpäin",
+          "quit": "Poistu alustalta",
+          "restart": "Uudelleen käynnistä aplikaatio"
+        }
+      },
+      "options": {
+        "label": "Asetukset",
+        "submenu": {
+          "advanced-options": {
+            "label": "Lisäasetukset",
+            "submenu": {
+              "auto-reset-app-cache": "Puhdista sovelluksen välimuisti aina sovelluksen käynnistyksen aikana",
+              "disable-hardware-acceleration": "Poista laitteistokiihdytys käytöstä",
+              "edit-config-json": "Muokkaa \"config.json\" tiedostoa",
+              "override-user-agent": "Ohita käyttäjäagentti",
+              "restart-on-config-changes": "Käynnistä uudelleen asetusten muuton jälkeen",
+              "set-proxy": {
+                "label": "Aseta välityspalvelin (proxy)",
+                "prompt": {
+                  "label": "Aseta välityspalvelimen IP-osoite: (jos jätät tyhjäksi, palvelin ei käynnisty)",
+                  "placeholder": "Esimerkki osoite: penapertti://127.0.0.0:6969",
+                  "title": "Aseta välityspalvelin (proxy)"
+                }
+              },
+              "toggle-dev-tools": "Ota DevTools käyttöön"
+            }
+          },
+          "always-on-top": "Aina päällä",
+          "auto-update": "Automaattisest päivitykset",
+          "hide-menu": {
+            "dialog": {
+              "message": "Valikko piilotetaan seuraavan käynnistyksen yhteydessä. Saat sen päälle painamalla [Alt] näppäintä (tai merkitse takaisin [`], jos käytät sovelluksen sisäistä valikkoa)",
+              "title": "Piilota valikko (päällä)"
+            },
+            "label": "Piilota valikko"
+          },
+          "language": {
+            "dialog": {
+              "message": "Kieli vaihtuu uudelleen käynnistyksen jälkeen (Language will be changed after restart)",
+              "title": "Kieli vaihdettu (Language Changed)"
+            },
+            "label": "Kieli (languages)",
+            "submenu": {
+              "to-help-translate": "Haluatko kääntää puuttuvan kielen? Klkkaa tästä! (Want to help translate? Click here)"
+            }
+          },
+          "resume-on-start": "Jatka kappaleesta, johon jäin aikaisemmin",
+          "single-instance-lock": "Yhden instanssin lukko",
+          "start-at-login": "Aloita kirjautuminen",
+          "starting-page": {
+            "label": "Etusivu",
+            "unset": "Valitsematta"
+          },
+          "tray": {
+            "label": "Suositukset",
+            "submenu": {
+              "disabled": "Pois päältä",
+              "enabled-and-hide-app": "Suositukset ovat käytössä ja piilota valikko",
+              "enabled-and-show-app": "Päällä ja sovellus näkyvissä",
+              "play-pause-on-click": "Soita/pysäytä klikkaamalla"
+            }
+          },
+          "visual-tweaks": {
+            "label": "Visuaalisia tehosteita",
+            "submenu": {
+              "like-buttons": {
+                "default": "Vakio",
+                "force-show": "Pakota näyttämään",
+                "hide": "Piilota",
+                "label": "Tykkäys nappula"
+              },
+              "remove-upgrade-button": "Poista päivitys nappula",
+              "theme": {
+                "dialog": {
+                  "button": {
+                    "cancel": "Peruuta",
+                    "remove": "Poista"
+                  },
+                  "remove-theme": "Oletko aivan varma, että haluat poistaa kustomoidun teeman?",
+                  "remove-theme-message": "Tämä poistaa kustomoidun teeman"
+                },
+                "label": "Teema",
+                "submenu": {
+                  "import-css-file": "Liitä kustomoitu CSS tiedosto",
+                  "no-theme": "Ei teemaa"
+                }
+              }
+            }
+          }
+        }
+      },
+      "plugins": {
+        "enabled": "Päällä",
+        "label": "Lisäosat",
+        "new": "UUSI"
+      },
+      "view": {
+        "label": "Katso",
+        "submenu": {
+          "force-reload": "pakota uudelleen lataamaan",
+          "reload": "Uudelleen lataa",
+          "reset-zoom": "Todellinen koko",
+          "toggle-fullscreen": "Koko näyttö päälle/pois",
+          "zoom-in": "Zoomaa lähemmäksi",
+          "zoom-out": "Zoomaa kauemmaksi"
+        }
+      }
+    },
+    "tray": {
+      "next": "Seuraava",
+      "play-pause": "Soita/pysäytä",
+      "previous": "Edellinen",
+      "quit": "Lähde pois",
+      "restart": "Uudelleen käynnistä appi",
+      "show": "Näytä ikkuna",
+      "tooltip": {
+        "default": "Youtube Music",
+        "with-song-info": "Youtube Music {{artist}} - {{title}}"
+      }
+    }
+  },
+  "plugins": {
+    "adblocker": {
+      "description": "Estä kaikki mainokset ja seuranta",
+      "menu": {
+        "blocker": "Estäjät (blockerit)"
+      },
+      "name": "Mainos estäjä"
+    },
+    "album-actions": {
+      "description": "Lisää tykkäysnappulat, joilla voit lisätä tai poistaa tykkäyksiä kerralla kaikille soittolistan tai albumin kappaleille",
+      "name": "Albumin Toiminnot"
+    },
+    "album-color-theme": {
+      "description": "Käyttää dynaamista teemaa ja visuaalisia tehosteita albumin väripaletin perusteella",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "Värien sekoitussuhde",
+          "submenu": {
+            "percent": "{{ratio}}%"
+          }
+        }
+      },
+      "name": "Albumin Värinen Teema"
+    },
+    "ambient-mode": {
+      "description": "Antaa valaistustehosteen heittämällä videosta lempeitä värejä näytön taustalle",
+      "menu": {
+        "blur-amount": {
+          "label": "Sumennuksen voimakkuus",
+          "submenu": {
+            "pixels": "{{blurAmount}} pikseliä"
+          }
+        },
+        "buffer": {
+          "label": "Puskurointi",
+          "submenu": {
+            "buffer": "{{buffer}}"
+          }
+        },
+        "opacity": {
+          "label": "Läpinäkyvyys",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "quality": {
+          "label": "Laatu",
+          "submenu": {
+            "pixels": "{{quality}} pikseliä"
+          }
+        },
+        "size": {
+          "label": "Koko",
+          "submenu": {
+            "percent": "{{size}}%"
+          }
+        },
+        "smoothness-transition": {
+          "label": "Siirtymän sujuvuus",
+          "submenu": {
+            "during": "Kesto {{interpolationTime}} s"
+          }
+        },
+        "use-fullscreen": {
+          "label": "Käytetään koko näytön tilaa"
+        }
+      }
+    },
+    "audio-compressor": {
+      "description": "Lisää äänen kompressointia (hiljentää voimakkaimpien äänien voimakkuutta ja tehostaa pehmeämpien äänien voimakkuutta)",
+      "name": "Äänen Kompressoija"
+    },
+    "blur-nav-bar": {
+      "description": "Tekee siirtymäpalkista läpikuultavan ja sumean",
+      "name": "Sumenna Siirtymäpalkki"
+    },
+    "bypass-age-restrictions": {
+      "description": "Ohita YouTuben iän vahvistus",
+      "name": "Ohita Ikään Perustuvat Rajoitukset"
+    },
+    "captions-selector": {
+      "description": "YouTube Music ääniraitojen tekstitysten valitsin",
+      "menu": {
+        "autoload": "Valitse automaattisesti viimeksi käytetty tekstitys",
+        "disable-captions": "Tekstitys ei oletusarvoisesti käytössä"
+      },
+      "name": "Tekstitysten valinta",
+      "prompt": {
+        "selector": {
+          "label": "Tekstitysten nykyinen kieli: {{language}}",
+          "none": "Ei mitään",
+          "title": "Valitse tekstitysten kieli"
+        }
+      },
+      "templates": {
+        "title": "Avaa tekstitysten valitsin"
+      }
+    },
+    "compact-sidebar": {
+      "description": "Asettaa sivupalkin aina kompaktiin tilaan",
+      "name": "Kompakti sivupalkki"
+    },
+    "crossfade": {
+      "description": "Ristihäivytä kappaleet",
+      "menu": {
+        "advanced": "Edistynyt"
+      },
+      "name": "Ristihäivytys [Beta]",
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "fade-in-duration": "Sisään häivytyksen kesto (ms)",
+            "fade-out-duration": "Ulos häivytyksen kesto (ms)",
+            "fade-scaling": {
+              "label": "Häivytyksen skaalaus",
+              "linear": "Lineaarinen",
+              "logarithmic": "Logaritminen"
+            },
+            "seconds-before-end": "Ristihäivytä N sekuntia ennen loppua"
+          },
+          "title": "Ristihäivytyksen asetukset"
+        }
+      }
+    },
+    "disable-autoplay": {
+      "description": "Kappaleet alkavat \"pysäytetty\" tilassa",
+      "name": "Poista automaattinen toisto käytöstä"
+    },
+    "discord": {
+      "backend": {
+        "already-connected": "Yritettiin yhdistää vaikka yhteys on jo aktiivinen",
+        "connected": "Yhdistetty Discordiin",
+        "disconnected": "Katkaistu yhteys Discordiin"
+      },
+      "description": "Näytä ystävillesi mitä kuuntelet \"Rich Presence\":n avulla",
+      "menu": {
+        "auto-reconnect": "Automaatinen uudelleenyhdistys",
+        "clear-activity": "Nollaa toiminta",
+        "clear-activity-after-timeout": "Nollaa toiminta aikakatkaisun jälkeen",
+        "connected": "Yhdistetty",
+        "disconnected": "Yhteys katkaistu",
+        "hide-duration-left": "Piilota kappaleen jäljellä oleva kesto",
+        "hide-github-button": "Piilota \"linkki GitHubiin\" -nappi",
+        "play-on-youtube-music": "Kuuntele palvelussa YouTube Music",
+        "set-inactivity-timeout": "Aseta toimettomuuden aikakatkaisu"
+      },
+      "name": "Discord Aktiviteetti (Rich Presence)",
+      "prompt": {
+        "set-inactivity-timeout": {
+          "label": "Anna toimettomuuden aikakatkaisun aika sekunteina:",
+          "title": "Aseta toimettomuuden aikakatkaisu"
+        }
+      }
+    },
+    "downloader": {
+      "backend": {
+        "dialog": {
+          "error": {
+            "buttons": {
+              "ok": "OK"
+            },
+            "message": "Äh! Pahoittelut, lataus epäonnistui…",
+            "title": "Virhe latauksessa!"
+          },
+          "start-download-playlist": {
+            "buttons": {
+              "ok": "OK"
+            },
+            "detail": "({{playlistSize}} kappaletta)",
+            "message": "Lataa Soittolista {{playlistTitle}}",
+            "title": "Lataus aloitettu"
+          }
+        },
+        "feedback": {
+          "conversion-progress": "Muunnetaan: {{percent}}%",
+          "converting": "Muuntaa…",
+          "done": "Valmis: {{filePath}}",
+          "download-info": "Ladataan {{artist}} -{{title}} [{{videoId}}",
+          "download-progress": "Latauksen edistyminen: {{percent}}%",
+          "downloading": "Ladataan…",
+          "downloading-counter": "Ladataan {{current}}/{{total}}…",
+          "downloading-playlist": "Ladataan soittolistaa \"{{playlistTitle}}\" {{playlistSize}} kappaletta ({{playlistId}})",
+          "error-while-downloading": "Virhe ladattaessa \"{{author}} - {{title}}\": {{error}}",
+          "folder-already-exists": "Kansio {{playlistFolder}} on jo olemassa",
+          "getting-playlist-info": "Haetaan soittolistan tietoja…",
+          "loading": "Ladataan…",
+          "playlist-has-only-one-song": "Soittolistalla on vain yksi kappale, se ladataan suoraan",
+          "playlist-id-not-found": "Soittolistan tunnistetta ei löytynyt",
+          "playlist-is-empty": "Soittolista on tyhjä",
+          "playlist-is-mix-or-private": "Virhe haettaessa soittolista tietoja: varmista ettei soittolista ole yksityinen tai \"Miksattu sinulle\" soittolista\n\n{{error}}",
+          "preparing-file": "Valmistellaan tiedostoa…",
+          "saving": "Tallennetaan…",
+          "trying-to-get-playlist-id": "Yritetään hakea soittolistan tunnistetta: {{playlistId}}",
+          "video-id-not-found": "Videota ei löytynyt",
+          "writing-id3": "Kirjoitetaan ID3-tunnisteita…"
+        }
+      },
+      "description": "Lataa MP3- tai lähdetiedoston suoraan käyttöliittymästä",
+      "menu": {
+        "choose-download-folder": "Valitse latauskansio",
+        "download-playlist": "Lataa soittolista",
+        "presets": "Esiasetukset",
+        "skip-existing": "Ohita olemassa olevat tiedostot"
+      },
+      "name": "Lataaja",
+      "renderer": {
+        "can-not-update-progress": "Edistystä ei voida päivittää"
+      },
+      "templates": {
+        "button": "Lataa"
+      }
+    },
+    "exponential-volume": {
+      "description": "Tekee äänenvoimakkuuden säätimestä eksponentiaalisen, jotta matalampien äänenvoimakkuuksien valinta on helpompaa.",
+      "name": "Eksponentiaalinen Äänenvoimakkuus"
+    },
+    "in-app-menu": {
+      "description": "Antaa valikkopalkeille hienon tumman tai albumin värisen ulkonäön",
+      "menu": {
+        "hide-dom-window-controls": "Piilota ikkunan DOM ohjaimet"
+      },
+      "name": "Sovelluksen sisäinen valikko"
+    },
+    "lumiastream": {
+      "description": "Lisää tuen Lumia Stream -palvelulle",
+      "name": "Lumia Stream [Beta]"
+    },
+    "lyrics-genius": {
+      "description": "Lisää tuen useimpien kappaleiden sanoituksille",
+      "menu": {
+        "romanized-lyrics": "Latinaistetut sanoitukset"
+      },
+      "name": "Lyrics Genius",
+      "renderer": {
+        "fetched-lyrics": "Sanoitukset haettu Geniukselle"
+      }
+    },
+    "music-together": {
+      "description": "Jaa soittolista muiden kanssa. Kun isäntä soittaa kappaleen, kaikki muut kuulevat saman kappaleen",
+      "dialog": {
+        "enter-host": "Anna Istunnon tunniste"
+      },
+      "internal": {
+        "save": "Tallenna",
+        "track-source": "Kappaleen lähde",
+        "unknown-user": "Tuntematon käyttäjä"
+      },
+      "menu": {
+        "click-to-copy-id": "Kopioi Istunnon tunniste",
+        "close": "Sulje \"Music Together\"",
+        "connected-users": "Yhdistetyt käyttäjät",
+        "disconnect": "Katkaise yhteys \"Music Together\" -istuntoon",
+        "empty-user": "Ei yhdistyneitä käyttäjiä",
+        "host": "\"Music Together\" -istunnon isäntä",
+        "join": "Yhdistä \"Music Together\" -istuntoon",
+        "permission": {
+          "all": "Salli vieraiden hallita soittolistaa ja soitinta",
+          "host-only": "Vain isäntä voi hallita soittolistaa ja soitinta",
+          "playlist": "Salli vieraiden hallita soittolistaa"
+        },
+        "set-permission": "Muuta hallintaoikeuksia",
+        "status": {
+          "disconnected": "Yhteys katkaistu",
+          "guest": "Yhdistetty vieraana",
+          "host": "Yhdistetty isäntänä"
+        }
+      },
+      "name": "Music Together [Beta]",
+      "toast": {
+        "add-song-failed": "Kappaleen lisääminen epäonnistui",
+        "closed": "Music Together suljettu",
+        "disconnected": "\"Music Together\" yhteys katkaistu",
+        "host-failed": "Music Together -istunnon isännöinti epäonnistui",
+        "id-copied": "Istunnon tunnus kopioitu leikepöydälle",
+        "id-copy-failed": "Istunnon tunnisteen kopioiminen epäonnistui",
+        "join-failed": "Music Together -istuntoon liittyminen epäonnistui",
+        "joined": "Liityttiin Music Together -istuntoon",
+        "permission-changed": "Music Together -istunnon oikeuksia muutettiin \"{{permission}}\"",
+        "remove-song-failed": "Kappaleen poistaminen epäonnistui",
+        "user-connected": "{{name}} liittyi Music Together -istuntoon",
+        "user-disconnected": "{{name}} poistui Music Together -istunnosta"
+      }
+    },
+    "navigation": {
+      "description": "Eteen- ja taaksepäin vievät nuolet suoraan integroituna käyttöliittymään. Juuri niin kuin lempiselaimessasi",
+      "name": "Siirtyminen"
+    },
+    "no-google-login": {
+      "description": "Poista Googlen kirjautumispainikkeet ja linkit käyttöliittymästä",
+      "name": "Ei Google kirjautumista"
+    },
+    "notifications": {
+      "description": "Näytä ilmoitus, kun kappale alkaa soida (interaktiiviset ilmoitukset ovat käytettävissä Windowsilla)",
+      "menu": {
+        "interactive": "Interaktiiviset Ilmoitukset",
+        "interactive-settings": {
+          "label": "Interaktiiviset Asetukset",
+          "submenu": {
+            "hide-button-text": "Piilota painikkeen teksti",
+            "refresh-on-play-pause": "Päivitä Toistamisen/Tauottamisen yhteydessä",
+            "tray-controls": "Avaa/Sulje tehtäväpalkista"
+          }
+        },
+        "priority": "Ilmoitusten tärkeys",
+        "unpause-notification": "Näytä ilmoitus toistamisen yhteydessä"
+      },
+      "name": "Ilmoitukset"
+    },
+    "picture-in-picture": {
+      "description": "Sallii sovelluksen vaihtamisen \"kuva kuvassa\" tilaan",
+      "menu": {
+        "always-on-top": "Aina päällimmäisenä",
+        "hotkey": {
+          "label": "Pikanäppäin",
+          "prompt": {
+            "keybind-options": {
+              "hotkey": "Pikanäppäin"
+            },
+            "label": "Valitse pikanäppäin \"kuva kuvassa\" -tilan kytkemiseksi",
+            "title": "\"Kuva kuvassa\" -tilan pikanäppäin"
+          }
+        },
+        "save-window-position": "Tallenna ikkunan sijainti",
+        "save-window-size": "Tallenna ikkunan koko",
+        "use-native-pip": "Käytä selaimen natiivia \"Kuva kuvassa\" -tilaa"
+      },
+      "name": "Kuva kuvassa",
+      "templates": {
+        "button": "Kuva kuvassa"
+      }
+    },
+    "playback-speed": {
+      "description": "Kuuntele nopeasti, kuuntele hitaasti! Lisää säätimen, jolla voit säätää kappaleen toistonopeutta",
+      "name": "Toistonopeus",
+      "templates": {
+        "button": "Nopeus"
+      }
+    },
+    "precise-volume": {
+      "description": "Säädä äänenvoimakkuutta tarkasti hiiren rullaa tai pikanäppäimiä käyttäen. Kustomoidulla käyttöliittymällä ja säädettävällä äänenvoimakkuuden porrastuksella",
+      "menu": {
+        "custom-volume-steps": "Aseta mukautettu äänenvoimakkuuden porrastus",
+        "global-shortcuts": "Yleiset pikanäppäimet"
+      },
+      "name": "Tarkka äänenvoimakkuus",
+      "prompt": {
+        "global-shortcuts": {
+          "keybind-options": {
+            "decrease": "Vähennä äänenvoimakkuutta",
+            "increase": "Lisää äänenvoimakkuutta"
+          },
+          "label": "Valitse yleiset äänenvoimakkuuden pikanäppäimet:"
+        }
+      }
+    }
+  }
+}

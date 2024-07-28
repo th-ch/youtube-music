@@ -158,6 +158,14 @@
               },
               "remove-upgrade-button": "Прибрати кнопку оновлення",
               "theme": {
+                "dialog": {
+                  "button": {
+                    "cancel": "Скасувати",
+                    "remove": "Видалити"
+                  },
+                  "remove-theme": "Ви впевнені, що хочете видалити власну тему?",
+                  "remove-theme-message": "Це видалить власну тему"
+                },
                 "label": "Тема",
                 "submenu": {
                   "import-css-file": "Імпортувати власний CSS файл",

@@ -1,0 +1,161 @@
+diff --git a/lib/importDeclaration.js b/lib/importDeclaration.js
+index afb4de779034cfea080825a5f4320661c48bee32..f10b0a11a39577fbd42569e6b0e768255c1ef276 100644
+--- a/lib/importDeclaration.js
++++ b/lib/importDeclaration.js
+@@ -1,5 +1,5 @@
+-"use strict";Object.defineProperty(exports, "__esModule", { value: true });exports["default"] = importDeclaration;function importDeclaration(context) {
+-  var ancestors = context.getAncestors();
++"use strict";Object.defineProperty(exports, "__esModule", { value: true });exports["default"] = importDeclaration;function importDeclaration(context, node) {
++  var ancestors = context.getSourceCode().getAncestors(node);
+   return ancestors[ancestors.length - 1];
+ }
+ //# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9pbXBvcnREZWNsYXJhdGlvbi5qcyJdLCJuYW1lcyI6WyJpbXBvcnREZWNsYXJhdGlvbiIsImNvbnRleHQiLCJhbmNlc3RvcnMiLCJnZXRBbmNlc3RvcnMiLCJsZW5ndGgiXSwibWFwcGluZ3MiOiJnR0FBd0JBLGlCLENBQVQsU0FBU0EsaUJBQVQsQ0FBMkJDLE9BQTNCLEVBQW9DO0FBQ2pELE1BQU1DLFlBQVlELFFBQVFFLFlBQVIsRUFBbEI7QUFDQSxTQUFPRCxVQUFVQSxVQUFVRSxNQUFWLEdBQW1CLENBQTdCLENBQVA7QUFDRCIsImZpbGUiOiJpbXBvcnREZWNsYXJhdGlvbi5qcyIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBkZWZhdWx0IGZ1bmN0aW9uIGltcG9ydERlY2xhcmF0aW9uKGNvbnRleHQpIHtcbiAgY29uc3QgYW5jZXN0b3JzID0gY29udGV4dC5nZXRBbmNlc3RvcnMoKTtcbiAgcmV0dXJuIGFuY2VzdG9yc1thbmNlc3RvcnMubGVuZ3RoIC0gMV07XG59XG4iXX0=
+\ No newline at end of file
+diff --git a/lib/rules/first.js b/lib/rules/first.js
+index a77168660cf32c8c3e96f3ff4b8240a36d7de3a6..c0e00d75f9989916057fef3999eeee8d21820292 100644
+--- a/lib/rules/first.js
++++ b/lib/rules/first.js
+@@ -66,7 +66,7 @@ module.exports = {
+                   }
+                 }
+                 if (nonImportCount > 0) {var _iteratorNormalCompletion = true;var _didIteratorError = false;var _iteratorError = undefined;try {
+-                    for (var _iterator = context.getDeclaredVariables(node)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {var variable = _step.value;
++                    for (var _iterator = sourceCode.getDeclaredVariables(node)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {var variable = _step.value;
+                       if (!shouldSort) {break;}
+                       var references = variable.references;
+                       if (references.length) {var _iteratorNormalCompletion2 = true;var _didIteratorError2 = false;var _iteratorError2 = undefined;try {
+diff --git a/lib/rules/namespace.js b/lib/rules/namespace.js
+index 574d89a60d15c7e0e712956ea6a3ad2d0eac7f08..82e7cb3cff4246592d762cce86323f2b72de92e4 100644
+--- a/lib/rules/namespace.js
++++ b/lib/rules/namespace.js
+@@ -86,7 +86,7 @@ module.exports = {
+ 
+         // same as above, but does not add names to local map
+         ExportNamespaceSpecifier: function () {function ExportNamespaceSpecifier(namespace) {
+-            var declaration = (0, _importDeclaration2['default'])(context);
++            var declaration = (0, _importDeclaration2['default'])(context, namespace);
+ 
+             var imports = _ExportMap2['default'].get(declaration.source.value, context);
+             if (imports == null) {return null;}
+diff --git a/lib/rules/newline-after-import.js b/lib/rules/newline-after-import.js
+index 6cc15686464a17803a0b976c35b99627cdbfabee..520eec6d9a375527ab72c459960fe4416c046c17 100644
+--- a/lib/rules/newline-after-import.js
++++ b/lib/rules/newline-after-import.js
+@@ -194,7 +194,7 @@ module.exports = {
+           }return CallExpression;}(),
+         'Program:exit': function () {function ProgramExit() {
+             log('exit processing for', context.getPhysicalFilename ? context.getPhysicalFilename() : context.getFilename());
+-            var scopeBody = getScopeBody(context.getScope());
++            var scopeBody = getScopeBody(context.getSourceCode().getScope(node));
+             log('got scope:', scopeBody);
+ 
+             requireCalls.forEach(function (node, index) {
+diff --git a/lib/rules/no-amd.js b/lib/rules/no-amd.js
+index 7ac108bf812ca4f78bfa6fe5ae8b9cf38e2ff497..346c3105dc70f72c4d76fcc6b96b946d1d4ec6d5 100644
+--- a/lib/rules/no-amd.js
++++ b/lib/rules/no-amd.js
+@@ -23,7 +23,7 @@ module.exports = {
+   create: function () {function create(context) {
+       return {
+         CallExpression: function () {function CallExpression(node) {
+-            if (context.getScope().type !== 'module') {return;}
++            if (context.getSourceCode().getScope(node).type !== 'module') {return;}
+ 
+             if (node.callee.type !== 'Identifier') {return;}
+             if (node.callee.name !== 'require' && node.callee.name !== 'define') {return;}
+diff --git a/lib/rules/no-commonjs.js b/lib/rules/no-commonjs.js
+index befeff0026d61d3ac1e6bbcea29f5c471dc1d353..e91c5ed34e968d5867e884ea800e166cda345aef 100644
+--- a/lib/rules/no-commonjs.js
++++ b/lib/rules/no-commonjs.js
+@@ -107,7 +107,7 @@ module.exports = {
+ 
+             // exports.
+             if (node.object.name === 'exports') {
+-              var isInScope = context.getScope().
++              var isInScope = context.getSourceCode().getScope(node).
+               variables.
+               some(function (variable) {return variable.name === 'exports';});
+               if (!isInScope) {
+@@ -117,7 +117,7 @@ module.exports = {
+ 
+           }return MemberExpression;}(),
+         CallExpression: function () {function CallExpression(call) {
+-            if (!validateScope(context.getScope())) {return;}
++            if (!validateScope(context.getSourceCode().getScope(call))) {return;}
+ 
+             if (call.callee.type !== 'Identifier') {return;}
+             if (call.callee.name !== 'require') {return;}
+diff --git a/lib/rules/no-mutable-exports.js b/lib/rules/no-mutable-exports.js
+index 40bd1b4cfa95d41732bb13bba0ed1969a91cc7ff..8a25abfbfadb299204b36a6cbf283259bcc2e790 100644
+--- a/lib/rules/no-mutable-exports.js
++++ b/lib/rules/no-mutable-exports.js
+@@ -32,7 +32,7 @@ module.exports = {
+       }
+ 
+       function handleExportDefault(node) {
+-        var scope = context.getScope();
++        var scope = context.getSourceCode().getScope(node);
+ 
+         if (node.declaration.name) {
+           checkDeclarationsInScope(scope, node.declaration.name);
+@@ -40,7 +40,7 @@ module.exports = {
+       }
+ 
+       function handleExportNamed(node) {
+-        var scope = context.getScope();
++        var scope = context.getSourceCode().getScope(node);
+ 
+         if (node.declaration) {
+           checkDeclaration(node.declaration);
+diff --git a/lib/rules/no-named-as-default-member.js b/lib/rules/no-named-as-default-member.js
+index 0c15051e027ad7d1d45f1b51c20be1c000b0af01..5b3d6ba415511b7f9f83a52e1acfebe5a1045a7b 100644
+--- a/lib/rules/no-named-as-default-member.js
++++ b/lib/rules/no-named-as-default-member.js
+@@ -35,7 +35,7 @@ module.exports = {
+ 
+       return {
+         ImportDefaultSpecifier: function () {function ImportDefaultSpecifier(node) {
+-            var declaration = (0, _importDeclaration2['default'])(context);
++            var declaration = (0, _importDeclaration2['default'])(context, node);
+             var exportMap = _ExportMap2['default'].get(declaration.source.value, context);
+             if (exportMap == null) {return;}
+ 
+diff --git a/lib/rules/no-named-as-default.js b/lib/rules/no-named-as-default.js
+index 63378a33a1c7da004c57a524cec1a1cddf23e210..c81b1f93b11628676158b79f1c4015911943cc7d 100644
+--- a/lib/rules/no-named-as-default.js
++++ b/lib/rules/no-named-as-default.js
+@@ -18,7 +18,7 @@ module.exports = {
+         // #566: default is a valid specifier
+         if (defaultSpecifier[nameKey].name === 'default') {return;}
+ 
+-        var declaration = (0, _importDeclaration2['default'])(context);
++        var declaration = (0, _importDeclaration2['default'])(context, defaultSpecifier);
+ 
+         var imports = _ExportMap2['default'].get(declaration.source.value, context);
+         if (imports == null) {return;}
+diff --git a/lib/rules/no-namespace.js b/lib/rules/no-namespace.js
+index 2b0c783adea788101b779b17f977bbcb582cfd3f..a7f7b202ac7c4a342febef2a993586c4cc84fc7a 100644
+--- a/lib/rules/no-namespace.js
++++ b/lib/rules/no-namespace.js
+@@ -43,7 +43,7 @@ var _docsUrl = require('../docsUrl');var _docsUrl2 = _interopRequireDefault(_doc
+               return;
+             }
+ 
+-            var scopeVariables = context.getScope().variables;
++            var scopeVariables = context.getSourceCode().getScope(node).variables;
+             var namespaceVariable = scopeVariables.find(function (variable) {return variable.defs[0].node === node;});
+             var namespaceReferences = namespaceVariable.references;
+             var namespaceIdentifiers = namespaceReferences.map(function (reference) {return reference.identifier;});
+diff --git a/package.json b/package.json
+index 5c0af48543483a21791fa23a4a583071d3551772..5deeac3d0accc3878ef0fc93dfb52a8ca7c46e84 100644
+--- a/package.json
++++ b/package.json
+@@ -72,7 +72,7 @@
+     "chai": "^4.3.10",
+     "cross-env": "^4.0.0",
+     "escope": "^3.6.0",
+-    "eslint": "^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0 || ^8",
++    "eslint": "^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0 || ^8 || ^9",
+     "eslint-doc-generator": "^1.6.1",
+     "eslint-import-resolver-node": "file:./resolvers/node",
+     "eslint-import-resolver-typescript": "^1.0.2 || ^1.1.1",

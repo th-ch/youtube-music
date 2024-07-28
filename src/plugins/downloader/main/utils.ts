@@ -1,8 +1,8 @@
 import { app, BrowserWindow } from 'electron';
 import is from 'electron-is';
 
-export const getFolder = (customFolder: string) =>
-  customFolder || app.getPath('downloads');
+export const getFolder = (customFolder?: string) =>
+  customFolder ?? app.getPath('downloads');
 
 export const sendFeedback = (win: BrowserWindow, message?: unknown) => {
   win.webContents.send('downloader-feedback', message);

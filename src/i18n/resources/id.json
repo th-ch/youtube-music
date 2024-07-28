@@ -30,7 +30,7 @@
         "receive-command": "Menerima instruksi lewat protokol: \"{{command}}\""
       },
       "theme": {
-        "css-file-not-found": "CSS file \"{{cssFile}}\" tidak ada, mengabaikan"
+        "css-file-not-found": "File CSS \"{{cssFile}}\" tidak ditemukan, mengabaikan"
       },
       "unresponsive": {
         "details": "Kesalahan Tidak Responsif!\n{{error}}"
@@ -45,17 +45,17 @@
     "dialog": {
       "hide-menu-enabled": {
         "detail": "Menu tersembunyi, gunakan 'Alt' untuk menampilkannya (atau 'Escape' jika menggunakan Menu Dalam Aplikasi)",
-        "message": "Menu Sembunyikan diaktifkan",
+        "message": "Sembunyikan Menu diaktifkan",
         "title": "Sembunyikan Menu Diaktifkan"
       },
       "need-to-restart": {
         "buttons": {
-          "later": "Kemudian",
+          "later": "Nanti",
           "restart-now": "Restart Sekarang"
         },
         "detail": "\"{{pluginName}}\" Plugin memerlukan pengaktifan ulang agar dapat diterapkan",
         "message": "\"{{pluginName}}\" harus dimulai ulang",
-        "title": "Diperlukan Restart"
+        "title": "Restart Diperlukan"
       },
       "unresponsive": {
         "buttons": {
@@ -158,6 +158,14 @@
               },
               "remove-upgrade-button": "Hapus tombol peningkatan",
               "theme": {
+                "dialog": {
+                  "button": {
+                    "cancel": "Batalkan",
+                    "remove": "Hapus"
+                  },
+                  "remove-theme": "Apakah kamu yakin ingin menhapus tema ini?",
+                  "remove-theme-message": "Ini akan menghapus tema ini"
+                },
                 "label": "Tema",
                 "submenu": {
                   "import-css-file": "Impor file CSS khusus",

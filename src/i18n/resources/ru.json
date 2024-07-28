@@ -158,6 +158,14 @@
               },
               "remove-upgrade-button": "Убрать кнопку Youtube Premium",
               "theme": {
+                "dialog": {
+                  "button": {
+                    "cancel": "Отмена",
+                    "remove": "Убрать"
+                  },
+                  "remove-theme": "Вы уверены, что хотите убрать пользовательскую тему?",
+                  "remove-theme-message": "Это уберёт пользовательскую тему"
+                },
                 "label": "Тема",
                 "submenu": {
                   "import-css-file": "Импортировать кастомный CSS файл",
