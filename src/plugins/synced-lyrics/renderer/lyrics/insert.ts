@@ -1,4 +1,3 @@
-import { LineLyrics, LineLyricsStatus } from '../../types';
 import { config } from '../renderer';
 
 export const initLyricsStyle = () => {
@@ -34,26 +33,4 @@ export const initLyricsStyle = () => {
       root.style.setProperty('--offset-lyrics', '0');
       break;
   }
-};
-
-export const styleLyrics = (actualLyric: LineLyrics) => {
-  const lyrics = document.querySelectorAll('.synced-line');
-
-  const setStatus = (lyric: Element, status: LineLyricsStatus) => {
-    lyric.classList.remove('current');
-    lyric.classList.remove('previous');
-    lyric.classList.remove('upcoming');
-    lyric.classList.add(status);
-  };
-
-  lyrics.forEach((lyric: Element) => {
-    const index = parseInt(lyric.getAttribute('data-index')!);
-    if (index === actualLyric.index) setStatus(lyric, 'current');
-    else if (index < actualLyric.index) setStatus(lyric, 'previous');
-    else setStatus(lyric, 'upcoming');
-  });
-
-  const targetElement = document.querySelector<HTMLElement>('.current');
-  if (targetElement)
-    targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
 };

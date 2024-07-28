@@ -27,6 +27,10 @@
   text-align: left !important;
 }
 
+.synced-line > .text-lyrics {
+  cursor: pointer;
+}
+
 .synced-lyrics {
   display: block;
   justify-content: left;
@@ -46,7 +50,7 @@
 .warning-lyrics {
   display: block;
   text-align: left;
-  margin: 0.5rem 0;
+  margin-bottom: 5em;
   color: var(--ytmusic-text-secondary);
   font-style: italic;
 }

@@ -7,13 +7,11 @@ import { YoutubePlayer } from '@/types/youtube-player';
 import { makeLyricsRequest, initLyricsStyle } from './lyrics';
 import { selectors, tabStates } from './utils';
 import { setConfig } from './renderer';
-import {
-  currentTime,
-  setCurrentTime,
-  setLineLyrics,
-} from './components/LyricsContainer';
+import { setCurrentTime, setLineLyrics } from './components/LyricsContainer';
 
 import type { SyncedLyricsPluginConfig } from '../types';
+
+export let _ytAPI: YoutubePlayer | null = null;
 
 export const renderer = createRenderer({
   onConfigChange(newConfig) {
@@ -32,15 +30,14 @@ export const renderer = createRenderer({
         case 'aria-selected':
           // @ts-expect-error I know what I am doing, fuck off TypeSript
           // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-          tabStates[header.ariaSelected]?.(this.api.getVideoData());
+          tabStates[header.ariaSelected]?.(_ytAPI?.getVideoData());
           break;
       }
     }
   },
 
-  api: <YoutubePlayer | null>null,
   onPlayerApiReady(api) {
-    this.api = api;
+    _ytAPI = api;
 
     // @ts-expect-error type is 'unknown', so TS complains
     api.addEventListener('videodatachange', this.videoDataChange);
@@ -72,8 +69,6 @@ export const renderer = createRenderer({
     this.observer.disconnect();
     this.observer.observe(header, { attributes: true });
     header.removeAttribute('disabled');
-
-    tabStates['true'](this.api?.getVideoData?.());
   },
 
   progressCallback(evt: Event) {
@@ -91,7 +86,7 @@ export const renderer = createRenderer({
     initLyricsStyle();
 
     on('ytmd:update-song-info', async (info: SongInfo) => {
-      setLineLyrics((await makeLyricsRequest(info)) ?? []);
+      await makeLyricsRequest(info);
     });
   },
 });
