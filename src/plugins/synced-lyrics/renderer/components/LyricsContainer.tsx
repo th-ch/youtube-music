@@ -35,10 +35,10 @@ export const LyricsContainer = () => {
     <div class={'lyric-container'}>
       <Switch>
         <Match when={isFetching()}>
-          <div style={'margin-bottom: 8px;'}>
+          <div style="margin-bottom: 8px;">
             <tp-yt-paper-spinner-lite
               active
-              class={'loading-indicator style-scope'}
+              class="loading-indicator style-scope"
             />
           </div>
         </Match>
@@ -58,7 +58,38 @@ export const LyricsContainer = () => {
 
       <Switch>
         <Match when={!lineLyrics().length}>
-          <Show when={isInstrumental()}>
+          <Show
+            when={isInstrumental()}
+            fallback={
+              <>
+                <yt-formatted-string
+                  class="warning-lyrics description ytmusic-description-shelf-renderer"
+                  text={{
+                    runs: [
+                      {
+                        text: t('plugins.synced-lyrics.errors.not-found'),
+                      },
+                    ],
+                  }}
+                  style={'margin-bottom: 16px;'}
+                />
+                <yt-button-renderer
+                  disabled={isFetching()}
+                  data={{
+                    icon: { iconType: 'REFRESH' },
+                    isDisabled: false,
+                    style: 'STYLE_DEFAULT',
+                    text: {
+                      simpleText: isFetching()
+                        ? t('plugins.synced-lyrics.refetch-btn.fetching')
+                        : t('plugins.synced-lyrics.refetch-btn.normal'),
+                    },
+                  }}
+                  onClick={onRefetch}
+                />
+              </>
+            }
+          >
             <yt-formatted-string
               class="warning-lyrics description ytmusic-description-shelf-renderer"
               text={{
@@ -68,33 +99,6 @@ export const LyricsContainer = () => {
                   },
                 ],
               }}
-            />
-          </Show>
-          <Show when={!isInstrumental()}>
-            <yt-formatted-string
-              class="warning-lyrics description ytmusic-description-shelf-renderer"
-              text={{
-                runs: [
-                  {
-                    text: t('plugins.synced-lyrics.errors.not-found'),
-                  },
-                ],
-              }}
-              style={'margin-bottom: 16px;'}
-            />
-            <yt-button-renderer
-              disabled={isFetching()}
-              data={{
-                icon: { iconType: 'REFRESH' },
-                isDisabled: false,
-                style: 'STYLE_DEFAULT',
-                text: {
-                  simpleText: isFetching()
-                    ? t('plugins.synced-lyrics.refetch-btn.fetching')
-                    : t('plugins.synced-lyrics.refetch-btn.normal'),
-                },
-              }}
-              onClick={onRefetch}
             />
           </Show>
         </Match>
