@@ -206,6 +206,9 @@
     }
   },
   "plugins": {
+    "ad-speedup": {
+      "description": "Pag mag-play ng ad, I-mute ang audio at i-set ang bilis ng playback ng 16x"
+    },
     "adblocker": {
       "description": "I-block ang lahat ng ad at tracking"
     },
@@ -386,6 +389,17 @@
       "description": "Dina-download ang mga MP3 / source audio direkta mula sa interface",
       "menu": {
         "choose-download-folder": "Pumili ng download folder",
+        "download-finish-settings": {
+          "label": "Kung natapos ang download",
+          "prompt": {
+            "title": "I-configure kung kailan magda-download"
+          },
+          "submenu": {
+            "enabled": "Napagana na",
+            "percent": "Porsyento",
+            "seconds": "Segundo"
+          }
+        },
         "download-playlist": "Dina-download ang playlist",
         "presets": "Mga preset",
         "skip-existing": "Laktawan ang mga kasalukuyang file"
@@ -427,6 +441,7 @@
         "connected-users": "Nakakonektang (mga) User",
         "disconnect": "Mag-diskonekta sa Music Together",
         "empty-user": "Walang naka-konektang user",
+        "host": "Host ng Music Together",
         "join": "Sumali sa Music Together",
         "permission": {
           "all": "Payagan ang mga guest na kontrolin ang playlist at player",
@@ -465,13 +480,16 @@
     "notifications": {
       "description": "Magpakita ng notification kapag nagsimulang tumugtog ang kanta (magagamit ang mga interactive na notification sa Windows)",
       "menu": {
+        "interactive": "Interactive na Notification",
         "interactive-settings": {
+          "label": "Mga Interactive na Setting",
           "submenu": {
             "hide-button-text": "Itago ang button na texto",
             "refresh-on-play-pause": "I-refresh sa Pag-play/Pag-pause",
             "tray-controls": "Buksan/Isara sa pag-click sa tray"
           }
         },
+        "priority": "Prioridad ng Notification",
         "unpause-notification": "Ipakita ang notification sa pag-unpause"
       }
     },
@@ -486,12 +504,13 @@
           }
         },
         "save-window-position": "I-save ang posisyon ng window",
-        "save-window-size": "I-save ang laki ng windo",
+        "save-window-size": "I-save ang laki ng window",
         "use-native-pip": "Gamitin ang browser native na PiP"
       }
     },
     "playback-speed": {
       "description": "Makinig na mabilisan, makinig na mabagalan! Nagdaragdag ito ng slider upang makontrol ang bilis ng kanta",
+      "name": "Bilis ng Playback",
       "templates": {
         "button": "Bilis"
       }

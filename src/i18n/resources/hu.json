@@ -99,6 +99,7 @@
               "auto-reset-app-cache": "Az alkalmazás gyorsítótárának törlése indításkor",
               "disable-hardware-acceleration": "Hardveres gyorsítás kikapcsolása",
               "edit-config-json": "config.json szerkesztése",
+              "override-user-agent": "Kliens felülírása",
               "restart-on-config-changes": "Újraindítás a konfigurációs változtatás után",
               "set-proxy": {
                 "label": "Proxy beállítása",
@@ -134,7 +135,8 @@
           "single-instance-lock": "Csak egy példány engedélyezése",
           "start-at-login": "Futtatás rendszerindításkor",
           "starting-page": {
-            "label": "Indítási hely"
+            "label": "Indítási hely",
+            "unset": "Visszaállítás"
           },
           "tray": {
             "label": "Tálca",
@@ -146,6 +148,7 @@
             }
           },
           "visual-tweaks": {
+            "label": "Kinézeti beállítások",
             "submenu": {
               "like-buttons": {
                 "default": "Alapértelmezett",
@@ -212,6 +215,7 @@
       "name": "Reklámblokkoló"
     },
     "album-actions": {
+      "description": "Dislike, Undislike, Like, Unlike gombok hozzáadása, amivel ezt a lejátszási listán vagy albumon lévő összes dalra alkalmazza",
       "name": "Album műveletek"
     },
     "album-color-theme": {
@@ -236,6 +240,7 @@
           }
         },
         "buffer": {
+          "label": "Puffer",
           "submenu": {
             "buffer": "{{buffer}}"
           }
@@ -258,17 +263,25 @@
             "percent": "{{size}}%"
           }
         },
+        "smoothness-transition": {
+          "label": "Sima átmenet",
+          "submenu": {
+            "during": "{{interpolationTime}}s alatt"
+          }
+        },
         "use-fullscreen": {
           "label": "Teljes képernyő használata"
         }
-      }
+      },
+      "name": "Természetes mód"
     },
     "audio-compressor": {
       "description": "Hang tömörítés alkalmazása (csökkenti a jel legzajosabb részeinek hangerősségét, és emeli a legcsendesebb részek hangerősségét)",
       "name": "Hangtömörítő"
     },
     "blur-nav-bar": {
-      "description": "Átlátszóvá és elmosódottá teszi a navigációs sávot"
+      "description": "Átlátszóvá és elmosódottá teszi a navigációs sávot",
+      "name": "Navigációs sáv elmosása"
     },
     "bypass-age-restrictions": {
       "description": "A YouTube korellenőrzését kihagyja, ezáltal nem kel meg erősíteni a zene meghallgatása elött. (Automatikusan megerősítve lesz.)",
@@ -305,8 +318,16 @@
       "prompt": {
         "options": {
           "multi-input": {
-            "fade-in-duration": "Áttünés időtartama (ms)"
-          }
+            "fade-in-duration": "Áttünés időtartama (ms)",
+            "fade-out-duration": "Fokozatos halkítás időtartama (ms)",
+            "fade-scaling": {
+              "label": "Áttünés értéke",
+              "linear": "Lineáris",
+              "logarithmic": "Logaritmikus"
+            },
+            "seconds-before-end": "Áttünés N másodperccel a vége előtt"
+          },
+          "title": "Áttünési beállítások"
         }
       }
     },

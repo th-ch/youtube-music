@@ -1,0 +1,78 @@
+/* Hides the original lyrics, to only show our own.  */
+#tab-renderer[page-type='MUSIC_PAGE_TYPE_TRACK_LYRICS'] > * {
+  display: none !important;
+}
+
+#tab-renderer[page-type='MUSIC_PAGE_TYPE_TRACK_LYRICS'] > #synced-lyrics-container {
+  display: block !important;
+}
+
+/* :root {
+  --ytmusic-text-primary: #fff;
+  --ytmusic-text-secondary: #aaa;
+} */
+
+:root {
+  --global-margin: 0.7rem;
+  --previous-lyrics: var(--ytmusic-text-primary);
+  --current-lyrics: var(--ytmusic-text-primary);
+  --upcoming-lyrics: var(--ytmusic-text-secondary);
+  --size-lyrics: 1.2em;
+  --offset-lyrics: 1em;
+}
+
+.lyric-container {
+  padding-top: 16px;
+}
+
+.description {
+  font-size: clamp(1.4rem, 1.1vmax, 3rem) !important;
+  text-align: left !important;
+}
+
+.synced-line {
+  width: var(--lyric-width, 100%);
+}
+
+.synced-line > .text-lyrics {
+  cursor: pointer;
+}
+
+.synced-lyrics {
+  display: block;
+  justify-content: left;
+  text-align: left;
+  margin: 0.5rem 0;
+  margin-right: 20px;
+  transition: all 0.3s ease-in-out;
+}
+
+.warning-lyrics {
+  color: var(--ytmusic-text-secondary) !important;
+  font-style: italic;
+}
+
+.text-lyrics {
+  display: block;
+  text-align: left;
+  margin: var(--global-margin) 0;
+  transition: scale 0.3s ease-in-out, translate 0.3s ease-in-out, color 0.1s ease-in-out;
+  transform-origin: 0 50%;
+}
+
+.previous > .text-lyrics {
+  color: var(--previous-lyrics);
+  font-weight: normal;
+}
+
+.current > .text-lyrics {
+  color: var(--current-lyrics);
+  font-weight: bold;
+  scale: var(--size-lyrics);
+  translate: var(--offset-lyrics) 0;
+}
+
+.upcoming > .text-lyrics {
+  color: var(--upcoming-lyrics);
+  font-weight: normal;
+}

@@ -207,6 +207,10 @@
     }
   },
   "plugins": {
+    "ad-speedup": {
+      "description": "Pokud se přehraje reklama tak ztlumí zvuk a nastaví rychlost přehrávání na 16x",
+      "name": "Zrychlovač Reklam"
+    },
     "adblocker": {
       "description": "Blokuje všechny reklamy a sledování ihned od začátku",
       "menu": {
@@ -410,6 +414,11 @@
       "description": "Stahuje MP3 / source audio přímo z rozhraní",
       "menu": {
         "choose-download-folder": "Vybrat složku pro stahování",
+        "download-finish-settings": {
+          "submenu": {
+            "advanced": "Pokoročile"
+          }
+        },
         "download-playlist": "Stáhnout seznam písniček",
         "presets": "Předvolby",
         "skip-existing": "Přeskočit existující soubory"

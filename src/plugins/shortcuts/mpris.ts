@@ -102,18 +102,21 @@ function registerMPRIS(win: BrowserWindow) {
       return videoId.replace(/-/g, '_MINUS_');
     };
 
+    const player = setupMPRIS();
+
     const seekTo = (event: Position) => {
       if (
         currentSongInfo?.videoId &&
         event.trackId.endsWith(correctId(currentSongInfo.videoId))
       ) {
         win.webContents.send('ytmd:seek-to', microToSec(event.position ?? 0));
+        player.setPosition(event.position ?? 0);
       }
     };
-    const seekBy = (offset: number) =>
+    const seekBy = (offset: number) => {
       win.webContents.send('ytmd:seek-by', microToSec(offset));
-
-    const player = setupMPRIS();
+      player.setPosition(player.getPosition() + offset);
+    };
 
     ipcMain.on('ytmd:player-api-loaded', () => {
       win.webContents.send('ytmd:setup-seeked-listener', 'mpris');
@@ -126,7 +129,10 @@ function registerMPRIS(win: BrowserWindow) {
       requestQueueInformation();
     });
 
-    ipcMain.on('ytmd:seeked', (_, t: number) => player.seeked(secToMicro(t)));
+    ipcMain.on('ytmd:seeked', (_, t: number) => {
+      player.setPosition(secToMicro(t));
+      player.seeked(secToMicro(t));
+    });
 
     ipcMain.on('ytmd:time-changed', (_, t: number) => {
       player.setPosition(secToMicro(t));

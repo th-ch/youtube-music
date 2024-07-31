@@ -100,9 +100,18 @@ if (config.get('options.disableHardwareAcceleration')) {
   app.disableHardwareAcceleration();
 }
 
-if (is.linux() && config.plugins.isEnabled('shortcuts')) {
+if (is.linux()) {
+  const disabledFeatures = [
+    // Workaround for issue #2248
+    'UseMultiPlaneFormatForSoftwareVideo',
+  ];
+
   // Stops chromium from launching its own MPRIS service
-  app.commandLine.appendSwitch('disable-features', 'MediaSessionService');
+  if (config.plugins.isEnabled('shortcuts')) {
+    disabledFeatures.push('MediaSessionService');
+  }
+
+  app.commandLine.appendSwitch('disable-features', disabledFeatures.join());
 }
 
 if (config.get('options.proxy')) {
@@ -312,10 +321,9 @@ async function createMainWindow() {
     const { x: windowX, y: windowY } = windowPosition;
     const winSize = win.getSize();
     const display = screen.getDisplayNearestPoint(windowPosition);
-    const scaleFactor = is.windows() ? display.scaleFactor: 1;
 
-    const scaledWidth = Math.floor(windowSize.width / scaleFactor);
-    const scaledHeight = Math.floor(windowSize.height / scaleFactor);
+    const scaledWidth = windowSize.width;
+    const scaledHeight = windowSize.height;
 
     const scaledX = windowX;
     const scaledY = windowY;

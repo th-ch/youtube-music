@@ -158,18 +158,18 @@
               },
               "remove-upgrade-button": "업그레이드 버튼 제거",
               "theme": {
+                "dialog": {
+                  "button": {
+                    "cancel": "취소",
+                    "remove": "제거"
+                  },
+                  "remove-theme": "사용자 정의 테마를 제거하시겠습니까?",
+                  "remove-theme-message": "사용자 정의 테마가 제거됩니다. 계속하시겠습니까?"
+                },
                 "label": "테마",
                 "submenu": {
                   "import-css-file": "사용자 정의 CSS 파일 가져오기",
                   "no-theme": "테마 없음"
-                },
-                "dialog": {
-                  "remove-theme": "사용자 정의 테마를 제거하시겠습니까?",
-                  "remove-theme-message": "사용자 정의 테마가 제거됩니다. 계속하시겠습니까?",
-                  "button": {
-                    "cancel": "취소",
-                    "remove": "제거"
-                  }
                 }
               }
             }
@@ -207,6 +207,10 @@
     }
   },
   "plugins": {
+    "ad-speedup": {
+      "description": "광고가 재생될 때, 오디오가 음소거되고 재생 속도가 16배로 설정됩니다",
+      "name": "광고 배속"
+    },
     "adblocker": {
       "description": "모든 광고와 트래커를 즉시 차단합니다",
       "menu": {
@@ -410,6 +414,21 @@
       "description": "UI에서 직접 MP3/소스 오디오를 다운로드하세요",
       "menu": {
         "choose-download-folder": "다운로드 폴더 선택",
+        "download-finish-settings": {
+          "label": "노래가 끝날 때 자동 다운로드",
+          "prompt": {
+            "last-percent": "x 퍼센트 이후에",
+            "last-seconds": "마지막 x 초에",
+            "title": "다운로드 시기 구성"
+          },
+          "submenu": {
+            "advanced": "고급",
+            "enabled": "활성화",
+            "mode": "시간 모드",
+            "percent": "퍼센트 기준",
+            "seconds": "초 기준"
+          }
+        },
         "download-playlist": "재생목록 다운로드",
         "presets": "프리셋",
         "skip-existing": "이미 존재하는 파일 넘기기"
@@ -648,6 +667,23 @@
     "sponsorblock": {
       "description": "인트로/아웃트로와 같은 음악이 아닌 부분이나, 노래가 재생되지 않는 뮤직 비디오의 일부를 자동으로 건너뜁니다",
       "name": "SponsorBlock"
+    },
+    "synced-lyrics": {
+      "description": "LRClib등의 가사 제공자에서 싱크 가사를 불러옵니다.",
+      "errors": {
+        "fetch": "⚠️ - 가사를 불러오는 동안 오류가 발생했습니다. 나중에 다시 시도해 주세요.",
+        "not-found": "⚠️ - 이 노래의 가사를 찾을 수 없습니다."
+      },
+      "name": "싱크 가사",
+      "refetch-btn": {
+        "fetching": "가져오는 중...",
+        "normal": "가사 다시 가져오기"
+      },
+      "warnings": {
+        "duration-mismatch": "⚠️ - 곡 길이 불일치로 인해 가사가 일치하지 않을 수 있습니다.",
+        "inexact": "⚠️ - 이 노래의 가사는 정확하지 않을 수 있습니다",
+        "instrumental": "⚠️ - 연주곡입니다"
+      }
     },
     "taskbar-mediacontrol": {
       "description": "Windows 작업 표시줄에서 재생을 제어하세요",

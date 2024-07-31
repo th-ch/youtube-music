@@ -207,6 +207,10 @@
     }
   },
   "plugins": {
+    "ad-speedup": {
+      "description": "Si se reproduce un anuncio, silencia el audio y fija la velocidad de reproducción en 16x",
+      "name": "Aumento de la velocidad de anuncios"
+    },
     "adblocker": {
       "description": "Bloquear todos los anuncios y el rastreo",
       "menu": {
@@ -410,6 +414,21 @@
       "description": "Descarga MP3 / audio fuente directamente desde la interfaz",
       "menu": {
         "choose-download-folder": "Elija la carpeta de descarga",
+        "download-finish-settings": {
+          "label": "Descargar al finalizar",
+          "prompt": {
+            "last-percent": "Después del x por ciento",
+            "last-seconds": "Últimos x segundos",
+            "title": "Configurar cuándo descargar"
+          },
+          "submenu": {
+            "advanced": "Avanzado",
+            "enabled": "Activado",
+            "mode": "Modo de tiempo",
+            "percent": "Porcentaje",
+            "seconds": "Segundos"
+          }
+        },
         "download-playlist": "Descargar lista de reproducción",
         "presets": "Preajustes",
         "skip-existing": "Saltar archivos existentes"

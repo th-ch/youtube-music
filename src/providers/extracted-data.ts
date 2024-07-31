@@ -17,7 +17,3 @@ export const startingPages: Record<string, string> = {
   'Uploaded Albums': 'FEmusic_library_privately_owned_releases',
   'Uploaded Artists': 'FEmusic_library_privately_owned_artists',
 };
-
-export default {
-  startingPages,
-};

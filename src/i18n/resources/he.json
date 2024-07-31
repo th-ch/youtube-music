@@ -2,7 +2,13 @@
   "common": {
     "console": {
       "plugins": {
-        "execute-failed": "נכשל ביצוע תוסף {{pluginName}}::{{contextName}}"
+        "execute-failed": "נכשל ביצוע תוסף {{pluginName}}::{{contextName}}",
+        "executed-at-ms": "התוסף {{pluginName}}:{{contextName}} בוצע ב {{ms}}ms",
+        "initialize-failed": "טעינת התוסף \"{{pluginName}}\" נכשלה",
+        "load-all": "טוען את כל התוספים",
+        "load-failed": "טעינת התוסף \"{{pluginName}}\" נכשלה",
+        "loaded": "התוסף \"{{pluginName}}\" נטען",
+        "unload-failed": "הסרת התוסף \"{{pluginName}} נכשלה"
       }
     }
   },
@@ -10,5 +16,29 @@
     "code": "he",
     "local-name": "עברית",
     "name": "Hebrew"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "הטעינה הסתיימה. הכלים לפמתחים נפתחו"
+      },
+      "i18n": {
+        "loaded": "i18n נטען"
+      },
+      "theme": {
+        "css-file-not-found": "קובץ ה-CSS \"{{cssFile}}\" לא קיים. מדלג"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "מוחק קבצי מתמון"
+      }
+    },
+    "dialog": {
+      "need-to-restart": {
+        "buttons": {
+          "later": "אחר כך",
+          "restart-now": "מתחיל את התוכנה מחדש עכשיו"
+        }
+      }
+    }
   }
 }

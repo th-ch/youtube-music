@@ -1,12 +1,12 @@
 import { t } from '@/i18n';
 import { createPlugin } from '@/utils';
+import { waitForElement } from '@/utils/wait-for-element';
 
 export default createPlugin<
   unknown,
   unknown,
   {
     observer?: MutationObserver;
-    waitForElem(selector: string): Promise<HTMLElement>;
     start(): void;
     stop(): void;
   }
@@ -15,19 +15,8 @@ export default createPlugin<
   description: () => t('plugins.skip-disliked-songs.description'),
   restartNeeded: false,
   renderer: {
-    waitForElem(selector: string) {
-      return new Promise<HTMLElement>((resolve) => {
-        const interval = setInterval(() => {
-          const elem = document.querySelector<HTMLElement>(selector);
-          if (!elem) return;
-
-          clearInterval(interval);
-          resolve(elem);
-        });
-      });
-    },
     start() {
-      this.waitForElem('#dislike-button-renderer').then((dislikeBtn) => {
+      waitForElement<HTMLElement>('#dislike-button-renderer').then((dislikeBtn) => {
         this.observer = new MutationObserver(() => {
           if (dislikeBtn?.getAttribute('like-status') == 'DISLIKE') {
             document
