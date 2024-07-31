@@ -2,7 +2,44 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v3.5.0](https://github.com/th-ch/youtube-music/compare/v3.4.1...v3.5.0)
+
+- plugin: Synced Lyrics [`#2207`](https://github.com/th-ch/youtube-music/pull/2207)
+- chore(deps): update dependency electron to v31.3.1 [`#2290`](https://github.com/th-ch/youtube-music/pull/2290)
+- chore(deps): update typescript-eslint monorepo to v7.18.0 [`#2292`](https://github.com/th-ch/youtube-music/pull/2292)
+- fix(deps): update dependency youtubei.js to v10.2.0 [`#2285`](https://github.com/th-ch/youtube-music/pull/2285)
+- chore(deps): update dependency electron to v31.3.0 [`#2282`](https://github.com/th-ch/youtube-music/pull/2282)
+- chore(deps): update typescript-eslint monorepo to v7.17.0 [`#2283`](https://github.com/th-ch/youtube-music/pull/2283)
+- fix(deps): update dependency solid-js to v1.8.19 [`#2280`](https://github.com/th-ch/youtube-music/pull/2280)
+- fix(deps): update dependency @xhayper/discord-rpc to v1.1.4 [`#2279`](https://github.com/th-ch/youtube-music/pull/2279)
+- chore(deps): update dependency @babel/runtime to v7.25.0 [`#2281`](https://github.com/th-ch/youtube-music/pull/2281)
+- fix(deps): update dependency @floating-ui/dom to v1.6.8 [`#2278`](https://github.com/th-ch/youtube-music/pull/2278)
+- Fix: Incorrect window size on scaled displays [`#2258`](https://github.com/th-ch/youtube-music/pull/2258)
+- chore(deps): update dependency vite-plugin-resolve to v2.5.2 [`#2276`](https://github.com/th-ch/youtube-music/pull/2276)
+- chore(deps): update playwright monorepo to v1.45.3 [`#2277`](https://github.com/th-ch/youtube-music/pull/2277)
+- fix(deps): update dependency deepmerge-ts to v7.1.0 [`#2263`](https://github.com/th-ch/youtube-music/pull/2263)
+- chore(deps): update dependency typescript to v5.5.4 [`#2274`](https://github.com/th-ch/youtube-music/pull/2274)
+- chore(deps): update dependency vite to v5.3.5 [`#2275`](https://github.com/th-ch/youtube-music/pull/2275)
+- fix(deps): update dependency i18next to v23.12.2 [`#2260`](https://github.com/th-ch/youtube-music/pull/2260)
+- chore(deps): update dependency discord-api-types to v0.37.93 [`#2273`](https://github.com/th-ch/youtube-music/pull/2273)
+- chore(deps): update dependency rollup to v4.19.1 [`#2261`](https://github.com/th-ch/youtube-music/pull/2261)
+- fix(deps): update dependency custom-electron-prompt to v1.5.8 [`#2262`](https://github.com/th-ch/youtube-music/pull/2262)
+- feat(adblocker): add new option AdSpeedup [`#2235`](https://github.com/th-ch/youtube-music/pull/2235)
+- fix: disable multi-plane format for software video [`#2254`](https://github.com/th-ch/youtube-music/pull/2254)
+- chore(deps): update dependency eslint-plugin-prettier to v5.2.1 [`#2253`](https://github.com/th-ch/youtube-music/pull/2253)
+- chore(deps): update dependency vite to v5.3.4 [`#2243`](https://github.com/th-ch/youtube-music/pull/2243)
+- chore(deps): update typescript-eslint monorepo to v7.16.1 [`#2239`](https://github.com/th-ch/youtube-music/pull/2239)
+- chore(deps): update playwright monorepo to v1.45.2 [`#2244`](https://github.com/th-ch/youtube-music/pull/2244)
+- chore(deps): update dependency vite-plugin-inspect to v0.8.5 [`#2252`](https://github.com/th-ch/youtube-music/pull/2252)
+- fix(deps): update dependency semver to v7.6.3 [`#2250`](https://github.com/th-ch/youtube-music/pull/2250)
+- chore(deps): update dependency electron to v31.2.1 [`#2241`](https://github.com/th-ch/youtube-music/pull/2241)
+- chore(i18n): Translated using Weblate (Catalan) [`4a8440c`](https://github.com/th-ch/youtube-music/commit/4a8440c281c341977ab3687982cec8cbc5af6cf7)
+- Update changelog for v3.4.1 [`18e0b1b`](https://github.com/th-ch/youtube-music/commit/18e0b1b86341b13f1cbc713bfbd7b5d7a45ee392)
+- fix(synced-lyrics): fix type error [`9357a15`](https://github.com/th-ch/youtube-music/commit/9357a15116a8526d22ba6142c0a02f31688743f2)
+
 #### [v3.4.1](https://github.com/th-ch/youtube-music/compare/v3.4.0...v3.4.1)
+
+> 15 July 2024
 
 - fix(mpris): fix mpris position [`#2225`](https://github.com/th-ch/youtube-music/issues/2225)
 - fix(deb): fix depends [`#1983`](https://github.com/th-ch/youtube-music/issues/1983)

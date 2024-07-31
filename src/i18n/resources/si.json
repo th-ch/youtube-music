@@ -7,11 +7,32 @@
         "initialize-failed": "\"{{pluginName}}\" ප්ලගිනය ආරම්භ කිරීමට අසමත් විය",
         "load-all": "සියලුම ප්ලගින පූරණය කරමින්",
         "load-failed": "\"{{pluginName}}\" ප්ලගිනය පූරණය කිරීමට අසමත් විය",
-        "loaded": "ප්ලගිනය \"{{pluginName}}\" පූරණය කරන ලදී"
+        "loaded": "ප්ලගිනය \"{{pluginName}}\" පූරණය කරන ලදී",
+        "unload-failed": "ප්ලගින් \"{{pluginName}}\" ගලවන්න අසාර්ථක වුන",
+        "unloaded": "ප්ලගින් \"{{pluginName}}\" ගැලෙව්වා"
       }
     }
   },
+  "language": {
+    "code": "si",
+    "local-name": "සිංහල",
+    "name": "Sinhala"
+  },
   "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "පූරණය සම්පුර්නි. ඩෙව්ටූල්ස් ඇරිලා"
+      },
+      "i18n": {
+        "loaded": "i18n පූරණය කර ඇත"
+      },
+      "second-instance": {
+        "receive-command": "ප්‍රෝටෝකාල් හරහා විධානය ලැබුණි: \"{{command}}\""
+      },
+      "theme": {
+        "css-file-not-found": "සීඑස්එස් ගොනුව \"{{cssFile}}\" නොපවතී, නොසලකා හැරීම"
+      }
+    },
     "dialog": {
       "need-to-restart": {
         "title": "නැවත ආරම්භ කිරීම අවශ්‍යයි"

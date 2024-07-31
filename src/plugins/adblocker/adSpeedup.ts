@@ -1,19 +1,19 @@
 function skipAd(target: Element) {
   const skipButton = target.querySelector<HTMLButtonElement>('button.ytp-ad-skip-button-modern');
   if (skipButton) {
-    skipButton.click()
+    skipButton.click();
   }
 }
 
 function speedUpAndMute(player: Element, isAdShowing: boolean) {
   const video = player.querySelector<HTMLVideoElement>('video');
-  if (!video) return
+  if (!video) return;
   if (isAdShowing) {
     video.playbackRate = 16;
     video.muted = true;
   } else if (!isAdShowing) {
     video.playbackRate = 1;
-    video.muted = false
+    video.muted = false;
   }
 }
 
@@ -32,7 +32,7 @@ export const loadAdSpeedup = async () => {
         const isAdShowing =
           target.classList.contains('ad-showing') ||
           target.classList.contains('ad-interrupting');
-        speedUpAndMute(target, isAdShowing)
+        speedUpAndMute(target, isAdShowing);
       }
       if (
         mutation.type === 'childList' &&
@@ -51,6 +51,6 @@ export const loadAdSpeedup = async () => {
   const isAdShowing =
     player.classList.contains('ad-showing') ||
     player.classList.contains('ad-interrupting');
-  speedUpAndMute(player, isAdShowing)
-  skipAd(player)
+  speedUpAndMute(player, isAdShowing);
+  skipAd(player);
 }
