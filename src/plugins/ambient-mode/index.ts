@@ -53,7 +53,18 @@ export default createPlugin({
       const songImage = document.querySelector<HTMLImageElement>('#song-image');
       const songVideo = document.querySelector<HTMLDivElement>('#song-video');
       const image = songImage?.querySelector<HTMLImageElement>('yt-img-shadow > img');
-      const video = songVideo?.querySelector<HTMLVideoElement>('.html5-video-container > video');
+      const video = await waitForVideo();
+
+      async function waitForVideo() {
+        let video = null;
+
+        while (video == null) {
+          video = songVideo?.querySelector<HTMLVideoElement>('.html5-video-container > video');
+          await new Promise(resolve => setTimeout(resolve, 100));
+        }
+        return video;
+      }
+      
       const videoWrapper = document.querySelector('#song-video > .player-wrapper');
 
       const injectBlurImage = () => {
