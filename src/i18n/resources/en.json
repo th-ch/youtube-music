@@ -418,19 +418,19 @@
         "presets": "Presets",
         "skip-existing": "Skip existing files",
         "download-finish-settings": {
-            "label": "Download on finish",
-            "submenu": {
-              "enabled": "Enabled",
-              "mode": "Time mode",
-              "seconds": "Seconds",
-              "percent": "Percent",
-              "advanced": "Advanced"
-            },
-            "prompt": {
-              "title": "Configure when to download",
-              "last-seconds": "Last x seconds",
-              "last-percent": "After x percent"
-            }
+          "label": "Download on finish",
+          "submenu": {
+            "enabled": "Enabled",
+            "mode": "Time mode",
+            "seconds": "Seconds",
+            "percent": "Percent",
+            "advanced": "Advanced"
+          },
+          "prompt": {
+            "title": "Configure when to download",
+            "last-seconds": "Last x seconds",
+            "last-percent": "After x percent"
+          }
         }
       },
       "name": "Downloader",
@@ -667,6 +667,23 @@
     "sponsorblock": {
       "description": "Automatically Skips non-music parts like intro/outro or parts of music videos where the song isn't playing",
       "name": "SponsorBlock"
+    },
+    "synced-lyrics": {
+      "description": "Provides synced lyrics to songs, using providers like LRClib.",
+      "name": "Synced Lyrics",
+      "errors": {
+        "fetch": "⚠️ - An error occurred while fetching the lyrics. Please try again later.",
+        "not-found": "⚠️ - No lyrics found for this song."
+      },
+      "warnings": {
+        "instrumental": "⚠️ - This is an instrumental song",
+        "inexact": "⚠️ - The lyrics for this song may not be exact",
+        "duration-mismatch": "⚠️ - The lyrics may be out of sync due to a duration mismatch."
+      },
+      "refetch-btn": {
+        "normal": "Refetch lyrics",
+        "fetching": "Fetching..."
+      }
     },
     "taskbar-mediacontrol": {
       "description": "Control playback from your Windows taskbar",
