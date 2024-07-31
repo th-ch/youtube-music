@@ -1,6 +1,5 @@
-/* eslint-disable import/order */
-
 import { createEffect } from 'solid-js';
+
 import { config } from '../renderer';
 
 export { makeLyricsRequest } from './fetch';
