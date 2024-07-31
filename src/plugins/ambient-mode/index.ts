@@ -4,6 +4,7 @@ import { t } from '@/i18n';
 import { createPlugin } from '@/utils';
 import { menu } from './menu';
 import { AmbientModePluginConfig } from './types';
+import { waitForElement } from '@/utils/wait-for-element';
 
 const defaultConfig: AmbientModePluginConfig = {
   enabled: false,
@@ -36,7 +37,7 @@ export default createPlugin({
     unregister: null as (() => void) | null,
     update: null as (() => void) | null,
     interval: null as NodeJS.Timeout | null,
-    lastMediaType: null as "video" | "image" | null,
+    lastMediaType: null as 'video' | 'image' | null,
     lastVideoSource: null as string | null,
     lastImageSource: null as string | null,
 
@@ -53,18 +54,8 @@ export default createPlugin({
       const songImage = document.querySelector<HTMLImageElement>('#song-image');
       const songVideo = document.querySelector<HTMLDivElement>('#song-video');
       const image = songImage?.querySelector<HTMLImageElement>('yt-img-shadow > img');
-      const video = await waitForVideo();
+      const video = await waitForElement<HTMLVideoElement>('.html5-video-container > video');
 
-      async function waitForVideo() {
-        let video = null;
-
-        while (video == null) {
-          video = songVideo?.querySelector<HTMLVideoElement>('.html5-video-container > video');
-          await new Promise(resolve => setTimeout(resolve, 100));
-        }
-        return video;
-      }
-      
       const videoWrapper = document.querySelector('#song-video > .player-wrapper');
 
       const injectBlurImage = () => {
@@ -190,12 +181,12 @@ export default createPlugin({
       const isVideoMode = () => {
         const songVideo = document.querySelector<HTMLDivElement>('#song-video');
         if (!songVideo) {
-          this.lastMediaType = "image";
+          this.lastMediaType = 'image';
           return false;
         }
 
         const isVideo = getComputedStyle(songVideo).display !== 'none';
-        this.lastMediaType = isVideo ? "video" : "image";
+        this.lastMediaType = isVideo ? 'video' : 'image';
         return isVideo;
       };
 
@@ -207,8 +198,8 @@ export default createPlugin({
         if (isPageOpen) {
           const isVideo = isVideoMode();
           if (!force) {
-            if (this.lastMediaType === "video" && this.lastVideoSource === video?.src) return false;
-            if (this.lastMediaType === "image" && this.lastImageSource === image?.src) return false;
+            if (this.lastMediaType === 'video' && this.lastVideoSource === video?.src) return false;
+            if (this.lastMediaType === 'image' && this.lastImageSource === image?.src) return false;
           }
           this.unregister?.();
           this.unregister = (isVideo ? injectBlurVideo() : injectBlurImage()) ?? null;
@@ -216,7 +207,7 @@ export default createPlugin({
           this.unregister?.();
           this.unregister = null;
         }
-      }
+      };
 
       /* needed for switching between different views (e.g. miniplayer) */
       const observer = new MutationObserver((mutationsList) => {
