@@ -13,7 +13,7 @@ export default createPlugin({
   description: () => t('plugins.synced-lyrics.description'),
   authors: ['Non0reo', 'ArjixWasTaken'],
   restartNeeded: true,
-  addedVersion: '3.4.X',
+  addedVersion: '3.5.X',
   config: {
     preciseTiming: true,
     showLyricsEvenIfInexact: true,
