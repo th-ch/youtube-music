@@ -209,8 +209,8 @@ export const backend = createBackend<
 
     info.rpc.user?.setActivity(activityInfo).catch(console.error);
   },
-  async start({ window: win, getConfig }) {
-    this.config = await getConfig();
+  async start(ctx) {
+    this.config = await ctx.getConfig();
 
     info.rpc.on('connected', () => {
       if (dev()) {
@@ -239,10 +239,10 @@ export const backend = createBackend<
 
     info.autoReconnect = this.config.autoReconnect;
 
-    window = win;
+    window = ctx.window;
 
     // If the page is ready, register the callback
-    win.once('ready-to-show', () => {
+    ctx.window.once('ready-to-show', () => {
       let lastSongInfo: SongInfo;
       registerCallback((songInfo) => {
         lastSongInfo = songInfo;
