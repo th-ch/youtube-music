@@ -80,7 +80,7 @@ export const getLyricsList = async (
     track_name: songData.title,
   });
 
-  if (songData.album) {
+  if (songData.album?.length ?? 0 > 1) {
     query.set('album_name', songData.album);
   }
 
