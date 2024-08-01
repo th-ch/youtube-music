@@ -2,7 +2,24 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v3.5.1](https://github.com/th-ch/youtube-music/compare/v3.5.0...v3.5.1)
+
+- fix(deps): update dependency youtubei.js to v10.3.0 [`#2306`](https://github.com/th-ch/youtube-music/pull/2306)
+- fix: Window gets stuck offscreen in some instances [`#2303`](https://github.com/th-ch/youtube-music/pull/2303)
+- fix: Incorrect window size on multi-monitor scaled displays [`#2302`](https://github.com/th-ch/youtube-music/pull/2302)
+- chore(deps): update dependency rollup to v4.19.2 [`#2304`](https://github.com/th-ch/youtube-music/pull/2304)
+- chore(deps): update typescript-eslint monorepo to v8 (major) [`#2297`](https://github.com/th-ch/youtube-music/pull/2297)
+- fix(ambient-mode): fix ambient-mode not working for videos after restart [`#2294`](https://github.com/th-ch/youtube-music/pull/2294)
+- fix(deps): update dependency @xhayper/discord-rpc to v1.2.0 [`#2291`](https://github.com/th-ch/youtube-music/pull/2291)
+- fix(synced-lyrics): fix lyric load [`#2295`](https://github.com/th-ch/youtube-music/issues/2295)
+- fix(ambient-mode): fix ambient-mode not working for videos after restart (#2294) [`#1641`](https://github.com/th-ch/youtube-music/issues/1641)
+- fix(synced-lyrics): fix i18n [`8750b54`](https://github.com/th-ch/youtube-music/commit/8750b54f766c735ff039c6be454427f17d4737e2)
+- ts-fix: disambiguate ElectronStore typings [`8775735`](https://github.com/th-ch/youtube-music/commit/877573532c1b68af861a3fdc44d093f3097d36ab)
+- chore(i18n): Translated using Weblate (Hungarian) [`3537dc1`](https://github.com/th-ch/youtube-music/commit/3537dc19eecce7f7deb2478942f70d3c7b72148d)
+
 #### [v3.5.0](https://github.com/th-ch/youtube-music/compare/v3.4.1...v3.5.0)
+
+> 31 July 2024
 
 - plugin: Synced Lyrics [`#2207`](https://github.com/th-ch/youtube-music/pull/2207)
 - chore(deps): update dependency electron to v31.3.1 [`#2290`](https://github.com/th-ch/youtube-music/pull/2290)
