@@ -321,9 +321,11 @@ async function createMainWindow() {
     const { x: windowX, y: windowY } = windowPosition;
     const winSize = win.getSize();
     const display = screen.getDisplayNearestPoint(windowPosition);
+    const primaryDisplay = screen.getPrimaryDisplay();
 
-    const scaledWidth = windowSize.width;
-    const scaledHeight = windowSize.height;
+    const scaleFactor = is.windows() ? primaryDisplay.scaleFactor / display.scaleFactor : 1;
+    const scaledWidth = Math.floor(windowSize.width * scaleFactor);
+    const scaledHeight = Math.floor(windowSize.height * scaleFactor);
 
     const scaledX = windowX;
     const scaledY = windowY;
@@ -339,9 +341,9 @@ async function createMainWindow() {
         console.warn(
           LoggerPrefix,
           t('main.console.window.tried-to-render-offscreen', {
-            winSize: String(winSize),
-            displaySize: String(display.bounds),
-            windowPosition: String(windowPosition),
+            windowSize: String(winSize),
+            displaySize: JSON.stringify(display.bounds),
+            position: JSON.stringify(windowPosition),
           }),
         );
       }
