@@ -668,6 +668,23 @@
       "description": "Tự động bỏ qua các phần không phải âm nhạc như phần giới thiệu/kết thúc hoặc các phần của video nhạc mà bài hát không được phát",
       "name": "SponsorBlock"
     },
+    "synced-lyrics": {
+      "description": "Cung cấp lời bài hát được đồng bộ hoá với các bài hát, sử dụng những nhà cung cấp như LRClib.",
+      "errors": {
+        "fetch": "⚠️ - Đã xảy ra lỗi khi tìm nạp lời bài hát, Vui lòng thử lại sau.",
+        "not-found": "⚠️ - Không tìm thấy lời cho bài hát này."
+      },
+      "name": "Lời bài hát được đồng bộ hoá",
+      "refetch-btn": {
+        "fetching": "Đang tìm nạp...",
+        "normal": "Tải lại lời bài hát"
+      },
+      "warnings": {
+        "duration-mismatch": "⚠️ - Lời bài hát có thể không đồng bộ do thời lượng không khớp.",
+        "inexact": "⚠️ - Lời bài hát này có thể không chính xác",
+        "instrumental": "⚠️ - Đây là một bài hát trình diễn bằng nhạc khí"
+      }
+    },
     "taskbar-mediacontrol": {
       "description": "Kiểm soát phát lại từ thanh tác vụ Windows của bạn",
       "name": "Kiểm soát phương tiện trên thanh tác vụ"
