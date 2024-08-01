@@ -241,7 +241,8 @@ export interface FlagEndpoint {
   flagAction: string;
 }
 
-export type VideoDataChangeValue = {
+// see song-info-front.ts
+export type VideoDataChangeValue = Record<string, unknown> & {
   videoId: string;
   title: string;
   author: string;

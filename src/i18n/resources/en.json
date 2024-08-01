@@ -710,6 +710,42 @@
       "refetch-btn": {
         "normal": "Refetch lyrics",
         "fetching": "Fetching..."
+      },
+      "menu": {
+        "precise-timing": {
+          "label": "Make the lyrics perfectly synced",
+          "tooltip": "Calculate to the milisecond the display of the next line (can have a small impact on performance)"
+        },
+        "line-effect": {
+          "label": "Line effect",
+          "tooltip": "Choose the effect to apply to the current line",
+          "submenu": {
+            "scale": {
+              "label": "Scale",
+              "tooltip": "Scale the current line"
+            },
+            "offset": {
+              "label": "Offset",
+              "tooltip": "Offset on the right the current line"
+            },
+            "focus": {
+              "label": "Focus",
+              "tooltip": "Make only the current line white"
+            }
+          }
+        },
+        "default-text-string": {
+          "label": "Default character between lyrics",
+          "tooltip": "Choose the default character to use for the gap between lyrics"
+        },
+        "show-time-codes": {
+          "label": "Show time codes",
+          "tooltip": "Show the time codes next to the lyrics"
+        },
+        "show-lyrics-even-if-inexact": {
+          "label": "Show lyrics even if inexact",
+          "tooltip": "If the song is not found, the plugin tries again with a different search query.\nThe result from the second attempt may not be exact."
+        }
       }
     },
     "taskbar-mediacontrol": {

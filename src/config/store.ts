@@ -1,12 +1,14 @@
 import Store from 'electron-store';
-import Conf from 'conf';
 
 import defaults from './defaults';
 
 import { DefaultPresetList, type Preset } from '@/plugins/downloader/types';
 
+// prettier-ignore
+export type IStore = InstanceType<typeof import('conf/dist/source/index').default<Record<string, unknown>>>;
+
 const migrations = {
-  '>=3.3.0'(store: Conf<Record<string, unknown>>) {
+  '>=3.3.0'(store: IStore) {
     const lastfmConfig = store.get('plugins.lastfm') as {
       enabled?: boolean;
       token?: string;
@@ -16,21 +18,21 @@ const migrations = {
       secret?: string;
     };
     if (lastfmConfig) {
-      let scrobblerConfig = store.get(
-        'plugins.scrobbler',
-      ) as {
-        enabled?: boolean;
-        scrobblers?: {
-          lastfm?: {
+      let scrobblerConfig = store.get('plugins.scrobbler') as
+        | {
             enabled?: boolean;
-            token?: string;
-            sessionKey?: string;
-            apiRoot?: string;
-            apiKey?: string;
-            secret?: string;
-          };
-        };
-      } | undefined;
+            scrobblers?: {
+              lastfm?: {
+                enabled?: boolean;
+                token?: string;
+                sessionKey?: string;
+                apiRoot?: string;
+                apiKey?: string;
+                secret?: string;
+              };
+            };
+          }
+        | undefined;
 
       if (!scrobblerConfig) {
         scrobblerConfig = {
@@ -56,7 +58,7 @@ const migrations = {
       store.delete('plugins.lastfm');
     }
   },
-  '>=3.0.0'(store: Conf<Record<string, unknown>>) {
+  '>=3.0.0'(store: IStore) {
     const discordConfig = store.get('plugins.discord') as Record<
       string,
       unknown
@@ -78,14 +80,14 @@ const migrations = {
       }
     }
   },
-  '>=2.1.3'(store: Conf<Record<string, unknown>>) {
+  '>=2.1.3'(store: IStore) {
     const listenAlong = store.get('plugins.discord.listenAlong');
     if (listenAlong !== undefined) {
       store.set('plugins.discord.playOnYouTubeMusic', listenAlong);
       store.delete('plugins.discord.listenAlong');
     }
   },
-  '>=2.1.0'(store: Conf<Record<string, unknown>>) {
+  '>=2.1.0'(store: IStore) {
     const originalPreset = store.get('plugins.downloader.preset') as
       | string
       | undefined;
@@ -110,7 +112,7 @@ const migrations = {
       store.delete('plugins.downloader.ffmpegArgs');
     }
   },
-  '>=1.20.0'(store: Conf<Record<string, unknown>>) {
+  '>=1.20.0'(store: IStore) {
     store.delete('plugins.visualizer'); // default value is now in the plugin
 
     if (store.get('plugins.notifications.toastStyle') === undefined) {
@@ -125,14 +127,14 @@ const migrations = {
       store.set('options.likeButtons', 'force');
     }
   },
-  '>=1.17.0'(store: Conf<Record<string, unknown>>) {
+  '>=1.17.0'(store: IStore) {
     store.delete('plugins.picture-in-picture'); // default value is now in the plugin
 
     if (store.get('plugins.video-toggle.mode') === undefined) {
       store.set('plugins.video-toggle.mode', 'custom');
     }
   },
-  '>=1.14.0'(store: Conf<Record<string, unknown>>) {
+  '>=1.14.0'(store: IStore) {
     if (
       typeof store.get('plugins.precise-volume.globalShortcuts') !== 'object'
     ) {
@@ -144,12 +146,12 @@ const migrations = {
       store.set('plugins.video-toggle.enabled', true);
     }
   },
-  '>=1.13.0'(store: Conf<Record<string, unknown>>) {
+  '>=1.13.0'(store: IStore) {
     if (store.get('plugins.discord.listenAlong') === undefined) {
       store.set('plugins.discord.listenAlong', true);
     }
   },
-  '>=1.12.0'(store: Conf<Record<string, unknown>>) {
+  '>=1.12.0'(store: IStore) {
     const options = store.get('plugins.shortcuts') as
       | Record<
           string,
@@ -187,12 +189,12 @@ const migrations = {
       }
     }
   },
-  '>=1.11.0'(store: Conf<Record<string, unknown>>) {
+  '>=1.11.0'(store: IStore) {
     if (store.get('options.resumeOnStart') === undefined) {
       store.set('options.resumeOnStart', true);
     }
   },
-  '>=1.7.0'(store: Conf<Record<string, unknown>>) {
+  '>=1.7.0'(store: IStore) {
     const enabledPlugins = store.get('plugins') as string[];
     if (!Array.isArray(enabledPlugins)) {
       console.warn('Plugins are not in array format, cannot migrate');
@@ -233,4 +235,4 @@ export default new Store({
   },
   clearInvalidConfig: false,
   migrations,
-});
+}) as Store & IStore;

@@ -1,11 +1,12 @@
 import { createSignal } from 'solid-js';
 import { jaroWinkler } from '@skyra/jaro-winkler';
 
-import { SongInfo } from '@/providers/song-info';
-
-import { LineLyrics, LRCLIBSearchResponse } from '../../types';
 import { config } from '../renderer';
+
 import { setDebugInfo, setLineLyrics } from '../components/LyricsContainer';
+
+import type { SongInfo } from '@/providers/song-info';
+import type { LineLyrics, LRCLIBSearchResponse } from '../../types';
 
 // prettier-ignore
 export const [isInstrumental, setIsInstrumental] = createSignal(false);
@@ -79,7 +80,7 @@ export const getLyricsList = async (
     track_name: songData.title,
   });
 
-  if (songData.album) {
+  if (songData.album?.length ?? 0 > 1) {
     query.set('album_name', songData.album);
   }
 

@@ -321,27 +321,29 @@ async function createMainWindow() {
     const { x: windowX, y: windowY } = windowPosition;
     const winSize = win.getSize();
     const display = screen.getDisplayNearestPoint(windowPosition);
+    const primaryDisplay = screen.getPrimaryDisplay();
 
-    const scaledWidth = windowSize.width;
-    const scaledHeight = windowSize.height;
+    const scaleFactor = is.windows() ? primaryDisplay.scaleFactor / display.scaleFactor : 1;
+    const scaledWidth = Math.floor(windowSize.width * scaleFactor);
+    const scaledHeight = Math.floor(windowSize.height * scaleFactor);
 
     const scaledX = windowX;
     const scaledY = windowY;
 
     if (
-      scaledX + scaledWidth < display.bounds.x - 8 ||
-      scaledX - scaledWidth > display.bounds.x + display.bounds.width ||
-      scaledY < display.bounds.y - 8 ||
-      scaledY > display.bounds.y + display.bounds.height
+      scaledX + (scaledWidth / 2) < display.bounds.x - 8 || // Left
+      scaledX + (scaledWidth / 2) > display.bounds.x + display.bounds.width || // Right
+      scaledY < display.bounds.y - 8 || // Top
+      scaledY + (scaledHeight / 2) > display.bounds.y + display.bounds.height // Bottom
     ) {
       // Window is offscreen
       if (is.dev()) {
         console.warn(
           LoggerPrefix,
           t('main.console.window.tried-to-render-offscreen', {
-            winSize: String(winSize),
-            displaySize: String(display.bounds),
-            windowPosition: String(windowPosition),
+            windowSize: String(winSize),
+            displaySize: JSON.stringify(display.bounds),
+            position: JSON.stringify(windowPosition),
           }),
         );
       }

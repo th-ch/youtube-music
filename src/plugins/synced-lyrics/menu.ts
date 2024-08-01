@@ -1,7 +1,9 @@
 import { MenuItemConstructorOptions } from 'electron';
 
-import { MenuContext } from '@/types/contexts';
-import { SyncedLyricsPluginConfig } from './types';
+import { t } from '@/i18n';
+
+import type { MenuContext } from '@/types/contexts';
+import type { SyncedLyricsPluginConfig } from './types';
 
 export const menu = async ({
   getConfig,
@@ -13,9 +15,8 @@ export const menu = async ({
 
   return [
     {
-      label: 'Make the lyrics perfectly synced',
-      toolTip:
-        'Calculate to the milisecond the display of the next line (can have a small impact on performance)',
+      label: t('plugins.synced-lyrics.menu.precise-timing.label'),
+      toolTip: t('plugins.synced-lyrics.menu.precise-timing.tooltip'),
       type: 'checkbox',
       checked: config.preciseTiming,
       click(item) {
@@ -25,13 +26,13 @@ export const menu = async ({
       },
     },
     {
-      label: 'Line effect',
-      toolTip: 'Choose the effect to apply to the current line',
+      label: t('plugins.synced-lyrics.menu.line-effect.label'),
+      toolTip: t('plugins.synced-lyrics.menu.line-effect.tooltip'),
       type: 'submenu',
       submenu: [
         {
-          label: 'Scale',
-          toolTip: 'Scale the current line',
+          label: t('plugins.synced-lyrics.menu.line-effect.submenu.scale.label'),
+          toolTip: t('plugins.synced-lyrics.menu.line-effect.submenu.scale.tooltip'),
           type: 'radio',
           checked: config.lineEffect === 'scale',
           click() {
@@ -41,8 +42,8 @@ export const menu = async ({
           },
         },
         {
-          label: 'Offset',
-          toolTip: 'Offset on the right the current line',
+          label: t('plugins.synced-lyrics.menu.line-effect.submenu.offset.label'),
+          toolTip: t('plugins.synced-lyrics.menu.line-effect.submenu.offset.tooltip'),
           type: 'radio',
           checked: config.lineEffect === 'offset',
           click() {
@@ -52,8 +53,8 @@ export const menu = async ({
           },
         },
         {
-          label: 'Focus',
-          toolTip: 'Make only the current line white',
+          label: t('plugins.synced-lyrics.menu.line-effect.submenu.focus.label'),
+          toolTip: t('plugins.synced-lyrics.menu.line-effect.submenu.focus.tooltip'),
           type: 'radio',
           checked: config.lineEffect === 'focus',
           click() {
@@ -65,8 +66,8 @@ export const menu = async ({
       ],
     },
     {
-      label: 'Default character between lyrics',
-      toolTip: 'Choose the default string to use for the gap between lyrics',
+      label: t('plugins.synced-lyrics.menu.default-text-string.label'),
+      toolTip: t('plugins.synced-lyrics.menu.default-text-string.tooltip'),
       type: 'submenu',
       submenu: [
         {
@@ -80,7 +81,7 @@ export const menu = async ({
           },
         },
         {
-          label: '[SPACE]',
+          label: '" "',
           type: 'radio',
           checked: config.defaultTextString === ' ',
           click() {
@@ -112,8 +113,8 @@ export const menu = async ({
       ],
     },
     {
-      label: 'Show time codes',
-      toolTip: 'Show the time codes next to the lyrics',
+      label: t('plugins.synced-lyrics.menu.show-time-codes.label'),
+      toolTip: t('plugins.synced-lyrics.menu.show-time-codes.tooltip'),
       type: 'checkbox',
       checked: config.showTimeCodes,
       click(item) {
@@ -123,9 +124,8 @@ export const menu = async ({
       },
     },
     {
-      label: 'Show lyrics even if inexact',
-      toolTip:
-        'If the song is not found, the plugin tries again with a different search query.\nThe result from the second attempt may not be exact.',
+      label: t('plugins.synced-lyrics.menu.show-lyrics-even-if-inexact.label'),
+      toolTip: t('plugins.synced-lyrics.menu.show-lyrics-even-if-inexact.tooltip'),
       type: 'checkbox',
       checked: config.showLyricsEvenIfInexact,
       click(item) {

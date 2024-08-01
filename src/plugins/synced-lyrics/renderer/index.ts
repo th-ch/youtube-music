@@ -1,4 +1,5 @@
 import { createRenderer } from '@/utils';
+import { waitForElement } from '@/utils/wait-for-element';
 
 import { makeLyricsRequest } from './lyrics';
 import { selectors, tabStates } from './utils';
@@ -15,10 +16,9 @@ export let _ytAPI: YoutubePlayer | null = null;
 
 export const renderer = createRenderer<{
   observerCallback: MutationCallback;
-  onPlayerApiReady: (api: YoutubePlayer) => void;
   hasAddedEvents: boolean;
   observer?: MutationObserver;
-  videoDataChange: () => void;
+  videoDataChange: () => Promise<void>;
   progressCallback: (evt: Event) => void;
 }, SyncedLyricsPluginConfig>({
   onConfigChange(newConfig) {
@@ -42,17 +42,17 @@ export const renderer = createRenderer<{
     }
   },
 
-  onPlayerApiReady(api: YoutubePlayer) {
+  async onPlayerApiReady(api: YoutubePlayer) {
     _ytAPI = api;
 
     api.addEventListener('videodatachange', this.videoDataChange);
 
-    this.videoDataChange();
+    await this.videoDataChange();
   },
 
   hasAddedEvents: false,
 
-  videoDataChange() {
+  async videoDataChange() {
     if (!this.hasAddedEvents) {
       const video = document.querySelector('video');
 
@@ -61,15 +61,14 @@ export const renderer = createRenderer<{
       if (video) this.hasAddedEvents = true;
     }
 
-    const header = document.querySelector<HTMLElement>(selectors.head);
-    if (!header) return;
-
     this.observer ??= new MutationObserver(
       this.observerCallback,
     );
 
     // Force the lyrics tab to be enabled at all times.
     this.observer.disconnect();
+
+    const header = await waitForElement<HTMLElement>(selectors.head);
     this.observer.observe(header, { attributes: true });
     header.removeAttribute('disabled');
   },

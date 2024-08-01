@@ -207,6 +207,10 @@
     }
   },
   "plugins": {
+    "ad-speedup": {
+      "description": "Se viene riprodotto un annuncio, l'audio viene disattivato e viene impostata la velocità di riproduzione su 16x",
+      "name": "Accelerazione ad"
+    },
     "adblocker": {
       "description": "Blocca tutti gli annunci e i tracker",
       "menu": {
@@ -410,6 +414,21 @@
       "description": "Download MP3 / sorgenti audio direttamente dall'interfaccia",
       "menu": {
         "choose-download-folder": "Scegli cartella download",
+        "download-finish-settings": {
+          "label": "Scarica al termine",
+          "prompt": {
+            "last-percent": "Dopo x percento",
+            "last-seconds": "Ultimi x secondi",
+            "title": "Configura quando scaricare"
+          },
+          "submenu": {
+            "advanced": "Avanzato",
+            "enabled": "Abilitato",
+            "mode": "Modalità tempo",
+            "percent": "Percentuale",
+            "seconds": "Secondi"
+          }
+        },
         "download-playlist": "Scarica la playlist",
         "presets": "Preimpostazioni",
         "skip-existing": "Salta i file esistenti"
@@ -648,6 +667,23 @@
     "sponsorblock": {
       "description": "Salta automaticamente le parti non musicali, come l'intro/outro delle canzoni o le parti dei video musicali in cui non viene riprodotto il brano",
       "name": "Blocco sponsor"
+    },
+    "synced-lyrics": {
+      "description": "Fornisce testi sincronizzati alle canzoni, utilizzando provider come LRClib.",
+      "errors": {
+        "fetch": "⚠️ - Si è verificato un errore nel recuperare il testo. Per favore riprova più tardi.",
+        "not-found": "⚠️ - Nessun testo trovato per questa canzone."
+      },
+      "name": "Testi sincronizzati",
+      "refetch-btn": {
+        "fetching": "Sto recuperando...",
+        "normal": "Recupera i testi"
+      },
+      "warnings": {
+        "duration-mismatch": "⚠️ - I testi potrebbero non essere sincronizzati a causa di una mancata corrispondenza della durata.",
+        "inexact": "⚠️ - Il testo di questa canzone potrebbe essere inesatto",
+        "instrumental": "⚠️ - Questo è un brano strumentale"
+      }
     },
     "taskbar-mediacontrol": {
       "description": "Controlla riproduzione dalla taskbar di Windows",

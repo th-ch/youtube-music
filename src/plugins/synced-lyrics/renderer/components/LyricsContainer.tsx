@@ -5,7 +5,6 @@ import { SyncedLine } from './SyncedLine';
 import { t } from '@/i18n';
 import { getSongInfo } from '@/providers/song-info-front';
 
-import { LineLyrics } from '../../types';
 import {
   differentDuration,
   hadSecondAttempt,
@@ -13,6 +12,8 @@ import {
   isInstrumental,
   makeLyricsRequest,
 } from '../lyrics/fetch';
+
+import type { LineLyrics } from '../../types';
 
 export const [debugInfo, setDebugInfo] = createSignal<string>();
 export const [lineLyrics, setLineLyrics] = createSignal<LineLyrics[]>([]);
