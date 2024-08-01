@@ -51,6 +51,7 @@ export default defineConfig({
     };
 
     if (mode === 'development') {
+      commonConfig.build!.sourcemap = 'inline';
       commonConfig.plugins?.push(
         Inspect({
           build: true,
@@ -98,6 +99,7 @@ export default defineConfig({
     };
 
     if (mode === 'development') {
+      commonConfig.build!.sourcemap = 'inline';
       commonConfig.plugins?.push(
         Inspect({
           build: true,
@@ -148,6 +150,7 @@ export default defineConfig({
     };
 
     if (mode === 'development') {
+      commonConfig.build!.sourcemap = 'inline';
       commonConfig.plugins?.push(
         Inspect({
           build: true,
