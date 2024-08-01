@@ -1,10 +1,9 @@
 import { createSignal, Show } from 'solid-js';
 
-import { VideoDetails } from '@/types/video-details';
-
 import { LyricsContainer } from './components/LyricsContainer';
 
-import { SyncedLyricsPluginConfig } from '../types';
+import type { VideoDetails } from '@/types/video-details';
+import type { SyncedLyricsPluginConfig } from '../types';
 
 export const [isVisible, setIsVisible] = createSignal<boolean>(false);
 

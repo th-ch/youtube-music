@@ -1,7 +1,8 @@
 import { render } from 'solid-js/web';
 
 import { LyricsRenderer, setIsVisible, setPlayerState } from './renderer';
-import { VideoDetails } from '@/types/video-details';
+
+import type { VideoDetails } from '@/types/video-details';
 
 export const selectors = {
   head: '#tabsContent > .tab-header:nth-of-type(2)',
