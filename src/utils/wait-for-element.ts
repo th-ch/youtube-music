@@ -6,6 +6,6 @@ export const waitForElement = <T extends Element>(selector: string): Promise<T> 
 
       clearInterval(interval);
       resolve(elem);
-    });
+    }, 100 /* ms */);
   });
 };
