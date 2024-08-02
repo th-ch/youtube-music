@@ -1,1 +1,29 @@
-{}
+{
+  "main": {
+    "menu": {
+      "view": {
+        "submenu": {
+          "zoom-in": "Suumi sisse",
+          "zoom-out": "Suumi välja"
+        }
+      }
+    },
+    "tray": {
+      "next": "Edasi",
+      "play-pause": "Esita/Peata esitus",
+      "previous": "Eelmine",
+      "quit": "Välju",
+      "restart": "Käivita rakendus uuesti",
+      "show": "Näita akent",
+      "tooltip": {
+        "default": "YouTube Music",
+        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
+      }
+    }
+  },
+  "plugins": {
+    "adblocker": {
+      "description": "Blokeeri kõik reklaamid ja jälitajad"
+    }
+  }
+}
