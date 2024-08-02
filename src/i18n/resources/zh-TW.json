@@ -668,6 +668,17 @@
       "description": "自動跳過贊助片段",
       "name": "贊助阻擋"
     },
+    "synced-lyrics": {
+      "description": "使用 LRClib 等提供管道同步顯示歌曲歌詞。",
+      "errors": {
+        "fetch": "⚠️ - 取得歌詞時發生錯誤。請稍後再試。",
+        "not-found": "⚠️ - 找不到這首歌的歌詞。"
+      },
+      "name": "同步歌詞",
+      "warnings": {
+        "instrumental": "⚠️ - 這是一首伴奏曲。"
+      }
+    },
     "taskbar-mediacontrol": {
       "description": "允許工作列應用程式預覽介面顯示媒體控制相關按鈕",
       "name": "工作列媒體控制"
