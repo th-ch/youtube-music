@@ -674,8 +674,50 @@
         "fetch": "⚠️ - 取得歌詞時發生錯誤。請稍後再試。",
         "not-found": "⚠️ - 找不到這首歌的歌詞。"
       },
+      "menu": {
+        "default-text-string": {
+          "label": "預設歌詞中間隔的符號",
+          "tooltip": "選擇歌詞中間隔要使用的符號"
+        },
+        "line-effect": {
+          "label": "歌詞顯示效果",
+          "submenu": {
+            "focus": {
+              "label": "高亮",
+              "tooltip": "高亮當前的歌詞"
+            },
+            "offset": {
+              "label": "凸行",
+              "tooltip": "凸行當前的歌詞"
+            },
+            "scale": {
+              "label": "放大",
+              "tooltip": "放大當前的歌詞"
+            }
+          },
+          "tooltip": "選擇要使用的歌詞顯示效果"
+        },
+        "precise-timing": {
+          "label": "使歌詞完美同步",
+          "tooltip": "更精確的計算下一行歌詞的顯示(會降低少許效能)"
+        },
+        "show-lyrics-even-if-inexact": {
+          "label": "即使不精確依然強制顯示歌詞",
+          "tooltip": "當找不到符合該歌曲的歌詞時，該功能會嘗試不同的搜尋方式\n使用不同的搜尋方式會導致不精確的結果。"
+        },
+        "show-time-codes": {
+          "label": "顯示時間線",
+          "tooltip": "在歌詞旁顯示時間線"
+        }
+      },
       "name": "同步歌詞",
+      "refetch-btn": {
+        "fetching": "擷取中...",
+        "normal": "重新擷取歌詞"
+      },
       "warnings": {
+        "duration-mismatch": "⚠️歌詞可能會出現不同步的情況。",
+        "inexact": "⚠️該歌曲的歌詞可能並不精確",
         "instrumental": "⚠️ - 這是一首伴奏曲。"
       }
     },
