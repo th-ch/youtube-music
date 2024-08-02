@@ -207,6 +207,10 @@
     }
   },
   "plugins": {
+    "ad-speedup": {
+      "description": "當廣告播放時靜音並且將播放速度加快到 16x 倍數",
+      "name": "廣告加速"
+    },
     "adblocker": {
       "description": "阻擋所有廣告",
       "menu": {
