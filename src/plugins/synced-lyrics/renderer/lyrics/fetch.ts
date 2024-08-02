@@ -80,7 +80,7 @@ export const getLyricsList = async (
     track_name: songData.title,
   });
 
-  if (songData.album?.length ?? 0 > 1) {
+  if ((songData.album) && songData.album !== 'undefined') {
     query.set('album_name', songData.album);
   }
 
@@ -92,12 +92,14 @@ export const getLyricsList = async (
     setDebugInfo('Got non-OK response from server.');
     return null;
   }
-
-  let data = (await response.json().catch((e: Error) => {
-    setDebugInfo(`Error: ${e.message}\n\n${e.stack}`);
-
+  let data;
+  try {
+    data = await JSON.parse(await response.text()) as LRCLIBSearchResponse | null;
+  }
+  catch (e) {
+    setDebugInfo(`Couldn't parse response: ${e}`);
     return null;
-  })) as LRCLIBSearchResponse | null;
+  }
   if (!data || !Array.isArray(data)) {
     setIsFetching(false);
     setDebugInfo('Unexpected server response.');
@@ -120,7 +122,13 @@ export const getLyricsList = async (
       return null;
     }
 
-    data = (await response.json()) as LRCLIBSearchResponse;
+    try {
+      data = await JSON.parse(await response.text()) as LRCLIBSearchResponse | null;
+    }
+    catch (e) {
+      setDebugInfo(`Couldn't parse response: ${e}`);
+      return null;
+    }
     if (!Array.isArray(data)) {
       setIsFetching(false);
       setDebugInfo('Unexpected server response. (2)');
