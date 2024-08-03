@@ -208,7 +208,7 @@
   },
   "plugins": {
     "ad-speedup": {
-      "description": "使用 16 倍數播放及靜音來跳過廣告片段",
+      "description": "使用 16 倍速播放及靜音來跳過廣告片段",
       "name": "加速略過"
     },
     "adblocker": {
