@@ -674,6 +674,38 @@
         "fetch": "⚠️ - Đã xảy ra lỗi khi tìm nạp lời bài hát, Vui lòng thử lại sau.",
         "not-found": "⚠️ - Không tìm thấy lời cho bài hát này."
       },
+      "menu": {
+        "default-text-string": {
+          "label": "Kí tự mặc định giữa các lời bài hát",
+          "tooltip": "Chọn kí tự mặc định cho khoảng trống giữa các lời bài hát"
+        },
+        "line-effect": {
+          "label": "Kiểu đường thẳng",
+          "submenu": {
+            "focus": {
+              "label": "Tập trung",
+              "tooltip": "Chỉ làm cho dòng hiện tại có màu trắng"
+            },
+            "scale": {
+              "label": "Tỉ lệ",
+              "tooltip": "Áp dụng tỉ lệ cho dòng hiện tại"
+            }
+          },
+          "tooltip": "Chọn kiểu để áp dụng cho dòng hiện tại"
+        },
+        "precise-timing": {
+          "label": "Làm cho lời bài hát được đồng bộ hoàn hảo",
+          "tooltip": "Tính toán chính xác đến mili giây thời gian hiển thị dòng tiếp theo (có thể có tác động nhỏ đến hiệu suất)"
+        },
+        "show-lyrics-even-if-inexact": {
+          "label": "Hiển thị lời bài hát ngay cả khi không chính xác",
+          "tooltip": "Nếu không tìm thấy bài hát, plugin sẽ thử lại bằng truy vấn tìm kiếm khác.\nKết quả từ lần thử thứ hai có thể không chính xác."
+        },
+        "show-time-codes": {
+          "label": "Hiện mốc thời gian",
+          "tooltip": "Hiện mốc thời gian bên cạnh lời bài hát"
+        }
+      },
       "name": "Lời bài hát được đồng bộ hoá",
       "refetch-btn": {
         "fetching": "Đang tìm nạp...",
