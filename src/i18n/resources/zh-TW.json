@@ -360,7 +360,7 @@
         "play-on-youtube-music": "顯示Play on YouTube Music按鈕",
         "set-inactivity-timeout": "設定閒置狀態時長"
       },
-      "name": "Discord狀態",
+      "name": "Discord 狀態",
       "prompt": {
         "set-inactivity-timeout": {
           "label": "設定多少秒後清除狀態:",
@@ -517,8 +517,8 @@
       "name": "導覽列"
     },
     "no-google-login": {
-      "description": "移除Google登入按鈕及連結",
-      "name": "停用Google登入"
+      "description": "移除 Google 登入按鈕及連結",
+      "name": "停用 Google 登入"
     },
     "notifications": {
       "description": "在歌曲播放時發送一個系統通知 (可互動通知僅限Windows)",
