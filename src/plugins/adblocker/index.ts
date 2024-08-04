@@ -118,6 +118,7 @@ export default createPlugin({
     },
   },
   preload: {
+    // see #1478
     script: `const _prunerFn = window._pruner;
     window._pruner = undefined;
     JSON.parse = new Proxy(JSON.parse, {
