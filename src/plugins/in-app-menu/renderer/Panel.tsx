@@ -5,9 +5,9 @@ import { Transition } from 'solid-transition-group';
 import { autoUpdate, flip, offset, OffsetOptions, size } from '@floating-ui/dom';
 import { useFloating } from 'solid-floating-ui';
 
-import { cache } from '@/providers/decorators';
+import { cacheNoArgs } from '@/providers/decorators';
 
-const panelStyle = cache(() => css`
+const panelStyle = cacheNoArgs(() => css`
   position: fixed;
   top: var(--offset-y, 0);
   left: var(--offset-x, 0);
@@ -36,7 +36,7 @@ const panelStyle = cache(() => css`
   transform-origin: var(--origin-x, 50%) var(--origin-y, 50%);
 `);
 
-const animationStyle = cache(() => ({
+const animationStyle = cacheNoArgs(() => ({
   enter: css`
     opacity: 0;
     transform: scale(0.9);

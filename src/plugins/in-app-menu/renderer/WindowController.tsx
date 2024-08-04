@@ -2,9 +2,9 @@ import { css } from 'solid-styled-components';
 import { Show } from 'solid-js';
 
 import { IconButton } from './IconButton';
-import { cache } from '@/providers/decorators';
+import { cacheNoArgs } from '@/providers/decorators';
 
-const containerStyle = cache(() => css`
+const containerStyle = cacheNoArgs(() => css`
   display: flex;
   justify-content: flex-end;
   align-items: center;
