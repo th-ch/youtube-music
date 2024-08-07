@@ -153,7 +153,7 @@
     }
   },
   "dependencies": {
-    "@cliqz/adblocker-electron": "1.27.1",
+    "@cliqz/adblocker-electron": "1.31.3",
     "@cliqz/adblocker-electron-preload": "1.27.1",
     "@electron-toolkit/tsconfig": "1.0.1",
     "@electron/remote": "2.1.2",
