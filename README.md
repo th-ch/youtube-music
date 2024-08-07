@@ -21,7 +21,7 @@
 	</a>
 </div>
 
-Read this in other languages: [🇰🇷](./docs/readme/README-ko.md), [🇮🇸](./docs/readme/README-is.md), [🇨🇱 🇪🇸](./docs/readme/README-es.md)
+Read this in other languages: [🇰🇷](./docs/readme/README-ko.md), [🇮🇸](./docs/readme/README-is.md), [🇨🇱 🇪🇸](./docs/readme/README-es.md), [🇷🇺](./docs/readme/README-ru.md)
 
 **Electron wrapper around YouTube Music featuring:**
 
@@ -141,6 +141,8 @@ Read this in other languages: [🇰🇷](./docs/readme/README-ko.md), [🇮🇸]
 - [**SponsorBlock**](https://github.com/ajayyy/SponsorBlock): Automatically Skips non-music parts like intro/outro or
   parts of music videos where the song isn't playing
 
+- **Synced Lyrics**: Provides synced lyrics to songs, using providers like [LRClib](https://lrclib.net).
+
 - **Taskbar Media Control**: Control playback from
   your [Windows taskbar](https://user-images.githubusercontent.com/78568641/111916130-24a35e80-8a82-11eb-80c8-5021c1aa27f4.png)
 
@@ -158,6 +160,7 @@ Read this in other languages: [🇰🇷](./docs/readme/README-ko.md), [🇮🇸]
   switch between Video/Song mode. can also optionally remove the whole video tab
 
 - **Visualizer**: Different music visualizers
+
 
 ## Translation
 
