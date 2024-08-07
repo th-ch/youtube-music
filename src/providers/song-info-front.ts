@@ -200,6 +200,11 @@ export default (api: YoutubePlayer) => {
     for (const status of ['playing', 'pause'] as const) {
       video.addEventListener(status, playPausedHandlers[status]);
     }
+
+    const data = api.getVideoData();
+    if (data) {
+      sendSongInfo(data as unknown as VideoDataChangeValue);
+    }
   }
 
   function sendSongInfo(videoData: VideoDataChangeValue) {
