@@ -137,12 +137,13 @@ export const getLyricsList = async (
     const permutations = [];
     for (const artistA of artists) {
       for (const artistB of itemArtists) {
-        permutations.push([artistA, artistB]);
+        permutations.push([artistA.toLowerCase(), artistB.toLowerCase()]);
       }
     }
+
     for (const artistA of itemArtists) {
       for (const artistB of artists) {
-        permutations.push([artistA, artistB]);
+        permutations.push([artistA.toLowerCase(), artistB.toLowerCase()]);
       }
     }
 
