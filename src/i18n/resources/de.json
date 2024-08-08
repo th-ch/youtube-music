@@ -668,6 +668,13 @@
       "description": "Überspringt automatisch nicht-musikalische Teile wie Intro/Outro oder Teile von Musikvideos, in denen der Song nicht gespielt wird",
       "name": "SponsorBlock"
     },
+    "synced-lyrics": {
+      "description": "Bietet synchronisierte Liedtexte zu Songs, verwendet Anbieter wie LRClib.",
+      "errors": {
+        "fetch": "⚠️ - Beim Abrufen des Liedtexts ist ein Fehler aufgetreten. Bitte versuchen Sie es später nochmal."
+      },
+      "name": "Synchronisierte Texte"
+    },
     "taskbar-mediacontrol": {
       "description": "Wiedergabe aus der Windows Taskleiste kontrollieren",
       "name": "Mediensteuerung in der Taskleiste"
