@@ -73,8 +73,9 @@ export const getLyricsList = async (
     track_name: songData.title,
   });
 
-  if (songData.album) {
-    query.set('album_name', songData.album);
+  const album = `${songData.album}`.trim();
+  if (album && album !== 'undefined') {
+    query.set('album_name', album);
   }
 
   let url = `https://lrclib.net/api/search?${query.toString()}`;
@@ -130,7 +131,23 @@ export const getLyricsList = async (
     const { artist } = songData;
     const { artistName } = item;
 
-    const ratio = jaroWinkler(artist.toLowerCase(), artistName.toLowerCase());
+    const artists = artist.split(/&,/).map((i) => i.trim());
+    const itemArtists = artistName.split(/&,/).map((i) => i.trim());
+
+    const permutations = [];
+    for (const artistA of artists) {
+      for (const artistB of itemArtists) {
+        permutations.push([artistA.toLowerCase(), artistB.toLowerCase()]);
+      }
+    }
+
+    for (const artistA of itemArtists) {
+      for (const artistB of artists) {
+        permutations.push([artistA.toLowerCase(), artistB.toLowerCase()]);
+      }
+    }
+
+    const ratio = Math.max(...permutations.map(([x, y]) => jaroWinkler(x, y)));
 
     if (ratio <= 0.9) continue;
     filteredResults.push(item);
