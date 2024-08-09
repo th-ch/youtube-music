@@ -37,8 +37,7 @@
     },
     "dialog": {
       "hide-menu-enabled": {
-        "detail": "Menu telah disembunyikan, guna 'Alt' untuk menunjukkannya (atau 'Escape' jika menggunakan In-App Menu)",
-        "message": ""
+        "detail": "Menu telah disembunyikan, guna 'Alt' untuk menunjukkannya (atau 'Escape' jika menggunakan In-App Menu)"
       },
       "need-to-restart": {
         "buttons": {
