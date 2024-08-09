@@ -75,7 +75,7 @@ export const getLyricsList = async (
 
   const album = `${songData.album}`.trim();
   if (album && album !== 'undefined') {
-    query.set('album_name', `${songData.album}`);
+    query.set('album_name', album);
   }
 
   let url = `https://lrclib.net/api/search?${query.toString()}`;
