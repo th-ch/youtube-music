@@ -5,6 +5,7 @@
         "execute-failed": "Pelaksaan plugin gagal {{pluginName}}::{{contextName}}",
         "executed-at-ms": "Plugin {{pluginName}}::{{contextName}} dilaksanakan pada {{ms}}ms",
         "initialize-failed": "Gagal untuk memulakan plugin \"{{pluginName}}\"",
+        "load-all": "Memuatkan semua plugin",
         "loaded": "Plugin \"{{pluginName}}\" dimuatkan",
         "unload-failed": "Gagal untuk memunggah plugin \"{{pluginName}}\"",
         "unloaded": "Plugin \"{{pluginName}}\" dipunggahkan"
@@ -39,15 +40,22 @@
         "detail": "Menu telah disembunyikan, guna 'Alt' untuk menunjukkannya (atau 'Escape' jika menggunakan In-App Menu)"
       },
       "need-to-restart": {
+        "buttons": {
+          "later": "Nanti",
+          "restart-now": "Restart Sekarang"
+        },
         "message": "\"{{pluginName}}\" perlu dimulakan semula",
         "title": "Mulakan Semula Diperlukan"
       },
       "unresponsive": {
         "buttons": {
+          "quit": "Berhenti",
           "relaunch": "Lancar Semula",
           "wait": "Tunggu"
         },
-        "detail": "Kami memohon maaf atas kesulitan! sila pilih apa yang perlu dilakukan:"
+        "detail": "Kami memohon maaf atas kesulitan! sila pilih apa yang perlu dilakukan:",
+        "message": "Aplikasi Tidak Responsif",
+        "title": "Window Tidak Responsif"
       },
       "update-available": {
         "buttons": {
@@ -58,16 +66,137 @@
       }
     },
     "menu": {
+      "about": "Mengenai",
       "navigation": {
         "label": "Navigasi",
         "submenu": {
           "copy-current-url": "Salin URL semasa",
-          "go-back": "Pulang",
+          "go-back": "Belakang",
+          "go-forward": "Depan",
           "quit": "Keluar"
         }
       },
       "options": {
-        "label": "Pilihan"
+        "label": "Tetapan",
+        "submenu": {
+          "advanced-options": {
+            "label": "Tetapan Lanjutan",
+            "submenu": {
+              "set-proxy": {
+                "prompt": {
+                  "placeholder": "Contoh: SOCKS5://127.0.0.1:9999",
+                  "title": "Set proksi"
+                }
+              }
+            }
+          },
+          "always-on-top": "Sentiasa di atas",
+          "auto-update": "Kemas Kini Automatik",
+          "hide-menu": {
+            "dialog": {
+              "message": "Menu akan disembunyikan pada pelancaran seterusnya, gunakan [Alt] untuk menunjukkannya (atau backtick [`] jika menggunakan dalam aplikasi-menu)"
+            }
+          },
+          "language": {
+            "dialog": {
+              "message": "Bahasa akan ditukar selepas dimulakan semula",
+              "title": "Bahasa Berubah"
+            },
+            "label": "Bahasa",
+            "submenu": {
+              "to-help-translate": "Ingin membantu menterjemah? Klik di sini"
+            }
+          },
+          "resume-on-start": "Mulakan semula lagu terakhir apabila aplikasi dimulakan",
+          "start-at-login": "Mulakan semasa log masuk",
+          "starting-page": {
+            "label": "Halaman Permulaan"
+          },
+          "tray": {
+            "submenu": {
+              "play-pause-on-click": "Main / Hentikan pada klik"
+            }
+          },
+          "visual-tweaks": {
+            "label": "Pembaikan Visual",
+            "submenu": {
+              "like-buttons": {
+                "default": "Lalai",
+                "hide": "Sembunyi"
+              },
+              "theme": {
+                "dialog": {
+                  "button": {
+                    "cancel": "Batalkan",
+                    "remove": "Padam"
+                  }
+                },
+                "label": "Tema"
+              }
+            }
+          }
+        }
+      }
+    },
+    "tray": {
+      "next": "Seterusnya",
+      "play-pause": "Main / Jeda",
+      "previous": "Sebelumnya",
+      "quit": "Keluar",
+      "restart": "Mulakan Semula Aplikasi"
+    }
+  },
+  "plugins": {
+    "ambient-mode": {
+      "menu": {
+        "quality": {
+          "label": "Kualiti"
+        },
+        "size": {
+          "label": "Saiz"
+        }
+      }
+    },
+    "captions-selector": {
+      "prompt": {
+        "selector": {
+          "title": "Pilih bahasa kapsyen"
+        }
+      }
+    },
+    "synced-lyrics": {
+      "menu": {
+        "show-lyrics-even-if-inexact": {
+          "label": "Tunjukkan lirik walaupun tidak tepat",
+          "tooltip": "Jika lagu tidak ditemui, plugin cuba lagi dengan pertanyaan carian yang berbeza. \nHasil dari percubaan kedua mungkin tidak tepat."
+        },
+        "show-time-codes": {
+          "tooltip": "Tunjukkan kod masa di sebelah lirik"
+        }
+      }
+    },
+    "taskbar-mediacontrol": {
+      "description": "Kawalan main balik dari bar tugas Windows anda",
+      "name": "Kawalan Media Bar Tugas"
+    },
+    "video-toggle": {
+      "menu": {
+        "align": {
+          "submenu": {
+            "left": "Kiri",
+            "middle": "Tengah",
+            "right": "Kanan"
+          }
+        },
+        "force-hide": "Alih Keluar Tab Video",
+        "mode": {
+          "submenu": {
+            "disabled": "Tidak Aktif"
+          }
+        }
+      },
+      "templates": {
+        "button": "Lagu"
       }
     }
   }
