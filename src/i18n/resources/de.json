@@ -671,9 +671,13 @@
     "synced-lyrics": {
       "description": "Bietet synchronisierte Liedtexte zu Songs, verwendet Anbieter wie LRClib.",
       "errors": {
-        "fetch": "⚠️ - Beim Abrufen des Liedtexts ist ein Fehler aufgetreten. Bitte versuchen Sie es später nochmal."
+        "fetch": "⚠️ - Beim Abrufen des Liedtexts ist ein Fehler aufgetreten. Bitte versuchen Sie es später nochmal.",
+        "not-found": "⚠️ - Kein Text für diesen Song gefunden."
       },
-      "name": "Synchronisierte Texte"
+      "name": "Synchronisierte Texte",
+      "warnings": {
+        "instrumental": "⚠️ -  Das ist ein instrumentales Lied"
+      }
     },
     "taskbar-mediacontrol": {
       "description": "Wiedergabe aus der Windows Taskleiste kontrollieren",
