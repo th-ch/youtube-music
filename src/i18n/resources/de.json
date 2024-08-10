@@ -698,7 +698,7 @@
         },
         "precise-timing": {
           "label": "Den Songtext perfekt synchronisieren",
-          "tooltip": "Auf die Millisekunde genaue berechnen, wann die nächste Zeile angezeigt werden soll (Kann Einfluss auf die Leistung haben)"
+          "tooltip": "Auf die Millisekunde genau berechnen, wann die nächste Zeile angezeigt werden soll (Kann Einfluss auf die Leistung haben)"
         },
         "show-time-codes": {
           "label": "Zeitkodierungen anzeigen",
