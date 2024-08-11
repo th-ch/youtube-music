@@ -161,6 +161,9 @@
     "@ffmpeg.wasm/main": "0.12.0",
     "@floating-ui/dom": "1.6.9",
     "@foobar404/wave": "2.0.5",
+    "@hono/node-server": "^1.12.0",
+    "@hono/swagger-ui": "^0.4.0",
+    "@hono/zod-openapi": "^0.15.2",
     "@jellybrick/electron-better-web-request": "1.0.4",
     "@jellybrick/mpris-service": "2.1.4",
     "@skyra/jaro-winkler": "^1.1.1",
@@ -182,6 +185,7 @@
     "fast-average-color": "9.4.0",
     "fast-equals": "5.0.1",
     "filenamify": "6.0.0",
+    "hono": "^4.5.4",
     "howler": "2.2.4",
     "html-to-text": "9.0.5",
     "i18next": "23.12.2",
@@ -200,7 +204,8 @@
     "ts-morph": "23.0.0",
     "vudio": "2.1.1",
     "x11": "2.3.0",
-    "youtubei.js": "10.3.0"
+    "youtubei.js": "10.3.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@playwright/test": "1.46.0",
