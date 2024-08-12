@@ -1,6 +1,48 @@
 {
+  "language": {
+    "local-name": "Eesti",
+    "name": "Estonian"
+  },
   "main": {
+    "console": {
+      "i18n": {
+        "loaded": "i18n on laaditud"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "detail": "Menüü on peidetud ja „Alt“ klahviga saad ta nähtavaks (rakenduse-siseses menüüs „Esc“ klahviga)",
+        "message": "Menüü peitmine on sisselülitatud"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "Hiljem",
+          "restart-now": "Taaskäivita kohe"
+        }
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "Välju",
+          "relaunch": "Käivita uuesti",
+          "wait": "Oota"
+        }
+      }
+    },
     "menu": {
+      "navigation": {
+        "label": "Liikumine",
+        "submenu": {
+          "copy-current-url": "Kopeeri esitamisel oleva pala URL",
+          "go-back": "Mine tagasi",
+          "go-forward": "Mine edasi",
+          "quit": "Välju",
+          "restart": "Käivita rakendus uuesti"
+        }
+      },
+      "plugins": {
+        "label": "Lisamoodulid",
+        "new": "UUS"
+      },
       "view": {
         "submenu": {
           "zoom-in": "Suumi sisse",
@@ -22,8 +64,81 @@
     }
   },
   "plugins": {
+    "ad-speedup": {
+      "description": "Reklaami esitamisel summutatakse heli ja keritakse edasi 16-kordse kiirusega",
+      "name": "Reklaamikiirendaja"
+    },
     "adblocker": {
-      "description": "Blokeeri kõik reklaamid ja jälitajad"
+      "description": "Blokeeri kõik reklaamid ja jälitajad",
+      "menu": {
+        "blocker": "Blokeerijad"
+      },
+      "name": "Reklaamiblokeerija"
+    },
+    "ambient-mode": {
+      "menu": {
+        "opacity": {
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "quality": {
+          "label": "Kvaliteet",
+          "submenu": {
+            "pixels": "{{quality}} pikslit"
+          }
+        }
+      }
+    },
+    "blur-nav-bar": {
+      "description": "Muudab navigatsiooniriba läbipaistavaks ja hägusaks",
+      "name": "Hägus navigatsiooniriba"
+    },
+    "lyrics-genius": {
+      "description": "Lisa enamustele lugudele laulusõnad",
+      "menu": {
+        "romanized-lyrics": "Latiniseeritud laulusõnad"
+      },
+      "name": "Lyrics Genius",
+      "renderer": {
+        "fetched-lyrics": "Leidsime Geeniuse jaoks ühed laulusõnad"
+      }
+    },
+    "navigation": {
+      "name": "Liikumine"
+    },
+    "scrobbler": {
+      "description": "Lisa kraasimise tugi (last.fm, Listenbrainz, jne)",
+      "dialog": {
+        "lastfm": {
+          "auth-failed": {
+            "message": "Last.fm'i autentimine ei õnnestunud\nPeida hüpikaken järgmise taaskäivituseni.",
+            "title": "Autentimine ei õnnestunud"
+          }
+        }
+      },
+      "menu": {
+        "lastfm": {
+          "api-settings": "Last.fm API seadistused"
+        },
+        "listenbrainz": {
+          "token": "Sisesta ListenBrainz'i kasutaja tunnusluba"
+        },
+        "scrobble-other-media": "Kraasi muud meediat"
+      },
+      "name": "Kraasija",
+      "prompt": {
+        "lastfm": {
+          "api-key": "Last.fm API võti",
+          "api-secret": "Last.fm API saladus"
+        },
+        "listenbrainz": {
+          "token": {
+            "label": "Sisesta oma ListenBrainz'i tunnusluba:",
+            "title": "ListenBrainz'i tunnusluba"
+          }
+        }
+      }
     }
   }
 }
