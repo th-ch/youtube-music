@@ -10,11 +10,11 @@ import {
 
 import injectCliqzPreload from './injectors/inject-cliqz-preload';
 import { inject, isInjected } from './injectors/inject';
+import { loadAdSpeedup } from './adSpeedup';
 
 import { t } from '@/i18n';
 
 import type { BrowserWindow } from 'electron';
-import { loadAdSpeedup } from './adSpeedup';
 
 interface AdblockerConfig {
   /**
@@ -74,7 +74,7 @@ export default createPlugin({
     ];
   },
   renderer: {
-    async onPlayerApiReady(_, {getConfig}) {
+    async onPlayerApiReady(_, { getConfig }) {
       const config = await getConfig();
       if (config.blocker === blockers.AdSpeedup) {
         await loadAdSpeedup();
@@ -118,7 +118,19 @@ export default createPlugin({
     },
   },
   preload: {
-    script: 'window.JSON.parse = window._proxyJsonParse; window._proxyJsonParse = undefined; window.Response.prototype.json = window._proxyResponseJson; window._proxyResponseJson = undefined; 0',
+    // see #1478
+    script: `const _prunerFn = window._pruner;
+    window._pruner = undefined;
+    JSON.parse = new Proxy(JSON.parse, {
+      apply() {
+        return _prunerFn(Reflect.apply(...arguments));
+      },
+    });
+    Response.prototype.json = new Proxy(Response.prototype.json, {
+      apply() {
+        return Reflect.apply(...arguments).then((o) => _prunerFn(o));
+      },
+    }); 0`,
     async start({ getConfig }) {
       const config = await getConfig();
 

@@ -207,6 +207,10 @@
     }
   },
   "plugins": {
+    "ad-speedup": {
+      "description": "광고가 재생될 때, 오디오가 음소거되고 재생 속도가 16배로 설정됩니다",
+      "name": "광고 배속"
+    },
     "adblocker": {
       "description": "모든 광고와 트래커를 즉시 차단합니다",
       "menu": {
@@ -663,6 +667,59 @@
     "sponsorblock": {
       "description": "인트로/아웃트로와 같은 음악이 아닌 부분이나, 노래가 재생되지 않는 뮤직 비디오의 일부를 자동으로 건너뜁니다",
       "name": "SponsorBlock"
+    },
+    "synced-lyrics": {
+      "description": "LRClib등의 가사 제공자에서 싱크 가사를 불러옵니다.",
+      "errors": {
+        "fetch": "⚠️ - 가사를 불러오는 동안 오류가 발생했습니다. 나중에 다시 시도해 주세요.",
+        "not-found": "⚠️ - 이 노래의 가사를 찾을 수 없습니다."
+      },
+      "menu": {
+        "default-text-string": {
+          "label": "가사 사이에 표시할 문자",
+          "tooltip": "가사 사이의 빈 공간에 사용할 문자를 선택합니다"
+        },
+        "line-effect": {
+          "label": "줄 표시 효과",
+          "submenu": {
+            "focus": {
+              "label": "포커스",
+              "tooltip": "현재 줄만 하얀색으로 표시"
+            },
+            "offset": {
+              "label": "오프셋",
+              "tooltip": "현재 줄의 오른쪽에 오프셋 적용"
+            },
+            "scale": {
+              "label": "스케일",
+              "tooltip": "현재 줄에 스케일 적용"
+            }
+          },
+          "tooltip": "현재 줄에 적용할 효과를 선택합니다"
+        },
+        "precise-timing": {
+          "label": "가사를 최대한 정교하게 동기화",
+          "tooltip": "다음 줄의 표시를 밀리초 단위로 계산합니다 (성능에 약간의 영향을 미칠 수 있음)"
+        },
+        "show-lyrics-even-if-inexact": {
+          "label": "가사가 정확하지 않더라도 표시",
+          "tooltip": "노래를 찾을 수 없는 경우, 플러그인이 다른 검색어로 다시 검색합니다.\n두번째 검색 결과는 정확하지 않을 수 있습니다."
+        },
+        "show-time-codes": {
+          "label": "시간 코드 표시",
+          "tooltip": "가사 옆에 시간 코드 표시"
+        }
+      },
+      "name": "싱크 가사",
+      "refetch-btn": {
+        "fetching": "가져오는 중...",
+        "normal": "가사 다시 가져오기"
+      },
+      "warnings": {
+        "duration-mismatch": "⚠️ - 곡 길이 불일치로 인해 가사가 일치하지 않을 수 있습니다.",
+        "inexact": "⚠️ - 이 노래의 가사는 정확하지 않을 수 있습니다",
+        "instrumental": "⚠️ - 연주곡입니다"
+      }
     },
     "taskbar-mediacontrol": {
       "description": "Windows 작업 표시줄에서 재생을 제어하세요",

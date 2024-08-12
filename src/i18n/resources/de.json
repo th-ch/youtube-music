@@ -668,6 +668,29 @@
       "description": "Überspringt automatisch nicht-musikalische Teile wie Intro/Outro oder Teile von Musikvideos, in denen der Song nicht gespielt wird",
       "name": "SponsorBlock"
     },
+    "synced-lyrics": {
+      "description": "Bietet synchronisierte Liedtexte zu Songs, verwendet Anbieter wie LRClib.",
+      "errors": {
+        "fetch": "⚠️ - Beim Abrufen des Liedtexts ist ein Fehler aufgetreten. Bitte versuchen Sie es später nochmal.",
+        "not-found": "⚠️ - Kein Text für diesen Song gefunden."
+      },
+      "menu": {
+        "precise-timing": {
+          "label": "Den Songtext perfekt synchronisieren",
+          "tooltip": "Auf die Millisekunde genaue berechnen, wann die nächste Zeile angezeigt werden soll (Kann Einfluss auf die Leistung haben)"
+        }
+      },
+      "name": "Synchronisierte Texte",
+      "refetch-btn": {
+        "fetching": "Hole Songtext...",
+        "normal": "Songtext neu holen"
+      },
+      "warnings": {
+        "duration-mismatch": "⚠️ - Es kann sein, dass die Synchronization nicht stimmt, da die Songdauer nicht übereinstimmt.",
+        "inexact": "⚠️ - Es ist Möglich, dass der Songtext für diesen Song nicht übereinstimmt.",
+        "instrumental": "⚠️ - Das ist ein instrumentales Lied"
+      }
+    },
     "taskbar-mediacontrol": {
       "description": "Wiedergabe aus der Windows Taskleiste kontrollieren",
       "name": "Mediensteuerung in der Taskleiste"

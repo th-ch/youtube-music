@@ -2,11 +2,12 @@ import { app, dialog, ipcMain } from 'electron';
 import { Client as DiscordClient } from '@xhayper/discord-rpc';
 import { dev } from 'electron-is';
 
+import { ActivityType, GatewayActivityButton } from 'discord-api-types/v10';
+
 import registerCallback, { type SongInfo } from '@/providers/song-info';
 import { createBackend, LoggerPrefix } from '@/utils';
 import { t } from '@/i18n';
 
-import type { GatewayActivityButton } from 'discord-api-types/v10';
 import type { SetActivity } from '@xhayper/discord-rpc/dist/structures/ClientUser';
 import type { DiscordPluginConfig } from './index';
 
@@ -180,6 +181,7 @@ export const backend = createBackend<
     }
 
     const activityInfo: SetActivity = {
+      type: ActivityType.Listening,
       details: songInfo.title,
       state: songInfo.artist,
       largeImageKey: songInfo.imageSrc ?? '',
@@ -207,8 +209,8 @@ export const backend = createBackend<
 
     info.rpc.user?.setActivity(activityInfo).catch(console.error);
   },
-  async start({ window: win, getConfig }) {
-    this.config = await getConfig();
+  async start(ctx) {
+    this.config = await ctx.getConfig();
 
     info.rpc.on('connected', () => {
       if (dev()) {
@@ -237,10 +239,10 @@ export const backend = createBackend<
 
     info.autoReconnect = this.config.autoReconnect;
 
-    window = win;
+    window = ctx.window;
 
     // If the page is ready, register the callback
-    win.once('ready-to-show', () => {
+    ctx.window.once('ready-to-show', () => {
       let lastSongInfo: SongInfo;
       registerCallback((songInfo) => {
         lastSongInfo = songInfo;

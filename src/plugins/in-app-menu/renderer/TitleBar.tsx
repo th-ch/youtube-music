@@ -9,12 +9,12 @@ import { PanelItem } from './PanelItem';
 import { IconButton } from './IconButton';
 import { WindowController } from './WindowController';
 
-import { cache } from '@/providers/decorators';
+import { cacheNoArgs } from '@/providers/decorators';
 
 import type { RendererContext } from '@/types/contexts';
 import type { InAppMenuConfig } from '../constants';
 
-const titleStyle = cache(() => css`
+const titleStyle = cacheNoArgs(() => css`
   -webkit-app-region: drag;
   box-sizing: border-box;
 
@@ -50,7 +50,7 @@ const titleStyle = cache(() => css`
   }
 `);
 
-const separatorStyle = cache(() => css`
+const separatorStyle = cacheNoArgs(() => css`
   min-height: 1px;
   height: 1px;
   margin: 4px 0;
@@ -58,7 +58,7 @@ const separatorStyle = cache(() => css`
   background-color: rgba(255, 255, 255, 0.2);
 `);
 
-const animationStyle = cache(() => ({
+const animationStyle = cacheNoArgs(() => ({
   enter: css`
     opacity: 0;
     transform: translateX(-50%) scale(0.8);
@@ -271,19 +271,18 @@ export const TitleBar = (props: TitleBarProps) => {
     // tracking mouse position
     window.addEventListener('mousemove', listener);
     const ytmusicAppLayout = document.querySelector<HTMLElement>('#layout');
-    ytmusicAppLayout?.addEventListener("scroll",()=>{
+    ytmusicAppLayout?.addEventListener('scroll', () => {
     const scrollValue = ytmusicAppLayout.scrollTop;
     if (scrollValue > 20){
-      ytmusicAppLayout.classList.add("content-scrolled");
+      ytmusicAppLayout.classList.add('content-scrolled');
     }
     else{
-      ytmusicAppLayout.classList.remove("content-scrolled");
+      ytmusicAppLayout.classList.remove('content-scrolled');
     }
-    })
-
+    });
   });
 
-  
+
 
   createEffect(() => {
     if (!menu() && data()) {

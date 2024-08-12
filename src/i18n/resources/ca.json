@@ -668,6 +668,59 @@
       "description": "Omet automàticament els segments dels vídeos que no son música, com la intro o el final",
       "name": "SponsorBlock"
     },
+    "synced-lyrics": {
+      "description": "Proporciona lletres sincronitzades amb les cançons, a través de proveïdors com LRClib.",
+      "errors": {
+        "fetch": "⚠️ - Se ha produït un error en descarregar la lletra. Si us plau, intenta-ho més tard.",
+        "not-found": "⚠️ - No s'ha trobat la lletra per aquesta cançó."
+      },
+      "menu": {
+        "default-text-string": {
+          "label": "Caràcter per defecte entre lletres",
+          "tooltip": "Tria el caràcter per defecte que es mostrarà a l'espai entre les lletres"
+        },
+        "line-effect": {
+          "label": "Efecte de la línia",
+          "submenu": {
+            "focus": {
+              "label": "Focus",
+              "tooltip": "Mostra tan sols la línia actual en blanc"
+            },
+            "offset": {
+              "label": "Desplaçament",
+              "tooltip": "Desplaçament a la dreta de la línia actual"
+            },
+            "scale": {
+              "label": "Escala",
+              "tooltip": "Redimensiona la línia actual"
+            }
+          },
+          "tooltip": "Tria l'efecte a aplicar a la línia actual"
+        },
+        "precise-timing": {
+          "label": "Fes que les lletres es sincronitzin a la perfecció",
+          "tooltip": "Calcula al mil·lisegon l'aparició de la següent línia (pot tenir un petit impacte en el rendiment)"
+        },
+        "show-lyrics-even-if-inexact": {
+          "label": "Mostra la lletra tot i que sigui inexacta",
+          "tooltip": "Si no es troba la cançó, el plugin torna a intentar obtenir la lletra amb una cerca diferent.\nEl resultat d'aquesta segona cerca podria no ser exacte."
+        },
+        "show-time-codes": {
+          "label": "Mostra els codis de temps",
+          "tooltip": "Mostra els codis de temps al costat de la lletra"
+        }
+      },
+      "name": "Lletres sincronitzades",
+      "refetch-btn": {
+        "fetching": "Obtenint...",
+        "normal": "Tornar a obtenir la lletra"
+      },
+      "warnings": {
+        "duration-mismatch": "⚠️ - La lletra podria no estar ben sincronitzada, la durada no és coincident.",
+        "inexact": "⚠️ - La lletra d'aquesta cançó podria no ser exacta",
+        "instrumental": "⚠️ - Aquesta cançó és instrumental"
+      }
+    },
     "taskbar-mediacontrol": {
       "description": "Controla la reproducció des de la barra de tasques del Windows",
       "name": "Control multimèdia a la barra de tasques"

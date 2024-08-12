@@ -207,6 +207,10 @@
     }
   },
   "plugins": {
+    "ad-speedup": {
+      "description": "使用 16 倍速播放及靜音來跳過廣告片段",
+      "name": "加速略過"
+    },
     "adblocker": {
       "description": "阻擋所有廣告",
       "menu": {
@@ -356,7 +360,7 @@
         "play-on-youtube-music": "顯示Play on YouTube Music按鈕",
         "set-inactivity-timeout": "設定閒置狀態時長"
       },
-      "name": "Discord狀態",
+      "name": "Discord 狀態",
       "prompt": {
         "set-inactivity-timeout": {
           "label": "設定多少秒後清除狀態:",
@@ -513,8 +517,8 @@
       "name": "導覽列"
     },
     "no-google-login": {
-      "description": "移除Google登入按鈕及連結",
-      "name": "停用Google登入"
+      "description": "移除 Google 登入按鈕及連結",
+      "name": "停用 Google 登入"
     },
     "notifications": {
       "description": "在歌曲播放時發送一個系統通知 (可互動通知僅限Windows)",
@@ -663,6 +667,59 @@
     "sponsorblock": {
       "description": "自動跳過贊助片段",
       "name": "贊助阻擋"
+    },
+    "synced-lyrics": {
+      "description": "使用 LRClib 等管道提供歌詞同步顯示。",
+      "errors": {
+        "fetch": "⚠️擷取歌詞時發生錯誤。請稍後再試。",
+        "not-found": "⚠️未找到該首歌曲的歌詞。"
+      },
+      "menu": {
+        "default-text-string": {
+          "label": "預設歌詞中間隔的符號",
+          "tooltip": "選擇歌詞中間隔要使用的符號"
+        },
+        "line-effect": {
+          "label": "歌詞顯示效果",
+          "submenu": {
+            "focus": {
+              "label": "高亮",
+              "tooltip": "高亮當前的歌詞"
+            },
+            "offset": {
+              "label": "凸行",
+              "tooltip": "凸行當前的歌詞"
+            },
+            "scale": {
+              "label": "放大",
+              "tooltip": "放大當前的歌詞"
+            }
+          },
+          "tooltip": "選擇要使用的歌詞顯示效果"
+        },
+        "precise-timing": {
+          "label": "使歌詞完美同步",
+          "tooltip": "更精確的計算下一行歌詞的顯示(將會降低些許效能)"
+        },
+        "show-lyrics-even-if-inexact": {
+          "label": "即使不精確依然強制顯示歌詞",
+          "tooltip": "當找不到符合該歌曲的歌詞時，該功能會嘗試不同的搜尋方式\n使用不同的搜尋方式會導致不精確的結果。"
+        },
+        "show-time-codes": {
+          "label": "顯示時間線",
+          "tooltip": "在歌詞旁顯示時間線"
+        }
+      },
+      "name": "歌詞同步",
+      "refetch-btn": {
+        "fetching": "擷取中...",
+        "normal": "重新擷取歌詞"
+      },
+      "warnings": {
+        "duration-mismatch": "⚠️歌詞可能會出現不同步的情況。",
+        "inexact": "⚠️該歌曲的歌詞可能並不精確",
+        "instrumental": "⚠️該首歌曲並無人聲"
+      }
     },
     "taskbar-mediacontrol": {
       "description": "允許工作列應用程式預覽介面顯示媒體控制相關按鈕",

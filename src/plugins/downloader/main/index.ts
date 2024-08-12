@@ -261,12 +261,12 @@ async function downloadSongUnsafe(
 
   let playabilityStatus = info.playability_status;
   let bypassedResult = null;
-  if (playabilityStatus.status === 'LOGIN_REQUIRED') {
+  if (playabilityStatus?.status === 'LOGIN_REQUIRED') {
     // Try to bypass the age restriction
     bypassedResult = await getAndroidTvInfo(id);
     playabilityStatus = bypassedResult.playability_status;
 
-    if (playabilityStatus.status === 'LOGIN_REQUIRED') {
+    if (playabilityStatus?.status === 'LOGIN_REQUIRED') {
       throw new Error(
         `[${playabilityStatus.status}] ${playabilityStatus.reason}`,
       );
@@ -275,7 +275,7 @@ async function downloadSongUnsafe(
     info = bypassedResult;
   }
 
-  if (playabilityStatus.status === 'UNPLAYABLE') {
+  if (playabilityStatus?.status === 'UNPLAYABLE') {
     const errorScreen =
       playabilityStatus.error_screen as PlayerErrorMessage | null;
     throw new Error(

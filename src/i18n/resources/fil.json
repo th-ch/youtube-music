@@ -207,10 +207,12 @@
   },
   "plugins": {
     "ad-speedup": {
-      "description": "Pag mag-play ng ad, I-mute ang audio at i-set ang bilis ng playback ng 16x"
+      "description": "Pag mag-play ng ad, I-mute ang audio at i-set ang bilis ng playback ng 16x",
+      "name": "Pagbilis ng Ad"
     },
     "adblocker": {
-      "description": "I-block ang lahat ng ad at tracking"
+      "description": "I-block ang lahat ng ad at tracking",
+      "name": "Pag-block ng Ad"
     },
     "album-actions": {
       "description": "Idadagdag ang Undislike, Dislike, Like, at Unlike na button para ilapat ito sa lahat ng kanta sa isang playlist o album",
@@ -392,6 +394,8 @@
         "download-finish-settings": {
           "label": "Kung natapos ang download",
           "prompt": {
+            "last-percent": "Tapos ng x na porsyento",
+            "last-seconds": "Huling x na segundo",
             "title": "I-configure kung kailan magda-download"
           },
           "submenu": {
@@ -406,6 +410,9 @@
       },
       "renderer": {
         "can-not-update-progress": "Hindi ma-update ang progress"
+      },
+      "templates": {
+        "button": "Mag download"
       }
     },
     "exponential-volume": {
@@ -475,7 +482,8 @@
       "name": "Nabigasyon"
     },
     "no-google-login": {
-      "description": "Tanggalin ang mga Google login na button at mga link mula sa interface"
+      "description": "Tanggalin ang mga Google login na button at mga link mula sa interface",
+      "name": "Walang Google na Login"
     },
     "notifications": {
       "description": "Magpakita ng notification kapag nagsimulang tumugtog ang kanta (magagamit ang mga interactive na notification sa Windows)",
@@ -491,7 +499,8 @@
         },
         "priority": "Prioridad ng Notification",
         "unpause-notification": "Ipakita ang notification sa pag-unpause"
-      }
+      },
+      "name": "Mga Abiso"
     },
     "picture-in-picture": {
       "description": "Payagan ang pag-palit ng app sa picture-in-picture mode",
@@ -580,6 +589,7 @@
     "shortcuts": {
       "description": "Nagbibigay-daan sa pagtatakda ng mga global hotkey para sa playback (play/pause/susunod/nakaraan) at pag-off ng media OSD sa pamamagitan ng pag-override sa mga media key, pag-on sa Ctrl/CMD + F para maghanap, pag-on sa suporta ng Linux MPRIS para sa mga media key, at mga custom na hotkey para sa mga advanced na user",
       "menu": {
+        "override-media-keys": "I-override ang mga Media Key",
         "set-keybinds": "I-set ang Global Song Control"
       },
       "name": "Mga shortcut (at MPRIS)",
@@ -587,6 +597,7 @@
         "keybind": {
           "keybind-options": {
             "next": "Susunod",
+            "play-pause": "Mag-play / Mag-pause",
             "previous": "Nakaraan"
           },
           "label": "Pumili ng Global na Keybind para sa Songs Control:"
@@ -594,13 +605,55 @@
       }
     },
     "skip-disliked-songs": {
-      "description": "Laktawan ang na-dislike na kanta"
+      "description": "Laktawan ang na-dislike na kanta",
+      "name": "I-skip ang mga Na-dislike na Kanta"
     },
     "skip-silences": {
-      "description": "Automatikong laktawan ang mga tahimik na mga seksyon sa kanta"
+      "description": "Automatikong laktawan ang mga tahimik na mga seksyon sa kanta",
+      "name": "I-skip ang mga Katahimikan"
     },
     "sponsorblock": {
       "description": "Automatikong Laktawan ang di part ng kanta tulad ng intro/outro o part ng mga music video na ang kanta ay di nagple-play"
+    },
+    "synced-lyrics": {
+      "description": "Nagbibigay ng naka-sync na lyrics sa mga kanta, gamit ang mga provider tulad ng LRClib.",
+      "errors": {
+        "fetch": "⚠️ - Nagkaroon ng error habang kinukuha ang lyrics. Subukang muli mamaya.",
+        "not-found": "⚠️ - Walang nakitang lyrics para sa kantang ito."
+      },
+      "menu": {
+        "default-text-string": {
+          "label": "Default na character sa pagitan ng lyrics"
+        },
+        "line-effect": {
+          "label": "Effect ng Linya",
+          "submenu": {
+            "focus": {
+              "tooltip": "Gawing puti lamang ang kasalukuyang linya"
+            },
+            "offset": {
+              "tooltip": "I-offset sa kanan ang kasalukuyang linya"
+            },
+            "scale": {
+              "tooltip": "I-scale ang kasalukuyang linya"
+            }
+          },
+          "tooltip": "Pumili ng effect na ilalapat sa kasalukuyang linya"
+        },
+        "precise-timing": {
+          "label": "Gawing perpektong naka-sync ang lyrics",
+          "tooltip": "Kalkulahin sa millisecond ang pagpapakita ng susunod na linya (maaaring magkaroon ng maliit na epekto sa performance)"
+        }
+      },
+      "refetch-btn": {
+        "fetching": "Nag-fe-fetch...",
+        "normal": "I-fetch muli ang lyrics"
+      },
+      "warnings": {
+        "duration-mismatch": "⚠️ - Maaaring hindi naka-sync ang lyrics dahil sa hindi pagkakatugma ng duration.",
+        "inexact": "⚠️ - Maaaring hindi eksakto ang lyrics para sa kantang ito",
+        "instrumental": "⚠️ - Ito ay isang instrumental na kanta"
+      }
     },
     "taskbar-mediacontrol": {
       "description": "Kontrolin ang pag-play mula sa iyong taskbar ng Windows"

@@ -418,19 +418,19 @@
         "presets": "Presets",
         "skip-existing": "Skip existing files",
         "download-finish-settings": {
-            "label": "Download on finish",
-            "submenu": {
-              "enabled": "Enabled",
-              "mode": "Time mode",
-              "seconds": "Seconds",
-              "percent": "Percent",
-              "advanced": "Advanced"
-            },
-            "prompt": {
-              "title": "Configure when to download",
-              "last-seconds": "Last x seconds",
-              "last-percent": "After x percent"
-            }
+          "label": "Download on finish",
+          "submenu": {
+            "enabled": "Enabled",
+            "mode": "Time mode",
+            "seconds": "Seconds",
+            "percent": "Percent",
+            "advanced": "Advanced"
+          },
+          "prompt": {
+            "title": "Configure when to download",
+            "last-seconds": "Last x seconds",
+            "last-percent": "After x percent"
+          }
         }
       },
       "name": "Downloader",
@@ -667,6 +667,59 @@
     "sponsorblock": {
       "description": "Automatically Skips non-music parts like intro/outro or parts of music videos where the song isn't playing",
       "name": "SponsorBlock"
+    },
+    "synced-lyrics": {
+      "description": "Provides synced lyrics to songs, using providers like LRClib.",
+      "name": "Synced Lyrics",
+      "errors": {
+        "fetch": "⚠️ - An error occurred while fetching the lyrics. Please try again later.",
+        "not-found": "⚠️ - No lyrics found for this song."
+      },
+      "warnings": {
+        "instrumental": "⚠️ - This is an instrumental song",
+        "inexact": "⚠️ - The lyrics for this song may not be exact",
+        "duration-mismatch": "⚠️ - The lyrics may be out of sync due to a duration mismatch."
+      },
+      "refetch-btn": {
+        "normal": "Refetch lyrics",
+        "fetching": "Fetching..."
+      },
+      "menu": {
+        "precise-timing": {
+          "label": "Make the lyrics perfectly synced",
+          "tooltip": "Calculate to the milisecond the display of the next line (can have a small impact on performance)"
+        },
+        "line-effect": {
+          "label": "Line effect",
+          "tooltip": "Choose the effect to apply to the current line",
+          "submenu": {
+            "scale": {
+              "label": "Scale",
+              "tooltip": "Scale the current line"
+            },
+            "offset": {
+              "label": "Offset",
+              "tooltip": "Offset on the right the current line"
+            },
+            "focus": {
+              "label": "Focus",
+              "tooltip": "Make only the current line white"
+            }
+          }
+        },
+        "default-text-string": {
+          "label": "Default character between lyrics",
+          "tooltip": "Choose the default character to use for the gap between lyrics"
+        },
+        "show-time-codes": {
+          "label": "Show time codes",
+          "tooltip": "Show the time codes next to the lyrics"
+        },
+        "show-lyrics-even-if-inexact": {
+          "label": "Show lyrics even if inexact",
+          "tooltip": "If the song is not found, the plugin tries again with a different search query.\nThe result from the second attempt may not be exact."
+        }
+      }
     },
     "taskbar-mediacontrol": {
       "description": "Control playback from your Windows taskbar",

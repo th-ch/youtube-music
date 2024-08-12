@@ -1,9 +1,8 @@
-import Store from 'electron-store';
 import { deepmergeCustom } from 'deepmerge-ts';
 
 import defaultConfig from './defaults';
 
-import store from './store';
+import store, { IStore } from './store';
 import plugins from './plugins';
 
 import { restart } from '@/providers/app-controls';
@@ -62,20 +61,19 @@ type Join<K, P> = K extends string | number
 type Paths<T, D extends number = 10> = [D] extends [never]
   ? never
   : T extends object
-  ? {
-      [K in keyof T]-?: K extends string | number
-        ? `${K}` | Join<K, Paths<T[K], Prev[D]>>
-        : never;
-    }[keyof T]
-  : '';
+    ? {
+        [K in keyof T]-?: K extends string | number
+          ? `${K}` | Join<K, Paths<T[K], Prev[D]>>
+          : never;
+      }[keyof T]
+    : '';
 
 type SplitKey<K> = K extends `${infer A}.${infer B}` ? [A, B] : [K, string];
-type PathValue<T, K extends string> = SplitKey<K> extends [
-  infer A extends keyof T,
-  infer B extends string,
-]
-  ? PathValue<T[A], B>
-  : T;
+type PathValue<T, K extends string> =
+  SplitKey<K> extends [infer A extends keyof T, infer B extends string]
+    ? PathValue<T[A], B>
+    : T;
+
 const get = <Key extends Paths<typeof defaultConfig>>(key: Key) =>
   store.get(key) as PathValue<typeof defaultConfig, typeof key>;
 
@@ -86,7 +84,7 @@ export default {
   setPartial,
   setMenuOption,
   edit: () => store.openInEditor(),
-  watch(cb: Parameters<Store['onDidAnyChange']>[0]) {
+  watch(cb: Parameters<IStore['onDidAnyChange']>[0]) {
     store.onDidAnyChange(cb);
   },
   plugins,
