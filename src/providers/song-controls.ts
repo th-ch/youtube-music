@@ -29,6 +29,8 @@ export default (win: BrowserWindow) => {
     // Playback
     previous: () => win.webContents.send('ytmd:previous-video'),
     next: () => win.webContents.send('ytmd:next-video'),
+    play: () => win.webContents.send('ytmd:play'),
+    pause: () => win.webContents.send('ytmd:pause'),
     playPause: () => win.webContents.send('ytmd:toggle-play'),
     like: () => win.webContents.send('ytmd:update-like', 'LIKE'),
     dislike: () => win.webContents.send('ytmd:update-like', 'DISLIKE'),
