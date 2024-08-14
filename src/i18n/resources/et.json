@@ -1,24 +1,52 @@
 {
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "{{pluginName}}::{{contextName}} lisamooduli käivitamine ei õnnestunud",
+        "executed-at-ms": "{{pluginName}}::{{contextName}} lisamoodul käivitus {{ms}} millisekundiga",
+        "initialize-failed": "„{{pluginName}}“ lisamooduli töö alustamine ei õnnestunud",
+        "load-all": "Laadime kõiki lisamooduleid",
+        "load-failed": "„{{pluginName}}“ lisamooduli laadimine ei õnnestunud",
+        "loaded": "„{{pluginName}}“ lisamoodul on laaditud",
+        "unload-failed": "„{{pluginName}}“ lisamooduli mälust eemaldamine ei õnnestunud",
+        "unloaded": "„{{pluginName}}“ lisamoodul on mälust eemaldatud"
+      }
+    }
+  },
   "language": {
+    "code": "et",
     "local-name": "Eesti",
     "name": "Estonian"
   },
   "main": {
     "console": {
+      "did-finish-load": {
+        "dev-tools": "Laadimine lõppes, arendaja tarvikud on avatud"
+      },
       "i18n": {
         "loaded": "i18n on laaditud"
+      },
+      "second-instance": {
+        "receive-command": "„{{command}}“ käsk on vastu võetud"
+      },
+      "theme": {
+        "css-file-not-found": "CSS faili „{{cssFile}}“ pole olemas, seega eirame eelistust"
       }
     },
     "dialog": {
       "hide-menu-enabled": {
         "detail": "Menüü on peidetud ja „Alt“ klahviga saad ta nähtavaks (rakenduse-siseses menüüs „Esc“ klahviga)",
-        "message": "Menüü peitmine on sisselülitatud"
+        "message": "Menüü peitmine on sisselülitatud",
+        "title": "Menüü peitmine on sisselülitatud"
       },
       "need-to-restart": {
         "buttons": {
           "later": "Hiljem",
           "restart-now": "Taaskäivita kohe"
-        }
+        },
+        "detail": "„{{pluginName}}“ lisamooduli sisselülitamine eeldab rakenduse taaskäivitamist",
+        "message": "„{{pluginName}}“ lisamoodul eeldab rakenduse taaskäivitamist",
+        "title": "Palun käivita rakendus uuesti"
       },
       "unresponsive": {
         "buttons": {
@@ -139,6 +167,16 @@
           }
         }
       }
+    },
+    "synced-lyrics": {
+      "menu": {
+        "show-lyrics-even-if-inexact": {
+          "tooltip": "Kui lugu ei leidu, siis lisamoodul üritab uut otsingut teistsuguse päringuga.\nTeise katse puhul tulemused ei pruugi olla väga täpsed."
+        }
+      }
+    },
+    "tuna-obs": {
+      "description": "Lõimimine OBSi Tuna lisamooduliga"
     }
   }
 }
