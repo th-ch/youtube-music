@@ -623,7 +623,8 @@
       },
       "menu": {
         "default-text-string": {
-          "label": "Default na character sa pagitan ng lyrics"
+          "label": "Default na character sa pagitan ng lyrics",
+          "tooltip": "Pumili ng default na character na gagamitin sa pagitan ng lyrics"
         },
         "line-effect": {
           "label": "Effect ng Linya",
@@ -643,6 +644,14 @@
         "precise-timing": {
           "label": "Gawing perpektong naka-sync ang lyrics",
           "tooltip": "Kalkulahin sa millisecond ang pagpapakita ng susunod na linya (maaaring magkaroon ng maliit na epekto sa performance)"
+        },
+        "show-lyrics-even-if-inexact": {
+          "label": "Ipakita ang lyrics kahit di-eksakto",
+          "tooltip": "Kung hindi matagpuan ang kanta, susubukan muli ng plugin gamit ang ibang query sa paghahanap.\nAng resulta mula sa pangalawang pagsubok ay maaaring hindi eksakto."
+        },
+        "show-time-codes": {
+          "label": "Ipakita ang mga time code",
+          "tooltip": "Ipakita ang mga time code kasunod sa lyrics"
         }
       },
       "refetch-btn": {
