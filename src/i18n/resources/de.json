@@ -675,9 +675,34 @@
         "not-found": "⚠️ - Kein Text für diesen Song gefunden."
       },
       "menu": {
+        "default-text-string": {
+          "label": "Standardzeichen zwischen Texten",
+          "tooltip": "Standardzeichen für die Lücke zwischen Songtexten auswählen"
+        },
+        "line-effect": {
+          "label": "Zeileneffekt",
+          "submenu": {
+            "focus": {
+              "label": "Fokussieren",
+              "tooltip": "Nur aktive Zeile weiß darstellen"
+            },
+            "offset": {
+              "label": "Versatz"
+            },
+            "scale": {
+              "label": "Skalieren",
+              "tooltip": "Aktuelle Zeile skalieren"
+            }
+          },
+          "tooltip": "Effekt für aktive Zeile auswählen"
+        },
         "precise-timing": {
           "label": "Den Songtext perfekt synchronisieren",
-          "tooltip": "Auf die Millisekunde genaue berechnen, wann die nächste Zeile angezeigt werden soll (Kann Einfluss auf die Leistung haben)"
+          "tooltip": "Auf die Millisekunde genau berechnen, wann die nächste Zeile angezeigt werden soll (Kann Einfluss auf die Leistung haben)"
+        },
+        "show-time-codes": {
+          "label": "Zeitkodierungen anzeigen",
+          "tooltip": "Zeitkodierungen neben Songtext anzeigen"
         }
       },
       "name": "Synchronisierte Texte",

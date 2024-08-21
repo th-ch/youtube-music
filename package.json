@@ -94,6 +94,10 @@
     "rpm": {
       "depends": [
         "/usr/lib64/libuuid.so.1"
+      ],
+      "fpm": [
+        "--rpm-rpmbuild-define",
+        "_build_id_links none"
       ]
     },
     "snap": {
@@ -159,7 +163,7 @@
     "@electron/remote": "2.1.2",
     "@ffmpeg.wasm/core-mt": "0.12.0",
     "@ffmpeg.wasm/main": "0.12.0",
-    "@floating-ui/dom": "1.6.9",
+    "@floating-ui/dom": "1.6.10",
     "@foobar404/wave": "2.0.5",
     "@jellybrick/electron-better-web-request": "1.0.4",
     "@jellybrick/mpris-service": "2.1.4",
@@ -178,13 +182,13 @@
     "electron-localshortcut": "3.2.1",
     "electron-store": "10.0.0",
     "electron-unhandled": "4.0.1",
-    "electron-updater": "6.3.2",
+    "electron-updater": "6.3.3",
     "fast-average-color": "9.4.0",
     "fast-equals": "5.0.1",
     "filenamify": "6.0.0",
     "howler": "2.2.4",
     "html-to-text": "9.0.5",
-    "i18next": "23.12.2",
+    "i18next": "23.12.3",
     "keyboardevent-from-electron-accelerator": "2.0.0",
     "keyboardevents-areequal": "0.2.2",
     "node-html-parser": "6.1.13",
