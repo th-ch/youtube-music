@@ -201,9 +201,37 @@ export default (api: YoutubePlayer) => {
       video.addEventListener(status, playPausedHandlers[status]);
     }
 
-    const data = api.getVideoData();
-    if (data) {
-      sendSongInfo(data as unknown as VideoDataChangeValue);
+    if (!isNaN(video.duration)) {
+      const {
+        title, author,
+        video_id: videoId,
+        list: playlistId
+      } = api.getVideoData();
+
+      // TODO: Find a more reliable way of getting the album name.
+      //       Currently this will be undefined if an ad is playing.
+      const album = document.querySelector('.content-info-wrapper .subtitle a[href*="browse"]')?.textContent;
+
+      sendSongInfo(<VideoDataChangeValue>{
+        title, author, videoId, playlistId,
+
+        isUpcoming: false,
+        lengthSeconds: video.duration,
+        loading: true,
+
+        // TODO: refactor sendSongInfo(videoData) to make this prettier
+        ...(album ? {
+          hereIsAnEasterEggForYou: {
+            playerOverlays: {
+              playerOverlayRenderer: {
+                browserMediaSession: {
+                  album: { runs: [{ text: album }] }
+                }
+              }
+            }
+          }
+        } : {})
+      });
     }
   }
 
