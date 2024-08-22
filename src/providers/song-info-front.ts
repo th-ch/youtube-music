@@ -225,7 +225,9 @@ export default (api: YoutubePlayer) => {
             playerOverlays: {
               playerOverlayRenderer: {
                 browserMediaSession: {
-                  album: { runs: [{ text: album }] }
+                  browserMediaSessionRenderer: {
+                    album: { runs: [{ text: album }] }
+                  }
                 }
               }
             }
