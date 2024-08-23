@@ -208,9 +208,7 @@ export default (api: YoutubePlayer) => {
         list: playlistId
       } = api.getVideoData();
 
-      // TODO: Find a more reliable way of getting the album name.
-      //       Currently this will be undefined if an ad is playing.
-      const album = document.querySelector('.content-info-wrapper .subtitle a[href*="browse"]')?.textContent;
+      const { playerOverlays } = api.getWatchNextResponse();
 
       sendSongInfo(<VideoDataChangeValue>{
         title, author, videoId, playlistId,
@@ -219,20 +217,7 @@ export default (api: YoutubePlayer) => {
         lengthSeconds: video.duration,
         loading: true,
 
-        // TODO: refactor sendSongInfo(videoData) to make this prettier
-        ...(album ? {
-          hereIsAnEasterEggForYou: {
-            playerOverlays: {
-              playerOverlayRenderer: {
-                browserMediaSession: {
-                  browserMediaSessionRenderer: {
-                    album: { runs: [{ text: album }] }
-                  }
-                }
-              }
-            }
-          }
-        } : {})
+        uhhh: { playerOverlays }
       });
     }
   }
