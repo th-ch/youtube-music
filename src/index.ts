@@ -56,6 +56,7 @@ import { loadI18n, setLanguage, t } from '@/i18n';
 import ErrorHtmlAsset from '@assets/error.html?asset';
 
 import type { PluginConfig } from '@/types/plugins';
+import BrowserWindowConstructorOptions = Electron.BrowserWindowConstructorOptions;
 
 if (!is.macOS()) {
   delete allPlugins['touchbar'];
@@ -286,6 +287,23 @@ async function createMainWindow() {
     height: 32,
   };
 
+  const decorations: Partial<BrowserWindowConstructorOptions> = {
+    frame: !is.macOS() && !useInlineMenu,
+    titleBarOverlay: defaultTitleBarOverlayOptions,
+    titleBarStyle: useInlineMenu
+      ? 'hidden'
+      : is.macOS()
+        ? 'hiddenInset'
+        : 'default',
+    autoHideMenuBar: config.get('options.hideMenu'),
+  };
+
+  // Note: on linux, for some weird reason, having these extra properties with 'frame: false' does not work
+  if (is.linux() && useInlineMenu) {
+    delete decorations.titleBarOverlay;
+    delete decorations.titleBarStyle;
+  }
+
   const win = new BrowserWindow({
     icon,
     width: windowSize.width,
@@ -303,14 +321,7 @@ async function createMainWindow() {
             sandbox: false,
           }),
     },
-    frame: !is.macOS() && !useInlineMenu,
-    titleBarOverlay: defaultTitleBarOverlayOptions,
-    titleBarStyle: useInlineMenu
-      ? 'hidden'
-      : is.macOS()
-      ? 'hiddenInset'
-      : 'default',
-    autoHideMenuBar: config.get('options.hideMenu'),
+    ...decorations,
   });
   initHook(win);
   initTheme(win);
