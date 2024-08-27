@@ -7,8 +7,8 @@
         "initialize-failed": "Nem sikerült inicializálni a \"{{pluginName}}\" plugint",
         "load-all": "Összes bővítmény betöltése",
         "load-failed": "Nem sikerült betölteni a \"{{pluginName}}\" plugint",
-        "loaded": "\"{{pluginName}}\" nevű plugin betöltve",
-        "unload-failed": "Nem sikerült a \"{{pluginName}}\" bővítményt letölteni",
+        "loaded": "\"{{pluginName}}\" plugin betöltve",
+        "unload-failed": "Nem sikerült a \"{{pluginName}}\" bővítményt kikapcsolni",
         "unloaded": "A \"{{pluginName}}\" bővítmény kikapcsolva"
       }
     }
