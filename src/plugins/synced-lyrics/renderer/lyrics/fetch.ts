@@ -17,7 +17,6 @@ export const [hadSecondAttempt, setHadSecondAttempt] = createSignal(false);
 // prettier-ignore
 export const [differentDuration, setDifferentDuration] = createSignal(false);
 // eslint-disable-next-line prefer-const
-export let foundPlainTextLyrics = false;
 
 export const extractTimeAndText = (
   line: string,
@@ -47,7 +46,9 @@ export const extractTimeAndText = (
 };
 
 export const makeLyricsRequest = async (extractedSongInfo: SongInfo) => {
+  setIsFetching(true);
   setLineLyrics([]);
+
   const songData: Parameters<typeof getLyricsList>[0] = {
     title: `${extractedSongInfo.title}`,
     artist: `${extractedSongInfo.artist}`,
@@ -55,14 +56,18 @@ export const makeLyricsRequest = async (extractedSongInfo: SongInfo) => {
     songDuration: extractedSongInfo.songDuration,
   };
 
-  const lyrics = await getLyricsList(songData);
+  let lyrics;
+  try {
+    lyrics = await getLyricsList(songData);
+  } catch {}
+
   setLineLyrics(lyrics ?? []);
+  setIsFetching(false);
 };
 
 export const getLyricsList = async (
   songData: Pick<SongInfo, 'title' | 'artist' | 'album' | 'songDuration'>,
 ): Promise<LineLyrics[] | null> => {
-  setIsFetching(true);
   setIsInstrumental(false);
   setHadSecondAttempt(false);
   setDifferentDuration(false);
@@ -73,26 +78,21 @@ export const getLyricsList = async (
     track_name: songData.title,
   });
 
-  if (songData.album) {
-    query.set('album_name', songData.album);
+  query.set('album_name', songData.album!);
+  if (query.get('album_name') === 'undefined') {
+    query.delete('album_name');
   }
 
   let url = `https://lrclib.net/api/search?${query.toString()}`;
   let response = await fetch(url);
 
   if (!response.ok) {
-    setIsFetching(false);
     setDebugInfo('Got non-OK response from server.');
     return null;
   }
 
-  let data = (await response.json().catch((e: Error) => {
-    setDebugInfo(`Error: ${e.message}\n\n${e.stack}`);
-
-    return null;
-  })) as LRCLIBSearchResponse | null;
+  let data = await response.json() as LRCLIBSearchResponse;
   if (!data || !Array.isArray(data)) {
-    setIsFetching(false);
     setDebugInfo('Unexpected server response.');
     return null;
   }
@@ -108,14 +108,12 @@ export const getLyricsList = async (
 
     response = await fetch(url);
     if (!response.ok) {
-      setIsFetching(false);
       setDebugInfo('Got non-OK response from server. (2)');
       return null;
     }
 
     data = (await response.json()) as LRCLIBSearchResponse;
     if (!Array.isArray(data)) {
-      setIsFetching(false);
       setDebugInfo('Unexpected server response. (2)');
       return null;
     }
@@ -125,12 +123,26 @@ export const getLyricsList = async (
 
   const filteredResults = [];
   for (const item of data) {
-    if (!item.syncedLyrics) continue;
-
     const { artist } = songData;
     const { artistName } = item;
 
-    const ratio = jaroWinkler(artist.toLowerCase(), artistName.toLowerCase());
+    const artists = artist.split(/&,/).map((i) => i.trim());
+    const itemArtists = artistName.split(/&,/).map((i) => i.trim());
+
+    const permutations = [];
+    for (const artistA of artists) {
+      for (const artistB of itemArtists) {
+        permutations.push([artistA.toLowerCase(), artistB.toLowerCase()]);
+      }
+    }
+
+    for (const artistA of itemArtists) {
+      for (const artistB of artists) {
+        permutations.push([artistA.toLowerCase(), artistB.toLowerCase()]);
+      }
+    }
+
+    const ratio = Math.max(...permutations.map(([x, y]) => jaroWinkler(x, y)));
 
     if (ratio <= 0.9) continue;
     filteredResults.push(item);
@@ -146,23 +158,31 @@ export const getLyricsList = async (
 
   const closestResult = filteredResults[0];
   if (!closestResult) {
-    setIsFetching(false);
     setDebugInfo('No search result matched the criteria.');
     return null;
   }
 
-  //   setDebugInfo(JSON.stringify(closestResult, null, 4));
+    setDebugInfo(JSON.stringify(closestResult, null, 4));
 
-  if (Math.abs(closestResult.duration - duration) > 15) return null;
+  if (Math.abs(closestResult.duration - duration) > 15) {
+    return null;
+  }
+
   if (Math.abs(closestResult.duration - duration) > 5) {
     // show message that the timings may be wrong
     setDifferentDuration(true);
   }
 
   setIsInstrumental(closestResult.instrumental);
+  if (closestResult.instrumental) {
+    return null;
+  }
 
   // Separate the lyrics into lines
-  const raw = closestResult.syncedLyrics.split('\n');
+  const raw = closestResult.syncedLyrics?.split('\n') ?? [];
+  if (!raw.length) {
+    return null;
+  }
 
   // Add a blank line at the beginning
   raw.unshift('[0:0.0] ');
@@ -186,6 +206,5 @@ export const getLyricsList = async (
     line.duration = next.timeInMs - line.timeInMs;
   }
 
-  setIsFetching(false);
   return syncedLyricList;
 };

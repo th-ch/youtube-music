@@ -3,6 +3,7 @@
 import { VideoDetails } from './video-details';
 import { GetPlayerResponse } from './get-player-response';
 import { PlayerAPIEvents } from './player-api-events';
+import { WatchNextResponse } from '@/types/youtube-music-desktop-internal';
 
 export interface YoutubePlayer {
   getInternalApiInterface: <Parameters extends unknown[], Return>(
@@ -427,4 +428,6 @@ export interface YoutubePlayer {
   addEmbedsConversionTrackingParams: <Parameters extends unknown[], Return>(
     ...params: Parameters
   ) => Return;
+
+  getWatchNextResponse(): WatchNextResponse;
 }
