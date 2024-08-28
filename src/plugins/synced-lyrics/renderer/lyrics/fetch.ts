@@ -126,8 +126,8 @@ export const getLyricsList = async (
     const { artist } = songData;
     const { artistName } = item;
 
-    const artists = artist.split(/&,/).map((i) => i.trim());
-    const itemArtists = artistName.split(/&,/).map((i) => i.trim());
+    const artists = artist.split(/[&,]/g).map((i) => i.trim());
+    const itemArtists = artistName.split(/[&,]/g).map((i) => i.trim());
 
     const permutations = [];
     for (const artistA of artists) {
