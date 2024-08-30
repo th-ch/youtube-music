@@ -52,7 +52,7 @@ export const makeLyricsRequest = async (extractedSongInfo: SongInfo) => {
   const songData: Parameters<typeof getLyricsList>[0] = {
     title: `${extractedSongInfo.title}`,
     artist: `${extractedSongInfo.artist}`,
-    album: `${extractedSongInfo.album}`,
+    album: `${extractedSongInfo.album || ''}`,
     songDuration: extractedSongInfo.songDuration,
   };
 
