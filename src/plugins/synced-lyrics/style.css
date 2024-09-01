@@ -76,3 +76,61 @@
   color: var(--upcoming-lyrics);
   font-weight: normal;
 }
+
+.lyrics-renderer {
+  display: flex;
+  flex-direction: column;
+}
+
+.lyrics-picker {
+  height: 5em;
+  margin-top: 5%;
+
+  display: flex;
+  flex-direction: row;
+
+  justify-content: space-around;
+  align-items: center;
+}
+
+.lyrics-picker-content {
+  display: flex;
+  width: 50%;
+
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.lyrics-picker-content-label {
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  padding-block: 5%;
+}
+
+.lyrics-picker-content-dots {
+  display: block;
+  list-style: none;
+}
+
+.lyrics-picker-item {
+  display: flex;
+  min-width: 100%;
+  height: 100%;
+
+  justify-content: center;
+  align-items: center;
+
+  transition: transform 0.25s ease-in-out;
+}
+
+.lyrics-picker-dot {
+  display: inline-block;
+  cursor: pointer;
+  width: 5px;
+  height: 5px;
+  margin: 0 4px 0;
+  border-radius: 200px;
+  border: 1px solid #6e7c7c7f;
+}

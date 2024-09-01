@@ -1,3 +1,5 @@
+import { Icons } from '@/types/icons';
+
 import type { ComponentProps } from 'solid-js';
 
 declare module 'solid-js' {
@@ -28,11 +30,17 @@ declare module 'solid-js' {
       active?: boolean;
     }
 
+    interface TpYtPaperIconButtonProps {
+      icon: Icons;
+    }
+
     interface IntrinsicElements {
       'yt-formatted-string': ComponentProps<'span'> & YtFormattedStringProps;
       'yt-button-renderer': ComponentProps<'button'> & YtButtonRendererProps;
       'tp-yt-paper-spinner-lite': ComponentProps<'div'> &
         YpYtPaperSpinnerLiteProps;
+      'tp-yt-paper-icon-button': ComponentProps<'div'> &
+        TpYtPaperIconButtonProps;
     }
   }
 }
