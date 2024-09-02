@@ -209,8 +209,8 @@ importers:
         specifier: 5.1.0
         version: 5.1.0
       discord-api-types:
-        specifier: 0.37.93
-        version: 0.37.93
+        specifier: 0.37.99
+        version: 0.37.99
       electron:
         specifier: 31.4.0
         version: 31.4.0
@@ -1797,8 +1797,8 @@ packages:
   discord-api-types@0.37.83:
     resolution: {integrity: sha512-urGGYeWtWNYMKnYlZnOnDHm8fVRffQs3U0SpE8RHeiuLKb/u92APS8HoQnPTFbnXmY1vVnXjXO4dOxcAn3J+DA==}
 
-  discord-api-types@0.37.93:
-    resolution: {integrity: sha512-M5jn0x3bcXk8EI2c6F6V6LeOWq10B/cJf+YJSyqNmg7z4bdXK+Z7g9zGJwHS0h9Bfgs0nun2LQISFOzwck7G9A==}
+  discord-api-types@0.37.99:
+    resolution: {integrity: sha512-aQtiAeLF1RHh8iYC2manEQQwsCjeDTA/Y+vhL7TRcRu+8z8nKTd5fGquDG7nbBqOkw0zU3YsZBO5evHx240VVw==}
 
   dmg-builder@24.13.3:
     resolution: {integrity: sha512-rcJUkMfnJpfCboZoOOPf4L29TRtEieHNOeAbYPWPxlaBw/Z1RKrRA86dOI9rwaI4tQSc/RD82zTNHprfUHXsoQ==}
@@ -4931,7 +4931,7 @@ snapshots:
     dependencies:
       '@discordjs/rest': 2.3.0
       '@vladfrangu/async_event_emitter': 2.4.4
-      discord-api-types: 0.37.93
+      discord-api-types: 0.37.99
       ws: 8.18.0(bufferutil@4.0.8)(utf-8-validate@6.0.4)
     transitivePeerDependencies:
       - bufferutil
@@ -5668,7 +5668,7 @@ snapshots:
 
   discord-api-types@0.37.83: {}
 
-  discord-api-types@0.37.93: {}
+  discord-api-types@0.37.99: {}
 
   dmg-builder@24.13.3(electron-builder-squirrel-windows@24.13.3):
     dependencies:
