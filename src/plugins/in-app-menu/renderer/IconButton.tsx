@@ -1,9 +1,9 @@
 import { JSX } from 'solid-js';
 import { css } from 'solid-styled-components';
 
-import { cache } from '@/providers/decorators';
+import { cacheNoArgs } from '@/providers/decorators';
 
-const iconButton = cache(() => css`
+const iconButton = cacheNoArgs(() => css`
   -webkit-app-region: none;
 
   background: transparent;

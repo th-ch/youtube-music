@@ -207,6 +207,10 @@
     }
   },
   "plugins": {
+    "ad-speedup": {
+      "description": "Jika iklan diputar, audio akan dimatikan dan kecepatan pemutaran akan diatur ke 16x",
+      "name": "Percepatan Iklan"
+    },
     "adblocker": {
       "description": "Blokir semua iklan dan pelacakan di luar kotak",
       "menu": {
@@ -410,6 +414,21 @@
       "description": "Unduh MP3 / sumber suara secara langsung via antarmuka",
       "menu": {
         "choose-download-folder": "Pilih folder unduhan",
+        "download-finish-settings": {
+          "label": "Unduh setelah selesai",
+          "prompt": {
+            "last-percent": "x persen terakhir",
+            "last-seconds": "x detik terakhir",
+            "title": "Konfigurasikan kapan akan mengunduh"
+          },
+          "submenu": {
+            "advanced": "Lanjutan",
+            "enabled": "Diaktifkan",
+            "mode": "Mode waktu",
+            "percent": "Persen",
+            "seconds": "Detik"
+          }
+        },
         "download-playlist": "Unduh daftar putar",
         "presets": "Prasetel",
         "skip-existing": "Lewati berkas yang sudah ada"
@@ -648,6 +667,59 @@
     "sponsorblock": {
       "description": "Otomatis Melewati bagian yang bukan musik seperti intro/outro atau bagian dari video musik di mana lagu tidak dimainkan",
       "name": "SponsorBlock"
+    },
+    "synced-lyrics": {
+      "description": "Menyediakan lirik lagu yang disinkronkan, menggunakan penyedia seperti LRClib.",
+      "errors": {
+        "fetch": "⚠️ - Terjadi kesalahan saat mengambil lirik. Coba lagi nanti.",
+        "not-found": "⚠️ - Tidak ada lirik yang ditemukan untuk lagu ini."
+      },
+      "menu": {
+        "default-text-string": {
+          "label": "Karakter default antara lirik",
+          "tooltip": "Pilih karakter default yang akan digunakan untuk celah antar lirik"
+        },
+        "line-effect": {
+          "label": "Efek garis",
+          "submenu": {
+            "focus": {
+              "label": "Fokus",
+              "tooltip": "Jadikan hanya baris saat ini berwarna putih"
+            },
+            "offset": {
+              "label": "Offset",
+              "tooltip": "Mengimbangi garis saat ini di sebelah kanan"
+            },
+            "scale": {
+              "label": "Skala",
+              "tooltip": "Skala garis saat ini"
+            }
+          },
+          "tooltip": "Pilih efek yang akan diterapkan ke baris saat ini"
+        },
+        "precise-timing": {
+          "label": "Buat liriknya tersinkronisasi dengan sempurna",
+          "tooltip": "Hitung hingga milidetik tampilan baris berikutnya (dapat berdampak kecil pada kinerja)"
+        },
+        "show-lyrics-even-if-inexact": {
+          "label": "Tampilkan lirik meskipun tidak tepat",
+          "tooltip": "Jika lagu tidak ditemukan, plugin akan mencoba lagi dengan kueri pencarian yang berbeda.\nHasil dari percobaan kedua mungkin tidak tepat."
+        },
+        "show-time-codes": {
+          "label": "Tampilkan kode waktu",
+          "tooltip": "Tampilkan kode waktu di samping lirik"
+        }
+      },
+      "name": "Lirik yang Disinkronkan",
+      "refetch-btn": {
+        "fetching": "Mengambil...",
+        "normal": "Ambil ulang lirik"
+      },
+      "warnings": {
+        "duration-mismatch": "⚠️ - Liriknya mungkin tidak sinkron karena ketidakcocokan durasi.",
+        "inexact": "⚠️ - Lirik lagu ini mungkin tidak tepat",
+        "instrumental": "⚠️ - Ini adalah lagu instrumental"
+      }
     },
     "taskbar-mediacontrol": {
       "description": "Kendalikan pemutaran dari bilah alat Windows",

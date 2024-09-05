@@ -56,6 +56,7 @@ import { loadI18n, setLanguage, t } from '@/i18n';
 import ErrorHtmlAsset from '@assets/error.html?asset';
 
 import type { PluginConfig } from '@/types/plugins';
+import BrowserWindowConstructorOptions = Electron.BrowserWindowConstructorOptions;
 
 if (!is.macOS()) {
   delete allPlugins['touchbar'];
@@ -100,9 +101,18 @@ if (config.get('options.disableHardwareAcceleration')) {
   app.disableHardwareAcceleration();
 }
 
-if (is.linux() && config.plugins.isEnabled('shortcuts')) {
+if (is.linux()) {
+  const disabledFeatures = [
+    // Workaround for issue #2248
+    'UseMultiPlaneFormatForSoftwareVideo',
+  ];
+
   // Stops chromium from launching its own MPRIS service
-  app.commandLine.appendSwitch('disable-features', 'MediaSessionService');
+  if (config.plugins.isEnabled('shortcuts')) {
+    disabledFeatures.push('MediaSessionService');
+  }
+
+  app.commandLine.appendSwitch('disable-features', disabledFeatures.join());
 }
 
 if (config.get('options.proxy')) {
@@ -277,6 +287,23 @@ async function createMainWindow() {
     height: 32,
   };
 
+  const decorations: Partial<BrowserWindowConstructorOptions> = {
+    frame: !is.macOS() && !useInlineMenu,
+    titleBarOverlay: defaultTitleBarOverlayOptions,
+    titleBarStyle: useInlineMenu
+      ? 'hidden'
+      : is.macOS()
+        ? 'hiddenInset'
+        : 'default',
+    autoHideMenuBar: config.get('options.hideMenu'),
+  };
+
+  // Note: on linux, for some weird reason, having these extra properties with 'frame: false' does not work
+  if (is.linux() && useInlineMenu) {
+    delete decorations.titleBarOverlay;
+    delete decorations.titleBarStyle;
+  }
+
   const win = new BrowserWindow({
     icon,
     width: windowSize.width,
@@ -294,14 +321,7 @@ async function createMainWindow() {
             sandbox: false,
           }),
     },
-    frame: !is.macOS() && !useInlineMenu,
-    titleBarOverlay: defaultTitleBarOverlayOptions,
-    titleBarStyle: useInlineMenu
-      ? 'hidden'
-      : is.macOS()
-      ? 'hiddenInset'
-      : 'default',
-    autoHideMenuBar: config.get('options.hideMenu'),
+    ...decorations,
   });
   initHook(win);
   initTheme(win);
@@ -312,28 +332,29 @@ async function createMainWindow() {
     const { x: windowX, y: windowY } = windowPosition;
     const winSize = win.getSize();
     const display = screen.getDisplayNearestPoint(windowPosition);
-    const scaleFactor = is.windows() ? display.scaleFactor: 1;
+    const primaryDisplay = screen.getPrimaryDisplay();
 
-    const scaledWidth = Math.floor(windowSize.width / scaleFactor);
-    const scaledHeight = Math.floor(windowSize.height / scaleFactor);
+    const scaleFactor = is.windows() ? primaryDisplay.scaleFactor / display.scaleFactor : 1;
+    const scaledWidth = Math.floor(windowSize.width * scaleFactor);
+    const scaledHeight = Math.floor(windowSize.height * scaleFactor);
 
     const scaledX = windowX;
     const scaledY = windowY;
 
     if (
-      scaledX + scaledWidth < display.bounds.x - 8 ||
-      scaledX - scaledWidth > display.bounds.x + display.bounds.width ||
-      scaledY < display.bounds.y - 8 ||
-      scaledY > display.bounds.y + display.bounds.height
+      scaledX + (scaledWidth / 2) < display.bounds.x - 8 || // Left
+      scaledX + (scaledWidth / 2) > display.bounds.x + display.bounds.width || // Right
+      scaledY < display.bounds.y - 8 || // Top
+      scaledY + (scaledHeight / 2) > display.bounds.y + display.bounds.height // Bottom
     ) {
       // Window is offscreen
       if (is.dev()) {
         console.warn(
           LoggerPrefix,
           t('main.console.window.tried-to-render-offscreen', {
-            winSize: String(winSize),
-            displaySize: String(display.bounds),
-            windowPosition: String(windowPosition),
+            windowSize: String(winSize),
+            displaySize: JSON.stringify(display.bounds),
+            position: JSON.stringify(windowPosition),
           }),
         );
       }

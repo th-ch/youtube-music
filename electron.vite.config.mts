@@ -1,17 +1,17 @@
 import { resolve, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { UserConfig } from 'vite';
 import { defineConfig, defineViteConfig } from 'electron-vite';
 import builtinModules from 'builtin-modules';
 import viteResolve from 'vite-plugin-resolve';
 import Inspect from 'vite-plugin-inspect';
+import solidPlugin from 'vite-plugin-solid';
 
 import { pluginVirtualModuleGenerator } from './vite-plugins/plugin-importer.mjs';
 import pluginLoader from './vite-plugins/plugin-loader.mjs';
 
-import type { UserConfig } from 'vite';
 import { i18nImporter } from './vite-plugins/i18n-importer.mjs';
-import solidPlugin from 'vite-plugin-solid';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -51,8 +51,12 @@ export default defineConfig({
     };
 
     if (mode === 'development') {
+      commonConfig.build!.sourcemap = 'inline';
       commonConfig.plugins?.push(
-        Inspect({ build: true, outputDir: join(__dirname, '.vite-inspect/backend') }),
+        Inspect({
+          build: true,
+          outputDir: join(__dirname, '.vite-inspect/backend'),
+        }),
       );
       return commonConfig;
     }
@@ -95,8 +99,12 @@ export default defineConfig({
     };
 
     if (mode === 'development') {
+      commonConfig.build!.sourcemap = 'inline';
       commonConfig.plugins?.push(
-        Inspect({ build: true, outputDir: join(__dirname, '.vite-inspect/preload') }),
+        Inspect({
+          build: true,
+          outputDir: join(__dirname, '.vite-inspect/preload'),
+        }),
       );
       return commonConfig;
     }
@@ -142,8 +150,12 @@ export default defineConfig({
     };
 
     if (mode === 'development') {
+      commonConfig.build!.sourcemap = 'inline';
       commonConfig.plugins?.push(
-        Inspect({ build: true, outputDir: join(__dirname, '.vite-inspect/renderer') }),
+        Inspect({
+          build: true,
+          outputDir: join(__dirname, '.vite-inspect/renderer'),
+        }),
       );
       return commonConfig;
     }

@@ -65,7 +65,7 @@
         },
         "detail": "ご不便をおかけして申し訳ございません! 何をするか選んでください:",
         "message": "アプリケーションは応答していません",
-        "title": "ウィンドウが応答しません"
+        "title": "ウィンドウが応答していません"
       },
       "update-available": {
         "buttons": {
@@ -207,6 +207,10 @@
     }
   },
   "plugins": {
+    "ad-speedup": {
+      "description": "広告が再生されると、自動的にミュートされ、再生速度が16倍に設定されます",
+      "name": "広告のスピードを上げる"
+    },
     "adblocker": {
       "description": "すべての広告とトラッカーをブロックj",
       "menu": {
@@ -410,6 +414,21 @@
       "description": "UIから直にMP3・ソースオーディオをダウンロードします",
       "menu": {
         "choose-download-folder": "ダウンロードフォルダ",
+        "download-finish-settings": {
+          "label": "完了時にダウンロード",
+          "prompt": {
+            "last-percent": "x パーセント後",
+            "last-seconds": "最後の x 秒",
+            "title": "保存するタイミング"
+          },
+          "submenu": {
+            "advanced": "高度な設定",
+            "enabled": "有効",
+            "mode": "時間モード",
+            "percent": "パーセント",
+            "seconds": "秒"
+          }
+        },
         "download-playlist": "プレイリストをダウンロード",
         "presets": "プリセット",
         "skip-existing": "存在するファイルをスキップ"
@@ -648,6 +667,59 @@
     "sponsorblock": {
       "description": "イントロ/アウトロなどの音楽以外の部分や、曲が再生されていないミュージック ビデオの部分を自動的にスキップします",
       "name": "SponsorBlock"
+    },
+    "synced-lyrics": {
+      "description": "LRClibのようなプロバイダを使って、楽曲に同期した歌詞を使用する。",
+      "errors": {
+        "fetch": "⚠️ - 歌詞の取得中にエラーが発生しました。 後でもう一度お試しください。",
+        "not-found": "⚠️ - この曲の歌詞は見つかりませんでした。"
+      },
+      "menu": {
+        "default-text-string": {
+          "label": "デフォルトの歌詞間の文字",
+          "tooltip": "歌詞と歌詞の間に使用するデフォルトの文字を選択してください"
+        },
+        "line-effect": {
+          "label": "歌詞表示のエフェクト",
+          "submenu": {
+            "focus": {
+              "label": "フォーカス",
+              "tooltip": "現在の行だけを白くする"
+            },
+            "offset": {
+              "label": "オフセット",
+              "tooltip": "オフセットを現在の行の右側にする"
+            },
+            "scale": {
+              "label": "サイズ",
+              "tooltip": "現在の行のサイズ変更をする"
+            }
+          },
+          "tooltip": "現在の行に適用するエフェクトを選択"
+        },
+        "precise-timing": {
+          "label": "歌詞を完璧に同期させる",
+          "tooltip": "次の行の表示をミリ秒単位で計算する（パフォーマンスに若干の影響を与える可能性があります）"
+        },
+        "show-lyrics-even-if-inexact": {
+          "label": "歌詞が不正確でも表示する",
+          "tooltip": "曲が見つからなかった場合、プラグインは別の検索クエリで再試行します。\nただし、再試行の結果は正確でない可能性があります。"
+        },
+        "show-time-codes": {
+          "label": "タイムコードを表示",
+          "tooltip": "歌詞の横にタイムコードを表示"
+        }
+      },
+      "name": "歌詞を同期",
+      "refetch-btn": {
+        "fetching": "取得中...",
+        "normal": "歌詞を再取得"
+      },
+      "warnings": {
+        "duration-mismatch": "⚠️ - タイミングが合わないため、歌詞が同期されていない可能性があります。",
+        "inexact": "⚠️ - この曲の歌詞は正確ではないかもしれません",
+        "instrumental": "⚠️ - これは演奏のみの曲です"
+      }
     },
     "taskbar-mediacontrol": {
       "description": "Windowsタスクバーから再生をコントロール",

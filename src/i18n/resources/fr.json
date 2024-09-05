@@ -105,7 +105,7 @@
                 "label": "Définir un proxy",
                 "prompt": {
                   "label": "Entrez l'adresse proxy : (laissez vide pour désactiver)",
-                  "placeholder": "Exemple: SOCKS5://127.0.0.1:9999",
+                  "placeholder": "Exemple : SOCKS5://127.0.0.1:9999",
                   "title": "Définir un proxy"
                 }
               },
@@ -179,7 +179,7 @@
       "plugins": {
         "enabled": "Activé",
         "label": "Extensions",
-        "new": "NOUVELLE"
+        "new": "NOUVEAU"
       },
       "view": {
         "label": "Vue",
@@ -207,6 +207,10 @@
     }
   },
   "plugins": {
+    "ad-speedup": {
+      "description": "Si une publicité apparaît, le son est coupé et la vitesse de lecture est réglée sur 16x",
+      "name": "Accélérer les publicités"
+    },
     "adblocker": {
       "description": "Bloquer toutes les annonces et le suivi par défaut",
       "menu": {
@@ -410,6 +414,21 @@
       "description": "Télécharge les fichiers MP3/source audio directement depuis l'interface",
       "menu": {
         "choose-download-folder": "Choisissez le dossier de téléchargement",
+        "download-finish-settings": {
+          "label": "Télécharger une fois terminé",
+          "prompt": {
+            "last-percent": "Après x pour cent",
+            "last-seconds": "Dernières x secondes",
+            "title": "Configurer quand télécharger"
+          },
+          "submenu": {
+            "advanced": "Avancé",
+            "enabled": "Activé",
+            "mode": "Mode de temps",
+            "percent": "Pourcent",
+            "seconds": "Secondes"
+          }
+        },
         "download-playlist": "Télécharger la liste de lecture",
         "presets": "Préconfigurations",
         "skip-existing": "Passer les fichiers existants"
@@ -648,6 +667,59 @@
     "sponsorblock": {
       "description": "Saute automatiquement les parties non musicales comme l'intro/outro ou les parties de clips vidéo où la chanson n'est pas lue",
       "name": "SponsorBlock"
+    },
+    "synced-lyrics": {
+      "description": "Ajoute des paroles synchronisées aux chansons, grâce à LRClib par exemple.",
+      "errors": {
+        "fetch": "⚠️ - Une erreur s'est produite en allant chercher les paroles. Merci de réessayer plus tard.",
+        "not-found": "⚠️ - Aucune paroles trouvées pour cette musique."
+      },
+      "menu": {
+        "default-text-string": {
+          "label": "Caractère par défaut entre les paroles",
+          "tooltip": "Choisi le caractère par défaut à utiliser pour l'espace entre les paroles"
+        },
+        "line-effect": {
+          "label": "Effet de ligne",
+          "submenu": {
+            "focus": {
+              "label": "Focus",
+              "tooltip": "Rend seulement la ligne actuelle blanche"
+            },
+            "offset": {
+              "label": "Décalage",
+              "tooltip": "Décale sur la droite la ligne actuelle"
+            },
+            "scale": {
+              "label": "Grossissement",
+              "tooltip": "Agrandis la ligne actuelle"
+            }
+          },
+          "tooltip": "Choisi l'effet à appliquer sur la ligne actuelle"
+        },
+        "precise-timing": {
+          "label": "Rend les paroles parfaitement synchronisées",
+          "tooltip": "Calcul à la milliseconde près l'affichage de la ligne suivante (peut avoir un faible impact sur les performances)"
+        },
+        "show-lyrics-even-if-inexact": {
+          "label": "Afficher les paroles même si inexactes",
+          "tooltip": "Si la musique n'est pas trouvé, le plugin essaye à nouveau avec une différence requête.\nLe résultat du deuxième essais peut ne pas être exacte."
+        },
+        "show-time-codes": {
+          "label": "Afficher les timecodes",
+          "tooltip": "Affiche à côté de chaque paroles son timecode"
+        }
+      },
+      "name": "Paroles Synchronisées",
+      "refetch-btn": {
+        "fetching": "Chargement...",
+        "normal": "Rafraîchir les paroles"
+      },
+      "warnings": {
+        "duration-mismatch": "⚠️ - Les paroles peuvent ne pas être synchronisées à cause d'une différence de durée.",
+        "inexact": "⚠️ - Les paroles de cette chanson peuvent ne pas être exactes",
+        "instrumental": "⚠️ - Cette musique n'a pas de paroles"
+      }
     },
     "taskbar-mediacontrol": {
       "description": "Contrôlez la lecture depuis votre barre des tâches Windows",

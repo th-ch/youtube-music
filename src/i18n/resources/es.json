@@ -207,6 +207,10 @@
     }
   },
   "plugins": {
+    "ad-speedup": {
+      "description": "Si se reproduce un anuncio, silencia el audio y fija la velocidad de reproducción en 16x",
+      "name": "Aumento de la velocidad de anuncios"
+    },
     "adblocker": {
       "description": "Bloquear todos los anuncios y el rastreo",
       "menu": {
@@ -663,6 +667,59 @@
     "sponsorblock": {
       "description": "Salta automáticamente las partes no musicales como la introducción/final o secciones de videos musicales donde la canción no está sonando",
       "name": "SponsorBlock"
+    },
+    "synced-lyrics": {
+      "description": "Proporciona letras de canciones sincronizadas, utilizando proveedores como LRClib.",
+      "errors": {
+        "fetch": "⚠️ - Se ha producido un error al descargar la letra. Por favor, vuelve a intentarlo más tarde.",
+        "not-found": "⚠️ - No se ha encontrado ninguna letra para esta canción."
+      },
+      "menu": {
+        "default-text-string": {
+          "label": "Carácter predeterminado entre letras",
+          "tooltip": "Elige el carácter predeterminado que se utilizará para el espacio entre letras"
+        },
+        "line-effect": {
+          "label": "Efecto de la línea",
+          "submenu": {
+            "focus": {
+              "label": "Enfoque",
+              "tooltip": "Mostrar solo la línea actual en blanco"
+            },
+            "offset": {
+              "label": "Desplazamiento",
+              "tooltip": "Desplazamiento a la derecha de la línea actual"
+            },
+            "scale": {
+              "label": "Escala",
+              "tooltip": "Escala de la línea actual"
+            }
+          },
+          "tooltip": "Elige el efecto que deseas aplicar a la línea actual"
+        },
+        "precise-timing": {
+          "label": "Haz que la letra esté perfectamente sincronizada",
+          "tooltip": "Calcular al milisegundo la visualización de la línea siguiente (puede tener un pequeño impacto en el rendimiento)"
+        },
+        "show-lyrics-even-if-inexact": {
+          "label": "Mostrar la letra aunque sea inexacta",
+          "tooltip": "Si no se encuentra la canción, el complemento vuelve a intentarlo con una búsqueda diferente.\nEl resultado del segundo intento puede no ser exacto."
+        },
+        "show-time-codes": {
+          "label": "Visualización del código de tiempo",
+          "tooltip": "Mostrar los códigos de tiempo junto a la letra"
+        }
+      },
+      "name": "Letras sincronizadas",
+      "refetch-btn": {
+        "fetching": "Recuperando...",
+        "normal": "Volver a buscar letras"
+      },
+      "warnings": {
+        "duration-mismatch": "⚠️ - La letra puede estar desincronizada debido a un desajuste en la duración.",
+        "inexact": "⚠️ - La letra de esta canción puede no ser exacta",
+        "instrumental": "⚠️ - Se trata de una canción instrumental"
+      }
     },
     "taskbar-mediacontrol": {
       "description": "Controla la reproducción desde la barra de tareas de Windows",

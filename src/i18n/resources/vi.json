@@ -2,7 +2,7 @@
   "common": {
     "console": {
       "plugins": {
-        "execute-failed": "Lỗi khi bắt đầu phần mở rộng {{pluginName}}::{{contextName}}",
+        "execute-failed": "Lỗi thực thi plugin {{pluginName}}::{{contextName}}",
         "executed-at-ms": "Phần mở rộng {{pluginName}}::{{contextName}} đã bắt đầu trong {{ms}}ms",
         "initialize-failed": "Lỗi khi khởi động phần mở rộng \"{{pluginName}}\"",
         "load-all": "Đang tải tất cả phần mở rộng",
@@ -207,6 +207,10 @@
     }
   },
   "plugins": {
+    "ad-speedup": {
+      "description": "Nếu một quảng cáo được phát thì sẽ bị tắt tiếng và tăng tốc độ phát lên 16x",
+      "name": "Tăng tốc quảng cáo"
+    },
     "adblocker": {
       "description": "Chặn toàn bộ quảng cáo và trình theo dõi",
       "menu": {
@@ -410,6 +414,21 @@
       "description": "Tải xuống MP3 / âm thanh nguồn trực tiếp từ giao diện",
       "menu": {
         "choose-download-folder": "Chọn thư mục tải xuống",
+        "download-finish-settings": {
+          "label": "Tải xuống khi hoàn tất",
+          "prompt": {
+            "last-percent": "Sau x phần trăm",
+            "last-seconds": "x giây cuối",
+            "title": "Định cấu hình thời điểm tải xuống"
+          },
+          "submenu": {
+            "advanced": "Nâng cao",
+            "enabled": "Đã kích hoạt",
+            "mode": "Chế độ thời gian",
+            "percent": "Phần trăm",
+            "seconds": "Giây"
+          }
+        },
         "download-playlist": "Tải danh sách phát",
         "presets": "Cài đặt sẵn",
         "skip-existing": "Bỏ qua các tập tin hiện có"
@@ -648,6 +667,55 @@
     "sponsorblock": {
       "description": "Tự động bỏ qua các phần không phải âm nhạc như phần giới thiệu/kết thúc hoặc các phần của video nhạc mà bài hát không được phát",
       "name": "SponsorBlock"
+    },
+    "synced-lyrics": {
+      "description": "Cung cấp lời bài hát được đồng bộ hoá với các bài hát, sử dụng những nhà cung cấp như LRClib.",
+      "errors": {
+        "fetch": "⚠️ - Đã xảy ra lỗi khi tìm nạp lời bài hát, Vui lòng thử lại sau.",
+        "not-found": "⚠️ - Không tìm thấy lời cho bài hát này."
+      },
+      "menu": {
+        "default-text-string": {
+          "label": "Kí tự mặc định giữa các lời bài hát",
+          "tooltip": "Chọn kí tự mặc định cho khoảng trống giữa các lời bài hát"
+        },
+        "line-effect": {
+          "label": "Kiểu đường thẳng",
+          "submenu": {
+            "focus": {
+              "label": "Tập trung",
+              "tooltip": "Chỉ làm cho dòng hiện tại có màu trắng"
+            },
+            "scale": {
+              "label": "Tỉ lệ",
+              "tooltip": "Áp dụng tỉ lệ cho dòng hiện tại"
+            }
+          },
+          "tooltip": "Chọn kiểu để áp dụng cho dòng hiện tại"
+        },
+        "precise-timing": {
+          "label": "Làm cho lời bài hát được đồng bộ hoàn hảo",
+          "tooltip": "Tính toán chính xác đến mili giây thời gian hiển thị dòng tiếp theo (có thể có tác động nhỏ đến hiệu suất)"
+        },
+        "show-lyrics-even-if-inexact": {
+          "label": "Hiển thị lời bài hát ngay cả khi không chính xác",
+          "tooltip": "Nếu không tìm thấy bài hát, plugin sẽ thử lại bằng truy vấn tìm kiếm khác.\nKết quả từ lần thử thứ hai có thể không chính xác."
+        },
+        "show-time-codes": {
+          "label": "Hiện mốc thời gian",
+          "tooltip": "Hiện mốc thời gian bên cạnh lời bài hát"
+        }
+      },
+      "name": "Lời bài hát được đồng bộ hoá",
+      "refetch-btn": {
+        "fetching": "Đang tìm nạp...",
+        "normal": "Tải lại lời bài hát"
+      },
+      "warnings": {
+        "duration-mismatch": "⚠️ - Lời bài hát có thể không đồng bộ do thời lượng không khớp.",
+        "inexact": "⚠️ - Lời bài hát này có thể không chính xác",
+        "instrumental": "⚠️ - Đây là một bài hát trình diễn bằng nhạc khí"
+      }
     },
     "taskbar-mediacontrol": {
       "description": "Kiểm soát phát lại từ thanh tác vụ Windows của bạn",

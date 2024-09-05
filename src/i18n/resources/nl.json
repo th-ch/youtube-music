@@ -158,6 +158,14 @@
               },
               "remove-upgrade-button": "Upgrade-knop verwijderen",
               "theme": {
+                "dialog": {
+                  "button": {
+                    "cancel": "Annuleren",
+                    "remove": "Verwijderen"
+                  },
+                  "remove-theme": "Weet je zeker dat je het aangepaste thema wilt verwijderen?",
+                  "remove-theme-message": "Dit verwijderd het aangepaste thema"
+                },
                 "label": "Thema",
                 "submenu": {
                   "import-css-file": "Aangepast CSS-bestand importeren",
@@ -199,6 +207,10 @@
     }
   },
   "plugins": {
+    "ad-speedup": {
+      "description": "Wanneer een advertentie afspeelt, dempt het geluid en versnelt de playback naar 16x",
+      "name": "Snellere advertenties"
+    },
     "adblocker": {
       "description": "Blokkeer alle advertenties en tracking vanuit de doos",
       "menu": {
@@ -402,6 +414,21 @@
       "description": "Download MP3 / bron-audio rechtstreeks vanuit de interface",
       "menu": {
         "choose-download-folder": "Kies de downloadmap",
+        "download-finish-settings": {
+          "label": "Downloaden bij voltooiing",
+          "prompt": {
+            "last-percent": "Na x procent",
+            "last-seconds": "Laatste x seconden",
+            "title": "Configureren wanneer te downloaden"
+          },
+          "submenu": {
+            "advanced": "Geavanceerd",
+            "enabled": "Ingeschakeld",
+            "mode": "Tijd-modus",
+            "percent": "Procent",
+            "seconds": "Seconden"
+          }
+        },
         "download-playlist": "Afspeellijst downloaden",
         "presets": "Voorinstellingen",
         "skip-existing": "Bestaande bestanden overslaan"
@@ -523,8 +550,20 @@
         "save-window-size": "Sla schermgrootte op"
       }
     },
+    "video-toggle": {
+      "menu": {
+        "mode": {
+          "submenu": {
+            "disabled": "Uitgeschakeld"
+          }
+        }
+      }
+    },
     "visualizer": {
       "description": "Voeg een visuele equalizer toe",
+      "menu": {
+        "visualizer-type": "Type visualisator"
+      },
       "name": "Visualisator"
     }
   }

@@ -200,6 +200,26 @@ export default (api: YoutubePlayer) => {
     for (const status of ['playing', 'pause'] as const) {
       video.addEventListener(status, playPausedHandlers[status]);
     }
+
+    if (!isNaN(video.duration)) {
+      const {
+        title, author,
+        video_id: videoId,
+        list: playlistId
+      } = api.getVideoData();
+
+      const { playerOverlays } = api.getWatchNextResponse();
+
+      sendSongInfo(<VideoDataChangeValue>{
+        title, author, videoId, playlistId,
+
+        isUpcoming: false,
+        lengthSeconds: video.duration,
+        loading: true,
+
+        uhhh: { playerOverlays }
+      });
+    }
   }
 
   function sendSongInfo(videoData: VideoDataChangeValue) {

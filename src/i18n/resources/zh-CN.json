@@ -207,6 +207,10 @@
     }
   },
   "plugins": {
+    "ad-speedup": {
+      "description": "使用静音以及 16 倍速播放跳过广告片段",
+      "name": "广告加速跳过"
+    },
     "adblocker": {
       "description": "屏蔽所有广告与跟踪器",
       "menu": {
@@ -410,6 +414,21 @@
       "description": "在界面内直接下载 MP3 / 源音频",
       "menu": {
         "choose-download-folder": "选择下载文件夹",
+        "download-finish-settings": {
+          "label": "边播边下",
+          "prompt": {
+            "last-percent": "播放超过指定百分比时开始下载",
+            "last-seconds": "歌曲剩余指定秒数时开始下载",
+            "title": "配置在何时开始下载"
+          },
+          "submenu": {
+            "advanced": "高级",
+            "enabled": "已启用",
+            "mode": "激活时机",
+            "percent": "按播放百分比",
+            "seconds": "按播放秒数"
+          }
+        },
         "download-playlist": "下载播放列表",
         "presets": "预设",
         "skip-existing": "跳过已存在的文件"
@@ -648,6 +667,59 @@
     "sponsorblock": {
       "description": "自动跳过非音乐部分，如 MV 的介绍/结语以及歌曲未开始的部分",
       "name": "SponsorBlock"
+    },
+    "synced-lyrics": {
+      "description": "透过 LRClib 等服务提供滚动歌词显示。",
+      "errors": {
+        "fetch": "⚠️ - 获取歌词时发生错误。请稍后再试。",
+        "not-found": "⚠️ - 未找到此歌曲的歌词。"
+      },
+      "menu": {
+        "default-text-string": {
+          "label": "默认的歌词行间字符",
+          "tooltip": "选择在歌词间隙期间默认显示的字符"
+        },
+        "line-effect": {
+          "label": "歌词行特效",
+          "submenu": {
+            "focus": {
+              "label": "高亮",
+              "tooltip": "仅将当前歌词行显示为白色"
+            },
+            "offset": {
+              "label": "偏移",
+              "tooltip": "将当前歌词行向右偏移"
+            },
+            "scale": {
+              "label": "放大",
+              "tooltip": "放大当前歌词行"
+            }
+          },
+          "tooltip": "选择当前歌词行应用的特效"
+        },
+        "precise-timing": {
+          "label": "让滚动歌词完全同步",
+          "tooltip": "以毫秒精度估算下句歌词的显示时间（可能对性能有小幅影响）"
+        },
+        "show-lyrics-even-if-inexact": {
+          "label": "即使时值不精确依然显示歌词",
+          "tooltip": "若首次搜索未找到该歌曲的歌词，插件将尝试用不同的查询方式重新获取。\n重试查询的结果可能不精确。"
+        },
+        "show-time-codes": {
+          "label": "显示时值",
+          "tooltip": "在歌词旁显示时值"
+        }
+      },
+      "name": "滚动歌词",
+      "refetch-btn": {
+        "fetching": "正在获取…",
+        "normal": "重新获取歌词"
+      },
+      "warnings": {
+        "duration-mismatch": "⚠️ - 由于持续时间不对应，滚动歌词可能不同步。",
+        "inexact": "⚠️ - 此曲目的歌词可能不准确",
+        "instrumental": "⚠️ - 此曲目为纯音乐"
+      }
     },
     "taskbar-mediacontrol": {
       "description": "从 Windows 任务栏控制音乐回放",

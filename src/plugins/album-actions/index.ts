@@ -1,6 +1,7 @@
 import { t } from '@/i18n';
 import { createPlugin } from '@/utils';
 import { ElementFromHtml } from '@/plugins/utils/renderer';
+import { waitForElement } from '@/utils/wait-for-element';
 
 import undislikeHTML from './templates/undislike.html?raw';
 import dislikeHTML from './templates/dislike.html?raw';
@@ -16,7 +17,6 @@ export default createPlugin<
     changeObserver?: MutationObserver;
     waiting: boolean;
     onPageChange(): void;
-    waitForElem(selector: string): Promise<HTMLElement>;
     loadFullList: (event: MouseEvent) => void;
     applyToList(id: string, loader: HTMLElement): void;
     start(): void;
@@ -50,7 +50,7 @@ export default createPlugin<
       } else {
         this.waiting = true;
       }
-      const continuations = await this.waitForElem('#continuations');
+      const continuations = await waitForElement<HTMLElement>('#continuations');
       this.waiting = false;
       //Gets the for buttons
       const buttons: Array<HTMLElement> = [
@@ -182,17 +182,6 @@ export default createPlugin<
       for (const button of document.querySelectorAll('.like-menu')) {
         button.remove();
       }
-    },
-    waitForElem(selector: string) {
-      return new Promise((resolve) => {
-        const interval = setInterval(() => {
-          const elem = document.querySelector<HTMLElement>(selector);
-          if (!elem) return;
-
-          clearInterval(interval);
-          resolve(elem);
-        });
-      });
     },
   },
 });

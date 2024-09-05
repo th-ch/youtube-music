@@ -8,9 +8,9 @@ import { useFloating } from 'solid-floating-ui';
 import { autoUpdate, offset, size } from '@floating-ui/dom';
 
 import { Panel } from './Panel';
-import { cache } from '@/providers/decorators';
+import { cacheNoArgs } from '@/providers/decorators';
 
-const itemStyle = cache(() => css`
+const itemStyle = cacheNoArgs(() => css`
   position: relative;
 
   -webkit-app-region: none;
@@ -47,18 +47,18 @@ const itemStyle = cache(() => css`
   }
 `);
 
-const itemIconStyle = cache(() => css`
+const itemIconStyle = cacheNoArgs(() => css`
   height: 32px;
   padding: 4px;
   color: white;
 `);
 
-const itemLabelStyle = cache(() => css`
+const itemLabelStyle = cacheNoArgs(() => css`
   font-size: 12px;
   color: white;
 `);
 
-const itemChipStyle = cache(() => css`
+const itemChipStyle = cacheNoArgs(() => css`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -76,7 +76,7 @@ const itemChipStyle = cache(() => css`
   line-height: 1;
 `);
 
-const toolTipStyle = cache(() => css`
+const toolTipStyle = cacheNoArgs(() => css`
   min-width: 32px;
   width: 100%;
   height: 100%;
@@ -92,7 +92,7 @@ const toolTipStyle = cache(() => css`
   font-size: 10px;
 `);
 
-const popupStyle = cache(() => css`
+const popupStyle = cacheNoArgs(() => css`
   position: fixed;
   top: var(--offset-y, 0);
   left: var(--offset-x, 0);
@@ -105,7 +105,7 @@ const popupStyle = cache(() => css`
 
 `);
 
-const animationStyle = cache(() => ({
+const animationStyle = cacheNoArgs(() => ({
   enter: css`
     opacity: 0;
     transform: scale(0.9);

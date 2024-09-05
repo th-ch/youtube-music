@@ -207,6 +207,10 @@
     }
   },
   "plugins": {
+    "ad-speedup": {
+      "description": "Bir reklam oynatılırsa sesi kapatır ve oynatma hızını 16x olarak ayarlar",
+      "name": "Hızlandırma"
+    },
     "adblocker": {
       "description": "Tüm reklamları ve izleyicileri engelle",
       "menu": {
@@ -410,6 +414,21 @@
       "description": "MP3 / kaynak sesini doğrudan arayüzden indir",
       "menu": {
         "choose-download-folder": "İndirme klasörünü seç",
+        "download-finish-settings": {
+          "label": "Bittiğinde indir",
+          "prompt": {
+            "last-percent": "Yüzde x'ten sonra",
+            "last-seconds": "Son x saniyede",
+            "title": "Ne zaman indirileceğini ayarla"
+          },
+          "submenu": {
+            "advanced": "Gelişmiş",
+            "enabled": "Etkin",
+            "mode": "Zaman türü",
+            "percent": "Yüzde",
+            "seconds": "Saniye"
+          }
+        },
         "download-playlist": "Oynatma listesini indir",
         "presets": "Hazır Ayarlar",
         "skip-existing": "Mevcut dosyaları atla"
@@ -648,6 +667,59 @@
     "sponsorblock": {
       "description": "Giriş/Çıkış gibi müzik olmayan kısımları veya müzik videolarında şarkının çalmadığı kısımları otomatik olarak atlar",
       "name": "SponsorBlock"
+    },
+    "synced-lyrics": {
+      "description": "LRClib gibi sağlayıcıları kullanarak şarkılara senkronize şarkı sözleri sağlar.",
+      "errors": {
+        "fetch": "⚠️ - Şarkı sözleri getirilirken bir hata oluştu. Lütfen daha sonra tekrar deneyin.",
+        "not-found": "⚠️ - Bu şarkı için şarkı sözü bulunamadı."
+      },
+      "menu": {
+        "default-text-string": {
+          "label": "Şarkı sözleri arasında varsayılan karakter",
+          "tooltip": "Şarkı sözleri arasındaki boşluk için kullanılacak varsayılan karakteri seçin"
+        },
+        "line-effect": {
+          "label": "Çizgi etkisi",
+          "submenu": {
+            "focus": {
+              "label": "odak",
+              "tooltip": "Yalnızca geçerli satırı beyaz yapın"
+            },
+            "offset": {
+              "label": "telafi etmek,ofset",
+              "tooltip": "Geçerli satırın sağındaki ofset"
+            },
+            "scale": {
+              "label": "ölçek",
+              "tooltip": "Geçerli satırı ölçeklendirir"
+            }
+          },
+          "tooltip": "Geçerli satıra uygulanacak efekti seçin"
+        },
+        "precise-timing": {
+          "label": "Şarkı sözlerini mükemmel şekilde senkronize edin",
+          "tooltip": "Bir sonraki satırın görüntülenmesini milisaniyesine kadar hesaplayın (performans üzerinde küçük bir etkisi olabilir)"
+        },
+        "show-lyrics-even-if-inexact": {
+          "label": "Kesin olmasa bile şarkı sözlerini gösterin",
+          "tooltip": "Şarkı bulunamazsa, eklenti farklı bir arama sorgusuyla tekrar dener. \nİkinci denemenin sonucu tam olmayabilir."
+        },
+        "show-time-codes": {
+          "label": "Zaman kodlarını göster",
+          "tooltip": "Şarkı sözlerinin yanında zaman kodlarını gösterin"
+        }
+      },
+      "name": "Senkronize Şarkı Sözleri",
+      "refetch-btn": {
+        "fetching": "Getiriliyor...",
+        "normal": "Refetch şarkı sözleri"
+      },
+      "warnings": {
+        "duration-mismatch": "⚠️ - Süre uyuşmazlığı nedeniyle şarkı sözleri senkronize olmayabilir.",
+        "inexact": "⚠️ - Bu şarkının sözleri tam olmayabilir",
+        "instrumental": "⚠️ - Bu enstrümantal bir şarkıdır"
+      }
     },
     "taskbar-mediacontrol": {
       "description": "Windows görev çubuğu üzerinden oynatmayı kontrol edebilmenize olanak sağlar",

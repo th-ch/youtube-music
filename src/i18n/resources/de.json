@@ -207,6 +207,10 @@
     }
   },
   "plugins": {
+    "ad-speedup": {
+      "description": "Wenn eine Werbung spielt, stummt es das Audio und setzt die Wiedergabegeschwindigkeit auf 16x",
+      "name": "Werbungsbeschleunigung"
+    },
     "adblocker": {
       "description": "Blockiere jegliche Werbung und Tracker",
       "menu": {
@@ -410,24 +414,24 @@
       "description": "Lädt MP3-/Original-Audio direkt von der Schnittstelle herunter",
       "menu": {
         "choose-download-folder": "Downloadordner wählen",
+        "download-finish-settings": {
+          "label": "Song am Ende runterladen",
+          "prompt": {
+            "last-percent": "Nach x Prozent",
+            "last-seconds": "Letzten x Sekunden",
+            "title": "Konfiguriere wann runtergeladen werden soll"
+          },
+          "submenu": {
+            "advanced": "Erweitert",
+            "enabled": "Aktiviert",
+            "mode": "Zeitmodus",
+            "percent": "Prozent",
+            "seconds": "Sekunden"
+          }
+        },
         "download-playlist": "Wiedergabeliste herunterladen",
         "presets": "Voreinstellungen",
-        "skip-existing": "Vorhandene Dateien überspringen",
-        "download-finish-settings": {
-            "label": "Song am Ende runterladen",
-            "submenu": {
-              "enabled": "Aktiviert",
-              "mode": "Zeitmodus",
-              "seconds": "Sekunden",
-              "percent": "Prozent",
-              "advanced": "Erweitert"
-            },
-            "prompt": {
-              "title": "Konfiguriere wann runtergeladen werden soll",
-              "last-seconds": "Letzten x Sekunden",
-              "last-percent": "Nach x Prozent"
-            }
-        }
+        "skip-existing": "Vorhandene Dateien überspringen"
       },
       "name": "Downloader",
       "renderer": {
@@ -663,6 +667,54 @@
     "sponsorblock": {
       "description": "Überspringt automatisch nicht-musikalische Teile wie Intro/Outro oder Teile von Musikvideos, in denen der Song nicht gespielt wird",
       "name": "SponsorBlock"
+    },
+    "synced-lyrics": {
+      "description": "Bietet synchronisierte Liedtexte zu Songs, verwendet Anbieter wie LRClib.",
+      "errors": {
+        "fetch": "⚠️ - Beim Abrufen des Liedtexts ist ein Fehler aufgetreten. Bitte versuchen Sie es später nochmal.",
+        "not-found": "⚠️ - Kein Text für diesen Song gefunden."
+      },
+      "menu": {
+        "default-text-string": {
+          "label": "Standardzeichen zwischen Texten",
+          "tooltip": "Standardzeichen für die Lücke zwischen Songtexten auswählen"
+        },
+        "line-effect": {
+          "label": "Zeileneffekt",
+          "submenu": {
+            "focus": {
+              "label": "Fokussieren",
+              "tooltip": "Nur aktive Zeile weiß darstellen"
+            },
+            "offset": {
+              "label": "Versatz"
+            },
+            "scale": {
+              "label": "Skalieren",
+              "tooltip": "Aktuelle Zeile skalieren"
+            }
+          },
+          "tooltip": "Effekt für aktive Zeile auswählen"
+        },
+        "precise-timing": {
+          "label": "Den Songtext perfekt synchronisieren",
+          "tooltip": "Auf die Millisekunde genau berechnen, wann die nächste Zeile angezeigt werden soll (Kann Einfluss auf die Leistung haben)"
+        },
+        "show-time-codes": {
+          "label": "Zeitkodierungen anzeigen",
+          "tooltip": "Zeitkodierungen neben Songtext anzeigen"
+        }
+      },
+      "name": "Synchronisierte Texte",
+      "refetch-btn": {
+        "fetching": "Hole Songtext...",
+        "normal": "Songtext neu holen"
+      },
+      "warnings": {
+        "duration-mismatch": "⚠️ - Es kann sein, dass die Synchronization nicht stimmt, da die Songdauer nicht übereinstimmt.",
+        "inexact": "⚠️ - Es ist Möglich, dass der Songtext für diesen Song nicht übereinstimmt.",
+        "instrumental": "⚠️ - Das ist ein instrumentales Lied"
+      }
     },
     "taskbar-mediacontrol": {
       "description": "Wiedergabe aus der Windows Taskleiste kontrollieren",

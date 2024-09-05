@@ -7,8 +7,8 @@
         "initialize-failed": "Nem sikerült inicializálni a \"{{pluginName}}\" plugint",
         "load-all": "Összes bővítmény betöltése",
         "load-failed": "Nem sikerült betölteni a \"{{pluginName}}\" plugint",
-        "loaded": "\"{{pluginName}}\" nevű plugin betöltve",
-        "unload-failed": "Nem sikerült a \"{{pluginName}}\" bővítményt letölteni",
+        "loaded": "\"{{pluginName}}\" plugin betöltve",
+        "unload-failed": "Nem sikerült a \"{{pluginName}}\" bővítményt kikapcsolni",
         "unloaded": "A \"{{pluginName}}\" bővítmény kikapcsolva"
       }
     }
@@ -207,6 +207,10 @@
     }
   },
   "plugins": {
+    "ad-speedup": {
+      "description": "Ha reklám szól, elnémítja a hangot és a lejátszási sebességet 16x-ra állítja",
+      "name": "Gyorsítás hozzáadása"
+    },
     "adblocker": {
       "description": "Alapértelmezés szerint blokkolja az összes hirdetést és nyomkövetést",
       "menu": {
@@ -407,7 +411,21 @@
       "description": "MP3 / forrás hanganyag letöltése közvetlenül az interfészről",
       "menu": {
         "choose-download-folder": "Letöltési mappa kiválasztása",
+        "download-finish-settings": {
+          "prompt": {
+            "last-percent": "x százalék után",
+            "last-seconds": "Utolsó x másodperc"
+          },
+          "submenu": {
+            "advanced": "Speciális",
+            "enabled": "Engedélyezve",
+            "mode": "Időmód",
+            "percent": "Százalék",
+            "seconds": "Másodpercek"
+          }
+        },
         "download-playlist": "Lejátszási lista letöltése",
+        "presets": "Előbeállítások",
         "skip-existing": "Meglévő fájlok kihagyása"
       },
       "name": "Letöltő",
@@ -489,6 +507,7 @@
       }
     },
     "navigation": {
+      "description": "Következő/Vissza navigációs nyilak közvetlenül az interfészbe integrálva, mint a kedvenc böngésződben",
       "name": "Navigáció"
     },
     "no-google-login": {
@@ -502,10 +521,14 @@
         "interactive-settings": {
           "label": "Interaktív beállítások",
           "submenu": {
-            "hide-button-text": "Gombok szövegének elrejtése"
+            "hide-button-text": "Gombok szövegének elrejtése",
+            "refresh-on-play-pause": "Frissítés lejátszás/szünet megnyomásakor",
+            "tray-controls": "Megnyitás/Bezárás tálca ikonra kattintva"
           }
         },
-        "priority": "Értesítési prioritás"
+        "priority": "Értesítési prioritás",
+        "toast-style": "Értesítés stílusa",
+        "unpause-notification": "Értesítés megjelenítése a lejátszás folytatásakor"
       },
       "name": "Értesítések"
     },
@@ -542,7 +565,9 @@
     "precise-volume": {
       "description": "A hangerő precíz szabályozása egérgörgővel/gyorsbillentyűkkel, egy egyedi HUD és testreszabható hangerő csuszka segítségével",
       "menu": {
-        "global-shortcuts": "Globális gyorsbillentyűk"
+        "arrows-shortcuts": "Helyi nyíl-billentyűkkel való vezérlés",
+        "custom-volume-steps": "Egyedi hangerőléptetés beállítása",
+        "global-shortcuts": "Globális Gyorsbillentyűk"
       },
       "name": "Precíz hangerő",
       "prompt": {
@@ -553,6 +578,10 @@
           },
           "label": "Válaszd ki a globális hangerő gyorsbillentyűket:",
           "title": "Globális hangerő gyorsbillentyűk"
+        },
+        "volume-steps": {
+          "label": "Hangerő növelés/csökkentés léptékének kiválasztása",
+          "title": "Hangerő lépték"
         }
       }
     },
@@ -566,7 +595,8 @@
           }
         }
       },
-      "description": "Lehetővé teszi a videó minőségének megváltoztatását egy gombbal a videó fedvényen"
+      "description": "Lehetővé teszi a videó minőségének megváltoztatását egy gombbal a videó fedvényen",
+      "name": "Videóminőség modosító"
     },
     "scrobbler": {
       "description": "Scrobbling támogatás hozzáadása (pl. last.fm, ListenBrainz)",
@@ -613,6 +643,7 @@
             "play-pause": "Lejátszás / Szünet",
             "previous": "Előző"
           },
+          "label": "Globális billentyűparancsok választása a dalok vezérléséhez:",
           "title": "Globális gyorsbillentyűk"
         }
       }
@@ -629,8 +660,26 @@
       "description": "Automatikusan kihagyja a nem zenés részeket, mint például az intro/outro vagy a zenei videók olyan részeit, ahol a zene nem szól",
       "name": "SzponzorBlokk"
     },
+    "synced-lyrics": {
+      "description": "Szinkronizált dalszövegeket biztosít dalokhoz, LRClib-hez hasonló szolgáltatókat használva.",
+      "errors": {
+        "fetch": "⚠️ - Hiba történt a dalszövegek lekérése közben. Kérlek, próbáld újra később.",
+        "not-found": "⚠️ - Nem található dalszöveg ehhez a zenéhez."
+      },
+      "name": "Szinkronizált dalszövegek",
+      "refetch-btn": {
+        "fetching": "Lekérés folyamatban...",
+        "normal": "Dalszöveg újra lekérése"
+      },
+      "warnings": {
+        "duration-mismatch": "⚠️ - A dalszövegek időzítése eltérhet a zene hossza miatt.",
+        "inexact": "⚠️ - Ennek a zenének a dalszövege pontatlan lehet",
+        "instrumental": "⚠️ - Ez egy hangszerekkel játszott zene"
+      }
+    },
     "taskbar-mediacontrol": {
-      "description": "Lejátszás vezérlése a Windows tálcáról"
+      "description": "Lejátszás vezérlése a Windows tálcáról",
+      "name": "Médiavezérlés a tálcán"
     },
     "touchbar": {
       "description": "macOS felhasználók számára hozzáad egy widgetet a TouchBar-hoz",
@@ -667,6 +716,7 @@
       }
     },
     "visualizer": {
+      "description": "Vizualizációt ad a lejátszóhoz",
       "menu": {
         "visualizer-type": "Vizualizáció típus"
       },

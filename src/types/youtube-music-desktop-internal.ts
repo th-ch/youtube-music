@@ -5,3 +5,17 @@ export interface QueueResponse {
   autoPlaying?: boolean;
   continuation?: string;
 }
+
+export interface WatchNextResponse {
+  playerOverlays: {
+    playerOverlayRenderer: {
+      browserMediaSession: {
+        browserMediaSessionRenderer: {
+          album: {
+            runs: { text: string; }[]
+          }
+        }
+      }
+    }
+  };
+}

@@ -1,0 +1,182 @@
+{
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "{{pluginName}}::{{contextName}} lisamooduli käivitamine ei õnnestunud",
+        "executed-at-ms": "{{pluginName}}::{{contextName}} lisamoodul käivitus {{ms}} millisekundiga",
+        "initialize-failed": "„{{pluginName}}“ lisamooduli töö alustamine ei õnnestunud",
+        "load-all": "Laadime kõiki lisamooduleid",
+        "load-failed": "„{{pluginName}}“ lisamooduli laadimine ei õnnestunud",
+        "loaded": "„{{pluginName}}“ lisamoodul on laaditud",
+        "unload-failed": "„{{pluginName}}“ lisamooduli mälust eemaldamine ei õnnestunud",
+        "unloaded": "„{{pluginName}}“ lisamoodul on mälust eemaldatud"
+      }
+    }
+  },
+  "language": {
+    "code": "et",
+    "local-name": "Eesti",
+    "name": "Estonian"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "Laadimine lõppes, arendaja tarvikud on avatud"
+      },
+      "i18n": {
+        "loaded": "i18n on laaditud"
+      },
+      "second-instance": {
+        "receive-command": "„{{command}}“ käsk on vastu võetud"
+      },
+      "theme": {
+        "css-file-not-found": "CSS faili „{{cssFile}}“ pole olemas, seega eirame eelistust"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "detail": "Menüü on peidetud ja „Alt“ klahviga saad ta nähtavaks (rakenduse-siseses menüüs „Esc“ klahviga)",
+        "message": "Menüü peitmine on sisselülitatud",
+        "title": "Menüü peitmine on sisselülitatud"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "Hiljem",
+          "restart-now": "Taaskäivita kohe"
+        },
+        "detail": "„{{pluginName}}“ lisamooduli sisselülitamine eeldab rakenduse taaskäivitamist",
+        "message": "„{{pluginName}}“ lisamoodul eeldab rakenduse taaskäivitamist",
+        "title": "Palun käivita rakendus uuesti"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "Välju",
+          "relaunch": "Käivita uuesti",
+          "wait": "Oota"
+        }
+      }
+    },
+    "menu": {
+      "navigation": {
+        "label": "Liikumine",
+        "submenu": {
+          "copy-current-url": "Kopeeri esitamisel oleva pala URL",
+          "go-back": "Mine tagasi",
+          "go-forward": "Mine edasi",
+          "quit": "Välju",
+          "restart": "Käivita rakendus uuesti"
+        }
+      },
+      "plugins": {
+        "label": "Lisamoodulid",
+        "new": "UUS"
+      },
+      "view": {
+        "submenu": {
+          "zoom-in": "Suumi sisse",
+          "zoom-out": "Suumi välja"
+        }
+      }
+    },
+    "tray": {
+      "next": "Edasi",
+      "play-pause": "Esita/Peata esitus",
+      "previous": "Eelmine",
+      "quit": "Välju",
+      "restart": "Käivita rakendus uuesti",
+      "show": "Näita akent",
+      "tooltip": {
+        "default": "YouTube Music",
+        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
+      }
+    }
+  },
+  "plugins": {
+    "ad-speedup": {
+      "description": "Reklaami esitamisel summutatakse heli ja keritakse edasi 16-kordse kiirusega",
+      "name": "Reklaamikiirendaja"
+    },
+    "adblocker": {
+      "description": "Blokeeri kõik reklaamid ja jälitajad",
+      "menu": {
+        "blocker": "Blokeerijad"
+      },
+      "name": "Reklaamiblokeerija"
+    },
+    "ambient-mode": {
+      "menu": {
+        "opacity": {
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "quality": {
+          "label": "Kvaliteet",
+          "submenu": {
+            "pixels": "{{quality}} pikslit"
+          }
+        }
+      }
+    },
+    "blur-nav-bar": {
+      "description": "Muudab navigatsiooniriba läbipaistavaks ja hägusaks",
+      "name": "Hägus navigatsiooniriba"
+    },
+    "lyrics-genius": {
+      "description": "Lisa enamustele lugudele laulusõnad",
+      "menu": {
+        "romanized-lyrics": "Latiniseeritud laulusõnad"
+      },
+      "name": "Lyrics Genius",
+      "renderer": {
+        "fetched-lyrics": "Leidsime Geeniuse jaoks ühed laulusõnad"
+      }
+    },
+    "navigation": {
+      "name": "Liikumine"
+    },
+    "scrobbler": {
+      "description": "Lisa kraasimise tugi (last.fm, Listenbrainz, jne)",
+      "dialog": {
+        "lastfm": {
+          "auth-failed": {
+            "message": "Last.fm'i autentimine ei õnnestunud\nPeida hüpikaken järgmise taaskäivituseni.",
+            "title": "Autentimine ei õnnestunud"
+          }
+        }
+      },
+      "menu": {
+        "lastfm": {
+          "api-settings": "Last.fm API seadistused"
+        },
+        "listenbrainz": {
+          "token": "Sisesta ListenBrainz'i kasutaja tunnusluba"
+        },
+        "scrobble-other-media": "Kraasi muud meediat"
+      },
+      "name": "Kraasija",
+      "prompt": {
+        "lastfm": {
+          "api-key": "Last.fm API võti",
+          "api-secret": "Last.fm API saladus"
+        },
+        "listenbrainz": {
+          "token": {
+            "label": "Sisesta oma ListenBrainz'i tunnusluba:",
+            "title": "ListenBrainz'i tunnusluba"
+          }
+        }
+      }
+    },
+    "synced-lyrics": {
+      "menu": {
+        "show-lyrics-even-if-inexact": {
+          "tooltip": "Kui lugu ei leidu, siis lisamoodul üritab uut otsingut teistsuguse päringuga.\nTeise katse puhul tulemused ei pruugi olla väga täpsed."
+        }
+      }
+    },
+    "tuna-obs": {
+      "description": "Lõimimine OBSi Tuna lisamooduliga"
+    }
+  }
+}
