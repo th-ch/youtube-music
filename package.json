@@ -238,7 +238,7 @@
     "typescript": "5.5.4",
     "utf-8-validate": "6.0.4",
     "vite": "5.4.3",
-    "vite-plugin-inspect": "0.8.5",
+    "vite-plugin-inspect": "0.8.7",
     "vite-plugin-resolve": "2.5.2",
     "vite-plugin-solid": "2.10.2",
     "ws": "8.18.0"
