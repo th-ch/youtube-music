@@ -100,8 +100,8 @@ importers:
         specifier: 4.0.1
         version: 4.0.1
       electron-updater:
-        specifier: 6.3.3
-        version: 6.3.3
+        specifier: 6.3.4
+        version: 6.3.4
       fast-average-color:
         specifier: 9.4.0
         version: 9.4.0
@@ -1905,8 +1905,8 @@ packages:
   electron-unhandled@4.0.1:
     resolution: {integrity: sha512-6BsLnBg+i96eUnbaIFZyYdyfNX3f80/Nlfqy34YEMxXT9JP3ddNsNnUeiOF8ezN4+et4t4D37gjghKTP0V3jyw==}
 
-  electron-updater@6.3.3:
-    resolution: {integrity: sha512-Kj1u6kfyxUyatnspvKa6qhGn82rMZfUD03WOvCGJ12PyRss/AC8kkYsN9IrJihKTlN8nRwTjZ1JM2UUXoD0KsA==}
+  electron-updater@6.3.4:
+    resolution: {integrity: sha512-uZUo7p1Y53G4tl6Cgw07X1yF8Jlz6zhaL7CQJDZ1fVVkOaBfE2cWtx80avwDVi8jHp+I/FWawrMgTAeCCNIfAg==}
 
   electron-vite@2.3.0:
     resolution: {integrity: sha512-lsN2FymgJlp4k6MrcsphGqZQ9fKRdJKasoaiwIrAewN1tapYI/KINLdfEL7n10LuF0pPSNf/IqjzZbB5VINctg==}
@@ -5832,7 +5832,7 @@ snapshots:
       lodash.debounce: 4.0.8
       serialize-error: 8.1.0
 
-  electron-updater@6.3.3:
+  electron-updater@6.3.4:
     dependencies:
       builder-util-runtime: 9.2.5
       fs-extra: 10.1.0
