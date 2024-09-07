@@ -170,8 +170,8 @@ importers:
         version: 10.3.0
     devDependencies:
       '@playwright/test':
-        specifier: 1.46.0
-        version: 1.46.0
+        specifier: 1.47.0
+        version: 1.47.0
       '@total-typescript/ts-reset':
         specifier: 0.6.1
         version: 0.6.1
@@ -248,8 +248,8 @@ importers:
         specifier: 10.2.0
         version: 10.2.0
       playwright:
-        specifier: 1.46.0
-        version: 1.46.0
+        specifier: 1.47.0
+        version: 1.47.0
       rollup:
         specifier: 4.20.0
         version: 4.20.0
@@ -884,8 +884,8 @@ packages:
     resolution: {integrity: sha512-Zwq5OCzuwJC2jwqmpEQt7Ds1DTi6BWSwoGkbb1n9pO3hzb35BoJELx7c0T23iDkBGkh2e7tvOtjF3tr3OaQHDQ==}
     engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
 
-  '@playwright/test@1.46.0':
-    resolution: {integrity: sha512-/QYft5VArOrGRP5pgkrfKksqsKA6CEFyGQ/gjNe6q0y4tZ1aaPfq4gIjudr1s3D+pXyrPRdsy4opKDrjBabE5w==}
+  '@playwright/test@1.47.0':
+    resolution: {integrity: sha512-SgAdlSwYVpToI4e/IH19IHHWvoijAYH5hu2MWSXptRypLSnzj51PcGD+rsOXFayde4P9ZLi+loXVwArg6IUkCA==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -3239,13 +3239,13 @@ packages:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
     engines: {node: '>=8.6'}
 
-  playwright-core@1.46.0:
-    resolution: {integrity: sha512-9Y/d5UIwuJk8t3+lhmMSAJyNP1BUC/DqP3cQJDQQL/oWqAiuPTLgy7Q5dzglmTLwcBRdetzgNM/gni7ckfTr6A==}
+  playwright-core@1.47.0:
+    resolution: {integrity: sha512-1DyHT8OqkcfCkYUD9zzUTfg7EfTd+6a8MkD/NWOvjo0u/SCNd5YmY/lJwFvUZOxJbWNds+ei7ic2+R/cRz/PDg==}
     engines: {node: '>=18'}
     hasBin: true
 
-  playwright@1.46.0:
-    resolution: {integrity: sha512-XYJ5WvfefWONh1uPAUAi0H2xXV5S3vrtcnXe6uAOgdGi3aSpqOSXX08IAjXW34xitfuOJsvXU5anXZxPSEQiJw==}
+  playwright@1.47.0:
+    resolution: {integrity: sha512-jOWiRq2pdNAX/mwLiwFYnPHpEZ4rM+fRSQpRHwEwZlP2PUANvL3+aJOF/bvISMhFD30rqMxUB4RJx9aQbfh4Ww==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -4626,9 +4626,9 @@ snapshots:
 
   '@pkgr/core@0.1.0': {}
 
-  '@playwright/test@1.46.0':
+  '@playwright/test@1.47.0':
     dependencies:
-      playwright: 1.46.0
+      playwright: 1.47.0
 
   '@polka/url@1.0.0-next.24': {}
 
@@ -7309,11 +7309,11 @@ snapshots:
 
   picomatch@2.3.1: {}
 
-  playwright-core@1.46.0: {}
+  playwright-core@1.47.0: {}
 
-  playwright@1.46.0:
+  playwright@1.47.0:
     dependencies:
-      playwright-core: 1.46.0
+      playwright-core: 1.47.0
     optionalDependencies:
       fsevents: 2.3.2
 
