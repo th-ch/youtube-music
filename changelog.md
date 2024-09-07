@@ -2,7 +2,48 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v3.5.2](https://github.com/th-ch/youtube-music/compare/v3.5.1...v3.5.2)
+
+- chore(deps): update typescript-eslint monorepo to v8.4.0 [`#2401`](https://github.com/th-ch/youtube-music/pull/2401)
+- chore(deps): update dependency @total-typescript/ts-reset to v0.6.1 [`#2396`](https://github.com/th-ch/youtube-music/pull/2396)
+- chore(deps): update dependency electron to v31.5.0 [`#2397`](https://github.com/th-ch/youtube-music/pull/2397)
+- chore(deps): update dependency eslint-import-resolver-typescript to v3.6.3 [`#2376`](https://github.com/th-ch/youtube-music/pull/2376)
+- chore(deps): update dependency discord-api-types to v0.37.100 [`#2394`](https://github.com/th-ch/youtube-music/pull/2394)
+- fix(deps): update dependency electron-updater to v6.3.4 [`#2395`](https://github.com/th-ch/youtube-music/pull/2395)
+- chore(deps): update dependency @babel/runtime to v7.25.6 [`#2388`](https://github.com/th-ch/youtube-music/pull/2388)
+- chore(deps): update dependency vite-plugin-inspect to v0.8.7 [`#2389`](https://github.com/th-ch/youtube-music/pull/2389)
+- chore(deps): update dependency discord-api-types to v0.37.99 [`#2374`](https://github.com/th-ch/youtube-music/pull/2374)
+- chore(deps): update dependency vite to v5.4.3 [`#2377`](https://github.com/th-ch/youtube-music/pull/2377)
+- fix: incorrect regex when splitting artistName [`#2378`](https://github.com/th-ch/youtube-music/pull/2378)
+- chore(deps): update dependency @babel/runtime to v7.25.4 [`#2373`](https://github.com/th-ch/youtube-music/pull/2373)
+- synced-lyrics: make the lyrics search more reliable [`#2343`](https://github.com/th-ch/youtube-music/pull/2343)
+- fix(deps): update dependency solid-js to v1.8.22 [`#2354`](https://github.com/th-ch/youtube-music/pull/2354)
+- chore(deps): update typescript-eslint monorepo to v8.3.0 [`#2350`](https://github.com/th-ch/youtube-music/pull/2350)
+- fix(deps): update dependency electron-debug to v4.0.1 [`#2349`](https://github.com/th-ch/youtube-music/pull/2349)
+- chore(deps): update dependency electron to v31.4.0 [`#2356`](https://github.com/th-ch/youtube-music/pull/2356)
+- fix: hide native-controls on linux when in-app-menu is used [`#2366`](https://github.com/th-ch/youtube-music/pull/2366)
+- fix: detect the upgrade btn using the icon [`#2364`](https://github.com/th-ch/youtube-music/pull/2364)
+- fix: exclude build-id files from rpm [`#2361`](https://github.com/th-ch/youtube-music/pull/2361)
+- fix(deps): update dependency i18next to v23.12.3 [`#2352`](https://github.com/th-ch/youtube-music/pull/2352)
+- fix(deps): update dependency @floating-ui/dom to v1.6.10 [`#2340`](https://github.com/th-ch/youtube-music/pull/2340)
+- fix(deps): update dependency electron-updater to v6.3.3 [`#2347`](https://github.com/th-ch/youtube-music/pull/2347)
+- fix(deps): update dependency solid-js to v1.8.20 [`#2345`](https://github.com/th-ch/youtube-music/pull/2345)
+- chore(deps): update dependency vite to v5.4.0 [`#2342`](https://github.com/th-ch/youtube-music/pull/2342)
+- chore(deps): update typescript-eslint monorepo to v8.0.1 [`#2335`](https://github.com/th-ch/youtube-music/pull/2335)
+- fix(deps): update dependency @floating-ui/dom to v1.6.9 [`#2337`](https://github.com/th-ch/youtube-music/pull/2337)
+- chore(deps): update playwright monorepo to v1.46.0 [`#2336`](https://github.com/th-ch/youtube-music/pull/2336)
+- chore(README): Translation README to Russian and adding Synced Lyrics to main README [`#2338`](https://github.com/th-ch/youtube-music/pull/2338)
+- chore(deps): update dependency rollup to v4.20.0 [`#2326`](https://github.com/th-ch/youtube-music/pull/2326)
+- fix(synced-lyric): fix timestamp [`#2323`](https://github.com/th-ch/youtube-music/issues/2323) [`#2379`](https://github.com/th-ch/youtube-music/issues/2379)
+- Revert "fix(MPRIS): Prevents player to start with invalid MPRIS interface (#1996)" [`#2225`](https://github.com/th-ch/youtube-music/issues/2225)
+- fix(adblocker/inplayer): fix Response.prototype.json [`#2310`](https://github.com/th-ch/youtube-music/issues/2310)
+- chore(deps): update dependency eslint-plugin-import to v2.30.0 [`f48e46d`](https://github.com/th-ch/youtube-music/commit/f48e46d29cf09c76c5172fd56d2d0f705616e4e3)
+- Revert "chore(deps): update dependency electron-builder to v25" [`089eff3`](https://github.com/th-ch/youtube-music/commit/089eff3152903c8b55ad3e5571b944062a647e27)
+- chore(deps): update dependency electron-builder to v25 [`fe4c89c`](https://github.com/th-ch/youtube-music/commit/fe4c89c349bb9f4f54d95c2018943095ccfdab0c)
+
 #### [v3.5.1](https://github.com/th-ch/youtube-music/compare/v3.5.0...v3.5.1)
+
+> 1 August 2024
 
 - fix(deps): update dependency youtubei.js to v10.3.0 [`#2306`](https://github.com/th-ch/youtube-music/pull/2306)
 - fix: Window gets stuck offscreen in some instances [`#2303`](https://github.com/th-ch/youtube-music/pull/2303)
