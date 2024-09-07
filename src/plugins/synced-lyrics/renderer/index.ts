@@ -16,10 +16,9 @@ export let _ytAPI: YoutubePlayer | null = null;
 
 export const renderer = createRenderer<{
   observerCallback: MutationCallback;
-  hasAddedEvents: boolean;
   observer?: MutationObserver;
   videoDataChange: () => Promise<void>;
-  progressCallback: (evt: Event) => void;
+  updateTimestampInterval?: NodeJS.Timeout | string | number;
 }, SyncedLyricsPluginConfig>({
   onConfigChange(newConfig) {
     setConfig(newConfig);
@@ -50,15 +49,12 @@ export const renderer = createRenderer<{
     await this.videoDataChange();
   },
 
-  hasAddedEvents: false,
-
   async videoDataChange() {
-    if (!this.hasAddedEvents) {
-      const video = document.querySelector('video');
-
-      video?.addEventListener('timeupdate', this.progressCallback);
-
-      if (video) this.hasAddedEvents = true;
+    if (!this.updateTimestampInterval) {
+      this.updateTimestampInterval = setInterval(
+        () => setCurrentTime((_ytAPI?.getCurrentTime() ?? 0) * 1000),
+        100,
+      );
     }
 
     this.observer ??= new MutationObserver(
@@ -71,16 +67,6 @@ export const renderer = createRenderer<{
     const header = await waitForElement<HTMLElement>(selectors.head);
     this.observer.observe(header, { attributes: true });
     header.removeAttribute('disabled');
-  },
-
-  progressCallback(evt: Event) {
-    switch (evt.type) {
-      case 'timeupdate': {
-        const video = evt.target as HTMLVideoElement;
-        setCurrentTime(video.currentTime * 1000);
-        break;
-      }
-    }
   },
 
   async start(ctx: RendererContext<SyncedLyricsPluginConfig>) {
