@@ -52,9 +52,12 @@ export const makeLyricsRequest = async (extractedSongInfo: SongInfo) => {
   const songData: Parameters<typeof getLyricsList>[0] = {
     title: `${extractedSongInfo.title}`,
     artist: `${extractedSongInfo.artist}`,
-    album: `${extractedSongInfo.album}`,
     songDuration: extractedSongInfo.songDuration,
   };
+
+  if (extractedSongInfo.album) {
+    songData.album = extractedSongInfo.album;
+  }
 
   let lyrics;
   try {
@@ -78,9 +81,9 @@ export const getLyricsList = async (
     track_name: songData.title,
   });
 
-  query.set('album_name', songData.album!);
-  if (query.get('album_name') === 'undefined') {
-    query.delete('album_name');
+
+  if (songData.album) {
+    query.set('album_name', songData.album);
   }
 
   let url = `https://lrclib.net/api/search?${query.toString()}`;
