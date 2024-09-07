@@ -132,23 +132,12 @@ export const getLyricsList = async (
     const artists = artist.split(/[&,]/g).map((i) => i.trim());
     const itemArtists = artistName.split(/[&,]/g).map((i) => i.trim());
 
-    const permutations = [];
-    for (const artistA of artists) {
-      for (const artistB of itemArtists) {
-        permutations.push([artistA.toLowerCase(), artistB.toLowerCase()]);
-      }
-    }
-
-    for (const artistA of itemArtists) {
-      for (const artistB of artists) {
-        permutations.push([artistA.toLowerCase(), artistB.toLowerCase()]);
-      }
-    }
+    const permutations = artists.flatMap((artistA) =>
+      itemArtists.map((artistB) => [artistA.toLowerCase(), artistB.toLowerCase()])
+    );
 
     const ratio = Math.max(...permutations.map(([x, y]) => jaroWinkler(x, y)));
-
-    if (ratio <= 0.9) continue;
-    filteredResults.push(item);
+    if (ratio > 0.9) filteredResults.push(item);
   }
 
   const duration = songData.songDuration;
