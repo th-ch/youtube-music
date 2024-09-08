@@ -52,9 +52,12 @@ export const makeLyricsRequest = async (extractedSongInfo: SongInfo) => {
   const songData: Parameters<typeof getLyricsList>[0] = {
     title: `${extractedSongInfo.title}`,
     artist: `${extractedSongInfo.artist}`,
-    album: `${extractedSongInfo.album}`,
     songDuration: extractedSongInfo.songDuration,
   };
+
+  if (extractedSongInfo.album) {
+    songData.album = extractedSongInfo.album;
+  }
 
   let lyrics;
   try {
@@ -78,9 +81,9 @@ export const getLyricsList = async (
     track_name: songData.title,
   });
 
-  query.set('album_name', songData.album!);
-  if (query.get('album_name') === 'undefined') {
-    query.delete('album_name');
+
+  if (songData.album) {
+    query.set('album_name', songData.album);
   }
 
   let url = `https://lrclib.net/api/search?${query.toString()}`;
@@ -129,23 +132,12 @@ export const getLyricsList = async (
     const artists = artist.split(/[&,]/g).map((i) => i.trim());
     const itemArtists = artistName.split(/[&,]/g).map((i) => i.trim());
 
-    const permutations = [];
-    for (const artistA of artists) {
-      for (const artistB of itemArtists) {
-        permutations.push([artistA.toLowerCase(), artistB.toLowerCase()]);
-      }
-    }
-
-    for (const artistA of itemArtists) {
-      for (const artistB of artists) {
-        permutations.push([artistA.toLowerCase(), artistB.toLowerCase()]);
-      }
-    }
+    const permutations = artists.flatMap((artistA) =>
+      itemArtists.map((artistB) => [artistA.toLowerCase(), artistB.toLowerCase()])
+    );
 
     const ratio = Math.max(...permutations.map(([x, y]) => jaroWinkler(x, y)));
-
-    if (ratio <= 0.9) continue;
-    filteredResults.push(item);
+    if (ratio > 0.9) filteredResults.push(item);
   }
 
   const duration = songData.songDuration;

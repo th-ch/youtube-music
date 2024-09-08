@@ -668,6 +668,59 @@
       "description": "Ignora automaticamente partes não musicais, como introdução/final ou partes de videoclipes onde a música não está tocando",
       "name": "SponsorBlock (bloqueador de patrocínios)"
     },
+    "synced-lyrics": {
+      "description": "Fornece letras sincronizadas de músicas, utilizando fornecedores como o LRClib.",
+      "errors": {
+        "fetch": "⚠️ - Ocorreu um erro ao obter as letras da música. Por favor, tenta novamente mais tarde.",
+        "not-found": "⚠️ - Não foram encontradas letras para esta música."
+      },
+      "menu": {
+        "default-text-string": {
+          "label": "Caractere padrão entre as letras",
+          "tooltip": "Escolha o caractere padrão para usar no espaço entre as letras"
+        },
+        "line-effect": {
+          "label": "Efeito de linha",
+          "submenu": {
+            "focus": {
+              "label": "Foco",
+              "tooltip": "Deixe apenas a linha atual branca"
+            },
+            "offset": {
+              "label": "Deslocamento",
+              "tooltip": "Desloque a linha atual para a direita"
+            },
+            "scale": {
+              "label": "Escala",
+              "tooltip": "Escalar a linha atual"
+            }
+          },
+          "tooltip": "Escolha o efeito a ser aplicado à linha atual"
+        },
+        "precise-timing": {
+          "label": "Sincronize perfeitamente as letras",
+          "tooltip": "Calcule até o milissegundo a exibição da próxima linha (pode ter um pequeno impacto no desempenho)"
+        },
+        "show-lyrics-even-if-inexact": {
+          "label": "Mostrar letras mesmo que imprecisas",
+          "tooltip": "Se a música não for encontrada, o plugin tenta novamente com uma consulta de pesquisa diferente.\nO resultado da segunda tentativa pode não ser exato."
+        },
+        "show-time-codes": {
+          "label": "Mostrar códigos de tempo",
+          "tooltip": "Mostrar os códigos de tempo ao lado das letras"
+        }
+      },
+      "name": "Letras Sincronizadas",
+      "refetch-btn": {
+        "fetching": "Buscando...",
+        "normal": "Buscar as letras novamente"
+      },
+      "warnings": {
+        "duration-mismatch": "⚠️ - As letras da música pode estar dessincronizada devido a um erro de duração.",
+        "inexact": "⚠️ - As letras desta música podem não ser exactas.",
+        "instrumental": "⚠️ - Esta é uma música instrumental."
+      }
+    },
     "taskbar-mediacontrol": {
       "description": "Controle a reprodução na barra de tarefas do Windows",
       "name": "Controle de mídia da barra de tarefas"
