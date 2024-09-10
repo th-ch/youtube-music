@@ -2,13 +2,14 @@
   "common": {
     "console": {
       "plugins": {
-        "execute-failed": "נכשל ביצוע תוסף {{pluginName}}::{{contextName}}",
+        "execute-failed": "שגיאה בהרצת התוסף {{pluginName}}::{{contextName}}",
         "executed-at-ms": "התוסף {{pluginName}}:{{contextName}} בוצע ב {{ms}}ms",
         "initialize-failed": "טעינת התוסף \"{{pluginName}}\" נכשלה",
         "load-all": "טוען את כל התוספים",
-        "load-failed": "טעינת התוסף \"{{pluginName}}\" נכשלה",
+        "load-failed": "לא ניתן לטעון את התוסף {{pluginName}}",
         "loaded": "התוסף \"{{pluginName}}\" נטען",
-        "unload-failed": "הסרת התוסף \"{{pluginName}} נכשלה"
+        "unload-failed": "הסרת התוסף \"{{pluginName}} נכשלה",
+        "unloaded": "תוסף {{pluginName}} הורד"
       }
     }
   },
@@ -25,14 +26,28 @@
       "i18n": {
         "loaded": "i18n נטען"
       },
+      "second-instance": {
+        "receive-command": "התקבלה פקודה מעבר פרוטוקל: {{command}}"
+      },
       "theme": {
         "css-file-not-found": "קובץ ה-CSS \"{{cssFile}}\" לא קיים. מדלג"
       },
+      "unresponsive": {
+        "details": "שגיאה ללא תגובה\n{{error}}"
+      },
       "when-ready": {
         "clearing-cache-after-20s": "מוחק קבצי מתמון"
+      },
+      "window": {
+        "tried-to-render-offscreen": "ווינדוס ניסה להציג תוכן מחוץ למסך, גודל חלון={{windowSize}}, גודל מסך={{displaySize}}, מיקום={{position}}"
       }
     },
     "dialog": {
+      "hide-menu-enabled": {
+        "detail": "התפריט מוחבא, השתמש \"Alt\" על להציג אותו (או \"Esacpe\" אם משתמשים בתפריט בתוך האפליקציה)",
+        "message": "הסתרת התפריט מופעלת",
+        "title": "הסתרת התפריט הופעלה"
+      },
       "need-to-restart": {
         "buttons": {
           "later": "אחר כך",
