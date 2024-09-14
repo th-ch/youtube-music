@@ -372,6 +372,9 @@
       "backend": {
         "dialog": {
           "error": {
+            "buttons": {
+              "ok": "Rendben"
+            },
             "message": "Hoppá! Elnézést, a letöltés sikertelen volt…",
             "title": "A letöltés során hiba történt!"
           },
@@ -412,6 +415,7 @@
       "menu": {
         "choose-download-folder": "Letöltési mappa kiválasztása",
         "download-finish-settings": {
+          "label": "Letöltés befejezéskor",
           "prompt": {
             "last-percent": "x százalék után",
             "last-seconds": "Utolsó x másodperc"
@@ -425,7 +429,7 @@
           }
         },
         "download-playlist": "Lejátszási lista letöltése",
-        "presets": "Előbeállítások",
+        "presets": "Sablonok",
         "skip-existing": "Meglévő fájlok kihagyása"
       },
       "name": "Letöltő",
@@ -665,6 +669,18 @@
       "errors": {
         "fetch": "⚠️ - Hiba történt a dalszövegek lekérése közben. Kérlek, próbáld újra később.",
         "not-found": "⚠️ - Nem található dalszöveg ehhez a zenéhez."
+      },
+      "menu": {
+        "line-effect": {
+          "submenu": {
+            "scale": {
+              "label": "Mérték"
+            }
+          }
+        },
+        "precise-timing": {
+          "label": "Dalszöveg tökéletes szinkronizálása"
+        }
       },
       "name": "Szinkronizált dalszövegek",
       "refetch-btn": {
