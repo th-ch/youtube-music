@@ -1,4 +1,5 @@
 import type { QueueItem } from '@/types/datahost-get-state';
+import type { PlayerOverlays } from '@/types/player-api-events';
 
 export interface QueueResponse {
   items?: QueueItem[];
@@ -7,15 +8,5 @@ export interface QueueResponse {
 }
 
 export interface WatchNextResponse {
-  playerOverlays: {
-    playerOverlayRenderer: {
-      browserMediaSession: {
-        browserMediaSessionRenderer: {
-          album: {
-            runs: { text: string; }[]
-          }
-        }
-      }
-    }
-  };
+  playerOverlays?: PlayerOverlays;
 }

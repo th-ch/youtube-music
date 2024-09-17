@@ -2,7 +2,7 @@ import { singleton } from './decorators';
 
 import type { YoutubePlayer } from '@/types/youtube-player';
 import type { GetState } from '@/types/datahost-get-state';
-import type { AlbumDetails, VideoDataChangeValue } from '@/types/player-api-events';
+import type { AlbumDetails, PlayerOverlays, VideoDataChangeValue } from '@/types/player-api-events';
 
 import type { SongInfo } from './song-info';
 import type { VideoDataChanged } from '@/types/video-data-changed';
@@ -208,28 +208,35 @@ export default (api: YoutubePlayer) => {
         list: playlistId
       } = api.getVideoData();
 
-      const { playerOverlays } = api.getWatchNextResponse();
+      const watchNextResponse = api.getWatchNextResponse();
 
-      sendSongInfo(<VideoDataChangeValue>{
+      sendSongInfo({
         title, author, videoId, playlistId,
 
         isUpcoming: false,
         lengthSeconds: video.duration,
         loading: true,
 
-        uhhh: { playerOverlays }
-      });
+        ytmdWatchNextResponse: watchNextResponse,
+      } satisfies VideoDataChangeValue);
     }
   }
 
   function sendSongInfo(videoData: VideoDataChangeValue) {
     const data = api.getPlayerResponse();
 
-    data.videoDetails.album = (
-      Object.entries(videoData).find(
-        ([, value]) => value && Object.hasOwn(value, 'playerOverlays'),
-      ) as [string, AlbumDetails | undefined]
-    )?.[1]?.playerOverlays?.playerOverlayRenderer?.browserMediaSession?.browserMediaSessionRenderer?.album?.runs?.at(
+    let playerOverlay: PlayerOverlays | undefined;
+
+    if (!videoData.ytmdWatchNextResponse) {
+      playerOverlay = (
+        Object.entries(videoData).find(
+          ([, value]) => value && Object.hasOwn(value, 'playerOverlays'),
+        ) as [string, AlbumDetails | undefined]
+      )?.[1]?.playerOverlays;
+    } else {
+      playerOverlay = videoData.ytmdWatchNextResponse?.playerOverlays;
+    }
+    data.videoDetails.album = playerOverlay?.playerOverlayRenderer?.browserMediaSession?.browserMediaSessionRenderer?.album?.runs?.at(
       0,
     )?.text;
     data.videoDetails.elapsedSeconds = 0;
