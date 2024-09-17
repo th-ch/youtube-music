@@ -28,6 +28,7 @@ export default tseslint.config(
       "stylistic/object-curly-spacing": ["error", "always"],
       "@typescript-eslint/no-floating-promises": "off",
       "@typescript-eslint/no-misused-promises": ["off", { checksVoidReturn: false }],
+      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
       "@typescript-eslint/no-non-null-assertion": "off",
       "importPlugin/first": "error",
       "importPlugin/newline-after-import": "off",
@@ -61,14 +62,6 @@ export default tseslint.config(
       }],
       "stylistic/quote-props": ["error", "consistent"],
       "stylistic/semi": ["error", "always"],
-      "@typescript-eslint/no-unused-vars": [
-        2,
-        {
-          argsIgnorePattern: "^_",
-          varsIgnorePattern: "^_",
-          caughtErrorsIgnorePattern: "^_"
-        }
-      ]
     },
     settings: {
       'import/parsers': {
