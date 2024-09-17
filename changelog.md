@@ -2,7 +2,16 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v3.5.3](https://github.com/th-ch/youtube-music/compare/v3.5.2...v3.5.3)
+
+- fix: fix `trustedHTML` issue [`#2339`](https://github.com/th-ch/youtube-music/issues/2339)
+- chore(deps): update dependency rollup to v4.21.3 [`6edc84a`](https://github.com/th-ch/youtube-music/commit/6edc84a8bd6c7e009041117ba0d2004783eb3a47)
+- chore(deps): update typescript-eslint monorepo to v8.6.0 [`d4c8a43`](https://github.com/th-ch/youtube-music/commit/d4c8a4320d733f7bddc4dcd1de93644790e71d66)
+- chore(deps): update dependency eslint to v8.57.1 [`02b7a39`](https://github.com/th-ch/youtube-music/commit/02b7a39753528cfd8c0d107d6d2ec6ef78c5afe7)
+
 #### [v3.5.2](https://github.com/th-ch/youtube-music/compare/v3.5.1...v3.5.2)
+
+> 7 September 2024
 
 - chore(deps): update typescript-eslint monorepo to v8.4.0 [`#2401`](https://github.com/th-ch/youtube-music/pull/2401)
 - chore(deps): update dependency @total-typescript/ts-reset to v0.6.1 [`#2396`](https://github.com/th-ch/youtube-music/pull/2396)
