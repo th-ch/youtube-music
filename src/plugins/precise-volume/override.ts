@@ -8,7 +8,6 @@ const ignored = {
 function overrideAddEventListener() {
   // YO WHAT ARE YOU DOING NOW?!?!
   // Save native addEventListener
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error - We know what we're doing
   // eslint-disable-next-line @typescript-eslint/unbound-method
   Element.prototype._addEventListener = Element.prototype.addEventListener;

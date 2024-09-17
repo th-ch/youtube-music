@@ -16,7 +16,6 @@ export const [isFetching, setIsFetching] = createSignal(false);
 export const [hadSecondAttempt, setHadSecondAttempt] = createSignal(false);
 // prettier-ignore
 export const [differentDuration, setDifferentDuration] = createSignal(false);
-// eslint-disable-next-line prefer-const
 
 export const extractTimeAndText = (
   line: string,
@@ -81,7 +80,6 @@ export const getLyricsList = async (
     track_name: songData.title,
   });
 
-
   if (songData.album) {
     query.set('album_name', songData.album);
   }
@@ -94,7 +92,7 @@ export const getLyricsList = async (
     return null;
   }
 
-  let data = await response.json() as LRCLIBSearchResponse;
+  let data = (await response.json()) as LRCLIBSearchResponse;
   if (!data || !Array.isArray(data)) {
     setDebugInfo('Unexpected server response.');
     return null;
@@ -133,7 +131,10 @@ export const getLyricsList = async (
     const itemArtists = artistName.split(/[&,]/g).map((i) => i.trim());
 
     const permutations = artists.flatMap((artistA) =>
-      itemArtists.map((artistB) => [artistA.toLowerCase(), artistB.toLowerCase()])
+      itemArtists.map((artistB) => [
+        artistA.toLowerCase(),
+        artistB.toLowerCase(),
+      ]),
     );
 
     const ratio = Math.max(...permutations.map(([x, y]) => jaroWinkler(x, y)));
@@ -154,7 +155,7 @@ export const getLyricsList = async (
     return null;
   }
 
-    setDebugInfo(JSON.stringify(closestResult, null, 4));
+  setDebugInfo(JSON.stringify(closestResult, null, 4));
 
   if (Math.abs(closestResult.duration - duration) > 15) {
     return null;
