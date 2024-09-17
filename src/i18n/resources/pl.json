@@ -668,6 +668,22 @@
       "description": "Automatycznie pomija fragmenty niebędące muzyką, takie jak wstęp/zakończenie lub fragmenty teledysków, w których utwór nie jest odtwarzany",
       "name": "Pomiń nieistotne fragmenty"
     },
+    "synced-lyrics": {
+      "description": "Dodaje zsynchronizowane napisy do utworów używając między innymi LRClib.",
+      "errors": {
+        "fetch": "⚠️ - Wystąpił błąd podczas pobierania tekstu utworu. Spróbuj ponownie później.",
+        "not-found": "⚠️ - Nie znaleziono napisów dla tego utworu."
+      },
+      "name": "Napisy zsynchronizowane",
+      "refetch-btn": {
+        "fetching": "Pobieranie napisów...",
+        "normal": "Odśwież napisy"
+      },
+      "warnings": {
+        "duration-mismatch": "⚠️ - Napisy mogą nie być zsynchronizowane z powodu różnicy w czasie trwania.",
+        "instrumental": "⚠️ - To jest utwór instrumentalny"
+      }
+    },
     "taskbar-mediacontrol": {
       "description": "Steruj odtwarzaniem z paska zadań systemu Windows",
       "name": "Kontroler odtwarzania z paska zadań"

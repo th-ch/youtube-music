@@ -166,13 +166,13 @@ export default createPlugin<
       this.profiles = {};
       this.connection.onConnections((connection) => {
         if (!connection) {
-          this.api?.openToast(t('plugins.music-together.toast.disconnected'));
+          this.api?.toastService?.show(t('plugins.music-together.toast.disconnected'));
           this.onStop();
           return;
         }
 
         if (!connection.open) {
-          this.api?.openToast(t('plugins.music-together.toast.user-disconnected', {
+          this.api?.toastService?.show(t('plugins.music-together.toast.user-disconnected', {
             name: this.profiles[connection.peer]?.name
           }));
           this.putProfile(connection.peer, undefined);
@@ -219,7 +219,7 @@ export default createPlugin<
               break;
             }
 
-            this.api?.openToast(t('plugins.music-together.toast.user-connected', { name: event.payload.profile.name }));
+            this.api?.toastService?.show(t('plugins.music-together.toast.user-connected', { name: event.payload.profile.name }));
             this.putProfile(conn.peer, event.payload.profile);
             break;
           }
@@ -307,7 +307,7 @@ export default createPlugin<
       if (!connection) return false;
       this.connection.onConnections((connection) => {
         if (!connection?.open) {
-          this.api?.openToast(t('plugins.music-together.toast.disconnected'));
+          this.api?.toastService?.show(t('plugins.music-together.toast.disconnected'));
           this.onStop();
         }
       });
@@ -381,7 +381,7 @@ export default createPlugin<
 
             const permissionLabel = t(`plugins.music-together.menu.permission.${this.permission}`);
 
-            this.api?.openToast(t('plugins.music-together.toast.permission-changed', { permission: permissionLabel }));
+            this.api?.toastService?.show(t('plugins.music-together.toast.permission-changed', { permission: permissionLabel }));
             break;
           }
           default: {
@@ -593,18 +593,18 @@ export default createPlugin<
         onItemClick: (id) => {
           if (id === 'music-together-close') {
             this.onStop();
-            this.api?.openToast(t('plugins.music-together.toast.closed'));
+            this.api?.toastService?.show(t('plugins.music-together.toast.closed'));
             hostPopup.dismiss();
           }
 
           if (id === 'music-together-copy-id') {
             navigator.clipboard.writeText(this.connection?.id ?? '')
               .then(() => {
-                this.api?.openToast(t('plugins.music-together.toast.id-copied'));
+                this.api?.toastService?.show(t('plugins.music-together.toast.id-copied'));
                 hostPopup.dismiss();
               })
               .catch(() => {
-                this.api?.openToast(t('plugins.music-together.toast.id-copy-failed'));
+                this.api?.toastService?.show(t('plugins.music-together.toast.id-copy-failed'));
                 hostPopup.dismiss();
               });
           }
@@ -620,7 +620,7 @@ export default createPlugin<
             settingPopup.setPermission(this.permission);
 
             const permissionLabel = t(`plugins.music-together.menu.permission.${this.permission}`);
-            this.api?.openToast(t('plugins.music-together.toast.permission-changed', { permission: permissionLabel }));
+            this.api?.toastService?.show(t('plugins.music-together.toast.permission-changed', { permission: permissionLabel }));
             const item = hostPopup.items.find((it) => it?.element.id === id);
             if (item?.type === 'item') {
               item.setText(t('plugins.music-together.menu.set-permission'));
@@ -632,7 +632,7 @@ export default createPlugin<
         onItemClick: (id) => {
           if (id === 'music-together-disconnect') {
             this.onStop();
-            this.api?.openToast(t('plugins.music-together.toast.disconnected'));
+            this.api?.toastService?.show(t('plugins.music-together.toast.disconnected'));
             guestPopup.dismiss();
           }
         }
@@ -648,14 +648,14 @@ export default createPlugin<
             if (result) {
               navigator.clipboard.writeText(this.connection?.id ?? '')
                 .then(() => {
-                  this.api?.openToast(t('plugins.music-together.toast.id-copied'));
+                  this.api?.toastService?.show(t('plugins.music-together.toast.id-copied'));
                   hostPopup.showAtAnchor(setting);
                 }).catch(() => {
-                  this.api?.openToast(t('plugins.music-together.toast.id-copy-failed'));
+                  this.api?.toastService?.show(t('plugins.music-together.toast.id-copy-failed'));
                   hostPopup.showAtAnchor(setting);
                 });
             } else {
-              this.api?.openToast(t('plugins.music-together.toast.host-failed'));
+              this.api?.toastService?.show(t('plugins.music-together.toast.host-failed'));
             }
           }
 
@@ -666,10 +666,10 @@ export default createPlugin<
             this.hideSpinner();
 
             if (result) {
-              this.api?.openToast(t('plugins.music-together.toast.joined'));
+              this.api?.toastService?.show(t('plugins.music-together.toast.joined'));
               guestPopup.showAtAnchor(setting);
             } else {
-              this.api?.openToast(t('plugins.music-together.toast.join-failed'));
+              this.api?.toastService?.show(t('plugins.music-together.toast.join-failed'));
             }
           }
         }

@@ -30,11 +30,39 @@ export type QueueAPI = {
   continuation?: string;
   autoPlaying?: boolean;
 };
+
+export type ToastElement = HTMLElement & {
+  autoFitOnAttach: boolean;
+  duration: number;
+  expandSizingTargetForScrollbars: boolean;
+  horizontalAlign: 'left' | 'right' | 'center';
+  importPath?: unknown;
+  label: string;
+  noAutoFocus: boolean;
+  noCancelOnEscKey: boolean;
+  noCancelOnOutsideClick: boolean;
+  noIronAnnounce: boolean;
+  restoreFocusOnClose: boolean;
+  root: ToastElement;
+  rootPath: string;
+  sizingTarget: ToastElement;
+  verticalAlign: 'bottom' | 'top' | 'center';
+};
+
+export interface ToastService {
+  attached: boolean;
+  displaying: boolean;
+  messageQueue: string[];
+  toastElement: ToastElement;
+  show: (message: string) => void;
+}
+
 export type AppElement = HTMLElement & AppAPI;
 export type AppAPI = {
-  queue_: QueueAPI;
-  playerApi_: YoutubePlayer;
-  openToast: (message: string) => void;
+  queue: QueueAPI;
+  playerApi: YoutubePlayer;
+
+  toastService: ToastService;
 
   // TODO: Add more
 };

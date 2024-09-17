@@ -6,6 +6,7 @@ import type is from 'electron-is';
 import type config from './config';
 import type { VideoDataChanged } from '@/types/video-data-changed';
 import type { t } from '@/i18n';
+import type { trustedTypes } from 'trusted-types';
 
 declare global {
   interface Compressor {
@@ -19,6 +20,7 @@ declare global {
   }
 
   interface Window {
+    trustedTypes?: typeof trustedTypes;
     ipcRenderer: typeof electronIpcRenderer;
     mainConfig: typeof config;
     electronIs: typeof is;

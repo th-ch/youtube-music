@@ -11,6 +11,7 @@ import {
   shell,
   dialog,
   ipcMain,
+  type BrowserWindowConstructorOptions,
 } from 'electron';
 import enhanceWebRequest, {
   BetterSession,
@@ -56,7 +57,6 @@ import { loadI18n, setLanguage, t } from '@/i18n';
 import ErrorHtmlAsset from '@assets/error.html?asset';
 
 import type { PluginConfig } from '@/types/plugins';
-import BrowserWindowConstructorOptions = Electron.BrowserWindowConstructorOptions;
 
 if (!is.macOS()) {
   delete allPlugins['touchbar'];
@@ -618,6 +618,7 @@ app.whenReady().then(async () => {
           shortcutDetails.target !== appLocation ||
           shortcutDetails.appUserModelId !== appID
         ) {
+          // eslint-disable-next-line @typescript-eslint/only-throw-error
           throw 'needUpdate';
         }
       } catch (error) {

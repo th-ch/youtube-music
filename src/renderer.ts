@@ -23,6 +23,14 @@ let isPluginLoaded = false;
 let isApiLoaded = false;
 let firstDataLoaded = false;
 
+if (window.trustedTypes && window.trustedTypes.createPolicy && !window.trustedTypes.defaultPolicy) {
+  window.trustedTypes.createPolicy('default', {
+    createHTML: (input) => input,
+    createScriptURL: (input) => input,
+    createScript: (input) => input,
+  });
+}
+
 async function listenForApiLoad() {
   if (!isApiLoaded) {
     api = document.querySelector('#movie_player');
