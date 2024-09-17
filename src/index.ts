@@ -618,7 +618,7 @@ app.whenReady().then(async () => {
           shortcutDetails.target !== appLocation ||
           shortcutDetails.appUserModelId !== appID
         ) {
-          // eslint-disable-next-line @typescript-eslint/ only-throw-error
+          // eslint-disable-next-line @typescript-eslint/only-throw-error
           throw 'needUpdate';
         }
       } catch (error) {
