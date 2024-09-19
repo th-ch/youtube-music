@@ -16,7 +16,6 @@ export const [isFetching, setIsFetching] = createSignal(false);
 export const [hadSecondAttempt, setHadSecondAttempt] = createSignal(false);
 // prettier-ignore
 export const [differentDuration, setDifferentDuration] = createSignal(false);
-// eslint-disable-next-line prefer-const
 
 export const extractTimeAndText = (
   line: string,
