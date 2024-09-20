@@ -1,1 +1,30 @@
-{}
+{
+  "plugins": {
+    "downloader": {
+      "backend": {
+        "feedback": {
+          "getting-playlist-info": "Obtendo informações da playlist…",
+          "loading": "Carregando…",
+          "playlist-has-only-one-song": "Playlist possui apenas um item, baixando diretamente",
+          "playlist-id-not-found": "Nenhum playlist ID encontrado",
+          "playlist-is-empty": "Playlist está vazia",
+          "preparing-file": "Preparando arquivo…",
+          "saving": "Salvando…",
+          "trying-to-get-playlist-id": "Tentando obter playlist ID: {{playlistId}}",
+          "video-id-not-found": "Vídeo não encontrado"
+        }
+      },
+      "menu": {
+        "choose-download-folder": "Escolha a pasta de download",
+        "download-finish-settings": {
+          "label": "Baixar ao finalizar",
+          "submenu": {
+            "enabled": "Ativado"
+          }
+        },
+        "download-playlist": "Baixar playlist",
+        "skip-existing": "Pular arquivos existentes"
+      }
+    }
+  }
+}
