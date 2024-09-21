@@ -239,7 +239,7 @@
     "typescript": "5.6.2",
     "typescript-eslint": "^8.6.0",
     "utf-8-validate": "6.0.4",
-    "vite": "5.4.6",
+    "vite": "5.4.7",
     "vite-plugin-inspect": "0.8.7",
     "vite-plugin-resolve": "2.5.2",
     "vite-plugin-solid": "2.10.2",
