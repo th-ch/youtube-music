@@ -5,6 +5,8 @@ import { LyricsGenius } from './LyricsGenius';
 
 import type { LyricProvider, LyricResult } from '../types';
 import { createSignal } from 'solid-js';
+import { setProviderIdx } from '../renderer/components/LyricsPicker';
+import { triggerRender } from '../renderer/renderer';
 
 export const providers: LyricProvider[] = [LRCLib, LyricsGenius] as const;
 
@@ -20,10 +22,14 @@ interface SearchCache {
   >;
 }
 
+// prettier-ignore
+const initialData = () => Object.fromEntries(providers.map((p) => [p.name, { state: 'fetching' }]));
 const [accessor, setter] = createSignal<SearchCache>({
-  state: 'done',
-  data: {},
+  state: 'loading',
+  // @ts-ignore
+  data: initialData(),
 });
+
 export const searchResults = accessor;
 
 const searchCache = new Map<VideoId, SearchCache>();
@@ -31,16 +37,15 @@ export const fetchLyrics = (info: SongInfo) => {
   if (searchCache.has(info.videoId)) {
     const cache = searchCache.get(info.videoId);
 
-    if (cache?.state === 'done') setter(cache);
+    if (cache?.state === 'done') setter({ ...cache });
     else return; // still loading, so we return
   }
 
   // prevent duplicate requests by pre-emptively setting an empty value
   const cache: SearchCache = {
     state: 'loading',
-    data: Object.fromEntries(
-      providers.map((p) => [p.name, { state: 'fetching' }]),
-    ),
+    // @ts-ignore
+    data: initialData(),
   };
   searchCache.set(info.videoId, cache);
 
@@ -68,5 +73,6 @@ export const fetchLyrics = (info: SongInfo) => {
 
   Promise.all(tasks).then(() => {
     setter({ ...cache, state: 'done' });
+    triggerRender();
   });
 };
