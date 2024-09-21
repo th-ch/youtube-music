@@ -14,7 +14,9 @@ export const LyricsPicker = () => {
 
   return (
     <div class="lyrics-picker">
-      <tp-yt-paper-icon-button class="lyrics-picker-left" icon={chevronLeft} onClick={previous} />
+      <div class="lyrics-picker-left">
+        <tp-yt-paper-icon-button icon={chevronLeft} onClick={previous} />
+      </div>
 
       <div class="lyrics-picker-content">
         <div class="lyrics-picker-content-label">
@@ -44,7 +46,9 @@ export const LyricsPicker = () => {
         </ul>
       </div>
 
-      <tp-yt-paper-icon-button class="lyrics-picker-right" icon={chevronRight} onClick={next} />
+      <div class="lyrics-picker-right">
+        <tp-yt-paper-icon-button icon={chevronRight} onClick={next} />
+      </div>
     </div>
   );
 };
