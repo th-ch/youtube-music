@@ -54,7 +54,7 @@ export const LyricsRenderer = () => {
     <Show when={isVisible()}>
       <div class="lyrics-renderer">
         <LyricsPicker />
-        <div id="divider" class="style-scope ytmusic-guide-section-renderer" style={{ width: '100%' }}></div>
+        <div id="divider" class="style-scope ytmusic-guide-section-renderer" style={{ width: '100%', margin: "0" }}></div>
         <LyricsContainer />
       </div>
     </Show>
