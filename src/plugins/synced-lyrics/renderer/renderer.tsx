@@ -49,6 +49,11 @@ createEffect(() => {
   }
 });
 
+const [count, setCount] = createSignal(0);
+
+export const renderCount = count;
+export const triggerRender = () => setCount(i => i+1);
+
 export const LyricsRenderer = () => {
   return (
     <Show when={isVisible()}>
@@ -57,6 +62,7 @@ export const LyricsRenderer = () => {
         <div id="divider" class="style-scope ytmusic-guide-section-renderer" style={{ width: '100%', margin: "0" }}></div>
         <LyricsContainer />
       </div>
+      <span style={{ display: "none" }}>{renderCount()}</span>
     </Show>
   );
 };
