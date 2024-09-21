@@ -50,6 +50,11 @@ createEffect(() => {
   }
 });
 
+const [count, setCount] = createSignal(0);
+
+export const renderCount = count;
+export const triggerRender = () => setCount(i => i+1);
+
 export const LyricsRenderer = () => {
   return (
     <Show when={isVisible()}>
@@ -62,6 +67,7 @@ export const LyricsRenderer = () => {
         ></div>
         <LyricsContainer />
       </div>
+      <span style={{ display: "none" }}>{renderCount()}</span>
     </Show>
   );
 };
