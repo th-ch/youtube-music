@@ -32,10 +32,10 @@
 
 .synced-line {
   width: var(--lyric-width, 100%);
-}
 
-.synced-line > .text-lyrics {
-  cursor: pointer;
+  & > .text-lyrics {
+    cursor: pointer;
+  }
 }
 
 .synced-lyrics {
@@ -84,13 +84,11 @@
 
 .lyrics-picker {
   height: 5em;
-  margin-top: 5%;
-
   display: flex;
   flex-direction: row;
-
-  justify-content: space-around;
   align-items: center;
+  justify-content: space-around;
+  padding-block: 1em;
 }
 
 .lyrics-picker-content {
@@ -133,4 +131,17 @@
   margin: 0 4px 0;
   border-radius: 200px;
   border: 1px solid #6e7c7c7f;
+}
+
+.lyrics-picker-left,
+.lyrics-picker-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease;
+  border-radius: 25%;
+
+  &:hover {
+    background-color: hsla(0, 0%, 100%, 0.1);
+  }
 }

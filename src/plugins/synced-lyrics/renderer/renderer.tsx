@@ -58,7 +58,7 @@ export const LyricsRenderer = () => {
         <div
           id="divider"
           class="style-scope ytmusic-guide-section-renderer"
-          style={{ width: '100%' }}
+          style={{ width: '100%', margin: '0' }}
         ></div>
         <LyricsContainer />
       </div>
