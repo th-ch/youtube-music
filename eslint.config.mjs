@@ -3,12 +3,14 @@
 import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import stylistic from "@stylistic/eslint-plugin-js"
+import prettier from "eslint-plugin-prettier/recommended"
 import * as importPlugin from "eslint-plugin-import"
 
 export default tseslint.config(
   eslint.configs.recommended,
   tseslint.configs.eslintRecommended,
   ...tseslint.configs.recommendedTypeChecked,
+  prettier,
   { ignores: ["dist", "node_modules", "*.config.*js"] },
   {
     plugins: {
