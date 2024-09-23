@@ -674,6 +674,42 @@
         "fetch": "⚠️ - Si è verificato un errore nel recuperare il testo. Per favore riprova più tardi.",
         "not-found": "⚠️ - Nessun testo trovato per questa canzone."
       },
+      "menu": {
+        "default-text-string": {
+          "label": "Carattere predefinito tra i testi",
+          "tooltip": "Scegliere il carattere predefinito da utilizzare per l'intervallo tra i testi"
+        },
+        "line-effect": {
+          "label": "Effetto linea",
+          "submenu": {
+            "focus": {
+              "label": "Focus",
+              "tooltip": "Rendi bianca solo la riga corrente"
+            },
+            "offset": {
+              "label": "Offset",
+              "tooltip": "Offset a destra della riga corrente"
+            },
+            "scale": {
+              "label": "Ingrandimento",
+              "tooltip": "Ingrandisci la linea corrente"
+            }
+          },
+          "tooltip": "Scegli l'effetto da applicare alla linea corrente"
+        },
+        "precise-timing": {
+          "label": "Rendi i testi perfettamente sincronizzati",
+          "tooltip": "Calcola al millisecondo la visualizzazione della riga successiva (può avere un piccolo impatto sulle prestazioni)"
+        },
+        "show-lyrics-even-if-inexact": {
+          "label": "Mostra le lyric anche se incorrette",
+          "tooltip": "Se il brano non viene trovato, il plugin riprova con un'altra query di ricerca.\nIl risultato del secondo tentativo potrebbe non essere esatto."
+        },
+        "show-time-codes": {
+          "label": "Mostra time code",
+          "tooltip": "Mostra i codici temporali accanto ai testi"
+        }
+      },
       "name": "Testi sincronizzati",
       "refetch-btn": {
         "fetching": "Sto recuperando...",
