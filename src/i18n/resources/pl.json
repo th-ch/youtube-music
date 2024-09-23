@@ -698,7 +698,7 @@
           "tooltip": "Wybierz efekt, by zastosować go do aktualnej linijki"
         },
         "precise-timing": {
-          "label": "Zsynchronizuj tekst utworu",
+          "label": "Zsynchronizuj tekst utworu do perfekcji",
           "tooltip": "Wylicz czas wyświetlania następnej linijki co do milisekundy (może mieć mały wpływ na wydajność systemu)"
         },
         "show-lyrics-even-if-inexact": {
@@ -717,7 +717,7 @@
       },
       "warnings": {
         "duration-mismatch": "⚠️ - Napisy mogą nie być zsynchronizowane z powodu różnicy w czasie trwania utworu.",
-        "inexact": "⚠️ - Napisy mogą różnić się od faktycznego tekstu.",
+        "inexact": "⚠️ - Tekst utworu może się różnić od oryginału",
         "instrumental": "⚠️ - To jest utwór instrumentalny"
       }
     },
