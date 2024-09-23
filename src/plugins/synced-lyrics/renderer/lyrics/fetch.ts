@@ -38,7 +38,7 @@ export const extractTimeAndText = (
     index,
     timeInMs,
     time: `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}:${millis}`,
-    text: text?.trim() ?? config()!.defaultTextString,
+    text: text?.trim().length ? text?.trim() : config()!.defaultTextString,
     status: 'upcoming',
     duration: 0,
   };
