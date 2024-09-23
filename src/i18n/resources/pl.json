@@ -717,6 +717,7 @@
       },
       "warnings": {
         "duration-mismatch": "⚠️ - Napisy mogą nie być zsynchronizowane z powodu różnicy w czasie trwania utworu.",
+        "inexact": "⚠️ - Napisy mogą różnić się od faktycznego tekstu.",
         "instrumental": "⚠️ - To jest utwór instrumentalny"
       }
     },
