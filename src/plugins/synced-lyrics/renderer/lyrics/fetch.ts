@@ -178,10 +178,12 @@ export const getLyricsList = async (
   // Add a blank line at the beginning
   raw.unshift('[0:0.0] ');
 
-  const syncedLyricList = raw.reduce<LineLyrics[]>((acc, line, index) => {
-    const syncedLine = extractTimeAndText(line, index);
+  let i = 0;
+  const syncedLyricList = raw.reduce<LineLyrics[]>((acc, line) => {
+    const syncedLine = extractTimeAndText(line, i);
     if (syncedLine) {
       acc.push(syncedLine);
+      i++;
     }
 
     return acc;
