@@ -674,13 +674,50 @@
         "fetch": "⚠️ - Wystąpił błąd podczas pobierania tekstu utworu. Spróbuj ponownie później.",
         "not-found": "⚠️ - Nie znaleziono napisów dla tego utworu."
       },
+      "menu": {
+        "default-text-string": {
+          "label": "Standardowy znak luki",
+          "tooltip": "Wybierz domyślny znak, który ma być wyświetlany jako pauza między słowami"
+        },
+        "line-effect": {
+          "label": "Efekty linijki",
+          "submenu": {
+            "focus": {
+              "label": "Fokus",
+              "tooltip": "Spraw, aby tylko obecna linijka była biała"
+            },
+            "offset": {
+              "label": "Przesunięcie",
+              "tooltip": "Przesuń w prawo obecną linijkę"
+            },
+            "scale": {
+              "label": "Skala",
+              "tooltip": "Zmień skalę aktualnej linijki"
+            }
+          },
+          "tooltip": "Wybierz efekt, by zastosować go do aktualnej linijki"
+        },
+        "precise-timing": {
+          "label": "Zsynchronizuj tekst utworu do perfekcji",
+          "tooltip": "Wylicz czas wyświetlania następnej linijki co do milisekundy (może mieć mały wpływ na wydajność systemu)"
+        },
+        "show-lyrics-even-if-inexact": {
+          "label": "Pokaż teksty, mimo niezgodności",
+          "tooltip": "Jeżeli nie znaleziono tekstu piosenki z bazy danych, wtyczka spróbuje ponownie przez wyszukanie przybliżonej frazy.\nNależy jednak pamiętać, że następne próby mogą nie być trafne co do oryginału."
+        },
+        "show-time-codes": {
+          "label": "Pokaż znaczniki czasu",
+          "tooltip": "Pokaż znaczniki czasu obok linijek"
+        }
+      },
       "name": "Napisy zsynchronizowane",
       "refetch-btn": {
         "fetching": "Pobieranie napisów...",
         "normal": "Odśwież napisy"
       },
       "warnings": {
-        "duration-mismatch": "⚠️ - Napisy mogą nie być zsynchronizowane z powodu różnicy w czasie trwania.",
+        "duration-mismatch": "⚠️ - Napisy mogą nie być zsynchronizowane z powodu różnicy w czasie trwania utworu.",
+        "inexact": "⚠️ - Tekst utworu może się różnić od oryginału",
         "instrumental": "⚠️ - To jest utwór instrumentalny"
       }
     },
