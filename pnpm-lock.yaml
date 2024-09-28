@@ -191,8 +191,8 @@ importers:
         specifier: ^8.42.3
         version: 8.42.3
       '@types/howler':
-        specifier: 2.2.11
-        version: 2.2.11
+        specifier: 2.2.12
+        version: 2.2.12
       '@types/html-to-text':
         specifier: 9.0.4
         version: 9.0.4
@@ -1125,8 +1125,8 @@ packages:
   '@types/har-format@1.2.15':
     resolution: {integrity: sha512-RpQH4rXLuvTXKR0zqHq3go0RVXYv/YVqv4TnPH95VbwUxZdQlK1EtcMvQvMpDngHbt13Csh9Z4qT9AbkiQH5BA==}
 
-  '@types/howler@2.2.11':
-    resolution: {integrity: sha512-7aBoUL6RbSIrqKnpEgfa1wSNUBK06mn08siP2QI0zYk7MXfEJAaORc4tohamQYqCqVESoDyRWSdQn2BOKWj2Qw==}
+  '@types/howler@2.2.12':
+    resolution: {integrity: sha512-hy769UICzOSdK0Kn1FBk4gN+lswcj1EKRkmiDtMkUGvFfYJzgaDXmVXkSShS2m89ERAatGIPnTUlp2HhfkVo5g==}
 
   '@types/html-to-text@9.0.4':
     resolution: {integrity: sha512-pUY3cKH/Nm2yYrEmDlPR1mR7yszjGx4DrwPjQ702C4/D5CwHuZTgZdIdwPkRbcuhs7BAh2L5rg3CL5cbRiGTCQ==}
@@ -4896,7 +4896,7 @@ snapshots:
 
   '@types/har-format@1.2.15': {}
 
-  '@types/howler@2.2.11': {}
+  '@types/howler@2.2.12': {}
 
   '@types/html-to-text@9.0.4': {}
 
