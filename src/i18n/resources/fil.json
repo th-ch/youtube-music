@@ -498,6 +498,7 @@
           }
         },
         "priority": "Prioridad ng Notification",
+        "toast-style": "Estilo ng toast",
         "unpause-notification": "Ipakita ang notification sa pag-unpause"
       },
       "name": "Mga Abiso"
