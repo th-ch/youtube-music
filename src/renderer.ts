@@ -201,16 +201,16 @@ async function onApiLoaded() {
     'options.likeButtons',
   );
   if (likeButtonsOptions) {
-    const likeButtons: HTMLElement | null = document.querySelector(
-      'ytmusic-like-button-renderer',
-    );
-    if (likeButtons) {
-      likeButtons.style.display =
-        {
-          hide: 'none',
-          force: 'inherit',
-        }[likeButtonsOptions] || '';
-    }
+    const style = document.createElement('style');
+    style.textContent = `
+      ytmusic-player-bar[is-mweb-player-bar-modernization-enabled] .middle-controls-buttons.ytmusic-player-bar, #like-button-renderer {
+        display: ${likeButtonsOptions === 'hide' ? 'none' : 'inherit'} !important;
+      }
+      ytmusic-player-bar[is-mweb-player-bar-modernization-enabled] .middle-controls.ytmusic-player-bar {
+        justify-content: ${likeButtonsOptions === 'hide' ? 'flex-start' : 'space-between'} !important;
+      }`;
+
+    document.head.appendChild(style);
   }
 }
 
