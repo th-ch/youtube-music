@@ -403,6 +403,7 @@
           "playlist-has-only-one-song": "Playlist possui apenas um item, baixando diretamente",
           "playlist-id-not-found": "Nenhum playlist ID encontrado",
           "playlist-is-empty": "Playlist está vazia",
+          "playlist-is-mix-or-private": "Erro ao obter informações da playlist: verifique se não é uma playlist privada ou “”Mixada para você”\n\n{{error}}",
           "preparing-file": "Preparando arquivo…",
           "saving": "Salvando…",
           "trying-to-get-playlist-id": "Tentando obter playlist ID: {{playlistId}}",
@@ -410,6 +411,7 @@
           "writing-id3": "Salvando tags ID3…"
         }
       },
+      "description": "Faça download do MP3 / fonte de áudio diretamente da interface",
       "menu": {
         "choose-download-folder": "Escolha a pasta de download",
         "download-finish-settings": {
@@ -437,22 +439,26 @@
         "button": "Download"
       }
     },
+    "exponential-volume": {
+      "name": "Volume Exponencial"
+    },
     "in-app-menu": {
       "name": "Menu no aplicativo"
     },
     "music-together": {
       "internal": {
         "save": "Salvar",
-        "track-source": "Fonte da faixa",
-        "unknown-user": "Usuário desconhecido"
+        "track-source": "Fonte da Faixa",
+        "unknown-user": "Usuário Desconhecido"
       },
       "menu": {
         "click-to-copy-id": "Copiar ID do host",
-        "connected-users": "Usuários conectados",
+        "connected-users": "Usuários Conectados",
         "empty-user": "Nenhum usuário conectado",
         "status": {
           "disconnected": "Desconectado",
-          "guest": "Conectado como convidado"
+          "guest": "Conectado como convidado",
+          "host": "Conectado como Host"
         }
       },
       "name": "Music Together [Beta]",
