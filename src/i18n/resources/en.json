@@ -158,18 +158,18 @@
               },
               "remove-upgrade-button": "Remove upgrade button",
               "theme": {
+                "dialog": {
+                  "button": {
+                    "cancel": "Cancel",
+                    "remove": "Remove"
+                  },
+                  "remove-theme": "Are you sure you want to remove the custom theme?",
+                  "remove-theme-message": "This will remove the custom theme"
+                },
                 "label": "Theme",
                 "submenu": {
                   "import-css-file": "Import custom CSS file",
                   "no-theme": "No theme"
-                },
-                "dialog": {
-                  "remove-theme": "Are you sure you want to remove the custom theme?",
-                  "remove-theme-message": "This will remove the custom theme",
-                  "button": {
-                    "cancel": "Cancel",
-                    "remove": "Remove"
-                  }
                 }
               }
             }
@@ -207,6 +207,10 @@
     }
   },
   "plugins": {
+    "ad-speedup": {
+      "description": "If an ad play it mutes the audio and sets playback speed to 16x",
+      "name": "Ad Speedup"
+    },
     "adblocker": {
       "description": "Block all ads and tracking out of the box",
       "menu": {
@@ -214,17 +218,12 @@
       },
       "name": "Ad Blocker"
     },
-    "ad-speedup": {
-      "name": "Ad Speedup",
-      "description": "If an ad play it mutes the audio and sets playback speed to 16x"
-    },
     "album-actions": {
       "description": "Adds Undislike, Dislike, Like, and Unlike buttons to apply this to all songs in a playlist or album",
       "name": "Album Actions"
     },
     "album-color-theme": {
       "description": "Applies a dynamic theme and visual effects based on the album color palette",
-      "name": "Album Color Theme",
       "menu": {
         "color-mix-ratio": {
           "label": "Color mix ratio",
@@ -232,7 +231,8 @@
             "percent": "{{ratio}}%"
           }
         }
-      }
+      },
+      "name": "Album Color Theme"
     },
     "ambient-mode": {
       "description": "Applies a lighting effect by casting gentle colors from the video, into your screen’s background",
@@ -414,24 +414,24 @@
       "description": "Downloads MP3 / source audio directly from the interface",
       "menu": {
         "choose-download-folder": "Choose download folder",
-        "download-playlist": "Download playlist",
-        "presets": "Presets",
-        "skip-existing": "Skip existing files",
         "download-finish-settings": {
           "label": "Download on finish",
+          "prompt": {
+            "last-percent": "After x percent",
+            "last-seconds": "Last x seconds",
+            "title": "Configure when to download"
+          },
           "submenu": {
+            "advanced": "Advanced",
             "enabled": "Enabled",
             "mode": "Time mode",
-            "seconds": "Seconds",
             "percent": "Percent",
-            "advanced": "Advanced"
-          },
-          "prompt": {
-            "title": "Configure when to download",
-            "last-seconds": "Last x seconds",
-            "last-percent": "After x percent"
+            "seconds": "Seconds"
           }
-        }
+        },
+        "download-playlist": "Download playlist",
+        "presets": "Presets",
+        "skip-existing": "Skip existing files"
       },
       "name": "Downloader",
       "renderer": {
@@ -609,19 +609,19 @@
       "dialog": {
         "lastfm": {
           "auth-failed": {
-            "title": "Authentication Failed",
-            "message": "Failed to authenticate with Last.fm\nHide the popup until the next restart."
+            "message": "Failed to authenticate with Last.fm\nHide the popup until the next restart.",
+            "title": "Authentication Failed"
           }
         }
       },
       "menu": {
-        "scrobble-other-media": "Scrobble other media",
         "lastfm": {
           "api-settings": "Last.fm API Settings"
         },
         "listenbrainz": {
           "token": "Enter ListenBrainz user token"
-        }
+        },
+        "scrobble-other-media": "Scrobble other media"
       },
       "name": "Scrobbler",
       "prompt": {
@@ -670,55 +670,55 @@
     },
     "synced-lyrics": {
       "description": "Provides synced lyrics to songs, using providers like LRClib.",
-      "name": "Synced Lyrics",
       "errors": {
         "fetch": "⚠️ - An error occurred while fetching the lyrics. Please try again later.",
         "not-found": "⚠️ - No lyrics found for this song."
       },
-      "warnings": {
-        "instrumental": "⚠️ - This is an instrumental song",
-        "inexact": "⚠️ - The lyrics for this song may not be exact",
-        "duration-mismatch": "⚠️ - The lyrics may be out of sync due to a duration mismatch."
-      },
-      "refetch-btn": {
-        "normal": "Refetch lyrics",
-        "fetching": "Fetching..."
-      },
       "menu": {
-        "precise-timing": {
-          "label": "Make the lyrics perfectly synced",
-          "tooltip": "Calculate to the milisecond the display of the next line (can have a small impact on performance)"
+        "default-text-string": {
+          "label": "Default character between lyrics",
+          "tooltip": "Choose the default character to use for the gap between lyrics"
         },
         "line-effect": {
           "label": "Line effect",
-          "tooltip": "Choose the effect to apply to the current line",
           "submenu": {
-            "scale": {
-              "label": "Scale",
-              "tooltip": "Scale the current line"
+            "focus": {
+              "label": "Focus",
+              "tooltip": "Make only the current line white"
             },
             "offset": {
               "label": "Offset",
               "tooltip": "Offset on the right the current line"
             },
-            "focus": {
-              "label": "Focus",
-              "tooltip": "Make only the current line white"
+            "scale": {
+              "label": "Scale",
+              "tooltip": "Scale the current line"
             }
-          }
+          },
+          "tooltip": "Choose the effect to apply to the current line"
         },
-        "default-text-string": {
-          "label": "Default character between lyrics",
-          "tooltip": "Choose the default character to use for the gap between lyrics"
-        },
-        "show-time-codes": {
-          "label": "Show time codes",
-          "tooltip": "Show the time codes next to the lyrics"
+        "precise-timing": {
+          "label": "Make the lyrics perfectly synced",
+          "tooltip": "Calculate to the milisecond the display of the next line (can have a small impact on performance)"
         },
         "show-lyrics-even-if-inexact": {
           "label": "Show lyrics even if inexact",
           "tooltip": "If the song is not found, the plugin tries again with a different search query.\nThe result from the second attempt may not be exact."
+        },
+        "show-time-codes": {
+          "label": "Show time codes",
+          "tooltip": "Show the time codes next to the lyrics"
         }
+      },
+      "name": "Synced Lyrics",
+      "refetch-btn": {
+        "fetching": "Fetching...",
+        "normal": "Refetch lyrics"
+      },
+      "warnings": {
+        "duration-mismatch": "⚠️ - The lyrics may be out of sync due to a duration mismatch.",
+        "inexact": "⚠️ - The lyrics for this song may not be exact",
+        "instrumental": "⚠️ - This is an instrumental song"
       }
     },
     "taskbar-mediacontrol": {
