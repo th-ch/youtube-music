@@ -100,8 +100,8 @@ importers:
         specifier: 4.0.1
         version: 4.0.1
       electron-updater:
-        specifier: 6.3.4
-        version: 6.3.4
+        specifier: 6.3.9
+        version: 6.3.9
       fast-average-color:
         specifier: 9.4.0
         version: 9.4.0
@@ -1488,12 +1488,12 @@ packages:
     resolution: {integrity: sha512-4T53u4PdgsXqKaIctwF8ifXlRTTmEPJ8iEPWFdGZvcf7sbwYo6FKFEX9eNNAnzFZ7EzJAQ3CJeOtCRA4rDp7Pw==}
     engines: {node: '>=6.14.2'}
 
-  builder-util-runtime@9.2.4:
-    resolution: {integrity: sha512-upp+biKpN/XZMLim7aguUyW8s0FUpDvOtK6sbanMFDAMBzpHDqdhgVYm6zc9HJ6nWo7u2Lxk60i2M6Jd3aiNrA==}
+  builder-util-runtime@9.2.10:
+    resolution: {integrity: sha512-6p/gfG1RJSQeIbz8TK5aPNkoztgY1q5TgmGFMAXcY8itsGW6Y2ld1ALsZ5UJn8rog7hKF3zHx5iQbNQ8uLcRlw==}
     engines: {node: '>=12.0.0'}
 
-  builder-util-runtime@9.2.5:
-    resolution: {integrity: sha512-HjIDfhvqx/8B3TDN4GbABQcgpewTU4LMRTQPkVpKYV3lsuxEJoIfvg09GyWTNmfVNSUAYf+fbTN//JX4TH20pg==}
+  builder-util-runtime@9.2.4:
+    resolution: {integrity: sha512-upp+biKpN/XZMLim7aguUyW8s0FUpDvOtK6sbanMFDAMBzpHDqdhgVYm6zc9HJ6nWo7u2Lxk60i2M6Jd3aiNrA==}
     engines: {node: '>=12.0.0'}
 
   builder-util@24.13.1:
@@ -1953,8 +1953,8 @@ packages:
   electron-unhandled@4.0.1:
     resolution: {integrity: sha512-6BsLnBg+i96eUnbaIFZyYdyfNX3f80/Nlfqy34YEMxXT9JP3ddNsNnUeiOF8ezN4+et4t4D37gjghKTP0V3jyw==}
 
-  electron-updater@6.3.4:
-    resolution: {integrity: sha512-uZUo7p1Y53G4tl6Cgw07X1yF8Jlz6zhaL7CQJDZ1fVVkOaBfE2cWtx80avwDVi8jHp+I/FWawrMgTAeCCNIfAg==}
+  electron-updater@6.3.9:
+    resolution: {integrity: sha512-2PJNONi+iBidkoC5D1nzT9XqsE8Q1X28Fn6xRQhO3YX8qRRyJ3mkV4F1aQsuRnYPqq6Hw+E51y27W75WgDoofw==}
 
   electron-vite@2.3.0:
     resolution: {integrity: sha512-lsN2FymgJlp4k6MrcsphGqZQ9fKRdJKasoaiwIrAewN1tapYI/KINLdfEL7n10LuF0pPSNf/IqjzZbB5VINctg==}
@@ -5367,14 +5367,14 @@ snapshots:
     dependencies:
       node-gyp-build: 4.8.0
 
-  builder-util-runtime@9.2.4:
+  builder-util-runtime@9.2.10:
     dependencies:
       debug: 4.3.7
       sax: 1.3.0
     transitivePeerDependencies:
       - supports-color
 
-  builder-util-runtime@9.2.5:
+  builder-util-runtime@9.2.4:
     dependencies:
       debug: 4.3.7
       sax: 1.3.0
@@ -5954,9 +5954,9 @@ snapshots:
       lodash.debounce: 4.0.8
       serialize-error: 8.1.0
 
-  electron-updater@6.3.4:
+  electron-updater@6.3.9:
     dependencies:
-      builder-util-runtime: 9.2.5
+      builder-util-runtime: 9.2.10
       fs-extra: 10.1.0
       js-yaml: 4.1.0
       lazy-val: 1.0.5
