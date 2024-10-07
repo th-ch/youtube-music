@@ -221,7 +221,7 @@
     "bufferutil": "4.0.8",
     "builtin-modules": "4.0.0",
     "cross-env": "7.0.3",
-    "del-cli": "5.1.0",
+    "del-cli": "6.0.0",
     "discord-api-types": "0.37.101",
     "electron": "32.1.2",
     "electron-builder": "24.13.3",
