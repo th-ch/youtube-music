@@ -162,7 +162,7 @@
     "@electron-toolkit/tsconfig": "1.0.1",
     "@electron/remote": "2.1.2",
     "@ffmpeg.wasm/core-mt": "0.12.0",
-    "@ffmpeg.wasm/main": "0.12.0",
+    "@ffmpeg.wasm/main": "0.13.1",
     "@floating-ui/dom": "1.6.11",
     "@foobar404/wave": "2.0.5",
     "@jellybrick/electron-better-web-request": "1.0.4",
