@@ -270,7 +270,7 @@
         "smoothness-transition": {
           "label": "Transição suave",
           "submenu": {
-            "during": "Durante {{interpolationTime}} seg."
+            "during": "Durante {{interpolationTime}} s"
           }
         },
         "use-fullscreen": {
@@ -424,6 +424,8 @@
           "submenu": {
             "advanced": "Avançado",
             "enabled": "Ativado",
+            "mode": "Modo de tempo",
+            "percent": "Porcento",
             "seconds": "Segundos"
           }
         },
@@ -431,21 +433,44 @@
         "presets": "Predefinições",
         "skip-existing": "Pular arquivos existentes"
       },
-      "name": "Download",
+      "name": "Downloader",
       "renderer": {
         "can-not-update-progress": "Não é possível atualizar o progresso"
       },
       "templates": {
-        "button": "Download"
+        "button": "Baixar"
       }
     },
     "exponential-volume": {
+      "description": "Torna o controle deslizante de volume exponencial para que seja mais fácil selecionar volumes mais baixos.",
       "name": "Volume Exponencial"
     },
     "in-app-menu": {
+      "description": "Dá às barras de menu uma aparência elegante, escura ou com a cor do álbum",
+      "menu": {
+        "hide-dom-window-controls": "Ocultar controles da janela DOM"
+      },
       "name": "Menu no aplicativo"
     },
+    "lumiastream": {
+      "description": "Adiciona suporte ao Lumia Stream",
+      "name": "Lumia Stream [Beta]"
+    },
+    "lyrics-genius": {
+      "description": "Adiciona suporte a letras para a maioria das músicas",
+      "menu": {
+        "romanized-lyrics": "Letras Romanizadas"
+      },
+      "name": "Letras Genius",
+      "renderer": {
+        "fetched-lyrics": "Letras buscadas por Genius"
+      }
+    },
     "music-together": {
+      "description": "Compartilhe uma playlist com outras pessoas. Quando o anfitrião toca uma música, todos os outros ouvirão",
+      "dialog": {
+        "enter-host": "Insira o ID do host"
+      },
       "internal": {
         "save": "Salvar",
         "track-source": "Fonte da Faixa",
@@ -453,12 +478,22 @@
       },
       "menu": {
         "click-to-copy-id": "Copiar ID do host",
+        "close": "Fechar Music Together",
         "connected-users": "Usuários Conectados",
+        "disconnect": "Desconectar Music Together",
         "empty-user": "Nenhum usuário conectado",
+        "host": "Anfitrião do Music Together",
+        "join": "Entrar no Music Together",
+        "permission": {
+          "all": "Permitir que os convidados controlem a lista de reprodução e o player",
+          "host-only": "Somente o host pode controlar a lista de reprodução e o player",
+          "playlist": "Permitir que os convidados controlem a lista de reprodução"
+        },
+        "set-permission": "Mudar Permissões de Controle",
         "status": {
           "disconnected": "Desconectado",
           "guest": "Conectado como convidado",
-          "host": "Conectado como Host"
+          "host": "Conectado como Anfitrião"
         }
       },
       "name": "Music Together [Beta]",
@@ -466,16 +501,27 @@
         "add-song-failed": "Falha ao adicionar música",
         "closed": "Music Together fechado",
         "disconnected": "Music Together desconectado",
-        "remove-song-failed": "Falha ao remover música"
+        "host-failed": "Falha ao hospedar o Music Together",
+        "id-copied": "ID do anfitrião copiado para a área de transferência",
+        "id-copy-failed": "Falha ao copiar o ID do anfitrião para a área de transferência",
+        "join-failed": "Falha ao ingressar no Music Together",
+        "joined": "Entrou no Music Together",
+        "permission-changed": "A permissão do Music Together foi alterada para \"{{permission}}\"",
+        "remove-song-failed": "Falha ao remover música",
+        "user-connected": "{{name}} juntou-se ao Music Together",
+        "user-disconnected": "{{name}} saiu do Music Together"
       }
     },
     "navigation": {
+      "description": "Setas de navegação para avançar/retornar diretamente integradas na interface, como no seu navegador favorito",
       "name": "Navegação"
     },
     "no-google-login": {
+      "description": "Remova os botões e links de login do Google da interface",
       "name": "Sem login do Google"
     },
     "notifications": {
+      "description": "Exibir uma notificação quando uma música começar a tocar (notificações interativas estão disponíveis no Windows)",
       "menu": {
         "interactive": "Notificações interativas",
         "interactive-settings": {
@@ -486,11 +532,14 @@
             "tray-controls": "Abrir/Fechar ao clicar na área de notificação"
           }
         },
-        "priority": "Prioridade da notificação"
+        "priority": "Prioridade da notificação",
+        "toast-style": "Estilo de alerta",
+        "unpause-notification": "Mostrar notificação ao despausar"
       },
       "name": "Notificações"
     },
     "picture-in-picture": {
+      "description": "Permite alternar o aplicativo para o modo picture-in-picture",
       "menu": {
         "always-on-top": "Sempre no topo",
         "hotkey": {
@@ -498,7 +547,9 @@
           "prompt": {
             "keybind-options": {
               "hotkey": "Tecla de atalho"
-            }
+            },
+            "label": "Escolha uma tecla de atalho para alternar entre picture-in-picture",
+            "title": "Atalho do picture-in-picture"
           }
         },
         "save-window-position": "Salvar posição da janela",
@@ -511,13 +562,17 @@
       }
     },
     "playback-speed": {
+      "description": "Ouça rápido, ouça devagar! Adiciona um controle deslizante que controla a velocidade da música",
       "name": "Velocidade de reprodução",
       "templates": {
         "button": "Velocidade"
       }
     },
     "precise-volume": {
+      "description": "Controle o volume com precisão usando a roda do mouse/teclas de atalho, com um HUD personalizado e etapas de volume personalizáveis",
       "menu": {
+        "arrows-shortcuts": "Controles de teclas de seta locais",
+        "custom-volume-steps": "Definir etapas de volume personalizadas",
         "global-shortcuts": "Teclas de atalho globais"
       },
       "name": "Volume preciso",
@@ -526,7 +581,13 @@
           "keybind-options": {
             "decrease": "Diminuir volume",
             "increase": "Aumentar volume"
-          }
+          },
+          "label": "Selecione as teclas de atalho global do volume:",
+          "title": "Teclas de atalho global de volume"
+        },
+        "volume-steps": {
+          "label": "Escolha as etapas de aumento/diminuição do volume",
+          "title": "Fases de volume"
         }
       }
     },
@@ -539,12 +600,16 @@
             "title": "Escolher qualidade do vídeo"
           }
         }
-      }
+      },
+      "description": "Permite alterar a qualidade do vídeo com um botão na sobreposição de vídeo",
+      "name": "Alterador de qualidade do vídeo"
     },
     "scrobbler": {
+      "description": "Adicionar suporte para scrobbling (last.fm, Listenbrainz, etc.)",
       "dialog": {
         "lastfm": {
           "auth-failed": {
+            "message": "Falha ao autenticar com Last.fm\nOcultar o pop-up até a próxima reinicialização.",
             "title": "Falha na autenticação"
           }
         }
@@ -552,42 +617,124 @@
       "menu": {
         "lastfm": {
           "api-settings": "Configurações da API do Last.fm"
-        }
+        },
+        "listenbrainz": {
+          "token": "Insira o token de usuário ListenBrainz"
+        },
+        "scrobble-other-media": "Scrobble outras mídias"
       },
+      "name": "Scrobbler",
       "prompt": {
         "lastfm": {
-          "api-key": "Chave API do Last.fm",
-          "api-secret": "Segredo da API do Last.fm"
+          "api-key": "Chave de API do Last.fm",
+          "api-secret": "Chave secreta da API do Last.fm"
+        },
+        "listenbrainz": {
+          "token": {
+            "label": "Insira seu token de usuário do ListenBrainz:",
+            "title": "ListenBrainz token"
+          }
         }
       }
     },
     "shortcuts": {
+      "description": "Permite definir teclas de atalho globais para reprodução (reproduzir/pausar/próximo/anterior) e desativar o OSD de mídia substituindo as teclas de mídia, ativando Ctrl/CMD + F para pesquisar, ativando o suporte Linux MPRIS para teclas de mídia e teclas de atalho personalizadas para usuários avançados",
+      "menu": {
+        "override-media-keys": "Substituir chaves de multimédia",
+        "set-keybinds": "Definir controles globais de música"
+      },
+      "name": "Atalhos (& MPRIS)",
       "prompt": {
         "keybind": {
           "keybind-options": {
             "next": "Próximo",
             "play-pause": "Reproduzir / Pausar",
             "previous": "Anterior"
-          }
+          },
+          "label": "Escolha atalhos de teclado globais para controle de músicas:",
+          "title": "Atalhos de teclado global"
         }
       }
     },
+    "skip-disliked-songs": {
+      "description": "Ignora músicas marcadas com \"não gostei\"",
+      "name": "Pular músicas marcadas com \"não gostei\""
+    },
     "skip-silences": {
+      "description": "Pular automaticamente seções de silêncio em músicas",
       "name": "Pular silêncios"
     },
+    "sponsorblock": {
+      "description": "Pula automaticamente partes não musicais, como introdução/finalização ou partes de videoclipes onde a música não está tocando",
+      "name": "SponsorBlock [Bloquear patrocínios]"
+    },
     "synced-lyrics": {
+      "description": "Fornece letras sincronizadas para músicas, usando provedores como LRClib.",
+      "errors": {
+        "fetch": "⚠️ - Ocorreu um erro ao buscar a letra. Tente novamente mais tarde.",
+        "not-found": "⚠️ - Nenhuma letra encontrada para esta música."
+      },
       "menu": {
+        "default-text-string": {
+          "label": "Caractere padrão entre letras",
+          "tooltip": "Escolha o caractere padrão a ser usado para o intervalo entre as letras"
+        },
         "line-effect": {
+          "label": "Efeito de linha",
           "submenu": {
             "focus": {
-              "label": "Foco"
+              "label": "Foco",
+              "tooltip": "Deixe apenas a linha atual branca"
+            },
+            "offset": {
+              "label": "Deslocar",
+              "tooltip": "Deslocamento à direita da linha atual"
+            },
+            "scale": {
+              "label": "Aumentar",
+              "tooltip": "Aumentar a linha atual"
             }
-          }
+          },
+          "tooltip": "Escolha o efeito a ser aplicado à linha atual"
+        },
+        "precise-timing": {
+          "label": "Deixa as letras perfeitamente sincronizadas",
+          "tooltip": "Calcular até o milissegundo a exibição da próxima linha (pode ter um pequeno impacto no desempenho)"
+        },
+        "show-lyrics-even-if-inexact": {
+          "label": "Mostrar letras mesmo que não sejam exatas",
+          "tooltip": "Se a música não for encontrada, o plugin tenta novamente com uma consulta de pesquisa diferente.\nO resultado da segunda tentativa pode não ser exato."
+        },
+        "show-time-codes": {
+          "label": "Mostrar códigos de tempo",
+          "tooltip": "Mostrar os códigos de tempo ao lado das letras"
         }
       },
-      "name": "Letras sincronizadas"
+      "name": "Letras sincronizadas",
+      "refetch-btn": {
+        "fetching": "Buscando...",
+        "normal": "Buscar letras novamente"
+      },
+      "warnings": {
+        "duration-mismatch": "⚠️ - A letra pode estar dessincronizada devido a uma incompatibilidade de duração.",
+        "inexact": "⚠️ - A letra desta música pode não ser exata",
+        "instrumental": "⚠️ - Esta é uma música instrumental"
+      }
+    },
+    "taskbar-mediacontrol": {
+      "description": "Controle a reprodução na barra de tarefas do Windows",
+      "name": "Controle de mídia da barra de tarefas"
+    },
+    "touchbar": {
+      "description": "Adiciona um widget TouchBar para usuários do macOS",
+      "name": "TouchBar"
+    },
+    "tuna-obs": {
+      "description": "Integração com o plugin Tuna do OBS",
+      "name": "Tuna OBS"
     },
     "video-toggle": {
+      "description": "Adiciona um botão para alternar entre o modo Vídeo/Música. Também é possível remover opcionalmente toda a aba de vídeo",
       "menu": {
         "align": {
           "label": "Alinhamento",
@@ -597,16 +744,27 @@
             "right": "Direita"
           }
         },
+        "force-hide": "Forçar remoção da aba de vídeo",
         "mode": {
           "label": "Modo",
           "submenu": {
-            "disabled": "Desativado"
+            "custom": "Alternância personalizada",
+            "disabled": "Desativado",
+            "native": "Alternância nativa"
           }
         }
       },
+      "name": "Alternar vídeo",
       "templates": {
         "button": "Música"
       }
+    },
+    "visualizer": {
+      "description": "Adiciona um visualizador ao player",
+      "menu": {
+        "visualizer-type": "Tipo de visualizador"
+      },
+      "name": "Visualizador"
     }
   }
 }
