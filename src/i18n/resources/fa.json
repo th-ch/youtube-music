@@ -1,1 +1,176 @@
-{}
+{
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "اجرای افزونه {{pluginName}}::{{contextName}} با خطا مواجه شد",
+        "executed-at-ms": "افزونه {{pluginName}}::{{contextName}} در {{ms}} میلی‌ثانیه اجرا شد",
+        "initialize-failed": "افزونه \"{{pluginName}}\" با خطا در حین مقداردهی اولیه مواجه شد",
+        "load-all": "در حال بارگذاری تمامی افزونه‌ها",
+        "load-failed": "افزونه \"{{pluginName}}\" بارگیری نشد",
+        "loaded": "افزونه \"{{pluginName}}\" بارگیری شد",
+        "unload-failed": "افزونه \"{{pluginName}}\" بارگذاری نشد",
+        "unloaded": "افزونه \"{{pluginName}}\" بارگذاری شد"
+      }
+    }
+  },
+  "language": {
+    "code": "فا",
+    "local-name": "فارسی",
+    "name": "فارسی"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "بارگذاری کامل شد. DevTools باز شد"
+      },
+      "i18n": {
+        "loaded": "i18n بارگذاری شد"
+      },
+      "second-instance": {
+        "receive-command": "دریافت فرمان از طریق پروتکل: \"{{command}}\""
+      },
+      "theme": {
+        "css-file-not-found": "فایل CSS \"{{cssFile}}\" وجود ندارد، نادیده گرفته شد"
+      },
+      "unresponsive": {
+        "details": "خطای عدم پاسخگویی!\n{{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "پاکسازی حافظه کش برنامه"
+      },
+      "window": {
+        "tried-to-render-offscreen": "پنجره تلاش کرد خارج از صفحه نمایش داده شود، اندازه پنجره={{windowSize}}، اندازه نمایشگر={{displaySize}}، موقعیت={{position}}"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "detail": "منو مخفی است، از 'Alt' برای نمایش آن استفاده کنید (یا 'Escape' اگر از منوی داخل برنامه استفاده می‌کنید)",
+        "message": "پنهان‌سازی منو فعال است",
+        "title": "پنهان کردن منو فعال شد"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "بعداً",
+          "restart-now": "هم‌اکنون راه‌اندازی مجدد کنید"
+        },
+        "detail": "افزونه \"{{pluginName}}\" برای اعمال تغییرات نیاز به راه‌اندازی مجدد دارد",
+        "message": "\"{{pluginName}}\" نیاز به راه‌اندازی مجدد دارد",
+        "title": "نیاز به راه‌اندازی مجدد"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "خروج",
+          "relaunch": "راه‌اندازی مجدد",
+          "wait": "منتظر بمانید"
+        },
+        "detail": "از بابت این مشکل متأسفیم! لطفاً انتخاب کنید که چه کاری انجام دهید:",
+        "message": "برنامه پاسخی نمی‌دهد",
+        "title": "پنجره بدون پاسخ"
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "غیرفعال کردن به‌روزرسانی‌ها",
+          "download": "دانلود",
+          "ok": "تأیید"
+        },
+        "detail": "نسخه جدیدی در دسترس است و می‌توان آن را از {{downloadLink}} دانلود کرد",
+        "message": "نسخه جدیدی در دسترس است",
+        "title": "به‌روزرسانی موجود است"
+      }
+    },
+    "menu": {
+      "about": "درباره",
+      "navigation": {
+        "label": "ناوبری",
+        "submenu": {
+          "copy-current-url": "کپی کردن URL فعلی",
+          "go-back": "بازگشت",
+          "go-forward": "حرکت به جلو",
+          "quit": "خروجی",
+          "restart": "راه‌اندازی مجدد برنامه"
+        }
+      },
+      "options": {
+        "label": "گزینه‌ها",
+        "submenu": {
+          "advanced-options": {
+            "label": "گزینه‌های پیشرفته",
+            "submenu": {
+              "auto-reset-app-cache": "ریست کردن حافظه کش برنامه هنگام شروع",
+              "disable-hardware-acceleration": "غیرفعال کردن شتاب سخت‌افزاری",
+              "edit-config-json": "ویرایش config.json",
+              "override-user-agent": "تغییر User-Agent",
+              "restart-on-config-changes": "راه‌اندازی مجدد در صورت تغییرات در پیکربندی",
+              "set-proxy": {
+                "label": "تنظیم پراکسی",
+                "prompt": {
+                  "label": "آدرس پراکسی را وارد کنید: (برای غیرفعال کردن، خالی بگذارید)",
+                  "placeholder": "مثال: SOCKS5://127.0.0.1:9999",
+                  "title": "تنظیم پراکسی"
+                }
+              },
+              "toggle-dev-tools": "باز کردن DevTools"
+            }
+          },
+          "always-on-top": "همیشه در بالا",
+          "auto-update": "به‌روزرسانی خودکار",
+          "hide-menu": {
+            "dialog": {
+              "message": "منو در اجرای بعدی مخفی خواهد بود، از [Alt] برای نمایش استفاده کنید (یا [`] اگر از منوی داخل برنامه استفاده می‌کنید)",
+              "title": "پنهان‌سازی منو فعال شد"
+            },
+            "label": "پنهان کردن منو"
+          },
+          "language": {
+            "dialog": {
+              "message": "زبان پس از راه‌اندازی مجدد تغییر خواهد کرد",
+              "title": "زبان تغییر کرد"
+            },
+            "label": "زبان",
+            "submenu": {
+              "to-help-translate": "می‌خواهید به ترجمه کمک کنید؟ اینجا کلیک کنید"
+            }
+          },
+          "resume-on-start": "ادامه آخرین آهنگ هنگام شروع برنامه",
+          "single-instance-lock": "قفل تنها یک نمونه",
+          "start-at-login": "شروع هنگام ورود",
+          "starting-page": {
+            "label": "صفحه شروع",
+            "unset": "لغو تنظیم"
+          },
+          "tray": {
+            "label": "نوار",
+            "submenu": {
+              "disabled": "غیرفعال",
+              "enabled-and-hide-app": "فعال و پنهان کردن برنامه",
+              "enabled-and-show-app": "فعال و نمایش برنامه",
+              "play-pause-on-click": "پخش/توقف با کلیک"
+            }
+          },
+          "visual-tweaks": {
+            "label": "تغییرات ظاهری",
+            "submenu": {
+              "like-buttons": {
+                "default": "پیش‌فرض",
+                "force-show": "اجبار به نمایش",
+                "hide": "پنهان کردن",
+                "label": "دکمه‌های پسندیدن"
+              },
+              "remove-upgrade-button": "حذف دکمه ارتقا",
+              "theme": {
+                "dialog": {
+                  "button": {
+                    "cancel": "لغو",
+                    "remove": "حذف"
+                  },
+                  "remove-theme": "آیا مطمئن هستید که می‌خواهید تم سفارشی را حذف کنید؟",
+                  "remove-theme-message": "این کار تم سفارشی را حذف خواهد کرد"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
