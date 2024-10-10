@@ -165,10 +165,231 @@
                   },
                   "remove-theme": "آیا مطمئن هستید که می‌خواهید تم سفارشی را حذف کنید؟",
                   "remove-theme-message": "این کار تم سفارشی را حذف خواهد کرد"
+                },
+                "label": "تم",
+                "submenu": {
+                  "import-css-file": "وارد کردن فایل CSS سفارشی",
+                  "no-theme": "بدون تم"
                 }
               }
             }
           }
+        }
+      },
+      "plugins": {
+        "enabled": "فعال",
+        "label": "افزونه‌ها",
+        "new": "جدید"
+      },
+      "view": {
+        "label": "مشاهده",
+        "submenu": {
+          "force-reload": "اجبار به بارگذاری مجدد",
+          "reload": "بارگذاری مجدد",
+          "reset-zoom": "اندازه واقعی",
+          "toggle-fullscreen": "تغییر به تمام‌صفحه",
+          "zoom-in": "بزرگنمایی",
+          "zoom-out": "کوچکنمایی"
+        }
+      }
+    },
+    "tray": {
+      "next": "بعدی",
+      "play-pause": "پخش/توقف",
+      "previous": "قبلی",
+      "quit": "خروجی",
+      "restart": "راه‌اندازی مجدد برنامه",
+      "show": "نمایش پنجره",
+      "tooltip": {
+        "default": "یوتیوب موسیقی",
+        "with-song-info": "یوتیوب موسیقی: {{artist}} - {{title}}"
+      }
+    }
+  },
+  "plugins": {
+    "ad-speedup": {
+      "description": "اگر تبلیغ پخش شود، صدا را بی‌صدا کرده و سرعت پخش را به 16 برابر افزایش می‌دهد",
+      "name": "سرعت‌دهی به تبلیغ"
+    },
+    "adblocker": {
+      "description": "مسدود کردن تمامی تبلیغات و ردیابی‌ها از ابتدا",
+      "menu": {
+        "blocker": "مسدودکننده"
+      },
+      "name": "مسدودکننده تبلیغات"
+    },
+    "album-actions": {
+      "description": "افزودن دکمه‌های \"برگرفتن ناپسند\"، \"ناپسند\"، \"پسند\"، و \"حذف پسند\" برای اعمال آنها روی همه آهنگ‌ها در یک فهرست پخش یا آلبوم",
+      "name": "عملیات آلبوم"
+    },
+    "album-color-theme": {
+      "description": "اعمال یک تم پویا و جلوه‌های بصری بر اساس پالت رنگ آلبوم",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "نسبت ترکیب رنگ"
+        }
+      },
+      "name": "تم رنگ آلبوم"
+    },
+    "ambient-mode": {
+      "description": "اعمال یک اثر نوری با پخش رنگ‌های ملایم از ویدئو به پس‌زمینه صفحه نمایش شما",
+      "menu": {
+        "blur-amount": {
+          "label": "میزان تاری",
+          "submenu": {
+            "pixels": "{{blurAmount}} پیکسل"
+          }
+        },
+        "buffer": {
+          "label": "بافر"
+        },
+        "opacity": {
+          "label": "شفافیت"
+        },
+        "quality": {
+          "label": "کیفیت",
+          "submenu": {
+            "pixels": "{{quality}} پیکسل"
+          }
+        },
+        "size": {
+          "label": "اندازه"
+        },
+        "smoothness-transition": {
+          "label": "انتقال نرمی",
+          "submenu": {
+            "during": "در طول {{interpolationTime}} ثانیه"
+          }
+        },
+        "use-fullscreen": {
+          "label": "استفاده از تمام‌صفحه"
+        }
+      },
+      "name": "حالت محیطی"
+    },
+    "audio-compressor": {
+      "description": "اعمال فشرده‌سازی به صدا (کاهش حجم بلندترین بخش‌های سیگنال و افزایش حجم بخش‌های نرم‌تر)",
+      "name": "فشرده‌ساز صدا"
+    },
+    "blur-nav-bar": {
+      "description": "شفاف و محو کردن نوار ناوبری",
+      "name": "محو کردن نوار ناوبری"
+    },
+    "bypass-age-restrictions": {
+      "description": "دور زدن تأیید سن یوتیوب",
+      "name": "دور زدن محدودیت‌های سنی"
+    },
+    "captions-selector": {
+      "description": "انتخاب زیرنویس برای آهنگ‌های یوتیوب موسیقی",
+      "menu": {
+        "autoload": "به طور خودکار انتخاب آخرین زیرنویس استفاده شده",
+        "disable-captions": "بدون زیرنویس به صورت پیش‌فرض"
+      },
+      "name": "انتخاب‌کننده زیرنویس",
+      "prompt": {
+        "selector": {
+          "label": "زبان زیرنویس فعلی: {{language}}",
+          "none": "هیچ‌کدام",
+          "title": "انتخاب زبان زیرنویس"
+        }
+      },
+      "templates": {
+        "title": "باز کردن انتخاب‌کننده زیرنویس"
+      }
+    },
+    "compact-sidebar": {
+      "description": "همیشه نوار کناری را در حالت فشرده تنظیم کن",
+      "name": "نوار کناری فشرده"
+    },
+    "crossfade": {
+      "description": "تداخل بین آهنگ‌ها",
+      "menu": {
+        "advanced": "پیشرفته"
+      },
+      "name": "تداخل [بتا]",
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "fade-in-duration": "مدت زمان ورود تدریجی (میلی‌ثانیه)",
+            "fade-out-duration": "مدت زمان خروج تدریجی (میلی‌ثانیه)",
+            "fade-scaling": {
+              "label": "مقیاس‌بندی ورود تدریجی",
+              "linear": "خطی",
+              "logarithmic": "لگاریتمی"
+            },
+            "seconds-before-end": "تداخل N ثانیه قبل از پایان"
+          },
+          "title": "گزینه‌های تداخل"
+        }
+      }
+    },
+    "disable-autoplay": {
+      "description": "شروع آهنگ در حالت \"توقف\"",
+      "menu": {
+        "apply-once": "فقط در شروع اعمال می‌شود"
+      },
+      "name": "غیرفعال کردن پخش خودکار"
+    },
+    "discord": {
+      "backend": {
+        "already-connected": "تلاش برای اتصال با اتصال فعال",
+        "connected": "متصل به Discord",
+        "disconnected": "قطع اتصال از Discord"
+      },
+      "description": "نمایش آنچه گوش می‌دهید به دوستان با Rich Presence",
+      "menu": {
+        "auto-reconnect": "اتصال خودکار مجدد",
+        "clear-activity": "پاک کردن فعالیت",
+        "clear-activity-after-timeout": "پاک کردن فعالیت پس از تایم‌اوت",
+        "connected": "متصل",
+        "disconnected": "قطع شده",
+        "hide-duration-left": "مخفی کردن مدت زمان باقی‌مانده",
+        "hide-github-button": "مخفی کردن دکمه لینک GitHub",
+        "play-on-youtube-music": "پخش در یوتیوب موسیقی",
+        "set-inactivity-timeout": "تنظیم تایم‌اوت عدم فعالیت"
+      },
+      "name": "Rich Presence در Discord",
+      "prompt": {
+        "set-inactivity-timeout": {
+          "label": "ورود تایم‌اوت عدم فعالیت به ثانیه:",
+          "title": "تنظیم تایم‌اوت عدم فعالیت"
+        }
+      }
+    },
+    "downloader": {
+      "backend": {
+        "dialog": {
+          "error": {
+            "buttons": {
+              "ok": "تأیید"
+            },
+            "message": "اوه! متاسفیم، دانلود شکست خورد…",
+            "title": "خطا در دانلود!"
+          },
+          "start-download-playlist": {
+            "buttons": {
+              "ok": "تأیید"
+            },
+            "detail": "({{playlistSize}} آهنگ)",
+            "message": "دانلود فهرست پخش {{playlistTitle}}",
+            "title": "دانلود شروع شد"
+          }
+        },
+        "feedback": {
+          "conversion-progress": "تبدیل: {{percent}}%",
+          "converting": "در حال تبدیل…",
+          "done": "انجام شد: {{filePath}}",
+          "download-info": "در حال دانلود {{artist}} - {{title}} [{{videoId}}",
+          "download-progress": "دانلود: {{percent}}%",
+          "downloading": "در حال دانلود…",
+          "downloading-counter": "در حال دانلود {{current}}/{{total}}…",
+          "downloading-playlist": "در حال دانلود فهرست پخش \"{{playlistTitle}}\" - {{playlistSize}} آهنگ ({{playlistId}})",
+          "error-while-downloading": "خطا در دانلود \"{{author}} - {{title}}\": {{error}}",
+          "folder-already-exists": "پوشه {{playlistFolder}} از قبل وجود دارد",
+          "getting-playlist-info": "در حال دریافت اطلاعات فهرست پخش…",
+          "loading": "در حال بارگذاری…",
+          "playlist-has-only-one-song": "فهرست پخش فقط یک آیتم دارد، به طور مستقیم دانلود می‌شود",
+          "playlist-id-not-found": "شناسه فهرست پخش یافت نشد"
         }
       }
     }
