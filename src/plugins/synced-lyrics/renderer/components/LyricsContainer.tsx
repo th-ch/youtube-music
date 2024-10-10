@@ -1,144 +1,122 @@
-import { createSignal, For, Match, Show, Switch } from 'solid-js';
+import { createMemo, createSignal, For, Match, /*, Match, Show, Switch */
+Switch} from 'solid-js';
 
 import { SyncedLine } from './SyncedLine';
 
-import { t } from '@/i18n';
-import { getSongInfo } from '@/providers/song-info-front';
+// import { t } from '@/i18n';
+// import { getSongInfo } from '@/providers/song-info-front';
+import { isDone, isError, isLoading, lyricsSource, lyricsSourceState } from './LyricsPicker';
 
-import {
-  differentDuration,
-  hadSecondAttempt,
-  isFetching,
-  isInstrumental,
-  makeLyricsRequest,
-} from '../lyrics/fetch';
 
 import type { LineLyrics } from '../../types';
+import { t } from '@/i18n';
+import { renderCount } from '../renderer';
 
 export const [debugInfo, setDebugInfo] = createSignal<string>();
 export const [lineLyrics, setLineLyrics] = createSignal<LineLyrics[]>([]);
 export const [currentTime, setCurrentTime] = createSignal<number>(-1);
 
 export const LyricsContainer = () => {
-  const [error, setError] = createSignal('');
+  // @ts-expect-error silly typescript
+  const error = createMemo(() => isError() ? lyricsSourceState().error : null);
 
-  const onRefetch = async () => {
-    if (isFetching()) return;
-    setError('');
-
-    const info = getSongInfo();
-    await makeLyricsRequest(info).catch((err) => {
-      setError(`${err}`);
-    });
-  };
+  // @ts-expect-error silly typescript
+  const lyrics = createMemo(() => isDone() ? lyricsSourceState().data : null);
 
   return (
-    <div class={'lyric-container'}>
+    <div class="lyric-container">
+      <span style={{ display: "none" }}>{renderCount()}</span>
       <Switch>
-        <Match when={isFetching()}>
+        <Match when={isLoading()}>
           <div style="margin-bottom: 8px;">
-            <tp-yt-paper-spinner-lite
-              active
-              class="loading-indicator style-scope"
-            />
+            <tp-yt-paper-spinner-lite active class="loading-indicator style-scope" />
           </div>
         </Match>
-        <Match when={error()}>
+        <Match when={isError()}>
           <yt-formatted-string
             class="warning-lyrics description ytmusic-description-shelf-renderer"
             text={{
-              runs: [
-                {
-                  text: t('plugins.synced-lyrics.errors.fetch'),
-                },
-              ],
+              runs: [{
+                text: t('plugins.synced-lyrics.errors.fetch'),
+              }, { text: error() }],
             }}
           />
         </Match>
       </Switch>
 
-      <Switch>
-        <Match when={!lineLyrics().length}>
-          <Show
-            when={isInstrumental()}
-            fallback={
-              <>
-                <yt-formatted-string
-                  class="warning-lyrics description ytmusic-description-shelf-renderer"
-                  text={{
-                    runs: [
-                      {
-                        text: t('plugins.synced-lyrics.errors.not-found'),
-                      },
-                    ],
-                  }}
-                  style={'margin-bottom: 16px;'}
-                />
-                <yt-button-renderer
-                  disabled={isFetching()}
-                  data={{
-                    icon: { iconType: 'REFRESH' },
-                    isDisabled: false,
-                    style: 'STYLE_DEFAULT',
-                    text: {
-                      simpleText: isFetching()
-                        ? t('plugins.synced-lyrics.refetch-btn.fetching')
-                        : t('plugins.synced-lyrics.refetch-btn.normal'),
-                    },
-                  }}
-                  onClick={onRefetch}
-                />
-              </>
-            }
-          >
-            <yt-formatted-string
-              class="warning-lyrics description ytmusic-description-shelf-renderer"
-              text={{
-                runs: [
-                  {
-                    text: t('plugins.synced-lyrics.warnings.instrumental'),
-                  },
-                ],
-              }}
-            />
-          </Show>
-        </Match>
-        <Match when={lineLyrics().length && !hadSecondAttempt()}>
-          <yt-formatted-string
-            class="warning-lyrics description ytmusic-description-shelf-renderer"
-            text={{
-              runs: [
-                {
-                  text: t('plugins.synced-lyrics.warnings.inexact'),
-                },
-              ],
-            }}
-          />
-        </Match>
-        <Match when={lineLyrics().length && !differentDuration()}>
-          <yt-formatted-string
-            class="warning-lyrics description ytmusic-description-shelf-renderer"
-            text={{
-              runs: [
-                {
-                  text: t('plugins.synced-lyrics.warnings.duration-mismatch'),
-                },
-              ],
-            }}
-          />
-        </Match>
-      </Switch>
+      {/*<Switch>*/}
+      {/*  <Match when={!result()?.lines?.length}>*/}
+      {/*    <Show*/}
+      {/*      when={isInstrumental()}*/}
+      {/*      fallback={*/}
+      {/*        <>*/}
+      {/*          <yt-formatted-string*/}
+      {/*            class="warning-lyrics description ytmusic-description-shelf-renderer"*/}
+      {/*            text={{*/}
+      {/*              runs: [{*/}
+      {/*                text: t('plugins.synced-lyrics.errors.not-found'),*/}
+      {/*              }],*/}
+      {/*            }}*/}
+      {/*            style={'margin-bottom: 16px;'}*/}
+      {/*          />*/}
+      {/*          <yt-button-renderer*/}
+      {/*            disabled={isFetching()}*/}
+      {/*            data={{*/}
+      {/*              icon: { iconType: 'REFRESH' },*/}
+      {/*              isDisabled: false,*/}
+      {/*              style: 'STYLE_DEFAULT',*/}
+      {/*              text: {*/}
+      {/*                simpleText: isFetching()*/}
+      {/*                  ? t('plugins.synced-lyrics.refetch-btn.fetching')*/}
+      {/*                  : t('plugins.synced-lyrics.refetch-btn.normal'),*/}
+      {/*              },*/}
+      {/*            }}*/}
+      {/*            onClick={fetch}*/}
+      {/*          />*/}
+      {/*        </>*/}
+      {/*      }*/}
+      {/*    >*/}
+      {/*      <yt-formatted-string*/}
+      {/*        class="warning-lyrics description ytmusic-description-shelf-renderer"*/}
+      {/*        text={{*/}
+      {/*          runs: [{*/}
+      {/*            text: t('plugins.synced-lyrics.warnings.instrumental'),*/}
+      {/*          }],*/}
+      {/*        }}*/}
+      {/*      />*/}
+      {/*    </Show>*/}
+      {/*  </Match>*/}
+      {/*  <Match when={result()?.lines?.length && !hadSecondAttempt()}>*/}
+      {/*    <yt-formatted-string*/}
+      {/*      class="warning-lyrics description ytmusic-description-shelf-renderer"*/}
+      {/*      text={{*/}
+      {/*        runs: [{*/}
+      {/*          text: t('plugins.synced-lyrics.warnings.inexact'),*/}
+      {/*        }],*/}
+      {/*      }}*/}
+      {/*    />*/}
+      {/*  </Match>*/}
+      {/*  <Match when={result()?.lines?.length && !differentDuration()}>*/}
+      {/*    <yt-formatted-string*/}
+      {/*      class="warning-lyrics description ytmusic-description-shelf-renderer"*/}
+      {/*      text={{*/}
+      {/*        runs: [{*/}
+      {/*          text: t('plugins.synced-lyrics.warnings.duration-mismatch'),*/}
+      {/*        }],*/}
+      {/*      }}*/}
+      {/*    />*/}
+      {/*  </Match>*/}
+      {/*</Switch>*/}
 
-      <For each={lineLyrics()}>{(item) => <SyncedLine line={item} />}</For>
+      <For each={lyrics()?.lines}>{(item) => <SyncedLine line={item} />}</For>
 
       <yt-formatted-string
-        class="footer style-scope ytmusic-description-shelf-renderer"
+        class="ytmusic-description-shelf-renderer"
         text={{
           runs: [
-            {
-              text: 'Source: LRCLIB',
-            },
-          ],
+            { text: '' },
+            { text: `Source: ${lyricsSource().name}` }
+          ]
         }}
       />
     </div>
