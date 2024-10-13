@@ -49,14 +49,14 @@ importers:
         specifier: 2.0.5
         version: 2.0.5
       '@hono/node-server':
-        specifier: 1.12.0
-        version: 1.12.0
+        specifier: 1.13.2
+        version: 1.13.2(hono@4.6.4)
       '@hono/swagger-ui':
-        specifier: 0.4.0
-        version: 0.4.0(hono@4.5.4)
+        specifier: 0.4.1
+        version: 0.4.1(hono@4.6.4)
       '@hono/zod-openapi':
         specifier: 0.15.1
-        version: 0.15.1(hono@4.5.4)(zod@3.23.8)
+        version: 0.15.1(hono@4.6.4)(zod@3.23.8)
       '@jellybrick/electron-better-web-request':
         specifier: 1.0.4
         version: 1.0.4
@@ -121,8 +121,8 @@ importers:
         specifier: 6.0.0
         version: 6.0.0
       hono:
-        specifier: 4.5.4
-        version: 4.5.4
+        specifier: 4.6.4
+        version: 4.6.4
       howler:
         specifier: 2.2.4
         version: 2.2.4
@@ -846,12 +846,14 @@ packages:
   '@foobar404/wave@2.0.5':
     resolution: {integrity: sha512-V/ydadtv5ObCw8aEg+Qy3YSq1eyinEWzJfRI43Ovmj7VmAvEdWAdL7MatoMbiIVYPATkNDVF7GOxX1xirxM9dA==}
 
-  '@hono/node-server@1.12.0':
-    resolution: {integrity: sha512-e6oHjNiErRxsZRZBmc2KucuvY3btlO/XPncIpP2X75bRdTilF9GLjm3NHvKKunpJbbJJj31/FoPTksTf8djAVw==}
+  '@hono/node-server@1.13.2':
+    resolution: {integrity: sha512-0w8nEmAyx0Ul0CQp8BL2VtAG4YVdpzXd/mvvM+l0G5Oq22pUyHS+KeFFPSY+czLOF5NAiV3MUNPD1n14Ol5svg==}
     engines: {node: '>=18.14.1'}
+    peerDependencies:
+      hono: ^4
 
-  '@hono/swagger-ui@0.4.0':
-    resolution: {integrity: sha512-8lF+dexzgV2HRM1R/gf49E5djroq4jVMYMSwLkSF9pT0I6sYhuqirFDCRFrBtbbLCBsKzw6f2MF5rS+WY3d7Nw==}
+  '@hono/swagger-ui@0.4.1':
+    resolution: {integrity: sha512-kPaJatHffeYQ3yVkHo878hCqwfapqx54FczJVJ+eRWt8J4biyVVMIdCAJb6MyA8bcnHUoTmUpPc7OJAV1VTg2g==}
     peerDependencies:
       hono: '*'
 
@@ -2500,9 +2502,9 @@ packages:
     resolution: {integrity: sha512-ciq6hFsSG/Bpt2DmrZJtv+56zpPdnq+NQ4ijEFrveKN0ZG1mhl/LdT1NQZ9se6ty1fACcI4d4vYqC9v8EYpH2A==}
     hasBin: true
 
-  hono@4.5.4:
-    resolution: {integrity: sha512-k2IguJfRgNCpDbAfpxk+o+fZBLFHl4+eIZUpjc1ItZWHeZ37SmT3efA1UpkIaC0hSf1NJg0E79/wWn6g9LQ4Cw==}
-    engines: {node: '>=16.0.0'}
+  hono@4.6.4:
+    resolution: {integrity: sha512-T5WqBkTOcIQblqBKB5mpzaH/A+dSpvVe938xZJCHOmOuYfF7DSwE/9/10+BMvwSPq9N/f6LiQ38HxrZSQOsXKw==}
+    engines: {node: '>=16.9.0'}
 
   hosted-git-info@4.1.0:
     resolution: {integrity: sha512-kyCuEOWjJqZuDbRHzL8V93NzQhwIB71oFWSyzVo+KPZI+pnQPPxucdkrOZvkLRnrf5URsQM+IJ09Dw29cRALIA==}
@@ -4592,22 +4594,24 @@ snapshots:
 
   '@foobar404/wave@2.0.5': {}
 
-  '@hono/node-server@1.12.0': {}
-
-  '@hono/swagger-ui@0.4.0(hono@4.5.4)':
+  '@hono/node-server@1.13.2(hono@4.6.4)':
     dependencies:
-      hono: 4.5.4
+      hono: 4.6.4
 
-  '@hono/zod-openapi@0.15.1(hono@4.5.4)(zod@3.23.8)':
+  '@hono/swagger-ui@0.4.1(hono@4.6.4)':
+    dependencies:
+      hono: 4.6.4
+
+  '@hono/zod-openapi@0.15.1(hono@4.6.4)(zod@3.23.8)':
     dependencies:
       '@asteasolutions/zod-to-openapi': 7.2.0(zod@3.23.8)
-      '@hono/zod-validator': 0.2.2(hono@4.5.4)(zod@3.23.8)
-      hono: 4.5.4
+      '@hono/zod-validator': 0.2.2(hono@4.6.4)(zod@3.23.8)
+      hono: 4.6.4
       zod: 3.23.8
 
-  '@hono/zod-validator@0.2.2(hono@4.5.4)(zod@3.23.8)':
+  '@hono/zod-validator@0.2.2(hono@4.6.4)(zod@3.23.8)':
     dependencies:
-      hono: 4.5.4
+      hono: 4.6.4
       zod: 3.23.8
 
   '@humanfs/core@0.19.0': {}
@@ -6633,7 +6637,7 @@ snapshots:
 
   hexy@0.2.11: {}
 
-  hono@4.5.4: {}
+  hono@4.6.4: {}
 
   hosted-git-info@4.1.0:
     dependencies:
