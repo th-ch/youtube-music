@@ -8,7 +8,9 @@ type QueueRendererResponse = {
   trackingParams: string;
 };
 
-export const getMusicQueueRenderer = async (videoIds: string[]): Promise<QueueRendererResponse | null> => {
+export const getMusicQueueRenderer = async (
+  videoIds: string[],
+): Promise<QueueRendererResponse | null> => {
   const token = extractToken();
   if (!token) return null;
 
@@ -35,8 +37,8 @@ export const getMusicQueueRenderer = async (videoIds: string[]): Promise<QueueRe
         'Content-Type': 'application/json',
         'Origin': 'https://music.youtube.com',
         'Authorization': await getAuthorizationHeader(token),
-      }
-    }
+      },
+    },
   );
 
   const text = await response.text();

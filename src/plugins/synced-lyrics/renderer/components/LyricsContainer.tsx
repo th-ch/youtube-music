@@ -28,7 +28,7 @@ export const LyricsContainer = () => {
 
     const info = getSongInfo();
     await makeLyricsRequest(info).catch((err) => {
-      setError(`${err}`);
+      setError(String(err));
     });
   };
 

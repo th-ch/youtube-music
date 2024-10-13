@@ -104,21 +104,28 @@ export default createPlugin<
             buttons.splice(i, 1);
             i--;
           } else {
-            (buttons[i].children[0].children[0] as HTMLElement).style.setProperty(
+            (
+              buttons[i].children[0].children[0] as HTMLElement
+            ).style.setProperty(
               '-webkit-mask-size',
-              `100% ${100 - ((count / listsLength) * 100)}%`,
+              `100% ${100 - (count / listsLength) * 100}%`,
             );
           }
           i++;
         }
       }
-      const menuParent = document.querySelector('#action-buttons')?.parentElement;
+      const menuParent =
+        document.querySelector('#action-buttons')?.parentElement;
       if (menuParent && !document.querySelector('.like-menu')) {
         const menu = document.createElement('div');
         menu.id = 'ytmd-album-action-buttons';
-        menu.className = 'action-buttons style-scope ytmusic-responsive-header-renderer';
+        menu.className =
+          'action-buttons style-scope ytmusic-responsive-header-renderer';
 
-        menuParent.insertBefore(menu, menuParent.children[menuParent.children.length - 1]);
+        menuParent.insertBefore(
+          menu,
+          menuParent.children[menuParent.children.length - 1],
+        );
         for (const button of buttons) {
           menu.appendChild(button);
           button.addEventListener('click', this.loadFullList);

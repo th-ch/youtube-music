@@ -49,7 +49,9 @@ export const pluginVirtualModuleGenerator = (
     for (const { name } of plugins) {
       const checkMode = mode === 'main' ? 'backend' : mode;
       // HACK: To avoid situation like importing renderer plugins in main
-      writer.writeLine(`  ...(${snakeToCamel(name)}Plugin['${checkMode}'] ? { "${name}": ${snakeToCamel(name)}Plugin } : {}),`);
+      writer.writeLine(
+        `  ...(${snakeToCamel(name)}Plugin['${checkMode}'] ? { "${name}": ${snakeToCamel(name)}Plugin } : {}),`,
+      );
     }
     writer.writeLine('};');
     writer.blankLine();

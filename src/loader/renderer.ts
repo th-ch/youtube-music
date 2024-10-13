@@ -18,7 +18,8 @@ const loadedPluginMap: Record<
 export const createContext = <Config extends PluginConfig>(
   id: string,
 ): RendererContext<Config> => ({
-  getConfig: async () => window.ipcRenderer.invoke('ytmd:get-config', id),
+  getConfig: async () =>
+    window.ipcRenderer.invoke('ytmd:get-config', id) as Promise<Config>,
   setConfig: async (newConfig) => {
     await window.ipcRenderer.invoke('ytmd:set-config', id, newConfig);
   },
@@ -30,6 +31,7 @@ export const createContext = <Config extends PluginConfig>(
       window.ipcRenderer.invoke(event, ...args),
     on: (event: string, listener: CallableFunction) => {
       window.ipcRenderer.on(event, (_, ...args: unknown[]) => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         listener(...args);
       });
     },

@@ -191,7 +191,7 @@ export default createPlugin<
       let waitForTransition: Promise<unknown>;
 
       const getStreamURL = async (videoID: string): Promise<string> =>
-        this.ipc?.invoke('audio-url', videoID);
+        this.ipc?.invoke('audio-url', videoID) as Promise<string>;
 
       const getVideoIDFromURL = (url: string) =>
         new URLSearchParams(url.split('?')?.at(-1)).get('v');

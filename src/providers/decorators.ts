@@ -80,7 +80,7 @@ function memoize<T extends (...params: unknown[]) => unknown>(fn: T): T {
       cache.set(key, fn(...args));
     }
 
-    return cache.get(key) as unknown;
+    return cache.get(key);
   }) as T;
 }
 

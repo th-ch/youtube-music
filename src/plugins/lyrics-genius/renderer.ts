@@ -77,7 +77,7 @@ export const onRendererLoad = ({
           applyLyricsTabState();
         }
       };
-      
+
       const applyLyricsTabState = () => {
         if (lyrics) {
           tabs.lyrics.removeAttribute('disabled');

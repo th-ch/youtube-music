@@ -25,7 +25,12 @@ export default createPlugin<
     sidebarSmall: HTMLElement | null;
     ytmusicAppLayout: HTMLElement | null;
 
-    getMixedColor(color: string, key: string, alpha?: number, ratioMultiply?: number): string;
+    getMixedColor(
+      color: string,
+      key: string,
+      alpha?: number,
+      ratioMultiply?: number,
+    ): string;
     updateColor(): void;
   },
   {
@@ -91,7 +96,10 @@ export default createPlugin<
       this.ytmusicAppLayout = document.querySelector<HTMLElement>('#layout');
 
       const config = await getConfig();
-      document.documentElement.style.setProperty(RATIO_KEY, `${~~(config.ratio * 100)}%`);
+      document.documentElement.style.setProperty(
+        RATIO_KEY,
+        `${~~(config.ratio * 100)}%`,
+      );
     },
     onPlayerApiReady(playerApi) {
       const fastAverageColor = new FastAverageColor();
@@ -100,10 +108,12 @@ export default createPlugin<
         if (event.detail.name !== 'dataloaded') return;
 
         const playerResponse = playerApi.getPlayerResponse();
-        const thumbnail = playerResponse?.videoDetails?.thumbnail?.thumbnails?.at(0);
+        const thumbnail =
+          playerResponse?.videoDetails?.thumbnail?.thumbnails?.at(0);
         if (!thumbnail) return;
 
-        const albumColor = await fastAverageColor.getColorAsync(thumbnail.url)
+        const albumColor = await fastAverageColor
+          .getColorAsync(thumbnail.url)
           .catch((err) => {
             console.error(err);
             return null;
@@ -120,8 +130,14 @@ export default createPlugin<
             this.darkColor = this.darkColor?.darken(0.05);
           }
 
-          document.documentElement.style.setProperty(COLOR_KEY, `${~~this.color.red()}, ${~~this.color.green()}, ${~~this.color.blue()}`);
-          document.documentElement.style.setProperty(DARK_COLOR_KEY, `${~~this.darkColor.red()}, ${~~this.darkColor.green()}, ${~~this.darkColor.blue()}`);
+          document.documentElement.style.setProperty(
+            COLOR_KEY,
+            `${~~this.color.red()}, ${~~this.color.green()}, ${~~this.color.blue()}`,
+          );
+          document.documentElement.style.setProperty(
+            DARK_COLOR_KEY,
+            `${~~this.darkColor.red()}, ${~~this.darkColor.green()}, ${~~this.darkColor.blue()}`,
+          );
         } else {
           document.documentElement.style.setProperty(COLOR_KEY, '0, 0, 0');
           document.documentElement.style.setProperty(DARK_COLOR_KEY, '0, 0, 0');
@@ -131,7 +147,10 @@ export default createPlugin<
       });
     },
     onConfigChange(config) {
-      document.documentElement.style.setProperty(RATIO_KEY, `${~~(config.ratio * 100)}%`);
+      document.documentElement.style.setProperty(
+        RATIO_KEY,
+        `${~~(config.ratio * 100)}%`,
+      );
     },
     getMixedColor(color: string, key: string, alpha = 1, ratioMultiply) {
       const keyColor = `rgba(var(${key}), ${alpha})`;
@@ -181,11 +200,23 @@ export default createPlugin<
         '--yt-spec-black-1-alpha-95': 'rgba(40,40,40,0.95)',
       };
       Object.entries(variableMap).map(([variable, color]) => {
-        document.documentElement.style.setProperty(variable, this.getMixedColor(color, COLOR_KEY), 'important');
+        document.documentElement.style.setProperty(
+          variable,
+          this.getMixedColor(color, COLOR_KEY),
+          'important',
+        );
       });
 
-      document.body.style.setProperty('background', this.getMixedColor('#030303', COLOR_KEY), 'important');
-      document.documentElement.style.setProperty('--ytmusic-background', this.getMixedColor('#030303', DARK_COLOR_KEY), 'important');
+      document.body.style.setProperty(
+        'background',
+        this.getMixedColor('#030303', COLOR_KEY),
+        'important',
+      );
+      document.documentElement.style.setProperty(
+        '--ytmusic-background',
+        this.getMixedColor('#030303', DARK_COLOR_KEY),
+        'important',
+      );
     },
   },
 });

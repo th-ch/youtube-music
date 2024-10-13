@@ -39,7 +39,7 @@ export const createSettingPopup = (props: SettingPopupProps) => {
       },
     ],
     anchorAt: 'bottom-right',
-    popupAt: 'top-right'
+    popupAt: 'top-right',
   });
 
   return {

@@ -1,6 +1,13 @@
 import { register } from 'electron-localshortcut';
 
-import { BrowserWindow, Menu, MenuItem, ipcMain, nativeImage } from 'electron';
+import {
+  BrowserWindow,
+  Menu,
+  MenuItem,
+  ipcMain,
+  nativeImage,
+  WebContents,
+} from 'electron';
 
 import type { BackendContext } from '@/types/contexts';
 import type { InAppMenuConfig } from './constants';
@@ -50,11 +57,13 @@ export const onMainLoad = ({
   ipcMain.handle('ytmd:menu-event', (event, commandId: number) => {
     const target = getMenuItemById(commandId);
     if (target)
-      target.click(
-        undefined,
-        BrowserWindow.fromWebContents(event.sender),
-        event.sender,
-      );
+      (
+        target.click as (
+          args0: unknown,
+          args1: BrowserWindow | null,
+          args3: WebContents,
+        ) => void
+      )(undefined, BrowserWindow.fromWebContents(event.sender), event.sender);
   });
 
   handle('get-menu-by-id', (commandId: number) => {

@@ -23,7 +23,11 @@ let isPluginLoaded = false;
 let isApiLoaded = false;
 let firstDataLoaded = false;
 
-if (window.trustedTypes && window.trustedTypes.createPolicy && !window.trustedTypes.defaultPolicy) {
+if (
+  window.trustedTypes &&
+  window.trustedTypes.createPolicy &&
+  !window.trustedTypes.defaultPolicy
+) {
   window.trustedTypes.createPolicy('default', {
     createHTML: (input) => input,
     createScriptURL: (input) => input,
@@ -48,10 +52,14 @@ interface YouTubeMusicAppElement extends HTMLElement {
 
 async function onApiLoaded() {
   window.ipcRenderer.on('ytmd:previous-video', () => {
-    document.querySelector<HTMLElement>('.previous-button.ytmusic-player-bar')?.click();
+    document
+      .querySelector<HTMLElement>('.previous-button.ytmusic-player-bar')
+      ?.click();
   });
   window.ipcRenderer.on('ytmd:next-video', () => {
-    document.querySelector<HTMLElement>('.next-button.ytmusic-player-bar')?.click();
+    document
+      .querySelector<HTMLElement>('.next-button.ytmusic-player-bar')
+      ?.click();
   });
   window.ipcRenderer.on('ytmd:play', (_) => {
     api?.playVideo();
@@ -66,14 +74,29 @@ async function onApiLoaded() {
   window.ipcRenderer.on('ytmd:seek-to', (_, t: number) => api!.seekTo(t));
   window.ipcRenderer.on('ytmd:seek-by', (_, t: number) => api!.seekBy(t));
   window.ipcRenderer.on('ytmd:shuffle', () => {
-    document.querySelector<HTMLElement & { queue: { shuffle: () => void } }>('ytmusic-player-bar')?.queue.shuffle();
+    document
+      .querySelector<
+        HTMLElement & { queue: { shuffle: () => void } }
+      >('ytmusic-player-bar')
+      ?.queue.shuffle();
   });
-  window.ipcRenderer.on('ytmd:update-like', (_, status: 'LIKE' | 'DISLIKE' = 'LIKE') => {
-    document.querySelector<HTMLElement & { updateLikeStatus: (status: string) => void }>('#like-button-renderer')?.updateLikeStatus(status);
-  });
+  window.ipcRenderer.on(
+    'ytmd:update-like',
+    (_, status: 'LIKE' | 'DISLIKE' = 'LIKE') => {
+      document
+        .querySelector<
+          HTMLElement & { updateLikeStatus: (status: string) => void }
+        >('#like-button-renderer')
+        ?.updateLikeStatus(status);
+    },
+  );
   window.ipcRenderer.on('ytmd:switch-repeat', (_, repeat = 1) => {
     for (let i = 0; i < repeat; i++) {
-      document.querySelector<HTMLElement & { onRepeatButtonClick: () => void }>('ytmusic-player-bar')?.onRepeatButtonClick();
+      document
+        .querySelector<
+          HTMLElement & { onRepeatButtonClick: () => void }
+        >('ytmusic-player-bar')
+        ?.onRepeatButtonClick();
     }
   });
   window.ipcRenderer.on('ytmd:update-volume', (_, volume: number) => {
@@ -110,12 +133,19 @@ async function onApiLoaded() {
     event.sender.send('ytmd:set-fullscreen', isFullscreen());
   });
 
-  window.ipcRenderer.on('ytmd:click-fullscreen-button', (_, fullscreen: boolean | undefined) => {
-    clickFullscreenButton(fullscreen ?? false);
-  });
+  window.ipcRenderer.on(
+    'ytmd:click-fullscreen-button',
+    (_, fullscreen: boolean | undefined) => {
+      clickFullscreenButton(fullscreen ?? false);
+    },
+  );
 
   window.ipcRenderer.on('ytmd:toggle-mute', (_) => {
-    document.querySelector<HTMLElement & { onVolumeTap: () => void }>('ytmusic-player-bar')?.onVolumeTap();
+    document
+      .querySelector<
+        HTMLElement & { onVolumeTap: () => void }
+      >('ytmusic-player-bar')
+      ?.onVolumeTap();
   });
 
   window.ipcRenderer.on('ytmd:get-queue', (event) => {
@@ -132,9 +162,7 @@ async function onApiLoaded() {
   const audioSource = audioContext.createMediaElementSource(video);
   audioSource.connect(audioContext.destination);
 
-  for await (const [id, plugin] of Object.entries(
-    getAllLoadedRendererPlugins(),
-  )) {
+  for (const [id, plugin] of Object.entries(getAllLoadedRendererPlugins())) {
     if (typeof plugin.renderer !== 'function') {
       await plugin.renderer?.onPlayerApiReady?.call(
         plugin.renderer,
@@ -189,7 +217,9 @@ async function onApiLoaded() {
     const itemsSelector = 'ytmusic-guide-section-renderer #items';
     let selector = 'ytmusic-guide-entry-renderer:last-child';
 
-    const upgradeBtnIcon = document.querySelector<SVGGElement>('iron-iconset-svg[name="yt-sys-icons"] #youtube_music_monochrome');
+    const upgradeBtnIcon = document.querySelector<SVGGElement>(
+      'iron-iconset-svg[name="yt-sys-icons"] #youtube_music_monochrome',
+    );
     if (upgradeBtnIcon) {
       const path = upgradeBtnIcon.firstChild as SVGPathElement;
       const data = path.getAttribute('d')!.substring(0, 15);

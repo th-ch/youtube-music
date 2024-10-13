@@ -1,5 +1,13 @@
 import is from 'electron-is';
-import { app, BrowserWindow, clipboard, dialog, Menu, MenuItem, shell, } from 'electron';
+import {
+  app,
+  BrowserWindow,
+  clipboard,
+  dialog,
+  Menu,
+  MenuItem,
+  shell,
+} from 'electron';
 import prompt from 'custom-electron-prompt';
 import { satisfies } from 'semver';
 
@@ -68,12 +76,21 @@ export const mainMenuTemplate = async (
       const plugin = allPlugins[id];
       const pluginLabel = plugin?.name?.() ?? id;
       const pluginDescription = plugin?.description?.() ?? undefined;
-      const isNew = plugin?.addedVersion ? satisfies(packageJson.version, plugin.addedVersion) : false;
+      const isNew = plugin?.addedVersion
+        ? satisfies(packageJson.version, plugin.addedVersion)
+        : false;
 
       if (!config.plugins.isEnabled(id)) {
         return [
           id,
-          pluginEnabledMenu(id, pluginLabel, pluginDescription, isNew, true, innerRefreshMenu),
+          pluginEnabledMenu(
+            id,
+            pluginLabel,
+            pluginDescription,
+            isNew,
+            true,
+            innerRefreshMenu,
+          ),
         ] as const;
       }
 
@@ -115,9 +132,18 @@ export const mainMenuTemplate = async (
       const plugin = allPlugins[id];
       const pluginLabel = plugin?.name?.() ?? id;
       const pluginDescription = plugin?.description?.() ?? undefined;
-      const isNew = plugin?.addedVersion ? satisfies(packageJson.version, plugin.addedVersion) : false;
+      const isNew = plugin?.addedVersion
+        ? satisfies(packageJson.version, plugin.addedVersion)
+        : false;
 
-      return pluginEnabledMenu(id, pluginLabel, pluginDescription, isNew, true, innerRefreshMenu);
+      return pluginEnabledMenu(
+        id,
+        pluginLabel,
+        pluginDescription,
+        isNew,
+        true,
+        innerRefreshMenu,
+      );
     });
 
   const availableLanguages = Object.keys(languageResources);
@@ -229,12 +255,12 @@ export const mainMenuTemplate = async (
               submenu: [
                 ...((config.get('options.themes')?.length ?? 0) === 0
                   ? [
-                    {
-                      label: t(
-                        'main.menu.options.submenu.visual-tweaks.submenu.theme.submenu.no-theme',
-                      ),
-                    }
-                  ]
+                      {
+                        label: t(
+                          'main.menu.options.submenu.visual-tweaks.submenu.theme.submenu.no-theme',
+                        ),
+                      },
+                    ]
                   : []),
                 ...(config.get('options.themes')?.map((theme: string) => ({
                   type: 'normal' as const,
@@ -251,16 +277,25 @@ export const mainMenuTemplate = async (
                         { theme },
                       ),
                       buttons: [
-                        t('main.menu.options.submenu.visual-tweaks.submenu.theme.dialog.button.cancel'),
-                        t('main.menu.options.submenu.visual-tweaks.submenu.theme.dialog.button.remove'),
+                        t(
+                          'main.menu.options.submenu.visual-tweaks.submenu.theme.dialog.button.cancel',
+                        ),
+                        t(
+                          'main.menu.options.submenu.visual-tweaks.submenu.theme.dialog.button.remove',
+                        ),
                       ],
                     });
 
                     if (response === 1) {
-                      config.set('options.themes', config.get('options.themes')?.filter((t) => t !== theme) ?? []);
+                      config.set(
+                        'options.themes',
+                        config
+                          .get('options.themes')
+                          ?.filter((t) => t !== theme) ?? [],
+                      );
                       innerRefreshMenu();
                     }
-                  }
+                  },
                 })) ?? []),
                 { type: 'separator' },
                 {
@@ -306,40 +341,40 @@ export const mainMenuTemplate = async (
         },
         ...((is.windows() || is.linux()
           ? [
-            {
-              label: t('main.menu.options.submenu.hide-menu.label'),
-              type: 'checkbox',
-              checked: config.get('options.hideMenu'),
-              click(item) {
-                config.setMenuOption('options.hideMenu', item.checked);
-                if (item.checked && !config.get('options.hideMenuWarned')) {
-                  dialog.showMessageBox(win, {
-                    type: 'info',
-                    title: t(
-                      'main.menu.options.submenu.hide-menu.dialog.title',
-                    ),
-                    message: t(
-                      'main.menu.options.submenu.hide-menu.dialog.message',
-                    ),
-                  });
-                }
+              {
+                label: t('main.menu.options.submenu.hide-menu.label'),
+                type: 'checkbox',
+                checked: config.get('options.hideMenu'),
+                click(item) {
+                  config.setMenuOption('options.hideMenu', item.checked);
+                  if (item.checked && !config.get('options.hideMenuWarned')) {
+                    dialog.showMessageBox(win, {
+                      type: 'info',
+                      title: t(
+                        'main.menu.options.submenu.hide-menu.dialog.title',
+                      ),
+                      message: t(
+                        'main.menu.options.submenu.hide-menu.dialog.message',
+                      ),
+                    });
+                  }
+                },
               },
-            },
-          ]
+            ]
           : []) satisfies Electron.MenuItemConstructorOptions[]),
         ...((is.windows() || is.macOS()
           ? // Only works on Win/Mac
             // https://www.electronjs.org/docs/api/app#appsetloginitemsettingssettings-macos-windows
-          [
-            {
-              label: t('main.menu.options.submenu.start-at-login'),
-              type: 'checkbox',
-              checked: config.get('options.startAtLogin'),
-              click(item) {
-                config.setMenuOption('options.startAtLogin', item.checked);
+            [
+              {
+                label: t('main.menu.options.submenu.start-at-login'),
+                type: 'checkbox',
+                checked: config.get('options.startAtLogin'),
+                click(item) {
+                  config.setMenuOption('options.startAtLogin', item.checked);
+                },
               },
-            },
-          ]
+            ]
           : []) satisfies Electron.MenuItemConstructorOptions[]),
         {
           label: t('main.menu.options.submenu.tray.label'),
@@ -493,25 +528,25 @@ export const mainMenuTemplate = async (
             { type: 'separator' },
             is.macOS()
               ? {
-                label: t(
-                  'main.menu.options.submenu.advanced-options.submenu.toggle-dev-tools',
-                ),
-                // Cannot use "toggleDevTools" role in macOS
-                click() {
-                  const { webContents } = win;
-                  if (webContents.isDevToolsOpened()) {
-                    webContents.closeDevTools();
-                  } else {
-                    webContents.openDevTools();
-                  }
-                },
-              }
+                  label: t(
+                    'main.menu.options.submenu.advanced-options.submenu.toggle-dev-tools',
+                  ),
+                  // Cannot use "toggleDevTools" role in macOS
+                  click() {
+                    const { webContents } = win;
+                    if (webContents.isDevToolsOpened()) {
+                      webContents.closeDevTools();
+                    } else {
+                      webContents.openDevTools();
+                    }
+                  },
+                }
               : {
-                label: t(
-                  'main.menu.options.submenu.advanced-options.submenu.toggle-dev-tools',
-                ),
-                role: 'toggleDevTools',
-              },
+                  label: t(
+                    'main.menu.options.submenu.advanced-options.submenu.toggle-dev-tools',
+                  ),
+                  role: 'toggleDevTools',
+                },
             {
               label: t(
                 'main.menu.options.submenu.advanced-options.submenu.edit-config-json',

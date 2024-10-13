@@ -29,12 +29,22 @@ export class ListenbrainzScrobbler extends ScrobblerBase {
     return true;
   }
 
-  override createSession(config: ScrobblerPluginConfig, _setConfig: SetConfType): Promise<ScrobblerPluginConfig> {
+  override createSession(
+    config: ScrobblerPluginConfig,
+    _setConfig: SetConfType,
+  ): Promise<ScrobblerPluginConfig> {
     return Promise.resolve(config);
   }
 
-  override setNowPlaying(songInfo: SongInfo, config: ScrobblerPluginConfig, _setConfig: SetConfType): void {
-    if (!config.scrobblers.listenbrainz.apiRoot || !config.scrobblers.listenbrainz.token) {
+  override setNowPlaying(
+    songInfo: SongInfo,
+    config: ScrobblerPluginConfig,
+    _setConfig: SetConfType,
+  ): void {
+    if (
+      !config.scrobblers.listenbrainz.apiRoot ||
+      !config.scrobblers.listenbrainz.token
+    ) {
       return;
     }
 
@@ -42,8 +52,15 @@ export class ListenbrainzScrobbler extends ScrobblerBase {
     submitListen(body, config);
   }
 
-  override addScrobble(songInfo: SongInfo, config: ScrobblerPluginConfig, _setConfig: SetConfType): void {
-    if (!config.scrobblers.listenbrainz.apiRoot || !config.scrobblers.listenbrainz.token) {
+  override addScrobble(
+    songInfo: SongInfo,
+    config: ScrobblerPluginConfig,
+    _setConfig: SetConfType,
+  ): void {
+    if (
+      !config.scrobblers.listenbrainz.apiRoot ||
+      !config.scrobblers.listenbrainz.token
+    ) {
       return;
     }
 
@@ -54,7 +71,10 @@ export class ListenbrainzScrobbler extends ScrobblerBase {
   }
 }
 
-function createRequestBody(listenType: string, songInfo: SongInfo): ListenbrainzRequestBody {
+function createRequestBody(
+  listenType: string,
+  songInfo: SongInfo,
+): ListenbrainzRequestBody {
   const trackMetadata = {
     artist_name: songInfo.artist,
     track_name: songInfo.title,
@@ -64,7 +84,7 @@ function createRequestBody(listenType: string, songInfo: SongInfo): Listenbrainz
       submission_client: 'YouTube Music Desktop App - Scrobbler Plugin',
       origin_url: songInfo.url,
       duration: songInfo.songDuration,
-    }
+    },
   };
 
   return {
@@ -72,19 +92,23 @@ function createRequestBody(listenType: string, songInfo: SongInfo): Listenbrainz
     payload: [
       {
         track_metadata: trackMetadata,
-      }
-    ]
+      },
+    ],
   };
 }
 
-function submitListen(body: ListenbrainzRequestBody, config: ScrobblerPluginConfig) {
-  net.fetch(config.scrobblers.listenbrainz.apiRoot + 'submit-listens',
-    {
+function submitListen(
+  body: ListenbrainzRequestBody,
+  config: ScrobblerPluginConfig,
+) {
+  net
+    .fetch(config.scrobblers.listenbrainz.apiRoot + 'submit-listens', {
       method: 'POST',
       body: JSON.stringify(body),
       headers: {
         'Authorization': 'Token ' + config.scrobblers.listenbrainz.token,
         'Content-Type': 'application/json',
-      }
-    }).catch(console.error);
+      },
+    })
+    .catch(console.error);
 }

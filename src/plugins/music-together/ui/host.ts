@@ -22,7 +22,7 @@ export const createHostPopup = (props: HostPopupProps) => {
         element: status.element,
       },
       {
-        type: 'divider'
+        type: 'divider',
       },
       {
         id: 'music-together-copy-id',
@@ -35,7 +35,9 @@ export const createHostPopup = (props: HostPopupProps) => {
         id: 'music-together-permission',
         type: 'item',
         icon: ElementFromHtml(IconTune),
-        text: t('plugins.music-together.menu.set-permission', { permission: t('plugins.music-together.menu.permission.host-only') }),
+        text: t('plugins.music-together.menu.set-permission', {
+          permission: t('plugins.music-together.menu.permission.host-only'),
+        }),
         onClick: () => props.onItemClick('music-together-permission'),
       },
       {

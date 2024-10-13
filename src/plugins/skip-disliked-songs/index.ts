@@ -16,20 +16,24 @@ export default createPlugin<
   restartNeeded: false,
   renderer: {
     start() {
-      waitForElement<HTMLElement>('#dislike-button-renderer').then((dislikeBtn) => {
-        this.observer = new MutationObserver(() => {
-          if (dislikeBtn?.getAttribute('like-status') == 'DISLIKE') {
-            document
-              .querySelector<HTMLButtonElement>('tp-yt-paper-icon-button.next-button')
-              ?.click();
-          }
-        });
-        this.observer.observe(dislikeBtn, {
-          attributes: true,
-          childList: false,
-          subtree: false,
-        });
-      });
+      waitForElement<HTMLElement>('#dislike-button-renderer').then(
+        (dislikeBtn) => {
+          this.observer = new MutationObserver(() => {
+            if (dislikeBtn?.getAttribute('like-status') == 'DISLIKE') {
+              document
+                .querySelector<HTMLButtonElement>(
+                  'tp-yt-paper-icon-button.next-button',
+                )
+                ?.click();
+            }
+          });
+          this.observer.observe(dislikeBtn, {
+            attributes: true,
+            childList: false,
+            subtree: false,
+          });
+        },
+      );
     },
     stop() {
       this.observer?.disconnect();

@@ -1,7 +1,9 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable @typescript-eslint/no-require-imports */
 
+// eslint-disable-next-line no-undef
 const { test, expect } = require('@playwright/test');
 
+// eslint-disable-next-line no-undef
 const { sortSegments } = require('../segments');
 
 test('Segment sorting', () => {

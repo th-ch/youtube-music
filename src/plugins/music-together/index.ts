@@ -6,7 +6,12 @@ import { t } from '@/i18n';
 import { createPlugin } from '@/utils';
 import promptOptions from '@/providers/prompt-options';
 
-import { getDefaultProfile, type Permission, type Profile, type VideoData } from './types';
+import {
+  getDefaultProfile,
+  type Permission,
+  type Profile,
+  type VideoData,
+} from './types';
 import { Queue } from './queue';
 import { Connection, type ConnectionEventUnion } from './connection';
 import { createHostPopup } from './ui/host';
@@ -26,7 +31,7 @@ type RawAccountData = {
     runs: { text: string }[];
   };
   accountPhoto: {
-    thumbnails: { url: string; width: number; height: number; }[];
+    thumbnails: { url: string; width: number; height: number }[];
   };
   settingsEndpoint: unknown;
   manageAccountTitle: unknown;
@@ -59,7 +64,7 @@ export default createPlugin<
     stateInterval?: number;
     updateNext: boolean;
     ignoreChange: boolean;
-    rollbackInjector?: (() => void);
+    rollbackInjector?: () => void;
     me?: Omit<Profile, 'id'>;
     profiles: Record<string, Profile>;
     permission: Permission;
@@ -79,16 +84,18 @@ export default createPlugin<
   restartNeeded: false,
   addedVersion: '3.2.X',
   config: {
-    enabled: false
+    enabled: false,
   },
   stylesheets: [style],
   backend({ ipc }) {
-    ipc.handle('music-together:prompt', async (title: string, label: string) => prompt({
-      title,
-      label,
-      type: 'input',
-      ...promptOptions()
-    }));
+    ipc.handle('music-together:prompt', async (title: string, label: string) =>
+      prompt({
+        title,
+        label,
+        type: 'input',
+        ...promptOptions(),
+      }),
+    );
   },
   renderer: {
     updateNext: false,
@@ -112,15 +119,19 @@ export default createPlugin<
     videoChangeListener(event: CustomEvent<VideoDataChanged>) {
       if (event.detail.name === 'dataloaded' || this.updateNext) {
         if (this.connection?.mode === 'host') {
-          const videoList: VideoData[] = this.queue?.flatItems.map((it) => ({
-            videoId: it!.videoId,
-            ownerId: this.connection!.id
-          } satisfies VideoData)) ?? [];
+          const videoList: VideoData[] =
+            this.queue?.flatItems.map(
+              (it) =>
+                ({
+                  videoId: it!.videoId,
+                  ownerId: this.connection!.id,
+                }) satisfies VideoData,
+            ) ?? [];
 
           this.queue?.setVideoList(videoList, false);
           this.queue?.syncQueueOwner();
           this.connection.broadcast('SYNC_QUEUE', {
-            videoList
+            videoList,
           });
 
           this.updateNext = event.detail.name === 'dataloaded';
@@ -138,7 +149,7 @@ export default createPlugin<
 
       this.connection.broadcast('SYNC_PROGRESS', {
         // progress: this.playerApi?.getCurrentTime(),
-        state: this.playerApi?.getPlayerState()
+        state: this.playerApi?.getPlayerState(),
         // index: this.queue?.selectedIndex ?? 0,
       });
     },
@@ -150,13 +161,17 @@ export default createPlugin<
       if (!wait) return false;
 
       if (!this.me) this.me = getDefaultProfile(this.connection.id);
-      const rawItems = this.queue?.flatItems?.map((it) => ({
-        videoId: it!.videoId,
-        ownerId: this.connection!.id
-      } satisfies VideoData)) ?? [];
+      const rawItems =
+        this.queue?.flatItems?.map(
+          (it) =>
+            ({
+              videoId: it!.videoId,
+              ownerId: this.connection!.id,
+            }) satisfies VideoData,
+        ) ?? [];
       this.queue?.setOwner({
         id: this.connection.id,
-        ...this.me
+        ...this.me,
       });
       this.queue?.setVideoList(rawItems, false);
       this.queue?.syncQueueOwner();
@@ -166,31 +181,41 @@ export default createPlugin<
       this.profiles = {};
       this.connection.onConnections((connection) => {
         if (!connection) {
-          this.api?.toastService?.show(t('plugins.music-together.toast.disconnected'));
+          this.api?.toastService?.show(
+            t('plugins.music-together.toast.disconnected'),
+          );
           this.onStop();
           return;
         }
 
         if (!connection.open) {
-          this.api?.toastService?.show(t('plugins.music-together.toast.user-disconnected', {
-            name: this.profiles[connection.peer]?.name
-          }));
+          this.api?.toastService?.show(
+            t('plugins.music-together.toast.user-disconnected', {
+              name: this.profiles[connection.peer]?.name,
+            }),
+          );
           this.putProfile(connection.peer, undefined);
         }
       });
       this.putProfile(this.connection.id, {
         id: this.connection.id,
-        ...this.me
+        ...this.me,
       });
 
-      const listener = async (event: ConnectionEventUnion, conn?: DataConnection) => {
+      const listener = async (
+        event: ConnectionEventUnion,
+        conn?: DataConnection,
+      ) => {
         this.ignoreChange = true;
 
         switch (event.type) {
           case 'ADD_SONGS': {
             if (conn && this.permission === 'host-only') return;
 
-            await this.queue?.addVideos(event.payload.videoList, event.payload.index);
+            await this.queue?.addVideos(
+              event.payload.videoList,
+              event.payload.index,
+            );
             await this.connection?.broadcast('ADD_SONGS', event.payload);
             break;
           }
@@ -204,27 +229,38 @@ export default createPlugin<
           case 'MOVE_SONG': {
             if (conn && this.permission === 'host-only') {
               await this.connection?.broadcast('SYNC_QUEUE', {
-                videoList: this.queue?.videoList ?? []
+                videoList: this.queue?.videoList ?? [],
               });
               break;
             }
 
-            this.queue?.moveItem(event.payload.fromIndex, event.payload.toIndex);
+            this.queue?.moveItem(
+              event.payload.fromIndex,
+              event.payload.toIndex,
+            );
             await this.connection?.broadcast('MOVE_SONG', event.payload);
             break;
           }
           case 'IDENTIFY': {
             if (!event.payload || !conn) {
-              console.warn('Music Together [Host]: Received "IDENTIFY" event without payload or connection');
+              console.warn(
+                'Music Together [Host]: Received "IDENTIFY" event without payload or connection',
+              );
               break;
             }
 
-            this.api?.toastService?.show(t('plugins.music-together.toast.user-connected', { name: event.payload.profile.name }));
+            this.api?.toastService?.show(
+              t('plugins.music-together.toast.user-connected', {
+                name: event.payload.profile.name,
+              }),
+            );
             this.putProfile(conn.peer, event.payload.profile);
             break;
           }
           case 'SYNC_PROFILE': {
-            await this.connection?.broadcast('SYNC_PROFILE', { profiles: this.profiles });
+            await this.connection?.broadcast('SYNC_PROFILE', {
+              profiles: this.profiles,
+            });
 
             break;
           }
@@ -237,7 +273,7 @@ export default createPlugin<
           }
           case 'SYNC_QUEUE': {
             await this.connection?.broadcast('SYNC_QUEUE', {
-              videoList: this.queue?.videoList ?? []
+              videoList: this.queue?.videoList ?? [],
             });
             break;
           }
@@ -251,7 +287,8 @@ export default createPlugin<
             if (permissionLevel >= 2) {
               if (typeof event.payload?.progress === 'number') {
                 const currentTime = this.playerApi?.getCurrentTime() ?? 0;
-                if (Math.abs(event.payload.progress - currentTime) > 3) this.playerApi?.seekTo(event.payload.progress);
+                if (Math.abs(event.payload.progress - currentTime) > 3)
+                  this.playerApi?.seekTo(event.payload.progress);
               }
               if (this.playerApi?.getPlayerState() !== event.payload?.state) {
                 if (event.payload?.state === 2) this.playerApi?.pauseVideo();
@@ -300,25 +337,32 @@ export default createPlugin<
 
       this.profiles = {};
 
-      const id = await this.showPrompt(t('plugins.music-together.name'), t('plugins.music-together.dialog.enter-host'));
+      const id = await this.showPrompt(
+        t('plugins.music-together.name'),
+        t('plugins.music-together.dialog.enter-host'),
+      );
       if (typeof id !== 'string') return false;
 
       const connection = await this.connection.connect(id).catch(() => false);
       if (!connection) return false;
       this.connection.onConnections((connection) => {
         if (!connection?.open) {
-          this.api?.toastService?.show(t('plugins.music-together.toast.disconnected'));
+          this.api?.toastService?.show(
+            t('plugins.music-together.toast.disconnected'),
+          );
           this.onStop();
         }
       });
-
 
       let resolveIgnore: number | null = null;
       const listener = async (event: ConnectionEventUnion) => {
         this.ignoreChange = true;
         switch (event.type) {
           case 'ADD_SONGS': {
-            await this.queue?.addVideos(event.payload.videoList, event.payload.index);
+            await this.queue?.addVideos(
+              event.payload.videoList,
+              event.payload.index,
+            );
             break;
           }
           case 'REMOVE_SONG': {
@@ -326,11 +370,16 @@ export default createPlugin<
             break;
           }
           case 'MOVE_SONG': {
-            this.queue?.moveItem(event.payload.fromIndex, event.payload.toIndex);
+            this.queue?.moveItem(
+              event.payload.fromIndex,
+              event.payload.toIndex,
+            );
             break;
           }
           case 'IDENTIFY': {
-            console.warn('Music Together [Guest]: Received "IDENTIFY" event from guest');
+            console.warn(
+              'Music Together [Guest]: Received "IDENTIFY" event from guest',
+            );
             break;
           }
           case 'SYNC_QUEUE': {
@@ -341,7 +390,9 @@ export default createPlugin<
           }
           case 'SYNC_PROFILE': {
             if (!event.payload) {
-              console.warn('Music Together [Guest]: Received "SYNC_PROFILE" event without payload');
+              console.warn(
+                'Music Together [Guest]: Received "SYNC_PROFILE" event without payload',
+              );
               break;
             }
 
@@ -353,7 +404,8 @@ export default createPlugin<
           case 'SYNC_PROGRESS': {
             if (typeof event.payload?.progress === 'number') {
               const currentTime = this.playerApi?.getCurrentTime() ?? 0;
-              if (Math.abs(event.payload.progress - currentTime) > 3) this.playerApi?.seekTo(event.payload.progress);
+              if (Math.abs(event.payload.progress - currentTime) > 3)
+                this.playerApi?.seekTo(event.payload.progress);
             }
             if (this.playerApi?.getPlayerState() !== event.payload?.state) {
               if (event.payload?.state === 2) this.playerApi?.pauseVideo();
@@ -370,7 +422,9 @@ export default createPlugin<
           }
           case 'PERMISSION': {
             if (!event.payload) {
-              console.warn('Music Together [Guest]: Received "PERMISSION" event without payload');
+              console.warn(
+                'Music Together [Guest]: Received "PERMISSION" event without payload',
+              );
               break;
             }
 
@@ -379,9 +433,15 @@ export default createPlugin<
             this.popups.host.setPermission(this.permission);
             this.popups.setting.setPermission(this.permission);
 
-            const permissionLabel = t(`plugins.music-together.menu.permission.${this.permission}`);
+            const permissionLabel = t(
+              `plugins.music-together.menu.permission.${this.permission}`,
+            );
 
-            this.api?.toastService?.show(t('plugins.music-together.toast.permission-changed', { permission: permissionLabel }));
+            this.api?.toastService?.show(
+              t('plugins.music-together.toast.permission-changed', {
+                permission: permissionLabel,
+              }),
+            );
             break;
           }
           default: {
@@ -415,8 +475,10 @@ export default createPlugin<
             break;
           }
           case 'SYNC_PROGRESS': {
-            if (this.permission === 'host-only') await this.connection?.broadcast('SYNC_QUEUE', undefined);
-            else await this.connection?.broadcast('SYNC_PROGRESS', event.payload);
+            if (this.permission === 'host-only')
+              await this.connection?.broadcast('SYNC_QUEUE', undefined);
+            else
+              await this.connection?.broadcast('SYNC_PROGRESS', event.payload);
             break;
           }
         }
@@ -431,12 +493,16 @@ export default createPlugin<
       this.queue?.injection();
       this.queue?.setOwner({
         id: this.connection.id,
-        ...this.me
+        ...this.me,
       });
 
-      const progress = Array.from(document.querySelectorAll<HTMLElement & {
-        _update: (...args: unknown[]) => void
-      }>('tp-yt-paper-progress'));
+      const progress = Array.from(
+        document.querySelectorAll<
+          HTMLElement & {
+            _update: (...args: unknown[]) => void;
+          }
+        >('tp-yt-paper-progress'),
+      );
       const rollbackList = progress.map((progress) => {
         const original = progress._update;
         progress._update = (...args) => {
@@ -444,10 +510,11 @@ export default createPlugin<
 
           if (this.permission === 'all' && typeof now === 'number') {
             const currentTime = this.playerApi?.getCurrentTime() ?? 0;
-            if (Math.abs(now - currentTime) > 3) this.connection?.broadcast('SYNC_PROGRESS', {
-              progress: now,
-              state: this.playerApi?.getPlayerState()
-            });
+            if (Math.abs(now - currentTime) > 3)
+              this.connection?.broadcast('SYNC_PROGRESS', {
+                progress: now,
+                state: this.playerApi?.getPlayerState(),
+              });
           }
 
           original.call(progress, ...args);
@@ -466,8 +533,8 @@ export default createPlugin<
           id: this.connection.id,
           handleId: this.me.handleId,
           name: this.me.name,
-          thumbnail: this.me.thumbnail
-        }
+          thumbnail: this.me.thumbnail,
+        },
       });
 
       this.connection.broadcast('SYNC_PROFILE', undefined);
@@ -525,14 +592,18 @@ export default createPlugin<
     },
 
     initMyProfile() {
-      const accountButton = document.querySelector<HTMLElement & {
-        onButtonTap: () => void
-      }>('ytmusic-settings-button');
+      const accountButton = document.querySelector<
+        HTMLElement & {
+          onButtonTap: () => void;
+        }
+      >('ytmusic-settings-button');
 
       accountButton?.onButtonTap();
       setTimeout(() => {
         accountButton?.onButtonTap();
-        const renderer = document.querySelector<HTMLElement & { data: unknown }>('ytd-active-account-header-renderer');
+        const renderer = document.querySelector<
+          HTMLElement & { data: unknown }
+        >('ytd-active-account-header-renderer');
         if (!accountButton || !renderer) {
           console.warn('Music Together: Cannot find account');
           this.me = getDefaultProfile(this.connection?.id ?? '');
@@ -543,7 +614,7 @@ export default createPlugin<
         this.me = {
           handleId: accountData.channelHandle.runs[0].text,
           name: accountData.accountName.runs[0].text,
-          thumbnail: accountData.accountPhoto.thumbnails[0].url
+          thumbnail: accountData.accountPhoto.thumbnails[0].url,
         };
 
         if (this.me.thumbnail) {
@@ -557,14 +628,23 @@ export default createPlugin<
 
     start({ ipc }) {
       this.ipc = ipc;
-      this.showPrompt = async (title: string, label: string) => ipc.invoke('music-together:prompt', title, label) as Promise<string>;
+      this.showPrompt = async (title: string, label: string) =>
+        ipc.invoke('music-together:prompt', title, label) as Promise<string>;
       this.api = document.querySelector<AppElement>('ytmusic-app');
 
       /* setup */
-      document.querySelector('#right-content > ytmusic-settings-button')?.insertAdjacentHTML('beforebegin', settingHTML);
-      const setting = document.querySelector<HTMLElement>('#music-together-setting-button');
-      const icon = document.querySelector<SVGElement>('#music-together-setting-button > svg');
-      const spinner = document.querySelector<HTMLElement>('#music-together-setting-button > tp-yt-paper-spinner-lite');
+      document
+        .querySelector('#right-content > ytmusic-settings-button')
+        ?.insertAdjacentHTML('beforebegin', settingHTML);
+      const setting = document.querySelector<HTMLElement>(
+        '#music-together-setting-button',
+      );
+      const icon = document.querySelector<SVGElement>(
+        '#music-together-setting-button > svg',
+      );
+      const spinner = document.querySelector<HTMLElement>(
+        '#music-together-setting-button > tp-yt-paper-spinner-lite',
+      );
       if (!setting || !icon || !spinner) {
         console.warn('Music Together: Cannot inject html');
         console.log(setting, icon, spinner);
@@ -574,7 +654,7 @@ export default createPlugin<
       this.elements = {
         setting,
         icon,
-        spinner
+        spinner,
       };
 
       this.stateInterval = window.setInterval(() => {
@@ -584,7 +664,7 @@ export default createPlugin<
         this.connection.broadcast('SYNC_PROGRESS', {
           progress: this.playerApi?.getCurrentTime(),
           state: this.playerApi?.getPlayerState(),
-          index
+          index,
         });
       }, 1000);
 
@@ -593,18 +673,25 @@ export default createPlugin<
         onItemClick: (id) => {
           if (id === 'music-together-close') {
             this.onStop();
-            this.api?.toastService?.show(t('plugins.music-together.toast.closed'));
+            this.api?.toastService?.show(
+              t('plugins.music-together.toast.closed'),
+            );
             hostPopup.dismiss();
           }
 
           if (id === 'music-together-copy-id') {
-            navigator.clipboard.writeText(this.connection?.id ?? '')
+            navigator.clipboard
+              .writeText(this.connection?.id ?? '')
               .then(() => {
-                this.api?.toastService?.show(t('plugins.music-together.toast.id-copied'));
+                this.api?.toastService?.show(
+                  t('plugins.music-together.toast.id-copied'),
+                );
                 hostPopup.dismiss();
               })
               .catch(() => {
-                this.api?.toastService?.show(t('plugins.music-together.toast.id-copy-failed'));
+                this.api?.toastService?.show(
+                  t('plugins.music-together.toast.id-copy-failed'),
+                );
                 hostPopup.dismiss();
               });
           }
@@ -612,30 +699,39 @@ export default createPlugin<
           if (id === 'music-together-permission') {
             if (this.permission === 'all') this.permission = 'host-only';
             else if (this.permission === 'playlist') this.permission = 'all';
-            else if (this.permission === 'host-only') this.permission = 'playlist';
+            else if (this.permission === 'host-only')
+              this.permission = 'playlist';
             this.connection?.broadcast('PERMISSION', this.permission);
 
             hostPopup.setPermission(this.permission);
             guestPopup.setPermission(this.permission);
             settingPopup.setPermission(this.permission);
 
-            const permissionLabel = t(`plugins.music-together.menu.permission.${this.permission}`);
-            this.api?.toastService?.show(t('plugins.music-together.toast.permission-changed', { permission: permissionLabel }));
+            const permissionLabel = t(
+              `plugins.music-together.menu.permission.${this.permission}`,
+            );
+            this.api?.toastService?.show(
+              t('plugins.music-together.toast.permission-changed', {
+                permission: permissionLabel,
+              }),
+            );
             const item = hostPopup.items.find((it) => it?.element.id === id);
             if (item?.type === 'item') {
               item.setText(t('plugins.music-together.menu.set-permission'));
             }
           }
-        }
+        },
       });
       const guestPopup = createGuestPopup({
         onItemClick: (id) => {
           if (id === 'music-together-disconnect') {
             this.onStop();
-            this.api?.toastService?.show(t('plugins.music-together.toast.disconnected'));
+            this.api?.toastService?.show(
+              t('plugins.music-together.toast.disconnected'),
+            );
             guestPopup.dismiss();
           }
-        }
+        },
       });
       const settingPopup = createSettingPopup({
         onItemClick: async (id) => {
@@ -646,16 +742,24 @@ export default createPlugin<
             this.hideSpinner();
 
             if (result) {
-              navigator.clipboard.writeText(this.connection?.id ?? '')
+              navigator.clipboard
+                .writeText(this.connection?.id ?? '')
                 .then(() => {
-                  this.api?.toastService?.show(t('plugins.music-together.toast.id-copied'));
+                  this.api?.toastService?.show(
+                    t('plugins.music-together.toast.id-copied'),
+                  );
                   hostPopup.showAtAnchor(setting);
-                }).catch(() => {
-                  this.api?.toastService?.show(t('plugins.music-together.toast.id-copy-failed'));
+                })
+                .catch(() => {
+                  this.api?.toastService?.show(
+                    t('plugins.music-together.toast.id-copy-failed'),
+                  );
                   hostPopup.showAtAnchor(setting);
                 });
             } else {
-              this.api?.toastService?.show(t('plugins.music-together.toast.host-failed'));
+              this.api?.toastService?.show(
+                t('plugins.music-together.toast.host-failed'),
+              );
             }
           }
 
@@ -666,18 +770,22 @@ export default createPlugin<
             this.hideSpinner();
 
             if (result) {
-              this.api?.toastService?.show(t('plugins.music-together.toast.joined'));
+              this.api?.toastService?.show(
+                t('plugins.music-together.toast.joined'),
+              );
               guestPopup.showAtAnchor(setting);
             } else {
-              this.api?.toastService?.show(t('plugins.music-together.toast.join-failed'));
+              this.api?.toastService?.show(
+                t('plugins.music-together.toast.join-failed'),
+              );
             }
           }
-        }
+        },
       });
       this.popups = {
         host: hostPopup,
         guest: guestPopup,
-        setting: settingPopup
+        setting: settingPopup,
       };
       setting.addEventListener('click', () => {
         let popup = settingPopup;
@@ -695,24 +803,38 @@ export default createPlugin<
       this.queue = new Queue({
         owner: {
           id: this.connection?.id ?? '',
-          ...this.me!
+          ...this.me!,
         },
-        getProfile: (id) => this.profiles[id]
+        getProfile: (id) => this.profiles[id],
       });
       this.playerApi = playerApi;
 
-      this.playerApi.addEventListener('onStateChange', this.videoStateChangeListener);
+      this.playerApi.addEventListener(
+        'onStateChange',
+        this.videoStateChangeListener,
+      );
       document.addEventListener('videodatachange', this.videoChangeListener);
     },
     stop() {
-      const dividers = Array.from(document.querySelectorAll('.music-together-divider'));
+      const dividers = Array.from(
+        document.querySelectorAll('.music-together-divider'),
+      );
       dividers.forEach((divider) => divider.remove());
 
       this.elements.setting?.remove();
       this.onStop();
-      if (typeof this.stateInterval === 'number') clearInterval(this.stateInterval);
-      if (this.playerApi) this.playerApi.removeEventListener('onStateChange', this.videoStateChangeListener);
-      if (this.videoChangeListener) document.removeEventListener('videodatachange', this.videoChangeListener);
-    }
-  }
+      if (typeof this.stateInterval === 'number')
+        clearInterval(this.stateInterval);
+      if (this.playerApi)
+        this.playerApi.removeEventListener(
+          'onStateChange',
+          this.videoStateChangeListener,
+        );
+      if (this.videoChangeListener)
+        document.removeEventListener(
+          'videodatachange',
+          this.videoChangeListener,
+        );
+    },
+  },
 });

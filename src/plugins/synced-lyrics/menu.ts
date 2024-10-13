@@ -31,8 +31,12 @@ export const menu = async ({
       type: 'submenu',
       submenu: [
         {
-          label: t('plugins.synced-lyrics.menu.line-effect.submenu.scale.label'),
-          toolTip: t('plugins.synced-lyrics.menu.line-effect.submenu.scale.tooltip'),
+          label: t(
+            'plugins.synced-lyrics.menu.line-effect.submenu.scale.label',
+          ),
+          toolTip: t(
+            'plugins.synced-lyrics.menu.line-effect.submenu.scale.tooltip',
+          ),
           type: 'radio',
           checked: config.lineEffect === 'scale',
           click() {
@@ -42,8 +46,12 @@ export const menu = async ({
           },
         },
         {
-          label: t('plugins.synced-lyrics.menu.line-effect.submenu.offset.label'),
-          toolTip: t('plugins.synced-lyrics.menu.line-effect.submenu.offset.tooltip'),
+          label: t(
+            'plugins.synced-lyrics.menu.line-effect.submenu.offset.label',
+          ),
+          toolTip: t(
+            'plugins.synced-lyrics.menu.line-effect.submenu.offset.tooltip',
+          ),
           type: 'radio',
           checked: config.lineEffect === 'offset',
           click() {
@@ -53,8 +61,12 @@ export const menu = async ({
           },
         },
         {
-          label: t('plugins.synced-lyrics.menu.line-effect.submenu.focus.label'),
-          toolTip: t('plugins.synced-lyrics.menu.line-effect.submenu.focus.tooltip'),
+          label: t(
+            'plugins.synced-lyrics.menu.line-effect.submenu.focus.label',
+          ),
+          toolTip: t(
+            'plugins.synced-lyrics.menu.line-effect.submenu.focus.tooltip',
+          ),
           type: 'radio',
           checked: config.lineEffect === 'focus',
           click() {
@@ -125,7 +137,9 @@ export const menu = async ({
     },
     {
       label: t('plugins.synced-lyrics.menu.show-lyrics-even-if-inexact.label'),
-      toolTip: t('plugins.synced-lyrics.menu.show-lyrics-even-if-inexact.tooltip'),
+      toolTip: t(
+        'plugins.synced-lyrics.menu.show-lyrics-even-if-inexact.tooltip',
+      ),
       type: 'checkbox',
       checked: config.showLyricsEvenIfInexact,
       click(item) {

@@ -15,7 +15,10 @@ export default createPlugin({
       this.styleSheet = new CSSStyleSheet();
       await this.styleSheet.replace(style);
 
-      document.adoptedStyleSheets = [...document.adoptedStyleSheets, this.styleSheet];
+      document.adoptedStyleSheets = [
+        ...document.adoptedStyleSheets,
+        this.styleSheet,
+      ];
     },
     async stop() {
       await this.styleSheet?.replace('');

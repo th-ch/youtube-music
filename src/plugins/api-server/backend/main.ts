@@ -28,7 +28,10 @@ export const backend = createBackend<BackendType, APIServerConfig>({
     this.end();
   },
   onConfigChange(config) {
-    if (this.oldConfig?.hostname === config.hostname && this.oldConfig?.port === config.port) {
+    if (
+      this.oldConfig?.hostname === config.hostname &&
+      this.oldConfig?.port === config.port
+    ) {
       this.oldConfig = config;
       return;
     }
@@ -55,7 +58,8 @@ export const backend = createBackend<BackendType, APIServerConfig>({
     this.app.use('/api/*', async (ctx, next) => {
       const result = await JWTPayloadSchema.spa(await ctx.get('jwtPayload'));
 
-      const isAuthorized = result.success && config.authorizedClients.includes(result.data.id);
+      const isAuthorized =
+        result.success && config.authorizedClients.includes(result.data.id);
       if (!isAuthorized) {
         ctx.status(401);
         return ctx.body('Unauthorized');

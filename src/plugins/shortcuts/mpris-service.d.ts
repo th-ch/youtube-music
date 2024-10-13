@@ -176,15 +176,17 @@ declare module '@jellybrick/mpris-service' {
     setActivePlaylist(playlistId: string): void;
   }
 
-  interface MprisInterface extends dbusInterface.Interface {
+  export interface MprisInterface extends dbusInterface.Interface {
     setProperty(property: string, valuePlain: unknown): void;
   }
 
-  interface RootInterface {}
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
+  export interface RootInterface {}
 
-  interface PlayerInterface {}
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
+  export interface PlayerInterface {}
 
-  interface TracklistInterface {
+  export interface TracklistInterface {
     TrackListReplaced(tracks: Track[]): void;
 
     TrackAdded(afterTrack: string): void;
@@ -192,7 +194,7 @@ declare module '@jellybrick/mpris-service' {
     TrackRemoved(trackId: string): void;
   }
 
-  interface PlaylistsInterface {
+  export interface PlaylistsInterface {
     PlaylistChanged(playlist: unknown[]): void;
 
     setActivePlaylistId(playlistId: string): void;

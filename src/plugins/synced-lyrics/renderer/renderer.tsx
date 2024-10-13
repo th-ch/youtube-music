@@ -7,8 +7,11 @@ import type { SyncedLyricsPluginConfig } from '../types';
 
 export const [isVisible, setIsVisible] = createSignal<boolean>(false);
 
-export const [config, setConfig] = createSignal<SyncedLyricsPluginConfig | null>(null);
-export const [playerState, setPlayerState] = createSignal<VideoDetails | null>(null);
+export const [config, setConfig] =
+  createSignal<SyncedLyricsPluginConfig | null>(null);
+export const [playerState, setPlayerState] = createSignal<VideoDetails | null>(
+  null,
+);
 
 export const LyricsRenderer = () => {
   return (

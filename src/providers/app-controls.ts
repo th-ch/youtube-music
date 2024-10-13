@@ -9,10 +9,8 @@ export const restart = () => restartInternal();
 export const setupAppControls = () => {
   ipcMain.on('ytmd:restart', restart);
   ipcMain.handle('ytmd:get-downloads-folder', () => app.getPath('downloads'));
-  ipcMain.on(
-    'ytmd:reload',
-    () =>
-      BrowserWindow.getFocusedWindow()?.webContents.loadURL(config.get('url')),
+  ipcMain.on('ytmd:reload', () =>
+    BrowserWindow.getFocusedWindow()?.webContents.loadURL(config.get('url')),
   );
   ipcMain.handle('ytmd:get-path', (_, ...args: string[]) => path.join(...args));
 };

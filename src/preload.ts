@@ -1,4 +1,9 @@
-import { contextBridge, ipcRenderer, IpcRendererEvent, webFrame } from 'electron';
+import {
+  contextBridge,
+  ipcRenderer,
+  IpcRendererEvent,
+  webFrame,
+} from 'electron';
 import is from 'electron-is';
 
 import config from './config';
@@ -48,23 +53,33 @@ contextBridge.exposeInMainWorld('ipcRenderer', {
   sendToHost: (channel: string, ...args: unknown[]) =>
     ipcRenderer.sendToHost(channel, ...args),
 });
-contextBridge.exposeInMainWorld('reload', () => ipcRenderer.send('ytmd:reload'));
+contextBridge.exposeInMainWorld('reload', () =>
+  ipcRenderer.send('ytmd:reload'),
+);
 contextBridge.exposeInMainWorld(
   'ELECTRON_RENDERER_URL',
   process.env.ELECTRON_RENDERER_URL,
 );
 
-const [path, script] = ipcRenderer.sendSync('get-renderer-script') as [string | null, string];
+const [path, script] = ipcRenderer.sendSync('get-renderer-script') as [
+  string | null,
+  string,
+];
 let blocked = true;
 if (path) {
-  webFrame.executeJavaScriptInIsolatedWorld(0, [
-    {
-      code: script,
-      url: path,
-    },
-  ], true, () => blocked = false);
+  webFrame.executeJavaScriptInIsolatedWorld(
+    0,
+    [
+      {
+        code: script,
+        url: path,
+      },
+    ],
+    true,
+    () => (blocked = false),
+  );
 } else {
-  webFrame.executeJavaScript(script, true, () => blocked = false);
+  webFrame.executeJavaScript(script, true, () => (blocked = false));
 }
 
 // HACK: Wait for the script to be executed

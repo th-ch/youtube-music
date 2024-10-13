@@ -79,7 +79,7 @@ export default createPlugin({
       if (config.blocker === blockers.AdSpeedup) {
         await loadAdSpeedup();
       }
-    }
+    },
   },
   backend: {
     mainWindow: null as BrowserWindow | null,

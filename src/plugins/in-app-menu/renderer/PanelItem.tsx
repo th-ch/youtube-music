@@ -10,100 +10,111 @@ import { autoUpdate, offset, size } from '@floating-ui/dom';
 import { Panel } from './Panel';
 import { cacheNoArgs } from '@/providers/decorators';
 
-const itemStyle = cacheNoArgs(() => css`
-  position: relative;
+const itemStyle = cacheNoArgs(
+  () => css`
+    position: relative;
 
-  -webkit-app-region: none;
-  min-height: 32px;
-  height: 32px;
+    -webkit-app-region: none;
+    min-height: 32px;
+    height: 32px;
 
-  display: grid;
-  grid-template-columns: 32px 1fr auto minmax(32px, auto);
-  justify-content: flex-start;
-  align-items: center;
+    display: grid;
+    grid-template-columns: 32px 1fr auto minmax(32px, auto);
+    justify-content: flex-start;
+    align-items: center;
 
-  border-radius: 4px;
-  cursor: pointer;
-  box-sizing: border-box;
-  user-select: none;
-  -webkit-user-drag: none;
-
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-  }
-
-  &:active {
-    background-color: rgba(255, 255, 255, 0.2);
-  }
-
-  &[data-selected="true"] {
-    background-color: rgba(255, 255, 255, 0.2);
-  }
-
-  & * {
+    border-radius: 4px;
+    cursor: pointer;
     box-sizing: border-box;
-  }
-`);
+    user-select: none;
+    -webkit-user-drag: none;
 
-const itemIconStyle = cacheNoArgs(() => css`
-  height: 32px;
-  padding: 4px;
-  color: white;
-`);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
-const itemLabelStyle = cacheNoArgs(() => css`
-  font-size: 12px;
-  color: white;
-`);
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
 
-const itemChipStyle = cacheNoArgs(() => css`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    &:active {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
 
-  min-width: 16px;
-  height: 16px;
-  padding: 0 4px;
-  margin-left: 8px;
+    &[data-selected='true'] {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
 
-  border-radius: 4px;
-  background-color: rgba(255, 255, 255, 0.2);
-  color: #f1f1f1;
-  font-size: 10px;
-  font-weight: 500;
-  line-height: 1;
-`);
+    & * {
+      box-sizing: border-box;
+    }
+  `,
+);
 
-const toolTipStyle = cacheNoArgs(() => css`
-  min-width: 32px;
-  width: 100%;
-  height: 100%;
+const itemIconStyle = cacheNoArgs(
+  () => css`
+    height: 32px;
+    padding: 4px;
+    color: white;
+  `,
+);
 
-  padding: 4px;
+const itemLabelStyle = cacheNoArgs(
+  () => css`
+    font-size: 12px;
+    color: white;
+  `,
+);
 
-  max-width: calc(var(--max-width, 100%) - 8px);
-  max-height: calc(var(--max-height, 100%) - 8px);
+const itemChipStyle = cacheNoArgs(
+  () => css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-  border-radius: 4px;
-  background-color: rgba(25, 25, 25, 0.8);
-  color: #f1f1f1;
-  font-size: 10px;
-`);
+    min-width: 16px;
+    height: 16px;
+    padding: 0 4px;
+    margin-left: 8px;
 
-const popupStyle = cacheNoArgs(() => css`
-  position: fixed;
-  top: var(--offset-y, 0);
-  left: var(--offset-x, 0);
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #f1f1f1;
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 1;
+  `,
+);
 
-  max-width: var(--max-width, 100%);
-  max-height: var(--max-height, 100%);
+const toolTipStyle = cacheNoArgs(
+  () => css`
+    min-width: 32px;
+    width: 100%;
+    height: 100%;
 
-  z-index: 100000000;
-  pointer-events: none;
+    padding: 4px;
 
-`);
+    max-width: calc(var(--max-width, 100%) - 8px);
+    max-height: calc(var(--max-height, 100%) - 8px);
+
+    border-radius: 4px;
+    background-color: rgba(25, 25, 25, 0.8);
+    color: #f1f1f1;
+    font-size: 10px;
+  `,
+);
+
+const popupStyle = cacheNoArgs(
+  () => css`
+    position: fixed;
+    top: var(--offset-y, 0);
+    left: var(--offset-x, 0);
+
+    max-width: var(--max-width, 100%);
+    max-height: var(--max-height, 100%);
+
+    z-index: 100000000;
+    pointer-events: none;
+  `,
+);
 
 const animationStyle = cacheNoArgs(() => ({
   enter: css`
@@ -111,14 +122,18 @@ const animationStyle = cacheNoArgs(() => ({
     transform: scale(0.9);
   `,
   enterActive: css`
-    transition: opacity 0.225s cubic-bezier(0.33, 1, 0.68, 1), transform 0.225s cubic-bezier(0.33, 1, 0.68, 1);
+    transition:
+      opacity 0.225s cubic-bezier(0.33, 1, 0.68, 1),
+      transform 0.225s cubic-bezier(0.33, 1, 0.68, 1);
   `,
   exitTo: css`
     opacity: 0;
     transform: scale(0.9);
   `,
   exitActive: css`
-    transition: opacity 0.225s cubic-bezier(0.32, 0, 0.67, 0), transform 0.225s cubic-bezier(0.32, 0, 0.67, 0);
+    transition:
+      opacity 0.225s cubic-bezier(0.32, 0, 0.67, 0),
+      transform 0.225s cubic-bezier(0.32, 0, 0.67, 0);
   `,
 }));
 
@@ -160,7 +175,11 @@ type CheckboxPanelItemProps = BasePanelItemProps & {
   checked: boolean;
   onChange?: (checked: boolean) => void;
 };
-export type PanelItemProps = NormalPanelItemProps | SubmenuItemProps | RadioPanelItemProps | CheckboxPanelItemProps;
+export type PanelItemProps =
+  | NormalPanelItemProps
+  | SubmenuItemProps
+  | RadioPanelItemProps
+  | CheckboxPanelItemProps;
 export const PanelItem = (props: PanelItemProps) => {
   const [open, setOpen] = createSignal(false);
   const [toolTipOpen, setToolTipOpen] = createSignal(false);
@@ -176,17 +195,24 @@ export const PanelItem = (props: PanelItemProps) => {
       offset({ mainAxis: 8 }),
       size({
         apply({ rects, elements }) {
-          elements.floating.style.setProperty('--max-width', `${rects.reference.width}px`);
-        }
+          elements.floating.style.setProperty(
+            '--max-width',
+            `${rects.reference.width}px`,
+          );
+        },
       }),
     ],
   });
 
   const handleHover = (event: MouseEvent) => {
     setToolTipOpen(true);
-    event.target?.addEventListener('mouseleave', () => {
-      setToolTipOpen(false);
-    }, { once: true });
+    event.target?.addEventListener(
+      'mouseleave',
+      () => {
+        setToolTipOpen(false);
+      },
+      { once: true },
+    );
 
     if (props.type === 'submenu') {
       const timer = setTimeout(() => {
@@ -200,36 +226,54 @@ export const PanelItem = (props: PanelItemProps) => {
         };
         document.addEventListener('mousemove', onMouseMove);
 
-        event.target?.addEventListener('mouseleave', () => {
-          setTimeout(() => {
-            document.removeEventListener('mousemove', onMouseMove);
-            const parents = getParents(document.elementFromPoint(mouseX, mouseY));
+        event.target?.addEventListener(
+          'mouseleave',
+          () => {
+            setTimeout(() => {
+              document.removeEventListener('mousemove', onMouseMove);
+              const parents = getParents(
+                document.elementFromPoint(mouseX, mouseY),
+              );
 
-            if (!parents.includes(child())) {
-              setOpen(false);
-            } else {
-              const onOtherHover = (event: MouseEvent) => {
-                const parents = getParents(event.target as HTMLElement);
-                const closestLevel = parents.find((it) => it?.dataset?.level)?.dataset.level ?? '';
-                const path = event.composedPath();
+              if (!parents.includes(child())) {
+                setOpen(false);
+              } else {
+                const onOtherHover = (event: MouseEvent) => {
+                  const parents = getParents(event.target as HTMLElement);
+                  const closestLevel =
+                    parents.find((it) => it?.dataset?.level)?.dataset.level ??
+                    '';
+                  const path = event.composedPath();
 
-                const isOtherItem = path.some((it) => it instanceof HTMLElement && it.classList.contains(itemStyle()));
-                const isChild = closestLevel.startsWith(props.level.join('/'));
+                  const isOtherItem = path.some(
+                    (it) =>
+                      it instanceof HTMLElement &&
+                      it.classList.contains(itemStyle()),
+                  );
+                  const isChild = closestLevel.startsWith(
+                    props.level.join('/'),
+                  );
 
-                if (isOtherItem && !isChild) {
-                  setOpen(false);
-                  document.removeEventListener('mousemove', onOtherHover);
-                }
-              };
-              document.addEventListener('mousemove', onOtherHover);
-            }
-          }, 225);
-        }, { once: true });
+                  if (isOtherItem && !isChild) {
+                    setOpen(false);
+                    document.removeEventListener('mousemove', onOtherHover);
+                  }
+                };
+                document.addEventListener('mousemove', onOtherHover);
+              }
+            }, 225);
+          },
+          { once: true },
+        );
       }, 225);
 
-      event.target?.addEventListener('mouseleave', () => {
-        clearTimeout(timer);
-      }, { once: true });
+      event.target?.addEventListener(
+        'mouseleave',
+        () => {
+          clearTimeout(timer);
+        },
+        { once: true },
+      );
     }
   };
 
@@ -244,7 +288,6 @@ export const PanelItem = (props: PanelItemProps) => {
     }
   };
 
-
   return (
     <li
       ref={setAnchor}
@@ -253,45 +296,66 @@ export const PanelItem = (props: PanelItemProps) => {
       onClick={handleClick}
       data-selected={open()}
     >
-      <Switch fallback={<div class={itemIconStyle()}/>}>
+      <Switch fallback={<div class={itemIconStyle()} />}>
         <Match when={props.type === 'checkbox' && props.checked}>
-          <svg class={itemIconStyle()} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5"
-               stroke="currentColor" fill="none"
-               stroke-linecap="round" stroke-linejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-            <path d="M5 12l5 5l10 -10"/>
+          <svg
+            class={itemIconStyle()}
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M5 12l5 5l10 -10" />
           </svg>
         </Match>
         <Match when={props.type === 'radio' && props.checked}>
-          <svg class={itemIconStyle()} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-               style={{ padding: '6px' }}>
-            <path fill="currentColor"
-                  d="M10,5 C7.2,5 5,7.2 5,10 C5,12.8 7.2,15 10,15 C12.8,15 15,12.8 15,10 C15,7.2 12.8,5 10,5 L10,5 Z M10,0 C4.5,0 0,4.5 0,10 C0,15.5 4.5,20 10,20 C15.5,20 20,15.5 20,10 C20,4.5 15.5,0 10,0 L10,0 Z M10,18 C5.6,18 2,14.4 2,10 C2,5.6 5.6,2 10,2 C14.4,2 18,5.6 18,10 C18,14.4 14.4,18 10,18 L10,18 Z"/>
+          <svg
+            class={itemIconStyle()}
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            style={{ padding: '6px' }}
+          >
+            <path
+              fill="currentColor"
+              d="M10,5 C7.2,5 5,7.2 5,10 C5,12.8 7.2,15 10,15 C12.8,15 15,12.8 15,10 C15,7.2 12.8,5 10,5 L10,5 Z M10,0 C4.5,0 0,4.5 0,10 C0,15.5 4.5,20 10,20 C15.5,20 20,15.5 20,10 C20,4.5 15.5,0 10,0 L10,0 Z M10,18 C5.6,18 2,14.4 2,10 C2,5.6 5.6,2 10,2 C14.4,2 18,5.6 18,10 C18,14.4 14.4,18 10,18 L10,18 Z"
+            />
           </svg>
         </Match>
         <Match when={props.type === 'radio' && !props.checked}>
-          <svg class={itemIconStyle()} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-               style={{ padding: '6px' }}>
-            <path fill="currentColor"
-                  d="M10,0 C4.5,0 0,4.5 0,10 C0,15.5 4.5,20 10,20 C15.5,20 20,15.5 20,10 C20,4.5 15.5,0 10,0 L10,0 Z M10,18 C5.6,18 2,14.4 2,10 C2,5.6 5.6,2 10,2 C14.4,2 18,5.6 18,10 C18,14.4 14.4,18 10,18 L10,18 Z"/>
+          <svg
+            class={itemIconStyle()}
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            style={{ padding: '6px' }}
+          >
+            <path
+              fill="currentColor"
+              d="M10,0 C4.5,0 0,4.5 0,10 C0,15.5 4.5,20 10,20 C15.5,20 20,15.5 20,10 C20,4.5 15.5,0 10,0 L10,0 Z M10,18 C5.6,18 2,14.4 2,10 C2,5.6 5.6,2 10,2 C14.4,2 18,5.6 18,10 C18,14.4 14.4,18 10,18 L10,18 Z"
+            />
           </svg>
         </Match>
       </Switch>
-      <span class={itemLabelStyle()}>
-        {props.name}
-      </span>
-      <Show when={props.chip} fallback={<div/>}>
-        <span class={itemChipStyle()}>
-          {props.chip}
-        </span>
+      <span class={itemLabelStyle()}>{props.name}</span>
+      <Show when={props.chip} fallback={<div />}>
+        <span class={itemChipStyle()}>{props.chip}</span>
       </Show>
       <Show when={props.type === 'submenu'}>
-        <svg class={itemIconStyle()} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5"
-             stroke="currentColor"
-             fill="none"
-             stroke-linecap="round" stroke-linejoin="round">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-          <polyline points="9 6 15 12 9 18"/>
+        <svg
+          class={itemIconStyle()}
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <polyline points="9 6 15 12 9 18" />
         </svg>
         <Panel
           ref={setChild}
@@ -322,9 +386,7 @@ export const PanelItem = (props: PanelItemProps) => {
               exitActiveClass={animationStyle().exitActive}
             >
               <Show when={toolTipOpen()}>
-                <div class={toolTipStyle()}>
-                  {props.toolTip}
-                </div>
+                <div class={toolTipStyle()}>{props.toolTip}</div>
               </Show>
             </Transition>
           </div>

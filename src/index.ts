@@ -334,7 +334,9 @@ async function createMainWindow() {
     const display = screen.getDisplayNearestPoint(windowPosition);
     const primaryDisplay = screen.getPrimaryDisplay();
 
-    const scaleFactor = is.windows() ? primaryDisplay.scaleFactor / display.scaleFactor : 1;
+    const scaleFactor = is.windows()
+      ? primaryDisplay.scaleFactor / display.scaleFactor
+      : 1;
     const scaledWidth = Math.floor(windowSize.width * scaleFactor);
     const scaledHeight = Math.floor(windowSize.height * scaleFactor);
 
@@ -342,10 +344,10 @@ async function createMainWindow() {
     const scaledY = windowY;
 
     if (
-      scaledX + (scaledWidth / 2) < display.bounds.x - 8 || // Left
-      scaledX + (scaledWidth / 2) > display.bounds.x + display.bounds.width || // Right
+      scaledX + scaledWidth / 2 < display.bounds.x - 8 || // Left
+      scaledX + scaledWidth / 2 > display.bounds.x + display.bounds.width || // Right
       scaledY < display.bounds.y - 8 || // Top
-      scaledY + (scaledHeight / 2) > display.bounds.y + display.bounds.height // Bottom
+      scaledY + scaledHeight / 2 > display.bounds.y + display.bounds.height // Bottom
     ) {
       // Window is offscreen
       if (is.dev()) {
@@ -442,7 +444,7 @@ async function createMainWindow() {
         ...defaultTitleBarOverlayOptions,
         height: Math.floor(
           defaultTitleBarOverlayOptions.height! *
-          win.webContents.getZoomFactor(),
+            win.webContents.getZoomFactor(),
         ),
       });
     }
@@ -455,7 +457,7 @@ async function createMainWindow() {
       event.preventDefault();
 
       win.webContents.loadURL(
-        'https://accounts.google.com/ServiceLogin?ltmpl=music&service=youtube&continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26next%3Dhttps%253A%252F%252Fmusic.youtube.com%252F'
+        'https://accounts.google.com/ServiceLogin?ltmpl=music&service=youtube&continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26next%3Dhttps%253A%252F%252Fmusic.youtube.com%252F',
       );
     }
   });
@@ -479,8 +481,8 @@ app.once('browser-window-created', (_event, win) => {
     const updatedUserAgent = is.macOS()
       ? userAgents.mac
       : is.windows()
-      ? userAgents.windows
-      : userAgents.linux;
+        ? userAgents.windows
+        : userAgents.linux;
 
     win.webContents.userAgent = updatedUserAgent;
     app.userAgentFallback = updatedUserAgent;
@@ -642,7 +644,9 @@ app.whenReady().then(async () => {
     // In dev mode, get string from process.env.VITE_DEV_SERVER_URL, else use fs.readFileSync
     if (is.dev() && process.env.ELECTRON_RENDERER_URL) {
       // HACK: to make vite work with electron renderer (supports hot reload)
-      event.returnValue = [null, `
+      event.returnValue = [
+        null,
+        `
         console.log('${LoggerPrefix}', 'Loading vite from dev server');
         (async () => {
           await new Promise((resolve) => {
@@ -663,7 +667,8 @@ app.whenReady().then(async () => {
           document.body.appendChild(rendererScript);
         })();
         0
-      `];
+      `,
+      ];
     } else {
       const rendererPath = path.join(__dirname, '..', 'renderer');
       const indexHTML = parse(
@@ -675,7 +680,10 @@ app.whenReady().then(async () => {
         scriptSrc.getAttribute('src')!,
       );
       const scriptString = fs.readFileSync(scriptPath, 'utf-8');
-      event.returnValue = [url.pathToFileURL(scriptPath).toString(), scriptString + ';0'];
+      event.returnValue = [
+        url.pathToFileURL(scriptPath).toString(),
+        scriptString + ';0',
+      ];
     }
   });
 

@@ -2,8 +2,9 @@ import { createRoute, z } from '@hono/zod-openapi';
 import { dialog } from 'electron';
 import { sign } from 'hono/jwt';
 
-import { t } from '@/i18n';
 import { getConnInfo } from '@hono/node-server/conninfo';
+
+import { t } from '@/i18n';
 
 import { APIServerConfig } from '../../config';
 import { JWTPayload } from '../scheme';
@@ -20,7 +21,7 @@ const routes = {
     request: {
       params: z.object({
         id: z.string(),
-      })
+      }),
     },
     responses: {
       200: {
@@ -40,7 +41,10 @@ const routes = {
   }),
 };
 
-export const register = (app: HonoApp, { getConfig, setConfig }: BackendContext<APIServerConfig>) => {
+export const register = (
+  app: HonoApp,
+  { getConfig, setConfig }: BackendContext<APIServerConfig>,
+) => {
   app.openapi(routes.request, async (ctx) => {
     const config = await getConfig();
     const { id } = ctx.req.param();
@@ -54,7 +58,10 @@ export const register = (app: HonoApp, { getConfig, setConfig }: BackendContext<
           origin: getConnInfo(ctx).remote.address,
           id,
         }),
-        buttons: [t('plugins.api-server.dialog.request.buttons.allow'), t('plugins.api-server.dialog.request.deny')],
+        buttons: [
+          t('plugins.api-server.dialog.request.buttons.allow'),
+          t('plugins.api-server.dialog.request.deny'),
+        ],
         defaultId: 1,
         cancelId: 1,
       });
@@ -68,10 +75,7 @@ export const register = (app: HonoApp, { getConfig, setConfig }: BackendContext<
     }
 
     setConfig({
-      authorizedClients: [
-        ...config.authorizedClients,
-        id,
-      ],
+      authorizedClients: [...config.authorizedClients, id],
     });
 
     const token = await sign(

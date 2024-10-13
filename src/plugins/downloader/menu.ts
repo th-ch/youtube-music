@@ -35,7 +35,10 @@ export const onMenu = async ({
           click(item) {
             setConfig({
               downloadOnFinish: {
-                ...deepmerge(defaultConfig.downloadOnFinish, config.downloadOnFinish)!,
+                ...deepmerge(
+                  defaultConfig.downloadOnFinish,
+                  config.downloadOnFinish,
+                )!,
                 enabled: item.checked,
               },
             });
@@ -49,14 +52,19 @@ export const onMenu = async ({
           click() {
             const result = dialog.showOpenDialogSync({
               properties: ['openDirectory', 'createDirectory'],
-              defaultPath: getFolder(config.downloadOnFinish?.folder ?? config.downloadFolder),
+              defaultPath: getFolder(
+                config.downloadOnFinish?.folder ?? config.downloadFolder,
+              ),
             });
             if (result) {
               setConfig({
                 downloadOnFinish: {
-                  ...deepmerge(defaultConfig.downloadOnFinish, config.downloadOnFinish)!,
+                  ...deepmerge(
+                    defaultConfig.downloadOnFinish,
+                    config.downloadOnFinish,
+                  )!,
                   folder: result[0],
-                }
+                },
               });
             }
           },
@@ -76,7 +84,10 @@ export const onMenu = async ({
               click() {
                 setConfig({
                   downloadOnFinish: {
-                    ...deepmerge(defaultConfig.downloadOnFinish, config.downloadOnFinish)!,
+                    ...deepmerge(
+                      defaultConfig.downloadOnFinish,
+                      config.downloadOnFinish,
+                    )!,
                     mode: 'seconds',
                   },
                 });
@@ -91,7 +102,10 @@ export const onMenu = async ({
               click() {
                 setConfig({
                   downloadOnFinish: {
-                    ...deepmerge(defaultConfig.downloadOnFinish, config.downloadOnFinish)!,
+                    ...deepmerge(
+                      defaultConfig.downloadOnFinish,
+                      config.downloadOnFinish,
+                    )!,
                     mode: 'percent',
                   },
                 });
@@ -120,7 +134,9 @@ export const onMenu = async ({
                     min: '0',
                     step: '1',
                   },
-                  value: config.downloadOnFinish?.seconds ?? defaultConfig.downloadOnFinish!.seconds,
+                  value:
+                    config.downloadOnFinish?.seconds ??
+                    defaultConfig.downloadOnFinish!.seconds,
                 },
                 {
                   label: t(
@@ -133,7 +149,9 @@ export const onMenu = async ({
                     max: '100',
                     step: '1',
                   },
-                  value: config.downloadOnFinish?.percent ?? defaultConfig.downloadOnFinish!.percent,
+                  value:
+                    config.downloadOnFinish?.percent ??
+                    defaultConfig.downloadOnFinish!.percent,
                 },
               ],
               ...promptOptions(),
@@ -147,7 +165,10 @@ export const onMenu = async ({
 
             setConfig({
               downloadOnFinish: {
-                ...deepmerge(defaultConfig.downloadOnFinish, config.downloadOnFinish)!,
+                ...deepmerge(
+                  defaultConfig.downloadOnFinish,
+                  config.downloadOnFinish,
+                )!,
                 seconds: Number(res[0]),
                 percent: Number(res[1]),
               },

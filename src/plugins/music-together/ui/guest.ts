@@ -7,7 +7,6 @@ import { createStatus } from '../ui/status';
 
 import IconOff from '../icons/off.svg?raw';
 
-
 export type GuestPopupProps = {
   onItemClick: (id: string) => void;
 };
@@ -33,7 +32,7 @@ export const createGuestPopup = (props: GuestPopupProps) => {
       },
     ],
     anchorAt: 'bottom-right',
-    popupAt: 'top-right'
+    popupAt: 'top-right',
   });
 
   return {

@@ -49,15 +49,21 @@ export const setUpTray = (app: Electron.App, win: Electron.BrowserWindow) => {
 
   const { playPause, next, previous } = getSongControls(win);
 
-  const pixelRatio = is.windows() ? screen.getPrimaryDisplay().scaleFactor || 1 : 1;
-  const defaultTrayIcon = nativeImage.createFromPath(defaultTrayIconAsset).resize({
-    width: 16 * pixelRatio,
-    height: 16 * pixelRatio,
-  });
-  const pausedTrayIcon = nativeImage.createFromPath(pausedTrayIconAsset).resize({
-    width: 16 * pixelRatio,
-    height: 16 * pixelRatio,
-  });
+  const pixelRatio = is.windows()
+    ? screen.getPrimaryDisplay().scaleFactor || 1
+    : 1;
+  const defaultTrayIcon = nativeImage
+    .createFromPath(defaultTrayIconAsset)
+    .resize({
+      width: 16 * pixelRatio,
+      height: 16 * pixelRatio,
+    });
+  const pausedTrayIcon = nativeImage
+    .createFromPath(pausedTrayIconAsset)
+    .resize({
+      width: 16 * pixelRatio,
+      height: 16 * pixelRatio,
+    });
 
   tray = new Tray(defaultTrayIcon);
 
@@ -126,10 +132,12 @@ export const setUpTray = (app: Electron.App, win: Electron.BrowserWindow) => {
         return;
       }
 
-      tray.setToolTip(t('main.tray.tooltip.with-song-info', {
-        artist: songInfo.artist,
-        title: songInfo.title,
-      }));
+      tray.setToolTip(
+        t('main.tray.tooltip.with-song-info', {
+          artist: songInfo.artist,
+          title: songInfo.title,
+        }),
+      );
 
       tray.setImage(songInfo.isPaused ? pausedTrayIcon : defaultTrayIcon);
     }

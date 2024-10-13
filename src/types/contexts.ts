@@ -7,8 +7,8 @@ import type {
 import type { PluginConfig } from '@/types/plugins';
 
 export interface BaseContext<Config extends PluginConfig> {
-  getConfig(): Promise<Config> | Config;
-  setConfig(conf: Partial<Omit<Config, 'enabled'>>): Promise<void> | void;
+  getConfig: () => Promise<Config> | Config;
+  setConfig: (conf: Partial<Omit<Config, 'enabled'>>) => Promise<void> | void;
 }
 
 export interface BackendContext<Config extends PluginConfig>
@@ -29,6 +29,7 @@ export interface MenuContext<Config extends PluginConfig>
   refresh: () => Promise<void> | void;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface PreloadContext<Config extends PluginConfig>
   extends BaseContext<Config> {}
 

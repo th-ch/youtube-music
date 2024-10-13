@@ -17,9 +17,7 @@ export const i18nImporter = () => {
   });
 
   const srcPath = resolve(__dirname, '..', 'src');
-  const plugins = globSync([
-    'src/i18n/resources/*.json',
-  ]).map((path) => {
+  const plugins = globSync(['src/i18n/resources/*.json']).map((path) => {
     const nameWithExt = basename(path);
     const name = nameWithExt.replace(extname(nameWithExt), '');
 

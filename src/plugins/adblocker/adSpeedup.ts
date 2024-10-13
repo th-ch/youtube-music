@@ -1,5 +1,7 @@
 function skipAd(target: Element) {
-  const skipButton = target.querySelector<HTMLButtonElement>('button.ytp-ad-skip-button-modern');
+  const skipButton = target.querySelector<HTMLButtonElement>(
+    'button.ytp-ad-skip-button-modern',
+  );
   if (skipButton) {
     skipButton.click();
   }
@@ -17,7 +19,7 @@ function speedUpAndMute(player: Element, isAdShowing: boolean) {
   }
 }
 
-export const loadAdSpeedup = async () => {
+export const loadAdSpeedup = () => {
   const player = document.querySelector<HTMLVideoElement>('#movie_player');
   if (!player) return;
 
@@ -53,4 +55,4 @@ export const loadAdSpeedup = async () => {
     player.classList.contains('ad-interrupting');
   speedUpAndMute(player, isAdShowing);
   skipAd(player);
-}
+};

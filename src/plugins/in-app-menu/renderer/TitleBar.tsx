@@ -1,5 +1,15 @@
 import { Menu, MenuItem } from 'electron';
-import { createEffect, createResource, createSignal, Index, Match, onCleanup, onMount, Show, Switch } from 'solid-js';
+import {
+  createEffect,
+  createResource,
+  createSignal,
+  Index,
+  Match,
+  onCleanup,
+  onMount,
+  Show,
+  Switch,
+} from 'solid-js';
 import { css } from 'solid-styled-components';
 import { TransitionGroup } from 'solid-transition-group';
 
@@ -14,49 +24,55 @@ import { cacheNoArgs } from '@/providers/decorators';
 import type { RendererContext } from '@/types/contexts';
 import type { InAppMenuConfig } from '../constants';
 
-const titleStyle = cacheNoArgs(() => css`
-  -webkit-app-region: drag;
-  box-sizing: border-box;
+const titleStyle = cacheNoArgs(
+  () => css`
+    -webkit-app-region: drag;
+    box-sizing: border-box;
 
-  position: fixed;
-  top: 0;
-  z-index: 10000000;
+    position: fixed;
+    top: 0;
+    z-index: 10000000;
 
-  width: 100%;
-  height: var(--menu-bar-height, 32px);
+    width: 100%;
+    height: var(--menu-bar-height, 32px);
 
-  display: flex;
-  flex-flow: row;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 4px;
+    display: flex;
+    flex-flow: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 4px;
 
-  color: #f1f1f1;
-  font-size: 12px;
-  padding: 4px 4px 4px var(--offset-left, 4px);
-  background-color: var(--titlebar-background-color, #030303);
-  user-select: none;
+    color: #f1f1f1;
+    font-size: 12px;
+    padding: 4px 4px 4px var(--offset-left, 4px);
+    background-color: var(--titlebar-background-color, #030303);
+    user-select: none;
 
-  transition: opacity 200ms ease 0s,
-  transform 300ms cubic-bezier(0.2, 0, 0.6, 1) 0s,
-  background-color 300ms cubic-bezier(0.2, 0, 0.6, 1) 0s;
+    transition:
+      opacity 200ms ease 0s,
+      transform 300ms cubic-bezier(0.2, 0, 0.6, 1) 0s,
+      background-color 300ms cubic-bezier(0.2, 0, 0.6, 1) 0s;
 
-  &[data-macos="true"] {
-    padding: 4px 4px 4px 74px;
-  }
+    &[data-macos='true'] {
+      padding: 4px 4px 4px 74px;
+    }
 
-  ytmusic-app:has(ytmusic-player[player-ui-state=FULLSCREEN]) ~ &:not([data-show="true"]) {
-    transform: translateY(calc(-1 * var(--menu-bar-height, 32px)));
-  }
-`);
+    ytmusic-app:has(ytmusic-player[player-ui-state='FULLSCREEN'])
+      ~ &:not([data-show='true']) {
+      transform: translateY(calc(-1 * var(--menu-bar-height, 32px)));
+    }
+  `,
+);
 
-const separatorStyle = cacheNoArgs(() => css`
-  min-height: 1px;
-  height: 1px;
-  margin: 4px 0;
+const separatorStyle = cacheNoArgs(
+  () => css`
+    min-height: 1px;
+    height: 1px;
+    margin: 4px 0;
 
-  background-color: rgba(255, 255, 255, 0.2);
-`);
+    background-color: rgba(255, 255, 255, 0.2);
+  `,
+);
 
 const animationStyle = cacheNoArgs(() => ({
   enter: css`
@@ -64,14 +80,18 @@ const animationStyle = cacheNoArgs(() => ({
     transform: translateX(-50%) scale(0.8);
   `,
   enterActive: css`
-    transition: opacity 0.1s cubic-bezier(0.33, 1, 0.68, 1), transform 0.1s cubic-bezier(0.33, 1, 0.68, 1);
+    transition:
+      opacity 0.1s cubic-bezier(0.33, 1, 0.68, 1),
+      transform 0.1s cubic-bezier(0.33, 1, 0.68, 1);
   `,
   exitTo: css`
     opacity: 0;
     transform: translateX(-50%) scale(0.8);
   `,
   exitActive: css`
-    transition: opacity 0.1s cubic-bezier(0.32, 0, 0.67, 0), transform 0.1s cubic-bezier(0.32, 0, 0.67, 0);
+    transition:
+      opacity 0.1s cubic-bezier(0.32, 0, 0.67, 0),
+      transform 0.1s cubic-bezier(0.32, 0, 0.67, 0);
   `,
   move: css`
     transition: all 0.1s cubic-bezier(0.65, 0, 0.35, 1);
@@ -89,7 +109,7 @@ export type PanelRendererProps = {
   items: Electron.Menu['items'];
   level?: number[];
   onClick?: (commandId: number, radioGroup?: MenuItem[]) => void;
-}
+};
 const PanelRenderer = (props: PanelRendererProps) => {
   const radioGroup = () => props.items.filter((it) => it.type === 'radio');
 
@@ -114,12 +134,12 @@ const PanelRenderer = (props: PanelRendererProps) => {
                 name={subItem().label}
                 chip={subItem().sublabel}
                 toolTip={subItem().toolTip}
-                level={[...props.level ?? [], subItem().commandId]}
+                level={[...(props.level ?? []), subItem().commandId]}
                 commandId={subItem().commandId}
               >
                 <PanelRenderer
                   items={subItem().submenu?.items ?? []}
-                  level={[...props.level ?? [], subItem().commandId]}
+                  level={[...(props.level ?? []), subItem().commandId]}
                   onClick={props.onClick}
                 />
               </PanelItem>
@@ -143,11 +163,13 @@ const PanelRenderer = (props: PanelRendererProps) => {
                 chip={subItem().sublabel}
                 toolTip={subItem().toolTip}
                 commandId={subItem().commandId}
-                onChange={() => props.onClick?.(subItem().commandId, radioGroup())}
+                onChange={() =>
+                  props.onClick?.(subItem().commandId, radioGroup())
+                }
               />
             </Match>
             <Match when={subItem().type === 'separator'}>
-              <hr class={separatorStyle()}/>
+              <hr class={separatorStyle()} />
             </Match>
           </Switch>
         </Show>
@@ -169,8 +191,13 @@ export const TitleBar = (props: TitleBarProps) => {
   const [menu, setMenu] = createSignal<Menu | null>(null);
   const [mouseY, setMouseY] = createSignal(0);
 
-  const [data, { refetch }] = createResource(async () => await props.ipc.invoke('get-menu') as Promise<Menu | null>);
-  const [isMaximized, { refetch: refetchMaximize }] = createResource(async () => await props.ipc.invoke('window-is-maximized') as Promise<boolean>);
+  const [data, { refetch }] = createResource(
+    async () => (await props.ipc.invoke('get-menu')) as Promise<Menu | null>,
+  );
+  const [isMaximized, { refetch: refetchMaximize }] = createResource(
+    async () =>
+      (await props.ipc.invoke('window-is-maximized')) as Promise<boolean>,
+  );
 
   const handleToggleMaximize = async () => {
     if (isMaximized()) {
@@ -194,10 +221,12 @@ export const TitleBar = (props: TitleBarProps) => {
     )) as MenuItem | null;
 
     const newMenu = structuredClone(originalMenu);
-    const stack = [...newMenu?.items ?? []];
+    const stack = [...(newMenu?.items ?? [])];
     let now: MenuItem | undefined = stack.pop();
     while (now) {
-      const index = now?.submenu?.items?.findIndex((it) => it.commandId === commandId) ?? -1;
+      const index =
+        now?.submenu?.items?.findIndex((it) => it.commandId === commandId) ??
+        -1;
 
       if (index >= 0) {
         if (menuItem) now?.submenu?.items?.splice(index, 1, menuItem);
@@ -213,13 +242,16 @@ export const TitleBar = (props: TitleBarProps) => {
     return newMenu;
   };
 
-  const handleItemClick = async (commandId: number, radioGroup?: MenuItem[]) => {
+  const handleItemClick = async (
+    commandId: number,
+    radioGroup?: MenuItem[],
+  ) => {
     const menuData = menu();
     if (!menuData) return;
 
     if (Array.isArray(radioGroup)) {
       let newMenu = menuData;
-      for await (const item of radioGroup) {
+      for (const item of radioGroup) {
         newMenu = await refreshMenuItem(newMenu, item.commandId);
       }
 
@@ -272,17 +304,14 @@ export const TitleBar = (props: TitleBarProps) => {
     window.addEventListener('mousemove', listener);
     const ytmusicAppLayout = document.querySelector<HTMLElement>('#layout');
     ytmusicAppLayout?.addEventListener('scroll', () => {
-    const scrollValue = ytmusicAppLayout.scrollTop;
-    if (scrollValue > 20){
-      ytmusicAppLayout.classList.add('content-scrolled');
-    }
-    else{
-      ytmusicAppLayout.classList.remove('content-scrolled');
-    }
+      const scrollValue = ytmusicAppLayout.scrollTop;
+      if (scrollValue > 20) {
+        ytmusicAppLayout.classList.add('content-scrolled');
+      } else {
+        ytmusicAppLayout.classList.remove('content-scrolled');
+      }
     });
   });
-
-
 
   createEffect(() => {
     if (!menu() && data()) {
@@ -295,7 +324,12 @@ export const TitleBar = (props: TitleBarProps) => {
   });
 
   return (
-    <nav data-ytmd-main-panel={true} class={titleStyle()} data-macos={props.isMacOS} data-show={mouseY() < 32}>
+    <nav
+      data-ytmd-main-panel={true}
+      class={titleStyle()}
+      data-macos={props.isMacOS}
+      data-show={mouseY() < 32}
+    >
       <IconButton
         onClick={() => setCollapsed(!collapsed())}
         style={{
@@ -310,15 +344,34 @@ export const TitleBar = (props: TitleBarProps) => {
         </svg>
       </IconButton>
       <TransitionGroup
-        enterClass={ignoreTransition() ? animationStyle().fakeTarget : animationStyle().enter}
-        enterActiveClass={ignoreTransition() ? animationStyle().fake : animationStyle().enterActive}
-        exitToClass={ignoreTransition() ? animationStyle().fakeTarget : animationStyle().exitTo}
-        exitActiveClass={ignoreTransition() ? animationStyle().fake : animationStyle().exitActive}
+        enterClass={
+          ignoreTransition()
+            ? animationStyle().fakeTarget
+            : animationStyle().enter
+        }
+        enterActiveClass={
+          ignoreTransition()
+            ? animationStyle().fake
+            : animationStyle().enterActive
+        }
+        exitToClass={
+          ignoreTransition()
+            ? animationStyle().fakeTarget
+            : animationStyle().exitTo
+        }
+        exitActiveClass={
+          ignoreTransition()
+            ? animationStyle().fake
+            : animationStyle().exitActive
+        }
         onBeforeEnter={(element) => {
           if (ignoreTransition()) return;
           const index = Number(element.getAttribute('data-index') ?? 0);
 
-          (element as HTMLElement).style.setProperty('transition-delay', `${(index * 0.025)}s`);
+          (element as HTMLElement).style.setProperty(
+            'transition-delay',
+            `${index * 0.025}s`,
+          );
         }}
         onAfterEnter={(element) => {
           (element as HTMLElement).style.removeProperty('transition-delay');
@@ -328,13 +381,18 @@ export const TitleBar = (props: TitleBarProps) => {
           const index = Number(element.getAttribute('data-index') ?? 0);
           const length = Number(element.getAttribute('data-length') ?? 1);
 
-          (element as HTMLElement).style.setProperty('transition-delay', `${(length * 0.025) - (index * 0.025)}s`);
+          (element as HTMLElement).style.setProperty(
+            'transition-delay',
+            `${length * 0.025 - index * 0.025}s`,
+          );
         }}
       >
         <Show when={!collapsed()}>
           <Index each={menu()?.items}>
             {(item, index) => {
-              const [anchor, setAnchor] = createSignal<HTMLElement | null>(null);
+              const [anchor, setAnchor] = createSignal<HTMLElement | null>(
+                null,
+              );
 
               const handleClick = () => {
                 if (openTarget() === anchor()) {
@@ -372,7 +430,7 @@ export const TitleBar = (props: TitleBarProps) => {
         </Show>
       </TransitionGroup>
       <Show when={props.enableController}>
-        <div style={{ flex: 1 }}/>
+        <div style={{ flex: 1 }} />
         <WindowController
           isMaximize={isMaximized()}
           onToggleMaximize={handleToggleMaximize}
@@ -383,4 +441,3 @@ export const TitleBar = (props: TitleBarProps) => {
     </nav>
   );
 };
-

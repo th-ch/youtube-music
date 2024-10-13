@@ -54,46 +54,46 @@ const getHeaderPayload = (() => {
         title: {
           runs: [
             {
-              text: t('plugins.music-together.internal.track-source')
-            }
-          ]
+              text: t('plugins.music-together.internal.track-source'),
+            },
+          ],
         },
         subtitle: {
           runs: [
             {
-              text: t('plugins.music-together.name')
-            }
-          ]
+              text: t('plugins.music-together.name'),
+            },
+          ],
         },
         buttons: [
           {
             chipCloudChipRenderer: {
               style: {
-                styleType: 'STYLE_TRANSPARENT'
+                styleType: 'STYLE_TRANSPARENT',
               },
               text: {
                 runs: [
                   {
-                    text: t('plugins.music-together.internal.save')
-                  }
-                ]
+                    text: t('plugins.music-together.internal.save'),
+                  },
+                ],
               },
               navigationEndpoint: {
-                saveQueueToPlaylistCommand: {}
+                saveQueueToPlaylistCommand: {},
               },
               icon: {
-                iconType: 'ADD_TO_PLAYLIST'
+                iconType: 'ADD_TO_PLAYLIST',
               },
               accessibilityData: {
                 accessibilityData: {
-                  label: t('plugins.music-together.internal.save')
-                }
+                  label: t('plugins.music-together.internal.save'),
+                },
               },
               isSelected: false,
-              uniqueId: t('plugins.music-together.internal.save')
-            }
-          }
-        ]
+              uniqueId: t('plugins.music-together.internal.save'),
+            },
+          },
+        ],
       };
     }
 
@@ -106,7 +106,7 @@ export type QueueOptions = {
   owner?: Profile;
   queue?: QueueElement;
   getProfile: (id: string) => Profile | undefined;
-}
+};
 export type QueueEventListener = (event: ConnectionEventUnion) => void;
 
 export class Queue {
@@ -114,7 +114,7 @@ export class Queue {
 
   private originalDispatch?: (obj: {
     type: string;
-    payload?: { items?: QueueItem[] | undefined; };
+    payload?: { items?: QueueItem[] | undefined };
   }) => void;
 
   private internalDispatch = false;
@@ -126,7 +126,8 @@ export class Queue {
 
   constructor(options: QueueOptions) {
     this.getProfile = options.getProfile;
-    this.queue = options.queue ?? (document.querySelector<QueueElement>('#queue')!);
+    this.queue =
+      options.queue ?? document.querySelector<QueueElement>('#queue')!;
     this.owner = options.owner ?? null;
     this._videoList = options.videoList ?? [];
   }
@@ -139,7 +140,12 @@ export class Queue {
   }
 
   get selectedIndex() {
-    return mapQueueItem((it) => it?.selected, this.queue.queue.store.store.getState().queue.items).findIndex(Boolean) ?? 0;
+    return (
+      mapQueueItem(
+        (it) => it?.selected,
+        this.queue.queue.store.store.getState().queue.items,
+      ).findIndex(Boolean) ?? 0
+    );
   }
 
   get rawItems() {
@@ -162,7 +168,9 @@ export class Queue {
   }
 
   async addVideos(videos: VideoData[], index?: number) {
-    const response = await getMusicQueueRenderer(videos.map((it) => it.videoId));
+    const response = await getMusicQueueRenderer(
+      videos.map((it) => it.videoId),
+    );
     if (!response) return false;
 
     const items = response.queueDatas.map((it) => it?.content).filter(Boolean);
@@ -173,12 +181,16 @@ export class Queue {
     this.queue?.dispatch({
       type: 'ADD_ITEMS',
       payload: {
-        nextQueueItemId: this.queue.queue.store.store.getState().queue.nextQueueItemId,
-        index: index ?? this.queue.queue.store.store.getState().queue.items.length ?? 0,
+        nextQueueItemId:
+          this.queue.queue.store.store.getState().queue.nextQueueItemId,
+        index:
+          index ??
+          this.queue.queue.store.store.getState().queue.items.length ??
+          0,
         items,
         shuffleEnabled: false,
-        shouldAssignIds: true
-      }
+        shouldAssignIds: true,
+      },
     });
     this.internalDispatch = false;
     setTimeout(() => {
@@ -194,7 +206,7 @@ export class Queue {
     this._videoList.splice(index, 1);
     this.queue?.dispatch({
       type: 'REMOVE_ITEM',
-      payload: index
+      payload: index,
     });
     this.internalDispatch = false;
     setTimeout(() => {
@@ -207,7 +219,7 @@ export class Queue {
     this.internalDispatch = true;
     this.queue?.dispatch({
       type: 'SET_INDEX',
-      payload: index
+      payload: index,
     });
     this.internalDispatch = false;
   }
@@ -220,8 +232,8 @@ export class Queue {
       type: 'MOVE_ITEM',
       payload: {
         fromIndex,
-        toIndex
-      }
+        toIndex,
+      },
     });
     this.internalDispatch = false;
     setTimeout(() => {
@@ -234,7 +246,7 @@ export class Queue {
     this.internalDispatch = true;
     this._videoList = [];
     this.queue?.dispatch({
-      type: 'CLEAR'
+      type: 'CLEAR',
     });
     this.internalDispatch = false;
   }
@@ -253,7 +265,8 @@ export class Queue {
       return;
     }
 
-    if (this.originalDispatch) this.queue.queue.store.store.dispatch = this.originalDispatch;
+    if (this.originalDispatch)
+      this.queue.queue.store.store.dispatch = this.originalDispatch;
   }
 
   injection() {
@@ -276,40 +289,54 @@ export class Queue {
         if (event.type === 'ADD_ITEMS') {
           if (this.ignoreFlag) {
             this.ignoreFlag = false;
-            const videoList = mapQueueItem((it) => ({
-              videoId: it!.videoId,
-              ownerId: this.owner!.id
-            } satisfies VideoData), event.payload!.items!);
+            const videoList = mapQueueItem(
+              (it) =>
+                ({
+                  videoId: it!.videoId,
+                  ownerId: this.owner!.id,
+                }) satisfies VideoData,
+              event.payload!.items!,
+            );
             const index = this._videoList.length + videoList.length - 1;
 
             if (videoList.length > 0) {
-              this.broadcast({ // play
+              this.broadcast({
+                // play
                 type: 'ADD_SONGS',
                 payload: {
-                  videoList
+                  videoList,
                 },
                 after: [
                   {
                     type: 'SYNC_PROGRESS',
                     payload: {
-                      index
-                    }
-                  }
-                ]
+                      index,
+                    },
+                  },
+                ],
               });
             }
-          } else if ((event.payload as {
-            items: unknown[];
-          }).items.length === 1) {
-            this.broadcast({ // add playlist
+          } else if (
+            (
+              event.payload as {
+                items: unknown[];
+              }
+            ).items.length === 1
+          ) {
+            this.broadcast({
+              // add playlist
               type: 'ADD_SONGS',
               payload: {
                 // index: (event.payload as any).index,
-                videoList: mapQueueItem((it) => ({
-                  videoId: it!.videoId,
-                  ownerId: this.owner!.id
-                } satisfies VideoData), event.payload!.items!)
-              }
+                videoList: mapQueueItem(
+                  (it) =>
+                    ({
+                      videoId: it!.videoId,
+                      ownerId: this.owner!.id,
+                    }) satisfies VideoData,
+                  event.payload!.items!,
+                ),
+              },
             });
           }
 
@@ -320,13 +347,17 @@ export class Queue {
           this.broadcast({
             type: 'MOVE_SONG',
             payload: {
-              fromIndex: (event.payload as {
-                fromIndex: number;
-              }).fromIndex,
-              toIndex: (event.payload as {
-                toIndex: number;
-              }).toIndex
-            }
+              fromIndex: (
+                event.payload as {
+                  fromIndex: number;
+                }
+              ).fromIndex,
+              toIndex: (
+                event.payload as {
+                  toIndex: number;
+                }
+              ).toIndex,
+            },
           });
           return;
         }
@@ -334,8 +365,8 @@ export class Queue {
           this.broadcast({
             type: 'REMOVE_SONG',
             payload: {
-              index: event.payload as number
-            }
+              index: event.payload as number,
+            },
           });
           return;
         }
@@ -343,8 +374,8 @@ export class Queue {
           this.broadcast({
             type: 'SYNC_PROGRESS',
             payload: {
-              index: event.payload as number
-            }
+              index: event.payload as number,
+            },
           });
           return;
         }
@@ -355,7 +386,10 @@ export class Queue {
           event.payload = undefined;
         }
         if (event.type === 'SET_PLAYER_UI_STATE') {
-          if (event.payload as string === 'INACTIVE' && this.videoList.length > 0) {
+          if (
+            (event.payload as string) === 'INACTIVE' &&
+            this.videoList.length > 0
+          ) {
             return;
           }
         }
@@ -370,7 +404,7 @@ export class Queue {
           store: {
             ...this.queue.queue.store,
             dispatch: this.originalDispatch,
-          }
+          },
         },
       };
       this.originalDispatch?.call(fakeContext, event);
@@ -384,20 +418,22 @@ export class Queue {
     this.internalDispatch = true;
     this.queue.dispatch({
       type: 'HAS_SHOWN_AUTOPLAY',
-      payload: false
+      payload: false,
     });
     this.queue.dispatch({
       type: 'SET_HEADER',
       payload: getHeaderPayload(),
     });
     this.queue.dispatch({
-      type: 'CLEAR_STEERING_CHIPS'
+      type: 'CLEAR_STEERING_CHIPS',
     });
     this.internalDispatch = false;
   }
 
   async syncVideo() {
-    const response = await getMusicQueueRenderer(this._videoList.map((it) => it.videoId));
+    const response = await getMusicQueueRenderer(
+      this._videoList.map((it) => it.videoId),
+    );
     if (!response) return false;
 
     const items = response.queueDatas.map((it) => it.content);
@@ -407,10 +443,11 @@ export class Queue {
       type: 'UPDATE_ITEMS',
       payload: {
         items: items,
-        nextQueueItemId: this.queue.queue.store.store.getState().queue.nextQueueItemId,
+        nextQueueItemId:
+          this.queue.queue.store.store.getState().queue.nextQueueItemId,
         shouldAssignIds: true,
-        currentIndex: -1
-      }
+        currentIndex: -1,
+      },
     });
     this.internalDispatch = false;
     setTimeout(() => {
@@ -425,7 +462,9 @@ export class Queue {
     const allQueue = document.querySelectorAll('#queue');
 
     allQueue.forEach((queue) => {
-      const list = Array.from(queue?.querySelectorAll<HTMLElement>('ytmusic-player-queue-item') ?? []);
+      const list = Array.from(
+        queue?.querySelectorAll<HTMLElement>('ytmusic-player-queue-item') ?? [],
+      );
 
       list.forEach((item, index: number | undefined) => {
         if (typeof index !== 'number') return;
@@ -433,14 +472,19 @@ export class Queue {
         const id = this._videoList[index]?.ownerId;
         const data = this.getProfile(id);
 
-        const profile = item.querySelector<HTMLImageElement>('.music-together-owner') ?? document.createElement('img');
+        const profile =
+          item.querySelector<HTMLImageElement>('.music-together-owner') ??
+          document.createElement('img');
         profile.classList.add('music-together-owner');
         profile.dataset.id = id;
         profile.dataset.index = index.toString();
 
-        const name = item.querySelector<HTMLElement>('.music-together-name') ?? document.createElement('div');
+        const name =
+          item.querySelector<HTMLElement>('.music-together-name') ??
+          document.createElement('div');
         name.classList.add('music-together-name');
-        name.textContent = data?.name ?? t('plugins.music-together.internal.unknown-user');
+        name.textContent =
+          data?.name ?? t('plugins.music-together.internal.unknown-user');
 
         if (data) {
           profile.dataset.thumbnail = data.thumbnail ?? '';
@@ -463,10 +507,14 @@ export class Queue {
     const allQueue = document.querySelectorAll('#queue');
 
     allQueue.forEach((queue) => {
-      const list = Array.from(queue?.querySelectorAll<HTMLElement>('ytmusic-player-queue-item') ?? []);
+      const list = Array.from(
+        queue?.querySelectorAll<HTMLElement>('ytmusic-player-queue-item') ?? [],
+      );
 
       list.forEach((item) => {
-        const profile = item.querySelector<HTMLImageElement>('.music-together-owner');
+        const profile = item.querySelector<HTMLImageElement>(
+          '.music-together-owner',
+        );
         const name = item.querySelector<HTMLElement>('.music-together-name');
         profile?.remove();
         name?.remove();

@@ -192,10 +192,13 @@ function registerMPRIS(win: BrowserWindow) {
         return;
       }
 
-      const currentPosition = queue.items?.findIndex((it) =>
-        it?.playlistPanelVideoRenderer?.selected ||
-        it?.playlistPanelVideoWrapperRenderer?.primaryRenderer?.playlistPanelVideoRenderer?.selected
-      ) ?? 0;
+      const currentPosition =
+        queue.items?.findIndex(
+          (it) =>
+            it?.playlistPanelVideoRenderer?.selected ||
+            it?.playlistPanelVideoWrapperRenderer?.primaryRenderer
+              ?.playlistPanelVideoRenderer?.selected,
+        ) ?? 0;
       player.canGoPrevious = currentPosition !== 0;
 
       let hasNext: boolean;

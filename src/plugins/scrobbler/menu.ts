@@ -11,7 +11,11 @@ import { SetConfType, backend } from './main';
 import type { MenuContext } from '@/types/contexts';
 import type { MenuTemplate } from '@/menu';
 
-async function promptLastFmOptions(options: ScrobblerPluginConfig, setConfig: SetConfType, window: BrowserWindow) {
+async function promptLastFmOptions(
+  options: ScrobblerPluginConfig,
+  setConfig: SetConfType,
+  window: BrowserWindow,
+) {
   const output = await prompt(
     {
       title: t('plugins.scrobbler.menu.lastfm.api-settings'),
@@ -22,16 +26,16 @@ async function promptLastFmOptions(options: ScrobblerPluginConfig, setConfig: Se
           label: t('plugins.scrobbler.prompt.lastfm.api-key'),
           value: options.scrobblers.lastfm?.apiKey,
           inputAttrs: {
-            type: 'text'
-          }
+            type: 'text',
+          },
         },
         {
           label: t('plugins.scrobbler.prompt.lastfm.api-secret'),
           value: options.scrobblers.lastfm?.secret,
           inputAttrs: {
-            type: 'text'
-          }
-        }
+            type: 'text',
+          },
+        },
       ],
       resizable: true,
       height: 360,
@@ -53,7 +57,11 @@ async function promptLastFmOptions(options: ScrobblerPluginConfig, setConfig: Se
   }
 }
 
-async function promptListenbrainzOptions(options: ScrobblerPluginConfig, setConfig: SetConfType, window: BrowserWindow) {
+async function promptListenbrainzOptions(
+  options: ScrobblerPluginConfig,
+  setConfig: SetConfType,
+  window: BrowserWindow,
+) {
   const output = await prompt(
     {
       title: t('plugins.scrobbler.prompt.listenbrainz.token.title'),

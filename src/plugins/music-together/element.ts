@@ -4,7 +4,7 @@ import itemHTML from './templates/item.html?raw';
 import popupHTML from './templates/popup.html?raw';
 
 type Placement =
-  'top'
+  | 'top'
   | 'bottom'
   | 'right'
   | 'left'
@@ -15,32 +15,40 @@ type Placement =
   | 'top-right'
   | 'bottom-left'
   | 'bottom-right';
-type PopupItem = (ItemRendererProps & { type: 'item'; })
-  | { type: 'divider'; }
-  | { type: 'custom'; element: HTMLElement; };
+type PopupItem =
+  | (ItemRendererProps & { type: 'item' })
+  | { type: 'divider' }
+  | { type: 'custom'; element: HTMLElement };
 
 type PopupProps = {
   data: PopupItem[];
   anchorAt?: Placement;
   popupAt?: Placement;
-}
+};
 export const Popup = (props: PopupProps) => {
   const popup = ElementFromHtml(popupHTML);
-  const container = popup.querySelector<HTMLElement>('.music-together-popup-container')!;
+  const container = popup.querySelector<HTMLElement>(
+    '.music-together-popup-container',
+  )!;
   const items = props.data
     .map((props) => {
-      if (props.type === 'item') return {
-        type: 'item' as const,
-        ...ItemRenderer(props),
-      };
-      if (props.type === 'divider') return {
-        type: 'divider' as const,
-        element: ElementFromHtml('<div class="music-together-divider horizontal"></div>'),
-      };
-      if (props.type === 'custom') return {
-        type: 'custom' as const,
-        element: props.element,
-      };
+      if (props.type === 'item')
+        return {
+          type: 'item' as const,
+          ...ItemRenderer(props),
+        };
+      if (props.type === 'divider')
+        return {
+          type: 'divider' as const,
+          element: ElementFromHtml(
+            '<div class="music-together-divider horizontal"></div>',
+          ),
+        };
+      if (props.type === 'custom')
+        return {
+          type: 'custom' as const,
+          element: props.element,
+        };
 
       return null;
     })
@@ -80,7 +88,9 @@ export const Popup = (props: PopupProps) => {
 
       setTimeout(() => {
         const onClose = (event: MouseEvent) => {
-          const isPopupClick = event.composedPath().some((element) => element === popup);
+          const isPopupClick = event
+            .composedPath()
+            .some((element) => element === popup);
           if (!isPopupClick) {
             this.dismiss();
             document.removeEventListener('click', onClose);
@@ -101,7 +111,7 @@ export const Popup = (props: PopupProps) => {
     dismiss() {
       popup.style.setProperty('opacity', '0');
       popup.style.setProperty('pointer-events', 'none');
-    }
+    },
   };
 };
 
@@ -133,6 +143,6 @@ export const ItemRenderer = (props: ItemRendererProps) => {
     setText(text: string) {
       textContainer.replaceChildren(text);
     },
-    id: props.id
+    id: props.id,
   };
 };

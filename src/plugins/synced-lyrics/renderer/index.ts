@@ -14,12 +14,15 @@ import type { SyncedLyricsPluginConfig } from '../types';
 
 export let _ytAPI: YoutubePlayer | null = null;
 
-export const renderer = createRenderer<{
-  observerCallback: MutationCallback;
-  observer?: MutationObserver;
-  videoDataChange: () => Promise<void>;
-  updateTimestampInterval?: NodeJS.Timeout | string | number;
-}, SyncedLyricsPluginConfig>({
+export const renderer = createRenderer<
+  {
+    observerCallback: MutationCallback;
+    observer?: MutationObserver;
+    videoDataChange: () => Promise<void>;
+    updateTimestampInterval?: NodeJS.Timeout | string | number;
+  },
+  SyncedLyricsPluginConfig
+>({
   onConfigChange(newConfig) {
     setConfig(newConfig);
   },
@@ -57,9 +60,7 @@ export const renderer = createRenderer<{
       );
     }
 
-    this.observer ??= new MutationObserver(
-      this.observerCallback,
-    );
+    this.observer ??= new MutationObserver(this.observerCallback);
 
     // Force the lyrics tab to be enabled at all times.
     this.observer.disconnect();

@@ -12,7 +12,7 @@ export default tsEslint.config(
   tsEslint.configs.eslintRecommended,
   ...tsEslint.configs.recommendedTypeChecked,
   prettier,
-  { ignores: ['dist', 'node_modules', '*.config.*js'] },
+  { ignores: ['dist', 'node_modules', '*.config.*js', '*.test.*js'] },
   {
     plugins: {
       stylistic,
@@ -54,7 +54,7 @@ export default tsEslint.config(
         afterLineComment: false,
       }],
       'stylistic/max-len': 'off',
-      'stylistic/no-mixed-operators': 'error',
+      'stylistic/no-mixed-operators': 'warn', // prettier does not support no-mixed-operators
       'stylistic/no-multi-spaces': ['error', { ignoreEOLComments: true }],
       'stylistic/no-tabs': 'error',
       'no-void': 'error',

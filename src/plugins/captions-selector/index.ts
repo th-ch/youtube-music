@@ -34,7 +34,7 @@ export default createPlugin<
       {
         label: t('plugins.captions-selector.menu.autoload'),
         type: 'checkbox',
-        checked: config.autoload as boolean,
+        checked: config.autoload,
         click(item) {
           setConfig({ autoload: item.checked });
         },
@@ -42,7 +42,7 @@ export default createPlugin<
       {
         label: t('plugins.captions-selector.menu.disable-captions'),
         type: 'checkbox',
-        checked: config.disableCaptions as boolean,
+        checked: config.disableCaptions,
         click(item) {
           setConfig({ disableCaptions: item.checked });
         },

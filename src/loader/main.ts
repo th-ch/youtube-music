@@ -34,11 +34,12 @@ const createContext = (
       win.webContents.send(event, ...args);
     },
     handle: (event: string, listener: CallableFunction) => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return,@typescript-eslint/no-unsafe-call
       ipcMain.handle(event, (_, ...args: unknown[]) => listener(...args));
     },
     on: (event: string, listener: CallableFunction) => {
       ipcMain.on(event, (_, ...args: unknown[]) => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         listener(...args);
       });
     },
@@ -75,11 +76,11 @@ export const forceUnloadMainPlugin = async (
       );
       return;
     } else {
-      console.log(
-        LoggerPrefix,
-        t('common.console.plugins.unload-failed', { pluginName: id }),
-      );
-      return Promise.reject();
+      const message = t('common.console.plugins.unload-failed', {
+        pluginName: id,
+      });
+      console.log(LoggerPrefix, message);
+      return Promise.reject(new Error(message));
     }
   } catch (err) {
     console.error(
@@ -87,7 +88,7 @@ export const forceUnloadMainPlugin = async (
       t('common.console.plugins.unload-failed', { pluginName: id }),
     );
     console.trace(err);
-    return Promise.reject(err);
+    return Promise.reject(err as Error);
   }
 };
 
@@ -111,11 +112,11 @@ export const forceLoadMainPlugin = async (
     ) {
       loadedPluginMap[id] = plugin;
     } else {
-      console.log(
-        LoggerPrefix,
-        t('common.console.plugins.load-failed', { pluginName: id }),
-      );
-      return Promise.reject();
+      const message = t('common.console.plugins.load-failed', {
+        pluginName: id,
+      });
+      console.log(LoggerPrefix, message);
+      return Promise.reject(new Error(message));
     }
   } catch (err) {
     console.error(
@@ -123,7 +124,7 @@ export const forceLoadMainPlugin = async (
       t('common.console.plugins.initialize-failed', { pluginName: id }),
     );
     console.trace(err);
-    return Promise.reject(err);
+    return Promise.reject(err as Error);
   }
 };
 

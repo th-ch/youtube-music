@@ -5,13 +5,13 @@ import { onMenu } from './menu';
 import { backend } from './main';
 
 export interface ScrobblerPluginConfig {
-  enabled: boolean,
+  enabled: boolean;
   /**
-    * Attempt to scrobble other video types (e.g. Podcasts, normal YouTube videos)
-    *
-    * @default true
-    */
-  scrobbleOtherMedia: boolean,
+   * Attempt to scrobble other video types (e.g. Podcasts, normal YouTube videos)
+   *
+   * @default true
+   */
+  scrobbleOtherMedia: boolean;
   scrobblers: {
     lastfm: {
       /**
@@ -19,53 +19,53 @@ export interface ScrobblerPluginConfig {
        *
        * @default false
        */
-      enabled: boolean,
+      enabled: boolean;
       /**
        * Token used for authentication
        */
-      token: string | undefined,
+      token: string | undefined;
       /**
        * Session key used for scrobbling
        */
-      sessionKey: string | undefined,
+      sessionKey: string | undefined;
       /**
        * Root of the Last.fm API
        *
        * @default 'http://ws.audioscrobbler.com/2.0/'
        */
-      apiRoot: string,
+      apiRoot: string;
       /**
        * Last.fm api key registered by @semvis123
        *
        * @default '04d76faaac8726e60988e14c105d421a'
        */
-      apiKey: string,
+      apiKey: string;
       /**
        * Last.fm api secret registered by @semvis123
        *
        * @default 'a5d2a36fdf64819290f6982481eaffa2'
        */
-      secret: string,
-    },
+      secret: string;
+    };
     listenbrainz: {
       /**
        * Enable ListenBrainz scrobbling
        *
        * @default false
        */
-      enabled: boolean,
+      enabled: boolean;
       /**
        * Listenbrainz user token
        */
-      token: string | undefined,
+      token: string | undefined;
       /**
        * Root of the ListenBrainz API
        *
        * @default 'https://api.listenbrainz.org/1/'
        */
-      apiRoot: string,
-    },
-  }
+      apiRoot: string;
+    };
+  };
 }
 
 export const defaultConfig: ScrobblerPluginConfig = {

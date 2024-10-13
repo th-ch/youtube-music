@@ -183,12 +183,18 @@ function downloadSongOnFinishSetup({
           config.downloadOnFinish.mode === 'seconds' &&
           duration - time <= config.downloadOnFinish.seconds
         ) {
-          downloadSong(currentUrl, config.downloadOnFinish.folder ?? config.downloadFolder);
+          downloadSong(
+            currentUrl,
+            config.downloadOnFinish.folder ?? config.downloadFolder,
+          );
         } else if (
           config.downloadOnFinish.mode === 'percent' &&
           time >= duration * (config.downloadOnFinish.percent / 100)
         ) {
-          downloadSong(currentUrl, config.downloadOnFinish.folder ?? config.downloadFolder);
+          downloadSong(
+            currentUrl,
+            config.downloadOnFinish.folder ?? config.downloadFolder,
+          );
         }
       }
 
@@ -438,7 +444,7 @@ async function iterableStreamToProcessedUint8Array(
           }),
           ratio,
         );
-        increasePlaylistProgress(0.15 + (ratio * 0.85));
+        increasePlaylistProgress(0.15 + ratio * 0.85);
       });
 
       const safeVideoNameWithExtension = `${safeVideoName}.${extension}`;
@@ -566,7 +572,13 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
     return;
   }
 
-  if (!playlist || !playlist.items || playlist.items.length === 0 || !playlist.header || !('title' in playlist.header)) {
+  if (
+    !playlist ||
+    !playlist.items ||
+    playlist.items.length === 0 ||
+    !playlist.header ||
+    !('title' in playlist.header)
+  ) {
     sendError(
       new Error(t('plugins.downloader.backend.feedback.playlist-is-empty')),
     );
@@ -660,7 +672,7 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
 
   const increaseProgress = (itemPercentage: number) => {
     const currentProgress = (counter - 1) / (items.length ?? 1);
-    const newProgress = currentProgress + (progressStep * itemPercentage);
+    const newProgress = currentProgress + progressStep * itemPercentage;
     win.setProgressBar(newProgress);
   };
 

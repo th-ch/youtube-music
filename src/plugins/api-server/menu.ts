@@ -22,17 +22,20 @@ export const onMenu = async ({
       async click() {
         const config = await getConfig();
 
-        const newHostname = await prompt(
-          {
-            title: t('plugins.api-server.prompt.hostname.title'),
-            label: t('plugins.api-server.prompt.hostname.label'),
-            value: config.hostname,
-            type: 'input',
-            width: 380,
-            ...promptOptions(),
-          },
-          window,
-        ) ?? (config.hostname ?? defaultAPIServerConfig.hostname);
+        const newHostname =
+          (await prompt(
+            {
+              title: t('plugins.api-server.prompt.hostname.title'),
+              label: t('plugins.api-server.prompt.hostname.label'),
+              value: config.hostname,
+              type: 'input',
+              width: 380,
+              ...promptOptions(),
+            },
+            window,
+          )) ??
+          config.hostname ??
+          defaultAPIServerConfig.hostname;
 
         setConfig({ ...config, hostname: newHostname });
       },
@@ -43,18 +46,21 @@ export const onMenu = async ({
       async click() {
         const config = await getConfig();
 
-        const newPort = await prompt(
-          {
-            title: t('plugins.api-server.prompt.port.title'),
-            label: t('plugins.api-server.prompt.port.label'),
-            value: config.port,
-            type: 'counter',
-            counterOptions: { minimum: 0, maximum: 65565, },
-            width: 380,
-            ...promptOptions(),
-          },
-          window,
-        ) ?? (config.port ?? defaultAPIServerConfig.port);
+        const newPort =
+          (await prompt(
+            {
+              title: t('plugins.api-server.prompt.port.title'),
+              label: t('plugins.api-server.prompt.port.label'),
+              value: config.port,
+              type: 'counter',
+              counterOptions: { minimum: 0, maximum: 65565 },
+              width: 380,
+              ...promptOptions(),
+            },
+            window,
+          )) ??
+          config.port ??
+          defaultAPIServerConfig.port;
 
         setConfig({ ...config, port: newPort });
       },
@@ -64,7 +70,9 @@ export const onMenu = async ({
       type: 'submenu',
       submenu: [
         {
-          label: t('plugins.api-server.menu.auth-strategy.submenu.auth-at-first.label'),
+          label: t(
+            'plugins.api-server.menu.auth-strategy.submenu.auth-at-first.label',
+          ),
           type: 'radio',
           checked: config.authStrategy === 'AUTH_AT_FIRST',
           click() {

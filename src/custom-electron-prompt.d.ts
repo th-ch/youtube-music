@@ -64,29 +64,29 @@ declare module 'custom-electron-prompt' {
   export type PromptOptions<T extends string> = T extends 'input'
     ? InputPromptOptions
     : T extends 'select'
-    ? SelectPromptOptions
-    : T extends 'counter'
-    ? CounterPromptOptions
-    : T extends 'keybind'
-    ? KeybindPromptOptions
-    : T extends 'multiInput'
-    ? MultiInputPromptOptions
-    : never;
+      ? SelectPromptOptions
+      : T extends 'counter'
+        ? CounterPromptOptions
+        : T extends 'keybind'
+          ? KeybindPromptOptions
+          : T extends 'multiInput'
+            ? MultiInputPromptOptions
+            : never;
 
   type PromptResult<T extends string> = T extends 'input'
     ? string
     : T extends 'select'
-    ? string
-    : T extends 'counter'
-    ? number
-    : T extends 'keybind'
-    ? {
-        value: string;
-        accelerator: string;
-      }[]
-    : T extends 'multiInput'
-    ? string[]
-    : never;
+      ? string
+      : T extends 'counter'
+        ? number
+        : T extends 'keybind'
+          ? {
+              value: string;
+              accelerator: string;
+            }[]
+          : T extends 'multiInput'
+            ? string[]
+            : never;
 
   const prompt: <T extends Type>(
     options?: PromptOptions<T> & { type: T },

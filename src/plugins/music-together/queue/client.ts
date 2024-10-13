@@ -1,11 +1,20 @@
 import { SHA1Hash } from './sha1hash';
 
-export const extractToken = (cookie = document.cookie) => cookie.match(/SAPISID=([^;]+);/)?.[1] ?? cookie.match(/__Secure-3PAPISID=([^;]+);/)?.[1];
+export const extractToken = (cookie = document.cookie) =>
+  cookie.match(/SAPISID=([^;]+);/)?.[1] ??
+  cookie.match(/__Secure-3PAPISID=([^;]+);/)?.[1];
 
-export const getHash = async (papisid: string, millis = Date.now(), origin: string = 'https://music.youtube.com') =>
-  (await SHA1Hash(`${millis} ${papisid} ${origin}`)).toLowerCase();
+export const getHash = async (
+  papisid: string,
+  millis = Date.now(),
+  origin: string = 'https://music.youtube.com',
+) => (await SHA1Hash(`${millis} ${papisid} ${origin}`)).toLowerCase();
 
-export const getAuthorizationHeader = async (papisid: string, millis = Date.now(), origin: string = 'https://music.youtube.com') => {
+export const getAuthorizationHeader = async (
+  papisid: string,
+  millis = Date.now(),
+  origin: string = 'https://music.youtube.com',
+) => {
   return `SAPISIDHASH ${millis}_${await getHash(papisid, millis, origin)}`;
 };
 
@@ -23,15 +32,17 @@ export const getClient = () => {
     platform: 'DESKTOP',
     timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     locationInfo: {
-      locationPermissionAuthorizationStatus: 'LOCATION_PERMISSION_AUTHORIZATION_STATUS_UNSUPPORTED',
+      locationPermissionAuthorizationStatus:
+        'LOCATION_PERMISSION_AUTHORIZATION_STATUS_UNSUPPORTED',
     },
     musicAppInfo: {
       pwaInstallabilityStatus: 'PWA_INSTALLABILITY_STATUS_UNKNOWN',
       webDisplayMode: 'WEB_DISPLAY_MODE_BROWSER',
       storeDigitalGoodsApiSupportStatus: {
-        playStoreDigitalGoodsApiSupportStatus: 'DIGITAL_GOODS_API_SUPPORT_STATUS_UNSUPPORTED',
+        playStoreDigitalGoodsApiSupportStatus:
+          'DIGITAL_GOODS_API_SUPPORT_STATUS_UNSUPPORTED',
       },
     },
-    utcOffsetMinutes: -1 * (new Date()).getTimezoneOffset(),
+    utcOffsetMinutes: -1 * new Date().getTimezoneOffset(),
   };
 };

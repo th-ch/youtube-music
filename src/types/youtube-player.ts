@@ -297,10 +297,28 @@ export interface YoutubePlayer {
   handleGlobalKeyDown: () => void;
   handleGlobalKeyUp: () => void;
   wakeUpControls: () => void;
-  cueVideoById: (videoId: string, startSeconds: number, suggestedQuality: string) => void;
-  loadVideoById: (videoId: string, startSeconds: number, suggestedQuality: string) => void;
-  cueVideoByUrl: (mediaContentUrl: string, startSeconds: number, suggestedQuality: string, playerType: string) => void;
-  loadVideoByUrl: (mediaContentUrl: string, startSeconds: number, suggestedQuality: string, playerType: string) => void;
+  cueVideoById: (
+    videoId: string,
+    startSeconds: number,
+    suggestedQuality: string,
+  ) => void;
+  loadVideoById: (
+    videoId: string,
+    startSeconds: number,
+    suggestedQuality: string,
+  ) => void;
+  cueVideoByUrl: (
+    mediaContentUrl: string,
+    startSeconds: number,
+    suggestedQuality: string,
+    playerType: string,
+  ) => void;
+  loadVideoByUrl: (
+    mediaContentUrl: string,
+    startSeconds: number,
+    suggestedQuality: string,
+    playerType: string,
+  ) => void;
   /**
    * Note: This doesn't resume playback, it plays from the start.
    */
@@ -361,7 +379,7 @@ export interface YoutubePlayer {
       name: K extends 'videodatachange' ? PlayerAPIEvents[K]['name'] : never,
       data: K extends 'videodatachange' ? PlayerAPIEvents[K]['value'] : never,
     ) => void,
-    options?: boolean | AddEventListenerOptions | undefined,
+    options?: boolean | AddEventListenerOptions,
   ) => void;
   removeEventListener: <K extends keyof PlayerAPIEvents>(
     type: K,
@@ -370,7 +388,7 @@ export interface YoutubePlayer {
       name: K extends 'videodatachange' ? PlayerAPIEvents[K]['name'] : never,
       data: K extends 'videodatachange' ? PlayerAPIEvents[K]['value'] : never,
     ) => void,
-    options?: boolean | EventListenerOptions | undefined,
+    options?: boolean | EventListenerOptions,
   ) => void;
   getDebugText: () => string;
   addCueRange: <Parameters extends unknown[], Return>(
@@ -395,7 +413,11 @@ export interface YoutubePlayer {
   getMediaReferenceTime: () => number;
   getSize: () => { width: number; height: number };
   logImaAdEvent: (eventType: unknown, breakType: unknown) => void;
-  preloadVideoById: (videoId: string, startSeconds: number, suggestedQuality: string) => void;
+  preloadVideoById: (
+    videoId: string,
+    startSeconds: number,
+    suggestedQuality: string,
+  ) => void;
   setAccountLinkState: <Parameters extends unknown[], Return>(
     ...params: Parameters
   ) => Return;

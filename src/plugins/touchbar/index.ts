@@ -92,7 +92,9 @@ export default createPlugin({
 
         // Get image source
         songImage.icon = (
-          songInfo.image ? songInfo.image : nativeImage.createFromPath(youtubeMusicIcon)
+          songInfo.image
+            ? songInfo.image
+            : nativeImage.createFromPath(youtubeMusicIcon)
         ).resize({ height: 23 });
 
         window.setTouchBar(touchBar);

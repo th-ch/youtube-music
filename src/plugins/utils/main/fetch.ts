@@ -6,8 +6,8 @@ export const getNetFetchAsFetch = () =>
       typeof input === 'string'
         ? new URL(input)
         : input instanceof URL
-        ? input
-        : new URL(input.url);
+          ? input
+          : new URL(input.url);
 
     if (init?.body && !init.method) {
       init.method = 'POST';

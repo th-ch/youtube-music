@@ -81,7 +81,11 @@ export class LastFmScrobbler extends ScrobblerBase {
     return config;
   }
 
-  override setNowPlaying(songInfo: SongInfo, config: ScrobblerPluginConfig, setConfig: SetConfType): void {
+  override setNowPlaying(
+    songInfo: SongInfo,
+    config: ScrobblerPluginConfig,
+    setConfig: SetConfType,
+  ): void {
     if (!config.scrobblers.lastfm.sessionKey) {
       return;
     }
@@ -93,7 +97,11 @@ export class LastFmScrobbler extends ScrobblerBase {
     this.postSongDataToAPI(songInfo, config, data, setConfig);
   }
 
-  override addScrobble(songInfo: SongInfo, config: ScrobblerPluginConfig, setConfig: SetConfType): void {
+  override addScrobble(
+    songInfo: SongInfo,
+    config: ScrobblerPluginConfig,
+    setConfig: SetConfType,
+  ): void {
     if (!config.scrobblers.lastfm.sessionKey) {
       return;
     }
@@ -101,7 +109,9 @@ export class LastFmScrobbler extends ScrobblerBase {
     // This adds one scrobbled song to last.fm
     const data = {
       method: 'track.scrobble',
-      timestamp: Math.trunc((Date.now() - (songInfo.elapsedSeconds ?? 0)) / 1000),
+      timestamp: Math.trunc(
+        (Date.now() - (songInfo.elapsedSeconds ?? 0)) / 1000,
+      ),
     };
     this.postSongDataToAPI(songInfo, config, data, setConfig);
   }
@@ -195,8 +205,7 @@ const createApiSig = (parameters: LastFmSongData, secret: string) => {
   // This function creates the api signature, see: https://www.last.fm/api/authspec
   let sig = '';
 
-  Object
-    .entries(parameters)
+  Object.entries(parameters)
     .sort(([a], [b]) => a.localeCompare(b))
     .forEach(([key, value]) => {
       if (key === 'format') {
@@ -212,12 +221,8 @@ const createApiSig = (parameters: LastFmSongData, secret: string) => {
 
 const createToken = async ({
   scrobblers: {
-    lastfm: {
-      apiKey,
-      apiRoot,
-      secret,
-    }
-  }
+    lastfm: { apiKey, apiRoot, secret },
+  },
 }: ScrobblerPluginConfig) => {
   // Creates and stores the auth token
   const data: {
@@ -240,7 +245,10 @@ const createToken = async ({
 let authWindowOpened = false;
 let latestAuthResult = false;
 
-const authenticate = async (config: ScrobblerPluginConfig, mainWindow: BrowserWindow) => {
+const authenticate = async (
+  config: ScrobblerPluginConfig,
+  mainWindow: BrowserWindow,
+) => {
   return new Promise<boolean>((resolve) => {
     if (!authWindowOpened) {
       authWindowOpened = true;
@@ -266,9 +274,10 @@ const authenticate = async (config: ScrobblerPluginConfig, mainWindow: BrowserWi
           const url = new URL(newUrl);
           if (url.hostname.endsWith('last.fm')) {
             if (url.pathname === '/api/auth') {
-              const isApproveScreen = await browserWindow.webContents.executeJavaScript(
-                '!!document.getElementsByName(\'confirm\').length'
-              ) as boolean;
+              const isApproveScreen =
+                (await browserWindow.webContents.executeJavaScript(
+                  "!!document.getElementsByName('confirm').length",
+                )) as boolean;
               // successful authentication
               if (!isApproveScreen) {
                 resolve(true);
@@ -287,7 +296,7 @@ const authenticate = async (config: ScrobblerPluginConfig, mainWindow: BrowserWi
             dialog.showMessageBox({
               title: t('plugins.scrobbler.dialog.lastfm.auth-failed.title'),
               message: t('plugins.scrobbler.dialog.lastfm.auth-failed.message'),
-              type: 'error'
+              type: 'error',
             });
           }
           authWindowOpened = false;

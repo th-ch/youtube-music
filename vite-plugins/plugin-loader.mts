@@ -3,11 +3,18 @@ import { resolve, basename, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { createFilter } from 'vite';
-import { Project, ts, ObjectLiteralExpression, VariableDeclarationKind } from 'ts-morph';
+import {
+  Project,
+  ts,
+  ObjectLiteralExpression,
+  VariableDeclarationKind,
+} from 'ts-morph';
 
 import type { PluginOption } from 'vite';
 
-export default function (mode: 'backend' | 'preload' | 'renderer' | 'none'): PluginOption {
+export default function (
+  mode: 'backend' | 'preload' | 'renderer' | 'none',
+): PluginOption {
   const pluginFilter = createFilter([
     'src/plugins/*/index.{js,ts}',
     'src/plugins/*',
@@ -100,14 +107,17 @@ export default function (mode: 'backend' | 'preload' | 'renderer' | 'none'): Plu
         objExpr.getProperty(propertyNames[index])?.remove();
       }
 
-      const stubObjExpr = src.addVariableStatement({
-        isExported: true,
-        declarationKind: VariableDeclarationKind.Const,
-        declarations: [{
-          name: 'pluginStub',
-          initializer: (writer) => writer.write(objExpr!.getText()),
-        }]
-      })
+      const stubObjExpr = src
+        .addVariableStatement({
+          isExported: true,
+          declarationKind: VariableDeclarationKind.Const,
+          declarations: [
+            {
+              name: 'pluginStub',
+              initializer: (writer) => writer.write(objExpr.getText()),
+            },
+          ],
+        })
         .getDeclarations()[0]
         .getInitializer() as ObjectLiteralExpression;
 

@@ -84,7 +84,8 @@ const routes = {
     method: 'post',
     path: `/api/${API_VERSION}/toggle-play`,
     summary: 'Toggle play/pause',
-    description: 'Change the state of the player to play if paused, or pause if playing',
+    description:
+      'Change the state of the player to play if paused, or pause if playing',
     request: {
       headers: AuthHeadersSchema,
     },
@@ -280,7 +281,7 @@ const routes = {
             schema: z.object({
               state: z.boolean(),
             }),
-          }
+          },
         },
       },
     },
@@ -299,7 +300,7 @@ const routes = {
         content: {
           'application/json': {
             schema: z.object({}),
-          }
+          },
         },
       },
       204: {
@@ -321,7 +322,7 @@ const routes = {
         content: {
           'application/json': {
             schema: SongInfoSchema,
-          }
+          },
         },
       },
       204: {
@@ -331,7 +332,11 @@ const routes = {
   }),
 };
 
-export const register = (app: HonoApp, { window }: BackendContext<APIServerConfig>, songInfoGetter: () => SongInfo | undefined) => {
+export const register = (
+  app: HonoApp,
+  { window }: BackendContext<APIServerConfig>,
+  songInfoGetter: () => SongInfo | undefined,
+) => {
   const controller = getSongControls(window);
 
   app.openapi(routes.previous, (ctx) => {
@@ -426,9 +431,12 @@ export const register = (app: HonoApp, { window }: BackendContext<APIServerConfi
 
   app.openapi(routes.getFullscreenState, async (ctx) => {
     const stateResponsePromise = new Promise<boolean>((resolve) => {
-      ipcMain.once('ytmd:set-fullscreen', (_, isFullscreen: boolean | undefined) => {
-        return resolve(!!isFullscreen);
-      });
+      ipcMain.once(
+        'ytmd:set-fullscreen',
+        (_, isFullscreen: boolean | undefined) => {
+          return resolve(!!isFullscreen);
+        },
+      );
 
       controller.requestFullscreenInformation();
     });

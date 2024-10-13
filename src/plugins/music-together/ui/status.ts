@@ -7,17 +7,27 @@ import type { Permission, Profile } from '../types';
 
 export const createStatus = () => {
   const element = ElementFromHtml(statusHTML);
-  const icon = document.querySelector<HTMLImageElement>('ytmusic-settings-button > tp-yt-paper-icon-button > tp-yt-iron-icon#icon img');
+  const icon = document.querySelector<HTMLImageElement>(
+    'ytmusic-settings-button > tp-yt-paper-icon-button > tp-yt-iron-icon#icon img',
+  );
 
-  const profile = element.querySelector<HTMLImageElement>('.music-together-profile')!;
-  const statusLabel = element.querySelector<HTMLSpanElement>('#music-together-status-label')!;
-  const permissionLabel = element.querySelector<HTMLMarqueeElement>('#music-together-permission-label')!;
+  const profile = element.querySelector<HTMLImageElement>(
+    '.music-together-profile',
+  )!;
+  const statusLabel = element.querySelector<HTMLSpanElement>(
+    '#music-together-status-label',
+  )!;
+  const permissionLabel = element.querySelector<HTMLMarqueeElement>(
+    '#music-together-permission-label',
+  )!;
 
   profile.src = icon?.src ?? '';
 
   const setStatus = (status: 'disconnected' | 'host' | 'guest') => {
     if (status === 'disconnected') {
-      statusLabel.textContent = t('plugins.music-together.menu.status.disconnected');
+      statusLabel.textContent = t(
+        'plugins.music-together.menu.status.disconnected',
+      );
       statusLabel.style.color = 'rgba(255, 255, 255, 0.5)';
     }
 
@@ -34,17 +44,23 @@ export const createStatus = () => {
 
   const setPermission = (permission: Permission) => {
     if (permission === 'host-only') {
-      permissionLabel.textContent = t('plugins.music-together.menu.permission.host-only');
+      permissionLabel.textContent = t(
+        'plugins.music-together.menu.permission.host-only',
+      );
       permissionLabel.style.color = 'rgba(255, 255, 255, 0.5)';
     }
 
     if (permission === 'playlist') {
-      permissionLabel.textContent = t('plugins.music-together.menu.permission.playlist');
+      permissionLabel.textContent = t(
+        'plugins.music-together.menu.permission.playlist',
+      );
       permissionLabel.style.color = 'rgba(255, 255, 255, 0.75)';
     }
 
     if (permission === 'all') {
-      permissionLabel.textContent = t('plugins.music-together.menu.permission.all');
+      permissionLabel.textContent = t(
+        'plugins.music-together.menu.permission.all',
+      );
       permissionLabel.style.color = 'rgba(255, 255, 255, 1)';
     }
   };
@@ -54,7 +70,9 @@ export const createStatus = () => {
   };
 
   const setUsers = (users: Profile[]) => {
-    const container = element.querySelector<HTMLDivElement>('.music-together-user-container')!;
+    const container = element.querySelector<HTMLDivElement>(
+      '.music-together-user-container',
+    )!;
     const empty = element.querySelector<HTMLElement>('.music-together-empty')!;
     for (const child of Array.from(container.children)) {
       if (child !== empty) child.remove();

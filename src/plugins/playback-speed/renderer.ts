@@ -53,10 +53,7 @@ const observePopupContainer = () => {
       menu = getSongMenu();
     }
 
-    if (
-      menu &&
-      !menu.contains(slider)
-    ) {
+    if (menu && !menu.contains(slider)) {
       menu.prepend(slider);
       setupSliderListener();
     }

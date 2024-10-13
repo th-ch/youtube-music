@@ -202,9 +202,9 @@ export const backend = createBackend<
       }
     } else if (!config.hideDurationLeft) {
       // Add the start and end time of the song
-      const songStartTime = Date.now() - ((songInfo.elapsedSeconds ?? 0) * 1000);
+      const songStartTime = Date.now() - (songInfo.elapsedSeconds ?? 0) * 1000;
       activityInfo.startTimestamp = songStartTime;
-      activityInfo.endTimestamp = songStartTime + (songInfo.songDuration * 1000);
+      activityInfo.endTimestamp = songStartTime + songInfo.songDuration * 1000;
     }
 
     info.rpc.user?.setActivity(activityInfo).catch(console.error);

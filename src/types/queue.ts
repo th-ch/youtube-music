@@ -13,19 +13,16 @@ type Store = {
   getState: () => StoreState;
   replaceReducer: (param1: unknown) => unknown;
   subscribe: (callback: () => void) => unknown;
-}
+};
 
 export type QueueElement = HTMLElement & {
-  dispatch(obj: {
-    type: string;
-    payload?: unknown;
-  }): void;
+  dispatch(obj: { type: string; payload?: unknown }): void;
   queue: QueueAPI;
 };
 export type QueueAPI = {
   getItems(): QueueItem[];
   store: {
-    store: Store,
+    store: Store;
   };
   continuation?: string;
   autoPlaying?: boolean;

@@ -3,13 +3,15 @@ import { DataConnection, Peer } from 'peerjs';
 import type { Permission, Profile, VideoData } from './types';
 
 export type ConnectionEventMap = {
-  ADD_SONGS: { videoList: VideoData[], index?: number };
+  ADD_SONGS: { videoList: VideoData[]; index?: number };
   REMOVE_SONG: { index: number };
   MOVE_SONG: { fromIndex: number; toIndex: number };
   IDENTIFY: { profile: Profile } | undefined;
   SYNC_PROFILE: { profiles: Record<string, Profile> } | undefined;
   SYNC_QUEUE: { videoList: VideoData[] } | undefined;
-  SYNC_PROGRESS: { progress?: number; state?: number; index?: number; } | undefined;
+  SYNC_PROGRESS:
+    | { progress?: number; state?: number; index?: number }
+    | undefined;
   PERMISSION: Permission | undefined;
 };
 export type ConnectionEventUnion = {
@@ -24,9 +26,12 @@ type PromiseUtil<T> = {
   promise: Promise<T>;
   resolve: (id: T) => void;
   reject: (err: unknown) => void;
-}
+};
 
-export type ConnectionListener = (event: ConnectionEventUnion, conn: DataConnection) => void;
+export type ConnectionListener = (
+  event: ConnectionEventUnion,
+  conn: DataConnection,
+) => void;
 export type ConnectionMode = 'host' | 'guest' | 'disconnected';
 export class Connection {
   private peer: Peer;
@@ -95,9 +100,12 @@ export class Connection {
     return Object.values(this.connections);
   }
 
-  public async broadcast<Event extends keyof ConnectionEventMap>(type: Event, payload: ConnectionEventMap[Event]) {
+  public async broadcast<Event extends keyof ConnectionEventMap>(
+    type: Event,
+    payload: ConnectionEventMap[Event],
+  ) {
     await Promise.all(
-      this.getConnections().map((conn) => conn.send({ type, payload }))
+      this.getConnections().map((conn) => conn.send({ type, payload })),
     );
   }
 
@@ -125,7 +133,13 @@ export class Connection {
         this.connectionListeners.forEach((listener) => listener(conn));
 
         conn.on('data', (data) => {
-          if (!data || typeof data !== 'object' || !('type' in data) || !('payload' in data) || !data.type) {
+          if (
+            !data ||
+            typeof data !== 'object' ||
+            !('type' in data) ||
+            !('payload' in data) ||
+            !data.type
+          ) {
             console.warn('Music Together: Invalid data', data);
             return;
           }

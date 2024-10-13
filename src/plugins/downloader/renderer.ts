@@ -39,7 +39,9 @@ const menuObserver = new MutationObserver(() => {
   if (!menuUrl?.includes('watch?')) {
     menuUrl = undefined;
     // check for podcast
-    for (const it of document.querySelectorAll('tp-yt-paper-listbox [tabindex="-1"] #navigation-endpoint')) {
+    for (const it of document.querySelectorAll(
+      'tp-yt-paper-listbox [tabindex="-1"] #navigation-endpoint',
+    )) {
       if (it.getAttribute('href')?.includes('podcast/')) {
         menuUrl = it.getAttribute('href')!;
         break;
@@ -72,7 +74,9 @@ export const onRendererLoad = ({
       ?.getAttribute('href');
 
     if (!videoUrl && songMenu) {
-      for (const it of songMenu.querySelectorAll('ytmusic-menu-navigation-item-renderer[tabindex="-1"] #navigation-endpoint')) {
+      for (const it of songMenu.querySelectorAll(
+        'ytmusic-menu-navigation-item-renderer[tabindex="-1"] #navigation-endpoint',
+      )) {
         if (it.getAttribute('href')?.includes('podcast/')) {
           videoUrl = it.getAttribute('href');
           break;
@@ -86,7 +90,8 @@ export const onRendererLoad = ({
       }
 
       if (videoUrl.startsWith('podcast/')) {
-        videoUrl = defaultConfig.url + '/watch?' + videoUrl.replace('podcast/', 'v=');
+        videoUrl =
+          defaultConfig.url + '/watch?' + videoUrl.replace('podcast/', 'v=');
       }
 
       if (videoUrl.includes('?playlist=')) {
