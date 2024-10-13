@@ -38,7 +38,7 @@ export const extractTimeAndText = (
     index,
     timeInMs,
     time: `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}:${millis}`,
-    text: text?.trim() ?? config()!.defaultTextString,
+    text: text?.trim().length ? text?.trim() : config()!.defaultTextString,
     status: 'upcoming',
     duration: 0,
   };
@@ -178,8 +178,8 @@ export const getLyricsList = async (
   // Add a blank line at the beginning
   raw.unshift('[0:0.0] ');
 
-  const syncedLyricList = raw.reduce<LineLyrics[]>((acc, line, index) => {
-    const syncedLine = extractTimeAndText(line, index);
+  const syncedLyricList = raw.reduce<LineLyrics[]>((acc, line) => {
+    const syncedLine = extractTimeAndText(line, acc.length);
     if (syncedLine) {
       acc.push(syncedLine);
     }
