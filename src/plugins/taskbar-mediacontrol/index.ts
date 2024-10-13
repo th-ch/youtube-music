@@ -1,4 +1,5 @@
-import { nativeImage } from 'electron';
+import { type NativeImage, nativeImage, nativeTheme } from 'electron';
+import { Jimp, JimpMime } from 'jimp';
 
 import playIcon from '@assets/media-icons-black/play.png?asset&asarUnpack';
 import pauseIcon from '@assets/media-icons-black/pause.png?asset&asarUnpack';
@@ -19,48 +20,13 @@ export default createPlugin({
     enabled: false,
   },
 
-  backend({ window }) {
+  async backend({ window }) {
     let currentSongInfo: SongInfo;
 
     const { playPause, next, previous } = getSongControls(window);
 
-    const setThumbar = (songInfo: SongInfo) => {
-      // Wait for song to start before setting thumbar
-      if (!songInfo?.title) {
-        return;
-      }
-
-      // Win32 require full rewrite of components
-      window.setThumbarButtons([
-        {
-          tooltip: 'Previous',
-          icon: nativeImage.createFromPath(get('previous')),
-          click() {
-            previous();
-          },
-        },
-        {
-          tooltip: 'Play/Pause',
-          // Update icon based on play state
-          icon: nativeImage.createFromPath(
-            songInfo.isPaused ? get('play') : get('pause'),
-          ),
-          click() {
-            playPause();
-          },
-        },
-        {
-          tooltip: 'Next',
-          icon: nativeImage.createFromPath(get('next')),
-          click() {
-            next();
-          },
-        },
-      ]);
-    };
-
     // Util
-    const get = (kind: keyof typeof mediaIcons): string => {
+    const getImagePath = (kind: keyof typeof mediaIcons): string => {
       switch (kind) {
         case 'play':
           return playIcon;
@@ -75,6 +41,67 @@ export default createPlugin({
       }
     };
 
+    const getNativeImage = async (
+      kind: keyof typeof mediaIcons,
+    ): Promise<NativeImage> => {
+      const imagePath = getImagePath(kind);
+
+      if (imagePath) {
+        console.log('imagePath', imagePath);
+        const jimpImageBuffer = await Jimp.read(imagePath).then((img) => {
+          if (imagePath && nativeTheme.shouldUseDarkColors) {
+            return img.invert().getBuffer(JimpMime.png);
+          }
+          return img.getBuffer(JimpMime.png);
+        });
+
+        return nativeImage.createFromBuffer(jimpImageBuffer);
+      }
+
+      // return empty image
+      return nativeImage.createEmpty();
+    };
+
+    const images = {
+      play: await getNativeImage('play'),
+      pause: await getNativeImage('pause'),
+      next: await getNativeImage('next'),
+      previous: await getNativeImage('previous'),
+    };
+
+    const setThumbar = (songInfo: SongInfo) => {
+      // Wait for song to start before setting thumbar
+      if (!songInfo?.title) {
+        return;
+      }
+
+      // Win32 require full rewrite of components
+      window.setThumbarButtons([
+        {
+          tooltip: 'Previous',
+          icon: images.previous,
+          click() {
+            previous();
+          },
+        },
+        {
+          tooltip: 'Play/Pause',
+          // Update icon based on play state
+          icon: songInfo.isPaused ? images.play : images.pause,
+          click() {
+            playPause();
+          },
+        },
+        {
+          tooltip: 'Next',
+          icon: images.next,
+          click() {
+            next();
+          },
+        },
+      ]);
+    };
+
     registerCallback((songInfo) => {
       // Update currentsonginfo for win.on('show')
       currentSongInfo = songInfo;
@@ -83,8 +110,6 @@ export default createPlugin({
     });
 
     // Need to set thumbar again after win.show
-    window.on('show', () => {
-      setThumbar(currentSongInfo);
-    });
+    window.on('show', () => setThumbar(currentSongInfo));
   },
 });
