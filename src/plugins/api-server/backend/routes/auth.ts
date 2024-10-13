@@ -3,6 +3,7 @@ import { dialog } from 'electron';
 import { sign } from 'hono/jwt';
 
 import { t } from '@/i18n';
+import { getConnInfo } from '@hono/node-server/conninfo';
 
 import { APIServerConfig } from '../../config';
 import { JWTPayload } from '../scheme';
@@ -48,10 +49,14 @@ export const register = (app: HonoApp, { getConfig, setConfig }: BackendContext<
       // SKIP CHECK
     } else if (config.authStrategy === 'AUTH_AT_FIRST') {
       const result = await dialog.showMessageBox({
-        title: t('plugins.api-server.prompt.request.title'),
-        message: t('plugins.api-server.prompt.request.message'),
-        buttons: [t('plugins.api-server.prompt.request.ok'), t('plugins.api-server.prompt.request.cancel')],
+        title: t('plugins.api-server.dialog.request.title'),
+        message: t('plugins.api-server.dialog.request.message', {
+          origin: getConnInfo(ctx).remote.address,
+          id,
+        }),
+        buttons: [t('plugins.api-server.dialog.request.buttons.allow'), t('plugins.api-server.dialog.request.deny')],
         defaultId: 1,
+        cancelId: 1,
       });
 
       if (result.response === 1) {

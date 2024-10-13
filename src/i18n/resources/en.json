@@ -279,6 +279,49 @@
       },
       "name": "Ambient Mode"
     },
+    "api-server": {
+      "description": "Adds an API server to control the player",
+      "name": "API Server [Beta]",
+      "dialog": {
+        "request": {
+          "title": "API authorization request",
+          "message": "Allow {{ID}} ({{origin}}) to access the API?",
+          "buttons": {
+            "allow": "Allow",
+            "deny": "Deny"
+          }
+        }
+      },
+      "menu": {
+        "hostname": {
+          "label": "Hostname"
+        },
+        "port": {
+          "label": "Port"
+        },
+        "auth-strategy": {
+          "label": "Authorization strategy",
+          "submenu": {
+            "auth-at-first": {
+              "label": "Authorize at first request"
+            },
+            "none": {
+              "label": "No authorization"
+            }
+          }
+        }
+      },
+      "prompt": {
+        "hostname": {
+          "title": "Hostname",
+          "label": "Enter the hostname (like 0.0.0.0) for the API server:"
+        },
+        "port": {
+          "title": "Port",
+          "label": "Enter the port for the API server:"
+        }
+      }
+    },
     "audio-compressor": {
       "description": "Apply compression to audio (lowers the volume of the loudest parts of the signal and raises the volume of the softest parts)",
       "name": "Audio Compressor"

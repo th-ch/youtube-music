@@ -17,7 +17,7 @@ export const onMenu = async ({
 
   return [
     {
-      label: t('plugins.api-server.menu.hostname'),
+      label: t('plugins.api-server.menu.hostname.label'),
       type: 'normal',
       async click() {
         const config = await getConfig();
@@ -64,7 +64,7 @@ export const onMenu = async ({
       type: 'submenu',
       submenu: [
         {
-          label: t('plugins.api-server.menu.auth-strategy.auth-at-first'),
+          label: t('plugins.api-server.menu.auth-strategy.submenu.auth-at-first'),
           type: 'radio',
           checked: config.authStrategy === 'AUTH_AT_FIRST',
           click() {
@@ -72,7 +72,7 @@ export const onMenu = async ({
           },
         },
         {
-          label: t('plugins.api-server.menu.auth-strategy.none'),
+          label: t('plugins.api-server.menu.auth-strategy.submenu.none'),
           type: 'radio',
           checked: config.authStrategy === 'NONE',
           click() {
