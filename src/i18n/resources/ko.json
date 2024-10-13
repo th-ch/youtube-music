@@ -279,6 +279,49 @@
       },
       "name": "앰비언트 모드"
     },
+    "api-server": {
+      "description": "플레이어를 제어하기 위한 API 서버를 추가합니다",
+      "dialog": {
+        "request": {
+          "buttons": {
+            "allow": "허용",
+            "deny": "거부"
+          },
+          "message": "{{ID}} ({{origin}})이(가) API에 액세스하도록 허용하시겠습니까?",
+          "title": "API 권한 요청"
+        }
+      },
+      "menu": {
+        "auth-strategy": {
+          "label": "인증 정책",
+          "submenu": {
+            "auth-at-first": {
+              "label": "첫 번째 요청 시 인증"
+            },
+            "none": {
+              "label": "인증 없음"
+            }
+          }
+        },
+        "hostname": {
+          "label": "호스트 명"
+        },
+        "port": {
+          "label": "포트"
+        }
+      },
+      "name": "API 서버 [베타]",
+      "prompt": {
+        "hostname": {
+          "label": "API 서버가 사용할 호스트 명(예: 0.0.0.0)을 입력하세요:",
+          "title": "호스트 명"
+        },
+        "port": {
+          "label": "API 서버가 사용할 포트를 입력하세요:",
+          "title": "포트"
+        }
+      }
+    },
     "audio-compressor": {
       "description": "오디오에 컴프레서를 적용합니다 (신호에서 가장 시끄러운 부분의 음량을 낮추고 가장 조용한 부분의 음량을 높임)",
       "name": "오디오 컴프레서"
