@@ -32,13 +32,13 @@ export const onMenu = async ({
             ...promptOptions(),
           },
           window,
-        ) ?? defaultAPIServerConfig.hostname;
+        ) ?? (config.hostname ?? defaultAPIServerConfig.hostname);
 
         setConfig({ ...config, hostname: newHostname });
       },
     },
     {
-      label: t('plugins.api-server.menu.port'),
+      label: t('plugins.api-server.menu.port.label'),
       type: 'normal',
       async click() {
         const config = await getConfig();
@@ -54,17 +54,17 @@ export const onMenu = async ({
             ...promptOptions(),
           },
           window,
-        ) ?? defaultAPIServerConfig.port;
+        ) ?? (config.port ?? defaultAPIServerConfig.port);
 
         setConfig({ ...config, port: newPort });
       },
     },
     {
-      label: t('plugins.api-server.menu.auth-strategy'),
+      label: t('plugins.api-server.menu.auth-strategy.label'),
       type: 'submenu',
       submenu: [
         {
-          label: t('plugins.api-server.menu.auth-strategy.submenu.auth-at-first'),
+          label: t('plugins.api-server.menu.auth-strategy.submenu.auth-at-first.label'),
           type: 'radio',
           checked: config.authStrategy === 'AUTH_AT_FIRST',
           click() {
@@ -72,7 +72,7 @@ export const onMenu = async ({
           },
         },
         {
-          label: t('plugins.api-server.menu.auth-strategy.submenu.none'),
+          label: t('plugins.api-server.menu.auth-strategy.submenu.none.label'),
           type: 'radio',
           checked: config.authStrategy === 'NONE',
           click() {
