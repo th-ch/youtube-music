@@ -26,16 +26,16 @@ importers:
     dependencies:
       '@cliqz/adblocker-electron':
         specifier: 1.27.1
-        version: 1.27.1(electron@32.1.2)
+        version: 1.27.1(electron@32.2.0)
       '@cliqz/adblocker-electron-preload':
         specifier: 1.27.1
-        version: 1.27.1(electron@32.1.2)
+        version: 1.27.1(electron@32.2.0)
       '@electron-toolkit/tsconfig':
         specifier: 1.0.1
         version: 1.0.1(@types/node@20.12.5)
       '@electron/remote':
         specifier: 2.1.2
-        version: 2.1.2(electron@32.1.2)
+        version: 2.1.2(electron@32.2.0)
       '@ffmpeg.wasm/core-mt':
         specifier: 0.12.0
         version: 0.12.0
@@ -77,7 +77,7 @@ importers:
         version: 13.0.1
       custom-electron-prompt:
         specifier: 1.5.8
-        version: 1.5.8(electron@32.1.2)
+        version: 1.5.8(electron@32.2.0)
       dbus-next:
         specifier: 0.10.2
         version: 0.10.2
@@ -218,8 +218,8 @@ importers:
         specifier: 0.37.101
         version: 0.37.101
       electron:
-        specifier: 32.1.2
-        version: 32.1.2
+        specifier: 32.2.0
+        version: 32.2.0
       electron-builder:
         specifier: 24.13.3
         version: 24.13.3(electron-builder-squirrel-windows@24.13.3)
@@ -1937,8 +1937,8 @@ packages:
       '@swc/core':
         optional: true
 
-  electron@32.1.2:
-    resolution: {integrity: sha512-CXe6doFzhmh1U7daOvUzmF6Cj8hssdYWMeEPRnRO6rB9/bbwMlWctcQ7P8NJXhLQ88/vYUJQrJvlJPh8qM0BRQ==}
+  electron@32.2.0:
+    resolution: {integrity: sha512-Xy82QBQrEiQysoxsv6lnhHAcWNNe6vV6QqH3OPFXhEj/T9oAsBHEhZuuYHINSSsUE7zRSj+J9sNwJYOjisT0Vw==}
     engines: {node: '>= 12.20.55'}
     hasBin: true
 
@@ -4176,16 +4176,16 @@ snapshots:
     dependencies:
       '@cliqz/adblocker-extended-selectors': 1.27.6
 
-  '@cliqz/adblocker-electron-preload@1.27.1(electron@32.1.2)':
+  '@cliqz/adblocker-electron-preload@1.27.1(electron@32.2.0)':
     dependencies:
       '@cliqz/adblocker-content': 1.27.6
-      electron: 32.1.2
+      electron: 32.2.0
 
-  '@cliqz/adblocker-electron@1.27.1(electron@32.1.2)':
+  '@cliqz/adblocker-electron@1.27.1(electron@32.2.0)':
     dependencies:
       '@cliqz/adblocker': 1.27.6
-      '@cliqz/adblocker-electron-preload': 1.27.1(electron@32.1.2)
-      electron: 32.1.2
+      '@cliqz/adblocker-electron-preload': 1.27.1(electron@32.2.0)
+      electron: 32.2.0
       tldts-experimental: 6.1.2
 
   '@cliqz/adblocker-extended-selectors@1.27.6': {}
@@ -4265,9 +4265,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@electron/remote@2.1.2(electron@32.1.2)':
+  '@electron/remote@2.1.2(electron@32.2.0)':
     dependencies:
-      electron: 32.1.2
+      electron: 32.2.0
 
   '@electron/universal@2.0.1':
     dependencies:
@@ -4760,7 +4760,7 @@ snapshots:
 
   '@types/electron-localshortcut@3.1.3':
     dependencies:
-      electron: 32.1.2
+      electron: 32.2.0
     transitivePeerDependencies:
       - supports-color
 
@@ -5509,9 +5509,9 @@ snapshots:
 
   csstype@3.1.3: {}
 
-  custom-electron-prompt@1.5.8(electron@32.1.2):
+  custom-electron-prompt@1.5.8(electron@32.2.0):
     dependencies:
-      electron: 32.1.2
+      electron: 32.2.0
 
   data-uri-to-buffer@4.0.1: {}
 
@@ -5830,7 +5830,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  electron@32.1.2:
+  electron@32.2.0:
     dependencies:
       '@electron/get': 2.0.3
       '@types/node': 20.12.5
