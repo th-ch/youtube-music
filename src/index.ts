@@ -11,6 +11,7 @@ import {
   shell,
   dialog,
   ipcMain,
+  protocol,
   type BrowserWindowConstructorOptions,
 } from 'electron';
 import enhanceWebRequest, {
@@ -82,6 +83,34 @@ const gotTheLock = app.requestSingleInstanceLock();
 if (!gotTheLock) {
   app.exit();
 }
+
+protocol.registerSchemesAsPrivileged([
+  {
+    scheme: 'http',
+    privileges: {
+      standard: true,
+      bypassCSP: true,
+      allowServiceWorkers: true,
+      supportFetchAPI: true,
+      corsEnabled: true,
+      stream: true,
+      codeCache: true,
+    },
+  },
+  {
+    scheme: 'https',
+    privileges: {
+      standard: true,
+      bypassCSP: true,
+      allowServiceWorkers: true,
+      supportFetchAPI: true,
+      corsEnabled: true,
+      stream: true,
+      codeCache: true,
+    },
+  },
+  { scheme: 'mailto', privileges: { standard: true } },
+]);
 
 // Ozone platform hint: Required for Wayland support
 app.commandLine.appendSwitch('ozone-platform-hint', 'auto');
