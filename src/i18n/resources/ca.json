@@ -279,6 +279,49 @@
       },
       "name": "Mode ambient"
     },
+    "api-server": {
+      "description": "Afegeix un servidor API per controlar el reproductor",
+      "dialog": {
+        "request": {
+          "buttons": {
+            "allow": "Permet",
+            "deny": "Denegar"
+          },
+          "message": "Permetre que {{ID}} ({{origin}}) accedeixi a l'API?",
+          "title": "Petició d'autorització API"
+        }
+      },
+      "menu": {
+        "auth-strategy": {
+          "label": "Estratègia d'autorització",
+          "submenu": {
+            "auth-at-first": {
+              "label": "Autoritza a la primera petició"
+            },
+            "none": {
+              "label": "Sense autorització"
+            }
+          }
+        },
+        "hostname": {
+          "label": "Nom del host"
+        },
+        "port": {
+          "label": "Port"
+        }
+      },
+      "name": "Servidor API [Beta]",
+      "prompt": {
+        "hostname": {
+          "label": "Introdueix el nom del host (per exemple 0.0.0.0) pel servidor API:",
+          "title": "Nom del host"
+        },
+        "port": {
+          "label": "Introdueix el port pel servidor API:",
+          "title": "Port"
+        }
+      }
+    },
     "audio-compressor": {
       "description": "Aplica compressió a l'àudio (baixa el volum de les parts més sorolloses de la senyal d'àudio i puja el volum de les parts més fluixes)",
       "name": "Compressió d'àudio"
