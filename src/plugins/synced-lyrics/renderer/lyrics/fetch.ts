@@ -8,20 +8,16 @@ import { setDebugInfo, setLineLyrics } from '../components/LyricsContainer';
 import type { SongInfo } from '@/providers/song-info';
 import type { LineLyrics, LRCLIBSearchResponse } from '../../types';
 
-// prettier-ignore
 export const [isInstrumental, setIsInstrumental] = createSignal(false);
-// prettier-ignore
 export const [isFetching, setIsFetching] = createSignal(false);
-// prettier-ignore
 export const [hadSecondAttempt, setHadSecondAttempt] = createSignal(false);
-// prettier-ignore
 export const [differentDuration, setDifferentDuration] = createSignal(false);
 
 export const extractTimeAndText = (
   line: string,
   index: number,
 ): LineLyrics | null => {
-  const groups = /\[(\d+):(\d+)\.(\d+)\](.+)/.exec(line);
+  const groups = /\[(\d+):(\d+)\.(\d+)](.+)/.exec(line);
   if (!groups) return null;
 
   const [, rMinutes, rSeconds, rMillis, text] = groups;
@@ -31,14 +27,13 @@ export const extractTimeAndText = (
     parseInt(rMillis),
   ];
 
-  // prettier-ignore
   const timeInMs = (minutes * 60 * 1000) + (seconds * 1000) + millis;
 
   return {
     index,
     timeInMs,
     time: `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}:${millis}`,
-    text: text?.trim().length ? text?.trim() : config()!.defaultTextString,
+    text: text?.trim() || config()!.defaultTextString,
     status: 'upcoming',
     duration: 0,
   };
@@ -123,7 +118,7 @@ export const getLyricsList = async (
     setHadSecondAttempt(true);
   }
 
-  const filteredResults = [];
+  const filteredResults: LRCLIBSearchResponse = [];
   for (const item of data) {
     const { artist } = songData;
     const { artistName } = item;
