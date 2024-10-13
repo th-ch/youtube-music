@@ -23,6 +23,14 @@ let isPluginLoaded = false;
 let isApiLoaded = false;
 let firstDataLoaded = false;
 
+if (window.trustedTypes && window.trustedTypes.createPolicy && !window.trustedTypes.defaultPolicy) {
+  window.trustedTypes.createPolicy('default', {
+    createHTML: (input) => input,
+    createScriptURL: (input) => input,
+    createScript: (input) => input,
+  });
+}
+
 async function listenForApiLoad() {
   if (!isApiLoaded) {
     api = document.querySelector('#movie_player');
@@ -178,10 +186,19 @@ async function onApiLoaded() {
 
   // Remove upgrade button
   if (window.mainConfig.get('options.removeUpgradeButton')) {
+    const itemsSelector = 'ytmusic-guide-section-renderer #items';
+    let selector = 'ytmusic-guide-entry-renderer:last-child';
+
+    const upgradeBtnIcon = document.querySelector<SVGGElement>('iron-iconset-svg[name="yt-sys-icons"] #youtube_music_monochrome');
+    if (upgradeBtnIcon) {
+      const path = upgradeBtnIcon.firstChild as SVGPathElement;
+      const data = path.getAttribute('d')!.substring(0, 15);
+      selector = `ytmusic-guide-entry-renderer:has(> tp-yt-paper-item > yt-icon path[d^="${data}"])`;
+    }
+
     const styles = document.createElement('style');
-    styles.innerHTML = `ytmusic-guide-section-renderer #items ytmusic-guide-entry-renderer:last-child {
-      display: none;
-    }`;
+    styles.textContent = `${itemsSelector} ${selector} { display: none; }`;
+
     document.head.appendChild(styles);
   }
 

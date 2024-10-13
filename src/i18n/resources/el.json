@@ -148,10 +148,13 @@
             }
           },
           "visual-tweaks": {
+            "label": "Τροποποιήσεις Εμφάνισης",
             "submenu": {
               "like-buttons": {
                 "default": "Default",
-                "hide": "Απόκρυψη"
+                "force-show": "Αναγκαστική Εμφάνιση",
+                "hide": "Απόκρυψη",
+                "label": "Μου αρέσει"
               },
               "remove-upgrade-button": "Αφαίρεση κουμπιού αναβάθμισης",
               "theme": {
@@ -160,7 +163,8 @@
                     "cancel": "Άκυρο",
                     "remove": "Αφαίρεση"
                   },
-                  "remove-theme": "Είστε βέβαιοι ότι θέλετε να αφαιρέσετε το προσαρμοσμένο θέμα;"
+                  "remove-theme": "Είστε βέβαιοι ότι θέλετε να αφαιρέσετε το προσαρμοσμένο θέμα;",
+                  "remove-theme-message": "Αυτό θα αφαιρέσει το προσαρμοσμένο θέμα"
                 },
                 "label": "Θέμα",
                 "submenu": {
@@ -173,14 +177,17 @@
         }
       },
       "plugins": {
+        "enabled": "Ενεργοποιημένο",
         "label": "Πρόσθετα",
         "new": "ΝΕΟ"
       },
       "view": {
         "label": "Προβολή",
         "submenu": {
+          "force-reload": "Αναγκαστική Eπαναφόρτωση",
           "reload": "Επαναφόρτωση",
           "reset-zoom": "Πραγματικό μέγεθος",
+          "toggle-fullscreen": "Εναλλαγή Πλήρους Οθόνης",
           "zoom-in": "Μεγέθυνση",
           "zoom-out": "Σμίκρυνση"
         }
@@ -192,25 +199,46 @@
       "previous": "Προηγούμενο",
       "quit": "Έξοδος",
       "restart": "Επανεκκίνηση εφαρμογής",
-      "show": "Εμφάνιση παραθύρου"
+      "show": "Εμφάνιση παραθύρου",
+      "tooltip": {
+        "default": "YouTube Music",
+        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
+      }
     }
   },
   "plugins": {
+    "ad-speedup": {
+      "description": "Εαν παίξει διαφήμιση κάνει σίγαση του ήχου και θέτει την ταχύτητα αναπαραγωγής στο 16x",
+      "name": "Γρήγορη Προώθηση Διαφημίσεων"
+    },
     "adblocker": {
       "description": "Αποκλεισμός όλων των διαφημίσεων και tracker",
       "menu": {
         "blocker": "Μέθοδος αποκλεισμού"
       },
-      "name": "Adblocker"
+      "name": "Μπλοκάρισμα Διαφημίσεων"
+    },
+    "album-actions": {
+      "description": "Προσθέτει κουμπιά Like/Unlike και Dislike/Undislike που δρουν συνολικά σε όλα τα κομμάτια μιας playlist ή ενός άλμπουμ",
+      "name": "Ενέργειες σε Άλμπουμ"
     },
     "album-color-theme": {
       "description": "Εφαρμόζει ένα δυναμικό θέμα και εφέ με βάση τη χρωματική παλέτα του άλμπουμ",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "Αναλογία μίξης χρώματος",
+          "submenu": {
+            "percent": "{{ratio}}%"
+          }
+        }
+      },
       "name": "Album Color Theme"
     },
     "ambient-mode": {
       "description": "Εφαρμόζει ένα εφέ φωτισμού ρίχνοντας απαλά χρώματα από το βίντεο, στο φόντο της οθόνης σας.",
       "menu": {
         "blur-amount": {
+          "label": "Ένταση θαμπώματος",
           "submenu": {
             "pixels": "{{blurAmount}} pixels"
           }
@@ -241,8 +269,11 @@
         },
         "smoothness-transition": {
           "submenu": {
-            "during": "Σε {{interpolationTime}} δεύτερα"
+            "during": "Σε {{interpolationTime}} δευτερόλεπτα"
           }
+        },
+        "use-fullscreen": {
+          "label": "Χρήση πλήρους οθόνης"
         }
       }
     },

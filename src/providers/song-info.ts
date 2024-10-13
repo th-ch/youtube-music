@@ -214,14 +214,14 @@ const suffixesToRemove = [
   /\s*vevo$/i,
 
   // Video titles
-  /\s*[(|\[]official(.*?)[)|\]]/i, // (Official Music Video), [Official Visualizer], etc...
-  /\s*[(|\[]((lyrics?|visualizer|audio)\s*(video)?)[)|\]]/i,
-  /\s*[(|\[](performance video)[)|\]]/i,
-  /\s*[(|\[](clip official)[)|\]]/i,
-  /\s*[(|\[](video version)[)|\]]/i,
-  /\s*[(|\[](HD|HQ)\s*?(?:audio)?[)|\]]$/i,
-  /\s*[(|\[](live)[)|\]]$/i,
-  /\s*[(|\[]4K\s*?(?:upgrade)?[)|\]]$/i,
+  /\s*[(|[]official(.*?)[)|\]]/i, // (Official Music Video), [Official Visualizer], etc...
+  /\s*[(|[]((lyrics?|visualizer|audio)\s*(video)?)[)|\]]/i,
+  /\s*[(|[](performance video)[)|\]]/i,
+  /\s*[(|[](clip official)[)|\]]/i,
+  /\s*[(|[](video version)[)|\]]/i,
+  /\s*[(|[](HD|HQ)\s*?(?:audio)?[)|\]]$/i,
+  /\s*[(|[](live)[)|\]]$/i,
+  /\s*[(|[]4K\s*?(?:upgrade)?[)|\]]$/i,
 ];
 
 export function cleanupName(name: string): string {

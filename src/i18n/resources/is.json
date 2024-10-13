@@ -158,6 +158,14 @@
               },
               "remove-upgrade-button": "Fjarlægja uppgræðartakkan",
               "theme": {
+                "dialog": {
+                  "button": {
+                    "cancel": "Hætta við",
+                    "remove": "Fjarlægja"
+                  },
+                  "remove-theme": "Ertu viss um að þú viljir fjarlægja þetta sérsniðna þema?",
+                  "remove-theme-message": "Þetta mun fjarlægja sérsniðna þema"
+                },
                 "label": "Þema",
                 "submenu": {
                   "import-css-file": "Flytja inn sérsniðna CSS skrá",
@@ -199,6 +207,10 @@
     }
   },
   "plugins": {
+    "ad-speedup": {
+      "description": "Ef auglýsing spilar slökknar hún á hljóðinu og stillir spilunarhraðann á 16x",
+      "name": "Auglýsingahraða"
+    },
     "adblocker": {
       "description": "Lokaðu fyrir allar auglýsingar og rakningar úr kassanum",
       "menu": {
@@ -402,6 +414,21 @@
       "description": "Niðurhalar MP3 / upprunahljóði beint úr viðmótinu",
       "menu": {
         "choose-download-folder": "Veldu niðurhalsmöppu",
+        "download-finish-settings": {
+          "label": "Sækja þegar lokið",
+          "prompt": {
+            "last-percent": "Eftir x sekúndur",
+            "last-seconds": "Síðustu x sekúndur",
+            "title": "Stilla hvenær á að hlaða niður"
+          },
+          "submenu": {
+            "advanced": "Ítarlegri",
+            "enabled": "Virkt",
+            "mode": "Tímastilling",
+            "percent": "Hlutfall",
+            "seconds": "Sekúndur"
+          }
+        },
         "download-playlist": "Sækja spilunarlista",
         "presets": "Forstillingar",
         "skip-existing": "Slepptu núverandi skrám"
@@ -640,6 +667,10 @@
     "sponsorblock": {
       "description": "Sleppur sjálfkrafa hlutum sem ekki eru tónlist, eins og inngangur/lok eða hlutar af tónlistarmyndböndum þar sem lag er ekki að spila",
       "name": "Styrktarblokk"
+    },
+    "synced-lyrics": {
+      "description": "Veitir samstillta texta við lög, með því að nota veitur eins og LRClib.",
+      "name": "Samstilltur texti"
     },
     "taskbar-mediacontrol": {
       "description": "Stjórnaðu spilun frá Windows verkefnastikunni þinni",

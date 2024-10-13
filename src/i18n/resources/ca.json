@@ -15,7 +15,7 @@
   },
   "language": {
     "code": "ca",
-    "local-name": "català",
+    "local-name": "Català",
     "name": "Catalan"
   },
   "main": {
@@ -84,9 +84,9 @@
         "label": "Navegació",
         "submenu": {
           "copy-current-url": "Copia l'URL actual",
-          "go-back": "Anar enrere",
-          "go-forward": "Anar endavant",
-          "quit": "Sortir",
+          "go-back": "Ves enrere",
+          "go-forward": "Ves endavant",
+          "quit": "Surt",
           "restart": "Reinicia l'aplicació"
         }
       },
@@ -102,11 +102,11 @@
               "override-user-agent": "Sobreescriu l'agent d'usuari (User-Agent)",
               "restart-on-config-changes": "Reinicia quan es canviï la configuració",
               "set-proxy": {
-                "label": "Definir proxy",
+                "label": "Definir servidor intermediari (proxy)",
                 "prompt": {
-                  "label": "Introduir l'adreça del proxy: (deixar en blanc per deshabilitar)",
+                  "label": "Introduir l'adreça del servidor intermediari: (deixar en blanc per deshabilitar)",
                   "placeholder": "Exemple: SOCKS5://127.0.0.1:9999",
-                  "title": "Definir proxy"
+                  "title": "Definir servidor intermediari (proxy)"
                 }
               },
               "toggle-dev-tools": "Commuta les DevTools"
@@ -144,11 +144,11 @@
               "disabled": "Deshabilitat",
               "enabled-and-hide-app": "Mostra la icona i amaga l'aplicació",
               "enabled-and-show-app": "Mostra la icona i mostra l'aplicació",
-              "play-pause-on-click": "Reproduir/Pausar en clicar"
+              "play-pause-on-click": "Reprodueix / pausa en clicar"
             }
           },
           "visual-tweaks": {
-            "label": "Configuració visual",
+            "label": "Opcions visuals",
             "submenu": {
               "like-buttons": {
                 "default": "Per defecte",
@@ -182,9 +182,9 @@
         "new": "NOU"
       },
       "view": {
-        "label": "Mostra",
+        "label": "Veure",
         "submenu": {
-          "force-reload": "Força recàrrega",
+          "force-reload": "Força la recàrrega",
           "reload": "Recarrega",
           "reset-zoom": "Mida real",
           "toggle-fullscreen": "Commuta la pantalla completa",
@@ -220,7 +220,7 @@
     },
     "album-actions": {
       "description": "Afegeix botons de «no m'agrada / retirar el no m'agrada» i «m'agrada / retirar el m'agrada» per aplicar-ho a totes les cançons en una llista de reproducció o àlbum",
-      "name": "Accions de l'àlbum"
+      "name": "Accions a l'àlbum"
     },
     "album-color-theme": {
       "description": "Aplica un tema dinàmic i efectes visuals basats en la paleta de colors de l'àlbum",
@@ -281,7 +281,7 @@
     },
     "audio-compressor": {
       "description": "Aplica compressió a l'àudio (baixa el volum de les parts més sorolloses de la senyal d'àudio i puja el volum de les parts més fluixes)",
-      "name": "Compressor d'àudio"
+      "name": "Compressió d'àudio"
     },
     "blur-nav-bar": {
       "description": "Desenfoca i aplica transparència a la barra de navegació",
@@ -518,7 +518,7 @@
     },
     "no-google-login": {
       "description": "Elimina els botons d'inici de sessió de Google de la interfície",
-      "name": "Sense inici de sessió de Google"
+      "name": "Amaga l'inici de sessió de Google"
     },
     "notifications": {
       "description": "Mostra una notificació quan una cançó es comença a reproduir (les notificacions interactives estan disponibles a Windows)",
@@ -602,7 +602,7 @@
         }
       },
       "description": "Permet canviar la qualitat del vídeo amb un botó que s'hi mostra a sobre",
-      "name": "Canvia la qualitat del vídeo"
+      "name": "Botó de qualitat del vídeo"
     },
     "scrobbler": {
       "description": "Afegeix suport per scrobbling (Last.fm, ListenBrainz, etc.)",
@@ -657,8 +657,8 @@
       }
     },
     "skip-disliked-songs": {
-      "description": "Omet cançons amb «No m'agrada»",
-      "name": "Omet cançons amb «No m'agrada»"
+      "description": "Salta les cançons amb «no m'agrada»",
+      "name": "Salta les cançons que no t'agraden"
     },
     "skip-silences": {
       "description": "Omet automàticament les seccions amb silenci a les cançons",
@@ -754,7 +754,7 @@
           }
         }
       },
-      "name": "Commutador de vídeo",
+      "name": "Botó de vídeo",
       "templates": {
         "button": "Cançó"
       }

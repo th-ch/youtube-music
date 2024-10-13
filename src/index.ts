@@ -11,6 +11,7 @@ import {
   shell,
   dialog,
   ipcMain,
+  type BrowserWindowConstructorOptions,
 } from 'electron';
 import enhanceWebRequest, {
   BetterSession,
@@ -286,6 +287,23 @@ async function createMainWindow() {
     height: 32,
   };
 
+  const decorations: Partial<BrowserWindowConstructorOptions> = {
+    frame: !is.macOS() && !useInlineMenu,
+    titleBarOverlay: defaultTitleBarOverlayOptions,
+    titleBarStyle: useInlineMenu
+      ? 'hidden'
+      : is.macOS()
+        ? 'hiddenInset'
+        : 'default',
+    autoHideMenuBar: config.get('options.hideMenu'),
+  };
+
+  // Note: on linux, for some weird reason, having these extra properties with 'frame: false' does not work
+  if (is.linux() && useInlineMenu) {
+    delete decorations.titleBarOverlay;
+    delete decorations.titleBarStyle;
+  }
+
   const win = new BrowserWindow({
     icon,
     width: windowSize.width,
@@ -303,14 +321,7 @@ async function createMainWindow() {
             sandbox: false,
           }),
     },
-    frame: !is.macOS() && !useInlineMenu,
-    titleBarOverlay: defaultTitleBarOverlayOptions,
-    titleBarStyle: useInlineMenu
-      ? 'hidden'
-      : is.macOS()
-      ? 'hiddenInset'
-      : 'default',
-    autoHideMenuBar: config.get('options.hideMenu'),
+    ...decorations,
   });
   initHook(win);
   initTheme(win);
@@ -607,6 +618,7 @@ app.whenReady().then(async () => {
           shortcutDetails.target !== appLocation ||
           shortcutDetails.appUserModelId !== appID
         ) {
+          // eslint-disable-next-line @typescript-eslint/only-throw-error
           throw 'needUpdate';
         }
       } catch (error) {
