@@ -1,5 +1,6 @@
 import { jwt } from 'hono/jwt';
 import { OpenAPIHono as Hono } from '@hono/zod-openapi';
+import { cors } from 'hono/cors';
 import { swaggerUI } from '@hono/swagger-ui';
 import { serve } from '@hono/node-server';
 
@@ -41,6 +42,8 @@ export const backend = createBackend<BackendType, APIServerConfig>({
   async init(ctx) {
     const config = await ctx.getConfig();
     this.app = new Hono();
+
+    this.app.use('*', cors());
 
     // middlewares
     this.app.use(
