@@ -279,6 +279,49 @@
       },
       "name": "微光效果"
     },
+    "api-server": {
+      "description": "新增伺服器以使用 API 控制播放器",
+      "dialog": {
+        "request": {
+          "buttons": {
+            "allow": "允許",
+            "deny": "拒絕"
+          },
+          "message": "允許 {{ID}} ({{origin}}) 訪問 API 嗎？",
+          "title": "API 驗證請求"
+        }
+      },
+      "menu": {
+        "auth-strategy": {
+          "label": "驗證策略",
+          "submenu": {
+            "auth-at-first": {
+              "label": "首次請求時驗證"
+            },
+            "none": {
+              "label": "不要驗證"
+            }
+          }
+        },
+        "hostname": {
+          "label": "主機名稱"
+        },
+        "port": {
+          "label": "接口"
+        }
+      },
+      "name": "API 伺服器 [Beta]",
+      "prompt": {
+        "hostname": {
+          "label": "輸入 API 伺服器的主機名稱 例 (0.0.0.0)：",
+          "title": "主機名稱"
+        },
+        "port": {
+          "label": "輸入 API 伺服器接口：",
+          "title": "接口"
+        }
+      }
+    },
     "audio-compressor": {
       "description": "使用音效壓縮 (大聲部份的音量降低, 柔和部份的音量提高)",
       "name": "音效壓縮器"
@@ -300,7 +343,7 @@
       "name": "標題選擇器",
       "prompt": {
         "selector": {
-          "label": "目前標題語言: {{language}}",
+          "label": "目前標題語言：{{language}}",
           "none": "無",
           "title": "選擇標題語言"
         }
@@ -363,7 +406,7 @@
       "name": "Discord 狀態",
       "prompt": {
         "set-inactivity-timeout": {
-          "label": "設定多少秒後清除狀態:",
+          "label": "設定多少秒後清除狀態：",
           "title": "設定閒置狀態時長"
         }
       }
@@ -388,11 +431,11 @@
           }
         },
         "feedback": {
-          "conversion-progress": "轉檔進度: {{percent}}%",
+          "conversion-progress": "轉檔進度：{{percent}}%",
           "converting": "轉檔中…",
-          "done": "完成下載: {{filePath}}",
+          "done": "完成下載：{{filePath}}",
           "download-info": "正在下載 {{artist}} - {{title}} [{{videoId}}",
-          "download-progress": "下載進度: {{percent}}%",
+          "download-progress": "下載進度：{{percent}}%",
           "downloading": "下載中…",
           "downloading-counter": "正在下載第 {{current}}/{{total}}…",
           "downloading-playlist": "正在下載播放清單 \"{{playlistTitle}}\" - 共 {{playlistSize}} 首歌 ({{playlistId}})",
@@ -403,10 +446,10 @@
           "playlist-has-only-one-song": "播放清單內只有一首歌曲, 將直接下載",
           "playlist-id-not-found": "沒有找到播放清單 ID",
           "playlist-is-empty": "播放清單是空的",
-          "playlist-is-mix-or-private": "獲取播放清單資訊時發生錯誤: 請確認非私人播放清單或是\"為你推薦的合輯\"\n\n{{error}}",
+          "playlist-is-mix-or-private": "獲取播放清單資訊時發生錯誤：請確認非私人播放清單或是\"為你推薦的合輯\"\n\n{{error}}",
           "preparing-file": "正在準備檔案…",
           "saving": "儲存中…",
-          "trying-to-get-playlist-id": "正在嘗試獲取播放清單 ID: {{playlistId}}",
+          "trying-to-get-playlist-id": "正在嘗試獲取播放清單 ID：{{playlistId}}",
           "video-id-not-found": "未能找到該影片",
           "writing-id3": "正在寫入 ID3 標籤…"
         }
@@ -582,7 +625,7 @@
             "decrease": "降低音量",
             "increase": "增加音量"
           },
-          "label": "選擇全域音量控制快捷鍵:",
+          "label": "選擇全域音量控制快捷鍵：",
           "title": "全域音量控制快捷鍵"
         },
         "volume-steps": {
@@ -595,8 +638,8 @@
       "backend": {
         "dialog": {
           "quality-changer": {
-            "detail": "目前畫質: {{quality}}",
-            "message": "選擇影片畫質:",
+            "detail": "目前畫質：{{quality}}",
+            "message": "選擇影片畫質：",
             "title": "選擇影片畫質"
           }
         }
@@ -651,7 +694,7 @@
             "play-pause": "播放／暫停",
             "previous": "上一首"
           },
-          "label": "選擇全域音樂控制快捷鍵:",
+          "label": "選擇全域音樂控制快捷鍵：",
           "title": "全域快捷鍵"
         }
       }
@@ -703,7 +746,7 @@
         },
         "show-lyrics-even-if-inexact": {
           "label": "即使不精確依然強制顯示歌詞",
-          "tooltip": "當找不到符合該歌曲的歌詞時，該功能會嘗試不同的搜尋方式\n使用不同的搜尋方式會導致不精確的結果。"
+          "tooltip": "當找不到符合該歌曲的歌詞時，該功能會嘗試不同的搜尋方式。\n使用不同的搜尋方式會導致不精確的結果。"
         },
         "show-time-codes": {
           "label": "顯示時間線",
