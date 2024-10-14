@@ -560,7 +560,11 @@ app.once('browser-window-created', (_event, win) => {
         console.log(log);
       }
 
-      if (errorCode !== -3) {
+      if (
+        errorCode !== -3 &&
+        // Workaround for #2435
+        !new URL(validatedURL).hostname.includes('doubleclick.net')
+      ) {
         // -3 is a false positive
         win.webContents.send('log', log);
         win.webContents.loadFile(ErrorHtmlAsset);
