@@ -319,7 +319,7 @@
     "typescript": "5.6.3",
     "typescript-eslint": "8.8.1",
     "utf-8-validate": "6.0.4",
-    "vite": "5.4.8",
+    "vite": "5.4.9",
     "vite-plugin-inspect": "0.8.7",
     "vite-plugin-resolve": "2.5.2",
     "vite-plugin-solid": "2.10.2",
