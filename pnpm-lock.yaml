@@ -13,6 +13,9 @@ overrides:
   '@babel/runtime': 7.25.7
 
 patchedDependencies:
+  '@malept/flatpak-bundler':
+    hash: vli4xtu6rndz3xtsscixhngsxa
+    path: patches/@malept__flatpak-bundler.patch
   app-builder-lib@24.13.3:
     hash: zcnm2qnjaggm2keyecnhiglkke
     path: patches/app-builder-lib@24.13.3.patch
@@ -5135,7 +5138,7 @@ snapshots:
     dependencies:
       cross-spawn: 7.0.3
 
-  '@malept/flatpak-bundler@0.4.0':
+  '@malept/flatpak-bundler@0.4.0(patch_hash=vli4xtu6rndz3xtsscixhngsxa)':
     dependencies:
       debug: 4.3.7
       fs-extra: 9.1.0
@@ -5618,7 +5621,7 @@ snapshots:
       '@electron/notarize': 2.2.1
       '@electron/osx-sign': 1.0.5
       '@electron/universal': 2.0.1
-      '@malept/flatpak-bundler': 0.4.0
+      '@malept/flatpak-bundler': 0.4.0(patch_hash=vli4xtu6rndz3xtsscixhngsxa)
       '@types/fs-extra': 9.0.13
       async-exit-hook: 2.0.1
       bluebird-lst: 1.0.9
