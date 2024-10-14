@@ -51,6 +51,13 @@ interface YouTubeMusicAppElement extends HTMLElement {
 }
 
 async function onApiLoaded() {
+  // Workaround for #2459
+  document
+    .querySelector('button.video-button.ytmusic-av-toggle')
+    ?.addEventListener('click', () =>
+      window.dispatchEvent(new Event('resize')),
+    );
+
   window.ipcRenderer.on('ytmd:previous-video', () => {
     document
       .querySelector<HTMLElement>('.previous-button.ytmusic-player-bar')
