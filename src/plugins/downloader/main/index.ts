@@ -172,6 +172,8 @@ function downloadSongOnFinishSetup({
   let duration: number | undefined;
   let time = 0;
 
+  const defaultDownloadFolder = app.getPath('downloads');
+
   registerCallback((songInfo: SongInfo) => {
     if (
       !songInfo.isPaused &&
@@ -185,7 +187,9 @@ function downloadSongOnFinishSetup({
         ) {
           downloadSong(
             currentUrl,
-            config.downloadOnFinish.folder ?? config.downloadFolder,
+            config.downloadOnFinish.folder ??
+              config.downloadFolder ??
+              defaultDownloadFolder,
           );
         } else if (
           config.downloadOnFinish.mode === 'percent' &&
@@ -193,7 +197,9 @@ function downloadSongOnFinishSetup({
         ) {
           downloadSong(
             currentUrl,
-            config.downloadOnFinish.folder ?? config.downloadFolder,
+            config.downloadOnFinish.folder ??
+              config.downloadFolder ??
+              defaultDownloadFolder,
           );
         }
       }
