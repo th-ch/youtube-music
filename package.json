@@ -133,8 +133,7 @@
             "armv7l"
           ]
         }
-      ],
-      "compression": "maximum"
+      ]
     },
     "appImage": {
       "description": "YouTube Music Desktop App bundled with custom plugins (and built-in ad blocker / downloader)",
@@ -174,8 +173,7 @@
             "interface": "mpris"
           }
         }
-      ],
-      "compression": "lzo"
+      ]
     },
     "directories": {
       "output": "./pack/"
