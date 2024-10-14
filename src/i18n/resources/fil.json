@@ -201,6 +201,7 @@
       "restart": "I-restart ang App",
       "show": "Ipakita ang window",
       "tooltip": {
+        "default": "YouTube Music",
         "with-song-info": "YouTube Music: {{artist}} - {{title}}"
       }
     }
@@ -212,6 +213,9 @@
     },
     "adblocker": {
       "description": "I-block ang lahat ng ad at tracking",
+      "menu": {
+        "blocker": "Blocker"
+      },
       "name": "Pag-block ng Ad"
     },
     "album-actions": {
@@ -222,7 +226,10 @@
       "description": "Naglalapat ng dynamic na tema at visual effect batay sa color palette ng album",
       "menu": {
         "color-mix-ratio": {
-          "label": "Ratio ng paghahalo ng kulay"
+          "label": "Ratio ng paghahalo ng kulay",
+          "submenu": {
+            "percent": "{{ratio}}%"
+          }
         }
       },
       "name": "Tema ng Kulay ng Album"
@@ -261,12 +268,57 @@
           }
         },
         "smoothness-transition": {
+          "label": "Ayos ng Transisyon",
           "submenu": {
             "during": "Habang {{interpolationTime}} s"
           }
         },
         "use-fullscreen": {
           "label": "Gumamit ng fullscreen"
+        }
+      },
+      "name": "Ambient Mode"
+    },
+    "api-server": {
+      "description": "Nagdadagdag ng API Server upang kontrolin ang player",
+      "dialog": {
+        "request": {
+          "buttons": {
+            "allow": "Payagan",
+            "deny": "Tanggihan"
+          },
+          "message": "Payagan ang {{ID}} ({{origin}}) upang ma-access ang API?",
+          "title": "Awtorisasyon ng API request"
+        }
+      },
+      "menu": {
+        "auth-strategy": {
+          "label": "Estratehiya ng awtorisasyon",
+          "submenu": {
+            "auth-at-first": {
+              "label": "Mag-autorisa sa unang request"
+            },
+            "none": {
+              "label": "Walang awtorisasyon"
+            }
+          }
+        },
+        "hostname": {
+          "label": "Hostname"
+        },
+        "port": {
+          "label": "Port"
+        }
+      },
+      "name": "API Server [Beta]",
+      "prompt": {
+        "hostname": {
+          "label": "Itala ang hostname (tulad ng 0.0.0.0) para sa API server:",
+          "title": "Hostname"
+        },
+        "port": {
+          "label": "Itala ang port para sa API server:",
+          "title": "Port"
         }
       }
     },
@@ -301,7 +353,8 @@
       }
     },
     "compact-sidebar": {
-      "description": "Laging i-set ang sidebar sa compact mode"
+      "description": "Laging i-set ang sidebar sa compact mode",
+      "name": "Pinaliit na Sidebar"
     },
     "crossfade": {
       "description": "I-crossfade kada kanta",
@@ -425,7 +478,8 @@
       }
     },
     "lumiastream": {
-      "description": "Nabibigay suporta sa Lumia Stream"
+      "description": "Nabibigay suporta sa Lumia Stream",
+      "name": "Lumia Stream [Beta]"
     },
     "lyrics-genius": {
       "description": "Nagdaragdag ng suporta sa lyrics para sa karamihan ng kanta",
@@ -582,7 +636,8 @@
         },
         "listenbrainz": {
           "token": {
-            "label": "Ilagay ang ListenBrainz user token:"
+            "label": "Ilagay ang ListenBrainz user token:",
+            "title": "Token ng ListenBrainz"
           }
         }
       }
@@ -696,7 +751,10 @@
       }
     },
     "visualizer": {
-      "description": "Idaragdag ng visualizer sa player"
+      "description": "Idaragdag ng visualizer sa player",
+      "menu": {
+        "visualizer-type": "Uri ng Visualizer"
+      }
     }
   }
 }
