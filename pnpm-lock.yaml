@@ -100,8 +100,8 @@ importers:
         specifier: 7.1.3
         version: 7.1.3
       electron-debug:
-        specifier: 4.0.1
-        version: 4.0.1
+        specifier: 4.1.0
+        version: 4.1.0
       electron-is:
         specifier: 3.0.0
         version: 3.0.0
@@ -2095,8 +2095,8 @@ packages:
     engines: {node: '>=14.0.0'}
     hasBin: true
 
-  electron-debug@4.0.1:
-    resolution: {integrity: sha512-PdUG3SvcK70P05z99PFLUzn0+lPZl5c4quG1bXI7OtPaXxidwh8UONcdRLsr+6J9kf5y1FycJD5nBd80dYrcsA==}
+  electron-debug@4.1.0:
+    resolution: {integrity: sha512-rdbvmotqbaNcSuinPe1tzB5zK+JKal+4LSDbguBcqTLARNqWrGoRS/TkR1gGH4+63boYH3HUaf9r9ECAxgIe9g==}
     engines: {node: '>=18'}
 
   electron-devtools-installer@3.2.0:
@@ -6351,7 +6351,7 @@ snapshots:
       - electron-builder-squirrel-windows
       - supports-color
 
-  electron-debug@4.0.1:
+  electron-debug@4.1.0:
     dependencies:
       electron-is-dev: 3.0.1
       electron-localshortcut: 3.2.1
