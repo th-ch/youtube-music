@@ -2,7 +2,23 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v3.6.1](https://github.com/th-ch/youtube-music/compare/v3.6.0...v3.6.1)
+
+- fix(api-server): Various fixes and improvements [`#2496`](https://github.com/th-ch/youtube-music/pull/2496)
+- fix(deps): update dependency electron-debug to v4.1.0 [`#2499`](https://github.com/th-ch/youtube-music/pull/2499)
+- fix(renderer): fix force like buttons display logic [`#2493`](https://github.com/th-ch/youtube-music/pull/2493)
+- fix(deps): update dependency i18next to v23.16.0 [`#2492`](https://github.com/th-ch/youtube-music/pull/2492)
+- fix(downloader): fix #2371 [`#2371`](https://github.com/th-ch/youtube-music/issues/2371)
+- fix(ytm-bugs): incorrect video ratio [`#2459`](https://github.com/th-ch/youtube-music/issues/2459)
+- fix(api-server): fix init/authentication error [`#2497`](https://github.com/th-ch/youtube-music/issues/2497)
+- fix: RSS feed CORS issue [`#1620`](https://github.com/th-ch/youtube-music/issues/1620)
+- chore(flatpak-builder): Add more details when failing [`d3acb49`](https://github.com/th-ch/youtube-music/commit/d3acb4945a8dcde6598c53d8207bbf16eda8c739)
+- chore(i18n): Translated using Weblate (Filipino) [`e428708`](https://github.com/th-ch/youtube-music/commit/e4287085a11f30d141148ab0432cc684819fd0d0)
+- Bump version to 3.6.1 [`b668730`](https://github.com/th-ch/youtube-music/commit/b6687307dfe7ef765517019093c8db3c2ad14417)
+
 #### [v3.6.0](https://github.com/th-ch/youtube-music/compare/v3.5.3...v3.6.0)
+
+> 13 October 2024
 
 - feat(api-server): remote control api [`#1909`](https://github.com/th-ch/youtube-music/pull/1909)
 - chore(deps): update playwright monorepo to v1.48.0 [`#2489`](https://github.com/th-ch/youtube-music/pull/2489)
