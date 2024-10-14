@@ -746,7 +746,7 @@
         },
         "show-lyrics-even-if-inexact": {
           "label": "Show lyrics even if inexact",
-          "tooltip": "If the song is not found, the plugin tries again with a different search query. The result from the second attempt may not be exact."
+          "tooltip": "If the song is not found, the plugin tries again with a different search query.\nThe result from the second attempt may not be exact."
         },
         "show-time-codes": {
           "label": "Show time codes",
