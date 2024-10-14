@@ -1,7 +1,7 @@
 {
   "name": "youtube-music",
   "productName": "YouTube Music",
-  "version": "3.6.0",
+  "version": "3.6.1",
   "description": "YouTube Music Desktop App - including custom plugins",
   "main": "./dist/main/index.js",
   "license": "MIT",
@@ -40,7 +40,8 @@
           ]
         }
       ],
-      "icon": "assets/generated/icons/mac/icon.icns"
+      "icon": "assets/generated/icons/mac/icon.icns",
+      "compression": "maximum"
     },
     "win": {
       "icon": "assets/generated/icons/win/icon.ico",
@@ -61,7 +62,8 @@
             "arm64"
           ]
         }
-      ]
+      ],
+      "compression": "maximum"
     },
     "nsisWeb": {
       "runAfterFinish": false
@@ -70,12 +72,44 @@
       "icon": "assets/generated/icons/png",
       "category": "AudioVideo",
       "target": [
-        "AppImage",
-        "snap",
-        "freebsd",
-        "deb",
-        "rpm"
-      ]
+        {
+          "target": "AppImage",
+          "description": "YouTube Music Desktop App bundled with custom plugins (and built-in ad blocker / downloader)",
+          "category": "AudioVideo",
+          "arch": ["x64", "ia32", "arm64", "armv7l"]
+        },
+        {
+          "target": "flatpak",
+          "description": "YouTube Music Desktop App bundled with custom plugins (and built-in ad blocker / downloader)",
+          "category": "AudioVideo",
+          "arch": ["x64", "ia32", "arm64", "armv7l"]
+        },
+        {
+          "target": "deb",
+          "arch": ["x64", "ia32", "arm64", "armv7l"]
+        },
+        {
+          "target": "rpm",
+          "arch": ["x64", "arm64"]
+        },
+        {
+          "target": "snap",
+          "arch": ["x64", "ia32", "arm64", "armv7l"]
+        },
+        {
+          "target": "freebsd",
+          "arch": ["x64", "ia32", "arm64", "armv7l"]
+        },
+        {
+          "target": "pacman",
+          "arch": ["x64", "ia32", "arm64", "armv7l"]
+        },
+        {
+          "target": "tar.gz",
+          "arch": ["x64", "ia32", "arm64", "armv7l"]
+        }
+      ],
+      "compression": "maximum"
     },
     "deb": {
       "depends": [
@@ -139,7 +173,7 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "engines": {
-    "node": ">=18.0.0",
+    "node": ">=18",
     "pnpm": ">=8"
   },
   "pnpm": {
