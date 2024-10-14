@@ -107,7 +107,7 @@
       ],
       "compression": "maximum"
     },
-    "AppImage": {
+    "appImage": {
       "description": "YouTube Music Desktop App bundled with custom plugins (and built-in ad blocker / downloader)",
       "category": "AudioVideo"
     },
