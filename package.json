@@ -74,14 +74,10 @@
       "target": [
         {
           "target": "AppImage",
-          "description": "YouTube Music Desktop App bundled with custom plugins (and built-in ad blocker / downloader)",
-          "category": "AudioVideo",
           "arch": ["x64", "ia32", "arm64", "armv7l"]
         },
         {
           "target": "flatpak",
-          "description": "YouTube Music Desktop App bundled with custom plugins (and built-in ad blocker / downloader)",
-          "category": "AudioVideo",
           "arch": ["x64", "ia32", "arm64", "armv7l"]
         },
         {
@@ -110,6 +106,14 @@
         }
       ],
       "compression": "maximum"
+    },
+    "AppImage": {
+      "description": "YouTube Music Desktop App bundled with custom plugins (and built-in ad blocker / downloader)",
+      "category": "AudioVideo"
+    },
+    "flatpak": {
+      "description": "YouTube Music Desktop App bundled with custom plugins (and built-in ad blocker / downloader)",
+      "category": "AudioVideo"
     },
     "deb": {
       "depends": [
