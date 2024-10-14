@@ -67,11 +67,7 @@ jobs:
           sudo flatpak remote-add --if-not-exists --system flathub https://flathub.org/repo/flathub.flatpakrepo
           flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
           sudo flatpak install -y flathub org.freedesktop.Platform/x86_64/20.08
-          sudo flatpak install -y flathub org.freedesktop.Platform/arm/20.08
-          sudo flatpak install -y flathub org.freedesktop.Platform/aarch64/20.08
           flatpak install -y flathub org.freedesktop.Platform/x86_64/20.08
-          flatpak install -y flathub org.freedesktop.Platform/arm/20.08
-          flatpak install -y flathub org.freedesktop.Platform/aarch64/20.08
           pnpm release:linux
 
       - name: Build and release on Windows
