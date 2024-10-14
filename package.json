@@ -107,8 +107,7 @@
             "x64",
             "arm64",
             "armv7l"
-          ],
-          "compression": "lzo"
+          ]
         },
         {
           "target": "freebsd",
@@ -175,7 +174,8 @@
             "interface": "mpris"
           }
         }
-      ]
+      ],
+      "compression": "lzo"
     },
     "directories": {
       "output": "./pack/"
