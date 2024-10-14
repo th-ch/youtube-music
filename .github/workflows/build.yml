@@ -64,6 +64,7 @@ jobs:
           sudo snap install snapcraft --classic
           sudo apt update
           sudo apt install -y flatpak flatpak-builder
+          sudo flatpak remote-add --if-not-exists --system flathub https://flathub.org/repo/flathub.flatpakrepo
           pnpm release:linux
 
       - name: Build and release on Windows
