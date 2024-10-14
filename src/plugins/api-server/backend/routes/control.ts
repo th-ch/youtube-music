@@ -29,9 +29,6 @@ const routes = {
     path: `/api/${API_VERSION}/previous`,
     summary: 'play previous song',
     description: 'Plays the previous song in the queue',
-    request: {
-      headers: AuthHeadersSchema,
-    },
     responses: {
       204: {
         description: 'Success',
@@ -43,9 +40,6 @@ const routes = {
     path: `/api/${API_VERSION}/next`,
     summary: 'play next song',
     description: 'Plays the next song in the queue',
-    request: {
-      headers: AuthHeadersSchema,
-    },
     responses: {
       204: {
         description: 'Success',
@@ -57,9 +51,6 @@ const routes = {
     path: `/api/${API_VERSION}/play`,
     summary: 'Play',
     description: 'Change the state of the player to play',
-    request: {
-      headers: AuthHeadersSchema,
-    },
     responses: {
       204: {
         description: 'Success',
@@ -71,9 +62,6 @@ const routes = {
     path: `/api/${API_VERSION}/pause`,
     summary: 'Pause',
     description: 'Change the state of the player to pause',
-    request: {
-      headers: AuthHeadersSchema,
-    },
     responses: {
       204: {
         description: 'Success',
@@ -86,9 +74,6 @@ const routes = {
     summary: 'Toggle play/pause',
     description:
       'Change the state of the player to play if paused, or pause if playing',
-    request: {
-      headers: AuthHeadersSchema,
-    },
     responses: {
       204: {
         description: 'Success',
@@ -100,9 +85,6 @@ const routes = {
     path: `/api/${API_VERSION}/like`,
     summary: 'like song',
     description: 'Set the current song as liked',
-    request: {
-      headers: AuthHeadersSchema,
-    },
     responses: {
       204: {
         description: 'Success',
@@ -114,9 +96,6 @@ const routes = {
     path: `/api/${API_VERSION}/dislike`,
     summary: 'dislike song',
     description: 'Set the current song as disliked',
-    request: {
-      headers: AuthHeadersSchema,
-    },
     responses: {
       204: {
         description: 'Success',
@@ -175,9 +154,6 @@ const routes = {
     path: `/api/${API_VERSION}/shuffle`,
     summary: 'shuffle',
     description: 'Shuffle the queue',
-    request: {
-      headers: AuthHeadersSchema,
-    },
     responses: {
       204: {
         description: 'Success',
@@ -255,9 +231,6 @@ const routes = {
     path: `/api/${API_VERSION}/toggle-mute`,
     summary: 'toggle mute',
     description: 'Toggle the mute state of the player',
-    request: {
-      headers: AuthHeadersSchema,
-    },
     responses: {
       204: {
         description: 'Success',
@@ -270,9 +243,6 @@ const routes = {
     path: `/api/${API_VERSION}/fullscreen`,
     summary: 'get fullscreen state',
     description: 'Get the current fullscreen state',
-    request: {
-      headers: AuthHeadersSchema,
-    },
     responses: {
       200: {
         description: 'Success',
@@ -291,9 +261,6 @@ const routes = {
     path: `/api/${API_VERSION}/queue-info`,
     summary: 'get current queue info',
     description: 'Get the current queue info',
-    request: {
-      headers: AuthHeadersSchema,
-    },
     responses: {
       200: {
         description: 'Success',
@@ -313,9 +280,6 @@ const routes = {
     path: `/api/${API_VERSION}/song-info`,
     summary: 'get current song info',
     description: 'Get the current song info',
-    request: {
-      headers: AuthHeadersSchema,
-    },
     responses: {
       200: {
         description: 'Success',
