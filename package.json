@@ -74,35 +74,66 @@
       "target": [
         {
           "target": "AppImage",
-          "arch": ["x64", "arm64", "armv7l"]
+          "arch": [
+            "x64",
+            "arm64",
+            "armv7l"
+          ]
         },
         {
           "target": "flatpak",
-          "arch": ["x64", "arm64", "armv7l"]
+          "arch": [
+            "x64",
+            "arm64",
+            "armv7l"
+          ]
         },
         {
           "target": "deb",
-          "arch": ["x64", "arm64", "armv7l"]
+          "arch": [
+            "x64",
+            "arm64",
+            "armv7l"
+          ]
         },
         {
           "target": "rpm",
-          "arch": ["x64", "arm64"]
+          "arch": [
+            "x64",
+            "arm64"
+          ]
         },
         {
           "target": "snap",
-          "arch": ["x64", "arm64", "armv7l"]
+          "arch": [
+            "x64",
+            "arm64",
+            "armv7l"
+          ]
         },
         {
           "target": "freebsd",
-          "arch": ["x64", "arm64", "armv7l"]
+          "arch": [
+            "x64",
+            "arm64",
+            "armv7l"
+          ]
         },
         {
           "target": "pacman",
-          "arch": ["x64", "arm64", "armv7l"]
+          "arch": [
+            "x64",
+            "arm64",
+            "armv7l"
+          ]
         },
         {
           "target": "tar.gz",
-          "arch": ["x64", "arm64", "armv7l"]
+          "arch": [
+            "x64",
+            "arm64",
+            "armv7l"
+          ]
         }
       ],
       "compression": "maximum"
@@ -191,7 +222,8 @@
     },
     "patchedDependencies": {
       "vudio@2.1.1": "patches/vudio@2.1.1.patch",
-      "app-builder-lib@24.13.3": "patches/app-builder-lib@24.13.3.patch"
+      "app-builder-lib@24.13.3": "patches/app-builder-lib@24.13.3.patch",
+      "@malept/flatpak-bundler": "patches/@malept__flatpak-bundler.patch"
     }
   },
   "dependencies": {
