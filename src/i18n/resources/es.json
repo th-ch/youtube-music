@@ -293,6 +293,7 @@
       },
       "menu": {
         "auth-strategy": {
+          "label": "Estrategia de autorización",
           "submenu": {
             "auth-at-first": {
               "label": "Autorizar la primera solicitud"
