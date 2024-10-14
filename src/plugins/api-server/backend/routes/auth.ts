@@ -6,9 +6,9 @@ import { getConnInfo } from '@hono/node-server/conninfo';
 
 import { t } from '@/i18n';
 
-import { APIServerConfig } from '../../config';
-import { JWTPayload } from '../scheme';
+import { type APIServerConfig, AuthStrategy } from '../../config';
 
+import type { JWTPayload } from '../scheme';
 import type { HonoApp } from '../types';
 import type { BackendContext } from '@/types/contexts';
 
@@ -52,7 +52,7 @@ export const register = (
 
     if (config.authorizedClients.includes(id)) {
       // SKIP CHECK
-    } else if (config.authStrategy === 'AUTH_AT_FIRST') {
+    } else if (config.authStrategy === AuthStrategy.AUTH_AT_FIRST) {
       const result = await dialog.showMessageBox({
         title: t('plugins.api-server.dialog.request.title'),
         message: t('plugins.api-server.dialog.request.message', {
@@ -71,7 +71,7 @@ export const register = (
         ctx.status(403);
         return ctx.body(null);
       }
-    } else if (config.authStrategy === 'NONE') {
+    } else if (config.authStrategy === AuthStrategy.NONE) {
       // SKIP CHECK
     }
 

@@ -129,8 +129,8 @@ async function onApiLoaded() {
     }
   };
 
-  window.ipcRenderer.on('ytmd:get-fullscreen', (event) => {
-    event.sender.send('ytmd:set-fullscreen', isFullscreen());
+  window.ipcRenderer.on('ytmd:get-fullscreen', () => {
+    window.ipcRenderer.send('ytmd:set-fullscreen', isFullscreen());
   });
 
   window.ipcRenderer.on(
@@ -148,9 +148,9 @@ async function onApiLoaded() {
       ?.onVolumeTap();
   });
 
-  window.ipcRenderer.on('ytmd:get-queue', (event) => {
+  window.ipcRenderer.on('ytmd:get-queue', () => {
     const queue = document.querySelector<QueueElement>('#queue');
-    event.sender.send('ytmd:get-queue-response', {
+    window.ipcRenderer.send('ytmd:get-queue-response', {
       items: queue?.queue.getItems(),
       autoPlaying: queue?.queue.autoPlaying,
       continuation: queue?.queue.continuation,

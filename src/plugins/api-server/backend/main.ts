@@ -10,14 +10,15 @@ import { createBackend } from '@/utils';
 import { JWTPayloadSchema } from './scheme';
 import { registerAuth, registerControl } from './routes';
 
-import type { APIServerConfig } from '../config';
+import { type APIServerConfig, AuthStrategy } from '../config';
+
 import type { BackendType } from './types';
 
 export const backend = createBackend<BackendType, APIServerConfig>({
   async start(ctx) {
     const config = await ctx.getConfig();
 
-    this.init(ctx);
+    await this.init(ctx);
     registerCallback((songInfo) => {
       this.songInfo = songInfo;
     });
@@ -49,17 +50,20 @@ export const backend = createBackend<BackendType, APIServerConfig>({
     this.app.use('*', cors());
 
     // middlewares
-    this.app.use(
-      '/api/*',
-      jwt({
-        secret: config.secret,
-      }),
-    );
+    this.app.use('/api/*', async (ctx, next) => {
+      if (config.authStrategy !== AuthStrategy.NONE) {
+        return await jwt({
+          secret: config.secret,
+        })(ctx, next);
+      }
+      await next();
+    });
     this.app.use('/api/*', async (ctx, next) => {
       const result = await JWTPayloadSchema.spa(await ctx.get('jwtPayload'));
 
       const isAuthorized =
-        result.success && config.authorizedClients.includes(result.data.id);
+        config.authStrategy === AuthStrategy.NONE ||
+        (result.success && config.authorizedClients.includes(result.data.id));
       if (!isAuthorized) {
         ctx.status(401);
         return ctx.body('Unauthorized');
