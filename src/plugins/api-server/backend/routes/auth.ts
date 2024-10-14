@@ -18,6 +18,7 @@ const routes = {
     path: '/auth/{id}',
     summary: '',
     description: '',
+    security: [],
     request: {
       params: z.object({
         id: z.string(),
@@ -56,11 +57,11 @@ export const register = (
         title: t('plugins.api-server.dialog.request.title'),
         message: t('plugins.api-server.dialog.request.message', {
           origin: getConnInfo(ctx).remote.address,
-          id,
+          ID: id,
         }),
         buttons: [
           t('plugins.api-server.dialog.request.buttons.allow'),
-          t('plugins.api-server.dialog.request.deny'),
+          t('plugins.api-server.dialog.request.buttons.deny'),
         ],
         defaultId: 1,
         cancelId: 1,

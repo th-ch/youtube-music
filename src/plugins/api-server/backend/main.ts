@@ -73,12 +73,26 @@ export const backend = createBackend<BackendType, APIServerConfig>({
     registerAuth(this.app, ctx);
 
     // swagger
+    this.app.openAPIRegistry.registerComponent(
+      'securitySchemes',
+      'bearerAuth',
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+      },
+    );
     this.app.doc('/doc', {
       openapi: '3.1.0',
       info: {
         version: '1.0.0',
         title: 'Youtube Music API Server',
       },
+      security: [
+        {
+          bearerAuth: [],
+        },
+      ],
     });
 
     this.app.get('/swagger', swaggerUI({ url: '/doc' }));
