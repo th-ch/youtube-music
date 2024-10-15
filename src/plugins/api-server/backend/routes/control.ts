@@ -309,8 +309,8 @@ export const register = (
     ctx.status(204);
     return ctx.body(null);
   });
-  app.openapi(routes.previous, (ctx) => {
-    controller.previous();
+  app.openapi(routes.next, (ctx) => {
+    controller.next();
 
     ctx.status(204);
     return ctx.body(null);
