@@ -279,6 +279,49 @@
       },
       "name": "Umhverfishamur"
     },
+    "api-server": {
+      "description": "Bætir API netþjóni til að stjórna spilaranum",
+      "dialog": {
+        "request": {
+          "buttons": {
+            "allow": "Leyfa",
+            "deny": "Óleyfa"
+          },
+          "message": "Leyfa {{ID}} ({{origin}}) að aðganga API-ið?",
+          "title": "API heimildarbeiðni"
+        }
+      },
+      "menu": {
+        "auth-strategy": {
+          "label": "Heimildarstefna",
+          "submenu": {
+            "auth-at-first": {
+              "label": "Heimila á fyrst beiðni"
+            },
+            "none": {
+              "label": "Nei heimild"
+            }
+          }
+        },
+        "hostname": {
+          "label": "Hýsitölvunafn"
+        },
+        "port": {
+          "label": "Tengi"
+        }
+      },
+      "name": "API-Netþjónn [Beta]",
+      "prompt": {
+        "hostname": {
+          "label": "Sláðu inn hýsitölvunafnið (eins og 0.0.0.0) fyrir API-netþjónninn:",
+          "title": "Hýsitölvunafn"
+        },
+        "port": {
+          "label": "Sláðu inn tengið fyrir API-netþjónninn:",
+          "title": "Tengi"
+        }
+      }
+    },
     "audio-compressor": {
       "description": "Notaðu þjöppun á hljóð (lækkar hljóðstyrk háværustu hluta merkis og hækkar hljóðstyrk í mýkstu hlutunum)",
       "name": "Hljóðþjöppu"
@@ -670,7 +713,34 @@
     },
     "synced-lyrics": {
       "description": "Veitir samstillta texta við lög, með því að nota veitur eins og LRClib.",
-      "name": "Samstilltur texti"
+      "errors": {
+        "not-found": "⚠️ - Enginn texti fannst við þetta lag."
+      },
+      "menu": {
+        "line-effect": {
+          "label": "Línuafleiðing",
+          "submenu": {
+            "focus": {
+              "label": "Brennidepill",
+              "tooltip": "Gerðu aðeins núverandi línu hvíta"
+            },
+            "offset": {
+              "label": "Fararbyrjun"
+            },
+            "scale": {
+              "label": "Skali",
+              "tooltip": "Skala núverandi línu"
+            }
+          }
+        },
+        "show-time-codes": {
+          "label": "Sýna tímikóðar"
+        }
+      },
+      "name": "Samstilltur texti",
+      "warnings": {
+        "instrumental": "⚠️ - Þetta er hljóðfærilegt lag"
+      }
     },
     "taskbar-mediacontrol": {
       "description": "Stjórnaðu spilun frá Windows verkefnastikunni þinni",
