@@ -202,7 +202,7 @@
       "show": "Tampilkan jendela",
       "tooltip": {
         "default": "YouTube Musik",
-        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
+        "with-song-info": "YouTube Musik: {{artist}} - {{title}}"
       }
     }
   },
@@ -278,6 +278,49 @@
         }
       },
       "name": "Mode ambient"
+    },
+    "api-server": {
+      "description": "Menambahkan server API untuk mengontrol pemutar",
+      "dialog": {
+        "request": {
+          "buttons": {
+            "allow": "Izinkan",
+            "deny": "Menolak"
+          },
+          "message": "Izinkan {{ID}} ({{origin}}) untuk mengakses API?",
+          "title": "Permintaan otorisasi API"
+        }
+      },
+      "menu": {
+        "auth-strategy": {
+          "label": "Strategi otorisasi",
+          "submenu": {
+            "auth-at-first": {
+              "label": "Otorisasi pada permintaan pertama"
+            },
+            "none": {
+              "label": "Tidak ada otorisasi"
+            }
+          }
+        },
+        "hostname": {
+          "label": "Nama host"
+        },
+        "port": {
+          "label": "Port"
+        }
+      },
+      "name": "API Server [Beta]",
+      "prompt": {
+        "hostname": {
+          "label": "Masukkan nama host (seperti 0.0.0.0) untuk server API:",
+          "title": "Nama host"
+        },
+        "port": {
+          "label": "Masukkan port untuk server API:",
+          "title": "Port"
+        }
+      }
     },
     "audio-compressor": {
       "description": "Menerapkan kompresi pada audio (mengurangi volume pada bagian paling keras dari sinyal dan meningkatkan volume pada bagian paling lembut)",
