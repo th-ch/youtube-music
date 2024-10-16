@@ -10,7 +10,7 @@ export const onRendererLoad = ({
   ipc: { invoke, on },
 }: RendererContext<LyricsGeniusPluginConfig>) => {
   const setLyrics = (lyricsContainer: Element, lyrics: string | null) => {
-    lyricsContainer.innerHTML = `
+    const targetHtml = `
       <div id="contents" class="style-scope ytmusic-section-list-renderer description ytmusic-description-shelf-renderer genius-lyrics">
         ${
           lyrics?.replaceAll(/\r\n|\r|\n/g, '<br/>') ??
@@ -20,6 +20,7 @@ export const onRendererLoad = ({
       <yt-formatted-string class="footer style-scope ytmusic-description-shelf-renderer" style="align-self: baseline">
       </yt-formatted-string>
     `;
+    lyricsContainer.innerHTML = window.trustedTypes?.defaultPolicy ? window.trustedTypes.defaultPolicy.createHTML(targetHtml) : targetHtml;
 
     if (lyrics) {
       const footer = lyricsContainer.querySelector('.footer');

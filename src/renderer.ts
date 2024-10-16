@@ -269,7 +269,8 @@ const defineYTMDTransElements = () => {
     const that = this as HTMLElement;
     const key = that.getAttribute('key');
     if (key) {
-      that.innerHTML = i18t(key);
+      const targetHtml = i18t(key);
+      that.innerHTML = window.trustedTypes?.defaultPolicy ? window.trustedTypes.defaultPolicy.createHTML(targetHtml) : targetHtml;
     }
   };
   customElements.define(

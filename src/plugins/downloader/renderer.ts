@@ -107,7 +107,8 @@ export const onRendererLoad = ({
 
   ipc.on('downloader-feedback', (feedback: string) => {
     if (progress) {
-      progress.innerHTML = feedback || t('plugins.downloader.templates.button');
+      const targetHtml = feedback || t('plugins.downloader.templates.button');
+      progress.innerHTML = window.trustedTypes?.defaultPolicy ? window.trustedTypes.defaultPolicy.createHTML(targetHtml) : targetHtml;
     } else {
       console.warn(
         LoggerPrefix,

@@ -22,7 +22,8 @@ const updatePlayBackSpeed = () => {
 
   const playbackSpeedElement = document.querySelector('#playback-speed-value');
   if (playbackSpeedElement) {
-    playbackSpeedElement.innerHTML = String(playbackSpeed);
+    const targetHtml = String(playbackSpeed);
+    playbackSpeedElement.innerHTML = window.trustedTypes?.defaultPolicy ? trustedTypes.defaultPolicy.createHTML(targetHtml) : targetHtml;
   }
 };
 

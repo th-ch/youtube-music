@@ -6,7 +6,7 @@
 export const ElementFromHtml = (html: string): HTMLElement => {
   const template = document.createElement('template');
   html = html.trim(); // Never return a text node of whitespace as the result
-  template.innerHTML = html;
+  template.innerHTML = window.trustedTypes?.defaultPolicy ? window.trustedTypes.defaultPolicy.createHTML(html) : html;
 
   return template.content.firstElementChild as HTMLElement;
 };
