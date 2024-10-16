@@ -279,6 +279,49 @@
       },
       "name": "Modalità Ambiente"
     },
+    "api-server": {
+      "description": "Aggiunge un server API per controllare il player",
+      "dialog": {
+        "request": {
+          "buttons": {
+            "allow": "Permetti",
+            "deny": "Nega"
+          },
+          "message": "Consentire a {{ID}} ({{origin}}) di accedere all'API?",
+          "title": "Autorizzazione API richiesta"
+        }
+      },
+      "menu": {
+        "auth-strategy": {
+          "label": "Metodo di autorizzazione",
+          "submenu": {
+            "auth-at-first": {
+              "label": "Autorizza alla prima richiesta"
+            },
+            "none": {
+              "label": "Nessuna autorizzazione"
+            }
+          }
+        },
+        "hostname": {
+          "label": "Hostname"
+        },
+        "port": {
+          "label": "Porta"
+        }
+      },
+      "name": "API Server [Beta]",
+      "prompt": {
+        "hostname": {
+          "label": "Inserisci il nome host (ad esempio 0.0.0.0) per il server API:",
+          "title": "Hostname"
+        },
+        "port": {
+          "label": "Inserisci la porta per il server API:",
+          "title": "Porta"
+        }
+      }
+    },
     "audio-compressor": {
       "description": "Attiva la compressione audio (abbassa il volume delle parti più alte e alza quello delle parti più basse del segnale)",
       "name": "Compressore audio"
