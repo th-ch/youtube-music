@@ -2,7 +2,23 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v3.6.2](https://github.com/th-ch/youtube-music/compare/v3.6.1...v3.6.2)
+
+- fix(deps): update dependency serve to v14.2.4 [`#2515`](https://github.com/th-ch/youtube-music/pull/2515)
+- fix(deps): update dependency hono to v4.6.5 [`#2509`](https://github.com/th-ch/youtube-music/pull/2509)
+- chore(deps): update dependency vite to v5.4.9 [`#2500`](https://github.com/th-ch/youtube-music/pull/2500)
+- fix(api-server): properly implement next api call [`#2505`](https://github.com/th-ch/youtube-music/pull/2505)
+- chore(deps): update dependency electron to v33 [`#2507`](https://github.com/th-ch/youtube-music/pull/2507)
+- chore(deps): update dependency typescript-eslint to v8.9.0 [`#2503`](https://github.com/th-ch/youtube-music/pull/2503)
+- chore(deps): update dependency discord-api-types to v0.37.102 [`#2501`](https://github.com/th-ch/youtube-music/pull/2501)
+- fix: trustedTypes issue [`#2339`](https://github.com/th-ch/youtube-music/issues/2339)
+- chore(i18n): Translated using Weblate (Icelandic) [`5f79b7e`](https://github.com/th-ch/youtube-music/commit/5f79b7e788c47b0a27a4967c9f3a9e20b483cd75)
+- chore(i18n): Translated using Weblate (Chinese (Traditional Han script)) [`12d6939`](https://github.com/th-ch/youtube-music/commit/12d693921e26a5c54015673a404e005d1a7175a4)
+- chore(i18n): Translated using Weblate (Ukrainian) [`836cedb`](https://github.com/th-ch/youtube-music/commit/836cedb0f317b74bf2fc3ec2d1aa865719f46ec0)
+
 #### [v3.6.1](https://github.com/th-ch/youtube-music/compare/v3.6.0...v3.6.1)
+
+> 14 October 2024
 
 - fix(api-server): Various fixes and improvements [`#2496`](https://github.com/th-ch/youtube-music/pull/2496)
 - fix(deps): update dependency electron-debug to v4.1.0 [`#2499`](https://github.com/th-ch/youtube-music/pull/2499)
