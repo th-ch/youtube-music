@@ -14,9 +14,9 @@
     }
   },
   "language": {
-    "code": "fa",
+    "code": "فا",
     "local-name": "فارسی",
-    "name": "Persian"
+    "name": "فارسی"
   },
   "main": {
     "console": {
@@ -197,7 +197,7 @@
       "next": "بعدی",
       "play-pause": "پخش/توقف",
       "previous": "قبلی",
-      "quit": "خروجی",
+      "quit": "خروج",
       "restart": "راه‌اندازی مجدد برنامه",
       "show": "نمایش پنجره",
       "tooltip": {
@@ -226,7 +226,10 @@
       "description": "اعمال یک تم پویا و جلوه‌های بصری بر اساس پالت رنگ آلبوم",
       "menu": {
         "color-mix-ratio": {
-          "label": "نسبت ترکیب رنگ"
+          "label": "نسبت ترکیب رنگ",
+          "submenu": {
+            "percent": "{{ratio}}%"
+          }
         }
       },
       "name": "تم رنگ آلبوم"
@@ -241,7 +244,10 @@
           }
         },
         "buffer": {
-          "label": "بافر"
+          "label": "بافر",
+          "submenu": {
+            "buffer": "{{buffer}}"
+          }
         },
         "opacity": {
           "label": "شفافیت"
@@ -266,6 +272,49 @@
         }
       },
       "name": "حالت محیطی"
+    },
+    "api-server": {
+      "description": "افزودن یک سرور API برای کنترل پخش‌کننده",
+      "dialog": {
+        "request": {
+          "buttons": {
+            "allow": "اجازه",
+            "deny": "رد کردن"
+          },
+          "message": "اجازه دادن به {{ID}} ({{origin}}) برای دسترسی به API؟",
+          "title": "درخواست مجوز API"
+        }
+      },
+      "menu": {
+        "auth-strategy": {
+          "label": "استراتژی مجوز",
+          "submenu": {
+            "auth-at-first": {
+              "label": "مجوز در اولین درخواست"
+            },
+            "none": {
+              "label": "بدون نیاز به مجوز"
+            }
+          }
+        },
+        "hostname": {
+          "label": "نام میزبان"
+        },
+        "port": {
+          "label": "پورت"
+        }
+      },
+      "name": "سرور API [بتا]",
+      "prompt": {
+        "hostname": {
+          "label": "نام میزبان را برای سرور API وارد کنید (مثل 0.0.0.0):",
+          "title": "نام میزبان"
+        },
+        "port": {
+          "label": "پورت را برای سرور API وارد کنید:",
+          "title": "پورت"
+        }
+      }
     },
     "audio-compressor": {
       "description": "اعمال فشرده‌سازی به صدا (کاهش حجم بلندترین بخش‌های سیگنال و افزایش حجم بخش‌های نرم‌تر)",
@@ -389,8 +438,147 @@
           "getting-playlist-info": "در حال دریافت اطلاعات فهرست پخش…",
           "loading": "در حال بارگذاری…",
           "playlist-has-only-one-song": "فهرست پخش فقط یک آیتم دارد، به طور مستقیم دانلود می‌شود",
-          "playlist-id-not-found": "شناسه فهرست پخش یافت نشد"
+          "playlist-id-not-found": "شناسه فهرست پخش یافت نشد",
+          "playlist-is-empty": "فهرست پخش خالی است",
+          "playlist-is-mix-or-private": "خطا در دریافت اطلاعات فهرست پخش: اطمینان حاصل کنید که فهرست پخش خصوصی یا \"مختص شما\" نباشد\n\n{{error}}",
+          "preparing-file": "در حال آماده‌سازی فایل…",
+          "saving": "در حال ذخیره‌سازی…",
+          "trying-to-get-playlist-id": "تلاش برای دریافت شناسه فهرست پخش: {{playlistId}}",
+          "video-id-not-found": "ویدئو یافت نشد",
+          "writing-id3": "در حال نوشتن تگ‌های ID3…"
         }
+      },
+      "description": "دانلود MP3 / صدای منبع به طور مستقیم از رابط",
+      "menu": {
+        "choose-download-folder": "انتخاب پوشه دانلود",
+        "download-finish-settings": {
+          "label": "دانلود پس از پایان",
+          "prompt": {
+            "last-percent": "پس از x درصد",
+            "last-seconds": "آخرین x ثانیه",
+            "title": "پیکربندی زمان دانلود"
+          },
+          "submenu": {
+            "advanced": "پیشرفته",
+            "enabled": "فعال",
+            "mode": "حالت زمان",
+            "percent": "درصد",
+            "seconds": "ثانیه"
+          }
+        },
+        "download-playlist": "دانلود فهرست پخش",
+        "presets": "پیش‌تنظیم‌ها",
+        "skip-existing": "رد کردن فایل‌های موجود"
+      },
+      "name": "دانلودر",
+      "renderer": {
+        "can-not-update-progress": "امکان به‌روزرسانی پیشرفت نیست"
+      },
+      "templates": {
+        "button": "دانلود"
+      }
+    },
+    "exponential-volume": {
+      "description": "نوار لغزنده حجم را به صورت نمایی می‌سازد تا انتخاب حجم‌های پایین‌تر آسان‌تر شود.",
+      "name": "حجم نمایی"
+    },
+    "in-app-menu": {
+      "description": "منوها را به صورت جذاب، تاریک یا با رنگ آلبوم نمایش می‌دهد",
+      "menu": {
+        "hide-dom-window-controls": "کنترل‌های پنجره DOM را مخفی کن"
+      },
+      "name": "منوی داخل برنامه"
+    },
+    "lumiastream": {
+      "description": "افزودن پشتیبانی از Lumia Stream",
+      "name": "Lumia Stream [بتا]"
+    },
+    "lyrics-genius": {
+      "description": "افزودن پشتیبانی از متن آهنگ برای بیشتر آهنگ‌ها",
+      "menu": {
+        "romanized-lyrics": "متن رومی‌شده"
+      },
+      "name": "متن آهنگ Genius",
+      "renderer": {
+        "fetched-lyrics": "متن آهنگ از Genius بازیابی شد"
+      }
+    },
+    "music-together": {
+      "description": "اشتراک‌گذاری فهرست پخش با دیگران. وقتی میزبان آهنگی را پخش می‌کند، همه بقیه همان آهنگ را می‌شنوند",
+      "dialog": {
+        "enter-host": "شناسه میزبان را وارد کنید"
+      },
+      "internal": {
+        "save": "ذخیره",
+        "track-source": "منبع آهنگ",
+        "unknown-user": "کاربر ناشناس"
+      },
+      "menu": {
+        "click-to-copy-id": "کپی کردن شناسه میزبان",
+        "close": "بستن Music Together",
+        "connected-users": "کاربران متصل",
+        "disconnect": "قطع اتصال Music Together",
+        "empty-user": "هیچ کاربر متصلی وجود ندارد",
+        "host": "میزبان Music Together",
+        "join": "پیوستن به Music Together",
+        "permission": {
+          "all": "اجازه دادن به مهمانان برای کنترل فهرست پخش و پخش‌کننده",
+          "host-only": "فقط میزبان می‌تواند فهرست پخش و پخش‌کننده را کنترل کند",
+          "playlist": "اجازه دادن به مهمانان برای کنترل فهرست پخش"
+        },
+        "set-permission": "تغییر مجوز کنترل",
+        "status": {
+          "disconnected": "قطع اتصال",
+          "guest": "متصل به عنوان مهمان",
+          "host": "متصل به عنوان میزبان"
+        }
+      },
+      "name": "Music Together [بتا]",
+      "toast": {
+        "add-song-failed": "افزودن آهنگ با شکست مواجه شد",
+        "closed": "Music Together بسته شد",
+        "disconnected": "قطع اتصال Music Together",
+        "host-failed": "میزبانی Music Together با شکست مواجه شد",
+        "id-copied": "شناسه میزبان به کلیپ‌بورد کپی شد",
+        "id-copy-failed": "کپی شناسه میزبان به کلیپ‌بورد با شکست مواجه شد",
+        "join-failed": "پیوستن به Music Together با شکست مواجه شد",
+        "joined": "به Music Together پیوست",
+        "permission-changed": "مجوز Music Together به \"{{permission}}\" تغییر یافت",
+        "remove-song-failed": "حذف آهنگ با شکست مواجه شد",
+        "user-connected": "{{name}} به Music Together پیوست",
+        "user-disconnected": "{{name}} Music Together را ترک کرد"
+      }
+    },
+    "navigation": {
+      "description": "بعدی/قبلی به طور مستقیم در رابط یکپارچه شده‌اند، مانند مرورگر مورد علاقه شما",
+      "name": "ناوبری"
+    },
+    "no-google-login": {
+      "description": "حذف دکمه‌های ورود به سیستم Google و لینک‌ها از رابط",
+      "name": "بدون ورود به Google"
+    },
+    "notifications": {
+      "description": "نمایش اعلان هنگامی که آهنگی شروع به پخش می‌کند (اعلان‌های تعاملی در ویندوز در دسترس هستند)",
+      "menu": {
+        "interactive": "اعلان‌های تعاملی",
+        "interactive-settings": {
+          "label": "تنظیمات تعاملی",
+          "submenu": {
+            "hide-button-text": "مخفی کردن متن دکمه",
+            "refresh-on-play-pause": "تازه‌سازی در پخش/توقف",
+            "tray-controls": "باز/بسته شدن با کلیک روی سینی"
+          }
+        },
+        "priority": "اولویت اعلان",
+        "toast-style": "سبک Toast",
+        "unpause-notification": "نمایش اعلان هنگام از سرگیری پخش"
+      },
+      "name": "اعلان‌ها"
+    },
+    "picture-in-picture": {
+      "description": "اجازه می‌دهد تا برنامه به حالت تصویر در تصویر تغییر کند",
+      "menu": {
+        "always-on-top": "همیشه در بالا"
       }
     }
   }
