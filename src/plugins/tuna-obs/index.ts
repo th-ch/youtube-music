@@ -68,11 +68,13 @@ export default createPlugin({
           })
           .catch((error: { code: number; errno: number }) => {
             if (!this.liteMode && is.dev()) {
-              console.debug(
-                `Error: '${
-                  error.code || error.errno
-                }' - when trying to access obs-tuna webserver at port ${port}. enable lite mode`,
-              );
+              if (is.dev()) {
+                console.debug(
+                  `Error: '${
+                    error.code || error.errno
+                  }' - when trying to access obs-tuna webserver at port ${port}. enable lite mode`,
+                );
+              }
               this.liteMode = true;
             }
           });
