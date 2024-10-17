@@ -39,7 +39,7 @@
         "clearing-cache-after-20s": "正在清理应用缓存"
       },
       "window": {
-        "tried-to-render-offscreen": "窗口试图于屏幕外绘制, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
+        "tried-to-render-offscreen": "窗口试图于屏幕外绘制，窗口大小={{windowSize}}，显示尺寸={{displaySize}}，位置={{position}}"
       }
     },
     "dialog": {
@@ -279,6 +279,49 @@
       },
       "name": "沉浸模式"
     },
+    "api-server": {
+      "description": "添加一个 API 服务器来控制播放器",
+      "dialog": {
+        "request": {
+          "buttons": {
+            "allow": "允许",
+            "deny": "拒绝"
+          },
+          "message": "允许 {{ID}} {{origin}} 访问该 API 吗？",
+          "title": "API 授权请求"
+        }
+      },
+      "menu": {
+        "auth-strategy": {
+          "label": "授权策略",
+          "submenu": {
+            "auth-at-first": {
+              "label": "首次请求时授权"
+            },
+            "none": {
+              "label": "无需授权"
+            }
+          }
+        },
+        "hostname": {
+          "label": "主机名"
+        },
+        "port": {
+          "label": "端口号"
+        }
+      },
+      "name": "API 服务器 [测试]",
+      "prompt": {
+        "hostname": {
+          "label": "请输入 API 服务器的主机名（如 0.0.0.0）：",
+          "title": "主机名"
+        },
+        "port": {
+          "label": "请输入 API 服务器的端口号：",
+          "title": "端口号"
+        }
+      }
+    },
     "audio-compressor": {
       "description": "对音频应用压缩（压低响亮部分，提升柔和部分）",
       "name": "音频压缩器"
@@ -459,11 +502,11 @@
     "lyrics-genius": {
       "description": "为大多数歌曲添加歌词支持",
       "menu": {
-        "romanized-lyrics": "罗马化字幕"
+        "romanized-lyrics": "罗马化歌词"
       },
       "name": "Genius 歌词",
       "renderer": {
-        "fetched-lyrics": "已从 Genius 获取字幕"
+        "fetched-lyrics": "已从 Genius 获取歌词"
       }
     },
     "music-together": {
@@ -478,12 +521,12 @@
       },
       "menu": {
         "click-to-copy-id": "复制发起者 ID",
-        "close": "关闭 Music Together",
+        "close": "关闭一起听",
         "connected-users": "已连接用户",
-        "disconnect": "断开 Music Together 连接",
+        "disconnect": "断开一起听连接",
         "empty-user": "没有已连接的用户",
-        "host": "Music Together 发起者",
-        "join": "加入 Music Together",
+        "host": "一起听发起者",
+        "join": "加入一起听",
         "permission": {
           "all": "允许来宾控制播放列表与播放器",
           "host-only": "仅发起人可以控制播放列表与播放器",
@@ -496,20 +539,20 @@
           "host": "已作为发起人连接"
         }
       },
-      "name": "Music Together [测试]",
+      "name": "一起听 [测试]",
       "toast": {
         "add-song-failed": "添加歌曲失败",
-        "closed": "Music Together 已关闭",
-        "disconnected": "Music Together 已断开连接",
-        "host-failed": "发起 Music Together 失败",
+        "closed": "一起听已关闭",
+        "disconnected": "一起听已断开连接",
+        "host-failed": "发起一起听失败",
         "id-copied": "已将发起者 ID 复制到剪切板",
         "id-copy-failed": "复制发起者 ID 到剪贴板时失败",
-        "join-failed": "加入 Music Together 失败",
-        "joined": "已加入 Music Together",
-        "permission-changed": "Music Together 权限已改为 \"{{permission}}\"",
+        "join-failed": "加入一起听失败",
+        "joined": "已加入一起听",
+        "permission-changed": "一起听权限已改为 \"{{permission}}\"",
         "remove-song-failed": "移除歌曲失败",
-        "user-connected": "{{name}} 加入了 Music Together",
-        "user-disconnected": "{{name}} 离开了 Music Together"
+        "user-connected": "{{name}} 加入了一起听",
+        "user-disconnected": "{{name}} 离开了一起听"
       }
     },
     "navigation": {
@@ -631,7 +674,7 @@
         },
         "listenbrainz": {
           "token": {
-            "label": "输入您的v ListenBrainz 用户令牌：",
+            "label": "输入您的 ListenBrainz 用户令牌：",
             "title": "ListenBrainz 令牌"
           }
         }
