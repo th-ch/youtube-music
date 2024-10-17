@@ -16,6 +16,7 @@ interface Data {
   progress: number;
   status: string;
   title: string;
+  url: string;
 }
 
 export default createPlugin({
@@ -37,6 +38,7 @@ export default createPlugin({
       duration: 0,
       album_url: '',
       album: undefined,
+      url: '',
     } as Data,
     start({ ipc }) {
       const secToMilisec = (t: number) => Math.round(Number(t) * 1e3);
@@ -104,6 +106,7 @@ export default createPlugin({
         this.data.artists = [songInfo.artist];
         this.data.status = songInfo.isPaused ? 'stopped' : 'playing';
         this.data.album = songInfo.album;
+        this.data.url = songInfo.url ?? '';
         post(this.data);
       });
     },
