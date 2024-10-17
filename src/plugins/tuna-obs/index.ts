@@ -67,7 +67,7 @@ export default createPlugin({
             }
           })
           .catch((error: { code: number; errno: number }) => {
-            if (!this.liteMode && is.dev()) {
+            if (!this.liteMode) {
               if (is.dev()) {
                 console.debug(
                   `Error: '${
