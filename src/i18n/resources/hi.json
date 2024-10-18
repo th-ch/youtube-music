@@ -1,1 +1,9 @@
-{}
+{
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "{{pluginName}}::{{contextName}} प्लगइन निष्पादित करने में विफल"
+      }
+    }
+  }
+}
