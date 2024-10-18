@@ -714,9 +714,14 @@
     "synced-lyrics": {
       "description": "Veitir samstillta texta við lög, með því að nota veitur eins og LRClib.",
       "errors": {
+        "fetch": "⚠️ - Villa kom upp við að sækja textann. Vinsamlegast reyndu aftur síðar.",
         "not-found": "⚠️ - Enginn texti fannst við þetta lag."
       },
       "menu": {
+        "default-text-string": {
+          "label": "Sjálfgefið tákn á milli texta",
+          "tooltip": "Veldu sjálfgefna tákn til að nota fyrir bilið á milli texta"
+        },
         "line-effect": {
           "label": "Línuafleiðing",
           "submenu": {
@@ -725,20 +730,37 @@
               "tooltip": "Gerðu aðeins núverandi línu hvíta"
             },
             "offset": {
-              "label": "Fararbyrjun"
+              "label": "Fararbyrjun",
+              "tooltip": "Fararbyrjun á hægri af núverandi línan"
             },
             "scale": {
               "label": "Skali",
               "tooltip": "Skala núverandi línu"
             }
-          }
+          },
+          "tooltip": "Veldu áhrif til að nota á núverandi línu"
+        },
+        "precise-timing": {
+          "label": "Gera textana fullkomlega samstillta",
+          "tooltip": "Reikna upp á millisekúndu birtingu næstu línu (getur haft lítil áhrif á frammistöðu)"
+        },
+        "show-lyrics-even-if-inexact": {
+          "label": "Sýna texta, jafnvel þótt hann sé ónákvæmur",
+          "tooltip": "Ef lagið finnst ekki reynir tengiforritið aftur með annarri leitarfyrirspurn.\nNiðurstaðan úr annarri tilraun er kannski ekki nákvæm."
         },
         "show-time-codes": {
-          "label": "Sýna tímikóðar"
+          "label": "Sýna tímikóðar",
+          "tooltip": "Sýna tímakóðana við hliðina á textanum"
         }
       },
       "name": "Samstilltur texti",
+      "refetch-btn": {
+        "fetching": "Er að sækja",
+        "normal": "Endursækja texta"
+      },
       "warnings": {
+        "duration-mismatch": "⚠️ - Textarnir gætu verið ekki samstilltir vegna tímalengdar.",
+        "inexact": "⚠️ - Textinn við þetta lag er kannski ekki nákvæmur",
         "instrumental": "⚠️ - Þetta er hljóðfærilegt lag"
       }
     },
