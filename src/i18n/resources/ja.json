@@ -279,6 +279,49 @@
       },
       "name": "アンビエント モード"
     },
+    "api-server": {
+      "description": "プレイヤーを制御するAPIサーバーを追加",
+      "dialog": {
+        "request": {
+          "buttons": {
+            "allow": "許可",
+            "deny": "拒否"
+          },
+          "message": "{{ID}}が{{origin}}にアクセスすることを許可しますか？",
+          "title": "API承認リクエスト"
+        }
+      },
+      "menu": {
+        "auth-strategy": {
+          "label": "許可方法",
+          "submenu": {
+            "auth-at-first": {
+              "label": "初回リクエスト時に承認"
+            },
+            "none": {
+              "label": "不許可"
+            }
+          }
+        },
+        "hostname": {
+          "label": "ホスト名"
+        },
+        "port": {
+          "label": "ポート"
+        }
+      },
+      "name": "APIサーバー(Beta)",
+      "prompt": {
+        "hostname": {
+          "label": "APIサーバーのポート名(0.0.0.0など)を入力:",
+          "title": "ホスト名"
+        },
+        "port": {
+          "label": "APIサーバーのポートを入力:",
+          "title": "ポート"
+        }
+      }
+    },
     "audio-compressor": {
       "description": "オーディオにコンプレッサーを適用します（信号での一番大きい部分の音量を下げ、小さい部分の音量を上げる）",
       "name": "オーディオコンプレッサー"
