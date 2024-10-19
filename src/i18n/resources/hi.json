@@ -5,5 +5,22 @@
         "execute-failed": "{{pluginName}}::{{contextName}} प्लगइन निष्पादित करने में विफल"
       }
     }
+  },
+  "plugins": {
+    "video-toggle": {
+      "menu": {
+        "align": {
+          "submenu": {
+            "left": "बाएं",
+            "middle": "मध्य",
+            "right": "दाहिने"
+          }
+        },
+        "force-hide": "वीडियो टैब को बलपूर्वक हटाएं",
+        "mode": {
+          "label": "तरीका"
+        }
+      }
+    }
   }
 }
