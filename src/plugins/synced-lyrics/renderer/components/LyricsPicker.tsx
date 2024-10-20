@@ -1,57 +1,78 @@
 /* eslint-disable import/order,@typescript-eslint/no-unused-vars */
 
-import { createEffect, createMemo, createSignal, For, Match, Switch } from 'solid-js';
-import { providers, searchResults } from '@/plugins/synced-lyrics/providers';
-import type { Icons, YtIcons, YtSysIcons } from '@/types/icons';
-import { renderCount } from '../renderer';
+import { createEffect, createMemo, For, Match, Switch } from 'solid-js';
+import {
+  lyricsStore,
+  providerNames,
+  setLyricsStore,
+} from '@/plugins/synced-lyrics/providers';
+import type { YtIcons } from '@/types/icons';
 
-export const [providerIdx, setProviderIdx] = createSignal(0);
-
-export const lyricsSource = createMemo(() => providers[providerIdx()]);
-export const lyricsSourceState = createMemo(() => searchResults().data[lyricsSource().name]);
-
-export const isLoading = createMemo(() => lyricsSourceState()?.state === 'fetching');
-export const isError = createMemo(() => lyricsSourceState()?.state === 'error');
-export const isDone = createMemo(() => lyricsSourceState()?.state === 'done');
+export const providerIdx = createMemo(() =>
+  providerNames.indexOf(lyricsStore.provider)
+);
 
 export const LyricsPicker = () => {
-  const next = () => setProviderIdx((i) => (i + 1) % providers.length);
-  const previous = () => setProviderIdx((i) => (i + (providers.length - 1)) % providers.length);
+  const next = () =>
+    setLyricsStore('provider', (prevProvider) => {
+      const idx = providerNames.indexOf(prevProvider);
+      return providerNames[(idx + 1) % providerNames.length];
+    });
+  const previous = () =>
+    setLyricsStore('provider', (prevProvider) => {
+      const idx = providerNames.indexOf(prevProvider);
+      return providerNames[
+        (idx + providerNames.length - 1) % providerNames.length
+      ];
+    });
 
   const chevronLeft: YtIcons = 'yt-icons:chevron_left';
   const chevronRight: YtIcons = 'yt-icons:chevron_right';
   const errorIcon: YtIcons = 'yt-icons:error';
 
-  const status = createMemo(() => lyricsSourceState().state);
   createEffect(() => {
     // fallback to the next source, if the current one has an error
-    if (status() === 'error') next();
+    if (lyricsStore.lyrics[lyricsStore.provider].state === 'error') next();
   });
 
   return (
     <div class="lyrics-picker">
-      <span style={{ display: "none" }}>{renderCount()}</span>
       <div class="lyrics-picker-left">
         <tp-yt-paper-icon-button icon={chevronLeft} onClick={previous} />
       </div>
 
       <div class="lyrics-picker-content">
         <div class="lyrics-picker-content-label">
-          <For each={providers}>
-            {(provider) => (
+          <For each={providerNames}>
+            {(provider, idx) => (
               <div
                 class="lyrics-picker-item"
                 style={{ transform: `translateX(${providerIdx() * -100}%)` }}
               >
+                <span style={{ display: 'none' }}>
+                  {lyricsStore.lyrics[providerNames[idx()]].state}
+                </span>
                 <yt-formatted-string
                   class="description ytmusic-description-shelf-renderer"
-                  text={{ runs: [{ text: provider.name }] }}
+                  text={{ runs: [{ text: provider }] }}
                 />
                 <Switch>
-                  <Match when={status() === "fetching"}>
-                    <tp-yt-paper-spinner-lite active class="loading-indicator style-scope" />
+                  <Match
+                    when={
+                      lyricsStore.lyrics[providerNames[idx()]].state ===
+                      'fetching'
+                    }
+                  >
+                    <tp-yt-paper-spinner-lite
+                      active
+                      class="loading-indicator style-scope"
+                    />
                   </Match>
-                  <Match when={status() === "error"}>
+                  <Match
+                    when={
+                      lyricsStore.lyrics[providerNames[idx()]].state === 'error'
+                    }
+                  >
                     <tp-yt-paper-icon-button icon={errorIcon} />
                   </Match>
                 </Switch>
@@ -61,11 +82,11 @@ export const LyricsPicker = () => {
         </div>
 
         <ul class="lyrics-picker-content-dots">
-          <For each={providers}>
+          <For each={providerNames}>
             {(_, idx) => (
               <li
                 class="lyrics-picker-dot"
-                onClick={() => setProviderIdx(idx())}
+                onClick={() => setLyricsStore('provider', providerNames[idx()])}
                 style={{
                   background: idx() === providerIdx() ? 'white' : 'black',
                 }}

@@ -12,7 +12,6 @@ import type { YoutubePlayer } from '@/types/youtube-player';
 import type { SongInfo } from '@/providers/song-info';
 import type { SyncedLyricsPluginConfig } from '../types';
 
-
 export let _ytAPI: YoutubePlayer | null = null;
 
 export const renderer = createRenderer<
@@ -54,12 +53,12 @@ export const renderer = createRenderer<
     if (!this.updateTimestampInterval) {
       this.updateTimestampInterval = setInterval(
         () => setCurrentTime((_ytAPI?.getCurrentTime() ?? 0) * 1000),
-        100,
+        100
       );
     }
 
+    // prettier-ignore
     this.observer ??= new MutationObserver(this.observerCallback);
-
     this.observer.disconnect();
 
     // Force the lyrics tab to be enabled at all times.
@@ -71,14 +70,6 @@ export const renderer = createRenderer<
 
     this.observer.observe(header, { attributes: true });
     header.removeAttribute('disabled');
-
-    // TODO: Remove this when done.
-    if (import.meta.env.DEV) {
-      setTimeout(() => {
-        header.click();
-        _ytAPI?.pauseVideo();
-      }, 100);
-    }
   },
 
   async start(ctx: RendererContext<SyncedLyricsPluginConfig>) {

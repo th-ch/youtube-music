@@ -4,75 +4,100 @@ import { LRCLib } from './LRCLib';
 import { LyricsGenius } from './LyricsGenius';
 
 import type { LyricProvider, LyricResult } from '../types';
-import { createSignal } from 'solid-js';
-import { setProviderIdx } from '../renderer/components/LyricsPicker';
-import { triggerRender } from '../renderer/renderer';
+import { createStore } from 'solid-js/store';
+import { createMemo } from 'solid-js';
 
-export const providers: LyricProvider[] = [LRCLib, LyricsGenius] as const;
+export const providers = {
+  LRCLib,
+  LyricsGenius,
+} as const;
 
-type ProviderName = string;
-type VideoId = string;
-interface SearchCache {
-  state: 'loading' | 'done';
-  data: Record<
-    ProviderName,
-    | { state: 'fetching' }
-    | { state: 'error'; error: string }
-    | { state: 'done'; data: LyricResult | null }
-  >;
-}
+type ProviderName = keyof typeof providers;
+export const providerNames = Object.keys(providers) as ProviderName[];
 
-// prettier-ignore
-const initialData = () => Object.fromEntries(providers.map((p) => [p.name, { state: 'fetching' }]));
-const [accessor, setter] = createSignal<SearchCache>({
-  state: 'loading',
-  // @ts-ignore
-  data: initialData(),
+type ProviderState = {
+  state: 'fetching' | 'done' | 'error';
+  data: LyricResult | null;
+  error: string | null;
+};
+
+type LyricsStore = {
+  provider: ProviderName;
+  current: ProviderState;
+  lyrics: Record<ProviderName, ProviderState>;
+};
+
+const initialData = () =>
+  providerNames.reduce((acc, name) => {
+    acc[name] = { state: 'fetching', data: null, error: null };
+    return acc;
+  }, {} as LyricsStore['lyrics']);
+
+export const [lyricsStore, setLyricsStore] = createStore<LyricsStore>({
+  provider: providerNames[0],
+  lyrics: initialData(),
+  get current() {
+    return this.lyrics[this.provider];
+  },
 });
 
-export const searchResults = accessor;
+export const currentProvider = createMemo(() => {
+  const provider = lyricsStore.provider;
+  return lyricsStore.lyrics[provider];
+});
+
+type VideoId = string;
+
+type SearchCacheData = Record<ProviderName, ProviderState>;
+interface SearchCache {
+  state: 'loading' | 'done';
+  data: SearchCacheData;
+}
 
 const searchCache = new Map<VideoId, SearchCache>();
 export const fetchLyrics = (info: SongInfo) => {
   if (searchCache.has(info.videoId)) {
     const cache = searchCache.get(info.videoId);
+    if (cache?.state === 'done') {
+      setLyricsStore('lyrics', cache.data);
+    }
 
-    if (cache?.state === 'done') setter({ ...cache });
-    else return; // still loading, so we return
+    return;
   }
 
-  // prevent duplicate requests by pre-emptively setting an empty value
   const cache: SearchCache = {
     state: 'loading',
-    // @ts-ignore
     data: initialData(),
   };
-  searchCache.set(info.videoId, cache);
+
+  setLyricsStore('lyrics', cache.data);
 
   const tasks: Promise<void>[] = [];
-  for (const provider of providers) {
-    const pCache = cache.data[provider.name];
-    pCache.state = 'fetching';
+
+  // prettier-ignore
+  for (const [providerName, provider] of Object.entries(providers) as [ProviderName, LyricProvider][]) {
+    const pCache = cache.data[providerName];
 
     tasks.push(
       provider
         .search(info)
         .then((res) => {
           pCache.state = 'done';
-          // @ts-ignore silly typescript
           pCache.data = res;
-          setter(cache);
+
+          setLyricsStore('lyrics', providerName, { state: 'done', data: res });
         })
         .catch((err) => {
           pCache.state = 'error';
-          // @ts-ignore silly typescript
           pCache.error = `${err}`;
-        }),
+
+          setLyricsStore('lyrics', providerName, { state: 'error', error: `${err}` });
+        })
     );
   }
 
-  Promise.all(tasks).then(() => {
-    setter({ ...cache, state: 'done' });
-    triggerRender();
+  Promise.allSettled(tasks).then(() => {
+    cache.state = 'done';
+    searchCache.set(info.videoId, cache);
   });
 };

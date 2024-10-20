@@ -1,53 +1,17 @@
-import {
-  createMemo,
-  createSignal,
-  For,
-  Match /*, Match, Show, Switch */,
-  Switch,
-} from 'solid-js';
-
+import { createSignal, For, Match, Switch } from 'solid-js';
 import { SyncedLine } from './SyncedLine';
 
-// import { t } from '@/i18n';
-// import { getSongInfo } from '@/providers/song-info-front';
-import {
-  isDone,
-  isError,
-  isLoading,
-  lyricsSource,
-  lyricsSourceState,
-} from './LyricsPicker';
-
-import type { LineLyrics } from '../../types';
 import { t } from '@/i18n';
-import { renderCount } from '../renderer';
+import { currentProvider, lyricsStore } from '../../providers';
 
 export const [debugInfo, setDebugInfo] = createSignal<string>();
-export const [lineLyrics, setLineLyrics] = createSignal<LineLyrics[]>([]);
 export const [currentTime, setCurrentTime] = createSignal<number>(-1);
 
 export const LyricsContainer = () => {
-  // @ts-expect-error silly typescript
-  const error = createMemo(() =>
-    isError() ? lyricsSourceState().error : null
-  );
-
-  // @ts-expect-error silly typescript
-  const lyrics = createMemo(() => (isDone() ? lyricsSourceState().data : null));
-
   return (
     <div class="lyric-container">
-      <span style={{ display: 'none' }}>{renderCount()}</span>
       <Switch>
-        <Match when={isLoading()}>
-          <div style="margin-bottom: 8px;">
-            <tp-yt-paper-spinner-lite
-              active
-              class="loading-indicator style-scope"
-            />
-          </div>
-        </Match>
-        <Match when={isError()}>
+        <Match when={currentProvider().error}>
           <yt-formatted-string
             class="warning-lyrics description ytmusic-description-shelf-renderer"
             text={{
@@ -55,7 +19,7 @@ export const LyricsContainer = () => {
                 {
                   text: t('plugins.synced-lyrics.errors.fetch'),
                 },
-                { text: error() },
+                { text: currentProvider().error! },
               ],
             }}
           />
@@ -126,12 +90,18 @@ export const LyricsContainer = () => {
       {/*  </Match>*/}
       {/*</Switch>*/}
 
-      <For each={lyrics()?.lines}>{(item) => <SyncedLine line={item} />}</For>
+      <Switch fallback={<div></div>}>
+        <Match when={currentProvider().data !== null}>
+          <For each={currentProvider().data!.lines}>
+            {(item) => <SyncedLine line={item} />}
+          </For>
+        </Match>
+      </Switch>
 
       <yt-formatted-string
         class="ytmusic-description-shelf-renderer"
         text={{
-          runs: [{ text: '' }, { text: `Source: ${lyricsSource().name}` }],
+          runs: [{ text: `Source: ${lyricsStore.provider}` }],
         }}
       />
     </div>
