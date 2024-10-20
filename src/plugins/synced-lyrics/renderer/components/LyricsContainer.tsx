@@ -2,7 +2,7 @@ import { createSignal, For, Match, Switch } from 'solid-js';
 import { SyncedLine } from './SyncedLine';
 
 import { t } from '@/i18n';
-import { currentProvider, lyricsStore } from '../../providers';
+import { lyricsStore } from '../../providers';
 
 export const [debugInfo, setDebugInfo] = createSignal<string>();
 export const [currentTime, setCurrentTime] = createSignal<number>(-1);
@@ -11,7 +11,7 @@ export const LyricsContainer = () => {
   return (
     <div class="lyric-container">
       <Switch>
-        <Match when={currentProvider().error}>
+        <Match when={lyricsStore.lyrics[lyricsStore.provider].error}>
           <yt-formatted-string
             class="warning-lyrics description ytmusic-description-shelf-renderer"
             text={{
@@ -19,7 +19,7 @@ export const LyricsContainer = () => {
                 {
                   text: t('plugins.synced-lyrics.errors.fetch'),
                 },
-                { text: currentProvider().error! },
+                { text: lyricsStore.lyrics[lyricsStore.provider].error! },
               ],
             }}
           />
@@ -91,19 +91,12 @@ export const LyricsContainer = () => {
       {/*</Switch>*/}
 
       <Switch fallback={<div></div>}>
-        <Match when={currentProvider().data !== null}>
-          <For each={currentProvider().data!.lines}>
+        <Match when={lyricsStore.lyrics[lyricsStore.provider].data !== null}>
+          <For each={lyricsStore.lyrics[lyricsStore.provider].data!.lines}>
             {(item) => <SyncedLine line={item} />}
           </For>
         </Match>
       </Switch>
-
-      <yt-formatted-string
-        class="ytmusic-description-shelf-renderer"
-        text={{
-          runs: [{ text: `Source: ${lyricsStore.provider}` }],
-        }}
-      />
     </div>
   );
 };

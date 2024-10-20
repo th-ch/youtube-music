@@ -9,7 +9,7 @@ import {
 import type { YtIcons } from '@/types/icons';
 
 export const providerIdx = createMemo(() =>
-  providerNames.indexOf(lyricsStore.provider)
+  providerNames.indexOf(lyricsStore.provider),
 );
 
 export const LyricsPicker = () => {
@@ -29,6 +29,7 @@ export const LyricsPicker = () => {
   const chevronLeft: YtIcons = 'yt-icons:chevron_left';
   const chevronRight: YtIcons = 'yt-icons:chevron_right';
   const errorIcon: YtIcons = 'yt-icons:error';
+  const successIcon: YtIcons = 'yt-icons:check-circle';
 
   createEffect(() => {
     // fallback to the next source, if the current one has an error
@@ -47,25 +48,23 @@ export const LyricsPicker = () => {
             {(provider, idx) => (
               <div
                 class="lyrics-picker-item"
-                style={{ transform: `translateX(${providerIdx() * -100}%)` }}
+                tabindex="-1"
+                style={{
+                  transform: `translateX(${providerIdx() * -100 - 5}%)`,
+                }}
               >
-                <span style={{ display: 'none' }}>
-                  {lyricsStore.lyrics[providerNames[idx()]].state}
-                </span>
-                <yt-formatted-string
-                  class="description ytmusic-description-shelf-renderer"
-                  text={{ runs: [{ text: provider }] }}
-                />
                 <Switch>
                   <Match
                     when={
-                      lyricsStore.lyrics[providerNames[idx()]].state ===
-                      'fetching'
+                      // prettier-ignore
+                      lyricsStore.lyrics[providerNames[idx()]].state === 'fetching'
                     }
                   >
                     <tp-yt-paper-spinner-lite
                       active
+                      tabindex="-1"
                       class="loading-indicator style-scope"
+                      style={{ padding: '5px', transform: 'scale(0.5)' }}
                     />
                   </Match>
                   <Match
@@ -73,9 +72,28 @@ export const LyricsPicker = () => {
                       lyricsStore.lyrics[providerNames[idx()]].state === 'error'
                     }
                   >
-                    <tp-yt-paper-icon-button icon={errorIcon} />
+                    <tp-yt-paper-icon-button
+                      icon={errorIcon}
+                      tabindex="-1"
+                      style={{ padding: '5px', transform: 'scale(0.5)' }}
+                    />
+                  </Match>
+                  <Match
+                    when={
+                      lyricsStore.lyrics[providerNames[idx()]].state === 'done'
+                    }
+                  >
+                    <tp-yt-paper-icon-button
+                      icon={successIcon}
+                      tabindex="-1"
+                      style={{ padding: '5px', transform: 'scale(0.5)' }}
+                    />
                   </Match>
                 </Switch>
+                <yt-formatted-string
+                  class="description ytmusic-description-shelf-renderer"
+                  text={{ runs: [{ text: provider }] }}
+                />
               </div>
             )}
           </For>
