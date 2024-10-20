@@ -2,6 +2,8 @@ import { SongInfo } from '@/providers/song-info';
 
 import { LRCLib } from './LRCLib';
 import { LyricsGenius } from './LyricsGenius';
+import { MusixMatch } from './MusixMatch';
+import { YTMusic } from './YTMusic';
 
 import type { LyricProvider, LyricResult } from '../types';
 import { createStore } from 'solid-js/store';
@@ -10,6 +12,8 @@ import { createMemo } from 'solid-js';
 export const providers = {
   LRCLib,
   LyricsGenius,
+  MusixMatch,
+  YTMusic,
 } as const;
 
 type ProviderName = keyof typeof providers;
@@ -28,10 +32,13 @@ type LyricsStore = {
 };
 
 const initialData = () =>
-  providerNames.reduce((acc, name) => {
-    acc[name] = { state: 'fetching', data: null, error: null };
-    return acc;
-  }, {} as LyricsStore['lyrics']);
+  providerNames.reduce(
+    (acc, name) => {
+      acc[name] = { state: 'fetching', data: null, error: null };
+      return acc;
+    },
+    {} as LyricsStore['lyrics'],
+  );
 
 export const [lyricsStore, setLyricsStore] = createStore<LyricsStore>({
   provider: providerNames[0],
