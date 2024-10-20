@@ -1,8 +1,11 @@
 import { jaroWinkler } from '@skyra/jaro-winkler';
 
-import { type LineLyrics, type LRCLIBSearchResponse, LyricProvider, LyricResult } from '../types';
+import {
+  type LineLyrics,
+  type LRCLIBSearchResponse,
+  LyricProvider,
+} from '../types';
 import { config } from '../renderer/renderer';
-import { createSignal } from 'solid-js';
 
 function extractTimeAndText(line: string, index: number): LineLyrics | null {
   const groups = /\[(\d+):(\d+)\.(\d+)\](.+)/.exec(line);
@@ -18,20 +21,18 @@ function extractTimeAndText(line: string, index: number): LineLyrics | null {
   // prettier-ignore
   const timeInMs = (minutes * 60 * 1000) + (seconds * 1000) + millis;
 
+  // prettier-ignore
   return {
     index,
     timeInMs,
-    time: `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}:${millis}`,
+    time: `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}:${millis}`,
     text: text?.trim() ?? config()!.defaultTextString,
     status: 'upcoming',
     duration: 0,
   };
 }
 
-const [accessor, setter] = createSignal<LyricResult | null>(null);
 export const LRCLib: LyricProvider = {
-  accessor, setter,
-
   name: 'LRCLib',
   homepage: 'https://lrclib.net/',
 
@@ -53,7 +54,7 @@ export const LRCLib: LyricProvider = {
       return null;
     }
 
-    let data = await response.json() as LRCLIBSearchResponse;
+    let data = (await response.json()) as LRCLIBSearchResponse;
     if (!data || !Array.isArray(data)) {
       return null;
     }
@@ -97,7 +98,9 @@ export const LRCLib: LyricProvider = {
         }
       }
 
-      const ratio = Math.max(...permutations.map(([x, y]) => jaroWinkler(x, y)));
+      const ratio = Math.max(
+        ...permutations.map(([x, y]) => jaroWinkler(x, y))
+      );
 
       if (ratio <= 0.9) continue;
       filteredResults.push(item);
@@ -123,7 +126,7 @@ export const LRCLib: LyricProvider = {
       return {
         title: closestResult.trackName,
         artists: closestResult.artistName.split(/[&,]/g),
-        lines: []
+        lines: [],
       };
     }
 
@@ -157,7 +160,7 @@ export const LRCLib: LyricProvider = {
     return {
       title: closestResult.trackName,
       artists: closestResult.artistName.split(/[&,]/g),
-      lines: syncedLyricList
+      lines: syncedLyricList,
     };
-  }
-};
+  },
+} as const;

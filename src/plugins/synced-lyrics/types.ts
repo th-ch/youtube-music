@@ -34,12 +34,9 @@ export interface LyricProvider {
   name: string;
   homepage: string;
 
-  // TODO: Was thinking of having provider-specific state here.
-  //       e.g. isFetching, error
-  accessor: Accessor<LyricResult | null>;
-  setter: Setter<LyricResult | null>;
-
-  search(songInfo: Pick<SongInfo, 'title' | 'artist' | 'album' | 'songDuration'>): Promise<LyricResult | null>
+  search(
+    songInfo: Pick<SongInfo, 'title' | 'artist' | 'album' | 'songDuration'>
+  ): Promise<LyricResult | null>;
 }
 
 export type LRCLIBSearchResponse = {
