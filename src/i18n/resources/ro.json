@@ -207,6 +207,10 @@
     }
   },
   "plugins": {
+    "ad-speedup": {
+      "description": "Reclamele au sunetul dezactivat si viteza de redare este x16",
+      "name": "Accelerare reclame"
+    },
     "adblocker": {
       "description": "Blocheaza toate reclamele si trackers",
       "menu": {
@@ -274,6 +278,49 @@
         }
       },
       "name": "Mod ambiental"
+    },
+    "api-server": {
+      "description": "Adauga un server API pentru a controla player-ul",
+      "dialog": {
+        "request": {
+          "buttons": {
+            "allow": "Permite",
+            "deny": "Respinge"
+          },
+          "message": "Permite {{ID}} {{origin}} sa acceseze API-ul?",
+          "title": "Cerere autorizare API"
+        }
+      },
+      "menu": {
+        "auth-strategy": {
+          "label": "Strategie autorizare",
+          "submenu": {
+            "auth-at-first": {
+              "label": "Autorizare la prima cerere"
+            },
+            "none": {
+              "label": "Fara autorizare"
+            }
+          }
+        },
+        "hostname": {
+          "label": "Nume host"
+        },
+        "port": {
+          "label": "Port"
+        }
+      },
+      "name": "Server API [Beta]",
+      "prompt": {
+        "hostname": {
+          "label": "Introduceti nume host (0.0.0.0 de ex.) pentru server-ul API:",
+          "title": "Nume host"
+        },
+        "port": {
+          "label": "Introduceti port-ul pentru server-ul API:",
+          "title": "Port"
+        }
+      }
     },
     "audio-compressor": {
       "description": "Aplica compresie pe audio (scade volumul partilor cele mai sonore si creste volumul partilor mai putin sonore)",
@@ -410,6 +457,21 @@
       "description": "Descarca MP3 / sursa audio direct din interfata",
       "menu": {
         "choose-download-folder": "Alege folderul de descarcari",
+        "download-finish-settings": {
+          "label": "Descarcare la finalizare",
+          "prompt": {
+            "last-percent": "Dupa x la suta",
+            "last-seconds": "Ultimele x secunde",
+            "title": "Configureaza cand sa descarce"
+          },
+          "submenu": {
+            "advanced": "Avansat",
+            "enabled": "Activat",
+            "mode": "Mod timp",
+            "percent": "Procentaj",
+            "seconds": "Secunde"
+          }
+        },
         "download-playlist": "Descarca playlist-ul",
         "presets": "Setari implicite",
         "skip-existing": "Treci peste fisierele existente"
@@ -648,6 +710,59 @@
     "sponsorblock": {
       "description": "Treci automat peste partile non-muzicale precum intro/outro sau parti din video-ul catecului, cand nu se aude cantecul",
       "name": "SponsorBlock"
+    },
+    "synced-lyrics": {
+      "description": "Furnizeaza versuri sincronizate melodiilor, folosind furnizori precum LRClib.",
+      "errors": {
+        "fetch": "⚠️ - A aparut o eroare in timpul incarcarii versurilor. Te rog incearca din nou mai tarziu.",
+        "not-found": "⚠️ - Nu au fost gasite versuri pentru aceasta melodie."
+      },
+      "menu": {
+        "default-text-string": {
+          "label": "Caracter implicit intre versuri",
+          "tooltip": "Alege caracterul implicit folosit pentru spatiul dintre versuri"
+        },
+        "line-effect": {
+          "label": "Efect de linie",
+          "submenu": {
+            "focus": {
+              "label": "Focalizare",
+              "tooltip": "Doar linia curenta este alba"
+            },
+            "offset": {
+              "label": "Offset",
+              "tooltip": "Deplasare la dreapta pentru linia curenta"
+            },
+            "scale": {
+              "label": "Marime",
+              "tooltip": "Schimba dimensiunea liniei curente"
+            }
+          },
+          "tooltip": "Alege efectul aplicat liniei curente"
+        },
+        "precise-timing": {
+          "label": "Sincronizeaza versurile perfect",
+          "tooltip": "Calculeaza afisarea urmatoarei linii pana la milisecunda (poate afecta performanta)"
+        },
+        "show-lyrics-even-if-inexact": {
+          "label": "Afiseaza versurile chiar daca sunt inexacte",
+          "tooltip": "Daca melodia nu este gasita, plugin-ul incearca din nou cu o cautare diferita.\nRezultatul acestei incercari poate sa nu fie exact."
+        },
+        "show-time-codes": {
+          "label": "Afiseaza timecode-urile",
+          "tooltip": "Afiseaza codurile de timp langa versuri"
+        }
+      },
+      "name": "Versuri Sincronizate",
+      "refetch-btn": {
+        "fetching": "Incarcare...",
+        "normal": "Reincarcare versuri"
+      },
+      "warnings": {
+        "duration-mismatch": "⚠️ - Versurile pot fi desincronizate din cauza unei nepotriviri de duratie.",
+        "inexact": "⚠️ - Versurile pentru aceasta melodie pot fi inexacte",
+        "instrumental": "⚠️ - Aceasta melodie este instrumentala"
+      }
     },
     "taskbar-mediacontrol": {
       "description": "Controleaza redarea din Bara de Activitati Windows",
