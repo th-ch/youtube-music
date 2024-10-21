@@ -1,9 +1,13 @@
 /* eslint-disable import/order,@typescript-eslint/no-unused-vars */
 
-import { createEffect, createMemo, For, Match, Switch } from 'solid-js';
+import { createEffect, createMemo, For, Index, Match, Switch } from 'solid-js';
 import {
+  currentLyrics,
+  currentProvider,
   lyricsStore,
+  ProviderName,
   providerNames,
+  ProviderState,
   setLyricsStore,
 } from '@/plugins/synced-lyrics/providers';
 import type { YtIcons } from '@/types/icons';
@@ -11,6 +15,10 @@ import type { YtIcons } from '@/types/icons';
 export const providerIdx = createMemo(() =>
   providerNames.indexOf(lyricsStore.provider),
 );
+
+createEffect(() => {
+  console.log(currentLyrics());
+});
 
 export const LyricsPicker = () => {
   const next = () =>
@@ -28,12 +36,14 @@ export const LyricsPicker = () => {
 
   const chevronLeft: YtIcons = 'yt-icons:chevron_left';
   const chevronRight: YtIcons = 'yt-icons:chevron_right';
-  const errorIcon: YtIcons = 'yt-icons:error';
+
   const successIcon: YtIcons = 'yt-icons:check-circle';
+  const errorIcon: YtIcons = 'yt-icons:error';
+  const notFoundIcon: YtIcons = 'yt-icons:warning';
 
   createEffect(() => {
     // fallback to the next source, if the current one has an error
-    if (lyricsStore.lyrics[lyricsStore.provider].state === 'error') next();
+    if (currentLyrics().state === 'error') next();
   });
 
   return (
@@ -44,8 +54,8 @@ export const LyricsPicker = () => {
 
       <div class="lyrics-picker-content">
         <div class="lyrics-picker-content-label">
-          <For each={providerNames}>
-            {(provider, idx) => (
+          <Index each={providerNames}>
+            {(provider) => (
               <div
                 class="lyrics-picker-item"
                 tabindex="-1"
@@ -57,7 +67,7 @@ export const LyricsPicker = () => {
                   <Match
                     when={
                       // prettier-ignore
-                      lyricsStore.lyrics[providerNames[idx()]].state === 'fetching'
+                      currentLyrics().state === 'fetching'
                     }
                   >
                     <tp-yt-paper-spinner-lite
@@ -67,11 +77,7 @@ export const LyricsPicker = () => {
                       style={{ padding: '5px', transform: 'scale(0.5)' }}
                     />
                   </Match>
-                  <Match
-                    when={
-                      lyricsStore.lyrics[providerNames[idx()]].state === 'error'
-                    }
-                  >
+                  <Match when={currentLyrics().state === 'error'}>
                     <tp-yt-paper-icon-button
                       icon={errorIcon}
                       tabindex="-1"
@@ -80,7 +86,8 @@ export const LyricsPicker = () => {
                   </Match>
                   <Match
                     when={
-                      lyricsStore.lyrics[providerNames[idx()]].state === 'done'
+                      currentLyrics().state === 'done' &&
+                      currentLyrics().data?.lines
                     }
                   >
                     <tp-yt-paper-icon-button
@@ -89,14 +96,21 @@ export const LyricsPicker = () => {
                       style={{ padding: '5px', transform: 'scale(0.5)' }}
                     />
                   </Match>
+                  <Match when={currentLyrics().state === 'done'}>
+                    <tp-yt-paper-icon-button
+                      icon={notFoundIcon}
+                      tabindex="-1"
+                      style={{ padding: '5px', transform: 'scale(0.5)' }}
+                    />
+                  </Match>
                 </Switch>
                 <yt-formatted-string
                   class="description ytmusic-description-shelf-renderer"
-                  text={{ runs: [{ text: provider }] }}
+                  text={{ runs: [{ text: provider() }] }}
                 />
               </div>
             )}
-          </For>
+          </Index>
         </div>
 
         <ul class="lyrics-picker-content-dots">

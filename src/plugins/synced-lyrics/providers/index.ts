@@ -7,7 +7,7 @@ import { YTMusic } from './YTMusic';
 
 import type { LyricProvider, LyricResult } from '../types';
 import { createStore } from 'solid-js/store';
-import { createMemo } from 'solid-js';
+import { createEffect, createMemo, createSignal } from 'solid-js';
 
 export const providers = {
   LRCLib,
@@ -16,10 +16,10 @@ export const providers = {
   YTMusic,
 } as const;
 
-type ProviderName = keyof typeof providers;
+export type ProviderName = keyof typeof providers;
 export const providerNames = Object.keys(providers) as ProviderName[];
 
-type ProviderState = {
+export type ProviderState = {
   state: 'fetching' | 'done' | 'error';
   data: LyricResult | null;
   error: string | null;
@@ -48,6 +48,11 @@ export const [lyricsStore, setLyricsStore] = createStore<LyricsStore>({
   },
 });
 
+export const currentLyrics = createMemo(() => {
+  const provider = lyricsStore.provider;
+  return lyricsStore.lyrics[provider];
+});
+
 export const currentProvider = createMemo(() => {
   const provider = lyricsStore.provider;
   return lyricsStore.lyrics[provider];
@@ -61,6 +66,7 @@ interface SearchCache {
   data: SearchCacheData;
 }
 
+// TODO: Maybe use localStorage for the cache.
 const searchCache = new Map<VideoId, SearchCache>();
 export const fetchLyrics = (info: SongInfo) => {
   if (searchCache.has(info.videoId)) {
@@ -76,6 +82,7 @@ export const fetchLyrics = (info: SongInfo) => {
     state: 'loading',
     data: initialData(),
   };
+  searchCache.set(info.videoId, cache);
 
   setLyricsStore('lyrics', cache.data);
 
@@ -92,13 +99,23 @@ export const fetchLyrics = (info: SongInfo) => {
           pCache.state = 'done';
           pCache.data = res;
 
-          setLyricsStore('lyrics', providerName, { state: 'done', data: res });
+          setLyricsStore('lyrics', (old) => {
+            return {
+              ...old,
+              [providerName]: { state: 'done', data: res ? { ...res } : null, error: null }
+            };
+          });
         })
         .catch((err) => {
           pCache.state = 'error';
           pCache.error = `${err}`;
 
-          setLyricsStore('lyrics', providerName, { state: 'error', error: `${err}` });
+          setLyricsStore('lyrics', (old) => {
+            return {
+              ...old,
+              [providerName]: { state: 'done', error: `${err}`, data: null }
+            };
+          });
         })
     );
   }
