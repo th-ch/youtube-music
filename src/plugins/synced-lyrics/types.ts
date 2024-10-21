@@ -1,3 +1,7 @@
+import { Accessor, Setter } from 'solid-js';
+
+import { SongInfo } from '@/providers/song-info';
+
 export type SyncedLyricsPluginConfig = {
   enabled: boolean;
   preciseTiming: boolean;
@@ -18,12 +22,22 @@ export type LineLyrics = {
   status: LineLyricsStatus;
 };
 
-export type PlayPauseEvent = {
-  isPaused: boolean;
-  elapsedSeconds: number;
-};
-
 export type LineEffect = 'scale' | 'offset' | 'focus';
+
+export interface LyricResult {
+  title: string;
+  artists: string[];
+  lines: LineLyrics[];
+}
+
+export interface LyricProvider {
+  name: string;
+  homepage: string;
+
+  search(
+    songInfo: Pick<SongInfo, 'title' | 'artist' | 'album' | 'songDuration'>
+  ): Promise<LyricResult | null>;
+}
 
 export type LRCLIBSearchResponse = {
   id: number;
