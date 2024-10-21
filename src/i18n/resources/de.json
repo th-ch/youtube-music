@@ -279,6 +279,49 @@
       },
       "name": "Ambiente-Modus"
     },
+    "api-server": {
+      "description": "Fügt einen API-Server hinzu, um die Wiedergabe zu steuern",
+      "dialog": {
+        "request": {
+          "buttons": {
+            "allow": "Erlauben",
+            "deny": "Ablehnen"
+          },
+          "message": "{{ID}} ({{origin}}) den Zugriff zur API erlauben?",
+          "title": "API-Autorisierungs-Anfrage"
+        }
+      },
+      "menu": {
+        "auth-strategy": {
+          "label": "Autorisations-Methode",
+          "submenu": {
+            "auth-at-first": {
+              "label": "Beim ersten Zugriff autorisieren"
+            },
+            "none": {
+              "label": "Keine Autorisierung"
+            }
+          }
+        },
+        "hostname": {
+          "label": "Hostname"
+        },
+        "port": {
+          "label": "Port"
+        }
+      },
+      "name": "API-Server [Beta]",
+      "prompt": {
+        "hostname": {
+          "label": "Hostname des API-Servers vergeben (z. B. 0.0.0.0):",
+          "title": "Hostname"
+        },
+        "port": {
+          "label": "Port des API-Server:",
+          "title": "Port"
+        }
+      }
+    },
     "audio-compressor": {
       "description": "Kompressor auf Audio anwenden (senkt die Lautstärke der lautesten Teile des Signals und hebt die Lautstärke der leisesten Teile an)",
       "name": "Audio-Komprimierer"
@@ -687,7 +730,8 @@
               "tooltip": "Nur aktive Zeile weiß darstellen"
             },
             "offset": {
-              "label": "Versatz"
+              "label": "Versatz",
+              "tooltip": "Verschiebe die aktuelle Zeile nach rechts"
             },
             "scale": {
               "label": "Skalieren",
@@ -699,6 +743,9 @@
         "precise-timing": {
           "label": "Den Songtext perfekt synchronisieren",
           "tooltip": "Auf die Millisekunde genau berechnen, wann die nächste Zeile angezeigt werden soll (Kann Einfluss auf die Leistung haben)"
+        },
+        "show-lyrics-even-if-inexact": {
+          "label": "Zeige die Liedtexte, auch wenn sie ungenau sind."
         },
         "show-time-codes": {
           "label": "Zeitkodierungen anzeigen",
