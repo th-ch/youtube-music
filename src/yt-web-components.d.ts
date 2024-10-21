@@ -35,6 +35,7 @@ declare module 'solid-js' {
     }
 
     interface IntrinsicElements {
+      center: ComponentProps<'div'>;
       'yt-formatted-string': ComponentProps<'span'> & YtFormattedStringProps;
       'yt-button-renderer': ComponentProps<'button'> & YtButtonRendererProps;
       'tp-yt-paper-spinner-lite': ComponentProps<'div'> &
