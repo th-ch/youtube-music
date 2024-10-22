@@ -31,8 +31,8 @@ importers:
         specifier: 1.27.1
         version: 1.27.1(electron@33.0.2)
       '@cliqz/adblocker-electron-preload':
-        specifier: 1.27.1
-        version: 1.27.1(electron@33.0.2)
+        specifier: 1.34.0
+        version: 1.34.0(electron@33.0.2)
       '@electron-toolkit/tsconfig':
         specifier: 1.0.1
         version: 1.0.1(@types/node@20.12.5)
@@ -452,12 +452,12 @@ packages:
   '@bufbuild/protobuf@2.1.0':
     resolution: {integrity: sha512-+2Mx67Y3skJ4NCD/qNSdBJNWtu6x6Qr53jeNg+QcwiL6mt0wK+3jwHH2x1p7xaYH6Ve2JKOVn0OxU35WsmqI9A==}
 
-  '@cliqz/adblocker-content@1.27.6':
-    resolution: {integrity: sha512-O7zqrLYNtkBtPMXrnrLDSC2LliKfUcJUL5hWn89QxJ4fw1o4Bow5b6pU3+ye2Hud2Lo5VqaCrICAipJr5BzVog==}
+  '@cliqz/adblocker-content@1.34.0':
+    resolution: {integrity: sha512-5LcV8UZv49RWwtpom9ve4TxJIFKd+bjT59tS/2Z2c22Qxx5CW1ncO/T+ybzk31z422XplQfd0ZE6gMGGKs3EMg==}
     deprecated: This project has been renamed to @ghostery/adblocker-content. Install using @ghostery/adblocker-content instead
 
-  '@cliqz/adblocker-electron-preload@1.27.1':
-    resolution: {integrity: sha512-J6qHgqnqpPNwACIuIjtackMRfJbUM+bXc9w4XmPXt1jW7OCuxr8JVjxQamKWWW4PVP7YqtpZCwlvCxQGgCEGoQ==}
+  '@cliqz/adblocker-electron-preload@1.34.0':
+    resolution: {integrity: sha512-wi4FBGwlpJv8VQDTyiQJ2qLqdhtxzAEdEzBkOt9crrPP0meO1RUlhTMeZFFxNTogXFiK3W8VujTBixoGNEKscQ==}
     deprecated: This project has been renamed to @ghostery/adblocker-electron-preload. Install using @ghostery/adblocker-electron-preload instead
     peerDependencies:
       electron: '>11'
@@ -468,8 +468,8 @@ packages:
     peerDependencies:
       electron: '>11'
 
-  '@cliqz/adblocker-extended-selectors@1.27.6':
-    resolution: {integrity: sha512-stfsoCZtx/iWmaDkobDWvjkPEsugF0NXJ0Pss5yCJ34hECwtff6AwErLISxoy0ZxPvcO6WM365Q9sPBFQwXBrA==}
+  '@cliqz/adblocker-extended-selectors@1.34.0':
+    resolution: {integrity: sha512-lNrgdUPpsBWHjrwXy2+Z5nX/Gy5YAvNwFMLqkeMdjzrybwPIalJJN2e+YtkS1I6mVmOMNppF5cv692OAVoI74g==}
     deprecated: This project has been renamed to @ghostery/adblocker-extended-selectors. Install using @ghostery/adblocker-extended-selectors instead
 
   '@cliqz/adblocker@1.27.6':
@@ -4534,28 +4534,28 @@ snapshots:
 
   '@bufbuild/protobuf@2.1.0': {}
 
-  '@cliqz/adblocker-content@1.27.6':
+  '@cliqz/adblocker-content@1.34.0':
     dependencies:
-      '@cliqz/adblocker-extended-selectors': 1.27.6
+      '@cliqz/adblocker-extended-selectors': 1.34.0
 
-  '@cliqz/adblocker-electron-preload@1.27.1(electron@33.0.2)':
+  '@cliqz/adblocker-electron-preload@1.34.0(electron@33.0.2)':
     dependencies:
-      '@cliqz/adblocker-content': 1.27.6
+      '@cliqz/adblocker-content': 1.34.0
       electron: 33.0.2
 
   '@cliqz/adblocker-electron@1.27.1(electron@33.0.2)':
     dependencies:
       '@cliqz/adblocker': 1.27.6
-      '@cliqz/adblocker-electron-preload': 1.27.1(electron@33.0.2)
+      '@cliqz/adblocker-electron-preload': 1.34.0(electron@33.0.2)
       electron: 33.0.2
       tldts-experimental: 6.1.2
 
-  '@cliqz/adblocker-extended-selectors@1.27.6': {}
+  '@cliqz/adblocker-extended-selectors@1.34.0': {}
 
   '@cliqz/adblocker@1.27.6':
     dependencies:
-      '@cliqz/adblocker-content': 1.27.6
-      '@cliqz/adblocker-extended-selectors': 1.27.6
+      '@cliqz/adblocker-content': 1.34.0
+      '@cliqz/adblocker-extended-selectors': 1.34.0
       '@remusao/guess-url-type': 1.2.1
       '@remusao/small': 1.2.1
       '@remusao/smaz': 1.9.1
