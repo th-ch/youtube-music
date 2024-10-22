@@ -28,8 +28,8 @@ importers:
   .:
     dependencies:
       '@cliqz/adblocker-electron':
-        specifier: 1.27.1
-        version: 1.27.1(electron@33.0.2)
+        specifier: 1.34.0
+        version: 1.34.0(electron@33.0.2)
       '@cliqz/adblocker-electron-preload':
         specifier: 1.27.1
         version: 1.27.1(electron@33.0.2)
@@ -452,8 +452,8 @@ packages:
   '@bufbuild/protobuf@2.1.0':
     resolution: {integrity: sha512-+2Mx67Y3skJ4NCD/qNSdBJNWtu6x6Qr53jeNg+QcwiL6mt0wK+3jwHH2x1p7xaYH6Ve2JKOVn0OxU35WsmqI9A==}
 
-  '@cliqz/adblocker-content@1.27.6':
-    resolution: {integrity: sha512-O7zqrLYNtkBtPMXrnrLDSC2LliKfUcJUL5hWn89QxJ4fw1o4Bow5b6pU3+ye2Hud2Lo5VqaCrICAipJr5BzVog==}
+  '@cliqz/adblocker-content@1.34.0':
+    resolution: {integrity: sha512-5LcV8UZv49RWwtpom9ve4TxJIFKd+bjT59tS/2Z2c22Qxx5CW1ncO/T+ybzk31z422XplQfd0ZE6gMGGKs3EMg==}
     deprecated: This project has been renamed to @ghostery/adblocker-content. Install using @ghostery/adblocker-content instead
 
   '@cliqz/adblocker-electron-preload@1.27.1':
@@ -462,18 +462,24 @@ packages:
     peerDependencies:
       electron: '>11'
 
-  '@cliqz/adblocker-electron@1.27.1':
-    resolution: {integrity: sha512-mV49IrXKOUa23T87E0+ewGCtSdgVIZHalKVDabC+g2DY6nU57XjHe4YlAPQCZFRW59HHAxALYjn5wHYGWzus8Q==}
+  '@cliqz/adblocker-electron-preload@1.34.0':
+    resolution: {integrity: sha512-wi4FBGwlpJv8VQDTyiQJ2qLqdhtxzAEdEzBkOt9crrPP0meO1RUlhTMeZFFxNTogXFiK3W8VujTBixoGNEKscQ==}
+    deprecated: This project has been renamed to @ghostery/adblocker-electron-preload. Install using @ghostery/adblocker-electron-preload instead
+    peerDependencies:
+      electron: '>11'
+
+  '@cliqz/adblocker-electron@1.34.0':
+    resolution: {integrity: sha512-hwCFmHg6eqWAL1jG1JWFWfI7kzKuJ99oq+fjmnZPv6rwnd4RGQUDClhhZQMZHOz+Lj/tCQwmkvtaYMh2g+LZpA==}
     deprecated: This project has been renamed to @ghostery/adblocker-electron. Install using @ghostery/adblocker-electron instead
     peerDependencies:
       electron: '>11'
 
-  '@cliqz/adblocker-extended-selectors@1.27.6':
-    resolution: {integrity: sha512-stfsoCZtx/iWmaDkobDWvjkPEsugF0NXJ0Pss5yCJ34hECwtff6AwErLISxoy0ZxPvcO6WM365Q9sPBFQwXBrA==}
+  '@cliqz/adblocker-extended-selectors@1.34.0':
+    resolution: {integrity: sha512-lNrgdUPpsBWHjrwXy2+Z5nX/Gy5YAvNwFMLqkeMdjzrybwPIalJJN2e+YtkS1I6mVmOMNppF5cv692OAVoI74g==}
     deprecated: This project has been renamed to @ghostery/adblocker-extended-selectors. Install using @ghostery/adblocker-extended-selectors instead
 
-  '@cliqz/adblocker@1.27.6':
-    resolution: {integrity: sha512-Tm5Gkz7OS2HxVAx7fN364bbocsm+MZmHlbmTW/dHpNbfeCQXUa/1whQob8eIyrnkJBx9RUbuOuNIRGryRsLhbg==}
+  '@cliqz/adblocker@1.34.0':
+    resolution: {integrity: sha512-d7TeUl5t+TOMJe7/CRYtf+x6hbd8N25DtH7guQTIjjr3AFVortxiAIgNejGvVqy0by4eNByw+oVil15oqxz2Eg==}
     deprecated: This project has been renamed to @ghostery/adblocker. Install using @ghostery/adblocker instead
 
   '@develar/schema-utils@2.6.5':
@@ -1119,8 +1125,8 @@ packages:
   '@polka/url@1.0.0-next.24':
     resolution: {integrity: sha512-2LuNTFBIO0m7kKIQvvPHN6UE63VjpmL9rnEEaOOaiSPbZK+zUOYIzBAWcED+3XYzhYsd/0mD57VdxAEqqV52CQ==}
 
-  '@remusao/guess-url-type@1.2.1':
-    resolution: {integrity: sha512-rbOqre2jW8STjheOsOaQHLgYBaBZ9Owbdt8NO7WvNZftJlaG3y/K9oOkl8ZUpuFBisIhmBuMEW6c+YrQl5inRA==}
+  '@remusao/guess-url-type@1.3.0':
+    resolution: {integrity: sha512-SNSJGxH5ckvxb3EUHj4DqlAm/bxNxNv2kx/AESZva/9VfcBokwKNS+C4D1lQdWIDM1R3d3UG+xmVzlkNG8CPTQ==}
 
   '@remusao/small@1.2.1':
     resolution: {integrity: sha512-7MjoGt0TJMVw1GPKgWq6SJPws1SLsUXQRa43Umht+nkyw2jnpy3WpiLNqGdwo5rHr5Wp9B2W/Pm5RQp656UJdw==}
@@ -1305,8 +1311,8 @@ packages:
   '@types/cacheable-request@6.0.3':
     resolution: {integrity: sha512-IQ3EbTzGxIigb1I3qPZc1rWJnH0BmSKv5QYTalEwweFvyBDLSAe24zP0le/hyi7ecGfZVlIVAg4BZqb8WBwKqw==}
 
-  '@types/chrome@0.0.268':
-    resolution: {integrity: sha512-7N1QH9buudSJ7sI8Pe4mBHJr5oZ48s0hcanI9w3wgijAlv1OZNUZve9JR4x42dn5lJ5Sm87V1JNfnoh10EnQlA==}
+  '@types/chrome@0.0.278':
+    resolution: {integrity: sha512-PDIJodOu7o54PpSOYLybPW/MDZBCjM1TKgf31I3Q/qaEbNpIH09rOM3tSEH3N7Q+FAqb1933LhF8ksUPYeQLNg==}
 
   '@types/color-convert@2.0.3':
     resolution: {integrity: sha512-2Q6wzrNiuEvYxVQqhh7sXM2mhIhvZR/Paq4FdsQkOMgWsCIkKvSGj8Le1/XalulrmgOzPMqNa0ix+ePY4hTrfg==}
@@ -4534,32 +4540,37 @@ snapshots:
 
   '@bufbuild/protobuf@2.1.0': {}
 
-  '@cliqz/adblocker-content@1.27.6':
+  '@cliqz/adblocker-content@1.34.0':
     dependencies:
-      '@cliqz/adblocker-extended-selectors': 1.27.6
+      '@cliqz/adblocker-extended-selectors': 1.34.0
 
   '@cliqz/adblocker-electron-preload@1.27.1(electron@33.0.2)':
     dependencies:
-      '@cliqz/adblocker-content': 1.27.6
+      '@cliqz/adblocker-content': 1.34.0
       electron: 33.0.2
 
-  '@cliqz/adblocker-electron@1.27.1(electron@33.0.2)':
+  '@cliqz/adblocker-electron-preload@1.34.0(electron@33.0.2)':
     dependencies:
-      '@cliqz/adblocker': 1.27.6
-      '@cliqz/adblocker-electron-preload': 1.27.1(electron@33.0.2)
+      '@cliqz/adblocker-content': 1.34.0
+      electron: 33.0.2
+
+  '@cliqz/adblocker-electron@1.34.0(electron@33.0.2)':
+    dependencies:
+      '@cliqz/adblocker': 1.34.0
+      '@cliqz/adblocker-electron-preload': 1.34.0(electron@33.0.2)
       electron: 33.0.2
       tldts-experimental: 6.1.2
 
-  '@cliqz/adblocker-extended-selectors@1.27.6': {}
+  '@cliqz/adblocker-extended-selectors@1.34.0': {}
 
-  '@cliqz/adblocker@1.27.6':
+  '@cliqz/adblocker@1.34.0':
     dependencies:
-      '@cliqz/adblocker-content': 1.27.6
-      '@cliqz/adblocker-extended-selectors': 1.27.6
-      '@remusao/guess-url-type': 1.2.1
+      '@cliqz/adblocker-content': 1.34.0
+      '@cliqz/adblocker-extended-selectors': 1.34.0
+      '@remusao/guess-url-type': 1.3.0
       '@remusao/small': 1.2.1
       '@remusao/smaz': 1.9.1
-      '@types/chrome': 0.0.268
+      '@types/chrome': 0.0.278
       '@types/firefox-webext-browser': 120.0.0
       tldts-experimental: 6.1.2
 
@@ -5190,7 +5201,7 @@ snapshots:
 
   '@polka/url@1.0.0-next.24': {}
 
-  '@remusao/guess-url-type@1.2.1': {}
+  '@remusao/guess-url-type@1.3.0': {}
 
   '@remusao/small@1.2.1': {}
 
@@ -5343,7 +5354,7 @@ snapshots:
       '@types/node': 20.12.5
       '@types/responselike': 1.0.3
 
-  '@types/chrome@0.0.268':
+  '@types/chrome@0.0.278':
     dependencies:
       '@types/filesystem': 0.0.35
       '@types/har-format': 1.2.15
