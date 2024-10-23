@@ -217,6 +217,59 @@
         "blocker": "حاجب الإعلانات"
       },
       "name": "حاجب الإعلانات"
+    },
+    "album-actions": {
+      "description": "يضيف أزرار \"إلغاء عدم الإعجاب\"، \"عدم الإعجاب\"، \"الإعجاب\"، و\"إلغاء الإعجاب\" لتطبيقها على جميع الأغاني في قائمة التشغيل أو الألبوم",
+      "name": "إجراءات الألبوم"
+    },
+    "album-color-theme": {
+      "description": "يطبق ثيمًا ديناميكيًا وتأثيرات بصرية بناء على ألوان الألبوم",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "‬نسبة قوة اللون",
+          "submenu": {
+            "percent": "{{ratio}}%"
+          }
+        }
+      },
+      "name": "ثيم ألوان الألبوم"
+    },
+    "ambient-mode": {
+      "description": "يطبق تأثير إضاءة عن طريق إسقاط ألوان ناعمة من الفيديو على خلفية شاشتك",
+      "menu": {
+        "blur-amount": {
+          "label": "مقدار التمويه",
+          "submenu": {
+            "pixels": "{{blurAmount}} بكسل"
+          }
+        },
+        "buffer": {
+          "submenu": {
+            "buffer": "{{buffer}}"
+          }
+        },
+        "opacity": {
+          "label": "الشفافية",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "quality": {
+          "label": "الجودة",
+          "submenu": {
+            "pixels": "{{quality}} بكسل"
+          }
+        },
+        "size": {
+          "label": "الحجم",
+          "submenu": {
+            "percent": "{{size}}%"
+          }
+        },
+        "smoothness-transition": {
+          "label": "انتقال السلاسة"
+        }
+      }
     }
   }
 }
