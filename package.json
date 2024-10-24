@@ -289,7 +289,7 @@
     "del-cli": "6.0.0",
     "discord-api-types": "0.37.103",
     "electron": "33.0.2",
-    "electron-builder": "24.13.3",
+    "electron-builder": "25.1.8",
     "electron-devtools-installer": "3.2.0",
     "electron-vite": "2.3.0",
     "esbuild": "0.24.0",
