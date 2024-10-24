@@ -38,14 +38,7 @@ export const SyncedLine = ({ line }: SyncedLineProps) => {
       <yt-formatted-string
         class="text-lyrics description ytmusic-description-shelf-renderer"
         text={{
-          runs: [
-            {
-              text: '',
-            },
-            {
-              text: `${config()?.showTimeCodes ? `[${line.time}] ` : ''}${line.text}`,
-            },
-          ],
+          runs: [{ text: `${config()?.showTimeCodes ? `[${line.time}] ` : ''}${line.text}` }],
         }}
       />
     </div>

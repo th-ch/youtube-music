@@ -905,6 +905,13 @@ function removeContentSecurityPolicy(
     delete details.responseHeaders['content-security-policy-report-only'];
     delete details.responseHeaders['content-security-policy'];
 
+    if (details.frame?.url && new URL(details.url).protocol === 'https:') {
+      delete details.responseHeaders['access-control-allow-origin'];
+      details.responseHeaders['access-control-allow-origin'] = [
+        'https://' + new URL(details.frame?.url).hostname,
+      ];
+    }
+
     callback({ cancel: false, responseHeaders: details.responseHeaders });
   });
 
