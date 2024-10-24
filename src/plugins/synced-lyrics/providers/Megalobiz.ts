@@ -126,10 +126,10 @@ export const Megalobiz = {
       }
 
       return acc;
-    }, []);
+    }, []).sort((a, b) => a.index - b.index);
 
     for (const line of syncedLyricList) {
-      const next = syncedLyricList[line.index + 1];
+      const next = syncedLyricList[syncedLyricList.indexOf(line) + 1];
       if (!next) {
         line.duration = Infinity;
         break;
