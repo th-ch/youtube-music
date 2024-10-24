@@ -1,19 +1,19 @@
 import { SongInfo } from '@/providers/song-info';
 
 import { LRCLib } from './LRCLib';
-import { LyricsGenius } from './LyricsGenius';
+import { Megalobiz } from './Megalobiz';
 import { MusixMatch } from './MusixMatch';
 import { YTMusic } from './YTMusic';
 
 import type { LyricProvider, LyricResult } from '../types';
 import { createStore } from 'solid-js/store';
-import { createEffect, createMemo, createSignal } from 'solid-js';
+import { createMemo } from 'solid-js';
 
 export const providers = {
   LRCLib,
-  LyricsGenius,
   MusixMatch,
   YTMusic,
+  Megalobiz,
 } as const;
 
 export type ProviderName = keyof typeof providers;

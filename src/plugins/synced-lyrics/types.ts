@@ -1,5 +1,3 @@
-import { Accessor, Setter } from 'solid-js';
-
 import { SongInfo } from '@/providers/song-info';
 
 export type SyncedLyricsPluginConfig = {
@@ -32,10 +30,10 @@ export interface LyricResult {
 
 export interface LyricProvider {
   name: string;
-  homepage: string;
+  baseUrl: string;
 
   search(
-    songInfo: Pick<SongInfo, 'title' | 'artist' | 'album' | 'songDuration'>
+    songInfo: Pick<SongInfo, 'title' | 'artist' | 'album' | 'songDuration'>,
   ): Promise<LyricResult | null>;
 }
 

@@ -20,7 +20,7 @@ export default createPlugin({
     showTimeCodes: false,
     defaultTextString: '♪',
     lineEffect: 'scale',
-  } satisfies SyncedLyricsPluginConfig,
+  } as SyncedLyricsPluginConfig,
 
   menu,
   renderer,
