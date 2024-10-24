@@ -7,6 +7,7 @@ import {
 } from '../types';
 import { config } from '../renderer/renderer';
 
+// TODO: Use an LRC parser instead of this.
 function extractTimeAndText(line: string, index: number): LineLyrics | null {
   const groups = /\[(\d+):(\d+)\.(\d+)\](.+)/.exec(line);
   if (!groups) return null;
@@ -34,7 +35,7 @@ function extractTimeAndText(line: string, index: number): LineLyrics | null {
 
 export const LRCLib: LyricProvider = {
   name: 'LRCLib',
-  homepage: 'https://lrclib.net/',
+  baseUrl: 'https://lrclib.net',
 
   async search({ title, artist, album, songDuration }) {
     let query = new URLSearchParams({
@@ -47,7 +48,7 @@ export const LRCLib: LyricProvider = {
       query.delete('album_name');
     }
 
-    let url = `https://lrclib.net/api/search?${query.toString()}`;
+    let url = `${this.baseUrl}/api/search?${query.toString()}`;
     let response = await fetch(url);
 
     if (!response.ok) {
@@ -65,7 +66,7 @@ export const LRCLib: LyricProvider = {
       }
 
       query = new URLSearchParams({ q: title });
-      url = `https://lrclib.net/api/search?${query.toString()}`;
+      url = `${this.baseUrl}/api/search?${query.toString()}`;
 
       response = await fetch(url);
       if (!response.ok) {
@@ -99,7 +100,7 @@ export const LRCLib: LyricProvider = {
       }
 
       const ratio = Math.max(
-        ...permutations.map(([x, y]) => jaroWinkler(x, y))
+        ...permutations.map(([x, y]) => jaroWinkler(x, y)),
       );
 
       if (ratio <= 0.9) continue;
