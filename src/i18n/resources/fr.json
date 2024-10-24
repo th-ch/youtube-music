@@ -279,6 +279,40 @@
       },
       "name": "Mode ambiant"
     },
+    "api-server": {
+      "description": "Ajouter un serveur API pour contrôler le lecteur",
+      "dialog": {
+        "request": {
+          "buttons": {
+            "allow": "Autoriser",
+            "deny": "Interdire"
+          },
+          "message": "Autoriser {{ID}} ({{origin}}) à accéder à l'API ?"
+        }
+      },
+      "menu": {
+        "auth-strategy": {
+          "label": "Plan d'autorisation",
+          "submenu": {
+            "none": {
+              "label": "Pas d'autorisation"
+            }
+          }
+        },
+        "hostname": {
+          "label": "Nom de l'hôte"
+        },
+        "port": {
+          "label": "Port"
+        }
+      },
+      "name": "Serveur API [Beta]",
+      "prompt": {
+        "hostname": {
+          "label": "Entrer le nom de l'hôte (par exemple 0.0.0.0) pour le serveur API:"
+        }
+      }
+    },
     "audio-compressor": {
       "description": "Appliquer une compression à l'audio (diminue le volume des parties les plus fortes du signal et augmente le volume des parties les plus faibles)",
       "name": "Compresseur audio"
