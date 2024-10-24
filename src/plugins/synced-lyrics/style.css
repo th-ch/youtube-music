@@ -156,5 +156,5 @@
   z-index: 100;
   background-color: var(--ytmusic-background);
 
-  transition: top 0.5s ease-in-out;
+  transition: top 325ms ease-in-out;
 }

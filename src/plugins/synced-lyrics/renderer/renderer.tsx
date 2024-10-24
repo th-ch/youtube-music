@@ -22,7 +22,7 @@ createEffect(() => {
     case 'scale':
       root.style.setProperty(
         '--previous-lyrics',
-        'var(--ytmusic-text-primary)'
+        'var(--ytmusic-text-primary)',
       );
       root.style.setProperty('--current-lyrics', 'var(--ytmusic-text-primary)');
       root.style.setProperty('--size-lyrics', '1.2');
@@ -32,7 +32,7 @@ createEffect(() => {
     case 'offset':
       root.style.setProperty(
         '--previous-lyrics',
-        'var(--ytmusic-text-primary)'
+        'var(--ytmusic-text-primary)',
       );
       root.style.setProperty('--current-lyrics', 'var(--ytmusic-text-primary)');
       root.style.setProperty('--size-lyrics', '1');
@@ -42,7 +42,7 @@ createEffect(() => {
     case 'focus':
       root.style.setProperty(
         '--previous-lyrics',
-        'var(--ytmusic-text-secondary)'
+        'var(--ytmusic-text-secondary)',
       );
       root.style.setProperty('--current-lyrics', 'var(--ytmusic-text-primary)');
       root.style.setProperty('--size-lyrics', '1');
@@ -52,37 +52,29 @@ createEffect(() => {
   }
 });
 
-const [count, setCount] = createSignal(0);
-
-export const renderCount = count;
-export const triggerRender = () => setCount((i) => i + 1);
-
 export const LyricsRenderer = () => {
   const [stickyRef, setStickRef] = createSignal<HTMLElement | null>(null);
 
+  // prettier-ignore
   onMount(() => {
-    const tabRenderer = document.querySelector<HTMLElement>(
-      selectors.body.tabRenderer
-    )!;
+    const tab = document.querySelector<HTMLElement>(selectors.body.tabRenderer)!;
 
-    let lastY = tabRenderer.scrollTop;
-    const scrollListener = throttle(() => {
-      const newY = tabRenderer.scrollTop;
-      const isScrollingDown = newY > lastY;
+    const mousemoveListener = (e: MouseEvent) => {
+      const { top } = tab.getBoundingClientRect();
+      const { clientHeight: height } = stickyRef()!;
 
-      if (!stickyRef()) return;
-      if (isScrollingDown) {
-        stickyRef()!.style.setProperty('--top', '-100%');
-      } else {
+      const showPicker = (e.clientY - top - 5) <= height;
+      if (showPicker) {
+        // picker visible
         stickyRef()!.style.setProperty('--top', '0');
+      } else {
+        // picker hidden
+        stickyRef()!.style.setProperty('--top', '-10%');
       }
+    };
 
-      // update last scroll position
-      lastY = tabRenderer.scrollTop;
-    }, 50);
-
-    tabRenderer.addEventListener('scroll', scrollListener);
-    return () => tabRenderer.removeEventListener('scroll', scrollListener);
+    tab.addEventListener('mousemove', mousemoveListener);
+    return () => tab.removeEventListener('mousemove', mousemoveListener);
   });
 
   return (
@@ -98,7 +90,6 @@ export const LyricsRenderer = () => {
         </div>
         <LyricsContainer />
       </div>
-      <span style={{ display: 'none' }}>{renderCount()}</span>
     </Show>
   );
 };
