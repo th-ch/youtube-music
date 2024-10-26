@@ -761,7 +761,7 @@
       "warnings": {
         "duration-mismatch": "⚠️歌詞可能會出現不同步的情況。",
         "inexact": "⚠️該歌曲的歌詞可能並不精確",
-        "instrumental": "⚠️該首歌曲並無人聲"
+        "instrumental": "⚠️該首歌曲為純音樂"
       }
     },
     "taskbar-mediacontrol": {
