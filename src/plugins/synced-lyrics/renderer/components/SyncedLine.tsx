@@ -1,4 +1,4 @@
-import { createEffect, createMemo } from 'solid-js';
+import { createEffect, createMemo, For } from 'solid-js';
 
 import { currentTime } from './LyricsContainer';
 
@@ -27,6 +27,16 @@ export const SyncedLine = ({ line }: SyncedLineProps) => {
     }
   });
 
+  if (line.text == '') {
+    return (
+      <yt-formatted-string
+        text={{
+          runs: [{ text: '' }],
+        }}
+      />
+    );
+  }
+
   return (
     <div
       ref={ref!}
@@ -35,19 +45,33 @@ export const SyncedLine = ({ line }: SyncedLineProps) => {
         _ytAPI?.seekTo(line.timeInMs / 1000);
       }}
     >
-      <yt-formatted-string
-        class="text-lyrics description ytmusic-description-shelf-renderer"
-        text={{
-          runs: [
-            {
-              text: '',
-            },
-            {
-              text: `${config()?.showTimeCodes ? `[${line.time}] ` : ''}${line.text}`,
-            },
-          ],
-        }}
-      />
+      <div class="text-lyrics description ytmusic-description-shelf-renderer">
+        <yt-formatted-string
+          text={{
+            runs: [{ text: config()?.showTimeCodes ? `[${line.time}] ` : '' }],
+          }}
+        />
+
+        <For each={line.text.split(' ')}>
+          {(word, index) => {
+            return (
+              <span
+                style={{
+                  'transition-delay': `${index() * 0.05}s`,
+                  'animation-delay': `${index() * 0.05}s`,
+                  '--blyrics-duration:': `${line.duration / 1000}s;`,
+                }}
+              >
+                <yt-formatted-string
+                  text={{
+                    runs: [{ text: `${word} ` }],
+                  }}
+                />
+              </span>
+            );
+          }}
+        </For>
+      </div>
     </div>
   );
 };
