@@ -220,7 +220,7 @@
     },
     "album-actions": {
       "description": "Přidává Undislike, Dislike, Like, a Unlike tlačítka k aplikování tohoto ke všem písničkám v seznamu písniček nebo albumu",
-      "name": "Album akce"
+      "name": "Možnosti Albumu"
     },
     "album-color-theme": {
       "description": "Používá dynamický motiv a vizuální efekty na základě palety barev alba",
@@ -278,6 +278,49 @@
         }
       },
       "name": "Ambientní režim"
+    },
+    "api-server": {
+      "description": "Vlož API server abys mohl ovládat přehrávač",
+      "dialog": {
+        "request": {
+          "buttons": {
+            "allow": "Povolit",
+            "deny": "Zakázat"
+          },
+          "message": "Povolit {{ID}} ({{origin}}) přístup k API?",
+          "title": "dotaz na přihlášení k API"
+        }
+      },
+      "menu": {
+        "auth-strategy": {
+          "label": "Možnosti přihlášení",
+          "submenu": {
+            "auth-at-first": {
+              "label": "Ověřit při prvním dotazu"
+            },
+            "none": {
+              "label": "Žádná autorizace"
+            }
+          }
+        },
+        "hostname": {
+          "label": "Hostname"
+        },
+        "port": {
+          "label": "Port"
+        }
+      },
+      "name": "API server [Beta]",
+      "prompt": {
+        "hostname": {
+          "label": "Zadej hostname API serveru (ve tvaru 0.0.0.0):",
+          "title": "Hostname"
+        },
+        "port": {
+          "label": "Zadej port API serveru:",
+          "title": "Port"
+        }
+      }
     },
     "audio-compressor": {
       "description": "Apply compression k audiu (snižuje hlasitost nejhlasitěších částí signálu and zvyšuje hlasitost nejjemnějších částí)",
@@ -415,8 +458,18 @@
       "menu": {
         "choose-download-folder": "Vybrat složku pro stahování",
         "download-finish-settings": {
+          "label": "Stáhnout po dokončení",
+          "prompt": {
+            "last-percent": "Po x procentech",
+            "last-seconds": "Posledních x vteřin",
+            "title": "Nastavit kdy stahovat"
+          },
           "submenu": {
-            "advanced": "Pokoročile"
+            "advanced": "Pokoročile",
+            "enabled": "Zapnuto",
+            "mode": "Časový režim",
+            "percent": "Procent",
+            "seconds": "Sekundy"
           }
         },
         "download-playlist": "Stáhnout seznam písniček",
@@ -616,11 +669,13 @@
       "name": "Scrobbler",
       "prompt": {
         "lastfm": {
-          "api-key": "Last,fm API klíč"
+          "api-key": "Last,fm API klíč",
+          "api-secret": "Tajný klíč API Last.fm"
         },
         "listenbrainz": {
           "token": {
-            "label": "Vložte svůj Listenbrainz user token:"
+            "label": "Vložte svůj Listenbrainz user token:",
+            "title": "ListenBrainz token"
           }
         }
       }
@@ -655,6 +710,22 @@
     "sponsorblock": {
       "description": "Automaticky přeskakuje nehudební části jako intro/outro nebo části hudebních videí, kde nehraje písnčka",
       "name": "SponsorBlock"
+    },
+    "synced-lyrics": {
+      "description": "Poskytuje synchronizaci textů do písní, pomocí poskytovatelů, jako je LRClib.",
+      "errors": {
+        "fetch": "Při hledání textu došlo k chybě. Prosím skuste to znovu později.",
+        "not-found": "Žáden text nebyl pro túto skladbu nalezen."
+      },
+      "menu": {
+        "default-text-string": {
+          "label": "Výchozí znak mezi texty",
+          "tooltip": "Vyberte výchozí znak pro mezeru mezi texty"
+        },
+        "line-effect": {
+          "label": "Efekt řádku"
+        }
+      }
     },
     "taskbar-mediacontrol": {
       "description": "Ovládejte přehrávání z vašeho Windows hlavního panelu",
