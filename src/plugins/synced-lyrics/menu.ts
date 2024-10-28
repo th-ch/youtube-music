@@ -32,6 +32,21 @@ export const menu = async ({
       submenu: [
         {
           label: t(
+            'plugins.synced-lyrics.menu.line-effect.submenu.fancy.label',
+          ),
+          toolTip: t(
+            'plugins.synced-lyrics.menu.line-effect.submenu.fancy.tooltip',
+          ),
+          type: 'radio',
+          checked: config.lineEffect === 'fancy',
+          click() {
+            setConfig({
+              lineEffect: 'fancy',
+            });
+          },
+        },
+        {
+          label: t(
             'plugins.synced-lyrics.menu.line-effect.submenu.scale.label',
           ),
           toolTip: t(

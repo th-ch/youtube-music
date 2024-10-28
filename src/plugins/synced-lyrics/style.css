@@ -7,53 +7,40 @@
   display: block !important;
 }
 
-/* :root {
-  --ytmusic-text-primary: #fff;
-  --ytmusic-text-secondary: #aaa;
-} */
-
+/* Variables are overridden by selected line effect */
 :root {
+  /* Layout */
   --global-margin: 0.7rem;
-  --previous-lyrics: var(--ytmusic-text-primary);
-  --current-lyrics: var(--ytmusic-text-primary);
-  --upcoming-lyrics: var(--ytmusic-text-secondary);
-  --size-lyrics: 1.2em;
-  --offset-lyrics: 1em;
-
-  /* Colors */
-  --blyrics-highlight-color: rgba(255, 255, 255, 0.5);
+  --lyrics-padding: 0;
 
   /* Typography */
-  --blyrics-font-family: Satoshi, Avenir, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
+  --lyrics-font-family: Satoshi, Avenir, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
   Open Sans, Helvetica Neue, sans-serif;
-  --blyrics-font-size: 3rem;
-  --blyrics-font-weight: 700;
-  --blyrics-line-height: 1.333;
-  --blyrics-translated-font-size: 2rem;
-  --blyrics-translated-font-weight: 600;
+  --lyrics-font-size: 1.4rem;
+  --lyrics-line-height: var(--ytmusic-body-line-height);
+  --lyrics-width: 100%;
+
+  /* Inactive Lyrics */
+  --lyrics-inactive-font-weight: 400;
+  --lyrics-inactive-opacity: 0.33;
+  --lyrics-inactive-scale: 1;
+  --lyrics-inactive-offset: 0;
+
+  /* Active Lyrics */
+  --lyrics-active-font-weight: 700;
+  --lyrics-active-opacity: 1;
+  --lyrics-active-scale: 1;
+  --lyrics-active-offset: 0;
 
   /* Animations */
-  --blyrics-transition-duration: 0.166s;
-  --blyrics-opacity-transition: 0.33s;
-  --blyrics-glow-duration: var(--blyrics-duration, 2s);
-  --blyrics-wobble-duration: calc(var(--blyrics-duration, 2s) / 2);
+  --lyrics-animations: lyrics-glow var(--lyrics-glow-duration) forwards, lyrics-wobble var(--lyrics-wobble-duration) forwards;
+  --lyrics-scale-duration: 0.166s;
+  --lyrics-opacity-transition: 0.33s;
+  --lyrics-glow-duration: var(--lyrics-duration, 2s);
+  --lyrics-wobble-duration: calc(var(--lyrics-duration, 2s) / 2);
 
-
-  /* Layout */
-  --blyrics-padding: 2rem;
-  --blyrics-margin: 2rem;
-  --blyrics-border-radius: 1000rem;
-
-  /* Effects */
-  --blyrics-blur-amount: 30px;
-  --blyrics-scale: 0.95;
-  --blyrics-active-scale: 1;
-  --blyrics-inactive-opacity: 0.33;
-  --blyrics-active-opacity: 1;
-  --blyrics-translated-opacity: 0.6;
-  --blyrics-error-opacity: 0.33;
-  --blyrics-background-blur: 100px;
-  --blyrics-background-saturate: 2;
+  /* Colors */
+  --glow-color: rgba(255, 255, 255, 0.5);
 }
 
 .lyric-container {
@@ -66,7 +53,7 @@
 }
 
 .synced-line {
-  width: var(--lyric-width, 100%);
+  width: var(--lyrics-width, 100%);
 }
 
 .synced-line > .text-lyrics {
@@ -77,8 +64,7 @@
   display: block;
   justify-content: left;
   text-align: left;
-  margin: 0.5rem 0;
-  margin-right: 20px;
+  margin: 0.5rem 20px 0.5rem 0;
   transition: all 0.3s ease-in-out;
 }
 
@@ -88,58 +74,50 @@
 }
 
 .text-lyrics {
-  font-family: var(--blyrics-font-family) !important;
-  font-size: var(--blyrics-font-size) !important;
-  font-weight: var(--blyrics-font-weight) !important;
-  line-height: var(--blyrics-line-height) !important;
-  padding-top: var(--blyrics-padding);
-  padding-bottom: var(--blyrics-padding);
-  scale: var(--blyrics-scale);
-  transition: scale var(--blyrics-transition-duration);
+  font-family: var(--lyrics-font-family) !important;
+  font-size: var(--lyrics-font-size) !important;
+  font-weight: var(--lyrics-inactive-font-weight) !important;
+  line-height: var(--lyrics-line-height) !important;
+  padding-top: var(--lyrics-padding);
+  padding-bottom: var(--lyrics-padding);
+  scale: var(--lyrics-inactive-scale);
+  translate: var(--lyrics-inactive-offset);
+  transition:
+    scale var(--lyrics-scale-duration),
+    translate 0.3s ease-in-out;
 
   display: block;
   text-align: left;
   margin: var(--global-margin) 0;
-  /*transition:*/
-  /*  scale 0.3s ease-in-out,*/
-  /*  translate 0.3s ease-in-out,*/
-  /*  color 0.1s ease-in-out;*/
   transform-origin: 0 50%;
 }
 
 .text-lyrics > span {
   display: inline-block;
   white-space: pre-wrap;
-  opacity: var(--blyrics-inactive-opacity);
-  transition: opacity var(--blyrics-opacity-transition);
+  opacity: var(--lyrics-inactive-opacity);
+  transition: opacity var(--lyrics-opacity-transition);
 }
 
 .previous > .text-lyrics {
-  /*color: var(--previous-lyrics);*/
-  /*font-weight: normal;*/
 }
 
 .current > .text-lyrics {
-  scale: var(--blyrics-active-scale);
-
-  /*color: var(--current-lyrics);*/
-  /*font-weight: bold;*/
-  /*scale: var(--size-lyrics);*/
-  /*translate: var(--offset-lyrics) 0;*/
+  font-weight: var(--lyrics-active-font-weight) !important;
+  scale: var(--lyrics-active-scale);
+  translate: var(--lyrics-active-offset);
 }
 
 .current > .text-lyrics > span {
-  opacity: var(--blyrics-active-opacity);
-  animation: blyrics-glow var(--blyrics-glow-duration) forwards, blyrics-wobble var(--blyrics-wobble-duration) forwards;
+  opacity: var(--lyrics-active-opacity);
+  animation: var(--lyrics-animations);
 }
 
 .upcoming > .text-lyrics {
-  /*color: var(--upcoming-lyrics);*/
-  /*font-weight: normal;*/
 }
 
 /* Animations */
-@keyframes blyrics-wobble {
+@keyframes lyrics-wobble {
   from {
     transform: translateY(0px);
   }
@@ -154,11 +132,11 @@
   }
 }
 
-@keyframes blyrics-glow {
+@keyframes lyrics-glow {
   0% {
-    text-shadow: 0 0 1.5rem var(--blyrics-highlight-color);
+    text-shadow: 0 0 1.5rem var(--glow-color);
   }
   to {
-    text-shadow: 0 0 0 var(--blyrics-highlight-color);
+    text-shadow: 0 0 0 var(--glow-color);
   }
 }

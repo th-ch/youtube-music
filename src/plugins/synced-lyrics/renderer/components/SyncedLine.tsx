@@ -59,7 +59,7 @@ export const SyncedLine = ({ line }: SyncedLineProps) => {
                 style={{
                   'transition-delay': `${index() * 0.05}s`,
                   'animation-delay': `${index() * 0.05}s`,
-                  '--blyrics-duration:': `${line.duration / 1000}s;`,
+                  '--lyrics-duration:': `${line.duration / 1000}s;`,
                 }}
               >
                 <yt-formatted-string
