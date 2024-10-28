@@ -10,7 +10,7 @@ overrides:
   xml2js: 0.6.2
   node-fetch: 3.3.2
   '@electron/universal': 2.0.1
-  '@babel/runtime': 7.25.9
+  '@babel/runtime': 7.26.0
 
 patchedDependencies:
   '@malept/flatpak-bundler':
@@ -433,8 +433,8 @@ packages:
     peerDependencies:
       '@babel/core': ^7.0.0-0
 
-  '@babel/runtime@7.25.9':
-    resolution: {integrity: sha512-4zpTHZ9Cm6L9L+uIqghQX8ZXg8HKFcjYO3qHoO8zTmRm6HQUJ8SSJ+KRvbMBZn0EGVlT4DRYeQ/6hjlyXBh+Kg==}
+  '@babel/runtime@7.26.0':
+    resolution: {integrity: sha512-FDSOghenHTiToteC/QRlv2q3DhPZ/oOXTBoirfWNx1Cx3TMVcGWQtMMmQcSvb/JjpNeGzx8Pq/b4fKEJuWm1sw==}
     engines: {node: '>=6.9.0'}
 
   '@babel/template@7.24.7':
@@ -4501,7 +4501,7 @@ snapshots:
       '@babel/core': 7.24.7
       '@babel/helper-plugin-utils': 7.24.7
 
-  '@babel/runtime@7.25.9':
+  '@babel/runtime@7.26.0':
     dependencies:
       regenerator-runtime: 0.14.1
 
@@ -5901,12 +5901,12 @@ snapshots:
 
   butterchurn-presets@3.0.0-beta.4:
     dependencies:
-      '@babel/runtime': 7.25.9
+      '@babel/runtime': 7.26.0
 
   butterchurn@3.0.0-beta.4:
     dependencies:
       '@assemblyscript/loader': 0.17.14
-      '@babel/runtime': 7.25.9
+      '@babel/runtime': 7.26.0
       ecma-proposal-math-extensions: 0.0.2
       eel-wasm: 0.0.15
 
@@ -7191,7 +7191,7 @@ snapshots:
 
   i18next@23.16.3:
     dependencies:
-      '@babel/runtime': 7.25.9
+      '@babel/runtime': 7.26.0
 
   iconv-corefoundation@1.1.7:
     dependencies:
