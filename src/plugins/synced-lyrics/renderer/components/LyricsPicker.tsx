@@ -1,31 +1,80 @@
 /* eslint-disable import/order,@typescript-eslint/no-unused-vars */
 
-import { createMemo, For, Index, Match, Switch } from 'solid-js';
+import {
+  createEffect,
+  createMemo,
+  createSignal,
+  For,
+  Index,
+  Match,
+  onMount,
+  Switch,
+} from 'solid-js';
 import {
   currentLyrics,
   lyricsStore,
   providerNames,
+  ProviderState,
   setLyricsStore,
 } from '../../providers';
 import type { YtIcons } from '@/types/icons';
+import { _ytAPI } from '..';
 
 export const providerIdx = createMemo(() =>
   providerNames.indexOf(lyricsStore.provider),
 );
 
+const shouldSwitchProvider = (providerData: ProviderState) => {
+  if (providerData.state === 'error') return true;
+  if (providerData.state === 'fetching') return true;
+  if (
+    providerData.state === 'done' &&
+    !providerData.data?.lines &&
+    !providerData.data?.lyrics
+  )
+    return true;
+  return false;
+};
+
+// prettier-ignore
 export const LyricsPicker = () => {
-  const next = () =>
+  const [hasManuallySwitchedProvider, setHasManuallySwitchedProvider] = createSignal(false);
+  createEffect(() => {
+    // fallback to the next source, if the current one has an error
+    if (!hasManuallySwitchedProvider() && shouldSwitchProvider(currentLyrics())
+    ) {
+      const allProvidersFailed = providerNames.every(p => shouldSwitchProvider(lyricsStore.lyrics[p]));
+      if (allProvidersFailed) return;
+
+      next(true);
+    }
+  });
+
+  onMount(() => {
+    const listener = (name: string) => {
+      if (name !== "dataloaded") return;
+      setHasManuallySwitchedProvider(false);
+    };
+
+    _ytAPI?.addEventListener('videodatachange', listener);
+    return () => _ytAPI?.removeEventListener('videodatachange', listener);
+  });
+
+  const next = (automatic: boolean = false) => {
+    if (!automatic) setHasManuallySwitchedProvider(true);
     setLyricsStore('provider', (prevProvider) => {
       const idx = providerNames.indexOf(prevProvider);
       return providerNames[(idx + 1) % providerNames.length];
     });
-  const previous = () =>
+  }
+
+  const previous = (automatic: boolean = false) => {
+    if (!automatic) setHasManuallySwitchedProvider(true);
     setLyricsStore('provider', (prevProvider) => {
       const idx = providerNames.indexOf(prevProvider);
-      return providerNames[
-        (idx + providerNames.length - 1) % providerNames.length
-      ];
+      return providerNames[(idx + providerNames.length - 1) % providerNames.length];
     });
+  }
 
   const chevronLeft: YtIcons = 'yt-icons:chevron_left';
   const chevronRight: YtIcons = 'yt-icons:chevron_right';
@@ -34,16 +83,11 @@ export const LyricsPicker = () => {
   const errorIcon: YtIcons = 'yt-icons:error';
   const notFoundIcon: YtIcons = 'yt-icons:warning';
 
-  // TODO: Make this work in a user-friendly way.
-  // createEffect(() => {
-  //   // fallback to the next source, if the current one has an error
-  //   if (currentLyrics().state === 'error') next();
-  // });
 
   return (
     <div class="lyrics-picker">
       <div class="lyrics-picker-left">
-        <tp-yt-paper-icon-button icon={chevronLeft} onClick={previous} />
+        <tp-yt-paper-icon-button icon={chevronLeft} onClick={() => previous()} />
       </div>
 
       <div class="lyrics-picker-content">
@@ -91,7 +135,11 @@ export const LyricsPicker = () => {
                       style={{ padding: '5px', transform: 'scale(0.5)' }}
                     />
                   </Match>
-                  <Match when={currentLyrics().state === 'done'}>
+                  <Match when={
+                      currentLyrics().state === 'done'
+                      && !currentLyrics().data?.lines
+                      && !currentLyrics().data?.lyrics
+                    }>
                     <tp-yt-paper-icon-button
                       icon={notFoundIcon}
                       tabindex="-1"
@@ -124,7 +172,7 @@ export const LyricsPicker = () => {
       </div>
 
       <div class="lyrics-picker-right">
-        <tp-yt-paper-icon-button icon={chevronRight} onClick={next} />
+        <tp-yt-paper-icon-button icon={chevronRight} onClick={() => next()} />
       </div>
     </div>
   );
