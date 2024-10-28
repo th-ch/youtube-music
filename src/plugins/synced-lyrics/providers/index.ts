@@ -120,7 +120,7 @@ export const fetchLyrics = (info: SongInfo) => {
             setLyricsStore('lyrics', (old) => {
               return {
                 ...old,
-                [providerName]: { state: 'done', error, data: null }
+                [providerName]: { state: 'error', error, data: null }
               };
             });
           }
@@ -132,4 +132,38 @@ export const fetchLyrics = (info: SongInfo) => {
     cache.state = 'done';
     searchCache.set(info.videoId, cache);
   });
+};
+
+export const retrySearch = (provider: ProviderName, info: SongInfo) => {
+  setLyricsStore('lyrics', (old) => {
+    const pCache = {
+      state: 'fetching',
+      data: null,
+      error: null,
+    };
+
+    return {
+      ...old,
+      [provider]: pCache,
+    };
+  });
+
+  providers[provider]
+    .search(info)
+    .then((res) => {
+      setLyricsStore('lyrics', (old) => {
+        return {
+          ...old,
+          [provider]: { state: 'done', data: res, error: null },
+        };
+      });
+    })
+    .catch((error) => {
+      setLyricsStore('lyrics', (old) => {
+        return {
+          ...old,
+          [provider]: { state: 'error', data: null, error },
+        };
+      });
+    });
 };

@@ -25,7 +25,7 @@ export const Megalobiz = {
 
     const response = await fetch(`${this.baseUrl}/search/all?${query}`);
     if (!response.ok) {
-      throw new Error(response.statusText);
+      throw new Error(`bad HTTPStatus(${response.statusText})`);
     }
 
     const data = await response.text();

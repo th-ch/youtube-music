@@ -23,12 +23,12 @@ export const LRCLib: LyricProvider = {
     let response = await fetch(url);
 
     if (!response.ok) {
-      return null;
+      throw new Error(`bad HTTPStatus(${response.statusText})`);
     }
 
     let data = (await response.json()) as LRCLIBSearchResponse;
     if (!data || !Array.isArray(data)) {
-      return null;
+      throw new Error(`Expected an array, instead got ${typeof data}`);
     }
 
     if (data.length === 0) {
@@ -41,12 +41,12 @@ export const LRCLib: LyricProvider = {
 
       response = await fetch(url);
       if (!response.ok) {
-        return null;
+        throw new Error(`bad HTTPStatus(${response.statusText})`);
       }
 
       data = (await response.json()) as LRCLIBSearchResponse;
       if (!Array.isArray(data)) {
-        return null;
+        throw new Error(`Expected an array, instead got ${typeof data}`);
       }
     }
 
@@ -95,11 +95,7 @@ export const LRCLib: LyricProvider = {
     }
 
     if (closestResult.instrumental) {
-      return {
-        title: closestResult.trackName,
-        artists: closestResult.artistName.split(/[&,]/g),
-        lines: [],
-      };
+      return null;
     }
 
     const raw = closestResult.syncedLyrics;

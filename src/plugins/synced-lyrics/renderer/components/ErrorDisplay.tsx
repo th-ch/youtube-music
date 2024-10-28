@@ -1,4 +1,6 @@
 import { t } from '@/i18n';
+import { lyricsStore, retrySearch } from '../../providers';
+import { getSongInfo } from '@/providers/song-info-front';
 
 interface ErrorDisplayProps {
   error: Error;
@@ -13,10 +15,9 @@ export const ErrorDisplay = (props: ErrorDisplayProps) => {
           'background-color': 'var(--ytmusic-color-black1)',
           'border-radius': '8px',
           'color': '#58f000',
-          'white-space': 'pre',
-          'overflow-x': 'auto',
           'max-width': '100%',
           'margin-top': '1em',
+          'margin-bottom': '0',
           'padding': '0.5em',
           'font-family': 'serif',
           'font-size': 'large',
@@ -32,7 +33,7 @@ export const ErrorDisplay = (props: ErrorDisplayProps) => {
           'white-space': 'pre',
           'overflow-x': 'auto',
           'max-width': '100%',
-          'margin-top': '1em',
+          'margin-top': '0.5em',
           'padding': '0.5em',
           'font-family': 'monospace',
           'font-size': 'large',
@@ -40,6 +41,22 @@ export const ErrorDisplay = (props: ErrorDisplayProps) => {
       >
         {props.error.stack}
       </pre>
+
+      <yt-button-renderer
+        onClick={() => retrySearch(lyricsStore.provider, getSongInfo())}
+        data={{
+          icon: { iconType: 'REFRESH' },
+          isDisabled: false,
+          style: 'STYLE_DEFAULT',
+          text: {
+            simpleText: t('plugins.synced-lyrics.refetch-btn.normal')
+          },
+        }}
+        style={{
+          'margin-top': '1em',
+          'width': '100%'
+        }}
+      />
     </div>
   );
 };
