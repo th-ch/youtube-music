@@ -61,7 +61,13 @@ export const LyricsGenius: LyricProvider & { domParser: DOMParser } = {
 
     const preloadedState = preloadedStateScript.textContent?.match(preloadedStateRegex)?.[1]?.replace(/\\"/g, '"');
 
-    const lyricsHtml = preloadedState?.match(preloadHtmlRegex)?.[1]?.replace(/\\\//g, '/')?.replace(/\\\\/g, '\\')?.replace(/\\n/g, '\n');
+    const lyricsHtml = preloadedState?.match(preloadHtmlRegex)?.[1]
+      ?.replace(/\\\//g, '/')
+      ?.replace(/\\\\/g, '\\')
+      ?.replace(/\\n/g, '\n')
+      ?.replace(/\\'/g, "'")
+      ?.replace(/\\"/g, '"');
+
     if (!lyricsHtml) throw new Error("Failed to extract lyrics from preloaded state.");
 
     const lyricsDoc = this.domParser.parseFromString(lyricsHtml, 'text/html');
