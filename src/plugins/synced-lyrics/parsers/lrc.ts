@@ -1,4 +1,8 @@
-interface LRCTag {}
+interface LRCTag {
+  tag: string;
+  value: string;
+}
+
 interface LRCLine {
   time: string;
   timeInMs: number;
@@ -17,13 +21,14 @@ const lyricRegex = /^\[(?<minutes>\d+):(?<seconds>\d+)\.(?<milliseconds>\d+)\](?
 
 export const LRC = {
   parse: (text: string): LRC => {
-    let offset = 0;
     const lrc: LRC = {
       tags: [],
       lines: [],
     };
 
+    let offset = 0;
     let previousLine: LRCLine | null = null;
+
     for (const line of text.split('\n')) {
       if (!line.trim().startsWith('[')) continue;
 
@@ -56,12 +61,17 @@ export const LRC = {
         text,
         duration: Infinity,
       };
+
       if (previousLine) {
         previousLine.duration = timeInMs - previousLine.timeInMs;
       }
 
       previousLine = currentLine;
       lrc.lines.push(currentLine);
+    }
+
+    for (const line of lrc.lines) {
+      line.timeInMs += offset;
     }
 
     const first = lrc.lines.at(0);
@@ -72,10 +82,6 @@ export const LRC = {
         duration: first.timeInMs,
         text: '',
       });
-    }
-
-    for (const line of lrc.lines) {
-      line.timeInMs += offset;
     }
 
     return lrc;
