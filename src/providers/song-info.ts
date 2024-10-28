@@ -204,6 +204,24 @@ const registerProvider = (win: BrowserWindow) => {
       }
     },
   );
+
+  ipcMain.on('ytmd:time-changed', async (_, seconds: number) => {
+    const tempSongInfo = await dataMutex.runExclusive<SongInfo | null>(() => {
+      if (!songInfo) {
+        return null;
+      }
+
+      songInfo.elapsedSeconds = seconds;
+
+      return songInfo;
+    });
+
+    if (tempSongInfo) {
+      for (const c of callbacks) {
+        c(tempSongInfo, 'ytmd:time-changed');
+      }
+    }
+  });
 };
 
 const suffixesToRemove = [
