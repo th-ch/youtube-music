@@ -1,8 +1,8 @@
-import { createSignal, For, Match, Show, Switch } from 'solid-js';
+import { createSignal, For, Show } from 'solid-js';
 import { SyncedLine } from './SyncedLine';
 
-import { t } from '@/i18n';
 import { currentLyrics, lyricsStore } from '../../providers';
+import { ErrorDisplay } from './ErrorDisplay';
 
 export const [debugInfo, setDebugInfo] = createSignal<string>();
 export const [currentTime, setCurrentTime] = createSignal<number>(-1);
@@ -10,21 +10,9 @@ export const [currentTime, setCurrentTime] = createSignal<number>(-1);
 export const LyricsContainer = () => {
   return (
     <div class="lyric-container">
-      <Switch>
-        <Match when={lyricsStore.current.error}>
-          <yt-formatted-string
-            class="warning-lyrics description ytmusic-description-shelf-renderer"
-            text={{
-              runs: [
-                {
-                  text: t('plugins.synced-lyrics.errors.fetch'),
-                },
-                { text: lyricsStore.current.error! },
-              ],
-            }}
-          />
-        </Match>
-      </Switch>
+      <Show when={lyricsStore.current.error}>
+        <ErrorDisplay error={lyricsStore.current.error!} />
+      </Show>
 
       {/*<Switch>*/}
       {/*  <Match when={!result()?.lines?.length}>*/}
@@ -93,6 +81,7 @@ export const LyricsContainer = () => {
       <For each={currentLyrics().data?.lines}>
         {(item) => <SyncedLine line={item} />}
       </For>
+
       <Show when={!currentLyrics().data?.lines}>
         <yt-formatted-string
           class="text-lyrics description ytmusic-description-shelf-renderer"

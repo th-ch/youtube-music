@@ -12,11 +12,11 @@ export type SyncedLyricsPluginConfig = {
 export type LineLyricsStatus = 'previous' | 'current' | 'upcoming';
 
 export type LineLyrics = {
-  index: number;
   time: string;
   timeInMs: number;
-  text: string;
   duration: number;
+
+  text: string;
   status: LineLyricsStatus;
 };
 
@@ -36,15 +36,3 @@ export interface LyricProvider {
     songInfo: Pick<SongInfo, 'title' | 'artist' | 'album' | 'songDuration'>,
   ): Promise<LyricResult | null>;
 }
-
-export type LRCLIBSearchResponse = {
-  id: number;
-  name: string;
-  trackName: string;
-  artistName: string;
-  albumName: string;
-  duration: number;
-  instrumental: boolean;
-  plainLyrics: string;
-  syncedLyrics: string;
-}[];

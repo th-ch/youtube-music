@@ -64,6 +64,10 @@
   transform-origin: 0 50%;
 }
 
+.text-lyrics > span {
+  margin-inline: 0.1em;
+}
+
 .previous > .text-lyrics {
   color: var(--previous-lyrics);
   font-weight: normal;

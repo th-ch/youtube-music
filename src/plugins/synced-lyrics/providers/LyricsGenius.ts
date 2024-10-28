@@ -4,9 +4,9 @@ export const LyricsGenius: LyricProvider = {
   name: 'Genius',
   baseUrl: 'https://genius.com',
 
-  async search({ title, artist, album, songDuration }) {
+  async search({ title, artist }) {
     // Only supports plain lyrics, not synced, for now it won't be used.
-    return null;
+    throw new Error('Not implemented');
 
     const query = new URLSearchParams({
       q: `${artist} ${title}`,

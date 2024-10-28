@@ -1,37 +1,8 @@
 import { jaroWinkler } from '@skyra/jaro-winkler';
 
-import {
-  type LineLyrics,
-  type LRCLIBSearchResponse,
-  LyricProvider,
-} from '../types';
+import type { LyricProvider } from '../types';
 import { config } from '../renderer/renderer';
-
-// TODO: Use an LRC parser instead of this.
-function extractTimeAndText(line: string, index: number): LineLyrics | null {
-  const groups = /\[(\d+):(\d+)\.(\d+)\](.+)/.exec(line);
-  if (!groups) return null;
-
-  const [, rMinutes, rSeconds, rMillis, text] = groups;
-  const [minutes, seconds, millis] = [
-    parseInt(rMinutes),
-    parseInt(rSeconds),
-    parseInt(rMillis),
-  ];
-
-  // prettier-ignore
-  const timeInMs = (minutes * 60 * 1000) + (seconds * 1000) + millis;
-
-  // prettier-ignore
-  return {
-    index,
-    timeInMs,
-    time: `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}:${millis}`,
-    text: text?.trim() ?? config()!.defaultTextString,
-    status: 'upcoming',
-    duration: 0,
-  };
-}
+import { LRC } from '../parsers/lrc';
 
 export const LRCLib: LyricProvider = {
   name: 'LRCLib',
@@ -131,37 +102,26 @@ export const LRCLib: LyricProvider = {
       };
     }
 
-    const raw = closestResult.syncedLyrics?.split('\n') ?? [];
-    if (!raw.length) {
-      return null;
-    }
+    const raw = closestResult.syncedLyrics;
+    if (!raw) return null;
 
-    // Add a blank line at the beginning
-    raw.unshift('[0:0.0] ');
-
-    const syncedLyricList = raw.reduce<LineLyrics[]>((acc, line, index) => {
-      const syncedLine = extractTimeAndText(line, index);
-      if (syncedLine) {
-        acc.push(syncedLine);
-      }
-
-      return acc;
-    }, []);
-
-    for (const line of syncedLyricList) {
-      const next = syncedLyricList[line.index + 1];
-      if (!next) {
-        line.duration = Infinity;
-        break;
-      }
-
-      line.duration = next.timeInMs - line.timeInMs;
-    }
-
+    const lyrics = LRC.parse(raw);
     return {
       title: closestResult.trackName,
       artists: closestResult.artistName.split(/[&,]/g),
-      lines: syncedLyricList,
+      lines: lyrics.lines.map((l) => ({ ...l, status: 'upcoming' })),
     };
   },
 } as const;
+
+type LRCLIBSearchResponse = {
+  id: number;
+  name: string;
+  trackName: string;
+  artistName: string;
+  albumName: string;
+  duration: number;
+  instrumental: boolean;
+  plainLyrics: string;
+  syncedLyrics: string;
+}[];

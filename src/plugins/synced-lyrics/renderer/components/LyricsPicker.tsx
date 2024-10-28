@@ -1,24 +1,17 @@
 /* eslint-disable import/order,@typescript-eslint/no-unused-vars */
 
-import { createEffect, createMemo, For, Index, Match, Switch } from 'solid-js';
+import { createMemo, For, Index, Match, Switch } from 'solid-js';
 import {
   currentLyrics,
-  currentProvider,
   lyricsStore,
-  ProviderName,
   providerNames,
-  ProviderState,
   setLyricsStore,
-} from '@/plugins/synced-lyrics/providers';
+} from '../../providers';
 import type { YtIcons } from '@/types/icons';
 
 export const providerIdx = createMemo(() =>
   providerNames.indexOf(lyricsStore.provider),
 );
-
-createEffect(() => {
-  console.log(currentLyrics());
-});
 
 export const LyricsPicker = () => {
   const next = () =>
@@ -41,10 +34,11 @@ export const LyricsPicker = () => {
   const errorIcon: YtIcons = 'yt-icons:error';
   const notFoundIcon: YtIcons = 'yt-icons:warning';
 
-  createEffect(() => {
-    // fallback to the next source, if the current one has an error
-    if (currentLyrics().state === 'error') next();
-  });
+  // TODO: Make this work in a user-friendly way.
+  // createEffect(() => {
+  //   // fallback to the next source, if the current one has an error
+  //   if (currentLyrics().state === 'error') next();
+  // });
 
   return (
     <div class="lyrics-picker">

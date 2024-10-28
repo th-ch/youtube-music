@@ -7,7 +7,6 @@ import { LyricsPicker } from './components/LyricsPicker';
 
 import type { SyncedLyricsPluginConfig } from '../types';
 import { selectors } from './utils';
-import { throttle } from '@/providers/decorators';
 
 export const [isVisible, setIsVisible] = createSignal<boolean>(false);
 export const [config, setConfig] =

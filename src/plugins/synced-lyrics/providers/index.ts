@@ -2,18 +2,21 @@ import { SongInfo } from '@/providers/song-info';
 
 import { LRCLib } from './LRCLib';
 import { Megalobiz } from './Megalobiz';
+import { LyricsGenius } from './LyricsGenius';
 import { MusixMatch } from './MusixMatch';
 import { YTMusic } from './YTMusic';
 
 import type { LyricProvider, LyricResult } from '../types';
 import { createStore } from 'solid-js/store';
 import { createMemo } from 'solid-js';
+import { getSongInfo } from '@/providers/song-info-front';
 
 export const providers = {
   LRCLib,
-  MusixMatch,
-  YTMusic,
   Megalobiz,
+  MusixMatch,
+  LyricsGenius,
+  YTMusic,
 } as const;
 
 export type ProviderName = keyof typeof providers;
@@ -22,7 +25,7 @@ export const providerNames = Object.keys(providers) as ProviderName[];
 export type ProviderState = {
   state: 'fetching' | 'done' | 'error';
   data: LyricResult | null;
-  error: string | null;
+  error: Error | null;
 };
 
 type LyricsStore = {
@@ -53,11 +56,6 @@ export const currentLyrics = createMemo(() => {
   return lyricsStore.lyrics[provider];
 });
 
-export const currentProvider = createMemo(() => {
-  const provider = lyricsStore.provider;
-  return lyricsStore.lyrics[provider];
-});
-
 type VideoId = string;
 
 type SearchCacheData = Record<ProviderName, ProviderState>;
@@ -71,8 +69,10 @@ const searchCache = new Map<VideoId, SearchCache>();
 export const fetchLyrics = (info: SongInfo) => {
   if (searchCache.has(info.videoId)) {
     const cache = searchCache.get(info.videoId);
-    if (cache?.state === 'done') {
-      setLyricsStore('lyrics', cache.data);
+    if (cache && getSongInfo().videoId === info.videoId) {
+      setLyricsStore('lyrics', () => {
+        return { ...cache.data };
+      });
     }
 
     return;
@@ -82,9 +82,13 @@ export const fetchLyrics = (info: SongInfo) => {
     state: 'loading',
     data: initialData(),
   };
-  searchCache.set(info.videoId, cache);
 
-  setLyricsStore('lyrics', cache.data);
+  searchCache.set(info.videoId, cache);
+  if (getSongInfo().videoId === info.videoId) {
+    setLyricsStore('lyrics', () => {
+      return { ...cache.data };
+    });
+  }
 
   const tasks: Promise<void>[] = [];
 
@@ -99,23 +103,27 @@ export const fetchLyrics = (info: SongInfo) => {
           pCache.state = 'done';
           pCache.data = res;
 
-          setLyricsStore('lyrics', (old) => {
-            return {
-              ...old,
-              [providerName]: { state: 'done', data: res ? { ...res } : null, error: null }
-            };
-          });
+          if (getSongInfo().videoId === info.videoId) {
+            setLyricsStore('lyrics', (old) => {
+              return {
+                ...old,
+                [providerName]: { state: 'done', data: res ? { ...res } : null, error: null }
+              };
+            });
+          }
         })
-        .catch((err) => {
+        .catch((error: Error) => {
           pCache.state = 'error';
-          pCache.error = `${err}`;
+          pCache.error = error;
 
-          setLyricsStore('lyrics', (old) => {
-            return {
-              ...old,
-              [providerName]: { state: 'done', error: `${err}`, data: null }
-            };
-          });
+          if (getSongInfo().videoId === info.videoId) {
+            setLyricsStore('lyrics', (old) => {
+              return {
+                ...old,
+                [providerName]: { state: 'done', error, data: null }
+              };
+            });
+          }
         })
     );
   }
