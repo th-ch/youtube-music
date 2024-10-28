@@ -12,7 +12,7 @@ const removeNoise = (text: string) => {
     .replace(/\s+by$/, '');
 };
 
-export const Megalobiz = {
+export const Megalobiz: LyricProvider & { domParser: DOMParser } = {
   name: 'Megalobiz',
   baseUrl: 'https://www.megalobiz.com',
   domParser: new DOMParser(),
@@ -96,7 +96,7 @@ export const Megalobiz = {
       lines: lyrics.lines.map((l) => ({ ...l, status: 'upcoming' })),
     };
   },
-} as LyricProvider & { domParser: DOMParser };
+};
 
 interface MegalobizSearchResult {
   title: string;

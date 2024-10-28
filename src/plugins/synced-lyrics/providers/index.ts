@@ -13,9 +13,9 @@ import { getSongInfo } from '@/providers/song-info-front';
 
 export const providers = {
   LRCLib,
+  LyricsGenius,
   Megalobiz,
   MusixMatch,
-  LyricsGenius,
   YTMusic,
 } as const;
 

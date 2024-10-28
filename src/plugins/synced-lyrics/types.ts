@@ -25,7 +25,9 @@ export type LineEffect = 'scale' | 'offset' | 'focus';
 export interface LyricResult {
   title: string;
   artists: string[];
-  lines: LineLyrics[];
+
+  lyrics?: string;
+  lines?: LineLyrics[];
 }
 
 export interface LyricProvider {

@@ -81,7 +81,8 @@ export const LyricsPicker = () => {
                   <Match
                     when={
                       currentLyrics().state === 'done' &&
-                      currentLyrics().data?.lines
+                      (currentLyrics().data?.lines ||
+                        currentLyrics().data?.lyrics)
                     }
                   >
                     <tp-yt-paper-icon-button
