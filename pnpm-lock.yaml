@@ -139,8 +139,8 @@ importers:
         specifier: 9.0.5
         version: 9.0.5
       i18next:
-        specifier: 23.16.3
-        version: 23.16.3
+        specifier: 23.16.4
+        version: 23.16.4
       jimp:
         specifier: 1.6.0
         version: 1.6.0
@@ -2723,8 +2723,8 @@ packages:
     resolution: {integrity: sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==}
     engines: {node: '>=10.17.0'}
 
-  i18next@23.16.3:
-    resolution: {integrity: sha512-e8q9gFyjrou5v/hBXgRwtWVK7Gp5So19Kf42spJlijGDfkin5abYFHlblonmD2GFYcsf9XIT7MpVuveJq/VCcA==}
+  i18next@23.16.4:
+    resolution: {integrity: sha512-9NIYBVy9cs4wIqzurf7nLXPyf3R78xYbxExVqHLK9od3038rjpyOEzW+XB130kZ1N4PZ9inTtJ471CRJ4Ituyg==}
 
   iconv-corefoundation@1.1.7:
     resolution: {integrity: sha512-T10qvkw0zz4wnm560lOEg0PovVqUXuOFhhHAkixw8/sycy7TJt7v/RrkEKEQnAw2viPSJu6iAkErxnzR0g8PpQ==}
@@ -7189,7 +7189,7 @@ snapshots:
 
   human-signals@2.1.0: {}
 
-  i18next@23.16.3:
+  i18next@23.16.4:
     dependencies:
       '@babel/runtime': 7.26.0
 
