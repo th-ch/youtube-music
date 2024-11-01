@@ -68,7 +68,7 @@ export const LyricsRenderer = () => {
         stickyRef()!.style.setProperty('--top', '0');
       } else {
         // picker hidden
-        stickyRef()!.style.setProperty('--top', '-10%');
+        stickyRef()!.style.setProperty('--top', '-50%');
       }
     };
 
