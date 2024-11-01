@@ -1,11 +1,172 @@
-import { LyricProvider } from '@/plugins/synced-lyrics/types';
+import { LyricProvider, LyricResult, SearchSongInfo } from '../types';
 
-export const YTMusic: LyricProvider = {
-  name: 'YTMusic',
-  baseUrl: 'https://music.youtube.com/',
+const headers = {
+  Accept: 'application/json',
+  'Content-Type': 'application/json',
+};
 
-  async search() {
-    throw new Error('Not implemented');
-    return null;
-  },
-} as const;
+const client = {
+  clientName: '26',
+  clientVersion: '6.48.2',
+};
+
+export class YTMusic implements LyricProvider {
+  public name = 'YTMusic';
+  public baseUrl = 'https://music.youtube.com/';
+
+  // prettier-ignore
+  public async search({ videoId, title, artist }: SearchSongInfo): Promise<LyricResult | null> {
+    const data = await this.fetchNext(videoId);
+
+    const { tabs } = data?.contents?.singleColumnMusicWatchNextResultsRenderer?.tabbedRenderer?.watchNextTabbedResultsRenderer ?? {};
+    if (!Array.isArray(tabs)) return null;
+
+    const lyricsTab = tabs.find((it) => {
+      const pageType = it?.tabRenderer?.endpoint?.browseEndpoint?.browseEndpointContextSupportedConfigs?.browseEndpointContextMusicConfig?.pageType;
+      return pageType === "MUSIC_PAGE_TYPE_TRACK_LYRICS";
+    });
+
+    if (!lyricsTab) return null;
+
+    const { browseId } = lyricsTab?.tabRenderer?.endpoint?.browseEndpoint ?? {};
+    if (!browseId) return null;
+
+    const { contents } = await this.fetchBrowse(browseId);
+    if (!contents) return null;
+
+    const synced = "elementRenderer" in contents
+      ? (contents?.elementRenderer?.newElement?.type?.componentType?.model?.timedLyricsModel?.lyricsData?.timedLyricsData as SyncedLyricLine[])
+        ?.map((it) => ({
+          time: this.millisToTime(parseInt(it.cueRange.startTimeMilliseconds)),
+          timeInMs: parseInt(it.cueRange.startTimeMilliseconds),
+          duration: parseInt(it.cueRange.endTimeMilliseconds) - parseInt(it.cueRange.startTimeMilliseconds),
+          text: it.lyricLine.trim() === '♪' ? '' : it.lyricLine.trim(),
+          status: 'upcoming' as const,
+        }))
+      : undefined;
+
+    const plain = !synced
+      ? (contents?.messageRenderer?.text as PlainLyricsTextRenderer
+      )?.runs.map((it) => it.text).join('\n')
+      : undefined;
+
+    if (typeof plain === 'string' && plain === 'Lyrics not available') {
+      return null;
+    }
+
+    if (synced?.length && synced[0].timeInMs > 300) {
+      synced.unshift({
+        duration: 0,
+        text: '',
+        time: '00:00.00',
+        timeInMs: 0,
+        status: 'upcoming' as const,
+      });
+    }
+
+    return {
+      title,
+      artists: [artist],
+
+      lyrics: plain,
+      lines: synced,
+    }
+  }
+
+  private millisToTime(millis: number) {
+    const minutes = Math.floor(millis / 60000);
+    const seconds = Math.floor((millis - minutes * 60 * 1000) / 1000);
+    const remaining = (millis - minutes * 60 * 1000 - seconds * 1000) / 10;
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${remaining.toString().padStart(2, '0')}`;
+  }
+
+  private ENDPOINT = 'https://youtubei.googleapis.com/youtubei/v1/';
+
+  private fetchNext(videoId: string) {
+    return fetch(this.ENDPOINT + 'next', {
+      headers,
+      method: 'POST',
+      body: JSON.stringify({
+        videoId,
+        context: { client },
+      }),
+    }).then((res) => res.json()) as Promise<NextData>;
+  }
+
+  private fetchBrowse(browseId: string) {
+    return fetch(this.ENDPOINT + 'browse', {
+      headers,
+      method: 'POST',
+      body: JSON.stringify({
+        browseId,
+        context: { client },
+      }),
+    }).then((res) => res.json()) as Promise<BrowseData>;
+  }
+}
+
+interface NextData {
+  contents: {
+    singleColumnMusicWatchNextResultsRenderer: {
+      tabbedRenderer: {
+        watchNextTabbedResultsRenderer: {
+          tabs: {
+            tabRenderer: {
+              endpoint: {
+                browseEndpoint: {
+                  browseId: string;
+                  browseEndpointContextSupportedConfigs: {
+                    browseEndpointContextMusicConfig: {
+                      pageType: string;
+                    };
+                  };
+                };
+              };
+            };
+          }[];
+        };
+      };
+    };
+  };
+}
+
+interface BrowseData {
+  contents: {
+    elementRenderer: {
+      newElement: {
+        type: {
+          componentType: {
+            model: {
+              timedLyricsModel: {
+                lyricsData: {
+                  timedLyricsData: any;
+                };
+              };
+            };
+          };
+        };
+      };
+    };
+    messageRenderer: {
+      text: {
+        runs: any[];
+      };
+    };
+  };
+}
+
+interface SyncedLyricLine {
+  lyricLine: string;
+  cueRange: CueRange;
+}
+
+interface CueRange {
+  startTimeMilliseconds: string;
+  endTimeMilliseconds: string;
+}
+
+interface PlainLyricsTextRenderer {
+  runs: {
+    text: string;
+  }[];
+}

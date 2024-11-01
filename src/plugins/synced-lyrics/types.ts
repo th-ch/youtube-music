@@ -30,11 +30,12 @@ export interface LyricResult {
   lines?: LineLyrics[];
 }
 
+// prettier-ignore
+export type SearchSongInfo = Pick<SongInfo, 'title' | 'artist' | 'album' | 'songDuration' | 'videoId'>;
+
 export interface LyricProvider {
   name: string;
   baseUrl: string;
 
-  search(
-    songInfo: Pick<SongInfo, 'title' | 'artist' | 'album' | 'songDuration'>,
-  ): Promise<LyricResult | null>;
+  search(songInfo: SearchSongInfo): Promise<LyricResult | null>;
 }

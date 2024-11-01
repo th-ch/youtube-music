@@ -58,7 +58,7 @@ export const LRC = {
       const currentLine: LRCLine = {
         time: `${minutes}:${seconds}:${milliseconds}`,
         timeInMs,
-        text,
+        text: text.trim(),
         duration: Infinity,
       };
 

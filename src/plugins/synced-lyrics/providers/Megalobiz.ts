@@ -1,4 +1,4 @@
-import { LyricProvider } from '@/plugins/synced-lyrics/types';
+import { LyricProvider, LyricResult, SearchSongInfo } from '../types';
 import { jaroWinkler } from '@skyra/jaro-winkler';
 import { LRC } from '../parsers/lrc';
 
@@ -12,18 +12,20 @@ const removeNoise = (text: string) => {
     .replace(/\s+by$/, '');
 };
 
-export const Megalobiz: LyricProvider & { domParser: DOMParser } = {
-  name: 'Megalobiz',
-  baseUrl: 'https://www.megalobiz.com',
-  domParser: new DOMParser(),
+export class Megalobiz implements LyricProvider {
+  public name = 'Megalobiz';
+  public baseUrl = 'https://www.megalobiz.com';
+  private domParser = new DOMParser();
 
   // prettier-ignore
-  async search({ title, artist, songDuration }) {
+  async search({ title, artist, songDuration }: SearchSongInfo): Promise<LyricResult | null> {
     const query = new URLSearchParams({
       qry: `${artist} ${title}`,
     });
 
-    const response = await fetch(`${this.baseUrl}/search/all?${query}`);
+    const response = await fetch(`${this.baseUrl}/search/all?${query}`, {
+      signal: AbortSignal.timeout(5_000),
+    });
     if (!response.ok) {
       throw new Error(`bad HTTPStatus(${response.statusText})`);
     }
@@ -95,8 +97,8 @@ export const Megalobiz: LyricProvider & { domParser: DOMParser } = {
       artists: closestResult.artists,
       lines: lyrics.lines.map((l) => ({ ...l, status: 'upcoming' })),
     };
-  },
-};
+  }
+}
 
 interface MegalobizSearchResult {
   title: string;

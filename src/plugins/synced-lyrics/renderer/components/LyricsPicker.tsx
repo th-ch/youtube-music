@@ -13,6 +13,7 @@ import {
 import {
   currentLyrics,
   lyricsStore,
+  ProviderName,
   providerNames,
   ProviderState,
   setLyricsStore,
@@ -36,17 +37,37 @@ const shouldSwitchProvider = (providerData: ProviderState) => {
   return false;
 };
 
+const providerBias = (p: ProviderName) =>
+  (lyricsStore.lyrics[p].state === 'done' ? 1 : -1) +
+  (lyricsStore.lyrics[p].data?.lines?.length ? 2 : -1) +
+  (lyricsStore.lyrics[p].data?.lines?.length && p === 'YTMusic' ? 1 : 0) +
+  (lyricsStore.lyrics[p].data?.lyrics ? 1 : -1);
+
+// prettier-ignore
+const pickBestProvider = () => {
+  const providers = Array.from(providerNames);
+
+  providers.sort((a, b) => providerBias(b) - providerBias(a));
+  console.log(Object.fromEntries(providers.map(p => [p, providerBias(p)])));
+
+  return providers[0];
+};
+
 // prettier-ignore
 export const LyricsPicker = () => {
   const [hasManuallySwitchedProvider, setHasManuallySwitchedProvider] = createSignal(false);
   createEffect(() => {
     // fallback to the next source, if the current one has an error
-    if (!hasManuallySwitchedProvider() && shouldSwitchProvider(currentLyrics())
+    if (!hasManuallySwitchedProvider()
     ) {
+      const bestProvider = pickBestProvider();
+
       const allProvidersFailed = providerNames.every(p => shouldSwitchProvider(lyricsStore.lyrics[p]));
       if (allProvidersFailed) return;
 
-      next(true);
+      if (providerBias(lyricsStore.provider) < providerBias(bestProvider)) {
+        setLyricsStore('provider', bestProvider);
+      }
     }
   });
 

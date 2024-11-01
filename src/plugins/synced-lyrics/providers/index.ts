@@ -12,11 +12,11 @@ import { createMemo } from 'solid-js';
 import { getSongInfo } from '@/providers/song-info-front';
 
 export const providers = {
-  LRCLib,
-  LyricsGenius,
-  Megalobiz,
-  MusixMatch,
-  YTMusic,
+  YTMusic: new YTMusic(),
+  LRCLib: new LRCLib(),
+  LyricsGenius: new LyricsGenius(),
+  MusixMatch: new MusixMatch(),
+  Megalobiz: new Megalobiz(),
 } as const;
 
 export type ProviderName = keyof typeof providers;
@@ -68,10 +68,22 @@ interface SearchCache {
 const searchCache = new Map<VideoId, SearchCache>();
 export const fetchLyrics = (info: SongInfo) => {
   if (searchCache.has(info.videoId)) {
-    const cache = searchCache.get(info.videoId);
-    if (cache && getSongInfo().videoId === info.videoId) {
+    const cache = searchCache.get(info.videoId)!;
+
+    if (cache.state === 'loading') {
+      setTimeout(() => {
+        fetchLyrics(info);
+      });
+      return;
+    }
+
+    console.log('Cache hit', cache?.state);
+
+    if (getSongInfo().videoId === info.videoId) {
+      // @ts-expect-error
       setLyricsStore('lyrics', () => {
-        return { ...cache.data };
+        // weird bug with solid-js
+        return JSON.parse(JSON.stringify(cache.data));
       });
     }
 
@@ -85,8 +97,10 @@ export const fetchLyrics = (info: SongInfo) => {
 
   searchCache.set(info.videoId, cache);
   if (getSongInfo().videoId === info.videoId) {
+    // @ts-expect-error
     setLyricsStore('lyrics', () => {
-      return { ...cache.data };
+      // weird bug with solid-js
+      return JSON.parse(JSON.stringify(cache.data));
     });
   }
 

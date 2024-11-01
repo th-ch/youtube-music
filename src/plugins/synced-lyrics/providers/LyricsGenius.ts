@@ -1,16 +1,15 @@
-import { LyricProvider } from '@/plugins/synced-lyrics/types';
+import { LyricProvider, LyricResult, SearchSongInfo } from '../types';
 
 const preloadedStateRegex = /__PRELOADED_STATE__ = JSON\.parse\('(.*?)'\);/;
 const preloadHtmlRegex = /body":{"html":"(.*?)","children"/;
 
-export const LyricsGenius: LyricProvider & { domParser: DOMParser } = {
-  name: 'Genius',
-  baseUrl: 'https://genius.com',
-
-  domParser: new DOMParser(),
+export class LyricsGenius implements LyricProvider {
+  public name = 'Genius';
+  public baseUrl = 'https://genius.com';
+  private domParser = new DOMParser();
 
   // prettier-ignore
-  async search({ title, artist }) {
+  async search({ title, artist }: SearchSongInfo): Promise<LyricResult | null> {
     const query = new URLSearchParams({
       q: `${artist} ${title}`,
       page: '1',
@@ -73,13 +72,15 @@ export const LyricsGenius: LyricProvider & { domParser: DOMParser } = {
     const lyricsDoc = this.domParser.parseFromString(lyricsHtml, 'text/html');
     const lyrics = lyricsDoc.body.innerText;
 
+    if (lyrics.trim().toLowerCase().replace(/[\[\]]/g, '') === 'instrumental') return null;
+
     return {
       title: closestHit.result.title,
       artists: closestHit.result.primary_artists.map(({ name }) => name),
       lyrics,
     };
-  },
-};
+  }
+}
 
 interface LyricsGeniusSearch {
   response: Response;

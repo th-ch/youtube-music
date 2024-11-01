@@ -1,14 +1,19 @@
 import { jaroWinkler } from '@skyra/jaro-winkler';
 
-import type { LyricProvider } from '../types';
+import type { LyricProvider, LyricResult, SearchSongInfo } from '../types';
 import { config } from '../renderer/renderer';
 import { LRC } from '../parsers/lrc';
 
-export const LRCLib: LyricProvider = {
-  name: 'LRCLib',
-  baseUrl: 'https://lrclib.net',
+export class LRCLib implements LyricProvider {
+  name = 'LRCLib';
+  baseUrl = 'https://lrclib.net';
 
-  async search({ title, artist, album, songDuration }) {
+  async search({
+    title,
+    artist,
+    album,
+    songDuration,
+  }: SearchSongInfo): Promise<LyricResult | null> {
     let query = new URLSearchParams({
       artist_name: artist,
       track_name: title,
@@ -105,10 +110,10 @@ export const LRCLib: LyricProvider = {
     return {
       title: closestResult.trackName,
       artists: closestResult.artistName.split(/[&,]/g),
-      lines: lyrics.lines.map((l) => ({ ...l, status: 'upcoming' })),
+      lines: lyrics.lines.map((l) => ({ ...l, status: 'upcoming' as const })),
     };
-  },
-} as const;
+  }
+}
 
 type LRCLIBSearchResponse = {
   id: number;

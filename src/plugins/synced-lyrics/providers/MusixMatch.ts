@@ -1,11 +1,11 @@
-import { LyricProvider } from '@/plugins/synced-lyrics/types';
+import { LyricProvider, LyricResult, SearchSongInfo } from '../types';
 
-export const MusixMatch: LyricProvider = {
-  name: 'MusixMatch',
-  baseUrl: 'https://www.musixmatch.com/',
+export class MusixMatch implements LyricProvider {
+  name = 'MusixMatch';
+  baseUrl = 'https://www.musixmatch.com/';
 
-  async search() {
+  async search({}: SearchSongInfo): Promise<LyricResult | null> {
     throw new Error('Not implemented');
     return null;
-  },
-} as const;
+  }
+}
