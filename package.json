@@ -305,7 +305,7 @@
     "rollup": "4.24.3",
     "typescript": "5.6.3",
     "typescript-eslint": "8.12.2",
-    "utf-8-validate": "6.0.4",
+    "utf-8-validate": "6.0.5",
     "vite": "5.4.10",
     "vite-plugin-inspect": "0.8.7",
     "vite-plugin-resolve": "2.5.2",
