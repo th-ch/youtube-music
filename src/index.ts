@@ -901,18 +901,15 @@ function removeContentSecurityPolicy(
   betterSession.webRequest.onHeadersReceived((details, callback) => {
     details.responseHeaders ??= {};
 
-    // Remove the content security policy
-    delete details.responseHeaders['content-security-policy-report-only'];
-    delete details.responseHeaders['content-security-policy'];
+    // prettier-ignore
+    if (new URL(details.url).protocol === 'https:') {
+      // Remove the content security policy
+      delete details.responseHeaders['content-security-policy-report-only'];
+      delete details.responseHeaders['content-security-policy'];
 
-    // FIXME: This allows all origins to bypass the CORS policy, which is not secure.
-    //        If a third-party origin is embedded in any way, and has JS code that is executed, it can potentially steal your google account.
-    //        DO NOT MERGE until I've properly figured this out, it shouldn't be that hard to fix.
-    if (details.frame?.url && new URL(details.url).protocol === 'https:') {
+      // Only allow cross-origin requests from music.youtube.com
       delete details.responseHeaders['access-control-allow-origin'];
-      details.responseHeaders['access-control-allow-origin'] = [
-        'https://' + new URL(details.frame?.url).hostname,
-      ];
+      details.responseHeaders['access-control-allow-origin'] = ['https://music.youtube.com'];
     }
 
     callback({ cancel: false, responseHeaders: details.responseHeaders });
