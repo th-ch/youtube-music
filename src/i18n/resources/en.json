@@ -808,6 +808,19 @@
         "visualizer-type": "Visualizer Type"
       },
       "name": "Visualizer"
+    },
+    "equalizer": {
+      "description": "Adds an equalizer to the player",
+      "name": "Equalizer",
+      "menu": {
+        "presets": {
+          "label": "Presets",
+          "list": {
+            "bass-booster": "Bass booster"
+          }
+        }
+
+      }
     }
   }
 }
