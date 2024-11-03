@@ -3,6 +3,8 @@ import sliderHTML from './templates/slider.html?raw';
 import { getSongMenu } from '@/providers/dom-elements';
 import { singleton } from '@/providers/decorators';
 
+import { defaultTrustedTypePolicy } from '@/utils/trusted-types';
+
 import { ElementFromHtml } from '../utils/renderer';
 
 const slider = ElementFromHtml(sliderHTML);
@@ -23,7 +25,10 @@ const updatePlayBackSpeed = () => {
   const playbackSpeedElement = document.querySelector('#playback-speed-value');
   if (playbackSpeedElement) {
     const targetHtml = String(playbackSpeed);
-    playbackSpeedElement.innerHTML = window.trustedTypes?.defaultPolicy ? trustedTypes.defaultPolicy.createHTML(targetHtml) : targetHtml;
+    (playbackSpeedElement.innerHTML as string | TrustedHTML) =
+      defaultTrustedTypePolicy
+        ? defaultTrustedTypePolicy.createHTML(targetHtml)
+        : targetHtml;
   }
 };
 
