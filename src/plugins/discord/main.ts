@@ -1,10 +1,13 @@
-import { app, dialog, ipcMain } from 'electron';
+import { app, dialog } from 'electron';
 import { Client as DiscordClient } from '@xhayper/discord-rpc';
 import { dev } from 'electron-is';
 
 import { ActivityType, GatewayActivityButton } from 'discord-api-types/v10';
 
-import registerCallback, { type SongInfo } from '@/providers/song-info';
+import registerCallback, {
+  type SongInfo,
+  SongInfoEvent,
+} from '@/providers/song-info';
 import { createBackend, LoggerPrefix } from '@/utils';
 import { t } from '@/i18n';
 
@@ -243,25 +246,28 @@ export const backend = createBackend<
 
     // If the page is ready, register the callback
     ctx.window.once('ready-to-show', () => {
-      let lastSongInfo: SongInfo;
-      registerCallback((songInfo) => {
-        lastSongInfo = songInfo;
-        if (this.config) this.updateActivity(songInfo, this.config);
-      });
-      connect();
       let lastSent = Date.now();
-      ipcMain.on('ytmd:time-changed', (_, t: number) => {
-        const currentTime = Date.now();
-        // if lastSent is more than 5 seconds ago, send the new time
-        if (currentTime - lastSent > 5000) {
-          lastSent = currentTime;
-          if (lastSongInfo) {
-            lastSongInfo.elapsedSeconds = t;
-            if (this.config) this.updateActivity(lastSongInfo, this.config);
+      registerCallback((songInfo, event) => {
+        if (event !== SongInfoEvent.TimeChanged) {
+          info.lastSongInfo = songInfo;
+          if (this.config) this.updateActivity(songInfo, this.config);
+        } else {
+          const currentTime = Date.now();
+          // if lastSent is more than 5 seconds ago, send the new time
+          if (currentTime - lastSent > 5000) {
+            lastSent = currentTime;
+            if (songInfo) {
+              info.lastSongInfo = songInfo;
+              if (this.config) this.updateActivity(songInfo, this.config);
+            }
           }
         }
       });
+      connect();
     });
+    ctx.ipc.on('ytmd:player-api-loaded', () =>
+      ctx.ipc.send('ytmd:setup-time-changed-listener'),
+    );
     app.on('window-all-closed', clear);
   },
   stop() {

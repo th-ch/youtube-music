@@ -28,18 +28,6 @@ export default createPlugin({
   },
   backend: {
     liteMode: false,
-    data: {
-      cover: '',
-      cover_url: '',
-      title: '',
-      artists: [] as string[],
-      status: '',
-      progress: 0,
-      duration: 0,
-      album_url: '',
-      album: undefined,
-      url: '',
-    } as Data,
     start({ ipc }) {
       const secToMilisec = (t: number) => Math.round(Number(t) * 1e3);
 
@@ -85,31 +73,24 @@ export default createPlugin({
       ipc.on('ytmd:player-api-loaded', () =>
         ipc.send('ytmd:setup-time-changed-listener'),
       );
-      ipc.on('ytmd:time-changed', (t: number) => {
-        if (!this.data.title) {
-          return;
-        }
-
-        this.data.progress = secToMilisec(t);
-        post(this.data);
-      });
 
       registerCallback((songInfo) => {
         if (!songInfo.title && !songInfo.artist) {
           return;
         }
 
-        this.data.duration = secToMilisec(songInfo.songDuration);
-        this.data.progress = secToMilisec(songInfo.elapsedSeconds ?? 0);
-        this.data.cover = songInfo.imageSrc ?? '';
-        this.data.cover_url = songInfo.imageSrc ?? '';
-        this.data.album_url = songInfo.imageSrc ?? '';
-        this.data.title = songInfo.title;
-        this.data.artists = [songInfo.artist];
-        this.data.status = songInfo.isPaused ? 'stopped' : 'playing';
-        this.data.album = songInfo.album;
-        this.data.url = songInfo.url ?? '';
-        post(this.data);
+        post({
+          duration: secToMilisec(songInfo.songDuration),
+          progress: secToMilisec(songInfo.elapsedSeconds ?? 0),
+          cover: songInfo.imageSrc ?? '',
+          cover_url: songInfo.imageSrc ?? '',
+          album_url: songInfo.imageSrc ?? '',
+          title: songInfo.title,
+          artists: [songInfo.artist],
+          status: songInfo.isPaused ? 'stopped' : 'playing',
+          album: songInfo.album,
+          url: songInfo.url ?? '',
+        });
       });
     },
   },
