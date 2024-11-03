@@ -50,7 +50,6 @@ export default createPlugin({
       const imagePath = getImagePath(kind);
 
       if (imagePath) {
-        console.log('imagePath', imagePath);
         const jimpImageBuffer = await Jimp.read(imagePath).then((img) => {
           if (imagePath && nativeTheme.shouldUseDarkColors) {
             return img.invert().getBuffer(JimpMime.png);
