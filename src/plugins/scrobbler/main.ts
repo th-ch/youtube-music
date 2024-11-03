@@ -3,6 +3,7 @@ import { BrowserWindow } from 'electron';
 import registerCallback, {
   MediaType,
   type SongInfo,
+  SongInfoEvent,
 } from '@/providers/song-info';
 import { createBackend } from '@/utils';
 
@@ -70,7 +71,8 @@ export const backend = createBackend<
     await this.createSessions(config, setConfig);
     this.setConfig = setConfig;
 
-    registerCallback((songInfo: SongInfo) => {
+    registerCallback((songInfo: SongInfo, event) => {
+      if (event === SongInfoEvent.TimeChanged) return;
       // Set remove the old scrobble timer
       clearTimeout(scrobbleTimer);
       if (!songInfo.isPaused) {
