@@ -8,7 +8,10 @@ import previousIcon from '@assets/media-icons-black/previous.png?asset&asarUnpac
 
 import { createPlugin } from '@/utils';
 import getSongControls from '@/providers/song-controls';
-import registerCallback, { type SongInfo } from '@/providers/song-info';
+import registerCallback, {
+  type SongInfo,
+  SongInfoEvent,
+} from '@/providers/song-info';
 import { mediaIcons } from '@/types/media-icons';
 import { t } from '@/i18n';
 
@@ -102,11 +105,13 @@ export default createPlugin({
       ]);
     };
 
-    registerCallback((songInfo) => {
-      // Update currentsonginfo for win.on('show')
-      currentSongInfo = songInfo;
-      // Update thumbar
-      setThumbar(songInfo);
+    registerCallback((songInfo, event) => {
+      if (event !== SongInfoEvent.TimeChanged) {
+        // Update currentsonginfo for win.on('show')
+        currentSongInfo = songInfo;
+        // Update thumbar
+        setThumbar(songInfo);
+      }
     });
 
     // Need to set thumbar again after win.show

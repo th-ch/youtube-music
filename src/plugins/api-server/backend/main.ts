@@ -23,6 +23,8 @@ export const backend = createBackend<BackendType, APIServerConfig>({
       this.songInfo = songInfo;
     });
 
+    ctx.ipc.on('ytmd:player-api-loaded', () => ctx.ipc.send('ytmd:setup-time-changed-listener'));
+
     this.run(config.hostname, config.port);
   },
   stop() {
