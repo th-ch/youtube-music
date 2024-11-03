@@ -77,7 +77,7 @@ importers:
         version: 1.1.1
       '@xhayper/discord-rpc':
         specifier: 1.2.0
-        version: 1.2.0(bufferutil@4.0.8)(utf-8-validate@6.0.4)
+        version: 1.2.0(bufferutil@4.0.8)(utf-8-validate@6.0.5)
       async-mutex:
         specifier: 0.5.0
         version: 0.5.0
@@ -296,8 +296,8 @@ importers:
         specifier: 8.12.2
         version: 8.12.2(eslint@9.13.0)(typescript@5.6.3)
       utf-8-validate:
-        specifier: 6.0.4
-        version: 6.0.4
+        specifier: 6.0.5
+        version: 6.0.5
       vite:
         specifier: 5.4.10
         version: 5.4.10(@types/node@20.12.5)
@@ -312,7 +312,7 @@ importers:
         version: 2.10.2(solid-js@1.9.3)(vite@5.4.10(@types/node@20.12.5))
       ws:
         specifier: 8.18.0
-        version: 8.18.0(bufferutil@4.0.8)(utf-8-validate@6.0.4)
+        version: 8.18.0(bufferutil@4.0.8)(utf-8-validate@6.0.5)
 
 packages:
 
@@ -4154,8 +4154,8 @@ packages:
   usocket@1.0.1:
     resolution: {integrity: sha512-ojgcMbCG6Nym8qi9EPkw1rPWe9kjhLdTfNQGWrEjJRvS6ZbIK/9XLjQTgIejFIAYoqun2vZ8CgINaqYMaxMxMA==}
 
-  utf-8-validate@6.0.4:
-    resolution: {integrity: sha512-xu9GQDeFp+eZ6LnCywXN/zBancWvOpUMzgjLPSjy4BRHSmTelvn2E0DG0o1sTiw5hkCKBHo8rwSKncfRfv2EEQ==}
+  utf-8-validate@6.0.5:
+    resolution: {integrity: sha512-EYZR+OpIXp9Y1eG1iueg8KRsY8TuT8VNgnanZ0uA3STqhHQTLwbl+WX76/9X5OY12yQubymBpaBSmMPkSTQcKA==}
     engines: {node: '>=6.14.2'}
 
   utf8-byte-length@1.0.4:
@@ -5536,12 +5536,12 @@ snapshots:
 
   '@vladfrangu/async_event_emitter@2.4.4': {}
 
-  '@xhayper/discord-rpc@1.2.0(bufferutil@4.0.8)(utf-8-validate@6.0.4)':
+  '@xhayper/discord-rpc@1.2.0(bufferutil@4.0.8)(utf-8-validate@6.0.5)':
     dependencies:
       '@discordjs/rest': 2.3.0
       '@vladfrangu/async_event_emitter': 2.4.4
       discord-api-types: 0.37.103
-      ws: 8.18.0(bufferutil@4.0.8)(utf-8-validate@6.0.4)
+      ws: 8.18.0(bufferutil@4.0.8)(utf-8-validate@6.0.5)
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -8637,7 +8637,7 @@ snapshots:
       - supports-color
     optional: true
 
-  utf-8-validate@6.0.4:
+  utf-8-validate@6.0.5:
     dependencies:
       node-gyp-build: 4.8.0
 
@@ -8769,10 +8769,10 @@ snapshots:
 
   wrappy@1.0.2: {}
 
-  ws@8.18.0(bufferutil@4.0.8)(utf-8-validate@6.0.4):
+  ws@8.18.0(bufferutil@4.0.8)(utf-8-validate@6.0.5):
     optionalDependencies:
       bufferutil: 4.0.8
-      utf-8-validate: 6.0.4
+      utf-8-validate: 6.0.5
 
   x11@2.3.0:
     dependencies:
