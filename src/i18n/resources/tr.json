@@ -293,7 +293,11 @@
       },
       "menu": {
         "auth-strategy": {
+          "label": "Yetkilendirme stratejisi",
           "submenu": {
+            "auth-at-first": {
+              "label": "İlk isteği yetkilendirin"
+            },
             "none": {
               "label": "Yetkilendirme Yok"
             }
@@ -301,6 +305,19 @@
         },
         "hostname": {
           "label": "Ana bilgisayar adı"
+        },
+        "port": {
+          "label": "Bağlantı Noktası"
+        }
+      },
+      "name": "API sunucusu [Beta]",
+      "prompt": {
+        "hostname": {
+          "label": "API sunucusu için hostname (örneğin 0.0.0.0) girin:",
+          "title": "Hostname"
+        },
+        "port": {
+          "title": "Bağlantı Noktası"
         }
       }
     },
