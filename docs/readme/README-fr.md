@@ -12,7 +12,7 @@
 
 </div>
 
-![Capture d'écran](https://github.com/th-ch/youtube-music/raw/master/web/screenshot.jpg "Capture d'écran")
+![Capture d'écran](/web/screenshot.png "Capture d'écran")
 
 
 <div align="center">
@@ -66,7 +66,7 @@
 ## Plugins disponibles :
 
 - **Bloqueur de publicités** : Bloquez toutes les publicités et le suivi dès le départ
-  
+
 - **Actions d'album** : Ajoute des boutons Je n'aime pas, Dislike, J'aime, et Unlike pour appliquer cela à toutes les chansons dans une playlist ou un album
 
 - **Thème de couleur d'album** : Applique un thème dynamique et des effets visuels basés sur la palette de couleurs de l'album
