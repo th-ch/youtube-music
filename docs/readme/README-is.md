@@ -12,7 +12,7 @@
 
 </div>
 
-![Screenshot](../../web/screenshot.jpg "Screenshot")
+![Screenshot](/web/screenshot.png "Screenshot")
 
 
 <div align="center">
@@ -65,7 +65,7 @@
 ## Tiltæk tengiforrit:
 
 - **Auglýsingablokkari**: Lokaðu fyrir allar auglýsingar og rakningar úr kassanum
-  
+
 - **Albúmsaðgerðir**: Bætir Ódíslika, Mislíkt, Líkt, og Ólíkt til að nota þetta á öll lög á spilunarlista eða albúm
 
 - **Albúmslitaþema**: Beitir kraftmikið þema og sjónrænum áhrifum sem byggjast á litavali albúmsins
