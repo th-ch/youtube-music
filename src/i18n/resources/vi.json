@@ -279,6 +279,49 @@
       },
       "name": "Chế độ Môi trường xung quanh"
     },
+    "api-server": {
+      "description": "Thêm máy chủ API để điều khiển trình phát",
+      "dialog": {
+        "request": {
+          "buttons": {
+            "allow": "Cho phép",
+            "deny": "Từ chối"
+          },
+          "message": "Cho phép {{ID}} ({{origin}}) truy cập API?",
+          "title": "Yêu cầu cho phép API"
+        }
+      },
+      "menu": {
+        "auth-strategy": {
+          "label": "Chiến thuật xác thực",
+          "submenu": {
+            "auth-at-first": {
+              "label": "Xác thực ngay yêu cầu đầu tiên"
+            },
+            "none": {
+              "label": "Không/Chưa xác thực (Need context)"
+            }
+          }
+        },
+        "hostname": {
+          "label": "Tên máy chủ"
+        },
+        "port": {
+          "label": "Cổng"
+        }
+      },
+      "name": "Máy chủ API [Beta]",
+      "prompt": {
+        "hostname": {
+          "label": "Điền tên máy chủ (như 0.0.0.0) cho máy chủ API:",
+          "title": "Tên máy chủ"
+        },
+        "port": {
+          "label": "Nhập cổng cho máy chủ API:",
+          "title": "Cổng"
+        }
+      }
+    },
     "audio-compressor": {
       "description": "Áp dụng tính năng nén cho âm thanh (giảm âm lượng của phần to nhất của tín hiệu và tăng âm lượng của phần nhỏ nhất)",
       "name": "Bộ nén âm thanh"
@@ -671,7 +714,7 @@
     "synced-lyrics": {
       "description": "Cung cấp lời bài hát được đồng bộ hoá với các bài hát, sử dụng những nhà cung cấp như LRClib.",
       "errors": {
-        "fetch": "⚠️ - Đã xảy ra lỗi khi tìm nạp lời bài hát, Vui lòng thử lại sau.",
+        "fetch": "⚠️ - Đã xảy ra lỗi khi tìm lời bài hát, Vui lòng thử lại sau.",
         "not-found": "⚠️ - Không tìm thấy lời cho bài hát này."
       },
       "menu": {
@@ -685,6 +728,10 @@
             "focus": {
               "label": "Tập trung",
               "tooltip": "Chỉ làm cho dòng hiện tại có màu trắng"
+            },
+            "offset": {
+              "label": "Độ lệch",
+              "tooltip": "Độ lệch bên phải của dòng hiện tại"
             },
             "scale": {
               "label": "Tỉ lệ",
