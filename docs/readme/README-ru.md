@@ -168,7 +168,7 @@ brew install th-ch/youtube-music/youtube-music
 Если вы устанавливаете приложение вручную и получаете ошибку "is damaged and can’t be opened.", запустите в терминале следующую команду:
 
 ```bash
-xattr -cr /Applications/YouTube\ Music.app
+/usr/bin/xattr -cr /Applications/YouTube\ Music.app
 ```
 
 ### Windows

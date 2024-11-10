@@ -192,7 +192,7 @@ brew install th-ch/youtube-music/youtube-music
 If you install the app manually and get an error "is damaged and can’t be opened." when launching the app, run the following in the Terminal:
 
 ```bash
-xattr -cr /Applications/YouTube\ Music.app
+/usr/bin/xattr -cr /Applications/YouTube\ Music.app
 ```
 
 ### Windows

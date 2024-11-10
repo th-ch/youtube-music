@@ -185,7 +185,7 @@ brew install th-ch/youtube-music/youtube-music
 Si vous installez l'application manuellement et obtenez une erreur "est endommagé et ne peut pas être ouvert." lors du lancement de l'application, exécutez ce qui suit dans le Terminal :
 
 ```bash
-xattr -cr /Applications/YouTube\ Music.app
+/usr/bin/xattr -cr /Applications/YouTube\ Music.app
 ```
 
 ### Windows
