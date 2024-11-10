@@ -180,7 +180,7 @@ brew install th-ch/youtube-music/youtube-music
 Ef þú setur upp forritið handvirkt og færð villu "er skemmd og ekki er hægt að opna það," þegar þú ræsir forritið skaltu keyra eftirfarandi í flugstöðinni:
 
 ```bash
-xattr -cr /Applications/YouTube\ Music.app
+/usr/bin/xattr -cr /Applications/YouTube\ Music.app
 ```
 
 ### Windows
