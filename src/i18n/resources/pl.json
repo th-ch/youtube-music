@@ -279,6 +279,49 @@
       },
       "name": "Tryb otoczenia"
     },
+    "api-server": {
+      "description": "Pozwala na kontrolowanie YouTube Music poprzez podłączenie specjalnego serwera API",
+      "dialog": {
+        "request": {
+          "buttons": {
+            "allow": "Zezwól",
+            "deny": "Odmów"
+          },
+          "message": "Zezwolić {{ID}} (pochodzenie: {{origin}}) na dostęp do API?",
+          "title": "Prośba o autoryzację API"
+        }
+      },
+      "menu": {
+        "auth-strategy": {
+          "label": "Strategia autoryzacji",
+          "submenu": {
+            "auth-at-first": {
+              "label": "Autoryzuj przy pierwszej prośbie"
+            },
+            "none": {
+              "label": "Nie autoryzuj"
+            }
+          }
+        },
+        "hostname": {
+          "label": "Nazwa hosta (IP)"
+        },
+        "port": {
+          "label": "Port"
+        }
+      },
+      "name": "YouTube Music API",
+      "prompt": {
+        "hostname": {
+          "label": "Wpisz nazwę hosta (IP, np. 0.0.0.0), który będzie użyty do serwera API:",
+          "title": "Nazwa hosta"
+        },
+        "port": {
+          "label": "Wpisz port, z którego będzie korzystać serwer API:",
+          "title": "Port"
+        }
+      }
+    },
     "audio-compressor": {
       "description": "Zastosuj kompresję do dźwięku (obniża głośność najgłośniejszych części sygnału i zwiększa głośność najcichszych części)",
       "name": "Kompresor dźwięku"
