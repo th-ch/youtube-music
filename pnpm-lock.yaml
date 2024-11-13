@@ -52,8 +52,8 @@ importers:
         specifier: 2.0.5
         version: 2.0.5
       '@hono/node-server':
-        specifier: 1.13.6
-        version: 1.13.6(hono@4.6.10)
+        specifier: 1.13.7
+        version: 1.13.7(hono@4.6.10)
       '@hono/swagger-ui':
         specifier: 0.4.1
         version: 0.4.1(hono@4.6.10)
@@ -863,8 +863,8 @@ packages:
   '@foobar404/wave@2.0.5':
     resolution: {integrity: sha512-V/ydadtv5ObCw8aEg+Qy3YSq1eyinEWzJfRI43Ovmj7VmAvEdWAdL7MatoMbiIVYPATkNDVF7GOxX1xirxM9dA==}
 
-  '@hono/node-server@1.13.6':
-    resolution: {integrity: sha512-Y2ivw4UmLIBKfzvkFgcsrhc0GLn272diGjlnKOF9T1OiY6ud4RaVO8FKEnifNkuU7meOeCU371/8fmhgeYf7Lw==}
+  '@hono/node-server@1.13.7':
+    resolution: {integrity: sha512-kTfUMsoloVKtRA2fLiGSd9qBddmru9KadNyhJCwgKBxTiNkaAJEwkVN9KV/rS4HtmmNRtUh6P+YpmjRMl0d9vQ==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       hono: ^4
@@ -4860,7 +4860,7 @@ snapshots:
 
   '@foobar404/wave@2.0.5': {}
 
-  '@hono/node-server@1.13.6(hono@4.6.10)':
+  '@hono/node-server@1.13.7(hono@4.6.10)':
     dependencies:
       hono: 4.6.10
 
