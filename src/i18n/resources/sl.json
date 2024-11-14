@@ -3,7 +3,7 @@
     "console": {
       "plugins": {
         "execute-failed": "Napaka pri inicilizaciji dodatka {{pluginName}}::{{contextName}}",
-        "executed-at-ms": "Dodatek {{pluginName}}::{{contextName}} izvešen pri {{ms}}ms",
+        "executed-at-ms": "Dodatek {{pluginName}}::{{contextName}} izvršen pri {{ms}}ms",
         "initialize-failed": "Napaka pri inicilizaciji dodatka \"{{pluginName}}\"",
         "load-all": "Nalaganje dodatkov",
         "load-failed": "Napaka pri nalaganju dodatka \"{{pluginName}}\"",
@@ -36,7 +36,7 @@
         "details": "Neodzivna napaka!\n{{error}}"
       },
       "when-ready": {
-        "clearing-cache-after-20s": "Čiščenje predpolnilnika"
+        "clearing-cache-after-20s": "Čiščenje predpomnilnika"
       },
       "window": {
         "tried-to-render-offscreen": "Okno se je poskusilo prikazati izven ekrana, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
@@ -46,14 +46,14 @@
       "hide-menu-enabled": {
         "detail": "Meni je skrit, pritisni 'Alt' za odpiranje (ali 'Escape' če uporabljaš In-App Meni)",
         "message": "Skriti meni je prižgan",
-        "title": "Skrij meni uklopljen"
+        "title": "Skrij meni vklopljen"
       },
       "need-to-restart": {
         "buttons": {
           "later": "Kasneje",
           "restart-now": "Ponovno zaženi zdaj"
         },
-        "detail": "\"{{pluginName}}\" dodatek potrebuje ponovni zagon za začetek",
+        "detail": "\"{{pluginName}}\" dodatek potrebuje ponovni zagon",
         "message": "\"{{pluginName}}\" je potrebno ponovno zagnati",
         "title": "Potreben je ponovni zagon"
       },
@@ -63,7 +63,7 @@
           "relaunch": "Ponovno zaženi",
           "wait": "Počakaj"
         },
-        "detail": "Opravičujemo se za neprijetnost! Prosim odločite se kaj narediti:",
+        "detail": "Opravičujemo se za nevšečnost! Prosim odločite se kaj narediti:",
         "message": "Aplikacija se ne odziva",
         "title": "Okno se ne odziva"
       },
@@ -83,7 +83,7 @@
       "navigation": {
         "label": "Navigacija",
         "submenu": {
-          "copy-current-url": "Kopiraj trenuten URL",
+          "copy-current-url": "Kopiraj trenutni URL",
           "go-back": "Nazaj",
           "go-forward": "Naprej",
           "quit": "Izhod",
@@ -96,7 +96,7 @@
           "advanced-options": {
             "label": "Dodatne nastavitve",
             "submenu": {
-              "auto-reset-app-cache": "Resetiraj predpolnilnik aplikacije ob zagonu",
+              "auto-reset-app-cache": "Resetiraj predpomnilnik aplikacije ob zagonu",
               "disable-hardware-acceleration": "Izklopi strojno pospeševanje",
               "edit-config-json": "Spremeni config.json",
               "override-user-agent": "Prepiši User-Agent",
@@ -104,7 +104,7 @@
               "set-proxy": {
                 "label": "Nastavi proxy",
                 "prompt": {
-                  "label": "Napiši naslov Proxy: (pusti prazno, da izklopiš)",
+                  "label": "Napiši Proxy naslov: (pusti prazno, da izklopiš)",
                   "placeholder": "Primer: SOCKS5://127.0.0.1:9999",
                   "title": "Nastavi Proxy"
                 }
@@ -116,7 +116,7 @@
           "auto-update": "Avtomatsko posodobi",
           "hide-menu": {
             "dialog": {
-              "message": "Meni se bo skrit pri naslednjem zagonu, uporabi [Alt] da se prikaže (ali [`] v in-app-menu)",
+              "message": "Meni se bo skrit pri naslednjem zagonu, uporabi [Alt] da se prikaže (ali [`] v meniju aplikacije)",
               "title": "Skrij meni vklopljen"
             },
             "label": "Skrij meni"
@@ -128,12 +128,12 @@
             },
             "label": "Jezik",
             "submenu": {
-              "to-help-translate": "Želiš pomagati prevediti? Klikni tukaj"
+              "to-help-translate": "Želiš pomagati pri prevajanju? Klikni tukaj"
             }
           },
-          "resume-on-start": "Predvajaj zadnjo pesem, ko se aplikacija prižge",
+          "resume-on-start": "Predvajaj zadnjo pesem, ko se aplikacija zažene",
           "single-instance-lock": "Zaklep ene instance",
-          "start-at-login": "Prižgi pri zagonu",
+          "start-at-login": "Zaženi pri zagonu",
           "starting-page": {
             "label": "Začetna stran",
             "unset": "Ni nastavljeno"
@@ -154,7 +154,7 @@
                 "default": "Privzeto",
                 "force-show": "Prisilno pokaži",
                 "hide": "Skrij",
-                "label": "Gumb všeč mi je"
+                "label": "Gumbi za všečkanje"
               },
               "remove-upgrade-button": "Odstrani gumb za nadgradnjo",
               "theme": {
@@ -163,8 +163,8 @@
                     "cancel": "Prekliči",
                     "remove": "Odstrani"
                   },
-                  "remove-theme": "Ali želite odstraniti poljubno temo?",
-                  "remove-theme-message": "Poljubna tema bo odtranjena"
+                  "remove-theme": "Ali želite odstraniti temo po meri?",
+                  "remove-theme-message": "Tema po meri bo odstranjena"
                 },
                 "label": "Tema",
                 "submenu": {
@@ -212,7 +212,7 @@
       "name": "Pospeševanje oglasov"
     },
     "adblocker": {
-      "description": "Izklopi vse oglase od začetka",
+      "description": "Izklopi vse oglase in sledenje",
       "menu": {
         "blocker": "Blokator"
       },
@@ -226,31 +226,31 @@
       "description": "Doda dinamično temo in vizualne efekte glede na barve albuma",
       "menu": {
         "color-mix-ratio": {
-          "label": "Raznerje barv",
+          "label": "Razmerje barv",
           "submenu": {
             "percent": "{{ratio}}%"
           }
         }
       },
-      "name": "Tema Brav Albuma"
+      "name": "Barvna tema Albuma"
     },
     "ambient-mode": {
-      "description": "Doda bravn efekt iz video posnetka na ozadje",
+      "description": "Doda barvni učinek iz video posnetka na ozadje",
       "menu": {
         "blur-amount": {
-          "label": "količina zameglitve",
+          "label": "Stopnja zameglitve",
           "submenu": {
             "pixels": "{{blurAmount}} pikslov"
           }
         },
         "buffer": {
-          "label": "Medpolnilnik",
+          "label": "Medpomnilnik",
           "submenu": {
             "buffer": "{{buffer}}"
           }
         },
         "opacity": {
-          "label": "Nepreglednost",
+          "label": "Prozornost",
           "submenu": {
             "percent": "{{opacity}}%"
           }
@@ -274,13 +274,13 @@
           }
         },
         "use-fullscreen": {
-          "label": "Uporablja cel zaslon"
+          "label": "Uporablja celoten zaslon"
         }
       },
       "name": "Ambienten način"
     },
     "api-server": {
-      "description": "Doda API strežnik za nadzor predvajalca",
+      "description": "Doda API strežnik za nadzor predvajalnika",
       "dialog": {
         "request": {
           "buttons": {
@@ -296,7 +296,7 @@
           "label": "Strategija avtorizacije",
           "submenu": {
             "auth-at-first": {
-              "label": "Avtorizacija ob prvi prošnji"
+              "label": "Avtorizacija ob prvem zahtevku"
             },
             "none": {
               "label": "Ni avtorizacije"
@@ -337,7 +337,7 @@
     "captions-selector": {
       "description": "Izberi podnapise za YouTube Music zvočne posnetke",
       "menu": {
-        "autoload": "Avtomatsko uporabi zanje izbrane podnapise",
+        "autoload": "Avtomatsko uporabi zadnje izbrane podnapise",
         "disable-captions": "Avtomatsko brez podnapisov"
       },
       "name": "Izberi podnapise",
