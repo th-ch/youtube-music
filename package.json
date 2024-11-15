@@ -272,7 +272,7 @@
     "zod": "3.23.8"
   },
   "devDependencies": {
-    "@eslint/js": "9.14.0",
+    "@eslint/js": "9.15.0",
     "@playwright/test": "1.48.2",
     "@stylistic/eslint-plugin-js": "2.10.1",
     "@total-typescript/ts-reset": "0.6.1",
@@ -293,7 +293,7 @@
     "electron-devtools-installer": "3.2.0",
     "electron-vite": "2.3.0",
     "esbuild": "0.24.0",
-    "eslint": "9.14.0",
+    "eslint": "9.15.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-import-resolver-exports": "1.0.0-beta.5",
     "eslint-import-resolver-typescript": "3.6.3",
