@@ -131,7 +131,18 @@
     },
     "flatpak": {
       "description": "YouTube Music Desktop App bundled with custom plugins (and built-in ad blocker / downloader)",
-      "category": "AudioVideo"
+      "category": "AudioVideo",
+      "finishArgs": [
+        "--socket=wayland",
+        "--socket=x11",
+        "--share=ipc",
+        "--device=dri",
+        "--socket=pulseaudio",
+        "--share=network",
+        "--filesystem=xdg-music:rw",
+        "--talk-name=org.freedesktop.Notifications",
+        "--own-name=org.mpris.MediaPlayer2.YoutubeMusic.*"
+      ]
     },
     "deb": {
       "depends": [
