@@ -34,3 +34,12 @@
   margin: 0 auto !important;
   overflow: visible;
 }
+
+/* Fix ambient mode overlapping other elements #2520 */
+.song-button.ytmusic-av-toggle, .video-button.ytmusic-av-toggle {
+  z-index: 1;
+  background-color: transparent;
+}
+#side-panel.side-panel.ytmusic-player-page {
+  z-index: 0;
+}
