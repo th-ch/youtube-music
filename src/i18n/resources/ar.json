@@ -267,8 +267,58 @@
           }
         },
         "smoothness-transition": {
-          "label": "انتقال السلاسة"
+          "label": "انتقال السلاسة",
+          "submenu": {
+            "during": "خلال ‬{{interpolationTime}} ثانيه"
+          }
+        },
+        "use-fullscreen": {
+          "label": "استخدام شاشه كامله"
         }
+      },
+      "name": "الوضع المحيطي"
+    },
+    "api-server": {
+      "description": "يضيف خادم للتحكم في المشغل",
+      "dialog": {
+        "request": {
+          "buttons": {
+            "allow": "سماح",
+            "deny": "رفض"
+          }
+        }
+      },
+      "menu": {
+        "hostname": {
+          "label": "اسم المضيف"
+        }
+      },
+      "prompt": {
+        "hostname": {
+          "title": "اسم الخادم"
+        }
+      }
+    },
+    "blur-nav-bar": {
+      "description": "يجعل شريط التنقل شفاف و ضبابي"
+    },
+    "bypass-age-restrictions": {
+      "description": "تجاوز تَحَقّق اليوتيوب من السن",
+      "name": "تجاوز التحقق من السن"
+    },
+    "downloader": {
+      "backend": {
+        "feedback": {
+          "downloading-counter": "تنزيل {{current}}/{{total}}…",
+          "error-while-downloading": "خطأ في تحميل \"{{author}} - {{title}}\": {{error}}",
+          "loading": "جار التحميل…",
+          "preparing-file": "يتم تجهيز الملف…",
+          "saving": "يتم الحفظ…",
+          "video-id-not-found": "لم يتم ايجاد الفيديو"
+        }
+      },
+      "menu": {
+        "choose-download-folder": "اختر مكان التحميل"
       }
     }
   }
