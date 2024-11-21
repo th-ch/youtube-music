@@ -53,16 +53,16 @@ importers:
         version: 2.0.5
       '@hono/node-server':
         specifier: 1.13.7
-        version: 1.13.7(hono@4.6.10)
+        version: 1.13.7(hono@4.6.11)
       '@hono/swagger-ui':
         specifier: 0.4.1
-        version: 0.4.1(hono@4.6.10)
+        version: 0.4.1(hono@4.6.11)
       '@hono/zod-openapi':
         specifier: 0.17.1
-        version: 0.17.1(hono@4.6.10)(zod@3.23.8)
+        version: 0.17.1(hono@4.6.11)(zod@3.23.8)
       '@hono/zod-validator':
         specifier: 0.4.1
-        version: 0.4.1(hono@4.6.10)(zod@3.23.8)
+        version: 0.4.1(hono@4.6.11)(zod@3.23.8)
       '@jellybrick/electron-better-web-request':
         specifier: 1.0.4
         version: 1.0.4
@@ -130,8 +130,8 @@ importers:
         specifier: 6.0.0
         version: 6.0.0
       hono:
-        specifier: 4.6.10
-        version: 4.6.10
+        specifier: 4.6.11
+        version: 4.6.11
       howler:
         specifier: 2.2.4
         version: 2.2.4
@@ -2694,8 +2694,8 @@ packages:
     resolution: {integrity: sha512-ciq6hFsSG/Bpt2DmrZJtv+56zpPdnq+NQ4ijEFrveKN0ZG1mhl/LdT1NQZ9se6ty1fACcI4d4vYqC9v8EYpH2A==}
     hasBin: true
 
-  hono@4.6.10:
-    resolution: {integrity: sha512-IXXNfRAZEahFnWBhUUlqKEGF9upeE6hZoRZszvNkyAz/CYp+iVbxm3viMvStlagRJohjlBRGOQ7f4jfcV0XMGg==}
+  hono@4.6.11:
+    resolution: {integrity: sha512-f0LwJQFKdUUrCUAVowxSvNCjyzI7ZLt8XWYU/EApyeq5FfOvHFarBaE5rjU9HTNFk4RI0FkdB2edb3p/7xZjzQ==}
     engines: {node: '>=16.9.0'}
 
   hosted-git-info@4.1.0:
@@ -4863,29 +4863,29 @@ snapshots:
 
   '@foobar404/wave@2.0.5': {}
 
-  '@hono/node-server@1.13.7(hono@4.6.10)':
+  '@hono/node-server@1.13.7(hono@4.6.11)':
     dependencies:
-      hono: 4.6.10
+      hono: 4.6.11
 
-  '@hono/swagger-ui@0.4.1(hono@4.6.10)':
+  '@hono/swagger-ui@0.4.1(hono@4.6.11)':
     dependencies:
-      hono: 4.6.10
+      hono: 4.6.11
 
-  '@hono/zod-openapi@0.17.1(hono@4.6.10)(zod@3.23.8)':
+  '@hono/zod-openapi@0.17.1(hono@4.6.11)(zod@3.23.8)':
     dependencies:
       '@asteasolutions/zod-to-openapi': 7.2.0(zod@3.23.8)
-      '@hono/zod-validator': 0.3.0(hono@4.6.10)(zod@3.23.8)
-      hono: 4.6.10
+      '@hono/zod-validator': 0.3.0(hono@4.6.11)(zod@3.23.8)
+      hono: 4.6.11
       zod: 3.23.8
 
-  '@hono/zod-validator@0.3.0(hono@4.6.10)(zod@3.23.8)':
+  '@hono/zod-validator@0.3.0(hono@4.6.11)(zod@3.23.8)':
     dependencies:
-      hono: 4.6.10
+      hono: 4.6.11
       zod: 3.23.8
 
-  '@hono/zod-validator@0.4.1(hono@4.6.10)(zod@3.23.8)':
+  '@hono/zod-validator@0.4.1(hono@4.6.11)(zod@3.23.8)':
     dependencies:
-      hono: 4.6.10
+      hono: 4.6.11
       zod: 3.23.8
 
   '@humanfs/core@0.19.1': {}
@@ -7151,7 +7151,7 @@ snapshots:
 
   hexy@0.2.11: {}
 
-  hono@4.6.10: {}
+  hono@4.6.11: {}
 
   hosted-git-info@4.1.0:
     dependencies:
