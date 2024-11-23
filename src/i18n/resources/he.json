@@ -6,7 +6,7 @@
         "executed-at-ms": "התוסף {{pluginName}}:{{contextName}} בוצע ב {{ms}}ms",
         "initialize-failed": "טעינת התוסף \"{{pluginName}}\" נכשלה",
         "load-all": "טוען את כל התוספים",
-        "load-failed": "לא ניתן לטעון את התוסף {{pluginName}}",
+        "load-failed": "שגיאה בטעינת התוסף \"{{pluginName}}\"",
         "loaded": "התוסף \"{{pluginName}}\" נטען",
         "unload-failed": "הסרת התוסף \"{{pluginName}} נכשלה",
         "unloaded": "תוסף {{pluginName}} הורד"
@@ -52,6 +52,38 @@
         "buttons": {
           "later": "אחר כך",
           "restart-now": "מתחיל את התוכנה מחדש עכשיו"
+        },
+        "title": "נדרשת הפעלה מחדש"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "יציאה",
+          "relaunch": "הפעל מחדש",
+          "wait": "המתן"
+        },
+        "detail": "אנו מצטערים על אי הנוחות! אנא בחר מה לעשות:",
+        "message": "האפליקציה אינה מגיבה",
+        "title": "החלון אינו מגיב"
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "בטל עדכונים",
+          "download": "הורדה",
+          "ok": "אוקי"
+        },
+        "message": "גירסא חדשה זמינה כעת",
+        "title": "קיים עדכון חדש"
+      }
+    },
+    "menu": {
+      "about": "אודות",
+      "navigation": {
+        "label": "ניווט",
+        "submenu": {
+          "copy-current-url": "העתק את כתובת ה-URL",
+          "go-back": "חזור אחורה",
+          "go-forward": "לך קדימה",
+          "quit": "יציאה"
         }
       }
     }
