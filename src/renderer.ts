@@ -92,6 +92,13 @@ async function onApiLoaded() {
         ?.updateLikeStatus(status);
     },
   );
+  window.ipcRenderer.on('ytmd:get-repeat-mode', () => {
+    const repeatMode =
+      document
+        .querySelector<HTMLElement>('ytmusic-player-bar')
+        ?.attributes.getNamedItem('repeat-mode') ?? null;
+    window.ipcRenderer.send('ytmd:repeat-mode-response', repeatMode?.value);
+  });
   window.ipcRenderer.on('ytmd:switch-repeat', (_, repeat = 1) => {
     for (let i = 0; i < repeat; i++) {
       document
@@ -148,6 +155,18 @@ async function onApiLoaded() {
         HTMLElement & { onVolumeTap: () => void }
       >('ytmusic-player-bar')
       ?.onVolumeTap();
+  });
+
+  window.ipcRenderer.on('ytmd:get-seek-time', () => {
+    const progressBar =
+      document
+        .querySelector<HTMLElement>('#progress-bar')
+    const currentTime = progressBar?.attributes.getNamedItem('value');
+    const duration = progressBar?.attributes.getNamedItem('aria-valuemax');
+    window.ipcRenderer.send('ytmd:seek-time-response', {
+      current: currentTime != null ? parseInt(currentTime.value): null,
+      duration: duration != null ? parseInt(duration.value): null
+    });
   });
 
   window.ipcRenderer.on('ytmd:get-queue', () => {

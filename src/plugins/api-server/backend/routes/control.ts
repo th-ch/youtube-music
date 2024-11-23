@@ -160,6 +160,24 @@ const routes = {
       },
     },
   }),
+  repeatMode: createRoute({
+    method: 'get',
+    path: `/api/${API_VERSION}/repeat-mode`,
+    summary: 'get current repeat mode',
+    description: 'Get the current repeat mode (NONE, ALL, ONE)',
+    responses: {
+      200: {
+        description: 'Success',
+        content: {
+          'application/json': {
+            schema: z.object({
+              mode: z.string().nullable().openapi({example: 'ONE'}),
+            }),
+          },
+        },
+      },
+    },
+  }),
   switchRepeat: createRoute({
     method: 'post',
     path: `/api/${API_VERSION}/switch-repeat`,
@@ -275,6 +293,25 @@ const routes = {
       },
     },
   }),
+  seekTime: createRoute({
+    method: 'get',
+    path: `/api/${API_VERSION}/seek-time`,
+    summary: 'get current play time and video duration',
+    description: 'Get current play time and video duration in seconds',
+    responses: {
+      200: {
+        description: 'Success',
+        content: {
+          'application/json': {
+            schema: z.object({
+              current: z.number().nullable().openapi({example: 3}),
+              duration: z.number().nullable().openapi({example: 233}),
+            }),
+          },
+        },
+      },
+    },
+  }),
   songInfo: createRoute({
     method: 'get',
     path: `/api/${API_VERSION}/song-info`,
@@ -365,6 +402,23 @@ export const register = (
     ctx.status(204);
     return ctx.body(null);
   });
+  app.openapi(routes.repeatMode, async (ctx) => {
+    const modeResponsePromise = new Promise<string|null>((resolve) => {
+      ipcMain.once(
+        'ytmd:repeat-mode-response',
+        (_, repeatmode: string | null) => {
+          return resolve(repeatmode);
+        },
+      );
+
+      controller.requestRepeatModeInformation();
+    });
+
+    const repeatmode = await modeResponsePromise;
+
+    ctx.status(200);
+    return ctx.json({ mode: repeatmode });
+  });
   app.openapi(routes.switchRepeat, (ctx) => {
     const { iteration } = ctx.req.valid('json');
     controller.switchRepeat(iteration);
@@ -428,6 +482,23 @@ export const register = (
 
     ctx.status(200);
     return ctx.json(info);
+  });
+  app.openapi(routes.seekTime, async (ctx) => {
+    const timeResponsePromise = new Promise<object|null>((resolve) => {
+      ipcMain.once(
+        'ytmd:seek-time-response',
+        (_, time) => {
+          return resolve(time);
+        },
+      );
+
+      controller.requestSeekTimeInformation();
+    });
+
+    const time = await timeResponsePromise;
+
+    ctx.status(200);
+    return ctx.json(time);
   });
   app.openapi(routes.songInfo, (ctx) => {
     const info = songInfoGetter();
