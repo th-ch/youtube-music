@@ -28,8 +28,8 @@ importers:
   .:
     dependencies:
       '@cliqz/adblocker-electron':
-        specifier: 1.27.1
-        version: 1.27.1(electron@33.2.1)
+        specifier: 1.34.0
+        version: 1.34.0(electron@33.2.1)
       '@cliqz/adblocker-electron-preload':
         specifier: 1.27.1
         version: 1.27.1(electron@33.2.1)
@@ -434,8 +434,14 @@ packages:
     peerDependencies:
       electron: '>11'
 
-  '@cliqz/adblocker-electron@1.27.1':
-    resolution: {integrity: sha512-mV49IrXKOUa23T87E0+ewGCtSdgVIZHalKVDabC+g2DY6nU57XjHe4YlAPQCZFRW59HHAxALYjn5wHYGWzus8Q==}
+  '@cliqz/adblocker-electron-preload@1.34.0':
+    resolution: {integrity: sha512-wi4FBGwlpJv8VQDTyiQJ2qLqdhtxzAEdEzBkOt9crrPP0meO1RUlhTMeZFFxNTogXFiK3W8VujTBixoGNEKscQ==}
+    deprecated: This project has been renamed to @ghostery/adblocker-electron-preload. Install using @ghostery/adblocker-electron-preload instead
+    peerDependencies:
+      electron: '>11'
+
+  '@cliqz/adblocker-electron@1.34.0':
+    resolution: {integrity: sha512-hwCFmHg6eqWAL1jG1JWFWfI7kzKuJ99oq+fjmnZPv6rwnd4RGQUDClhhZQMZHOz+Lj/tCQwmkvtaYMh2g+LZpA==}
     deprecated: This project has been renamed to @ghostery/adblocker-electron. Install using @ghostery/adblocker-electron instead
     peerDependencies:
       electron: '>11'
@@ -4519,10 +4525,15 @@ snapshots:
       '@cliqz/adblocker-content': 1.34.0
       electron: 33.2.1
 
-  '@cliqz/adblocker-electron@1.27.1(electron@33.2.1)':
+  '@cliqz/adblocker-electron-preload@1.34.0(electron@33.2.1)':
+    dependencies:
+      '@cliqz/adblocker-content': 1.34.0
+      electron: 33.2.1
+
+  '@cliqz/adblocker-electron@1.34.0(electron@33.2.1)':
     dependencies:
       '@cliqz/adblocker': 1.34.0
-      '@cliqz/adblocker-electron-preload': 1.27.1(electron@33.2.1)
+      '@cliqz/adblocker-electron-preload': 1.34.0(electron@33.2.1)
       electron: 33.2.1
       tldts-experimental: 6.1.64
 
