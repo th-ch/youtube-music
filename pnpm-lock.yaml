@@ -31,8 +31,8 @@ importers:
         specifier: 1.27.1
         version: 1.27.1(electron@33.2.1)
       '@cliqz/adblocker-electron-preload':
-        specifier: 1.27.1
-        version: 1.27.1(electron@33.2.1)
+        specifier: 1.34.0
+        version: 1.34.0(electron@33.2.1)
       '@electron-toolkit/tsconfig':
         specifier: 1.0.1
         version: 1.0.1(@types/node@22.9.3)
@@ -428,8 +428,8 @@ packages:
     resolution: {integrity: sha512-5LcV8UZv49RWwtpom9ve4TxJIFKd+bjT59tS/2Z2c22Qxx5CW1ncO/T+ybzk31z422XplQfd0ZE6gMGGKs3EMg==}
     deprecated: This project has been renamed to @ghostery/adblocker-content. Install using @ghostery/adblocker-content instead
 
-  '@cliqz/adblocker-electron-preload@1.27.1':
-    resolution: {integrity: sha512-J6qHgqnqpPNwACIuIjtackMRfJbUM+bXc9w4XmPXt1jW7OCuxr8JVjxQamKWWW4PVP7YqtpZCwlvCxQGgCEGoQ==}
+  '@cliqz/adblocker-electron-preload@1.34.0':
+    resolution: {integrity: sha512-wi4FBGwlpJv8VQDTyiQJ2qLqdhtxzAEdEzBkOt9crrPP0meO1RUlhTMeZFFxNTogXFiK3W8VujTBixoGNEKscQ==}
     deprecated: This project has been renamed to @ghostery/adblocker-electron-preload. Install using @ghostery/adblocker-electron-preload instead
     peerDependencies:
       electron: '>11'
@@ -4514,7 +4514,7 @@ snapshots:
     dependencies:
       '@cliqz/adblocker-extended-selectors': 1.34.0
 
-  '@cliqz/adblocker-electron-preload@1.27.1(electron@33.2.1)':
+  '@cliqz/adblocker-electron-preload@1.34.0(electron@33.2.1)':
     dependencies:
       '@cliqz/adblocker-content': 1.34.0
       electron: 33.2.1
@@ -4522,7 +4522,7 @@ snapshots:
   '@cliqz/adblocker-electron@1.27.1(electron@33.2.1)':
     dependencies:
       '@cliqz/adblocker': 1.34.0
-      '@cliqz/adblocker-electron-preload': 1.27.1(electron@33.2.1)
+      '@cliqz/adblocker-electron-preload': 1.34.0(electron@33.2.1)
       electron: 33.2.1
       tldts-experimental: 6.1.64
 
