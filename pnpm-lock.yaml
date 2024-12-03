@@ -139,8 +139,8 @@ importers:
         specifier: 9.0.5
         version: 9.0.5
       i18next:
-        specifier: 24.0.2
-        version: 24.0.2(typescript@5.7.2)
+        specifier: 24.0.4
+        version: 24.0.4(typescript@5.7.2)
       jimp:
         specifier: 1.6.0
         version: 1.6.0
@@ -2692,8 +2692,8 @@ packages:
     resolution: {integrity: sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==}
     engines: {node: '>=10.17.0'}
 
-  i18next@24.0.2:
-    resolution: {integrity: sha512-D88xyIGcWAKwBTAs4RSqASi8NXR/NhCVSTM4LDbdoU8qb/5dcEZjNCLDhtQBB7Epw/Cp1w2vH/3ujoTbqLSs5g==}
+  i18next@24.0.4:
+    resolution: {integrity: sha512-xU0LmSW/Cpfc34tZ7Y7WiRZ5oIU5RoqaV6uBVFKBu8juwwoJb8Wmzey/SIRy8k0c4af5uyzFNKKyj4Nk6v8+MA==}
     peerDependencies:
       typescript: ^5
     peerDependenciesMeta:
@@ -7156,7 +7156,7 @@ snapshots:
 
   human-signals@2.1.0: {}
 
-  i18next@24.0.2(typescript@5.7.2):
+  i18next@24.0.4(typescript@5.7.2):
     dependencies:
       '@babel/runtime': 7.26.0
     optionalDependencies:
