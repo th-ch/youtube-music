@@ -6,7 +6,7 @@ settings:
 
 overrides:
   usocket: 1.0.1
-  node-gyp: 10.2.0
+  node-gyp: 10.3.1
   xml2js: 0.6.2
   node-fetch: 3.3.2
   '@electron/universal': 2.0.1
@@ -281,8 +281,8 @@ importers:
         specifier: 11.0.0
         version: 11.0.0
       node-gyp:
-        specifier: 10.2.0
-        version: 10.2.0
+        specifier: 10.3.1
+        version: 10.3.1
       playwright:
         specifier: 1.49.0
         version: 1.49.0
@@ -3294,8 +3294,8 @@ packages:
     resolution: {integrity: sha512-LA4ZjwlnUblHVgq0oBF3Jl/6h/Nvs5fzBLwdEF4nuxnFdsfajde4WfxtJr3CaiH+F6ewcIB/q4jQ4UzPyid+CQ==}
     hasBin: true
 
-  node-gyp@10.2.0:
-    resolution: {integrity: sha512-sp3FonBAaFe4aYTcFdZUn2NYkbP7xroPGYvQmP4Nl5PxamznItBnNCgjrVTKrEfQynInMsJvZrdmqUnysCJ8rw==}
+  node-gyp@10.3.1:
+    resolution: {integrity: sha512-Pp3nFHBThHzVtNY7U6JfPjvT/DTE8+o/4xKsLQtBoU+j2HLsGlhcfzflAoUreaJbNmYnX+LlLi0qjV8kpyO6xQ==}
     engines: {node: ^16.14.0 || >=18.0.0}
     hasBin: true
 
@@ -7699,7 +7699,7 @@ snapshots:
 
   node-gyp-build@4.8.4: {}
 
-  node-gyp@10.2.0:
+  node-gyp@10.3.1:
     dependencies:
       env-paths: 2.2.1
       exponential-backoff: 3.1.1
@@ -8607,7 +8607,7 @@ snapshots:
       bindings: 1.5.0
       debug: 4.3.7
       nan: 2.22.0
-      node-gyp: 10.2.0
+      node-gyp: 10.3.1
     transitivePeerDependencies:
       - supports-color
     optional: true
