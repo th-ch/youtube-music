@@ -296,7 +296,7 @@
           "label": "Yetkilendirme stratejisi",
           "submenu": {
             "auth-at-first": {
-              "label": "İlk istekte yetkilendirilsin mi?"
+              "label": "İlk istekte yetkilendir"
             },
             "none": {
               "label": "Yetkilendirme Yok"
