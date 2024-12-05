@@ -307,7 +307,7 @@
     "eslint": "9.16.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-import-resolver-exports": "1.0.0-beta.5",
-    "eslint-import-resolver-typescript": "3.6.3",
+    "eslint-import-resolver-typescript": "3.7.0",
     "eslint-plugin-import": "2.31.0",
     "eslint-plugin-prettier": "5.2.1",
     "glob": "11.0.0",
