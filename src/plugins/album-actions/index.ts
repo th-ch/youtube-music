@@ -136,7 +136,7 @@ export default createPlugin<
       if (event.target instanceof Element) {
         event.stopPropagation();
         const button = event.target.closest('button') as HTMLElement;
-        if (!button.id) return;
+        if (!button?.id) return;
         const id = button.id;
         const loader = document.getElementById('continuations')!;
         this.loadObserver = new MutationObserver(() => {
