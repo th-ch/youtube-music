@@ -133,9 +133,11 @@ export default createPlugin<
       }
     },
     loadFullList(event: MouseEvent) {
-      if (event.currentTarget instanceof Element) {
+      if (event.target instanceof Element) {
         event.stopPropagation();
-        const id = event.currentTarget.id;
+        const button = event.target.closest('button') as HTMLElement;
+        if (!button?.id) return;
+        const id = button.id;
         const loader = document.getElementById('continuations')!;
         this.loadObserver = new MutationObserver(() => {
           this.applyToList(id, loader);
