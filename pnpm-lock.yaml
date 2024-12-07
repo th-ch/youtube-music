@@ -91,8 +91,8 @@ importers:
         specifier: 4.2.3
         version: 4.2.3
       conf:
-        specifier: 13.0.1
-        version: 13.0.1
+        specifier: 13.1.0
+        version: 13.1.0
       custom-electron-prompt:
         specifier: 1.5.8
         version: 1.5.8(electron@33.2.1)
@@ -1844,8 +1844,8 @@ packages:
   concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
-  conf@13.0.1:
-    resolution: {integrity: sha512-l9Uwc9eOnz39oADzGO2cSBDi7siv8lwO+31ocQ2nOJijnDiW3pxqm9VV10DPYUO28wW83DjABoUqY1nfHRR2hQ==}
+  conf@13.1.0:
+    resolution: {integrity: sha512-Bi6v586cy1CoTFViVO4lGTtx780lfF96fUmS1lSX6wpZf6330NvHUu6fReVuDP1de8Mg0nkZb01c8tAQdz1o3w==}
     engines: {node: '>=18'}
 
   config-file-ts@0.2.6:
@@ -6048,7 +6048,7 @@ snapshots:
 
   concat-map@0.0.1: {}
 
-  conf@13.0.1:
+  conf@13.1.0:
     dependencies:
       ajv: 8.17.1
       ajv-formats: 3.0.1(ajv@8.17.1)
@@ -6391,7 +6391,7 @@ snapshots:
 
   electron-store@10.0.0:
     dependencies:
-      conf: 13.0.1
+      conf: 13.1.0
       type-fest: 4.27.1
 
   electron-to-chromium@1.5.64: {}
