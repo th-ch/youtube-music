@@ -725,6 +725,10 @@
         "line-effect": {
           "label": "Line effect",
           "submenu": {
+            "fancy": {
+              "label": "Fancy",
+              "tooltip": "Use large, app-like effects on the current line"
+            },
             "focus": {
               "label": "Focus",
               "tooltip": "Make only the current line white"
