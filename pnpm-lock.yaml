@@ -43,8 +43,8 @@ importers:
         specifier: 0.12.0
         version: 0.12.0
       '@ffmpeg.wasm/main':
-        specifier: 0.12.0
-        version: 0.12.0
+        specifier: 0.13.1
+        version: 0.13.1
       '@floating-ui/dom':
         specifier: 1.6.12
         version: 1.6.12
@@ -819,9 +819,9 @@ packages:
   '@ffmpeg.wasm/core-mt@0.12.0':
     resolution: {integrity: sha512-M9pjL7JQX4AYl3WI8vGcPGPTz/O7JmhW8ac/fHA3oXTxoRAPwYSY/OsY1N9C0XahIM0+fxa1QSLN9Ekz8sBM/Q==}
 
-  '@ffmpeg.wasm/main@0.12.0':
-    resolution: {integrity: sha512-LILAKTrU3Rga2iXLsF9jeFxe2hNQFjWlrKuXPWSdCFeQ7Kg69fO4WwjNJ0CzjOyO6qtndRQMNKqf//N4fLYUBA==}
-    engines: {node: '>=12.16.1'}
+  '@ffmpeg.wasm/main@0.13.1':
+    resolution: {integrity: sha512-WoEd9xp/N9VWddZ3y1cdRK/el52ZKLoqOS+BNQZcsbLQpkQuHrFG93+zY4VjMZ0aWno4pQG4TSgLzsexpukpHw==}
+    engines: {node: '>=14.0.0'}
 
   '@floating-ui/core@1.6.8':
     resolution: {integrity: sha512-7XJ9cPU+yI2QeLS+FCSlqNFZJq8arvswefkZrYI1yQBbftw6FyrZOxYSh+9S7z7TpeWlRt9zJ5IhM1WIL334jA==}
@@ -2882,9 +2882,6 @@ packages:
     resolution: {integrity: sha512-uZ25/bUAlUY5fR4OKT4rZQEBrzQWYV9ZJYGGsUmEJ6thodVJ1HX64ePQ6Z0qPWP+m+Uq6e9UugrE38jeYsDSMw==}
     engines: {node: '>= 0.4'}
 
-  is-url@1.2.4:
-    resolution: {integrity: sha512-ITvGim8FhRiYe4IQ5uHSkj7pVaPDrCTkNd3yq3cV7iZAcJdHTUMPMEHcqSOy9xZ9qFenQCvi+2wjH9a1nXqHww==}
-
   is-weakmap@2.0.2:
     resolution: {integrity: sha512-K5pXYOm9wqY1RgjpL3YTkF39tni1XajUIkawTLUo9EZEVUFga5gSQJF8nNS7ZwJQ02y+1YCNYcMh+HIf1ZqE+w==}
     engines: {node: '>= 0.4'}
@@ -4807,11 +4804,7 @@ snapshots:
 
   '@ffmpeg.wasm/core-mt@0.12.0': {}
 
-  '@ffmpeg.wasm/main@0.12.0':
-    dependencies:
-      is-url: 1.2.4
-      node-fetch: 3.3.2
-      regenerator-runtime: 0.13.11
+  '@ffmpeg.wasm/main@0.13.1': {}
 
   '@floating-ui/core@1.6.8':
     dependencies:
@@ -7324,8 +7317,6 @@ snapshots:
   is-typed-array@1.1.13:
     dependencies:
       which-typed-array: 1.1.15
-
-  is-url@1.2.4: {}
 
   is-weakmap@2.0.2: {}
 
