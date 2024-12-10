@@ -254,7 +254,7 @@
     "electron-is": "3.0.0",
     "electron-localshortcut": "3.2.1",
     "electron-store": "10.0.0",
-    "electron-unhandled": "4.0.1",
+    "electron-unhandled": "5.0.0",
     "electron-updater": "6.3.9",
     "fast-average-color": "9.4.0",
     "fast-equals": "5.0.1",
