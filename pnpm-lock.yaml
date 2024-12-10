@@ -242,8 +242,8 @@ importers:
         specifier: 6.0.0
         version: 6.0.0
       discord-api-types:
-        specifier: 0.37.110
-        version: 0.37.110
+        specifier: 0.37.111
+        version: 0.37.111
       electron:
         specifier: 33.2.1
         version: 33.2.1
@@ -2004,8 +2004,8 @@ packages:
   dir-compare@4.2.0:
     resolution: {integrity: sha512-2xMCmOoMrdQIPHdsTawECdNPwlVFB9zGcz3kuhmBO6U3oU+UQjsue0i8ayLKpgBcm+hcXPMVSGUN9d+pvJ6+VQ==}
 
-  discord-api-types@0.37.110:
-    resolution: {integrity: sha512-wVaAJkrSgNRo8nd523qKYPqkClTNHhjKOk/g6265rzHuc7TNS6Ivz06DPW4iZvnhFobbH95hKlgsRf6jcAbtlA==}
+  discord-api-types@0.37.111:
+    resolution: {integrity: sha512-22O4/mjfcLaQ8bbJorGpzFThnjhd8/exQxFscP3fnyJPo9Fk9O5GkWDIremYbvuw4YiwMfssWFniIb/iAwRqTg==}
 
   discord-api-types@0.37.97:
     resolution: {integrity: sha512-No1BXPcVkyVD4ZVmbNgDKaBoqgeQ+FJpzZ8wqHkfmBnTZig1FcH3iPPersiK1TUIAzgClh2IvOuVUYfcWLQAOA==}
@@ -5514,7 +5514,7 @@ snapshots:
     dependencies:
       '@discordjs/rest': 2.4.0
       '@vladfrangu/async_event_emitter': 2.4.6
-      discord-api-types: 0.37.110
+      discord-api-types: 0.37.111
       ws: 8.18.0(bufferutil@4.0.8)(utf-8-validate@6.0.5)
     transitivePeerDependencies:
       - bufferutil
@@ -6227,7 +6227,7 @@ snapshots:
       minimatch: 3.1.2
       p-limit: 3.1.0
 
-  discord-api-types@0.37.110: {}
+  discord-api-types@0.37.111: {}
 
   discord-api-types@0.37.97: {}
 
