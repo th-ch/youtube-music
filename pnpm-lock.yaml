@@ -40,8 +40,8 @@ importers:
         specifier: 2.1.2
         version: 2.1.2(electron@33.2.1)
       '@ffmpeg.wasm/core-mt':
-        specifier: 0.12.0
-        version: 0.12.0
+        specifier: 0.13.2
+        version: 0.13.2
       '@ffmpeg.wasm/main':
         specifier: 0.12.0
         version: 0.12.0
@@ -816,8 +816,8 @@ packages:
     resolution: {integrity: sha512-vBZP4NlzfOlerQTnba4aqZoMhE/a9HY7HRqoOPaETQcSQuWEIyZMHGfVu6w9wGtGK5fED5qRs2DteVCjOH60sA==}
     engines: {node: '>=14'}
 
-  '@ffmpeg.wasm/core-mt@0.12.0':
-    resolution: {integrity: sha512-M9pjL7JQX4AYl3WI8vGcPGPTz/O7JmhW8ac/fHA3oXTxoRAPwYSY/OsY1N9C0XahIM0+fxa1QSLN9Ekz8sBM/Q==}
+  '@ffmpeg.wasm/core-mt@0.13.2':
+    resolution: {integrity: sha512-3UgpMoOhpTslxluDvBrh0MULeNy55W+WWG00P+JnnCLpJulQxgi6mnIuGO03d2sfV5pyW/FqAwut+fiMLbRsPg==}
 
   '@ffmpeg.wasm/main@0.12.0':
     resolution: {integrity: sha512-LILAKTrU3Rga2iXLsF9jeFxe2hNQFjWlrKuXPWSdCFeQ7Kg69fO4WwjNJ0CzjOyO6qtndRQMNKqf//N4fLYUBA==}
@@ -4805,7 +4805,7 @@ snapshots:
 
   '@fastify/busboy@2.1.1': {}
 
-  '@ffmpeg.wasm/core-mt@0.12.0': {}
+  '@ffmpeg.wasm/core-mt@0.13.2': {}
 
   '@ffmpeg.wasm/main@0.12.0':
     dependencies:
