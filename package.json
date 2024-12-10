@@ -315,7 +315,7 @@
     "playwright": "1.49.1",
     "rollup": "4.28.1",
     "typescript": "5.7.2",
-    "typescript-eslint": "8.17.0",
+    "typescript-eslint": "8.18.0",
     "utf-8-validate": "6.0.5",
     "vite": "6.0.3",
     "vite-plugin-inspect": "0.10.3",
