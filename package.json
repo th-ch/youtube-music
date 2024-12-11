@@ -280,7 +280,7 @@
     "vudio": "2.1.1",
     "x11": "2.3.0",
     "youtubei.js": "12.1.0",
-    "zod": "3.23.8"
+    "zod": "3.24.1"
   },
   "devDependencies": {
     "@eslint/js": "9.16.0",
