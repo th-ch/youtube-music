@@ -1,3 +1,5 @@
+import { defaultTrustedTypePolicy } from '@/utils/trusted-types';
+
 /**
  * Creates a DOM element from an HTML string
  * @param html The HTML string
@@ -6,7 +8,9 @@
 export const ElementFromHtml = (html: string): HTMLElement => {
   const template = document.createElement('template');
   html = html.trim(); // Never return a text node of whitespace as the result
-  template.innerHTML = window.trustedTypes?.defaultPolicy ? window.trustedTypes.defaultPolicy.createHTML(html) : html;
+  (template.innerHTML as string | TrustedHTML) = defaultTrustedTypePolicy
+    ? defaultTrustedTypePolicy.createHTML(html)
+    : html;
 
   return template.content.firstElementChild as HTMLElement;
 };

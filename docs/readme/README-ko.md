@@ -12,7 +12,7 @@
 
 </div>
 
-![Screenshot](../../web/screenshot.jpg "Screenshot")
+![Screenshot](/web/screenshot.png "Screenshot")
 
 <div align="center">
 	<a href="https://github.com/th-ch/youtube-music/releases/latest">
@@ -147,7 +147,7 @@ brew install --cask https://raw.githubusercontent.com/th-ch/youtube-music/master
 (앱을 수동으로 설치하고) 앱을 실행할 때 `손상되었기 때문에 열 수 없습니다.`라는 오류가 발생하면 터미널에서 다음을 실행하세요:
 
 ```bash
-xattr -cr /Applications/YouTube\ Music.app
+/usr/bin/xattr -cr /Applications/YouTube\ Music.app
 ```
 
 ### Windows

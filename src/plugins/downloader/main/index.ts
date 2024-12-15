@@ -30,12 +30,13 @@ import registerCallback, {
   getImage,
   MediaType,
   type SongInfo,
+  SongInfoEvent,
 } from '@/providers/song-info';
 import { getNetFetchAsFetch } from '@/plugins/utils/main';
 
 import { t } from '@/i18n';
 
-import { YoutubeFormatList, type Preset, DefaultPresetList } from '../types';
+import { DefaultPresetList, type Preset, YoutubeFormatList } from '../types';
 
 import type { DownloaderPluginConfig } from '../index';
 
@@ -68,7 +69,12 @@ const sendError = (error: Error, source?: string) => {
   sendFeedback_(win); // Reset feedback
 
   const songNameMessage = source ? `\nin ${source}` : '';
-  const cause = error.cause ? `\n\n${String(error.cause)}` : '';
+  const cause = error.cause
+    ? `\n\n${
+        // eslint-disable-next-line @typescript-eslint/no-base-to-string,@typescript-eslint/restrict-template-expressions
+        error.cause instanceof Error ? error.cause.toString() : error.cause
+      }`
+    : '';
   const message = `${error.toString()}${songNameMessage}${cause}`;
 
   console.error(message);
@@ -174,7 +180,12 @@ function downloadSongOnFinishSetup({
 
   const defaultDownloadFolder = app.getPath('downloads');
 
-  registerCallback((songInfo: SongInfo) => {
+  registerCallback((songInfo: SongInfo, event) => {
+    if (event === SongInfoEvent.TimeChanged) {
+      const elapsedSeconds = songInfo.elapsedSeconds ?? 0;
+      if (elapsedSeconds > time) time = elapsedSeconds;
+      return;
+    }
     if (
       !songInfo.isPaused &&
       songInfo.url !== currentUrl &&
@@ -212,10 +223,6 @@ function downloadSongOnFinishSetup({
 
   ipcMain.on('ytmd:player-api-loaded', () => {
     ipc.send('ytmd:setup-time-changed-listener');
-  });
-
-  ipcMain.on('ytmd:time-changed', (_, t: number) => {
-    if (t > time) time = t;
   });
 }
 

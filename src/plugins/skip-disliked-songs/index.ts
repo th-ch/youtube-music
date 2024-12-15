@@ -16,7 +16,7 @@ export default createPlugin<
   restartNeeded: false,
   renderer: {
     start() {
-      waitForElement<HTMLElement>('#dislike-button-renderer').then(
+      waitForElement<HTMLElement>('#like-button-renderer').then(
         (dislikeBtn) => {
           this.observer = new MutationObserver(() => {
             if (dislikeBtn?.getAttribute('like-status') == 'DISLIKE') {

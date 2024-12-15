@@ -31,11 +31,74 @@
       },
       "theme": {
         "css-file-not-found": "සීඑස්එස් ගොනුව \"{{cssFile}}\" නොපවතී, නොසලකා හැරීම"
+      },
+      "unresponsive": {
+        "details": "ප්‍රතිචාර නොදක්වන දෝෂයක්  {{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "යෙදුම් කෑශ් නිදහස් කරමින්"
       }
     },
     "dialog": {
+      "hide-menu-enabled": {
+        "detail": "මෙනුව සැගවී ඇත, 'Alt' යතුර නැවත පෙන්වීමට භාවිතා කරන්න. (හෝ In-App මෙනුවේ 'Escape')",
+        "message": "මෙනුව සැගවීම සාර්තකයි",
+        "title": "මෙනුව සැගවීම සක්‍රීයයි"
+      },
       "need-to-restart": {
+        "buttons": {
+          "later": "පසුව",
+          "restart-now": "යෙදුම වසා නැවත ආරම්භ කරන්න"
+        },
+        "detail": "\"{{pluginName}}\" ප්ලගිනය  යෙදුම නැවත ආරම්භ  කිරීමක් ඉල්ලයි",
+        "message": "\"{{pluginName}}\" නැවත ආරම්භ කළ යුතුය",
         "title": "නැවත ආරම්භ කිරීම අවශ්‍යයි"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "ඉවත් වන්න",
+          "relaunch": "නැවත ආරම්භ කරන්න",
+          "wait": "රැදී සිටින්න"
+        },
+        "detail": "සිදු වූ දේ සම්බන්ධව අපගේ කණගාටුව! කළ යුතු දේ තෝරන්න:",
+        "message": "යෙදුම ප්‍රතිචාර නොදක්වයි",
+        "title": "වින්ඩෝව ප්‍රතිචාර නොදක්වයි"
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "යාවත්කාලීන කිරීම් නවතන්න",
+          "download": "බාගත කිරීම",
+          "ok": "හරි"
+        },
+        "detail": "නව අනුවාදයක් ඇති අතර එය මෙයින් බාගන්න {{downloadLink}}",
+        "message": "නව අනුවාදයක් ඇත",
+        "title": "යාවත්කාලීන කිරීමක් ඇත"
+      }
+    },
+    "menu": {
+      "about": "පිළිබදව",
+      "navigation": {
+        "label": "සංචලනය",
+        "submenu": {
+          "copy-current-url": "යොමුව පිටපත් කරගන්න",
+          "go-back": "පිටුපසට",
+          "go-forward": "ඉදිරියට",
+          "quit": "පිටවන්න",
+          "restart": "යෙදුම යලි අරඹන්න"
+        }
+      },
+      "options": {
+        "label": "විකල්ප",
+        "submenu": {
+          "advanced-options": {
+            "label": "උසස් විකල්ප",
+            "submenu": {
+              "auto-reset-app-cache": "යෙදුම් කෑච් යෙදුම ආරම්භයේදී යලි පිහිටුවන්න",
+              "disable-hardware-acceleration": "දෘඩාංග භාවිත වේගවත් කිරීම් අක්‍රීය කරන්න",
+              "edit-config-json": "config.json සකසන්න"
+            }
+          }
+        }
       }
     }
   }

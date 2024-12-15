@@ -1,20 +1,23 @@
 import { BrowserWindow, ipcMain } from 'electron';
 
 import MprisPlayer, {
-  Track,
-  LoopStatus,
-  type PlayBackStatus,
-  type PlayerOptions,
-  PLAYBACK_STATUS_STOPPED,
-  PLAYBACK_STATUS_PAUSED,
-  PLAYBACK_STATUS_PLAYING,
   LOOP_STATUS_NONE,
   LOOP_STATUS_PLAYLIST,
   LOOP_STATUS_TRACK,
+  LoopStatus,
+  PLAYBACK_STATUS_PAUSED,
+  PLAYBACK_STATUS_PLAYING,
+  PLAYBACK_STATUS_STOPPED,
+  type PlayBackStatus,
+  type PlayerOptions,
   type Position,
+  Track,
 } from '@jellybrick/mpris-service';
 
-import registerCallback, { type SongInfo } from '@/providers/song-info';
+import registerCallback, {
+  type SongInfo,
+  SongInfoEvent,
+} from '@/providers/song-info';
 import getSongControls from '@/providers/song-controls';
 import config from '@/config';
 import { LoggerPrefix } from '@/utils';
@@ -132,10 +135,6 @@ function registerMPRIS(win: BrowserWindow) {
     ipcMain.on('ytmd:seeked', (_, t: number) => {
       player.setPosition(secToMicro(t));
       player.seeked(secToMicro(t));
-    });
-
-    ipcMain.on('ytmd:time-changed', (_, t: number) => {
-      player.setPosition(secToMicro(t));
     });
 
     ipcMain.on('ytmd:repeat-changed', (_, mode: RepeatMode) => {
@@ -319,7 +318,11 @@ function registerMPRIS(win: BrowserWindow) {
       }
     });
 
-    registerCallback((songInfo: SongInfo) => {
+    registerCallback((songInfo: SongInfo, event) => {
+      if (event === SongInfoEvent.TimeChanged) {
+        player.setPosition(secToMicro(songInfo.elapsedSeconds ?? 0));
+        return;
+      }
       if (player) {
         const data: Track = {
           'mpris:length': secToMicro(songInfo.songDuration),

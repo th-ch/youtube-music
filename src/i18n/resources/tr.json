@@ -287,13 +287,17 @@
             "allow": "İzin ver",
             "deny": "Reddet"
           },
-          "message": "{{ID}} ({{origin}}) 'nın APİye erişmesine izin ver",
+          "message": "{{ID}} ({{origin}}) 'nın APIye erişmesine izin verilsin mi?",
           "title": "APİ yetkilendirme isteği"
         }
       },
       "menu": {
         "auth-strategy": {
+          "label": "Yetkilendirme stratejisi",
           "submenu": {
+            "auth-at-first": {
+              "label": "İlk istekte yetkilendir"
+            },
             "none": {
               "label": "Yetkilendirme Yok"
             }
@@ -301,6 +305,20 @@
         },
         "hostname": {
           "label": "Ana bilgisayar adı"
+        },
+        "port": {
+          "label": "Port"
+        }
+      },
+      "name": "API sunucusu [Beta]",
+      "prompt": {
+        "hostname": {
+          "label": "API sunucusu için hostname (örneğin 0.0.0.0) girin:",
+          "title": "Hostname"
+        },
+        "port": {
+          "label": "API sunucusu için port girin:",
+          "title": "Bağlantı Noktası"
         }
       }
     },

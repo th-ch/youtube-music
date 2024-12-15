@@ -67,6 +67,19 @@
           "restart": "Käivita rakendus uuesti"
         }
       },
+      "options": {
+        "label": "Seadistused",
+        "submenu": {
+          "advanced-options": {
+            "label": "Lisaseadistused",
+            "submenu": {
+              "auto-reset-app-cache": "Rakenduse käivitamisel lähtesta puhverdatud andmed",
+              "disable-hardware-acceleration": "Lülita raudvaraline kiirendamine välja",
+              "edit-config-json": "Muuda config.json faili"
+            }
+          }
+        }
+      },
       "plugins": {
         "label": "Lisamoodulid",
         "new": "UUS"

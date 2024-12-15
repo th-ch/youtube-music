@@ -12,7 +12,7 @@
 
 </div>
 
-![Screenshot](web/screenshot.jpg "Screenshot")
+![Screenshot](web/screenshot.png "Screenshot")
 
 
 <div align="center">
@@ -67,7 +67,7 @@ Read this in other languages: [🇰🇷](./docs/readme/README-ko.md), [🇮🇸]
 ## Available plugins:
 
 - **Ad Blocker**: Block all ads and tracking out of the box
-  
+
 - **Album Actions**: Adds Undislike, Dislike, Like, and Unlike buttons to apply this to all songs in a playlist or album
 
 - **Album Color Theme**: Applies a dynamic theme and visual effects based on the album color palette
@@ -192,7 +192,7 @@ brew install th-ch/youtube-music/youtube-music
 If you install the app manually and get an error "is damaged and can’t be opened." when launching the app, run the following in the Terminal:
 
 ```bash
-xattr -cr /Applications/YouTube\ Music.app
+/usr/bin/xattr -cr /Applications/YouTube\ Music.app
 ```
 
 ### Windows

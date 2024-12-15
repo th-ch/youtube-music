@@ -2,6 +2,8 @@ import { LoggerPrefix } from '@/utils';
 
 import { t } from '@/i18n';
 
+import { defaultTrustedTypePolicy } from '@/utils/trusted-types';
+
 import type { SongInfo } from '@/providers/song-info';
 import type { RendererContext } from '@/types/contexts';
 import type { LyricsGeniusPluginConfig } from '@/plugins/lyrics-genius/index';
@@ -20,7 +22,10 @@ export const onRendererLoad = ({
       <yt-formatted-string class="footer style-scope ytmusic-description-shelf-renderer" style="align-self: baseline">
       </yt-formatted-string>
     `;
-    lyricsContainer.innerHTML = window.trustedTypes?.defaultPolicy ? window.trustedTypes.defaultPolicy.createHTML(targetHtml) : targetHtml;
+    (lyricsContainer.innerHTML as string | TrustedHTML) =
+      defaultTrustedTypePolicy
+        ? defaultTrustedTypePolicy.createHTML(targetHtml)
+        : targetHtml;
 
     if (lyrics) {
       const footer = lyricsContainer.querySelector('.footer');
