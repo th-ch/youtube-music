@@ -408,7 +408,7 @@
       "backend": {
         "dialog": {
           "error": {
-            "message": "Argh! Paumanhin, nabigo ang pag-download…",
+            "message": "Kainis! Paumanhin, nabigo ang pag-download…",
             "title": "Nagkaroon ng error sa pag-download!"
           },
           "start-download-playlist": {
@@ -465,7 +465,7 @@
         "can-not-update-progress": "Hindi ma-update ang progress"
       },
       "templates": {
-        "button": "Mag download"
+        "button": "Mag-download"
       }
     },
     "exponential-volume": {
