@@ -1,28 +1,34 @@
-import { LyricProvider, LyricResult, SearchSongInfo } from '../types';
+import { LyricProvider, LyricResult, SearchSongInfo } from "../types";
 
 const headers = {
-  Accept: 'application/json',
-  'Content-Type': 'application/json',
+  Accept: "application/json",
+  "Content-Type": "application/json",
 };
 
 const client = {
-  clientName: '26',
-  clientVersion: '6.48.2',
+  clientName: "26",
+  clientVersion: "6.48.2",
 };
 
 export class YTMusic implements LyricProvider {
-  public name = 'YTMusic';
-  public baseUrl = 'https://music.youtube.com/';
+  public name = "YTMusic";
+  public baseUrl = "https://music.youtube.com/";
 
   // prettier-ignore
-  public async search({ videoId, title, artist }: SearchSongInfo): Promise<LyricResult | null> {
+  public async search(
+    { videoId, title, artist }: SearchSongInfo,
+  ): Promise<LyricResult | null> {
     const data = await this.fetchNext(videoId);
 
-    const { tabs } = data?.contents?.singleColumnMusicWatchNextResultsRenderer?.tabbedRenderer?.watchNextTabbedResultsRenderer ?? {};
+    const { tabs } =
+      data?.contents?.singleColumnMusicWatchNextResultsRenderer?.tabbedRenderer
+        ?.watchNextTabbedResultsRenderer ?? {};
     if (!Array.isArray(tabs)) return null;
 
     const lyricsTab = tabs.find((it) => {
-      const pageType = it?.tabRenderer?.endpoint?.browseEndpoint?.browseEndpointContextSupportedConfigs?.browseEndpointContextMusicConfig?.pageType;
+      const pageType = it?.tabRenderer?.endpoint?.browseEndpoint
+        ?.browseEndpointContextSupportedConfigs
+        ?.browseEndpointContextMusicConfig?.pageType;
       return pageType === "MUSIC_PAGE_TYPE_TRACK_LYRICS";
     });
 
@@ -34,33 +40,47 @@ export class YTMusic implements LyricProvider {
     const { contents } = await this.fetchBrowse(browseId);
     if (!contents) return null;
 
-    const synced = "elementRenderer" in contents
-      ? (contents?.elementRenderer?.newElement?.type?.componentType?.model?.timedLyricsModel?.lyricsData?.timedLyricsData as SyncedLyricLine[])
-        ?.map((it) => ({
-          time: this.millisToTime(parseInt(it.cueRange.startTimeMilliseconds)),
-          timeInMs: parseInt(it.cueRange.startTimeMilliseconds),
-          duration: parseInt(it.cueRange.endTimeMilliseconds) - parseInt(it.cueRange.startTimeMilliseconds),
-          text: it.lyricLine.trim() === '♪' ? '' : it.lyricLine.trim(),
-          status: 'upcoming' as const,
-        }))
+    /*
+      NOTE: Due to the nature of Youtubei, the json responses are not consistent,
+            this means we have to check for multiple possible paths to get the lyrics.
+    */
+
+    const syncedLines = contents?.elementRenderer?.newElement?.type
+      ?.componentType?.model?.timedLyricsModel?.lyricsData?.timedLyricsData;
+
+    const synced = syncedLines?.length && syncedLines[0]?.cueRange
+      ? syncedLines.map((it) => ({
+        time: this.millisToTime(parseInt(it.cueRange.startTimeMilliseconds)),
+        timeInMs: parseInt(it.cueRange.startTimeMilliseconds),
+        duration: parseInt(it.cueRange.endTimeMilliseconds) -
+          parseInt(it.cueRange.startTimeMilliseconds),
+        text: it.lyricLine.trim() === "♪" ? "" : it.lyricLine.trim(),
+        status: "upcoming" as const,
+      }))
       : undefined;
 
     const plain = !synced
-      ? (contents?.messageRenderer?.text as PlainLyricsTextRenderer
-      )?.runs.map((it) => it.text).join('\n')
+      ? syncedLines?.length
+        ? syncedLines.map((it) => it.lyricLine).join("\n")
+        : contents?.messageRenderer
+        ? contents?.messageRenderer?.text?.runs?.map((it) => it.text).join("\n")
+        : contents?.sectionListRenderer?.contents?.[0]
+          ?.musicDescriptionShelfRenderer?.description?.runs?.map((it) =>
+            it.text
+          )?.join("\n")
       : undefined;
 
-    if (typeof plain === 'string' && plain === 'Lyrics not available') {
+    if (typeof plain === "string" && plain === "Lyrics not available") {
       return null;
     }
 
     if (synced?.length && synced[0].timeInMs > 300) {
       synced.unshift({
         duration: 0,
-        text: '',
-        time: '00:00.00',
+        text: "",
+        time: "00:00.00",
         timeInMs: 0,
-        status: 'upcoming' as const,
+        status: "upcoming" as const,
       });
     }
 
@@ -70,22 +90,24 @@ export class YTMusic implements LyricProvider {
 
       lyrics: plain,
       lines: synced,
-    }
+    };
   }
 
   private millisToTime(millis: number) {
     const minutes = Math.floor(millis / 60000);
     const seconds = Math.floor((millis - minutes * 60 * 1000) / 1000);
     const remaining = (millis - minutes * 60 * 1000 - seconds * 1000) / 10;
-    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${remaining.toString().padStart(2, '0')}`;
+    return `${minutes.toString().padStart(2, "0")}:${
+      seconds.toString().padStart(2, "0")
+    }.${remaining.toString().padStart(2, "0")}`;
   }
 
-  private ENDPOINT = 'https://youtubei.googleapis.com/youtubei/v1/';
+  private ENDPOINT = "https://youtubei.googleapis.com/youtubei/v1/";
 
   private fetchNext(videoId: string) {
-    return fetch(this.ENDPOINT + 'next', {
+    return fetch(this.ENDPOINT + "next", {
       headers,
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify({
         videoId,
         context: { client },
@@ -94,9 +116,9 @@ export class YTMusic implements LyricProvider {
   }
 
   private fetchBrowse(browseId: string) {
-    return fetch(this.ENDPOINT + 'browse', {
+    return fetch(this.ENDPOINT + "browse", {
       headers,
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify({
         browseId,
         context: { client },
@@ -139,7 +161,7 @@ interface BrowseData {
             model: {
               timedLyricsModel: {
                 lyricsData: {
-                  timedLyricsData: any;
+                  timedLyricsData: SyncedLyricLine[];
                 };
               };
             };
@@ -151,6 +173,15 @@ interface BrowseData {
       text: {
         runs: any[];
       };
+    };
+    sectionListRenderer: {
+      contents: {
+        musicDescriptionShelfRenderer: {
+          description: {
+            runs: { text: string }[];
+          };
+        };
+      }[];
     };
   };
 }
