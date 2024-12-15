@@ -61,8 +61,8 @@ importers:
         specifier: 0.18.3
         version: 0.18.3(hono@4.6.14)(zod@3.24.1)
       '@hono/zod-validator':
-        specifier: 0.4.1
-        version: 0.4.1(hono@4.6.14)(zod@3.24.1)
+        specifier: 0.4.2
+        version: 0.4.2(hono@4.6.14)(zod@3.24.1)
       '@jellybrick/electron-better-web-request':
         specifier: 1.0.4
         version: 1.0.4
@@ -853,8 +853,8 @@ packages:
       hono: '>=4.3.6'
       zod: 3.*
 
-  '@hono/zod-validator@0.4.1':
-    resolution: {integrity: sha512-I8LyfeJfvVmC5hPjZ2Iij7RjexlgSBT7QJudZ4JvNPLxn0JQ3sqclz2zydlwISAnw21D2n4LQ0nfZdoiv9fQQA==}
+  '@hono/zod-validator@0.4.2':
+    resolution: {integrity: sha512-1rrlBg+EpDPhzOV4hT9pxr5+xDVmKuz6YJl+la7VCwK6ass5ldyKm5fD+umJdV2zhHD6jROoCCv8NbTwyfhT0g==}
     peerDependencies:
       hono: '>=3.9.0'
       zod: ^3.19.1
@@ -4837,11 +4837,11 @@ snapshots:
   '@hono/zod-openapi@0.18.3(hono@4.6.14)(zod@3.24.1)':
     dependencies:
       '@asteasolutions/zod-to-openapi': 7.2.0(zod@3.24.1)
-      '@hono/zod-validator': 0.4.1(hono@4.6.14)(zod@3.24.1)
+      '@hono/zod-validator': 0.4.2(hono@4.6.14)(zod@3.24.1)
       hono: 4.6.14
       zod: 3.24.1
 
-  '@hono/zod-validator@0.4.1(hono@4.6.14)(zod@3.24.1)':
+  '@hono/zod-validator@0.4.2(hono@4.6.14)(zod@3.24.1)':
     dependencies:
       hono: 4.6.14
       zod: 3.24.1
