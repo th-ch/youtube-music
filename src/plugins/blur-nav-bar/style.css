@@ -5,7 +5,6 @@
 }
 
 ytmusic-tabs {
-  top: calc(var(--ytmusic-nav-bar-height) + var(--menu-bar-height, 36px));
   backdrop-filter: blur(8px) !important;
 }
 
