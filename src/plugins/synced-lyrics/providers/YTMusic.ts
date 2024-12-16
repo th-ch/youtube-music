@@ -170,16 +170,12 @@ interface BrowseData {
       };
     };
     messageRenderer: {
-      text: {
-        runs: any[];
-      };
+      text: PlainLyricsTextRenderer;
     };
     sectionListRenderer: {
       contents: {
         musicDescriptionShelfRenderer: {
-          description: {
-            runs: { text: string }[];
-          };
+          description: PlainLyricsTextRenderer;
         };
       }[];
     };
