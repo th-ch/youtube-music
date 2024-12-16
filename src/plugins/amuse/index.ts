@@ -7,13 +7,14 @@ export interface MusicWidgetConfig {
 }
 
 export const defaultConfig: MusicWidgetConfig = {
-  enabled: false,
+  enabled: true,
 };
 
 
 export default createPlugin({
   name: () => t('plugins.amuse.name'),
   description: () => t('plugins.amuse.description'),
+  addedVersion: '3.6.X',
   restartNeeded: true,
   config: defaultConfig,
   backend,

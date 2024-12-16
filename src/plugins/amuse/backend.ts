@@ -1,7 +1,6 @@
 import http from 'node:http';
 
-import { SongInfo } from "@/providers/song-info";
-import { getSongInfo } from "@/providers/song-info-front";
+import registerCallback, { SongInfo } from "@/providers/song-info";
 import { createBackend } from "@/utils";
 import { t } from "i18next";
 import { AmuseSongInfo } from "./types";
@@ -30,9 +29,14 @@ function formatSongInfo(info: SongInfo) {
 }
 
 export default createBackend({
+  currentSongInfo: {} as SongInfo,
+  server: null as http.Server | null,
   start() {
-    const server = http.createServer((req: http.IncomingMessage, res: http.ServerResponse) => {
+    registerCallback((songInfo) => {
+      this.currentSongInfo = songInfo;
+    });
 
+    this.server = http.createServer((req: http.IncomingMessage, res: http.ServerResponse) => {
       // Likely necessary due to CORS
       res.setHeader('Access-Control-Allow-Origin', '*')
       res.setHeader('Content-Type', 'application/json');
@@ -43,12 +47,18 @@ export default createBackend({
       }
 
       if (req.url === '/query' || req.url === '/api') {
-        res.end(JSON.stringify(formatSongInfo(getSongInfo())));
+        res.end(JSON.stringify(formatSongInfo(this.currentSongInfo)));
       }
     });
 
-    server.listen(amusePort, () => {
-      console.log(`Amuse API server started @ http://localhost:${amusePort}`);
+    this.server.listen(amusePort, () => {
+      console.log(`[Amuse] API server started @ http://localhost:${amusePort}`);
     });
+  },
+
+  stop() {
+    if (this.server) {
+      this.server.close();
+    }
   }
 });
