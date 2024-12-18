@@ -251,8 +251,8 @@ importers:
         specifier: 24.13.3
         version: 24.13.3(electron-builder-squirrel-windows@24.13.3)
       electron-devtools-installer:
-        specifier: 3.2.1
-        version: 3.2.1
+        specifier: 4.0.0
+        version: 4.0.0
       electron-vite:
         specifier: 2.3.0
         version: 2.3.0(vite@6.0.3(@types/node@22.9.3)(yaml@2.6.1))
@@ -2076,8 +2076,8 @@ packages:
     resolution: {integrity: sha512-rdbvmotqbaNcSuinPe1tzB5zK+JKal+4LSDbguBcqTLARNqWrGoRS/TkR1gGH4+63boYH3HUaf9r9ECAxgIe9g==}
     engines: {node: '>=18'}
 
-  electron-devtools-installer@3.2.1:
-    resolution: {integrity: sha512-FaCi+oDCOBTw0gJUsuw5dXW32b2Ekh5jO8lI1NRCQigo3azh2VogsIi0eelMVrP1+LkN/bewyH3Xoo1USjO0eQ==}
+  electron-devtools-installer@4.0.0:
+    resolution: {integrity: sha512-9Tntu/jtfSn0n6N/ZI6IdvRqXpDyLQiDuuIbsBI+dL+1Ef7C8J2JwByw58P3TJiNeuqyV3ZkphpNWuZK5iSY2w==}
 
   electron-is-accelerator@0.1.2:
     resolution: {integrity: sha512-fLGSAjXZtdn1sbtZxx52+krefmtNuVwnJCV2gNiVt735/ARUboMl8jnNC9fZEqQdlAv2ZrETfmBUsoQci5evJA==}
@@ -3660,11 +3660,6 @@ packages:
   reusify@1.0.4:
     resolution: {integrity: sha512-U9nH88a3fc/ekCF1l0/UP1IosiuIjyTh7hBvXVMHYgVcfGvt897Xguj2UOLDeI5BG2m7/uwyaLVT6fbtCwTyzw==}
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
-
-  rimraf@3.0.2:
-    resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==}
-    deprecated: Rimraf versions prior to v4 are no longer supported
-    hasBin: true
 
   rimraf@5.0.10:
     resolution: {integrity: sha512-l0OE8wL34P4nJH/H2ffoaniAokM2qSmrtXHmlpvYr5AVVX8msAyW0l8NVJFDxlSK4u3Uh/f41cQheDVdnYijwQ==}
@@ -6333,11 +6328,8 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  electron-devtools-installer@3.2.1:
+  electron-devtools-installer@4.0.0:
     dependencies:
-      rimraf: 3.0.2
-      semver: 7.6.3
-      tslib: 2.8.1
       unzip-crx-3: 0.2.0
 
   electron-is-accelerator@0.1.2: {}
@@ -8066,10 +8058,6 @@ snapshots:
   retry@0.12.0: {}
 
   reusify@1.0.4: {}
-
-  rimraf@3.0.2:
-    dependencies:
-      glob: 7.2.3
 
   rimraf@5.0.10:
     dependencies:
