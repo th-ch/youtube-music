@@ -301,7 +301,7 @@
     "discord-api-types": "0.37.111",
     "electron": "33.2.1",
     "electron-builder": "24.13.3",
-    "electron-devtools-installer": "3.2.1",
+    "electron-devtools-installer": "4.0.0",
     "electron-vite": "2.3.0",
     "esbuild": "0.24.0",
     "eslint": "9.17.0",
