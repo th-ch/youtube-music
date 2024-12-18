@@ -10,7 +10,7 @@ import type { SyncedLyricsPluginConfig } from './types';
 export default createPlugin({
   name: () => t('plugins.synced-lyrics.name'),
   description: () => t('plugins.synced-lyrics.description'),
-  authors: ['Non0reo', 'ArjixWasTaken'],
+  authors: ['Non0reo', 'ArjixWasTaken', 'KimJammer'],
   restartNeeded: true,
   addedVersion: '3.5.X',
   config: {
@@ -19,7 +19,7 @@ export default createPlugin({
     showLyricsEvenIfInexact: true,
     showTimeCodes: false,
     defaultTextString: '♪',
-    lineEffect: 'scale',
+    lineEffect: 'fancy',
   } satisfies SyncedLyricsPluginConfig,
 
   menu,
