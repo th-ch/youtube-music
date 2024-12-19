@@ -2,7 +2,7 @@ import { resolve, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { UserConfig } from 'vite';
-import { defineConfig, defineViteConfig, swcPlugin } from 'electron-vite';
+import { defineConfig, defineViteConfig } from 'electron-vite';
 import builtinModules from 'builtin-modules';
 import viteResolve from 'vite-plugin-resolve';
 import Inspect from 'vite-plugin-inspect';
@@ -24,7 +24,6 @@ export default defineConfig({
   main: defineViteConfig(({ mode }) => {
     const commonConfig: UserConfig = {
       plugins: [
-        swcPlugin(),
         pluginLoader('backend'),
         viteResolve({
           'virtual:i18n': i18nImporter(),
@@ -67,14 +66,13 @@ export default defineConfig({
       build: {
         ...commonConfig.build,
         minify: true,
-        cssMinify: 'lightningcss',
+        cssMinify: true,
       },
     };
   }),
   preload: defineViteConfig(({ mode }) => {
     const commonConfig: UserConfig = {
       plugins: [
-        swcPlugin(),
         pluginLoader('preload'),
         viteResolve({
           'virtual:i18n': i18nImporter(),
@@ -116,14 +114,13 @@ export default defineConfig({
       build: {
         ...commonConfig.build,
         minify: true,
-        cssMinify: 'lightningcss',
+        cssMinify: true,
       },
     };
   }),
   renderer: defineViteConfig(({ mode }) => {
     const commonConfig: UserConfig = {
       plugins: [
-        swcPlugin(),
         pluginLoader('renderer'),
         viteResolve({
           'virtual:i18n': i18nImporter(),
@@ -168,7 +165,7 @@ export default defineConfig({
       build: {
         ...commonConfig.build,
         minify: true,
-        cssMinify: 'lightningcss',
+        cssMinify: true,
       },
     };
   }),
