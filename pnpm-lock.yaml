@@ -27,12 +27,6 @@ importers:
 
   .:
     dependencies:
-      '@cliqz/adblocker-electron':
-        specifier: 1.27.1
-        version: 1.27.1(electron@33.2.1)
-      '@cliqz/adblocker-electron-preload':
-        specifier: 1.27.1
-        version: 1.27.1(electron@33.2.1)
       '@electron-toolkit/tsconfig':
         specifier: 1.0.1
         version: 1.0.1(@types/node@22.9.3)
@@ -51,6 +45,12 @@ importers:
       '@foobar404/wave':
         specifier: 2.0.5
         version: 2.0.5
+      '@ghostery/adblocker-electron':
+        specifier: 2.3.1
+        version: 2.3.1(electron@33.2.1)
+      '@ghostery/adblocker-electron-preload':
+        specifier: 2.3.1
+        version: 2.3.1(electron@33.2.1)
       '@hono/node-server':
         specifier: 1.13.7
         version: 1.13.7(hono@4.6.14)
@@ -423,30 +423,6 @@ packages:
 
   '@bufbuild/protobuf@2.2.2':
     resolution: {integrity: sha512-UNtPCbrwrenpmrXuRwn9jYpPoweNXj8X5sMvYgsqYyaH8jQ6LfUJSk3dJLnBK+6sfYPrF4iAIo5sd5HQ+tg75A==}
-
-  '@cliqz/adblocker-content@1.34.0':
-    resolution: {integrity: sha512-5LcV8UZv49RWwtpom9ve4TxJIFKd+bjT59tS/2Z2c22Qxx5CW1ncO/T+ybzk31z422XplQfd0ZE6gMGGKs3EMg==}
-    deprecated: This project has been renamed to @ghostery/adblocker-content. Install using @ghostery/adblocker-content instead
-
-  '@cliqz/adblocker-electron-preload@1.27.1':
-    resolution: {integrity: sha512-J6qHgqnqpPNwACIuIjtackMRfJbUM+bXc9w4XmPXt1jW7OCuxr8JVjxQamKWWW4PVP7YqtpZCwlvCxQGgCEGoQ==}
-    deprecated: This project has been renamed to @ghostery/adblocker-electron-preload. Install using @ghostery/adblocker-electron-preload instead
-    peerDependencies:
-      electron: '>11'
-
-  '@cliqz/adblocker-electron@1.27.1':
-    resolution: {integrity: sha512-mV49IrXKOUa23T87E0+ewGCtSdgVIZHalKVDabC+g2DY6nU57XjHe4YlAPQCZFRW59HHAxALYjn5wHYGWzus8Q==}
-    deprecated: This project has been renamed to @ghostery/adblocker-electron. Install using @ghostery/adblocker-electron instead
-    peerDependencies:
-      electron: '>11'
-
-  '@cliqz/adblocker-extended-selectors@1.34.0':
-    resolution: {integrity: sha512-lNrgdUPpsBWHjrwXy2+Z5nX/Gy5YAvNwFMLqkeMdjzrybwPIalJJN2e+YtkS1I6mVmOMNppF5cv692OAVoI74g==}
-    deprecated: This project has been renamed to @ghostery/adblocker-extended-selectors. Install using @ghostery/adblocker-extended-selectors instead
-
-  '@cliqz/adblocker@1.34.0':
-    resolution: {integrity: sha512-d7TeUl5t+TOMJe7/CRYtf+x6hbd8N25DtH7guQTIjjr3AFVortxiAIgNejGvVqy0by4eNByw+oVil15oqxz2Eg==}
-    deprecated: This project has been renamed to @ghostery/adblocker. Install using @ghostery/adblocker instead
 
   '@develar/schema-utils@2.6.5':
     resolution: {integrity: sha512-0cp4PsWQ/9avqTVMCtZ+GirikIA36ikvjtHweU4/j8yLtgObI0+JUPhYFScgwlteveGB1rt3Cm8UhN04XayDig==}
@@ -834,6 +810,25 @@ packages:
 
   '@foobar404/wave@2.0.5':
     resolution: {integrity: sha512-V/ydadtv5ObCw8aEg+Qy3YSq1eyinEWzJfRI43Ovmj7VmAvEdWAdL7MatoMbiIVYPATkNDVF7GOxX1xirxM9dA==}
+
+  '@ghostery/adblocker-content@2.3.1':
+    resolution: {integrity: sha512-8ZTY1sEE218b0EMk3Q9fv/cWwUxunSCyBOaKuviEmJY5EyvPa1VbGPuTq/Qdvo1kduD8nLEzCwgWhcT3F3TT0Q==}
+
+  '@ghostery/adblocker-electron-preload@2.3.1':
+    resolution: {integrity: sha512-ljNnxNJiX0PaNzlH3kH7R5jAmeRqZm0nlyvPshGFft/sF2YOSpbwQnIIF55V/cg7rM6rWLuv6FEKh+xprL5dLw==}
+    peerDependencies:
+      electron: '>11'
+
+  '@ghostery/adblocker-electron@2.3.1':
+    resolution: {integrity: sha512-zu1g5iBx2Owhc4AmWgA9s/tzDkw+AqPoFzRb50GYtO62WCef4sqmmLX1MMIfApzrGdy16NDSnXdwtDcRMshfgw==}
+    peerDependencies:
+      electron: '>11'
+
+  '@ghostery/adblocker-extended-selectors@2.3.1':
+    resolution: {integrity: sha512-hDNiOd/1V4b6NTkNnMkZUUmhMwwo8+5rpSUtQUFzCCCzy+v5izHt4rBr2RGeK5L1pNq0NbFxZJjBHFDbiQiS1A==}
+
+  '@ghostery/adblocker@2.3.1':
+    resolution: {integrity: sha512-6k8ZFHjYII54a32qrKwhnTbrPfR+KPgM6GlyAiEm8OCZoewN1cfBfSw5GVpzaAB2yJ4DzazmP8Wq/UBvEk5mHg==}
 
   '@hono/node-server@1.13.7':
     resolution: {integrity: sha512-kTfUMsoloVKtRA2fLiGSd9qBddmru9KadNyhJCwgKBxTiNkaAJEwkVN9KV/rS4HtmmNRtUh6P+YpmjRMl0d9vQ==}
@@ -1294,9 +1289,6 @@ packages:
   '@types/cacheable-request@6.0.3':
     resolution: {integrity: sha512-IQ3EbTzGxIigb1I3qPZc1rWJnH0BmSKv5QYTalEwweFvyBDLSAe24zP0le/hyi7ecGfZVlIVAg4BZqb8WBwKqw==}
 
-  '@types/chrome@0.0.278':
-    resolution: {integrity: sha512-PDIJodOu7o54PpSOYLybPW/MDZBCjM1TKgf31I3Q/qaEbNpIH09rOM3tSEH3N7Q+FAqb1933LhF8ksUPYeQLNg==}
-
   '@types/color-convert@2.0.4':
     resolution: {integrity: sha512-Ub1MmDdyZ7mX//g25uBAoH/mWGd9swVbt8BseymnaE18SU4po/PjmCrHxqIIRjBo3hV/vh1KGr0eMxUhp+t+dQ==}
 
@@ -1321,20 +1313,8 @@ packages:
   '@types/estree@1.0.6':
     resolution: {integrity: sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==}
 
-  '@types/filesystem@0.0.36':
-    resolution: {integrity: sha512-vPDXOZuannb9FZdxgHnqSwAG/jvdGM8Wq+6N4D/d80z+D4HWH+bItqsZaVRQykAn6WEVeEkLm2oQigyHtgb0RA==}
-
-  '@types/filewriter@0.0.33':
-    resolution: {integrity: sha512-xFU8ZXTw4gd358lb2jw25nxY9QAgqn2+bKKjKOYfNCzN4DKCFetK7sPtrlpg66Ywe3vWY9FNxprZawAh9wfJ3g==}
-
-  '@types/firefox-webext-browser@120.0.4':
-    resolution: {integrity: sha512-lBrpf08xhiZBigrtdQfUaqX1UauwZ+skbFiL8u2Tdra/rklkKadYmIzTwkNZSWtuZ7OKpFqbE2HHfDoFqvZf6w==}
-
   '@types/fs-extra@9.0.13':
     resolution: {integrity: sha512-nEnwB++1u5lVDM2UI4c1+5R+FYaKfaAzS4OococimjVm3nQw3TuzH5UNsocrcTBbhnerblyHj4A49qXbIiZdpA==}
-
-  '@types/har-format@1.2.16':
-    resolution: {integrity: sha512-fluxdy7ryD3MV6h8pTfTYpy/xQzCFC7m89nOH9y94cNqJ1mDIDPut7MnRHI3F6qRmh/cT2fUjG1MLdCNb4hE9A==}
 
   '@types/howler@2.2.12':
     resolution: {integrity: sha512-hy769UICzOSdK0Kn1FBk4gN+lswcj1EKRkmiDtMkUGvFfYJzgaDXmVXkSShS2m89ERAatGIPnTUlp2HhfkVo5g==}
@@ -4509,35 +4489,6 @@ snapshots:
 
   '@bufbuild/protobuf@2.2.2': {}
 
-  '@cliqz/adblocker-content@1.34.0':
-    dependencies:
-      '@cliqz/adblocker-extended-selectors': 1.34.0
-
-  '@cliqz/adblocker-electron-preload@1.27.1(electron@33.2.1)':
-    dependencies:
-      '@cliqz/adblocker-content': 1.34.0
-      electron: 33.2.1
-
-  '@cliqz/adblocker-electron@1.27.1(electron@33.2.1)':
-    dependencies:
-      '@cliqz/adblocker': 1.34.0
-      '@cliqz/adblocker-electron-preload': 1.27.1(electron@33.2.1)
-      electron: 33.2.1
-      tldts-experimental: 6.1.64
-
-  '@cliqz/adblocker-extended-selectors@1.34.0': {}
-
-  '@cliqz/adblocker@1.34.0':
-    dependencies:
-      '@cliqz/adblocker-content': 1.34.0
-      '@cliqz/adblocker-extended-selectors': 1.34.0
-      '@remusao/guess-url-type': 1.3.0
-      '@remusao/small': 1.3.0
-      '@remusao/smaz': 1.10.0
-      '@types/chrome': 0.0.278
-      '@types/firefox-webext-browser': 120.0.4
-      tldts-experimental: 6.1.64
-
   '@develar/schema-utils@2.6.5':
     dependencies:
       ajv: 6.12.6
@@ -4820,6 +4771,33 @@ snapshots:
   '@floating-ui/utils@0.2.8': {}
 
   '@foobar404/wave@2.0.5': {}
+
+  '@ghostery/adblocker-content@2.3.1':
+    dependencies:
+      '@ghostery/adblocker-extended-selectors': 2.3.1
+
+  '@ghostery/adblocker-electron-preload@2.3.1(electron@33.2.1)':
+    dependencies:
+      '@ghostery/adblocker-content': 2.3.1
+      electron: 33.2.1
+
+  '@ghostery/adblocker-electron@2.3.1(electron@33.2.1)':
+    dependencies:
+      '@ghostery/adblocker': 2.3.1
+      '@ghostery/adblocker-electron-preload': 2.3.1(electron@33.2.1)
+      electron: 33.2.1
+      tldts-experimental: 6.1.64
+
+  '@ghostery/adblocker-extended-selectors@2.3.1': {}
+
+  '@ghostery/adblocker@2.3.1':
+    dependencies:
+      '@ghostery/adblocker-content': 2.3.1
+      '@ghostery/adblocker-extended-selectors': 2.3.1
+      '@remusao/guess-url-type': 1.3.0
+      '@remusao/small': 1.3.0
+      '@remusao/smaz': 1.10.0
+      tldts-experimental: 6.1.64
 
   '@hono/node-server@1.13.7(hono@4.6.14)':
     dependencies:
@@ -5328,11 +5306,6 @@ snapshots:
       '@types/node': 22.9.3
       '@types/responselike': 1.0.3
 
-  '@types/chrome@0.0.278':
-    dependencies:
-      '@types/filesystem': 0.0.36
-      '@types/har-format': 1.2.16
-
   '@types/color-convert@2.0.4':
     dependencies:
       '@types/color-name': 1.1.5
@@ -5364,19 +5337,9 @@ snapshots:
 
   '@types/estree@1.0.6': {}
 
-  '@types/filesystem@0.0.36':
-    dependencies:
-      '@types/filewriter': 0.0.33
-
-  '@types/filewriter@0.0.33': {}
-
-  '@types/firefox-webext-browser@120.0.4': {}
-
   '@types/fs-extra@9.0.13':
     dependencies:
       '@types/node': 22.9.3
-
-  '@types/har-format@1.2.16': {}
 
   '@types/howler@2.2.12': {}
 

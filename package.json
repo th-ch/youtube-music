@@ -21,7 +21,7 @@
       "license",
       "!node_modules",
       "node_modules/custom-electron-prompt/**",
-      "node_modules/@cliqz/adblocker-electron-preload/**",
+      "node_modules/@ghostery/adblocker-electron-preload/**",
       "node_modules/@ffmpeg.wasm/core-mt/**",
       "!node_modules/**/*.map",
       "!node_modules/**/*.ts"
@@ -225,14 +225,14 @@
     }
   },
   "dependencies": {
-    "@cliqz/adblocker-electron": "1.27.1",
-    "@cliqz/adblocker-electron-preload": "1.27.1",
     "@electron-toolkit/tsconfig": "1.0.1",
     "@electron/remote": "2.1.2",
     "@ffmpeg.wasm/core-mt": "0.12.0",
     "@ffmpeg.wasm/main": "0.12.0",
     "@floating-ui/dom": "1.6.12",
     "@foobar404/wave": "2.0.5",
+    "@ghostery/adblocker-electron": "2.3.1",
+    "@ghostery/adblocker-electron-preload": "2.3.1",
     "@hono/node-server": "1.13.7",
     "@hono/swagger-ui": "0.5.0",
     "@hono/zod-openapi": "0.18.3",
