@@ -24,12 +24,12 @@ export default defineConfig({
   main: defineViteConfig(({ mode }) => {
     const commonConfig: UserConfig = {
       plugins: [
-        swcPlugin(),
         pluginLoader('backend'),
         viteResolve({
           'virtual:i18n': i18nImporter(),
           'virtual:plugins': pluginVirtualModuleGenerator('main'),
         }),
+        swcPlugin(),
       ],
       publicDir: 'assets',
       build: {
@@ -74,12 +74,12 @@ export default defineConfig({
   preload: defineViteConfig(({ mode }) => {
     const commonConfig: UserConfig = {
       plugins: [
-        swcPlugin(),
         pluginLoader('preload'),
         viteResolve({
           'virtual:i18n': i18nImporter(),
           'virtual:plugins': pluginVirtualModuleGenerator('preload'),
         }),
+        swcPlugin(),
       ],
       build: {
         lib: {
@@ -123,13 +123,13 @@ export default defineConfig({
   renderer: defineViteConfig(({ mode }) => {
     const commonConfig: UserConfig = {
       plugins: [
-        swcPlugin(),
         pluginLoader('renderer'),
         viteResolve({
           'virtual:i18n': i18nImporter(),
           'virtual:plugins': pluginVirtualModuleGenerator('renderer'),
         }),
         solidPlugin(),
+        swcPlugin(),
       ],
       root: './src/',
       build: {
