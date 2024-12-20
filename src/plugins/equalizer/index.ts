@@ -16,6 +16,7 @@ export default createPlugin({
   name: () => t('plugins.equalizer.name'),
   description: () => t('plugins.equalizer.description'),
   restartNeeded: false,
+  addedVersion: '3.7.X',
   config: {
     enabled: false,
     filters: [],
