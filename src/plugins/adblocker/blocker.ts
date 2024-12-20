@@ -2,7 +2,7 @@
 import path from 'node:path';
 import fs, { promises } from 'node:fs';
 
-import { ElectronBlocker } from '@cliqz/adblocker-electron';
+import { ElectronBlocker } from '@ghostery/adblocker-electron';
 import { app, net } from 'electron';
 
 const SOURCES = [
@@ -55,6 +55,7 @@ export const loadAdBlockerEngine = async (
       (url: string) => net.fetch(url),
       lists,
       {
+        enableCompression: true,
         // When generating the engine for caching, do not load network filters
         // So that enhancing the session works as expected
         // Allowing to define multiple webRequest listeners
@@ -66,7 +67,7 @@ export const loadAdBlockerEngine = async (
       blocker.enableBlockingInSession(session);
     }
   } catch (error) {
-    console.log('Error loading adBlocker engine', error);
+    console.error('Error loading adBlocker engine', error);
   }
 };
 

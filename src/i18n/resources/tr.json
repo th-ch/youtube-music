@@ -287,7 +287,7 @@
             "allow": "İzin ver",
             "deny": "Reddet"
           },
-          "message": "{{ID}} ({{origin}}) 'nın APİye erişmesine izin ver",
+          "message": "{{ID}} ({{origin}}) 'nın APIye erişmesine izin verilsin mi?",
           "title": "APİ yetkilendirme isteği"
         }
       },
@@ -296,7 +296,7 @@
           "label": "Yetkilendirme stratejisi",
           "submenu": {
             "auth-at-first": {
-              "label": "İlk isteği yetkilendirin"
+              "label": "İlk istekte yetkilendir"
             },
             "none": {
               "label": "Yetkilendirme Yok"
@@ -307,7 +307,7 @@
           "label": "Ana bilgisayar adı"
         },
         "port": {
-          "label": "Bağlantı Noktası"
+          "label": "Port"
         }
       },
       "name": "API sunucusu [Beta]",
@@ -317,6 +317,7 @@
           "title": "Hostname"
         },
         "port": {
+          "label": "API sunucusu için port girin:",
           "title": "Bağlantı Noktası"
         }
       }

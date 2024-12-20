@@ -5,9 +5,12 @@
 
 /* youtube-music style */
 ytmusic-app-layout {
-  overflow: scroll;
+  overflow: auto scroll;
   height: calc(100vh - var(--menu-bar-height, 36px));
   margin-top: var(--menu-bar-height, 36px) !important;
+
+  /* fixes laggy list scrolling in large playlists */
+  backface-visibility: hidden;
 }
 ytmusic-app-layout#layout {
   --ytmusic-nav-bar-offset: 0px;
@@ -71,4 +74,9 @@ ytmusic-app-layout ytmusic-player-page[is-mweb-modernization-enabled] .side-pane
 /* ytm-bugs: see https://github.com/th-ch/youtube-music/issues/1737 */
 html {
   scrollbar-color: unset;
+}
+
+/* fixes scrollbar lagging behind in large playlists */
+ytmusic-browse-response .ytmusic-responsive-list-item-renderer {
+  will-change: transform;
 }
