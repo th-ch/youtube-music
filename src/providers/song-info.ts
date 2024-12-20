@@ -140,7 +140,12 @@ const handleData = async (
     }
 
     const thumbnails = videoDetails.thumbnail?.thumbnails;
-    songInfo.imageSrc = thumbnails.at(-1)?.url;
+    songInfo.imageSrc = thumbnails.at(-1)?.url.split('?')[0];
+
+    if (songInfo.imageSrc && !(await fetch(songInfo.imageSrc)).ok) {
+      songInfo.imageSrc = thumbnails.at(-1)?.url;
+    }
+
     if (songInfo.imageSrc) songInfo.image = await getImage(songInfo.imageSrc);
 
     win.webContents.send('ytmd:update-song-info', songInfo);
