@@ -8,6 +8,7 @@ import {
   AuthHeadersSchema,
   type ResponseSongInfo,
   SongInfoSchema,
+  SeekSchema,
   GoForwardScheme,
   GoBackSchema,
   SwitchRepeatSchema,
@@ -102,7 +103,28 @@ const routes = {
       },
     },
   }),
-
+  seek: createRoute({
+    method: 'post',
+    path: `/api/${API_VERSION}/seek`,
+    summary: 'seek',
+    description: 'Seek to a specific time in the current song',
+    request: {
+      headers: AuthHeadersSchema,
+      body: {
+        description: 'seconds to seek to',
+        content: {
+          'application/json': {
+            schema: SeekSchema,
+          },
+        },
+      },
+    },
+    responses: {
+      204: {
+        description: 'Success',
+      },
+    },
+  }),
   goBack: createRoute({
     method: 'post',
     path: `/api/${API_VERSION}/go-back`,
@@ -341,6 +363,13 @@ export const register = (
   });
   app.openapi(routes.dislike, (ctx) => {
     controller.dislike();
+
+    ctx.status(204);
+    return ctx.body(null);
+  });
+  app.openapi(routes.seek, (ctx) => {
+    const { seconds } = ctx.req.valid('json');
+    controller.seek(seconds);
 
     ctx.status(204);
     return ctx.body(null);
