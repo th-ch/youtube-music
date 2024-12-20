@@ -23,7 +23,7 @@ export type PlayPauseEvent = {
   elapsedSeconds: number;
 };
 
-export type LineEffect = 'scale' | 'offset' | 'focus';
+export type LineEffect = 'fancy' | 'scale' | 'offset' | 'focus';
 
 export type LRCLIBSearchResponse = {
   id: number;
