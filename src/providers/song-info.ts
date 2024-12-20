@@ -142,7 +142,7 @@ const handleData = async (
     const thumbnails = videoDetails.thumbnail?.thumbnails;
     songInfo.imageSrc = thumbnails.at(-1)?.url.split('?')[0];
 
-    if (songInfo.imageSrc && !(await fetch(songInfo.imageSrc)).ok) {
+    if (songInfo.imageSrc && !(await net.fetch(songInfo.imageSrc)).ok) {
       songInfo.imageSrc = thumbnails.at(-1)?.url;
     }
 
