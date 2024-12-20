@@ -27,6 +27,12 @@ export const SyncedLine = ({ line }: SyncedLineProps) => {
     }
   });
 
+  const text = createMemo(() => {
+    if (line.text.trim()) return line.text;
+    return config()?.defaultTextString ?? '';
+  });
+
+  // prettier-ignore
   return (
     <div
       ref={ref!}
@@ -39,13 +45,8 @@ export const SyncedLine = ({ line }: SyncedLineProps) => {
         class="text-lyrics description ytmusic-description-shelf-renderer"
         text={{
           runs: [
-            {
-              text: '',
-            },
-            {
-              text: `${config()?.showTimeCodes ? `[${line.time}] ` : ''}${line.text}`,
-            },
-          ],
+            { text: config()?.showTimeCodes ? `[${line.time}]` : '' },
+            { text: text() }],
         }}
       />
     </div>

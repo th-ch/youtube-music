@@ -18,8 +18,8 @@ export interface Section {
 
 export interface Hit {
   highlights: Highlight[];
-  index: Index;
-  type: Index;
+  index: ResultType;
+  type: ResultType;
   result: Result;
 }
 
@@ -35,14 +35,10 @@ export interface Range {
   end: number;
 }
 
-export enum Index {
-  Album = 'album',
-  Lyric = 'lyric',
-  Song = 'song',
-}
+export type ResultType = 'song' | 'album' | 'lyric';
 
 export interface Result {
-  _type: Index;
+  _type: ResultType;
   annotation_count?: number;
   api_path: string;
   artist_names?: string;
