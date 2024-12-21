@@ -141,6 +141,8 @@
         "--share=network",
         "--filesystem=xdg-music:rw",
         "--talk-name=org.freedesktop.Notifications",
+        "--talk-name=org.gnome.SessionManager",
+        "--talk-name=org.kde.StatusNotifierWatcher",
         "--own-name=org.mpris.MediaPlayer2.YoutubeMusic.*"
       ]
     },
