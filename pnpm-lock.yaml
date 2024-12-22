@@ -302,8 +302,8 @@ importers:
         specifier: 6.0.5
         version: 6.0.5(@types/node@22.9.3)(yaml@2.6.1)
       vite-plugin-inspect:
-        specifier: 0.10.4
-        version: 0.10.4(rollup@4.28.1)(vite@6.0.5(@types/node@22.9.3)(yaml@2.6.1))
+        specifier: 0.10.6
+        version: 0.10.6(rollup@4.28.1)(vite@6.0.5(@types/node@22.9.3)(yaml@2.6.1))
       vite-plugin-resolve:
         specifier: 2.5.2
         version: 2.5.2
@@ -4142,8 +4142,8 @@ packages:
     resolution: {integrity: sha512-veufcmxri4e3XSrT0xwfUR7kguIkaxBeosDg00yDWhk49wdwkSUrvvsm7nc75e1PUyvIeZj6nS8VQRYz2/S4Xg==}
     engines: {node: '>=0.6.0'}
 
-  vite-plugin-inspect@0.10.4:
-    resolution: {integrity: sha512-3BiPCdcINAxoHtSaVy1Fn54a02ghTNXzgAEN+Ad19MhRSnDLKyYplAHyXiWEOF90t3gO8Czvm/x/qblvfb4vJA==}
+  vite-plugin-inspect@0.10.6:
+    resolution: {integrity: sha512-R3pwljjBbjFM2sZvy6Zvynnm51oaEwLYyYPk9Wp2lF97w/YMBq+KtTJXpCA17IO2pImX0bWA6WB05kuqRnkuyQ==}
     engines: {node: '>=14'}
     peerDependencies:
       '@nuxt/kit': '*'
@@ -8601,7 +8601,7 @@ snapshots:
       extsprintf: 1.4.1
     optional: true
 
-  vite-plugin-inspect@0.10.4(rollup@4.28.1)(vite@6.0.5(@types/node@22.9.3)(yaml@2.6.1)):
+  vite-plugin-inspect@0.10.6(rollup@4.28.1)(vite@6.0.5(@types/node@22.9.3)(yaml@2.6.1)):
     dependencies:
       '@antfu/utils': 0.7.10
       '@rollup/pluginutils': 5.1.4(rollup@4.28.1)
