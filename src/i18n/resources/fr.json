@@ -287,13 +287,17 @@
             "allow": "Autoriser",
             "deny": "Interdire"
           },
-          "message": "Autoriser {{ID}} ({{origin}}) à accéder à l'API ?"
+          "message": "Autoriser {{ID}} ({{origin}}) à accéder à l'API ?",
+          "title": "Requête d'autorisation d'API"
         }
       },
       "menu": {
         "auth-strategy": {
           "label": "Plan d'autorisation",
           "submenu": {
+            "auth-at-first": {
+              "label": "Autoriser à la première requête"
+            },
             "none": {
               "label": "Pas d'autorisation"
             }
@@ -309,7 +313,12 @@
       "name": "Serveur API [Beta]",
       "prompt": {
         "hostname": {
-          "label": "Entrer le nom de l'hôte (par exemple 0.0.0.0) pour le serveur API:"
+          "label": "Entrer le nom de l'hôte (par exemple 0.0.0.0) pour le serveur API:",
+          "title": "Nom d'hôte"
+        },
+        "port": {
+          "label": "Entrer le port du serveur de l'API :",
+          "title": "Port"
         }
       }
     },
@@ -474,6 +483,18 @@
       "templates": {
         "button": "Télécharger"
       }
+    },
+    "equalizer": {
+      "description": "Ajoute un égaliseur au lecteur",
+      "menu": {
+        "presets": {
+          "label": "Préréglages",
+          "list": {
+            "bass-booster": "Amplificateur de basses"
+          }
+        }
+      },
+      "name": "Égaliseur"
     },
     "exponential-volume": {
       "description": "Rend le curseur de volume exponentiel afin qu'il soit plus facile de sélectionner des volumes plus faibles.",
