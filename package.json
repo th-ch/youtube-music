@@ -1,5 +1,6 @@
 {
   "name": "youtube-music",
+  "desktopName": "com.github.th_ch.youtube_music",
   "productName": "YouTube Music",
   "version": "3.6.2",
   "description": "YouTube Music Desktop App - including custom plugins",
@@ -71,6 +72,9 @@
     "linux": {
       "icon": "assets/generated/icons/png",
       "category": "AudioVideo",
+      "desktop": {
+        "StartupWMClass": "com.github.th_ch.youtube_music"
+      },
       "target": [
         {
           "target": "AppImage",
