@@ -2,8 +2,199 @@
   "common": {
     "console": {
       "plugins": {
-        "execute-failed": "{{pluginName}}::{{contextName}} प्लगइन निष्पादित करने में विफल"
+        "execute-failed": "{{pluginName}}::{{contextName}} प्लगइन निष्पादित करने में विफल",
+        "executed-at-ms": "{{pluginName}}::{{contextName}} प्लगिन {{ms}} में निष्पाशित हुआ",
+        "initialize-failed": "\"{{pluginName}}\" प्लगिन इनिशियलाइज़ होने में असफल रहा",
+        "load-all": "सारे प्लगिन लोड हो चुके हैं",
+        "load-failed": "\"{{pluginName}}\" प्लगिन लोड होने में असफल रहा",
+        "loaded": "प्लगिन \"{{pluginName}}\" लोड हो चुका है",
+        "unload-failed": "\"{{pluginName}}\" अनलोड होने में असफल रहा",
+        "unloaded": "प्लगिन \"{{pluginName}}\" अनलोड हो गया है"
       }
+    }
+  },
+  "language": {
+    "code": "hi",
+    "local-name": "हिंदी",
+    "name": "Hindi"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "लोडिंग समाप्त हुई । डेवटूल्स खोले गए हैं"
+      },
+      "i18n": {
+        "loaded": "i18n लोड हो गया है"
+      },
+      "second-instance": {
+        "receive-command": "प्रोटोकॉल पर आदेश प्राप्त हुआ \"{{command}}\""
+      },
+      "theme": {
+        "css-file-not-found": "सीएसएस फाइल \"{{cssFile}}\" मौजूद नही है, अनदेखा किया जा रहा है"
+      },
+      "unresponsive": {
+        "details": "अनरेस्पॉन्सिव एरर\n{{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "एप कैश साफ़ किया जा रहा है"
+      },
+      "window": {
+        "tried-to-render-offscreen": "विंडो ने ऑफस्क्रीन रेंडर करने का प्रयास किया, विंडो साइज={{windowSize}}, डिस्प्ले साइज={{displaySize}}, पोजिशन={{position}}"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "detail": "मेनू छिपा हुआ है, देखने के लिए 'Alt' का इस्तेमाल करें (या 'Escape' अगर आप इन-एप मेनू का उपयोग कर रहे हैं)",
+        "message": "मेनू छिपाएँ सक्षम है",
+        "title": "मेनू छिपाएँ सक्षम"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "बाद में",
+          "restart-now": "पुनः आरंभ करें"
+        },
+        "detail": "\"{{pluginName}}\" प्रभाव लेने के लिए प्लगिन को पुनः शुरू करें",
+        "message": "\"{{pluginName}}\" पुनः आरंभ करने की आवश्यकता है",
+        "title": "पुनः आरंभ करने की आवश्यकता है"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "बंद करें",
+          "relaunch": "पुनः लॉन्च करें",
+          "wait": "रुकें"
+        },
+        "detail": "असुविधाए के लिए खेद हैं! कृपया चुनें कि क्या करना है:",
+        "message": "एप्लीकेशन अनुत्तरदायी है",
+        "title": "विंडो अनुत्तरदायी है"
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "अपडेट्स बंद करें",
+          "download": "डाउनलोड",
+          "ok": "ठीक है"
+        },
+        "detail": "एक नया वर्जन उपलब्ध है, {{downloadLink}} से डाउनलोड किया जा सकता है",
+        "message": "एक नया वर्जन उपलब्ध है",
+        "title": "अपडेट उपलब्ध है"
+      }
+    },
+    "menu": {
+      "about": "के बारे में",
+      "navigation": {
+        "label": "मार्गदर्शन",
+        "submenu": {
+          "copy-current-url": "मौजूदा यूआरएल कापी करें",
+          "go-back": "पीछे जाएं",
+          "go-forward": "आगे जाएं",
+          "quit": "निकास",
+          "restart": "एप को पुनः शुरू करें"
+        }
+      },
+      "options": {
+        "label": "विकल्प",
+        "submenu": {
+          "advanced-options": {
+            "label": "उन्नत विकल्प",
+            "submenu": {
+              "auto-reset-app-cache": "एप शुरू होते समय कैश रीसेट करें",
+              "disable-hardware-acceleration": "हार्डवेयर एक्सीलरेशन बंद करें",
+              "edit-config-json": "config.json को एडिट करें",
+              "override-user-agent": "यूजर-एजेंट को रद्द करें",
+              "restart-on-config-changes": "कनफिग बदलने पे पुनः शुरू करें",
+              "set-proxy": {
+                "label": "प्रॉक्सी तय करें",
+                "prompt": {
+                  "label": "प्प्रॉक्सी पता डालें: (बंद करने के लिए खाली छोड़ें)",
+                  "placeholder": "उदाहरण: SOCKS5://127.0.0.1:9999",
+                  "title": "प्रॉक्सी तय करें"
+                }
+              },
+              "toggle-dev-tools": "डेवटूल्स को टॉगल करें"
+            }
+          },
+          "always-on-top": "हमेशा ऊपर",
+          "auto-update": "ऑटो अपडेट",
+          "hide-menu": {
+            "dialog": {
+              "message": "अगले लॉन्च पे मेनू छुपा दिया जायेगा, देखने के लिए [Alt] का प्रयोग करें (या बैकटिक [`] अगर आप इन एप मेनू का प्रयोग कर रहे हैं)",
+              "title": "मेनू छुपाना सक्रिय है"
+            },
+            "label": "मेनू छुपाएं"
+          },
+          "language": {
+            "dialog": {
+              "message": "पुनः शुरू करने के बाद भाषा बदल दी जाएगी",
+              "title": "भाषा बदल दी गई है"
+            },
+            "label": "भाषा",
+            "submenu": {
+              "to-help-translate": "अनुवाद करने में सहायता करना चाहते हैं? यहां दबाएं"
+            }
+          },
+          "resume-on-start": "एप शुरू होने पर आखरी गाना फिर शुरू करें",
+          "single-instance-lock": "सिंगल इंस्टेंस लॉक",
+          "start-at-login": "शुरू होने पे लॉगिन करें",
+          "starting-page": {
+            "label": "स्टार्टिंग पेज",
+            "unset": "अनसेट"
+          },
+          "tray": {
+            "label": "ट्रे",
+            "submenu": {
+              "disabled": "बंद किया गया है",
+              "enabled-and-hide-app": "सक्रिय है और एप छुपाएं",
+              "enabled-and-show-app": "सक्रिय है और एप दिखाएं",
+              "play-pause-on-click": "क्लिक पर प्ले/पोज"
+            }
+          },
+          "visual-tweaks": {
+            "label": "दृश्य परिवर्तन",
+            "submenu": {
+              "like-buttons": {
+                "default": "डिफॉल्ट",
+                "force-show": "बल पूर्वक दिखाएं",
+                "hide": "छुपाएं",
+                "label": "लाइक बटंस"
+              },
+              "remove-upgrade-button": "अपग्रेड बटन हटाएं",
+              "theme": {
+                "dialog": {
+                  "button": {
+                    "cancel": "रद्द करें",
+                    "remove": "हटाएं"
+                  },
+                  "remove-theme": "क्या आप निश्चित है आपको कस्टम थीम हटानी है?",
+                  "remove-theme-message": "यह कस्टम थीम को हटा देगा"
+                },
+                "label": "थीम",
+                "submenu": {
+                  "import-css-file": "कस्टम सीएसएस फाइल को आयात करें",
+                  "no-theme": "कोई थीम नही"
+                }
+              }
+            }
+          }
+        }
+      },
+      "plugins": {
+        "enabled": "सक्रिय",
+        "label": "प्लगिंस",
+        "new": "नया"
+      },
+      "view": {
+        "label": "देखें",
+        "submenu": {
+          "force-reload": "बल पूर्वक रिलोड करें",
+          "reload": "रिलोड करें",
+          "reset-zoom": "वास्तविक आकार",
+          "toggle-fullscreen": "टागल फुल स्क्रीन",
+          "zoom-in": "ज़ूम इन",
+          "zoom-out": "ज़ूम आउट"
+        }
+      }
+    },
+    "tray": {
+      "next": "अगला"
     }
   },
   "plugins": {

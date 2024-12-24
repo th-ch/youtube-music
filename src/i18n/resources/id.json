@@ -484,6 +484,18 @@
         "button": "Unduh"
       }
     },
+    "equalizer": {
+      "description": "Menambahkan equalizer ke pemutar",
+      "menu": {
+        "presets": {
+          "label": "Prasetel",
+          "list": {
+            "bass-booster": "Penguat Bass"
+          }
+        }
+      },
+      "name": "Equalizer"
+    },
     "exponential-volume": {
       "description": "Buat penggeser volume menjadi eksponen sehingga memudahkan memilih volume yang lebih rendah.",
       "name": "Volume Eksponen"

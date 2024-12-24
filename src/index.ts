@@ -131,6 +131,9 @@ if (config.get('options.disableHardwareAcceleration')) {
 }
 
 if (is.linux()) {
+  // Overrides WM_CLASS for X11 to correspond to icon filename
+  app.setName("com.github.th_ch.youtube_music");
+
   // Workaround for issue #2248
   if (
     process.env.XDG_SESSION_TYPE === 'wayland' ||

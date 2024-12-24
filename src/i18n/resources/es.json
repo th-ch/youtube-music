@@ -484,6 +484,18 @@
         "button": "Descargar"
       }
     },
+    "equalizer": {
+      "description": "Añade un ecualizador al reproductor",
+      "menu": {
+        "presets": {
+          "label": "Ajustes preestablecidos",
+          "list": {
+            "bass-booster": "Amplificador de graves"
+          }
+        }
+      },
+      "name": "Ecualizador"
+    },
     "exponential-volume": {
       "description": "Hace que el control deslizante de volumen sea exponencial para que sea más fácil seleccionar volúmenes más bajos.",
       "name": "Volumen exponencial"
