@@ -5,9 +5,9 @@ import { t } from '@/i18n';
 import type { MenuContext } from '@/types/contexts';
 import type { SyncedLyricsPluginConfig } from './types';
 
-export const menu = async (ctx: MenuContext<SyncedLyricsPluginConfig>): Promise<
-  MenuItemConstructorOptions[]
-> => {
+export const menu = async (
+  ctx: MenuContext<SyncedLyricsPluginConfig>,
+): Promise<MenuItemConstructorOptions[]> => {
   const config = await ctx.getConfig();
 
   return [
@@ -37,7 +37,7 @@ export const menu = async (ctx: MenuContext<SyncedLyricsPluginConfig>): Promise<
           type: 'radio',
           checked: config.lineEffect === 'fancy',
           click() {
-            setConfig({
+            ctx.setConfig({
               lineEffect: 'fancy',
             });
           },
