@@ -104,9 +104,9 @@ const routes = {
       },
     },
   }),
-  seek: createRoute({
+  seekTo: createRoute({
     method: 'post',
-    path: `/api/${API_VERSION}/seek`,
+    path: `/api/${API_VERSION}/seek-to`,
     summary: 'seek',
     description: 'Seek to a specific time in the current song',
     request: {
@@ -316,25 +316,6 @@ const routes = {
       },
     },
   }),
-  seekTime: createRoute({
-    method: 'get',
-    path: `/api/${API_VERSION}/seek-time`,
-    summary: 'get current play time and video duration',
-    description: 'Get current play time and video duration in seconds',
-    responses: {
-      200: {
-        description: 'Success',
-        content: {
-          'application/json': {
-            schema: z.object({
-              current: z.number().nullable().openapi({ example: 3 }),
-              duration: z.number().nullable().openapi({ example: 233 }),
-            }),
-          },
-        },
-      },
-    },
-  }),
   songInfo: createRoute({
     method: 'get',
     path: `/api/${API_VERSION}/song-info`,
@@ -406,7 +387,7 @@ export const register = (
     ctx.status(204);
     return ctx.body(null);
   });
-  app.openapi(routes.seek, (ctx) => {
+  app.openapi(routes.seekTo, (ctx) => {
     const { seconds } = ctx.req.valid('json');
     controller.seek(seconds);
 
