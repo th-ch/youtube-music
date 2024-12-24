@@ -32,8 +32,7 @@ export const SyncedLine = ({ line }: SyncedLineProps) => {
     return config()?.defaultTextString ?? '';
   });
 
-
-  if (line.text == '') {
+  if (!text()) {
     return (
       <yt-formatted-string
         text={{
