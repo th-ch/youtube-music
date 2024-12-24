@@ -34,7 +34,7 @@ export default (win: BrowserWindow) => {
     playPause: () => win.webContents.send('ytmd:toggle-play'),
     like: () => win.webContents.send('ytmd:update-like', 'LIKE'),
     dislike: () => win.webContents.send('ytmd:update-like', 'DISLIKE'),
-    seek: (seconds: ArgsType<number>) => {
+    seekTo: (seconds: ArgsType<number>) => {
       const secondsNumber = parseNumberFromArgsType(seconds);
       if (secondsNumber !== null) {
         win.webContents.send('ytmd:seek-to', seconds);

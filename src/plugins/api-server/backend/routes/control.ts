@@ -389,7 +389,7 @@ export const register = (
   });
   app.openapi(routes.seekTo, (ctx) => {
     const { seconds } = ctx.req.valid('json');
-    controller.seek(seconds);
+    controller.seekTo(seconds);
 
     ctx.status(204);
     return ctx.body(null);
