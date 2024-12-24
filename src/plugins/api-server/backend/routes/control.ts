@@ -8,6 +8,7 @@ import {
   AuthHeadersSchema,
   type ResponseSongInfo,
   SongInfoSchema,
+  SeekSchema,
   GoForwardScheme,
   GoBackSchema,
   SwitchRepeatSchema,
@@ -103,7 +104,28 @@ const routes = {
       },
     },
   }),
-
+  seekTo: createRoute({
+    method: 'post',
+    path: `/api/${API_VERSION}/seek-to`,
+    summary: 'seek',
+    description: 'Seek to a specific time in the current song',
+    request: {
+      headers: AuthHeadersSchema,
+      body: {
+        description: 'seconds to seek to',
+        content: {
+          'application/json': {
+            schema: SeekSchema,
+          },
+        },
+      },
+    },
+    responses: {
+      204: {
+        description: 'Success',
+      },
+    },
+  }),
   goBack: createRoute({
     method: 'post',
     path: `/api/${API_VERSION}/go-back`,
@@ -294,25 +316,6 @@ const routes = {
       },
     },
   }),
-  seekTime: createRoute({
-    method: 'get',
-    path: `/api/${API_VERSION}/seek-time`,
-    summary: 'get current play time and video duration',
-    description: 'Get current play time and video duration in seconds',
-    responses: {
-      200: {
-        description: 'Success',
-        content: {
-          'application/json': {
-            schema: z.object({
-              current: z.number().nullable().openapi({ example: 3 }),
-              duration: z.number().nullable().openapi({ example: 233 }),
-            }),
-          },
-        },
-      },
-    },
-  }),
   songInfo: createRoute({
     method: 'get',
     path: `/api/${API_VERSION}/song-info`,
@@ -380,6 +383,13 @@ export const register = (
   });
   app.openapi(routes.dislike, (ctx) => {
     controller.dislike();
+
+    ctx.status(204);
+    return ctx.body(null);
+  });
+  app.openapi(routes.seekTo, (ctx) => {
+    const { seconds } = ctx.req.valid('json');
+    controller.seekTo(seconds);
 
     ctx.status(204);
     return ctx.body(null);
