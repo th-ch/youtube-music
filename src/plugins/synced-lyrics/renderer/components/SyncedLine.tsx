@@ -1,4 +1,4 @@
-import { createEffect, createMemo } from 'solid-js';
+import { createEffect, createMemo, For } from 'solid-js';
 
 import { currentTime } from './LyricsContainer';
 
@@ -32,7 +32,16 @@ export const SyncedLine = ({ line }: SyncedLineProps) => {
     return config()?.defaultTextString ?? '';
   });
 
-  // prettier-ignore
+  if (!text()) {
+    return (
+      <yt-formatted-string
+        text={{
+          runs: [{ text: '' }],
+        }}
+      />
+    );
+  }
+
   return (
     <div
       ref={ref}
@@ -41,14 +50,33 @@ export const SyncedLine = ({ line }: SyncedLineProps) => {
         _ytAPI?.seekTo(line.timeInMs / 1000);
       }}
     >
-      <yt-formatted-string
-        class="text-lyrics description ytmusic-description-shelf-renderer"
-        text={{
-          runs: [
-            { text: config()?.showTimeCodes ? `[${line.time}]` : '' },
-            { text: text() }],
-        }}
-      />
+      <div class="text-lyrics description ytmusic-description-shelf-renderer">
+        <yt-formatted-string
+          text={{
+            runs: [{ text: config()?.showTimeCodes ? `[${line.time}] ` : '' }],
+          }}
+        />
+
+        <For each={text().split(' ')}>
+          {(word, index) => {
+            return (
+              <span
+                style={{
+                  'transition-delay': `${index() * 0.05}s`,
+                  'animation-delay': `${index() * 0.05}s`,
+                  '--lyrics-duration:': `${line.duration / 1000}s;`,
+                }}
+              >
+                <yt-formatted-string
+                  text={{
+                    runs: [{ text: `${word} ` }],
+                  }}
+                />
+              </span>
+            );
+          }}
+        </For>
+      </div>
     </div>
   );
 };

@@ -20,7 +20,7 @@ export type LineLyrics = {
   status: LineLyricsStatus;
 };
 
-export type LineEffect = 'scale' | 'offset' | 'focus';
+export type LineEffect = 'fancy' | 'scale' | 'offset' | 'focus';
 
 export interface LyricResult {
   title: string;

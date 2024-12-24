@@ -5,9 +5,9 @@ import { t } from '@/i18n';
 import type { MenuContext } from '@/types/contexts';
 import type { SyncedLyricsPluginConfig } from './types';
 
-export const menu = async (ctx: MenuContext<SyncedLyricsPluginConfig>): Promise<
-  MenuItemConstructorOptions[]
-> => {
+export const menu = async (
+  ctx: MenuContext<SyncedLyricsPluginConfig>,
+): Promise<MenuItemConstructorOptions[]> => {
   const config = await ctx.getConfig();
 
   return [
@@ -27,6 +27,21 @@ export const menu = async (ctx: MenuContext<SyncedLyricsPluginConfig>): Promise<
       toolTip: t('plugins.synced-lyrics.menu.line-effect.tooltip'),
       type: 'submenu',
       submenu: [
+        {
+          label: t(
+            'plugins.synced-lyrics.menu.line-effect.submenu.fancy.label',
+          ),
+          toolTip: t(
+            'plugins.synced-lyrics.menu.line-effect.submenu.fancy.tooltip',
+          ),
+          type: 'radio',
+          checked: config.lineEffect === 'fancy',
+          click() {
+            ctx.setConfig({
+              lineEffect: 'fancy',
+            });
+          },
+        },
         {
           label: t(
             'plugins.synced-lyrics.menu.line-effect.submenu.scale.label',
