@@ -15,6 +15,7 @@ import {
   SetFullscreenSchema,
 } from '../scheme';
 
+import type { RepeatMode } from '@/types/datahost-get-state';
 import type { SongInfo } from '@/providers/song-info';
 import type { BackendContext } from '@/types/contexts';
 import type { APIServerConfig } from '../../config';
@@ -171,7 +172,7 @@ const routes = {
         content: {
           'application/json': {
             schema: z.object({
-              mode: z.string().nullable().openapi({example: 'ONE'}),
+              mode: z.enum(['ONE', 'NONE', 'ALL']).nullable(),
             }),
           },
         },
@@ -304,8 +305,8 @@ const routes = {
         content: {
           'application/json': {
             schema: z.object({
-              current: z.number().nullable().openapi({example: 3}),
-              duration: z.number().nullable().openapi({example: 233}),
+              current: z.number().nullable().openapi({ example: 3 }),
+              duration: z.number().nullable().openapi({ example: 233 }),
             }),
           },
         },
@@ -337,6 +338,7 @@ export const register = (
   app: HonoApp,
   { window }: BackendContext<APIServerConfig>,
   songInfoGetter: () => SongInfo | undefined,
+  repeatModeGetter: () => RepeatMode | undefined,
 ) => {
   const controller = getSongControls(window);
 
@@ -402,22 +404,10 @@ export const register = (
     ctx.status(204);
     return ctx.body(null);
   });
-  app.openapi(routes.repeatMode, async (ctx) => {
-    const modeResponsePromise = new Promise<string|null>((resolve) => {
-      ipcMain.once(
-        'ytmd:repeat-mode-response',
-        (_, repeatmode: string | null) => {
-          return resolve(repeatmode);
-        },
-      );
 
-      controller.requestRepeatModeInformation();
-    });
-
-    const repeatmode = await modeResponsePromise;
-
+  app.openapi(routes.repeatMode, (ctx) => {
     ctx.status(200);
-    return ctx.json({ mode: repeatmode });
+    return ctx.json({ mode: repeatModeGetter() ?? null });
   });
   app.openapi(routes.switchRepeat, (ctx) => {
     const { iteration } = ctx.req.valid('json');
@@ -482,23 +472,6 @@ export const register = (
 
     ctx.status(200);
     return ctx.json(info);
-  });
-  app.openapi(routes.seekTime, async (ctx) => {
-    const timeResponsePromise = new Promise<object|null>((resolve) => {
-      ipcMain.once(
-        'ytmd:seek-time-response',
-        (_, time) => {
-          return resolve(time);
-        },
-      );
-
-      controller.requestSeekTimeInformation();
-    });
-
-    const time = await timeResponsePromise;
-
-    ctx.status(200);
-    return ctx.json(time);
   });
   app.openapi(routes.songInfo, (ctx) => {
     const info = songInfoGetter();

@@ -47,9 +47,6 @@ export default (win: BrowserWindow) => {
       }
     },
     shuffle: () => win.webContents.send('ytmd:shuffle'),
-    requestRepeatModeInformation: () => {
-      win.webContents.send('ytmd:get-repeat-mode');
-    },
     switchRepeat: (n: ArgsType<number> = 1) => {
       const repeat = parseNumberFromArgsType(n);
       if (repeat !== null) {
@@ -82,9 +79,6 @@ export default (win: BrowserWindow) => {
         type: 'keyDown',
         keyCode: '/',
       });
-    },
-    requestSeekTimeInformation: () => {
-      win.webContents.send('ytmd:get-seek-time');
     },
   };
 };
