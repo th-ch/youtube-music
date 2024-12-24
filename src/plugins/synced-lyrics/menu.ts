@@ -5,13 +5,10 @@ import { t } from '@/i18n';
 import type { MenuContext } from '@/types/contexts';
 import type { SyncedLyricsPluginConfig } from './types';
 
-export const menu = async ({
-  getConfig,
-  setConfig,
-}: MenuContext<SyncedLyricsPluginConfig>): Promise<
+export const menu = async (ctx: MenuContext<SyncedLyricsPluginConfig>): Promise<
   MenuItemConstructorOptions[]
 > => {
-  const config = await getConfig();
+  const config = await ctx.getConfig();
 
   return [
     {
@@ -20,7 +17,7 @@ export const menu = async ({
       type: 'checkbox',
       checked: config.preciseTiming,
       click(item) {
-        setConfig({
+        ctx.setConfig({
           preciseTiming: item.checked,
         });
       },
@@ -40,7 +37,7 @@ export const menu = async ({
           type: 'radio',
           checked: config.lineEffect === 'scale',
           click() {
-            setConfig({
+            ctx.setConfig({
               lineEffect: 'scale',
             });
           },
@@ -55,7 +52,7 @@ export const menu = async ({
           type: 'radio',
           checked: config.lineEffect === 'offset',
           click() {
-            setConfig({
+            ctx.setConfig({
               lineEffect: 'offset',
             });
           },
@@ -70,7 +67,7 @@ export const menu = async ({
           type: 'radio',
           checked: config.lineEffect === 'focus',
           click() {
-            setConfig({
+            ctx.setConfig({
               lineEffect: 'focus',
             });
           },
@@ -87,7 +84,7 @@ export const menu = async ({
           type: 'radio',
           checked: config.defaultTextString === '♪',
           click() {
-            setConfig({
+            ctx.setConfig({
               defaultTextString: '♪',
             });
           },
@@ -97,7 +94,7 @@ export const menu = async ({
           type: 'radio',
           checked: config.defaultTextString === ' ',
           click() {
-            setConfig({
+            ctx.setConfig({
               defaultTextString: ' ',
             });
           },
@@ -107,7 +104,7 @@ export const menu = async ({
           type: 'radio',
           checked: config.defaultTextString === '...',
           click() {
-            setConfig({
+            ctx.setConfig({
               defaultTextString: '...',
             });
           },
@@ -117,7 +114,7 @@ export const menu = async ({
           type: 'radio',
           checked: config.defaultTextString === '———',
           click() {
-            setConfig({
+            ctx.setConfig({
               defaultTextString: '———',
             });
           },
@@ -130,7 +127,7 @@ export const menu = async ({
       type: 'checkbox',
       checked: config.showTimeCodes,
       click(item) {
-        setConfig({
+        ctx.setConfig({
           showTimeCodes: item.checked,
         });
       },
@@ -143,7 +140,7 @@ export const menu = async ({
       type: 'checkbox',
       checked: config.showLyricsEvenIfInexact,
       click(item) {
-        setConfig({
+        ctx.setConfig({
           showLyricsEvenIfInexact: item.checked,
         });
       },

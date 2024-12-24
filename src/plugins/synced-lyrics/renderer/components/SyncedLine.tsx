@@ -20,16 +20,22 @@ export const SyncedLine = ({ line }: SyncedLineProps) => {
     return 'current';
   });
 
-  let ref: HTMLDivElement;
+  let ref: HTMLDivElement | undefined;
   createEffect(() => {
     if (status() === 'current') {
-      ref.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      ref?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   });
 
+  const text = createMemo(() => {
+    if (line.text.trim()) return line.text;
+    return config()?.defaultTextString ?? '';
+  });
+
+  // prettier-ignore
   return (
     <div
-      ref={ref!}
+      ref={ref}
       class={`synced-line ${status()}`}
       onClick={() => {
         _ytAPI?.seekTo(line.timeInMs / 1000);
@@ -39,13 +45,8 @@ export const SyncedLine = ({ line }: SyncedLineProps) => {
         class="text-lyrics description ytmusic-description-shelf-renderer"
         text={{
           runs: [
-            {
-              text: '',
-            },
-            {
-              text: `${config()?.showTimeCodes ? `[${line.time}] ` : ''}${line.text}`,
-            },
-          ],
+            { text: config()?.showTimeCodes ? `[${line.time}]` : '' },
+            { text: text() }],
         }}
       />
     </div>
