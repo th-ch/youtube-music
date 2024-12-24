@@ -1,18 +1,18 @@
-import { LyricProvider, LyricResult, SearchSongInfo } from "../types";
+import type { LyricProvider, LyricResult, SearchSongInfo } from '../types';
 
 const headers = {
-  Accept: "application/json",
-  "Content-Type": "application/json",
+  'Accept': 'application/json',
+  'Content-Type': 'application/json',
 };
 
 const client = {
-  clientName: "26",
-  clientVersion: "6.48.2",
+  clientName: '26',
+  clientVersion: '6.48.2',
 };
 
 export class YTMusic implements LyricProvider {
-  public name = "YTMusic";
-  public baseUrl = "https://music.youtube.com/";
+  public name = 'YTMusic';
+  public baseUrl = 'https://music.youtube.com/';
 
   // prettier-ignore
   public async search(
@@ -29,7 +29,7 @@ export class YTMusic implements LyricProvider {
       const pageType = it?.tabRenderer?.endpoint?.browseEndpoint
         ?.browseEndpointContextSupportedConfigs
         ?.browseEndpointContextMusicConfig?.pageType;
-      return pageType === "MUSIC_PAGE_TYPE_TRACK_LYRICS";
+      return pageType === 'MUSIC_PAGE_TYPE_TRACK_LYRICS';
     });
 
     if (!lyricsTab) return null;
@@ -54,33 +54,33 @@ export class YTMusic implements LyricProvider {
         timeInMs: parseInt(it.cueRange.startTimeMilliseconds),
         duration: parseInt(it.cueRange.endTimeMilliseconds) -
           parseInt(it.cueRange.startTimeMilliseconds),
-        text: it.lyricLine.trim() === "♪" ? "" : it.lyricLine.trim(),
-        status: "upcoming" as const,
+        text: it.lyricLine.trim() === '♪' ? '' : it.lyricLine.trim(),
+        status: 'upcoming' as const,
       }))
       : undefined;
 
     const plain = !synced
       ? syncedLines?.length
-        ? syncedLines.map((it) => it.lyricLine).join("\n")
+        ? syncedLines.map((it) => it.lyricLine).join('\n')
         : contents?.messageRenderer
-        ? contents?.messageRenderer?.text?.runs?.map((it) => it.text).join("\n")
+        ? contents?.messageRenderer?.text?.runs?.map((it) => it.text).join('\n')
         : contents?.sectionListRenderer?.contents?.[0]
           ?.musicDescriptionShelfRenderer?.description?.runs?.map((it) =>
             it.text
-          )?.join("\n")
+          )?.join('\n')
       : undefined;
 
-    if (typeof plain === "string" && plain === "Lyrics not available") {
+    if (typeof plain === 'string' && plain === 'Lyrics not available') {
       return null;
     }
 
     if (synced?.length && synced[0].timeInMs > 300) {
       synced.unshift({
         duration: 0,
-        text: "",
-        time: "00:00.00",
+        text: '',
+        time: '00:00.00',
         timeInMs: 0,
-        status: "upcoming" as const,
+        status: 'upcoming' as const,
       });
     }
 
@@ -97,17 +97,17 @@ export class YTMusic implements LyricProvider {
     const minutes = Math.floor(millis / 60000);
     const seconds = Math.floor((millis - minutes * 60 * 1000) / 1000);
     const remaining = (millis - minutes * 60 * 1000 - seconds * 1000) / 10;
-    return `${minutes.toString().padStart(2, "0")}:${
-      seconds.toString().padStart(2, "0")
-    }.${remaining.toString().padStart(2, "0")}`;
+    return `${minutes.toString().padStart(2, '0')}:${seconds
+      .toString()
+      .padStart(2, '0')}.${remaining.toString().padStart(2, '0')}`;
   }
 
-  private ENDPOINT = "https://youtubei.googleapis.com/youtubei/v1/";
+  private ENDPOINT = 'https://youtubei.googleapis.com/youtubei/v1/';
 
   private fetchNext(videoId: string) {
-    return fetch(this.ENDPOINT + "next", {
+    return fetch(this.ENDPOINT + 'next', {
       headers,
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify({
         videoId,
         context: { client },
@@ -116,9 +116,9 @@ export class YTMusic implements LyricProvider {
   }
 
   private fetchBrowse(browseId: string) {
-    return fetch(this.ENDPOINT + "browse", {
+    return fetch(this.ENDPOINT + 'browse', {
       headers,
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify({
         browseId,
         context: { client },
