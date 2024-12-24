@@ -20,10 +20,10 @@ export const SyncedLine = ({ line }: SyncedLineProps) => {
     return 'current';
   });
 
-  let ref: HTMLDivElement;
+  let ref: HTMLDivElement | undefined;
   createEffect(() => {
     if (status() === 'current') {
-      ref.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      ref?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   });
 
@@ -35,7 +35,7 @@ export const SyncedLine = ({ line }: SyncedLineProps) => {
   // prettier-ignore
   return (
     <div
-      ref={ref!}
+      ref={ref}
       class={`synced-line ${status()}`}
       onClick={() => {
         _ytAPI?.seekTo(line.timeInMs / 1000);

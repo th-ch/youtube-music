@@ -1,4 +1,4 @@
-import { LyricProvider, LyricResult, SearchSongInfo } from '../types';
+import type { LyricProvider, LyricResult, SearchSongInfo } from '../types';
 
 const preloadedStateRegex = /__PRELOADED_STATE__ = JSON\.parse\('(.*?)'\);/;
 const preloadHtmlRegex = /body":{"html":"(.*?)","children"/;
@@ -54,9 +54,9 @@ export class LyricsGenius implements LyricProvider {
     const html = await fetch(`${this.baseUrl}${path}`).then((res) => res.text());
     const doc = this.domParser.parseFromString(html, 'text/html');
 
-    const preloadedStateScript: HTMLScriptElement = Array.prototype.find.call(doc.querySelectorAll('script'), script => {
+    const preloadedStateScript = Array.prototype.find.call(doc.querySelectorAll('script'), (script: HTMLScriptElement) => {
       return script.textContent?.includes('window.__PRELOADED_STATE__');
-    });
+    }) as HTMLScriptElement;
 
     const preloadedState = preloadedStateScript.textContent?.match(preloadedStateRegex)?.[1]?.replace(/\\"/g, '"');
 
@@ -67,12 +67,12 @@ export class LyricsGenius implements LyricProvider {
       ?.replace(/\\'/g, "'")
       ?.replace(/\\"/g, '"');
 
-    if (!lyricsHtml) throw new Error("Failed to extract lyrics from preloaded state.");
+    if (!lyricsHtml) throw new Error('Failed to extract lyrics from preloaded state.');
 
     const lyricsDoc = this.domParser.parseFromString(lyricsHtml, 'text/html');
     const lyrics = lyricsDoc.body.innerText;
 
-    if (lyrics.trim().toLowerCase().replace(/[\[\]]/g, '') === 'instrumental') return null;
+    if (lyrics.trim().toLowerCase().replace(/[[\]]/g, '') === 'instrumental') return null;
 
     return {
       title: closestHit.result.title,
@@ -92,7 +92,7 @@ interface Response {
 
 interface Section {
   hits: {
-    highlights: any[];
+    highlights: unknown[];
     index: string;
     type: string;
     result: Result;

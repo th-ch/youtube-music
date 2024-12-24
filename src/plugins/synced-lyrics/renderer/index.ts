@@ -53,7 +53,7 @@ export const renderer = createRenderer<
     if (!this.updateTimestampInterval) {
       this.updateTimestampInterval = setInterval(
         () => setCurrentTime((_ytAPI?.getCurrentTime() ?? 0) * 1000),
-        100
+        100,
       );
     }
 

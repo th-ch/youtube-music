@@ -1,8 +1,9 @@
 import { jaroWinkler } from '@skyra/jaro-winkler';
 
-import type { LyricProvider, LyricResult, SearchSongInfo } from '../types';
 import { config } from '../renderer/renderer';
 import { LRC } from '../parsers/lrc';
+
+import type { LyricProvider, LyricResult, SearchSongInfo } from '../types';
 
 export class LRCLib implements LyricProvider {
   name = 'LRCLib';

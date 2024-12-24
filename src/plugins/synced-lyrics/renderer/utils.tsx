@@ -11,7 +11,7 @@ export const selectors = {
   },
 };
 
-export const tabStates: Record<string, CallableFunction> = {
+export const tabStates: Record<string, () => void> = {
   true: async () => {
     setIsVisible(true);
 

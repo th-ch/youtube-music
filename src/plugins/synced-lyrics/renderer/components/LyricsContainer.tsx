@@ -1,10 +1,12 @@
 import { createSignal, For, Match, Show, Switch } from 'solid-js';
+
 import { SyncedLine } from './SyncedLine';
 
-import { currentLyrics, lyricsStore } from '../../providers';
 import { ErrorDisplay } from './ErrorDisplay';
 import { LoadingKaomoji } from './LoadingKaomoji';
 import { PlainLyrics } from './PlainLyrics';
+
+import { currentLyrics, lyricsStore } from '../../providers';
 
 export const [debugInfo, setDebugInfo] = createSignal<string>();
 export const [currentTime, setCurrentTime] = createSignal<number>(-1);
@@ -21,13 +23,13 @@ export const LyricsContainer = () => {
           <yt-formatted-string
             class="text-lyrics description ytmusic-description-shelf-renderer"
             style={{
-              display: 'inline-flex',
+              'display': 'inline-flex',
               'justify-content': 'center',
-              width: '100%',
+              'width': '100%',
               'user-select': 'none',
             }}
             text={{
-              runs: [{ text: '	＼(〇_ｏ)／' }],
+              runs: [{ text: '＼(〇_ｏ)／' }],
             }}
           />
         </Match>

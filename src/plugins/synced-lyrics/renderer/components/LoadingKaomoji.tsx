@@ -20,9 +20,9 @@ export const LoadingKaomoji = () => {
     <yt-formatted-string
       class="text-lyrics description ytmusic-description-shelf-renderer"
       style={{
-        display: 'inline-flex',
+        'display': 'inline-flex',
         'justify-content': 'center',
-        width: '100%',
+        'width': '100%',
         'user-select': 'none',
       }}
       text={{

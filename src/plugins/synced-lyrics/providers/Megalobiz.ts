@@ -1,6 +1,8 @@
-import { LyricProvider, LyricResult, SearchSongInfo } from '../types';
 import { jaroWinkler } from '@skyra/jaro-winkler';
+
 import { LRC } from '../parsers/lrc';
+
+import type { LyricProvider, LyricResult, SearchSongInfo } from '../types';
 
 const removeNoise = (text: string) => {
   return text
@@ -34,8 +36,8 @@ export class Megalobiz implements LyricProvider {
     const searchDoc = this.domParser.parseFromString(data, 'text/html');
 
     // prettier-ignore
-    const searchResults = Array.prototype.map
-      .call(searchDoc.querySelectorAll(`a.entity_name[href^="/lrc/maker/"][name][title]`),
+    const searchResults: MegalobizSearchResult[] = Array.prototype.map
+      .call(searchDoc.querySelectorAll('a.entity_name[href^="/lrc/maker/"][name][title]'),
         (anchor: HTMLAnchorElement) => {
           const { minutes, seconds, millis } = anchor
             .getAttribute('title')!
@@ -45,7 +47,7 @@ export class Megalobiz implements LyricProvider {
           let name = anchor.getAttribute('name')!;
 
           const artists = [
-            removeNoise(name.match(/\(?[Ff]eat\. (.+)\)?/)?.[1] ?? ""),
+            removeNoise(name.match(/\(?[Ff]eat\. (.+)\)?/)?.[1] ?? ''),
             ...(removeNoise(name).match(/(?<artists>.*?) [-•] (?<title>.*)/)?.groups?.artists?.split(/[&,]/)?.map(removeNoise) ?? []),
             ...(removeNoise(name).match(/(?<title>.*) by (?<artists>.*)/)?.groups?.artists?.split(/[&,]/)?.map(removeNoise) ?? []),
           ].filter(Boolean);
@@ -68,7 +70,7 @@ export class Megalobiz implements LyricProvider {
           };
         },
       )
-      .filter(Boolean) as MegalobizSearchResult[];
+      .filter(Boolean);
 
     const sortedResults = searchResults.sort(
       ({ duration: durationA }, { duration: durationB }) => {
@@ -87,7 +89,7 @@ export class Megalobiz implements LyricProvider {
 
     const html = await fetch(`${this.baseUrl}${closestResult.href}`).then((r) => r.text());
     const lyricsDoc = this.domParser.parseFromString(html, 'text/html');
-    const raw = lyricsDoc.querySelector(`span[id^="lrc_"][id$="_lyrics"]`)?.textContent;
+    const raw = lyricsDoc.querySelector('span[id^="lrc_"][id$="_lyrics"]')?.textContent;
     if (!raw) throw new Error('Failed to extract lyrics from page.');
 
     const lyrics = LRC.parse(raw);

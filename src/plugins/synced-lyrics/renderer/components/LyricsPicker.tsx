@@ -1,5 +1,3 @@
-/* eslint-disable import/order,@typescript-eslint/no-unused-vars */
-
 import {
   createEffect,
   createMemo,
@@ -10,6 +8,7 @@ import {
   onMount,
   Switch,
 } from 'solid-js';
+
 import {
   currentLyrics,
   lyricsStore,
@@ -18,8 +17,10 @@ import {
   ProviderState,
   setLyricsStore,
 } from '../../providers';
+
+import { _ytAPI } from '../index';
+
 import type { YtIcons } from '@/types/icons';
-import { _ytAPI } from '..';
 
 export const providerIdx = createMemo(() =>
   providerNames.indexOf(lyricsStore.provider),
@@ -28,13 +29,11 @@ export const providerIdx = createMemo(() =>
 const shouldSwitchProvider = (providerData: ProviderState) => {
   if (providerData.state === 'error') return true;
   if (providerData.state === 'fetching') return true;
-  if (
+  return (
     providerData.state === 'done' &&
     !providerData.data?.lines &&
     !providerData.data?.lyrics
-  )
-    return true;
-  return false;
+  );
 };
 
 const providerBias = (p: ProviderName) =>
@@ -48,7 +47,6 @@ const pickBestProvider = () => {
   const providers = Array.from(providerNames);
 
   providers.sort((a, b) => providerBias(b) - providerBias(a));
-  console.log(Object.fromEntries(providers.map(p => [p, providerBias(p)])));
 
   return providers[0];
 };
@@ -62,7 +60,7 @@ export const LyricsPicker = () => {
     ) {
       const bestProvider = pickBestProvider();
 
-      const allProvidersFailed = providerNames.every(p => shouldSwitchProvider(lyricsStore.lyrics[p]));
+      const allProvidersFailed = providerNames.every((p) => shouldSwitchProvider(lyricsStore.lyrics[p]));
       if (allProvidersFailed) return;
 
       if (providerBias(lyricsStore.provider) < providerBias(bestProvider)) {
@@ -73,7 +71,7 @@ export const LyricsPicker = () => {
 
   onMount(() => {
     const listener = (name: string) => {
-      if (name !== "dataloaded") return;
+      if (name !== 'dataloaded') return;
       setHasManuallySwitchedProvider(false);
     };
 
@@ -87,7 +85,7 @@ export const LyricsPicker = () => {
       const idx = providerNames.indexOf(prevProvider);
       return providerNames[(idx + 1) % providerNames.length];
     });
-  }
+  };
 
   const previous = (automatic: boolean = false) => {
     if (!automatic) setHasManuallySwitchedProvider(true);
@@ -95,7 +93,7 @@ export const LyricsPicker = () => {
       const idx = providerNames.indexOf(prevProvider);
       return providerNames[(idx + providerNames.length - 1) % providerNames.length];
     });
-  }
+  };
 
   const chevronLeft: YtIcons = 'yt-icons:chevron_left';
   const chevronRight: YtIcons = 'yt-icons:chevron_right';

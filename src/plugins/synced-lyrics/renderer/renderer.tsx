@@ -1,12 +1,11 @@
-/* eslint-disable import/order */
-
 import { createEffect, createSignal, onMount, Show } from 'solid-js';
 
 import { LyricsContainer } from './components/LyricsContainer';
 import { LyricsPicker } from './components/LyricsPicker';
 
-import type { SyncedLyricsPluginConfig } from '../types';
 import { selectors } from './utils';
+
+import type { SyncedLyricsPluginConfig } from '../types';
 
 export const [isVisible, setIsVisible] = createSignal<boolean>(false);
 export const [config, setConfig] =
