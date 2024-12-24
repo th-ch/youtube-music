@@ -12,7 +12,7 @@
 
 </div>
 
-![Screenshot](web/screenshot.jpg "Screenshot")
+![Screenshot](web/screenshot.png "Screenshot")
 
 
 <div align="center">
@@ -67,7 +67,7 @@ Read this in other languages: [🇰🇷](./docs/readme/README-ko.md), [🇮🇸]
 ## Available plugins:
 
 - **Ad Blocker**: Block all ads and tracking out of the box
-  
+
 - **Album Actions**: Adds Undislike, Dislike, Like, and Unlike buttons to apply this to all songs in a playlist or album
 
 - **Album Color Theme**: Applies a dynamic theme and visual effects based on the album color palette
@@ -94,6 +94,8 @@ Read this in other languages: [🇰🇷](./docs/readme/README-ko.md), [🇮🇸]
 
 - **Downloader**: downloads
   MP3 [directly from the interface](https://user-images.githubusercontent.com/61631665/129977677-83a7d067-c192-45e1-98ae-b5a4927393be.png) [(youtube-dl)](https://github.com/ytdl-org/youtube-dl)
+
+- **Equalizer**: add filters to boost or cut specific range of frequencies (e.g. bass booster)
 
 - **Exponential Volume**: Makes the volume
   slider [exponential](https://greasyfork.org/en/scripts/397686-youtube-music-fix-volume-ratio/) so it's easier to
@@ -192,7 +194,7 @@ brew install th-ch/youtube-music/youtube-music
 If you install the app manually and get an error "is damaged and can’t be opened." when launching the app, run the following in the Terminal:
 
 ```bash
-xattr -cr /Applications/YouTube\ Music.app
+/usr/bin/xattr -cr /Applications/YouTube\ Music.app
 ```
 
 ### Windows

@@ -30,7 +30,7 @@ export default createPlugin({
   config: {
     enabled: false,
   },
-  backend() {
+  backend({ ipc }) {
     const secToMilisec = (t?: number) =>
       t ? Math.round(Number(t) * 1e3) : undefined;
     const previousStatePaused = null;
@@ -64,6 +64,10 @@ export default createPlugin({
           );
         });
     };
+
+    ipc.on('ytmd:player-api-loaded', () =>
+      ipc.send('ytmd:setup-time-changed-listener'),
+    );
 
     registerCallback((songInfo) => {
       if (!songInfo.title && !songInfo.artist) {

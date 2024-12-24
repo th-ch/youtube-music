@@ -141,6 +141,11 @@ const handleData = async (
 
     const thumbnails = videoDetails.thumbnail?.thumbnails;
     songInfo.imageSrc = thumbnails.at(-1)?.url.split('?')[0];
+
+    if (songInfo.imageSrc && !(await net.fetch(songInfo.imageSrc)).ok) {
+      songInfo.imageSrc = thumbnails.at(-1)?.url;
+    }
+
     if (songInfo.imageSrc) songInfo.image = await getImage(songInfo.imageSrc);
 
     win.webContents.send('ytmd:update-song-info', songInfo);
@@ -149,8 +154,17 @@ const handleData = async (
   return songInfo;
 };
 
+export enum SongInfoEvent {
+  VideoSrcChanged = 'ytmd:video-src-changed',
+  PlayOrPaused = 'ytmd:play-or-paused',
+  TimeChanged = 'ytmd:time-changed',
+}
+
 // This variable will be filled with the callbacks once they register
-export type SongInfoCallback = (songInfo: SongInfo, event?: string) => void;
+export type SongInfoCallback = (
+  songInfo: SongInfo,
+  event: SongInfoEvent,
+) => void;
 const callbacks: Set<SongInfoCallback> = new Set();
 
 // This function will allow plugins to register callback that will be triggered when data changes
@@ -173,7 +187,7 @@ const registerProvider = (win: BrowserWindow) => {
 
     if (tempSongInfo) {
       for (const c of callbacks) {
-        c(tempSongInfo, 'ytmd:video-src-changed');
+        c(tempSongInfo, SongInfoEvent.VideoSrcChanged);
       }
     }
   });
@@ -199,11 +213,29 @@ const registerProvider = (win: BrowserWindow) => {
 
       if (tempSongInfo) {
         for (const c of callbacks) {
-          c(tempSongInfo, 'ytmd:play-or-paused');
+          c(tempSongInfo, SongInfoEvent.PlayOrPaused);
         }
       }
     },
   );
+
+  ipcMain.on('ytmd:time-changed', async (_, seconds: number) => {
+    const tempSongInfo = await dataMutex.runExclusive<SongInfo | null>(() => {
+      if (!songInfo) {
+        return null;
+      }
+
+      songInfo.elapsedSeconds = seconds;
+
+      return songInfo;
+    });
+
+    if (tempSongInfo) {
+      for (const c of callbacks) {
+        c(tempSongInfo, SongInfoEvent.TimeChanged);
+      }
+    }
+  });
 };
 
 const suffixesToRemove = [

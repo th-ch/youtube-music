@@ -484,6 +484,18 @@
         "button": "下载"
       }
     },
+    "equalizer": {
+      "description": "为播放器添加均衡器",
+      "menu": {
+        "presets": {
+          "label": "预设",
+          "list": {
+            "bass-booster": "低音增强器"
+          }
+        }
+      },
+      "name": "均衡器"
+    },
     "exponential-volume": {
       "description": "让音量滑块指数化以便选择更低的音量。",
       "name": "指数化音量"

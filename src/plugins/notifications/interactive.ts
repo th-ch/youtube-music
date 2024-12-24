@@ -8,7 +8,10 @@ import previousIcon from '@assets/media-icons-black/previous.png?asset&asarUnpac
 import { notificationImage, secondsToMinutes, ToastStyles } from './utils';
 
 import getSongControls from '@/providers/song-controls';
-import registerCallback, { SongInfo } from '@/providers/song-info';
+import registerCallback, {
+  type SongInfo,
+  SongInfoEvent,
+} from '@/providers/song-info';
 import { changeProtocolHandler } from '@/providers/protocol-handler';
 import { setTrayOnClick, setTrayOnDoubleClick } from '@/tray';
 import { mediaIcons } from '@/types/media-icons';
@@ -258,15 +261,14 @@ export default (
   let currentSeconds = 0;
   on('ytmd:player-api-loaded', () => send('ytmd:setup-time-changed-listener'));
 
-  on('ytmd:time-changed', (t: number) => {
-    currentSeconds = t;
-  });
-
   let savedSongInfo: SongInfo;
   let lastUrl: string | undefined;
 
   // Register songInfoCallback
-  registerCallback((songInfo) => {
+  registerCallback((songInfo, event) => {
+    if (event === SongInfoEvent.TimeChanged) {
+      currentSeconds = songInfo.elapsedSeconds ?? 0;
+    }
     if (!songInfo.artist && !songInfo.title) {
       return;
     }

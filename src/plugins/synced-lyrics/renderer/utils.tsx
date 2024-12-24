@@ -1,10 +1,7 @@
 import { render } from 'solid-js/web';
 
 import { waitForElement } from '@/utils/wait-for-element';
-
-import { LyricsRenderer, setIsVisible, setPlayerState } from './renderer';
-
-import type { VideoDetails } from '@/types/video-details';
+import { LyricsRenderer, setIsVisible } from './renderer';
 
 export const selectors = {
   head: '#tabsContent > .tab-header:nth-of-type(2)',
@@ -14,10 +11,9 @@ export const selectors = {
   },
 };
 
-export const tabStates = {
-  true: async (data?: VideoDetails) => {
+export const tabStates: Record<string, () => void> = {
+  true: async () => {
     setIsVisible(true);
-    setPlayerState(data ?? null);
 
     let container = document.querySelector('#synced-lyrics-container');
     if (container) return;

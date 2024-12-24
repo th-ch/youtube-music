@@ -3,7 +3,7 @@
     "console": {
       "plugins": {
         "execute-failed": "Napaka pri inicilizaciji dodatka {{pluginName}}::{{contextName}}",
-        "executed-at-ms": "Dodatek {{pluginName}}::{{contextName}} izvešen pri {{ms}}ms",
+        "executed-at-ms": "Dodatek {{pluginName}}::{{contextName}} izvršen pri {{ms}}ms",
         "initialize-failed": "Napaka pri inicilizaciji dodatka \"{{pluginName}}\"",
         "load-all": "Nalaganje dodatkov",
         "load-failed": "Napaka pri nalaganju dodatka \"{{pluginName}}\"",
@@ -36,7 +36,7 @@
         "details": "Neodzivna napaka!\n{{error}}"
       },
       "when-ready": {
-        "clearing-cache-after-20s": "Čiščenje predpolnilnika"
+        "clearing-cache-after-20s": "Čiščenje predpomnilnika"
       },
       "window": {
         "tried-to-render-offscreen": "Okno se je poskusilo prikazati izven ekrana, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
@@ -46,13 +46,14 @@
       "hide-menu-enabled": {
         "detail": "Meni je skrit, pritisni 'Alt' za odpiranje (ali 'Escape' če uporabljaš In-App Meni)",
         "message": "Skriti meni je prižgan",
-        "title": "Skrij meni uklopljen"
+        "title": "Skrij meni vklopljen"
       },
       "need-to-restart": {
         "buttons": {
+          "later": "Kasneje",
           "restart-now": "Ponovno zaženi zdaj"
         },
-        "detail": "\"{{pluginName}}\" dodatek potrebuje ponovni zagon za začetek",
+        "detail": "\"{{pluginName}}\" dodatek potrebuje ponovni zagon",
         "message": "\"{{pluginName}}\" je potrebno ponovno zagnati",
         "title": "Potreben je ponovni zagon"
       },
@@ -62,7 +63,7 @@
           "relaunch": "Ponovno zaženi",
           "wait": "Počakaj"
         },
-        "detail": "Opravičujemo se za neprijetnost! Prosim odločite se kaj narediti:",
+        "detail": "Opravičujemo se za nevšečnost! Prosim odločite se kaj narediti:",
         "message": "Aplikacija se ne odziva",
         "title": "Okno se ne odziva"
       },
@@ -82,7 +83,7 @@
       "navigation": {
         "label": "Navigacija",
         "submenu": {
-          "copy-current-url": "Kopiraj trenuten URL",
+          "copy-current-url": "Kopiraj trenutni URL",
           "go-back": "Nazaj",
           "go-forward": "Naprej",
           "quit": "Izhod",
@@ -95,7 +96,7 @@
           "advanced-options": {
             "label": "Dodatne nastavitve",
             "submenu": {
-              "auto-reset-app-cache": "Resetiraj predpolnilnik aplikacije ob zagonu",
+              "auto-reset-app-cache": "Resetiraj predpomnilnik aplikacije ob zagonu",
               "disable-hardware-acceleration": "Izklopi strojno pospeševanje",
               "edit-config-json": "Spremeni config.json",
               "override-user-agent": "Prepiši User-Agent",
@@ -103,7 +104,7 @@
               "set-proxy": {
                 "label": "Nastavi proxy",
                 "prompt": {
-                  "label": "Napiši naslov Proxy: (pusti prazno, da izklopiš)",
+                  "label": "Napiši Proxy naslov: (pusti prazno, da izklopiš)",
                   "placeholder": "Primer: SOCKS5://127.0.0.1:9999",
                   "title": "Nastavi Proxy"
                 }
@@ -115,7 +116,7 @@
           "auto-update": "Avtomatsko posodobi",
           "hide-menu": {
             "dialog": {
-              "message": "Meni se bo skrit pri naslednjem zagonu, uporabi [Alt] da se prikaže (ali [`] v in-app-menu)",
+              "message": "Meni se bo skrit pri naslednjem zagonu, uporabi [Alt] da se prikaže (ali [`] v meniju aplikacije)",
               "title": "Skrij meni vklopljen"
             },
             "label": "Skrij meni"
@@ -127,12 +128,12 @@
             },
             "label": "Jezik",
             "submenu": {
-              "to-help-translate": "Želiš pomagati prevediti? Klikni tukaj"
+              "to-help-translate": "Želiš pomagati pri prevajanju? Klikni tukaj"
             }
           },
-          "resume-on-start": "Predvajaj zadnjo pesem, ko se aplikacija prižge",
+          "resume-on-start": "Predvajaj zadnjo pesem, ko se aplikacija zažene",
           "single-instance-lock": "Zaklep ene instance",
-          "start-at-login": "Prižgi pri zagonu",
+          "start-at-login": "Zaženi pri zagonu",
           "starting-page": {
             "label": "Začetna stran",
             "unset": "Ni nastavljeno"
@@ -153,7 +154,7 @@
                 "default": "Privzeto",
                 "force-show": "Prisilno pokaži",
                 "hide": "Skrij",
-                "label": "Gumb všeč mi je"
+                "label": "Gumbi za všečkanje"
               },
               "remove-upgrade-button": "Odstrani gumb za nadgradnjo",
               "theme": {
@@ -162,8 +163,8 @@
                     "cancel": "Prekliči",
                     "remove": "Odstrani"
                   },
-                  "remove-theme": "Ali želite odstraniti poljubno temo?",
-                  "remove-theme-message": "Poljubna tema bo odtranjena"
+                  "remove-theme": "Ali želite odstraniti temo po meri?",
+                  "remove-theme-message": "Tema po meri bo odstranjena"
                 },
                 "label": "Tema",
                 "submenu": {
@@ -206,12 +207,16 @@
     }
   },
   "plugins": {
+    "ad-speedup": {
+      "description": "Če se predvaja oglas se zvok utišja. Prav tako se hitrost predvajanja nastavi na 16 krat",
+      "name": "Pospeševanje oglasov"
+    },
     "adblocker": {
-      "description": "Izklopi vse oglase od začetka",
+      "description": "Izklopi vse oglase in sledenje",
       "menu": {
-        "blocker": "Blocker"
+        "blocker": "Blokator"
       },
-      "name": "Ad Blocker"
+      "name": "Blokator reklam"
     },
     "album-actions": {
       "description": "Doda Undislike, Dislike, Like, in Unlike gumbe vsem glasbam v seznamu predvajanja ali albumu",
@@ -221,31 +226,31 @@
       "description": "Doda dinamično temo in vizualne efekte glede na barve albuma",
       "menu": {
         "color-mix-ratio": {
-          "label": "Raznerje barv",
+          "label": "Razmerje barv",
           "submenu": {
             "percent": "{{ratio}}%"
           }
         }
       },
-      "name": "Tema Brav Albuma"
+      "name": "Barvna tema Albuma"
     },
     "ambient-mode": {
-      "description": "Doda bravn efekt iz video posnetka na ozadje",
+      "description": "Doda barvni učinek iz video posnetka na ozadje",
       "menu": {
         "blur-amount": {
-          "label": "količina zameglitve",
+          "label": "Stopnja zameglitve",
           "submenu": {
             "pixels": "{{blurAmount}} pikslov"
           }
         },
         "buffer": {
-          "label": "Medpolnilnik",
+          "label": "Medpomnilnik",
           "submenu": {
             "buffer": "{{buffer}}"
           }
         },
         "opacity": {
-          "label": "Nepreglednost",
+          "label": "Prozornost",
           "submenu": {
             "percent": "{{opacity}}%"
           }
@@ -269,10 +274,53 @@
           }
         },
         "use-fullscreen": {
-          "label": "Uporablja cel zaslon"
+          "label": "Uporablja celoten zaslon"
         }
       },
       "name": "Ambienten način"
+    },
+    "api-server": {
+      "description": "Doda API strežnik za nadzor predvajalnika",
+      "dialog": {
+        "request": {
+          "buttons": {
+            "allow": "Dovoli",
+            "deny": "Zavrni"
+          },
+          "message": "Dovolite {{ID}} ({{origin}}) da dostopa do API-ja?",
+          "title": "Prošnja za avtomatizacijo API-ja"
+        }
+      },
+      "menu": {
+        "auth-strategy": {
+          "label": "Strategija avtorizacije",
+          "submenu": {
+            "auth-at-first": {
+              "label": "Avtorizacija ob prvem zahtevku"
+            },
+            "none": {
+              "label": "Ni avtorizacije"
+            }
+          }
+        },
+        "hostname": {
+          "label": "Hostname"
+        },
+        "port": {
+          "label": "Port"
+        }
+      },
+      "name": "API strežnik [Beta]",
+      "prompt": {
+        "hostname": {
+          "label": "Vnesite hostname (npr. 0.0.0.0) za API strežnik:",
+          "title": "Hostname"
+        },
+        "port": {
+          "label": "Vnesite port za API strežnik:",
+          "title": "Port"
+        }
+      }
     },
     "audio-compressor": {
       "description": "Doda kompresijo zvoka (izenači ravni zvoka, zniža glasnost najglasnejših delov in zviša najtišje)",
@@ -289,7 +337,7 @@
     "captions-selector": {
       "description": "Izberi podnapise za YouTube Music zvočne posnetke",
       "menu": {
-        "autoload": "Avtomatsko uporabi zanje izbrane podnapise",
+        "autoload": "Avtomatsko uporabi zadnje izbrane podnapise",
         "disable-captions": "Avtomatsko brez podnapisov"
       },
       "name": "Izberi podnapise",
@@ -301,7 +349,7 @@
         }
       },
       "templates": {
-        "title": "Odpri izbir podnapisov"
+        "title": "Odpri izbiro podnapisov"
       }
     },
     "compact-sidebar": {
@@ -320,14 +368,185 @@
             "fade-in-duration": "Čas zbledenja (v pesem) (ms)",
             "fade-out-duration": "Čas zbledenja (izven pesemi) (ms)",
             "fade-scaling": {
-              "label": "Fade scaling",
+              "label": "Zbledi skaliranje",
               "linear": "Linearno",
               "logarithmic": "Logaritmično"
             },
-            "seconds-before-end": "Crossfade N seconds before end"
+            "seconds-before-end": "Bledenje (crossfade) N sekund pred koncem"
           },
           "title": "Možnosti zbledenja"
         }
+      }
+    },
+    "disable-autoplay": {
+      "description": "Začne pesem v zaustavljenem načinu",
+      "menu": {
+        "apply-once": "Uporabi samo ob zagonu"
+      },
+      "name": "Onemogoči samodejno predvajanje"
+    },
+    "discord": {
+      "backend": {
+        "already-connected": "Poizkus povezave z aktivno povezavo",
+        "connected": "Povezan na Discord",
+        "disconnected": "Povezava z Discord-om prekinjena"
+      },
+      "description": "Pokaži svojim prijateljem kaj poslušaš z bogato prisotnostjo (Rich Presence)",
+      "menu": {
+        "auto-reconnect": "Samodejna unovična povezava",
+        "clear-activity": "Počisti dejavnost",
+        "clear-activity-after-timeout": "Počisti dejavnost po časovni omejitvi",
+        "connected": "Povezan",
+        "disconnected": "Prekinjena povezava",
+        "hide-duration-left": "Skrij preostali čas",
+        "hide-github-button": "Skrij povezavo do GitHub-a",
+        "play-on-youtube-music": "Predvajaj v YouTube Music",
+        "set-inactivity-timeout": "Nastavite časovno omejitev neaktivnosti"
+      },
+      "name": "Discord bogata prisotnost (Rich Presence)",
+      "prompt": {
+        "set-inactivity-timeout": {
+          "label": "Vnesite časovno omejitev neaktivnosti v sekundah:",
+          "title": "Nastavite časovno omejitev nedejavnosti"
+        }
+      }
+    },
+    "downloader": {
+      "backend": {
+        "dialog": {
+          "error": {
+            "buttons": {
+              "ok": "OK"
+            },
+            "message": "Uff! Se opravičujemo, prenos neuspešen…",
+            "title": "Napaka v prenosu!"
+          },
+          "start-download-playlist": {
+            "buttons": {
+              "ok": "OK"
+            },
+            "detail": "({{playlistSize}} pesmi)",
+            "message": "Prenašanje seznama {{playlistTitle}}",
+            "title": "Prenos se je začel"
+          }
+        },
+        "feedback": {
+          "conversion-progress": "Konverzija: {{percent}}%",
+          "converting": "Pretvarjanje…",
+          "done": "Končano: {{filePath}}",
+          "download-info": "Prenašanje {{artist}} - {{title}} [{{videoId}}",
+          "download-progress": "Prenos: {{percent}}%",
+          "downloading": "Prenašanje…",
+          "downloading-counter": "Prenašanje {{current}}/{{total}}…",
+          "downloading-playlist": "Prenašanje seznama \"{{playlistTitle}}\" - {{playlistSize}} pesmi ({{playlistId}})",
+          "error-while-downloading": "Napaka pri prenosu \"{{author}} - {{title}}\": {{error}}",
+          "folder-already-exists": "Ta mapa {{playlistFolder}} že obstaja",
+          "getting-playlist-info": "Pridobivam informacije o seznamu…",
+          "loading": "Nalaganje…",
+          "playlist-has-only-one-song": "Ta seznam ima samo eno pesem, uporabljam direkten prenos",
+          "playlist-id-not-found": "ID seznama ni najden",
+          "playlist-is-empty": "Seznam je prazen",
+          "playlist-is-mix-or-private": "Napaka v pridobivanju informacij o seznamu: poskrbite da seznam ni zaseben ali \"Mixed for you\" seznam\n\n{{error}}",
+          "preparing-file": "Pripravljanje datoteke…",
+          "saving": "Shranjujem…",
+          "trying-to-get-playlist-id": "Poizkušam pridobiti ID seznama: {{playlistId}}",
+          "video-id-not-found": "Videoposnetek ni najden",
+          "writing-id3": "Zapisujem ID3 oznake…"
+        }
+      },
+      "description": "Prenese MP3 / izviren zvok direktno iz vmesnika",
+      "menu": {
+        "choose-download-folder": "Izberite mapo s prenosi",
+        "download-finish-settings": {
+          "label": "Prenesi ob koncu",
+          "prompt": {
+            "last-percent": "Po x odstotkov",
+            "last-seconds": "Zadnjih x sekund",
+            "title": "Nastavite čas prenosa"
+          },
+          "submenu": {
+            "advanced": "Napredno",
+            "enabled": "Omogočen",
+            "mode": "Časovni način",
+            "percent": "Odstotek",
+            "seconds": "Sekunde"
+          }
+        },
+        "download-playlist": "Prenesi seznam",
+        "presets": "Prednastavitve",
+        "skip-existing": "Preskoči obstoječe datoteke"
+      },
+      "name": "Prenaševalec",
+      "renderer": {
+        "can-not-update-progress": "Nemorem osvežiti napredka"
+      },
+      "templates": {
+        "button": "Prenos"
+      }
+    },
+    "exponential-volume": {
+      "description": "Drsnik za glasnost naredi eksponenten, da bo lažje izbrati nižje glasnosti.",
+      "name": "Eksponentna glasnost"
+    },
+    "in-app-menu": {
+      "description": "Menijem doda eleganten videz v temnih barvah ali barvah albuma",
+      "menu": {
+        "hide-dom-window-controls": "Skrije DOM gumbe za okno"
+      },
+      "name": "Meni v aplikaciji"
+    },
+    "lumiastream": {
+      "description": "Doda podporo za Lumia pretočno predvajanje",
+      "name": "Lumina pretočno predavanje [Beta]"
+    },
+    "lyrics-genius": {
+      "description": "Doda podporo besedil za večino pesmi",
+      "menu": {
+        "romanized-lyrics": "Romanizerana besedila"
+      },
+      "name": "Besedila Genius",
+      "renderer": {
+        "fetched-lyrics": "Prestregel besedila za Genius"
+      }
+    },
+    "music-together": {
+      "description": "Delite seznam predvajanja z drugimi. Ko gostitelj predvaja skladbo, bodo vsi ostali slišali isto skladbo",
+      "dialog": {
+        "enter-host": "Vnesite Host ID"
+      },
+      "internal": {
+        "save": "Shrani",
+        "track-source": "Vir pesmi",
+        "unknown-user": "Neznan uporabnik"
+      },
+      "menu": {
+        "click-to-copy-id": "Kopiraj Host ID",
+        "close": "Zapri Glasba Skupaj",
+        "connected-users": "Povezani uporabniki",
+        "disconnect": "Prekini povezavo z Pesmi Skupaj",
+        "empty-user": "Ni povezanih uporabnikov",
+        "host": "Gkasba Skupaj gostitelj",
+        "join": "Pridruži se Glasba Skupaj",
+        "permission": {
+          "all": "Dovoli da gosti nadzorujejo seznam predvajanja in predvajalnik",
+          "host-only": "Samo gostitelj lahko spreminja seznam predvajanja in predvajalnik",
+          "playlist": "Dovoli da gostje nadzorujejo predvajalnik"
+        },
+        "set-permission": "Spremeni dovoljenje nadzora",
+        "status": {
+          "disconnected": "Odklopljen",
+          "guest": "Povezan kot Gost",
+          "host": "Povezan kot Gostitelj"
+        }
+      },
+      "name": "Gkasba Skupaj [Beta]",
+      "toast": {
+        "add-song-failed": "Skladba ni bila dodana",
+        "closed": "Glasba Skupaj zaprto",
+        "disconnected": "Gkasba Skupaj odklopljena",
+        "host-failed": "Gkasba Skupaj nisem mogel gostiti",
+        "id-copied": "Host ID je kopiran v odložišče",
+        "id-copy-failed": "Host ID ni bilo mogoče kopirati"
       }
     }
   }

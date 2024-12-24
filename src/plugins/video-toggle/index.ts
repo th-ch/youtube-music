@@ -129,6 +129,9 @@ export default createPlugin({
           document
             .querySelector('ytmusic-player')
             ?.setAttribute('has-av-switcher', '');
+          document
+            .querySelector('ytmusic-av-toggle')
+            ?.removeAttribute('toggle-disabled');
           return;
         }
 
@@ -139,6 +142,9 @@ export default createPlugin({
           document
             .querySelector('ytmusic-player')
             ?.removeAttribute('has-av-switcher');
+          document
+            .querySelector('ytmusic-av-toggle')
+            ?.setAttribute('toggle-disabled', '');
           return;
         }
       }

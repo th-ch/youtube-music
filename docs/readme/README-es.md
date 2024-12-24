@@ -12,7 +12,7 @@
 
 </div>
 
-![Screenshot](/web/screenshot.jpg "Screenshot")
+![Screenshot](/web/screenshot.png "Screenshot")
 
 
 <div align="center">
@@ -182,7 +182,7 @@ brew install th-ch/youtube-music/youtube-music
 Si instalas la aplicación manualmente y obtienes un error "está dañado y no se puede abrir" al iniciar la aplicación, ejecuta lo siguiente en la Terminal:
 
 ```bash
-xattr -cr /Applications/YouTube\ Music.app
+/usr/bin/xattr -cr /Applications/YouTube\ Music.app
 ```
 
 ### Windows

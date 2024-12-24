@@ -20,12 +20,18 @@ export const SyncedLine = ({ line }: SyncedLineProps) => {
     return 'current';
   });
 
-  let ref: HTMLDivElement;
+  let ref: HTMLDivElement | undefined;
   createEffect(() => {
     if (status() === 'current') {
-      ref.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      ref?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   });
+
+  const text = createMemo(() => {
+    if (line.text.trim()) return line.text;
+    return config()?.defaultTextString ?? '';
+  });
+
 
   if (line.text == '') {
     return (
@@ -39,7 +45,7 @@ export const SyncedLine = ({ line }: SyncedLineProps) => {
 
   return (
     <div
-      ref={ref!}
+      ref={ref}
       class={`synced-line ${status()}`}
       onClick={() => {
         _ytAPI?.seekTo(line.timeInMs / 1000);
@@ -52,7 +58,7 @@ export const SyncedLine = ({ line }: SyncedLineProps) => {
           }}
         />
 
-        <For each={line.text.split(' ')}>
+        <For each={text().split(' ')}>
           {(word, index) => {
             return (
               <span

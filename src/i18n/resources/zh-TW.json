@@ -484,6 +484,18 @@
         "button": "下載"
       }
     },
+    "equalizer": {
+      "description": "為播放器加入等化器",
+      "menu": {
+        "presets": {
+          "label": "預設格式",
+          "list": {
+            "bass-booster": "低音增強器"
+          }
+        }
+      },
+      "name": "等化器"
+    },
     "exponential-volume": {
       "description": "使音量滑桿指數化，以便更容易選擇較低的音量。",
       "name": "指數化音量調整"
@@ -506,7 +518,7 @@
       },
       "name": "第三方字幕",
       "renderer": {
-        "fetched-lyrics": "為Genius獲取字幕"
+        "fetched-lyrics": "為 Genius 獲取字幕"
       }
     },
     "music-together": {
@@ -761,7 +773,7 @@
       "warnings": {
         "duration-mismatch": "⚠️歌詞可能會出現不同步的情況。",
         "inexact": "⚠️該歌曲的歌詞可能並不精確",
-        "instrumental": "⚠️該首歌曲並無人聲"
+        "instrumental": "⚠️該首歌曲為純音樂"
       }
     },
     "taskbar-mediacontrol": {

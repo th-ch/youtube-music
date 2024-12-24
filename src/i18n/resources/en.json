@@ -714,8 +714,8 @@
     "synced-lyrics": {
       "description": "Provides synced lyrics to songs, using providers like LRClib.",
       "errors": {
-        "fetch": "⚠️ - An error occurred while fetching the lyrics. Please try again later.",
-        "not-found": "⚠️ - No lyrics found for this song."
+        "fetch": "⚠️\tAn error occurred while fetching the lyrics.\n\tPlease try again later.",
+        "not-found": "⚠️ No lyrics found for this song."
       },
       "menu": {
         "default-text-string": {
@@ -812,6 +812,18 @@
         "visualizer-type": "Visualizer Type"
       },
       "name": "Visualizer"
+    },
+    "equalizer": {
+      "description": "Adds an equalizer to the player",
+      "name": "Equalizer",
+      "menu": {
+        "presets": {
+          "label": "Presets",
+          "list": {
+            "bass-booster": "Bass booster"
+          }
+        }
+      }
     }
   }
 }

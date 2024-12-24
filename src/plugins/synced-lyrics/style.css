@@ -3,7 +3,8 @@
   display: none !important;
 }
 
-#tab-renderer[page-type='MUSIC_PAGE_TYPE_TRACK_LYRICS'] > #synced-lyrics-container {
+#tab-renderer[page-type='MUSIC_PAGE_TYPE_TRACK_LYRICS']
+  > #synced-lyrics-container {
   display: block !important;
 }
 
@@ -54,10 +55,10 @@
 
 .synced-line {
   width: var(--lyrics-width, 100%);
-}
 
-.synced-line > .text-lyrics {
-  cursor: pointer;
+  & > .text-lyrics {
+    cursor: pointer;
+  }
 }
 
 .synced-lyrics {
@@ -114,6 +115,84 @@
 }
 
 .upcoming > .text-lyrics {
+}
+
+.lyrics-renderer {
+  display: flex;
+  flex-direction: column;
+}
+
+.lyrics-picker {
+  height: 5em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  padding-block: 1em;
+}
+
+.lyrics-picker-content {
+  display: flex;
+  width: 50%;
+
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.lyrics-picker-content-label {
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  /* padding-block: 5%; */
+}
+
+.lyrics-picker-content-dots {
+  display: block;
+  list-style: none;
+}
+
+.lyrics-picker-item {
+  display: flex;
+  height: 100%;
+  min-width: 100%;
+
+  justify-content: center;
+  align-items: center;
+
+  transition: transform 0.25s ease-in-out;
+}
+
+.lyrics-picker-dot {
+  display: inline-block;
+  cursor: pointer;
+  width: 5px;
+  height: 5px;
+  margin: 0 4px 0;
+  border-radius: 200px;
+  border: 1px solid #6e7c7c7f;
+}
+
+.lyrics-picker-left,
+.lyrics-picker-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease;
+  border-radius: 25%;
+
+  &:hover {
+    background-color: hsla(0, 0%, 100%, 0.1);
+  }
+}
+
+.lyrics-renderer-sticky {
+  position: sticky;
+  top: var(--top, 0);
+  z-index: 100;
+  background-color: var(--ytmusic-background);
+
+  transition: top 325ms ease-in-out;
 }
 
 /* Animations */

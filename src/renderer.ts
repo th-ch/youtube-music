@@ -13,6 +13,11 @@ import {
 
 import { loadI18n, setLanguage, t as i18t } from '@/i18n';
 
+import {
+  defaultTrustedTypePolicy,
+  registerWindowDefaultTrustedTypePolicy,
+} from '@/utils/trusted-types';
+
 import type { PluginConfig } from '@/types/plugins';
 import type { YoutubePlayer } from '@/types/youtube-player';
 import type { QueueElement } from '@/types/queue';
@@ -23,17 +28,7 @@ let isPluginLoaded = false;
 let isApiLoaded = false;
 let firstDataLoaded = false;
 
-if (
-  window.trustedTypes &&
-  window.trustedTypes.createPolicy &&
-  !window.trustedTypes.defaultPolicy
-) {
-  window.trustedTypes.createPolicy('default', {
-    createHTML: (input) => input,
-    createScriptURL: (input) => input,
-    createScript: (input) => input,
-  });
-}
+registerWindowDefaultTrustedTypePolicy();
 
 async function listenForApiLoad() {
   if (!isApiLoaded) {
@@ -270,7 +265,9 @@ const defineYTMDTransElements = () => {
     const key = that.getAttribute('key');
     if (key) {
       const targetHtml = i18t(key);
-      that.innerHTML = window.trustedTypes?.defaultPolicy ? window.trustedTypes.defaultPolicy.createHTML(targetHtml) : targetHtml;
+      (that.innerHTML as string | TrustedHTML) = defaultTrustedTypePolicy
+        ? defaultTrustedTypePolicy.createHTML(targetHtml)
+        : targetHtml;
     }
   };
   customElements.define(
