@@ -484,6 +484,18 @@
         "button": "ダウンロード"
       }
     },
+    "equalizer": {
+      "description": "プレイヤーにイコライザーを追加",
+      "menu": {
+        "presets": {
+          "label": "プリセット",
+          "list": {
+            "bass-booster": "ベースブースター"
+          }
+        }
+      },
+      "name": "イコライザー"
+    },
     "exponential-volume": {
       "description": "音量スライダを指数関数的にさせ、低い音量に設定しやすくなります。",
       "name": "指数音量"
