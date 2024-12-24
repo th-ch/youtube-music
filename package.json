@@ -137,6 +137,7 @@
       "description": "YouTube Music Desktop App bundled with custom plugins (and built-in ad blocker / downloader)",
       "category": "AudioVideo",
       "runtimeVersion": "24.08",
+      "baseVersion": "24.08",
       "finishArgs": [
         "--socket=wayland",
         "--socket=x11",
