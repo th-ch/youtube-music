@@ -1,5 +1,6 @@
 {
   "name": "youtube-music",
+  "desktopName": "com.github.th_ch.youtube_music",
   "productName": "YouTube Music",
   "version": "3.6.2",
   "description": "YouTube Music Desktop App - including custom plugins",
@@ -21,7 +22,7 @@
       "license",
       "!node_modules",
       "node_modules/custom-electron-prompt/**",
-      "node_modules/@cliqz/adblocker-electron-preload/**",
+      "node_modules/@ghostery/adblocker-electron-preload/**",
       "node_modules/@ffmpeg.wasm/core-mt/**",
       "!node_modules/**/*.map",
       "!node_modules/**/*.ts"
@@ -71,6 +72,9 @@
     "linux": {
       "icon": "assets/generated/icons/png",
       "category": "AudioVideo",
+      "desktop": {
+        "StartupWMClass": "com.github.th_ch.youtube_music"
+      },
       "target": [
         {
           "target": "AppImage",
@@ -132,6 +136,8 @@
     "flatpak": {
       "description": "YouTube Music Desktop App bundled with custom plugins (and built-in ad blocker / downloader)",
       "category": "AudioVideo",
+      "runtimeVersion": "24.08",
+      "baseVersion": "24.08",
       "finishArgs": [
         "--socket=wayland",
         "--socket=x11",
@@ -141,6 +147,8 @@
         "--share=network",
         "--filesystem=xdg-music:rw",
         "--talk-name=org.freedesktop.Notifications",
+        "--talk-name=org.gnome.SessionManager",
+        "--talk-name=org.kde.StatusNotifierWatcher",
         "--own-name=org.mpris.MediaPlayer2.YoutubeMusic.*"
       ]
     },
@@ -188,6 +196,7 @@
     "start": "electron-vite preview",
     "start:debug": "cross-env ELECTRON_ENABLE_LOGGING=1 pnpm start",
     "dev": "cross-env NODE_OPTIONS=--enable-source-maps electron-vite dev --watch",
+    "dev:renderer": "cross-env NODE_OPTIONS=--enable-source-maps electron-vite dev",
     "dev:debug": "cross-env ELECTRON_ENABLE_LOGGING=1 pnpm dev",
     "clean": "del-cli dist && del-cli pack && del-cli .vite-inspect",
     "dist": "pnpm clean && pnpm build && pnpm electron-builder --win --mac --linux -p never",
@@ -225,18 +234,18 @@
     }
   },
   "dependencies": {
-    "@cliqz/adblocker-electron": "1.27.1",
-    "@cliqz/adblocker-electron-preload": "1.27.1",
     "@electron-toolkit/tsconfig": "1.0.1",
     "@electron/remote": "2.1.2",
     "@ffmpeg.wasm/core-mt": "0.12.0",
     "@ffmpeg.wasm/main": "0.12.0",
     "@floating-ui/dom": "1.6.12",
     "@foobar404/wave": "2.0.5",
+    "@ghostery/adblocker-electron": "2.3.1",
+    "@ghostery/adblocker-electron-preload": "2.3.1",
     "@hono/node-server": "1.13.7",
     "@hono/swagger-ui": "0.5.0",
     "@hono/zod-openapi": "0.18.3",
-    "@hono/zod-validator": "0.4.1",
+    "@hono/zod-validator": "0.4.2",
     "@jellybrick/electron-better-web-request": "1.0.4",
     "@jellybrick/mpris-service": "2.1.4",
     "@jimp/plugin-invert": "0.22.12",
@@ -259,10 +268,10 @@
     "fast-average-color": "9.4.0",
     "fast-equals": "5.0.1",
     "filenamify": "6.0.0",
-    "hono": "4.6.13",
+    "hono": "4.6.14",
     "howler": "2.2.4",
     "html-to-text": "9.0.5",
-    "i18next": "24.1.0",
+    "i18next": "24.2.0",
     "jimp": "1.6.0",
     "keyboardevent-from-electron-accelerator": "2.0.0",
     "keyboardevents-areequal": "0.2.2",
@@ -283,7 +292,7 @@
     "zod": "3.24.1"
   },
   "devDependencies": {
-    "@eslint/js": "9.16.0",
+    "@eslint/js": "9.17.0",
     "@playwright/test": "1.49.1",
     "@stylistic/eslint-plugin-js": "2.12.1",
     "@total-typescript/ts-reset": "0.6.1",
@@ -298,13 +307,13 @@
     "builtin-modules": "4.0.0",
     "cross-env": "7.0.3",
     "del-cli": "6.0.0",
-    "discord-api-types": "0.37.111",
+    "discord-api-types": "0.37.114",
     "electron": "33.2.1",
     "electron-builder": "24.13.3",
-    "electron-devtools-installer": "3.2.0",
+    "electron-devtools-installer": "4.0.0",
     "electron-vite": "2.3.0",
-    "esbuild": "0.24.0",
-    "eslint": "9.16.0",
+    "esbuild": "0.24.2",
+    "eslint": "9.17.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-import-resolver-exports": "1.0.0-beta.5",
     "eslint-import-resolver-typescript": "3.7.0",
@@ -313,12 +322,12 @@
     "glob": "11.0.0",
     "node-gyp": "11.0.0",
     "playwright": "1.49.1",
-    "rollup": "4.28.1",
+    "rollup": "4.29.1",
     "typescript": "5.7.2",
-    "typescript-eslint": "8.18.0",
+    "typescript-eslint": "8.18.2",
     "utf-8-validate": "6.0.5",
-    "vite": "6.0.3",
-    "vite-plugin-inspect": "0.10.3",
+    "vite": "6.0.5",
+    "vite-plugin-inspect": "0.10.6",
     "vite-plugin-resolve": "2.5.2",
     "vite-plugin-solid": "2.11.0",
     "ws": "8.18.0"

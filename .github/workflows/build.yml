@@ -65,9 +65,9 @@ jobs:
           sudo apt update
           sudo apt install -y flatpak flatpak-builder
           sudo flatpak remote-add --if-not-exists --system flathub https://flathub.org/repo/flathub.flatpakrepo
-          sudo flatpak install -y flathub org.freedesktop.Platform/x86_64/20.08
-          sudo flatpak install -y flathub org.freedesktop.Sdk/x86_64/20.08
-          sudo flatpak install -y flathub org.electronjs.Electron2.BaseApp/x86_64/20.08
+          sudo flatpak install -y flathub org.freedesktop.Platform/x86_64/24.08
+          sudo flatpak install -y flathub org.freedesktop.Sdk/x86_64/24.08
+          sudo flatpak install -y flathub org.electronjs.Electron2.BaseApp/x86_64/24.08
           pnpm release:linux
 
       - name: Build and release on Windows

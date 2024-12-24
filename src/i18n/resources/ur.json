@@ -1,0 +1,133 @@
+{
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "پلگ ان {{pluginName}}::{{contextName}} پر عمل کرنے میں ناکام",
+        "executed-at-ms": "پلگ ان {{pluginName}}::{{contextName}} کو {{ms}}ms پر عمل میں لایا گیا",
+        "initialize-failed": "پلگ ان \"{{pluginName}}\" کو شروع کرنے میں ناکام",
+        "load-all": "تمام پلگ ان لوڈ ہو رہے ہیں",
+        "load-failed": "\"{{pluginName}}\" پلگ ان لوڈ کرنے میں ناکام",
+        "loaded": "پلگ ان \"{{pluginName}}\" لوڈ ہو گیا",
+        "unload-failed": "پلگ ان \"{{pluginName}}\" کو لوڈ کرنے میں ناکام",
+        "unloaded": "پلگ ان \"{{pluginName}}\" کو لوڈ نہیں کیا گیا"
+      }
+    }
+  },
+  "language": {
+    "local-name": "انگریزی",
+    "name": "انگریزی"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "لوڈنگ مکمل ہو گئی۔ DevTools کھل گیا"
+      },
+      "i18n": {
+        "loaded": "i18n لوڈ ہو گیا"
+      },
+      "second-instance": {
+        "receive-command": "پروٹوکول پر کمانڈ موصول ہوئی: \"{{command}}\""
+      },
+      "theme": {
+        "css-file-not-found": "CSS فائل \"{{cssFile}}\" موجود نہیں ہے، نظر انداز کر رہے ہیں"
+      },
+      "unresponsive": {
+        "details": "غیر جوابی غلطی!\n{{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "ایپ کیشے کو صاف کرنا"
+      },
+      "window": {
+        "tried-to-render-offscreen": "ونڈو نے آف اسکرین رینڈر کرنے کی کوشش کی، windowSize={{windowSize}}، displaySize={{displaySize}}، position={{position}}"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "detail": "مینو پوشیدہ ہے، اسے دکھانے کے لیے 'Alt' استعمال کریں (یا 'Escape' اگر ایپ مینیو استعمال کر رہے ہیں)",
+        "message": "پوشیدہ مینو فعال ہے",
+        "title": "پوشیدہ مینو فعال ہو گیا"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "بعد میں",
+          "restart-now": "ابھی دوبارہ شروع کریں"
+        },
+        "detail": "\"{{pluginName}}\" پلگ ان کو اثر انداز ہونے کے لیے دوبارہ شروع کرنے کی ضرورت ہے",
+        "message": "\"{{pluginName}}\" کو دوبارہ شروع کرنے کی ضرورت ہے",
+        "title": "دوبارہ شروع کرنے کی ضرورت ہے"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "چھوڑو",
+          "relaunch": "دوبارہ لانچ کریں",
+          "wait": "انتظار کرو"
+        },
+        "detail": "ہم زحمت کے لیے معذرت خواہ ہیں! براہ کرم منتخب کریں کہ کیا کرنا ہے:",
+        "message": "پروگرام غیر ذمہ دار ہے",
+        "title": "ونڈو غیر جوابدہ"
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "اپ ڈیٹس کو غیر فعال کریں",
+          "download": "ڈاؤن لوڈ کریں",
+          "ok": "ٹھیک ہے"
+        },
+        "detail": "ایک نیا ورژن دستیاب ہے اور اسے {{downloadLink}} پر ڈاؤن لوڈ کیا جا سکتا ہے",
+        "message": "ایک نیا ورژن دستیاب ہے",
+        "title": "اپ ڈیٹ دستیاب ہے"
+      }
+    },
+    "menu": {
+      "about": "پروگرام کے بارے میں",
+      "navigation": {
+        "label": "نیویگیشن",
+        "submenu": {
+          "copy-current-url": "موجودہ URL کاپی کریں",
+          "go-back": "واپس جاؤ",
+          "go-forward": "آگے بڑھو",
+          "quit": "باہر نکلیں",
+          "restart": "ایپ کو دوبارہ شروع کریں"
+        }
+      },
+      "options": {
+        "label": "آپشنز",
+        "submenu": {
+          "advanced-options": {
+            "label": "اعلی درجے کے آپشنز",
+            "submenu": {
+              "auto-reset-app-cache": "ایپ شروع ہونے پر ایپ کیشے کو دوبارہ ترتیب دیں",
+              "disable-hardware-acceleration": "ہارڈ ویئر ایکسلریشن کو غیر فعال کریں",
+              "edit-config-json": "config.json میں ترمیم کریں",
+              "override-user-agent": "یوزر ایجنٹ کو اوور رائیڈ کریں",
+              "restart-on-config-changes": "کنفیگریشن تبدیلیوں پر دوبارہ شروع کریں",
+              "set-proxy": {
+                "label": "پراکسی سیٹ کریں",
+                "prompt": {
+                  "label": "پراکسی ایڈریس درج کریں: (غیر فعال کرنے کے لیے خالی چھوڑ دیں)",
+                  "placeholder": "مثال: SOCKS5://127.0.0.1:9999",
+                  "title": "پراکسی سیٹ کریں"
+                }
+              },
+              "toggle-dev-tools": "DevTools ٹوگل کریں"
+            }
+          },
+          "always-on-top": "ہمیشہ اوپر",
+          "auto-update": "خودکار اپ ڈیٹ",
+          "hide-menu": {
+            "dialog": {
+              "message": "اگلے لانچ پر مینو کو چھپایا جائے گا، اسے دکھانے کے لیے [Alt] استعمال کریں (یا in-app-menu استعمال کرنے پر بیک ٹک [`] کریں)",
+              "title": "پوشیدہ مینو کو فعال کر دیا گیا"
+            },
+            "label": "مینو کو چھپائیں"
+          },
+          "language": {
+            "dialog": {
+              "message": "دوبارہ شروع کرنے کے بعد زبان بدل دی جائے گی",
+              "title": "زبان بدل گئی ہے"
+            }
+          }
+        }
+      }
+    }
+  }
+}

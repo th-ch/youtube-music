@@ -8,6 +8,7 @@ import {
   AuthHeadersSchema,
   type ResponseSongInfo,
   SongInfoSchema,
+  SeekSchema,
   GoForwardScheme,
   GoBackSchema,
   SwitchRepeatSchema,
@@ -15,6 +16,7 @@ import {
   SetFullscreenSchema,
 } from '../scheme';
 
+import type { RepeatMode } from '@/types/datahost-get-state';
 import type { SongInfo } from '@/providers/song-info';
 import type { BackendContext } from '@/types/contexts';
 import type { APIServerConfig } from '../../config';
@@ -102,7 +104,28 @@ const routes = {
       },
     },
   }),
-
+  seekTo: createRoute({
+    method: 'post',
+    path: `/api/${API_VERSION}/seek-to`,
+    summary: 'seek',
+    description: 'Seek to a specific time in the current song',
+    request: {
+      headers: AuthHeadersSchema,
+      body: {
+        description: 'seconds to seek to',
+        content: {
+          'application/json': {
+            schema: SeekSchema,
+          },
+        },
+      },
+    },
+    responses: {
+      204: {
+        description: 'Success',
+      },
+    },
+  }),
   goBack: createRoute({
     method: 'post',
     path: `/api/${API_VERSION}/go-back`,
@@ -157,6 +180,24 @@ const routes = {
     responses: {
       204: {
         description: 'Success',
+      },
+    },
+  }),
+  repeatMode: createRoute({
+    method: 'get',
+    path: `/api/${API_VERSION}/repeat-mode`,
+    summary: 'get current repeat mode',
+    description: 'Get the current repeat mode (NONE, ALL, ONE)',
+    responses: {
+      200: {
+        description: 'Success',
+        content: {
+          'application/json': {
+            schema: z.object({
+              mode: z.enum(['ONE', 'NONE', 'ALL']).nullable(),
+            }),
+          },
+        },
       },
     },
   }),
@@ -300,6 +341,7 @@ export const register = (
   app: HonoApp,
   { window }: BackendContext<APIServerConfig>,
   songInfoGetter: () => SongInfo | undefined,
+  repeatModeGetter: () => RepeatMode | undefined,
 ) => {
   const controller = getSongControls(window);
 
@@ -345,6 +387,13 @@ export const register = (
     ctx.status(204);
     return ctx.body(null);
   });
+  app.openapi(routes.seekTo, (ctx) => {
+    const { seconds } = ctx.req.valid('json');
+    controller.seekTo(seconds);
+
+    ctx.status(204);
+    return ctx.body(null);
+  });
   app.openapi(routes.goBack, (ctx) => {
     const { seconds } = ctx.req.valid('json');
     controller.goBack(seconds);
@@ -364,6 +413,11 @@ export const register = (
 
     ctx.status(204);
     return ctx.body(null);
+  });
+
+  app.openapi(routes.repeatMode, (ctx) => {
+    ctx.status(200);
+    return ctx.json({ mode: repeatModeGetter() ?? null });
   });
   app.openapi(routes.switchRepeat, (ctx) => {
     const { iteration } = ctx.req.valid('json');

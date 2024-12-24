@@ -3,6 +3,7 @@ import { serve } from '@hono/node-server';
 
 import type { BackendContext } from '@/types/contexts';
 import type { SongInfo } from '@/providers/song-info';
+import type { RepeatMode } from '@/types/datahost-get-state';
 import type { APIServerConfig } from '../config';
 
 export type HonoApp = Hono;
@@ -11,6 +12,7 @@ export type BackendType = {
   server?: ReturnType<typeof serve>;
   oldConfig?: APIServerConfig;
   songInfo?: SongInfo;
+  currentRepeatMode?: RepeatMode;
 
   init: (ctx: BackendContext<APIServerConfig>) => Promise<void>;
   run: (hostname: string, port: number) => void;

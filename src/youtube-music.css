@@ -92,6 +92,7 @@ ytmusic-player[player-ui-state='FULLSCREEN'] {
   --ytmusic-nav-bar-height: calc(90px + var(--ytmusic-nav-bar-offset, 0));
 }
 
-tp-yt-iron-dropdown {
+tp-yt-iron-dropdown,
+tp-yt-paper-dialog {
   app-region: no-drag;
 }

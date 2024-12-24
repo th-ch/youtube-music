@@ -110,7 +110,7 @@ export const clear = () => {
 };
 
 export const registerRefresh = (cb: () => void) => refreshCallbacks.push(cb);
-export const isConnected = () => info.rpc !== null;
+export const isConnected = () => info.rpc?.isConnected;
 
 export const backend = createBackend<
   {

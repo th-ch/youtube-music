@@ -1,3 +1,5 @@
+import { SongInfo } from '@/providers/song-info';
+
 export type SyncedLyricsPluginConfig = {
   enabled: boolean;
   preciseTiming: boolean;
@@ -10,29 +12,30 @@ export type SyncedLyricsPluginConfig = {
 export type LineLyricsStatus = 'previous' | 'current' | 'upcoming';
 
 export type LineLyrics = {
-  index: number;
   time: string;
   timeInMs: number;
-  text: string;
   duration: number;
+
+  text: string;
   status: LineLyricsStatus;
 };
 
-export type PlayPauseEvent = {
-  isPaused: boolean;
-  elapsedSeconds: number;
-};
+export type LineEffect = 'fancy' | 'scale' | 'offset' | 'focus';
 
-export type LineEffect = 'scale' | 'offset' | 'focus';
+export interface LyricResult {
+  title: string;
+  artists: string[];
 
-export type LRCLIBSearchResponse = {
-  id: number;
+  lyrics?: string;
+  lines?: LineLyrics[];
+}
+
+// prettier-ignore
+export type SearchSongInfo = Pick<SongInfo, 'title' | 'artist' | 'album' | 'songDuration' | 'videoId'>;
+
+export interface LyricProvider {
   name: string;
-  trackName: string;
-  artistName: string;
-  albumName: string;
-  duration: number;
-  instrumental: boolean;
-  plainLyrics: string;
-  syncedLyrics: string;
-}[];
+  baseUrl: string;
+
+  search(songInfo: SearchSongInfo): Promise<LyricResult | null>;
+}

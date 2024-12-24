@@ -2,145 +2,54 @@ import { createSignal, For, Match, Show, Switch } from 'solid-js';
 
 import { SyncedLine } from './SyncedLine';
 
-import { t } from '@/i18n';
-import { getSongInfo } from '@/providers/song-info-front';
+import { ErrorDisplay } from './ErrorDisplay';
+import { LoadingKaomoji } from './LoadingKaomoji';
+import { PlainLyrics } from './PlainLyrics';
 
-import {
-  differentDuration,
-  hadSecondAttempt,
-  isFetching,
-  isInstrumental,
-  makeLyricsRequest,
-} from '../lyrics/fetch';
-
-import type { LineLyrics } from '../../types';
+import { currentLyrics, lyricsStore } from '../../providers';
 
 export const [debugInfo, setDebugInfo] = createSignal<string>();
-export const [lineLyrics, setLineLyrics] = createSignal<LineLyrics[]>([]);
 export const [currentTime, setCurrentTime] = createSignal<number>(-1);
 
+// prettier-ignore
 export const LyricsContainer = () => {
-  const [error, setError] = createSignal('');
-
-  const onRefetch = async () => {
-    if (isFetching()) return;
-    setError('');
-
-    const info = getSongInfo();
-    await makeLyricsRequest(info).catch((err) => {
-      setError(String(err));
-    });
-  };
-
   return (
-    <div class={'lyric-container'}>
+    <div class="lyric-container">
       <Switch>
-        <Match when={isFetching()}>
-          <div style="margin-bottom: 8px;">
-            <tp-yt-paper-spinner-lite
-              active
-              class="loading-indicator style-scope"
-            />
-          </div>
+        <Match when={currentLyrics()?.state === 'fetching'}>
+          <LoadingKaomoji />
         </Match>
-        <Match when={error()}>
+        <Match when={!currentLyrics().data?.lines && !currentLyrics().data?.lyrics}>
           <yt-formatted-string
-            class="warning-lyrics description ytmusic-description-shelf-renderer"
+            class="text-lyrics description ytmusic-description-shelf-renderer"
+            style={{
+              'display': 'inline-flex',
+              'justify-content': 'center',
+              'width': '100%',
+              'user-select': 'none',
+            }}
             text={{
-              runs: [
-                {
-                  text: t('plugins.synced-lyrics.errors.fetch'),
-                },
-              ],
+              runs: [{ text: '＼(〇_ｏ)／' }],
             }}
           />
         </Match>
       </Switch>
 
+      <Show when={lyricsStore.current.error}>
+        <ErrorDisplay error={lyricsStore.current.error!} />
+      </Show>
+
       <Switch>
-        <Match when={!lineLyrics().length}>
-          <Show
-            when={isInstrumental()}
-            fallback={
-              <>
-                <yt-formatted-string
-                  class="warning-lyrics description ytmusic-description-shelf-renderer"
-                  text={{
-                    runs: [
-                      {
-                        text: t('plugins.synced-lyrics.errors.not-found'),
-                      },
-                    ],
-                  }}
-                  style={'margin-bottom: 16px;'}
-                />
-                <yt-button-renderer
-                  disabled={isFetching()}
-                  data={{
-                    icon: { iconType: 'REFRESH' },
-                    isDisabled: false,
-                    style: 'STYLE_DEFAULT',
-                    text: {
-                      simpleText: isFetching()
-                        ? t('plugins.synced-lyrics.refetch-btn.fetching')
-                        : t('plugins.synced-lyrics.refetch-btn.normal'),
-                    },
-                  }}
-                  onClick={onRefetch}
-                />
-              </>
-            }
-          >
-            <yt-formatted-string
-              class="warning-lyrics description ytmusic-description-shelf-renderer"
-              text={{
-                runs: [
-                  {
-                    text: t('plugins.synced-lyrics.warnings.instrumental'),
-                  },
-                ],
-              }}
-            />
-          </Show>
+        <Match when={currentLyrics().data?.lines}>
+          <For each={currentLyrics().data?.lines}>
+            {(item) => <SyncedLine line={item} />}
+          </For>
         </Match>
-        <Match when={lineLyrics().length && !hadSecondAttempt()}>
-          <yt-formatted-string
-            class="warning-lyrics description ytmusic-description-shelf-renderer"
-            text={{
-              runs: [
-                {
-                  text: t('plugins.synced-lyrics.warnings.inexact'),
-                },
-              ],
-            }}
-          />
-        </Match>
-        <Match when={lineLyrics().length && !differentDuration()}>
-          <yt-formatted-string
-            class="warning-lyrics description ytmusic-description-shelf-renderer"
-            text={{
-              runs: [
-                {
-                  text: t('plugins.synced-lyrics.warnings.duration-mismatch'),
-                },
-              ],
-            }}
-          />
+
+        <Match when={currentLyrics().data?.lyrics}>
+          <PlainLyrics lyrics={currentLyrics().data?.lyrics!} />
         </Match>
       </Switch>
-
-      <For each={lineLyrics()}>{(item) => <SyncedLine line={item} />}</For>
-
-      <yt-formatted-string
-        class="footer style-scope ytmusic-description-shelf-renderer"
-        text={{
-          runs: [
-            {
-              text: 'Source: LRCLIB',
-            },
-          ],
-        }}
-      />
     </div>
   );
 };

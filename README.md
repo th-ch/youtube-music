@@ -95,6 +95,8 @@ Read this in other languages: [🇰🇷](./docs/readme/README-ko.md), [🇮🇸]
 - **Downloader**: downloads
   MP3 [directly from the interface](https://user-images.githubusercontent.com/61631665/129977677-83a7d067-c192-45e1-98ae-b5a4927393be.png) [(youtube-dl)](https://github.com/ytdl-org/youtube-dl)
 
+- **Equalizer**: add filters to boost or cut specific range of frequencies (e.g. bass booster)
+
 - **Exponential Volume**: Makes the volume
   slider [exponential](https://greasyfork.org/en/scripts/397686-youtube-music-fix-volume-ratio/) so it's easier to
   select lower volumes

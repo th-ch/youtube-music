@@ -13,6 +13,7 @@ import { registerAuth, registerControl } from './routes';
 import { type APIServerConfig, AuthStrategy } from '../config';
 
 import type { BackendType } from './types';
+import type { RepeatMode } from '@/types/datahost-get-state';
 
 export const backend = createBackend<BackendType, APIServerConfig>({
   async start(ctx) {
@@ -23,7 +24,14 @@ export const backend = createBackend<BackendType, APIServerConfig>({
       this.songInfo = songInfo;
     });
 
-    ctx.ipc.on('ytmd:player-api-loaded', () => ctx.ipc.send('ytmd:setup-time-changed-listener'));
+    ctx.ipc.on('ytmd:player-api-loaded', () =>
+      ctx.ipc.send('ytmd:setup-time-changed-listener'),
+    );
+
+    ctx.ipc.on(
+      'ytmd:repeat-changed',
+      (mode: RepeatMode) => (this.currentRepeatMode = mode),
+    );
 
     this.run(config.hostname, config.port);
   },
@@ -75,7 +83,12 @@ export const backend = createBackend<BackendType, APIServerConfig>({
     });
 
     // routes
-    registerControl(this.app, ctx, () => this.songInfo);
+    registerControl(
+      this.app,
+      ctx,
+      () => this.songInfo,
+      () => this.currentRepeatMode,
+    );
     registerAuth(this.app, ctx);
 
     // swagger
