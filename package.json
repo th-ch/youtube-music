@@ -1,5 +1,6 @@
 {
   "name": "youtube-music",
+  "desktopName": "com.github.th_ch.youtube_music",
   "productName": "YouTube Music",
   "version": "3.6.2",
   "description": "YouTube Music Desktop App - including custom plugins",
@@ -71,6 +72,9 @@
     "linux": {
       "icon": "assets/generated/icons/png",
       "category": "AudioVideo",
+      "desktop": {
+        "StartupWMClass": "com.github.th_ch.youtube_music"
+      },
       "target": [
         {
           "target": "AppImage",
@@ -132,6 +136,8 @@
     "flatpak": {
       "description": "YouTube Music Desktop App bundled with custom plugins (and built-in ad blocker / downloader)",
       "category": "AudioVideo",
+      "runtimeVersion": "24.08",
+      "baseVersion": "24.08",
       "finishArgs": [
         "--socket=wayland",
         "--socket=x11",
@@ -141,6 +147,8 @@
         "--share=network",
         "--filesystem=xdg-music:rw",
         "--talk-name=org.freedesktop.Notifications",
+        "--talk-name=org.gnome.SessionManager",
+        "--talk-name=org.kde.StatusNotifierWatcher",
         "--own-name=org.mpris.MediaPlayer2.YoutubeMusic.*"
       ]
     },
@@ -188,6 +196,7 @@
     "start": "electron-vite preview",
     "start:debug": "cross-env ELECTRON_ENABLE_LOGGING=1 pnpm start",
     "dev": "cross-env NODE_OPTIONS=--enable-source-maps electron-vite dev --watch",
+    "dev:renderer": "cross-env NODE_OPTIONS=--enable-source-maps electron-vite dev",
     "dev:debug": "cross-env ELECTRON_ENABLE_LOGGING=1 pnpm dev",
     "clean": "del-cli dist && del-cli pack && del-cli .vite-inspect",
     "dist": "pnpm clean && pnpm build && pnpm electron-builder --win --mac --linux -p never",
@@ -298,12 +307,12 @@
     "builtin-modules": "4.0.0",
     "cross-env": "7.0.3",
     "del-cli": "6.0.0",
-    "discord-api-types": "0.37.112",
+    "discord-api-types": "0.37.114",
     "electron": "33.2.1",
     "electron-builder": "24.13.3",
     "electron-devtools-installer": "4.0.0",
     "electron-vite": "2.3.0",
-    "esbuild": "0.24.0",
+    "esbuild": "0.24.2",
     "eslint": "9.17.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-import-resolver-exports": "1.0.0-beta.5",
@@ -313,12 +322,12 @@
     "glob": "11.0.0",
     "node-gyp": "11.0.0",
     "playwright": "1.49.1",
-    "rollup": "4.28.1",
+    "rollup": "4.29.1",
     "typescript": "5.7.2",
-    "typescript-eslint": "8.18.1",
+    "typescript-eslint": "8.18.2",
     "utf-8-validate": "6.0.5",
     "vite": "6.0.5",
-    "vite-plugin-inspect": "0.10.4",
+    "vite-plugin-inspect": "0.10.6",
     "vite-plugin-resolve": "2.5.2",
     "vite-plugin-solid": "2.11.0",
     "ws": "8.18.0"

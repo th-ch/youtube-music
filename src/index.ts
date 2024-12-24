@@ -131,6 +131,9 @@ if (config.get('options.disableHardwareAcceleration')) {
 }
 
 if (is.linux()) {
+  // Overrides WM_CLASS for X11 to correspond to icon filename
+  app.setName('com.github.th_ch.youtube_music');
+
   // Workaround for issue #2248
   if (
     process.env.XDG_SESSION_TYPE === 'wayland' ||
@@ -901,9 +904,19 @@ function removeContentSecurityPolicy(
   betterSession.webRequest.onHeadersReceived((details, callback) => {
     details.responseHeaders ??= {};
 
-    // Remove the content security policy
-    delete details.responseHeaders['content-security-policy-report-only'];
-    delete details.responseHeaders['content-security-policy'];
+    // prettier-ignore
+    if (new URL(details.url).protocol === 'https:') {
+      // Remove the content security policy
+      delete details.responseHeaders['content-security-policy-report-only'];
+      delete details.responseHeaders['Content-Security-Policy-Report-Only'];
+      delete details.responseHeaders['content-security-policy'];
+      delete details.responseHeaders['Content-Security-Policy'];
+
+      // Only allow cross-origin requests from music.youtube.com
+      delete details.responseHeaders['access-control-allow-origin'];
+      delete details.responseHeaders['Access-Control-Allow-Origin'];
+      details.responseHeaders['access-control-allow-origin'] = ['https://music.youtube.com'];
+    }
 
     callback({ cancel: false, responseHeaders: details.responseHeaders });
   });

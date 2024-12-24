@@ -1,4 +1,4 @@
-import { createEffect, createMemo } from 'solid-js';
+import { createEffect, createMemo, For } from 'solid-js';
 
 import { currentTime } from './LyricsContainer';
 
@@ -20,34 +20,63 @@ export const SyncedLine = ({ line }: SyncedLineProps) => {
     return 'current';
   });
 
-  let ref: HTMLDivElement;
+  let ref: HTMLDivElement | undefined;
   createEffect(() => {
     if (status() === 'current') {
-      ref.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      ref?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   });
 
+  const text = createMemo(() => {
+    if (line.text.trim()) return line.text;
+    return config()?.defaultTextString ?? '';
+  });
+
+  if (!text()) {
+    return (
+      <yt-formatted-string
+        text={{
+          runs: [{ text: '' }],
+        }}
+      />
+    );
+  }
+
   return (
     <div
-      ref={ref!}
+      ref={ref}
       class={`synced-line ${status()}`}
       onClick={() => {
         _ytAPI?.seekTo(line.timeInMs / 1000);
       }}
     >
-      <yt-formatted-string
-        class="text-lyrics description ytmusic-description-shelf-renderer"
-        text={{
-          runs: [
-            {
-              text: '',
-            },
-            {
-              text: `${config()?.showTimeCodes ? `[${line.time}] ` : ''}${line.text}`,
-            },
-          ],
-        }}
-      />
+      <div class="text-lyrics description ytmusic-description-shelf-renderer">
+        <yt-formatted-string
+          text={{
+            runs: [{ text: config()?.showTimeCodes ? `[${line.time}] ` : '' }],
+          }}
+        />
+
+        <For each={text().split(' ')}>
+          {(word, index) => {
+            return (
+              <span
+                style={{
+                  'transition-delay': `${index() * 0.05}s`,
+                  'animation-delay': `${index() * 0.05}s`,
+                  '--lyrics-duration:': `${line.duration / 1000}s;`,
+                }}
+              >
+                <yt-formatted-string
+                  text={{
+                    runs: [{ text: `${word} ` }],
+                  }}
+                />
+              </span>
+            );
+          }}
+        </For>
+      </div>
     </div>
   );
 };
