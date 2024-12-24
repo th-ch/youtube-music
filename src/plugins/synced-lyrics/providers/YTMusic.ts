@@ -7,7 +7,7 @@ const headers = {
 
 const client = {
   clientName: '26',
-  clientVersion: '6.48.2',
+  clientVersion: '7.01.05',
 };
 
 export class YTMusic implements LyricProvider {
@@ -103,9 +103,11 @@ export class YTMusic implements LyricProvider {
   }
 
   private ENDPOINT = 'https://youtubei.googleapis.com/youtubei/v1/';
+  // RATE LIMITED (2 req per sec)
+  private PROXIED_ENDPOINT = 'https://ytmbrowseproxy.zvz.be/';
 
   private fetchNext(videoId: string) {
-    return fetch(this.ENDPOINT + 'next', {
+    return fetch(this.ENDPOINT + 'next?prettyPrint=false', {
       headers,
       method: 'POST',
       body: JSON.stringify({
@@ -116,7 +118,7 @@ export class YTMusic implements LyricProvider {
   }
 
   private fetchBrowse(browseId: string) {
-    return fetch(this.ENDPOINT + 'browse', {
+    return fetch(this.PROXIED_ENDPOINT + 'browse?prettyPrint=false', {
       headers,
       method: 'POST',
       body: JSON.stringify({
