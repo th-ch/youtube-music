@@ -15,6 +15,7 @@ import {
   SetFullscreenSchema,
 } from '../scheme';
 
+import type { RepeatMode } from '@/types/datahost-get-state';
 import type { SongInfo } from '@/providers/song-info';
 import type { BackendContext } from '@/types/contexts';
 import type { APIServerConfig } from '../../config';
@@ -160,6 +161,24 @@ const routes = {
       },
     },
   }),
+  repeatMode: createRoute({
+    method: 'get',
+    path: `/api/${API_VERSION}/repeat-mode`,
+    summary: 'get current repeat mode',
+    description: 'Get the current repeat mode (NONE, ALL, ONE)',
+    responses: {
+      200: {
+        description: 'Success',
+        content: {
+          'application/json': {
+            schema: z.object({
+              mode: z.enum(['ONE', 'NONE', 'ALL']).nullable(),
+            }),
+          },
+        },
+      },
+    },
+  }),
   switchRepeat: createRoute({
     method: 'post',
     path: `/api/${API_VERSION}/switch-repeat`,
@@ -275,6 +294,25 @@ const routes = {
       },
     },
   }),
+  seekTime: createRoute({
+    method: 'get',
+    path: `/api/${API_VERSION}/seek-time`,
+    summary: 'get current play time and video duration',
+    description: 'Get current play time and video duration in seconds',
+    responses: {
+      200: {
+        description: 'Success',
+        content: {
+          'application/json': {
+            schema: z.object({
+              current: z.number().nullable().openapi({ example: 3 }),
+              duration: z.number().nullable().openapi({ example: 233 }),
+            }),
+          },
+        },
+      },
+    },
+  }),
   songInfo: createRoute({
     method: 'get',
     path: `/api/${API_VERSION}/song-info`,
@@ -300,6 +338,7 @@ export const register = (
   app: HonoApp,
   { window }: BackendContext<APIServerConfig>,
   songInfoGetter: () => SongInfo | undefined,
+  repeatModeGetter: () => RepeatMode | undefined,
 ) => {
   const controller = getSongControls(window);
 
@@ -364,6 +403,11 @@ export const register = (
 
     ctx.status(204);
     return ctx.body(null);
+  });
+
+  app.openapi(routes.repeatMode, (ctx) => {
+    ctx.status(200);
+    return ctx.json({ mode: repeatModeGetter() ?? null });
   });
   app.openapi(routes.switchRepeat, (ctx) => {
     const { iteration } = ctx.req.valid('json');
