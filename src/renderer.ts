@@ -48,6 +48,10 @@ interface YouTubeMusicAppElement extends HTMLElement {
   };
 }
 
+interface SearchBoxElement extends HTMLElement {
+  getSearchboxStats(): unknown;
+}
+
 async function onApiLoaded() {
   // Workaround for #2459
   document
@@ -231,9 +235,28 @@ async function onApiLoaded() {
   });
   window.ipcRenderer.on('ytmd:clear-queue', () => {
     const queue = document.querySelector<QueueElement>('#queue');
+    queue?.queue.store.store.dispatch({
+      type: 'SET_PLAYER_PAGE_INFO',
+      payload: { open: false },
+    });
     queue?.dispatch({
       type: 'CLEAR',
     });
+  });
+
+  window.ipcRenderer.on('ytmd:search', async (_, query: string) => {
+    const app = document.querySelector<YouTubeMusicAppElement>('ytmusic-app');
+    const searchBox =
+      document.querySelector<SearchBoxElement>('ytmusic-search-box');
+
+    if (!app || !searchBox) return;
+
+    const result = await app.networkManager.fetch('/search', {
+      query,
+      suggestStats: searchBox.getSearchboxStats(),
+    });
+
+    window.ipcRenderer.send('ytmd:search-results', result);
   });
 
   const video = document.querySelector('video')!;

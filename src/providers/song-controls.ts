@@ -1,5 +1,5 @@
 // This is used for to control the songs
-import { BrowserWindow } from 'electron';
+import { BrowserWindow, ipcMain } from 'electron';
 
 // see protocol-handler.ts
 type ArgsType<T> = T | string[] | undefined;
@@ -90,7 +90,7 @@ export default (win: BrowserWindow) => {
       win.webContents.send('ytmd:get-queue');
     },
     muteUnmute: () => win.webContents.send('ytmd:toggle-mute'),
-    search: () => {
+    openSearchBox: () => {
       win.webContents.sendInputEvent({
         type: 'keyDown',
         keyCode: '/',
@@ -126,5 +126,13 @@ export default (win: BrowserWindow) => {
       win.webContents.send('ytmd:set-queue-index', indexValue);
     },
     clearQueue: () => win.webContents.send('ytmd:clear-queue'),
+
+    search: (query: string) =>
+      new Promise((resolve) => {
+        ipcMain.once('ytmd:search-results', (_, result) => {
+          resolve(result as string);
+        });
+        win.webContents.send('ytmd:search', query);
+      }),
   };
 };

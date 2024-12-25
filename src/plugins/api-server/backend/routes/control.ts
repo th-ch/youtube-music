@@ -5,19 +5,20 @@ import { ipcMain } from 'electron';
 import getSongControls from '@/providers/song-controls';
 
 import {
-  AuthHeadersSchema,
-  type ResponseSongInfo,
-  SongInfoSchema,
-  SeekSchema,
-  GoForwardScheme,
-  GoBackSchema,
-  SwitchRepeatSchema,
-  SetVolumeSchema,
-  SetFullscreenSchema,
   AddSongToQueueSchema,
-  QueueParamsSchema,
+  AuthHeadersSchema,
+  GoBackSchema,
+  GoForwardScheme,
   MoveSongInQueueSchema,
+  QueueParamsSchema,
+  SearchSchema,
+  SeekSchema,
+  SetFullscreenSchema,
   SetQueueIndexSchema,
+  SetVolumeSchema,
+  SongInfoSchema,
+  SwitchRepeatSchema,
+  type ResponseSongInfo,
 } from '../scheme';
 
 import type { RepeatMode } from '@/types/datahost-get-state';
@@ -26,6 +27,7 @@ import type { BackendContext } from '@/types/contexts';
 import type { APIServerConfig } from '../../config';
 import type { HonoApp } from '../types';
 import type { QueueResponse } from '@/types/youtube-music-desktop-internal';
+import type { Context } from 'hono';
 
 const API_VERSION = 'v1';
 
@@ -301,7 +303,8 @@ const routes = {
       },
     },
   }),
-  queueInfo: createRoute({
+  oldQueueInfo: createRoute({
+    deprecated: true,
     method: 'get',
     path: `/api/${API_VERSION}/queue-info`,
     summary: 'get current queue info',
@@ -320,7 +323,8 @@ const routes = {
       },
     },
   }),
-  songInfo: createRoute({
+  oldSongInfo: createRoute({
+    deprecated: true,
     method: 'get',
     path: `/api/${API_VERSION}/song-info`,
     summary: 'get current song info',
@@ -336,6 +340,44 @@ const routes = {
       },
       204: {
         description: 'No song info',
+      },
+    },
+  }),
+  songInfo: createRoute({
+    method: 'get',
+    path: `/api/${API_VERSION}/song`,
+    summary: 'get current song info',
+    description: 'Get the current song info',
+    responses: {
+      200: {
+        description: 'Success',
+        content: {
+          'application/json': {
+            schema: SongInfoSchema,
+          },
+        },
+      },
+      204: {
+        description: 'No song info',
+      },
+    },
+  }),
+  queueInfo: createRoute({
+    method: 'get',
+    path: `/api/${API_VERSION}/queue`,
+    summary: 'get current queue info',
+    description: 'Get the current queue info',
+    responses: {
+      200: {
+        description: 'Success',
+        content: {
+          'application/json': {
+            schema: z.object({}),
+          },
+        },
+      },
+      204: {
+        description: 'No queue info',
       },
     },
   }),
@@ -429,6 +471,33 @@ const routes = {
     responses: {
       204: {
         description: 'Success',
+      },
+    },
+  }),
+  search: createRoute({
+    method: 'post',
+    path: `/api/${API_VERSION}/search`,
+    summary: 'search for a song',
+    description: 'search for a song',
+    request: {
+      headers: AuthHeadersSchema,
+      body: {
+        description: 'search query',
+        content: {
+          'application/json': {
+            schema: SearchSchema,
+          },
+        },
+      },
+    },
+    responses: {
+      200: {
+        description: 'Success',
+        content: {
+          'application/json': {
+            schema: z.object({}),
+          },
+        },
       },
     },
   }),
@@ -561,7 +630,26 @@ export const register = (
     ctx.status(200);
     return ctx.json({ state: fullscreen });
   });
-  app.openapi(routes.queueInfo, async (ctx) => {
+
+  const songInfo = (ctx: Context) => {
+    const info = songInfoGetter();
+
+    if (!info) {
+      ctx.status(204);
+      return ctx.body(null);
+    }
+
+    const body = { ...info };
+    delete body.image;
+
+    ctx.status(200);
+    return ctx.json(body satisfies ResponseSongInfo);
+  };
+  app.openapi(routes.oldSongInfo, songInfo);
+  app.openapi(routes.songInfo, songInfo);
+
+  // Queue
+  const queueInfo = async (ctx: Context) => {
     const queueResponsePromise = new Promise<QueueResponse>((resolve) => {
       ipcMain.once('ytmd:get-queue-response', (_, queue: QueueResponse) => {
         return resolve(queue);
@@ -579,23 +667,10 @@ export const register = (
 
     ctx.status(200);
     return ctx.json(info);
-  });
-  app.openapi(routes.songInfo, (ctx) => {
-    const info = songInfoGetter();
+  };
+  app.openapi(routes.oldQueueInfo, queueInfo);
+  app.openapi(routes.queueInfo, queueInfo);
 
-    if (!info) {
-      ctx.status(204);
-      return ctx.body(null);
-    }
-
-    const body = { ...info };
-    delete body.image;
-
-    ctx.status(200);
-    return ctx.json(body satisfies ResponseSongInfo);
-  });
-
-  // Queue
   app.openapi(routes.addSongToQueue, (ctx) => {
     const { videoId } = ctx.req.valid('json');
     controller.addSongToQueue(videoId);
@@ -630,5 +705,12 @@ export const register = (
 
     ctx.status(204);
     return ctx.body(null);
+  });
+  app.openapi(routes.search, async (ctx) => {
+    const { query } = ctx.req.valid('json');
+    const response = await controller.search(query);
+
+    ctx.status(200);
+    return ctx.json(response as object);
   });
 };
