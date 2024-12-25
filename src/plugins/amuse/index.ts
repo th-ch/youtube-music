@@ -7,7 +7,7 @@ export interface MusicWidgetConfig {
 }
 
 export const defaultConfig: MusicWidgetConfig = {
-  enabled: true,
+  enabled: false,
 };
 
 export default createPlugin({
