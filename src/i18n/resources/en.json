@@ -279,6 +279,13 @@
       },
       "name": "Ambient Mode"
     },
+    "amuse": {
+      "description": "Adds YouTube Music support for the Amuse now playing widget by 6K Labs",
+      "name": "Amuse",
+      "response": {
+        "query": "Amuse API server is running. GET /query to get song info."
+      }
+    },
     "api-server": {
       "description": "Adds an API server to control the player",
       "dialog": {
