@@ -484,6 +484,18 @@
         "button": "Baixar"
       }
     },
+    "equalizer": {
+      "description": "Adiciona um equalizador ao player",
+      "menu": {
+        "presets": {
+          "label": "Predefinições",
+          "list": {
+            "bass-booster": "Reforço de graves"
+          }
+        }
+      },
+      "name": "Equalizador"
+    },
     "exponential-volume": {
       "description": "Torna o controle deslizante de volume exponencial para que seja mais fácil selecionar volumes mais baixos.",
       "name": "Volume Exponencial"
@@ -714,8 +726,8 @@
     "synced-lyrics": {
       "description": "Fornece letras sincronizadas para músicas, usando provedores como LRClib.",
       "errors": {
-        "fetch": "⚠️ - Ocorreu um erro ao buscar a letra. Tente novamente mais tarde.",
-        "not-found": "⚠️ - Nenhuma letra encontrada para esta música."
+        "fetch": "⚠️\tOcorreu um erro ao buscar a letra.\n\tTente novamente mais tarde.",
+        "not-found": "⚠️ Nenhuma letra encontrada para esta música."
       },
       "menu": {
         "default-text-string": {
@@ -725,6 +737,10 @@
         "line-effect": {
           "label": "Efeito de linha",
           "submenu": {
+            "fancy": {
+              "label": "Fancy",
+              "tooltip": "Use efeitos grandes, semelhantes a aplicativos, na linha atual"
+            },
             "focus": {
               "label": "Foco",
               "tooltip": "Deixe apenas a linha atual branca"
