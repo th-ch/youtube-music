@@ -1,6 +1,6 @@
 import { t } from 'i18next';
 
-import { Hono } from 'hono';
+import { Context, Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { serve } from '@hono/node-server';
 
@@ -45,9 +45,13 @@ export default createBackend({
     this.app.get('/', (ctx) =>
       ctx.body(t('plugins.amuse.response.query'), 200),
     );
-    this.app.get('/(query|api)', (ctx) =>
-      ctx.json(formatSongInfo(this.currentSongInfo), 200),
-    );
+
+    const queryAndApiHandler = (ctx: Context) => {
+      return ctx.json(formatSongInfo(this.currentSongInfo), 200);
+    };
+
+    this.app.get('/query', queryAndApiHandler);
+    this.app.get('/api', queryAndApiHandler);
 
     try {
       this.server = serve({
