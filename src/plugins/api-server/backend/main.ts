@@ -24,9 +24,10 @@ export const backend = createBackend<BackendType, APIServerConfig>({
       this.songInfo = songInfo;
     });
 
-    ctx.ipc.on('ytmd:player-api-loaded', () =>
-      ctx.ipc.send('ytmd:setup-time-changed-listener'),
-    );
+    ctx.ipc.on('ytmd:player-api-loaded', () => {
+      ctx.ipc.send('ytmd:setup-time-changed-listener');
+      ctx.ipc.send('ytmd:setup-repeat-changed-listener');
+    });
 
     ctx.ipc.on(
       'ytmd:repeat-changed',
@@ -58,6 +59,12 @@ export const backend = createBackend<BackendType, APIServerConfig>({
     this.app = new Hono();
 
     this.app.use('*', cors());
+
+    // for web remote control
+    this.app.use('*', async (ctx, next) => {
+      ctx.header('Access-Control-Request-Private-Network', 'true');
+      await next();
+    });
 
     // middlewares
     this.app.use('/api/*', async (ctx, next) => {
