@@ -279,6 +279,13 @@
       },
       "name": "앰비언트 모드"
     },
+    "amuse": {
+      "description": "6K Labs Amuse의 'now playing' 위젯에 YouTube Music 지원 추가",
+      "name": "Amuse",
+      "response": {
+        "query": "Amuse API 서버가 실행 중입니다. GET /query로 노래 정보를 가져오세요."
+      }
+    },
     "api-server": {
       "description": "플레이어를 제어하기 위한 API 서버를 추가합니다",
       "dialog": {
@@ -483,6 +490,18 @@
       "templates": {
         "button": "다운로드"
       }
+    },
+    "equalizer": {
+      "description": "플레이어에 이퀄라이저를 추가합니다",
+      "menu": {
+        "presets": {
+          "label": "프리셋",
+          "list": {
+            "bass-booster": "베이스 부스터"
+          }
+        }
+      },
+      "name": "이퀄라이저"
     },
     "exponential-volume": {
       "description": "음량 슬라이더를 지수적으로 만들어 더 낮은 음량을 쉽게 선택할 수 있도록 합니다.",
@@ -714,8 +733,8 @@
     "synced-lyrics": {
       "description": "LRClib등의 가사 제공자에서 싱크 가사를 불러옵니다.",
       "errors": {
-        "fetch": "⚠️ - 가사를 불러오는 동안 오류가 발생했습니다. 나중에 다시 시도해 주세요.",
-        "not-found": "⚠️ - 이 노래의 가사를 찾을 수 없습니다."
+        "fetch": "⚠️\t가사를 불러오는 동안 오류가 발생했습니다.\n\t나중에 다시 시도해 주세요.",
+        "not-found": "⚠️ 이 노래의 가사를 찾을 수 없습니다."
       },
       "menu": {
         "default-text-string": {
@@ -725,6 +744,10 @@
         "line-effect": {
           "label": "줄 표시 효과",
           "submenu": {
+            "fancy": {
+              "label": "예쁘게",
+              "tooltip": "유튜브 뮤직 앱처럼 커다란 효과를 현재 라인에 사용합니다"
+            },
             "focus": {
               "label": "포커스",
               "tooltip": "현재 줄만 하얀색으로 표시"
