@@ -1,6 +1,6 @@
 import { t } from 'i18next';
 
-import { Context, Hono } from 'hono';
+import { type Context, Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { serve } from '@hono/node-server';
 
