@@ -14,6 +14,10 @@ import {
   SwitchRepeatSchema,
   SetVolumeSchema,
   SetFullscreenSchema,
+  AddSongToQueueSchema,
+  QueueParamsSchema,
+  MoveSongInQueueSchema,
+  SetQueueIndexSchema,
 } from '../scheme';
 
 import type { RepeatMode } from '@/types/datahost-get-state';
@@ -335,6 +339,99 @@ const routes = {
       },
     },
   }),
+  addSongToQueue: createRoute({
+    method: 'post',
+    path: `/api/${API_VERSION}/queue`,
+    summary: 'add song to queue',
+    description: 'Add a song to the queue',
+    request: {
+      headers: AuthHeadersSchema,
+      body: {
+        description: 'video id of the song to add',
+        content: {
+          'application/json': {
+            schema: AddSongToQueueSchema,
+          },
+        },
+      },
+    },
+    responses: {
+      204: {
+        description: 'Success',
+      },
+    },
+  }),
+  moveSongInQueue: createRoute({
+    method: 'patch',
+    path: `/api/${API_VERSION}/queue/{index}`,
+    summary: 'move song in queue',
+    description: 'Move a song in the queue',
+    request: {
+      headers: AuthHeadersSchema,
+      params: QueueParamsSchema,
+      body: {
+        description: 'index to move the song to',
+        content: {
+          'application/json': {
+            schema: MoveSongInQueueSchema,
+          },
+        },
+      },
+    },
+    responses: {
+      204: {
+        description: 'Success',
+      },
+    },
+  }),
+  removeSongFromQueue: createRoute({
+    method: 'delete',
+    path: `/api/${API_VERSION}/queue/{index}`,
+    summary: 'remove song from queue',
+    description: 'Remove a song from the queue',
+    request: {
+      headers: AuthHeadersSchema,
+      params: QueueParamsSchema,
+    },
+    responses: {
+      204: {
+        description: 'Success',
+      },
+    },
+  }),
+  setQueueIndex: createRoute({
+    method: 'patch',
+    path: `/api/${API_VERSION}/queue`,
+    summary: 'set queue index',
+    description: 'Set the current index of the queue',
+    request: {
+      headers: AuthHeadersSchema,
+      body: {
+        description: 'index to move the song to',
+        content: {
+          'application/json': {
+            schema: SetQueueIndexSchema,
+          },
+        },
+      },
+    },
+    responses: {
+      204: {
+        description: 'Success',
+      },
+    },
+  }),
+  clearQueue: createRoute({
+    method: 'delete',
+    path: `/api/${API_VERSION}/queue`,
+    summary: 'clear queue',
+    description: 'Clear the queue',
+    responses: {
+      204: {
+        description: 'Success',
+      },
+    },
+  }),
 };
 
 export const register = (
@@ -496,5 +593,42 @@ export const register = (
 
     ctx.status(200);
     return ctx.json(body satisfies ResponseSongInfo);
+  });
+
+  // Queue
+  app.openapi(routes.addSongToQueue, (ctx) => {
+    const { videoId } = ctx.req.valid('json');
+    controller.addSongToQueue(videoId);
+
+    ctx.status(204);
+    return ctx.body(null);
+  });
+  app.openapi(routes.moveSongInQueue, (ctx) => {
+    const index = Number(ctx.req.param('index'));
+    const { toIndex } = ctx.req.valid('json');
+    controller.moveSongInQueue(index, toIndex);
+
+    ctx.status(204);
+    return ctx.body(null);
+  });
+  app.openapi(routes.removeSongFromQueue, (ctx) => {
+    const index = Number(ctx.req.param('index'));
+    controller.removeSongFromQueue(index);
+
+    ctx.status(204);
+    return ctx.body(null);
+  });
+  app.openapi(routes.setQueueIndex, (ctx) => {
+    const { index } = ctx.req.valid('json');
+    controller.setQueueIndex(index);
+
+    ctx.status(204);
+    return ctx.body(null);
+  });
+  app.openapi(routes.clearQueue, (ctx) => {
+    controller.clearQueue();
+
+    ctx.status(204);
+    return ctx.body(null);
   });
 };

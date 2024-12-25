@@ -43,6 +43,9 @@ async function listenForApiLoad() {
 
 interface YouTubeMusicAppElement extends HTMLElement {
   navigate(page: string): void;
+  networkManager: {
+    fetch: (url: string, data: unknown) => Promise<unknown>;
+  };
 }
 
 async function onApiLoaded() {
@@ -157,6 +160,80 @@ async function onApiLoaded() {
       autoPlaying: queue?.queue.autoPlaying,
       continuation: queue?.queue.continuation,
     } satisfies QueueResponse);
+  });
+
+  window.ipcRenderer.on('ytmd:add-to-queue', (_, videoId: string) => {
+    const queue = document.querySelector<QueueElement>('#queue');
+    const app = document.querySelector<YouTubeMusicAppElement>('ytmusic-app');
+    if (!app) return;
+
+    const store = queue?.queue.store.store;
+    if (!store) return;
+
+    app.networkManager
+      .fetch('/music/get_queue', {
+        queueContextParams: store.getState().queue.queueContextParams,
+        queueInsertPosition: 'INSERT_AT_END',
+        videoIds: [videoId],
+      })
+      .then((result) => {
+        if (
+          result &&
+          typeof result === 'object' &&
+          'queueDatas' in result &&
+          Array.isArray(result.queueDatas)
+        ) {
+          queue?.dispatch({
+            type: 'ADD_ITEMS',
+            payload: {
+              nextQueueItemId: store.getState().queue.nextQueueItemId,
+              index: store.getState().queue.items.length ?? 0,
+              items: result.queueDatas
+                .map((it) =>
+                  typeof it === 'object' && it && 'content' in it
+                    ? it.content
+                    : null,
+                )
+                .filter(Boolean),
+              shuffleEnabled: false,
+              shouldAssignIds: true,
+            },
+          });
+        }
+      });
+  });
+  window.ipcRenderer.on(
+    'ytmd:move-in-queue',
+    (_, fromIndex: number, toIndex: number) => {
+      const queue = document.querySelector<QueueElement>('#queue');
+      queue?.dispatch({
+        type: 'MOVE_ITEM',
+        payload: {
+          fromIndex,
+          toIndex,
+        },
+      });
+    },
+  );
+  window.ipcRenderer.on('ytmd:remove-from-queue', (_, index: number) => {
+    const queue = document.querySelector<QueueElement>('#queue');
+    queue?.dispatch({
+      type: 'REMOVE_ITEM',
+      payload: index,
+    });
+  });
+  window.ipcRenderer.on('ytmd:set-queue-index', (_, index: number) => {
+    const queue = document.querySelector<QueueElement>('#queue');
+    queue?.dispatch({
+      type: 'SET_INDEX',
+      payload: index,
+    });
+  });
+  window.ipcRenderer.on('ytmd:clear-queue', () => {
+    const queue = document.querySelector<QueueElement>('#queue');
+    queue?.dispatch({
+      type: 'CLEAR',
+    });
   });
 
   const video = document.querySelector('video')!;
