@@ -279,6 +279,9 @@
       },
       "name": "Tryb otoczenia"
     },
+    "amuse": {
+      "name": "Amuse"
+    },
     "api-server": {
       "description": "Pozwala na kontrolowanie YouTube Music poprzez podłączenie specjalnego serwera API",
       "dialog": {
@@ -483,6 +486,18 @@
       "templates": {
         "button": "Pobierz"
       }
+    },
+    "equalizer": {
+      "description": "Dodaje equalizer do odtwarzacza",
+      "menu": {
+        "presets": {
+          "label": "Presety",
+          "list": {
+            "bass-booster": "Wzmacniacz basu"
+          }
+        }
+      },
+      "name": "Equalizer"
     },
     "exponential-volume": {
       "description": "Sprawia, że suwak głośności jest proporcjonalna, dzięki czemu łatwiej jest wybrać niższą głośność.",
@@ -725,6 +740,9 @@
         "line-effect": {
           "label": "Efekty linijki",
           "submenu": {
+            "fancy": {
+              "label": "Facy"
+            },
             "focus": {
               "label": "Fokus",
               "tooltip": "Spraw, aby tylko obecna linijka była biała"
