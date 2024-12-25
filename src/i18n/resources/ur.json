@@ -14,8 +14,9 @@
     }
   },
   "language": {
-    "local-name": "انگریزی",
-    "name": "انگریزی"
+    "code": "ur",
+    "local-name": "اردو",
+    "name": "Urdu"
   },
   "main": {
     "console": {
