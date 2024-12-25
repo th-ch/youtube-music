@@ -1,64 +1,67 @@
-import http from 'node:http';
+import { t } from 'i18next';
 
-import registerCallback, { SongInfo } from "@/providers/song-info";
-import { createBackend } from "@/utils";
-import { t } from "i18next";
-import { AmuseSongInfo } from "./types";
+import { Hono } from 'hono';
+import { cors } from 'hono/cors';
+import { serve } from '@hono/node-server';
+
+import registerCallback, { type SongInfo } from '@/providers/song-info';
+import { createBackend } from '@/utils';
+
+import type { AmuseSongInfo } from './types';
 
 const amusePort = 9863;
 
-function formatSongInfo(info: SongInfo) {
-
-  let formattedSongInfo: AmuseSongInfo = {
+const formatSongInfo = (info: SongInfo) => {
+  const formattedSongInfo: AmuseSongInfo = {
     player: {
-      hasSong: info.artist && info.title ? true : false,
+      hasSong: !!(info.artist && info.title),
       isPaused: info.isPaused ?? false,
-      seekbarCurrentPosition: info.elapsedSeconds ?? 0
+      seekbarCurrentPosition: info.elapsedSeconds ?? 0,
     },
     track: {
       duration: info.songDuration,
       title: info.title,
       author: info.artist,
-      cover: info.imageSrc ?? "",
-      url: info.url ?? "",
+      cover: info.imageSrc ?? '',
+      url: info.url ?? '',
       id: info.videoId,
       isAdvertisement: false,
-    }
-  }
+    },
+  };
   return formattedSongInfo;
-}
+};
 
 export default createBackend({
   currentSongInfo: {} as SongInfo,
-  server: null as http.Server | null,
+  app: null as Hono | null,
+  server: null as ReturnType<typeof serve> | null,
   start() {
     registerCallback((songInfo) => {
       this.currentSongInfo = songInfo;
     });
 
-    this.server = http.createServer((req: http.IncomingMessage, res: http.ServerResponse) => {
-      // Likely necessary due to CORS
-      res.setHeader('Access-Control-Allow-Origin', '*')
-      res.setHeader('Content-Type', 'application/json');
+    this.app = new Hono();
+    this.app.use('*', cors());
+    this.app.get('/', (ctx) =>
+      ctx.body(t('plugins.amuse.response.query'), 200),
+    );
+    this.app.get('/(query|api)', (ctx) =>
+      ctx.json(formatSongInfo(this.currentSongInfo), 200),
+    );
 
-      if (req.url === '/') {
-        res.writeHead(200)
-        res.end(t('plugins.amuse.response.query'))
-      }
-
-      if (req.url === '/query' || req.url === '/api') {
-        res.end(JSON.stringify(formatSongInfo(this.currentSongInfo)));
-      }
-    });
-
-    this.server.listen(amusePort, () => {
-      console.log(`[Amuse] API server started @ http://localhost:${amusePort}`);
-    });
+    try {
+      this.server = serve({
+        fetch: this.app.fetch.bind(this.app),
+        port: amusePort,
+      });
+    } catch (err) {
+      console.error(err);
+    }
   },
 
   stop() {
     if (this.server) {
-      this.server.close();
+      this.server?.close();
     }
-  }
+  },
 });
