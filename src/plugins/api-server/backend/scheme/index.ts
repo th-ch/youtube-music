@@ -6,3 +6,5 @@ export * from './go-forward';
 export * from './switch-repeat';
 export * from './set-volume';
 export * from './set-fullscreen';
+export * from './queue';
+export * from './search';

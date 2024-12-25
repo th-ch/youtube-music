@@ -3,12 +3,7 @@ import type { GetState, QueueItem } from '@/types/datahost-get-state';
 
 type StoreState = GetState;
 type Store = {
-  dispatch: (obj: {
-    type: string;
-    payload?: {
-      items?: QueueItem[];
-    };
-  }) => void;
+  dispatch: (obj: { type: string; payload?: unknown }) => void;
 
   getState: () => StoreState;
   replaceReducer: (param1: unknown) => unknown;
