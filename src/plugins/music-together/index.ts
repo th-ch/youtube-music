@@ -612,7 +612,9 @@ export default createPlugin<
 
         const accountData = renderer.data as RawAccountData;
         this.me = {
-          handleId: accountData.channelHandle.runs[0].text,
+          handleId:
+            accountData.channelHandle.runs[0].text ??
+            accountData.accountName.runs[0].text,
           name: accountData.accountName.runs[0].text,
           thumbnail: accountData.accountPhoto.thumbnails[0].url,
         };
