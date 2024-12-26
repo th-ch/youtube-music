@@ -590,20 +590,17 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
     return;
   }
 
-  if (
-    !playlist ||
-    !playlist.items ||
-    playlist.items.length === 0 ||
-    !playlist.header ||
-    !('title' in playlist.header)
-  ) {
+  if (!playlist || !playlist.items || playlist.items.length === 0) {
     sendError(
       new Error(t('plugins.downloader.backend.feedback.playlist-is-empty')),
     );
     return;
   }
 
-  const normalPlaylistTitle = playlist.header?.title?.text;
+  const normalPlaylistTitle =
+    playlist.header && 'title' in playlist.header
+      ? playlist.header?.title?.text
+      : undefined;
   const playlistTitle =
     normalPlaylistTitle ??
     playlist.page.contents_memo
