@@ -279,6 +279,13 @@
       },
       "name": "Modalità Ambiente"
     },
+    "amuse": {
+      "description": "Aggiunge il supporto a YouTube Music per il widget Amuse Now Playing di 6K Labs",
+      "name": "Amuse",
+      "response": {
+        "query": "Il server API di Amuse è in funzione. GET /query per ottenere informazioni sui brani."
+      }
+    },
     "api-server": {
       "description": "Aggiunge un server API per controllare il player",
       "dialog": {
@@ -483,6 +490,18 @@
       "templates": {
         "button": "Scarica"
       }
+    },
+    "equalizer": {
+      "description": "Aggiunge un equalizzatore al player",
+      "menu": {
+        "presets": {
+          "label": "Presets",
+          "list": {
+            "bass-booster": "Booster dei bassi"
+          }
+        }
+      },
+      "name": "Equalizzatore"
     },
     "exponential-volume": {
       "description": "Rende esponenziale il cursore del volume, in modo da facilitare la selezione di volumi più bassi.",
