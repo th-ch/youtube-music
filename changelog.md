@@ -2,7 +2,21 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v3.7.1](https://github.com/th-ch/youtube-music/compare/v3.7.0...v3.7.1)
+
+- fix(deps): update dependency node-html-parser to v7 [`#2776`](https://github.com/th-ch/youtube-music/pull/2776)
+- chore(deps): update dependency vite to v6.0.6 [`#2774`](https://github.com/th-ch/youtube-music/pull/2774)
+- feat(api-server): Add queue api [`#2767`](https://github.com/th-ch/youtube-music/pull/2767)
+- fix(downloader): fix #2234 [`#2234`](https://github.com/th-ch/youtube-music/issues/2234)
+- fix(downloader): fix #2769 [`#2769`](https://github.com/th-ch/youtube-music/issues/2769)
+- fix: fix #2645, fix #2741 [`#2645`](https://github.com/th-ch/youtube-music/issues/2645) [`#2741`](https://github.com/th-ch/youtube-music/issues/2741)
+- Update changelog for v3.7.0 [`1cc1530`](https://github.com/th-ch/youtube-music/commit/1cc153084d5f354ea928fcde50207f8f6b14ea4c)
+- fix: use networkManager.fetch instead of fetch [`80471b0`](https://github.com/th-ch/youtube-music/commit/80471b0ca4b3d3efc9e3db87d434290c9ebc79f6)
+- chore(i18n): Translated using Weblate (Hindi) [`6d1237c`](https://github.com/th-ch/youtube-music/commit/6d1237c2a2ad2408a738e00992ae5ed8a1e900da)
+
 #### [v3.7.0](https://github.com/th-ch/youtube-music/compare/v3.6.2...v3.7.0)
+
+> 25 December 2024
 
 - feat(amuse): song query api (add amuse plugin) [`#2723`](https://github.com/th-ch/youtube-music/pull/2723)
 - feat(api-server): add absolute seek endpoint [`#2748`](https://github.com/th-ch/youtube-music/pull/2748)
