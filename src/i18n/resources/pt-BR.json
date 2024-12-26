@@ -279,6 +279,13 @@
       },
       "name": "Modo ambiente"
     },
+    "amuse": {
+      "description": "Adiciona suporte ao YouTube Music ao widget 'Reproduzindo agora' do Amuse da 6K Labs",
+      "name": "Amuse",
+      "response": {
+        "query": "Servidor API do Amuse em execução. GET /query para obter informações da música."
+      }
+    },
     "api-server": {
       "description": "Adiciona um servidor API para controlar o player",
       "dialog": {
