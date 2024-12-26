@@ -190,7 +190,7 @@
   position: sticky;
   top: var(--top, 0);
   z-index: 100;
-  background-color: var(--ytmusic-background);
+  backdrop-filter: blur(5px);
 
   transition: top 325ms ease-in-out;
 }
