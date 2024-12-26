@@ -912,10 +912,12 @@ function removeContentSecurityPolicy(
       delete details.responseHeaders['content-security-policy'];
       delete details.responseHeaders['Content-Security-Policy'];
 
-      // Only allow cross-origin requests from music.youtube.com
-      delete details.responseHeaders['access-control-allow-origin'];
-      delete details.responseHeaders['Access-Control-Allow-Origin'];
-      details.responseHeaders['access-control-allow-origin'] = ['https://music.youtube.com'];
+      if (
+        !details.responseHeaders['access-control-allow-origin'] &&
+        !details.responseHeaders['Access-Control-Allow-Origin']
+      ) {
+        details.responseHeaders['access-control-allow-origin'] = ['https://music.youtube.com'];
+      }
     }
 
     callback({ cancel: false, responseHeaders: details.responseHeaders });
