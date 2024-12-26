@@ -1,4 +1,5 @@
 import type { LyricProvider, LyricResult, SearchSongInfo } from '../types';
+import type { YouTubeMusicAppElement } from '@/types/youtube-music-app-element';
 
 const headers = {
   'Accept': 'application/json',
@@ -102,19 +103,17 @@ export class YTMusic implements LyricProvider {
       .padStart(2, '0')}.${remaining.toString().padStart(2, '0')}`;
   }
 
-  private ENDPOINT = 'https://youtubei.googleapis.com/youtubei/v1/';
   // RATE LIMITED (2 req per sec)
   private PROXIED_ENDPOINT = 'https://ytmbrowseproxy.zvz.be/';
 
   private fetchNext(videoId: string) {
-    return fetch(this.ENDPOINT + 'next?prettyPrint=false', {
-      headers,
-      method: 'POST',
-      body: JSON.stringify({
-        videoId,
-        context: { client },
-      }),
-    }).then((res) => res.json()) as Promise<NextData>;
+    const app = document.querySelector<YouTubeMusicAppElement>('ytmusic-app');
+
+    if (!app) return null;
+
+    return app.networkManager.fetch('/next?prettyPrint=false', {
+      videoId,
+    }) as Promise<NextData>;
   }
 
   private fetchBrowse(browseId: string) {

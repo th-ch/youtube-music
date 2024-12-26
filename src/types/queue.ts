@@ -2,7 +2,7 @@ import type { YoutubePlayer } from '@/types/youtube-player';
 import type { GetState, QueueItem } from '@/types/datahost-get-state';
 
 type StoreState = GetState;
-type Store = {
+export type Store = {
   dispatch: (obj: { type: string; payload?: unknown }) => void;
 
   getState: () => StoreState;

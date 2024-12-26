@@ -6,7 +6,7 @@ import { t } from '@/i18n';
 import type { ConnectionEventUnion } from '@/plugins/music-together/connection';
 import type { Profile, VideoData } from '../types';
 import type { QueueItem } from '@/types/datahost-get-state';
-import type { QueueElement } from '@/types/queue';
+import type { QueueElement, Store } from '@/types/queue';
 
 const getHeaderPayload = (() => {
   let payload: {
@@ -266,7 +266,8 @@ export class Queue {
     }
 
     if (this.originalDispatch)
-      this.queue.queue.store.store.dispatch = this.originalDispatch;
+      this.queue.queue.store.store.dispatch = this
+        .originalDispatch as Store['dispatch'];
   }
 
   injection() {
@@ -295,7 +296,11 @@ export class Queue {
                   videoId: it!.videoId,
                   ownerId: this.owner!.id,
                 }) satisfies VideoData,
-              event.payload!.items!,
+              (
+                event.payload! as {
+                  items: QueueItem[];
+                }
+              ).items,
             );
             const index = this._videoList.length + videoList.length - 1;
 
@@ -334,7 +339,11 @@ export class Queue {
                       videoId: it!.videoId,
                       ownerId: this.owner!.id,
                     }) satisfies VideoData,
-                  event.payload!.items!,
+                  (
+                    event.payload! as {
+                      items: QueueItem[];
+                    }
+                  ).items,
                 ),
               },
             });
@@ -407,7 +416,13 @@ export class Queue {
           },
         },
       };
-      this.originalDispatch?.call(fakeContext, event);
+      this.originalDispatch?.call(
+        fakeContext,
+        event as {
+          type: string;
+          payload?: { items?: QueueItem[] | undefined } | undefined;
+        },
+      );
     };
   }
 

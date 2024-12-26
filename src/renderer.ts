@@ -22,6 +22,8 @@ import type { PluginConfig } from '@/types/plugins';
 import type { YoutubePlayer } from '@/types/youtube-player';
 import type { QueueElement } from '@/types/queue';
 import type { QueueResponse } from '@/types/youtube-music-desktop-internal';
+import type { YouTubeMusicAppElement } from '@/types/youtube-music-app-element';
+import type { SearchBoxElement } from '@/types/search-box-element';
 
 let api: (Element & YoutubePlayer) | null = null;
 let isPluginLoaded = false;
@@ -39,17 +41,6 @@ async function listenForApiLoad() {
       return;
     }
   }
-}
-
-interface YouTubeMusicAppElement extends HTMLElement {
-  navigate(page: string): void;
-  networkManager: {
-    fetch: (url: string, data: unknown) => Promise<unknown>;
-  };
-}
-
-interface SearchBoxElement extends HTMLElement {
-  getSearchboxStats(): unknown;
 }
 
 async function onApiLoaded() {
