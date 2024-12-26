@@ -63,6 +63,11 @@ let yt: Innertube;
 let win: BrowserWindow;
 let playingUrl: string;
 
+const isYouTubePremium = () =>
+  win.webContents.executeJavaScript(
+    '!document.querySelector(\'#endpoint[href="/music_premium"]\')',
+  ) as Promise<boolean>;
+
 const sendError = (error: Error, source?: string) => {
   win.setProgressBar(-1); // Close progress bar
   setBadge(0); // Close badge
@@ -313,7 +318,7 @@ async function downloadSongUnsafe(
   }
 
   const downloadOptions: FormatOptions = {
-    type: 'audio', // Audio, video or video+audio
+    type: (await isYouTubePremium()) ? 'audio' : 'video+audio', // Audio, video or video+audio
     quality: 'best', // Best, bestefficiency, 144p, 240p, 480p, 720p and so on.
     format: 'any', // Media container format
   };
