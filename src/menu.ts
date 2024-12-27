@@ -68,7 +68,7 @@ export const mainMenuTemplate = async (
   win: BrowserWindow,
 ): Promise<MenuTemplate> => {
   const innerRefreshMenu = () => refreshMenu(win);
-
+  const { navigationHistory } = win.webContents;
   await loadAllMenuPlugins(win);
 
   const menuResult = Object.entries(getAllMenuTemplate()).map(
@@ -610,16 +610,16 @@ export const mainMenuTemplate = async (
         {
           label: t('main.menu.navigation.submenu.go-back'),
           click() {
-            if (win.webContents.canGoBack()) {
-              win.webContents.goBack();
+            if (navigationHistory.canGoBack()) {
+              navigationHistory.goBack();
             }
           },
         },
         {
           label: t('main.menu.navigation.submenu.go-forward'),
           click() {
-            if (win.webContents.canGoForward()) {
-              win.webContents.goForward();
+            if (navigationHistory.canGoForward()) {
+              navigationHistory.goForward();
             }
           },
         },
