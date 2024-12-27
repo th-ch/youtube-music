@@ -280,7 +280,11 @@
       "name": "Tryb otoczenia"
     },
     "amuse": {
-      "name": "Amuse"
+      "description": "Wspiera integrację YouTube Music z widgetami Amuse (od 6K Labs)",
+      "name": "Amuse",
+      "response": {
+        "query": "Serwer API Amuse działa. Użyj metody GET do /query, aby zdobyć informację o utworze."
+      }
     },
     "api-server": {
       "description": "Pozwala na kontrolowanie YouTube Music poprzez podłączenie specjalnego serwera API",
@@ -497,7 +501,7 @@
           }
         }
       },
-      "name": "Equalizer"
+      "name": "Korektor"
     },
     "exponential-volume": {
       "description": "Sprawia, że suwak głośności jest proporcjonalna, dzięki czemu łatwiej jest wybrać niższą głośność.",
@@ -729,8 +733,8 @@
     "synced-lyrics": {
       "description": "Dodaje zsynchronizowane napisy do utworów używając między innymi LRClib.",
       "errors": {
-        "fetch": "⚠️ - Wystąpił błąd podczas pobierania tekstu utworu. Spróbuj ponownie później.",
-        "not-found": "⚠️ - Nie znaleziono napisów dla tego utworu."
+        "fetch": "⚠️\tWystąpił błąd podczas pobierania tekstu utworu.\n\tSpróbuj ponownie później.",
+        "not-found": "⚠️ Nie znaleziono napisów dla tego utworu."
       },
       "menu": {
         "default-text-string": {
@@ -741,7 +745,8 @@
           "label": "Efekty linijki",
           "submenu": {
             "fancy": {
-              "label": "Facy"
+              "label": "Facy",
+              "tooltip": "Użyj specjalnych efektów w stylu aplikacji na obecną linię"
             },
             "focus": {
               "label": "Fokus",
