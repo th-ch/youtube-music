@@ -1,48 +1,55 @@
-import { resolve, dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { dirname, join, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 
-import { UserConfig } from 'vite';
-import { defineConfig, defineViteConfig } from 'electron-vite';
-import builtinModules from 'builtin-modules';
-import viteResolve from 'vite-plugin-resolve';
-import Inspect from 'vite-plugin-inspect';
-import solidPlugin from 'vite-plugin-solid';
+import { UserConfig } from "vite";
+import { defineConfig, defineViteConfig } from "electron-vite";
+import builtinModules from "builtin-modules";
+import viteResolve from "vite-plugin-resolve";
+import Inspect from "vite-plugin-inspect";
+import solidPlugin from "vite-plugin-solid";
 
-import { pluginVirtualModuleGenerator } from './vite-plugins/plugin-importer.mjs';
-import pluginLoader from './vite-plugins/plugin-loader.mjs';
+import { pluginVirtualModuleGenerator } from "./vite-plugins/plugin-importer.mjs";
+import pluginLoader from "./vite-plugins/plugin-loader.mjs";
 
-import { i18nImporter } from './vite-plugins/i18n-importer.mjs';
+import { i18nImporter } from "./vite-plugins/i18n-importer.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const resolveAlias = {
-  '@': resolve(__dirname, './src'),
-  '@assets': resolve(__dirname, './assets'),
+  "@": resolve(__dirname, "./src"),
+  "@assets": resolve(__dirname, "./assets"),
 };
 
 export default defineConfig({
   main: defineViteConfig(({ mode }) => {
     const commonConfig: UserConfig = {
       plugins: [
-        pluginLoader('backend'),
+        pluginLoader("backend"),
         viteResolve({
-          'virtual:i18n': i18nImporter(),
-          'virtual:plugins': pluginVirtualModuleGenerator('main'),
+          "virtual:i18n": i18nImporter(),
+          "virtual:plugins": pluginVirtualModuleGenerator("main"),
         }),
       ],
-      publicDir: 'assets',
+      publicDir: "assets",
       build: {
         lib: {
-          entry: 'src/index.ts',
-          formats: ['cjs'],
+          entry: "src/index.ts",
+          formats: ["cjs"],
         },
-        outDir: 'dist/main',
+        outDir: "dist/main",
         commonjsOptions: {
           ignoreDynamicRequires: true,
         },
         rollupOptions: {
-          external: ['electron', 'custom-electron-prompt', ...builtinModules],
-          input: './src/index.ts',
+          external: [
+            "electron",
+            "custom-electron-prompt",
+            "kuromoji",
+            "kuroshiro",
+            "kuroshiro-analyzer-kuromoji",
+            ...builtinModules,
+          ],
+          input: "./src/index.ts",
         },
       },
       resolve: {
@@ -50,12 +57,12 @@ export default defineConfig({
       },
     };
 
-    if (mode === 'development') {
-      commonConfig.build!.sourcemap = 'inline';
+    if (mode === "development") {
+      commonConfig.build!.sourcemap = "inline";
       commonConfig.plugins?.push(
         Inspect({
           build: true,
-          outputDir: join(__dirname, '.vite-inspect/backend'),
+          outputDir: join(__dirname, ".vite-inspect/backend"),
         }),
       );
       return commonConfig;
@@ -73,24 +80,24 @@ export default defineConfig({
   preload: defineViteConfig(({ mode }) => {
     const commonConfig: UserConfig = {
       plugins: [
-        pluginLoader('preload'),
+        pluginLoader("preload"),
         viteResolve({
-          'virtual:i18n': i18nImporter(),
-          'virtual:plugins': pluginVirtualModuleGenerator('preload'),
+          "virtual:i18n": i18nImporter(),
+          "virtual:plugins": pluginVirtualModuleGenerator("preload"),
         }),
       ],
       build: {
         lib: {
-          entry: 'src/preload.ts',
-          formats: ['cjs'],
+          entry: "src/preload.ts",
+          formats: ["cjs"],
         },
-        outDir: 'dist/preload',
+        outDir: "dist/preload",
         commonjsOptions: {
           ignoreDynamicRequires: true,
         },
         rollupOptions: {
-          external: ['electron', 'custom-electron-prompt', ...builtinModules],
-          input: './src/preload.ts',
+          external: ["electron", "custom-electron-prompt", ...builtinModules],
+          input: "./src/preload.ts",
         },
       },
       resolve: {
@@ -98,12 +105,12 @@ export default defineConfig({
       },
     };
 
-    if (mode === 'development') {
-      commonConfig.build!.sourcemap = 'inline';
+    if (mode === "development") {
+      commonConfig.build!.sourcemap = "inline";
       commonConfig.plugins?.push(
         Inspect({
           build: true,
-          outputDir: join(__dirname, '.vite-inspect/preload'),
+          outputDir: join(__dirname, ".vite-inspect/preload"),
         }),
       );
       return commonConfig;
@@ -121,27 +128,27 @@ export default defineConfig({
   renderer: defineViteConfig(({ mode }) => {
     const commonConfig: UserConfig = {
       plugins: [
-        pluginLoader('renderer'),
+        pluginLoader("renderer"),
         viteResolve({
-          'virtual:i18n': i18nImporter(),
-          'virtual:plugins': pluginVirtualModuleGenerator('renderer'),
+          "virtual:i18n": i18nImporter(),
+          "virtual:plugins": pluginVirtualModuleGenerator("renderer"),
         }),
         solidPlugin(),
       ],
-      root: './src/',
+      root: "./src/",
       build: {
         lib: {
-          entry: 'src/index.html',
-          formats: ['iife'],
-          name: 'renderer',
+          entry: "src/index.html",
+          formats: ["iife"],
+          name: "renderer",
         },
-        outDir: 'dist/renderer',
+        outDir: "dist/renderer",
         commonjsOptions: {
           ignoreDynamicRequires: true,
         },
         rollupOptions: {
-          external: ['electron', ...builtinModules],
-          input: './src/index.html',
+          external: ["electron", ...builtinModules],
+          input: "./src/index.html",
         },
       },
       resolve: {
@@ -154,12 +161,12 @@ export default defineConfig({
       },
     };
 
-    if (mode === 'development') {
-      commonConfig.build!.sourcemap = 'inline';
+    if (mode === "development") {
+      commonConfig.build!.sourcemap = "inline";
       commonConfig.plugins?.push(
         Inspect({
           build: true,
-          outputDir: join(__dirname, '.vite-inspect/renderer'),
+          outputDir: join(__dirname, ".vite-inspect/renderer"),
         }),
       );
       return commonConfig;

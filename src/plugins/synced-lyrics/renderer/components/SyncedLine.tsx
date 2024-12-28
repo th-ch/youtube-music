@@ -1,9 +1,9 @@
-import { createEffect, createMemo, For } from 'solid-js';
+import { createEffect, createMemo, createResource, For, Show } from 'solid-js';
 
 import { currentTime } from './LyricsContainer';
 
 import { config } from '../renderer';
-import { _ytAPI } from '..';
+import { _ytAPI, syncedLyricsIPC } from '..';
 
 import type { LineLyrics } from '../../types';
 
@@ -28,9 +28,20 @@ export const SyncedLine = ({ line }: SyncedLineProps) => {
   });
 
   const text = createMemo(() => {
-    if (line.text.trim()) return line.text;
-    return config()?.defaultTextString ?? '';
+    if (!line.text.trim()) {
+      return config()?.defaultTextString ?? '';
+    }
+
+    return line.text;
   });
+
+  const [romaji] = createResource<string, unknown, unknown>(
+    () => 1,
+    async () => {
+      // prettier-ignore
+      return await syncedLyricsIPC()?.invoke('synced-lyrics:romanize-line', text());
+    }
+  );
 
   if (!text()) {
     return (
@@ -50,32 +61,76 @@ export const SyncedLine = ({ line }: SyncedLineProps) => {
         _ytAPI?.seekTo(line.timeInMs / 1000);
       }}
     >
-      <div dir="auto" class="text-lyrics description ytmusic-description-shelf-renderer">
+      <div dir="auto" class="description ytmusic-description-shelf-renderer">
         <yt-formatted-string
           text={{
             runs: [{ text: config()?.showTimeCodes ? `[${line.time}] ` : '' }],
           }}
         />
 
-        <For each={text().split(' ')}>
-          {(word, index) => {
-            return (
-              <span
-                style={{
-                  'transition-delay': `${index() * 0.05}s`,
-                  'animation-delay': `${index() * 0.05}s`,
-                  '--lyrics-duration:': `${line.duration / 1000}s;`,
-                }}
-              >
-                <yt-formatted-string
-                  text={{
-                    runs: [{ text: `${word} ` }],
-                  }}
-                />
-              </span>
+        <div
+          class="text-lyrics"
+          ref={(div: HTMLDivElement) => {
+            div.style.setProperty(
+              '--lyrics-duration',
+              `${line.duration / 1000}s`,
+              'important'
             );
+
+            console.log(div, div.style.getPropertyValue('--lyrics-duration'));
           }}
-        </For>
+          style={{ display: 'flex', 'flex-direction': 'column' }}
+        >
+          <span>
+            <For each={text().split(' ')}>
+              {(word, index) => {
+                return (
+                  <span
+                    style={{
+                      'transition-delay': `${index() * 0.05}s`,
+                      'animation-delay': `${index() * 0.05}s`,
+                    }}
+                  >
+                    <yt-formatted-string
+                      text={{
+                        runs: [{ text: `${word} ` }],
+                      }}
+                    />
+                  </span>
+                );
+              }}
+            </For>
+          </span>
+
+          <Show
+            when={
+              text()?.trim() &&
+              romaji()?.trim() &&
+              text()?.trim() !== romaji()?.trim()
+            }
+          >
+            <span class="romaji">
+              <For each={romaji()!.split(' ')}>
+                {(word, index) => {
+                  return (
+                    <span
+                      style={{
+                        'transition-delay': `${index() * 0.05}s`,
+                        'animation-delay': `${index() * 0.05}s`,
+                      }}
+                    >
+                      <yt-formatted-string
+                        text={{
+                          runs: [{ text: `${word} ` }],
+                        }}
+                      />
+                    </span>
+                  );
+                }}
+              </For>
+            </span>
+          </Show>
+        </div>
       </div>
     </div>
   );
