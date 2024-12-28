@@ -5,8 +5,6 @@ import KuromojiAnalyzer from "kuroshiro-analyzer-kuromoji";
 
 export const backend = createBackend({
   async start({ ipc }) {
-    console.log(Kuroshiro);
-
     const kuroshiro = new Kuroshiro.default();
     {
       await kuroshiro.init(new KuromojiAnalyzer());

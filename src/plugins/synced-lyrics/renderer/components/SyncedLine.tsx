@@ -71,13 +71,12 @@ export const SyncedLine = ({ line }: SyncedLineProps) => {
         <div
           class="text-lyrics"
           ref={(div: HTMLDivElement) => {
+            // TODO: Investigate the animation, even though the duration is properly set, all lines have the same animation duration
             div.style.setProperty(
               '--lyrics-duration',
               `${line.duration / 1000}s`,
               'important'
             );
-
-            console.log(div, div.style.getPropertyValue('--lyrics-duration'));
           }}
           style={{ display: 'flex', 'flex-direction': 'column' }}
         >
