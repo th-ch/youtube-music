@@ -38,7 +38,10 @@ createEffect(() => {
       root.style.setProperty('--lyrics-active-offset', '0');
       break;
     case 'scale':
-      root.style.setProperty('--lyrics-font-size', '1.4rem');
+      root.style.setProperty(
+        '--lyrics-font-size',
+        'clamp(1.4rem, 1.1vmax, 3rem)',
+      );
       root.style.setProperty(
         '--lyrics-line-height',
         'var(--ytmusic-body-line-height)',
@@ -58,7 +61,10 @@ createEffect(() => {
       root.style.setProperty('--lyrics-active-offset', '0');
       break;
     case 'offset':
-      root.style.setProperty('--lyrics-font-size', '1.4rem');
+      root.style.setProperty(
+        '--lyrics-font-size',
+        'clamp(1.4rem, 1.1vmax, 3rem)',
+      );
       root.style.setProperty(
         '--lyrics-line-height',
         'var(--ytmusic-body-line-height)',
@@ -78,7 +84,10 @@ createEffect(() => {
       root.style.setProperty('--lyrics-active-offset', '5%');
       break;
     case 'focus':
-      root.style.setProperty('--lyrics-font-size', '1.4rem');
+      root.style.setProperty(
+        '--lyrics-font-size',
+        'clamp(1.4rem, 1.1vmax, 3rem)',
+      );
       root.style.setProperty(
         '--lyrics-line-height',
         'var(--ytmusic-body-line-height)',
