@@ -143,9 +143,9 @@ async function onApiLoaded() {
   window.ipcRenderer.on('ytmd:toggle-mute', (_) => {
     document
       .querySelector<
-        HTMLElement & { onVolumeTap: () => void }
+        HTMLElement & { onVolumeClick: () => void }
       >('ytmusic-player-bar')
-      ?.onVolumeTap();
+      ?.onVolumeClick();
   });
 
   window.ipcRenderer.on('ytmd:get-queue', () => {
