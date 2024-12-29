@@ -15,8 +15,10 @@ export const [currentTime, setCurrentTime] = createSignal<number>(-1);
 // prettier-ignore
 export const LyricsContainer = () => {
   const [hasJapanese, setHasJapanese] = createSignal<boolean>(false);
+  const [hasKorean, setHasKorean] = createSignal<boolean>(false);
 
   createEffect(() => {
+    syncedLyricsIPC()?.invoke('synced-lyrics:has-korean', JSON.stringify(currentLyrics()?.data)).then(setHasKorean);
     syncedLyricsIPC()?.invoke('synced-lyrics:has-japanese', JSON.stringify(currentLyrics()?.data)).then(setHasJapanese);
   });
 
@@ -49,12 +51,12 @@ export const LyricsContainer = () => {
       <Switch>
         <Match when={currentLyrics().data?.lines}>
           <For each={currentLyrics().data?.lines}>
-            {(item) => <SyncedLine line={item} hasJapanese={hasJapanese()} />}
+            {(item) => <SyncedLine line={item} hasJapanese={hasJapanese()} hasKorean={hasKorean()} />}
           </For>
         </Match>
 
         <Match when={currentLyrics().data?.lyrics}>
-          <PlainLyrics lyrics={currentLyrics().data?.lyrics!} hasJapanese={hasJapanese()} />
+          <PlainLyrics lyrics={currentLyrics().data?.lyrics!} hasJapanese={hasJapanese()} hasKorean={hasKorean()} />
         </Match>
       </Switch>
     </div>
