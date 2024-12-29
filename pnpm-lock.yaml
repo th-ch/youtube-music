@@ -120,6 +120,9 @@ importers:
       electron-updater:
         specifier: 6.3.9
         version: 6.3.9
+      es-hangul:
+        specifier: ^2.2.4
+        version: 2.2.4
       fast-average-color:
         specifier: 9.4.0
         version: 9.4.0

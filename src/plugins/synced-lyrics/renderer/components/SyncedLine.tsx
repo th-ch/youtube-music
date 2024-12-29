@@ -10,6 +10,7 @@ import type { LineLyrics } from '../../types';
 interface SyncedLineProps {
   line: LineLyrics;
   hasJapanese: boolean;
+  hasKorean: boolean;
 }
 
 export const SyncedLine = (props: SyncedLineProps) => {
@@ -41,10 +42,14 @@ export const SyncedLine = (props: SyncedLineProps) => {
   createEffect(() => {
     syncedLyricsIPC()
       ?.invoke(
-        props.hasJapanese ? 'synced-lyrics:romaji' : 'synced-lyrics:pinyin',
+        props.hasJapanese
+          ? 'synced-lyrics:romanize-japanese'
+          : props.hasKorean
+          ? 'synced-lyrics:romanize-korean'
+          : 'synced-lyrics:romanize-chinese',
         text()
       )
-      .then(setRomanization);
+      .then((result) => setRomanization(result.replaceAll(/\s+/g, ' ')));
   });
 
   if (!text()) {

@@ -268,6 +268,7 @@
     "electron-store": "10.0.1",
     "electron-unhandled": "4.0.1",
     "electron-updater": "6.3.9",
+    "es-hangul": "^2.2.4",
     "fast-average-color": "9.4.0",
     "fast-equals": "5.2.2",
     "filenamify": "6.0.0",

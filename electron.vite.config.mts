@@ -49,6 +49,7 @@ export default defineConfig({
             "kuroshiro-analyzer-kuromoji",
             "pinyin",
             "segmentit",
+            "es-hangul",
             ...builtinModules,
           ],
           input: "./src/index.ts",
