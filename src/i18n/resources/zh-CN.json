@@ -279,6 +279,9 @@
       },
       "name": "沉浸模式"
     },
+    "amuse": {
+      "description": "为 6K Labs 的 Amuse 正在播放小部件添加 YouTube Music 支持"
+    },
     "api-server": {
       "description": "添加一个 API 服务器来控制播放器",
       "dialog": {
