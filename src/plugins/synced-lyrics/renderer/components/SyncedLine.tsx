@@ -13,6 +13,16 @@ interface SyncedLineProps {
   hasKorean: boolean;
 }
 
+// prettier-ignore
+const canonicalize = (text: string) =>
+  text
+    .replaceAll(/\s+/g, ' ') // `hi  there` => `hi there`
+    .replaceAll(/\( ([^ ])/g, (_, a) => `(${a}`) // `( a` => `(a`
+    .replaceAll(/([^ ]) \)/g, (_, a) => `${a})`) // `a )` => `a)`
+    .replaceAll(/([^ ]) (['\-]) ([^ ])/g, (_, a, symbol, b) => `${a}${symbol}${b}`) // `can ' t` => `can't`
+    .replaceAll(/([^ ]) ([\.,!?])/g, (_, a, symbol) => `${a}${symbol}`) // `hi , there` => `hi, there`
+    .trim();
+
 export const SyncedLine = (props: SyncedLineProps) => {
   const status = createMemo(() => {
     const current = currentTime();
@@ -49,7 +59,7 @@ export const SyncedLine = (props: SyncedLineProps) => {
           : 'synced-lyrics:romanize-chinese',
         text()
       )
-      .then((result) => setRomanization(result.replaceAll(/\s+/g, ' ')));
+      .then((result) => setRomanization(canonicalize(result)));
   });
 
   if (!text()) {
