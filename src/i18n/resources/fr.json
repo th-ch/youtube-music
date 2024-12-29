@@ -317,7 +317,7 @@
           "title": "Nom d'hôte"
         },
         "port": {
-          "label": "Entrer le port du serveur de l'API :",
+          "label": "Entrez le port du serveur de l'API:",
           "title": "Port"
         }
       }
@@ -726,7 +726,7 @@
     "synced-lyrics": {
       "description": "Ajoute des paroles synchronisées aux chansons, grâce à LRClib par exemple.",
       "errors": {
-        "fetch": "⚠️ - Une erreur s'est produite en allant chercher les paroles. Merci de réessayer plus tard.",
+        "fetch": "⚠️\tUne erreur s'est produite en allant chercher les paroles.\n\tMerci de réessayer plus tard.",
         "not-found": "⚠️ - Aucune paroles trouvées pour cette musique."
       },
       "menu": {
