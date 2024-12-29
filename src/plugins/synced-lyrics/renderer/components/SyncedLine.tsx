@@ -1,4 +1,4 @@
-import { createEffect, createMemo, createResource, For, Show } from 'solid-js';
+import { createEffect, createMemo, For, Show, createSignal } from 'solid-js';
 
 import { currentTime } from './LyricsContainer';
 
@@ -9,14 +9,15 @@ import type { LineLyrics } from '../../types';
 
 interface SyncedLineProps {
   line: LineLyrics;
+  hasJapanese: boolean;
 }
 
-export const SyncedLine = ({ line }: SyncedLineProps) => {
+export const SyncedLine = (props: SyncedLineProps) => {
   const status = createMemo(() => {
     const current = currentTime();
 
-    if (line.timeInMs >= current) return 'upcoming';
-    if (current - line.timeInMs >= line.duration) return 'previous';
+    if (props.line.timeInMs >= current) return 'upcoming';
+    if (current - props.line.timeInMs >= props.line.duration) return 'previous';
     return 'current';
   });
 
@@ -28,20 +29,23 @@ export const SyncedLine = ({ line }: SyncedLineProps) => {
   });
 
   const text = createMemo(() => {
-    if (!line.text.trim()) {
+    if (!props.line.text.trim()) {
       return config()?.defaultTextString ?? '';
     }
 
-    return line.text;
+    return props.line.text;
   });
 
-  const [romaji] = createResource<string, unknown, unknown>(
-    () => 1,
-    async () => {
-      // prettier-ignore
-      return await syncedLyricsIPC()?.invoke('synced-lyrics:romanize-line', text());
-    }
-  );
+  const [romanization, setRomanization] = createSignal('');
+
+  createEffect(() => {
+    syncedLyricsIPC()
+      ?.invoke(
+        props.hasJapanese ? 'synced-lyrics:romaji' : 'synced-lyrics:pinyin',
+        text()
+      )
+      .then(setRomanization);
+  });
 
   if (!text()) {
     return (
@@ -58,13 +62,15 @@ export const SyncedLine = ({ line }: SyncedLineProps) => {
       ref={ref}
       class={`synced-line ${status()}`}
       onClick={() => {
-        _ytAPI?.seekTo(line.timeInMs / 1000);
+        _ytAPI?.seekTo(props.line.timeInMs / 1000);
       }}
     >
       <div dir="auto" class="description ytmusic-description-shelf-renderer">
         <yt-formatted-string
           text={{
-            runs: [{ text: config()?.showTimeCodes ? `[${line.time}] ` : '' }],
+            runs: [
+              { text: config()?.showTimeCodes ? `[${props.line.time}] ` : '' },
+            ],
           }}
         />
 
@@ -74,7 +80,7 @@ export const SyncedLine = ({ line }: SyncedLineProps) => {
             // TODO: Investigate the animation, even though the duration is properly set, all lines have the same animation duration
             div.style.setProperty(
               '--lyrics-duration',
-              `${line.duration / 1000}s`,
+              `${props.line.duration / 1000}s`,
               'important'
             );
           }}
@@ -104,12 +110,12 @@ export const SyncedLine = ({ line }: SyncedLineProps) => {
           <Show
             when={
               text()?.trim() &&
-              romaji()?.trim() &&
-              text()?.trim() !== romaji()?.trim()
+              romanization()?.trim() &&
+              text()?.trim() !== romanization()?.trim()
             }
           >
             <span class="romaji">
-              <For each={romaji()!.split(' ')}>
+              <For each={romanization()!.split(' ')}>
                 {(word, index) => {
                   return (
                     <span
