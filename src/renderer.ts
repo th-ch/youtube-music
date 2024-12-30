@@ -157,46 +157,61 @@ async function onApiLoaded() {
     } satisfies QueueResponse);
   });
 
-  window.ipcRenderer.on('ytmd:add-to-queue', (_, videoId: string) => {
-    const queue = document.querySelector<QueueElement>('#queue');
-    const app = document.querySelector<YouTubeMusicAppElement>('ytmusic-app');
-    if (!app) return;
+  window.ipcRenderer.on(
+    'ytmd:add-to-queue',
+    (_, videoId: string, queueInsertPosition: string) => {
+      const queue = document.querySelector<QueueElement>('#queue');
+      const app = document.querySelector<YouTubeMusicAppElement>('ytmusic-app');
+      if (!app) return;
 
-    const store = queue?.queue.store.store;
-    if (!store) return;
+      const store = queue?.queue.store.store;
+      if (!store) return;
 
-    app.networkManager
-      .fetch('/music/get_queue', {
-        queueContextParams: store.getState().queue.queueContextParams,
-        queueInsertPosition: 'INSERT_AT_END',
-        videoIds: [videoId],
-      })
-      .then((result) => {
-        if (
-          result &&
-          typeof result === 'object' &&
-          'queueDatas' in result &&
-          Array.isArray(result.queueDatas)
-        ) {
-          queue?.dispatch({
-            type: 'ADD_ITEMS',
-            payload: {
-              nextQueueItemId: store.getState().queue.nextQueueItemId,
-              index: store.getState().queue.items.length ?? 0,
-              items: result.queueDatas
-                .map((it) =>
-                  typeof it === 'object' && it && 'content' in it
-                    ? it.content
-                    : null,
-                )
-                .filter(Boolean),
-              shuffleEnabled: false,
-              shouldAssignIds: true,
-            },
-          });
-        }
-      });
-  });
+      app.networkManager
+        .fetch('/music/get_queue', {
+          queueContextParams: store.getState().queue.queueContextParams,
+          queueInsertPosition,
+          videoIds: [videoId],
+        })
+        .then((result) => {
+          if (
+            result &&
+            typeof result === 'object' &&
+            'queueDatas' in result &&
+            Array.isArray(result.queueDatas)
+          ) {
+            const queueItems = store.getState().queue.items;
+            const queueItemsLength = queueItems.length ?? 0;
+            queue?.dispatch({
+              type: 'ADD_ITEMS',
+              payload: {
+                nextQueueItemId: store.getState().queue.nextQueueItemId,
+                index:
+                  queueInsertPosition === 'INSERT_AFTER_CURRENT_VIDEO'
+                    ? queueItems.findIndex(
+                        (it) =>
+                          (
+                            it.playlistPanelVideoRenderer ||
+                            it.playlistPanelVideoWrapperRenderer
+                              ?.primaryRenderer.playlistPanelVideoRenderer
+                          )?.selected,
+                      ) + 1 || queueItemsLength
+                    : queueItemsLength,
+                items: result.queueDatas
+                  .map((it) =>
+                    typeof it === 'object' && it && 'content' in it
+                      ? it.content
+                      : null,
+                  )
+                  .filter(Boolean),
+                shuffleEnabled: false,
+                shouldAssignIds: true,
+              },
+            });
+          }
+        });
+    },
+  );
   window.ipcRenderer.on(
     'ytmd:move-in-queue',
     (_, fromIndex: number, toIndex: number) => {
