@@ -279,6 +279,13 @@
       },
       "name": "Ambiente-Modus"
     },
+    "amuse": {
+      "description": "Fügt Unterstützung für das Amuse \"Spielt gerade\"-Widget von 6K Labs hinzu",
+      "name": "Amuse",
+      "response": {
+        "query": "Amuse API-Server läuft. /query für Liedinformationen."
+      }
+    },
     "api-server": {
       "description": "Fügt einen API-Server hinzu, um die Wiedergabe zu steuern",
       "dialog": {
@@ -483,6 +490,18 @@
       "templates": {
         "button": "Herunterladen"
       }
+    },
+    "equalizer": {
+      "description": "Fügt einen Equalizer zum Player hinzu",
+      "menu": {
+        "presets": {
+          "label": "Vorgaben",
+          "list": {
+            "bass-booster": "Bass-Verstärker"
+          }
+        }
+      },
+      "name": "Equalizer"
     },
     "exponential-volume": {
       "description": "Macht den Lautstärkeregler exponentiell, damit es einfacher ist leise Lautstärken zu wählen.",
@@ -714,8 +733,8 @@
     "synced-lyrics": {
       "description": "Bietet synchronisierte Liedtexte zu Songs, verwendet Anbieter wie LRClib.",
       "errors": {
-        "fetch": "⚠️ - Beim Abrufen des Liedtexts ist ein Fehler aufgetreten. Bitte versuchen Sie es später nochmal.",
-        "not-found": "⚠️ - Kein Text für diesen Song gefunden."
+        "fetch": "⚠️ - \tBeim Abrufen des Liedtexts ist ein Fehler aufgetreten. \n\tBitte versuchen Sie es später nochmal.",
+        "not-found": "⚠️ Kein Text für diesen Song gefunden."
       },
       "menu": {
         "default-text-string": {
@@ -725,6 +744,10 @@
         "line-effect": {
           "label": "Zeileneffekt",
           "submenu": {
+            "fancy": {
+              "label": "schick",
+              "tooltip": "Verwende große, app-ähnliche Effekte in der aktuellen Zeile"
+            },
             "focus": {
               "label": "Fokussieren",
               "tooltip": "Nur aktive Zeile weiß darstellen"
