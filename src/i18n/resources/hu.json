@@ -279,6 +279,50 @@
       },
       "name": "Természetes mód"
     },
+    "amuse": {
+      "description": "Hozzáadja a YouTube Music támogatását az Amuse \"now playing\" widgethez a 6K Labs által",
+      "response": {
+        "query": "Az Amuse API szerver fut. Használja a GET /query kérést a dalinformációk lekéréséhez."
+      }
+    },
+    "api-server": {
+      "description": "Hozzáad egy API szervert a lejátszó vezérléséhez",
+      "dialog": {
+        "request": {
+          "buttons": {
+            "allow": "Engedélyez",
+            "deny": "Megtagad"
+          },
+          "message": "Engedélyezi, hogy {{ID}} ({{origin}}) hozzáférjen az API-hoz?",
+          "title": "API-hozzáférési kérelem"
+        }
+      },
+      "menu": {
+        "auth-strategy": {
+          "submenu": {
+            "auth-at-first": {
+              "label": "Engedélyezés az első kérésnél"
+            },
+            "none": {
+              "label": "Nincs engedélyezés"
+            }
+          }
+        },
+        "hostname": {
+          "label": "Kiszolgáló név"
+        }
+      },
+      "name": "API szerver [Béta]",
+      "prompt": {
+        "hostname": {
+          "label": "Adja meg az API szerver kiszolgáló nevét (például 0.0.0.0):",
+          "title": "Kiszolgáló neve"
+        },
+        "port": {
+          "label": "Adja meg az API szerver portját:"
+        }
+      }
+    },
     "audio-compressor": {
       "description": "Hang tömörítés alkalmazása (csökkenti a jel legzajosabb részeinek hangerősségét, és emeli a legcsendesebb részek hangerősségét)",
       "name": "Hangtömörítő"
@@ -418,7 +462,8 @@
           "label": "Letöltés befejezéskor",
           "prompt": {
             "last-percent": "x százalék után",
-            "last-seconds": "Utolsó x másodperc"
+            "last-seconds": "Utolsó x másodperc",
+            "title": "Állítsa be, mikor történjen a letöltés"
           },
           "submenu": {
             "advanced": "Speciális",
@@ -488,6 +533,7 @@
           "host-only": "Csak a házigazda tudja vezérelni a lejátszási listát és a lejátszót",
           "playlist": "Engedélyezi a vendégeknek a lejátszási lista vezérlését"
         },
+        "set-permission": "Vezérlési engedély módosítása",
         "status": {
           "disconnected": "Kapcsolat bontva",
           "guest": "Csatlakozva vendégként",
@@ -618,7 +664,8 @@
         },
         "listenbrainz": {
           "token": "Add meg a ListenBrainz felhasználói tokenedet"
-        }
+        },
+        "scrobble-other-media": "Más média scrobbelése"
       },
       "prompt": {
         "lastfm": {
@@ -667,10 +714,14 @@
     "synced-lyrics": {
       "description": "Szinkronizált dalszövegeket biztosít dalokhoz, LRClib-hez hasonló szolgáltatókat használva.",
       "errors": {
-        "fetch": "⚠️ - Hiba történt a dalszövegek lekérése közben. Kérlek, próbáld újra később.",
-        "not-found": "⚠️ - Nem található dalszöveg ehhez a zenéhez."
+        "fetch": "⚠️ -  Hiba történt a dalszöveg lekérése közben. \n        Kérjük, próbálja meg később újra.",
+        "not-found": "⚠️ - Ehhez a dalhoz nem található dalszöveg."
       },
       "menu": {
+        "default-text-string": {
+          "label": "Alapértelmezett karakter a dalszövegek között",
+          "tooltip": "Válassza ki az alapértelmezett karaktert, amelyet a dalszövegek közötti szünethez használni szeretne"
+        },
         "line-effect": {
           "submenu": {
             "scale": {
