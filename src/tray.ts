@@ -1,19 +1,24 @@
 import { Menu, nativeImage, screen, Tray } from 'electron';
 import is from 'electron-is';
 
-import playTrayIconAsset from '@assets/tray-icons/play.png?asset&asarUnpack';
-import pauseTrayIconAsset from '@assets/tray-icons/pause.png?asset&asarUnpack';
-
+import defaultPlayIcon from '@assets/tray-icons/default/play.png?asset&asarUnpack';
+import defaultPauseIcon from '@assets/tray-icons/default/pause.png?asset&asarUnpack';
+import fluentPlayIcon from '@assets/tray-icons/fluent/play.png?asset&asarUnpack';
+import fluentPauseIcon from '@assets/tray-icons/fluent/pause.png?asset&asarUnpack';
+import materialPlayIcon from '@assets/tray-icons/material/play.png?asset&asarUnpack';
+import materialPauseIcon from '@assets/tray-icons/material/pause.png?asset&asarUnpack';
 import config from './config';
-
 import { restart } from './providers/app-controls';
 import registerCallback, { SongInfoEvent } from './providers/song-info';
 import getSongControls from './providers/song-controls';
-
 import { t } from '@/i18n';
+import { TrayIconTheme } from '@/config/defaults';
 
 import type { MenuTemplate } from './menu';
 
+/**
+ * This ensures that the tray instance is not garbage-collected.
+ */
 let tray: Electron.Tray | undefined;
 
 type TrayEvent = (
@@ -21,11 +26,26 @@ type TrayEvent = (
   bounds: Electron.Rectangle,
 ) => void;
 
-interface AppWindowControls {
-  playPause: () => void;
-  next: () => void;
-  previous: () => void;
-}
+const getIcons = (theme: TrayIconTheme) => {
+  switch (theme) {
+    case TrayIconTheme.Fluent:
+      return {
+        play: fluentPlayIcon,
+        pause: fluentPauseIcon,
+      };
+    case TrayIconTheme.Material:
+      return {
+        play: materialPlayIcon,
+        pause: materialPauseIcon,
+      };
+    case TrayIconTheme.Default:
+    default:
+      return {
+        play: defaultPlayIcon,
+        pause: defaultPauseIcon,
+      };
+  }
+};
 
 const getTrayIcon = (
   iconPath: string,
@@ -35,6 +55,67 @@ const getTrayIcon = (
     width: 16 * pixelRatio,
     height: 16 * pixelRatio,
   });
+
+const createTrayIcons = (theme: TrayIconTheme, pixelRatio: number) => {
+  const { play: playIconPath, pause: pauseIconPath } = getIcons(theme);
+  return {
+    playTrayIcon: getTrayIcon(playIconPath, pixelRatio),
+    pauseTrayIcon: getTrayIcon(pauseIconPath, pixelRatio),
+  };
+};
+
+const createTrayMenu = (
+  playPause: () => void,
+  next: () => void,
+  previous: () => void,
+  showWindow: () => void,
+): MenuTemplate => [
+  {
+    label: t('main.tray.play-pause'),
+    click: playPause,
+  },
+  {
+    label: t('main.tray.next'),
+    click: next,
+  },
+  {
+    label: t('main.tray.previous'),
+    click: previous,
+  },
+  {
+    label: t('main.tray.show'),
+    click: showWindow,
+  },
+  {
+    type: 'separator',
+  },
+  {
+    label: t('main.tray.restart'),
+    click: restart,
+  },
+  {
+    type: 'separator',
+  },
+  {
+    label: t('main.tray.quit'),
+    role: 'quit',
+  },
+];
+
+const updateTrayTooltip = (
+  trayInstance: Electron.Tray,
+  songInfo: { artist: string; title: string; isPaused?: boolean },
+  playTrayIcon: Electron.NativeImage,
+  pauseTrayIcon: Electron.NativeImage,
+): void => {
+  trayInstance.setToolTip(
+    t('main.tray.tooltip.with-song-info', {
+      artist: songInfo.artist,
+      title: songInfo.title,
+    }),
+  );
+  trayInstance.setImage(songInfo.isPaused ? playTrayIcon : pauseTrayIcon);
+};
 
 const handleTrayClick = (
   app: Electron.App,
@@ -66,6 +147,10 @@ export const setTrayOnClick = (fn: TrayEvent): void => {
   tray.on('click', fn);
 };
 
+/**
+ * This behavior is disabled on macOS as double-click events are ignored
+ * via `setIgnoreDoubleClickEvents(true)` in `setMacSpecificTraySettings`.
+ */
 export const setTrayOnDoubleClick = (fn: TrayEvent): void => {
   if (!tray) return;
   tray.removeAllListeners('double-click');
@@ -77,53 +162,37 @@ export const setUpTray = (
   win: Electron.BrowserWindow,
 ): void => {
   if (!config.get('options.tray')) {
+    tray?.destroy();
     tray = undefined;
     return;
   }
 
-  const { playPause, next, previous }: AppWindowControls = getSongControls(win);
+  const { playPause, next, previous } = getSongControls(win);
   const pixelRatio = getPixelRatio();
-  const playTrayIcon = getTrayIcon(playTrayIconAsset, pixelRatio);
-  const pauseTrayIcon = getTrayIcon(pauseTrayIconAsset, pixelRatio);
+  const trayIconTheme =
+    config.get('options.trayIconTheme') || TrayIconTheme.Default;
+  const { playTrayIcon, pauseTrayIcon } = createTrayIcons(
+    trayIconTheme,
+    pixelRatio,
+  );
 
+  tray?.destroy();
   tray = new Tray(playTrayIcon);
   setMacSpecificTraySettings(tray);
 
-  tray.setToolTip(t('main.tray.tooltip.default'));
-  tray.on('click', () => handleTrayClick(app, win, playPause));
-
-  const showWindow = (): void => {
+  const showWindow = () => {
     win.show();
     app.dock?.show();
   };
 
-  const trayMenuTemplate: MenuTemplate = [
-    { label: t('main.tray.play-pause'), click: playPause },
-    { label: t('main.tray.next'), click: next },
-    { label: t('main.tray.previous'), click: previous },
-    { label: t('main.tray.show'), click: showWindow },
-    { type: 'separator' },
-    { label: t('main.tray.restart'), click: restart },
-    { type: 'separator' },
-    { label: t('main.tray.quit'), role: 'quit' },
-  ];
+  const trayMenu = createTrayMenu(playPause, next, previous, showWindow);
 
-  tray.setContextMenu(Menu.buildFromTemplate(trayMenuTemplate));
+  tray.setContextMenu(Menu.buildFromTemplate(trayMenu));
+  tray.setToolTip(t('main.tray.tooltip.default'));
+  tray.on('click', () => handleTrayClick(app, win, playPause));
 
   registerCallback((songInfo, event) => {
-    if (event === SongInfoEvent.TimeChanged || !tray) return;
-
-    if (typeof songInfo.isPaused === 'undefined') {
-      tray.setImage(playTrayIcon);
-      return;
-    }
-
-    tray.setToolTip(
-      t('main.tray.tooltip.with-song-info', {
-        artist: songInfo.artist,
-        title: songInfo.title,
-      }),
-    );
-    tray.setImage(songInfo.isPaused ? playTrayIcon : pauseTrayIcon);
+    if (!tray || event === SongInfoEvent.TimeChanged) return;
+    updateTrayTooltip(tray, songInfo, playTrayIcon, pauseTrayIcon);
   });
 };

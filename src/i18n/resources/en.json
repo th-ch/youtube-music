@@ -145,6 +145,14 @@
               "enabled-and-hide-app": "Enabled and hide app",
               "enabled-and-show-app": "Enabled and show app",
               "play-pause-on-click": "Play/Pause on click"
+          },
+            "theme": {
+              "label": "Tray Icon Theme",
+              "submenu": {
+                "default": "Default",
+                "fluent": "Fluent",
+                "material": "Material"
+              }
             }
           },
           "visual-tweaks": {

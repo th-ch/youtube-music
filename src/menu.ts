@@ -24,6 +24,10 @@ import promptOptions from './providers/prompt-options';
 import { getAllMenuTemplate, loadAllMenuPlugins } from './loader/menu';
 import { setLanguage, t } from '@/i18n';
 
+import { setUpTray } from '@/tray';
+
+import { TrayIconTheme } from '@/config/defaults';
+
 import packageJson from '../package.json';
 
 export type MenuTemplate = Electron.MenuItemConstructorOptions[];
@@ -413,6 +417,53 @@ export const mainMenuTemplate = async (
               },
             },
             { type: 'separator' },
+            {
+              label: t('main.menu.options.submenu.tray.theme.label'),
+              submenu: [
+                {
+                  label: 'Default',
+                  type: 'radio',
+                  checked:
+                    config.get('options.trayIconTheme') ===
+                    TrayIconTheme.Default,
+                  click() {
+                    config.setMenuOption(
+                      'options.trayIconTheme',
+                      TrayIconTheme.Default,
+                    );
+                    setUpTray(app, win);
+                  },
+                },
+                {
+                  label: 'Fluent',
+                  type: 'radio',
+                  checked:
+                    config.get('options.trayIconTheme') ===
+                    TrayIconTheme.Fluent,
+                  click() {
+                    config.setMenuOption(
+                      'options.trayIconTheme',
+                      TrayIconTheme.Fluent,
+                    );
+                    setUpTray(app, win);
+                  },
+                },
+                {
+                  label: 'Material',
+                  type: 'radio',
+                  checked:
+                    config.get('options.trayIconTheme') ===
+                    TrayIconTheme.Material,
+                  click() {
+                    config.setMenuOption(
+                      'options.trayIconTheme',
+                      TrayIconTheme.Material,
+                    );
+                    setUpTray(app, win);
+                  },
+                },
+              ],
+            },
             {
               label: t(
                 'main.menu.options.submenu.tray.submenu.play-pause-on-click',

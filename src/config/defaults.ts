@@ -8,6 +8,12 @@ export interface WindowPositionConfig {
   y: number;
 }
 
+export enum TrayIconTheme {
+  Default = 'default',
+  Fluent = 'fluent',
+  Material = 'material',
+}
+
 export interface DefaultConfig {
   'window-size': WindowSizeConfig;
   'window-maximized': boolean;
@@ -16,6 +22,7 @@ export interface DefaultConfig {
   options: {
     language?: string;
     tray: boolean;
+    trayIconTheme: TrayIconTheme;
     appVisible: boolean;
     autoUpdates: boolean;
     alwaysOnTop: boolean;
@@ -51,6 +58,7 @@ const defaultConfig: DefaultConfig = {
   'url': 'https://music.youtube.com',
   'options': {
     tray: false,
+    trayIconTheme: TrayIconTheme.Default,
     appVisible: true,
     autoUpdates: true,
     alwaysOnTop: false,
