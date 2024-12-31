@@ -9,7 +9,10 @@ import materialPlayIcon from '@assets/tray-icons/material/play.png?asset&asarUnp
 import materialPauseIcon from '@assets/tray-icons/material/pause.png?asset&asarUnpack';
 import config from './config';
 import { restart } from './providers/app-controls';
-import registerCallback, { SongInfoEvent } from './providers/song-info';
+import registerCallback, {
+  SongInfo,
+  SongInfoEvent,
+} from './providers/song-info';
 import getSongControls from './providers/song-controls';
 import { t } from '@/i18n';
 import { TrayIconTheme } from '@/config/defaults';
@@ -104,7 +107,7 @@ const createTrayMenu = (
 
 const updateTrayTooltip = (
   trayInstance: Electron.Tray,
-  songInfo: { artist: string; title: string; isPaused?: boolean },
+  songInfo: SongInfo,
   playTrayIcon: Electron.NativeImage,
   pauseTrayIcon: Electron.NativeImage,
 ): void => {
