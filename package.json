@@ -73,7 +73,7 @@
       "icon": "assets/generated/icons/png",
       "category": "AudioVideo",
       "desktop": {
-        "StartupWMClass": "com.github.th_ch.youtube_music"
+        "entry": "com.github.th_ch.youtube_music"
       },
       "target": [
         {
