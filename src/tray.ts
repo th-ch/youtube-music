@@ -23,10 +23,22 @@ import type { MenuTemplate } from './menu';
  * This ensures that the tray instance is not garbage-collected.
  */
 let tray: Electron.Tray | undefined;
+const ICON_SIZE = 16;
 
-export interface IconSet {
+interface AppContext {
+  app: Electron.App;
+  win: Electron.BrowserWindow;
+}
+
+interface IconSet {
   play: Electron.NativeImage;
   pause: Electron.NativeImage;
+}
+
+interface SongControls {
+  playPause: () => void;
+  next: () => void;
+  previous: () => void;
 }
 
 type TrayEvent = (
@@ -60,8 +72,8 @@ const getTrayIcon = (
   pixelRatio: number,
 ): Electron.NativeImage =>
   nativeImage.createFromPath(iconPath).resize({
-    width: 16 * pixelRatio,
-    height: 16 * pixelRatio,
+    width: ICON_SIZE * pixelRatio,
+    height: ICON_SIZE * pixelRatio,
   });
 
 export const createTrayIconSet = (
@@ -75,23 +87,22 @@ export const createTrayIconSet = (
     pause: getTrayIcon(pauseIconPath, pixelRatio),
   };
 };
+
 const createTrayMenu = (
-  playPause: () => void,
-  next: () => void,
-  previous: () => void,
-  showWindow: () => void,
+  songControls: SongControls,
+  showWindow: () => AppContext,
 ): MenuTemplate => [
   {
     label: t('main.tray.play-pause'),
-    click: playPause,
+    click: songControls.playPause,
   },
   {
     label: t('main.tray.next'),
-    click: next,
+    click: songControls.next,
   },
   {
     label: t('main.tray.previous'),
-    click: previous,
+    click: songControls.previous,
   },
   {
     label: t('main.tray.show'),
@@ -114,45 +125,53 @@ const createTrayMenu = (
 ];
 
 const updateTrayTooltip = (
-  trayInstance: Electron.Tray,
+  tray: Electron.Tray,
   songInfo: SongInfo,
   iconSet: IconSet,
 ): void => {
-  trayInstance.setToolTip(
-    t('main.tray.tooltip.with-song-info', {
-      artist: songInfo.artist,
-      title: songInfo.title,
-    }),
-  );
-  trayInstance.setImage(songInfo.isPaused ? iconSet.play : iconSet.pause);
+  const { title, artist } = songInfo;
+
+  tray.setToolTip(t('main.tray.tooltip.with-song-info', { title, artist }));
+  tray.setImage(songInfo.isPaused ? iconSet.play : iconSet.pause);
 };
 
 const handleTrayClick = (
-  app: Electron.App,
-  win: Electron.BrowserWindow,
-  playPause: () => void,
-): void => {
-  if (config.get('options.trayClickPlayPause')) {
-    playPause();
-  } else if (win.isVisible()) {
-    win.hide();
-    app.dock?.hide();
-  } else {
-    win.show();
-    app.dock?.show();
-  }
+  context: AppContext,
+  togglePlayPause: () => void,
+): void =>
+  config.get('options.trayClickPlayPause')
+    ? togglePlayPause()
+    : toggleWindowVisibility(context);
+
+const toggleWindowVisibility = (appContext: AppContext): void =>
+  appContext.win.isVisible()
+    ? hideWindowAndDock(appContext)
+    : showWindowAndDock(appContext);
+
+const hideWindowAndDock = ({ win, app }: AppContext): void => {
+  win.hide();
+  app.dock?.hide();
 };
 
-const setMacSpecificTraySettings = (trayInstance: Electron.Tray): void => {
-  trayInstance.setIgnoreDoubleClickEvents(true);
+const showWindowAndDock = ({ win, app }: AppContext): void => {
+  win.show();
+  app.dock?.show();
+};
+
+const configureMacTraySettings = (tray: Electron.Tray): void => {
+  tray.setIgnoreDoubleClickEvents(true);
 };
 
 const getPixelRatio = (): number => {
-  return is.windows() ? screen.getPrimaryDisplay().scaleFactor || 1 : 1;
+  const defaultScaleFactor = 1;
+  const scaleFactor = screen.getPrimaryDisplay().scaleFactor;
+
+  return is.windows() ? scaleFactor || defaultScaleFactor : defaultScaleFactor;
 };
 
 export const setTrayOnClick = (fn: TrayEvent): void => {
   if (!tray) return;
+
   tray.removeAllListeners('click');
   tray.on('click', fn);
 };
@@ -163,41 +182,59 @@ export const setTrayOnClick = (fn: TrayEvent): void => {
  */
 export const setTrayOnDoubleClick = (fn: TrayEvent): void => {
   if (!tray) return;
+
   tray.removeAllListeners('double-click');
   tray.on('double-click', fn);
 };
 
-export const setUpTray = (
-  app: Electron.App,
-  win: Electron.BrowserWindow,
-): void => {
+export const setUpTray = ({ win, app }: AppContext): void => {
   if (!config.get('options.tray')) {
-    tray?.destroy();
-    tray = undefined;
+    destroyTray();
     return;
   }
 
-  const { playPause, next, previous } = getSongControls(win);
   const pixelRatio = getPixelRatio();
-  const trayIconTheme =
-    config.get('options.trayIconTheme') || TrayIconTheme.Default;
-  const iconSet = createTrayIconSet(trayIconTheme, pixelRatio);
+  const theme = getTrayTheme();
+  const iconSet = createTrayIconSet(theme, pixelRatio);
 
+  initializeTray(iconSet.play);
+  configureMacTraySettings(tray!);
+
+  const songControls = getSongControls(win);
+  const showWindow = () => ({ app, win });
+  const trayMenu = createTrayMenu(songControls, showWindow);
+  configureTrayMenu(trayMenu);
+  configureTrayClickHandlers({ app, win });
+
+  registerSongInfoCallback(iconSet);
+};
+
+const destroyTray = (): void => {
   tray?.destroy();
-  tray = new Tray(iconSet.play);
-  setMacSpecificTraySettings(tray);
+  tray = undefined;
+};
 
-  const showWindow = () => {
-    win.show();
-    app.dock?.show();
-  };
+const getTrayTheme = (): TrayIconTheme => {
+  return config.get('options.trayIconTheme') || TrayIconTheme.Default;
+};
 
-  const trayMenu = createTrayMenu(playPause, next, previous, showWindow);
+const initializeTray = (icon: Electron.NativeImage): void => {
+  destroyTray(); // Ensure old tray is removed
+  tray = new Tray(icon);
+};
 
-  tray.setContextMenu(Menu.buildFromTemplate(trayMenu));
-  tray.setToolTip(t('main.tray.tooltip.default'));
-  tray.on('click', () => handleTrayClick(app, win, playPause));
+const configureTrayMenu = (menuTemplate: MenuTemplate): void => {
+  tray?.setContextMenu(Menu.buildFromTemplate(menuTemplate));
+  tray?.setToolTip(t('main.tray.tooltip.default'));
+};
 
+const configureTrayClickHandlers = (context: AppContext): void => {
+  tray!.on('click', () =>
+    handleTrayClick(context, getSongControls(context.win).playPause),
+  );
+};
+
+const registerSongInfoCallback = (iconSet: IconSet): void => {
   registerCallback((songInfo, event) => {
     if (!tray || event === SongInfoEvent.TimeChanged) return;
     updateTrayTooltip(tray, songInfo, iconSet);
