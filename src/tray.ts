@@ -24,6 +24,11 @@ import type { MenuTemplate } from './menu';
  */
 let tray: Electron.Tray | undefined;
 
+export interface IconSet {
+  play: Electron.NativeImage;
+  pause: Electron.NativeImage;
+}
+
 type TrayEvent = (
   event: Electron.KeyboardEvent,
   bounds: Electron.Rectangle,
@@ -59,14 +64,17 @@ const getTrayIcon = (
     height: 16 * pixelRatio,
   });
 
-const createTrayIcons = (theme: TrayIconTheme, pixelRatio: number) => {
+export const createTrayIconSet = (
+  theme: TrayIconTheme,
+  pixelRatio: number,
+): IconSet => {
   const { play: playIconPath, pause: pauseIconPath } = getIcons(theme);
+
   return {
-    playTrayIcon: getTrayIcon(playIconPath, pixelRatio),
-    pauseTrayIcon: getTrayIcon(pauseIconPath, pixelRatio),
+    play: getTrayIcon(playIconPath, pixelRatio),
+    pause: getTrayIcon(pauseIconPath, pixelRatio),
   };
 };
-
 const createTrayMenu = (
   playPause: () => void,
   next: () => void,
@@ -108,8 +116,7 @@ const createTrayMenu = (
 const updateTrayTooltip = (
   trayInstance: Electron.Tray,
   songInfo: SongInfo,
-  playTrayIcon: Electron.NativeImage,
-  pauseTrayIcon: Electron.NativeImage,
+  iconSet: IconSet,
 ): void => {
   trayInstance.setToolTip(
     t('main.tray.tooltip.with-song-info', {
@@ -117,7 +124,7 @@ const updateTrayTooltip = (
       title: songInfo.title,
     }),
   );
-  trayInstance.setImage(songInfo.isPaused ? playTrayIcon : pauseTrayIcon);
+  trayInstance.setImage(songInfo.isPaused ? iconSet.play : iconSet.pause);
 };
 
 const handleTrayClick = (
@@ -174,13 +181,10 @@ export const setUpTray = (
   const pixelRatio = getPixelRatio();
   const trayIconTheme =
     config.get('options.trayIconTheme') || TrayIconTheme.Default;
-  const { playTrayIcon, pauseTrayIcon } = createTrayIcons(
-    trayIconTheme,
-    pixelRatio,
-  );
+  const iconSet = createTrayIconSet(trayIconTheme, pixelRatio);
 
   tray?.destroy();
-  tray = new Tray(playTrayIcon);
+  tray = new Tray(iconSet.play);
   setMacSpecificTraySettings(tray);
 
   const showWindow = () => {
@@ -196,6 +200,6 @@ export const setUpTray = (
 
   registerCallback((songInfo, event) => {
     if (!tray || event === SongInfoEvent.TimeChanged) return;
-    updateTrayTooltip(tray, songInfo, playTrayIcon, pauseTrayIcon);
+    updateTrayTooltip(tray, songInfo, iconSet);
   });
 };
