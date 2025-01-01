@@ -50,15 +50,25 @@ export const SyncedLine = (props: SyncedLineProps) => {
   const [romanization, setRomanization] = createSignal('');
 
   createEffect(() => {
+    let event = 'synced-lyrics:romanize-chinese';
+
+    if (props.hasJapanese) {
+      if (props.hasKorean) event = 'synced-lyrics:romanize-japanese-or-korean';
+      else event = 'synced-lyrics:romanize-japanese';
+    } else if (props.hasKorean) event = 'synced-lyrics:romanize-korean';
+
+    console.log(
+      text(),
+      'hasJapanese',
+      props.hasJapanese,
+      'hasKorean',
+      props.hasKorean,
+      'event',
+      event
+    );
+
     syncedLyricsIPC()
-      ?.invoke(
-        props.hasJapanese
-          ? 'synced-lyrics:romanize-japanese'
-          : props.hasKorean
-          ? 'synced-lyrics:romanize-korean'
-          : 'synced-lyrics:romanize-chinese',
-        text()
-      )
+      ?.invoke(event, text())
       .then((result) => setRomanization(canonicalize(result)));
   });
 
