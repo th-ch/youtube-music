@@ -445,7 +445,7 @@
           "download-progress": "Downloaden: {{percent}}%",
           "downloading": "Aan het downloaden…",
           "downloading-counter": "{{current}}/{{total}} aan het downloaden…",
-          "downloading-playlist": "Afspeellijst \"{{playlistTitle}}\" {{playlistId}} aan het downloaden ({{playlistSize}} liederen)",
+          "downloading-playlist": "Afspeellijst \"{{playlistTitle}}\" {{playlistId}} aan het downloaden ({{playlistSize}} nummers)",
           "error-while-downloading": "Er is een fout opgetreden tijdens het downloaden van \"{{author}} - {{title}}\": {{error}}",
           "folder-already-exists": "De map \"{{playlistFolder}}\" bestaat al",
           "getting-playlist-info": "Afspeellijst informatie ophalen…",
@@ -512,7 +512,7 @@
       "menu": {
         "hide-dom-window-controls": "Verberg DOM-vensterbedieningselementen"
       },
-      "name": "In-App menu"
+      "name": "In-App Menu"
     },
     "lumiastream": {
       "description": "Voegt ondersteuning voor Lumia Stream toe",
