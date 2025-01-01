@@ -2,6 +2,8 @@ import { createMemo, For } from 'solid-js';
 
 interface PlainLyricsProps {
   lyrics: string;
+  hasJapanese: boolean;
+  hasKorean: boolean;
 }
 
 export const PlainLyrics = (props: PlainLyricsProps) => {
