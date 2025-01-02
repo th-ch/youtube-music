@@ -87,6 +87,28 @@ export const setupVolumeChangedListener = singleton((api: YoutubePlayer) => {
   window.ipcRenderer.send('ytmd:volume-changed', api.getVolume());
 });
 
+export const setupShuffleChangedListener = singleton(() => {
+  const playerBar = document.querySelector('ytmusic-player-bar');
+
+  if (!playerBar) {
+    window.ipcRenderer.send('ytmd:shuffle-changed-supported', false);
+    return;
+  }
+
+  const observer = new MutationObserver(() => {
+    window.ipcRenderer.send(
+      'ytmd:shuffle-changed',
+      (playerBar?.attributes.getNamedItem('shuffle-on') ?? null) !== null,
+    );
+  });
+
+  observer.observe(playerBar, {
+    attributes: true,
+    childList: false,
+    subtree: false,
+  });
+});
+
 export const setupFullScreenChangedListener = singleton(() => {
   const playerBar = document.querySelector('ytmusic-player-bar');
 
@@ -137,6 +159,10 @@ export default (api: YoutubePlayer) => {
 
   window.ipcRenderer.on('ytmd:setup-volume-changed-listener', () => {
     setupVolumeChangedListener(api);
+  });
+
+  window.ipcRenderer.on('ytmd:setup-shuffle-changed-listener', () => {
+    setupShuffleChangedListener();
   });
 
   window.ipcRenderer.on('ytmd:setup-fullscreen-changed-listener', () => {
