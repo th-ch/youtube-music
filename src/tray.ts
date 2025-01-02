@@ -17,22 +17,30 @@ import getSongControls from './providers/song-controls';
 import { t } from '@/i18n';
 import { TrayIconTheme } from '@/config/defaults';
 
+import type {
+  App,
+  BrowserWindow,
+  NativeImage,
+  KeyboardEvent,
+  Rectangle,
+} from 'electron';
+
 import type { MenuTemplate } from './menu';
 
 /**
  * This ensures that the tray instance is not garbage-collected.
  */
-let tray: Electron.Tray | undefined;
+let tray: Tray | undefined;
 const ICON_SIZE = 16;
 
 interface AppContext {
-  app: Electron.App;
-  win: Electron.BrowserWindow;
+  app: App;
+  win: BrowserWindow;
 }
 
 interface IconSet {
-  play: Electron.NativeImage;
-  pause: Electron.NativeImage;
+  play: NativeImage;
+  pause: NativeImage;
 }
 
 interface SongControls {
@@ -41,10 +49,7 @@ interface SongControls {
   previous: () => void;
 }
 
-type TrayEvent = (
-  event: Electron.KeyboardEvent,
-  bounds: Electron.Rectangle,
-) => void;
+type TrayEvent = (event: KeyboardEvent, bounds: Rectangle) => void;
 
 const getIcons = (theme: TrayIconTheme) => {
   switch (theme) {
@@ -67,14 +72,14 @@ const getIcons = (theme: TrayIconTheme) => {
   }
 };
 
-const getTrayIcon = (
-  iconPath: string,
-  pixelRatio: number,
-): Electron.NativeImage =>
-  nativeImage.createFromPath(iconPath).resize({
+const createTrayIcon = (iconPath: string, pixelRatio: number): NativeImage => {
+  const iconDimensions = {
     width: ICON_SIZE * pixelRatio,
     height: ICON_SIZE * pixelRatio,
-  });
+  };
+
+  return nativeImage.createFromPath(iconPath).resize(iconDimensions);
+};
 
 export const createTrayIconSet = (
   theme: TrayIconTheme,
@@ -83,8 +88,8 @@ export const createTrayIconSet = (
   const { play: playIconPath, pause: pauseIconPath } = getIcons(theme);
 
   return {
-    play: getTrayIcon(playIconPath, pixelRatio),
-    pause: getTrayIcon(pauseIconPath, pixelRatio),
+    play: createTrayIcon(playIconPath, pixelRatio),
+    pause: createTrayIcon(pauseIconPath, pixelRatio),
   };
 };
 
@@ -125,7 +130,7 @@ const createTrayMenu = (
 ];
 
 const updateTrayTooltip = (
-  tray: Electron.Tray,
+  tray: Tray,
   songInfo: SongInfo,
   iconSet: IconSet,
 ): void => {
@@ -143,30 +148,34 @@ const handleTrayClick = (
     ? togglePlayPause()
     : toggleWindowVisibility(context);
 
-const toggleWindowVisibility = (appContext: AppContext): void =>
-  appContext.win.isVisible()
-    ? hideWindowAndDock(appContext)
-    : showWindowAndDock(appContext);
+const toggleWindowVisibility = (appContext: AppContext): void => {
+  const { win, app } = appContext;
+  const isMac = is.macOS();
+  const isVisible = win.isVisible();
 
-const hideWindowAndDock = ({ win, app }: AppContext): void => {
-  win.hide();
-  app.dock?.hide();
+  if (isVisible) {
+    win.hide();
+    if (isMac) {
+      app.dock?.hide();
+    }
+  } else {
+    win.show();
+    if (isMac) {
+      app.dock?.show();
+    }
+  }
 };
 
-const showWindowAndDock = ({ win, app }: AppContext): void => {
-  win.show();
-  app.dock?.show();
-};
-
-const configureMacTraySettings = (tray: Electron.Tray): void => {
+const configureMacTraySettings = (tray: Tray): void => {
   tray.setIgnoreDoubleClickEvents(true);
 };
 
 const getPixelRatio = (): number => {
+  const isWindows = is.windows();
   const defaultScaleFactor = 1;
   const scaleFactor = screen.getPrimaryDisplay().scaleFactor;
 
-  return is.windows() ? scaleFactor || defaultScaleFactor : defaultScaleFactor;
+  return isWindows ? scaleFactor || defaultScaleFactor : defaultScaleFactor;
 };
 
 export const setTrayOnClick = (fn: TrayEvent): void => {
@@ -180,33 +189,43 @@ export const setTrayOnClick = (fn: TrayEvent): void => {
  * This behavior is disabled on macOS as double-click events are ignored
  * via `setIgnoreDoubleClickEvents(true)` in `setMacSpecificTraySettings`.
  */
-export const setTrayOnDoubleClick = (fn: TrayEvent): void => {
+export const setTrayOnDoubleClick = (listener: TrayEvent): void => {
   if (!tray) return;
 
   tray.removeAllListeners('double-click');
-  tray.on('double-click', fn);
+  tray.on('double-click', listener);
 };
 
-export const setUpTray = ({ win, app }: AppContext): void => {
-  if (!config.get('options.tray')) {
+export const setUpTray = (appContext: AppContext): void => {
+  const isTrayEnabled = config.get('options.tray');
+  if (!isTrayEnabled) {
     destroyTray();
     return;
   }
 
-  const pixelRatio = getPixelRatio();
-  const theme = getTrayTheme();
-  const iconSet = createTrayIconSet(theme, pixelRatio);
-
-  initializeTray(iconSet.play);
+  const trayIcons = createTrayIcons();
+  initializeTray(trayIcons.play);
   configureMacTraySettings(tray!);
 
-  const songControls = getSongControls(win);
-  const showWindow = () => ({ app, win });
-  const trayMenu = createTrayMenu(songControls, showWindow);
+  const trayMenu = createAppTrayMenu(appContext);
   configureTrayMenu(trayMenu);
-  configureTrayClickHandlers({ app, win });
 
-  registerSongInfoCallback(iconSet);
+  configureTrayClickHandlers(appContext);
+  registerSongInfoCallback(trayIcons);
+};
+
+const createTrayIcons = (): IconSet => {
+  const theme = getTrayTheme();
+  const pixelRatio = getPixelRatio();
+
+  return createTrayIconSet(theme, pixelRatio);
+};
+
+const createAppTrayMenu = (appContext: AppContext): MenuTemplate => {
+  const songControls = getSongControls(appContext.win);
+  const showWindow = (): AppContext => appContext;
+
+  return createTrayMenu(songControls, showWindow);
 };
 
 const destroyTray = (): void => {
@@ -218,8 +237,8 @@ const getTrayTheme = (): TrayIconTheme => {
   return config.get('options.trayIconTheme') || TrayIconTheme.Default;
 };
 
-const initializeTray = (icon: Electron.NativeImage): void => {
-  destroyTray(); // Ensure old tray is removed
+const initializeTray = (icon: NativeImage): void => {
+  destroyTray();
   tray = new Tray(icon);
 };
 
@@ -229,9 +248,8 @@ const configureTrayMenu = (menuTemplate: MenuTemplate): void => {
 };
 
 const configureTrayClickHandlers = (context: AppContext): void => {
-  tray!.on('click', () =>
-    handleTrayClick(context, getSongControls(context.win).playPause),
-  );
+  const songControls = getSongControls(context.win).playPause;
+  tray?.on('click', () => handleTrayClick(context, songControls));
 };
 
 const registerSongInfoCallback = (iconSet: IconSet): void => {
