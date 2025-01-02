@@ -6,6 +6,10 @@ export const QueueParamsSchema = z.object({
 
 export const AddSongToQueueSchema = z.object({
   videoId: z.string(),
+  insertPosition: z
+    .enum(['INSERT_AT_END', 'INSERT_AFTER_CURRENT_VIDEO'])
+    .optional()
+    .default('INSERT_AT_END'),
 });
 export const MoveSongInQueueSchema = z.object({
   toIndex: z.number(),
