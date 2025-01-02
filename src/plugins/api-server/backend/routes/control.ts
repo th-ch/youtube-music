@@ -245,6 +245,24 @@ const routes = {
       },
     },
   }),
+  getVolumeState: createRoute({
+    method: 'get',
+    path: `/api/${API_VERSION}/volume`,
+    summary: 'get volume state',
+    description: 'Get the current volume state of the player',
+    responses: {
+      200: {
+        description: 'Success',
+        content: {
+          'application/json': {
+            schema: z.object({
+              state: z.number(),
+            }),
+          },
+        },
+      },
+    },
+  }),
   setFullscreen: createRoute({
     method: 'post',
     path: `/api/${API_VERSION}/fullscreen`,
@@ -496,6 +514,7 @@ export const register = (
   { window }: BackendContext<APIServerConfig>,
   songInfoGetter: () => SongInfo | undefined,
   repeatModeGetter: () => RepeatMode | undefined,
+  volumeGetter: () => number | undefined,
 ) => {
   const controller = getSongControls(window);
 
@@ -586,6 +605,10 @@ export const register = (
 
     ctx.status(204);
     return ctx.body(null);
+  });
+  app.openapi(routes.getVolumeState, (ctx) => {
+    ctx.status(200);
+    return ctx.json({ state: volumeGetter() ?? 0 });
   });
   app.openapi(routes.setFullscreen, (ctx) => {
     const { state } = ctx.req.valid('json');
