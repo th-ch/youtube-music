@@ -134,10 +134,10 @@ const updateTrayTooltip = (
   songInfo: SongInfo,
   iconSet: IconSet,
 ): void => {
-  const { title, artist } = songInfo;
+  const { title, artist, isPaused } = songInfo;
 
   tray.setToolTip(t('main.tray.tooltip.with-song-info', { title, artist }));
-  tray.setImage(songInfo.isPaused ? iconSet.play : iconSet.pause);
+  tray.setImage(isPaused ? iconSet.play : iconSet.pause);
 };
 
 const handleTrayClick = (
