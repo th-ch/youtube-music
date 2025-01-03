@@ -277,10 +277,11 @@
           "label": "Teljes képernyő használata"
         }
       },
-      "name": "Természetes mód"
+      "name": "Ambient mód"
     },
     "amuse": {
       "description": "Hozzáadja a YouTube Music támogatását az Amuse \"now playing\" widgethez a 6K Labs által",
+      "name": "Amuse",
       "response": {
         "query": "Az Amuse API szerver fut. Használja a GET /query kérést a dalinformációk lekéréséhez."
       }
@@ -299,6 +300,7 @@
       },
       "menu": {
         "auth-strategy": {
+          "label": "Engedélyezési módszer",
           "submenu": {
             "auth-at-first": {
               "label": "Engedélyezés az első kérésnél"
@@ -310,6 +312,9 @@
         },
         "hostname": {
           "label": "Kiszolgáló név"
+        },
+        "port": {
+          "label": "Port"
         }
       },
       "name": "API szerver [Béta]",
@@ -319,7 +324,8 @@
           "title": "Kiszolgáló neve"
         },
         "port": {
-          "label": "Adja meg az API szerver portját:"
+          "label": "Adja meg az API szerver portját:",
+          "title": "Port"
         }
       }
     },
@@ -369,7 +375,7 @@
             "fade-in-duration": "Áttünés időtartama (ms)",
             "fade-out-duration": "Fokozatos halkítás időtartama (ms)",
             "fade-scaling": {
-              "label": "Áttünés értéke",
+              "label": "Áttünés mértéke",
               "linear": "Lineáris",
               "logarithmic": "Logaritmikus"
             },
@@ -400,7 +406,7 @@
         "connected": "Kapcsolódva",
         "disconnected": "Nincs Kapcsolódva",
         "hide-duration-left": "Hátralévő idő elrejtése",
-        "hide-github-button": "GitHub link gombjának elrejtése",
+        "hide-github-button": "GitHub url gombjának elrejtése",
         "play-on-youtube-music": "Lejátszás a YouTube Music-on",
         "set-inactivity-timeout": "Inaktivitási időkorlát beállítása"
       },
@@ -463,7 +469,7 @@
           "prompt": {
             "last-percent": "x százalék után",
             "last-seconds": "Utolsó x másodperc",
-            "title": "Állítsa be, mikor történjen a letöltés"
+            "title": "Letöltés idejének beállítása"
           },
           "submenu": {
             "advanced": "Speciális",
@@ -484,6 +490,18 @@
       "templates": {
         "button": "Letöltés"
       }
+    },
+    "equalizer": {
+      "description": "Hangszínszabályzót ad hozzá a zenelejátszóhoz",
+      "menu": {
+        "presets": {
+          "label": "Hangprofil",
+          "list": {
+            "bass-booster": "Basszuskiemelés"
+          }
+        }
+      },
+      "name": "Hangszínszabályzó"
     },
     "exponential-volume": {
       "description": "Az hangerő csúszka exponenciálissá tételével könnyebbé válik az alacsony hangerő kiválasztása.",
@@ -606,7 +624,7 @@
       }
     },
     "playback-speed": {
-      "description": "Hallgass gyorsan, hallgass lassan! Hozzáad egy csúszkát, amely szabályozza a dal sebességét",
+      "description": "Hallgassd gyorsan, hallgassd lassan! Hozzáad egy csúszkát, amely szabályozza a dal sebességét",
       "name": "Lejátszás sebessége",
       "templates": {
         "button": "Sebesség"
@@ -667,6 +685,7 @@
         },
         "scrobble-other-media": "Más média scrobbelése"
       },
+      "name": "Scrobbler",
       "prompt": {
         "lastfm": {
           "api-key": "Last.fm API kulcs",
@@ -714,7 +733,7 @@
     "synced-lyrics": {
       "description": "Szinkronizált dalszövegeket biztosít dalokhoz, LRClib-hez hasonló szolgáltatókat használva.",
       "errors": {
-        "fetch": "⚠️ -  Hiba történt a dalszöveg lekérése közben. \n        Kérjük, próbálja meg később újra.",
+        "fetch": "⚠️\tHiba történt a dalszöveg lekérése közben.\n\tKérjük, próbálja meg később újra.",
         "not-found": "⚠️ - Ehhez a dalhoz nem található dalszöveg."
       },
       "menu": {
@@ -723,14 +742,38 @@
           "tooltip": "Válassza ki az alapértelmezett karaktert, amelyet a dalszövegek közötti szünethez használni szeretne"
         },
         "line-effect": {
+          "label": "Soreffekt",
           "submenu": {
+            "fancy": {
+              "label": "Díszes",
+              "tooltip": "Használj nagy, alkalmazásszerű effektusokat az aktuális sorhoz"
+            },
+            "focus": {
+              "label": "Fókuszált",
+              "tooltip": "Az aktuális sor kijelőlése fehérrel"
+            },
+            "offset": {
+              "label": "Eltolás",
+              "tooltip": "Az aktuális sort jobbra tolja. (mintha tabulálnád)"
+            },
             "scale": {
-              "label": "Mérték"
+              "label": "Méretezett",
+              "tooltip": "Az aktuális sort kissé nagyobbra méretezi, kiemelve azt a többi sor közül"
             }
-          }
+          },
+          "tooltip": "Válassza ki az aktuális sorra alkalmazandó effektust"
         },
         "precise-timing": {
-          "label": "Dalszöveg tökéletes szinkronizálása"
+          "label": "Dalszöveg tökéletes szinkronizálása",
+          "tooltip": "Számítsa ki az aktuális sor megjelenítésének idejét ezredmásodperc pontossággal (ez kis mértékben befolyásolhatja a teljesítményt)"
+        },
+        "show-lyrics-even-if-inexact": {
+          "label": "Pontatlan időzítésű dalszövegek megjelenítése",
+          "tooltip": "Ha a dalt nem találja, a bővítmény újra próbálkozik egy másik keresési lekérdezéssel.\nAz eredmény a második próbálkozás után nem biztos, hogy pontos lesz."
+        },
+        "show-time-codes": {
+          "label": "Időkódok megjelenítése",
+          "tooltip": "Az időkódok megjelenítése a dalszövegek mellett"
         }
       },
       "name": "Szinkronizált dalszövegek",
