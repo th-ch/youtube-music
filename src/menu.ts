@@ -431,7 +431,7 @@ export const mainMenuTemplate = async (
                       'options.trayIconTheme',
                       TrayIconTheme.Default,
                     );
-                    setUpTray(app, win);
+                    setUpTray({ app, win });
                   },
                 },
                 {
@@ -445,7 +445,7 @@ export const mainMenuTemplate = async (
                       'options.trayIconTheme',
                       TrayIconTheme.Fluent,
                     );
-                    setUpTray(app, win);
+                    setUpTray({ app, win });
                   },
                 },
                 {
@@ -459,7 +459,7 @@ export const mainMenuTemplate = async (
                       'options.trayIconTheme',
                       TrayIconTheme.Material,
                     );
-                    setUpTray(app, win);
+                    setUpTray({ app, win });
                   },
                 },
               ],
