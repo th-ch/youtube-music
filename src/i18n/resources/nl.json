@@ -306,7 +306,7 @@
               "label": "Autoriseer bij eerste verzoek"
             },
             "none": {
-              "label": "Geen authorisatie"
+              "label": "geen autorisatie"
             }
           }
         },
@@ -519,7 +519,7 @@
       "name": "Lumia Stream [Beta]"
     },
     "lyrics-genius": {
-      "description": "Voegt tekstondersteuning toe voor de meeste nummers",
+      "description": "Voegt songtekstondersteuning toe voor de meeste nummers",
       "menu": {
         "romanized-lyrics": "Geromaniseerde Teksten"
       },
@@ -624,7 +624,7 @@
       }
     },
     "playback-speed": {
-      "description": "Luister snel, luister langzaam! Voegt een slider toe die de snelheid van het nummer regelt",
+      "description": "Luister snel, luister langzaam! Voegt een schuifregelaar toe die de muzieksnelheid regelt",
       "name": "Afspeelsnelheid",
       "templates": {
         "button": "Snelheid"
