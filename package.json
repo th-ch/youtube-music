@@ -265,7 +265,7 @@
     "electron-unhandled": "4.0.1",
     "electron-updater": "6.3.9",
     "fast-average-color": "9.4.0",
-    "fast-equals": "5.0.1",
+    "fast-equals": "5.1.3",
     "filenamify": "6.0.0",
     "hono": "4.6.15",
     "howler": "2.2.4",
