@@ -78,21 +78,6 @@ export const defaultPresets: Preset[] = [
     ],
   },
   {
-    name: 'bassBooster+',
-    filters: [
-      { freq: 32, gain: 7.5, Q: 1.0, type: 'peaking' },
-      { freq: 64, gain: 6.0, Q: 1.0, type: 'peaking' },
-      { freq: 125, gain: 4.5, Q: 1.0, type: 'peaking' },
-      { freq: 250, gain: 3.2, Q: 1.0, type: 'peaking' },
-      { freq: 500, gain: 1.7, Q: 1.0, type: 'peaking' },
-      { freq: 1000, gain: -0.4, Q: 1.0, type: 'peaking' },
-      { freq: 2000, gain: -0.4, Q: 1.0, type: 'peaking' },
-      { freq: 4000, gain: -0.4, Q: 1.0, type: 'peaking' },
-      { freq: 8000, gain: -0.4, Q: 1.0, type: 'peaking' },
-      { freq: 16000, gain: -0.4, Q: 1.0, type: 'peaking' },
-    ],
-  },
-  {
     name: 'bassReducer',
     filters: [
       { freq: 32, gain: -6.2, Q: 1.0, type: 'peaking' },
