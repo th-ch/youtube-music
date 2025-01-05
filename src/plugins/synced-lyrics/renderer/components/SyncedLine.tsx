@@ -6,22 +6,13 @@ import { config } from '../renderer';
 import { _ytAPI, syncedLyricsIPC } from '..';
 
 import type { LineLyrics } from '../../types';
+import { canonicalize } from '../utils';
 
 interface SyncedLineProps {
   line: LineLyrics;
   hasJapanese: boolean;
   hasKorean: boolean;
 }
-
-// prettier-ignore
-const canonicalize = (text: string) =>
-  text
-    .replaceAll(/\s+/g, ' ') // `hi  there` => `hi there`
-    .replaceAll(/\( ([^ ])/g, (_, a) => `(${a}`) // `( a` => `(a`
-    .replaceAll(/([^ ]) \)/g, (_, a) => `${a})`) // `a )` => `a)`
-    .replaceAll(/([^ ]) (['\-]) ([^ ])/g, (_, a, symbol, b) => `${a}${symbol}${b}`) // `can ' t` => `can't`
-    .replaceAll(/([^ ]) ([\.,!?])/g, (_, a, symbol) => `${a}${symbol}`) // `hi , there` => `hi, there`
-    .trim();
 
 export const SyncedLine = (props: SyncedLineProps) => {
   const status = createMemo(() => {
@@ -56,16 +47,6 @@ export const SyncedLine = (props: SyncedLineProps) => {
       if (props.hasKorean) event = 'synced-lyrics:romanize-japanese-or-korean';
       else event = 'synced-lyrics:romanize-japanese';
     } else if (props.hasKorean) event = 'synced-lyrics:romanize-korean';
-
-    console.log(
-      text(),
-      'hasJapanese',
-      props.hasJapanese,
-      'hasKorean',
-      props.hasKorean,
-      'event',
-      event
-    );
 
     syncedLyricsIPC()
       ?.invoke(event, text())

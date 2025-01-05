@@ -33,3 +33,13 @@ export const tabStates: Record<string, () => void> = {
     setIsVisible(false);
   },
 };
+
+// prettier-ignore
+export const canonicalize = (text: string) =>
+  text
+    .replaceAll(/\s+/g, ' ') // `hi  there` => `hi there`
+    .replaceAll(/([\(\[]) ([^ ])/g, (_, symbol, a) => `${symbol}${a}`) // `( a` => `(a`
+    .replaceAll(/([^ ]) ([\)\]])/g, (_, a, symbol) => `${a}${symbol}`) // `a )` => `a)`
+    .replaceAll(/([^ ]) (['\-]) ([^ ])/g, (_, a, symbol, b) => `${a}${symbol}${b}`) // `can ' t` => `can't`
+    .replaceAll(/([^ ]) ([\.,!?])/g, (_, a, symbol) => `${a}${symbol}`) // `hi , there` => `hi, there`
+    .trim();

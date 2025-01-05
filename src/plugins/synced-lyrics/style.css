@@ -73,6 +73,18 @@
   }
 }
 
+.plain-lyrics .romaji {
+  color: var(--ytmusic-text-secondary) !important;
+}
+
+.plain-lyrics .lrc-header {
+  color: var(--ytmusic-color-grey5) !important;
+  scale: 0.9;
+  height: fit-content;
+  padding: 0;
+  padding-block: 0.2em;
+}
+
 .synced-lyrics {
   display: block;
   justify-content: left;
