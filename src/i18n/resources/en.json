@@ -831,6 +831,52 @@
           }
         }
       }
+    },
+    "custom-equalizer": {
+      "description": "Adds an equalizer to the player with the ability to add your own presets via config. Equalizer will start working from the next track",
+      "name": "Custom Equalizer",
+      "menu": {
+        "presets": {
+          "label": "Presets",
+          "list": {
+            "flat": "Flat",
+            "acoustic": "Acoustic",
+            "bassBooster": "Bass Booster",
+            "bassBooster+": "Bass Booster+",
+            "bassReducer": "Bass Reducer",
+            "classical": "Classical",
+            "club": "Club",
+            "dance": "Dance",
+            "deep": "Deep",
+            "electronic": "Electronic",
+            "hipHop": "Hip Hop",
+            "jazz": "Jazz",
+            "latin": "Latin",
+            "live": "Live",
+            "loudness": "Loudness",
+            "lounge": "Lounge",
+            "metal": "Metal",
+            "piano": "Piano",
+            "pop": "Pop",
+            "reggae": "Reggae",
+            "rnb": "R&B",
+            "rock": "Rock",
+            "ska": "Ska",
+            "smallSpeakers": "Small Speakers",
+            "soft": "Soft",
+            "softRock": "Soft Rock",
+            "spokenWord": "Spoken Word",
+            "techno": "Techno",
+            "trebleBooster": "Treble Booster",
+            "trebleReducer": "Treble Reducer",
+            "vocalBooster": "Vocal Booster"
+          }
+        },
+        "edit-config": "Edit Custom Presets in config.json",
+        "edit-config-tooltip": "Open config.json where you can edit custom equalizer presets. Changes will take effect after restarting the app",
+        "reset-custom-presets": "Add/Reset Custom Presets",
+        "reset-custom-presets-tooltip": "This will Add/Replace existing custom profiles in the config.json file with default stubs. Changes will take effect after restarting the app"
+      }
     }
   }
 }
