@@ -12,6 +12,8 @@ let storedAudioContext: AudioContext;
 function clearFilters() {
   filters.forEach((filter) => filter.disconnect());
   filters = [];
+  storedAudioSource.disconnect();
+  storedAudioSource.connect(storedAudioContext.destination);
 }
 
 function createFilters(
@@ -121,12 +123,14 @@ export default createPlugin({
             storedAudioContext = audioContext;
 
             filters = createFilters(specifiedPreset, audioContext);
+            audioSource.disconnect();
             connectFilters(filters, audioSource, audioContext);
           },
           { once: true, passive: true },
         );
       } else {
         filters = createFilters(specifiedPreset, storedAudioContext);
+        storedAudioSource.disconnect();
         connectFilters(filters, storedAudioSource, storedAudioContext);
       }
     },
@@ -147,6 +151,7 @@ export default createPlugin({
       }
 
       filters = createFilters(specifiedPreset, storedAudioContext);
+      storedAudioSource.disconnect();
       connectFilters(filters, storedAudioSource, storedAudioContext);
     },
     stop() {
