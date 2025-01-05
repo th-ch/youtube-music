@@ -1,4 +1,6 @@
-import { createMemo, For } from 'solid-js';
+import { createEffect, createMemo, createSignal, For, Show } from 'solid-js';
+import { syncedLyricsIPC } from '..';
+import { canonicalize } from '../utils';
 
 interface PlainLyricsProps {
   lyrics: string;
@@ -7,24 +9,67 @@ interface PlainLyricsProps {
 }
 
 export const PlainLyrics = (props: PlainLyricsProps) => {
-  const lines = createMemo(() => props.lyrics.split('\n'));
+  const lines = props.lyrics.split('\n').filter((line) => line.trim());
+  const [romanizedLines, setRomanizedLines] = createSignal<
+    Record<string, string>
+  >({});
+
+  const combinedLines = createMemo(() => {
+    const out = [];
+
+    for (let i = 0; i < lines.length; i++) {
+      out.push([lines[i], romanizedLines()[i]]);
+    }
+
+    return out;
+  });
+
+  createEffect(() => {
+    let event = 'synced-lyrics:romanize-chinese';
+
+    if (props.hasJapanese) {
+      if (props.hasKorean) event = 'synced-lyrics:romanize-japanese-or-korean';
+      else event = 'synced-lyrics:romanize-japanese';
+    } else if (props.hasKorean) event = 'synced-lyrics:romanize-korean';
+
+    (async () => {
+      for (let i = 0; i < lines.length; i++) {
+        const romanization = await syncedLyricsIPC()?.invoke(event, lines[i]);
+        setRomanizedLines((prev) => ({
+          ...prev,
+          [i]: canonicalize(romanization),
+        }));
+      }
+    })();
+  });
 
   return (
     <div class="plain-lyrics">
-      <For each={lines()}>
-        {(line) => {
-          if (line.trim() === '') {
-            return <br />;
-          } else {
-            return (
+      <For each={combinedLines()}>
+        {([line, romanized]) => {
+          return (
+            <div
+              class={`${line.match(/^\[.+\]$/s) ? 'lrc-header' : ''} text-lyrics description ytmusic-description-shelf-renderer`}
+              style={{
+                display: 'flex',
+                'flex-direction': 'column',
+              }}
+            >
               <yt-formatted-string
-                class="text-lyrics description ytmusic-description-shelf-renderer"
                 text={{
                   runs: [{ text: line }],
                 }}
               />
-            );
-          }
+              <Show when={romanized && romanized !== line}>
+                <yt-formatted-string
+                  class="romaji"
+                  text={{
+                    runs: [{ text: romanized }],
+                  }}
+                />
+              </Show>
+            </div>
+          );
         }}
       </For>
     </div>
