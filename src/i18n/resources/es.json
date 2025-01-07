@@ -279,6 +279,13 @@
       },
       "name": "Modo ambiente"
     },
+    "amuse": {
+      "description": "Agrega soporte de YouTube Music para el widget Amuse de reproduciendo ahora de 6K Labs",
+      "name": "Amuse",
+      "response": {
+        "query": "El servidor API de Amuse se está ejecutando. Usa GET /query para obtener información de la canción."
+      }
+    },
     "api-server": {
       "description": "Añade un servidor API para controlar el reproductor",
       "dialog": {
@@ -737,6 +744,9 @@
         "line-effect": {
           "label": "Efecto de la línea",
           "submenu": {
+            "fancy": {
+              "label": "Elegante"
+            },
             "focus": {
               "label": "Enfoque",
               "tooltip": "Mostrar solo la línea actual en blanco"
