@@ -1,7 +1,7 @@
 declare module '@jellybrick/mpris-service' {
   import { EventEmitter } from 'events';
 
-  import { interface as dbusInterface } from 'dbus-next';
+  import { interface as dbusInterface } from '@jellybrick/dbus-next';
 
   interface RootInterfaceOptions {
     identity?: string;

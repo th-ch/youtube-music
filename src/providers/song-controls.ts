@@ -97,11 +97,15 @@ export default (win: BrowserWindow) => {
       });
     },
     // Queue
-    addSongToQueue: (videoId: string) => {
+    addSongToQueue: (videoId: string, queueInsertPosition: string) => {
       const videoIdValue = parseStringFromArgsType(videoId);
       if (videoIdValue === null) return;
 
-      win.webContents.send('ytmd:add-to-queue', videoIdValue);
+      win.webContents.send(
+        'ytmd:add-to-queue',
+        videoIdValue,
+        queueInsertPosition,
+      );
     },
     moveSongInQueue: (
       fromIndex: ArgsType<number>,

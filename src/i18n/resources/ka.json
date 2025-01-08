@@ -1,0 +1,274 @@
+{
+  "language": {
+    "code": "ka",
+    "local-name": "ქართული",
+    "name": "Georgian"
+  },
+  "main": {
+    "dialog": {
+      "need-to-restart": {
+        "buttons": {
+          "later": "მოგვიანებით"
+        }
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "გასვლა",
+          "relaunch": "თავიდან გაშვება",
+          "wait": "მოცდა"
+        }
+      },
+      "update-available": {
+        "buttons": {
+          "download": "გადმოწერა",
+          "ok": "დიახ"
+        }
+      }
+    },
+    "menu": {
+      "about": "შესახებ",
+      "navigation": {
+        "label": "ნავიგაცია",
+        "submenu": {
+          "quit": "გასვლა"
+        }
+      },
+      "options": {
+        "label": "მორგება",
+        "submenu": {
+          "language": {
+            "label": "ენა"
+          },
+          "starting-page": {
+            "unset": "მოხსნა"
+          },
+          "tray": {
+            "submenu": {
+              "disabled": "გამორთულია"
+            }
+          },
+          "visual-tweaks": {
+            "submenu": {
+              "like-buttons": {
+                "default": "ნაგულისხმევი",
+                "hide": "დამალვა"
+              },
+              "theme": {
+                "dialog": {
+                  "button": {
+                    "cancel": "გაუქმება",
+                    "remove": "წაშლა"
+                  }
+                },
+                "label": "თემა"
+              }
+            }
+          }
+        }
+      },
+      "plugins": {
+        "enabled": "ჩართულია",
+        "label": "დამატებები",
+        "new": "ახალი"
+      },
+      "view": {
+        "label": "ხედი",
+        "submenu": {
+          "reload": "თავიდან ჩატვირთვა"
+        }
+      }
+    },
+    "tray": {
+      "next": "შემდეგი",
+      "play-pause": "დაკვრა/შეჩერება",
+      "previous": "წინა",
+      "quit": "გასვლა"
+    }
+  },
+  "plugins": {
+    "adblocker": {
+      "menu": {
+        "blocker": "დამბლოკავი"
+      }
+    },
+    "album-color-theme": {
+      "menu": {
+        "color-mix-ratio": {
+          "submenu": {
+            "percent": "{{ratio}}%"
+          }
+        }
+      }
+    },
+    "ambient-mode": {
+      "menu": {
+        "buffer": {
+          "label": "ბუფერი",
+          "submenu": {
+            "buffer": "{{buffer}}"
+          }
+        },
+        "opacity": {
+          "label": "გაუმჭვირვალობა",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "quality": {
+          "label": "ხარისხი"
+        },
+        "size": {
+          "label": "ზომა",
+          "submenu": {
+            "percent": "{{size}}%"
+          }
+        }
+      }
+    },
+    "amuse": {
+      "name": "Amuse"
+    },
+    "api-server": {
+      "dialog": {
+        "request": {
+          "buttons": {
+            "allow": "დაშვება",
+            "deny": "აკრძალვა"
+          }
+        }
+      },
+      "menu": {
+        "hostname": {
+          "label": "ჰოსტის სახელი"
+        },
+        "port": {
+          "label": "პორტი"
+        }
+      },
+      "prompt": {
+        "hostname": {
+          "title": "ჰოსტის სახელი"
+        },
+        "port": {
+          "title": "პორტი"
+        }
+      }
+    },
+    "captions-selector": {
+      "prompt": {
+        "selector": {
+          "none": "არცერთი"
+        }
+      }
+    },
+    "crossfade": {
+      "menu": {
+        "advanced": "დამატებით"
+      },
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "fade-scaling": {
+              "linear": "წრფივი",
+              "logarithmic": "ლოგარითმული"
+            }
+          }
+        }
+      }
+    },
+    "discord": {
+      "menu": {
+        "connected": "დაკავშირებული",
+        "disconnected": "გათიშული"
+      }
+    },
+    "downloader": {
+      "backend": {
+        "dialog": {
+          "error": {
+            "buttons": {
+              "ok": "დიახ"
+            }
+          },
+          "start-download-playlist": {
+            "buttons": {
+              "ok": "დიახ"
+            }
+          }
+        },
+        "feedback": {
+          "converting": "გადაყვანა…",
+          "downloading": "გადმოწერა…",
+          "loading": "ჩატვირთვა…",
+          "saving": "შენახვა…"
+        }
+      },
+      "menu": {
+        "download-finish-settings": {
+          "submenu": {
+            "advanced": "დამატებით",
+            "enabled": "ჩართულია",
+            "percent": "პროცენტი",
+            "seconds": "წამი"
+          }
+        },
+        "presets": "პრესეტი"
+      },
+      "name": "გადმომწერი",
+      "templates": {
+        "button": "გადმოწერა"
+      }
+    },
+    "music-together": {
+      "internal": {
+        "save": "შენახვა"
+      },
+      "menu": {
+        "status": {
+          "disconnected": "გათიშული"
+        }
+      }
+    },
+    "navigation": {
+      "name": "ნავიგაცია"
+    },
+    "notifications": {
+      "name": "გაფრთხილებები"
+    },
+    "picture-in-picture": {
+      "name": "სურათი სურათში",
+      "templates": {
+        "button": "სურათი სურათში"
+      }
+    },
+    "playback-speed": {
+      "templates": {
+        "button": "სიჩქარე"
+      }
+    },
+    "shortcuts": {
+      "prompt": {
+        "keybind": {
+          "keybind-options": {
+            "next": "შემდეგი",
+            "previous": "წინა"
+          }
+        }
+      }
+    },
+    "sponsorblock": {
+      "name": "სარეკლამო ბლოკი"
+    },
+    "synced-lyrics": {
+      "menu": {
+        "line-effect": {
+          "submenu": {
+            "focus": {
+              "label": "ფოკუსი"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -279,6 +279,13 @@
       },
       "name": "Ambiyans Modu"
     },
+    "amuse": {
+      "description": "6K Labs'ın Amuse oynatma widget'ı için YouTube Music desteği ekler",
+      "name": "Amuse",
+      "response": {
+        "query": "Amuse API sunucusu çalışıyor. Şarkı bilgilerini almak için GET /query kullanabilirsiniz."
+      }
+    },
     "api-server": {
       "description": "APİ ekle ve oynatıcıyı kontrol et",
       "dialog": {
@@ -483,6 +490,18 @@
       "templates": {
         "button": "İndir"
       }
+    },
+    "equalizer": {
+      "description": "Oynatıcıya ekolayzer desteği ekler",
+      "menu": {
+        "presets": {
+          "label": "Ön Ayarlar",
+          "list": {
+            "bass-booster": "Bass güçlendirici"
+          }
+        }
+      },
+      "name": "Ekolayzer"
     },
     "exponential-volume": {
       "description": "Ses seviyesi kaydırıcısını üstel hale getirir, böylece daha düşük ses seviyelerini seçmek daha kolay olur.",
@@ -714,8 +733,8 @@
     "synced-lyrics": {
       "description": "LRClib gibi sağlayıcıları kullanarak şarkılara senkronize şarkı sözleri sağlar.",
       "errors": {
-        "fetch": "⚠️ - Şarkı sözleri getirilirken bir hata oluştu. Lütfen daha sonra tekrar deneyin.",
-        "not-found": "⚠️ - Bu şarkı için şarkı sözü bulunamadı."
+        "fetch": "⚠️ \tŞarkı sözleri alınırken bir hata oluştu.\n\tLütfen daha sonra tekrar deneyin.",
+        "not-found": "⚠️ Bu şarkı için şarkı sözleri bulunamadı."
       },
       "menu": {
         "default-text-string": {
@@ -725,6 +744,10 @@
         "line-effect": {
           "label": "Çizgi etkisi",
           "submenu": {
+            "fancy": {
+              "label": "Süslü",
+              "tooltip": "Mevcut satırda büyük, uygulama benzeri efektler kullan"
+            },
             "focus": {
               "label": "odak",
               "tooltip": "Yalnızca geçerli satırı beyaz yapın"

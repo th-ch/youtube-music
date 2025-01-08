@@ -33,7 +33,7 @@
         "css-file-not-found": "CSS-bestand \"{{cssFile}}\" bestaat niet, wordt genegeerd"
       },
       "unresponsive": {
-        "details": "Onverantwoordelijkheidsfout!\n{{error}}"
+        "details": "Niet-reagerende fout!\n{{error}}"
       },
       "when-ready": {
         "clearing-cache-after-20s": "App-cache wissen"
@@ -46,7 +46,7 @@
       "hide-menu-enabled": {
         "detail": "Menu is verborgen, gebruik 'Alt' om het weer te geven (of 'Escape' als u de In-App Menu gebruikt)",
         "message": "Menu verbergen is ingeschakeld",
-        "title": "Menu Verbergen Ingeschakeld"
+        "title": "Menu verbergen ingeschakeld"
       },
       "need-to-restart": {
         "buttons": {
@@ -65,7 +65,7 @@
         },
         "detail": "Het programma reageert niet! Kies wat u wilt doen:",
         "message": "De applicatie reageert niet",
-        "title": "Venster Niet Reagerend"
+        "title": "Venster reageert niet"
       },
       "update-available": {
         "buttons": {
@@ -250,7 +250,7 @@
           }
         },
         "opacity": {
-          "label": "Dekking",
+          "label": "Transparantie",
           "submenu": {
             "percent": "{{opacity}}%"
           }
@@ -268,7 +268,7 @@
           }
         },
         "smoothness-transition": {
-          "label": "Soepelheid overgang",
+          "label": "Vloeiende overgang",
           "submenu": {
             "during": "Tijdens {{interpolationTime}} s"
           }
@@ -278,6 +278,56 @@
         }
       },
       "name": "Omgevingsmodus"
+    },
+    "amuse": {
+      "description": "Voegt YouTube Music ondersteuning toe voor de Amuse now playing widget van 6K Labs",
+      "name": "Amuse",
+      "response": {
+        "query": "Amuse API server loopt. Gebruik /query voor nummer informatie."
+      }
+    },
+    "api-server": {
+      "description": "Voegt een API server toe om de speler te besturen",
+      "dialog": {
+        "request": {
+          "buttons": {
+            "allow": "Toestaan",
+            "deny": "Weigeren"
+          },
+          "message": "Sta {{ID}} {{origin}} toegang toe tot de API?",
+          "title": "API autorisatieverzoek"
+        }
+      },
+      "menu": {
+        "auth-strategy": {
+          "label": "Autorisatie strategie",
+          "submenu": {
+            "auth-at-first": {
+              "label": "Autoriseer bij eerste verzoek"
+            },
+            "none": {
+              "label": "geen autorisatie"
+            }
+          }
+        },
+        "hostname": {
+          "label": "Hostnaam"
+        },
+        "port": {
+          "label": "Poort"
+        }
+      },
+      "name": "API Server [Beta]",
+      "prompt": {
+        "hostname": {
+          "label": "Voeg de hostnaam (bv. 0.0.0.0) voor de API server in:",
+          "title": "Hostnaam"
+        },
+        "port": {
+          "label": "Voeg de poort voor de API server in:",
+          "title": "Poort"
+        }
+      }
     },
     "audio-compressor": {
       "description": "Past compressie toe op audio (verlaagt het volume van de luidste delen van het signaal en verhoogt het volume van de zachtste delen)",
@@ -395,7 +445,7 @@
           "download-progress": "Downloaden: {{percent}}%",
           "downloading": "Aan het downloaden…",
           "downloading-counter": "{{current}}/{{total}} aan het downloaden…",
-          "downloading-playlist": "Afspeellijst \"{{playlistTitle}}\" {{playlistId}} aan het downloaden ({{playlistSize}} liederen)",
+          "downloading-playlist": "Afspeellijst \"{{playlistTitle}}\" {{playlistId}} aan het downloaden ({{playlistSize}} nummers)",
           "error-while-downloading": "Er is een fout opgetreden tijdens het downloaden van \"{{author}} - {{title}}\": {{error}}",
           "folder-already-exists": "De map \"{{playlistFolder}}\" bestaat al",
           "getting-playlist-info": "Afspeellijst informatie ophalen…",
@@ -441,6 +491,18 @@
         "button": "Download"
       }
     },
+    "equalizer": {
+      "description": "Voegt een equalizer toe aan de speler",
+      "menu": {
+        "presets": {
+          "label": "Voorinstellingen",
+          "list": {
+            "bass-booster": "Basversterker"
+          }
+        }
+      },
+      "name": "Equalizer"
+    },
     "exponential-volume": {
       "description": "Maakt de volumeschuif exponentieel zodat het gemakkelijker is om lagere volumes te selecteren.",
       "name": "Exponentieel Volume"
@@ -450,14 +512,14 @@
       "menu": {
         "hide-dom-window-controls": "Verberg DOM-vensterbedieningselementen"
       },
-      "name": "In-App menu"
+      "name": "In-App Menu"
     },
     "lumiastream": {
       "description": "Voegt ondersteuning voor Lumia Stream toe",
       "name": "Lumia Stream [Beta]"
     },
     "lyrics-genius": {
-      "description": "Voegt tekstondersteuning toe voor de meeste nummers",
+      "description": "Voegt songtekstondersteuning toe voor de meeste nummers",
       "menu": {
         "romanized-lyrics": "Geromaniseerde Teksten"
       },
@@ -527,15 +589,19 @@
         "interactive-settings": {
           "label": "Interactieve instellingen",
           "submenu": {
-            "hide-button-text": "Verberg tekst op de knop",
-            "refresh-on-play-pause": "Herlaad bij het afspelen/pauzeren"
+            "hide-button-text": "Knoptekst verbergen",
+            "refresh-on-play-pause": "Herlaad bij het afspelen/pauzeren",
+            "tray-controls": "Open/Sluit op tray klik"
           }
         },
+        "priority": "Meldingprioriteit",
+        "toast-style": "Toast stijl",
         "unpause-notification": "Laat een notificatie zijn bij het depauzeren"
       },
       "name": "Meldingen"
     },
     "picture-in-picture": {
+      "description": "Laat de app toe om naar picture-in-picture modus om te schakelen",
       "menu": {
         "always-on-top": "Altijd bovenaan",
         "hotkey": {
@@ -543,26 +609,226 @@
           "prompt": {
             "keybind-options": {
               "hotkey": "Sneltoets"
-            }
+            },
+            "label": "Kies een sneltoets om tussen picture-in-picture te schakelen",
+            "title": "Picture-in-picture sneltoets"
           }
         },
         "save-window-position": "Sla schermpositie op",
-        "save-window-size": "Sla schermgrootte op"
+        "save-window-size": "Sla schermgrootte op",
+        "use-native-pip": "Gebruik browser ingebouwde PiP"
+      },
+      "name": "Picture-in-picture",
+      "templates": {
+        "button": "Picture-in-picture"
       }
     },
-    "video-toggle": {
+    "playback-speed": {
+      "description": "Luister snel, luister langzaam! Voegt een schuifregelaar toe die de muzieksnelheid regelt",
+      "name": "Afspeelsnelheid",
+      "templates": {
+        "button": "Snelheid"
+      }
+    },
+    "precise-volume": {
+      "description": "Regel het volume nauwkeurig met behulp van het muiswiel/sneltoetsen, met een aangepaste HUD en aanpasbare volumestappen",
       "menu": {
-        "mode": {
-          "submenu": {
-            "disabled": "Uitgeschakeld"
+        "arrows-shortcuts": "Lokale Pijltjestoetsen bediening",
+        "custom-volume-steps": "Stel aangepaste volumestappen in",
+        "global-shortcuts": "Globale sneltoetsen"
+      },
+      "name": "Nauwkeurig volume",
+      "prompt": {
+        "global-shortcuts": {
+          "keybind-options": {
+            "decrease": "Volume verlagen",
+            "increase": "Volume verhogen"
+          },
+          "label": "Kies Globale Volume toetsen:",
+          "title": "Globale Volume toetsen"
+        },
+        "volume-steps": {
+          "label": "Kies Stappen voor volumeverhoging/-verlaging",
+          "title": "Volume Stappen"
+        }
+      }
+    },
+    "quality-changer": {
+      "backend": {
+        "dialog": {
+          "quality-changer": {
+            "detail": "Huidige kwaliteit: {{quality}}",
+            "message": "Kies videokwaliteit:",
+            "title": "Kies Videokwaliteit"
+          }
+        }
+      },
+      "description": "Maakt het mogelijk de videokwaliteit te wijzigen met een knop op de video-overlay",
+      "name": "Videokwaliteitwisselaar"
+    },
+    "scrobbler": {
+      "description": "Ondersteuning voor scrobbling toevoegen (etc. last.fm, Listenbrainz)",
+      "dialog": {
+        "lastfm": {
+          "auth-failed": {
+            "message": "Kan niet verifiëren bij Last.fm\nVerberg de pop-up tot de volgende herstart.",
+            "title": "Authenticatie mislukt"
+          }
+        }
+      },
+      "menu": {
+        "lastfm": {
+          "api-settings": "Last.fm API Instellingen"
+        },
+        "listenbrainz": {
+          "token": "Voer het ListenBrainz-gebruikerstoken in"
+        },
+        "scrobble-other-media": "Scrobble andere media"
+      },
+      "name": "Scrobbler",
+      "prompt": {
+        "lastfm": {
+          "api-key": "Last.fm API sleutel",
+          "api-secret": "Last.fm API geheim"
+        },
+        "listenbrainz": {
+          "token": {
+            "label": "Voer uw ListenBrainz-gebruikerstoken in:",
+            "title": "ListenBrainz token"
           }
         }
       }
     },
-    "visualizer": {
-      "description": "Voeg een visuele equalizer toe",
+    "shortcuts": {
+      "description": "Maakt het mogelijk algemene sneltoetsen in te stellen voor afspelen (afspelen/pauzeren/volgende/vorige) en het uitschakelen van media-OSD door mediatoetsen te overschrijven, het inschakelen van Ctrl/CMD + F om te zoeken, het inschakelen van Linux MPRIS-ondersteuning voor mediatoetsen en aangepaste sneltoetsen voor gevorderde gebruikers",
       "menu": {
-        "visualizer-type": "Type visualisator"
+        "override-media-keys": "Media toetsen overschrijven",
+        "set-keybinds": "Stel de algemene songbediening in"
+      },
+      "name": "Snelkoppelingen (& MPRIS)",
+      "prompt": {
+        "keybind": {
+          "keybind-options": {
+            "next": "Volgende",
+            "play-pause": "Afspelen / Pauzeren",
+            "previous": "Vorige"
+          },
+          "label": "Kies globale toetsen voor nummer bediening:",
+          "title": "Globale toetsen"
+        }
+      }
+    },
+    "skip-disliked-songs": {
+      "description": "Slaat disliked nummers over",
+      "name": "Sla disliked nummers over"
+    },
+    "skip-silences": {
+      "description": "Sla automatisch stiltesecties in nummers over",
+      "name": "Stiltes overslaan"
+    },
+    "sponsorblock": {
+      "description": "Slaat automatisch niet-muziekgedeelten over, zoals intro/outro of gedeelten van muziekvideo's waarin het nummer niet wordt afgespeeld",
+      "name": "SponsorBlock"
+    },
+    "synced-lyrics": {
+      "description": "Biedt gesynchroniseerde songteksten voor nummers, met behulp van providers zoals LRClib.",
+      "errors": {
+        "fetch": "⚠️\tEr is een fout opgetreden bij het ophalen van de songtekst.\n\tProbeer het later opnieuw.",
+        "not-found": "⚠️ Er is geen songtekst gevonden voor dit nummer."
+      },
+      "menu": {
+        "default-text-string": {
+          "label": "Standaardteken tussen songteksten",
+          "tooltip": "Kies het standaardteken dat u wilt gebruiken voor de opening tussen de songteksten"
+        },
+        "line-effect": {
+          "label": "Lijneffect",
+          "submenu": {
+            "fancy": {
+              "label": "Luxe",
+              "tooltip": "Gebruik grote, app-achtige effecten op de huidige regel"
+            },
+            "focus": {
+              "label": "Focus",
+              "tooltip": "Maak alleen de huidige regel wit"
+            },
+            "offset": {
+              "label": "Offset",
+              "tooltip": "Offset aan de rechterkant van de huidige lijn"
+            },
+            "scale": {
+              "label": "Schaal",
+              "tooltip": "Schaal de huidige regel"
+            }
+          },
+          "tooltip": "Kies het effect dat u op de huidige regel wilt toepassen"
+        },
+        "precise-timing": {
+          "label": "Zorg ervoor dat de songteksten perfect gesynchroniseerd zijn",
+          "tooltip": "Bereken tot op de milliseconde de weergave van de volgende regel (kan een kleine impact hebben op de prestaties)"
+        },
+        "show-lyrics-even-if-inexact": {
+          "label": "Toon songteksten, zelfs als ze onnauwkeurig zijn",
+          "tooltip": "Als het nummer niet wordt gevonden, probeert de plug-in het opnieuw met een andere zoekopdracht.\nHet resultaat van de tweede poging is mogelijk niet exact."
+        },
+        "show-time-codes": {
+          "label": "Toon tijdcodes",
+          "tooltip": "Toon de tijdcodes naast de songtekst"
+        }
+      },
+      "name": "Gesynchroniseerde songteksten",
+      "refetch-btn": {
+        "fetching": "Ophalen...",
+        "normal": "Songteksten opnieuw ophalen"
+      },
+      "warnings": {
+        "duration-mismatch": "⚠️ - De songteksten zijn mogelijk niet synchroon vanwege een niet-overeenkomende duur.",
+        "inexact": "⚠️ - De songtekst van dit nummer is mogelijk niet exact",
+        "instrumental": "⚠️ - Dit is een instrumentaal nummer"
+      }
+    },
+    "taskbar-mediacontrol": {
+      "description": "Bedien het afspelen vanaf uw Windows-taakbalk",
+      "name": "Taakbalk Mediabediening"
+    },
+    "touchbar": {
+      "description": "Voegt een TouchBar-widget toe voor macOS-gebruikers",
+      "name": "TouchBar"
+    },
+    "tuna-obs": {
+      "description": "Integratie met OBS's plug-in Tuna",
+      "name": "Tuna OBS"
+    },
+    "video-toggle": {
+      "description": "Voegt een knop toe om te schakelen tussen de video-/nummermodus. kan optioneel ook het hele videotabblad verwijderen",
+      "menu": {
+        "align": {
+          "label": "Uitlijning",
+          "submenu": {
+            "left": "Links",
+            "middle": "Midden",
+            "right": "Rechts"
+          }
+        },
+        "force-hide": "Forceer het verwijderen van het videotabblad",
+        "mode": {
+          "label": "Modus",
+          "submenu": {
+            "custom": "Aangepaste schakelaar",
+            "disabled": "Uitgeschakeld",
+            "native": "Native schakelaar"
+          }
+        }
+      },
+      "name": "Videoschakelaar",
+      "templates": {
+        "button": "Nummer"
+      }
+    },
+    "visualizer": {
+      "description": "Voegt een visualisator toe aan de speler",
+      "menu": {
+        "visualizer-type": "Visualisatietype"
       },
       "name": "Visualisator"
     }
