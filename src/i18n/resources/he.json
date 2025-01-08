@@ -53,6 +53,7 @@
           "later": "אחר כך",
           "restart-now": "מתחיל את התוכנה מחדש עכשיו"
         },
+        "message": "נדרש אתחול",
         "title": "נדרשת הפעלה מחדש"
       },
       "unresponsive": {
@@ -84,6 +85,18 @@
           "go-back": "חזור אחורה",
           "go-forward": "לך קדימה",
           "quit": "יציאה"
+        }
+      },
+      "options": {
+        "label": "אפשרויות",
+        "submenu": {
+          "advanced-options": {
+            "label": "אפשרויות מתקדמות",
+            "submenu": {
+              "auto-reset-app-cache": "אפס את מטמון האפליקציה כאשר האפליקציה מתחילה",
+              "disable-hardware-acceleration": "השבת האצת החומרה"
+            }
+          }
         }
       }
     }
