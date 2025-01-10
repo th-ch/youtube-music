@@ -27,11 +27,17 @@ export const backend = createBackend<BackendType, APIServerConfig>({
     ctx.ipc.on('ytmd:player-api-loaded', () => {
       ctx.ipc.send('ytmd:setup-time-changed-listener');
       ctx.ipc.send('ytmd:setup-repeat-changed-listener');
+      ctx.ipc.send('ytmd:setup-volume-changed-listener');
     });
 
     ctx.ipc.on(
       'ytmd:repeat-changed',
       (mode: RepeatMode) => (this.currentRepeatMode = mode),
+    );
+
+    ctx.ipc.on(
+      'ytmd:volume-changed',
+      (newVolume: number) => (this.volume = newVolume),
     );
 
     this.run(config.hostname, config.port);
@@ -95,6 +101,7 @@ export const backend = createBackend<BackendType, APIServerConfig>({
       ctx,
       () => this.songInfo,
       () => this.currentRepeatMode,
+      () => this.volume,
     );
     registerAuth(this.app, ctx);
 
