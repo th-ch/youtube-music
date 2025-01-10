@@ -821,20 +821,8 @@
       "name": "Visualizer"
     },
     "equalizer": {
-      "description": "Adds an equalizer to the player",
+      "description": "Adds an equalizer to the player. Equalizer will start working from the next track",
       "name": "Equalizer",
-      "menu": {
-        "presets": {
-          "label": "Presets",
-          "list": {
-            "bass-booster": "Bass booster"
-          }
-        }
-      }
-    },
-    "custom-equalizer": {
-      "description": "Adds an equalizer to the player with the ability to add your own presets via config. Equalizer will start working from the next track",
-      "name": "Custom Equalizer",
       "menu": {
         "presets": {
           "label": "Presets",
