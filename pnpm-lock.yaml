@@ -39,8 +39,8 @@ importers:
         specifier: 0.12.0
         version: 0.12.0
       '@floating-ui/dom':
-        specifier: 1.6.12
-        version: 1.6.12
+        specifier: 1.6.13
+        version: 1.6.13
       '@foobar404/wave':
         specifier: 2.0.5
         version: 2.0.5
@@ -169,7 +169,7 @@ importers:
         version: git+https://git@github.com:organization/Simple-YouTube-Age-Restriction-Bypass.git#4e2db89ccb2fb880c5110add9ff3f1dfb78d0ff6
       solid-floating-ui:
         specifier: 0.3.1
-        version: 0.3.1(@floating-ui/dom@1.6.12)(solid-js@1.9.4)
+        version: 0.3.1(@floating-ui/dom@1.6.13)(solid-js@1.9.4)
       solid-js:
         specifier: 1.9.4
         version: 1.9.4
@@ -825,11 +825,11 @@ packages:
   '@floating-ui/core@1.6.8':
     resolution: {integrity: sha512-7XJ9cPU+yI2QeLS+FCSlqNFZJq8arvswefkZrYI1yQBbftw6FyrZOxYSh+9S7z7TpeWlRt9zJ5IhM1WIL334jA==}
 
-  '@floating-ui/dom@1.6.12':
-    resolution: {integrity: sha512-NP83c0HjokcGVEMeoStg317VD9W7eDlGK7457dMBANbKA6GJZdc7rjujdgqzTaz93jkGgc5P/jeWbaCHnMNc+w==}
+  '@floating-ui/dom@1.6.13':
+    resolution: {integrity: sha512-umqzocjDgNRGTuO7Q8CU32dkHkECqI8ZdMZ5Swb6QAM0t5rnlrN3lGo1hdpscRd3WS8T6DKYK4ephgIH9iRh3w==}
 
-  '@floating-ui/utils@0.2.8':
-    resolution: {integrity: sha512-kym7SodPp8/wloecOpcmSnWJsK7M0E5Wg8UcFA+uO4B9s5d0ywXOEro/8HM9x0rW+TljRzul/14UYz3TleT3ig==}
+  '@floating-ui/utils@0.2.9':
+    resolution: {integrity: sha512-MDWhGtE+eHw5JW7lq4qhc5yRLS11ERl1c7Z6Xd0a58DozHES6EnNNwUWbMiG4J9Cgj053Bhk8zvlhFYKVhULwg==}
 
   '@foobar404/wave@2.0.5':
     resolution: {integrity: sha512-V/ydadtv5ObCw8aEg+Qy3YSq1eyinEWzJfRI43Ovmj7VmAvEdWAdL7MatoMbiIVYPATkNDVF7GOxX1xirxM9dA==}
@@ -4934,14 +4934,14 @@ snapshots:
 
   '@floating-ui/core@1.6.8':
     dependencies:
-      '@floating-ui/utils': 0.2.8
+      '@floating-ui/utils': 0.2.9
 
-  '@floating-ui/dom@1.6.12':
+  '@floating-ui/dom@1.6.13':
     dependencies:
       '@floating-ui/core': 1.6.8
-      '@floating-ui/utils': 0.2.8
+      '@floating-ui/utils': 0.2.9
 
-  '@floating-ui/utils@0.2.8': {}
+  '@floating-ui/utils@0.2.9': {}
 
   '@foobar404/wave@2.0.5': {}
 
@@ -8527,9 +8527,9 @@ snapshots:
       ip-address: 9.0.5
       smart-buffer: 4.2.0
 
-  solid-floating-ui@0.3.1(@floating-ui/dom@1.6.12)(solid-js@1.9.4):
+  solid-floating-ui@0.3.1(@floating-ui/dom@1.6.13)(solid-js@1.9.4):
     dependencies:
-      '@floating-ui/dom': 1.6.12
+      '@floating-ui/dom': 1.6.13
       solid-js: 1.9.4
 
   solid-js@1.9.4:
