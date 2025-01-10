@@ -166,7 +166,7 @@ importers:
         version: 14.2.4
       simple-youtube-age-restriction-bypass:
         specifier: github:organization/Simple-YouTube-Age-Restriction-Bypass#v2.5.9
-        version: git+https://git@github.com:organization/Simple-YouTube-Age-Restriction-Bypass.git#4e2db89ccb2fb880c5110add9ff3f1dfb78d0ff6
+        version: https://codeload.github.com/organization/Simple-YouTube-Age-Restriction-Bypass/tar.gz/4e2db89ccb2fb880c5110add9ff3f1dfb78d0ff6
       solid-floating-ui:
         specifier: 0.3.1
         version: 0.3.1(@floating-ui/dom@1.6.13)(solid-js@1.9.4)
@@ -304,8 +304,8 @@ importers:
         specifier: 6.0.7
         version: 6.0.7(@types/node@22.9.3)(yaml@2.6.1)
       vite-plugin-inspect:
-        specifier: 0.10.6
-        version: 0.10.6(rollup@4.30.1)(vite@6.0.7(@types/node@22.9.3)(yaml@2.6.1))
+        specifier: 10.0.6
+        version: 10.0.6(rollup@4.30.1)(vite@6.0.7(@types/node@22.9.3)(yaml@2.6.1))
       vite-plugin-resolve:
         specifier: 2.5.2
         version: 2.5.2
@@ -325,8 +325,8 @@ packages:
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
     engines: {node: '>=6.0.0'}
 
-  '@antfu/utils@0.7.10':
-    resolution: {integrity: sha512-+562v9k4aI80m1+VuMHehNJWLOFjBnXn3tdOitzD0il5b7smkSBal4+a3oKiQTbrwMmN/TBUMDvbdoWDehgOww==}
+  '@antfu/utils@8.0.0':
+    resolution: {integrity: sha512-3NfBIlWj8ffBHdNiedaiea1xIy0NIZZaqQwTbmwXa4sGekD5UarRU3NfXScpuC5aw99KCvErew3PHxGJeHqeAg==}
 
   '@assemblyscript/loader@0.17.14':
     resolution: {integrity: sha512-+PVTOfla/0XMLRTQLJFPg4u40XcdTfon6GGea70hBGi8Pd7ZymIXyVUR+vK8wt5Jb4MVKTKPIz43Myyebw5mZA==}
@@ -460,8 +460,8 @@ packages:
     resolution: {integrity: sha512-Qkzpg2s9GnVV2I2BjRksUi43U5e6+zaQMcjoJy0C+C5oxaKl+fmckGDQFtRpZpZV0NQekuZZ+tGz7EA9TVnQtQ==}
     engines: {node: '>=12'}
 
-  '@electron/node-gyp@git+https://git@github.com:electron/node-gyp.git#06b29aafb7708acef8b3669835c8a7857ebc92d2':
-    resolution: {commit: 06b29aafb7708acef8b3669835c8a7857ebc92d2, repo: git@github.com:electron/node-gyp.git, type: git}
+  '@electron/node-gyp@https://codeload.github.com/electron/node-gyp/tar.gz/06b29aafb7708acef8b3669835c8a7857ebc92d2':
+    resolution: {tarball: https://codeload.github.com/electron/node-gyp/tar.gz/06b29aafb7708acef8b3669835c8a7857ebc92d2}
     version: 10.2.0-electron.1
     engines: {node: '>=12.13.0'}
     hasBin: true
@@ -2198,8 +2198,8 @@ packages:
   err-code@2.0.3:
     resolution: {integrity: sha512-2bmlRpNKBxT/CRmPOlyISQpNj+qSeYvcym/uT0Jx2bMOlKLtSy1ZmLuVxSEKKyor/N5yhvp/ZiG1oE3DEYMSFA==}
 
-  error-stack-parser-es@0.1.5:
-    resolution: {integrity: sha512-xHku1X40RO+fO8yJ8Wh2f2rZWVjqyhb1zgq1yZ8aZRQkv6OOKhKWRUaht3eSCUbAOBaKIgM+ykwFLE+QUxgGeg==}
+  error-stack-parser-es@1.0.5:
+    resolution: {integrity: sha512-5qucVt2XcuGMcEGgWI7i+yZpmpByQ8J1lHhcL7PwqCwu9FPP3VUXzT4ltHe5i2z9dePwEHcDVOAfSnHsOlCXRA==}
 
   es-abstract@1.23.5:
     resolution: {integrity: sha512-vlmniQ0WNPwXqA0BnmwV3Ng7HxiGlh6r5U6JcTMNx8OilcAGqVJBHJcPjqOMaczU9fRuRK5Px2BdVyPRnKMMVQ==}
@@ -3892,8 +3892,8 @@ packages:
     resolution: {integrity: sha512-kWJDCr9EWtZ+/EYYM5MareWj2cRnZGF93YDNpH4jQiHB+hBIZnfPFSQiVMzZOdk+zXWqTZ/9fTeQNu2DqeiudA==}
     engines: {node: '>=20.12.2'}
 
-  simple-youtube-age-restriction-bypass@git+https://git@github.com:organization/Simple-YouTube-Age-Restriction-Bypass.git#4e2db89ccb2fb880c5110add9ff3f1dfb78d0ff6:
-    resolution: {commit: 4e2db89ccb2fb880c5110add9ff3f1dfb78d0ff6, repo: git@github.com:organization/Simple-YouTube-Age-Restriction-Bypass.git, type: git}
+  simple-youtube-age-restriction-bypass@https://codeload.github.com/organization/Simple-YouTube-Age-Restriction-Bypass/tar.gz/4e2db89ccb2fb880c5110add9ff3f1dfb78d0ff6:
+    resolution: {tarball: https://codeload.github.com/organization/Simple-YouTube-Age-Restriction-Bypass/tar.gz/4e2db89ccb2fb880c5110add9ff3f1dfb78d0ff6}
     version: 2.5.9
     engines: {node: '>=18.0.0', npm: '>=7.0.0'}
 
@@ -4270,8 +4270,8 @@ packages:
     resolution: {integrity: sha512-veufcmxri4e3XSrT0xwfUR7kguIkaxBeosDg00yDWhk49wdwkSUrvvsm7nc75e1PUyvIeZj6nS8VQRYz2/S4Xg==}
     engines: {node: '>=0.6.0'}
 
-  vite-plugin-inspect@0.10.6:
-    resolution: {integrity: sha512-R3pwljjBbjFM2sZvy6Zvynnm51oaEwLYyYPk9Wp2lF97w/YMBq+KtTJXpCA17IO2pImX0bWA6WB05kuqRnkuyQ==}
+  vite-plugin-inspect@10.0.6:
+    resolution: {integrity: sha512-24iFdPyYY+zMPFRzyIz74h/K27PVf7NFKdebPHbohAAF1gzM60jsWxhxlmpmaa7V7XxHGp8U0+2Kd0L21DGn3Q==}
     engines: {node: '>=14'}
     peerDependencies:
       '@nuxt/kit': '*'
@@ -4488,7 +4488,7 @@ snapshots:
       '@jridgewell/gen-mapping': 0.3.5
       '@jridgewell/trace-mapping': 0.3.25
 
-  '@antfu/utils@0.7.10': {}
+  '@antfu/utils@8.0.0': {}
 
   '@assemblyscript/loader@0.17.14': {}
 
@@ -4668,7 +4668,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@electron/node-gyp@git+https://git@github.com:electron/node-gyp.git#06b29aafb7708acef8b3669835c8a7857ebc92d2':
+  '@electron/node-gyp@https://codeload.github.com/electron/node-gyp/tar.gz/06b29aafb7708acef8b3669835c8a7857ebc92d2':
     dependencies:
       env-paths: 2.2.1
       exponential-backoff: 3.1.1
@@ -4705,7 +4705,7 @@ snapshots:
 
   '@electron/rebuild@3.7.0':
     dependencies:
-      '@electron/node-gyp': git+https://git@github.com:electron/node-gyp.git#06b29aafb7708acef8b3669835c8a7857ebc92d2
+      '@electron/node-gyp': https://codeload.github.com/electron/node-gyp/tar.gz/06b29aafb7708acef8b3669835c8a7857ebc92d2
       '@malept/cross-spawn-promise': 2.0.0
       chalk: 4.1.2
       debug: 4.4.0
@@ -6614,7 +6614,7 @@ snapshots:
 
   err-code@2.0.3: {}
 
-  error-stack-parser-es@0.1.5: {}
+  error-stack-parser-es@1.0.5: {}
 
   es-abstract@1.23.5:
     dependencies:
@@ -8487,7 +8487,7 @@ snapshots:
 
   simple-xml-to-json@1.2.3: {}
 
-  simple-youtube-age-restriction-bypass@git+https://git@github.com:organization/Simple-YouTube-Age-Restriction-Bypass.git#4e2db89ccb2fb880c5110add9ff3f1dfb78d0ff6: {}
+  simple-youtube-age-restriction-bypass@https://codeload.github.com/organization/Simple-YouTube-Age-Restriction-Bypass/tar.gz/4e2db89ccb2fb880c5110add9ff3f1dfb78d0ff6: {}
 
   sirv@3.0.0:
     dependencies:
@@ -8901,12 +8901,12 @@ snapshots:
       extsprintf: 1.4.1
     optional: true
 
-  vite-plugin-inspect@0.10.6(rollup@4.30.1)(vite@6.0.7(@types/node@22.9.3)(yaml@2.6.1)):
+  vite-plugin-inspect@10.0.6(rollup@4.30.1)(vite@6.0.7(@types/node@22.9.3)(yaml@2.6.1)):
     dependencies:
-      '@antfu/utils': 0.7.10
+      '@antfu/utils': 8.0.0
       '@rollup/pluginutils': 5.1.4(rollup@4.30.1)
       debug: 4.4.0
-      error-stack-parser-es: 0.1.5
+      error-stack-parser-es: 1.0.5
       fs-extra: 11.2.0
       open: 10.1.0
       perfect-debounce: 1.0.0
