@@ -12,16 +12,16 @@
 
 </div>
 
-![Bannerkep](https://i.imgur.com/UaZPHqX.png)
+![Bannerkép](../../web/hu/bannerkep-hu.png)
 
 
 <div align="center">
 	<a href="https://github.com/th-ch/youtube-music/releases/latest">
-		<img src="../../web/youtube-music-hu.svg" width="400" height="100" alt="YouTube Music SVG">
+		<img src="../../web/hu/youtube-music-hu.svg" width="400" height="100" alt="YouTube Music SVG">
 	</a>
 </div>
 
-Olvasd el más nyelveken: [🏴 Angol](./blob/master/README.md), [🇰🇷 Korea](./docs/readme/README-ko.md), [🇮🇸 Izland](./docs/readme/README-is.md), [🇪🇸 Spanyol](./docs/readme/README-es.md), [🇷🇺 Orosz](./docs/readme/README-ru.md)
+Olvasd el más nyelveken: [🏴 Angol](../../README.md), [🇫🇷 Francia](README-fr.md), [🇮🇸 Izland](README-is.md), [🇰🇷 Korea](README-ko.md), [🇷🇺 Orosz](README-ru.md), [🇪🇸 Spanyol](README-es.md)
 
 **Electron keretrendszerre épülő alkalmazás a YouTube Music számára, amely a következőket kínálja:**
 
@@ -32,7 +32,7 @@ Olvasd el más nyelveken: [🏴 Angol](./blob/master/README.md), [🇰🇷 Korea
 
 |                        Lejátszó ablak (album színtéma és környezeti fény)                              |
 |:---------------------------------------------------------------------------------------------------------:|
-|![Bemutatókép1](https://i.imgur.com/Tj4LBwf.png)|
+|![Bemutatókép1](../../web/hu/bemutatokep1-hu.png)|
 
 ## Tartalom
 
@@ -57,7 +57,7 @@ Olvasd el más nyelveken: [🏴 Angol](./blob/master/README.md), [🇰🇷 Korea
 
 ## Funkciók:
 
-- **Automatikus megerősítés a lejátszás szüneteltetésekor** (Alapból engedélyezve): Kikapcsolja a ["Folytatja a nézést?"](https://i.imgur.com/z2mG0QN.png)
+- **Automatikus megerősítés a lejátszás szüneteltetésekor** (Alapból engedélyezve): Kikapcsolja a ["Folytatja a nézést?"](../../web/hu/video-szuneteltetve-hu.png)
   felugró ablakot, amely bizonyos idő után leállítja a zenét.
 
  - És még sok más ...
@@ -86,15 +86,15 @@ Olvasd el más nyelveken: [🏴 Angol](./blob/master/README.md), [🇰🇷 Korea
 
 - **Automatikus lejátszás letiltása**: Ez a funkció kikapcsolja az automatikus lejátszást, így a zenék nem indulnak el maguktól. Amikor egy album vagy egy dal lejátszása véget ér, a következő szám nem kezdődik el automatikusan. (a bővítmény használata során minden zenét manuálisan kell elindítani)
 
-- **[Discord](https://discord.com/) Rich Presence**: Mutassa meg barátainak, hogy mit hallgat a [Rich Presence](https://i.imgur.com/nCeVQB2.png) segítségével. (Ehez a Discord-on is engedélyezve kel lennie a Tevékenységállapot megosztásának [DC Beállítások -> Tevékenyég-adatvédelem -> Megoszthatod az észlelt tevékenységeidet másokkal])
+- **[Discord](https://discord.com/) Rich Presence**: Mutassa meg barátainak, hogy mit hallgat a [Rich Presence](../../web/hu/rich-presence-hu.png) segítségével. (Ehez a Discord-on is engedélyezve kel lennie a Tevékenységállapot megosztásának [DC Beállítások -> Tevékenyég-adatvédelem -> Megoszthatod az észlelt tevékenységeidet másokkal])
 
-- **Letöltő**: MP3/forrás hanganyag letöltése [közvetlenül az interfészről](https://i.imgur.com/ghqBNVe.png). [(youtube-dl)](https://github.com/ytdl-org/youtube-dl)
+- **Letöltő**: MP3/forrás hanganyag letöltése [közvetlenül az interfészről](../../web/hu/letolto-hu.png). [(youtube-dl)](https://github.com/ytdl-org/youtube-dl)
 
 - **Hangszínszabályzó**: Szűrőket ad hozzá, hogy erősítsd vagy csökkentsd bizonyos frekvenciatartományokat. (pl. basszuskiemelés)
 
 - **Exponenciális hangerő**: A hangerő csúszka [exponenciálissá](https://greasyfork.org/en/scripts/397686-youtube-music-fix-volume-ratio/) tételével könnyebbé válik az alacsony hangerő kiválasztása.
 
-- **Alkalmazáson belüli menü**: [A Menüsáv stílusos, sötét vagy album-színű megjelenítése](https://i.imgur.com/vWvO7Xt.png).
+- **Alkalmazáson belüli menü**: [A Menüsáv stílusos, sötét vagy album-színű megjelenítése](../../web/hu/alkalmazason-beluli-menu-hu.png).
 
   > (Lásd ezt a [bejegyzést](https://github.com/th-ch/youtube-music/issues/410#issuecomment-952060709), ha problémád van a menü elérésével, miután engedélyezted ezt a bővítményt és a "menü elrejtése" opciót.
 
@@ -114,11 +114,11 @@ Olvasd el más nyelveken: [🏴 Angol](./blob/master/README.md), [🇰🇷 Korea
 
 - **Kép a képben**: Lehetővé teszi az alkalmazás kép a képben módra váltását.
 
-- **Lejátszás sebessége**: Hallgassd gyorsan, hallgassd lassan! [Hozzáad egy csúszkát, amely szabályozza a dal sebességét](https://i.imgur.com/uaNOWOt.png)
+- **Lejátszás sebessége**: Hallgassd gyorsan, hallgassd lassan! [Hozzáad egy csúszkát, amely szabályozza a dal sebességét](../../web/hu/lejatszas-sebessege-hu.png)
 
 - **Precíz hangerő**: A hangerő precíz szabályozása egérgörgővel/gyorsbillentyűkkel, egy egyedi HUD és testreszabható hangerő csuszka segítségével.
 
-- **Gyorsbillentyűk (& MPRIS)**: Lehetővé teszi globális gyorsbillentyűk beállítását a lejátszáshoz (lejátszás/szünet/következő/előző), valamint a [média OSD](https://i.imgur.com/o13SpAE.png) kikapcsolását a médiagombok felülírásával. Bekapcsolja a Ctrl/CMD + F billentyűkombinációt a kereséshez, a Linux MPRIS támogatását a médiagombokhoz, és [egyedi gyorsbillentyűket](https://github.com/Araxeus/youtube-music/blob/1e591d6a3df98449bcda6e63baab249b28026148/providers/song-controls.js#L13-L50) a [haladó felhasználók](https://github.com/th-ch/youtube-music/issues/106#issuecomment-952156902) számára.
+- **Gyorsbillentyűk (& MPRIS)**: Lehetővé teszi globális gyorsbillentyűk beállítását a lejátszáshoz (lejátszás/szünet/következő/előző), valamint a [média OSD](../../web/hu/media-osd-hu.png) kikapcsolását a médiagombok felülírásával. Bekapcsolja a Ctrl/CMD + F billentyűkombinációt a kereséshez, a Linux MPRIS támogatását a médiagombokhoz, és [egyedi gyorsbillentyűket](https://github.com/Araxeus/youtube-music/blob/1e591d6a3df98449bcda6e63baab249b28026148/providers/song-controls.js#L13-L50) a [haladó felhasználók](https://github.com/th-ch/youtube-music/issues/106#issuecomment-952156902) számára.
 
 - **Nem kedvelt dal kihagyása**: Kihagyja a nem kedvelt dalokat.
 
@@ -128,15 +128,15 @@ Olvasd el más nyelveken: [🏴 Angol](./blob/master/README.md), [🇰🇷 Korea
 
 - **Szinkronizált dalszövegek**: Szinkronizált dalszövegeket biztosít dalokhoz, [LRClib](https://lrclib.net)-hez hasonló szolgáltatókat használva.
 
-- **Médiavezérlés a tálcán**: Lejátszás vezérlése a [Windows tálcáról](https://i.imgur.com/eolQfnA.png).
+- **Médiavezérlés a tálcán**: Lejátszás vezérlése a [Windows tálcáról](../../web/hu/mediavezerles-a-talcan-hu.png).
 
 - **TouchBar**: Egyedi TouchBar elrendezés macOS-hoz.
 
 - **Tuna OBS**: Integráció az [OBS](https://obsproject.com/) [Tuna](https://obsproject.com/forum/resources/tuna.843/) pluginjával.
 
-- **Videóminőség modosító**: Lehetővé teszi a videó minőségének megváltoztatását egy [gombbal](https://i.imgur.com/UgpgtHL.png) a videó fedvényen.
+- **Videóminőség modosító**: Lehetővé teszi a videó minőségének megváltoztatását egy [gombbal](../../web/hu/videominoseg-modosito-hu.png) a videó fedvényen.
 
-- **Videó váltó**: Hozzáad egy [gombot](https://i.imgur.com/288QE1k.png) a Videó/Dal mód közötti váltáshoz. (opcionálisan teljesen eltávolíthatja a videó fület is)
+- **Videó váltó**: Hozzáad egy [gombot](../../web/hu/video-valto-hu.png) a Videó/Dal mód közötti váltáshoz. (opcionálisan teljesen eltávolíthatja a videó fület is)
 
 - **Vizualizáció**: Különböző zenei vizualizációk.
 
