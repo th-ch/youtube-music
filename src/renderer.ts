@@ -80,6 +80,20 @@ async function onApiLoaded() {
       >('ytmusic-player-bar')
       ?.queue.shuffle();
   });
+
+  const isShuffled = () => {
+    const isShuffled =
+      document
+        .querySelector<HTMLElement>('ytmusic-player-bar')
+        ?.attributes.getNamedItem('shuffle-on') ?? null;
+
+    return isShuffled !== null;
+  };
+
+  window.ipcRenderer.on('ytmd:get-shuffle', () => {
+    window.ipcRenderer.send('ytmd:get-shuffle-response', isShuffled());
+  });
+
   window.ipcRenderer.on(
     'ytmd:update-like',
     (_, status: 'LIKE' | 'DISLIKE' = 'LIKE') => {

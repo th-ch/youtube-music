@@ -86,7 +86,7 @@ declare module '@jellybrick/mpris-service' {
     supportedMimeTypes: string[];
     canQuit: boolean;
     canRaise: boolean;
-    canSetFullscreen?: boolean;
+    canUsePlayerControls?: boolean;
     desktopEntry?: string;
     hasTrackList: boolean;
 

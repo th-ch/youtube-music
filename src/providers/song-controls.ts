@@ -62,6 +62,9 @@ export default (win: BrowserWindow) => {
         win.webContents.send('ytmd:seek-by', seconds);
       }
     },
+    requestShuffleInformation: () => {
+      win.webContents.send('ytmd:get-shuffle');
+    },
     shuffle: () => win.webContents.send('ytmd:shuffle'),
     switchRepeat: (n: ArgsType<number> = 1) => {
       const repeat = parseNumberFromArgsType(n);
