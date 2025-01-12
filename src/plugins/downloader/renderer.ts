@@ -1,3 +1,7 @@
+import BG from 'bgutils-js';
+
+import { ProtoUtils, Utils } from 'youtubei.js/agnostic';
+
 import downloadHTML from './templates/download.html?raw';
 
 import defaultConfig from '@/config/defaults';
@@ -63,7 +67,7 @@ const menuObserver = new MutationObserver(() => {
   }
 });
 
-export const onRendererLoad = ({
+export const onRendererLoad = async ({
   ipc,
 }: RendererContext<DownloaderPluginConfig>) => {
   window.download = () => {
@@ -119,6 +123,45 @@ export const onRendererLoad = ({
         t('plugins.downloader.renderer.can-not-update-progress'),
       );
     }
+  });
+
+  const visitorData = ProtoUtils.encodeVisitorData(
+    Utils.generateRandomString(11),
+    Math.floor(Date.now() / 1000),
+  );
+
+  const requestKey = 'O43z0dpjhgX20SCx4KAo';
+
+  const bgConfig = {
+    fetch: (input: string | URL | globalThis.Request, init?: RequestInit) =>
+      fetch(input, init),
+    globalObj: window,
+    requestKey,
+    identifier: visitorData,
+  };
+
+  const bgChallenge = await BG.Challenge.create(bgConfig);
+
+  if (!bgChallenge) throw new Error('Could not get challenge');
+
+  const interpreterJavascript =
+    bgChallenge.interpreterJavascript
+      .privateDoNotAccessOrElseSafeScriptWrappedValue;
+
+  if (interpreterJavascript) {
+    // eslint-disable-next-line @typescript-eslint/no-implied-eval, @typescript-eslint/no-unsafe-call
+    new Function(interpreterJavascript)();
+  } else throw new Error('Could not load VM');
+
+  const poTokenResult = await BG.PoToken.generate({
+    program: bgChallenge.program,
+    globalName: bgChallenge.globalName,
+    bgConfig,
+  });
+
+  ipc.send('get-po-token', {
+    poToken: poTokenResult.poToken,
+    visitorData,
   });
 };
 

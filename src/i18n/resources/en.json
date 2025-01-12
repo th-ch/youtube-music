@@ -458,7 +458,8 @@
           "saving": "Saving…",
           "trying-to-get-playlist-id": "Trying to get playlist ID: {{playlistId}}",
           "video-id-not-found": "Video not found",
-          "writing-id3": "Writing ID3 tags…"
+          "writing-id3": "Writing ID3 tags…",
+          "po-token-not-found": "Proof of Origin Token not found"
         }
       },
       "description": "Downloads MP3 / source audio directly from the interface",

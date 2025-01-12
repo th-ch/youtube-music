@@ -47,7 +47,6 @@ import type PlayerErrorMessage from 'youtubei.js/dist/src/parser/classes/PlayerE
 import type { Playlist } from 'youtubei.js/dist/src/parser/ytmusic';
 import type { VideoInfo } from 'youtubei.js/dist/src/parser/youtube';
 import type TrackInfo from 'youtubei.js/dist/src/parser/ytmusic/TrackInfo';
-
 import type { GetPlayerResponse } from '@/types/get-player-response';
 
 type CustomSongInfo = SongInfo & { trackId?: string };
@@ -62,6 +61,9 @@ const ffmpegMutex = new Mutex();
 let yt: Innertube;
 let win: BrowserWindow;
 let playingUrl: string;
+
+let poToken: string | undefined;
+let visitorData: string | undefined;
 
 const isYouTubePremium = () =>
   win.webContents.executeJavaScript(
@@ -93,16 +95,6 @@ const sendError = (error: Error, source?: string) => {
   });
 };
 
-export const getCookieFromWindow = async (win: BrowserWindow) => {
-  return (
-    await win.webContents.session.cookies.get({
-      url: 'https://music.youtube.com',
-    })
-  )
-    .map((it) => it.name + '=' + it.value)
-    .join(';');
-};
-
 let config: DownloaderPluginConfig;
 
 export const onMainLoad = async ({
@@ -113,12 +105,6 @@ export const onMainLoad = async ({
   win = _win;
   config = await getConfig();
 
-  yt = await Innertube.create({
-    cache: new UniversalCache(false),
-    cookie: await getCookieFromWindow(win),
-    generate_session_locally: true,
-    fetch: getNetFetchAsFetch(),
-  });
   ipc.handle('download-song', (url: string) => downloadSong(url));
   ipc.on('ytmd:video-src-changed', (data: GetPlayerResponse) => {
     playingUrl = data.microformat.microformatDataRenderer.urlCanonical;
@@ -127,7 +113,31 @@ export const onMainLoad = async ({
     downloadPlaylist(url),
   );
 
-  downloadSongOnFinishSetup({ ipc, getConfig });
+  // Get Proof of Origin token for Innertube
+  // Caveat: `yt` is not set instantaneously, but race conditions are not a concern.
+  ipc.on(
+    'get-po-token',
+    async ({
+      poToken: _poToken,
+      visitorData: _visitorData,
+    }: {
+      poToken: string;
+      visitorData: string;
+    }) => {
+      poToken = _poToken;
+      visitorData = _visitorData;
+
+      yt = await Innertube.create({
+        po_token: poToken,
+        visitor_data: visitorData,
+        cache: new UniversalCache(false),
+        generate_session_locally: true,
+        fetch: getNetFetchAsFetch(),
+      });
+
+      downloadSongOnFinishSetup({ ipc, getConfig });
+    },
+  );
 };
 
 export const onConfigChange = (newConfig: DownloaderPluginConfig) => {
@@ -239,6 +249,12 @@ async function downloadSongUnsafe(
   trackId: string | undefined = undefined,
   increasePlaylistProgress: (value: number) => void = () => {},
 ) {
+  if (!poToken) {
+    throw new Error(
+      t('plugins.downloader.backend.feedback.po-token-not-found'),
+    );
+  }
+
   const sendFeedback = (message: unknown, progress?: number) => {
     if (!playlistFolder) {
       sendFeedback_(win, message);
@@ -781,6 +797,8 @@ const getAndroidTvInfo = async (id: string): Promise<VideoInfo> => {
     generate_session_locally: true,
     retrieve_player: true,
     fetch: getNetFetchAsFetch(),
+    po_token: poToken,
+    visitor_data: visitorData,
   });
   // GetInfo 404s with the bypass, so we use getBasicInfo instead
   // that's fine as we only need the streaming data
