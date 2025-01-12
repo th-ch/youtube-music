@@ -83,6 +83,9 @@ importers:
       async-mutex:
         specifier: 0.5.0
         version: 0.5.0
+      bgutils-js:
+        specifier: ^3.1.2
+        version: 3.1.2
       butterchurn:
         specifier: 3.0.0-beta.4
         version: 3.0.0-beta.4
@@ -1637,6 +1640,9 @@ packages:
 
   base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
+
+  bgutils-js@3.1.2:
+    resolution: {integrity: sha512-vccZDq2MmDGr+RVZDVaRGNfxe3/y35Q0fIGPA03B2e5sbTkEh8BQPZ7tKtyzqaQtojq1aTJzVPwo1dxF0UdT/g==}
 
   bl@4.1.0:
     resolution: {integrity: sha512-1W07cM9gS6DcLperZfFSj+bWLtaPGSOHWhPiGzXmvVJbRLdG82sH/Kn8EtW1VqWVA54AKf2h5k5BbnIbwF3h6w==}
@@ -5910,6 +5916,8 @@ snapshots:
   balanced-match@1.0.2: {}
 
   base64-js@1.5.1: {}
+
+  bgutils-js@3.1.2: {}
 
   bl@4.1.0:
     dependencies:
