@@ -3,7 +3,7 @@
     "console": {
       "plugins": {
         "execute-failed": "Nem sikerült futtatni a bővítményt {{pluginName}}::{{contextName}}",
-        "executed-at-ms": "Bővítmény {{pluginName}}::{{contextName}} a {{ms}}ms időpontban lefutott",
+        "executed-at-ms": "A {{pluginName}}::{{contextName}} bővítmény végrehajtva {{ms}} ms alatt",
         "initialize-failed": "Nem sikerült inicializálni a \"{{pluginName}}\" bővítményt",
         "load-all": "Összes bővítmény betöltése",
         "load-failed": "Nem sikerült betölteni a \"{{pluginName}}\" bővítményt",
