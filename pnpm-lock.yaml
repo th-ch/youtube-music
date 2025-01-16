@@ -202,8 +202,8 @@ importers:
         specifier: 1.49.1
         version: 1.49.1
       '@stylistic/eslint-plugin-js':
-        specifier: 2.12.1
-        version: 2.12.1(eslint@9.17.0)
+        specifier: 2.13.0
+        version: 2.13.0(eslint@9.17.0)
       '@total-typescript/ts-reset':
         specifier: 0.6.1
         version: 0.6.1
@@ -1280,8 +1280,8 @@ packages:
     peerDependencies:
       solid-js: ^1.6.12
 
-  '@stylistic/eslint-plugin-js@2.12.1':
-    resolution: {integrity: sha512-5ybogtEgWIGCR6dMnaabztbWyVdAPDsf/5XOk6jBonWug875Q9/a6gm9QxnU3rhdyDEnckWKX7dduwYJMOWrVA==}
+  '@stylistic/eslint-plugin-js@2.13.0':
+    resolution: {integrity: sha512-GPPDK4+fcbsQD58a3abbng2Dx+jBoxM5cnYjBM4T24WFZRZdlNSKvR19TxP8CPevzMOodQ9QVzNeqWvMXzfJRA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: '>=8.40.0'
@@ -5442,7 +5442,7 @@ snapshots:
     dependencies:
       solid-js: 1.9.4
 
-  '@stylistic/eslint-plugin-js@2.12.1(eslint@9.17.0)':
+  '@stylistic/eslint-plugin-js@2.13.0(eslint@9.17.0)':
     dependencies:
       eslint: 9.17.0
       eslint-visitor-keys: 4.2.0
