@@ -222,6 +222,7 @@
   },
   "pnpm": {
     "overrides": {
+      "vite": "6.0.7",
       "node-gyp": "11.0.0",
       "xml2js": "0.6.2",
       "node-fetch": "3.3.2",
@@ -230,7 +231,7 @@
     },
     "patchedDependencies": {
       "vudio@2.1.1": "patches/vudio@2.1.1.patch",
-      "app-builder-lib@26.0.0-alpha.8": "patches/app-builder-lib@26.0.0-alpha.8.patch",
+      "app-builder-lib@26.0.0-alpha.9": "patches/app-builder-lib@26.0.0-alpha.9.patch",
       "@malept/flatpak-bundler": "patches/@malept__flatpak-bundler.patch"
     }
   },
