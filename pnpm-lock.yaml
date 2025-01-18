@@ -311,8 +311,8 @@ importers:
         specifier: 6.0.7
         version: 6.0.7(@types/node@22.9.3)(yaml@2.6.1)
       vite-plugin-inspect:
-        specifier: 10.0.6
-        version: 10.0.6(rollup@4.30.1)(vite@6.0.7(@types/node@22.9.3)(yaml@2.6.1))
+        specifier: 10.0.7
+        version: 10.0.7(vite@6.0.7(@types/node@22.9.3)(yaml@2.6.1))
       vite-plugin-resolve:
         specifier: 2.5.2
         version: 2.5.2
@@ -331,9 +331,6 @@ packages:
   '@ampproject/remapping@2.3.0':
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
     engines: {node: '>=6.0.0'}
-
-  '@antfu/utils@8.0.0':
-    resolution: {integrity: sha512-3NfBIlWj8ffBHdNiedaiea1xIy0NIZZaqQwTbmwXa4sGekD5UarRU3NfXScpuC5aw99KCvErew3PHxGJeHqeAg==}
 
   '@assemblyscript/loader@0.17.14':
     resolution: {integrity: sha512-+PVTOfla/0XMLRTQLJFPg4u40XcdTfon6GGea70hBGi8Pd7ZymIXyVUR+vK8wt5Jb4MVKTKPIz43Myyebw5mZA==}
@@ -1136,15 +1133,6 @@ packages:
 
   '@remusao/trie@1.5.0':
     resolution: {integrity: sha512-UX+3utJKgwCsg6sUozjxd38gNMVRXrY4TNX9VvCdSrlZBS1nZjRPi98ON3QjRAdf6KCguJFyQARRsulTeqQiPg==}
-
-  '@rollup/pluginutils@5.1.4':
-    resolution: {integrity: sha512-USm05zrsFxYLPdWWq+K3STlWiT/3ELn3RcV5hJMghpeAIhxfsUIg6mt12CBJBInWMV4VneoV7SfGv8xIwo2qNQ==}
-    engines: {node: '>=14.0.0'}
-    peerDependencies:
-      rollup: ^1.20.0||^2.0.0||^3.0.0||^4.0.0
-    peerDependenciesMeta:
-      rollup:
-        optional: true
 
   '@rollup/rollup-android-arm-eabi@4.30.1':
     resolution: {integrity: sha512-pSWY+EVt3rJ9fQ3IqlrEUtXh3cGqGtPDH1FQlNZehO2yYxCHEX1SPsz1M//NXwYfbTlcKr9WObLnJX9FsS9K1Q==}
@@ -2373,9 +2361,6 @@ packages:
     resolution: {integrity: sha512-MMdARuVEQziNTeJD8DgMqmhwR11BRQ/cBP+pLtYdSTnf3MIO8fFeiINEbX36ZdNlfU/7A9f3gUw49B3oQsvwBA==}
     engines: {node: '>=4.0'}
 
-  estree-walker@2.0.2:
-    resolution: {integrity: sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==}
-
   esutils@2.0.3:
     resolution: {integrity: sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==}
     engines: {node: '>=0.10.0'}
@@ -3575,19 +3560,12 @@ packages:
   pend@1.2.0:
     resolution: {integrity: sha512-F3asv42UuXchdzt+xXqfW1OGlVBe+mxa2mqI0pg5yAHZPvFmY3Y6drSf/GQ1A86WgWEN9Kzh/WrgKa6iGcHXLg==}
 
-  perfect-debounce@1.0.0:
-    resolution: {integrity: sha512-xCy9V055GLEqoFaHoC1SoLIaLmWctgCUaBaWxDZ7/Zx4CTyX7cJQLJOok/orfjZAh9kEYpjJa4d0KcJmCbctZA==}
-
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
 
   picomatch@2.3.1:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
     engines: {node: '>=8.6'}
-
-  picomatch@4.0.2:
-    resolution: {integrity: sha512-M7BAV6Rlcy5u+m6oPhAPFgJTzAioX/6B0DxyvDlo9l8+T3nLKbrczg2WLUyzd45L8RqfUMyGPzekbMvX2Ldkwg==}
-    engines: {node: '>=12'}
 
   pixelmatch@5.3.0:
     resolution: {integrity: sha512-o8mkY4E/+LNUf6LzX96ht6k6CEDi65k9G2rjMtBe9Oo+VPKSvl+0GKHuH/AlG+GA5LPG/i5hrekkxUc3s2HU+Q==}
@@ -4284,8 +4262,8 @@ packages:
     resolution: {integrity: sha512-veufcmxri4e3XSrT0xwfUR7kguIkaxBeosDg00yDWhk49wdwkSUrvvsm7nc75e1PUyvIeZj6nS8VQRYz2/S4Xg==}
     engines: {node: '>=0.6.0'}
 
-  vite-plugin-inspect@10.0.6:
-    resolution: {integrity: sha512-24iFdPyYY+zMPFRzyIz74h/K27PVf7NFKdebPHbohAAF1gzM60jsWxhxlmpmaa7V7XxHGp8U0+2Kd0L21DGn3Q==}
+  vite-plugin-inspect@10.0.7:
+    resolution: {integrity: sha512-ukocfUNiAgu0R0RF4E5XN4krAckqAbd+qjPW2nv8hIOx03W/erLNfQHypkrsRqlp1PrQmTQ4qu6DCbu4oxEzrQ==}
     engines: {node: '>=14'}
     peerDependencies:
       '@nuxt/kit': '*'
@@ -4509,8 +4487,6 @@ snapshots:
     dependencies:
       '@jridgewell/gen-mapping': 0.3.5
       '@jridgewell/trace-mapping': 0.3.25
-
-  '@antfu/utils@8.0.0': {}
 
   '@assemblyscript/loader@0.17.14': {}
 
@@ -5353,14 +5329,6 @@ snapshots:
       '@remusao/smaz-decompress': 1.10.0
 
   '@remusao/trie@1.5.0': {}
-
-  '@rollup/pluginutils@5.1.4(rollup@4.30.1)':
-    dependencies:
-      '@types/estree': 1.0.6
-      estree-walker: 2.0.2
-      picomatch: 4.0.2
-    optionalDependencies:
-      rollup: 4.30.1
 
   '@rollup/rollup-android-arm-eabi@4.30.1':
     optional: true
@@ -6939,8 +6907,6 @@ snapshots:
 
   estraverse@5.3.0: {}
 
-  estree-walker@2.0.2: {}
-
   esutils@2.0.3: {}
 
   event-stream@4.0.1:
@@ -8168,13 +8134,9 @@ snapshots:
 
   pend@1.2.0: {}
 
-  perfect-debounce@1.0.0: {}
-
   picocolors@1.1.1: {}
 
   picomatch@2.3.1: {}
-
-  picomatch@4.0.2: {}
 
   pixelmatch@5.3.0:
     dependencies:
@@ -8933,20 +8895,15 @@ snapshots:
       extsprintf: 1.4.1
     optional: true
 
-  vite-plugin-inspect@10.0.6(rollup@4.30.1)(vite@6.0.7(@types/node@22.9.3)(yaml@2.6.1)):
+  vite-plugin-inspect@10.0.7(vite@6.0.7(@types/node@22.9.3)(yaml@2.6.1)):
     dependencies:
-      '@antfu/utils': 8.0.0
-      '@rollup/pluginutils': 5.1.4(rollup@4.30.1)
       debug: 4.4.0
       error-stack-parser-es: 1.0.5
-      fs-extra: 11.2.0
       open: 10.1.0
-      perfect-debounce: 1.0.0
       picocolors: 1.1.1
       sirv: 3.0.0
       vite: 6.0.7(@types/node@22.9.3)(yaml@2.6.1)
     transitivePeerDependencies:
-      - rollup
       - supports-color
 
   vite-plugin-resolve@2.5.2:
