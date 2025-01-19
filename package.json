@@ -272,7 +272,7 @@
     "fast-equals": "5.2.2",
     "filenamify": "6.0.0",
     "happy-dom": "16.6.0",
-    "hono": "4.6.16",
+    "hono": "4.6.17",
     "howler": "2.2.4",
     "html-to-text": "9.0.5",
     "i18next": "24.2.1",
@@ -332,7 +332,7 @@
     "typescript-eslint": "8.20.0",
     "utf-8-validate": "6.0.5",
     "vite": "6.0.7",
-    "vite-plugin-inspect": "10.0.6",
+    "vite-plugin-inspect": "10.0.7",
     "vite-plugin-resolve": "2.5.2",
     "vite-plugin-solid": "2.11.0",
     "ws": "8.18.0"
