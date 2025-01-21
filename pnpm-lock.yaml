@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  vite: 6.0.7
+  vite: 6.0.9
   node-gyp: 11.0.0
   xml2js: 0.6.2
   node-fetch: 3.3.2
@@ -173,7 +173,7 @@ importers:
         version: 14.2.4
       simple-youtube-age-restriction-bypass:
         specifier: github:organization/Simple-YouTube-Age-Restriction-Bypass#v2.5.9
-        version: https://codeload.github.com/organization/Simple-YouTube-Age-Restriction-Bypass/tar.gz/4e2db89ccb2fb880c5110add9ff3f1dfb78d0ff6
+        version: git+https://git@github.com:organization/Simple-YouTube-Age-Restriction-Bypass.git#4e2db89ccb2fb880c5110add9ff3f1dfb78d0ff6
       solid-floating-ui:
         specifier: 0.3.1
         version: 0.3.1(@floating-ui/dom@1.6.13)(solid-js@1.9.4)
@@ -264,7 +264,7 @@ importers:
         version: 4.0.0
       electron-vite:
         specifier: 2.3.0
-        version: 2.3.0(vite@6.0.7(@types/node@22.9.3)(yaml@2.6.1))
+        version: 2.3.0(vite@6.0.9(@types/node@22.9.3)(yaml@2.6.1))
       esbuild:
         specifier: 0.24.2
         version: 0.24.2
@@ -308,17 +308,17 @@ importers:
         specifier: 6.0.5
         version: 6.0.5
       vite:
-        specifier: 6.0.7
-        version: 6.0.7(@types/node@22.9.3)(yaml@2.6.1)
+        specifier: 6.0.9
+        version: 6.0.9(@types/node@22.9.3)(yaml@2.6.1)
       vite-plugin-inspect:
         specifier: 10.0.7
-        version: 10.0.7(vite@6.0.7(@types/node@22.9.3)(yaml@2.6.1))
+        version: 10.0.7(vite@6.0.9(@types/node@22.9.3)(yaml@2.6.1))
       vite-plugin-resolve:
         specifier: 2.5.2
         version: 2.5.2
       vite-plugin-solid:
         specifier: 2.11.0
-        version: 2.11.0(solid-js@1.9.4)(vite@6.0.7(@types/node@22.9.3)(yaml@2.6.1))
+        version: 2.11.0(solid-js@1.9.4)(vite@6.0.9(@types/node@22.9.3)(yaml@2.6.1))
       ws:
         specifier: 8.18.0
         version: 8.18.0(bufferutil@4.0.9)(utf-8-validate@6.0.5)
@@ -464,8 +464,8 @@ packages:
     resolution: {integrity: sha512-Qkzpg2s9GnVV2I2BjRksUi43U5e6+zaQMcjoJy0C+C5oxaKl+fmckGDQFtRpZpZV0NQekuZZ+tGz7EA9TVnQtQ==}
     engines: {node: '>=12'}
 
-  '@electron/node-gyp@https://codeload.github.com/electron/node-gyp/tar.gz/06b29aafb7708acef8b3669835c8a7857ebc92d2':
-    resolution: {tarball: https://codeload.github.com/electron/node-gyp/tar.gz/06b29aafb7708acef8b3669835c8a7857ebc92d2}
+  '@electron/node-gyp@git+https://git@github.com:electron/node-gyp.git#06b29aafb7708acef8b3669835c8a7857ebc92d2':
+    resolution: {commit: 06b29aafb7708acef8b3669835c8a7857ebc92d2, repo: git@github.com:electron/node-gyp.git, type: git}
     version: 10.2.0-electron.1
     engines: {node: '>=12.13.0'}
     hasBin: true
@@ -2151,7 +2151,7 @@ packages:
     hasBin: true
     peerDependencies:
       '@swc/core': ^1.0.0
-      vite: 6.0.7
+      vite: 6.0.9
     peerDependenciesMeta:
       '@swc/core':
         optional: true
@@ -3328,6 +3328,10 @@ packages:
     resolution: {integrity: sha512-+EUsqGPLsM+j/zdChZjsnX51g4XrHFOIXwfnCVPGlQk/k5giakcKsuxCObBRu6DSm9opw/O6slWbJdghQM4bBg==}
     engines: {node: '>= 0.6'}
 
+  negotiator@0.6.4:
+    resolution: {integrity: sha512-myRT3DiWPHqho5PrJaIRyaMv2kgYf0mUVgBNOYMuCH5Ki1yEiQaf/ZJuQ62nvpc44wL5WDbTX7yGJi1Neevw8w==}
+    engines: {node: '>= 0.6'}
+
   negotiator@1.0.0:
     resolution: {integrity: sha512-8Ofs/AUQh8MaEcrlq5xOX0CQ9ypTF5dl78mjlMNfOK08fzpgTHQRQPBxcPlEtIw0yRpws+Zo/3r+5WRby7u3Gg==}
     engines: {node: '>= 0.6'}
@@ -3597,8 +3601,8 @@ packages:
     resolution: {integrity: sha512-d7Uw+eZoloe0EHDIYoe+bQ5WXnGMOpmiZFTuMWCwpjzzkL2nTjcKiAk4hh8TjnGye2TwWOk3UXucZ+3rbmBa8Q==}
     engines: {node: '>= 0.4'}
 
-  postcss@8.4.49:
-    resolution: {integrity: sha512-OCVPnIObs4N29kxTjzLfUryOkvZEq+pf8jTF0lg8E7uETuWHA+v7j3c/xJmiqpX450191LlmZfUKkXxkTry7nA==}
+  postcss@8.5.1:
+    resolution: {integrity: sha512-6oz2beyjc5VMn/KV1pPw8fliQkhBXrVn1Z3TVyqZxU8kZpzEKhBdmCFqI6ZbmGtamQvQGuU1sgPTk8ZrXDD7jQ==}
     engines: {node: ^10 || ^12 || >=14}
 
   prelude-ls@1.2.1:
@@ -3884,8 +3888,8 @@ packages:
     resolution: {integrity: sha512-kWJDCr9EWtZ+/EYYM5MareWj2cRnZGF93YDNpH4jQiHB+hBIZnfPFSQiVMzZOdk+zXWqTZ/9fTeQNu2DqeiudA==}
     engines: {node: '>=20.12.2'}
 
-  simple-youtube-age-restriction-bypass@https://codeload.github.com/organization/Simple-YouTube-Age-Restriction-Bypass/tar.gz/4e2db89ccb2fb880c5110add9ff3f1dfb78d0ff6:
-    resolution: {tarball: https://codeload.github.com/organization/Simple-YouTube-Age-Restriction-Bypass/tar.gz/4e2db89ccb2fb880c5110add9ff3f1dfb78d0ff6}
+  simple-youtube-age-restriction-bypass@git+https://git@github.com:organization/Simple-YouTube-Age-Restriction-Bypass.git#4e2db89ccb2fb880c5110add9ff3f1dfb78d0ff6:
+    resolution: {commit: 4e2db89ccb2fb880c5110add9ff3f1dfb78d0ff6, repo: git@github.com:organization/Simple-YouTube-Age-Restriction-Bypass.git, type: git}
     version: 2.5.9
     engines: {node: '>=18.0.0', npm: '>=7.0.0'}
 
@@ -4267,7 +4271,7 @@ packages:
     engines: {node: '>=14'}
     peerDependencies:
       '@nuxt/kit': '*'
-      vite: 6.0.7
+      vite: 6.0.9
     peerDependenciesMeta:
       '@nuxt/kit':
         optional: true
@@ -4280,13 +4284,13 @@ packages:
     peerDependencies:
       '@testing-library/jest-dom': ^5.16.6 || ^5.17.0 || ^6.*
       solid-js: ^1.7.2
-      vite: 6.0.7
+      vite: 6.0.9
     peerDependenciesMeta:
       '@testing-library/jest-dom':
         optional: true
 
-  vite@6.0.7:
-    resolution: {integrity: sha512-RDt8r/7qx9940f8FcOIAH9PTViRrghKaK2K1jY3RaAURrEUbm9Du1mJ72G+jlhtG3WwodnfzY8ORQZbBavZEAQ==}
+  vite@6.0.9:
+    resolution: {integrity: sha512-MSgUxHcaXLtnBPktkbUSoQUANApKYuxZ6DrbVENlIorbhL2dZydTLaZ01tjUoE3szeFzlFk9ANOKk0xurh4MKA==}
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
     peerDependencies:
@@ -4328,7 +4332,7 @@ packages:
   vitefu@1.0.4:
     resolution: {integrity: sha512-y6zEE3PQf6uu/Mt6DTJ9ih+kyJLr4XcSgHR2zUkM8SWDhuixEJxfJ6CZGMHh1Ec3vPLoEA0IHU5oWzVqw8ulow==}
     peerDependencies:
-      vite: 6.0.7
+      vite: 6.0.9
     peerDependenciesMeta:
       vite:
         optional: true
@@ -4666,7 +4670,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@electron/node-gyp@https://codeload.github.com/electron/node-gyp/tar.gz/06b29aafb7708acef8b3669835c8a7857ebc92d2':
+  '@electron/node-gyp@git+https://git@github.com:electron/node-gyp.git#06b29aafb7708acef8b3669835c8a7857ebc92d2':
     dependencies:
       env-paths: 2.2.1
       exponential-backoff: 3.1.1
@@ -4703,7 +4707,7 @@ snapshots:
 
   '@electron/rebuild@3.7.0':
     dependencies:
-      '@electron/node-gyp': https://codeload.github.com/electron/node-gyp/tar.gz/06b29aafb7708acef8b3669835c8a7857ebc92d2
+      '@electron/node-gyp': git+https://git@github.com:electron/node-gyp.git#06b29aafb7708acef8b3669835c8a7857ebc92d2
       '@malept/cross-spawn-promise': 2.0.0
       chalk: 4.1.2
       debug: 4.4.0
@@ -6561,7 +6565,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  electron-vite@2.3.0(vite@6.0.7(@types/node@22.9.3)(yaml@2.6.1)):
+  electron-vite@2.3.0(vite@6.0.9(@types/node@22.9.3)(yaml@2.6.1)):
     dependencies:
       '@babel/core': 7.26.0
       '@babel/plugin-transform-arrow-functions': 7.25.9(@babel/core@7.26.0)
@@ -6569,7 +6573,7 @@ snapshots:
       esbuild: 0.21.5
       magic-string: 0.30.13
       picocolors: 1.1.1
-      vite: 6.0.7(@types/node@22.9.3)(yaml@2.6.1)
+      vite: 6.0.9(@types/node@22.9.3)(yaml@2.6.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -7731,7 +7735,7 @@ snapshots:
       minipass-fetch: 2.1.2
       minipass-flush: 1.0.5
       minipass-pipeline: 1.2.4
-      negotiator: 0.6.3
+      negotiator: 0.6.4
       promise-retry: 2.0.1
       socks-proxy-agent: 7.0.0
       ssri: 9.0.1
@@ -7894,6 +7898,8 @@ snapshots:
   natural-compare@1.4.0: {}
 
   negotiator@0.6.3: {}
+
+  negotiator@0.6.4: {}
 
   negotiator@1.0.0: {}
 
@@ -8162,7 +8168,7 @@ snapshots:
 
   possible-typed-array-names@1.0.0: {}
 
-  postcss@8.4.49:
+  postcss@8.5.1:
     dependencies:
       nanoid: 3.3.8
       picocolors: 1.1.1
@@ -8481,7 +8487,7 @@ snapshots:
 
   simple-xml-to-json@1.2.3: {}
 
-  simple-youtube-age-restriction-bypass@https://codeload.github.com/organization/Simple-YouTube-Age-Restriction-Bypass/tar.gz/4e2db89ccb2fb880c5110add9ff3f1dfb78d0ff6: {}
+  simple-youtube-age-restriction-bypass@git+https://git@github.com:organization/Simple-YouTube-Age-Restriction-Bypass.git#4e2db89ccb2fb880c5110add9ff3f1dfb78d0ff6: {}
 
   sirv@3.0.0:
     dependencies:
@@ -8895,14 +8901,14 @@ snapshots:
       extsprintf: 1.4.1
     optional: true
 
-  vite-plugin-inspect@10.0.7(vite@6.0.7(@types/node@22.9.3)(yaml@2.6.1)):
+  vite-plugin-inspect@10.0.7(vite@6.0.9(@types/node@22.9.3)(yaml@2.6.1)):
     dependencies:
       debug: 4.4.0
       error-stack-parser-es: 1.0.5
       open: 10.1.0
       picocolors: 1.1.1
       sirv: 3.0.0
-      vite: 6.0.7(@types/node@22.9.3)(yaml@2.6.1)
+      vite: 6.0.9(@types/node@22.9.3)(yaml@2.6.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -8910,7 +8916,7 @@ snapshots:
     dependencies:
       lib-esm: 0.4.2
 
-  vite-plugin-solid@2.11.0(solid-js@1.9.4)(vite@6.0.7(@types/node@22.9.3)(yaml@2.6.1)):
+  vite-plugin-solid@2.11.0(solid-js@1.9.4)(vite@6.0.9(@types/node@22.9.3)(yaml@2.6.1)):
     dependencies:
       '@babel/core': 7.26.0
       '@types/babel__core': 7.20.5
@@ -8918,24 +8924,24 @@ snapshots:
       merge-anything: 5.1.7
       solid-js: 1.9.4
       solid-refresh: 0.6.3(solid-js@1.9.4)
-      vite: 6.0.7(@types/node@22.9.3)(yaml@2.6.1)
-      vitefu: 1.0.4(vite@6.0.7(@types/node@22.9.3)(yaml@2.6.1))
+      vite: 6.0.9(@types/node@22.9.3)(yaml@2.6.1)
+      vitefu: 1.0.4(vite@6.0.9(@types/node@22.9.3)(yaml@2.6.1))
     transitivePeerDependencies:
       - supports-color
 
-  vite@6.0.7(@types/node@22.9.3)(yaml@2.6.1):
+  vite@6.0.9(@types/node@22.9.3)(yaml@2.6.1):
     dependencies:
       esbuild: 0.24.2
-      postcss: 8.4.49
+      postcss: 8.5.1
       rollup: 4.31.0
     optionalDependencies:
       '@types/node': 22.9.3
       fsevents: 2.3.3
       yaml: 2.6.1
 
-  vitefu@1.0.4(vite@6.0.7(@types/node@22.9.3)(yaml@2.6.1)):
+  vitefu@1.0.4(vite@6.0.9(@types/node@22.9.3)(yaml@2.6.1)):
     optionalDependencies:
-      vite: 6.0.7(@types/node@22.9.3)(yaml@2.6.1)
+      vite: 6.0.9(@types/node@22.9.3)(yaml@2.6.1)
 
   vudio@2.1.1(patch_hash=7iux5msqpgl3octdmwy4uspwoe): {}
 
