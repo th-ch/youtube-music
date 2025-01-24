@@ -103,8 +103,8 @@ importers:
         specifier: 1.5.8
         version: 1.5.8(electron@34.0.1)
       deepmerge-ts:
-        specifier: 7.1.3
-        version: 7.1.3
+        specifier: 7.1.4
+        version: 7.1.4
       electron-debug:
         specifier: 4.1.0
         version: 4.1.0
@@ -1986,8 +1986,8 @@ packages:
   deep-is@0.1.4:
     resolution: {integrity: sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==}
 
-  deepmerge-ts@7.1.3:
-    resolution: {integrity: sha512-qCSH6I0INPxd9Y1VtAiLpnYvz5O//6rCfJXKk0z66Up9/VOSr+1yS8XSKA5IWRxjocFGlzPyaZYe+jxq7OOLtQ==}
+  deepmerge-ts@7.1.4:
+    resolution: {integrity: sha512-fxqo6nHGQ9zOVgI4KXqtWXJR/yCLtC7aXIVq+6jc8tHPFUxlFmuUcm2kC4vztQ+LJxQ3gER/XAWearGYQ8niGA==}
     engines: {node: '>=16.0.0'}
 
   deepmerge@4.3.1:
@@ -6403,7 +6403,7 @@ snapshots:
 
   deep-is@0.1.4: {}
 
-  deepmerge-ts@7.1.3: {}
+  deepmerge-ts@7.1.4: {}
 
   deepmerge@4.3.1: {}
 
