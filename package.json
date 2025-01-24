@@ -312,7 +312,7 @@
     "cross-env": "7.0.3",
     "del-cli": "6.0.0",
     "discord-api-types": "0.37.117",
-    "electron": "34.0.0",
+    "electron": "34.0.1",
     "electron-builder": "26.0.0-alpha.10",
     "electron-builder-squirrel-windows": "26.0.0-alpha.10",
     "electron-devtools-installer": "4.0.0",

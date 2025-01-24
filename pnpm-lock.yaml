@@ -32,7 +32,7 @@ importers:
         version: 1.0.1(@types/node@22.9.3)
       '@electron/remote':
         specifier: 2.1.2
-        version: 2.1.2(electron@34.0.0)
+        version: 2.1.2(electron@34.0.1)
       '@ffmpeg.wasm/core-mt':
         specifier: 0.12.0
         version: 0.12.0
@@ -47,10 +47,10 @@ importers:
         version: 2.0.5
       '@ghostery/adblocker-electron':
         specifier: 2.3.1
-        version: 2.3.1(electron@34.0.0)
+        version: 2.3.1(electron@34.0.1)
       '@ghostery/adblocker-electron-preload':
         specifier: 2.3.1
-        version: 2.3.1(electron@34.0.0)
+        version: 2.3.1(electron@34.0.1)
       '@hono/node-server':
         specifier: 1.13.7
         version: 1.13.7(hono@4.6.17)
@@ -101,7 +101,7 @@ importers:
         version: 13.1.0
       custom-electron-prompt:
         specifier: 1.5.8
-        version: 1.5.8(electron@34.0.0)
+        version: 1.5.8(electron@34.0.1)
       deepmerge-ts:
         specifier: 7.1.3
         version: 7.1.3
@@ -251,8 +251,8 @@ importers:
         specifier: 0.37.117
         version: 0.37.117
       electron:
-        specifier: 34.0.0
-        version: 34.0.0
+        specifier: 34.0.1
+        version: 34.0.1
       electron-builder:
         specifier: 26.0.0-alpha.10
         version: 26.0.0-alpha.10(electron-builder-squirrel-windows@26.0.0-alpha.9)
@@ -2169,8 +2169,8 @@ packages:
       '@swc/core':
         optional: true
 
-  electron@34.0.0:
-    resolution: {integrity: sha512-fpaPb0lifoUJ6UJa4Lk8/0B2Ku/xDZWdc1Gkj67jbygTCrvSon0qquju6Ltx1Kz23GRqqlIHXiy9EvrjpY7/Wg==}
+  electron@34.0.1:
+    resolution: {integrity: sha512-aArw5tAM80i3CKwEREnyZSM1SkARf5Jd1yBMTIdOL4pB1M+p/oDeyWSFI9Dl+vujyfJKiK4SS5+j19wna1onMw==}
     engines: {node: '>= 12.20.55'}
     hasBin: true
 
@@ -3111,6 +3111,7 @@ packages:
 
   lodash.isequal@4.5.0:
     resolution: {integrity: sha512-pDo3lu8Jhfjqls6GkMgpahsF9kCyayhgykjyLMNFTKWrpVdAQtYyB4muAMWozBB4ig/dtWAmsMxLEI8wuz+DYQ==}
+    deprecated: This package is deprecated. Use require('node:util').isDeepStrictEqual instead.
 
   lodash.isplainobject@4.0.6:
     resolution: {integrity: sha512-oSXzaWypCMHkPC3NvBEaPHf0KsA5mvPrOPgQWDsbg8n7orZ290M0BmC/jgRZ4vcJ6DTAhjrsSYgdsW/F+MFOBA==}
@@ -4734,9 +4735,9 @@ snapshots:
       - bluebird
       - supports-color
 
-  '@electron/remote@2.1.2(electron@34.0.0)':
+  '@electron/remote@2.1.2(electron@34.0.1)':
     dependencies:
-      electron: 34.0.0
+      electron: 34.0.1
 
   '@electron/universal@2.0.1':
     dependencies:
@@ -4965,16 +4966,16 @@ snapshots:
     dependencies:
       '@ghostery/adblocker-extended-selectors': 2.3.1
 
-  '@ghostery/adblocker-electron-preload@2.3.1(electron@34.0.0)':
+  '@ghostery/adblocker-electron-preload@2.3.1(electron@34.0.1)':
     dependencies:
       '@ghostery/adblocker-content': 2.3.1
-      electron: 34.0.0
+      electron: 34.0.1
 
-  '@ghostery/adblocker-electron@2.3.1(electron@34.0.0)':
+  '@ghostery/adblocker-electron@2.3.1(electron@34.0.1)':
     dependencies:
       '@ghostery/adblocker': 2.3.1
-      '@ghostery/adblocker-electron-preload': 2.3.1(electron@34.0.0)
-      electron: 34.0.0
+      '@ghostery/adblocker-electron-preload': 2.3.1(electron@34.0.1)
+      electron: 34.0.1
       tldts-experimental: 6.1.64
 
   '@ghostery/adblocker-extended-selectors@2.3.1': {}
@@ -5496,7 +5497,7 @@ snapshots:
 
   '@types/electron-localshortcut@3.1.3':
     dependencies:
-      electron: 34.0.0
+      electron: 34.0.1
     transitivePeerDependencies:
       - supports-color
 
@@ -6333,9 +6334,9 @@ snapshots:
 
   csstype@3.1.3: {}
 
-  custom-electron-prompt@1.5.8(electron@34.0.0):
+  custom-electron-prompt@1.5.8(electron@34.0.1):
     dependencies:
-      electron: 34.0.0
+      electron: 34.0.1
 
   data-uri-to-buffer@4.0.1: {}
 
@@ -6661,7 +6662,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  electron@34.0.0:
+  electron@34.0.1:
     dependencies:
       '@electron/get': 2.0.3
       '@types/node': 20.17.7
