@@ -14,7 +14,7 @@
   align-items: center;
   color: rgba(255, 255, 255, 0.5);
   cursor: pointer;
-  margin: 0 var(--ytd-rich-grid-item-margin);
+  margin: 0 var(--ytd-margin-2x, 8px);
 }
 
 .navigation-item:hover {
@@ -32,4 +32,5 @@
   width: var(--iron-icon-width, 24px);
   height: var(--iron-icon-height, 24px);
   animation: var(--iron-icon_-_animation);
+  padding: var(--ytd-margin-base, 4px) var(--ytd-margin-2x, 8px);
 }
