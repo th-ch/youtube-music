@@ -279,6 +279,12 @@
       },
       "name": "Chế độ Môi trường xung quanh"
     },
+    "amuse": {
+      "name": "Amuse",
+      "response": {
+        "query": "Máy chủ API của Amuse đang chạy. GET /query để lấy thông tin về bài hát."
+      }
+    },
     "api-server": {
       "description": "Thêm máy chủ API để điều khiển trình phát",
       "dialog": {
@@ -299,7 +305,7 @@
               "label": "Xác thực ngay yêu cầu đầu tiên"
             },
             "none": {
-              "label": "Không/Chưa xác thực (Need context)"
+              "label": "Không xác thực"
             }
           }
         },

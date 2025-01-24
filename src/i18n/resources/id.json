@@ -279,6 +279,13 @@
       },
       "name": "Mode ambient"
     },
+    "amuse": {
+      "description": "Menambahkan dukungan YouTube Music untuk widget Amuse yang sedang diputar oleh 6K Labs",
+      "name": "Amuse",
+      "response": {
+        "query": "Server API Amuse sedang berjalan. GET /query untuk mendapatkan info lagu."
+      }
+    },
     "api-server": {
       "description": "Menambahkan server API untuk mengontrol pemutar",
       "dialog": {
@@ -726,8 +733,8 @@
     "synced-lyrics": {
       "description": "Menyediakan lirik lagu yang disinkronkan, menggunakan penyedia seperti LRClib.",
       "errors": {
-        "fetch": "⚠️ - Terjadi kesalahan saat mengambil lirik. Coba lagi nanti.",
-        "not-found": "⚠️ - Tidak ada lirik yang ditemukan untuk lagu ini."
+        "fetch": "⚠️\tTerjadi kesalahan saat mengambil lirik.\n\tSilakan coba lagi nanti.",
+        "not-found": "⚠️ Tidak ada lirik yang ditemukan untuk lagu ini."
       },
       "menu": {
         "default-text-string": {
@@ -737,6 +744,10 @@
         "line-effect": {
           "label": "Efek garis",
           "submenu": {
+            "fancy": {
+              "label": "Mewah",
+              "tooltip": "Gunakan efek besar seperti aplikasi pada baris saat ini"
+            },
             "focus": {
               "label": "Fokus",
               "tooltip": "Jadikan hanya baris saat ini berwarna putih"

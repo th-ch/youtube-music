@@ -745,7 +745,8 @@
           "label": "Efecto de la línea",
           "submenu": {
             "fancy": {
-              "label": "Elegante"
+              "label": "Elegante",
+              "tooltip": "Usar efectos grandes, similares a los de una aplicación, en la línea actual"
             },
             "focus": {
               "label": "Enfoque",
