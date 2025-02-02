@@ -50,7 +50,7 @@ export const SyncedLine = ({ line }: SyncedLineProps) => {
         _ytAPI?.seekTo(line.timeInMs / 1000);
       }}
     >
-      <div class="text-lyrics description ytmusic-description-shelf-renderer">
+      <div dir="auto" class="text-lyrics description ytmusic-description-shelf-renderer">
         <yt-formatted-string
           text={{
             runs: [{ text: config()?.showTimeCodes ? `[${line.time}] ` : '' }],
