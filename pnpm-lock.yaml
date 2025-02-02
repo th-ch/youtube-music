@@ -115,8 +115,8 @@ importers:
         specifier: 3.2.1
         version: 3.2.1
       electron-store:
-        specifier: 10.0.0
-        version: 10.0.0
+        specifier: 10.0.1
+        version: 10.0.1
       electron-unhandled:
         specifier: 4.0.1
         version: 4.0.1
@@ -2132,8 +2132,8 @@ packages:
   electron-publish@26.0.0-alpha.10:
     resolution: {integrity: sha512-yUkCJD7MLN57d6PJ8PMcBCR35xytA+jHyrOiS/H0hlmTOWq1sXN+tIBylX4h0dD/C6mn75/y5eE156Pe2nccPw==}
 
-  electron-store@10.0.0:
-    resolution: {integrity: sha512-BU/QZh+5twHBprRdLu3YZX/rIarmZzhTNpJvAvqG1/yN0mNCrsMh0kl7bM4xaUKDNRiHz1r7wP/7Prjh7cleIw==}
+  electron-store@10.0.1:
+    resolution: {integrity: sha512-Ok0bF13WWdTzZi9rCtPN8wUfwx+yDMmV6PAnCMqjNRKEXHmklW/rV+6DofV/Vf5qoAh+Bl9Bj7dQ+0W+IL2psg==}
     engines: {node: '>=20'}
 
   electron-to-chromium@1.5.64:
@@ -6534,7 +6534,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  electron-store@10.0.0:
+  electron-store@10.0.1:
     dependencies:
       conf: 13.1.0
       type-fest: 4.27.1
