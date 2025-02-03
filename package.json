@@ -297,7 +297,7 @@
   },
   "devDependencies": {
     "@eslint/js": "9.19.0",
-    "@playwright/test": "1.50.0",
+    "@playwright/test": "1.50.1",
     "@stylistic/eslint-plugin-js": "2.13.0",
     "@total-typescript/ts-reset": "0.6.1",
     "@types/color": "4.2.0",
@@ -326,7 +326,7 @@
     "eslint-plugin-prettier": "5.2.3",
     "glob": "11.0.1",
     "node-gyp": "11.0.0",
-    "playwright": "1.50.0",
+    "playwright": "1.50.1",
     "rollup": "4.34.1",
     "typescript": "5.7.3",
     "typescript-eslint": "8.22.0",
