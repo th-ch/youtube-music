@@ -228,7 +228,7 @@
         "color-mix-ratio": {
           "label": "‬نسبة قوة اللون",
           "submenu": {
-            "percent": "{{ratio}}%"
+            "percent": "{{النسبة}}%"
           }
         }
       },
@@ -264,7 +264,7 @@
         "size": {
           "label": "الحجم",
           "submenu": {
-            "percent": "{{size}}%"
+            "percent": "{{الحجم}}%"
           }
         },
         "smoothness-transition": {
