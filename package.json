@@ -280,7 +280,7 @@
     "keyboardevent-from-electron-accelerator": "2.0.0",
     "keyboardevents-areequal": "0.2.2",
     "node-html-parser": "7.0.1",
-    "node-id3": "0.2.6",
+    "node-id3": "0.2.7",
     "peerjs": "1.5.4",
     "semver": "7.7.0",
     "serve": "14.2.4",
