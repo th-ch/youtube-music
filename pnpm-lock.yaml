@@ -14,13 +14,13 @@ overrides:
 
 patchedDependencies:
   '@malept/flatpak-bundler':
-    hash: vli4xtu6rndz3xtsscixhngsxa
+    hash: c787371eeb2af011ea934e8818a0dad6d7dcb2df31bbb1686babc7231af0183c
     path: patches/@malept__flatpak-bundler.patch
   app-builder-lib@26.0.0-alpha.10:
-    hash: zcnm2qnjaggm2keyecnhiglkke
+    hash: 1acd50242999bb544e3d63fe07eff7541c1500c6db5ff81d2f8e1074b1df044f
     path: patches/app-builder-lib@26.0.0-alpha.10.patch
   vudio@2.1.1:
-    hash: 7iux5msqpgl3octdmwy4uspwoe
+    hash: 0e06c2ed11c02bdc490c209fa80070e98517c2735c641f5738b6e15d7dc1959d
     path: patches/vudio@2.1.1.patch
 
 importers:
@@ -191,7 +191,7 @@ importers:
         version: 25.0.0
       vudio:
         specifier: 2.1.1
-        version: 2.1.1(patch_hash=7iux5msqpgl3octdmwy4uspwoe)
+        version: 2.1.1(patch_hash=0e06c2ed11c02bdc490c209fa80070e98517c2735c641f5738b6e15d7dc1959d)
       x11:
         specifier: 2.3.0
         version: 2.3.0
@@ -317,8 +317,8 @@ importers:
         specifier: 2.5.2
         version: 2.5.2
       vite-plugin-solid:
-        specifier: 2.11.0
-        version: 2.11.0(solid-js@1.9.4)(vite@6.0.11(@types/node@22.9.3)(yaml@2.6.1))
+        specifier: 2.11.1
+        version: 2.11.1(solid-js@1.9.4)(vite@6.0.11(@types/node@22.9.3)(yaml@2.6.1))
       ws:
         specifier: 8.18.0
         version: 8.18.0(bufferutil@4.0.9)(utf-8-validate@6.0.5)
@@ -4276,8 +4276,8 @@ packages:
   vite-plugin-resolve@2.5.2:
     resolution: {integrity: sha512-8twv20M+KIMxkZzAoF1eAUxxxB56NxKdYjIJ309A/30lZ3GAqgiAeGFjVVlLLEpeAcbAwfl9p7jztsQEw7C3Jg==}
 
-  vite-plugin-solid@2.11.0:
-    resolution: {integrity: sha512-G+NiwDj4EAeUE0wt3Ur9f+Lt9oMUuLd0FIxYuqwJSqRacKQRteCwUFzNy8zMEt88xWokngQhiFjfJMhjc1fDXw==}
+  vite-plugin-solid@2.11.1:
+    resolution: {integrity: sha512-X9vbbK6AOOA6yxSsNl1VTuUq5y4BG9AR6Z5F/J1ZC2VO7ll8DlSCbOL+RcZXlRbxn0ptE6OI5832nGQhq4yXKQ==}
     peerDependencies:
       '@testing-library/jest-dom': ^5.16.6 || ^5.17.0 || ^6.*
       solid-js: ^1.7.2
@@ -5252,7 +5252,7 @@ snapshots:
     dependencies:
       cross-spawn: 7.0.6
 
-  '@malept/flatpak-bundler@0.4.0(patch_hash=vli4xtu6rndz3xtsscixhngsxa)':
+  '@malept/flatpak-bundler@0.4.0(patch_hash=c787371eeb2af011ea934e8818a0dad6d7dcb2df31bbb1686babc7231af0183c)':
     dependencies:
       debug: 4.4.0
       fs-extra: 9.1.0
@@ -5727,7 +5727,7 @@ snapshots:
 
   app-builder-bin@5.0.0-alpha.12: {}
 
-  app-builder-lib@26.0.0-alpha.10(patch_hash=zcnm2qnjaggm2keyecnhiglkke)(dmg-builder@26.0.0-alpha.10)(electron-builder-squirrel-windows@26.0.0-alpha.10):
+  app-builder-lib@26.0.0-alpha.10(patch_hash=1acd50242999bb544e3d63fe07eff7541c1500c6db5ff81d2f8e1074b1df044f)(dmg-builder@26.0.0-alpha.10)(electron-builder-squirrel-windows@26.0.0-alpha.10):
     dependencies:
       '@develar/schema-utils': 2.6.5
       '@electron/asar': 3.2.18
@@ -5736,7 +5736,7 @@ snapshots:
       '@electron/osx-sign': 1.3.1
       '@electron/rebuild': 3.7.0
       '@electron/universal': 2.0.1
-      '@malept/flatpak-bundler': 0.4.0(patch_hash=vli4xtu6rndz3xtsscixhngsxa)
+      '@malept/flatpak-bundler': 0.4.0(patch_hash=c787371eeb2af011ea934e8818a0dad6d7dcb2df31bbb1686babc7231af0183c)
       '@types/fs-extra': 9.0.13
       async-exit-hook: 2.0.1
       bluebird-lst: 1.0.9
@@ -6391,7 +6391,7 @@ snapshots:
 
   dmg-builder@26.0.0-alpha.10(electron-builder-squirrel-windows@26.0.0-alpha.10):
     dependencies:
-      app-builder-lib: 26.0.0-alpha.10(patch_hash=zcnm2qnjaggm2keyecnhiglkke)(dmg-builder@26.0.0-alpha.10)(electron-builder-squirrel-windows@26.0.0-alpha.10)
+      app-builder-lib: 26.0.0-alpha.10(patch_hash=1acd50242999bb544e3d63fe07eff7541c1500c6db5ff81d2f8e1074b1df044f)(dmg-builder@26.0.0-alpha.10)(electron-builder-squirrel-windows@26.0.0-alpha.10)
       builder-util: 26.0.0-alpha.10
       builder-util-runtime: 9.3.0-alpha.0
       fs-extra: 10.1.0
@@ -6462,7 +6462,7 @@ snapshots:
 
   electron-builder-squirrel-windows@26.0.0-alpha.10(dmg-builder@26.0.0-alpha.10):
     dependencies:
-      app-builder-lib: 26.0.0-alpha.10(patch_hash=zcnm2qnjaggm2keyecnhiglkke)(dmg-builder@26.0.0-alpha.10)(electron-builder-squirrel-windows@26.0.0-alpha.10)
+      app-builder-lib: 26.0.0-alpha.10(patch_hash=1acd50242999bb544e3d63fe07eff7541c1500c6db5ff81d2f8e1074b1df044f)(dmg-builder@26.0.0-alpha.10)(electron-builder-squirrel-windows@26.0.0-alpha.10)
       archiver: 5.3.2
       builder-util: 26.0.0-alpha.10
       fs-extra: 10.1.0
@@ -6473,7 +6473,7 @@ snapshots:
 
   electron-builder@26.0.0-alpha.10(electron-builder-squirrel-windows@26.0.0-alpha.10):
     dependencies:
-      app-builder-lib: 26.0.0-alpha.10(patch_hash=zcnm2qnjaggm2keyecnhiglkke)(dmg-builder@26.0.0-alpha.10)(electron-builder-squirrel-windows@26.0.0-alpha.10)
+      app-builder-lib: 26.0.0-alpha.10(patch_hash=1acd50242999bb544e3d63fe07eff7541c1500c6db5ff81d2f8e1074b1df044f)(dmg-builder@26.0.0-alpha.10)(electron-builder-squirrel-windows@26.0.0-alpha.10)
       builder-util: 26.0.0-alpha.10
       builder-util-runtime: 9.3.0-alpha.0
       chalk: 4.1.2
@@ -8911,7 +8911,7 @@ snapshots:
     dependencies:
       lib-esm: 0.4.2
 
-  vite-plugin-solid@2.11.0(solid-js@1.9.4)(vite@6.0.11(@types/node@22.9.3)(yaml@2.6.1)):
+  vite-plugin-solid@2.11.1(solid-js@1.9.4)(vite@6.0.11(@types/node@22.9.3)(yaml@2.6.1)):
     dependencies:
       '@babel/core': 7.26.0
       '@types/babel__core': 7.20.5
@@ -8938,7 +8938,7 @@ snapshots:
     optionalDependencies:
       vite: 6.0.11(@types/node@22.9.3)(yaml@2.6.1)
 
-  vudio@2.1.1(patch_hash=7iux5msqpgl3octdmwy4uspwoe): {}
+  vudio@2.1.1(patch_hash=0e06c2ed11c02bdc490c209fa80070e98517c2735c641f5738b6e15d7dc1959d): {}
 
   wcwidth@1.0.1:
     dependencies:
