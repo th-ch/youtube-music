@@ -79,12 +79,12 @@ export const onMainLoad = async ({
         action,
       );
 
-      let actionCallback;
+      let actionCallback: () => void;
       if (action === 'goForward' || action === 'goBack') {
         actionCallback = () => songControls[action](seekSeconds);
       }
       else {
-        actionCallback = () => songControls[action];
+        actionCallback = songControls[action];
       }
 
       if (typeof actionCallback !== 'function') {
