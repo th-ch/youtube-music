@@ -30,6 +30,8 @@ export default createPlugin({
       next: '',
       goBack: '',
       goForward: '',
+      like: '',
+      dislike: ''
     },
     local: {
       previous: '',

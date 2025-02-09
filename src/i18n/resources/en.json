@@ -701,7 +701,9 @@
             "play-pause": "Play / Pause",
             "previous": "Previous",
             "go-back": "Rewind (10 seconds)",
-            "go-forward": "Seek (10 seconds)"
+            "go-forward": "Seek (10 seconds)",
+            "like": "Like",
+            "dislike": "Dislike"
           },
           "label": "Choose Global Keybinds for Songs Control:",
           "title": "Global Keybinds"
