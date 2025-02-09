@@ -9,6 +9,8 @@ import type { ShortcutMappingType, ShortcutsPluginConfig } from './index';
 
 import type { BackendContext } from '@/types/contexts';
 
+const seekSeconds = 10;
+
 function _registerGlobalShortcut(
   webContents: Electron.WebContents,
   shortcut: string,
@@ -76,7 +78,15 @@ export const onMainLoad = async ({
         ':',
         action,
       );
-      const actionCallback: () => void = songControls[action];
+
+      let actionCallback;
+      if (action === 'goForward' || action === 'goBack') {
+        actionCallback = () => songControls[action](seekSeconds);
+      }
+      else {
+        actionCallback = () => songControls[action];
+      }
+
       if (typeof actionCallback !== 'function') {
         console.warn('Invalid action', action);
         continue;

@@ -699,7 +699,9 @@
           "keybind-options": {
             "next": "Next",
             "play-pause": "Play / Pause",
-            "previous": "Previous"
+            "previous": "Previous",
+            "go-back": "Rewind (10 seconds)",
+            "go-forward": "Seek (10 seconds)"
           },
           "label": "Choose Global Keybinds for Songs Control:",
           "title": "Global Keybinds"
