@@ -279,6 +279,12 @@
       },
       "name": "Ambient Mode"
     },
+    "amuse": {
+      "description": "Nagdaragdag ng suporta sa YouTube Music para sa Amuse now playing widget ng 6K Labs",
+      "response": {
+        "query": "Tumatakbo ang Amuse API server. Gamitin ang GET /query para makuha ang impo ng kanta."
+      }
+    },
     "api-server": {
       "description": "Nagdadagdag ng API Server upang kontrolin ang player",
       "dialog": {
@@ -466,6 +472,14 @@
       },
       "templates": {
         "button": "Mag-download"
+      }
+    },
+    "equalizer": {
+      "description": "Nagdaragdag ng equalizer sa player",
+      "menu": {
+        "presets": {
+          "label": "Mga Preset"
+        }
       }
     },
     "exponential-volume": {
@@ -674,8 +688,8 @@
     "synced-lyrics": {
       "description": "Nagbibigay ng naka-sync na lyrics sa mga kanta, gamit ang mga provider tulad ng LRClib.",
       "errors": {
-        "fetch": "⚠️ - Nagkaroon ng error habang kinukuha ang lyrics. Subukang muli mamaya.",
-        "not-found": "⚠️ - Walang nakitang lyrics para sa kantang ito."
+        "fetch": "⚠️\t Nagkaroon ng error habang kinukuha ang lyrics.\n\t Subukang muli mamaya.",
+        "not-found": "⚠️ Walang nakitang lyrics para sa kantang ito."
       },
       "menu": {
         "default-text-string": {
@@ -685,6 +699,10 @@
         "line-effect": {
           "label": "Effect ng Linya",
           "submenu": {
+            "fancy": {
+              "label": "Magarbo",
+              "tooltip": "Gumamit ng malaki, mala-app na effect sa kasalukuyang linya"
+            },
             "focus": {
               "tooltip": "Gawing puti lamang ang kasalukuyang linya"
             },
