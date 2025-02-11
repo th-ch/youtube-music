@@ -184,8 +184,8 @@ importers:
         specifier: 0.28.5
         version: 0.28.5(solid-js@1.9.4)
       solid-transition-group:
-        specifier: 0.2.3
-        version: 0.2.3(solid-js@1.9.4)
+        specifier: 0.3.0
+        version: 0.3.0(solid-js@1.9.4)
       ts-morph:
         specifier: 25.0.0
         version: 25.0.0
@@ -1255,18 +1255,18 @@ packages:
     resolution: {integrity: sha512-jT2OWwpajtXTb6opnaIwmBTMpQtKUwl2Ro1zApxIIrpZJon71kZIv6GZSc08LzKO2lpTqUjvD+i7Z2hGuG42KQ==}
     engines: {node: '>=v18'}
 
-  '@solid-primitives/refs@1.0.8':
-    resolution: {integrity: sha512-+jIsWG8/nYvhaCoG2Vg6CJOLgTmPKFbaCrNQKWfChalgUf9WrVxWw0CdJb3yX15n5lUcQ0jBo6qYtuVVmBLpBw==}
+  '@solid-primitives/refs@1.1.0':
+    resolution: {integrity: sha512-QJ3bTSQOlPdHBP2m6llrT13FvVzAwZfx41lTN8lQrRwwcZoWb7kfCAjhaohPnwkAsQ6nJpLjtGfT5GOyuCA4tA==}
     peerDependencies:
       solid-js: ^1.6.12
 
-  '@solid-primitives/transition-group@1.0.5':
-    resolution: {integrity: sha512-G3FuqvL13kQ55WzWPX2ewiXdZ/1iboiX53195sq7bbkDbXqP6TYKiadwEdsaDogW5rPnPYAym3+xnsNplQJRKQ==}
+  '@solid-primitives/transition-group@1.1.0':
+    resolution: {integrity: sha512-pL1sEPCHuC4V+Yh+SQsKSPuGDYrZbLJYSkk3AB4TZrWhptEJUS0IHoi7BAynYcMiULbvMMVKFbeFHqINZq0+ig==}
     peerDependencies:
       solid-js: ^1.6.12
 
-  '@solid-primitives/utils@6.2.3':
-    resolution: {integrity: sha512-CqAwKb2T5Vi72+rhebSsqNZ9o67buYRdEJrIFzRXz3U59QqezuuxPsyzTSVCacwS5Pf109VRsgCJQoxKRoECZQ==}
+  '@solid-primitives/utils@6.3.0':
+    resolution: {integrity: sha512-e7hTlJ1Ywh2+g/Qug+n4L1mpfxsikoIS4/sHE2EK9WatQt8UJqop/vE6bsLnXlU1xuhb/jo94Ah5Y27rd4wP7A==}
     peerDependencies:
       solid-js: ^1.6.12
 
@@ -3938,9 +3938,9 @@ packages:
     peerDependencies:
       solid-js: ^1.4.4
 
-  solid-transition-group@0.2.3:
-    resolution: {integrity: sha512-iB72c9N5Kz9ykRqIXl0lQohOau4t0dhel9kjwFvx81UZJbVwaChMuBuyhiZmK24b8aKEK0w3uFM96ZxzcyZGdg==}
-    engines: {node: '>=18.0.0', pnpm: '>=8.6.0'}
+  solid-transition-group@0.3.0:
+    resolution: {integrity: sha512-gzFbtxkEnA8Hgi7UzmEjPPRl4rodoKLs+AGIXA7kJgjOr4j4qFRw39npu+WpdNSDV7aDKr+K0LFcoT9Kbm5PBA==}
+    engines: {node: '>=20.0.0', pnpm: '>=9.0.0'}
     peerDependencies:
       solid-js: ^1.6.12
 
@@ -5405,16 +5405,16 @@ snapshots:
 
   '@skyra/jaro-winkler@1.1.1': {}
 
-  '@solid-primitives/refs@1.0.8(solid-js@1.9.4)':
+  '@solid-primitives/refs@1.1.0(solid-js@1.9.4)':
     dependencies:
-      '@solid-primitives/utils': 6.2.3(solid-js@1.9.4)
+      '@solid-primitives/utils': 6.3.0(solid-js@1.9.4)
       solid-js: 1.9.4
 
-  '@solid-primitives/transition-group@1.0.5(solid-js@1.9.4)':
+  '@solid-primitives/transition-group@1.1.0(solid-js@1.9.4)':
     dependencies:
       solid-js: 1.9.4
 
-  '@solid-primitives/utils@6.2.3(solid-js@1.9.4)':
+  '@solid-primitives/utils@6.3.0(solid-js@1.9.4)':
     dependencies:
       solid-js: 1.9.4
 
@@ -8548,10 +8548,10 @@ snapshots:
       goober: 2.1.16(csstype@3.1.3)
       solid-js: 1.9.4
 
-  solid-transition-group@0.2.3(solid-js@1.9.4):
+  solid-transition-group@0.3.0(solid-js@1.9.4):
     dependencies:
-      '@solid-primitives/refs': 1.0.8(solid-js@1.9.4)
-      '@solid-primitives/transition-group': 1.0.5(solid-js@1.9.4)
+      '@solid-primitives/refs': 1.1.0(solid-js@1.9.4)
+      '@solid-primitives/transition-group': 1.1.0(solid-js@1.9.4)
       solid-js: 1.9.4
 
   source-map-js@1.2.1: {}
