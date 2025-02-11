@@ -298,7 +298,7 @@
   "devDependencies": {
     "@eslint/js": "9.19.0",
     "@playwright/test": "1.50.1",
-    "@stylistic/eslint-plugin-js": "2.13.0",
+    "@stylistic/eslint-plugin-js": "3.1.0",
     "@total-typescript/ts-reset": "0.6.1",
     "@types/color": "4.2.0",
     "@types/electron-localshortcut": "3.1.3",
