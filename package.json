@@ -314,7 +314,7 @@
     "discord-api-types": "0.37.119",
     "electron": "34.0.2",
     "electron-builder": "26.0.0-alpha.10",
-    "electron-builder-squirrel-windows": "26.0.0-alpha.10",
+    "electron-builder-squirrel-windows": "26.0.6",
     "electron-devtools-installer": "4.0.0",
     "electron-vite": "2.3.0",
     "esbuild": "0.24.2",
