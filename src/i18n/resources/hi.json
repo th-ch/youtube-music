@@ -235,10 +235,40 @@
       "name": "एल्बम रंग थीम"
     },
     "ambient-mode": {
-      "description": "वीडियो से हल्के रंगों को आपकी स्क्रीन की पृष्ठभूमि में डालकर एक प्रकाश प्रभाव लागू करता है.",
+      "description": "वीडियो से हल्के रंगों को आपकी स्क्रीन की पृष्ठभूमि में डालकर एक प्रकाश प्रभाव लागू करता है",
       "menu": {
         "blur-amount": {
-          "label": "धुंधलापन मात्रा"
+          "label": "धुंधलापन मात्रा",
+          "submenu": {
+            "pixels": "{{blurAmount}} पिक्सल"
+          }
+        },
+        "buffer": {
+          "label": "बफर",
+          "submenu": {
+            "buffer": "{{buffer}}"
+          }
+        },
+        "opacity": {
+          "label": "अस्पष्टता",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "quality": {
+          "label": "गुणवत्ता",
+          "submenu": {
+            "pixels": "{{quality}} पिक्सल"
+          }
+        },
+        "size": {
+          "label": "माप",
+          "submenu": {
+            "percent": "{{size}}%"
+          }
+        },
+        "smoothness-transition": {
+          "label": "चिकनाई संक्रमण"
         }
       }
     },
