@@ -5,8 +5,8 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  vite: 6.0.11
-  node-gyp: 11.0.0
+  vite: 6.1.0
+  node-gyp: 11.1.0
   xml2js: 0.6.2
   node-fetch: 3.3.2
   '@electron/universal': 2.0.1
@@ -2322,7 +2322,7 @@ packages:
     hasBin: true
     peerDependencies:
       '@swc/core': ^1.0.0
-      vite: 6.0.11
+      vite: 6.1.0
     peerDependenciesMeta:
       '@swc/core':
         optional: true
@@ -4488,7 +4488,7 @@ packages:
     engines: {node: '>=14'}
     peerDependencies:
       '@nuxt/kit': '*'
-      vite: 6.0.11
+      vite: 6.1.0
     peerDependenciesMeta:
       '@nuxt/kit':
         optional: true
@@ -4501,7 +4501,7 @@ packages:
     peerDependencies:
       '@testing-library/jest-dom': ^5.16.6 || ^5.17.0 || ^6.*
       solid-js: ^1.7.2
-      vite: 6.0.11
+      vite: 6.1.0
     peerDependenciesMeta:
       '@testing-library/jest-dom':
         optional: true
@@ -4549,7 +4549,7 @@ packages:
   vitefu@1.0.5:
     resolution: {integrity: sha512-h4Vflt9gxODPFNGPwp4zAMZRpZR7eslzwH2c5hn5kNZ5rhnKyRJ50U+yGCdc2IRaBs8O4haIgLNGrV5CrpMsCA==}
     peerDependencies:
-      vite: 6.0.11
+      vite: 6.1.0
     peerDependenciesMeta:
       vite:
         optional: true
