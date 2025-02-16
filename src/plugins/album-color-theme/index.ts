@@ -1,5 +1,5 @@
 import { FastAverageColor } from 'fast-average-color';
-import Color from 'color';
+import Color, { ColorInstance } from 'color';
 
 import style from './style.css?inline';
 
@@ -14,8 +14,8 @@ export default createPlugin<
   unknown,
   unknown,
   {
-    color?: Color;
-    darkColor?: Color;
+    color?: ColorInstance;
+    darkColor?: ColorInstance;
 
     playerPage: HTMLElement | null;
     navBarBackground: HTMLElement | null;
