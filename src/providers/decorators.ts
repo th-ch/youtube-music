@@ -71,7 +71,7 @@ export function throttle<T extends (...params: unknown[]) => unknown>(
   }) as T;
 }
 
-function memoize<T extends (...params: unknown[]) => unknown>(fn: T): T {
+export function memoize<T extends (...params: unknown[]) => unknown>(fn: T): T {
   const cache = new Map();
 
   return ((...args) => {
@@ -84,7 +84,7 @@ function memoize<T extends (...params: unknown[]) => unknown>(fn: T): T {
   }) as T;
 }
 
-function retry<T extends (...params: unknown[]) => Promise<unknown>>(
+export function retry<T extends (...params: unknown[]) => Promise<unknown>>(
   fn: T,
   { retries = 3, delay = 1000 } = {},
 ) {
@@ -102,12 +102,3 @@ function retry<T extends (...params: unknown[]) => Promise<unknown>>(
     throw latestError;
   };
 }
-
-export default {
-  singleton,
-  debounce,
-  cache,
-  throttle,
-  memoize,
-  retry,
-};
