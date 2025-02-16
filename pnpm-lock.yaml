@@ -209,8 +209,8 @@ importers:
         specifier: 1.50.1
         version: 1.50.1
       '@stylistic/eslint-plugin-js':
-        specifier: 2.13.0
-        version: 2.13.0(eslint@9.19.0)
+        specifier: 3.1.0
+        version: 3.1.0(eslint@9.19.0)
       '@total-typescript/ts-reset':
         specifier: 0.6.1
         version: 0.6.1
@@ -1425,8 +1425,8 @@ packages:
     peerDependencies:
       solid-js: ^1.6.12
 
-  '@stylistic/eslint-plugin-js@2.13.0':
-    resolution: {integrity: sha512-GPPDK4+fcbsQD58a3abbng2Dx+jBoxM5cnYjBM4T24WFZRZdlNSKvR19TxP8CPevzMOodQ9QVzNeqWvMXzfJRA==}
+  '@stylistic/eslint-plugin-js@3.1.0':
+    resolution: {integrity: sha512-lQktsOiCr8S6StG29C5fzXYxLOD6ID1rp4j6TRS+E/qY1xd59Fm7dy5qm9UauJIEoSTlYx6yGsCHYh5UkgXPyg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: '>=8.40.0'
@@ -2517,9 +2517,6 @@ packages:
 
   exif-parser@0.1.12:
     resolution: {integrity: sha512-c2bQfLNbMzLPmzQuOr8fy0csy84WmwnER81W88DzTp9CYNPJ6yzOj2EZAh9pywYpqHnshVLHQJ8WzldAyfY+Iw==}
-
-  exponential-backoff@3.1.1:
-    resolution: {integrity: sha512-dX7e/LHVJ6W3DE1MHWi9S1EYzDESENfLrYohG2G++ovZrYOkm4Knwa0mc1cn84xJOR4KEU0WSchhLbd0UklbHw==}
 
   exponential-backoff@3.1.2:
     resolution: {integrity: sha512-8QxYTVXUkuy7fIIoitQkPwGonB8F3Zj8eEO8Sqg9Zv/bkI7RJAzowee4gr81Hak/dUTpA2Z7VfQgoijjPNlUZA==}
@@ -5635,7 +5632,7 @@ snapshots:
     dependencies:
       solid-js: 1.9.4
 
-  '@stylistic/eslint-plugin-js@2.13.0(eslint@9.19.0)':
+  '@stylistic/eslint-plugin-js@3.1.0(eslint@9.19.0)':
     dependencies:
       eslint: 9.19.0
       eslint-visitor-keys: 4.2.0
@@ -7142,8 +7139,6 @@ snapshots:
 
   exif-parser@0.1.12: {}
 
-  exponential-backoff@3.1.1: {}
-
   exponential-backoff@3.1.2: {}
 
   extract-zip@2.0.1:
@@ -8122,7 +8117,7 @@ snapshots:
   node-gyp@11.0.0:
     dependencies:
       env-paths: 2.2.1
-      exponential-backoff: 3.1.1
+      exponential-backoff: 3.1.2
       glob: 10.4.5
       graceful-fs: 4.2.11
       make-fetch-happen: 14.0.3
