@@ -317,8 +317,8 @@ importers:
         specifier: 2.5.2
         version: 2.5.2
       vite-plugin-solid:
-        specifier: 2.11.0
-        version: 2.11.0(solid-js@1.9.4)(vite@6.0.11(@types/node@22.9.3)(yaml@2.6.1))
+        specifier: 2.11.1
+        version: 2.11.1(solid-js@1.9.4)(vite@6.0.11(@types/node@22.9.3)(yaml@2.6.1))
       ws:
         specifier: 8.18.0
         version: 8.18.0(bufferutil@4.0.9)(utf-8-validate@6.0.5)
@@ -2518,9 +2518,6 @@ packages:
   exif-parser@0.1.12:
     resolution: {integrity: sha512-c2bQfLNbMzLPmzQuOr8fy0csy84WmwnER81W88DzTp9CYNPJ6yzOj2EZAh9pywYpqHnshVLHQJ8WzldAyfY+Iw==}
 
-  exponential-backoff@3.1.1:
-    resolution: {integrity: sha512-dX7e/LHVJ6W3DE1MHWi9S1EYzDESENfLrYohG2G++ovZrYOkm4Knwa0mc1cn84xJOR4KEU0WSchhLbd0UklbHw==}
-
   exponential-backoff@3.1.2:
     resolution: {integrity: sha512-8QxYTVXUkuy7fIIoitQkPwGonB8F3Zj8eEO8Sqg9Zv/bkI7RJAzowee4gr81Hak/dUTpA2Z7VfQgoijjPNlUZA==}
 
@@ -4411,8 +4408,8 @@ packages:
   vite-plugin-resolve@2.5.2:
     resolution: {integrity: sha512-8twv20M+KIMxkZzAoF1eAUxxxB56NxKdYjIJ309A/30lZ3GAqgiAeGFjVVlLLEpeAcbAwfl9p7jztsQEw7C3Jg==}
 
-  vite-plugin-solid@2.11.0:
-    resolution: {integrity: sha512-G+NiwDj4EAeUE0wt3Ur9f+Lt9oMUuLd0FIxYuqwJSqRacKQRteCwUFzNy8zMEt88xWokngQhiFjfJMhjc1fDXw==}
+  vite-plugin-solid@2.11.1:
+    resolution: {integrity: sha512-X9vbbK6AOOA6yxSsNl1VTuUq5y4BG9AR6Z5F/J1ZC2VO7ll8DlSCbOL+RcZXlRbxn0ptE6OI5832nGQhq4yXKQ==}
     peerDependencies:
       '@testing-library/jest-dom': ^5.16.6 || ^5.17.0 || ^6.*
       solid-js: ^1.7.2
@@ -7142,8 +7139,6 @@ snapshots:
 
   exif-parser@0.1.12: {}
 
-  exponential-backoff@3.1.1: {}
-
   exponential-backoff@3.1.2: {}
 
   extract-zip@2.0.1:
@@ -8122,7 +8117,7 @@ snapshots:
   node-gyp@11.0.0:
     dependencies:
       env-paths: 2.2.1
-      exponential-backoff: 3.1.1
+      exponential-backoff: 3.1.2
       glob: 10.4.5
       graceful-fs: 4.2.11
       make-fetch-happen: 14.0.3
@@ -9115,7 +9110,7 @@ snapshots:
     dependencies:
       lib-esm: 0.4.2
 
-  vite-plugin-solid@2.11.0(solid-js@1.9.4)(vite@6.0.11(@types/node@22.9.3)(yaml@2.6.1)):
+  vite-plugin-solid@2.11.1(solid-js@1.9.4)(vite@6.0.11(@types/node@22.9.3)(yaml@2.6.1)):
     dependencies:
       '@babel/core': 7.26.0
       '@types/babel__core': 7.20.5
