@@ -147,6 +147,11 @@ export default defineConfig({
       resolve: {
         alias: resolveAlias,
       },
+      server: {
+        cors: {
+          origin: 'https://music.youtube.com',
+        },
+      },
     };
 
     if (mode === 'development') {

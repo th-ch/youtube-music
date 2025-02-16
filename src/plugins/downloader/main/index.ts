@@ -116,6 +116,11 @@ export const onMainLoad = async ({
   const visitorData = yt.session.context.client.visitorData;
 
   if (visitorData) {
+    const cleanUp = (context: Partial<typeof globalThis>) => {
+      delete context.window;
+      delete context.document;
+    };
+
     try {
       const [width, height] = win.getSize();
       // emulate jsdom using linkedom
@@ -153,16 +158,16 @@ export const onMainLoad = async ({
           program: bgChallenge.program,
           globalName: bgChallenge.globalName,
           bgConfig,
+        }).finally(() => {
+          cleanUp(globalThis);
         });
 
         yt.session.po_token = poTokenResult.poToken;
+      } else {
+        cleanUp(globalThis);
       }
-    } finally {
-      // Bypass TypeScript checks
-      ((x: Partial<typeof globalThis>) => {
-        delete x.window;
-        delete x.document;
-      })(globalThis);
+    } catch {
+      cleanUp(globalThis);
     }
   }
 

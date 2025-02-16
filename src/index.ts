@@ -134,14 +134,6 @@ if (is.linux()) {
   // Overrides WM_CLASS for X11 to correspond to icon filename
   app.setName('com.github.th_ch.youtube_music');
 
-  // Workaround for issue #2248
-  if (
-    process.env.XDG_SESSION_TYPE === 'wayland' ||
-    process.env.WAYLAND_DISPLAY
-  ) {
-    app.commandLine.appendSwitch('disable-gpu-memory-buffer-video-frames');
-  }
-
   // Stops chromium from launching its own MPRIS service
   if (config.plugins.isEnabled('shortcuts')) {
     app.commandLine.appendSwitch('disable-features', 'MediaSessionService');
