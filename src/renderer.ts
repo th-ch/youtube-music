@@ -171,21 +171,27 @@ async function onApiLoaded() {
     } satisfies QueueResponse);
   });
 
+  type AddToQueueOptions = {
+    queueInsertPosition?: 'INSERT_AT_END' | 'INSERT_AFTER_CURRENT_VIDEO';
+    index?: number;
+  };
   window.ipcRenderer.on(
     'ytmd:add-to-queue',
-    (_, videoId: string, queueInsertPosition: string) => {
+    (_, videoIds: string | string[], { queueInsertPosition = 'INSERT_AT_END', index }: AddToQueueOptions) => {
+      const ids = Array.isArray(videoIds) ? videoIds : [videoIds];
       const queue = document.querySelector<QueueElement>('#queue');
       const app = document.querySelector<YouTubeMusicAppElement>('ytmusic-app');
       if (!app) return;
 
       const store = queue?.queue.store.store;
+      console.log('add-to-queue!', ids, queue, app, store);
       if (!store) return;
 
       app.networkManager
         .fetch('/music/get_queue', {
           queueContextParams: store.getState().queue.queueContextParams,
           queueInsertPosition,
-          videoIds: [videoId],
+          videoIds: ids,
         })
         .then((result) => {
           if (
@@ -201,7 +207,8 @@ async function onApiLoaded() {
               payload: {
                 nextQueueItemId: store.getState().queue.nextQueueItemId,
                 index:
-                  queueInsertPosition === 'INSERT_AFTER_CURRENT_VIDEO'
+                  (index ??
+                  queueInsertPosition === 'INSERT_AFTER_CURRENT_VIDEO')
                     ? queueItems.findIndex(
                         (it) =>
                           (
@@ -383,8 +390,14 @@ const defineYTMDTransElements = () => {
   YTMDTrans.prototype.connectedCallback = function () {
     const that = this as HTMLElement;
     const key = that.getAttribute('key');
+    const options: Record<string, unknown> = {};
+    that.getAttributeNames().forEach((attr) => {
+      if (attr === 'key') return;
+
+      options[attr] = that.getAttribute(attr);
+    });
     if (key) {
-      const targetHtml = i18t(key);
+      const targetHtml = i18t(key, options);
       (that.innerHTML as string | TrustedHTML) = defaultTrustedTypePolicy
         ? defaultTrustedTypePolicy.createHTML(targetHtml)
         : targetHtml;

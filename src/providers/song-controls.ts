@@ -24,16 +24,6 @@ const parseBooleanFromArgsType = (args: ArgsType<boolean>) => {
   }
 };
 
-const parseStringFromArgsType = (args: ArgsType<string>) => {
-  if (typeof args === 'string') {
-    return args;
-  } else if (Array.isArray(args)) {
-    return args[0];
-  } else {
-    return null;
-  }
-};
-
 export default (win: BrowserWindow) => {
   return {
     // Playback
@@ -100,15 +90,14 @@ export default (win: BrowserWindow) => {
       });
     },
     // Queue
-    addSongToQueue: (videoId: string, queueInsertPosition: string) => {
-      const videoIdValue = parseStringFromArgsType(videoId);
-      if (videoIdValue === null) return;
-
-      win.webContents.send(
-        'ytmd:add-to-queue',
-        videoIdValue,
-        queueInsertPosition,
-      );
+    addSongToQueue: (
+      videoIds: string | string[],
+      options: {
+        queueInsertPosition?: 'INSERT_AT_END' | 'INSERT_AFTER_CURRENT_VIDEO';
+        index?: number;
+      },
+    ) => {
+      win.webContents.send('ytmd:add-to-queue', videoIds, options);
     },
     moveSongInQueue: (
       fromIndex: ArgsType<number>,

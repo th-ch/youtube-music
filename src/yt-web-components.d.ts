@@ -42,6 +42,17 @@ declare module 'solid-js' {
         YpYtPaperSpinnerLiteProps;
       'tp-yt-paper-icon-button': ComponentProps<'div'> &
         TpYtPaperIconButtonProps;
+      'tp-yt-paper-listbox': ComponentProps<'div'>;
+
+      // Non-ytmusic elements
+      'ytmd-trans': ComponentProps<'span'> & {
+        key: string;
+      } & {
+        [key: `attr:${strig}`]: unknown;
+      };
+
+      // fallback
+      'marquee': ComponentProps<'marquee'>;
     }
   }
 }

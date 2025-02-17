@@ -720,7 +720,7 @@ export const register = (
 
   app.openapi(routes.addSongToQueue, (ctx) => {
     const { videoId, insertPosition } = ctx.req.valid('json');
-    controller.addSongToQueue(videoId, insertPosition);
+    controller.addSongToQueue(videoId, { queueInsertPosition: insertPosition });
 
     ctx.status(204);
     return ctx.body(null);

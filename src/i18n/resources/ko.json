@@ -541,7 +541,7 @@
       "menu": {
         "click-to-copy-id": "호스트 아이디 복사",
         "close": "Music Together 닫기",
-        "connected-users": "연결된 사용자",
+        "connected-users": "연결된 사용자: {{count}}명",
         "disconnect": "Music Together 연결 끊기",
         "empty-user": "연결된 사용자 없음",
         "host": "Music Together 호스트",

@@ -1,26 +1,6 @@
 import { DataConnection, Peer } from 'peerjs';
 
-import type { Permission, Profile, VideoData } from './types';
-
-export type ConnectionEventMap = {
-  ADD_SONGS: { videoList: VideoData[]; index?: number };
-  REMOVE_SONG: { index: number };
-  MOVE_SONG: { fromIndex: number; toIndex: number };
-  IDENTIFY: { profile: Profile } | undefined;
-  SYNC_PROFILE: { profiles: Record<string, Profile> } | undefined;
-  SYNC_QUEUE: { videoList: VideoData[] } | undefined;
-  SYNC_PROGRESS:
-    | { progress?: number; state?: number; index?: number }
-    | undefined;
-  PERMISSION: Permission | undefined;
-};
-export type ConnectionEventUnion = {
-  [Event in keyof ConnectionEventMap]: {
-    type: Event;
-    payload: ConnectionEventMap[Event];
-    after?: ConnectionEventUnion[];
-  };
-}[keyof ConnectionEventMap];
+import { ConnectedState, ConnectionEventMap, ConnectionEventUnion } from './types';
 
 type PromiseUtil<T> = {
   promise: Promise<T>;
@@ -32,10 +12,10 @@ export type ConnectionListener = (
   event: ConnectionEventUnion,
   conn: DataConnection,
 ) => void;
-export type ConnectionMode = 'host' | 'guest' | 'disconnected';
+
 export class Connection {
   private peer: Peer;
-  private _mode: ConnectionMode = 'disconnected';
+  private _state: ConnectedState = 'disconnected';
   private connections: Record<string, DataConnection> = {};
 
   private waitOpen: PromiseUtil<string> = {} as PromiseUtil<string>;
@@ -51,15 +31,15 @@ export class Connection {
     });
 
     this.peer.on('open', (id) => {
-      this._mode = 'host';
+      this._state = 'connecting';
       this.waitOpen.resolve(id);
     });
     this.peer.on('connection', (conn) => {
-      this._mode = 'host';
+      this._state = 'host';
       this.registerConnection(conn);
     });
     this.peer.on('error', (err) => {
-      this._mode = 'disconnected';
+      this._state = 'disconnected';
 
       this.waitOpen.reject(err);
       this.connectionListeners.forEach((listener) => listener());
@@ -73,16 +53,16 @@ export class Connection {
   }
 
   async connect(id: string) {
-    this._mode = 'guest';
+    this._state = 'guest';
     const conn = this.peer.connect(id);
     await this.registerConnection(conn);
     return conn;
   }
 
   disconnect() {
-    if (this._mode === 'disconnected') throw new Error('Already disconnected');
+    if (this._state === 'disconnected') throw new Error('Already disconnected');
 
-    this._mode = 'disconnected';
+    this._state = 'disconnected';
     this.connections = {};
     this.peer.destroy();
   }
@@ -92,8 +72,8 @@ export class Connection {
     return this.peer.id;
   }
 
-  public get mode() {
-    return this._mode;
+  public get state() {
+    return this._state;
   }
 
   public getConnections() {
@@ -121,7 +101,7 @@ export class Connection {
   private async registerConnection(conn: DataConnection) {
     return new Promise<DataConnection>((resolve, reject) => {
       this.peer.once('error', (err) => {
-        this._mode = 'disconnected';
+        this._state = 'disconnected';
 
         reject(err);
         this.connectionListeners.forEach((listener) => listener());
@@ -133,6 +113,12 @@ export class Connection {
         this.connectionListeners.forEach((listener) => listener(conn));
 
         conn.on('data', (data) => {
+          if (typeof data === 'string') {
+            try {
+              data = JSON.parse(data);
+            } catch {}
+          }
+
           if (
             !data ||
             typeof data !== 'object' ||
@@ -140,7 +126,7 @@ export class Connection {
             !('payload' in data) ||
             !data.type
           ) {
-            console.warn('Music Together: Invalid data', data);
+            console.warn('Music Together: Invalid data', data, typeof data);
             return;
           }
 

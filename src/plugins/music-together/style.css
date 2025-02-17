@@ -3,6 +3,7 @@
 
   cursor: pointer;
   margin-left: 8px;
+  margin-right: 16px;
 
   & svg {
     width: 24px;
@@ -83,42 +84,15 @@
 }
 
 .music-together-status {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-
-  padding: 16px;
 }
 .music-together-profile {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  overflow: hidden;
-  flex-shrink: 0;
 }
 .music-together-profile.big {
-  width: 32px;
-  height: 32px;
 }
 
 .music-together-status-container {
-  flex: 1;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  gap: 16px;
 }
 .music-together-status-item {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 4px;
-
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  font-size: 14px;
-  font-weight: 400;
 }
 .music-together-user-container {
   display: flex;
@@ -131,11 +105,6 @@
   font-size: 14px;
 }
 .music-together-empty {
-  width: 100%;
-
-  font-size: 14px;
-  color: rgba(255, 255, 255, .5);
-  text-align: center;
 }
 
 .music-together-owner {
