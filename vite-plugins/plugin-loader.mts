@@ -130,7 +130,7 @@ export default function (
 
       const stubContexts =
         mode === 'backend'
-          ? contexts.filter((ctx) => ctx !== 'backend')
+          ? contexts.filter((ctx) => ctx !== 'menu')
           : contexts;
       for (const ctx of stubContexts) {
         if (stubMap.has(ctx)) {
