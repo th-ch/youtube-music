@@ -327,7 +327,7 @@
     "glob": "11.0.1",
     "node-gyp": "11.1.0",
     "playwright": "1.50.1",
-    "rollup": "4.34.7",
+    "rollup": "4.34.8",
     "typescript": "5.7.3",
     "typescript-eslint": "8.24.0",
     "utf-8-validate": "6.0.5",
