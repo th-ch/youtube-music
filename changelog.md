@@ -2,7 +2,16 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v3.7.4](https://github.com/th-ch/youtube-music/compare/v3.7.3...v3.7.4)
+
+- chore(deps): update dependency rollup to v4.34.8 [`#2982`](https://github.com/th-ch/youtube-music/pull/2982)
+- fix(plugin-loader): update context filtering logic for backend mode [`#2990`](https://github.com/th-ch/youtube-music/pull/2990)
+- Update changelog for v3.7.3 [`86c77d1`](https://github.com/th-ch/youtube-music/commit/86c77d141f2bec62a4a578fff96d51ed388c05a5)
+- HOTFIX: Bump version to 3.7.4 [`0d462ac`](https://github.com/th-ch/youtube-music/commit/0d462ac3a26caee23854014cbf5e4b91e2d385e2)
+
 #### [v3.7.3](https://github.com/th-ch/youtube-music/compare/v3.7.2...v3.7.3)
+
+> 17 February 2025
 
 - fix(downloader): use the upgrade button to check for premium status [`#2987`](https://github.com/th-ch/youtube-music/pull/2987)
 - chore(deps): update dependency electron-vite to v3 [`#2986`](https://github.com/th-ch/youtube-music/pull/2986)
