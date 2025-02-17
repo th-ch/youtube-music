@@ -279,6 +279,13 @@
       },
       "name": "الوضع المحيطي"
     },
+    "amuse": {
+      "description": "تكامل دعم YouTube Music مع ويدجت Amuse لعرض الأغنية قيد التشغيل، من إنتاج 6K Labs",
+      "name": "تلسيه",
+      "response": {
+        "query": "خادم Amuse API قيد التشغيل. استخدم GET /query للحصول على معلومات الأغنية."
+      }
+    },
     "api-server": {
       "description": "يضيف خادم للتحكم في المشغل",
       "dialog": {
@@ -286,17 +293,38 @@
           "buttons": {
             "allow": "سماح",
             "deny": "رفض"
-          }
+          },
+          "message": "السماح لـ {{ID}} ({{origin}}) بالوصول إلى واجهة برمجة التطبيقات (API)؟",
+          "title": "طلب السماح بالوصول إلى واجهة برمجة التطبيقات(API)"
         }
       },
       "menu": {
+        "auth-strategy": {
+          "label": "نهج التفويض",
+          "submenu": {
+            "auth-at-first": {
+              "label": "التفويض المبدئي عند الطلب الأول"
+            },
+            "none": {
+              "label": "بدون تفويض"
+            }
+          }
+        },
         "hostname": {
           "label": "اسم المضيف"
+        },
+        "port": {
+          "label": "المنفذ"
         }
       },
+      "name": "خادم API [تجريبي]",
       "prompt": {
         "hostname": {
+          "label": "أدخل اسم المضيف (مثل 0.0.0.0) لخادم API:",
           "title": "اسم الخادم"
+        },
+        "port": {
+          "label": "أدخل المنفذ لخادم API:"
         }
       }
     },
