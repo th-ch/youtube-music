@@ -39,29 +39,29 @@
         "clearing-cache-after-20s": "กำลังล้างแคชแอป"
       },
       "window": {
-        "tried-to-render-offscreen": "หน้าต่างพยายามแสดงผลเกินขนาดหน้าจอ windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
+        "tried-to-render-offscreen": "หน้าต่างพยายามแสดงผลเกินขนาดหน้าจอ ขนาดหน้าต่าง={{windowSize}}, ขนาดหน้าจอ={{displaySize}}, ตำแหน่ง={{position}}"
       }
     },
     "dialog": {
       "hide-menu-enabled": {
-        "detail": "เมนูถูกซ่อนไว้ กด'Alt' เพื่อแสดงเมนู (หรือ 'Escape' หากอยู่ในเมนูแอป)",
-        "message": "การซ่อนเมนูถูกเปิดใช้งาน",
+        "detail": "เมนูถูกซ่อนไว้ กด'Alt' เพื่อแสดงเมนู (หรือ 'Escape' หากกำลังใช้เมนูบนแอป)",
+        "message": "การซ่อนเมนูเปิดใช้งานอยู่",
         "title": "เปิดใช้งานการซ่อนเมนู"
       },
       "need-to-restart": {
         "buttons": {
-          "later": "ภายหลัง",
-          "restart-now": "รีสตาร์ทตอนนี้"
+          "later": "รีสตาร์ตภายหลัง",
+          "restart-now": "รีสตาร์ตตอนนี้"
         },
-        "detail": "\"{{pluginName}}\" ปลั๊กอินต้องการการรีสตาร์ทเพื่อแสดงผล",
-        "message": "\"{{pluginName}}\" ต้องการรีสตาร์ท",
-        "title": "แนะนำให้รีสตาร์ท"
+        "detail": "ปลั๊กอิน \"{{pluginName}}\" ต้องการการรีสตาร์ตเพื่อจะทำงานได้",
+        "message": "\"{{pluginName}}\" ต้องการรีสตาร์ต",
+        "title": "แนะนำให้รีสตาร์ต"
       },
       "unresponsive": {
         "buttons": {
           "quit": "ออก",
-          "relaunch": "เปิดใหม่",
-          "wait": "รอซักครู่"
+          "relaunch": "ปิดแล้วเปิดใหม่",
+          "wait": "รอให้ตอบสนอง"
         },
         "detail": "ขออภัยในความไม่สะดวก! โปรดเลือกสิ่งที่ต้องการจะทำ:",
         "message": "แอปพลิเคชันไม่ตอบสนอง",
@@ -73,7 +73,7 @@
           "download": "ดาวน์โหลด",
           "ok": "ตกลง"
         },
-        "detail": "มีเวอร์ชันใหม่ให้ดาวน์โหลดแล้วที่ {{downloadLink}}",
+        "detail": "มีเวอร์ชันใหม่ให้ใช้งานได้สามารถดาวน์โหลดได้ที่ {{downloadLink}}",
         "message": "มีเวอร์ชันใหม่ให้ใช้งานแล้ว",
         "title": "อัปเดตพร้อมใช้งาน"
       }
@@ -87,7 +87,7 @@
           "go-back": "ก่อนหน้า",
           "go-forward": "ถัดไป",
           "quit": "ออก",
-          "restart": "รีสตาร์ทแอป"
+          "restart": "รีสตาร์ตแอป"
         }
       },
       "options": {
@@ -96,23 +96,23 @@
           "advanced-options": {
             "label": "ตัวเลือกขั้นสูง",
             "submenu": {
-              "auto-reset-app-cache": "รีเซตแอปแคชเมื่อเริ่มแอป",
+              "auto-reset-app-cache": "รีเซตแคชของแอปเมื่อเริ่มแอป",
               "disable-hardware-acceleration": "ปิดการใช้งานตัวเร่งประสิทธิภาพด้วยฮาร์ดแวร์",
               "edit-config-json": "แก้ไข config.json",
               "override-user-agent": "แทนที่ User-Agent",
-              "restart-on-config-changes": "รีสตาร์ทเมื่อมีการเปลี่ยนแปลงคอนฟิก",
+              "restart-on-config-changes": "รีสตาร์ตเมื่อมีการเปลี่ยนแปลงคอนฟิก",
               "set-proxy": {
                 "label": "ตั้งค่าพร็อกซี่",
                 "prompt": {
-                  "label": "ใส่ที่อยู่พร็อกซี่: (ปล่อยให้ว่างเพื่อปิดใช้งาน)",
+                  "label": "ใส่ที่อยู่ของพร็อกซี่: (เว้นว่างเพื่อปิดใช้งาน)",
                   "placeholder": "ตัวอย่าง: SOCKS5://127.0.0.1:9999",
                   "title": "ตั้งค่าพร็อกซี่"
                 }
               },
-              "toggle-dev-tools": "เปิด-ปิด DevTools"
+              "toggle-dev-tools": "เปิด/ปิดเครื่องมือสำหรับนักพัฒนา"
             }
           },
-          "always-on-top": "อยู่ด้านบนตลอดเวลา",
+          "always-on-top": "อยู่ด้านบนหน้าต่างอื่นตลอดเวลา",
           "auto-update": "อัปเดตอัตโนมัติ",
           "hide-menu": {
             "dialog": {
@@ -123,17 +123,17 @@
           },
           "language": {
             "dialog": {
-              "message": "ภาษาจะเปลี่ยนหลังจากทำการรีสตาร์ท",
+              "message": "ภาษาจะเปลี่ยนหลังจากทำการรีสตาร์ต",
               "title": "ภาษาถูกเปลี่ยนแล้ว"
             },
             "label": "ภาษา",
             "submenu": {
-              "to-help-translate": "ต้องการช่วยแปล? คลิกที่นี่"
+              "to-help-translate": "ต้องการช่วยแปลภาษา? คลิกที่นี่"
             }
           },
-          "resume-on-start": "เล่นเพลงล่าสุดต่อ เมื่อแอปเริ่มต้น",
-          "single-instance-lock": "ล็อกการทำงานเพียงรายการเดียว",
-          "start-at-login": "เริ่มต้นที่การเข้าสู่ระบบ",
+          "resume-on-start": "เล่นเพลงที่เล่นล่าสุดต่อ เมื่อเปิดแอป",
+          "single-instance-lock": "ล็อกไม่ให้เปิดซำ้ซ้อน",
+          "start-at-login": "เริ่มต้นเมื่อเข้าสู่ระบบ",
           "starting-page": {
             "label": "หน้าเริ่มต้น",
             "unset": "ยกเลิกการตั้งค่า"
@@ -148,7 +148,7 @@
             }
           },
           "visual-tweaks": {
-            "label": "การปรับแต่งหน้าตาแอป",
+            "label": "ปรับแต่งหน้าตาแอป",
             "submenu": {
               "like-buttons": {
                 "default": "ค่าเริ่มต้น",
@@ -169,7 +169,7 @@
                 "label": "ธีม",
                 "submenu": {
                   "import-css-file": "นำเข้าไฟล์ CSS ที่กำหนดเอง",
-                  "no-theme": "ไม่มีธีม"
+                  "no-theme": "ไม่ใช้ธีม"
                 }
               }
             }
@@ -187,28 +187,28 @@
           "force-reload": "บังคับโหลดใหม่",
           "reload": "โหลดใหม่",
           "reset-zoom": "ขนาดจริง",
-          "toggle-fullscreen": "สลับเต็มหน้าจอ",
+          "toggle-fullscreen": "เปิด/ปิดโหมดเต็มหน้าจอ",
           "zoom-in": "ซูมเข้า",
           "zoom-out": "ซูมออก"
         }
       }
     },
     "tray": {
-      "next": "ค่อไป",
-      "play-pause": "เล่น/พัก",
+      "next": "ต่อไป",
+      "play-pause": "เล่น/หยุดชั่วคราว",
       "previous": "ก่อนหน้า",
       "quit": "ออก",
-      "restart": "รีสตาร์ทแอป",
+      "restart": "รีสตาร์ตแอป",
       "show": "แสดงหน้าต่าง",
       "tooltip": {
-        "default": "ยูทุปมิวสิค",
-        "with-song-info": "ยูทูปมิวสิค: {{artist}} - {{title}}"
+        "default": "YouTube Music",
+        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
       }
     }
   },
   "plugins": {
     "ad-speedup": {
-      "description": "หากมีการเล่นโฆษณา เสียงจะถูกปิดและตั้งค่าความเร็วในการเล่นเป็น 16x",
+      "description": "หากมีโฆษณาเล่นขึ้น เสียงจะถูกปิดและตั้งความเร็วในการเล่นเป็น 16 เท่า",
       "name": "เพิ่มความเร็วโฆษณา"
     },
     "adblocker": {
@@ -219,7 +219,7 @@
       "name": "ตัวบล็อกโฆษณา"
     },
     "album-actions": {
-      "description": "เพิ่ม ยกเลิกไม่ชอบ, ไม่ชอบ, 'ถูกใจ', และ 'ยกเลิกถูกใจ' เพื่อให้สามารถใช้งานกับเพลงทั้งหมดในรายการเพลงหรืออัลบั้ม",
+      "description": "เพิ่ม ยกเลิกไม่ชอบ, ไม่ชอบ, ถูกใจ, และ ยกเลิกถูกใจ ที่มีผลกับเพลงทั้งหมดในรายการเพลงหรืออัลบั้ม",
       "name": "การกระทำที่เกี่ยวกับอัลบั้ม"
     },
     "album-color-theme": {
@@ -228,14 +228,14 @@
         "color-mix-ratio": {
           "label": "สัดส่วนการผสมสี",
           "submenu": {
-            "percent": "{{ratio}}เปอร์เซ็น"
+            "percent": "{{ratio}}%"
           }
         }
       },
       "name": "ธีมสีของอัลบั้ม"
     },
     "ambient-mode": {
-      "description": "เอฟเฟกต์แสงจะใช้สีอ่อนๆจากวีดิโอมาเป็พื้นหลังสกรีน",
+      "description": "เอฟเฟกต์แสงที่ดึงสีอ่อนๆจากวีดิโอมาบนพื้นหลังแอป",
       "menu": {
         "blur-amount": {
           "label": "ระดับความเบลอ",
@@ -268,9 +268,9 @@
           }
         },
         "smoothness-transition": {
-          "label": "การเปลี่ยนแบบสมูท",
+          "label": "ความเรียบการเปลี่ยน",
           "submenu": {
-            "during": "ระหว่าง {{interpolationTime}} วินาที"
+            "during": "ในระยะเวลา {{interpolationTime}} วินาที"
           }
         },
         "use-fullscreen": {
@@ -281,7 +281,10 @@
     },
     "amuse": {
       "description": "เพิ่มการรองรับ Youtube Music สำหรับ Widget Amuse Now Playing ของ 6K Labs",
-      "name": "Amuse"
+      "name": "Amuse",
+      "response": {
+        "query": "API Server ของ Amuse ทำงานอยู่ ส่ง GET ไปที่ /query เพื่อขอข้อมูลเกี่ยวกับเพลง"
+      }
     },
     "api-server": {
       "description": "เพิ่มเซิร์ฟเวอร์ API เพื่อควบคุมการเล่น",
@@ -291,7 +294,38 @@
             "allow": "อนุญาต",
             "deny": "ปฏิเสธ"
           },
-          "message": "อนุญาตให้ {{ID}} ({{origin}}) เข้าถึง API หรือไม่?"
+          "message": "อนุญาตให้ {{ID}} ({{origin}}) เข้าถึง API หรือไม่?",
+          "title": "คำขอลงชื่อเข้าใช้งาน API"
+        }
+      },
+      "menu": {
+        "auth-strategy": {
+          "label": "วิธีการลงชื่อเข้าใช้งาน",
+          "submenu": {
+            "auth-at-first": {
+              "label": "ลงชื่อเข้าใช้งานในคำขอแรก"
+            },
+            "none": {
+              "label": "ไม่ต้องลงชื่อเข้าใช้งาน"
+            }
+          }
+        },
+        "hostname": {
+          "label": "ชื่อโฮสต์ (Hostname)"
+        },
+        "port": {
+          "label": "พอร์ต (Port) ของ Server"
+        }
+      },
+      "name": "เซิร์ฟเวอร์ API [เบต้า]",
+      "prompt": {
+        "hostname": {
+          "label": "ใส่ชื่อโฮสต์ (Hostname) เช่น 0.0.0.0 สำหรับเซิร์ฟเวอร์ API:",
+          "title": "ชื่อโฮสต์ (Hostname)"
+        },
+        "port": {
+          "label": "ใส่พอร์ต (Port) ในการเข้าถึงเซิร์ฟเวอร์ API:",
+          "title": "พอร์ต (Port) ของ Server"
         }
       }
     },
@@ -304,11 +338,11 @@
       "name": "เบลอแถบนำทาง"
     },
     "bypass-age-restrictions": {
-      "description": "ข้ามการตรวจสอบอายุของยูทูป",
+      "description": "ข้ามการตรวจสอบอายุของ YouTube",
       "name": "ข้ามข้อจำกัดอายุ"
     },
     "captions-selector": {
-      "description": "ตัวเลือกคำบรรยายสำหรับเพลงในYoutube Music",
+      "description": "ตัวเลือกคำบรรยายสำหรับเพลงใน YouTube Music",
       "menu": {
         "autoload": "เลือกคำบรรยายที่ใช้ครั้งล่าสุดโดยอัตโนมัติ",
         "disable-captions": "ไม่มีคำบรรยายเป็นค่าเริ่มต้น"
@@ -352,19 +386,19 @@
       }
     },
     "disable-autoplay": {
-      "description": "เริ่มเพลงในโหมดหยุด",
+      "description": "เริ่มเพลงในโหมดหยุดชั่วคราว",
       "menu": {
-        "apply-once": "ใช้เฉพาะเมื่อเริ่มต้น"
+        "apply-once": "ใช้เฉพาะเมื่อเริ่มต้นแอป"
       },
       "name": "ปิดใช้งานการเล่นอัตโนมัติ"
     },
     "discord": {
       "backend": {
-        "already-connected": "พยายามเชื่อมต่อกับการเชื่อมต่อที่ทำงานอยู่",
+        "already-connected": "กำลังพยายามเชื่อมต่อด้วยการเชื่อมต่อที่มีอยู่",
         "connected": "เชื่อมต่อกับดิสคอร์ดแล้ว",
-        "disconnected": "ตัดการเชื่อมต่อออกจากดิสคอร์ด"
+        "disconnected": "ไม่มีการเชื่อมต่อกับดิสคอร์ดอยู่"
       },
-      "description": "แสดงให้เพื่อนเห็นว่าคุณกำลังฟังอะไรด้วย Rich Presence",
+      "description": "แสดงให้เพื่อนเห็นว่าคุณกำลังฟังอะไรด้วย Rich Presence บนดิสคอร์ด",
       "menu": {
         "auto-reconnect": "เชื่อมต่อใหม่โดยอัตโนมัติ",
         "clear-activity": "ล้างกิจกรรม",
@@ -373,10 +407,10 @@
         "disconnected": "ตัดการเชื่อมต่อ",
         "hide-duration-left": "ซ่อนระยะเวลาที่เหลือ",
         "hide-github-button": "ซ่อนปุ่มลิงก์ GitHub",
-        "play-on-youtube-music": "เล่นบนยูทูปมิวสุค",
+        "play-on-youtube-music": "เล่นบน YouTube Music",
         "set-inactivity-timeout": "ตั้งระยะเวลาไม่มีกิจกรรม"
       },
-      "name": "Discord Rich Presence",
+      "name": "แสดงกิจกรรมบนดิสคอร์ด",
       "prompt": {
         "set-inactivity-timeout": {
           "label": "ป้อนระยะเวลาไม่มีกิจกรรมเป็นวินาที:",
@@ -430,6 +464,21 @@
       "description": "ดาวน์โหลด MP3 / เสียงต้นฉบับโดยตรงจากอินเทอร์เฟซ",
       "menu": {
         "choose-download-folder": "เลือกโฟลเดอร์ดาวน์โหลด",
+        "download-finish-settings": {
+          "label": "ดาวน์โหลดเมื่อเล่นเสร็จ",
+          "prompt": {
+            "last-percent": "หลังจาก x เปอร์เซ็นต์",
+            "last-seconds": "x วินาทีล่าสุด",
+            "title": "ตั่งค่าเวลาที่จะดาวน์โหลด"
+          },
+          "submenu": {
+            "advanced": "การตั้งค่าขั้นสูง",
+            "enabled": "เปิดใช้งาน",
+            "mode": "โหมดเวลา",
+            "percent": "โหมดเปอร์เซ็นต์",
+            "seconds": "โหมดวินาที"
+          }
+        },
         "download-playlist": "ดาวน์โหลดเพลย์ลิสต์",
         "presets": "พรีเซ็ต",
         "skip-existing": "ข้ามไฟล์ที่มีอยู่แล้ว"
@@ -442,12 +491,24 @@
         "button": "ดาวน์โหลด"
       }
     },
+    "equalizer": {
+      "description": "เพิ่มอีควอไลเซอร์ให้ที่เล่นเพลง",
+      "menu": {
+        "presets": {
+          "label": "การตั้งค่าล่วงหน้า",
+          "list": {
+            "bass-booster": "เพิ่มเบส"
+          }
+        }
+      },
+      "name": "อีควอไลเซอร์"
+    },
     "exponential-volume": {
       "description": "ทำให้ตัวเลือกความดังมีลักษณะเอ็กซ์โปเนนเชียล เพื่อให้ง่ายต่อการเลือกระดับความดังที่ต่ำลง",
       "name": "ระดับเสียงแบบเอ็กซโปเนนเชียล"
     },
     "in-app-menu": {
-      "description": "ให้เมนูบาร์ดูทันสมัย มืดหรือเป็นสีของอัลบั้มอย่างน่าสนใจ",
+      "description": "ให้เแถบเมนูดูทันสมัย มืดหรือเป็นสีของอัลบั้มอย่างน่าสนใจ",
       "menu": {
         "hide-dom-window-controls": "ซ่อนตัวควบคุมหน้าต่าง DOM"
       },
@@ -534,6 +595,7 @@
           }
         },
         "priority": "ลำดับความสำคัญของการแจ้งเตือน",
+        "toast-style": "แบบไม่ถาวร",
         "unpause-notification": "แสดงการแจ้งเตือนเมื่อหยุดพัก"
       },
       "name": "การแจ้งเตือน"
@@ -553,8 +615,222 @@
           }
         },
         "save-window-position": "บันทึกตำแหน่งหน้าต่าง",
-        "save-window-size": "บันทึกขนาดหน้าต่าง"
+        "save-window-size": "บันทึกขนาดหน้าต่าง",
+        "use-native-pip": "ใช้โหมดภาพซ้อนภาพของเบราเซอร์"
+      },
+      "name": "โหมดภาพซ้อนภาพ",
+      "templates": {
+        "button": "เปิดโหมดภาพซ้อนภาพ"
       }
+    },
+    "playback-speed": {
+      "description": "ฟังเพลงได้ทั้งช้าและเร็ว เพิ่มที่เลื่อนปรับความเร็วของเพลง",
+      "name": "ความเร็วเพลง",
+      "templates": {
+        "button": "ความเร็ว"
+      }
+    },
+    "precise-volume": {
+      "description": "ควบคุมระดับเสียงได้อย่างแม่นยำด้วยที่เลื่อนเมาส์หรือปุ่มลัด พร้อมด้วยหน้าจอแสดงข้อมูลและขั้นระดับเสียงที่ปรับแต่งได้",
+      "menu": {
+        "arrows-shortcuts": "ควบคุมด้วยปุ่มลูกศรเมื่ออยู่ในแอป",
+        "custom-volume-steps": "ตั้งขั้นการปรับระดับเสียง",
+        "global-shortcuts": "ตั้งปุ่มลัดที่ใช้ได้ทั้งระบบ"
+      },
+      "name": "ระดับเสียงแม่นยำ",
+      "prompt": {
+        "global-shortcuts": {
+          "keybind-options": {
+            "decrease": "ปุ่มลดระดับเสียง",
+            "increase": "ปุ่มเพิ่มระดับเสียง"
+          },
+          "label": "ตั้งค่าปุ่มลัดระดับเสียงที่ใช้ได้ทั้งระบบ:",
+          "title": "ปุ่มลัดระดับเสียงที่ใช้ได้ทั้งระบบ"
+        },
+        "volume-steps": {
+          "label": "ตั้งขั้นการเพิ่ม/ลดระดับเสียง",
+          "title": "ขั้นการปรับระดับเสียง"
+        }
+      }
+    },
+    "quality-changer": {
+      "backend": {
+        "dialog": {
+          "quality-changer": {
+            "detail": "คุณภาพปัจจุบัน: {{quality}}",
+            "message": "เลือกคุณภาพวิดีโอ:",
+            "title": "เลือกคุณภาพวิดีโอ"
+          }
+        }
+      },
+      "description": "อนุญาตให้เปลี่ยนคุณภาพของวิดีโอด้วยปุ่มที่แสดงเหนือวิดีโอ",
+      "name": "ที่เปลี่ยนคุณภาพวิดีโอ"
+    },
+    "scrobbler": {
+      "description": "รองรับการบันทึกการเล่นเพลง (เช่น last.fm, Listenbrainz)",
+      "dialog": {
+        "lastfm": {
+          "auth-failed": {
+            "message": "เกิดปัญหาระหว่างเข้าใช้งาน Last.fm\nซ่อนข้อความนี้จนการรีสตาร์ตครั้งถัดไป",
+            "title": "เกิดปัญหาในการเข้าใช้งาน"
+          }
+        }
+      },
+      "menu": {
+        "lastfm": {
+          "api-settings": "การตั้งค่า API Last.fm"
+        },
+        "listenbrainz": {
+          "token": "ใส่ user token ของ ListenBrainz"
+        },
+        "scrobble-other-media": "บันทึกการเล่นสื่ออื่นๆ"
+      },
+      "name": "บันทึกการเล่น (Scrobbler)",
+      "prompt": {
+        "lastfm": {
+          "api-key": "API Key ของ Last.fm",
+          "api-secret": "API secret ของ Last.fm"
+        },
+        "listenbrainz": {
+          "token": {
+            "label": "ใส่ user token ListenBrainz ของคุณ:",
+            "title": "token ListenBrainz"
+          }
+        }
+      }
+    },
+    "shortcuts": {
+      "description": "อนุญาตให้ตั้งปุ่มลัดทั่วระบบสำหรับการเล่น (เล่น/หยุดชั่วคราว/ถัดไป/ก่อนหน้า) และปิดการแสดงผลสื่อโดยทับปุ่มควบคุมสื่อ เปิด Ctrl/CMD + F เพื่อค้นหา เปิดการใช้งานการควบคุมเพลงผ่าน MPRIS สำหรับ Linux และปุ่มลัดที่กำหนดเองได้สำหรับผู้ใช้ขั้นสูง",
+      "menu": {
+        "override-media-keys": "เปลี่ยนการทำงานของปุ่มควบคุมสื่อ",
+        "set-keybinds": "ตั้งค่าปุ่มลัดควบคุมเพลง"
+      },
+      "name": "ปุ่มลัด (และ MPRIS)",
+      "prompt": {
+        "keybind": {
+          "keybind-options": {
+            "next": "เพลงถัดไป",
+            "play-pause": "เล่น/หยุดชั่วคราว",
+            "previous": "เพลงก่อนหน้า"
+          },
+          "label": "ตั้งค่าปุ่มลัดทั่วระบบสำหรับควบคุมเพลง:",
+          "title": "ปุ่มลัดทั่วระบบ"
+        }
+      }
+    },
+    "skip-disliked-songs": {
+      "description": "ข้ามเพลงที่ไม่ถูกใจ",
+      "name": "ข้ามเพลงที่ไม่ถูกใจ"
+    },
+    "skip-silences": {
+      "description": "ข้ามช่วงที่เงียบในเพลงโดยอัตโนมัติ",
+      "name": "ข้ามช่วงเงียบ"
+    },
+    "sponsorblock": {
+      "description": "ข้ามช่วงที่ไม่ใช่เพลงเช่น intro/outro หรือ ช่วงที่ไม่มีเพลงเล่นใน mv โดยอัตโนมัติ",
+      "name": "SponsorBlock"
+    },
+    "synced-lyrics": {
+      "description": "ให้เนื้อเพลงที่ตรงกับเวลาของเพลง ผ่านผู้ให้บริการเช่น LRClib",
+      "errors": {
+        "fetch": "⚠️\tเกิดปัญหาในการดึงเนื้อเพลง\n\tกรุณาลองใหม่ภายหลัง",
+        "not-found": "⚠️ ไม่เจอเนื้อเพลงสำหรับเพลงนี้"
+      },
+      "menu": {
+        "default-text-string": {
+          "label": "อักขระคั่นระหว่างเนื้อเพลง",
+          "tooltip": "เลือกอักขระที่คั่นในช่วงที่อยู่ระหว่างเนื้อเพลง"
+        },
+        "line-effect": {
+          "label": "เอฟเฟกต์บรรทัด",
+          "submenu": {
+            "fancy": {
+              "label": "อลังการ",
+              "tooltip": "ใช้เอฟเฟกต์ใหญ่คล้ายบนแอพ บนบรรทัดปัจจุบัน"
+            },
+            "focus": {
+              "label": "เด่น",
+              "tooltip": "ทำให้แค่บรรทัดปัจจุบันสีขาว"
+            },
+            "offset": {
+              "label": "เลื่อน",
+              "tooltip": "เลื่อนบรรทัดปัจจุบันไปทางขวา"
+            },
+            "scale": {
+              "label": "ขยายขนาด",
+              "tooltip": "ขยายบรรทัดปัจจุบันให้ใหญ่ขึ้น"
+            }
+          },
+          "tooltip": "เลือกเอฟเฟกต์ที่จะใช้กับบรรทัดปัจจุบัน"
+        },
+        "precise-timing": {
+          "label": "ให้เนื้อเพลงตรงกับเพลงเป๊ะๆ",
+          "tooltip": "คำนวณมิลิวินาทีในการแสดงบรรทัดถัดไป (มีผลเล็กน้อยกับประสิทธิภาพการทำงาน)"
+        },
+        "show-lyrics-even-if-inexact": {
+          "label": "แสดงเนื้อเพลงแม้ไม่ตรงเป๊ะ",
+          "tooltip": "ถ้าหาเนื้อเพลงไม่เจอจะลองหาด้วยคำค้นหาที่ต่างกัน\nอาจได้เนื้อเพลงไม่ตรง"
+        },
+        "show-time-codes": {
+          "label": "แสดงตำแหน่งเวลา",
+          "tooltip": "แสดงตำแหน่งเวลาข้างๆเนื้อเพลง"
+        }
+      },
+      "name": "เนื้อเพลงตรงกับเพลง",
+      "refetch-btn": {
+        "fetching": "กำลังดึงข้อมูล...",
+        "normal": "ดึงเนื้อเพลงใหม่"
+      },
+      "warnings": {
+        "duration-mismatch": "⚠️ - เนื้อเพลงอาจไม่ตรงกับเวลาเนื่องจากความยาวไม่ตรงกัน",
+        "inexact": "⚠️ - เนื้อเพลงอาจไม่ตรง",
+        "instrumental": "⚠️ - เพลงนี้เป็นเพลงบรรเลง"
+      }
+    },
+    "taskbar-mediacontrol": {
+      "description": "ควบคุมการเล่นผ่าน taskbar ของ Windows",
+      "name": "ควบคุมสื่อผ่าน Taskbar"
+    },
+    "touchbar": {
+      "description": "เพิ่ม Widget บน TouchBar สำหรับผู้ใช้ macOS",
+      "name": "TouchBar"
+    },
+    "tuna-obs": {
+      "description": "ใช้งานร่วมกันกับปลั้กอิน Tuna บน OBS",
+      "name": "Tuna OBS"
+    },
+    "video-toggle": {
+      "description": "เพิ่มปุ่มสลับระหว่างโหมดเพลงกับโหมดวิดีโอ หรือลบแถบวิดีโอออกทั้งแถบ",
+      "menu": {
+        "align": {
+          "label": "ตำแหน่งปุ่ม",
+          "submenu": {
+            "left": "ซ้าย",
+            "middle": "กลาง",
+            "right": "ขวา"
+          }
+        },
+        "force-hide": "บังคับลบแถบวิดีโอ",
+        "mode": {
+          "label": "โหมด",
+          "submenu": {
+            "custom": "ปุ่มกำหนดเอง",
+            "disabled": "ปิด",
+            "native": "ปุ่มเริ่มต้น"
+          }
+        }
+      },
+      "name": "ปุ่มวิดีโอ",
+      "templates": {
+        "button": "เพลง"
+      }
+    },
+    "visualizer": {
+      "description": "เพิ่มวิชวลไลเซอร์ให้ที่เล่นเพลง",
+      "menu": {
+        "visualizer-type": "ประเภทวิชวลไลเซอร์"
+      },
+      "name": "วิชวลไลเซอร์"
     }
   }
 }
