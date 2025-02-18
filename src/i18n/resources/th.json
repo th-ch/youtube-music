@@ -279,6 +279,10 @@
       },
       "name": "โหมดสภาพแวดล้อม"
     },
+    "amuse": {
+      "description": "เพิ่มการรองรับ Youtube Music สำหรับ Widget Amuse Now Playing ของ 6K Labs",
+      "name": "Amuse"
+    },
     "api-server": {
       "description": "เพิ่มเซิร์ฟเวอร์ API เพื่อควบคุมการเล่น",
       "dialog": {
