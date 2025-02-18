@@ -744,6 +744,9 @@
         "line-effect": {
           "label": "Effetto linea",
           "submenu": {
+            "fancy": {
+              "tooltip": "Usa effetti grandi, simili a quelli di un'app sulla riga attuale"
+            },
             "focus": {
               "label": "Focus",
               "tooltip": "Rendi bianca solo la riga corrente"
