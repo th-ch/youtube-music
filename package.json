@@ -313,7 +313,7 @@
     "del-cli": "6.0.0",
     "discord-api-types": "0.37.119",
     "electron": "34.2.0",
-    "electron-builder": "26.0.6",
+    "electron-builder": "26.0.7",
     "electron-builder-squirrel-windows": "26.0.6",
     "electron-devtools-installer": "4.0.0",
     "electron-vite": "3.0.0",
