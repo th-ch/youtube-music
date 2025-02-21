@@ -279,6 +279,9 @@
       },
       "name": "Ambientní režim"
     },
+    "amuse": {
+      "description": "Přídá YouTube Music podporu pro Amuse právě těď hraje widget od 6k Labs"
+    },
     "api-server": {
       "description": "Vlož API server abys mohl ovládat přehrávač",
       "dialog": {
