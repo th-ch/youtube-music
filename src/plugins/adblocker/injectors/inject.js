@@ -37,7 +37,7 @@ export const inject = (contextBridge) => {
 
       //
       return o;
-    }
+    };
 
     contextBridge.exposeInMainWorld('_pruner', pruner);
   }
