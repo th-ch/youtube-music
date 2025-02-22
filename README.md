@@ -14,11 +14,10 @@
 
 ![Screenshot](web/screenshot.png "Screenshot")
 
-
 <div align="center">
-	<a href="https://github.com/th-ch/youtube-music/releases/latest">
-		<img src="web/youtube-music.svg" width="400" height="100" alt="YouTube Music SVG">
-	</a>
+ <a href="https://github.com/th-ch/youtube-music/releases/latest">
+  <img src="web/youtube-music.svg" width="400" height="100" alt="YouTube Music SVG">
+ </a>
 </div>
 
 Read this in other languages: [🇰🇷](./docs/readme/README-ko.md), [🇮🇸](./docs/readme/README-is.md), [🇨🇱 🇪🇸](./docs/readme/README-es.md), [🇷🇺](./docs/readme/README-ru.md), [🇭🇺](./docs/readme/README-hu.md)
@@ -56,15 +55,15 @@ Read this in other languages: [🇰🇷](./docs/readme/README-ko.md), [🇮🇸]
 - [License](#license)
 - [FAQ](#faq)
 
-## Features:
+## Features
 
 - **Auto confirm when paused** (Always Enabled): disable
   the ["Continue Watching?"](https://user-images.githubusercontent.com/61631665/129977894-01c60740-7ec6-4bf0-9a2c-25da24491b0e.png)
   popup that pause music after a certain time
 
- - And more ...
+- And more ...
 
-## Available plugins:
+## Available plugins
 
 - **Ad Blocker**: Block all ads and tracking out of the box
 
@@ -163,7 +162,6 @@ Read this in other languages: [🇰🇷](./docs/readme/README-ko.md), [🇮🇸]
 
 - **Visualizer**: Different music visualizers
 
-
 ## Translation
 
 You can help with translation on [Hosted Weblate](https://hosted.weblate.org/projects/youtube-music/).
@@ -220,7 +218,7 @@ winget install th-ch.YouTubeMusic
 
 #### How to install without a network connection? (in Windows)
 
-- Download the `*.nsis.7z` file for _your device architecture_ in [release page](https://github.com/th-ch/youtube-music/releases/latest).
+- Download the `*.nsis.7z` file for *your device architecture* in [release page](https://github.com/th-ch/youtube-music/releases/latest).
   - `x64` for 64-bit Windows
   - `ia32` for 32-bit Windows
   - `arm64` for ARM64 Windows
@@ -232,7 +230,7 @@ winget install th-ch.YouTubeMusic
 
 You can load CSS files to change the look of the application (Options > Visual Tweaks > Themes).
 
-Some predefined themes are available in https://github.com/kerichdev/themes-for-ytmdesktop-player.
+Some predefined themes are available in <https://github.com/kerichdev/themes-for-ytmdesktop-player>.
 
 ## Dev
 
@@ -255,6 +253,7 @@ Using plugins, you can:
 Create a folder in `src/plugins/YOUR-PLUGIN-NAME`:
 
 - `index.ts`: the main file of the plugin
+
 ```typescript
 import style from './style.css?inline'; // import style as inline
 

@@ -3,3 +3,5 @@ export const blockers = {
   InPlayer: 'In player',
   AdSpeedup: 'Ad speedup',
 } as const;
+
+export type BlockerType = typeof blockers[keyof typeof blockers];

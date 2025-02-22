@@ -28,20 +28,21 @@ export const loadAdBlockerEngine = async (
   cache: boolean = true,
   additionalBlockLists: string[] = [],
   disableDefaultLists: boolean | unknown[] = false,
-) => {
+): Promise<void> => {
   // Only use cache if no additional blocklists are passed
   const cacheDirectory = path.join(app.getPath('userData'), 'adblock_cache');
   if (!fs.existsSync(cacheDirectory)) {
     fs.mkdirSync(cacheDirectory);
   }
-  const cachingOptions =
-    cache && additionalBlockLists.length === 0
-      ? {
-          path: path.join(cacheDirectory, 'adblocker-engine.bin'),
-          read: promises.readFile,
-          write: promises.writeFile,
-        }
-      : undefined;
+
+  const cachingOptions = cache && additionalBlockLists.length === 0
+    ? {
+        path: path.join(cacheDirectory, 'adblocker-engine.bin'),
+        read: promises.readFile,
+        write: promises.writeFile,
+      }
+    : undefined;
+
   const lists = [
     ...((disableDefaultLists && !Array.isArray(disableDefaultLists)) ||
     (Array.isArray(disableDefaultLists) && disableDefaultLists.length > 0)
@@ -63,6 +64,7 @@ export const loadAdBlockerEngine = async (
       },
       cachingOptions,
     );
+
     if (session) {
       blocker.enableBlockingInSession(session);
     }
@@ -71,11 +73,11 @@ export const loadAdBlockerEngine = async (
   }
 };
 
-export const unloadAdBlockerEngine = (session: Electron.Session) => {
+export const unloadAdBlockerEngine = (session: Electron.Session): void => {
   if (blocker) {
     blocker.disableBlockingInSession(session);
   }
 };
 
-export const isBlockerEnabled = (session: Electron.Session) =>
+export const isBlockerEnabled = (session: Electron.Session): boolean =>
   blocker !== undefined && blocker.isBlockingEnabled(session);
