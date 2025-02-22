@@ -201,8 +201,8 @@
       "restart": "重启应用",
       "show": "显示窗口",
       "tooltip": {
-        "default": "YouTube Music",
-        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
+        "default": "优兔音乐",
+        "with-song-info": "优兔音乐: {{artist}} - {{title}}"
       }
     }
   },
@@ -281,7 +281,7 @@
     },
     "amuse": {
       "description": "为 6K Labs 的 Amuse 正在播放小部件添加 YouTube Music 支持",
-      "name": "Amuse",
+      "name": "逗笑",
       "response": {
         "query": "Amuse API服务器已在运行。使用 /query 以获取歌曲信息。"
       }
@@ -734,7 +734,7 @@
       "description": "透过 LRClib 等服务提供滚动歌词显示。",
       "errors": {
         "fetch": "⚠️ - 获取歌词时发生错误。请稍后再试。",
-        "not-found": "⚠️ - 未找到此歌曲的歌词。"
+        "not-found": "⚠️ 未找到此歌曲的歌词。"
       },
       "menu": {
         "default-text-string": {
