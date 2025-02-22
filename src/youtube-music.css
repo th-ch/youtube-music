@@ -10,7 +10,6 @@ ytmusic-nav-bar::before {
   content: '';
   position: absolute;
   inset: 0;
-
   -webkit-user-select: none;
   -webkit-app-region: drag;
 }
@@ -28,7 +27,7 @@ a {
   -webkit-app-region: no-drag;
 }
 
-/* custom style for navbar */
+/* Custom style for navbar */
 ytmusic-app-layout {
   --ytmusic-nav-bar-height: 90px;
 }
@@ -38,7 +37,7 @@ ytmusic-mealbar-promo-renderer {
   display: none !important;
 }
 
-/* Disable Image Selection */
+/* Disable image selection */
 img {
   -webkit-user-select: none;
   user-select: none;
@@ -54,18 +53,18 @@ ytmusic-cast-button {
   display: none !important;
 }
 
-/* Make youtube-music logo un-draggable */
+/* Make YouTube Music logo un-draggable */
 ytmusic-nav-bar > div.left-content > a,
 ytmusic-nav-bar > div.left-content > a > picture > img {
   -webkit-user-drag: none;
 }
 
-/* yt-music bugs */
+/* Fix YouTube Music bugs */
 tp-yt-paper-item.ytmusic-guide-entry-renderer::before {
   border-radius: 8px !important;
 }
 
-/* fix video player align */
+/* Fix video player alignment */
 #av-id {
   padding-bottom: 0;
 }
@@ -83,7 +82,7 @@ ytmusic-player[player-ui-state='FULLSCREEN'] {
   margin-top: calc(var(--menu-bar-height, 32px) * -1) !important;
 }
 
-/* macos traffic lights fix */
+/* macOS traffic lights fix */
 :where([data-os*='Macintosh']) ytmusic-app-layout#layout ytmusic-nav-bar {
   padding-top: var(--ytmusic-nav-bar-offset, 0);
 }
@@ -92,6 +91,7 @@ ytmusic-player[player-ui-state='FULLSCREEN'] {
   --ytmusic-nav-bar-height: calc(90px + var(--ytmusic-nav-bar-offset, 0));
 }
 
+/* Prevent dragging in dropdowns and dialogs */
 tp-yt-iron-dropdown,
 tp-yt-paper-dialog {
   app-region: no-drag;
