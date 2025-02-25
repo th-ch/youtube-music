@@ -639,7 +639,12 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
   try {
     playlist = await yt.music.getPlaylist(playlistId);
     if (playlist?.items) {
-      items.push(...playlist.items.as(YTNodes.MusicResponsiveListItem));
+      const filteredItems = playlist.items.filter(
+        (item): item is YTNodes.MusicResponsiveListItem =>
+          item instanceof YTNodes.MusicResponsiveListItem,
+      );
+
+      items.push(...filteredItems);
     }
   } catch (error: unknown) {
     sendError(
@@ -674,9 +679,13 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
 
   while (playlist.has_continuation) {
     playlist = await playlist.getContinuation();
-    if (playlist?.items) {
-      items.push(...playlist.items.as(YTNodes.MusicResponsiveListItem));
-    }
+
+    const filteredItems = playlist.items.filter(
+      (item): item is YTNodes.MusicResponsiveListItem =>
+        item instanceof YTNodes.MusicResponsiveListItem,
+    );
+
+    items.push(...filteredItems);
   }
 
   if (items.length === 1) {
