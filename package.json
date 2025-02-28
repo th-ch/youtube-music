@@ -226,7 +226,7 @@
       "node-gyp": "11.1.0",
       "xml2js": "0.6.2",
       "node-fetch": "3.3.2",
-      "@electron/universal": "2.0.1",
+      "@electron/universal": "2.0.2",
       "@babel/runtime": "7.26.9"
     },
     "patchedDependencies": {
