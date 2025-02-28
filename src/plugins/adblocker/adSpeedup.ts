@@ -7,7 +7,7 @@ function skipAd(target: Element): void {
   }
 }
 
-function speedUpAndMute(player: Element, isAdShowing: boolean): void {
+function speedUpAndMute(player: Element, isAdShowing: boolean) {
   const video = player.querySelector<HTMLVideoElement>('video');
   if (!video) return;
   if (isAdShowing) {

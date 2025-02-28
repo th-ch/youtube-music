@@ -1,47 +1,28 @@
 {
   "extends": "@electron-toolkit/tsconfig/tsconfig.node.json",
   "compilerOptions": {
-    // Specify ECMAScript target version
     "target": "esnext",
-    // Specify library files to be included in the compilation
     "lib": ["dom", "dom.iterable", "es2022"],
-    // Specify module code generation
     "module": "esnext",
-    // Specify type definitions to be included
     "types": ["electron-vite/node"],
-    // Allow default imports from modules with no default export
     "allowSyntheticDefaultImports": true,
-    // Enables emit interoperability between CommonJS and ES Modules
     "esModuleInterop": true,
-    // Include modules imported with .json extension
     "resolveJsonModule": true,
-    // Specify module resolution strategy
     "moduleResolution": "node",
-    // Specify JSX code generation
     "jsx": "preserve",
-    // Specify JSX factory function
     "jsxImportSource": "solid-js",
-    // Base directory to resolve non-relative module names
     "baseUrl": ".",
-    // Redirect output structure to the directory
     "outDir": "./dist",
-    // Enable all strict type-checking options
     "strict": true,
-    // Raise error on expressions and declarations with an implied 'any' type
     "noImplicitAny": true,
-    // Enable strict checking of function types
     "strictFunctionTypes": true,
-    // Skip type checking of all declaration files
     "skipLibCheck": true,
-    // Specify path mapping
     "paths": {
       "@/*": ["./src/*"],
       "@assets/*": ["./assets/*"]
     }
   },
-  // Exclude files from compilation
   "exclude": ["./dist"],
-  // Include files in compilation
   "include": [
     "electron.vite.config.mts",
     "./src/**/*",

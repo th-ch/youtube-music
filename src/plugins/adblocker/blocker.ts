@@ -1,4 +1,3 @@
-// Used for caching
 import path from 'node:path';
 import fs, { promises } from 'node:fs';
 
@@ -51,25 +50,21 @@ export const loadAdBlockerEngine = async (
     ...additionalBlockLists,
   ];
 
-  try {
-    blocker = await ElectronBlocker.fromLists(
-      (url: string) => net.fetch(url),
-      lists,
-      {
-        enableCompression: true,
-        // When generating the engine for caching, do not load network filters
-        // So that enhancing the session works as expected
-        // Allowing to define multiple webRequest listeners
-        loadNetworkFilters: session !== undefined,
-      },
-      cachingOptions,
-    );
+  blocker = await ElectronBlocker.fromLists(
+    (url: string) => net.fetch(url),
+    lists,
+    {
+      enableCompression: true,
+      // When generating the engine for caching, do not load network filters
+      // So that enhancing the session works as expected
+      // Allowing to define multiple webRequest listeners
+      loadNetworkFilters: session !== undefined,
+    },
+    cachingOptions,
+  );
 
-    if (session) {
-      blocker.enableBlockingInSession(session);
-    }
-  } catch (error) {
-    console.error('Error loading adBlocker engine', error);
+  if (session) {
+    blocker.enableBlockingInSession(session);
   }
 };
 
