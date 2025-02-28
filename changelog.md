@@ -2,7 +2,29 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v3.7.5](https://github.com/th-ch/youtube-music/compare/v3.7.4...v3.7.5)
+
+- chore(deps): update dependency builtin-modules to v5 [`#3038`](https://github.com/th-ch/youtube-music/pull/3038)
+- chore(deps): update dependency typescript-eslint to v8.25.0 [`#2953`](https://github.com/th-ch/youtube-music/pull/2953)
+- fix(deps): update dependency happy-dom to v17.1.8 [`#3001`](https://github.com/th-ch/youtube-music/pull/3001)
+- chore(deps): update dependency eslint-config-prettier to v10.0.2 [`#3035`](https://github.com/th-ch/youtube-music/pull/3035)
+- chore(deps): update dependency @electron/universal to v2.0.2 [`#3034`](https://github.com/th-ch/youtube-music/pull/3034)
+- chore(deps): update dependency @stylistic/eslint-plugin-js to v4 [`#2950`](https://github.com/th-ch/youtube-music/pull/2950)
+- chore(deps): update dependency electron-builder-squirrel-windows to v26.0.9 [`#2930`](https://github.com/th-ch/youtube-music/pull/2930)
+- fix(no-google-login): Remove Library icon removal code [`#3010`](https://github.com/th-ch/youtube-music/pull/3010)
+- fix: Updated tray pause icon for consistency [`#3025`](https://github.com/th-ch/youtube-music/pull/3025)
+- chore(deps): update dependency eslint-import-resolver-typescript to v3.8.3 [`#2992`](https://github.com/th-ch/youtube-music/pull/2992)
+- fix(deps): update dependency hono to v4.7.2 [`#2999`](https://github.com/th-ch/youtube-music/pull/2999)
+- fix: Filter for only `MusicResponsiveListItem` in playlist items [`#3022`](https://github.com/th-ch/youtube-music/pull/3022)
+- fix(deps): update dependency youtubei.js to v13.1.0 [`#3015`](https://github.com/th-ch/youtube-music/pull/3015)
+- fix: Match engines.pnpm with the pnpm version used to create the lock files [`#2995`](https://github.com/th-ch/youtube-music/pull/2995)
+- chore(deps): update dependency electron-builder to v26.0.9 [`457e1bb`](https://github.com/th-ch/youtube-music/commit/457e1bb48e2bcc742680d22b7d34ffdbe7f33eae)
+- chore(deps): update deps [`c8bb1f3`](https://github.com/th-ch/youtube-music/commit/c8bb1f386d7053d755c38ca2cac8708af7af1fb9)
+- chore(i18n): Translated using Weblate (Thai) [`c9b7901`](https://github.com/th-ch/youtube-music/commit/c9b790168130d0cfc9b2ff23cdcb56ab082a4b66)
+
 #### [v3.7.4](https://github.com/th-ch/youtube-music/compare/v3.7.3...v3.7.4)
+
+> 18 February 2025
 
 - chore(deps): update dependency rollup to v4.34.8 [`#2982`](https://github.com/th-ch/youtube-music/pull/2982)
 - fix(plugin-loader): update context filtering logic for backend mode [`#2990`](https://github.com/th-ch/youtube-music/pull/2990)
