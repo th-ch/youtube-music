@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  vite: 6.1.0
+  vite: 6.2.0
   node-gyp: 11.1.0
   xml2js: 0.6.2
   node-fetch: 3.3.2
@@ -214,9 +214,6 @@ importers:
       '@types/electron-localshortcut':
         specifier: 3.1.3
         version: 3.1.3
-      '@types/eslint__js':
-        specifier: 8.42.3
-        version: 8.42.3
       '@types/howler':
         specifier: 2.2.12
         version: 2.2.12
@@ -1333,9 +1330,6 @@ packages:
   '@types/eslint@9.6.1':
     resolution: {integrity: sha512-FXx2pKgId/WyYo2jXw63kk7/+TY7u7AziEJxJAnSFzHlqTAS3Ync6SvgYAN/k4/PQpnnVuzoMuVnByKK2qp0ag==}
 
-  '@types/eslint__js@8.42.3':
-    resolution: {integrity: sha512-alfG737uhmPdnvkrLdZLcEKJ/B8s9Y4hrZ+YAdzUeoArBlSUERA2E87ROfOaS4jd/C45fzOoZzidLc1IPwLqOw==}
-
   '@types/estree@1.0.6':
     resolution: {integrity: sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==}
 
@@ -2170,7 +2164,7 @@ packages:
     hasBin: true
     peerDependencies:
       '@swc/core': ^1.0.0
-      vite: 6.1.0
+      vite: 6.2.0
     peerDependenciesMeta:
       '@swc/core':
         optional: true
@@ -4364,19 +4358,19 @@ packages:
   vite-dev-rpc@1.0.7:
     resolution: {integrity: sha512-FxSTEofDbUi2XXujCA+hdzCDkXFG1PXktMjSk1efq9Qb5lOYaaM9zNSvKvPPF7645Bak79kSp1PTooMW2wktcA==}
     peerDependencies:
-      vite: 6.1.0
+      vite: 6.2.0
 
   vite-hot-client@2.0.4:
     resolution: {integrity: sha512-W9LOGAyGMrbGArYJN4LBCdOC5+Zwh7dHvOHC0KmGKkJhsOzaKbpo/jEjpPKVHIW0/jBWj8RZG0NUxfgA8BxgAg==}
     peerDependencies:
-      vite: 6.1.0
+      vite: 6.2.0
 
   vite-plugin-inspect@11.0.0:
     resolution: {integrity: sha512-Q0RDNcMs1mbI2yGRwOzSapnnA6NFO0j88+Vb8pJX0iYMw34WczwKJi3JgheItDhbWRq/CLUR0cs+ajZpcUaIFQ==}
     engines: {node: '>=14'}
     peerDependencies:
       '@nuxt/kit': '*'
-      vite: 6.1.0
+      vite: 6.2.0
     peerDependenciesMeta:
       '@nuxt/kit':
         optional: true
@@ -4389,7 +4383,7 @@ packages:
     peerDependencies:
       '@testing-library/jest-dom': ^5.16.6 || ^5.17.0 || ^6.*
       solid-js: ^1.7.2
-      vite: 6.1.0
+      vite: 6.2.0
     peerDependenciesMeta:
       '@testing-library/jest-dom':
         optional: true
@@ -4437,7 +4431,7 @@ packages:
   vitefu@1.0.6:
     resolution: {integrity: sha512-+Rex1GlappUyNN6UfwbVZne/9cYC4+R2XDk9xkNXBKMw6HQagdX9PgZ8V2v1WUSK1wfBLp7qbI1+XSNIlB1xmA==}
     peerDependencies:
-      vite: 6.1.0
+      vite: 6.2.0
     peerDependenciesMeta:
       vite:
         optional: true
@@ -5610,10 +5604,7 @@ snapshots:
     dependencies:
       '@types/estree': 1.0.6
       '@types/json-schema': 7.0.15
-
-  '@types/eslint__js@8.42.3':
-    dependencies:
-      '@types/eslint': 9.6.1
+    optional: true
 
   '@types/estree@1.0.6': {}
 
