@@ -230,8 +230,8 @@ importers:
         specifier: 4.0.9
         version: 4.0.9
       builtin-modules:
-        specifier: 4.0.0
-        version: 4.0.0
+        specifier: 5.0.0
+        version: 5.0.0
       cross-env:
         specifier: 7.0.3
         version: 7.0.3
@@ -1702,8 +1702,8 @@ packages:
   builder-util@26.0.7:
     resolution: {integrity: sha512-rZL8wTMtpAM8CZO4l6eIM36oie95LP7de4nEp7ZhQ94JsL7kKT4orPwp6weRzxldXPzNyalUPkhCxJcFDanFIg==}
 
-  builtin-modules@4.0.0:
-    resolution: {integrity: sha512-p1n8zyCkt1BVrKNFymOHjcDSAl7oq/gUvfgULv2EblgpPVQlQr9yHnWjg9IJ2MhfwPqiYqMMrr01OY7yQoK2yA==}
+  builtin-modules@5.0.0:
+    resolution: {integrity: sha512-bkXY9WsVpY7CvMhKSR6pZilZu9Ln5WDrKVBUXf2S443etkmEO4V58heTecXcUIsNsi4Rx8JUO4NfX1IcQl4deg==}
     engines: {node: '>=18.20'}
 
   bundle-name@4.1.0:
@@ -5587,7 +5587,7 @@ snapshots:
     dependencies:
       '@types/http-cache-semantics': 4.0.4
       '@types/keyv': 3.1.4
-      '@types/node': 20.17.19
+      '@types/node': 22.13.5
       '@types/responselike': 1.0.3
 
   '@types/debug@4.1.12':
@@ -5624,7 +5624,7 @@ snapshots:
 
   '@types/keyv@3.1.4':
     dependencies:
-      '@types/node': 20.17.19
+      '@types/node': 22.13.5
 
   '@types/ms@2.1.0': {}
 
@@ -5646,7 +5646,7 @@ snapshots:
 
   '@types/responselike@1.0.3':
     dependencies:
-      '@types/node': 20.17.19
+      '@types/node': 22.13.5
 
   '@types/semver@7.5.8': {}
 
@@ -5657,7 +5657,7 @@ snapshots:
 
   '@types/yauzl@2.10.3':
     dependencies:
-      '@types/node': 20.17.19
+      '@types/node': 22.13.5
     optional: true
 
   '@typescript-eslint/eslint-plugin@8.25.0(@typescript-eslint/parser@8.25.0(eslint@9.21.0)(typescript@5.7.3))(eslint@9.21.0)(typescript@5.7.3)':
@@ -6087,7 +6087,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  builtin-modules@4.0.0: {}
+  builtin-modules@5.0.0: {}
 
   bundle-name@4.1.0:
     dependencies:
