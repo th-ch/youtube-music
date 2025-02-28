@@ -720,7 +720,7 @@ app.whenReady().then(async () => {
   mainWindow = await createMainWindow();
   await setApplicationMenu(mainWindow);
   await refreshMenu(mainWindow);
-  setUpTray(app, mainWindow);
+  setUpTray({ app, win: mainWindow });
 
   setupProtocolHandler(mainWindow);
 
