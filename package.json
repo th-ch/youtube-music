@@ -231,7 +231,6 @@
     },
     "patchedDependencies": {
       "vudio@2.1.1": "patches/vudio@2.1.1.patch",
-      "app-builder-lib@26.0.6": "patches/app-builder-lib@26.0.6.patch",
       "@malept/flatpak-bundler": "patches/@malept__flatpak-bundler.patch"
     },
     "neverBuiltDependencies": []
