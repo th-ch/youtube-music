@@ -324,31 +324,171 @@
           "title": "اسم الخادم"
         },
         "port": {
-          "label": "أدخل المنفذ لخادم API:"
+          "label": "أدخل المنفذ لخادم API:",
+          "title": "منفذ"
         }
       }
     },
+    "audio-compressor": {
+      "description": "تطبيق الضغط على الصوت (يخفض مستوى صوت الأجزاء الأعلى من الإشارة ويرفع مستوى صوت الأجزاء الأكثر نعومة)",
+      "name": "ضاغط الصوت"
+    },
     "blur-nav-bar": {
-      "description": "يجعل شريط التنقل شفاف و ضبابي"
+      "description": "يجعل شريط التنقل شفاف و ضبابي",
+      "name": "تغبيش شريط التنقل"
     },
     "bypass-age-restrictions": {
       "description": "تجاوز تَحَقّق اليوتيوب من السن",
       "name": "تجاوز التحقق من السن"
     },
-    "downloader": {
-      "backend": {
-        "feedback": {
-          "downloading-counter": "تنزيل {{current}}/{{total}}…",
-          "error-while-downloading": "خطأ في تحميل \"{{author}} - {{title}}\": {{error}}",
-          "loading": "جار التحميل…",
-          "preparing-file": "يتم تجهيز الملف…",
-          "saving": "يتم الحفظ…",
-          "video-id-not-found": "لم يتم ايجاد الفيديو"
+    "captions-selector": {
+      "description": "محدد ترجمات المقاطع الصوتية لYoutube Music",
+      "menu": {
+        "autoload": "اختار اخر ترجمة مستخدمة تلقائيا",
+        "disable-captions": "لا توجد ترجمات بشكل افتراضي"
+      },
+      "name": "محدد الترجمة",
+      "prompt": {
+        "selector": {
+          "label": "لغة الترجمة الحالية: {{language}}",
+          "none": "لا شيء",
+          "title": "اختار لغة الترجمة"
         }
       },
-      "menu": {
-        "choose-download-folder": "اختر مكان التحميل"
+      "templates": {
+        "title": "فتح محدد الترجمة"
       }
+    },
+    "compact-sidebar": {
+      "description": "قم دائمًا بتعيين الشريط الجانبي في الوضع الملموم",
+      "name": "شريط جانبي ملموم"
+    },
+    "crossfade": {
+      "description": "التداخل بين الأغاني",
+      "menu": {
+        "advanced": "متقدم"
+      },
+      "name": "التداخل بين الأغاني [تجريبي]",
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "fade-in-duration": "مدة التداخل (بأجزاء الثانية)",
+            "fade-out-duration": "مدة التلاشي (جزء ثانية)",
+            "fade-scaling": {
+              "label": "توسيع التداخل",
+              "linear": "خطي",
+              "logarithmic": "لوغاريتمي"
+            }
+          },
+          "title": "خيارات التداخل"
+        }
+      }
+    },
+    "disable-autoplay": {
+      "description": "يجعل الأغنية تبدأ في وضع \"الإيقاف المؤقت\"",
+      "menu": {
+        "apply-once": "ينطبق فقط عند بدء التشغيل"
+      },
+      "name": "تعطيل التشغيل التلقائي"
+    },
+    "discord": {
+      "backend": {
+        "already-connected": "تمت محاولة الاتصال بالاتصال النشط",
+        "connected": "متصل بDiscord",
+        "disconnected": "انقطع الاتصال بDiscord"
+      },
+      "description": "أظهر لأصدقائك ما تستمع إليه من خلال Rich Presence",
+      "menu": {
+        "auto-reconnect": "إعادة اتصال تلقائي",
+        "connected": "متصل",
+        "disconnected": "قطع الاتصال",
+        "hide-duration-left": "إخفاء المدة المتبقية",
+        "hide-github-button": "إخفاء زر رابط GitHub",
+        "play-on-youtube-music": "شغل في YouTube Music",
+        "set-inactivity-timeout": "ضبط مهلة عدم النشاط"
+      },
+      "prompt": {
+        "set-inactivity-timeout": {
+          "label": "أدخل مهلة عدم النشاط بالثواني:",
+          "title": "ضبط مهلة عدم النشاط"
+        }
+      }
+    },
+    "downloader": {
+      "backend": {
+        "dialog": {
+          "error": {
+            "buttons": {
+              "ok": "حسنا"
+            },
+            "message": "نعتذر، فشل التحميل…",
+            "title": "خطأ في التحميل!"
+          },
+          "start-download-playlist": {
+            "buttons": {
+              "ok": "حسنا"
+            },
+            "detail": "({{playlistSize}} الأغاني)",
+            "message": "تحميل القائمة {{playlistTitle}}",
+            "title": "بدأ التحميل"
+          }
+        },
+        "feedback": {
+          "conversion-progress": "التحويل: {{percent}}%",
+          "converting": "جارٍ التحويل…",
+          "done": "تم: {{filePath}}",
+          "download-info": "تحميل {{artist}} - {{title}} {{videoId}}",
+          "download-progress": "تحميل: {{percent}}%",
+          "downloading": "تحميل…",
+          "downloading-counter": "تنزيل {{current}}/{{total}}…",
+          "downloading-playlist": "يتم تحميل القائمة \"{{playlistTitle}}\" - {{playlistSize}} أغاني ({{playlistId}})",
+          "error-while-downloading": "خطأ في تحميل \"{{author}} - {{title}}\": {{error}}",
+          "folder-already-exists": "الملف {{playlistFolder}} موجود بالفعل",
+          "getting-playlist-info": "الحصول على معلومات القائمة…",
+          "loading": "جار التحميل…",
+          "playlist-has-only-one-song": "تحتوي قائمة التشغيل على عنصر واحد فقط، يتم تحميله الأن",
+          "playlist-id-not-found": "لم يتم العثور على معرف قائمة التشغيل",
+          "playlist-is-empty": "قائمة التشغيل فارغة",
+          "playlist-is-mix-or-private": "حدث خطأ أثناء الحصول على معلومات قائمة التشغيل: تأكد من أنها ليست قائمة تشغيل خاصة أو قائمة تشغيل \"مختلطة لك\"\n\n{{error}}",
+          "preparing-file": "يتم تجهيز الملف…",
+          "saving": "يتم الحفظ…",
+          "trying-to-get-playlist-id": "محاولة الحصول على معرف قائمة التشغيل: {{playlistId}}",
+          "video-id-not-found": "لم يتم ايجاد الفيديو",
+          "writing-id3": "كتابة علامات ID3…"
+        }
+      },
+      "description": "يقوم بتنزيل ملفات MP3/مصدر الصوت مباشرة من الواجهة",
+      "menu": {
+        "choose-download-folder": "اختر مكان التحميل",
+        "download-finish-settings": {
+          "label": "تحميل عند الانتهاء",
+          "prompt": {
+            "last-seconds": "آخر (x) ثانية",
+            "title": "تكوين وقت التحميل"
+          },
+          "submenu": {
+            "advanced": "متقدم",
+            "enabled": "مفعل",
+            "mode": "وضع الوقت",
+            "percent": "النسبة",
+            "seconds": "ثواني"
+          }
+        },
+        "download-playlist": "تحميل قائمة التشغيل",
+        "presets": "الإعدادات المسبقة",
+        "skip-existing": "تخطي الملفات الموجودة"
+      },
+      "name": "أداة التنزيل",
+      "renderer": {
+        "can-not-update-progress": "لا يمكن تحديث التقدم"
+      },
+      "templates": {
+        "button": "تحميل"
+      }
+    },
+    "exponential-volume": {
+      "description": "يجعل شريط تمرير مستوى الصوت أسيًا بحيث يسهل تحديد مستويات الصوت الأقل.",
+      "name": "الصوت الأسي"
     }
   }
 }
