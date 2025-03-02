@@ -8,6 +8,11 @@
   display: block !important;
 }
 
+/* Hide the scrollbar in the lyrics-tab */
+#tab-renderer[page-type='MUSIC_PAGE_TYPE_TRACK_LYRICS'] {
+  scrollbar-width: none;
+}
+
 @property --lyrics-duration {
   syntax: '<time>';
   inherits: false;
@@ -70,11 +75,15 @@
 
   & .text-lyrics > .romaji {
     color: var(--ytmusic-text-secondary) !important;
+    font-size: calc(var(--lyrics-font-size) * 0.7) !important;
+    font-style: italic !important;
   }
 }
 
 .plain-lyrics .romaji {
   color: var(--ytmusic-text-secondary) !important;
+  font-size: calc(var(--lyrics-font-size) * 0.7) !important;
+  font-style: italic !important;
 }
 
 .plain-lyrics .lrc-header {

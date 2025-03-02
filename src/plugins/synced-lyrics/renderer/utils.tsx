@@ -19,7 +19,7 @@ export const tabStates: Record<string, () => void> = {
     if (container) return;
 
     const tabRenderer = await waitForElement<HTMLElement>(
-      selectors.body.tabRenderer,
+      selectors.body.tabRenderer
     );
 
     container = Object.assign(document.createElement('div'), {
@@ -34,12 +34,49 @@ export const tabStates: Record<string, () => void> = {
   },
 };
 
-// prettier-ignore
-export const canonicalize = (text: string) =>
+export const canonicalize = (text: string) => {
+  // `hi  there` => `hi there`
+  text = text.replaceAll(/\s+/g, ' ');
+
+  // `( a )` => `(a)`
+  text = text.replaceAll(/([\(\[]) ([^ ])/g, (_, symbol, a) => `${symbol}${a}`);
+  text = text.replaceAll(/([^ ]) ([\)\]])/g, (_, a, symbol) => `${a}${symbol}`);
+
+  // `can ' t` => `can't`
+  text = text.replaceAll(
+    /(?:([Ii]) (') ([^ ]))|(?:(n) (') (t)(?= |$))|(?:(t) (') (s))|(?:([^ ]) (') (re))|(?:([^ ]) (') (ve))|(?:([^ ]) (-) ([^ ]))/g,
+    (m, ...groups) => {
+      for (let i = 0; i < groups.length; i += 3) {
+        if (groups[i]) {
+          return groups.slice(i, i + 3).join('');
+        }
+      }
+
+      return m;
+    }
+  );
+
+  // `Stayin ' still` => `Stayin' still`
+  text = text.replaceAll(/in ' ([^ ])/g, (_, char) => `in' ${char}`);
+  text = text.replaceAll("in ',", "in',");
+
+  text = text.replaceAll(", ' cause", ", 'cause");
+
+  // `hi , there` => `hi, there`
+  text = text.replaceAll(
+    /([^ ]) ([\.,!?])/g,
+    (_, a, symbol) => `${a}${symbol}`
+  );
+
+  // `hi " there "` => `hi "there"`
+  text = text.replaceAll(/"([^"]+)"/g, (_, content) => `"${content.trim()}"`);
+
+  return text.trim();
+};
+
+export const simlifyUnicode = (text?: string) =>
   text
-    .replaceAll(/\s+/g, ' ') // `hi  there` => `hi there`
-    .replaceAll(/([\(\[]) ([^ ])/g, (_, symbol, a) => `${symbol}${a}`) // `( a` => `(a`
-    .replaceAll(/([^ ]) ([\)\]])/g, (_, a, symbol) => `${a}${symbol}`) // `a )` => `a)`
-    .replaceAll(/([^ ]) (['\-]) ([^ ])/g, (_, a, symbol, b) => `${a}${symbol}${b}`) // `can ' t` => `can't`
-    .replaceAll(/([^ ]) ([\.,!?])/g, (_, a, symbol) => `${a}${symbol}`) // `hi , there` => `hi, there`
-    .trim();
+    ? text
+        .replaceAll(/\u0020|\u00A0|[\u2000-\u200A]|\u202F|\u205F|\u3000/g, ' ')
+        .trim()
+    : text;

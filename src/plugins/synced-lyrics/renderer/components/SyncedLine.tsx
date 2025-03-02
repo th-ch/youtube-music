@@ -6,7 +6,7 @@ import { config } from '../renderer';
 import { _ytAPI, syncedLyricsIPC } from '..';
 
 import type { LineLyrics } from '../../types';
-import { canonicalize } from '../utils';
+import { canonicalize, simlifyUnicode } from '../utils';
 
 interface SyncedLineProps {
   line: LineLyrics;
@@ -114,11 +114,7 @@ export const SyncedLine = (props: SyncedLineProps) => {
           </span>
 
           <Show
-            when={
-              text()?.trim() &&
-              romanization()?.trim() &&
-              text()?.trim() !== romanization()?.trim()
-            }
+            when={simlifyUnicode(text()) !== simlifyUnicode(romanization())}
           >
             <span class="romaji">
               <For each={romanization()!.split(' ')}>

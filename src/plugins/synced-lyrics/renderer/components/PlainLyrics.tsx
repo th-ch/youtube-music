@@ -1,6 +1,6 @@
 import { createEffect, createMemo, createSignal, For, Show } from 'solid-js';
 import { syncedLyricsIPC } from '..';
-import { canonicalize } from '../utils';
+import { canonicalize, simlifyUnicode } from '../utils';
 
 interface PlainLyricsProps {
   lyrics: string;
@@ -49,7 +49,9 @@ export const PlainLyrics = (props: PlainLyricsProps) => {
         {([line, romanized]) => {
           return (
             <div
-              class={`${line.match(/^\[.+\]$/s) ? 'lrc-header' : ''} text-lyrics description ytmusic-description-shelf-renderer`}
+              class={`${
+                line.match(/^\[.+\]$/s) ? 'lrc-header' : ''
+              } text-lyrics description ytmusic-description-shelf-renderer`}
               style={{
                 display: 'flex',
                 'flex-direction': 'column',
@@ -60,7 +62,7 @@ export const PlainLyrics = (props: PlainLyricsProps) => {
                   runs: [{ text: line }],
                 }}
               />
-              <Show when={romanized && romanized !== line}>
+              <Show when={simlifyUnicode(line) !== simlifyUnicode(romanized)}>
                 <yt-formatted-string
                   class="romaji"
                   text={{
