@@ -21,6 +21,8 @@
 	</a>
 </div>
 
+Lestu þetta á öðrum tungumálum: [🏴 Ensku](../../README.md), [🇰🇷 Kóreska](./README-ko.md), [🇫🇷 Franska](./README-fr.md), [🇮🇸 Íslenskur](./README-is.md), [🇪🇸 Spænska](./README-es.md), [🇷🇺 Rússneska](./README-ru.md)
+
 **Electron umbúðir utan um YouTube Tónlist sem inniheldur:**
 
 - Innfæddur útlit og tilfinning, miðar að því að halda upprunalegu viðmótinu

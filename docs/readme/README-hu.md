@@ -21,7 +21,7 @@
 	</a>
 </div>
 
-Olvasd el más nyelveken: [🏴 Angol](./blob/master/README.md), [🇰🇷 Korea](./docs/readme/README-ko.md), [🇮🇸 Izland](./docs/readme/README-is.md), [🇪🇸 Spanyol](./docs/readme/README-es.md), [🇷🇺 Orosz](./docs/readme/README-ru.md)
+Olvasd el más nyelveken: [🏴 Angol](../../README.md), [🇰🇷 Korea](./README-ko.md), [🇫🇷 Francia](./README-fr.md), [🇮🇸 Izland](./README-is.md), [🇪🇸 Spanyol](./README-es.md), [🇷🇺 Orosz](./README-ru.md)
 
 **Electron keretrendszerre épülő alkalmazás a YouTube Music számára, amely a következőket kínálja:**
 
