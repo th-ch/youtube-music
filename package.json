@@ -246,7 +246,7 @@
     "@ghostery/adblocker-electron-preload": "2.5.0",
     "@hono/node-server": "1.13.8",
     "@hono/swagger-ui": "0.5.0",
-    "@hono/zod-openapi": "0.19.0",
+    "@hono/zod-openapi": "0.19.2",
     "@hono/zod-validator": "0.4.3",
     "@jellybrick/dbus-next": "0.10.3",
     "@jellybrick/electron-better-web-request": "1.0.4",
