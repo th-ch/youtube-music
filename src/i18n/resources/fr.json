@@ -279,6 +279,13 @@
       },
       "name": "Mode ambiant"
     },
+    "amuse": {
+      "description": "Ajoute la prise en charge de YouTube Music pour le widget de lecture en cours Amuse par 6K Labs",
+      "name": "Amuse",
+      "response": {
+        "query": "Le serveur API Amuse est en cours d'exécution. Envoyez une requête GET /query pour obtenir des informations sur la chanson."
+      }
+    },
     "api-server": {
       "description": "Ajouter un serveur API pour contrôler le lecteur",
       "dialog": {
@@ -727,7 +734,7 @@
       "description": "Ajoute des paroles synchronisées aux chansons, grâce à LRClib par exemple.",
       "errors": {
         "fetch": "⚠️\tUne erreur s'est produite en allant chercher les paroles.\n\tMerci de réessayer plus tard.",
-        "not-found": "⚠️ - Aucune paroles trouvées pour cette musique."
+        "not-found": "⚠️ Aucune paroles trouvées pour cette musique."
       },
       "menu": {
         "default-text-string": {
@@ -737,6 +744,10 @@
         "line-effect": {
           "label": "Effet de ligne",
           "submenu": {
+            "fancy": {
+              "label": "Fancy",
+              "tooltip": "Utilise de grands effets de type application sur la ligne actuelle"
+            },
             "focus": {
               "label": "Focus",
               "tooltip": "Rend seulement la ligne actuelle blanche"
