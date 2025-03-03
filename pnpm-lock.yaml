@@ -82,8 +82,8 @@ importers:
         specifier: 0.5.0
         version: 0.5.0
       bgutils-js:
-        specifier: 3.1.3
-        version: 3.1.3
+        specifier: 3.2.0
+        version: 3.2.0
       butterchurn:
         specifier: 3.0.0-beta.4
         version: 3.0.0-beta.4
@@ -1634,8 +1634,8 @@ packages:
   base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
 
-  bgutils-js@3.1.3:
-    resolution: {integrity: sha512-MHpm4hAHAwen0tzc0asziZ0FIsrM4q6zau8d49bzPtcyb5QzJge3OjtRVUzsjXdvrnbVOeETNrdA4q8IxkAL1g==}
+  bgutils-js@3.2.0:
+    resolution: {integrity: sha512-CacO15JvxbclbLeCAAm9DETGlLuisRGWpPigoRvNsccSCPEC4pwYwA2g2x/pv7Om/sk79d4ib35V5HHmxPBpDg==}
 
   birpc@2.2.0:
     resolution: {integrity: sha512-1/22obknhoj56PcE+pZPp6AbWDdY55M81/ofpPW3Ltlp9Eh4zoFFLswvZmNpRTb790CY5tsNfgbYeNOqIARJfQ==}
@@ -5981,7 +5981,7 @@ snapshots:
 
   base64-js@1.5.1: {}
 
-  bgutils-js@3.1.3: {}
+  bgutils-js@3.2.0: {}
 
   birpc@2.2.0: {}
 
