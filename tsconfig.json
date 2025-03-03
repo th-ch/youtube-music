@@ -26,6 +26,6 @@
   "include": [
     "electron.vite.config.mts",
     "./src/**/*",
-    "*.config.*js",
+    "*.config.*js"
   ]
 }
