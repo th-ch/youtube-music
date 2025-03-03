@@ -21,6 +21,8 @@
 	</a>
 </div>
 
+Lee esto en otros idiomas: [🏴 Inglés](../../README.md), [🇰🇷 Coreano](./README-ko.md), [🇫🇷 Francés](./README-fr.md), [🇮🇸 Islandés](./README-is.md), [🇪🇸 Español](./README-es.md), [🇷🇺 Ruso](./README-ru.md)
+
 **Electron wrapper de YouTube Music con las siguientes características:**
 
 - Apariencia y sensación nativa, tiene como objetivo mantener la interfaz original

@@ -21,6 +21,7 @@
 	</a>
 </div>
 
+Lisez ceci dans d'autres langues: [🏴 Anglais](../../README.md), [🇰🇷 Coréen](./README-ko.md), [🇫🇷 Français](./README-fr.md), [🇮🇸 Islandais](./README-is.md), [🇪🇸 Espagnol](./README-es.md), [🇷🇺 Russe](./README-ru.md)
 
 **Enveloppe Electron autour de YouTube Music offrant :**
 
