@@ -33,7 +33,7 @@
         "css-file-not-found": "Le fichier de CSS \"{{cssFile}}\" n'existe pas, ignorer"
       },
       "unresponsive": {
-        "details": "Erreur : ne répond pas !\n{{error}}"
+        "details": "Erreur : Aucune réponse!\n{{error}}"
       },
       "when-ready": {
         "clearing-cache-after-20s": "Effacement du cache de l'application"
@@ -44,7 +44,7 @@
     },
     "dialog": {
       "hide-menu-enabled": {
-        "detail": "Le menu est masqué, utilisez « Alt » pour l'afficher (ou « Échap » si vous utilisez le menu de l'application)",
+        "detail": "Le menu est masqué, utilisez 'Alt' pour l'afficher (ou 'Échap' si vous utilisez le menu de l'application)",
         "message": "Le masquage du menu est activé",
         "title": "Masquer le menu activé"
       },
