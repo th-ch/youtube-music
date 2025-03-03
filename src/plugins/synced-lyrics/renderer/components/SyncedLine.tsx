@@ -41,6 +41,8 @@ export const SyncedLine = (props: SyncedLineProps) => {
   const [romanization, setRomanization] = createSignal('');
 
   createEffect(() => {
+    if (!config()?.romanization) return;
+
     let event = 'synced-lyrics:romanize-chinese';
 
     if (props.hasJapanese) {
@@ -114,7 +116,10 @@ export const SyncedLine = (props: SyncedLineProps) => {
           </span>
 
           <Show
-            when={simlifyUnicode(text()) !== simlifyUnicode(romanization())}
+            when={
+              config()?.romanization &&
+              simlifyUnicode(text()) !== simlifyUnicode(romanization())
+            }
           >
             <span class="romaji">
               <For each={romanization()!.split(' ')}>

@@ -1,6 +1,7 @@
 import { createEffect, createMemo, createSignal, For, Show } from 'solid-js';
 import { syncedLyricsIPC } from '..';
 import { canonicalize, simlifyUnicode } from '../utils';
+import { config } from '../renderer';
 
 interface PlainLyricsProps {
   lyrics: string;
@@ -25,6 +26,8 @@ export const PlainLyrics = (props: PlainLyricsProps) => {
   });
 
   createEffect(() => {
+    if (!config()?.romanization) return;
+
     let event = 'synced-lyrics:romanize-chinese';
 
     if (props.hasJapanese) {
@@ -62,7 +65,12 @@ export const PlainLyrics = (props: PlainLyricsProps) => {
                   runs: [{ text: line }],
                 }}
               />
-              <Show when={simlifyUnicode(line) !== simlifyUnicode(romanized)}>
+              <Show
+                when={
+                  config()?.romanization &&
+                  simlifyUnicode(line) !== simlifyUnicode(romanized)
+                }
+              >
                 <yt-formatted-string
                   class="romaji"
                   text={{
