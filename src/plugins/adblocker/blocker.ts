@@ -1,4 +1,3 @@
-// Used for caching
 import path from 'node:path';
 import fs, { promises } from 'node:fs';
 
@@ -28,20 +27,21 @@ export const loadAdBlockerEngine = async (
   cache: boolean = true,
   additionalBlockLists: string[] = [],
   disableDefaultLists: boolean | unknown[] = false,
-) => {
+): Promise<void> => {
   // Only use cache if no additional blocklists are passed
   const cacheDirectory = path.join(app.getPath('userData'), 'adblock_cache');
   if (!fs.existsSync(cacheDirectory)) {
     fs.mkdirSync(cacheDirectory);
   }
-  const cachingOptions =
-    cache && additionalBlockLists.length === 0
-      ? {
-          path: path.join(cacheDirectory, 'adblocker-engine.bin'),
-          read: promises.readFile,
-          write: promises.writeFile,
-        }
-      : undefined;
+
+  const cachingOptions = cache && additionalBlockLists.length === 0
+    ? {
+        path: path.join(cacheDirectory, 'adblocker-engine.bin'),
+        read: promises.readFile,
+        write: promises.writeFile,
+      }
+    : undefined;
+
   const lists = [
     ...((disableDefaultLists && !Array.isArray(disableDefaultLists)) ||
     (Array.isArray(disableDefaultLists) && disableDefaultLists.length > 0)
@@ -50,32 +50,29 @@ export const loadAdBlockerEngine = async (
     ...additionalBlockLists,
   ];
 
-  try {
-    blocker = await ElectronBlocker.fromLists(
-      (url: string) => net.fetch(url),
-      lists,
-      {
-        enableCompression: true,
-        // When generating the engine for caching, do not load network filters
-        // So that enhancing the session works as expected
-        // Allowing to define multiple webRequest listeners
-        loadNetworkFilters: session !== undefined,
-      },
-      cachingOptions,
-    );
-    if (session) {
-      blocker.enableBlockingInSession(session);
-    }
-  } catch (error) {
-    console.error('Error loading adBlocker engine', error);
+  blocker = await ElectronBlocker.fromLists(
+    (url: string) => net.fetch(url),
+    lists,
+    {
+      enableCompression: true,
+      // When generating the engine for caching, do not load network filters
+      // So that enhancing the session works as expected
+      // Allowing to define multiple webRequest listeners
+      loadNetworkFilters: session !== undefined,
+    },
+    cachingOptions,
+  );
+
+  if (session) {
+    blocker.enableBlockingInSession(session);
   }
 };
 
-export const unloadAdBlockerEngine = (session: Electron.Session) => {
+export const unloadAdBlockerEngine = (session: Electron.Session): void => {
   if (blocker) {
     blocker.disableBlockingInSession(session);
   }
 };
 
-export const isBlockerEnabled = (session: Electron.Session) =>
+export const isBlockerEnabled = (session: Electron.Session): boolean =>
   blocker !== undefined && blocker.isBlockingEnabled(session);
