@@ -1,4 +1,4 @@
-import { resolve, dirname, join } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { UserConfig } from 'vite';
@@ -41,7 +41,17 @@ export default defineConfig({
           ignoreDynamicRequires: true,
         },
         rollupOptions: {
-          external: ['electron', 'custom-electron-prompt', ...builtinModules],
+          external: [
+            'electron',
+            'custom-electron-prompt',
+            'kuromoji',
+            'kuroshiro',
+            'kuroshiro-analyzer-kuromoji',
+            'pinyin',
+            'segmentit',
+            'es-hangul',
+            ...builtinModules,
+          ],
           input: './src/index.ts',
         },
       },
