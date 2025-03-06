@@ -12,16 +12,13 @@
 
 </div>
 
-![Screenshot](/web/screenshot.png "Screenshot")
-
+![Screenshot](/web/screenshot.png 'Screenshot')
 
 <div align="center">
     <a href="https://github.com/th-ch/youtube-music/releases/latest">
         <img src="../../web/youtube-music.svg" width="400" height="100" alt="YouTube Music SVG">
     </a>
 </div>
-
-
 
 **Клиент для YouTube Music основанный на Electron с поддержкой:**
 
@@ -30,9 +27,9 @@
 
 ## Демо-изображение
 
-|                          Экран плеера (цветовая тема альбома & режим Ambient)                                |
-|:---------------------------------------------------------------------------------------------------------:|
-|![Screenshot1](https://github.com/th-ch/youtube-music/assets/16558115/53efdf73-b8fa-4d7b-a235-b96b91ea77fc)|
+|                            Экран плеера (цветовая тема альбома & режим Ambient)                             |
+| :---------------------------------------------------------------------------------------------------------: |
+| ![Screenshot1](https://github.com/th-ch/youtube-music/assets/16558115/53efdf73-b8fa-4d7b-a235-b96b91ea77fc) |
 
 ## Содержание
 
@@ -58,9 +55,9 @@
 ## Возможности:
 
 - **Авто-подтверждение при паузе** (Всегда включено): отключает всплывающие уведомление ["Продолжить просмотр?"](https://user-images.githubusercontent.com/61631665/129977894-01c60740-7ec6-4bf0-9a2c-25da24491b0e.png),
-    которое  приостанавливает воспроизведение через определённое время
+  которое приостанавливает воспроизведение через определённое время
 
- - И больше ...
+- И больше ...
 
 ## Доступные плагины:
 
@@ -138,7 +135,7 @@
 - **Визуализатор**: Различные визуализаторы музыки
 
 - **Synced Lyrics**:
-Предоставляет синхронизированные слова для песен из таких источников, как [LRClib](https://lrclib.net).
+  Предоставляет синхронизированные слова для песен из таких источников, как [LRClib](https://lrclib.net).
 
 ## Перевод
 
@@ -182,7 +179,7 @@ scoop install extras/youtube-music
 
 Также для установки вы можете использовать [Winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/), официальный пакетный менеджер командной строки Windows 11, для установки пакета `th-ch.YouTubeMusic`.
 
-*К сведению: SmartScreen защитника Windows может блокировать установку, так как она от "неизвестного издателя". Это также применимо к методу ручной установки, когда вы пытаетесь запустить исполняемый файл(.exe) после загрузки здесь, на GitHub (тот же файл).*
+_К сведению: SmartScreen защитника Windows может блокировать установку, так как она от "неизвестного издателя". Это также применимо к методу ручной установки, когда вы пытаетесь запустить исполняемый файл(.exe) после загрузки здесь, на GitHub (тот же файл)._
 
 ```bash
 winget install th-ch.YouTubeMusic
@@ -225,6 +222,7 @@ pnpm dev
 Создайте директорию в `src/plugins/YOUR-PLUGIN-NAME`:
 
 - `index.ts`: основной файл плагина
+
 ```typescript
 import style from './style.css?inline'; // import style as inline
 
@@ -264,9 +262,13 @@ export default createPlugin({
       });
     },
     // it fired when config changed
-    onConfigChange(newConfig) { /* ... */ },
+    onConfigChange(newConfig) {
+      /* ... */
+    },
     // it fired when plugin disabled
-    stop(context) { /* ... */ },
+    stop(context) {
+      /* ... */
+    },
   },
   renderer: {
     async start(context) {
@@ -277,8 +279,12 @@ export default createPlugin({
       // set plugin config easily
       context.setConfig({ myConfig: api.getVolume() });
     },
-    onConfigChange(newConfig) { /* ... */ },
-    stop(_context) { /* ... */ },
+    onConfigChange(newConfig) {
+      /* ... */
+    },
+    stop(_context) {
+      /* ... */
+    },
   },
   preload: {
     async start({ getConfig }) {
@@ -307,7 +313,7 @@ export default createPlugin({
     enabled: false,
   }, // your custom config
   stylesheets: [style], // your custom style
-  renderer() {} // define renderer hook
+  renderer() {}, // define renderer hook
 });
 ```
 
@@ -324,8 +330,8 @@ export default createPlugin({
   }, // your custom config
   renderer() {
     // Remove the login button
-    document.querySelector(".sign-in-link.ytmusic-nav-bar").remove();
-  } // define renderer hook
+    document.querySelector('.sign-in-link.ytmusic-nav-bar').remove();
+  }, // define renderer hook
 });
 ```
 

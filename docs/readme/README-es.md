@@ -12,8 +12,7 @@
 
 </div>
 
-![Screenshot](/web/screenshot.png "Screenshot")
-
+![Screenshot](/web/screenshot.png 'Screenshot')
 
 <div align="center">
 	<a href="https://github.com/th-ch/youtube-music/releases/latest">
@@ -28,9 +27,9 @@
 
 ## Imagen de demostración
 
-|                  Pantalla del reproductor (color del álbum como tema y luz ambiental)                     |
-|:---------------------------------------------------------------------------------------------------------:|
-|![Screenshot1](https://github.com/th-ch/youtube-music/assets/16558115/53efdf73-b8fa-4d7b-a235-b96b91ea77fc)|
+|                    Pantalla del reproductor (color del álbum como tema y luz ambiental)                     |
+| :---------------------------------------------------------------------------------------------------------: |
+| ![Screenshot1](https://github.com/th-ch/youtube-music/assets/16558115/53efdf73-b8fa-4d7b-a235-b96b91ea77fc) |
 
 ## Contenido
 
@@ -38,15 +37,15 @@
 - [Plugins disponibles](#plugins-disponibles)
 - [Traducción](#traducción)
 - [Descarga](#descarga)
-    - [Arch Linux](#arch-linux)
-    - [macOS](#macos)
-    - [Windows](#windows)
-        - [Cómo instalar sin conexión a internet? (en Windows)](#cómo-instalar-sin-conexión-a-internet-en-windows)
+  - [Arch Linux](#arch-linux)
+  - [macOS](#macos)
+  - [Windows](#windows)
+    - [Cómo instalar sin conexión a internet? (en Windows)](#cómo-instalar-sin-conexión-a-internet-en-windows)
 - [Temas](#temas)
 - [Dev](#dev)
 - [Crea tus propios plugins](#crea-tus-propios-plugins)
-    - [Creación de un plugin](#creación-de-un-plugin)
-    - [Casos de uso comunes](#casos-de-uso-comunes)
+  - [Creación de un plugin](#creación-de-un-plugin)
+  - [Casos de uso comunes](#casos-de-uso-comunes)
 - [Compilar](#compilar)
 - [Vista previa de producción](#vista-previa-de-producción)
 - [Tests](#tests)
@@ -56,8 +55,8 @@
 ## Características:
 
 - **Confirmación automática al pausar** (Siempre habilitado): desactiva
-    el mensaje emergente ["¿Continuar reproduciendo?"](https://user-images.githubusercontent.com/61631665/129977894-01c60740-7ec6-4bf0-9a2c-25da24491b0e.png)
-    que pausa la música después de cierto tiempo
+  el mensaje emergente ["¿Continuar reproduciendo?"](https://user-images.githubusercontent.com/61631665/129977894-01c60740-7ec6-4bf0-9a2c-25da24491b0e.png)
+  que pausa la música después de cierto tiempo
 
 - Y más ...
 
@@ -72,7 +71,7 @@
 - **Modo Ambiente**: Aplica un efecto de iluminación proyectando colores suaves del video en el fondo de tu pantalla
 
 - **Compresor de Audio**: Aplica compresión al audio (reduce el volumen de las partes más fuertes de la señal y aumenta el
-    volumen de las partes más suaves)
+  volumen de las partes más suaves)
 
 - **Barra de Navegación Difuminada**: hace que la barra de navegación sea transparente y borrosa
 
@@ -87,19 +86,19 @@
 - **Desactivar Reproducción Automática**: Hace que cada canción comience en modo "pausado"
 
 - **[Discord](https://discord.com/) Rich Presence**: Muestra a tus amigos lo que estás escuchando
-    con [Rich Presence](https://user-images.githubusercontent.com/28219076/104362104-a7a0b980-5513-11eb-9744-bb89eabe0016.png)
+  con [Rich Presence](https://user-images.githubusercontent.com/28219076/104362104-a7a0b980-5513-11eb-9744-bb89eabe0016.png)
 
 - **Descargador**: Descarga
-    MP3 [directamente desde la interfaz](https://user-images.githubusercontent.com/61631665/129977677-83a7d067-c192-45e1-98ae-b5a4927393be.png) [(youtube-dl)](https://github.com/ytdl-org/youtube-dl)
+  MP3 [directamente desde la interfaz](https://user-images.githubusercontent.com/61631665/129977677-83a7d067-c192-45e1-98ae-b5a4927393be.png) [(youtube-dl)](https://github.com/ytdl-org/youtube-dl)
 
 - **Volumen Exponencial**: Hace que el control de volumen
-    sea [exponencial](https://greasyfork.org/en/scripts/397686-youtube-music-fix-volume-ratio/) para facilitar la
-    selección de volúmenes más bajos
+  sea [exponencial](https://greasyfork.org/en/scripts/397686-youtube-music-fix-volume-ratio/) para facilitar la
+  selección de volúmenes más bajos
 
 - **Menú en la Aplicación**: [da a las barras un aspecto elegante y oscuro](https://user-images.githubusercontent.com/78568641/112215894-923dbf00-8c29-11eb-95c3-3ce15db27eca.png)
 
-    > (consulta [esta publicación](https://github.com/th-ch/youtube-music/issues/410#issuecomment-952060709) si tienes problemas
-    para acceder al menú después de habilitar este plugin y la opción hide-menu)
+  > (consulta [esta publicación](https://github.com/th-ch/youtube-music/issues/410#issuecomment-952060709) si tienes problemas
+  > para acceder al menú después de habilitar este plugin y la opción hide-menu)
 
 - **Scrobbler**: Agrega soporte para scrobbling en [Last.fm](https://www.last.fm/) y [ListenBrainz](https://listenbrainz.org/)
 
@@ -114,43 +113,43 @@
 - **Sin Inicio de Sesión de Google**: Elimina los botones y enlaces de inicio de sesión de Google de la interfaz
 
 - **Notificaciones**: Muestra una notificación cuando comienza una canción
-    a reproducirse ([notificaciones interactivas](https://user-images.githubusercontent.com/78568641/114102651-63ce0e00-98d0-11eb-9dfe-c5a02bb54f9c.png)
-    están disponibles en Windows)
+  a reproducirse ([notificaciones interactivas](https://user-images.githubusercontent.com/78568641/114102651-63ce0e00-98d0-11eb-9dfe-c5a02bb54f9c.png)
+  están disponibles en Windows)
 
 - **Picture-in-picture**: permite cambiar la aplicación al modo picture-in-picture
 
 - **Velocidad de Reproducción**: Escucha rápido, escucha
-    lento! [Agrega un deslizador que controla la velocidad de reproducción de las canciones](https://user-images.githubusercontent.com/61631665/129976003-e55db5ba-bf42-448c-a059-26a009775e68.png)
+  lento! [Agrega un deslizador que controla la velocidad de reproducción de las canciones](https://user-images.githubusercontent.com/61631665/129976003-e55db5ba-bf42-448c-a059-26a009775e68.png)
 
 - **Volumen Preciso**: Controla el volumen de forma precisa utilizando la rueda del mouse/atajos de teclado, con un HUD personalizado y pasos de volumen personalizables
 
 - **Atajos (& MPRIS)**: Permite configurar atajos globales para la reproducción (reproducir/pausar/siguiente/anterior) +
-    desactivar [osd multimedia](https://user-images.githubusercontent.com/84923831/128601225-afa38c1f-dea8-4209-9f72-0f84c1dd8b54.png)
-    al anular las teclas multimedia + habilitar Ctrl/CMD + F para buscar + habilitar el soporte mpris de Linux para
-    teclas multimedia + [atajos personalizados](https://github.com/Araxeus/youtube-music/blob/1e591d6a3df98449bcda6e63baab249b28026148/providers/song-controls.js#L13-L50)
-    para [usuarios avanzados](https://github.com/th-ch/youtube-music/issues/106#issuecomment-952156902)
+  desactivar [osd multimedia](https://user-images.githubusercontent.com/84923831/128601225-afa38c1f-dea8-4209-9f72-0f84c1dd8b54.png)
+  al anular las teclas multimedia + habilitar Ctrl/CMD + F para buscar + habilitar el soporte mpris de Linux para
+  teclas multimedia + [atajos personalizados](https://github.com/Araxeus/youtube-music/blob/1e591d6a3df98449bcda6e63baab249b28026148/providers/song-controls.js#L13-L50)
+  para [usuarios avanzados](https://github.com/th-ch/youtube-music/issues/106#issuecomment-952156902)
 
 - **Saltar Canción no Gustada**: Salta las canciones que no te gustan
 
 - **Saltar Silencios**: Salta automáticamente las secciones de silencio
 
 - [**SponsorBlock**](https://github.com/ajayyy/SponsorBlock): Salta automáticamente las partes que no son de música, como la introducción/final o
-    partes de videos musicales donde no se reproduce la canción
+  partes de videos musicales donde no se reproduce la canción
 
 - **Control Multimedia en la Barra de Tareas**: Controla la reproducción desde
-    la [barra de tareas de Windows](https://user-images.githubusercontent.com/78568641/111916130-24a35e80-8a82-11eb-80c8-5021c1aa27f4.png)
+  la [barra de tareas de Windows](https://user-images.githubusercontent.com/78568641/111916130-24a35e80-8a82-11eb-80c8-5021c1aa27f4.png)
 
 - **TouchBar**: Diseño personalizado de TouchBar para macOS
 
 - **Tuna OBS**: Integración con el complemento [Tuna](https://obsproject.com/forum/resources/tuna.843/) de [OBS](https://obsproject.com/)
 
 - **Cambiador de Calidad de Video**: Permite cambiar la calidad del video con
-    un [botón](https://user-images.githubusercontent.com/78568641/138574366-70324a5e-2d64-4f6a-acdd-dc2a2b9cecc5.png) en
-    la superposición de video
+  un [botón](https://user-images.githubusercontent.com/78568641/138574366-70324a5e-2d64-4f6a-acdd-dc2a2b9cecc5.png) en
+  la superposición de video
 
 - **Alternar Video**: Agrega
-    un [botón](https://user-images.githubusercontent.com/28893833/173663950-63e6610e-a532-49b7-9afa-54cb57ddfc15.png) para
-    alternar entre el modo de video/canción. también puede eliminar opcionalmente toda la pestaña de video
+  un [botón](https://user-images.githubusercontent.com/28893833/173663950-63e6610e-a532-49b7-9afa-54cb57ddfc15.png) para
+  alternar entre el modo de video/canción. también puede eliminar opcionalmente toda la pestaña de video
 
 - **Visualizador**: Diferentes visualizadores de música
 
@@ -197,7 +196,7 @@ scoop install extras/youtube-music
 
 Alternativamente, puedes usar [Winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/), el administrador de paquetes CLI oficial de Windows 11 para instalar el paquete `th-ch.YouTubeMusic`.
 
-*Nota: Microsoft Defender SmartScreen podría bloquear la instalación ya que proviene de un "editor desconocido". Esto también esválido para la instalación manual al intentar ejecutar el ejecutable (.exe) después de una descarga manual aquí en GitHub (mismo archivo).*
+_Nota: Microsoft Defender SmartScreen podría bloquear la instalación ya que proviene de un "editor desconocido". Esto también esválido para la instalación manual al intentar ejecutar el ejecutable (.exe) después de una descarga manual aquí en GitHub (mismo archivo)._
 
 ```bash
 winget install th-ch.YouTubeMusic
@@ -206,9 +205,9 @@ winget install th-ch.YouTubeMusic
 #### Cómo instalar sin conexión a Internet? (en Windows)
 
 - Descarga el archivo `*.nsis.7z` para _la arquitectura de tu dispositivo_ en la [página de lanzamientos](https://github.com/th-ch/youtube-music/releases/latest).
-    - `x64` para Windows de 64 bits
-    - `ia32` para Windows de 32 bits
-    - `arm64` para Windows ARM64
+  - `x64` para Windows de 64 bits
+  - `ia32` para Windows de 32 bits
+  - `arm64` para Windows ARM64
 - Descarga el instalador en la página de lanzamientos. (`*-Setup.exe`)
 - Colócalos en el **mismo directorio**.
 - Ejecuta el instalador.
@@ -240,13 +239,14 @@ Usando plugins, puedes:
 Crea una carpeta en `src/plugins/NOMBRE-DEL-PLUGIN`:
 
 - `index.ts`: el archivo principal del plugin
+
 ```typescript
 import style from './style.css?inline'; // importar estilo como inline
 
 import { createPlugin } from '@/utils';
 
 export default createPlugin({
-  name: "Plugin Label",
+  name: 'Plugin Label',
   restartNeeded: true, // si el valor es true, ytmusic muestra el diálogo de reinicio
   config: {
     enabled: false,
@@ -257,10 +257,10 @@ export default createPlugin({
     const config = await getConfig();
     return [
       {
-        label: "menu",
+        label: 'menu',
         submenu: [1, 2, 3].map((value) => ({
           label: `value ${value}`,
-          type: "radio",
+          type: 'radio',
           checked: config.value === value,
           click() {
             setConfig({ value });
@@ -274,26 +274,34 @@ export default createPlugin({
       window.maximize();
 
       // puedes comunicarte con el plugin de renderizado
-      ipc.handle("some-event", () => {
-        return "hello";
+      ipc.handle('some-event', () => {
+        return 'hello';
       });
     },
     // se activa cuando cambia la configuración
-    onConfigChange(newConfig) { /* ... */ },
+    onConfigChange(newConfig) {
+      /* ... */
+    },
     // se activa cuando se desactiva el plugin
-    stop(context) { /* ... */ },
+    stop(context) {
+      /* ... */
+    },
   },
   renderer: {
     async start(context) {
-      console.log(await context.ipc.invoke("some-event"));
+      console.log(await context.ipc.invoke('some-event'));
     },
     // Solo disponible en el plugin de renderizado
     onPlayerApiReady(api: YoutubePlayer, context: RendererContext) {
       // establecer la configuración del plugin fácilmente
       context.setConfig({ myConfig: api.getVolume() });
     },
-    onConfigChange(newConfig) { /* ... */ },
-    stop(_context) { /* ... */ },
+    onConfigChange(newConfig) {
+      /* ... */
+    },
+    stop(_context) {
+      /* ... */
+    },
   },
   preload: {
     async start({ getConfig }) {
@@ -303,7 +311,6 @@ export default createPlugin({
     stop(_context) {},
   },
 });
-
 ```
 
 ### Casos de uso comunes
@@ -317,13 +324,13 @@ import style from './style.css?inline'; // importar estilo como inline
 import { createPlugin } from '@/utils';
 
 export default createPlugin({
-    name: 'Plugin Label',
-    restartNeeded: true, // si el valor es true, ytmusic mostrará el diálogo de reinicio
-    config: {
-        enabled: false,
-    }, // tu configuración personalizada
-    stylesheets: [style], // tu estilo personalizado
-    renderer() {} // define el hook del renderizador
+  name: 'Plugin Label',
+  restartNeeded: true, // si el valor es true, ytmusic mostrará el diálogo de reinicio
+  config: {
+    enabled: false,
+  }, // tu configuración personalizada
+  stylesheets: [style], // tu estilo personalizado
+  renderer() {}, // define el hook del renderizador
 });
 ```
 
@@ -333,20 +340,20 @@ export default createPlugin({
 import { createPlugin } from '@/utils';
 
 export default createPlugin({
-    name: 'Plugin Label',
-    restartNeeded: true, // si el valor es true, ytmusic mostrará el diálogo de reinicio
-    config: {
-        enabled: false,
-    }, // tu configuración personalizada
-    renderer() {
-        // Elimina el botón de inicio de sesión
-        document.querySelector(".sign-in-link.ytmusic-nav-bar").remove();
-    } // define el hook del renderizador
+  name: 'Plugin Label',
+  restartNeeded: true, // si el valor es true, ytmusic mostrará el diálogo de reinicio
+  config: {
+    enabled: false,
+  }, // tu configuración personalizada
+  renderer() {
+    // Elimina el botón de inicio de sesión
+    document.querySelector('.sign-in-link.ytmusic-nav-bar').remove();
+  }, // define el hook del renderizador
 });
 ```
 
 - comunicación entre el front y el back: se puede hacer utilizando el módulo ipcMain de electron. Ver archivo `index.ts` y
-    ejemplo en el plugin `sponsorblock`.
+  ejemplo en el plugin `sponsorblock`.
 
 ## Compilar
 

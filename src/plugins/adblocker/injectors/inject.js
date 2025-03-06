@@ -58,7 +58,7 @@ export const inject = (contextBridge) => {
     {
       chain: 'ytInitialPlayerResponse.adSlots',
       cValue: 'undefined',
-    }
+    },
   ];
 
   chains.forEach(function ({ chain, cValue }) {

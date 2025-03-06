@@ -34,13 +34,14 @@ export const loadAdBlockerEngine = async (
     fs.mkdirSync(cacheDirectory);
   }
 
-  const cachingOptions = cache && additionalBlockLists.length === 0
-    ? {
-        path: path.join(cacheDirectory, 'adblocker-engine.bin'),
-        read: promises.readFile,
-        write: promises.writeFile,
-      }
-    : undefined;
+  const cachingOptions =
+    cache && additionalBlockLists.length === 0
+      ? {
+          path: path.join(cacheDirectory, 'adblocker-engine.bin'),
+          read: promises.readFile,
+          write: promises.writeFile,
+        }
+      : undefined;
 
   const lists = [
     ...((disableDefaultLists && !Array.isArray(disableDefaultLists)) ||

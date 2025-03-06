@@ -12,7 +12,7 @@
 
 </div>
 
-![Screenshot](web/screenshot.png "Screenshot")
+![Screenshot](web/screenshot.png 'Screenshot')
 
 <div align="center">
  <a href="https://github.com/th-ch/youtube-music/releases/latest">
@@ -30,9 +30,9 @@ Read this in other languages: [🇰🇷](./docs/readme/README-ko.md), [🇮🇸]
 
 ## Demo Image
 
-|                          Player Screen (album color theme & ambient light)                                |
-|:---------------------------------------------------------------------------------------------------------:|
-|![Screenshot1](https://github.com/th-ch/youtube-music/assets/16558115/53efdf73-b8fa-4d7b-a235-b96b91ea77fc)|
+|                              Player Screen (album color theme & ambient light)                              |
+| :---------------------------------------------------------------------------------------------------------: |
+| ![Screenshot1](https://github.com/th-ch/youtube-music/assets/16558115/53efdf73-b8fa-4d7b-a235-b96b91ea77fc) |
 
 ## Content
 
@@ -103,7 +103,7 @@ Read this in other languages: [🇰🇷](./docs/readme/README-ko.md), [🇮🇸]
 - **In-App Menu**: [gives bars a fancy, dark look](https://user-images.githubusercontent.com/78568641/112215894-923dbf00-8c29-11eb-95c3-3ce15db27eca.png)
 
   > (see [this post](https://github.com/th-ch/youtube-music/issues/410#issuecomment-952060709) if you have problem
-  accessing the menu after enabling this plugin and hide-menu option)
+  > accessing the menu after enabling this plugin and hide-menu option)
 
 - **Scrobbler**: Adds scrobbling support for [Last.fm](https://www.last.fm/) and [ListenBrainz](https://listenbrainz.org/)
 
@@ -208,9 +208,9 @@ scoop install extras/youtube-music
 Alternately you can use [Winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/), Windows 11s
 official CLI package manager to install the `th-ch.YouTubeMusic` package.
 
-*Note: Microsoft Defender SmartScreen might block the installation since it is from an "unknown publisher". This is also
+_Note: Microsoft Defender SmartScreen might block the installation since it is from an "unknown publisher". This is also
 true for the manual installation when trying to run the executable(.exe) after a manual download here on github (same
-file).*
+file)._
 
 ```bash
 winget install th-ch.YouTubeMusic
@@ -218,7 +218,7 @@ winget install th-ch.YouTubeMusic
 
 #### How to install without a network connection? (in Windows)
 
-- Download the `*.nsis.7z` file for *your device architecture* in [release page](https://github.com/th-ch/youtube-music/releases/latest).
+- Download the `*.nsis.7z` file for _your device architecture_ in [release page](https://github.com/th-ch/youtube-music/releases/latest).
   - `x64` for 64-bit Windows
   - `ia32` for 32-bit Windows
   - `arm64` for ARM64 Windows
@@ -293,9 +293,13 @@ export default createPlugin({
       });
     },
     // it fired when config changed
-    onConfigChange(newConfig) { /* ... */ },
+    onConfigChange(newConfig) {
+      /* ... */
+    },
     // it fired when plugin disabled
-    stop(context) { /* ... */ },
+    stop(context) {
+      /* ... */
+    },
   },
   renderer: {
     async start(context) {
@@ -306,8 +310,12 @@ export default createPlugin({
       // set plugin config easily
       context.setConfig({ myConfig: api.getVolume() });
     },
-    onConfigChange(newConfig) { /* ... */ },
-    stop(_context) { /* ... */ },
+    onConfigChange(newConfig) {
+      /* ... */
+    },
+    stop(_context) {
+      /* ... */
+    },
   },
   preload: {
     async start({ getConfig }) {
@@ -336,7 +344,7 @@ export default createPlugin({
     enabled: false,
   }, // your custom config
   stylesheets: [style], // your custom style
-  renderer() {} // define renderer hook
+  renderer() {}, // define renderer hook
 });
 ```
 
@@ -353,8 +361,8 @@ export default createPlugin({
   }, // your custom config
   renderer() {
     // Remove the login button
-    document.querySelector(".sign-in-link.ytmusic-nav-bar").remove();
-  } // define renderer hook
+    document.querySelector('.sign-in-link.ytmusic-nav-bar').remove();
+  }, // define renderer hook
 });
 ```
 

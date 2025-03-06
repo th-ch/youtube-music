@@ -4,4 +4,4 @@ export const blockers = {
   AdSpeedup: 'Ad speedup',
 } as const;
 
-export type BlockerType = typeof blockers[keyof typeof blockers];
+export type BlockerType = (typeof blockers)[keyof typeof blockers];

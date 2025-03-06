@@ -2,11 +2,11 @@ name: Build YouTube Music
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
 
 env:
-  NODE_VERSION: "20.x"
+  NODE_VERSION: '20.x'
 
 jobs:
   build:
@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os: [ macos-latest, ubuntu-latest, windows-latest ]
+        os: [macos-latest, ubuntu-latest, windows-latest]
 
     steps:
       - uses: actions/checkout@v4
@@ -83,7 +83,6 @@ jobs:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
         with:
           run: pnpm test:debug
-
 
   release:
     runs-on: ubuntu-latest
@@ -165,6 +164,6 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Update changelog for ${{ env.VERSION_TAG }}
-          file_pattern: "changelog.md"
+          file_pattern: 'changelog.md'
           commit_user_name: CI
           commit_user_email: th-ch@users.noreply.github.com
