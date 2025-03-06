@@ -86,7 +86,8 @@
           "copy-current-url": "העתק את כתובת ה-URL",
           "go-back": "חזור אחורה",
           "go-forward": "לך קדימה",
-          "quit": "יציאה"
+          "quit": "יציאה",
+          "restart": "הפעל מחדש את היישום"
         }
       },
       "options": {
@@ -96,9 +97,39 @@
             "label": "אפשרויות מתקדמות",
             "submenu": {
               "auto-reset-app-cache": "אפס את מטמון האפליקציה כאשר האפליקציה מתחילה",
-              "disable-hardware-acceleration": "השבת האצת החומרה"
+              "disable-hardware-acceleration": "השבת האצת החומרה",
+              "edit-config-json": "ערוך את config.json",
+              "restart-on-config-changes": "הפעל מחדש בשינויי תצורה",
+              "set-proxy": {
+                "label": "הגדר שרת proxy",
+                "prompt": {
+                  "label": "הזן כתובת פרוקסי: (להשאיר ריק כדי להשבית)",
+                  "placeholder": "דוגמה: SOCKS5://127.0.0.1:9999",
+                  "title": "הגדר שרת proxy"
+                }
+              }
             }
-          }
+          },
+          "auto-update": "עדכון אוטומטי",
+          "hide-menu": {
+            "dialog": {
+              "message": "התפריט יוסתר בהפעלה הבאה, השתמש ב-[Alt] כדי להציג אותו (או סמן את [`] אם אתה משתמש בתפריט בתוך האפליקציה)",
+              "title": "הסתר תפריט מופעל"
+            },
+            "label": "הסתר את התפריט"
+          },
+          "language": {
+            "dialog": {
+              "message": "השפה תשתנה לאחר הפעלת היישום מחדש",
+              "title": "השפה שונתה"
+            },
+            "label": "שפה",
+            "submenu": {
+              "to-help-translate": "רוצים לעזור לתרגם? לחץ כאן"
+            }
+          },
+          "resume-on-start": "המשך את השיר האחרון עם הפעלת האפליקציה",
+          "single-instance-lock": "נעילת מופע יחיד"
         }
       }
     }

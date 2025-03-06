@@ -20,6 +20,8 @@
 	</a>
 </div>
 
+Lisez ceci dans d'autres langues: [🏴 Anglais](../../README.md), [🇰🇷 Coréen](./README-ko.md), [🇫🇷 Français](./README-fr.md), [🇮🇸 Islandais](./README-is.md), [🇪🇸 Espagnol](./README-es.md), [🇷🇺 Russe](./README-ru.md)
+
 **Enveloppe Electron autour de YouTube Music offrant :**
 
 - Aspect & sensation naturels, vise à conserver l'interface originale
@@ -34,24 +36,28 @@
 
 ## Contenu
 
-- [Fonctionnalités](#fonctionnalités)
-- [Plugins disponibles](#plugins-disponibles)
-- [Traduction](#traduction)
-- [Téléchargement](#téléchargement)
-  - [Arch Linux](#arch-linux)
-  - [MacOS](#macos)
-  - [Windows](#windows)
-    - [Comment installer sans connexion réseau ? (sous Windows)](#comment-installer-sans-connexion-réseau-sous-windows)
-- [Thèmes](#thèmes)
-- [Dev](#dev)
-- [Créez vos propres plugins](#créez-vos-propres-plugins)
-  - [Créer un plugin](#créer-un-plugin)
-  - [Cas d'utilisation courants](#cas-dutilisation-courants)
-- [Construction](#construction)
-- [Aperçu de la production](#aperçu-de-la-production)
-- [Tests](#tests)
-- [Licence](#licence)
-- [FAQ](#faq)
+- [YouTube Music](#youtube-music)
+  - [Image de démonstration](#image-de-démonstration)
+  - [Contenu](#contenu)
+  - [Fonctionnalités :](#fonctionnalités-)
+  - [Plugins disponibles :](#plugins-disponibles-)
+  - [Traduction](#traduction)
+  - [Téléchargement](#téléchargement)
+    - [Arch Linux](#arch-linux)
+    - [MacOS](#macos)
+    - [Windows](#windows)
+      - [Comment installer sans connexion réseau ? (sous Windows)](#comment-installer-sans-connexion-réseau--sous-windows)
+  - [Thèmes](#thèmes)
+  - [Dev](#dev)
+  - [Créez vos propres plugins](#créez-vos-propres-plugins)
+    - [Créer un plugin](#créer-un-plugin)
+    - [Cas d'utilisation courants](#cas-dutilisation-courants)
+  - [Construction](#construction)
+  - [Aperçu de la production](#aperçu-de-la-production)
+  - [Tests](#tests)
+  - [Licence](#licence)
+  - [FAQ](#faq)
+    - [Pourquoi le menu de l'application ne s'affiche-t-il pas ?](#pourquoi-le-menu-de-lapplication-ne-saffiche-t-il-pas-)
 
 ## Fonctionnalités :
 

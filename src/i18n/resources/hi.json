@@ -269,6 +269,19 @@
         },
         "smoothness-transition": {
           "label": "चिकनाई संक्रमण"
+        },
+        "use-fullscreen": {
+          "label": "पूर्णस्क्रीन का उपयोग"
+        }
+      }
+    },
+    "api-server": {
+      "dialog": {
+        "request": {
+          "buttons": {
+            "allow": "अनुमति दें",
+            "deny": "मना करना"
+          }
         }
       }
     },

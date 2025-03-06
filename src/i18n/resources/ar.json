@@ -202,7 +202,7 @@
       "show": "عرض النافدة",
       "tooltip": {
         "default": "يوتيوب اغاني",
-        "with-song-info": "يوتيوب أغاني: {{الفنان}}-{{العنوان}}"
+        "with-song-info": "أغاني يوتيوب: {{artist}} - {{title}}"
       }
     }
   },
@@ -219,7 +219,7 @@
       "name": "حاجب الإعلانات"
     },
     "album-actions": {
-      "description": "يضيف أزرار \"إلغاء عدم الإعجاب\"، \"عدم الإعجاب\"، \"الإعجاب\"، و\"إلغاء الإعجاب\" لتطبيقها على جميع الأغاني في قائمة التشغيل أو الألبوم",
+      "description": "يضيف أزرار \"إلغاء عدم الاعجاب\" و\"عدم الاعجاب\" و\"الإعجاب\" و\"إلغاء الإعجاب\" لتطبيق ذلك على جميع الأغاني في قائمة تشغيل أو ألبوم",
       "name": "إجراءات الألبوم"
     },
     "album-color-theme": {
@@ -324,31 +324,513 @@
           "title": "اسم الخادم"
         },
         "port": {
-          "label": "أدخل المنفذ لخادم API:"
+          "label": "أدخل المنفذ لخادم API:",
+          "title": "منفذ"
         }
       }
     },
+    "audio-compressor": {
+      "description": "تطبيق الضغط على الصوت (يخفض مستوى صوت الأجزاء الأعلى من الإشارة ويرفع مستوى صوت الأجزاء الأكثر نعومة)",
+      "name": "ضاغط الصوت"
+    },
     "blur-nav-bar": {
-      "description": "يجعل شريط التنقل شفاف و ضبابي"
+      "description": "يجعل شريط التنقل شفاف و ضبابي",
+      "name": "تغبيش شريط التنقل"
     },
     "bypass-age-restrictions": {
       "description": "تجاوز تَحَقّق اليوتيوب من السن",
       "name": "تجاوز التحقق من السن"
     },
+    "captions-selector": {
+      "description": "محدد ترجمات المقاطع الصوتية لYoutube Music",
+      "menu": {
+        "autoload": "اختار اخر ترجمة مستخدمة تلقائيا",
+        "disable-captions": "لا توجد ترجمات بشكل افتراضي"
+      },
+      "name": "محدد الترجمة",
+      "prompt": {
+        "selector": {
+          "label": "لغة الترجمة الحالية: {{language}}",
+          "none": "لا شيء",
+          "title": "اختار لغة الترجمة"
+        }
+      },
+      "templates": {
+        "title": "فتح محدد الترجمة"
+      }
+    },
+    "compact-sidebar": {
+      "description": "قم دائمًا بتعيين الشريط الجانبي في الوضع الملموم",
+      "name": "شريط جانبي ملموم"
+    },
+    "crossfade": {
+      "description": "التداخل بين الأغاني",
+      "menu": {
+        "advanced": "متقدم"
+      },
+      "name": "التداخل بين الأغاني [تجريبي]",
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "fade-in-duration": "مدة التداخل (بأجزاء الثانية)",
+            "fade-out-duration": "مدة التلاشي (جزء ثانية)",
+            "fade-scaling": {
+              "label": "توسيع التداخل",
+              "linear": "خطي",
+              "logarithmic": "لوغاريتمي"
+            },
+            "seconds-before-end": "التلاشي قبل النهاية بـ N ثوانٍ"
+          },
+          "title": "خيارات التداخل"
+        }
+      }
+    },
+    "disable-autoplay": {
+      "description": "يجعل الأغنية تبدأ في وضع \"الإيقاف المؤقت\"",
+      "menu": {
+        "apply-once": "ينطبق فقط عند بدء التشغيل"
+      },
+      "name": "تعطيل التشغيل التلقائي"
+    },
+    "discord": {
+      "backend": {
+        "already-connected": "تمت محاولة الاتصال بالاتصال النشط",
+        "connected": "متصل بDiscord",
+        "disconnected": "انقطع الاتصال بDiscord"
+      },
+      "description": "أظهر لأصدقائك ما تستمع إليه من خلال Rich Presence",
+      "menu": {
+        "auto-reconnect": "إعادة اتصال تلقائي",
+        "clear-activity": "مسح النشاط",
+        "clear-activity-after-timeout": "مسح النشاط بعد انتهاء المهلة",
+        "connected": "متصل",
+        "disconnected": "قطع الاتصال",
+        "hide-duration-left": "إخفاء المدة المتبقية",
+        "hide-github-button": "إخفاء زر رابط GitHub",
+        "play-on-youtube-music": "شغل في YouTube Music",
+        "set-inactivity-timeout": "ضبط مهلة عدم النشاط"
+      },
+      "name": "حالة ديسكورد",
+      "prompt": {
+        "set-inactivity-timeout": {
+          "label": "أدخل مهلة عدم النشاط بالثواني:",
+          "title": "ضبط مهلة عدم النشاط"
+        }
+      }
+    },
     "downloader": {
       "backend": {
+        "dialog": {
+          "error": {
+            "buttons": {
+              "ok": "حسنا"
+            },
+            "message": "نعتذر، فشل التحميل…",
+            "title": "خطأ في التحميل!"
+          },
+          "start-download-playlist": {
+            "buttons": {
+              "ok": "حسنا"
+            },
+            "detail": "({{playlistSize}} أغنية)",
+            "message": "تحميل القائمة {{playlistTitle}}",
+            "title": "بدأ التحميل"
+          }
+        },
         "feedback": {
+          "conversion-progress": "التحويل: {{percent}}%",
+          "converting": "جارٍ التحويل…",
+          "done": "تم: {{filePath}}",
+          "download-info": "تحميل {{artist}} - {{title}} {{videoId}}",
+          "download-progress": "تحميل: {{percent}}%",
+          "downloading": "تحميل…",
           "downloading-counter": "تنزيل {{current}}/{{total}}…",
+          "downloading-playlist": "يتم تحميل القائمة \"{{playlistTitle}}\" - {{playlistSize}} أغاني ({{playlistId}})",
           "error-while-downloading": "خطأ في تحميل \"{{author}} - {{title}}\": {{error}}",
+          "folder-already-exists": "الملف {{playlistFolder}} موجود بالفعل",
+          "getting-playlist-info": "الحصول على معلومات القائمة…",
           "loading": "جار التحميل…",
+          "playlist-has-only-one-song": "تحتوي قائمة التشغيل على عنصر واحد فقط، يتم تحميله الأن",
+          "playlist-id-not-found": "لم يتم العثور على معرف قائمة التشغيل",
+          "playlist-is-empty": "قائمة التشغيل فارغة",
+          "playlist-is-mix-or-private": "حدث خطأ أثناء الحصول على معلومات قائمة التشغيل: تأكد من أنها ليست قائمة تشغيل خاصة أو قائمة تشغيل \"مختلطة لك\"\n\n{{error}}",
           "preparing-file": "يتم تجهيز الملف…",
           "saving": "يتم الحفظ…",
-          "video-id-not-found": "لم يتم ايجاد الفيديو"
+          "trying-to-get-playlist-id": "محاولة الحصول على معرف قائمة التشغيل: {{playlistId}}",
+          "video-id-not-found": "لم يتم ايجاد الفيديو",
+          "writing-id3": "كتابة علامات ID3…"
+        }
+      },
+      "description": "يقوم بتنزيل ملفات MP3/مصدر الصوت مباشرة من الواجهة",
+      "menu": {
+        "choose-download-folder": "اختر مكان التحميل",
+        "download-finish-settings": {
+          "label": "تحميل عند الانتهاء",
+          "prompt": {
+            "last-percent": "بعد ( عدد مجهول ) بالمئة",
+            "last-seconds": "آخر (x) ثانية",
+            "title": "تكوين وقت التحميل"
+          },
+          "submenu": {
+            "advanced": "متقدم",
+            "enabled": "مفعل",
+            "mode": "وضع الوقت",
+            "percent": "النسبة",
+            "seconds": "ثواني"
+          }
+        },
+        "download-playlist": "تحميل قائمة التشغيل",
+        "presets": "الإعدادات المسبقة",
+        "skip-existing": "تخطي الملفات الموجودة"
+      },
+      "name": "أداة التنزيل",
+      "renderer": {
+        "can-not-update-progress": "لا يمكن تحديث التقدم"
+      },
+      "templates": {
+        "button": "تحميل"
+      }
+    },
+    "equalizer": {
+      "description": "يضيف معادل صوتي للمشغل",
+      "menu": {
+        "presets": {
+          "label": "إعدادات مسبقة",
+          "list": {
+            "bass-booster": "مزود البيس"
+          }
+        }
+      },
+      "name": "معادل صوتي"
+    },
+    "exponential-volume": {
+      "description": "يجعل شريط تمرير مستوى الصوت أسيًا بحيث يسهل تحديد مستويات الصوت الأقل.",
+      "name": "الصوت الأسي"
+    },
+    "in-app-menu": {
+      "description": "يعطي أشرطة القوائم مظهرًا أنيقًا و داكنًا أو بلون الألبوم",
+      "menu": {
+        "hide-dom-window-controls": "إخفاء عناصر التحكم في نافذة DOM"
+      },
+      "name": "قائمة داخل التطبيق"
+    },
+    "lumiastream": {
+      "description": "يضيف دعم Lumia Stream",
+      "name": "Lumia Stream [بيتا]"
+    },
+    "lyrics-genius": {
+      "description": "يضيف دعم الكلمات لمعظم الأغاني",
+      "menu": {
+        "romanized-lyrics": "كلمات مكتوبة بحروف رومانية"
+      },
+      "name": "كلمات الأغاني من Genius",
+      "renderer": {
+        "fetched-lyrics": "تم جلب الكلمات من Genius"
+      }
+    },
+    "music-together": {
+      "description": "مشاركة قائمة تشغيل مع الآخرين. عندما يقوم المضيف بتشغيل أغنية، سيسمع الجميع نفس الأغنية",
+      "dialog": {
+        "enter-host": "أدخل معرف المضيف"
+      },
+      "internal": {
+        "save": "حفظ",
+        "track-source": "مصدر الاغنية",
+        "unknown-user": "مستخدم مجهول"
+      },
+      "menu": {
+        "click-to-copy-id": "نسخ معرف المستضيف",
+        "close": "إغلاق \"الموسيقى معًا\"",
+        "connected-users": "المستخدمون المتصلون",
+        "disconnect": "قطع اتصال من \"الموسيقى معًا\"",
+        "empty-user": "لا يوجد مستعملون متصلون",
+        "host": "مضيف \"الموسيقى معًا\"",
+        "join": "الانضمام إلى \"الموسيقى معا\"",
+        "permission": {
+          "all": "السماح للضيوف بالتحكم في قائمة التشغيل والمشغل",
+          "host-only": "فقط المضيف يستطيع التحكم بالقائمة و المشغل",
+          "playlist": "السماح للضيوف بالتحكم بقائمة التشغيل"
+        },
+        "set-permission": "تغيير إذن التحكم",
+        "status": {
+          "disconnected": "قطع الاتصال",
+          "guest": "متصل كضيف",
+          "host": "متصل كمضيف"
+        }
+      },
+      "name": "الموسيقى معا [بيتا]",
+      "toast": {
+        "add-song-failed": "فشل في إضافة أغنية",
+        "closed": "تم إغلاق \"الموسيقى معا\"",
+        "disconnected": "تم قطع اتصال \"الموسيقى معًا\"",
+        "host-failed": "فشل في استضافة \"الموسيقى معا\"",
+        "id-copied": "تم نسخ معرف المضيف",
+        "id-copy-failed": "لم يتم نسخ معرف المضيف",
+        "join-failed": "فشل الانضمام إلى \"الموسيقى معا\"",
+        "joined": "تم الانضمام إلى \"الموسيقى معا\"",
+        "permission-changed": "تم تغيير إذن \"الموسيقى معًا\" إلى \"{{permission}}\"",
+        "remove-song-failed": "فشل في إزالة الأغنية",
+        "user-connected": "{{name}} انضم إلى \"الموسيقى معًا\"",
+        "user-disconnected": "{{name}} غادر \"الموسيقى معًا\""
+      }
+    },
+    "navigation": {
+      "description": "أسهم التنقل \"التالي/السابق\" مدمجة مباشرة في الواجهة، كما في متصفحك",
+      "name": "التنقل"
+    },
+    "no-google-login": {
+      "description": "إزالة أزرار وروابط تسجيل الدخول بجوجل من الواجهة",
+      "name": "لا يوجد تسجيل دخول بجوجل"
+    },
+    "notifications": {
+      "description": "عرض إشعار عندما تبدأ الأغنية بالتشغيل (الإشعارات التفاعلية متوفرة على ويندوز)",
+      "menu": {
+        "interactive": "إشعارات تفاعلية",
+        "interactive-settings": {
+          "label": "إعدادات تفاعلية",
+          "submenu": {
+            "hide-button-text": "إخفاء زر النص",
+            "refresh-on-play-pause": "تحديث عند التشغيل/الإيقاف المؤقت",
+            "tray-controls": "فتح/إغلاق عند النقر على علامة الشريط"
+          }
+        },
+        "priority": "أولوية الإشعار",
+        "toast-style": "تنسيق التوست",
+        "unpause-notification": "إظهار إشعار عند استئناف التشغيل"
+      },
+      "name": "الإشعارات"
+    },
+    "picture-in-picture": {
+      "description": "يسمح بتحويل التطبيق إلى وضع الصورة داخل الصورة",
+      "menu": {
+        "always-on-top": "دائمًا في الأعلى",
+        "hotkey": {
+          "label": "مفتاح اختصار",
+          "prompt": {
+            "keybind-options": {
+              "hotkey": "مفتاح اختصار"
+            },
+            "label": "اختر مفتاح اختصار لتبديل وضع الصورة داخل الصورة",
+            "title": "مفتاح اختصار الصورة داخل الصورة"
+          }
+        },
+        "save-window-position": "حفظ موقع النافذة",
+        "save-window-size": "حفظ حجم النافذة",
+        "use-native-pip": "استخدام وضع الصورة داخل الصورة الأصلي للمتصفح"
+      },
+      "name": "الصورة داخل الصورة",
+      "templates": {
+        "button": "وضع الصورة داخل الصورة"
+      }
+    },
+    "playback-speed": {
+      "description": "استمع بسرعة، استمع ببطء! يضيف شريط تمرير يتحكم في سرعة الأغنية",
+      "name": "سرعة التشغيل",
+      "templates": {
+        "button": "السرعة"
+      }
+    },
+    "precise-volume": {
+      "description": "التحكم في مستوى الصوت بدقة باستخدام عجلة الفأرة/مفاتيح الاختصار، مع واجهة مستخدم مخصصة وقابلة للتخصيص وخطوات صوتية قابلة للتعديل",
+      "menu": {
+        "arrows-shortcuts": "عناصر التحكم بأسهم المفاتيح",
+        "custom-volume-steps": "تعيين خطوات صوتية خاصة",
+        "global-shortcuts": "مفاتيح اختصار عام"
+      },
+      "name": "مستوى صوت دقيق",
+      "prompt": {
+        "global-shortcuts": {
+          "keybind-options": {
+            "decrease": "تقليل مستوى الصوت",
+            "increase": "زيادة مستوى الصوت"
+          },
+          "label": "اختر اختصارات لوحة المفاتيح للتحكم بمستوى الصوت:",
+          "title": "اختصارات لوحة المفاتيح للتحكم بمستوى الصوت"
+        },
+        "volume-steps": {
+          "label": "اختر خطوات زيادة/تقليل مستوى الصوت",
+          "title": "خطوات زيادة الصوت"
+        }
+      }
+    },
+    "quality-changer": {
+      "backend": {
+        "dialog": {
+          "quality-changer": {
+            "detail": "الجودة الحالية: {{quality}}",
+            "message": "اختر جودة الفيديو:",
+            "title": "اختر جودة الفيديو"
+          }
+        }
+      },
+      "description": "يسمح بتغيير جودة الفيديو باستخدام زر على صورة الفيديو",
+      "name": "مغير جودة الفيديو"
+    },
+    "scrobbler": {
+      "description": "إضافة دعم Scrobbling (مثل Last.fm، ListenBrainz)",
+      "dialog": {
+        "lastfm": {
+          "auth-failed": {
+            "message": "فشل المصادقة مع Last.fm\nإخفاء النافذة المنبثقة حتى إعادة التشغيل التالية.",
+            "title": "فشلت المصادقة"
+          }
         }
       },
       "menu": {
-        "choose-download-folder": "اختر مكان التحميل"
+        "lastfm": {
+          "api-settings": "إعدادات Last.fm API"
+        },
+        "listenbrainz": {
+          "token": "أدخل رمز مستخدم ListenBrainz"
+        },
+        "scrobble-other-media": "Scrobble الوسائط الأخرى"
+      },
+      "name": "أداة تتبع الاستماع",
+      "prompt": {
+        "lastfm": {
+          "api-key": "مفتاح Last.fm API",
+          "api-secret": "الرمز السري لـ Last.fm API"
+        },
+        "listenbrainz": {
+          "token": {
+            "label": "أدخل رمز مستخدم ListenBrainz الخاص بك:",
+            "title": "رمز ListenBrainz"
+          }
+        }
       }
+    },
+    "shortcuts": {
+      "description": "يسمح بضبط اختصارات لوحة المفاتيح العالمية للتحكم في التشغيل (تشغيل/إيقاف مؤقت/التالي/السابق) وإيقاف تشغيل OSD الوسائط عن طريق تجاوز مفاتيح الوسائط، وتشغيل Ctrl/CMD + F للبحث، وتفعيل دعم Linux MPRIS لمفاتيح الوسائط، واختصارات مخصصة للمستخدمين المتقدمين",
+      "menu": {
+        "override-media-keys": "تجاوز مفاتيح الوسائط",
+        "set-keybinds": "تعيين عناصر التحكم بالأغاني"
+      },
+      "name": "الاختصارات (& MPRIS)",
+      "prompt": {
+        "keybind": {
+          "keybind-options": {
+            "next": "التالي",
+            "play-pause": "تشغيل/ إيقاف",
+            "previous": "السابق"
+          },
+          "label": "اختر اختصارات لوحة المفاتيح للتحكم في الأغاني:",
+          "title": "اختصارات لوحة المفاتيح العالمية"
+        }
+      }
+    },
+    "skip-disliked-songs": {
+      "description": "تخطي الأغاني غير المرغوب فيها",
+      "name": "تخطي الأغاني الغير مرغوب فيها"
+    },
+    "skip-silences": {
+      "description": "تخطي أقسام الصمت تلقائيًا في الأغاني",
+      "name": "تخطي فترات الصمت"
+    },
+    "sponsorblock": {
+      "description": "تخطي تلقائيًا الأجزاء غير الموسيقية مثل المقدمة/الختام أو أجزاء مقاطع الفيديو الموسيقية حيث لا يتم تشغيل الأغنية",
+      "name": "SponsorBlock"
+    },
+    "synced-lyrics": {
+      "description": "يوفر كلمات الأغاني المتزامنة باستخدام مزودين مثل LRClib.",
+      "errors": {
+        "fetch": "⚠️ حدث خطأ أثناء جلب كلمات الأغنية.\nيرجى المحاولة مرة أخرى لاحقًا.",
+        "not-found": "⚠️ لم يتم العثور على كلمات لهذه الأغنية."
+      },
+      "menu": {
+        "default-text-string": {
+          "label": "المسافة الافتراضي بين كلمات الأغاني",
+          "tooltip": "اختر الحرف الافتراضي لاستخدامه في الفجوة بين كلمات الأغنية"
+        },
+        "line-effect": {
+          "label": "تأثير الخط",
+          "submenu": {
+            "fancy": {
+              "label": "فاخر",
+              "tooltip": "استخدم تأثيرات كبيرة تشبه التطبيقات على السطر الحالي"
+            },
+            "focus": {
+              "label": "تركيز",
+              "tooltip": "اجعل السطر الحالي فقط باللون الأبيض"
+            },
+            "offset": {
+              "label": "مزاح",
+              "tooltip": "مزاح الى يمين السطر الحالي"
+            },
+            "scale": {
+              "label": "تحجيم",
+              "tooltip": "تكبير السطر الحالي"
+            }
+          },
+          "tooltip": "اختر التأثير لتطبيقه على السطر الحالي"
+        },
+        "precise-timing": {
+          "label": "اجعل كلمات الأغنية متزامنة بشكل مثالي",
+          "tooltip": "احسب بدقة الملي ثانية عرض السطر التالي (قد يكون له تأثير طفيف على الأداء)"
+        },
+        "show-lyrics-even-if-inexact": {
+          "label": "أظهر كلمات الأغنية حتى لو كانت غير دقيقة",
+          "tooltip": "إذا لم يتم العثور على الأغنية، سوف يتم البحث مرة أخرى باستخدام استعلام بحث مختلف.\nقد لا تكون النتيجة من المحاولة الثانية دقيقة."
+        },
+        "show-time-codes": {
+          "label": "أظهر الرموز الزمنية",
+          "tooltip": "أظهر الرموز الزمنية بجانب كلمات الأغنية"
+        }
+      },
+      "name": "كلمات متزامنة",
+      "refetch-btn": {
+        "fetching": "جارٍ الجلب...",
+        "normal": "إعادة جلب كلمات الأغنية"
+      },
+      "warnings": {
+        "duration-mismatch": "⚠️ - قد تكون الكلمات غير متزامنة بسبب عدم تطابق المدة.",
+        "inexact": "⚠️ - قد لا تكون كلمات هذه الأغنية دقيقة",
+        "instrumental": "⚠️ - هذه أغنية آلية (بدون كلمات)"
+      }
+    },
+    "taskbar-mediacontrol": {
+      "description": "التحكم في المشغل من شريط المهام ويندوز",
+      "name": "التحكم بالوسائط من شريط المهام"
+    },
+    "touchbar": {
+      "description": "يضيف أداة TouchBar لمستخدمي macOS",
+      "name": "شريط اللمس (TouchBar)"
+    },
+    "tuna-obs": {
+      "description": "التكامل مع الإضافة\" Tuna\" الخاصة بـ OBS",
+      "name": "إضافة Tuna OBS"
+    },
+    "video-toggle": {
+      "description": "يضيف زرًا للتبديل بين وضع الفيديو/الأغنية. يمكن أيضًا اختياريًا إزالة علامة الفيديو بالكامل",
+      "menu": {
+        "align": {
+          "label": "المحاذاة",
+          "submenu": {
+            "left": "يسار",
+            "middle": "المنتصف",
+            "right": "يمين"
+          }
+        },
+        "force-hide": "إزالة علامة تبويب الفيديو",
+        "mode": {
+          "label": "وضع",
+          "submenu": {
+            "custom": "تبديل مخصص",
+            "disabled": "غير مفعل",
+            "native": "تبديل طبيعي"
+          }
+        }
+      },
+      "name": "تفعيل الفيديو",
+      "templates": {
+        "button": "أغنية"
+      }
+    },
+    "visualizer": {
+      "description": "يضيف معاينًا بصريًا للمشغل",
+      "menu": {
+        "visualizer-type": "نوع المعاينة المصرية"
+      },
+      "name": "معاين بصري"
     }
   }
 }
