@@ -2,9 +2,15 @@
   "extends": "@electron-toolkit/tsconfig/tsconfig.node.json",
   "compilerOptions": {
     "target": "esnext",
-    "lib": ["dom", "dom.iterable", "es2022"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "es2022"
+    ],
     "module": "esnext",
-    "types": ["electron-vite/node"],
+    "types": [
+      "electron-vite/node"
+    ],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
@@ -18,10 +24,20 @@
     "strictFunctionTypes": true,
     "skipLibCheck": true,
     "paths": {
-      "@/*": ["./src/*"],
-      "@assets/*": ["./assets/*"]
+      "@/*": [
+        "./src/*"
+      ],
+      "@assets/*": [
+        "./assets/*"
+      ]
     }
   },
-  "exclude": ["./dist"],
-  "include": ["electron.vite.config.mts", "./src/**/*", "*.config.*js"]
+  "exclude": [
+    "./dist"
+  ],
+  "include": [
+    "electron.vite.config.mts",
+    "./src/**/*",
+    "*.config.*js"
+  ]
 }
