@@ -60,7 +60,8 @@ export const renderer = createRenderer({
     waitForElement<HTMLElement>('#mini-guide-renderer').then(injectButton);
   },
   stop() {
-    Object.values(cleanup).forEach((dispose) => dispose());
+    cleanup['guide-renderer']?.();
+    cleanup['mini-guide-renderer']?.();
   },
 });
 
