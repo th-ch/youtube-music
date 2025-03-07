@@ -55,13 +55,11 @@ const injectButton = (guide: HTMLElement) => {
 };
 
 export const renderer = createRenderer({
-  async start() {
-    const guide = await waitForElement<HTMLElement>('#guide-renderer');
-    injectButton(guide);
-
+  start() {
+    waitForElement<HTMLElement>('#guide-renderer').then(injectButton);
     waitForElement<HTMLElement>('#mini-guide-renderer').then(injectButton);
   },
-  async stop() {
+  stop() {
     Object.values(cleanup).forEach((dispose) => dispose());
   },
 });
