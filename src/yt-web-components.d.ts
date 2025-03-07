@@ -41,12 +41,12 @@ declare module "solid-js" {
       "tp-yt-paper-spinner-lite":
         & ComponentProps<"div">
         & YpYtPaperSpinnerLiteProps;
+
       "tp-yt-paper-icon-button":
         & ComponentProps<"div">
         & TpYtPaperIconButtonProps;
-      "yt-icon":
-        & ComponentProps<"div">
-        & TpYtPaperIconButtonProps;
+      "yt-icon-button": ComponentProps<"div"> & TpYtPaperIconButtonProps;
+      "yt-icon": ComponentProps<"div"> & TpYtPaperIconButtonProps;
     }
   }
 }

@@ -3,16 +3,21 @@
 import { YtIcons } from '@/types/icons';
 import { createRenderer } from '@/utils';
 import { waitForElement } from '@/utils/wait-for-element';
-import { render } from 'solid-js/web';
+import { createSignal, Show } from 'solid-js';
+import { render, Portal } from 'solid-js/web';
+import { t } from '@/i18n';
+import { SettingsUI } from './SettingsUI';
 
 const cogIcon: YtIcons = 'yt-icons:settings';
 
 const SettingsButton = () => {
+  const [showModal, setShowModal] = createSignal(false);
+
   return (
     <div
       class="ytmd-settings-ui-btn-content"
       on:click={() => {
-        console.log(`TODO!("Open settings modal");`);
+        setShowModal(true);
       }}
     >
       <yt-icon icon={cogIcon} tabindex="0" />
@@ -20,10 +25,15 @@ const SettingsButton = () => {
         <div class="title-group style-scope ytmusic-guide-entry-renderer">
           <yt-formatted-string
             class="title style-scope ytmusic-guide-entry-renderer"
-            text={{ runs: [{ text: 'Settings' }] }}
+            text={{ runs: [{ text: t('plugins.settings-ui.button') }] }}
           />
         </div>
       </div>
+      <Portal>
+        <Show when={showModal()}>
+          <SettingsUI closeModal={() => setShowModal(false)} />
+        </Show>
+      </Portal>
     </div>
   );
 };

@@ -6,6 +6,7 @@
   -webkit-font-smoothing: antialiased;
   font-weight: 400;
   cursor: pointer;
+  user-select: none;
 
   &.normal {
     & > .ytmd-settings-ui-btn-content {
@@ -46,4 +47,122 @@
       --ytmusic-guide-entry-background-color: rgba(255, 255, 255, 0.2);
     }
   }
+}
+
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.85);
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* Ensure the backdrop is on top */
+}
+
+.modal-content {
+  background-color: #36393f;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 800px;
+  max-height: 85vh;
+  overflow-y: auto;
+  z-index: 1001; /* Place the modal content above the backdrop */
+}
+
+.ytmd-settings-ui-plugins-grid {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.plugin-card {
+  background-color: #2f3136;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.plugin-card:hover {
+  background-color: #33363c;
+}
+
+.search-input {
+  background-color: #202225;
+  color: #dcddde;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  width: 100%;
+}
+
+.search-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(114, 137, 218, 0.3);
+}
+
+.toggle-switch {
+  width: 40px;
+  height: 24px;
+  background-color: #72767d;
+  border-radius: 12px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.toggle-switch.active {
+  background-color: #3ba55c;
+}
+
+.toggle-switch::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+
+.toggle-switch.active::after {
+  transform: translateX(16px);
+}
+
+.card {
+  padding: 2em;
+}
+
+.ytmd-close-modal-button {
+  color: #9ca3af;
+  transition-property: color, background-color, border-color,
+    text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+
+  :hover {
+    color: #ffffff;
+  }
+}
+
+.ytmd-settings-plugin-action-icon {
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  color: #9ca3af;
+
+  :hover {
+    color: #ffffff;
+  }
+}
+
+.ytmd-settings-plugin-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ytmd-settings-plugin-description {
+  margin-top: 1rem;
 }
