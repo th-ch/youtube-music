@@ -201,8 +201,8 @@
       "restart": "重启应用",
       "show": "显示窗口",
       "tooltip": {
-        "default": "优兔音乐",
-        "with-song-info": "优兔音乐: {{artist}} - {{title}}"
+        "default": "",
+        "with-song-info": ""
       }
     }
   },
@@ -281,7 +281,7 @@
     },
     "amuse": {
       "description": "为 6K Labs 的 Amuse 正在播放小部件添加 YouTube Music 支持",
-      "name": "逗笑",
+      "name": "",
       "response": {
         "query": "Amuse API服务器已在运行。使用 /query 以获取歌曲信息。"
       }
