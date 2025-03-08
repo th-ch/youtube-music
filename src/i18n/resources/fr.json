@@ -745,7 +745,7 @@
           "label": "Effet de ligne",
           "submenu": {
             "fancy": {
-              "label": "Fancy",
+              "label": "Raffiné",
               "tooltip": "Utilise de grands effets de type application sur la ligne actuelle"
             },
             "focus": {
