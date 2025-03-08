@@ -2,7 +2,7 @@ import type { LyricProvider, LyricResult, SearchSongInfo } from '../types';
 import type { YouTubeMusicAppElement } from '@/types/youtube-music-app-element';
 
 const headers = {
-  'Accept': 'application/json',
+  Accept: 'application/json',
   'Content-Type': 'application/json',
 };
 
