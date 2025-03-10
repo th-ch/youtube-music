@@ -12,8 +12,7 @@
 
 </div>
 
-![Screenshot](/web/screenshot.png "Screenshot")
-
+![Screenshot](/web/screenshot.png 'Screenshot')
 
 <div align="center">
     <a href="https://github.com/th-ch/youtube-music/releases/latest">
@@ -30,37 +29,41 @@
 
 ## Демо-изображение
 
-|                          Экран плеера (цветовая тема альбома & режим Ambient)                                |
-|:---------------------------------------------------------------------------------------------------------:|
-|![Screenshot1](https://github.com/th-ch/youtube-music/assets/16558115/53efdf73-b8fa-4d7b-a235-b96b91ea77fc)|
+|                            Экран плеера (цветовая тема альбома & режим Ambient)                             |
+| :---------------------------------------------------------------------------------------------------------: |
+| ![Screenshot1](https://github.com/th-ch/youtube-music/assets/16558115/53efdf73-b8fa-4d7b-a235-b96b91ea77fc) |
 
 ## Содержание
 
-- [Возможности](#Возможности)
-- [Доступные плагины](#Доступные-плагины)
-- [Перевод](#Перевод)
-- [Скачать](#Скачать)
-  - [Arch Linux](#arch-linux)
-  - [MacOS](#macos)
-  - [Windows](#windows)
-    - [Как установить без подключения к интернету? (в Windows)](#Установка-без-подключения-к-Интернету-в-Windows)
-- [Темы](#Темы)
-- [Для разработчиков](#Для-разработчиков)
-- [Создайте свои собственные плагины](#Создайте-свои-собственные-плагины)
-  - [Создание плагина](#Создание-плагина)
-  - [Примеры использования](#Примеры-использования)
-- [Сборка](#Сборка)
-- [Предварительный просмотр](#Предварительный-просмотр)
-- [Тестирование](#Тестирование)
-- [Лицензия](#Лицензия)
-- [Часто задаваемые вопросы](#Часто-задаваемые-вопросы)
+- [YouTube Music](#youtube-music)
+  - [Демо-изображение](#демо-изображение)
+  - [Содержание](#содержание)
+  - [Возможности:](#возможности)
+  - [Доступные плагины:](#доступные-плагины)
+  - [Перевод](#перевод)
+  - [Скачать](#скачать)
+    - [Arch Linux](#arch-linux)
+    - [macOS](#macos)
+    - [Windows](#windows)
+      - [Установка без подключения к Интернету? (в Windows)](#установка-без-подключения-к-интернету-в-windows)
+  - [Темы](#темы)
+  - [Для разработчиков](#для-разработчиков)
+  - [Создайте свои собственные плагины](#создайте-свои-собственные-плагины)
+    - [Создание плагина](#создание-плагина)
+    - [Примеры использования](#примеры-использования)
+  - [Сборка](#сборка)
+  - [Предварительный просмотр](#предварительный-просмотр)
+  - [Тестирование](#тестирование)
+  - [Лицензия](#лицензия)
+  - [Часто задаваемые вопросы](#часто-задаваемые-вопросы)
+    - [Почему меня приложения не отображается?](#почему-меня-приложения-не-отображается)
 
 ## Возможности:
 
 - **Авто-подтверждение при паузе** (Всегда включено): отключает всплывающие уведомление ["Продолжить просмотр?"](https://user-images.githubusercontent.com/61631665/129977894-01c60740-7ec6-4bf0-9a2c-25da24491b0e.png),
-    которое  приостанавливает воспроизведение через определённое время
+  которое приостанавливает воспроизведение через определённое время
 
- - И больше ...
+- И больше ...
 
 ## Доступные плагины:
 
@@ -138,7 +141,7 @@
 - **Визуализатор**: Различные визуализаторы музыки
 
 - **Synced Lyrics**:
-Предоставляет синхронизированные слова для песен из таких источников, как [LRClib](https://lrclib.net).
+  Предоставляет синхронизированные слова для песен из таких источников, как [LRClib](https://lrclib.net).
 
 ## Перевод
 
@@ -182,7 +185,7 @@ scoop install extras/youtube-music
 
 Также для установки вы можете использовать [Winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/), официальный пакетный менеджер командной строки Windows 11, для установки пакета `th-ch.YouTubeMusic`.
 
-*К сведению: SmartScreen защитника Windows может блокировать установку, так как она от "неизвестного издателя". Это также применимо к методу ручной установки, когда вы пытаетесь запустить исполняемый файл(.exe) после загрузки здесь, на GitHub (тот же файл).*
+_К сведению: SmartScreen защитника Windows может блокировать установку, так как она от "неизвестного издателя". Это также применимо к методу ручной установки, когда вы пытаетесь запустить исполняемый файл(.exe) после загрузки здесь, на GitHub (тот же файл)._
 
 ```bash
 winget install th-ch.YouTubeMusic
@@ -225,6 +228,7 @@ pnpm dev
 Создайте директорию в `src/plugins/YOUR-PLUGIN-NAME`:
 
 - `index.ts`: основной файл плагина
+
 ```typescript
 import style from './style.css?inline'; // import style as inline
 
@@ -264,9 +268,13 @@ export default createPlugin({
       });
     },
     // it fired when config changed
-    onConfigChange(newConfig) { /* ... */ },
+    onConfigChange(newConfig) {
+      /* ... */
+    },
     // it fired when plugin disabled
-    stop(context) { /* ... */ },
+    stop(context) {
+      /* ... */
+    },
   },
   renderer: {
     async start(context) {
@@ -277,8 +285,12 @@ export default createPlugin({
       // set plugin config easily
       context.setConfig({ myConfig: api.getVolume() });
     },
-    onConfigChange(newConfig) { /* ... */ },
-    stop(_context) { /* ... */ },
+    onConfigChange(newConfig) {
+      /* ... */
+    },
+    stop(_context) {
+      /* ... */
+    },
   },
   preload: {
     async start({ getConfig }) {
@@ -307,7 +319,7 @@ export default createPlugin({
     enabled: false,
   }, // your custom config
   stylesheets: [style], // your custom style
-  renderer() {} // define renderer hook
+  renderer() {}, // define renderer hook
 });
 ```
 
@@ -324,8 +336,8 @@ export default createPlugin({
   }, // your custom config
   renderer() {
     // Remove the login button
-    document.querySelector(".sign-in-link.ytmusic-nav-bar").remove();
-  } // define renderer hook
+    document.querySelector('.sign-in-link.ytmusic-nav-bar').remove();
+  }, // define renderer hook
 });
 ```
 

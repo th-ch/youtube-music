@@ -12,13 +12,12 @@
 
 </div>
 
-![Screenshot](web/screenshot.png "Screenshot")
-
+![Screenshot](web/screenshot.png 'Screenshot')
 
 <div align="center">
-	<a href="https://github.com/th-ch/youtube-music/releases/latest">
-		<img src="web/youtube-music.svg" width="400" height="100" alt="YouTube Music SVG">
-	</a>
+ <a href="https://github.com/th-ch/youtube-music/releases/latest">
+  <img src="web/youtube-music.svg" width="400" height="100" alt="YouTube Music SVG">
+ </a>
 </div>
 
 Read this in other languages: [🇰🇷](./docs/readme/README-ko.md), [🇫🇷](./docs/readme/README-fr.md), [🇮🇸](./docs/readme/README-is.md), [🇨🇱 🇪🇸](./docs/readme/README-es.md), [🇷🇺](./docs/readme/README-ru.md), [🇭🇺](./docs/readme/README-hu.md)
@@ -31,40 +30,44 @@ Read this in other languages: [🇰🇷](./docs/readme/README-ko.md), [🇫🇷]
 
 ## Demo Image
 
-|                          Player Screen (album color theme & ambient light)                                |
-|:---------------------------------------------------------------------------------------------------------:|
-|![Screenshot1](https://github.com/th-ch/youtube-music/assets/16558115/53efdf73-b8fa-4d7b-a235-b96b91ea77fc)|
+|                              Player Screen (album color theme & ambient light)                              |
+| :---------------------------------------------------------------------------------------------------------: |
+| ![Screenshot1](https://github.com/th-ch/youtube-music/assets/16558115/53efdf73-b8fa-4d7b-a235-b96b91ea77fc) |
 
 ## Content
 
-- [Features](#features)
-- [Available plugins](#available-plugins)
-- [Translation](#translation)
-- [Download](#download)
-  - [Arch Linux](#arch-linux)
-  - [MacOS](#macos)
-  - [Windows](#windows)
-    - [How to install without a network connection? (in Windows)](#how-to-install-without-a-network-connection-in-windows)
-- [Themes](#themes)
-- [Dev](#dev)
-- [Build your own plugins](#build-your-own-plugins)
-  - [Creating a plugin](#creating-a-plugin)
-  - [Common use cases](#common-use-cases)
-- [Build](#build)
-- [Production Preview](#production-preview)
-- [Tests](#tests)
-- [License](#license)
-- [FAQ](#faq)
+- [YouTube Music](#youtube-music)
+  - [Demo Image](#demo-image)
+  - [Content](#content)
+  - [Features](#features)
+  - [Available plugins](#available-plugins)
+  - [Translation](#translation)
+  - [Download](#download)
+    - [Arch Linux](#arch-linux)
+    - [macOS](#macos)
+    - [Windows](#windows)
+      - [How to install without a network connection? (in Windows)](#how-to-install-without-a-network-connection-in-windows)
+  - [Themes](#themes)
+  - [Dev](#dev)
+  - [Build your own plugins](#build-your-own-plugins)
+    - [Creating a plugin](#creating-a-plugin)
+    - [Common use cases](#common-use-cases)
+  - [Build](#build)
+  - [Production Preview](#production-preview)
+  - [Tests](#tests)
+  - [License](#license)
+  - [FAQ](#faq)
+    - [Why apps menu isn't showing up?](#why-apps-menu-isnt-showing-up)
 
-## Features:
+## Features
 
 - **Auto confirm when paused** (Always Enabled): disable
   the ["Continue Watching?"](https://user-images.githubusercontent.com/61631665/129977894-01c60740-7ec6-4bf0-9a2c-25da24491b0e.png)
   popup that pause music after a certain time
 
- - And more ...
+- And more ...
 
-## Available plugins:
+## Available plugins
 
 - **Ad Blocker**: Block all ads and tracking out of the box
 
@@ -104,7 +107,7 @@ Read this in other languages: [🇰🇷](./docs/readme/README-ko.md), [🇫🇷]
 - **In-App Menu**: [gives bars a fancy, dark look](https://user-images.githubusercontent.com/78568641/112215894-923dbf00-8c29-11eb-95c3-3ce15db27eca.png)
 
   > (see [this post](https://github.com/th-ch/youtube-music/issues/410#issuecomment-952060709) if you have problem
-  accessing the menu after enabling this plugin and hide-menu option)
+  > accessing the menu after enabling this plugin and hide-menu option)
 
 - **Scrobbler**: Adds scrobbling support for [Last.fm](https://www.last.fm/) and [ListenBrainz](https://listenbrainz.org/)
 
@@ -163,7 +166,6 @@ Read this in other languages: [🇰🇷](./docs/readme/README-ko.md), [🇫🇷]
 
 - **Visualizer**: Different music visualizers
 
-
 ## Translation
 
 You can help with translation on [Hosted Weblate](https://hosted.weblate.org/projects/youtube-music/).
@@ -210,9 +212,9 @@ scoop install extras/youtube-music
 Alternately you can use [Winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/), Windows 11s
 official CLI package manager to install the `th-ch.YouTubeMusic` package.
 
-*Note: Microsoft Defender SmartScreen might block the installation since it is from an "unknown publisher". This is also
+_Note: Microsoft Defender SmartScreen might block the installation since it is from an "unknown publisher". This is also
 true for the manual installation when trying to run the executable(.exe) after a manual download here on github (same
-file).*
+file)._
 
 ```bash
 winget install th-ch.YouTubeMusic
@@ -232,7 +234,7 @@ winget install th-ch.YouTubeMusic
 
 You can load CSS files to change the look of the application (Options > Visual Tweaks > Themes).
 
-Some predefined themes are available in https://github.com/kerichdev/themes-for-ytmdesktop-player.
+Some predefined themes are available in <https://github.com/kerichdev/themes-for-ytmdesktop-player>.
 
 ## Dev
 
@@ -255,6 +257,7 @@ Using plugins, you can:
 Create a folder in `src/plugins/YOUR-PLUGIN-NAME`:
 
 - `index.ts`: the main file of the plugin
+
 ```typescript
 import style from './style.css?inline'; // import style as inline
 
@@ -294,9 +297,13 @@ export default createPlugin({
       });
     },
     // it fired when config changed
-    onConfigChange(newConfig) { /* ... */ },
+    onConfigChange(newConfig) {
+      /* ... */
+    },
     // it fired when plugin disabled
-    stop(context) { /* ... */ },
+    stop(context) {
+      /* ... */
+    },
   },
   renderer: {
     async start(context) {
@@ -307,8 +314,12 @@ export default createPlugin({
       // set plugin config easily
       context.setConfig({ myConfig: api.getVolume() });
     },
-    onConfigChange(newConfig) { /* ... */ },
-    stop(_context) { /* ... */ },
+    onConfigChange(newConfig) {
+      /* ... */
+    },
+    stop(_context) {
+      /* ... */
+    },
   },
   preload: {
     async start({ getConfig }) {
@@ -337,7 +348,7 @@ export default createPlugin({
     enabled: false,
   }, // your custom config
   stylesheets: [style], // your custom style
-  renderer() {} // define renderer hook
+  renderer() {}, // define renderer hook
 });
 ```
 
@@ -354,8 +365,8 @@ export default createPlugin({
   }, // your custom config
   renderer() {
     // Remove the login button
-    document.querySelector(".sign-in-link.ytmusic-nav-bar").remove();
-  } // define renderer hook
+    document.querySelector('.sign-in-link.ytmusic-nav-bar').remove();
+  }, // define renderer hook
 });
 ```
 

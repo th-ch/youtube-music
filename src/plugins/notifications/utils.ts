@@ -43,7 +43,7 @@ const nativeImageToLogo = (nativeImage: NativeImage) => {
 
 export const notificationImage = (
   songInfo: SongInfo,
-  config: NotificationsPluginConfig,
+  config: NotificationsPluginConfig
 ) => {
   if (!songInfo.image) {
     return youtubeMusicIcon;
@@ -79,11 +79,14 @@ export const saveImage = (img: NativeImage, savePath: string) => {
 
 export const snakeToCamel = (string_: string) =>
   string_.replaceAll(/([-_][a-z]|^[a-z])/g, (group) =>
-    group.toUpperCase().replace('-', ' ').replace('_', ' '),
+    group.toUpperCase().replace('-', ' ').replace('_', ' ')
   );
 
-export const secondsToMinutes = (seconds: number) => {
+export const secondsToMinutes = (seconds: number): string => {
+  if (typeof seconds !== 'number' || isNaN(seconds)) {
+    return '0:00';
+  }
   const minutes = Math.floor(seconds / 60);
-  const secondsLeft = seconds % 60;
+  const secondsLeft = Math.floor(seconds % 60);
   return `${minutes}:${secondsLeft < 10 ? '0' : ''}${secondsLeft}`;
 };

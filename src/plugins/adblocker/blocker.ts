@@ -1,4 +1,3 @@
-// Used for caching
 import path from 'node:path';
 import fs, { promises } from 'node:fs';
 
@@ -19,63 +18,101 @@ const SOURCES = [
   'https://secure.fanboy.co.nz/fanboy-annoyance_ubo.txt',
   // AdGuard
   'https://filters.adtidy.org/extension/ublock/filters/122_optimized.txt',
+  // Additional YouTube-specific filters
+  'https://raw.githubusercontent.com/easylist/easylist/master/easylist/easylist_adservers_popup.txt',
+  'https://raw.githubusercontent.com/brave/adblock-lists/master/brave-lists/brave-youtube.txt',
+  // YouTube music specific filters
+  'https://raw.githubusercontent.com/DandelionSprout/adfilt/master/BrowseWebsitesWithoutLoggingIn.txt',
 ];
 
+// Tracking if a blocker is enabled and the instance
 let blocker: ElectronBlocker | undefined;
+let blockingStats = {
+  adsBlocked: 0,
+  lastUpdateTime: 0,
+};
 
+// Enhanced version of the ad blocker loader with better error handling
 export const loadAdBlockerEngine = async (
   session: Electron.Session | undefined = undefined,
   cache: boolean = true,
   additionalBlockLists: string[] = [],
-  disableDefaultLists: boolean | unknown[] = false,
-) => {
-  // Only use cache if no additional blocklists are passed
-  const cacheDirectory = path.join(app.getPath('userData'), 'adblock_cache');
-  if (!fs.existsSync(cacheDirectory)) {
-    fs.mkdirSync(cacheDirectory);
-  }
-  const cachingOptions =
-    cache && additionalBlockLists.length === 0
-      ? {
-          path: path.join(cacheDirectory, 'adblocker-engine.bin'),
-          read: promises.readFile,
-          write: promises.writeFile,
-        }
-      : undefined;
-  const lists = [
-    ...((disableDefaultLists && !Array.isArray(disableDefaultLists)) ||
-    (Array.isArray(disableDefaultLists) && disableDefaultLists.length > 0)
-      ? []
-      : SOURCES),
-    ...additionalBlockLists,
-  ];
-
+  disableDefaultLists: boolean | unknown[] = false
+): Promise<void> => {
   try {
+    // Only use cache if no additional blocklists are passed
+    const cacheDirectory = path.join(app.getPath('userData'), 'adblock_cache');
+    if (!fs.existsSync(cacheDirectory)) {
+      fs.mkdirSync(cacheDirectory);
+    }
+
+    const cachingOptions =
+      cache && additionalBlockLists.length === 0
+        ? {
+            path: path.join(cacheDirectory, 'adblocker-engine.bin'),
+            read: promises.readFile,
+            write: promises.writeFile,
+          }
+        : undefined;
+
+    const lists = [
+      ...((disableDefaultLists && !Array.isArray(disableDefaultLists)) ||
+      (Array.isArray(disableDefaultLists) && disableDefaultLists.length > 0)
+        ? []
+        : SOURCES),
+      ...additionalBlockLists,
+    ];
+
+    // Create blocker with improved configuration
     blocker = await ElectronBlocker.fromLists(
       (url: string) => net.fetch(url),
       lists,
       {
         enableCompression: true,
-        // When generating the engine for caching, do not load network filters
-        // So that enhancing the session works as expected
-        // Allowing to define multiple webRequest listeners
         loadNetworkFilters: session !== undefined,
+        debug: process.env.NODE_ENV === 'development',
       },
-      cachingOptions,
+      cachingOptions
     );
-    if (session) {
+
+    // Set up request blocking and analytics
+    if (session && blocker) {
       blocker.enableBlockingInSession(session);
+
+      // Add tracking for blocked requests
+      session.webRequest.onBeforeRequest((details, callback) => {
+        const match = blocker?.match(details);
+        if (match?.redirect || match?.match) {
+          blockingStats.adsBlocked++;
+          blockingStats.lastUpdateTime = Date.now();
+        }
+        callback({});
+      });
     }
   } catch (error) {
-    console.error('Error loading adBlocker engine', error);
+    console.error('Failed to load ad blocker engine:', error);
+    // Fallback to minimal blocking if full loading fails
+    if (session) {
+      try {
+        blocker = await ElectronBlocker.empty();
+        blocker.enableBlockingInSession(session);
+      } catch (e) {
+        console.error('Failed to create empty blocker:', e);
+      }
+    }
   }
 };
 
-export const unloadAdBlockerEngine = (session: Electron.Session) => {
+export const unloadAdBlockerEngine = (session: Electron.Session): void => {
   if (blocker) {
     blocker.disableBlockingInSession(session);
   }
 };
 
-export const isBlockerEnabled = (session: Electron.Session) =>
+export const isBlockerEnabled = (session: Electron.Session): boolean =>
   blocker !== undefined && blocker.isBlockingEnabled(session);
+
+// Get statistics about blocked ads
+export const getBlockingStats = () => {
+  return blockingStats;
+};
