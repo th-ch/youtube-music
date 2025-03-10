@@ -1,8 +1,8 @@
-import { Icons } from '@/types/icons';
+import { Icons } from "@/types/icons";
 
-import type { ComponentProps } from 'solid-js';
+import type { ComponentProps } from "solid-js";
 
-declare module 'solid-js' {
+declare module "solid-js" {
   namespace JSX {
     interface YtFormattedStringProps {
       text?: {
@@ -35,13 +35,18 @@ declare module 'solid-js' {
     }
 
     interface IntrinsicElements {
-      center: ComponentProps<'div'>;
-      'yt-formatted-string': ComponentProps<'span'> & YtFormattedStringProps;
-      'yt-button-renderer': ComponentProps<'button'> & YtButtonRendererProps;
-      'tp-yt-paper-spinner-lite': ComponentProps<'div'> &
-        YpYtPaperSpinnerLiteProps;
-      'tp-yt-paper-icon-button': ComponentProps<'div'> &
-        TpYtPaperIconButtonProps;
+      center: ComponentProps<"div">;
+      "yt-formatted-string": ComponentProps<"span"> & YtFormattedStringProps;
+      "yt-button-renderer": ComponentProps<"button"> & YtButtonRendererProps;
+      "tp-yt-paper-spinner-lite":
+        & ComponentProps<"div">
+        & YpYtPaperSpinnerLiteProps;
+
+      "tp-yt-paper-icon-button":
+        & ComponentProps<"div">
+        & TpYtPaperIconButtonProps;
+      "yt-icon-button": ComponentProps<"div"> & TpYtPaperIconButtonProps;
+      "yt-icon": ComponentProps<"div"> & TpYtPaperIconButtonProps;
     }
   }
 }
