@@ -272,7 +272,32 @@
         "use-fullscreen": {
           "label": "Käytetään koko näytön tilaa"
         }
-      }
+      },
+      "name": "Tunnelmallinen Tila"
+    },
+    "api-server": {
+      "description": "Lisää API-palvelimen hallitsemaan soitinta",
+      "dialog": {
+        "request": {
+          "buttons": {
+            "allow": "Hyväksy",
+            "deny": "Kiellä"
+          }
+        }
+      },
+      "menu": {
+        "auth-strategy": {
+          "submenu": {
+            "none": {
+              "label": "Ei valtuuksia"
+            }
+          }
+        },
+        "port": {
+          "label": "Portti"
+        }
+      },
+      "name": "API Serveri [Beta]"
     },
     "audio-compressor": {
       "description": "Lisää äänen kompressointia (hiljentää voimakkaimpien äänien voimakkuutta ja tehostaa pehmeämpien äänien voimakkuutta)",
