@@ -1,6 +1,7 @@
-import { createSignal, For, Match, Switch } from 'solid-js';
+import { createSignal, For } from 'solid-js';
 import { rendererPlugins } from 'virtual:plugins';
 import { PluginCard } from './components/PluginCard';
+import { SectionTitle } from './components/SectionTitle';
 
 interface SettingsUIProps {
   closeModal: () => void;
@@ -28,18 +29,6 @@ export const SettingsUI = (props: SettingsUIProps) => {
     );
   };
 
-  const filteredPlugins = () => {
-    return plugins();
-
-    // TODO: Add search
-    // const searchTerm = search().toLowerCase();
-    // return plugins().filter(
-    //   ([_, plugin]) =>
-    //     plugin.name().toLowerCase().includes(searchTerm) ||
-    //     plugin.description?.()?.toLowerCase()?.includes(searchTerm)
-    // );
-  };
-
   const handleOverlayClick = (e: MouseEvent) => {
     if (e.target === e.currentTarget) {
       props.closeModal();
@@ -50,12 +39,10 @@ export const SettingsUI = (props: SettingsUIProps) => {
     <div class="modal-backdrop" onClick={handleOverlayClick}>
       <div class="modal-content">
         <div style={{ padding: '1rem' }}>
-          <yt-formatted-string
-            class="title text style-scope ytmusic-carousel-shelf-basic-header-renderer"
-            text={{ runs: [{ text: 'Plugins' }] }}
-          />
+          <SectionTitle title="Plugins" />
+          // TODO: Make this responsive
           <div class="ytmd-settings-ui-plugins-grid">
-            <For each={filteredPlugins()}>
+            <For each={plugins()}>
               {([id, plugin]) => (
                 <PluginCard
                   plugin={plugin}

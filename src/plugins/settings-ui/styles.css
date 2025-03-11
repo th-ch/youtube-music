@@ -151,9 +151,7 @@
   border-radius: 0.25rem;
   color: #9ca3af;
 
-  :hover {
-    color: #ffffff;
-  }
+  --paper-icon-button-hover-color: #ffffff;
 }
 
 .ytmd-settings-plugin-actions {

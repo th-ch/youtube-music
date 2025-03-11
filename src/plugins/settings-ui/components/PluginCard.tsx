@@ -1,4 +1,4 @@
-import { Match, Switch } from 'solid-js';
+import { Match, Switch, createMemo } from 'solid-js';
 import { type Plugin } from 'virtual:plugins';
 
 interface PluginCardProps {
@@ -7,6 +7,11 @@ interface PluginCardProps {
 }
 
 export const PluginCard = ({ plugin, togglePlugin }: PluginCardProps) => {
+  const hasSettings = createMemo(() => {
+    const { enabled, ...rest } = plugin.config ?? {};
+    return !!Object.keys(rest).length;
+  });
+
   return (
     <div class="plugin-card" style={{ padding: '1rem' }}>
       <div
@@ -27,7 +32,7 @@ export const PluginCard = ({ plugin, togglePlugin }: PluginCardProps) => {
           >
             <yt-formatted-string
               class="description style-scope ytmusic-description-shelf-renderer"
-              style={{ 'font-weight': 700 }}
+              style={{ 'user-select': 'none', 'font-weight': 700 }}
               text={{ runs: [{ text: plugin.name() }] }}
             />
           </div>
@@ -35,6 +40,7 @@ export const PluginCard = ({ plugin, togglePlugin }: PluginCardProps) => {
             <div class="ytmd-settings-plugin-description">
               <yt-formatted-string
                 class="description style-scope ytmusic-description-shelf-renderer"
+                style={{ 'user-select': 'none' }}
                 text={{ runs: [{ text: plugin.description() }] }}
               />
             </div>
@@ -50,11 +56,7 @@ export const PluginCard = ({ plugin, togglePlugin }: PluginCardProps) => {
               />
             }
           >
-            <Match
-              when={(({ enabled, ...rest }) => !!Object.keys(rest).length)(
-                plugin.config! ?? {}
-              )}
-            >
+            <Match when={hasSettings()}>
               <tp-yt-paper-icon-button
                 tabindex="0"
                 icon="yt-icons:settings"
