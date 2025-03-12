@@ -212,7 +212,7 @@
       "name": "Acelerar os anúncios"
     },
     "adblocker": {
-      "description": "Bloquear todos os anúncios e rastreamento automaticamente",
+      "description": "Bloqueie todos os anúncios e monitorização automaticamente",
       "menu": {
         "blocker": "Bloqueador"
       },
@@ -223,10 +223,10 @@
       "name": "Ações no álbum"
     },
     "album-color-theme": {
-      "description": "Aplica um tema dinâmico e efeitos visuais com base na paleta de cores do álbum",
+      "description": "Aplica um tema dinâmico e efeitos visuais baseados na paleta de cores do álbum",
       "menu": {
         "color-mix-ratio": {
-          "label": "Relação de mistura de cores",
+          "label": "Proporção de mistura de cores",
           "submenu": {
             "percent": "{{ratio}}%"
           }
@@ -235,7 +235,7 @@
       "name": "Tema de cores do álbum"
     },
     "ambient-mode": {
-      "description": "Aplica um efeito de iluminação lançando cores suaves do vídeo no fundo da tela.",
+      "description": "Aplica um efeito de iluminação, projetando cores suaves do vídeo no fundo do ecrã",
       "menu": {
         "blur-amount": {
           "label": "Quantidade de desfoque",
@@ -274,45 +274,64 @@
           }
         },
         "use-fullscreen": {
-          "label": "Tela cheia"
+          "label": "Utilizar o ecrã inteiro"
         }
       },
       "name": "Modo Ambiente"
     },
+    "amuse": {
+      "description": "Adiciona suporte ao YouTube Music para o widget Amuse now playing da 6K Labs",
+      "name": "Amuse",
+      "response": {
+        "query": "O servidor da API Amuse está a ser executado. GET /query para obter informações sobre uma música."
+      }
+    },
     "api-server": {
+      "description": "Adiciona um servidor API para controlar o leitor",
       "dialog": {
         "request": {
           "buttons": {
             "allow": "Permitir",
             "deny": "Negar"
-          }
+          },
+          "message": "Permitir que {{ID}} ({{origin}}) aceda à API?",
+          "title": "Pedido de autorização da API"
         }
       },
       "menu": {
         "auth-strategy": {
-          "label": "Estratégia de Autorização",
+          "label": "Estratégia de autorização",
           "submenu": {
             "auth-at-first": {
-              "label": "Autorizar ao primeiro pedido"
+              "label": "Autorizar no primeiro pedido"
             },
             "none": {
               "label": "Sem autorização"
             }
           }
         },
+        "hostname": {
+          "label": "Nome do anfitrião"
+        },
         "port": {
           "label": "Porta"
         }
       },
+      "name": "Servidor API [Beta]",
       "prompt": {
+        "hostname": {
+          "label": "Introduza o nome do anfitrião (como 0.0.0.0) para o servidor API:",
+          "title": "Nome do anfitrião"
+        },
         "port": {
+          "label": "Introduza a porta para o servidor API:",
           "title": "Porta"
         }
       }
     },
     "audio-compressor": {
       "description": "Aplicar compressão ao áudio (diminui o volume das partes mais altas do sinal e aumenta o volume das partes mais suaves)",
-      "name": "Compressor de áudio"
+      "name": "Compressor de Áudio"
     },
     "blur-nav-bar": {
       "description": "Torna a barra de navegação transparente e desfocada",
@@ -323,21 +342,21 @@
       "name": "Ignorar restrições de idade"
     },
     "captions-selector": {
-      "description": "Seletor de legenda para faixas de áudio do YouTube Music",
+      "description": "Seletor de legendas para as faixas de áudio do YouTube Music",
       "menu": {
-        "autoload": "Selecionar automaticamente a última legenda usada",
-        "disable-captions": "Sem legendas por padrão"
+        "autoload": "Selecionar automaticamente a última legenda utilizada",
+        "disable-captions": "Sem legendas por defeito"
       },
       "name": "Seletor de legendas",
       "prompt": {
         "selector": {
-          "label": "Idioma da legenda atual: {{language}}",
+          "label": "Idioma atual das legendas: {{language}}",
           "none": "Nenhuma",
-          "title": "Selecione o idioma da legenda"
+          "title": "Selecione o idioma das legendas"
         }
       },
       "templates": {
-        "title": "Seletor de legendas aberto"
+        "title": "Abrir o seletor de legendas"
       }
     },
     "compact-sidebar": {
@@ -353,41 +372,41 @@
       "prompt": {
         "options": {
           "multi-input": {
-            "fade-in-duration": "Duração da transição no início (ms)",
-            "fade-out-duration": "Duração da transição no final (ms)",
+            "fade-in-duration": "Duração da transição (fade-in) no início (ms)",
+            "fade-out-duration": "Duração da transição (fade-out) no final (ms)",
             "fade-scaling": {
               "label": "Escala da transição",
               "linear": "Linear",
               "logarithmic": "Logarítmica"
             },
-            "seconds-before-end": "Realizar transição N segundos antes do final"
+            "seconds-before-end": "Realizar transição N segundos antes do fim"
           },
-          "title": "Opções de transição"
+          "title": "Opções da transição"
         }
       }
     },
     "disable-autoplay": {
-      "description": "Faz a música começar no modo \"pausado\"",
+      "description": "Faz com que a música comece no modo \"pausado\"",
       "menu": {
-        "apply-once": "Aplicar apenas na inicialização"
+        "apply-once": "Aplicar apenas no arranque"
       },
       "name": "Desativar reprodução automática"
     },
     "discord": {
       "backend": {
-        "already-connected": "Tentativa de conexão com conexão já ativa",
+        "already-connected": "Tentativa de conexão com ligação já ativa",
         "connected": "Conectado ao Discord",
         "disconnected": "Desconectado do Discord"
       },
-      "description": "Mostre aos seus amigos o que você ouve com Rich Presence",
+      "description": "Mostre aos seus amigos o que está a ouvir com a Rich Presence",
       "menu": {
-        "auto-reconnect": "Reconexão automática",
+        "auto-reconnect": "Reconectar automaticamente",
         "clear-activity": "Limpar atividade",
         "clear-activity-after-timeout": "Limpar atividade após o tempo limite",
         "connected": "Conectado",
         "disconnected": "Desconectado",
         "hide-duration-left": "Ocultar duração restante",
-        "hide-github-button": "Ocultar botão de link do GitHub",
+        "hide-github-button": "Ocultar botão do GitHub",
         "play-on-youtube-music": "Reproduzir no YouTube Music",
         "set-inactivity-timeout": "Definir tempo limite de inatividade"
       },
@@ -406,26 +425,26 @@
             "buttons": {
               "ok": "OK"
             },
-            "message": "Poxa! Desculpe, o download falhou…",
-            "title": "Erro no download!"
+            "message": "Ah! Desculpas, o download falhou…",
+            "title": "Erro ao transferir!"
           },
           "start-download-playlist": {
             "buttons": {
               "ok": "OK"
             },
             "detail": "({{playlistSize}} músicas)",
-            "message": "Baixando lista de reprodução {{playlistTitle}}",
+            "message": "A descarregar a lista de reprodução {{playlistTitle}}",
             "title": "Download iniciado"
           }
         },
         "feedback": {
           "conversion-progress": "Conversão: {{percent}}%",
-          "converting": "Convertendo…",
-          "done": "Finalizado: {{filePath}}",
-          "download-info": "Baixando {{artist}} - {{title}} {{videoId}}",
-          "download-progress": "Baixando: {{percent}}%",
-          "downloading": "Baixando…",
-          "downloading-counter": "Baixando {{current}}/{{total}}…",
+          "converting": "A converter…",
+          "done": "Concluído: {{filePath}}",
+          "download-info": "A descarregar {{artist}} - {{title}} {{videoId}}",
+          "download-progress": "A transferir: {{percent}}%",
+          "downloading": "A transferir…",
+          "downloading-counter": "A transferir {{current}}/{{total}}…",
           "downloading-playlist": "Baixando lista de reprodução \"{{playlistTitle}}\" - {{playlistSize}} músicas ({{playlistId}})",
           "error-while-downloading": "Erro ao baixar \"{{author}} - {{title}}\": {{error}}",
           "folder-already-exists": "A pasta {{playlistFolder}} já existe",
