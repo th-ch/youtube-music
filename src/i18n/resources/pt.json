@@ -3,13 +3,13 @@
     "console": {
       "plugins": {
         "execute-failed": "Falha ao executar o plugin {{pluginName}}::{{contextName}}",
-        "executed-at-ms": "Plugin {{pluginName}}::{{contextName}} executado com {{ms}}ms",
-        "initialize-failed": "Falha ao inicializar o plugin \"{{pluginName}}\"",
-        "load-all": "Carregando todos os plugins",
-        "load-failed": "Falha ao carregar o plugin \"{{pluginName}}\"",
-        "loaded": "Plugin \"{{pluginName}}\" carregado",
-        "unload-failed": "Falha ao descarregar o plugin \"{{pluginName}}\"",
-        "unloaded": "Plugin \"{{pluginName}}\" descarregado"
+        "executed-at-ms": "Plugin {{pluginName}}::{{contextName}} executado a {{ms}}ms",
+        "initialize-failed": "Não foi possível iniciar o plugin \"{{pluginName}}\"",
+        "load-all": "A carregar todos os plugins",
+        "load-failed": "Não foi possível ativar o plugin \"{{pluginName}}\"",
+        "loaded": "Plugin \"{{pluginName}}\" ativado",
+        "unload-failed": "Não foi possível desativar o plugin \"{{pluginName}}\"",
+        "unloaded": "Plugin \"{{pluginName}}\" desativado"
       }
     }
   },
