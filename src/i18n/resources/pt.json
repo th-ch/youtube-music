@@ -2,8 +2,8 @@
   "common": {
     "console": {
       "plugins": {
-        "execute-failed": "Falha ao executar o plugin {{pluginName}}::{{contextName}}",
-        "executed-at-ms": "Plugin {{pluginName}}::{{contextName}} executado a {{ms}}ms",
+        "execute-failed": "Não foi possível executar o plugin {{pluginName}}::{{contextName}}",
+        "executed-at-ms": "Plugin {{pluginName}}::{{contextName}} executado em {{ms}}ms",
         "initialize-failed": "Não foi possível iniciar o plugin \"{{pluginName}}\"",
         "load-all": "A carregar todos os plugins",
         "load-failed": "Não foi possível ativar o plugin \"{{pluginName}}\"",
@@ -21,7 +21,7 @@
   "main": {
     "console": {
       "did-finish-load": {
-        "dev-tools": "Carregamento finalizado. DevTools aberto"
+        "dev-tools": "Carregamento concluído. DevTools aberto"
       },
       "i18n": {
         "loaded": "i18n carregado"
@@ -30,64 +30,64 @@
         "receive-command": "Comando recebido através do protocolo: \"{{command}}\""
       },
       "theme": {
-        "css-file-not-found": "Arquivo CSS \"{{cssFile}}\" não existe, ignorando"
+        "css-file-not-found": "O ficheiro CSS \"{{cssFile}}\" não existe, a ignorar"
       },
       "unresponsive": {
-        "details": "Erro sem resposta!\n{{error}}"
+        "details": "Erro de falta de resposta!\n{{error}}"
       },
       "when-ready": {
-        "clearing-cache-after-20s": "Limpando o cache do aplicativo"
+        "clearing-cache-after-20s": "A limpar a cache da aplicação"
       },
       "window": {
-        "tried-to-render-offscreen": "Janela tentou desenhar fora do ecrã, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
+        "tried-to-render-offscreen": "Tentativa de desenho fora do ecrã na janela, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
       }
     },
     "dialog": {
       "hide-menu-enabled": {
-        "detail": "O menu está oculto, use a tecla 'Alt' para mostra-lo (ou 'Esc' se estiver usando o menu do aplicativo)",
-        "message": "Ocultar menu está ativado",
-        "title": "Ocultar menu ativado"
+        "detail": "O menu está oculto, utilize \"Alt\" para o mostrar (ou \"Escape\" se estiver a utilizar o menu da aplicação)",
+        "message": "Ocultar Menu está ativado",
+        "title": "Ocultar Menu ativado"
       },
       "need-to-restart": {
         "buttons": {
           "later": "Depois",
           "restart-now": "Reiniciar agora"
         },
-        "detail": "O plugin {{pluginName}} precisa ser reiniciado para ter efeito",
-        "message": "\"{{pluginName}}\" precisa ser reiniciado",
+        "detail": "O plugin \"{{pluginName}}\" requer um reinício para ter efeito",
+        "message": "\"{{pluginName}}\" precisa de ser reiniciado",
         "title": "É necessário reiniciar"
       },
       "unresponsive": {
         "buttons": {
           "quit": "Sair",
           "relaunch": "Reiniciar",
-          "wait": "Espere"
+          "wait": "Esperar"
         },
-        "detail": "Lamentamos o inconveniente! Por favor escolha o que fazer:",
-        "message": "A aplicação não está respondendo",
-        "title": "A janela não está respondendo"
+        "detail": "Lamentamos o incómodo! Por favor, escolha o que fazer:",
+        "message": "A aplicação não está a responder",
+        "title": "A janela não está a responder"
       },
       "update-available": {
         "buttons": {
-          "disable": "Desabilitar atualizações",
-          "download": "Baixar",
+          "disable": "Desativar atualizações",
+          "download": "Transferir",
           "ok": "Ok"
         },
-        "detail": "Uma nova versão está disponível e pode ser baixada em {{downloadLink}}",
-        "message": "Uma nova versão está disponível",
+        "detail": "Está disponível uma nova versão que pode ser descarregada em {{downloadLink}}",
+        "message": "Está disponível uma nova versão",
         "title": "Atualização disponível"
       }
     },
     "menu": {
-      "about": "Sobre",
+      "about": "Acerca de",
       "navigation": {
         "label": "Navegação",
         "submenu": {
           "copy-current-url": "Copiar URL atual",
-          "go-back": "Voltar",
+          "go-back": "Voltar atrás",
           "go-forward": "Avançar",
-          "quit": "Saída",
-          "restart": "Reiniciar aplicativo"
+          "quit": "Sair",
+          "restart": "Reiniciar a aplicação"
         }
       },
       "options": {
@@ -96,15 +96,15 @@
           "advanced-options": {
             "label": "Opções avançadas",
             "submenu": {
-              "auto-reset-app-cache": "Reiniciar cache do aplicativo quando o aplicativo abrir",
-              "disable-hardware-acceleration": "Desabilitar aceleração por hardware",
+              "auto-reset-app-cache": "Repor a cache quando a aplicação é iniciada",
+              "disable-hardware-acceleration": "Desativar a aceleração de hardware",
               "edit-config-json": "Editar config.json",
               "override-user-agent": "Substituir User-Agent",
-              "restart-on-config-changes": "Reinicie as alterações de configurações feitas",
+              "restart-on-config-changes": "Reiniciar após alterações de configuração",
               "set-proxy": {
                 "label": "Definir proxy",
                 "prompt": {
-                  "label": "Inserir Endereço do Proxy: (deixe em branco para desativar)",
+                  "label": "Introduza o endereço do proxy: (deixe em branco para desativar)",
                   "placeholder": "Exemplo: SOCKS5://127.0.0.1:9999",
                   "title": "Definir proxy"
                 }
@@ -113,62 +113,62 @@
             }
           },
           "always-on-top": "Sempre no topo",
-          "auto-update": "Atualização automática",
+          "auto-update": "Atualizações automáticas",
           "hide-menu": {
             "dialog": {
-              "message": "O menu será ocultado na próxima inicialização, use [Alt] para mostrá-lo (ou acento grave [`] se estiver usando o menu interno do aplicativo)",
-              "title": "Ocultar Menu Ativado"
+              "message": "O menu será ocultado da próxima vez que abrir a aplicação, utilize [Alt] para o mostrar (ou [`] se estiver a utilizar o menu interno da aplicação)",
+              "title": "Ocultar Menu ativado"
             },
             "label": "Ocultar Menu"
           },
           "language": {
             "dialog": {
-              "message": "Idioma será alterado após reiniciar",
-              "title": "Idioma Alterado"
+              "message": "O idioma será alterado após o reinício",
+              "title": "Idioma alterado"
             },
             "label": "Idioma",
             "submenu": {
               "to-help-translate": "Quer ajudar na tradução? Clique aqui"
             }
           },
-          "resume-on-start": "Continuar última música ao iniciar o aplicativo",
-          "single-instance-lock": "Trava de instância única",
-          "start-at-login": "Iniciar no login",
+          "resume-on-start": "Retomar a última música quando a app é iniciada",
+          "single-instance-lock": "Limitar a uma única instância",
+          "start-at-login": "Iniciar com o sistema",
           "starting-page": {
             "label": "Página inicial",
-            "unset": "Indefinido"
+            "unset": "Não definida"
           },
           "tray": {
-            "label": "Bandeja",
+            "label": "Tabuleiro do sistema",
             "submenu": {
-              "disabled": "Desabilitado",
-              "enabled-and-hide-app": "Ativado e esconder aplicativo",
-              "enabled-and-show-app": "Ativado e mostrar aplicativo",
-              "play-pause-on-click": "Play/Pausa ao clicar"
+              "disabled": "Desativado",
+              "enabled-and-hide-app": "Ativado e ocultar a aplicação",
+              "enabled-and-show-app": "Ativado e mostrar a aplicação",
+              "play-pause-on-click": "Reproduzir/Pausar ao clicar"
             }
           },
           "visual-tweaks": {
-            "label": "Tweaks Visuais",
+            "label": "Ajustes visuais",
             "submenu": {
               "like-buttons": {
                 "default": "Padrão",
-                "force-show": "Forçar mostrar",
+                "force-show": "Mostrar sempre",
                 "hide": "Esconder",
-                "label": "Botões de curtida"
+                "label": "Botões do \"Gosto\""
               },
-              "remove-upgrade-button": "Remover botão upgrade",
+              "remove-upgrade-button": "Remover o botão de upgrade",
               "theme": {
                 "dialog": {
                   "button": {
                     "cancel": "Cancelar",
                     "remove": "Remover"
                   },
-                  "remove-theme": "Você tem certeza que quer remover o tema customizado?",
-                  "remove-theme-message": "Isso removerá o tema customizado"
+                  "remove-theme": "Tem a certeza de que pretende remover o tema personalizado?",
+                  "remove-theme-message": "Isto irá remover o tema personalizado"
                 },
                 "label": "Tema",
                 "submenu": {
-                  "import-css-file": "Importar arquivo CSS personalizado",
+                  "import-css-file": "Importar ficheiro CSS personalizado",
                   "no-theme": "Sem tema"
                 }
               }
@@ -186,19 +186,19 @@
         "submenu": {
           "force-reload": "Forçar Recarregamento",
           "reload": "Recarregar",
-          "reset-zoom": "Tamanho Atual",
-          "toggle-fullscreen": "Ativar Tela Cheia",
-          "zoom-in": "Zoom Dentro",
-          "zoom-out": "Zoom Fora"
+          "reset-zoom": "Tamanho real",
+          "toggle-fullscreen": "Ativar ecrã inteiro",
+          "zoom-in": "Aumentar o zoom",
+          "zoom-out": "Diminuir o zoom"
         }
       }
     },
     "tray": {
-      "next": "Próximo",
-      "play-pause": "Play/Pausa",
+      "next": "Próxima",
+      "play-pause": "Reproduzir/Pausar",
       "previous": "Anterior",
       "quit": "Sair",
-      "restart": "Reiniciar aplicativo",
+      "restart": "Reiniciar aplicação",
       "show": "Mostrar janela",
       "tooltip": {
         "default": "YouTube Music",
@@ -208,7 +208,7 @@
   },
   "plugins": {
     "ad-speedup": {
-      "description": "Se um anúncio for reproduzido, ele será silenciado o áudio e será definido a velocidade de reprodução para 16x",
+      "description": "Se um anúncio for reproduzido, silencia o áudio e define a velocidade de reprodução para 16x",
       "name": "Acelerar os anúncios"
     },
     "adblocker": {
