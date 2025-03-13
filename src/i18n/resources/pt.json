@@ -445,65 +445,65 @@
           "download-progress": "A transferir: {{percent}}%",
           "downloading": "A transferir…",
           "downloading-counter": "A transferir {{current}}/{{total}}…",
-          "downloading-playlist": "Baixando lista de reprodução \"{{playlistTitle}}\" - {{playlistSize}} músicas ({{playlistId}})",
-          "error-while-downloading": "Erro ao baixar \"{{author}} - {{title}}\": {{error}}",
+          "downloading-playlist": "A descarregar a lista de reprodução \"{{playlistTitle}}\" - {{playlistSize}} músicas ({{playlistId}})",
+          "error-while-downloading": "Erro ao descarregar \"{{author}} - {{title}}\": {{error}}",
           "folder-already-exists": "A pasta {{playlistFolder}} já existe",
-          "getting-playlist-info": "Obtendo informações da lista de reprodução…",
-          "loading": "Carregando…",
-          "playlist-has-only-one-song": "A lista de reprodução possui apenas um item, baixando-o diretamente",
-          "playlist-id-not-found": "ID da lista de reprodução não encontrado",
+          "getting-playlist-info": "A obter informações da playlist…",
+          "loading": "A carregar…",
+          "playlist-has-only-one-song": "A lista de reprodução tem apenas um item, descarregando-o diretamente",
+          "playlist-id-not-found": "Não foi encontrado nenhum ID da lista de reprodução",
           "playlist-is-empty": "Lista de reprodução vazia",
-          "playlist-is-mix-or-private": "Erro ao obter informações da lista de reprodução: tenha certeza que ela não está privada ou não seja \"Mixtapes criadas para você\"\n\n{{error}}",
-          "preparing-file": "Preparando arquivos…",
-          "saving": "Salvando…",
-          "trying-to-get-playlist-id": "Tentando pegar ID da lista de reprodução: {{playlistId}}",
+          "playlist-is-mix-or-private": "Erro ao obter informações da playlist: certifique-se de que ela não seja privada ou uma mix personalizada\n\n{{error}}",
+          "preparing-file": "A preparar o ficheiro…",
+          "saving": "A guardar…",
+          "trying-to-get-playlist-id": "A tentar obter o ID da playlist: {{playlistId}}",
           "video-id-not-found": "Vídeo não encontrado",
-          "writing-id3": "Escrevendo tags ID3…"
+          "writing-id3": "A guardar etiquetas ID3…"
         }
       },
-      "description": "Baixa MP3 / fonte de áudio diretamente da interface",
+      "description": "Descarregue MP3 / fonte de áudio diretamente da interface",
       "menu": {
         "choose-download-folder": "Escolha a pasta de download",
         "download-finish-settings": {
-          "label": "Baixar ao terminar",
+          "label": "Transferir ao terminar",
           "prompt": {
             "last-percent": "Depois de x por cento",
             "last-seconds": "Últimos x segundos",
-            "title": "Configurar quando baixar"
+            "title": "Configurar quando descarregar"
           },
           "submenu": {
             "advanced": "Avançado",
             "enabled": "Ativado",
             "mode": "Modo de tempo",
-            "percent": "Porcentagem",
+            "percent": "Percentagem",
             "seconds": "Segundos"
           }
         },
-        "download-playlist": "Baixar lista de reprodução",
-        "presets": "Predefinições",
-        "skip-existing": "Ignorar arquivos existentes"
+        "download-playlist": "Descarregar playlist",
+        "presets": "Pré-configurações",
+        "skip-existing": "Ignorar ficheiros existentes"
       },
       "name": "Downloader",
       "renderer": {
         "can-not-update-progress": "Não é possível atualizar o progresso"
       },
       "templates": {
-        "button": "Baixar"
+        "button": "Descarregar"
       }
     },
     "exponential-volume": {
-      "description": "Torna o controle deslizante de volume exponencial, facilitando a seleção de volumes mais baixos.",
+      "description": "Torna o controlo do volume exponencial para que seja mais fácil selecionar volumes mais baixos.",
       "name": "Volume Exponencial"
     },
     "in-app-menu": {
       "description": "Dá às barras de menu uma aparência sofisticada, escura ou com a cor do álbum",
       "menu": {
-        "hide-dom-window-controls": "Ocultar controles da janela DOM"
+        "hide-dom-window-controls": "Ocultar os controlos da janela DOM"
       },
-      "name": "Menu no aplicativo"
+      "name": "Menu da aplicação"
     },
     "lumiastream": {
-      "description": "Adiciona suporte Lumia Stream",
+      "description": "Adiciona suporte a Lumia Stream",
       "name": "Lumia Stream [Beta]"
     },
     "lyrics-genius": {
