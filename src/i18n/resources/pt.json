@@ -513,42 +513,42 @@
       },
       "name": "Letras Genius",
       "renderer": {
-        "fetched-lyrics": "Buscar letras no Genius"
+        "fetched-lyrics": "Letras encontradas no Genius"
       }
     },
     "music-together": {
-      "description": "Compartilha a playlist com outros. Quando o host tocar uma música, todos poderão ouvir a mesma canção",
+      "description": "Partilhe uma playlist com outros. Quando o anfitrião tocar uma música, todos os outros ouvirão a mesma música",
       "dialog": {
-        "enter-host": "Digite o ID do Host"
+        "enter-host": "Introduza o ID do anfitrião"
       },
       "internal": {
-        "save": "Salvar",
-        "track-source": "Fonte da faixa",
-        "unknown-user": "Usuário Desconhecido"
+        "save": "Guardar",
+        "track-source": "Origem da faixa",
+        "unknown-user": "Utilizador desconhecido"
       },
       "menu": {
-        "click-to-copy-id": "Copiar ID do Host",
-        "close": "Fechar o Música Juntos",
-        "connected-users": "Usuários Conectados",
-        "disconnect": "Desconectar do Música Juntos",
-        "empty-user": "Sem usuários conectados",
-        "host": "Host do Música Juntos",
-        "join": "Juntar ao Música Juntos",
+        "click-to-copy-id": "Copiar o ID do anfitrião",
+        "close": "Fechar o Music Together",
+        "connected-users": "Utilizadores conectados",
+        "disconnect": "Desconectar Music Together",
+        "empty-user": "Sem utilizadores conectados",
+        "host": "Anfitrião do Music Together",
+        "join": "Juntar-se ao Music Together",
         "permission": {
-          "all": "Permita que outros controlem a playlist e ao player",
-          "host-only": "Apenas o host pode controlar a playlist e ao player",
-          "playlist": "Permitir que outros controlem a playlist"
+          "all": "Permitir que os convidados controlem a playlist e o leitor",
+          "host-only": "Apenas o anfitrião pode controlar a playlist e o leitor",
+          "playlist": "Permitir que os convidados controlem a playlist"
         },
-        "set-permission": "Alterar permissões de controle",
+        "set-permission": "Alterar permissões de controlo",
         "status": {
           "disconnected": "Desconectado",
-          "guest": "Conectado como Convidado",
-          "host": "Conectado como Host"
+          "guest": "Conectado como convidado",
+          "host": "Conectado como anfitrião"
         }
       },
-      "name": "Música Juntos [Beta]",
+      "name": "Music Together [Beta]",
       "toast": {
-        "add-song-failed": "Falha ao adicionar canção",
+        "add-song-failed": "Falha ao adicionar música",
         "closed": "Música Juntos encerrado",
         "disconnected": "Música Juntos foi desconectado",
         "host-failed": "Falha ao hospedar o Music Together",
