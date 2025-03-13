@@ -549,16 +549,16 @@
       "name": "Music Together [Beta]",
       "toast": {
         "add-song-failed": "Falha ao adicionar música",
-        "closed": "Música Juntos encerrado",
-        "disconnected": "Música Juntos foi desconectado",
+        "closed": "Music Together fechado",
+        "disconnected": "Music Together desconectado",
         "host-failed": "Falha ao hospedar o Music Together",
-        "id-copied": "ID de anfitrião copiado para a área de transferência",
-        "id-copy-failed": "Falha ao copiar o ID de anfitrião para a área de transferência",
-        "join-failed": "Falha ao entrar em Music Together",
-        "joined": "Entrou em Music Together",
+        "id-copied": "ID do anfitrião copiado para a Área de Transferência",
+        "id-copy-failed": "Falha ao copiar o ID do anfitrião para a Área de Transferência",
+        "join-failed": "Falha ao entrar no Music Together",
+        "joined": "Entrou no Music Together",
         "permission-changed": "A permissão do Music Together foi alterada para \"{{permission}}\"",
         "remove-song-failed": "Falha ao remover música",
-        "user-connected": "{{name}} entrou em Music Together",
+        "user-connected": "{{name}} entrou no Music Together",
         "user-disconnected": "{{name}} saiu do Music Together"
       }
     },
