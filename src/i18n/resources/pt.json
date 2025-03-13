@@ -84,7 +84,7 @@
         "label": "Navegação",
         "submenu": {
           "copy-current-url": "Copiar URL atual",
-          "go-back": "Voltar atrás",
+          "go-back": "Retroceder",
           "go-forward": "Avançar",
           "quit": "Sair",
           "restart": "Reiniciar a aplicação"
@@ -563,11 +563,11 @@
       }
     },
     "navigation": {
-      "description": "Setas de navegação Próximo/Voltar integradas diretamente na interface, como no seu navegador favorito",
+      "description": "Setas de navegação Avançar/Retroceder integradas diretamente na interface, como no seu navegador favorito",
       "name": "Navegação"
     },
     "no-google-login": {
-      "description": "Remove os botões e links de login do Google da interface",
+      "description": "Remove os botões de login do Google e links da interface",
       "name": "Sem login do Google"
     },
     "notifications": {
