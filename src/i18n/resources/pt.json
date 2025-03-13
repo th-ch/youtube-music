@@ -575,36 +575,36 @@
       "menu": {
         "interactive": "Notificações interativas",
         "interactive-settings": {
-          "label": "Configurações interativas",
+          "label": "Definições interativas",
           "submenu": {
-            "hide-button-text": "Ocultar texto do botão",
+            "hide-button-text": "Ocultar o texto do botão",
             "refresh-on-play-pause": "Atualizar ao reproduzir/pausar",
-            "tray-controls": "Abrir/Fechar no clique da bandeja"
+            "tray-controls": "Abrir/Fechar com um clique no tabuleiro do sistema"
           }
         },
-        "priority": "Prioridade de notificação",
-        "toast-style": "Estilo de alerta",
-        "unpause-notification": "Mostrar notificação ao despausar"
+        "priority": "Prioridade da notificação",
+        "toast-style": "Estilo da notificação",
+        "unpause-notification": "Mostrar notificação ao desativar a pausa"
       },
       "name": "Notificações"
     },
     "picture-in-picture": {
-      "description": "Permite mudar o aplicativo para o modo picture-in-picture",
+      "description": "Permite mudar a aplicação para o modo picture-in-picture",
       "menu": {
-        "always-on-top": "Sempre no topo",
+        "always-on-top": "Sempre em cima",
         "hotkey": {
           "label": "Tecla de atalho",
           "prompt": {
             "keybind-options": {
               "hotkey": "Tecla de atalho"
             },
-            "label": "Escolha uma tecla de atalho para alternar o picture-in-picture",
+            "label": "Escolha uma tecla de atalho para ativar o picture-in-picture",
             "title": "Tecla de atalho picture-in-picture"
           }
         },
-        "save-window-position": "Salvar posição da janela",
-        "save-window-size": "Salvar tamanho da janela",
-        "use-native-pip": "Use PiP nativo do navegador"
+        "save-window-position": "Guardar posição da janela",
+        "save-window-size": "Guardar tamanho da janela",
+        "use-native-pip": "Utilizar PiP nativo do navegador"
       },
       "name": "Picture-in-picture",
       "templates": {
@@ -612,17 +612,17 @@
       }
     },
     "playback-speed": {
-      "description": "Ouça rápido, ouça devagar! Adiciona um controle deslizante que controla a velocidade da música",
+      "description": "Ouça rápido, ouça devagar! Adiciona um controlo deslizante que controla a velocidade da música",
       "name": "Velocidade de reprodução",
       "templates": {
         "button": "Velocidade"
       }
     },
     "precise-volume": {
-      "description": "Controle o volume com precisão usando a roda do mouse/teclas de atalho, com um HUD personalizado e etapas de volume personalizáveis",
+      "description": "Controle o volume com precisão utilizando a roda do rato/teclas de atalho, com um HUD personalizado e incrementos de volume personalizáveis",
       "menu": {
-        "arrows-shortcuts": "Controles locais das teclas de seta",
-        "custom-volume-steps": "Definir etapas de volume personalizadas",
+        "arrows-shortcuts": "Controlo preciso com as teclas de seta esq./dir.",
+        "custom-volume-steps": "Definir incrementos de volume personalizados",
         "global-shortcuts": "Teclas de atalho globais"
       },
       "name": "Volume preciso",
@@ -632,8 +632,8 @@
             "decrease": "Diminuir o volume",
             "increase": "Aumentar o volume"
           },
-          "label": "Escolha atalhos de teclado de volume global:",
-          "title": "Atalhos de teclado de volume global"
+          "label": "Escolha atalhos de teclado para o volume global:",
+          "title": "Atalhos de teclado para o volume global"
         },
         "volume-steps": {
           "label": "Escolha as etapas de aumento/diminuição de volume",
