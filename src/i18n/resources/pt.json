@@ -491,6 +491,18 @@
         "button": "Descarregar"
       }
     },
+    "equalizer": {
+      "description": "Adiciona um equalizador ao leitor",
+      "menu": {
+        "presets": {
+          "label": "Pré-configurações",
+          "list": {
+            "bass-booster": "Amplificador de graves"
+          }
+        }
+      },
+      "name": "Equalizador"
+    },
     "exponential-volume": {
       "description": "Torna o controlo do volume exponencial para que seja mais fácil selecionar volumes mais baixos.",
       "name": "Volume Exponencial"
@@ -636,8 +648,8 @@
           "title": "Atalhos de teclado para o volume global"
         },
         "volume-steps": {
-          "label": "Escolha as etapas de aumento/diminuição de volume",
-          "title": "Etapas de volume"
+          "label": "Escolha o tamanho dos incrementos/decrementos de volume",
+          "title": "Incrementos de volume"
         }
       }
     },
@@ -651,90 +663,94 @@
           }
         }
       },
-      "description": "Permite alterar a qualidade do vídeo com um botão na sobreposição de vídeo",
-      "name": "Trocador de qualidade do vídeo"
+      "description": "Permite alterar a qualidade do vídeo com um botão sobreposto ao vídeo",
+      "name": "Alterador de qualidade de vídeo"
     },
     "scrobbler": {
-      "description": "Adicionar suporte para scrobbling (Last.fm, ListenBrainz)",
+      "description": "Adicionar suporte para scrobbling (last.fm, Listenbrainz, etc.)",
       "dialog": {
         "lastfm": {
           "auth-failed": {
-            "message": "Falha ao autenticar com a Last.fm\nOculte o pop-up até a próxima reinicialização.",
+            "message": "Falha ao autenticar com a Last.fm\nO pop-up será ocultado até reiniciar a aplicação.",
             "title": "Falha na autenticação"
           }
         }
       },
       "menu": {
         "lastfm": {
-          "api-settings": "Configurações de API Last.fm"
+          "api-settings": "Definições da API da Last.fm"
         },
         "listenbrainz": {
-          "token": "Insira o token de utilizador ListenBrainz"
+          "token": "Introduza o token de utilizador do ListenBrainz"
         },
-        "scrobble-other-media": "Scrobble outros mídia"
+        "scrobble-other-media": "Scrobble de outros conteúdos"
       },
       "name": "Scrobbler",
       "prompt": {
         "lastfm": {
-          "api-key": "Chave de API Last.fm",
-          "api-secret": "Segredo da API Last.fm"
+          "api-key": "Chave da API da Last.fm",
+          "api-secret": "Segredo da API da Last.fm"
         },
         "listenbrainz": {
           "token": {
-            "label": "Insira seu token de usuário do ListenBrainz:",
+            "label": "Introduza o seu token de utilizador ListenBrainz:",
             "title": "Token ListenBrainz"
           }
         }
       }
     },
     "shortcuts": {
-      "description": "Permite definir teclas de atalho globais para reprodução (reproduzir/pausar/próximo/anterior) e desligar o OSD de mídia substituindo as teclas de mídia, ativando Ctrl/CMD + F para pesquisar, ativando o suporte Linux MPRIS para teclas de mídia e teclas de atalho personalizadas para usuários avançados",
+      "description": "Permite definir teclas de atalho globais para a reprodução (reproduzir/pausar/próximo/anterior) e desativar o OSD multimédia substituindo as teclas multimédia, ativar Ctrl/CMD + F para pesquisar, ativar o suporte Linux MPRIS para teclas multimédia e teclas de atalho personalizadas para utilizadores avançados",
       "menu": {
-        "override-media-keys": "Substituir teclas de mídia",
-        "set-keybinds": "Definir controles globais de música"
+        "override-media-keys": "Substituir as teclas de multimédia",
+        "set-keybinds": "Definir controlos globais para a música"
       },
       "name": "Atalhos (& MPRIS)",
       "prompt": {
         "keybind": {
           "keybind-options": {
             "next": "Próximo",
-            "play-pause": "Reproduzir/Pausar",
+            "play-pause": "Reproduzir / Pausar",
             "previous": "Anterior"
           },
-          "label": "Escolha atalhos de teclado globais para controle de músicas:",
+          "label": "Escolha teclas globais para o controlo da música:",
           "title": "Atalhos globais do teclado"
         }
       }
     },
     "skip-disliked-songs": {
-      "description": "Pula músicas com 'não gostei'",
-      "name": "Pular músicas com 'não gostei'"
+      "description": "Salta as canções de que não gosta",
+      "name": "Saltar músicas que não gostei"
     },
     "skip-silences": {
-      "description": "Pular automaticamente seções de silêncio nas músicas",
-      "name": "Pular silêncios"
+      "description": "Saltar automaticamente as partes silenciosas das canções",
+      "name": "Saltar silêncios"
     },
     "sponsorblock": {
-      "description": "Ignora automaticamente partes não musicais, como introdução/final ou partes de videoclipes onde a música não está tocando",
-      "name": "SponsorBlock (bloqueador de patrocínios)"
+      "description": "Salta automaticamente partes que não são música, como a intro/outro ou partes de vídeos de música em que a música não está a ser reproduzida",
+      "name": "SponsorBlock"
     },
     "synced-lyrics": {
-      "description": "Fornece letras sincronizadas de músicas, utilizando fornecedores como o LRClib.",
+      "description": "Fornece letras de músicas sincronizadas, utilizando fornecedores como o LRClib.",
       "errors": {
-        "fetch": "⚠️ - Ocorreu um erro ao obter as letras da música. Por favor, tenta novamente mais tarde.",
-        "not-found": "⚠️ - Não foram encontradas letras para esta música."
+        "fetch": "⚠️ Ocorreu um erro ao obter a letra da música.\n\tPor favor, tente novamente mais tarde.",
+        "not-found": "⚠️ Não foram encontradas letras para esta canção."
       },
       "menu": {
         "default-text-string": {
-          "label": "Caractere padrão entre as letras",
-          "tooltip": "Escolha o caractere padrão para usar no espaço entre as letras"
+          "label": "Carácter predefinido entre letras",
+          "tooltip": "Escolha o carácter predefinido a utilizar para o intervalo entre letras"
         },
         "line-effect": {
-          "label": "Efeito de linha",
+          "label": "Efeito da linha",
           "submenu": {
+            "fancy": {
+              "label": "Elegante",
+              "tooltip": "Utilizar grandes efeitos semelhantes aos da aplicação na linha atual"
+            },
             "focus": {
               "label": "Foco",
-              "tooltip": "Deixe apenas a linha atual branca"
+              "tooltip": "Tornar branca apenas a linha atual"
             },
             "offset": {
               "label": "Deslocamento",
@@ -748,11 +764,11 @@
           "tooltip": "Escolha o efeito a ser aplicado à linha atual"
         },
         "precise-timing": {
-          "label": "Sincronize perfeitamente as letras",
-          "tooltip": "Calcule até o milissegundo a exibição da próxima linha (pode ter um pequeno impacto no desempenho)"
+          "label": "Fazer com que as letras estejam perfeitamente sincronizadas",
+          "tooltip": "Calcular ao milissegundo a visualização da linha seguinte (pode ter um pequeno impacto no desempenho)"
         },
         "show-lyrics-even-if-inexact": {
-          "label": "Mostrar letras mesmo que imprecisas",
+          "label": "Mostrar as letras, mesmo que sejam imprecisas",
           "tooltip": "Se a música não for encontrada, o plugin tenta novamente com uma consulta de pesquisa diferente.\nO resultado da segunda tentativa pode não ser exato."
         },
         "show-time-codes": {
@@ -762,29 +778,29 @@
       },
       "name": "Letras Sincronizadas",
       "refetch-btn": {
-        "fetching": "Buscando...",
+        "fetching": "A obter...",
         "normal": "Buscar as letras novamente"
       },
       "warnings": {
-        "duration-mismatch": "⚠️ - As letras da música pode estar dessincronizada devido a um erro de duração.",
-        "inexact": "⚠️ - As letras desta música podem não ser exactas.",
-        "instrumental": "⚠️ - Esta é uma música instrumental."
+        "duration-mismatch": "⚠️ - A letra da música pode estar dessincronizada devido a um erro de duração.",
+        "inexact": "⚠️ - A letra desta canção pode não ser exata",
+        "instrumental": "⚠️ - Esta é uma música instrumental"
       }
     },
     "taskbar-mediacontrol": {
-      "description": "Controle a reprodução na barra de tarefas do Windows",
-      "name": "Controle de mídia da barra de tarefas"
+      "description": "Controle a reprodução a partir da barra de tarefas do Windows",
+      "name": "Controlo multimédia da barra de tarefas"
     },
     "touchbar": {
-      "description": "Adiciona um widget TouchBar para usuários do macOS",
-      "name": "Barra de toque"
+      "description": "Adiciona um widget TouchBar para utilizadores do macOS",
+      "name": "TouchBar"
     },
     "tuna-obs": {
       "description": "Integração com o plugin Tuna do OBS",
       "name": "Tuna OBS"
     },
     "video-toggle": {
-      "description": "Adiciona um botão para alternar entre o modo Vídeo/Música. Também pode, opcionalmente, remover toda a guia de vídeo",
+      "description": "Adiciona um botão para alternar entre o modo Vídeo/ Música. Opcionalmente, também pode remover completamente o separador do vídeo",
       "menu": {
         "align": {
           "label": "Alinhamento",
@@ -794,12 +810,12 @@
             "right": "Direita"
           }
         },
-        "force-hide": "Forçar remoção da guia de vídeo",
+        "force-hide": "Forçar a remoção do separador de vídeo",
         "mode": {
           "label": "Modo",
           "submenu": {
             "custom": "Alternar personalizado",
-            "disabled": "Desabilitado",
+            "disabled": "Desativado",
             "native": "Alternar nativo"
           }
         }
@@ -810,11 +826,11 @@
       }
     },
     "visualizer": {
-      "description": "Adiciona um visualizador ao player",
+      "description": "Adiciona um visualizador ao leitor",
       "menu": {
         "visualizer-type": "Tipo de visualizador"
       },
-      "name": "Visualizer"
+      "name": "Visualizador"
     }
   }
 }
