@@ -7,6 +7,7 @@ export type SyncedLyricsPluginConfig = {
   defaultTextString: string;
   showLyricsEvenIfInexact: boolean;
   lineEffect: LineEffect;
+  romanization: boolean;
 };
 
 export type LineLyricsStatus = 'previous' | 'current' | 'upcoming';
