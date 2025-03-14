@@ -27,11 +27,16 @@ type Accessor<T> = () => T;
 export default (
   win: BrowserWindow,
   config: Accessor<NotificationsPluginConfig>,
-  { ipc: { on, send } }: BackendContext<NotificationsPluginConfig>,
+  { ipc: { on, send } }: BackendContext<NotificationsPluginConfig>
 ) => {
   const sendNotification = (songInfo: SongInfo) => {
+    if (!songInfo || (!songInfo.title && !songInfo.artist)) {
+      return; // Don't send notifications for empty song info
+    }
+
     const iconSrc = notificationImage(songInfo, config());
 
+    // Close previous notification to prevent stacking
     savedNotification?.close();
 
     let icon: string;
@@ -43,12 +48,9 @@ export default (
 
     savedNotification = new Notification({
       title: songInfo.title || 'Playing',
-      body: songInfo.artist,
-      icon: iconSrc,
+      body: songInfo.artist || '',
+      icon: icon,
       silent: true,
-      // https://learn.microsoft.com/en-us/uwp/schemas/tiles/toastschema/schema-root
-      // https://learn.microsoft.com/en-us/windows/apps/design/shell/tiles-and-notifications/toast-schema
-      // https://learn.microsoft.com/en-us/windows/apps/design/shell/tiles-and-notifications/adaptive-interactive-toasts?tabs=xml
       // https://learn.microsoft.com/en-us/uwp/api/windows.ui.notifications.toasttemplatetype
       toastXml: getXml(songInfo, icon),
     });
@@ -125,7 +127,7 @@ export default (
 
   const getButton = (kind: keyof typeof mediaIcons) =>
     `<action ${display(
-      kind,
+      kind
     )} activationType="protocol" arguments="youtubemusic://${kind}"/>`;
 
   const getButtons = (isPaused: boolean) => `\
@@ -151,7 +153,7 @@ export default (
   const xmlImage = (
     { title, artist, isPaused }: SongInfo,
     imgSrc: string,
-    placement: string,
+    placement: string
   ) =>
     toast(
       `\
@@ -159,7 +161,7 @@ export default (
             <text id="1">${title}</text>
             <text id="2">${artist}</text>\
 `,
-      isPaused ?? false,
+      isPaused ?? false
     );
 
   const xmlLogo = (songInfo: SongInfo, imgSrc: string) =>
@@ -184,7 +186,7 @@ export default (
                 ${xmlMoreData(songInfo)}
             </group>\
 `,
-      songInfo.isPaused ?? false,
+      songInfo.isPaused ?? false
     );
 
   const xmlMoreData = ({ album, elapsedSeconds, songDuration }: SongInfo) => `\
@@ -195,14 +197,14 @@ export default (
         : ''
     }
     <text hint-style="captionSubtle" hint-wrap="true" hint-align="right">${secondsToMinutes(
-      elapsedSeconds ?? 0,
+      elapsedSeconds ?? 0
     )} / ${secondsToMinutes(songDuration)}</text>
 </subgroup>\
 `;
 
   const xmlBannerCenteredBottom = (
     { title, artist, isPaused }: SongInfo,
-    imgSrc: string,
+    imgSrc: string
   ) =>
     toast(
       `\
@@ -210,19 +212,19 @@ export default (
             <group>
                 <subgroup hint-weight="1" hint-textStacking="center">
                     <text hint-align="center" hint-style="${titleFontPicker(
-                      title,
+                      title
                     )}">${title}</text>
                     <text hint-align="center" hint-style="SubtitleSubtle">${artist}</text>
                 </subgroup>
             </group>
             <image id="1" src="${imgSrc}" name="Image"  hint-removeMargin="true" />\
 `,
-      isPaused ?? false,
+      isPaused ?? false
     );
 
   const xmlBannerCenteredTop = (
     { title, artist, isPaused }: SongInfo,
-    imgSrc: string,
+    imgSrc: string
   ) =>
     toast(
       `\
@@ -231,13 +233,13 @@ export default (
             <group>
                 <subgroup hint-weight="1" hint-textStacking="center">
                     <text hint-align="center" hint-style="${titleFontPicker(
-                      title,
+                      title
                     )}">${title}</text>
                     <text hint-align="center" hint-style="SubtitleSubtle">${artist}</text>
                 </subgroup>
             </group>\
 `,
-      isPaused ?? false,
+      isPaused ?? false
     );
 
   const titleFontPicker = (title: string) => {
@@ -321,7 +323,7 @@ export default (
             ...savedSongInfo,
             isPaused: cmd === 'pause',
             elapsedSeconds: currentSeconds,
-          }),
+          })
         );
       }
     }

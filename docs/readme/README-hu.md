@@ -14,7 +14,6 @@
 
 ![Bannerkep](https://i.imgur.com/UaZPHqX.png)
 
-
 <div align="center">
 	<a href="https://github.com/th-ch/youtube-music/releases/latest">
 		<img src="../../web/youtube-music-hu.svg" width="400" height="100" alt="YouTube Music SVG">
@@ -30,37 +29,41 @@ Olvasd el más nyelveken: [🏴 Angol](../../README.md), [🇰🇷 Korea](./READ
 
 ## Bemutató kép
 
-|                        Lejátszó ablak (album színtéma és környezeti fény)                              |
-|:---------------------------------------------------------------------------------------------------------:|
-|![Bemutatókép1](https://i.imgur.com/Tj4LBwf.png)|
+| Lejátszó ablak (album színtéma és környezeti fény) |
+| :------------------------------------------------: |
+|  ![Bemutatókép1](https://i.imgur.com/Tj4LBwf.png)  |
 
 ## Tartalom
 
-- [Funkciók](#Funkciók)
-- [Elérhető bővítmények](#Elérhető-bővítmények)
-- [Fordítás](#Fordítás)
-- [Letöltés](#Letöltés)
-  - [Arch Linux](#arch-linux)
-  - [MacOS](#macos)
-  - [Windows](#windows)
-    - [Hogyan telepítsük hálózati kapcsolat nélkül? (Windows alatt)](#Hogyan-telepítsd-hálózati-kapcsolat-nélkül-Windows)
-- [Témák](#Témák)
-- [Fejlesztés](#Fejlesztés)
-- [Saját bővítmények készítése](#Saját-bővítmények-készítése)
-  - [Bővítmény létrehozása](#Bővítmény-létrehozása)
-  - [Gyakori használati esetek](#Gyakori-használati-esetek)
-- [Build](#build)
-- [Gyártás előnézete](#Gyártás-előnézete)
-- [Tesztelés](#Tesztelés)
-- [Licenc](#Licenc)
-- [GYIK](#GYIK)
+- [YouTube Music](#youtube-music)
+  - [Bemutató kép](#bemutató-kép)
+  - [Tartalom](#tartalom)
+  - [Funkciók:](#funkciók)
+  - [Elérhető bővítmények:](#elérhető-bővítmények)
+  - [Fordítás](#fordítás)
+  - [Letöltés](#letöltés)
+    - [Arch Linux](#arch-linux)
+    - [macOS](#macos)
+    - [Windows](#windows)
+      - [Hogyan telepítsd hálózati kapcsolat nélkül? (Windows)](#hogyan-telepítsd-hálózati-kapcsolat-nélkül-windows)
+  - [Témák](#témák)
+  - [Fejlesztés](#fejlesztés)
+  - [Saját bővítmények készítése](#saját-bővítmények-készítése)
+    - [Bővítmény létrehozása](#bővítmény-létrehozása)
+    - [Gyakori használati esetek](#gyakori-használati-esetek)
+  - [Build](#build)
+  - [Gyártás előnézete](#gyártás-előnézete)
+  - [Tesztelés](#tesztelés)
+  - [Licenc](#licenc)
+  - [GYIK](#gyik)
+    - [Miért nem jelenik meg az alkalmazás menüje?](#miért-nem-jelenik-meg-az-alkalmazás-menüje)
 
 ## Funkciók:
 
 - **Automatikus megerősítés a lejátszás szüneteltetésekor** (Alapból engedélyezve): Kikapcsolja a ["Folytatja a nézést?"](https://i.imgur.com/z2mG0QN.png)
   felugró ablakot, amely bizonyos idő után leállítja a zenét.
 
- - És még sok más ...
+- És még sok más ...
 
 ## Elérhető bővítmények:
 
@@ -140,7 +143,6 @@ Olvasd el más nyelveken: [🏴 Angol](../../README.md), [🇰🇷 Korea](./READ
 
 - **Vizualizáció**: Különböző zenei vizualizációk.
 
-
 ## Fordítás
 
 Segíthetsz a fordításban a [Hosted Weblate](https://hosted.weblate.org/projects/youtube-music/) oldalán.
@@ -184,7 +186,7 @@ scoop install extras/youtube-music
 
 Alternatívaként használhatod a [Winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/) eszközt, a Windows 11 hivatalos CLI csomagkezelőjét, hogy telepítsd a `th-ch.YouTubeMusic` csomagot.
 
-*Megjegyzés: A Microsoft Defender SmartScreen figyelmeztethet vagy blokkolhatja a telepítést, mivel az alkalmazás "ismeretlen kiadótól" származik. Ez a figyelmeztetés akkor is megjelenhet, ha manuálisan töltöd le és próbálod futtatni a GitHubról letöltött (.exe) fájlt. Ebben az esetben kattints a "További információ" gombra, majd válaszd a "Futtatás mindenképp" opciót a telepítés folytatásához.*
+_Megjegyzés: A Microsoft Defender SmartScreen figyelmeztethet vagy blokkolhatja a telepítést, mivel az alkalmazás "ismeretlen kiadótól" származik. Ez a figyelmeztetés akkor is megjelenhet, ha manuálisan töltöd le és próbálod futtatni a GitHubról letöltött (.exe) fájlt. Ebben az esetben kattints a "További információ" gombra, majd válaszd a "Futtatás mindenképp" opciót a telepítés folytatásához._
 
 ```bash
 winget install th-ch.YouTubeMusic
@@ -227,6 +229,7 @@ A bővítmények segítségével a következőket teheted:
 Hozz létre egy mappát a `src/plugins/YOUR-PLUGIN-NAME` útvonalon:
 
 - `index.ts`: a bővítmény fő fájlja
+
 ```typescript
 import style from './style.css?inline'; // import style as inline
 
@@ -266,9 +269,13 @@ export default createPlugin({
       });
     },
     // it fired when config changed
-    onConfigChange(newConfig) { /* ... */ },
+    onConfigChange(newConfig) {
+      /* ... */
+    },
     // it fired when plugin disabled
-    stop(context) { /* ... */ },
+    stop(context) {
+      /* ... */
+    },
   },
   renderer: {
     async start(context) {
@@ -279,8 +286,12 @@ export default createPlugin({
       // set plugin config easily
       context.setConfig({ myConfig: api.getVolume() });
     },
-    onConfigChange(newConfig) { /* ... */ },
-    stop(_context) { /* ... */ },
+    onConfigChange(newConfig) {
+      /* ... */
+    },
+    stop(_context) {
+      /* ... */
+    },
   },
   preload: {
     async start({ getConfig }) {
@@ -309,7 +320,7 @@ export default createPlugin({
     enabled: false,
   }, // your custom config
   stylesheets: [style], // your custom style
-  renderer() {} // define renderer hook
+  renderer() {}, // define renderer hook
 });
 ```
 
@@ -326,8 +337,8 @@ export default createPlugin({
   }, // your custom config
   renderer() {
     // Remove the login button
-    document.querySelector(".sign-in-link.ytmusic-nav-bar").remove();
-  } // define renderer hook
+    document.querySelector('.sign-in-link.ytmusic-nav-bar').remove();
+  }, // define renderer hook
 });
 ```
 
