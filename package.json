@@ -315,7 +315,7 @@
     "electron-builder-squirrel-windows": "26.0.10",
     "electron-devtools-installer": "4.0.0",
     "electron-vite": "3.0.0",
-    "esbuild": "0.25.0",
+    "esbuild": "0.25.1",
     "eslint": "9.22.0",
     "eslint-config-prettier": "10.0.2",
     "eslint-import-resolver-exports": "1.0.0-beta.5",
