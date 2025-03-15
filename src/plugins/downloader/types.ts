@@ -9,11 +9,11 @@ export const DefaultPresetList: Record<string, Preset> = {
     extension: 'mp3',
     ffmpegArgs: ['-b:a', '256k'],
   },
-  'Source': {
+  Source: {
     extension: undefined,
     ffmpegArgs: ['-acodec', 'copy'],
   },
-  'Custom': {
+  Custom: {
     extension: null,
     ffmpegArgs: [],
   },

@@ -30,7 +30,7 @@ type PromiseUtil<T> = {
 
 export type ConnectionListener = (
   event: ConnectionEventUnion,
-  conn: DataConnection,
+  conn: DataConnection
 ) => void;
 export type ConnectionMode = 'host' | 'guest' | 'disconnected';
 export class Connection {
@@ -102,10 +102,10 @@ export class Connection {
 
   public async broadcast<Event extends keyof ConnectionEventMap>(
     type: Event,
-    payload: ConnectionEventMap[Event],
+    payload: ConnectionEventMap[Event]
   ) {
     await Promise.all(
-      this.getConnections().map((conn) => conn.send({ type, payload })),
+      this.getConnections().map((conn) => conn.send({ type, payload }))
     );
   }
 
@@ -120,6 +120,7 @@ export class Connection {
   /* privates */
   private async registerConnection(conn: DataConnection) {
     return new Promise<DataConnection>((resolve, reject) => {
+      // Handle errors on peer level
       this.peer.once('error', (err) => {
         this._mode = 'disconnected';
 
@@ -127,11 +128,13 @@ export class Connection {
         this.connectionListeners.forEach((listener) => listener());
       });
 
+      // Initialize connection when open
       conn.on('open', () => {
         this.connections[conn.connectionId] = conn;
         resolve(conn);
         this.connectionListeners.forEach((listener) => listener(conn));
 
+        // Handle data received through connection
         conn.on('data', (data) => {
           if (
             !data ||
@@ -150,9 +153,11 @@ export class Connection {
         });
       });
 
+      // Handle connection close and errors
       const onClose = (err?: Error) => {
-        if (err) reject(err);
-
+        if (err) {
+          reject(err);
+        }
         delete this.connections[conn.connectionId];
         this.connectionListeners.forEach((listener) => listener(conn));
       };

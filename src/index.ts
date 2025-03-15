@@ -120,7 +120,7 @@ app.commandLine.appendSwitch('ozone-platform-hint', 'auto');
 // WaylandWindowDecorations: Required for Wayland decorations
 app.commandLine.appendSwitch(
   'enable-features',
-  'OverlayScrollbar,SharedArrayBuffer,UseOzonePlatform,WaylandWindowDecorations',
+  'OverlayScrollbar,SharedArrayBuffer,UseOzonePlatform,WaylandWindowDecorations'
 );
 if (config.get('options.disableHardwareAcceleration')) {
   if (is.dev()) {
@@ -170,11 +170,11 @@ const initHook = (win: BrowserWindow) => {
     (_, id: string) =>
       deepmerge(
         allPlugins[id].config ?? { enabled: false },
-        config.get(`plugins.${id}`) ?? {},
-      ) as PluginConfig,
+        config.get(`plugins.${id}`) ?? {}
+      ) as PluginConfig
   );
   ipcMain.handle('ytmd:set-config', (_, name: string, obj: object) =>
-    config.setPartial(`plugins.${name}`, obj, allPlugins[name].config),
+    config.setPartial(`plugins.${name}`, obj, allPlugins[name].config)
   );
 
   config.watch((newValue, oldValue) => {
@@ -194,7 +194,7 @@ const initHook = (win: BrowserWindow) => {
         const oldConfig = oldPluginConfigList[id] as PluginConfig;
         const config = deepmerge(
           allPlugins[id].config ?? { enabled: false },
-          newPluginConfig ?? {},
+          newPluginConfig ?? {}
         ) as PluginConfig;
 
         if (config.enabled !== oldConfig?.enabled) {
@@ -218,7 +218,7 @@ const initHook = (win: BrowserWindow) => {
           if (config.enabled && typeof mainPlugin.backend !== 'function') {
             mainPlugin.backend?.onConfigChange?.call(
               mainPlugin.backend,
-              config,
+              config
             );
           }
         }
@@ -285,9 +285,9 @@ function initTheme(win: BrowserWindow) {
         () => {
           console.warn(
             LoggerPrefix,
-            t('main.console.theme.css-file-not-found', { cssFile }),
+            t('main.console.theme.css-file-not-found', { cssFile })
           );
-        },
+        }
       );
     }
   }
@@ -318,8 +318,8 @@ async function createMainWindow() {
     titleBarStyle: useInlineMenu
       ? 'hidden'
       : is.macOS()
-        ? 'hiddenInset'
-        : 'default',
+      ? 'hiddenInset'
+      : 'default',
     autoHideMenuBar: config.get('options.hideMenu'),
   };
 
@@ -382,7 +382,7 @@ async function createMainWindow() {
             windowSize: String(winSize),
             displaySize: JSON.stringify(display.bounds),
             position: JSON.stringify(windowPosition),
-          }),
+          })
         );
       }
     } else {
@@ -439,7 +439,7 @@ async function createMainWindow() {
   function lateSave(
     key: string,
     value: unknown,
-    fn: (key: string, value: unknown) => void = config.set,
+    fn: (key: string, value: unknown) => void = config.set
   ) {
     if (savedTimeouts[key]) {
       clearTimeout(savedTimeouts[key]);
@@ -469,7 +469,7 @@ async function createMainWindow() {
         ...defaultTitleBarOverlayOptions,
         height: Math.floor(
           defaultTitleBarOverlayOptions.height! *
-            win.webContents.getZoomFactor(),
+            win.webContents.getZoomFactor()
         ),
       });
     }
@@ -482,7 +482,7 @@ async function createMainWindow() {
       event.preventDefault();
 
       win.webContents.loadURL(
-        'https://accounts.google.com/ServiceLogin?ltmpl=music&service=youtube&continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26next%3Dhttps%253A%252F%252Fmusic.youtube.com%252F',
+        'https://accounts.google.com/ServiceLogin?ltmpl=music&service=youtube&continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26next%3Dhttps%253A%252F%252Fmusic.youtube.com%252F'
       );
     }
   });
@@ -507,8 +507,8 @@ app.once('browser-window-created', (_event, win) => {
     const updatedUserAgent = is.macOS()
       ? userAgents.mac
       : is.windows()
-        ? userAgents.windows
-        : userAgents.linux;
+      ? userAgents.windows
+      : userAgents.linux;
 
     win.webContents.userAgent = updatedUserAgent;
     app.userAgentFallback = updatedUserAgent;
@@ -538,7 +538,7 @@ app.once('browser-window-created', (_event, win) => {
       validatedURL,
       isMainFrame,
       frameProcessId,
-      frameRoutingId,
+      frameRoutingId
     ) => {
       const log = JSON.stringify(
         {
@@ -551,7 +551,7 @@ app.once('browser-window-created', (_event, win) => {
           frameRoutingId,
         },
         null,
-        '\t',
+        '\t'
       );
       if (is.dev()) {
         console.log(log);
@@ -566,7 +566,7 @@ app.once('browser-window-created', (_event, win) => {
         win.webContents.send('log', log);
         win.webContents.loadFile(ErrorHtmlAsset);
       }
-    },
+    }
   );
 
   win.webContents.on('will-prevent-unload', (event) => {
@@ -615,7 +615,7 @@ app.whenReady().then(async () => {
       if (is.dev()) {
         console.log(
           LoggerPrefix,
-          t('main.console.when-ready.clearing-cache-after-20s'),
+          t('main.console.when-ready.clearing-cache-after-20s')
         );
       }
 
@@ -641,7 +641,7 @@ app.whenReady().then(async () => {
         'Windows',
         'Start Menu',
         'Programs',
-        'YouTube Music.lnk',
+        'YouTube Music.lnk'
       );
       try {
         // Check if shortcut is registered and valid
@@ -663,7 +663,7 @@ app.whenReady().then(async () => {
             cwd: path.dirname(appLocation),
             description: 'YouTube Music Desktop App - including custom plugins',
             appUserModelId: appID,
-          },
+          }
         );
       }
     }
@@ -702,12 +702,12 @@ app.whenReady().then(async () => {
     } else {
       const rendererPath = path.join(__dirname, '..', 'renderer');
       const indexHTML = parse(
-        fs.readFileSync(path.join(rendererPath, 'index.html'), 'utf-8'),
+        fs.readFileSync(path.join(rendererPath, 'index.html'), 'utf-8')
       );
       const scriptSrc = indexHTML.querySelector('script')!;
       const scriptPath = path.join(
         rendererPath,
-        scriptSrc.getAttribute('src')!,
+        scriptSrc.getAttribute('src')!
       );
       const scriptString = fs.readFileSync(scriptPath, 'utf-8');
       event.returnValue = [
@@ -733,7 +733,7 @@ app.whenReady().then(async () => {
       if (is.dev()) {
         console.debug(
           LoggerPrefix,
-          t('main.console.second-instance.receive-command', { command }),
+          t('main.console.second-instance.receive-command', { command })
         );
       }
 
@@ -846,15 +846,21 @@ app.whenReady().then(async () => {
 
 function showUnresponsiveDialog(
   win: BrowserWindow,
-  details: Electron.RenderProcessGoneDetails,
+  details: Electron.RenderProcessGoneDetails
 ) {
   if (details) {
     console.error(
       LoggerPrefix,
       t('main.console.unresponsive.details', {
         error: JSON.stringify(details, null, '\t'),
-      }),
+      })
     );
+  }
+
+  // Ensure we're not trying to show a dialog on a destroyed window
+  if (win.isDestroyed()) {
+    console.error(LoggerPrefix, 'Window was destroyed, cannot show dialog');
+    return;
   }
 
   dialog
@@ -886,7 +892,7 @@ function showUnresponsiveDialog(
 }
 
 function removeContentSecurityPolicy(
-  betterSession: BetterSession = session.defaultSession as BetterSession,
+  betterSession: BetterSession = session.defaultSession as BetterSession
 ) {
   // Allows defining multiple "onHeadersReceived" listeners
   // by enhancing the session.
@@ -920,18 +926,15 @@ function removeContentSecurityPolicy(
   betterSession.webRequest.setResolver(
     'onHeadersReceived',
     async (listeners) => {
-      return listeners.reduce(
-        async (accumulator, listener) => {
-          const acc = await accumulator;
-          if (acc.cancel) {
-            return acc;
-          }
+      return listeners.reduce(async (accumulator, listener) => {
+        const acc = await accumulator;
+        if (acc.cancel) {
+          return acc;
+        }
 
-          const result = await listener.apply();
-          return { ...accumulator, ...result };
-        },
-        Promise.resolve({ cancel: false }),
-      );
-    },
+        const result = await listener.apply();
+        return { ...accumulator, ...result };
+      }, Promise.resolve({ cancel: false }));
+    }
   );
 }

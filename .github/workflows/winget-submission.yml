@@ -2,11 +2,11 @@ name: Submit to Windows Package Manager Community Repository
 
 on:
   release:
-    types: [ released ]
+    types: [released]
   workflow_dispatch:
     inputs:
       tag_name:
-        description: "Specific tag name"
+        description: 'Specific tag name'
         required: true
         type: string
 

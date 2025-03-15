@@ -112,7 +112,7 @@ function submitListen(
       method: 'POST',
       body: JSON.stringify(body),
       headers: {
-        'Authorization': 'Token ' + config.scrobblers.listenbrainz.token,
+        Authorization: 'Token ' + config.scrobblers.listenbrainz.token,
         'Content-Type': 'application/json',
       },
     })

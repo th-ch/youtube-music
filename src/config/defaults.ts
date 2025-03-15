@@ -48,8 +48,8 @@ const defaultConfig: DefaultConfig = {
     x: -1,
     y: -1,
   },
-  'url': 'https://music.youtube.com',
-  'options': {
+  url: 'https://music.youtube.com',
+  options: {
     tray: false,
     appVisible: true,
     autoUpdates: true,
@@ -70,7 +70,7 @@ const defaultConfig: DefaultConfig = {
     usePodcastParticipantAsArtist: false,
     themes: [],
   },
-  'plugins': {},
+  plugins: {},
 };
 
 export default defaultConfig;

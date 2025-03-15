@@ -44,7 +44,7 @@ export default createPlugin({
       const port = 39231;
       const headers = {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Access-Control-Allow-Headers': '*',
         'Access-Control-Allow-Origin': '*',
       } as const;
