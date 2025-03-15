@@ -28,6 +28,7 @@ export enum MediaType {
 
 export interface SongInfo {
   title: string;
+  alternativeTitle?: string;
   artist: string;
   views: number;
   uploadDate?: string;
@@ -68,6 +69,7 @@ const handleData = async (
   // Fill songInfo with empty values
   const songInfo: SongInfo = {
     title: '',
+    alternativeTitle: '',
     artist: '',
     views: 0,
     uploadDate: '',
@@ -91,6 +93,9 @@ const handleData = async (
       new URL(microformat.urlCanonical).searchParams.get('list') ?? '';
     // Used for options.resumeOnStart
     config.set('url', microformat.urlCanonical);
+    songInfo.alternativeTitle = microformat.linkAlternates.find(
+      (link) => link.title,
+    )?.title;
   }
 
   const { videoDetails } = data;
