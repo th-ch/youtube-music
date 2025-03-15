@@ -671,7 +671,8 @@
         "listenbrainz": {
           "token": "Enter ListenBrainz user token"
         },
-        "scrobble-other-media": "Scrobble other media"
+        "scrobble-other-media": "Scrobble other media",
+        "scrobble-alternative-title": "Use alternative titles"
       },
       "name": "Scrobbler",
       "prompt": {

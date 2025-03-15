@@ -127,8 +127,13 @@ export class LastFmScrobbler extends ScrobblerBase {
       await this.createSession(config, setConfig);
     }
 
+    const title =
+      config.alternativeTitles && songInfo.alternativeTitle !== undefined
+        ? songInfo.alternativeTitle
+        : songInfo.title;
+
     const postData: LastFmSongData = {
-      track: songInfo.title,
+      track: title,
       duration: songInfo.songDuration,
       artist: songInfo.artist,
       ...(songInfo.album ? { album: songInfo.album } : undefined), // Will be undefined if current song is a video
