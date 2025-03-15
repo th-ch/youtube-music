@@ -2,7 +2,7 @@
   "common": {
     "console": {
       "plugins": {
-        "execute-failed": "Gagal saat mengeksekusi plugin {{pluginName}}::{{contextName}}",
+        "execute-failed": "Plugin {{pluginName}}::{{contextName}} dieksekusi di {{ms}}ms",
         "executed-at-ms": "Plugin {{pluginName}}::{{contextName}} dieksekusi pada {{ms}}ms",
         "initialize-failed": "Gagal dalam menginisialisasi plugin \"{{pluginName}}\"",
         "load-all": "Memuat semua plugin",
@@ -683,6 +683,7 @@
         "listenbrainz": {
           "token": "Masukkan token pengguna ListenBrainz"
         },
+        "scrobble-alternative-title": "Gunakan judul alternatif",
         "scrobble-other-media": "Scrobble media lain"
       },
       "name": "Scrobbler",
