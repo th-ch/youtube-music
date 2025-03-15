@@ -97,6 +97,15 @@ export const onMenu = async ({
       },
     },
     {
+      label: t('plugins.scrobbler.menu.scrobble-alternative-title'),
+      type: 'checkbox',
+      checked: Boolean(config.alternativeTitles),
+      click(item) {
+        config.alternativeTitles = item.checked;
+        setConfig(config);
+      },
+    },
+    {
       label: 'Last.fm',
       submenu: [
         {
