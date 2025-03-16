@@ -40,7 +40,7 @@ const refreshCallbacks: (() => void)[] = [];
 
 const truncateString = (str: string, length: number): string => {
   if (str.length > length)
-    return `${str.substring(0, 125)}...`;
+    return `${str.substring(0, length - 3)}...`;
   return str;
 }
 
