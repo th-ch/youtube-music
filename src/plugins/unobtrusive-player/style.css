@@ -20,4 +20,8 @@ body.unobtrusive-player.unobtrusive-player--did-play {
     #mini-guide-background.ytmusic-app-layout {
     opacity: 0 !important;
   }
+
+  & .toggle-player-page-button {
+    transform: rotate(180deg) !important;
+  }
 }
