@@ -683,6 +683,7 @@
         "listenbrainz": {
           "token": "Введите токен пользователя ListenBrainz"
         },
+        "scrobble-alternative-title": "Использовать альтернативные названия",
         "scrobble-other-media": "Скробблинг других медиа"
       },
       "name": "Скробблер",
