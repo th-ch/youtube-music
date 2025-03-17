@@ -1,14 +1,12 @@
 /// <reference types="vite/client" />
 
-import { YtIcons } from '@/types/icons';
-import { createRenderer } from '@/utils';
-import { waitForElement } from '@/utils/wait-for-element';
 import { createSignal, Show } from 'solid-js';
 import { render, Portal } from 'solid-js/web';
 import { t } from '@/i18n';
-import { SettingsUI } from './SettingsUI';
 
-const cogIcon: YtIcons = 'yt-icons:settings';
+import { createRenderer } from '@/utils';
+import { waitForElement } from '@/utils/wait-for-element';
+import SettingsModal from './components/SettingsModal';
 
 const SettingsButton = () => {
   const [showModal, setShowModal] = createSignal(false);
@@ -20,7 +18,7 @@ const SettingsButton = () => {
         setShowModal(true);
       }}
     >
-      <yt-icon icon={cogIcon} tabindex="0" />
+      <yt-icon icon="yt-icons:settings" tabindex="0" />
       <div class="title-column style-scope ytmusic-guide-entry-renderer">
         <div class="title-group style-scope ytmusic-guide-entry-renderer">
           <yt-formatted-string
@@ -31,7 +29,7 @@ const SettingsButton = () => {
       </div>
       <Portal>
         <Show when={showModal()}>
-          <SettingsUI closeModal={() => setShowModal(false)} />
+          <SettingsModal close={() => setShowModal(false)} />
         </Show>
       </Portal>
     </div>
