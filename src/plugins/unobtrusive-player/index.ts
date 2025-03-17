@@ -3,6 +3,24 @@ import style from './style.css?inline';
 import { createPlugin } from '@/utils';
 import { t } from '@/i18n';
 
+const handlePlay = (e: MouseEvent) => {
+  if (!(e.target instanceof HTMLElement)) return;
+
+  if (
+    e.target.closest('ytmusic-play-button-renderer') &&
+    !e.target.closest('ytmusic-player-page')
+  ) {
+    document.body.classList.add('unobtrusive-player--did-play');
+  }
+
+  if (
+    e.target.closest('ytmusic-player-bar') &&
+    !document.body.classList.contains('unobtrusive-player--auto-closing')
+  ) {
+    document.body.classList.remove('unobtrusive-player--did-play');
+  }
+};
+
 export default createPlugin({
   name: () => t('plugins.unobtrusive-player.name'),
   description: () => t('plugins.unobtrusive-player.description'),
@@ -14,24 +32,7 @@ export default createPlugin({
   renderer: {
     start: () => {
       document.body.classList.add('unobtrusive-player');
-
-      document.addEventListener('click', (e) => {
-        if (!(e.target instanceof HTMLElement)) return;
-
-        if (
-          e.target.closest('ytmusic-play-button-renderer') &&
-          !e.target.closest('ytmusic-player-page')
-        ) {
-          document.body.classList.add('unobtrusive-player--did-play');
-        }
-
-        if (
-          e.target.closest('ytmusic-player-bar') &&
-          !document.body.classList.contains('unobtrusive-player--auto-closing')
-        ) {
-          document.body.classList.remove('unobtrusive-player--did-play');
-        }
-      });
+      document.addEventListener('click', handlePlay);
     },
     onPlayerApiReady: () => {
       // Close player page when video changes while
@@ -61,6 +62,8 @@ export default createPlugin({
       });
     },
     stop: () => {
+      document.removeEventListener('click', handlePlay);
+
       [
         'unobtrusive-player',
         'unobtrusive-player--did-play',
