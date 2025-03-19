@@ -1,4 +1,11 @@
-import { createSignal, Switch, Match, onMount } from 'solid-js';
+import {
+  createSignal,
+  Switch,
+  Match,
+  For,
+  createEffect,
+  onCleanup,
+} from 'solid-js';
 
 import General from './settings/General';
 import Appearance from './settings/Appearance';
@@ -14,11 +21,19 @@ export default ({ close }: SettingsModalProps) => {
   const [currentCategory, setCurrentCategory] = createSignal('general');
   const [isSidebarExpanded, setIsSidebarExpanded] = createSignal(true);
 
-  onMount(() => {
-    const isMobile = window.innerWidth <= 768;
-    if (isMobile) {
-      setIsSidebarExpanded(false);
-    }
+  createEffect(() => {
+    const handleResize = () => {
+      const isMobile = window.innerWidth <= 908;
+      if (isMobile) {
+        setIsSidebarExpanded(false);
+      }
+    };
+
+    // initial call
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+    onCleanup(() => window.removeEventListener('resize', handleResize));
   });
 
   const menuItems = [
@@ -33,22 +48,30 @@ export default ({ close }: SettingsModalProps) => {
     <>
       <div class="ytmd-sui-modalOverlay">
         <div class="ytmd-sui-modal">
-          <div class="ytmd-sui-sidebar">
+          <div
+            class={`ytmd-sui-sidebar ${
+              !isSidebarExpanded() ? 'collapsed' : ''
+            }`}
+          >
             <div class="ytmd-sui-sidebarContent">
-              {menuItems.map((item) => (
-                <button
-                  class="ytmd-sui-menuItem"
-                  onClick={() => setCurrentCategory(item.id)}
-                  title={!isSidebarExpanded() ? item.label : undefined}
-                >
-                  <span class="ytmd-sui-icon">{item.icon}</span>
-                  <span class="ytmd-sui-menuLabel">{item.label}</span>
-                </button>
-              ))}
+              <For each={menuItems}>
+                {(item) => (
+                  <button
+                    class={`ytmd-sui-menuItem ${
+                      currentCategory() === item.id ? 'active' : ''
+                    }`}
+                    onClick={() => setCurrentCategory(item.id)}
+                    title={!isSidebarExpanded() ? item.label : undefined}
+                  >
+                    <span class="ytmd-sui-icon">{item.icon}</span>
+                    <span class="ytmd-sui-menuLabel">{item.label}</span>
+                  </button>
+                )}
+              </For>
             </div>
             <button
               class="ytmd-sui-sidebarToggle"
-              onClick={() => setIsSidebarExpanded(!isSidebarExpanded())}
+              onClick={() => setIsSidebarExpanded((old) => !old)}
               title={isSidebarExpanded() ? 'Collapse menu' : 'Expand menu'}
             >
               ☰
