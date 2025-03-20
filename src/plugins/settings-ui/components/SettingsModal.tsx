@@ -12,6 +12,21 @@ import Appearance from './settings/Appearance';
 import Plugins from './settings/Plugins';
 import Advanced from './settings/Advanced';
 import About from './settings/About';
+import { YtIcons } from '@/types/icons';
+import { t } from '@/i18n';
+
+interface SidebarItem {
+  icon: YtIcons;
+  id: string;
+}
+
+const sidebar: SidebarItem[] = [
+  { icon: 'yt-icons:settings', id: 'general' },
+  { icon: 'yt-icons:color_lens', id: 'appearance' },
+  { icon: 'yt-icons:emoji', id: 'plugins' },
+  { icon: 'yt-icons:service_toolbox', id: 'advanced' },
+  { icon: 'yt-icons:info', id: 'about' },
+];
 
 interface SettingsModalProps {
   close: () => void;
@@ -36,14 +51,6 @@ export default ({ close }: SettingsModalProps) => {
     onCleanup(() => window.removeEventListener('resize', handleResize));
   });
 
-  const menuItems = [
-    { icon: '⚙️', label: 'General', id: 'general' },
-    { icon: '🎨', label: 'Appearance', id: 'appearance' },
-    { icon: '🔌', label: 'Plugins', id: 'plugins' },
-    { icon: '🛠️', label: 'Advanced', id: 'advanced' },
-    { icon: 'ℹ️', label: 'About', id: 'about' },
-  ];
-
   return (
     <>
       <div class="ytmd-sui-modalOverlay">
@@ -54,17 +61,30 @@ export default ({ close }: SettingsModalProps) => {
             }`}
           >
             <div class="ytmd-sui-sidebarContent">
-              <For each={menuItems}>
+              <For each={sidebar}>
                 {(item) => (
                   <button
                     class={`ytmd-sui-menuItem ${
                       currentCategory() === item.id ? 'active' : ''
                     }`}
                     onClick={() => setCurrentCategory(item.id)}
-                    title={!isSidebarExpanded() ? item.label : undefined}
+                    title={
+                      !isSidebarExpanded()
+                        ? t(`plugins.settings-ui.label.${item.id}`)
+                        : undefined
+                    }
                   >
-                    <span class="ytmd-sui-icon">{item.icon}</span>
-                    <span class="ytmd-sui-menuLabel">{item.label}</span>
+                    <span class="ytmd-sui-icon">
+                      <yt-icon icon={item.icon} tabindex="0" />
+                    </span>
+                    <yt-formatted-string
+                      class="ytmd-sui-menuLabel title style-scope ytmusic-guide-entry-renderer"
+                      text={{
+                        runs: [
+                          { text: t(`plugins.settings-ui.label.${item.id}`) },
+                        ],
+                      }}
+                    />
                   </button>
                 )}
               </For>
@@ -81,7 +101,11 @@ export default ({ close }: SettingsModalProps) => {
           <div class="ytmd-sui-content">
             <div class="ytmd-sui-header">
               <h2>
-                {menuItems.find((item) => item.id === currentCategory())?.label}
+                {t(
+                  `plugins.settings-ui.title.${
+                    sidebar.find((item) => item.id === currentCategory())!.id
+                  }`
+                )}
               </h2>
               <button class="ytmd-sui-closeButton" onClick={close}>
                 ✕

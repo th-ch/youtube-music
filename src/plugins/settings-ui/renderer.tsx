@@ -62,8 +62,16 @@ const injectButton = (guide: HTMLElement) => {
   cleanup[guide.id] = dispose;
 };
 
+export let getAppVersion = () => Promise.resolve('');
+export let getPlatform = () => Promise.resolve('');
+export let getVersions = () => Promise.resolve({});
+
 export const renderer = createRenderer({
-  start() {
+  start(ctx) {
+    getAppVersion = () => ctx.ipc.invoke('ytmd-sui:app-version');
+    getPlatform = () => ctx.ipc.invoke('ytmd-sui:platform');
+    getVersions = () => ctx.ipc.invoke('ytmd-sui:versions');
+
     waitForElement<HTMLElement>('#guide-renderer').then(injectButton);
     waitForElement<HTMLElement>('#mini-guide-renderer').then(injectButton);
   },
