@@ -84,10 +84,8 @@ export const renderer = createRenderer({
 if (import.meta.hot) {
   import.meta.hot.on('vite:afterUpdate', () => {
     for (const key in cleanup) {
-      const guide = document.getElementById(key);
-
       cleanup[key]();
-      waitForElement<HTMLElement>(`#${guide}`).then(injectButton);
+      waitForElement<HTMLElement>(`#${key}`).then(injectButton);
     }
   });
 }

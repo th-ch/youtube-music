@@ -325,8 +325,37 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.ytmd-sui-toggle.active .toggleHandle {
+.ytmd-sui-toggle.active .ytmd-sui-toggleHandle {
   transform: translateX(20px);
+}
+
+.ytmd-sui-select {
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  min-width: 200px;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+  }
+
+  & option {
+    background-color: #18181b;
+    color: #fff;
+    padding: 8px;
+  }
 }
 
 .ytmd-sui-rangeControl {
@@ -504,11 +533,17 @@
 
 /* Mobile Responsive Styles */
 @media (max-width: 768px) {
-  .modalOverlay {
+  .ytmd-sui-modalOverlay {
     padding: 0;
   }
 
-  .modal {
+  .ytmd-sui-select {
+    min-width: 160px;
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  .ytmd-sui-modal {
     width: 100%;
     height: 100%;
     max-height: none;
@@ -517,7 +552,7 @@
     overflow-x: hidden;
   }
 
-  .sidebar {
+  .ytmd-sui-sidebar {
     position: absolute;
     top: 0;
     left: 0;
@@ -529,105 +564,105 @@
     box-shadow: 4px 0 16px rgba(0, 0, 0, 0.3);
   }
 
-  .sidebar.collapsed {
+  .ytmd-sui-sidebar.collapsed {
     width: 56px;
   }
 
-  .content {
+  .ytmd-sui-content {
     width: 100%;
     margin-left: 56px;
     transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .sidebar:not(.collapsed) + .content {
+  .ytmd-sui-sidebar:not(.collapsed) + .content {
     margin-left: 260px;
   }
 
-  .header {
+  .ytmd-sui-header {
     padding: 12px 16px;
   }
 
-  .header h2 {
+  .ytmd-sui-header h2 {
     font-size: 18px;
   }
 
-  .settingsContent {
+  .ytmd-sui-settingsContent {
     padding: 16px;
   }
 
-  .settingItem {
+  .ytmd-sui-settingItem {
     padding: 16px;
     margin-bottom: 16px;
   }
 
-  .settingText {
+  .ytmd-sui-settingText {
     gap: 12px;
   }
 
-  .settingTitle {
+  .ytmd-sui-settingTitle {
     font-size: 14px;
   }
 
-  .settingDescription {
+  .ytmd-sui-settingDescription {
     font-size: 12px;
   }
 
-  .toggle {
+  .ytmd-sui-toggle {
     width: 40px;
     height: 22px;
   }
 
-  .toggleHandle {
+  .ytmd-sui-toggleHandle {
     width: 18px;
     height: 18px;
   }
 
-  .toggle.active .toggleHandle {
+  .ytmd-sui-toggle.active .ytmd-sui-toggleHandle {
     transform: translateX(18px);
   }
 
-  .rangeControl {
+  .ytmd-sui-rangeControl {
     gap: 12px;
   }
 
-  .rangeValue {
+  .ytmd-sui-rangeValue {
     font-size: 12px;
   }
 
-  .pluginCard {
+  .ytmd-sui-pluginCard {
     padding: 14px;
   }
 
-  .pluginHeader h4 {
+  .ytmd-sui-pluginHeader h4 {
     font-size: 14px;
   }
 
-  .pluginAuthor {
+  .ytmd-sui-pluginAuthor {
     font-size: 11px;
   }
 
-  .pluginDescription {
+  .ytmd-sui-pluginDescription {
     font-size: 12px;
   }
 
-  .aboutSection h3 {
+  .ytmd-sui-aboutSection h3 {
     font-size: 20px;
   }
 
-  .aboutSection h4 {
+  .ytmd-sui-aboutSection h4 {
     font-size: 16px;
   }
 
-  .version,
-  .description {
+  .ytmd-sui-version,
+  .ytmd-sui-description {
     font-size: 13px;
   }
 
-  .systemInfo {
+  .ytmd-sui-systemInfo {
     padding: 14px;
   }
 
-  .infoRow {
+  .ytmd-sui-infoRow {
     font-size: 12px;
     padding: 8px 0;
   }

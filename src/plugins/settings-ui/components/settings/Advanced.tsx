@@ -4,6 +4,16 @@ export default () => {
   const [experimentalFeatures, setExperimentalFeatures] = createSignal(false);
   const [debugMode, setDebugMode] = createSignal(false);
 
+  /*
+    proxy
+    overide user-agent
+    disable hardware acceleration
+    restart on config changes
+    reset app cache when app starts
+    toggle dev tools
+    edit config.json
+  */
+
   return (
     <div class="ytmd-sui-settingsContent">
       <div class="ytmd-sui-settingItem">
