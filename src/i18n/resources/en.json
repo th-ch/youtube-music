@@ -788,6 +788,10 @@
       "description": "Integration with OBS's plugin Tuna",
       "name": "Tuna OBS"
     },
+    "unobtrusive-player": {
+      "description": "Prevents the player from popping up when playing a song",
+      "name": "Unobtrusive Player"
+    },
     "video-toggle": {
       "description": "Adds a button to switch between Video/Song mode. can also optionally remove the whole video tab",
       "menu": {
