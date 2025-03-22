@@ -38,6 +38,12 @@ const info: Info = {
  */
 const refreshCallbacks: (() => void)[] = [];
 
+const truncateString = (str: string, length: number): string => {
+  if (str.length > length)
+    return `${str.substring(0, length - 3)}...`;
+  return str;
+}
+
 const resetInfo = () => {
   info.ready = false;
   clearTimeout(clearActivity);
@@ -184,8 +190,8 @@ export const backend = createBackend<
 
     const activityInfo: SetActivity = {
       type: ActivityType.Listening,
-      details: songInfo.title,
-      state: songInfo.artist,
+      details: truncateString(songInfo.title, 128),
+      state: truncateString(songInfo.artist, 128),
       largeImageKey: songInfo.imageSrc ?? '',
       largeImageText: songInfo.album ?? '',
       buttons,
