@@ -1,0 +1,669 @@
+.ytmd-settings-ui-btn {
+  --ytmusic-guide-entry-background-color: rgba(0, 0, 0, 0);
+
+  white-space: nowrap;
+  font-family: 'Roboto', 'Noto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 400;
+  cursor: pointer;
+  user-select: none;
+
+  &.normal {
+    & > .ytmd-settings-ui-btn-content {
+      background-color: var(--ytmusic-guide-entry-background-color);
+      border-radius: 8px;
+
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      padding: 0 20px;
+      height: 48px;
+      font-size: 16px;
+      line-height: 24px;
+
+      padding: 0 20px;
+
+      &:hover,
+      &:focus-within {
+        --ytmusic-guide-entry-background-color: rgba(255, 255, 255, 0.2);
+      }
+
+      & > yt-icon {
+        margin-right: 20px;
+      }
+    }
+  }
+
+  &.mini {
+    display: block;
+    min-height: 0;
+    padding: 12px 0;
+    text-align: center;
+    background-color: var(--ytmusic-guide-entry-background-color);
+    border-radius: 8px;
+
+    &:hover,
+    &:focus-within {
+      --ytmusic-guide-entry-background-color: rgba(255, 255, 255, 0.2);
+    }
+  }
+}
+
+.ytmd-sui-modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(8px);
+}
+
+.ytmd-sui-modal {
+  background-color: #18181b;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 900px;
+  height: 90vh;
+  max-height: 650px;
+  display: flex;
+  overflow: hidden;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ytmd-sui-sidebar {
+  width: 220px;
+  background-color: rgba(255, 255, 255, 0.03);
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ytmd-sui-sidebar.collapsed {
+  width: 56px;
+}
+
+.ytmd-sui-sidebarContent {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ytmd-sui-sidebarToggle {
+  background: none;
+  border: none;
+  color: #a1a1aa;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 8px;
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.ytmd-sui-sidebarToggle:hover {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+.ytmd-sui-menuItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  width: 100%;
+  border: none;
+  background: none;
+  color: #a1a1aa;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.ytmd-sui-menuItem:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+  color: #fff;
+}
+
+.ytmd-sui-menuItem.active {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+.ytmd-sui-icon {
+  flex-shrink: 0;
+  font-size: 16px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ytmd-sui-menuLabel {
+  transition: opacity 0.2s;
+}
+
+.ytmd-sui-collapsed .menuLabel {
+  opacity: 0;
+  width: 0;
+  visibility: hidden;
+}
+
+.ytmd-sui-collapsed .menuItem {
+  padding: 8px;
+  justify-content: center;
+}
+
+.ytmd-sui-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  background-color: #18181b;
+  min-width: 0;
+}
+
+.ytmd-sui-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background-color: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.ytmd-sui-header h2 {
+  margin: 0;
+  font-size: 20px;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.ytmd-sui-closeButton {
+  background: none;
+  border: none;
+  color: #a1a1aa;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 6px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.ytmd-sui-closeButton:hover {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+.ytmd-sui-settingsContent {
+  padding: 24px;
+  color: #ffffff;
+}
+
+.ytmd-sui-settingItem {
+  margin-bottom: 24px;
+  padding: 16px;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: all 0.2s;
+}
+
+.ytmd-sui-settingItem:hover {
+  background-color: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+.ytmd-sui-settingText {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.ytmd-sui-settingLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ytmd-sui-settingTitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.ytmd-sui-settingDescription {
+  font-size: 13px;
+  color: #a1a1aa;
+  line-height: 1.4;
+}
+
+.ytmd-sui-deleteButton {
+  background-color: #dc2626;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.ytmd-sui-deleteButton:hover {
+  background-color: #b91c1c;
+  transform: translateY(-1px);
+}
+
+.ytmd-sui-actionButton {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.ytmd-sui-actionButton:hover {
+  background-color: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.ytmd-sui-toggle {
+  width: 44px;
+  height: 24px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.ytmd-sui-toggle.active {
+  background-color: #2563eb;
+}
+
+.ytmd-sui-toggleHandle {
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.ytmd-sui-toggle.active .ytmd-sui-toggleHandle {
+  transform: translateX(20px);
+}
+
+.ytmd-sui-select {
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  min-width: 200px;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+  }
+
+  & option {
+    background-color: #18181b;
+    color: #fff;
+    padding: 8px;
+  }
+}
+
+.ytmd-sui-rangeControl {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.ytmd-sui-rangeControl input[type='range'] {
+  width: 180px;
+  height: 4px;
+  -webkit-appearance: none;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  outline: none;
+}
+
+.ytmd-sui-rangeControl input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  background: #2563eb;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 2px solid white;
+}
+
+.ytmd-sui-rangeControl input[type='range']::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.ytmd-sui-rangeValue {
+  min-width: 42px;
+  text-align: right;
+  color: #a1a1aa;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.ytmd-sui-pluginCard {
+  background-color: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  padding: 16px;
+  transition: all 0.2s;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.ytmd-sui-pluginCard:hover {
+  background-color: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+.ytmd-sui-pluginHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.ytmd-sui-pluginHeader h4 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.ytmd-sui-pluginAuthor {
+  font-size: 12px;
+  color: #a1a1aa;
+  margin-top: 2px;
+  display: block;
+}
+
+.ytmd-sui-pluginDescription {
+  margin: 0;
+  font-size: 13px;
+  color: #a1a1aa;
+  line-height: 1.5;
+}
+
+.ytmd-sui-addButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 16px;
+  transition: all 0.2s;
+}
+
+.ytmd-sui-addButton:hover {
+  background-color: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.ytmd-sui-aboutSection {
+  margin-bottom: 32px;
+}
+
+.ytmd-sui-aboutSection h3 {
+  margin: 0 0 8px 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.ytmd-sui-aboutSection h4 {
+  margin: 0 0 16px 0;
+  font-size: 18px;
+  font-weight: 500;
+  color: #a1a1aa;
+}
+
+.ytmd-sui-version {
+  font-size: 14px;
+  color: #a1a1aa;
+  margin: 0 0 16px 0;
+}
+
+.ytmd-sui-description {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #a1a1aa;
+  margin: 0;
+}
+
+.ytmd-sui-systemInfo {
+  background-color: rgba(255, 255, 255, 0.02);
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.ytmd-sui-infoRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 13px;
+}
+
+.ytmd-sui-infoRow:last-child {
+  border-bottom: none;
+}
+
+.ytmd-sui-infoRow span:first-child {
+  color: #a1a1aa;
+}
+
+.ytmd-sui-openButton {
+  margin: 16px;
+  padding: 10px 20px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.ytmd-sui-openButton:hover {
+  background-color: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  .ytmd-sui-modalOverlay {
+    padding: 0;
+  }
+
+  .ytmd-sui-select {
+    min-width: 160px;
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  .ytmd-sui-modal {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    border-radius: 0;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  .ytmd-sui-sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 260px;
+    z-index: 20;
+    background-color: #18181b;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 4px 0 16px rgba(0, 0, 0, 0.3);
+  }
+
+  .ytmd-sui-sidebar.collapsed {
+    width: 56px;
+  }
+
+  .ytmd-sui-content {
+    width: 100%;
+    margin-left: 56px;
+    transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .ytmd-sui-sidebar:not(.collapsed) + .content {
+    margin-left: 260px;
+  }
+
+  .ytmd-sui-header {
+    padding: 12px 16px;
+  }
+
+  .ytmd-sui-header h2 {
+    font-size: 18px;
+  }
+
+  .ytmd-sui-settingsContent {
+    padding: 16px;
+  }
+
+  .ytmd-sui-settingItem {
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+
+  .ytmd-sui-settingText {
+    gap: 12px;
+  }
+
+  .ytmd-sui-settingTitle {
+    font-size: 14px;
+  }
+
+  .ytmd-sui-settingDescription {
+    font-size: 12px;
+  }
+
+  .ytmd-sui-toggle {
+    width: 40px;
+    height: 22px;
+  }
+
+  .ytmd-sui-toggleHandle {
+    width: 18px;
+    height: 18px;
+  }
+
+  .ytmd-sui-toggle.active .ytmd-sui-toggleHandle {
+    transform: translateX(18px);
+  }
+
+  .ytmd-sui-rangeControl {
+    gap: 12px;
+  }
+
+  .ytmd-sui-rangeValue {
+    font-size: 12px;
+  }
+
+  .ytmd-sui-pluginCard {
+    padding: 14px;
+  }
+
+  .ytmd-sui-pluginHeader h4 {
+    font-size: 14px;
+  }
+
+  .ytmd-sui-pluginAuthor {
+    font-size: 11px;
+  }
+
+  .ytmd-sui-pluginDescription {
+    font-size: 12px;
+  }
+
+  .ytmd-sui-aboutSection h3 {
+    font-size: 20px;
+  }
+
+  .ytmd-sui-aboutSection h4 {
+    font-size: 16px;
+  }
+
+  .ytmd-sui-version,
+  .ytmd-sui-description {
+    font-size: 13px;
+  }
+
+  .ytmd-sui-systemInfo {
+    padding: 14px;
+  }
+
+  .ytmd-sui-infoRow {
+    font-size: 12px;
+    padding: 8px 0;
+  }
+}
