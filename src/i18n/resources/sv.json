@@ -2,8 +2,8 @@
   "common": {
     "console": {
       "plugins": {
-        "execute-failed": "Misslyckades med att köra pluginen {{pluginName}}::{{contextName}}",
-        "executed-at-ms": "Pluginet {{pluginName}}::{{contextName}} kördes på {{ms}} ms",
+        "execute-failed": "Misslyckades med att köra plugin {{pluginName}}::{{contextName}}",
+        "executed-at-ms": "Plugin {{pluginName}}::{{contextName}} kördes på {{ms}} ms",
         "initialize-failed": "Misslyckades med att initialisera pluginen \"{{pluginName}}\"",
         "load-all": "Laddar alla pluginer",
         "load-failed": "Misslyckades med att ladda pluginen \"{{pluginName}}\"",
@@ -66,6 +66,51 @@
         "detail": "Vi beklagar besväret! Välj vad du vill göra:",
         "message": "Programmet svarar inte",
         "title": "Fönstret svarar inte"
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "Stäng av uppdateringar",
+          "download": "Ladda ned",
+          "ok": "OK"
+        },
+        "detail": "En ny version är tillgänglig och kan laddas ned på {{downloadLink}}",
+        "message": "En ny version är tillgänglig",
+        "title": "Uppdatering tillgänglig"
+      }
+    },
+    "menu": {
+      "about": "Om",
+      "navigation": {
+        "label": "Navigering",
+        "submenu": {
+          "copy-current-url": "Kopiera nuvarande länk",
+          "go-back": "Föregående",
+          "go-forward": "Nästa",
+          "quit": "Lämna",
+          "restart": "Starta om appen"
+        }
+      },
+      "options": {
+        "label": "Valmöjligheter",
+        "submenu": {
+          "advanced-options": {
+            "label": "Avancerade valmöjligheter",
+            "submenu": {
+              "auto-reset-app-cache": "Nollställ appcache när appen startar",
+              "disable-hardware-acceleration": "Stäng av hårdvaruacceleration",
+              "edit-config-json": "Redigera config.json",
+              "restart-on-config-changes": "Starta om vid konfigurationsändringar",
+              "set-proxy": {
+                "label": "Ställ in proxy",
+                "prompt": {
+                  "title": "Ställ in proxy"
+                }
+              }
+            }
+          },
+          "always-on-top": "Alltid överst",
+          "auto-update": "Uppdatera automatiskt"
+        }
       }
     }
   },

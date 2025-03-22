@@ -683,6 +683,7 @@
         "listenbrainz": {
           "token": "輸入 ListenBrainz 使用者憑證"
         },
+        "scrobble-alternative-title": "使用另類歌曲標題",
         "scrobble-other-media": "紀錄其他媒體文件"
       },
       "name": "Scrobbler",
