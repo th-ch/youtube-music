@@ -76,8 +76,8 @@ importers:
         specifier: 1.1.1
         version: 1.1.1
       '@xhayper/discord-rpc':
-        specifier: 1.2.0
-        version: 1.2.0(bufferutil@4.0.9)(utf-8-validate@6.0.5)
+        specifier: 1.2.1
+        version: 1.2.1(bufferutil@4.0.9)(utf-8-validate@6.0.5)
       async-mutex:
         specifier: 0.5.0
         version: 0.5.0
@@ -1502,9 +1502,9 @@ packages:
     resolution: {integrity: sha512-RaI5qZo6D2CVS6sTHFKg1v5Ohq/+Bo2LZ5gzUEwZ/WkHhwtGTCB/sVLw8ijOkAUxasZ+WshN/Rzj4ywsABJ5ZA==}
     engines: {node: '>=v14.0.0', npm: '>=7.0.0'}
 
-  '@xhayper/discord-rpc@1.2.0':
-    resolution: {integrity: sha512-cKjs9TKzN/7JoozijjszQjUEK1qnLHpEvcJQ2OGFBZjymUzIOH7l14KUu7TQtaIEk0Aw9Bx2w7TfQ0O6tp5mCw==}
-    engines: {node: '>=16.11.0'}
+  '@xhayper/discord-rpc@1.2.1':
+    resolution: {integrity: sha512-Ch04/7hq0nfV47nJzDcLIKx0SLUcPOMlkYV43faWpKtEO9SgLrTD4FAOMBBT+JORceQytnzBMPvktW2q9ZCMiw==}
+    engines: {node: '>=18.20.7'}
 
   '@xmldom/xmldom@0.8.10':
     resolution: {integrity: sha512-2WALfTl4xo2SkGCYRt6rDTFfk9R1czmBvUQy12gK2KuRKIpWEhcbbzy8EZXtz/jkRqHX8bFEc6FC1HjX4TUWYw==}
@@ -5857,7 +5857,7 @@ snapshots:
 
   '@vladfrangu/async_event_emitter@2.4.6': {}
 
-  '@xhayper/discord-rpc@1.2.0(bufferutil@4.0.9)(utf-8-validate@6.0.5)':
+  '@xhayper/discord-rpc@1.2.1(bufferutil@4.0.9)(utf-8-validate@6.0.5)':
     dependencies:
       '@discordjs/rest': 2.4.3
       '@vladfrangu/async_event_emitter': 2.4.6
