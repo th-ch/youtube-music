@@ -53,7 +53,14 @@ export default ({ close }: SettingsModalProps) => {
 
   return (
     <>
-      <div class="ytmd-sui-modalOverlay">
+      <div
+        class="ytmd-sui-modalOverlay"
+        onClick={(e) => {
+          if (e.target === e.currentTarget) {
+            close();
+          }
+        }}
+      >
         <div class="ytmd-sui-modal">
           <div
             class={`ytmd-sui-sidebar ${
