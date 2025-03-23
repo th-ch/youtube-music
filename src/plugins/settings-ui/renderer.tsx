@@ -66,11 +66,24 @@ export let getAppVersion = () => Promise.resolve('');
 export let getPlatform = () => Promise.resolve('');
 export let getVersions = () => Promise.resolve({});
 
+export let plugins = {
+  enable: (id: string) => {},
+  disable: (id: string) => {},
+  isEnabled: (id: string) => Promise.resolve(false),
+};
+
 export const renderer = createRenderer({
   start(ctx) {
     getAppVersion = () => ctx.ipc.invoke('ytmd-sui:app-version');
     getPlatform = () => ctx.ipc.invoke('ytmd-sui:platform');
     getVersions = () => ctx.ipc.invoke('ytmd-sui:versions');
+
+    plugins.enable = (id: string) =>
+      ctx.ipc.invoke('ytmd-sui:plugins-enable', id);
+    plugins.disable = (id: string) =>
+      ctx.ipc.invoke('ytmd-sui:plugins-disable', id);
+    plugins.isEnabled = (id: string) =>
+      ctx.ipc.invoke('ytmd-sui:plugins-isEnabled', id);
 
     waitForElement<HTMLElement>('#guide-renderer').then(injectButton);
     waitForElement<HTMLElement>('#mini-guide-renderer').then(injectButton);

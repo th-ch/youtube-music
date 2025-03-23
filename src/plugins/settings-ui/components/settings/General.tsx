@@ -1,69 +1,7 @@
-import { createSignal, For } from 'solid-js';
+import { createSignal } from 'solid-js';
 import { languageResources } from 'virtual:i18n';
-
-interface ToggleProps {
-  label: string;
-  description: string;
-  value: boolean;
-  toggle: () => void;
-}
-
-const Toggle = (props: ToggleProps) => {
-  return (
-    <div class="ytmd-sui-settingItem">
-      <div class="ytmd-sui-settingText">
-        <div class="ytmd-sui-settingLabel">
-          <span class="ytmd-sui-settingTitle">{props.label}</span>
-          <span class="ytmd-sui-settingDescription">{props.description}</span>
-        </div>
-        <div
-          class={`ytmd-sui-toggle ${props.value ? 'active' : ''}`}
-          tabIndex={1}
-          onClick={props.toggle}
-          onKeyUp={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              props.toggle();
-            }
-          }}
-        >
-          <div class="ytmd-sui-toggleHandle"></div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-interface SelectProps {
-  label: string;
-  description: string;
-
-  value: string;
-  options: { label: string; value: string }[];
-  onSelect: (value: string) => void;
-}
-
-const Select = (props: SelectProps) => {
-  return (
-    <div class="ytmd-sui-settingItem">
-      <div class="ytmd-sui-settingText">
-        <div class="ytmd-sui-settingLabel">
-          <span class="ytmd-sui-settingTitle">{props.label}</span>
-          <span class="ytmd-sui-settingDescription">{props.description}</span>
-        </div>
-        <select
-          class="ytmd-sui-select"
-          tabIndex={1}
-          value={props.value}
-          onChange={(e) => props.onSelect(e.currentTarget.value)}
-        >
-          <For each={props.options}>
-            {({ label, value }) => <option value={value}>{label}</option>}
-          </For>
-        </select>
-      </div>
-    </div>
-  );
-};
+import { Toggle } from '../Toggle';
+import { Select } from '../Select';
 
 // prettier-ignore
 export default () => {

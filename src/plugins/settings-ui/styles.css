@@ -67,7 +67,7 @@
   background-color: #18181b;
   border-radius: 16px;
   width: 90%;
-  max-width: 900px;
+  max-width: 1100px;
   height: 90vh;
   max-height: 650px;
   display: flex;
@@ -531,8 +531,18 @@
   transform: translateY(-1px);
 }
 
+.ytmd-sui-pluginsSection {
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 1em;
+}
+
 /* Mobile Responsive Styles */
 @media (max-width: 768px) {
+  .ytmd-sui-pluginsSection {
+    grid-template-columns: auto;
+  }
+
   .ytmd-sui-modalOverlay {
     padding: 0;
   }

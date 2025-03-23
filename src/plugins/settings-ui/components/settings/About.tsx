@@ -49,10 +49,10 @@ export default () => {
         </div>
       </div>
 
-      <div class="ytmd-sui-aboutSection">
+      {/* <div class="ytmd-sui-aboutSection">
         <button class="ytmd-sui-actionButton">Check for Updates</button>
         <button class="ytmd-sui-actionButton">View Licenses</button>
-      </div>
+      </div> */}
     </div>
   );
 };
