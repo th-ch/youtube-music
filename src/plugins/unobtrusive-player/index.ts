@@ -21,6 +21,30 @@ const handlePlay = (e: MouseEvent) => {
   }
 };
 
+const handleVideoDataChange = () => {
+  const isPlayerPageOpen =
+    document
+      .querySelector('ytmusic-app-layout')
+      ?.attributes.getNamedItem('player-ui-state')?.value ===
+    'PLAYER_PAGE_OPEN';
+
+  if (
+    document.body.classList.contains('unobtrusive-player--did-play') &&
+    isPlayerPageOpen
+  ) {
+    document.body.classList.add('unobtrusive-player--auto-closing');
+
+    document
+      .querySelector<HTMLButtonElement>('.toggle-player-page-button')
+      ?.click();
+
+    // prevent animation flickering
+    setTimeout(() => {
+      document.body.classList.remove('unobtrusive-player--auto-closing');
+    }, 500);
+  }
+};
+
 export default createPlugin({
   name: () => t('plugins.unobtrusive-player.name'),
   description: () => t('plugins.unobtrusive-player.description'),
@@ -37,32 +61,11 @@ export default createPlugin({
     onPlayerApiReady: () => {
       // Close player page when video changes while
       // `unobtrusive-player--did-play` className is present.
-      document.addEventListener('videodatachange', () => {
-        const isPlayerPageOpen =
-          document
-            .querySelector('ytmusic-app-layout')
-            ?.attributes.getNamedItem('player-ui-state')?.value ===
-          'PLAYER_PAGE_OPEN';
-
-        if (
-          document.body.classList.contains('unobtrusive-player--did-play') &&
-          isPlayerPageOpen
-        ) {
-          document.body.classList.add('unobtrusive-player--auto-closing');
-
-          document
-            .querySelector<HTMLButtonElement>('.toggle-player-page-button')
-            ?.click();
-
-          // prevent animation flickering
-          setTimeout(() => {
-            document.body.classList.remove('unobtrusive-player--auto-closing');
-          }, 500);
-        }
-      });
+      document.addEventListener('videodatachange', handleVideoDataChange);
     },
     stop: () => {
       document.removeEventListener('click', handlePlay);
+      document.removeEventListener('videodatachange', handleVideoDataChange);
 
       [
         'unobtrusive-player',
