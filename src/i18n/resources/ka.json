@@ -1,4 +1,16 @@
 {
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "პლაგინის დაყენების შეცდომა {{pluginName}}::{{contextName}}",
+        "executed-at-ms": "პლაგინი {{pluginName}}::{{contextName}} გაეშვა {{ms}} მილიწამში",
+        "initialize-failed": "პლაგინის ინიციალიზაცია ვერ მოხდა\"{{pluginName}}\"",
+        "load-all": "იტვირთება ყველა პლაგინი",
+        "load-failed": "პლაგინის ჩატვირთვა ვერ მოხდა \"{{pluginName}}\"",
+        "loaded": "პლაგინი \"{{pluginName}}\" ჩაიტვირთა"
+      }
+    }
+  },
   "language": {
     "code": "ka",
     "local-name": "ქართული",

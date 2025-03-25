@@ -99,6 +99,7 @@
               "auto-reset-app-cache": "אפס את מטמון האפליקציה כאשר האפליקציה מתחילה",
               "disable-hardware-acceleration": "השבת האצת החומרה",
               "edit-config-json": "ערוך את config.json",
+              "override-user-agent": "עוקף את סוכן המשתמש",
               "restart-on-config-changes": "הפעל מחדש בשינויי תצורה",
               "set-proxy": {
                 "label": "הגדר שרת proxy",
@@ -107,9 +108,11 @@
                   "placeholder": "דוגמה: SOCKS5://127.0.0.1:9999",
                   "title": "הגדר שרת proxy"
                 }
-              }
+              },
+              "toggle-dev-tools": "שנה את מצב כלי המפתחים"
             }
           },
+          "always-on-top": "תמיד מעל הכל",
           "auto-update": "עדכון אוטומטי",
           "hide-menu": {
             "dialog": {
@@ -129,7 +132,60 @@
             }
           },
           "resume-on-start": "המשך את השיר האחרון עם הפעלת האפליקציה",
-          "single-instance-lock": "נעילת מופע יחיד"
+          "single-instance-lock": "נעילת מופע יחיד",
+          "start-at-login": "התחל בכניסה",
+          "starting-page": {
+            "label": "דף פתיחה",
+            "unset": "בטל"
+          },
+          "tray": {
+            "label": "מגש",
+            "submenu": {
+              "disabled": "מושבת",
+              "enabled-and-hide-app": "מופעל והסתר אפליקציה",
+              "enabled-and-show-app": "מופעל והמציג את האפליקציה",
+              "play-pause-on-click": "הפעל/השהה בלחיצה"
+            }
+          },
+          "visual-tweaks": {
+            "label": "תיקונים חזותיים",
+            "submenu": {
+              "like-buttons": {
+                "default": "ברירת מחדל",
+                "force-show": "הפעל בכוח",
+                "hide": "הסתר",
+                "label": "כפתורי לייק"
+              },
+              "remove-upgrade-button": "הסר לחצן שדרוג",
+              "theme": {
+                "dialog": {
+                  "button": {
+                    "cancel": "ביטול",
+                    "remove": "הסר"
+                  },
+                  "remove-theme": "האם אתה בטוח שברצונך להסיר את העיצוב המותאם אישית?",
+                  "remove-theme-message": "פעולה זו תסיר את ערכת הנושא המותאמת אישית"
+                },
+                "label": "ערכת נושא",
+                "submenu": {
+                  "import-css-file": "ייבא קובץ CSS מותאם אישית",
+                  "no-theme": "ללא ערכת נושא"
+                }
+              }
+            }
+          }
+        }
+      },
+      "plugins": {
+        "enabled": "מופעל",
+        "label": "פלאגינים",
+        "new": "חדש"
+      },
+      "view": {
+        "label": "מראה",
+        "submenu": {
+          "force-reload": "התחל מחדש בכוח",
+          "reload": "טען מחדש"
         }
       }
     }

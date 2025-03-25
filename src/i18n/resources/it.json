@@ -683,6 +683,7 @@
         "listenbrainz": {
           "token": "Inserire il token utente per ListenBrainz"
         },
+        "scrobble-alternative-title": "Usa titoli alternativi",
         "scrobble-other-media": "Scrobble altri media"
       },
       "name": "Scrobbler",
