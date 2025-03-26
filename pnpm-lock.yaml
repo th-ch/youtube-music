@@ -305,8 +305,8 @@ importers:
         specifier: 2.31.0
         version: 2.31.0(@typescript-eslint/parser@8.27.0(eslint@9.23.0)(typescript@5.8.2))(eslint-import-resolver-typescript@4.2.4)(eslint@9.23.0)
       eslint-plugin-prettier:
-        specifier: 5.2.3
-        version: 5.2.3(@types/eslint@9.6.1)(eslint-config-prettier@10.1.1(eslint@9.23.0))(eslint@9.23.0)(prettier@3.5.2)
+        specifier: 5.2.5
+        version: 5.2.5(@types/eslint@9.6.1)(eslint-config-prettier@10.1.1(eslint@9.23.0))(eslint@9.23.0)(prettier@3.5.2)
       glob:
         specifier: 11.0.1
         version: 11.0.1
@@ -1009,8 +1009,8 @@ packages:
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
 
-  '@pkgr/core@0.1.1':
-    resolution: {integrity: sha512-cq8o4cWH0ibXh9VGi5P20Tu9XF/0fFXl9EUinr9QfTM7a7p0oTA4iJRCQWppXR1Pg8dSM0UCItCkPwsk9qWWYA==}
+  '@pkgr/core@0.2.0':
+    resolution: {integrity: sha512-vsJDAkYR6qCPu+ioGScGiMYR7LvZYIXh/dlQeviqoTWNCVfKTLYD/LkNWH4Mxsv2a5vpIRc77FN5DnmK1eBggQ==}
     engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
 
   '@playwright/test@1.51.1':
@@ -2320,13 +2320,13 @@ packages:
       '@typescript-eslint/parser':
         optional: true
 
-  eslint-plugin-prettier@5.2.3:
-    resolution: {integrity: sha512-qJ+y0FfCp/mQYQ/vWQ3s7eUlFEL4PyKfAJxsnYTJ4YT73nsJBWqmEpFryxV9OeUiqmsTsYJ5Y+KDNaeP31wrRw==}
+  eslint-plugin-prettier@5.2.5:
+    resolution: {integrity: sha512-IKKP8R87pJyMl7WWamLgPkloB16dagPIdd2FjBDbyRYPKo93wS/NbCOPh6gH+ieNLC+XZrhJt/kWj0PS/DFdmg==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       '@types/eslint': '>=8.0.0'
       eslint: '>=8.0.0'
-      eslint-config-prettier: '*'
+      eslint-config-prettier: '>= 7.0.0 <10.0.0 || >=10.1.0'
       prettier: '>=3.0.0'
     peerDependenciesMeta:
       '@types/eslint':
@@ -4179,8 +4179,8 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
 
-  synckit@0.9.2:
-    resolution: {integrity: sha512-vrozgXDQwYO72vHjUb/HnFbQx1exDjoKzqx23aXEg2a9VIg2TSFZ8FmeZpTjUCFMYw7mpX4BE2SFu8wI7asYsw==}
+  synckit@0.10.3:
+    resolution: {integrity: sha512-R1urvuyiTaWfeCggqEvpDJwAlDVdsT9NM+IP//Tk2x7qHCkSvBk/fwFgw/TLAHzZlrAnnazMcRw0ZD8HlYFTEQ==}
     engines: {node: ^14.18.0 || >=16.0.0}
 
   tar@6.2.1:
@@ -5430,7 +5430,7 @@ snapshots:
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
-  '@pkgr/core@0.1.1': {}
+  '@pkgr/core@0.2.0': {}
 
   '@playwright/test@1.51.1':
     dependencies:
@@ -6995,12 +6995,12 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-plugin-prettier@5.2.3(@types/eslint@9.6.1)(eslint-config-prettier@10.1.1(eslint@9.23.0))(eslint@9.23.0)(prettier@3.5.2):
+  eslint-plugin-prettier@5.2.5(@types/eslint@9.6.1)(eslint-config-prettier@10.1.1(eslint@9.23.0))(eslint@9.23.0)(prettier@3.5.2):
     dependencies:
       eslint: 9.23.0
       prettier: 3.5.2
       prettier-linter-helpers: 1.0.0
-      synckit: 0.9.2
+      synckit: 0.10.3
     optionalDependencies:
       '@types/eslint': 9.6.1
       eslint-config-prettier: 10.1.1(eslint@9.23.0)
@@ -8973,9 +8973,9 @@ snapshots:
 
   supports-preserve-symlinks-flag@1.0.0: {}
 
-  synckit@0.9.2:
+  synckit@0.10.3:
     dependencies:
-      '@pkgr/core': 0.1.1
+      '@pkgr/core': 0.2.0
       tslib: 2.8.1
 
   tar@6.2.1:
