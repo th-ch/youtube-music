@@ -60,7 +60,7 @@ export const SyncedLine = (props: SyncedLineProps) => {
     } else if (props.hasKorean) result = romanizeHangul(input);
     else result = romanizeChinese(input);
 
-    setRomanization(result);
+    setRomanization(canonicalize(result));
   });
 
   if (!text()) {
