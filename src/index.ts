@@ -825,7 +825,7 @@ app.whenReady().then(async () => {
 
   // Optimized for Mac OS X
   if (is.macOS() && !config.get('options.appVisible')) {
-    app.dock.hide();
+    app.dock?.hide();
   }
 
   let forceQuit = false;

@@ -222,7 +222,7 @@
   },
   "pnpm": {
     "overrides": {
-      "vite": "6.2.2",
+      "vite": "6.2.3",
       "node-gyp": "11.1.0",
       "xml2js": "0.6.2",
       "node-fetch": "3.3.2",
@@ -231,7 +231,8 @@
     },
     "patchedDependencies": {
       "vudio@2.1.1": "patches/vudio@2.1.1.patch",
-      "@malept/flatpak-bundler": "patches/@malept__flatpak-bundler.patch"
+      "@malept/flatpak-bundler@0.4.0": "patches/@malept__flatpak-bundler@0.4.0.patch",
+      "kuromoji@0.1.2": "patches/kuromoji@0.1.2.patch"
     },
     "neverBuiltDependencies": []
   },
@@ -268,9 +269,11 @@
     "electron-store": "10.0.1",
     "electron-unhandled": "4.0.1",
     "electron-updater": "6.3.9",
+    "es-hangul": "2.2.4",
     "fast-average-color": "9.5.0",
     "fast-equals": "5.2.2",
     "filenamify": "6.0.0",
+    "hanja": "1.1.4",
     "happy-dom": "17.4.4",
     "hono": "4.7.5",
     "howler": "2.2.4",
@@ -279,9 +282,15 @@
     "jimp": "1.6.0",
     "keyboardevent-from-electron-accelerator": "2.0.0",
     "keyboardevents-areequal": "0.2.2",
+    "kuromoji": "0.1.2",
+    "kuroshiro": "1.2.0",
+    "kuroshiro-analyzer-kuromoji": "1.1.0",
+    "lazy-var": "2.2.2",
     "node-html-parser": "7.0.1",
     "node-id3": "0.2.8",
     "peerjs": "1.5.4",
+    "pinyin": "4.0.0-alpha.2",
+    "segmentit": "2.0.3",
     "semver": "7.7.1",
     "serve": "14.2.4",
     "simple-youtube-age-restriction-bypass": "github:organization/Simple-YouTube-Age-Restriction-Bypass#v2.5.9",
@@ -292,11 +301,12 @@
     "ts-morph": "25.0.1",
     "vudio": "2.1.1",
     "x11": "2.3.0",
-    "youtubei.js": "13.1.0",
+    "youtubei.js": "13.3.0",
     "zod": "3.24.2"
   },
   "devDependencies": {
     "@eslint/js": "9.22.0",
+    "@malept/flatpak-bundler": "0.4.0",
     "@playwright/test": "1.51.1",
     "@stylistic/eslint-plugin-js": "4.2.0",
     "@total-typescript/ts-reset": "0.6.1",
@@ -329,7 +339,7 @@
     "typescript": "5.8.2",
     "typescript-eslint": "8.27.0",
     "utf-8-validate": "6.0.5",
-    "vite": "6.2.2",
+    "vite": "6.2.3",
     "vite-plugin-inspect": "11.0.0",
     "vite-plugin-resolve": "2.5.2",
     "vite-plugin-solid": "2.11.6",
