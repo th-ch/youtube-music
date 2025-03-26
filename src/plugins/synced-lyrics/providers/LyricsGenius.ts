@@ -1,19 +1,19 @@
-import type { LyricProvider, LyricResult, SearchSongInfo } from "../types";
+import type { LyricProvider, LyricResult, SearchSongInfo } from '../types';
 
 const preloadedStateRegex = /__PRELOADED_STATE__ = JSON\.parse\('(.*?)'\);/;
 const preloadHtmlRegex = /body":{"html":"(.*?)","children"/;
 
 export class LyricsGenius implements LyricProvider {
-  public name = "Genius";
-  public baseUrl = "https://genius.com";
+  public name = 'Genius';
+  public baseUrl = 'https://genius.com';
   private domParser = new DOMParser();
 
   // prettier-ignore
   async search({ title, artist }: SearchSongInfo): Promise<LyricResult | null> {
     const query = new URLSearchParams({
       q: `${artist} ${title}`,
-      page: "1",
-      per_page: "10",
+      page: '1',
+      per_page: '10',
     });
 
     const response = await fetch(`${this.baseUrl}/api/search/song?${query}`);
@@ -55,12 +55,12 @@ export class LyricsGenius implements LyricProvider {
     const html = await fetch(`${this.baseUrl}${path}`).then((res) =>
       res.text()
     );
-    const doc = this.domParser.parseFromString(html, "text/html");
+    const doc = this.domParser.parseFromString(html, 'text/html');
 
     const preloadedStateScript = Array.prototype.find.call(
-      doc.querySelectorAll("script"),
+      doc.querySelectorAll('script'),
       (script: HTMLScriptElement) => {
-        return script.textContent?.includes("window.__PRELOADED_STATE__");
+        return script.textContent?.includes('window.__PRELOADED_STATE__');
       },
     ) as HTMLScriptElement;
 
@@ -69,9 +69,9 @@ export class LyricsGenius implements LyricProvider {
     )?.[1]?.replace(/\\"/g, '"');
 
     const lyricsHtml = preloadedState?.match(preloadHtmlRegex)?.[1]
-      ?.replace(/\\\//g, "/")
-      ?.replace(/\\\\/g, "\\")
-      ?.replace(/\\n/g, "\n")
+      ?.replace(/\\\//g, '/')
+      ?.replace(/\\\\/g, '\\')
+      ?.replace(/\\n/g, '\n')
       ?.replace(/\\'/g, "'")
       ?.replace(/\\"/g, '"');
 
@@ -79,13 +79,13 @@ export class LyricsGenius implements LyricProvider {
       /lyricsPlaceholderReason.{1,5}unreleased/.test(preloadedState);
     if (!lyricsHtml) {
       if (hasUnreleasedPlaceholder) return null;
-      throw new Error("Failed to extract lyrics from preloaded state.");
+      throw new Error('Failed to extract lyrics from preloaded state.');
     }
 
-    const lyricsDoc = this.domParser.parseFromString(lyricsHtml, "text/html");
+    const lyricsDoc = this.domParser.parseFromString(lyricsHtml, 'text/html');
     const lyrics = lyricsDoc.body.innerText;
 
-    if (lyrics.trim().toLowerCase().replace(/[[\]]/g, "") === "instrumental") {
+    if (lyrics.trim().toLowerCase().replace(/[[\]]/g, '') === 'instrumental') {
       return null;
     }
 

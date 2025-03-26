@@ -1,6 +1,13 @@
 import { createEffect, createMemo, createSignal, For, Show } from 'solid-js';
-import { syncedLyricsIPC } from '..';
-import { canonicalize, simlifyUnicode } from '../utils';
+
+import {
+  canonicalize,
+  romanizeChinese,
+  romanizeHangul,
+  romanizeJapanese,
+  romanizeJapaneseOrHangul,
+  simplifyUnicode,
+} from '../utils';
 import { config } from '../renderer';
 
 interface PlainLyricsProps {
@@ -25,25 +32,24 @@ export const PlainLyrics = (props: PlainLyricsProps) => {
     return out;
   });
 
-  createEffect(() => {
+  createEffect(async () => {
     if (!config()?.romanization) return;
 
-    let event = 'synced-lyrics:romanize-chinese';
+    for (let i = 0; i < lines.length; i++) {
+      let romanized: string;
 
-    if (props.hasJapanese) {
-      if (props.hasKorean) event = 'synced-lyrics:romanize-japanese-or-korean';
-      else event = 'synced-lyrics:romanize-japanese';
-    } else if (props.hasKorean) event = 'synced-lyrics:romanize-korean';
+      if (props.hasJapanese) {
+        if (props.hasKorean)
+          romanized = await romanizeJapaneseOrHangul(lines[i]);
+        else romanized = await romanizeJapanese(lines[i]);
+      } else if (props.hasKorean) romanized = romanizeHangul(lines[i]);
+      else romanized = romanizeChinese(lines[i]);
 
-    (async () => {
-      for (let i = 0; i < lines.length; i++) {
-        const romanization = await syncedLyricsIPC()?.invoke(event, lines[i]);
-        setRomanizedLines((prev) => ({
-          ...prev,
-          [i]: canonicalize(romanization),
-        }));
-      }
-    })();
+      setRomanizedLines((prev) => ({
+        ...prev,
+        [i]: canonicalize(romanized),
+      }));
+    }
   });
 
   return (
@@ -56,7 +62,7 @@ export const PlainLyrics = (props: PlainLyricsProps) => {
                 line.match(/^\[.+\]$/s) ? 'lrc-header' : ''
               } text-lyrics description ytmusic-description-shelf-renderer`}
               style={{
-                display: 'flex',
+                'display': 'flex',
                 'flex-direction': 'column',
               }}
             >
@@ -68,7 +74,7 @@ export const PlainLyrics = (props: PlainLyricsProps) => {
               <Show
                 when={
                   config()?.romanization &&
-                  simlifyUnicode(line) !== simlifyUnicode(romanized)
+                  simplifyUnicode(line) !== simplifyUnicode(romanized)
                 }
               >
                 <yt-formatted-string

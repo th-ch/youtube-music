@@ -11,12 +11,8 @@ import type { RendererContext } from '@/types/contexts';
 import type { YoutubePlayer } from '@/types/youtube-player';
 import type { SongInfo } from '@/providers/song-info';
 import type { SyncedLyricsPluginConfig } from '../types';
-import { createSignal } from 'solid-js';
 
 export let _ytAPI: YoutubePlayer | null = null;
-
-export const [syncedLyricsIPC, setSyncedLyricsIPC] =
-  createSignal<RendererContext<SyncedLyricsPluginConfig>['ipc']>();
 
 export const renderer = createRenderer<
   {
@@ -78,7 +74,6 @@ export const renderer = createRenderer<
 
   async start(ctx: RendererContext<SyncedLyricsPluginConfig>) {
     setConfig(await ctx.getConfig());
-    setSyncedLyricsIPC(ctx.ipc);
 
     ctx.ipc.on('ytmd:update-song-info', (info: SongInfo) => {
       fetchLyrics(info);

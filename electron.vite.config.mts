@@ -41,17 +41,7 @@ export default defineConfig({
           ignoreDynamicRequires: true,
         },
         rollupOptions: {
-          external: [
-            'electron',
-            'custom-electron-prompt',
-            'kuromoji',
-            'kuroshiro',
-            'kuroshiro-analyzer-kuromoji',
-            'pinyin',
-            'segmentit',
-            'es-hangul',
-            ...builtinModules,
-          ],
+          external: ['electron', 'custom-electron-prompt', ...builtinModules],
           input: './src/index.ts',
         },
       },

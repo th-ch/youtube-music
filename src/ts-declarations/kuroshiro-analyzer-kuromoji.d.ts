@@ -4,9 +4,9 @@
 declare class KuromojiAnalyzer {
   constructor(dictPath?: { dictPath: string });
   init(): Promise<void>;
-  parse(str: string): Promise<any>;
+  parse(str: string): Promise<unknown>;
 }
 
-declare module "kuroshiro-analyzer-kuromoji" {
+declare module 'kuroshiro-analyzer-kuromoji' {
   export = KuromojiAnalyzer;
 }

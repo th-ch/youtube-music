@@ -3,10 +3,18 @@ import { createEffect, createMemo, For, Show, createSignal } from 'solid-js';
 import { currentTime } from './LyricsContainer';
 
 import { config } from '../renderer';
-import { _ytAPI, syncedLyricsIPC } from '..';
+import { _ytAPI } from '..';
+
+import {
+  canonicalize,
+  romanizeChinese,
+  romanizeHangul,
+  romanizeJapanese,
+  romanizeJapaneseOrHangul,
+  simplifyUnicode,
+} from '../utils';
 
 import type { LineLyrics } from '../../types';
-import { canonicalize, simlifyUnicode } from '../utils';
 
 interface SyncedLineProps {
   line: LineLyrics;
@@ -40,19 +48,19 @@ export const SyncedLine = (props: SyncedLineProps) => {
 
   const [romanization, setRomanization] = createSignal('');
 
-  createEffect(() => {
+  createEffect(async () => {
     if (!config()?.romanization) return;
 
-    let event = 'synced-lyrics:romanize-chinese';
+    const input = canonicalize(text());
 
+    let result: string;
     if (props.hasJapanese) {
-      if (props.hasKorean) event = 'synced-lyrics:romanize-japanese-or-korean';
-      else event = 'synced-lyrics:romanize-japanese';
-    } else if (props.hasKorean) event = 'synced-lyrics:romanize-korean';
+      if (props.hasKorean) result = await romanizeJapaneseOrHangul(input);
+      else result = await romanizeJapanese(input);
+    } else if (props.hasKorean) result = romanizeHangul(input);
+    else result = romanizeChinese(input);
 
-    syncedLyricsIPC()
-      ?.invoke(event, text())
-      .then((result) => setRomanization(canonicalize(result)));
+    setRomanization(result);
   });
 
   if (!text()) {
@@ -89,10 +97,10 @@ export const SyncedLine = (props: SyncedLineProps) => {
             div.style.setProperty(
               '--lyrics-duration',
               `${props.line.duration / 1000}s`,
-              'important'
+              'important',
             );
           }}
-          style={{ display: 'flex', 'flex-direction': 'column' }}
+          style={{ 'display': 'flex', 'flex-direction': 'column' }}
         >
           <span>
             <For each={text().split(' ')}>
@@ -118,11 +126,11 @@ export const SyncedLine = (props: SyncedLineProps) => {
           <Show
             when={
               config()?.romanization &&
-              simlifyUnicode(text()) !== simlifyUnicode(romanization())
+              simplifyUnicode(text()) !== simplifyUnicode(romanization())
             }
           >
             <span class="romaji">
-              <For each={romanization()!.split(' ')}>
+              <For each={romanization().split(' ')}>
                 {(word, index) => {
                   return (
                     <span

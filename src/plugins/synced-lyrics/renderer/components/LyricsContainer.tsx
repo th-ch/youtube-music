@@ -6,8 +6,8 @@ import { ErrorDisplay } from './ErrorDisplay';
 import { LoadingKaomoji } from './LoadingKaomoji';
 import { PlainLyrics } from './PlainLyrics';
 
+import { hasJapaneseInString, hasKoreanInString } from '../utils';
 import { currentLyrics, lyricsStore } from '../../providers';
-import { syncedLyricsIPC } from '..';
 
 export const [debugInfo, setDebugInfo] = createSignal<string>();
 export const [currentTime, setCurrentTime] = createSignal<number>(-1);
@@ -18,8 +18,14 @@ export const LyricsContainer = () => {
   const [hasKorean, setHasKorean] = createSignal<boolean>(false);
 
   createEffect(() => {
-    syncedLyricsIPC()?.invoke('synced-lyrics:has-korean', JSON.stringify(currentLyrics()?.data)).then(setHasKorean);
-    syncedLyricsIPC()?.invoke('synced-lyrics:has-japanese', JSON.stringify(currentLyrics()?.data)).then(setHasJapanese);
+    const data = currentLyrics()?.data;
+    if (data) {
+      setHasKorean(hasKoreanInString(data));
+      setHasJapanese(hasJapaneseInString(data));
+    } else {
+      setHasKorean(false);
+      setHasJapanese(false);
+    }
   });
 
   return (
@@ -56,7 +62,7 @@ export const LyricsContainer = () => {
         </Match>
 
         <Match when={currentLyrics().data?.lyrics}>
-          <PlainLyrics lyrics={currentLyrics().data?.lyrics!} hasJapanese={hasJapanese()} hasKorean={hasKorean()} />
+          <PlainLyrics lyrics={currentLyrics().data!.lyrics!} hasJapanese={hasJapanese()} hasKorean={hasKorean()} />
         </Match>
       </Switch>
     </div>
