@@ -1,4 +1,4 @@
-import { SongInfo } from '@/providers/song-info';
+import type { SongInfo } from '@/providers/song-info';
 
 export type SyncedLyricsPluginConfig = {
   enabled: boolean;
@@ -7,6 +7,7 @@ export type SyncedLyricsPluginConfig = {
   defaultTextString: string;
   showLyricsEvenIfInexact: boolean;
   lineEffect: LineEffect;
+  romanization: boolean;
 };
 
 export type LineLyricsStatus = 'previous' | 'current' | 'upcoming';

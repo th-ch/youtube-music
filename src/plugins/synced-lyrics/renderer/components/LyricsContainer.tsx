@@ -1,4 +1,4 @@
-import { createSignal, For, Match, Show, Switch } from 'solid-js';
+import { createEffect, createSignal, For, Match, Show, Switch } from 'solid-js';
 
 import { SyncedLine } from './SyncedLine';
 
@@ -6,6 +6,7 @@ import { ErrorDisplay } from './ErrorDisplay';
 import { LoadingKaomoji } from './LoadingKaomoji';
 import { PlainLyrics } from './PlainLyrics';
 
+import { hasJapaneseInString, hasKoreanInString } from '../utils';
 import { currentLyrics, lyricsStore } from '../../providers';
 
 export const [debugInfo, setDebugInfo] = createSignal<string>();
@@ -13,6 +14,20 @@ export const [currentTime, setCurrentTime] = createSignal<number>(-1);
 
 // prettier-ignore
 export const LyricsContainer = () => {
+  const [hasJapanese, setHasJapanese] = createSignal<boolean>(false);
+  const [hasKorean, setHasKorean] = createSignal<boolean>(false);
+
+  createEffect(() => {
+    const data = currentLyrics()?.data;
+    if (data) {
+      setHasKorean(hasKoreanInString(data));
+      setHasJapanese(hasJapaneseInString(data));
+    } else {
+      setHasKorean(false);
+      setHasJapanese(false);
+    }
+  });
+
   return (
     <div class="lyric-container">
       <Switch>
@@ -42,12 +57,12 @@ export const LyricsContainer = () => {
       <Switch>
         <Match when={currentLyrics().data?.lines}>
           <For each={currentLyrics().data?.lines}>
-            {(item) => <SyncedLine line={item} />}
+            {(item) => <SyncedLine line={item} hasJapanese={hasJapanese()} hasKorean={hasKorean()} />}
           </For>
         </Match>
 
         <Match when={currentLyrics().data?.lyrics}>
-          <PlainLyrics lyrics={currentLyrics().data?.lyrics!} />
+          <PlainLyrics lyrics={currentLyrics().data!.lyrics!} hasJapanese={hasJapanese()} hasKorean={hasKorean()} />
         </Match>
       </Switch>
     </div>
