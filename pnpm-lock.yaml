@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  vite: 6.2.2
+  vite: 6.2.3
   node-gyp: 11.1.0
   xml2js: 0.6.2
   node-fetch: 3.3.2
@@ -220,8 +220,8 @@ importers:
         specifier: 2.3.0
         version: 2.3.0
       youtubei.js:
-        specifier: 13.1.0
-        version: 13.1.0
+        specifier: 13.3.0
+        version: 13.3.0
       zod:
         specifier: 3.24.2
         version: 3.24.2
@@ -285,7 +285,7 @@ importers:
         version: 4.0.0
       electron-vite:
         specifier: 3.0.0
-        version: 3.0.0(vite@6.2.2(@types/node@22.13.5)(yaml@2.7.0))
+        version: 3.0.0(vite@6.2.3(@types/node@22.13.5)(yaml@2.7.0))
       esbuild:
         specifier: 0.25.1
         version: 0.25.1
@@ -329,17 +329,17 @@ importers:
         specifier: 6.0.5
         version: 6.0.5
       vite:
-        specifier: 6.2.2
-        version: 6.2.2(@types/node@22.13.5)(yaml@2.7.0)
+        specifier: 6.2.3
+        version: 6.2.3(@types/node@22.13.5)(yaml@2.7.0)
       vite-plugin-inspect:
         specifier: 11.0.0
-        version: 11.0.0(vite@6.2.2(@types/node@22.13.5)(yaml@2.7.0))
+        version: 11.0.0(vite@6.2.3(@types/node@22.13.5)(yaml@2.7.0))
       vite-plugin-resolve:
         specifier: 2.5.2
         version: 2.5.2
       vite-plugin-solid:
         specifier: 2.11.6
-        version: 2.11.6(solid-js@1.9.5)(vite@6.2.2(@types/node@22.13.5)(yaml@2.7.0))
+        version: 2.11.6(solid-js@1.9.5)(vite@6.2.3(@types/node@22.13.5)(yaml@2.7.0))
       ws:
         specifier: 8.18.1
         version: 8.18.1(bufferutil@4.0.9)(utf-8-validate@6.0.5)
@@ -2290,7 +2290,7 @@ packages:
     hasBin: true
     peerDependencies:
       '@swc/core': ^1.0.0
-      vite: 6.2.2
+      vite: 6.2.3
     peerDependenciesMeta:
       '@swc/core':
         optional: true
@@ -3166,8 +3166,8 @@ packages:
     resolution: {integrity: sha512-YcwCHw1kiqEeI5xRpDlPPBGL2EOpBKLwO4yIBJcXWHPj5PnA5urGq0jbyhM5KoNpypQ6VboSoxc9D8HyfvngSg==}
     engines: {node: '>=18'}
 
-  jintr@3.2.1:
-    resolution: {integrity: sha512-yjKUBuwTTg4nc4izMysxuIk0BKh45hnbc1KnXE6LxagIGZn5od+I2elpuRY9IIm3EiKiUZxhxV89a0iX+xoEZg==}
+  jintr@3.3.0:
+    resolution: {integrity: sha512-ZsaajJ4Hr5XR0tSPhOZOTjFhxA0qscKNSOs41NRjx7ZOGwpfdp8NKIBEUtvUPbA37JXyv1sJlgeOOZHjr3h76Q==}
 
   jpeg-js@0.4.4:
     resolution: {integrity: sha512-WZzeDOEtTOBK4Mdsar0IqEU5sMr3vSV2RqkAIzUEV2BHnUfKGyswWFPFwK5EeDo93K3FohSHbLAjj0s1Wzd+dg==}
@@ -4543,19 +4543,19 @@ packages:
   vite-dev-rpc@1.0.7:
     resolution: {integrity: sha512-FxSTEofDbUi2XXujCA+hdzCDkXFG1PXktMjSk1efq9Qb5lOYaaM9zNSvKvPPF7645Bak79kSp1PTooMW2wktcA==}
     peerDependencies:
-      vite: 6.2.2
+      vite: 6.2.3
 
   vite-hot-client@2.0.4:
     resolution: {integrity: sha512-W9LOGAyGMrbGArYJN4LBCdOC5+Zwh7dHvOHC0KmGKkJhsOzaKbpo/jEjpPKVHIW0/jBWj8RZG0NUxfgA8BxgAg==}
     peerDependencies:
-      vite: 6.2.2
+      vite: 6.2.3
 
   vite-plugin-inspect@11.0.0:
     resolution: {integrity: sha512-Q0RDNcMs1mbI2yGRwOzSapnnA6NFO0j88+Vb8pJX0iYMw34WczwKJi3JgheItDhbWRq/CLUR0cs+ajZpcUaIFQ==}
     engines: {node: '>=14'}
     peerDependencies:
       '@nuxt/kit': '*'
-      vite: 6.2.2
+      vite: 6.2.3
     peerDependenciesMeta:
       '@nuxt/kit':
         optional: true
@@ -4568,13 +4568,13 @@ packages:
     peerDependencies:
       '@testing-library/jest-dom': ^5.16.6 || ^5.17.0 || ^6.*
       solid-js: ^1.7.2
-      vite: 6.2.2
+      vite: 6.2.3
     peerDependenciesMeta:
       '@testing-library/jest-dom':
         optional: true
 
-  vite@6.2.2:
-    resolution: {integrity: sha512-yW7PeMM+LkDzc7CgJuRLMW2Jz0FxMOsVJ8Lv3gpgW9WLcb9cTW+121UEr1hvmfR7w3SegR5ItvYyzVz1vxNJgQ==}
+  vite@6.2.3:
+    resolution: {integrity: sha512-IzwM54g4y9JA/xAeBPNaDXiBF8Jsgl3VBQ2YQ/wOY6fyW3xMdSoltIV3Bo59DErdqdE6RxUfv8W69DvUorE4Eg==}
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
     peerDependencies:
@@ -4616,7 +4616,7 @@ packages:
   vitefu@1.0.6:
     resolution: {integrity: sha512-+Rex1GlappUyNN6UfwbVZne/9cYC4+R2XDk9xkNXBKMw6HQagdX9PgZ8V2v1WUSK1wfBLp7qbI1+XSNIlB1xmA==}
     peerDependencies:
-      vite: 6.2.2
+      vite: 6.2.3
     peerDependenciesMeta:
       vite:
         optional: true
@@ -4762,8 +4762,8 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
-  youtubei.js@13.1.0:
-    resolution: {integrity: sha512-uL4TyojAYET0c5NGFD7+ScCod/k8Pc/B+D5tLrunFcz1GaBjRMOGRPcNGaRmnhwisegU7ibtw0iUxCN+BZ0ang==}
+  youtubei.js@13.3.0:
+    resolution: {integrity: sha512-tbl7rxltpgKoSsmfGUe9JqWUAzv6HFLqrOn0N85EbTn5DLt24EXrjClnXdxyr3PBARMJ3LC4vbll100a0ABsYw==}
 
   zlibjs@0.3.1:
     resolution: {integrity: sha512-+J9RrgTKOmlxFSDHo0pI1xM6BLVUv+o0ZT9ANtCxGkjIVCCUdx9alUF8Gm+dGLKbkkkidWIHFDZHDMpfITt4+w==}
@@ -6935,7 +6935,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  electron-vite@3.0.0(vite@6.2.2(@types/node@22.13.5)(yaml@2.7.0)):
+  electron-vite@3.0.0(vite@6.2.3(@types/node@22.13.5)(yaml@2.7.0)):
     dependencies:
       '@babel/core': 7.26.9
       '@babel/plugin-transform-arrow-functions': 7.25.9(@babel/core@7.26.9)
@@ -6943,7 +6943,7 @@ snapshots:
       esbuild: 0.24.2
       magic-string: 0.30.17
       picocolors: 1.1.1
-      vite: 6.2.2(@types/node@22.13.5)(yaml@2.7.0)
+      vite: 6.2.3(@types/node@22.13.5)(yaml@2.7.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -8020,7 +8020,7 @@ snapshots:
       '@jimp/types': 1.6.0
       '@jimp/utils': 1.6.0
 
-  jintr@3.2.1:
+  jintr@3.3.0:
     dependencies:
       acorn: 8.14.0
 
@@ -9458,17 +9458,17 @@ snapshots:
       extsprintf: 1.4.1
     optional: true
 
-  vite-dev-rpc@1.0.7(vite@6.2.2(@types/node@22.13.5)(yaml@2.7.0)):
+  vite-dev-rpc@1.0.7(vite@6.2.3(@types/node@22.13.5)(yaml@2.7.0)):
     dependencies:
       birpc: 2.2.0
-      vite: 6.2.2(@types/node@22.13.5)(yaml@2.7.0)
-      vite-hot-client: 2.0.4(vite@6.2.2(@types/node@22.13.5)(yaml@2.7.0))
+      vite: 6.2.3(@types/node@22.13.5)(yaml@2.7.0)
+      vite-hot-client: 2.0.4(vite@6.2.3(@types/node@22.13.5)(yaml@2.7.0))
 
-  vite-hot-client@2.0.4(vite@6.2.2(@types/node@22.13.5)(yaml@2.7.0)):
+  vite-hot-client@2.0.4(vite@6.2.3(@types/node@22.13.5)(yaml@2.7.0)):
     dependencies:
-      vite: 6.2.2(@types/node@22.13.5)(yaml@2.7.0)
+      vite: 6.2.3(@types/node@22.13.5)(yaml@2.7.0)
 
-  vite-plugin-inspect@11.0.0(vite@6.2.2(@types/node@22.13.5)(yaml@2.7.0)):
+  vite-plugin-inspect@11.0.0(vite@6.2.3(@types/node@22.13.5)(yaml@2.7.0)):
     dependencies:
       ansis: 3.16.0
       debug: 4.4.0
@@ -9478,8 +9478,8 @@ snapshots:
       perfect-debounce: 1.0.0
       sirv: 3.0.1
       unplugin-utils: 0.2.4
-      vite: 6.2.2(@types/node@22.13.5)(yaml@2.7.0)
-      vite-dev-rpc: 1.0.7(vite@6.2.2(@types/node@22.13.5)(yaml@2.7.0))
+      vite: 6.2.3(@types/node@22.13.5)(yaml@2.7.0)
+      vite-dev-rpc: 1.0.7(vite@6.2.3(@types/node@22.13.5)(yaml@2.7.0))
     transitivePeerDependencies:
       - supports-color
 
@@ -9487,7 +9487,7 @@ snapshots:
     dependencies:
       lib-esm: 0.4.2
 
-  vite-plugin-solid@2.11.6(solid-js@1.9.5)(vite@6.2.2(@types/node@22.13.5)(yaml@2.7.0)):
+  vite-plugin-solid@2.11.6(solid-js@1.9.5)(vite@6.2.3(@types/node@22.13.5)(yaml@2.7.0)):
     dependencies:
       '@babel/core': 7.26.9
       '@types/babel__core': 7.20.5
@@ -9495,12 +9495,12 @@ snapshots:
       merge-anything: 5.1.7
       solid-js: 1.9.5
       solid-refresh: 0.6.3(solid-js@1.9.5)
-      vite: 6.2.2(@types/node@22.13.5)(yaml@2.7.0)
-      vitefu: 1.0.6(vite@6.2.2(@types/node@22.13.5)(yaml@2.7.0))
+      vite: 6.2.3(@types/node@22.13.5)(yaml@2.7.0)
+      vitefu: 1.0.6(vite@6.2.3(@types/node@22.13.5)(yaml@2.7.0))
     transitivePeerDependencies:
       - supports-color
 
-  vite@6.2.2(@types/node@22.13.5)(yaml@2.7.0):
+  vite@6.2.3(@types/node@22.13.5)(yaml@2.7.0):
     dependencies:
       esbuild: 0.25.1
       postcss: 8.5.3
@@ -9510,9 +9510,9 @@ snapshots:
       fsevents: 2.3.3
       yaml: 2.7.0
 
-  vitefu@1.0.6(vite@6.2.2(@types/node@22.13.5)(yaml@2.7.0)):
+  vitefu@1.0.6(vite@6.2.3(@types/node@22.13.5)(yaml@2.7.0)):
     optionalDependencies:
-      vite: 6.2.2(@types/node@22.13.5)(yaml@2.7.0)
+      vite: 6.2.3(@types/node@22.13.5)(yaml@2.7.0)
 
   vudio@2.1.1(patch_hash=0e06c2ed11c02bdc490c209fa80070e98517c2735c641f5738b6e15d7dc1959d): {}
 
@@ -9653,10 +9653,10 @@ snapshots:
 
   yocto-queue@0.1.0: {}
 
-  youtubei.js@13.1.0:
+  youtubei.js@13.3.0:
     dependencies:
       '@bufbuild/protobuf': 2.2.3
-      jintr: 3.2.1
+      jintr: 3.3.0
       tslib: 2.8.1
       undici: 5.28.5
 

@@ -222,7 +222,7 @@
   },
   "pnpm": {
     "overrides": {
-      "vite": "6.2.2",
+      "vite": "6.2.3",
       "node-gyp": "11.1.0",
       "xml2js": "0.6.2",
       "node-fetch": "3.3.2",
@@ -301,7 +301,7 @@
     "ts-morph": "25.0.1",
     "vudio": "2.1.1",
     "x11": "2.3.0",
-    "youtubei.js": "13.1.0",
+    "youtubei.js": "13.3.0",
     "zod": "3.24.2"
   },
   "devDependencies": {
@@ -339,7 +339,7 @@
     "typescript": "5.8.2",
     "typescript-eslint": "8.27.0",
     "utf-8-validate": "6.0.5",
-    "vite": "6.2.2",
+    "vite": "6.2.3",
     "vite-plugin-inspect": "11.0.0",
     "vite-plugin-resolve": "2.5.2",
     "vite-plugin-solid": "2.11.6",
