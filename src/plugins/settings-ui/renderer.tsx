@@ -59,13 +59,17 @@ const injectButton = (guide: HTMLElement) => {
   }
 
   const dispose = render(SettingsButton, entry);
-  cleanup[guide.id] = dispose;
+  cleanup[guide.id] = () => {
+    dispose();
+    entry.remove()
+  };
 };
 
 export let getAppVersion = () => Promise.resolve('');
 export let getPlatform = () => Promise.resolve('');
 export let getVersions = () => Promise.resolve({});
 
+// stubs
 export let plugins = {
   enable: (id: string) => {},
   disable: (id: string) => {},

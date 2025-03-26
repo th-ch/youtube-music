@@ -1,17 +1,24 @@
-import { createSignal } from 'solid-js';
+import { createSignal, Show } from 'solid-js';
 import { languageResources } from 'virtual:i18n';
 import { Toggle } from '../Toggle';
 import { Select } from '../Select';
+import { t } from '@/i18n';
+import { getPlatform } from '../../renderer';
 
 // prettier-ignore
 export default () => {
   const languages = Object.keys(languageResources)
     .reduce((acc, lang) => {
-      acc.push({ label: languageResources[lang].translation.language?.name || lang, value: lang });
+      const label = `${languageResources[lang].translation.language?.name ?? 'Unknown'} (${languageResources[lang].translation.language?.['local-name'] ?? 'Unknown'})`
+      acc.push({
+        label,
+        value: lang
+      });
       return acc;
     }, [] as { label: string; value: string; }[]);
 
   const [checkForUpdates, setCheckForUpdates] = createSignal(true);
+  const [startOnLogin, setStartOnLogin] = createSignal(false);
   const [resumeOnStartup, setResumeOnStartup] = createSignal(false);
   const [startingPage, setStartingPage] = createSignal('');
   const [singleInstanceLock, setSingleInstanceLock] = createSignal(true);
@@ -19,12 +26,24 @@ export default () => {
   const [hideMenu, setHideMenu] = createSignal(false);
   const [language, setLanguage] = createSignal('en');
 
-  // TODO: Add tray settings
+  const [platform, setPlatform] = createSignal('');
+  getPlatform().then(setPlatform);
+
+  const t$ = (key: string) => t(`main.menu.options.submenu.${key}`);
 
   return (
     <div class="ytmd-sui-settingsContent">
+      <Show when={platform().startsWith('Windows') || platform().startsWith('macOS')}>
+        <Toggle
+          label={t$('start-at-login')}
+          description="Start youtube-music on login"
+          value={startOnLogin()}
+          toggle={() => setStartOnLogin((old) => !old)}
+        />
+      </Show>
+
       <Select
-        label="Language"
+        label={t$('language.label') + ' (Language)'}
         description="Select the language for the application"
         value={language()}
         options={languages}
@@ -32,7 +51,7 @@ export default () => {
       />
 
       <Select
-        label="Starting page"
+        label={t$('starting-page.label')}
         description="Select which page to show when the application starts"
         value={startingPage()}
         options={[
@@ -58,39 +77,41 @@ export default () => {
       />
 
       <Toggle
-        label="Check for updates"
+        label={t$('auto-update')}
         description="Automatically get notified about new versions"
         value={checkForUpdates()}
         toggle={() => setCheckForUpdates((old) => !old)}
       />
 
       <Toggle
-        label="Resume on Startup"
+        label={t$('resume-on-start')}
         description="Resume last song when app starts"
         value={resumeOnStartup()}
         toggle={() => setResumeOnStartup((old) => !old)}
       />
 
       <Toggle
-        label="Single instance lock"
+        label={t$('single-instance-lock')}
         description="Prevent multiple instances of the application running at the same time"
         value={singleInstanceLock()}
         toggle={() => setSingleInstanceLock((old) => !old)}
       />
 
       <Toggle
-        label="Always on top"
+        label={t$('always-on-top')}
         description="Keep the application window on top of other windows"
         value={alwaysOnTop()}
         toggle={() => setAlwaysOnTop((old) => !old)}
       />
 
-      <Toggle
-        label="Hide Menu"
-        description="Hide the menu bar"
-        value={hideMenu()}
-        toggle={() => setHideMenu((old) => !old)}
-      />
+      <Show when={platform().startsWith('Windows') || platform().startsWith('Linux')}>
+        <Toggle
+          label={t$('hide-menu.label')}
+          description="Hide the menu bar"
+          value={hideMenu()}
+          toggle={() => setHideMenu((old) => !old)}
+        />
+      </Show>
     </div>
   );
 };

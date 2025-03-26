@@ -12,6 +12,7 @@ export default () => {
     reset app cache when app starts
     toggle dev tools
     edit config.json
+    tray settings
   */
 
   return (
