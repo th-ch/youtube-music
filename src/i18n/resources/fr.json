@@ -683,6 +683,7 @@
         "listenbrainz": {
           "token": "Entrer le token utilisateur de ListenBrainz"
         },
+        "scrobble-alternative-title": "Utiliser des titres alternatifs",
         "scrobble-other-media": "Scrobbler d'autres médias"
       },
       "name": "Scrobble",
@@ -767,6 +768,10 @@
           "label": "Rend les paroles parfaitement synchronisées",
           "tooltip": "Calcul à la milliseconde près l'affichage de la ligne suivante (peut avoir un faible impact sur les performances)"
         },
+        "romanization": {
+          "label": "Romaniser les paroles",
+          "tooltip": "Si les paroles sont dans une autre langue, essayez de les afficher dans une version latine."
+        },
         "show-lyrics-even-if-inexact": {
           "label": "Afficher les paroles même si inexactes",
           "tooltip": "Si la musique n'est pas trouvé, le plugin essaye à nouveau avec une différence requête.\nLe résultat du deuxième essais peut ne pas être exacte."
@@ -798,6 +803,10 @@
     "tuna-obs": {
       "description": "Intégration avec le plugin OBS Tuna",
       "name": "Tuna OBS"
+    },
+    "unobtrusive-player": {
+      "description": "Empêche le lecteur de s'afficher quand un chanson est en lecture",
+      "name": "Lecteur Non-Intrusif"
     },
     "video-toggle": {
       "description": "Ajoute un bouton pour basculer entre le mode Vidéo/Chanson. peut également supprimer tout l'onglet vidéo",
