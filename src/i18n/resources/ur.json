@@ -125,10 +125,80 @@
             "dialog": {
               "message": "دوبارہ شروع کرنے کے بعد زبان بدل دی جائے گی",
               "title": "زبان بدل گئی ہے"
+            },
+            "label": "زبان",
+            "submenu": {
+              "to-help-translate": "ترجمہ میں مدد کرنا چاہتے ہیں؟ یہاں دبائیں"
+            }
+          },
+          "resume-on-start": "ایپ شروع ہونے پر آخری گانا دوبارہ شروع کریں",
+          "single-instance-lock": "ایک واحد مثال لاک",
+          "start-at-login": "لاگ ان پر شروع کریں",
+          "starting-page": {
+            "label": "شروعاتی صفحہ",
+            "unset": "غیر متعین"
+          },
+          "tray": {
+            "label": "سسٹم ٹرے",
+            "submenu": {
+              "disabled": "غیر فعال",
+              "enabled-and-hide-app": "فعال اور ایپ کو چھپائیں",
+              "enabled-and-show-app": "فعال اور ایپ دکھائیں",
+              "play-pause-on-click": "دبانے پر چلائیں/روکیں"
+            }
+          },
+          "visual-tweaks": {
+            "label": "بصری تبدیلیاں",
+            "submenu": {
+              "like-buttons": {
+                "default": "پہلے سے طے شدہ",
+                "force-show": "زبردستی دکھائیں",
+                "hide": "چھپائیں",
+                "label": "لائیک بٹن"
+              },
+              "remove-upgrade-button": "اپ گریڈ بٹن ہٹائیں",
+              "theme": {
+                "dialog": {
+                  "button": {
+                    "cancel": "منسوخ کریں",
+                    "remove": "ہٹائیں"
+                  },
+                  "remove-theme": "کیا آپ واقعی کسٹم تھیم کو ہٹانا چاہتے ہیں؟",
+                  "remove-theme-message": "یہ کسٹم تھیم کو ہٹا دے گا"
+                },
+                "label": "تھیم",
+                "submenu": {
+                  "import-css-file": "کسٹم CSS فائل درآمد کریں",
+                  "no-theme": "کوئی تھیم نہیں"
+                }
+              }
             }
           }
         }
+      },
+      "plugins": {
+        "enabled": "فعال",
+        "label": "پلگ انز",
+        "new": "نیا"
+      },
+      "view": {
+        "label": "دیکھیں",
+        "submenu": {
+          "force-reload": "زبردستی دوبارہ لوڈ کریں",
+          "reload": "دوبارہ لوڈ کریں",
+          "reset-zoom": "اصل سائز",
+          "toggle-fullscreen": "پوری سکرین ٹوگل کریں",
+          "zoom-in": "زوم ان کریں",
+          "zoom-out": "زوم آؤٹ کریں"
+        }
       }
+    },
+    "tray": {
+      "next": "اگلا",
+      "play-pause": "چلائیں/روکیں",
+      "previous": "پچھلا",
+      "quit": "باہر نکلیں",
+      "restart": "ایپ دوبارہ شروع کریں"
     }
   }
 }
