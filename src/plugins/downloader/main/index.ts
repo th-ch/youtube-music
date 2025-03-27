@@ -57,11 +57,11 @@ let playingUrl: string;
 
 const isYouTubeMusicPremium = async () => {
   // If signed out, it is understood as non-premium
-  const signInButton = (await win.webContents.executeJavaScript(
-    'document.querySelector("#sign-in-button")',
-  )) as HTMLElement | null;
+  const isSignedIn = (await win.webContents.executeJavaScript(
+    'yt.config_.LOGGED_IN',
+  )) as boolean;
 
-  if (signInButton) return false;
+  if (!isSignedIn) return false;
 
   // If signed in, check if the upgrade button is present
   const upgradeBtnIconPathData = (await win.webContents.executeJavaScript(
