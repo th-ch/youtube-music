@@ -683,6 +683,7 @@
         "listenbrainz": {
           "token": "Insira o token de usuário ListenBrainz"
         },
+        "scrobble-alternative-title": "Usar títulos alternativos",
         "scrobble-other-media": "Scrobble outras mídias"
       },
       "name": "Scrobbler",
@@ -767,6 +768,10 @@
           "label": "Deixa as letras perfeitamente sincronizadas",
           "tooltip": "Calcular até o milissegundo a exibição da próxima linha (pode ter um pequeno impacto no desempenho)"
         },
+        "romanization": {
+          "label": "Letras romanizadas",
+          "tooltip": "Se as letras estiverem em um idioma diferente, tente exibir uma versão latina."
+        },
         "show-lyrics-even-if-inexact": {
           "label": "Mostrar letras mesmo que não sejam exatas",
           "tooltip": "Se a música não for encontrada, o plugin tenta novamente com uma consulta de pesquisa diferente.\nO resultado da segunda tentativa pode não ser exato."
@@ -798,6 +803,10 @@
     "tuna-obs": {
       "description": "Integração com o plugin Tuna do OBS",
       "name": "Tuna OBS"
+    },
+    "unobtrusive-player": {
+      "description": "Evita que o player apareça ao tocar uma música",
+      "name": "Player discreto"
     },
     "video-toggle": {
       "description": "Adiciona um botão para alternar entre o modo Vídeo/Música. Também é possível remover opcionalmente toda a aba de vídeo",

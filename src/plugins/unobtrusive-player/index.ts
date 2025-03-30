@@ -48,6 +48,7 @@ const handleVideoDataChange = () => {
 export default createPlugin({
   name: () => t('plugins.unobtrusive-player.name'),
   description: () => t('plugins.unobtrusive-player.description'),
+  addedVersion: '3.8.x',
   restartNeeded: false,
   config: {
     enabled: false,

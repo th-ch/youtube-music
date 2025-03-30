@@ -199,7 +199,11 @@
       "previous": "上一首",
       "quit": "退出",
       "restart": "重启应用",
-      "show": "显示窗口"
+      "show": "显示窗口",
+      "tooltip": {
+        "default": "YouTube Music",
+        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
+      }
     }
   },
   "plugins": {
@@ -277,6 +281,7 @@
     },
     "amuse": {
       "description": "为 6K Labs 的 Amuse 正在播放小部件添加 YouTube Music 支持",
+      "name": "Amuse",
       "response": {
         "query": "Amuse API服务器已在运行。使用 /query 以获取歌曲信息。"
       }
@@ -678,6 +683,7 @@
         "listenbrainz": {
           "token": "输入 ListenBrainz 用户令牌"
         },
+        "scrobble-alternative-title": "使用替代标题",
         "scrobble-other-media": "记录其他媒体文件"
       },
       "name": "歌曲记录器",
@@ -728,7 +734,7 @@
     "synced-lyrics": {
       "description": "透过 LRClib 等服务提供滚动歌词显示。",
       "errors": {
-        "fetch": "⚠️ - 获取歌词时发生错误。请稍后再试。",
+        "fetch": "⚠️ 获取歌词时发生错误。\n 请稍后再试。",
         "not-found": "⚠️ 未找到此歌曲的歌词。"
       },
       "menu": {
@@ -739,6 +745,10 @@
         "line-effect": {
           "label": "歌词行特效",
           "submenu": {
+            "fancy": {
+              "label": "Fancy",
+              "tooltip": "在当前行上使用大的、类似应用的效果"
+            },
             "focus": {
               "label": "高亮",
               "tooltip": "仅将当前歌词行显示为白色"
@@ -757,6 +767,10 @@
         "precise-timing": {
           "label": "让滚动歌词完全同步",
           "tooltip": "以毫秒精度估算下句歌词的显示时间（可能对性能有小幅影响）"
+        },
+        "romanization": {
+          "label": "将歌词罗马化",
+          "tooltip": "如果歌词以不同语言显示，试着展示拉丁字母版本。"
         },
         "show-lyrics-even-if-inexact": {
           "label": "即使时值不精确依然显示歌词",
@@ -789,6 +803,10 @@
     "tuna-obs": {
       "description": "与 OBS 的 Tuna 插件集成",
       "name": "Tuna OBS"
+    },
+    "unobtrusive-player": {
+      "description": "防止播放器在播放歌曲时弹出",
+      "name": "非侵扰式播放器"
     },
     "video-toggle": {
       "description": "增加视频/音频模式间的切换按钮。兼具移除整个视频页面的功能",

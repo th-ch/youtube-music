@@ -584,6 +584,10 @@
         "save-window-position": "I-save ang posisyon ng window",
         "save-window-size": "I-save ang laki ng window",
         "use-native-pip": "Gamitin ang browser native na PiP"
+      },
+      "name": "Picture-na-picture",
+      "templates": {
+        "button": "Picture-na-picture"
       }
     },
     "playback-speed": {
@@ -641,6 +645,7 @@
         "listenbrainz": {
           "token": "Ilagay ang user token ng ListenBrainz"
         },
+        "scrobble-alternative-title": "Gumamit ng alternatibong mga title",
         "scrobble-other-media": "Mag-Scrobble ng ibang media"
       },
       "prompt": {
@@ -719,6 +724,10 @@
           "label": "Gawing perpektong naka-sync ang lyrics",
           "tooltip": "Kalkulahin sa millisecond ang pagpapakita ng susunod na linya (maaaring magkaroon ng maliit na epekto sa performance)"
         },
+        "romanization": {
+          "label": "I-romanize ang lyrics",
+          "tooltip": "Kung ang lyrics ay nasa ibang wika, subukang magpakita ng latin na bersyon."
+        },
         "show-lyrics-even-if-inexact": {
           "label": "Ipakita ang lyrics kahit di-eksakto",
           "tooltip": "Kung hindi matagpuan ang kanta, susubukan muli ng plugin gamit ang ibang query sa paghahanap.\nAng resulta mula sa pangalawang pagsubok ay maaaring hindi eksakto."
@@ -728,6 +737,7 @@
           "tooltip": "Ipakita ang mga time code kasunod sa lyrics"
         }
       },
+      "name": "Pag-sync ng Lyrics",
       "refetch-btn": {
         "fetching": "Nag-fe-fetch...",
         "normal": "I-fetch muli ang lyrics"
@@ -747,10 +757,15 @@
     "tuna-obs": {
       "description": "Integrasyon kasama ang Tuna na OBS plugin"
     },
+    "unobtrusive-player": {
+      "description": "Pinipigilan ang player na mag-pop up kapag nagpe-play ng kanta",
+      "name": "Hindi mapanghimasok na Player"
+    },
     "video-toggle": {
       "description": "Idaragdag ng button na magpalit sa Video/Kanta na mode. maaari ding opsyonal na alisin ang tab ng video",
       "menu": {
         "align": {
+          "label": "Pag-align",
           "submenu": {
             "left": "Kaliwa",
             "middle": "Gitna",

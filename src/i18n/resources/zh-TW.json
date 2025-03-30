@@ -683,7 +683,7 @@
         "listenbrainz": {
           "token": "輸入 ListenBrainz 使用者憑證"
         },
-        "scrobble-alternative-title": "使用另類歌曲標題",
+        "scrobble-alternative-title": "使用替代歌曲標題",
         "scrobble-other-media": "紀錄其他媒體文件"
       },
       "name": "Scrobbler",
@@ -768,6 +768,10 @@
           "label": "使歌詞完美同步",
           "tooltip": "更精確的計算下一行歌詞的顯示(將會降低些許效能)"
         },
+        "romanization": {
+          "label": "羅馬拼音化歌詞",
+          "tooltip": "如果歌詞使用不同語言，嘗試使用拉丁文顯示。"
+        },
         "show-lyrics-even-if-inexact": {
           "label": "即使不精確依然強制顯示歌詞",
           "tooltip": "當找不到符合該歌曲的歌詞時，該功能會嘗試不同的搜尋方式。\n使用不同的搜尋方式會導致不精確的結果。"
@@ -799,6 +803,10 @@
     "tuna-obs": {
       "description": "與 OBS 的 Tuna 外掛連接",
       "name": "Tuna OBS"
+    },
+    "unobtrusive-player": {
+      "description": "防止播放器介面在點擊歌曲後彈出",
+      "name": "低干擾播放器介面"
     },
     "video-toggle": {
       "description": "新增一個按鈕可以控制影片／歌曲切換和完全移除整個影片頁面的功能",

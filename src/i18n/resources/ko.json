@@ -683,6 +683,7 @@
         "listenbrainz": {
           "token": "ListenBrainz 유저 토큰 입력"
         },
+        "scrobble-alternative-title": "대체 제목 사용하기",
         "scrobble-other-media": "다른 미디어 스크로블하기"
       },
       "name": "스크로블러",
@@ -767,6 +768,10 @@
           "label": "가사를 최대한 정교하게 동기화",
           "tooltip": "다음 줄의 표시를 밀리초 단위로 계산합니다 (성능에 약간의 영향을 미칠 수 있음)"
         },
+        "romanization": {
+          "label": "가사 로마자 변환",
+          "tooltip": "가사가 영어가 아닌 언어로 되어있는 경우, 로마자 표기를 표시합니다."
+        },
         "show-lyrics-even-if-inexact": {
           "label": "가사가 정확하지 않더라도 표시",
           "tooltip": "노래를 찾을 수 없는 경우, 플러그인이 다른 검색어로 다시 검색합니다.\n두번째 검색 결과는 정확하지 않을 수 있습니다."
@@ -798,6 +803,10 @@
     "tuna-obs": {
       "description": "OBS의 확장인 Tuna와의 통합을 활성화합니다",
       "name": "Tuna OBS"
+    },
+    "unobtrusive-player": {
+      "description": "노래 재생 중 플레이어가 팝업되는 것을 방지합니다",
+      "name": "플레이어 방해 금지"
     },
     "video-toggle": {
       "description": "영상/노래 모드를 전환하는 버튼을 추가합니다. 선택적으로 전체 영상 탭을 제거할 수도 있습니다",
