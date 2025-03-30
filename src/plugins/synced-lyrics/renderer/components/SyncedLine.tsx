@@ -15,8 +15,12 @@ import {
 } from '../utils';
 
 import type { LineLyrics } from '../../types';
+import { VirtualizerHandle } from 'virtua/solid';
 
 interface SyncedLineProps {
+  scroller: VirtualizerHandle;
+  index: number;
+
   line: LineLyrics;
   hasJapanese: boolean;
   hasKorean: boolean;
@@ -31,10 +35,12 @@ export const SyncedLine = (props: SyncedLineProps) => {
     return 'current';
   });
 
-  let ref: HTMLDivElement | undefined;
   createEffect(() => {
     if (status() === 'current') {
-      ref?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      props.scroller.scrollToIndex(props.index, {
+        smooth: true,
+        align: 'center',
+      });
     }
   });
 
@@ -75,7 +81,6 @@ export const SyncedLine = (props: SyncedLineProps) => {
 
   return (
     <div
-      ref={ref}
       class={`synced-line ${status()}`}
       onClick={() => {
         _ytAPI?.seekTo(props.line.timeInMs / 1000);
@@ -97,10 +102,10 @@ export const SyncedLine = (props: SyncedLineProps) => {
             div.style.setProperty(
               '--lyrics-duration',
               `${props.line.duration / 1000}s`,
-              'important',
+              'important'
             );
           }}
-          style={{ 'display': 'flex', 'flex-direction': 'column' }}
+          style={{ display: 'flex', 'flex-direction': 'column' }}
         >
           <span>
             <For each={text().split(' ')}>

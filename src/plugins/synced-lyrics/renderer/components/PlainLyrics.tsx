@@ -9,6 +9,7 @@ import {
   simplifyUnicode,
 } from '../utils';
 import { config } from '../renderer';
+import { VList } from 'virtua/solid';
 
 interface PlainLyricsProps {
   lyrics: string;
@@ -54,7 +55,7 @@ export const PlainLyrics = (props: PlainLyricsProps) => {
 
   return (
     <div class="plain-lyrics">
-      <For each={combinedLines()}>
+      <VList data={combinedLines()}>
         {([line, romanized]) => {
           return (
             <div
@@ -62,7 +63,7 @@ export const PlainLyrics = (props: PlainLyricsProps) => {
                 line.match(/^\[.+\]$/s) ? 'lrc-header' : ''
               } text-lyrics description ytmusic-description-shelf-renderer`}
               style={{
-                'display': 'flex',
+                display: 'flex',
                 'flex-direction': 'column',
               }}
             >
@@ -87,7 +88,7 @@ export const PlainLyrics = (props: PlainLyricsProps) => {
             </div>
           );
         }}
-      </For>
+      </VList>
     </div>
   );
 };
