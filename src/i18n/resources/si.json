@@ -21,7 +21,7 @@
   "main": {
     "console": {
       "did-finish-load": {
-        "dev-tools": "පූරණය සම්පුර්නි. ඩෙව්ටූල්ස් ඇරිලා"
+        "dev-tools": "පූරණය කිරීම සම්පූර්ණයි. DevTools විවෘත කළා"
       },
       "i18n": {
         "loaded": "i18n පූරණය කර ඇත"
@@ -30,27 +30,30 @@
         "receive-command": "ප්‍රෝටෝකාල් හරහා විධානය ලැබුණි: \"{{command}}\""
       },
       "theme": {
-        "css-file-not-found": "සීඑස්එස් ගොනුව \"{{cssFile}}\" නොපවතී, නොසලකා හැරීම"
+        "css-file-not-found": "css ගොනුව \"{{cssFile}}\" නොපවතී, නොසලකා හරී"
       },
       "unresponsive": {
-        "details": "ප්‍රතිචාර නොදක්වන දෝෂයක්\n{{error}}"
+        "details": "ප්‍රතිචාර නොදක්වයි, දෝෂයක්\n{{error}}"
       },
       "when-ready": {
-        "clearing-cache-after-20s": "යෙදුම් කෑශ් නිදහස් කරමින්"
+        "clearing-cache-after-20s": "යෙදුමේ කෑශ් මකමින්"
+      },
+      "window": {
+        "tried-to-render-offscreen": "වින්ඩෝව තිරයෙන් පිටත පෙන්වීමට උත්සාහ කළේය, වින්ඩෝවේ ප්‍රමාණය={{windowSize}}, තිරයෙ ප්‍රමාණය={{displaySize}}, පිහිටීම={{position}}"
       }
     },
     "dialog": {
       "hide-menu-enabled": {
         "detail": "මෙනුව සැගවී ඇත, නැවත පෙන්වීමට 'Alt' යතුර භාවිතා කරන්න. (හෝ In-App මෙනුවේ 'Escape')",
-        "message": "මෙනුව සැගවීම සාර්තකයි",
+        "message": "මෙනුව සැගවීම සාර්ථක යි",
         "title": "මෙනුව සැගවීම සක්‍රීයයි"
       },
       "need-to-restart": {
         "buttons": {
           "later": "පසුව",
-          "restart-now": "යෙදුම වසා නැවත ආරම්භ කරන්න"
+          "restart-now": "නැවත ආරම්භ කරන්න"
         },
-        "detail": "\"{{pluginName}}\" ප්ලගිනය  යෙදුම නැවත ආරම්භ  කිරීමක් ඉල්ලයි",
+        "detail": "\"{{pluginName}}\" ප්ලගිනය ක්‍රියාත්මක වීමට නැවත ආරම්භ කිරීමක් අවශ්‍යයි",
         "message": "\"{{pluginName}}\" නැවත ආරම්භ කළ යුතුය",
         "title": "නැවත ආරම්භ කිරීම අවශ්‍යයි"
       },
@@ -66,7 +69,7 @@
       },
       "update-available": {
         "buttons": {
-          "disable": "යාවත්කාලීන කිරීම් නවතන්න",
+          "disable": "යාවත්කාලීන කිරීම් නවත්වන්න",
           "download": "බාගත කිරීම",
           "ok": "හරි"
         },
