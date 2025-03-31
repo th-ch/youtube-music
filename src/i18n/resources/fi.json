@@ -297,7 +297,12 @@
           "label": "Portti"
         }
       },
-      "name": "API Serveri [Beta]"
+      "name": "API Serveri [Beta]",
+      "prompt": {
+        "port": {
+          "title": "Portti"
+        }
+      }
     },
     "audio-compressor": {
       "description": "Lisää äänen kompressointia (hiljentää voimakkaimpien äänien voimakkuutta ja tehostaa pehmeämpien äänien voimakkuutta)",
@@ -431,6 +436,15 @@
       "description": "Lataa MP3- tai lähdetiedoston suoraan käyttöliittymästä",
       "menu": {
         "choose-download-folder": "Valitse latauskansio",
+        "download-finish-settings": {
+          "prompt": {
+            "last-seconds": "Viimeiset x sekuntia"
+          },
+          "submenu": {
+            "enabled": "Päällä",
+            "percent": "Prosentti"
+          }
+        },
         "download-playlist": "Lataa soittolista",
         "presets": "Esiasetukset",
         "skip-existing": "Ohita olemassa olevat tiedostot"
@@ -583,6 +597,46 @@
             "increase": "Lisää äänenvoimakkuutta"
           },
           "label": "Valitse yleiset äänenvoimakkuuden pikanäppäimet:"
+        }
+      }
+    },
+    "quality-changer": {
+      "backend": {
+        "dialog": {
+          "quality-changer": {
+            "detail": "Nykyinen laatu: {{quality}}"
+          }
+        }
+      }
+    },
+    "scrobbler": {
+      "dialog": {
+        "lastfm": {
+          "auth-failed": {
+            "title": "Todennus epäonnistui"
+          }
+        }
+      }
+    },
+    "shortcuts": {
+      "prompt": {
+        "keybind": {
+          "keybind-options": {
+            "previous": "Edellinen"
+          }
+        }
+      }
+    },
+    "tuna-obs": {
+      "name": "Tuna OBS"
+    },
+    "video-toggle": {
+      "menu": {
+        "align": {
+          "submenu": {
+            "left": "Vasen",
+            "right": "Oikea"
+          }
         }
       }
     }
