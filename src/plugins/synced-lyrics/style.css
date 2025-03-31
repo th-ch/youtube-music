@@ -6,6 +6,7 @@
 #tab-renderer[page-type='MUSIC_PAGE_TYPE_TRACK_LYRICS']
   > #synced-lyrics-container {
   display: block !important;
+  height: 100%;
 }
 
 /* Hide the scrollbar in the lyrics-tab */
@@ -61,6 +62,7 @@
 
 .lyric-container {
   padding-top: 16px;
+  height: 100%;
 }
 
 .description {
@@ -82,18 +84,22 @@
   }
 }
 
-.plain-lyrics .romaji {
-  color: var(--ytmusic-text-secondary) !important;
-  font-size: calc(var(--lyrics-font-size) * 0.7) !important;
-  font-style: italic !important;
-}
+.plain-lyrics {
+  height: 100%;
 
-.plain-lyrics .lrc-header {
-  color: var(--ytmusic-color-grey5) !important;
-  scale: 0.9;
-  height: fit-content;
-  padding: 0;
-  padding-block: 0.2em;
+  & .romaji {
+    color: var(--ytmusic-text-secondary) !important;
+    font-size: calc(var(--lyrics-font-size) * 0.7) !important;
+    font-style: italic !important;
+  }
+
+  & .lrc-header {
+    color: var(--ytmusic-color-grey5) !important;
+    scale: 0.9;
+    height: fit-content;
+    padding: 0;
+    padding-block: 0.2em;
+  }
 }
 
 .synced-lyrics {
@@ -147,6 +153,7 @@
 .lyrics-renderer {
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 .lyrics-picker {

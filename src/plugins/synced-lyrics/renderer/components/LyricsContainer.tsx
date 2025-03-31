@@ -1,4 +1,4 @@
-import { createEffect, createSignal, For, Match, Show, Switch } from 'solid-js';
+import { createEffect, createSignal, Match, Show, Switch } from 'solid-js';
 
 import { SyncedLine } from './SyncedLine';
 
@@ -8,6 +8,7 @@ import { PlainLyrics } from './PlainLyrics';
 
 import { hasJapaneseInString, hasKoreanInString } from '../utils';
 import { currentLyrics, lyricsStore } from '../../providers';
+import { VirtualizerHandle, VList } from 'virtua/solid';
 
 export const [debugInfo, setDebugInfo] = createSignal<string>();
 export const [currentTime, setCurrentTime] = createSignal<number>(-1);
@@ -16,6 +17,7 @@ export const [currentTime, setCurrentTime] = createSignal<number>(-1);
 export const LyricsContainer = () => {
   const [hasJapanese, setHasJapanese] = createSignal<boolean>(false);
   const [hasKorean, setHasKorean] = createSignal<boolean>(false);
+  const [scroller, setScroller] = createSignal<VirtualizerHandle>();
 
   createEffect(() => {
     const data = currentLyrics()?.data;
@@ -56,9 +58,11 @@ export const LyricsContainer = () => {
 
       <Switch>
         <Match when={currentLyrics().data?.lines}>
-          <For each={currentLyrics().data?.lines}>
-            {(item) => <SyncedLine line={item} hasJapanese={hasJapanese()} hasKorean={hasKorean()} />}
-          </For>
+          <VList ref={setScroller} data={currentLyrics().data!.lines!} style={{ 'scrollbar-width': 'none' }}>
+            {(item, idx) => (
+              <SyncedLine scroller={scroller()!} index={idx} line={item} hasJapanese={hasJapanese()} hasKorean={hasKorean()} />
+            )}
+          </VList>
         </Match>
 
         <Match when={currentLyrics().data?.lyrics}>
