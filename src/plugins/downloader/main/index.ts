@@ -58,7 +58,7 @@ let playingUrl: string;
 const isYouTubeMusicPremium = async () => {
   // If signed out, it is understood as non-premium
   const isSignedIn = (await win.webContents.executeJavaScript(
-    'yt.config_.LOGGED_IN',
+    '!!yt.config_.LOGGED_IN',
   )) as boolean;
 
   if (!isSignedIn) return false;
