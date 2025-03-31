@@ -29,35 +29,35 @@ import { allPlugins, mainPlugins } from 'virtual:plugins';
 
 import { languageResources } from 'virtual:i18n';
 
-import config from '@/config';
+import config, { Config } from './config/default';
 
-import { refreshMenu, setApplicationMenu } from '@/menu';
-import { fileExists, injectCSS, injectCSSAsFile } from '@/plugins/utils/main';
-import { isTesting } from '@/utils/testing';
-import { setUpTray } from '@/tray';
-import { setupSongInfo } from '@/providers/song-info';
-import { restart, setupAppControls } from '@/providers/app-controls';
+import { refreshMenu, setApplicationMenu } from './menu';
+import { fileExists, injectCSS, injectCSSAsFile } from './plugins/utils/main';
+import { isTesting } from 'utils/testing';
+import { setUpTray } from 'tray';
+import { setupSongInfo } from 'providers/song-info';
+import { restart, setupAppControls } from 'providers/app-controls';
 import {
   APP_PROTOCOL,
   handleProtocol,
   setupProtocolHandler,
-} from '@/providers/protocol-handler';
+} from 'providers/protocol-handler';
 
-import youtubeMusicCSS from '@/youtube-music.css?inline';
+import youtubeMusicCSS from 'youtube-music.css?inline';
 
 import {
   forceLoadMainPlugin,
   forceUnloadMainPlugin,
   getAllLoadedMainPlugins,
   loadAllMainPlugins,
-} from '@/loader/main';
+} from 'loader/main';
 
-import { LoggerPrefix } from '@/utils';
-import { loadI18n, setLanguage, t } from '@/i18n';
+import { LoggerPrefix } from 'utils';
+import { loadI18n, setLanguage, t } from 'i18n';
 
 import ErrorHtmlAsset from '@assets/error.html?asset';
 
-import type { PluginConfig } from '@/types/plugins';
+import type { PluginConfig } from 'types/plugins';
 
 if (!is.macOS()) {
   delete allPlugins['touchbar'];
@@ -177,7 +177,7 @@ const initHook = (win: BrowserWindow) => {
     config.setPartial(`plugins.${name}`, obj, allPlugins[name].config),
   );
 
-  config.watch((newValue, oldValue) => {
+config.watch((newValue: Config, oldValue: Config) => {
     const newPluginConfigList = (newValue?.plugins ?? {}) as Record<
       string,
       unknown
@@ -298,6 +298,23 @@ function initTheme(win: BrowserWindow) {
       win.webContents.openDevTools();
     }
   });
+}
+
+// Function to open the default browser for login
+function openBrowserLogin() {
+    const loginUrl = 'https://accounts.google.com/o/oauth2/auth?client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&response_type=token&scope=email'; // Replace with actual login URL
+    shell.openExternal(loginUrl);
+    
+    // Handle the redirect back to the app
+    ipcMain.handle('handle-login-redirect', (event, hash) => {
+        const params = new URLSearchParams(hash.substring(1));
+        const accessToken = params.get('access_token');
+        if (accessToken) {
+            // Store the access token and proceed with the app logic
+            console.log('Access Token:', accessToken);
+            // You can add logic here to handle the successful login
+        }
+    });
 }
 
 async function createMainWindow() {
