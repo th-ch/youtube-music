@@ -207,6 +207,10 @@
     }
   },
   "plugins": {
+    "ad-speedup": {
+      "description": "Jos mainos toistuu, mykistä ääni ja aseta toistonopeus 16x:een",
+      "name": "Mainoksen nopeutus"
+    },
     "adblocker": {
       "description": "Estä kaikki mainokset ja seuranta",
       "menu": {
@@ -275,6 +279,9 @@
       },
       "name": "Tunnelmallinen Tila"
     },
+    "amuse": {
+      "description": "Lisää YouTube Music tuen Amusen nyt soitetaan -widgetille, kehittäjänä 6K Labs"
+    },
     "api-server": {
       "description": "Lisää API-palvelimen hallitsemaan soitinta",
       "dialog": {
@@ -282,7 +289,9 @@
           "buttons": {
             "allow": "Hyväksy",
             "deny": "Kiellä"
-          }
+          },
+          "message": "Sallitaanko {{ID}} ({{origin}}) pääsy API:in?",
+          "title": "API vahvistuspyyntö"
         }
       },
       "menu": {
