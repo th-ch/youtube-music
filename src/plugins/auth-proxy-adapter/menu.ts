@@ -52,7 +52,7 @@ export const onMenu = async ({
               label: t('plugins.auth-proxy-adapter.prompt.port.label'),
               value: config.port,
               type: 'counter',
-              counterOptions: { minimum: 0, maximum: 65565 },
+              counterOptions: { minimum: 0, maximum: 65535 },
               width: 380,
               ...promptOptions(),
             },
