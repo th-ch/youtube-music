@@ -36,7 +36,7 @@
         "details": "ප්‍රතිචාර නොදක්වයි, දෝෂයක්\n{{error}}"
       },
       "when-ready": {
-        "clearing-cache-after-20s": "යෙදුමේ කෑශ් මකමින්"
+        "clearing-cache-after-20s": "යෙදුමේ දත්ත සංචිතය හිස් කරමින්"
       },
       "window": {
         "tried-to-render-offscreen": "වින්ඩෝව තිරයෙන් පිටත පෙන්වීමට උත්සාහ කළේය, වින්ඩෝවේ ප්‍රමාණය={{windowSize}}, තිරයෙ ප්‍රමාණය={{displaySize}}, පිහිටීම={{position}}"
@@ -45,7 +45,7 @@
     "dialog": {
       "hide-menu-enabled": {
         "detail": "මෙනුව සැගවී ඇත, නැවත පෙන්වීමට 'Alt' යතුර භාවිතා කරන්න. (හෝ In-App මෙනුවේ 'Escape')",
-        "message": "මෙනුව සැගවීම සාර්ථක යි",
+        "message": "මෙනුව සැගවීම සක්‍රීය කර ඇත",
         "title": "මෙනුව සැගවීම සක්‍රීයයි"
       },
       "need-to-restart": {
@@ -69,8 +69,8 @@
       },
       "update-available": {
         "buttons": {
-          "disable": "යාවත්කාලීන කිරීම් නවත්වන්න",
-          "download": "බාගත කිරීම",
+          "disable": "යාවත්කාලීන කිරීම් අක්‍රිය කරන්න",
+          "download": "බාගත කරන්න",
           "ok": "හරි"
         },
         "detail": "නව අනුවාදයක් ඇති අතර එය මෙයින් බාගන්න {{downloadLink}}",
