@@ -670,6 +670,7 @@
         "listenbrainz": {
           "token": "Nhập mã người dùng ListenBrainz"
         },
+        "scrobble-alternative-title": "Dùng tiêu đề thay thế",
         "scrobble-other-media": "Scrobber nội dung khác"
       },
       "name": "Scrobbler",
@@ -720,8 +721,8 @@
     "synced-lyrics": {
       "description": "Cung cấp lời bài hát được đồng bộ hoá với các bài hát, sử dụng những nhà cung cấp như LRClib.",
       "errors": {
-        "fetch": "⚠️ - Đã xảy ra lỗi khi tìm lời bài hát, Vui lòng thử lại sau.",
-        "not-found": "⚠️ - Không tìm thấy lời cho bài hát này."
+        "fetch": "⚠️\t\tĐã xảy ra lỗi khi tìm lời bài hát.\n\tVui lòng thử lại sau.",
+        "not-found": "⚠️ Không tìm thấy lời cho bài hát này."
       },
       "menu": {
         "default-text-string": {
@@ -731,6 +732,9 @@
         "line-effect": {
           "label": "Kiểu đường thẳng",
           "submenu": {
+            "fancy": {
+              "label": "Màu mè"
+            },
             "focus": {
               "label": "Tập trung",
               "tooltip": "Chỉ làm cho dòng hiện tại có màu trắng"
