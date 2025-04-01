@@ -53,7 +53,19 @@
           "quit": "Välju",
           "relaunch": "Käivita uuesti",
           "wait": "Oota"
-        }
+        },
+        "detail": "Vabandame ebamugavuste pärast! Palun vali kuidas jätkata:",
+        "message": "Rakendus ei vasta ega reageeri",
+        "title": "Aken ei vasta ega reageeri"
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "Lülita uuendused välja",
+          "download": "Laadi alla",
+          "ok": "Sobib"
+        },
+        "detail": "Saadaval on uus versioon, ning seda saad alla laadida siit {{downloadLink}}",
+        "message": "Uus versioon on saadaval"
       }
     },
     "menu": {
@@ -147,6 +159,23 @@
     },
     "navigation": {
       "name": "Liikumine"
+    },
+    "no-google-login": {
+      "description": "Eemalda kasutajaliidesest Google'i sisselogimisnupud",
+      "name": "Elu ilma Google'i sisselogimiseta"
+    },
+    "quality-changer": {
+      "backend": {
+        "dialog": {
+          "quality-changer": {
+            "detail": "Praegune kvaliteet: {{quality}}",
+            "message": "Vali video kvaliteet:",
+            "title": "Videokvaliteedi valik"
+          }
+        }
+      },
+      "description": "Võimaldab muuta video kvaliteeti nupust, mis asub video ülekattes",
+      "name": "Videokvaliteedi muutja"
     },
     "scrobbler": {
       "description": "Lisa kraasimise tugi (last.fm, Listenbrainz, jne)",
