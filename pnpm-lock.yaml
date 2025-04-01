@@ -6,7 +6,7 @@ settings:
 
 overrides:
   vite: 6.2.4
-  node-gyp: 11.1.0
+  node-gyp: 11.2.0
   xml2js: 0.6.2
   node-fetch: 3.3.2
   '@electron/universal': 2.0.2
@@ -311,8 +311,8 @@ importers:
         specifier: 11.0.1
         version: 11.0.1
       node-gyp:
-        specifier: 11.1.0
-        version: 11.1.0
+        specifier: 11.2.0
+        version: 11.2.0
       playwright:
         specifier: 1.51.1
         version: 1.51.1
@@ -3402,8 +3402,8 @@ packages:
     resolution: {integrity: sha512-LA4ZjwlnUblHVgq0oBF3Jl/6h/Nvs5fzBLwdEF4nuxnFdsfajde4WfxtJr3CaiH+F6ewcIB/q4jQ4UzPyid+CQ==}
     hasBin: true
 
-  node-gyp@11.1.0:
-    resolution: {integrity: sha512-/+7TuHKnBpnMvUQnsYEb0JOozDZqarQbfNuSGLXIjhStMT0fbw7IdSqWgopOP5xhRZE+lsbIvAHcekddruPZgQ==}
+  node-gyp@11.2.0:
+    resolution: {integrity: sha512-T0S1zqskVUSxcsSTkAsLc7xCycrRYmtDHadDinzocrThjyQCn5kMlEBSj6H4qDbgsIOSLmmlRIeb0lZXj+UArA==}
     engines: {node: ^18.17.0 || >=20.5.0}
     hasBin: true
 
@@ -8126,17 +8126,17 @@ snapshots:
 
   node-gyp-build@4.8.4: {}
 
-  node-gyp@11.1.0:
+  node-gyp@11.2.0:
     dependencies:
       env-paths: 2.2.1
       exponential-backoff: 3.1.2
-      glob: 10.4.5
       graceful-fs: 4.2.11
       make-fetch-happen: 14.0.3
       nopt: 8.1.0
       proc-log: 5.0.0
       semver: 7.7.1
       tar: 7.4.3
+      tinyglobby: 0.2.12
       which: 5.0.0
     transitivePeerDependencies:
       - supports-color

@@ -223,7 +223,7 @@
   "pnpm": {
     "overrides": {
       "vite": "6.2.4",
-      "node-gyp": "11.1.0",
+      "node-gyp": "11.2.0",
       "xml2js": "0.6.2",
       "node-fetch": "3.3.2",
       "@electron/universal": "2.0.2",
@@ -333,7 +333,7 @@
     "eslint-plugin-import": "2.31.0",
     "eslint-plugin-prettier": "5.2.5",
     "glob": "11.0.1",
-    "node-gyp": "11.1.0",
+    "node-gyp": "11.2.0",
     "playwright": "1.51.1",
     "rollup": "4.38.0",
     "typescript": "5.8.2",
