@@ -1,7 +1,5 @@
 import net from 'net';
 
-import * as console from 'node:console';
-
 import { SocksClient, SocksClientOptions } from 'socks';
 
 import is from 'electron-is';
@@ -24,9 +22,9 @@ const parseSocksUrl = (socksUrl: string) => {
   return {
     host: url.hostname,
     port: parseInt(url.port, 10),
-    type: (url.protocol === 'socks5:' ? 5 : 4) as number,
-    username: url.username || undefined,
-    password: url.password || undefined,
+    type: url.protocol === 'socks5:' ? 5 : 4,
+    username: url.username,
+    password: url.password,
   };
 };
 
@@ -46,7 +44,6 @@ export const backend = createBackend<BackendType, AuthProxyConfig>({
       this.oldConfig = config;
       return;
     }
-    console.log('config', config);
     this.stopServer();
     this.startServer(config);
 
@@ -78,13 +75,13 @@ export const backend = createBackend<BackendType, AuthProxyConfig>({
       });
 
       socket.on('error', (err) => {
-        console.error('[SOCKS] Socket error:', err.message);
+        console.error(LoggerPrefix, '[SOCKS] Socket error:', err.message);
       });
     });
 
     // Listen for errors
     socksServer.on('error', (err) => {
-      console.error('[SOCKS Server Error]', err.message);
+      console.error(LoggerPrefix, '[SOCKS Server Error]', err.message);
     });
 
     // Start server
@@ -92,7 +89,7 @@ export const backend = createBackend<BackendType, AuthProxyConfig>({
       console.log(LoggerPrefix, '===========================================');
       console.log(
         LoggerPrefix,
-        `[Auth-Proxy-Adapter] SOCKS proxy enabled at ${hostname}:${port}`,
+        `[Auth-Proxy-Adapter] Enable SOCKS proxy at socks5://${hostname}:${port}`,
       );
       console.log(
         LoggerPrefix,
@@ -124,7 +121,7 @@ export const backend = createBackend<BackendType, AuthProxyConfig>({
         this.processSocks5Request(clientSocket, data, upstreamProxyUrl);
       });
     } else {
-      // Client doesn't support our desired authentication method
+      // Authentication methods not supported by the client
       clientSocket.write(Buffer.from([0x05, 0xff]));
       clientSocket.end();
     }
@@ -155,7 +152,7 @@ export const backend = createBackend<BackendType, AuthProxyConfig>({
       targetHost = `${data[4]}.${data[5]}.${data[6]}.${data[7]}`;
       targetPort = data.readUInt16BE(8);
     } else if (atyp === 0x03) {
-      // Domain name
+      // Domain
       const hostLen = data[4];
       targetHost = data.subarray(5, 5 + hostLen).toString();
       targetPort = data.readUInt16BE(5 + hostLen);
@@ -223,17 +220,17 @@ export const backend = createBackend<BackendType, AuthProxyConfig>({
         clientSocket.pipe(proxySocket);
 
         proxySocket.on('error', (error) => {
-          console.error('[SOCKS5] Proxy socket error:', error);
+          console.error(LoggerPrefix, '[SOCKS5] Proxy socket error:', error);
           if (clientSocket.writable) clientSocket.end();
         });
 
         clientSocket.on('error', (error) => {
-          console.error('[SOCKS5] Client socket error:', error);
+          console.error(LoggerPrefix, '[SOCKS5] Client socket error:', error);
           if (proxySocket.writable) proxySocket.end();
         });
       })
       .catch((error) => {
-        console.error('[SOCKS5] Connection error:', error);
+        console.error(LoggerPrefix, '[SOCKS5] Connection error:', error);
         // Send failure response to client
         clientSocket.write(
           Buffer.from([0x05, 0x05, 0x00, 0x01, 0, 0, 0, 0, 0, 0]),
@@ -304,17 +301,17 @@ export const backend = createBackend<BackendType, AuthProxyConfig>({
         clientSocket.pipe(proxySocket);
 
         proxySocket.on('error', (error) => {
-          console.error('[SOCKS4] Proxy socket error:', error);
+          console.error(LoggerPrefix, '[SOCKS4] Proxy socket error:', error);
           if (clientSocket.writable) clientSocket.end();
         });
 
         clientSocket.on('error', (error) => {
-          console.error('[SOCKS4] Client socket error:', error);
+          console.error(LoggerPrefix, '[SOCKS4] Client socket error:', error);
           if (proxySocket.writable) proxySocket.end();
         });
       })
       .catch((error) => {
-        console.error('[SOCKS4] Connection error:', error);
+        console.error(LoggerPrefix, '[SOCKS4] Connection error:', error);
         // Send failure response to client
         clientSocket.write(Buffer.from([0x00, 0x5b, 0, 0, 0, 0, 0, 0]));
         clientSocket.end();

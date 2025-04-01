@@ -6,10 +6,8 @@ import type { Server } from 'http';
 export type BackendType = {
   server?: Server | net.Server;
   oldConfig?: AuthProxyConfig;
-  startServer: (server_config: AuthProxyConfig) => void;
+  startServer: (serverConfig: AuthProxyConfig) => void;
   stopServer: () => void;
-  proxyString?: string;
-  _savedProxy?: string;
   handleSocks5: (
     clientSocket: net.Socket,
     chunk: Buffer,

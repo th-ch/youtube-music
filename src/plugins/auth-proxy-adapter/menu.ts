@@ -36,9 +36,7 @@ export const onMenu = async ({
           config.hostname ??
           defaultAuthProxyConfig.hostname;
 
-        if (newHostname !== config.hostname) {
-          setConfig({ ...config, hostname: newHostname });
-        }
+        setConfig({ ...config, hostname: newHostname });
       },
     },
     {
@@ -63,9 +61,7 @@ export const onMenu = async ({
           config.port ??
           defaultAuthProxyConfig.port;
 
-        if (newPort !== config.port) {
-          setConfig({ ...config, port: newPort });
-        }
+        setConfig({ ...config, port: newPort });
       },
     },
   ];
