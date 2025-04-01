@@ -3,7 +3,11 @@
     "console": {
       "plugins": {
         "execute-failed": "Neuspjelo izvršenje plugina {{pluginName}}::{{contextName}}",
-        "executed-at-ms": "Plugin{{pluginName}}::{{contextName}}{{je izvršen za {{ms}}ms"
+        "executed-at-ms": "Plugin{{pluginName}}::{{contextName}}{{je izvršen za {{ms}}ms",
+        "initialize-failed": "Nije uspilo inicijalitirati plugin \"{{pluginName}}\"",
+        "load-all": "Učitavaju se svi plugini",
+        "load-failed": "Neuspješno ućitavanje plugina \"{{pluginName}}\"",
+        "loaded": "Plugin \"{{pluginName}}\" je ućitan"
       }
     }
   },
