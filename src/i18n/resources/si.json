@@ -7,9 +7,9 @@
         "initialize-failed": "\"{{pluginName}}\" ප්ලගිනය ආරම්භ කිරීමට අසමත් විය",
         "load-all": "සියලුම ප්ලගින පූරණය කරමින්",
         "load-failed": "\"{{pluginName}}\" ප්ලගිනය පූරණය කිරීමට අසමත් විය",
-        "loaded": "ප්ලගිනය \"{{pluginName}}\" පූරණය කරන ලදී",
-        "unload-failed": "ප්ලගින් \"{{pluginName}}\" ගලවන්න අසාර්ථක වුන",
-        "unloaded": "ප්ලගින් \"{{pluginName}}\" ගැලෙව්වා"
+        "loaded": "\"{{pluginName}}\" ප්ලගිනය පූරණය විය",
+        "unload-failed": "\"{{pluginName}}\" ප්ලගිනය යළි ඉවත් කිරීමට අසාර්ථක විය",
+        "unloaded": "\"{{pluginName}}\" ප්ලගිනය යළි ඉවත් කරන ලදී"
       }
     }
   },
@@ -21,10 +21,10 @@
   "main": {
     "console": {
       "did-finish-load": {
-        "dev-tools": "පූරණය කිරීම සම්පූර්ණයි. DevTools විවෘත කළා"
+        "dev-tools": "පූරණය අවසන්. DevTools විවෘත වී ඇත"
       },
       "i18n": {
-        "loaded": "i18n පූරණය කර ඇත"
+        "loaded": "i18n පූරණය කරන ලදී"
       },
       "second-instance": {
         "receive-command": "ප්‍රෝටෝකාල් හරහා විධානය ලැබුණි: \"{{command}}\""
