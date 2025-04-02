@@ -804,6 +804,10 @@
       "description": "Integratie met OBS's plug-in Tuna",
       "name": "Tuna OBS"
     },
+    "unobtrusive-player": {
+      "description": "Voorkomt dat de speler bij het afspelen van een nummer verschijnt",
+      "name": "Minder opdringerige speler"
+    },
     "video-toggle": {
       "description": "Voegt een knop toe om te schakelen tussen de video-/nummermodus. kan optioneel ook het hele videotabblad verwijderen",
       "menu": {
