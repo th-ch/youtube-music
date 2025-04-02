@@ -14,6 +14,7 @@
     }
   },
   "language": {
+    "code": "ba",
     "local-name": "Bosanski",
     "name": "Bosnian"
   },
@@ -24,6 +25,9 @@
       },
       "i18n": {
         "loaded": "i18n učitan"
+      },
+      "second-instance": {
+        "receive-command": "Comanda primljena preko protokola \"{{command}}\""
       }
     }
   }
