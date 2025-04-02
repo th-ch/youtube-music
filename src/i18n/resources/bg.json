@@ -160,7 +160,7 @@
               "theme": {
                 "dialog": {
                   "button": {
-                    "cancel": "Откажи",
+                    "cancel": "Отказ",
                     "remove": "Премахни"
                   },
                   "remove-theme": "Сигурни ли сте, че искате да премахнете персонализираната тема?",
@@ -182,20 +182,20 @@
         "new": "НОВО"
       },
       "view": {
-        "label": "Изглед",
+        "label": "Преглед",
         "submenu": {
-          "force-reload": "Презареди принудително",
+          "force-reload": "Принудително презареждане",
           "reload": "Презареди",
-          "reset-zoom": "Истински размер",
-          "toggle-fullscreen": "Превключи на пълен екран",
-          "zoom-in": "Увеличи",
-          "zoom-out": "Намали"
+          "reset-zoom": "Действителен размер",
+          "toggle-fullscreen": "Превключване на цял екран",
+          "zoom-in": "Увеличаване",
+          "zoom-out": "Намаляване"
         }
       }
     },
     "tray": {
       "next": "Следващ",
-      "play-pause": "Пусни/Паузирай",
+      "play-pause": "Възпроизвеждане/Пауза",
       "previous": "Предишен",
       "quit": "Изход",
       "restart": "Рестартирай приложението",
@@ -228,7 +228,7 @@
         "color-mix-ratio": {
           "label": "Съотношение на смесване на цветовете",
           "submenu": {
-            "percent": "{{съотношение}}%"
+            "percent": "{{ratio}}%"
           }
         }
       },
@@ -391,6 +391,141 @@
         "apply-once": "Важи само на стартиране"
       },
       "name": "Изключи автоматичното пускане"
+    },
+    "discord": {
+      "backend": {
+        "already-connected": "Опит за свързване с активна връзка",
+        "connected": "Свързано с Discord",
+        "disconnected": "Прекъсната връзка с Discord"
+      },
+      "description": "Покажи на приятелите си какво слушате с Rich Presence",
+      "menu": {
+        "auto-reconnect": "Автоматично повторно свързване",
+        "clear-activity": "Изчистване на активността",
+        "clear-activity-after-timeout": "Изчистване на активността след изтичане на времето",
+        "connected": "Свързано",
+        "disconnected": "Прекъснато",
+        "hide-duration-left": "Скрий оставащото време",
+        "hide-github-button": "Скрий бутона за линк към GitHub",
+        "play-on-youtube-music": "Възпроизведи в YouTube Music",
+        "set-inactivity-timeout": "Задай таймаут за неактивност"
+      },
+      "name": "Discord Rich Presence",
+      "prompt": {
+        "set-inactivity-timeout": {
+          "label": "Въведете таймаута за неактивност в секунди:",
+          "title": "Задайте таймаут за неактивност"
+        }
+      }
+    },
+    "downloader": {
+      "backend": {
+        "dialog": {
+          "error": {
+            "buttons": {
+              "ok": "ОК"
+            },
+            "message": "Ох! Извинявайте, изтеглянето не успя…",
+            "title": "Грешка при изтегляне!"
+          },
+          "start-download-playlist": {
+            "buttons": {
+              "ok": "ОК"
+            },
+            "detail": "({{playlistSize}} песни)",
+            "message": "Изтегляне на плейлист {{playlistTitle}}",
+            "title": "Изтеглянето започна"
+          }
+        },
+        "feedback": {
+          "conversion-progress": "Конвертиране: {{percent}}%",
+          "converting": "Превръщане…",
+          "done": "Готово: {{filePath}}",
+          "download-info": "Изтегляне на {{artist}} - {{title}} [{{videoId}}",
+          "download-progress": "Изтегляне: {{percent}}%",
+          "downloading": "Изтегляне…",
+          "downloading-counter": "Изтегляне {{current}}/{{total}}…",
+          "downloading-playlist": "Изтегляне на плейлист \"{{playlistTitle}}\" - {{playlistSize}} песни ({{playlistId}})",
+          "error-while-downloading": "Грешка при изтегляне на \"{{author}} - {{title}}\": {{error}}",
+          "folder-already-exists": "Папката {{playlistFolder}} вече съществува",
+          "getting-playlist-info": "Получаване на информация за плейлист…",
+          "loading": "Зареждане…",
+          "playlist-has-only-one-song": "Плейлистът съдържа само един елемент, изтегля се директно",
+          "playlist-id-not-found": "Не е намерен ID на плейлист",
+          "playlist-is-empty": "Плейлистът е празен",
+          "playlist-is-mix-or-private": "Грешка при получаване на информация за плейлист: уверете се, че не е частен или \"Смесено за вас\" плейлист\n\n{{error}}",
+          "preparing-file": "Подготвяне на файла…",
+          "saving": "Записване…",
+          "trying-to-get-playlist-id": "Опитвам се да получа ID на плейлист: {{playlistId}}",
+          "video-id-not-found": "Видео не е намерено",
+          "writing-id3": "Записване на ID3 тагове…"
+        }
+      },
+      "description": "Изтегля MP3 / източниково аудио директно от интерфейса",
+      "menu": {
+        "choose-download-folder": "Изберете папка за изтегляне",
+        "download-finish-settings": {
+          "label": "Изтегляне при завършване",
+          "prompt": {
+            "last-percent": "След x процента",
+            "last-seconds": "Последни x секунди",
+            "title": "Конфигурирайте кога да изтеглите"
+          },
+          "submenu": {
+            "advanced": "Разширени настройки",
+            "enabled": "Активирано",
+            "mode": "Режим на време",
+            "percent": "Процент",
+            "seconds": "Секунди"
+          }
+        },
+        "download-playlist": "Изтегляне на плейлист",
+        "presets": "Предварително зададени настройки",
+        "skip-existing": "Пропусни съществуващите файлове"
+      },
+      "name": "Изтегляч",
+      "renderer": {
+        "can-not-update-progress": "Не може да се актуализира напредъкът"
+      },
+      "templates": {
+        "button": "Изтегляне"
+      }
+    },
+    "exponential-volume": {
+      "description": "Прави плъзгача за сила на звука експоненциален, така че да е по-лесно да се избират по-ниски нива на звук.",
+      "name": "Експоненциален звук"
+    },
+    "in-app-menu": {
+      "description": "Придава на меню баровете стилен, тъмен или с цвят на албума вид",
+      "menu": {
+        "hide-dom-window-controls": "Скрий контролните елементи на DOM прозореца"
+      },
+      "name": "Меню в приложението"
+    },
+    "lumiastream": {
+      "description": "Добавя поддръжка за Lumia Stream",
+      "name": "Lumia Stream [Бета]"
+    },
+    "lyrics-genius": {
+      "description": "Добавя поддръжка за текстове за повечето песни",
+      "menu": {
+        "romanized-lyrics": "Романизирани текстове"
+      },
+      "name": "Текстове от Genius",
+      "renderer": {
+        "fetched-lyrics": "Изтеглени текстове от Genius"
+      }
+    },
+    "music-together": {
+      "description": "Сподели плейлист с други. Когато хостът пусне песен, всички останали ще чуят същата песен",
+      "dialog": {
+        "enter-host": "Въведи ID на хоста"
+      },
+      "internal": {
+        "save": "Запазване",
+        "track-source": "Източник на трак",
+        "unknown-user": "Неизвестен потребител"
+      }
     }
   }
 }
