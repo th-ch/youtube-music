@@ -99,13 +99,17 @@
               "auto-reset-app-cache": "Nollställ appcache när appen startar",
               "disable-hardware-acceleration": "Stäng av hårdvaruacceleration",
               "edit-config-json": "Redigera config.json",
+              "override-user-agent": "Ersätt User-Agent",
               "restart-on-config-changes": "Starta om vid konfigurationsändringar",
               "set-proxy": {
                 "label": "Ställ in proxy",
                 "prompt": {
+                  "label": "Ange Proxy-adress: (lämna tomt för att inaktivera)",
+                  "placeholder": "Exempel: SOCKS5://127.0.0.1:9999",
                   "title": "Ställ in proxy"
                 }
-              }
+              },
+              "toggle-dev-tools": "Utvecklarverktyg"
             }
           },
           "always-on-top": "Alltid överst",
