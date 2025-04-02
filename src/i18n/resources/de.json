@@ -805,7 +805,8 @@
       "name": "Tuna OBS"
     },
     "unobtrusive-player": {
-      "description": "Verhindert das Aufpoppen des Spielers während ein Song gespielt wird"
+      "description": "Verhindert das Aufpoppen des Spielers während ein Song gespielt wird",
+      "name": "Unauffälliger Player"
     },
     "video-toggle": {
       "description": "Fügt einen Knopf hinzu, um zwischen Video-/Liedmodus zu wechseln. kann auch genutzt werden, um den ganzen Videoabschnitt zu entfernen",
