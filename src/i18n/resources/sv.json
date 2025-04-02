@@ -113,7 +113,15 @@
             }
           },
           "always-on-top": "Alltid överst",
-          "auto-update": "Uppdatera automatiskt"
+          "auto-update": "Uppdatera automatiskt",
+          "language": {
+            "dialog": {
+              "message": "Språket ändras efter omstart",
+              "title": "Språket har ändrats"
+            },
+            "label": "Språk"
+          },
+          "resume-on-start": "Fortsätt spela när appen öppnas"
         }
       }
     }
