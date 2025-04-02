@@ -199,7 +199,11 @@
       "previous": "Предишен",
       "quit": "Изход",
       "restart": "Рестартирай приложението",
-      "show": "Покажи прозорец"
+      "show": "Покажи прозорец",
+      "tooltip": {
+        "default": "YouTube Музика",
+        "with-song-info": "YouTube Музика: {{artist}} - {{title}}"
+      }
     }
   },
   "plugins": {
@@ -234,29 +238,50 @@
       "description": "Прилага светлинен ефект, като проектира нежни цветове от видеото върху фона на екрана",
       "menu": {
         "blur-amount": {
-          "label": "Степен на замъгляване"
+          "label": "Степен на замъгляване",
+          "submenu": {
+            "pixels": "{{blurAmount}} пиксела"
+          }
         },
         "buffer": {
-          "label": "Буферизация"
+          "label": "Буферизация",
+          "submenu": {
+            "buffer": "{{buffer}}"
+          }
         },
         "opacity": {
-          "label": "Непрозрачност"
+          "label": "Непрозрачност",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
         },
         "quality": {
-          "label": "Качество"
+          "label": "Качество",
+          "submenu": {
+            "pixels": "{{quality}} пиксела"
+          }
         },
         "size": {
-          "label": "Размер"
+          "label": "Размер",
+          "submenu": {
+            "percent": "{{size}}%"
+          }
         },
         "smoothness-transition": {
-          "label": "Плавен преход"
+          "label": "Плавен преход",
+          "submenu": {
+            "during": "{{interpolationTime}} секунди"
+          }
         },
         "use-fullscreen": {
           "label": "Използване на цял екран"
         }
-      }
+      },
+      "name": "Атмосферен режим"
     },
     "amuse": {
+      "description": "Добавя поддръжка на YouTube Music за джаджата Amuse Now Play от 6K Labs",
+      "name": "Забавление",
       "response": {
         "query": "Сървърът на Amuse API работи. Изпратете GET /query за информация за песента."
       }
@@ -269,6 +294,7 @@
             "allow": "Разрешавам",
             "deny": "Отказвам"
           },
+          "message": "Позволяваш ли {{ID}} {{origin}} да достъпва API-то?",
           "title": "Заявка за авторизация на API"
         }
       },
@@ -320,7 +346,51 @@
       "menu": {
         "autoload": "Автоматично избиране на последно използвания надпис",
         "disable-captions": "Без надписи по подразбиране"
+      },
+      "name": "Избор на надписи",
+      "prompt": {
+        "selector": {
+          "label": "Език на надписи: {{language}}",
+          "none": "Нищо",
+          "title": "Избери език на надписите"
+        }
+      },
+      "templates": {
+        "title": "Отвори избора на надписи"
       }
+    },
+    "compact-sidebar": {
+      "description": "Винаги настройвай страничната лента в компактен режим",
+      "name": "Компактна странична лента"
+    },
+    "crossfade": {
+      "description": "Плавно преминаване през песните",
+      "menu": {
+        "advanced": "Разширено"
+      },
+      "name": "Плавно преминаване [Beta]",
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "fade-in-duration": "Продължителност на преливането (милисекунди)",
+            "fade-out-duration": "Продължителност на затихването (милисекунди)",
+            "fade-scaling": {
+              "label": "Скалиране на избледняването",
+              "linear": "Линейно",
+              "logarithmic": "Логаритмично"
+            },
+            "seconds-before-end": "Преливане N секунди преди края"
+          },
+          "title": "Опции за преливане"
+        }
+      }
+    },
+    "disable-autoplay": {
+      "description": "Започва песента в паузиран режим",
+      "menu": {
+        "apply-once": "Важи само на стартиране"
+      },
+      "name": "Изключи автоматичното пускане"
     }
   }
 }
