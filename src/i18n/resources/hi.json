@@ -268,12 +268,19 @@
           }
         },
         "smoothness-transition": {
-          "label": "चिकनाई संक्रमण"
+          "label": "चिकनाई संक्रमण",
+          "submenu": {
+            "during": "दौरान {{interpolationTime}}"
+          }
         },
         "use-fullscreen": {
           "label": "पूर्णस्क्रीन का उपयोग"
         }
       }
+    },
+    "amuse": {
+      "description": "6K लैब्स द्वारा Amuse now playing विजेट के लिए YouTube म्यूजिक समर्थन जोड़ा गया",
+      "name": "मन बहलाना"
     },
     "api-server": {
       "dialog": {
