@@ -3,7 +3,7 @@
     "console": {
       "plugins": {
         "execute-failed": "Error al ejecutar el plugin {{pluginName}}::{{contextName}}",
-        "executed-at-ms": "Plugin {{pluginName}}: {{contextName}} ejecutado en {{ms}}ms",
+        "executed-at-ms": "Plugin {{pluginName}}::{{contextName}} Ejecutó en {{ms}}ms",
         "initialize-failed": "Error al inicializar el plugin \"{{pluginName}}\"",
         "load-all": "Cargando todos los plugins",
         "load-failed": "Error al cargar el plugin \"{{pluginName}}\"",
