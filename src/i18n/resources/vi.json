@@ -754,6 +754,9 @@
           "label": "Làm cho lời bài hát được đồng bộ hoàn hảo",
           "tooltip": "Tính toán chính xác đến mili giây thời gian hiển thị dòng tiếp theo (có thể có tác động nhỏ đến hiệu suất)"
         },
+        "romanization": {
+          "tooltip": "Nếu lời bài hát đang ở ngôn ngữ khác, thử hiển thị phiên bản bảng chữ cái La-tinh."
+        },
         "show-lyrics-even-if-inexact": {
           "label": "Hiển thị lời bài hát ngay cả khi không chính xác",
           "tooltip": "Nếu không tìm thấy bài hát, plugin sẽ thử lại bằng truy vấn tìm kiếm khác.\nKết quả từ lần thử thứ hai có thể không chính xác."
