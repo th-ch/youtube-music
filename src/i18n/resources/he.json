@@ -112,7 +112,7 @@
               "toggle-dev-tools": "שנה את מצב כלי המפתחים"
             }
           },
-          "always-on-top": "תמיד מעל הכל",
+          "always-on-top": "השאר מקדימה",
           "auto-update": "עדכון אוטומטי",
           "hide-menu": {
             "dialog": {
@@ -185,9 +185,27 @@
         "label": "מראה",
         "submenu": {
           "force-reload": "התחל מחדש בכוח",
-          "reload": "טען מחדש"
+          "reload": "טען מחדש",
+          "reset-zoom": "גודל אמיתי",
+          "toggle-fullscreen": "מסך מלא",
+          "zoom-in": "התקרב",
+          "zoom-out": "התרחק"
         }
       }
+    },
+    "tray": {
+      "next": "הבא",
+      "play-pause": "נגן/הפסק",
+      "previous": "הקודם",
+      "quit": "יציאה",
+      "restart": "הפעל מחדש",
+      "show": "הראה חלון"
+    }
+  },
+  "plugins": {
+    "ad-speedup": {
+      "description": "במקרה של פרסומת, הסאונד מושתק ומהירות  הוידרו מוכפלת ב-16",
+      "name": "הגבר מהירות פרסומת"
     }
   }
 }

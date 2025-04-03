@@ -7,9 +7,9 @@
         "initialize-failed": "\"{{pluginName}}\" ප්ලගිනය ආරම්භ කිරීමට අසමත් විය",
         "load-all": "සියලුම ප්ලගින පූරණය කරමින්",
         "load-failed": "\"{{pluginName}}\" ප්ලගිනය පූරණය කිරීමට අසමත් විය",
-        "loaded": "ප්ලගිනය \"{{pluginName}}\" පූරණය කරන ලදී",
-        "unload-failed": "ප්ලගින් \"{{pluginName}}\" ගලවන්න අසාර්ථක වුන",
-        "unloaded": "ප්ලගින් \"{{pluginName}}\" ගැලෙව්වා"
+        "loaded": "\"{{pluginName}}\" ප්ලගිනය පූරණය විය",
+        "unload-failed": "\"{{pluginName}}\" ප්ලගිනය යළි ඉවත් කිරීමට අසාර්ථක විය",
+        "unloaded": "\"{{pluginName}}\" ප්ලගිනය යළි ඉවත් කරන ලදී"
       }
     }
   },
@@ -21,36 +21,39 @@
   "main": {
     "console": {
       "did-finish-load": {
-        "dev-tools": "පූරණය සම්පුර්නි. ඩෙව්ටූල්ස් ඇරිලා"
+        "dev-tools": "පූරණය අවසන්. DevTools විවෘත වී ඇත"
       },
       "i18n": {
-        "loaded": "i18n පූරණය කර ඇත"
+        "loaded": "i18n පූරණය කරන ලදී"
       },
       "second-instance": {
         "receive-command": "ප්‍රෝටෝකාල් හරහා විධානය ලැබුණි: \"{{command}}\""
       },
       "theme": {
-        "css-file-not-found": "සීඑස්එස් ගොනුව \"{{cssFile}}\" නොපවතී, නොසලකා හැරීම"
+        "css-file-not-found": "css ගොනුව \"{{cssFile}}\" නොපවතී, නොසලකා හරී"
       },
       "unresponsive": {
-        "details": "ප්‍රතිචාර නොදක්වන දෝෂයක්\n{{error}}"
+        "details": "ප්‍රතිචාර නොදක්වයි, දෝෂයක්\n{{error}}"
       },
       "when-ready": {
-        "clearing-cache-after-20s": "යෙදුම් කෑශ් නිදහස් කරමින්"
+        "clearing-cache-after-20s": "යෙදුමේ දත්ත සංචිතය හිස් කරමින්"
+      },
+      "window": {
+        "tried-to-render-offscreen": "වින්ඩෝව තිරයෙන් පිටත පෙන්වීමට උත්සාහ කළේය, වින්ඩෝවේ ප්‍රමාණය={{windowSize}}, තිරයෙ ප්‍රමාණය={{displaySize}}, පිහිටීම={{position}}"
       }
     },
     "dialog": {
       "hide-menu-enabled": {
         "detail": "මෙනුව සැගවී ඇත, නැවත පෙන්වීමට 'Alt' යතුර භාවිතා කරන්න. (හෝ In-App මෙනුවේ 'Escape')",
-        "message": "මෙනුව සැගවීම සාර්තකයි",
+        "message": "මෙනුව සැගවීම සක්‍රීය කර ඇත",
         "title": "මෙනුව සැගවීම සක්‍රීයයි"
       },
       "need-to-restart": {
         "buttons": {
           "later": "පසුව",
-          "restart-now": "යෙදුම වසා නැවත ආරම්භ කරන්න"
+          "restart-now": "නැවත ආරම්භ කරන්න"
         },
-        "detail": "\"{{pluginName}}\" ප්ලගිනය  යෙදුම නැවත ආරම්භ  කිරීමක් ඉල්ලයි",
+        "detail": "\"{{pluginName}}\" ප්ලගිනය ක්‍රියාත්මක වීමට නැවත ආරම්භ කිරීමක් අවශ්‍යයි",
         "message": "\"{{pluginName}}\" නැවත ආරම්භ කළ යුතුය",
         "title": "නැවත ආරම්භ කිරීම අවශ්‍යයි"
       },
@@ -66,8 +69,8 @@
       },
       "update-available": {
         "buttons": {
-          "disable": "යාවත්කාලීන කිරීම් නවතන්න",
-          "download": "බාගත කිරීම",
+          "disable": "යාවත්කාලීන කිරීම් අක්‍රිය කරන්න",
+          "download": "බාගත කරන්න",
           "ok": "හරි"
         },
         "detail": "නව අනුවාදයක් ඇති අතර එය මෙයින් බාගන්න {{downloadLink}}",

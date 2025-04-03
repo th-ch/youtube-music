@@ -56,6 +56,14 @@ let win: BrowserWindow;
 let playingUrl: string;
 
 const isYouTubeMusicPremium = async () => {
+  // If signed out, it is understood as non-premium
+  const isSignedIn = (await win.webContents.executeJavaScript(
+    '!!yt.config_.LOGGED_IN',
+  )) as boolean;
+
+  if (!isSignedIn) return false;
+
+  // If signed in, check if the upgrade button is present
   const upgradeBtnIconPathData = (await win.webContents.executeJavaScript(
     'document.querySelector(\'iron-iconset-svg[name="yt-sys-icons"] #youtube_music_monochrome\')?.firstChild?.getAttribute("d")?.substring(0, 15)',
   )) as string | null;
@@ -63,10 +71,10 @@ const isYouTubeMusicPremium = async () => {
   // Fallback to non-premium if the icon is not found
   if (!upgradeBtnIconPathData) return false;
 
-  const selector = `ytmusic-guide-entry-renderer:has(> tp-yt-paper-item > yt-icon path[d^="${upgradeBtnIconPathData}"])`;
+  const upgradeButton = `ytmusic-guide-entry-renderer:has(> tp-yt-paper-item > yt-icon path[d^="${upgradeBtnIconPathData}"])`;
 
   return (await win.webContents.executeJavaScript(
-    `!document.querySelector('${selector}')`,
+    `!document.querySelector('${upgradeButton}')`,
   )) as boolean;
 };
 

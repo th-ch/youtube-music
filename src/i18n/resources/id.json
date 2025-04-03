@@ -768,6 +768,10 @@
           "label": "Buat liriknya tersinkronisasi dengan sempurna",
           "tooltip": "Hitung hingga milidetik tampilan baris berikutnya (dapat berdampak kecil pada kinerja)"
         },
+        "romanization": {
+          "label": "Romanize Liriknya",
+          "tooltip": "Apabila lirik berada dalam bahasa berbeda, cobalah untuk menampilkan versi latinnya."
+        },
         "show-lyrics-even-if-inexact": {
           "label": "Tampilkan lirik meskipun tidak tepat",
           "tooltip": "Jika lagu tidak ditemukan, plugin akan mencoba lagi dengan kueri pencarian yang berbeda.\nHasil dari percobaan kedua mungkin tidak tepat."
@@ -799,6 +803,10 @@
     "tuna-obs": {
       "description": "Integrasi dengan plugin Tuna OBS",
       "name": "Tuna OBS"
+    },
+    "unobtrusive-player": {
+      "description": "Cegah pemutar musik muncul ketika memutar musik",
+      "name": "Pemutar simpel (tidak menganggu)"
     },
     "video-toggle": {
       "description": "Tambahkan tombol untuk beralih antara mode Lagu/Video. secara opsional juga dapat menghapus keseluruhan tab video",
