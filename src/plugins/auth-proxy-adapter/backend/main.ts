@@ -66,9 +66,6 @@ export const backend = createBackend<BackendType, AuthProxyConfig>({
         if (chunk[0] === 0x05) {
           // SOCKS5
           this.handleSocks5(socket, chunk, upstreamProxyUrl);
-        } else if (chunk[0] === 0x04) {
-          // SOCKS4
-          this.handleSocks4(socket, chunk, upstreamProxyUrl);
         } else {
           socket.end();
         }
@@ -235,85 +232,6 @@ export const backend = createBackend<BackendType, AuthProxyConfig>({
         clientSocket.write(
           Buffer.from([0x05, 0x05, 0x00, 0x01, 0, 0, 0, 0, 0, 0]),
         );
-        clientSocket.end();
-      });
-  },
-
-  // Handle SOCKS4 request
-  handleSocks4(
-    clientSocket: net.Socket,
-    chunk: Buffer,
-    upstreamProxyUrl: string,
-  ) {
-    const cmd = chunk[1]; // Command: 0x01=CONNECT, 0x02=BIND
-
-    if (cmd !== 0x01) {
-      // Currently only support CONNECT command
-      clientSocket.write(Buffer.from([0x00, 0x5b, 0, 0, 0, 0, 0, 0]));
-      clientSocket.end();
-      return;
-    }
-
-    // Parse port (2 bytes)
-    const port = chunk.readUInt16BE(2);
-
-    // Parse IPv4 address (4 bytes)
-    const ip = `${chunk[4]}.${chunk[5]}.${chunk[6]}.${chunk[7]}`;
-
-    // Read USERID (variable length, null-terminated)
-    let idIndex = 8;
-    while (idIndex < chunk.length && chunk[idIndex] !== 0) {
-      idIndex++;
-    }
-
-    const socksProxy = parseSocksUrl(upstreamProxyUrl);
-
-    if (!socksProxy) {
-      // Failed to parse proxy URL
-      clientSocket.write(Buffer.from([0x00, 0x5b, 0, 0, 0, 0, 0, 0]));
-      clientSocket.end();
-      return;
-    }
-    const options: SocksClientOptions = {
-      proxy: {
-        host: socksProxy.host,
-        port: socksProxy.port,
-        type: socksProxy.type as 4 | 5,
-        userId: socksProxy.username,
-        password: socksProxy.password,
-      },
-      command: 'connect',
-      destination: {
-        host: ip,
-        port: port,
-      },
-    };
-
-    SocksClient.createConnection(options)
-      .then((info) => {
-        const { socket: proxySocket } = info;
-
-        // Connection successful, send success response to client
-        clientSocket.write(Buffer.from([0x00, 0x5a, 0, 0, 0, 0, 0, 0]));
-
-        // Establish bidirectional data stream
-        proxySocket.pipe(clientSocket);
-        clientSocket.pipe(proxySocket);
-
-        proxySocket.on('error', (error) => {
-          console.error(LoggerPrefix, '[SOCKS4] Proxy socket error:', error);
-          if (clientSocket.writable) clientSocket.end();
-        });
-
-        clientSocket.on('error', (error) => {
-          console.error(LoggerPrefix, '[SOCKS4] Client socket error:', error);
-          if (proxySocket.writable) proxySocket.end();
-        });
-      })
-      .catch((error) => {
-        console.error(LoggerPrefix, '[SOCKS4] Connection error:', error);
-        // Send failure response to client
-        clientSocket.write(Buffer.from([0x00, 0x5b, 0, 0, 0, 0, 0, 0]));
         clientSocket.end();
       });
   },

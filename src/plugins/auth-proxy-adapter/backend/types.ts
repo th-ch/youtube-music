@@ -13,11 +13,6 @@ export type BackendType = {
     chunk: Buffer,
     upstreamProxyUrl: string,
   ) => void;
-  handleSocks4: (
-    clientSocket: net.Socket,
-    chunk: Buffer,
-    upstreamProxyUrl: string,
-  ) => void;
   processSocks5Request: (
     clientSocket: net.Socket,
     data: Buffer,

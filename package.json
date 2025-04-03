@@ -294,6 +294,7 @@
     "semver": "7.7.1",
     "serve": "14.2.4",
     "simple-youtube-age-restriction-bypass": "github:organization/Simple-YouTube-Age-Restriction-Bypass#v2.5.9",
+    "socks": "^2.8.4",
     "solid-floating-ui": "0.3.1",
     "solid-js": "1.9.5",
     "solid-styled-components": "0.28.5",
