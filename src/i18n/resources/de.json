@@ -768,6 +768,10 @@
           "label": "Den Songtext perfekt synchronisieren",
           "tooltip": "Auf die Millisekunde genau berechnen, wann die nächste Zeile angezeigt werden soll (Kann Einfluss auf die Leistung haben)"
         },
+        "romanization": {
+          "label": "Lateinische Umschrift anzeigen",
+          "tooltip": "Wenn der Liedtext in einer anderen Schrift ist, zeige nach Möglichkeit eine Version in lateinischer Schrift an."
+        },
         "show-lyrics-even-if-inexact": {
           "label": "Zeige die Liedtexte, auch wenn sie ungenau sind.",
           "tooltip": "Die Erweiterung sucht mit anderen Suchparameter nochmals, wenn der Song nicht gefunden wurde.\nEs kann sein, dass das Ergebnis von der zweiten Anfrage nicht genau ist."
@@ -799,6 +803,10 @@
     "tuna-obs": {
       "description": "Integration mit dem OBS-Plugin Tuna",
       "name": "Tuna OBS"
+    },
+    "unobtrusive-player": {
+      "description": "Verhindert das Aufpoppen des Spielers während ein Song gespielt wird",
+      "name": "Unauffälliger Player"
     },
     "video-toggle": {
       "description": "Fügt einen Knopf hinzu, um zwischen Video-/Liedmodus zu wechseln. kann auch genutzt werden, um den ganzen Videoabschnitt zu entfernen",

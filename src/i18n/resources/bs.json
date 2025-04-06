@@ -1,0 +1,34 @@
+{
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "Greška u izvršavanju dodatka {{pluginName}}::{{contextName}}",
+        "executed-at-ms": "Dodatak {{pluginName}}::{{contextName}} se izvršio za {{ms}}ms",
+        "initialize-failed": "Greška prilikom inicijalizacije dodatka \"{{pluginName}}\"",
+        "load-all": "Učitavanje svih dodataka",
+        "load-failed": "Greška u učitavanju dodatka \"{{pluginName}}\"",
+        "loaded": "Dodatak \"{{pluginName}}\" učitan",
+        "unload-failed": "Greška prilikom onesposobljavanja dodatka \"{{pluginName}}\"",
+        "unloaded": "Dodatak \"{{pluginName}}\" ugašen"
+      }
+    }
+  },
+  "language": {
+    "code": "ba",
+    "local-name": "Bosanski",
+    "name": "Bosnian"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "Završeno učitavanje. DevTools otvoren"
+      },
+      "i18n": {
+        "loaded": "i18n učitan"
+      },
+      "second-instance": {
+        "receive-command": "Comanda primljena preko protokola \"{{command}}\""
+      }
+    }
+  }
+}

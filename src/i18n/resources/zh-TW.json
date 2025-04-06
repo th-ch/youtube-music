@@ -27,7 +27,7 @@
         "loaded": "i18n 已載入"
       },
       "second-instance": {
-        "receive-command": "使用協定來接收指令：「{{command}}」"
+        "receive-command": "使用通訊協定來接收指令：「{{command}}」"
       },
       "theme": {
         "css-file-not-found": "CSS 檔案「{{cssFile}}」不存在，已忽略"
@@ -53,13 +53,13 @@
           "later": "稍後",
           "restart-now": "立即重啟"
         },
-        "detail": "\"{{pluginName}}\" 外掛需要重啟應用之後才會生效",
-        "message": "\"{{pluginName}}\" 需要重啟應用",
-        "title": "需要重啟應用"
+        "detail": "\"{{pluginName}}\" 外掛需要重新啟動之後才會生效",
+        "message": "\"{{pluginName}}\" 需要重新啟動",
+        "title": "需要重新啟動"
       },
       "unresponsive": {
         "buttons": {
-          "quit": "離開",
+          "quit": "結束",
           "relaunch": "重新啟動",
           "wait": "等一下"
         },
@@ -83,11 +83,11 @@
       "navigation": {
         "label": "導覽列",
         "submenu": {
-          "copy-current-url": "複製當前頁面的網址",
+          "copy-current-url": "複製目前頁面的網址",
           "go-back": "回到上一頁",
           "go-forward": "回到下一頁",
-          "quit": "退出",
-          "restart": "重啟應用"
+          "quit": "結束",
+          "restart": "重新啟動"
         }
       },
       "options": {
@@ -100,7 +100,7 @@
               "disable-hardware-acceleration": "關閉硬體加速",
               "edit-config-json": "編輯 config.json",
               "override-user-agent": "覆寫使用者代理",
-              "restart-on-config-changes": "設定變更時自動重啟應用",
+              "restart-on-config-changes": "設定變更時自動重新啟動",
               "set-proxy": {
                 "label": "設定代理伺服器",
                 "prompt": {
@@ -123,7 +123,7 @@
           },
           "language": {
             "dialog": {
-              "message": "語言會在重啟應用後變更",
+              "message": "語言會在重新啟動後變更",
               "title": "語言已變更"
             },
             "label": "語言",
@@ -142,9 +142,9 @@
             "label": "系統匣",
             "submenu": {
               "disabled": "已停用",
-              "enabled-and-hide-app": "啟用並最小化應用",
-              "enabled-and-show-app": "啟用並顯示應用",
-              "play-pause-on-click": "點擊時播放／暫停"
+              "enabled-and-hide-app": "啟用並最小化應用程式",
+              "enabled-and-show-app": "啟用並顯示應用程式",
+              "play-pause-on-click": "點選時播放／暫停"
             }
           },
           "visual-tweaks": {
@@ -177,17 +177,17 @@
         }
       },
       "plugins": {
-        "enabled": "啟用",
+        "enabled": "已啟用",
         "label": "外掛功能",
         "new": "新的"
       },
       "view": {
-        "label": "視窗",
+        "label": "檢視",
         "submenu": {
           "force-reload": "強制重新整理",
           "reload": "重新整理",
           "reset-zoom": "重設大小",
-          "toggle-fullscreen": "全螢幕",
+          "toggle-fullscreen": "切換全螢幕",
           "zoom-in": "放大",
           "zoom-out": "縮小"
         }
@@ -198,10 +198,10 @@
       "play-pause": "播放／暫停",
       "previous": "上一首",
       "quit": "關閉",
-      "restart": "重啟程式",
+      "restart": "重新啟動應用程式",
       "show": "顯示視窗",
       "tooltip": {
-        "default": "Youtube Music",
+        "default": "YouTube Music",
         "with-song-info": "YouTube Music: {{artist}} - {{title}}"
       }
     }
@@ -235,7 +235,7 @@
       "name": "隨歌曲色調變更主題"
     },
     "ambient-mode": {
-      "description": "影片周圍背景根據影片內容改變顏色, 讓觀眾在觀賞影片時更有臨場感",
+      "description": "影片周圍背景根據影片內容改變顏色，讓觀眾在觀賞影片時更有臨場感",
       "menu": {
         "blur-amount": {
           "label": "模糊等級",
@@ -280,10 +280,10 @@
       "name": "微光效果"
     },
     "amuse": {
-      "description": "加入支援 6K Labs 的 Amuse OBS 外掛以取得 Youtube Music 現正播放資訊",
+      "description": "加入支援 6K Labs 的 Amuse OBS 外掛以取得 YouTube Music 現正播放資訊",
       "name": "Amuse",
       "response": {
-        "query": "Amuse API 伺服器正在運行中，使用 /query 以取得歌曲資訊。"
+        "query": "Amuse API 伺服器正在運作中，使用 /query 以取得歌曲資訊。"
       }
     },
     "api-server": {
@@ -294,7 +294,7 @@
             "allow": "允許",
             "deny": "拒絕"
           },
-          "message": "允許 {{ID}} ({{origin}}) 訪問 API 嗎？",
+          "message": "允許 {{ID}} ({{origin}}) 存取 API 嗎？",
           "title": "API 驗證請求"
         }
       },
@@ -314,7 +314,7 @@
           "label": "主機名稱"
         },
         "port": {
-          "label": "接口"
+          "label": "連接埠"
         }
       },
       "name": "API 伺服器 [Beta]",
@@ -324,13 +324,13 @@
           "title": "主機名稱"
         },
         "port": {
-          "label": "輸入 API 伺服器接口：",
-          "title": "接口"
+          "label": "輸入 API 伺服器連接埠：",
+          "title": "連接埠"
         }
       }
     },
     "audio-compressor": {
-      "description": "使用音效壓縮 (大聲部份的音量降低, 柔和部份的音量提高)",
+      "description": "使用音效壓縮 (大聲部份的音量降低，柔和部份的音量提高)",
       "name": "音效壓縮器"
     },
     "blur-nav-bar": {
@@ -338,21 +338,21 @@
       "name": "模糊導覽列"
     },
     "bypass-age-restrictions": {
-      "description": "繞過Youtube年齡驗證",
+      "description": "繞過 YouTube 年齡驗證",
       "name": "繞過年齡驗證"
     },
     "captions-selector": {
-      "description": "音軌標題選擇",
+      "description": "YouTube Music 音軌字幕選擇器",
       "menu": {
-        "autoload": "自動選擇最後使用的標題",
+        "autoload": "自動選擇上次使用的字幕",
         "disable-captions": "預設無標題"
       },
       "name": "標題選擇器",
       "prompt": {
         "selector": {
-          "label": "目前標題語言：{{language}}",
+          "label": "目前字幕語言：{{language}}",
           "none": "無",
-          "title": "選擇標題語言"
+          "title": "選擇字幕語言"
         }
       },
       "templates": {
@@ -394,19 +394,19 @@
     },
     "discord": {
       "backend": {
-        "already-connected": "已嘗試可用連接",
-        "connected": "已連接至 Discord",
-        "disconnected": "與 Discord 斷開連接"
+        "already-connected": "已嘗試可用連線",
+        "connected": "已連線至 Discord",
+        "disconnected": "已與 Discord 中斷連線"
       },
       "description": "使用 Discord 狀態與你的好友分享你正在收聽的音樂",
       "menu": {
-        "auto-reconnect": "自動重新連接",
+        "auto-reconnect": "自動重新連線",
         "clear-activity": "清除狀態",
         "clear-activity-after-timeout": "在音樂暫停後清除狀態",
-        "connected": "已連接",
-        "disconnected": "已斷開連接",
+        "connected": "已連線",
+        "disconnected": "已斷開連線",
         "hide-duration-left": "隱藏音樂剩餘時間狀態",
-        "hide-github-button": "隱藏 Github 頁面按鈕",
+        "hide-github-button": "隱藏 GitHub 頁面按鈕",
         "play-on-youtube-music": "顯示 Play on YouTube Music 按鈕",
         "set-inactivity-timeout": "設定閒置狀態時長"
       },
@@ -425,8 +425,8 @@
             "buttons": {
               "ok": "完成"
             },
-            "message": "啊!抱歉,下載失敗了…",
-            "title": "下載出現錯誤!"
+            "message": "啊！抱歉，下載失敗了…",
+            "title": "下載出現錯誤！"
           },
           "start-download-playlist": {
             "buttons": {
@@ -448,15 +448,15 @@
           "downloading-playlist": "正在下載播放清單 \"{{playlistTitle}}\" - 共 {{playlistSize}} 首歌 ({{playlistId}})",
           "error-while-downloading": "無法下載 \"{{author}} - {{title}}\": {{error}}",
           "folder-already-exists": "資料夾 {{playlistFolder}} 已經存在",
-          "getting-playlist-info": "正在獲取播放清單資訊…",
+          "getting-playlist-info": "正在取得播放清單資訊…",
           "loading": "載入中…",
-          "playlist-has-only-one-song": "播放清單內只有一首歌曲, 將直接下載",
+          "playlist-has-only-one-song": "播放清單內只有一首歌曲，將直接下載",
           "playlist-id-not-found": "沒有找到播放清單 ID",
           "playlist-is-empty": "播放清單是空的",
-          "playlist-is-mix-or-private": "獲取播放清單資訊時發生錯誤：請確認非私人播放清單或是\"為你推薦的合輯\"\n\n{{error}}",
+          "playlist-is-mix-or-private": "取得播放清單資訊時發生錯誤：請確認非私人播放清單或是\"為你推薦的合輯\"\n\n{{error}}",
           "preparing-file": "正在準備檔案…",
           "saving": "儲存中…",
-          "trying-to-get-playlist-id": "正在嘗試獲取播放清單 ID：{{playlistId}}",
+          "trying-to-get-playlist-id": "正在嘗試取得播放清單 ID：{{playlistId}}",
           "video-id-not-found": "未能找到該影片",
           "writing-id3": "正在寫入 ID3 標籤…"
         }
@@ -510,7 +510,7 @@
     "in-app-menu": {
       "description": "使選單列變更為黑色或隨主題變色",
       "menu": {
-        "hide-dom-window-controls": "隱藏DOM視窗控制"
+        "hide-dom-window-controls": "隱藏 DOM 視窗控制"
       },
       "name": "程式內選單列"
     },
@@ -525,13 +525,13 @@
       },
       "name": "第三方字幕",
       "renderer": {
-        "fetched-lyrics": "為 Genius 獲取字幕"
+        "fetched-lyrics": "為 Genius 取得字幕"
       }
     },
     "music-together": {
-      "description": "與他人共享播放清單。當發起人播放歌曲時，其他成員也會同步收聽",
+      "description": "與他人共享播放清單。當主持人播放歌曲時，其他成員也會同步收聽",
       "dialog": {
-        "enter-host": "輸入發起人 ID"
+        "enter-host": "輸入主持人 ID"
       },
       "internal": {
         "save": "儲存",
@@ -539,33 +539,33 @@
         "unknown-user": "未知使用者"
       },
       "menu": {
-        "click-to-copy-id": "複製發起人 ID",
+        "click-to-copy-id": "複製主持人 ID",
         "close": "同步關閉音樂",
-        "connected-users": "已連接的使用者",
-        "disconnect": "斷開連接共享音樂",
-        "empty-user": "無已連接的使用者",
+        "connected-users": "已連線的使用者",
+        "disconnect": "斷開連線共享音樂",
+        "empty-user": "無已連線的使用者",
         "host": "發起共享音樂",
-        "join": "加入共享音樂",
+        "join": "已加入共享音樂",
         "permission": {
           "all": "允許加入的使用者控制播放清單及播放控制",
           "host-only": "不允許加入的使用者控制播放清單及播放控制",
           "playlist": "只允許加入的使用者控制播放清單"
         },
-        "set-permission": "切換共享音樂播放權限",
+        "set-permission": "切換共享音樂播放許可權",
         "status": {
-          "disconnected": "已斷開連接",
-          "guest": "以使用者身份加入",
-          "host": "以發起人身份加入"
+          "disconnected": "已斷開連線",
+          "guest": "以訪客者身份加入",
+          "host": "以主持人身份加入"
         }
       },
       "name": "共享音樂 [Beta]",
       "toast": {
         "add-song-failed": "歌曲加入失敗",
         "closed": "關閉共享音樂",
-        "disconnected": "共享音樂已斷開連接",
+        "disconnected": "共享音樂已斷開連線",
         "host-failed": "發起共享音樂失敗",
-        "id-copied": "已複製發起人 ID",
-        "id-copy-failed": "複製發起人 ID 失敗",
+        "id-copied": "已複製主持人 ID",
+        "id-copy-failed": "複製主持人 ID 失敗",
         "join-failed": "加入共享音樂失敗",
         "joined": "加入共享音樂",
         "permission-changed": "共享音樂播放權限已切換至 \"{{permission}}\"",
@@ -583,20 +583,20 @@
       "name": "停用 Google 登入"
     },
     "notifications": {
-      "description": "在歌曲播放時發送一個系統通知 (可互動通知僅限Windows)",
+      "description": "在歌曲播放時傳送一個系統通知 (可互動通知僅限 Windows)",
       "menu": {
         "interactive": "可互動通知",
         "interactive-settings": {
           "label": "通知互動設定",
           "submenu": {
             "hide-button-text": "隱藏按鈕文字",
-            "refresh-on-play-pause": "在播放／暫停時刷新",
-            "tray-controls": "點擊系統閘圖示時打開／關閉"
+            "refresh-on-play-pause": "在播放／暫停時重新整理",
+            "tray-controls": "點選系統閘圖示時開啟／關閉"
           }
         },
         "priority": "通知優先權",
         "toast-style": "通知樣式",
-        "unpause-notification": "在取消暫停時發送通知"
+        "unpause-notification": "在取消暫停時傳送通知"
       },
       "name": "歌曲播放通知"
     },
@@ -624,7 +624,7 @@
       }
     },
     "playback-speed": {
-      "description": "傷心的人別聽慢歌, 新增一個滑桿控制歌曲速度",
+      "description": "傷心的人別聽慢歌，新增一個滑桿控制歌曲速度",
       "name": "控制歌曲速度",
       "templates": {
         "button": "速度"
@@ -671,7 +671,7 @@
       "dialog": {
         "lastfm": {
           "auth-failed": {
-            "message": "Last.fm認證失敗\n將隱藏彈窗直到重啟。",
+            "message": "Last.fm 認證失敗\n將隱藏彈窗直到重啟。",
             "title": "認證失敗"
           }
         }
@@ -684,13 +684,13 @@
           "token": "輸入 ListenBrainz 使用者憑證"
         },
         "scrobble-alternative-title": "使用替代歌曲標題",
-        "scrobble-other-media": "紀錄其他媒體文件"
+        "scrobble-other-media": "紀錄其他媒體檔案"
       },
       "name": "Scrobbler",
       "prompt": {
         "lastfm": {
           "api-key": "Last.fm API 金鑰",
-          "api-secret": "Last.fm API 密鑰"
+          "api-secret": "Last.fm API 金鑰"
         },
         "listenbrainz": {
           "token": {
@@ -701,7 +701,7 @@
       }
     },
     "shortcuts": {
-      "description": "使用全域快捷鍵控制音樂 (播放／暫停／下一首／上一首) + 透過覆寫媒體快捷鍵停用媒體OSD + 允許Ctrl/CMD + F來搜尋 + 支援Linux MPRIS媒體快捷鍵 + 更多自訂快捷鍵給進階使用者",
+      "description": "使用全域快捷鍵控制音樂 (播放／暫停／下一首／上一首) + 透過覆寫媒體快捷鍵停用媒體 OSD + 允許 Ctrl/CMD + F 來搜尋 + 支援 Linux MPRIS 媒體快捷鍵 + 更多自訂快捷鍵給進階使用者",
       "menu": {
         "override-media-keys": "覆寫媒體快捷鍵",
         "set-keybinds": "設定全域歌曲控制"
@@ -729,7 +729,7 @@
     },
     "sponsorblock": {
       "description": "自動跳過贊助片段",
-      "name": "贊助阻擋"
+      "name": "SponsorBlock"
     },
     "synced-lyrics": {
       "description": "使用 LRClib 等管道提供歌詞同步顯示。",
@@ -747,26 +747,26 @@
           "submenu": {
             "fancy": {
               "label": "絢麗",
-              "tooltip": "使用較為接近原生樣式並且放大當前該行歌詞"
+              "tooltip": "使用較為接近原生樣式並且放大目前該行歌詞"
             },
             "focus": {
-              "label": "高亮",
-              "tooltip": "高亮當前的歌詞"
+              "label": "聚焦",
+              "tooltip": "聚焦目前的歌詞"
             },
             "offset": {
               "label": "凸行",
-              "tooltip": "凸行當前的歌詞"
+              "tooltip": "凸行目前的歌詞"
             },
             "scale": {
               "label": "放大",
-              "tooltip": "放大當前的歌詞"
+              "tooltip": "放大目前的歌詞"
             }
           },
           "tooltip": "選擇要使用的歌詞顯示效果"
         },
         "precise-timing": {
           "label": "使歌詞完美同步",
-          "tooltip": "更精確的計算下一行歌詞的顯示(將會降低些許效能)"
+          "tooltip": "更精確的計算下一行歌詞的顯示 (將會降低些許效能)"
         },
         "romanization": {
           "label": "羅馬拼音化歌詞",
@@ -797,15 +797,15 @@
       "name": "工作列媒體控制"
     },
     "touchbar": {
-      "description": "為macOS使用者新增觸控列支援",
+      "description": "為 macOS 使用者新增觸控列支援",
       "name": "觸控列 (Touchbar) 支援"
     },
     "tuna-obs": {
-      "description": "與 OBS 的 Tuna 外掛連接",
+      "description": "與 OBS 的 Tuna 外掛連線",
       "name": "Tuna OBS"
     },
     "unobtrusive-player": {
-      "description": "防止播放器介面在點擊歌曲後彈出",
+      "description": "防止播放器介面在點選歌曲後彈出",
       "name": "低干擾播放器介面"
     },
     "video-toggle": {
@@ -821,7 +821,7 @@
         },
         "force-hide": "強制移除整個影片頁面",
         "mode": {
-          "label": "樣式",
+          "label": "模式",
           "submenu": {
             "custom": "自訂樣式",
             "disabled": "停用",
@@ -835,11 +835,11 @@
       }
     },
     "visualizer": {
-      "description": "新增一個可視化音樂效果",
+      "description": "新增一個視覺化音樂效果",
       "menu": {
-        "visualizer-type": "樣式"
+        "visualizer-type": "視覺化效果類型"
       },
-      "name": "可視化音樂效果"
+      "name": "視覺化效果"
     }
   }
 }
