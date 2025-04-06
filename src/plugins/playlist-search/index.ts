@@ -70,9 +70,7 @@ export default createPlugin<
       });
     },
     initializeSearch(shelf): void {
-      const existingContainer = document.getElementById(
-        `#${PlaylistSearchBoxID}`
-      );
+      const existingContainer = document.getElementById(PlaylistSearchBoxID);
 
       if (existingContainer) {
         this.searchContainer = existingContainer as HTMLDivElement;
