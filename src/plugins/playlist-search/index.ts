@@ -1,5 +1,6 @@
 import style from './playlist-search.css?inline';
 import { t } from '@/i18n';
+import { debounce } from '@/providers/decorators';
 import { createPlugin } from '@/utils';
 import { waitForElement } from '@/utils/wait-for-element';
 
@@ -9,28 +10,29 @@ export default createPlugin<
   unknown,
   unknown,
   {
-    observer?: MutationObserver;
     songListObserver?: MutationObserver;
     searchContainer: HTMLDivElement | null;
     searchInput: HTMLInputElement | null;
     currentSearchTerm: string;
     debounceTimeout: number | null;
     waiting: boolean;
-    onPageChange(): void;
-    containsSearchTerm(element: Element, searchTerm: string): boolean;
-    filterPlaylistItems(searchTerm: string, shelfContainerName: string): void;
-    debouncedFilter(searchTerm: string, shelfContainerName: string): void;
-    initializeSearch(shelfContainerName: string): void;
-    start(): void;
-    stop(): void;
+    onPageChange: () => void;
+    containsSearchTerm: (element: Element, searchTerm: string) => boolean;
+    filterPlaylistItems: (
+      searchTerm: string,
+      shelfContainerName: string
+    ) => void;
+    initializeSearch: (shelfContainerName: string) => void;
+    start: () => void;
+    stop: () => void;
   }
 >({
   name: () => t('plugins.playlist-search.name'),
   description: () => t('plugins.playlist-search.description'),
-  restartNeeded: false, // if value is true, ytmusic show restart dialog
+  restartNeeded: false,
   config: {
-    enabled: true,
-  }, // your custom config
+    enabled: false,
+  },
   stylesheets: [style],
   renderer: {
     // state
@@ -71,18 +73,8 @@ export default createPlugin<
         (item as HTMLElement).style.display = hasMatch ? '' : 'none';
       });
     },
-    debouncedFilter(searchTerm: string, shelfContainerName: string): void {
-      if (this.debounceTimeout) {
-        window.clearTimeout(this.debounceTimeout);
-      }
-
-      this.debounceTimeout = window.setTimeout(() => {
-        this.filterPlaylistItems(searchTerm, shelfContainerName);
-        this.debounceTimeout = null;
-      }, 300);
-    },
     initializeSearch(shelfContainerName: string): void {
-      const existingContainer = document.querySelector(
+      const existingContainer = document.getElementById(
         `#${PlaylistSearchBoxID}`
       );
 
@@ -95,6 +87,7 @@ export default createPlugin<
         return;
       }
 
+      this.currentSearchTerm = '';
       this.searchContainer = document.createElement(
         'ytmusic-search-box'
       ) as HTMLDivElement;
@@ -115,42 +108,42 @@ export default createPlugin<
         this.searchContainer.querySelector('#suggestion-list')?.remove();
         this.searchContainer.querySelector('#clear-button')?.remove();
 
+        const debouncedFilter = debounce(
+          (search: string, container: string) => {
+            this.filterPlaylistItems(search, container);
+          },
+          300
+        );
+
         this.searchInput.addEventListener('input', (e) => {
           const newSearchTerm = (e.target as HTMLInputElement).value;
           this.currentSearchTerm = newSearchTerm;
-          this.debouncedFilter(newSearchTerm, shelfContainerName);
+          debouncedFilter(newSearchTerm, shelfContainerName);
         });
 
         if (this.songListObserver) {
           this.songListObserver.disconnect();
         }
 
-        this.songListObserver = new MutationObserver((mutations) => {
-          for (const mutation of mutations) {
-            if (mutation.addedNodes.length) {
-              // If there's a current search term, filter the new items
-              if (this.currentSearchTerm) {
-                this.debouncedFilter(
-                  this.currentSearchTerm,
-                  shelfContainerName
-                );
-              }
-            }
+        this.songListObserver = new MutationObserver(() => {
+          if (this.currentSearchTerm) {
+            debouncedFilter(this.currentSearchTerm, shelfContainerName);
           }
         });
 
-        this.songListObserver.observe(shelf, {
+        this.songListObserver.observe(shelf.querySelector('#contents')!, {
           childList: true,
-          subtree: true,
         });
       }
     },
-    onPageChange() {
+    async onPageChange() {
       if (this.waiting) {
         return;
+      } else {
+        this.waiting = true;
       }
-
-      this.waiting = true;
+      await waitForElement<HTMLElement>('#continuations');
+      this.waiting = false;
 
       const shelf =
         document.querySelector('ytmusic-playlist-shelf-renderer') ??
@@ -163,24 +156,12 @@ export default createPlugin<
       this.waiting = false;
     },
     start(): void {
-      this.observer = new MutationObserver((mutations) => {
-        for (const mutation of mutations) {
-          if (mutation.addedNodes.length) {
-            this.onPageChange();
-          }
-        }
-      });
-
-      this.observer.observe(document.body, {
-        childList: true,
-        subtree: true,
-      });
-
       this.onPageChange();
+      window.navigation.addEventListener('navigate', this.onPageChange);
     },
 
     stop(): void {
-      this.observer?.disconnect();
+      window.navigation.removeEventListener('navigate', this.onPageChange);
       this.songListObserver?.disconnect();
 
       if (this.searchContainer) {
