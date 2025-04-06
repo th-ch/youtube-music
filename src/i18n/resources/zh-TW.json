@@ -545,7 +545,7 @@
         "disconnect": "斷開連線共享音樂",
         "empty-user": "無已連線的使用者",
         "host": "發起共享音樂",
-        "join": "已加入共享音樂",
+        "join": "加入共享音樂",
         "permission": {
           "all": "允許加入的使用者控制播放清單及播放控制",
           "host-only": "不允許加入的使用者控制播放清單及播放控制",
@@ -554,7 +554,7 @@
         "set-permission": "切換共享音樂播放許可權",
         "status": {
           "disconnected": "已斷開連線",
-          "guest": "以訪客者身份加入",
+          "guest": "以訪客身份加入",
           "host": "以主持人身份加入"
         }
       },
@@ -567,7 +567,7 @@
         "id-copied": "已複製主持人 ID",
         "id-copy-failed": "複製主持人 ID 失敗",
         "join-failed": "加入共享音樂失敗",
-        "joined": "加入共享音樂",
+        "joined": "已加入共享音樂",
         "permission-changed": "共享音樂播放權限已切換至 \"{{permission}}\"",
         "remove-song-failed": "歌曲移除失敗",
         "user-connected": "{{name}} 已加入共享音樂",
@@ -690,7 +690,7 @@
       "prompt": {
         "lastfm": {
           "api-key": "Last.fm API 金鑰",
-          "api-secret": "Last.fm API 金鑰"
+          "api-secret": "Last.fm API 密鑰"
         },
         "listenbrainz": {
           "token": {
