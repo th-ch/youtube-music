@@ -1,3 +1,4 @@
+import config from '@/config';
 import Plugins from '@/config/plugins';
 import { createBackend } from '@/utils';
 import is from 'electron-is';
@@ -34,11 +35,16 @@ const plugins = {
   },
 };
 
+const loadSettings = () => {
+  return config.getStore();
+};
+
 export const backend = createBackend({
   start(ctx) {
     ctx.ipc.handle('ytmd-sui:app-version', getVersion);
     ctx.ipc.handle('ytmd-sui:platform', platform);
     ctx.ipc.handle('ytmd-sui:versions', versions);
+    ctx.ipc.handle('ytmd-sui:load-settings', loadSettings);
 
     ctx.ipc.handle('ytmd-sui:plugins-enable', plugins.enable);
     ctx.ipc.handle('ytmd-sui:plugins-disable', plugins.disable);
@@ -49,6 +55,8 @@ export const backend = createBackend({
     ctx.ipc.removeHandler('ytmd-sui:app-version');
     ctx.ipc.removeHandler('ytmd-sui:platform');
     ctx.ipc.removeHandler('ytmd-sui:versions');
+    ctx.ipc.removeHandler('ytmd-sui:load-settings');
+
     ctx.ipc.removeHandler('ytmd-sui:plugins-enable');
     ctx.ipc.removeHandler('ytmd-sui:plugins-disable');
     ctx.ipc.removeHandler('ytmd-sui:plugins-isEnabled');

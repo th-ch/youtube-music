@@ -1,3 +1,7 @@
+:root {
+  --ytmd-sui-border-radius: 0.5rem;
+}
+
 .ytmd-settings-ui-btn {
   --ytmusic-guide-entry-background-color: rgba(0, 0, 0, 0);
 
@@ -11,7 +15,7 @@
   &.normal {
     & > .ytmd-settings-ui-btn-content {
       background-color: var(--ytmusic-guide-entry-background-color);
-      border-radius: 8px;
+      border-radius: var(--ytmd-sui-border-radius);
 
       display: flex;
       align-items: center;
@@ -40,7 +44,7 @@
     padding: 12px 0;
     text-align: center;
     background-color: var(--ytmusic-guide-entry-background-color);
-    border-radius: 8px;
+    border-radius: var(--ytmd-sui-border-radius);
 
     &:hover,
     &:focus-within {
@@ -65,7 +69,7 @@
 
 .ytmd-sui-modal {
   background-color: #18181b;
-  border-radius: 16px;
+  border-radius: var(--ytmd-sui-border-radius);
   width: 90%;
   max-width: 1100px;
   height: 90vh;
@@ -131,7 +135,7 @@
   color: #a1a1aa;
   text-align: left;
   cursor: pointer;
-  border-radius: 6px;
+  border-radius: var(--ytmd-sui-border-radius);
   transition: all 0.2s;
   font-size: 13px;
   white-space: nowrap;
@@ -199,7 +203,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 8px;
+  border-radius: var(--ytmd-sui-border-radius);
   transition: all 0.2s;
 
   &:hover {
@@ -213,10 +217,25 @@
   color: #ffffff;
 }
 
+.ytmd-sui-scroll {
+  /* max-height: 500px; */
+  overflow-y: scroll;
+}
+
+.ytmd-sui-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  color: #a1a1aa;
+  font-size: 4rem;
+}
+
 .ytmd-sui-settingItem {
   margin-bottom: 24px;
   padding: 16px;
-  border-radius: 12px;
+  border-radius: var(--ytmd-sui-border-radius);
   background-color: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.06);
   transition: all 0.2s;
@@ -258,7 +277,7 @@
   color: white;
   border: none;
   padding: 8px 16px;
-  border-radius: 8px;
+  border-radius: var(--ytmd-sui-border-radius);
   cursor: pointer;
   font-size: 13px;
   font-weight: 500;
@@ -274,7 +293,7 @@
   width: 44px;
   height: 24px;
   background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
+  border-radius: var(--ytmd-sui-border-radius);
   position: relative;
   cursor: pointer;
   transition: all 0.2s;
@@ -293,7 +312,7 @@
   width: 20px;
   height: 20px;
   background-color: white;
-  border-radius: 50%;
+  border-radius: var(--ytmd-sui-border-radius);
   position: absolute;
   top: 2px;
   left: 2px;
@@ -306,7 +325,7 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: #fff;
   padding: 8px 12px;
-  border-radius: 8px;
+  border-radius: var(--ytmd-sui-border-radius);
   font-size: 13px;
   min-width: 200px;
   cursor: pointer;
@@ -391,7 +410,7 @@
 
 .ytmd-sui-systemInfo {
   background-color: rgba(255, 255, 255, 0.02);
-  border-radius: 12px;
+  border-radius: var(--ytmd-sui-border-radius);
   padding: 16px;
   border: 1px solid rgba(255, 255, 255, 0.06);
 }

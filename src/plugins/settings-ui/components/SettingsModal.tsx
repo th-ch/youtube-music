@@ -5,6 +5,7 @@ import {
   For,
   createEffect,
   onCleanup,
+  Suspense,
 } from 'solid-js';
 
 import General from './settings/General';
@@ -12,27 +13,27 @@ import Appearance from './settings/Appearance';
 import Plugins from './settings/Plugins';
 import Advanced from './settings/Advanced';
 import About from './settings/About';
-import { YtIcons } from '@/types/icons';
+import { Icons } from '@/types/icons';
 import { t } from '@/i18n';
 
 interface SidebarItem {
-  icon: YtIcons;
+  icon: Icons;
   id: string;
 }
 
 const sidebar: SidebarItem[] = [
-  { icon: 'yt-icons:settings', id: 'general' },
+  { icon: 'icons:settings', id: 'general' },
   { icon: 'yt-icons:color_lens', id: 'appearance' },
-  { icon: 'yt-icons:emoji', id: 'plugins' },
-  { icon: 'yt-icons:service_toolbox', id: 'advanced' },
-  { icon: 'yt-icons:info', id: 'about' },
+  { icon: 'icons:extension', id: 'plugins' },
+  { icon: 'icons:dashboard', id: 'advanced' },
+  { icon: 'icons:info', id: 'about' },
 ];
 
 interface SettingsModalProps {
   close: () => void;
 }
 
-export default ({ close }: SettingsModalProps) => {
+export default (props: SettingsModalProps) => {
   const [currentCategory, setCurrentCategory] = createSignal('general');
   const [isSidebarExpanded, setIsSidebarExpanded] = createSignal(true);
 
@@ -57,7 +58,7 @@ export default ({ close }: SettingsModalProps) => {
         class="ytmd-sui-modalOverlay"
         onClick={(e) => {
           if (e.target === e.currentTarget) {
-            close();
+            props.close();
           }
         }}
       >
@@ -114,28 +115,30 @@ export default ({ close }: SettingsModalProps) => {
                   }`
                 )}
               </h2>
-              <button class="ytmd-sui-closeButton" onClick={close}>
+              <button class="ytmd-sui-closeButton" onClick={props.close}>
                 ✕
               </button>
             </div>
 
-            <Switch fallback={<General />}>
-              <Match when={currentCategory() === 'general'}>
-                <General />
-              </Match>
-              <Match when={currentCategory() === 'appearance'}>
-                <Appearance />
-              </Match>
-              <Match when={currentCategory() === 'plugins'}>
-                <Plugins />
-              </Match>
-              <Match when={currentCategory() === 'advanced'}>
-                <Advanced />
-              </Match>
-              <Match when={currentCategory() === 'about'}>
-                <About />
-              </Match>
-            </Switch>
+            <Suspense fallback={<div class="ytmd-sui-loading">Loading...</div>}>
+              <Switch fallback={<General />}>
+                <Match when={currentCategory() === 'general'}>
+                  <General />
+                </Match>
+                <Match when={currentCategory() === 'appearance'}>
+                  <Appearance />
+                </Match>
+                <Match when={currentCategory() === 'plugins'}>
+                  <Plugins />
+                </Match>
+                <Match when={currentCategory() === 'advanced'}>
+                  <Advanced />
+                </Match>
+                <Match when={currentCategory() === 'about'}>
+                  <About />
+                </Match>
+              </Switch>
+            </Suspense>
           </div>
         </div>
       </div>

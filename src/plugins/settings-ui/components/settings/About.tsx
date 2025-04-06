@@ -1,17 +1,13 @@
-import { createEffect, createSignal, For, Show } from 'solid-js';
+import { For, lazy, Show } from 'solid-js';
 import { getAppVersion, getPlatform, getVersions } from '../../renderer';
 
-export default () => {
-  const [appVersion, setAppVersion] = createSignal('');
-  const [platform, setPlatform] = createSignal('');
-  const [versions, setVersions] = createSignal<Record<string, string>>({});
+interface ImplProps {
+  appVersion: string;
+  platform: string;
+  versions: Record<string, string>;
+}
 
-  createEffect(async () => {
-    setAppVersion(await getAppVersion());
-    setPlatform(await getPlatform());
-    setVersions(await getVersions());
-  });
-
+const Impl = (props: ImplProps) => {
   return (
     <div class="ytmd-sui-settingsContent">
       <div class="ytmd-sui-aboutSection">
@@ -20,7 +16,7 @@ export default () => {
           <span class="ytmd-sui-about-grepo">youtube-music</span>
         </h3>
         <p class="ytmd-sui-version">
-          v{appVersion()}
+          v{props.appVersion}
           {import.meta.env.DEV ? ' (dev)' : ''}
         </p>
         <p class="ytmd-sui-description">
@@ -34,14 +30,14 @@ export default () => {
         <div class="ytmd-sui-systemInfo">
           <div class="ytmd-sui-infoRow">
             <span>Operating System</span>
-            <span>{platform()}</span>
+            <span>{props.platform}</span>
           </div>
           <For each={['electron', 'chrome', 'node', 'v8']}>
             {(name) => (
-              <Show when={versions()[name]}>
+              <Show when={props.versions[name]}>
                 <div class="ytmd-sui-infoRow">
                   <span>{name === 'chrome' ? 'chromium' : name}</span>
-                  <span>{versions()[name]}</span>
+                  <span>{props.versions[name]}</span>
                 </div>
               </Show>
             )}
@@ -56,3 +52,15 @@ export default () => {
     </div>
   );
 };
+
+export default lazy(async () => {
+  const appVersion = await getAppVersion();
+  const platform = await getPlatform();
+  const versions = await getVersions();
+
+  return {
+    default: () => (
+      <Impl appVersion={appVersion} platform={platform} versions={versions} />
+    ),
+  };
+});

@@ -76,11 +76,15 @@ export let plugins = {
   isEnabled: (id: string) => Promise.resolve(false),
 };
 
+// prettier-ignore
+export let loadSettings = async () => ({} as ReturnType<typeof import('@/config')['default']['getStore']>);
+
 export const renderer = createRenderer({
   start(ctx) {
     getAppVersion = () => ctx.ipc.invoke('ytmd-sui:app-version');
     getPlatform = () => ctx.ipc.invoke('ytmd-sui:platform');
     getVersions = () => ctx.ipc.invoke('ytmd-sui:versions');
+    loadSettings = () => ctx.ipc.invoke('ytmd-sui:load-settings');
 
     plugins.enable = (id: string) =>
       ctx.ipc.invoke('ytmd-sui:plugins-enable', id);

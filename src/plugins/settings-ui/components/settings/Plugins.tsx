@@ -1,7 +1,7 @@
 import { createEffect, createSignal, For, Show } from 'solid-js';
 import { allPlugins } from 'virtual:plugins';
 import { plugins } from '../../renderer';
-// import config from '@/config';
+import { jaroWinkler } from '@skyra/jaro-winkler';
 
 interface PluginCardProps {
   id: string;
@@ -59,35 +59,54 @@ const PluginCard = (props: PluginCardProps) => {
 
 // prettier-ignore
 export default () => {
-  const availablePlugins = Object.keys(allPlugins);
+  const availablePlugins = Object.keys(allPlugins).sort((a, b) => a.localeCompare(b));
 
   const [query, setQuery] = createSignal('');
   const [filter, setFilter] = createSignal<'all' | 'enabled' | 'disabled'>('all');
   const [filteredPlugins, setFilteredPlugins] = createSignal<string[]>(availablePlugins);
 
-  createEffect(() => {
-    if (filter() === 'all') {
-      setFilteredPlugins(Array.from(availablePlugins));
-      return;
-    }
+  createEffect(async () => {
+    // TODO: Throttle this effect so it doesn't run on every keystroke
 
-    (async () => {
-      const filtered: string[] = [];
+    const search = query().trim().toLowerCase();
+    const filter_ = filter();
+
+    /*
+      Note: it is safe to have the entire effect be async, because all the signals used in the effect are used before any await keyword.
+      Due to how javascript behaves, an asynchornous function is only considered async after the first await keyword.
+      If the signals were used after the await keyword, it would break the reactivity.
+    */
+
+    let filtered;
+
+    if (filter_ === 'all') {
+      filtered = Array.from(availablePlugins);
+    } else {
+      filtered = [];
 
       for (const plugin of availablePlugins) {
         const enabled = await plugins.isEnabled(plugin);
 
-        if (filter() === 'enabled' && enabled) {
+        if (filter_ === 'enabled' && enabled) {
           filtered.push(plugin);
-        } else if (filter() === 'disabled' && !enabled) {
+        } else if (filter_ === 'disabled' && !enabled) {
           filtered.push(plugin);
         }
       }
+    }
 
-      // TODO: Add search functionality
+    if (search) {
+      filtered = filtered.filter((plugin) => {
+        const pluginInstance = allPlugins[plugin];
+
+        const name = jaroWinkler(pluginInstance.name().toLowerCase(), search);
+        const threshold = 0.85;
+
+        return name >= threshold || pluginInstance.description?.()?.toLowerCase()?.includes(search);
+      });
+    }
 
       setFilteredPlugins(filtered);
-    })();
   });
 
   return (
