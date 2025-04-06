@@ -17,10 +17,6 @@ export class LRCLib implements LyricProvider {
     songDuration,
     tags,
   }: SearchSongInfo): Promise<LyricResult | null> {
-    // I won't enable this as the default since I'm not sure if the "alternative title"
-    // is always the original language. And anyway the artist name is usually in English.
-    // Not in the original, and that is a little bit harder to extract.
-    // const trackName = alternativeTitle || title;
     
     let query = new URLSearchParams({
       artist_name: artist,
@@ -49,7 +45,7 @@ export class LRCLib implements LyricProvider {
         return null;
       }
 
-      // Try to search with the alternative title
+      // Try to search with the alternative title (original language)
       const trackName = alternativeTitle || title;
       query = new URLSearchParams({ q: `${trackName}` });
       url = `${this.baseUrl}/api/search?${query.toString()}`;
