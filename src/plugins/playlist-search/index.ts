@@ -4,7 +4,9 @@ import { debounce } from '@/providers/decorators';
 import { createPlugin } from '@/utils';
 import { waitForElement } from '@/utils/wait-for-element';
 
-export const PlaylistSearchBoxID = 'custom-playlist-search-container';
+const PlaylistSearchBoxID = 'custom-playlist-search-container';
+const AlbumShelfComponent = 'YTMUSIC-SHELF-RENDERER';
+const PlaylistShelfComponent = 'YTMUSIC-PLAYLIST-SHELF-RENDERER';
 
 export default createPlugin<
   unknown,
@@ -18,11 +20,8 @@ export default createPlugin<
     waiting: boolean;
     onPageChange: () => void;
     containsSearchTerm: (element: Element, searchTerm: string) => boolean;
-    filterPlaylistItems: (
-      searchTerm: string,
-      shelfContainerName: string
-    ) => void;
-    initializeSearch: (shelfContainerName: string) => void;
+    filterPlaylistItems: (searchTerm: string, shelf: Element) => void;
+    initializeSearch: (shelf: Element) => void;
     start: () => void;
     stop: () => void;
   }
@@ -57,11 +56,8 @@ export default createPlugin<
           .replace(/[\u0300-\u036f]/g, '')
       );
     },
-    filterPlaylistItems(searchTerm: string, shelfContainerName: string): void {
-      const playlistShelf = document.querySelector(shelfContainerName);
-      if (!playlistShelf) return;
-
-      const items = playlistShelf.querySelectorAll(
+    filterPlaylistItems(searchTerm, shelf): void {
+      const items = shelf.querySelectorAll(
         'ytmusic-responsive-list-item-renderer'
       );
       items.forEach((item) => {
@@ -73,7 +69,7 @@ export default createPlugin<
         (item as HTMLElement).style.display = hasMatch ? '' : 'none';
       });
     },
-    initializeSearch(shelfContainerName: string): void {
+    initializeSearch(shelf): void {
       const existingContainer = document.getElementById(
         `#${PlaylistSearchBoxID}`
       );
@@ -95,30 +91,38 @@ export default createPlugin<
       this.searchContainer.className = 'search-box style-scope ytmusic-nav-bar';
       this.searchContainer.setAttribute('is-bauhaus-sidenav-enabled', 'true');
 
-      const shelf = document.querySelector(shelfContainerName);
       if (shelf) {
         // search goes at the top of the playlist
         shelf.insertBefore(this.searchContainer, shelf.firstChild);
 
         // modify the ytmusic search box to our needs after it's inserted
         this.searchInput = this.searchContainer.querySelector('input')!;
-        this.searchInput.placeholder = 'Search in playlist';
+        if (shelf.tagName === PlaylistShelfComponent) {
+          this.searchInput.placeholder = t(
+            'plugins.playlist-search.playlist_search_placeholder'
+          );
+        } else if (shelf.tagName === AlbumShelfComponent) {
+          this.searchInput.placeholder = t(
+            'plugins.playlist-search.album_search_placeholder'
+          );
+        } else {
+          this.searchInput.placeholder = t(
+            'plugins.playlist-search.search_placeholder'
+          );
+        }
         this.searchInput.value = this.currentSearchTerm;
 
         this.searchContainer.querySelector('#suggestion-list')?.remove();
         this.searchContainer.querySelector('#clear-button')?.remove();
 
-        const debouncedFilter = debounce(
-          (search: string, container: string) => {
-            this.filterPlaylistItems(search, container);
-          },
-          300
-        );
+        const debouncedFilter = debounce((search: string, shelfEl: Element) => {
+          this.filterPlaylistItems(search, shelfEl);
+        }, 300);
 
         this.searchInput.addEventListener('input', (e) => {
           const newSearchTerm = (e.target as HTMLInputElement).value;
           this.currentSearchTerm = newSearchTerm;
-          debouncedFilter(newSearchTerm, shelfContainerName);
+          debouncedFilter(newSearchTerm, shelf);
         });
 
         if (this.songListObserver) {
@@ -127,7 +131,7 @@ export default createPlugin<
 
         this.songListObserver = new MutationObserver(() => {
           if (this.currentSearchTerm) {
-            debouncedFilter(this.currentSearchTerm, shelfContainerName);
+            debouncedFilter(this.currentSearchTerm, shelf);
           }
         });
 
@@ -146,12 +150,12 @@ export default createPlugin<
       this.waiting = false;
 
       const shelf =
-        document.querySelector('ytmusic-playlist-shelf-renderer') ??
-        document.querySelector('ytmusic-shelf-renderer');
+        document.querySelector(PlaylistShelfComponent) ??
+        document.querySelector(AlbumShelfComponent);
 
       if (!shelf) return;
 
-      this.initializeSearch(shelf.tagName);
+      this.initializeSearch(shelf);
 
       this.waiting = false;
     },
