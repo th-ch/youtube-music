@@ -98,7 +98,7 @@ const handleData = async (
     songInfo.alternativeTitle = microformat.linkAlternates.find(
       (link) => link.title,
     )?.title;
-    songInfo.tags = microformat.tags;
+    songInfo.tags = Array.isArray(microformat.tags) ? microformat.tags : [];
   }
 
   const { videoDetails } = data;
