@@ -492,7 +492,7 @@
       }
     },
     "equalizer": {
-      "description": "プレイヤーにイコライザーを追加",
+      "description": "イコライザーを追加",
       "menu": {
         "presets": {
           "label": "プリセット",
