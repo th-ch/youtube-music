@@ -49,8 +49,8 @@ importers:
         specifier: 2.5.0
         version: 2.5.0(electron@35.1.5)
       '@ghostery/adblocker-electron-preload':
-        specifier: 2.5.0
-        version: 2.5.0(electron@35.1.5)
+        specifier: 2.5.1
+        version: 2.5.1(electron@35.1.5)
       '@hono/node-server':
         specifier: 1.14.1
         version: 1.14.1(hono@4.7.6)
@@ -747,11 +747,11 @@ packages:
   '@gar/promisify@1.1.3':
     resolution: {integrity: sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==}
 
-  '@ghostery/adblocker-content@2.5.0':
-    resolution: {integrity: sha512-Gn9fslZdacx1m1e3/2LSUPWagLObYmIDbkgvZTtgqT/OHc17VbM71AxWEjtC/xzo5K4PI25958PjvidoEH7ufw==}
+  '@ghostery/adblocker-content@2.5.1':
+    resolution: {integrity: sha512-Im0GiRxKdyWWWiIQBBOzA4nHecvPjOvMvT+GqsTHjcVqz+xFC22Jw1BPoniOjVYnOhS/XxtQZOdjm6A2Cbffew==}
 
-  '@ghostery/adblocker-electron-preload@2.5.0':
-    resolution: {integrity: sha512-BVVXVf6EOrn5sZPIfCFIXqOkEsAIzMIACuUYCti8+cgc0IDPg+d6/SocTXZbgIs+IDZKFzDNSJJXlVUiGhCMEA==}
+  '@ghostery/adblocker-electron-preload@2.5.1':
+    resolution: {integrity: sha512-QtTU/H8XmjK1VsK2Ua2Tk79RFxL5B1KltclWolJmTgVZeXUk9eJj0Wpo/hwFcFigVfXJ8Pbjbym9iftvPks6fQ==}
     peerDependencies:
       electron: '>11'
 
@@ -760,8 +760,8 @@ packages:
     peerDependencies:
       electron: '>11'
 
-  '@ghostery/adblocker-extended-selectors@2.5.0':
-    resolution: {integrity: sha512-/GBAwErjktcBKLjCMl/n+jz2MxXFfTmEGw+hcPtAhEin49eSC09PK1TAdzDPDXkCTF4Jmb/zC+MYtbX1eZ1WsQ==}
+  '@ghostery/adblocker-extended-selectors@2.5.1':
+    resolution: {integrity: sha512-UR9p/uEUmTXyQKkfCKwYesLkqJAGIyeFS2jDzIGgYDRyHGVlxu7Gcl/cdZehikTzBtrGtzc3X69amaUjvUyUJw==}
 
   '@ghostery/adblocker@2.5.0':
     resolution: {integrity: sha512-CcmWiTLKxDqYiTlPyOAWr3xeZYXjWlpu6UOCDkk33k0w7jTgVrdvwbXf8Tv4XE0m3uNX6Idfj4H+Umv8L3AiUw==}
@@ -5064,28 +5064,28 @@ snapshots:
 
   '@gar/promisify@1.1.3': {}
 
-  '@ghostery/adblocker-content@2.5.0':
+  '@ghostery/adblocker-content@2.5.1':
     dependencies:
-      '@ghostery/adblocker-extended-selectors': 2.5.0
+      '@ghostery/adblocker-extended-selectors': 2.5.1
 
-  '@ghostery/adblocker-electron-preload@2.5.0(electron@35.1.5)':
+  '@ghostery/adblocker-electron-preload@2.5.1(electron@35.1.5)':
     dependencies:
-      '@ghostery/adblocker-content': 2.5.0
+      '@ghostery/adblocker-content': 2.5.1
       electron: 35.1.5
 
   '@ghostery/adblocker-electron@2.5.0(electron@35.1.5)':
     dependencies:
       '@ghostery/adblocker': 2.5.0
-      '@ghostery/adblocker-electron-preload': 2.5.0(electron@35.1.5)
+      '@ghostery/adblocker-electron-preload': 2.5.1(electron@35.1.5)
       electron: 35.1.5
       tldts-experimental: 6.1.79
 
-  '@ghostery/adblocker-extended-selectors@2.5.0': {}
+  '@ghostery/adblocker-extended-selectors@2.5.1': {}
 
   '@ghostery/adblocker@2.5.0':
     dependencies:
-      '@ghostery/adblocker-content': 2.5.0
-      '@ghostery/adblocker-extended-selectors': 2.5.0
+      '@ghostery/adblocker-content': 2.5.1
+      '@ghostery/adblocker-extended-selectors': 2.5.1
       '@remusao/guess-url-type': 1.3.0
       '@remusao/small': 1.3.0
       '@remusao/smaz': 1.10.0
