@@ -4,6 +4,7 @@ export type SyncedLyricsPluginConfig = {
   enabled: boolean;
   preciseTiming: boolean;
   showTimeCodes: boolean;
+  lyricsOffset: number;
   defaultTextString: string;
   showLyricsEvenIfInexact: boolean;
   lineEffect: LineEffect;
