@@ -32,7 +32,7 @@ export interface LyricResult {
 }
 
 // prettier-ignore
-export type SearchSongInfo = Pick<SongInfo, 'title' | 'artist' | 'album' | 'songDuration' | 'videoId'>;
+export type SearchSongInfo = Pick<SongInfo, 'title' | 'alternativeTitle' | 'artist' | 'album' | 'songDuration' | 'videoId' | 'tags'>;
 
 export interface LyricProvider {
   name: string;
