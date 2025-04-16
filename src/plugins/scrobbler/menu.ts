@@ -79,6 +79,63 @@ async function promptListenbrainzOptions(
   }
 }
 
+async function promptSlackOptions(
+  options: ScrobblerPluginConfig,
+  setConfig: SetConfType,
+  window: BrowserWindow,
+) {
+  const output = await prompt(
+    {
+      title: 'Slack Settings',
+      label: 'Slack Settings',
+      type: 'multiInput',
+      multiInputOptions: [
+        {
+          label: 'Slack OAuth Token',
+          value: options.scrobblers.slack?.token,
+          inputAttrs: {
+            type: 'text',
+          },
+        },
+        {
+          label: 'Slack Cookie Token (d cookie value)',
+          value: options.scrobblers.slack?.cookieToken,
+          inputAttrs: {
+            type: 'text',
+          },
+        },
+        {
+          label: 'Emoji Name (for album art upload)',
+          value: options.scrobblers.slack?.emojiName,
+          inputAttrs: {
+            type: 'text',
+          },
+        },
+      ],
+      resizable: true,
+      height: 360,
+      ...promptOptions(),
+    },
+    window,
+  );
+
+  if (output) {
+    if (output[0]) {
+      options.scrobblers.slack.token = output[0];
+    }
+
+    if (output[1]) {
+      options.scrobblers.slack.cookieToken = output[1];
+    }
+
+    if (output[2]) {
+      options.scrobblers.slack.emojiName = output[2];
+    }
+
+    setConfig(options);
+  }
+}
+
 export const onMenu = async ({
   window,
   getConfig,
@@ -143,6 +200,27 @@ export const onMenu = async ({
           label: t('plugins.scrobbler.menu.listenbrainz.token'),
           click() {
             promptListenbrainzOptions(config, setConfig, window);
+          },
+        },
+      ],
+    },
+    {
+      label: 'Slack',
+      submenu: [
+        {
+          label: t('main.menu.plugins.enabled'),
+          type: 'checkbox',
+          checked: Boolean(config.scrobblers.slack?.enabled),
+          click(item) {
+            backend.toggleScrobblers(config, window);
+            config.scrobblers.slack.enabled = item.checked;
+            setConfig(config);
+          },
+        },
+        {
+          label: 'Slack Settings',
+          click() {
+            promptSlackOptions(config, setConfig, window);
           },
         },
       ],
