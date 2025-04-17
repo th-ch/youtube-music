@@ -49,6 +49,7 @@ export class LRCLib implements LyricProvider {
       const trackName = alternativeTitle || title;
       query = new URLSearchParams({ q: `${trackName}` });
       url = `${this.baseUrl}/api/search?${query.toString()}`;
+      artist = trackName.split(' - ')[0];
 
       response = await fetch(url);
       if (!response.ok) {
@@ -136,12 +137,23 @@ export class LRCLib implements LyricProvider {
       filteredResults.push(item);
     }
 
-    filteredResults.sort(({ duration: durationA }, { duration: durationB }) => {
-      const left = Math.abs(durationA - songDuration);
-      const right = Math.abs(durationB - songDuration);
+    filteredResults.sort(
+      (
+        { duration: durationA, syncedLyrics: lyricsA },
+        { duration: durationB, syncedLyrics: lyricsB },
+      ) => {
+        const hasLyricsA = lyricsA != null && lyricsA !== '';
+        const hasLyricsB = lyricsB != null && lyricsB !== '';
+        const left = Math.abs(durationA - songDuration);
+        const right = Math.abs(durationB - songDuration);
 
-      return left - right;
-    });
+        if (hasLyricsA !== hasLyricsB) {
+          return hasLyricsB ? 1 : -1;
+        }
+
+        return left - right;
+      },
+    );
 
     const closestResult = filteredResults[0];
     if (!closestResult) {
