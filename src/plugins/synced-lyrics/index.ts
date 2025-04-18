@@ -4,6 +4,7 @@ import { t } from '@/i18n';
 
 import { menu } from './menu';
 import { renderer } from './renderer';
+import { backend } from './backend';
 
 import type { SyncedLyricsPluginConfig } from './types';
 
@@ -25,5 +26,6 @@ export default createPlugin({
 
   menu,
   renderer,
+  backend,
   stylesheets: [style],
 });
