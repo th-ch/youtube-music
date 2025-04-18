@@ -332,8 +332,8 @@ importers:
         specifier: 6.3.0
         version: 6.3.0(@types/node@22.13.5)(yaml@2.7.0)
       vite-plugin-inspect:
-        specifier: 11.0.0
-        version: 11.0.0(vite@6.3.0(@types/node@22.13.5)(yaml@2.7.0))
+        specifier: 11.0.1
+        version: 11.0.1(vite@6.3.0(@types/node@22.13.5)(yaml@2.7.0))
       vite-plugin-resolve:
         specifier: 2.5.2
         version: 2.5.2
@@ -1503,8 +1503,8 @@ packages:
     resolution: {integrity: sha512-bN798gFfQX+viw3R7yrGWRqnrN2oRkEkUjjl4JNn4E8GxxbjtG3FbrEIIY3l8/hrwUwIeCZvi4QuOTP4MErVug==}
     engines: {node: '>=12'}
 
-  ansis@3.16.0:
-    resolution: {integrity: sha512-sU7d/tfZiYrsIAXbdL/CNZld5bCkruzwT5KmqmadCJYxuLxHAOBjidxD5+iLmN/6xEfjcQq1l7OpsiCBlc4LzA==}
+  ansis@3.17.0:
+    resolution: {integrity: sha512-0qWUglt9JEqLFr3w1I1pbrChn1grhaiAR2ocX1PP/flRmxgtwTzPFFFnfIlD6aMOLQZgSuCRlidD70lvx8yhzg==}
     engines: {node: '>=14'}
 
   any-base@1.1.0:
@@ -3465,8 +3465,8 @@ packages:
     resolution: {integrity: sha512-gXah6aZrcUxjWg2zR2MwouP2eHlCBzdV4pygudehaKXSGW4v2AsRQUK+lwwXhii6KFZcunEnmSUoYp5CXibxtA==}
     engines: {node: '>= 0.4'}
 
-  ohash@2.0.6:
-    resolution: {integrity: sha512-y3n0xHnH5RhTNlu5KvoH1cPKNS3ewteDWjvUXkW5+X/iYYe914zGbixMCr//jEjwn/IgMjfOwDPIpDJ0+ld3tw==}
+  ohash@2.0.11:
+    resolution: {integrity: sha512-RdR9FQrFwNBNXAr4GixM8YaRZRJ5PUWbKYbE5eOsrwAjJW0q2REGcf79oYPsLyskQCZG1PLN+S/K1V00joZAoQ==}
 
   omggif@1.0.10:
     resolution: {integrity: sha512-LMJTtvgc/nugXj0Vcrrs68Mn2D1r0zf630VNtqtpI1FEO7e+O9FP4gqs9AcnBaSEeoHIPm28u6qgPR0oyEpGSw==}
@@ -4408,8 +4408,8 @@ packages:
     peerDependencies:
       vite: 6.3.0
 
-  vite-plugin-inspect@11.0.0:
-    resolution: {integrity: sha512-Q0RDNcMs1mbI2yGRwOzSapnnA6NFO0j88+Vb8pJX0iYMw34WczwKJi3JgheItDhbWRq/CLUR0cs+ajZpcUaIFQ==}
+  vite-plugin-inspect@11.0.1:
+    resolution: {integrity: sha512-aABw7eGTr9Cmbn9RAs76e0BztVUFDl6a2R+/IJXpoUZxjx5YHB0P+Em3ZTWzpIPZzuRj28tAMblvcUyhgJc4aQ==}
     engines: {node: '>=14'}
     peerDependencies:
       '@nuxt/kit': '*'
@@ -5883,7 +5883,7 @@ snapshots:
 
   ansi-styles@6.2.1: {}
 
-  ansis@3.16.0: {}
+  ansis@3.17.0: {}
 
   any-base@1.1.0: {}
 
@@ -8208,7 +8208,7 @@ snapshots:
       define-properties: 1.2.1
       es-object-atoms: 1.1.1
 
-  ohash@2.0.6: {}
+  ohash@2.0.11: {}
 
   omggif@1.0.10: {}
 
@@ -9231,12 +9231,12 @@ snapshots:
     dependencies:
       vite: 6.3.0(@types/node@22.13.5)(yaml@2.7.0)
 
-  vite-plugin-inspect@11.0.0(vite@6.3.0(@types/node@22.13.5)(yaml@2.7.0)):
+  vite-plugin-inspect@11.0.1(vite@6.3.0(@types/node@22.13.5)(yaml@2.7.0)):
     dependencies:
-      ansis: 3.16.0
+      ansis: 3.17.0
       debug: 4.4.0
       error-stack-parser-es: 1.0.5
-      ohash: 2.0.6
+      ohash: 2.0.11
       open: 10.1.0
       perfect-debounce: 1.0.0
       sirv: 3.0.1
