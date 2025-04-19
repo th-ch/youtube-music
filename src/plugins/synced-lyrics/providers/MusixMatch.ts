@@ -8,6 +8,7 @@ export class MusixMatch implements LyricProvider {
   private api: MusixMatchAPI | undefined;
 
   async search(info: SearchSongInfo): Promise<LyricResult | null> {
+    // late-init the API, to avoid an electron IPC issue
     this.api ??= new MusixMatchAPI();
 
     const { status, data } = await this.api.query(Endpoint.searchTrack, {
