@@ -1,63 +1,91 @@
-// Inspired by https://github.com/Strvm/musicxmatch-api/blob/main/src/musicxmatch_api/main.py
-
 import { netFetch } from '../renderer';
 import type { LyricProvider, LyricResult, SearchSongInfo } from '../types';
 
-async function encode(array: ArrayBuffer): Promise<string> {
-  return new Promise((resolve) => {
-    const blob = new Blob([array]);
-    const reader = new FileReader();
-
-    reader.onload = (event) => {
-      const dataUrl = event.target!.result! as string;
-      const [_, base64] = dataUrl.split(',');
-
-      resolve(base64);
-    };
-
-    reader.readAsDataURL(blob);
-  });
-}
-
-const ENDPOINTS = {
-  GET_ARTIST: 'artist.get',
-  GET_TRACK: 'track.get',
-  GET_TRACK_LYRICS: 'track.lyrics.get',
-  SEARCH_TRACK: 'track.search',
-  SEARCH_ARTIST: 'artist.search',
-  GET_ARTIST_CHART: 'chart.artists.get',
-  GET_TRACK_CHART: 'chart.tracks.get',
-  GET_ARTIST_ALBUMS: 'artist.albums.get',
-  GET_ALBUM: 'album.get',
-  GET_ALBUM_TRACKS: 'album.tracks.get',
-  GET_TRACK_LYRICS_TRANSLATION: 'crowd.track.translations.get',
-} as const;
-
 export class MusixMatch implements LyricProvider {
   name = 'MusixMatch';
-  baseUrl = 'https://www.musixmatch.com/ws/1.1/';
+  baseUrl = 'https://www.musixmatch.com/';
 
-  private readonly textEncoder = new TextEncoder();
-  private readonly headers = {
-    // prettier-ignore
-    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36',
-  };
-
-  private key: CryptoKey | null = null;
-  private initPromise: Promise<void> | null = null;
+  private api: MusixMatchAPI | undefined;
 
   async search(info: SearchSongInfo): Promise<LyricResult | null> {
-    if (this.initPromise === null) {
-      this.initPromise = this.init();
-    }
+    this.api ??= new MusixMatchAPI();
 
-    await this.initPromise;
+    const { status, data } = await this.api.query(Endpoint.searchTrack, {
+      q: info.title,
+      f_has_lyrics: 'true',
+      page_size: '25',
+      page: '1',
+    });
 
-    await this.searchTracks(`${info.artist} - ${info.title}`);
+    console.log('musixmatch search', status, data);
+
     return null;
   }
+}
 
-  // prettier-ignore
+// API Implementation, based on https://github.com/Strvm/musicxmatch-api/blob/main/src/musicxmatch_api/main.py
+
+enum Endpoint {
+  getArtist = 'artist.get',
+  getTrack = 'track.get',
+  getTrackLyrics = 'track.lyrics.get',
+  searchTrack = 'track.search',
+  searchArtist = 'artist.search',
+  getTopArtists = 'chart.artists.get',
+  getTopTracks = 'chart.tracks.get',
+  getArtistAlbums = 'artist.albums.get',
+  getAlbum = 'album.get',
+  getAlbumTracks = 'album.tracks.get',
+  getTrackLyricsTranslations = 'crowd.track.translations.get',
+}
+
+// prettier-ignore
+type Params = {
+  [Endpoint.getArtist]: { artist_id: string; };
+  [Endpoint.getTrack]: { track_id: string; } | { track_isrc: string; };
+  [Endpoint.getTrackLyrics]: { track_id: string; } | { track_isrc: string; };
+  [Endpoint.searchTrack]: { q: string; f_has_lyrics: 'true' | 'false'; page_size: string; page: string; };
+  [Endpoint.searchArtist]: { q_artist: string; page_size: string; page: string; };
+  [Endpoint.getTopArtists]: { country: "US" | string; page_size: string; page: string; };
+  [Endpoint.getTopTracks]: { country: "US" | string; page_size: string; page: string; };
+  [Endpoint.getArtistAlbums]: { artist_id: string; page_size: string; page: string; };
+  [Endpoint.getAlbum]: { album_id: string; };
+  [Endpoint.getAlbumTracks]: { album_id: string; page_size: string; page: string; };
+  [Endpoint.getTrackLyricsTranslations]: { track_id: string; selected_language: string };
+};
+
+// prettier-ignore
+class MusixMatchAPI {
+  private readonly initPromise: Promise<void>;
+  private key: CryptoKey | null = null;
+
+  constructor() {
+    this.initPromise = this.init();
+  }
+
+  // god I love typescript generics, they're so useful
+  public async query<T extends Endpoint>(endpoint: T, params: Params[T]) {
+    await this.initPromise;
+
+    const url = `${this.baseUrl}${endpoint}`;
+
+    const clonedParams = new URLSearchParams(Object.assign(
+      {
+        app_id: 'mxm-com-v1.0',
+        format: 'json',
+      }, params as any
+    ));
+
+    const { signature, signature_protocol } = await this.generateSignature(url, clonedParams);
+    {
+      clonedParams.append('signature', signature);
+      clonedParams.append('signature_protocol', signature_protocol);
+    }
+
+    const [status, json] = await netFetch(`${url}?${clonedParams}`);
+    return { status, data: JSON.parse(json) };
+  }
+
   private async init() {
     const [_, html] = await netFetch("https://www.musixmatch.com/search", {
       headers: Object.assign({"Cookie": "mxm_bab=AB"}, this.headers)
@@ -74,35 +102,6 @@ export class MusixMatch implements LyricProvider {
     this.key = await crypto.subtle.importKey("raw", this.textEncoder.encode(secret), { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
   }
 
-  private async searchTracks(query: string) {
-    const params = new URLSearchParams({
-      app_id: 'mxm-com-v1.0',
-      format: 'json',
-      q: query,
-      f_has_lyrics: 'true',
-      page_size: '100',
-      page: '1',
-    });
-
-    const url = `${this.baseUrl}${ENDPOINTS.SEARCH_TRACK}`;
-    const [_, json] = await this.makeRequest(url, params);
-
-    console.log(JSON.parse(json));
-  }
-
-  private async makeRequest(url: string, params: URLSearchParams) {
-    await this.initPromise;
-
-    const { signature, signature_protocol } = await this.generateSignature(
-      url,
-      params
-    );
-    params.append('signature', signature);
-    params.append('signature_protocol', signature_protocol);
-
-    return await netFetch(`${url}?${params}`);
-  }
-
   private async generateSignature(url: string, params: URLSearchParams) {
     await this.initPromise;
 
@@ -113,6 +112,7 @@ export class MusixMatch implements LyricProvider {
     const day = String(date.getDate()).padStart(2, '0');
 
     const message = [`${url}?${params}`, year, month, day].join('');
+    console.log("generateSignature", message)
 
     const hash = await crypto.subtle.sign(
       'HMAC',
@@ -120,6 +120,29 @@ export class MusixMatch implements LyricProvider {
       this.textEncoder.encode(message)
     );
 
-    return { signature: await encode(hash), signature_protocol: 'sha256' };
+    return { signature: await this.encode(hash), signature_protocol: 'sha256' };
   }
+
+  private async encode(array: ArrayBuffer): Promise<string> {
+    return new Promise((resolve) => {
+      const blob = new Blob([array]);
+      const reader = new FileReader();
+
+      reader.onload = (event) => {
+        const dataUrl = event.target!.result! as string;
+        const [_, base64] = dataUrl.split(',');
+
+        resolve(base64);
+      };
+
+      reader.readAsDataURL(blob);
+    });
+  }
+
+  private readonly textEncoder = new TextEncoder();
+  private readonly baseUrl = 'https://www.musixmatch.com/ws/1.1/';
+  private readonly headers = {
+    // prettier-ignore
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36',
+  };
 }
