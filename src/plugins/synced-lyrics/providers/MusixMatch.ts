@@ -1,3 +1,5 @@
+// Inspired by https://github.com/Strvm/musicxmatch-api/blob/main/src/musicxmatch_api/main.py
+
 import { netFetch } from '../renderer';
 import type { LyricProvider, LyricResult, SearchSongInfo } from '../types';
 
@@ -37,8 +39,8 @@ export class MusixMatch implements LyricProvider {
 
   private readonly textEncoder = new TextEncoder();
   private readonly headers = {
-    'User-Agent':
-      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36',
+    // prettier-ignore
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36',
   };
 
   private key: CryptoKey | null = null;

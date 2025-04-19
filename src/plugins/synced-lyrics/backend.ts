@@ -2,6 +2,8 @@ import { createBackend } from '@/utils';
 import { net } from 'electron';
 
 const handlers = {
+  // Note: This will only be used for Forbidden headers, e.g. User-Agent
+  // See: https://developer.mozilla.org/en-US/docs/Glossary/Forbidden_request_header
   async fetch(url: string, init: RequestInit): Promise<[number, string]> {
     const res = await net.fetch(url, init);
     return [res.status, await res.text()];
