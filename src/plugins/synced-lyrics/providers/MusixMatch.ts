@@ -1,3 +1,4 @@
+import { jaroWinkler } from '@skyra/jaro-winkler';
 import { netFetch } from '../renderer';
 import type { LyricProvider, LyricResult, SearchSongInfo } from '../types';
 
@@ -11,20 +12,67 @@ export class MusixMatch implements LyricProvider {
     // late-init the API, to avoid an electron IPC issue
     this.api ??= new MusixMatchAPI();
 
-    const { status, data } = await this.api.query(Endpoint.searchTrack, {
-      q: info.title,
+    let query = `${info.artist} - ${info.title}`;
+
+    const {
+      body: { track_list },
+    } = await this.api.query(Endpoint.searchTrack, {
+      q: query,
       f_has_lyrics: 'true',
       page_size: '25',
       page: '1',
     });
 
-    console.log('musixmatch search', status, data);
+    const tracks = track_list.reduce((accumulated, { track }) => {
+      const artistRatio = jaroWinkler(info.artist, track.artist_name);
+      if (artistRatio < 0.8) return accumulated;
+
+      const titleRatio = Math.max(
+        jaroWinkler(info.title, track.track_name),
+        jaroWinkler(info.alternativeTitle ?? '', track.track_name)
+      );
+
+      if (titleRatio < 0.8) return accumulated;
+
+      accumulated.push(track);
+      return accumulated;
+    }, [] as Track[]);
+
+    console.log(tracks);
 
     return null;
   }
 }
 
 // API Implementation, based on https://github.com/Strvm/musicxmatch-api/blob/main/src/musicxmatch_api/main.py
+
+interface Track {
+  track_id: number;
+  track_mbid: string;
+  track_isrc: string;
+  commontrack_isrcs: Array<string[]>;
+  track_spotify_id: string;
+  commontrack_spotify_ids: string[];
+  commontrack_itunes_ids: number[];
+  track_soundcloud_id: number;
+  track_xboxmusic_id: string;
+  track_name: string;
+  track_name_translation_list: any[];
+  track_length: number;
+  instrumental: number;
+  has_lyrics: number;
+  has_lyrics_crowd: number;
+  has_subtitles: number;
+  has_richsync: number;
+  has_track_structure: number;
+  lyrics_id: number;
+  subtitle_id: number;
+  album_id: number;
+  album_name: string;
+  artist_id: number;
+  artist_mbid: string;
+  artist_name: string;
+}
 
 enum Endpoint {
   getArtist = 'artist.get',
@@ -55,6 +103,10 @@ type Params = {
   [Endpoint.getTrackLyricsTranslations]: { track_id: string; selected_language: string };
 };
 
+type Response = {
+  [Endpoint.searchTrack]: { track_list: { track: Track }[] };
+};
+
 // prettier-ignore
 class MusixMatchAPI {
   private readonly initPromise: Promise<void>;
@@ -65,7 +117,13 @@ class MusixMatchAPI {
   }
 
   // god I love typescript generics, they're so useful
-  public async query<T extends Endpoint>(endpoint: T, params: Params[T]) {
+  public async query<T extends Endpoint>(
+    endpoint: T,
+    params: Params[T]
+  ): Promise<{
+    header: { status_code: number; },
+    body: T  extends keyof Response ? Response[T] : unknown
+  }> {
     await this.initPromise;
 
     const url = `${this.baseUrl}${endpoint}`;
@@ -83,8 +141,8 @@ class MusixMatchAPI {
       clonedParams.append('signature_protocol', signature_protocol);
     }
 
-    const [status, json] = await netFetch(`${url}?${clonedParams}`);
-    return { status, data: JSON.parse(json) };
+    const [_, json] = await netFetch(`${url}?${clonedParams}`);
+    return (JSON.parse(json) as any).message;
   }
 
   private async init() {
@@ -113,7 +171,6 @@ class MusixMatchAPI {
     const day = String(date.getDate()).padStart(2, '0');
 
     const message = [`${url}?${params}`, year, month, day].join('');
-    console.log("generateSignature", message)
 
     const hash = await crypto.subtle.sign(
       'HMAC',
