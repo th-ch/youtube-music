@@ -12,35 +12,62 @@ export class MusixMatch implements LyricProvider {
     // late-init the API, to avoid an electron IPC issue
     this.api ??= new MusixMatchAPI();
 
-    let query = `${info.artist} - ${info.title}`;
+    const queries = [];
 
+    queries.push(`${info.artist} - ${info.title}`);
+
+    if (info.album) {
+      queries.push(`${info.album} - ${info.title}`);
+    }
+
+    if (info.alternativeTitle) {
+      queries.push(`${info.artist} - ${info.alternativeTitle}`);
+      if (info.album) queries.push(`${info.album} - ${info.alternativeTitle}`);
+    }
+
+    let track: Track | undefined = undefined;
+    for (const query of queries) {
+      const {
+        body: { track_list },
+      } = await this.api.query(Endpoint.searchTrack, {
+        q: query,
+        f_has_lyrics: 'true',
+        page_size: '25',
+        page: '1',
+      });
+
+      const tracks = track_list.reduce((accumulated, { track }) => {
+        const artistRatio = jaroWinkler(info.artist, track.artist_name);
+        if (artistRatio < 0.7) return accumulated;
+
+        const titleRatio = Math.max(
+          jaroWinkler(info.title, track.track_name),
+          jaroWinkler(info.alternativeTitle ?? '', track.track_name)
+        );
+
+        if (titleRatio < 0.9) return accumulated;
+
+        accumulated.push(track);
+        return accumulated;
+      }, [] as Track[]);
+
+      track = tracks?.[0];
+      if (track) break;
+    }
+
+    if (!track) return null;
     const {
-      body: { track_list },
-    } = await this.api.query(Endpoint.searchTrack, {
-      q: query,
-      f_has_lyrics: 'true',
-      page_size: '25',
-      page: '1',
+      body: { lyrics },
+    } = await this.api.query(Endpoint.getTrackLyrics, {
+      track_id: track.track_id.toString(),
     });
 
-    const tracks = track_list.reduce((accumulated, { track }) => {
-      const artistRatio = jaroWinkler(info.artist, track.artist_name);
-      if (artistRatio < 0.8) return accumulated;
-
-      const titleRatio = Math.max(
-        jaroWinkler(info.title, track.track_name),
-        jaroWinkler(info.alternativeTitle ?? '', track.track_name)
-      );
-
-      if (titleRatio < 0.8) return accumulated;
-
-      accumulated.push(track);
-      return accumulated;
-    }, [] as Track[]);
-
-    console.log(tracks);
-
-    return null;
+    if (!lyrics.lyrics_body.trim()) return null;
+    return {
+      artists: [track.artist_name],
+      title: track.track_name,
+      lyrics: lyrics.lyrics_body,
+    };
   }
 }
 
@@ -74,6 +101,13 @@ interface Track {
   artist_name: string;
 }
 
+interface Lyrics {
+  instrumental: number;
+  lyrics_body: string;
+  lyrics_language: string;
+  lyrics_language_description: string;
+}
+
 enum Endpoint {
   getArtist = 'artist.get',
   getTrack = 'track.get',
@@ -105,6 +139,7 @@ type Params = {
 
 type Response = {
   [Endpoint.searchTrack]: { track_list: { track: Track }[] };
+  [Endpoint.getTrackLyrics]: { lyrics: Lyrics };
 };
 
 // prettier-ignore
