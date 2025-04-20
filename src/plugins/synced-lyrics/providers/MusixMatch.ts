@@ -27,16 +27,19 @@ export class MusixMatch implements LyricProvider {
     }
 
     const data = await this.api.query(Endpoint.getMacroSubtitles, {
-      q_track: info.title,
+      q_track: info.alternativeTitle || info.title,
       q_artist: info.artist,
-      q_album: info.album ? info.album : undefined,
+      q_duration: info.songDuration.toString(),
+      ...(info.album ? { q_album: info.album } : {}),
       namespace: 'lyrics_richsynched',
       subtitle_format: 'lrc',
     });
 
-    const track = data.body.macro_calls['matcher.track.get'].message.body.track;
-    const lyrics = data.body.macro_calls['track.lyrics.get'].message.body.lyrics.lyrics_body;
-    const subtitle = data.body.macro_calls['track.subtitles.get'].message.body.subtitle_list[0];
+    const track = data.body.macro_calls['matcher.track.get'].message.body?.track;
+    const lyrics = data.body.macro_calls['track.lyrics.get'].message.body?.lyrics?.lyrics_body;
+    const subtitle = data.body.macro_calls['track.subtitles.get'].message.body?.subtitle_list?.[0];
+
+    if (!track) return null;
 
     return {
       title: track.track_name,
@@ -101,9 +104,17 @@ enum Endpoint {
   searchTrack = 'track.search',
 }
 
+type Query = {
+  q?: string;
+  q_track?: string;
+  q_artist?: string;
+  q_album?: string;
+  q_duration?: string;
+};
+
 // prettier-ignore
 type Params = {
-  [Endpoint.getMacroSubtitles]: { q_track: string, q_artist: string, q_album?: string, namespace: "lyrics_richsynched", subtitle_format: "lrc" };
+  [Endpoint.getMacroSubtitles]: Query & { namespace: "lyrics_richsynched", subtitle_format: "lrc" };
   [Endpoint.searchTrack]: { q: string; f_has_lyrics: 'true' | 'false'; page_size: string; page: string; };
 };
 

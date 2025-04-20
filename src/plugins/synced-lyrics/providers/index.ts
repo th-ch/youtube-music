@@ -16,8 +16,8 @@ import type { LyricProvider, LyricResult } from '../types';
 export const providers = {
   YTMusic: new YTMusic(),
   LRCLib: new LRCLib(),
-  LyricsGenius: new LyricsGenius(),
   MusixMatch: new MusixMatch(),
+  LyricsGenius: new LyricsGenius(),
   // Megalobiz: new Megalobiz(), // Disabled because it is too unstable and slow
 } as const;
 
