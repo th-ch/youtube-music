@@ -16,7 +16,7 @@ export let _ytAPI: YoutubePlayer | null = null;
 export let netFetch: (
   url: string,
   init?: RequestInit
-) => Promise<[number, string]>;
+) => Promise<[number, string, Record<string, string>]>;
 
 export const renderer = createRenderer<
   {

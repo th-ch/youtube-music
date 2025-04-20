@@ -1,7 +1,8 @@
-import { jaroWinkler } from '@skyra/jaro-winkler';
 import { netFetch } from '../renderer';
 import type { LyricProvider, LyricResult, SearchSongInfo } from '../types';
+import { LRC } from '../parsers/lrc';
 
+// prettier-ignore
 export class MusixMatch implements LyricProvider {
   name = 'MusixMatch';
   baseUrl = 'https://www.musixmatch.com/';
@@ -10,7 +11,7 @@ export class MusixMatch implements LyricProvider {
 
   async search(info: SearchSongInfo): Promise<LyricResult | null> {
     // late-init the API, to avoid an electron IPC issue
-    this.api ??= new MusixMatchAPI();
+    this.api ??= await MusixMatchAPI.new();
 
     const queries = [];
 
@@ -25,48 +26,28 @@ export class MusixMatch implements LyricProvider {
       if (info.album) queries.push(`${info.album} - ${info.alternativeTitle}`);
     }
 
-    let track: Track | undefined = undefined;
-    for (const query of queries) {
-      const {
-        body: { track_list },
-      } = await this.api.query(Endpoint.searchTrack, {
-        q: query,
-        f_has_lyrics: 'true',
-        page_size: '25',
-        page: '1',
-      });
-
-      const tracks = track_list.reduce((accumulated, { track }) => {
-        const artistRatio = jaroWinkler(info.artist, track.artist_name);
-        if (artistRatio < 0.7) return accumulated;
-
-        const titleRatio = Math.max(
-          jaroWinkler(info.title, track.track_name),
-          jaroWinkler(info.alternativeTitle ?? '', track.track_name)
-        );
-
-        if (titleRatio < 0.9) return accumulated;
-
-        accumulated.push(track);
-        return accumulated;
-      }, [] as Track[]);
-
-      track = tracks?.[0];
-      if (track) break;
-    }
-
-    if (!track) return null;
-    const {
-      body: { lyrics },
-    } = await this.api.query(Endpoint.getTrackLyrics, {
-      track_id: track.track_id.toString(),
+    const data = await this.api.query(Endpoint.getMacroSubtitles, {
+      q_track: info.title,
+      q_artist: info.artist,
+      q_album: info.album ? info.album : undefined,
+      namespace: 'lyrics_richsynched',
+      subtitle_format: 'lrc',
     });
 
-    if (!lyrics.lyrics_body.trim()) return null;
+    const track = data.body.macro_calls['matcher.track.get'].message.body.track;
+    const lyrics = data.body.macro_calls['track.lyrics.get'].message.body.lyrics.lyrics_body;
+    const subtitle = data.body.macro_calls['track.subtitles.get'].message.body.subtitle_list[0];
+
     return {
-      artists: [track.artist_name],
       title: track.track_name,
-      lyrics: lyrics.lyrics_body,
+      artists: [track.artist_name],
+      lines: subtitle
+        ? LRC.parse(subtitle.subtitle.subtitle_body).lines.map((l) => ({
+            ...l,
+            status: 'upcoming' as const,
+          }))
+        : undefined,
+      lyrics: lyrics,
     };
   }
 }
@@ -84,14 +65,15 @@ interface Track {
   track_soundcloud_id: number;
   track_xboxmusic_id: string;
   track_name: string;
+  track_share_url: string;
   track_name_translation_list: any[];
   track_length: number;
-  instrumental: number;
-  has_lyrics: number;
-  has_lyrics_crowd: number;
-  has_subtitles: number;
-  has_richsync: number;
-  has_track_structure: number;
+  instrumental: 0 | 1;
+  has_lyrics: 0 | 1;
+  has_lyrics_crowd: 0 | 1;
+  has_subtitles: 0 | 1;
+  has_richsync: 0 | 1;
+  has_track_structure: 0 | 1;
   lyrics_id: number;
   subtitle_id: number;
   album_id: number;
@@ -108,47 +90,50 @@ interface Lyrics {
   lyrics_language_description: string;
 }
 
+interface Subtitle {
+  subtitle_body: string;
+  subtitle_length: number;
+  subtitle_language: string;
+}
+
 enum Endpoint {
-  getArtist = 'artist.get',
-  getTrack = 'track.get',
-  getTrackLyrics = 'track.lyrics.get',
+  getMacroSubtitles = 'macro.subtitles.get',
   searchTrack = 'track.search',
-  searchArtist = 'artist.search',
-  getTopArtists = 'chart.artists.get',
-  getTopTracks = 'chart.tracks.get',
-  getArtistAlbums = 'artist.albums.get',
-  getAlbum = 'album.get',
-  getAlbumTracks = 'album.tracks.get',
-  getTrackLyricsTranslations = 'crowd.track.translations.get',
 }
 
 // prettier-ignore
 type Params = {
-  [Endpoint.getArtist]: { artist_id: string; };
-  [Endpoint.getTrack]: { track_id: string; } | { track_isrc: string; };
-  [Endpoint.getTrackLyrics]: { track_id: string; } | { track_isrc: string; };
+  [Endpoint.getMacroSubtitles]: { q_track: string, q_artist: string, q_album?: string, namespace: "lyrics_richsynched", subtitle_format: "lrc" };
   [Endpoint.searchTrack]: { q: string; f_has_lyrics: 'true' | 'false'; page_size: string; page: string; };
-  [Endpoint.searchArtist]: { q_artist: string; page_size: string; page: string; };
-  [Endpoint.getTopArtists]: { country: "US" | string; page_size: string; page: string; };
-  [Endpoint.getTopTracks]: { country: "US" | string; page_size: string; page: string; };
-  [Endpoint.getArtistAlbums]: { artist_id: string; page_size: string; page: string; };
-  [Endpoint.getAlbum]: { album_id: string; };
-  [Endpoint.getAlbumTracks]: { album_id: string; page_size: string; page: string; };
-  [Endpoint.getTrackLyricsTranslations]: { track_id: string; selected_language: string };
 };
 
 type Response = {
   [Endpoint.searchTrack]: { track_list: { track: Track }[] };
-  [Endpoint.getTrackLyrics]: { lyrics: Lyrics };
+  [Endpoint.getMacroSubtitles]: {
+    macro_calls: {
+      'track.lyrics.get': { message: { body: { lyrics: Lyrics } } };
+      'track.subtitles.get': {
+        message: { body: { subtitle_list: { subtitle: Subtitle }[] } };
+      };
+      'matcher.track.get': { message: { body: { track: Track } } };
+    };
+  };
 };
 
 // prettier-ignore
 class MusixMatchAPI {
   private readonly initPromise: Promise<void>;
-  private key: CryptoKey | null = null;
+  private cookie = 'x-mxm-user-id=';
+  private token: string | null = null;
 
-  constructor() {
+  private constructor() {
     this.initPromise = this.init();
+  }
+
+  public static async new() {
+    const api = new MusixMatchAPI();
+    await api.initPromise;
+    return api;
   }
 
   // god I love typescript generics, they're so useful
@@ -160,82 +145,66 @@ class MusixMatchAPI {
     body: T  extends keyof Response ? Response[T] : unknown
   }> {
     await this.initPromise;
+    if (!this.token) throw new Error('Token not initialized');
 
     const url = `${this.baseUrl}${endpoint}`;
 
     const clonedParams = new URLSearchParams(Object.assign(
       {
-        app_id: 'mxm-com-v1.0',
+        app_id: this.app_id,
         format: 'json',
+        usertoken: this.token,
       }, params as any
     ));
 
-    const { signature, signature_protocol } = await this.generateSignature(url, clonedParams);
-    {
-      clonedParams.append('signature', signature);
-      clonedParams.append('signature_protocol', signature_protocol);
+    const [_, json, headers] = await netFetch(`${url}?${clonedParams}`, { headers: { Cookie: this.cookie } });
+
+    const setCookie = Object.entries(headers).find(([key]) => key.toLowerCase() === 'set-cookie');
+    if (setCookie) {
+      this.cookie = setCookie[1];
     }
 
-    const [_, json] = await netFetch(`${url}?${clonedParams}`);
     return (JSON.parse(json) as any).message;
   }
 
   private async init() {
-    const [_, html] = await netFetch("https://www.musixmatch.com/search", {
-      headers: Object.assign({"Cookie": "mxm_bab=AB"}, this.headers)
+    const key = 'ytm:synced-lyrics:mxm:token';
+
+    const { token, expires } = JSON.parse(localStorage.getItem(key) ?? '{ "token": null }') as any;
+    if (token && expires > Date.now()) {
+      this.token = token;
+      return;
+    }
+
+    localStorage.removeItem(key);
+
+    this.token = await this.getToken();
+    if (!this.token) throw new Error('Failed to get token');
+
+    localStorage.setItem(key, JSON.stringify({ token: this.token, expires: Date.now() + (3600 * 1000) }));
+  }
+
+  private async getToken() {
+    const endpoint = 'token.get';
+    const params = new URLSearchParams({ app_id: this.app_id });
+    const [_, json, headers] = await netFetch(`${this.baseUrl}${endpoint}?${params}`, {
+      headers: Object.assign({"Cookie": this.cookie}, this.headers)
     });
 
-    const app = html.match(/(https:\/\/[^:]+_next\/static\/chunks\/pages\/_app-.+?\.js)/)?.[1];
-    if (!app) throw new Error('Failed to find app.js');
+    const setCookie = Object.entries(headers).find(([key]) => key.toLowerCase() === 'set-cookie');
+    if (setCookie) {
+      this.cookie = setCookie[1];
+    }
 
-    const [__, js] = await netFetch(app, { headers: this.headers });
-    const base64 = js.match(/\.from\("([A-Za-z0-9+/=]+)"\.split\(""\)\.reverse\(\)\.join\(""\),"base64"\)/)?.[1];
-    if (!base64) throw new Error('Failed to find secret');
-
-    const secret = atob(base64.split("").reverse().join(""));
-    this.key = await crypto.subtle.importKey("raw", this.textEncoder.encode(secret), { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
+    const { user_token } = (JSON.parse(json) as any)?.message?.body ?? {};
+    return user_token;
   }
 
-  private async generateSignature(url: string, params: URLSearchParams) {
-    await this.initPromise;
-
-    const date = new Date();
-
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-
-    const message = [`${url}?${params}`, year, month, day].join('');
-
-    const hash = await crypto.subtle.sign(
-      'HMAC',
-      this.key!,
-      this.textEncoder.encode(message)
-    );
-
-    return { signature: await this.encode(hash), signature_protocol: 'sha256' };
-  }
-
-  private async encode(array: ArrayBuffer): Promise<string> {
-    return new Promise((resolve) => {
-      const blob = new Blob([array]);
-      const reader = new FileReader();
-
-      reader.onload = (event) => {
-        const dataUrl = event.target!.result! as string;
-        const [_, base64] = dataUrl.split(',');
-
-        resolve(base64);
-      };
-
-      reader.readAsDataURL(blob);
-    });
-  }
-
-  private readonly textEncoder = new TextEncoder();
-  private readonly baseUrl = 'https://www.musixmatch.com/ws/1.1/';
+  private readonly baseUrl = 'https://apic-desktop.musixmatch.com/ws/1.1/';
+  private readonly app_id = 'web-desktop-app-v1.0';
   private readonly headers = {
     // prettier-ignore
-    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:120.0) Gecko/20100101 Firefox/120.0',
+    'authority': "apic-desktop.musixmatch.com",
   };
 }
