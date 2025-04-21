@@ -318,7 +318,6 @@ async function downloadSongUnsafe(
   };
 
   sendFeedback(t('plugins.downloader.backend.feedback.downloading'), 2);
-  console.log('one')
 
   let id: string | null;
   if (isId) {
@@ -331,7 +330,6 @@ async function downloadSongUnsafe(
       );
   }
 
-  console.log('two')
   let info: TrackInfo | VideoInfo = await yt.music.getInfo(id);
 
   if (!info) {
@@ -340,7 +338,6 @@ async function downloadSongUnsafe(
     );
   }
 
-  console.log('three')
   const metadata = getMetadata(info);
   if (metadata.album === 'N/A') {
     metadata.album = '';
@@ -355,7 +352,6 @@ async function downloadSongUnsafe(
   }`;
   setName(name);
 
-  console.log('four')
   let playabilityStatus = info.playability_status;
   let bypassedResult = null;
   if (playabilityStatus?.status === 'LOGIN_REQUIRED') {
@@ -372,7 +368,6 @@ async function downloadSongUnsafe(
     info = bypassedResult;
   }
 
-  console.log('five')
   if (playabilityStatus?.status === 'UNPLAYABLE') {
     const errorScreen =
       playabilityStatus.error_screen as PlayerErrorMessage | null;
@@ -381,7 +376,6 @@ async function downloadSongUnsafe(
     );
   }
 
-  console.log('six')
   const selectedPreset = config.selectedPreset ?? 'mp3 (256kbps)';
   let presetSetting: Preset;
   if (selectedPreset === 'Custom') {
@@ -392,7 +386,6 @@ async function downloadSongUnsafe(
     presetSetting = DefaultPresetList['mp3 (256kbps)'];
   }
 
-  console.log('seven')
   const downloadOptions: FormatOptions = {
     type: (await isYouTubeMusicPremium()) ? 'audio' : 'video+audio', // Audio, video or video+audio
     quality: 'best', // Best, bestefficiency, 144p, 240p, 480p, 720p and so on.
@@ -401,7 +394,6 @@ async function downloadSongUnsafe(
 
   const format = info.chooseFormat(downloadOptions);
 
-  console.log('eight')
   let targetFileExtension: string;
   if (!presetSetting?.extension) {
     targetFileExtension =
@@ -411,7 +403,6 @@ async function downloadSongUnsafe(
     targetFileExtension = presetSetting?.extension ?? 'mp3';
   }
 
-  console.log('nine')
   let filename = filenamify(`${name}.${targetFileExtension}`, {
     replacement: '_',
     maxLength: 255,
@@ -421,13 +412,11 @@ async function downloadSongUnsafe(
   }
   const filePath = join(dir, filename);
 
-  console.log('ten')
   if (config.skipExisting && existsSync(filePath)) {
     sendFeedback(null, -1);
     return;
   }
 
-  console.log('eleven')
   const stream = await info.download(downloadOptions);
 
   console.info(
@@ -438,14 +427,12 @@ async function downloadSongUnsafe(
     }),
   );
 
-  console.log('twelve')
   const iterableStream = Utils.streamToIterable(stream);
 
   if (!existsSync(dir)) {
     mkdirSync(dir);
   }
 
-  console.log('thirteen')
   let fileBuffer = await iterableStreamToProcessedUint8Array(
     iterableStream,
     targetFileExtension,
@@ -456,7 +443,6 @@ async function downloadSongUnsafe(
     increasePlaylistProgress,
   );
 
-  console.log('fourteen')
   if (fileBuffer && targetFileExtension === 'mp3') {
     fileBuffer = await writeID3(
       Buffer.from(fileBuffer),
@@ -469,7 +455,6 @@ async function downloadSongUnsafe(
     writeFileSync(filePath, fileBuffer);
   }
 
-  console.log('fifteen')
   sendFeedback(null, -1);
   console.info(
     t('plugins.downloader.backend.feedback.done', {
