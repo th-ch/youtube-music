@@ -214,7 +214,7 @@ importers:
         specifier: 25.0.1
         version: 25.0.1
       virtua:
-        specifier: ^0.40.3
+        specifier: 0.40.3
         version: 0.40.3(solid-js@1.9.5)
       vudio:
         specifier: 2.1.1
