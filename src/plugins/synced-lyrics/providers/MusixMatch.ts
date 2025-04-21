@@ -11,6 +11,7 @@ export class MusixMatch implements LyricProvider {
 
   async search(info: SearchSongInfo): Promise<LyricResult | null> {
     // late-init the API, to avoid an electron IPC issue
+    // an added benefit is that if it has an error during init, the user can hit the retry button
     this.api ??= await MusixMatchAPI.new();
 
     const data = await this.api.query(Endpoint.getMacroSubtitles, {
