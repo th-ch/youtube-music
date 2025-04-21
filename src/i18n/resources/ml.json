@@ -1,0 +1,57 @@
+{
+  "common": {
+    "console": {
+      "plugins": {
+        "initialize-failed": "{{pluginName}}എന്ന പ്ലഗിൻ തുടങ്ങുന്നതിൽ പരാജയപെട്ടു",
+        "load-all": "എല്ലാ പ്ലേഗിനും ലോഡ് ചെയ്യുന്നു",
+        "loaded": "{{pluginName}} എന്ന പ്ലഗിൻ ലോഡ് ചെയ്തു",
+        "unloaded": "{{pluginName}} എന്ന പ്ലഗിൻ അൺലോഡ് ചെയ്തു"
+      }
+    }
+  },
+  "language": {
+    "code": "ഭാഷയ്ക്കു വേണ്ടിയുള്ള Chromium i18n code.\n\nhttps://source.chromium.org/chromium/chromium/src/+/main നോക്കു \n\nഉദാഹരണം : ja, ko, en, ru",
+    "local-name": "ഭാഷയുടെ പ്രാദേശിക പേര് \nഉദാഹരണം : 日本語, 한국어, English, Русский",
+    "name": "ഭാഷയുടെ ഇംഗ്ലീഷ് പേര് \nഉദാഹരണം : Japanese, Korean, English, Russian"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "ലോഡിങ് തീർത്തു. DevTools തുറന്നു"
+      },
+      "i18n": {
+        "loaded": "i18n ലോഡ് ചെയ്തു"
+      },
+      "second-instance": {
+        "receive-command": "പ്രോട്ടോക്കോളിലൂടെ  കമാൻഡ് ലഭിച്ചു : \"{{command}}\""
+      },
+      "theme": {
+        "css-file-not-found": "\"{{cssFile}}\" എന്ന CSS file നിലവിൽ ഇല്ല. ഉപേക്ഷിക്കുന്നു"
+      },
+      "unresponsive": {
+        "details": "പ്രതികാരമില്ലാത്ത എറർ \n{{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "ആപ്പ് cache ക്ലിയർ ചെയ്യുന്നു"
+      },
+      "window": {
+        "tried-to-render-offscreen": "Window സ്ക്രീനിനു വെളിയിൽ render ചെയ്യാൻ ശ്രമിച്ചു, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "detail": "Menu മറച്ചിരിക്കുന്നു, അവതരിപ്പിക്കാൻ 'Alt' ഉപയോഗിക്കു (In-App Menu ഉപയോഗിക്കുന്നെങ്കിൽ 'Escape' )",
+        "message": "Hide Menu പ്രവർത്തിയിൽ",
+        "title": "Hide Menu പ്രവർത്തിയിൽ"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "പിന്നീട",
+          "restart-now": "ഇപ്പോൾ പുനരാരംഭിക്കുക"
+        },
+        "detail": "\"{{pluginName}}\" പ്രവർത്തിയിൽ ആകാൻ restart വേണ്ടിയിരിക്കുന്നു",
+        "message": "\"{{pluginName}}\" restart ആവശ്യപെടുന്നു"
+      }
+    }
+  }
+}

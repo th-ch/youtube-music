@@ -1,0 +1,59 @@
+{
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "Greška u izvršavanju dodatka {{pluginName}}::{{contextName}}",
+        "executed-at-ms": "Dodatak {{pluginName}}::{{contextName}} se izvršio za {{ms}}ms",
+        "initialize-failed": "Greška prilikom inicijalizacije dodatka \"{{pluginName}}\"",
+        "load-all": "Učitavanje svih dodataka",
+        "load-failed": "Greška u učitavanju dodatka \"{{pluginName}}\"",
+        "loaded": "Dodatak \"{{pluginName}}\" učitan",
+        "unload-failed": "Greška prilikom onesposobljavanja dodatka \"{{pluginName}}\"",
+        "unloaded": "Dodatak \"{{pluginName}}\" ugašen"
+      }
+    }
+  },
+  "language": {
+    "code": "ba",
+    "local-name": "Bosanski",
+    "name": "Bosnian"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "Završeno učitavanje. DevTools otvoren"
+      },
+      "i18n": {
+        "loaded": "i18n učitan"
+      },
+      "second-instance": {
+        "receive-command": "Comanda primljena preko protokola \"{{command}}\""
+      },
+      "theme": {
+        "css-file-not-found": "CSS datoteka \"{{cssFile}}\" ne postoji, ignorišem"
+      },
+      "unresponsive": {
+        "details": "Greška u aplikaciji!\n{{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "Čistim predmemoriju aplikacije"
+      },
+      "window": {
+        "tried-to-render-offscreen": "Prozor se pokušao prikazati van okvira ekrana, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "message": "Sakrivanje menija je uključeno",
+        "title": "Meni sakriven"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "Kasnije",
+          "restart-now": "Pokreni ponovo odmah"
+        },
+        "detail": "\"{{pluginName}}\" dodatak zahtjeva ponovno pokretanje kako bi se uključio"
+      }
+    }
+  }
+}

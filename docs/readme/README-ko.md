@@ -3,7 +3,7 @@
 # 유튜브 뮤직 (YouTube Music)
 
 [![GitHub release](https://img.shields.io/github/release/th-ch/youtube-music.svg?style=for-the-badge&logo=youtube-music)](https://github.com/th-ch/youtube-music/releases/)
-[![GitHub license](https://img.shields.io/github/license/th-ch/youtube-music.svg?style=for-the-badge)](https://github.com/th-ch/youtube-music/blob/master/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/th-ch/youtube-music.svg?style=for-the-badge)](https://github.com/th-ch/youtube-music/blob/master/license)
 [![eslint code style](https://img.shields.io/badge/code_style-eslint-5ed9c7.svg?style=for-the-badge)](https://github.com/th-ch/youtube-music/blob/master/.eslintrc.js)
 [![Build status](https://img.shields.io/github/actions/workflow/status/th-ch/youtube-music/build.yml?branch=master&style=for-the-badge&logo=youtube-music)](https://GitHub.com/th-ch/youtube-music/releases/)
 [![GitHub All Releases](https://img.shields.io/github/downloads/th-ch/youtube-music/total?style=for-the-badge&logo=youtube-music)](https://GitHub.com/th-ch/youtube-music/releases/)
@@ -20,7 +20,7 @@
 	</a>
 </div>
 
-다른 언어로 읽어보세요: [🏴 영어](../../README.md), [🇰🇷 한국인](./README-ko.md), [🇫🇷 프랑스 국민](./README-fr.md), [🇮🇸 아이슬란드어](./README-is.md), [🇪🇸 스페인 사람](./README-es.md), [🇷🇺 러시아인](./README-ru.md)
+다른 언어로 읽어보세요: [🏴 영어](../../README.md), [🇰🇷 한국인](./README-ko.md), [🇫🇷 프랑스 국민](./README-fr.md), [🇮🇸 아이슬란드어](./README-is.md), [🇪🇸 스페인 사람](./README-es.md), [🇷🇺 러시아인](./README-ru.md), [🇧🇷 포르투갈어](./README-pt.md), [🇯🇵 일본어](./README-ja.md)
 
 **유튜브 뮤직의 Electron 래퍼; 기능:**
 

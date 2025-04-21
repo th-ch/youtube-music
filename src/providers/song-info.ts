@@ -42,6 +42,7 @@ export interface SongInfo {
   videoId: string;
   playlistId?: string;
   mediaType: MediaType;
+  tags?: string[];
 }
 
 // Grab the native image using the src
@@ -83,6 +84,7 @@ const handleData = async (
     videoId: '',
     playlistId: '',
     mediaType: MediaType.Audio,
+    tags: [],
   } satisfies SongInfo;
 
   const microformat = data.microformat?.microformatDataRenderer;
@@ -96,6 +98,7 @@ const handleData = async (
     songInfo.alternativeTitle = microformat.linkAlternates.find(
       (link) => link.title,
     )?.title;
+    songInfo.tags = Array.isArray(microformat.tags) ? microformat.tags : [];
   }
 
   const { videoDetails } = data;

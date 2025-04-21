@@ -207,6 +207,10 @@
     }
   },
   "plugins": {
+    "ad-speedup": {
+      "description": "Jos mainos toistuu, mykistä ääni ja aseta toistonopeus 16x:een",
+      "name": "Mainoksen nopeutus"
+    },
     "adblocker": {
       "description": "Estä kaikki mainokset ja seuranta",
       "menu": {
@@ -275,6 +279,9 @@
       },
       "name": "Tunnelmallinen Tila"
     },
+    "amuse": {
+      "description": "Lisää YouTube Music tuen Amusen nyt soitetaan -widgetille, kehittäjänä 6K Labs"
+    },
     "api-server": {
       "description": "Lisää API-palvelimen hallitsemaan soitinta",
       "dialog": {
@@ -282,7 +289,9 @@
           "buttons": {
             "allow": "Hyväksy",
             "deny": "Kiellä"
-          }
+          },
+          "message": "Sallitaanko {{ID}} ({{origin}}) pääsy API:in?",
+          "title": "API vahvistuspyyntö"
         }
       },
       "menu": {
@@ -297,7 +306,12 @@
           "label": "Portti"
         }
       },
-      "name": "API Serveri [Beta]"
+      "name": "API Serveri [Beta]",
+      "prompt": {
+        "port": {
+          "title": "Portti"
+        }
+      }
     },
     "audio-compressor": {
       "description": "Lisää äänen kompressointia (hiljentää voimakkaimpien äänien voimakkuutta ja tehostaa pehmeämpien äänien voimakkuutta)",
@@ -431,6 +445,15 @@
       "description": "Lataa MP3- tai lähdetiedoston suoraan käyttöliittymästä",
       "menu": {
         "choose-download-folder": "Valitse latauskansio",
+        "download-finish-settings": {
+          "prompt": {
+            "last-seconds": "Viimeiset x sekuntia"
+          },
+          "submenu": {
+            "enabled": "Päällä",
+            "percent": "Prosentti"
+          }
+        },
         "download-playlist": "Lataa soittolista",
         "presets": "Esiasetukset",
         "skip-existing": "Ohita olemassa olevat tiedostot"
@@ -583,6 +606,46 @@
             "increase": "Lisää äänenvoimakkuutta"
           },
           "label": "Valitse yleiset äänenvoimakkuuden pikanäppäimet:"
+        }
+      }
+    },
+    "quality-changer": {
+      "backend": {
+        "dialog": {
+          "quality-changer": {
+            "detail": "Nykyinen laatu: {{quality}}"
+          }
+        }
+      }
+    },
+    "scrobbler": {
+      "dialog": {
+        "lastfm": {
+          "auth-failed": {
+            "title": "Todennus epäonnistui"
+          }
+        }
+      }
+    },
+    "shortcuts": {
+      "prompt": {
+        "keybind": {
+          "keybind-options": {
+            "previous": "Edellinen"
+          }
+        }
+      }
+    },
+    "tuna-obs": {
+      "name": "Tuna OBS"
+    },
+    "video-toggle": {
+      "menu": {
+        "align": {
+          "submenu": {
+            "left": "Vasen",
+            "right": "Oikea"
+          }
         }
       }
     }

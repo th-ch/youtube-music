@@ -490,6 +490,9 @@
         "button": "Tải xuống"
       }
     },
+    "equalizer": {
+      "name": "Cân bằng âm thanh"
+    },
     "exponential-volume": {
       "description": "Làm cho thanh trượt âm lượng theo cấp số nhân để dễ dàng chọn âm lượng thấp hơn.",
       "name": "Âm lượng theo cấp số nhân"
@@ -670,6 +673,7 @@
         "listenbrainz": {
           "token": "Nhập mã người dùng ListenBrainz"
         },
+        "scrobble-alternative-title": "Dùng tiêu đề thay thế",
         "scrobble-other-media": "Scrobber nội dung khác"
       },
       "name": "Scrobbler",
@@ -720,8 +724,8 @@
     "synced-lyrics": {
       "description": "Cung cấp lời bài hát được đồng bộ hoá với các bài hát, sử dụng những nhà cung cấp như LRClib.",
       "errors": {
-        "fetch": "⚠️ - Đã xảy ra lỗi khi tìm lời bài hát, Vui lòng thử lại sau.",
-        "not-found": "⚠️ - Không tìm thấy lời cho bài hát này."
+        "fetch": "⚠️\t\tĐã xảy ra lỗi khi tìm lời bài hát.\n\tVui lòng thử lại sau.",
+        "not-found": "⚠️ Không tìm thấy lời cho bài hát này."
       },
       "menu": {
         "default-text-string": {
@@ -731,6 +735,9 @@
         "line-effect": {
           "label": "Kiểu đường thẳng",
           "submenu": {
+            "fancy": {
+              "label": "Màu mè"
+            },
             "focus": {
               "label": "Tập trung",
               "tooltip": "Chỉ làm cho dòng hiện tại có màu trắng"
@@ -749,6 +756,9 @@
         "precise-timing": {
           "label": "Làm cho lời bài hát được đồng bộ hoàn hảo",
           "tooltip": "Tính toán chính xác đến mili giây thời gian hiển thị dòng tiếp theo (có thể có tác động nhỏ đến hiệu suất)"
+        },
+        "romanization": {
+          "tooltip": "Nếu lời bài hát đang ở ngôn ngữ khác, thử hiển thị phiên bản bảng chữ cái La-tinh."
         },
         "show-lyrics-even-if-inexact": {
           "label": "Hiển thị lời bài hát ngay cả khi không chính xác",

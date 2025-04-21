@@ -160,7 +160,7 @@
               "theme": {
                 "dialog": {
                   "button": {
-                    "cancel": "Откажи",
+                    "cancel": "Отказ",
                     "remove": "Премахни"
                   },
                   "remove-theme": "Сигурни ли сте, че искате да премахнете персонализираната тема?",
@@ -182,24 +182,476 @@
         "new": "НОВО"
       },
       "view": {
-        "label": "Изглед",
+        "label": "Преглед",
         "submenu": {
-          "force-reload": "Презареди принудително",
+          "force-reload": "Принудително презареждане",
           "reload": "Презареди",
-          "reset-zoom": "Истински размер",
-          "toggle-fullscreen": "Превключи на пълен екран",
-          "zoom-in": "Увеличи",
-          "zoom-out": "Намали"
+          "reset-zoom": "Действителен размер",
+          "toggle-fullscreen": "Превключване на цял екран",
+          "zoom-in": "Увеличаване",
+          "zoom-out": "Намаляване"
         }
       }
     },
     "tray": {
       "next": "Следващ",
-      "play-pause": "Пусни/Паузирай",
+      "play-pause": "Възпроизвеждане/Пауза",
       "previous": "Предишен",
       "quit": "Изход",
       "restart": "Рестартирай приложението",
-      "show": "Покажи прозорец"
+      "show": "Покажи прозорец",
+      "tooltip": {
+        "default": "YouTube Музика",
+        "with-song-info": "YouTube Музика: {{artist}} - {{title}}"
+      }
+    }
+  },
+  "plugins": {
+    "ad-speedup": {
+      "description": "Ако се пусне реклама, заглушава аудиото и задава скорост на възпроизвеждане 16x",
+      "name": "Ускоряване на рекламите"
+    },
+    "adblocker": {
+      "description": "Блокиране на всички реклами и проследяване по подразбиране",
+      "menu": {
+        "blocker": "Блокировач"
+      },
+      "name": "Блокировач на реклами"
+    },
+    "album-actions": {
+      "description": "Добавя бутони „Не харесвам“, „Харесвам“, „Харесано“ и „Премахване на харесване“, за да приложите това към всички песни в плейлист или албум",
+      "name": "Действия за албум"
+    },
+    "album-color-theme": {
+      "description": "Прилага динамична тема и визуални ефекти въз основа на цветовата палитра на албума",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "Съотношение на смесване на цветовете",
+          "submenu": {
+            "percent": "{{ratio}}%"
+          }
+        }
+      },
+      "name": "Цветова тема на албума"
+    },
+    "ambient-mode": {
+      "description": "Прилага светлинен ефект, като проектира нежни цветове от видеото върху фона на екрана",
+      "menu": {
+        "blur-amount": {
+          "label": "Степен на замъгляване",
+          "submenu": {
+            "pixels": "{{blurAmount}} пиксела"
+          }
+        },
+        "buffer": {
+          "label": "Буферизация",
+          "submenu": {
+            "buffer": "{{buffer}}"
+          }
+        },
+        "opacity": {
+          "label": "Непрозрачност",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "quality": {
+          "label": "Качество",
+          "submenu": {
+            "pixels": "{{quality}} пиксела"
+          }
+        },
+        "size": {
+          "label": "Размер",
+          "submenu": {
+            "percent": "{{size}}%"
+          }
+        },
+        "smoothness-transition": {
+          "label": "Плавен преход",
+          "submenu": {
+            "during": "{{interpolationTime}} секунди"
+          }
+        },
+        "use-fullscreen": {
+          "label": "Използване на цял екран"
+        }
+      },
+      "name": "Атмосферен режим"
+    },
+    "amuse": {
+      "description": "Добавя поддръжка на YouTube Music за джаджата Amuse Now Play от 6K Labs",
+      "name": "Забавление",
+      "response": {
+        "query": "Сървърът на Amuse API работи. Изпратете GET /query за информация за песента."
+      }
+    },
+    "api-server": {
+      "description": "Добавя API сървър за контрол на плейъра",
+      "dialog": {
+        "request": {
+          "buttons": {
+            "allow": "Разрешавам",
+            "deny": "Отказвам"
+          },
+          "message": "Позволяваш ли {{ID}} {{origin}} да достъпва API-то?",
+          "title": "Заявка за авторизация на API"
+        }
+      },
+      "menu": {
+        "auth-strategy": {
+          "label": "Стратегия за авторизация",
+          "submenu": {
+            "auth-at-first": {
+              "label": "Авторизиране при първата заявка"
+            },
+            "none": {
+              "label": "Без авторизация"
+            }
+          }
+        },
+        "hostname": {
+          "label": "Име на хост"
+        },
+        "port": {
+          "label": "Порт"
+        }
+      },
+      "name": "API сървър [Бета]",
+      "prompt": {
+        "hostname": {
+          "label": "Въведете името на хоста (като 0.0.0.0) за API сървъра:",
+          "title": "Име на хост"
+        },
+        "port": {
+          "label": "Въведете порта за API сървъра:",
+          "title": "Порт"
+        }
+      }
+    },
+    "audio-compressor": {
+      "description": "Прилага компресия на аудиото (намалява обема на най-силните части от сигнала и увеличава обема на най-тихите части)",
+      "name": "Аудио компресор"
+    },
+    "blur-nav-bar": {
+      "description": "Прави навигационната лента прозрачна и размазана",
+      "name": "Размазанa навигационна лента"
+    },
+    "bypass-age-restrictions": {
+      "description": "Избягване на възрастова верификация на YouTube",
+      "name": "Избягване на възрастови ограничения"
+    },
+    "captions-selector": {
+      "description": "Избор на надписи за аудио тракове в YouTube Music",
+      "menu": {
+        "autoload": "Автоматично избиране на последно използвания надпис",
+        "disable-captions": "Без надписи по подразбиране"
+      },
+      "name": "Избор на надписи",
+      "prompt": {
+        "selector": {
+          "label": "Език на надписи: {{language}}",
+          "none": "Нищо",
+          "title": "Избери език на надписите"
+        }
+      },
+      "templates": {
+        "title": "Отвори избора на надписи"
+      }
+    },
+    "compact-sidebar": {
+      "description": "Винаги настройвай страничната лента в компактен режим",
+      "name": "Компактна странична лента"
+    },
+    "crossfade": {
+      "description": "Плавно преминаване през песните",
+      "menu": {
+        "advanced": "Разширено"
+      },
+      "name": "Плавно преминаване [Beta]",
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "fade-in-duration": "Продължителност на преливането (милисекунди)",
+            "fade-out-duration": "Продължителност на затихването (милисекунди)",
+            "fade-scaling": {
+              "label": "Скалиране на избледняването",
+              "linear": "Линейно",
+              "logarithmic": "Логаритмично"
+            },
+            "seconds-before-end": "Преливане N секунди преди края"
+          },
+          "title": "Опции за преливане"
+        }
+      }
+    },
+    "disable-autoplay": {
+      "description": "Започва песента в паузиран режим",
+      "menu": {
+        "apply-once": "Важи само на стартиране"
+      },
+      "name": "Изключи автоматичното пускане"
+    },
+    "discord": {
+      "backend": {
+        "already-connected": "Опит за свързване с активна връзка",
+        "connected": "Свързано с Discord",
+        "disconnected": "Прекъсната връзка с Discord"
+      },
+      "description": "Покажи на приятелите си какво слушате с Rich Presence",
+      "menu": {
+        "auto-reconnect": "Автоматично повторно свързване",
+        "clear-activity": "Изчистване на активността",
+        "clear-activity-after-timeout": "Изчистване на активността след изтичане на времето",
+        "connected": "Свързано",
+        "disconnected": "Прекъснато",
+        "hide-duration-left": "Скрий оставащото време",
+        "hide-github-button": "Скрий бутона за линк към GitHub",
+        "play-on-youtube-music": "Възпроизведи в YouTube Music",
+        "set-inactivity-timeout": "Задай таймаут за неактивност"
+      },
+      "name": "Дискорд Разширен статус",
+      "prompt": {
+        "set-inactivity-timeout": {
+          "label": "Въведете таймаута за неактивност в секунди:",
+          "title": "Задайте таймаут за неактивност"
+        }
+      }
+    },
+    "downloader": {
+      "backend": {
+        "dialog": {
+          "error": {
+            "buttons": {
+              "ok": "ОК"
+            },
+            "message": "Ох! Извинявайте, изтеглянето не успя…",
+            "title": "Грешка при изтегляне!"
+          },
+          "start-download-playlist": {
+            "buttons": {
+              "ok": "ОК"
+            },
+            "detail": "({{playlistSize}} песни)",
+            "message": "Изтегляне на плейлист {{playlistTitle}}",
+            "title": "Изтеглянето започна"
+          }
+        },
+        "feedback": {
+          "conversion-progress": "Конвертиране: {{percent}}%",
+          "converting": "Превръщане…",
+          "done": "Готово: {{filePath}}",
+          "download-info": "Изтегляне на {{artist}} - {{title}} [{{videoId}}",
+          "download-progress": "Изтегляне: {{percent}}%",
+          "downloading": "Изтегляне…",
+          "downloading-counter": "Изтегляне {{current}}/{{total}}…",
+          "downloading-playlist": "Изтегляне на плейлист \"{{playlistTitle}}\" - {{playlistSize}} песни ({{playlistId}})",
+          "error-while-downloading": "Грешка при изтегляне на \"{{author}} - {{title}}\": {{error}}",
+          "folder-already-exists": "Папката {{playlistFolder}} вече съществува",
+          "getting-playlist-info": "Получаване на информация за плейлист…",
+          "loading": "Зареждане…",
+          "playlist-has-only-one-song": "Плейлистът съдържа само един елемент, изтегля се директно",
+          "playlist-id-not-found": "Не е намерен ID на плейлист",
+          "playlist-is-empty": "Плейлистът е празен",
+          "playlist-is-mix-or-private": "Грешка при получаване на информация за плейлист: уверете се, че не е частен или \"Смесено за вас\" плейлист\n\n{{error}}",
+          "preparing-file": "Подготвяне на файла…",
+          "saving": "Записване…",
+          "trying-to-get-playlist-id": "Опитвам се да получа ID на плейлист: {{playlistId}}",
+          "video-id-not-found": "Видео не е намерено",
+          "writing-id3": "Записване на ID3 тагове…"
+        }
+      },
+      "description": "Изтегля MP3 / източниково аудио директно от интерфейса",
+      "menu": {
+        "choose-download-folder": "Изберете папка за изтегляне",
+        "download-finish-settings": {
+          "label": "Изтегляне при завършване",
+          "prompt": {
+            "last-percent": "След x процента",
+            "last-seconds": "Последни x секунди",
+            "title": "Конфигурирайте кога да изтеглите"
+          },
+          "submenu": {
+            "advanced": "Разширени настройки",
+            "enabled": "Активирано",
+            "mode": "Режим на време",
+            "percent": "Процент",
+            "seconds": "Секунди"
+          }
+        },
+        "download-playlist": "Изтегляне на плейлист",
+        "presets": "Предварително зададени настройки",
+        "skip-existing": "Пропусни съществуващите файлове"
+      },
+      "name": "Изтегляч",
+      "renderer": {
+        "can-not-update-progress": "Не може да се актуализира напредъкът"
+      },
+      "templates": {
+        "button": "Изтегляне"
+      }
+    },
+    "exponential-volume": {
+      "description": "Прави плъзгача за сила на звука експоненциален, така че да е по-лесно да се избират по-ниски нива на звук.",
+      "name": "Експоненциален звук"
+    },
+    "in-app-menu": {
+      "description": "Придава на меню баровете стилен, тъмен или с цвят на албума вид",
+      "menu": {
+        "hide-dom-window-controls": "Скрий контролните елементи на DOM прозореца"
+      },
+      "name": "Меню в приложението"
+    },
+    "lumiastream": {
+      "description": "Добавя поддръжка за Lumia Stream",
+      "name": "Lumia Stream [Бета]"
+    },
+    "lyrics-genius": {
+      "description": "Добавя поддръжка за текстове за повечето песни",
+      "menu": {
+        "romanized-lyrics": "Романизирани текстове"
+      },
+      "name": "Текстове от Genius",
+      "renderer": {
+        "fetched-lyrics": "Изтеглени текстове от Genius"
+      }
+    },
+    "music-together": {
+      "description": "Сподели плейлист с други. Когато хостът пусне песен, всички останали ще чуят същата песен",
+      "dialog": {
+        "enter-host": "Въведи ID на хоста"
+      },
+      "internal": {
+        "save": "Запазване",
+        "track-source": "Източник на трак",
+        "unknown-user": "Неизвестен потребител"
+      },
+      "menu": {
+        "click-to-copy-id": "Копирай ID на хост",
+        "close": "Затвори Music Together",
+        "connected-users": "Свързани потребители",
+        "disconnect": "Прекъсни Music Together",
+        "empty-user": "Няма свързани потребители",
+        "host": "Хост на Music Together",
+        "join": "Присъедини се към Music Together",
+        "permission": {
+          "all": "Позволи на гостите да управляват плейлист и плеър",
+          "host-only": "Само хостът може да управлява плейлист и плеър",
+          "playlist": "Позволи на гостите да управляват плейлист"
+        },
+        "set-permission": "Промени разрешението за управление",
+        "status": {
+          "disconnected": "Прекъснато",
+          "guest": "Свързан като гост",
+          "host": "Свързан като хост"
+        }
+      },
+      "name": "Music Together [Бета]",
+      "toast": {
+        "add-song-failed": "Неуспешно добавяне на песен",
+        "closed": "Music Together е затворена",
+        "disconnected": "Music Together е прекъсната",
+        "host-failed": "Неуспешно хостване на Music Together",
+        "id-copied": "ID на хоста е копиран в клипборда",
+        "id-copy-failed": "Неуспешно копиране на ID на хоста в клипборда",
+        "join-failed": "Неуспешно присъединяване към Music Together",
+        "joined": "Присъединен към Music Together",
+        "permission-changed": "Разрешението за Music Together е променено на \"{{permission}}\"",
+        "remove-song-failed": "Неуспешно премахване на песен",
+        "user-connected": "{{name}} се присъедини към Music Together",
+        "user-disconnected": "{{name}} напусна Music Together"
+      }
+    },
+    "navigation": {
+      "description": "Навигационни стрелки Напред/Назад, директно интегрирани в интерфейса, както в любимия ви браузър",
+      "name": "Навигация"
+    },
+    "no-google-login": {
+      "description": "Премахни бутоните за вход с Google и връзките от интерфейса",
+      "name": "Няма вход с Google"
+    },
+    "notifications": {
+      "description": "Показване на известие при стартиране на песен (интерактивни известия са налични за Windows)",
+      "menu": {
+        "interactive": "Интерактивни известия",
+        "interactive-settings": {
+          "label": "Интерактивни настройки",
+          "submenu": {
+            "hide-button-text": "Скрий текста на бутоните",
+            "refresh-on-play-pause": "Обновяване при Възпроизвеждане/Пауза",
+            "tray-controls": "Отваряне/Затваряне при клик в тавата"
+          }
+        },
+        "priority": "Приоритет на известията",
+        "toast-style": "Стил на toast (кратки изскачащи известия)",
+        "unpause-notification": "Показване на известие при възобновяване"
+      },
+      "name": "Известия"
+    },
+    "picture-in-picture": {
+      "description": "Позволява превключване на приложението в режим картинка във картинка",
+      "menu": {
+        "always-on-top": "Винаги на преден план",
+        "hotkey": {
+          "label": "Клавишна комбинация",
+          "prompt": {
+            "keybind-options": {
+              "hotkey": "Клавишна комбинация"
+            },
+            "label": "Изберете клавишна комбинация за превключване на картинка във картинка",
+            "title": "Клавишна комбинация за картинка във картинка"
+          }
+        },
+        "save-window-position": "Запомняне на позицията на прозореца",
+        "save-window-size": "Запомняне на размера на прозореца",
+        "use-native-pip": "Използвайте вградения картинка във картинка на браузера"
+      },
+      "name": "Картинка във картинка",
+      "templates": {
+        "button": "Картинка във картинка"
+      }
+    },
+    "playback-speed": {
+      "description": "Слушай бързо, слушай бавно! Добавя плъзгач, който управлява скоростта на песните",
+      "name": "Скорост на възпроизвеждане",
+      "templates": {
+        "button": "Скорост"
+      }
+    },
+    "precise-volume": {
+      "description": "Управлявайте прецизно силата на звука чрез колелото на мишката или бързи клавиши, с персонализиран HUD и настройвани нива на звука",
+      "menu": {
+        "arrows-shortcuts": "Локални контроли със стрелки",
+        "custom-volume-steps": "Задайте персонализирани нива на звука",
+        "global-shortcuts": "Глобални бързи клавиши"
+      },
+      "name": "Точна сила на звука",
+      "prompt": {
+        "global-shortcuts": {
+          "keybind-options": {
+            "decrease": "Намаляване на звука",
+            "increase": "Усилване на звука"
+          },
+          "label": "Изберете глобални клавишни комбинации за сила на звука:",
+          "title": "Глобални клавишни комбинации за звук"
+        },
+        "volume-steps": {
+          "label": "Изберете стъпки за увеличаване/намаляване на звука",
+          "title": "Стъпки на звука"
+        }
+      }
+    },
+    "quality-changer": {
+      "backend": {
+        "dialog": {
+          "quality-changer": {
+            "detail": "Текущо качество: {{quality}}",
+            "message": "Изберете качество на видеото:",
+            "title": "Изберете качество на видеото"
+          }
+        }
+      },
+      "description": "Позволява промяна на качеството на видеото с бутон върху видеото"
     }
   }
 }

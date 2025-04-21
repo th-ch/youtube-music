@@ -3,7 +3,7 @@
 # YouTube Music
 
 [![GitHub release](https://img.shields.io/github/release/th-ch/youtube-music.svg?style=for-the-badge&logo=youtube-music)](https://github.com/th-ch/youtube-music/releases/)
-[![GitHub license](https://img.shields.io/github/license/th-ch/youtube-music.svg?style=for-the-badge)](https://github.com/th-ch/youtube-music/blob/master/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/th-ch/youtube-music.svg?style=for-the-badge)](https://github.com/th-ch/youtube-music/blob/master/license)
 [![eslint code style](https://img.shields.io/badge/code_style-eslint-5ed9c7.svg?style=for-the-badge)](https://github.com/th-ch/youtube-music/blob/master/.eslintrc.js)
 [![Build status](https://img.shields.io/github/actions/workflow/status/th-ch/youtube-music/build.yml?branch=master&style=for-the-badge&logo=youtube-music)](https://GitHub.com/th-ch/youtube-music/releases/)
 [![GitHub All Releases](https://img.shields.io/github/downloads/th-ch/youtube-music/total?style=for-the-badge&logo=youtube-music)](https://GitHub.com/th-ch/youtube-music/releases/)
@@ -21,7 +21,7 @@
     </a>
 </div>
 
-Прочтите это на других языках: [🏴 Английский](../../README.md), [🇰🇷 корейский](./README-ko.md), [🇫🇷 Французский](./README-fr.md), [🇮🇸 исландский](./README-is.md), [🇪🇸 испанский](./README-es.md), [🇷🇺 Русский](./README-ru.md)
+Прочтите это на других языках: [🏴 Английский](../../README.md), [🇰🇷 корейский](./README-ko.md), [🇫🇷 Французский](./README-fr.md), [🇮🇸 исландский](./README-is.md), [🇪🇸 испанский](./README-es.md), [🇷🇺 Русский](./README-ru.md), [🇧🇷 Португальский](./README-pt.md)
 
 **Клиент для YouTube Music основанный на Electron с поддержкой:**
 

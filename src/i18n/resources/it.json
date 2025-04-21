@@ -160,10 +160,10 @@
               "theme": {
                 "dialog": {
                   "button": {
-                    "cancel": "Cancella",
+                    "cancel": "Annulla",
                     "remove": "Rimuovi"
                   },
-                  "remove-theme": "Sicuro di voler rimuovere il tema personalizzato?",
+                  "remove-theme": "Sei sicuro di voler rimuovere il tema personalizzato?",
                   "remove-theme-message": "Questo rimuoverà il tema personalizzato"
                 },
                 "label": "Tema",
@@ -495,7 +495,7 @@
       "description": "Aggiunge un equalizzatore al player",
       "menu": {
         "presets": {
-          "label": "Presets",
+          "label": "Preset",
           "list": {
             "bass-booster": "Booster dei bassi"
           }
@@ -734,7 +734,7 @@
     "synced-lyrics": {
       "description": "Fornisce testi sincronizzati alle canzoni, utilizzando provider come LRClib.",
       "errors": {
-        "fetch": "⚠️ - Si è verificato un errore nel recuperare il testo. Per favore riprova più tardi.",
+        "fetch": "⚠️ \tSi è verificato un errore nel recuperare il testo.\n\tPer favore riprova più tardi.",
         "not-found": "⚠️ Nessun testo trovato per questa canzone."
       },
       "menu": {

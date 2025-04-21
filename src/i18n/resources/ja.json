@@ -279,6 +279,13 @@
       },
       "name": "アンビエント モード"
     },
+    "amuse": {
+      "description": "6K LabsのAmuse再生中ウィジェットがYouTube Musicに対応しました",
+      "name": "Amuse",
+      "response": {
+        "query": "AmuseのAPIサーバーが稼働中です。GET /query で楽曲情報を取得できます。"
+      }
+    },
     "api-server": {
       "description": "プレイヤーを制御するAPIサーバーを追加",
       "dialog": {
@@ -485,7 +492,7 @@
       }
     },
     "equalizer": {
-      "description": "プレイヤーにイコライザーを追加",
+      "description": "イコライザーを追加",
       "menu": {
         "presets": {
           "label": "プリセット",
@@ -676,6 +683,7 @@
         "listenbrainz": {
           "token": "ListenBrainzユーザートークンを入力してください"
         },
+        "scrobble-alternative-title": "代替タイトルを使用する",
         "scrobble-other-media": "他のメディアをScrobbleする"
       },
       "name": "スクロブラー",
@@ -726,8 +734,8 @@
     "synced-lyrics": {
       "description": "LRClibのようなプロバイダを使って、楽曲に同期した歌詞を使用する。",
       "errors": {
-        "fetch": "⚠️ - 歌詞の取得中にエラーが発生しました。 後でもう一度お試しください。",
-        "not-found": "⚠️ - この曲の歌詞は見つかりませんでした。"
+        "fetch": "⚠️ \t歌詞の取得中にエラーが発生しました。\n\t後でもう一度お試しください。",
+        "not-found": "⚠️ この曲の歌詞は見つかりませんでした。"
       },
       "menu": {
         "default-text-string": {
@@ -737,6 +745,10 @@
         "line-effect": {
           "label": "歌詞表示のエフェクト",
           "submenu": {
+            "fancy": {
+              "label": "ファンシー",
+              "tooltip": "現在の行にアプリのような大きなエフェクトを使う"
+            },
             "focus": {
               "label": "フォーカス",
               "tooltip": "現在の行だけを白くする"
@@ -755,6 +767,10 @@
         "precise-timing": {
           "label": "歌詞を完璧に同期させる",
           "tooltip": "次の行の表示をミリ秒単位で計算する（パフォーマンスに若干の影響を与える可能性があります）"
+        },
+        "romanization": {
+          "label": "ローマ字歌詞",
+          "tooltip": "歌詞が異なる言語で書かれている場合は、ラテン語バージョンを表示するようにしてください。"
         },
         "show-lyrics-even-if-inexact": {
           "label": "歌詞が不正確でも表示する",
@@ -787,6 +803,10 @@
     "tuna-obs": {
       "description": "OBSのプラグインTunaの統合",
       "name": "Tuna OBS"
+    },
+    "unobtrusive-player": {
+      "description": "曲の再生時にプレーヤーがポップアップしないようにする",
+      "name": "控えめなプレーヤー"
     },
     "video-toggle": {
       "description": "ビデオ/ソングモードを切り替えるボタンを追加します。オプションでビデオタブ全体を削除することもできます",

@@ -179,12 +179,12 @@ export default createPlugin({
         if (this.config) {
           this.config.hideVideo = !showVideo;
         }
-        window.mainConfig.plugins.setOptions('video-toggle', config);
+        window.mainConfig.plugins.setOptions('video-toggle', this.config);
 
         const checkbox = document.querySelector<HTMLInputElement>(
           '.video-switch-button-checkbox',
         ); // custom mode
-        if (checkbox) checkbox.checked = !config.hideVideo;
+        if (checkbox) checkbox.checked = !this.config.hideVideo;
 
         if (player) {
           player.style.margin = showVideo ? '' : 'auto 0px';

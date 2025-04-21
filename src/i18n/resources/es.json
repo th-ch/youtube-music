@@ -3,7 +3,7 @@
     "console": {
       "plugins": {
         "execute-failed": "Error al ejecutar el plugin {{pluginName}}::{{contextName}}",
-        "executed-at-ms": "Plugin {{pluginName}}: {{contextName}} ejecutado en {{ms}}ms",
+        "executed-at-ms": "Plugin {{pluginName}}::{{contextName}} Ejecutó en {{ms}}ms",
         "initialize-failed": "Error al inicializar el plugin \"{{pluginName}}\"",
         "load-all": "Cargando todos los plugins",
         "load-failed": "Error al cargar el plugin \"{{pluginName}}\"",
@@ -683,6 +683,7 @@
         "listenbrainz": {
           "token": "Introduzca el token de usuario de ListenBrainz"
         },
+        "scrobble-alternative-title": "Usar títulos alternativos",
         "scrobble-other-media": "Scrobble en otros medios"
       },
       "name": "Scrobbler",
@@ -767,6 +768,10 @@
           "label": "Haz que la letra esté perfectamente sincronizada",
           "tooltip": "Calcular al milisegundo la visualización de la siguiente línea (puede tener un pequeño impacto en el rendimiento)"
         },
+        "romanization": {
+          "label": "Romanizar letras",
+          "tooltip": "Si la letra está en un idioma diferente, intenta mostrar una versión en latín."
+        },
         "show-lyrics-even-if-inexact": {
           "label": "Mostrar la letra aunque sea inexacta",
           "tooltip": "Si no se encuentra la canción, el plugin vuelve a intentarlo con una búsqueda diferente.\nEl resultado del segundo intento puede no ser exacto."
@@ -798,6 +803,10 @@
     "tuna-obs": {
       "description": "Integración con el plugin Tuna de OBS",
       "name": "Tuna OBS"
+    },
+    "unobtrusive-player": {
+      "description": "Evita que el reproductor aparezca al reproducir una canción",
+      "name": "Jugador discreto"
     },
     "video-toggle": {
       "description": "Añade un botón para cambiar entre el modo Vídeo/Canción. También puede eliminar opcionalmente toda la pestaña de vídeo",
