@@ -1,14 +1,19 @@
-import { createEffect, createSignal, Match, Show, Switch } from 'solid-js';
-
-import { SyncedLine } from './SyncedLine';
+import {
+  createEffect,
+  createMemo,
+  createSignal,
+  Match,
+  Show,
+  Switch,
+} from 'solid-js';
 
 import { ErrorDisplay } from './ErrorDisplay';
 import { LoadingKaomoji } from './LoadingKaomoji';
-import { PlainLyrics } from './PlainLyrics';
+import { PlainLyricsContainer } from './PlainLyrics';
+import { SyncedLineContainer } from './SyncedLyrics';
 
 import { hasJapaneseInString, hasKoreanInString } from '../utils';
 import { currentLyrics, lyricsStore } from '../../providers';
-import { VirtualizerHandle, VList } from 'virtua/solid';
 
 export const [debugInfo, setDebugInfo] = createSignal<string>();
 export const [currentTime, setCurrentTime] = createSignal<number>(-1);
@@ -17,7 +22,6 @@ export const [currentTime, setCurrentTime] = createSignal<number>(-1);
 export const LyricsContainer = () => {
   const [hasJapanese, setHasJapanese] = createSignal<boolean>(false);
   const [hasKorean, setHasKorean] = createSignal<boolean>(false);
-  const [scroller, setScroller] = createSignal<VirtualizerHandle>();
 
   createEffect(() => {
     const data = currentLyrics()?.data;
@@ -58,15 +62,11 @@ export const LyricsContainer = () => {
 
       <Switch>
         <Match when={currentLyrics().data?.lines}>
-          <VList ref={setScroller} data={currentLyrics().data!.lines!} style={{ 'scrollbar-width': 'none' }}>
-            {(item, idx) => (
-              <SyncedLine scroller={scroller()!} index={idx} line={item} hasJapanese={hasJapanese()} hasKorean={hasKorean()} />
-            )}
-          </VList>
+          <SyncedLineContainer lyrics={currentLyrics().data!.lines!} hasJapanese={hasJapanese()} hasKorean={hasKorean()} />
         </Match>
 
         <Match when={currentLyrics().data?.lyrics}>
-          <PlainLyrics lyrics={currentLyrics().data!.lyrics!} hasJapanese={hasJapanese()} hasKorean={hasKorean()} />
+          <PlainLyricsContainer lyrics={currentLyrics().data!.lyrics!} hasJapanese={hasJapanese()} hasKorean={hasKorean()} />
         </Match>
       </Switch>
     </div>

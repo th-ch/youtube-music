@@ -17,7 +17,7 @@ interface PlainLyricsProps {
   hasKorean: boolean;
 }
 
-export const PlainLyrics = (props: PlainLyricsProps) => {
+export const PlainLyricsContainer = (props: PlainLyricsProps) => {
   const lines = props.lyrics.split('\n').filter((line) => line.trim());
   const [romanizedLines, setRomanizedLines] = createSignal<
     Record<string, string>
