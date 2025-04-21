@@ -13,19 +13,6 @@ export class MusixMatch implements LyricProvider {
     // late-init the API, to avoid an electron IPC issue
     this.api ??= await MusixMatchAPI.new();
 
-    const queries = [];
-
-    queries.push(`${info.artist} - ${info.title}`);
-
-    if (info.album) {
-      queries.push(`${info.album} - ${info.title}`);
-    }
-
-    if (info.alternativeTitle) {
-      queries.push(`${info.artist} - ${info.alternativeTitle}`);
-      if (info.album) queries.push(`${info.album} - ${info.alternativeTitle}`);
-    }
-
     const data = await this.api.query(Endpoint.getMacroSubtitles, {
       q_track: info.alternativeTitle || info.title,
       q_artist: info.artist,
