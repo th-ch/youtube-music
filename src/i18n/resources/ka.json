@@ -7,7 +7,9 @@
         "initialize-failed": "პლაგინის ინიციალიზაცია ვერ მოხდა\"{{pluginName}}\"",
         "load-all": "იტვირთება ყველა პლაგინი",
         "load-failed": "პლაგინის ჩატვირთვა ვერ მოხდა \"{{pluginName}}\"",
-        "loaded": "პლაგინი \"{{pluginName}}\" ჩაიტვირთა"
+        "loaded": "პლაგინი \"{{pluginName}}\" ჩაიტვირთა",
+        "unload-failed": "პლაგინის {{pluginName}} გათიშვა ვერ მოხერხდა",
+        "unloaded": "პლაგინი {{pluginName}} გათიშულია"
       }
     }
   },
@@ -17,6 +19,26 @@
     "name": "Georgian"
   },
   "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "ჩატვირთვა დასრულებულია. DevTools გახსნილია"
+      },
+      "i18n": {
+        "loaded": "i18n ჩართულია"
+      },
+      "second-instance": {
+        "receive-command": "მიღებულია ბრძანება პროტოკოლზე: {{command}}"
+      },
+      "theme": {
+        "css-file-not-found": "CSS ფაილი {{cssFile}} არ არსებობს, იგნორირება"
+      },
+      "unresponsive": {
+        "details": "უპასუხო შეცდომა!\n{{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "აპლიკაციის ქეშის გაწმენდვა"
+      }
+    },
     "dialog": {
       "need-to-restart": {
         "buttons": {
