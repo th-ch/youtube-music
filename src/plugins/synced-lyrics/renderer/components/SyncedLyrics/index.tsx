@@ -22,7 +22,7 @@ export const SyncedLineContainer = (props: SyncedLineContainerProps) => {
         return 'current';
       });
     },
-    props.lyrics.map((_) => 'upcoming')
+    props.lyrics.map((_) => 'upcoming'),
   );
 
   const [currentIndex, setCurrentIndex] = createSignal(0);

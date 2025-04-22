@@ -1,4 +1,4 @@
-import { createEffect, createSignal, onMount, Show } from 'solid-js';
+import { createEffect, createSignal, onCleanup, onMount, Show } from 'solid-js';
 
 import { LyricsContainer } from './components/LyricsContainer';
 import { LyricsPicker } from './components/LyricsPicker';
@@ -112,27 +112,24 @@ createEffect(() => {
 export const LyricsRenderer = () => {
   const [stickyRef, setStickRef] = createSignal<HTMLElement | null>(null);
 
-  // prettier-ignore
-  onMount(() => {
-    const tab = document.querySelector<HTMLElement>(selectors.body.tabRenderer)!;
+  const tab = document.querySelector<HTMLElement>(selectors.body.tabRenderer)!;
 
-    const mousemoveListener = (e: MouseEvent) => {
-      const { top } = tab.getBoundingClientRect();
-      const { clientHeight: height } = stickyRef()!;
+  const mousemoveListener = (e: MouseEvent) => {
+    const { top } = tab.getBoundingClientRect();
+    const { clientHeight: height } = stickyRef()!;
 
-      const showPicker = (e.clientY - top - 5) <= height;
-      if (showPicker) {
-        // picker visible
-        stickyRef()!.style.setProperty('--top', '0');
-      } else {
-        // picker hidden
-        stickyRef()!.style.setProperty('--top', '-50%');
-      }
-    };
+    const showPicker = e.clientY - top - 5 <= height;
+    if (showPicker) {
+      // picker visible
+      stickyRef()!.style.setProperty('--top', '0');
+    } else {
+      // picker hidden
+      stickyRef()!.style.setProperty('--top', '-50%');
+    }
+  };
 
-    tab.addEventListener('mousemove', mousemoveListener);
-    return () => tab.removeEventListener('mousemove', mousemoveListener);
-  });
+  onMount(() => tab.addEventListener('mousemove', mousemoveListener));
+  onCleanup(() => tab.removeEventListener('mousemove', mousemoveListener));
 
   return (
     <Show when={isVisible()}>
