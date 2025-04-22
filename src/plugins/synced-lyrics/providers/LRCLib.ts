@@ -9,6 +9,22 @@ export class LRCLib implements LyricProvider {
   name = 'LRCLib';
   baseUrl = 'https://lrclib.net';
 
+  async searchLyrics(query: URLSearchParams): Promise<LRCLIBSearchResponse> {
+    const response = await fetch(
+      `${this.baseUrl}/api/search?${query.toString()}`,
+    );
+
+    if (!response.ok) {
+      throw new Error(`bad HTTPStatus(${response.statusText})`);
+    }
+
+    const data = (await response.json()) as LRCLIBSearchResponse;
+    if (!data || !Array.isArray(data)) {
+      throw new Error(`Expected an array, instead got ${typeof data}`);
+    }
+    return data;
+  }
+
   async search({
     title,
     alternativeTitle,
@@ -27,62 +43,39 @@ export class LRCLib implements LyricProvider {
     if (query.get('album_name') === 'undefined') {
       query.delete('album_name');
     }
+    const queries = [query];
 
-    let url = `${this.baseUrl}/api/search?${query.toString()}`;
-    let response = await fetch(url);
+    const trackName = alternativeTitle || title;
+    let alternativeArtist = trackName.split(' - ')[0];
+    alternativeArtist =
+      alternativeArtist !== trackName ? alternativeArtist : '';
 
-    if (!response.ok) {
-      throw new Error(`bad HTTPStatus(${response.statusText})`);
-    }
-
-    let data = (await response.json()) as LRCLIBSearchResponse;
-    if (!data || !Array.isArray(data)) {
-      throw new Error(`Expected an array, instead got ${typeof data}`);
-    }
-
-    if (data.length === 0) {
-      if (!config()?.showLyricsEvenIfInexact) {
-        return null;
-      }
-
+    if (config()?.showLyricsEvenIfInexact) {
       // Try to search with the alternative title (original language)
-      const trackName = alternativeTitle || title;
       query = new URLSearchParams({ q: `${trackName}` });
-      url = `${this.baseUrl}/api/search?${query.toString()}`;
-      artist = trackName.split(' - ')[0];
+      queries.push(query);
 
-      response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(`bad HTTPStatus(${response.statusText})`);
-      }
-
-      data = (await response.json()) as LRCLIBSearchResponse;
-      if (!Array.isArray(data)) {
-        throw new Error(`Expected an array, instead got ${typeof data}`);
-      }
-      
-      // If still no results, try with the original title as fallback
-      if (data.length === 0 && alternativeTitle) {
+      if (alternativeTitle) {
+        // If still no results, try with the original title as fallback
         query = new URLSearchParams({ q: title });
-        url = `${this.baseUrl}/api/search?${query.toString()}`;
-
-        response = await fetch(url);
-        if (!response.ok) {
-          throw new Error(`bad HTTPStatus(${response.statusText})`);
-        }
-
-        data = (await response.json()) as LRCLIBSearchResponse;
-        if (!Array.isArray(data)) {
-          throw new Error(`Expected an array, instead got ${typeof data}`);
-        }
+        queries.push(query);
       }
+    }
+
+    let data: LRCLIBSearchResponse = [];
+    for (const query of queries) {
+      data = await this.searchLyrics(query);
+      if (data.length !== 0) break;
     }
 
     const filteredResults = [];
+    const artists = artist.split(/[&,]/g).map((i) => i.trim());
+    if (alternativeArtist !== '') {
+      artists.push(alternativeArtist);
+    }
+
     for (const item of data) {
       const { artistName } = item;
-
-      const artists = artist.split(/[&,]/g).map((i) => i.trim());
       const itemArtists = artistName.split(/[&,]/g).map((i) => i.trim());
 
       // Try to match using artist name first
