@@ -5,6 +5,7 @@ import {
   For,
   Index,
   Match,
+  onCleanup,
   onMount,
   Switch,
 } from 'solid-js';
@@ -69,15 +70,18 @@ export const LyricsPicker = () => {
     }
   });
 
-  onMount(() => {
-    const listener = (name: string) => {
-      if (name !== 'dataloaded') return;
-      setHasManuallySwitchedProvider(false);
-    };
+  /**
+   * If you are coming from react, this may look wrong to you, since react reruns the component on each state change.
+   * But in solid, the component is only ran once, meaning the function videoDataChangeHandler is only created once.
+   * So we can safely define it within the component, and not worry about it being recreated.
+  */
+  const videoDataChangeHandler = (name: string) => {
+    if (name !== 'dataloaded') return;
+    setHasManuallySwitchedProvider(false);
+  };
 
-    _ytAPI?.addEventListener('videodatachange', listener);
-    return () => _ytAPI?.removeEventListener('videodatachange', listener);
-  });
+  onMount(() => _ytAPI?.addEventListener('videodatachange', videoDataChangeHandler));
+  onCleanup(() => _ytAPI?.removeEventListener('videodatachange', videoDataChangeHandler));
 
   const next = (automatic: boolean = false) => {
     if (!automatic) setHasManuallySwitchedProvider(true);
