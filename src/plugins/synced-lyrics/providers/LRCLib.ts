@@ -33,7 +33,6 @@ export class LRCLib implements LyricProvider {
     songDuration,
     tags,
   }: SearchSongInfo): Promise<LyricResult | null> {
-    
     let query = new URLSearchParams({
       artist_name: artist,
       track_name: title,
@@ -62,122 +61,130 @@ export class LRCLib implements LyricProvider {
       }
     }
 
-    let data: LRCLIBSearchResponse = [];
-    for (const query of queries) {
-      data = await this.searchLyrics(query);
-      if (data.length !== 0) break;
-    }
-
-    const filteredResults = [];
+    let filteredResults: LRCLIBSearchResponse = [];
     const artists = artist.split(/[&,]/g).map((i) => i.trim());
     if (alternativeArtist !== '') {
       artists.push(alternativeArtist);
     }
 
-    for (const item of data) {
-      const { artistName } = item;
-      const itemArtists = artistName.split(/[&,]/g).map((i) => i.trim());
+    for (const query of queries) {
+      const data = await this.searchLyrics(query);
+      if (data.length == 0) continue;
 
-      // Try to match using artist name first
-      const permutations = [];
-      for (const artistA of artists) {
-        for (const artistB of itemArtists) {
-          permutations.push([artistA.toLowerCase(), artistB.toLowerCase()]);
+      for (const item of data) {
+        const { artistName } = item;
+        const itemArtists = artistName.split(/[&,]/g).map((i) => i.trim());
+
+        // Try to match using artist name first
+        const permutations = [];
+        for (const artistA of artists) {
+          for (const artistB of itemArtists) {
+            permutations.push([artistA.toLowerCase(), artistB.toLowerCase()]);
+          }
         }
+
+        for (const artistA of itemArtists) {
+          for (const artistB of artists) {
+            permutations.push([artistA.toLowerCase(), artistB.toLowerCase()]);
+          }
+        }
+
+        let ratio = Math.max(
+          ...permutations.map(([x, y]) => jaroWinkler(x, y)),
+        );
+
+        // If direct artist match is below threshold, and we have tags, try matching with tags
+        if (ratio <= 0.9 && tags && tags.length > 0) {
+          // Filter out the artist from tags to avoid duplicate comparisons
+          const filteredTags = tags.filter(
+            (tag) => tag.toLowerCase() !== artist.toLowerCase(),
+          );
+
+          const tagPermutations = [];
+          // Compare each tag with each item artist
+          for (const tag of filteredTags) {
+            for (const itemArtist of itemArtists) {
+              tagPermutations.push([
+                tag.toLowerCase(),
+                itemArtist.toLowerCase(),
+              ]);
+            }
+          }
+
+          // Compare each item artist with each tag
+          for (const itemArtist of itemArtists) {
+            for (const tag of filteredTags) {
+              tagPermutations.push([
+                itemArtist.toLowerCase(),
+                tag.toLowerCase(),
+              ]);
+            }
+          }
+
+          if (tagPermutations.length > 0) {
+            const tagRatio = Math.max(
+              ...tagPermutations.map(([x, y]) => jaroWinkler(x, y)),
+            );
+
+            // Use the best match ratio between direct artist match and tag match
+            ratio = Math.max(ratio, tagRatio);
+          }
+        }
+
+        if (ratio <= 0.9) continue;
+        filteredResults.push(item);
       }
 
-      for (const artistA of itemArtists) {
-        for (const artistB of artists) {
-          permutations.push([artistA.toLowerCase(), artistB.toLowerCase()]);
-        }
-      }
+      filteredResults = filteredResults.filter((lrc) => {
+        return Math.abs(lrc.duration - songDuration) < 15;
+      });
 
-      let ratio = Math.max(
-        ...permutations.map(([x, y]) => jaroWinkler(x, y)),
+      if (filteredResults.length == 0) continue;
+
+      filteredResults.sort(
+        (
+          { duration: durationA, syncedLyrics: lyricsA },
+          { duration: durationB, syncedLyrics: lyricsB },
+        ) => {
+          const hasLyricsA = lyricsA != null && lyricsA !== '';
+          const hasLyricsB = lyricsB != null && lyricsB !== '';
+          const left = Math.abs(durationA - songDuration);
+          const right = Math.abs(durationB - songDuration);
+
+          if (hasLyricsA !== hasLyricsB) {
+            return hasLyricsB ? 1 : -1;
+          }
+
+          return left - right;
+        },
       );
 
-      // If direct artist match is below threshold and we have tags, try matching with tags
-      if (ratio <= 0.9 && tags && tags.length > 0) {
-        // Filter out the artist from tags to avoid duplicate comparisons
-        const filteredTags = tags.filter(tag => tag.toLowerCase() !== artist.toLowerCase());
-        
-        const tagPermutations = [];
-        // Compare each tag with each item artist
-        for (const tag of filteredTags) {
-          for (const itemArtist of itemArtists) {
-            tagPermutations.push([tag.toLowerCase(), itemArtist.toLowerCase()]);
-          }
-        }
-        
-        // Compare each item artist with each tag
-        for (const itemArtist of itemArtists) {
-          for (const tag of filteredTags) {
-            tagPermutations.push([itemArtist.toLowerCase(), tag.toLowerCase()]);
-          }
-        }
-        
-        if (tagPermutations.length > 0) {
-          const tagRatio = Math.max(
-            ...tagPermutations.map(([x, y]) => jaroWinkler(x, y)),
-          );
-          
-          // Use the best match ratio between direct artist match and tag match
-          ratio = Math.max(ratio, tagRatio);
-        }
+      const closestResult = filteredResults[0];
+
+      if (closestResult.instrumental) {
+        return null;
       }
 
-      if (ratio <= 0.9) continue;
-      filteredResults.push(item);
+      const raw = closestResult.syncedLyrics;
+      const plain = closestResult.plainLyrics;
+      if (!raw && !plain) {
+        continue;
+      }
+
+      return {
+        title: closestResult.trackName,
+        artists: closestResult.artistName.split(/[&,]/g),
+        lines: raw
+          ? LRC.parse(raw).lines.map((l) => ({
+              ...l,
+              status: 'upcoming' as const,
+            }))
+          : undefined,
+        lyrics: plain,
+      };
     }
 
-    filteredResults.sort(
-      (
-        { duration: durationA, syncedLyrics: lyricsA },
-        { duration: durationB, syncedLyrics: lyricsB },
-      ) => {
-        const hasLyricsA = lyricsA != null && lyricsA !== '';
-        const hasLyricsB = lyricsB != null && lyricsB !== '';
-        const left = Math.abs(durationA - songDuration);
-        const right = Math.abs(durationB - songDuration);
-
-        if (hasLyricsA !== hasLyricsB) {
-          return hasLyricsB ? 1 : -1;
-        }
-
-        return left - right;
-      },
-    );
-
-    const closestResult = filteredResults[0];
-    if (!closestResult) {
-      return null;
-    }
-
-    if (Math.abs(closestResult.duration - songDuration) > 15) {
-      return null;
-    }
-
-    if (closestResult.instrumental) {
-      return null;
-    }
-
-    const raw = closestResult.syncedLyrics;
-    const plain = closestResult.plainLyrics;
-    if (!raw && !plain) {
-      return null;
-    }
-
-    return {
-      title: closestResult.trackName,
-      artists: closestResult.artistName.split(/[&,]/g),
-      lines: raw
-        ? LRC.parse(raw).lines.map((l) => ({
-            ...l,
-            status: 'upcoming' as const,
-          }))
-        : undefined,
-      lyrics: plain,
-    };
+    return null;
   }
 }
 
