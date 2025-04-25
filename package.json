@@ -222,7 +222,7 @@
   },
   "pnpm": {
     "overrides": {
-      "vite": "6.3.0",
+      "vite": "6.3.3",
       "node-gyp": "11.2.0",
       "xml2js": "0.6.2",
       "node-fetch": "3.3.2",
@@ -339,7 +339,7 @@
     "typescript": "5.8.3",
     "typescript-eslint": "8.30.1",
     "utf-8-validate": "6.0.5",
-    "vite": "6.3.0",
+    "vite": "6.3.3",
     "vite-plugin-inspect": "11.0.1",
     "vite-plugin-resolve": "2.5.2",
     "vite-plugin-solid": "2.11.6",
