@@ -332,7 +332,7 @@
     "eslint-import-resolver-typescript": "4.3.4",
     "eslint-plugin-import": "2.31.0",
     "eslint-plugin-prettier": "5.2.6",
-    "glob": "11.0.1",
+    "glob": "11.0.2",
     "node-gyp": "11.2.0",
     "playwright": "1.52.0",
     "rollup": "4.40.0",
