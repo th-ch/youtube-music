@@ -7,7 +7,7 @@
         "initialize-failed": "Nije uspilo inicijalitirati plugin \"{{pluginName}}\"",
         "load-all": "Učitavaju se svi plugini",
         "load-failed": "Neuspješno ućitavanje plugina \"{{pluginName}}\"",
-        "loaded": "Plugin \"{{pluginName}}\" je ućitan"
+        "loaded": "Plugin \"{{pluginName}}\" je učitan"
       }
     }
   },
@@ -15,5 +15,34 @@
     "code": "hr",
     "local-name": "Hrvatski",
     "name": "Croatian"
+  },
+  "main": {
+    "console": {
+      "i18n": {
+        "loaded": "i18n je učitan"
+      },
+      "second-instance": {
+        "receive-command": "Zaprimljena komanda preko protokola: \"{{command}}\""
+      },
+      "theme": {
+        "css-file-not-found": "CSS fajl \"{{cssFile}}\" ne postoji, ignorišem"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "Brisanje cache memorije u toku"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "detail": "Meni je sakriven, pritisni 'Alt' da bi se prikazao (ili 'Escape' ako se koristi In-App Menu)",
+        "message": "Sakriveni Meni je uključen"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "Kasnije",
+          "restart-now": "Pokreni ponovo"
+        },
+        "detail": "\"{{pluginName}}\" dodatak zahtjeva pokretanje aplikacije ponovo da bi promjene bile vidljive"
+      }
+    }
   }
 }
