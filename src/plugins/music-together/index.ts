@@ -550,7 +550,7 @@ export default createPlugin<
     },
 
     onStop() {
-      this.connection?.disconnect();
+      if (this.connection?.mode !== 'disconnected') this.connection?.disconnect();
       this.queue?.rollbackInjection();
       this.queue?.removeQueueOwner();
       if (this.rollbackInjector) {

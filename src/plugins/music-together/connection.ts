@@ -59,7 +59,17 @@ export class Connection {
       this._mode = 'host';
       await this.registerConnection(conn);
     });
-    this.peer.on('error', (err) => {
+    this.peer.on('error', async (err) => {
+      if (err.type === PeerErrorType.Network) {
+        // retrying after 10 seconds
+        await delay(10000);
+        try {
+          this.peer.reconnect();
+          return;
+        } catch {
+          //ignored
+        }
+      }
       this._mode = 'disconnected';
 
       this.waitOpen.reject(err);
@@ -123,17 +133,7 @@ export class Connection {
   /* privates */
   private async registerConnection(conn: DataConnection) {
     return new Promise<DataConnection>((resolve, reject) => {
-      this.peer.once('error', async (err) => {
-        if (err.type === PeerErrorType.Network) {
-          // retrying after 10 seconds
-          await delay(10000);
-          try {
-            this.peer.reconnect();
-            return;
-          } catch {
-            //ignored
-          }
-        }
+      this.peer.once('error', (err) => {
         this._mode = 'disconnected';
 
         reject(err);
