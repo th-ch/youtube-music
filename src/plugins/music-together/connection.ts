@@ -1,4 +1,5 @@
-import { DataConnection, Peer } from 'peerjs';
+import { DataConnection, Peer, PeerErrorType } from 'peerjs';
+import delay from 'delay';
 
 import type { Permission, Profile, VideoData } from './types';
 
@@ -54,16 +55,26 @@ export class Connection {
       this._mode = 'host';
       this.waitOpen.resolve(id);
     });
-    this.peer.on('connection', (conn) => {
+    this.peer.on('connection', async (conn) => {
       this._mode = 'host';
-      this.registerConnection(conn);
+      await this.registerConnection(conn);
     });
-    this.peer.on('error', (err) => {
+    this.peer.on('error', async (err) => {
+      if (err.type === PeerErrorType.Network) {
+        // retrying after 10 seconds
+        await delay(10000);
+        try {
+          this.peer.reconnect();
+          return;
+        } catch {
+          //ignored
+        }
+      }
       this._mode = 'disconnected';
 
       this.waitOpen.reject(err);
       this.connectionListeners.forEach((listener) => listener());
-      console.log(err);
+      console.error(err);
     });
   }
 
@@ -74,7 +85,9 @@ export class Connection {
 
   async connect(id: string) {
     this._mode = 'guest';
-    const conn = this.peer.connect(id);
+    const conn = this.peer.connect(id, {
+      reliable: true,
+    });
     await this.registerConnection(conn);
     return conn;
   }
