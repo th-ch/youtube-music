@@ -600,6 +600,10 @@
       },
       "name": "Benachrichtigungen"
     },
+    "performance-improvement": {
+      "description": "Verbessere Leistung durch Aktivierung gefährlicher Skripte",
+      "name": "Leistungs Verbesserung [Beta]"
+    },
     "picture-in-picture": {
       "description": "Erlaubt die App in den Bild-im-Bild-Modus zu wechseln",
       "menu": {
