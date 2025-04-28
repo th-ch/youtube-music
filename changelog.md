@@ -2,7 +2,18 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v3.9.0](https://github.com/th-ch/youtube-music/compare/v3.8.1...v3.9.0)
+
+- feat(tuna-obs): added alternativeTitle and tags to tuna [`#3288`](https://github.com/th-ch/youtube-music/pull/3288)
+- fix: rollback electron version to v34 (for fix #3216) [`#3216`](https://github.com/th-ch/youtube-music/issues/3216)
+- fix(synced-lyrics): fix #3157 [`#3157`](https://github.com/th-ch/youtube-music/issues/3157)
+- feat(performance-improvement): added "performance improvement" plugin [`1c76415`](https://github.com/th-ch/youtube-music/commit/1c764158461da414cea8bf34c3b514f1f98d7adf)
+- chore(i18n): Translated using Weblate (Bosnian) [`a3d620b`](https://github.com/th-ch/youtube-music/commit/a3d620ba52b7fa8ae623b9d42b0652a22eaf65e7)
+- Update changelog for v3.8.1 [`58cf1a5`](https://github.com/th-ch/youtube-music/commit/58cf1a543d98419c1a944e57407c0ea53b8168d8)
+
 #### [v3.8.1](https://github.com/th-ch/youtube-music/compare/v3.8.0...v3.8.1)
+
+> 25 April 2025
 
 - chore(deps): update dependency glob to v11.0.2 [`#3283`](https://github.com/th-ch/youtube-music/pull/3283)
 - fix(deps): update dependency i18next to v25.0.1 [`#3284`](https://github.com/th-ch/youtube-music/pull/3284)

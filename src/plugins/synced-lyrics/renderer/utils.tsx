@@ -174,7 +174,7 @@ export const romanizeJapanese = async (line: string) =>
   (await kuroshiro.get()).convert(line, {
     to: 'romaji',
     mode: 'spaced',
-  });
+  }) ?? '';
 
 export const romanizeHangul = (line: string) =>
   esHangulRomanize(hanja.translate(line, 'SUBSTITUTION'));

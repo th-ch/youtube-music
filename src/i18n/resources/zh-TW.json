@@ -600,6 +600,10 @@
       },
       "name": "歌曲播放通知"
     },
+    "performance-improvement": {
+      "description": "使用破壞性更動的腳本以優化效能",
+      "name": "效能優化 [Beta]"
+    },
     "picture-in-picture": {
       "description": "允許應用程式切換至子母畫面模式",
       "menu": {
