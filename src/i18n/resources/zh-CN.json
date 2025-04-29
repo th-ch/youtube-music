@@ -601,7 +601,7 @@
       "name": "通知"
     },
     "performance-improvement": {
-      "description": "通过开启危险脚本改进性能",
+      "description": "通过开启实验性脚本改进性能",
       "name": "性能改进 [公测]"
     },
     "picture-in-picture": {
