@@ -840,6 +840,10 @@
         "visualizer-type": "Type de visualiseur"
       },
       "name": "Visualiseur"
+    },
+    "content-warning-skipper": {
+        "description": "Saute les avertissements de contenu",
+        "name": "Sauteur d'avertissement de contenu"
     }
   }
 }
