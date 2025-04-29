@@ -805,7 +805,8 @@
       "name": "Tuna OBS"
     },
     "unobtrusive-player": {
-      "description": "Müzik oynatıcının şarkı çalarken saçmalamasını engeller"
+      "description": "Müzik oynatıcının şarkı çalarken saçmalamasını engeller",
+      "name": "Göze Batmayan Çalar"
     },
     "video-toggle": {
       "description": "Video/Şarkı modu arasında geçiş yapmak için bir düğme ekler. ayrıca isteğe bağlı olarak tüm video sekmesini kaldırabilir",

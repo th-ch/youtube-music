@@ -600,6 +600,10 @@
       },
       "name": "Notifiche"
     },
+    "performance-improvement": {
+      "description": "Migliora le prestazioni abilitando script non sicuri",
+      "name": "Miglioramento prestazioni [Beta]"
+    },
     "picture-in-picture": {
       "description": "Consente di far passare l'app alla modalità Picture-in-Picture",
       "menu": {
