@@ -491,6 +491,18 @@
         "button": "Download"
       }
     },
+    "equalizer": {
+      "description": "Adds an equalizer to the player",
+      "menu": {
+        "presets": {
+          "label": "Presets",
+          "list": {
+            "bass-booster": "Bass booster"
+          }
+        }
+      },
+      "name": "Equalizer"
+    },
     "exponential-volume": {
       "description": "Makes the volume slider exponential so it's easier to select lower volumes.",
       "name": "Exponential Volume"
@@ -588,6 +600,10 @@
       },
       "name": "Notifications"
     },
+    "performance-improvement": {
+      "description": "Improve performance by enabling experimental scripts",
+      "name": "Performance improvement [Beta]"
+    },
     "picture-in-picture": {
       "description": "Allows to switch the app to picture-in-picture mode",
       "menu": {
@@ -671,8 +687,8 @@
         "listenbrainz": {
           "token": "Enter ListenBrainz user token"
         },
-        "scrobble-other-media": "Scrobble other media",
-        "scrobble-alternative-title": "Use alternative titles"
+        "scrobble-alternative-title": "Use alternative titles",
+        "scrobble-other-media": "Scrobble other media"
       },
       "name": "Scrobbler",
       "prompt": {
@@ -828,18 +844,6 @@
         "visualizer-type": "Visualizer Type"
       },
       "name": "Visualizer"
-    },
-    "equalizer": {
-      "description": "Adds an equalizer to the player",
-      "name": "Equalizer",
-      "menu": {
-        "presets": {
-          "label": "Presets",
-          "list": {
-            "bass-booster": "Bass booster"
-          }
-        }
-      }
     }
   }
 }

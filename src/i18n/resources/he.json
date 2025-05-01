@@ -265,11 +265,19 @@
             "percent": "{{size}}%"
           }
         },
+        "smoothness-transition": {
+          "submenu": {
+            "during": "במהלך {{interpolationTime}} שניות"
+          }
+        },
         "use-fullscreen": {
           "label": "שימוש במסך מלא"
         }
       },
       "name": "מצב אווירה"
+    },
+    "amuse": {
+      "description": "מוסיף תמיכה ב-YouTube Music עבור הווידג'ט של Amuse המתנגן כעת על ידי 6K Labs"
     },
     "discord": {
       "menu": {
