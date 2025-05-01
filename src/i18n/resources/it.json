@@ -601,7 +601,7 @@
       "name": "Notifiche"
     },
     "performance-improvement": {
-      "description": "Migliora le prestazioni abilitando script non sicuri",
+      "description": "Migliora le prestazioni abilitando gli script sperimentali",
       "name": "Miglioramento prestazioni [Beta]"
     },
     "picture-in-picture": {
@@ -750,6 +750,7 @@
           "label": "Effetto linea",
           "submenu": {
             "fancy": {
+              "label": "Stravagante",
               "tooltip": "Usa effetti grandi, simili a quelli di un'app sulla riga attuale"
             },
             "focus": {
