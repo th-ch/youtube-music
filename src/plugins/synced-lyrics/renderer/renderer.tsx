@@ -8,7 +8,7 @@ import {
 } from 'solid-js';
 import { type VirtualizerHandle, VList } from 'virtua/solid';
 
-import { LyricsPicker } from './components/LyricsPicker';
+import { LyricsPicker, pickerAdvancedOpen } from './components/LyricsPicker';
 
 import { selectors } from './utils';
 
@@ -23,6 +23,7 @@ import {
 import { currentLyrics } from '../providers';
 
 import type { LineLyrics, SyncedLyricsPluginConfig } from '../types';
+import { LyricsPickerAdvanced } from './components/LyricsPickerAdvanced';
 
 export const [isVisible, setIsVisible] = createSignal<boolean>(false);
 export const [config, setConfig] =
