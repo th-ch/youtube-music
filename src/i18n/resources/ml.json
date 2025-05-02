@@ -10,9 +10,9 @@
     }
   },
   "language": {
-    "code": "ഭാഷയ്ക്കു വേണ്ടിയുള്ള Chromium i18n code.\n\nhttps://source.chromium.org/chromium/chromium/src/+/main നോക്കു \n\nഉദാഹരണം : ja, ko, en, ru",
-    "local-name": "ഭാഷയുടെ പ്രാദേശിക പേര് \nഉദാഹരണം : 日本語, 한국어, English, Русский",
-    "name": "ഭാഷയുടെ ഇംഗ്ലീഷ് പേര് \nഉദാഹരണം : Japanese, Korean, English, Russian"
+    "code": "ml",
+    "local-name": "മലയാളം",
+    "name": "Malayalam"
   },
   "main": {
     "console": {

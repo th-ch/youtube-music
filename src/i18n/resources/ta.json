@@ -14,9 +14,9 @@
     }
   },
   "language": {
-    "code": "என்",
-    "local-name": "ஆங்கிலம்",
-    "name": "ஆங்கிலம்"
+    "code": "ta",
+    "local-name": "தமிழ்",
+    "name": "Tamil"
   },
   "main": {
     "console": {
@@ -444,7 +444,7 @@
           "download-info": "பதிவிறக்கம் {{artist}} - {{title}} [{{videoId}}}",
           "download-progress": "பதிவிறக்கம்: {{percent}}%",
           "downloading": "பதிவிறக்கம்…",
-          "downloading-counter": "பதிவிறக்கம் {{current}}/{{{total}}…",
+          "downloading-counter": "பதிவிறக்கம் {{current}}/{{total}}…",
           "downloading-playlist": "பிளேலிச்ட்டைப் பதிவிறக்குதல் \"{{playlistTitle}}\" - {{playlistSize}} பாடல்கள் ({{playlistId}})",
           "error-while-downloading": "பிழை \"{{author}} - {{title}}\": {{error}}",
           "folder-already-exists": "{{playlistFolder}}} ஏற்கனவே உள்ளது",
@@ -667,7 +667,7 @@
       "name": "வீடியோ தர மாற்றி"
     },
     "scrobbler": {
-      "description": "ச்க்ரோப்ளிங் ஆதரவைச் சேர்க்கவும் (முதலியன.",
+      "description": "ச்க்ரோப்ளிங் ஆதரவைச் சேர் (last.fm, Listenbrainz முதலியன)",
       "dialog": {
         "lastfm": {
           "auth-failed": {
@@ -700,7 +700,7 @@
       }
     },
     "shortcuts": {
-      "description": "பிளேபேக்கிற்கான உலகளாவிய ஆட்கீசை அமைக்க அனுமதிக்கிறது (நாடகம்/இடைநிறுத்தம்/அடுத்த/முந்தைய) மீடியா விசைகளை மீறுவதன் மூலம் மீடியா ஓ.எச்.டி.",
+      "description": "பிளேபேக்கிற்கான உலகளாவிய ஆட்கீசை அமைக்க அனுமதிக்கிறது (நாடகம்/இடைநிறுத்தம்/அடுத்த/முந்தைய) மீடியா விசைகளை மீறுவதன் மூலம் மீடியா ஓஎச்டி",
       "menu": {
         "override-media-keys": "மீடியா விசைகளை மேலெழுதவும்",
         "set-keybinds": "உலகளாவிய பாடல் கட்டுப்பாடுகளை அமைக்கவும்"
