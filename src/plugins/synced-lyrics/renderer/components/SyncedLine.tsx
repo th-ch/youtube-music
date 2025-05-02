@@ -1,7 +1,7 @@
 import { createEffect, createMemo, For, Show, createSignal } from 'solid-js';
 
-import { config } from '../../renderer';
-import { _ytAPI } from '../..';
+import { config } from '../renderer';
+import { _ytAPI } from '..';
 
 import {
   canonicalize,
@@ -10,7 +10,7 @@ import {
   romanizeJapanese,
   romanizeJapaneseOrHangul,
   simplifyUnicode,
-} from '../../utils';
+} from '../utils';
 
 import { VirtualizerHandle } from 'virtua/solid';
 import { LineLyrics } from '@/plugins/synced-lyrics/types';
@@ -84,7 +84,7 @@ export const SyncedLine = (props: SyncedLineProps) => {
             div.style.setProperty(
               '--lyrics-duration',
               `${props.line.duration / 1000}s`,
-              'important'
+              'important',
             );
           }}
           style={{ display: 'flex', 'flex-direction': 'column' }}
