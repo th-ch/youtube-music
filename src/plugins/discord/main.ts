@@ -118,6 +118,63 @@ export const clear = () => {
 export const registerRefresh = (cb: () => void) => refreshCallbacks.push(cb);
 export const isConnected = () => info.rpc?.isConnected;
 
+let lastActivitySongId: string | null = null;
+let lastPausedState: boolean | null = null;
+let lastElapsedSeconds: number = 0;
+let updateTimeout: NodeJS.Timeout | null = null;
+let lastProgressUpdate: number = 0; // timestamp of the last throttled update
+
+const PROGRESS_THROTTLE_MS = 15000; // 15s to respect Discord's rate limit
+
+function isSeek(oldSec: number, newSec: number) {
+  return Math.abs((newSec ?? 0) - (oldSec ?? 0)) > 2;
+}
+
+function sendActivityToDiscord(songInfo: SongInfo, config: DiscordPluginConfig) {
+  if (songInfo.title.length === 0 && songInfo.artist.length === 0) {
+    return;
+  }
+  info.lastSongInfo = songInfo;
+  clearTimeout(clearActivity);
+  if (!info.rpc || !info.ready) {
+    return;
+  }
+  let buttons: GatewayActivityButton[] | undefined = [];
+  if (config.playOnYouTubeMusic) {
+    buttons.push({
+      label: 'Play on YouTube Music',
+      url: songInfo.url ?? 'https://music.youtube.com',
+    });
+  }
+  if (!config.hideGitHubButton) {
+    buttons.push({
+      label: 'View App On GitHub',
+      url: 'https://github.com/th-ch/youtube-music',
+    });
+  }
+  if (buttons.length === 0) {
+    buttons = undefined;
+  }
+  const activityInfo: SetActivity = {
+    type: ActivityType.Listening,
+    details: truncateString(songInfo.title, 128),
+    state: truncateString(songInfo.artist, 128),
+    largeImageKey: songInfo.imageSrc ?? '',
+    largeImageText: songInfo.album ?? '',
+    buttons,
+  };
+  if (songInfo.isPaused) {
+    activityInfo.smallImageKey = 'paused';
+    activityInfo.smallImageText = 'Paused';
+    // No timestamps when paused
+  } else if (!config.hideDurationLeft) {
+    const songStartTime = Date.now() - (songInfo.elapsedSeconds ?? 0) * 1000;
+    activityInfo.startTimestamp = songStartTime;
+    activityInfo.endTimestamp = songStartTime + songInfo.songDuration * 1000;
+  }
+  info.rpc.user?.setActivity(activityInfo).catch(console.error);
+}
+
 export const backend = createBackend<
   {
     config?: DiscordPluginConfig;
@@ -134,88 +191,48 @@ export const backend = createBackend<
     if (songInfo.title.length === 0 && songInfo.artist.length === 0) {
       return;
     }
-
     info.lastSongInfo = songInfo;
-
-    // Stop the clear activity timeout
     clearTimeout(clearActivity);
-
-    // Stop early if discord connection is not ready
-    // do this after clearTimeout to avoid unexpected clears
     if (!info.rpc || !info.ready) {
       return;
     }
-
-    // Clear directly if timeout is 0
-    if (
-      songInfo.isPaused &&
-      config.activityTimeoutEnabled &&
-      config.activityTimeoutTime === 0
-    ) {
-      info.rpc.user?.clearActivity().catch(console.error);
+    const now = Date.now();
+    const songChanged = songInfo.videoId !== lastActivitySongId;
+    const pauseChanged = songInfo.isPaused !== lastPausedState;
+    const seeked = isSeek(lastElapsedSeconds, songInfo.elapsedSeconds ?? 0);
+    if (songChanged || pauseChanged || seeked) {
+      // Immediate update
+      if (updateTimeout) clearTimeout(updateTimeout);
+      updateTimeout = null;
+      sendActivityToDiscord(songInfo, config);
+      lastActivitySongId = songInfo.videoId;
+      lastPausedState = songInfo.isPaused ?? null;
+      lastElapsedSeconds = songInfo.elapsedSeconds ?? 0;
+      lastProgressUpdate = now;
       return;
     }
-
-    // Song information changed, so lets update the rich presence
-    // @see https://discord.com/developers/docs/topics/gateway#activity-object
-    // not all options are transfered through https://github.com/discordjs/RPC/blob/6f83d8d812c87cb7ae22064acd132600407d7d05/src/client.js#L518-530
-    const hangulFillerUnicodeCharacter = '\u3164'; // This is an empty character
-    const paddedInfoKeys: (keyof SongInfo)[] = ['title', 'artist', 'album'];
-    for (const key of paddedInfoKeys) {
-      const keyLength = (songInfo[key] as string)?.length;
-      if (keyLength < 2) {
-        (songInfo[key] as string) += hangulFillerUnicodeCharacter.repeat(
-          2 - keyLength,
-        );
-      }
+    // Normal progression: throttle
+    if (now - lastProgressUpdate > PROGRESS_THROTTLE_MS) {
+      sendActivityToDiscord(songInfo, config);
+      lastProgressUpdate = now;
+      lastElapsedSeconds = songInfo.elapsedSeconds ?? 0;
+    } else {
+      if (updateTimeout) clearTimeout(updateTimeout);
+      updateTimeout = setTimeout(() => {
+        sendActivityToDiscord(songInfo, config);
+        lastProgressUpdate = Date.now();
+        lastElapsedSeconds = songInfo.elapsedSeconds ?? 0;
+      }, PROGRESS_THROTTLE_MS - (now - lastProgressUpdate));
     }
-
-    // see https://github.com/th-ch/youtube-music/issues/1664
-    let buttons: GatewayActivityButton[] | undefined = [];
-    if (config.playOnYouTubeMusic) {
-      buttons.push({
-        label: 'Play on YouTube Music',
-        url: songInfo.url ?? 'https://music.youtube.com',
-      });
+    if (songInfo.isPaused && config.activityTimeoutEnabled) {
+      clearTimeout(clearActivity);
+      clearActivity = setTimeout(
+        () => info.rpc.user?.clearActivity().catch(console.error),
+        config.activityTimeoutTime ?? 10_000,
+      );
+    } else {
+      clearTimeout(clearActivity);
     }
-    if (!config.hideGitHubButton) {
-      buttons.push({
-        label: 'View App On GitHub',
-        url: 'https://github.com/th-ch/youtube-music',
-      });
-    }
-    if (buttons.length === 0) {
-      buttons = undefined;
-    }
-
-    const activityInfo: SetActivity = {
-      type: ActivityType.Listening,
-      details: truncateString(songInfo.title, 128),
-      state: truncateString(songInfo.artist, 128),
-      largeImageKey: songInfo.imageSrc ?? '',
-      largeImageText: songInfo.album ?? '',
-      buttons,
-    };
-
-    if (songInfo.isPaused) {
-      // Add a paused icon to show that the song is paused
-      activityInfo.smallImageKey = 'paused';
-      activityInfo.smallImageText = 'Paused';
-      // Set start the timer so the activity gets cleared after a while if enabled
-      if (config.activityTimeoutEnabled) {
-        clearActivity = setTimeout(
-          () => info.rpc.user?.clearActivity().catch(console.error),
-          config.activityTimeoutTime ?? 10_000,
-        );
-      }
-    } else if (!config.hideDurationLeft) {
-      // Add the start and end time of the song
-      const songStartTime = Date.now() - (songInfo.elapsedSeconds ?? 0) * 1000;
-      activityInfo.startTimestamp = songStartTime;
-      activityInfo.endTimestamp = songStartTime + songInfo.songDuration * 1000;
-    }
-
-    info.rpc.user?.setActivity(activityInfo).catch(console.error);
   },
   async start(ctx) {
     this.config = await ctx.getConfig();
