@@ -201,7 +201,7 @@ export const backend = createBackend<
     const pauseChanged = songInfo.isPaused !== lastPausedState;
     const seeked = isSeek(lastElapsedSeconds, songInfo.elapsedSeconds ?? 0);
     if (songChanged || pauseChanged || seeked) {
-      // Immediate update
+      // Always cancel any pending throttle on important event
       if (updateTimeout) clearTimeout(updateTimeout);
       updateTimeout = null;
       sendActivityToDiscord(songInfo, config);
@@ -218,10 +218,19 @@ export const backend = createBackend<
       lastElapsedSeconds = songInfo.elapsedSeconds ?? 0;
     } else {
       if (updateTimeout) clearTimeout(updateTimeout);
+      // Capture current state for verification before sending
+      const expectedVideoId = songInfo.videoId;
+      const expectedPaused = songInfo.isPaused;
       updateTimeout = setTimeout(() => {
-        sendActivityToDiscord(songInfo, config);
-        lastProgressUpdate = Date.now();
-        lastElapsedSeconds = songInfo.elapsedSeconds ?? 0;
+        // Only send if state hasn't changed
+        if (
+          info.lastSongInfo?.videoId === expectedVideoId &&
+          info.lastSongInfo?.isPaused === expectedPaused
+        ) {
+          sendActivityToDiscord(info.lastSongInfo, config);
+          lastProgressUpdate = Date.now();
+          lastElapsedSeconds = info.lastSongInfo.elapsedSeconds ?? 0;
+        }
       }, PROGRESS_THROTTLE_MS - (now - lastProgressUpdate));
     }
     if (songInfo.isPaused && config.activityTimeoutEnabled) {
