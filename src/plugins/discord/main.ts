@@ -139,6 +139,19 @@ function sendActivityToDiscord(songInfo: SongInfo, config: DiscordPluginConfig) 
   if (!info.rpc || !info.ready) {
     return;
   }
+  // Song information changed, so lets update the rich presence
+  // @see https://discord.com/developers/docs/topics/gateway#activity-object
+  // not all options are transfered through https://github.com/discordjs/RPC/blob/6f83d8d812c87cb7ae22064acd132600407d7d05/src/client.js#L518-530
+  const hangulFillerUnicodeCharacter = '\u3164'; // This is an empty character
+  const paddedInfoKeys: (keyof SongInfo)[] = ['title', 'artist', 'album'];
+  for (const key of paddedInfoKeys) {
+    const keyLength = (songInfo[key] as string)?.length;
+    if (keyLength < 2) {
+      (songInfo[key] as string) += hangulFillerUnicodeCharacter.repeat(
+        2 - keyLength,
+      );
+    }
+  }
   let buttons: GatewayActivityButton[] | undefined = [];
   if (config.playOnYouTubeMusic) {
     buttons.push({
