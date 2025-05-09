@@ -1,17 +1,5 @@
 import { createPlugin } from '@/utils';
 import { onMenu } from './menu';
-import type { SlackNowPlayingConfig, SongInfo } from './main';
-import { SlackNowPlaying } from './main';
-
-export const defaultConfig: SlackNowPlayingConfig = {
-  enabled: false,
-  token: '',
-  cookieToken: '',
-  emojiName: 'my-album-art'
-};
-
-import { createPlugin } from '@/utils';
-import { onMenu } from './menu';
 import { backend, SlackNowPlayingConfig } from './main';
 
 export default createPlugin({
