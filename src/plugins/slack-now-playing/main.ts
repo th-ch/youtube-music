@@ -2,7 +2,7 @@ import { net } from 'electron';
 import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
-import { SlackApiClient, SlackApiResponse } from './slack-api-client';
+import { SlackApiClient, SlackApiError } from './slack-api-client';
 import FormData from 'form-data';
 import { createBackend } from '@/utils';
 import registerCallback, { SongInfoEvent } from '@/providers/song-info';
@@ -247,7 +247,7 @@ async function updateSlackStatusWithEmoji(
   expirationTime: number,
   songInfo: SongInfo,
   config: SlackNowPlayingConfig,
-) {
+): Promise<void> {
   try {
     // Validate configuration
     const validationResult = validateConfig(config);
@@ -257,42 +257,39 @@ async function updateSlackStatusWithEmoji(
     
     const client = new SlackApiClient(config.token, config.cookieToken);
 
+    // Get the appropriate emoji for the current song
     const statusEmoji = await getStatusEmoji(songInfo, config);
 
-    const profileData = {
-      status_text: statusText,
-      status_emoji: statusEmoji,
-      status_expiration: expirationTime,
+    // Prepare the status update payload
+    const statusUpdatePayload = {
+      profile: JSON.stringify({
+        status_text: statusText,
+        status_emoji: statusEmoji,
+        status_expiration: expirationTime,
+      }),
     };
 
-    const postData = {
-      token: config.token,
-      profile: JSON.stringify(profileData),
-    };
-
-    const res = await client.post('users.profile.set', postData);
-    const json = res.data as SlackApiResponse;
-
-    if (!json.ok) {
-      // Handle specific API error codes
-      const errorMessage = `Slack API error: ${json.error}`;
-      console.error(errorMessage, { response: json });
-      
-      // Throw specific errors based on the error type
-      if (json.error === 'invalid_auth' || json.error === 'token_expired') {
-        throw new Error('Slack authentication failed. Please check your API token and cookie token.');
-      } else if (json.error === 'rate_limited') {
-        throw new Error('Slack API rate limit exceeded. Please try again later.');
-      } else {
-        throw new Error(errorMessage);
-      }
-    } else {
-      state.lastStatus = statusText;
-      state.lastEmoji = statusEmoji;
-    }
-  } catch (error) {
-    // Provide more detailed error information based on error type
-    if (error instanceof Error) {
+    // Update the status
+    // The client now handles API errors internally
+    await client.post('users.profile.set', statusUpdatePayload);
+    
+    // Update state with the new status and emoji
+    state.lastStatus = statusText;
+    state.lastEmoji = statusEmoji;
+    
+    // Log success
+    console.log(`Slack status updated successfully: ${statusText} ${statusEmoji}`);
+  } catch (error: unknown) {
+    // Handle SlackApiError specifically
+    if (error instanceof SlackApiError) {
+      console.error(`Slack API error updating status: ${error.message}`, {
+        endpoint: error.endpoint,
+        statusCode: error.statusCode,
+        responseError: error.responseData?.error,
+      });
+    } 
+    // Handle other errors
+    else if (error instanceof Error) {
       console.error(`Error updating Slack status: ${error.message}`, {
         name: error.name,
         stack: error.stack
@@ -348,13 +345,14 @@ async function uploadEmojiToSlack(songInfo: SongInfo, config: SlackNowPlayingCon
     
     // Prepare the form data for the API request
     const formData = new FormData();
-    formData.append('token', config.token);
+    // We don't need to include the token in the form data anymore as it's in the headers
     formData.append('mode', 'data');
     formData.append('name', config.emojiName);
     
-    // Read the file and add it to the form data
+    // Read the file and add it to the form data using async/await pattern
     try {
-      const fileBuffer = fs.readFileSync(filePath);
+      // Use async file operations instead of synchronous ones
+      const fileBuffer = await fs.promises.readFile(filePath);
       formData.append('image', fileBuffer, {
         filename: 'album-art.jpg',
         contentType: 'image/jpeg',
@@ -364,35 +362,46 @@ async function uploadEmojiToSlack(songInfo: SongInfo, config: SlackNowPlayingCon
       return false;
     }
     
-    // Make the API request
-    const res = await client.post('emoji.add', formData, true);
-    const json = res.data as SlackApiResponse;
-    
-    if (json.ok) return true;
-    
-    // Handle specific API error codes
-    if (json.error === 'invalid_name') {
-      console.error(`Invalid emoji name: ${config.emojiName}. Emoji names can only contain lowercase letters, numbers, hyphens, and underscores.`);
-    } else if (json.error === 'too_large') {
-      console.error('Album art image is too large for Slack emoji (max 128KB).');
-    } else {
-      console.error(`Error uploading emoji: ${json.error}`);
+    // Make the API request - the client now handles API errors internally
+    try {
+      // The post method now returns a properly typed response
+      await client.post<{ ok: boolean }>('emoji.add', formData, true);
+      
+      // If we got here, the request was successful
+      console.log(`Successfully uploaded emoji: ${config.emojiName}`);
+      return true;
+    } catch (apiError) {
+      // Handle specific API error types
+      if (apiError instanceof SlackApiError && apiError.responseData) {
+        const errorCode = apiError.responseData.error;
+        
+        if (errorCode === 'invalid_name') {
+          console.error(`Invalid emoji name: ${config.emojiName}. Emoji names can only contain lowercase letters, numbers, hyphens, and underscores.`);
+        } else if (errorCode === 'too_large') {
+          console.error('Album art image is too large for Slack emoji (max 128KB).');
+        } else if (errorCode === 'name_taken') {
+          console.error(`Emoji name '${config.emojiName}' is already taken. This should not happen as we check for existing emojis.`);
+        } else {
+          console.error(`Error uploading emoji: ${errorCode}`, apiError.responseData);
+        }
+      } else {
+        console.error(`Error uploading emoji to Slack: ${apiError instanceof Error ? apiError.message : String(apiError)}`);
+      }
+      return false;
     }
-    
-    return false;
-  } catch (error) {
+  } catch (error: unknown) {
+    // Handle any other unexpected errors
     if (error instanceof Error) {
-      console.error(`Error in uploadEmojiToSlack: ${error.message}`, {
+      console.error(`Unexpected error uploading emoji to Slack: ${error.message}`, {
         name: error.name,
         stack: error.stack
       });
     } else {
-      console.error(`Error in uploadEmojiToSlack: ${String(error)}`);
+      console.error(`Unexpected error uploading emoji to Slack: ${String(error)}`);
     }
     return false;
   }
 }
-
 /**
  * Downloads and saves album art to a temporary file
  * @param songInfo Information about the current song
@@ -520,37 +529,47 @@ async function ensureEmojiDoesNotExist(config: SlackNowPlayingConfig): Promise<b
     
     const client = new SlackApiClient(config.token, config.cookieToken);
     
-    // Get the list of emojis
-    const res = await client.get('emoji.list', { token: config.token });
-    const json = res.data as SlackApiResponse;
-    
-    if (json.ok) {
-      // Check if the emoji exists
-      if (json.emoji && json.emoji[config.emojiName]) {
+    try {
+      // Get the list of emojis - no need to pass token in params anymore
+      // The client now handles API errors internally
+      const response = await client.get<{ emoji: Record<string, string> }>('emoji.list');
+      const emojiList = response.data;
+      
+      // Check if our emoji exists
+      if (emojiList && emojiList.emoji && emojiList.emoji[config.emojiName]) {
+        console.log(`Emoji '${config.emojiName}' already exists, attempting to delete it`);
         return await deleteExistingEmoji(config);
       } else {
         // Emoji doesn't exist, no need to delete
+        console.log(`Emoji '${config.emojiName}' doesn't exist, no need to delete`);
         return true;
       }
-    } else {
-      // Handle specific API error codes
-      if (json.error === 'invalid_auth' || json.error === 'token_expired') {
-        console.error('Slack authentication failed. Please check your API token and cookie token.');
-      } else if (json.error === 'rate_limited') {
-        console.error('Slack API rate limit exceeded. Please try again later.');
+    } catch (apiError) {
+      // Handle specific API error types
+      if (apiError instanceof SlackApiError) {
+        const errorCode = apiError.responseData?.error;
+        
+        if (errorCode === 'invalid_auth' || errorCode === 'token_expired') {
+          console.error('Slack authentication failed. Please check your API token and cookie token.');
+        } else if (errorCode === 'rate_limited') {
+          console.error('Slack API rate limit exceeded. Please try again later.');
+        } else {
+          console.error(`Error checking emoji list: ${errorCode || apiError.message}`);
+        }
       } else {
-        console.error(`Error checking emoji list: ${json.error}`);
+        console.error(`Error checking emoji list: ${apiError instanceof Error ? apiError.message : String(apiError)}`);
       }
       return false;
     }
-  } catch (error) {
+  } catch (error: unknown) {
+    // Handle any other unexpected errors
     if (error instanceof Error) {
-      console.error(`Error in ensureEmojiDoesNotExist: ${error.message}`, {
+      console.error(`Unexpected error in ensureEmojiDoesNotExist: ${error.message}`, {
         name: error.name,
         stack: error.stack
       });
     } else {
-      console.error(`Error in ensureEmojiDoesNotExist: ${String(error)}`);
+      console.error(`Unexpected error in ensureEmojiDoesNotExist: ${String(error)}`);
     }
     return false;
   }
@@ -572,34 +591,47 @@ async function deleteExistingEmoji(config: SlackNowPlayingConfig): Promise<boole
     
     const client = new SlackApiClient(config.token, config.cookieToken);
     
-    // Delete the emoji
-    const data = { token: config.token, name: config.emojiName };
-    const res = await client.post('emoji.remove', data);
-    const json = res.data as SlackApiResponse;
-    
-    // Consider both success and 'emoji_not_found' as successful outcomes
-    if (json.ok || json.error === 'emoji_not_found') {
+    try {
+      // Delete the emoji - no need to include the token in the data anymore
+      const data = { name: config.emojiName };
+      await client.post('emoji.remove', data);
+      
+      // If we got here, the request was successful
+      console.log(`Successfully deleted emoji: ${config.emojiName}`);
       return true;
+    } catch (apiError) {
+      // Handle specific API error types
+      if (apiError instanceof SlackApiError && apiError.responseData) {
+        const errorCode = apiError.responseData.error;
+        
+        // Consider 'emoji_not_found' as a successful outcome
+        if (errorCode === 'emoji_not_found') {
+          console.log(`Emoji '${config.emojiName}' not found, no need to delete`);
+          return true;
+        }
+        
+        // Handle other specific error codes
+        if (errorCode === 'invalid_auth' || errorCode === 'token_expired') {
+          console.error('Slack authentication failed. Please check your API token and cookie token.');
+        } else if (errorCode === 'rate_limited') {
+          console.error('Slack API rate limit exceeded. Please try again later.');
+        } else {
+          console.error(`Error deleting emoji: ${errorCode}`, apiError.responseData);
+        }
+      } else {
+        console.error(`Error deleting emoji from Slack: ${apiError instanceof Error ? apiError.message : String(apiError)}`);
+      }
+      return false;
     }
-    
-    // Handle specific API error codes
-    if (json.error === 'invalid_auth' || json.error === 'token_expired') {
-      console.error('Slack authentication failed. Please check your API token and cookie token.');
-    } else if (json.error === 'rate_limited') {
-      console.error('Slack API rate limit exceeded. Please try again later.');
-    } else {
-      console.error(`Error deleting emoji: ${json.error}`);
-    }
-    
-    return false;
-  } catch (error) {
+  } catch (error: unknown) {
+    // Handle any other unexpected errors
     if (error instanceof Error) {
-      console.error(`Error in deleteExistingEmoji: ${error.message}`, {
+      console.error(`Unexpected error deleting emoji: ${error.message}`, {
         name: error.name,
         stack: error.stack
       });
     } else {
-      console.error(`Error in deleteExistingEmoji: ${String(error)}`);
+      console.error(`Unexpected error deleting emoji: ${String(error)}`);
     }
     return false;
   }
