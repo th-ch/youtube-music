@@ -114,12 +114,7 @@ export const defaultConfig: ScrobblerPluginConfig = {
       token: undefined,
       apiRoot: 'https://api.listenbrainz.org/1/',
     },
-    slack: {
-      enabled: false,
-      token: undefined,
-      cookieToken: undefined,
-      emojiName: 'my-album-art',
-    },
+
   },
 };
 

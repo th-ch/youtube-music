@@ -9,7 +9,6 @@ import { createBackend } from '@/utils';
 
 import { LastFmScrobbler } from './services/lastfm';
 import { ListenbrainzScrobbler } from './services/listenbrainz';
-import { SlackScrobbler } from './services/slack';
 
 import type { ScrobblerPluginConfig } from './index';
 import type { ScrobblerBase } from './services/base';
@@ -53,11 +52,7 @@ export const backend = createBackend<
       this.enabledScrobblers.delete('listenbrainz');
     }
 
-    if (config.scrobblers.slack && config.scrobblers.slack.enabled) {
-      this.enabledScrobblers.set('slack', new SlackScrobbler(window));
-    } else {
-      this.enabledScrobblers.delete('slack');
-    }
+
   },
 
   async createSessions(config: ScrobblerPluginConfig, setConfig: SetConfType) {
