@@ -51,8 +51,6 @@ export const backend = createBackend<
     } else {
       this.enabledScrobblers.delete('listenbrainz');
     }
-
-
   },
 
   async createSessions(config: ScrobblerPluginConfig, setConfig: SetConfType) {

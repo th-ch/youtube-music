@@ -71,28 +71,6 @@ export interface ScrobblerPluginConfig {
        */
       apiRoot: string;
     };
-    slack: {
-      /**
-       * Enable Slack scrobbling
-       *
-       * @default false
-       */
-      enabled: boolean;
-      /**
-       * Slack OAuth token
-       */
-      token: string | undefined;
-      /**
-       * Slack cookie token (d cookie value)
-       */
-      cookieToken: string | undefined;
-      /**
-       * Name to use for the custom emoji in Slack
-       * 
-       * @default 'my-album-art'
-       */
-      emojiName: string;
-    };
   };
 }
 
@@ -114,7 +92,6 @@ export const defaultConfig: ScrobblerPluginConfig = {
       token: undefined,
       apiRoot: 'https://api.listenbrainz.org/1/',
     },
-
   },
 };
 

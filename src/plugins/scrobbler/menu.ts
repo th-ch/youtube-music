@@ -79,7 +79,6 @@ async function promptListenbrainzOptions(
   }
 }
 
-
 export const onMenu = async ({
   window,
   getConfig,
@@ -148,6 +147,5 @@ export const onMenu = async ({
         },
       ],
     },
-
   ];
 };
