@@ -530,13 +530,23 @@ async function ensureEmojiDoesNotExist(config: SlackNowPlayingConfig): Promise<b
     const client = new SlackApiClient(config.token, config.cookieToken);
     
     try {
-      // Get the list of emojis - no need to pass token in params anymore
-      // The client now handles API errors internally
-      const response = await client.get<{ emoji: Record<string, string> }>('emoji.list');
-      const emojiList = response.data;
+      // Get the list of emojis with caching enabled to reduce API calls
+      // The cache will automatically expire after the default time (5 minutes)
+      interface EmojiListResponse {
+        emoji: Record<string, string>;
+      }
       
-      // Check if our emoji exists
-      if (emojiList && emojiList.emoji && emojiList.emoji[config.emojiName]) {
+      // Use the improved API client with caching
+      const response = await client.get<EmojiListResponse>('emoji.list', {}, {
+        // Cache emoji list for 10 minutes since it doesn't change often
+        cacheExpiryMs: 10 * 60 * 1000
+      });
+      
+      // The response.data contains the actual API response, which includes the emoji property
+      const emojiList = response.data as unknown as EmojiListResponse;
+      
+      // Check if our emoji exists using the 'in' operator for type safety
+      if (emojiList?.emoji && config.emojiName in emojiList.emoji) {
         console.log(`Emoji '${config.emojiName}' already exists, attempting to delete it`);
         return await deleteExistingEmoji(config);
       } else {
