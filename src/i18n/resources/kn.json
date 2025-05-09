@@ -1,4 +1,9 @@
 {
+  "language": {
+    "code": "kn",
+    "local-name": "ಕನ್ನಡ",
+    "name": "Kannada"
+  },
   "plugins": {
     "slack-now-playing": {
       "name": "Slack ಸ್ಥಿತಿ",

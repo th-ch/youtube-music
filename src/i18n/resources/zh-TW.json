@@ -600,6 +600,10 @@
       },
       "name": "歌曲播放通知"
     },
+    "performance-improvement": {
+      "description": "使用實驗性的腳本以優化效能",
+      "name": "效能優化 [Beta]"
+    },
     "picture-in-picture": {
       "description": "允許應用程式切換至子母畫面模式",
       "menu": {
@@ -706,7 +710,7 @@
         "override-media-keys": "覆寫媒體快捷鍵",
         "set-keybinds": "設定全域歌曲控制"
       },
-      "name": "Shortcuts (& MPRIS)",
+      "name": "快捷鍵 (& MPRIS)",
       "prompt": {
         "keybind": {
           "keybind-options": {

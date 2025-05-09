@@ -1,4 +1,9 @@
 {
+  "language": {
+    "code": "sr",
+    "local-name": "Српски",
+    "name": "Serbian"
+  },
   "plugins": {
     "slack-now-playing": {
       "name": "Slack статус",
