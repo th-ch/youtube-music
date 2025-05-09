@@ -20,6 +20,21 @@ export interface SlackNowPlayingConfig {
   alternativeTitles?: boolean;
 }
 
+/**
+ * Type guard to check if an object is a valid SlackNowPlayingConfig
+ * @param config The object to check
+ * @returns True if the object is a valid SlackNowPlayingConfig
+ */
+function isSlackNowPlayingConfig(config: unknown): config is SlackNowPlayingConfig {
+  if (!config || typeof config !== 'object') return false;
+
+  const c = config as Partial<SlackNowPlayingConfig>;
+  return typeof c.enabled === 'boolean' &&
+         typeof c.token === 'string' &&
+         typeof c.cookieToken === 'string' &&
+         typeof c.emojiName === 'string';
+}
+
 const defaultEmojis = [':cd:', ':headphones:', ':musical_note:', ':notes:', ':radio:'];
 
 const state = {
@@ -37,29 +52,29 @@ function validateConfig(config: SlackNowPlayingConfig): asserts config is SlackN
 async function setNowPlaying(songInfo: SongInfo, config: SlackNowPlayingConfig) {
   try {
     validateConfig(config);
-    
+
     // Skip if song is paused
     if (songInfo.isPaused) {
       return;
     }
-    
+
     const title = songInfo.alternativeTitle ?? songInfo.title;
     const artistPart = songInfo.artist || 'Unknown Artist';
     const truncatedArtist = artistPart.length > 50 ? artistPart.substring(0, 50) + '...' : artistPart;
-    
+
     // Use localized version of the status text
     let statusText = t('plugins.slack-now-playing.status-text')
       .replace('{{artist}}', truncatedArtist)
       .replace('{{title}}', title);
-      
+
     // Ensure the status text doesn't exceed Slack's limit
     if (statusText.length > 97) statusText = statusText.substring(0, 97) + '...';
-    
+
     // Calculate expiration time (current time + remaining song duration)
     const elapsed = songInfo.elapsedSeconds ?? 0;
     const remaining = Math.max(0, Math.floor(songInfo.songDuration - elapsed));
     const expirationTime = Math.floor(Date.now() / 1000) + remaining;
-    
+
     await updateSlackStatusWithEmoji(statusText, expirationTime, songInfo, config);
   } catch (error) {
     console.error(`Error setting Slack status: ${error}`);
@@ -75,23 +90,23 @@ async function updateSlackStatusWithEmoji(
   try {
     validateConfig(config);
     const client = new SlackApiClient(config.token, config.cookieToken);
-    
+
     const statusEmoji = await getStatusEmoji(songInfo, config);
-    
+
     const profileData = {
       status_text: statusText,
       status_emoji: statusEmoji,
       status_expiration: expirationTime,
     };
-    
+
     const postData = {
       token: config.token,
       profile: JSON.stringify(profileData),
     };
-    
+
     const res = await client.post('users.profile.set', postData);
     const json = res.data as SlackApiResponse;
-    
+
     if (!json.ok) {
       console.error(`Slack API error: ${json.error}`);
     } else {
@@ -107,7 +122,7 @@ async function getStatusEmoji(songInfo: SongInfo, config: SlackNowPlayingConfig)
   if (songInfo.imageSrc && await uploadEmojiToSlack(songInfo, config)) {
     return `:${config.emojiName}:`;
   }
-  
+
   const randomIndex = Math.floor(Math.random() * defaultEmojis.length);
   return defaultEmojis[randomIndex];
 }
@@ -181,47 +196,46 @@ async function deleteExistingEmoji(config: SlackNowPlayingConfig): Promise<boole
 export const backend = createBackend({
   async start(ctx) {
     state.window = ctx.window;
-    
+
     // Get the config
     const config = await ctx.getConfig();
-    
+
     // Register callback to listen for song changes
     registerCallback((songInfo, event) => {
       // Skip time change events
       if (event === SongInfoEvent.TimeChanged) return;
-      
+
       // Only update if plugin is enabled
       if (!config.enabled) {
         return;
       }
-      
+
       // Update Slack status with current song
       try {
-        // Check if config has the expected structure
-        const slackConfig = config as any;
-        if (!slackConfig || typeof slackConfig !== 'object') {
+        // Check if config has the expected structure using our type guard
+        if (!isSlackNowPlayingConfig(config)) {
           return;
         }
-        
+
         // Make sure the config has the required properties
-        if (!slackConfig.token || !slackConfig.cookieToken || !slackConfig.emojiName) {
+        if (!config.token || !config.cookieToken || !config.emojiName) {
           return;
         }
-        
-        setNowPlaying(songInfo, slackConfig)
+
+        setNowPlaying(songInfo, config)
           .catch(error => console.error(`Error in Slack Now Playing: ${error}`));
       } catch (error) {
         console.error(`Error processing song info: ${error}`);
       }
     });
   },
-  
+
   async stop() {
     state.window = undefined;
     // Note: We don't unregister the callback as there's no API for that
     // It will be garbage collected when the plugin is unloaded
   },
-  
+
   async onConfigChange() {
     // Config changes will be picked up on the next song change
   },

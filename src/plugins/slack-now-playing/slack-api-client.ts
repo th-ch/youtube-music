@@ -23,6 +23,7 @@ export class SlackApiClient {
    */
   async post(endpoint: string, data: any, formData = false): Promise<AxiosResponse> {
     const url = `https://slack.com/api/${endpoint}`;
+
     let headers = this.getBaseHeaders();
     let payload = data;
     if (formData) {
@@ -31,7 +32,13 @@ export class SlackApiClient {
       headers['Content-Type'] = 'application/x-www-form-urlencoded';
       payload = new URLSearchParams(data).toString();
     }
-    return axios.post(url, payload, { headers, maxBodyLength: Infinity, validateStatus: () => true });
+
+    try {
+      return await axios.post(url, payload, { headers, maxBodyLength: Infinity, validateStatus: () => true });
+    } catch (error) {
+      console.error(`Error in Slack API POST to ${endpoint}:`, error);
+      throw error;
+    }
   }
 
   /**
@@ -39,8 +46,15 @@ export class SlackApiClient {
    */
   async get(endpoint: string, params: Record<string, any> = {}): Promise<AxiosResponse> {
     const url = `https://slack.com/api/${endpoint}`;
+
     const headers = this.getBaseHeaders();
-    return axios.get(url, { headers, params, validateStatus: () => true });
+
+    try {
+      return await axios.get(url, { headers, params, validateStatus: () => true });
+    } catch (error) {
+      console.error(`Error in Slack API GET to ${endpoint}:`, error);
+      throw error;
+    }
   }
 }
 
