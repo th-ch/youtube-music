@@ -68,8 +68,10 @@ export default createPlugin<
     me?: Omit<Profile, 'id'>;
     profiles: Record<string, Profile>;
     permission: Permission;
-    videoChangeListener: (event: CustomEvent<VideoDataChanged>) => void;
-    videoStateChangeListener: () => void;
+    videoChangeListener: (
+      event: CustomEvent<VideoDataChanged>,
+    ) => Promise<void>;
+    videoStateChangeListener: () => Promise<void>;
     onHost: () => Promise<boolean>;
     onJoin: () => Promise<boolean>;
     onStop: () => void;
@@ -116,7 +118,7 @@ export default createPlugin<
     api: null,
 
     /* events */
-    videoChangeListener(event: CustomEvent<VideoDataChanged>) {
+    async videoChangeListener(event: CustomEvent<VideoDataChanged>) {
       if (event.detail.name === 'dataloaded' || this.updateNext) {
         if (this.connection?.mode === 'host') {
           const videoList: VideoData[] =
@@ -130,7 +132,7 @@ export default createPlugin<
 
           this.queue?.setVideoList(videoList, false);
           this.queue?.syncQueueOwner();
-          this.connection.broadcast('SYNC_QUEUE', {
+          await this.connection.broadcast('SYNC_QUEUE', {
             videoList,
           });
 
@@ -139,7 +141,7 @@ export default createPlugin<
       }
     },
 
-    videoStateChangeListener() {
+    async videoStateChangeListener() {
       if (this.connection?.mode !== 'guest') return;
       if (this.ignoreChange) return;
       if (this.permission !== 'all') return;
@@ -147,7 +149,7 @@ export default createPlugin<
       const state = this.playerApi?.getPlayerState();
       if (state !== 1 && state !== 2) return;
 
-      this.connection.broadcast('SYNC_PROGRESS', {
+      await this.connection.broadcast('SYNC_PROGRESS', {
         // progress: this.playerApi?.getCurrentTime(),
         state: this.playerApi?.getPlayerState(),
         // index: this.queue?.selectedIndex ?? 0,
@@ -528,7 +530,7 @@ export default createPlugin<
         rollbackList.forEach((rollback) => rollback());
       };
 
-      this.connection.broadcast('IDENTIFY', {
+      await this.connection.broadcast('IDENTIFY', {
         profile: {
           id: this.connection.id,
           handleId: this.me.handleId,
@@ -537,20 +539,22 @@ export default createPlugin<
         },
       });
 
-      this.connection.broadcast('SYNC_PROFILE', undefined);
-      this.connection.broadcast('PERMISSION', undefined);
+      await this.connection.broadcast('SYNC_PROFILE', undefined);
+      await this.connection.broadcast('PERMISSION', undefined);
 
       this.queue?.clear();
       this.queue?.syncQueueOwner();
       this.queue?.initQueue();
 
-      this.connection.broadcast('SYNC_QUEUE', undefined);
+      await this.connection.broadcast('SYNC_QUEUE', undefined);
 
       return true;
     },
 
     onStop() {
-      this.connection?.disconnect();
+      if (this.connection?.mode !== 'disconnected') {
+        this.connection?.disconnect();
+      }
       this.queue?.rollbackInjection();
       this.queue?.removeQueueOwner();
       if (this.rollbackInjector) {

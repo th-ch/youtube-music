@@ -199,13 +199,131 @@
       "previous": "הקודם",
       "quit": "יציאה",
       "restart": "הפעל מחדש",
-      "show": "הראה חלון"
+      "show": "הראה חלון",
+      "tooltip": {
+        "default": "יוטיוב מיוזיק",
+        "with-song-info": "יוטיוב מיוזיק: {{artist}} - {{title}}"
+      }
     }
   },
   "plugins": {
     "ad-speedup": {
-      "description": "במקרה של פרסומת, הסאונד מושתק ומהירות  הוידרו מוכפלת ב-16",
+      "description": "במקרה של פרסומת, הסאונד מושתק ומהירות הוידאו מוכפלת ב-16",
       "name": "הגבר מהירות פרסומת"
+    },
+    "adblocker": {
+      "description": "חסום את כל המודעות והמעקב מחוץ לקופסה",
+      "menu": {
+        "blocker": "חוסם"
+      },
+      "name": "חוסם פרסומות"
+    },
+    "album-actions": {
+      "description": "מוסיף לחצני ביטול אהבתי, דיסלייק, 'אהבתי' ו'לא אהבתי' כדי להחיל זאת על כל השירים ברשימת השמעה או אלבום",
+      "name": "פעולות אלבום"
+    },
+    "album-color-theme": {
+      "description": "מחיל נושא דינמי ואפקטים חזותיים המבוססים על לוח הצבעים של האלבום",
+      "menu": {
+        "color-mix-ratio": {
+          "submenu": {
+            "percent": "{{ratio}}%"
+          }
+        }
+      },
+      "name": "ערכת נושא צבע אלבום"
+    },
+    "ambient-mode": {
+      "description": "מחיל אפקט תאורה על ידי הטלת צבעים עדינים מהסרטון, אל הרקע של המסך",
+      "menu": {
+        "blur-amount": {
+          "label": "כמות טשטוש",
+          "submenu": {
+            "pixels": "{{blurAmount}} פיקסלים"
+          }
+        },
+        "buffer": {
+          "submenu": {
+            "buffer": "{{buffer}}"
+          }
+        },
+        "opacity": {
+          "label": "אֲטִימוּת",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "quality": {
+          "label": "אֵיכוּת",
+          "submenu": {
+            "pixels": "{{quality}} פיקסלים"
+          }
+        },
+        "size": {
+          "label": "גוֹדֶל",
+          "submenu": {
+            "percent": "{{size}}%"
+          }
+        },
+        "smoothness-transition": {
+          "submenu": {
+            "during": "במהלך {{interpolationTime}} שניות"
+          }
+        },
+        "use-fullscreen": {
+          "label": "שימוש במסך מלא"
+        }
+      },
+      "name": "מצב אווירה"
+    },
+    "amuse": {
+      "description": "מוסיף תמיכה ב-YouTube Music עבור הווידג'ט של Amuse המתנגן כעת על ידי 6K Labs"
+    },
+    "discord": {
+      "menu": {
+        "hide-github-button": "הסתר את לחצן הקישור של GitHub",
+        "play-on-youtube-music": "הפעל ביוטיוב מיוזיק",
+        "set-inactivity-timeout": "הגדר פסק זמן לחוסר פעילות"
+      }
+    },
+    "downloader": {
+      "backend": {
+        "dialog": {
+          "error": {
+            "title": "שגיאה בהורדה!"
+          }
+        },
+        "feedback": {
+          "downloading": "מוריד…",
+          "loading": "בטְעִינָה…",
+          "playlist-has-only-one-song": "לפלייליסט יש רק פריט אחד, מוריד אותו ישירות",
+          "playlist-id-not-found": "לא נמצא מזהה ID פלייליסט",
+          "preparing-file": "מכין קובץ…",
+          "saving": "שומר…",
+          "trying-to-get-playlist-id": "מנסה להשיג מזהה פלייליסט: {{playlistId}}",
+          "video-id-not-found": "הסרטון לא נמצא"
+        }
+      },
+      "description": "מוריד MP3 / אודיו מקור ישירות מהממשק",
+      "menu": {
+        "choose-download-folder": "בחר תיקיית הורדה",
+        "download-finish-settings": {
+          "label": "הורדה בסיום",
+          "prompt": {
+            "last-percent": "אחרי x אחוזים",
+            "last-seconds": "נשארו x שניות",
+            "title": "הגדר מתי להוריד"
+          },
+          "submenu": {
+            "advanced": "מִתקַדֵם",
+            "enabled": "מופעל",
+            "percent": "אָחוּז",
+            "seconds": "שניות"
+          }
+        },
+        "presets": "הגדרות קבועות מראש",
+        "skip-existing": "דלג על קבצים קיימים"
+      }
     }
   }
 }

@@ -683,6 +683,7 @@
         "listenbrainz": {
           "token": "Add meg a ListenBrainz felhasználói tokenedet"
         },
+        "scrobble-alternative-title": "Alternatív címek használata",
         "scrobble-other-media": "Más média scrobbelése"
       },
       "name": "Scrobbler",
@@ -767,6 +768,10 @@
           "label": "Dalszöveg tökéletes szinkronizálása",
           "tooltip": "Számítsa ki az aktuális sor megjelenítésének idejét ezredmásodperc pontossággal (ez kis mértékben befolyásolhatja a teljesítményt)"
         },
+        "romanization": {
+          "label": "Latin betűs szöveg",
+          "tooltip": "Idegennyelvű szöveg esetén próbálkozás a szöveglatin betűs megjelenítésével."
+        },
         "show-lyrics-even-if-inexact": {
           "label": "Pontatlan időzítésű dalszövegek megjelenítése",
           "tooltip": "Ha a dalt nem találja, a bővítmény újra próbálkozik egy másik keresési lekérdezéssel.\nAz eredmény a második próbálkozás után nem biztos, hogy pontos lesz."
@@ -798,6 +803,10 @@
     "tuna-obs": {
       "description": "Integráció az OBS Tuna pluginjával",
       "name": "Tuna OBS"
+    },
+    "unobtrusive-player": {
+      "description": "Megakadályozza a lejátszó felugrását zenehallgatás közben",
+      "name": "Rejtett lejátszó"
     },
     "video-toggle": {
       "description": "Hozzáad egy gombot a Videó/Dal mód közötti váltáshoz. Opcionálisan teljesen eltávolíthatja a videó fület is",

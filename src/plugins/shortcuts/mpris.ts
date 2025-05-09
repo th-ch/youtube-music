@@ -305,31 +305,14 @@ function registerMPRIS(win: BrowserWindow) {
       console.trace(error);
     });
 
-    let mprisVolNewer = false;
-    let autoUpdate = false;
     ipcMain.on('ytmd:volume-changed', (_, newVol) => {
-      if (~~(player.volume * 100) !== newVol) {
-        if (mprisVolNewer) {
-          mprisVolNewer = false;
-          autoUpdate = false;
-        } else {
-          autoUpdate = true;
-          player.volume = Number.parseFloat((newVol / 100).toFixed(2));
-          mprisVolNewer = false;
-          autoUpdate = false;
-        }
-      }
+      player.volume = Number.parseFloat((newVol / 100).toFixed(2));
     });
 
     player.on('volume', (newVolume: number) => {
       if (config.plugins.isEnabled('precise-volume')) {
         // With precise volume we can set the volume to the exact value.
-        const newVol = ~~(newVolume * 100);
-        if (~~(player.volume * 100) !== newVol && !autoUpdate) {
-          mprisVolNewer = true;
-          autoUpdate = false;
-          win.webContents.send('setVolume', newVol);
-        }
+        win.webContents.send('setVolume', ~~(newVolume * 100));
       } else {
         setVolume(newVolume * 100);
       }

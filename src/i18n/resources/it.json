@@ -600,6 +600,10 @@
       },
       "name": "Notifiche"
     },
+    "performance-improvement": {
+      "description": "Migliora le prestazioni abilitando gli script sperimentali",
+      "name": "Miglioramento prestazioni [Beta]"
+    },
     "picture-in-picture": {
       "description": "Consente di far passare l'app alla modalità Picture-in-Picture",
       "menu": {
@@ -746,6 +750,7 @@
           "label": "Effetto linea",
           "submenu": {
             "fancy": {
+              "label": "Stravagante",
               "tooltip": "Usa effetti grandi, simili a quelli di un'app sulla riga attuale"
             },
             "focus": {

@@ -600,6 +600,10 @@
       },
       "name": "Meldingen"
     },
+    "performance-improvement": {
+      "description": "Verbeter prestaties door experimentale scripts aan te zetten",
+      "name": "Prestatie-verbetering"
+    },
     "picture-in-picture": {
       "description": "Laat de app toe om naar picture-in-picture modus om te schakelen",
       "menu": {
@@ -805,7 +809,7 @@
       "name": "Tuna OBS"
     },
     "unobtrusive-player": {
-      "description": "Voorkomt dat de speler bij het afspelen van een nummer verschijnt",
+      "description": "Voorkomt dat de speler omhoog springt tijdens het afspelen van een nummer",
       "name": "Minder opdringerige speler"
     },
     "video-toggle": {
