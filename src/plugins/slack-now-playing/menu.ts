@@ -1,5 +1,5 @@
 import prompt from 'custom-electron-prompt';
-import { BrowserWindow } from 'electron';
+import { BrowserWindow, dialog } from 'electron';
 import promptOptions from '@/providers/prompt-options';
 import { t } from '@/i18n';
 
@@ -8,13 +8,60 @@ import type { MenuContext } from '@/types/contexts';
 import type { MenuTemplate } from '@/menu';
 
 /**
+ * Result of configuration validation
+ */
+type ValidationResult = {
+  valid: boolean;
+  errors: string[];
+};
+
+/**
+ * Validates the Slack Now Playing configuration
+ * @param config The configuration to validate
+ * @returns A validation result object
+ */
+function validateConfig(config: SlackNowPlayingConfig): ValidationResult {
+  const errors: string[] = [];
+  
+  // Check token
+  if (!config.token) {
+    errors.push('Missing Slack API token');
+  } else if (!config.token.startsWith('xoxc-')) {
+    errors.push('Invalid Slack API token format (should start with "xoxc-")');
+  }
+  
+  // Check cookie token
+  if (!config.cookieToken) {
+    errors.push('Missing Slack cookie token');
+  } else if (!config.cookieToken.startsWith('xoxd-')) {
+    errors.push('Invalid Slack cookie token format (should start with "xoxd-")');
+  }
+  
+  // Check emoji name
+  if (!config.emojiName) {
+    errors.push('Missing custom emoji name');
+  } else if (!/^[a-z0-9_-]+$/.test(config.emojiName)) {
+    errors.push('Invalid emoji name format (should only contain lowercase letters, numbers, hyphens, and underscores)');
+  }
+  
+  return {
+    valid: errors.length === 0,
+    errors
+  };
+}
+
+/**
  * Prompts user for Slack Now Playing plugin settings
+ * @param options Current plugin configuration
+ * @param setConfig Function to save the updated configuration
+ * @param window Browser window instance
+ * @returns Promise that resolves when the configuration is saved
  */
 async function promptSlackNowPlayingOptions(
   options: SlackNowPlayingConfig,
   setConfig: (config: SlackNowPlayingConfig) => void,
   window: BrowserWindow,
-) {
+): Promise<void> {
   const output = await prompt(
     {
       title: t('plugins.slack-now-playing.name'),
@@ -26,6 +73,7 @@ async function promptSlackNowPlayingOptions(
           value: options.token,
           inputAttrs: {
             type: 'text',
+            placeholder: 'xoxc-...',
           },
         },
         {
@@ -33,6 +81,7 @@ async function promptSlackNowPlayingOptions(
           value: options.cookieToken,
           inputAttrs: {
             type: 'text',
+            placeholder: 'xoxd-...',
           },
         },
         {
@@ -40,6 +89,7 @@ async function promptSlackNowPlayingOptions(
           value: options.emojiName,
           inputAttrs: {
             type: 'text',
+            placeholder: 'my-album-art',
           },
         },
       ],
@@ -51,16 +101,52 @@ async function promptSlackNowPlayingOptions(
   );
 
   if (output) {
-    if (output[0]) {
-      options.token = output[0];
+    try {
+      // Create a deep copy of the options to ensure we don't modify the original
+      const updatedOptions = { ...options } as SlackNowPlayingConfig;
+      
+      // Update only the fields that were provided
+      if (output[0] !== undefined) {
+        updatedOptions.token = output[0];
+      }
+      if (output[1] !== undefined) {
+        updatedOptions.cookieToken = output[1];
+      }
+      if (output[2] !== undefined) {
+        updatedOptions.emojiName = output[2];
+      }
+      
+      // Validate the updated options
+      const validationResult = validateConfig(updatedOptions);
+      
+      if (!validationResult.valid) {
+        // Show validation errors to the user
+        await dialog.showMessageBox(window, {
+          type: 'warning',
+          title: 'Slack Now Playing Configuration Issues',
+          message: 'There are issues with your Slack configuration:',
+          detail: validationResult.errors.join('\n'),
+          buttons: ['OK'],
+        });
+      }
+      
+      // Save the config even if it has validation errors
+      // This allows users to save partial configurations
+      await setConfig(updatedOptions);
+      
+      // Verify the config was saved by getting it again
+      // This is just for debugging purposes
+      console.log('Saved Slack Now Playing configuration:', updatedOptions);
+    } catch (error) {
+      console.error('Error saving Slack Now Playing configuration:', error);
+      await dialog.showMessageBox(window, {
+        type: 'error',
+        title: 'Configuration Error',
+        message: 'Failed to save Slack Now Playing configuration',
+        detail: error instanceof Error ? error.message : String(error),
+        buttons: ['OK'],
+      });
     }
-    if (output[1]) {
-      options.cookieToken = output[1];
-    }
-    if (output[2]) {
-      options.emojiName = output[2];
-    }
-    setConfig(options);
   }
 }
 
@@ -69,12 +155,13 @@ export const onMenu = async ({
   getConfig,
   setConfig,
 }: MenuContext<SlackNowPlayingConfig>): Promise<MenuTemplate> => {
-  const config = await getConfig();
   return [
     {
       label: t('plugins.slack-now-playing.menu.settings'),
-      click() {
-        promptSlackNowPlayingOptions(config, setConfig, window);
+      async click() {
+        // Get the latest config before showing the prompt
+        const latestConfig = await getConfig();
+        await promptSlackNowPlayingOptions(latestConfig, setConfig, window);
       },
     },
   ];
