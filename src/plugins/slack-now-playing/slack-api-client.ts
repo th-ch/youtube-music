@@ -1,14 +1,15 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import FormData from 'form-data';
+import https from 'node:https';
 
 /**
  * Standard response format from Slack API endpoints
- * 
+ *
  * This interface represents the standard response structure returned by all Slack API endpoints.
  * It includes common fields like success status, error information, and the actual response data.
- * 
+ *
  * @template TData Type of the response data when the call is successful
- * 
+ *
  * @example
  * ```typescript
  * // Successful response example
@@ -16,7 +17,7 @@ import FormData from 'form-data';
  *   ok: true,
  *   profile: { display_name: 'John Doe', email: 'john@example.com' }
  * };
- * 
+ *
  * // Error response example
  * const errorResponse: SlackApiResponse = {
  *   ok: false,
@@ -28,24 +29,24 @@ import FormData from 'form-data';
 export interface SlackApiResponse<TData = unknown> {
   /** Whether the API call was successful */
   ok: boolean;
-  
+
   /** Error code if the call failed (only present when ok is false) */
   error?: string;
-  
+
   /** Human-readable error description if available (only present when ok is false) */
   error_description?: string;
-  
+
   /** Warning messages from the API that don't prevent successful execution */
   warning?: string;
-  
-  /** 
+
+  /**
    * Typed response data (available when ok is true)
    * This property is not actually in the Slack API response, but is used
    * to provide type safety for the response data
    */
   data?: TData;
-  
-  /** 
+
+  /**
    * Additional response data properties that vary by endpoint
    * The actual structure depends on the specific API endpoint called
    */
@@ -54,10 +55,10 @@ export interface SlackApiResponse<TData = unknown> {
 
 /**
  * Parameters for Slack API requests
- * 
+ *
  * This type represents the parameters that can be passed to Slack API endpoints.
  * It enforces type safety for common parameter types while allowing for flexibility.
- * 
+ *
  * @example
  * ```typescript
  * const params: SlackApiParams = {
@@ -136,10 +137,10 @@ interface RateLimitInfo {
 
 /**
  * Centralized Slack API client for making requests to the Slack API
- * 
+ *
  * This client handles authentication, error handling, request formatting,
  * caching, and rate limiting for all Slack API calls in the application.
- * 
+ *
  * Features:
  * - Automatic request authentication
  * - Response caching for GET requests
@@ -172,13 +173,13 @@ export class SlackApiClient {
     this.token = token;
     this.cookie = cookie;
   }
-  
+
   /**
    * Clear the response cache and reset rate limits
-   * 
+   *
    * This can be useful in scenarios where you want to force fresh data
    * or when testing the API client.
-   * 
+   *
    * @param endpoint Optional specific endpoint to clear. If not provided, clears all endpoints.
    */
   clearCache(endpoint?: string): void {
@@ -189,7 +190,7 @@ export class SlackApiClient {
           this.cache.delete(key);
         }
       }
-      
+
       // Reset rate limit for the endpoint
       this.rateLimits.delete(endpoint);
     } else {
@@ -209,15 +210,38 @@ export class SlackApiClient {
       'Authorization': `Bearer ${this.token}`,
     };
   }
+  
+  /**
+   * Create Axios request configuration with options for SSL certificate validation
+   * @param headers HTTP headers to include in the request
+   * @param options Additional configuration options
+   * @returns Axios request configuration object
+   */
+  private createRequestConfig(headers: Record<string, string>, options: { disableSSLValidation?: boolean } = {}): AxiosRequestConfig {
+    const config: AxiosRequestConfig = {
+      headers,
+      maxBodyLength: Infinity,
+      validateStatus: () => true, // Handle all status codes in our code
+    };
+    
+    // Disable SSL certificate validation if requested (for local development only)
+    if (options.disableSSLValidation) {
+      config.httpsAgent = new https.Agent({
+        rejectUnauthorized: false // WARNING: This is insecure and should only be used in development
+      });
+    }
+    
+    return config;
+  }
 
   /**
    * Make a POST request to a Slack API endpoint with rate limiting protection
-   * 
+   *
    * This method includes several performance optimizations:
    * 1. Rate limiting protection to prevent hitting Slack API limits
    * 2. Automatic conversion between data formats
    * 3. Comprehensive error handling with detailed error information
-   * 
+   *
    * @param endpoint The API endpoint to call (without the base URL)
    * @param data The data to send in the request body
    * @param formData Whether the data is form data (multipart/form-data)
@@ -225,8 +249,8 @@ export class SlackApiClient {
    * @throws {SlackApiError} If the request fails or would exceed rate limits
    */
   async post<T = any>(
-    endpoint: string, 
-    data: Record<string, any> | FormData, 
+    endpoint: string,
+    data: Record<string, any> | FormData,
     formData = false
   ): Promise<AxiosResponse<SlackApiResponse<T>>> {
     // Check rate limits before making the request
@@ -239,11 +263,11 @@ export class SlackApiClient {
         { ok: false, error: 'rate_limited' }
       );
     }
-    
+
     const url = `${this.baseUrl}/${endpoint}`;
     let headers = this.getBaseHeaders();
     let payload: any = data;
-    
+
     if (formData) {
       // If data is FormData, use its headers
       if (data instanceof FormData) {
@@ -262,7 +286,7 @@ export class SlackApiClient {
     } else {
       // For regular POST requests, use URL-encoded format
       headers['Content-Type'] = 'application/x-www-form-urlencoded';
-      
+
       // Filter out undefined and null values
       const cleanData: Record<string, string> = {};
       for (const [key, value] of Object.entries(data)) {
@@ -270,22 +294,22 @@ export class SlackApiClient {
           cleanData[key] = String(value);
         }
       }
-      
+
       payload = new URLSearchParams(cleanData).toString();
     }
 
     try {
       // Update rate limit tracking
       this.updateRateLimit(endpoint);
-      
-      const config: AxiosRequestConfig = {
-        headers,
-        maxBodyLength: Infinity,
-        validateStatus: () => true, // Handle all status codes in our code
-      };
-      
+
+      // Create request config with SSL validation disabled for local development
+      // Set disableSSLValidation to true to bypass SSL certificate validation
+      const config = this.createRequestConfig(headers, {
+        disableSSLValidation: !process.env.NODE_ENV || process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test'
+      });
+
       const response = await axios.post<SlackApiResponse<T>>(url, payload, config);
-      
+
       // Check for API errors even if HTTP status is 200
       if (response.data && !response.data.ok) {
         // Special handling for rate limiting errors
@@ -296,12 +320,12 @@ export class SlackApiClient {
             windowStart: Date.now(),
             ...this.defaultRateLimit
           };
-          
+
           // Force rate limit by maxing out the request count
           rateLimit.requestCount = rateLimit.maxRequests;
           this.rateLimits.set(endpoint, rateLimit);
         }
-        
+
         throw new SlackApiError(
           `Slack API error: ${response.data.error || 'Unknown error'}`,
           endpoint,
@@ -310,13 +334,13 @@ export class SlackApiClient {
           response.data
         );
       }
-      
+
       return response;
     } catch (error) {
       // Handle axios errors
       if (axios.isAxiosError(error)) {
         const axiosError = error as AxiosError<SlackApiResponse>;
-        
+
         // Check for rate limiting in the response headers
         if (axiosError.response?.status === 429) {
           // Update our rate limit tracking to prevent further requests
@@ -325,12 +349,12 @@ export class SlackApiClient {
             windowStart: Date.now(),
             ...this.defaultRateLimit
           };
-          
+
           // Force rate limit by maxing out the request count
           rateLimit.requestCount = rateLimit.maxRequests;
           this.rateLimits.set(endpoint, rateLimit);
         }
-        
+
         throw new SlackApiError(
           `Slack API request failed: ${axiosError.message}`,
           endpoint,
@@ -339,7 +363,7 @@ export class SlackApiClient {
           axiosError.response?.data
         );
       }
-      
+
       // Handle other errors
       throw new SlackApiError(
         `Error in Slack API POST to ${endpoint}: ${error instanceof Error ? error.message : String(error)}`,
@@ -357,7 +381,7 @@ export class SlackApiClient {
   private checkRateLimit(endpoint: string): boolean {
     const now = Date.now();
     let rateLimit = this.rateLimits.get(endpoint);
-    
+
     // If no rate limit info exists for this endpoint, create it
     if (!rateLimit) {
       rateLimit = {
@@ -367,17 +391,17 @@ export class SlackApiClient {
       };
       this.rateLimits.set(endpoint, rateLimit);
     }
-    
+
     // Check if we need to reset the window
     if (now - rateLimit.windowStart > rateLimit.windowMs) {
       rateLimit.requestCount = 0;
       rateLimit.windowStart = now;
     }
-    
+
     // Check if we would exceed the rate limit
     return rateLimit.requestCount < rateLimit.maxRequests;
   }
-  
+
   /**
    * Update rate limit tracking after a request
    * @param endpoint The API endpoint that was called
@@ -388,7 +412,7 @@ export class SlackApiClient {
       rateLimit.requestCount++;
     }
   }
-  
+
   /**
    * Generate a cache key for a request
    * @param endpoint The API endpoint
@@ -398,7 +422,7 @@ export class SlackApiClient {
   private getCacheKey(endpoint: string, params: SlackApiParams): string {
     return `${endpoint}:${JSON.stringify(params)}`;
   }
-  
+
   /**
    * Check if a cached response is available and valid
    * @param cacheKey The cache key to check
@@ -407,20 +431,20 @@ export class SlackApiClient {
   private getCachedResponse<T>(cacheKey: string): T | undefined {
     const cached = this.cache.get(cacheKey);
     if (!cached) return undefined;
-    
+
     const now = Date.now();
     const age = now - cached.timestamp;
-    
+
     // Return the cached data if it's still valid
     if (age < cached.expiryMs) {
       return cached.data;
     }
-    
+
     // Remove expired cache entry
     this.cache.delete(cacheKey);
     return undefined;
   }
-  
+
   /**
    * Store a response in the cache
    * @param cacheKey The cache key
@@ -437,12 +461,12 @@ export class SlackApiClient {
 
   /**
    * Make a GET request to a Slack API endpoint with caching and rate limiting
-   * 
+   *
    * This method includes several performance optimizations:
    * 1. Response caching to reduce API calls for identical requests
    * 2. Rate limiting protection to prevent hitting Slack API limits
    * 3. Automatic retry for rate-limited requests
-   * 
+   *
    * @param endpoint The API endpoint to call (without the base URL)
    * @param params The query parameters to include in the request
    * @param options Optional request options
@@ -452,7 +476,7 @@ export class SlackApiClient {
    * @throws {SlackApiError} If the request fails or would exceed rate limits
    */
   async get<T = any>(
-    endpoint: string, 
+    endpoint: string,
     params: SlackApiParams = {},
     options: { skipCache?: boolean; cacheExpiryMs?: number } = {}
   ): Promise<AxiosResponse<SlackApiResponse<T>>> {
@@ -467,18 +491,18 @@ export class SlackApiClient {
         cleanParams[key] = value;
       }
     }
-    
+
     // Check cache first (unless skipCache is true)
     if (!options.skipCache) {
       const cacheKey = this.getCacheKey(endpoint, cleanParams);
       const cachedResponse = this.getCachedResponse<AxiosResponse<SlackApiResponse<T>>>(cacheKey);
-      
+
       if (cachedResponse) {
         // Return the cached response
         return cachedResponse;
       }
     }
-    
+
     // Check rate limits before making the request
     if (!this.checkRateLimit(endpoint)) {
       throw new SlackApiError(
@@ -491,17 +515,19 @@ export class SlackApiClient {
     }
 
     try {
-      const config: AxiosRequestConfig = {
-        headers,
-        params: cleanParams,
-        validateStatus: () => true, // Handle all status codes in our code
-      };
+      // Create request config with SSL validation disabled for local development
+      const config = this.createRequestConfig(headers, {
+        disableSSLValidation: !process.env.NODE_ENV || process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test'
+      });
       
+      // Add params to the config
+      config.params = cleanParams;
+
       // Update rate limit tracking
       this.updateRateLimit(endpoint);
-      
+
       const response = await axios.get<SlackApiResponse<T>>(url, config);
-      
+
       // Check for API errors even if HTTP status is 200
       if (response.data && !response.data.ok) {
         throw new SlackApiError(
@@ -512,13 +538,13 @@ export class SlackApiClient {
           response.data
         );
       }
-      
+
       // Cache successful responses
       if (!options.skipCache) {
         const cacheKey = this.getCacheKey(endpoint, cleanParams);
         this.cacheResponse(cacheKey, response, options.cacheExpiryMs);
       }
-      
+
       return response;
     } catch (error) {
       // Handle axios errors
@@ -532,7 +558,7 @@ export class SlackApiClient {
           axiosError.response?.data
         );
       }
-      
+
       // Handle other errors
       throw new SlackApiError(
         `Error in Slack API GET to ${endpoint}: ${error instanceof Error ? error.message : String(error)}`,
