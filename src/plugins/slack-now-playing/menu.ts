@@ -143,9 +143,7 @@ async function promptSlackNowPlayingOptions(
       // This allows users to save partial configurations
       await setConfig(updatedOptions);
 
-      // Verify the config was saved by getting it again
-      // This is just for debugging purposes
-      console.log('Saved Slack Now Playing configuration:', updatedOptions);
+      // Config has been saved successfully
     } catch (error) {
       console.error('Error saving Slack Now Playing configuration:', error);
       await dialog.showMessageBox(window, {
