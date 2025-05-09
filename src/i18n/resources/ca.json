@@ -810,14 +810,14 @@
       "name": "Visualitzador"
     },
     "slack-now-playing": {
-      "name": "Slack Status",
-      "description": "Sets your Slack status to the currently playing song",
-      "status-text": "Now Playing: {{artist}} - {{title}}",
+      "name": "Estat de Slack",
+      "description": "Estableix el teu estat de Slack a la cançó que s'està reproduint actualment",
+      "status-text": "Ara sonant: {{artist}} - {{title}}",
       "menu": {
-        "settings": "Settings",
-        "token": "Slack API Token",
-        "cookie-token": "Slack Cookie Token",
-        "emoji-name": "Custom Emoji Name"
+        "settings": "Configuració",
+        "token": "Token API de Slack",
+        "cookie-token": "Token de Cookie de Slack",
+        "emoji-name": "Nom d'emoji personalitzat"
       }
     }
   }
