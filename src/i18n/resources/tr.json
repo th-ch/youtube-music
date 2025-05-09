@@ -840,6 +840,17 @@
         "visualizer-type": "Görselleştirici Tipi"
       },
       "name": "Görselleştirici"
+    },
+    "slack-now-playing": {
+      "name": "Slack Durumu",
+      "description": "Slack durumunuzu şu anda çalan şarkıya ayarlar",
+      "status-text": "Şu anda çalıyor: {{artist}} - {{title}}",
+      "menu": {
+        "settings": "Ayarlar",
+        "token": "Slack API Jetonu",
+        "cookie-token": "Slack Çerez Jetonu",
+        "emoji-name": "Özel Emoji Adı"
+      }
     }
   }
 }

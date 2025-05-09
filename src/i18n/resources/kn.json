@@ -1,1 +1,15 @@
-{}
+{
+  "plugins": {
+    "slack-now-playing": {
+      "name": "Slack ಸ್ಥಿತಿ",
+      "description": "ನಿಮ್ಮ Slack ಸ್ಥಿತಿಯನ್ನು ಪ್ರಸ್ತುತ ಪ್ಲೇ ಆಗುತ್ತಿರುವ ಹಾಡಿಗೆ ಹೊಂದಿಸುತ್ತದೆ",
+      "status-text": "ಈಗ ಪ್ಲೇ ಆಗುತ್ತಿದೆ: {{artist}} - {{title}}",
+      "menu": {
+        "settings": "ಸೆಟ್ಟಿಂಗ್ಸ್",
+        "token": "Slack API ಟೋಕನ್",
+        "cookie-token": "Slack ಕುಕೀ ಟೋಕನ್",
+        "emoji-name": "ಕಸ್ಟಮ್ ಎಮೋಜಿ ಹೆಸರು"
+      }
+    }
+  }
+}

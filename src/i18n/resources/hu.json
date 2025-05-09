@@ -840,6 +840,17 @@
         "visualizer-type": "Vizualizáció típus"
       },
       "name": "Vizualizáció"
+    },
+    "slack-now-playing": {
+      "name": "Slack állapot",
+      "description": "Beállítja a Slack állapotod az éppen játszó dalra",
+      "status-text": "Most játszik: {{artist}} - {{title}}",
+      "menu": {
+        "settings": "Beállítások",
+        "token": "Slack API token",
+        "cookie-token": "Slack Cookie token",
+        "emoji-name": "Egyéni emoji név"
+      }
     }
   }
 }

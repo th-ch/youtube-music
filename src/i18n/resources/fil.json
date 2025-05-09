@@ -788,6 +788,17 @@
       "menu": {
         "visualizer-type": "Uri ng Visualizer"
       }
+    },
+    "slack-now-playing": {
+      "name": "Slack Status",
+      "description": "Sets your Slack status to the currently playing song",
+      "status-text": "Now Playing: {{artist}} - {{title}}",
+      "menu": {
+        "settings": "Settings",
+        "token": "Slack API Token",
+        "cookie-token": "Slack Cookie Token",
+        "emoji-name": "Custom Emoji Name"
+      }
     }
   }
 }

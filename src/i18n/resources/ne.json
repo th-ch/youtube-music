@@ -831,6 +831,17 @@
         "visualizer-type": "भिजुअलाइजरको प्रकार"
       },
       "name": "भिजुअलाइजर"
+    },
+    "slack-now-playing": {
+      "name": "Slack स्टेटस",
+      "description": "तपाईंको Slack स्टेटसलाई हाल बजिरहेको गीतमा सेट गर्छ",
+      "status-text": "अहिले बज्दै: {{artist}} - {{title}}",
+      "menu": {
+        "settings": "सेटिङ्गहरु",
+        "token": "Slack API टोकन",
+        "cookie-token": "Slack कुकी टोकन",
+        "emoji-name": "कस्टम इमोजी नाम"
+      }
     }
   }
 }

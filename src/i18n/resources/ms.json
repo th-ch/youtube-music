@@ -198,6 +198,17 @@
       "templates": {
         "button": "Lagu"
       }
+    },
+    "slack-now-playing": {
+      "name": "Status Slack",
+      "description": "Menetapkan status Slack anda kepada lagu yang sedang dimainkan",
+      "status-text": "Sedang Dimainkan: {{artist}} - {{title}}",
+      "menu": {
+        "settings": "Tetapan",
+        "token": "Token API Slack",
+        "cookie-token": "Token Kuki Slack",
+        "emoji-name": "Nama Emoji Tersuai"
+      }
     }
   }
 }

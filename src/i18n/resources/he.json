@@ -206,6 +206,17 @@
     "ad-speedup": {
       "description": "במקרה של פרסומת, הסאונד מושתק ומהירות  הוידרו מוכפלת ב-16",
       "name": "הגבר מהירות פרסומת"
+    },
+    "slack-now-playing": {
+      "name": "סטטוס Slack",
+      "description": "מגדיר את סטטוס ה-Slack שלך לשיר המושמע כעת",
+      "status-text": "מנגן כעת: {{artist}} - {{title}}",
+      "menu": {
+        "settings": "הגדרות",
+        "token": "אסימון API של Slack",
+        "cookie-token": "אסימון עוגייה של Slack",
+        "emoji-name": "שם אימוג'י מותאם אישית"
+      }
     }
   }
 }

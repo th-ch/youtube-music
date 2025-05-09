@@ -840,6 +840,17 @@
         "visualizer-type": "비주얼라이저 타입"
       },
       "name": "비주얼라이저"
+    },
+    "slack-now-playing": {
+      "name": "Slack 상태",
+      "description": "현재 재생 중인 노래로 Slack 상태를 설정합니다",
+      "status-text": "지금 재생 중: {{artist}} - {{title}}",
+      "menu": {
+        "settings": "설정",
+        "token": "Slack API 토큰",
+        "cookie-token": "Slack 쿠키 토큰",
+        "emoji-name": "사용자 정의 이모티콘 이름"
+      }
     }
   }
 }

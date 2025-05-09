@@ -774,6 +774,17 @@
         "visualizer-type": "Typ vizualizéru"
       },
       "name": "Vizualizér"
+    },
+    "slack-now-playing": {
+      "name": "Slack status",
+      "description": "Nastaví váš Slack status na aktuálně přehrávanou píseň",
+      "status-text": "Nyní hraje: {{artist}} - {{title}}",
+      "menu": {
+        "settings": "Nastavení",
+        "token": "Slack API token",
+        "cookie-token": "Slack Cookie token",
+        "emoji-name": "Název vlastního emoji"
+      }
     }
   }
 }

@@ -652,6 +652,17 @@
         }
       },
       "description": "Позволява промяна на качеството на видеото с бутон върху видеото"
+    },
+    "slack-now-playing": {
+      "name": "Статус в Slack",
+      "description": "Задава вашия статус в Slack на текущо възпроизвежданата песен",
+      "status-text": "Сега свири: {{artist}} - {{title}}",
+      "menu": {
+        "settings": "Настройки",
+        "token": "Slack API Токен",
+        "cookie-token": "Slack Cookie Токен",
+        "emoji-name": "Име на персонализиран emoji"
+      }
     }
   }
 }

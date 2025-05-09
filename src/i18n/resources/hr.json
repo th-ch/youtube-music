@@ -15,5 +15,18 @@
     "code": "hr",
     "local-name": "Hrvatski",
     "name": "Croatian"
+  },
+  "plugins": {
+    "slack-now-playing": {
+      "name": "Slack status",
+      "description": "Postavlja vaš Slack status na pjesmu koja se trenutno reproducira",
+      "status-text": "Sada svira: {{artist}} - {{title}}",
+      "menu": {
+        "settings": "Postavke",
+        "token": "Slack API token",
+        "cookie-token": "Slack Cookie token",
+        "emoji-name": "Naziv prilagođenog emojija"
+      }
+    }
   }
 }

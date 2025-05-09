@@ -627,6 +627,17 @@
         "visualizer-type": "Vizualizatoriaus tipas"
       },
       "name": "Vizualizatorius"
+    },
+    "slack-now-playing": {
+      "name": "Slack būsena",
+      "description": "Nustato jūsų Slack būseną pagal dabar grojamą dainą",
+      "status-text": "Dabar groja: {{artist}} - {{title}}",
+      "menu": {
+        "settings": "Nustatymai",
+        "token": "Slack API raktas",
+        "cookie-token": "Slack slapuko raktas",
+        "emoji-name": "Pasirinktinio emoji pavadinimas"
+      }
     }
   }
 }

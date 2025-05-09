@@ -831,6 +831,17 @@
         "visualizer-type": "விசுவலைசர் வகை"
       },
       "name": "காட்சிப்படுத்தல்"
+    },
+    "slack-now-playing": {
+      "name": "Slack நிலை",
+      "description": "உங்கள் Slack நிலையை தற்போது இயங்கும் பாடலுக்கு அமைக்கிறது",
+      "status-text": "இப்போது இயங்குகிறது: {{artist}} - {{title}}",
+      "menu": {
+        "settings": "அமைப்புகள்",
+        "token": "Slack API டோக்கன்",
+        "cookie-token": "Slack குக்கீ டோக்கன்",
+        "emoji-name": "தனிப்பயன் எமோஜி பெயர்"
+      }
     }
   }
 }

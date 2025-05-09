@@ -840,6 +840,17 @@
         "visualizer-type": "Вид визуализации"
       },
       "name": "Визуализатор"
+    },
+    "slack-now-playing": {
+      "name": "Статус Slack",
+      "description": "Устанавливает ваш статус Slack на текущую песню",
+      "status-text": "Сейчас играет: {{artist}} - {{title}}",
+      "menu": {
+        "settings": "Настройки",
+        "token": "Токен API Slack",
+        "cookie-token": "Токен Cookie Slack",
+        "emoji-name": "Имя пользовательского эмодзи"
+      }
     }
   }
 }
