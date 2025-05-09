@@ -6,6 +6,7 @@ import { SlackApiClient, SlackApiResponse } from './slack-api-client';
 import FormData from 'form-data';
 import { createBackend } from '@/utils';
 import registerCallback, { SongInfoEvent } from '@/providers/song-info';
+import { t } from '@/i18n';
 
 // Import SongInfo type from provider instead of defining our own
 import type { SongInfo } from '@/providers/song-info';
@@ -45,7 +46,13 @@ async function setNowPlaying(songInfo: SongInfo, config: SlackNowPlayingConfig) 
     const title = songInfo.alternativeTitle ?? songInfo.title;
     const artistPart = songInfo.artist || 'Unknown Artist';
     const truncatedArtist = artistPart.length > 50 ? artistPart.substring(0, 50) + '...' : artistPart;
-    let statusText = `Now Playing: ${truncatedArtist} - ${title}`;
+    
+    // Use localized version of the status text
+    let statusText = t('plugins.slack-now-playing.status-text')
+      .replace('{{artist}}', truncatedArtist)
+      .replace('{{title}}', title);
+      
+    // Ensure the status text doesn't exceed Slack's limit
     if (statusText.length > 97) statusText = statusText.substring(0, 97) + '...';
     
     // Calculate expiration time (current time + remaining song duration)

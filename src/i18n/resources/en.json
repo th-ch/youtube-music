@@ -426,7 +426,8 @@
         "cookie-token": "Slack Cookie Token",
         "emoji-name": "Custom Emoji Name"
       },
-      "name": "Slack Now Playing"
+      "name": "Slack Status",
+      "status-text": "Now Playing: {{artist}} - {{title}}"
     },
     "downloader": {
       "backend": {

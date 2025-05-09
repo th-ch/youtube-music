@@ -400,7 +400,8 @@
         "cookie-token": "Slack Cookie-Token",
         "emoji-name": "Benutzerdefinierter Emoji-Name"
       },
-      "name": "Slack Now Playing"
+      "name": "Slack Status",
+      "status-text": "Jetzt spielt: {{artist}} - {{title}}"
     },
     "discord": {
       "backend": {
