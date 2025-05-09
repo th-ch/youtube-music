@@ -1,6 +1,7 @@
 import prompt from 'custom-electron-prompt';
 import { BrowserWindow } from 'electron';
 import promptOptions from '@/providers/prompt-options';
+import { t } from '@/i18n';
 
 import type { SlackNowPlayingConfig } from './main';
 import type { MenuContext } from '@/types/contexts';
@@ -16,26 +17,26 @@ async function promptSlackNowPlayingOptions(
 ) {
   const output = await prompt(
     {
-      title: 'Slack Now Playing Settings',
-      label: 'Slack Now Playing Settings',
+      title: t('plugins.slack-now-playing.name'),
+      label: t('plugins.slack-now-playing.name'),
       type: 'multiInput',
       multiInputOptions: [
         {
-          label: 'Slack OAuth Token',
+          label: t('plugins.slack-now-playing.menu.token'),
           value: options.token,
           inputAttrs: {
             type: 'text',
           },
         },
         {
-          label: 'Slack Cookie Token (d cookie value)',
+          label: t('plugins.slack-now-playing.menu.cookie-token'),
           value: options.cookieToken,
           inputAttrs: {
             type: 'text',
           },
         },
         {
-          label: 'Emoji Name (for album art upload)',
+          label: t('plugins.slack-now-playing.menu.emoji-name'),
           value: options.emojiName,
           inputAttrs: {
             type: 'text',
@@ -71,7 +72,7 @@ export const onMenu = async ({
   const config = await getConfig();
   return [
     {
-      label: 'Settings',
+      label: t('plugins.slack-now-playing.menu.settings'),
       click() {
         promptSlackNowPlayingOptions(config, setConfig, window);
       },

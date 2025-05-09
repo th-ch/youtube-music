@@ -392,6 +392,16 @@
       },
       "name": "自動再生を無効化"
     },
+    "slack-now-playing": {
+      "description": "現在再生中の曲をSlackステータスに設定します",
+      "menu": {
+        "settings": "設定",
+        "token": "Slack APIトークン",
+        "cookie-token": "Slack Cookieトークン",
+        "emoji-name": "カスタム絵文字名"
+      },
+      "name": "Slack Now Playing"
+    },
     "discord": {
       "backend": {
         "already-connected": "すでに有効になっている接続に接続を試みました",

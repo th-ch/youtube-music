@@ -392,6 +392,16 @@
       },
       "name": "Désactiver la lecture automatique"
     },
+    "slack-now-playing": {
+      "description": "Définit votre statut Slack sur la chanson en cours de lecture",
+      "menu": {
+        "settings": "Paramètres",
+        "token": "Token API Slack",
+        "cookie-token": "Token Cookie Slack",
+        "emoji-name": "Nom de l'emoji personnalisé"
+      },
+      "name": "Slack Now Playing"
+    },
     "discord": {
       "backend": {
         "already-connected": "Tentative de connexion avec une connexion active",

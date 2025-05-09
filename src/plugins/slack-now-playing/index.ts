@@ -1,10 +1,11 @@
 import { createPlugin } from '@/utils';
 import { onMenu } from './menu';
 import { backend, SlackNowPlayingConfig } from './main';
+import { t } from '@/i18n';
 
 export default createPlugin({
-  name: () => 'Slack Now Playing',
-  description: () => 'Sets your Slack status to the currently playing song.',
+  name: () => t('plugins.slack-now-playing.name'),
+  description: () => t('plugins.slack-now-playing.description'),
   restartNeeded: true,
   config: {
     enabled: false,

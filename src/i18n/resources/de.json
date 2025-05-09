@@ -392,6 +392,16 @@
       },
       "name": "Deaktiviere automatisches Abspielen"
     },
+    "slack-now-playing": {
+      "description": "Setzt deinen Slack-Status auf den aktuell abgespielten Song",
+      "menu": {
+        "settings": "Einstellungen",
+        "token": "Slack API-Token",
+        "cookie-token": "Slack Cookie-Token",
+        "emoji-name": "Benutzerdefinierter Emoji-Name"
+      },
+      "name": "Slack Now Playing"
+    },
     "discord": {
       "backend": {
         "already-connected": "Verbindungsaufbau bei aktiver Verbindung versucht",
