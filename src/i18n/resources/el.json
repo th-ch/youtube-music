@@ -838,6 +838,17 @@
         "button": "Τραγούδι"
       }
     },
+    "slack-now-playing": {
+      "name": "Κατάσταση Slack",
+      "description": "Ορίζει την κατάσταση του Slack στο τραγούδι που παίζει αυτή τη στιγμή",
+      "status-text": "Παίζει τώρα: {{artist}} - {{title}}",
+      "menu": {
+        "settings": "Ρυθμίσεις",
+        "token": "Διακριτικό API Slack",
+        "cookie-token": "Διακριτικό Cookie Slack",
+        "emoji-name": "Όνομα προσαρμοσμένου emoji"
+      }
+    },
     "visualizer": {
       "description": "Προσθέτει έναν απεικονιστή στο πρόγραμμα αναπαραγωγής",
       "menu": {

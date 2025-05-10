@@ -648,6 +648,17 @@
           }
         }
       }
+    },
+    "slack-now-playing": {
+      "name": "Slack-tila",
+      "description": "Asettaa Slack-tilasi nykyisin soivaan kappaleeseen",
+      "status-text": "Nyt soi: {{artist}} - {{title}}",
+      "menu": {
+        "settings": "Asetukset",
+        "token": "Slack API -tunnus",
+        "cookie-token": "Slack Cookie -tunnus",
+        "emoji-name": "Mukautetun emojin nimi"
+      }
     }
   }
 }
