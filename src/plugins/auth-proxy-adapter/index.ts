@@ -10,7 +10,7 @@ export default createPlugin({
   description: () => t('plugins.auth-proxy-adapter.description'),
   restartNeeded: true,
   config: defaultAuthProxyConfig,
-  addedVersion: '3.8.X',
+  addedVersion: '3.10.X',
   menu: onMenu,
   backend,
 });
