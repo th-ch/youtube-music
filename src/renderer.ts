@@ -32,6 +32,18 @@ let firstDataLoaded = false;
 
 registerWindowDefaultTrustedTypePolicy();
 
+{
+  let osType = 'Unknown';
+  if (window.electronIs.osx()) {
+    osType = 'Macintosh';
+  } else if (window.electronIs.windows()) {
+    osType = 'Windows';
+  } else if (window.electronIs.linux()) {
+    osType = 'Linux';
+  }
+  document.documentElement.setAttribute('data-os', osType);
+}
+
 async function listenForApiLoad() {
   if (!isApiLoaded) {
     api = document.querySelector('#movie_player');

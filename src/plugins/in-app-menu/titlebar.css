@@ -80,3 +80,8 @@ html {
 ytmusic-browse-response .ytmusic-responsive-list-item-renderer {
   will-change: transform;
 }
+
+/* fix fullscreen style */
+ytmusic-player[player-ui-state='FULLSCREEN'] {
+  margin-top: calc(var(--menu-bar-height, 32px) * -1) !important;
+}
