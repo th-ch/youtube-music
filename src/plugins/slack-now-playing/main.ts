@@ -354,15 +354,11 @@ async function uploadEmojiToSlack(songInfo: SongInfo, config: SlackNowPlayingCon
       return false;
     }
 
-    // Make the API request - the client now handles API errors internally
     try {
       // The post method now returns a properly typed response
       await client.post<{ ok: boolean }>('emoji.add', formData, true);
-
-      // If we got here, the request was successful
-      // Emoji uploaded successfully
       return true;
-    } catch (apiError: any) {
+    } catch (apiError: unknown) {
       // Handle specific API error types
       if (apiError instanceof SlackError && apiError.responseData) {
         const errorCode = apiError.responseData.error;
