@@ -1,7 +1,5 @@
 import { createEffect, createMemo, For, Show, createSignal } from 'solid-js';
 
-import { currentTime } from './LyricsContainer';
-
 import { config } from '../renderer';
 import { _ytAPI } from '..';
 
@@ -14,30 +12,20 @@ import {
   simplifyUnicode,
 } from '../utils';
 
-import type { LineLyrics } from '../../types';
+import { VirtualizerHandle } from 'virtua/solid';
+import { LineLyrics } from '@/plugins/synced-lyrics/types';
 
 interface SyncedLineProps {
+  scroller: VirtualizerHandle;
+  index: number;
+
   line: LineLyrics;
+  status: 'upcoming' | 'current' | 'previous';
   hasJapanese: boolean;
   hasKorean: boolean;
 }
 
 export const SyncedLine = (props: SyncedLineProps) => {
-  const status = createMemo(() => {
-    const current = currentTime();
-
-    if (props.line.timeInMs >= current) return 'upcoming';
-    if (current - props.line.timeInMs >= props.line.duration) return 'previous';
-    return 'current';
-  });
-
-  let ref: HTMLDivElement | undefined;
-  createEffect(() => {
-    if (status() === 'current') {
-      ref?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  });
-
   const text = createMemo(() => {
     if (!props.line.text.trim()) {
       return config()?.defaultTextString ?? '';
@@ -75,8 +63,7 @@ export const SyncedLine = (props: SyncedLineProps) => {
 
   return (
     <div
-      ref={ref}
-      class={`synced-line ${status()}`}
+      class={`synced-line ${props.status}`}
       onClick={() => {
         _ytAPI?.seekTo(props.line.timeInMs / 1000);
       }}
@@ -100,7 +87,7 @@ export const SyncedLine = (props: SyncedLineProps) => {
               'important',
             );
           }}
-          style={{ 'display': 'flex', 'flex-direction': 'column' }}
+          style={{ display: 'flex', 'flex-direction': 'column' }}
         >
           <span>
             <For each={text().split(' ')}>
