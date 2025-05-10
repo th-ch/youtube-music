@@ -333,6 +333,30 @@
       "description": "Apply compression to audio (lowers the volume of the loudest parts of the signal and raises the volume of the softest parts)",
       "name": "Audio Compressor"
     },
+    "auth-proxy-adapter": {
+      "name": "Auth Proxy Adapter",
+      "description": "Support for the use of authentication proxy services",
+      "menu": {
+        "disable": "Disable Proxy Adapter",
+        "enable": "Enable Proxy Adapter",
+        "hostname": {
+          "label": "Hostname"
+        },
+        "port": {
+          "label": "Port"
+        }
+      },
+      "prompt": {
+        "hostname": {
+          "title": "Proxy Hostname",
+        "label": "Enter hostname for local proxy server (requires restart):"
+        },
+        "port": {
+          "title": "Proxy Port",
+        "label": "Enter port for local proxy server (requires restart):"
+        }
+      }
+    },
     "blur-nav-bar": {
       "description": "Makes navigation bar transparent and blurry",
       "name": "Blur Navigation Bar"
