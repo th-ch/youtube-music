@@ -39,10 +39,9 @@ const info: Info = {
 const refreshCallbacks: (() => void)[] = [];
 
 const truncateString = (str: string, length: number): string => {
-  if (str.length > length)
-    return `${str.substring(0, length - 3)}...`;
+  if (str.length > length) return `${str.substring(0, length - 3)}...`;
   return str;
-}
+};
 
 const resetInfo = () => {
   info.ready = false;
@@ -119,7 +118,7 @@ export const registerRefresh = (cb: () => void) => refreshCallbacks.push(cb);
 export const isConnected = () => info.rpc?.isConnected;
 
 let lastActivitySongId: string | null = null;
-let lastPausedState: boolean | null = null;
+let lastPausedState: boolean = false; // Initialize with a default boolean
 let lastElapsedSeconds: number = 0;
 let updateTimeout: NodeJS.Timeout | null = null;
 let lastProgressUpdate: number = 0; // timestamp of the last throttled update
@@ -130,7 +129,24 @@ function isSeek(oldSec: number, newSec: number) {
   return Math.abs((newSec ?? 0) - (oldSec ?? 0)) > 2;
 }
 
-function sendActivityToDiscord(songInfo: SongInfo, config: DiscordPluginConfig) {
+function manageActivityClearTimer(
+  isPaused: boolean | undefined,
+  config: DiscordPluginConfig,
+) {
+  clearTimeout(clearActivity); // Clear any existing timer
+  // Set a new timer only if the song is paused and the feature is enabled
+  if (isPaused === true && config.activityTimeoutEnabled) {
+    clearActivity = setTimeout(
+      () => info.rpc.user?.clearActivity().catch(console.error),
+      config.activityTimeoutTime ?? 10_000,
+    );
+  }
+}
+
+function sendActivityToDiscord(
+  songInfo: SongInfo,
+  config: DiscordPluginConfig,
+) {
   if (songInfo.title.length === 0 && songInfo.artist.length === 0) {
     return;
   }
@@ -219,7 +235,10 @@ export const backend = createBackend<
       updateTimeout = null;
       sendActivityToDiscord(songInfo, config);
       lastActivitySongId = songInfo.videoId;
-      lastPausedState = songInfo.isPaused ?? null;
+      // Update lastPausedState only if songInfo.isPaused is a boolean
+      if (typeof songInfo.isPaused === 'boolean') {
+        lastPausedState = songInfo.isPaused;
+      }
       lastElapsedSeconds = songInfo.elapsedSeconds ?? 0;
       lastProgressUpdate = now;
       return;
@@ -231,30 +250,26 @@ export const backend = createBackend<
       lastElapsedSeconds = songInfo.elapsedSeconds ?? 0;
     } else {
       if (updateTimeout) clearTimeout(updateTimeout);
-      // Capture current state for verification before sending
-      const expectedVideoId = songInfo.videoId;
-      const expectedPaused = songInfo.isPaused;
-      updateTimeout = setTimeout(() => {
-        // Only send if state hasn't changed
-        if (
-          info.lastSongInfo?.videoId === expectedVideoId &&
-          info.lastSongInfo?.isPaused === expectedPaused
-        ) {
-          sendActivityToDiscord(info.lastSongInfo, config);
-          lastProgressUpdate = Date.now();
-          lastElapsedSeconds = info.lastSongInfo.elapsedSeconds ?? 0;
-        }
-      }, PROGRESS_THROTTLE_MS - (now - lastProgressUpdate));
-    }
-    if (songInfo.isPaused && config.activityTimeoutEnabled) {
-      clearTimeout(clearActivity);
-      clearActivity = setTimeout(
-        () => info.rpc.user?.clearActivity().catch(console.error),
-        config.activityTimeoutTime ?? 10_000,
+      // Capture a snapshot of songInfo for the timeout callback
+      const songInfoSnapshot = { ...songInfo };
+      updateTimeout = setTimeout(
+        () => {
+          // Only send if the current global song state still matches what was expected
+          // at the time the timeout was set (i.e., the snapshot's state)
+          if (
+            info.lastSongInfo?.videoId === songInfoSnapshot.videoId &&
+            info.lastSongInfo?.isPaused === songInfoSnapshot.isPaused
+          ) {
+            // Use the snapshot for sending activity and updating last elapsed time
+            sendActivityToDiscord(songInfoSnapshot, config);
+            lastProgressUpdate = Date.now();
+            lastElapsedSeconds = songInfoSnapshot.elapsedSeconds ?? 0;
+          }
+        },
+        PROGRESS_THROTTLE_MS - (now - lastProgressUpdate),
       );
-    } else {
-      clearTimeout(clearActivity);
     }
+    manageActivityClearTimer(songInfo.isPaused, config);
   },
   async start(ctx) {
     this.config = await ctx.getConfig();
