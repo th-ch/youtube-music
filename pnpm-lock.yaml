@@ -201,6 +201,9 @@ importers:
       simple-youtube-age-restriction-bypass:
         specifier: github:organization/Simple-YouTube-Age-Restriction-Bypass#v2.5.9
         version: https://codeload.github.com/organization/Simple-YouTube-Age-Restriction-Bypass/tar.gz/4e2db89ccb2fb880c5110add9ff3f1dfb78d0ff6
+      socks:
+        specifier: ^2.8.4
+        version: 2.8.4
       solid-floating-ui:
         specifier: 0.3.1
         version: 0.3.1(@floating-ui/dom@1.6.13)(solid-js@1.9.5)
