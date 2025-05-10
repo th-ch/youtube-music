@@ -844,6 +844,10 @@
         "visualizer-type": "Visualizer Type"
       },
       "name": "Visualizer"
+    },
+    "content-warning-skipper": {
+        "description": "Skips content warnings",
+        "name": "Content Warning Skipper"
     }
   }
 }
