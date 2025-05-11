@@ -135,6 +135,11 @@ export class Connection {
     if (this._mode === 'disconnected') throw new Error('Already disconnected');
 
     this._mode = 'disconnected';
+    this.getConnections().forEach((conn) =>
+      conn.close({
+        flush: true,
+      }),
+    );
     this.connections = {};
     this.connectionListeners = [];
     for (const listener of this.listeners) {
@@ -228,6 +233,9 @@ export class Connection {
         this.connectionListeners.forEach((listener) => listener(conn));
 
         if (err) {
+          if (err.type === 'connection-closed') {
+            this.connectionListeners.forEach((listener) => listener());
+          }
           reject(err);
         }
       };
