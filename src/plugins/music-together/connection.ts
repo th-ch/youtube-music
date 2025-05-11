@@ -1,4 +1,4 @@
-import { DataConnection, Peer, PeerErrorType } from 'peerjs';
+import { DataConnection, Peer, PeerError, PeerErrorType } from 'peerjs';
 import delay from 'delay';
 
 import type { Permission, Profile, VideoData } from './types';
@@ -89,8 +89,11 @@ export class Connection {
         listener({ type: 'CONNECTION_CLOSED', payload: null }, null);
       }
       this.listeners = [];
+
+      this.connectionListeners.forEach((listener) => listener());
       this.connectionListeners = [];
       this.connections = {};
+
       this.peer.disconnect();
       this.peer.destroy();
     });
@@ -207,17 +210,25 @@ export class Connection {
         });
       });
 
-      const onClose = (err?: Error) => {
-        if (err) reject(err);
-
-        delete this.connections[conn.connectionId];
-
-        this.connectionListeners.forEach((listener) => listener(conn));
-
+      const onClose = (
+        err?: PeerError<
+          | 'not-open-yet'
+          | 'message-too-big'
+          | 'negotiation-failed'
+          | 'connection-closed'
+        >,
+      ) => {
         if (conn.open) {
           conn.close({
             flush: true,
           });
+        }
+
+        delete this.connections[conn.connectionId];
+        this.connectionListeners.forEach((listener) => listener(conn));
+
+        if (err) {
+          reject(err);
         }
       };
       conn.on('error', onClose);
