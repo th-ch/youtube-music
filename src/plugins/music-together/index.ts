@@ -21,6 +21,8 @@ import { createSettingPopup } from './ui/setting';
 import settingHTML from './templates/setting.html?raw';
 import style from './style.css?inline';
 
+import { waitForElement } from '@/utils/wait-for-element';
+
 import type { YoutubePlayer } from '@/types/youtube-player';
 import type { RendererContext } from '@/types/contexts';
 import type { VideoDataChanged } from '@/types/video-data-changed';
@@ -595,19 +597,22 @@ export default createPlugin<
       this.elements.spinner.setAttribute('hidden', '');
     },
 
-    initMyProfile() {
-      const accountButton = document.querySelector<
-        HTMLElement & {
-          onButtonTap: () => void;
-        }
-      >('ytmusic-settings-button');
+    async initMyProfile() {
+      const accountButton = await waitForElement<HTMLElement>(
+        '#right-content > ytmusic-settings-button *:where(tp-yt-paper-icon-button,yt-icon-button,.ytmusic-settings-button)',
+        {
+          maxRetry: 10000,
+        },
+      );
 
-      accountButton?.onButtonTap();
-      setTimeout(() => {
-        accountButton?.onButtonTap();
-        const renderer = document.querySelector<
-          HTMLElement & { data: unknown }
-        >('ytd-active-account-header-renderer');
+      accountButton?.click();
+      setTimeout(async () => {
+        const renderer = await waitForElement<HTMLElement & { data: unknown }>(
+          'ytd-active-account-header-renderer',
+          {
+            maxRetry: 10000,
+          },
+        );
         if (!accountButton || !renderer) {
           console.warn('Music Together: Cannot find account');
           this.me = getDefaultProfile(this.connection?.id ?? '');
@@ -628,6 +633,7 @@ export default createPlugin<
           this.popups.guest.setProfile(this.me.thumbnail);
           this.popups.setting.setProfile(this.me.thumbnail);
         }
+        accountButton?.click(); // close menu
       }, 0);
     },
     /* hooks */
