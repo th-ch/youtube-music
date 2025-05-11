@@ -224,19 +224,18 @@ export class Connection {
         >,
       ) => {
         if (conn.open) {
-          conn.close({
-            flush: true,
-          });
+          conn.close();
         }
 
         delete this.connections[conn.connectionId];
-        this.connectionListeners.forEach((listener) => listener(conn));
 
         if (err) {
           if (err.type === 'connection-closed') {
             this.connectionListeners.forEach((listener) => listener());
           }
           reject(err);
+        } else {
+          this.connectionListeners.forEach((listener) => listener(conn));
         }
       };
       conn.on('error', onClose);
