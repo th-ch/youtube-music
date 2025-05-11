@@ -177,7 +177,12 @@ export class Queue {
     if (!items) return false;
 
     this.internalDispatch = true;
-    this._videoList.push(...videos);
+    this._videoList.push(
+      ...videos.map((it) => ({
+        ...it,
+        ownerId: it.ownerId ?? this.owner?.id,
+      })),
+    );
     this.queue?.dispatch({
       type: 'ADD_ITEMS',
       payload: {
@@ -286,6 +291,7 @@ export class Queue {
       }
 
       if (!this.internalDispatch) {
+        console.log('Music Together: Queue event', event);
         if (event.type === 'CLEAR') {
           this.ignoreFlag = true;
         }
@@ -307,6 +313,12 @@ export class Queue {
             const index = this._videoList.length + videoList.length - 1;
 
             if (videoList.length > 0) {
+              this._videoList.push(
+                ...videoList.map((it) => ({
+                  ...it,
+                  ownerId: it.ownerId ?? this.owner?.id,
+                })),
+              );
               this.broadcast({
                 // play
                 type: 'ADD_SONGS',
@@ -330,23 +342,30 @@ export class Queue {
               }
             ).items.length === 1
           ) {
+            const videoList = mapQueueItem(
+              (it) =>
+                ({
+                  videoId: it!.videoId,
+                  ownerId: this.owner!.id,
+                }) satisfies VideoData,
+              (
+                event.payload! as {
+                  items: QueueItem[];
+                }
+              ).items,
+            );
+            this._videoList.push(
+              ...videoList.map((it) => ({
+                ...it,
+                ownerId: it.ownerId ?? this.owner?.id,
+              })),
+            );
             this.broadcast({
               // add playlist
               type: 'ADD_SONGS',
               payload: {
                 // index: (event.payload as any).index,
-                videoList: mapQueueItem(
-                  (it) =>
-                    ({
-                      videoId: it!.videoId,
-                      ownerId: this.owner!.id,
-                    }) satisfies VideoData,
-                  (
-                    event.payload! as {
-                      items: QueueItem[];
-                    }
-                  ).items,
-                ),
+                videoList,
               },
             });
           }

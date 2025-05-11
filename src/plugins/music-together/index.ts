@@ -165,6 +165,17 @@ export default createPlugin<
       if (!wait) return false;
 
       if (!this.me) this.me = getDefaultProfile(this.connection.id);
+
+      this.profiles = {};
+      this.putProfile(this.connection.id, {
+        id: this.connection.id,
+        ...this.me,
+      });
+
+      this.queue?.setOwner({
+        id: this.connection.id,
+        ...this.me,
+      });
       const rawItems =
         this.queue?.flatItems?.map(
           (it) =>
@@ -173,16 +184,11 @@ export default createPlugin<
               ownerId: this.connection!.id,
             }) satisfies VideoData,
         ) ?? [];
-      this.queue?.setOwner({
-        id: this.connection.id,
-        ...this.me,
-      });
       this.queue?.setVideoList(rawItems, false);
       this.queue?.syncQueueOwner();
       this.queue?.initQueue();
       this.queue?.injection();
 
-      this.profiles = {};
       this.connection.onConnections((connection) => {
         if (!connection) {
           this.api?.toastService?.show(
@@ -201,10 +207,6 @@ export default createPlugin<
           this.putProfile(connection.peer, undefined);
         }
       });
-      this.putProfile(this.connection.id, {
-        id: this.connection.id,
-        ...this.me,
-      });
 
       const listener = async (
         event: ConnectionEventUnion,
@@ -216,11 +218,18 @@ export default createPlugin<
           case 'ADD_SONGS': {
             if (conn && this.permission === 'host-only') return;
 
-            await this.queue?.addVideos(
-              event.payload.videoList,
-              event.payload.index,
+            const videoList: VideoData[] = event.payload.videoList.map(
+              (it) => ({
+                ...it,
+                ownerId: it.ownerId ?? conn?.peer ?? this.connection!.id,
+              }),
             );
-            await this.connection?.broadcast('ADD_SONGS', event.payload);
+
+            await this.queue?.addVideos(videoList, event.payload.index);
+            await this.connection?.broadcast('ADD_SONGS', {
+              ...event.payload,
+              videoList,
+            });
             break;
           }
           case 'REMOVE_SONG': {
@@ -367,7 +376,13 @@ export default createPlugin<
         this.ignoreChange = true;
         switch (event.type) {
           case 'ADD_SONGS': {
-            await this.connection?.broadcast('ADD_SONGS', event.payload);
+            await this.connection?.broadcast('ADD_SONGS', {
+              ...event.payload,
+              videoList: event.payload.videoList.map((it) => ({
+                ...it,
+                ownerId: it.ownerId ?? this.connection!.id,
+              })),
+            });
             await this.connection?.broadcast('SYNC_QUEUE', undefined);
             break;
           }
@@ -398,10 +413,14 @@ export default createPlugin<
         this.ignoreChange = true;
         switch (event.type) {
           case 'ADD_SONGS': {
-            await this.queue?.addVideos(
-              event.payload.videoList,
-              event.payload.index,
+            const videoList: VideoData[] = event.payload.videoList.map(
+              (it) => ({
+                ...it,
+                ownerId: it.ownerId ?? this.connection!.id,
+              }),
             );
+
+            await this.queue?.addVideos(videoList, event.payload.index);
             break;
           }
           case 'REMOVE_SONG': {
