@@ -218,7 +218,12 @@ export default createPlugin<
 
         switch (event.type) {
           case 'ADD_SONGS': {
-            if (conn && this.permission === 'host-only') return;
+            if (conn && this.permission === 'host-only') {
+              await this.connection?.broadcast('SYNC_QUEUE', {
+                videoList: this.queue?.videoList ?? [],
+              });
+              return;
+            }
 
             const videoList: VideoData[] = event.payload.videoList.map(
               (it) => ({
@@ -232,10 +237,18 @@ export default createPlugin<
               ...event.payload,
               videoList,
             });
+            await this.connection?.broadcast('SYNC_QUEUE', {
+              videoList,
+            });
             break;
           }
           case 'REMOVE_SONG': {
-            if (conn && this.permission === 'host-only') return;
+            if (conn && this.permission === 'host-only') {
+              await this.connection?.broadcast('SYNC_QUEUE', {
+                videoList: this.queue?.videoList ?? [],
+              });
+              return;
+            }
 
             this.queue?.removeVideo(event.payload.index);
             await this.connection?.broadcast('REMOVE_SONG', event.payload);
@@ -385,7 +398,6 @@ export default createPlugin<
                 ownerId: it.ownerId ?? this.connection!.id,
               })),
             });
-            await this.connection?.broadcast('SYNC_QUEUE', undefined);
             break;
           }
           case 'REMOVE_SONG': {
@@ -394,7 +406,6 @@ export default createPlugin<
           }
           case 'MOVE_SONG': {
             await this.connection?.broadcast('MOVE_SONG', event.payload);
-            await this.connection?.broadcast('SYNC_QUEUE', undefined);
             break;
           }
           case 'SYNC_PROGRESS': {
