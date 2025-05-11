@@ -668,7 +668,7 @@ export default createPlugin<
 
     start({ ipc }) {
       this.ipc = ipc;
-      this.showPrompt = async (title: string, label: string) =>
+      this.showPrompt = (title: string, label: string) =>
         ipc.invoke('music-together:prompt', title, label) as Promise<string>;
       this.api = document.querySelector<AppElement>('ytmusic-app');
 

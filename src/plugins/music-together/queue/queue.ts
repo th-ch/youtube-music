@@ -177,12 +177,23 @@ export class Queue {
     if (!items) return false;
 
     this.internalDispatch = true;
-    this._videoList.push(
+    this._videoList = mapQueueItem(
+      (it) =>
+        ({
+          videoId: it!.videoId,
+          ownerId: this.owner!.id,
+        }) satisfies VideoData,
+      this.queue.queue.getItems(),
+    );
+    this._videoList.splice(
+      index ?? this._videoList.length,
+      0,
       ...videos.map((it) => ({
         ...it,
         ownerId: it.ownerId ?? this.owner?.id,
       })),
     );
+
     this.queue?.dispatch({
       type: 'ADD_ITEMS',
       payload: {
@@ -291,7 +302,6 @@ export class Queue {
       }
 
       if (!this.internalDispatch) {
-        console.log('Music Together: Queue event', event);
         if (event.type === 'CLEAR') {
           this.ignoreFlag = true;
         }
@@ -310,15 +320,15 @@ export class Queue {
                 }
               ).items,
             );
-            const index = this._videoList.length + videoList.length - 1;
+            const index = this._videoList.length;
 
             if (videoList.length > 0) {
-              this._videoList.push(
+              this._videoList = [
                 ...videoList.map((it) => ({
                   ...it,
                   ownerId: it.ownerId ?? this.owner?.id,
                 })),
-              );
+              ];
               this.broadcast({
                 // play
                 type: 'ADD_SONGS',
@@ -364,7 +374,14 @@ export class Queue {
               // add playlist
               type: 'ADD_SONGS',
               payload: {
-                // index: (event.payload as any).index,
+                index:
+                  event.payload && Object.hasOwn(event.payload, 'index')
+                    ? (
+                        event.payload as {
+                          index: number;
+                        }
+                      ).index
+                    : undefined,
                 videoList,
               },
             });
