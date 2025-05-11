@@ -135,7 +135,7 @@ export class LastFmScrobbler extends ScrobblerBase {
     const postData: LastFmSongData = {
       track: title,
       duration: songInfo.songDuration,
-      artist: songInfo.artist,
+      artist: songInfo.artist.replace(/(.*?)(?:&|,|featuring).*$/, "$1"),
       ...(songInfo.album ? { album: songInfo.album } : undefined), // Will be undefined if current song is a video
       api_key: config.scrobblers.lastfm.apiKey,
       sk: config.scrobblers.lastfm.sessionKey,
