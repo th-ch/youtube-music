@@ -70,11 +70,12 @@ export class Connection {
           //ignored
         }
       }
-      this._mode = 'disconnected';
 
       this.waitOpen.reject(err);
       this.connectionListeners.forEach((listener) => listener());
-      console.error(err);
+      this.disconnect();
+
+      console.trace(err);
     });
   }
 
@@ -97,6 +98,8 @@ export class Connection {
 
     this._mode = 'disconnected';
     this.connections = {};
+    this.connectionListeners = [];
+    this.peer.disconnect();
     this.peer.destroy();
   }
 
@@ -134,10 +137,10 @@ export class Connection {
   private async registerConnection(conn: DataConnection) {
     return new Promise<DataConnection>((resolve, reject) => {
       this.peer.once('error', (err) => {
-        this._mode = 'disconnected';
-
         reject(err);
         this.connectionListeners.forEach((listener) => listener());
+
+        this.disconnect();
       });
 
       conn.on('open', () => {
@@ -167,7 +170,15 @@ export class Connection {
         if (err) reject(err);
 
         delete this.connections[conn.connectionId];
+
         this.connectionListeners.forEach((listener) => listener(conn));
+        this.connectionListeners = [];
+
+        if (conn.open) {
+          conn.close({
+            flush: true,
+          });
+        }
       };
       conn.on('error', onClose);
       conn.on('close', onClose);
