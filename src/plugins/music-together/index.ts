@@ -214,7 +214,6 @@ export default createPlugin<
         event: ConnectionEventUnion,
         conn?: DataConnection | null,
       ) => {
-        console.log('event', event, this.queue?.videoList);
         this.ignoreChange = true;
 
         switch (event.type) {
