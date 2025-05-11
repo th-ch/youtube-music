@@ -252,7 +252,9 @@ export class Queue {
   }
 
   on(listener: QueueEventListener) {
-    this.listeners.push(listener);
+    if (!this.listeners.includes(listener)) {
+      this.listeners.push(listener);
+    }
   }
 
   off(listener: QueueEventListener) {

@@ -14,6 +14,7 @@ export type ConnectionEventMap = {
     | { progress?: number; state?: number; index?: number }
     | undefined;
   PERMISSION: Permission | undefined;
+  CONNECTION_CLOSED: null;
 };
 export type ConnectionEventUnion = {
   [Event in keyof ConnectionEventMap]: {
@@ -31,7 +32,7 @@ type PromiseUtil<T> = {
 
 export type ConnectionListener = (
   event: ConnectionEventUnion,
-  conn: DataConnection,
+  conn: DataConnection | null,
 ) => void;
 export type ConnectionMode = 'host' | 'guest' | 'disconnected';
 export class Connection {
@@ -58,6 +59,16 @@ export class Connection {
     this.peer.on('connection', async (conn) => {
       this._mode = 'host';
       await this.registerConnection(conn);
+    });
+    this.peer.on('close', () => {
+      for (const listener of this.listeners) {
+        listener({ type: 'CONNECTION_CLOSED', payload: null }, null);
+      }
+      this.listeners = [];
+      this.connectionListeners = [];
+      this.connections = {};
+      this.peer.disconnect();
+      this.peer.destroy();
     });
     this.peer.on('error', async (err) => {
       if (err.type === PeerErrorType.Network) {
@@ -99,6 +110,10 @@ export class Connection {
     this._mode = 'disconnected';
     this.connections = {};
     this.connectionListeners = [];
+    for (const listener of this.listeners) {
+      listener({ type: 'CONNECTION_CLOSED', payload: null }, null);
+    }
+    this.listeners = [];
     this.peer.disconnect();
     this.peer.destroy();
   }
@@ -126,7 +141,9 @@ export class Connection {
   }
 
   public on(listener: ConnectionListener) {
-    this.listeners.push(listener);
+    if (!this.listeners.includes(listener)) {
+      this.listeners.push(listener);
+    }
   }
 
   public onConnections(listener: (connections?: DataConnection) => void) {
@@ -172,7 +189,6 @@ export class Connection {
         delete this.connections[conn.connectionId];
 
         this.connectionListeners.forEach((listener) => listener(conn));
-        this.connectionListeners = [];
 
         if (conn.open) {
           conn.close({

@@ -208,7 +208,7 @@ export default createPlugin<
 
       const listener = async (
         event: ConnectionEventUnion,
-        conn?: DataConnection,
+        conn?: DataConnection | null,
       ) => {
         this.ignoreChange = true;
 
@@ -311,6 +311,10 @@ export default createPlugin<
 
             break;
           }
+          case 'CONNECTION_CLOSED': {
+            this.queue?.off(listener);
+            break;
+          }
           default: {
             console.warn('Music Together [Host]: Unknown Event', event);
             break;
@@ -359,6 +363,37 @@ export default createPlugin<
       });
 
       let resolveIgnore: number | null = null;
+      const queueListener = async (event: ConnectionEventUnion) => {
+        this.ignoreChange = true;
+        switch (event.type) {
+          case 'ADD_SONGS': {
+            await this.connection?.broadcast('ADD_SONGS', event.payload);
+            await this.connection?.broadcast('SYNC_QUEUE', undefined);
+            break;
+          }
+          case 'REMOVE_SONG': {
+            await this.connection?.broadcast('REMOVE_SONG', event.payload);
+            break;
+          }
+          case 'MOVE_SONG': {
+            await this.connection?.broadcast('MOVE_SONG', event.payload);
+            await this.connection?.broadcast('SYNC_QUEUE', undefined);
+            break;
+          }
+          case 'SYNC_PROGRESS': {
+            if (this.permission === 'host-only')
+              await this.connection?.broadcast('SYNC_QUEUE', undefined);
+            else
+              await this.connection?.broadcast('SYNC_PROGRESS', event.payload);
+            break;
+          }
+        }
+
+        if (typeof resolveIgnore === 'number') clearTimeout(resolveIgnore);
+        resolveIgnore = window.setTimeout(() => {
+          this.ignoreChange = false;
+        }, 16); // wait 1 frame
+      };
       const listener = async (event: ConnectionEventUnion) => {
         this.ignoreChange = true;
         switch (event.type) {
@@ -448,6 +483,10 @@ export default createPlugin<
             );
             break;
           }
+          case 'CONNECTION_CLOSED': {
+            this.queue?.off(queueListener);
+            break;
+          }
           default: {
             console.warn('Music Together [Guest]: Unknown Event', event);
             break;
@@ -461,37 +500,7 @@ export default createPlugin<
       };
 
       this.connection.on(listener);
-      this.queue?.on(async (event: ConnectionEventUnion) => {
-        this.ignoreChange = true;
-        switch (event.type) {
-          case 'ADD_SONGS': {
-            await this.connection?.broadcast('ADD_SONGS', event.payload);
-            await this.connection?.broadcast('SYNC_QUEUE', undefined);
-            break;
-          }
-          case 'REMOVE_SONG': {
-            await this.connection?.broadcast('REMOVE_SONG', event.payload);
-            break;
-          }
-          case 'MOVE_SONG': {
-            await this.connection?.broadcast('MOVE_SONG', event.payload);
-            await this.connection?.broadcast('SYNC_QUEUE', undefined);
-            break;
-          }
-          case 'SYNC_PROGRESS': {
-            if (this.permission === 'host-only')
-              await this.connection?.broadcast('SYNC_QUEUE', undefined);
-            else
-              await this.connection?.broadcast('SYNC_PROGRESS', event.payload);
-            break;
-          }
-        }
-
-        if (typeof resolveIgnore === 'number') clearTimeout(resolveIgnore);
-        resolveIgnore = window.setTimeout(() => {
-          this.ignoreChange = false;
-        }, 16); // wait 1 frame
-      });
+      this.queue?.on(queueListener);
 
       if (!this.me) this.me = getDefaultProfile(this.connection.id);
       this.queue?.injection();
