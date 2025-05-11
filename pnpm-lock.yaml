@@ -142,8 +142,8 @@ importers:
         specifier: 1.1.4
         version: 1.1.4
       happy-dom:
-        specifier: 17.4.4
-        version: 17.4.4
+        specifier: 17.4.7
+        version: 17.4.7
       hono:
         specifier: 4.7.9
         version: 4.7.9
@@ -2680,8 +2680,8 @@ packages:
   hanja@1.1.4:
     resolution: {integrity: sha512-O8K0+9jyibUlmLd/WAXCQ+8XGersUm9PloQuEXFPRfiUztFHRz4WaELXij0iejtl8AN85FxWQYSNmAuoXLircA==}
 
-  happy-dom@17.4.4:
-    resolution: {integrity: sha512-/Pb0ctk3HTZ5xEL3BZ0hK1AqDSAUuRQitOmROPHhfUYEWpmTImwfD8vFDGADmMAX0JYgbcgxWoLFKtsWhcpuVA==}
+  happy-dom@17.4.7:
+    resolution: {integrity: sha512-NZypxadhCiV5NT4A+Y86aQVVKQ05KDmueja3sz008uJfDRwz028wd0aTiJPwo4RQlvlz0fznkEEBBCHVNWc08g==}
     engines: {node: '>=18.0.0'}
 
   has-bigints@1.1.0:
@@ -7441,7 +7441,7 @@ snapshots:
 
   hanja@1.1.4: {}
 
-  happy-dom@17.4.4:
+  happy-dom@17.4.7:
     dependencies:
       webidl-conversions: 7.0.0
       whatwg-mimetype: 3.0.0
