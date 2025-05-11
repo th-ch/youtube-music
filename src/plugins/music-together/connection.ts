@@ -45,7 +45,31 @@ export class Connection {
   private connectionListeners: ((connection?: DataConnection) => void)[] = [];
 
   constructor() {
-    this.peer = new Peer({ debug: 0 });
+    this.peer = new Peer({
+      debug: 0,
+      config: {
+        iceServers: [
+          { urls: 'stun:stun.l.google.com:19302' },
+          {
+            urls: [
+              'turn:eu-0.turn.peerjs.com:3478',
+              'turn:us-0.turn.peerjs.com:3478',
+            ],
+            username: 'peerjs',
+            credential: 'peerjsp',
+          },
+          {
+            urls: 'stun:freestun.net:3478',
+          },
+          {
+            urls: 'turn:freestun.net:3478',
+            username: 'free',
+            credential: 'free',
+          },
+        ],
+        sdpSemantics: 'unified-plan',
+      },
+    });
 
     this.waitOpen.promise = new Promise<string>((resolve, reject) => {
       this.waitOpen.resolve = resolve;
