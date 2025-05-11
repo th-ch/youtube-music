@@ -49,8 +49,8 @@ importers:
         specifier: 2.5.2
         version: 2.5.2(electron@34.5.5)
       '@ghostery/adblocker-electron-preload':
-        specifier: 2.5.1
-        version: 2.5.1(electron@34.5.5)
+        specifier: 2.5.2
+        version: 2.5.2(electron@34.5.5)
       '@hono/node-server':
         specifier: 1.14.1
         version: 1.14.1(hono@4.7.9)
@@ -755,11 +755,6 @@ packages:
 
   '@ghostery/adblocker-content@2.5.2':
     resolution: {integrity: sha512-H3e4QZsom7HqVgIBLaoHriqRh27MyXgwC43ClidOXXbCtKn6h7c3wc9TnQssQpXpcyV7HRPmWjMtADzUc+yYKg==}
-
-  '@ghostery/adblocker-electron-preload@2.5.1':
-    resolution: {integrity: sha512-QtTU/H8XmjK1VsK2Ua2Tk79RFxL5B1KltclWolJmTgVZeXUk9eJj0Wpo/hwFcFigVfXJ8Pbjbym9iftvPks6fQ==}
-    peerDependencies:
-      electron: '>11'
 
   '@ghostery/adblocker-electron-preload@2.5.2':
     resolution: {integrity: sha512-RNHMznod4hGm7Nn7m+H/+4DQ4QGQbN5YnVJGdKjFrwN692nFV3VUN86f5Isb9+ZVD8Us7XQbNzW/uN1AAOn+mA==}
@@ -5097,11 +5092,6 @@ snapshots:
   '@ghostery/adblocker-content@2.5.2':
     dependencies:
       '@ghostery/adblocker-extended-selectors': 2.5.2
-
-  '@ghostery/adblocker-electron-preload@2.5.1(electron@34.5.5)':
-    dependencies:
-      '@ghostery/adblocker-content': 2.5.2
-      electron: 34.5.5
 
   '@ghostery/adblocker-electron-preload@2.5.2(electron@34.5.5)':
     dependencies:
