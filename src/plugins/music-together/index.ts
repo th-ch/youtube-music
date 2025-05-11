@@ -125,10 +125,12 @@ export default createPlugin<
         if (this.connection?.mode === 'host') {
           const videoList: VideoData[] =
             this.queue?.flatItems.map(
-              (it) =>
+              (it, index) =>
                 ({
                   videoId: it!.videoId,
-                  ownerId: this.connection!.id,
+                  ownerId:
+                    this.queue?.videoList[index]?.ownerId ??
+                    this.connection!.id,
                 }) satisfies VideoData,
             ) ?? [];
 
@@ -212,6 +214,7 @@ export default createPlugin<
         event: ConnectionEventUnion,
         conn?: DataConnection | null,
       ) => {
+        console.log('event', event, this.queue?.videoList);
         this.ignoreChange = true;
 
         switch (event.type) {
