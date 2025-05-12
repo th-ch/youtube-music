@@ -92,48 +92,55 @@ let lastElapsedSeconds: number = 0;
 let lastProgressUpdate: number = 0;
 const PROGRESS_THROTTLE_MS = 15000;
 
-/**
- * Main Discord presence update logic.
- * Handles throttling, snapshotting, and timer management to avoid spamming Discord's API.
- * - Throttling: Ensures updates are not sent more than once every PROGRESS_THROTTLE_MS ms.
- * - Snapshot: If an update is requested too soon, schedules a delayed update with a snapshot of the current song state.
- * - Timers: Uses TimerManager to ensure only one timer per type is active and to clean up properly.
- */
+function buildActivityInfo(
+  songInfo: SongInfo,
+  config: DiscordPluginConfig,
+  pausedKey: 'smallImageKey' | 'largeImageKey' = 'smallImageKey',
+): SetActivity {
+  padHangulFields(songInfo);
+  const activityInfo: SetActivity = {
+    type: ActivityType.Listening,
+    details: truncateString(songInfo.title, 128),
+    state: truncateString(songInfo.artist, 128),
+    largeImageKey: songInfo.imageSrc ?? '',
+    largeImageText: songInfo.album ?? '',
+    buttons: buildDiscordButtons(config, songInfo),
+  };
+  if (songInfo.isPaused) {
+    activityInfo[pausedKey] = 'paused';
+    if (pausedKey === 'smallImageKey') {
+      activityInfo.smallImageText = 'Paused';
+    } else {
+      activityInfo.largeImageText = 'Paused';
+    }
+  } else if (!config.hideDurationLeft) {
+    // Set start/end timestamps for progress bar
+    const songStartTime = Date.now() - (songInfo.elapsedSeconds ?? 0) * 1000;
+    activityInfo.startTimestamp = songStartTime;
+    activityInfo.endTimestamp = songStartTime + songInfo.songDuration * 1000;
+  }
+  return activityInfo;
+}
+
 function updateDiscordRichPresence(
   songInfo: SongInfo,
   config: DiscordPluginConfig,
 ) {
   if (songInfo.title.length === 0 && songInfo.artist.length === 0) return;
   discordState.lastSongInfo = songInfo;
-  // Always clear any pending activity-clear timer before updating presence
   TimerManager.clear('clearActivity');
   if (!discordState.rpc || !discordState.ready) return;
   const now = Date.now();
   const songChanged = songInfo.videoId !== lastActivitySongId;
   const pauseChanged = songInfo.isPaused !== lastPausedState;
   const seeked = isSeek(lastElapsedSeconds, songInfo.elapsedSeconds ?? 0);
-  // If the song changed, pause state changed, or user seeked, update immediately and reset throttle
   if (songChanged || pauseChanged || seeked) {
-    // Cancel any pending throttled update
     TimerManager.clear('updateTimeout');
-    padHangulFields(songInfo);
-    const activityInfo: SetActivity = {
-      type: ActivityType.Listening,
-      details: truncateString(songInfo.title, 128),
-      state: truncateString(songInfo.artist, 128),
-      largeImageKey: songInfo.imageSrc ?? '',
-      largeImageText: songInfo.album ?? '',
-      buttons: buildDiscordButtons(config, songInfo),
-    };
-    if (songInfo.isPaused) {
-      activityInfo.smallImageKey = 'paused';
-      activityInfo.smallImageText = 'Paused';
-    } else if (!config.hideDurationLeft) {
-      // Set start/end timestamps for progress bar
-      const songStartTime = Date.now() - (songInfo.elapsedSeconds ?? 0) * 1000;
-      activityInfo.startTimestamp = songStartTime;
-      activityInfo.endTimestamp = songStartTime + songInfo.songDuration * 1000;
-    }
+    const activityInfo = buildActivityInfo(
+      songInfo,
+      config,
+      songInfo.isPaused ? 'largeImageKey' : 'smallImageKey',
+    );
     discordState.rpc.user?.setActivity(activityInfo).catch(console.error);
     lastActivitySongId = songInfo.videoId;
     if (typeof songInfo.isPaused === 'boolean') {
@@ -144,62 +151,27 @@ function updateDiscordRichPresence(
     setActivityTimeoutCentral(songInfo.isPaused, config);
     return;
   }
-  // Throttling: Only allow a full update if enough time has passed
   if (now - lastProgressUpdate > PROGRESS_THROTTLE_MS) {
-    padHangulFields(songInfo);
-    const activityInfo: SetActivity = {
-      type: ActivityType.Listening,
-      details: truncateString(songInfo.title, 128),
-      state: truncateString(songInfo.artist, 128),
-      largeImageKey: songInfo.imageSrc ?? '',
-      largeImageText: songInfo.album ?? '',
-      buttons: buildDiscordButtons(config, songInfo),
-    };
-    if (songInfo.isPaused) {
-      activityInfo.smallImageKey = 'paused';
-      activityInfo.smallImageText = 'Paused';
-    } else if (!config.hideDurationLeft) {
-      // Set start/end timestamps for progress bar
-      const songStartTime = Date.now() - (songInfo.elapsedSeconds ?? 0) * 1000;
-      activityInfo.startTimestamp = songStartTime;
-      activityInfo.endTimestamp = songStartTime + songInfo.songDuration * 1000;
-    }
+    const activityInfo = buildActivityInfo(
+      songInfo,
+      config,
+      songInfo.isPaused ? 'largeImageKey' : 'smallImageKey',
+    );
     discordState.rpc.user?.setActivity(activityInfo).catch(console.error);
     lastProgressUpdate = now;
     lastElapsedSeconds = songInfo.elapsedSeconds ?? 0;
     setActivityTimeoutCentral(songInfo.isPaused, config);
   } else {
-    // Snapshot logic: If throttled, schedule a delayed update with a snapshot of the current song state
     TimerManager.clear('updateTimeout');
     const songInfoSnapshot = { ...songInfo };
     TimerManager.set(
       'updateTimeout',
       () => {
-        // Only send if the global state still matches the snapshot
         if (
           discordState.lastSongInfo?.videoId === songInfoSnapshot.videoId &&
           discordState.lastSongInfo?.isPaused === songInfoSnapshot.isPaused
         ) {
-          padHangulFields(songInfoSnapshot);
-          const activityInfo: SetActivity = {
-            type: ActivityType.Listening,
-            details: truncateString(songInfoSnapshot.title, 128),
-            state: truncateString(songInfoSnapshot.artist, 128),
-            largeImageKey: songInfoSnapshot.imageSrc ?? '',
-            largeImageText: songInfoSnapshot.album ?? '',
-            buttons: buildDiscordButtons(config, songInfoSnapshot),
-          };
-          if (songInfoSnapshot.isPaused) {
-            activityInfo.smallImageKey = 'paused';
-            activityInfo.smallImageText = 'Paused';
-          } else if (!config.hideDurationLeft) {
-            // Set start/end timestamps for progress bar
-            const songStartTime =
-              Date.now() - (songInfoSnapshot.elapsedSeconds ?? 0) * 1000;
-            activityInfo.startTimestamp = songStartTime;
-            activityInfo.endTimestamp =
-              songStartTime + songInfoSnapshot.songDuration * 1000;
-          }
+          const activityInfo = buildActivityInfo(songInfoSnapshot, config);
           discordState.rpc.user?.setActivity(activityInfo).catch(console.error);
           lastProgressUpdate = Date.now();
           lastElapsedSeconds = songInfoSnapshot.elapsedSeconds ?? 0;
@@ -306,7 +278,7 @@ export const isConnected = () => discordState.rpc?.isConnected;
 const refreshCallbacks: (() => void)[] = [];
 
 function isSeek(oldSec: number, newSec: number) {
-  return Math.abs((newSec ?? 0) - (oldSec ?? 0)) > 2;
+  return Math.abs(newSec - oldSec) > 2;
 }
 
 export const backend = createBackend<
