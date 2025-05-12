@@ -1,3 +1,4 @@
+/* eslint-disable stylistic/no-mixed-operators */
 import { app, dialog } from 'electron';
 import { Client as DiscordClient } from '@xhayper/discord-rpc';
 import { dev } from 'electron-is';
@@ -17,158 +18,12 @@ import type { DiscordPluginConfig } from './index';
 // Application ID registered by @th-ch/youtube-music dev team
 const clientId = '1177081335727267940';
 
-export interface Info {
-  rpc: DiscordClient;
-  ready: boolean;
-  autoReconnect: boolean;
-  lastSongInfo?: SongInfo;
-}
-
-const info: Info = {
-  rpc: new DiscordClient({
-    clientId,
-  }),
-  ready: false,
-  autoReconnect: true,
-  lastSongInfo: undefined,
-};
-
-/**
- * @type {(() => void)[]}
- */
-const refreshCallbacks: (() => void)[] = [];
-
-const truncateString = (str: string, length: number): string => {
-  if (str.length > length) return `${str.substring(0, length - 3)}...`;
-  return str;
-};
-
-const resetInfo = () => {
-  info.ready = false;
-  clearTimeout(clearActivity);
-  if (dev()) {
-    console.log(LoggerPrefix, t('plugins.discord.backend.disconnected'));
-  }
-
-  for (const cb of refreshCallbacks) {
-    cb();
-  }
-};
-
-const connectTimeout = () =>
-  new Promise((resolve, reject) =>
-    setTimeout(() => {
-      if (!info.autoReconnect || info.rpc.isConnected) {
-        return;
-      }
-
-      info.rpc.login().then(resolve).catch(reject);
-    }, 5000),
-  );
-const connectRecursive = () => {
-  if (!info.autoReconnect || info.rpc.isConnected) {
-    return;
-  }
-
-  connectTimeout().catch(connectRecursive);
-};
-
-let window: Electron.BrowserWindow;
-export const connect = (showError = false) => {
-  if (info.rpc.isConnected) {
-    if (dev()) {
-      console.log(LoggerPrefix, t('plugins.discord.backend.already-connected'));
-    }
-
-    return;
-  }
-
-  info.ready = false;
-
-  // Startup the rpc client
-  info.rpc.login().catch((error: Error) => {
-    resetInfo();
-    if (dev()) {
-      console.error(error);
-    }
-
-    if (info.autoReconnect) {
-      connectRecursive();
-    } else if (showError) {
-      dialog.showMessageBox(window, {
-        title: 'Connection failed',
-        message: error.message || String(error),
-        type: 'error',
-      });
-    }
-  });
-};
-
-let clearActivity: NodeJS.Timeout | undefined;
-
-export const clear = () => {
-  if (info.rpc) {
-    info.rpc.user?.clearActivity();
-  }
-
-  clearTimeout(clearActivity);
-};
-
-export const registerRefresh = (cb: () => void) => refreshCallbacks.push(cb);
-export const isConnected = () => info.rpc?.isConnected;
-
-let lastActivitySongId: string | null = null;
-let lastPausedState: boolean = false; // Initialize with a default boolean
-let lastElapsedSeconds: number = 0;
-let updateTimeout: NodeJS.Timeout | null = null;
-let lastProgressUpdate: number = 0; // timestamp of the last throttled update
-
-const PROGRESS_THROTTLE_MS = 15000; // 15s to respect Discord's rate limit
-
-function isSeek(oldSec: number, newSec: number) {
-  return Math.abs((newSec ?? 0) - (oldSec ?? 0)) > 2;
-}
-
-function manageActivityClearTimer(
-  isPaused: boolean | undefined,
+// --- Factored utilities ---
+function buildDiscordButtons(
   config: DiscordPluginConfig,
-) {
-  clearTimeout(clearActivity); // Clear any existing timer
-  // Set a new timer only if the song is paused and the feature is enabled
-  if (isPaused === true && config.activityTimeoutEnabled) {
-    clearActivity = setTimeout(
-      () => info.rpc.user?.clearActivity().catch(console.error),
-      config.activityTimeoutTime ?? 10_000,
-    );
-  }
-}
-
-function sendActivityToDiscord(
   songInfo: SongInfo,
-  config: DiscordPluginConfig,
-) {
-  if (songInfo.title.length === 0 && songInfo.artist.length === 0) {
-    return;
-  }
-  info.lastSongInfo = songInfo;
-  clearTimeout(clearActivity);
-  if (!info.rpc || !info.ready) {
-    return;
-  }
-  // Song information changed, so lets update the rich presence
-  // @see https://discord.com/developers/docs/topics/gateway#activity-object
-  // not all options are transfered through https://github.com/discordjs/RPC/blob/6f83d8d812c87cb7ae22064acd132600407d7d05/src/client.js#L518-530
-  const hangulFillerUnicodeCharacter = '\u3164'; // This is an empty character
-  const paddedInfoKeys: (keyof SongInfo)[] = ['title', 'artist', 'album'];
-  for (const key of paddedInfoKeys) {
-    const keyLength = (songInfo[key] as string)?.length;
-    if (keyLength < 2) {
-      (songInfo[key] as string) += hangulFillerUnicodeCharacter.repeat(
-        2 - keyLength,
-      );
-    }
-  }
-  let buttons: GatewayActivityButton[] | undefined = [];
+): GatewayActivityButton[] | undefined {
+  const buttons: GatewayActivityButton[] = [];
   if (config.playOnYouTubeMusic) {
     buttons.push({
       label: 'Play on YouTube Music',
@@ -181,27 +36,277 @@ function sendActivityToDiscord(
       url: 'https://github.com/th-ch/youtube-music',
     });
   }
-  if (buttons.length === 0) {
-    buttons = undefined;
+  return buttons.length ? buttons : undefined;
+}
+
+function padHangulFields(songInfo: SongInfo): void {
+  const hangulFiller = '\u3164';
+  (['title', 'artist', 'album'] as (keyof SongInfo)[]).forEach((key) => {
+    const value = songInfo[key];
+    if (typeof value === 'string' && value.length < 2) {
+      // @ts-expect-error: dynamic assignment for SongInfo fields
+      songInfo[key] = value + hangulFiller.repeat(2 - value.length);
+    }
+  });
+}
+
+// Centralized timer management
+const TimerManager = {
+  timers: new Map<string, NodeJS.Timeout>(),
+  set(key: string, fn: () => void, delay: number) {
+    this.clear(key);
+    this.timers.set(key, setTimeout(fn, delay));
+  },
+  clear(key: string) {
+    const t = this.timers.get(key);
+    if (t) clearTimeout(t);
+    this.timers.delete(key);
+  },
+  clearAll() {
+    for (const t of this.timers.values()) clearTimeout(t);
+    this.timers.clear();
+  },
+};
+
+// --- Centralization of Discord logic ---
+interface DiscordState {
+  rpc: DiscordClient;
+  ready: boolean;
+  autoReconnect: boolean;
+  lastSongInfo?: SongInfo;
+}
+const discordState: DiscordState = {
+  rpc: new DiscordClient({
+    clientId,
+  }),
+  ready: false,
+  autoReconnect: true,
+  lastSongInfo: undefined,
+};
+
+let mainWindow: Electron.BrowserWindow;
+
+let lastActivitySongId: string | null = null;
+let lastPausedState: boolean = false;
+let lastElapsedSeconds: number = 0;
+let lastProgressUpdate: number = 0;
+const PROGRESS_THROTTLE_MS = 15000;
+
+/**
+ * Main Discord presence update logic.
+ * Handles throttling, snapshotting, and timer management to avoid spamming Discord's API.
+ * - Throttling: Ensures updates are not sent more than once every PROGRESS_THROTTLE_MS ms.
+ * - Snapshot: If an update is requested too soon, schedules a delayed update with a snapshot of the current song state.
+ * - Timers: Uses TimerManager to ensure only one timer per type is active and to clean up properly.
+ */
+function updateDiscordRichPresence(
+  songInfo: SongInfo,
+  config: DiscordPluginConfig,
+) {
+  if (songInfo.title.length === 0 && songInfo.artist.length === 0) return;
+  discordState.lastSongInfo = songInfo;
+  // Always clear any pending activity-clear timer before updating presence
+  TimerManager.clear('clearActivity');
+  if (!discordState.rpc || !discordState.ready) return;
+  const now = Date.now();
+  const songChanged = songInfo.videoId !== lastActivitySongId;
+  const pauseChanged = songInfo.isPaused !== lastPausedState;
+  const seeked = isSeek(lastElapsedSeconds, songInfo.elapsedSeconds ?? 0);
+  // If the song changed, pause state changed, or user seeked, update immediately and reset throttle
+  if (songChanged || pauseChanged || seeked) {
+    // Cancel any pending throttled update
+    TimerManager.clear('updateTimeout');
+    padHangulFields(songInfo);
+    const activityInfo: SetActivity = {
+      type: ActivityType.Listening,
+      details: truncateString(songInfo.title, 128),
+      state: truncateString(songInfo.artist, 128),
+      largeImageKey: songInfo.imageSrc ?? '',
+      largeImageText: songInfo.album ?? '',
+      buttons: buildDiscordButtons(config, songInfo),
+    };
+    if (songInfo.isPaused) {
+      activityInfo.smallImageKey = 'paused';
+      activityInfo.smallImageText = 'Paused';
+    } else if (!config.hideDurationLeft) {
+      // Set start/end timestamps for progress bar
+      const songStartTime = Date.now() - (songInfo.elapsedSeconds ?? 0) * 1000;
+      activityInfo.startTimestamp = songStartTime;
+      activityInfo.endTimestamp = songStartTime + songInfo.songDuration * 1000;
+    }
+    discordState.rpc.user?.setActivity(activityInfo).catch(console.error);
+    lastActivitySongId = songInfo.videoId;
+    if (typeof songInfo.isPaused === 'boolean') {
+      lastPausedState = songInfo.isPaused;
+    }
+    lastElapsedSeconds = songInfo.elapsedSeconds ?? 0;
+    lastProgressUpdate = now;
+    setActivityTimeoutCentral(songInfo.isPaused, config);
+    return;
   }
-  const activityInfo: SetActivity = {
-    type: ActivityType.Listening,
-    details: truncateString(songInfo.title, 128),
-    state: truncateString(songInfo.artist, 128),
-    largeImageKey: songInfo.imageSrc ?? '',
-    largeImageText: songInfo.album ?? '',
-    buttons,
-  };
-  if (songInfo.isPaused) {
-    activityInfo.smallImageKey = 'paused';
-    activityInfo.smallImageText = 'Paused';
-    // No timestamps when paused
-  } else if (!config.hideDurationLeft) {
-    const songStartTime = Date.now() - (songInfo.elapsedSeconds ?? 0) * 1000;
-    activityInfo.startTimestamp = songStartTime;
-    activityInfo.endTimestamp = songStartTime + songInfo.songDuration * 1000;
+  // Throttling: Only allow a full update if enough time has passed
+  if (now - lastProgressUpdate > PROGRESS_THROTTLE_MS) {
+    padHangulFields(songInfo);
+    const activityInfo: SetActivity = {
+      type: ActivityType.Listening,
+      details: truncateString(songInfo.title, 128),
+      state: truncateString(songInfo.artist, 128),
+      largeImageKey: songInfo.imageSrc ?? '',
+      largeImageText: songInfo.album ?? '',
+      buttons: buildDiscordButtons(config, songInfo),
+    };
+    if (songInfo.isPaused) {
+      activityInfo.smallImageKey = 'paused';
+      activityInfo.smallImageText = 'Paused';
+    } else if (!config.hideDurationLeft) {
+      // Set start/end timestamps for progress bar
+      const songStartTime = Date.now() - (songInfo.elapsedSeconds ?? 0) * 1000;
+      activityInfo.startTimestamp = songStartTime;
+      activityInfo.endTimestamp = songStartTime + songInfo.songDuration * 1000;
+    }
+    discordState.rpc.user?.setActivity(activityInfo).catch(console.error);
+    lastProgressUpdate = now;
+    lastElapsedSeconds = songInfo.elapsedSeconds ?? 0;
+    setActivityTimeoutCentral(songInfo.isPaused, config);
+  } else {
+    // Snapshot logic: If throttled, schedule a delayed update with a snapshot of the current song state
+    TimerManager.clear('updateTimeout');
+    const songInfoSnapshot = { ...songInfo };
+    TimerManager.set(
+      'updateTimeout',
+      () => {
+        // Only send if the global state still matches the snapshot
+        if (
+          discordState.lastSongInfo?.videoId === songInfoSnapshot.videoId &&
+          discordState.lastSongInfo?.isPaused === songInfoSnapshot.isPaused
+        ) {
+          padHangulFields(songInfoSnapshot);
+          const activityInfo: SetActivity = {
+            type: ActivityType.Listening,
+            details: truncateString(songInfoSnapshot.title, 128),
+            state: truncateString(songInfoSnapshot.artist, 128),
+            largeImageKey: songInfoSnapshot.imageSrc ?? '',
+            largeImageText: songInfoSnapshot.album ?? '',
+            buttons: buildDiscordButtons(config, songInfoSnapshot),
+          };
+          if (songInfoSnapshot.isPaused) {
+            activityInfo.smallImageKey = 'paused';
+            activityInfo.smallImageText = 'Paused';
+          } else if (!config.hideDurationLeft) {
+            // Set start/end timestamps for progress bar
+            const songStartTime =
+              Date.now() - (songInfoSnapshot.elapsedSeconds ?? 0) * 1000;
+            activityInfo.startTimestamp = songStartTime;
+            activityInfo.endTimestamp =
+              songStartTime + songInfoSnapshot.songDuration * 1000;
+          }
+          discordState.rpc.user?.setActivity(activityInfo).catch(console.error);
+          lastProgressUpdate = Date.now();
+          lastElapsedSeconds = songInfoSnapshot.elapsedSeconds ?? 0;
+          setActivityTimeoutCentral(songInfoSnapshot.isPaused, config);
+        }
+      },
+      PROGRESS_THROTTLE_MS - (now - lastProgressUpdate),
+    );
   }
-  info.rpc.user?.setActivity(activityInfo).catch(console.error);
+}
+
+/**
+ * Sets a timer to clear Discord activity if paused for too long.
+ * Uses TimerManager to ensure only one clear-activity timer is active at a time.
+ */
+function setActivityTimeoutCentral(
+  isPaused: boolean | undefined,
+  config: DiscordPluginConfig,
+) {
+  TimerManager.clear('clearActivity');
+  if (isPaused === true && config.activityTimeoutEnabled) {
+    TimerManager.set(
+      'clearActivity',
+      () => {
+        discordState.rpc.user?.clearActivity().catch(console.error);
+      },
+      config.activityTimeoutTime ?? 10_000,
+    );
+  }
+}
+
+const truncateString = (str: string, length: number): string => {
+  if (str.length > length) return `${str.substring(0, length - 3)}...`;
+  return str;
+};
+
+const resetInfo = () => {
+  discordState.ready = false;
+  TimerManager.clearAll();
+  if (dev()) {
+    console.log(LoggerPrefix, t('plugins.discord.backend.disconnected'));
+  }
+};
+
+const connectTimeout = () =>
+  new Promise((resolve, reject) =>
+    setTimeout(() => {
+      if (!discordState.autoReconnect || discordState.rpc.isConnected) {
+        return;
+      }
+
+      discordState.rpc.login().then(resolve).catch(reject);
+    }, 5000),
+  );
+const connectRecursive = () => {
+  if (!discordState.autoReconnect || discordState.rpc.isConnected) {
+    return;
+  }
+
+  connectTimeout().catch(connectRecursive);
+};
+
+export const connect = (showError = false) => {
+  if (discordState.rpc.isConnected) {
+    if (dev()) {
+      console.log(LoggerPrefix, t('plugins.discord.backend.already-connected'));
+    }
+
+    return;
+  }
+
+  discordState.ready = false;
+
+  // Startup the rpc client
+  discordState.rpc.login().catch((error: Error) => {
+    resetInfo();
+    if (dev()) {
+      console.error(error);
+    }
+
+    if (discordState.autoReconnect) {
+      connectRecursive();
+    } else if (showError) {
+      dialog.showMessageBox(mainWindow, {
+        title: 'Connection failed',
+        message: error.message || String(error),
+        type: 'error',
+      });
+    }
+  });
+};
+
+export const clear = () => {
+  if (discordState.rpc) {
+    discordState.rpc.user?.clearActivity();
+  }
+
+  TimerManager.clearAll();
+};
+
+export const registerRefresh = (cb: () => void) => refreshCallbacks.push(cb);
+export const isConnected = () => discordState.rpc?.isConnected;
+
+const refreshCallbacks: (() => void)[] = [];
+
+function isSeek(oldSec: number, newSec: number) {
+  return Math.abs((newSec ?? 0) - (oldSec ?? 0)) > 2;
 }
 
 export const backend = createBackend<
@@ -211,70 +316,13 @@ export const backend = createBackend<
   },
   DiscordPluginConfig
 >({
-  /**
-   * We get multiple events
-   * Next song: PAUSE(n), PAUSE(n+1), PLAY(n+1)
-   * Skip time: PAUSE(N), PLAY(N)
-   */
-  updateActivity: (songInfo, config) => {
-    if (songInfo.title.length === 0 && songInfo.artist.length === 0) {
-      return;
-    }
-    info.lastSongInfo = songInfo;
-    clearTimeout(clearActivity);
-    if (!info.rpc || !info.ready) {
-      return;
-    }
-    const now = Date.now();
-    const songChanged = songInfo.videoId !== lastActivitySongId;
-    const pauseChanged = songInfo.isPaused !== lastPausedState;
-    const seeked = isSeek(lastElapsedSeconds, songInfo.elapsedSeconds ?? 0);
-    if (songChanged || pauseChanged || seeked) {
-      // Always cancel any pending throttle on important event
-      if (updateTimeout) clearTimeout(updateTimeout);
-      updateTimeout = null;
-      sendActivityToDiscord(songInfo, config);
-      lastActivitySongId = songInfo.videoId;
-      // Update lastPausedState only if songInfo.isPaused is a boolean
-      if (typeof songInfo.isPaused === 'boolean') {
-        lastPausedState = songInfo.isPaused;
-      }
-      lastElapsedSeconds = songInfo.elapsedSeconds ?? 0;
-      lastProgressUpdate = now;
-      return;
-    }
-    // Normal progression: throttle
-    if (now - lastProgressUpdate > PROGRESS_THROTTLE_MS) {
-      sendActivityToDiscord(songInfo, config);
-      lastProgressUpdate = now;
-      lastElapsedSeconds = songInfo.elapsedSeconds ?? 0;
-    } else {
-      if (updateTimeout) clearTimeout(updateTimeout);
-      // Capture a snapshot of songInfo for the timeout callback
-      const songInfoSnapshot = { ...songInfo };
-      updateTimeout = setTimeout(
-        () => {
-          // Only send if the current global song state still matches what was expected
-          // at the time the timeout was set (i.e., the snapshot's state)
-          if (
-            info.lastSongInfo?.videoId === songInfoSnapshot.videoId &&
-            info.lastSongInfo?.isPaused === songInfoSnapshot.isPaused
-          ) {
-            // Use the snapshot for sending activity and updating last elapsed time
-            sendActivityToDiscord(songInfoSnapshot, config);
-            lastProgressUpdate = Date.now();
-            lastElapsedSeconds = songInfoSnapshot.elapsedSeconds ?? 0;
-          }
-        },
-        PROGRESS_THROTTLE_MS - (now - lastProgressUpdate),
-      );
-    }
-    manageActivityClearTimer(songInfo.isPaused, config);
-  },
+  updateActivity: (songInfo, config) =>
+    updateDiscordRichPresence(songInfo, config),
+
   async start(ctx) {
     this.config = await ctx.getConfig();
 
-    info.rpc.on('connected', () => {
+    discordState.rpc.on('connected', () => {
       if (dev()) {
         console.log(LoggerPrefix, t('plugins.discord.backend.connected'));
       }
@@ -284,31 +332,31 @@ export const backend = createBackend<
       }
     });
 
-    info.rpc.on('ready', () => {
-      info.ready = true;
-      if (info.lastSongInfo && this.config) {
-        this.updateActivity(info.lastSongInfo, this.config);
+    discordState.rpc.on('ready', () => {
+      discordState.ready = true;
+      if (discordState.lastSongInfo && this.config) {
+        this.updateActivity(discordState.lastSongInfo, this.config);
       }
     });
 
-    info.rpc.on('disconnected', () => {
+    discordState.rpc.on('disconnected', () => {
       resetInfo();
 
-      if (info.autoReconnect) {
+      if (discordState.autoReconnect) {
         connectTimeout();
       }
     });
 
-    info.autoReconnect = this.config.autoReconnect;
+    discordState.autoReconnect = this.config.autoReconnect;
 
-    window = ctx.window;
+    mainWindow = ctx.window;
 
     // If the page is ready, register the callback
     ctx.window.once('ready-to-show', () => {
       let lastSent = Date.now();
       registerCallback((songInfo, event) => {
         if (event !== SongInfoEvent.TimeChanged) {
-          info.lastSongInfo = songInfo;
+          discordState.lastSongInfo = songInfo;
           if (this.config) this.updateActivity(songInfo, this.config);
         } else {
           const currentTime = Date.now();
@@ -316,7 +364,7 @@ export const backend = createBackend<
           if (currentTime - lastSent > 5000) {
             lastSent = currentTime;
             if (songInfo) {
-              info.lastSongInfo = songInfo;
+              discordState.lastSongInfo = songInfo;
               if (this.config) this.updateActivity(songInfo, this.config);
             }
           }
@@ -334,9 +382,9 @@ export const backend = createBackend<
   },
   onConfigChange(newConfig) {
     this.config = newConfig;
-    info.autoReconnect = newConfig.autoReconnect;
-    if (info.lastSongInfo) {
-      this.updateActivity(info.lastSongInfo, newConfig);
+    discordState.autoReconnect = newConfig.autoReconnect;
+    if (discordState.lastSongInfo) {
+      this.updateActivity(discordState.lastSongInfo, newConfig);
     }
   },
 });
