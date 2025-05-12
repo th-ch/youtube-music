@@ -237,9 +237,6 @@ export default createPlugin<
               ...event.payload,
               videoList,
             });
-            await this.connection?.broadcast('SYNC_QUEUE', {
-              videoList,
-            });
             break;
           }
           case 'REMOVE_SONG': {
