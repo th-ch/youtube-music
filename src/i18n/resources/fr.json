@@ -842,8 +842,8 @@
       "name": "Visualiseur"
     },
     "content-warning-skipper": {
-        "description": "Saute les avertissements de contenu",
-        "name": "Sauteur d'avertissement de contenu"
+        "description": "Ignore automatiquement les avertissements de contenu",
+        "name": "Suppresseur d'avertissement de contenu"
     }
   }
 }
