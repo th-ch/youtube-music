@@ -32,6 +32,9 @@
       "theme": {
         "css-file-not-found": "Fail CSS \"{{cssFile}}\" tidak wujud, mengabaikan"
       },
+      "unresponsive": {
+        "details": "Ralat Tidak Bertindak Balas!\n{{error}}"
+      },
       "when-ready": {
         "clearing-cache-after-20s": "Membersihkan cache aplikasi"
       },
