@@ -2,8 +2,7 @@ import { createRenderer } from '@/utils';
 import { waitForElement } from '@/utils/wait-for-element';
 
 import { selectors, tabStates } from './utils';
-import { setConfig } from './renderer';
-import { setCurrentTime } from './components/LyricsContainer';
+import { setConfig, setCurrentTime } from './renderer';
 
 import { fetchLyrics } from '../providers';
 
