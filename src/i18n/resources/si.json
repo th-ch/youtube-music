@@ -104,5 +104,18 @@
         }
       }
     }
+  },
+  "plugins": {
+    "slack-now-playing": {
+      "name": "Slack තත්ත්වය",
+      "description": "ඔබේ Slack තත්ත්වය දැනට වාදනය වන ගීතයට සැකසේ",
+      "status-text": "දැන් වාදනය වන්නේ: {{artist}} - {{title}}",
+      "menu": {
+        "settings": "සැකසුම්",
+        "token": "Slack API ටෝකනය",
+        "cookie-token": "Slack කුකී ටෝකනය",
+        "emoji-name": "අභිමත ඉමෝජි නම"
+      }
+    }
   }
 }

@@ -586,6 +586,17 @@
         "visualizer-type": "Visualisatortype"
       },
       "name": "Visualisator"
+    },
+    "slack-now-playing": {
+      "name": "Slack-status",
+      "description": "Setter Slack-statusen din til sangen som spilles for øyeblikket",
+      "status-text": "Spiller nå: {{artist}} - {{title}}",
+      "menu": {
+        "settings": "Innstillinger",
+        "token": "Slack API-token",
+        "cookie-token": "Slack Cookie-token",
+        "emoji-name": "Egendefinert emoji-navn"
+      }
     }
   }
 }
