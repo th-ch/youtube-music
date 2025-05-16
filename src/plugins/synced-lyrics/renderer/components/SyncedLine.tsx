@@ -24,7 +24,7 @@ interface SyncedLineProps {
 
 export const SyncedLine = (props: SyncedLineProps) => {
   const status = createMemo(() => {
-    const current = currentTime();
+    const current = Math.max(0, currentTime() - (config()?.lyricsOffset ?? 0));
 
     if (props.line.timeInMs >= current) return 'upcoming';
     if (current - props.line.timeInMs >= props.line.duration) return 'previous';
