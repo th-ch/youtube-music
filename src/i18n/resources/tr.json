@@ -333,6 +333,14 @@
       "description": "Ses sıkıştırma (dalganın en gürültülü bölümlerinin ses düzeyini azaltır ve daha yumuşak bölümlerin ses düzeyini artırır)",
       "name": "Ses Sıkıştırma"
     },
+    "auth-proxy-adapter": {
+      "menu": {
+        "port": {
+          "label": "Port"
+        }
+      },
+      "name": "Ara Sunucu Doğrulama Bağdaştırıcısı"
+    },
     "blur-nav-bar": {
       "description": "Gezinme çubuğunu şeffaf ve bulanık yapar",
       "name": "Navigasyon barını bulanıklaştır"
