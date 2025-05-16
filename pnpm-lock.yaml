@@ -219,6 +219,9 @@ importers:
       ts-morph:
         specifier: 25.0.1
         version: 25.0.1
+      virtua:
+        specifier: 0.41.1
+        version: 0.41.1(solid-js@1.9.6)
       vudio:
         specifier: 2.1.1
         version: 2.1.1(patch_hash=0e06c2ed11c02bdc490c209fa80070e98517c2735c641f5738b6e15d7dc1959d)
@@ -4592,6 +4595,26 @@ packages:
   verror@1.10.1:
     resolution: {integrity: sha512-veufcmxri4e3XSrT0xwfUR7kguIkaxBeosDg00yDWhk49wdwkSUrvvsm7nc75e1PUyvIeZj6nS8VQRYz2/S4Xg==}
     engines: {node: '>=0.6.0'}
+
+  virtua@0.41.1:
+    resolution: {integrity: sha512-QL57UVmXPxpnJnKEn/DPrRzmw0kL5mD8svz3X98WfcliDV9FMAv4b6FaHMMPUYPFqdHZCPnC+hh9aFNKs3UaIg==}
+    peerDependencies:
+      react: '>=16.14.0'
+      react-dom: '>=16.14.0'
+      solid-js: '>=1.0'
+      svelte: '>=5.0'
+      vue: '>=3.2'
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
+      solid-js:
+        optional: true
+      svelte:
+        optional: true
+      vue:
+        optional: true
 
   vite-dev-rpc@1.0.7:
     resolution: {integrity: sha512-FxSTEofDbUi2XXujCA+hdzCDkXFG1PXktMjSk1efq9Qb5lOYaaM9zNSvKvPPF7645Bak79kSp1PTooMW2wktcA==}
@@ -9647,6 +9670,10 @@ snapshots:
       core-util-is: 1.0.2
       extsprintf: 1.4.1
     optional: true
+
+  virtua@0.41.1(solid-js@1.9.6):
+    optionalDependencies:
+      solid-js: 1.9.6
 
   vite-dev-rpc@1.0.7(vite@6.3.5(@types/node@22.13.5)(yaml@2.7.0)):
     dependencies:
