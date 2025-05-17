@@ -32,6 +32,8 @@ export interface DefaultConfig {
     proxy: string;
     startingPage: string;
     overrideUserAgent: boolean;
+    overrideUserAgentValue: string;
+    customUserAgent: string[];
     usePodcastParticipantAsArtist: boolean;
     themes: string[];
   };
@@ -67,6 +69,8 @@ const defaultConfig: DefaultConfig = {
     proxy: '',
     startingPage: '',
     overrideUserAgent: false,
+    overrideUserAgentValue: '',
+    customUserAgent: [],
     usePodcastParticipantAsArtist: false,
     themes: [],
   },

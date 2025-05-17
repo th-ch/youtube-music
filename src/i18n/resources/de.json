@@ -99,8 +99,9 @@
               "auto-reset-app-cache": "Anwendungscache beim Start der Anwendung zurücksetzen",
               "disable-hardware-acceleration": "Hardware-Beschleunigung deaktivieren",
               "edit-config-json": "config.json ändern",
-              "override-user-agent": "User-Agent außer Kraft setzen",
-              "restart-on-config-changes": "Neustarten bei Änderungen der Konfiguration",
+              "override-user-agent": "User-Agent überschreiben",
+              "add-override-user-agent": "User-Agent hinzufügen",
+              "restart-on-config-changes": "Bei Konfigurationsänderungen neu starten",
               "set-proxy": {
                 "label": "Proxy setzen",
                 "prompt": {

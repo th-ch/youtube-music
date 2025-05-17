@@ -100,6 +100,7 @@
               "disable-hardware-acceleration": "Stäng av hårdvaruacceleration",
               "edit-config-json": "Redigera config.json",
               "override-user-agent": "Ersätt User-Agent",
+              "add-override-user-agent": "Lägg till User-Agent",
               "restart-on-config-changes": "Starta om vid konfigurationsändringar",
               "set-proxy": {
                 "label": "Ställ in proxy",

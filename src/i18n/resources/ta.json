@@ -100,6 +100,7 @@
               "disable-hardware-acceleration": "வன்பொருள் முடுக்கம் முடக்கு",
               "edit-config-json": "Config.json ஐத் திருத்து",
               "override-user-agent": "பயனர்-முகவர் மீறவும்",
+              "add-override-user-agent": "பயனர்-முகவரை சேர்க்கவும்",
               "restart-on-config-changes": "கட்டமைப்பு மாற்றங்களை மறுதொடக்கம் செய்யுங்கள்",
               "set-proxy": {
                 "label": "பதிலாள் அமைக்கவும்",

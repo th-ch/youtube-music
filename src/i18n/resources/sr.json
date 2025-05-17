@@ -3,5 +3,6 @@
     "code": "sr",
     "local-name": "Српски",
     "name": "Serbian"
-  }
+  },
+  "reset-override-user-agent": "Reset user agent"
 }

@@ -100,6 +100,7 @@
               "disable-hardware-acceleration": "Poista laitteistokiihdytys käytöstä",
               "edit-config-json": "Muokkaa \"config.json\" tiedostoa",
               "override-user-agent": "Ohita käyttäjäagentti",
+              "add-override-user-agent": "Lisää käyttäjäagentti",
               "restart-on-config-changes": "Käynnistä uudelleen asetusten muuton jälkeen",
               "set-proxy": {
                 "label": "Aseta välityspalvelin (proxy)",
