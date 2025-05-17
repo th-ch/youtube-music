@@ -844,6 +844,10 @@
         "visualizer-type": "Type de visualiseur"
       },
       "name": "Visualiseur"
+    },
+    "content-warning-skipper": {
+        "description": "Ignore automatiquement les avertissements de contenu",
+        "name": "Suppresseur d'avertissement de contenu"
     }
   }
 }
