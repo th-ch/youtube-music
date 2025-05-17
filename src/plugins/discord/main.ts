@@ -1,3 +1,4 @@
+/* eslint-disable stylistic/no-mixed-operators */
 import { app, dialog } from 'electron';
 import { Client as DiscordClient } from '@xhayper/discord-rpc';
 import { dev } from 'electron-is';
@@ -17,14 +18,64 @@ import type { DiscordPluginConfig } from './index';
 // Application ID registered by @th-ch/youtube-music dev team
 const clientId = '1177081335727267940';
 
-export interface Info {
+// --- Factored utilities ---
+function buildDiscordButtons(
+  config: DiscordPluginConfig,
+  songInfo: SongInfo,
+): GatewayActivityButton[] | undefined {
+  const buttons: GatewayActivityButton[] = [];
+  if (config.playOnYouTubeMusic) {
+    buttons.push({
+      label: 'Play on YouTube Music',
+      url: songInfo.url ?? 'https://music.youtube.com',
+    });
+  }
+  if (!config.hideGitHubButton) {
+    buttons.push({
+      label: 'View App On GitHub',
+      url: 'https://github.com/th-ch/youtube-music',
+    });
+  }
+  return buttons.length ? buttons : undefined;
+}
+
+function padHangulFields(songInfo: SongInfo): void {
+  const hangulFiller = '\u3164';
+  (['title', 'artist', 'album'] as (keyof SongInfo)[]).forEach((key) => {
+    const value = songInfo[key];
+    if (typeof value === 'string' && value.length < 2) {
+      // @ts-expect-error: dynamic assignment for SongInfo fields
+      songInfo[key] = value + hangulFiller.repeat(2 - value.length);
+    }
+  });
+}
+
+// Centralized timer management
+const TimerManager = {
+  timers: new Map<string, NodeJS.Timeout>(),
+  set(key: string, fn: () => void, delay: number) {
+    this.clear(key);
+    this.timers.set(key, setTimeout(fn, delay));
+  },
+  clear(key: string) {
+    const t = this.timers.get(key);
+    if (t) clearTimeout(t);
+    this.timers.delete(key);
+  },
+  clearAll() {
+    for (const t of this.timers.values()) clearTimeout(t);
+    this.timers.clear();
+  },
+};
+
+// --- Centralization of Discord logic ---
+interface DiscordState {
   rpc: DiscordClient;
   ready: boolean;
   autoReconnect: boolean;
   lastSongInfo?: SongInfo;
 }
-
-const info: Info = {
+const discordState: DiscordState = {
   rpc: new DiscordClient({
     clientId,
   }),
@@ -33,50 +84,158 @@ const info: Info = {
   lastSongInfo: undefined,
 };
 
-/**
- * @type {(() => void)[]}
- */
-const refreshCallbacks: (() => void)[] = [];
+let mainWindow: Electron.BrowserWindow;
 
-const truncateString = (str: string, length: number): string => {
-  if (str.length > length)
-    return `${str.substring(0, length - 3)}...`;
-  return str;
+let lastActivitySongId: string | null = null;
+let lastPausedState: boolean = false;
+let lastElapsedSeconds: number = 0;
+let lastProgressUpdate: number = 0;
+const PROGRESS_THROTTLE_MS = 15000;
+
+function buildActivityInfo(
+  songInfo: SongInfo,
+  config: DiscordPluginConfig,
+  pausedKey: 'smallImageKey' | 'largeImageKey' = 'smallImageKey',
+): SetActivity {
+  padHangulFields(songInfo);
+  const activityInfo: SetActivity = {
+    type: ActivityType.Listening,
+    details: truncateString(songInfo.title, 128),
+    state: truncateString(songInfo.artist, 128),
+    largeImageKey: songInfo.imageSrc ?? '',
+    largeImageText: songInfo.album ?? '',
+    buttons: buildDiscordButtons(config, songInfo),
+  };
+  if (songInfo.isPaused) {
+    activityInfo[pausedKey] = 'paused';
+    if (pausedKey === 'smallImageKey') {
+      activityInfo.smallImageText = 'Paused';
+    } else {
+      activityInfo.largeImageText = 'Paused';
+    }
+  } else if (!config.hideDurationLeft) {
+    // Set start/end timestamps for progress bar
+    const songStartTime = Date.now() - (songInfo.elapsedSeconds ?? 0) * 1000;
+    activityInfo.startTimestamp = songStartTime;
+    activityInfo.endTimestamp = songStartTime + songInfo.songDuration * 1000;
+  }
+  return activityInfo;
 }
 
+function updateDiscordRichPresence(
+  songInfo: SongInfo,
+  config: DiscordPluginConfig,
+) {
+  if (songInfo.title.length === 0 && songInfo.artist.length === 0) return;
+  discordState.lastSongInfo = songInfo;
+  TimerManager.clear('clearActivity');
+  if (!discordState.rpc || !discordState.ready) return;
+  const now = Date.now();
+  const songChanged = songInfo.videoId !== lastActivitySongId;
+  const pauseChanged = songInfo.isPaused !== lastPausedState;
+  const seeked = isSeek(lastElapsedSeconds, songInfo.elapsedSeconds ?? 0);
+  if (songChanged || pauseChanged || seeked) {
+    TimerManager.clear('updateTimeout');
+    const activityInfo = buildActivityInfo(
+      songInfo,
+      config,
+      songInfo.isPaused ? 'largeImageKey' : 'smallImageKey',
+    );
+    discordState.rpc.user?.setActivity(activityInfo).catch(console.error);
+    lastActivitySongId = songInfo.videoId;
+    if (typeof songInfo.isPaused === 'boolean') {
+      lastPausedState = songInfo.isPaused;
+    }
+    lastElapsedSeconds = songInfo.elapsedSeconds ?? 0;
+    lastProgressUpdate = now;
+    setActivityTimeoutCentral(songInfo.isPaused, config);
+    return;
+  }
+  if (now - lastProgressUpdate > PROGRESS_THROTTLE_MS) {
+    const activityInfo = buildActivityInfo(
+      songInfo,
+      config,
+      songInfo.isPaused ? 'largeImageKey' : 'smallImageKey',
+    );
+    discordState.rpc.user?.setActivity(activityInfo).catch(console.error);
+    lastProgressUpdate = now;
+    lastElapsedSeconds = songInfo.elapsedSeconds ?? 0;
+    setActivityTimeoutCentral(songInfo.isPaused, config);
+  } else {
+    TimerManager.clear('updateTimeout');
+    const songInfoSnapshot = { ...songInfo };
+    TimerManager.set(
+      'updateTimeout',
+      () => {
+        if (
+          discordState.lastSongInfo?.videoId === songInfoSnapshot.videoId &&
+          discordState.lastSongInfo?.isPaused === songInfoSnapshot.isPaused
+        ) {
+          const activityInfo = buildActivityInfo(songInfoSnapshot, config);
+          discordState.rpc.user?.setActivity(activityInfo).catch(console.error);
+          lastProgressUpdate = Date.now();
+          lastElapsedSeconds = songInfoSnapshot.elapsedSeconds ?? 0;
+          setActivityTimeoutCentral(songInfoSnapshot.isPaused, config);
+        }
+      },
+      PROGRESS_THROTTLE_MS - (now - lastProgressUpdate),
+    );
+  }
+}
+
+/**
+ * Sets a timer to clear Discord activity if paused for too long.
+ * Uses TimerManager to ensure only one clear-activity timer is active at a time.
+ */
+function setActivityTimeoutCentral(
+  isPaused: boolean | undefined,
+  config: DiscordPluginConfig,
+) {
+  TimerManager.clear('clearActivity');
+  if (isPaused === true && config.activityTimeoutEnabled) {
+    TimerManager.set(
+      'clearActivity',
+      () => {
+        discordState.rpc.user?.clearActivity().catch(console.error);
+      },
+      config.activityTimeoutTime ?? 10_000,
+    );
+  }
+}
+
+const truncateString = (str: string, length: number): string => {
+  if (str.length > length) return `${str.substring(0, length - 3)}...`;
+  return str;
+};
+
 const resetInfo = () => {
-  info.ready = false;
-  clearTimeout(clearActivity);
+  discordState.ready = false;
+  TimerManager.clearAll();
   if (dev()) {
     console.log(LoggerPrefix, t('plugins.discord.backend.disconnected'));
-  }
-
-  for (const cb of refreshCallbacks) {
-    cb();
   }
 };
 
 const connectTimeout = () =>
   new Promise((resolve, reject) =>
     setTimeout(() => {
-      if (!info.autoReconnect || info.rpc.isConnected) {
+      if (!discordState.autoReconnect || discordState.rpc.isConnected) {
         return;
       }
 
-      info.rpc.login().then(resolve).catch(reject);
+      discordState.rpc.login().then(resolve).catch(reject);
     }, 5000),
   );
 const connectRecursive = () => {
-  if (!info.autoReconnect || info.rpc.isConnected) {
+  if (!discordState.autoReconnect || discordState.rpc.isConnected) {
     return;
   }
 
   connectTimeout().catch(connectRecursive);
 };
 
-let window: Electron.BrowserWindow;
 export const connect = (showError = false) => {
-  if (info.rpc.isConnected) {
+  if (discordState.rpc.isConnected) {
     if (dev()) {
       console.log(LoggerPrefix, t('plugins.discord.backend.already-connected'));
     }
@@ -84,19 +243,19 @@ export const connect = (showError = false) => {
     return;
   }
 
-  info.ready = false;
+  discordState.ready = false;
 
   // Startup the rpc client
-  info.rpc.login().catch((error: Error) => {
+  discordState.rpc.login().catch((error: Error) => {
     resetInfo();
     if (dev()) {
       console.error(error);
     }
 
-    if (info.autoReconnect) {
+    if (discordState.autoReconnect) {
       connectRecursive();
     } else if (showError) {
-      dialog.showMessageBox(window, {
+      dialog.showMessageBox(mainWindow, {
         title: 'Connection failed',
         message: error.message || String(error),
         type: 'error',
@@ -105,18 +264,22 @@ export const connect = (showError = false) => {
   });
 };
 
-let clearActivity: NodeJS.Timeout | undefined;
-
 export const clear = () => {
-  if (info.rpc) {
-    info.rpc.user?.clearActivity();
+  if (discordState.rpc) {
+    discordState.rpc.user?.clearActivity();
   }
 
-  clearTimeout(clearActivity);
+  TimerManager.clearAll();
 };
 
 export const registerRefresh = (cb: () => void) => refreshCallbacks.push(cb);
-export const isConnected = () => info.rpc?.isConnected;
+export const isConnected = () => discordState.rpc?.isConnected;
+
+const refreshCallbacks: (() => void)[] = [];
+
+function isSeek(oldSec: number, newSec: number) {
+  return Math.abs(newSec - oldSec) > 2;
+}
 
 export const backend = createBackend<
   {
@@ -125,102 +288,13 @@ export const backend = createBackend<
   },
   DiscordPluginConfig
 >({
-  /**
-   * We get multiple events
-   * Next song: PAUSE(n), PAUSE(n+1), PLAY(n+1)
-   * Skip time: PAUSE(N), PLAY(N)
-   */
-  updateActivity: (songInfo, config) => {
-    if (songInfo.title.length === 0 && songInfo.artist.length === 0) {
-      return;
-    }
+  updateActivity: (songInfo, config) =>
+    updateDiscordRichPresence(songInfo, config),
 
-    info.lastSongInfo = songInfo;
-
-    // Stop the clear activity timeout
-    clearTimeout(clearActivity);
-
-    // Stop early if discord connection is not ready
-    // do this after clearTimeout to avoid unexpected clears
-    if (!info.rpc || !info.ready) {
-      return;
-    }
-
-    // Clear directly if timeout is 0
-    if (
-      songInfo.isPaused &&
-      config.activityTimeoutEnabled &&
-      config.activityTimeoutTime === 0
-    ) {
-      info.rpc.user?.clearActivity().catch(console.error);
-      return;
-    }
-
-    // Song information changed, so lets update the rich presence
-    // @see https://discord.com/developers/docs/topics/gateway#activity-object
-    // not all options are transfered through https://github.com/discordjs/RPC/blob/6f83d8d812c87cb7ae22064acd132600407d7d05/src/client.js#L518-530
-    const hangulFillerUnicodeCharacter = '\u3164'; // This is an empty character
-    const paddedInfoKeys: (keyof SongInfo)[] = ['title', 'artist', 'album'];
-    for (const key of paddedInfoKeys) {
-      const keyLength = (songInfo[key] as string)?.length;
-      if (keyLength < 2) {
-        (songInfo[key] as string) += hangulFillerUnicodeCharacter.repeat(
-          2 - keyLength,
-        );
-      }
-    }
-
-    // see https://github.com/th-ch/youtube-music/issues/1664
-    let buttons: GatewayActivityButton[] | undefined = [];
-    if (config.playOnYouTubeMusic) {
-      buttons.push({
-        label: 'Play on YouTube Music',
-        url: songInfo.url ?? 'https://music.youtube.com',
-      });
-    }
-    if (!config.hideGitHubButton) {
-      buttons.push({
-        label: 'View App On GitHub',
-        url: 'https://github.com/th-ch/youtube-music',
-      });
-    }
-    if (buttons.length === 0) {
-      buttons = undefined;
-    }
-
-    const activityInfo: SetActivity = {
-      type: ActivityType.Listening,
-      details: truncateString(songInfo.title, 128),
-      state: truncateString(songInfo.artist, 128),
-      largeImageKey: songInfo.imageSrc ?? '',
-      largeImageText: songInfo.album ?? '',
-      buttons,
-    };
-
-    if (songInfo.isPaused) {
-      // Add a paused icon to show that the song is paused
-      activityInfo.smallImageKey = 'paused';
-      activityInfo.smallImageText = 'Paused';
-      // Set start the timer so the activity gets cleared after a while if enabled
-      if (config.activityTimeoutEnabled) {
-        clearActivity = setTimeout(
-          () => info.rpc.user?.clearActivity().catch(console.error),
-          config.activityTimeoutTime ?? 10_000,
-        );
-      }
-    } else if (!config.hideDurationLeft) {
-      // Add the start and end time of the song
-      const songStartTime = Date.now() - (songInfo.elapsedSeconds ?? 0) * 1000;
-      activityInfo.startTimestamp = songStartTime;
-      activityInfo.endTimestamp = songStartTime + songInfo.songDuration * 1000;
-    }
-
-    info.rpc.user?.setActivity(activityInfo).catch(console.error);
-  },
   async start(ctx) {
     this.config = await ctx.getConfig();
 
-    info.rpc.on('connected', () => {
+    discordState.rpc.on('connected', () => {
       if (dev()) {
         console.log(LoggerPrefix, t('plugins.discord.backend.connected'));
       }
@@ -230,31 +304,31 @@ export const backend = createBackend<
       }
     });
 
-    info.rpc.on('ready', () => {
-      info.ready = true;
-      if (info.lastSongInfo && this.config) {
-        this.updateActivity(info.lastSongInfo, this.config);
+    discordState.rpc.on('ready', () => {
+      discordState.ready = true;
+      if (discordState.lastSongInfo && this.config) {
+        this.updateActivity(discordState.lastSongInfo, this.config);
       }
     });
 
-    info.rpc.on('disconnected', () => {
+    discordState.rpc.on('disconnected', () => {
       resetInfo();
 
-      if (info.autoReconnect) {
+      if (discordState.autoReconnect) {
         connectTimeout();
       }
     });
 
-    info.autoReconnect = this.config.autoReconnect;
+    discordState.autoReconnect = this.config.autoReconnect;
 
-    window = ctx.window;
+    mainWindow = ctx.window;
 
     // If the page is ready, register the callback
     ctx.window.once('ready-to-show', () => {
       let lastSent = Date.now();
       registerCallback((songInfo, event) => {
         if (event !== SongInfoEvent.TimeChanged) {
-          info.lastSongInfo = songInfo;
+          discordState.lastSongInfo = songInfo;
           if (this.config) this.updateActivity(songInfo, this.config);
         } else {
           const currentTime = Date.now();
@@ -262,7 +336,7 @@ export const backend = createBackend<
           if (currentTime - lastSent > 5000) {
             lastSent = currentTime;
             if (songInfo) {
-              info.lastSongInfo = songInfo;
+              discordState.lastSongInfo = songInfo;
               if (this.config) this.updateActivity(songInfo, this.config);
             }
           }
@@ -280,9 +354,9 @@ export const backend = createBackend<
   },
   onConfigChange(newConfig) {
     this.config = newConfig;
-    info.autoReconnect = newConfig.autoReconnect;
-    if (info.lastSongInfo) {
-      this.updateActivity(info.lastSongInfo, newConfig);
+    discordState.autoReconnect = newConfig.autoReconnect;
+    if (discordState.lastSongInfo) {
+      this.updateActivity(discordState.lastSongInfo, newConfig);
     }
   },
 });
