@@ -343,11 +343,18 @@ async function uploadEmojiToSlack(songInfo: SongInfo, config: SlackNowPlayingCon
     formData.append('mode', 'data');
     formData.append('name', config.emojiName);
     try {
-      // Read the file as a Buffer and append as a Blob
+      // Read the file as a Buffer and append directly to FormData
       const fileBuffer = await fs.promises.readFile(filePath);
-      // Use path.basename to preserve the original filename if desired
       const filename = path.basename(filePath) || 'emoji.png';
-      formData.append('image', new Blob([fileBuffer]), filename);
+      let imageFile;
+      if (typeof File !== 'undefined') {
+        imageFile = new File([fileBuffer], filename);
+      } else if (typeof Blob !== 'undefined') {
+        imageFile = new Blob([fileBuffer]);
+      } else {
+        throw new Error('Neither File nor Blob is available in this environment');
+      }
+      formData.append('image', imageFile, filename);
 
     } catch (fileError: any) {
       console.error(`Error preparing album art file: ${fileError instanceof Error ? fileError.message : String(fileError)}`);
