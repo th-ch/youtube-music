@@ -159,7 +159,7 @@ export default createPlugin<
       let playlistButtons: NodeListOf<HTMLElement> | undefined;
       const playlist =
         document.querySelector('ytmusic-playlist-shelf-renderer') ??
-        [...document.querySelectorAll('ytmusic-shelf-renderer')].at(-1);
+        Array.prototype.at.call(document.querySelectorAll('ytmusic-shelf-renderer'), -1)!;
       switch (id) {
         case 'allundislike':
           playlistButtons = playlist?.querySelectorAll(
