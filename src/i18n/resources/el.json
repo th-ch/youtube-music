@@ -99,8 +99,9 @@
               "auto-reset-app-cache": "Επαναφορά μνήμης cache εφαρμογής όταν η εφαρμογή ξεκινά",
               "disable-hardware-acceleration": "Απενεργοποίηση επιτάχυνσης υλικού",
               "edit-config-json": "Επεξεργασία του config.json",
-              "override-user-agent": "Αντικατάσταση του User-Agent",
-              "restart-on-config-changes": "Επανεκκίνηση σε αλλαγές του config",
+              "override-user-agent": "Παράκαμψη User-Agent",
+              "add-override-user-agent": "Προσθήκη user agent",
+              "restart-on-config-changes": "Επανεκκίνηση κατά την αλλαγή ρυθμίσεων",
               "set-proxy": {
                 "label": "Ορισμός μεσολάβησης",
                 "prompt": {
@@ -639,7 +640,7 @@
               "hotkey": "Πλήκτρο πρόσβασης"
             },
             "label": "Επιλέξτε ένα πλήκτρο συντόμευσης για να ενεργοποιήσετε την εικόνα στην εικόνα",
-            "title": "Πλήκτρο Hotkey Εικόνα-σε-Εικόνα"
+            "title": "Πλήκτρο Hotkey Εικόνα-στην-Εικόνα"
           }
         },
         "save-window-position": "Αποθήκευση θέσης παραθύρου",

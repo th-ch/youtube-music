@@ -98,7 +98,9 @@
               "auto-reset-app-cache": "Nulstil app cache når appen starter",
               "disable-hardware-acceleration": "Deaktiver hardware acceleration",
               "edit-config-json": "Rediger config.json",
-              "restart-on-config-changes": "Genstart ved config ændringer",
+              "override-user-agent": "Overskriv User-Agent",
+              "add-override-user-agent": "Tilføj User-Agent",
+              "restart-on-config-changes": "Genstart ved konfigurationsændringer",
               "set-proxy": {
                 "label": "Indstil proxy",
                 "prompt": {

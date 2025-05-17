@@ -99,8 +99,10 @@
               "auto-reset-app-cache": "Resetuje kes memoriju kad se aplikacija pokrene",
               "disable-hardware-acceleration": "Ugasite hardversko ubrzanje",
               "edit-config-json": "Uredite config.json",
-              "override-user-agent": "Nadjacaj User-Agent",
-              "restart-on-config-changes": "Ponovno pokretanje nakon promjena konfiguracije",
+              "override-user-agent": "Zamjena User-Agent-a",
+              "add-override-user-agent": "Dodaj user agent",
+              "reset-override-user-agent": "Reset user agent",
+              "restart-on-config-changes": "Ponovno pokretanje pri promjeni konfiguracije",
               "set-proxy": {
                 "label": "Postavi proxy",
                 "prompt": {

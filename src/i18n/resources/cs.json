@@ -99,8 +99,9 @@
               "auto-reset-app-cache": "Při spuštění aplikace se resetuje její mezipaměť",
               "disable-hardware-acceleration": "Vypnout hardware zrychlení",
               "edit-config-json": "Upravit config.json",
-              "override-user-agent": "Přepsat uživatelského agenta",
-              "restart-on-config-changes": "Restartovat aplikaci na změny v konfiguraci",
+              "override-user-agent": "Přepsat User-Agent",
+              "add-override-user-agent": "Přidat user agent",
+              "restart-on-config-changes": "Restartovat při změně konfigurace",
               "set-proxy": {
                 "label": "Nastavit proxy",
                 "prompt": {

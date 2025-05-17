@@ -100,6 +100,7 @@
               "disable-hardware-acceleration": "關閉硬體加速",
               "edit-config-json": "編輯 config.json",
               "override-user-agent": "覆寫使用者代理",
+              "add-override-user-agent": "新增使用者代理",
               "restart-on-config-changes": "設定變更時自動重新啟動",
               "set-proxy": {
                 "label": "設定代理伺服器",

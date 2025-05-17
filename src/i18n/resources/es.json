@@ -100,7 +100,9 @@
               "disable-hardware-acceleration": "Desactivar la aceleración por hardware",
               "edit-config-json": "Editar config.json",
               "override-user-agent": "Sobrescribir User-Agent",
-              "restart-on-config-changes": "Reiniciar al modificar la configuración",
+              "add-override-user-agent": "Añadir user agent",
+              "reset-override-user-agent": "Reset user agent",
+              "restart-on-config-changes": "Reiniciar al cambiar la configuración",
               "set-proxy": {
                 "label": "Establecer proxy",
                 "prompt": {
