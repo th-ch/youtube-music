@@ -3,8 +3,6 @@ import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
 import { SlackApiClient, SlackError } from './slack-api-client';
-import { FormData } from 'formdata-node';
-import { fileFromPath } from 'formdata-node/file-from-path';
 import { createBackend } from '@/utils';
 import registerCallback, { SongInfoEvent } from '@/providers/song-info';
 import { t } from '@/i18n';
@@ -340,14 +338,16 @@ async function uploadEmojiToSlack(songInfo: SongInfo, config: SlackNowPlayingCon
       return false;
     }
 
-    // Prepare the form data for the API request using formdata-node
+    // Prepare the form data for the API request using native Node.js APIs
     const formData = new FormData();
     formData.append('mode', 'data');
     formData.append('name', config.emojiName);
     try {
-      // Use fileFromPath to get a proper File object for formdata-node
-      const imageFile = await fileFromPath(filePath);
-      formData.append('image', imageFile);
+      // Read the file as a Buffer and append as a Blob
+      const fileBuffer = await fs.promises.readFile(filePath);
+      // Use path.basename to preserve the original filename if desired
+      const filename = path.basename(filePath) || 'emoji.png';
+      formData.append('image', new Blob([fileBuffer]), filename);
 
     } catch (fileError: any) {
       console.error(`Error preparing album art file: ${fileError instanceof Error ? fileError.message : String(fileError)}`);

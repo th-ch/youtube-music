@@ -144,9 +144,6 @@ importers:
       filenamify:
         specifier: 6.0.0
         version: 6.0.0
-      formdata-node:
-        specifier: ^6.0.3
-        version: 6.0.3
       hanja:
         specifier: 1.1.4
         version: 1.1.4
@@ -256,9 +253,6 @@ importers:
       '@types/electron-localshortcut':
         specifier: 3.1.3
         version: 3.1.3
-      '@types/form-data':
-        specifier: ^2.5.2
-        version: 2.5.2
       '@types/howler':
         specifier: 2.2.12
         version: 2.2.12
@@ -1251,10 +1245,6 @@ packages:
 
   '@types/estree@1.0.7':
     resolution: {integrity: sha512-w28IoSUCJpidD/TGviZwwMJckNESJZXFu7NBZ5YJ4mEUnNraUn9Pm8HSZm/jDF1pDWYKspWE7oVphigUPRakIQ==}
-
-  '@types/form-data@2.5.2':
-    resolution: {integrity: sha512-tfmcyHn1Pp9YHAO5r40+UuZUPAZbUEgqTel3EuEKpmF9hPkXgR4l41853raliXnb4gwyPNoQOfvgGGlHN5WSog==}
-    deprecated: This is a stub types definition. form-data provides its own type definitions, so you do not need this installed.
 
   '@types/fs-extra@9.0.13':
     resolution: {integrity: sha512-nEnwB++1u5lVDM2UI4c1+5R+FYaKfaAzS4OococimjVm3nQw3TuzH5UNsocrcTBbhnerblyHj4A49qXbIiZdpA==}
@@ -2547,10 +2537,6 @@ packages:
   form-data@4.0.2:
     resolution: {integrity: sha512-hGfm/slu0ZabnNt4oaRZ6uREyfCj6P4fT/n6A1rGV+Z0VdGXjfOhVUpkn6qVQONHGIFwmveGXyDs75+nr6FM8w==}
     engines: {node: '>= 6'}
-
-  formdata-node@6.0.3:
-    resolution: {integrity: sha512-8e1++BCiTzUno9v5IZ2J6bv4RU+3UKDmqWUQD0MIMVCd9AdhWkO1gw57oo1mNEX1dMq2EGI+FbWz4B92pscSQg==}
-    engines: {node: '>= 18'}
 
   formdata-polyfill@4.0.10:
     resolution: {integrity: sha512-buewHzMvYL29jdeQTVILecSaZKnt/RJWjoZCF5OW60Z67/GmSLBkOFM7qh1PI3zFNtJbaZL5eQu1vLfazOwj4g==}
@@ -5696,10 +5682,6 @@ snapshots:
 
   '@types/estree@1.0.7': {}
 
-  '@types/form-data@2.5.2':
-    dependencies:
-      form-data: 4.0.2
-
   '@types/fs-extra@9.0.13':
     dependencies:
       '@types/node': 22.13.5
@@ -7310,8 +7292,6 @@ snapshots:
       combined-stream: 1.0.8
       es-set-tostringtag: 2.1.0
       mime-types: 2.1.35
-
-  formdata-node@6.0.3: {}
 
   formdata-polyfill@4.0.10:
     dependencies:

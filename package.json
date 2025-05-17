@@ -276,7 +276,6 @@
     "fetch-blob": "^4.0.0",
     "file-type": "^20.5.0",
     "filenamify": "6.0.0",
-    "formdata-node": "^6.0.3",
     "hanja": "1.1.4",
     "happy-dom": "17.4.4",
     "hono": "4.7.7",
