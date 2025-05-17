@@ -346,14 +346,7 @@ async function uploadEmojiToSlack(songInfo: SongInfo, config: SlackNowPlayingCon
       // Read the file as a Buffer and append directly to FormData
       const fileBuffer = await fs.promises.readFile(filePath);
       const filename = path.basename(filePath) || 'emoji.png';
-      let imageFile;
-      if (typeof File !== 'undefined') {
-        imageFile = new File([fileBuffer], filename);
-      } else if (typeof Blob !== 'undefined') {
-        imageFile = new Blob([fileBuffer]);
-      } else {
-        throw new Error('Neither File nor Blob is available in this environment');
-      }
+      const imageFile = new File([fileBuffer], filename);
       formData.append('image', imageFile, filename);
 
     } catch (fileError: any) {
