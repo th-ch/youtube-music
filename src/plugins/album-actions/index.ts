@@ -62,7 +62,7 @@ export default createPlugin<
       //Finds the playlist
       const playlist =
         document.querySelector('ytmusic-playlist-shelf-renderer') ??
-        [...document.querySelectorAll('ytmusic-shelf-renderer')].at(-1)!;
+        Array.prototype.at.call(document.querySelectorAll('ytmusic-shelf-renderer'), -1)!;
       // Adds an observer for every button, so it gets updated when one is clicked
       this.changeObserver?.disconnect();
       this.changeObserver = new MutationObserver(() => {
