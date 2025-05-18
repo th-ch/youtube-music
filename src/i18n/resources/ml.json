@@ -53,18 +53,5 @@
         "message": "\"{{pluginName}}\" restart ആവശ്യപെടുന്നു"
       }
     }
-  },
-  "plugins": {
-    "slack-now-playing": {
-      "name": "Slack സ്റ്റാറ്റസ്",
-      "description": "നിങ്ങളുടെ Slack സ്റ്റാറ്റസ് നിലവിൽ പ്ലേ ചെയ്യുന്ന ഗാനത്തിലേക്ക് സെറ്റ് ചെയ്യുന്നു",
-      "status-text": "ഇപ്പോൾ പ്ലേ ചെയ്യുന്നത്: {{artist}} - {{title}}",
-      "menu": {
-        "settings": "ക്രമീകരണങ്ങൾ",
-        "token": "Slack API ടോക്കൺ",
-        "cookie-token": "Slack കുക്കി ടോക്കൺ",
-        "emoji-name": "കസ്റ്റം ഇമോജി പേര്"
-      }
-    }
   }
 }

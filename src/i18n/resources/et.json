@@ -219,17 +219,6 @@
     },
     "tuna-obs": {
       "description": "Lõimimine OBSi Tuna lisamooduliga"
-    },
-    "slack-now-playing": {
-      "name": "Slacki olek",
-      "description": "Seadistab sinu Slacki oleku hetkel mängiva laulu järgi",
-      "status-text": "Praegu mängib: {{artist}} - {{title}}",
-      "menu": {
-        "settings": "Seaded",
-        "token": "Slacki API võti",
-        "cookie-token": "Slacki küpsise võti",
-        "emoji-name": "Kohandatud emoji nimi"
-      }
     }
   }
 }

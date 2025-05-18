@@ -350,17 +350,6 @@
           "label": "तरीका"
         }
       }
-    },
-    "slack-now-playing": {
-      "name": "Slack स्थिति",
-      "description": "आपकी Slack स्थिति को वर्तमान में चल रहे गाने पर सेट करता है",
-      "status-text": "अभी बज रहा है: {{artist}} - {{title}}",
-      "menu": {
-        "settings": "सेटिंग्स",
-        "token": "Slack API टोकन",
-        "cookie-token": "Slack कुकी टोकन",
-        "emoji-name": "कस्टम इमोजी नाम"
-      }
     }
   }
 }

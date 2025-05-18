@@ -840,17 +840,6 @@
         "visualizer-type": "Tipe Visualisator"
       },
       "name": "Visualisator"
-    },
-    "slack-now-playing": {
-      "name": "Status Slack",
-      "description": "Mengatur status Slack Anda ke lagu yang sedang diputar",
-      "status-text": "Sedang Diputar: {{artist}} - {{title}}",
-      "menu": {
-        "settings": "Pengaturan",
-        "token": "Token API Slack",
-        "cookie-token": "Token Cookie Slack",
-        "emoji-name": "Nama Emoji Kustom"
-      }
     }
   }
 }

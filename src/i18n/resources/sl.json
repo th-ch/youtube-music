@@ -548,17 +548,6 @@
         "id-copied": "Host ID je kopiran v odložišče",
         "id-copy-failed": "Host ID ni bilo mogoče kopirati"
       }
-    },
-    "slack-now-playing": {
-      "name": "Slack status",
-      "description": "Nastavi vaš Slack status na trenutno predvajano pesem",
-      "status-text": "Zdaj predvaja: {{artist}} - {{title}}",
-      "menu": {
-        "settings": "Nastavitve",
-        "token": "Slack API žeton",
-        "cookie-token": "Slack Cookie žeton",
-        "emoji-name": "Ime emoji po meri"
-      }
     }
   }
 }

@@ -840,17 +840,6 @@
         "visualizer-type": "نوع المعاينة المصرية"
       },
       "name": "معاين بصري"
-    },
-    "slack-now-playing": {
-      "name": "حالة سلاك",
-      "description": "يضبط حالة سلاك إلى الأغنية التي تعمل حاليًا",
-      "status-text": "يشغل الآن: {{artist}} - {{title}}",
-      "menu": {
-        "settings": "الإعدادات",
-        "token": "رمز API سلاك",
-        "cookie-token": "رمز كوكي سلاك",
-        "emoji-name": "اسم الرمز التعبيري المخصص"
-      }
     }
   }
 }

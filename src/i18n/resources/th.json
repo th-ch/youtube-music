@@ -840,17 +840,6 @@
         "visualizer-type": "ประเภทวิชวลไลเซอร์"
       },
       "name": "วิชวลไลเซอร์"
-    },
-    "slack-now-playing": {
-      "name": "สถานะ Slack",
-      "description": "ตั้งค่าสถานะ Slack ของคุณเป็นเพลงที่กำลังเล่นอยู่",
-      "status-text": "กำลังเล่น: {{artist}} - {{title}}",
-      "menu": {
-        "settings": "การตั้งค่า",
-        "token": "โทเค็น API Slack",
-        "cookie-token": "โทเค็นคุกกี้ Slack",
-        "emoji-name": "ชื่ออีโมจิที่กำหนดเอง"
-      }
     }
   }
 }

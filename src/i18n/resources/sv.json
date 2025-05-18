@@ -224,17 +224,6 @@
       "templates": {
         "button": "Låt"
       }
-    },
-    "slack-now-playing": {
-      "name": "Slack-status",
-      "description": "Ställer in din Slack-status till låten som spelas för närvarande",
-      "status-text": "Spelar nu: {{artist}} - {{title}}",
-      "menu": {
-        "settings": "Inställningar",
-        "token": "Slack API-token",
-        "cookie-token": "Slack Cookie-token",
-        "emoji-name": "Anpassat emoji-namn"
-      }
     }
   }
 }

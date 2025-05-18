@@ -333,6 +333,28 @@
       "description": "Kompressor auf Audio anwenden (senkt die Lautstärke der lautesten Teile des Signals und hebt die Lautstärke der leisesten Teile an)",
       "name": "Audio-Komprimierer"
     },
+    "auth-proxy-adapter": {
+      "description": "Unterstützung für Proxy-Authentifizierungsdienste",
+      "menu": {
+        "disable": "Proxy-Adapter deaktivieren",
+        "enable": "Proxy-Adapter aktivieren",
+        "hostname": {
+          "label": "Hostname"
+        },
+        "port": {
+          "label": "Port"
+        }
+      },
+      "prompt": {
+        "hostname": {
+          "label": "Hostnamen eingeben für lokalen Proxy-Server (Neustart erforderlich):",
+          "title": "Proxy Hostname"
+        },
+        "port": {
+          "title": "Proxy Port"
+        }
+      }
+    },
     "blur-nav-bar": {
       "description": "Macht Navigationsleiste durchsichtig und unscharf",
       "name": "Verschwommene Navigationsleiste"
@@ -391,17 +413,6 @@
         "apply-once": "Nur beim Start der Anwendung anwenden"
       },
       "name": "Deaktiviere automatisches Abspielen"
-    },
-    "slack-now-playing": {
-      "description": "Setzt deinen Slack-Status auf den aktuell abgespielten Song",
-      "menu": {
-        "settings": "Einstellungen",
-        "token": "Slack API-Token",
-        "cookie-token": "Slack Cookie-Token",
-        "emoji-name": "Benutzerdefinierter Emoji-Name"
-      },
-      "name": "Slack Status",
-      "status-text": "Jetzt spielt: {{artist}} - {{title}}"
     },
     "discord": {
       "backend": {

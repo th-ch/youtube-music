@@ -310,17 +310,6 @@
         "advanced": "Avanceret"
       },
       "name": "Fade [Beta]"
-    },
-    "slack-now-playing": {
-      "name": "Slack-status",
-      "description": "Sætter din Slack-status til den sang, der afspilles i øjeblikket",
-      "status-text": "Spiller nu: {{artist}} - {{title}}",
-      "menu": {
-        "settings": "Indstillinger",
-        "token": "Slack API-token",
-        "cookie-token": "Slack Cookie-token",
-        "emoji-name": "Brugerdefineret emoji-navn"
-      }
     }
   }
 }

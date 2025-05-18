@@ -844,17 +844,6 @@
         "visualizer-type": "Тип візуалізації"
       },
       "name": "Візуалізація"
-    },
-    "slack-now-playing": {
-      "name": "Статус Slack",
-      "description": "Встановлює ваш статус Slack на пісню, яка зараз грає",
-      "status-text": "Зараз грає: {{artist}} - {{title}}",
-      "menu": {
-        "settings": "Налаштування",
-        "token": "Токен API Slack",
-        "cookie-token": "Токен Cookie Slack",
-        "emoji-name": "Назва користувацького емодзі"
-      }
     }
   }
 }

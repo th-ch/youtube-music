@@ -844,17 +844,6 @@
         "visualizer-type": "Visualisatietype"
       },
       "name": "Visualisator"
-    },
-    "slack-now-playing": {
-      "name": "Slack Status",
-      "description": "Stelt je Slack-status in op het nummer dat momenteel wordt afgespeeld",
-      "status-text": "Nu aan het spelen: {{artist}} - {{title}}",
-      "menu": {
-        "settings": "Instellingen",
-        "token": "Slack API-token",
-        "cookie-token": "Slack Cookie-token",
-        "emoji-name": "Aangepaste emoji-naam"
-      }
     }
   }
 }

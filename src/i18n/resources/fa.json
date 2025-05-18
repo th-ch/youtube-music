@@ -840,17 +840,6 @@
         "visualizer-type": "نوع نمایش‌دهنده تصویری"
       },
       "name": "نمایش‌دهنده تصویری"
-    },
-    "slack-now-playing": {
-      "name": "وضعیت Slack",
-      "description": "وضعیت Slack شما را به آهنگ در حال پخش تنظیم می‌کند",
-      "status-text": "در حال پخش: {{artist}} - {{title}}",
-      "menu": {
-        "settings": "تنظیمات",
-        "token": "توکن API Slack",
-        "cookie-token": "توکن کوکی Slack",
-        "emoji-name": "نام ایموجی سفارشی"
-      }
     }
   }
 }

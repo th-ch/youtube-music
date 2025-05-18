@@ -207,17 +207,6 @@
     }
   },
   "plugins": {
-    "slack-now-playing": {
-      "name": "Slack status",
-      "description": "Postavlja vaš Slack status na pjesmu koja se trenutno reproducira",
-      "status-text": "Sada svira: {{artist}} - {{title}}",
-      "menu": {
-        "settings": "Postavke",
-        "token": "Slack API token",
-        "cookie-token": "Slack Cookie token",
-        "emoji-name": "Naziv prilagođenog emojija"
-      }
-    },
     "ad-speedup": {
       "description": "Ako se pokrene oglas, zvuk se isključi i brzina reprodukcije se postavi na 16x",
       "name": "Ubrzanje Oglasa"

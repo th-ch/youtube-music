@@ -824,17 +824,6 @@
         "visualizer-type": "Loại trình hiển thị"
       },
       "name": "Trình hiển thị"
-    },
-    "slack-now-playing": {
-      "name": "Trạng thái Slack",
-      "description": "Đặt trạng thái Slack của bạn thành bài hát đang phát hiện tại",
-      "status-text": "Đang phát: {{artist}} - {{title}}",
-      "menu": {
-        "settings": "Cài đặt",
-        "token": "Token API Slack",
-        "cookie-token": "Token Cookie Slack",
-        "emoji-name": "Tên emoji tùy chỉnh"
-      }
     }
   }
 }

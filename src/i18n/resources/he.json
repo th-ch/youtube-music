@@ -218,17 +218,6 @@
       },
       "name": "חוסם פרסומות"
     },
-    "slack-now-playing": {
-      "name": "סטטוס Slack",
-      "description": "מגדיר את סטטוס ה-Slack שלך לשיר המושמע כעת",
-      "status-text": "מנגן כעת: {{artist}} - {{title}}",
-      "menu": {
-        "settings": "הגדרות",
-        "token": "אסימון API של Slack",
-        "cookie-token": "אסימון עוגייה של Slack",
-        "emoji-name": "שם אימוג'י מותאם אישית"
-      }
-    },
     "album-actions": {
       "description": "מוסיף לחצני ביטול אהבתי, דיסלייק, 'אהבתי' ו'לא אהבתי' כדי להחיל זאת על כל השירים ברשימת השמעה או אלבום",
       "name": "פעולות אלבום"

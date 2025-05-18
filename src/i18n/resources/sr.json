@@ -3,19 +3,5 @@
     "code": "sr",
     "local-name": "Српски",
     "name": "Serbian"
-  },
-  "plugins": {
-    "slack-now-playing": {
-      "name": "Slack статус",
-      "description": "Поставља ваш Slack статус на песму која се тренутно репродукује",
-      "status-text": "Сада свира: {{artist}} - {{title}}",
-      "menu": {
-        "settings": "Подешавања",
-        "token": "Slack API токен",
-        "cookie-token": "Slack Cookie токен",
-        "emoji-name": "Назив прилагођеног емоджија"
-      }
-    }
   }
 }
-

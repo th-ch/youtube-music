@@ -200,18 +200,5 @@
       "quit": "باہر نکلیں",
       "restart": "ایپ دوبارہ شروع کریں"
     }
-  },
-  "plugins": {
-    "slack-now-playing": {
-      "name": "Slack حیثیت",
-      "description": "آپ کی Slack حیثیت کو موجودہ چل رہے گانے پر سیٹ کرتا ہے",
-      "status-text": "اب چل رہا ہے: {{artist}} - {{title}}",
-      "menu": {
-        "settings": "ترتیبات",
-        "token": "Slack API ٹوکن",
-        "cookie-token": "Slack کوکی ٹوکن",
-        "emoji-name": "حسب ضرورت ایموجی نام"
-      }
-    }
   }
 }

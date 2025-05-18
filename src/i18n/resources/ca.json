@@ -808,17 +808,6 @@
         "visualizer-type": "Tipus de visualitzador"
       },
       "name": "Visualitzador"
-    },
-    "slack-now-playing": {
-      "name": "Estat de Slack",
-      "description": "Estableix el teu estat de Slack a la cançó que s'està reproduint actualment",
-      "status-text": "Ara sonant: {{artist}} - {{title}}",
-      "menu": {
-        "settings": "Configuració",
-        "token": "Token API de Slack",
-        "cookie-token": "Token de Cookie de Slack",
-        "emoji-name": "Nom d'emoji personalitzat"
-      }
     }
   }
 }

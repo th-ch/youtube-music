@@ -808,17 +808,6 @@
         "visualizer-type": "Sýndarstýringartegund"
       },
       "name": "Sýndarstýringar"
-    },
-    "slack-now-playing": {
-      "name": "Slack staða",
-      "description": "Stillir Slack stöðuna þína á lagið sem er í spilun núna",
-      "status-text": "Spilar núna: {{artist}} - {{title}}",
-      "menu": {
-        "settings": "Stillingar",
-        "token": "Slack API lykill",
-        "cookie-token": "Slack köku lykill",
-        "emoji-name": "Sérsniðið táknmynd nafn"
-      }
     }
   }
 }

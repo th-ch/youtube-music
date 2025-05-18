@@ -670,17 +670,6 @@
       "description": "Позволява промяна на качеството на видеото с бутон върху видеото",
       "name": "Промяна на качеството на видеото"
     },
-    "slack-now-playing": {
-      "name": "Статус в Slack",
-      "description": "Задава вашия статус в Slack на текущо възпроизвежданата песен",
-      "status-text": "Сега свири: {{artist}} - {{title}}",
-      "menu": {
-        "settings": "Настройки",
-        "token": "Slack API Токен",
-        "cookie-token": "Slack Cookie Токен",
-        "emoji-name": "Име на персонализиран emoji"
-      }
-    },
     "scrobbler": {
       "description": "Добавяне на скробблинг поддръжка (last.fm, Listenbrainz и т.н.)",
       "dialog": {
@@ -858,4 +847,3 @@
     }
   }
 }
-

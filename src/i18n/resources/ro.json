@@ -830,17 +830,6 @@
         "visualizer-type": "Tip de vizualizator"
       },
       "name": "Vizualizator"
-    },
-    "slack-now-playing": {
-      "name": "Status Slack",
-      "description": "Setează statusul tău de Slack la melodia care se redă în prezent",
-      "status-text": "În redare acum: {{artist}} - {{title}}",
-      "menu": {
-        "settings": "Setări",
-        "token": "Token API Slack",
-        "cookie-token": "Token Cookie Slack",
-        "emoji-name": "Nume emoji personalizat"
-      }
     }
   }
 }
