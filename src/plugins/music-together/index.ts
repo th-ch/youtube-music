@@ -21,6 +21,8 @@ import { createSettingPopup } from './ui/setting';
 import settingHTML from './templates/setting.html?raw';
 import style from './style.css?inline';
 
+import { waitForElement } from '@/utils/wait-for-element';
+
 import type { YoutubePlayer } from '@/types/youtube-player';
 import type { RendererContext } from '@/types/contexts';
 import type { VideoDataChanged } from '@/types/video-data-changed';
@@ -123,10 +125,12 @@ export default createPlugin<
         if (this.connection?.mode === 'host') {
           const videoList: VideoData[] =
             this.queue?.flatItems.map(
-              (it) =>
+              (it, index) =>
                 ({
                   videoId: it!.videoId,
-                  ownerId: this.connection!.id,
+                  ownerId:
+                    this.queue?.videoList[index]?.ownerId ??
+                    this.connection!.id,
                 }) satisfies VideoData,
             ) ?? [];
 
@@ -163,6 +167,17 @@ export default createPlugin<
       if (!wait) return false;
 
       if (!this.me) this.me = getDefaultProfile(this.connection.id);
+
+      this.profiles = {};
+      this.putProfile(this.connection.id, {
+        id: this.connection.id,
+        ...this.me,
+      });
+
+      this.queue?.setOwner({
+        id: this.connection.id,
+        ...this.me,
+      });
       const rawItems =
         this.queue?.flatItems?.map(
           (it) =>
@@ -171,16 +186,11 @@ export default createPlugin<
               ownerId: this.connection!.id,
             }) satisfies VideoData,
         ) ?? [];
-      this.queue?.setOwner({
-        id: this.connection.id,
-        ...this.me,
-      });
       this.queue?.setVideoList(rawItems, false);
       this.queue?.syncQueueOwner();
       this.queue?.initQueue();
       this.queue?.injection();
 
-      this.profiles = {};
       this.connection.onConnections((connection) => {
         if (!connection) {
           this.api?.toastService?.show(
@@ -199,30 +209,43 @@ export default createPlugin<
           this.putProfile(connection.peer, undefined);
         }
       });
-      this.putProfile(this.connection.id, {
-        id: this.connection.id,
-        ...this.me,
-      });
 
       const listener = async (
         event: ConnectionEventUnion,
-        conn?: DataConnection,
+        conn?: DataConnection | null,
       ) => {
         this.ignoreChange = true;
 
         switch (event.type) {
           case 'ADD_SONGS': {
-            if (conn && this.permission === 'host-only') return;
+            if (conn && this.permission === 'host-only') {
+              await this.connection?.broadcast('SYNC_QUEUE', {
+                videoList: this.queue?.videoList ?? [],
+              });
+              return;
+            }
 
-            await this.queue?.addVideos(
-              event.payload.videoList,
-              event.payload.index,
+            const videoList: VideoData[] = event.payload.videoList.map(
+              (it) => ({
+                ...it,
+                ownerId: it.ownerId ?? conn?.peer ?? this.connection!.id,
+              }),
             );
-            await this.connection?.broadcast('ADD_SONGS', event.payload);
+
+            await this.queue?.addVideos(videoList, event.payload.index);
+            await this.connection?.broadcast('ADD_SONGS', {
+              ...event.payload,
+              videoList,
+            });
             break;
           }
           case 'REMOVE_SONG': {
-            if (conn && this.permission === 'host-only') return;
+            if (conn && this.permission === 'host-only') {
+              await this.connection?.broadcast('SYNC_QUEUE', {
+                videoList: this.queue?.videoList ?? [],
+              });
+              return;
+            }
 
             this.queue?.removeVideo(event.payload.index);
             await this.connection?.broadcast('REMOVE_SONG', event.payload);
@@ -309,6 +332,10 @@ export default createPlugin<
 
             break;
           }
+          case 'CONNECTION_CLOSED': {
+            this.queue?.off(listener);
+            break;
+          }
           default: {
             console.warn('Music Together [Host]: Unknown Event', event);
             break;
@@ -357,14 +384,53 @@ export default createPlugin<
       });
 
       let resolveIgnore: number | null = null;
+      const queueListener = async (event: ConnectionEventUnion) => {
+        this.ignoreChange = true;
+        switch (event.type) {
+          case 'ADD_SONGS': {
+            await this.connection?.broadcast('ADD_SONGS', {
+              ...event.payload,
+              videoList: event.payload.videoList.map((it) => ({
+                ...it,
+                ownerId: it.ownerId ?? this.connection!.id,
+              })),
+            });
+            break;
+          }
+          case 'REMOVE_SONG': {
+            await this.connection?.broadcast('REMOVE_SONG', event.payload);
+            break;
+          }
+          case 'MOVE_SONG': {
+            await this.connection?.broadcast('MOVE_SONG', event.payload);
+            break;
+          }
+          case 'SYNC_PROGRESS': {
+            if (this.permission === 'host-only')
+              await this.connection?.broadcast('SYNC_QUEUE', undefined);
+            else
+              await this.connection?.broadcast('SYNC_PROGRESS', event.payload);
+            break;
+          }
+        }
+
+        if (typeof resolveIgnore === 'number') clearTimeout(resolveIgnore);
+        resolveIgnore = window.setTimeout(() => {
+          this.ignoreChange = false;
+        }, 16); // wait 1 frame
+      };
       const listener = async (event: ConnectionEventUnion) => {
         this.ignoreChange = true;
         switch (event.type) {
           case 'ADD_SONGS': {
-            await this.queue?.addVideos(
-              event.payload.videoList,
-              event.payload.index,
+            const videoList: VideoData[] = event.payload.videoList.map(
+              (it) => ({
+                ...it,
+                ownerId: it.ownerId ?? this.connection!.id,
+              }),
             );
+
+            await this.queue?.addVideos(videoList, event.payload.index);
             break;
           }
           case 'REMOVE_SONG': {
@@ -446,6 +512,10 @@ export default createPlugin<
             );
             break;
           }
+          case 'CONNECTION_CLOSED': {
+            this.queue?.off(queueListener);
+            break;
+          }
           default: {
             console.warn('Music Together [Guest]: Unknown Event', event);
             break;
@@ -459,37 +529,7 @@ export default createPlugin<
       };
 
       this.connection.on(listener);
-      this.queue?.on(async (event: ConnectionEventUnion) => {
-        this.ignoreChange = true;
-        switch (event.type) {
-          case 'ADD_SONGS': {
-            await this.connection?.broadcast('ADD_SONGS', event.payload);
-            await this.connection?.broadcast('SYNC_QUEUE', undefined);
-            break;
-          }
-          case 'REMOVE_SONG': {
-            await this.connection?.broadcast('REMOVE_SONG', event.payload);
-            break;
-          }
-          case 'MOVE_SONG': {
-            await this.connection?.broadcast('MOVE_SONG', event.payload);
-            await this.connection?.broadcast('SYNC_QUEUE', undefined);
-            break;
-          }
-          case 'SYNC_PROGRESS': {
-            if (this.permission === 'host-only')
-              await this.connection?.broadcast('SYNC_QUEUE', undefined);
-            else
-              await this.connection?.broadcast('SYNC_PROGRESS', event.payload);
-            break;
-          }
-        }
-
-        if (typeof resolveIgnore === 'number') clearTimeout(resolveIgnore);
-        resolveIgnore = window.setTimeout(() => {
-          this.ignoreChange = false;
-        }, 16); // wait 1 frame
-      });
+      this.queue?.on(queueListener);
 
       if (!this.me) this.me = getDefaultProfile(this.connection.id);
       this.queue?.injection();
@@ -595,19 +635,22 @@ export default createPlugin<
       this.elements.spinner.setAttribute('hidden', '');
     },
 
-    initMyProfile() {
-      const accountButton = document.querySelector<
-        HTMLElement & {
-          onButtonTap: () => void;
-        }
-      >('ytmusic-settings-button');
+    async initMyProfile() {
+      const accountButton = await waitForElement<HTMLElement>(
+        '#right-content > ytmusic-settings-button *:where(tp-yt-paper-icon-button,yt-icon-button,.ytmusic-settings-button)',
+        {
+          maxRetry: 10000,
+        },
+      );
 
-      accountButton?.onButtonTap();
-      setTimeout(() => {
-        accountButton?.onButtonTap();
-        const renderer = document.querySelector<
-          HTMLElement & { data: unknown }
-        >('ytd-active-account-header-renderer');
+      accountButton?.click();
+      setTimeout(async () => {
+        const renderer = await waitForElement<HTMLElement & { data: unknown }>(
+          'ytd-active-account-header-renderer',
+          {
+            maxRetry: 10000,
+          },
+        );
         if (!accountButton || !renderer) {
           console.warn('Music Together: Cannot find account');
           this.me = getDefaultProfile(this.connection?.id ?? '');
@@ -628,13 +671,14 @@ export default createPlugin<
           this.popups.guest.setProfile(this.me.thumbnail);
           this.popups.setting.setProfile(this.me.thumbnail);
         }
+        accountButton?.click(); // close menu
       }, 0);
     },
     /* hooks */
 
     start({ ipc }) {
       this.ipc = ipc;
-      this.showPrompt = async (title: string, label: string) =>
+      this.showPrompt = (title: string, label: string) =>
         ipc.invoke('music-together:prompt', title, label) as Promise<string>;
       this.api = document.querySelector<AppElement>('ytmusic-app');
 

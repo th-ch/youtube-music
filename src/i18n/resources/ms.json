@@ -6,6 +6,7 @@
         "executed-at-ms": "Plugin {{pluginName}}::{{contextName}} dilaksanakan pada {{ms}}ms",
         "initialize-failed": "Gagal untuk memulakan plugin \"{{pluginName}}\"",
         "load-all": "Memuatkan semua plugin",
+        "load-failed": "Gagal untuk memuatkan \"{{pluginName}}\"",
         "loaded": "Plugin \"{{pluginName}}\" dimuatkan",
         "unload-failed": "Gagal untuk memunggah plugin \"{{pluginName}}\"",
         "unloaded": "Plugin \"{{pluginName}}\" dipunggahkan"
@@ -31,19 +32,28 @@
       "theme": {
         "css-file-not-found": "Fail CSS \"{{cssFile}}\" tidak wujud, mengabaikan"
       },
+      "unresponsive": {
+        "details": "Ralat Tidak Bertindak Balas!\n{{error}}"
+      },
       "when-ready": {
         "clearing-cache-after-20s": "Membersihkan cache aplikasi"
+      },
+      "window": {
+        "tried-to-render-offscreen": "Tetingkap cuba dirender di luar skrin, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
       }
     },
     "dialog": {
       "hide-menu-enabled": {
-        "detail": "Menu telah disembunyikan, guna 'Alt' untuk menunjukkannya (atau 'Escape' jika menggunakan In-App Menu)"
+        "detail": "Menu telah disembunyikan, guna 'Alt' untuk menunjukkannya (atau 'Escape' jika menggunakan In-App Menu)",
+        "message": "Sembunyikan Menu telah diaktifkan",
+        "title": "Sembunyikan Menu diaktifkan"
       },
       "need-to-restart": {
         "buttons": {
           "later": "Nanti",
           "restart-now": "Restart Sekarang"
         },
+        "detail": "Plugin {{pluginName}} perlu dimulakan semula untuk berkuatkuasa",
         "message": "\"{{pluginName}}\" perlu dimulakan semula",
         "title": "Mulakan Semula Diperlukan"
       },
@@ -59,10 +69,12 @@
       },
       "update-available": {
         "buttons": {
+          "disable": "Lumpuhkan Kemas Kini",
           "download": "Muat Turun",
           "ok": "OK"
         },
-        "detail": "Versi baharu kini tersedia dan boleh dimuat turun di {{downloadLink}}"
+        "detail": "Versi baharu kini tersedia dan boleh dimuat turun di {{downloadLink}}",
+        "message": "Versi baharu tersedia"
       }
     },
     "menu": {

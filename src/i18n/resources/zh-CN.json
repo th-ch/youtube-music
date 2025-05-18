@@ -333,6 +333,30 @@
       "description": "对音频应用压缩（压低响亮部分，提升柔和部分）",
       "name": "音频压缩器"
     },
+    "auth-proxy-adapter": {
+      "name": "认证代理适配",
+      "description": "支持使用需要身份验证的代理",
+      "menu": {
+        "disable": "禁用代理适配",
+        "enable": "启用代理适配",
+        "hostname": {
+          "label": "主机名"
+        },
+        "port": {
+          "label": "端口"
+        }
+      },
+      "prompt": {
+        "hostname": {
+          "title": "代理主机名",
+          "label": "请输入本地代理服务器的主机名（需要重启）："
+        },
+        "port": {
+          "title": "代理端口",
+          "label": "请输入本地代理服务器的端口号（需要重启）："
+        }
+      }
+    },
     "blur-nav-bar": {
       "description": "让导航栏透明及模糊",
       "name": "模糊导航栏"

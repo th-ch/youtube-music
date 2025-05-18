@@ -20,7 +20,7 @@
 	</a>
 </div>
 
-다른 언어로 읽어보세요: [🏴 영어](../../README.md), [🇰🇷 한국인](./README-ko.md), [🇫🇷 프랑스 국민](./README-fr.md), [🇮🇸 아이슬란드어](./README-is.md), [🇪🇸 스페인 사람](./README-es.md), [🇷🇺 러시아인](./README-ru.md), [🇧🇷 포르투갈어](./README-pt.md), [🇯🇵 일본어](./README-ja.md)
+다른 언어로 읽어보세요: [🏴 영어](../../README.md), [🇰🇷 한국인](./README-ko.md), [🇫🇷 프랑스 국민](./README-fr.md), [🇮🇸 아이슬란드어](./README-is.md), [🇪🇸 스페인 사람](./README-es.md), [🇷🇺 러시아인](./README-ru.md), [🇺🇦 우크라이나어](./README-uk.md), [🇧🇷 포르투갈어](./README-pt.md), [🇯🇵 일본어](./README-ja.md)
 
 **유튜브 뮤직의 Electron 래퍼; 기능:**
 

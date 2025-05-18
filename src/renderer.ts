@@ -44,6 +44,19 @@ async function listenForApiLoad() {
 }
 
 async function onApiLoaded() {
+  // Workaround for macOS traffic lights
+  {
+    let osType = 'Unknown';
+    if (window.electronIs.osx()) {
+      osType = 'Macintosh';
+    } else if (window.electronIs.windows()) {
+      osType = 'Windows';
+    } else if (window.electronIs.linux()) {
+      osType = 'Linux';
+    }
+    document.documentElement.setAttribute('data-os', osType);
+  }
+
   // Workaround for #2459
   document
     .querySelector('button.video-button.ytmusic-av-toggle')
