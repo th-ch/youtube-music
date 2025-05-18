@@ -30,14 +30,16 @@ const plugins = {
   disable: (id: string) => {
     Plugins.disable(id);
   },
-  isEnabled: (id: string) => {
-    return Plugins.isEnabled(id);
-  },
 };
 
-const loadSettings = () => {
-  return config.getStore();
+export type ConfigKey = Parameters<typeof config.get>[0];
+
+const configHandlers = {
+  get: <T extends ConfigKey>(key: T) => config.get(key),
+  set: (key: ConfigKey, value: unknown) => config.set(key, value),
 };
+
+const loadSettings = () => config.getStore();
 
 export const backend = createBackend({
   start(ctx) {
@@ -46,9 +48,11 @@ export const backend = createBackend({
     ctx.ipc.handle('ytmd-sui:versions', versions);
     ctx.ipc.handle('ytmd-sui:load-settings', loadSettings);
 
+    ctx.ipc.handle('ytmd-sui:config-get', configHandlers.get);
+    ctx.ipc.handle('ytmd-sui:config-set', configHandlers.set);
+
     ctx.ipc.handle('ytmd-sui:plugins-enable', plugins.enable);
     ctx.ipc.handle('ytmd-sui:plugins-disable', plugins.disable);
-    ctx.ipc.handle('ytmd-sui:plugins-isEnabled', plugins.isEnabled);
   },
 
   stop(ctx) {
@@ -56,6 +60,9 @@ export const backend = createBackend({
     ctx.ipc.removeHandler('ytmd-sui:platform');
     ctx.ipc.removeHandler('ytmd-sui:versions');
     ctx.ipc.removeHandler('ytmd-sui:load-settings');
+
+    ctx.ipc.removeHandler('ytmd-sui:config-get');
+    ctx.ipc.removeHandler('ytmd-sui:config-set');
 
     ctx.ipc.removeHandler('ytmd-sui:plugins-enable');
     ctx.ipc.removeHandler('ytmd-sui:plugins-disable');

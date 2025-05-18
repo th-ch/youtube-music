@@ -1,6 +1,13 @@
-import { createEffect, createSignal, For, Show } from 'solid-js';
+import {
+  createEffect,
+  createMemo,
+  createSignal,
+  For,
+  Match,
+  Switch,
+} from 'solid-js';
 import { allPlugins } from 'virtual:plugins';
-import { plugins } from '../../renderer';
+import { plugins, Config } from '../../renderer';
 import { jaroWinkler } from '@skyra/jaro-winkler';
 import { debounce } from '@/providers/decorators';
 
@@ -12,35 +19,36 @@ interface PluginCardProps {
 }
 
 const PluginCard = (props: PluginCardProps) => {
-  const [enabled, setEnabled] = createSignal<boolean | null>(null);
-  plugins.isEnabled(props.id).then(setEnabled);
+  const conf = createMemo(() => {
+    return Config.signal().plugins[props.id] ?? { enabled: false };
+  });
+
+  const hasSettings = createMemo(() => {
+    const { enabled, ...rest } = conf();
+    return Object.keys(rest).length > 0;
+  });
 
   const toggle = () => {
-    const state = enabled();
+    if (conf().enabled) plugins.disable(props.id);
+    else plugins.enable(props.id);
+  };
 
-    if (state === null) return;
-    if (state) {
-      plugins.disable(props.id);
-      setEnabled(false);
-    } else {
-      plugins.enable(props.id);
-      setEnabled(true);
-    }
+  const plgOptions = () => {
+    console.log('open plugin options modal');
   };
 
   return (
-    <div class="ytmd-sui-settingItem">
-      <div class="ytmd-sui-pluginHeader">
-        <div>
-          <h4>{props.label}</h4>
-          <Show when={Array.isArray(props.authors) && props.authors.length > 0}>
-            <span class="ytmd-sui-pluginAuthor">
-              by {props.authors!.join(', ')}
-            </span>
-          </Show>
+    <div class="ytmd-sui-settingItem ytmd-sui-plg-card">
+      <div class="ytmd-sui-plg-left">
+        <div class="ytmd-sui-pluginHeader">
+          <span class="ytmd-sui-plg-title">{props.label}</span>
+          <span class="ytmd-sui-plg-authors">{props.authors?.join(', ')}</span>
         </div>
+        <p class="ytmd-sui-plg-description">{props.description}</p>
+      </div>
+      <div class="ytmd-sui-plg-right">
         <div
-          class={`ytmd-sui-toggle ${enabled() ? 'active' : ''}`}
+          class={`ytmd-sui-toggle ${conf().enabled ? 'active' : ''}`}
           tabIndex={1}
           onClick={toggle}
           onKeyUp={(e) => {
@@ -52,13 +60,42 @@ const PluginCard = (props: PluginCardProps) => {
         >
           <div class="ytmd-sui-toggleHandle"></div>
         </div>
+        <div
+          class="ytmd-sui-plg-options"
+          tabIndex={1}
+          onClick={plgOptions}
+          onKeyUp={(e) => {
+            e.preventDefault();
+            if (e.key === 'Enter' || e.key === ' ') {
+              plgOptions();
+            }
+          }}
+        >
+          <Switch fallback={<tp-yt-paper-icon-button icon="yt-icons:info" />}>
+            <Match when={hasSettings()}>
+              <tp-yt-paper-icon-button
+                icon="yt-icons:tune"
+                style={{ padding: '0.5rem', cursor: 'pointer' }}
+              ></tp-yt-paper-icon-button>
+            </Match>
+          </Switch>
+        </div>
       </div>
-      <p class="ytmd-sui-pluginDescription">{props.description}</p>
     </div>
   );
 };
 
 export default () => {
+  const [pluginsConfig, setPluginsConfig] = createSignal(
+    Config.signal().plugins
+  );
+
+  createEffect(() => {
+    const { plugins } = Config.signal();
+    setPluginsConfig(plugins);
+  });
+
+  // pretter-ignore
   const availablePlugins = Object.keys(allPlugins).sort((a, b) =>
     a.localeCompare(b)
   );
@@ -69,55 +106,43 @@ export default () => {
   const [filter, setFilter] = createSignal<StatusFilter>('all');
   const [filteredPlugins, setFilteredPlugins] = createSignal(availablePlugins);
 
-  const filterImpl = debounce(
-    async (
-      search: string,
-      filter: StatusFilter,
-      setter: typeof setFilteredPlugins
-    ) => {
-      let filtered;
+  const filterImpl = debounce((search: string, filter: StatusFilter) => {
+    let filtered;
 
-      if (filter === 'all') {
-        filtered = Array.from(availablePlugins);
-      } else {
-        filtered = [];
+    if (filter === 'all') {
+      filtered = Array.from(availablePlugins);
+    } else {
+      filtered = [];
 
-        for (const plugin of availablePlugins) {
-          const enabled = await plugins.isEnabled(plugin);
+      for (const plugin of availablePlugins) {
+        const enabled = pluginsConfig()[plugin]?.enabled ?? false;
 
-          if (filter === 'enabled' && enabled) {
-            filtered.push(plugin);
-          } else if (filter === 'disabled' && !enabled) {
-            filtered.push(plugin);
-          }
+        if (filter === 'enabled' && enabled) {
+          filtered.push(plugin);
+        } else if (filter === 'disabled' && !enabled) {
+          filtered.push(plugin);
         }
       }
+    }
 
-      if (search) {
-        filtered = filtered.filter((plugin) => {
-          const pluginInstance = allPlugins[plugin];
+    if (search) {
+      filtered = filtered.filter((plugin) => {
+        const pluginInstance = allPlugins[plugin];
 
-          const name = jaroWinkler(pluginInstance.name().toLowerCase(), search);
-          const threshold = 0.65;
+        const name = jaroWinkler(pluginInstance.name().toLowerCase(), search);
+        const threshold = 0.65;
 
-          return (
-            name >= threshold ||
-            pluginInstance.description?.()?.toLowerCase()?.includes(search)
-          );
-        });
-      }
+        return (
+          name >= threshold ||
+          pluginInstance.description?.()?.toLowerCase()?.includes(search)
+        );
+      });
+    }
 
-      setter(filtered);
-    },
-    100
-  );
+    setFilteredPlugins(filtered);
+  }, 100);
 
-  createEffect(async () => {
-    const search = query().trim().toLowerCase();
-    const filter_ = filter();
-
-    filterImpl(search, filter_, setFilteredPlugins);
-  });
+  createEffect(() => filterImpl(query().trim().toLowerCase(), filter()));
 
   return (
     <div class="ytmd-sui-settingsContent">

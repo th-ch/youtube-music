@@ -8,6 +8,7 @@ import { createRenderer } from '@/utils';
 import { waitForElement } from '@/utils/wait-for-element';
 import SettingsModal from './components/SettingsModal';
 import { DefaultConfig } from '@/config/defaults';
+import { Paths, PathValue } from '@/config';
 
 const SettingsButton = () => {
   const [showModal, setShowModal] = createSignal(false);
@@ -80,30 +81,50 @@ export let getVersions = () => Promise.resolve({});
 export let plugins = {
   enable: (_id: string) => {},
   disable: (_id: string) => {},
-  isEnabled: (_id: string) => Promise.resolve(false),
 };
 
-// prettier-ignore
-export let loadSettings: () => Promise<DefaultConfig>;
+const [_config, setConfig] = createSignal<DefaultConfig>({} as any);
 
 // prettier-ignore
+export let Config = {
+  signal: _config,
+  get: <Key extends Paths<DefaultConfig>>(key: Key) => void 0 as any as Promise<PathValue<DefaultConfig, typeof key>>,
+  set: <Key extends Paths<DefaultConfig>>(key: Key, _value: PathValue<DefaultConfig, typeof key>) => Promise.resolve(),
+};
+
 export const renderer = createRenderer({
   start(ctx) {
+    // ctx.ipc.invoke('ytmd-sui:load-settings').then(setConfig);
+
+    // TODO: Find a better way to do this
+    setInterval(() => {
+      ctx.ipc.invoke('ytmd-sui:load-settings').then(setConfig);
+    }, 500);
+
     getAppVersion = () => ctx.ipc.invoke('ytmd-sui:app-version');
     getPlatform = () => ctx.ipc.invoke('ytmd-sui:platform');
     getVersions = () => ctx.ipc.invoke('ytmd-sui:versions');
-    loadSettings = () => ctx.ipc.invoke('ytmd-sui:load-settings');
 
-    plugins.enable = (id: string) => ctx.ipc.invoke('ytmd-sui:plugins-enable', id);
-    plugins.disable = (id: string) => ctx.ipc.invoke('ytmd-sui:plugins-disable', id);
-    plugins.isEnabled = (id: string) => ctx.ipc.invoke('ytmd-sui:plugins-isEnabled', id);
+    // prettier-ignore
+    {
+      Config.get = (key: string) => ctx.ipc.invoke('ytmd-sui:config-get', key);
+      Config.set = (key: string, value: unknown) => ctx.ipc.invoke('ytmd-sui:config-set', key, value);
+    }
+
+    // prettier-ignore
+    {
+      plugins.enable = (id: string) => ctx.ipc.invoke('ytmd-sui:plugins-enable', id);
+      plugins.disable = (id: string) => ctx.ipc.invoke('ytmd-sui:plugins-disable', id);
+    }
 
     waitForElement<HTMLElement>('#guide-renderer').then(injectButton);
     waitForElement<HTMLElement>('#mini-guide-renderer').then(injectButton);
   },
   stop() {
-    cleanup['guide-renderer']?.();
-    cleanup['mini-guide-renderer']?.();
+    for (const key in cleanup) {
+      cleanup[key]?.();
+      delete cleanup[key];
+    }
   },
 });
 

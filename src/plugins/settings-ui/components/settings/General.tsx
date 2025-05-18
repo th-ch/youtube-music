@@ -1,29 +1,95 @@
-import { createSignal, lazy, Show } from 'solid-js';
+import { createEffect, createSignal, lazy, Setter, Show } from 'solid-js';
 import { languageResources } from 'virtual:i18n';
 import { t } from '@/i18n';
-import type { DefaultConfig } from '@/config/defaults';
 
-import { getPlatform, loadSettings } from '../../renderer';
+import * as data from '@/providers/extracted-data';
+import { debounce } from '@/providers/decorators';
+
+import { getPlatform, Config } from '../../renderer';
+
 import { Toggle } from '../Toggle';
 import { Select } from '../Select';
 
 const Impl = (props: {
-  settings: DefaultConfig;
   platform: string;
   languages: { label: string; value: string }[];
 }) => {
-  const { options } = props.settings;
+  const startingPages = [{ label: 'Unset', value: '' }].concat(
+    Object.keys(data.startingPages).map((key) => ({
+      label: key,
+      value: key,
+    }))
+  );
 
-  const [autoUpdates, setAutoUpdates] = createSignal(options.autoUpdates);
-  const [startOnLogin, setStartOnLogin] = createSignal(options.startAtLogin);
-  const [autoResume, setAutoResume] = createSignal(options.resumeOnStart);
-  const [startingPage, setStartingPage] = createSignal(options.startingPage);
-  const [alwaysOnTop, setAlwaysOnTop] = createSignal(options.alwaysOnTop);
-  const [hideMenu, setHideMenu] = createSignal(options.hideMenu);
+  const { options: opts } = Config.signal();
+  type DirtableValue<T> = { dirty: boolean; value: T };
 
-  const [language, setLanguage] = createSignal(options.language ?? 'en');
+  const dty = <T,>(value: T): DirtableValue<T> => ({ dirty: false, value });
+
+  const [autoUpdates, setAutoUpdates] = createSignal(dty(opts.autoUpdates));
+  const [startOnLogin, setStartOnLogin] = createSignal(dty(opts.startAtLogin));
+  const [autoResume, setAutoResume] = createSignal(dty(opts.resumeOnStart));
+  const [startingPage, setStartingPage] = createSignal(dty(opts.startingPage));
+  const [alwaysOnTop, setAlwaysOnTop] = createSignal(dty(opts.alwaysOnTop));
+  const [hideMenu, setHideMenu] = createSignal(dty(opts.hideMenu));
+  const [language, setLanguage] = createSignal(dty(opts.language ?? 'en'));
+
+  /**
+   * propagate external config changes to the settings UI
+   */
+  createEffect(() => {
+    const { options } = Config.signal();
+
+    const changeIfClean =
+      <T,>(value: T) =>
+      (old: { dirty: boolean; value: T }) => {
+        if (old.dirty) return old;
+        return { dirty: false, value };
+      };
+
+    setAutoUpdates(changeIfClean(options.autoUpdates));
+    setStartOnLogin(changeIfClean(options.startAtLogin));
+    setAutoResume(changeIfClean(options.resumeOnStart));
+    setStartingPage(changeIfClean(options.startingPage));
+    setAlwaysOnTop(changeIfClean(options.alwaysOnTop));
+    setHideMenu(changeIfClean(options.hideMenu));
+    setLanguage(changeIfClean(options.language ?? 'en'));
+  });
+
+  const debouncers: Record<string, CallableFunction> = {};
+  const updateIfDirty = <T,>(
+    key: Parameters<typeof Config.get>[0],
+    { dirty, value }: DirtableValue<T>,
+    setter: Setter<DirtableValue<T>>
+  ) => {
+    debouncers[key] ??= debounce(
+      async (
+        { dirty, value }: DirtableValue<T>,
+        setter: Setter<DirtableValue<T>>
+      ) => {
+        if (dirty) {
+          console.log(`${key} = ${value}`);
+          setter({ dirty: false, value });
+          await Config.set(key, value as any);
+        }
+      },
+      200
+    );
+
+    debouncers[key]({ dirty, value }, setter);
+  };
+
+  createEffect(() => {
+    updateIfDirty('options.autoUpdates', autoUpdates(), setAutoUpdates);
+    updateIfDirty('options.startAtLogin', startOnLogin(), setStartOnLogin);
+    updateIfDirty('options.resumeOnStart', autoResume(), setAutoResume);
+    updateIfDirty('options.startingPage', startingPage(), setStartingPage);
+    updateIfDirty('options.alwaysOnTop', alwaysOnTop(), setAlwaysOnTop);
+    updateIfDirty('options.hideMenu', hideMenu(), setHideMenu);
+    updateIfDirty('options.language', language(), setLanguage);
+  });
+
   const t$ = (key: string) => t(`main.menu.options.submenu.${key}`);
-
   return (
     <div class="ytmd-sui-settingsContent ytmd-sui-scroll">
       <Show
@@ -35,79 +101,54 @@ const Impl = (props: {
         <Toggle
           label={t$('start-at-login')}
           description="Start youtube-music on login"
-          value={startOnLogin()}
-          toggle={() => setStartOnLogin((old) => !old)}
+          value={startOnLogin().value}
+          toggle={() =>
+            setStartOnLogin(({ value }) => ({ dirty: true, value: !value }))
+          }
         />
       </Show>
 
       <Select
         label={t$('language.label') + ' (Language)'}
         description="Select the language for the application"
-        value={language()}
+        value={language().value}
         options={props.languages}
-        onSelect={(value) => setLanguage(value)}
+        onSelect={(value) => setLanguage({ dirty: true, value })}
       />
 
       <Select
         label={t$('starting-page.label')}
         description="Select which page to show when the application starts"
-        value={startingPage()}
-        options={[
-          { label: 'Default', value: '' },
-          { label: 'Home', value: 'FEmusic_home' },
-          { label: 'Explore', value: 'FEmusic_explore' },
-          { label: 'New Releases', value: 'FEmusic_new_releases' },
-          { label: 'Charts', value: 'FEmusic_charts' },
-          { label: 'Moods & Genres', value: 'FEmusic_moods_and_genres' },
-          { label: 'Library', value: 'FEmusic_library_landing' },
-          { label: 'Playlists', value: 'FEmusic_liked_playlists' },
-          { label: 'Songs', value: 'FEmusic_liked_videos' },
-          { label: 'Albums', value: 'FEmusic_liked_albums' },
-          { label: 'Artists', value: 'FEmusic_library_corpus_track_artists' },
-          {
-            label: 'Subscribed Artists',
-            value: 'FEmusic_library_corpus_artists',
-          },
-          {
-            label: 'Uploads',
-            value: 'FEmusic_library_privately_owned_landing',
-          },
-          { label: 'Uploaded Playlists', value: 'FEmusic_liked_playlists' },
-          {
-            label: 'Uploaded Songs',
-            value: 'FEmusic_library_privately_owned_tracks',
-          },
-          {
-            label: 'Uploaded Albums',
-            value: 'FEmusic_library_privately_owned_releases',
-          },
-          {
-            label: 'Uploaded Artists',
-            value: 'FEmusic_library_privately_owned_artists',
-          },
-        ]}
-        onSelect={(value) => setStartingPage(value)}
+        value={startingPage().value}
+        options={startingPages}
+        onSelect={(value) => setStartingPage({ dirty: true, value })}
       />
 
       <Toggle
         label={t$('auto-update')}
         description="Automatically get notified about new versions"
-        value={autoUpdates()}
-        toggle={() => setAutoUpdates((old) => !old)}
+        value={autoUpdates().value}
+        toggle={() =>
+          setAutoUpdates(({ value }) => ({ dirty: true, value: !value }))
+        }
       />
 
       <Toggle
         label={t$('resume-on-start')}
         description="Resume last song when app starts"
-        value={autoResume()}
-        toggle={() => setAutoResume((old) => !old)}
+        value={autoResume().value}
+        toggle={() =>
+          setAutoResume(({ value }) => ({ dirty: true, value: !value }))
+        }
       />
 
       <Toggle
         label={t$('always-on-top')}
         description="Keep the application window on top of other windows"
-        value={alwaysOnTop()}
-        toggle={() => setAlwaysOnTop((old) => !old)}
+        value={alwaysOnTop().value}
+        toggle={() =>
+          setAlwaysOnTop(({ value }) => ({ dirty: true, value: !value }))
+        }
       />
 
       <Show
@@ -119,8 +160,10 @@ const Impl = (props: {
         <Toggle
           label={t$('hide-menu.label')}
           description="Hide the menu bar"
-          value={hideMenu()}
-          toggle={() => setHideMenu((old) => !old)}
+          value={hideMenu().value}
+          toggle={() =>
+            setHideMenu(({ value }) => ({ dirty: true, value: !value }))
+          }
         />
       </Show>
     </div>
@@ -128,29 +171,31 @@ const Impl = (props: {
 };
 
 export default lazy(async () => {
-  const settings = await loadSettings();
   const langRes = languageResources;
 
   type LanguageOption = { label: string; value: string };
 
-  const languages = Object.keys(langRes).reduce((acc, lang) => {
-    const englishName = langRes[lang].translation.language?.name ?? 'Unknown';
-    const nativeName =
-      langRes[lang].translation.language?.['local-name'] ?? 'Unknown';
+  const languages = Object.keys(langRes)
+    .reduce(
+      // prettier-ignore
+      (acc, lang) => {
+        const englishName = langRes[lang].translation.language?.name ?? 'Unknown';
+        const nativeName = langRes[lang].translation.language?.['local-name'] ?? 'Unknown';
 
-    acc.push({
-      label: `${englishName} (${nativeName})`,
-      value: lang,
-    });
+        acc.push({
+          label: `${englishName} (${nativeName})`,
+          value: lang,
+        });
 
-    return acc;
-  }, [] as LanguageOption[]);
+        return acc;
+      },
+      [] as LanguageOption[]
+    )
+    .sort(({ label: A }, { label: B }) => A.localeCompare(B));
 
   const platform = await getPlatform();
 
   return {
-    default: () => (
-      <Impl settings={settings} platform={platform} languages={languages} />
-    ),
+    default: () => <Impl platform={platform} languages={languages} />,
   };
 });

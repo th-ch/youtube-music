@@ -1,6 +1,6 @@
 import { deepmergeCustom } from 'deepmerge-ts';
 
-import defaultConfig from './defaults';
+import defaultConfig, { DefaultConfig } from './defaults';
 
 import store, { IStore } from './store';
 import plugins from './plugins';
@@ -60,7 +60,8 @@ type Join<K, P> = K extends string | number
     ? `${K}${'' extends P ? '' : '.'}${P}`
     : never
   : never;
-type Paths<T, D extends number = 10> = [D] extends [never]
+
+export type Paths<T, D extends number = 10> = [D] extends [never]
   ? never
   : T extends object
   ? {
@@ -71,15 +72,15 @@ type Paths<T, D extends number = 10> = [D] extends [never]
   : '';
 
 type SplitKey<K> = K extends `${infer A}.${infer B}` ? [A, B] : [K, string];
-type PathValue<T, K extends string> = SplitKey<K> extends [
+export type PathValue<T, K extends string> = SplitKey<K> extends [
   infer A extends keyof T,
   infer B extends string
 ]
   ? PathValue<T[A], B>
   : T;
 
-const get = <Key extends Paths<typeof defaultConfig>>(key: Key) =>
-  store.get(key) as PathValue<typeof defaultConfig, typeof key>;
+const get = <Key extends Paths<DefaultConfig>>(key: Key) =>
+  store.get(key) as PathValue<DefaultConfig, typeof key>;
 
 export default {
   defaultConfig,

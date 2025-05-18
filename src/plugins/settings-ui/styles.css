@@ -349,32 +349,46 @@
   }
 }
 
-.ytmd-sui-pluginHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 10px;
+.ytmd-sui-plg-card {
+  display: grid;
+  grid-template-columns: 1fr 0.1fr;
+  justify-content: space-around;
+  gap: 1rem;
 
-  & h4 {
-    margin: 0;
-    font-size: 16px;
-    font-weight: 600;
-    color: #fff;
+  & > .ytmd-sui-plg-left {
+    display: flex;
+    flex-direction: column;
+
+    & > .ytmd-sui-pluginHeader {
+      display: flex;
+      flex-direction: column;
+
+      & > .ytmd-sui-plg-title {
+        font-size: 1.8rem;
+        font-weight: 600;
+      }
+
+      & > .ytmd-sui-plg-authors {
+        font-size: 1.5rem;
+        color: hsl(240, 5%, 65%);
+        margin-top: 2px;
+      }
+    }
+
+    & > .ytmd-sui-plg-description {
+      font-size: 1.5rem;
+      color: hsl(240, 5%, 90%);
+      margin-top: 1rem;
+    }
   }
-}
 
-.ytmd-sui-pluginAuthor {
-  font-size: 12px;
-  color: #a1a1aa;
-  margin-top: 2px;
-  display: block;
-}
-
-.ytmd-sui-pluginDescription {
-  margin: 0;
-  font-size: 13px;
-  color: #a1a1aa;
-  line-height: 1.5;
+  & > .ytmd-sui-plg-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 2rem;
+  }
 }
 
 .ytmd-sui-aboutSection {
