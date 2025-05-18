@@ -455,6 +455,10 @@
 
     & .ytmd-sui-input {
       width: 60%;
+      padding: 1rem;
+      border-radius: 1rem;
+      outline-color: unset !important;
+      outline-style: unset !important;
     }
   }
 }
