@@ -2,7 +2,7 @@ import { createEffect, createSignal, For, Show } from 'solid-js';
 import { allPlugins } from 'virtual:plugins';
 import { plugins } from '../../renderer';
 import { jaroWinkler } from '@skyra/jaro-winkler';
-import { throttle } from '@/providers/decorators';
+import { debounce } from '@/providers/decorators';
 
 interface PluginCardProps {
   id: string;
@@ -69,7 +69,7 @@ export default () => {
   const [filter, setFilter] = createSignal<StatusFilter>('all');
   const [filteredPlugins, setFilteredPlugins] = createSignal(availablePlugins);
 
-  const filterImpl = throttle(
+  const filterImpl = debounce(
     async (
       search: string,
       filter: StatusFilter,
@@ -98,7 +98,7 @@ export default () => {
           const pluginInstance = allPlugins[plugin];
 
           const name = jaroWinkler(pluginInstance.name().toLowerCase(), search);
-          const threshold = 0.85;
+          const threshold = 0.65;
 
           return (
             name >= threshold ||
