@@ -79,10 +79,6 @@ tp-yt-paper-item.ytmusic-guide-entry-renderer::before {
   max-width: calc(100% - var(--ytmusic-player-page-vertical-padding) * 2);
 }
 
-ytmusic-player[player-ui-state='FULLSCREEN'] {
-  margin-top: calc(var(--menu-bar-height, 32px) * -1) !important;
-}
-
 /* macos traffic lights fix */
 :where([data-os*='Macintosh']) ytmusic-app-layout#layout ytmusic-nav-bar {
   padding-top: var(--ytmusic-nav-bar-offset, 0);

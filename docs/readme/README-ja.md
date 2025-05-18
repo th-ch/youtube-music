@@ -21,7 +21,7 @@
 	</a>
 </div>
 
-他の言語で読む: [🏴 英語](../../README.md), [🇰🇷 韓国語](./README-ko.md), [🇫🇷 フランス語](./README-fr.md), [🇮🇸 アイスランド語](./README-is.md), [🇪🇸 スペイン語](./README-es.md), [🇷🇺 ロシア語](./README-ru.md)
+他の言語で読む: [🏴 英語](../../README.md), [🇰🇷 韓国語](./README-ko.md), [🇫🇷 フランス語](./README-fr.md), [🇮🇸 アイスランド語](./README-is.md), [🇪🇸 スペイン語](./README-es.md), [🇷🇺 ロシア語](./README-ru.md), [🇺🇦 ウクライナ語](./README-uk.md)
 
 **YouTube MusicのElectronラッパーには以下の機能があります:**
 
