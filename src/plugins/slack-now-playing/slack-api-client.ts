@@ -218,8 +218,7 @@ export class SlackApiClient {
    */
   private createFetchOptions(headers: Record<string, string>, options: { disableSSLValidation?: boolean } = {}): RequestInit {
     const fetchOptions: RequestInit = {
-      headers,
-      // 'credentials' and 'mode' are not needed for Node.js fetch
+      headers
     };
     // For SSL validation disabling, use agent in Node.js
     if (options.disableSSLValidation) {
