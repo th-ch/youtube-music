@@ -1,44 +1,27 @@
 import { createSignal, lazy, Show } from 'solid-js';
 import { languageResources } from 'virtual:i18n';
+import { t } from '@/i18n';
+import type { DefaultConfig } from '@/config/defaults';
+
+import { getPlatform, loadSettings } from '../../renderer';
 import { Toggle } from '../Toggle';
 import { Select } from '../Select';
-import { t } from '@/i18n';
-import { getPlatform, loadSettings } from '../../renderer';
 
 const Impl = (props: {
-  settings: Record<string, unknown>;
+  settings: DefaultConfig;
   platform: string;
   languages: { label: string; value: string }[];
 }) => {
-  // TODO: Make this cleaner, this is a mess
+  const { options } = props.settings;
 
-  // @ts-expect-error
-  // prettier-ignore
-  const [checkForUpdates, setCheckForUpdates] = createSignal<boolean>(props.settings.options.autoUpdates);
+  const [autoUpdates, setAutoUpdates] = createSignal(options.autoUpdates);
+  const [startOnLogin, setStartOnLogin] = createSignal(options.startAtLogin);
+  const [autoResume, setAutoResume] = createSignal(options.resumeOnStart);
+  const [startingPage, setStartingPage] = createSignal(options.startingPage);
+  const [alwaysOnTop, setAlwaysOnTop] = createSignal(options.alwaysOnTop);
+  const [hideMenu, setHideMenu] = createSignal(options.hideMenu);
 
-  // @ts-expect-error
-  // prettier-ignore
-  const [startOnLogin, setStartOnLogin] = createSignal<boolean>(props.settings.options.startAtLogin);
-
-  // @ts-expect-error
-  // prettier-ignore
-  const [resumeOnStartup, setResumeOnStartup] = createSignal<boolean>(props.settings.options.resumeOnStart);
-
-  // @ts-expect-error
-  // prettier-ignore
-  const [startingPage, setStartingPage] = createSignal<string>(props.settings.options.startingPage);
-
-  // @ts-expect-error
-  // prettier-ignore
-  const [alwaysOnTop, setAlwaysOnTop] = createSignal<boolean>(props.settings.options.alwaysOnTop);
-
-  // @ts-expect-error
-  // prettier-ignore
-  const [hideMenu, setHideMenu] = createSignal<boolean>(props.settings.options.hideMenu);
-
-  // @ts-expect-error
-  // prettier-ignore
-  const [language, setLanguage] = createSignal(props.settings.options.language ?? 'en');
+  const [language, setLanguage] = createSignal(options.language ?? 'en');
   const t$ = (key: string) => t(`main.menu.options.submenu.${key}`);
 
   return (
@@ -109,15 +92,15 @@ const Impl = (props: {
       <Toggle
         label={t$('auto-update')}
         description="Automatically get notified about new versions"
-        value={checkForUpdates()}
-        toggle={() => setCheckForUpdates((old) => !old)}
+        value={autoUpdates()}
+        toggle={() => setAutoUpdates((old) => !old)}
       />
 
       <Toggle
         label={t$('resume-on-start')}
         description="Resume last song when app starts"
-        value={resumeOnStartup()}
-        toggle={() => setResumeOnStartup((old) => !old)}
+        value={autoResume()}
+        toggle={() => setAutoResume((old) => !old)}
       />
 
       <Toggle
@@ -146,22 +129,28 @@ const Impl = (props: {
 
 export default lazy(async () => {
   const settings = await loadSettings();
+  const langRes = languageResources;
 
-  const languages = Object.keys(languageResources).reduce((acc, lang) => {
-    const label = `${
-      languageResources[lang].translation.language?.name ?? 'Unknown'
-    } (${
-      languageResources[lang].translation.language?.['local-name'] ?? 'Unknown'
-    })`;
+  type LanguageOption = { label: string; value: string };
+
+  const languages = Object.keys(langRes).reduce((acc, lang) => {
+    const englishName = langRes[lang].translation.language?.name ?? 'Unknown';
+    const nativeName =
+      langRes[lang].translation.language?.['local-name'] ?? 'Unknown';
+
     acc.push({
-      label,
+      label: `${englishName} (${nativeName})`,
       value: lang,
     });
+
     return acc;
-  }, [] as { label: string; value: string }[]);
+  }, [] as LanguageOption[]);
 
   const platform = await getPlatform();
 
-  // prettier-ignore
-  return { default: () => <Impl settings={settings} platform={platform} languages={languages} /> };
+  return {
+    default: () => (
+      <Impl settings={settings} platform={platform} languages={languages} />
+    ),
+  };
 });

@@ -27,7 +27,7 @@ export default () => {
           </div>
           <div
             class="ytmd-sui-toggle"
-            onClick={() => setExperimentalFeatures(!experimentalFeatures())}
+            onClick={() => setExperimentalFeatures((old) => !old)}
           >
             <div class="ytmd-sui-toggleHandle"></div>
           </div>
@@ -44,7 +44,7 @@ export default () => {
           </div>
           <div
             class="ytmd-sui-toggle"
-            onClick={() => setDebugMode(!debugMode())}
+            onClick={() => setDebugMode((old) => !old)}
           >
             <div class="ytmd-sui-toggleHandle"></div>
           </div>

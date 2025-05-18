@@ -7,6 +7,7 @@ import { t } from '@/i18n';
 import { createRenderer } from '@/utils';
 import { waitForElement } from '@/utils/wait-for-element';
 import SettingsModal from './components/SettingsModal';
+import { DefaultConfig } from '@/config/defaults';
 
 const SettingsButton = () => {
   const [showModal, setShowModal] = createSignal(false);
@@ -37,6 +38,12 @@ const SettingsButton = () => {
 };
 
 const cleanup: Record<string, () => void> = {};
+const dispose = () => {
+  for (const key in cleanup) {
+    cleanup[key]();
+    waitForElement<HTMLElement>(`#${key}`).then(injectButton);
+  }
+};
 
 // prettier-ignore
 const injectButton = (guide: HTMLElement) => {
@@ -71,14 +78,15 @@ export let getVersions = () => Promise.resolve({});
 
 // stubs
 export let plugins = {
-  enable: (id: string) => {},
-  disable: (id: string) => {},
-  isEnabled: (id: string) => Promise.resolve(false),
+  enable: (_id: string) => {},
+  disable: (_id: string) => {},
+  isEnabled: (_id: string) => Promise.resolve(false),
 };
 
 // prettier-ignore
-export let loadSettings = async () => ({} as ReturnType<typeof import('@/config')['default']['getStore']>);
+export let loadSettings: () => Promise<DefaultConfig>;
 
+// prettier-ignore
 export const renderer = createRenderer({
   start(ctx) {
     getAppVersion = () => ctx.ipc.invoke('ytmd-sui:app-version');
@@ -86,12 +94,9 @@ export const renderer = createRenderer({
     getVersions = () => ctx.ipc.invoke('ytmd-sui:versions');
     loadSettings = () => ctx.ipc.invoke('ytmd-sui:load-settings');
 
-    plugins.enable = (id: string) =>
-      ctx.ipc.invoke('ytmd-sui:plugins-enable', id);
-    plugins.disable = (id: string) =>
-      ctx.ipc.invoke('ytmd-sui:plugins-disable', id);
-    plugins.isEnabled = (id: string) =>
-      ctx.ipc.invoke('ytmd-sui:plugins-isEnabled', id);
+    plugins.enable = (id: string) => ctx.ipc.invoke('ytmd-sui:plugins-enable', id);
+    plugins.disable = (id: string) => ctx.ipc.invoke('ytmd-sui:plugins-disable', id);
+    plugins.isEnabled = (id: string) => ctx.ipc.invoke('ytmd-sui:plugins-isEnabled', id);
 
     waitForElement<HTMLElement>('#guide-renderer').then(injectButton);
     waitForElement<HTMLElement>('#mini-guide-renderer').then(injectButton);
@@ -103,10 +108,6 @@ export const renderer = createRenderer({
 });
 
 if (import.meta.hot) {
-  import.meta.hot.on('vite:afterUpdate', () => {
-    for (const key in cleanup) {
-      cleanup[key]();
-      waitForElement<HTMLElement>(`#${key}`).then(injectButton);
-    }
-  });
+  import.meta.hot.accept();
+  import.meta.hot.dispose(dispose);
 }

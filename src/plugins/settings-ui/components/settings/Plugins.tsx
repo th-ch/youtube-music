@@ -2,6 +2,7 @@ import { createEffect, createSignal, For, Show } from 'solid-js';
 import { allPlugins } from 'virtual:plugins';
 import { plugins } from '../../renderer';
 import { jaroWinkler } from '@skyra/jaro-winkler';
+import { throttle } from '@/providers/decorators';
 
 interface PluginCardProps {
   id: string;
@@ -57,56 +58,65 @@ const PluginCard = (props: PluginCardProps) => {
   );
 };
 
-// prettier-ignore
 export default () => {
-  const availablePlugins = Object.keys(allPlugins).sort((a, b) => a.localeCompare(b));
+  const availablePlugins = Object.keys(allPlugins).sort((a, b) =>
+    a.localeCompare(b)
+  );
+
+  type StatusFilter = 'all' | 'enabled' | 'disabled';
 
   const [query, setQuery] = createSignal('');
-  const [filter, setFilter] = createSignal<'all' | 'enabled' | 'disabled'>('all');
-  const [filteredPlugins, setFilteredPlugins] = createSignal<string[]>(availablePlugins);
+  const [filter, setFilter] = createSignal<StatusFilter>('all');
+  const [filteredPlugins, setFilteredPlugins] = createSignal(availablePlugins);
+
+  const filterImpl = throttle(
+    async (
+      search: string,
+      filter: StatusFilter,
+      setter: typeof setFilteredPlugins
+    ) => {
+      let filtered;
+
+      if (filter === 'all') {
+        filtered = Array.from(availablePlugins);
+      } else {
+        filtered = [];
+
+        for (const plugin of availablePlugins) {
+          const enabled = await plugins.isEnabled(plugin);
+
+          if (filter === 'enabled' && enabled) {
+            filtered.push(plugin);
+          } else if (filter === 'disabled' && !enabled) {
+            filtered.push(plugin);
+          }
+        }
+      }
+
+      if (search) {
+        filtered = filtered.filter((plugin) => {
+          const pluginInstance = allPlugins[plugin];
+
+          const name = jaroWinkler(pluginInstance.name().toLowerCase(), search);
+          const threshold = 0.85;
+
+          return (
+            name >= threshold ||
+            pluginInstance.description?.()?.toLowerCase()?.includes(search)
+          );
+        });
+      }
+
+      setter(filtered);
+    },
+    100
+  );
 
   createEffect(async () => {
-    // TODO: Throttle this effect so it doesn't run on every keystroke
-
     const search = query().trim().toLowerCase();
     const filter_ = filter();
 
-    /*
-      Note: it is safe to have the entire effect be async, because all the signals used in the effect are used before any await keyword.
-      Due to how javascript behaves, an asynchornous function is only considered async after the first await keyword.
-      If the signals were used after the await keyword, it would break the reactivity.
-    */
-
-    let filtered;
-
-    if (filter_ === 'all') {
-      filtered = Array.from(availablePlugins);
-    } else {
-      filtered = [];
-
-      for (const plugin of availablePlugins) {
-        const enabled = await plugins.isEnabled(plugin);
-
-        if (filter_ === 'enabled' && enabled) {
-          filtered.push(plugin);
-        } else if (filter_ === 'disabled' && !enabled) {
-          filtered.push(plugin);
-        }
-      }
-    }
-
-    if (search) {
-      filtered = filtered.filter((plugin) => {
-        const pluginInstance = allPlugins[plugin];
-
-        const name = jaroWinkler(pluginInstance.name().toLowerCase(), search);
-        const threshold = 0.85;
-
-        return name >= threshold || pluginInstance.description?.()?.toLowerCase()?.includes(search);
-      });
-    }
-
-      setFilteredPlugins(filtered);
+    filterImpl(search, filter_, setFilteredPlugins);
   });
 
   return (
