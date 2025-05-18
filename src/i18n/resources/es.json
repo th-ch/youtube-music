@@ -333,6 +333,30 @@
       "description": "Aplicar compresión al audio (reduce la diferencia entre las partes más fuertes y más suaves de una pista para que tenga un nivel más consistente)",
       "name": "Compresor de audio"
     },
+    "auth-proxy-adapter": {
+      "description": "Soporte para el uso de servicios de proxy de autenticación",
+      "menu": {
+        "disable": "Deshabilitar el adaptador proxy",
+        "enable": "Habilitar el adaptador proxy",
+        "hostname": {
+          "label": "Nombre de host"
+        },
+        "port": {
+          "label": "Puerto"
+        }
+      },
+      "name": "Adaptador de proxy de autenticación",
+      "prompt": {
+        "hostname": {
+          "label": "Ingrese el nombre de host del servidor proxy local (requiere reinicio):",
+          "title": "Nombre de host del proxy"
+        },
+        "port": {
+          "label": "Ingrese el puerto para el servidor de proxy local (requiere reinicio):",
+          "title": "Puerto de proxy"
+        }
+      }
+    },
     "blur-nav-bar": {
       "description": "Hace que la barra de navegación se vea transparente y borrosa",
       "name": "Desenfocar barra de navegación"
@@ -599,6 +623,10 @@
         "unpause-notification": "Mostrar notificación al reanudar"
       },
       "name": "Notificaciones"
+    },
+    "performance-improvement": {
+      "description": "Mejore el rendimiento habilitando scripts experimentales",
+      "name": "Mejora del rendimiento [Beta]"
     },
     "picture-in-picture": {
       "description": "Permite cambiar la aplicación al modo picture-in-picture",
