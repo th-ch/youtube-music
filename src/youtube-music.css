@@ -92,3 +92,16 @@ tp-yt-iron-dropdown,
 tp-yt-paper-dialog {
   app-region: no-drag;
 }
+
+/* ---- App Customizations ---- */
+html, body {
+  background: transparent !important; /* Ensure no default opaque background */
+}
+body {
+  /*
+   Sets the overall application background opacity.
+   A value of 1 is fully opaque, 0 is fully transparent.
+   Adjust as needed.
+  */
+  opacity: 0.98 !important; /* More noticeable transparency */
+}

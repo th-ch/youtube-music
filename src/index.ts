@@ -352,7 +352,8 @@ async function createMainWindow() {
     icon,
     width: windowSize.width,
     height: windowSize.height,
-    backgroundColor: '#000',
+    transparent: true,
+    backgroundColor: '#00000000',
     show: false,
     webPreferences: {
       contextIsolation: true,
