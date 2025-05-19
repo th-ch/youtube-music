@@ -268,7 +268,7 @@
           }
         },
         "smoothness-transition": {
-          "label": "Glatak(oća?) prijelaz(a)",
+          "label": "Glatakoća prijelaza",
           "submenu": {
             "during": "Tijekom {{interpolationTime}} s"
           }
@@ -334,7 +334,257 @@
       "name": "Kompresor Zvuka"
     },
     "blur-nav-bar": {
-      "description": "Čini navigacijsku traku prozirnom i zamagljenom"
+      "description": "Čini navigacijsku traku prozirnom i zamagljenom",
+      "name": "Zamagli Navigacijsku Traku"
+    },
+    "bypass-age-restrictions": {
+      "description": "Zaobiđi YouTubeovu provjeru dobi",
+      "name": "Zaobiđi dobna ograničenja"
+    },
+    "captions-selector": {
+      "description": "Izbornik titlova za audiozapise od YouTube Musica",
+      "menu": {
+        "autoload": "Automatski izaberi posljednje korištene titlove",
+        "disable-captions": "Bez titlova"
+      },
+      "name": "Izbornik za titlove",
+      "prompt": {
+        "selector": {
+          "label": "Trenutni jezik za titlove: {{language}}",
+          "none": "Ništa",
+          "title": "Izaberi jezik za titlove"
+        }
+      },
+      "templates": {
+        "title": "Otvori izbornik za titlove"
+      }
+    },
+    "compact-sidebar": {
+      "description": "Uvijek postavi bočnu traku na kompaktni način rada",
+      "name": "Kompaktna bočna traka"
+    },
+    "crossfade": {
+      "description": "Pretapanje (cross-fade) između pjesama",
+      "menu": {
+        "advanced": "Napredno"
+      },
+      "name": "Pretapanje (cross-fade) [Beta]",
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "fade-in-duration": "Trajanje postepenog pojačavanja zvuka (Fade in) (ms)",
+            "fade-out-duration": "Trajanje postepenog smanjenje zvuka (Fade out) (ms)",
+            "fade-scaling": {
+              "label": "Skaliranje postepenog prijelaza (Fade scaling)",
+              "linear": "Linearno",
+              "logarithmic": "Logaritamsko"
+            },
+            "seconds-before-end": "Pretapanje (cross-fade) N sekundi prije kraja"
+          },
+          "title": "Opcije za pretapanje (cross-fade)"
+        }
+      }
+    },
+    "disable-autoplay": {
+      "description": "Postavlja da pjesma počne pauzirana",
+      "menu": {
+        "apply-once": "Primjenjuje se samo pri pokretanju aplikacije"
+      },
+      "name": "Isključi automatsko reprodukciju"
+    },
+    "discord": {
+      "backend": {
+        "already-connected": "Pokušano je povezivanje s aktivnom vezom",
+        "connected": "Spojen na Discord",
+        "disconnected": "Odspojen od Discorda"
+      },
+      "description": "Pokaži svojim prijateljima što slušate sa Rich Presence",
+      "menu": {
+        "auto-reconnect": "Automatski se ponovo spoji",
+        "clear-activity": "Očisti aktivnosti",
+        "clear-activity-after-timeout": "Očisti aktivnosti nakon isteka vremena",
+        "connected": "Spojen",
+        "disconnected": "Odspojen",
+        "hide-duration-left": "Sakrij preostalo vrijeme",
+        "hide-github-button": "Sakrij gumb sa GitHub poveznicom",
+        "play-on-youtube-music": "Reproduciraj na YouTube Musicu",
+        "set-inactivity-timeout": "Postavi vremensko ograničenje neaktivnosti (inactivity timeout)"
+      },
+      "name": "Discord Rich Presence",
+      "prompt": {
+        "set-inactivity-timeout": {
+          "label": "Postavi vremensko ograničenje neaktivnosti u sekundama:",
+          "title": "Postavi vremensko ograničenje neaktivnosti"
+        }
+      }
+    },
+    "downloader": {
+      "backend": {
+        "dialog": {
+          "error": {
+            "buttons": {
+              "ok": "OK"
+            },
+            "message": "Jao! Oprostite, preuzimanje je bilo neuspješno…",
+            "title": "Pogreška pri preuzimanju!"
+          },
+          "start-download-playlist": {
+            "buttons": {
+              "ok": "OK"
+            },
+            "detail": "({{playlistSize}} pjesma)",
+            "message": "Preuzimanje Playliste {{playlistTitle}}",
+            "title": "Preuzimanje započeto"
+          }
+        },
+        "feedback": {
+          "conversion-progress": "Konverzija: {{percent}}%",
+          "converting": "Konvertiranje…",
+          "done": "Gotov: {{filePath}}",
+          "download-info": "Preuzimanje {{artist}} - {{title}} [{{videoId}}",
+          "download-progress": "Preuzimanje: {{percent}}%",
+          "downloading": "Preuzimanje…",
+          "downloading-counter": "Preuzimanje {{current}}/{{total}}…",
+          "downloading-playlist": "Preuzimanje playliste \"{{playlistTitle}}\" - {{playlistSize}} pjesama ({{playlistId}})",
+          "error-while-downloading": "Pogreška pri preuzimanju \"{{author}} - {{title}}\": {{error}}",
+          "folder-already-exists": "Mapa {{playlistFolder}} već postoji",
+          "getting-playlist-info": "Dobavljaju se informacije o playlisti…",
+          "loading": "Učitavanje…",
+          "playlist-has-only-one-song": "Playlista ima samo jedan stavku, preuzeti će se direktno",
+          "playlist-id-not-found": "Nije pronađen ID playliste",
+          "playlist-is-empty": "Playlista je prazna",
+          "playlist-is-mix-or-private": "Pogreška pri dobivanju informacija o playlisti: provjerite da nije ili privatna ili \"Za vas\" playlista\n\n{{error}}",
+          "preparing-file": "Priprema se datoteka…",
+          "saving": "Spremanje…",
+          "trying-to-get-playlist-id": "Pokušavam dobaviti playlist ID: {{playlistId}}",
+          "video-id-not-found": "Videozapis nije pronađen",
+          "writing-id3": "Zapisujem ID3 tagove…"
+        }
+      },
+      "description": "Preuzima MP3 / izvorni audiozapis izravno iz sučelja",
+      "menu": {
+        "choose-download-folder": "Odaberite mapu za preuzimanje",
+        "download-finish-settings": {
+          "label": "Preuzmi pri završetku",
+          "prompt": {
+            "last-percent": "Nakon x posto",
+            "last-seconds": "Zadnjih x sekundi",
+            "title": "Podesi kada preuzeti"
+          },
+          "submenu": {
+            "advanced": "Napredno",
+            "enabled": "Uključeno",
+            "mode": "Tip vremena",
+            "percent": "Postotak",
+            "seconds": "Sekunde"
+          }
+        },
+        "download-playlist": "Preuzmi playlistu",
+        "presets": "Unaprijed postavljeno",
+        "skip-existing": "Preskoči datoteke koje već postoje"
+      },
+      "name": "Preuzimatelj",
+      "renderer": {
+        "can-not-update-progress": "Nemoguće ažuriranje napredka"
+      },
+      "templates": {
+        "button": "Preuzmi"
+      }
+    },
+    "exponential-volume": {
+      "description": "Čini klizač glasnoće (volume slider) eksponencijalnim za lakše odabranje niže glasnoće.",
+      "name": "Eksponencijalna Glasnoća"
+    },
+    "in-app-menu": {
+      "description": "Daje izbornicima fensi, tamni ili prema boji albuma izgled",
+      "menu": {
+        "hide-dom-window-controls": "Sakrij kontrole prozora DOM-a"
+      },
+      "name": "Izbornik unutar aplikacije"
+    },
+    "lumiastream": {
+      "description": "Dodaje podršku za Lumia Stream",
+      "name": "Lumia Stream [Beta]"
+    },
+    "lyrics-genius": {
+      "description": "Dodaje podršku za tekstove pjesama za većinu pjesama",
+      "menu": {
+        "romanized-lyrics": "Romanizirani tekstovi pjesme"
+      },
+      "name": "Genius teksovi pjesme",
+      "renderer": {
+        "fetched-lyrics": "Dobavljen tekst pjesme s Genius-a"
+      }
+    },
+    "music-together": {
+      "description": "Podijeli playlistu s drugima. Kada domaćin (host) pusti pjesmu, svi ostali će čuti istu pjesmu",
+      "dialog": {
+        "enter-host": "Unesi ID hosta"
+      },
+      "internal": {
+        "save": "Spremi",
+        "track-source": "Izvor Pjesme",
+        "unknown-user": "Nepoznati Korisnik"
+      },
+      "menu": {
+        "click-to-copy-id": "Kopiraj ID Hosta",
+        "close": "Zatvori Glazbu Zajedno",
+        "connected-users": "Spojeni Korisnici",
+        "disconnect": "Odspoji Glazbu Zajedno",
+        "empty-user": "Nema spojenih korisnika",
+        "host": "Host Glazbe Zajedno",
+        "join": "Pridruži se Glazbi Zajedno",
+        "permission": {
+          "all": "Dopusti gostima da kontroliraju playlistu i reprodukciju",
+          "host-only": "Samo host može kontrolirati playlistu i reprodukciju",
+          "playlist": "Dozvoli gostima da kontroliraju playlistu"
+        },
+        "set-permission": "Promijeni dozvolu za upravljanje",
+        "status": {
+          "disconnected": "Odspojen",
+          "guest": "Spojen kao Gost",
+          "host": "Spojen kao Host"
+        }
+      },
+      "name": "Glazba Zajedno [Beta]",
+      "toast": {
+        "add-song-failed": "Neuspješno dodavanje pjesme",
+        "closed": "Glazba Zajedno je zatvorena",
+        "disconnected": "Glazba Zajedno je odspojena",
+        "host-failed": "Neuspješno hostanje Glazbe Zajedno",
+        "id-copied": "ID hosta kopiran u međuspremnik",
+        "id-copy-failed": "Neuspješno kopiranje ID-a hosta u međuspremnik",
+        "join-failed": "Neuspješno pridruživanje Glazbi Zajedno",
+        "joined": "Pridružen Glazbi Zajedno",
+        "permission-changed": "Dozvola Glazbe Zajedno promijenjena na '{{permission}}'",
+        "remove-song-failed": "Neuspješno uklanjanje pjesme",
+        "user-connected": "{{name}} se pridružio Glazbi Zajedno",
+        "user-disconnected": "{{name}} je napustio Glazbu Zajedno"
+      }
+    },
+    "navigation": {
+      "description": "Naprijed/Nazad navigacijske strelice su izravno integrirane u sučelje, kao i u vašem omiljenom pregledniku",
+      "name": "Navigacija"
+    },
+    "no-google-login": {
+      "description": "Ukloni Google prijavne gumbe i linkove iz sučelja",
+      "name": "Nema Google Prijave"
+    },
+    "notifications": {
+      "description": "Prikažite obavijest kada pjesma počne svirati (interaktivne obavijesti dostupne su na Windowsu)",
+      "menu": {
+        "interactive": "Interaktivne Obavijesti",
+        "interactive-settings": {
+          "label": "Interaktivne Postavke",
+          "submenu": {
+            "hide-button-text": "Sakrij tekst gumba",
+            "refresh-on-play-pause": "Osvježi pri Reprodukciji/Pauzi",
+            "tray-controls": "Otvori/Zatvori klikom na traku"
+          }
+        },
+        "priority": "Prioritet Obavijesti",
+        "toast-style": "Tipa Toast (kao Android obavjest)"
+      }
     }
   }
 }
