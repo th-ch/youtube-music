@@ -100,7 +100,6 @@
               "disable-hardware-acceleration": "השבת האצת החומרה",
               "edit-config-json": "ערוך את config.json",
               "override-user-agent": "עוקף את סוכן המשתמש",
-              "add-override-user-agent": "הוסף סוכן משתמש",
               "restart-on-config-changes": "הפעל מחדש בשינויי תצורה",
               "set-proxy": {
                 "label": "הגדר שרת proxy",

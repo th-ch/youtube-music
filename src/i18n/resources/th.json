@@ -100,7 +100,6 @@
               "disable-hardware-acceleration": "ปิดการใช้งานตัวเร่งประสิทธิภาพด้วยฮาร์ดแวร์",
               "edit-config-json": "แก้ไข config.json",
               "override-user-agent": "แทนที่ User-Agent",
-              "add-override-user-agent": "เพิ่ม User-Agent",
               "restart-on-config-changes": "รีสตาร์ตเมื่อมีการเปลี่ยนแปลงคอนฟิก",
               "set-proxy": {
                 "label": "ตั้งค่าพร็อกซี่",

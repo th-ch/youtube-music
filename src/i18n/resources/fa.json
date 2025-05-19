@@ -100,7 +100,6 @@
               "disable-hardware-acceleration": "غیرفعال کردن شتاب سخت‌افزاری",
               "edit-config-json": "config.json ویرایش",
               "override-user-agent": "User-Agent تغییر",
-              "add-override-user-agent": "User-Agent اضافه کردن",
               "restart-on-config-changes": "راه‌اندازی مجدد در صورت تغییرات در پیکربندی",
               "set-proxy": {
                 "label": "تنظیم پراکسی",

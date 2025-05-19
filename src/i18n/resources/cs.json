@@ -100,7 +100,6 @@
               "disable-hardware-acceleration": "Vypnout hardware zrychlení",
               "edit-config-json": "Upravit config.json",
               "override-user-agent": "Přepsat User-Agent",
-              "add-override-user-agent": "Přidat user agent",
               "restart-on-config-changes": "Restartovat při změně konfigurace",
               "set-proxy": {
                 "label": "Nastavit proxy",

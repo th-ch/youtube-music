@@ -100,7 +100,6 @@
               "disable-hardware-acceleration": "Απενεργοποίηση επιτάχυνσης υλικού",
               "edit-config-json": "Επεξεργασία του config.json",
               "override-user-agent": "Παράκαμψη User-Agent",
-              "add-override-user-agent": "Προσθήκη user agent",
               "restart-on-config-changes": "Επανεκκίνηση κατά την αλλαγή ρυθμίσεων",
               "set-proxy": {
                 "label": "Ορισμός μεσολάβησης",

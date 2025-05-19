@@ -100,7 +100,6 @@
               "disable-hardware-acceleration": "Hardware-Beschleunigung deaktivieren",
               "edit-config-json": "config.json ändern",
               "override-user-agent": "User-Agent überschreiben",
-              "add-override-user-agent": "User-Agent hinzufügen",
               "restart-on-config-changes": "Bei Konfigurationsänderungen neu starten",
               "set-proxy": {
                 "label": "Proxy setzen",

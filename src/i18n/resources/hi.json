@@ -100,7 +100,6 @@
               "disable-hardware-acceleration": "हार्डवेयर एक्सीलरेशन बंद करें",
               "edit-config-json": "config.json को एडिट करें",
               "override-user-agent": "यूजर-एजेंट को रद्द करें",
-              "add-override-user-agent": "यूजर-एजेंट जोड़ें",
               "restart-on-config-changes": "कनफिग बदलने पे पुनः शुरू करें",
               "set-proxy": {
                 "label": "प्रॉक्सी तय करें",

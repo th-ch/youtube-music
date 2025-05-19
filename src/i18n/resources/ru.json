@@ -100,8 +100,6 @@
               "disable-hardware-acceleration": "Отключить аппаратное ускорение",
               "edit-config-json": "Редактировать config.json",
               "override-user-agent": "Переопределить User-Agent",
-              "add-override-user-agent": "Добавить User-Agent",
-              "reset-override-user-agent": "Reset user agent",
               "restart-on-config-changes": "Перезапускать при изменениях конфига",
               "set-proxy": {
                 "label": "Задать прокси",

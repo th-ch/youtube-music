@@ -100,8 +100,6 @@
               "disable-hardware-acceleration": "Deshabilita l'acceleració per hardware",
               "edit-config-json": "Edita el config.json",
               "override-user-agent": "Sobreescriu User-Agent",
-              "add-override-user-agent": "Afegir user agent",
-              "reset-override-user-agent": "Reset user agent",
               "restart-on-config-changes": "Reiniciar en canviar la configuració",
               "set-proxy": {
                 "label": "Definir servidor intermediari (proxy)",

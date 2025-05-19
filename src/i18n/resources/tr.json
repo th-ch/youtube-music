@@ -100,7 +100,6 @@
               "disable-hardware-acceleration": "Donanım hızlandırmayı devre dışı bırak",
               "edit-config-json": "Düzenle config.json",
               "override-user-agent": "\"User-Agent \"ı geçersiz kıl",
-              "add-override-user-agent": "User-Agent ekle",
               "restart-on-config-changes": "Yapılandırma değişikliğinde yeniden başlat",
               "set-proxy": {
                 "label": "Proxy ayarla",

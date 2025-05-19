@@ -100,8 +100,6 @@
               "disable-hardware-acceleration": "تعطيل تسريع الأجهزة",
               "edit-config-json": "تعديل ملف الاعدادات",
               "override-user-agent": "تجاوز User-Agent",
-              "add-override-user-agent": "إضافة user agent",
-              "reset-override-user-agent": "Reset user agent",
               "restart-on-config-changes": "إعادة التشغيل عند تغيير الإعدادات",
               "set-proxy": {
                 "label": "تعيين الوكيل",

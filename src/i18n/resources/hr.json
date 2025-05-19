@@ -100,7 +100,6 @@
               "disable-hardware-acceleration": "Isključi hardversku akceleraciju",
               "edit-config-json": "Uredi config.json",
               "override-user-agent": "Promijeni User-Agent",
-              "add-override-user-agent": "Dodaj User-Agent",
               "restart-on-config-changes": "Ponovno pokreni na promjene konfiguracije",
               "set-proxy": {
                 "label": "Postavi proxy",
