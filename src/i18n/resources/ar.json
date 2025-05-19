@@ -99,8 +99,8 @@
               "auto-reset-app-cache": "إعادة تعيين ذاكرة التخزين المؤقت للتطبيق عند بدء التشغيل",
               "disable-hardware-acceleration": "تعطيل تسريع الأجهزة",
               "edit-config-json": "تعديل ملف الاعدادات",
-              "override-user-agent": "تجاوز User-Agent",
-              "restart-on-config-changes": "إعادة التشغيل عند تغيير الإعدادات",
+              "override-user-agent": "تجاوز وكيل المستخدم",
+              "restart-on-config-changes": "اعادة التشغيل بعد تعديل الاعدادات",
               "set-proxy": {
                 "label": "تعيين الوكيل",
                 "prompt": {

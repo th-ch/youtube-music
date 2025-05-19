@@ -99,8 +99,8 @@
               "auto-reset-app-cache": "Reinicialitza la memòria cau de l'aplicació quan es reiniciï",
               "disable-hardware-acceleration": "Deshabilita l'acceleració per hardware",
               "edit-config-json": "Edita el config.json",
-              "override-user-agent": "Sobreescriu User-Agent",
-              "restart-on-config-changes": "Reiniciar en canviar la configuració",
+              "override-user-agent": "Sobreescriu l'agent d'usuari (User-Agent)",
+              "restart-on-config-changes": "Reinicia quan es canviï la configuració",
               "set-proxy": {
                 "label": "Definir servidor intermediari (proxy)",
                 "prompt": {

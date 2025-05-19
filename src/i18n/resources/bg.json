@@ -99,8 +99,8 @@
               "auto-reset-app-cache": "Нулиране на кеша на приложението при стартиране на приложението",
               "disable-hardware-acceleration": "Деактивиране на хардуерното ускорение",
               "edit-config-json": "Редактиране на config.json",
-              "override-user-agent": "Презаписване на User-Agent",
-              "restart-on-config-changes": "Рестартиране при промяна на конфигурацията",
+              "override-user-agent": "Замяна на User-Agent",
+              "restart-on-config-changes": "Рестартиране при промени в конфигурацията",
               "set-proxy": {
                 "label": "Задаване на прокси",
                 "prompt": {
