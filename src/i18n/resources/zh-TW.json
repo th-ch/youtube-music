@@ -333,6 +333,30 @@
       "description": "使用音效壓縮 (大聲部份的音量降低，柔和部份的音量提高)",
       "name": "音效壓縮器"
     },
+    "auth-proxy-adapter": {
+      "description": "支援使用 Proxy 驗證服務",
+      "menu": {
+        "disable": "中斷 Proxy 連線",
+        "enable": "啟用 Proxy 連線",
+        "hostname": {
+          "label": "主機名稱"
+        },
+        "port": {
+          "label": "連接埠"
+        }
+      },
+      "name": "Proxy 連線驗證",
+      "prompt": {
+        "hostname": {
+          "label": "本地 Proxy 伺服器主機名稱（需要重啟應用）：",
+          "title": "Proxy 主機名稱"
+        },
+        "port": {
+          "label": "本地 Proxy 伺服器連接埠（需要重啟應用）：",
+          "title": "Proxy 連接埠"
+        }
+      }
+    },
     "blur-nav-bar": {
       "description": "使導覽列透明及模糊",
       "name": "模糊導覽列"

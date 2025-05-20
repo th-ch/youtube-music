@@ -333,6 +333,28 @@
       "description": "Kompressor auf Audio anwenden (senkt die Lautstärke der lautesten Teile des Signals und hebt die Lautstärke der leisesten Teile an)",
       "name": "Audio-Komprimierer"
     },
+    "auth-proxy-adapter": {
+      "description": "Unterstützung für Proxy-Authentifizierungsdienste",
+      "menu": {
+        "disable": "Proxy-Adapter deaktivieren",
+        "enable": "Proxy-Adapter aktivieren",
+        "hostname": {
+          "label": "Hostname"
+        },
+        "port": {
+          "label": "Port"
+        }
+      },
+      "prompt": {
+        "hostname": {
+          "label": "Hostnamen eingeben für lokalen Proxy-Server (Neustart erforderlich):",
+          "title": "Proxy Hostname"
+        },
+        "port": {
+          "title": "Proxy Port"
+        }
+      }
+    },
     "blur-nav-bar": {
       "description": "Macht Navigationsleiste durchsichtig und unscharf",
       "name": "Verschwommene Navigationsleiste"
