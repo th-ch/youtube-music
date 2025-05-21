@@ -280,6 +280,7 @@
       "name": "Chế độ Môi trường xung quanh"
     },
     "amuse": {
+      "description": "Thêm hỗ trợ YouTube Music cho tiện ích hiển thị bài hát đang phát Amuse của 6K Labs.",
       "name": "Amuse",
       "response": {
         "query": "Máy chủ API của Amuse đang chạy. GET /query để lấy thông tin về bài hát."
@@ -332,9 +333,33 @@
       "description": "Áp dụng tính năng nén cho âm thanh (giảm âm lượng của phần to nhất của tín hiệu và tăng âm lượng của phần nhỏ nhất)",
       "name": "Bộ nén âm thanh"
     },
+    "auth-proxy-adapter": {
+      "description": "Ủng hộ cho mục đích duy trì dịch vụ xác minh proxy",
+      "menu": {
+        "disable": "Vô hiệu bộ chuyển đổi Proxy",
+        "enable": "Kích hoạt bộ chuyển đổi Proxy",
+        "hostname": {
+          "label": "Tên máy chủ"
+        },
+        "port": {
+          "label": "Cổng"
+        }
+      },
+      "name": "Bộ chuyển đổi xác minh máy chủ Proxy",
+      "prompt": {
+        "hostname": {
+          "label": "Nhập tên của máy chủ proxy lân cận (bắt buộc khởi động lại ứng dụng):",
+          "title": "Tên máy chủ Proxy"
+        },
+        "port": {
+          "label": "Nhập cổng của máy chủ proxy lận cận (bắt buộc khởi động lại ứng dụng):",
+          "title": "Cổng máy chủ Proxy"
+        }
+      }
+    },
     "blur-nav-bar": {
-      "description": "Làm mờ và trong suốt thanh điều hướng",
-      "name": "Thanh điều hướng mờ"
+      "description": "Làm thanh điều hướng mờ và trong suốt",
+      "name": "Làm mờ thanh điều hướng"
     },
     "bypass-age-restrictions": {
       "description": "Bỏ qua xác minh độ tuổi của YouTube",
@@ -491,6 +516,14 @@
       }
     },
     "equalizer": {
+      "description": "Thêm bộ cân bằng âm thanh vào trình phát nhạc.",
+      "menu": {
+        "presets": {
+          "list": {
+            "bass-booster": "Bộ tăng âm trầm"
+          }
+        }
+      },
       "name": "Cân bằng âm thanh"
     },
     "exponential-volume": {
@@ -589,6 +622,10 @@
         "unpause-notification": "Hiển thị thông báo khi bỏ tạm dừng"
       },
       "name": "Thông báo"
+    },
+    "performance-improvement": {
+      "description": "Cải thiện hiệu suất thông qua kích hoạt scripts thử nghiệm",
+      "name": "Cải thiện hiệu năng [Beta]"
     },
     "picture-in-picture": {
       "description": "Cho phép chuyển ứng dụng sang chế độ ảnh trong ảnh",
@@ -758,6 +795,7 @@
           "tooltip": "Tính toán chính xác đến mili giây thời gian hiển thị dòng tiếp theo (có thể có tác động nhỏ đến hiệu suất)"
         },
         "romanization": {
+          "label": "Chuyển lời bài hát sang chữ Latin",
           "tooltip": "Nếu lời bài hát đang ở ngôn ngữ khác, thử hiển thị phiên bản bảng chữ cái La-tinh."
         },
         "show-lyrics-even-if-inexact": {
@@ -791,6 +829,10 @@
     "tuna-obs": {
       "description": "Tích hợp với plugin Tuna của OBS",
       "name": "Tuna OBS"
+    },
+    "unobtrusive-player": {
+      "description": "Ngăn trình phát nhạc xuất hiện đột ngột khi phát một bài hát.",
+      "name": "Trình phát nhạc ẩn"
     },
     "video-toggle": {
       "description": "Thêm nút để chuyển giữa chế độ Video/Bài hát. Cũng có thể tùy ý xóa toàn bộ tab video",

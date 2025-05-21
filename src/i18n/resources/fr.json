@@ -27,7 +27,7 @@
         "loaded": "i18n chargé"
       },
       "second-instance": {
-        "receive-command": "Received command over protocol : \"{{command}}\""
+        "receive-command": "Received command over protocol : \"{{command}}\""
       },
       "theme": {
         "css-file-not-found": "Le fichier de CSS \"{{cssFile}}\" n'existe pas, ignorer"
@@ -332,6 +332,30 @@
     "audio-compressor": {
       "description": "Appliquer une compression à l'audio (diminue le volume des parties les plus fortes du signal et augmente le volume des parties les plus faibles)",
       "name": "Compresseur audio"
+    },
+    "auth-proxy-adapter": {
+      "description": "Prise en charge de l'utilisation des services de proxy d'authentification",
+      "menu": {
+        "disable": "Désactiver l'Adaptateur Proxy",
+        "enable": "Activer l'Adaptateur Proxy",
+        "hostname": {
+          "label": "Nom d'hôte"
+        },
+        "port": {
+          "label": "Port"
+        }
+      },
+      "name": "Adaptateur de Proxy d'Authentification",
+      "prompt": {
+        "hostname": {
+          "label": "Saisir le nom d'hôte pour le serveur proxy local (nécessite un redémarrage) :",
+          "title": "Nom d'hôte du proxy"
+        },
+        "port": {
+          "label": "Saisir le port pour le serveur proxy local (nécessite un redémarrage) :",
+          "title": "Port du proxy"
+        }
+      }
     },
     "blur-nav-bar": {
       "description": "Rend la barre de navigation transparente et floue",
