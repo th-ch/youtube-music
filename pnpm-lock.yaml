@@ -221,7 +221,7 @@ importers:
         version: 25.0.1
       virtua:
         specifier: 0.41.1
-        version: 0.41.1(solid-js@1.9.6)
+        version: 0.41.1(solid-js@1.9.7)
       vudio:
         specifier: 2.1.1
         version: 2.1.1(patch_hash=0e06c2ed11c02bdc490c209fa80070e98517c2735c641f5738b6e15d7dc1959d)
@@ -9671,9 +9671,9 @@ snapshots:
       extsprintf: 1.4.1
     optional: true
 
-  virtua@0.41.1(solid-js@1.9.6):
+  virtua@0.41.1(solid-js@1.9.7):
     optionalDependencies:
-      solid-js: 1.9.6
+      solid-js: 1.9.7
 
   vite-dev-rpc@1.0.7(vite@6.3.5(@types/node@22.13.5)(yaml@2.7.0)):
     dependencies:
