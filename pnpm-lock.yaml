@@ -32,7 +32,7 @@ importers:
         version: 1.0.1(@types/node@22.13.5)
       '@electron/remote':
         specifier: 2.1.2
-        version: 2.1.2(electron@36.2.0)
+        version: 2.1.2(electron@36.3.1)
       '@ffmpeg.wasm/core-mt':
         specifier: 0.12.0
         version: 0.12.0
@@ -47,10 +47,10 @@ importers:
         version: 2.0.5
       '@ghostery/adblocker-electron':
         specifier: 2.5.2
-        version: 2.5.2(electron@36.2.0)
+        version: 2.5.2(electron@36.3.1)
       '@ghostery/adblocker-electron-preload':
         specifier: 2.5.2
-        version: 2.5.2(electron@36.2.0)
+        version: 2.5.2(electron@36.3.1)
       '@hono/node-server':
         specifier: 1.14.1
         version: 1.14.1(hono@4.7.9)
@@ -101,7 +101,7 @@ importers:
         version: 13.1.0
       custom-electron-prompt:
         specifier: 1.5.8
-        version: 1.5.8(electron@36.2.0)
+        version: 1.5.8(electron@36.3.1)
       deepmerge-ts:
         specifier: 7.1.5
         version: 7.1.5
@@ -278,8 +278,8 @@ importers:
         specifier: 0.38.8
         version: 0.38.8
       electron:
-        specifier: 36.2.0
-        version: 36.2.0
+        specifier: 36.3.1
+        version: 36.3.1
       electron-builder:
         specifier: 26.0.12
         version: 26.0.12(electron-builder-squirrel-windows@26.0.12)
@@ -2226,8 +2226,8 @@ packages:
     resolution: {integrity: sha512-bO3y10YikuUwUuDUQRM4KfwNkKhnpVO7IPdbsrejwN9/AABJzzTQ4GeHwyzNSrVO+tEH3/Np255a3sVZpZDjvg==}
     engines: {node: '>=8.0.0'}
 
-  electron@36.2.0:
-    resolution: {integrity: sha512-5yldoRjBKxPQfI0QMX+qq750o3Nl8N1SZnJqOPMq0gZ6rIJ+7y4ZLp808GrFwjfTm05TYgq3GSD8FGuKQZqwEw==}
+  electron@36.3.1:
+    resolution: {integrity: sha512-LeOZ+tVahmctHaAssLCGRRUa2SAO09GXua3pKdG+WzkbSDMh+3iOPONNVPTqGp8HlWnzGj4r6mhsIbM2RgH+eQ==}
     engines: {node: '>= 12.20.55'}
     hasBin: true
 
@@ -5075,9 +5075,9 @@ snapshots:
       - bluebird
       - supports-color
 
-  '@electron/remote@2.1.2(electron@36.2.0)':
+  '@electron/remote@2.1.2(electron@36.3.1)':
     dependencies:
-      electron: 36.2.0
+      electron: 36.3.1
 
   '@electron/universal@2.0.3':
     dependencies:
@@ -5266,16 +5266,16 @@ snapshots:
     dependencies:
       '@ghostery/adblocker-extended-selectors': 2.5.2
 
-  '@ghostery/adblocker-electron-preload@2.5.2(electron@36.2.0)':
+  '@ghostery/adblocker-electron-preload@2.5.2(electron@36.3.1)':
     dependencies:
       '@ghostery/adblocker-content': 2.5.2
-      electron: 36.2.0
+      electron: 36.3.1
 
-  '@ghostery/adblocker-electron@2.5.2(electron@36.2.0)':
+  '@ghostery/adblocker-electron@2.5.2(electron@36.3.1)':
     dependencies:
       '@ghostery/adblocker': 2.5.2
-      '@ghostery/adblocker-electron-preload': 2.5.2(electron@36.2.0)
-      electron: 36.2.0
+      '@ghostery/adblocker-electron-preload': 2.5.2(electron@36.3.1)
+      electron: 36.3.1
       tldts-experimental: 7.0.7
 
   '@ghostery/adblocker-extended-selectors@2.5.2': {}
@@ -5815,7 +5815,7 @@ snapshots:
 
   '@types/electron-localshortcut@3.1.3':
     dependencies:
-      electron: 36.2.0
+      electron: 36.3.1
     transitivePeerDependencies:
       - supports-color
 
@@ -6667,9 +6667,9 @@ snapshots:
 
   csstype@3.1.3: {}
 
-  custom-electron-prompt@1.5.8(electron@36.2.0):
+  custom-electron-prompt@1.5.8(electron@36.3.1):
     dependencies:
-      electron: 36.2.0
+      electron: 36.3.1
 
   data-uri-to-buffer@4.0.1: {}
 
@@ -7007,7 +7007,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  electron@36.2.0:
+  electron@36.3.1:
     dependencies:
       '@electron/get': 2.0.3
       '@types/node': 22.13.5
