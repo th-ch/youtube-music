@@ -52,8 +52,8 @@ importers:
         specifier: 2.5.2
         version: 2.5.2(electron@36.2.0)
       '@hono/node-server':
-        specifier: 1.14.1
-        version: 1.14.1(hono@4.7.9)
+        specifier: 1.14.2
+        version: 1.14.2(hono@4.7.9)
       '@hono/swagger-ui':
         specifier: 0.5.1
         version: 0.5.1(hono@4.7.9)
@@ -772,8 +772,8 @@ packages:
   '@ghostery/adblocker@2.5.2':
     resolution: {integrity: sha512-/SLxUGPd1JISNGOPsxKfbso+uylDEvEp3umF5gQ3x8YgsEZzD6zYx7H4ZQxAvG1pZIr4p6N9PiAf2N88T1Wo1Q==}
 
-  '@hono/node-server@1.14.1':
-    resolution: {integrity: sha512-vmbuM+HPinjWzPe7FFPWMMQMsbKE9gDPhaH0FFdqbGpkT5lp++tcWDTxwBl5EgS5y6JVgIaCdjeHRfQ4XRBRjQ==}
+  '@hono/node-server@1.14.2':
+    resolution: {integrity: sha512-GHjpOeHYbr9d1vkID2sNUYkl5IxumyhDrUJB7wBp7jvqYwPFt+oNKsAPBRcdSbV7kIrXhouLE199ks1QcK4r7A==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       hono: ^4
@@ -5289,7 +5289,7 @@ snapshots:
       '@remusao/smaz': 2.1.0
       tldts-experimental: 7.0.7
 
-  '@hono/node-server@1.14.1(hono@4.7.9)':
+  '@hono/node-server@1.14.2(hono@4.7.9)':
     dependencies:
       hono: 4.7.9
 
