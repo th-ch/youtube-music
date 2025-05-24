@@ -287,6 +287,7 @@
       }
     },
     "api-server": {
+      "description": "I would suggest using hindlish instead of pure Hindi, as it's more young people friendly.",
       "dialog": {
         "request": {
           "buttons": {
@@ -332,9 +333,37 @@
       "description": "ऑडियो पर कम्प्रेशन लागू करें (सिग्नल के सबसे ऊँचे हिस्सों की आवाज़ को कम करता है और सबसे नर्म हिस्सों की आवाज़ को बढ़ाता है)",
       "name": "ऑडियो कंप्रेसर"
     },
+    "auth-proxy-adapter": {
+      "description": "ऑथेंटिकेशन प्रॉक्सी सेवाओं के उपयोग के लिए सपोर्ट",
+      "menu": {
+        "disable": "प्रॉक्सी एडाप्टर बंद करें",
+        "enable": "प्रॉक्सी एडाप्टर शुरू करें",
+        "hostname": {
+          "label": "होस्ट का नाम"
+        },
+        "port": {
+          "label": "पोर्ट"
+        }
+      },
+      "name": "ऑथ प्रॉक्सी एडाप्टर",
+      "prompt": {
+        "hostname": {
+          "label": "स्थानीय प्रॉक्सी सर्वर के लिए होस्ट का नाम लिखें (पुनः आरंभ ज़रूरी है):",
+          "title": "प्रॉक्सी होस्ट का नाम"
+        },
+        "port": {
+          "label": "स्थानीय प्रॉक्सी सर्वर के लिए पोर्ट लिखें (पुनः प्रारंभ जरूरी है):",
+          "title": "प्रॉक्सी का पोर्ट"
+        }
+      }
+    },
     "blur-nav-bar": {
       "description": "नेविगेशन बार को पारदर्शी और धुंधला बनाता है",
       "name": "नेविगेशन बार को ब्लर करें"
+    },
+    "bypass-age-restrictions": {
+      "description": "YouTube आयु की जांच को बायपास करें",
+      "name": "आयु प्रतिबंध को बायपास करें"
     },
     "video-toggle": {
       "menu": {
