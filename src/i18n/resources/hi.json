@@ -399,7 +399,8 @@
             "fade-in-duration": "फ़ेड इन अवधि (मिलीसेकंड)",
             "fade-out-duration": "फ़ेड आउट अवधि (मिलीसेकंड)",
             "fade-scaling": {
-              "label": "फेड स्केलिंग"
+              "label": "फेड स्केलिंग",
+              "logarithmic": "लघुगणक"
             },
             "seconds-before-end": "अंत से पहले N सेकंड तक क्रॉसफ़ेड करें"
           },
@@ -432,11 +433,149 @@
         "play-on-youtube-music": "YouTube म्यूज़िक पर चलाएँ",
         "set-inactivity-timeout": "निष्क्रियता समय समाप्ति सेट करें"
       },
+      "name": "डिस्कॉर्ड रिच प्रेजेंस",
       "prompt": {
         "set-inactivity-timeout": {
-          "label": "निष्क्रियता समय समाप्ति सेकंड में दर्ज करें:"
+          "label": "निष्क्रियता समय समाप्ति सेकंड में दर्ज करें:",
+          "title": "निष्क्रियता समय समाप्ति सेट करें"
         }
       }
+    },
+    "downloader": {
+      "backend": {
+        "dialog": {
+          "error": {
+            "buttons": {
+              "ok": "ठीक है"
+            },
+            "message": "आह! क्षमा करें, डाउनलोड विफल हो गया…",
+            "title": "डाउनलोड में दिक्कत है !"
+          },
+          "start-download-playlist": {
+            "detail": "({{playlistSize}} गाने)",
+            "message": "प्लेलिस्ट {{playlistTitle}} डाउनलोड हो रही है",
+            "title": "डाउनलोड शुरू"
+          }
+        },
+        "feedback": {
+          "conversion-progress": "कन्वर्ज़न: {{percent}}%",
+          "converting": "परिवर्तित हो रहा है…",
+          "done": "हो गया: {{filePath}}",
+          "download-info": "{{artist}} - {{title}} डाउनलोड हो रहा है [{{videoId}}",
+          "download-progress": "डाउनलोड करें: {{percent}}%",
+          "downloading": "डाउनलोड हो रहा है…",
+          "downloading-counter": "{{current}}/{{total}} डाउनलोड हो रहा है…",
+          "downloading-playlist": "प्लेलिस्ट \"{{playlistTitle}}\" - {{playlistSize}} गाने ({{playlistId}}) डाउनलोड हो रहे हैं",
+          "error-while-downloading": "\"{{author}} - {{title}}\" डाउनलोड करते समय दिक्कत: {{error}}",
+          "folder-already-exists": "फ़ोल्डर {{playlistFolder}} पहले से मौजूद है",
+          "getting-playlist-info": "प्लेलिस्ट की जानकारी प्राप्त हो रही है…",
+          "loading": "लोड हो रहा है…",
+          "playlist-has-only-one-song": "प्लेलिस्ट में केवल एक आइटम है, इसे सीधे डाउनलोड करें",
+          "playlist-id-not-found": "कोई प्लेलिस्ट आईडी नहीं मिली",
+          "playlist-is-empty": "प्लेलिस्ट ख़ाली है",
+          "playlist-is-mix-or-private": "प्लेलिस्ट जानकारी प्राप्त करने में दिक्कत: सुनिश्चित करें कि यह निजी या \"आपके लिए मिश्रित\" प्लेलिस्ट नहीं है\n\n{{त्रुटि}}",
+          "preparing-file": "फ़ाइल तैयार की जा रही है…",
+          "saving": "सेव जा रहा है…",
+          "trying-to-get-playlist-id": "प्लेलिस्ट आईडी प्राप्त करने का प्रयास किया जा रहा है: {{playlistId}}",
+          "video-id-not-found": "वीडियो नहीं मिला",
+          "writing-id3": "ID3 टैग लिख रहे हैं…"
+        }
+      },
+      "description": "इंटरफ़ेस से सीधे MP3 / स्रोत ऑडियो डाउनलोड करता है",
+      "menu": {
+        "choose-download-folder": "डाउनलोड फ़ोल्डर चुनें",
+        "download-finish-settings": {
+          "label": "समाप्त होने पर डाउनलोड करें",
+          "prompt": {
+            "last-percent": "x प्रतिशत के बाद",
+            "last-seconds": "अंतिम x सेकंड",
+            "title": "डाउनलोड करने का समय कॉन्फ़िगर करें"
+          },
+          "submenu": {
+            "advanced": "विकसित",
+            "enabled": "सक्रिय",
+            "percent": "प्रतिशत",
+            "seconds": "सेकंड"
+          }
+        },
+        "download-playlist": "प्लेलिस्ट डाउनलोड करें",
+        "presets": "प्रीसेट",
+        "skip-existing": "मौजूदा फ़ाइलें छोड़ें"
+      },
+      "name": "डाउनलोडर",
+      "renderer": {
+        "can-not-update-progress": "प्रगति अपडेट नहीं की जा सकती"
+      },
+      "templates": {
+        "button": "डाउनलोड"
+      }
+    },
+    "equalizer": {
+      "description": "प्लेयर में एक एक्विलाइज़र जोड़ता है",
+      "menu": {
+        "presets": {
+          "label": "प्रीसेट",
+          "list": {
+            "bass-booster": "bass वर्धक"
+          }
+        }
+      }
+    },
+    "exponential-volume": {
+      "name": "तीव्र वॉल्यूम"
+    },
+    "in-app-menu": {
+      "description": "मेनू-बार को फैंसी, गहरा या एल्बम-रंग का रूप दें",
+      "menu": {
+        "hide-dom-window-controls": "DOM विंडो कंट्रोल को छिपाएँ"
+      },
+      "name": "इन-ऐप मेनू"
+    },
+    "lumiastream": {
+      "description": "लूमिया स्ट्रीम सपोर्ट जोड़ा गया",
+      "name": "लूमिया स्ट्रीम [बीटा]"
+    },
+    "lyrics-genius": {
+      "description": "अधिकांश गानों के लिए गीत के लिरिक्स को जोड़ता है",
+      "menu": {
+        "romanized-lyrics": "रोमनकृत लिरिक्स"
+      },
+      "name": "लिरिक्स जीनियस",
+      "renderer": {
+        "fetched-lyrics": "जीनियस के लिए प्राप्त किये गए लिरिक्स"
+      }
+    },
+    "music-together": {
+      "description": "दूसरों के साथ प्लेलिस्ट साझा करें। जब होस्ट कोई गाना बजाता है, तो बाकी सभी लोग वही गाना सुनेंगे",
+      "dialog": {
+        "enter-host": "होस्ट आईडी दर्ज करें"
+      },
+      "internal": {
+        "save": "सेव",
+        "track-source": "ट्रैक स्रोत",
+        "unknown-user": "अज्ञात उपयोगकर्ता"
+      },
+      "menu": {
+        "click-to-copy-id": "होस्ट आईडी कॉपी करें",
+        "close": "संगीत को एक साथ बंद करें",
+        "connected-users": "जुड़े हुए उपयोगकर्ता",
+        "disconnect": "संगीत को एक साथ डिस्कनेक्ट करें",
+        "empty-user": "कोई जुड़े हुए उपयोगकर्ता नहीं",
+        "host": "म्यूजिक टुगेदर होस्ट",
+        "join": "संगीत से साथ में जुड़ें",
+        "permission": {
+          "all": "मेहमानों को प्लेलिस्ट और प्लेयर को नियंत्रित करने की अनुमति दें",
+          "host-only": "केवल होस्ट ही प्लेलिस्ट और प्लेयर को नियंत्रित कर सकता है",
+          "playlist": "मेहमानों को प्लेलिस्ट नियंत्रित करने की अनुमति दें"
+        },
+        "set-permission": "नियंत्रण अनुमति बदलें",
+        "status": {
+          "disconnected": "डिस्कनेक्ट किया गया",
+          "guest": "अतिथि के रूप में जुड़े हुए",
+          "host": "मेज़बान के रूप में जुड़े हुए"
+        }
+      },
+      "name": "संगीत टुगेदर [बीटा]"
     },
     "video-toggle": {
       "menu": {
