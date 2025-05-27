@@ -187,8 +187,8 @@ importers:
         specifier: 1.5.4
         version: 1.5.4
       pinyin:
-        specifier: 4.0.0-alpha.2
-        version: 4.0.0-alpha.2(segmentit@2.0.3)
+        specifier: 4.0.0
+        version: 4.0.0(segmentit@2.0.3)
       segmentit:
         specifier: 2.0.3
         version: 2.0.3
@@ -3665,13 +3665,13 @@ packages:
     resolution: {integrity: sha512-M7BAV6Rlcy5u+m6oPhAPFgJTzAioX/6B0DxyvDlo9l8+T3nLKbrczg2WLUyzd45L8RqfUMyGPzekbMvX2Ldkwg==}
     engines: {node: '>=12'}
 
-  pinyin@4.0.0-alpha.2:
-    resolution: {integrity: sha512-SED2wWr1X0QwH6rXIDgg20zS1mAk0AVMO8eM3KomUlOYzC8mNMWZnspZWhhI0M8MBIbF2xwa+5r30jTSjAqNsg==}
+  pinyin@4.0.0:
+    resolution: {integrity: sha512-vHpV5K+vpp6XUUpZNGRDuHoN+1xcmieM3EWlH4QjSX2kkpG/gVOwpqwV9EOJ9x9c9UERFKeLml5XVSukE/PLgQ==}
     engines: {install-node: ^18.0.0}
     hasBin: true
     peerDependencies:
       '@node-rs/jieba': ^1.6.0
-      nodejieba: 2.5.2
+      nodejieba: ^3.4.4
       segmentit: ^2.0.3
     peerDependenciesMeta:
       '@node-rs/jieba':
@@ -8408,7 +8408,7 @@ snapshots:
 
   picomatch@4.0.2: {}
 
-  pinyin@4.0.0-alpha.2(segmentit@2.0.3):
+  pinyin@4.0.0(segmentit@2.0.3):
     dependencies:
       commander: 1.1.1
     optionalDependencies:
