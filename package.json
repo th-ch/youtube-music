@@ -254,7 +254,7 @@
     "@jellybrick/mpris-service": "2.1.5",
     "@jimp/plugin-color": "1.6.0",
     "@skyra/jaro-winkler": "1.1.1",
-    "@xhayper/discord-rpc": "1.2.1",
+    "@xhayper/discord-rpc": "1.2.2",
     "async-mutex": "0.5.0",
     "bgutils-js": "3.2.0",
     "butterchurn": "3.0.0-beta.4",

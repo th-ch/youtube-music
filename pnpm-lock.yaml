@@ -79,8 +79,8 @@ importers:
         specifier: 1.1.1
         version: 1.1.1
       '@xhayper/discord-rpc':
-        specifier: 1.2.1
-        version: 1.2.1(bufferutil@4.0.9)(utf-8-validate@6.0.5)
+        specifier: 1.2.2
+        version: 1.2.2(bufferutil@4.0.9)(utf-8-validate@6.0.5)
       async-mutex:
         specifier: 0.5.0
         version: 0.5.0
@@ -465,8 +465,8 @@ packages:
     resolution: {integrity: sha512-LiSusze9Tc7qF03sLCujF5iZp7K+vRNEDBZ86FT9aQAv3vxMLihUvKvpsCWiQ2DJq1tVckopKm1rxomgNUc9hg==}
     engines: {node: '>=18'}
 
-  '@discordjs/rest@2.4.3':
-    resolution: {integrity: sha512-+SO4RKvWsM+y8uFHgYQrcTl/3+cY02uQOH7/7bKbVZsTfrfpoE62o5p+mmV+s7FVhTX82/kQUGGbu4YlV60RtA==}
+  '@discordjs/rest@2.5.0':
+    resolution: {integrity: sha512-PWhchxTzpn9EV3vvPRpwS0EE2rNYB9pvzDU/eLLW3mByJl0ZHZjHI2/wA8EbH2gRMQV7nu+0FoDF84oiPl8VAQ==}
     engines: {node: '>=18'}
 
   '@discordjs/util@1.1.1':
@@ -1426,8 +1426,8 @@ packages:
     resolution: {integrity: sha512-RaI5qZo6D2CVS6sTHFKg1v5Ohq/+Bo2LZ5gzUEwZ/WkHhwtGTCB/sVLw8ijOkAUxasZ+WshN/Rzj4ywsABJ5ZA==}
     engines: {node: '>=v14.0.0', npm: '>=7.0.0'}
 
-  '@xhayper/discord-rpc@1.2.1':
-    resolution: {integrity: sha512-Ch04/7hq0nfV47nJzDcLIKx0SLUcPOMlkYV43faWpKtEO9SgLrTD4FAOMBBT+JORceQytnzBMPvktW2q9ZCMiw==}
+  '@xhayper/discord-rpc@1.2.2':
+    resolution: {integrity: sha512-P3+uF2Hb7zVNEtk2ZleV7FF2cj1lCZ0Caa82RECwa5oaPNCF12CDhsx8GdBqFaD0zRRVrkheP3LJn0dmbd0KoA==}
     engines: {node: '>=18.20.7'}
 
   '@xmldom/xmldom@0.8.10':
@@ -4805,14 +4805,14 @@ snapshots:
 
   '@discordjs/collection@2.1.1': {}
 
-  '@discordjs/rest@2.4.3':
+  '@discordjs/rest@2.5.0':
     dependencies:
       '@discordjs/collection': 2.1.1
       '@discordjs/util': 1.1.1
       '@sapphire/async-queue': 1.5.5
       '@sapphire/snowflake': 3.5.5
       '@vladfrangu/async_event_emitter': 2.4.6
-      discord-api-types: 0.37.120
+      discord-api-types: 0.38.8
       magic-bytes.js: 1.10.0
       tslib: 2.8.1
       undici: 6.21.1
@@ -5829,9 +5829,9 @@ snapshots:
 
   '@vladfrangu/async_event_emitter@2.4.6': {}
 
-  '@xhayper/discord-rpc@1.2.1(bufferutil@4.0.9)(utf-8-validate@6.0.5)':
+  '@xhayper/discord-rpc@1.2.2(bufferutil@4.0.9)(utf-8-validate@6.0.5)':
     dependencies:
-      '@discordjs/rest': 2.4.3
+      '@discordjs/rest': 2.5.0
       '@vladfrangu/async_event_emitter': 2.4.6
       discord-api-types: 0.37.120
       ws: 8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5)
