@@ -1,0 +1,24 @@
+#translate-lyrics-button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+#translate-lyrics-button:disabled {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+}
+
+/* Add some spacing if the button is placed in the footer of ytmusic-message-renderer */
+ytmusic-message-renderer #footer #translate-lyrics-button {
+  margin-top: 8px;
+}

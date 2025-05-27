@@ -868,6 +868,14 @@
         "visualizer-type": "Visualizer Type"
       },
       "name": "Visualizer"
+    },
+    "offline-translator": {
+      "name": "Offline Lyrics Translator",
+      "description": "Translates lyrics displayed by other plugins to a selected language, offline.",
+      "descriptionDetail": "Translates lyrics to a selected language using a bundled offline model. The first translation to a new language may require an internet connection to download the specific model component. Currently assumes input lyrics are primarily in English for best results. Select target language in plugin settings.",
+      "menu": {
+        "target-language": "Target Language"
+      }
     }
   }
 }
