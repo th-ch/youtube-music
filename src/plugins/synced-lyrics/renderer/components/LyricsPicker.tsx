@@ -5,7 +5,9 @@ import {
   For,
   Index,
   Match,
+  onCleanup,
   onMount,
+  Setter,
   Switch,
 } from 'solid-js';
 
@@ -51,9 +53,11 @@ const pickBestProvider = () => {
   return providers[0];
 };
 
+const [hasManuallySwitchedProvider, setHasManuallySwitchedProvider] =
+  createSignal(false);
+
 // prettier-ignore
-export const LyricsPicker = () => {
-  const [hasManuallySwitchedProvider, setHasManuallySwitchedProvider] = createSignal(false);
+export const LyricsPicker = (props: { setStickRef: Setter<HTMLElement | null> }) => {
   createEffect(() => {
     // fallback to the next source, if the current one has an error
     if (!hasManuallySwitchedProvider()
@@ -70,25 +74,25 @@ export const LyricsPicker = () => {
   });
 
   onMount(() => {
-    const listener = (name: string) => {
+    const videoDataChangeHandler = (name: string) => {
       if (name !== 'dataloaded') return;
       setHasManuallySwitchedProvider(false);
     };
 
-    _ytAPI?.addEventListener('videodatachange', listener);
-    return () => _ytAPI?.removeEventListener('videodatachange', listener);
+    _ytAPI?.addEventListener('videodatachange', videoDataChangeHandler);
+    onCleanup(() => _ytAPI?.removeEventListener('videodatachange', videoDataChangeHandler));
   });
 
-  const next = (automatic: boolean = false) => {
-    if (!automatic) setHasManuallySwitchedProvider(true);
+  const next = () => {
+    setHasManuallySwitchedProvider(true);
     setLyricsStore('provider', (prevProvider) => {
       const idx = providerNames.indexOf(prevProvider);
       return providerNames[(idx + 1) % providerNames.length];
     });
   };
 
-  const previous = (automatic: boolean = false) => {
-    if (!automatic) setHasManuallySwitchedProvider(true);
+  const previous = () => {
+    setHasManuallySwitchedProvider(true);
     setLyricsStore('provider', (prevProvider) => {
       const idx = providerNames.indexOf(prevProvider);
       return providerNames[(idx + providerNames.length - 1) % providerNames.length];
@@ -102,11 +106,10 @@ export const LyricsPicker = () => {
   const errorIcon: YtIcons = 'yt-icons:error';
   const notFoundIcon: YtIcons = 'yt-icons:warning';
 
-
   return (
-    <div class="lyrics-picker">
+    <div class="lyrics-picker" ref={props.setStickRef}>
       <div class="lyrics-picker-left">
-        <tp-yt-paper-icon-button icon={chevronLeft} onClick={() => previous()} />
+        <tp-yt-paper-icon-button icon={chevronLeft} onClick={previous} />
       </div>
 
       <div class="lyrics-picker-content">
@@ -191,7 +194,7 @@ export const LyricsPicker = () => {
       </div>
 
       <div class="lyrics-picker-right">
-        <tp-yt-paper-icon-button icon={chevronRight} onClick={() => next()} />
+        <tp-yt-paper-icon-button icon={chevronRight} onClick={next} />
       </div>
     </div>
   );
