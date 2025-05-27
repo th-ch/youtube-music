@@ -338,8 +338,8 @@ importers:
         specifier: 6.3.5
         version: 6.3.5(@types/node@22.13.5)(yaml@2.7.0)
       vite-plugin-inspect:
-        specifier: 11.0.1
-        version: 11.0.1(vite@6.3.5(@types/node@22.13.5)(yaml@2.7.0))
+        specifier: 11.1.0
+        version: 11.1.0(vite@6.3.5(@types/node@22.13.5)(yaml@2.7.0))
       vite-plugin-resolve:
         specifier: 2.5.2
         version: 2.5.2
@@ -3525,8 +3525,8 @@ packages:
     resolution: {integrity: sha512-kbpaSSGJTWdAY5KPVeMOKXSrPtr8C8C7wodJbcsd51jRnmD+GZu8Y0VoU6Dm5Z4vWr0Ig/1NKuWRKf7j5aaYSg==}
     engines: {node: '>=6'}
 
-  open@10.1.0:
-    resolution: {integrity: sha512-mnkeQ1qP5Ue2wd+aivTD3NHd/lZ96Lu0jgf0pwktLPtx6cTZiH7tyeGRRHs0zX0rbrahXPnXlUnbeXyaBBuIaw==}
+  open@10.1.2:
+    resolution: {integrity: sha512-cxN6aIDPz6rm8hbebcP7vrQNhvRcveZoJU72Y7vskh4oIm+BZwBECnx5nTmrlres1Qapvx27Qo1Auukpf8PKXw==}
     engines: {node: '>=18'}
 
   openapi3-ts@4.4.0:
@@ -4448,8 +4448,8 @@ packages:
     peerDependencies:
       vite: 6.3.5
 
-  vite-plugin-inspect@11.0.1:
-    resolution: {integrity: sha512-aABw7eGTr9Cmbn9RAs76e0BztVUFDl6a2R+/IJXpoUZxjx5YHB0P+Em3ZTWzpIPZzuRj28tAMblvcUyhgJc4aQ==}
+  vite-plugin-inspect@11.1.0:
+    resolution: {integrity: sha512-r3Nx8xGQ08bSoNu7gJGfP5H/wNOROHtv0z3tWspplyHZJlABwNoPOdFEmcVh+lVMDyk/Be4yt8oS596ZHoYhOg==}
     engines: {node: '>=14'}
     peerDependencies:
       '@nuxt/kit': '*'
@@ -8285,7 +8285,7 @@ snapshots:
     dependencies:
       mimic-fn: 2.1.0
 
-  open@10.1.0:
+  open@10.1.2:
     dependencies:
       default-browser: 5.2.1
       define-lazy-prop: 3.0.0
@@ -9296,13 +9296,13 @@ snapshots:
     dependencies:
       vite: 6.3.5(@types/node@22.13.5)(yaml@2.7.0)
 
-  vite-plugin-inspect@11.0.1(vite@6.3.5(@types/node@22.13.5)(yaml@2.7.0)):
+  vite-plugin-inspect@11.1.0(vite@6.3.5(@types/node@22.13.5)(yaml@2.7.0)):
     dependencies:
       ansis: 3.17.0
       debug: 4.4.1
       error-stack-parser-es: 1.0.5
       ohash: 2.0.11
-      open: 10.1.0
+      open: 10.1.2
       perfect-debounce: 1.0.0
       sirv: 3.0.1
       unplugin-utils: 0.2.4
