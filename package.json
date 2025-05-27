@@ -62,6 +62,14 @@
             "ia32",
             "arm64"
           ]
+        },
+        {
+          "target": "msi",
+          "arch": [
+            "x64",
+            "ia32",
+            "arm64"
+          ]
         }
       ],
       "compression": "maximum"
