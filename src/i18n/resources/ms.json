@@ -86,7 +86,8 @@
           "copy-current-url": "Salin URL semasa",
           "go-back": "Belakang",
           "go-forward": "Depan",
-          "quit": "Keluar"
+          "quit": "Keluar",
+          "restart": "Mula Semula Aplikasi"
         }
       },
       "options": {
