@@ -58,8 +58,8 @@ importers:
         specifier: 0.5.1
         version: 0.5.1(hono@4.7.10)
       '@hono/zod-openapi':
-        specifier: 0.19.6
-        version: 0.19.6(hono@4.7.10)(zod@3.25.30)
+        specifier: 0.19.8
+        version: 0.19.8(hono@4.7.10)(zod@3.25.30)
       '@hono/zod-validator':
         specifier: 0.5.0
         version: 0.5.0(hono@4.7.10)(zod@3.25.30)
@@ -783,8 +783,8 @@ packages:
     peerDependencies:
       hono: '*'
 
-  '@hono/zod-openapi@0.19.6':
-    resolution: {integrity: sha512-qD2I0i5Ksry8gf47rXR6tuUAfv5S/wRZPRUNn+y8vOkgArDtIs30Ha3KGHeuGhcMk773D197IlPUppSCbHt6iQ==}
+  '@hono/zod-openapi@0.19.8':
+    resolution: {integrity: sha512-CHUSW0K+bDGUYXovxQSbVjZffzoPeTsGu6wevPoGSmBdPuUw5yZqDeomnvyAAAAvEjhLQPlAsUyASc1Zi35exQ==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
       hono: '>=4.3.6'
@@ -795,6 +795,12 @@ packages:
     peerDependencies:
       hono: '>=3.9.0'
       zod: ^3.19.1
+
+  '@hono/zod-validator@0.7.0':
+    resolution: {integrity: sha512-qe2ZE6sHFE98dcUrbYMtS3bAV8hqcCOflykvZga2S7XhmNSZzT+dIz4OuMILsjLHkJw9JMn912/dB7dQOmuPvg==}
+    peerDependencies:
+      hono: '>=3.9.0'
+      zod: ^3.25.0
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -5132,14 +5138,19 @@ snapshots:
     dependencies:
       hono: 4.7.10
 
-  '@hono/zod-openapi@0.19.6(hono@4.7.10)(zod@3.25.30)':
+  '@hono/zod-openapi@0.19.8(hono@4.7.10)(zod@3.25.30)':
     dependencies:
       '@asteasolutions/zod-to-openapi': 7.3.0(zod@3.25.30)
-      '@hono/zod-validator': 0.5.0(hono@4.7.10)(zod@3.25.30)
+      '@hono/zod-validator': 0.7.0(hono@4.7.10)(zod@3.25.30)
       hono: 4.7.10
       zod: 3.25.30
 
   '@hono/zod-validator@0.5.0(hono@4.7.10)(zod@3.25.30)':
+    dependencies:
+      hono: 4.7.10
+      zod: 3.25.30
+
+  '@hono/zod-validator@0.7.0(hono@4.7.10)(zod@3.25.30)':
     dependencies:
       hono: 4.7.10
       zod: 3.25.30
