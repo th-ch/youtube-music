@@ -227,7 +227,7 @@
       "xml2js": "0.6.2",
       "node-fetch": "3.3.2",
       "@electron/universal": "2.0.3",
-      "@babel/runtime": "7.27.1"
+      "@babel/runtime": "7.27.4"
     },
     "patchedDependencies": {
       "vudio@2.1.1": "patches/vudio@2.1.1.patch",
