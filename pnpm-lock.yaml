@@ -220,7 +220,7 @@ importers:
         specifier: 25.0.1
         version: 25.0.1
       ua-parser-js:
-        specifier: ^2.0.3
+        specifier: 2.0.3
         version: 2.0.3
       vudio:
         specifier: 2.1.1
