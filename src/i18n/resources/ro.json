@@ -333,8 +333,32 @@
       "description": "Aplică compresie pe audio (scade volumul părților cele mai zgomotoase și crește volumul părților mai puțin zgomotoase)",
       "name": "Compresor audio"
     },
+    "auth-proxy-adapter": {
+      "description": "Suport pentru utilizarea serviciilor proxy de autentificare",
+      "menu": {
+        "disable": "Dezactivează Adaptorul Proxy",
+        "enable": "Activează Adaptorul Proxy",
+        "hostname": {
+          "label": "Nume host"
+        },
+        "port": {
+          "label": "Port"
+        }
+      },
+      "name": "Adaptor Proxy de Autentificare",
+      "prompt": {
+        "hostname": {
+          "label": "Introduceți numele de gazdă pentru serverul proxy local (necesită repornire):",
+          "title": "Nume host proxy"
+        },
+        "port": {
+          "label": "Introduceți portul pentru serverul proxy local (necesită repornire):",
+          "title": "Port Proxy"
+        }
+      }
+    },
     "blur-nav-bar": {
-      "description": "Face bara de navigare semi-transparentă",
+      "description": "Face bara de navigare semi-transparentă și difuză",
       "name": "Estompează Bara de Navigație"
     },
     "bypass-age-restrictions": {
@@ -600,6 +624,10 @@
       },
       "name": "Notificări"
     },
+    "performance-improvement": {
+      "description": "Îmbunătățește performanța activând scripturile experimentale",
+      "name": "Îmbunătățirea performanței [Beta]"
+    },
     "picture-in-picture": {
       "description": "Permite să schimbi aplicația la modul picture-in-picture",
       "menu": {
@@ -683,6 +711,7 @@
         "listenbrainz": {
           "token": "Introdu token-ul de utilizator ListenBrainz"
         },
+        "scrobble-alternative-title": "Folosește titluri alternative",
         "scrobble-other-media": "Scrobble alte surse media"
       },
       "name": "Scrobbler",
@@ -745,6 +774,7 @@
           "label": "Efect de linie",
           "submenu": {
             "fancy": {
+              "label": "Elegant",
               "tooltip": "Folosește efecte largi pe linia curentă"
             },
             "focus": {
@@ -765,6 +795,10 @@
         "precise-timing": {
           "label": "Sincronizează versurile perfect",
           "tooltip": "Calculează afisarea următoarei linii până la milisecundă (poate afecta performanța)"
+        },
+        "romanization": {
+          "label": "Transcrie versurile în alfabet latin",
+          "tooltip": "Dacă versurile sunt într-o altă limbă, încearcă să afișezi o versiune în alfabet latin."
         },
         "show-lyrics-even-if-inexact": {
           "label": "Afișează versurile chiar dacă sunt inexacte",
@@ -797,6 +831,10 @@
     "tuna-obs": {
       "description": "Integrare cu plugin-ul OBS Tuna",
       "name": "Tuna OBS"
+    },
+    "unobtrusive-player": {
+      "description": "Împiedică playerul să apară atunci când redați o melodie",
+      "name": "Player discret"
     },
     "video-toggle": {
       "description": "Adaugă un buton ce schimbă între modurile Video/Melodie. De asemenea se poate elimina opțional toată fila video",
