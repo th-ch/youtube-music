@@ -115,7 +115,7 @@ protocol.registerSchemesAsPrivileged([
 ]);
 
 // https://github.com/electron/electron/issues/46538#issuecomment-2808806722
-if (process.platform === 'linux') {
+if (is.linux()) {
   app.commandLine.appendSwitch('gtk-version', '3');
 }
 
