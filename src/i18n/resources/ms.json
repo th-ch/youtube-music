@@ -74,7 +74,8 @@
           "ok": "OK"
         },
         "detail": "Versi baharu kini tersedia dan boleh dimuat turun di {{downloadLink}}",
-        "message": "Versi baharu tersedia"
+        "message": "Versi baharu tersedia",
+        "title": "Kemas Kini Tersedia"
       }
     },
     "menu": {
@@ -85,7 +86,8 @@
           "copy-current-url": "Salin URL semasa",
           "go-back": "Belakang",
           "go-forward": "Depan",
-          "quit": "Keluar"
+          "quit": "Keluar",
+          "restart": "Mula Semula Aplikasi"
         }
       },
       "options": {
@@ -94,20 +96,30 @@
           "advanced-options": {
             "label": "Tetapan Lanjutan",
             "submenu": {
+              "auto-reset-app-cache": "Tetapkan semula cache aplikasi apabila aplikasi dimulakan",
+              "disable-hardware-acceleration": "Lumpuhkan pecutan perkakasan",
+              "edit-config-json": "Ubah suai config.json",
+              "override-user-agent": "Gantikan Ejen Pengguna",
+              "restart-on-config-changes": "Mulakan semula pada perubahan konfigurasi",
               "set-proxy": {
+                "label": "Tetapkan proksi",
                 "prompt": {
+                  "label": "Masukkan Alamat Proksi: (biarkan kosong untuk menyahdayakan)",
                   "placeholder": "Contoh: SOCKS5://127.0.0.1:9999",
                   "title": "Set proksi"
                 }
-              }
+              },
+              "toggle-dev-tools": "Togol DevTools"
             }
           },
           "always-on-top": "Sentiasa di atas",
           "auto-update": "Kemas Kini Automatik",
           "hide-menu": {
             "dialog": {
-              "message": "Menu akan disembunyikan pada pelancaran seterusnya, gunakan [Alt] untuk menunjukkannya (atau backtick [`] jika menggunakan dalam aplikasi-menu)"
-            }
+              "message": "Menu akan disembunyikan pada pelancaran seterusnya, gunakan [Alt] untuk menunjukkannya (atau backtick [`] jika menggunakan dalam aplikasi-menu)",
+              "title": "Sembunyikan Menu Diaktifkan"
+            },
+            "label": "Sembunyikan Menu"
           },
           "language": {
             "dialog": {
@@ -120,12 +132,18 @@
             }
           },
           "resume-on-start": "Mulakan semula lagu terakhir apabila aplikasi dimulakan",
+          "single-instance-lock": "Kunci Kejadian Tunggal",
           "start-at-login": "Mulakan semasa log masuk",
           "starting-page": {
-            "label": "Halaman Permulaan"
+            "label": "Halaman Permulaan",
+            "unset": "Nyahset"
           },
           "tray": {
+            "label": "Dulang",
             "submenu": {
+              "disabled": "Dilumpuhkan",
+              "enabled-and-hide-app": "Didayakan dan sembunyikan aplikasi",
+              "enabled-and-show-app": "Didayakan dan paparkan aplikasi",
               "play-pause-on-click": "Main / Hentikan pada klik"
             }
           },
@@ -134,19 +152,44 @@
             "submenu": {
               "like-buttons": {
                 "default": "Lalai",
-                "hide": "Sembunyi"
+                "force-show": "Pameran paksa",
+                "hide": "Sembunyi",
+                "label": "Suka butang"
               },
+              "remove-upgrade-button": "Buang butang naik taraf",
               "theme": {
                 "dialog": {
                   "button": {
                     "cancel": "Batalkan",
                     "remove": "Padam"
-                  }
+                  },
+                  "remove-theme": "Adakah anda pasti mahu mengalih keluar tema tersuai?",
+                  "remove-theme-message": "Ini akan membuang tema tersuai"
                 },
-                "label": "Tema"
+                "label": "Tema",
+                "submenu": {
+                  "import-css-file": "Import fail CSS tersuai",
+                  "no-theme": "Tiada tema"
+                }
               }
             }
           }
+        }
+      },
+      "plugins": {
+        "enabled": "Didayakan",
+        "label": "Pemalam",
+        "new": "BARU"
+      },
+      "view": {
+        "label": "Pandangan",
+        "submenu": {
+          "force-reload": "Paksa Muat Semula",
+          "reload": "Muat semula",
+          "reset-zoom": "Saiz Sebenar",
+          "toggle-fullscreen": "Togol Skrin Penuh",
+          "zoom-in": "Zum Masuk",
+          "zoom-out": "Zum Keluar"
         }
       }
     },
@@ -155,11 +198,44 @@
       "play-pause": "Main / Jeda",
       "previous": "Sebelumnya",
       "quit": "Keluar",
-      "restart": "Mulakan Semula Aplikasi"
+      "restart": "Mulakan Semula Aplikasi",
+      "show": "Papar tetingkap",
+      "tooltip": {
+        "default": "YouTube Muzik",
+        "with-song-info": "YouTube Muzik : {{artis}} - {{tajuk}}"
+      }
     }
   },
   "plugins": {
+    "ad-speedup": {
+      "description": "Jika iklan dimainkan, ia meredamkan audio dan menetapkan kelajuan main semula kepada 16x",
+      "name": "Kelajuan Iklan"
+    },
+    "adblocker": {
+      "description": "Sekat semua iklan dan penjejakan di luar kotak",
+      "menu": {
+        "blocker": "Penyekat"
+      },
+      "name": "Penyekat Iklan"
+    },
+    "album-actions": {
+      "description": "Menambah butang Suka dan Tidak Suka pada semua lagu dalam senarai main atau album",
+      "name": "Tindakan Album"
+    },
+    "album-color-theme": {
+      "description": "Menggunakan tema dinamik dan kesan visual berdasarkan palet warna album",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "Nisbah campuran warna",
+          "submenu": {
+            "percent": "{{nisbah}}%"
+          }
+        }
+      },
+      "name": "Tema Warna Album"
+    },
     "ambient-mode": {
+      "description": "Menggunakan kesan pencahayaan dengan menghantar warna lembut daripada video, ke latar belakang skrin anda",
       "menu": {
         "quality": {
           "label": "Kualiti"

@@ -345,12 +345,14 @@
           "label": "Port"
         }
       },
+      "name": "Auth Proxy Adapter",
       "prompt": {
         "hostname": {
           "label": "Hostnamen eingeben für lokalen Proxy-Server (Neustart erforderlich):",
           "title": "Proxy Hostname"
         },
         "port": {
+          "label": "Geben Sie den Port für den lokalen Proxyserver ein (Neustart erforderlich):",
           "title": "Proxy Port"
         }
       }

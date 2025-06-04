@@ -279,6 +279,13 @@
       },
       "name": "Mode ambient"
     },
+    "amuse": {
+      "description": "Aporta suport des de Youtube Music pel \"Amuse now playing widget\" de 6K Labs",
+      "name": "Amuse",
+      "response": {
+        "query": "L'API del servidor de Amuse està funcionant. GET /query per tenir informació de la cançó."
+      }
+    },
     "api-server": {
       "description": "Afegeix un servidor API per controlar el reproductor",
       "dialog": {
@@ -325,6 +332,30 @@
     "audio-compressor": {
       "description": "Aplica compressió a l'àudio (baixa el volum de les parts més sorolloses de la senyal d'àudio i puja el volum de les parts més fluixes)",
       "name": "Compressió d'àudio"
+    },
+    "auth-proxy-adapter": {
+      "description": "Suport per l'ús de servidors d'autenticació proxy",
+      "menu": {
+        "disable": "Desactivar adaptador Proxy",
+        "enable": "Activar adaptador Proxy",
+        "hostname": {
+          "label": "Hostname"
+        },
+        "port": {
+          "label": "Port"
+        }
+      },
+      "name": "Auth Proxy Adapter",
+      "prompt": {
+        "hostname": {
+          "label": "Posa hostname pel servidor del proxy local (requereix reiniciar):",
+          "title": "Hostname del proxy"
+        },
+        "port": {
+          "label": "Entra un port pel servidor local del proxy (requereix reiniciar):",
+          "title": "Port proxy"
+        }
+      }
     },
     "blur-nav-bar": {
       "description": "Desenfoca i aplica transparència a la barra de navegació",

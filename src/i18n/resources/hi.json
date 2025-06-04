@@ -287,6 +287,7 @@
       }
     },
     "api-server": {
+      "description": "प्लेयर को नियंत्रित करने के लिए एक API सर्वर जोड़ता है",
       "dialog": {
         "request": {
           "buttons": {
@@ -332,9 +333,262 @@
       "description": "ऑडियो पर कम्प्रेशन लागू करें (सिग्नल के सबसे ऊँचे हिस्सों की आवाज़ को कम करता है और सबसे नर्म हिस्सों की आवाज़ को बढ़ाता है)",
       "name": "ऑडियो कंप्रेसर"
     },
+    "auth-proxy-adapter": {
+      "description": "ऑथेंटिकेशन प्रॉक्सी सेवाओं के उपयोग के लिए सपोर्ट",
+      "menu": {
+        "disable": "प्रॉक्सी एडाप्टर बंद करें",
+        "enable": "प्रॉक्सी एडाप्टर शुरू करें",
+        "hostname": {
+          "label": "होस्ट का नाम"
+        },
+        "port": {
+          "label": "पोर्ट"
+        }
+      },
+      "name": "ऑथ प्रॉक्सी एडाप्टर",
+      "prompt": {
+        "hostname": {
+          "label": "स्थानीय प्रॉक्सी सर्वर के लिए होस्ट का नाम लिखें (पुनः आरंभ ज़रूरी है):",
+          "title": "प्रॉक्सी होस्ट का नाम"
+        },
+        "port": {
+          "label": "स्थानीय प्रॉक्सी सर्वर के लिए पोर्ट लिखें (पुनः प्रारंभ जरूरी है):",
+          "title": "प्रॉक्सी का पोर्ट"
+        }
+      }
+    },
     "blur-nav-bar": {
       "description": "नेविगेशन बार को पारदर्शी और धुंधला बनाता है",
       "name": "नेविगेशन बार को ब्लर करें"
+    },
+    "bypass-age-restrictions": {
+      "description": "YouTube आयु की जांच को बायपास करें",
+      "name": "आयु प्रतिबंध को बायपास करें"
+    },
+    "captions-selector": {
+      "description": "YouTube म्यूज़िक ऑडियो ट्रैक के लिए कैप्शन चयनकर्ता",
+      "menu": {
+        "autoload": "अंतिम बार उपयोग किए गए कैप्शन का ऑटोमैटिक रूप से चयन करें",
+        "disable-captions": "डिफ़ॉल्ट रूप में कोई कैप्शन नहीं"
+      },
+      "name": "कैप्शन चयनकर्ता",
+      "prompt": {
+        "selector": {
+          "label": "वर्तमान कैप्शन भाषा: {{language}}",
+          "none": "कुछ नहीं",
+          "title": "कैप्शन भाषा चुनें"
+        }
+      },
+      "templates": {
+        "title": "कैप्शन चयनकर्ता खोलें"
+      }
+    },
+    "compact-sidebar": {
+      "description": "साइडबार को हमेशा कॉम्पैक्ट मोड में सेट करें",
+      "name": "कॉम्पैक्ट साइडबार"
+    },
+    "crossfade": {
+      "description": "गानों के बीच क्रॉसफ़ेड करें",
+      "menu": {
+        "advanced": "आधुनिक"
+      },
+      "name": "क्रॉसफ़ेड [बीटा]",
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "fade-in-duration": "फ़ेड इन अवधि (मिलीसेकंड)",
+            "fade-out-duration": "फ़ेड आउट अवधि (मिलीसेकंड)",
+            "fade-scaling": {
+              "label": "फेड स्केलिंग",
+              "logarithmic": "लघुगणक"
+            },
+            "seconds-before-end": "अंत से पहले N सेकंड तक क्रॉसफ़ेड करें"
+          },
+          "title": "क्रॉसफ़ेड विकल्प"
+        }
+      }
+    },
+    "disable-autoplay": {
+      "description": "गीत को \"रुके हुए \" मोड में शुरू करता है",
+      "menu": {
+        "apply-once": "केवल प्रारम्भ पर लागू होता है"
+      },
+      "name": "ऑटोप्ले अयोग्य करें"
+    },
+    "discord": {
+      "backend": {
+        "already-connected": "सक्रिय कनेक्शन से जुड़ने का प्रयास किया गया",
+        "connected": "डिस्कॉर्ड से कनेक्टेड है",
+        "disconnected": "डिस्कॉर्ड से कनेक्टेड नहीं है"
+      },
+      "description": "Rich Presence के साथ अपने दोस्तों के साथ बाटें कि आप क्या सुनते हैं",
+      "menu": {
+        "auto-reconnect": "स्वतः पुनः कनेक्ट करें",
+        "clear-activity": "Activity साफ़ करें",
+        "clear-activity-after-timeout": "समय समाप्त होने के बाद एक्टिविटी साफ़ करें",
+        "connected": "स्थापित",
+        "disconnected": "डिस्कनेक्ट किया गया",
+        "hide-duration-left": "शेष अवधि छिपाएँ",
+        "hide-github-button": "GitHub लिंक के बटन को छिपाएँ",
+        "play-on-youtube-music": "YouTube म्यूज़िक पर चलाएँ",
+        "set-inactivity-timeout": "निष्क्रियता समय समाप्ति सेट करें"
+      },
+      "name": "डिस्कॉर्ड रिच प्रेजेंस",
+      "prompt": {
+        "set-inactivity-timeout": {
+          "label": "निष्क्रियता समय समाप्ति सेकंड में दर्ज करें:",
+          "title": "निष्क्रियता समय समाप्ति सेट करें"
+        }
+      }
+    },
+    "downloader": {
+      "backend": {
+        "dialog": {
+          "error": {
+            "buttons": {
+              "ok": "ठीक है"
+            },
+            "message": "आह! क्षमा करें, डाउनलोड विफल हो गया…",
+            "title": "डाउनलोड में दिक्कत है !"
+          },
+          "start-download-playlist": {
+            "buttons": {
+              "ok": "ठीक है"
+            },
+            "detail": "({{playlistSize}} गाने)",
+            "message": "प्लेलिस्ट {{playlistTitle}} डाउनलोड हो रही है",
+            "title": "डाउनलोड शुरू"
+          }
+        },
+        "feedback": {
+          "conversion-progress": "कन्वर्ज़न: {{percent}}%",
+          "converting": "परिवर्तित हो रहा है…",
+          "done": "हो गया: {{filePath}}",
+          "download-info": "{{artist}} - {{title}} डाउनलोड हो रहा है [{{videoId}}",
+          "download-progress": "डाउनलोड करें: {{percent}}%",
+          "downloading": "डाउनलोड हो रहा है…",
+          "downloading-counter": "{{current}}/{{total}} डाउनलोड हो रहा है…",
+          "downloading-playlist": "प्लेलिस्ट \"{{playlistTitle}}\" - {{playlistSize}} गाने ({{playlistId}}) डाउनलोड हो रहे हैं",
+          "error-while-downloading": "\"{{author}} - {{title}}\" डाउनलोड करते समय दिक्कत: {{error}}",
+          "folder-already-exists": "फ़ोल्डर {{playlistFolder}} पहले से मौजूद है",
+          "getting-playlist-info": "प्लेलिस्ट की जानकारी प्राप्त हो रही है…",
+          "loading": "लोड हो रहा है…",
+          "playlist-has-only-one-song": "प्लेलिस्ट में केवल एक आइटम है, इसे सीधे डाउनलोड करें",
+          "playlist-id-not-found": "कोई प्लेलिस्ट आईडी नहीं मिली",
+          "playlist-is-empty": "प्लेलिस्ट ख़ाली है",
+          "playlist-is-mix-or-private": "प्लेलिस्ट जानकारी प्राप्त करने में दिक्कत: सुनिश्चित करें कि यह निजी या \"आपके लिए मिश्रित\" प्लेलिस्ट नहीं है\n\n{{त्रुटि}}",
+          "preparing-file": "फ़ाइल तैयार की जा रही है…",
+          "saving": "सेव जा रहा है…",
+          "trying-to-get-playlist-id": "प्लेलिस्ट आईडी प्राप्त करने का प्रयास किया जा रहा है: {{playlistId}}",
+          "video-id-not-found": "वीडियो नहीं मिला",
+          "writing-id3": "ID3 टैग लिख रहे हैं…"
+        }
+      },
+      "description": "इंटरफ़ेस से सीधे MP3 / स्रोत ऑडियो डाउनलोड करता है",
+      "menu": {
+        "choose-download-folder": "डाउनलोड फ़ोल्डर चुनें",
+        "download-finish-settings": {
+          "label": "समाप्त होने पर डाउनलोड करें",
+          "prompt": {
+            "last-percent": "x प्रतिशत के बाद",
+            "last-seconds": "अंतिम x सेकंड",
+            "title": "डाउनलोड करने का समय कॉन्फ़िगर करें"
+          },
+          "submenu": {
+            "advanced": "विकसित",
+            "enabled": "सक्रिय",
+            "percent": "प्रतिशत",
+            "seconds": "सेकंड"
+          }
+        },
+        "download-playlist": "प्लेलिस्ट डाउनलोड करें",
+        "presets": "प्रीसेट",
+        "skip-existing": "मौजूदा फ़ाइलें छोड़ें"
+      },
+      "name": "डाउनलोडर",
+      "renderer": {
+        "can-not-update-progress": "प्रगति अपडेट नहीं की जा सकती"
+      },
+      "templates": {
+        "button": "डाउनलोड"
+      }
+    },
+    "equalizer": {
+      "description": "प्लेयर में एक एक्विलाइज़र जोड़ता है",
+      "menu": {
+        "presets": {
+          "label": "प्रीसेट",
+          "list": {
+            "bass-booster": "bass वर्धक"
+          }
+        }
+      },
+      "name": "इक्वलाइज़र"
+    },
+    "exponential-volume": {
+      "description": "वॉल्यूम स्लाइडर को घातांकीय बनाता है ताकि कम वॉल्यूम का चयन करना आसान हो।",
+      "name": "तीव्र वॉल्यूम"
+    },
+    "in-app-menu": {
+      "description": "मेनू-बार को फैंसी, गहरा या एल्बम-रंग का रूप दें",
+      "menu": {
+        "hide-dom-window-controls": "DOM विंडो कंट्रोल को छिपाएँ"
+      },
+      "name": "इन-ऐप मेनू"
+    },
+    "lumiastream": {
+      "description": "लूमिया स्ट्रीम सपोर्ट जोड़ा गया",
+      "name": "लूमिया स्ट्रीम [बीटा]"
+    },
+    "lyrics-genius": {
+      "description": "अधिकांश गानों के लिए गीत के लिरिक्स को जोड़ता है",
+      "menu": {
+        "romanized-lyrics": "रोमनकृत लिरिक्स"
+      },
+      "name": "लिरिक्स जीनियस",
+      "renderer": {
+        "fetched-lyrics": "जीनियस के लिए प्राप्त किये गए लिरिक्स"
+      }
+    },
+    "music-together": {
+      "description": "दूसरों के साथ प्लेलिस्ट साझा करें। जब होस्ट कोई गाना बजाता है, तो बाकी सभी लोग वही गाना सुनेंगे",
+      "dialog": {
+        "enter-host": "होस्ट आईडी दर्ज करें"
+      },
+      "internal": {
+        "save": "सेव",
+        "track-source": "ट्रैक स्रोत",
+        "unknown-user": "अज्ञात उपयोगकर्ता"
+      },
+      "menu": {
+        "click-to-copy-id": "होस्ट आईडी कॉपी करें",
+        "close": "संगीत को एक साथ बंद करें",
+        "connected-users": "जुड़े हुए उपयोगकर्ता",
+        "disconnect": "संगीत को एक साथ डिस्कनेक्ट करें",
+        "empty-user": "कोई जुड़े हुए उपयोगकर्ता नहीं",
+        "host": "म्यूजिक टुगेदर होस्ट",
+        "join": "संगीत से साथ में जुड़ें",
+        "permission": {
+          "all": "मेहमानों को प्लेलिस्ट और प्लेयर को नियंत्रित करने की अनुमति दें",
+          "host-only": "केवल होस्ट ही प्लेलिस्ट और प्लेयर को नियंत्रित कर सकता है",
+          "playlist": "मेहमानों को प्लेलिस्ट नियंत्रित करने की अनुमति दें"
+        },
+        "set-permission": "नियंत्रण अनुमति बदलें",
+        "status": {
+          "disconnected": "डिस्कनेक्ट किया गया",
+          "guest": "अतिथि के रूप में जुड़े हुए",
+          "host": "मेज़बान के रूप में जुड़े हुए"
+        }
+      },
+      "name": "संगीत टुगेदर [बीटा]",
+      "toast": {
+        "add-song-failed": "गाना जोड़ने में असफलता",
+        "closed": "म्यूजिक टुगेदर बंद हुआ",
+        "disconnected": "म्यूजिक टुगेदर डिस्कनेक्ट हुआ",
+        "host-failed": "म्यूज़िक टुगेदर होस्ट करने में असफल",
+        "id-copied": "होस्ट आईडी क्लिपबोर्ड पर कॉपी की गई",
+        "id-copy-failed": "होस्ट आईडी को क्लिपबोर्ड पर कॉपी करने में असफल"
+      }
     },
     "video-toggle": {
       "menu": {
