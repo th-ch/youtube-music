@@ -1,6 +1,6 @@
 import { deepmergeCustom } from 'deepmerge-ts';
 
-import defaultConfig from './defaults';
+import defaultConfig, { DefaultConfig } from './defaults';
 
 import store, { IStore } from './store';
 import plugins from './plugins';
@@ -25,6 +25,8 @@ function setMenuOption(key: string, value: unknown) {
     restart();
   }
 }
+
+const getStore = () => store.store;
 
 // MAGIC OF TYPESCRIPT
 
@@ -51,31 +53,34 @@ type Prev = [
   18,
   19,
   20,
-  ...0[],
+  ...0[]
 ];
 type Join<K, P> = K extends string | number
   ? P extends string | number
     ? `${K}${'' extends P ? '' : '.'}${P}`
     : never
   : never;
-type Paths<T, D extends number = 10> = [D] extends [never]
+
+export type Paths<T, D extends number = 10> = [D] extends [never]
   ? never
   : T extends object
-    ? {
-        [K in keyof T]-?: K extends string | number
-          ? `${K}` | Join<K, Paths<T[K], Prev[D]>>
-          : never;
-      }[keyof T]
-    : '';
+  ? {
+      [K in keyof T]-?: K extends string | number
+        ? `${K}` | Join<K, Paths<T[K], Prev[D]>>
+        : never;
+    }[keyof T]
+  : '';
 
 type SplitKey<K> = K extends `${infer A}.${infer B}` ? [A, B] : [K, string];
-type PathValue<T, K extends string> =
-  SplitKey<K> extends [infer A extends keyof T, infer B extends string]
-    ? PathValue<T[A], B>
-    : T;
+export type PathValue<T, K extends string> = SplitKey<K> extends [
+  infer A extends keyof T,
+  infer B extends string
+]
+  ? PathValue<T[A], B>
+  : T;
 
-const get = <Key extends Paths<typeof defaultConfig>>(key: Key) =>
-  store.get(key) as PathValue<typeof defaultConfig, typeof key>;
+const get = <Key extends Paths<DefaultConfig>>(key: Key) =>
+  store.get(key) as PathValue<DefaultConfig, typeof key>;
 
 export default {
   defaultConfig,
@@ -83,6 +88,7 @@ export default {
   set,
   setPartial,
   setMenuOption,
+  getStore,
   edit: () => store.openInEditor(),
   watch(cb: Parameters<IStore['onDidAnyChange']>[0]) {
     store.onDidAnyChange(cb);
