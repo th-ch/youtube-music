@@ -6,6 +6,7 @@ import { SongInfo } from '@/providers/song-info';
 
 import { LRCLib } from './LRCLib';
 import { LyricsGenius } from './LyricsGenius';
+import { MusixMatch } from './MusixMatch';
 import { YTMusic } from './YTMusic';
 
 import { getSongInfo } from '@/providers/song-info-front';
@@ -15,8 +16,8 @@ import type { LyricProvider, LyricResult } from '../types';
 export const providers = {
   YTMusic: new YTMusic(),
   LRCLib: new LRCLib(),
+  MusixMatch: new MusixMatch(),
   LyricsGenius: new LyricsGenius(),
-  // MusixMatch: new MusixMatch(),
   // Megalobiz: new Megalobiz(), // Disabled because it is too unstable and slow
 } as const;
 
