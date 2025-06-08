@@ -7,7 +7,9 @@ import {
   Menu,
   MenuItem,
   shell,
+  session,
 } from 'electron';
+import { UAParser } from 'ua-parser-js';
 import prompt from 'custom-electron-prompt';
 import { satisfies } from 'semver';
 
@@ -483,11 +485,98 @@ export const mainMenuTemplate = async (
               label: t(
                 'main.menu.options.submenu.advanced-options.submenu.override-user-agent',
               ),
-              type: 'checkbox',
-              checked: config.get('options.overrideUserAgent'),
-              click(item: MenuItem) {
-                config.setMenuOption('options.overrideUserAgent', item.checked);
-              },
+              submenu: [
+                {
+                  label: t(
+                    'main.menu.options.submenu.advanced-options.submenu.reset-override-user-agent',
+                  ),
+                  type: 'normal' as const,
+                  click() {
+                    // Clear the override value from config
+                    config.set('options.overrideUserAgentValue', '');
+
+                    // Remove the onBeforeSendHeaders listener
+                    session.defaultSession.webRequest.onBeforeSendHeaders(
+                      { urls: ['*://*/*'] },
+                      () => {},
+                    );
+
+                    // Reset to original user agent
+                    const originalUserAgent = win.webContents.userAgent;
+                    win.webContents.userAgent = originalUserAgent;
+                    app.userAgentFallback = originalUserAgent;
+                  },
+                } satisfies Electron.MenuItemConstructorOptions,
+                {
+                  label: t(
+                    'main.menu.options.submenu.advanced-options.submenu.add-override-user-agent',
+                  ),
+                  type: 'normal',
+                  click() {
+                    prompt(
+                      {
+                        title: t(
+                          'main.menu.options.submenu.advanced-options.submenu.add-override-user-agent',
+                        ),
+                        label: t(
+                          'main.menu.options.submenu.advanced-options.submenu.add-override-user-agent',
+                        ),
+                        value: '',
+                        type: 'input',
+                        width: 450,
+                        height: 150,
+                        alwaysOnTop: true,
+                        ...promptOptions,
+                      },
+                      win,
+                    )
+                      .then((result) => {
+                        if (result === null) {
+                          return;
+                        }
+                        const existingConfig =
+                          config.get('options.customUserAgent') || [];
+                        config.set('options.customUserAgent', [
+                          ...existingConfig,
+                          result,
+                        ]);
+                        refreshMenu(win);
+                      })
+                      .catch(console.error);
+                  },
+                },
+              ].concat(
+                config.get('options.customUserAgent').map((userAgent) => {
+                  const parser = new UAParser(userAgent);
+                  const result = parser.getResult();
+                  return {
+                    label: `${result.os.name} ${result.browser.name} ${result.browser.version}`,
+                    type: 'radio',
+                    checked:
+                      config.get('options.overrideUserAgentValue') ===
+                      userAgent,
+                    click() {
+                      session.defaultSession.webRequest.onBeforeSendHeaders(
+                        (details, callback) => {
+                          config.set(
+                            'options.overrideUserAgentValue',
+                            userAgent,
+                          );
+                          const overrideUA = config.get(
+                            'options.overrideUserAgentValue',
+                          );
+                          if (overrideUA) {
+                            details.requestHeaders['User-Agent'] = overrideUA;
+                          }
+                          callback({
+                            requestHeaders: details.requestHeaders,
+                          });
+                        },
+                      );
+                    },
+                  } satisfies Electron.MenuItemConstructorOptions;
+                }),
+              ),
             },
             {
               label: t(

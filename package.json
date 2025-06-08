@@ -300,6 +300,7 @@
     "solid-js": "1.9.7",
     "solid-styled-components": "0.28.5",
     "solid-transition-group": "0.3.0",
+    "ua-parser-js": "2.0.3",
     "ts-morph": "26.0.0",
     "vudio": "2.1.1",
     "x11": "2.3.0",
