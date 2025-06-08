@@ -59,10 +59,10 @@ importers:
         version: 0.5.1(hono@4.7.11)
       '@hono/zod-openapi':
         specifier: 0.19.8
-        version: 0.19.8(hono@4.7.11)(zod@3.25.51)
+        version: 0.19.8(hono@4.7.11)(zod@3.25.56)
       '@hono/zod-validator':
         specifier: 0.7.0
-        version: 0.7.0(hono@4.7.11)(zod@3.25.51)
+        version: 0.7.0(hono@4.7.11)(zod@3.25.56)
       '@jellybrick/dbus-next':
         specifier: 0.10.3
         version: 0.10.3
@@ -229,8 +229,8 @@ importers:
         specifier: 13.4.0
         version: 13.4.0
       zod:
-        specifier: 3.25.51
-        version: 3.25.51
+        specifier: 3.25.56
+        version: 3.25.56
     devDependencies:
       '@eslint/js':
         specifier: 9.28.0
@@ -4799,8 +4799,8 @@ packages:
   zlibjs@0.3.1:
     resolution: {integrity: sha512-+J9RrgTKOmlxFSDHo0pI1xM6BLVUv+o0ZT9ANtCxGkjIVCCUdx9alUF8Gm+dGLKbkkkidWIHFDZHDMpfITt4+w==}
 
-  zod@3.25.51:
-    resolution: {integrity: sha512-TQSnBldh+XSGL+opiSIq0575wvDPqu09AqWe1F7JhUMKY+M91/aGlK4MhpVNO7MgYfHcVCB1ffwAUTJzllKJqg==}
+  zod@3.25.56:
+    resolution: {integrity: sha512-rd6eEF3BTNvQnR2e2wwolfTmUTnp70aUTqr0oaGbHifzC3BKJsoV+Gat8vxUMR1hwOKBs6El+qWehrHbCpW6SQ==}
 
 snapshots:
 
@@ -4813,10 +4813,10 @@ snapshots:
 
   '@assemblyscript/loader@0.17.14': {}
 
-  '@asteasolutions/zod-to-openapi@7.3.0(zod@3.25.51)':
+  '@asteasolutions/zod-to-openapi@7.3.0(zod@3.25.56)':
     dependencies:
       openapi3-ts: 4.4.0
-      zod: 3.25.51
+      zod: 3.25.56
 
   '@babel/code-frame@7.26.2':
     dependencies:
@@ -5270,17 +5270,17 @@ snapshots:
     dependencies:
       hono: 4.7.11
 
-  '@hono/zod-openapi@0.19.8(hono@4.7.11)(zod@3.25.51)':
+  '@hono/zod-openapi@0.19.8(hono@4.7.11)(zod@3.25.56)':
     dependencies:
-      '@asteasolutions/zod-to-openapi': 7.3.0(zod@3.25.51)
-      '@hono/zod-validator': 0.7.0(hono@4.7.11)(zod@3.25.51)
+      '@asteasolutions/zod-to-openapi': 7.3.0(zod@3.25.56)
+      '@hono/zod-validator': 0.7.0(hono@4.7.11)(zod@3.25.56)
       hono: 4.7.11
-      zod: 3.25.51
+      zod: 3.25.56
 
-  '@hono/zod-validator@0.7.0(hono@4.7.11)(zod@3.25.51)':
+  '@hono/zod-validator@0.7.0(hono@4.7.11)(zod@3.25.56)':
     dependencies:
       hono: 4.7.11
-      zod: 3.25.51
+      zod: 3.25.56
 
   '@humanfs/core@0.19.1': {}
 
@@ -5383,7 +5383,7 @@ snapshots:
     dependencies:
       '@jimp/types': 1.6.0
       '@jimp/utils': 1.6.0
-      zod: 3.25.51
+      zod: 3.25.56
 
   '@jimp/plugin-blur@1.6.0':
     dependencies:
@@ -5393,7 +5393,7 @@ snapshots:
   '@jimp/plugin-circle@1.6.0':
     dependencies:
       '@jimp/types': 1.6.0
-      zod: 3.25.51
+      zod: 3.25.56
 
   '@jimp/plugin-color@1.6.0':
     dependencies:
@@ -5401,7 +5401,7 @@ snapshots:
       '@jimp/types': 1.6.0
       '@jimp/utils': 1.6.0
       tinycolor2: 1.6.0
-      zod: 3.25.51
+      zod: 3.25.56
 
   '@jimp/plugin-contain@1.6.0':
     dependencies:
@@ -5410,7 +5410,7 @@ snapshots:
       '@jimp/plugin-resize': 1.6.0
       '@jimp/types': 1.6.0
       '@jimp/utils': 1.6.0
-      zod: 3.25.51
+      zod: 3.25.56
 
   '@jimp/plugin-cover@1.6.0':
     dependencies:
@@ -5418,20 +5418,20 @@ snapshots:
       '@jimp/plugin-crop': 1.6.0
       '@jimp/plugin-resize': 1.6.0
       '@jimp/types': 1.6.0
-      zod: 3.25.51
+      zod: 3.25.56
 
   '@jimp/plugin-crop@1.6.0':
     dependencies:
       '@jimp/core': 1.6.0
       '@jimp/types': 1.6.0
       '@jimp/utils': 1.6.0
-      zod: 3.25.51
+      zod: 3.25.56
 
   '@jimp/plugin-displace@1.6.0':
     dependencies:
       '@jimp/types': 1.6.0
       '@jimp/utils': 1.6.0
-      zod: 3.25.51
+      zod: 3.25.56
 
   '@jimp/plugin-dither@1.6.0':
     dependencies:
@@ -5441,12 +5441,12 @@ snapshots:
     dependencies:
       '@jimp/types': 1.6.0
       '@jimp/utils': 1.6.0
-      zod: 3.25.51
+      zod: 3.25.56
 
   '@jimp/plugin-flip@1.6.0':
     dependencies:
       '@jimp/types': 1.6.0
-      zod: 3.25.51
+      zod: 3.25.56
 
   '@jimp/plugin-hash@1.6.0':
     dependencies:
@@ -5464,7 +5464,7 @@ snapshots:
   '@jimp/plugin-mask@1.6.0':
     dependencies:
       '@jimp/types': 1.6.0
-      zod: 3.25.51
+      zod: 3.25.56
 
   '@jimp/plugin-print@1.6.0':
     dependencies:
@@ -5477,18 +5477,18 @@ snapshots:
       parse-bmfont-binary: 1.0.6
       parse-bmfont-xml: 1.1.6
       simple-xml-to-json: 1.2.3
-      zod: 3.25.51
+      zod: 3.25.56
 
   '@jimp/plugin-quantize@1.6.0':
     dependencies:
       image-q: 4.0.0
-      zod: 3.25.51
+      zod: 3.25.56
 
   '@jimp/plugin-resize@1.6.0':
     dependencies:
       '@jimp/core': 1.6.0
       '@jimp/types': 1.6.0
-      zod: 3.25.51
+      zod: 3.25.56
 
   '@jimp/plugin-rotate@1.6.0':
     dependencies:
@@ -5497,7 +5497,7 @@ snapshots:
       '@jimp/plugin-resize': 1.6.0
       '@jimp/types': 1.6.0
       '@jimp/utils': 1.6.0
-      zod: 3.25.51
+      zod: 3.25.56
 
   '@jimp/plugin-threshold@1.6.0':
     dependencies:
@@ -5506,11 +5506,11 @@ snapshots:
       '@jimp/plugin-hash': 1.6.0
       '@jimp/types': 1.6.0
       '@jimp/utils': 1.6.0
-      zod: 3.25.51
+      zod: 3.25.56
 
   '@jimp/types@1.6.0':
     dependencies:
-      zod: 3.25.51
+      zod: 3.25.56
 
   '@jimp/utils@1.6.0':
     dependencies:
@@ -9750,4 +9750,4 @@ snapshots:
 
   zlibjs@0.3.1: {}
 
-  zod@3.25.51: {}
+  zod@3.25.56: {}
