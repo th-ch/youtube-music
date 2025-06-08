@@ -695,7 +695,38 @@
       "name": "वीडियो गुणवत्ता परिवर्तक"
     },
     "scrobbler": {
-      "description": "स्क्रोब्लिंग सपोर्ट जोड़ें (etc. last.fm, listenbrainz)"
+      "description": "स्क्रोब्लिंग सपोर्ट जोड़ें (etc. last.fm, listenbrainz)",
+      "dialog": {
+        "lastfm": {
+          "auth-failed": {
+            "message": "Last.fm के साथ प्रमाणीकरण विफल\nअगले पुनरारंभ तक पॉपअप छिपाएँ।",
+            "title": "प्रमाणीकरण विफल"
+          }
+        }
+      },
+      "menu": {
+        "lastfm": {
+          "api-settings": "Last.fm API सेटिंग्स"
+        },
+        "listenbrainz": {
+          "token": "listenbrainz उपयोगकर्ता टोकन दर्ज करें"
+        },
+        "scrobble-alternative-title": "वैकल्पिक शीर्षक का उपयोग करें",
+        "scrobble-other-media": "अन्य मीडिया स्क्रोबल करें"
+      },
+      "name": "स्क्रोब्लर",
+      "prompt": {
+        "lastfm": {
+          "api-key": "Last.fm API की",
+          "api-secret": "Last.fm API गुप्त"
+        },
+        "listenbrainz": {
+          "token": {
+            "label": "अपना ListenBrainz उपयोगकर्ता टोकन दर्ज करें:",
+            "title": "ListenBrainz टोकन"
+          }
+        }
+      }
     },
     "video-toggle": {
       "menu": {
