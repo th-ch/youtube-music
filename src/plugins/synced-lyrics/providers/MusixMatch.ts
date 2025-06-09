@@ -157,7 +157,7 @@ class MusixMatchAPI {
           format: 'json',
           usertoken: this.token,
         },
-        params as any
+        <Record<string, string>>params
       )
     );
 
@@ -179,16 +179,27 @@ class MusixMatchAPI {
       })
       .parseAsync(response);
 
-    // @ts-expect-error
+    // @ts-expect-error weird union type issue
     return parsed.message;
   }
+
+  private savedTokenSchema = z.discriminatedUnion('token', [
+    z.object({
+      token: z.null(),
+      expires: z.undefined(),
+    }),
+    z.object({
+      token: z.string(),
+      expires: z.number(),
+    }),
+  ]);
 
   private async init() {
     const key = 'ytm:synced-lyrics:mxm:token';
 
-    const { token, expires } = JSON.parse(
-      localStorage.getItem(key) ?? '{ "token": null }'
-    ) as any;
+    const { token, expires } = this.savedTokenSchema.parse(
+      JSON.parse(localStorage.getItem(key) ?? '{ "token": null }')
+    );
     if (token && expires > Date.now()) {
       this.token = token;
       return;
@@ -205,6 +216,13 @@ class MusixMatchAPI {
     );
   }
 
+  private tokenSchema = z.object({
+    message: z.object({
+      body: z.object({
+        user_token: z.string(),
+      }),
+    }),
+  });
   private async getToken() {
     const endpoint = 'token.get';
     const params = new URLSearchParams({ app_id: this.app_id });
@@ -222,7 +240,11 @@ class MusixMatchAPI {
       this.cookie = setCookie[1];
     }
 
-    const { user_token } = (JSON.parse(json) as any)?.message?.body ?? {};
+    const {
+      message: {
+        body: { user_token },
+      },
+    } = this.tokenSchema.parse(JSON.parse(json));
     return user_token;
   }
 
