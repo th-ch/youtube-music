@@ -1,8 +1,9 @@
+import { z } from 'zod';
+
+import { LRC } from '../parsers/lrc';
 import { netFetch } from '../renderer';
 import type { LyricProvider, LyricResult, SearchSongInfo } from '../types';
-import { LRC } from '../parsers/lrc';
 
-// prettier-ignore
 export class MusixMatch implements LyricProvider {
   name = 'MusixMatch';
   baseUrl = 'https://www.musixmatch.com/';
@@ -23,9 +24,14 @@ export class MusixMatch implements LyricProvider {
       subtitle_format: 'lrc',
     });
 
-    const track = data.body.macro_calls['matcher.track.get'].message.body?.track;
-    const lyrics = data.body.macro_calls['track.lyrics.get'].message.body?.lyrics?.lyrics_body;
-    const subtitle = data.body.macro_calls['track.subtitles.get'].message.body?.subtitle_list?.[0];
+    const { macro_calls } = data.body;
+
+    // prettier-ignore
+    const getter = <T extends keyof typeof macro_calls>(key: T): typeof macro_calls[T]['message']['body'] => macro_calls[key].message.body;
+
+    const track = getter('matcher.track.get')?.track;
+    const lyrics = getter('track.lyrics.get')?.lyrics?.lyrics_body;
+    const subtitle = getter('track.subtitles.get')?.subtitle_list?.[0];
 
     if (!track) return null;
 
@@ -45,47 +51,25 @@ export class MusixMatch implements LyricProvider {
 
 // API Implementation, based on https://github.com/Strvm/musicxmatch-api/blob/main/src/musicxmatch_api/main.py
 
-interface Track {
-  track_id: number;
-  track_mbid: string;
-  track_isrc: string;
-  commontrack_isrcs: Array<string[]>;
-  track_spotify_id: string;
-  commontrack_spotify_ids: string[];
-  commontrack_itunes_ids: number[];
-  track_soundcloud_id: number;
-  track_xboxmusic_id: string;
-  track_name: string;
-  track_share_url: string;
-  track_name_translation_list: any[];
-  track_length: number;
-  instrumental: 0 | 1;
-  has_lyrics: 0 | 1;
-  has_lyrics_crowd: 0 | 1;
-  has_subtitles: 0 | 1;
-  has_richsync: 0 | 1;
-  has_track_structure: 0 | 1;
-  lyrics_id: number;
-  subtitle_id: number;
-  album_id: number;
-  album_name: string;
-  artist_id: number;
-  artist_mbid: string;
-  artist_name: string;
-}
+const zBoolean = z.union([z.literal(0), z.literal(1)]);
+const Track = z.object({
+  track_id: z.number(),
+  track_name: z.string(),
+  artist_name: z.string(),
+});
 
-interface Lyrics {
-  instrumental: number;
-  lyrics_body: string;
-  lyrics_language: string;
-  lyrics_language_description: string;
-}
+const Lyrics = z.object({
+  instrumental: zBoolean,
+  lyrics_body: z.string(),
+  lyrics_language: z.string(),
+  lyrics_language_description: z.string(),
+});
 
-interface Subtitle {
-  subtitle_body: string;
-  subtitle_length: number;
-  subtitle_language: string;
-}
+const Subtitle = z.object({
+  subtitle_body: z.string(),
+  subtitle_length: z.number(),
+  subtitle_language: z.string(),
+});
 
 enum Endpoint {
   getMacroSubtitles = 'macro.subtitles.get',
@@ -100,26 +84,42 @@ type Query = {
   q_duration?: string;
 };
 
-// prettier-ignore
 type Params = {
-  [Endpoint.getMacroSubtitles]: Query & { namespace: "lyrics_richsynched", subtitle_format: "lrc" };
-  [Endpoint.searchTrack]: { q: string; f_has_lyrics: 'true' | 'false'; page_size: string; page: string; };
-};
-
-type Response = {
-  [Endpoint.searchTrack]: { track_list: { track: Track }[] };
-  [Endpoint.getMacroSubtitles]: {
-    macro_calls: {
-      'track.lyrics.get': { message: { body: { lyrics: Lyrics } } };
-      'track.subtitles.get': {
-        message: { body: { subtitle_list: { subtitle: Subtitle }[] } };
-      };
-      'matcher.track.get': { message: { body: { track: Track } } };
-    };
+  [Endpoint.getMacroSubtitles]: Query & {
+    namespace: 'lyrics_richsynched';
+    subtitle_format: 'lrc';
+  };
+  [Endpoint.searchTrack]: {
+    q: string;
+    f_has_lyrics: 'true' | 'false';
+    page_size: string;
+    page: string;
   };
 };
 
-// prettier-ignore
+const ResponseSchema = {
+  [Endpoint.searchTrack]: z.object({
+    track_list: z.array(z.object({ track: Track })),
+  }),
+  [Endpoint.getMacroSubtitles]: z.object({
+    macro_calls: z.object({
+      'track.lyrics.get': z.object({
+        message: z.object({ body: z.object({ lyrics: Lyrics }) }),
+      }),
+      'track.subtitles.get': z.object({
+        message: z.object({
+          body: z.object({
+            subtitle_list: z.array(z.object({ subtitle: Subtitle })),
+          }),
+        }),
+      }),
+      'matcher.track.get': z.object({
+        message: z.object({ body: z.object({ track: Track }) }),
+      }),
+    }),
+  }),
+} as const;
+
 class MusixMatchAPI {
   private readonly initPromise: Promise<void>;
   private cookie = 'x-mxm-user-id=';
@@ -136,40 +136,59 @@ class MusixMatchAPI {
   }
 
   // god I love typescript generics, they're so useful
-  public async query<T extends Endpoint>(
-    endpoint: T,
-    params: Params[T]
-  ): Promise<{
-    header: { status_code: number; },
-    body: T  extends keyof Response ? Response[T] : unknown
-  }> {
+  public async query<
+    T extends Endpoint,
+    R = {
+      header: { status_code: number };
+      body: T extends keyof typeof ResponseSchema
+        ? z.infer<(typeof ResponseSchema)[T]>
+        : unknown;
+    }
+  >(endpoint: T, params: Params[T]): Promise<R> {
     await this.initPromise;
     if (!this.token) throw new Error('Token not initialized');
 
     const url = `${this.baseUrl}${endpoint}`;
 
-    const clonedParams = new URLSearchParams(Object.assign(
-      {
-        app_id: this.app_id,
-        format: 'json',
-        usertoken: this.token,
-      }, params as any
-    ));
+    const clonedParams = new URLSearchParams(
+      Object.assign(
+        {
+          app_id: this.app_id,
+          format: 'json',
+          usertoken: this.token,
+        },
+        params as any
+      )
+    );
 
-    const [_, json, headers] = await netFetch(`${url}?${clonedParams}`, { headers: { Cookie: this.cookie } });
+    const [_, json, headers] = await netFetch(`${url}?${clonedParams}`, {
+      headers: { Cookie: this.cookie },
+    });
 
-    const setCookie = Object.entries(headers).find(([key]) => key.toLowerCase() === 'set-cookie');
+    const setCookie = Object.entries(headers).find(
+      ([key]) => key.toLowerCase() === 'set-cookie'
+    );
     if (setCookie) {
       this.cookie = setCookie[1];
     }
 
-    return (JSON.parse(json) as any).message;
+    const response = JSON.parse(json);
+    const parsed = await z
+      .object({
+        message: z.object({ body: ResponseSchema[endpoint] }),
+      })
+      .parseAsync(response);
+
+    // @ts-expect-error
+    return parsed.message;
   }
 
   private async init() {
     const key = 'ytm:synced-lyrics:mxm:token';
 
-    const { token, expires } = JSON.parse(localStorage.getItem(key) ?? '{ "token": null }') as any;
+    const { token, expires } = JSON.parse(
+      localStorage.getItem(key) ?? '{ "token": null }'
+    ) as any;
     if (token && expires > Date.now()) {
       this.token = token;
       return;
@@ -180,17 +199,25 @@ class MusixMatchAPI {
     this.token = await this.getToken();
     if (!this.token) throw new Error('Failed to get token');
 
-    localStorage.setItem(key, JSON.stringify({ token: this.token, expires: Date.now() + (3600 * 1000) }));
+    localStorage.setItem(
+      key,
+      JSON.stringify({ token: this.token, expires: Date.now() + 3600 * 1000 })
+    );
   }
 
   private async getToken() {
     const endpoint = 'token.get';
     const params = new URLSearchParams({ app_id: this.app_id });
-    const [_, json, headers] = await netFetch(`${this.baseUrl}${endpoint}?${params}`, {
-      headers: Object.assign({"Cookie": this.cookie}, this.headers)
-    });
+    const [_, json, headers] = await netFetch(
+      `${this.baseUrl}${endpoint}?${params}`,
+      {
+        headers: Object.assign({ Cookie: this.cookie }, this.headers),
+      }
+    );
 
-    const setCookie = Object.entries(headers).find(([key]) => key.toLowerCase() === 'set-cookie');
+    const setCookie = Object.entries(headers).find(
+      ([key]) => key.toLowerCase() === 'set-cookie'
+    );
     if (setCookie) {
       this.cookie = setCookie[1];
     }
@@ -204,6 +231,6 @@ class MusixMatchAPI {
   private readonly headers = {
     // prettier-ignore
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:120.0) Gecko/20100101 Firefox/120.0',
-    'authority': "apic-desktop.musixmatch.com",
+    'authority': 'apic-desktop.musixmatch.com',
   };
 }
