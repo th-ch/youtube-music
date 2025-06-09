@@ -333,6 +333,30 @@
       "description": "Kompressor auf Audio anwenden (senkt die Lautstärke der lautesten Teile des Signals und hebt die Lautstärke der leisesten Teile an)",
       "name": "Audio-Komprimierer"
     },
+    "auth-proxy-adapter": {
+      "description": "Unterstützung für Proxy-Authentifizierungsdienste",
+      "menu": {
+        "disable": "Proxy-Adapter deaktivieren",
+        "enable": "Proxy-Adapter aktivieren",
+        "hostname": {
+          "label": "Hostname"
+        },
+        "port": {
+          "label": "Port"
+        }
+      },
+      "name": "Auth Proxy Adapter",
+      "prompt": {
+        "hostname": {
+          "label": "Hostnamen eingeben für lokalen Proxy-Server (Neustart erforderlich):",
+          "title": "Proxy Hostname"
+        },
+        "port": {
+          "label": "Geben Sie den Port für den lokalen Proxyserver ein (Neustart erforderlich):",
+          "title": "Proxy Port"
+        }
+      }
+    },
     "blur-nav-bar": {
       "description": "Macht Navigationsleiste durchsichtig und unscharf",
       "name": "Verschwommene Navigationsleiste"
@@ -523,7 +547,7 @@
       "menu": {
         "romanized-lyrics": "Romanisierte Songtexte"
       },
-      "name": "Liedtexte von Genius",
+      "name": "Songtexte von Genius",
       "renderer": {
         "fetched-lyrics": "Liedtexte für Genius abgerufen"
       }
@@ -599,6 +623,10 @@
         "unpause-notification": "Benachrichtigungen beim Pausieren anzeigen"
       },
       "name": "Benachrichtigungen"
+    },
+    "performance-improvement": {
+      "description": "Leistung durch Aktivieren experimenteller Skripte verbessern",
+      "name": "Leistungs Verbesserung [Beta]"
     },
     "picture-in-picture": {
       "description": "Erlaubt die App in den Bild-im-Bild-Modus zu wechseln",
@@ -773,7 +801,7 @@
           "tooltip": "Wenn der Liedtext in einer anderen Schrift ist, zeige nach Möglichkeit eine Version in lateinischer Schrift an."
         },
         "show-lyrics-even-if-inexact": {
-          "label": "Zeige die Liedtexte, auch wenn sie ungenau sind.",
+          "label": "Songtext anzeigen, auch wenn er ungenau ist",
           "tooltip": "Die Erweiterung sucht mit anderen Suchparameter nochmals, wenn der Song nicht gefunden wurde.\nEs kann sein, dass das Ergebnis von der zweiten Anfrage nicht genau ist."
         },
         "show-time-codes": {
@@ -788,7 +816,7 @@
       },
       "warnings": {
         "duration-mismatch": "⚠️ - Es kann sein, dass die Synchronization nicht stimmt, da die Songdauer nicht übereinstimmt.",
-        "inexact": "⚠️ - Es ist Möglich, dass der Songtext für diesen Song nicht übereinstimmt.",
+        "inexact": "⚠️ - Der Songtext stimmt möglicherweise nicht überein",
         "instrumental": "⚠️ - Das ist ein instrumentales Lied"
       }
     },

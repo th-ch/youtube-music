@@ -333,6 +333,30 @@
       "description": "Zastosuj kompresję do dźwięku (obniża głośność najgłośniejszych części sygnału i zwiększa głośność najcichszych części)",
       "name": "Kompresor dźwięku"
     },
+    "auth-proxy-adapter": {
+      "description": "Wparcie dla uwierzytalniających usług proxy",
+      "menu": {
+        "disable": "Wyłącz adapter proxy",
+        "enable": "Włącz adapter proxy",
+        "hostname": {
+          "label": "Nazwa hosta"
+        },
+        "port": {
+          "label": "Port"
+        }
+      },
+      "name": "Uwierzytelnij adapter proxy",
+      "prompt": {
+        "hostname": {
+          "label": "Wpisz nazwę hosta dla lokalnego serwera proxy (wymaga restaru):",
+          "title": "Nazwa hosta proxy"
+        },
+        "port": {
+          "label": "Wpisz port dla lokalnego serwera proxy (wymaga restartu):",
+          "title": "Port proxy"
+        }
+      }
+    },
     "blur-nav-bar": {
       "description": "Sprawia, że pasek nawigacji jest przezroczysty i rozmazany",
       "name": "Rozmycie paska nawigacji"
@@ -599,6 +623,10 @@
         "unpause-notification": "Pokaż powiadomienie po wznowieniu"
       },
       "name": "Powiadomienia"
+    },
+    "performance-improvement": {
+      "description": "Popraw wydajność przez włączenie skryptów eksperymentalnych",
+      "name": "Poprawienie wydajności [Beta]"
     },
     "picture-in-picture": {
       "description": "Umożliwia przełączenie aplikacji w tryb obrazu w obrazie",

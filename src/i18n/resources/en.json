@@ -333,6 +333,30 @@
       "description": "Apply compression to audio (lowers the volume of the loudest parts of the signal and raises the volume of the softest parts)",
       "name": "Audio Compressor"
     },
+    "auth-proxy-adapter": {
+      "name": "Auth Proxy Adapter",
+      "description": "Support for the use of authentication proxy services",
+      "menu": {
+        "disable": "Disable Proxy Adapter",
+        "enable": "Enable Proxy Adapter",
+        "hostname": {
+          "label": "Hostname"
+        },
+        "port": {
+          "label": "Port"
+        }
+      },
+      "prompt": {
+        "hostname": {
+          "title": "Proxy Hostname",
+        "label": "Enter hostname for local proxy server (requires restart):"
+        },
+        "port": {
+          "title": "Proxy Port",
+        "label": "Enter port for local proxy server (requires restart):"
+        }
+      }
+    },
     "blur-nav-bar": {
       "description": "Makes navigation bar transparent and blurry",
       "name": "Blur Navigation Bar"
@@ -491,6 +515,18 @@
         "button": "Download"
       }
     },
+    "equalizer": {
+      "description": "Adds an equalizer to the player",
+      "menu": {
+        "presets": {
+          "label": "Presets",
+          "list": {
+            "bass-booster": "Bass booster"
+          }
+        }
+      },
+      "name": "Equalizer"
+    },
     "exponential-volume": {
       "description": "Makes the volume slider exponential so it's easier to select lower volumes.",
       "name": "Exponential Volume"
@@ -588,6 +624,10 @@
       },
       "name": "Notifications"
     },
+    "performance-improvement": {
+      "description": "Improve performance by enabling experimental scripts",
+      "name": "Performance improvement [Beta]"
+    },
     "picture-in-picture": {
       "description": "Allows to switch the app to picture-in-picture mode",
       "menu": {
@@ -671,8 +711,8 @@
         "listenbrainz": {
           "token": "Enter ListenBrainz user token"
         },
-        "scrobble-other-media": "Scrobble other media",
-        "scrobble-alternative-title": "Use alternative titles"
+        "scrobble-alternative-title": "Use alternative titles",
+        "scrobble-other-media": "Scrobble other media"
       },
       "name": "Scrobbler",
       "prompt": {
@@ -828,18 +868,6 @@
         "visualizer-type": "Visualizer Type"
       },
       "name": "Visualizer"
-    },
-    "equalizer": {
-      "description": "Adds an equalizer to the player",
-      "name": "Equalizer",
-      "menu": {
-        "presets": {
-          "label": "Presets",
-          "list": {
-            "bass-booster": "Bass booster"
-          }
-        }
-      }
     }
   }
 }
