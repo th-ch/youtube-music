@@ -718,7 +718,7 @@
       "prompt": {
         "lastfm": {
           "api-key": "Last.fm API की",
-          "api-secret": "Last.fm API गुप्त"
+          "api-secret": "Last.fm गुप्त API"
         },
         "listenbrainz": {
           "token": {
