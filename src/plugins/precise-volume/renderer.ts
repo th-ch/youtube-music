@@ -155,9 +155,9 @@ export const onPlayerApiReady = async (
   function setupSliderObserver() {
     const sliderObserver = new MutationObserver((mutations) => {
       for (const mutation of mutations) {
-        if (mutation.target instanceof HTMLInputElement) {
+        if (mutation.target.nodeName === 'TP-YT-PAPER-SLIDER') {
           // This checks that volume-slider was manually set
-          const target = mutation.target;
+          const target = mutation.target as HTMLInputElement;
           const targetValueNumeric = Number(target.value);
           if (
             mutation.oldValue !== target.value &&

@@ -333,6 +333,30 @@
       "description": "Attiva la compressione audio (abbassa il volume delle parti più alte e alza quello delle parti più basse del segnale)",
       "name": "Compressore audio"
     },
+    "auth-proxy-adapter": {
+      "description": "Supporto per l'utilizzo di servizi proxy di autenticazione",
+      "menu": {
+        "disable": "Disattiva adattatore proxy",
+        "enable": "Attiva adattatore proxy",
+        "hostname": {
+          "label": "Nome host"
+        },
+        "port": {
+          "label": "Porta"
+        }
+      },
+      "name": "Adattatore proxy di autenticazione",
+      "prompt": {
+        "hostname": {
+          "label": "Inserire hostname del server proxy locale (richiede riavvio):",
+          "title": "Nome host del proxy"
+        },
+        "port": {
+          "label": "Inserire porta del server proxy locale (richiede riavvio):",
+          "title": "Porta Proxy"
+        }
+      }
+    },
     "blur-nav-bar": {
       "description": "Rende la barra di navigazione trasparente e sfuocata",
       "name": "Barra di navigazione trasparente"
