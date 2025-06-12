@@ -35,12 +35,11 @@ import { DefaultPresetList, type Preset, YoutubeFormatList } from '../types';
 
 import type { DownloaderPluginConfig } from '../index';
 import type { BackendContext } from '@/types/contexts';
-import type { FormatOptions } from 'youtubei.js/dist/src/types/FormatUtils';
-import type PlayerErrorMessage from 'youtubei.js/dist/src/parser/classes/PlayerErrorMessage';
-import type { Playlist } from 'youtubei.js/dist/src/parser/ytmusic';
-import type { VideoInfo } from 'youtubei.js/dist/src/parser/youtube';
-import type TrackInfo from 'youtubei.js/dist/src/parser/ytmusic/TrackInfo';
 import type { GetPlayerResponse } from '@/types/get-player-response';
+import type { FormatOptions } from 'node_modules/youtubei.js/dist/src/types';
+import type { VideoInfo } from 'node_modules/youtubei.js/dist/src/parser/youtube';
+import type { PlayerErrorMessage } from 'node_modules/youtubei.js/dist/src/parser/nodes';
+import type { TrackInfo, Playlist } from 'node_modules/youtubei.js/dist/src/parser/ytmusic';
 
 type CustomSongInfo = SongInfo & { trackId?: string };
 
