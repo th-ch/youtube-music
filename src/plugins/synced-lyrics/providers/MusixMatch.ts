@@ -14,6 +14,7 @@ export class MusixMatch implements LyricProvider {
     // late-init the API, to avoid an electron IPC issue
     // an added benefit is that if it has an error during init, the user can hit the retry button
     this.api ??= await MusixMatchAPI.new();
+    await this.api.reinit();
 
     const data = await this.api.query(Endpoint.getMacroSubtitles, {
       q_track: info.alternativeTitle || info.title,
@@ -33,7 +34,8 @@ export class MusixMatch implements LyricProvider {
     const lyrics = getter('track.lyrics.get')?.lyrics?.lyrics_body;
     const subtitle = getter('track.subtitles.get')?.subtitle_list?.[0];
 
-    if (!track) return null;
+    // either no track found, or musixmatch's algorithm returned "Coldplay - Paradise" for no reason whatsoever
+    if (!track || track.track_id === 115264642) return null;
 
     return {
       title: track.track_name,
@@ -104,24 +106,56 @@ const ResponseSchema = {
   [Endpoint.getMacroSubtitles]: z.object({
     macro_calls: z.object({
       'track.lyrics.get': z.object({
-        message: z.object({ body: z.object({ lyrics: Lyrics }) }),
+        message: z.object({
+          body: z
+            .object({ lyrics: Lyrics })
+            .or(
+              z
+                .instanceof(Array)
+                .describe('default response for 404 status')
+                .transform(() => undefined)
+                .or(z.string().transform(() => undefined))
+            )
+            .optional(),
+        }),
       }),
       'track.subtitles.get': z.object({
         message: z.object({
-          body: z.object({
-            subtitle_list: z.array(z.object({ subtitle: Subtitle })),
-          }),
+          body: z
+            .object({
+              subtitle_list: z.array(z.object({ subtitle: Subtitle })),
+            })
+            .or(
+              z
+                .instanceof(Array)
+                .describe('default response for 404 status')
+                .transform(() => undefined)
+                .or(z.string().transform(() => undefined))
+            )
+
+            .optional(),
         }),
       }),
       'matcher.track.get': z.object({
-        message: z.object({ body: z.object({ track: Track }) }),
+        message: z.object({
+          body: z
+            .object({ track: Track })
+            .or(
+              z
+                .instanceof(Array)
+                .describe('default response for 404 status')
+                .transform(() => undefined)
+                .or(z.string().transform(() => undefined))
+            )
+            .optional(),
+        }),
       }),
     }),
   }),
 } as const;
 
 class MusixMatchAPI {
-  private readonly initPromise: Promise<void>;
+  private initPromise: Promise<void>;
   private cookie = 'x-mxm-user-id=';
   private token: string | null = null;
 
@@ -133,6 +167,16 @@ class MusixMatchAPI {
     const api = new MusixMatchAPI();
     await api.initPromise;
     return api;
+  }
+
+  public async reinit() {
+    const [{ status }] = await Promise.allSettled([this.initPromise]);
+    if (status === 'rejected') {
+      this.cookie = 'x-mxm-user-id=';
+      localStorage.removeItem(this.key);
+      this.initPromise = this.init();
+      await this.initPromise;
+    }
   }
 
   // god I love typescript generics, they're so useful
@@ -173,14 +217,31 @@ class MusixMatchAPI {
     }
 
     const response = JSON.parse(json);
+    // prettier-ignore
+    if (
+      response && typeof response === 'object' &&
+      'message' in response && response.message && typeof response.message === 'object' &&
+      'header' in response.message && response.message.header && typeof response.message.header === 'object' &&
+      'status_code' in response.message.header && typeof response.message.header.status_code === 'number' &&
+      response.message.header.status_code === 401
+    ) {
+      this.reinit();
+      return this.query(endpoint, params);
+    }
+
     const parsed = await z
       .object({
         message: z.object({ body: ResponseSchema[endpoint] }),
       })
-      .parseAsync(response);
+      .safeParseAsync(response);
+
+    if (!parsed.success) {
+      console.error('Malformed response', response, parsed.error);
+      throw new Error('Failed to parse response from MusixMatch API');
+    }
 
     // @ts-expect-error weird union type issue
-    return parsed.message;
+    return parsed.data.message;
   }
 
   private savedTokenSchema = z.union([
@@ -194,33 +255,34 @@ class MusixMatchAPI {
     }),
   ]);
 
+  private key = 'ytm:synced-lyrics:mxm:token';
   private async init() {
-    const key = 'ytm:synced-lyrics:mxm:token';
-
     const { token, expires } = this.savedTokenSchema.parse(
-      JSON.parse(localStorage.getItem(key) ?? '{ "token": null }')
+      JSON.parse(localStorage.getItem(this.key) ?? '{ "token": null }')
     );
     if (token && expires > Date.now()) {
       this.token = token;
       return;
     }
 
-    localStorage.removeItem(key);
+    localStorage.removeItem(this.key);
 
     this.token = await this.getToken();
     if (!this.token) throw new Error('Failed to get token');
 
     localStorage.setItem(
-      key,
-      JSON.stringify({ token: this.token, expires: Date.now() + 3600 * 1000 })
+      this.key,
+      JSON.stringify({ token: this.token, expires: Date.now() + 60 * 1000 })
     );
   }
 
   private tokenSchema = z.object({
     message: z.object({
-      body: z.object({
-        user_token: z.string(),
-      }),
+      body: z
+        .object({
+          user_token: z.string(),
+        })
+        .optional(),
     }),
   });
   private async getToken() {
@@ -241,11 +303,9 @@ class MusixMatchAPI {
     }
 
     const {
-      message: {
-        body: { user_token },
-      },
+      message: { body },
     } = this.tokenSchema.parse(JSON.parse(json));
-    return user_token;
+    return body?.user_token ?? '';
   }
 
   private readonly baseUrl = 'https://apic-desktop.musixmatch.com/ws/1.1/';

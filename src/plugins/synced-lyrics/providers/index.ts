@@ -37,13 +37,10 @@ type LyricsStore = {
 };
 
 const initialData = () =>
-  providerNames.reduce(
-    (acc, name) => {
-      acc[name] = { state: 'fetching', data: null, error: null };
-      return acc;
-    },
-    {} as LyricsStore['lyrics'],
-  );
+  providerNames.reduce((acc, name) => {
+    acc[name] = { state: 'fetching', data: null, error: null };
+    return acc;
+  }, {} as LyricsStore['lyrics']);
 
 export const [lyricsStore, setLyricsStore] = createStore<LyricsStore>({
   provider: providerNames[0],
@@ -136,6 +133,8 @@ export const fetchLyrics = (info: SongInfo) => {
         .catch((error: Error) => {
           pCache.state = 'error';
           pCache.error = error;
+
+          console.error(error);
 
           if (getSongInfo().videoId === info.videoId) {
             setLyricsStore('lyrics', (old) => {
