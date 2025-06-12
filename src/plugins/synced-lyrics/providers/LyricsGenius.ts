@@ -46,7 +46,7 @@ export class LyricsGenius implements LyricProvider {
     );
 
     const closestHit = hits.at(0);
-    if (!closestHit) {
+    if (!closestHit || closestHit.result.primary_artist.url === 'https://genius.com/artists/Deleted-artist') {
       return null;
     }
 
