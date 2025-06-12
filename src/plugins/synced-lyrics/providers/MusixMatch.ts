@@ -183,10 +183,10 @@ class MusixMatchAPI {
     return parsed.message;
   }
 
-  private savedTokenSchema = z.discriminatedUnion('token', [
+  private savedTokenSchema = z.union([
     z.object({
-      token: z.null(),
-      expires: z.undefined(),
+      token: z.literal(null),
+      expires: z.number().optional(),
     }),
     z.object({
       token: z.string(),
