@@ -792,6 +792,14 @@
           },
           "tooltip": "Choose the effect to apply to the current line"
         },
+        "offset": {
+          "label": "Lyrics offset",
+          "tooltip": "Set the offset for the lyrics (useful when using bluetooth speakers)",
+          "prompt": {
+            "title": "Lyrics offset",
+            "label": "Set the lyrics offset in ms"
+          }
+        },
         "precise-timing": {
           "label": "Make the lyrics perfectly synced",
           "tooltip": "Calculate to the milisecond the display of the next line (can have a small impact on performance)"
