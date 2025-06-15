@@ -1,4 +1,4 @@
-export const startingPages: Record<string, string> = {
+export const startingPages = {
   'Default': '',
   'Home': 'FEmusic_home',
   'Explore': 'FEmusic_explore',
@@ -16,4 +16,4 @@ export const startingPages: Record<string, string> = {
   'Uploaded Songs': 'FEmusic_library_privately_owned_tracks',
   'Uploaded Albums': 'FEmusic_library_privately_owned_releases',
   'Uploaded Artists': 'FEmusic_library_privately_owned_artists',
-};
+} as const;
