@@ -243,7 +243,7 @@
     "@ffmpeg.wasm/main": "0.12.0",
     "@floating-ui/dom": "1.7.1",
     "@foobar404/wave": "2.0.5",
-    "@ghostery/adblocker-electron": "2.6.1",
+    "@ghostery/adblocker-electron": "2.7.0",
     "@ghostery/adblocker-electron-preload": "2.6.1",
     "@hono/node-server": "1.14.4",
     "@hono/swagger-ui": "0.5.1",
