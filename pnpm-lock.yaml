@@ -338,8 +338,8 @@ importers:
         specifier: npm:rolldown-vite@6.3.18
         version: rolldown-vite@6.3.18(@types/node@22.13.5)(esbuild@0.25.5)(yaml@2.7.0)
       vite-plugin-inspect:
-        specifier: 11.1.0
-        version: 11.1.0(rolldown-vite@6.3.18(@types/node@22.13.5)(esbuild@0.25.5)(yaml@2.7.0))
+        specifier: 11.2.0
+        version: 11.2.0(rolldown-vite@6.3.18(@types/node@22.13.5)(esbuild@0.25.5)(yaml@2.7.0))
       vite-plugin-resolve:
         specifier: 2.5.2
         version: 2.5.2
@@ -4638,8 +4638,8 @@ packages:
     peerDependencies:
       vite: ^2.6.0 || ^3.0.0 || ^4.0.0 || ^5.0.0-0 || ^6.0.0-0
 
-  vite-plugin-inspect@11.1.0:
-    resolution: {integrity: sha512-r3Nx8xGQ08bSoNu7gJGfP5H/wNOROHtv0z3tWspplyHZJlABwNoPOdFEmcVh+lVMDyk/Be4yt8oS596ZHoYhOg==}
+  vite-plugin-inspect@11.2.0:
+    resolution: {integrity: sha512-hcCncl4YK20gcrx22cPF5mR+zfxsCmX6vUQKCyudgOZMYKVVGbrxVaL3zU62W0MVSVawtf5ZR4DrLRO+9fZVWQ==}
     engines: {node: '>=14'}
     peerDependencies:
       '@nuxt/kit': '*'
@@ -9587,7 +9587,7 @@ snapshots:
     dependencies:
       vite: rolldown-vite@6.3.18(@types/node@22.13.5)(esbuild@0.25.5)(yaml@2.7.0)
 
-  vite-plugin-inspect@11.1.0(rolldown-vite@6.3.18(@types/node@22.13.5)(esbuild@0.25.5)(yaml@2.7.0)):
+  vite-plugin-inspect@11.2.0(rolldown-vite@6.3.18(@types/node@22.13.5)(esbuild@0.25.5)(yaml@2.7.0)):
     dependencies:
       ansis: 3.17.0
       debug: 4.4.1
