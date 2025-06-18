@@ -118,8 +118,8 @@ importers:
         specifier: 3.2.1
         version: 3.2.1
       electron-store:
-        specifier: 10.0.1
-        version: 10.0.1
+        specifier: 10.1.0
+        version: 10.1.0
       electron-unhandled:
         specifier: 4.0.1
         version: 4.0.1
@@ -1972,10 +1972,6 @@ packages:
   concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
-  conf@13.1.0:
-    resolution: {integrity: sha512-Bi6v586cy1CoTFViVO4lGTtx780lfF96fUmS1lSX6wpZf6330NvHUu6fReVuDP1de8Mg0nkZb01c8tAQdz1o3w==}
-    engines: {node: '>=18'}
-
   conf@14.0.0:
     resolution: {integrity: sha512-L6BuueHTRuJHQvQVc6YXYZRtN5vJUtOdCTLn0tRYYV5azfbAFcPghB5zEE40mVrV6w7slMTqUfkDomutIK14fw==}
     engines: {node: '>=20'}
@@ -2257,8 +2253,8 @@ packages:
   electron-publish@26.0.11:
     resolution: {integrity: sha512-a8QRH0rAPIWH9WyyS5LbNvW9Ark6qe63/LqDB7vu2JXYpi0Gma5Q60Dh4tmTqhOBQt0xsrzD8qE7C+D7j+B24A==}
 
-  electron-store@10.0.1:
-    resolution: {integrity: sha512-Ok0bF13WWdTzZi9rCtPN8wUfwx+yDMmV6PAnCMqjNRKEXHmklW/rV+6DofV/Vf5qoAh+Bl9Bj7dQ+0W+IL2psg==}
+  electron-store@10.1.0:
+    resolution: {integrity: sha512-oL8bRy7pVCLpwhmXy05Rh/L6O93+k9t6dqSw0+MckIc3OmCTZm6Mp04Q4f/J0rtu84Ky6ywkR8ivtGOmrq+16w==}
     engines: {node: '>=20'}
 
   electron-to-chromium@1.5.109:
@@ -4494,8 +4490,8 @@ packages:
     resolution: {integrity: sha512-RAH822pAdBgcNMAfWnCBU3CFZcfZ/i1eZjwFU/dsLKumyuuP3niueg2UAukXYF0E2AAoc82ZSSf9J0WQBinzHA==}
     engines: {node: '>=12.20'}
 
-  type-fest@4.35.0:
-    resolution: {integrity: sha512-2/AwEFQDFEy30iOLjrvHDIH7e4HEWH+f1Yl1bI5XMqzuoCUqwYCdxachgsgv0og/JdVZUhbfjcJAoHj5L1753A==}
+  type-fest@4.41.0:
+    resolution: {integrity: sha512-TeTSQ6H5YHvpqVwBRcnLDCBnDOHWYu7IvGbHT6N8AOymcr9PJGjc1GTtiWZTYg0NCgYwvnYWEkVChQAr9bjfwA==}
     engines: {node: '>=16'}
 
   typed-array-buffer@1.0.3:
@@ -6608,18 +6604,6 @@ snapshots:
 
   concat-map@0.0.1: {}
 
-  conf@13.1.0:
-    dependencies:
-      ajv: 8.17.1
-      ajv-formats: 3.0.1(ajv@8.17.1)
-      atomically: 2.0.3
-      debounce-fn: 6.0.0
-      dot-prop: 9.0.0
-      env-paths: 3.0.0
-      json-schema-typed: 8.0.1
-      semver: 7.7.2
-      uint8array-extras: 1.4.0
-
   conf@14.0.0:
     dependencies:
       ajv: 8.17.1
@@ -6867,7 +6851,7 @@ snapshots:
 
   dot-prop@9.0.0:
     dependencies:
-      type-fest: 4.35.0
+      type-fest: 4.41.0
 
   dotenv-expand@11.0.7:
     dependencies:
@@ -6968,10 +6952,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  electron-store@10.0.1:
+  electron-store@10.1.0:
     dependencies:
-      conf: 13.1.0
-      type-fest: 4.35.0
+      conf: 14.0.0
+      type-fest: 4.41.0
 
   electron-to-chromium@1.5.109: {}
 
@@ -9420,7 +9404,7 @@ snapshots:
 
   type-fest@2.19.0: {}
 
-  type-fest@4.35.0: {}
+  type-fest@4.41.0: {}
 
   typed-array-buffer@1.0.3:
     dependencies:
