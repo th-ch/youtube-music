@@ -152,7 +152,7 @@
             "submenu": {
               "like-buttons": {
                 "default": "Lalai",
-                "force-show": "Pameran paksa",
+                "force-show": "Paksa pamer",
                 "hide": "Sembunyi",
                 "label": "Suka butang"
               },
@@ -202,7 +202,7 @@
       "show": "Papar tetingkap",
       "tooltip": {
         "default": "YouTube Muzik",
-        "with-song-info": "YouTube Muzik : {{artis}} - {{tajuk}}"
+        "with-song-info": "YouTube Muzik : {{artist}} - {{title}}"
       }
     }
   },
@@ -228,7 +228,7 @@
         "color-mix-ratio": {
           "label": "Nisbah campuran warna",
           "submenu": {
-            "percent": "{{nisbah}}%"
+            "percent": "{{ratio}}%"
           }
         }
       },
@@ -238,16 +238,88 @@
       "description": "Menggunakan kesan pencahayaan dengan menghantar warna lembut daripada video, ke latar belakang skrin anda",
       "menu": {
         "quality": {
-          "label": "Kualiti"
+          "label": "Kualiti",
+          "submenu": {
+            "pixels": "{{kualiti}} piksel"
+          }
         },
         "size": {
-          "label": "Saiz"
+          "label": "Saiz",
+          "submenu": {
+            "percent": "{{size}}%"
+          }
+        },
+        "smoothness-transition": {
+          "label": "Kelancaran transisi",
+          "submenu": {
+            "during": "Semasa {{masaInterpolasi}}s"
+          }
+        },
+        "use-fullscreen": {
+          "label": "Menggunakan skrin penuh"
+        }
+      },
+      "name": "Mod Sekitaran"
+    },
+    "api-server": {
+      "dialog": {
+        "request": {
+          "buttons": {
+            "allow": "Benarkan"
+          }
+        }
+      },
+      "menu": {
+        "auth-strategy": {
+          "label": "Strategi Pengesahan",
+          "submenu": {
+            "auth-at-first": {
+              "label": "Pengesahan pada permintaan pertama"
+            },
+            "none": {
+              "label": "Tiada pengesahan"
+            }
+          }
+        },
+        "hostname": {
+          "label": "Nama perumah"
+        },
+        "port": {
+          "label": "Port"
+        }
+      },
+      "prompt": {
+        "hostname": {
+          "label": "Masukkan nama perumah (seperti 0.0.0.0) untuk server API:",
+          "title": "Nama perumah"
         }
       }
     },
+    "auth-proxy-adapter": {
+      "menu": {
+        "hostname": {
+          "label": "Nama perumah"
+        }
+      }
+    },
+    "blur-nav-bar": {
+      "name": "Kaburkan Bar navigasi"
+    },
+    "bypass-age-restrictions": {
+      "description": "Pintas verifikasi umur Youtube",
+      "name": "Pintas Sekatan Umur"
+    },
     "captions-selector": {
+      "description": "Pemilih kapsyen untuk trek audio Youtube Music",
+      "menu": {
+        "autoload": "Pilih kapsyen terakhir diguna secara automatik",
+        "disable-captions": "Tiada kapsyen secara lalai"
+      },
+      "name": "Pemilih kapsyen",
       "prompt": {
         "selector": {
+          "label": "Bahasa kapsyen sekarang: {{bahasa}}",
+          "none": "Tiada",
           "title": "Pilih bahasa kapsyen"
         }
       }
