@@ -92,3 +92,8 @@ tp-yt-iron-dropdown,
 tp-yt-paper-dialog {
   app-region: no-drag;
 }
+
+/* Fix duplicated scrollbar */
+body {
+  overflow-y: hidden !important;
+}
