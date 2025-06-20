@@ -1,19 +1,10 @@
 import { createEffect, createSignal, Show } from 'solid-js';
 
-import {
-  canonicalize,
-  romanizeChinese,
-  romanizeHangul,
-  romanizeJapanese,
-  romanizeJapaneseOrHangul,
-  simplifyUnicode,
-} from '../utils';
+import { canonicalize, romanize, simplifyUnicode } from '../utils';
 import { config } from '../renderer';
 
 interface PlainLyricsProps {
   line: string;
-  hasJapanese: boolean;
-  hasKorean: boolean;
 }
 
 export const PlainLyrics = (props: PlainLyricsProps) => {
@@ -23,15 +14,7 @@ export const PlainLyrics = (props: PlainLyricsProps) => {
     if (!config()?.romanization) return;
 
     const input = canonicalize(props.line);
-
-    let result: string;
-    if (props.hasJapanese) {
-      if (props.hasKorean) result = await romanizeJapaneseOrHangul(input);
-      else result = await romanizeJapanese(input);
-    } else if (props.hasKorean) result = romanizeHangul(input);
-    else result = romanizeChinese(input);
-
-    setRomanization(canonicalize(result));
+    setRomanization(canonicalize(await romanize(input)));
   });
 
   return (

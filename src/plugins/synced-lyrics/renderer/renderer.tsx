@@ -11,7 +11,7 @@ import { VirtualizerHandle, VList } from 'virtua/solid';
 
 import { LyricsPicker } from './components/LyricsPicker';
 
-import { hasJapaneseInString, hasKoreanInString, selectors } from './utils';
+import { selectors } from './utils';
 
 import type { LineLyrics, SyncedLyricsPluginConfig } from '../types';
 import { currentLyrics } from '../providers';
@@ -227,20 +227,6 @@ export const LyricsRenderer = () => {
     });
   });
 
-  const hasKorean = createMemo(() => {
-    const data = currentLyrics()?.data;
-    if (!data) return false;
-
-    return hasKoreanInString(data);
-  }, false);
-
-  const hasJapanese = createMemo(() => {
-    const data = currentLyrics()?.data;
-    if (!data) return false;
-
-    return hasJapaneseInString(data);
-  }, false);
-
   const [statuses, setStatuses] = createSignal<
     ('previous' | 'current' | 'upcoming')[]
   >([]);
@@ -317,19 +303,11 @@ export const LyricsRenderer = () => {
                   scroller={scroller()!}
                   index={idx()}
                   status={statuses()[idx() - 1]}
-                  hasJapanese={hasJapanese()}
-                  hasKorean={hasKorean()}
                 />
               );
             }
             case 'PlainLine': {
-              return (
-                <PlainLyrics
-                  {...props}
-                  hasJapanese={hasJapanese()}
-                  hasKorean={hasKorean()}
-                />
-              );
+              return <PlainLyrics {...props} />;
             }
           }
         }}

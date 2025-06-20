@@ -3,14 +3,7 @@ import { createEffect, createMemo, For, Show, createSignal } from 'solid-js';
 import { config } from '../renderer';
 import { _ytAPI } from '..';
 
-import {
-  canonicalize,
-  romanizeChinese,
-  romanizeHangul,
-  romanizeJapanese,
-  romanizeJapaneseOrHangul,
-  simplifyUnicode,
-} from '../utils';
+import { canonicalize, romanize, simplifyUnicode } from '../utils';
 
 import { VirtualizerHandle } from 'virtua/solid';
 import { LineLyrics } from '@/plugins/synced-lyrics/types';
@@ -21,8 +14,6 @@ interface SyncedLineProps {
 
   line: LineLyrics;
   status: 'upcoming' | 'current' | 'previous';
-  hasJapanese: boolean;
-  hasKorean: boolean;
 }
 
 export const SyncedLine = (props: SyncedLineProps) => {
@@ -40,15 +31,7 @@ export const SyncedLine = (props: SyncedLineProps) => {
     if (!config()?.romanization) return;
 
     const input = canonicalize(text());
-
-    let result: string;
-    if (props.hasJapanese) {
-      if (props.hasKorean) result = await romanizeJapaneseOrHangul(input);
-      else result = await romanizeJapanese(input);
-    } else if (props.hasKorean) result = romanizeHangul(input);
-    else result = romanizeChinese(input);
-
-    setRomanization(canonicalize(result));
+    setRomanization(canonicalize(await romanize(input)));
   });
 
   if (!text()) {
