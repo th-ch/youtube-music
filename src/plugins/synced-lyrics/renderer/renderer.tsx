@@ -269,8 +269,6 @@ export const LyricsRenderer = () => {
     scroller()!.scrollToIndex(scrollIndex, {
       smooth: true,
       align: 'center',
-      // TODO: Investigate how this works
-      // offset: ...
     });
   });
 
@@ -282,6 +280,7 @@ export const LyricsRenderer = () => {
           style: { 'scrollbar-width': 'none' },
           class: 'synced-lyrics-vlist',
           keepMounted: [0],
+          overscan: 4,
         }}
         data={[lyricsPicker, ...children()]}
       >
