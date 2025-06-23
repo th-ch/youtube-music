@@ -6,7 +6,7 @@ import Kuroshiro from 'kuroshiro';
 import { romanize as esHangulRomanize } from 'es-hangul';
 import hanja from 'hanja';
 
-import pinyin from 'pinyin/esm/pinyin';
+import pinyin from 'tiny-pinyin';
 
 import { lazy } from 'lazy-var';
 
@@ -183,10 +183,4 @@ export const romanizeJapaneseOrHangul = async (line: string) =>
   romanizeHangul(await romanizeJapanese(line));
 
 export const romanizeChinese = (line: string) =>
-  pinyin(line, {
-    heteronym: true,
-    segment: true,
-    group: true,
-  })
-    .flat()
-    .join(' ');
+  pinyin.convertToPinyin(line, ' ', true);

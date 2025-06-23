@@ -21,7 +21,7 @@
 	</a>
 </div>
 
-Lisez ceci dans d'autres langues: [🏴 Anglais](../../README.md), [🇰🇷 Coréen](./README-ko.md), [🇫🇷 Français](./README-fr.md), [🇮🇸 Islandais](./README-is.md), [🇪🇸 Espagnol](./README-es.md), [🇷🇺 Russe](./README-ru.md), [🇧🇷 Portugais](./README-pt.md), [🇯🇵 Japonais](./README-ja.md)
+Lisez ceci dans d'autres langues: [🏴 Anglais](../../README.md), [🇰🇷 Coréen](./README-ko.md), [🇫🇷 Français](./README-fr.md), [🇮🇸 Islandais](./README-is.md), [🇪🇸 Espagnol](./README-es.md), [🇷🇺 Russe](./README-ru.md), [🇺🇦 Ukrainien](./README-uk.md), [🇧🇷 Portugais](./README-pt.md), [🇯🇵 Japonais](./README-ja.md)
 
 **Enveloppe Electron autour de YouTube Music offrant :**
 

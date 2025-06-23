@@ -21,7 +21,7 @@
   </a>
 </div>
 
-Leia em outros idiomas: [🏴 Inglês](../../README.md), [🇰🇷 Coreano](./README-ko.md), [🇫🇷 Francês](./README-fr.md), [🇮🇸 Islandês](./README-is.md), [🇪🇸 Espanhol](./README-es.md), [🇷🇺 Russo](./README-ru.md), [🇧🇷 Português](./README-pt.md)
+Leia em outros idiomas: [🏴 Inglês](../../README.md), [🇰🇷 Coreano](./README-ko.md), [🇫🇷 Francês](./README-fr.md), [🇮🇸 Islandês](./README-is.md), [🇪🇸 Espanhol](./README-es.md), [🇷🇺 Russo](./README-ru.md), [🇺🇦 Ucraniano](./README-uk.md), [🇧🇷 Português](./README-pt.md)
 
 **Wrapper do Electron para o YouTube Music com os seguintes recursos:**
 

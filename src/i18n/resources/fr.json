@@ -5,7 +5,7 @@
         "execute-failed": "Échec de l'exécution du plugin {{pluginName}}::{{contextName}}",
         "executed-at-ms": "Plugin {{pluginName}}::{{contextName}} exécuté en {{ms}}ms",
         "initialize-failed": "Échec de l'initialisation du plugin \"{{pluginName}}\"",
-        "load-all": "Chargement des plugins",
+        "load-all": "Chargement de tous les plugins",
         "load-failed": "Échec du chargement du plugin \"{{pluginName}}\"",
         "loaded": "Plugin \"{{pluginName}}\" chargé",
         "unload-failed": "Échec du déchargement du plugin \"{{pluginName}}\"",
@@ -27,7 +27,7 @@
         "loaded": "i18n chargé"
       },
       "second-instance": {
-        "receive-command": "Received command over protocol : \"{{command}}\""
+        "receive-command": "Received command over protocol : \"{{command}}\""
       },
       "theme": {
         "css-file-not-found": "Le fichier de CSS \"{{cssFile}}\" n'existe pas, ignorer"
@@ -333,6 +333,30 @@
       "description": "Appliquer une compression à l'audio (diminue le volume des parties les plus fortes du signal et augmente le volume des parties les plus faibles)",
       "name": "Compresseur audio"
     },
+    "auth-proxy-adapter": {
+      "description": "Prise en charge de l'utilisation des services de proxy d'authentification",
+      "menu": {
+        "disable": "Désactiver l'Adaptateur Proxy",
+        "enable": "Activer l'Adaptateur Proxy",
+        "hostname": {
+          "label": "Nom d'hôte"
+        },
+        "port": {
+          "label": "Port"
+        }
+      },
+      "name": "Adaptateur de Proxy d'Authentification",
+      "prompt": {
+        "hostname": {
+          "label": "Saisir le nom d'hôte pour le serveur proxy local (nécessite un redémarrage) :",
+          "title": "Nom d'hôte du proxy"
+        },
+        "port": {
+          "label": "Saisir le port pour le serveur proxy local (nécessite un redémarrage) :",
+          "title": "Port du proxy"
+        }
+      }
+    },
     "blur-nav-bar": {
       "description": "Rend la barre de navigation transparente et floue",
       "name": "Barre de navigation floue"
@@ -599,6 +623,10 @@
         "unpause-notification": "Afficher la notification lors de la reprise"
       },
       "name": "Notifications"
+    },
+    "performance-improvement": {
+      "description": "Améliorer les performances en activant les scripts expérimentaux",
+      "name": "Amélioration des performances [Beta]"
     },
     "picture-in-picture": {
       "description": "Permet de basculer l’application en mode image dans image",

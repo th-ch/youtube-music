@@ -333,6 +333,30 @@
       "description": "Ses sıkıştırma (dalganın en gürültülü bölümlerinin ses düzeyini azaltır ve daha yumuşak bölümlerin ses düzeyini artırır)",
       "name": "Ses Sıkıştırma"
     },
+    "auth-proxy-adapter": {
+      "description": "Kimlik doğrulama proxy hizmetlerinin kullanımına destek",
+      "menu": {
+        "disable": "Proxy Bağdaştırıcısını Devre Dışı Bırak",
+        "enable": "Proxy Bağdaştırıcısını Etkinleştir",
+        "hostname": {
+          "label": "Ana makine adı"
+        },
+        "port": {
+          "label": "Port"
+        }
+      },
+      "name": "Ara Sunucu Doğrulama Bağdaştırıcısı",
+      "prompt": {
+        "hostname": {
+          "label": "Yerel proxy sunucusu için ana makine adını girin (yeniden başlatma gerektirir):",
+          "title": "Proxy Ana Makine Adı"
+        },
+        "port": {
+          "label": "Yerel proxy sunucusu için bağlantı noktasını girin (yeniden başlatma gerektirir):",
+          "title": "Proxy Bağlantı Noktası"
+        }
+      }
+    },
     "blur-nav-bar": {
       "description": "Gezinme çubuğunu şeffaf ve bulanık yapar",
       "name": "Navigasyon barını bulanıklaştır"
@@ -599,6 +623,10 @@
         "unpause-notification": "Şarkı tekrar oynatılınca bildirim göster"
       },
       "name": "Bildirimler"
+    },
+    "performance-improvement": {
+      "description": "Deneysel komut dosyalarını etkinleştirerek performansı artırın",
+      "name": "Performans iyileştirmesi [Beta]"
     },
     "picture-in-picture": {
       "description": "Uygulamayı resim-içinde-resim moduna geçirmeye izin verir",

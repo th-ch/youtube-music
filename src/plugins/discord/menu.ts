@@ -1,6 +1,6 @@
 import prompt from 'custom-electron-prompt';
 
-import { clear, connect, isConnected, registerRefresh } from './main';
+import { discordService } from './main';
 
 import { singleton } from '@/providers/decorators';
 import promptOptions from '@/providers/prompt-options';
@@ -14,7 +14,7 @@ import type { DiscordPluginConfig } from './index';
 import type { MenuTemplate } from '@/menu';
 
 const registerRefreshOnce = singleton((refreshMenu: () => void) => {
-  registerRefresh(refreshMenu);
+  discordService?.registerRefreshCallback(refreshMenu);
 });
 
 export const onMenu = async ({
@@ -28,11 +28,11 @@ export const onMenu = async ({
 
   return [
     {
-      label: isConnected()
+      label: discordService?.isConnected()
         ? t('plugins.discord.menu.connected')
         : t('plugins.discord.menu.disconnected'),
-      enabled: !isConnected(),
-      click: () => connect(),
+      enabled: !discordService?.isConnected(),
+      click: () => discordService?.connect(true),
     },
     {
       label: t('plugins.discord.menu.auto-reconnect'),
@@ -46,7 +46,7 @@ export const onMenu = async ({
     },
     {
       label: t('plugins.discord.menu.clear-activity'),
-      click: clear,
+      click: () => discordService?.clearActivity(),
     },
     {
       label: t('plugins.discord.menu.clear-activity-after-timeout'),
