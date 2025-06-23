@@ -311,8 +311,6 @@ class MusixMatchAPI {
   private readonly baseUrl = 'https://apic-desktop.musixmatch.com/ws/1.1/';
   private readonly app_id = 'web-desktop-app-v1.0';
   private readonly headers = {
-    // prettier-ignore
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:120.0) Gecko/20100101 Firefox/120.0',
-    'authority': 'apic-desktop.musixmatch.com',
+    Authority: 'apic-desktop.musixmatch.com',
   };
 }
