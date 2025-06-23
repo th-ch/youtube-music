@@ -344,8 +344,8 @@ importers:
         specifier: 2.5.2
         version: 2.5.2
       vite-plugin-solid:
-        specifier: 2.11.6
-        version: 2.11.6(solid-js@1.9.7)(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.7.0))
+        specifier: 2.11.7
+        version: 2.11.7(solid-js@1.9.7)(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.7.0))
       ws:
         specifier: 8.18.2
         version: 8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5)
@@ -4537,8 +4537,8 @@ packages:
   vite-plugin-resolve@2.5.2:
     resolution: {integrity: sha512-8twv20M+KIMxkZzAoF1eAUxxxB56NxKdYjIJ309A/30lZ3GAqgiAeGFjVVlLLEpeAcbAwfl9p7jztsQEw7C3Jg==}
 
-  vite-plugin-solid@2.11.6:
-    resolution: {integrity: sha512-Sl5CTqJTGyEeOsmdH6BOgalIZlwH3t4/y0RQuFLMGnvWMBvxb4+lq7x3BSiAw6etf0QexfNJW7HSOO/Qf7pigg==}
+  vite-plugin-solid@2.11.7:
+    resolution: {integrity: sha512-5TgK1RnE449g0Ryxb9BXqem89RSy7fE8XGVCo+Gw84IHgPuPVP7nYNP6WBVAaY/0xw+OqfdQee+kusL0y3XYNg==}
     peerDependencies:
       '@testing-library/jest-dom': ^5.16.6 || ^5.17.0 || ^6.*
       solid-js: ^1.7.2
@@ -9460,7 +9460,7 @@ snapshots:
     dependencies:
       lib-esm: 0.4.2
 
-  vite-plugin-solid@2.11.6(solid-js@1.9.7)(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.7.0)):
+  vite-plugin-solid@2.11.7(solid-js@1.9.7)(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.7.0)):
     dependencies:
       '@babel/core': 7.26.10
       '@types/babel__core': 7.20.5
