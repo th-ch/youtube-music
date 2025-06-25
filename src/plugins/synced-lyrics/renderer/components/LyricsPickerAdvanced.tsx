@@ -24,7 +24,7 @@ export const LyricsPickerAdvanced = () => {
           type="number"
           step={50}
           value={lyricsOffset()}
-          onInput={(e) => {
+          onBlur={(e) => {
             let value = e.target.valueAsNumber;
             if (isNaN(value)) value = 0;
 
