@@ -24,8 +24,11 @@ export const menu = async (
             title: t('plugins.synced-lyrics.menu.offset.prompt.title'),
             label: t('plugins.synced-lyrics.menu.offset.prompt.label'),
             value: config.lyricsOffset || 0,
-            type: 'counter',
-            counterOptions: { multiFire: true },
+            type: 'input',
+            inputAttrs: {
+              type: 'number',
+              style: 'text-align: center; width: unset;' as unknown as CSSStyleDeclaration,
+            },
             width: 380,
             ...promptOptions(),
           },
@@ -33,7 +36,7 @@ export const menu = async (
         );
 
         ctx.setConfig({
-          lyricsOffset: newOffset ?? config.lyricsOffset,
+          lyricsOffset: Number(newOffset) ?? config.lyricsOffset,
         });
       },
     },
