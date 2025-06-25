@@ -4,6 +4,7 @@ import { createSignal } from 'solid-js';
 export const [lyricsOffset, setLyricsOffset] = createSignal(0);
 
 export const LyricsPickerAdvanced = () => {
+  const [typing, setTyping] = createSignal(false)
   return (
     <div
       style={{
@@ -25,16 +26,20 @@ export const LyricsPickerAdvanced = () => {
           type="number"
           step={50}
           value={lyricsOffset()}
+          onFocus={() => setTyping(true)}
           onBlur={(e) => {
             let value = e.target.valueAsNumber;
             if (isNaN(value)) value = 0;
 
             setLyricsOffset(value);
+            setTyping(false)
           }}
+          onInput={() => setTyping(true)}
         />
         <span>
           <button
             class="lrcpkradv-offset-btn"
+            disabled={typing()}
             onclick={() => setLyricsOffset((old) => old - 50)}
           >
             -
@@ -42,6 +47,7 @@ export const LyricsPickerAdvanced = () => {
           /
           <button
             class="lrcpkradv-offset-btn"
+            disabled={typing()}
             onclick={() => setLyricsOffset((old) => old + 50)}
           >
             +
