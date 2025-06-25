@@ -33,6 +33,7 @@ export const renderer = createRenderer<
 >({
   onConfigChange(newConfig) {
     setConfig(newConfig);
+    setLyricsOffset(newConfig.lyricsOffset);
   },
 
   observerCallback(mutations: MutationRecord[]) {
