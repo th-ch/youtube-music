@@ -818,6 +818,11 @@
         }
       },
       "name": "Synced Lyrics",
+      "advanced-options": {
+        "offset": {
+          "title": "Lyrics Offset (ms):"
+        }
+      },
       "refetch-btn": {
         "fetching": "Fetching...",
         "normal": "Refetch lyrics"

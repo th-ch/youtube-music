@@ -1,3 +1,4 @@
+import { t } from '@/i18n';
 import { createSignal } from 'solid-js';
 
 export const [lyricsOffset, setLyricsOffset] = createSignal(0);
@@ -16,7 +17,7 @@ export const LyricsPickerAdvanced = () => {
     >
       <yt-formatted-string
         class="description ytmusic-description-shelf-renderer"
-        text={{ runs: [{ text: 'Lyrics Offset (ms):' }] }}
+        text={{ runs: [{ text: t('plugins.synced-lyrics.advanced-options.offset.title') }] }}
       />
       <div style={{ display: 'flex', 'flex-direction': 'row' }}>
         <input
