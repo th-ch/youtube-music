@@ -97,6 +97,7 @@
             "label": "Paplašināti iestatījumi",
             "submenu": {
               "auto-reset-app-cache": "Iztīrīt kešu kad lietotne palaižas",
+              "disable-hardware-acceleration": "Atslēgt aparatūras paātrinājumu",
               "edit-config-json": "Labot config.json",
               "override-user-agent": "Pārrakstīt User-Agent",
               "restart-on-config-changes": "Restartēt kad mainās konfigurācija",
