@@ -525,7 +525,7 @@
           }
         }
       },
-      "name": "Equalizer"
+      "name": "Ekvalizator"
     },
     "exponential-volume": {
       "description": "Čini klizač glasnoće (volume slider) eksponencijalnim za lakše odabranje niže glasnoće.",
@@ -619,8 +619,14 @@
           }
         },
         "priority": "Prioritet Obavijesti",
-        "toast-style": "Tipa Toast (kao Android obavjest)"
-      }
+        "toast-style": "Tipa Toast (kao Android obavjest)",
+        "unpause-notification": "Prikaži notifikaciju pri nastavku"
+      },
+      "name": "Obavijesti"
+    },
+    "performance-improvement": {
+      "description": "Poboljšati performanse uključivanjem eksperimentalnih skripti",
+      "name": "Poboljšanje performansa (Beta)"
     }
   }
 }
