@@ -345,7 +345,7 @@
     "vite-plugin-inspect": "11.2.0",
     "vite-plugin-resolve": "2.5.2",
     "vite-plugin-solid": "2.11.7",
-    "ws": "8.18.2"
+    "ws": "8.18.3"
   },
   "auto-changelog": {
     "hideCredit": true,
