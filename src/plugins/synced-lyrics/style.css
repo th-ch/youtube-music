@@ -158,6 +158,8 @@
   align-items: center;
   justify-content: space-around;
   padding-block: 1em;
+  z-index: 5;
+  position: absolute;
 }
 
 .lyrics-picker-content {
@@ -219,9 +221,56 @@
   position: sticky;
   top: var(--top, 0);
   z-index: 100;
-  backdrop-filter: blur(5px);
 
+  backdrop-filter: blur(5px);
   transition: top 325ms ease-in-out;
+  padding-bottom: 5rem;
+}
+
+.lyrics-picker-advanced {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+
+  align-items: center;
+  justify-content: space-around;
+  padding: 0;
+  padding-block: 1em;
+  z-index: 4;
+
+  width: 100%;
+  height: 5em;
+
+  border-bottom: 1px solid hsla(0, 0%, 100%, 0.15);
+
+  transform: translateY(-100%);
+  transition: transform 0.3s ease-in-out;
+
+  & .lrcpkradv-offset {
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    border: none;
+    text-decoration: underline;
+    color: white;
+    font-size: 2rem;
+    text-align: end;
+  }
+
+  & .lrcpkradv-offset-btn {
+    padding: 0.5rem;
+    padding-inline: 1rem;
+    border-radius: 1rem 0 0 1rem;
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+  }
+
+  &.open {
+    transform: translateY(60%);
+  }
 }
 
 /* Animations */

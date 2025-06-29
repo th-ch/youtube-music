@@ -24,7 +24,7 @@ interface SyncedLineProps {
 
 export const SyncedLine = (props: SyncedLineProps) => {
   const status = createMemo(() => {
-    const current = currentTime();
+    const current = Math.max(0, currentTime() + (config()?.lyricsOffset ?? 0));
 
     if (props.line.timeInMs >= current) return 'upcoming';
     if (current - props.line.timeInMs >= props.line.duration) return 'previous';
@@ -97,10 +97,10 @@ export const SyncedLine = (props: SyncedLineProps) => {
             div.style.setProperty(
               '--lyrics-duration',
               `${props.line.duration / 1000}s`,
-              'important',
+              'important'
             );
           }}
-          style={{ 'display': 'flex', 'flex-direction': 'column' }}
+          style={{ display: 'flex', 'flex-direction': 'column' }}
         >
           <span>
             <For each={text().split(' ')}>
