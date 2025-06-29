@@ -46,8 +46,8 @@ importers:
         specifier: 2.0.5
         version: 2.0.5
       '@ghostery/adblocker-electron':
-        specifier: 2.7.0
-        version: 2.7.0(electron@37.1.0)
+        specifier: 2.8.0
+        version: 2.8.0(electron@37.1.0)
       '@ghostery/adblocker-electron-preload':
         specifier: 2.8.0
         version: 2.8.0(electron@37.1.0)
@@ -761,16 +761,16 @@ packages:
     peerDependencies:
       electron: '>11'
 
-  '@ghostery/adblocker-electron@2.7.0':
-    resolution: {integrity: sha512-UnDOo380HQNevxADngx59wO1iKecSoAE0o/coMHqMTjlYsHnmdGtp+SDFt+cLlyK97UhjIh9yc+2MlJF8W2pTQ==}
+  '@ghostery/adblocker-electron@2.8.0':
+    resolution: {integrity: sha512-vNY+9KRETCtQDdH+xA83OiChfLuL9FBJO/tOu37gZAEevz832oRK5LFt6NbUIzWCW/cNISp7f1ELmHZjhzloNQ==}
     peerDependencies:
       electron: '>11'
 
   '@ghostery/adblocker-extended-selectors@2.8.0':
     resolution: {integrity: sha512-+iE4fd1pVxDD+3G6nfflk242CyW6XBYyZNbJmjhbImmqB+wkSZQsa+SwX55SSk7bPGI91tHsT/UPRJir2SjvTA==}
 
-  '@ghostery/adblocker@2.7.0':
-    resolution: {integrity: sha512-OzOKr8PwT6oE5qh5dpF9qJgmNUKlK/781Pm18oEMCho+6CSseCWrTk5+m+2QNGE3Fs+QjQb7DZdMoQisZ6r3uA==}
+  '@ghostery/adblocker@2.8.0':
+    resolution: {integrity: sha512-fqPYYYoa+Lonc5RLQiOnzTfWKoi5nXkBwTQUPBaUsUifHTXHzkfgPsyIGNx8YNqcvdbDoIrReO3hIbIFf6KiWA==}
 
   '@ghostery/url-parser@1.3.0':
     resolution: {integrity: sha512-FEzdSeiva0Mt3bR4xePFzthhjT4IzvA5QTvS1xXkNyLpMGeq40mb3V2fSs0ZItRaP9IybZthDfHUSbQ1HLdx4Q==}
@@ -5183,16 +5183,16 @@ snapshots:
       '@ghostery/adblocker-content': 2.8.0
       electron: 37.1.0
 
-  '@ghostery/adblocker-electron@2.7.0(electron@37.1.0)':
+  '@ghostery/adblocker-electron@2.8.0(electron@37.1.0)':
     dependencies:
-      '@ghostery/adblocker': 2.7.0
+      '@ghostery/adblocker': 2.8.0
       '@ghostery/adblocker-electron-preload': 2.8.0(electron@37.1.0)
       electron: 37.1.0
       tldts-experimental: 7.0.9
 
   '@ghostery/adblocker-extended-selectors@2.8.0': {}
 
-  '@ghostery/adblocker@2.7.0':
+  '@ghostery/adblocker@2.8.0':
     dependencies:
       '@ghostery/adblocker-content': 2.8.0
       '@ghostery/adblocker-extended-selectors': 2.8.0
