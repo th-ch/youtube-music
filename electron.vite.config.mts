@@ -23,6 +23,9 @@ const resolveAlias = {
 export default defineConfig({
   main: defineViteConfig(({ mode }) => {
     const commonConfig: UserConfig = {
+      experimental: {
+        enableNativePlugin: true,
+      },
       plugins: [
         pluginLoader('backend'),
         viteResolve({
@@ -72,6 +75,9 @@ export default defineConfig({
   }),
   preload: defineViteConfig(({ mode }) => {
     const commonConfig: UserConfig = {
+      experimental: {
+        enableNativePlugin: true,
+      },
       plugins: [
         pluginLoader('preload'),
         viteResolve({
@@ -120,6 +126,9 @@ export default defineConfig({
   }),
   renderer: defineViteConfig(({ mode }) => {
     const commonConfig: UserConfig = {
+      experimental: {
+        enableNativePlugin: true,
+      },
       plugins: [
         pluginLoader('renderer'),
         viteResolve({
