@@ -7,13 +7,15 @@
 ytmusic-app-layout {
   overflow: auto scroll;
   height: calc(100vh - var(--menu-bar-height, 36px));
-  margin-top: var(--menu-bar-height, 36px) !important;
 
   /* fixes laggy list scrolling in large playlists */
   backface-visibility: hidden;
 }
 ytmusic-app-layout#layout {
   --ytmusic-nav-bar-offset: 0px;
+}
+ytmusic-app-layout > #content {
+  padding-top: var(--menu-bar-height, 36px);
 }
 
 ytmusic-app-layout::-webkit-scrollbar{
