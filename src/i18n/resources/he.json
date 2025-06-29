@@ -185,7 +185,7 @@
         "label": "מראה",
         "submenu": {
           "force-reload": "התחל מחדש בכוח",
-          "reload": "טען מחדש",
+          "reload": "רענון",
           "reset-zoom": "גודל אמיתי",
           "toggle-fullscreen": "מסך מלא",
           "zoom-in": "התקרב",
@@ -226,6 +226,7 @@
       "description": "מחיל נושא דינמי ואפקטים חזותיים המבוססים על לוח הצבעים של האלבום",
       "menu": {
         "color-mix-ratio": {
+          "label": "יחס ערבוב צבעים",
           "submenu": {
             "percent": "{{ratio}}%"
           }
@@ -277,7 +278,10 @@
       "name": "מצב אווירה"
     },
     "amuse": {
-      "description": "מוסיף תמיכה ב-YouTube Music עבור הווידג'ט של Amuse המתנגן כעת על ידי 6K Labs"
+      "description": "מוסיף תמיכה ב-YouTube Music עבור הווידג'ט של Amuse המתנגן כעת על ידי 6K Labs",
+      "response": {
+        "query": "שרת ה-API של Amuse פועל. קבל מידע על השיר באמצעות GET /query."
+      }
     },
     "discord": {
       "menu": {

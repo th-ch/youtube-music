@@ -394,7 +394,7 @@
         "connected": "Připojeno k Discordu",
         "disconnected": "Odpojeno od Discordu"
       },
-      "description": "Ukažte svým přátelům, co posloucháte s Bohatou přítomností",
+      "description": "Ukažte svým přátelům, co posloucháte pomocí Rich Persence",
       "menu": {
         "auto-reconnect": "Automaticky znovu připojit",
         "clear-activity": "Vymazat aktivitu",
@@ -406,7 +406,7 @@
         "play-on-youtube-music": "Hrát na YouTube Music",
         "set-inactivity-timeout": "Nastavit timeout pro neaktivitu"
       },
-      "name": "Discord Bohatá přítomnost",
+      "name": "Discord Rich Persence",
       "prompt": {
         "set-inactivity-timeout": {
           "label": "Zadejte timeout neaktivity v sekundách:",

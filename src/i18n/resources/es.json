@@ -834,7 +834,7 @@
     },
     "unobtrusive-player": {
       "description": "Evita que el reproductor aparezca al reproducir una canción",
-      "name": "Jugador discreto"
+      "name": "Reproductor discreto"
     },
     "video-toggle": {
       "description": "Añade un botón para cambiar entre el modo Vídeo/Canción. También puede eliminar opcionalmente toda la pestaña de vídeo",

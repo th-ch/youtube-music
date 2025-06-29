@@ -114,6 +114,11 @@ protocol.registerSchemesAsPrivileged([
   { scheme: 'mailto', privileges: { standard: true } },
 ]);
 
+// https://github.com/electron/electron/issues/46538#issuecomment-2808806722
+if (is.linux()) {
+  app.commandLine.appendSwitch('gtk-version', '3');
+}
+
 // Ozone platform hint: Required for Wayland support
 app.commandLine.appendSwitch('ozone-platform-hint', 'auto');
 // SharedArrayBuffer: Required for downloader (@ffmpeg/core-mt)
