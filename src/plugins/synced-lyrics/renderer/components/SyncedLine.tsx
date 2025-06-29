@@ -1,43 +1,22 @@
 import { createEffect, createMemo, For, Show, createSignal } from 'solid-js';
 
-import { currentTime } from './LyricsContainer';
-
 import { config } from '../renderer';
 import { _ytAPI } from '..';
 
-import {
-  canonicalize,
-  romanizeChinese,
-  romanizeHangul,
-  romanizeJapanese,
-  romanizeJapaneseOrHangul,
-  simplifyUnicode,
-} from '../utils';
+import { canonicalize, romanize, simplifyUnicode } from '../utils';
 
-import type { LineLyrics } from '../../types';
+import { VirtualizerHandle } from 'virtua/solid';
+import { LineLyrics } from '@/plugins/synced-lyrics/types';
 
 interface SyncedLineProps {
+  scroller: VirtualizerHandle;
+  index: number;
+
   line: LineLyrics;
-  hasJapanese: boolean;
-  hasKorean: boolean;
+  status: 'upcoming' | 'current' | 'previous';
 }
 
 export const SyncedLine = (props: SyncedLineProps) => {
-  const status = createMemo(() => {
-    const current = currentTime();
-
-    if (props.line.timeInMs >= current) return 'upcoming';
-    if (current - props.line.timeInMs >= props.line.duration) return 'previous';
-    return 'current';
-  });
-
-  let ref: HTMLDivElement | undefined;
-  createEffect(() => {
-    if (status() === 'current') {
-      ref?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  });
-
   const text = createMemo(() => {
     if (!props.line.text.trim()) {
       return config()?.defaultTextString ?? '';
@@ -52,15 +31,7 @@ export const SyncedLine = (props: SyncedLineProps) => {
     if (!config()?.romanization) return;
 
     const input = canonicalize(text());
-
-    let result: string;
-    if (props.hasJapanese) {
-      if (props.hasKorean) result = await romanizeJapaneseOrHangul(input);
-      else result = await romanizeJapanese(input);
-    } else if (props.hasKorean) result = romanizeHangul(input);
-    else result = romanizeChinese(input);
-
-    setRomanization(canonicalize(result));
+    setRomanization(canonicalize(await romanize(input)));
   });
 
   if (!text()) {
@@ -75,10 +46,9 @@ export const SyncedLine = (props: SyncedLineProps) => {
 
   return (
     <div
-      ref={ref}
-      class={`synced-line ${status()}`}
+      class={`synced-line ${props.status}`}
       onClick={() => {
-        _ytAPI?.seekTo(props.line.timeInMs / 1000);
+        _ytAPI?.seekTo((props.line.timeInMs + 10) / 1000);
       }}
     >
       <div dir="auto" class="description ytmusic-description-shelf-renderer">
