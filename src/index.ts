@@ -357,7 +357,8 @@ async function createMainWindow() {
     icon,
     width: windowSize.width,
     height: windowSize.height,
-    backgroundColor: '#000',
+    backgroundColor: 'rgba(0,0,0,0.1)',
+    backgroundMaterial: 'mica',
     show: false,
     webPreferences: {
       contextIsolation: true,
