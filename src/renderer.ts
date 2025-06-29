@@ -279,22 +279,23 @@ async function onApiLoaded() {
 
   window.ipcRenderer.on(
     'ytmd:search',
-    async (
-      _,
-      params: {
-        query: string;
-        params?: string;
-        continuation?: string;
-      },
-    ) => {
+    async (_, query: string, params?: string, continuation?: string) => {
       const app = document.querySelector<YouTubeMusicAppElement>('ytmusic-app');
       const searchBox =
         document.querySelector<SearchBoxElement>('ytmusic-search-box');
 
       if (!app || !searchBox) return;
 
+      console.log({
+        query,
+        params,
+        continuation,
+      });
+
       const result = await app.networkManager.fetch('/search', {
-        ...params,
+        query,
+        params,
+        continuation,
         suggestStats: searchBox.getSearchboxStats(),
       });
 
