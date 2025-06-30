@@ -1,5 +1,6 @@
 import style from './style.css?inline';
 
+import globalConfig from '@/config';
 import { t } from '@/i18n';
 import { createPlugin } from '@/utils';
 import { ipcMain } from 'electron';
@@ -18,7 +19,7 @@ export default createPlugin({
   name: () => t('plugins.transparent-player.name'),
   description: () => t('plugins.transparent-player.description'),
   addedVersion: '3.9.x',
-  restartNeeded: false,
+  restartNeeded: true,
   config: defaultConfig,
   stylesheets: [style],
   async menu({ getConfig, setConfig }) {
@@ -52,16 +53,17 @@ export default createPlugin({
   backend: {
     async start({ window, getConfig }) {
       const config = await getConfig();
-      window.setBackgroundColor?.('rgba(17,17,17,0.1)');
       window.setBackgroundMaterial?.(config.type);
+      globalConfig.set('options.backgroundMaterial', config.type);
 
       ipcMain.on('transparent-player:type-changed', (event) => {
         window.setBackgroundMaterial?.(event.type as TransparentPlayerConfig['type']);
+        globalConfig.set('options.backgroundMaterial', event.type);
       });
     },
     stop({ window }) {
-      window.setBackgroundColor?.('#000');
       window.setBackgroundMaterial?.('none');
+      globalConfig.set('options.backgroundMaterial', 'none');
     }
   },
   renderer: {

@@ -358,7 +358,7 @@ async function createMainWindow() {
     width: windowSize.width,
     height: windowSize.height,
     backgroundColor: 'rgba(0,0,0,0.1)',
-    backgroundMaterial: 'mica',
+    backgroundMaterial: is.macOS() ? 'none' : config.get('options.backgroundMaterial'),
     show: false,
     webPreferences: {
       contextIsolation: true,
