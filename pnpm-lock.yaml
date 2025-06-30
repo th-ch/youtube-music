@@ -338,8 +338,8 @@ importers:
         specifier: 6.3.5
         version: 6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.8.0)
       vite-plugin-inspect:
-        specifier: 11.2.0
-        version: 11.2.0(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.8.0))
+        specifier: 11.3.0
+        version: 11.3.0(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.8.0))
       vite-plugin-resolve:
         specifier: 2.5.2
         version: 2.5.2
@@ -1548,8 +1548,8 @@ packages:
     resolution: {integrity: sha512-bN798gFfQX+viw3R7yrGWRqnrN2oRkEkUjjl4JNn4E8GxxbjtG3FbrEIIY3l8/hrwUwIeCZvi4QuOTP4MErVug==}
     engines: {node: '>=12'}
 
-  ansis@3.17.0:
-    resolution: {integrity: sha512-0qWUglt9JEqLFr3w1I1pbrChn1grhaiAR2ocX1PP/flRmxgtwTzPFFFnfIlD6aMOLQZgSuCRlidD70lvx8yhzg==}
+  ansis@4.1.0:
+    resolution: {integrity: sha512-BGcItUBWSMRgOCe+SVZJ+S7yTRG0eGt9cXAHev72yuGcY23hnLA7Bky5L/xLyPINoSN95geovfBkqoTlNZYa7w==}
     engines: {node: '>=14'}
 
   any-base@1.1.0:
@@ -1667,8 +1667,8 @@ packages:
   bgutils-js@3.2.0:
     resolution: {integrity: sha512-CacO15JvxbclbLeCAAm9DETGlLuisRGWpPigoRvNsccSCPEC4pwYwA2g2x/pv7Om/sk79d4ib35V5HHmxPBpDg==}
 
-  birpc@2.2.0:
-    resolution: {integrity: sha512-1/22obknhoj56PcE+pZPp6AbWDdY55M81/ofpPW3Ltlp9Eh4zoFFLswvZmNpRTb790CY5tsNfgbYeNOqIARJfQ==}
+  birpc@2.4.0:
+    resolution: {integrity: sha512-5IdNxTyhXHv2UlgnPHQ0h+5ypVmkrYHzL8QT+DwFZ//2N/oNV8Ch+BCRmTJ3x6/z9Axo/cXYBc9eprsUVK/Jsg==}
 
   bl@4.1.0:
     resolution: {integrity: sha512-1W07cM9gS6DcLperZfFSj+bWLtaPGSOHWhPiGzXmvVJbRLdG82sH/Kn8EtW1VqWVA54AKf2h5k5BbnIbwF3h6w==}
@@ -4518,18 +4518,18 @@ packages:
     resolution: {integrity: sha512-veufcmxri4e3XSrT0xwfUR7kguIkaxBeosDg00yDWhk49wdwkSUrvvsm7nc75e1PUyvIeZj6nS8VQRYz2/S4Xg==}
     engines: {node: '>=0.6.0'}
 
-  vite-dev-rpc@1.0.7:
-    resolution: {integrity: sha512-FxSTEofDbUi2XXujCA+hdzCDkXFG1PXktMjSk1efq9Qb5lOYaaM9zNSvKvPPF7645Bak79kSp1PTooMW2wktcA==}
+  vite-dev-rpc@1.1.0:
+    resolution: {integrity: sha512-pKXZlgoXGoE8sEKiKJSng4hI1sQ4wi5YT24FCrwrLt6opmkjlqPPVmiPWWJn8M8byMxRGzp1CrFuqQs4M/Z39A==}
     peerDependencies:
       vite: 6.3.5
 
-  vite-hot-client@2.0.4:
-    resolution: {integrity: sha512-W9LOGAyGMrbGArYJN4LBCdOC5+Zwh7dHvOHC0KmGKkJhsOzaKbpo/jEjpPKVHIW0/jBWj8RZG0NUxfgA8BxgAg==}
+  vite-hot-client@2.1.0:
+    resolution: {integrity: sha512-7SpgZmU7R+dDnSmvXE1mfDtnHLHQSisdySVR7lO8ceAXvM0otZeuQQ6C8LrS5d/aYyP/QZ0hI0L+dIPrm4YlFQ==}
     peerDependencies:
       vite: 6.3.5
 
-  vite-plugin-inspect@11.2.0:
-    resolution: {integrity: sha512-hcCncl4YK20gcrx22cPF5mR+zfxsCmX6vUQKCyudgOZMYKVVGbrxVaL3zU62W0MVSVawtf5ZR4DrLRO+9fZVWQ==}
+  vite-plugin-inspect@11.3.0:
+    resolution: {integrity: sha512-vmt7K1WVKQkuiwvsM6e5h3HDJ2pSWTnzoj+JP9Kvu3Sh2G+nFap1F1V7tqpyA4qFxM1GQ84ryffWFGQrwShERQ==}
     engines: {node: '>=14'}
     peerDependencies:
       '@nuxt/kit': '*'
@@ -6036,7 +6036,7 @@ snapshots:
 
   ansi-styles@6.2.1: {}
 
-  ansis@3.17.0: {}
+  ansis@4.1.0: {}
 
   any-base@1.1.0: {}
 
@@ -6207,7 +6207,7 @@ snapshots:
 
   bgutils-js@3.2.0: {}
 
-  birpc@2.2.0: {}
+  birpc@2.4.0: {}
 
   bl@4.1.0:
     dependencies:
@@ -9438,19 +9438,19 @@ snapshots:
       extsprintf: 1.4.1
     optional: true
 
-  vite-dev-rpc@1.0.7(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.8.0)):
+  vite-dev-rpc@1.1.0(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.8.0)):
     dependencies:
-      birpc: 2.2.0
+      birpc: 2.4.0
       vite: 6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.8.0)
-      vite-hot-client: 2.0.4(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.8.0))
+      vite-hot-client: 2.1.0(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.8.0))
 
-  vite-hot-client@2.0.4(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.8.0)):
+  vite-hot-client@2.1.0(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.8.0)):
     dependencies:
       vite: 6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.8.0)
 
-  vite-plugin-inspect@11.2.0(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.8.0)):
+  vite-plugin-inspect@11.3.0(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.8.0)):
     dependencies:
-      ansis: 3.17.0
+      ansis: 4.1.0
       debug: 4.4.1
       error-stack-parser-es: 1.0.5
       ohash: 2.0.11
@@ -9459,7 +9459,7 @@ snapshots:
       sirv: 3.0.1
       unplugin-utils: 0.2.4
       vite: 6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.8.0)
-      vite-dev-rpc: 1.0.7(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.8.0))
+      vite-dev-rpc: 1.1.0(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.8.0))
     transitivePeerDependencies:
       - supports-color
 
