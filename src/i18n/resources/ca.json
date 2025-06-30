@@ -798,7 +798,7 @@
         },
         "romanization": {
           "label": "Romanitza les lletres",
-          "tooltip": "Si les lletres són en un idioma diferent, intenti mostrar la versió llatina"
+          "tooltip": "Si les lletres són en un idioma diferent, intenta mostrar la versió romanitzada."
         },
         "show-lyrics-even-if-inexact": {
           "label": "Mostra la lletra tot i que sigui inexacta",
