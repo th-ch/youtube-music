@@ -1,11 +1,12 @@
 import { createEffect, createSignal, onMount, Show } from 'solid-js';
 
 import { LyricsContainer } from './components/LyricsContainer';
-import { LyricsPicker } from './components/LyricsPicker';
+import { LyricsPicker, pickerAdvancedOpen } from './components/LyricsPicker';
 
 import { selectors } from './utils';
 
 import type { SyncedLyricsPluginConfig } from '../types';
+import { LyricsPickerAdvanced } from './components/LyricsPickerAdvanced';
 
 export const [isVisible, setIsVisible] = createSignal<boolean>(false);
 export const [config, setConfig] =
@@ -24,7 +25,7 @@ createEffect(() => {
       root.style.setProperty('--lyrics-padding', '2rem');
       root.style.setProperty(
         '--lyrics-animations',
-        'lyrics-glow var(--lyrics-glow-duration) forwards, lyrics-wobble var(--lyrics-wobble-duration) forwards',
+        'lyrics-glow var(--lyrics-glow-duration) forwards, lyrics-wobble var(--lyrics-wobble-duration) forwards'
       );
 
       root.style.setProperty('--lyrics-inactive-font-weight', '700');
@@ -40,11 +41,11 @@ createEffect(() => {
     case 'scale':
       root.style.setProperty(
         '--lyrics-font-size',
-        'clamp(1.4rem, 1.1vmax, 3rem)',
+        'clamp(1.4rem, 1.1vmax, 3rem)'
       );
       root.style.setProperty(
         '--lyrics-line-height',
-        'var(--ytmusic-body-line-height)',
+        'var(--ytmusic-body-line-height)'
       );
       root.style.setProperty('--lyrics-width', '83%');
       root.style.setProperty('--lyrics-padding', '0');
@@ -63,11 +64,11 @@ createEffect(() => {
     case 'offset':
       root.style.setProperty(
         '--lyrics-font-size',
-        'clamp(1.4rem, 1.1vmax, 3rem)',
+        'clamp(1.4rem, 1.1vmax, 3rem)'
       );
       root.style.setProperty(
         '--lyrics-line-height',
-        'var(--ytmusic-body-line-height)',
+        'var(--ytmusic-body-line-height)'
       );
       root.style.setProperty('--lyrics-width', '100%');
       root.style.setProperty('--lyrics-padding', '0');
@@ -86,11 +87,11 @@ createEffect(() => {
     case 'focus':
       root.style.setProperty(
         '--lyrics-font-size',
-        'clamp(1.4rem, 1.1vmax, 3rem)',
+        'clamp(1.4rem, 1.1vmax, 3rem)'
       );
       root.style.setProperty(
         '--lyrics-line-height',
-        'var(--ytmusic-body-line-height)',
+        'var(--ytmusic-body-line-height)'
       );
       root.style.setProperty('--lyrics-width', '100%');
       root.style.setProperty('--lyrics-padding', '0');
@@ -118,15 +119,23 @@ export const LyricsRenderer = () => {
 
     const mousemoveListener = (e: MouseEvent) => {
       const { top } = tab.getBoundingClientRect();
-      const { clientHeight: height } = stickyRef()!;
 
-      const showPicker = (e.clientY - top - 5) <= height;
+      const ref = stickyRef()!;
+      const [[realPicker, pickerHeight], [_, divHeight], [realAdvanced, advancedHeight]] = Array.from(ref.children).map(c => {
+        const style = getComputedStyle(c);
+        return [parseFloat(style.height) - (parseFloat(style.paddingTop) + parseFloat(style.paddingBottom)), c.clientHeight];
+      });
+
+      const contentHeight = pickerAdvancedOpen() ? pickerHeight + advancedHeight : pickerHeight;
+      ref.style.height = `${pickerAdvancedOpen() ? realPicker + divHeight + realAdvanced : realPicker}px`;
+
+      const showPicker = (e.clientY - top - 5) <= contentHeight;
       if (showPicker) {
         // picker visible
         stickyRef()!.style.setProperty('--top', '0');
       } else {
         // picker hidden
-        stickyRef()!.style.setProperty('--top', '-50%');
+        stickyRef()!.style.setProperty('--top', `-${contentHeight}px`);
       }
     };
 
@@ -144,6 +153,13 @@ export const LyricsRenderer = () => {
             class="style-scope ytmusic-guide-section-renderer"
             style={{ width: '100%', margin: '0' }}
           ></div>
+          <div
+            class={`lyrics-picker-advanced ${
+              pickerAdvancedOpen() ? 'open' : ''
+            }`}
+          >
+            <LyricsPickerAdvanced />
+          </div>
         </div>
         <LyricsContainer />
       </div>

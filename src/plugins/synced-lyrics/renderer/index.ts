@@ -2,7 +2,7 @@ import { createRenderer } from '@/utils';
 import { waitForElement } from '@/utils/wait-for-element';
 
 import { selectors, tabStates } from './utils';
-import { setConfig } from './renderer';
+import { config, setConfig } from './renderer';
 import { setCurrentTime } from './components/LyricsContainer';
 
 import { fetchLyrics } from '../providers';
@@ -11,6 +11,11 @@ import type { RendererContext } from '@/types/contexts';
 import type { YoutubePlayer } from '@/types/youtube-player';
 import type { SongInfo } from '@/providers/song-info';
 import type { SyncedLyricsPluginConfig } from '../types';
+import { createEffect } from 'solid-js';
+import {
+  lyricsOffset,
+  setLyricsOffset,
+} from './components/LyricsPickerAdvanced';
 
 export let _ytAPI: YoutubePlayer | null = null;
 export let netFetch: (
@@ -29,6 +34,7 @@ export const renderer = createRenderer<
 >({
   onConfigChange(newConfig) {
     setConfig(newConfig);
+    setLyricsOffset(newConfig.lyricsOffset);
   },
 
   observerCallback(mutations: MutationRecord[]) {
@@ -80,6 +86,23 @@ export const renderer = createRenderer<
     netFetch = ctx.ipc.invoke.bind(ctx.ipc, 'synced-lyrics:fetch');
 
     setConfig(await ctx.getConfig());
+
+    let hasInit = false;
+    createEffect(() => {
+      const offset = lyricsOffset();
+      if (offset !== 0) return;
+
+      if (hasInit) return;
+      hasInit = true;
+
+      setLyricsOffset(config()?.lyricsOffset ?? 0);
+    });
+
+    createEffect(() => {
+      if (!hasInit) return;
+      const offset = lyricsOffset();
+      ctx.setConfig({ lyricsOffset: offset });
+    });
 
     ctx.ipc.on('ytmd:update-song-info', (info: SongInfo) => {
       fetchLyrics(info);
