@@ -323,7 +323,7 @@
     "builtin-modules": "5.0.0",
     "cross-env": "7.0.3",
     "del-cli": "6.0.0",
-    "discord-api-types": "0.38.13",
+    "discord-api-types": "0.38.14",
     "electron": "37.1.0",
     "electron-builder": "26.0.12",
     "electron-builder-squirrel-windows": "26.0.12",
