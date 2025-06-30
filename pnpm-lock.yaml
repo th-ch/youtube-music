@@ -58,8 +58,8 @@ importers:
         specifier: 0.5.2
         version: 0.5.2(hono@4.8.3)
       '@hono/zod-openapi':
-        specifier: 0.19.8
-        version: 0.19.8(hono@4.8.3)(zod@3.25.67)
+        specifier: 0.19.9
+        version: 0.19.9(hono@4.8.3)(zod@3.25.67)
       '@hono/zod-validator':
         specifier: 0.7.0
         version: 0.7.0(hono@4.8.3)(zod@3.25.67)
@@ -291,7 +291,7 @@ importers:
         version: 4.0.0
       electron-vite:
         specifier: 3.1.0
-        version: 3.1.0(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.7.0))
+        version: 3.1.0(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.8.0))
       esbuild:
         specifier: 0.25.5
         version: 0.25.5
@@ -336,16 +336,16 @@ importers:
         version: 6.0.5
       vite:
         specifier: 6.3.5
-        version: 6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.7.0)
+        version: 6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.8.0)
       vite-plugin-inspect:
         specifier: 11.2.0
-        version: 11.2.0(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.7.0))
+        version: 11.2.0(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.8.0))
       vite-plugin-resolve:
         specifier: 2.5.2
         version: 2.5.2
       vite-plugin-solid:
         specifier: 2.11.7
-        version: 2.11.7(solid-js@1.9.7)(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.7.0))
+        version: 2.11.7(solid-js@1.9.7)(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.8.0))
       ws:
         specifier: 8.18.2
         version: 8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5)
@@ -786,8 +786,8 @@ packages:
     peerDependencies:
       hono: '*'
 
-  '@hono/zod-openapi@0.19.8':
-    resolution: {integrity: sha512-CHUSW0K+bDGUYXovxQSbVjZffzoPeTsGu6wevPoGSmBdPuUw5yZqDeomnvyAAAAvEjhLQPlAsUyASc1Zi35exQ==}
+  '@hono/zod-openapi@0.19.9':
+    resolution: {integrity: sha512-TonPfh8xUdsdzWNMiKOYSG4Wk2DkZIShHZoXkdOSjPmqpnobXpvSQU3w3XmB7N2t12I2NnnoGSHyMj+BXk+1bw==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
       hono: '>=4.3.6'
@@ -3614,8 +3614,8 @@ packages:
     resolution: {integrity: sha512-cxN6aIDPz6rm8hbebcP7vrQNhvRcveZoJU72Y7vskh4oIm+BZwBECnx5nTmrlres1Qapvx27Qo1Auukpf8PKXw==}
     engines: {node: '>=18'}
 
-  openapi3-ts@4.4.0:
-    resolution: {integrity: sha512-9asTNB9IkKEzWMcHmVZE7Ts3kC9G7AFHfs8i7caD8HbI76gEjdkId4z/AkP83xdZsH7PLAnnbl47qZkXuxpArw==}
+  openapi3-ts@4.5.0:
+    resolution: {integrity: sha512-jaL+HgTq2Gj5jRcfdutgRGLosCy/hT8sQf6VOy+P+g36cZOjI1iukdPnijC+4CmeRzg/jEllJUboEic2FhxhtQ==}
 
   optionator@0.9.4:
     resolution: {integrity: sha512-6IpQ7mKUxRcZNLIObR0hz7lxsapSSIYNZJwXPGeF0mTVqGKFIXj1DQcMoT22S3ROcLyY/rz0PWaWZ9ayWmad9g==}
@@ -4716,9 +4716,9 @@ packages:
     resolution: {integrity: sha512-r3vXyErRCYJ7wg28yvBY5VSoAF8ZvlcW9/BwUzEtUsjvX/DKs24dIkuwjtuprwJJHsbyUbLApepYTR1BN4uHrg==}
     engines: {node: '>= 6'}
 
-  yaml@2.7.0:
-    resolution: {integrity: sha512-+hSoy/QHluxmC9kCIJyL/uyFmLmc+e5CFR5Wa+bpIhIj85LVb9ZH2nVnqrHoSvKogwODv0ClqZkmiSSaIH5LTA==}
-    engines: {node: '>= 14'}
+  yaml@2.8.0:
+    resolution: {integrity: sha512-4lLa/EcQCB0cJkyts+FpIRx5G/llPxfP6VQU5KByHEhLxY3IJCH0f0Hy1MHI8sClTvsIb8qwRJ6R/ZdlDJ/leQ==}
+    engines: {node: '>= 14.6'}
     hasBin: true
 
   yargs-parser@21.1.1:
@@ -4758,7 +4758,7 @@ snapshots:
 
   '@asteasolutions/zod-to-openapi@7.3.0(zod@3.25.67)':
     dependencies:
-      openapi3-ts: 4.4.0
+      openapi3-ts: 4.5.0
       zod: 3.25.67
 
   '@babel/code-frame@7.26.2':
@@ -5218,11 +5218,12 @@ snapshots:
     dependencies:
       hono: 4.8.3
 
-  '@hono/zod-openapi@0.19.8(hono@4.8.3)(zod@3.25.67)':
+  '@hono/zod-openapi@0.19.9(hono@4.8.3)(zod@3.25.67)':
     dependencies:
       '@asteasolutions/zod-to-openapi': 7.3.0(zod@3.25.67)
       '@hono/zod-validator': 0.7.0(hono@4.8.3)(zod@3.25.67)
       hono: 4.8.3
+      openapi3-ts: 4.5.0
       zod: 3.25.67
 
   '@hono/zod-validator@0.7.0(hono@4.8.3)(zod@3.25.67)':
@@ -6878,7 +6879,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  electron-vite@3.1.0(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.7.0)):
+  electron-vite@3.1.0(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.8.0)):
     dependencies:
       '@babel/core': 7.26.10
       '@babel/plugin-transform-arrow-functions': 7.25.9(@babel/core@7.26.10)
@@ -6886,7 +6887,7 @@ snapshots:
       esbuild: 0.25.5
       magic-string: 0.30.17
       picocolors: 1.1.1
-      vite: 6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.7.0)
+      vite: 6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.8.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -8444,9 +8445,9 @@ snapshots:
       is-inside-container: 1.0.0
       is-wsl: 3.1.0
 
-  openapi3-ts@4.4.0:
+  openapi3-ts@4.5.0:
     dependencies:
-      yaml: 2.7.0
+      yaml: 2.8.0
 
   optionator@0.9.4:
     dependencies:
@@ -9437,17 +9438,17 @@ snapshots:
       extsprintf: 1.4.1
     optional: true
 
-  vite-dev-rpc@1.0.7(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.7.0)):
+  vite-dev-rpc@1.0.7(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.8.0)):
     dependencies:
       birpc: 2.2.0
-      vite: 6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.7.0)
-      vite-hot-client: 2.0.4(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.7.0))
+      vite: 6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.8.0)
+      vite-hot-client: 2.0.4(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.8.0))
 
-  vite-hot-client@2.0.4(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.7.0)):
+  vite-hot-client@2.0.4(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.8.0)):
     dependencies:
-      vite: 6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.7.0)
+      vite: 6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.8.0)
 
-  vite-plugin-inspect@11.2.0(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.7.0)):
+  vite-plugin-inspect@11.2.0(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.8.0)):
     dependencies:
       ansis: 3.17.0
       debug: 4.4.1
@@ -9457,8 +9458,8 @@ snapshots:
       perfect-debounce: 1.0.0
       sirv: 3.0.1
       unplugin-utils: 0.2.4
-      vite: 6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.7.0)
-      vite-dev-rpc: 1.0.7(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.7.0))
+      vite: 6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.8.0)
+      vite-dev-rpc: 1.0.7(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.8.0))
     transitivePeerDependencies:
       - supports-color
 
@@ -9466,7 +9467,7 @@ snapshots:
     dependencies:
       lib-esm: 0.4.2
 
-  vite-plugin-solid@2.11.7(solid-js@1.9.7)(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.7.0)):
+  vite-plugin-solid@2.11.7(solid-js@1.9.7)(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.8.0)):
     dependencies:
       '@babel/core': 7.26.10
       '@types/babel__core': 7.20.5
@@ -9474,12 +9475,12 @@ snapshots:
       merge-anything: 5.1.7
       solid-js: 1.9.7
       solid-refresh: 0.6.3(solid-js@1.9.7)
-      vite: 6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.7.0)
-      vitefu: 1.0.6(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.7.0))
+      vite: 6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.8.0)
+      vitefu: 1.0.6(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.8.0))
     transitivePeerDependencies:
       - supports-color
 
-  vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.7.0):
+  vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.8.0):
     dependencies:
       esbuild: 0.25.5
       fdir: 6.4.4(picomatch@4.0.2)
@@ -9491,11 +9492,11 @@ snapshots:
       '@types/node': 22.13.5
       fsevents: 2.3.3
       lightningcss: 1.30.1
-      yaml: 2.7.0
+      yaml: 2.8.0
 
-  vitefu@1.0.6(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.7.0)):
+  vitefu@1.0.6(vite@6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.8.0)):
     optionalDependencies:
-      vite: 6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.7.0)
+      vite: 6.3.5(@types/node@22.13.5)(lightningcss@1.30.1)(yaml@2.8.0)
 
   vudio@2.1.1(patch_hash=0e06c2ed11c02bdc490c209fa80070e98517c2735c641f5738b6e15d7dc1959d): {}
 
@@ -9614,7 +9615,7 @@ snapshots:
 
   yaml@1.10.2: {}
 
-  yaml@2.7.0: {}
+  yaml@2.8.0: {}
 
   yargs-parser@21.1.1: {}
 
