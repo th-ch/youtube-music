@@ -333,6 +333,30 @@
       "description": "Primijeni kompresiju na zvuk (smanjuje glasnoću najglasnijih dijelova signala i povećava glasnoću najslabijih dijelova)",
       "name": "Kompresor Zvuka"
     },
+    "auth-proxy-adapter": {
+      "description": "Podrška za korištenje usluga autentifikacijskog proxyja",
+      "menu": {
+        "disable": "Onemogući proxy adapter",
+        "enable": "Omogući proxy adapter",
+        "hostname": {
+          "label": "Naziv hosta"
+        },
+        "port": {
+          "label": "Port"
+        }
+      },
+      "name": "Proxy adapter za autentifikaciju",
+      "prompt": {
+        "hostname": {
+          "label": "Unesite naziv hosta za lokalnog proxy poslužitelja (zahtijeva ponovno pokretanje):",
+          "title": "Naziv hosta proxyja"
+        },
+        "port": {
+          "label": "Unesite port za lokalni proxy poslužitelj (zahtijeva ponovno pokretanje):",
+          "title": "Port proxyja"
+        }
+      }
+    },
     "blur-nav-bar": {
       "description": "Čini navigacijsku traku prozirnom i zamagljenom",
       "name": "Zamagli Navigacijsku Traku"
@@ -491,6 +515,18 @@
         "button": "Preuzmi"
       }
     },
+    "equalizer": {
+      "description": "Dodaje equalizer reprodukciji",
+      "menu": {
+        "presets": {
+          "label": "Zadane postavke",
+          "list": {
+            "bass-booster": "Pojačivač basa"
+          }
+        }
+      },
+      "name": "Ekvalizator"
+    },
     "exponential-volume": {
       "description": "Čini klizač glasnoće (volume slider) eksponencijalnim za lakše odabranje niže glasnoće.",
       "name": "Eksponencijalna Glasnoća"
@@ -583,8 +619,14 @@
           }
         },
         "priority": "Prioritet Obavijesti",
-        "toast-style": "Tipa Toast (kao Android obavjest)"
-      }
+        "toast-style": "Tipa Toast (kao Android obavjest)",
+        "unpause-notification": "Prikaži notifikaciju pri nastavku"
+      },
+      "name": "Obavijesti"
+    },
+    "performance-improvement": {
+      "description": "Poboljšati performanse uključivanjem eksperimentalnih skripti",
+      "name": "Poboljšanje performansa (Beta)"
     }
   }
 }

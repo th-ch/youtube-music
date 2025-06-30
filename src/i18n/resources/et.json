@@ -65,10 +65,12 @@
           "ok": "Sobib"
         },
         "detail": "Saadaval on uus versioon, ning seda saad alla laadida siit {{downloadLink}}",
-        "message": "Uus versioon on saadaval"
+        "message": "Uus versioon on saadaval",
+        "title": "Rakenduse uuendus on saadaval"
       }
     },
     "menu": {
+      "about": "Rakenduse teave",
       "navigation": {
         "label": "Liikumine",
         "submenu": {
@@ -89,7 +91,18 @@
               "disable-hardware-acceleration": "Lülita raudvaraline kiirendamine välja",
               "edit-config-json": "Muuda config.json faili"
             }
-          }
+          },
+          "language": {
+            "dialog": {
+              "message": "Keele muutmine jõustub peale uuesti käivitamist",
+              "title": "Keel on muutunud"
+            },
+            "label": "Keel",
+            "submenu": {
+              "to-help-translate": "Soovid aidata tõlkimisel? Klõpsi siin"
+            }
+          },
+          "resume-on-start": "Rakenduse käivitamisel jätka viimatiesitatud loo esitamist"
         }
       },
       "plugins": {
@@ -98,6 +111,7 @@
       },
       "view": {
         "submenu": {
+          "toggle-fullscreen": "Lülita täisekraanivaade sisse/välja",
           "zoom-in": "Suumi sisse",
           "zoom-out": "Suumi välja"
         }
@@ -139,6 +153,12 @@
           "label": "Kvaliteet",
           "submenu": {
             "pixels": "{{quality}} pikslit"
+          }
+        },
+        "size": {
+          "label": "Suurus",
+          "submenu": {
+            "percent": "{{size}}%"
           }
         }
       }
