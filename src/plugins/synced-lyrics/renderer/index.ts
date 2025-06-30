@@ -12,6 +12,10 @@ import type { SongInfo } from '@/providers/song-info';
 import type { SyncedLyricsPluginConfig } from '../types';
 
 export let _ytAPI: YoutubePlayer | null = null;
+export let netFetch: (
+  url: string,
+  init?: RequestInit
+) => Promise<[number, string, Record<string, string>]>;
 
 export const renderer = createRenderer<
   {
@@ -52,7 +56,7 @@ export const renderer = createRenderer<
     if (!this.updateTimestampInterval) {
       this.updateTimestampInterval = setInterval(
         () => setCurrentTime((_ytAPI?.getCurrentTime() ?? 0) * 1000),
-        100,
+        100
       );
     }
 
@@ -72,6 +76,8 @@ export const renderer = createRenderer<
   },
 
   async start(ctx: RendererContext<SyncedLyricsPluginConfig>) {
+    netFetch = ctx.ipc.invoke.bind(ctx.ipc, 'synced-lyrics:fetch');
+
     setConfig(await ctx.getConfig());
 
     ctx.ipc.on('ytmd:update-song-info', (info: SongInfo) => {
