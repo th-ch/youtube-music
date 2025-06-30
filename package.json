@@ -274,6 +274,7 @@
     "es-hangul": "2.3.4",
     "fast-average-color": "9.5.0",
     "fast-equals": "5.2.2",
+    "fflate": "0.8.2",
     "filenamify": "6.0.0",
     "hanja": "1.1.4",
     "happy-dom": "18.0.1",
