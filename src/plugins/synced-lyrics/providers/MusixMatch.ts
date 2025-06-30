@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 import { LRC } from '../parsers/lrc';
 import { netFetch } from '../renderer';
+
 import type { LyricProvider, LyricResult, SearchSongInfo } from '../types';
 
 export class MusixMatch implements LyricProvider {
@@ -25,10 +26,10 @@ export class MusixMatch implements LyricProvider {
       subtitle_format: 'lrc',
     });
 
-    const { macro_calls } = data.body;
+    const { macro_calls: macroCalls } = data.body;
 
     // prettier-ignore
-    const getter = <T extends keyof typeof macro_calls>(key: T): typeof macro_calls[T]['message']['body'] => macro_calls[key].message.body;
+    const getter = <T extends keyof typeof macroCalls>(key: T): typeof macroCalls[T]['message']['body'] => macroCalls[key].message.body;
 
     const track = getter('matcher.track.get')?.track;
     const lyrics = getter('track.lyrics.get')?.lyrics?.lyrics_body;
@@ -114,7 +115,7 @@ const ResponseSchema = {
                 .instanceof(Array)
                 .describe('default response for 404 status')
                 .transform(() => undefined)
-                .or(z.string().transform(() => undefined))
+                .or(z.string().transform(() => undefined)),
             )
             .optional(),
         }),
@@ -130,7 +131,7 @@ const ResponseSchema = {
                 .instanceof(Array)
                 .describe('default response for 404 status')
                 .transform(() => undefined)
-                .or(z.string().transform(() => undefined))
+                .or(z.string().transform(() => undefined)),
             )
 
             .optional(),
@@ -145,7 +146,7 @@ const ResponseSchema = {
                 .instanceof(Array)
                 .describe('default response for 404 status')
                 .transform(() => undefined)
-                .or(z.string().transform(() => undefined))
+                .or(z.string().transform(() => undefined)),
             )
             .optional(),
         }),
@@ -187,7 +188,7 @@ class MusixMatchAPI {
       body: T extends keyof typeof ResponseSchema
         ? z.infer<(typeof ResponseSchema)[T]>
         : unknown;
-    }
+    },
   >(endpoint: T, params: Params[T]): Promise<R> {
     await this.initPromise;
     if (!this.token) throw new Error('Token not initialized');
@@ -201,16 +202,16 @@ class MusixMatchAPI {
           format: 'json',
           usertoken: this.token,
         },
-        <Record<string, string>>params
-      )
+        <Record<string, string>>params,
+      ),
     );
 
-    const [_, json, headers] = await netFetch(`${url}?${clonedParams}`, {
+    const [, json, headers] = await netFetch(`${url}?${clonedParams}`, {
       headers: { Cookie: this.cookie },
     });
 
     const setCookie = Object.entries(headers).find(
-      ([key]) => key.toLowerCase() === 'set-cookie'
+      ([key]) => key.toLowerCase() === 'set-cookie',
     );
     if (setCookie) {
       this.cookie = setCookie[1];
@@ -225,23 +226,22 @@ class MusixMatchAPI {
       'status_code' in response.message.header && typeof response.message.header.status_code === 'number' &&
       response.message.header.status_code === 401
     ) {
-      this.reinit();
+      await this.reinit();
       return this.query(endpoint, params);
     }
 
-    const parsed = await z
+    const parsed = z
       .object({
         message: z.object({ body: ResponseSchema[endpoint] }),
       })
-      .safeParseAsync(response);
+      .safeParse(response);
 
     if (!parsed.success) {
       console.error('Malformed response', response, parsed.error);
       throw new Error('Failed to parse response from MusixMatch API');
     }
 
-    // @ts-expect-error weird union type issue
-    return parsed.data.message;
+    return parsed.data.message as R;
   }
 
   private savedTokenSchema = z.union([
@@ -258,7 +258,7 @@ class MusixMatchAPI {
   private key = 'ytm:synced-lyrics:mxm:token';
   private async init() {
     const { token, expires } = this.savedTokenSchema.parse(
-      JSON.parse(localStorage.getItem(this.key) ?? '{ "token": null }')
+      JSON.parse(localStorage.getItem(this.key) ?? '{ "token": null }'),
     );
     if (token && expires > Date.now()) {
       this.token = token;
@@ -272,7 +272,7 @@ class MusixMatchAPI {
 
     localStorage.setItem(
       this.key,
-      JSON.stringify({ token: this.token, expires: Date.now() + 60 * 1000 })
+      JSON.stringify({ token: this.token, expires: Date.now() + 60 * 1000 }),
     );
   }
 
@@ -292,11 +292,11 @@ class MusixMatchAPI {
       `${this.baseUrl}${endpoint}?${params}`,
       {
         headers: Object.assign({ Cookie: this.cookie }, this.headers),
-      }
+      },
     );
 
     const setCookie = Object.entries(headers).find(
-      ([key]) => key.toLowerCase() === 'set-cookie'
+      ([key]) => key.toLowerCase() === 'set-cookie',
     );
     if (setCookie) {
       this.cookie = setCookie[1];
