@@ -1,20 +1,17 @@
 import {
   createEffect,
-  createMemo,
   createSignal,
   onCleanup,
   onMount,
   Show,
   untrack,
 } from 'solid-js';
-import { VirtualizerHandle, VList } from 'virtua/solid';
+import { type VirtualizerHandle, VList } from 'virtua/solid';
 
 import { LyricsPicker } from './components/LyricsPicker';
 
 import { selectors } from './utils';
 
-import type { LineLyrics, SyncedLyricsPluginConfig } from '../types';
-import { currentLyrics } from '../providers';
 import {
   ErrorDisplay,
   LoadingKaomoji,
@@ -22,6 +19,10 @@ import {
   SyncedLine,
   PlainLyrics,
 } from './components';
+
+import { currentLyrics } from '../providers';
+
+import type { LineLyrics, SyncedLyricsPluginConfig } from '../types';
 
 export const [isVisible, setIsVisible] = createSignal<boolean>(false);
 export const [config, setConfig] =
@@ -156,7 +157,7 @@ export const LyricsRenderer = () => {
 
     const { top } = tab.getBoundingClientRect();
     const { clientHeight: height } = stickyRef()!;
-    const scrollOffset = scroller()!.scrollOffset;
+    const scrollOffset = scroller()?.scrollOffset ?? -1;
 
     const isInView = scrollOffset <= height;
     const isMouseOver = mouseCoord - top - 5 <= height;
@@ -173,7 +174,7 @@ export const LyricsRenderer = () => {
   };
 
   onMount(() => {
-    const vList = document.querySelector<HTMLElement>(`.synced-lyrics-vlist`);
+    const vList = document.querySelector<HTMLElement>('.synced-lyrics-vlist');
 
     tab.addEventListener('mousemove', mousemoveListener);
     vList?.addEventListener('scroll', mousemoveListener);
@@ -209,7 +210,7 @@ export const LyricsRenderer = () => {
       }
 
       if (data?.lines) {
-        return data.lines!.map((line) => ({
+        return data.lines.map((line) => ({
           kind: 'SyncedLine' as const,
           line,
         }));
@@ -234,7 +235,7 @@ export const LyricsRenderer = () => {
     const time = currentTime();
     const data = currentLyrics()?.data;
 
-    if (!data || !data.lines) return setStatuses([]), void 0;
+    if (!data || !data.lines) return setStatuses([]);
 
     const previous = untrack(statuses);
     const current = data.lines.map((line) => {
@@ -243,10 +244,11 @@ export const LyricsRenderer = () => {
       return 'current';
     });
 
-    if (previous.length !== current.length) return setStatuses(current), void 0;
+    if (previous.length !== current.length) return setStatuses(current);
     if (previous.every((status, idx) => status === current[idx])) return;
 
     setStatuses(current);
+    return;
   });
 
   const [currentIndex, setCurrentIndex] = createSignal(0);
