@@ -40,7 +40,7 @@ export default function (
   mode: 'backend' | 'preload' | 'renderer' | 'none',
 ): PluginOption {
   const pluginFilter = createFilter([
-    'src/plugins/*/index.{js,ts}',
+    'src/plugins/*/index.{js,ts,jsx,tsx}',
     'src/plugins/*',
   ]);
 
@@ -49,7 +49,6 @@ export default function (
     load(id) {
       if (!pluginFilter(id)) return null;
 
-      // Read file asynchronously
       const fileContent = readFileSync(id, 'utf8');
       // Create or update source file in the global project instance
       const src = globalProject.createSourceFile(
@@ -140,6 +139,7 @@ export default function (
 
       return {
         code: src.getText(),
+        moduleType: 'ts',
       };
     },
   };
