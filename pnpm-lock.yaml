@@ -285,8 +285,8 @@ importers:
         specifier: 6.0.0
         version: 6.0.0
       discord-api-types:
-        specifier: 0.38.13
-        version: 0.38.13
+        specifier: 0.38.14
+        version: 0.38.14
       electron:
         specifier: 37.1.0
         version: 37.1.0
@@ -2163,8 +2163,8 @@ packages:
   discord-api-types@0.37.120:
     resolution: {integrity: sha512-7xpNK0EiWjjDFp2nAhHXezE4OUWm7s1zhc/UXXN6hnFFU8dfoPHgV0Hx0RPiCa3ILRpdeh152icc68DGCyXYIw==}
 
-  discord-api-types@0.38.13:
-    resolution: {integrity: sha512-FELWJRgLVQuR7Az8RhdEZE0k6QNjSW9PCUcU1iyP2Gke8HrJmnMceSS9pD93UM64s3tvZzJPajpPLjWZJylf4g==}
+  discord-api-types@0.38.14:
+    resolution: {integrity: sha512-5qknrPxvIzAiX2tDb7dB55A4ydb/nCKxhlO48RrMNeyEGsBgk/88qIAsUm7K7nDnNkkOgJYt/wufybEPYWRMJQ==}
 
   dmg-builder@26.0.12:
     resolution: {integrity: sha512-59CAAjAhTaIMCN8y9kD573vDkxbs1uhDcrFLHSgutYdPcGOU35Rf95725snvzEOy4BFB7+eLJ8djCNPmGwG67w==}
@@ -5005,7 +5005,7 @@ snapshots:
       '@sapphire/async-queue': 1.5.5
       '@sapphire/snowflake': 3.5.5
       '@vladfrangu/async_event_emitter': 2.4.6
-      discord-api-types: 0.38.13
+      discord-api-types: 0.38.14
       magic-bytes.js: 1.10.0
       tslib: 2.8.1
       undici: 6.21.1
@@ -6853,7 +6853,7 @@ snapshots:
 
   discord-api-types@0.37.120: {}
 
-  discord-api-types@0.38.13: {}
+  discord-api-types@0.38.14: {}
 
   dmg-builder@26.0.12(electron-builder-squirrel-windows@26.0.12):
     dependencies:
