@@ -1,63 +1,14 @@
-diff --git a/.idea/.gitignore b/.idea/.gitignore
-new file mode 100644
-index 0000000000000000000000000000000000000000..c3f502a199e7b13cdb5ce0471aa23adcd218f4a8
---- /dev/null
-+++ b/.idea/.gitignore
-@@ -0,0 +1,8 @@
-+# 디폴트 무시된 파일
-+/shelf/
-+/workspace.xml
-+# 에디터 기반 HTTP 클라이언트 요청
-+/httpRequests/
-+# Datasource local storage ignored files
-+/dataSources/
-+/dataSources.local.xml
-diff --git a/.idea/discord.xml b/.idea/discord.xml
-new file mode 100644
-index 0000000000000000000000000000000000000000..9b28b4a45a383d25057c32221f854bc4fb89d0e5
---- /dev/null
-+++ b/.idea/discord.xml
-@@ -0,0 +1,12 @@
-+<?xml version="1.0" encoding="UTF-8"?>
-+<project version="4">
-+  <component name="DiscordProjectSettings">
-+    <option name="show" value="ASK" />
-+    <option name="description" value="" />
-+    <option name="theme" value="material" />
-+    <option name="button1Title" value="" />
-+    <option name="button1Url" value="" />
-+    <option name="button2Title" value="" />
-+    <option name="button2Url" value="" />
-+  </component>
-+</project>
-\ No newline at end of file
-diff --git a/.idea/workspace.xml b/.idea/workspace.xml
-new file mode 100644
-index 0000000000000000000000000000000000000000..8744590a49ab577e0ec11e1cf8baa9c658ba2719
---- /dev/null
-+++ b/.idea/workspace.xml
-@@ -0,0 +1,9 @@
-+<?xml version="1.0" encoding="UTF-8"?>
-+<project version="4">
-+  <component name="ProjectViewState">
-+    <option name="hideEmptyMiddlePackages" value="true" />
-+    <option name="showExcludedFiles" value="false" />
-+    <option name="showLibraryContents" value="true" />
-+  </component>
-+  <component name="PropertiesComponent">{}</component>
-+</project>
-\ No newline at end of file
 diff --git a/core.js b/core.js
 index d653e66a4056c27cca777d4e25222acae3b2ec85..a91741d67df85fd9627889a6c7197ac4e6a3a813 100644
 --- a/core.js
 +++ b/core.js
 @@ -1415,8 +1415,7 @@ async function _fromTokenizer(tokenizer) {
  }
- 
+
  const stream = readableStream => new Promise((resolve, reject) => {
 -	// Using `eval` to work around issues when bundling with Webpack
 -	const stream = eval('require')('stream'); // eslint-disable-line no-eval
-+	const stream = require('node:stream'); // eslint-disable-line no-eval
- 
++	const stream = require('node:stream');
+
  	readableStream.on('error', reject);
  	readableStream.once('readable', async () => {

@@ -18,7 +18,7 @@ patchedDependencies:
     hash: c787371eeb2af011ea934e8818a0dad6d7dcb2df31bbb1686babc7231af0183c
     path: patches/@malept__flatpak-bundler@0.4.0.patch
   file-type@16.5.4:
-    hash: e74fa068cbc125d0e5e149e4bb541974e3df88f023bbf105f1efe2028740e67c
+    hash: fa6e3546c096bc3579fd83808c2dfac1a64546eb2ce096bf838076bda630baf5
     path: patches/file-type@16.5.4.patch
   kuromoji@0.1.2:
     hash: 4a948f1ea45c61779fa371feb020253ccf7a24e1f7c6b2e250b3ce53d86216d4
@@ -5405,7 +5405,7 @@ snapshots:
       '@jimp/utils': 1.6.0
       await-to-js: 3.0.0
       exif-parser: 0.1.12
-      file-type: 16.5.4(patch_hash=e74fa068cbc125d0e5e149e4bb541974e3df88f023bbf105f1efe2028740e67c)
+      file-type: 16.5.4(patch_hash=fa6e3546c096bc3579fd83808c2dfac1a64546eb2ce096bf838076bda630baf5)
       mime: 3.0.0
 
   '@jimp/diff@1.6.0':
@@ -7479,7 +7479,7 @@ snapshots:
     dependencies:
       flat-cache: 4.0.1
 
-  file-type@16.5.4(patch_hash=e74fa068cbc125d0e5e149e4bb541974e3df88f023bbf105f1efe2028740e67c):
+  file-type@16.5.4(patch_hash=fa6e3546c096bc3579fd83808c2dfac1a64546eb2ce096bf838076bda630baf5):
     dependencies:
       readable-web-to-node-stream: 3.0.4
       strtok3: 6.3.0
