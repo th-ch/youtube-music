@@ -6,13 +6,13 @@ import builtinModules from 'builtin-modules';
 
 import Inspect from 'vite-plugin-inspect';
 import solidPlugin from 'vite-plugin-solid';
+import viteResolve from 'vite-plugin-resolve';
 
-import viteResolve from './vite-plugins/vite-plugin-resolve.mjs';
+import { withFilter, type UserConfig } from 'vite';
+
 import { pluginVirtualModuleGenerator } from './vite-plugins/plugin-importer.mjs';
 import pluginLoader from './vite-plugins/plugin-loader.mjs';
 import { i18nImporter } from './vite-plugins/i18n-importer.mjs';
-
-import type { UserConfig } from 'vite';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -128,7 +128,7 @@ export default defineConfig({
   renderer: defineViteConfig(({ mode }) => {
     const commonConfig: UserConfig = {
       experimental: {
-        enableNativePlugin: true,
+        enableNativePlugin: false,
       },
       plugins: [
         pluginLoader('renderer'),
@@ -136,7 +136,9 @@ export default defineConfig({
           'virtual:i18n': i18nImporter(),
           'virtual:plugins': pluginVirtualModuleGenerator('renderer'),
         }),
-        solidPlugin(),
+        withFilter(solidPlugin(), {
+          load: { id: [/\.(tsx|jsx)$/, '/@solid-refresh'] },
+        }),
       ],
       root: './src/',
       build: {
