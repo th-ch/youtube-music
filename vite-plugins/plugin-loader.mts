@@ -53,20 +53,23 @@ export default function (
           { overwrite: true },
         );
 
-        const exports = src.getExportedDeclarations();
         let objExpr: ObjectLiteralExpression | undefined;
 
-        // Identify the default export as an object literal, or via a 'createPlugin' call
-        for (const [exportName, declarations] of exports) {
-          if (exportName !== 'default') continue;
-          const expr = declarations[0];
+        // Check for `export default ...`
+        const defaultExportAssignment = src.getExportAssignment(
+          (ea) => !ea.isExportEquals(), // Filter out `export = `
+        );
 
-          const exprKind = expr.getKind();
-          if (exprKind === ts.SyntaxKind.ObjectLiteralExpression) {
-            objExpr = expr.asKindOrThrow(ts.SyntaxKind.ObjectLiteralExpression);
-            break;
-          } else if (exprKind === ts.SyntaxKind.CallExpression) {
-            const callExpr = expr.asKindOrThrow(ts.SyntaxKind.CallExpression);
+        if (defaultExportAssignment) {
+          const expression = defaultExportAssignment.getExpression();
+          if (expression.getKind() === ts.SyntaxKind.ObjectLiteralExpression) {
+            objExpr = expression.asKindOrThrow(
+              ts.SyntaxKind.ObjectLiteralExpression,
+            );
+          } else if (expression.getKind() === ts.SyntaxKind.CallExpression) {
+            const callExpr = expression.asKindOrThrow(
+              ts.SyntaxKind.CallExpression,
+            );
             if (
               callExpr.getArguments().length === 1 &&
               callExpr.getExpression().getText() === 'createPlugin'
@@ -76,7 +79,34 @@ export default function (
                 objExpr = arg.asKindOrThrow(
                   ts.SyntaxKind.ObjectLiteralExpression,
                 );
-                break;
+              }
+            }
+          }
+        }
+
+        // If not found via `export default`, check for a named export aliased as 'default'
+        if (!objExpr) {
+          const defaultExportDeclaration = src
+            .getExportedDeclarations()
+            .get('default');
+          if (defaultExportDeclaration && defaultExportDeclaration.length > 0) {
+            const expr = defaultExportDeclaration[0];
+            if (expr.getKind() === ts.SyntaxKind.ObjectLiteralExpression) {
+              objExpr = expr.asKindOrThrow(
+                ts.SyntaxKind.ObjectLiteralExpression,
+              );
+            } else if (expr.getKind() === ts.SyntaxKind.CallExpression) {
+              const callExpr = expr.asKindOrThrow(ts.SyntaxKind.CallExpression);
+              if (
+                callExpr.getArguments().length === 1 &&
+                callExpr.getExpression().getText() === 'createPlugin'
+              ) {
+                const arg = callExpr.getArguments()[0];
+                if (arg.getKind() === ts.SyntaxKind.ObjectLiteralExpression) {
+                  objExpr = arg.asKindOrThrow(
+                    ts.SyntaxKind.ObjectLiteralExpression,
+                  );
+                }
               }
             }
           }
