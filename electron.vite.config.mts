@@ -128,7 +128,7 @@ export default defineConfig({
   renderer: defineViteConfig(({ mode }) => {
     const commonConfig: UserConfig = {
       experimental: {
-        enableNativePlugin: false,
+        enableNativePlugin: mode !== 'development', // Disable native plugin in development mode to avoid issues with HMR (bug in rolldown-vite)
       },
       plugins: [
         pluginLoader('renderer'),
