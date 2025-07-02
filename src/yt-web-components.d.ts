@@ -34,8 +34,13 @@ declare module 'solid-js' {
       icon: Icons;
     }
 
+    interface YtmdTransProps {
+      key?: string;
+    }
+
     interface IntrinsicElements {
       center: ComponentProps<'div'>;
+      'ytmd-trans': ComponentProps<'span'> & YtmdTransProps;
       'yt-formatted-string': ComponentProps<'span'> & YtFormattedStringProps;
       'yt-button-renderer': ComponentProps<'button'> & YtButtonRendererProps;
       'tp-yt-paper-spinner-lite': ComponentProps<'div'> &
