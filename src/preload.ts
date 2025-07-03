@@ -8,6 +8,32 @@ import is from 'electron-is';
 
 import config from './config';
 
+import customElementsES5Adapter from '@assets/custom-elements-es5-adapter.js?raw';
+new MutationObserver((mutations, observer) => {
+  outer: for (const mutation of mutations) {
+    for (const node of mutation.addedNodes) {
+      const elem = node as HTMLElement;
+      if (elem.tagName !== 'SCRIPT') continue;
+
+      const parent = elem.parentElement!!;
+      const script = elem as HTMLScriptElement;
+      if (
+        !script.getAttribute('src')?.endsWith('custom-elements-es5-adapter.js')
+      )
+        continue;
+
+      script.remove();
+      script.removeAttribute('src');
+      script.innerHTML = customElementsES5Adapter;
+
+      parent.appendChild(script);
+      observer.disconnect();
+
+      break outer;
+    }
+  }
+}).observe(document, { subtree: true, childList: true });
+
 import {
   forceLoadPreloadPlugin,
   forceUnloadPreloadPlugin,
