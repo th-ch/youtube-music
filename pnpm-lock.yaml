@@ -56,8 +56,8 @@ importers:
         specifier: 2.9.2
         version: 2.9.2(electron@37.1.0)
       '@hono/node-server':
-        specifier: 1.14.4
-        version: 1.14.4(hono@4.8.3)
+        specifier: 1.15.0
+        version: 1.15.0(hono@4.8.3)
       '@hono/swagger-ui':
         specifier: 0.5.2
         version: 0.5.2(hono@4.8.3)
@@ -788,8 +788,8 @@ packages:
   '@ghostery/url-parser@1.3.0':
     resolution: {integrity: sha512-FEzdSeiva0Mt3bR4xePFzthhjT4IzvA5QTvS1xXkNyLpMGeq40mb3V2fSs0ZItRaP9IybZthDfHUSbQ1HLdx4Q==}
 
-  '@hono/node-server@1.14.4':
-    resolution: {integrity: sha512-DnxpshhYewr2q9ZN8ez/M5mmc3sucr8CT1sIgIy1bkeUXut9XWDkqHoFHRhWIQgkYnKpVRxunyhK7WzpJeJ6qQ==}
+  '@hono/node-server@1.15.0':
+    resolution: {integrity: sha512-MjmK4l5N4dQpZ9OSWN0tCj7ejuc7WvuWMzSKtc89bnknJykAeHxzRigXBTYZk85H6Awrii6RM59iUiUluApu2A==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       hono: ^4
@@ -5325,7 +5325,7 @@ snapshots:
     dependencies:
       tldts-experimental: 7.0.9
 
-  '@hono/node-server@1.14.4(hono@4.8.3)':
+  '@hono/node-server@1.15.0(hono@4.8.3)':
     dependencies:
       hono: 4.8.3
 
