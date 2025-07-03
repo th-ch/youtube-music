@@ -13,8 +13,8 @@ export function getPlugins() {
 
 export function isEnabled(plugin: string) {
   const pluginConfig = deepmerge(
-    allPlugins[plugin].config ?? { enabled: false },
-    (store.get('plugins') as Record<string, PluginConfig>)[plugin] ?? {},
+    allPlugins[plugin]?.config ?? { enabled: false },
+    (store.get('plugins') as Record<string, PluginConfig>)[plugin] ?? {}
   );
   return pluginConfig !== undefined && pluginConfig.enabled;
 }
