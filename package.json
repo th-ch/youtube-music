@@ -226,7 +226,7 @@
       "node-gyp": "11.2.0",
       "xml2js": "0.6.2",
       "node-fetch": "3.3.2",
-      "@electron/universal": "2.0.3",
+      "@electron/universal": "3.0.0",
       "@babel/runtime": "7.27.6",
       "vitefu": "1.0.7"
     },

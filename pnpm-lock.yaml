@@ -9,7 +9,7 @@ overrides:
   node-gyp: 11.2.0
   xml2js: 0.6.2
   node-fetch: 3.3.2
-  '@electron/universal': 2.0.3
+  '@electron/universal': 3.0.0
   '@babel/runtime': 7.27.6
   vitefu: 1.0.7
 
@@ -501,6 +501,11 @@ packages:
     engines: {node: '>=10.12.0'}
     hasBin: true
 
+  '@electron/asar@4.0.0':
+    resolution: {integrity: sha512-tBqVW/Z/iZ88ZGCXtg8jaGVlip6HzVIRUm0RHZ6+YtBMmWQG8jQxF68yLWlNxYXnndBVpwwofQNdt0EicmD0Vg==}
+    engines: {node: '>=22.12.0'}
+    hasBin: true
+
   '@electron/fuses@1.8.0':
     resolution: {integrity: sha512-zx0EIq78WlY/lBb1uXlziZmDZI4ubcCXIMJ4uGjXzZW0nS19TjSPeXPAjzzTmKQlJUZm0SbmZhPKP7tuQ1SsEw==}
     hasBin: true
@@ -534,9 +539,9 @@ packages:
     peerDependencies:
       electron: '>= 13.0.0'
 
-  '@electron/universal@2.0.3':
-    resolution: {integrity: sha512-Wn9sPYIVFRFl5HmwMJkARCCf7rqK/EurkfQ/rJZ14mHP3iYTjZSIOSVonEAnhWeAXwtw7zOekGRlc6yTtZ0t+g==}
-    engines: {node: '>=16.4'}
+  '@electron/universal@3.0.0':
+    resolution: {integrity: sha512-5oSmF7VDDV+QeWZu+fTKdyUXLPGXv/3Q9NRkow5QvOYIxjsIlQcPGT+RS+YPkADnaeYbatBySOP16bSXoTJWuQ==}
+    engines: {node: '>=22.12.0'}
 
   '@electron/windows-sign@1.2.1':
     resolution: {integrity: sha512-YfASnrhJ+ve6Q43ZiDwmpBgYgi2u0bYjeAVi2tDfN7YWAKO8X9EEOuPGtqbJpPLM6TfAHimghICjWe2eaJ8BAg==}
@@ -1963,6 +1968,10 @@ packages:
   combined-stream@1.0.8:
     resolution: {integrity: sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==}
     engines: {node: '>= 0.8'}
+
+  commander@13.1.0:
+    resolution: {integrity: sha512-/rFeCpNJQbhSZjGVwO9RFV3xPqbnERS8MmIQzCtD/zl6gpJuV/bMLuN92oG3F7d8oDEHHRrujSXNUr8fpjntKw==}
+    engines: {node: '>=18'}
 
   commander@5.1.0:
     resolution: {integrity: sha512-P0CysNDQ7rtVw4QIQtm+MRxV66vKFSvlsQvGYXZWR3qFU0jlMKHZZZgw8e+8DSah4UDKMqnknRDQz+xuQXQ/Zg==}
@@ -5031,6 +5040,12 @@ snapshots:
       glob: 7.2.3
       minimatch: 3.1.2
 
+  '@electron/asar@4.0.0':
+    dependencies:
+      commander: 13.1.0
+      glob: 11.0.3
+      minimatch: 10.0.3
+
   '@electron/fuses@1.8.0':
     dependencies:
       chalk: 4.1.2
@@ -5110,13 +5125,12 @@ snapshots:
     dependencies:
       electron: 37.1.0
 
-  '@electron/universal@2.0.3':
+  '@electron/universal@3.0.0':
     dependencies:
-      '@electron/asar': 3.3.1
+      '@electron/asar': 4.0.0
       '@malept/cross-spawn-promise': 2.0.0
       debug: 4.4.1
       dir-compare: 4.2.0
-      fs-extra: 11.3.0
       minimatch: 9.0.5
       plist: 3.1.0
     transitivePeerDependencies:
@@ -6209,7 +6223,7 @@ snapshots:
       '@electron/notarize': 2.5.0
       '@electron/osx-sign': 1.3.1
       '@electron/rebuild': 3.7.0
-      '@electron/universal': 2.0.3
+      '@electron/universal': 3.0.0
       '@malept/flatpak-bundler': 0.4.0(patch_hash=c787371eeb2af011ea934e8818a0dad6d7dcb2df31bbb1686babc7231af0183c)
       '@types/fs-extra': 9.0.13
       async-exit-hook: 2.0.1
@@ -6636,6 +6650,8 @@ snapshots:
   combined-stream@1.0.8:
     dependencies:
       delayed-stream: 1.0.0
+
+  commander@13.1.0: {}
 
   commander@5.1.0: {}
 
@@ -7544,6 +7560,7 @@ snapshots:
       graceful-fs: 4.2.11
       jsonfile: 6.1.0
       universalify: 2.0.1
+    optional: true
 
   fs-extra@7.0.1:
     dependencies:
