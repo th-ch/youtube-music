@@ -228,7 +228,7 @@
       "node-fetch": "3.3.2",
       "@electron/universal": "2.0.3",
       "@babel/runtime": "7.27.6",
-      "vitefu": "1.0.7"
+      "vitefu": "1.1.1"
     },
     "patchedDependencies": {
       "vudio@2.1.1": "patches/vudio@2.1.1.patch",

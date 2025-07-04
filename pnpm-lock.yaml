@@ -11,7 +11,7 @@ overrides:
   node-fetch: 3.3.2
   '@electron/universal': 2.0.3
   '@babel/runtime': 7.27.6
-  vitefu: 1.0.7
+  vitefu: 1.1.1
 
 patchedDependencies:
   '@malept/flatpak-bundler@0.4.0':
@@ -4706,8 +4706,8 @@ packages:
       '@testing-library/jest-dom':
         optional: true
 
-  vitefu@1.0.7:
-    resolution: {integrity: sha512-eRWXLBbJjW3X5z5P5IHcSm2yYbYRPb2kQuc+oqsbAl99WB5kVsPbiiox+cymo8twTzifA6itvhr2CmjnaZZp0Q==}
+  vitefu@1.1.1:
+    resolution: {integrity: sha512-B/Fegf3i8zh0yFbpzZ21amWzHmuNlLlmJT6n7bu5e+pCHUKQIfXSYokrqOBGEMMe9UG2sostKQF9mml/vYaWJQ==}
     peerDependencies:
       vite: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0-beta.0
     peerDependenciesMeta:
@@ -9677,11 +9677,11 @@ snapshots:
       solid-js: 1.9.7
       solid-refresh: 0.6.3(solid-js@1.9.7)
       vite: rolldown-vite@7.0.4(@types/node@22.13.5)(esbuild@0.25.5)(yaml@2.8.0)
-      vitefu: 1.0.7(rolldown-vite@7.0.4(@types/node@22.13.5)(esbuild@0.25.5)(yaml@2.8.0))
+      vitefu: 1.1.1(rolldown-vite@7.0.4(@types/node@22.13.5)(esbuild@0.25.5)(yaml@2.8.0))
     transitivePeerDependencies:
       - supports-color
 
-  vitefu@1.0.7(rolldown-vite@7.0.4(@types/node@22.13.5)(esbuild@0.25.5)(yaml@2.8.0)):
+  vitefu@1.1.1(rolldown-vite@7.0.4(@types/node@22.13.5)(esbuild@0.25.5)(yaml@2.8.0)):
     optionalDependencies:
       vite: rolldown-vite@7.0.4(@types/node@22.13.5)(esbuild@0.25.5)(yaml@2.8.0)
 
