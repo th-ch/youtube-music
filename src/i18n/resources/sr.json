@@ -436,7 +436,7 @@
       "name": "Discord Rich Presence",
       "prompt": {
         "set-inactivity-timeout": {
-          "label": "Unesi vreme za tajmer neaktivnosti u sekundama"
+          "label": "Unesi vreme za tajmer neaktivnosti u sekundama."
         }
       }
     }
