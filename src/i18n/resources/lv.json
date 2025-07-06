@@ -456,7 +456,9 @@
             "buttons": {
               "ok": "OK"
             },
-            "detail": "({{Dziesmu skaits}}Dziesmas)"
+            "detail": "({{Dziesmuskaits}} Dziesmas)",
+            "message": "Lejupielādē atskaņošanas sarakstu {{playlistTitle}}",
+            "title": "Lejupielāde sākta"
           }
         }
       }
