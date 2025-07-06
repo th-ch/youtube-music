@@ -436,7 +436,26 @@
       "name": "Discord Rich Presence",
       "prompt": {
         "set-inactivity-timeout": {
-          "label": "Unesi vreme za tajmer neaktivnosti u sekundama."
+          "label": "Unesi vreme za tajmer neaktivnosti u sekundama:",
+          "title": "Podesi tajmer neaktivnosti"
+        }
+      }
+    },
+    "downloader": {
+      "backend": {
+        "dialog": {
+          "error": {
+            "buttons": {
+              "ok": "U redu"
+            },
+            "message": "Greška! Izvinjavamo se, preuzimanje nije uspelo…",
+            "title": "Greška pri preuzimanju!"
+          },
+          "start-download-playlist": {
+            "buttons": {
+              "ok": "U  redu"
+            }
+          }
         }
       }
     }
