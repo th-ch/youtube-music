@@ -283,8 +283,58 @@
       "description": "Dodaje podršku za 'Amuse now' vidžet (6K Labs) u YouTube Muziku",
       "name": "Amuse",
       "response": {
-        "query": "Amuse API server je pokrenut. GET /query da biste dobili informacije o numeri"
+        "query": "Amuse API server je pokrenut. GET /query da biste dobili informacije o numeri."
       }
+    },
+    "api-server": {
+      "description": "Dodaje API server za kontrolu muzičkog plejera",
+      "dialog": {
+        "request": {
+          "buttons": {
+            "allow": "Dozvoli",
+            "deny": "Ne dozvoli"
+          },
+          "message": "Dozvoli {{ID}} ({{origin}}) da pristupa API-ju?",
+          "title": "Zahtev za autorizaciju na API"
+        }
+      },
+      "menu": {
+        "auth-strategy": {
+          "label": "Strategija za autorizaciju",
+          "submenu": {
+            "auth-at-first": {
+              "label": "Autorizuj na prvom zahtevu"
+            },
+            "none": {
+              "label": "Bez autorizacije"
+            }
+          }
+        },
+        "hostname": {
+          "label": "Host"
+        },
+        "port": {
+          "label": "Port"
+        }
+      },
+      "name": "API Server [Beta]",
+      "prompt": {
+        "hostname": {
+          "label": "Unesite host (npr. 0.0.0.0) za API server:",
+          "title": "Host"
+        },
+        "port": {
+          "label": "Unesite port za API server:",
+          "title": "Port"
+        }
+      }
+    },
+    "audio-compressor": {
+      "description": "Primeni kompresiju audio trake (smanjuje jačinu zvuka na najglasnijim delovima signala, i povećava jačinu na najnižim)",
+      "name": "Kompresor zvuka"
+    },
+    "auth-proxy-adapter": {
+      "name": "Proxy za autorizaciju"
     }
   }
 }
