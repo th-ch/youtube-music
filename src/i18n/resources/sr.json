@@ -464,9 +464,67 @@
           "conversion-progress": "Konverzija: {{percent}}%",
           "converting": "Konvertuje se…",
           "done": "Završeno: {{filePath}}",
-          "download-info": "PReuzima se {{artist}} - {{title}} [{{videoId}}"
+          "download-info": "Preuzima se {{artist}} - {{title}} [{{videoId}}",
+          "download-progress": "Preuzimanje: {{percent}}%",
+          "downloading": "Preuzimanje…",
+          "downloading-counter": "Preuzimanje {{current}}/{{total}}…",
+          "downloading-playlist": "Preuzimanje plejliste \"{{playlistTitle}}\" - {{playlistSize}} numera ({{playlistId}})",
+          "error-while-downloading": "Greška pri preuzimanju \"{{author}} - {{title}}\": {{error}}",
+          "folder-already-exists": "Direktorijum {{playlistFolder}} već postoji",
+          "getting-playlist-info": "Preuzimanje informacija o plejlisti…",
+          "loading": "Učitavanje…",
+          "playlist-has-only-one-song": "Plejlista sadrži samo jednu numeru, preuzima se direktno",
+          "playlist-id-not-found": "Nije pronađen ID plejliste",
+          "playlist-is-empty": "Plejlista je prazna",
+          "playlist-is-mix-or-private": "Greška pri preuzimanju informacija o plejlisti: proverite da li je možda skrivena ili \"Mixed for you\" plejlista\n\n{{error}}",
+          "preparing-file": "Pripremanje datoteke…",
+          "saving": "Čuvanje…",
+          "trying-to-get-playlist-id": "Pokušaj preuzimanja ID plejliste: {{playlistId}}",
+          "video-id-not-found": "Video nije pronađen",
+          "writing-id3": "Zapisivanje ID3 tagova…"
         }
+      },
+      "description": "Preuzimanje MP3 / izvornog zvuka direktno sa interfejsa",
+      "menu": {
+        "choose-download-folder": "Odaberite direktorijum za preuzimanja",
+        "download-finish-settings": {
+          "label": "Preuzmi na završetku",
+          "prompt": {
+            "last-percent": "Nakon x procenata",
+            "last-seconds": "Poslednjih x sekundi",
+            "title": "Podesite kad da se vrši preuzimanje"
+          },
+          "submenu": {
+            "advanced": "Napredno",
+            "enabled": "Omogućeno",
+            "mode": "Vremenski režim",
+            "percent": "Procenat(a)",
+            "seconds": "Sekundi"
+          }
+        },
+        "download-playlist": "Preuzmi plejlistu",
+        "presets": "Predefinisana podešavanja",
+        "skip-existing": "Preskoči postojeće datoteke"
+      },
+      "name": "Servis za preuzimanje",
+      "renderer": {
+        "can-not-update-progress": "Nemoguće ažuriranje trenutnog progresa"
+      },
+      "templates": {
+        "button": "Preuzimanje"
       }
+    },
+    "equalizer": {
+      "description": "Dodaje 'equalizer' u muzički plejer",
+      "menu": {
+        "presets": {
+          "label": "Predefinisana podešavanja",
+          "list": {
+            "bass-booster": "Pojačivač basa"
+          }
+        }
+      },
+      "name": "Equalizer"
     }
   }
 }
