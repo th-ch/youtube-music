@@ -1,7 +1,290 @@
 {
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "Neuspešno izvršavanje ekstenzije {{pluginName}}::{{contextName}}",
+        "executed-at-ms": "Ekstenzija {{pluginName}}::{{contextName}} se izvršila za {{ms}}ms",
+        "initialize-failed": "Greška pri učitavanju ekstenzije \"{{pluginName}}\"",
+        "load-all": "Učitavanje svih ekstenzija",
+        "load-failed": "Neuspešno učitavanje ekstenzije \"{{pluginName}}\"",
+        "loaded": "Ekstenzija \"{{pluginName}}\" je učitana",
+        "unload-failed": "Greška pri oslobađanju ekstenzije \"{{pluginName}}\"",
+        "unloaded": "Ekstenzija \"{{pluginName}}\" je oslobođena"
+      }
+    }
+  },
   "language": {
     "code": "sr",
     "local-name": "Српски",
     "name": "Serbian"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "Završeno učitavanje. DevTools alat je otvoren"
+      },
+      "i18n": {
+        "loaded": "i18n su učitani"
+      },
+      "second-instance": {
+        "receive-command": "Primljena je komanda kroz protokol: \"{{command}}\""
+      },
+      "theme": {
+        "css-file-not-found": "CSS datoteka \"{{cssFile}}\" ne postoji, ignorisano"
+      },
+      "unresponsive": {
+        "details": "Aplikacija ne odgovara!\n{{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "Čišćenje keširanih podataka"
+      },
+      "window": {
+        "tried-to-render-offscreen": "Prozor je pokušao da se učita van ekrana: windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "detail": "Meni je sakriven, pritisnite 'Alt' da biste ga prikazali (ili 'Escape' ako koristite meni u aplikaciji)",
+        "message": "Opcija sakrivanja menija je omogućena",
+        "title": "Opcija sakrivanja menija je omogućena"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "Kasnije",
+          "restart-now": "Ponovo pokreni odmah"
+        },
+        "detail": "Ekstenzija \"{{pluginName}}\" zahteva ponovno pokretanje aplikacije da bi se učitala",
+        "message": "\"{{pluginName}}\" zahteva ponovno pokretanje",
+        "title": "Ponovno pokretanje je neophodno"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "Izađi",
+          "relaunch": "Pokreni ponovo",
+          "wait": "Čekaj"
+        },
+        "detail": "Izvinjavamo se zbog neprijatnosti! Molimo odaberite sledeći korak:",
+        "message": "Aplikacija ne odgovara ili je zamrznuta",
+        "title": "Prozor ne odgovara ili je zamrznut"
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "Onemogući ažuriranja",
+          "download": "Preuzmi",
+          "ok": "U redu"
+        },
+        "detail": "Nova verzija je dostupna za preuzimanje na {{downloadLink}}",
+        "message": "Nova verzija je dostupna",
+        "title": "Ažuriranje je dostupno"
+      }
+    },
+    "menu": {
+      "about": "O aplikaciji",
+      "navigation": {
+        "label": "Navigacija",
+        "submenu": {
+          "copy-current-url": "Kopiraj trenutnu adresu",
+          "go-back": "Nazad",
+          "go-forward": "Napred",
+          "quit": "Izađi",
+          "restart": "Ponovo pokreni aplikaciju"
+        }
+      },
+      "options": {
+        "label": "Opcije",
+        "submenu": {
+          "advanced-options": {
+            "label": "Napredne opcije",
+            "submenu": {
+              "auto-reset-app-cache": "Očisti keširane podatke pri pokretanju aplikacije",
+              "disable-hardware-acceleration": "Onemogući hardversko ubrzanje",
+              "edit-config-json": "Izmeni config.json",
+              "override-user-agent": "Prepiši User-Agent",
+              "restart-on-config-changes": "Pokreni ponovo po promeni konfiguracije",
+              "set-proxy": {
+                "label": "Podesi proxy",
+                "prompt": {
+                  "label": "Unesi Proxy adresu: (ostavi prazno da bi proxy bio onemogućen)",
+                  "placeholder": "Primer: SOCKS5://127.0.0.1:9999",
+                  "title": "Podesi proxy"
+                }
+              },
+              "toggle-dev-tools": "Pokreni/napusti DevTools"
+            }
+          },
+          "always-on-top": "Uvek na vrhu",
+          "auto-update": "Automatsko ažuriranje",
+          "hide-menu": {
+            "dialog": {
+              "message": "Meni će biti sakriven posle sledećeg pokretanje, upotrebite [Alt]da ga ponovo prikažete (ili backtick [`] ukoliko koristite meni u aplikaciji)",
+              "title": "Sakrivanje menija je omogućeno"
+            },
+            "label": "Sakrij meni"
+          },
+          "language": {
+            "dialog": {
+              "message": "Jezik aplikacije će biti promenjen nakon sledećeg pokretanja aplikacije",
+              "title": "Jezik je uspešno promenjen"
+            },
+            "label": "Jezik",
+            "submenu": {
+              "to-help-translate": "Želite da pomognete u prevođenju? Kliknite ovde"
+            }
+          },
+          "resume-on-start": "Nastavi trenutnu numeru pri sledećem pokretanju",
+          "single-instance-lock": "Jedna instanca aplikacije",
+          "start-at-login": "Pokreni po prijavi u sistem",
+          "starting-page": {
+            "label": "Početna strana",
+            "unset": "Poništi podešavanje"
+          },
+          "tray": {
+            "label": "Lista",
+            "submenu": {
+              "disabled": "Onemogućeno",
+              "enabled-and-hide-app": "Omogući sklanjanje aplikacije u sistemsku listu",
+              "enabled-and-show-app": "Omogući i prikaži aplikaciju",
+              "play-pause-on-click": "Pokreni/Pauziraj na klik"
+            }
+          },
+          "visual-tweaks": {
+            "label": "Vizuelna podešavanja",
+            "submenu": {
+              "like-buttons": {
+                "default": "Podrazumevano",
+                "force-show": "Prinudno prikaži",
+                "hide": "Sakrij",
+                "label": "'Sviđa mi se' dugmići"
+              },
+              "remove-upgrade-button": "Ukloni dugme za nadogradnju",
+              "theme": {
+                "dialog": {
+                  "button": {
+                    "cancel": "Otkaži",
+                    "remove": "Ukloni"
+                  },
+                  "remove-theme": "Da li ste sigurni da želite da uklonite prilagođenu temu?",
+                  "remove-theme-message": "Ova opcija će ukloniti prilagođenu temu"
+                },
+                "label": "Tema",
+                "submenu": {
+                  "import-css-file": "Uvezi prilagođenu CSS datoteku (stil)",
+                  "no-theme": "Bez teme"
+                }
+              }
+            }
+          }
+        }
+      },
+      "plugins": {
+        "enabled": "Omogućeno",
+        "label": "Ekstenzije",
+        "new": "NOVO"
+      },
+      "view": {
+        "label": "Prikaz",
+        "submenu": {
+          "force-reload": "Prinudno osveži",
+          "reload": "Osveži",
+          "reset-zoom": "Realna veličina",
+          "toggle-fullscreen": "Aktiviraj/deaktiviraj pun ekran",
+          "zoom-in": "Uvećaj",
+          "zoom-out": "Umanji"
+        }
+      }
+    },
+    "tray": {
+      "next": "Sledeće",
+      "play-pause": "Pokreni/Pauziraj",
+      "previous": "Prethodno",
+      "quit": "Izađi",
+      "restart": "Ponovo pokreni aplikaciju",
+      "show": "Prikaži prozor",
+      "tooltip": {
+        "default": "YouTube Muzika",
+        "with-song-info": "YouTube Muzika: {{artist}} - {{title}}"
+      }
+    }
+  },
+  "plugins": {
+    "ad-speedup": {
+      "description": "Ukoliko dođe do prikaza reklame, zvuk se prigušuje i podešava se brzina na 16x",
+      "name": "Ubrzanje reklama"
+    },
+    "adblocker": {
+      "description": "Podrazumevano blokiranje svih reklama i praćenja",
+      "menu": {
+        "blocker": "Bloker"
+      },
+      "name": "Bloker reklama"
+    },
+    "album-actions": {
+      "description": "Dodaje mogućnost primene opcija 'Sviđa mi se, ne sviđa mi se' kao i opciju njihovog poništenja na nivou plejliste ili albuma",
+      "name": "Akcije albuma"
+    },
+    "album-color-theme": {
+      "description": "Primenjuje dinamičku temu i vizuelne efekte na osnovu palete boja albuma",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "Odnos mešavine boja",
+          "submenu": {
+            "percent": "{{ratio}}%"
+          }
+        }
+      },
+      "name": "Paleta boja albuma"
+    },
+    "ambient-mode": {
+      "description": "Primenjuje svetlosne efekte na pozadini ekrana upotrebom blagih boja iz video snimka",
+      "menu": {
+        "blur-amount": {
+          "label": "Zamagljenje",
+          "submenu": {
+            "pixels": "{{blurAmount}} piksela"
+          }
+        },
+        "buffer": {
+          "label": "Bafer",
+          "submenu": {
+            "buffer": "{{buffer}}"
+          }
+        },
+        "opacity": {
+          "label": "Prozirnost",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "quality": {
+          "label": "Kvalitet",
+          "submenu": {
+            "pixels": "{{quality}} piksela"
+          }
+        },
+        "size": {
+          "label": "Veličina",
+          "submenu": {
+            "percent": "{{size}}%"
+          }
+        },
+        "smoothness-transition": {
+          "label": "Blag prelaz",
+          "submenu": {
+            "during": "U trajanju od {{interpolationTime}} s"
+          }
+        },
+        "use-fullscreen": {
+          "label": "Korišćenje punog ekrana"
+        }
+      },
+      "name": "Ambijentalni režim"
+    },
+    "amuse": {
+      "description": "Dodaje podršku za 'Amuse now' vidžet (6K Labs) u YouTube Muziku",
+      "name": "Amuse",
+      "response": {
+        "query": "Amuse API server je pokrenut. GET /query da biste dobili informacije o numeri"
+      }
+    }
   }
 }
