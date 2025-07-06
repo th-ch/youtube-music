@@ -453,9 +453,18 @@
           },
           "start-download-playlist": {
             "buttons": {
-              "ok": "U  redu"
-            }
+              "ok": "U redu"
+            },
+            "detail": "({{playlistSize}} numera)",
+            "message": "Preuzimanje plejliste {{playlistTitle}}",
+            "title": "Preuzimanje je započeto"
           }
+        },
+        "feedback": {
+          "conversion-progress": "Konverzija: {{percent}}%",
+          "converting": "Konvertuje se…",
+          "done": "Završeno: {{filePath}}",
+          "download-info": "PReuzima se {{artist}} - {{title}} [{{videoId}}"
         }
       }
     }
