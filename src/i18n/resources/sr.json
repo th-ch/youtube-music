@@ -396,8 +396,47 @@
       "prompt": {
         "options": {
           "multi-input": {
-            "fade-in-duration": "Trajanje prelaza (ms)"
-          }
+            "fade-in-duration": "Ulazno trajanje prelaza (ms)",
+            "fade-out-duration": "Izlazno trajanje prelaza (ms)",
+            "fade-scaling": {
+              "label": "Skaliranje prelaza",
+              "linear": "Linearno",
+              "logarithmic": "Logaritamsko"
+            },
+            "seconds-before-end": "Prelaz N sekundi pre kraja"
+          },
+          "title": "Opcije prelaza"
+        }
+      }
+    },
+    "disable-autoplay": {
+      "description": "Numere se pokreću u pauziranom režimu",
+      "menu": {
+        "apply-once": "Primenjuje se samo pri pokretanju"
+      },
+      "name": "Onemogući automatsko reprodukovanje"
+    },
+    "discord": {
+      "backend": {
+        "already-connected": "Pokušaj da se poveže u momentu aktivne veze",
+        "connected": "Spojeno sa Discord-om",
+        "disconnected": "Poništeno povezivanje sa Discord-om"
+      },
+      "description": "Prikaži prijateljima šta slušaš uz 'Rich Presence'",
+      "menu": {
+        "auto-reconnect": "Automatsko ponovno povezivanje",
+        "clear-activity": "Očisti aktivnosti",
+        "clear-activity-after-timeout": "Očisti aktivnosti nakon isteka vremena",
+        "connected": "Povezano",
+        "disconnected": "Nije povezano",
+        "hide-github-button": "Sakrij GitHub link dugme",
+        "play-on-youtube-music": "Reprodukuj na YouTube Muzici",
+        "set-inactivity-timeout": "Podesi tajmer za neaktivnost"
+      },
+      "name": "Discord Rich Presence",
+      "prompt": {
+        "set-inactivity-timeout": {
+          "label": "Unesi vreme za tajmer neaktivnosti u sekundama"
         }
       }
     }
