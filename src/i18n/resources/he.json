@@ -182,7 +182,7 @@
         "new": "חדש"
       },
       "view": {
-        "label": "מראה",
+        "label": "צפה",
         "submenu": {
           "force-reload": "התחל מחדש בכוח",
           "reload": "רענון",
@@ -267,6 +267,7 @@
           }
         },
         "smoothness-transition": {
+          "label": "מעבר חלק",
           "submenu": {
             "during": "במהלך {{interpolationTime}} שניות"
           }
@@ -279,8 +280,47 @@
     },
     "amuse": {
       "description": "מוסיף תמיכה ב-YouTube Music עבור הווידג'ט של Amuse המתנגן כעת על ידי 6K Labs",
+      "name": "משעשע",
       "response": {
         "query": "שרת ה-API של Amuse פועל. קבל מידע על השיר באמצעות GET /query."
+      }
+    },
+    "api-server": {
+      "description": "הוסף כתובת שירות כדי לשלוט בנגן",
+      "dialog": {
+        "request": {
+          "buttons": {
+            "allow": "מותר",
+            "deny": "לדחות"
+          },
+          "message": "אפשר ל {{ID}}{{origin}} לגשת לשירות?",
+          "title": "בקשת לאימות השירות"
+        }
+      },
+      "menu": {
+        "auth-strategy": {
+          "label": "שיטת אימות",
+          "submenu": {
+            "auth-at-first": {
+              "label": "לאמת בבקשה הראשונה"
+            },
+            "none": {
+              "label": "ללא אימות"
+            }
+          }
+        },
+        "hostname": {
+          "label": "שם שרת אחסון"
+        },
+        "port": {
+          "label": "פורט"
+        }
+      },
+      "name": "כתובת שירות (בטא)",
+      "prompt": {
+        "hostname": {
+          "label": "הכנסת את כתובת IP של השרת (לדוגמה 0.0.0.0) לשירות"
+        }
       }
     },
     "discord": {
