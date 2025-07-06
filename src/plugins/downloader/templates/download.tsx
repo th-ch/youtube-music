@@ -1,14 +1,12 @@
-import type { Accessor } from 'solid-js';
-
 export const DownloadButton = (props: {
   onClick: () => void;
-  getText: Accessor<string | undefined>;
+  text: string;
 }) => (
   <div
     aria-disabled={false}
     aria-selected={false}
     class="style-scope menu-item ytmusic-menu-popup-renderer"
-    onclick={props.onClick}
+    onClick={props.onClick}
     role="option"
     tabindex={-1}
   >
@@ -21,7 +19,12 @@ export const DownloadButton = (props: {
         <svg
           class="style-scope yt-icon"
           preserveAspectRatio="xMidYMid meet"
-          style="pointer-events: none; display: block; width: 100%; height: 100%"
+          style={{
+            'pointer-events': 'none',
+            'display': 'block',
+            'width': '100%',
+            'height': '100%',
+          }}
           viewBox="0 0 24 24"
         >
           <g class="style-scope yt-icon">
@@ -42,7 +45,7 @@ export const DownloadButton = (props: {
         class="text style-scope ytmusic-menu-navigation-item-renderer"
         id="ytmcustom-download"
       >
-        {props.getText()}
+        {props.text}
       </div>
     </a>
   </div>
