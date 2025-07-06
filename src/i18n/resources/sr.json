@@ -334,7 +334,72 @@
       "name": "Kompresor zvuka"
     },
     "auth-proxy-adapter": {
-      "name": "Proxy adapter za autorizaciju"
+      "description": "Podrška za upotrebu proxy servisa za autentifikaciju",
+      "menu": {
+        "disable": "Onemogući Proxy adapter",
+        "enable": "Omogući Proxy adapter",
+        "hostname": {
+          "label": "Host"
+        },
+        "port": {
+          "label": "Port"
+        }
+      },
+      "name": "Proxy adapter za autentifikaciju",
+      "prompt": {
+        "hostname": {
+          "label": "Unesi host za lokalni proxy server (zahteva ponovno pokretanje):",
+          "title": "Proxy Host"
+        },
+        "port": {
+          "label": "Unesi port za lokalni proxy server (zahteva ponovno pokretanje):",
+          "title": "Proxy Port"
+        }
+      }
+    },
+    "blur-nav-bar": {
+      "description": "Čini navigacioni meni prozirnim i zamućenim",
+      "name": "Zamuti navigacioni meni"
+    },
+    "bypass-age-restrictions": {
+      "description": "Preskoči starosnu verifikaciju za YouTube",
+      "name": "Preskoči starosna ograničenja"
+    },
+    "captions-selector": {
+      "description": "Odabir prevoda za numere/audio trake na YouTube Muzici",
+      "menu": {
+        "autoload": "Automatski odaberi prethodno odabrani prevod",
+        "disable-captions": "Podrazumevano bez prevoda"
+      },
+      "name": "Odabir prevoda",
+      "prompt": {
+        "selector": {
+          "label": "Trenutno odabrani jezik prevoda: {{language}}",
+          "none": "Ništa",
+          "title": "Odaberi jezik prevoda"
+        }
+      },
+      "templates": {
+        "title": "Otvori meni za izbor prevoda"
+      }
+    },
+    "compact-sidebar": {
+      "description": "Uvek koristi kompaktni meni sa strane",
+      "name": "Kompaktni meni sa strane"
+    },
+    "crossfade": {
+      "description": "Ublaženi prelaz između numera",
+      "menu": {
+        "advanced": "Napredno"
+      },
+      "name": "Ublaženi prelaz [Beta]",
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "fade-in-duration": "Trajanje prelaza (ms)"
+          }
+        }
+      }
     }
   }
 }
