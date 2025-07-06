@@ -334,7 +334,7 @@
       "name": "Kompresor zvuka"
     },
     "auth-proxy-adapter": {
-      "name": "Proxy za autorizaciju"
+      "name": "Proxy adapter za autorizaciju"
     }
   }
 }
