@@ -456,10 +456,30 @@
             "buttons": {
               "ok": "OK"
             },
-            "detail": "({{Dziesmuskaits}} Dziesmas)",
+            "detail": "({{playlistSize}}Dziesmas)",
             "message": "Lejupielādē atskaņošanas sarakstu {{playlistTitle}}",
             "title": "Lejupielāde sākta"
           }
+        },
+        "feedback": {
+          "conversion-progress": "Konvertēšana: {{percent}}%",
+          "converting": "Konvertēšana…",
+          "done": "Pabeigts: {{filePath}}",
+          "download-info": "Lejupielādē {{artist}} - {{title}}{{videoId}}",
+          "download-progress": "Lejupielāde: {{percent}}%",
+          "downloading": "Lejupielādē…",
+          "downloading-counter": "Notiek lejupielāde {{current}}/{{total}}…",
+          "downloading-playlist": "Atskaņošanas saraksta lejupielāde \"{{playlistTitle}}\" - {{playlistSize}} songs ({{playlistId}})",
+          "error-while-downloading": "Kļūda lejuplādējot \"{{author}} - {{title}}\": {{error}}",
+          "folder-already-exists": "Mape {{playlistFolder}} jau eksistē",
+          "getting-playlist-info": "Tiek iegūta atskaņošanas saraksta informācija…",
+          "loading": "Ielādē…",
+          "playlist-has-only-one-song": "Sarakstā ir tikai viena dziesma, tā tiek lejupielādēta uzreiz",
+          "playlist-id-not-found": "Neizdevās atrast atskaņošanas saraksta ID",
+          "playlist-is-empty": "Atskaņošanas saraksts ir tukšs",
+          "playlist-is-mix-or-private": "Neizdevās iegūt atskaņošanas saraksta informāciju: pārliecinieties, ka tas nav privāts vai \"Jums izveidotā izlase\" saraksts.\n\n{{error}}",
+          "preparing-file": "Faila sagatavošana…",
+          "saving": "Saglabāšana…"
         }
       }
     }
