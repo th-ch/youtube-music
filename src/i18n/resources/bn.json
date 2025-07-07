@@ -1,1 +1,52 @@
-{}
+{
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "প্লাগইন {{pluginName}}::{{contextName}} কার্যকর করতে ব্যর্থ হয়েছে",
+        "executed-at-ms": "প্লাগইন {{pluginName}}::{{contextName}} {{ms}}মিলিসেকেন্ডে কার্যকর হয়েছে",
+        "initialize-failed": "প্লাগইন \"{{pluginName}}\" চালু করতে ব্যর্থ হয়েছে",
+        "load-all": "সকল প্লাগইন লোড করা হচ্ছে",
+        "load-failed": "প্লাগইন \"{{pluginName}}\" লোড করতে ব্যর্থ হয়েছে",
+        "loaded": "প্লাগইন \"{{pluginName}}\" লোড হয়েছে",
+        "unload-failed": "প্লাগইন \"{{pluginName}}\" আনলোড করতে ব্যর্থ হয়েছে",
+        "unloaded": "প্লাগইন \"{{pluginName}}\" আনলোড হয়েছে"
+      }
+    }
+  },
+  "language": {
+    "code": "bn",
+    "local-name": "বাংলা",
+    "name": "Bengali"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "লোড সম্পন্ন হয়েছে। ডেভটুলস খোলা হয়েছে"
+      },
+      "i18n": {
+        "loaded": "i18n লোড হয়েছে"
+      },
+      "second-instance": {
+        "receive-command": "প্রোটোকলের মাধ্যমে কমান্ড গ্রহণ করা হয়েছে: \"{{command}}\""
+      },
+      "theme": {
+        "css-file-not-found": "CSS ফাইল \"{{cssFile}}\" পাওয়া যায়নি, ইগনোর করা হয়েছে"
+      },
+      "unresponsive": {
+        "details": "আনরেসপনসিভ ইরোর\n{{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "অ্যাপ ক্যাশ মুছে ফেলা হচ্ছে"
+      },
+      "window": {
+        "tried-to-render-offscreen": "উইন্ডোটি স্ক্রিনের বাইরে রেন্ডার করার চেষ্টা করেছে, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "detail": "মেনু লুকানো রয়েছে, দেখতে 'Alt' চাপুন (অথবা ইন-অ্যাপ মেনু ব্যবহার করলে 'Escape')",
+        "message": "হাইড মেনু সক্রিয় করা হয়েছে।"
+      }
+    }
+  }
+}
