@@ -98,11 +98,105 @@
             "submenu": {
               "auto-reset-app-cache": "অ্যাপ চালুর সময় ক্যাশ রিসেট করুন",
               "disable-hardware-acceleration": "হার্ডওয়্যার অ্যাকসেলারেশন নিষ্ক্রিয় করুন",
-              "edit-config-json": "config.json এডিট করুন"
+              "edit-config-json": "config.json এডিট করুন",
+              "override-user-agent": "ইউজার এজেন্ট বদলান (শুধু এক্সপার্টদের জন্য!)",
+              "restart-on-config-changes": "কনফিগ পরিবর্তন হলে আবার চালু করুন",
+              "set-proxy": {
+                "label": "প্রক্সি সেট করুন",
+                "prompt": {
+                  "label": "প্রক্সি ঠিকানা দিন",
+                  "placeholder": "যেমন: http://127.0.0.1:8080",
+                  "title": "প্রক্সি কনফিগারেশন"
+                }
+              },
+              "toggle-dev-tools": "ডেভ টুল চালু/বন্ধ"
+            }
+          },
+          "always-on-top": "সবসময় উপরে রাখুন",
+          "auto-update": "স্বয়ংক্রিয় আপডেট চালু করুন",
+          "hide-menu": {
+            "dialog": {
+              "message": "মেনু হাইড করা আছে, আবার দেখতে 'Alt' চাপুন!",
+              "title": "মেনু লুকানো হয়েছে!"
+            },
+            "label": "মেনু লুকান"
+          },
+          "language": {
+            "dialog": {
+              "message": "আপনি কোন ভাষায় কথা বলেন?",
+              "title": "ভাষা নির্বাচন করুন"
+            },
+            "label": "ভাষা",
+            "submenu": {
+              "to-help-translate": "অনুবাদে সাহায্য করুন"
+            }
+          },
+          "resume-on-start": "শুরুতেই প্লে করুন",
+          "single-instance-lock": "একবারেই একটি অ্যাপ চালু হতে দিন",
+          "start-at-login": "কম্পিউটার চালু হলে অ্যাপ চালু করুন",
+          "starting-page": {
+            "label": "শুরুর পেজ নির্বাচন করুন",
+            "unset": "শুরুর পেজ নির্ধারণ করা হয়নি"
+          },
+          "tray": {
+            "label": "ট্রে অপশন",
+            "submenu": {
+              "disabled": "ট্রে বন্ধ",
+              "enabled-and-hide-app": "ট্রে চালু ও অ্যাপ লুকান",
+              "enabled-and-show-app": "ট্রে চালু ও অ্যাপ দেখান",
+              "play-pause-on-click": "ট্রে ক্লিক করলে প্লে/পজ"
+            }
+          },
+          "visual-tweaks": {
+            "label": "দৃষ্টিনন্দন পরিবর্তন",
+            "submenu": {
+              "like-buttons": {
+                "default": "ডিফল্ট লাইক বাটন",
+                "force-show": "সবসময় লাইক বাটন দেখান",
+                "hide": "লাইক বাটন লুকান",
+                "label": "লাইক বাটনের নিয়ন্ত্রণ"
+              },
+              "remove-upgrade-button": "আপগ্রেড বাটন সরান",
+              "theme": {
+                "dialog": {
+                  "button": {
+                    "cancel": "বাতিল",
+                    "remove": "থিম সরান"
+                  },
+                  "remove-theme": "থিম সরাতে চান?",
+                  "remove-theme-message": "আপনি নিশ্চিত যে থিম মুছে ফেলতে চান?"
+                },
+                "label": "থিম",
+                "submenu": {
+                  "import-css-file": "CSS ফাইল ইমপোর্ট করুন",
+                  "no-theme": "কোন থিম নেই"
+                }
+              }
             }
           }
         }
+      },
+      "plugins": {
+        "enabled": "প্লাগইন চালু",
+        "label": "প্লাগইন",
+        "new": "নতুন প্লাগইন"
+      },
+      "view": {
+        "label": "দেখুন",
+        "submenu": {
+          "force-reload": "জোর করে রিফ্রেশ করুন",
+          "reload": "রিফ্রেশ করুন",
+          "reset-zoom": "জুম রিসেট করুন",
+          "toggle-fullscreen": "ফুলস্ক্রিন চালু/বন্ধ",
+          "zoom-in": "বড় করুন",
+          "zoom-out": "ছোট করুন"
+        }
       }
+    },
+    "tray": {
+      "next": "পরবর্তী",
+      "play-pause": "চালু/বন্ধ",
+      "previous": "পূর্ববর্তী"
     }
   }
 }
