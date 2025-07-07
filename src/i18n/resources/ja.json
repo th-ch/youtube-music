@@ -623,6 +623,7 @@
       "name": "通知"
     },
     "performance-improvement": {
+      "description": "実験的スクリプトを有効にすることによってパフォーマンス改善する",
       "name": "パフォーマンス改善 [ベータ]"
     },
     "picture-in-picture": {
