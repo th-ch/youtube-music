@@ -131,15 +131,15 @@
               "to-help-translate": "অনুবাদে সাহায্য করতে চান? এখানে চাপ দিন"
             }
           },
-          "resume-on-start": "",
-          "single-instance-lock": "একবারেই একটি অ্যাপ চালু হতে দিন",
-          "start-at-login": "কম্পিউটার চালু হলে অ্যাপ চালু করুন",
+          "resume-on-start": "অ্যাপ চালু হলে শেষ গানটি আবার চালু করুন",
+          "single-instance-lock": "একক ইনস্ট্যান্স লক",
+          "start-at-login": "লগইনের সময় চালু করুন",
           "starting-page": {
-            "label": "শুরুর পেজ নির্বাচন করুন",
-            "unset": "শুরুর পেজ নির্ধারণ করা হয়নি"
+            "label": "শুরুর পেজ",
+            "unset": "নির্ধারণ করা হয়নি"
           },
           "tray": {
-            "label": "ট্রে অপশন",
+            "label": "ট্রে",
             "submenu": {
               "disabled": "ট্রে বন্ধ",
               "enabled-and-hide-app": "ট্রে চালু ও অ্যাপ লুকান",
@@ -196,13 +196,67 @@
     "tray": {
       "next": "নেক্সট",
       "play-pause": "চালু/বন্ধ",
-      "previous": "পূর্ববর্তী"
+      "previous": "পূর্ববর্তী",
+      "quit": "বন্ধ",
+      "restart": "অ্যাপ পুনরায় চালু করুন",
+      "show": "উইন্ডো দেখান",
+      "tooltip": {
+        "default": "ইউটিউব মিউজিক",
+        "with-song-info": "ইউটিউব মিউজিক: {{artist}} - {{title}}"
+      }
     }
   },
   "plugins": {
-    "ambient-mode": {
+    "ad-speedup": {
+      "description": "বিজ্ঞাপন চললে, এটি অডিও বন্ধ করে দেয় এবং প্লেব্যাক গতি ১৬ গুণ করে দেয়",
+      "name": "বিজ্ঞাপন দ্রুত করুন"
+    },
+    "adblocker": {
+      "description": "সব বিজ্ঞাপন ও ট্র্যাকিং শুরু থেকেই ব্লক করুন",
       "menu": {
+        "blocker": "ব্লকার"
+      },
+      "name": "এড ব্লকার"
+    },
+    "album-actions": {
+      "description": "প্লেলিস্ট বা অ্যালবামের সব গানেই প্রয়োগ করতে আনডিসলাইক, ডিসলাইক, লাইক ও আনলাইক বাটন যোগ করে",
+      "name": "অ্যালবাম অ্যাকশনসমূহ"
+    },
+    "album-color-theme": {
+      "description": "অ্যালবামের রঙের উপর ভিত্তি করে ডাইনামিক থিম ও ভিজ্যুয়াল ইফেক্ট প্রয়োগ করুন",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "কালার মিক্স রেশিও",
+          "submenu": {
+            "percent": "{{ratio}}%"
+          }
+        }
+      },
+      "name": "এলবাম এর কালার থিম"
+    },
+    "ambient-mode": {
+      "description": "ভিডিও থেকে নরম আলো ছড়িয়ে আপনার স্ক্রিনের ব্যাকগ্রাউন্ডে লাইটিং ইফেক্ট প্রয়োগ করে",
+      "menu": {
+        "blur-amount": {
+          "label": "ব্লার এর পরিমাণ",
+          "submenu": {
+            "pixels": "{{blurAmount}} পিক্সেল"
+          }
+        },
+        "buffer": {
+          "label": "বাফার",
+          "submenu": {
+            "buffer": "{{buffer}}"
+          }
+        },
+        "opacity": {
+          "label": "অপাসিটি",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
         "quality": {
+          "label": "কোয়ালিটি",
           "submenu": {
             "pixels": "{{quality}}পিক্সেল"
           }
