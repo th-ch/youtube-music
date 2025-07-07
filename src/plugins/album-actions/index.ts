@@ -62,9 +62,15 @@ export default createPlugin<
       //Finds the playlist
       const playlist =
         document.querySelector('ytmusic-playlist-shelf-renderer') ??
-        Array.prototype.at.call(document.querySelectorAll('ytmusic-shelf-renderer'), -1)!;
+        document.querySelector(':nth-last-child(1 of ytmusic-shelf-renderer)');
+
+      if (!playlist) {
+        return;
+      }
+
       // Adds an observer for every button, so it gets updated when one is clicked
       this.changeObserver?.disconnect();
+
       this.changeObserver = new MutationObserver(() => {
         this.stop();
         this.start();
@@ -159,7 +165,7 @@ export default createPlugin<
       let playlistButtons: NodeListOf<HTMLElement> | undefined;
       const playlist =
         document.querySelector('ytmusic-playlist-shelf-renderer') ??
-        Array.prototype.at.call(document.querySelectorAll('ytmusic-shelf-renderer'), -1)!;
+        document.querySelector(':nth-last-child(1 of ytmusic-shelf-renderer)');
       switch (id) {
         case 'allundislike':
           playlistButtons = playlist?.querySelectorAll(

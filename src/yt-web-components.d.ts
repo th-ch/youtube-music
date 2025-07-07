@@ -47,6 +47,9 @@ declare module 'solid-js' {
         YpYtPaperSpinnerLiteProps;
       'tp-yt-paper-icon-button': ComponentProps<'div'> &
         TpYtPaperIconButtonProps;
+      'yt-icon-button': ComponentProps<'div'> & TpYtPaperIconButtonProps;
+      'tp-yt-iron-icon': ComponentProps<'div'>;
+      'yt-icon': ComponentProps<'div'>;
     }
   }
 }
