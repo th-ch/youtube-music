@@ -198,5 +198,25 @@
       "play-pause": "চালু/বন্ধ",
       "previous": "পূর্ববর্তী"
     }
+  },
+  "plugins": {
+    "ambient-mode": {
+      "menu": {
+        "quality": {
+          "submenu": {
+            "pixels": "{{quality}}পিক্সেল"
+          }
+        },
+        "size": {
+          "label": "আকার",
+          "submenu": {
+            "percent": "{{size}}শতাংশ"
+          }
+        },
+        "smoothness-transition": {
+          "label": "ধীরে ধীরে পরিবর্তন"
+        }
+      }
+    }
   }
 }
