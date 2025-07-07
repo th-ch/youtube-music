@@ -98,7 +98,8 @@
             "submenu": {
               "auto-reset-app-cache": "යෙදුම් කෑච් යෙදුම ආරම්භයේදී යලි පිහිටුවන්න",
               "disable-hardware-acceleration": "දෘඩාංග භාවිත වේගවත් කිරීම් අක්‍රීය කරන්න",
-              "edit-config-json": "config.json සකසන්න"
+              "edit-config-json": "config.json සකසන්න",
+              "override-user-agent": "User-Agent  ව වෙනස් කරන්න"
             }
           }
         }
