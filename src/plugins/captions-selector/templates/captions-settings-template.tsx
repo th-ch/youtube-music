@@ -1,7 +1,6 @@
 export interface CaptionsSettingsButtonProps {
   label: string;
   onClick: (event: MouseEvent) => void;
-  hidden?: boolean;
 }
 
 export const CaptionsSettingButton = (props: CaptionsSettingsButtonProps) => (
@@ -14,9 +13,6 @@ export const CaptionsSettingButton = (props: CaptionsSettingsButtonProps) => (
     tabindex={0}
     title={props.label}
     on:click={props.onClick}
-    style={{
-      display: props.hidden ? 'none' : 'inline-block',
-    }}
   >
     <span class="yt-icon-shape style-scope yt-icon yt-spec-icon-shape">
       <div

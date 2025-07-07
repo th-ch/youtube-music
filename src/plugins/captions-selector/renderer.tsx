@@ -1,5 +1,5 @@
 import { render } from 'solid-js/web';
-import { createSignal } from 'solid-js';
+import { createSignal, Show } from 'solid-js';
 
 import { createRenderer } from '@/utils';
 import { t } from '@/i18n';
@@ -85,68 +85,68 @@ export default createRenderer<
 
     render(
       () => (
-        <CaptionsSettingButton
-          label={t('plugins.captions-selector.templates.title')}
-          hidden={hidden()}
-          onClick={async () => {
-            const appApi = document.querySelector<AppElement>('ytmusic-app');
+        <Show when={!hidden()}>
+          <CaptionsSettingButton
+            label={t('plugins.captions-selector.templates.title')}
+            onClick={async () => {
+              const appApi = document.querySelector<AppElement>('ytmusic-app');
 
-            if (this.captionTrackList?.length) {
-              const currentCaptionTrack = playerApi.getOption<LanguageOptions>(
-                'captions',
-                'track',
-              );
+              if (this.captionTrackList?.length) {
+                const currentCaptionTrack =
+                  playerApi.getOption<LanguageOptions>('captions', 'track');
 
-              let currentIndex = currentCaptionTrack
-                ? this.captionTrackList.indexOf(
-                    this.captionTrackList.find(
-                      (track) =>
-                        track.languageCode === currentCaptionTrack.languageCode,
-                    )!,
-                  )
-                : null;
+                let currentIndex = currentCaptionTrack
+                  ? this.captionTrackList.indexOf(
+                      this.captionTrackList.find(
+                        (track) =>
+                          track.languageCode ===
+                          currentCaptionTrack.languageCode,
+                      )!,
+                    )
+                  : null;
 
-              const captionLabels = [
-                ...this.captionTrackList.map((track) => track.displayName),
-                'None',
-              ];
+                const captionLabels = [
+                  ...this.captionTrackList.map((track) => track.displayName),
+                  'None',
+                ];
 
-              currentIndex = (await ipc.invoke(
-                'ytmd:captions-selector',
-                captionLabels,
-                currentIndex,
-              )) as number;
-              if (currentIndex === null) {
-                return;
-              }
+                currentIndex = (await ipc.invoke(
+                  'ytmd:captions-selector',
+                  captionLabels,
+                  currentIndex,
+                )) as number;
+                if (currentIndex === null) {
+                  return;
+                }
 
-              const newCaptions = this.captionTrackList[currentIndex];
-              setConfig({ lastCaptionsCode: newCaptions?.languageCode });
-              if (newCaptions) {
-                playerApi.setOption('captions', 'track', {
-                  languageCode: newCaptions.languageCode,
-                });
-                appApi?.toastService?.show(
-                  t('plugins.captions-selector.toast.caption-changed', {
-                    language: newCaptions.displayName,
-                  }),
-                );
+                const newCaptions = this.captionTrackList[currentIndex];
+                setConfig({ lastCaptionsCode: newCaptions?.languageCode });
+                if (newCaptions) {
+                  playerApi.setOption('captions', 'track', {
+                    languageCode: newCaptions.languageCode,
+                  });
+                  appApi?.toastService?.show(
+                    t('plugins.captions-selector.toast.caption-changed', {
+                      language: newCaptions.displayName,
+                    }),
+                  );
+                } else {
+                  playerApi.setOption('captions', 'track', {});
+                  appApi?.toastService?.show(
+                    t('plugins.captions-selector.toast.caption-disabled'),
+                  );
+                }
+
+                setTimeout(() => playerApi.playVideo());
               } else {
-                playerApi.setOption('captions', 'track', {});
                 appApi?.toastService?.show(
-                  t('plugins.captions-selector.toast.caption-disabled'),
+                  t('plugins.captions-selector.toast.no-captions'),
                 );
               }
-
-              setTimeout(() => playerApi.playVideo());
-            } else {
-              appApi?.toastService?.show(
-                t('plugins.captions-selector.toast.no-captions'),
-              );
-            }
-          }}
-          ref={this.captionsSettingsButton}
-        />
+            }}
+            ref={this.captionsSettingsButton}
+          />
+        </Show>
       ),
       document.querySelector('.right-controls-buttons')!,
     );
