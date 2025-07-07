@@ -1,8 +1,6 @@
 import { createSignal } from 'solid-js';
 
-import { customElement, noShadowDOM } from 'solid-element';
-
-import { lazy } from 'lazy-var';
+import { render } from 'solid-js/web';
 
 import defaultConfig from '@/config/defaults';
 import { getSongMenu } from '@/providers/dom-elements';
@@ -19,25 +17,10 @@ let download: () => void;
 
 const [downloadButtonText, setDownloadButtonText] = createSignal<string>('');
 
-const downloadButtonConstructor = lazy(() =>
-  customElement('ytmd-download-button', () => {
-    noShadowDOM();
-
-    if (!downloadButtonText()) {
-      setDownloadButtonText(t('plugins.downloader.templates.button'));
-    }
-
-    return <DownloadButton onClick={download} text={downloadButtonText()} />;
-  }),
-);
-
-const downloadButton = lazy(async () => {
-  return new (await downloadButtonConstructor.get())();
-});
-
+let buttonContainer: HTMLDivElement | null = null;
 let doneFirstLoad = false;
 
-const menuObserver = new MutationObserver(async () => {
+const menuObserver = new MutationObserver(() => {
   if (!menu) {
     menu = getSongMenu();
     if (!menu) {
@@ -45,7 +28,7 @@ const menuObserver = new MutationObserver(async () => {
     }
   }
 
-  if (menu.contains(await downloadButton.get())) {
+  if (menu.contains(buttonContainer)) {
     return;
   }
 
@@ -68,7 +51,23 @@ const menuObserver = new MutationObserver(async () => {
     return;
   }
 
-  menu.prepend(await downloadButton.get());
+  buttonContainer = document.createElement('div');
+  buttonContainer.classList.add(
+    'style-scope',
+    'menu-item',
+    'ytmusic-menu-popup-renderer',
+  );
+  buttonContainer.setAttribute('aria-disabled', 'false');
+  buttonContainer.setAttribute('aria-selected', 'false');
+  buttonContainer.setAttribute('role', 'option');
+  buttonContainer.setAttribute('tabindex', '-1');
+
+  menu.prepend(buttonContainer);
+
+  render(
+    () => <DownloadButton onClick={download} text={downloadButtonText()} />,
+    buttonContainer,
+  );
 
   if (!doneFirstLoad) {
     setTimeout(() => (doneFirstLoad ||= true), 500);
@@ -126,6 +125,7 @@ export const onRendererLoad = ({
 };
 
 export const onPlayerApiReady = () => {
+  setDownloadButtonText(t('plugins.downloader.templates.button'));
   menuObserver.observe(document.querySelector('ytmusic-popup-container')!, {
     childList: true,
     subtree: true,
