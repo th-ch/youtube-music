@@ -250,7 +250,7 @@
           }
         },
         "opacity": {
-          "label": "অপাসিটি",
+          "label": "স্বচ্ছতা",
           "submenu": {
             "percent": "{{opacity}}%"
           }
@@ -293,9 +293,243 @@
           "buttons": {
             "allow": "অনুমতি দিন",
             "deny": "অস্বীকার করা"
+          },
+          "message": "{{ID}} ({{origin}}) কে API ব্যবহারের অনুমতি দিবেন?",
+          "title": "API অথোরাইজ এর অনুরোধ"
+        }
+      },
+      "menu": {
+        "auth-strategy": {
+          "label": "অথোরাইজেশন স্ট্র্যাটেজি",
+          "submenu": {
+            "auth-at-first": {
+              "label": "প্রথম অনুরোধে অথোরাইজ করুন"
+            },
+            "none": {
+              "label": "কোন অথোরাইজেশন নেই"
+            }
           }
+        },
+        "hostname": {
+          "label": "হোস্টনেম"
+        },
+        "port": {
+          "label": "পোর্ট"
+        }
+      },
+      "name": "API সার্ভার [বেটা]",
+      "prompt": {
+        "hostname": {
+          "label": "API সার্ভারের জন্য হোস্টনেম (যেমন 0.0.0.0) লিখুন:",
+          "title": "হোস্টনেম"
+        },
+        "port": {
+          "label": "API সার্ভারের জন্য পোর্ট লিখুন:",
+          "title": "পোর্ট"
         }
       }
+    },
+    "audio-compressor": {
+      "description": "অডিওতে কম্প্রেশন প্রয়োগ করুন (উচ্চতর শব্দের অংশগুলোর ভলিউম কমিয়ে দেয় এবং নীরবতম অংশগুলোর ভলিউম বাড়িয়ে দেয়)",
+      "name": "অডিও কম্প্রেসর"
+    },
+    "auth-proxy-adapter": {
+      "description": "অথেনটিকেশন প্রক্সি সার্ভিস ব্যবহারের সাপোর্ট",
+      "menu": {
+        "disable": "প্রক্সি অ্যাডাপ্টার বন্ধ করুন",
+        "enable": "প্রক্সি অ্যাডাপ্টার চালু করুন",
+        "hostname": {
+          "label": "হোস্টনেম"
+        },
+        "port": {
+          "label": "পোর্ট"
+        }
+      },
+      "name": "অথেনটিকেশন প্রক্সি অ্যাডাপ্টার",
+      "prompt": {
+        "hostname": {
+          "label": "স্থানীয় প্রক্সি সার্ভারের জন্য হোস্টনেম লিখুন (পুনরায় চালু করতে হবে):",
+          "title": "প্রক্সি হোস্টনেম"
+        },
+        "port": {
+          "label": "স্থানীয় প্রক্সি সার্ভারের জন্য পোর্ট লিখুন (পুনরায় চালু করতে হবে):",
+          "title": "প্রক্সি পোর্ট"
+        }
+      }
+    },
+    "blur-nav-bar": {
+      "description": "নেভিগেশন বারকে স্বচ্ছ এবং ঝাপসা করে",
+      "name": "নেভিগেশন বার ঝাপসা করুন"
+    },
+    "bypass-age-restrictions": {
+      "description": "ইউটিউবের বয়স যাচাইকরণ এড়িয়ে যান",
+      "name": "বয়স সীমাবদ্ধতা এড়ান"
+    },
+    "captions-selector": {
+      "description": "ইউটিউব মিউজিক অডিও ট্র্যাকের জন্য ক্যাপশন নির্বাচক",
+      "menu": {
+        "autoload": "সর্বশেষ ব্যবহৃত ক্যাপশন স্বয়ংক্রিয়ভাবে নির্বাচন করুন",
+        "disable-captions": "ডিফল্টভাবে কোন ক্যাপশন নেই"
+      },
+      "name": "ক্যাপশন নির্বাচক",
+      "prompt": {
+        "selector": {
+          "label": "বর্তমান ক্যাপশন ভাষা: {{language}}",
+          "none": "কোনোটি নয়",
+          "title": "ক্যাপশন ভাষা নির্বাচন করুন"
+        }
+      },
+      "templates": {
+        "title": "ক্যাপশন নির্বাচক খুলুন"
+      }
+    },
+    "compact-sidebar": {
+      "description": "সাইডবারকে সবসময় কম্প্যাক্ট মোডে সেট করুন",
+      "name": "কম্প্যাক্ট সাইডবার"
+    },
+    "crossfade": {
+      "description": "গানগুলির মধ্যে ক্রসফেড করুন",
+      "menu": {
+        "advanced": "উন্নত"
+      },
+      "name": "ক্রসফেড [বেটা]",
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "fade-in-duration": "ফেড-ইন সময়কাল (মিলিসেকেন্ড)",
+            "fade-out-duration": "ফেড-আউট সময়কাল (মিলিসেকেন্ড)",
+            "fade-scaling": {
+              "label": "ফেড স্কেলিং",
+              "linear": "রৈখিক",
+              "logarithmic": "লগারিদমিক"
+            },
+            "seconds-before-end": "শেষ হওয়ার N সেকেন্ড আগে ক্রসফেড করুন"
+          },
+          "title": "ক্রসফেড অপশনসমূহ"
+        }
+      }
+    },
+    "disable-autoplay": {
+      "description": "গান \"বিরত\" মোডে শুরু করে",
+      "menu": {
+        "apply-once": "শুধুমাত্র স্টার্টআপে প্রয়োগ হয়"
+      },
+      "name": "অটোপ্লে নিষ্ক্রিয় করুন"
+    },
+    "discord": {
+      "backend": {
+        "already-connected": "সক্রিয় সংযোগের সাথে সংযোগ করার চেষ্টা করা হয়েছে",
+        "connected": "ডিসকর্ডের সাথে সংযুক্ত",
+        "disconnected": "ডিসকর্ড থেকে সংযোগ বিচ্ছিন্ন"
+      },
+      "description": "রিচ প্রেজেন্স ব্যবহার করে আপনি কি শুনছেন তা আপনার বন্ধুদের দেখান",
+      "menu": {
+        "auto-reconnect": "স্বয়ংক্রিয় পুনঃসংযোগ",
+        "clear-activity": "কার্যকলাপ মুছুন",
+        "clear-activity-after-timeout": "সময়সীমা শেষ হওয়ার পরে কার্যকলাপ মুছুন",
+        "connected": "সংযুক্ত",
+        "disconnected": "সংযোগ বিচ্ছিন্ন",
+        "hide-duration-left": "অবশিষ্ট সময় লুকান",
+        "hide-github-button": "গিটহাব লিঙ্ক বাটন লুকান",
+        "play-on-youtube-music": "ইউটিউব মিউজিকে চালান",
+        "set-inactivity-timeout": "নিষ্ক্রিয়তার সময়সীমা সেট করুন"
+      },
+      "name": "ডিসকর্ড রিচ প্রেজেন্স",
+      "prompt": {
+        "set-inactivity-timeout": {
+          "label": "নিষ্ক্রিয়তার সময়সীমা সেকেন্ডে লিখুন:",
+          "title": "নিষ্ক্রিয়তার সময়সীমা সেট করুন"
+        }
+      }
+    },
+    "downloader": {
+      "backend": {
+        "dialog": {
+          "error": {
+            "buttons": {
+              "ok": "ঠিক আছে"
+            },
+            "message": "আহ! দুঃখিত, ডাউনলোড ব্যর্থ হয়েছে…",
+            "title": "ডাউনলোডে সমস্যা!"
+          },
+          "start-download-playlist": {
+            "buttons": {
+              "ok": "ঠিক আছে"
+            },
+            "detail": "({{playlistSize}}টি গান)",
+            "message": "প্লেলিস্ট {{playlistTitle}} ডাউনলোড করা হচ্ছে",
+            "title": "ডাউনলোড শুরু হয়েছে"
+          }
+        },
+        "feedback": {
+          "conversion-progress": "রূপান্তর: {{percent}}%",
+          "converting": "রূপান্তর করা হচ্ছে…",
+          "done": "সম্পন্ন: {{filePath}}",
+          "download-info": "ডাউনলোড হচ্ছে {{artist}} - {{title}} [{{videoId}}",
+          "download-progress": "ডাউনলোড: {{percent}}%",
+          "downloading": "ডাউনলোড হচ্ছে…",
+          "downloading-counter": "ডাউনলোড হচ্ছে {{current}}/{{total}}…",
+          "downloading-playlist": "প্লেলিস্ট \"{{playlistTitle}}\" - {{playlistSize}}টি গান ({{playlistId}}) ডাউনলোড হচ্ছে",
+          "error-while-downloading": "\"{{author}} - {{title}}\" ডাউনলোড করতে সমস্যা: {{error}}",
+          "folder-already-exists": "{{playlistFolder}} ফোল্ডারটি ইতিমধ্যে বিদ্যমান",
+          "getting-playlist-info": "প্লেলিস্ট তথ্য নেওয়া হচ্ছে…",
+          "loading": "লোড হচ্ছে…",
+          "playlist-has-only-one-song": "প্লেলিস্টে শুধুমাত্র একটি আইটেম আছে, সরাসরি ডাউনলোড করা হচ্ছে",
+          "playlist-id-not-found": "কোনো প্লেলিস্ট আইডি পাওয়া যায়নি",
+          "playlist-is-empty": "প্লেলিস্ট খালি",
+          "playlist-is-mix-or-private": "প্লেলিস্ট তথ্য পেতে সমস্যা: নিশ্চিত করুন এটি প্রাইভেট বা \"আপনার জন্য মিক্সড\" প্লেলিস্ট নয়\n\n{{error}}",
+          "preparing-file": "ফাইল প্রস্তুত করা হচ্ছে…",
+          "saving": "সংরক্ষণ করা হচ্ছে…",
+          "trying-to-get-playlist-id": "প্লেলিস্ট আইডি পাওয়ার চেষ্টা করা হচ্ছে: {{playlistId}}",
+          "video-id-not-found": "ভিডিও পাওয়া যায়নি",
+          "writing-id3": "ID3 ট্যাগ লেখা হচ্ছে…"
+        }
+      },
+      "description": "ইন্টারফেস থেকে সরাসরি MP3 / উৎস অডিও ডাউনলোড করে",
+      "menu": {
+        "choose-download-folder": "ডাউনলোড ফোল্ডার বেছে নিন",
+        "download-finish-settings": {
+          "label": "শেষ হলে ডাউনলোড করুন",
+          "prompt": {
+            "last-percent": "x শতাংশ পরে",
+            "last-seconds": "শেষ x সেকেন্ড",
+            "title": "কখন ডাউনলোড করবেন তা কনফিগার করুন"
+          },
+          "submenu": {
+            "advanced": "উন্নত",
+            "enabled": "সক্রিয়",
+            "mode": "সময় মোড",
+            "percent": "শতাংশ",
+            "seconds": "সেকেন্ড"
+          }
+        },
+        "download-playlist": "প্লেলিস্ট ডাউনলোড করুন",
+        "presets": "প্রিসেট",
+        "skip-existing": "বিদ্যমান ফাইলগুলি এড়িয়ে যান"
+      },
+      "name": "ডাউনলোডার",
+      "renderer": {
+        "can-not-update-progress": "অগ্রগতি আপডেট করা যাচ্ছে না"
+      },
+      "templates": {
+        "button": "ডাউনলোড"
+      }
+    },
+    "equalizer": {
+      "description": "প্লেয়ারে একটি ইকুয়ালাইজার যোগ করে",
+      "menu": {
+        "presets": {
+          "label": "প্রিসেট",
+          "list": {
+            "bass-booster": "বেস বুস্টার"
+          }
+        }
+      },
+      "name": "ইকুয়ালাইজার"
+    },
+    "exponential-volume": {
+      "description": "ভলিউম স্লাইডারকে এক্সপোনেনশিয়াল করে তোলে যাতে কম ভলিউম নির্বাচন করা সহজ হয়।",
+      "name": "এক্সপোনেনশিয়াল ভলিউম"
     }
   }
 }
