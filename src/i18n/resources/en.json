@@ -696,6 +696,11 @@
           }
         }
       },
+      "renderer": {
+        "quality-settings-button": {
+          "label": "Open player quality changer"
+        }
+      },
       "description": "Allows changing the video quality with a button on the video overlay",
       "name": "Video Quality Changer"
     },
