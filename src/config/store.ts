@@ -5,7 +5,7 @@ import defaults from './defaults';
 import { DefaultPresetList, type Preset } from '@/plugins/downloader/types';
 
 // prettier-ignore
-export type IStore = InstanceType<typeof import('conf/dist/source/index').default<Record<string, unknown>>>;
+export type IStore = InstanceType<typeof import('conf').default<Record<string, unknown>>>;
 
 const migrations = {
   '>=3.3.0'(store: IStore) {
