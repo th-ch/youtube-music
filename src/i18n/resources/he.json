@@ -395,7 +395,8 @@
         "options": {
           "multi-input": {
             "fade-scaling": {
-              "linear": "לינארי"
+              "linear": "לינארי",
+              "logarithmic": "לוגריתמי"
             }
           }
         }
