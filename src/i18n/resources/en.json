@@ -515,18 +515,6 @@
         "button": "Download"
       }
     },
-    "equalizer": {
-      "description": "Adds an equalizer to the player",
-      "menu": {
-        "presets": {
-          "label": "Presets",
-          "list": {
-            "bass-booster": "Bass booster"
-          }
-        }
-      },
-      "name": "Equalizer"
-    },
     "exponential-volume": {
       "description": "Makes the volume slider exponential so it's easier to select lower volumes.",
       "name": "Exponential Volume"
