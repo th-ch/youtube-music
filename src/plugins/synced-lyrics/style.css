@@ -220,18 +220,18 @@
   }
 }
 
-div:has(> .lyrics-picker) {
+div:has(> .lyrics-picker-container) {
   z-index: 100;
   position: sticky !important;
+}
 
-  & > .lyrics-picker {
-    position: relative;
+.lyrics-picker-container {
+  position: relative;
 
-    top: var(--lyrics-picker-top, 0) !important;
-    transition: top 325ms ease-in-out;
+  top: var(--lyrics-picker-top, 0) !important;
+  transition: top 325ms ease-in-out;
 
-    backdrop-filter: blur(5px);
-  }
+  backdrop-filter: blur(5px);
 }
 
 .lyrics-picker-advanced {

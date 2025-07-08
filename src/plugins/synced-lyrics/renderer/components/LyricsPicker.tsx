@@ -54,12 +54,11 @@ const pickBestProvider = () => {
 
 export const [pickerAdvancedOpen, setPickerAdvancedOpen] = createSignal(false);
 
-const [hasManuallySwitchedProvider, setHasManuallySwitchedProvider] =
-  createSignal(false);
+// prettier-ignore
+const [hasManuallySwitchedProvider, setHasManuallySwitchedProvider] = createSignal(false);
 
-export const LyricsPicker = (props: {
-  setStickRef: Setter<HTMLElement | null>;
-}) => {
+// prettier-ignore
+export const LyricsPicker = () => {
   createEffect(() => {
     // fallback to the next source, if the current one has an error
     if (!hasManuallySwitchedProvider()) {
@@ -115,7 +114,7 @@ export const LyricsPicker = (props: {
   const toggleAdvancedIcon: Icons = 'icons:more-vert';
 
   return (
-    <div class="lyrics-picker" ref={props.setStickRef}>
+    <div class="lyrics-picker">
       <div class="lyrics-picker-left">
         <yt-icon-button
           class="style-scope ytmusic-player-bar"
