@@ -62,6 +62,9 @@ export default (win: BrowserWindow) => {
         win.webContents.send('ytmd:seek-by', seconds);
       }
     },
+    requestShuffleInformation: () => {
+      win.webContents.send('ytmd:get-shuffle');
+    },
     shuffle: () => win.webContents.send('ytmd:shuffle'),
     switchRepeat: (n: ArgsType<number> = 1) => {
       const repeat = parseNumberFromArgsType(n);
@@ -131,12 +134,12 @@ export default (win: BrowserWindow) => {
     },
     clearQueue: () => win.webContents.send('ytmd:clear-queue'),
 
-    search: (query: string) =>
+    search: (query: string, params?: string, continuation?: string) =>
       new Promise((resolve) => {
         ipcMain.once('ytmd:search-results', (_, result) => {
           resolve(result as string);
         });
-        win.webContents.send('ytmd:search', query);
+        win.webContents.send('ytmd:search', query, params, continuation);
       }),
   };
 };

@@ -44,6 +44,19 @@ async function listenForApiLoad() {
 }
 
 async function onApiLoaded() {
+  // Workaround for macOS traffic lights
+  {
+    let osType = 'Unknown';
+    if (window.electronIs.osx()) {
+      osType = 'Macintosh';
+    } else if (window.electronIs.windows()) {
+      osType = 'Windows';
+    } else if (window.electronIs.linux()) {
+      osType = 'Linux';
+    }
+    document.documentElement.setAttribute('data-os', osType);
+  }
+
   // Workaround for #2459
   document
     .querySelector('button.video-button.ytmusic-av-toggle')
@@ -80,6 +93,20 @@ async function onApiLoaded() {
       >('ytmusic-player-bar')
       ?.queue.shuffle();
   });
+
+  const isShuffled = () => {
+    const isShuffled =
+      document
+        .querySelector<HTMLElement>('ytmusic-player-bar')
+        ?.attributes.getNamedItem('shuffle-on') ?? null;
+
+    return isShuffled !== null;
+  };
+
+  window.ipcRenderer.on('ytmd:get-shuffle', () => {
+    window.ipcRenderer.send('ytmd:get-shuffle-response', isShuffled());
+  });
+
   window.ipcRenderer.on(
     'ytmd:update-like',
     (_, status: 'LIKE' | 'DISLIKE' = 'LIKE') => {
@@ -250,20 +277,25 @@ async function onApiLoaded() {
     });
   });
 
-  window.ipcRenderer.on('ytmd:search', async (_, query: string) => {
-    const app = document.querySelector<YouTubeMusicAppElement>('ytmusic-app');
-    const searchBox =
-      document.querySelector<SearchBoxElement>('ytmusic-search-box');
+  window.ipcRenderer.on(
+    'ytmd:search',
+    async (_, query: string, params?: string, continuation?: string) => {
+      const app = document.querySelector<YouTubeMusicAppElement>('ytmusic-app');
+      const searchBox =
+        document.querySelector<SearchBoxElement>('ytmusic-search-box');
 
-    if (!app || !searchBox) return;
+      if (!app || !searchBox) return;
 
-    const result = await app.networkManager.fetch('/search', {
-      query,
-      suggestStats: searchBox.getSearchboxStats(),
-    });
+      const result = await app.networkManager.fetch('/search', {
+        query,
+        params,
+        continuation,
+        suggestStats: searchBox.getSearchboxStats(),
+      });
 
-    window.ipcRenderer.send('ytmd:search-results', result);
-  });
+      window.ipcRenderer.send('ytmd:search-results', result);
+    },
+  );
 
   const video = document.querySelector('video')!;
   const audioContext = new AudioContext();

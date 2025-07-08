@@ -1,30 +1,50 @@
-import { createMemo, For } from 'solid-js';
+import { createEffect, createSignal, Show } from 'solid-js';
+
+import { canonicalize, romanize, simplifyUnicode } from '../utils';
+import { config } from '../renderer';
 
 interface PlainLyricsProps {
-  lyrics: string;
+  line: string;
 }
 
 export const PlainLyrics = (props: PlainLyricsProps) => {
-  const lines = createMemo(() => props.lyrics.split('\n'));
+  const [romanization, setRomanization] = createSignal('');
+
+  createEffect(async () => {
+    if (!config()?.romanization) return;
+
+    const input = canonicalize(props.line);
+    setRomanization(canonicalize(await romanize(input)));
+  });
 
   return (
-    <div class="plain-lyrics">
-      <For each={lines()}>
-        {(line) => {
-          if (line.trim() === '') {
-            return <br />;
-          } else {
-            return (
-              <yt-formatted-string
-                class="text-lyrics description ytmusic-description-shelf-renderer"
-                text={{
-                  runs: [{ text: line }],
-                }}
-              />
-            );
-          }
+    <div
+      class={`${
+        props.line.match(/^\[.+\]$/s) ? 'lrc-header' : ''
+      } text-lyrics description ytmusic-description-shelf-renderer`}
+      style={{
+        'display': 'flex',
+        'flex-direction': 'column',
+      }}
+    >
+      <yt-formatted-string
+        text={{
+          runs: [{ text: props.line }],
         }}
-      </For>
+      />
+      <Show
+        when={
+          config()?.romanization &&
+          simplifyUnicode(props.line) !== simplifyUnicode(romanization())
+        }
+      >
+        <yt-formatted-string
+          class="romaji"
+          text={{
+            runs: [{ text: romanization() }],
+          }}
+        />
+      </Show>
     </div>
   );
 };

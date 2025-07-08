@@ -3,7 +3,7 @@
 # YouTube Music
 
 [![GitHub release](https://img.shields.io/github/release/th-ch/youtube-music.svg?style=for-the-badge&logo=youtube-music)](https://github.com/th-ch/youtube-music/releases/)
-[![GitHub license](https://img.shields.io/github/license/th-ch/youtube-music.svg?style=for-the-badge)](https://github.com/th-ch/youtube-music/blob/master/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/th-ch/youtube-music.svg?style=for-the-badge)](https://github.com/th-ch/youtube-music/blob/master/license)
 [![eslint code style](https://img.shields.io/badge/code_style-eslint-5ed9c7.svg?style=for-the-badge)](https://github.com/th-ch/youtube-music/blob/master/.eslintrc.js)
 [![Build status](https://img.shields.io/github/actions/workflow/status/th-ch/youtube-music/build.yml?branch=master&style=for-the-badge&logo=youtube-music)](https://GitHub.com/th-ch/youtube-music/releases/)
 [![GitHub All Releases](https://img.shields.io/github/downloads/th-ch/youtube-music/total?style=for-the-badge&logo=youtube-music)](https://GitHub.com/th-ch/youtube-music/releases/)
@@ -17,11 +17,11 @@
 
 <div align="center">
     <a href="https://github.com/th-ch/youtube-music/releases/latest">
-        <img src="web/youtube-music.svg" width="400" height="100" alt="YouTube Music SVG">
+        <img src="../../web/youtube-music.svg" width="400" height="100" alt="YouTube Music SVG">
     </a>
 </div>
 
-
+Прочтите это на других языках: [🏴 Английский](../../README.md), [🇰🇷 корейский](./README-ko.md), [🇫🇷 Французский](./README-fr.md), [🇮🇸 исландский](./README-is.md), [🇪🇸 испанский](./README-es.md), [🇷🇺 Русский](./README-ru.md), [🇺🇦 Украинский](./README-uk.md), [🇧🇷 Португальский](./README-pt.md)
 
 **Клиент для YouTube Music основанный на Electron с поддержкой:**
 
@@ -36,24 +36,24 @@
 
 ## Содержание
 
-- [Возможности](#features)
-- [Доступные плагины](#available-plugins)
-- [Перевод](#translation)
-- [Скачать](#download)
+- [Возможности](#Возможности)
+- [Доступные плагины](#Доступные-плагины)
+- [Перевод](#Перевод)
+- [Скачать](#Скачать)
   - [Arch Linux](#arch-linux)
   - [MacOS](#macos)
   - [Windows](#windows)
-    - [Как установить без подключения к интернету? (в Windows)](#how-to-install-without-a-network-connection-in-windows)
-- [Темы](#themes)
-- [Для разработчиков](#dev)
-- [Создайте свои собственные плагины](#build-your-own-plugins)
-  - [Создание плагина](#creating-a-plugin)
-  - [Примеры использования](#common-use-cases)
-- [Сборка](#build)
-- [Предварительный просмотр](#production-preview)
-- [Тестирование](#tests)
-- [Лицензия](#license)
-- [Часто задаваемые вопросы](#faq)
+    - [Как установить без подключения к интернету? (в Windows)](#Установка-без-подключения-к-Интернету-в-Windows)
+- [Темы](#Темы)
+- [Для разработчиков](#Для-разработчиков)
+- [Создайте свои собственные плагины](#Создайте-свои-собственные-плагины)
+  - [Создание плагина](#Создание-плагина)
+  - [Примеры использования](#Примеры-использования)
+- [Сборка](#Сборка)
+- [Предварительный просмотр](#Предварительный-просмотр)
+- [Тестирование](#Тестирование)
+- [Лицензия](#Лицензия)
+- [Часто задаваемые вопросы](#Часто-задаваемые-вопросы)
 
 ## Возможности:
 

@@ -57,6 +57,8 @@ import { loadI18n, setLanguage, t } from '@/i18n';
 
 import ErrorHtmlAsset from '@assets/error.html?asset';
 
+import { defaultAuthProxyConfig } from '@/plugins/auth-proxy-adapter/config';
+
 import type { PluginConfig } from '@/types/plugins';
 
 if (!is.macOS()) {
@@ -112,6 +114,11 @@ protocol.registerSchemesAsPrivileged([
   { scheme: 'mailto', privileges: { standard: true } },
 ]);
 
+// https://github.com/electron/electron/issues/46538#issuecomment-2808806722
+if (is.linux()) {
+  app.commandLine.appendSwitch('gtk-version', '3');
+}
+
 // Ozone platform hint: Required for Wayland support
 app.commandLine.appendSwitch('ozone-platform-hint', 'auto');
 // SharedArrayBuffer: Required for downloader (@ffmpeg/core-mt)
@@ -134,14 +141,6 @@ if (is.linux()) {
   // Overrides WM_CLASS for X11 to correspond to icon filename
   app.setName('com.github.th_ch.youtube_music');
 
-  // Workaround for issue #2248
-  if (
-    process.env.XDG_SESSION_TYPE === 'wayland' ||
-    process.env.WAYLAND_DISPLAY
-  ) {
-    app.commandLine.appendSwitch('disable-gpu-memory-buffer-video-frames');
-  }
-
   // Stops chromium from launching its own MPRIS service
   if (config.plugins.isEnabled('shortcuts')) {
     app.commandLine.appendSwitch('disable-features', 'MediaSessionService');
@@ -149,7 +148,24 @@ if (is.linux()) {
 }
 
 if (config.get('options.proxy')) {
-  app.commandLine.appendSwitch('proxy-server', config.get('options.proxy'));
+  const authProxyEnabled = config.plugins.isEnabled('auth-proxy-adapter');
+
+  let proxyToUse = '';
+  if (authProxyEnabled) {
+    // Use proxy from Auth-Proxy-Adapter plugin
+    const authProxyConfig = deepmerge(
+      defaultAuthProxyConfig,
+      config.get('plugins.auth-proxy-adapter') ?? {},
+    ) as typeof defaultAuthProxyConfig;
+
+    const { hostname, port } = authProxyConfig;
+    proxyToUse = `socks5://${hostname}:${port}`;
+  } else if (config.get('options.proxy')) {
+    // Use global proxy settings
+    proxyToUse = config.get('options.proxy');
+  }
+  console.log(LoggerPrefix, `Using proxy: ${proxyToUse}`);
+  app.commandLine.appendSwitch('proxy-server', proxyToUse);
 }
 
 // Adds debug features like hotkeys for triggering dev tools and reload
@@ -833,7 +849,7 @@ app.whenReady().then(async () => {
 
   // Optimized for Mac OS X
   if (is.macOS() && !config.get('options.appVisible')) {
-    app.dock.hide();
+    app.dock?.hide();
   }
 
   let forceQuit = false;

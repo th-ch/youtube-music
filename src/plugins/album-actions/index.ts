@@ -61,8 +61,8 @@ export default createPlugin<
       ];
       //Finds the playlist
       const playlist =
-        document.querySelector('ytmusic-shelf-renderer') ??
-        document.querySelector('ytmusic-playlist-shelf-renderer')!;
+        document.querySelector('ytmusic-playlist-shelf-renderer') ??
+        Array.prototype.at.call(document.querySelectorAll('ytmusic-shelf-renderer'), -1)!;
       // Adds an observer for every button, so it gets updated when one is clicked
       this.changeObserver?.disconnect();
       this.changeObserver = new MutationObserver(() => {
@@ -86,16 +86,16 @@ export default createPlugin<
       if (continuations.children.length == 0 && listsLength > 0) {
         const counts = [
           playlist?.querySelectorAll(
-            '#button-shape-dislike[aria-pressed=true] > button',
+            '#button-shape-dislike > button[aria-pressed=true]',
           ).length,
           playlist?.querySelectorAll(
-            '#button-shape-dislike[aria-pressed=false] > button',
+            '#button-shape-dislike > button[aria-pressed=false]',
           ).length,
           playlist?.querySelectorAll(
-            '#button-shape-like[aria-pressed=false] > button',
+            '#button-shape-like > button[aria-pressed=false]',
           ).length,
           playlist?.querySelectorAll(
-            '#button-shape-like[aria-pressed=true] > button',
+            '#button-shape-like > button[aria-pressed=true]',
           ).length,
         ];
         let i = 0;
@@ -157,28 +157,28 @@ export default createPlugin<
       if (loader.children.length != 0) return;
       this.loadObserver?.disconnect();
       let playlistButtons: NodeListOf<HTMLElement> | undefined;
-      const playlist = document.querySelector('ytmusic-shelf-renderer')
-        ? document.querySelector('ytmusic-shelf-renderer')
-        : document.querySelector('ytmusic-playlist-shelf-renderer');
+      const playlist =
+        document.querySelector('ytmusic-playlist-shelf-renderer') ??
+        Array.prototype.at.call(document.querySelectorAll('ytmusic-shelf-renderer'), -1)!;
       switch (id) {
         case 'allundislike':
           playlistButtons = playlist?.querySelectorAll(
-            '#button-shape-dislike[aria-pressed=true] > button',
+            '#button-shape-dislike > button[aria-pressed=true]',
           );
           break;
         case 'alldislike':
           playlistButtons = playlist?.querySelectorAll(
-            '#button-shape-dislike[aria-pressed=false] > button',
+            '#button-shape-dislike > button[aria-pressed=false]',
           );
           break;
         case 'alllike':
           playlistButtons = playlist?.querySelectorAll(
-            '#button-shape-like[aria-pressed=false] > button',
+            '#button-shape-like > button[aria-pressed=false]',
           );
           break;
         case 'allunlike':
           playlistButtons = playlist?.querySelectorAll(
-            '#button-shape-like[aria-pressed=true] > button',
+            '#button-shape-like > button[aria-pressed=true]',
           );
           break;
         default:

@@ -30,35 +30,43 @@ export class LyricsGenius implements LyricProvider {
           title: titleA,
           primary_artist: { name: artistA },
         },
-      },
-      {
+      }, {
         result: {
           title: titleB,
           primary_artist: { name: artistB },
         },
       }) => {
-        const pointsA = (titleA === title ? 1 : 0) + (artistA.includes(artist) ? 1 : 0);
-        const pointsB = (titleB === title ? 1 : 0) + (artistB.includes(artist) ? 1 : 0);
+        const pointsA = (titleA === title ? 1 : 0) +
+          (artistA.includes(artist) ? 1 : 0);
+        const pointsB = (titleB === title ? 1 : 0) +
+          (artistB.includes(artist) ? 1 : 0);
 
         return pointsB - pointsA;
       },
     );
 
     const closestHit = hits.at(0);
-    if (!closestHit) {
+    if (!closestHit || closestHit.result.primary_artist.url === 'https://genius.com/artists/Deleted-artist') {
       return null;
     }
 
     const { result: { path } } = closestHit;
 
-    const html = await fetch(`${this.baseUrl}${path}`).then((res) => res.text());
+    const html = await fetch(`${this.baseUrl}${path}`).then((res) =>
+      res.text()
+    );
     const doc = this.domParser.parseFromString(html, 'text/html');
 
-    const preloadedStateScript = Array.prototype.find.call(doc.querySelectorAll('script'), (script: HTMLScriptElement) => {
-      return script.textContent?.includes('window.__PRELOADED_STATE__');
-    }) as HTMLScriptElement;
+    const preloadedStateScript = Array.prototype.find.call(
+      doc.querySelectorAll('script'),
+      (script: HTMLScriptElement) => {
+        return script.textContent?.includes('window.__PRELOADED_STATE__');
+      },
+    ) as HTMLScriptElement;
 
-    const preloadedState = preloadedStateScript.textContent?.match(preloadedStateRegex)?.[1]?.replace(/\\"/g, '"');
+    const preloadedState = preloadedStateScript.textContent?.match(
+      preloadedStateRegex,
+    )?.[1]?.replace(/\\"/g, '"');
 
     const lyricsHtml = preloadedState?.match(preloadHtmlRegex)?.[1]
       ?.replace(/\\\//g, '/')
@@ -67,12 +75,19 @@ export class LyricsGenius implements LyricProvider {
       ?.replace(/\\'/g, "'")
       ?.replace(/\\"/g, '"');
 
-    if (!lyricsHtml) throw new Error('Failed to extract lyrics from preloaded state.');
+    const hasUnreleasedPlaceholder = preloadedState &&
+      /lyricsPlaceholderReason.{1,5}unreleased/.test(preloadedState);
+    if (!lyricsHtml) {
+      if (hasUnreleasedPlaceholder) return null;
+      throw new Error('Failed to extract lyrics from preloaded state.');
+    }
 
     const lyricsDoc = this.domParser.parseFromString(lyricsHtml, 'text/html');
     const lyrics = lyricsDoc.body.innerText;
 
-    if (lyrics.trim().toLowerCase().replace(/[[\]]/g, '') === 'instrumental') return null;
+    if (lyrics.trim().toLowerCase().replace(/[[\]]/g, '') === 'instrumental') {
+      return null;
+    }
 
     return {
       title: closestHit.result.title,

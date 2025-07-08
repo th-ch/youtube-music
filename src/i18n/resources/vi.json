@@ -279,6 +279,13 @@
       },
       "name": "Chế độ Môi trường xung quanh"
     },
+    "amuse": {
+      "description": "Thêm hỗ trợ YouTube Music cho tiện ích hiển thị bài hát đang phát Amuse của 6K Labs.",
+      "name": "Amuse",
+      "response": {
+        "query": "Máy chủ API của Amuse đang chạy. GET /query để lấy thông tin về bài hát."
+      }
+    },
     "api-server": {
       "description": "Thêm máy chủ API để điều khiển trình phát",
       "dialog": {
@@ -299,7 +306,7 @@
               "label": "Xác thực ngay yêu cầu đầu tiên"
             },
             "none": {
-              "label": "Không/Chưa xác thực (Need context)"
+              "label": "Không xác thực"
             }
           }
         },
@@ -326,9 +333,33 @@
       "description": "Áp dụng tính năng nén cho âm thanh (giảm âm lượng của phần to nhất của tín hiệu và tăng âm lượng của phần nhỏ nhất)",
       "name": "Bộ nén âm thanh"
     },
+    "auth-proxy-adapter": {
+      "description": "Ủng hộ cho mục đích duy trì dịch vụ xác minh proxy",
+      "menu": {
+        "disable": "Vô hiệu bộ chuyển đổi Proxy",
+        "enable": "Kích hoạt bộ chuyển đổi Proxy",
+        "hostname": {
+          "label": "Tên máy chủ"
+        },
+        "port": {
+          "label": "Cổng"
+        }
+      },
+      "name": "Bộ chuyển đổi xác minh máy chủ Proxy",
+      "prompt": {
+        "hostname": {
+          "label": "Nhập tên của máy chủ proxy lân cận (bắt buộc khởi động lại ứng dụng):",
+          "title": "Tên máy chủ Proxy"
+        },
+        "port": {
+          "label": "Nhập cổng của máy chủ proxy lận cận (bắt buộc khởi động lại ứng dụng):",
+          "title": "Cổng máy chủ Proxy"
+        }
+      }
+    },
     "blur-nav-bar": {
-      "description": "Làm mờ và trong suốt thanh điều hướng",
-      "name": "Thanh điều hướng mờ"
+      "description": "Làm thanh điều hướng mờ và trong suốt",
+      "name": "Làm mờ thanh điều hướng"
     },
     "bypass-age-restrictions": {
       "description": "Bỏ qua xác minh độ tuổi của YouTube",
@@ -484,6 +515,17 @@
         "button": "Tải xuống"
       }
     },
+    "equalizer": {
+      "description": "Thêm bộ cân bằng âm thanh vào trình phát nhạc.",
+      "menu": {
+        "presets": {
+          "list": {
+            "bass-booster": "Bộ tăng âm trầm"
+          }
+        }
+      },
+      "name": "Cân bằng âm thanh"
+    },
     "exponential-volume": {
       "description": "Làm cho thanh trượt âm lượng theo cấp số nhân để dễ dàng chọn âm lượng thấp hơn.",
       "name": "Âm lượng theo cấp số nhân"
@@ -581,6 +623,10 @@
       },
       "name": "Thông báo"
     },
+    "performance-improvement": {
+      "description": "Cải thiện hiệu suất thông qua kích hoạt scripts thử nghiệm",
+      "name": "Cải thiện hiệu năng [Beta]"
+    },
     "picture-in-picture": {
       "description": "Cho phép chuyển ứng dụng sang chế độ ảnh trong ảnh",
       "menu": {
@@ -664,6 +710,7 @@
         "listenbrainz": {
           "token": "Nhập mã người dùng ListenBrainz"
         },
+        "scrobble-alternative-title": "Dùng tiêu đề thay thế",
         "scrobble-other-media": "Scrobber nội dung khác"
       },
       "name": "Scrobbler",
@@ -714,8 +761,8 @@
     "synced-lyrics": {
       "description": "Cung cấp lời bài hát được đồng bộ hoá với các bài hát, sử dụng những nhà cung cấp như LRClib.",
       "errors": {
-        "fetch": "⚠️ - Đã xảy ra lỗi khi tìm lời bài hát, Vui lòng thử lại sau.",
-        "not-found": "⚠️ - Không tìm thấy lời cho bài hát này."
+        "fetch": "⚠️\t\tĐã xảy ra lỗi khi tìm lời bài hát.\n\tVui lòng thử lại sau.",
+        "not-found": "⚠️ Không tìm thấy lời cho bài hát này."
       },
       "menu": {
         "default-text-string": {
@@ -725,6 +772,9 @@
         "line-effect": {
           "label": "Kiểu đường thẳng",
           "submenu": {
+            "fancy": {
+              "label": "Màu mè"
+            },
             "focus": {
               "label": "Tập trung",
               "tooltip": "Chỉ làm cho dòng hiện tại có màu trắng"
@@ -743,6 +793,10 @@
         "precise-timing": {
           "label": "Làm cho lời bài hát được đồng bộ hoàn hảo",
           "tooltip": "Tính toán chính xác đến mili giây thời gian hiển thị dòng tiếp theo (có thể có tác động nhỏ đến hiệu suất)"
+        },
+        "romanization": {
+          "label": "Chuyển lời bài hát sang chữ Latin",
+          "tooltip": "Nếu lời bài hát đang ở ngôn ngữ khác, thử hiển thị phiên bản bảng chữ cái La-tinh."
         },
         "show-lyrics-even-if-inexact": {
           "label": "Hiển thị lời bài hát ngay cả khi không chính xác",
@@ -775,6 +829,10 @@
     "tuna-obs": {
       "description": "Tích hợp với plugin Tuna của OBS",
       "name": "Tuna OBS"
+    },
+    "unobtrusive-player": {
+      "description": "Ngăn trình phát nhạc xuất hiện đột ngột khi phát một bài hát.",
+      "name": "Trình phát nhạc ẩn"
     },
     "video-toggle": {
       "description": "Thêm nút để chuyển giữa chế độ Video/Bài hát. Cũng có thể tùy ý xóa toàn bộ tab video",

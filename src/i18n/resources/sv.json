@@ -1,8 +1,130 @@
 {
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "Misslyckades med att köra plugin {{pluginName}}::{{contextName}}",
+        "executed-at-ms": "Plugin {{pluginName}}::{{contextName}} kördes på {{ms}} ms",
+        "initialize-failed": "Misslyckades med att initialisera pluginen \"{{pluginName}}\"",
+        "load-all": "Laddar alla pluginer",
+        "load-failed": "Misslyckades med att ladda pluginen \"{{pluginName}}\"",
+        "loaded": "Pluginen \"{{pluginName}}\" laddad",
+        "unload-failed": "Misslyckades med att avlasta pluginen \"{{pluginName}}\"",
+        "unloaded": "Pluginen \"{{pluginName}}\" avlastad"
+      }
+    }
+  },
   "language": {
     "code": "sv",
     "local-name": "Svenska",
     "name": "Swedish"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "Laddning klar. DevTools öppnad"
+      },
+      "i18n": {
+        "loaded": "i18n laddad"
+      },
+      "second-instance": {
+        "receive-command": "Mottog kommando via protokoll: \"{{command}}\""
+      },
+      "theme": {
+        "css-file-not-found": "CSS-filen \"{{cssFile}}\" finns inte, ignorerar"
+      },
+      "unresponsive": {
+        "details": "Oresponsivt fel!\n{{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "Rensar appens cache"
+      },
+      "window": {
+        "tried-to-render-offscreen": "Fönstret försökte rendera utanför skärmen, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "detail": "Menyn är dold, använd 'Alt' för att visa den (eller 'Escape' om du använder inbyggd meny)",
+        "message": "Dölj Meny är aktiverat",
+        "title": "Dölj Meny aktiverad"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "Senare",
+          "restart-now": "Starta om nu"
+        },
+        "detail": "\"{{pluginName}}\" pluginen kräver en omstart för att träda i kraft",
+        "message": "\"{{pluginName}}\" behöver startas om",
+        "title": "Omstart krävs"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "Avsluta",
+          "relaunch": "Starta om",
+          "wait": "Vänta"
+        },
+        "detail": "Vi beklagar besväret! Välj vad du vill göra:",
+        "message": "Programmet svarar inte",
+        "title": "Fönstret svarar inte"
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "Stäng av uppdateringar",
+          "download": "Ladda ned",
+          "ok": "OK"
+        },
+        "detail": "En ny version är tillgänglig och kan laddas ned på {{downloadLink}}",
+        "message": "En ny version är tillgänglig",
+        "title": "Uppdatering tillgänglig"
+      }
+    },
+    "menu": {
+      "about": "Om",
+      "navigation": {
+        "label": "Navigering",
+        "submenu": {
+          "copy-current-url": "Kopiera nuvarande länk",
+          "go-back": "Föregående",
+          "go-forward": "Nästa",
+          "quit": "Lämna",
+          "restart": "Starta om appen"
+        }
+      },
+      "options": {
+        "label": "Valmöjligheter",
+        "submenu": {
+          "advanced-options": {
+            "label": "Avancerade valmöjligheter",
+            "submenu": {
+              "auto-reset-app-cache": "Nollställ appcache när appen startar",
+              "disable-hardware-acceleration": "Stäng av hårdvaruacceleration",
+              "edit-config-json": "Redigera config.json",
+              "override-user-agent": "Ersätt User-Agent",
+              "restart-on-config-changes": "Starta om vid konfigurationsändringar",
+              "set-proxy": {
+                "label": "Ställ in proxy",
+                "prompt": {
+                  "label": "Ange Proxy-adress: (lämna tomt för att inaktivera)",
+                  "placeholder": "Exempel: SOCKS5://127.0.0.1:9999",
+                  "title": "Ställ in proxy"
+                }
+              },
+              "toggle-dev-tools": "Utvecklarverktyg"
+            }
+          },
+          "always-on-top": "Alltid överst",
+          "auto-update": "Uppdatera automatiskt",
+          "language": {
+            "dialog": {
+              "message": "Språket ändras efter omstart",
+              "title": "Språket har ändrats"
+            },
+            "label": "Språk"
+          },
+          "resume-on-start": "Fortsätt spela när appen öppnas"
+        }
+      }
+    }
   },
   "plugins": {
     "navigation": {

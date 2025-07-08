@@ -3,7 +3,7 @@
 # YouTube Music
 
 [![GitHub release](https://img.shields.io/github/release/th-ch/youtube-music.svg?style=for-the-badge&logo=youtube-music)](https://github.com/th-ch/youtube-music/releases/)
-[![GitHub license](https://img.shields.io/github/license/th-ch/youtube-music.svg?style=for-the-badge)](https://github.com/th-ch/youtube-music/blob/master/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/th-ch/youtube-music.svg?style=for-the-badge)](https://github.com/th-ch/youtube-music/blob/master/license)
 [![eslint code style](https://img.shields.io/badge/code_style-eslint-5ed9c7.svg?style=for-the-badge)](https://github.com/th-ch/youtube-music/blob/master/.eslintrc.js)
 [![Build status](https://img.shields.io/github/actions/workflow/status/th-ch/youtube-music/build.yml?branch=master&style=for-the-badge&logo=youtube-music)](https://GitHub.com/th-ch/youtube-music/releases/)
 [![GitHub All Releases](https://img.shields.io/github/downloads/th-ch/youtube-music/total?style=for-the-badge&logo=youtube-music)](https://GitHub.com/th-ch/youtube-music/releases/)
@@ -20,6 +20,8 @@
 		<img src="/web/youtube-music.svg" width="400" height="100" alt="YouTube Music SVG">
 	</a>
 </div>
+
+Lee esto en otros idiomas: [🏴 Inglés](../../README.md), [🇰🇷 Coreano](./README-ko.md), [🇫🇷 Francés](./README-fr.md), [🇮🇸 Islandés](./README-is.md), [🇪🇸 Español](./README-es.md), [🇷🇺 Ruso](./README-ru.md), [🇺🇦 Ucraniano](./README-uk.md), [🇧🇷 Portugués](./README-pt.md), [🇯🇵 Japonés](./README-ja.md)
 
 **Electron wrapper de YouTube Music con las siguientes características:**
 
@@ -130,7 +132,7 @@
     teclas multimedia + [atajos personalizados](https://github.com/Araxeus/youtube-music/blob/1e591d6a3df98449bcda6e63baab249b28026148/providers/song-controls.js#L13-L50)
     para [usuarios avanzados](https://github.com/th-ch/youtube-music/issues/106#issuecomment-952156902)
 
-- **Saltar Canción no Gustada**: Salta las canciones que no te gustan
+- **Omitir Canciones No Deseadas**: Salta las canciones que no te gustan
 
 - **Saltar Silencios**: Salta automáticamente las secciones de silencio
 

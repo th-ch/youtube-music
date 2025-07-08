@@ -12,6 +12,12 @@ export interface ScrobblerPluginConfig {
    * @default true
    */
   scrobbleOtherMedia: boolean;
+  /**
+   * Use alternative titles for scrobbling (Useful for non-roman song titles)
+   *
+   * @default false
+   */
+  alternativeTitles: boolean;
   scrobblers: {
     lastfm: {
       /**
@@ -71,6 +77,7 @@ export interface ScrobblerPluginConfig {
 export const defaultConfig: ScrobblerPluginConfig = {
   enabled: false,
   scrobbleOtherMedia: true,
+  alternativeTitles: false,
   scrobblers: {
     lastfm: {
       enabled: false,

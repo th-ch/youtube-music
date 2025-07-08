@@ -333,6 +333,30 @@
       "description": "Aplicar compressão ao áudio (reduz o volume das partes mais altas e aumenta o volume das partes mais baixas)",
       "name": "Compressor de áudio"
     },
+    "auth-proxy-adapter": {
+      "description": "Suporte para o uso de serviços de proxy de autenticação",
+      "menu": {
+        "disable": "Desativar adaptador proxy",
+        "enable": "Ativar adaptador proxy",
+        "hostname": {
+          "label": "Nome do host"
+        },
+        "port": {
+          "label": "Porta"
+        }
+      },
+      "name": "Adaptador de proxy de autenticação",
+      "prompt": {
+        "hostname": {
+          "label": "Entre o nome do host do servidor proxy local (necessário reiniciar):",
+          "title": "Nome do host do proxy"
+        },
+        "port": {
+          "label": "Entre a porta do servidor proxy local (necessário reiniciar):",
+          "title": "Porta do proxy"
+        }
+      }
+    },
     "blur-nav-bar": {
       "description": "Torna a barra de navegação transparente e desfocada",
       "name": "Desfocar barra de navegação"
@@ -600,6 +624,10 @@
       },
       "name": "Notificações"
     },
+    "performance-improvement": {
+      "description": "Melhore o desempenho habilitando scripts experimentais",
+      "name": "Melhoria de desempenho [Beta]"
+    },
     "picture-in-picture": {
       "description": "Permite alternar o aplicativo para o modo picture-in-picture",
       "menu": {
@@ -683,6 +711,7 @@
         "listenbrainz": {
           "token": "Insira o token de usuário ListenBrainz"
         },
+        "scrobble-alternative-title": "Usar títulos alternativos",
         "scrobble-other-media": "Scrobble outras mídias"
       },
       "name": "Scrobbler",
@@ -767,6 +796,10 @@
           "label": "Deixa as letras perfeitamente sincronizadas",
           "tooltip": "Calcular até o milissegundo a exibição da próxima linha (pode ter um pequeno impacto no desempenho)"
         },
+        "romanization": {
+          "label": "Letras romanizadas",
+          "tooltip": "Se as letras estiverem em um idioma diferente, tente exibir uma versão latina."
+        },
         "show-lyrics-even-if-inexact": {
           "label": "Mostrar letras mesmo que não sejam exatas",
           "tooltip": "Se a música não for encontrada, o plugin tenta novamente com uma consulta de pesquisa diferente.\nO resultado da segunda tentativa pode não ser exato."
@@ -798,6 +831,10 @@
     "tuna-obs": {
       "description": "Integração com o plugin Tuna do OBS",
       "name": "Tuna OBS"
+    },
+    "unobtrusive-player": {
+      "description": "Evita que o player apareça ao tocar uma música",
+      "name": "Player discreto"
     },
     "video-toggle": {
       "description": "Adiciona um botão para alternar entre o modo Vídeo/Música. Também é possível remover opcionalmente toda a aba de vídeo",

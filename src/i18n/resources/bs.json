@@ -1,0 +1,133 @@
+{
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "Greška u izvršavanju dodatka {{pluginName}}::{{contextName}}",
+        "executed-at-ms": "Dodatak {{pluginName}}::{{contextName}} se izvršio za {{ms}}ms",
+        "initialize-failed": "Greška prilikom inicijalizacije dodatka \"{{pluginName}}\"",
+        "load-all": "Učitavanje svih dodataka",
+        "load-failed": "Greška u učitavanju dodatka \"{{pluginName}}\"",
+        "loaded": "Dodatak \"{{pluginName}}\" učitan",
+        "unload-failed": "Greška prilikom onesposobljavanja dodatka \"{{pluginName}}\"",
+        "unloaded": "Dodatak \"{{pluginName}}\" ugašen"
+      }
+    }
+  },
+  "language": {
+    "code": "ba",
+    "local-name": "Bosanski",
+    "name": "Bosnian"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "Završeno učitavanje. DevTools otvoren"
+      },
+      "i18n": {
+        "loaded": "i18n učitan"
+      },
+      "second-instance": {
+        "receive-command": "Comanda primljena preko protokola \"{{command}}\""
+      },
+      "theme": {
+        "css-file-not-found": "CSS datoteka \"{{cssFile}}\" ne postoji, ignorišem"
+      },
+      "unresponsive": {
+        "details": "Greška u aplikaciji!\n{{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "Čistim predmemoriju aplikacije"
+      },
+      "window": {
+        "tried-to-render-offscreen": "Prozor se pokušao prikazati van okvira ekrana, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "detail": "Meni je sakriven, koristite 'Alt' da ga prikazete (ili 'ESC' ako koristite meni u aplikaciji)",
+        "message": "Sakrivanje menija je uključeno",
+        "title": "Meni sakriven"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "Kasnije",
+          "restart-now": "Pokreni ponovo odmah"
+        },
+        "detail": "\"{{pluginName}}\" dodatak zahtjeva ponovno pokretanje kako bi se uključio",
+        "message": "\"{{pluginName}}\" potrebno je resetovat",
+        "title": "Restart je potreban"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "Napusti",
+          "relaunch": "Ponovo otvori",
+          "wait": "Pricekajte"
+        },
+        "detail": "Izvinjavamo se zbog zabune! molimo vas da odaberete sta zelite uciniti",
+        "message": "Aplikacija ne reagira",
+        "title": "Prozor ne reagira"
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "Ugasite Nadogradnje",
+          "download": "Skinuti",
+          "ok": "OK"
+        },
+        "detail": "Nova verzija je dostupna i može biti skinuta na {{downloadLink}}",
+        "message": "Nova verzija je dostupna",
+        "title": "Azuriranje dostupno"
+      }
+    },
+    "menu": {
+      "about": "O nama",
+      "navigation": {
+        "label": "Plejer",
+        "submenu": {
+          "copy-current-url": "Kopirajte trenutni link",
+          "go-back": "Idi Nazad",
+          "go-forward": "Idi Naprijed",
+          "quit": "Izadji",
+          "restart": "Restartujte Aplikaciju"
+        }
+      },
+      "options": {
+        "label": "Opcije",
+        "submenu": {
+          "advanced-options": {
+            "label": "Napredne opcije",
+            "submenu": {
+              "auto-reset-app-cache": "Resetuje kes memoriju kad se aplikacija pokrene",
+              "disable-hardware-acceleration": "Ugasite hardversko ubrzanje",
+              "edit-config-json": "Uredite config.json",
+              "override-user-agent": "Nadjacaj User-Agent",
+              "restart-on-config-changes": "Ponovno pokretanje nakon promjena konfiguracije",
+              "set-proxy": {
+                "label": "Postavi proxy",
+                "prompt": {
+                  "label": "Unesite adresu proxyja: (ostavite prazno za onemogućavanje)",
+                  "placeholder": "Primjer: SOCKS5://127.0.0.1:9999",
+                  "title": "Postavi proxy"
+                }
+              },
+              "toggle-dev-tools": "Uključi/isključi DevTools"
+            }
+          },
+          "always-on-top": "Uvijek na vrhu",
+          "auto-update": "Automatski Update",
+          "hide-menu": {
+            "dialog": {
+              "message": "Meni će biti skriven pri sljedećem pokretanju, koristite [Alt] da ga prikažete (ili upotrijebite [`] ako koristite meni u aplikaciji)",
+              "title": "Sakrij meni omogućen"
+            },
+            "label": "Sakrij meni"
+          },
+          "language": {
+            "dialog": {
+              "message": "Jezik će se promijeniti nakon ponovnog pokretanja"
+            }
+          }
+        }
+      }
+    }
+  }
+}

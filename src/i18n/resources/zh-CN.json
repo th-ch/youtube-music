@@ -333,6 +333,30 @@
       "description": "对音频应用压缩（压低响亮部分，提升柔和部分）",
       "name": "音频压缩器"
     },
+    "auth-proxy-adapter": {
+      "name": "认证代理适配",
+      "description": "支持使用需要身份验证的代理",
+      "menu": {
+        "disable": "禁用代理适配",
+        "enable": "启用代理适配",
+        "hostname": {
+          "label": "主机名"
+        },
+        "port": {
+          "label": "端口"
+        }
+      },
+      "prompt": {
+        "hostname": {
+          "title": "代理主机名",
+          "label": "请输入本地代理服务器的主机名（需要重启）："
+        },
+        "port": {
+          "title": "代理端口",
+          "label": "请输入本地代理服务器的端口号（需要重启）："
+        }
+      }
+    },
     "blur-nav-bar": {
       "description": "让导航栏透明及模糊",
       "name": "模糊导航栏"
@@ -600,6 +624,10 @@
       },
       "name": "通知"
     },
+    "performance-improvement": {
+      "description": "通过开启实验性脚本改进性能",
+      "name": "性能改进 [公测]"
+    },
     "picture-in-picture": {
       "description": "允许应用切换到画中画模式",
       "menu": {
@@ -683,6 +711,7 @@
         "listenbrainz": {
           "token": "输入 ListenBrainz 用户令牌"
         },
+        "scrobble-alternative-title": "使用替代标题",
         "scrobble-other-media": "记录其他媒体文件"
       },
       "name": "歌曲记录器",
@@ -733,8 +762,8 @@
     "synced-lyrics": {
       "description": "透过 LRClib 等服务提供滚动歌词显示。",
       "errors": {
-        "fetch": "⚠️ - 获取歌词时发生错误。请稍后再试。",
-        "not-found": "⚠️ - 未找到此歌曲的歌词。"
+        "fetch": "⚠️ 获取歌词时发生错误。\n 请稍后再试。",
+        "not-found": "⚠️ 未找到此歌曲的歌词。"
       },
       "menu": {
         "default-text-string": {
@@ -744,6 +773,10 @@
         "line-effect": {
           "label": "歌词行特效",
           "submenu": {
+            "fancy": {
+              "label": "Fancy",
+              "tooltip": "在当前行上使用大的、类似应用的效果"
+            },
             "focus": {
               "label": "高亮",
               "tooltip": "仅将当前歌词行显示为白色"
@@ -762,6 +795,10 @@
         "precise-timing": {
           "label": "让滚动歌词完全同步",
           "tooltip": "以毫秒精度估算下句歌词的显示时间（可能对性能有小幅影响）"
+        },
+        "romanization": {
+          "label": "将歌词罗马化",
+          "tooltip": "如果歌词以不同语言显示，试着展示拉丁字母版本。"
         },
         "show-lyrics-even-if-inexact": {
           "label": "即使时值不精确依然显示歌词",
@@ -794,6 +831,10 @@
     "tuna-obs": {
       "description": "与 OBS 的 Tuna 插件集成",
       "name": "Tuna OBS"
+    },
+    "unobtrusive-player": {
+      "description": "防止播放器在播放歌曲时弹出",
+      "name": "非侵扰式播放器"
     },
     "video-toggle": {
       "description": "增加视频/音频模式间的切换按钮。兼具移除整个视频页面的功能",

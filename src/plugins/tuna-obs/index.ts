@@ -16,7 +16,9 @@ interface Data {
   progress: number;
   status: string;
   title: string;
+  alternativeTitle: string;
   url: string;
+  tags: string[];
 }
 
 export default createPlugin({
@@ -86,10 +88,12 @@ export default createPlugin({
           cover_url: songInfo.imageSrc ?? '',
           album_url: songInfo.imageSrc ?? '',
           title: songInfo.title,
+          alternativeTitle: songInfo.alternativeTitle ?? '',
           artists: [songInfo.artist],
           status: songInfo.isPaused ? 'stopped' : 'playing',
           album: songInfo.album,
           url: songInfo.url ?? '',
+          tags: songInfo.tags ?? [],
         });
       });
     },

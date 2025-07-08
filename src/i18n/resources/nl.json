@@ -333,6 +333,30 @@
       "description": "Past compressie toe op audio (verlaagt het volume van de luidste delen van het signaal en verhoogt het volume van de zachtste delen)",
       "name": "Audiocompressor"
     },
+    "auth-proxy-adapter": {
+      "description": "Ondersteuning voor het gebruik van authenticatie proxy diensten",
+      "menu": {
+        "disable": "Proxy adapter uitschakelen",
+        "enable": "Proxy adapter inschakelen",
+        "hostname": {
+          "label": "Hostnaam"
+        },
+        "port": {
+          "label": "Poort"
+        }
+      },
+      "name": "Auth proxy adapter",
+      "prompt": {
+        "hostname": {
+          "label": "Hostname voor lokale proxy server (vereist herstart):",
+          "title": "Proxy hostnaam"
+        },
+        "port": {
+          "label": "Poort voor lokale proxy server (herstart vereist):",
+          "title": "Proxy poort"
+        }
+      }
+    },
     "blur-nav-bar": {
       "description": "Maakt de navigatiebalk transparant en wazig",
       "name": "Vervagen Navigatiebalk"
@@ -600,6 +624,10 @@
       },
       "name": "Meldingen"
     },
+    "performance-improvement": {
+      "description": "Verbeter prestaties door experimentale scripts aan te zetten",
+      "name": "Prestatie-verbetering"
+    },
     "picture-in-picture": {
       "description": "Laat de app toe om naar picture-in-picture modus om te schakelen",
       "menu": {
@@ -683,6 +711,7 @@
         "listenbrainz": {
           "token": "Voer het ListenBrainz-gebruikerstoken in"
         },
+        "scrobble-alternative-title": "Gebruik alternatieve titels",
         "scrobble-other-media": "Scrobble andere media"
       },
       "name": "Scrobbler",
@@ -767,6 +796,10 @@
           "label": "Zorg ervoor dat de songteksten perfect gesynchroniseerd zijn",
           "tooltip": "Bereken tot op de milliseconde de weergave van de volgende regel (kan een kleine impact hebben op de prestaties)"
         },
+        "romanization": {
+          "label": "Romaniseer songtekst",
+          "tooltip": "Als de songtekst in een andere taal is, probeer dan een Latijnse versie weer te geven."
+        },
         "show-lyrics-even-if-inexact": {
           "label": "Toon songteksten, zelfs als ze onnauwkeurig zijn",
           "tooltip": "Als het nummer niet wordt gevonden, probeert de plug-in het opnieuw met een andere zoekopdracht.\nHet resultaat van de tweede poging is mogelijk niet exact."
@@ -798,6 +831,10 @@
     "tuna-obs": {
       "description": "Integratie met OBS's plug-in Tuna",
       "name": "Tuna OBS"
+    },
+    "unobtrusive-player": {
+      "description": "Voorkomt dat de speler omhoog springt tijdens het afspelen van een nummer",
+      "name": "Minder opdringerige speler"
     },
     "video-toggle": {
       "description": "Voegt een knop toe om te schakelen tussen de video-/nummermodus. kan optioneel ook het hele videotabblad verwijderen",

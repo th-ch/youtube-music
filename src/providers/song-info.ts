@@ -28,6 +28,7 @@ export enum MediaType {
 
 export interface SongInfo {
   title: string;
+  alternativeTitle?: string;
   artist: string;
   views: number;
   uploadDate?: string;
@@ -41,6 +42,7 @@ export interface SongInfo {
   videoId: string;
   playlistId?: string;
   mediaType: MediaType;
+  tags?: string[];
 }
 
 // Grab the native image using the src
@@ -68,6 +70,7 @@ const handleData = async (
   // Fill songInfo with empty values
   const songInfo: SongInfo = {
     title: '',
+    alternativeTitle: '',
     artist: '',
     views: 0,
     uploadDate: '',
@@ -81,6 +84,7 @@ const handleData = async (
     videoId: '',
     playlistId: '',
     mediaType: MediaType.Audio,
+    tags: [],
   } satisfies SongInfo;
 
   const microformat = data.microformat?.microformatDataRenderer;
@@ -91,6 +95,10 @@ const handleData = async (
       new URL(microformat.urlCanonical).searchParams.get('list') ?? '';
     // Used for options.resumeOnStart
     config.set('url', microformat.urlCanonical);
+    songInfo.alternativeTitle = microformat.linkAlternates.find(
+      (link) => link.title,
+    )?.title;
+    songInfo.tags = Array.isArray(microformat.tags) ? microformat.tags : [];
   }
 
   const { videoDetails } = data;

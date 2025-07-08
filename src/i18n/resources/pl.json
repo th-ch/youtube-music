@@ -333,6 +333,30 @@
       "description": "Zastosuj kompresję do dźwięku (obniża głośność najgłośniejszych części sygnału i zwiększa głośność najcichszych części)",
       "name": "Kompresor dźwięku"
     },
+    "auth-proxy-adapter": {
+      "description": "Wparcie dla uwierzytalniających usług proxy",
+      "menu": {
+        "disable": "Wyłącz adapter proxy",
+        "enable": "Włącz adapter proxy",
+        "hostname": {
+          "label": "Nazwa hosta"
+        },
+        "port": {
+          "label": "Port"
+        }
+      },
+      "name": "Uwierzytelnij adapter proxy",
+      "prompt": {
+        "hostname": {
+          "label": "Wpisz nazwę hosta dla lokalnego serwera proxy (wymaga restaru):",
+          "title": "Nazwa hosta proxy"
+        },
+        "port": {
+          "label": "Wpisz port dla lokalnego serwera proxy (wymaga restartu):",
+          "title": "Port proxy"
+        }
+      }
+    },
     "blur-nav-bar": {
       "description": "Sprawia, że pasek nawigacji jest przezroczysty i rozmazany",
       "name": "Rozmycie paska nawigacji"
@@ -364,7 +388,7 @@
       "name": "Kompaktowy pasek boczny"
     },
     "crossfade": {
-      "description": "Przenikanie pomiędzy utworami",
+      "description": "Pozwól odtwarzaczowi płynnie przechodzić między utworami",
       "menu": {
         "advanced": "Zaawansowane"
       },
@@ -600,6 +624,10 @@
       },
       "name": "Powiadomienia"
     },
+    "performance-improvement": {
+      "description": "Popraw wydajność przez włączenie skryptów eksperymentalnych",
+      "name": "Poprawienie wydajności [Beta]"
+    },
     "picture-in-picture": {
       "description": "Umożliwia przełączenie aplikacji w tryb obrazu w obrazie",
       "menu": {
@@ -683,6 +711,7 @@
         "listenbrainz": {
           "token": "Podaj token użytkownika ListenBrainz"
         },
+        "scrobble-alternative-title": "Użyj alternatywnych tytułów",
         "scrobble-other-media": "Scrobbluj pozostałe multimedia"
       },
       "name": "Scrobblowanie",
@@ -767,6 +796,10 @@
           "label": "Zsynchronizuj tekst utworu do perfekcji",
           "tooltip": "Wylicz czas wyświetlania następnej linijki co do milisekundy (może mieć mały wpływ na wydajność systemu)"
         },
+        "romanization": {
+          "label": "Romanizacja utworów",
+          "tooltip": "Jeżeli tekst piosenki nie jest w alfabecie łacińskim, poddaje ją romanizacji, czyli przedstawia mowy za pomocą owych liter."
+        },
         "show-lyrics-even-if-inexact": {
           "label": "Pokaż teksty, mimo niezgodności",
           "tooltip": "Jeżeli nie znaleziono tekstu piosenki z bazy danych, wtyczka spróbuje ponownie przez wyszukanie przybliżonej frazy.\nNależy jednak pamiętać, że następne próby mogą nie być trafne co do oryginału."
@@ -798,6 +831,10 @@
     "tuna-obs": {
       "description": "Integracja z wtyczką OBS Tuna",
       "name": "Tuna OBS"
+    },
+    "unobtrusive-player": {
+      "description": "Zapobiega wyświetlaniu się ekranu z utworem po wybraniu innego tytułu",
+      "name": "Niewidoczny odtwarzacz"
     },
     "video-toggle": {
       "description": "Dodaje przycisk do przełączania między trybem wideo a piosenki. Może również opcjonalnie usunąć całą kartę wideo",

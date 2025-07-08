@@ -1,7 +1,6 @@
-import { MenuItemConstructorOptions } from 'electron';
-
 import { t } from '@/i18n';
 
+import type { MenuItemConstructorOptions } from 'electron';
 import type { MenuContext } from '@/types/contexts';
 import type { SyncedLyricsPluginConfig } from './types';
 
@@ -135,6 +134,17 @@ export const menu = async (
           },
         },
       ],
+    },
+    {
+      label: t('plugins.synced-lyrics.menu.romanization.label'),
+      toolTip: t('plugins.synced-lyrics.menu.romanization.tooltip'),
+      type: 'checkbox',
+      checked: config.romanization,
+      click(item) {
+        ctx.setConfig({
+          romanization: item.checked,
+        });
+      },
     },
     {
       label: t('plugins.synced-lyrics.menu.show-time-codes.label'),

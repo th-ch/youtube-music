@@ -5,7 +5,7 @@
         "execute-failed": "Échec de l'exécution du plugin {{pluginName}}::{{contextName}}",
         "executed-at-ms": "Plugin {{pluginName}}::{{contextName}} exécuté en {{ms}}ms",
         "initialize-failed": "Échec de l'initialisation du plugin \"{{pluginName}}\"",
-        "load-all": "Chargement des plugins",
+        "load-all": "Chargement de tous les plugins",
         "load-failed": "Échec du chargement du plugin \"{{pluginName}}\"",
         "loaded": "Plugin \"{{pluginName}}\" chargé",
         "unload-failed": "Échec du déchargement du plugin \"{{pluginName}}\"",
@@ -27,13 +27,13 @@
         "loaded": "i18n chargé"
       },
       "second-instance": {
-        "receive-command": "Received command over protocol : \"{{command}}\""
+        "receive-command": "Received command over protocol : \"{{command}}\""
       },
       "theme": {
         "css-file-not-found": "Le fichier de CSS \"{{cssFile}}\" n'existe pas, ignorer"
       },
       "unresponsive": {
-        "details": "Erreur : ne répond pas !\n{{error}}"
+        "details": "Erreur : Aucune réponse!\n{{error}}"
       },
       "when-ready": {
         "clearing-cache-after-20s": "Effacement du cache de l'application"
@@ -44,7 +44,7 @@
     },
     "dialog": {
       "hide-menu-enabled": {
-        "detail": "Le menu est masqué, utilisez « Alt » pour l'afficher (ou « Échap » si vous utilisez le menu de l'application)",
+        "detail": "Le menu est masqué, utilisez 'Alt' pour l'afficher (ou 'Échap' si vous utilisez le menu de l'application)",
         "message": "Le masquage du menu est activé",
         "title": "Masquer le menu activé"
       },
@@ -279,6 +279,13 @@
       },
       "name": "Mode ambiant"
     },
+    "amuse": {
+      "description": "Ajoute la prise en charge de YouTube Music pour le widget de lecture en cours Amuse par 6K Labs",
+      "name": "Amuse",
+      "response": {
+        "query": "Le serveur API Amuse est en cours d'exécution. Envoyez une requête GET /query pour obtenir des informations sur la chanson."
+      }
+    },
     "api-server": {
       "description": "Ajouter un serveur API pour contrôler le lecteur",
       "dialog": {
@@ -325,6 +332,30 @@
     "audio-compressor": {
       "description": "Appliquer une compression à l'audio (diminue le volume des parties les plus fortes du signal et augmente le volume des parties les plus faibles)",
       "name": "Compresseur audio"
+    },
+    "auth-proxy-adapter": {
+      "description": "Prise en charge de l'utilisation des services de proxy d'authentification",
+      "menu": {
+        "disable": "Désactiver l'Adaptateur Proxy",
+        "enable": "Activer l'Adaptateur Proxy",
+        "hostname": {
+          "label": "Nom d'hôte"
+        },
+        "port": {
+          "label": "Port"
+        }
+      },
+      "name": "Adaptateur de Proxy d'Authentification",
+      "prompt": {
+        "hostname": {
+          "label": "Saisir le nom d'hôte pour le serveur proxy local (nécessite un redémarrage) :",
+          "title": "Nom d'hôte du proxy"
+        },
+        "port": {
+          "label": "Saisir le port pour le serveur proxy local (nécessite un redémarrage) :",
+          "title": "Port du proxy"
+        }
+      }
     },
     "blur-nav-bar": {
       "description": "Rend la barre de navigation transparente et floue",
@@ -593,6 +624,10 @@
       },
       "name": "Notifications"
     },
+    "performance-improvement": {
+      "description": "Améliorer les performances en activant les scripts expérimentaux",
+      "name": "Amélioration des performances [Beta]"
+    },
     "picture-in-picture": {
       "description": "Permet de basculer l’application en mode image dans image",
       "menu": {
@@ -676,6 +711,7 @@
         "listenbrainz": {
           "token": "Entrer le token utilisateur de ListenBrainz"
         },
+        "scrobble-alternative-title": "Utiliser des titres alternatifs",
         "scrobble-other-media": "Scrobbler d'autres médias"
       },
       "name": "Scrobble",
@@ -727,7 +763,7 @@
       "description": "Ajoute des paroles synchronisées aux chansons, grâce à LRClib par exemple.",
       "errors": {
         "fetch": "⚠️\tUne erreur s'est produite en allant chercher les paroles.\n\tMerci de réessayer plus tard.",
-        "not-found": "⚠️ - Aucune paroles trouvées pour cette musique."
+        "not-found": "⚠️ Aucune paroles trouvées pour cette musique."
       },
       "menu": {
         "default-text-string": {
@@ -737,6 +773,10 @@
         "line-effect": {
           "label": "Effet de ligne",
           "submenu": {
+            "fancy": {
+              "label": "Raffiné",
+              "tooltip": "Utilise de grands effets de type application sur la ligne actuelle"
+            },
             "focus": {
               "label": "Focus",
               "tooltip": "Rend seulement la ligne actuelle blanche"
@@ -755,6 +795,10 @@
         "precise-timing": {
           "label": "Rend les paroles parfaitement synchronisées",
           "tooltip": "Calcul à la milliseconde près l'affichage de la ligne suivante (peut avoir un faible impact sur les performances)"
+        },
+        "romanization": {
+          "label": "Romaniser les paroles",
+          "tooltip": "Si les paroles sont dans une autre langue, essayez de les afficher dans une version latine."
         },
         "show-lyrics-even-if-inexact": {
           "label": "Afficher les paroles même si inexactes",
@@ -787,6 +831,10 @@
     "tuna-obs": {
       "description": "Intégration avec le plugin OBS Tuna",
       "name": "Tuna OBS"
+    },
+    "unobtrusive-player": {
+      "description": "Empêche le lecteur de s'afficher quand un chanson est en lecture",
+      "name": "Lecteur Non-Intrusif"
     },
     "video-toggle": {
       "description": "Ajoute un bouton pour basculer entre le mode Vidéo/Chanson. peut également supprimer tout l'onglet vidéo",

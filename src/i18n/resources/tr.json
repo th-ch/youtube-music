@@ -333,6 +333,30 @@
       "description": "Ses sıkıştırma (dalganın en gürültülü bölümlerinin ses düzeyini azaltır ve daha yumuşak bölümlerin ses düzeyini artırır)",
       "name": "Ses Sıkıştırma"
     },
+    "auth-proxy-adapter": {
+      "description": "Kimlik doğrulama proxy hizmetlerinin kullanımına destek",
+      "menu": {
+        "disable": "Proxy Bağdaştırıcısını Devre Dışı Bırak",
+        "enable": "Proxy Bağdaştırıcısını Etkinleştir",
+        "hostname": {
+          "label": "Ana makine adı"
+        },
+        "port": {
+          "label": "Port"
+        }
+      },
+      "name": "Ara Sunucu Doğrulama Bağdaştırıcısı",
+      "prompt": {
+        "hostname": {
+          "label": "Yerel proxy sunucusu için ana makine adını girin (yeniden başlatma gerektirir):",
+          "title": "Proxy Ana Makine Adı"
+        },
+        "port": {
+          "label": "Yerel proxy sunucusu için bağlantı noktasını girin (yeniden başlatma gerektirir):",
+          "title": "Proxy Bağlantı Noktası"
+        }
+      }
+    },
     "blur-nav-bar": {
       "description": "Gezinme çubuğunu şeffaf ve bulanık yapar",
       "name": "Navigasyon barını bulanıklaştır"
@@ -600,6 +624,10 @@
       },
       "name": "Bildirimler"
     },
+    "performance-improvement": {
+      "description": "Deneysel komut dosyalarını etkinleştirerek performansı artırın",
+      "name": "Performans iyileştirmesi [Beta]"
+    },
     "picture-in-picture": {
       "description": "Uygulamayı resim-içinde-resim moduna geçirmeye izin verir",
       "menu": {
@@ -683,6 +711,7 @@
         "listenbrainz": {
           "token": "ListenBrainz kullanıcı kimliğinizi girin"
         },
+        "scrobble-alternative-title": "Alternatif başlıklar kullan",
         "scrobble-other-media": "Diğer medya ortamlarında listele"
       },
       "name": "Listeleyici",
@@ -767,6 +796,10 @@
           "label": "Şarkı sözlerini mükemmel şekilde senkronize edin",
           "tooltip": "Bir sonraki satırın görüntülenmesini milisaniyesine kadar hesaplayın (performans üzerinde küçük bir etkisi olabilir)"
         },
+        "romanization": {
+          "label": "Sözleri Romanize Et",
+          "tooltip": "Sözler başka bir dilde gözüküyorsa, Latin versiyonunu dene."
+        },
         "show-lyrics-even-if-inexact": {
           "label": "Kesin olmasa bile şarkı sözlerini gösterin",
           "tooltip": "Şarkı bulunamazsa, eklenti farklı bir arama sorgusuyla tekrar dener. \nİkinci denemenin sonucu tam olmayabilir."
@@ -798,6 +831,10 @@
     "tuna-obs": {
       "description": "OBS eklentisi Tuna ile entegrasyon sağlar",
       "name": "Tuna OBS"
+    },
+    "unobtrusive-player": {
+      "description": "Müzik oynatıcının şarkı çalarken saçmalamasını engeller",
+      "name": "Göze Batmayan Çalar"
     },
     "video-toggle": {
       "description": "Video/Şarkı modu arasında geçiş yapmak için bir düğme ekler. ayrıca isteğe bağlı olarak tüm video sekmesini kaldırabilir",

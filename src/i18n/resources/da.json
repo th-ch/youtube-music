@@ -1,0 +1,315 @@
+{
+  "common": {
+    "console": {
+      "plugins": {
+        "execute-failed": "Fejl ved udføring af plugin {{pluginName}}::{{contextName}}",
+        "executed-at-ms": "Plugin {{pluginName}}::{{contextName}} udført på {{ms}}ms",
+        "initialize-failed": "Fejl ved igangsætning af plugin \"{{pluginName}}\"",
+        "load-all": "Indlæser alle plugins",
+        "load-failed": "Fejl ved indlæsning af plugin \"{{pluginName}}\"",
+        "loaded": "Plugin \"{{pluginName}}\" indlæst",
+        "unload-failed": "Fejl ved unload af plugin \"{{pluginName}}\""
+      }
+    }
+  },
+  "language": {
+    "code": "dk",
+    "local-name": "Dansk",
+    "name": "Danish"
+  },
+  "main": {
+    "console": {
+      "did-finish-load": {
+        "dev-tools": "Indlæsning færdig. DevTools åbnet"
+      },
+      "i18n": {
+        "loaded": "i18n indlæst"
+      },
+      "second-instance": {
+        "receive-command": "Modtog kommando over protokol: \"{{command}}\""
+      },
+      "theme": {
+        "css-file-not-found": "CSS fil \"{{cssFile}}\" eksisterer ikke, ignorere"
+      },
+      "unresponsive": {
+        "details": "Uresponsiv fejl!\n{{error}}"
+      },
+      "when-ready": {
+        "clearing-cache-after-20s": "Rydder op i appens cache"
+      },
+      "window": {
+        "tried-to-render-offscreen": "Windows forsøgte at indlæse uden for skærmen, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
+      }
+    },
+    "dialog": {
+      "hide-menu-enabled": {
+        "detail": "Menuen er gemt, brug 'Alt' knappen for at vise den igen (eller 'Escape' hvis In-App menuen bruges)",
+        "message": "Skjul menuen er aktiveret",
+        "title": "Skjult menu aktiveret"
+      },
+      "need-to-restart": {
+        "buttons": {
+          "later": "Senere",
+          "restart-now": "Genstart nu"
+        },
+        "detail": "\"{{pluginName}}\" plugin kræver en genstart for at have en effekt",
+        "message": "\"{{pluginName}}\" skal genstarte",
+        "title": "Genstart krævet"
+      },
+      "unresponsive": {
+        "buttons": {
+          "quit": "Afslut",
+          "relaunch": "Genåben",
+          "wait": "Vent"
+        },
+        "detail": "Vi undskylder for ubelejligheden! Vælg næste handling:",
+        "message": "Appen svarer ikke",
+        "title": "Vindue svarer ikke"
+      },
+      "update-available": {
+        "buttons": {
+          "disable": "Slå opdateringer fra",
+          "download": "Hent",
+          "ok": "OK"
+        },
+        "detail": "En ny version er tilgængelig og kan downloades her: {{downloadLink}}",
+        "message": "En ny version er tilgængelig",
+        "title": "Opdatering tilgængelig"
+      }
+    },
+    "menu": {
+      "about": "Om",
+      "navigation": {
+        "label": "Navigering",
+        "submenu": {
+          "copy-current-url": "Kopier nuværende URL",
+          "go-back": "Tilbage",
+          "go-forward": "Frem",
+          "quit": "Afslut",
+          "restart": "Genstart Appen"
+        }
+      },
+      "options": {
+        "label": "Indstillinger",
+        "submenu": {
+          "advanced-options": {
+            "label": "Avancerede indstillinger",
+            "submenu": {
+              "auto-reset-app-cache": "Nulstil app cache når appen starter",
+              "disable-hardware-acceleration": "Deaktiver hardware acceleration",
+              "edit-config-json": "Rediger config.json",
+              "restart-on-config-changes": "Genstart ved config ændringer",
+              "set-proxy": {
+                "label": "Indstil proxy",
+                "prompt": {
+                  "label": "Skriv proxy adresse: (Efterlad tom for at deaktivere)",
+                  "placeholder": "Eksempel: SOCKS5://127.0.0.1:9999",
+                  "title": "Sæt proxy"
+                }
+              },
+              "toggle-dev-tools": "Skift DevTools"
+            }
+          },
+          "always-on-top": "Altid øverst",
+          "auto-update": "Automatisk opdatering",
+          "hide-menu": {
+            "dialog": {
+              "message": "Menuen vil være lukket næste gang appen starter. Brug [Alt] for at vise den (Eller backtick [`] hvis in-app-menu bruges)",
+              "title": "Gemt menu aktiveret"
+            },
+            "label": "Skjul menu"
+          },
+          "language": {
+            "dialog": {
+              "message": "Sproget vil blive ændret efter genstart",
+              "title": "Sprog ændret"
+            },
+            "label": "Sprog",
+            "submenu": {
+              "to-help-translate": "Vil du hjælpe med at oversætte? Klik her"
+            }
+          },
+          "resume-on-start": "Genoptag sidste sang når appen starter",
+          "start-at-login": "Start ved login",
+          "starting-page": {
+            "label": "Startside",
+            "unset": "Ikke valgt"
+          },
+          "tray": {
+            "submenu": {
+              "disabled": "Deaktiveret",
+              "enabled-and-show-app": "Aktiver og vis app",
+              "play-pause-on-click": "Start/Stop ved klik"
+            }
+          },
+          "visual-tweaks": {
+            "submenu": {
+              "like-buttons": {
+                "default": "Standard",
+                "hide": "Skjul",
+                "label": "Like knapper"
+              },
+              "remove-upgrade-button": "Fjern opgrader knappen",
+              "theme": {
+                "dialog": {
+                  "button": {
+                    "remove": "Fjern"
+                  }
+                },
+                "label": "Tema",
+                "submenu": {
+                  "no-theme": "Intet tema"
+                }
+              }
+            }
+          }
+        }
+      },
+      "plugins": {
+        "enabled": "Aktiveret",
+        "label": "Plugins",
+        "new": "NY"
+      },
+      "view": {
+        "label": "Vis",
+        "submenu": {
+          "reload": "Genindlæs",
+          "zoom-in": "Zoom ind",
+          "zoom-out": "Zoom ud"
+        }
+      }
+    },
+    "tray": {
+      "next": "Næste",
+      "play-pause": "Afspil",
+      "previous": "Sidste",
+      "quit": "Luk",
+      "restart": "Genstart app",
+      "show": "Vis vindue",
+      "tooltip": {
+        "default": "YouTube Music",
+        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
+      }
+    }
+  },
+  "plugins": {
+    "ad-speedup": {
+      "description": "Hvis en reklame afspilles, slår den lyden fra og sætter hastigheden til 16x",
+      "name": "Spol igennem reklamen"
+    },
+    "adblocker": {
+      "description": "Bloker alle reklamer og sporing fra starten af",
+      "menu": {
+        "blocker": "Bloker"
+      },
+      "name": "Bloker reklamer"
+    },
+    "album-color-theme": {
+      "menu": {
+        "color-mix-ratio": {
+          "submenu": {
+            "percent": "{{ratio}}%"
+          }
+        }
+      },
+      "name": "Albummets farve tema"
+    },
+    "ambient-mode": {
+      "menu": {
+        "blur-amount": {
+          "label": "Sløringsmængde",
+          "submenu": {
+            "pixels": "{{blurAmount}} pixel"
+          }
+        },
+        "buffer": {
+          "label": "Buffer",
+          "submenu": {
+            "buffer": "{{buffer}}"
+          }
+        },
+        "opacity": {
+          "label": "Gennemsigtighed",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "quality": {
+          "label": "Kvalitet",
+          "submenu": {
+            "pixels": "{{quality}} pixel"
+          }
+        },
+        "size": {
+          "label": "Størrelse",
+          "submenu": {
+            "percent": "{{size}}%"
+          }
+        },
+        "use-fullscreen": {
+          "label": "Bruger fuldskærm"
+        }
+      }
+    },
+    "api-server": {
+      "dialog": {
+        "request": {
+          "buttons": {
+            "allow": "Tillad",
+            "deny": "Afvis"
+          },
+          "message": "Tillad at {{ID}} ({{origin}}) får adgang til API'en?"
+        }
+      },
+      "menu": {
+        "auth-strategy": {
+          "label": "Godkendelsesstrategi"
+        },
+        "hostname": {
+          "label": "Hostname"
+        },
+        "port": {
+          "label": "Port"
+        }
+      },
+      "name": "API Server [Beta]",
+      "prompt": {
+        "hostname": {
+          "label": "Skriv API serverens hostname (f. eks. 0.0.0.0):",
+          "title": "Hostname"
+        },
+        "port": {
+          "label": "Skriv API serverens port:",
+          "title": "Port"
+        }
+      }
+    },
+    "audio-compressor": {
+      "name": "Lyd kompressor"
+    },
+    "blur-nav-bar": {
+      "description": "Gør navigationsbaren gennemsigtig og sløret",
+      "name": "Slør navigationsbar"
+    },
+    "captions-selector": {
+      "menu": {
+        "disable-captions": "Ingen undertekster som standard"
+      },
+      "name": "Vælg undertekster",
+      "prompt": {
+        "selector": {
+          "label": "Nuværende sprog på undertekster: {{language}}",
+          "none": "Ingen",
+          "title": "Vælg underteksternes sprog"
+        }
+      }
+    },
+    "crossfade": {
+      "description": "Fade imellem sange",
+      "menu": {
+        "advanced": "Avanceret"
+      },
+      "name": "Fade [Beta]"
+    }
+  }
+}
