@@ -859,7 +859,7 @@
       },
       "name": "Перемикач відео",
       "templates": {
-        "button": "Пісня"
+        "button-song": "Пісня"
       }
     },
     "visualizer": {

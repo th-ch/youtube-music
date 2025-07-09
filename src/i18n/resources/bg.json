@@ -835,7 +835,7 @@
       },
       "name": "Превключване на видео",
       "templates": {
-        "button": "Песен"
+        "button-song": "Песен"
       }
     },
     "visualizer": {

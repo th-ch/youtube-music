@@ -859,7 +859,7 @@
       },
       "name": "ปุ่มวิดีโอ",
       "templates": {
-        "button": "เพลง"
+        "button-song": "เพลง"
       }
     },
     "visualizer": {

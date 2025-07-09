@@ -859,7 +859,7 @@
       },
       "name": "歌曲／影片切換",
       "templates": {
-        "button": "歌曲"
+        "button-song": "歌曲"
       }
     },
     "visualizer": {

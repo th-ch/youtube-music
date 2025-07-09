@@ -859,7 +859,7 @@
       },
       "name": "Botó de vídeo",
       "templates": {
-        "button": "Cançó"
+        "button-song": "Cançó"
       }
     },
     "visualizer": {

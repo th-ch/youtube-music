@@ -859,7 +859,7 @@
       },
       "name": "Basculer la vidéo",
       "templates": {
-        "button": "Musique"
+        "button-song": "Musique"
       }
     },
     "visualizer": {

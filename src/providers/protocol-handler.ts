@@ -6,9 +6,7 @@ import getSongControls from './song-controls';
 
 export const APP_PROTOCOL = 'youtubemusic';
 
-let protocolHandler:
-  | ((cmd: string, args: string[] | undefined) => void)
-  | undefined;
+let protocolHandler: ((cmd: string, ...args: string[]) => void) | undefined;
 
 export function setupProtocolHandler(win: BrowserWindow) {
   if (process.defaultApp && process.argv.length >= 2) {
@@ -21,22 +19,20 @@ export function setupProtocolHandler(win: BrowserWindow) {
 
   const songControls = getSongControls(win);
 
-  protocolHandler = ((
-    cmd: keyof typeof songControls,
-    args: string[] | undefined = undefined,
-  ) => {
+  protocolHandler = ((cmd: keyof typeof songControls, ...args) => {
     if (Object.keys(songControls).includes(cmd)) {
-      songControls[cmd](args as never);
+      // @ts-expect-error: cmd is a key of songControls
+      songControls[cmd](...args);
     }
-  }) as (cmd: string) => void;
+  }) as (cmd: string, ...args: string[]) => void;
 }
 
-export function handleProtocol(cmd: string, args: string[] | undefined) {
-  protocolHandler?.(cmd, args);
+export function handleProtocol(cmd: string, ...args: string[]) {
+  protocolHandler?.(cmd, ...args);
 }
 
 export function changeProtocolHandler(
-  f: (cmd: string, args: string[] | undefined) => void,
+  f: (cmd: string, ...args: string[]) => void,
 ) {
   protocolHandler = f;
 }

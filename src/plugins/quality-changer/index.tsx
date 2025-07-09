@@ -1,10 +1,11 @@
 import { dialog } from 'electron';
 
-import QualitySettingsTemplate from './templates/qualitySettingsTemplate.html?raw';
+import { render } from 'solid-js/web';
 
 import { createPlugin } from '@/utils';
-import { ElementFromHtml } from '@/plugins/utils/renderer';
 import { t } from '@/i18n';
+
+import { QualitySettingButton } from './templates/quality-setting-button';
 
 import type { YoutubePlayer } from '@/types/youtube-player';
 
@@ -18,7 +19,7 @@ export default createPlugin({
 
   backend({ ipc, window }) {
     ipc.handle(
-      'qualityChanger',
+      'ytmd:quality-changer',
       async (qualityLabels: string[], currentIndex: number) =>
         await dialog.showMessageBox(window, {
           type: 'question',
@@ -42,40 +43,48 @@ export default createPlugin({
   },
 
   renderer: {
-    qualitySettingsButton: ElementFromHtml(QualitySettingsTemplate),
+    qualitySettingsButtonContainer: document.createElement('div'),
     onPlayerApiReady(api: YoutubePlayer, context) {
-      const getPlayer = () =>
-        document.querySelector<HTMLVideoElement>('#player');
-      const chooseQuality = () => {
-        setTimeout(() => getPlayer()?.click());
+      const chooseQuality = async (e: MouseEvent) => {
+        e.stopPropagation();
 
         const qualityLevels = api.getAvailableQualityLevels();
 
         const currentIndex = qualityLevels.indexOf(api.getPlaybackQuality());
 
-        (
-          context.ipc.invoke(
-            'qualityChanger',
-            api.getAvailableQualityLabels(),
-            currentIndex,
-          ) as Promise<{ response: number }>
-        ).then((promise) => {
-          if (promise.response === -1) {
-            return;
-          }
+        const quality = (await context.ipc.invoke(
+          'ytmd:quality-changer',
+          api.getAvailableQualityLabels(),
+          currentIndex,
+        )) as {
+          response: number;
+        };
 
-          const newQuality = qualityLevels[promise.response];
-          api.setPlaybackQualityRange(newQuality);
-          api.setPlaybackQuality(newQuality);
-        });
+        if (quality.response === -1) {
+          return;
+        }
+
+        const newQuality = qualityLevels[quality.response];
+        api.setPlaybackQualityRange(newQuality);
+        api.setPlaybackQuality(newQuality);
       };
+
+      render(
+        () => (
+          <QualitySettingButton
+            label={t(
+              'plugins.quality-changer.renderer.quality-settings-button.label',
+            )}
+            onClick={chooseQuality}
+          />
+        ),
+        this.qualitySettingsButtonContainer,
+      );
 
       const setup = () => {
         document
           .querySelector('.top-row-buttons.ytmusic-player')
-          ?.prepend(this.qualitySettingsButton);
-
-        this.qualitySettingsButton.addEventListener('click', chooseQuality);
+          ?.prepend(this.qualitySettingsButtonContainer);
       };
 
       setup();
@@ -83,7 +92,7 @@ export default createPlugin({
     stop() {
       document
         .querySelector('.top-row-buttons.ytmusic-player')
-        ?.removeChild(this.qualitySettingsButton);
+        ?.removeChild(this.qualitySettingsButtonContainer);
     },
   },
 });

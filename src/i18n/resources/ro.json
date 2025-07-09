@@ -859,7 +859,7 @@
       },
       "name": "Comutator video",
       "templates": {
-        "button": "Melodie"
+        "button-song": "Melodie"
       }
     },
     "visualizer": {

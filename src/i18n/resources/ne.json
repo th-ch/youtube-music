@@ -859,7 +859,7 @@
       },
       "name": "भिडियो टगल",
       "templates": {
-        "button": "गीत"
+        "button-song": "गीत"
       }
     },
     "visualizer": {

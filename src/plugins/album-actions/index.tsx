@@ -1,12 +1,17 @@
+import { render } from 'solid-js/web';
+
+import { createSignal, Show } from 'solid-js';
+
 import { t } from '@/i18n';
 import { createPlugin } from '@/utils';
-import { ElementFromHtml } from '@/plugins/utils/renderer';
 import { waitForElement } from '@/utils/wait-for-element';
 
-import undislikeHTML from './templates/undislike.html?raw';
-import dislikeHTML from './templates/dislike.html?raw';
-import likeHTML from './templates/like.html?raw';
-import unlikeHTML from './templates/unlike.html?raw';
+import {
+  DislikeButton,
+  LikeButton,
+  UnDislikeButton,
+  UnLikeButton,
+} from './templates';
 
 export default createPlugin<
   unknown,
@@ -52,19 +57,69 @@ export default createPlugin<
       }
       const continuations = await waitForElement<HTMLElement>('#continuations');
       this.waiting = false;
-      //Gets the for buttons
-      const buttons: Array<HTMLElement> = [
-        ElementFromHtml(undislikeHTML),
-        ElementFromHtml(dislikeHTML),
-        ElementFromHtml(likeHTML),
-        ElementFromHtml(unlikeHTML),
-      ];
+
+      const [showUnDislike, setShowUnDislike] = createSignal(true);
+      const [showDislike, setShowDislike] = createSignal(true);
+      const [showLike, setShowLike] = createSignal(true);
+      const [showUnLike, setShowUnLike] = createSignal(true);
+
+      const DEFAULT_MASK_SIZE = '100% 50%';
+      const [unDislikeMaskSize, setUnDislikeMaskSize] =
+        createSignal(DEFAULT_MASK_SIZE);
+      const [dislikeMaskSize, setDislikeMaskSize] =
+        createSignal(DEFAULT_MASK_SIZE);
+      const [likeMaskSize, setLikeMaskSize] = createSignal(DEFAULT_MASK_SIZE);
+      const [unLikeMaskSize, setUnLikeMaskSize] =
+        createSignal(DEFAULT_MASK_SIZE);
+
+      const buttonContainer = document.createElement('div');
+      buttonContainer.style.display = 'flex';
+      buttonContainer.style.flexDirection = 'row';
+
+      render(
+        () => (
+          <>
+            <Show when={showUnDislike()}>
+              <UnDislikeButton
+                onClick={this.loadFullList}
+                maskSize={unDislikeMaskSize()}
+              />
+            </Show>
+            <Show when={showDislike()}>
+              <DislikeButton
+                onClick={this.loadFullList}
+                maskSize={dislikeMaskSize()}
+              />
+            </Show>
+            <Show when={showLike()}>
+              <LikeButton
+                onClick={this.loadFullList}
+                maskSize={likeMaskSize()}
+              />
+            </Show>
+            <Show when={showUnLike()}>
+              <UnLikeButton
+                onClick={this.loadFullList}
+                maskSize={unLikeMaskSize()}
+              />
+            </Show>
+          </>
+        ),
+        buttonContainer,
+      );
+
       //Finds the playlist
       const playlist =
         document.querySelector('ytmusic-playlist-shelf-renderer') ??
-        Array.prototype.at.call(document.querySelectorAll('ytmusic-shelf-renderer'), -1)!;
+        document.querySelector(':nth-last-child(1 of ytmusic-shelf-renderer)');
+
+      if (!playlist) {
+        return;
+      }
+
       // Adds an observer for every button, so it gets updated when one is clicked
       this.changeObserver?.disconnect();
+
       this.changeObserver = new MutationObserver(() => {
         this.stop();
         this.start();
@@ -84,34 +139,57 @@ export default createPlugin<
         '#button-shape-dislike > button',
       ).length;
       if (continuations.children.length == 0 && listsLength > 0) {
-        const counts = [
-          playlist?.querySelectorAll(
+        const counts = {
+          dislike: playlist?.querySelectorAll(
             '#button-shape-dislike > button[aria-pressed=true]',
           ).length,
-          playlist?.querySelectorAll(
+          undislike: playlist?.querySelectorAll(
             '#button-shape-dislike > button[aria-pressed=false]',
           ).length,
-          playlist?.querySelectorAll(
+          unlike: playlist?.querySelectorAll(
             '#button-shape-like > button[aria-pressed=false]',
           ).length,
-          playlist?.querySelectorAll(
+          like: playlist?.querySelectorAll(
             '#button-shape-like > button[aria-pressed=true]',
           ).length,
-        ];
-        let i = 0;
-        for (const count of counts) {
-          if (count == 0) {
-            buttons.splice(i, 1);
-            i--;
-          } else {
-            (
-              buttons[i].children[0].children[0] as HTMLElement
-            ).style.setProperty(
-              '-webkit-mask-size',
-              `100% ${100 - (count / listsLength) * 100}%`,
-            );
+        };
+        for (const [name, size] of Object.entries(counts)) {
+          switch (name) {
+            case 'dislike':
+              if (size > 0) {
+                setShowDislike(true);
+                setDislikeMaskSize(`100% ${100 - (size / listsLength) * 100}%`);
+              } else {
+                setShowDislike(false);
+              }
+              break;
+            case 'undislike':
+              if (size > 0) {
+                setShowUnDislike(true);
+                setUnDislikeMaskSize(
+                  `100% ${100 - (size / listsLength) * 100}%`,
+                );
+              } else {
+                setShowUnDislike(false);
+              }
+              break;
+            case 'like':
+              if (size > 0) {
+                setShowLike(true);
+                setLikeMaskSize(`100% ${100 - (size / listsLength) * 100}%`);
+              } else {
+                setShowLike(false);
+              }
+              break;
+            case 'unlike':
+              if (size > 0) {
+                setShowUnLike(true);
+                setUnLikeMaskSize(`100% ${100 - (size / listsLength) * 100}%`);
+              } else {
+                setShowUnLike(false);
+              }
+              break;
           }
-          i++;
         }
       }
       const menuParent =
@@ -126,10 +204,7 @@ export default createPlugin<
           menu,
           menuParent.children[menuParent.children.length - 1],
         );
-        for (const button of buttons) {
-          menu.appendChild(button);
-          button.addEventListener('click', this.loadFullList);
-        }
+        menu.appendChild(buttonContainer);
       }
     },
     loadFullList(event: MouseEvent) {
@@ -159,7 +234,7 @@ export default createPlugin<
       let playlistButtons: NodeListOf<HTMLElement> | undefined;
       const playlist =
         document.querySelector('ytmusic-playlist-shelf-renderer') ??
-        Array.prototype.at.call(document.querySelectorAll('ytmusic-shelf-renderer'), -1)!;
+        document.querySelector(':nth-last-child(1 of ytmusic-shelf-renderer)');
       switch (id) {
         case 'allundislike':
           playlistButtons = playlist?.querySelectorAll(

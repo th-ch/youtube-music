@@ -208,6 +208,9 @@ importers:
       socks:
         specifier: 2.8.5
         version: 2.8.5
+      solid-element:
+        specifier: 1.9.1
+        version: 1.9.1(solid-js@1.9.7)
       solid-floating-ui:
         specifier: 0.3.1
         version: 0.3.1(@floating-ui/dom@1.7.2)(solid-js@1.9.7)
@@ -1975,6 +1978,9 @@ packages:
   compare-version@0.1.2:
     resolution: {integrity: sha512-pJDh5/4wrEnXX/VWRZvruAGHkzKdr46z11OlTPN+VrATlWWhSKewNCJ1futCO5C7eJB3nPMFZA1LeYtcFboZ2A==}
     engines: {node: '>=0.10.0'}
+
+  component-register@0.8.7:
+    resolution: {integrity: sha512-clPS/o1RNfJw7L1/w4q+nkj6l7JV32kFHCx6vW5nSPOEly4B9olMeADNilEgpLV/DdeS7y8JXhHKx9YvSj8vqQ==}
 
   compressible@2.0.18:
     resolution: {integrity: sha512-AF3r7P5dWxL8MxyITRMlORQNaOA2IkAFaTr4k7BUumjPtRpGDTZpl0Pb1XCO6JeDCBdp126Cgs9sMxqSjgYyRg==}
@@ -4279,6 +4285,11 @@ packages:
   socks@2.8.5:
     resolution: {integrity: sha512-iF+tNDQla22geJdTyJB1wM/qrX9DMRwWrciEPwWLPRWAUEM8sQiyxgckLxWT1f7+9VabJS0jTGGr4QgBuvi6Ww==}
     engines: {node: '>= 10.0.0', npm: '>= 3.0.0'}
+
+  solid-element@1.9.1:
+    resolution: {integrity: sha512-baJy6Qz27oAUgkPlqOf3Y+7RsBiuVQrS51Nrh1ddDbrqrNPvJbIvehpUsTzLNFb2ZHIoHuNnDg330go/ZKcRdg==}
+    peerDependencies:
+      solid-js: ^1.9.3
 
   solid-floating-ui@0.3.1:
     resolution: {integrity: sha512-o/QmGsWPS2Z3KidAxP0nDvN7alI7Kqy0kU+wd85Fz+au5SYcnYm7I6Fk3M60Za35azsPX0U+5fEtqfOuk6Ao0Q==}
@@ -6643,6 +6654,8 @@ snapshots:
     optional: true
 
   compare-version@0.1.2: {}
+
+  component-register@0.8.7: {}
 
   compressible@2.0.18:
     dependencies:
@@ -9217,6 +9230,11 @@ snapshots:
     dependencies:
       ip-address: 9.0.5
       smart-buffer: 4.2.0
+
+  solid-element@1.9.1(solid-js@1.9.7):
+    dependencies:
+      component-register: 0.8.7
+      solid-js: 1.9.7
 
   solid-floating-ui@0.3.1(@floating-ui/dom@1.7.2)(solid-js@1.9.7):
     dependencies:

@@ -857,7 +857,7 @@
       },
       "name": "動画の切り替え",
       "templates": {
-        "button": "曲"
+        "button-song": "曲"
       }
     },
     "visualizer": {

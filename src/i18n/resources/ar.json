@@ -859,7 +859,7 @@
       },
       "name": "تفعيل الفيديو",
       "templates": {
-        "button": "أغنية"
+        "button-song": "أغنية"
       }
     },
     "visualizer": {

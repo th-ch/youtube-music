@@ -859,7 +859,7 @@
       },
       "name": "Videoumschalter",
       "templates": {
-        "button": "Lied"
+        "button-song": "Lied"
       }
     },
     "visualizer": {
