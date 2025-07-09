@@ -21,7 +21,7 @@ const forcePlaybackRate = (e: Event) => {
   }
 };
 
-const roundToTwo = (n: number) => Math.round(n * 1e2) / 1e2;
+const roundToTwo = (n: number) => n.toFixed(2);
 
 const [speed, setSpeed] = createSignal(1);
 const sliderContainer = document.createElement('div');
