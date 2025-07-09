@@ -21,7 +21,7 @@ const forcePlaybackRate = (e: Event) => {
   }
 };
 
-const roundToTwo = (n: number) => n.toFixed(2);
+const roundToTwo = (n: number) => Math.round(n * 1e2) / 1e2;
 
 const [speed, setSpeed] = createSignal(1);
 const sliderContainer = document.createElement('div');
@@ -44,13 +44,16 @@ export const onPlayerApiReady = () => {
           title={t('plugins.playback-speed.templates.button')}
           onImmediateValueChanged={(e) => {
             let targetSpeed = Number(e.detail.value ?? MIN_PLAYBACK_SPEED);
-            
+
             if (isNaN(targetSpeed)) {
               targetSpeed = 1;
             }
-            
-            targetSpeed = Math.min(Math.max(MIN_PLAYBACK_SPEED, targetSpeed), MAX_PLAYBACK_SPEED);
-            
+
+            targetSpeed = Math.min(
+              Math.max(MIN_PLAYBACK_SPEED, targetSpeed),
+              MAX_PLAYBACK_SPEED,
+            );
+
             setSpeed(targetSpeed);
             updatePlayBackSpeed();
           }}
