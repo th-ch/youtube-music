@@ -387,10 +387,36 @@
       "name": "סרגל צד קומפקטי"
     },
     "crossfade": {
-      "description": "עמעם בין השירים"
+      "description": "עמעם בין השירים",
+      "menu": {
+        "advanced": "מתקדם"
+      },
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "fade-scaling": {
+              "linear": "לינארי"
+            }
+          }
+        }
+      }
+    },
+    "disable-autoplay": {
+      "menu": {
+        "apply-once": "חל רק בהפעלה"
+      },
+      "name": "השבתת הפעלה אוטומטית"
     },
     "discord": {
+      "backend": {
+        "connected": "התחבר לדיסקורד",
+        "disconnected": "התנתק לדיסקורד"
+      },
       "menu": {
+        "auto-reconnect": "חיבור מחדש אוטומטי",
+        "clear-activity": "נקה פעילות",
+        "connected": "מחובר",
+        "disconnected": "מנותק",
         "hide-github-button": "הסתר את לחצן הקישור של GitHub",
         "play-on-youtube-music": "הפעל ביוטיוב מיוזיק",
         "set-inactivity-timeout": "הגדר פסק זמן לחוסר פעילות"
@@ -400,6 +426,10 @@
       "backend": {
         "dialog": {
           "error": {
+            "buttons": {
+              "ok": "אוקיי"
+            },
+            "message": "אה ! מתנצלים , הורדה נכשלה",
             "title": "שגיאה בהורדה!"
           }
         },
