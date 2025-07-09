@@ -605,7 +605,15 @@
     },
     "navigation": {
       "description": "Next/Back navigation arrows directly integrated in the interface, like in your favorite browser",
-      "name": "Navigation"
+      "name": "Navigation",
+      "templates": {
+        "back": {
+          "title": "Go to previous page"
+        },
+        "forward": {
+          "title": "Go to next page"
+        }
+      }
     },
     "no-google-login": {
       "description": "Remove Google login buttons and links from the interface",
