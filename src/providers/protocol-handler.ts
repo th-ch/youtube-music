@@ -24,7 +24,7 @@ export function setupProtocolHandler(win: BrowserWindow) {
       // @ts-expect-error: cmd is a key of songControls
       songControls[cmd](...args);
     }
-  }) as (cmd: string) => void;
+  }) as (cmd: string, ...args: string[]) => void;
 }
 
 export function handleProtocol(cmd: string, ...args: string[]) {
