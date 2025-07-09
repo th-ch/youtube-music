@@ -2,6 +2,8 @@
   "common": {
     "console": {
       "plugins": {
+        "execute-failed": "{{pluginName}}::{{contextName}} പ്ലഗിൻ നടപ്പിലാക്കുന്നതിൽ പരാജയപ്പെട്ടു",
+        "executed-at-ms": "{{pluginName}}::{{contextName}} പ്ലഗിൻ {{ms}}ms-ൽ നടപ്പിലാക്കി.",
         "initialize-failed": "{{pluginName}}എന്ന പ്ലഗിൻ തുടങ്ങുന്നതിൽ പരാജയപെട്ടു",
         "load-all": "എല്ലാ പ്ലേഗിനും ലോഡ് ചെയ്യുന്നു",
         "loaded": "{{pluginName}} എന്ന പ്ലഗിൻ ലോഡ് ചെയ്തു",
