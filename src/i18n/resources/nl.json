@@ -835,7 +835,7 @@
       },
       "name": "Videoschakelaar",
       "templates": {
-        "button": "Nummer"
+        "button-song": "Nummer"
       }
     },
     "visualizer": {

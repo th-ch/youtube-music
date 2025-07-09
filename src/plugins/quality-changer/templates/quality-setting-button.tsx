@@ -12,7 +12,7 @@ export const QualitySettingButton = (props: QualitySettingButtonProps) => (
     role={'button'}
     tabindex={0}
     title={props.label}
-    on:click={props.onClick}
+    onClick={props.onClick}
   >
     <span class="yt-icon-shape style-scope yt-icon yt-spec-icon-shape">
       <div

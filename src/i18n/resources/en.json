@@ -869,7 +869,8 @@
       },
       "name": "Video Toggle",
       "templates": {
-        "button": "Song"
+        "button-song": "Song",
+        "button-video": "Video"
       }
     },
     "visualizer": {

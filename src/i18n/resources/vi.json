@@ -857,7 +857,7 @@
       },
       "name": "Chuyển đổi video",
       "templates": {
-        "button": "Bài hát"
+        "button-song": "Bài hát"
       }
     },
     "visualizer": {

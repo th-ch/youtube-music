@@ -859,7 +859,7 @@
       },
       "name": "视频切换开关",
       "templates": {
-        "button": "歌曲"
+        "button-song": "歌曲"
       }
     },
     "visualizer": {

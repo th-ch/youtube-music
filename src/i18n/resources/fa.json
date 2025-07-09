@@ -831,7 +831,7 @@
       },
       "name": "ویدیو به آهنگ",
       "templates": {
-        "button": "ترانه"
+        "button-song": "ترانه"
       }
     },
     "visualizer": {

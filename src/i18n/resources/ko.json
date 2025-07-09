@@ -859,7 +859,8 @@
       },
       "name": "영상 전환",
       "templates": {
-        "button": "노래"
+        "button-song": "노래",
+        "button-video": "영상"
       }
     },
     "visualizer": {

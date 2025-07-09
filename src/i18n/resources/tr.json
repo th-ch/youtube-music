@@ -859,7 +859,7 @@
       },
       "name": "Video Geçiş",
       "templates": {
-        "button": "Şarkı"
+        "button-song": "Şarkı"
       }
     },
     "visualizer": {

@@ -859,7 +859,7 @@
       },
       "name": "Selettore Brano/Video",
       "templates": {
-        "button": "Brano"
+        "button-song": "Brano"
       }
     },
     "visualizer": {

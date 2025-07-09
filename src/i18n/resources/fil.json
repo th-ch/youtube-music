@@ -784,7 +784,7 @@
         }
       },
       "templates": {
-        "button": "Kanta"
+        "button-song": "Kanta"
       }
     },
     "visualizer": {

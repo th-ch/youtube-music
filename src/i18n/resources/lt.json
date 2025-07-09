@@ -618,7 +618,7 @@
       },
       "name": "Vaizdo įrašo perjungimas",
       "templates": {
-        "button": "Daina"
+        "button-song": "Daina"
       }
     },
     "visualizer": {

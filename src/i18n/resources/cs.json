@@ -765,7 +765,7 @@
       },
       "name": "Přepínač videa",
       "templates": {
-        "button": "Písnička"
+        "button-song": "Písnička"
       }
     },
     "visualizer": {

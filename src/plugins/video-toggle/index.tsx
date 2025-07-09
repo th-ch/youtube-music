@@ -182,7 +182,8 @@ export default createPlugin({
 
                 setVideoState(target.checked);
               }}
-              text={t('plugins.video-toggle.templates.button')}
+              songButtonText={t('plugins.video-toggle.templates.button-song')}
+              videoButtonText={t('plugins.video-toggle.templates.button-video',)}
             />
           </Show>
         ),
