@@ -306,8 +306,8 @@ importers:
         specifier: 4.0.0
         version: 4.0.0
       electron-vite:
-        specifier: 4.0.0-beta.0
-        version: 4.0.0-beta.0(rolldown-vite@7.0.6(@types/node@22.13.5)(esbuild@0.25.5)(yaml@2.8.0))
+        specifier: 4.0.0
+        version: 4.0.0(rolldown-vite@7.0.6(@types/node@22.13.5)(esbuild@0.25.5)(yaml@2.8.0))
       esbuild:
         specifier: 0.25.5
         version: 0.25.5
@@ -2291,8 +2291,8 @@ packages:
   electron-updater@6.6.2:
     resolution: {integrity: sha512-Cr4GDOkbAUqRHP5/oeOmH/L2Bn6+FQPxVLZtPbcmKZC63a1F3uu5EefYOssgZXG3u/zBlubbJ5PJdITdMVggbw==}
 
-  electron-vite@4.0.0-beta.0:
-    resolution: {integrity: sha512-ewf93/HPI8zIwaj8W5K9jpJJaATj1LgakQYfWnuJU3NEHNWUqdEArkEWZjoP9gsqhONadWWYXWWRsK0DO4EoEA==}
+  electron-vite@4.0.0:
+    resolution: {integrity: sha512-U3d7GlKjl4BPs1sxYTHn1N8YlMmPvlx1t62UVQ1zouWoBxZs5Hd5yrJcQ+rmMnko/ASbIcx/KFOTXh8YcqLv7w==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
     peerDependencies:
@@ -7057,7 +7057,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  electron-vite@4.0.0-beta.0(rolldown-vite@7.0.6(@types/node@22.13.5)(esbuild@0.25.5)(yaml@2.8.0)):
+  electron-vite@4.0.0(rolldown-vite@7.0.6(@types/node@22.13.5)(esbuild@0.25.5)(yaml@2.8.0)):
     dependencies:
       '@babel/core': 7.27.7
       '@babel/plugin-transform-arrow-functions': 7.27.1(@babel/core@7.27.7)
