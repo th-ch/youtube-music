@@ -14,10 +14,11 @@ export const VideoSwitchButton = (props: VideoSwitchButtonProps) => (
   >
     <input
       checked={true}
+      id="video-toggle-video-switch-button-checkbox"
       class="video-switch-button-checkbox"
       type="checkbox"
     />
-    <label class="video-switch-button-label" for="">
+    <label class="video-switch-button-label" for="video-toggle-video-switch-button-checkbox">
       <span class="video-switch-button-label-span">{props.songButtonText}</span>
     </label>
   </div>
