@@ -437,7 +437,8 @@
             "buttons": {
               "ok": "אוקיי"
             },
-            "message": "מוריד פלייליסט  {{playlistTitle}}"
+            "message": "מוריד פלייליסט {{playlistTitle}}",
+            "title": "הורדה התחילה"
           }
         },
         "feedback": {
