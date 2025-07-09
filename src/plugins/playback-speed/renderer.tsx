@@ -43,10 +43,14 @@ export const onPlayerApiReady = () => {
           speed={speed()}
           title={t('plugins.playback-speed.templates.button')}
           onImmediateValueChanged={(e) => {
-            let targetSpeed = e.detail.value || MIN_PLAYBACK_SPEED;
+            let targetSpeed = Number(e.detail.value ?? MIN_PLAYBACK_SPEED);
+            
             if (isNaN(targetSpeed)) {
               targetSpeed = 1;
             }
+            
+            targetSpeed = Math.min(Math.max(MIN_PLAYBACK_SPEED, targetSpeed), MAX_PLAYBACK_SPEED);
+            
             setSpeed(targetSpeed);
             updatePlayBackSpeed();
           }}
