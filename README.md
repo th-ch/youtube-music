@@ -153,6 +153,8 @@ Read this in other languages: [한국어](./docs/readme/README-ko.md), [Françai
 - **Tuna OBS**: Integration with [OBS](https://obsproject.com/)'s
   plugin [Tuna](https://obsproject.com/forum/resources/tuna.843/)
 
+- **Unobtrusive Player**: Prevents the player from popping up when playing a song
+
 - **Video Quality Changer**: Allows changing the video quality with
   a [button](https://user-images.githubusercontent.com/78568641/138574366-70324a5e-2d64-4f6a-acdd-dc2a2b9cecc5.png) on
   the video overlay
