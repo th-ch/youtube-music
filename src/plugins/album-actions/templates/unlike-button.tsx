@@ -25,6 +25,7 @@ export const UnLikeButton = (props: UnLikeButtonProps) => (
           class="yt-spec-button-shape-next__icon"
           style={{
             'color': 'white',
+            'mask': 'linear-gradient(grey, grey)',
             '-webkit-mask': 'linear-gradient(grey, grey)',
             '-webkit-mask-size': props.maskSize,
             '-webkit-mask-repeat': 'no-repeat',
