@@ -1,13 +1,15 @@
 export interface VideoSwitchButtonProps {
   onClick?: (event: MouseEvent) => void;
   onChange?: (event: Event) => void;
-  text: string;
+  songButtonText: string;
+  videoButtonText: string;
 }
 
 export const VideoSwitchButton = (props: VideoSwitchButtonProps) => (
   <div
     class="video-switch-button"
-    on:click={props.onClick}
+    data-video-button-text={props.videoButtonText}
+    onClick={props.onClick}
     onChange={props.onChange}
   >
     <input
@@ -16,7 +18,7 @@ export const VideoSwitchButton = (props: VideoSwitchButtonProps) => (
       type="checkbox"
     />
     <label class="video-switch-button-label" for="">
-      <span class="video-switch-button-label-span">{props.text}</span>
+      <span class="video-switch-button-label-span">{props.songButtonText}</span>
     </label>
   </div>
 );

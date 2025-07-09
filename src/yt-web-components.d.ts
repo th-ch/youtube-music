@@ -50,6 +50,18 @@ declare module 'solid-js' {
       'yt-icon-button': ComponentProps<'div'> & TpYtPaperIconButtonProps;
       'tp-yt-iron-icon': ComponentProps<'div'>;
       'yt-icon': ComponentProps<'div'>;
+      // input type="range" slider component
+      'tp-yt-paper-slider': ComponentProps<'input'> & {
+        value?: number | string;
+        min?: number | string;
+        max?: number | string;
+        step?: number | string;
+        disabled?: boolean;
+        'on:immediate-value-changed'?: (
+          event: CustomEvent<{ value: number }>,
+        ) => void;
+      };
+      'tp-yt-paper-progress': ComponentProps<'input'>;
     }
   }
 }
