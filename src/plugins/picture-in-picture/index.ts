@@ -3,7 +3,7 @@ import { createPlugin } from '@/utils';
 
 import { onConfigChange, onMainLoad } from './main';
 import { onMenu } from './menu';
-import { onPlayerApiReady, onRendererLoad } from './renderer';
+import { onPlayerApiReady } from './renderer';
 import { t } from '@/i18n';
 
 export type PictureInPicturePluginConfig = {
@@ -41,7 +41,6 @@ export default createPlugin({
     onConfigChange,
   },
   renderer: {
-    start: onRendererLoad,
     onPlayerApiReady,
   },
 });

@@ -7,6 +7,8 @@ import { getSongMenu } from '@/providers/dom-elements';
 import { PlaybackSpeedSlider } from './components/slider';
 import { t } from '@/i18n';
 
+import { isMusicOrVideoTrack } from '@/plugins/utils/renderer/check';
+
 const MIN_PLAYBACK_SPEED = 0.07;
 const MAX_PLAYBACK_SPEED = 16;
 
@@ -74,7 +76,7 @@ export const onPlayerApiReady = () => {
     const observer = new MutationObserver(() => {
       const menu = getSongMenu();
 
-      if (menu && !menu.contains(sliderContainer)) {
+      if (menu && !menu.contains(sliderContainer) && isMusicOrVideoTrack()) {
         menu.prepend(sliderContainer);
       }
     });

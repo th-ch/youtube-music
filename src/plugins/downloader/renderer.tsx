@@ -6,6 +6,7 @@ import defaultConfig from '@/config/defaults';
 import { getSongMenu } from '@/providers/dom-elements';
 import { getSongInfo } from '@/providers/song-info-front';
 import { t } from '@/i18n';
+import { isMusicOrVideoTrack } from '@/plugins/utils/renderer/check';
 
 import { DownloadButton } from './templates/download';
 
@@ -18,7 +19,6 @@ let download: () => void;
 const [downloadButtonText, setDownloadButtonText] = createSignal<string>('');
 
 let buttonContainer: HTMLDivElement | null = null;
-let doneFirstLoad = false;
 
 const menuObserver = new MutationObserver(() => {
   if (!menu) {
@@ -28,50 +28,15 @@ const menuObserver = new MutationObserver(() => {
     }
   }
 
-  if (menu.contains(buttonContainer)) {
+  if (
+    menu.contains(buttonContainer) ||
+    !isMusicOrVideoTrack() ||
+    !buttonContainer
+  ) {
     return;
   }
-
-  let menuUrl = document.querySelector<HTMLAnchorElement>(
-    'tp-yt-paper-listbox [tabindex="0"] #navigation-endpoint',
-  )?.href;
-  if (!menuUrl?.includes('watch?')) {
-    menuUrl = undefined;
-    for (const it of document.querySelectorAll(
-      'tp-yt-paper-listbox [tabindex="-1"] #navigation-endpoint',
-    )) {
-      if (it.getAttribute('href')?.includes('podcast/')) {
-        menuUrl = it.getAttribute('href')!;
-        break;
-      }
-    }
-  }
-
-  if (!menuUrl && doneFirstLoad) {
-    return;
-  }
-
-  buttonContainer = document.createElement('div');
-  buttonContainer.classList.add(
-    'style-scope',
-    'menu-item',
-    'ytmusic-menu-popup-renderer',
-  );
-  buttonContainer.setAttribute('aria-disabled', 'false');
-  buttonContainer.setAttribute('aria-selected', 'false');
-  buttonContainer.setAttribute('role', 'option');
-  buttonContainer.setAttribute('tabindex', '-1');
 
   menu.prepend(buttonContainer);
-
-  render(
-    () => <DownloadButton onClick={download} text={downloadButtonText()} />,
-    buttonContainer,
-  );
-
-  if (!doneFirstLoad) {
-    setTimeout(() => (doneFirstLoad ||= true), 500);
-  }
 });
 
 export const onRendererLoad = ({
@@ -126,6 +91,23 @@ export const onRendererLoad = ({
 
 export const onPlayerApiReady = () => {
   setDownloadButtonText(t('plugins.downloader.templates.button'));
+
+  buttonContainer = document.createElement('div');
+  buttonContainer.classList.add(
+    'style-scope',
+    'menu-item',
+    'ytmusic-menu-popup-renderer',
+  );
+  buttonContainer.setAttribute('aria-disabled', 'false');
+  buttonContainer.setAttribute('aria-selected', 'false');
+  buttonContainer.setAttribute('role', 'option');
+  buttonContainer.setAttribute('tabindex', '-1');
+
+  render(
+    () => <DownloadButton onClick={download} text={downloadButtonText()} />,
+    buttonContainer,
+  );
+
   menuObserver.observe(document.querySelector('ytmusic-popup-container')!, {
     childList: true,
     subtree: true,
