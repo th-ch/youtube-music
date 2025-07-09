@@ -429,8 +429,14 @@
             "buttons": {
               "ok": "אוקיי"
             },
-            "message": "אה ! מתנצלים , הורדה נכשלה",
+            "message": "אה ! מתנצלים, הורדה נכשלה",
             "title": "שגיאה בהורדה!"
+          },
+          "start-download-playlist": {
+            "buttons": {
+              "ok": "אוקיי"
+            },
+            "message": "מוריד פלייליסט  {{playlistTitle}}"
           }
         },
         "feedback": {
