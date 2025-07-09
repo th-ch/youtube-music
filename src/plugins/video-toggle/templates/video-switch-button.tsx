@@ -9,7 +9,7 @@ export const VideoSwitchButton = (props: VideoSwitchButtonProps) => (
   <div
     class="video-switch-button"
     data-video-button-text={props.videoButtonText}
-    onClick={props.onClick}
+    on:click={props.onClick}
     onChange={props.onChange}
   >
     <input
