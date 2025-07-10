@@ -146,7 +146,7 @@ export const mainMenuTemplate = async (
       );
     });
 
-  const availableLanguages = Object.keys(languageResources);
+  const availableLanguages = Object.keys(await languageResources());
 
   return [
     {
@@ -442,28 +442,32 @@ export const mainMenuTemplate = async (
               },
             } as Electron.MenuItemConstructorOptions,
           ].concat(
-            availableLanguages
-              .map(
-                (lang): Electron.MenuItemConstructorOptions => ({
-                  label: `${languageResources[lang].translation.language?.name ?? 'Unknown'} (${languageResources[lang].translation.language?.['local-name'] ?? 'Unknown'})`,
-                  type: 'checkbox',
-                  checked: (config.get('options.language') ?? 'en') === lang,
-                  click() {
-                    config.setMenuOption('options.language', lang);
-                    refreshMenu(win);
-                    setLanguage(lang);
-                    dialog.showMessageBox(win, {
-                      title: t(
-                        'main.menu.options.submenu.language.dialog.title',
-                      ),
-                      message: t(
-                        'main.menu.options.submenu.language.dialog.message',
-                      ),
-                    });
-                  },
-                }),
+            (
+              await Promise.all(
+                availableLanguages.map(
+                  async (
+                    lang,
+                  ): Promise<Electron.MenuItemConstructorOptions> => ({
+                    label: `${(await languageResources())[lang].translation.language?.name ?? 'Unknown'} (${(await languageResources())[lang].translation.language?.['local-name'] ?? 'Unknown'})`,
+                    type: 'checkbox',
+                    checked: (config.get('options.language') ?? 'en') === lang,
+                    click() {
+                      config.setMenuOption('options.language', lang);
+                      refreshMenu(win);
+                      setLanguage(lang);
+                      dialog.showMessageBox(win, {
+                        title: t(
+                          'main.menu.options.submenu.language.dialog.title',
+                        ),
+                        message: t(
+                          'main.menu.options.submenu.language.dialog.message',
+                        ),
+                      });
+                    },
+                  }),
+                ),
               )
-              .sort((a, b) => a.label!.localeCompare(b.label!)),
+            ).sort((a, b) => a.label!.localeCompare(b.label!)),
           ),
         },
         { type: 'separator' },
