@@ -48,8 +48,8 @@ export const pluginVirtualModuleGenerator = (
           /\\/g,
           '/',
         );
-        if (mode !== 'preload') {
-          // dynamic import (for main and renderer)
+        if (mode === 'main') {
+          // dynamic import (for main)
           writer.writeLine(
             `const ${snakeToCamel(name)}PluginImport = () => import('./${relativePath}');`,
           );
