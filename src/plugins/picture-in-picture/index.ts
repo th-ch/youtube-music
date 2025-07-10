@@ -7,15 +7,15 @@ import { onPlayerApiReady } from './renderer';
 import { t } from '@/i18n';
 
 export type PictureInPicturePluginConfig = {
-  enabled: boolean;
-  alwaysOnTop: boolean;
-  savePosition: boolean;
-  saveSize: boolean;
-  hotkey: 'P';
+  'enabled': boolean;
+  'alwaysOnTop': boolean;
+  'savePosition': boolean;
+  'saveSize': boolean;
+  'hotkey': 'P';
   'pip-position': [number, number];
   'pip-size': [number, number];
-  isInPiP: boolean;
-  useNativePiP: boolean;
+  'isInPiP': boolean;
+  'useNativePiP': boolean;
 };
 
 export default createPlugin({

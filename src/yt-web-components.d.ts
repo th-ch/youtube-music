@@ -39,7 +39,7 @@ declare module 'solid-js' {
     }
 
     interface IntrinsicElements {
-      center: ComponentProps<'div'>;
+      'center': ComponentProps<'div'>;
       'ytmd-trans': ComponentProps<'span'> & YtmdTransProps;
       'yt-formatted-string': ComponentProps<'span'> & YtFormattedStringProps;
       'yt-button-renderer': ComponentProps<'button'> & YtButtonRendererProps;
@@ -53,11 +53,11 @@ declare module 'solid-js' {
       'yt-icon': ComponentProps<'div'>;
       // input type="range" slider component
       'tp-yt-paper-slider': ComponentProps<'input'> & {
-        value?: number | string;
-        min?: number | string;
-        max?: number | string;
-        step?: number | string;
-        disabled?: boolean;
+        'value'?: number | string;
+        'min'?: number | string;
+        'max'?: number | string;
+        'step'?: number | string;
+        'disabled'?: boolean;
         'on:immediate-value-changed'?: (
           event: CustomEvent<{ value: number }>,
         ) => void;
