@@ -98,7 +98,7 @@ const routes = {
         content: {
           'application/json': {
             schema: z.object({
-              type: z.enum(['LIKE', 'DISLIKE', 'INDIFFERENT']).optional(),
+              state: z.enum(['LIKE', 'DISLIKE', 'INDIFFERENT']).nullable()
             }),
           },
         },
@@ -587,7 +587,7 @@ export const register = (
   });
   app.openapi(routes.getLikeState, (ctx) => {
     ctx.status(200);
-    return ctx.json({ type: likeTypeGetter() });
+    return ctx.json({ state: likeTypeGetter() ?? null });
   });
   app.openapi(routes.like, (ctx) => {
     controller.like();
