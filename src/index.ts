@@ -74,9 +74,6 @@ unhandled({
   showDialog: false,
 });
 
-// Disable Node options if the env var is set
-process.env.NODE_OPTIONS = '';
-
 // Prevent window being garbage collected
 let mainWindow: Electron.BrowserWindow | null;
 autoUpdater.autoDownload = false;
@@ -361,7 +358,7 @@ async function createMainWindow() {
     show: false,
     webPreferences: {
       contextIsolation: true,
-      preload: path.join(__dirname, '..', 'preload', 'preload.js'),
+      preload: path.join(__dirname, '..', 'preload', 'preload.cjs'),
       ...(isTesting()
         ? undefined
         : {
