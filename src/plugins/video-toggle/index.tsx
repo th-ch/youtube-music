@@ -159,9 +159,9 @@ export default createPlugin({
       const config = await getConfig();
       this.config = config;
 
-      const moveVolumeHud = window.mainConfig.plugins.isEnabled(
+      const moveVolumeHud = (await window.mainConfig.plugins.isEnabled(
         'precise-volume',
-      )
+      ))
         ? (preciseVolumeMoveVolumeHud as (_: boolean) => void)
         : () => {};
 

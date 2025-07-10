@@ -43,31 +43,69 @@ export const pluginVirtualModuleGenerator = (
   const src = globalProject.createSourceFile(
     'vm:pluginIndexes',
     (writer) => {
-      // prettier-ignore
       for (const { name, path } of plugins) {
-      const relativePath = relative(resolve(srcPath, '..'), path).replace(/\\/g, '/');
-      writer.writeLine(`import ${snakeToCamel(name)}Plugin, { pluginStub as ${snakeToCamel(name)}PluginStub } from "./${relativePath}";`);
-    }
+        const relativePath = relative(resolve(srcPath, '..'), path).replace(
+          /\\/g,
+          '/',
+        );
+        if (mode !== 'preload') {
+          // dynamic import (for main and renderer)
+          writer.writeLine(
+            `const ${snakeToCamel(name)}PluginImport = () => import('./${relativePath}');`,
+          );
+          writer.writeLine(
+            `const ${snakeToCamel(name)}Plugin = async () => (await ${snakeToCamel(name)}PluginImport()).default;`,
+          );
+          writer.writeLine(
+            `const ${snakeToCamel(name)}PluginStub = async () => (await ${snakeToCamel(name)}PluginImport()).pluginStub;`,
+          );
+        } else {
+          // static import (preload does not support dynamic import)
+          writer.writeLine(
+            `import ${snakeToCamel(name)}PluginImport, { pluginStub as ${snakeToCamel(name)}PluginStubImport } from "./${relativePath}";`,
+          );
+          writer.writeLine(
+            `const ${snakeToCamel(name)}Plugin = () => Promise.resolve(${snakeToCamel(name)}PluginImport);`,
+          );
+          writer.writeLine(
+            `const ${snakeToCamel(name)}PluginStub = () => Promise.resolve(${snakeToCamel(name)}PluginStubImport);`,
+          );
+        }
+      }
 
       writer.blankLine();
 
       // Context-specific exports
-      writer.writeLine(`export const ${mode}Plugins = {`);
+      writer.writeLine(`let ${mode}PluginsCache;`);
+      writer.writeLine(`export const ${mode}Plugins = async () => {`);
+      writer.writeLine(
+        `  if (${mode}PluginsCache) return ${mode}PluginsCache;`,
+      );
+      writer.writeLine(`  ${mode}PluginsCache = {`);
       for (const { name } of plugins) {
         const checkMode = mode === 'main' ? 'backend' : mode;
         // HACK: To avoid situation like importing renderer plugins in main
         writer.writeLine(
-          `  ...(${snakeToCamel(name)}Plugin['${checkMode}'] ? { "${name}": ${snakeToCamel(name)}Plugin } : {}),`,
+          `    ...((await ${snakeToCamel(name)}Plugin())['${checkMode}'] ? { "${name}": await ${snakeToCamel(name)}Plugin() } : {}),`,
         );
       }
+      writer.writeLine('  };');
+      writer.writeLine(`  return ${mode}PluginsCache;`);
       writer.writeLine('};');
       writer.blankLine();
 
       // All plugins export (stub only) // Omit<Plugin, 'backend' | 'preload' | 'renderer'>
-      writer.writeLine('export const allPlugins = {');
+      writer.writeLine('let allPluginsCache;');
+      writer.writeLine('export const allPlugins = async () => {');
+      writer.writeLine('  if (allPluginsCache) return allPluginsCache;');
+      writer.writeLine('  allPluginsCache = {');
       for (const { name } of plugins) {
-        writer.writeLine(`  "${name}": ${snakeToCamel(name)}PluginStub,`);
+        writer.writeLine(
+          `    "${name}": await ${snakeToCamel(name)}PluginStub(),`,
+        );
       }
+      writer.writeLine('  };');
+      writer.writeLine('  return allPluginsCache;');
       writer.writeLine('};');
       writer.blankLine();
     },
