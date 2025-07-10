@@ -39,7 +39,10 @@ import type { GetPlayerResponse } from '@/types/get-player-response';
 import type { FormatOptions } from 'node_modules/youtubei.js/dist/src/types';
 import type { VideoInfo } from 'node_modules/youtubei.js/dist/src/parser/youtube';
 import type { PlayerErrorMessage } from 'node_modules/youtubei.js/dist/src/parser/nodes';
-import type { TrackInfo, Playlist } from 'node_modules/youtubei.js/dist/src/parser/ytmusic';
+import type {
+  TrackInfo,
+  Playlist,
+} from 'node_modules/youtubei.js/dist/src/parser/ytmusic';
 
 type CustomSongInfo = SongInfo & { trackId?: string };
 

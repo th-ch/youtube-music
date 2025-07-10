@@ -12,7 +12,7 @@ export const CaptionsSettingButton = (props: CaptionsSettingsButtonProps) => (
     role={'button'}
     tabindex={0}
     title={props.label}
-    on:click={props.onClick}
+    on:click={(e) => props.onClick(e)}
   >
     <span class="yt-icon-shape style-scope yt-icon yt-spec-icon-shape">
       <div
@@ -26,14 +26,19 @@ export const CaptionsSettingButton = (props: CaptionsSettingsButtonProps) => (
         <svg
           class="style-scope yt-icon"
           preserveAspectRatio="xMidYMid meet"
-          style="pointer-events: none; display: block; width: 100%; height: 100%"
+          style={{
+            'pointer-events': 'none',
+            'display': 'block',
+            'width': '100%',
+            'height': '100%',
+          }}
           viewBox="0 0 24 24"
         >
           <g class="style-scope yt-icon">
             <path
               class="style-scope yt-icon"
               d="M20 4H4c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm-9 6H8v4h3v2H8c-1.103 0-2-.897-2-2v-4c0-1.103.897-2 2-2h3v2zm7 0h-3v4h3v2h-3c-1.103 0-2-.897-2-2v-4c0-1.103.897-2 2-2h3v2z"
-            ></path>
+            />
           </g>
         </svg>
       </div>

@@ -8,7 +8,7 @@ export const PictureInPictureButton = (props: PictureInPictureButtonProps) => (
     class="yt-simple-endpoint style-scope ytmusic-menu-navigation-item-renderer"
     id="navigation-endpoint"
     tabindex={-1}
-    onClick={props.onClick}
+    onClick={(e) => props.onClick?.(e)}
   >
     <div class="icon ytmd-menu-item style-scope ytmusic-menu-navigation-item-renderer">
       <svg

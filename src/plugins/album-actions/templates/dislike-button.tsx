@@ -12,7 +12,7 @@ export const DislikeButton = (props: DislikeButtonProps) => (
       class="like-menu yt-spec-button-shape-next yt-spec-button-shape-next--text yt-spec-button-shape-next--mono yt-spec-button-shape-next--size-m yt-spec-button-shape-next--icon-button"
       aria-pressed="false"
       aria-label="Dislike all"
-      onClick={props.onClick}
+      onClick={(e) => props.onClick?.(e)}
     >
       <div
         class="yt-spec-button-shape-next__icon"
@@ -34,7 +34,7 @@ export const DislikeButton = (props: DislikeButtonProps) => (
           }}
           aria-hidden="true"
         >
-          <div style="width: 24px; height: 24px">
+          <div style={{ 'width': '24px', 'height': '24px' }}>
             <svg
               viewBox="0 0 24 24"
               preserveAspectRatio="xMidYMid meet"
@@ -50,7 +50,7 @@ export const DislikeButton = (props: DislikeButtonProps) => (
                 <path
                   d="M18,4h3v10h-3V4z M5.23,14h4.23l-1.52,4.94C7.62,19.97,8.46,21,9.62,21c0.58,0,1.14-0.24,1.52-0.65L17,14V4H6.57 C5.5,4,4.59,4.67,4.38,5.61l-1.34,6C2.77,12.85,3.82,14,5.23,14z"
                   class="style-scope yt-icon"
-                ></path>
+                />
               </g>
             </svg>
           </div>
@@ -76,7 +76,7 @@ export const DislikeButton = (props: DislikeButtonProps) => (
               <path
                 d="M18,4h3v10h-3V4z M5.23,14h4.23l-1.52,4.94C7.62,19.97,8.46,21,9.62,21c0.58,0,1.14-0.24,1.52-0.65L17,14V4H6.57 C5.5,4,4.59,4.67,4.38,5.61l-1.34,6C2.77,12.85,3.82,14,5.23,14z"
                 class="style-scope yt-icon"
-              ></path>
+              />
             </g>
           </svg>
         </div>
@@ -90,8 +90,8 @@ export const DislikeButton = (props: DislikeButtonProps) => (
           class="yt-spec-touch-feedback-shape yt-spec-touch-feedback-shape--touch-response"
           aria-hidden="true"
         >
-          <div class="yt-spec-touch-feedback-shape__stroke"></div>
-          <div class="yt-spec-touch-feedback-shape__fill"></div>
+          <div class="yt-spec-touch-feedback-shape__stroke" />
+          <div class="yt-spec-touch-feedback-shape__fill" />
         </div>
       </yt-touch-feedback-shape>
     </button>

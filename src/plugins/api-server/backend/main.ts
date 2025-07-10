@@ -120,7 +120,8 @@ export const backend = createBackend<BackendType, APIServerConfig>({
       info: {
         version: '1.0.0',
         title: 'Youtube Music API Server',
-        description: 'Note: You need to get an access token using the `/auth/{id}` endpoint first to call any API endpoints under `/api`.',
+        description:
+          'Note: You need to get an access token using the `/auth/{id}` endpoint first to call any API endpoints under `/api`.',
       },
       security: [
         {

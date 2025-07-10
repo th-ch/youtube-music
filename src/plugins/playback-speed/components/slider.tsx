@@ -26,13 +26,13 @@ export const PlaybackSpeedSlider = (props: PlaybackSpeedSliderProps) => (
         aria-valuenow={props.speed}
         class="volume-slider style-scope ytmusic-player-bar on-hover"
         dir="ltr"
-        on:immediate-value-changed={props.onImmediateValueChanged}
-        onWheel={props.onWheel}
+        on:immediate-value-changed={(e) => props.onImmediateValueChanged?.(e)}
+        onWheel={(e) => props.onWheel?.(e)}
         max="2"
         min="0"
         role="slider"
         step="0.125"
-        style="display: inherit !important"
+        style={{ 'display': 'inherit !important' }}
         tabindex="0"
         title={props.title}
         value={props.speed}
@@ -48,7 +48,7 @@ export const PlaybackSpeedSlider = (props: PlaybackSpeedSliderProps) => (
               class="style-scope tp-yt-paper-slider"
               id="sliderBar"
               role="progressbar"
-              style="touch-action: none"
+              style={{ 'touch-action': 'none' }}
               value="1"
             >
               <div
@@ -59,12 +59,12 @@ export const PlaybackSpeedSlider = (props: PlaybackSpeedSliderProps) => (
                   class="style-scope tp-yt-paper-progress"
                   hidden={true}
                   id="secondaryProgress"
-                  style="transform: scaleX(0)"
+                  style={{ 'transform': 'scaleX(0)' }}
                 />
                 <div
                   class="style-scope tp-yt-paper-progress"
                   id="primaryProgress"
-                  style="transform: scaleX(0.5)"
+                  style={{ 'transform': 'scaleX(0.5)' }}
                 />
               </div>
             </tp-yt-paper-progress>
@@ -72,7 +72,7 @@ export const PlaybackSpeedSlider = (props: PlaybackSpeedSliderProps) => (
           <div
             class="slider-knob style-scope tp-yt-paper-slider"
             id="sliderKnob"
-            style="left: 50%; touch-action: none"
+            style={{ 'left': '50%', 'touch-action': 'none' }}
           >
             <input
               class="slider-knob-inner style-scope tp-yt-paper-slider"
