@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-
-const path = require('node:path');
-
-const { _electron: electron } = require('playwright');
-const { test, expect } = require('@playwright/test');
+import path from 'node:path';
+import process from 'node:process';
+import { _electron as electron } from 'playwright';
+import { test, expect } from '@playwright/test';
 
 process.env.NODE_ENV = 'test';
 
