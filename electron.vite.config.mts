@@ -35,15 +35,16 @@ export default defineConfig({
         }),
       ],
       publicDir: 'assets',
+      define: {
+        '__dirname': 'import.meta.dirname',
+        '__filename': 'import.meta.filename',
+      },
       build: {
         lib: {
           entry: 'src/index.ts',
-          formats: ['cjs'],
+          formats: ['es'],
         },
         outDir: 'dist/main',
-        commonjsOptions: {
-          ignoreDynamicRequires: true,
-        },
         rollupOptions: {
           external: ['electron', 'custom-electron-prompt', ...builtinModules],
           input: './src/index.ts',
@@ -148,9 +149,6 @@ export default defineConfig({
           name: 'renderer',
         },
         outDir: 'dist/renderer',
-        commonjsOptions: {
-          ignoreDynamicRequires: true,
-        },
         rollupOptions: {
           external: ['electron', ...builtinModules],
           input: './src/index.html',
