@@ -5,7 +5,7 @@ import { test, expect } from '@playwright/test';
 
 process.env.NODE_ENV = 'test';
 
-const appPath = path.resolve(__dirname, '..');
+const appPath = path.resolve(import.meta.dirname, '..');
 
 test('YouTube Music App - With default settings, app is launched and visible', async () => {
   const app = await electron.launch({
