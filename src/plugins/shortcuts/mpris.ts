@@ -22,7 +22,7 @@ import getSongControls from '@/providers/song-controls';
 import config from '@/config';
 import { LoggerPrefix } from '@/utils';
 
-import type { RepeatMode } from '@/types/datahost-get-state';
+import type { RepeatMode, VolumeState } from '@/types/datahost-get-state';
 import type { QueueResponse } from '@/types/youtube-music-desktop-internal';
 
 class YTPlayer extends MprisPlayer {
@@ -305,8 +305,10 @@ function registerMPRIS(win: BrowserWindow) {
       console.trace(error);
     });
 
-    ipcMain.on('ytmd:volume-changed', (_, newVol) => {
-      player.volume = Number.parseFloat((newVol / 100).toFixed(2));
+    ipcMain.on('ytmd:volume-changed', (_, newVolumeState: VolumeState) => {
+      player.volume = newVolumeState.isMuted
+        ? 0
+        : Number.parseFloat((newVolumeState.state / 100).toFixed(2));
     });
 
     player.on('volume', (newVolume: number) => {

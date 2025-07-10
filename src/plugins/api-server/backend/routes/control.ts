@@ -20,7 +20,7 @@ import {
   type ResponseSongInfo,
 } from '../scheme';
 
-import type { RepeatMode } from '@/types/datahost-get-state';
+import type { LikeType, RepeatMode, VolumeState } from '@/types/datahost-get-state';
 import type { SongInfo } from '@/providers/song-info';
 import type { BackendContext } from '@/types/contexts';
 import type { APIServerConfig } from '../../config';
@@ -84,6 +84,24 @@ const routes = {
     responses: {
       204: {
         description: 'Success',
+      },
+    },
+  }),
+  getLikeState: createRoute({
+    method: 'get',
+    path: `/api/${API_VERSION}/like-state`,
+    summary: 'get like state',
+    description: 'Get the current like state',
+    responses: {
+      200: {
+        description: 'Success',
+        content: {
+          'application/json': {
+            schema: z.object({
+              type: z.enum(['LIKE', 'DISLIKE', 'INDIFFERENT']).optional(),
+            }),
+          },
+        },
       },
     },
   }),
@@ -274,6 +292,7 @@ const routes = {
           'application/json': {
             schema: z.object({
               state: z.number(),
+              isMuted: z.boolean(),
             }),
           },
         },
@@ -531,7 +550,8 @@ export const register = (
   { window }: BackendContext<APIServerConfig>,
   songInfoGetter: () => SongInfo | undefined,
   repeatModeGetter: () => RepeatMode | undefined,
-  volumeGetter: () => number | undefined,
+  likeTypeGetter: () => LikeType | undefined,
+  volumeStateGetter: () => VolumeState | undefined,
 ) => {
   const controller = getSongControls(window);
 
@@ -564,6 +584,10 @@ export const register = (
 
     ctx.status(204);
     return ctx.body(null);
+  });
+  app.openapi(routes.getLikeState, (ctx) => {
+    ctx.status(200);
+    return ctx.json({ type: likeTypeGetter() });
   });
   app.openapi(routes.like, (ctx) => {
     controller.like();
@@ -644,7 +668,7 @@ export const register = (
   });
   app.openapi(routes.getVolumeState, (ctx) => {
     ctx.status(200);
-    return ctx.json({ state: volumeGetter() ?? 0 });
+    return ctx.json(volumeStateGetter() ?? { state: 0, isMuted: false });
   });
   app.openapi(routes.setFullscreen, (ctx) => {
     const { state } = ctx.req.valid('json');

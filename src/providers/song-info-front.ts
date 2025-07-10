@@ -79,12 +79,39 @@ export const setupRepeatChangedListener = singleton(() => {
   );
 });
 
+export const setupLikeChangedListener = singleton(() => {
+  const likeDislikeObserver = new MutationObserver((mutations) => {
+    window.ipcRenderer.send(
+      'ytmd:like-changed',
+      (mutations[0].target as HTMLElement).getAttribute('like-status'),
+    );
+  });
+  likeDislikeObserver.observe(document.querySelector('#like-button-renderer')!, {
+    attributes: true,
+    attributeFilter: ['like-status'],
+  });
+
+  // Emit the initial value as well; as it's persistent between launches.
+  window.ipcRenderer.send(
+    'ytmd:like-changed',
+    document.querySelector('#like-button-renderer')
+      ?.getAttribute('like-status'),
+  );
+});
+
 export const setupVolumeChangedListener = singleton((api: YoutubePlayer) => {
   document.querySelector('video')?.addEventListener('volumechange', () => {
-    window.ipcRenderer.send('ytmd:volume-changed', api.getVolume());
+    window.ipcRenderer.send('ytmd:volume-changed', {
+      state: api.getVolume(),
+      isMuted: api.isMuted(),
+    });
   });
+
   // Emit the initial value as well; as it's persistent between launches.
-  window.ipcRenderer.send('ytmd:volume-changed', api.getVolume());
+  window.ipcRenderer.send('ytmd:volume-changed', {
+    state: api.getVolume(),
+    isMuted: api.isMuted(),
+  });
 });
 
 export const setupShuffleChangedListener = singleton(() => {
@@ -151,6 +178,10 @@ export const setupAutoPlayChangedListener = singleton(() => {
 export default (api: YoutubePlayer) => {
   window.ipcRenderer.on('ytmd:setup-time-changed-listener', () => {
     setupTimeChangedListener();
+  });
+
+  window.ipcRenderer.on('ytmd:setup-like-changed-listener', () => {
+    setupLikeChangedListener();
   });
 
   window.ipcRenderer.on('ytmd:setup-repeat-changed-listener', () => {
