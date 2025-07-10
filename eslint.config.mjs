@@ -3,7 +3,7 @@
 import eslint from '@eslint/js';
 import prettier from 'eslint-plugin-prettier/recommended';
 import solid from 'eslint-plugin-solid/configs/recommended';
-import stylistic from '@stylistic/eslint-plugin-js';
+import stylistic from '@stylistic/eslint-plugin';
 import tsEslint from 'typescript-eslint';
 
 import * as importPlugin from 'eslint-plugin-import';
