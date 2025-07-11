@@ -3,7 +3,10 @@ import keyEventAreEqual from 'keyboardevents-areequal';
 import { render } from 'solid-js/web';
 
 import { getSongMenu } from '@/providers/dom-elements';
-import { isMusicOrVideoTrack } from '@/plugins/utils/renderer/check';
+import {
+  isMusicOrVideoTrack,
+  isPlayerMenu,
+} from '@/plugins/utils/renderer/check';
 
 import { t } from '@/i18n';
 
@@ -152,7 +155,12 @@ export const onPlayerApiReady = async (
   const observer = new MutationObserver(() => {
     const menu = getSongMenu();
 
-    if (menu?.contains(pipButtonContainer) || !isMusicOrVideoTrack()) {
+    console.log(isPlayerMenu(menu));
+    if (
+      menu?.contains(pipButtonContainer) ||
+      !isMusicOrVideoTrack() ||
+      !isPlayerMenu(menu)
+    ) {
       return;
     }
 
