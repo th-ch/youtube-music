@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { globSync } from 'glob';
 import { Project } from 'ts-morph';
 
-const snakeToCamel = (text: string) =>
+const kebabToCamel = (text: string) =>
   text.replace(/-(\w)/g, (_, letter: string) => letter.toUpperCase());
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -51,24 +51,24 @@ export const pluginVirtualModuleGenerator = (
         if (mode === 'main') {
           // dynamic import (for main)
           writer.writeLine(
-            `const ${snakeToCamel(name)}PluginImport = () => import('./${relativePath}');`,
+            `const ${kebabToCamel(name)}PluginImport = () => import('./${relativePath}');`,
           );
           writer.writeLine(
-            `const ${snakeToCamel(name)}Plugin = async () => (await ${snakeToCamel(name)}PluginImport()).default;`,
+            `const ${kebabToCamel(name)}Plugin = async () => (await ${kebabToCamel(name)}PluginImport()).default;`,
           );
           writer.writeLine(
-            `const ${snakeToCamel(name)}PluginStub = async () => (await ${snakeToCamel(name)}PluginImport()).pluginStub;`,
+            `const ${kebabToCamel(name)}PluginStub = async () => (await ${kebabToCamel(name)}PluginImport()).pluginStub;`,
           );
         } else {
           // static import (preload does not support dynamic import)
           writer.writeLine(
-            `import ${snakeToCamel(name)}PluginImport, { pluginStub as ${snakeToCamel(name)}PluginStubImport } from "./${relativePath}";`,
+            `import ${kebabToCamel(name)}PluginImport, { pluginStub as ${kebabToCamel(name)}PluginStubImport } from "./${relativePath}";`,
           );
           writer.writeLine(
-            `const ${snakeToCamel(name)}Plugin = () => Promise.resolve(${snakeToCamel(name)}PluginImport);`,
+            `const ${kebabToCamel(name)}Plugin = () => Promise.resolve(${kebabToCamel(name)}PluginImport);`,
           );
           writer.writeLine(
-            `const ${snakeToCamel(name)}PluginStub = () => Promise.resolve(${snakeToCamel(name)}PluginStubImport);`,
+            `const ${kebabToCamel(name)}PluginStub = () => Promise.resolve(${kebabToCamel(name)}PluginStubImport);`,
           );
         }
       }
@@ -86,7 +86,7 @@ export const pluginVirtualModuleGenerator = (
         const checkMode = mode === 'main' ? 'backend' : mode;
         // HACK: To avoid situation like importing renderer plugins in main
         writer.writeLine(
-          `    ...(await ${snakeToCamel(name)}Plugin().then((plg) => (plg['${checkMode}'] ? { "${name}": plg } : {}))),`,
+          `    ...(await ${kebabToCamel(name)}Plugin().then((plg) => (plg['${checkMode}'] ? { "${name}": plg } : {}))),`,
         );
       }
       writer.writeLine('  };');
@@ -101,7 +101,7 @@ export const pluginVirtualModuleGenerator = (
       writer.writeLine('  allPluginsCache = {');
       for (const { name } of plugins) {
         writer.writeLine(
-          `    "${name}": await ${snakeToCamel(name)}PluginStub(),`,
+          `    "${name}": await ${kebabToCamel(name)}PluginStub(),`,
         );
       }
       writer.writeLine('  };');
