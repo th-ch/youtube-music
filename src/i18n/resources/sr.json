@@ -823,8 +823,49 @@
           "tooltip": "Ako numera nije pronađena, ekstenzija će pokušati ponovo sa novim upitom za pretragu.\nRezultat iz drugog pokušaja možda neće biti tačan."
         },
         "show-time-codes": {
-          "label": "Prikaži vremenske zone"
+          "label": "Prikaži vremenske oznake",
+          "tooltip": "Prikaži vremenske oznake pored teksta pesme"
         }
+      },
+      "name": "Sinhronizovani tekstovi pesama",
+      "refetch-btn": {
+        "fetching": "Dobavljanje...",
+        "normal": "Ponovo dobavi tekst pesme"
+      },
+      "warnings": {
+        "duration-mismatch": "⚠️ - Tekst pesme možda nije usklađen zbog neuklapanja u dužini trajanja.",
+        "inexact": "⚠️ - Tekst za ovu pesmu možda nije tačan",
+        "instrumental": "⚠️ - Ovo je instrumentalna numera"
+      }
+    },
+    "taskbar-mediacontrol": {
+      "description": "Upravljaj reprodukcijom iz Windows trake sa zadacima",
+      "name": "Upravljanje medijima iz trake sa zadacima"
+    },
+    "touchbar": {
+      "description": "Dodaje 'TouchBar' vidžet za macOS korisnike",
+      "name": "TouchBar"
+    },
+    "tuna-obs": {
+      "description": "Integracija sa OBS-ovom ekstenzijom Tuna",
+      "name": "Tuna OBS"
+    },
+    "unobtrusive-player": {
+      "description": "Onemogućava plejeru da iskače kada reprodukuje numeru",
+      "name": "Nenametljivi plejer"
+    },
+    "video-toggle": {
+      "description": "Dodaje dugme za promenu između režima za video/numeru. Opciono, može da ukloni ceo tab za video",
+      "menu": {
+        "align": {
+          "label": "Poravnanje",
+          "submenu": {
+            "left": "Levo",
+            "middle": "Sredina",
+            "right": "Desno"
+          }
+        },
+        "force-hide": "Nasilno ukloni karticu sa videom"
       }
     }
   }
