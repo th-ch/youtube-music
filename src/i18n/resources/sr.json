@@ -552,7 +552,13 @@
       "menu": {
         "romanized-lyrics": "Romanizovani tekstovi"
       },
-      "name": "Lyrics Genius tekstovi"
+      "name": "Genius tekstovi",
+      "renderer": {
+        "fetched-lyrics": "Dobavljen tekst pesme sa Genius-a"
+      }
+    },
+    "music-together": {
+      "description": "Podeli plejlistu sa drugima. Kada domaćin (host) pusti pesmu, svi ostali će čuti istu pesmu."
     }
   }
 }
