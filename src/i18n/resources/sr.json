@@ -544,7 +544,15 @@
       "name": "Izborni menu unutar aplikacije"
     },
     "lumiastream": {
-      "description": "Dodaje podršku za Lumnia Stream"
+      "description": "Dodaje podršku za Lumia Stream",
+      "name": "Lumia Stream [Beta]"
+    },
+    "lyrics-genius": {
+      "description": "Dodaje podršku za tekstove za većinu pesama",
+      "menu": {
+        "romanized-lyrics": "Romanizovani tekstovi"
+      },
+      "name": "Lyrics Genius tekstovi"
     }
   }
 }
