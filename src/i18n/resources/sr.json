@@ -30,10 +30,10 @@
         "receive-command": "Primljena je komanda kroz protokol: \"{{command}}\""
       },
       "theme": {
-        "css-file-not-found": "CSS datoteka \"{{cssFile}}\" ne postoji, ignorisano"
+        "css-file-not-found": "CSS datoteka \"{{cssFile}}\" ne postoji, ignorišem"
       },
       "unresponsive": {
-        "details": "Aplikacija ne odgovara!\n{{error}}"
+        "details": "Aplikacija se ne odaziva!\n{{error}}"
       },
       "when-ready": {
         "clearing-cache-after-20s": "Čišćenje keširanih podataka"
@@ -116,7 +116,7 @@
           "auto-update": "Automatsko ažuriranje",
           "hide-menu": {
             "dialog": {
-              "message": "Meni će biti sakriven posle sledećeg pokretanje, upotrebite [Alt]da ga ponovo prikažete (ili backtick [`] ukoliko koristite meni u aplikaciji)",
+              "message": "Meni će biti sakriven posle sledećeg pokretanje, upotrebite [Alt] da ga ponovo prikažete (ili backtick [`] ukoliko koristite meni u aplikaciji)",
               "title": "Sakrivanje menija je omogućeno"
             },
             "label": "Sakrij meni"
@@ -246,7 +246,7 @@
         "buffer": {
           "label": "Bafer",
           "submenu": {
-            "buffer": "{{buffer}}"
+            "buffer": "{{bafer}}"
           }
         },
         "opacity": {
