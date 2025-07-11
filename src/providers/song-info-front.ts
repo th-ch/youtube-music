@@ -86,17 +86,19 @@ export const setupLikeChangedListener = singleton(() => {
       (mutations[0].target as HTMLElement).getAttribute('like-status'),
     );
   });
-  likeDislikeObserver.observe(document.querySelector('#like-button-renderer')!, {
-    attributes: true,
-    attributeFilter: ['like-status'],
-  });
+  const likeButtonRenderer = document.querySelector('#like-button-renderer');
+  if (likeButtonRenderer) {
+    likeDislikeObserver.observe(likeButtonRenderer, {
+      attributes: true,
+      attributeFilter: ['like-status'],
+    });
 
-  // Emit the initial value as well; as it's persistent between launches.
-  window.ipcRenderer.send(
-    'ytmd:like-changed',
-    document.querySelector('#like-button-renderer')
-      ?.getAttribute('like-status'),
-  );
+    // Emit the initial value as well; as it's persistent between launches.
+    window.ipcRenderer.send(
+      'ytmd:like-changed',
+      likeButtonRenderer.getAttribute('like-status'),
+    );
+  }
 });
 
 export const setupVolumeChangedListener = singleton((api: YoutubePlayer) => {
