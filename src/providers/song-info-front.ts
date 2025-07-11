@@ -1,7 +1,7 @@
 import { singleton } from './decorators';
 
 import type { YoutubePlayer } from '@/types/youtube-player';
-import type { GetState } from '@/types/datahost-get-state';
+import { LikeType, type GetState } from '@/types/datahost-get-state';
 import type {
   AlbumDetails,
   PlayerOverlays,
@@ -79,11 +79,18 @@ export const setupRepeatChangedListener = singleton(() => {
   );
 });
 
+const mapLikeStatus = (status: string | null): LikeType =>
+  Object.values(LikeType).includes(status as LikeType)
+    ? (status as LikeType)
+    : LikeType.Indifferent;
+
 export const setupLikeChangedListener = singleton(() => {
   const likeDislikeObserver = new MutationObserver((mutations) => {
     window.ipcRenderer.send(
       'ytmd:like-changed',
-      (mutations[0].target as HTMLElement).getAttribute('like-status'),
+      mapLikeStatus(
+        (mutations[0].target as HTMLElement)?.getAttribute?.('like-status'),
+      ),
     );
   });
   const likeButtonRenderer = document.querySelector('#like-button-renderer');
@@ -96,7 +103,7 @@ export const setupLikeChangedListener = singleton(() => {
     // Emit the initial value as well; as it's persistent between launches.
     window.ipcRenderer.send(
       'ytmd:like-changed',
-      likeButtonRenderer.getAttribute('like-status'),
+      mapLikeStatus(likeButtonRenderer.getAttribute?.('like-status')),
     );
   }
 });
