@@ -32,7 +32,9 @@ export const i18nImporter = () => {
         );
 
         writer.writeLine(`  "${name}": {`);
-        writer.writeLine(`    translation: await import('./${relativePath}'),`);
+        writer.writeLine(
+          `    translation: (await import('./${relativePath}')).default,`,
+        );
         writer.writeLine('  },');
       }
       writer.writeLine('});');
