@@ -50,8 +50,8 @@ importers:
         specifier: 2.0.5
         version: 2.0.5
       '@ghostery/adblocker-electron':
-        specifier: 2.11.0
-        version: 2.11.0(electron@37.2.1)
+        specifier: 2.11.1
+        version: 2.11.1(electron@37.2.1)
       '@ghostery/adblocker-electron-preload':
         specifier: 2.11.0
         version: 2.11.0(electron@37.2.1)
@@ -783,24 +783,29 @@ packages:
   '@gar/promisify@1.1.3':
     resolution: {integrity: sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==}
 
-  '@ghostery/adblocker-content@2.11.0':
-    resolution: {integrity: sha512-2TIxD5OC9lQpCq1SNC9mu4M37pZf1+1LDJCd4yM8gTGc927xMwNVkUBNDmi1aEH2r+PMtmJu4xtHN+YFhgns6A==}
+  '@ghostery/adblocker-content@2.11.1':
+    resolution: {integrity: sha512-KF1vjwp/YNzgjLKOMh+FjGcXbliZHIJnh2A9+dLgL8Fe+HCK1h49p7xa7FFa0c2pO45GDfI2LgsAiqhHSYZP6A==}
 
   '@ghostery/adblocker-electron-preload@2.11.0':
     resolution: {integrity: sha512-sI3571exKBH1MYz74QEADKhJkqayWZoawIfjm3rBrFxtuppHOIEgiMgYbg+KxdprBohXkRLknrAUWMEj27oBZA==}
     peerDependencies:
       electron: '>11'
 
-  '@ghostery/adblocker-electron@2.11.0':
-    resolution: {integrity: sha512-RMwwwWOrF2efl4u0ry1dJOFu5Hfl1Qgr5rEQKnZvG8U6my+C4HyQIsmbhr7qhviTGpPUYO16FoWrsX7rG05i5w==}
+  '@ghostery/adblocker-electron-preload@2.11.1':
+    resolution: {integrity: sha512-5bJFfvxml4g/hyfnG3cVm3Y85gdjscRhKA80OjtF2xmEBzEnQbM2rWUkq2dV1peURcPeK53D+jGhOjROGa3OHQ==}
     peerDependencies:
       electron: '>11'
 
-  '@ghostery/adblocker-extended-selectors@2.11.0':
-    resolution: {integrity: sha512-yl7Ygs+TFrG2ZbxynUG8Tyt3mI4WPb4Gzy4VgVXV29SYwUbok0md0Hp7vHSYeURlSzEMMa/KqgjFoZr3GY49XA==}
+  '@ghostery/adblocker-electron@2.11.1':
+    resolution: {integrity: sha512-Nr4jOBMZkCBciMRMrUtsHHFI3d4mGfcQJi1TYmhu8oPGnDTfSPnddFLRYwoefsnSReZJNy4IuHBYQjV2NUeB9A==}
+    peerDependencies:
+      electron: '>11'
 
-  '@ghostery/adblocker@2.11.0':
-    resolution: {integrity: sha512-7FW/Hd/lYp2OLDw6JknYLIhEoFTkcGTC3PqMu9JiOYV1CgUJ/PKhcsRsmdm1lAbhmL9Rq86z1/bhn8CZXSPZ/w==}
+  '@ghostery/adblocker-extended-selectors@2.11.1':
+    resolution: {integrity: sha512-T0UpheA3cd9T/4feJkJR+i5QaDvRt5gHcFWKh7DAstdYPqbKxqDG0U2RgY1Z8PtG2dVmIzBlQ0QPUB7gCF6nyw==}
+
+  '@ghostery/adblocker@2.11.1':
+    resolution: {integrity: sha512-bROAa2LayP0CfY6dJodMkV/DN7/0OgSEOrj/TnTWrOAkiSrH4rGpO3G1NlIAyF4uK9IZNOWDzcZt7/vv9qy0zA==}
 
   '@ghostery/url-parser@1.3.0':
     resolution: {integrity: sha512-FEzdSeiva0Mt3bR4xePFzthhjT4IzvA5QTvS1xXkNyLpMGeq40mb3V2fSs0ZItRaP9IybZthDfHUSbQ1HLdx4Q==}
@@ -5362,28 +5367,33 @@ snapshots:
 
   '@gar/promisify@1.1.3': {}
 
-  '@ghostery/adblocker-content@2.11.0':
+  '@ghostery/adblocker-content@2.11.1':
     dependencies:
-      '@ghostery/adblocker-extended-selectors': 2.11.0
+      '@ghostery/adblocker-extended-selectors': 2.11.1
 
   '@ghostery/adblocker-electron-preload@2.11.0(electron@37.2.1)':
     dependencies:
-      '@ghostery/adblocker-content': 2.11.0
+      '@ghostery/adblocker-content': 2.11.1
       electron: 37.2.1
 
-  '@ghostery/adblocker-electron@2.11.0(electron@37.2.1)':
+  '@ghostery/adblocker-electron-preload@2.11.1(electron@37.2.1)':
     dependencies:
-      '@ghostery/adblocker': 2.11.0
-      '@ghostery/adblocker-electron-preload': 2.11.0(electron@37.2.1)
+      '@ghostery/adblocker-content': 2.11.1
+      electron: 37.2.1
+
+  '@ghostery/adblocker-electron@2.11.1(electron@37.2.1)':
+    dependencies:
+      '@ghostery/adblocker': 2.11.1
+      '@ghostery/adblocker-electron-preload': 2.11.1(electron@37.2.1)
       electron: 37.2.1
       tldts-experimental: 7.0.9
 
-  '@ghostery/adblocker-extended-selectors@2.11.0': {}
+  '@ghostery/adblocker-extended-selectors@2.11.1': {}
 
-  '@ghostery/adblocker@2.11.0':
+  '@ghostery/adblocker@2.11.1':
     dependencies:
-      '@ghostery/adblocker-content': 2.11.0
-      '@ghostery/adblocker-extended-selectors': 2.11.0
+      '@ghostery/adblocker-content': 2.11.1
+      '@ghostery/adblocker-extended-selectors': 2.11.1
       '@ghostery/url-parser': 1.3.0
       '@remusao/guess-url-type': 2.1.0
       '@remusao/small': 2.1.0
