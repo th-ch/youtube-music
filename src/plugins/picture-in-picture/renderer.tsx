@@ -155,7 +155,6 @@ export const onPlayerApiReady = async (
   const observer = new MutationObserver(() => {
     const menu = getSongMenu();
 
-    console.log(isPlayerMenu(menu));
     if (
       menu?.contains(pipButtonContainer) ||
       !isMusicOrVideoTrack() ||
