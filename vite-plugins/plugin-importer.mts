@@ -95,7 +95,7 @@ export const pluginVirtualModuleGenerator = (
       }
       writer.writeLine('  ]);');
       writer.writeLine(
-        '  resolve(pluginEntries.filter((entry) => entry).reduce((acc, [name, plg]) => ({ ...acc, [name]: plg }), {}));',
+        '  resolve(pluginEntries.filter((entry) => entry).reduce((acc, [name, plg]) => { acc[name] = plg; return acc; }, {}));',
       );
       writer.writeLine(`  return await ${mode}PluginsCache;`);
       writer.writeLine('};');
@@ -117,7 +117,7 @@ export const pluginVirtualModuleGenerator = (
       }
       writer.writeLine('  ]);');
       writer.writeLine(
-        '  resolve(stubEntries.reduce((acc, [name, plg]) => ({ ...acc, [name]: plg }), {}));',
+        '  resolve(stubEntries.reduce((acc, [name, plg]) => { acc[name] = plg; return acc; }, {}));',
       );
       writer.writeLine('  return await promise;');
       writer.writeLine('};');
