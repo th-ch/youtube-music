@@ -855,7 +855,7 @@
       "name": "Nenametljivi plejer"
     },
     "video-toggle": {
-      "description": "Dodaje dugme za promenu između režima za video/numeru. Opciono, može da ukloni ceo tab za video",
+      "description": "Dodaje dugme za promenu između režima za video/numeru. Opciono, može da ukloni celu karticu za video",
       "menu": {
         "align": {
           "label": "Poravnanje",
