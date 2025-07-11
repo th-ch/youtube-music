@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  vite: npm:rolldown-vite@7.0.7
+  vite: npm:rolldown-vite@7.0.8
   node-gyp: 11.2.0
   xml2js: 0.6.2
   node-fetch: 3.3.2
@@ -63,10 +63,10 @@ importers:
         version: 0.5.2(hono@4.8.4)
       '@hono/zod-openapi':
         specifier: 0.19.9
-        version: 0.19.9(hono@4.8.4)(zod@4.0.2)
+        version: 0.19.9(hono@4.8.4)(zod@4.0.5)
       '@hono/zod-validator':
         specifier: 0.7.0
-        version: 0.7.0(hono@4.8.4)(zod@4.0.2)
+        version: 0.7.0(hono@4.8.4)(zod@4.0.5)
       '@jellybrick/dbus-next':
         specifier: 0.10.3
         version: 0.10.3
@@ -206,8 +206,8 @@ importers:
         specifier: github:organization/Simple-YouTube-Age-Restriction-Bypass#v2.5.9
         version: https://codeload.github.com/organization/Simple-YouTube-Age-Restriction-Bypass/tar.gz/4e2db89ccb2fb880c5110add9ff3f1dfb78d0ff6
       socks:
-        specifier: 2.8.5
-        version: 2.8.5
+        specifier: 2.8.6
+        version: 2.8.6
       solid-element:
         specifier: 1.9.1
         version: 1.9.1(solid-js@1.9.7)
@@ -245,8 +245,8 @@ importers:
         specifier: 14.0.0
         version: 14.0.0
       zod:
-        specifier: 4.0.2
-        version: 4.0.2
+        specifier: 4.0.5
+        version: 4.0.5
     devDependencies:
       '@eslint/js':
         specifier: 9.30.1
@@ -307,7 +307,7 @@ importers:
         version: 4.0.0
       electron-vite:
         specifier: 4.0.0
-        version: 4.0.0(rolldown-vite@7.0.7(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0))
+        version: 4.0.0(rolldown-vite@7.0.8(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0))
       esbuild:
         specifier: 0.25.6
         version: 0.25.6
@@ -354,17 +354,17 @@ importers:
         specifier: 6.0.5
         version: 6.0.5
       vite:
-        specifier: npm:rolldown-vite@7.0.7
-        version: rolldown-vite@7.0.7(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0)
+        specifier: npm:rolldown-vite@7.0.8
+        version: rolldown-vite@7.0.8(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0)
       vite-plugin-inspect:
         specifier: 11.3.0
-        version: 11.3.0(rolldown-vite@7.0.7(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0))
+        version: 11.3.0(rolldown-vite@7.0.8(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0))
       vite-plugin-resolve:
         specifier: 2.5.2
         version: 2.5.2
       vite-plugin-solid:
         specifier: 2.11.7
-        version: 2.11.7(rolldown-vite@7.0.7(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0))(solid-js@1.9.7)
+        version: 2.11.7(rolldown-vite@7.0.8(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0))(solid-js@1.9.7)
       ws:
         specifier: 8.18.3
         version: 8.18.3(bufferutil@4.0.9)(utf-8-validate@6.0.5)
@@ -1093,68 +1093,68 @@ packages:
   '@remusao/trie@2.1.0':
     resolution: {integrity: sha512-Er3Q8q0/2OcCJPQYJOPLmCuqO0wu7cav3SPtpjlxSbjFi1x+A1pZkkLD6c9q2rGEkGW/tkrRzfrhNMt8VQjzXg==}
 
-  '@rolldown/binding-darwin-arm64@1.0.0-beta.25':
-    resolution: {integrity: sha512-LSqlILJTWqnFSGFwBCg+J2jRj5reEDToXL4Z3FIXNrA4lD/H+Qnm0jI3d3luidpZ47iaUbHpu6PF8IoHvq9t9A==}
+  '@rolldown/binding-darwin-arm64@1.0.0-beta.26':
+    resolution: {integrity: sha512-I73Ej+PVoCJiYQHpy45CHKkLgFqrYv9O1CUJs6TIav6f8f9WAVeN/k0YXrs0tgMO20AfsyEN8zenz2wprVWOYQ==}
     cpu: [arm64]
     os: [darwin]
 
-  '@rolldown/binding-darwin-x64@1.0.0-beta.25':
-    resolution: {integrity: sha512-xPgb5ildVB0wmvKOoCJDDnItnsClqL52/APQcKAOWUfMX2fry5JdFRBETGB/JsI14BJg76PyhTIk7SLozIIfwA==}
+  '@rolldown/binding-darwin-x64@1.0.0-beta.26':
+    resolution: {integrity: sha512-IcXzfO2/9bnm6WfCNmGxBiD1kQQdA0pTjjGcjvglUub8H6RlEY0tz+IIQxUirsl/++84S0PkCuafAxZi8Am8fg==}
     cpu: [x64]
     os: [darwin]
 
-  '@rolldown/binding-freebsd-x64@1.0.0-beta.25':
-    resolution: {integrity: sha512-OLbjCfl1Ke9o23h03k0XMwe9F8ZKElOTcS8REcBYfni3cDXNrX73g3AQqHuW799ZoNSATzSQUEHkRSHQDZmPLw==}
+  '@rolldown/binding-freebsd-x64@1.0.0-beta.26':
+    resolution: {integrity: sha512-foLJNqEFdvwFm2MXDFxgywxJMic+wovbpEyszlz5K/sUbN7sP2+NJ7MZAUMHuggiswB4Rt1HqRLYKy26zJev8g==}
     cpu: [x64]
     os: [freebsd]
 
-  '@rolldown/binding-linux-arm-gnueabihf@1.0.0-beta.25':
-    resolution: {integrity: sha512-SkGvnVlCnMC8yEfb2aFtiIoqryQmMgvWA1AaTce6RHPWKmtMbY/o47jg1MUYQVhbYyWnvYeGDHXKAYss+A48Sw==}
+  '@rolldown/binding-linux-arm-gnueabihf@1.0.0-beta.26':
+    resolution: {integrity: sha512-1BWDpLtujfZCvWAcfIamqHGWo2+VnPWvpZQR0DL5qNit6cu3FC0sRZ+bZzTUK0QWDTA7nUy5RR9fUTL2PQxH2g==}
     cpu: [arm]
     os: [linux]
 
-  '@rolldown/binding-linux-arm64-gnu@1.0.0-beta.25':
-    resolution: {integrity: sha512-HzgdmdofwNGi9y46c4bIM+L0drK7b4aNLJRhgxaSPaEAq60ErWibayp1qxOxYBmf1L2/HPopArYJkajQ4Mln4w==}
+  '@rolldown/binding-linux-arm64-gnu@1.0.0-beta.26':
+    resolution: {integrity: sha512-lg6DVwciFb7sIw0ONDHeLhRuFQl/wz+J26bxfVOVzVoQ7Zgl07gDklv7q96W7SRDAjlG/20flBOexdiPim/I3g==}
     cpu: [arm64]
     os: [linux]
 
-  '@rolldown/binding-linux-arm64-musl@1.0.0-beta.25':
-    resolution: {integrity: sha512-bUw5ahaoaCkGBXebOgXKU9poS9t0ehkt4Aow5EdauCcRUYv+fUSIzBINPyPIr/tXwGeU8vHayXpQrOsIN/nmeg==}
+  '@rolldown/binding-linux-arm64-musl@1.0.0-beta.26':
+    resolution: {integrity: sha512-0X14trOBVtU13Y0XYeb8EvOvb3/TxJVOmalDakEID/UUX9qkvOmlU0fvoDVmsnhH6yx23bDlpmOj0f8V3BCgIw==}
     cpu: [arm64]
     os: [linux]
 
-  '@rolldown/binding-linux-x64-gnu@1.0.0-beta.25':
-    resolution: {integrity: sha512-4xhMNTG3CUBJjbLEG9mpU0hQRWvOQfbu6701puwDp5uyzQMkkem4fliMQVlSn4uGguRILRm0dOt8btvQeIaRAg==}
+  '@rolldown/binding-linux-x64-gnu@1.0.0-beta.26':
+    resolution: {integrity: sha512-stb8XloM+N3hSKUs6kS5tNqrlTGsCoYuh9emFZtTovfFzzdFYevgXoOdeGoXv9KkPh5B7MOMl4/7c+WaX46Opg==}
     cpu: [x64]
     os: [linux]
 
-  '@rolldown/binding-linux-x64-musl@1.0.0-beta.25':
-    resolution: {integrity: sha512-EtyKd8CZCFpZ+TNmk7lDdI9Cps7uOMp9rT4F14P1OHybv+c2amvV59eiTObmEc+vlSSVSSEkMVtkfB4l/ozBfQ==}
+  '@rolldown/binding-linux-x64-musl@1.0.0-beta.26':
+    resolution: {integrity: sha512-5udEpAS5IUy2t74d/m40JUYyk3Ga8QXQDvK7eGqDDOwz8/7Piq0kCwmNuLnpSRiqbXNP8mnVlvtIcASJUEtRPA==}
     cpu: [x64]
     os: [linux]
 
-  '@rolldown/binding-wasm32-wasi@1.0.0-beta.25':
-    resolution: {integrity: sha512-hCqtWhj8AjzShedCZwFIVtxxoj1K0JTWwe6oY4m9u6mmrf3V/rS6NMn2RTeihKS7uhbppcuhvXvTke0dofWQCg==}
+  '@rolldown/binding-wasm32-wasi@1.0.0-beta.26':
+    resolution: {integrity: sha512-Is5tTdScXXQzslj7+jCFncPoRNARJ/+fYt/C9+Yx0QQ67/m8pGPLFoCzIKmJQZ8QHzOfq5ML4CQlMgBbCFlZqQ==}
     engines: {node: '>=14.21.3'}
     cpu: [wasm32]
 
-  '@rolldown/binding-win32-arm64-msvc@1.0.0-beta.25':
-    resolution: {integrity: sha512-+4aTcO/aysXkb8bNHTTtyV7j7Ife+rNbtT5NSvaK2ZGFAL0bOWQjTsDxZAVJCHLCXnGR3AvBxsoIEKb65XMpIA==}
+  '@rolldown/binding-win32-arm64-msvc@1.0.0-beta.26':
+    resolution: {integrity: sha512-bH+TB+/8Z/95cxGws0fH995HsbsopVYdGcuM1Z/Hnqe7KPLkhqkubsambHQYd1V/QNbLzAgJ0nMAFLyBrwFZZQ==}
     cpu: [arm64]
     os: [win32]
 
-  '@rolldown/binding-win32-ia32-msvc@1.0.0-beta.25':
-    resolution: {integrity: sha512-RuN9iDqTO9Cb+MuHxQ2xwiUHhsLPoMXbEmbN+GGSvKs4jzv+DxYuJ8uTUhpr/moHUOLuJZgMFdUB7hRoPa6L5g==}
+  '@rolldown/binding-win32-ia32-msvc@1.0.0-beta.26':
+    resolution: {integrity: sha512-Nsg7ZzfwLHwKGneuNHEpqdBekmZA5pzVOuFx5R8EVyva8dg+sgtDHQRmiVSVYe25YYISNFXDSuHKwNhrWI4HWA==}
     cpu: [ia32]
     os: [win32]
 
-  '@rolldown/binding-win32-x64-msvc@1.0.0-beta.25':
-    resolution: {integrity: sha512-0cz3L/+ovfRA3o/CI4lOSlI0Fi0nUEtCp45has17gHx5oZd6MRDPl9PLyJwcdUT1Eb9AOUbVZVSGbaBKYbpNlA==}
+  '@rolldown/binding-win32-x64-msvc@1.0.0-beta.26':
+    resolution: {integrity: sha512-NE5Btf10Fu3IbpHxrlRkgcO/d05iEpbIiP/XdMYW7Lc9BGSgE4f8njUHnM0V2XJKyXkC1fqv/uHSEw2dCNgzxQ==}
     cpu: [x64]
     os: [win32]
 
-  '@rolldown/pluginutils@1.0.0-beta.25':
-    resolution: {integrity: sha512-Yw11MPNdtid1jnE88iCTk3QcptONcD8PWRc8D7sjiAntz7NVbgkfIkI5Ed3enDpK7HLhUGMMAkIWw0DUbAOKQA==}
+  '@rolldown/pluginutils@1.0.0-beta.26':
+    resolution: {integrity: sha512-r/5po89voz/QRPDmoErL10+hVuTAuz1SHvokx+yWBlOIPB5C41jC7QhLqq9kaebx/+EHyoV3z22/qBfX81Ns8A==}
 
   '@rollup/rollup-android-arm-eabi@4.44.2':
     resolution: {integrity: sha512-g0dF8P1e2QYPOj1gu7s/3LVP6kze9A7m6x0BZ9iTdXK8N5c2V7cpBKHV3/9A4Zd8xxavdhK0t4PnqjkqVmUc9Q==}
@@ -4113,8 +4113,8 @@ packages:
     resolution: {integrity: sha512-CHhPh+UNHD2GTXNYhPWLnU8ONHdI+5DI+4EYIAOaiD63rHeYlZvyh8P+in5999TTSFgUYuKUAjzRI4mdh/p+2A==}
     engines: {node: '>=8.0'}
 
-  rolldown-vite@7.0.7:
-    resolution: {integrity: sha512-xv+48KefpHdHq/wfSQb5YOCeUnx17lok12Nh07Dh21D5pagI9hSbfuuVHyw14JiEUHbmxartHkrMLMwSo2V2Ew==}
+  rolldown-vite@7.0.8:
+    resolution: {integrity: sha512-JvCftqO4+el0CujpfkakzI+yJDK03/6tUU/2THl7QfBvxItEC5zDJ7Y8cz0HB7vu6WM82G/emndyY+kUAYLPUg==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
     peerDependencies:
@@ -4153,8 +4153,8 @@ packages:
       yaml:
         optional: true
 
-  rolldown@1.0.0-beta.25:
-    resolution: {integrity: sha512-o0ynGCS6x/OfhGe7p0E9HCUtNYkrIFzrKmPVSTvMCrD9/6gUj78UwZ0NmM0um6Nz0DEYtY9jfGHXGQKjJEKy8g==}
+  rolldown@1.0.0-beta.26:
+    resolution: {integrity: sha512-2rad1JDFst/GD1J86RuqN1SIP8O8Xv4UbqNyKaVayXTjgF0D6HpvTnUZ1RQ6tANpZweGmq4v6Ay0uyRNEycFPw==}
     hasBin: true
 
   rollup@4.44.2:
@@ -4330,8 +4330,8 @@ packages:
     resolution: {integrity: sha512-HehCEsotFqbPW9sJ8WVYB6UbmIMv7kUUORIF2Nncq4VQvBfNBLibW9YZR5dlYCSUhwcD628pRllm7n+E+YTzJw==}
     engines: {node: '>= 14'}
 
-  socks@2.8.5:
-    resolution: {integrity: sha512-iF+tNDQla22geJdTyJB1wM/qrX9DMRwWrciEPwWLPRWAUEM8sQiyxgckLxWT1f7+9VabJS0jTGGr4QgBuvi6Ww==}
+  socks@2.8.6:
+    resolution: {integrity: sha512-pe4Y2yzru68lXCb38aAqRf5gvN8YdjP1lok5o0J7BOHljkyCGKVz7H3vpVIXKD27rj2giOJ7DwVyk/GWrPHDWA==}
     engines: {node: '>= 10.0.0', npm: '>= 3.0.0'}
 
   solid-element@1.9.1:
@@ -4918,8 +4918,8 @@ packages:
   zod@3.25.76:
     resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
 
-  zod@4.0.2:
-    resolution: {integrity: sha512-X2niJNY54MGam4L6Kj0AxeedeDIi/E5QFW0On2faSX5J4/pfLk1tW+cRMIMoojnCavn/u5W/kX17e1CSGnKMxA==}
+  zod@4.0.5:
+    resolution: {integrity: sha512-/5UuuRPStvHXu7RS+gmvRf4NXrNxpSllGwDnCBcJZtQsKrviYXm54yDGV2KYNLT5kq0lHGcl7lqWJLgSaG+tgA==}
 
 snapshots:
 
@@ -4932,10 +4932,10 @@ snapshots:
 
   '@assemblyscript/loader@0.17.14': {}
 
-  '@asteasolutions/zod-to-openapi@7.3.0(zod@4.0.2)':
+  '@asteasolutions/zod-to-openapi@7.3.0(zod@4.0.5)':
     dependencies:
       openapi3-ts: 4.5.0
-      zod: 4.0.2
+      zod: 4.0.5
 
   '@babel/code-frame@7.27.1':
     dependencies:
@@ -5402,18 +5402,18 @@ snapshots:
     dependencies:
       hono: 4.8.4
 
-  '@hono/zod-openapi@0.19.9(hono@4.8.4)(zod@4.0.2)':
+  '@hono/zod-openapi@0.19.9(hono@4.8.4)(zod@4.0.5)':
     dependencies:
-      '@asteasolutions/zod-to-openapi': 7.3.0(zod@4.0.2)
-      '@hono/zod-validator': 0.7.0(hono@4.8.4)(zod@4.0.2)
+      '@asteasolutions/zod-to-openapi': 7.3.0(zod@4.0.5)
+      '@hono/zod-validator': 0.7.0(hono@4.8.4)(zod@4.0.5)
       hono: 4.8.4
       openapi3-ts: 4.5.0
-      zod: 4.0.2
+      zod: 4.0.5
 
-  '@hono/zod-validator@0.7.0(hono@4.8.4)(zod@4.0.2)':
+  '@hono/zod-validator@0.7.0(hono@4.8.4)(zod@4.0.5)':
     dependencies:
       hono: 4.8.4
-      zod: 4.0.2
+      zod: 4.0.5
 
   '@humanfs/core@0.19.1': {}
 
@@ -5765,45 +5765,45 @@ snapshots:
 
   '@remusao/trie@2.1.0': {}
 
-  '@rolldown/binding-darwin-arm64@1.0.0-beta.25':
+  '@rolldown/binding-darwin-arm64@1.0.0-beta.26':
     optional: true
 
-  '@rolldown/binding-darwin-x64@1.0.0-beta.25':
+  '@rolldown/binding-darwin-x64@1.0.0-beta.26':
     optional: true
 
-  '@rolldown/binding-freebsd-x64@1.0.0-beta.25':
+  '@rolldown/binding-freebsd-x64@1.0.0-beta.26':
     optional: true
 
-  '@rolldown/binding-linux-arm-gnueabihf@1.0.0-beta.25':
+  '@rolldown/binding-linux-arm-gnueabihf@1.0.0-beta.26':
     optional: true
 
-  '@rolldown/binding-linux-arm64-gnu@1.0.0-beta.25':
+  '@rolldown/binding-linux-arm64-gnu@1.0.0-beta.26':
     optional: true
 
-  '@rolldown/binding-linux-arm64-musl@1.0.0-beta.25':
+  '@rolldown/binding-linux-arm64-musl@1.0.0-beta.26':
     optional: true
 
-  '@rolldown/binding-linux-x64-gnu@1.0.0-beta.25':
+  '@rolldown/binding-linux-x64-gnu@1.0.0-beta.26':
     optional: true
 
-  '@rolldown/binding-linux-x64-musl@1.0.0-beta.25':
+  '@rolldown/binding-linux-x64-musl@1.0.0-beta.26':
     optional: true
 
-  '@rolldown/binding-wasm32-wasi@1.0.0-beta.25':
+  '@rolldown/binding-wasm32-wasi@1.0.0-beta.26':
     dependencies:
       '@napi-rs/wasm-runtime': 0.2.10
     optional: true
 
-  '@rolldown/binding-win32-arm64-msvc@1.0.0-beta.25':
+  '@rolldown/binding-win32-arm64-msvc@1.0.0-beta.26':
     optional: true
 
-  '@rolldown/binding-win32-ia32-msvc@1.0.0-beta.25':
+  '@rolldown/binding-win32-ia32-msvc@1.0.0-beta.26':
     optional: true
 
-  '@rolldown/binding-win32-x64-msvc@1.0.0-beta.25':
+  '@rolldown/binding-win32-x64-msvc@1.0.0-beta.26':
     optional: true
 
-  '@rolldown/pluginutils@1.0.0-beta.25': {}
+  '@rolldown/pluginutils@1.0.0-beta.26': {}
 
   '@rollup/rollup-android-arm-eabi@4.44.2':
     optional: true
@@ -7117,7 +7117,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  electron-vite@4.0.0(rolldown-vite@7.0.7(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0)):
+  electron-vite@4.0.0(rolldown-vite@7.0.8(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0)):
     dependencies:
       '@babel/core': 7.27.7
       '@babel/plugin-transform-arrow-functions': 7.27.1(@babel/core@7.27.7)
@@ -7125,7 +7125,7 @@ snapshots:
       esbuild: 0.25.6
       magic-string: 0.30.17
       picocolors: 1.1.1
-      vite: rolldown-vite@7.0.7(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0)
+      vite: rolldown-vite@7.0.8(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -9060,13 +9060,13 @@ snapshots:
       sprintf-js: 1.1.3
     optional: true
 
-  rolldown-vite@7.0.7(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0):
+  rolldown-vite@7.0.8(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0):
     dependencies:
       fdir: 6.4.6(picomatch@4.0.2)
       lightningcss: 1.30.1
       picomatch: 4.0.2
       postcss: 8.5.6
-      rolldown: 1.0.0-beta.25
+      rolldown: 1.0.0-beta.26
       tinyglobby: 0.2.14
     optionalDependencies:
       '@types/node': 22.13.5
@@ -9074,25 +9074,25 @@ snapshots:
       fsevents: 2.3.3
       yaml: 2.8.0
 
-  rolldown@1.0.0-beta.25:
+  rolldown@1.0.0-beta.26:
     dependencies:
       '@oxc-project/runtime': 0.76.0
       '@oxc-project/types': 0.76.0
-      '@rolldown/pluginutils': 1.0.0-beta.25
+      '@rolldown/pluginutils': 1.0.0-beta.26
       ansis: 4.1.0
     optionalDependencies:
-      '@rolldown/binding-darwin-arm64': 1.0.0-beta.25
-      '@rolldown/binding-darwin-x64': 1.0.0-beta.25
-      '@rolldown/binding-freebsd-x64': 1.0.0-beta.25
-      '@rolldown/binding-linux-arm-gnueabihf': 1.0.0-beta.25
-      '@rolldown/binding-linux-arm64-gnu': 1.0.0-beta.25
-      '@rolldown/binding-linux-arm64-musl': 1.0.0-beta.25
-      '@rolldown/binding-linux-x64-gnu': 1.0.0-beta.25
-      '@rolldown/binding-linux-x64-musl': 1.0.0-beta.25
-      '@rolldown/binding-wasm32-wasi': 1.0.0-beta.25
-      '@rolldown/binding-win32-arm64-msvc': 1.0.0-beta.25
-      '@rolldown/binding-win32-ia32-msvc': 1.0.0-beta.25
-      '@rolldown/binding-win32-x64-msvc': 1.0.0-beta.25
+      '@rolldown/binding-darwin-arm64': 1.0.0-beta.26
+      '@rolldown/binding-darwin-x64': 1.0.0-beta.26
+      '@rolldown/binding-freebsd-x64': 1.0.0-beta.26
+      '@rolldown/binding-linux-arm-gnueabihf': 1.0.0-beta.26
+      '@rolldown/binding-linux-arm64-gnu': 1.0.0-beta.26
+      '@rolldown/binding-linux-arm64-musl': 1.0.0-beta.26
+      '@rolldown/binding-linux-x64-gnu': 1.0.0-beta.26
+      '@rolldown/binding-linux-x64-musl': 1.0.0-beta.26
+      '@rolldown/binding-wasm32-wasi': 1.0.0-beta.26
+      '@rolldown/binding-win32-arm64-msvc': 1.0.0-beta.26
+      '@rolldown/binding-win32-ia32-msvc': 1.0.0-beta.26
+      '@rolldown/binding-win32-x64-msvc': 1.0.0-beta.26
 
   rollup@4.44.2:
     dependencies:
@@ -9308,7 +9308,7 @@ snapshots:
     dependencies:
       agent-base: 6.0.2
       debug: 4.4.1
-      socks: 2.8.5
+      socks: 2.8.6
     transitivePeerDependencies:
       - supports-color
 
@@ -9316,11 +9316,11 @@ snapshots:
     dependencies:
       agent-base: 7.1.3
       debug: 4.4.1
-      socks: 2.8.5
+      socks: 2.8.6
     transitivePeerDependencies:
       - supports-color
 
-  socks@2.8.5:
+  socks@2.8.6:
     dependencies:
       ip-address: 9.0.5
       smart-buffer: 4.2.0
@@ -9753,17 +9753,17 @@ snapshots:
     optionalDependencies:
       solid-js: 1.9.7
 
-  vite-dev-rpc@1.1.0(rolldown-vite@7.0.7(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0)):
+  vite-dev-rpc@1.1.0(rolldown-vite@7.0.8(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0)):
     dependencies:
       birpc: 2.4.0
-      vite: rolldown-vite@7.0.7(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0)
-      vite-hot-client: 2.1.0(rolldown-vite@7.0.7(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0))
+      vite: rolldown-vite@7.0.8(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0)
+      vite-hot-client: 2.1.0(rolldown-vite@7.0.8(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0))
 
-  vite-hot-client@2.1.0(rolldown-vite@7.0.7(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0)):
+  vite-hot-client@2.1.0(rolldown-vite@7.0.8(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0)):
     dependencies:
-      vite: rolldown-vite@7.0.7(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0)
+      vite: rolldown-vite@7.0.8(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0)
 
-  vite-plugin-inspect@11.3.0(rolldown-vite@7.0.7(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0)):
+  vite-plugin-inspect@11.3.0(rolldown-vite@7.0.8(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0)):
     dependencies:
       ansis: 4.1.0
       debug: 4.4.1
@@ -9773,8 +9773,8 @@ snapshots:
       perfect-debounce: 1.0.0
       sirv: 3.0.1
       unplugin-utils: 0.2.4
-      vite: rolldown-vite@7.0.7(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0)
-      vite-dev-rpc: 1.1.0(rolldown-vite@7.0.7(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0))
+      vite: rolldown-vite@7.0.8(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0)
+      vite-dev-rpc: 1.1.0(rolldown-vite@7.0.8(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0))
     transitivePeerDependencies:
       - supports-color
 
@@ -9782,7 +9782,7 @@ snapshots:
     dependencies:
       lib-esm: 0.4.2
 
-  vite-plugin-solid@2.11.7(rolldown-vite@7.0.7(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0))(solid-js@1.9.7):
+  vite-plugin-solid@2.11.7(rolldown-vite@7.0.8(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0))(solid-js@1.9.7):
     dependencies:
       '@babel/core': 7.27.7
       '@types/babel__core': 7.20.5
@@ -9790,14 +9790,14 @@ snapshots:
       merge-anything: 5.1.7
       solid-js: 1.9.7
       solid-refresh: 0.6.3(solid-js@1.9.7)
-      vite: rolldown-vite@7.0.7(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0)
-      vitefu: 1.1.1(rolldown-vite@7.0.7(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0))
+      vite: rolldown-vite@7.0.8(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0)
+      vitefu: 1.1.1(rolldown-vite@7.0.8(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0))
     transitivePeerDependencies:
       - supports-color
 
-  vitefu@1.1.1(rolldown-vite@7.0.7(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0)):
+  vitefu@1.1.1(rolldown-vite@7.0.8(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0)):
     optionalDependencies:
-      vite: rolldown-vite@7.0.7(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0)
+      vite: rolldown-vite@7.0.8(@types/node@22.13.5)(esbuild@0.25.6)(yaml@2.8.0)
 
   vudio@2.1.1(patch_hash=0e06c2ed11c02bdc490c209fa80070e98517c2735c641f5738b6e15d7dc1959d): {}
 
@@ -9948,4 +9948,4 @@ snapshots:
 
   zod@3.25.76: {}
 
-  zod@4.0.2: {}
+  zod@4.0.5: {}
