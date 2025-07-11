@@ -281,7 +281,7 @@
     },
     "amuse": {
       "description": "Dodaje podršku za 'Amuse now' vidžet (6K Labs) u YouTube Muziku",
-      "name": "Zabavi",
+      "name": "Amuse",
       "response": {
         "query": "Amuse API server je pokrenut. Koristite GET /query da biste dobili informacije o numeri."
       }
@@ -292,7 +292,7 @@
         "request": {
           "buttons": {
             "allow": "Dozvoli",
-            "deny": "Ne dozvoli"
+            "deny": "Odbij"
           },
           "message": "Dozvoli {{ID}} ({{origin}}) da pristupa API-ju?",
           "title": "Zahtev za autorizaciju na API"
@@ -311,7 +311,7 @@
           }
         },
         "hostname": {
-          "label": "Host"
+          "label": "Ime host-a"
         },
         "port": {
           "label": "Port"
@@ -320,8 +320,8 @@
       "name": "API Server [Beta]",
       "prompt": {
         "hostname": {
-          "label": "Unesite host (npr. 0.0.0.0) za API server:",
-          "title": "Host"
+          "label": "Unesite ime host-a (npr. 0.0.0.0) za API server:",
+          "title": "Ime host-a"
         },
         "port": {
           "label": "Unesite port za API server:",
@@ -339,7 +339,7 @@
         "disable": "Onemogući Proxy adapter",
         "enable": "Omogući Proxy adapter",
         "hostname": {
-          "label": "Host"
+          "label": "Ime host-a"
         },
         "port": {
           "label": "Port"
@@ -348,8 +348,8 @@
       "name": "Proxy adapter za autentifikaciju",
       "prompt": {
         "hostname": {
-          "label": "Unesi host za lokalni proxy server (zahteva ponovno pokretanje):",
-          "title": "Proxy Host"
+          "label": "Unesi ime host-a za lokalni proxy server (zahteva ponovno pokretanje):",
+          "title": "Ime host-a za Proxy"
         },
         "port": {
           "label": "Unesi port za lokalni proxy server (zahteva ponovno pokretanje):",
@@ -381,6 +381,11 @@
       },
       "templates": {
         "title": "Otvori meni za izbor prevoda"
+      },
+      "toast": {
+        "caption-changed": "Prevod promenjen u {{language}}",
+        "caption-disabled": "Prevod onemogućen",
+        "no-captions": "Za ovu pesmu nisu dostupni prevodi"
       }
     },
     "compact-sidebar": {
@@ -418,7 +423,7 @@
     },
     "discord": {
       "backend": {
-        "already-connected": "Pokušaj da se poveže u momentu aktivne veze",
+        "already-connected": "Pokušano je da se poveže sa aktivnom vezom",
         "connected": "Spojeno sa Discord-om",
         "disconnected": "Poništeno povezivanje sa Discord-om"
       },
@@ -429,7 +434,8 @@
         "clear-activity-after-timeout": "Očisti aktivnosti nakon isteka vremena",
         "connected": "Povezano",
         "disconnected": "Nije povezano",
-        "hide-github-button": "Sakrij GitHub link dugme",
+        "hide-duration-left": "Sakrij preostalo vreme",
+        "hide-github-button": "Sakrij dugme sa GitHub linkom",
         "play-on-youtube-music": "Reprodukuj na YouTube Muzici",
         "set-inactivity-timeout": "Podesi tajmer za neaktivnost"
       },
@@ -476,7 +482,7 @@
           "playlist-has-only-one-song": "Plejlista sadrži samo jednu numeru, preuzima se direktno",
           "playlist-id-not-found": "Nije pronađen ID plejliste",
           "playlist-is-empty": "Plejlista je prazna",
-          "playlist-is-mix-or-private": "Greška pri preuzimanju informacija o plejlisti: proverite da li je možda skrivena ili \"Mixed for you\" plejlista\n\n{{error}}",
+          "playlist-is-mix-or-private": "Greška pri preuzimanju informacija o plejlisti: proverite da li je možda skrivena ili \"Za tebe\" plejlista\n\n{{error}}",
           "preparing-file": "Pripremanje datoteke…",
           "saving": "Čuvanje…",
           "trying-to-get-playlist-id": "Pokušaj preuzimanja ID plejliste: {{playlistId}}",
@@ -508,14 +514,14 @@
       },
       "name": "Servis za preuzimanje",
       "renderer": {
-        "can-not-update-progress": "Nemoguće ažuriranje trenutnog progresa"
+        "can-not-update-progress": "Nemoguće ažuriranje trenutnog napretka"
       },
       "templates": {
         "button": "Preuzimanje"
       }
     },
     "equalizer": {
-      "description": "Dodaje 'equalizer' u muzički plejer",
+      "description": "Dodaje ekvilajzer u muzički plejer",
       "menu": {
         "presets": {
           "label": "Predefinisana podešavanja",
@@ -524,7 +530,21 @@
           }
         }
       },
-      "name": "Equalizer"
+      "name": "Ekvilajzer"
+    },
+    "exponential-volume": {
+      "description": "Postavlja slajder jačine kao eksponencijalan radi lakšeg izbora nižih jačina.",
+      "name": "Eksponencijalna jačina"
+    },
+    "in-app-menu": {
+      "description": "Daje izbornim trakama fensi, tamni ili izgled prema boji albuma",
+      "menu": {
+        "hide-dom-window-controls": "Sakrij kontrole DOM prozora"
+      },
+      "name": "Izborni menu unutar aplikacije"
+    },
+    "lumiastream": {
+      "description": "Dodaje podršku za Lumnia Stream"
     }
   }
 }
