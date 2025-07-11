@@ -246,7 +246,7 @@
         "buffer": {
           "label": "Bafer",
           "submenu": {
-            "buffer": "{{bafer}}"
+            "buffer": "{{buffer}}"
           }
         },
         "opacity": {
@@ -281,9 +281,9 @@
     },
     "amuse": {
       "description": "Dodaje podršku za 'Amuse now' vidžet (6K Labs) u YouTube Muziku",
-      "name": "Amuse",
+      "name": "Zabavi",
       "response": {
-        "query": "Amuse API server je pokrenut. GET /query da biste dobili informacije o numeri."
+        "query": "Amuse API server je pokrenut. Koristite GET /query da biste dobili informacije o numeri."
       }
     },
     "api-server": {
