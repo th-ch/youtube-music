@@ -81,15 +81,18 @@ export const pluginVirtualModuleGenerator = (
       writer.writeLine(
         `  if (${mode}PluginsCache) return ${mode}PluginsCache;`,
       );
-      writer.writeLine(`  ${mode}PluginsCache = {`);
+      writer.writeLine('  const pluginEntries = await Promise.all([');
       for (const { name } of plugins) {
         const checkMode = mode === 'main' ? 'backend' : mode;
         // HACK: To avoid situation like importing renderer plugins in main
         writer.writeLine(
-          `    ...(await ${kebabToCamel(name)}Plugin().then((plg) => (plg['${checkMode}'] ? { "${name}": plg } : {}))),`,
+          `    ${kebabToCamel(name)}Plugin().then((plg) => plg['${checkMode}'] ? { "${name}": plg } : {}),`,
         );
       }
-      writer.writeLine('  };');
+      writer.writeLine('  ]);');
+      writer.writeLine(
+        `  ${mode}PluginsCache = Object.assign({}, ...pluginEntries);`,
+      );
       writer.writeLine(`  return ${mode}PluginsCache;`);
       writer.writeLine('};');
       writer.blankLine();
@@ -98,13 +101,16 @@ export const pluginVirtualModuleGenerator = (
       writer.writeLine('let allPluginsCache;');
       writer.writeLine('export const allPlugins = async () => {');
       writer.writeLine('  if (allPluginsCache) return allPluginsCache;');
-      writer.writeLine('  allPluginsCache = {');
+      writer.writeLine('  const stubEntries = await Promise.all([');
       for (const { name } of plugins) {
         writer.writeLine(
-          `    "${name}": await ${kebabToCamel(name)}PluginStub(),`,
+          `    ${kebabToCamel(name)}PluginStub().then((stub) => ({ "${name}": stub })),`,
         );
       }
-      writer.writeLine('  };');
+      writer.writeLine('  ]);');
+      writer.writeLine(
+        '  allPluginsCache = Object.assign({}, ...stubEntries);',
+      );
       writer.writeLine('  return allPluginsCache;');
       writer.writeLine('};');
       writer.blankLine();

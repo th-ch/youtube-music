@@ -24,20 +24,21 @@ export const i18nImporter = () => {
   const src = globalProject.createSourceFile(
     'vm:i18n',
     (writer) => {
-      writer.writeLine('export const languageResources = async () => ({');
+      writer.writeLine('export const languageResources = async () => {');
+      writer.writeLine('  const entries = await Promise.all([');
       for (const { name, path } of plugins) {
         const relativePath = relative(resolve(srcPath, '..'), path).replace(
           /\\/g,
           '/',
         );
 
-        writer.writeLine(`  "${name}": {`);
         writer.writeLine(
-          `    translation: (await import('./${relativePath}')).default,`,
+          `    import('./${relativePath}').then((mod) => ({ "${name}": { translation: mod.default } })),`,
         );
-        writer.writeLine('  },');
       }
-      writer.writeLine('});');
+      writer.writeLine('  ]);');
+      writer.writeLine('  return Object.assign({}, ...entries);');
+      writer.writeLine('};');
       writer.blankLine();
     },
     { overwrite: true },
