@@ -11,9 +11,9 @@ export function getPlugins() {
   return store.get('plugins') as Record<string, PluginConfig>;
 }
 
-export function isEnabled(plugin: string) {
+export async function isEnabled(plugin: string) {
   const pluginConfig = deepmerge(
-    allPlugins[plugin].config ?? { enabled: false },
+    (await allPlugins())[plugin].config ?? { enabled: false },
     (store.get('plugins') as Record<string, PluginConfig>)[plugin] ?? {},
   );
   return pluginConfig !== undefined && pluginConfig.enabled;
