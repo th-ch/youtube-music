@@ -44,7 +44,7 @@
     },
     "dialog": {
       "hide-menu-enabled": {
-        "detail": "මෙනුව සැගවී ඇත, නැවත පෙන්වීමට 'Alt'  භාවිතා කරන්න. (මෙනුවේ 'Escape')",
+        "detail": "මෙනුව සැගවී ඇත, නැවත පෙන්වීමට 'Alt' භාවිතා කරන්න. (මෙනුවේ 'Escape')",
         "message": "මෙනුව සැගවීම සක්‍රීය කර ඇත",
         "title": "මෙනුව සැගවීම සක්‍රීයයි"
       },
@@ -175,7 +175,40 @@
             }
           }
         }
+      },
+      "plugins": {
+        "enabled": "සක්රිය කරන්න",
+        "label": "ප්ලගීන",
+        "new": "නව"
+      },
+      "view": {
+        "label": "බලන්න",
+        "submenu": {
+          "force-reload": "බලෙන් රීලෝඩ් කරන්න",
+          "reload": "රීලෝඩ් කරන්න",
+          "reset-zoom": "සැබෑ ප්රමාණය",
+          "toggle-fullscreen": "සම්පූර්ණ තිරය ටොගල් කරන්න",
+          "zoom-in": "විශාලනය කරන්න",
+          "zoom-out": "කුඩා කරන්න"
+        }
       }
+    },
+    "tray": {
+      "next": "ඊළඟ",
+      "play-pause": "වාදනය / විරාමය",
+      "previous": "පෙර",
+      "quit": "පිටවීම",
+      "restart": "නැවත ආරම්භ කරන්න",
+      "show": "තිරය පෙන්වන්න",
+      "tooltip": {
+        "default": "YouTube Music",
+        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
+      }
+    }
+  },
+  "plugins": {
+    "adblocker": {
+      "description": "සියලුම දැන්වීම් අවහිර කර කොටුවෙන් පිටත ලුහුබැඳීම"
     }
   }
 }
