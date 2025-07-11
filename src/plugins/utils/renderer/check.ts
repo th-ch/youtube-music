@@ -1,9 +1,22 @@
 export const isMusicOrVideoTrack = () => {
-  let menuUrl = document.querySelector<HTMLAnchorElement>(
-    'tp-yt-paper-listbox [tabindex="0"] #navigation-endpoint',
-  )?.href;
+  const menuSelector = document.querySelector<
+    HTMLAnchorElement & {
+      data: {
+        watchEndpoint: {
+          videoId: string;
+        };
+        addToPlaylistEndpoint: {
+          videoId: string;
+        };
+        clickTrackingParams: string;
+      };
+    }
+  >('tp-yt-paper-listbox [tabindex="0"] #navigation-endpoint');
+  let menuUrl =
+    menuSelector?.data?.addToPlaylistEndpoint?.videoId ||
+    menuSelector?.data?.watchEndpoint?.videoId;
 
-  if (!menuUrl?.includes('watch?')) {
+  if (!menuUrl) {
     menuUrl = undefined;
     // check for podcast
     for (const it of document.querySelectorAll(
