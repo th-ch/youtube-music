@@ -76,42 +76,50 @@ export const pluginVirtualModuleGenerator = (
       writer.blankLine();
 
       // Context-specific exports
-      writer.writeLine(`let ${mode}PluginsCache;`);
+      writer.writeLine(`let ${mode}PluginsCache = null;`);
       writer.writeLine(`export const ${mode}Plugins = async () => {`);
       writer.writeLine(
-        `  if (${mode}PluginsCache) return ${mode}PluginsCache;`,
+        `  if (${mode}PluginsCache) return await ${mode}PluginsCache;`,
       );
+      writer.writeLine(
+        '  const { promise, resolve } = Promise.withResolvers();',
+      );
+      writer.writeLine('  ' + `${mode}PluginsCache = promise;`);
       writer.writeLine('  const pluginEntries = await Promise.all([');
       for (const { name } of plugins) {
         const checkMode = mode === 'main' ? 'backend' : mode;
         // HACK: To avoid situation like importing renderer plugins in main
         writer.writeLine(
-          `    ${kebabToCamel(name)}Plugin().then((plg) => plg['${checkMode}'] ? { "${name}": plg } : {}),`,
+          `    ${kebabToCamel(name)}Plugin().then((plg) => plg['${checkMode}'] ? ["${name}", plg] : null),`,
         );
       }
       writer.writeLine('  ]);');
       writer.writeLine(
-        `  ${mode}PluginsCache = Object.assign({}, ...pluginEntries);`,
+        '  resolve(pluginEntries.filter((entry) => entry).reduce((acc, [name, plg]) => ({ ...acc, [name]: plg }), {}));',
       );
-      writer.writeLine(`  return ${mode}PluginsCache;`);
+      writer.writeLine(`  return await ${mode}PluginsCache;`);
       writer.writeLine('};');
       writer.blankLine();
 
       // All plugins export (stub only) // Omit<Plugin, 'backend' | 'preload' | 'renderer'>
-      writer.writeLine('let allPluginsCache;');
+      writer.writeLine('let allPluginsCache = null;');
       writer.writeLine('export const allPlugins = async () => {');
-      writer.writeLine('  if (allPluginsCache) return allPluginsCache;');
+      writer.writeLine('  if (allPluginsCache) return await allPluginsCache;');
+      writer.writeLine(
+        '  const { promise, resolve } = Promise.withResolvers();',
+      );
+      writer.writeLine('  allPluginsCache = promise;');
       writer.writeLine('  const stubEntries = await Promise.all([');
       for (const { name } of plugins) {
         writer.writeLine(
-          `    ${kebabToCamel(name)}PluginStub().then((stub) => ({ "${name}": stub })),`,
+          `    ${kebabToCamel(name)}PluginStub().then((stub) => ["${name}", stub]),`,
         );
       }
       writer.writeLine('  ]);');
       writer.writeLine(
-        '  allPluginsCache = Object.assign({}, ...stubEntries);',
+        '  resolve(stubEntries.reduce((acc, [name, plg]) => ({ ...acc, [name]: plg }), {}));',
       );
-      writer.writeLine('  return allPluginsCache;');
+      writer.writeLine('  return await promise;');
       writer.writeLine('};');
       writer.blankLine();
     },
