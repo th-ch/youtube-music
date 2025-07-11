@@ -855,7 +855,7 @@
       "name": "Nenametljivi plejer"
     },
     "video-toggle": {
-      "description": "Dodaje dugme za promenu između režima za video/numeru. Opciono, može da ukloni celu karticu za video",
+      "description": "Dodaje dugme za promenu između režima za video/numeru. Opciono, može da ukloni celu karticu sa videom",
       "menu": {
         "align": {
           "label": "Poravnanje",
@@ -865,8 +865,28 @@
             "right": "Desno"
           }
         },
-        "force-hide": "Nasilno ukloni karticu sa videom"
+        "force-hide": "Nasilno ukloni karticu sa videom",
+        "mode": {
+          "label": "Režim",
+          "submenu": {
+            "custom": "Prilagođeno prebacivanje",
+            "disabled": "Onemogućeno",
+            "native": "Izvorno prebacivanje"
+          }
+        }
+      },
+      "name": "Video prebacivanje",
+      "templates": {
+        "button-song": "Numera",
+        "button-video": "Video"
       }
+    },
+    "visualizer": {
+      "description": "Dodaje vizualizaciju u plejer",
+      "menu": {
+        "visualizer-type": "Tip vizualizacije"
+      },
+      "name": "Vizualizacija"
     }
   }
 }
