@@ -98,7 +98,7 @@ const routes = {
         content: {
           'application/json': {
             schema: z.object({
-              state: z.enum(['LIKE', 'DISLIKE', 'INDIFFERENT']).nullable()
+              state: z.nativeEnum(LikeType).nullable()
             }),
           },
         },
