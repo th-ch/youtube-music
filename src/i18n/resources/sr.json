@@ -558,7 +558,33 @@
       }
     },
     "music-together": {
-      "description": "Podeli plejlistu sa drugima. Kada domaćin (host) pusti pesmu, svi ostali će čuti istu pesmu."
+      "description": "Podeli plejlistu sa drugima. Kada domaćin (host) pusti pesmu, svi ostali će čuti istu pesmu",
+      "dialog": {
+        "enter-host": "Unesi ID host-a"
+      },
+      "internal": {
+        "save": "Sačuvaj",
+        "track-source": "Izvor pesme",
+        "unknown-user": "Nepoznat korisnik"
+      },
+      "menu": {
+        "click-to-copy-id": "Kopiraj ID host-a",
+        "close": "Zatvori 'Music Together'",
+        "connected-users": "Spojeni korisnici",
+        "disconnect": "Prekini vezu sa 'Music Together'",
+        "empty-user": "Nema povezanih korisnika",
+        "host": "'Music Together' domaćin (host)",
+        "join": "Pridruži se 'Music Together'",
+        "permission": {
+          "all": "Dozvoli gostima da kontrolišu plejlistu i reprodukciju",
+          "host-only": "Samo domaćin (host) može da kontroliše plejlistu i reprodukciju",
+          "playlist": "Dozvoli gostima da kontrolišu plejlistu"
+        },
+        "set-permission": "Promeni dozvole za upravljanje",
+        "status": {
+          "disconnected": "Nije spojen"
+        }
+      }
     }
   }
 }
