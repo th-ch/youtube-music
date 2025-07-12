@@ -381,6 +381,11 @@
       },
       "templates": {
         "title": "打開標題選擇器"
+      },
+      "toast": {
+        "caption-changed": "字幕語言更改為{{language}}",
+        "caption-disabled": "停用字幕",
+        "no-captions": "此歌曲無標題"
       }
     },
     "compact-sidebar": {
@@ -600,7 +605,15 @@
     },
     "navigation": {
       "description": "允許應用程式上方顯示上一頁／下一頁按鈕",
-      "name": "導覽列"
+      "name": "導覽列",
+      "templates": {
+        "back": {
+          "title": "回到上一頁"
+        },
+        "forward": {
+          "title": "前往下一頁"
+        }
+      }
     },
     "no-google-login": {
       "description": "移除 Google 登入按鈕及連結",
@@ -692,7 +705,12 @@
         }
       },
       "description": "允許在影片內進行畫質更改",
-      "name": "允許變更影片畫質"
+      "name": "允許變更影片畫質",
+      "renderer": {
+        "quality-settings-button": {
+          "label": "開啟畫質調整器"
+        }
+      }
     },
     "scrobbler": {
       "description": "額外新增 scrobbling 支援 (例如：last.fm, Listenbrainz)",
@@ -859,7 +877,8 @@
       },
       "name": "歌曲／影片切換",
       "templates": {
-        "button-song": "歌曲"
+        "button-song": "歌曲",
+        "button-video": "影片"
       }
     },
     "visualizer": {
