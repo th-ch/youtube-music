@@ -859,7 +859,7 @@
       },
       "name": "Переключатель видео",
       "templates": {
-        "button": "Песня"
+        "button-song": "Песня"
       }
     },
     "visualizer": {

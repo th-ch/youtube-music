@@ -10,11 +10,13 @@ interface PlainLyricsProps {
 export const PlainLyrics = (props: PlainLyricsProps) => {
   const [romanization, setRomanization] = createSignal('');
 
-  createEffect(async () => {
+  createEffect(() => {
     if (!config()?.romanization) return;
 
     const input = canonicalize(props.line);
-    setRomanization(canonicalize(await romanize(input)));
+    romanize(input).then((result) => {
+      setRomanization(canonicalize(result));
+    });
   });
 
   return (

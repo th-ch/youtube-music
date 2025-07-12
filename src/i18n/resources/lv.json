@@ -99,7 +99,7 @@
               "auto-reset-app-cache": "Iztīrīt kešu kad lietotne palaižas",
               "disable-hardware-acceleration": "Atslēgt aparatūras paātrinājumu",
               "edit-config-json": "Labot config.json",
-              "override-user-agent": "Pārrakstīt User-Agent",
+              "override-user-agent": "Pārrakstīt lietotāja aģenta informāciju",
               "restart-on-config-changes": "Restartēt kad mainās konfigurācija",
               "set-proxy": {
                 "label": "Iestatīt proxy",
@@ -139,10 +139,10 @@
             "unset": "Nav iestatīts"
           },
           "tray": {
-            "label": "Teknis",
+            "label": "Minimizēt uz teknīti",
             "submenu": {
               "disabled": "Izslēgts",
-              "enabled-and-hide-app": "Ieslēgts un slēpt lietotni",
+              "enabled-and-hide-app": "Teknīte ieslēgta, paslēpt lietotnes logu",
               "enabled-and-show-app": "Ielsēgts un rādīt lietotni",
               "play-pause-on-click": "Atskaņot/Pauzēt piespiežot"
             }
@@ -223,6 +223,7 @@
       "name": "Darbības ar Albumu"
     },
     "album-color-theme": {
+      "description": "Iestata dinamisku motīvu un efektus, pamatojoties uz albuma krāsu paleti",
       "menu": {
         "color-mix-ratio": {
           "label": "Krāsu attiecība",
@@ -243,6 +244,7 @@
           }
         },
         "buffer": {
+          "label": "buferis",
           "submenu": {
             "buffer": "{{buffer}}"
           }
@@ -394,6 +396,8 @@
       "prompt": {
         "options": {
           "multi-input": {
+            "fade-in-duration": "Ieplūšanas ilgums (ms)",
+            "fade-out-duration": "Izplūšanas ilgums (ms)",
             "fade-scaling": {
               "label": "Pārejas stiprums",
               "linear": "Lineārs",
@@ -435,6 +439,47 @@
         "set-inactivity-timeout": {
           "label": "Ievadiet neaktivitātes taimeru sekundēs:",
           "title": "Iestatīt neaktivitātes taimeru"
+        }
+      }
+    },
+    "downloader": {
+      "backend": {
+        "dialog": {
+          "error": {
+            "buttons": {
+              "ok": "OK"
+            },
+            "message": "Atvainojamies, lejupielāde neizdevās…",
+            "title": "Lejupielādes kļūda!"
+          },
+          "start-download-playlist": {
+            "buttons": {
+              "ok": "OK"
+            },
+            "detail": "({{playlistSize}}Dziesmas)",
+            "message": "Lejupielādē atskaņošanas sarakstu {{playlistTitle}}",
+            "title": "Lejupielāde sākta"
+          }
+        },
+        "feedback": {
+          "conversion-progress": "Konvertēšana: {{percent}}%",
+          "converting": "Konvertēšana…",
+          "done": "Pabeigts: {{filePath}}",
+          "download-info": "Lejupielādē {{artist}} - {{title}}{{videoId}}",
+          "download-progress": "Lejupielāde: {{percent}}%",
+          "downloading": "Lejupielādē…",
+          "downloading-counter": "Notiek lejupielāde {{current}}/{{total}}…",
+          "downloading-playlist": "Atskaņošanas saraksta lejupielāde \"{{playlistTitle}}\" - {{playlistSize}} songs ({{playlistId}})",
+          "error-while-downloading": "Kļūda lejuplādējot \"{{author}} - {{title}}\": {{error}}",
+          "folder-already-exists": "Mape {{playlistFolder}} jau eksistē",
+          "getting-playlist-info": "Tiek iegūta atskaņošanas saraksta informācija…",
+          "loading": "Ielādē…",
+          "playlist-has-only-one-song": "Sarakstā ir tikai viena dziesma, tā tiek lejupielādēta uzreiz",
+          "playlist-id-not-found": "Neizdevās atrast atskaņošanas saraksta ID",
+          "playlist-is-empty": "Atskaņošanas saraksts ir tukšs",
+          "playlist-is-mix-or-private": "Neizdevās iegūt atskaņošanas saraksta informāciju: pārliecinieties, ka tas nav privāts vai \"Jums izveidotā izlase\" saraksts.\n\n{{error}}",
+          "preparing-file": "Faila sagatavošana…",
+          "saving": "Saglabāšana…"
         }
       }
     }

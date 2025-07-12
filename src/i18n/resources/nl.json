@@ -333,6 +333,30 @@
       "description": "Past compressie toe op audio (verlaagt het volume van de luidste delen van het signaal en verhoogt het volume van de zachtste delen)",
       "name": "Audiocompressor"
     },
+    "auth-proxy-adapter": {
+      "description": "Ondersteuning voor het gebruik van authenticatie proxy diensten",
+      "menu": {
+        "disable": "Proxy adapter uitschakelen",
+        "enable": "Proxy adapter inschakelen",
+        "hostname": {
+          "label": "Hostnaam"
+        },
+        "port": {
+          "label": "Poort"
+        }
+      },
+      "name": "Auth proxy adapter",
+      "prompt": {
+        "hostname": {
+          "label": "Hostname voor lokale proxy server (vereist herstart):",
+          "title": "Proxy hostnaam"
+        },
+        "port": {
+          "label": "Poort voor lokale proxy server (herstart vereist):",
+          "title": "Proxy poort"
+        }
+      }
+    },
     "blur-nav-bar": {
       "description": "Maakt de navigatiebalk transparant en wazig",
       "name": "Vervagen Navigatiebalk"
@@ -835,7 +859,7 @@
       },
       "name": "Videoschakelaar",
       "templates": {
-        "button": "Nummer"
+        "button-song": "Nummer"
       }
     },
     "visualizer": {

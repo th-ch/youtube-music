@@ -62,10 +62,10 @@ import { defaultAuthProxyConfig } from '@/plugins/auth-proxy-adapter/config';
 import type { PluginConfig } from '@/types/plugins';
 
 if (!is.macOS()) {
-  delete allPlugins['touchbar'];
+  delete (await allPlugins())['touchbar'];
 }
 if (!is.windows()) {
-  delete allPlugins['taskbar-mediacontrol'];
+  delete (await allPlugins())['taskbar-mediacontrol'];
 }
 
 // Catch errors and log them
@@ -73,9 +73,6 @@ unhandled({
   logger: console.error,
   showDialog: false,
 });
-
-// Disable Node options if the env var is set
-process.env.NODE_OPTIONS = '';
 
 // Prevent window being garbage collected
 let mainWindow: Electron.BrowserWindow | null;
@@ -142,13 +139,13 @@ if (is.linux()) {
   app.setName('com.github.th_ch.youtube_music');
 
   // Stops chromium from launching its own MPRIS service
-  if (config.plugins.isEnabled('shortcuts')) {
+  if (await config.plugins.isEnabled('shortcuts')) {
     app.commandLine.appendSwitch('disable-features', 'MediaSessionService');
   }
 }
 
 if (config.get('options.proxy')) {
-  const authProxyEnabled = config.plugins.isEnabled('auth-proxy-adapter');
+  const authProxyEnabled = await config.plugins.isEnabled('auth-proxy-adapter');
 
   let proxyToUse = '';
   if (authProxyEnabled) {
@@ -186,19 +183,23 @@ function onClosed() {
   mainWindow = null;
 }
 
-ipcMain.handle('ytmd:get-main-plugin-names', () => Object.keys(mainPlugins));
+ipcMain.handle('ytmd:get-main-plugin-names', async () =>
+  Object.keys(await mainPlugins()),
+);
 
-const initHook = (win: BrowserWindow) => {
+const initHook = async (win: BrowserWindow) => {
+  const allPluginStubs = await allPlugins();
+
   ipcMain.handle(
     'ytmd:get-config',
     (_, id: string) =>
       deepmerge(
-        allPlugins[id].config ?? { enabled: false },
+        allPluginStubs[id].config ?? { enabled: false },
         config.get(`plugins.${id}`) ?? {},
       ) as PluginConfig,
   );
   ipcMain.handle('ytmd:set-config', (_, name: string, obj: object) =>
-    config.setPartial(`plugins.${name}`, obj, allPlugins[name].config),
+    config.setPartial(`plugins.${name}`, obj, allPluginStubs[name].config),
   );
 
   config.watch((newValue, oldValue) => {
@@ -217,7 +218,7 @@ const initHook = (win: BrowserWindow) => {
       if (!isEqual) {
         const oldConfig = oldPluginConfigList[id] as PluginConfig;
         const config = deepmerge(
-          allPlugins[id].config ?? { enabled: false },
+          allPluginStubs[id].config ?? { enabled: false },
           newPluginConfig ?? {},
         ) as PluginConfig;
 
@@ -232,7 +233,7 @@ const initHook = (win: BrowserWindow) => {
             forceUnloadMainPlugin(id, win);
           }
 
-          if (allPlugins[id]?.restartNeeded) {
+          if (allPluginStubs[id]?.restartNeeded) {
             showNeedToRestartDialog(id);
           }
         }
@@ -253,8 +254,8 @@ const initHook = (win: BrowserWindow) => {
   });
 };
 
-const showNeedToRestartDialog = (id: string) => {
-  const plugin = allPlugins[id];
+const showNeedToRestartDialog = async (id: string) => {
+  const plugin = (await allPlugins())[id];
 
   const dialogOptions: Electron.MessageBoxOptions = {
     type: 'info',
@@ -328,7 +329,7 @@ async function createMainWindow() {
   const windowSize = config.get('window-size');
   const windowMaximized = config.get('window-maximized');
   const windowPosition: Electron.Point = config.get('window-position');
-  const useInlineMenu = config.plugins.isEnabled('in-app-menu');
+  const useInlineMenu = await config.plugins.isEnabled('in-app-menu');
 
   const defaultTitleBarOverlayOptions: Electron.TitleBarOverlay = {
     color: '#00000000',
@@ -361,7 +362,7 @@ async function createMainWindow() {
     show: false,
     webPreferences: {
       contextIsolation: true,
-      preload: path.join(__dirname, '..', 'preload', 'preload.js'),
+      preload: path.join(__dirname, '..', 'preload', 'preload.cjs'),
       ...(isTesting()
         ? undefined
         : {
@@ -372,7 +373,7 @@ async function createMainWindow() {
     },
     ...decorations,
   });
-  initHook(win);
+  await initHook(win);
   initTheme(win);
 
   await loadAllMainPlugins(win);
@@ -617,12 +618,12 @@ app.on('activate', async () => {
   }
 });
 
-const getDefaultLocale = (locale: string) =>
-  Object.keys(languageResources).includes(locale) ? locale : null;
+const getDefaultLocale = async (locale: string) =>
+  Object.keys(await languageResources()).includes(locale) ? locale : null;
 
 app.whenReady().then(async () => {
   if (!config.get('options.language')) {
-    const locale = getDefaultLocale(app.getLocale());
+    const locale = await getDefaultLocale(app.getLocale());
     if (locale) {
       config.set('options.language', locale);
     }
@@ -763,7 +764,7 @@ app.whenReady().then(async () => {
 
       const splited = decodeURIComponent(command).split(' ');
 
-      handleProtocol(splited.shift()!, splited);
+      handleProtocol(splited.shift()!, ...splited);
       return;
     }
 

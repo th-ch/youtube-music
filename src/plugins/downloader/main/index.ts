@@ -19,8 +19,6 @@ import {
   sendFeedback as sendFeedback_,
   setBadge,
 } from './utils';
-import { fetchFromGenius } from '@/plugins/lyrics-genius/main';
-import { isEnabled } from '@/config/plugins';
 import registerCallback, {
   cleanupName,
   getImage,
@@ -39,7 +37,10 @@ import type { GetPlayerResponse } from '@/types/get-player-response';
 import type { FormatOptions } from 'node_modules/youtubei.js/dist/src/types';
 import type { VideoInfo } from 'node_modules/youtubei.js/dist/src/parser/youtube';
 import type { PlayerErrorMessage } from 'node_modules/youtubei.js/dist/src/parser/nodes';
-import type { TrackInfo, Playlist } from 'node_modules/youtubei.js/dist/src/parser/ytmusic';
+import type {
+  TrackInfo,
+  Playlist,
+} from 'node_modules/youtubei.js/dist/src/parser/ytmusic';
 
 type CustomSongInfo = SongInfo & { trackId?: string };
 
@@ -593,16 +594,6 @@ async function writeID3(
         description: 'thumbnail',
         imageBuffer: coverBuffer,
       };
-    }
-
-    if (isEnabled('lyrics-genius')) {
-      const lyrics = await fetchFromGenius(metadata);
-      if (lyrics) {
-        tags.unsynchronisedLyrics = {
-          language: '',
-          text: lyrics,
-        };
-      }
     }
 
     if (metadata.trackId) {

@@ -222,7 +222,7 @@
         }
       },
       "templates": {
-        "button": "Låt"
+        "button-song": "Låt"
       }
     }
   }

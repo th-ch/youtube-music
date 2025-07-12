@@ -7,7 +7,7 @@ import { t } from '@/i18n';
 export default createBackend({
   start({ ipc: { handle }, window }) {
     handle(
-      'captionsSelector',
+      'ytmd:captions-selector',
       async (captionLabels: Record<string, string>, currentIndex: string) =>
         await prompt(
           {

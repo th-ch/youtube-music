@@ -859,7 +859,7 @@
       },
       "name": "Botão de Alternar Vídeo",
       "templates": {
-        "button": "Música"
+        "button-song": "Música"
       }
     },
     "visualizer": {

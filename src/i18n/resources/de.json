@@ -381,6 +381,11 @@
       },
       "templates": {
         "title": "Untertitelwähler öffnen"
+      },
+      "toast": {
+        "caption-changed": "Untertitel gewechselt zu {{language}}",
+        "caption-disabled": "Untertitel deaktiviert",
+        "no-captions": "Keine Untertitel für dieses Lied verfügbar"
       }
     },
     "compact-sidebar": {
@@ -600,7 +605,15 @@
     },
     "navigation": {
       "description": "Vorwärts/Zurück Navigationspfeile direkt in die Oberfläche integriert - wie in deinem geliebten Browser",
-      "name": "Navigation"
+      "name": "Navigation",
+      "templates": {
+        "back": {
+          "title": "Zur vorherigen Seite gehen"
+        },
+        "forward": {
+          "title": "Zur nächsten Seite gehen"
+        }
+      }
     },
     "no-google-login": {
       "description": "Googles Anmelden-Knöpfe und -Links von der Oberfläche entfernen",
@@ -692,7 +705,12 @@
         }
       },
       "description": "Erlaubt die Videoqualität über einen Knopf auf dem Video",
-      "name": "Videoqualitätsänderer"
+      "name": "Videoqualitätsänderer",
+      "renderer": {
+        "quality-settings-button": {
+          "label": "Videoqualität ändern"
+        }
+      }
     },
     "scrobbler": {
       "description": "Scrobbling-Unterstützung aktivieren (z.B. für last.fm, Listenbrainz)",
@@ -859,7 +877,8 @@
       },
       "name": "Videoumschalter",
       "templates": {
-        "button": "Lied"
+        "button-song": "Lied",
+        "button-video": "Video"
       }
     },
     "visualizer": {

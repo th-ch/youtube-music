@@ -37,10 +37,13 @@ type LyricsStore = {
 };
 
 const initialData = () =>
-  providerNames.reduce((acc, name) => {
-    acc[name] = { state: 'fetching', data: null, error: null };
-    return acc;
-  }, {} as LyricsStore['lyrics']);
+  providerNames.reduce(
+    (acc, name) => {
+      acc[name] = { state: 'fetching', data: null, error: null };
+      return acc;
+    },
+    {} as LyricsStore['lyrics'],
+  );
 
 export const [lyricsStore, setLyricsStore] = createStore<LyricsStore>({
   provider: providerNames[0],

@@ -309,9 +309,10 @@ export default (
     savedNotification?.close();
   });
 
-  changeProtocolHandler((cmd, args) => {
+  changeProtocolHandler((cmd, ...args) => {
     if (Object.keys(songControls).includes(cmd)) {
-      songControls[cmd as keyof typeof songControls](args as never);
+      // @ts-expect-error: cmd is a key of songControls
+      songControls[cmd as keyof typeof songControls](...args);
       if (
         config().refreshOnPlayPause &&
         (cmd === 'pause' || (cmd === 'play' && !config().unpauseNotification))

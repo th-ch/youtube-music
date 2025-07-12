@@ -309,8 +309,8 @@ function registerMPRIS(win: BrowserWindow) {
       player.volume = Number.parseFloat((newVol / 100).toFixed(2));
     });
 
-    player.on('volume', (newVolume: number) => {
-      if (config.plugins.isEnabled('precise-volume')) {
+    player.on('volume', async (newVolume: number) => {
+      if (await config.plugins.isEnabled('precise-volume')) {
         // With precise volume we can set the volume to the exact value.
         win.webContents.send('setVolume', ~~(newVolume * 100));
       } else {

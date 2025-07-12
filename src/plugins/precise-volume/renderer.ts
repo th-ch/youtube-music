@@ -45,7 +45,7 @@ export const onPlayerApiReady = async (
   }, 2500);
 
   /** Restore saved volume and setup tooltip */
-  function firstRun() {
+  async function firstRun() {
     if (typeof options.savedVolume === 'number') {
       // Set saved volume as tooltip
       setTooltip(options.savedVolume);
@@ -66,7 +66,7 @@ export const onPlayerApiReady = async (
     injectVolumeHud(noVid);
     if (!noVid) {
       setupVideoPlayerOnwheel();
-      if (!window.mainConfig.plugins.isEnabled('video-toggle')) {
+      if (!await window.mainConfig.plugins.isEnabled('video-toggle')) {
         // Video-toggle handles hud positioning on its own
         const videoMode = () =>
           api.getPlayerResponse().videoDetails?.musicVideoType !==
@@ -280,7 +280,7 @@ export const onPlayerApiReady = async (
   );
   context.ipc.on('setVolume', (value: number) => setVolume(value));
 
-  firstRun();
+  await firstRun();
 };
 
 export const onConfigChange = (config: PreciseVolumePluginConfig) => {

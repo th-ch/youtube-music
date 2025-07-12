@@ -799,7 +799,7 @@
       },
       "name": "Myndbandsrofi",
       "templates": {
-        "button": "Lag"
+        "button-song": "Lag"
       }
     },
     "visualizer": {

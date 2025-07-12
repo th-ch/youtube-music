@@ -334,7 +334,6 @@
       "name": "音频压缩器"
     },
     "auth-proxy-adapter": {
-      "name": "认证代理适配",
       "description": "支持使用需要身份验证的代理",
       "menu": {
         "disable": "禁用代理适配",
@@ -346,14 +345,15 @@
           "label": "端口"
         }
       },
+      "name": "认证代理适配",
       "prompt": {
         "hostname": {
-          "title": "代理主机名",
-          "label": "请输入本地代理服务器的主机名（需要重启）："
+          "label": "请输入本地代理服务器的主机名（需要重启）：",
+          "title": "代理主机名"
         },
         "port": {
-          "title": "代理端口",
-          "label": "请输入本地代理服务器的端口号（需要重启）："
+          "label": "请输入本地代理服务器的端口号（需要重启）：",
+          "title": "代理端口"
         }
       }
     },
@@ -381,6 +381,11 @@
       },
       "templates": {
         "title": "开启字幕选择器"
+      },
+      "toast": {
+        "caption-changed": "字幕语言更改为 {{language}}",
+        "caption-disabled": "停用了字幕",
+        "no-captions": "这首歌没有字幕"
       }
     },
     "compact-sidebar": {
@@ -600,7 +605,15 @@
     },
     "navigation": {
       "description": "如同浏览器般，在应用界面内直接显示前进/后退导航按钮",
-      "name": "导航"
+      "name": "导航",
+      "templates": {
+        "back": {
+          "title": "转到上一页"
+        },
+        "forward": {
+          "title": "转到下一页"
+        }
+      }
     },
     "no-google-login": {
       "description": "从界面内移除 Google 登录按钮和链接",
@@ -692,7 +705,12 @@
         }
       },
       "description": "允许在视频上显示切换画质按钮",
-      "name": "视频画质切换器"
+      "name": "视频画质切换器",
+      "renderer": {
+        "quality-settings-button": {
+          "label": "打开播放器音质更改程序"
+        }
+      }
     },
     "scrobbler": {
       "description": "添加歌曲追踪支持（如 Last.fm 和 Listenbrainz）",
@@ -859,7 +877,8 @@
       },
       "name": "视频切换开关",
       "templates": {
-        "button": "歌曲"
+        "button-song": "歌曲",
+        "button-video": "视频"
       }
     },
     "visualizer": {
