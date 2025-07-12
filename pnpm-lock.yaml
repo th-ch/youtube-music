@@ -24,7 +24,7 @@ patchedDependencies:
     hash: 4a948f1ea45c61779fa371feb020253ccf7a24e1f7c6b2e250b3ce53d86216d4
     path: patches/kuromoji@0.1.2.patch
   mdui:
-    hash: c3b8fc82255acaa4dc835d6b23ed66f1792632625a71fe263c883670b9f3631f
+    hash: 008b925e23862ced06c38f9765eef4322eb8a93cb5e9a6b684fd717fec0ea0d9
     path: patches/mdui.patch
   vudio@2.1.1:
     hash: 0e06c2ed11c02bdc490c209fa80070e98517c2735c641f5738b6e15d7dc1959d
@@ -189,7 +189,7 @@ importers:
         version: 2.2.2
       mdui:
         specifier: 2.1.4
-        version: 2.1.4(patch_hash=c3b8fc82255acaa4dc835d6b23ed66f1792632625a71fe263c883670b9f3631f)
+        version: 2.1.4(patch_hash=008b925e23862ced06c38f9765eef4322eb8a93cb5e9a6b684fd717fec0ea0d9)
       node-html-parser:
         specifier: 7.0.1
         version: 7.0.1
@@ -8540,7 +8540,7 @@ snapshots:
 
   math-intrinsics@1.1.0: {}
 
-  mdui@2.1.4(patch_hash=c3b8fc82255acaa4dc835d6b23ed66f1792632625a71fe263c883670b9f3631f):
+  mdui@2.1.4(patch_hash=008b925e23862ced06c38f9765eef4322eb8a93cb5e9a6b684fd717fec0ea0d9):
     dependencies:
       '@floating-ui/utils': 0.2.10
       '@lit/localize': 0.12.2
