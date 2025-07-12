@@ -381,6 +381,9 @@
       },
       "templates": {
         "title": "Altyazı seçiciyi aç"
+      },
+      "toast": {
+        "caption-changed": "Başlık {{dil}} olarak değiştirildi"
       }
     },
     "compact-sidebar": {
