@@ -343,8 +343,8 @@ async function createMainWindow() {
     titleBarStyle: useInlineMenu
       ? 'hidden'
       : is.macOS()
-        ? 'hiddenInset'
-        : 'default',
+      ? 'hiddenInset'
+      : 'default',
     autoHideMenuBar: config.get('options.hideMenu'),
   };
 
@@ -358,6 +358,8 @@ async function createMainWindow() {
     icon,
     width: windowSize.width,
     height: windowSize.height,
+    minWidth: 325,
+    minHeight: 425,
     backgroundColor: '#000',
     show: false,
     webPreferences: {
@@ -532,8 +534,8 @@ app.once('browser-window-created', (_event, win) => {
     const updatedUserAgent = is.macOS()
       ? userAgents.mac
       : is.windows()
-        ? userAgents.windows
-        : userAgents.linux;
+      ? userAgents.windows
+      : userAgents.linux;
 
     win.webContents.userAgent = updatedUserAgent;
     app.userAgentFallback = updatedUserAgent;
@@ -945,18 +947,15 @@ function removeContentSecurityPolicy(
   betterSession.webRequest.setResolver(
     'onHeadersReceived',
     async (listeners) => {
-      return listeners.reduce(
-        async (accumulator, listener) => {
-          const acc = await accumulator;
-          if (acc.cancel) {
-            return acc;
-          }
+      return listeners.reduce(async (accumulator, listener) => {
+        const acc = await accumulator;
+        if (acc.cancel) {
+          return acc;
+        }
 
-          const result = await listener.apply();
-          return { ...accumulator, ...result };
-        },
-        Promise.resolve({ cancel: false }),
-      );
+        const result = await listener.apply();
+        return { ...accumulator, ...result };
+      }, Promise.resolve({ cancel: false }));
     },
   );
 }
