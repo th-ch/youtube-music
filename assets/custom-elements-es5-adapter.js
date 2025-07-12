@@ -3,7 +3,8 @@
  */
 
 // Original variable names, taken from: https://www.npmjs.com/package/@webcomponents/custom-elements/v/1.1.2
-// Code taken from: music.youtube.com
+// Code originally taken from: music.youtube.com
+// A lot of modifications have been made to this code, so it is not the same as the original.
 
 'use strict';
 
@@ -29,15 +30,12 @@
     var userConstruction = false;
 
     window.HTMLElement = new Proxy(NativeHTMLElement, {
+      // ES6 constructor
       construct(target, args, newTarget) {
-        const isMDUIElement = new Error().stack.includes("at new MduiElement")
-        if (isMDUIElement) {
-          return Reflect.construct(NativeHTMLElement, args, newTarget);
-        }
-
-        debugger;
+        return Reflect.construct(NativeHTMLElement, args, newTarget);
       },
 
+      // ES5 constructor
       apply(target, thisArg, args) {
         if (!browserConstruction) {
           const tagName = tagnameByConstructor.get(thisArg.constructor);
@@ -66,36 +64,31 @@
 
     Object.defineProperty(window.customElements, "define", {
       value: (tagName, elementClass) => {
+        if (tagName.startsWith('mdui-')) return nativeDefine.call(window.customElements, tagName, elementClass);
+
         const elementProto = elementClass.prototype;
-
-        let StandInElement;
-        if (tagName.startsWith("mdui-")) {
-          StandInElement = elementClass;
-          Object.setPrototypeOf
-        } else {
-          StandInElement = class extends NativeHTMLElement {
-            constructor() {
-              super();
-              Object.setPrototypeOf(this, elementProto);
-              if (!userConstruction) {
-                browserConstruction = true;
-                try {
-                  elementClass.call(this);
-                } catch (p) {
-                  throw Error(`Constructing ${tagName}: ${p}`);
-                }
+        const StandInElement = class extends NativeHTMLElement {
+          constructor() {
+            super();
+            Object.setPrototypeOf(this, elementProto);
+            if (!userConstruction) {
+              browserConstruction = true;
+              try {
+                elementClass.call(this);
+              } catch (p) {
+                throw Error(`Constructing ${tagName}: ${p}`);
               }
-              userConstruction = false;
             }
-          };
+            userConstruction = false;
+          }
+        };
 
-          const standInProto = StandInElement.prototype;
-          StandInElement.observedAttributes = elementClass.observedAttributes;
-          standInProto.connectedCallback = elementProto.connectedCallback;
-          standInProto.disconnectedCallback = elementProto.disconnectedCallback;
-          standInProto.attributeChangedCallback = elementProto.attributeChangedCallback;
-          standInProto.adoptedCallback = elementProto.adoptedCallback;
-        }
+        const standInProto = StandInElement.prototype;
+        StandInElement.observedAttributes = elementClass.observedAttributes;
+        standInProto.connectedCallback = elementProto.connectedCallback;
+        standInProto.disconnectedCallback = elementProto.disconnectedCallback;
+        standInProto.attributeChangedCallback = elementProto.attributeChangedCallback;
+        standInProto.adoptedCallback = elementProto.adoptedCallback;
 
         tagnameByConstructor.set(elementClass, tagName);
         constructorByTagname.set(tagName, elementClass);
