@@ -23,10 +23,14 @@ new MutationObserver((mutations, observer) => {
         continue;
 
       script.remove();
-      script.removeAttribute('src');
-      script.innerHTML = customElementsES5Adapter;
 
-      parent.appendChild(script);
+      const newScript = document.createElement('script');
+      {
+        newScript.setAttribute('type', 'text/javascript');
+        newScript.innerHTML = customElementsES5Adapter;
+      }
+      parent.appendChild(newScript);
+
       observer.disconnect();
 
       break outer;

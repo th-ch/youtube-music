@@ -21,6 +21,8 @@ export const BackButton = (props: BackButtonProps) => (
         class="tab-icon style-scope paper-icon-button navigation-icon"
         id="icon"
       >
+        {/* temporary button, so mdui is not tree-shaken */}
+        <mdui-button></mdui-button>
         <svg
           class="style-scope iron-icon"
           preserveAspectRatio="xMidYMid meet"

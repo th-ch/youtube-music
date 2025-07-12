@@ -29,8 +29,6 @@ export const PlainLyrics = (props: PlainLyricsProps) => {
         'flex-direction': 'column',
       }}
     >
-      {/* temporary button, so mdui is not tree-shaken */}
-      <mdui-button></mdui-button>
       <yt-formatted-string
         text={{
           runs: [{ text: props.line }],

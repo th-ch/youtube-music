@@ -8,7 +8,6 @@
 'use strict';
 
 /*
-
  Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
  This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
  The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
@@ -29,54 +28,75 @@
     var browserConstruction = false;
     var userConstruction = false;
 
-    window.HTMLElement = function () {
-      if (!browserConstruction) {
-        var tagName = tagnameByConstructor.get(this.constructor);
-        tagName = nativeGet.call(window.customElements, tagName);
-        userConstruction = true;
-        return new tagName();
+    window.HTMLElement = new Proxy(NativeHTMLElement, {
+      construct(target, args, newTarget) {
+        const isMDUIElement = new Error().stack.includes("at new MduiElement")
+        if (isMDUIElement) {
+          return Reflect.construct(NativeHTMLElement, args, newTarget);
+        }
+
+        debugger;
+      },
+
+      apply(target, thisArg, args) {
+        if (!browserConstruction) {
+          const tagName = tagnameByConstructor.get(thisArg.constructor);
+          const element = nativeGet.call(window.customElements, tagName);
+          userConstruction = true;
+
+          return new element(...args);
+        }
+
+        browserConstruction = false;
+      },
+
+      get(target, prop, receiver) {
+        if (prop === 'es5Shimmed') return true;
+        if (prop === "prototype") return NativeHTMLElement.prototype;
+
+        return Reflect.get(target, prop, receiver);
       }
-      browserConstruction = false;
-    };
-    window.HTMLElement.prototype = NativeHTMLElement.prototype;
-    window.HTMLElement.es5Shimmed = true;
+    });
+
     Object.defineProperty(window, "customElements", {
       value: window.customElements,
       configurable: true,
       writable: true
     });
+
     Object.defineProperty(window.customElements, "define", {
       value: (tagName, elementClass) => {
+        const elementProto = elementClass.prototype;
+
+        let StandInElement;
         if (tagName.startsWith("mdui-")) {
-          browserConstruction = true;
-          userConstruction = false;
-          tagnameByConstructor.set(elementClass, tagName);
-          constructorByTagname.set(tagName, elementClass);
-          return nativeDefine.call(window.customElements, tagName, elementClass);
+          StandInElement = elementClass;
+          Object.setPrototypeOf
+        } else {
+          StandInElement = class extends NativeHTMLElement {
+            constructor() {
+              super();
+              Object.setPrototypeOf(this, elementProto);
+              if (!userConstruction) {
+                browserConstruction = true;
+                try {
+                  elementClass.call(this);
+                } catch (p) {
+                  throw Error(`Constructing ${tagName}: ${p}`);
+                }
+              }
+              userConstruction = false;
+            }
+          };
+
+          const standInProto = StandInElement.prototype;
+          StandInElement.observedAttributes = elementClass.observedAttributes;
+          standInProto.connectedCallback = elementProto.connectedCallback;
+          standInProto.disconnectedCallback = elementProto.disconnectedCallback;
+          standInProto.attributeChangedCallback = elementProto.attributeChangedCallback;
+          standInProto.adoptedCallback = elementProto.adoptedCallback;
         }
 
-        const elementProto = elementClass.prototype;
-        const StandInElement = class extends NativeHTMLElement {
-          constructor() {
-            super();
-            Object.setPrototypeOf(this, elementProto);
-            if (!userConstruction) {
-              browserConstruction = true;
-              try {
-                elementClass.call(this);
-              } catch (p) {
-                throw Error(`Constructing ${tagName}: ${p}`);
-              }
-            }
-            userConstruction = false;
-          }
-        };
-        const standInProto = StandInElement.prototype;
-        StandInElement.observedAttributes = elementClass.observedAttributes;
-        standInProto.connectedCallback = elementProto.connectedCallback;
-        standInProto.disconnectedCallback = elementProto.disconnectedCallback;
-        standInProto.attributeChangedCallback = elementProto.attributeChangedCallback;
-        standInProto.adoptedCallback = elementProto.adoptedCallback;
         tagnameByConstructor.set(elementClass, tagName);
         constructorByTagname.set(tagName, elementClass);
         nativeDefine.call(window.customElements, tagName, StandInElement);
@@ -89,21 +109,5 @@
       configurable: true,
       writable: true
     });
-    if (navigator.userAgent.match(/Version\/(10\..*|11\.0\..*)Safari/)) {
-      const a = HTMLElement.prototype.constructor;
-      Object.defineProperty(HTMLElement.prototype, "constructor", {
-        configurable: true,
-        get() {
-          return a;
-        },
-        set(b) {
-          Object.defineProperty(this, "constructor", {
-            value: b,
-            configurable: true,
-            writable: true
-          });
-        }
-      });
-    }
   }
 })();
