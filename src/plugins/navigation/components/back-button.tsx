@@ -22,7 +22,7 @@ export const BackButton = (props: BackButtonProps) => (
         id="icon"
       >
         {/* temporary button, so mdui is not tree-shaken */}
-        <mdui-button></mdui-button>
+        <mdui-button>Test</mdui-button>
         <svg
           class="style-scope iron-icon"
           preserveAspectRatio="xMidYMid meet"

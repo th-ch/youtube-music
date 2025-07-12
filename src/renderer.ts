@@ -1,7 +1,7 @@
 import i18next from 'i18next';
 
 // TODO: Uncomment this import, to load mdui styles, there is a conflict with youtube's CSS, that must be resolved first.
-// import 'mdui/mdui.css';
+import 'mdui/mdui.css';
 import 'mdui';
 
 import { startingPages } from './providers/extracted-data';
