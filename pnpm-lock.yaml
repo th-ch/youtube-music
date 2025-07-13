@@ -92,8 +92,8 @@ importers:
         specifier: 3.2.0
         version: 3.2.0
       butterchurn:
-        specifier: 3.0.0-beta.4
-        version: 3.0.0-beta.4
+        specifier: 3.0.0-beta.5
+        version: 3.0.0-beta.5
       butterchurn-presets:
         specifier: 3.0.0-beta.4
         version: 3.0.0-beta.4
@@ -1843,8 +1843,8 @@ packages:
   butterchurn-presets@3.0.0-beta.4:
     resolution: {integrity: sha512-TbQLUPvGOYMZAtWKoCmBtludh9aQZ6NaMGQU4lvPeadBPy3Du3yNmwBjlTMLP5c5mRWElxQPjTL1PtR7FZK3OQ==}
 
-  butterchurn@3.0.0-beta.4:
-    resolution: {integrity: sha512-hiY1ktHYHQ8MT65nnZi7GjrgZZ6sl/ipT5rBqEfaYJd90L4SvOtB6lVxtKadtzAyJo2TQJc4gJfEca4cpZo0DA==}
+  butterchurn@3.0.0-beta.5:
+    resolution: {integrity: sha512-BStK4OAbBb9Pvt8PuQlS4WVmYBwU1KuDMRHF1V89QjoIFauAqq7tpV4EpYXj7K563r5daLrMX+2y5DBhZZ9Xig==}
 
   bytes@3.0.0:
     resolution: {integrity: sha512-pMhOfFDPiv9t5jjIXkHosWmkSyQbvsgEVNkz0ERHbuLh2T/7j4Mqqpz523Fe8MVY89KC6Sh/QfS2sM+SjgFDcw==}
@@ -2255,8 +2255,8 @@ packages:
   ecma-proposal-math-extensions@0.0.2:
     resolution: {integrity: sha512-80BnDp2Fn7RxXlEr5HHZblniY4aQ97MOAicdWWpSo0vkQiISSE9wLR4SqxKsu4gCtXFBIPPzy8JMhay4NWRg/Q==}
 
-  eel-wasm@0.0.15:
-    resolution: {integrity: sha512-FSTWf6lwGn7Zc3QiV+KxWTznIqq4j9eST/aXmyN/cC39+1Arqs13YOMosHQ7tqUt+OjQmG79Vd41f9gu+w1lvA==}
+  eel-wasm@0.0.16:
+    resolution: {integrity: sha512-1tkId7I7E1Vs4fXTRsH83Sjn2S/AbzrVQKLBRGys6NLc3eVH4NBffJsdEeLHOWWUgQpVXBEP3CV/srUZNIuBnw==}
 
   ejs@3.1.10:
     resolution: {integrity: sha512-UeJmFfOrAQS8OJWPZ4qtgHyWExa088/MtK5UEyoJGFH67cDEXkZSviOiKRCZ4Xij0zxI3JECgYs3oKx+AizQBA==}
@@ -6558,12 +6558,11 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.27.6
 
-  butterchurn@3.0.0-beta.4:
+  butterchurn@3.0.0-beta.5:
     dependencies:
       '@assemblyscript/loader': 0.17.14
-      '@babel/runtime': 7.27.6
       ecma-proposal-math-extensions: 0.0.2
-      eel-wasm: 0.0.15
+      eel-wasm: 0.0.16
 
   bytes@3.0.0: {}
 
@@ -7024,7 +7023,7 @@ snapshots:
 
   ecma-proposal-math-extensions@0.0.2: {}
 
-  eel-wasm@0.0.15: {}
+  eel-wasm@0.0.16: {}
 
   ejs@3.1.10:
     dependencies:
