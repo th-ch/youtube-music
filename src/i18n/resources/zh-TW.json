@@ -53,7 +53,7 @@
           "later": "稍後",
           "restart-now": "立即重啟"
         },
-        "detail": "\"{{pluginName}}\" 外掛需要重新啟動之後才會生效",
+        "detail": "外掛「{{pluginName}}」需要程式重新啟動之後才會生效",
         "message": "\"{{pluginName}}\" 需要重新啟動",
         "title": "需要重新啟動"
       },
@@ -123,7 +123,7 @@
           },
           "language": {
             "dialog": {
-              "message": "語言變更會在重新啟動後應用",
+              "message": "語言會在重啟應用後變更",
               "title": "語言已變更"
             },
             "label": "語言",
