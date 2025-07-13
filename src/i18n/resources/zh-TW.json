@@ -87,7 +87,7 @@
           "go-back": "返回上一頁",
           "go-forward": "前往下一頁",
           "quit": "退出",
-          "restart": "重新啟動應用程式"
+          "restart": "重啟應用"
         }
       },
       "options": {
@@ -96,20 +96,20 @@
           "advanced-options": {
             "label": "進階選項",
             "submenu": {
-              "auto-reset-app-cache": "啟動時重設應用快取",
+              "auto-reset-app-cache": "啟動時清除應用程式快取",
               "disable-hardware-acceleration": "關閉硬體加速",
               "edit-config-json": "編輯 config.json",
               "override-user-agent": "覆寫使用者代理",
-              "restart-on-config-changes": "設定變更時自動重新啟動",
+              "restart-on-config-changes": "設定變更時自動重啟應用",
               "set-proxy": {
                 "label": "設定代理伺服器",
                 "prompt": {
                   "label": "輸入代理伺服器位置：（留空以停用本設定）",
-                  "placeholder": "範例：SOCKS5://127.0.0.1:9999",
+                  "placeholder": "例: SOCKS5://127.0.0.1:9999",
                   "title": "設定代理伺服器"
                 }
               },
-              "toggle-dev-tools": "切換開發者人員工具"
+              "toggle-dev-tools": "開發人員工具"
             }
           },
           "always-on-top": "最上層顯示",
