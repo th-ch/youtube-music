@@ -136,7 +136,7 @@
     "zod": "4.0.5"
   },
   "devDependencies": {
-    "@eslint/js": "9.30.1",
+    "@eslint/js": "9.31.0",
     "@malept/flatpak-bundler": "0.4.0",
     "@playwright/test": "1.54.1",
     "@stylistic/eslint-plugin": "5.1.0",
@@ -157,7 +157,7 @@
     "electron-devtools-installer": "4.0.0",
     "electron-vite": "4.0.0",
     "esbuild": "0.25.6",
-    "eslint": "9.30.1",
+    "eslint": "9.31.0",
     "eslint-config-prettier": "10.1.5",
     "eslint-import-resolver-exports": "1.0.0-beta.5",
     "eslint-import-resolver-typescript": "4.4.4",
