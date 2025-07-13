@@ -7,11 +7,9 @@ import { Innertube, UniversalCache, Utils, YTNodes } from 'youtubei.js';
 import is from 'electron-is';
 import filenamify from 'filenamify';
 import { Mutex } from 'async-mutex';
-import { createFFmpeg } from '@ffmpeg.wasm/main';
 import NodeID3, { TagConstants } from 'node-id3';
-
-import { Window } from 'happy-dom';
 import { BG, type BgConfig } from 'bgutils-js';
+import { lazy } from 'lazy-var';
 
 import {
   cropMaxWidth,
@@ -44,11 +42,13 @@ import type {
 
 type CustomSongInfo = SongInfo & { trackId?: string };
 
-const ffmpeg = createFFmpeg({
-  log: false,
-  logger() {}, // Console.log,
-  progress() {}, // Console.log,
-});
+const ffmpeg = lazy(async () =>
+  (await import('@ffmpeg.wasm/main')).createFFmpeg({
+    log: false,
+    logger() {}, // Console.log,
+    progress() {}, // Console.log,
+  }),
+);
 const ffmpegMutex = new Mutex();
 
 let yt: Innertube;
@@ -142,7 +142,7 @@ export const onMainLoad = async ({
     try {
       const [width, height] = win.getSize();
       // emulate jsdom using linkedom
-      const window = new Window({
+      const window = new (await import('happy-dom')).Window({
         width,
         height,
         console,
@@ -505,12 +505,13 @@ async function iterableStreamToProcessedUint8Array(
 
   return await ffmpegMutex.runExclusive(async () => {
     try {
-      if (!ffmpeg.isLoaded()) {
-        await ffmpeg.load();
+      const ffmpegInstance = await ffmpeg.get();
+      if (!ffmpegInstance.isLoaded()) {
+        await ffmpegInstance.load();
       }
 
       sendFeedback(t('plugins.downloader.backend.feedback.preparing-file'));
-      ffmpeg.FS(
+      ffmpegInstance.FS(
         'writeFile',
         safeVideoName,
         Buffer.concat(
@@ -525,7 +526,7 @@ async function iterableStreamToProcessedUint8Array(
 
       sendFeedback(t('plugins.downloader.backend.feedback.converting'));
 
-      ffmpeg.setProgress(({ ratio }) => {
+      ffmpegInstance.setProgress(({ ratio }) => {
         sendFeedback(
           t('plugins.downloader.backend.feedback.conversion-progress', {
             percent: Math.floor(ratio * 100),
@@ -537,7 +538,7 @@ async function iterableStreamToProcessedUint8Array(
 
       const safeVideoNameWithExtension = `${safeVideoName}.${extension}`;
       try {
-        await ffmpeg.run(
+        await ffmpegInstance.run(
           '-i',
           safeVideoName,
           ...presetFfmpegArgs,
@@ -545,15 +546,15 @@ async function iterableStreamToProcessedUint8Array(
           safeVideoNameWithExtension,
         );
       } finally {
-        ffmpeg.FS('unlink', safeVideoName);
+        ffmpegInstance.FS('unlink', safeVideoName);
       }
 
       sendFeedback(t('plugins.downloader.backend.feedback.saving'));
 
       try {
-        return ffmpeg.FS('readFile', safeVideoNameWithExtension);
+        return ffmpegInstance.FS('readFile', safeVideoNameWithExtension);
       } finally {
-        ffmpeg.FS('unlink', safeVideoNameWithExtension);
+        ffmpegInstance.FS('unlink', safeVideoNameWithExtension);
       }
     } catch (error: unknown) {
       sendError(error as Error, safeVideoName);
