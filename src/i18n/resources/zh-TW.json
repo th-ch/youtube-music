@@ -366,21 +366,21 @@
       "name": "繞過年齡驗證"
     },
     "captions-selector": {
-      "description": "YouTube Music 音軌字幕選擇器",
+      "description": "Youtube Music 音軌字幕選擇",
       "menu": {
         "autoload": "自動選擇上次使用的字幕",
-        "disable-captions": "預設無標題"
+        "disable-captions": "預設無字幕"
       },
-      "name": "標題選擇器",
+      "name": "字幕選項",
       "prompt": {
         "selector": {
-          "label": "目前字幕語言：{{language}}",
+          "label": "當前字幕語言: {{language}}",
           "none": "無",
           "title": "選擇字幕語言"
         }
       },
       "templates": {
-        "title": "打開標題選擇器"
+        "title": "開啟字幕選擇器"
       },
       "toast": {
         "caption-changed": "字幕語言更改為{{language}}",
