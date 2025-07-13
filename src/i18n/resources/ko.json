@@ -381,6 +381,11 @@
       },
       "templates": {
         "title": "자막 선택기 열기"
+      },
+      "toast": {
+        "caption-changed": "자막 언어가 {{language}}(으)로 변경되었습니다",
+        "caption-disabled": "자막이 비활성화 되었습니다",
+        "no-captions": "이 곡에는 자막이 없습니다"
       }
     },
     "compact-sidebar": {
@@ -600,7 +605,15 @@
     },
     "navigation": {
       "description": "브라우저에서처럼, UI에 직접 통합된 앞으로/뒤로 탐색하는 화살표",
-      "name": "탐색"
+      "name": "탐색",
+      "templates": {
+        "back": {
+          "title": "이전 페이지로 이동"
+        },
+        "forward": {
+          "title": "다음 페이지로 이동"
+        }
+      }
     },
     "no-google-login": {
       "description": "UI에서 Google 로그인 버튼 및 링크 제거하기",
@@ -692,7 +705,12 @@
         }
       },
       "description": "영상 오버레이의 버튼으로 영상 품질을 변경할 수 있습니다",
-      "name": "영상 품질 체인저"
+      "name": "영상 품질 체인저",
+      "renderer": {
+        "quality-settings-button": {
+          "label": "영상 품질 선택기 열기"
+        }
+      }
     },
     "scrobbler": {
       "description": "스크로블링 지원을 추가합니다 (예: last.fm, Listenbrainz)",

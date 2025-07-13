@@ -4,7 +4,7 @@ import { languageResources } from 'virtual:i18n';
 
 export const loadI18n = async () =>
   await init({
-    resources: languageResources,
+    resources: await languageResources(),
     lng: 'en',
     fallbackLng: 'en',
     interpolation: {

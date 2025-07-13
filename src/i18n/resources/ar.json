@@ -381,6 +381,11 @@
       },
       "templates": {
         "title": "فتح محدد الترجمة"
+      },
+      "toast": {
+        "caption-changed": "تم تغيير الترجمة الى {{language}}",
+        "caption-disabled": "الترجمة معطلة",
+        "no-captions": "الترجمة لهاته الأغنية غير متاحة"
       }
     },
     "compact-sidebar": {
@@ -600,7 +605,15 @@
     },
     "navigation": {
       "description": "أسهم التنقل \"التالي/السابق\" مدمجة مباشرة في الواجهة، كما في متصفحك",
-      "name": "التنقل"
+      "name": "التنقل",
+      "templates": {
+        "back": {
+          "title": "العودة إلى الصفحة السابقة"
+        },
+        "forward": {
+          "title": "إذهب إلى الصفحة المقبلة"
+        }
+      }
     },
     "no-google-login": {
       "description": "إزالة أزرار وروابط تسجيل الدخول بجوجل من الواجهة",
@@ -692,7 +705,12 @@
         }
       },
       "description": "يسمح بتغيير جودة الفيديو باستخدام زر على صورة الفيديو",
-      "name": "مغير جودة الفيديو"
+      "name": "مغير جودة الفيديو",
+      "renderer": {
+        "quality-settings-button": {
+          "label": "إفتح مغير الجودة"
+        }
+      }
     },
     "scrobbler": {
       "description": "إضافة دعم Scrobbling (مثل Last.fm، ListenBrainz)",
@@ -859,7 +877,8 @@
       },
       "name": "تفعيل الفيديو",
       "templates": {
-        "button-song": "أغنية"
+        "button-song": "أغنية",
+        "button-video": "فيديو"
       }
     },
     "visualizer": {

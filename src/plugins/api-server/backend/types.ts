@@ -16,7 +16,7 @@ export type BackendType = {
   currentLikeType?: LikeType;
   volumeState?: VolumeState;
 
-  init: (ctx: BackendContext<APIServerConfig>) => Promise<void>;
+  init: (ctx: BackendContext<APIServerConfig>) => void;
   run: (hostname: string, port: number) => void;
   end: () => void;
 };

@@ -19,7 +19,7 @@ export const backend = createBackend<BackendType, APIServerConfig>({
   async start(ctx) {
     const config = await ctx.getConfig();
 
-    await this.init(ctx);
+    this.init(ctx);
     registerCallback((songInfo) => {
       this.songInfo = songInfo;
     });
@@ -66,8 +66,7 @@ export const backend = createBackend<BackendType, APIServerConfig>({
   },
 
   // Custom
-  async init(ctx) {
-    const config = await ctx.getConfig();
+  init(backendCtx) {
     this.app = new Hono();
 
     this.app.use('*', cors());
@@ -80,6 +79,8 @@ export const backend = createBackend<BackendType, APIServerConfig>({
 
     // middlewares
     this.app.use('/api/*', async (ctx, next) => {
+      const config = await backendCtx.getConfig();
+
       if (config.authStrategy !== AuthStrategy.NONE) {
         return await jwt({
           secret: config.secret,
@@ -89,6 +90,7 @@ export const backend = createBackend<BackendType, APIServerConfig>({
     });
     this.app.use('/api/*', async (ctx, next) => {
       const result = await JWTPayloadSchema.spa(await ctx.get('jwtPayload'));
+      const config = await backendCtx.getConfig();
 
       const isAuthorized =
         config.authStrategy === AuthStrategy.NONE ||
@@ -104,14 +106,13 @@ export const backend = createBackend<BackendType, APIServerConfig>({
     // routes
     registerControl(
       this.app,
-      ctx,
+      backendCtx,
       () => this.songInfo,
       () => this.currentRepeatMode,
       () => this.currentLikeType,
       () => this.volumeState,
     );
-
-    registerAuth(this.app, ctx);
+    registerAuth(this.app, backendCtx);
 
     // swagger
     this.app.openAPIRegistry.registerComponent(

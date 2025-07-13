@@ -13,7 +13,6 @@ import { DownloadButton } from './templates/download';
 import type { RendererContext } from '@/types/contexts';
 import type { DownloaderPluginConfig } from './index';
 
-let menu: HTMLElement | null = null;
 let download: () => void;
 
 const [downloadButtonText, setDownloadButtonText] = createSignal<string>('');
@@ -21,14 +20,10 @@ const [downloadButtonText, setDownloadButtonText] = createSignal<string>('');
 let buttonContainer: HTMLDivElement | null = null;
 
 const menuObserver = new MutationObserver(() => {
-  if (!menu) {
-    menu = getSongMenu();
-    if (!menu) {
-      return;
-    }
-  }
+  const menu = getSongMenu();
 
   if (
+    !menu ||
     menu.contains(buttonContainer) ||
     !isMusicOrVideoTrack() ||
     !buttonContainer

@@ -36,7 +36,7 @@
         "details": "Yanıt verilmedi!\n{{error}}"
       },
       "when-ready": {
-        "clearing-cache-after-20s": "Uygulama ön belleği temizleme"
+        "clearing-cache-after-20s": "Uygulama ön belleği temizle"
       },
       "window": {
         "tried-to-render-offscreen": "Pencere ekranın dışında oluşturulmaya çalışıldı, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
@@ -209,7 +209,7 @@
   "plugins": {
     "ad-speedup": {
       "description": "Bir reklam oynatılırsa sesi kapatır ve oynatma hızını 16x olarak ayarlar",
-      "name": "Hızlandırma"
+      "name": "Reklam Hızlandırma"
     },
     "adblocker": {
       "description": "Tüm reklamları ve izleyicileri engelle",
@@ -287,7 +287,7 @@
       }
     },
     "api-server": {
-      "description": "APİ ekle ve oynatıcıyı kontrol et",
+      "description": "Oynatıcıyı kontrol etmek için bir API sunucusu ekle",
       "dialog": {
         "request": {
           "buttons": {
@@ -321,7 +321,7 @@
       "prompt": {
         "hostname": {
           "label": "API sunucusu için hostname (örneğin 0.0.0.0) girin:",
-          "title": "Hostname"
+          "title": "Hostname(Ana bilgisayar adı)"
         },
         "port": {
           "label": "API sunucusu için port girin:",
@@ -381,6 +381,11 @@
       },
       "templates": {
         "title": "Altyazı seçiciyi aç"
+      },
+      "toast": {
+        "caption-changed": "Başlık {{language}} olarak değiştirildi",
+        "caption-disabled": "Altyazılar devre dışı",
+        "no-captions": "Bu şarkı için altyazı mevcut değil"
       }
     },
     "compact-sidebar": {
@@ -600,7 +605,15 @@
     },
     "navigation": {
       "description": "Favori tarayıcınızdaki gibi doğrudan arayüze entegre edilmiş İleri/Geri gezinme okları",
-      "name": "Navigasyon"
+      "name": "Navigasyon",
+      "templates": {
+        "back": {
+          "title": "Önceki sayfaya git"
+        },
+        "forward": {
+          "title": "Sonraki sayfaya geç"
+        }
+      }
     },
     "no-google-login": {
       "description": "Google giriş düğmelerini ve bağlantılarını arayüzden kaldır",
@@ -692,7 +705,12 @@
         }
       },
       "description": "Video katmanı üzerindeki bir düğme ile video kalitesinin değiştirilmesine izin verir",
-      "name": "Video Kalitesi Değiştirici"
+      "name": "Video Kalitesi Değiştirici",
+      "renderer": {
+        "quality-settings-button": {
+          "label": "Açık oynatıcı kalite değiştirici"
+        }
+      }
     },
     "scrobbler": {
       "description": "Listeleme desteği ekler (lastfm, listenbrainz ve benzeri)",
@@ -859,7 +877,8 @@
       },
       "name": "Video Geçiş",
       "templates": {
-        "button-song": "Şarkı"
+        "button-song": "Şarkı",
+        "button-video": "Video"
       }
     },
     "visualizer": {
