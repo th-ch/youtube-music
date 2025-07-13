@@ -23,10 +23,16 @@ const migrations = {
       const syncedLyricsConfig = store.get('plugins.synced-lyrics') as
         | SyncedLyricsPluginConfig
         | undefined;
-      store.set('plugins.synced-lyrics', {
-        ...syncedLyricsConfig,
-        enabled: lyricGeniusConfig.enabled,
-      });
+
+      if (
+        !syncedLyricsConfig ||
+        syncedLyricsConfig?.enabled !== lyricGeniusConfig?.enabled
+      ) {
+        store.set('plugins.synced-lyrics', {
+          ...syncedLyricsConfig,
+          enabled: lyricGeniusConfig.enabled,
+        });
+      }
 
       store.delete('plugins.lyrics-genius');
     }
