@@ -126,6 +126,8 @@ app.commandLine.appendSwitch(
   'enable-features',
   'OverlayScrollbar,SharedArrayBuffer,UseOzonePlatform,WaylandWindowDecorations',
 );
+// Disable Fluent Scrollbar (for OverlayScrollbar)
+app.commandLine.appendSwitch('disable-features', 'FluentScrollbar');
 if (config.get('options.disableHardwareAcceleration')) {
   if (is.dev()) {
     console.log('Disabling hardware acceleration');
