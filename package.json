@@ -82,7 +82,7 @@
     "@xhayper/discord-rpc": "1.2.2",
     "async-mutex": "0.5.0",
     "bgutils-js": "3.2.0",
-    "butterchurn": "3.0.0-beta.4",
+    "butterchurn": "3.0.0-beta.5",
     "butterchurn-presets": "3.0.0-beta.4",
     "color": "5.0.0",
     "conf": "14.0.0",
