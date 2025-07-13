@@ -8,7 +8,7 @@ import hanja from 'hanja';
 
 import pinyin from 'tiny-pinyin';
 
-import { romanize as romanizeThai } from '@dehoist/romanize-thai'
+import { romanize as romanizeThaiFrag } from '@dehoist/romanize-thai'
 
 import { lazy } from 'lazy-var';
 
@@ -174,6 +174,22 @@ export const romanizeChinese = (line: string) => {
   return line.replaceAll(/[\u4E00-\u9FFF]+/g, (match) =>
     pinyin.convertToPinyin(match, ' ', true),
   );
+};
+
+const thaiSegmenter = Intl.Segmenter.supportedLocalesOf('th').includes('th')
+  ? new Intl.Segmenter('th', { granularity: 'word' })
+  : null;
+
+export const romanizeThai = (line: string) => {
+  if (!thaiSegmenter) return romanizeThaiFrag(line);
+
+  const segments = Array.from(thaiSegmenter.segment(line));
+  const latin = segments
+    .map((segment) => segment.isWordLike ? romanizeThaiFrag(segment.segment) + ' ' : segment.segment.trim() == '' ? '' : segment.segment)
+    .join('')
+    .trim();
+
+  return latin;
 };
 
 const handlers: Record<string, (line: string) => Promise<string> | string> = {
