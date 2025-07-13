@@ -9,6 +9,8 @@ import is from 'electron-is';
 import config from './config';
 
 import customElementsES5Adapter from '@assets/custom-elements-es5-adapter.js?raw';
+import mduiStyleSheet from "@assets/mdui.css?inline"
+
 new MutationObserver((mutations, observer) => {
   outer: for (const mutation of mutations) {
     for (const node of mutation.addedNodes) {
@@ -23,6 +25,13 @@ new MutationObserver((mutations, observer) => {
         continue;
 
       script.remove();
+
+      const stylesheet = document.createElement("style");
+      {
+        stylesheet.setAttribute("id", "mduiCss")
+        stylesheet.innerHTML = mduiStyleSheet
+      }
+      parent.appendChild(stylesheet);
 
       const newScript = document.createElement('script');
       {

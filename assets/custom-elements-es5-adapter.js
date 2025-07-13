@@ -1,7 +1,3 @@
-/**
- * @noformat
- */
-
 // Original variable names, taken from: https://www.npmjs.com/package/@webcomponents/custom-elements/v/1.1.2
 // Code originally taken from: music.youtube.com
 // A lot of modifications have been made to this code, so it is not the same as the original.
