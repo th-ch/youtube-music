@@ -1,0 +1,56 @@
+<style>
+  #sbarInput {
+    padding-left: 10px;
+    margin-bottom: 20px;
+    color: white;
+    font-size: 16px;
+    background-color: rgba(2, 2, 2);
+    width: 100%;
+    height: 40px;
+    border-bottom: 2px solid #fdfdfd;
+    border-radius: 5px;
+    border-right: 0px;
+    border-top: 0px;
+    border-left: 0px;
+    opacity: 0.5;
+  }
+  ::placeholder {
+    color: #fdfdfd;
+    font-size: 14px;
+    opacity: 0.5;
+    font-size: 16px;
+  }
+  .dropdown-item {
+    display: flex;
+    align-items: center;
+    height: 60px;
+    width: 98%;
+  }
+  .dropdown-item-container {
+    font-size: 15px;
+    color: #fdfdfd;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
+  .headers {
+    margin-left: 25px;
+  }
+  #sbardiv {
+    position: relative;
+  }
+  #sbardiv ul {
+    background-color: black;
+    position: absolute;
+    right: 0px;
+    left: 0px;
+    border: 1px solid;
+    border-top: 0px;
+    border-radius: 3px;
+    z-index: 2;
+  }
+</style>
+<div id="sbardiv">
+  <input id="sbarInput" type="text" placeholder="Search song" name="sbar" />
+
+</div>
