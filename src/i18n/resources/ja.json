@@ -379,6 +379,10 @@
       },
       "templates": {
         "title": "字幕選択機を開く"
+      },
+      "toast": {
+        "caption-changed": "字幕を{{language}}に変更しました",
+        "caption-disabled": "字幕を無効にしました"
       }
     },
     "compact-sidebar": {
@@ -598,7 +602,15 @@
     },
     "navigation": {
       "description": "ブラウザの戻る・進むボタンのようにUIからコントロールできるボタン",
-      "name": "ナビゲーション"
+      "name": "ナビゲーション",
+      "templates": {
+        "back": {
+          "title": "前のページに戻ります"
+        },
+        "forward": {
+          "title": "次のページに進みます"
+        }
+      }
     },
     "no-google-login": {
       "description": "インターフェースからGoogleのログインボタンとリンクを削除",
