@@ -53,17 +53,17 @@
           "later": "稍後",
           "restart-now": "立即重啟"
         },
-        "detail": "外掛「{{pluginName}}」需要程式重新啟動之後才會生效",
-        "message": "\"{{pluginName}}\" 需要重新啟動",
-        "title": "需要重新啟動"
+        "detail": "外掛 \"{{pluginName}}\" 需要重啟應用才會生效",
+        "message": "\"{{pluginName}}\" 需要重啟應用",
+        "title": "需要重啟應用"
       },
       "unresponsive": {
         "buttons": {
-          "quit": "結束",
-          "relaunch": "重新啟動",
-          "wait": "等一下"
+          "quit": "離開",
+          "relaunch": "重啟應用",
+          "wait": "稍等"
         },
-        "detail": "造成不便我們深表歉意！請選擇動作：",
+        "detail": "造成不便我們深表歉意！請選擇動作:",
         "message": "應用程式沒有回應",
         "title": "視窗沒有回應"
       },
@@ -73,7 +73,7 @@
           "download": "前往下載",
           "ok": "略過"
         },
-        "detail": "新版本已經推出，你可以至 {{downloadLink}} 下載",
+        "detail": "新版本已經推出，前往下載 {{downloadLink}}",
         "message": "有新版本可用",
         "title": "有可用的更新"
       }
@@ -83,11 +83,11 @@
       "navigation": {
         "label": "導覽列",
         "submenu": {
-          "copy-current-url": "複製目前頁面的網址",
-          "go-back": "回到上一頁",
-          "go-forward": "回到下一頁",
-          "quit": "結束",
-          "restart": "重新啟動"
+          "copy-current-url": "複製當前頁面的網址",
+          "go-back": "返回上一頁",
+          "go-forward": "前往下一頁",
+          "quit": "退出",
+          "restart": "重新啟動應用程式"
         }
       },
       "options": {
