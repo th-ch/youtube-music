@@ -730,7 +730,7 @@
           "token": "Introduzca el token de usuario de ListenBrainz"
         },
         "scrobble-alternative-title": "Usar títulos alternativos",
-        "scrobble-other-media": "Scrobble en otros medios"
+        "scrobble-other-media": "Hacer Scrobble sobre otros medios"
       },
       "name": "Scrobbler",
       "prompt": {
