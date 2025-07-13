@@ -1,6 +1,9 @@
 import i18next from 'i18next';
 
 import 'mdui';
+import { setTheme } from 'mdui/functions/setTheme.js';
+
+setTheme('dark')
 
 import { startingPages } from './providers/extracted-data';
 import setupSongInfo from './providers/song-info-front';
