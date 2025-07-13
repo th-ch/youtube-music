@@ -20,8 +20,8 @@
   if (window.customElements) {
     const NativeHTMLElement = window.HTMLElement;
 
-    const nativeDefine = window.customElements.define;
-    const nativeGet = window.customElements.get;
+    const nativeDefine = window.customElements.define.bind(window.customElements);
+    const nativeGet = window.customElements.get.bind(window.customElements);
 
     const tagnameByConstructor = new Map();
     const constructorByTagname = new Map();
@@ -32,14 +32,14 @@
     window.HTMLElement = new Proxy(NativeHTMLElement, {
       // ES6 constructor
       construct(target, args, newTarget) {
-        return Reflect.construct(NativeHTMLElement, args, newTarget);
+        return Reflect.construct(target, args, newTarget);
       },
 
       // ES5 constructor
       apply(target, thisArg, args) {
         if (!browserConstruction) {
           const tagName = tagnameByConstructor.get(thisArg.constructor);
-          const element = nativeGet.call(window.customElements, tagName);
+          const element = nativeGet(tagName);
           userConstruction = true;
 
           return new element(...args);
@@ -50,9 +50,11 @@
 
       get(target, prop, receiver) {
         if (prop === 'es5Shimmed') return true;
-        if (prop === "prototype") return NativeHTMLElement.prototype;
-
         return Reflect.get(target, prop, receiver);
+      },
+
+      set(target, prop, value, receiver) {
+        return Reflect.set(target, prop, value, receiver);
       }
     });
 
@@ -64,7 +66,7 @@
 
     Object.defineProperty(window.customElements, "define", {
       value: (tagName, elementClass) => {
-        if (tagName.startsWith('mdui-')) return nativeDefine.call(window.customElements, tagName, elementClass);
+        if (tagName.startsWith('mdui-')) return nativeDefine(tagName, elementClass);
 
         const elementProto = elementClass.prototype;
         const StandInElement = class extends NativeHTMLElement {
@@ -98,7 +100,7 @@
       writable: true
     });
     Object.defineProperty(window.customElements, "get", {
-      value: tagName => constructorByTagname.get(tagName),
+      value: tagName => constructorByTagname.get(tagName) ?? nativeGet(tagName),
       configurable: true,
       writable: true
     });
