@@ -123,7 +123,7 @@
           },
           "language": {
             "dialog": {
-              "message": "語言會在重新啟動後變更",
+              "message": "語言變更會在重新啟動後應用",
               "title": "語言已變更"
             },
             "label": "語言",
@@ -366,7 +366,7 @@
       "name": "繞過年齡驗證"
     },
     "captions-selector": {
-      "description": "Youtube Music 音軌字幕選擇",
+      "description": "Youtube Music 音軌字幕選項",
       "menu": {
         "autoload": "自動選擇上次使用的字幕",
         "disable-captions": "預設無字幕"
@@ -374,18 +374,18 @@
       "name": "字幕選項",
       "prompt": {
         "selector": {
-          "label": "當前字幕語言: {{language}}",
+          "label": "當前語言: {{language}}",
           "none": "無",
           "title": "選擇字幕語言"
         }
       },
       "templates": {
-        "title": "開啟字幕選擇器"
+        "title": "開啟字幕選項"
       },
       "toast": {
-        "caption-changed": "字幕語言更改為{{language}}",
-        "caption-disabled": "停用字幕",
-        "no-captions": "此歌曲無標題"
+        "caption-changed": "字幕語言已更改至 {{language}}",
+        "caption-disabled": "字幕已停用",
+        "no-captions": "該首歌曲無可用的字幕"
       }
     },
     "compact-sidebar": {
