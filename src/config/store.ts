@@ -11,7 +11,7 @@ export type IStore = InstanceType<
 >;
 
 const migrations = {
-  '>=3.4.0'(store: IStore) {
+  '>=3.10.0'(store: IStore) {
     const lyricGeniusConfig = store.get('plugins.lyrics-genius') as
       | {
           enabled?: boolean;
