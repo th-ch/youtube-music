@@ -123,7 +123,8 @@
           },
           "language": {
             "dialog": {
-              "message": "Jezik će se promijeniti nakon ponovnog pokretanja"
+              "message": "Jezik će se promijeniti nakon ponovnog pokretanja",
+              "title": "Jezik je uspješno promenjen"
             }
           }
         }
