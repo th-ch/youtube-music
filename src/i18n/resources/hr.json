@@ -651,8 +651,45 @@
             "keybind-options": {
               "hotkey": "Prečac"
             },
-            "label": "Izaberi prečac za prebacivanje u režim slike-u-slici"
+            "label": "Odaberi prečac za prebacivanje u režim slike-u-slici",
+            "title": "Prečac za režim slike-u-slici"
           }
+        },
+        "save-window-position": "Sačuvaj mjesto prozora",
+        "save-window-size": "Sačuvaj veličinu prozora",
+        "use-native-pip": "Koristi izvorni režim slike-u-slici za pretraživače"
+      },
+      "name": "Slika-u-slici",
+      "templates": {
+        "button": "Slika-u-slici"
+      }
+    },
+    "playback-speed": {
+      "description": "Slušajte brzo, slušajte sporo! Ovo će dodat klizač koji kontrolira brzinu pjesme",
+      "name": "Brzina pokretanja",
+      "templates": {
+        "button": "Brzina"
+      }
+    },
+    "precise-volume": {
+      "description": "Precizno kontrolirajte jačinu zvuka korištenjem točkih na mišu/prečaca, sa prilagođenim sučeljem i prilagodivim stupnjevima jačine",
+      "menu": {
+        "arrows-shortcuts": "Lokalne kontrole tipkih sa strelicama",
+        "custom-volume-steps": "Postavi prilagođene stope za promjenu jačine",
+        "global-shortcuts": "Globalni prečaci"
+      },
+      "name": "Precizna jačina zvuka",
+      "prompt": {
+        "global-shortcuts": {
+          "keybind-options": {
+            "decrease": "Snizi jačinu zvuka",
+            "increase": "Pojačaj jačinu zvuka"
+          },
+          "label": "Odaberi globalne prečace na tipkovnici za jačinu zvuka:",
+          "title": "Globalni prečaci na tipkovnici za jačinu zvuka"
+        },
+        "volume-steps": {
+          "label": "Odaberi stope za povišenje/sniženje jačine"
         }
       }
     }
