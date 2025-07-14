@@ -202,11 +202,12 @@ const handlers: Record<string, (line: string) => Promise<string> | string> = {
 export const romanize = async (line: string) => {
   const lang = detect(line);
 
-  const NO_OP = (l: string) => l;
-  const handler = handlers[lang] ?? NO_OP;
+  const handler = handlers[lang];
+  if (handler) {
+    return await handler(line);
+  }
 
-  line = await handler(line);
-
+  // fallback
   if (hasJapanese([line])) line = await romanizeJapanese(line);
   if (hasKorean([line])) line = romanizeHangul(line);
   if (hasChinese([line])) line = romanizeChinese(line);
