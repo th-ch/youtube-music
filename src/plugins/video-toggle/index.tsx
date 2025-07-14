@@ -1,13 +1,17 @@
-import buttonTemplate from './templates/button_template.html?raw';
+import { render } from 'solid-js/web';
+
+import { createSignal, Show } from 'solid-js';
+
 import forceHideStyle from './force-hide.css?inline';
 import buttonSwitcherStyle from './button-switcher.css?inline';
 
 import { createPlugin } from '@/utils';
 import { moveVolumeHud as preciseVolumeMoveVolumeHud } from '@/plugins/precise-volume/renderer';
-import { ElementFromHtml } from '@/plugins/utils/renderer';
 import { ThumbnailElement } from '@/types/get-player-response';
 import { t } from '@/i18n';
 import { MenuTemplate } from '@/menu';
+
+import { VideoSwitchButton } from './templates/video-switch-button';
 
 export type VideoTogglePluginConfig = {
   enabled: boolean;
@@ -150,12 +154,14 @@ export default createPlugin({
       }
     },
     async onPlayerApiReady(api, { getConfig }) {
+      const [showButton, setShowButton] = createSignal(true);
+
       const config = await getConfig();
       this.config = config;
 
-      const moveVolumeHud = window.mainConfig.plugins.isEnabled(
+      const moveVolumeHud = (await window.mainConfig.plugins.isEnabled(
         'precise-volume',
-      )
+      ))
         ? (preciseVolumeMoveVolumeHud as (_: boolean) => void)
         : () => {};
 
@@ -164,7 +170,25 @@ export default createPlugin({
       >('ytmusic-player');
       const video = document.querySelector<HTMLVideoElement>('video');
 
-      const switchButtonDiv = ElementFromHtml(buttonTemplate);
+      const switchButtonContainer = document.createElement('div');
+      switchButtonContainer.style.display = 'flex';
+      render(
+        () => (
+          <Show when={showButton()}>
+            <VideoSwitchButton
+              onClick={(e) => e.stopPropagation()}
+              onChange={(e) => {
+                const target = e.target as HTMLInputElement;
+
+                setVideoState(target.checked);
+              }}
+              songButtonText={t('plugins.video-toggle.templates.button-song')}
+              videoButtonText={t('plugins.video-toggle.templates.button-video')}
+            />
+          </Show>
+        ),
+        switchButtonContainer,
+      );
 
       const forceThumbnail = (img: HTMLImageElement) => {
         const thumbnails: ThumbnailElement[] =
@@ -184,7 +208,7 @@ export default createPlugin({
         const checkbox = document.querySelector<HTMLInputElement>(
           '.video-switch-button-checkbox',
         ); // custom mode
-        if (checkbox) checkbox.checked = !this.config.hideVideo;
+        if (checkbox) checkbox.checked = !this.config?.hideVideo;
 
         if (player) {
           player.style.margin = showVideo ? '' : 'auto 0px';
@@ -217,17 +241,18 @@ export default createPlugin({
           // Video doesn't exist -> switch to song mode
           setVideoState(false);
           // Hide toggle button
-          switchButtonDiv.style.display = 'none';
+          setShowButton(false);
         } else {
-          const songImage =
-            document.querySelector<HTMLImageElement>('#song-image img');
+          const songImage = document.querySelector<HTMLImageElement>(
+            '#song-image #img.style-scope.yt-img-shadow',
+          );
           if (!songImage) {
             return;
           }
           // Switch to high-res thumbnail
           forceThumbnail(songImage);
           // Show toggle button
-          switchButtonDiv.style.display = 'initial';
+          setShowButton(true);
           // Change display to video mode if video exist & video is hidden & option.hideVideo = false
           if (
             !this.config?.hideVideo &&
@@ -282,7 +307,7 @@ export default createPlugin({
           }
         });
         playbackModeObserver.observe(
-          document.querySelector('#song-image img')!,
+          document.querySelector('#song-image #img.style-scope.yt-img-shadow')!,
           { attributeFilter: ['src'] },
         );
       };
@@ -290,7 +315,7 @@ export default createPlugin({
       if (config.mode !== 'native' && config.mode != 'disabled') {
         document
           .querySelector<HTMLVideoElement>('#player')
-          ?.prepend(switchButtonDiv);
+          ?.prepend(switchButtonContainer);
 
         setVideoState(!config.hideVideo);
         forcePlaybackMode();
@@ -299,36 +324,25 @@ export default createPlugin({
           video.style.height = 'auto';
         }
 
-        //Prevents bubbling to the player which causes it to stop or resume
-        switchButtonDiv.addEventListener('click', (e) => {
-          e.stopPropagation();
-        });
-
-        // Button checked = show video
-        switchButtonDiv.addEventListener('change', (e) => {
-          const target = e.target as HTMLInputElement;
-
-          setVideoState(target.checked);
-        });
-
         video?.addEventListener('ytmd:src-changed', videoStarted);
 
         observeThumbnail();
+        videoStarted();
 
         switch (config.align) {
           case 'right': {
-            switchButtonDiv.style.left = 'calc(100% - 240px)';
+            switchButtonContainer.style.justifyContent = 'flex-end';
             return;
           }
 
           case 'middle': {
-            switchButtonDiv.style.left = 'calc(50% - 120px)';
+            switchButtonContainer.style.justifyContent = 'center';
             return;
           }
 
           default:
           case 'left': {
-            switchButtonDiv.style.left = '0px';
+            switchButtonContainer.style.justifyContent = 'flex-start';
           }
         }
       }

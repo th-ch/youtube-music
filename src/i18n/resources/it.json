@@ -381,6 +381,11 @@
       },
       "templates": {
         "title": "Apri il selettore dei sottotitoli"
+      },
+      "toast": {
+        "caption-changed": "Sottotitoli cambiati in {{language}}",
+        "caption-disabled": "Sottotitoli disattivati",
+        "no-captions": "Nessun sottotitolo disponibile per questa canzone"
       }
     },
     "compact-sidebar": {
@@ -600,7 +605,15 @@
     },
     "navigation": {
       "description": "Frecce di navigazione Avanti/Indietro integrate direttamente nell'interfaccia, come nel tuo browser preferito",
-      "name": "Navigazione"
+      "name": "Navigazione",
+      "templates": {
+        "back": {
+          "title": "Vai alla pagina precedente"
+        },
+        "forward": {
+          "title": "Vai alla pagina successiva"
+        }
+      }
     },
     "no-google-login": {
       "description": "Rimuovi i pulsanti di accesso e i link di Google dall'interfaccia",
@@ -774,7 +787,7 @@
           "label": "Effetto linea",
           "submenu": {
             "fancy": {
-              "label": "Stravagante",
+              "label": "Fantasia",
               "tooltip": "Usa effetti grandi, simili a quelli di un'app sulla riga attuale"
             },
             "focus": {
@@ -859,7 +872,8 @@
       },
       "name": "Selettore Brano/Video",
       "templates": {
-        "button": "Brano"
+        "button-song": "Brano",
+        "button-video": "Video"
       }
     },
     "visualizer": {

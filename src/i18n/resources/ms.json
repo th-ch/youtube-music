@@ -237,6 +237,15 @@
     "ambient-mode": {
       "description": "Menggunakan kesan pencahayaan dengan menghantar warna lembut daripada video, ke latar belakang skrin anda",
       "menu": {
+        "blur-amount": {
+          "label": "Jumlah Kekaburan",
+          "submenu": {
+            "pixels": "{{blurAmount}}piksel"
+          }
+        },
+        "opacity": {
+          "label": "Kelegapan"
+        },
         "quality": {
           "label": "Kualiti",
           "submenu": {
@@ -261,12 +270,19 @@
       },
       "name": "Mod Sekitaran"
     },
+    "amuse": {
+      "description": "Menambahkan sokongan YouTube Music untuk widget sedang dimain Amuse oleh 6K Labs"
+    },
     "api-server": {
+      "description": "Perlukan server API untuk mengawal pemain",
       "dialog": {
         "request": {
           "buttons": {
-            "allow": "Benarkan"
-          }
+            "allow": "Benarkan",
+            "deny": "Nafi"
+          },
+          "message": "Benarkan {{ID}} {{origin}} untuk akses API?",
+          "title": "Permintaan pemberian kuasa kepada API"
         }
       },
       "menu": {
@@ -288,12 +304,21 @@
           "label": "Port"
         }
       },
+      "name": "Server API [Beta]",
       "prompt": {
         "hostname": {
           "label": "Masukkan nama perumah (seperti 0.0.0.0) untuk server API:",
           "title": "Nama perumah"
+        },
+        "port": {
+          "label": "Masukkan port untuk API server:",
+          "title": "Port"
         }
       }
+    },
+    "audio-compressor": {
+      "description": "Laksanakan pemampatan untuk audio (mengurangkan kelantangan bagi bahagian signal yang kuat dan menaikkan kelantangan untuk bahagian yang lembut)",
+      "name": "Pemampat Audio"
     },
     "auth-proxy-adapter": {
       "menu": {
@@ -356,7 +381,7 @@
         }
       },
       "templates": {
-        "button": "Lagu"
+        "button-song": "Lagu"
       }
     }
   }

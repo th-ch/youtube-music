@@ -18,7 +18,7 @@ const loadedPluginMap: Record<
 export const createContext = <Config extends PluginConfig>(
   id: string,
 ): RendererContext<Config> => ({
-  getConfig: async () =>
+  getConfig: () =>
     window.ipcRenderer.invoke('ytmd:get-config', id) as Promise<Config>,
   setConfig: async (newConfig) => {
     await window.ipcRenderer.invoke('ytmd:set-config', id, newConfig);
@@ -47,7 +47,7 @@ export const forceUnloadRendererPlugin = async (id: string) => {
   delete unregisterStyleMap[id];
   delete loadedPluginMap[id];
 
-  const plugin = rendererPlugins[id];
+  const plugin = (await rendererPlugins())[id];
   if (!plugin) return;
 
   const hasStopped = await stopPlugin(id, plugin, {
@@ -71,7 +71,7 @@ export const forceUnloadRendererPlugin = async (id: string) => {
 };
 
 export const forceLoadRendererPlugin = async (id: string) => {
-  const plugin = rendererPlugins[id];
+  const plugin = (await rendererPlugins())[id];
   if (!plugin) return;
 
   const hasEvaled = await startPlugin(id, plugin, {
@@ -117,7 +117,7 @@ export const forceLoadRendererPlugin = async (id: string) => {
 export const loadAllRendererPlugins = async () => {
   const pluginConfigs = window.mainConfig.plugins.getPlugins();
 
-  for (const [pluginId, pluginDef] of Object.entries(rendererPlugins)) {
+  for (const [pluginId, pluginDef] of Object.entries(await rendererPlugins())) {
     const config = deepmerge(pluginDef.config, pluginConfigs[pluginId] ?? {});
 
     if (config.enabled) {

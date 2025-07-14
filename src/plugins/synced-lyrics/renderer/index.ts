@@ -2,8 +2,7 @@ import { createRenderer } from '@/utils';
 import { waitForElement } from '@/utils/wait-for-element';
 
 import { selectors, tabStates } from './utils';
-import { setConfig } from './renderer';
-import { setCurrentTime } from './components/LyricsContainer';
+import { setConfig, setCurrentTime } from './renderer';
 
 import { fetchLyrics } from '../providers';
 
@@ -13,6 +12,10 @@ import type { SongInfo } from '@/providers/song-info';
 import type { SyncedLyricsPluginConfig } from '../types';
 
 export let _ytAPI: YoutubePlayer | null = null;
+export let netFetch: (
+  url: string,
+  init?: RequestInit,
+) => Promise<[number, string, Record<string, string>]>;
 
 export const renderer = createRenderer<
   {
@@ -73,6 +76,8 @@ export const renderer = createRenderer<
   },
 
   async start(ctx: RendererContext<SyncedLyricsPluginConfig>) {
+    netFetch = ctx.ipc.invoke.bind(ctx.ipc, 'synced-lyrics:fetch');
+
     setConfig(await ctx.getConfig());
 
     ctx.ipc.on('ytmd:update-song-info', (info: SongInfo) => {

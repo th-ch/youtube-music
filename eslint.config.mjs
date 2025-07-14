@@ -2,7 +2,8 @@
 
 import eslint from '@eslint/js';
 import prettier from 'eslint-plugin-prettier/recommended';
-import stylistic from '@stylistic/eslint-plugin-js';
+import solid from 'eslint-plugin-solid/configs/recommended';
+import stylistic from '@stylistic/eslint-plugin';
 import tsEslint from 'typescript-eslint';
 
 import * as importPlugin from 'eslint-plugin-import';
@@ -12,6 +13,7 @@ export default tsEslint.config(
   tsEslint.configs.eslintRecommended,
   ...tsEslint.configs.recommendedTypeChecked,
   prettier,
+  solid,
   { ignores: ['dist', 'node_modules', '*.config.*js', '*.test.*js'] },
   {
     plugins: {

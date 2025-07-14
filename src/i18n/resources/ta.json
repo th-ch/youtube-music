@@ -859,7 +859,8 @@
       },
       "name": "வீடியோ மாற்று",
       "templates": {
-        "button": "பாடல்"
+        "button-song": "பாடல்",
+        "button-video": "காணொளி"
       }
     },
     "visualizer": {

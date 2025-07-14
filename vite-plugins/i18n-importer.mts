@@ -4,9 +4,6 @@ import { fileURLToPath } from 'node:url';
 import { globSync } from 'glob';
 import { Project } from 'ts-morph';
 
-const snakeToCamel = (text: string) =>
-  text.replace(/-(\w)/g, (_, letter: string) => letter.toUpperCase());
-
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const globalProject = new Project({
   tsConfigFilePath: resolve(__dirname, '..', 'tsconfig.json'),
@@ -27,20 +24,20 @@ export const i18nImporter = () => {
   const src = globalProject.createSourceFile(
     'vm:i18n',
     (writer) => {
-      // prettier-ignore
+      writer.writeLine('export const languageResources = async () => {');
+      writer.writeLine('  const entries = await Promise.all([');
       for (const { name, path } of plugins) {
-      const relativePath = relative(resolve(srcPath, '..'), path).replace(/\\/g, '/');
-      writer.writeLine(`import ${snakeToCamel(name)}Json from "./${relativePath}";`);
-    }
+        const relativePath = relative(resolve(srcPath, '..'), path).replace(
+          /\\/g,
+          '/',
+        );
 
-      writer.blankLine();
-
-      writer.writeLine('export const languageResources = {');
-      for (const { name } of plugins) {
-        writer.writeLine(`  "${name}": {`);
-        writer.writeLine(`    translation: ${snakeToCamel(name)}Json,`);
-        writer.writeLine('  },');
+        writer.writeLine(
+          `    import('./${relativePath}').then((mod) => ({ "${name}": { translation: mod.default } })),`,
+        );
       }
+      writer.writeLine('  ]);');
+      writer.writeLine('  return Object.assign({}, ...entries);');
       writer.writeLine('};');
       writer.blankLine();
     },

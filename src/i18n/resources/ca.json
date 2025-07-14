@@ -280,7 +280,7 @@
       "name": "Mode ambient"
     },
     "amuse": {
-      "description": "Aporta suport des de Youtube Music pel \"Amuse now playing widget\" de 6K Labs",
+      "description": "Afegeix suport a Youtube Music per el widget \"now playing\" d'Amuse per 6K Labs",
       "name": "Amuse",
       "response": {
         "query": "L'API del servidor de Amuse està funcionant. GET /query per tenir informació de la cançó."
@@ -345,7 +345,7 @@
           "label": "Port"
         }
       },
-      "name": "Auth Proxy Adapter",
+      "name": "Adaptador de proxy d'autenticació",
       "prompt": {
         "hostname": {
           "label": "Posa hostname pel servidor del proxy local (requereix reiniciar):",
@@ -762,7 +762,7 @@
     "synced-lyrics": {
       "description": "Proporciona lletres sincronitzades amb les cançons, a través de proveïdors com LRClib.",
       "errors": {
-        "fetch": "⚠️ - S'ha produït un error en descarregar la lletra. Si us plau, intenta-ho més tard.",
+        "fetch": "⚠️\tS'ha produït un error en descarregar la lletra.\n\tSi us plau, intenta-ho més tard.",
         "not-found": "⚠️ No s'ha trobat la lletra per aquesta cançó."
       },
       "menu": {
@@ -798,7 +798,7 @@
         },
         "romanization": {
           "label": "Romanitza les lletres",
-          "tooltip": "Si les lletres són en un idioma diferent, intenti mostrar la versió llatina"
+          "tooltip": "Si les lletres són en un idioma diferent, intenta mostrar la versió amb alfabet llatí."
         },
         "show-lyrics-even-if-inexact": {
           "label": "Mostra la lletra tot i que sigui inexacta",
@@ -859,7 +859,7 @@
       },
       "name": "Botó de vídeo",
       "templates": {
-        "button": "Cançó"
+        "button-song": "Cançó"
       }
     },
     "visualizer": {
