@@ -133,7 +133,9 @@ export default (win: BrowserWindow) => {
       win.webContents.send('ytmd:set-queue-index', indexValue);
     },
     clearQueue: () => win.webContents.send('ytmd:clear-queue'),
-
+    openVideo: (videoid: string) => {
+      win.loadURL(`https://music.youtube.com/watch?v=${videoid}`)
+    },
     search: (query: string, params?: string, continuation?: string) =>
       new Promise((resolve) => {
         ipcMain.once('ytmd:search-results', (_, result) => {
