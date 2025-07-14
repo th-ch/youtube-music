@@ -789,9 +789,104 @@
           "tooltip": "Odaberi zadane karaktere koji će biti korišteni za razmake između stihova pjesama"
         },
         "line-effect": {
-          "label": "Efekat linije"
+          "label": "Efekat crte",
+          "submenu": {
+            "fancy": {
+              "label": "Kitnjast",
+              "tooltip": "Koristi velike (kao iz aplikacije) efekte na trenutnu crtu"
+            },
+            "focus": {
+              "label": "Fokus",
+              "tooltip": "Pretvorite samo trenutnu crtu bijelu"
+            },
+            "offset": {
+              "label": "Izmak",
+              "tooltip": "Izmak na trenutnoj crti"
+            },
+            "scale": {
+              "label": "Razmjera",
+              "tooltip": "Promjeni razmjeru trenutne crte"
+            }
+          },
+          "tooltip": "Odaberi efekat koji će biti primjenjen na trenutnoj crti"
+        },
+        "precise-timing": {
+          "label": "Napravi da tekst pjesme bude izvrsno usklađen",
+          "tooltip": "Izračunaj do milisekunde prikaz sljedeće crteteksta (može malo utjecati na učinak)"
+        },
+        "romanization": {
+          "label": "Romanizuj stihove pjesama",
+          "tooltip": "Ako je tekst pjesme na drugom jeziku, probajte da ga prikažete na latinici."
+        },
+        "show-lyrics-even-if-inexact": {
+          "label": "Prikaži tekst pjesme čak i ako je netačan",
+          "tooltip": "Ako pjesma nije pronađena, produžetak će probati ponovno sa novim upitom za pretragu.\nRezultat iz drugog pokušaja možda neće biti tačan."
+        },
+        "show-time-codes": {
+          "label": "Prikaži vremenske oznake",
+          "tooltip": "Prikaži vremenske oznake pored teksta pjesme"
         }
+      },
+      "name": "Sinkronizovani stihovi pjesama",
+      "refetch-btn": {
+        "fetching": "Dobavljanje...",
+        "normal": "Ponovo dobavite tekst pjesme"
+      },
+      "warnings": {
+        "duration-mismatch": "⚠️ - Tekst pjesme možda nije usklađen zbog neuklapanja u daljini trajanja.",
+        "inexact": "⚠️ - Tekst za ovu pjesmu možda nije tačan",
+        "instrumental": "⚠️ - Ovo je instrumentalna glazba"
       }
+    },
+    "taskbar-mediacontrol": {
+      "description": "Upravljajte reprodukcijom iz Windows radne trake",
+      "name": "Upravljanje medijima iz radne trake"
+    },
+    "touchbar": {
+      "description": "Dodaje dodatak dodirne trake za macOS korisnike",
+      "name": "Dodirna Traka"
+    },
+    "tuna-obs": {
+      "description": "Integracija sa OBS-ovim Tuna dodatkom",
+      "name": "Tuna OBS"
+    },
+    "unobtrusive-player": {
+      "description": "Onemogućava pokretaču da iskoči u toku pokretanja pjesme",
+      "name": "Nenametljivi pokretač"
+    },
+    "video-toggle": {
+      "description": "Dodaje gumb za šaltanje između režima za video/numeru. Dodatno, može da ukloni cijelu karticu sa videom",
+      "menu": {
+        "align": {
+          "label": "Izravnanje",
+          "submenu": {
+            "left": "Lijevo",
+            "middle": "Sredina",
+            "right": "Desno"
+          }
+        },
+        "force-hide": "Nasilno uklonite karticu sa videom",
+        "mode": {
+          "label": "Režim",
+          "submenu": {
+            "custom": "Prilagođeno šaltanje",
+            "disabled": "Isključeno",
+            "native": "Izvorno šaltanje"
+          }
+        }
+      },
+      "name": "Video šaltanje",
+      "templates": {
+        "button-song": "Pjesma",
+        "button-video": "Video"
+      }
+    },
+    "visualizer": {
+      "description": "Dodaje vizualizator u plejer",
+      "menu": {
+        "visualizer-type": "Tip vizualizacije"
+      },
+      "name": "Vizualizacija"
     }
   }
 }
