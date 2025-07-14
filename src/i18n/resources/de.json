@@ -345,7 +345,7 @@
           "label": "Port"
         }
       },
-      "name": "Auth Proxy Adapter",
+      "name": "Authentifizierungs-Proxyadapter",
       "prompt": {
         "hostname": {
           "label": "Hostnamen eingeben für lokalen Proxy-Server (Neustart erforderlich):",
