@@ -381,6 +381,11 @@
       },
       "templates": {
         "title": "Otvori izbornik za titlove"
+      },
+      "toast": {
+        "caption-changed": "Titlovi su promenjeni u {{language}}",
+        "caption-disabled": "Titlovi su isključeni",
+        "no-captions": "Za ovu pjesmu nisu dostupni titlovi"
       }
     },
     "compact-sidebar": {
@@ -600,7 +605,15 @@
     },
     "navigation": {
       "description": "Naprijed/Nazad navigacijske strelice su izravno integrirane u sučelje, kao i u vašem omiljenom pregledniku",
-      "name": "Navigacija"
+      "name": "Navigacija",
+      "templates": {
+        "back": {
+          "title": "Vrati se na prijethodnu stranicu"
+        },
+        "forward": {
+          "title": "Idi na sljedeću stranicu"
+        }
+      }
     },
     "no-google-login": {
       "description": "Ukloni Google prijavne gumbe i linkove iz sučelja",
@@ -627,6 +640,21 @@
     "performance-improvement": {
       "description": "Poboljšati performanse uključivanjem eksperimentalnih skripti",
       "name": "Poboljšanje performansa (Beta)"
+    },
+    "picture-in-picture": {
+      "description": "Dozvoljava aplikaciji da se prebaci u režim slike-u-slici",
+      "menu": {
+        "always-on-top": "Uvijek na vrhu",
+        "hotkey": {
+          "label": "Prečac",
+          "prompt": {
+            "keybind-options": {
+              "hotkey": "Prečac"
+            },
+            "label": "Izaberi prečac za prebacivanje u režim slike-u-slici"
+          }
+        }
+      }
     }
   }
 }
