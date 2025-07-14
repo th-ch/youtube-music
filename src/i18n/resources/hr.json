@@ -689,7 +689,26 @@
           "title": "Globalni prečaci na tipkovnici za jačinu zvuka"
         },
         "volume-steps": {
-          "label": "Odaberi stope za povišenje/sniženje jačine"
+          "label": "Odaberi stope za povišenje/sniženje jačine zvuka",
+          "title": "Stope za promjenu jačine zvuka"
+        }
+      }
+    },
+    "quality-changer": {
+      "backend": {
+        "dialog": {
+          "quality-changer": {
+            "detail": "Trenutni kvalitet: {{quality}}",
+            "message": "Odaberi kvalitet videa:",
+            "title": "Odaberi kvalitet videa"
+          }
+        }
+      },
+      "description": "Dozvoljava promjenu kvaliteta videa pomoću gumba na video preklopu",
+      "name": "Promjena kvaliteta videa",
+      "renderer": {
+        "quality-settings-button": {
+          "label": "Otvori izbornik za promjenu kvalitete pokretača"
         }
       }
     }
