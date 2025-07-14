@@ -786,7 +786,10 @@
       "menu": {
         "default-text-string": {
           "label": "Zadani karakteri između stihova pjesama",
-          "tooltip": "Odaberi zadane karaktere koji će biti korišteni za razmake između tekstova pjesama"
+          "tooltip": "Odaberi zadane karaktere koji će biti korišteni za razmake između stihova pjesama"
+        },
+        "line-effect": {
+          "label": "Efekat linije"
         }
       }
     }
