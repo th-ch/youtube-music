@@ -185,8 +185,8 @@ export const romanizeThai = (line: string) => {
 
   const segments = Array.from(thaiSegmenter.segment(line));
   const latin = segments
-    .map((segment) => segment.isWordLike ? romanizeThaiFrag(segment.segment) + ' ' : segment.segment.trim())
-    .join('')
+    .map((segment) => segment.isWordLike ? romanizeThaiFrag(segment.segment) : segment.segment.trim())
+    .join(' ')
     .trim();
 
   return latin;
