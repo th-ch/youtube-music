@@ -381,6 +381,10 @@
       },
       "templates": {
         "title": "Open ondertitelkeuze"
+      },
+      "toast": {
+        "caption-changed": "Bijschriften veranderd naar {{language}}",
+        "caption-disabled": "Bijschriften uitgeschakeld"
       }
     },
     "compact-sidebar": {
