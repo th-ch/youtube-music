@@ -758,8 +758,35 @@
           "keybind-options": {
             "next": "Sljedeće",
             "play-pause": "Pokreni / Zaustavi",
-            "previous": "Prethodno"
-          }
+            "previous": "Prijethodno"
+          },
+          "label": "Odaberi globalne prečace za upravljanje pjesmama:",
+          "title": "Globalni prečaci na tipkovnici"
+        }
+      }
+    },
+    "skip-disliked-songs": {
+      "description": "Preskače pjesme koje vam se ne sviđaju",
+      "name": "Preskočite pjesme koje vam se ne sviđaju"
+    },
+    "skip-silences": {
+      "description": "Automatski preskočite dijelove pjesama gdje nema zvuka",
+      "name": "Preskoči tišine"
+    },
+    "sponsorblock": {
+      "description": "Automatski preskače dijelove pjesama koji nisu glazba poput uvoda/odjave ili dijelove spotova u kojima nema muzike",
+      "name": "Bloker sponzora"
+    },
+    "synced-lyrics": {
+      "description": "Obezbjeđava sinkronizirane lirike pjesama, korištenjem dobavljača poput LRClib.",
+      "errors": {
+        "fetch": "⚠️\tDošlo je do greške prilikom dobavljanja stihova pjesme.\n\tMolimo vas da probate ponovno kasnije.",
+        "not-found": "⚠️ Tekst za ovu pjesmu nije pronađen."
+      },
+      "menu": {
+        "default-text-string": {
+          "label": "Zadani karakteri između stihova pjesama",
+          "tooltip": "Odaberi zadane karaktere koji će biti korišteni za razmake između tekstova pjesama"
         }
       }
     }
