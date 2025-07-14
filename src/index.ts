@@ -1,29 +1,29 @@
+import fs from 'node:fs';
 import path from 'node:path';
 import url from 'node:url';
-import fs from 'node:fs';
 
-import {
-  BrowserWindow,
-  app,
-  screen,
-  globalShortcut,
-  session,
-  shell,
-  dialog,
-  ipcMain,
-  protocol,
-  type BrowserWindowConstructorOptions,
-} from 'electron';
 import enhanceWebRequest, {
   BetterSession,
 } from '@jellybrick/electron-better-web-request';
+import { deepmerge } from 'deepmerge-ts';
+import {
+  BrowserWindow,
+  app,
+  dialog,
+  globalShortcut,
+  ipcMain,
+  protocol,
+  screen,
+  session,
+  shell,
+  type BrowserWindowConstructorOptions,
+} from 'electron';
+import electronDebug from 'electron-debug';
 import is from 'electron-is';
 import unhandled from 'electron-unhandled';
 import { autoUpdater } from 'electron-updater';
-import electronDebug from 'electron-debug';
-import { parse } from 'node-html-parser';
-import { deepmerge } from 'deepmerge-ts';
 import { deepEqual } from 'fast-equals';
+import { parse } from 'node-html-parser';
 
 import { allPlugins, mainPlugins } from 'virtual:plugins';
 
@@ -33,15 +33,15 @@ import config from '@/config';
 
 import { refreshMenu, setApplicationMenu } from '@/menu';
 import { fileExists, injectCSS, injectCSSAsFile } from '@/plugins/utils/main';
-import { isTesting } from '@/utils/testing';
-import { setUpTray } from '@/tray';
-import { setupSongInfo } from '@/providers/song-info';
 import { restart, setupAppControls } from '@/providers/app-controls';
 import {
   APP_PROTOCOL,
   handleProtocol,
   setupProtocolHandler,
 } from '@/providers/protocol-handler';
+import { setupSongInfo } from '@/providers/song-info';
+import { setUpTray } from '@/tray';
+import { isTesting } from '@/utils/testing';
 
 import youtubeMusicCSS from '@/youtube-music.css?inline';
 
@@ -52,8 +52,8 @@ import {
   loadAllMainPlugins,
 } from '@/loader/main';
 
-import { LoggerPrefix } from '@/utils';
 import { loadI18n, setLanguage, t } from '@/i18n';
+import { LoggerPrefix } from '@/utils';
 
 import ErrorHtmlAsset from '@assets/error.html?asset';
 
@@ -361,7 +361,7 @@ async function createMainWindow() {
     width: windowSize.width,
     height: windowSize.height,
     backgroundColor: 'rgba(0,0,0,0.1)',
-    backgroundMaterial: is.macOS() ? 'none' : config.get('options.backgroundMaterial'),
+    backgroundMaterial: is.macOS() ? undefined : config.get('options.backgroundMaterial'),
     show: false,
     webPreferences: {
       contextIsolation: true,
