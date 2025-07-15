@@ -38,7 +38,7 @@ export const onMenu = async ({
                 ...deepmerge(
                   defaultConfig.downloadOnFinish,
                   config.downloadOnFinish,
-                )!,
+                ),
                 enabled: item.checked,
               },
             });
@@ -62,7 +62,7 @@ export const onMenu = async ({
                   ...deepmerge(
                     defaultConfig.downloadOnFinish,
                     config.downloadOnFinish,
-                  )!,
+                  ),
                   folder: result[0],
                 },
               });
@@ -87,7 +87,7 @@ export const onMenu = async ({
                     ...deepmerge(
                       defaultConfig.downloadOnFinish,
                       config.downloadOnFinish,
-                    )!,
+                    ),
                     mode: 'seconds',
                   },
                 });
@@ -105,7 +105,7 @@ export const onMenu = async ({
                     ...deepmerge(
                       defaultConfig.downloadOnFinish,
                       config.downloadOnFinish,
-                    )!,
+                    ),
                     mode: 'percent',
                   },
                 });
@@ -168,7 +168,7 @@ export const onMenu = async ({
                 ...deepmerge(
                   defaultConfig.downloadOnFinish,
                   config.downloadOnFinish,
-                )!,
+                ),
                 seconds: Number(res[0]),
                 percent: Number(res[1]),
               },

@@ -400,6 +400,7 @@
             "fade-out-duration": "फ़ेड आउट अवधि (मिलीसेकंड)",
             "fade-scaling": {
               "label": "फेड स्केलिंग",
+              "linear": "रेखिक",
               "logarithmic": "लघुगणक"
             },
             "seconds-before-end": "अंत से पहले N सेकंड तक क्रॉसफ़ेड करें"
@@ -497,6 +498,7 @@
           "submenu": {
             "advanced": "विकसित",
             "enabled": "सक्रिय",
+            "mode": "टाइम मोड",
             "percent": "प्रतिशत",
             "seconds": "सेकंड"
           }
@@ -587,7 +589,143 @@
         "disconnected": "म्यूजिक टुगेदर डिस्कनेक्ट हुआ",
         "host-failed": "म्यूज़िक टुगेदर होस्ट करने में असफल",
         "id-copied": "होस्ट आईडी क्लिपबोर्ड पर कॉपी की गई",
-        "id-copy-failed": "होस्ट आईडी को क्लिपबोर्ड पर कॉपी करने में असफल"
+        "id-copy-failed": "होस्ट आईडी को क्लिपबोर्ड पर कॉपी करने में असफल",
+        "join-failed": "म्यूजिक टुगेदर में शामिल होने में विफल",
+        "joined": "म्यूजिक टुगेदर में शामिल होने में सफल",
+        "permission-changed": "म्यूजिक टुगेदर की अनुमति बदलकर \"{{permission}}\" कर दी गई है",
+        "remove-song-failed": "गाना हटाने में विफल",
+        "user-connected": "{{name}} म्यूजिक टुगेदर में शामिल हुए",
+        "user-disconnected": "{{name}} ने म्यूजिक टुगेदर छोड़ा"
+      }
+    },
+    "navigation": {
+      "description": "आगे /पीछे नेविगेशन अर्रोस सीधे इंटरफ़ेस में एकीकृत, जैसे आपके पसंदीदा ब्राउज़र में",
+      "name": "नेविगेशन"
+    },
+    "no-google-login": {
+      "description": "इंटरफ़ेस से गूगल लॉगिन बटन और लिंक हटाएँ",
+      "name": "कोई गूगल लॉगिन नहीं"
+    },
+    "notifications": {
+      "description": "जब कोई गाना बजना शुरू हो जाए तो नोटिफ़िकेशन दें (विंडोज़ पर इंटरैक्टिव नोटिफ़िकेशन्स उपलब्ध हैं)",
+      "menu": {
+        "interactive": "इंटरैक्टिव नोटिफ़िकेशन्स",
+        "interactive-settings": {
+          "label": "इंटरैक्टिव सेटिंग्स",
+          "submenu": {
+            "hide-button-text": "बटन टेक्स्ट को छिपाएँ",
+            "refresh-on-play-pause": "प्ले/पॉज़ पर रिफ्रेश करें",
+            "tray-controls": "ट्रे क्लिक पर खोलें/बंद करें"
+          }
+        },
+        "priority": "नोटिफ़िकेशन प्राथमिकता",
+        "toast-style": "टोस्ट स्टाइल",
+        "unpause-notification": "पॉज हटने पर नोटिफ़िकेशन दिखाएं"
+      },
+      "name": "नोटिफ़िकेशन्स"
+    },
+    "performance-improvement": {
+      "description": "प्रयोगात्मक स्क्रिप्ट सक्षम करके प्रदर्शन में सुधार करें",
+      "name": "प्रदर्शन सुधार [Beta]"
+    },
+    "picture-in-picture": {
+      "description": "ऐप को पिक्चर-इन-पिक्चर मोड में बदलने की अनुमति दें",
+      "menu": {
+        "always-on-top": "हमेशा ऊपर",
+        "hotkey": {
+          "label": "हॉट की",
+          "prompt": {
+            "keybind-options": {
+              "hotkey": "हॉट की"
+            },
+            "label": "पिक्चर-इन-पिक्चर टॉगल करने के लिए हॉट की चुनें",
+            "title": "पिक्चर-इन-पिक्चर हॉट की"
+          }
+        },
+        "save-window-position": "विंडो पोज़ीशन सेव करें",
+        "save-window-size": "विंडो के आकार को सेव करें",
+        "use-native-pip": "ब्राउज़र के नेटिव PiP का उपयोग करें"
+      },
+      "name": "पिक्चर-इन-पिक्चर",
+      "templates": {
+        "button": "पिक्चर-इन-पिक्चर"
+      }
+    },
+    "playback-speed": {
+      "description": "तेज़ सुनो, धीरे सुनो! गाने की गति को नियंत्रित करने वाला स्लाइडर जोडें",
+      "name": "प्लेबैक गति",
+      "templates": {
+        "button": "गति"
+      }
+    },
+    "precise-volume": {
+      "description": "कस्टम HUD और कस्टोमिज़ाबले वॉल्यूम चरणों के साथ, माउसव्हील/हॉट कीज़ का उपयोग करके वॉल्यूम को सटीक रूप से नियंत्रित करें",
+      "menu": {
+        "arrows-shortcuts": "लोकल एरो-की नियंत्रण",
+        "custom-volume-steps": "कस्टम वॉल्यूम चरण सेट करें",
+        "global-shortcuts": "वैश्विक हॉट कीज़"
+      },
+      "name": "सटीक वॉल्यूम",
+      "prompt": {
+        "global-shortcuts": {
+          "keybind-options": {
+            "decrease": "वॉल्यूम घटाएँ",
+            "increase": "वॉल्यूम बढ़ाएँ"
+          },
+          "label": "ग्लोबल वॉल्यूम कीबाइंड्स चुनें:",
+          "title": "ग्लोबल वॉल्यूम कीबाइंड्स"
+        },
+        "volume-steps": {
+          "label": "वॉल्यूम बढ़ाने/घटाने के चरण चुनें",
+          "title": "वॉल्यूम चरण"
+        }
+      }
+    },
+    "quality-changer": {
+      "backend": {
+        "dialog": {
+          "quality-changer": {
+            "detail": "वर्तमान गुणवत्ता: {{quality}}",
+            "message": "वीडियो गुणवत्ता चुनें:",
+            "title": "वीडियो गुणवत्ता चुनें"
+          }
+        }
+      },
+      "description": "वीडियो ओवरले पर एक बटन के साथ वीडियो की गुणवत्ता बदलने की अनुमति देता है",
+      "name": "वीडियो गुणवत्ता परिवर्तक"
+    },
+    "scrobbler": {
+      "description": "स्क्रोब्लिंग सपोर्ट जोड़ें (etc. last.fm, listenbrainz)",
+      "dialog": {
+        "lastfm": {
+          "auth-failed": {
+            "message": "Last.fm के साथ प्रमाणीकरण विफल\nअगले पुनरारंभ तक पॉपअप छिपाएँ।",
+            "title": "प्रमाणीकरण विफल"
+          }
+        }
+      },
+      "menu": {
+        "lastfm": {
+          "api-settings": "Last.fm API सेटिंग्स"
+        },
+        "listenbrainz": {
+          "token": "listenbrainz उपयोगकर्ता टोकन दर्ज करें"
+        },
+        "scrobble-alternative-title": "वैकल्पिक शीर्षक का उपयोग करें",
+        "scrobble-other-media": "अन्य मीडिया स्क्रोबल करें"
+      },
+      "name": "स्क्रोब्लर",
+      "prompt": {
+        "lastfm": {
+          "api-key": "Last.fm API की",
+          "api-secret": "Last.fm गुप्त API"
+        },
+        "listenbrainz": {
+          "token": {
+            "label": "अपना ListenBrainz उपयोगकर्ता टोकन दर्ज करें:",
+            "title": "ListenBrainz टोकन"
+          }
+        }
       }
     },
     "video-toggle": {

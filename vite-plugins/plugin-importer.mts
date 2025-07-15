@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { globSync } from 'glob';
 import { Project } from 'ts-morph';
 
-const snakeToCamel = (text: string) =>
+const kebabToCamel = (text: string) =>
   text.replace(/-(\w)/g, (_, letter: string) => letter.toUpperCase());
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -20,13 +20,18 @@ export const pluginVirtualModuleGenerator = (
 ) => {
   const srcPath = resolve(__dirname, '..', 'src');
   const plugins = globSync([
-    'src/plugins/*/index.{js,ts}',
-    'src/plugins/*.{js,ts}',
+    'src/plugins/*/index.{js,ts,jsx,tsx}',
+    'src/plugins/*.{js,ts,jsx,tsx}',
     '!src/plugins/utils/**/*',
     '!src/plugins/utils/*',
   ]).map((path) => {
     let name = basename(path);
-    if (name === 'index.ts' || name === 'index.js') {
+    if (
+      name === 'index.ts' ||
+      name === 'index.js' ||
+      name === 'index.jsx' ||
+      name === 'index.tsx'
+    ) {
       name = basename(resolve(path, '..'));
     }
 
@@ -38,31 +43,83 @@ export const pluginVirtualModuleGenerator = (
   const src = globalProject.createSourceFile(
     'vm:pluginIndexes',
     (writer) => {
-      // prettier-ignore
       for (const { name, path } of plugins) {
-      const relativePath = relative(resolve(srcPath, '..'), path).replace(/\\/g, '/');
-      writer.writeLine(`import ${snakeToCamel(name)}Plugin, { pluginStub as ${snakeToCamel(name)}PluginStub } from "./${relativePath}";`);
-    }
+        const relativePath = relative(resolve(srcPath, '..'), path).replace(
+          /\\/g,
+          '/',
+        );
+        if (mode === 'main') {
+          // dynamic import (for main)
+          writer.writeLine(
+            `const ${kebabToCamel(name)}PluginImport = () => import('./${relativePath}');`,
+          );
+          writer.writeLine(
+            `const ${kebabToCamel(name)}Plugin = async () => (await ${kebabToCamel(name)}PluginImport()).default;`,
+          );
+          writer.writeLine(
+            `const ${kebabToCamel(name)}PluginStub = async () => (await ${kebabToCamel(name)}PluginImport()).pluginStub;`,
+          );
+        } else {
+          // static import (preload does not support dynamic import)
+          writer.writeLine(
+            `import ${kebabToCamel(name)}PluginImport, { pluginStub as ${kebabToCamel(name)}PluginStubImport } from "./${relativePath}";`,
+          );
+          writer.writeLine(
+            `const ${kebabToCamel(name)}Plugin = () => Promise.resolve(${kebabToCamel(name)}PluginImport);`,
+          );
+          writer.writeLine(
+            `const ${kebabToCamel(name)}PluginStub = () => Promise.resolve(${kebabToCamel(name)}PluginStubImport);`,
+          );
+        }
+      }
 
       writer.blankLine();
 
       // Context-specific exports
-      writer.writeLine(`export const ${mode}Plugins = {`);
+      writer.writeLine(`let ${mode}PluginsCache = null;`);
+      writer.writeLine(`export const ${mode}Plugins = async () => {`);
+      writer.writeLine(
+        `  if (${mode}PluginsCache) return await ${mode}PluginsCache;`,
+      );
+      writer.writeLine(
+        '  const { promise, resolve } = Promise.withResolvers();',
+      );
+      writer.writeLine('  ' + `${mode}PluginsCache = promise;`);
+      writer.writeLine('  const pluginEntries = await Promise.all([');
       for (const { name } of plugins) {
         const checkMode = mode === 'main' ? 'backend' : mode;
         // HACK: To avoid situation like importing renderer plugins in main
         writer.writeLine(
-          `  ...(${snakeToCamel(name)}Plugin['${checkMode}'] ? { "${name}": ${snakeToCamel(name)}Plugin } : {}),`,
+          `    ${kebabToCamel(name)}Plugin().then((plg) => plg['${checkMode}'] ? ["${name}", plg] : null),`,
         );
       }
+      writer.writeLine('  ]);');
+      writer.writeLine(
+        '  resolve(pluginEntries.filter((entry) => entry).reduce((acc, [name, plg]) => { acc[name] = plg; return acc; }, {}));',
+      );
+      writer.writeLine(`  return await ${mode}PluginsCache;`);
       writer.writeLine('};');
       writer.blankLine();
 
       // All plugins export (stub only) // Omit<Plugin, 'backend' | 'preload' | 'renderer'>
-      writer.writeLine('export const allPlugins = {');
+      writer.writeLine('let allPluginsCache = null;');
+      writer.writeLine('export const allPlugins = async () => {');
+      writer.writeLine('  if (allPluginsCache) return await allPluginsCache;');
+      writer.writeLine(
+        '  const { promise, resolve } = Promise.withResolvers();',
+      );
+      writer.writeLine('  allPluginsCache = promise;');
+      writer.writeLine('  const stubEntries = await Promise.all([');
       for (const { name } of plugins) {
-        writer.writeLine(`  "${name}": ${snakeToCamel(name)}PluginStub,`);
+        writer.writeLine(
+          `    ${kebabToCamel(name)}PluginStub().then((stub) => ["${name}", stub]),`,
+        );
       }
+      writer.writeLine('  ]);');
+      writer.writeLine(
+        '  resolve(stubEntries.reduce((acc, [name, plg]) => { acc[name] = plg; return acc; }, {}));',
+      );
+      writer.writeLine('  return await promise;');
       writer.writeLine('};');
       writer.blankLine();
     },

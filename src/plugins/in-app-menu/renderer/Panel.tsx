@@ -1,5 +1,5 @@
-import { createSignal, JSX, Show, splitProps } from 'solid-js';
-import { mergeProps, Portal } from 'solid-js/web';
+import { createSignal, JSX, Show, splitProps, mergeProps } from 'solid-js';
+import { Portal } from 'solid-js/web';
 import { css } from 'solid-styled-components';
 import { Transition } from 'solid-transition-group';
 import {

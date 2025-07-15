@@ -381,6 +381,11 @@
       },
       "templates": {
         "title": "Open captions selector"
+      },
+      "toast": {
+        "caption-changed": "Caption changed to {{language}}",
+        "caption-disabled": "Captions disabled",
+        "no-captions": "No captions available for this song"
       }
     },
     "compact-sidebar": {
@@ -600,7 +605,15 @@
     },
     "navigation": {
       "description": "Next/Back navigation arrows directly integrated in the interface, like in your favorite browser",
-      "name": "Navigation"
+      "name": "Navigation",
+      "templates": {
+        "back": {
+          "title": "Go to previous page"
+        },
+        "forward": {
+          "title": "Go to next page"
+        }
+      }
     },
     "no-google-login": {
       "description": "Remove Google login buttons and links from the interface",
@@ -689,6 +702,11 @@
             "message": "Choose Video Quality:",
             "title": "Choose Video Quality"
           }
+        }
+      },
+      "renderer": {
+        "quality-settings-button": {
+          "label": "Open player quality changer"
         }
       },
       "description": "Allows changing the video quality with a button on the video overlay",
@@ -859,7 +877,8 @@
       },
       "name": "Video Toggle",
       "templates": {
-        "button": "Song"
+        "button-song": "Song",
+        "button-video": "Video"
       }
     },
     "visualizer": {

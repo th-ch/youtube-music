@@ -182,10 +182,10 @@
         "new": "חדש"
       },
       "view": {
-        "label": "מראה",
+        "label": "צפה",
         "submenu": {
           "force-reload": "התחל מחדש בכוח",
-          "reload": "טען מחדש",
+          "reload": "רענון",
           "reset-zoom": "גודל אמיתי",
           "toggle-fullscreen": "מסך מלא",
           "zoom-in": "התקרב",
@@ -226,6 +226,7 @@
       "description": "מחיל נושא דינמי ואפקטים חזותיים המבוססים על לוח הצבעים של האלבום",
       "menu": {
         "color-mix-ratio": {
+          "label": "יחס ערבוב צבעים",
           "submenu": {
             "percent": "{{ratio}}%"
           }
@@ -266,6 +267,7 @@
           }
         },
         "smoothness-transition": {
+          "label": "מעבר חלק",
           "submenu": {
             "during": "במהלך {{interpolationTime}} שניות"
           }
@@ -277,10 +279,145 @@
       "name": "מצב אווירה"
     },
     "amuse": {
-      "description": "מוסיף תמיכה ב-YouTube Music עבור הווידג'ט של Amuse המתנגן כעת על ידי 6K Labs"
+      "description": "מוסיף תמיכה ב-YouTube Music עבור הווידג'ט של Amuse המתנגן כעת על ידי 6K Labs",
+      "name": "משעשע",
+      "response": {
+        "query": "שרת ה-API של Amuse פועל. קבל מידע על השיר באמצעות GET /query."
+      }
+    },
+    "api-server": {
+      "description": "הוסף כתובת שירות כדי לשלוט בנגן",
+      "dialog": {
+        "request": {
+          "buttons": {
+            "allow": "מותר",
+            "deny": "לדחות"
+          },
+          "message": "אפשר ל {{ID}}{{origin}} לגשת לשירות?",
+          "title": "בקשת לאימות השירות"
+        }
+      },
+      "menu": {
+        "auth-strategy": {
+          "label": "שיטת אימות",
+          "submenu": {
+            "auth-at-first": {
+              "label": "לאמת בבקשה הראשונה"
+            },
+            "none": {
+              "label": "ללא אימות"
+            }
+          }
+        },
+        "hostname": {
+          "label": "שם שרת אחסון"
+        },
+        "port": {
+          "label": "פורט"
+        }
+      },
+      "name": "כתובת שירות (בטא)",
+      "prompt": {
+        "hostname": {
+          "label": "הכנסת את כתובת IP של השרת (לדוגמה 0.0.0.0) לשירות:",
+          "title": "שם שרת אחסון"
+        },
+        "port": {
+          "label": "הכנסת מספר פורט של השירות:",
+          "title": "פורט"
+        }
+      }
+    },
+    "audio-compressor": {
+      "description": "החל דחיסה על אודיו (מורידה את עוצמת הקול של החלקים הרועשים ביותר של האות ומעלה את עוצמת הקול של החלקים החלשים ביותר)",
+      "name": "דוחס ומצפין קול"
+    },
+    "auth-proxy-adapter": {
+      "description": "תמיכה בשימוש בשירותי פרוקסי אימות",
+      "menu": {
+        "disable": "השבת מתאם פרוקסי",
+        "enable": "הפעל מתאם פרוקסי",
+        "hostname": {
+          "label": "שם שרת מאחסן"
+        },
+        "port": {
+          "label": "פורט"
+        }
+      },
+      "name": "מתאם זיהוי פרוקסי",
+      "prompt": {
+        "hostname": {
+          "label": "הזן שם מארח עבור שרת הפרוקסי המקומי (דורש הפעלה מחדש):",
+          "title": "שם פרוקסי של שרת מאחסן"
+        },
+        "port": {
+          "label": "הזן פורט עבור שרת הפרוקסי המקומי (דורש הפעלה מחדש):",
+          "title": "יציאת פרוקסי"
+        }
+      }
+    },
+    "blur-nav-bar": {
+      "description": "הפוך את סרגל הניווט לשקוף ומטושטש",
+      "name": "טשטש את סרגל הניווט"
+    },
+    "bypass-age-restrictions": {
+      "description": "עקוף את אימות גיל המשתמש של יוטיוב",
+      "name": "עקוף את ההחמרות של הגיל"
+    },
+    "captions-selector": {
+      "description": "בורר כתוביות עבור רצועות אודיו של YouTube Music",
+      "menu": {
+        "autoload": "בחר אוטומטי את הכתובית האחרונה שנבחרה",
+        "disable-captions": "ברירת מחד ללא כתוביות"
+      },
+      "name": "בוחר כתוביות",
+      "prompt": {
+        "selector": {
+          "label": "שפת כתוביות נוכחית: {{language}}",
+          "none": "ללא",
+          "title": "בחר שפת כתוביות"
+        }
+      },
+      "templates": {
+        "title": "פתח בחירת כתוביות"
+      }
+    },
+    "compact-sidebar": {
+      "description": "הגדר תמיד את סרגל הצד למצב קומפקטי",
+      "name": "סרגל צד קומפקטי"
+    },
+    "crossfade": {
+      "description": "עמעם בין השירים",
+      "menu": {
+        "advanced": "מתקדם"
+      },
+      "prompt": {
+        "options": {
+          "multi-input": {
+            "fade-scaling": {
+              "linear": "לינארי",
+              "logarithmic": "לוגריתמי"
+            }
+          }
+        }
+      }
+    },
+    "disable-autoplay": {
+      "menu": {
+        "apply-once": "חל רק בהפעלה"
+      },
+      "name": "השבתת הפעלה אוטומטית"
     },
     "discord": {
+      "backend": {
+        "connected": "התחבר לדיסקורד",
+        "disconnected": "התנתק לדיסקורד"
+      },
       "menu": {
+        "auto-reconnect": "חיבור מחדש אוטומטי",
+        "clear-activity": "נקה פעילות",
+        "connected": "מחובר",
+        "disconnected": "מנותק",
         "hide-github-button": "הסתר את לחצן הקישור של GitHub",
         "play-on-youtube-music": "הפעל ביוטיוב מיוזיק",
         "set-inactivity-timeout": "הגדר פסק זמן לחוסר פעילות"
@@ -290,7 +427,18 @@
       "backend": {
         "dialog": {
           "error": {
+            "buttons": {
+              "ok": "אוקיי"
+            },
+            "message": "אה ! מתנצלים, הורדה נכשלה",
             "title": "שגיאה בהורדה!"
+          },
+          "start-download-playlist": {
+            "buttons": {
+              "ok": "אוקיי"
+            },
+            "message": "מוריד פלייליסט {{playlistTitle}}",
+            "title": "הורדה התחילה"
           }
         },
         "feedback": {

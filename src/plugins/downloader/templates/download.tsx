@@ -1,24 +1,23 @@
-<div
-  aria-disabled="false"
-  aria-selected="false"
-  class="style-scope menu-item ytmusic-menu-popup-renderer"
-  onclick="download()"
-  role="option"
-  tabindex="-1"
->
+export const DownloadButton = (props: {
+  onClick: () => void;
+  text: string;
+}) => (
   <a
     class="yt-simple-endpoint style-scope ytmusic-menu-navigation-item-renderer"
     id="navigation-endpoint"
-    tabindex="-1"
+    tabindex={-1}
+    onClick={props.onClick}
   >
-    <div
-      class="icon ytmd-menu-item style-scope ytmusic-menu-navigation-item-renderer"
-    >
+    <div class="icon ytmd-menu-item style-scope ytmusic-menu-navigation-item-renderer">
       <svg
         class="style-scope yt-icon"
-        focusable="false"
         preserveAspectRatio="xMidYMid meet"
-        style="pointer-events: none; display: block; width: 100%; height: 100%"
+        style={{
+          'pointer-events': 'none',
+          'display': 'block',
+          'width': '100%',
+          'height': '100%',
+        }}
         viewBox="0 0 24 24"
       >
         <g class="style-scope yt-icon">
@@ -39,7 +38,7 @@
       class="text style-scope ytmusic-menu-navigation-item-renderer"
       id="ytmcustom-download"
     >
-      <ytmd-trans key="plugins.downloader.templates.button"></ytmd-trans>
+      {props.text}
     </div>
   </a>
-</div>
+);
