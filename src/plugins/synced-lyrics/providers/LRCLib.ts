@@ -135,6 +135,19 @@ export class LRCLib implements LyricProvider {
         filteredResults.push(item);
       }
 
+      filteredResults = filteredResults.map((lrc) => {
+        if (album) {
+          lrc.albumRatio = jaroWinkler(
+            lrc.albumName.toLowerCase(),
+            album.toLowerCase(),
+          );
+        } else {
+          lrc.albumRatio = 0;
+        }
+
+        return lrc;
+      });
+
       filteredResults = filteredResults.filter((lrc) => {
         return Math.abs(lrc.duration - songDuration) < 15;
       });
@@ -143,19 +156,31 @@ export class LRCLib implements LyricProvider {
 
       filteredResults.sort(
         (
-          { duration: durationA, syncedLyrics: lyricsA },
-          { duration: durationB, syncedLyrics: lyricsB },
+          { duration: durationA, syncedLyrics: lyricsA, albumRatio: arA },
+          { duration: durationB, syncedLyrics: lyricsB, albumRatio: arB },
         ) => {
           const hasLyricsA = lyricsA != null && lyricsA !== '';
           const hasLyricsB = lyricsB != null && lyricsB !== '';
-          const left = Math.abs(durationA - songDuration);
-          const right = Math.abs(durationB - songDuration);
 
           if (hasLyricsA !== hasLyricsB) {
             return hasLyricsB ? 1 : -1;
           }
+          const durationDiffA = Math.abs(durationA - songDuration);
+          const durationDiffB = Math.abs(durationB - songDuration);
 
-          return left - right;
+          const normalizedDurationA = durationDiffA / songDuration;
+          const normalizedDurationB = durationDiffB / songDuration;
+
+          const weightAlbumRatio = 0.7;
+          const weightDuration = 0.3;
+
+          const scoreA =
+            weightAlbumRatio * arA! - weightDuration * normalizedDurationA;
+          const scoreB =
+            weightAlbumRatio * arB! - weightDuration * normalizedDurationB;
+
+          // Mayor score es mejor
+          return scoreB - scoreA;
         },
       );
 
@@ -198,4 +223,5 @@ type LRCLIBSearchResponse = {
   instrumental: boolean;
   plainLyrics: string;
   syncedLyrics: string;
+  albumRatio?: number;
 }[];
