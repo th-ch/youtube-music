@@ -30,7 +30,7 @@
         "receive-command": "Đã nhận được lệnh qua giao thức: \"{{command}}\""
       },
       "theme": {
-        "css-file-not-found": "Tệp tin CSS \"{{cssFile}}\"không tồn tại, đang bỏ qua"
+        "css-file-not-found": "Tệp CSS \"{{cssFile}}\" không tồn tại, đang bỏ qua"
       },
       "unresponsive": {
         "details": "Lỗi không phản hồi!\n{{error}}"
@@ -53,7 +53,7 @@
           "later": "Để sau",
           "restart-now": "Khởi động lại ngay"
         },
-        "detail": "Tiện ích mở rộng \"{{pluginName}}\" yêu cầu khởi động lại ứng dụng để áp dụng",
+        "detail": "Phần mở rộng \"{{pluginName}}\" yêu cầu khởi động lại ứng dụng để áp dụng",
         "message": "\"{{pluginName}}\" cần khởi động lại",
         "title": "Yêu cầu khởi động lại"
       },
@@ -74,7 +74,7 @@
           "ok": "Đồng ý"
         },
         "detail": "Đã có phiên bản mới hơn, bạn có thể tải xuống tại {{downloadLink}}",
-        "message": "Đã có phiên bản mới",
+        "message": "Đã có một phiên bản mới",
         "title": "Cập nhật có sẵn"
       }
     },
@@ -106,7 +106,7 @@
                 "prompt": {
                   "label": "Nhập địa chỉ Proxy: (để trống nếu muốn tắt)",
                   "placeholder": "Ví dụ: SOCKS5://127.0.0.1:9999",
-                  "title": "Cài proxy"
+                  "title": "Cài đặt proxy"
                 }
               },
               "toggle-dev-tools": "Bật/tắt DevTools"
@@ -116,7 +116,7 @@
           "auto-update": "Tự động cập nhật",
           "hide-menu": {
             "dialog": {
-              "message": "Menu sẽ bị ẩn khi ứng dụng được chạy vào lần tới, dùng phím [Alt] để hiện nó (hoặc phím [`] nếu sử dụng in-app-menu)",
+              "message": "Menu sẽ bị ẩn trong lần khởi chạy tiếp theo, dùng phím [Alt] để hiện nó (hoặc phím [`] nếu sử dụng in-app-menu)",
               "title": "Ẩn Menu đã được bật"
             },
             "label": "Ẩn Menu"
@@ -521,10 +521,10 @@
       }
     },
     "equalizer": {
-      "description": "Thêm bộ lọc xì vào trình phát nhạc\nP.S: Bộ lọc xì (Equalizer) là một thiết bị được thiết kế để phân chia, tăng, giảm, cắt các dải tần số âm thanh để mang tới sự cân bằng và làm thay đổi các tín hiệu âm thanh đi qua nó",
+      "description": "Thêm bộ lọc xì vào trình phát nhạc",
       "menu": {
         "presets": {
-          "label": "Tùy chọn có sẵn",
+          "label": "Thiết lập có sẵn",
           "list": {
             "bass-booster": "Tăng âm trầm"
           }
