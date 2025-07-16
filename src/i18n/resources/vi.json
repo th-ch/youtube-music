@@ -44,7 +44,7 @@
     },
     "dialog": {
       "hide-menu-enabled": {
-        "detail": "Menu đã ẩn, ấn phím 'Alt' để hiện menu (hoặc ấn 'Escape' nếu bạn đang bật In-app Menu)",
+        "detail": "Menu đã ẩn, ấn phím 'Alt' để hiện menu (hoặc ấn phím 'Esc' nếu bạn đang bật In-app Menu)",
         "message": "Ẩn Menu đã được bật",
         "title": "Ẩn Menu đã được bật"
       },
@@ -123,7 +123,7 @@
           },
           "language": {
             "dialog": {
-              "message": "Ngôn ngữ sẽ được thay đổi sau khi ứng dụng khởi động lại",
+              "message": "Ngôn ngữ sẽ được thay đổi sau khi khởi động lại ứng dụng",
               "title": "Ngôn ngữ đã thay đổi"
             },
             "label": "Ngôn ngữ",
@@ -163,7 +163,7 @@
                     "cancel": "Hủy",
                     "remove": "Loại bỏ"
                   },
-                  "remove-theme": "Bạn có chắc muốn loại bỏ chủ đề tùy chỉnh không?",
+                  "remove-theme": "Bạn có chắc muốn loại bỏ chủ đề tùy chỉnh này không?",
                   "remove-theme-message": "Tùy chọn này sẽ loại bỏ chủ đề tùy chỉnh"
                 },
                 "label": "Chủ đề",
@@ -219,7 +219,7 @@
       "name": "Chặn quảng cáo"
     },
     "album-actions": {
-      "description": "Thêm nút hủy không thích, không thích, thích và không thích để áp dụng cho tất cả danh sách phát hoặc album",
+      "description": "Thêm nút Hủy không thích, Không thích, Thích và Hủy thích để áp dụng cho tất cả bài hát trong danh sách phát hoặc album",
       "name": "Tác vụ với album"
     },
     "album-color-theme": {
@@ -280,7 +280,7 @@
       "name": "Chế độ Môi trường xung quanh"
     },
     "amuse": {
-      "description": "Thêm hỗ trợ YouTube Music cho tiện ích hiển thị bài hát đang phát Amuse của 6K Labs.",
+      "description": "Thêm hỗ trợ YouTube Music cho tiện ích hiển thị bài hát đang phát Amuse của 6K Labs",
       "name": "Amuse",
       "response": {
         "query": "Máy chủ API của Amuse đang chạy. GET /query để lấy thông tin về bài hát."
@@ -348,7 +348,7 @@
       "name": "Bộ chuyển đổi xác minh máy chủ Proxy",
       "prompt": {
         "hostname": {
-          "label": "Nhập tên của máy chủ proxy lân cận (bắt buộc khởi động lại ứng dụng):",
+          "label": "Nhập tên của máy chủ proxy lân cận (yêu cầu khởi động lại ứng dụng):",
           "title": "Tên máy chủ Proxy"
         },
         "port": {
@@ -369,7 +369,7 @@
       "description": "Bộ lựa chọn phụ đề cho các bài hát trên Youtube Music",
       "menu": {
         "autoload": "Tự động chọn phụ đề vừa sử dụng",
-        "disable-captions": "Không có phụ đề đặt làm mặc định"
+        "disable-captions": "Không có phụ đề làm mặc định"
       },
       "name": "Bộ lựa chọn phụ đề",
       "prompt": {
@@ -381,10 +381,15 @@
       },
       "templates": {
         "title": "Mở lựa chọn phụ đề"
+      },
+      "toast": {
+        "caption-changed": "Phụ đề chuyển sang {{language}}",
+        "caption-disabled": "Tắt phụ đề",
+        "no-captions": "Không có phụ đề nào cho bài hát này"
       }
     },
     "compact-sidebar": {
-      "description": "Luôn đặt thanh bên cạnh ở chế độ thu gọn",
+      "description": "Luôn đặt thanh bên ở chế độ thu gọn",
       "name": "Thanh bên thu gọn"
     },
     "crossfade": {
@@ -392,12 +397,12 @@
       "menu": {
         "advanced": "Nâng cao"
       },
-      "name": "Xen kẽ [thử nghiệm]",
+      "name": "Xen kẽ [Thử nghiệm]",
       "prompt": {
         "options": {
           "multi-input": {
             "fade-in-duration": "Xuất hiện mờ dần trong khoảng thời gian (ms)",
-            "fade-out-duration": "Khoảng thời gian hoát ra mờ dần (ms)",
+            "fade-out-duration": "Thời lượng mờ dần (ms)",
             "fade-scaling": {
               "label": "Làm mờ theo tỉ lệ",
               "linear": "Trực tuyến",
@@ -599,7 +604,15 @@
     },
     "navigation": {
       "description": "Mũi tên điều hướng Tiếp theo/Quay lại được tích hợp trực tiếp trong giao diện, giống như trong trình duyệt yêu thích của bạn",
-      "name": "Điều hướng"
+      "name": "Điều hướng",
+      "templates": {
+        "back": {
+          "title": "Đi đến trang trước"
+        },
+        "forward": {
+          "title": "Đi đến trang tiếp theo"
+        }
+      }
     },
     "no-google-login": {
       "description": "Xóa các nút và liên kết đăng nhập Google khỏi giao diện",
@@ -691,7 +704,12 @@
         }
       },
       "description": "Cho phép thay đổi chất lượng video bằng một nút trên lớp phủ video",
-      "name": "Thay đổi chất lượng video"
+      "name": "Thay đổi chất lượng video",
+      "renderer": {
+        "quality-settings-button": {
+          "label": "Mở trình thay đổi chất lượng"
+        }
+      }
     },
     "scrobbler": {
       "description": "Thêm hỗ trợ scrobbling (v.v. Last.fm, Listenbrainz)",
@@ -857,7 +875,8 @@
       },
       "name": "Chuyển đổi video",
       "templates": {
-        "button-song": "Bài hát"
+        "button-song": "Bài hát",
+        "button-video": "Video"
       }
     },
     "visualizer": {
