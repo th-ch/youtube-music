@@ -128,7 +128,7 @@
             },
             "label": "Ngôn ngữ",
             "submenu": {
-              "to-help-translate": "Bạn muốn giúp dịch? Bấm vào đây"
+              "to-help-translate": "— Bạn muốn hỗ trợ dịch? Bấm vào đây —"
             }
           },
           "resume-on-start": "Tiếp tục bài hát cuối cùng khi ứng dụng khởi động",
@@ -186,7 +186,7 @@
         "submenu": {
           "force-reload": "Buộc tải lại",
           "reload": "Tải lại",
-          "reset-zoom": "Kích thước thực",
+          "reset-zoom": "Đặt lại",
           "toggle-fullscreen": "Bật chế độ toàn màn hình",
           "zoom-in": "Phóng to",
           "zoom-out": "Thu nhỏ"
@@ -415,7 +415,7 @@
       }
     },
     "disable-autoplay": {
-      "description": "Bắt đầu bài hát khi ở chế độ \"tạm dừng\"",
+      "description": "Làm nhạc tạm dừng khi được phát",
       "menu": {
         "apply-once": "Áp dụng khi khởi động"
       },
@@ -521,15 +521,16 @@
       }
     },
     "equalizer": {
-      "description": "Thêm bộ cân bằng âm thanh vào trình phát nhạc.",
+      "description": "Thêm bộ lọc xì vào trình phát nhạc\nP.S: Bộ lọc xì (Equalizer) là một thiết bị được thiết kế để phân chia, tăng, giảm, cắt các dải tần số âm thanh để mang tới sự cân bằng và làm thay đổi các tín hiệu âm thanh đi qua nó",
       "menu": {
         "presets": {
+          "label": "Tùy chọn có sẵn",
           "list": {
-            "bass-booster": "Bộ tăng âm trầm"
+            "bass-booster": "Tăng âm trầm"
           }
         }
       },
-      "name": "Cân bằng âm thanh"
+      "name": "Bộ lọc xì (EQ)"
     },
     "exponential-volume": {
       "description": "Làm cho thanh trượt âm lượng theo cấp số nhân để dễ dàng chọn âm lượng thấp hơn.",
@@ -851,10 +852,10 @@
     },
     "unobtrusive-player": {
       "description": "Ngăn trình phát nhạc xuất hiện đột ngột khi phát một bài hát",
-      "name": "Trình phát nhạc ẩn"
+      "name": "Không hiện trình phát nhạc khi phát"
     },
     "video-toggle": {
-      "description": "Thêm nút để chuyển giữa chế độ Video/Bài hát. Cũng có thể ẩn toàn bộ tab video",
+      "description": "Thêm nút để chuyển giữa chế độ Video/Bài hát. Cũng có thể ẩn toàn bộ video",
       "menu": {
         "align": {
           "label": "Căn chỉnh",
@@ -864,7 +865,7 @@
             "right": "Phải"
           }
         },
-        "force-hide": "Buộc ẩn tab video",
+        "force-hide": "Buộc ẩn video",
         "mode": {
           "label": "Chế độ",
           "submenu": {
@@ -881,11 +882,11 @@
       }
     },
     "visualizer": {
-      "description": "Thêm trình hiển thị cho trình phát",
+      "description": "Thay thế video thành sóng nhạc (hay \"Music visualizer\")",
       "menu": {
-        "visualizer-type": "Loại trình hiển thị"
+        "visualizer-type": "Loại Sóng nhạc"
       },
-      "name": "Trình hiển thị"
+      "name": "Sóng nhạc"
     }
   }
 }
