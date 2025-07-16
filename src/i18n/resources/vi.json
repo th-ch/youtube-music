@@ -586,7 +586,7 @@
           "host": "Đã kết nối với tư cách Máy chủ"
         }
       },
-      "name": "Nghe nhạc cùng nhau [Thử nghiệm]",
+      "name": "Music Together [Thử nghiệm]",
       "toast": {
         "add-song-failed": "Thêm bài hát thất bại",
         "closed": "Đã đóng Music Together",
@@ -626,7 +626,7 @@
           "label": "Cài đặt tương tác",
           "submenu": {
             "hide-button-text": "Ẩn tên nút",
-            "refresh-on-play-pause": "Làm mới khi phát/tạm dừng",
+            "refresh-on-play-pause": "Làm mới khi Phát/Tạm dừng",
             "tray-controls": "Mở/Đóng khi nhấp vào khay"
           }
         },
@@ -638,20 +638,20 @@
     },
     "performance-improvement": {
       "description": "Cải thiện hiệu suất thông qua kích hoạt scripts thử nghiệm",
-      "name": "Cải thiện hiệu năng [Beta]"
+      "name": "Cải thiện hiệu năng [Thử nghiệm]"
     },
     "picture-in-picture": {
       "description": "Cho phép chuyển ứng dụng sang chế độ ảnh trong ảnh",
       "menu": {
         "always-on-top": "Luôn ở trên cùng",
         "hotkey": {
-          "label": "Phím nóng",
+          "label": "Phím tắt",
           "prompt": {
             "keybind-options": {
-              "hotkey": "Phím nóng"
+              "hotkey": "Phím tắt"
             },
-            "label": "Chọn phím nóng để chuyển đổi ảnh trong ảnh",
-            "title": "Phím nóng ảnh trong ảnh"
+            "label": "Chọn phím tắt để chuyển đổi ảnh trong ảnh",
+            "title": "Phím tắt ảnh trong ảnh"
           }
         },
         "save-window-position": "Lưu vị trí cửa sổ",
@@ -699,7 +699,7 @@
           "quality-changer": {
             "detail": "Chất lượng hiện tại: {{quality}}",
             "message": "Chọn chất lượng video:",
-            "title": "Chọn chất lượng video:"
+            "title": "Chọn chất lượng video"
           }
         }
       },
@@ -716,7 +716,7 @@
       "dialog": {
         "lastfm": {
           "auth-failed": {
-            "message": "Không thể xác minh với \nẨn thông báo cho đến lần bật ứng dụng tiếp theo.",
+            "message": "Không thể xác minh với Last.fm \nẨn thông báo cho đến lần bật ứng dụng tiếp theo.",
             "title": "Xác minh thất bại"
           }
         }
@@ -766,14 +766,14 @@
     },
     "skip-disliked-songs": {
       "description": "Bỏ qua những bài hát không thích",
-      "name": "Bỏ qua những bài hát không thích"
+      "name": "Bỏ qua bài hát không thích"
     },
     "skip-silences": {
       "description": "Tự động bỏ qua các đoạn im lặng trong bài hát",
       "name": "Bỏ qua đoạn im lặng"
     },
     "sponsorblock": {
-      "description": "Tự động bỏ qua các phần không phải âm nhạc như phần giới thiệu/kết thúc hoặc các phần của video nhạc mà bài hát không được phát",
+      "description": "Tự động bỏ qua các phần không phải âm nhạc như phần intro/outro hoặc các phần không được phát của video nhạc",
       "name": "SponsorBlock"
     },
     "synced-lyrics": {
@@ -791,19 +791,20 @@
           "label": "Kiểu đường thẳng",
           "submenu": {
             "fancy": {
-              "label": "Màu mè"
+              "label": "Màu mè",
+              "tooltip": "Làm đoạn lời nhạc đang nghe to hơn và nổi bật hơn"
             },
             "focus": {
               "label": "Tập trung",
               "tooltip": "Chỉ làm cho dòng hiện tại có màu trắng"
             },
             "offset": {
-              "label": "Độ lệch",
-              "tooltip": "Độ lệch bên phải của dòng hiện tại"
+              "label": "Lệch",
+              "tooltip": "Làm dòng hiện tại lệch sang bên phải"
             },
             "scale": {
-              "label": "Tỉ lệ",
-              "tooltip": "Áp dụng tỉ lệ cho dòng hiện tại"
+              "label": "Phóng to",
+              "tooltip": "Làm dòng hiện tại to hơn các dòng khác"
             }
           },
           "tooltip": "Chọn kiểu để áp dụng cho dòng hiện tại"
@@ -833,12 +834,12 @@
       "warnings": {
         "duration-mismatch": "⚠️ - Lời bài hát có thể không đồng bộ do thời lượng không khớp.",
         "inexact": "⚠️ - Lời bài hát này có thể không chính xác",
-        "instrumental": "⚠️ - Đây là một bài hát trình diễn bằng nhạc khí"
+        "instrumental": "⚠️ - Đây là một bài hát không lời"
       }
     },
     "taskbar-mediacontrol": {
-      "description": "Kiểm soát phát lại từ thanh tác vụ Windows của bạn",
-      "name": "Kiểm soát phương tiện trên thanh tác vụ"
+      "description": "Điều khiển nhạc từ thanh tác vụ Windows của bạn",
+      "name": "Điều khiển phương tiện trên thanh tác vụ"
     },
     "touchbar": {
       "description": "Thêm tiện ích TouchBar cho người dùng macOS",
@@ -849,11 +850,11 @@
       "name": "Tuna OBS"
     },
     "unobtrusive-player": {
-      "description": "Ngăn trình phát nhạc xuất hiện đột ngột khi phát một bài hát.",
+      "description": "Ngăn trình phát nhạc xuất hiện đột ngột khi phát một bài hát",
       "name": "Trình phát nhạc ẩn"
     },
     "video-toggle": {
-      "description": "Thêm nút để chuyển giữa chế độ Video/Bài hát. Cũng có thể tùy ý xóa toàn bộ tab video",
+      "description": "Thêm nút để chuyển giữa chế độ Video/Bài hát. Cũng có thể ẩn toàn bộ tab video",
       "menu": {
         "align": {
           "label": "Căn chỉnh",
@@ -863,7 +864,7 @@
             "right": "Phải"
           }
         },
-        "force-hide": "Buộc loại bỏ tab video",
+        "force-hide": "Buộc ẩn tab video",
         "mode": {
           "label": "Chế độ",
           "submenu": {
