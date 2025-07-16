@@ -25,7 +25,7 @@ export default createPlugin({
   description: () => t('plugins.find-onplaylist.description'),
   restartNeeded: true,
   config: {
-    enabled: true,
+    enabled: false,
   },
   backend: {
     urlInfo: {} as urlInfo,
