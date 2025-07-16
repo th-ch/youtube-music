@@ -401,8 +401,8 @@
       "prompt": {
         "options": {
           "multi-input": {
-            "fade-in-duration": "Xuất hiện mờ dần trong khoảng thời gian (ms)",
-            "fade-out-duration": "Thời lượng mờ dần (ms)",
+            "fade-in-duration": "Thời lượng mờ dần vào (ms)",
+            "fade-out-duration": "Thời lượng mờ dần ra (ms)",
             "fade-scaling": {
               "label": "Làm mờ theo tỉ lệ",
               "linear": "Trực tuyến",
@@ -549,7 +549,7 @@
     "lyrics-genius": {
       "description": "Thêm hỗ trợ lời bài hát cho hầu hết các bài hát",
       "menu": {
-        "romanized-lyrics": "Lời bài hát La Mã"
+        "romanized-lyrics": "Chuyển lời bài hát sang chữ Latin"
       },
       "name": "Lời bài hát từ Genius",
       "renderer": {
