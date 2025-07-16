@@ -1,29 +1,29 @@
-import fs from 'node:fs';
 import path from 'node:path';
 import url from 'node:url';
+import fs from 'node:fs';
 
-import enhanceWebRequest, {
-  BetterSession,
-} from '@jellybrick/electron-better-web-request';
-import { deepmerge } from 'deepmerge-ts';
 import {
   BrowserWindow,
   app,
-  dialog,
-  globalShortcut,
-  ipcMain,
-  protocol,
   screen,
+  globalShortcut,
   session,
   shell,
+  dialog,
+  ipcMain,
+  protocol,
   type BrowserWindowConstructorOptions,
 } from 'electron';
-import electronDebug from 'electron-debug';
+import enhanceWebRequest, {
+  BetterSession,
+} from '@jellybrick/electron-better-web-request';
 import is from 'electron-is';
 import unhandled from 'electron-unhandled';
 import { autoUpdater } from 'electron-updater';
-import { deepEqual } from 'fast-equals';
+import electronDebug from 'electron-debug';
 import { parse } from 'node-html-parser';
+import { deepmerge } from 'deepmerge-ts';
+import { deepEqual } from 'fast-equals';
 
 import { allPlugins, mainPlugins } from 'virtual:plugins';
 
@@ -33,15 +33,15 @@ import config from '@/config';
 
 import { refreshMenu, setApplicationMenu } from '@/menu';
 import { fileExists, injectCSS, injectCSSAsFile } from '@/plugins/utils/main';
+import { isTesting } from '@/utils/testing';
+import { setUpTray } from '@/tray';
+import { setupSongInfo } from '@/providers/song-info';
 import { restart, setupAppControls } from '@/providers/app-controls';
 import {
   APP_PROTOCOL,
   handleProtocol,
   setupProtocolHandler,
 } from '@/providers/protocol-handler';
-import { setupSongInfo } from '@/providers/song-info';
-import { setUpTray } from '@/tray';
-import { isTesting } from '@/utils/testing';
 
 import youtubeMusicCSS from '@/youtube-music.css?inline';
 
@@ -52,8 +52,8 @@ import {
   loadAllMainPlugins,
 } from '@/loader/main';
 
-import { loadI18n, setLanguage, t } from '@/i18n';
 import { LoggerPrefix } from '@/utils';
+import { loadI18n, setLanguage, t } from '@/i18n';
 
 import ErrorHtmlAsset from '@assets/error.html?asset';
 
@@ -356,12 +356,11 @@ async function createMainWindow() {
     delete decorations.titleBarStyle;
   }
 
-  const win = new BrowserWindow({
+  const electronWindowSettings: Electron.BrowserWindowConstructorOptions = {
     icon,
     width: windowSize.width,
     height: windowSize.height,
-    backgroundColor: 'rgba(0,0,0,0.1)',
-    backgroundMaterial: is.macOS() ? undefined : config.get('options.backgroundMaterial'),
+    backgroundColor: "#000",
     show: false,
     webPreferences: {
       contextIsolation: true,
@@ -375,7 +374,15 @@ async function createMainWindow() {
           }),
     },
     ...decorations,
-  });
+  };
+
+  if (!is.macOS() && config.get('options.backgroundMaterial')) {
+    electronWindowSettings.backgroundColor = 'rgba(0,0,0,0.1)';
+    electronWindowSettings.backgroundMaterial = config.get('options.backgroundMaterial');
+  }
+
+  const win = new BrowserWindow(electronWindowSettings);
+
   await initHook(win);
   initTheme(win);
 

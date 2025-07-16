@@ -63,7 +63,7 @@ export default createPlugin({
     },
     stop({ window }) {
       window.setBackgroundMaterial?.('none');
-      globalConfig.set('options.backgroundMaterial', 'none');
+      globalConfig.set('options.backgroundMaterial', undefined);
     }
   },
   renderer: {
