@@ -766,7 +766,7 @@
       }
     },
     "skip-disliked-songs": {
-      "description": "Bỏ qua những bài hát không thích",
+      "description": "Tự động bỏ qua những bài hát bạn nhấn không thích",
       "name": "Bỏ qua bài hát không thích"
     },
     "skip-silences": {
@@ -839,7 +839,7 @@
       }
     },
     "taskbar-mediacontrol": {
-      "description": "Điều khiển nhạc từ thanh tác vụ Windows của bạn",
+      "description": "Điều khiển nhạc từ cửa sổ xem trước trên thanh tác vụ Windows của bạn",
       "name": "Điều khiển phương tiện trên thanh tác vụ"
     },
     "touchbar": {
@@ -869,9 +869,9 @@
         "mode": {
           "label": "Chế độ",
           "submenu": {
-            "custom": "Chuyển đổi tùy chỉnh",
+            "custom": "Tùy chỉnh",
             "disabled": "Vô hiệu hoá",
-            "native": "Chuyển đổi gốc"
+            "native": "Gốc"
           }
         }
       },
@@ -882,7 +882,7 @@
       }
     },
     "visualizer": {
-      "description": "Thay thế video thành sóng nhạc (hay \"Music visualizer\")",
+      "description": "Hiển thị sóng nhạc thay thế cho video (hay \"Music visualizer\")",
       "menu": {
         "visualizer-type": "Loại Sóng nhạc"
       },
