@@ -17,7 +17,6 @@ export class LRCLib implements LyricProvider {
     songDuration,
     tags,
   }: SearchSongInfo): Promise<LyricResult | null> {
-    
     let query = new URLSearchParams({
       artist_name: artist,
       track_name: title,
@@ -59,7 +58,7 @@ export class LRCLib implements LyricProvider {
       if (!Array.isArray(data)) {
         throw new Error(`Expected an array, instead got ${typeof data}`);
       }
-      
+
       // If still no results, try with the original title as fallback
       if (data.length === 0 && alternativeTitle) {
         query = new URLSearchParams({ q: title });
@@ -98,15 +97,15 @@ export class LRCLib implements LyricProvider {
         }
       }
 
-      let ratio = Math.max(
-        ...permutations.map(([x, y]) => jaroWinkler(x, y)),
-      );
+      let ratio = Math.max(...permutations.map(([x, y]) => jaroWinkler(x, y)));
 
       // If direct artist match is below threshold and we have tags, try matching with tags
       if (ratio <= 0.9 && tags && tags.length > 0) {
         // Filter out the artist from tags to avoid duplicate comparisons
-        const filteredTags = tags.filter(tag => tag.toLowerCase() !== artist.toLowerCase());
-        
+        const filteredTags = tags.filter(
+          (tag) => tag.toLowerCase() !== artist.toLowerCase(),
+        );
+
         const tagPermutations = [];
         // Compare each tag with each item artist
         for (const tag of filteredTags) {
@@ -114,19 +113,19 @@ export class LRCLib implements LyricProvider {
             tagPermutations.push([tag.toLowerCase(), itemArtist.toLowerCase()]);
           }
         }
-        
+
         // Compare each item artist with each tag
         for (const itemArtist of itemArtists) {
           for (const tag of filteredTags) {
             tagPermutations.push([itemArtist.toLowerCase(), tag.toLowerCase()]);
           }
         }
-        
+
         if (tagPermutations.length > 0) {
           const tagRatio = Math.max(
             ...tagPermutations.map(([x, y]) => jaroWinkler(x, y)),
           );
-          
+
           // Use the best match ratio between direct artist match and tag match
           ratio = Math.max(ratio, tagRatio);
         }

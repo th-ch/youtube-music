@@ -44,7 +44,6 @@ const providerBias = (p: ProviderName) =>
   (lyricsStore.lyrics[p].data?.lines?.length && p === 'YTMusic' ? 1 : 0) +
   (lyricsStore.lyrics[p].data?.lyrics ? 1 : -1);
 
-// prettier-ignore
 const pickBestProvider = () => {
   const providers = Array.from(providerNames);
 
@@ -56,15 +55,17 @@ const pickBestProvider = () => {
 const [hasManuallySwitchedProvider, setHasManuallySwitchedProvider] =
   createSignal(false);
 
-// prettier-ignore
-export const LyricsPicker = (props: { setStickRef: Setter<HTMLElement | null> }) => {
+export const LyricsPicker = (props: {
+  setStickRef: Setter<HTMLElement | null>;
+}) => {
   createEffect(() => {
     // fallback to the next source, if the current one has an error
-    if (!hasManuallySwitchedProvider()
-    ) {
+    if (!hasManuallySwitchedProvider()) {
       const bestProvider = pickBestProvider();
 
-      const allProvidersFailed = providerNames.every((p) => shouldSwitchProvider(lyricsStore.lyrics[p]));
+      const allProvidersFailed = providerNames.every((p) =>
+        shouldSwitchProvider(lyricsStore.lyrics[p]),
+      );
       if (allProvidersFailed) return;
 
       if (providerBias(lyricsStore.provider) < providerBias(bestProvider)) {
@@ -80,7 +81,9 @@ export const LyricsPicker = (props: { setStickRef: Setter<HTMLElement | null> })
     };
 
     _ytAPI?.addEventListener('videodatachange', videoDataChangeHandler);
-    onCleanup(() => _ytAPI?.removeEventListener('videodatachange', videoDataChangeHandler));
+    onCleanup(() =>
+      _ytAPI?.removeEventListener('videodatachange', videoDataChangeHandler),
+    );
   });
 
   const next = () => {
@@ -95,7 +98,9 @@ export const LyricsPicker = (props: { setStickRef: Setter<HTMLElement | null> })
     setHasManuallySwitchedProvider(true);
     setLyricsStore('provider', (prevProvider) => {
       const idx = providerNames.indexOf(prevProvider);
-      return providerNames[(idx + providerNames.length - 1) % providerNames.length];
+      return providerNames[
+        (idx + providerNames.length - 1) % providerNames.length
+      ];
     });
   };
 
@@ -109,7 +114,40 @@ export const LyricsPicker = (props: { setStickRef: Setter<HTMLElement | null> })
   return (
     <div class="lyrics-picker" ref={props.setStickRef}>
       <div class="lyrics-picker-left">
-        <tp-yt-paper-icon-button icon={chevronLeft} onClick={previous} />
+        <yt-icon-button
+          class="style-scope ytmusic-player-bar"
+          icon={chevronLeft}
+          onClick={previous}
+          role={'button'}
+        >
+          <span class="yt-icon-shape style-scope yt-icon yt-spec-icon-shape">
+            <div
+              style={{
+                'width': '100%',
+                'height': '100%',
+                'display': 'flex',
+                'align-items': 'center',
+                'fill': 'currentcolor',
+              }}
+            >
+              <svg
+                class="style-scope yt-icon"
+                preserveAspectRatio="xMidYMid meet"
+                viewBox="0 -960 960 960"
+                height={'40px'}
+                width={'40px'}
+                fill="#FFFFFF"
+              >
+                <g class="style-scope yt-icon">
+                  <path
+                    class="style-scope yt-icon"
+                    d="M560.67-240 320-480.67l240.67-240.66L608-674 414.67-480.67 608-287.33 560.67-240Z"
+                  />
+                </g>
+              </svg>
+            </div>
+          </span>
+        </yt-icon-button>
       </div>
 
       <div class="lyrics-picker-content">
@@ -138,7 +176,7 @@ export const LyricsPicker = (props: { setStickRef: Setter<HTMLElement | null> })
                     />
                   </Match>
                   <Match when={currentLyrics().state === 'error'}>
-                    <tp-yt-paper-icon-button
+                    <yt-icon-button
                       icon={errorIcon}
                       tabindex="-1"
                       style={{ padding: '5px', transform: 'scale(0.5)' }}
@@ -151,18 +189,20 @@ export const LyricsPicker = (props: { setStickRef: Setter<HTMLElement | null> })
                         currentLyrics().data?.lyrics)
                     }
                   >
-                    <tp-yt-paper-icon-button
+                    <yt-icon-button
                       icon={successIcon}
                       tabindex="-1"
                       style={{ padding: '5px', transform: 'scale(0.5)' }}
                     />
                   </Match>
-                  <Match when={
-                      currentLyrics().state === 'done'
-                      && !currentLyrics().data?.lines
-                      && !currentLyrics().data?.lyrics
-                    }>
-                    <tp-yt-paper-icon-button
+                  <Match
+                    when={
+                      currentLyrics().state === 'done' &&
+                      !currentLyrics().data?.lines &&
+                      !currentLyrics().data?.lyrics
+                    }
+                  >
+                    <yt-icon-button
                       icon={notFoundIcon}
                       tabindex="-1"
                       style={{ padding: '5px', transform: 'scale(0.5)' }}
@@ -194,7 +234,40 @@ export const LyricsPicker = (props: { setStickRef: Setter<HTMLElement | null> })
       </div>
 
       <div class="lyrics-picker-right">
-        <tp-yt-paper-icon-button icon={chevronRight} onClick={next} />
+        <yt-icon-button
+          class="style-scope ytmusic-player-bar"
+          icon={chevronRight}
+          onClick={next}
+          role={'button'}
+        >
+          <span class="yt-icon-shape style-scope yt-icon yt-spec-icon-shape">
+            <div
+              style={{
+                'width': '100%',
+                'height': '100%',
+                'display': 'flex',
+                'align-items': 'center',
+                'fill': 'currentcolor',
+              }}
+            >
+              <svg
+                class="style-scope yt-icon"
+                preserveAspectRatio="xMidYMid meet"
+                viewBox="0 -960 960 960"
+                height={'40px'}
+                width={'40px'}
+                fill="#FFFFFF"
+              >
+                <g class="style-scope yt-icon">
+                  <path
+                    class="style-scope yt-icon"
+                    d="M521.33-480.67 328-674l47.33-47.33L616-480.67 375.33-240 328-287.33l193.33-193.34Z"
+                  />
+                </g>
+              </svg>
+            </div>
+          </span>
+        </yt-icon-button>
       </div>
     </div>
   );

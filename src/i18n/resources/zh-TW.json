@@ -53,17 +53,17 @@
           "later": "稍後",
           "restart-now": "立即重啟"
         },
-        "detail": "\"{{pluginName}}\" 外掛需要重新啟動之後才會生效",
-        "message": "\"{{pluginName}}\" 需要重新啟動",
-        "title": "需要重新啟動"
+        "detail": "外掛 \"{{pluginName}}\" 需要重啟應用才會生效",
+        "message": "\"{{pluginName}}\" 需要重啟應用",
+        "title": "需要重啟應用"
       },
       "unresponsive": {
         "buttons": {
-          "quit": "結束",
-          "relaunch": "重新啟動",
-          "wait": "等一下"
+          "quit": "離開",
+          "relaunch": "重啟應用",
+          "wait": "稍等"
         },
-        "detail": "造成不便我們深表歉意！請選擇動作：",
+        "detail": "造成不便我們深表歉意！請選擇動作:",
         "message": "應用程式沒有回應",
         "title": "視窗沒有回應"
       },
@@ -73,7 +73,7 @@
           "download": "前往下載",
           "ok": "略過"
         },
-        "detail": "新版本已經推出，你可以至 {{downloadLink}} 下載",
+        "detail": "新版本已經推出，前往下載 {{downloadLink}}",
         "message": "有新版本可用",
         "title": "有可用的更新"
       }
@@ -83,11 +83,11 @@
       "navigation": {
         "label": "導覽列",
         "submenu": {
-          "copy-current-url": "複製目前頁面的網址",
-          "go-back": "回到上一頁",
-          "go-forward": "回到下一頁",
-          "quit": "結束",
-          "restart": "重新啟動"
+          "copy-current-url": "複製當前頁面的網址",
+          "go-back": "返回上一頁",
+          "go-forward": "前往下一頁",
+          "quit": "退出",
+          "restart": "重啟應用"
         }
       },
       "options": {
@@ -96,20 +96,20 @@
           "advanced-options": {
             "label": "進階選項",
             "submenu": {
-              "auto-reset-app-cache": "啟動時重設應用快取",
+              "auto-reset-app-cache": "啟動時清除應用程式快取",
               "disable-hardware-acceleration": "關閉硬體加速",
               "edit-config-json": "編輯 config.json",
               "override-user-agent": "覆寫使用者代理",
-              "restart-on-config-changes": "設定變更時自動重新啟動",
+              "restart-on-config-changes": "設定變更時自動重啟應用",
               "set-proxy": {
                 "label": "設定代理伺服器",
                 "prompt": {
                   "label": "輸入代理伺服器位置：（留空以停用本設定）",
-                  "placeholder": "範例：SOCKS5://127.0.0.1:9999",
+                  "placeholder": "例: SOCKS5://127.0.0.1:9999",
                   "title": "設定代理伺服器"
                 }
               },
-              "toggle-dev-tools": "切換開發者人員工具"
+              "toggle-dev-tools": "開發人員工具"
             }
           },
           "always-on-top": "最上層顯示",
@@ -123,7 +123,7 @@
           },
           "language": {
             "dialog": {
-              "message": "語言會在重新啟動後變更",
+              "message": "語言會在重啟應用後變更",
               "title": "語言已變更"
             },
             "label": "語言",
@@ -366,21 +366,26 @@
       "name": "繞過年齡驗證"
     },
     "captions-selector": {
-      "description": "YouTube Music 音軌字幕選擇器",
+      "description": "Youtube Music 音軌字幕選項",
       "menu": {
         "autoload": "自動選擇上次使用的字幕",
-        "disable-captions": "預設無標題"
+        "disable-captions": "預設無字幕"
       },
-      "name": "標題選擇器",
+      "name": "字幕選項",
       "prompt": {
         "selector": {
-          "label": "目前字幕語言：{{language}}",
+          "label": "當前語言: {{language}}",
           "none": "無",
           "title": "選擇字幕語言"
         }
       },
       "templates": {
-        "title": "打開標題選擇器"
+        "title": "開啟字幕選項"
+      },
+      "toast": {
+        "caption-changed": "字幕語言已更改至 {{language}}",
+        "caption-disabled": "字幕已停用",
+        "no-captions": "該首歌曲無可用的字幕"
       }
     },
     "compact-sidebar": {
@@ -600,7 +605,15 @@
     },
     "navigation": {
       "description": "允許應用程式上方顯示上一頁／下一頁按鈕",
-      "name": "導覽列"
+      "name": "導覽列",
+      "templates": {
+        "back": {
+          "title": "回到上一頁"
+        },
+        "forward": {
+          "title": "前往下一頁"
+        }
+      }
     },
     "no-google-login": {
       "description": "移除 Google 登入按鈕及連結",
@@ -692,7 +705,12 @@
         }
       },
       "description": "允許在影片內進行畫質更改",
-      "name": "允許變更影片畫質"
+      "name": "允許變更影片畫質",
+      "renderer": {
+        "quality-settings-button": {
+          "label": "開啟畫質調整器"
+        }
+      }
     },
     "scrobbler": {
       "description": "額外新增 scrobbling 支援 (例如：last.fm, Listenbrainz)",
@@ -859,7 +877,8 @@
       },
       "name": "歌曲／影片切換",
       "templates": {
-        "button": "歌曲"
+        "button-song": "歌曲",
+        "button-video": "影片"
       }
     },
     "visualizer": {

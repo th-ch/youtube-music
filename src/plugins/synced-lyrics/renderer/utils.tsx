@@ -10,10 +10,10 @@ import pinyin from 'tiny-pinyin';
 
 import { lazy } from 'lazy-var';
 
+import { detect } from 'tinyld';
+
 import { waitForElement } from '@/utils/wait-for-element';
 import { LyricsRenderer, setIsVisible } from './renderer';
-
-import { detect } from 'tinyld';
 
 export const selectors = {
   head: '#tabsContent > .tab-header:nth-of-type(2)',

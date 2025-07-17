@@ -381,7 +381,7 @@
         }
       },
       "templates": {
-        "button": "Lagu"
+        "button-song": "Lagu"
       }
     }
   }

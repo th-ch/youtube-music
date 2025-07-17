@@ -288,7 +288,7 @@ class MusixMatchAPI {
   private async getToken() {
     const endpoint = 'token.get';
     const params = new URLSearchParams({ app_id: this.app_id });
-    const [_, json, headers] = await netFetch(
+    const [, json, headers] = await netFetch(
       `${this.baseUrl}${endpoint}?${params}`,
       {
         headers: Object.assign({ Cookie: this.cookie }, this.headers),
