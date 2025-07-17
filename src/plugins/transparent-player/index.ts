@@ -18,7 +18,7 @@ const typeList = ['acrylic', 'mica', 'tabbed'] as Array<TransparentPlayerConfig[
 export default createPlugin({
   name: () => t('plugins.transparent-player.name'),
   description: () => t('plugins.transparent-player.description'),
-  addedVersion: '3.9.x',
+  addedVersion: '3.10.x',
   restartNeeded: true,
   config: defaultConfig,
   stylesheets: [style],

@@ -65,7 +65,10 @@ if (!is.macOS()) {
   delete (await allPlugins())['touchbar'];
 }
 if (!is.windows()) {
-  delete (await allPlugins())['taskbar-mediacontrol'];
+  allPlugins().then(plugins => {
+    delete plugins['taskbar-mediacontrol'];
+    delete plugins['transparent-player'];
+  })
 }
 
 // Catch errors and log them
