@@ -45,8 +45,8 @@
     "dialog": {
       "hide-menu-enabled": {
         "detail": "El menú está oculto, utiliza \"Alt\" para mostrarlo (o \"Escape\" si utilizas el menú integrado en la aplicación)",
-        "message": "Menú Oculto está habilitado",
-        "title": "Menú oculto habilitado"
+        "message": "El \"Menú Oculto\" está habilitado",
+        "title": "\"Menú oculto\" habilitado"
       },
       "need-to-restart": {
         "buttons": {
@@ -381,6 +381,11 @@
       },
       "templates": {
         "title": "Abrir el selector de subtítulos"
+      },
+      "toast": {
+        "caption-changed": "Subtítulos cambiados a {{language}}",
+        "caption-disabled": "Subtítulos desactivados",
+        "no-captions": "Sin subtítulos para ésta canción"
       }
     },
     "compact-sidebar": {
@@ -600,7 +605,15 @@
     },
     "navigation": {
       "description": "Flechas de navegación Siguiente/Atrás directamente integradas en la interfaz, como en tu navegador favorito",
-      "name": "Navegación"
+      "name": "Navegación",
+      "templates": {
+        "back": {
+          "title": "Volver a la página anterior"
+        },
+        "forward": {
+          "title": "Ir a la siguiente página"
+        }
+      }
     },
     "no-google-login": {
       "description": "Eliminar los botones y enlaces de inicio de sesión de Google de la interfaz",
@@ -692,7 +705,12 @@
         }
       },
       "description": "Permite cambiar la calidad del vídeo con un botón sobre puesto en el vídeo",
-      "name": "Ajustador de calidad de vídeo"
+      "name": "Ajustador de calidad de vídeo",
+      "renderer": {
+        "quality-settings-button": {
+          "label": "Abrir selector de calidad del reproductor"
+        }
+      }
     },
     "scrobbler": {
       "description": "Añadir soporte para scrobbling (last.fm, Listenbrainz, etc.)",
@@ -712,7 +730,7 @@
           "token": "Introduzca el token de usuario de ListenBrainz"
         },
         "scrobble-alternative-title": "Usar títulos alternativos",
-        "scrobble-other-media": "Scrobble en otros medios"
+        "scrobble-other-media": "Hacer Scrobble sobre otros medios"
       },
       "name": "Scrobbler",
       "prompt": {
@@ -762,8 +780,8 @@
     "synced-lyrics": {
       "description": "Proporciona letras de canciones sincronizadas, utilizando proveedores como LRClib.",
       "errors": {
-        "fetch": "⚠️\tHa ocurrido un error al obtener la letra.\n\tPor favor, inténtalo de nuevo más tarde.",
-        "not-found": "⚠️ No se ha encontrado ninguna letra para esta canción."
+        "fetch": "⚠️\tSe produjo un error al obtener la letra.\n\tPor favor, inténtelo de nuevo más tarde.",
+        "not-found": "⚠️ No se han encontrado letras para esta canción."
       },
       "menu": {
         "default-text-string": {
@@ -859,7 +877,8 @@
       },
       "name": "Alternador de vídeo",
       "templates": {
-        "button-song": "Canción"
+        "button-song": "Canción",
+        "button-video": "Vídeo"
       }
     },
     "visualizer": {

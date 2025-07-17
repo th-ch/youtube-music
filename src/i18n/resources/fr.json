@@ -280,7 +280,7 @@
       "name": "Mode ambiant"
     },
     "amuse": {
-      "description": "Ajoute la prise en charge de YouTube Music pour le widget de lecture en cours Amuse par 6K Labs",
+      "description": "Ajout de la prise en charge de YouTube Music pour le widget Amuse now playing de 6K Labs",
       "name": "Amuse",
       "response": {
         "query": "Le serveur API Amuse est en cours d'exécution. Envoyez une requête GET /query pour obtenir des informations sur la chanson."
@@ -320,11 +320,11 @@
       "name": "Serveur API [Beta]",
       "prompt": {
         "hostname": {
-          "label": "Entrer le nom de l'hôte (par exemple 0.0.0.0) pour le serveur API:",
+          "label": "Entrer le nom de l'hôte (par exemple : 0.0.0.0) pour le serveur API :",
           "title": "Nom d'hôte"
         },
         "port": {
-          "label": "Entrez le port du serveur de l'API:",
+          "label": "Entrez le port du serveur de l'API :",
           "title": "Port"
         }
       }
@@ -381,6 +381,11 @@
       },
       "templates": {
         "title": "Ouvrir le sélecteur de sous-titres"
+      },
+      "toast": {
+        "caption-changed": "Sous-titres changés en {{language}}",
+        "caption-disabled": "Sous-titres désactivés",
+        "no-captions": "Aucun sous-titre disponible pour cette chanson"
       }
     },
     "compact-sidebar": {
@@ -600,7 +605,15 @@
     },
     "navigation": {
       "description": "Flèches de navigation Suivant/Retour directement intégrées dans l'interface, comme dans votre navigateur préféré",
-      "name": "Navigation"
+      "name": "Navigation",
+      "templates": {
+        "back": {
+          "title": "Revenir à la page précédente"
+        },
+        "forward": {
+          "title": "Aller à la page suivante"
+        }
+      }
     },
     "no-google-login": {
       "description": "Supprimer les boutons et liens de connexion Google de l'interface",
@@ -692,7 +705,12 @@
         }
       },
       "description": "Permet de changer la qualité vidéo avec un bouton sur la vidéo",
-      "name": "Changeur de qualité vidéo"
+      "name": "Changeur de qualité vidéo",
+      "renderer": {
+        "quality-settings-button": {
+          "label": "Ouvrir le sélecteur de qualité du lecteur"
+        }
+      }
     },
     "scrobbler": {
       "description": "Ajouter le support de scrobbling (ex. last.fm, Listenbrainz)",
@@ -859,7 +877,8 @@
       },
       "name": "Basculer la vidéo",
       "templates": {
-        "button-song": "Musique"
+        "button-song": "Musique",
+        "button-video": "Vidéo"
       }
     },
     "visualizer": {

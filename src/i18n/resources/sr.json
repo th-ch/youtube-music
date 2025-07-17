@@ -132,7 +132,7 @@
             }
           },
           "resume-on-start": "Nastavi trenutnu numeru pri sledećem pokretanju",
-          "single-instance-lock": "Jedna instanca aplikacije",
+          "single-instance-lock": "Sprečavanje višestrukog pokretanja",
           "start-at-login": "Pokreni po prijavi u sistem",
           "starting-page": {
             "label": "Početna strana",
@@ -713,7 +713,7 @@
       }
     },
     "scrobbler": {
-      "description": "Dodaj podršku za 'scrobbling' (poput last.fm, Listenbrainz)",
+      "description": "Dodaj podršku za 'četkanje' (poput last.fm, Listenbrainz)",
       "dialog": {
         "lastfm": {
           "auth-failed": {
@@ -727,21 +727,21 @@
           "api-settings": "Podešavanja za Last.fm API"
         },
         "listenbrainz": {
-          "token": "Unesi korisnički token za ListenBrainz"
+          "token": "Unesi korisnički žeton za ListenBrainz"
         },
         "scrobble-alternative-title": "Koristi alternativne naslove",
-        "scrobble-other-media": "'Scrobble'-uj druge medije"
+        "scrobble-other-media": "Učetkaj druge medije"
       },
-      "name": "Scrobbler",
+      "name": "Četkarnik",
       "prompt": {
         "lastfm": {
           "api-key": "Last.fm API ključ",
-          "api-secret": "Last.fm API tajna (secret)"
+          "api-secret": "Last.fm API tajna"
         },
         "listenbrainz": {
           "token": {
-            "label": "Unesi svoj ListenBrainz korisnički token:",
-            "title": "ListenBrainz token"
+            "label": "Unesi svoj ListenBrainz korisnički žeton:",
+            "title": "ListenBrainz žeton"
           }
         }
       }
@@ -750,7 +750,7 @@
       "description": "Dozvoljava postavljanje globalnih prečica na tastaturi za reproduciju (pusti/pauziraj/sledeće/prethodno) i isključivanje OSD za medije tako što će prepisati tastere za medije, uključiti Ctrl/CMD + F za pretragu, isključiti MPRIS podršku za medija tastere na Linux-u, i prilagođene prečice za napredne korisnike",
       "menu": {
         "override-media-keys": "Prepiši medija tastere",
-        "set-keybinds": "Podesi globalne kontrole za numere"
+        "set-keybinds": "Podesi globalne kontrole za pesme"
       },
       "name": "Prečice (& MPRIS)",
       "prompt": {
@@ -760,27 +760,27 @@
             "play-pause": "Pusti / Pauziraj",
             "previous": "Prethodno"
           },
-          "label": "Izaberi globalne prečice za upravljanje numerama:",
+          "label": "Izaberi globalne prečice za upravljanje pesmama:",
           "title": "Globalne prečice na tastaturi"
         }
       }
     },
     "skip-disliked-songs": {
-      "description": "Preskače numere koje su označene sa 'Ne sviđa mi se'",
-      "name": "Preskoči pesme označene sa 'Ne sviđa mi se'"
+      "description": "Preskače pesme koje vam se nisu svidele",
+      "name": "Preskočite pesme koje vam se nisu svidele"
     },
     "skip-silences": {
-      "description": "Automatski preskoči delove numera u kojima je tišina",
+      "description": "Automatski preskočite delove pesama gde nema zvuka",
       "name": "Preskoči tišine"
     },
     "sponsorblock": {
-      "description": "Automatski preskače delove numera koji nisu muzika poput uvod/odjava ili delove muzičkih spotova u kojima se muzika ne pušta",
+      "description": "Automatski preskače delove pesama koji nisu muzika poput uvod/odjava ili delove muzičkih spotova u kojima nema muzike",
       "name": "Blok sponzora"
     },
     "synced-lyrics": {
-      "description": "Obezbeđuje sinhronizovane tekstove pesama, korišćenjem dobavljača poput LRClib.",
+      "description": "Obezbeđuje sinhronizovane lirike pesama, korišćenjem dobavljača poput LRClib.",
       "errors": {
-        "fetch": "⚠️\tDošlo je do greške prilikom dobavljanja teksta pesme.\n\tMolimo vas da pokušate ponovo kasnije.",
+        "fetch": "⚠️\tDošlo je do greške prilikom dobavljanja stihova pesme.\n\tMolimo vas da pokušate ponovo kasnije.",
         "not-found": "⚠️ Tekst za ovu pesmu nije pronađen."
       },
       "menu": {
@@ -792,7 +792,7 @@
           "label": "Efekat linije",
           "submenu": {
             "fancy": {
-              "label": "Fensi",
+              "label": "Kitnjast",
               "tooltip": "Koristi velike (kao iz aplikacije) efekte na trenutnu liniju"
             },
             "focus": {
@@ -800,8 +800,8 @@
               "tooltip": "Učini samo trenutnu liniju belom"
             },
             "offset": {
-              "label": "Pomeraj (offset)",
-              "tooltip": "Pomeraj (offset) na trenutnoj liniji"
+              "label": "Pomeraj",
+              "tooltip": "Pomeraj na trenutnoj liniji"
             },
             "scale": {
               "label": "Razmera",
@@ -812,7 +812,7 @@
         },
         "precise-timing": {
           "label": "Učini da tekst pesme bude savršeno usklađen",
-          "tooltip": "Izračunaj do milisekunde prikaz sledeće linije teksta (može malo uticati na performanse)"
+          "tooltip": "Izračunaj do milisekunde prikaz sledeće linije teksta (može malo uticati na učinak)"
         },
         "romanization": {
           "label": "Romanizuj tekstove pesama",
@@ -820,7 +820,7 @@
         },
         "show-lyrics-even-if-inexact": {
           "label": "Prikaži tekst pesme čak iako nije tačan",
-          "tooltip": "Ako numera nije pronađena, ekstenzija će pokušati ponovo sa novim upitom za pretragu.\nRezultat iz drugog pokušaja možda neće biti tačan."
+          "tooltip": "Ako pesma nije pronađena, produžetak će pokušati ponovo sa novim upitom za pretragu.\nRezultat iz drugog pokušaja možda neće biti tačan."
         },
         "show-time-codes": {
           "label": "Prikaži vremenske oznake",
@@ -835,7 +835,7 @@
       "warnings": {
         "duration-mismatch": "⚠️ - Tekst pesme možda nije usklađen zbog neuklapanja u dužini trajanja.",
         "inexact": "⚠️ - Tekst za ovu pesmu možda nije tačan",
-        "instrumental": "⚠️ - Ovo je instrumentalna numera"
+        "instrumental": "⚠️ - Ovo je instrumentalna pesma"
       }
     },
     "taskbar-mediacontrol": {
@@ -843,15 +843,15 @@
       "name": "Upravljanje medijima iz trake sa zadacima"
     },
     "touchbar": {
-      "description": "Dodaje 'TouchBar' vidžet za macOS korisnike",
-      "name": "TouchBar"
+      "description": "Dodaje dodatak dodirne trake za macOS korisnike",
+      "name": "Dodirna Traka"
     },
     "tuna-obs": {
-      "description": "Integracija sa OBS-ovom ekstenzijom Tuna",
+      "description": "Integracija sa OBS-ovim Tuna dodatkom",
       "name": "Tuna OBS"
     },
     "unobtrusive-player": {
-      "description": "Onemogućava plejeru da iskače kada reprodukuje numeru",
+      "description": "Onemogućava plejeru da iskače u toku pokretanja pesme",
       "name": "Nenametljivi plejer"
     },
     "video-toggle": {
@@ -877,7 +877,7 @@
       },
       "name": "Video prebacivanje",
       "templates": {
-        "button-song": "Numera",
+        "button-song": "Pesma",
         "button-video": "Video"
       }
     },

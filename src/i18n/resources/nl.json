@@ -345,7 +345,7 @@
           "label": "Poort"
         }
       },
-      "name": "Auth proxy adapter",
+      "name": "Proxy-authenticatieadapter",
       "prompt": {
         "hostname": {
           "label": "Hostname voor lokale proxy server (vereist herstart):",
@@ -381,6 +381,11 @@
       },
       "templates": {
         "title": "Open ondertitelkeuze"
+      },
+      "toast": {
+        "caption-changed": "Ondertitel veranderd naar {{language}}",
+        "caption-disabled": "Ondertitels uitgeschakeld",
+        "no-captions": "Geen ondertitels beschikbaar voor dit lied"
       }
     },
     "compact-sidebar": {
@@ -600,7 +605,15 @@
     },
     "navigation": {
       "description": "Volgende/Vorige navigatiepijlen rechtstreeks geïntegreerd in de interface, zoals in je favoriete browser",
-      "name": "Navigatie"
+      "name": "Navigatie",
+      "templates": {
+        "back": {
+          "title": "Ga naar de vorige pagina"
+        },
+        "forward": {
+          "title": "Ga naar de volgende pagina"
+        }
+      }
     },
     "no-google-login": {
       "description": "Verwijder Google aanmeldknoppen en -links uit de interface",
@@ -692,7 +705,12 @@
         }
       },
       "description": "Maakt het mogelijk de videokwaliteit te wijzigen met een knop op de video-overlay",
-      "name": "Videokwaliteitwisselaar"
+      "name": "Videokwaliteitwisselaar",
+      "renderer": {
+        "quality-settings-button": {
+          "label": "Open speler kwaliteitswisselaar"
+        }
+      }
     },
     "scrobbler": {
       "description": "Ondersteuning voor scrobbling toevoegen (etc. last.fm, Listenbrainz)",
@@ -859,7 +877,8 @@
       },
       "name": "Videoschakelaar",
       "templates": {
-        "button-song": "Nummer"
+        "button-song": "Nummer",
+        "button-video": "Video"
       }
     },
     "visualizer": {
