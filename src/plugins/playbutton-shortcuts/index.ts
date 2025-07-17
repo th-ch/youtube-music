@@ -37,7 +37,8 @@ export default createPlugin<
         key: null,
         observer: null,
         start() {
-            window.navigation.addEventListener('navigate', () => this.onChangePage());
+            window.navigation.addEventListener
+            ('navigate', () => this.onChangePage());
         },
         cleanup() {
             document.removeEventListener('keydown', this.keydownEvent);
@@ -73,14 +74,16 @@ export default createPlugin<
 
             this.waiting = true;
             this.popup()!.style.display = 'none';
-            console.log('Popclicker');
-            const operationStr = shortCuts[this.key as keyof typeof shortCuts];
+            
+            const operationStr = shortCuts
+            [this.key as keyof typeof shortCuts];
 
             const length = this.popup()!.children.length;
             console.log(length);
             for (let i = 0; i < length; i++) {
                 const item = this.popup()!.children[i];
-                const strTag = item.querySelector('yt-formatted-string') as HTMLElement;
+                const strTag = item.querySelector
+                ('yt-formatted-string') as HTMLElement;
 
                 if (strTag.innerHTML == operationStr) {
                     if (item.querySelector('a')) {
@@ -97,7 +100,8 @@ export default createPlugin<
             }, 1000);
         },
         keydownEvent(e: KeyboardEvent) {
-            if (Object.keys(shortCuts).includes(e.key)) this.key = e.key;
+            if (Object.keys(shortCuts).includes(e.key))
+                this.key = e.key;
         },
         keyupEvent(e: KeyboardEvent) {
             this.key = null;
