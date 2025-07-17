@@ -96,7 +96,7 @@
           "advanced-options": {
             "label": "Tùy chọn nâng cao",
             "submenu": {
-              "auto-reset-app-cache": "Làm mới bộ nhớ đệm khi khởi động ứng dụng",
+              "auto-reset-app-cache": "Làm mới bộ nhớ đệm khi mở ứng dụng",
               "disable-hardware-acceleration": "Vô hiệu hóa tăng tốc phần cứng",
               "edit-config-json": "Chỉnh sửa config.json",
               "override-user-agent": "Ghi đè User-Agent",
@@ -202,7 +202,7 @@
       "show": "Hiện cửa sổ",
       "tooltip": {
         "default": "YouTube Music",
-        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
+        "with-song-info": "YouTube Music: {{title}} - {{artist}}"
       }
     }
   },
@@ -521,7 +521,7 @@
       }
     },
     "equalizer": {
-      "description": "Thêm bộ lọc xì vào trình phát nhạc",
+      "description": "Thêm bộ lọc xì vào trình phát nhạc\nP.S: Bộ lọc xì (Equalizer), là một thiết bị được thiết kế để phân chia, tăng, giảm, cắt các dải tần số âm thanh để mang tới sự cân bằng và làm thay đổi các tín hiệu âm thanh đi qua nó",
       "menu": {
         "presets": {
           "label": "Thiết lập có sẵn",
@@ -778,18 +778,18 @@
       "name": "SponsorBlock"
     },
     "synced-lyrics": {
-      "description": "Cung cấp lời bài hát được đồng bộ hoá với các bài hát, sử dụng những nhà cung cấp như LRClib.",
+      "description": "Cung cấp lời được đồng bộ với bài hát, sử dụng các nhà cung cấp như LRClib.",
       "errors": {
         "fetch": "⚠️\t\tĐã xảy ra lỗi khi tìm lời bài hát.\n\tVui lòng thử lại sau.",
         "not-found": "⚠️ Không tìm thấy lời cho bài hát này."
       },
       "menu": {
         "default-text-string": {
-          "label": "Kí tự mặc định giữa các lời bài hát",
+          "label": "Kí tự giữa các lời bài hát",
           "tooltip": "Chọn kí tự mặc định cho khoảng trống giữa các lời bài hát"
         },
         "line-effect": {
-          "label": "Kiểu đường thẳng",
+          "label": "Kiểu lời nhạc",
           "submenu": {
             "fancy": {
               "label": "Màu mè",
