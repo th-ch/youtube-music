@@ -65,7 +65,10 @@ if (!is.macOS()) {
   delete (await allPlugins())['touchbar'];
 }
 if (!is.windows()) {
-  delete (await allPlugins())['taskbar-mediacontrol'];
+  allPlugins().then(plugins => {
+    delete plugins['taskbar-mediacontrol'];
+    delete plugins['transparent-player'];
+  })
 }
 
 // Catch errors and log them
@@ -356,11 +359,11 @@ async function createMainWindow() {
     delete decorations.titleBarStyle;
   }
 
-  const win = new BrowserWindow({
+  const electronWindowSettings: Electron.BrowserWindowConstructorOptions = {
     icon,
     width: windowSize.width,
     height: windowSize.height,
-    backgroundColor: '#000',
+    backgroundColor: "#000",
     show: false,
     webPreferences: {
       contextIsolation: true,
@@ -374,7 +377,15 @@ async function createMainWindow() {
           }),
     },
     ...decorations,
-  });
+  };
+
+  if (!is.macOS() && config.get('options.backgroundMaterial')) {
+    electronWindowSettings.backgroundColor = 'rgba(0,0,0,0.1)';
+    electronWindowSettings.backgroundMaterial = config.get('options.backgroundMaterial');
+  }
+
+  const win = new BrowserWindow(electronWindowSettings);
+
   await initHook(win);
   initTheme(win);
 
