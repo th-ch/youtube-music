@@ -705,7 +705,12 @@
         }
       },
       "description": "Permette di cambiare la qualità del video con un pulsante in sovrimpressione",
-      "name": "Cambia qualità video"
+      "name": "Cambia qualità video",
+      "renderer": {
+        "quality-settings-button": {
+          "label": "Open player quality changer"
+        }
+      }
     },
     "scrobbler": {
       "description": "Aggiunge il supporto per lo scrobbling (Last.fm, Listenbrainz ecc.)",
