@@ -708,7 +708,7 @@
       "name": "Cambia qualità video",
       "renderer": {
         "quality-settings-button": {
-          "label": "Open player quality changer"
+          "label": "Apri il selettore di qualità del player"
         }
       }
     },
