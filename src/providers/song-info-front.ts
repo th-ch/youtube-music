@@ -206,12 +206,30 @@ export default (api: YoutubePlayer) => {
     );
 
   const waitingEvent = new Set<string>();
+  const waitingTimeouts = new Map<string, NodeJS.Timeout>();
+
+  const clearVideoTimeout = (videoId: string) => {
+    const timeoutId = waitingTimeouts.get(videoId);
+
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+      waitingTimeouts.delete(videoId);
+    }
+  };
+
+  const clearAllTimeouts = () => {
+    waitingTimeouts.forEach((timeoutId) => clearTimeout(timeoutId));
+    waitingTimeouts.clear();
+  };
+
   // Name = "dataloaded" and abit later "dataupdated"
+  // Sometimes "dataupdated" is not fired, so we need to fallback to "dataloaded"
   api.addEventListener('videodatachange', (name, videoData) => {
     videoEventDispatcher(name, videoData);
 
     if (name === 'dataupdated' && waitingEvent.has(videoData.videoId)) {
       waitingEvent.delete(videoData.videoId);
+      clearVideoTimeout(videoData.videoId);
       sendSongInfo(videoData);
     } else if (name === 'dataloaded') {
       const video = document.querySelector<HTMLVideoElement>('video');
@@ -222,9 +240,22 @@ export default (api: YoutubePlayer) => {
         video?.addEventListener(status, playPausedHandlers[status]);
       }
 
+      clearVideoTimeout(videoData.videoId);
       waitingEvent.add(videoData.videoId);
+
+      const timeoutId = setTimeout(() => {
+        if (waitingEvent.has(videoData.videoId)) {
+          waitingEvent.delete(videoData.videoId);
+          waitingTimeouts.delete(videoData.videoId);
+          sendSongInfo(videoData);
+        }
+      }, 1500);
+
+      waitingTimeouts.set(videoData.videoId, timeoutId);
     }
   });
+
+  window.addEventListener('beforeunload', clearAllTimeouts);
 
   const video = document.querySelector('video');
 
