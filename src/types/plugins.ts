@@ -38,6 +38,13 @@ export type RendererPluginLifecycle<Config, Context, This> =
   | PluginLifecycleSimple<Context, This>
   | RendererPluginLifecycleExtra<Config, Context, This>;
 
+export enum Platform {
+  Windows,
+  macOS,
+  Linux,
+  Freebsd
+}
+
 export interface PluginDef<
   BackendProperties,
   PreloadProperties,
@@ -49,6 +56,7 @@ export interface PluginDef<
   description?: () => string;
   addedVersion?: string;
   config?: Config;
+  platform?: Platform;
 
   menu?: (
     ctx: MenuContext<Config>,
