@@ -249,7 +249,7 @@ export default (api: YoutubePlayer) => {
           waitingTimeouts.delete(videoData.videoId);
           sendSongInfo(videoData);
         }
-      }, 1500);
+      }, DATAUPDATED_FALLBACK_TIMEOUT_MS);
 
       waitingTimeouts.set(videoData.videoId, timeoutId);
     }
