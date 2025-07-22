@@ -11,6 +11,8 @@ import type {
 import type { SongInfo } from './song-info';
 import type { VideoDataChanged } from '@/types/video-data-changed';
 
+const DATAUPDATED_FALLBACK_TIMEOUT_MS = 1500;
+
 let songInfo: SongInfo = {} as SongInfo;
 export const getSongInfo = () => songInfo;
 
