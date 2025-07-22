@@ -255,7 +255,7 @@ export default (api: YoutubePlayer) => {
     }
   });
 
-  window.addEventListener('beforeunload', clearAllTimeouts);
+  window.addEventListener('beforeunload', clearAllTimeouts, { once: true });
 
   const video = document.querySelector('video');
 
