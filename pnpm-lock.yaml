@@ -18,7 +18,7 @@ patchedDependencies:
     hash: c787371eeb2af011ea934e8818a0dad6d7dcb2df31bbb1686babc7231af0183c
     path: patches/@malept__flatpak-bundler@0.4.0.patch
   electron-is:
-    hash: 4283068c3b9eec7e5330b4ad30450fc0e8154693c47434113e07ee00710f6073
+    hash: 08664a5453f092fe45542f9005ffc07527b1f207447318374cba0f4d30f466a0
     path: patches/electron-is.patch
   file-type@16.5.4:
     hash: fa6e3546c096bc3579fd83808c2dfac1a64546eb2ce096bf838076bda630baf5
@@ -120,7 +120,7 @@ importers:
         version: 4.1.0
       electron-is:
         specifier: 3.0.0
-        version: 3.0.0(patch_hash=4283068c3b9eec7e5330b4ad30450fc0e8154693c47434113e07ee00710f6073)
+        version: 3.0.0(patch_hash=08664a5453f092fe45542f9005ffc07527b1f207447318374cba0f4d30f466a0)
       electron-localshortcut:
         specifier: 3.2.1
         version: 3.2.1
@@ -7076,7 +7076,7 @@ snapshots:
 
   electron-is-dev@3.0.1: {}
 
-  electron-is@3.0.0(patch_hash=4283068c3b9eec7e5330b4ad30450fc0e8154693c47434113e07ee00710f6073):
+  electron-is@3.0.0(patch_hash=08664a5453f092fe45542f9005ffc07527b1f207447318374cba0f4d30f466a0):
     dependencies:
       electron-is-dev: 0.3.0
       semver: 5.7.2

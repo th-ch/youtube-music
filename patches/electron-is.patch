@@ -1,11 +1,3 @@
-diff --git a/.vscode/settings.json b/.vscode/settings.json
-new file mode 100644
-index 0000000000000000000000000000000000000000..9e26dfeeb6e641a33dae4961196235bdb965b21b
---- /dev/null
-+++ b/.vscode/settings.json
-@@ -0,0 +1 @@
-+{}
-\ No newline at end of file
 diff --git a/is.d.ts b/is.d.ts
 index fb861f7b401914f0f89cb4edf25c51df5cb05812..82144733cd34d88e2deb2e4713b104418e673f2e 100644
 --- a/is.d.ts
