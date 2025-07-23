@@ -383,7 +383,7 @@
         "title": "Mở lựa chọn phụ đề"
       },
       "toast": {
-        "caption-changed": "Phụ đề chuyển sang {{language}}",
+        "caption-changed": "Phụ đề đã chuyển sang {{language}}",
         "caption-disabled": "Tắt phụ đề",
         "no-captions": "Không có phụ đề nào cho bài hát này"
       }
