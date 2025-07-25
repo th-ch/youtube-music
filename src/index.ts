@@ -59,13 +59,22 @@ import ErrorHtmlAsset from '@assets/error.html?asset';
 
 import { defaultAuthProxyConfig } from '@/plugins/auth-proxy-adapter/config';
 
-import type { PluginConfig } from '@/types/plugins';
+import { Platform, type PluginConfig } from '@/types/plugins';
 
-if (!is.macOS()) {
-  delete (await allPlugins())['touchbar'];
-}
-if (!is.windows()) {
-  delete (await allPlugins())['taskbar-mediacontrol'];
+{
+  const plugins = await allPlugins();
+  for (const [name, def] of Object.entries(plugins)) {
+    if (typeof def.platform === "undefined") continue;
+    if (
+      (is.macOS() && (def.platform & Platform.macOS) === 0) ||
+      (is.windows() && (def.platform & Platform.Windows) === 0) ||
+      (is.linux() && (def.platform & Platform.Linux) === 0) ||
+      (is.freebsd() && (def.platform & Platform.Freebsd) === 0)
+    ) {
+      delete plugins[name];
+      continue;
+    }
+  }
 }
 
 // Catch errors and log them
