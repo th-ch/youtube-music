@@ -156,6 +156,13 @@
                 "hide": "Hide",
                 "label": "Like buttons"
               },
+              "custom-window-title": {
+                "label": "Custom window title",
+                "prompt": {
+                  "label": "Enter custom window title: (leave empty to disable)",
+                  "placeholder": "Example: YouTube Music"
+                }
+              },
               "remove-upgrade-button": "Remove upgrade button",
               "theme": {
                 "dialog": {
@@ -349,11 +356,11 @@
       "prompt": {
         "hostname": {
           "title": "Proxy Hostname",
-        "label": "Enter hostname for local proxy server (requires restart):"
+          "label": "Enter hostname for local proxy server (requires restart):"
         },
         "port": {
           "title": "Proxy Port",
-        "label": "Enter port for local proxy server (requires restart):"
+          "label": "Enter port for local proxy server (requires restart):"
         }
       }
     },
