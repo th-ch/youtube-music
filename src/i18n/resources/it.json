@@ -573,7 +573,7 @@
         "connected-users": "Utenti connessi",
         "disconnect": "Disconetti Music Together",
         "empty-user": "Utenti non connessi",
-        "host": "Music Together Host",
+        "host": "Host di Music Together",
         "join": "Unisciti a Music Together",
         "permission": {
           "all": "Consenti ai Guest di controllare la playlist e il player",
@@ -646,13 +646,13 @@
       "menu": {
         "always-on-top": "Sempre in primo piano",
         "hotkey": {
-          "label": "Hotkey",
+          "label": "Tasto di scelta rapida",
           "prompt": {
             "keybind-options": {
-              "hotkey": "Hotkey"
+              "hotkey": "Tasto di scelta rapida"
             },
             "label": "Scegliere un'hotkey per attivare Picture-in-picture",
-            "title": "Picture-in-picture Hotkey"
+            "title": "Tasto di scelta rapida per Picture-in-picture"
           }
         },
         "save-window-position": "Salva la posizione della finestra",
@@ -705,7 +705,12 @@
         }
       },
       "description": "Permette di cambiare la qualità del video con un pulsante in sovrimpressione",
-      "name": "Cambia qualità video"
+      "name": "Cambia qualità video",
+      "renderer": {
+        "quality-settings-button": {
+          "label": "Apri il selettore di qualità del player"
+        }
+      }
     },
     "scrobbler": {
       "description": "Aggiunge il supporto per lo scrobbling (Last.fm, Listenbrainz ecc.)",
@@ -761,7 +766,7 @@
       }
     },
     "skip-disliked-songs": {
-      "description": "Salta i brani che non ti piacciono",
+      "description": "Salta le canzoni non gradite",
       "name": "Salta i brani che non ti piacciono"
     },
     "skip-silences": {

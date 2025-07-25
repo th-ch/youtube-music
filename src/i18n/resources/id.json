@@ -381,6 +381,11 @@
       },
       "templates": {
         "title": "Buka pemilih caption"
+      },
+      "toast": {
+        "caption-changed": "caption diganti ke bahasa {{language}}",
+        "caption-disabled": "Caption dinonaktifkan",
+        "no-captions": "tidak tersedia caption untuk lagu ini"
       }
     },
     "compact-sidebar": {
@@ -600,7 +605,15 @@
     },
     "navigation": {
       "description": "panah navigasi Selanjutnya/Sebelumnya terintegrasi pada antarmuka, layaknya peramban kesukaan Anda",
-      "name": "Navigasi"
+      "name": "Navigasi",
+      "templates": {
+        "back": {
+          "title": "Kunjungi halaman sebelumnya"
+        },
+        "forward": {
+          "title": "pergi ke halaman berikutnya"
+        }
+      }
     },
     "no-google-login": {
       "description": "Hapus tombol dan tautan masuk Google dari antarmuka",
@@ -692,7 +705,12 @@
         }
       },
       "description": "Izinkan untuk mengubah kualitas video dengan tombol pada hamparan video",
-      "name": "Pengubah Kualitas Video"
+      "name": "Pengubah Kualitas Video",
+      "renderer": {
+        "quality-settings-button": {
+          "label": "pengubah kualitas pemain terbuka"
+        }
+      }
     },
     "scrobbler": {
       "description": "Tambahkan dukungan scrobbling (mis. last.fm, Listenbrainz)",
@@ -859,7 +877,8 @@
       },
       "name": "Peralih Video",
       "templates": {
-        "button-song": "Lagu"
+        "button-song": "Lagu",
+        "button-video": "video"
       }
     },
     "visualizer": {
