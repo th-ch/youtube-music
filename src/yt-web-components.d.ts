@@ -41,17 +41,22 @@ declare module 'solid-js' {
 
     interface IntrinsicElements extends MDUIElements {
       'center': ComponentProps<'div'>;
+      'yt-formatted-string': ComponentProps<'span'> & YtFormattedStringProps;
+      'yt-button-renderer': ComponentProps<'button'> & YtButtonRendererProps;
+      'tp-yt-paper-spinner-lite': ComponentProps<'div'> &
+        YpYtPaperSpinnerLiteProps;
+
+      'tp-yt-paper-icon-button': ComponentProps<'div'> &
+        TpYtPaperIconButtonProps;
+      'yt-icon-button': ComponentProps<'div'> & TpYtPaperIconButtonProps;
+      'yt-icon': ComponentProps<'div'> & TpYtPaperIconButtonProps;
+      'center': ComponentProps<'div'>;
       'ytmd-trans': ComponentProps<'span'> & YtmdTransProps;
       'yt-formatted-string': ComponentProps<'span'> & YtFormattedStringProps;
       'yt-button-renderer': ComponentProps<'button'> & YtButtonRendererProps;
       'yt-touch-feedback-shape': ComponentProps<'div'>;
-      'tp-yt-paper-spinner-lite': ComponentProps<'div'> &
-        YpYtPaperSpinnerLiteProps;
-      'tp-yt-paper-icon-button': ComponentProps<'div'> &
-        TpYtPaperIconButtonProps;
-      'yt-icon-button': ComponentProps<'div'> & TpYtPaperIconButtonProps;
+
       'tp-yt-iron-icon': ComponentProps<'div'>;
-      'yt-icon': ComponentProps<'div'>;
       // input type="range" slider component
       'tp-yt-paper-slider': ComponentProps<'input'> & {
         'value'?: number | string;
