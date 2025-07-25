@@ -349,11 +349,11 @@
       "prompt": {
         "hostname": {
           "title": "Proxy Hostname",
-        "label": "Enter hostname for local proxy server (requires restart):"
+          "label": "Enter hostname for local proxy server (requires restart):"
         },
         "port": {
           "title": "Proxy Port",
-        "label": "Enter port for local proxy server (requires restart):"
+          "label": "Enter port for local proxy server (requires restart):"
         }
       }
     },
@@ -836,6 +836,25 @@
         "duration-mismatch": "⚠️ - The lyrics may be out of sync due to a duration mismatch.",
         "inexact": "⚠️ - The lyrics for this song may not be exact",
         "instrumental": "⚠️ - This is an instrumental song"
+      }
+    },
+    "settings-ui": {
+      "name": "Settings UI",
+      "description": "todo!()",
+      "button": "Settings",
+      "title": {
+        "general": "General",
+        "appearance": "Appearance",
+        "plugins": "Plugins",
+        "advanced": "Advanced",
+        "about": "About"
+      },
+      "label": {
+        "general": "General",
+        "appearance": "Appearance",
+        "plugins": "Plugins",
+        "advanced": "Advanced",
+        "about": "About"
       }
     },
     "taskbar-mediacontrol": {

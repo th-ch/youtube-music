@@ -35,7 +35,7 @@ export interface DefaultConfig {
     usePodcastParticipantAsArtist: boolean;
     themes: string[];
   };
-  'plugins': Record<string, unknown>;
+  'plugins': Record<string, Record<string, unknown> & { enabled: boolean }>;
 }
 
 const defaultConfig: DefaultConfig = {
