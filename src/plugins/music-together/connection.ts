@@ -39,7 +39,14 @@ export class Connection {
   private peer: Peer;
   private _mode: ConnectionMode = 'disconnected';
   private connections: Record<string, DataConnection> = {};
+
+  /**
+   * Flag to prevent automatic reconnection when the user intentionally disconnects.
+   */
   private isManualDisconnect = false;
+  /**
+   * Flag to prevent multiple reconnection loops from running simultaneously.
+   */
   private isReconnecting = false;
 
   private waitOpen: PromiseUtil<string> = {} as PromiseUtil<string>;
@@ -102,6 +109,7 @@ export class Connection {
           break;
         } catch (reconnectErr) {
           console.error('Music Together: Reconnect attempt failed. Retrying in 10 seconds.', reconnectErr);
+          // Wait before the next reconnection attempt
           await delay(10000);
         }
       }
@@ -128,6 +136,7 @@ export class Connection {
     this.peer.on('close', () => reconnectLoop());
 
     this.peer.on('error', (err) => {
+      // Only attempt to reconnect on recoverable network errors
       if (err.type === PeerErrorType.Network || err.type === PeerErrorType.PeerUnavailable || err.type === PeerErrorType.ServerError) {
         reconnectLoop(err);
       } else {
@@ -156,6 +165,7 @@ export class Connection {
   disconnect() {
     if (this._mode === 'disconnected') return;
 
+    // Set flag to stop any reconnection attempts
     this.isManualDisconnect = true;
     this.isReconnecting = false;
     this._mode = 'disconnected';
