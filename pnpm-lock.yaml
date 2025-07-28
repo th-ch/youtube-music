@@ -65,8 +65,8 @@ importers:
         specifier: 1.0.0-beta.1
         version: 1.0.0-beta.1(hono@4.8.7)(zod@4.0.10)
       '@hono/zod-validator':
-        specifier: 0.7.1
-        version: 0.7.1(hono@4.8.7)(zod@4.0.10)
+        specifier: 0.7.2
+        version: 0.7.2(hono@4.8.7)(zod@4.0.10)
       '@jellybrick/dbus-next':
         specifier: 0.10.3
         version: 0.10.3
@@ -832,8 +832,8 @@ packages:
       hono: '>=4.3.6'
       zod: ^3.25.0
 
-  '@hono/zod-validator@0.7.1':
-    resolution: {integrity: sha512-8+vJT1RvezAx5sN7hiZ5Mis0RMuFL77nBEcqQQgT9ufoLkxr+7ll461WlBJQcGoQSY6EGMClVae19v3s/7bbgQ==}
+  '@hono/zod-validator@0.7.2':
+    resolution: {integrity: sha512-ub5eL/NeZ4eLZawu78JpW/J+dugDAYhwqUIdp9KYScI6PZECij4Hx4UsrthlEUutqDDhPwRI0MscUfNkvn/mqQ==}
     peerDependencies:
       hono: '>=3.9.0'
       zod: ^3.25.0 || ^4.0.0
@@ -5444,11 +5444,11 @@ snapshots:
   '@hono/zod-openapi@1.0.0-beta.1(hono@4.8.7)(zod@4.0.10)':
     dependencies:
       '@asteasolutions/zod-to-openapi': 8.0.0-beta.4(zod@4.0.10)
-      '@hono/zod-validator': 0.7.1(hono@4.8.7)(zod@4.0.10)
+      '@hono/zod-validator': 0.7.2(hono@4.8.7)(zod@4.0.10)
       hono: 4.8.7
       zod: 4.0.10
 
-  '@hono/zod-validator@0.7.1(hono@4.8.7)(zod@4.0.10)':
+  '@hono/zod-validator@0.7.2(hono@4.8.7)(zod@4.0.10)':
     dependencies:
       hono: 4.8.7
       zod: 4.0.10
