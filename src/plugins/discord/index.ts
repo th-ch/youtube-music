@@ -35,7 +35,7 @@ export type DiscordPluginConfig = {
    */
   hideDurationLeft: boolean;
   /**
-   * Hide the "duration left" in the rich presence
+   * Controls which field is displayed in the Discord status text
    */
   statusDisplayType: (typeof DiscordStatusDisplayType)[keyof typeof DiscordStatusDisplayType];
 };
