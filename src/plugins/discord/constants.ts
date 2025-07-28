@@ -29,7 +29,7 @@ export enum TimerKey {
  * "Listening to..." in the user's Discord status.
  */
 export const DiscordStatusDisplayType = {
-  YOUTUBE_MUSIC : 0,
+  YOUTUBE_MUSIC: 0,
   ARTIST: 1,
   TITLE: 2,
 } as const;
