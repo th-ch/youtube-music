@@ -638,6 +638,17 @@
       "description": "Automatiškai praleidžia ne muzikines dalis, pvz., įžangą/užvedimą arba muzikinių vaizdo įrašų dalis, kuriose daina negrojama",
       "name": "Rėmėjų blokuotojas"
     },
+    "synced-lyrics": {
+      "refetch-btn": {
+        "fetching": "Gaunama...",
+        "normal": "Atgauti dainos žodžius"
+      },
+      "warnings": {
+        "duration-mismatch": "⚠️ - Dainos žodžiai gali būti nesinchronizuoti dėl trukmės nesutikimo.",
+        "inexact": "⚠️ - Dainos žodžiai gali šiek tiek skirtis",
+        "instrumental": "⚠️ – Tai instrumentinė daina"
+      }
+    },
     "taskbar-mediacontrol": {
       "description": "Valdykite atkūrimą iš „Windows“ užduočių juostos",
       "name": "Užduočių juostos medijos valdymas"
