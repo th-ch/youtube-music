@@ -437,7 +437,15 @@
         "hide-duration-left": "Hide duration left",
         "hide-github-button": "Hide GitHub link Button",
         "play-on-youtube-music": "Play on YouTube Music",
-        "set-inactivity-timeout": "Set inactivity timeout"
+        "set-inactivity-timeout": "Set inactivity timeout",
+        "set-status-display-type": {
+          "label": "Status text",
+          "submenu": {
+            "youtube-music": "Listening to YouTube Music",
+            "artist": "Listening to {artist}",
+            "title": "Listening to {song title}"
+          }
+        }
       },
       "name": "Discord Rich Presence",
       "prompt": {
