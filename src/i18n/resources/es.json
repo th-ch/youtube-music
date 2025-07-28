@@ -835,7 +835,7 @@
       "warnings": {
         "duration-mismatch": "⚠️ - La letra puede estar desincronizada debido a un desajuste en la duración.",
         "inexact": "⚠️ - La letra de esta canción puede no ser exacta",
-        "instrumental": "⚠️ - Se trata de una canción instrumental"
+        "instrumental": "⚠️ - Esta es una canción instrumental"
       }
     },
     "taskbar-mediacontrol": {
