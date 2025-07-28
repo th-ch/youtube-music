@@ -381,6 +381,11 @@
       },
       "templates": {
         "title": "Abrir seletor de legendas"
+      },
+      "toast": {
+        "caption-changed": "Legenda alterada para {{language}}",
+        "caption-disabled": "Legendas desativadas",
+        "no-captions": "Sem legendas disponíveis para essa música"
       }
     },
     "compact-sidebar": {
@@ -600,7 +605,15 @@
     },
     "navigation": {
       "description": "Setas de navegação para avançar/retornar diretamente integradas na interface, como no seu navegador favorito",
-      "name": "Navegação"
+      "name": "Navegação",
+      "templates": {
+        "back": {
+          "title": "Ir para a página anterior"
+        },
+        "forward": {
+          "title": "Ir para a próxima página"
+        }
+      }
     },
     "no-google-login": {
       "description": "Remova os botões e links de login do Google da interface",
@@ -692,7 +705,12 @@
         }
       },
       "description": "Permite alterar a qualidade do vídeo com um botão na sobreposição de vídeo",
-      "name": "Alterador de qualidade do vídeo"
+      "name": "Alterador de qualidade do vídeo",
+      "renderer": {
+        "quality-settings-button": {
+          "label": "Abrir o player de troca de qualidade"
+        }
+      }
     },
     "scrobbler": {
       "description": "Adicionar suporte para scrobbling (last.fm, Listenbrainz, etc.)",
@@ -859,7 +877,8 @@
       },
       "name": "Alternar vídeo",
       "templates": {
-        "button-song": "Música"
+        "button-song": "Música",
+        "button-video": "Vídeo"
       }
     },
     "visualizer": {

@@ -381,6 +381,11 @@
       },
       "templates": {
         "title": "Atvērt subtitru izvēlni"
+      },
+      "toast": {
+        "caption-changed": "Subtitri pamainīti uz {{language}}",
+        "caption-disabled": "Subtitri izslēgti",
+        "no-captions": "Subtitri nav pieejami priekš šīs dziesmas"
       }
     },
     "compact-sidebar": {
@@ -479,7 +484,9 @@
           "playlist-is-empty": "Atskaņošanas saraksts ir tukšs",
           "playlist-is-mix-or-private": "Neizdevās iegūt atskaņošanas saraksta informāciju: pārliecinieties, ka tas nav privāts vai \"Jums izveidotā izlase\" saraksts.\n\n{{error}}",
           "preparing-file": "Faila sagatavošana…",
-          "saving": "Saglabāšana…"
+          "saving": "Saglabāšana…",
+          "video-id-not-found": "Video nav atrasts",
+          "writing-id3": "Rakstam ID3 tegus…"
         }
       }
     }
