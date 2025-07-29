@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url';
 
 import { globSync } from 'glob';
 import { Project } from 'ts-morph';
+import { Platform } from '../src/types/plugins'
 
 const kebabToCamel = (text: string) =>
   text.replace(/-(\w)/g, (_, letter: string) => letter.toUpperCase());
@@ -134,14 +135,6 @@ export const pluginVirtualModuleGenerator = (
 
   return src.getText();
 };
-
-// Copy-pasted from '@/types/plugins'
-export enum Platform {
-  Windows = 1  << 0,
-  macOS =   1  << 1,
-  Linux =   1  << 2,
-  Freebsd = 1  << 3
-}
 
 function supportsPlatform({ platform }: { platform: string }) {
   if (typeof platform !== "number") return true;
