@@ -219,11 +219,6 @@ export default (api: YoutubePlayer) => {
     }
   };
 
-  const clearAllTimeouts = () => {
-    waitingTimeouts.forEach((timeoutId) => clearTimeout(timeoutId));
-    waitingTimeouts.clear();
-  };
-
   // Name = "dataloaded" and abit later "dataupdated"
   // Sometimes "dataupdated" is not fired, so we need to fallback to "dataloaded"
   api.addEventListener('videodatachange', (name, videoData) => {
@@ -256,8 +251,6 @@ export default (api: YoutubePlayer) => {
       waitingTimeouts.set(videoData.videoId, timeoutId);
     }
   });
-
-  window.addEventListener('beforeunload', clearAllTimeouts, { once: true });
 
   const video = document.querySelector('video');
 
