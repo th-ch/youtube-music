@@ -74,6 +74,11 @@ export const pluginVirtualModuleGenerator = (
       }
 
       writer.blankLine();
+      if (mode === "main" || mode === "preload") {
+        writer.writeLine("globalThis.electronIs = await import('electron-is');");
+      }
+      writer.write(supportsPlatform.toString());
+      writer.blankLine();
 
       // Context-specific exports
       writer.writeLine(`let ${mode}PluginsCache = null;`);
@@ -95,7 +100,7 @@ export const pluginVirtualModuleGenerator = (
       }
       writer.writeLine('  ]);');
       writer.writeLine(
-        '  resolve(pluginEntries.filter((entry) => entry).reduce((acc, [name, plg]) => { acc[name] = plg; return acc; }, {}));',
+        '  resolve(pluginEntries.filter((entry) => entry && supportsPlatform(entry[1])).reduce((acc, [name, plg]) => { acc[name] = plg; return acc; }, {}));',
       );
       writer.writeLine(`  return await ${mode}PluginsCache;`);
       writer.writeLine('};');
@@ -117,7 +122,7 @@ export const pluginVirtualModuleGenerator = (
       }
       writer.writeLine('  ]);');
       writer.writeLine(
-        '  resolve(stubEntries.reduce((acc, [name, plg]) => { acc[name] = plg; return acc; }, {}));',
+        '  resolve(stubEntries.filter(entry => entry && supportsPlatform(entry[1])).reduce((acc, [name, plg]) => { acc[name] = plg; return acc; }, {}));',
       );
       writer.writeLine('  return await promise;');
       writer.writeLine('};');
@@ -128,3 +133,23 @@ export const pluginVirtualModuleGenerator = (
 
   return src.getText();
 };
+
+// Copy-pasted from '@/types/plugins'
+export enum Platform {
+  Windows = 1  << 0,
+  macOS =   1  << 1,
+  Linux =   1  << 2,
+  Freebsd = 1  << 3
+}
+
+function supportsPlatform({ platform }: { platform: string }) {
+  if (typeof platform !== "number") return true;
+
+  if (globalThis.electronIs.windows() && ((platform & Platform.Windows) === 0)) return false;
+  if (globalThis.electronIs.macOS() && ((platform & Platform.macOS) === 0)) return false;
+  if (globalThis.electronIs.linux() && ((platform & Platform.Linux) === 0)) return false;
+  if (globalThis.electronIs.freebsd() && ((platform & Platform.Freebsd) === 0)) return false;
+
+  // unknown platform
+  return true;
+}

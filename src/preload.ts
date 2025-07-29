@@ -15,6 +15,8 @@ import {
 } from './loader/preload';
 import { loadI18n, setLanguage } from '@/i18n';
 
+globalThis.electronIs = is;
+
 loadI18n().then(async () => {
   await setLanguage(config.get('options.language') ?? 'en');
   await loadAllPreloadPlugins();
