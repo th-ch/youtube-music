@@ -317,7 +317,7 @@
           "label": "Cổng"
         }
       },
-      "name": "Máy chủ API [Beta]",
+      "name": "Máy chủ API [Thử nghiệm]",
       "prompt": {
         "hostname": {
           "label": "Điền tên máy chủ (như 0.0.0.0) cho máy chủ API:",
@@ -383,7 +383,7 @@
         "title": "Mở lựa chọn phụ đề"
       },
       "toast": {
-        "caption-changed": "Phụ đề chuyển sang {{language}}",
+        "caption-changed": "Phụ đề đã chuyển sang {{language}}",
         "caption-disabled": "Tắt phụ đề",
         "no-captions": "Không có phụ đề nào cho bài hát này"
       }
@@ -415,9 +415,9 @@
       }
     },
     "disable-autoplay": {
-      "description": "Làm nhạc tạm dừng khi được phát",
+      "description": "Làm nhạc bắt đầu ở chế độ \"tạm dừng\"\nNgoài ra có thể dừng nhạc khi khởi động ứng dụng (nếu có bật tính năng \"Tiếp tục bài hát cuối cùng khi ứng dụng khởi động\")",
       "menu": {
-        "apply-once": "Áp dụng khi khởi động"
+        "apply-once": "Chỉ áp dụng khi khởi động"
       },
       "name": "Tắt tự động phát"
     },
@@ -482,8 +482,8 @@
           "playlist-has-only-one-song": "Danh sách phát chỉ có một mục, tải trực tiếp",
           "playlist-id-not-found": "Không tìm thấy ID danh sách phát",
           "playlist-is-empty": "Danh sách phát trống",
-          "playlist-is-mix-or-private": "Lỗi lấy thông tin danh sách phát: đảm bảo danh sách phát không ở chế độ riêng tư hoặc là danh sách phát \"Dành cho bạn\"\n\n{{error}}",
-          "preparing-file": "Đang chuẩn bị thư mục…",
+          "playlist-is-mix-or-private": "Lỗi lấy thông tin danh sách phát: hãy đảm bảo danh sách phát không ở chế độ riêng tư hoặc danh sách phát \"Dành cho bạn\"\n\n{{error}}",
+          "preparing-file": "Đang chuẩn bị tệp…",
           "saving": "Đang lưu…",
           "trying-to-get-playlist-id": "Đang lấy ID danh sách phát: {{playlistId}}",
           "video-id-not-found": "Không tìm thấy video",
@@ -509,8 +509,8 @@
           }
         },
         "download-playlist": "Tải danh sách phát",
-        "presets": "Cài đặt sẵn",
-        "skip-existing": "Bỏ qua các tập tin hiện có"
+        "presets": "Tùy chọn định dạng",
+        "skip-existing": "Bỏ qua các tập tin đã có"
       },
       "name": "Trình tải xuống",
       "renderer": {
@@ -521,7 +521,7 @@
       }
     },
     "equalizer": {
-      "description": "Thêm bộ lọc xì vào trình phát nhạc\nP.S: Bộ lọc xì (Equalizer), là một thiết bị được thiết kế để phân chia, tăng, giảm, cắt các dải tần số âm thanh để mang tới sự cân bằng và làm thay đổi các tín hiệu âm thanh đi qua nó",
+      "description": "Thêm bộ chỉnh âm để điều chỉnh âm thanh cho trình phát nhạc",
       "menu": {
         "presets": {
           "label": "Thiết lập có sẵn",
@@ -530,7 +530,7 @@
           }
         }
       },
-      "name": "Bộ lọc xì (EQ)"
+      "name": "Bộ chỉnh âm"
     },
     "exponential-volume": {
       "description": "Làm cho thanh trượt âm lượng theo cấp số nhân để dễ dàng chọn âm lượng thấp hơn.",

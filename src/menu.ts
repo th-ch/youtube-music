@@ -218,6 +218,37 @@ export const mainMenuTemplate = async (
             },
             {
               label: t(
+                'main.menu.options.submenu.visual-tweaks.submenu.custom-window-title.label',
+              ),
+              async click() {
+                const output = await prompt(
+                  {
+                    title: t(
+                      'main.menu.options.submenu.visual-tweaks.submenu.custom-window-title.label',
+                    ),
+                    label: t(
+                      'main.menu.options.submenu.visual-tweaks.submenu.custom-window-title.prompt.label',
+                    ),
+                    value: config.get('options.customWindowTitle') || '',
+                    type: 'input',
+                    inputAttrs: {
+                      type: 'text',
+                      placeholder: t(
+                        'main.menu.options.submenu.visual-tweaks.submenu.custom-window-title.prompt.placeholder',
+                      ),
+                    },
+                    width: 500,
+                    ...promptOptions(),
+                  },
+                  win,
+                );
+                if (typeof output === 'string') {
+                  config.setMenuOption('options.customWindowTitle', output);
+                }
+              },
+            },
+            {
+              label: t(
                 'main.menu.options.submenu.visual-tweaks.submenu.like-buttons.label',
               ),
               submenu: [

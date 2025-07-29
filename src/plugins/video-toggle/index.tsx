@@ -171,6 +171,7 @@ export default createPlugin({
       const video = document.querySelector<HTMLVideoElement>('video');
 
       const switchButtonContainer = document.createElement('div');
+      switchButtonContainer.id = 'ytmd-video-toggle-switch-button-container';
       switchButtonContainer.style.display = 'flex';
       render(
         () => (
