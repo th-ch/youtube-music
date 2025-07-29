@@ -14,6 +14,12 @@
 */
 (() => {
   if (window.customElements) {
+    // suppress annoying Lit warnings; https://github.com/lit/lit/issues/4877
+    globalThis.litIssuedWarnings = new Set([
+      "Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.",
+      "Shadow DOM is being polyfilled via `ShadyDOM` but the `polyfill-support` module has not been loaded. See https://lit.dev/msg/polyfill-support-missing for more information."
+    ]);
+
     const NativeHTMLElement = window.HTMLElement;
 
     const nativeDefine = window.customElements.define.bind(window.customElements);
@@ -61,8 +67,8 @@
     });
 
     Object.defineProperty(window.customElements, "define", {
-      value: (tagName, elementClass) => {
-        if (tagName.startsWith('mdui-')) return nativeDefine(tagName, elementClass);
+      value: (tagName, elementClass, ...rest) => {
+        if (tagName.startsWith('mdui-')) return nativeDefine(tagName, elementClass, ...rest);
 
         const elementProto = elementClass.prototype;
         const StandInElement = class extends NativeHTMLElement {
@@ -90,7 +96,7 @@
 
         tagnameByConstructor.set(elementClass, tagName);
         constructorByTagname.set(tagName, elementClass);
-        nativeDefine.call(window.customElements, tagName, StandInElement);
+        nativeDefine.call(window.customElements, tagName, StandInElement, ...rest);
       },
       configurable: true,
       writable: true
