@@ -150,6 +150,13 @@
           "visual-tweaks": {
             "label": "Poprawki wizualne",
             "submenu": {
+              "custom-window-title": {
+                "label": "Niestandardowy tytuł okna",
+                "prompt": {
+                  "label": "Podaj niestandardowy tytuł okna (zostaw puste, aby to wyłączyć):",
+                  "placeholder": "Przykład: YouTube Music"
+                }
+              },
               "like-buttons": {
                 "default": "Domyślne",
                 "force-show": "Wymuś pokazywanie",
@@ -383,9 +390,9 @@
         "title": "Otwórz selektor napisów"
       },
       "toast": {
-        "caption-changed": "Napisy zmienione na {{language}}",
-        "caption-disabled": "Napisy wyłączone",
-        "no-captions": "Niestety nie posiadamy napisów dla tej piosenki"
+        "caption-changed": "Zmieniono napisy na {{language}}",
+        "caption-disabled": "Napisy zostały wyłączone",
+        "no-captions": "Nie znaleziono napisów dla tego utworu"
       }
     },
     "compact-sidebar": {

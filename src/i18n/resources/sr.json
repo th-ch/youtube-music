@@ -150,6 +150,13 @@
           "visual-tweaks": {
             "label": "Vizuelna podešavanja",
             "submenu": {
+              "custom-window-title": {
+                "label": "Prilagođeni naziv prozora",
+                "prompt": {
+                  "label": "Unesite prilagođeni naslov prozora: (ostavite prazno da onemogućite)",
+                  "placeholder": "Primer: YouTube Muzika"
+                }
+              },
               "like-buttons": {
                 "default": "Podrazumevano",
                 "force-show": "Prinudno prikaži",
@@ -281,7 +288,7 @@
     },
     "amuse": {
       "description": "Dodaje podršku za 'Amuse now' vidžet (6K Labs) u YouTube Muziku",
-      "name": "Amuse",
+      "name": "Zabavi",
       "response": {
         "query": "Amuse API server je pokrenut. Koristite GET /query da biste dobili informacije o numeri."
       }
@@ -439,7 +446,7 @@
         "play-on-youtube-music": "Reprodukuj na YouTube Muzici",
         "set-inactivity-timeout": "Podesi tajmer za neaktivnost"
       },
-      "name": "Discord Rich Presence",
+      "name": "Discord Bogato Prisustvo",
       "prompt": {
         "set-inactivity-timeout": {
           "label": "Unesi vreme za tajmer neaktivnosti u sekundama:",

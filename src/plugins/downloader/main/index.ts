@@ -848,5 +848,7 @@ const getMetadata = (info: TrackInfo): CustomSongInfo => ({
 const getAndroidTvInfo = async (id: string): Promise<VideoInfo> => {
   // GetInfo 404s with the bypass, so we use getBasicInfo instead
   // that's fine as we only need the streaming data
-  return await yt.getBasicInfo(id, 'TV_EMBEDDED');
+  return await yt.getBasicInfo(id, {
+    client: 'TV_EMBEDDED',
+  });
 };
