@@ -8,8 +8,12 @@ import is from 'electron-is';
 
 import config from './config';
 
-import customElementsES5Adapter from '@assets/custom-elements-es5-adapter.js?raw';
 import mduiStyleSheet from "@assets/mdui.css?inline"
+
+contextBridge.exposeInMainWorld('litIssuedWarnings', new Set([
+  "Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.",
+  "Shadow DOM is being polyfilled via `ShadyDOM` but the `polyfill-support` module has not been loaded. See https://lit.dev/msg/polyfill-support-missing for more information."
+]))
 
 new MutationObserver((mutations, observer) => {
   outer: for (const mutation of mutations) {
@@ -17,7 +21,6 @@ new MutationObserver((mutations, observer) => {
       const elem = node as HTMLElement;
       if (elem.tagName !== 'SCRIPT') continue;
 
-      const parent = elem.parentElement!!;
       const script = elem as HTMLScriptElement;
       if (
         !script.getAttribute('src')?.endsWith('custom-elements-es5-adapter.js')
@@ -26,22 +29,11 @@ new MutationObserver((mutations, observer) => {
 
       script.remove();
 
-      const stylesheet = document.createElement("style");
-      {
-        stylesheet.setAttribute("id", "mduiCss")
-        stylesheet.innerHTML = mduiStyleSheet
-      }
-      parent.appendChild(stylesheet);
-
-      const newScript = document.createElement('script');
-      {
-        newScript.setAttribute('type', 'text/javascript');
-        newScript.innerHTML = customElementsES5Adapter;
-      }
-      parent.appendChild(newScript);
+      const styleSheet = new CSSStyleSheet();
+      styleSheet.replaceSync(mduiStyleSheet);
+      document.adoptedStyleSheets.push(styleSheet);
 
       observer.disconnect();
-
       break outer;
     }
   }
