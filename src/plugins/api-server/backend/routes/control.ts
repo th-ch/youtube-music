@@ -20,7 +20,8 @@ import {
   type ResponseSongInfo,
 } from '../scheme';
 
-import type { LikeType, RepeatMode, VolumeState } from '@/types/datahost-get-state';
+import type { RepeatMode, VolumeState } from '@/types/datahost-get-state';
+import { LikeType } from '@/types/datahost-get-state';
 import type { SongInfo } from '@/providers/song-info';
 import type { BackendContext } from '@/types/contexts';
 import type { APIServerConfig } from '../../config';
