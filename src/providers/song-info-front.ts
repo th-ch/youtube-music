@@ -84,12 +84,16 @@ const mapLikeStatus = (status: string | null): LikeType =>
     ? (status as LikeType)
     : LikeType.Indifferent;
 
+const LIKE_STATUS_ATTRIBUTE = 'like-status';
+
 export const setupLikeChangedListener = singleton(() => {
   const likeDislikeObserver = new MutationObserver((mutations) => {
     window.ipcRenderer.send(
       'ytmd:like-changed',
       mapLikeStatus(
-        (mutations[0].target as HTMLElement)?.getAttribute?.('like-status'),
+        (mutations[0].target as HTMLElement)?.getAttribute?.(
+          LIKE_STATUS_ATTRIBUTE,
+        ),
       ),
     );
   });
@@ -97,13 +101,13 @@ export const setupLikeChangedListener = singleton(() => {
   if (likeButtonRenderer) {
     likeDislikeObserver.observe(likeButtonRenderer, {
       attributes: true,
-      attributeFilter: ['like-status'],
+      attributeFilter: [LIKE_STATUS_ATTRIBUTE],
     });
 
     // Emit the initial value as well; as it's persistent between launches.
     window.ipcRenderer.send(
       'ytmd:like-changed',
-      mapLikeStatus(likeButtonRenderer.getAttribute?.('like-status')),
+      mapLikeStatus(likeButtonRenderer.getAttribute?.(LIKE_STATUS_ATTRIBUTE)),
     );
   }
 });
