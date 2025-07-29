@@ -75,7 +75,8 @@ export const pluginVirtualModuleGenerator = (
 
       writer.blankLine();
       if (mode === "main" || mode === "preload") {
-        writer.writeLine("globalThis.electronIs = await import('electron-is');");
+        writer.writeLine("import * as is from 'electron-is';");
+        writer.writeLine('globalThis.electronIs = is;');
       }
       writer.write(supportsPlatform.toString());
       writer.blankLine();
