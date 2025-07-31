@@ -7,7 +7,9 @@
         "initialize-failed": "\"{{pluginName}}\" plaginini başlatmaq mümkün olmadı",
         "load-all": "Bütün plaginlər yüklənir",
         "load-failed": "\"{{pluginName}}\" plaginini yükləmək mümkün olmadı",
-        "loaded": "\"{{pluginName}}\" plagini yükləndi"
+        "loaded": "\"{{pluginName}}\" plagini yükləndi",
+        "unload-failed": "\"{{pluginName}}\" plaqinini yükləmək mümkün olmadı",
+        "unloaded": "\"{{pluginName}}\" plaqini yükləmədən çıxarıldı"
       }
     }
   },
@@ -18,6 +20,21 @@
   },
   "main": {
     "console": {
+      "did-finish-load": {
+        "dev-tools": "Yükləmə tamamlandı. DevTools açıldı"
+      },
+      "i18n": {
+        "loaded": "i18n yükləndi"
+      },
+      "second-instance": {
+        "receive-command": "Protokol üzərindən əmr alındı: \"{{command}}\""
+      },
+      "theme": {
+        "css-file-not-found": "CSS faylı \"{{cssFile}}\" mövcud deyil, nəzərə alınmır"
+      },
+      "unresponsive": {
+        "details": "Cavabsız Səhv!\n{{error}}"
+      },
       "when-ready": {
         "clearing-cache-after-20s": "Proqram keşi təmizlənir"
       },
@@ -81,7 +98,25 @@
             "submenu": {
               "auto-reset-app-cache": "Proqram başlayanda keşi təmizlə",
               "disable-hardware-acceleration": "Aparat təminatı sürətlənməsini deaktiv et",
-              "edit-config-json": "Config.json dəyiş"
+              "edit-config-json": "Config.json dəyiş",
+              "override-user-agent": "User-Agent dəyişdirildi",
+              "restart-on-config-changes": "Konfiqurasiya dəyişikliklərində yenidən başladılır",
+              "set-proxy": {
+                "label": "Proxy təyin et",
+                "prompt": {
+                  "label": "Proxy Ünvanını daxil edin: (deaktiv etmək üçün boş buraxın)",
+                  "placeholder": "Nümunə: SOCKS5://127.0.0.1:9999",
+                  "title": "Proxy təyin et"
+                }
+              },
+              "toggle-dev-tools": "DevTools-u açıb bağla"
+            }
+          },
+          "always-on-top": "Həmişə üst tərəfdə",
+          "auto-update": "Avtomatik Yeniləmə",
+          "hide-menu": {
+            "dialog": {
+              "message": "Menu will be hidden on next launch, use [Alt] to show it (or backtick [`] if using in-app-menu)"
             }
           }
         }

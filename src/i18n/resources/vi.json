@@ -150,6 +150,13 @@
           "visual-tweaks": {
             "label": "Tinh chỉnh hình ảnh",
             "submenu": {
+              "custom-window-title": {
+                "label": "Tiêu đề cửa sổ tùy chỉnh",
+                "prompt": {
+                  "label": "Nhập tiêu đề cửa sổ tùy chỉnh: (để trống để vô hiệu hóa)",
+                  "placeholder": "Ví dụ: Youtube Music"
+                }
+              },
               "like-buttons": {
                 "default": "Mặc định",
                 "force-show": "Tập trung hiển thị",
@@ -415,7 +422,7 @@
       }
     },
     "disable-autoplay": {
-      "description": "Làm nhạc bắt đầu ở chế độ \"tạm dừng\"\nNgoài ra có thể dừng nhạc khi khởi động ứng dụng (nếu có bật tính năng \"Tiếp tục bài hát cuối cùng khi ứng dụng khởi động\")",
+      "description": "Làm nhạc bắt đầu ở chế độ \"tạm dừng\". Ngoài ra có thể dừng nhạc khi khởi động ứng dụng (nếu có bật tính năng \"Tiếp tục bài hát cuối cùng khi ứng dụng khởi động\")",
       "menu": {
         "apply-once": "Chỉ áp dụng khi khởi động"
       },
