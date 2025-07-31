@@ -23,13 +23,12 @@ export const LyricsPickerAdvanced = () => {
       <div style={{ display: 'flex', 'flex-direction': 'row' }}>
         <input
           class="lrcpkradv-offset"
-          type="number"
-          step={50}
+          type="text"
           value={lyricsOffset()}
           onFocus={() => setTyping(true)}
           onBlur={(e) => {
-            let value = e.target.valueAsNumber;
-            if (isNaN(value)) value = 0;
+            let value = Number(e.target.value);
+            if (isNaN(value)) value = lyricsOffset();
 
             setLyricsOffset(value);
             setTyping(false)
