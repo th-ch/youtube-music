@@ -34,6 +34,7 @@ export interface DefaultConfig {
     overrideUserAgent: boolean;
     usePodcastParticipantAsArtist: boolean;
     themes: string[];
+    customWindowTitle?: string;
   };
   'plugins': Record<string, unknown>;
 }

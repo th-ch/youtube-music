@@ -150,6 +150,13 @@
           "visual-tweaks": {
             "label": "Poprawki wizualne",
             "submenu": {
+              "custom-window-title": {
+                "label": "Niestandardowy tytuł okna",
+                "prompt": {
+                  "label": "Podaj niestandardowy tytuł okna (zostaw puste, aby to wyłączyć):",
+                  "placeholder": "Przykład: YouTube Music"
+                }
+              },
               "like-buttons": {
                 "default": "Domyślne",
                 "force-show": "Wymuś pokazywanie",
@@ -381,6 +388,11 @@
       },
       "templates": {
         "title": "Otwórz selektor napisów"
+      },
+      "toast": {
+        "caption-changed": "Zmieniono napisy na {{language}}",
+        "caption-disabled": "Napisy zostały wyłączone",
+        "no-captions": "Nie znaleziono napisów dla tego utworu"
       }
     },
     "compact-sidebar": {
@@ -600,7 +612,15 @@
     },
     "navigation": {
       "description": "Strzałki nawigacyjne Dalej/Wstecz zintegrowane bezpośrednio z interfejsem, tak jak w Twojej ulubionej przeglądarce",
-      "name": "Nawigacja"
+      "name": "Nawigacja",
+      "templates": {
+        "back": {
+          "title": "Przejdź do poprzedniej strony"
+        },
+        "forward": {
+          "title": "Przejdź do następnej strony"
+        }
+      }
     },
     "no-google-login": {
       "description": "Usuń przyciski i linki logowania Google z interfejsu",
@@ -692,7 +712,12 @@
         }
       },
       "description": "Umożliwia zmianę jakości wideo za pomocą przycisku na nakładce wideo",
-      "name": "Zmieniacz jakości wideo"
+      "name": "Zmieniacz jakości wideo",
+      "renderer": {
+        "quality-settings-button": {
+          "label": "Otwórz manipulator jakości odtwarzacza"
+        }
+      }
     },
     "scrobbler": {
       "description": "Umożliwia scrobbling utworów do m.in. last.fm lub Listenbrainz",
@@ -859,7 +884,8 @@
       },
       "name": "Przełącznik wideo",
       "templates": {
-        "button-song": "Utwór"
+        "button-song": "Utwór",
+        "button-video": "Wideo"
       }
     },
     "visualizer": {

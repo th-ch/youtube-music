@@ -156,6 +156,13 @@
                 "hide": "Hide",
                 "label": "Like buttons"
               },
+              "custom-window-title": {
+                "label": "Custom window title",
+                "prompt": {
+                  "label": "Enter custom window title: (leave empty to disable)",
+                  "placeholder": "Example: YouTube Music"
+                }
+              },
               "remove-upgrade-button": "Remove upgrade button",
               "theme": {
                 "dialog": {
@@ -334,7 +341,6 @@
       "name": "Audio Compressor"
     },
     "auth-proxy-adapter": {
-      "name": "Auth Proxy Adapter",
       "description": "Support for the use of authentication proxy services",
       "menu": {
         "disable": "Disable Proxy Adapter",
@@ -346,14 +352,15 @@
           "label": "Port"
         }
       },
+      "name": "Auth Proxy Adapter",
       "prompt": {
         "hostname": {
           "title": "Proxy Hostname",
-        "label": "Enter hostname for local proxy server (requires restart):"
+          "label": "Enter hostname for local proxy server (requires restart):"
         },
         "port": {
           "title": "Proxy Port",
-        "label": "Enter port for local proxy server (requires restart):"
+          "label": "Enter port for local proxy server (requires restart):"
         }
       }
     },
@@ -704,13 +711,13 @@
           }
         }
       },
+      "description": "Allows changing the video quality with a button on the video overlay",
+      "name": "Video Quality Changer",
       "renderer": {
         "quality-settings-button": {
           "label": "Open player quality changer"
         }
-      },
-      "description": "Allows changing the video quality with a button on the video overlay",
-      "name": "Video Quality Changer"
+      }
     },
     "scrobbler": {
       "description": "Add scrobbling support (etc. last.fm, Listenbrainz)",

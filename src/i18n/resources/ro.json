@@ -381,6 +381,11 @@
       },
       "templates": {
         "title": "Deschide selectorul de subtitrări"
+      },
+      "toast": {
+        "caption-changed": "Subtitrare schimbata in {{language}}",
+        "caption-disabled": "Subtitrari dezactivate",
+        "no-captions": "Nu exista subtitrari disponibile pentru aceasta piesa"
       }
     },
     "compact-sidebar": {
@@ -600,7 +605,15 @@
     },
     "navigation": {
       "description": "Săgețile pentru Următorul/Anteriorul integrate direct în interfață, ca în browser-ul tău preferat",
-      "name": "Navigație"
+      "name": "Navigație",
+      "templates": {
+        "back": {
+          "title": "Inapoi la pagina anterioara"
+        },
+        "forward": {
+          "title": "Urmatoarea pagina"
+        }
+      }
     },
     "no-google-login": {
       "description": "Elimină butonul de autentificare Google și link-urile din interfață",
@@ -859,7 +872,8 @@
       },
       "name": "Comutator video",
       "templates": {
-        "button-song": "Melodie"
+        "button-song": "Melodie",
+        "button-video": "Video"
       }
     },
     "visualizer": {

@@ -150,6 +150,13 @@
           "visual-tweaks": {
             "label": "Ajustes visuais",
             "submenu": {
+              "custom-window-title": {
+                "label": "Título de janela customizado",
+                "prompt": {
+                  "label": "Digite título customizado para a janela: (deixe em branco para desabilitar)",
+                  "placeholder": "Exemplo:YouTube Music"
+                }
+              },
               "like-buttons": {
                 "default": "Padrão",
                 "force-show": "Mostrar sempre",
@@ -381,6 +388,11 @@
       },
       "templates": {
         "title": "Abrir o seletor de legendas"
+      },
+      "toast": {
+        "caption-changed": "Idioma das legendas alterado para {{language}}",
+        "caption-disabled": "Legendas desativadas",
+        "no-captions": "Não existem legendas disponíveis para esta música"
       }
     },
     "compact-sidebar": {
@@ -600,7 +612,15 @@
     },
     "navigation": {
       "description": "Setas de navegação Avançar/Retroceder integradas diretamente na interface, como no seu navegador favorito",
-      "name": "Navegação"
+      "name": "Navegação",
+      "templates": {
+        "back": {
+          "title": "Retroceder a página"
+        },
+        "forward": {
+          "title": "Avançar para a próxima página"
+        }
+      }
     },
     "no-google-login": {
       "description": "Remove os botões de login do Google e links da interface",
@@ -692,7 +712,12 @@
         }
       },
       "description": "Permite alterar a qualidade do vídeo com um botão sobreposto ao vídeo",
-      "name": "Alterador de qualidade de vídeo"
+      "name": "Alterador de qualidade de vídeo",
+      "renderer": {
+        "quality-settings-button": {
+          "label": "Selecionar a qualidade de reprodução"
+        }
+      }
     },
     "scrobbler": {
       "description": "Adicionar suporte para scrobbling (last.fm, Listenbrainz, etc.)",
@@ -859,7 +884,8 @@
       },
       "name": "Botão de Alternar Vídeo",
       "templates": {
-        "button-song": "Música"
+        "button-song": "Música",
+        "button-video": "Vídeo"
       }
     },
     "visualizer": {
