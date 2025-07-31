@@ -34,7 +34,7 @@ export const menu = async (
           },
           ctx.window,
         );
-
+        if (!newOffset) return
         ctx.setConfig({
           lyricsOffset: Number(newOffset) ?? config.lyricsOffset,
         });
