@@ -150,6 +150,13 @@
           "visual-tweaks": {
             "label": "Ajustes visuais",
             "submenu": {
+              "custom-window-title": {
+                "label": "Título de janela customizado",
+                "prompt": {
+                  "label": "Digite título customizado para a janela: (deixe em branco para desabilitar)",
+                  "placeholder": "Exemplo:YouTube Music"
+                }
+              },
               "like-buttons": {
                 "default": "Padrão",
                 "force-show": "Mostrar sempre",
@@ -333,6 +340,30 @@
       "description": "Aplicar compressão ao áudio (diminui o volume das partes mais altas do sinal e aumenta o volume das partes mais suaves)",
       "name": "Compressor de Áudio"
     },
+    "auth-proxy-adapter": {
+      "description": "Suporte para o uso de serviços de proxy de autenticação",
+      "menu": {
+        "disable": "Desativar adaptador proxy",
+        "enable": "Ativar adaptador proxy",
+        "hostname": {
+          "label": "Nome do host"
+        },
+        "port": {
+          "label": "Porta"
+        }
+      },
+      "name": "Adaptador de proxy de autenticação",
+      "prompt": {
+        "hostname": {
+          "label": "Digite o nome do host para o servidor proxy local (requer reinicialização):",
+          "title": "Nome do host do proxy"
+        },
+        "port": {
+          "label": "Digite a porta para o servidor proxy local (requer reinicialização):",
+          "title": "Porta Proxy"
+        }
+      }
+    },
     "blur-nav-bar": {
       "description": "Torna a barra de navegação transparente e desfocada",
       "name": "Barra de navegação desfocada"
@@ -357,6 +388,11 @@
       },
       "templates": {
         "title": "Abrir o seletor de legendas"
+      },
+      "toast": {
+        "caption-changed": "Idioma das legendas alterado para {{language}}",
+        "caption-disabled": "Legendas desativadas",
+        "no-captions": "Não existem legendas disponíveis para esta música"
       }
     },
     "compact-sidebar": {
@@ -576,7 +612,15 @@
     },
     "navigation": {
       "description": "Setas de navegação Avançar/Retroceder integradas diretamente na interface, como no seu navegador favorito",
-      "name": "Navegação"
+      "name": "Navegação",
+      "templates": {
+        "back": {
+          "title": "Retroceder a página"
+        },
+        "forward": {
+          "title": "Avançar para a próxima página"
+        }
+      }
     },
     "no-google-login": {
       "description": "Remove os botões de login do Google e links da interface",
@@ -599,6 +643,10 @@
         "unpause-notification": "Mostrar notificação ao desativar a pausa"
       },
       "name": "Notificações"
+    },
+    "performance-improvement": {
+      "description": "Melhore o desempenho habilitando scripts experimentais",
+      "name": "Melhoria de desempenho [Beta]"
     },
     "picture-in-picture": {
       "description": "Permite mudar a aplicação para o modo picture-in-picture",
@@ -664,7 +712,12 @@
         }
       },
       "description": "Permite alterar a qualidade do vídeo com um botão sobreposto ao vídeo",
-      "name": "Alterador de qualidade de vídeo"
+      "name": "Alterador de qualidade de vídeo",
+      "renderer": {
+        "quality-settings-button": {
+          "label": "Selecionar a qualidade de reprodução"
+        }
+      }
     },
     "scrobbler": {
       "description": "Adicionar suporte para scrobbling (last.fm, Listenbrainz, etc.)",
@@ -831,7 +884,8 @@
       },
       "name": "Botão de Alternar Vídeo",
       "templates": {
-        "button": "Música"
+        "button-song": "Música",
+        "button-video": "Vídeo"
       }
     },
     "visualizer": {

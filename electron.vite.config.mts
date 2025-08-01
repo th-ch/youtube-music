@@ -1,16 +1,17 @@
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { UserConfig } from 'vite';
 import { defineConfig, defineViteConfig } from 'electron-vite';
 import builtinModules from 'builtin-modules';
-import viteResolve from 'vite-plugin-resolve';
+
 import Inspect from 'vite-plugin-inspect';
 import solidPlugin from 'vite-plugin-solid';
+import viteResolve from 'vite-plugin-resolve';
+
+import { withFilter, type UserConfig } from 'vite';
 
 import { pluginVirtualModuleGenerator } from './vite-plugins/plugin-importer.mjs';
 import pluginLoader from './vite-plugins/plugin-loader.mjs';
-
 import { i18nImporter } from './vite-plugins/i18n-importer.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -23,6 +24,9 @@ const resolveAlias = {
 export default defineConfig({
   main: defineViteConfig(({ mode }) => {
     const commonConfig: UserConfig = {
+      experimental: {
+        enableNativePlugin: true,
+      },
       plugins: [
         pluginLoader('backend'),
         viteResolve({
@@ -31,15 +35,16 @@ export default defineConfig({
         }),
       ],
       publicDir: 'assets',
+      define: {
+        '__dirname': 'import.meta.dirname',
+        '__filename': 'import.meta.filename',
+      },
       build: {
         lib: {
           entry: 'src/index.ts',
-          formats: ['cjs'],
+          formats: ['es'],
         },
         outDir: 'dist/main',
-        commonjsOptions: {
-          ignoreDynamicRequires: true,
-        },
         rollupOptions: {
           external: ['electron', 'custom-electron-prompt', ...builtinModules],
           input: './src/index.ts',
@@ -72,6 +77,9 @@ export default defineConfig({
   }),
   preload: defineViteConfig(({ mode }) => {
     const commonConfig: UserConfig = {
+      experimental: {
+        enableNativePlugin: true,
+      },
       plugins: [
         pluginLoader('preload'),
         viteResolve({
@@ -120,13 +128,18 @@ export default defineConfig({
   }),
   renderer: defineViteConfig(({ mode }) => {
     const commonConfig: UserConfig = {
+      experimental: {
+        enableNativePlugin: mode !== 'development', // Disable native plugin in development mode to avoid issues with HMR (bug in rolldown-vite)
+      },
       plugins: [
         pluginLoader('renderer'),
         viteResolve({
           'virtual:i18n': i18nImporter(),
           'virtual:plugins': pluginVirtualModuleGenerator('renderer'),
         }),
-        solidPlugin(),
+        withFilter(solidPlugin(), {
+          load: { id: [/\.(tsx|jsx)$/, '/@solid-refresh'] },
+        }),
       ],
       root: './src/',
       build: {
@@ -136,9 +149,6 @@ export default defineConfig({
           name: 'renderer',
         },
         outDir: 'dist/renderer',
-        commonjsOptions: {
-          ignoreDynamicRequires: true,
-        },
         rollupOptions: {
           external: ['electron', ...builtinModules],
           input: './src/index.html',

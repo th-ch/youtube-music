@@ -4,11 +4,11 @@
       "plugins": {
         "execute-failed": "Ha fallat l'execució de l'extensió {{pluginName}}::{{contextName}}",
         "executed-at-ms": "L'extensió {{pluginName}}::{{contextName}} s'ha executat als {{ms}}ms",
-        "initialize-failed": "Ha fallat la inicialització de l'extensió «{{pluginName}}»",
+        "initialize-failed": "Ha fallat la inicialització de l'extensió \"{{pluginName}}\"",
         "load-all": "Carregant totes les extensions",
-        "load-failed": "Error al carregar l'extensió «{{pluginName}}»",
+        "load-failed": "Error en carregar l'extensió «{{pluginName}}»",
         "loaded": "L'extensió «{{pluginName}}» s'ha carregat",
-        "unload-failed": "Error al deshabilitar l'extensió «{{pluginName}}»",
+        "unload-failed": "Error en deshabilitar l'extensió «{{pluginName}}»",
         "unloaded": "Extensió «{{pluginName}}» deshabilitada"
       }
     }
@@ -279,6 +279,13 @@
       },
       "name": "Mode ambient"
     },
+    "amuse": {
+      "description": "Afegeix suport a Youtube Music per el widget \"now playing\" d'Amuse per 6K Labs",
+      "name": "Amuse",
+      "response": {
+        "query": "L'API del servidor de Amuse està funcionant. GET /query per tenir informació de la cançó."
+      }
+    },
     "api-server": {
       "description": "Afegeix un servidor API per controlar el reproductor",
       "dialog": {
@@ -325,6 +332,30 @@
     "audio-compressor": {
       "description": "Aplica compressió a l'àudio (baixa el volum de les parts més sorolloses de la senyal d'àudio i puja el volum de les parts més fluixes)",
       "name": "Compressió d'àudio"
+    },
+    "auth-proxy-adapter": {
+      "description": "Suport per l'ús de servidors d'autenticació proxy",
+      "menu": {
+        "disable": "Desactivar adaptador Proxy",
+        "enable": "Activar adaptador Proxy",
+        "hostname": {
+          "label": "Hostname"
+        },
+        "port": {
+          "label": "Port"
+        }
+      },
+      "name": "Adaptador de proxy d'autenticació",
+      "prompt": {
+        "hostname": {
+          "label": "Posa hostname pel servidor del proxy local (requereix reiniciar):",
+          "title": "Hostname del proxy"
+        },
+        "port": {
+          "label": "Entra un port pel servidor local del proxy (requereix reiniciar):",
+          "title": "Port proxy"
+        }
+      }
     },
     "blur-nav-bar": {
       "description": "Desenfoca i aplica transparència a la barra de navegació",
@@ -484,6 +515,18 @@
         "button": "Descarrega"
       }
     },
+    "equalizer": {
+      "description": "Afegeix un equalitzador al reproductor",
+      "menu": {
+        "presets": {
+          "label": "Predefinits",
+          "list": {
+            "bass-booster": "Augmentar baixos"
+          }
+        }
+      },
+      "name": "Equalitzador"
+    },
     "exponential-volume": {
       "description": "Fa que el control lliscant del volum sigui exponencial per que sigui més fàcil seleccionar volums més baixos.",
       "name": "Volum exponencial"
@@ -581,6 +624,10 @@
       },
       "name": "Notificacions"
     },
+    "performance-improvement": {
+      "description": "Millora el rendiment habilitant scripts experimentals",
+      "name": "Millora del rendiment [Beta]"
+    },
     "picture-in-picture": {
       "description": "Permet commutar el mode d'imatge en imatge (PiP)",
       "menu": {
@@ -664,6 +711,7 @@
         "listenbrainz": {
           "token": "Introduir token d'usuari de ListenBrainz"
         },
+        "scrobble-alternative-title": "Useu títols alternatius",
         "scrobble-other-media": "Scrobble amb altres mitjans"
       },
       "name": "Scrobbler",
@@ -714,8 +762,8 @@
     "synced-lyrics": {
       "description": "Proporciona lletres sincronitzades amb les cançons, a través de proveïdors com LRClib.",
       "errors": {
-        "fetch": "⚠️ - Se ha produït un error en descarregar la lletra. Si us plau, intenta-ho més tard.",
-        "not-found": "⚠️ - No s'ha trobat la lletra per aquesta cançó."
+        "fetch": "⚠️\tS'ha produït un error en descarregar la lletra.\n\tSi us plau, intenta-ho més tard.",
+        "not-found": "⚠️ No s'ha trobat la lletra per aquesta cançó."
       },
       "menu": {
         "default-text-string": {
@@ -725,6 +773,10 @@
         "line-effect": {
           "label": "Efecte de la línia",
           "submenu": {
+            "fancy": {
+              "label": "Caprici",
+              "tooltip": "Utilitza efectes grans \"app-like\" en la línia actual"
+            },
             "focus": {
               "label": "Focus",
               "tooltip": "Mostra tan sols la línia actual en blanc"
@@ -743,6 +795,10 @@
         "precise-timing": {
           "label": "Fes que les lletres es sincronitzin a la perfecció",
           "tooltip": "Calcula al mil·lisegon l'aparició de la següent línia (pot tenir un petit impacte en el rendiment)"
+        },
+        "romanization": {
+          "label": "Romanitza les lletres",
+          "tooltip": "Si les lletres són en un idioma diferent, intenta mostrar la versió amb alfabet llatí."
         },
         "show-lyrics-even-if-inexact": {
           "label": "Mostra la lletra tot i que sigui inexacta",
@@ -776,6 +832,10 @@
       "description": "Integració amb l'extensió «Tuna» del OBS",
       "name": "Tuna OBS"
     },
+    "unobtrusive-player": {
+      "description": "Impedeix que salti el reproductor mentre se sent una cançó",
+      "name": "Reproductor Discret"
+    },
     "video-toggle": {
       "description": "Afegeix un botó per commutar entre el mode de vídeo o de cançó. Opcionalment, es pot eliminar la pestanya de vídeo per complet",
       "menu": {
@@ -799,7 +859,7 @@
       },
       "name": "Botó de vídeo",
       "templates": {
-        "button": "Cançó"
+        "button-song": "Cançó"
       }
     },
     "visualizer": {

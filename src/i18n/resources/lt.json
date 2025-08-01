@@ -207,6 +207,10 @@
     }
   },
   "plugins": {
+    "ad-speedup": {
+      "description": "Jeigu gros reklama, bus įrašo garsas išjungtas ir pagreitintas 16x",
+      "name": "Reklamos Pagreitinimas"
+    },
     "adblocker": {
       "description": "Blokuoti visas reklamas ir seklius",
       "menu": {
@@ -215,6 +219,7 @@
       "name": "Reklamų blokuotojas"
     },
     "album-actions": {
+      "description": "Prideda Nepatinka, Patinka bei atžymėti Nepatika ir Patinka visoms dainoms grojaraštyje arba albume.",
       "name": "Albumo Veiksmai"
     },
     "album-color-theme": {
@@ -273,6 +278,56 @@
         }
       },
       "name": "Aplinkos rėžimas"
+    },
+    "amuse": {
+      "description": "Prideda Youtube Muzika palaikyma Amuse grojimo valdikliui pagal 6K Labs",
+      "name": "Amuse (Platforma Dainininkams)",
+      "response": {
+        "query": "Amuse API serveris yra veikiantis. Parašykite Get /query kad gautumėte dainos informacija."
+      }
+    },
+    "api-server": {
+      "description": "Prideda API serveri, kad būtų galima kontroliuoti grotuvą",
+      "dialog": {
+        "request": {
+          "buttons": {
+            "allow": "Leisti",
+            "deny": "Neleisti"
+          },
+          "message": "Leisti {{ID}} ({{origin}}) prieiga prie API?",
+          "title": "API įgaliojimo užklausa"
+        }
+      },
+      "menu": {
+        "auth-strategy": {
+          "label": "Įgaliojimo strategija",
+          "submenu": {
+            "auth-at-first": {
+              "label": "Įgalioti per pirmą užklausą"
+            },
+            "none": {
+              "label": "Nėra įgaliojimo"
+            }
+          }
+        },
+        "hostname": {
+          "label": "Serverio Pavadinimas"
+        },
+        "port": {
+          "label": "Prievadas"
+        }
+      },
+      "name": "API Serverio {Beta}",
+      "prompt": {
+        "hostname": {
+          "label": "Įveskite serverio pavadinimą (pavyzdžiui kaip 0.0.0.0) skirtą API serveriui:",
+          "title": "Serverio Pavadinimas"
+        },
+        "port": {
+          "label": "Įveskite prievadą API serveriui:",
+          "title": "Prievadas"
+        }
+      }
     },
     "audio-compressor": {
       "description": "Pritaikyti garso kompresiją (sumažina garsiausių signalo dalių garsumą ir padidina švelniausių dalių garsumą)",
@@ -583,6 +638,17 @@
       "description": "Automatiškai praleidžia ne muzikines dalis, pvz., įžangą/užvedimą arba muzikinių vaizdo įrašų dalis, kuriose daina negrojama",
       "name": "Rėmėjų blokuotojas"
     },
+    "synced-lyrics": {
+      "refetch-btn": {
+        "fetching": "Gaunama...",
+        "normal": "Atgauti dainos žodžius"
+      },
+      "warnings": {
+        "duration-mismatch": "⚠️ - Dainos žodžiai gali būti nesinchronizuoti dėl trukmės nesutikimo.",
+        "inexact": "⚠️ - Dainos žodžiai gali šiek tiek skirtis",
+        "instrumental": "⚠️ – Tai instrumentinė daina"
+      }
+    },
     "taskbar-mediacontrol": {
       "description": "Valdykite atkūrimą iš „Windows“ užduočių juostos",
       "name": "Užduočių juostos medijos valdymas"
@@ -618,7 +684,7 @@
       },
       "name": "Vaizdo įrašo perjungimas",
       "templates": {
-        "button": "Daina"
+        "button-song": "Daina"
       }
     },
     "visualizer": {

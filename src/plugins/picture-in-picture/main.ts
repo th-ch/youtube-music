@@ -45,7 +45,7 @@ export const onMainLoad = async ({
       window.setMaximizable(false);
       window.setFullScreenable(false);
 
-      send('pip-toggle', true);
+      send('ytmd:pip-toggle', true);
 
       app.dock?.hide();
       window.setVisibleOnAllWorkspaces(true, {
@@ -63,7 +63,7 @@ export const onMainLoad = async ({
       window.setMaximizable(true);
       window.setFullScreenable(true);
 
-      send('pip-toggle', false);
+      send('ytmd:pip-toggle', false);
 
       window.setVisibleOnAllWorkspaces(false);
       window.setAlwaysOnTop(false);

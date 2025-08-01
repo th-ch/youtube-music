@@ -36,16 +36,13 @@ export const onMainLoad = async ({
   const config = await getConfig();
 
   const songControls = getSongControls(window);
-  const { playPause, next, previous, search } = songControls;
+  const { playPause, next, previous } = songControls;
 
   if (config.overrideMediaKeys) {
     _registerGlobalShortcut(window.webContents, 'MediaPlayPause', playPause);
     _registerGlobalShortcut(window.webContents, 'MediaNextTrack', next);
     _registerGlobalShortcut(window.webContents, 'MediaPreviousTrack', previous);
   }
-
-  _registerLocalShortcut(window, 'CommandOrControl+F', search);
-  _registerLocalShortcut(window, 'CommandOrControl+L', search);
 
   if (is.linux()) {
     registerMPRIS(window);

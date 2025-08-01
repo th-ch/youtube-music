@@ -15,7 +15,7 @@ export type BackendType = {
   currentRepeatMode?: RepeatMode;
   volume?: number;
 
-  init: (ctx: BackendContext<APIServerConfig>) => Promise<void>;
+  init: (ctx: BackendContext<APIServerConfig>) => void;
   run: (hostname: string, port: number) => void;
   end: () => void;
 };

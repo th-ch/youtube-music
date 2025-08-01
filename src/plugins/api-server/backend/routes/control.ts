@@ -754,8 +754,8 @@ export const register = (
     return ctx.body(null);
   });
   app.openapi(routes.search, async (ctx) => {
-    const { query } = ctx.req.valid('json');
-    const response = await controller.search(query);
+    const { query, params, continuation } = ctx.req.valid('json');
+    const response = await controller.search(query, params, continuation);
 
     ctx.status(200);
     return ctx.json(response as object);

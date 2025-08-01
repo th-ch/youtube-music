@@ -12,8 +12,8 @@ export interface DefaultConfig {
   'window-size': WindowSizeConfig;
   'window-maximized': boolean;
   'window-position': WindowPositionConfig;
-  url: string;
-  options: {
+  'url': string;
+  'options': {
     language?: string;
     tray: boolean;
     appVisible: boolean;
@@ -34,8 +34,9 @@ export interface DefaultConfig {
     overrideUserAgent: boolean;
     usePodcastParticipantAsArtist: boolean;
     themes: string[];
+    customWindowTitle?: string;
   };
-  plugins: Record<string, unknown>;
+  'plugins': Record<string, unknown>;
 }
 
 const defaultConfig: DefaultConfig = {

@@ -156,6 +156,13 @@
                 "hide": "Hide",
                 "label": "Like buttons"
               },
+              "custom-window-title": {
+                "label": "Custom window title",
+                "prompt": {
+                  "label": "Enter custom window title: (leave empty to disable)",
+                  "placeholder": "Example: YouTube Music"
+                }
+              },
               "remove-upgrade-button": "Remove upgrade button",
               "theme": {
                 "dialog": {
@@ -334,7 +341,6 @@
       "name": "Audio Compressor"
     },
     "auth-proxy-adapter": {
-      "name": "Auth Proxy Adapter",
       "description": "Support for the use of authentication proxy services",
       "menu": {
         "disable": "Disable Proxy Adapter",
@@ -346,14 +352,15 @@
           "label": "Port"
         }
       },
+      "name": "Auth Proxy Adapter",
       "prompt": {
         "hostname": {
           "title": "Proxy Hostname",
-        "label": "Enter hostname for local proxy server (requires restart):"
+          "label": "Enter hostname for local proxy server (requires restart):"
         },
         "port": {
           "title": "Proxy Port",
-        "label": "Enter port for local proxy server (requires restart):"
+          "label": "Enter port for local proxy server (requires restart):"
         }
       }
     },
@@ -381,6 +388,11 @@
       },
       "templates": {
         "title": "Open captions selector"
+      },
+      "toast": {
+        "caption-changed": "Caption changed to {{language}}",
+        "caption-disabled": "Captions disabled",
+        "no-captions": "No captions available for this song"
       }
     },
     "compact-sidebar": {
@@ -611,7 +623,15 @@
     },
     "navigation": {
       "description": "Next/Back navigation arrows directly integrated in the interface, like in your favorite browser",
-      "name": "Navigation"
+      "name": "Navigation",
+      "templates": {
+        "back": {
+          "title": "Go to previous page"
+        },
+        "forward": {
+          "title": "Go to next page"
+        }
+      }
     },
     "no-google-login": {
       "description": "Remove Google login buttons and links from the interface",
@@ -703,7 +723,12 @@
         }
       },
       "description": "Allows changing the video quality with a button on the video overlay",
-      "name": "Video Quality Changer"
+      "name": "Video Quality Changer",
+      "renderer": {
+        "quality-settings-button": {
+          "label": "Open player quality changer"
+        }
+      }
     },
     "scrobbler": {
       "description": "Add scrobbling support (etc. last.fm, Listenbrainz)",
@@ -870,7 +895,8 @@
       },
       "name": "Video Toggle",
       "templates": {
-        "button": "Song"
+        "button-song": "Song",
+        "button-video": "Video"
       }
     },
     "visualizer": {

@@ -339,11 +339,19 @@
         "enable": "プロキシアダプターを有効にする",
         "hostname": {
           "label": "ホスト名"
+        },
+        "port": {
+          "label": "ポート"
         }
       },
       "prompt": {
         "hostname": {
-          "label": "ローカルプロキシサーバのホスト名を入力します（再起動が必要です）："
+          "label": "ローカルプロキシサーバのホスト名を入力します（再起動が必要です）：",
+          "title": "プロキシホスト名"
+        },
+        "port": {
+          "label": "ローカルプロキシサーバのポートを入力します（再起動が必要です）：",
+          "title": "プロキシポート"
         }
       }
     },
@@ -371,6 +379,11 @@
       },
       "templates": {
         "title": "字幕選択機を開く"
+      },
+      "toast": {
+        "caption-changed": "字幕を{{language}}に変更しました",
+        "caption-disabled": "字幕を無効にしました",
+        "no-captions": "この曲には字幕がありません"
       }
     },
     "compact-sidebar": {
@@ -590,7 +603,15 @@
     },
     "navigation": {
       "description": "ブラウザの戻る・進むボタンのようにUIからコントロールできるボタン",
-      "name": "ナビゲーション"
+      "name": "ナビゲーション",
+      "templates": {
+        "back": {
+          "title": "前のページに戻ります"
+        },
+        "forward": {
+          "title": "次のページに進みます"
+        }
+      }
     },
     "no-google-login": {
       "description": "インターフェースからGoogleのログインボタンとリンクを削除",
@@ -613,6 +634,10 @@
         "unpause-notification": "再生再開時に通知を表示"
       },
       "name": "通知"
+    },
+    "performance-improvement": {
+      "description": "実験的スクリプトを有効にすることによってパフォーマンス改善します",
+      "name": "パフォーマンス改善 [ベータ]"
     },
     "picture-in-picture": {
       "description": "アプリでピクチャ・イン・ピクチャを切り替えられるようになります",
@@ -678,7 +703,12 @@
         }
       },
       "description": "ビデオオーバーレイのボタンを使用してビデオ品質を変更できるようにします",
-      "name": "ビデオ品質チェンジャー"
+      "name": "ビデオ品質チェンジャー",
+      "renderer": {
+        "quality-settings-button": {
+          "label": "ビデオ品質チェンジャーを開きます"
+        }
+      }
     },
     "scrobbler": {
       "description": "スクロブリング対応を追加します（例：last.fm、Listenbrainzなど）",
@@ -845,7 +875,8 @@
       },
       "name": "動画の切り替え",
       "templates": {
-        "button": "曲"
+        "button-song": "曲",
+        "button-video": "動画"
       }
     },
     "visualizer": {

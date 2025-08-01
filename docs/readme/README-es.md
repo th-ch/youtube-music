@@ -132,7 +132,7 @@ Lee esto en otros idiomas: [🏴 Inglés](../../README.md), [🇰🇷 Coreano](.
     teclas multimedia + [atajos personalizados](https://github.com/Araxeus/youtube-music/blob/1e591d6a3df98449bcda6e63baab249b28026148/providers/song-controls.js#L13-L50)
     para [usuarios avanzados](https://github.com/th-ch/youtube-music/issues/106#issuecomment-952156902)
 
-- **Saltar Canción no Gustada**: Salta las canciones que no te gustan
+- **Omitir Canciones No Deseadas**: Salta las canciones que no te gustan
 
 - **Saltar Silencios**: Salta automáticamente las secciones de silencio
 

@@ -45,7 +45,7 @@ export const onPlayerApiReady = async (
   }, 2500);
 
   /** Restore saved volume and setup tooltip */
-  function firstRun() {
+  async function firstRun() {
     if (typeof options.savedVolume === 'number') {
       // Set saved volume as tooltip
       setTooltip(options.savedVolume);
@@ -66,7 +66,7 @@ export const onPlayerApiReady = async (
     injectVolumeHud(noVid);
     if (!noVid) {
       setupVideoPlayerOnwheel();
-      if (!window.mainConfig.plugins.isEnabled('video-toggle')) {
+      if (!await window.mainConfig.plugins.isEnabled('video-toggle')) {
         // Video-toggle handles hud positioning on its own
         const videoMode = () =>
           api.getPlayerResponse().videoDetails?.musicVideoType !==
@@ -155,9 +155,9 @@ export const onPlayerApiReady = async (
   function setupSliderObserver() {
     const sliderObserver = new MutationObserver((mutations) => {
       for (const mutation of mutations) {
-        if (mutation.target instanceof HTMLInputElement) {
+        if (mutation.target.nodeName === 'TP-YT-PAPER-SLIDER') {
           // This checks that volume-slider was manually set
-          const target = mutation.target;
+          const target = mutation.target as HTMLInputElement;
           const targetValueNumeric = Number(target.value);
           if (
             mutation.oldValue !== target.value &&
@@ -280,7 +280,7 @@ export const onPlayerApiReady = async (
   );
   context.ipc.on('setVolume', (value: number) => setVolume(value));
 
-  firstRun();
+  await firstRun();
 };
 
 export const onConfigChange = (config: PreciseVolumePluginConfig) => {
