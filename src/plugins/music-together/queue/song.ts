@@ -19,8 +19,14 @@ export const getMusicQueueRenderer = async (
   const store = queue?.queue.store.store;
   if (!store) return null;
 
-  return (await app.networkManager.fetch('/music/get_queue', {
+  return await app.networkManager.fetch<
+    QueueRendererResponse,
+    {
+      queueContextParams: string;
+      videoIds: string[];
+    }
+  >('/music/get_queue', {
     queueContextParams: store.getState().queue.queueContextParams,
     videoIds,
-  })) as QueueRendererResponse | null;
+  });
 };
