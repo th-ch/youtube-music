@@ -150,6 +150,13 @@
           "visual-tweaks": {
             "label": "Визуальные настройки",
             "submenu": {
+              "custom-window-title": {
+                "label": "Собственное название окна",
+                "prompt": {
+                  "label": "Введите собственное название окна: (оставьте пустое, чтобы отключить)",
+                  "placeholder": "Например: YouTube Music"
+                }
+              },
               "like-buttons": {
                 "default": "Default",
                 "force-show": "Всегда показывать",
