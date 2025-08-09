@@ -76,13 +76,41 @@ type InjectedService = {
   };
 
   APP_STORE_TOKEN: Store<{
-    castStatus: unknown;
-    collabInviteLink: unknown;
-    continuation: unknown;
-    download: unknown;
-    entities: unknown;
-    home: unknown;
-    likeStatus: unknown;
+    castStatus: {
+      castAvailable: boolean;
+      castConnectionData: {
+        castConnectionState: 'DISCONNECTED' | 'CONNECTED';
+        castReceiverName: string;
+      };
+      remoteWatchEndpoint: unknown;
+    };
+    collabInviteLink: { playlistId: string; inviteLinkURL: string };
+    continuation: { continuationCommand: {} };
+    download: { isLeaderTab: boolean };
+    entities: Record<string, unknown> & {
+      musicTrack: Record<
+        string,
+        {
+          albumTitle: string;
+          artistNames: string;
+          contentRating: {};
+          id: string;
+          lengthMs: string;
+          thumbnailDetails: {
+            thumbnails: { url: string; width: number; height: number }[];
+          };
+          title: string;
+          videoId: string;
+        }
+      >;
+    };
+    home: {
+      shelfItems: Record<string, unknown>;
+    };
+    likeStatus: {
+      playlists: Record<string, unknown>;
+      videos: Record<string, unknown>;
+    };
     multiSelect: unknown;
     navigation: unknown;
     player: unknown;
