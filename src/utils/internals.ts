@@ -10,8 +10,6 @@ export type InjectionToken =
   | 'GFEEDBACK_TOKEN'
   | 'ENDPOINT_HANDLER_TOKEN'
   | 'COMMAND_HANDLER_TOKEN'
-  | 'CLIENT_NAME_TOKEN'
-  | 'DEFAULT_STORE_EXPIRATION_TOKEN'
   | 'SCHEDULER_TOKEN'
   | 'WATCH_PLAYER_PROMISE_TOKEN'
   | 'MODULE_REGISTRY_TOKEN'
@@ -64,28 +62,25 @@ type InjectedService = {
     enqueue(a: unknown, b: unknown): void;
   };
 
-  APP_STORE_TOKEN: {
-    // TODO: Write types for all members
-    store: Store<{
-      castStatus: unknown;
-      collabInviteLink: unknown;
-      continuation: unknown;
-      download: unknown;
-      entities: unknown;
-      home: unknown;
-      likeStatus: unknown;
-      multiSelect: unknown;
-      navigation: unknown;
-      player: unknown;
-      playerPage: unknown;
-      queue: unknown;
-      radioButtonGroup: unknown;
-      subscribeStatus: unknown;
-      toggleStates: unknown;
-      ui: unknown;
-      uploads: unknown;
-    }>;
-  };
+  APP_STORE_TOKEN: Store<{
+    castStatus: unknown;
+    collabInviteLink: unknown;
+    continuation: unknown;
+    download: unknown;
+    entities: unknown;
+    home: unknown;
+    likeStatus: unknown;
+    multiSelect: unknown;
+    navigation: unknown;
+    player: unknown;
+    playerPage: unknown;
+    queue: unknown;
+    radioButtonGroup: unknown;
+    subscribeStatus: unknown;
+    toggleStates: unknown;
+    ui: unknown;
+    uploads: unknown;
+  }>;
 
   KEY_MANAGER_TOKEN: {
     /** Single key shortcuts */
@@ -97,6 +92,10 @@ type InjectedService = {
       invocationTime: number;
     };
     spacebarHandler: CallableFunction;
+
+    isKeyBoardInUse(): boolean;
+    keyboardEventMatchesKeys(a: unknown, b: unknown): boolean;
+    register(a: unknown, b: unknown): unknown;
   };
 
   SCREEN_MANAGER_TOKEN: {
@@ -105,6 +104,13 @@ type InjectedService = {
     recurringGrafts: Map<number, Map<unknown, unknown>>;
     graftQueue: unknown[];
     stateChangedQueue: unknown[];
+
+    clickCommand(a: unknown, b: unknown, c: unknown): unknown;
+    logStateChanged(a: unknown, b: unknown, c: unknown): unknown;
+
+    setClient(a: unknown): unknown;
+    stateChanged(a: unknown, b: unknown, c: unknown): unknown;
+    visualElementStateChanged(a: unknown, b: unknown, c: unknown): unknown;
   };
 
   NETWORK_TOKEN: {
@@ -117,6 +123,13 @@ type InjectedService = {
       isReady: () => boolean;
       buildSkeletonRequest: () => unknown;
     };
+
+    fetch(a: unknown, b: unknown): unknown;
+    fetchData(a: unknown, b: unknown): unknown;
+
+    getRequestParams(a: unknown): unknown;
+    handleResponse(a: unknown, b: unknown): unknown;
+    postData(): unknown;
   };
 
   PANEL_CONTROLLER_TOKEN: {
@@ -124,6 +137,30 @@ type InjectedService = {
     panelMap: Map<unknown, unknown>;
     pendingPanelResolvers: Map<unknown, unknown>;
     updatePanelContinuationDatas: Map<unknown, unknown>;
+
+    getPanelContent(panel: unknown): unknown;
+    getReloadContinuation(a: unknown): unknown;
+    hidePanel(panel: unknown): unknown;
+    isVisible(a: unknown, b: unknown): boolean;
+
+    showPanel(
+      a: unknown,
+      b: unknown,
+      c: unknown,
+      d: unknown,
+      e: unknown,
+      f: unknown,
+      g: unknown,
+    ): unknown;
+
+    updatePanel(
+      a: unknown,
+      b: unknown,
+      c: unknown,
+      d: unknown,
+      e: unknown,
+      f: unknown,
+    ): unknown;
   };
 
   POPUP_CONTROLLER_TOKEN: {
@@ -145,6 +182,18 @@ type InjectedService = {
   GFEEDBACK_TOKEN: {
     chatSupportLoaded: false;
     recentlyPlayedVideoIds: string[];
+
+    showFeedbackDialog(): void;
+    showHelpDialog(a: unknown): void;
+  };
+
+  SCHEDULER_TOKEN: {
+    start(): void;
+    pause(): void;
+
+    addLowPriorityJob(a: unknown, b: unknown): unknown;
+    debounce(a: unknown, b: unknown, c: unknown): unknown;
+    cancelJob(job: unknown): void;
   };
 };
 
