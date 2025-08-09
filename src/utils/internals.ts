@@ -141,6 +141,11 @@ type InjectedService = {
       closePopup(a: unknown): void;
     };
   };
+
+  GFEEDBACK_TOKEN: {
+    chatSupportLoaded: false;
+    recentlyPlayedVideoIds: string[];
+  };
 };
 
 export const resolveToken = async <
