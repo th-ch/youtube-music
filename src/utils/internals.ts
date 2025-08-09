@@ -16,11 +16,7 @@ export type InjectionToken =
   | 'WATCH_PLAYER_PROMISE_TOKEN'
   | 'MODULE_REGISTRY_TOKEN'
   | 'PERSISTENT_STORE_PROMISE_ACCESSOR_TOKEN'
-  | 'EPHEMERAL_STORE_TOKEN'
-  | 'ENTITY_STATE_TOKEN'
-  | 'STATE_STORE_TOKEN'
   | 'PERSISTENT_ENTITY_STORE_ACCESSOR_TOKEN'
-  | 'AUTH_SERVICE_TOKEN'
   | 'ENDPOINT_MAP'
   | 'SCREEN_MANAGER_TOKEN'
   | 'DOWNLOAD_UPLIFT_SERVICE_TOKEN'
@@ -46,7 +42,6 @@ export type InjectionToken =
   | 'INNERTUBE_TRANSPORT_TOKEN'
   | 'ICON_WIZ_COMPONENT_TOKEN'
   | 'BUTTON_RENDERER_TOKEN'
-  | 'DARK_THEME_TOKEN'
   | 'TOAST_MANAGER_TOKEN'
   | 'POPUP_CONTROLLER_TOKEN'
   | 'PANEL_CONTROLLER_TOKEN'
@@ -59,7 +54,9 @@ export type InjectionToken =
 
 // TODO: Document all other services here
 type InjectedService = {
+  PLAYER_API_TOKEN: YoutubePlayer;
   WATCH_PLAYER_PROMISE_TOKEN: YoutubePlayer;
+
   TOAST_MANAGER_TOKEN: {
     currentPersistentToast: unknown;
     currentToast: unknown;
@@ -101,6 +98,14 @@ type InjectedService = {
       invocationTime: number;
     };
     spacebarHandler: CallableFunction;
+  };
+
+  SCREEN_MANAGER_TOKEN: {
+    backHistoryStack: { csn: string; key: string; rootVe: number }[];
+    forwardHistoryStack: { csn: string; key: string; rootVe: number }[];
+    recurringGrafts: Map<number, Map<unknown, unknown>>;
+    graftQueue: unknown[];
+    stateChangedQueue: unknown[];
   };
 };
 
