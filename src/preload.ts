@@ -14,6 +14,48 @@ import {
   loadAllPreloadPlugins,
 } from './loader/preload';
 import { loadI18n, setLanguage } from '@/i18n';
+import { YTMD_INTERNALS_CONSTANT } from './utils/internals';
+
+new MutationObserver(async (mutations, observer) => {
+  for (const mutation of mutations) {
+    if (!mutation.addedNodes) return;
+
+    for (const node of mutation.addedNodes) {
+      const script = node as HTMLScriptElement;
+      if (
+        script.tagName !== 'SCRIPT' ||
+        !script?.src?.match(/music_polymer_inlined_html\.js/)
+      )
+        continue;
+
+      const href = script.src;
+      const nonce = script.getAttribute('nonce');
+
+      // Remove the script, so it is not executed.
+      script.remove();
+
+      // Fetch the remote script, and apply patches to it.
+      const code = await fetch(href).then((r) => r.text());
+      const newScript = Object.assign(document.createElement('script'), {
+        nonce,
+        innerHTML: code.replace(
+          /[$\w]+=function\(\){.{0,100}this\.providers=new Map;/,
+          (m) =>
+            m +
+            `(globalThis.${YTMD_INTERNALS_CONSTANT} ??= []).container=this;`,
+        ),
+      });
+
+      document.body.appendChild(newScript);
+
+      observer.disconnect();
+      return;
+    }
+  }
+}).observe(document, {
+  childList: true,
+  subtree: true,
+});
 
 loadI18n().then(async () => {
   await setLanguage(config.get('options.language') ?? 'en');
