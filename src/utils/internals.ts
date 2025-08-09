@@ -107,6 +107,18 @@ type InjectedService = {
     graftQueue: unknown[];
     stateChangedQueue: unknown[];
   };
+
+  NETWORK_TOKEN: {
+    clientName: 'WEB_REMIX';
+    clientTheme: unknown;
+    clientVersion: string;
+    clientVersionIdentifier: string;
+
+    innertubeClient: {
+      isReady: () => boolean;
+      buildSkeletonRequest: () => unknown;
+    };
+  };
 };
 
 export const resolveToken = async <
