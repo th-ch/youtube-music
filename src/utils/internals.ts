@@ -13,38 +13,17 @@ export type InjectionToken =
   | 'SCHEDULER_TOKEN'
   | 'WATCH_PLAYER_PROMISE_TOKEN'
   | 'MODULE_REGISTRY_TOKEN'
-  | 'PERSISTENT_STORE_PROMISE_ACCESSOR_TOKEN'
-  | 'PERSISTENT_ENTITY_STORE_ACCESSOR_TOKEN'
-  | 'ENDPOINT_MAP'
   | 'SCREEN_MANAGER_TOKEN'
-  | 'DOWNLOAD_UPLIFT_SERVICE_TOKEN'
   | 'ACTIVITY_TOKEN'
   | 'ACTION_ROUTER_TOKEN'
   | 'DOWNLOAD_ELIGIBILITY_PROMISE_TOKEN'
-  | 'PREF_STORAGE_PROMISE_TOKEN'
-  | 'DOWNLOADS_ENTITY_TYPE_MAP'
   | 'DIALOG_CONTROLLER_TOKEN'
-  | 'PANEL_LOADING_STRATEGY_TOKEN'
   | 'SHEET_CONTROLLER_TOKEN'
-  | 'APP_DIRECTION_TOKEN'
-  | 'ICON_SET_TOKEN'
-  | 'ICON_MANAGER_TOKEN'
-  | 'PREFETCH_ICONS_TOKEN'
-  | 'DOWNLOAD_UPLIFT_COMPLETION_PROMISE_TOKEN'
-  | 'LOCAL_INNERTUBE_SERVICE_MAP_TOKEN'
-  | 'LOCAL_INNERTUBE_ROUTER_TOKEN'
   | 'NETWORK_MANAGER_TOKEN'
-  | 'VOTING_ANIMATION_CONTROLLER_TOKEN'
-  | 'INNERTUBE_TOKEN_SERVICE'
-  | 'ENTITIES_RESPONSE_PROCESSOR_TOKEN'
-  | 'INNERTUBE_TRANSPORT_TOKEN'
-  | 'ICON_WIZ_COMPONENT_TOKEN'
-  | 'BUTTON_RENDERER_TOKEN'
   | 'TOAST_MANAGER_TOKEN'
   | 'POPUP_CONTROLLER_TOKEN'
   | 'PANEL_CONTROLLER_TOKEN'
   | 'APP_STORE_TOKEN'
-  | 'VISIBILITY_OBSERVER'
   | 'PLAYER_API_TOKEN'
   | 'NAVIGATION_PROGRESS_TOKEN'
   | (string & {});
@@ -53,6 +32,40 @@ export type InjectionToken =
 type InjectedService = {
   PLAYER_API_TOKEN: YoutubePlayer;
   WATCH_PLAYER_PROMISE_TOKEN: YoutubePlayer;
+
+  ACTIVITY_TOKEN: {
+    eventJobIds: Record<number, unknown>;
+    scrollEventsToIgnore: number;
+    stopIgnoringScrollTimeoutIds: number[];
+    onResize(): unknown;
+    onScroll(a: unknown): unknown;
+  };
+
+  ACTION_ROUTER_TOKEN: {
+    actionRoutingMap: Map<string, Map<number, CallableFunction>>;
+
+    handleAction(action: unknown): unknown;
+    triggerAction(action: unknown): unknown;
+    triggerOptionalAction(action: unknown): unknown;
+  };
+
+  COMMAND_HANDLER_TOKEN: {
+    buildCommandPayload(a: unknown, b: unknown): unknown;
+    commandResolverMap: Record<string, CallableFunction>;
+    handleServiceRequest(a: unknown): unknown;
+    navigate(a: unknown): unknown;
+    pendingCommands: Set<unknown>;
+    sendAction(a: unknown): unknown;
+  };
+
+  DOWNLOAD_ELIGIBILITY_PROMISE_TOKEN: {
+    isSupported: boolean;
+  };
+
+  ENDPOINT_HANDLER_TOKEN: {
+    getUrl(a: unknown): unknown;
+    getNavigationEventDetails(a: unknown, b: unknown): unknown;
+  };
 
   TOAST_MANAGER_TOKEN: {
     currentPersistentToast: unknown;
@@ -161,6 +174,22 @@ type InjectedService = {
       e: unknown,
       f: unknown,
     ): unknown;
+  };
+
+  SHEET_CONTROLLER_TOKEN: {
+    container: unknown; // TODO: I think this is just POPUP_CONTROLLER_TOKEN.container
+
+    closeSheet(): unknown;
+    isSheetOpen(): boolean;
+    openSheet(a: unknown, b: unknown): unknown;
+  };
+
+  DIALOG_CONTROLLER_TOKEN: {
+    container: unknown; // TODO: I think this is just POPUP_CONTROLLER_TOKEN.container
+
+    closeDialog(): unknown;
+    isDialogOPen(): boolean;
+    openDialog(a: unknown, b: unknown, c: unknown): unknown;
   };
 
   POPUP_CONTROLLER_TOKEN: {
