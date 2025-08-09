@@ -125,6 +125,22 @@ type InjectedService = {
     pendingPanelResolvers: Map<unknown, unknown>;
     updatePanelContinuationDatas: Map<unknown, unknown>;
   };
+
+  POPUP_CONTROLLER_TOKEN: {
+    container: {
+      actionMap: object;
+
+      isDialogOpen(): boolean;
+      isSheetOpen(): boolean;
+
+      openDialog(a: unknown, b: unknown, c: unknown): unknown;
+      openSheet(a: unknown, b: unknown): unknown;
+
+      closeDialog(): void;
+      closeSheet(): void;
+      closePopup(a: unknown): void;
+    };
+  };
 };
 
 export const resolveToken = async <
