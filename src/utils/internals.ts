@@ -90,6 +90,18 @@ type InjectedService = {
       uploads: unknown;
     }>;
   };
+
+  KEY_MANAGER_TOKEN: {
+    /** Single key shortcuts */
+    keyCombinationHandlers: Map<string, CallableFunction>;
+    /** Sequencial shortcuts (vim-like) */
+    keySequenceHandlers: Map<string[], CallableFunction>;
+    mostRecentKeyboardEventInfo: {
+      event: KeyboardEvent;
+      invocationTime: number;
+    };
+    spacebarHandler: CallableFunction;
+  };
 };
 
 export const resolveToken = async <
