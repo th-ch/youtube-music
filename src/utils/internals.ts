@@ -45,7 +45,6 @@ export type InjectionToken =
   | 'TOAST_MANAGER_TOKEN'
   | 'POPUP_CONTROLLER_TOKEN'
   | 'PANEL_CONTROLLER_TOKEN'
-  | 'PURCHASE_MANAGER_TOKEN'
   | 'APP_STORE_TOKEN'
   | 'VISIBILITY_OBSERVER'
   | 'PLAYER_API_TOKEN'
@@ -118,6 +117,13 @@ type InjectedService = {
       isReady: () => boolean;
       buildSkeletonRequest: () => unknown;
     };
+  };
+
+  PANEL_CONTROLLER_TOKEN: {
+    panelContentMap: Map<unknown, unknown>;
+    panelMap: Map<unknown, unknown>;
+    pendingPanelResolvers: Map<unknown, unknown>;
+    updatePanelContinuationDatas: Map<unknown, unknown>;
   };
 };
 
