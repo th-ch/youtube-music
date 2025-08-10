@@ -139,10 +139,12 @@ export const pluginVirtualModuleGenerator = (
 function supportsPlatform({ platform }: { platform: string }) {
   if (typeof platform !== "number") return true;
 
-  if (globalThis.electronIs.windows()) return (platform & Platform.Windows) !== 0;
-  if (globalThis.electronIs.macOS()) return (platform & Platform.macOS) !== 0;
-  if (globalThis.electronIs.linux()) return (platform & Platform.Linux) !== 0;
-  if (globalThis.electronIs.freebsd()) return (platform & Platform.Freebsd) !== 0;
+  const is = globalThis.electronIs;
+
+  if (is.windows()) return (platform & Platform.Windows) !== 0;
+  if (is.macOS()) return (platform & Platform.macOS) !== 0;
+  if (is.linux()) return (platform & Platform.Linux) !== 0;
+  if (is.freebsd()) return (platform & Platform.Freebsd) !== 0;
 
   // unknown platform
   return false;
