@@ -1,4 +1,7 @@
-import { Client as DiscordClient } from '@xhayper/discord-rpc';
+import {
+  Client as DiscordClient,
+  StatusDisplayType,
+} from '@xhayper/discord-rpc';
 import { dev } from 'electron-is';
 import { ActivityType } from 'discord-api-types/v10';
 
@@ -98,8 +101,11 @@ export class DiscordService {
 
     const activityInfo: SetActivity = {
       type: ActivityType.Listening,
+      statusDisplayType: StatusDisplayType.STATE,
       details: truncateString(songInfo.title, 128), // Song title
+      detailsUrl: songInfo.url,
       state: truncateString(songInfo.artist, 128), // Artist name
+      stateUrl: songInfo.artistUrl,
       largeImageKey: songInfo.imageSrc ?? undefined,
       largeImageText: songInfo.album
         ? truncateString(songInfo.album, 128)
@@ -109,7 +115,7 @@ export class DiscordService {
 
     // Handle paused state display
     if (songInfo.isPaused) {
-      activityInfo.largeImageText = '⏸︎';
+      activityInfo.largeImageText = '⏸';
     } else if (
       !config.hideDurationLeft &&
       songInfo.songDuration > 0 &&
