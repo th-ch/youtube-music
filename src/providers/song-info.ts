@@ -95,7 +95,7 @@ const handleData = async (
     songInfo.url = microformat.urlCanonical?.split('&')[0];
     songInfo.playlistId =
       new URL(microformat.urlCanonical).searchParams.get('list') ?? '';
-    songInfo.artistUrl = microformat.pageOwnerDetails.youtubeProfileUrl;
+    songInfo.artistUrl = `https://music.youtube.com/channel/${microformat.pageOwnerDetails.externalChannelId}`;
     // Used for options.resumeOnStart
     config.set('url', microformat.urlCanonical);
     songInfo.alternativeTitle = microformat.linkAlternates.find(
