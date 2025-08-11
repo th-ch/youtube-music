@@ -120,15 +120,14 @@ export const LyricsPicker = (props: {
   }
 
   createEffect(() => {
-    if (starredProvider() !== null) {
-      setLyricsStore('provider', starredProvider() as any);
-      return;
-    }
-
     // fallback to the next source, if the current one has an error
     if (!hasManuallySwitchedProvider()) {
-      const bestProvider = pickBestProvider();
+      if (starredProvider() !== null) {
+        setLyricsStore('provider', starredProvider() as any);
+        return;
+      }
 
+      const bestProvider = pickBestProvider();
       const allProvidersFailed = providerNames.every((p) =>
         shouldSwitchProvider(lyricsStore.lyrics[p]),
       );
