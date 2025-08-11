@@ -24,6 +24,7 @@ import { _ytAPI } from '../index';
 
 import type { YtIcons } from '@/types/icons';
 import { PlayerAPIEvents } from '@/types/player-api-events';
+import { config } from '../renderer';
 
 export const providerIdx = createMemo(() =>
   providerNames.indexOf(lyricsStore.provider),
@@ -46,11 +47,19 @@ const providerBias = (p: ProviderName) =>
   (lyricsStore.lyrics[p].data?.lyrics ? 1 : -1);
 
 const pickBestProvider = () => {
+  const preferred = config()?.preferredProvider;
+  if (preferred) {
+    const data = lyricsStore.lyrics[preferred].data;
+    if (Array.isArray(data?.lines) || data?.lyrics) {
+      return { provider: preferred, force: true };
+    }
+  }
+
   const providers = Array.from(providerNames);
 
   providers.sort((a, b) => providerBias(b) - providerBias(a));
 
-  return providers[0];
+  return { provider: providers[0], force: false };
 };
 
 const [hasManuallySwitchedProvider, setHasManuallySwitchedProvider] =
@@ -119,22 +128,20 @@ export const LyricsPicker = (props: {
     onCleanup(() => _ytAPI?.removeEventListener('videodatachange', videoDataChangeHandler));
   }
 
+  // prettier-ignore
   createEffect(() => {
-    // fallback to the next source, if the current one has an error
     if (!hasManuallySwitchedProvider()) {
       if (starredProvider() !== null) {
         setLyricsStore('provider', starredProvider() as any);
         return;
       }
 
-      const bestProvider = pickBestProvider();
-      const allProvidersFailed = providerNames.every((p) =>
-        shouldSwitchProvider(lyricsStore.lyrics[p]),
-      );
+      const allProvidersFailed = providerNames.every((p) => shouldSwitchProvider(lyricsStore.lyrics[p]));
       if (allProvidersFailed) return;
 
-      if (providerBias(lyricsStore.provider) < providerBias(bestProvider)) {
-        setLyricsStore('provider', bestProvider);
+      const { provider, force } = pickBestProvider();
+      if (force || providerBias(lyricsStore.provider) < providerBias(provider)) {
+        setLyricsStore('provider', provider);
       }
     }
   });
