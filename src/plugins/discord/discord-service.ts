@@ -111,7 +111,7 @@ export class DiscordService {
 
     // Handle paused state display
     if (songInfo.isPaused) {
-      activityInfo.largeImageText = '⏸';
+      activityInfo.largeImageText = '⏸︎';
     } else if (
       !config.hideDurationLeft &&
       songInfo.songDuration > 0 &&
