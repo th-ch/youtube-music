@@ -1,10 +1,10 @@
-import { createEffect, For, Show, createSignal } from 'solid-js';
+import { createEffect, For, Show, createSignal, createMemo } from 'solid-js';
 
 import { VirtualizerHandle } from 'virtua/solid';
 
 import { LineLyrics } from '@/plugins/synced-lyrics/types';
 
-import { config } from '../renderer';
+import { config, currentTime } from '../renderer';
 import { _ytAPI } from '..';
 
 import { canonicalize, romanize, simplifyUnicode } from '../utils';
@@ -17,11 +17,17 @@ interface SyncedLineProps {
   status: 'upcoming' | 'current' | 'previous';
 }
 
-const [animationFrame, setAnimationFrame] = createSignal(0);
-setInterval(() => setAnimationFrame((old) => old + 1), 500);
-
 const EmptyLine = (props: SyncedLineProps) => {
-  const states = config()?.defaultTextString ?? '';
+  const defaulText = config()?.defaultTextString ?? '';
+  const states = Array.isArray(defaulText) ? defaulText : [defaulText];
+
+  const index = createMemo(() => {
+    const progress = currentTime() - props.line.timeInMs;
+    const total = props.line.duration;
+
+    const percentage = Math.min(1, progress / total);
+    return Math.max(0, Math.floor((states.length - 1) * percentage));
+  });
 
   return (
     <div
@@ -57,9 +63,7 @@ const EmptyLine = (props: SyncedLineProps) => {
                     runs: [
                       {
                         text: states.at(
-                          props.status === 'current'
-                            ? animationFrame() % states.length
-                            : -1,
+                          props.status === 'current' ? index() : -1,
                         )!,
                       },
                     ],
