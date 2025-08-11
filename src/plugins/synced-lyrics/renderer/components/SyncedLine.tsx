@@ -43,28 +43,30 @@ const EmptyLine = (props: SyncedLineProps) => {
 
         <div class="text-lyrics">
           <span>
-            <Show
-              when={!(typeof states === 'string')}
-              fallback={
+            <span>
+              <Show
+                when={!(typeof states === 'string')}
+                fallback={
+                  <yt-formatted-string
+                    text={{ runs: [{ text: states as unknown as string }] }}
+                  />
+                }
+              >
                 <yt-formatted-string
-                  text={{ runs: [{ text: states as unknown as string }] }}
+                  text={{
+                    runs: [
+                      {
+                        text: states.at(
+                          props.status === 'current'
+                            ? animationFrame() % states.length
+                            : -1,
+                        )!,
+                      },
+                    ],
+                  }}
                 />
-              }
-            >
-              <yt-formatted-string
-                text={{
-                  runs: [
-                    {
-                      text: states.at(
-                        props.status === 'current'
-                          ? animationFrame() % states.length
-                          : -1,
-                      )!,
-                    },
-                  ],
-                }}
-              />
-            </Show>
+              </Show>
+            </span>
           </span>
         </div>
       </div>
