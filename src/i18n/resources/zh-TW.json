@@ -150,6 +150,13 @@
           "visual-tweaks": {
             "label": "介面設定",
             "submenu": {
+              "custom-window-title": {
+                "label": "客制化窗口標題",
+                "prompt": {
+                  "label": "輸入客制化窗口標題: (留空讓其禁用)",
+                  "placeholder": "例如: YouTube 音樂"
+                }
+              },
               "like-buttons": {
                 "default": "預設",
                 "force-show": "強制顯示",
@@ -201,8 +208,8 @@
       "restart": "重新啟動應用程式",
       "show": "顯示視窗",
       "tooltip": {
-        "default": "YouTube Music",
-        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
+        "default": "YouTube 音樂",
+        "with-song-info": "YouTube 音樂: {{artist}} - {{title}}"
       }
     }
   },

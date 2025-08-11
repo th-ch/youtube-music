@@ -150,6 +150,13 @@
           "visual-tweaks": {
             "label": "見た目の微調整",
             "submenu": {
+              "custom-window-title": {
+                "label": "カスタムウィンドウタイトル",
+                "prompt": {
+                  "label": "カスタムウィンドウタイトルを入力: (未入力の場合無効になります)",
+                  "placeholder": "例: YouTube Music"
+                }
+              },
               "like-buttons": {
                 "default": "デフォルト",
                 "force-show": "強制的に表示",
@@ -334,6 +341,7 @@
       "name": "オーディオコンプレッサー"
     },
     "auth-proxy-adapter": {
+      "description": "認証プロキシサービスの利用サポート",
       "menu": {
         "disable": "プロキシアダプターを無効にする",
         "enable": "プロキシアダプターを有効にする",
@@ -344,6 +352,7 @@
           "label": "ポート"
         }
       },
+      "name": "認証プロキシアダプタ",
       "prompt": {
         "hostname": {
           "label": "ローカルプロキシサーバのホスト名を入力します（再起動が必要です）：",
