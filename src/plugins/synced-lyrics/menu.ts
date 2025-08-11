@@ -93,47 +93,19 @@ export const menu = async (
       toolTip: t('plugins.synced-lyrics.menu.default-text-string.tooltip'),
       type: 'submenu',
       submenu: [
-        {
-          label: '♪',
-          type: 'radio',
-          checked: config.defaultTextString === '♪',
-          click() {
-            ctx.setConfig({
-              defaultTextString: '♪',
-            });
-          },
+        { label: '♪', value: '♪' },
+        { label: '" "', value: ' ' },
+        { label: '...', value: '...' },
+        { label: '•••', value: '•••' },
+        { label: '———', value: '———' },
+      ].map(({ label, value }) => ({
+        label,
+        type: 'radio',
+        checked: config.defaultTextString === value,
+        click() {
+          ctx.setConfig({ defaultTextString: value });
         },
-        {
-          label: '" "',
-          type: 'radio',
-          checked: config.defaultTextString === ' ',
-          click() {
-            ctx.setConfig({
-              defaultTextString: ' ',
-            });
-          },
-        },
-        {
-          label: '...',
-          type: 'radio',
-          checked: config.defaultTextString === '...',
-          click() {
-            ctx.setConfig({
-              defaultTextString: '...',
-            });
-          },
-        },
-        {
-          label: '———',
-          type: 'radio',
-          checked: config.defaultTextString === '———',
-          click() {
-            ctx.setConfig({
-              defaultTextString: '———',
-            });
-          },
-        },
-      ],
+      })),
     },
     {
       label: t('plugins.synced-lyrics.menu.romanization.label'),
