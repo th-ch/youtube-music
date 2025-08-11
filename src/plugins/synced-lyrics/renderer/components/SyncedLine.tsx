@@ -1,4 +1,4 @@
-import { createEffect, createMemo, For, Show, createSignal } from 'solid-js';
+import { createEffect, For, Show, createSignal } from 'solid-js';
 
 import { VirtualizerHandle } from 'virtua/solid';
 
@@ -17,37 +17,76 @@ interface SyncedLineProps {
   status: 'upcoming' | 'current' | 'previous';
 }
 
-export const SyncedLine = (props: SyncedLineProps) => {
-  const text = createMemo(() => {
-    if (!props.line.text.trim()) {
-      return config()?.defaultTextString ?? '';
-    }
+const [animationFrame, setAnimationFrame] = createSignal(0);
+setInterval(() => setAnimationFrame((old) => old + 1), 500);
 
-    return props.line.text;
-  });
+const EmptyLine = (props: SyncedLineProps) => {
+  const states = config()?.defaultTextString ?? '';
+
+  return (
+    <div
+      class={`synced-line ${props.status}`}
+      onClick={() => {
+        _ytAPI?.seekTo((props.line.timeInMs + 10) / 1000);
+      }}
+    >
+      <div dir="auto" class="description ytmusic-description-shelf-renderer">
+        <yt-formatted-string
+          text={{
+            runs: [
+              {
+                text: config()?.showTimeCodes ? `[${props.line.time}] ` : '',
+              },
+            ],
+          }}
+        />
+
+        <div class="text-lyrics">
+          <span>
+            <Show
+              when={!(typeof states === 'string')}
+              fallback={
+                <yt-formatted-string
+                  text={{ runs: [{ text: states as unknown as string }] }}
+                />
+              }
+            >
+              <yt-formatted-string
+                text={{
+                  runs: [
+                    {
+                      text: states.at(
+                        props.status === 'current'
+                          ? animationFrame() % states.length
+                          : -1,
+                      )!,
+                    },
+                  ],
+                }}
+              />
+            </Show>
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export const SyncedLine = (props: SyncedLineProps) => {
+  const text = props.line.text.trim();
 
   const [romanization, setRomanization] = createSignal('');
-
   createEffect(() => {
     if (!config()?.romanization) return;
 
-    const input = canonicalize(text());
+    const input = canonicalize(text);
     romanize(input).then((result) => {
       setRomanization(canonicalize(result));
     });
   });
 
   return (
-    <Show
-      when={text()}
-      fallback={
-        <yt-formatted-string
-          text={{
-            runs: [{ text: '' }],
-          }}
-        />
-      }
-    >
+    <Show when={text} fallback={<EmptyLine {...props} />}>
       <div
         class={`synced-line ${props.status}`}
         onClick={() => {
@@ -78,7 +117,7 @@ export const SyncedLine = (props: SyncedLineProps) => {
             style={{ 'display': 'flex', 'flex-direction': 'column' }}
           >
             <span>
-              <For each={text().split(' ')}>
+              <For each={text.split(' ')}>
                 {(word, index) => {
                   return (
                     <span
@@ -101,7 +140,7 @@ export const SyncedLine = (props: SyncedLineProps) => {
             <Show
               when={
                 config()?.romanization &&
-                simplifyUnicode(text()) !== simplifyUnicode(romanization())
+                simplifyUnicode(text) !== simplifyUnicode(romanization())
               }
             >
               <span class="romaji">

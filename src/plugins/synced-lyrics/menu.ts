@@ -95,13 +95,17 @@ export const menu = async (
       submenu: [
         { label: '♪', value: '♪' },
         { label: '" "', value: ' ' },
-        { label: '...', value: '...' },
-        { label: '•••', value: '•••' },
+        { label: '...', value: ['.', '..', '...'] },
+        { label: '•••', value: ['•', '••', '•••'] },
         { label: '———', value: '———' },
       ].map(({ label, value }) => ({
         label,
         type: 'radio',
-        checked: config.defaultTextString === value,
+        checked:
+          typeof value === 'string'
+            ? config.defaultTextString === value
+            : JSON.stringify(config.defaultTextString) ===
+              JSON.stringify(value),
         click() {
           ctx.setConfig({ defaultTextString: value });
         },
