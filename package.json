@@ -167,7 +167,7 @@
     "glob": "11.0.3",
     "node-gyp": "11.2.0",
     "playwright": "1.54.1",
-    "rollup": "4.46.1",
+    "rollup": "4.46.2",
     "typescript": "5.8.3",
     "typescript-eslint": "8.38.0",
     "utf-8-validate": "6.0.5",
