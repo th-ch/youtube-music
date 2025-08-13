@@ -342,6 +342,8 @@
     "auth-proxy-adapter": {
       "description": "Podpora pro použití ověřovacích proxy služeb",
       "menu": {
+        "disable": "Vypnout Proxy Adaptér",
+        "enable": "Zapnout Proxy Adaptér",
         "hostname": {
           "label": "Hostname"
         },
