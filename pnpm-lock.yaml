@@ -9,7 +9,7 @@ overrides:
   node-gyp: 11.2.0
   xml2js: 0.6.2
   node-fetch: 3.3.2
-  '@electron/universal': 3.0.0
+  '@electron/universal': 3.0.1
   '@babel/runtime': 7.28.2
   vitefu: 1.1.1
 
@@ -545,8 +545,8 @@ packages:
     peerDependencies:
       electron: '>= 13.0.0'
 
-  '@electron/universal@3.0.0':
-    resolution: {integrity: sha512-5oSmF7VDDV+QeWZu+fTKdyUXLPGXv/3Q9NRkow5QvOYIxjsIlQcPGT+RS+YPkADnaeYbatBySOP16bSXoTJWuQ==}
+  '@electron/universal@3.0.1':
+    resolution: {integrity: sha512-eIp536o/szgMUjK7gq+RqtUDoYzlV2u237/jts+ZAvZCFyrwO2yYVjg5BOiTM2trD5Ikfq9kDd1MZbuJHkEDNw==}
     engines: {node: '>=22.12.0'}
 
   '@electron/windows-sign@1.2.1':
@@ -5189,7 +5189,7 @@ snapshots:
     dependencies:
       electron: 37.2.4
 
-  '@electron/universal@3.0.0':
+  '@electron/universal@3.0.1':
     dependencies:
       '@electron/asar': 4.0.0
       '@malept/cross-spawn-promise': 2.0.0
@@ -6313,7 +6313,7 @@ snapshots:
       '@electron/notarize': 2.5.0
       '@electron/osx-sign': 1.3.1
       '@electron/rebuild': 3.7.0
-      '@electron/universal': 3.0.0
+      '@electron/universal': 3.0.1
       '@malept/flatpak-bundler': 0.4.0(patch_hash=c787371eeb2af011ea934e8818a0dad6d7dcb2df31bbb1686babc7231af0183c)
       '@types/fs-extra': 9.0.13
       async-exit-hook: 2.0.1
