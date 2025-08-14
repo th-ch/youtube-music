@@ -853,6 +853,26 @@
       "description": "Fügt ein TouchBar-Widget für macOS-Benutzer hinzu",
       "name": "TouchBar"
     },
+    "transparent-player": {
+      "description": "Macht das Player-Fenster transparent",
+      "name": "Transparent Player",
+      "menu": {
+        "opacity": {
+          "label": "Hintergrund-Sichtbarkeit",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "type": {
+          "label": "Typ",
+          "submenu": {
+            "acrylic": "Acrylic",
+            "mica": "Mica",
+            "tabbed": "Tabbed"
+          }
+        }
+      }
+    },
     "tuna-obs": {
       "description": "Integration mit dem OBS-Plugin Tuna",
       "name": "Tuna OBS"
