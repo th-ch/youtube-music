@@ -780,6 +780,10 @@
       "description": "साइलेंट सेक्शन को ऑटोमेटिकली स्किप करें",
       "name": "साइलेंस स्किप करें"
     },
+    "sponsorblock": {
+      "description": "Intro/Outro जैसे गैर-संगीत भागों को स्किप करता है",
+      "name": "SponsorBlock"
+    },
     "video-toggle": {
       "menu": {
         "align": {
