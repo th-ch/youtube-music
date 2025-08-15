@@ -1,10 +1,10 @@
-import { createEffect, createMemo, For, Show, createSignal } from 'solid-js';
+import { createEffect, For, Show, createSignal, createMemo } from 'solid-js';
 
 import { VirtualizerHandle } from 'virtua/solid';
 
 import { LineLyrics } from '@/plugins/synced-lyrics/types';
 
-import { config } from '../renderer';
+import { config, currentTime } from '../renderer';
 import { _ytAPI } from '..';
 
 import { canonicalize, romanize, simplifyUnicode } from '../utils';
@@ -17,37 +17,82 @@ interface SyncedLineProps {
   status: 'upcoming' | 'current' | 'previous';
 }
 
-export const SyncedLine = (props: SyncedLineProps) => {
-  const text = createMemo(() => {
-    if (!props.line.text.trim()) {
-      return config()?.defaultTextString ?? '';
-    }
+const EmptyLine = (props: SyncedLineProps) => {
+  const defaulText = config()?.defaultTextString ?? '';
+  const states = Array.isArray(defaulText) ? defaulText : [defaulText];
 
-    return props.line.text;
+  const index = createMemo(() => {
+    const progress = currentTime() - props.line.timeInMs;
+    const total = props.line.duration;
+
+    const percentage = Math.min(1, progress / total);
+    return Math.max(0, Math.floor((states.length - 1) * percentage));
   });
 
-  const [romanization, setRomanization] = createSignal('');
+  return (
+    <div
+      class={`synced-line ${props.status}`}
+      onClick={() => {
+        _ytAPI?.seekTo((props.line.timeInMs + 10) / 1000);
+      }}
+    >
+      <div dir="auto" class="description ytmusic-description-shelf-renderer">
+        <yt-formatted-string
+          text={{
+            runs: [
+              {
+                text: config()?.showTimeCodes ? `[${props.line.time}] ` : '',
+              },
+            ],
+          }}
+        />
 
+        <div class="text-lyrics">
+          <span>
+            <span>
+              <Show
+                when={!(typeof states === 'string')}
+                fallback={
+                  <yt-formatted-string
+                    text={{ runs: [{ text: states as unknown as string }] }}
+                  />
+                }
+              >
+                <yt-formatted-string
+                  text={{
+                    runs: [
+                      {
+                        text: states.at(
+                          props.status === 'current' ? index() : -1,
+                        )!,
+                      },
+                    ],
+                  }}
+                />
+              </Show>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export const SyncedLine = (props: SyncedLineProps) => {
+  const text = props.line.text.trim();
+
+  const [romanization, setRomanization] = createSignal('');
   createEffect(() => {
     if (!config()?.romanization) return;
 
-    const input = canonicalize(text());
+    const input = canonicalize(text);
     romanize(input).then((result) => {
       setRomanization(canonicalize(result));
     });
   });
 
   return (
-    <Show
-      when={text()}
-      fallback={
-        <yt-formatted-string
-          text={{
-            runs: [{ text: '' }],
-          }}
-        />
-      }
-    >
+    <Show when={text} fallback={<EmptyLine {...props} />}>
       <div
         class={`synced-line ${props.status}`}
         onClick={() => {
@@ -78,7 +123,7 @@ export const SyncedLine = (props: SyncedLineProps) => {
             style={{ 'display': 'flex', 'flex-direction': 'column' }}
           >
             <span>
-              <For each={text().split(' ')}>
+              <For each={text.split(' ')}>
                 {(word, index) => {
                   return (
                     <span
@@ -101,7 +146,7 @@ export const SyncedLine = (props: SyncedLineProps) => {
             <Show
               when={
                 config()?.romanization &&
-                simplifyUnicode(text()) !== simplifyUnicode(romanization())
+                simplifyUnicode(text) !== simplifyUnicode(romanization())
               }
             >
               <span class="romaji">
