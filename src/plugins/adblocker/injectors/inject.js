@@ -37,7 +37,7 @@ export const inject = (contextBridge) => {
 
       //
       return o;
-    }
+    };
 
     contextBridge.exposeInMainWorld('_pruner', pruner);
   }
@@ -58,7 +58,7 @@ export const inject = (contextBridge) => {
     {
       chain: 'ytInitialPlayerResponse.adSlots',
       cValue: 'undefined',
-    }
+    },
   ];
 
   chains.forEach(function ({ chain, cValue }) {
