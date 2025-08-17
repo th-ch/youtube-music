@@ -81,10 +81,16 @@ export const setupRepeatChangedListener = singleton(() => {
 
 export const setupVolumeChangedListener = singleton((api: YoutubePlayer) => {
   document.querySelector('video')?.addEventListener('volumechange', () => {
-    window.ipcRenderer.send('ytmd:volume-changed', api.getVolume());
+    window.ipcRenderer.send('ytmd:volume-changed', {
+      state: api.getVolume(),
+      isMuted: api.isMuted()
+    });
   });
   // Emit the initial value as well; as it's persistent between launches.
-  window.ipcRenderer.send('ytmd:volume-changed', api.getVolume());
+  window.ipcRenderer.send('ytmd:volume-changed', {
+    state: api.getVolume(),
+    isMuted: api.isMuted()
+  });
 });
 
 export const setupShuffleChangedListener = singleton(() => {
