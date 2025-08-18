@@ -150,6 +150,13 @@
           "visual-tweaks": {
             "label": "Ajustes visuais",
             "submenu": {
+              "custom-window-title": {
+                "label": "Título da janela customizado",
+                "prompt": {
+                  "label": "Insira título customizado para a janela: (deixe em branco para desabilitar)",
+                  "placeholder": "Exemplo: Youtube Music"
+                }
+              },
               "like-buttons": {
                 "default": "Padrão",
                 "force-show": "Forçar exibir",
