@@ -6,7 +6,7 @@ settings:
 
 overrides:
   vite: npm:rolldown-vite@7.1.2
-  node-gyp: 11.3.0
+  node-gyp: 11.4.1
   xml2js: 0.6.2
   node-fetch: 3.3.2
   '@electron/universal': 3.0.1
@@ -326,8 +326,8 @@ importers:
         specifier: 11.0.3
         version: 11.0.3
       node-gyp:
-        specifier: 11.3.0
-        version: 11.3.0
+        specifier: 11.4.1
+        version: 11.4.1
       playwright:
         specifier: 1.54.2
         version: 1.54.2
@@ -3554,8 +3554,8 @@ packages:
     resolution: {integrity: sha512-LA4ZjwlnUblHVgq0oBF3Jl/6h/Nvs5fzBLwdEF4nuxnFdsfajde4WfxtJr3CaiH+F6ewcIB/q4jQ4UzPyid+CQ==}
     hasBin: true
 
-  node-gyp@11.3.0:
-    resolution: {integrity: sha512-9J0+C+2nt3WFuui/mC46z2XCZ21/cKlFDuywULmseD/LlmnOrSeEAE4c/1jw6aybXLmpZnQY3/LmOJfgyHIcng==}
+  node-gyp@11.4.1:
+    resolution: {integrity: sha512-GiVxQ1e4TdZSSVmFDYUn6uUsrEUP68pa8C/xBzCfL/FcLHa4reWrxxTP7tRGhNdviYrNsL5kRolBL5LNYEutCw==}
     engines: {node: ^18.17.0 || >=20.5.0}
     hasBin: true
 
@@ -5756,7 +5756,7 @@ snapshots:
     dependencies:
       '@types/http-cache-semantics': 4.0.4
       '@types/keyv': 3.1.4
-      '@types/node': 22.17.2
+      '@types/node': 24.3.0
       '@types/responselike': 1.0.3
 
   '@types/debug@4.1.12':
@@ -5787,7 +5787,7 @@ snapshots:
 
   '@types/keyv@3.1.4':
     dependencies:
-      '@types/node': 22.17.2
+      '@types/node': 24.3.0
 
   '@types/ms@2.1.0': {}
 
@@ -5813,7 +5813,7 @@ snapshots:
 
   '@types/responselike@1.0.3':
     dependencies:
-      '@types/node': 22.17.2
+      '@types/node': 24.3.0
 
   '@types/semver@7.7.0': {}
 
@@ -5826,7 +5826,7 @@ snapshots:
 
   '@types/yauzl@2.10.3':
     dependencies:
-      '@types/node': 22.17.2
+      '@types/node': 24.3.0
     optional: true
 
   '@typescript-eslint/eslint-plugin@8.39.1(@typescript-eslint/parser@8.39.1(eslint@9.33.0)(typescript@5.9.2))(eslint@9.33.0)(typescript@5.9.2)':
@@ -8381,7 +8381,7 @@ snapshots:
 
   node-gyp-build@4.8.4: {}
 
-  node-gyp@11.3.0:
+  node-gyp@11.4.1:
     dependencies:
       env-paths: 2.2.1
       exponential-backoff: 3.1.2
