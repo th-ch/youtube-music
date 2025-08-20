@@ -150,6 +150,13 @@
           "visual-tweaks": {
             "label": "Opcions visuals",
             "submenu": {
+              "custom-window-title": {
+                "label": "Títol personalitzat de la finestra",
+                "prompt": {
+                  "label": "Introdueix un títol personalitzat per a la finestra (deixa-ho buit per deshabilitar-ho)",
+                  "placeholder": "Exemple: YouTube Music"
+                }
+              },
               "like-buttons": {
                 "default": "Per defecte",
                 "force-show": "Força que es mostri",
@@ -381,6 +388,11 @@
       },
       "templates": {
         "title": "Obra el selector de subtítols"
+      },
+      "toast": {
+        "caption-changed": "Subtítols canviats a {{language}}",
+        "caption-disabled": "Subtítols desactivats",
+        "no-captions": "Subtítols no disponibles per aquesta cançó"
       }
     },
     "compact-sidebar": {
@@ -600,7 +612,15 @@
     },
     "navigation": {
       "description": "Fletxes de navegació Següent / Enrere integrades directament a la interfície, com al teu navegador preferit",
-      "name": "Navegació"
+      "name": "Navegació",
+      "templates": {
+        "back": {
+          "title": "Tornar a la pàgina anterior"
+        },
+        "forward": {
+          "title": "Anar a la pàgina següent"
+        }
+      }
     },
     "no-google-login": {
       "description": "Elimina els botons d'inici de sessió de Google de la interfície",
@@ -692,7 +712,12 @@
         }
       },
       "description": "Permet canviar la qualitat del vídeo amb un botó que s'hi mostra a sobre",
-      "name": "Botó de qualitat del vídeo"
+      "name": "Botó de qualitat del vídeo",
+      "renderer": {
+        "quality-settings-button": {
+          "label": "Obre les opcions de qualitat del reproductor"
+        }
+      }
     },
     "scrobbler": {
       "description": "Afegeix suport per scrobbling (Last.fm, ListenBrainz, etc.)",
@@ -859,7 +884,8 @@
       },
       "name": "Botó de vídeo",
       "templates": {
-        "button-song": "Cançó"
+        "button-song": "Cançó",
+        "button-video": "Vídeo"
       }
     },
     "visualizer": {
