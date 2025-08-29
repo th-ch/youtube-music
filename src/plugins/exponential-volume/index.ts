@@ -1,5 +1,16 @@
 import { createPlugin } from '@/utils';
 import { t } from '@/i18n';
+import { YoutubePlayer } from '@/types/youtube-player';
+
+
+const syncVolume = (playerApi: YoutubePlayer) => {
+  if (playerApi.getPlayerState() === 3) {
+    setTimeout(() => syncVolume(playerApi), 500);
+    return;
+  }
+
+  playerApi.setVolume(playerApi.getVolume());
+}
 
 export default createPlugin({
   name: () => t('plugins.exponential-volume.name'),
@@ -9,7 +20,7 @@ export default createPlugin({
     enabled: false,
   },
   renderer: {
-    onPlayerApiReady() {
+    onPlayerApiReady(playerApi) {
       // "YouTube Music fix volume ratio 0.4" by Marco Pfeiffer
       // https://greasyfork.org/en/scripts/397686-youtube-music-fix-volume-ratio/
 
@@ -48,6 +59,7 @@ export default createPlugin({
           propertyDescriptor?.set?.call(this, lowVolume);
         },
       });
+      syncVolume(playerApi);
     },
   },
 });
