@@ -1,15 +1,17 @@
+import { YoutubePlayer } from "@/types/youtube-player";
 import { CustomOutputPluginConfig } from ".";
 import { RendererContext } from "@/types/contexts";
 
 let options: CustomOutputPluginConfig;
 let audio_context: AudioContext;
 let first = true;
+let cached_context: RendererContext<CustomOutputPluginConfig>;
 
 export const updateDeviceList = async () => {
   if (first) {
-    await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
-    navigator.mediaDevices.ondevicechange = () => updateDeviceList()
     first = false;
+    await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+    navigator.mediaDevices.ondevicechange = async () => await updateDeviceList()
   }
 
   const new_devices: Record<string, string> = {};
@@ -18,7 +20,7 @@ export const updateDeviceList = async () => {
     new_devices[device.deviceId] = device.label;
   }
   options.devices = new_devices;
-  return options;
+  cached_context.setConfig(options);
 }
 
 const updateSinkId = async (context: AudioContext) => {
@@ -38,11 +40,12 @@ const audioCanPlayHandler = ({ detail: { audioContext } }: CustomEvent<Compresso
   updateSinkId(audioContext);
 }
 
-export const start = async (context: RendererContext<CustomOutputPluginConfig>) => {
+export const onPlayerApiReady = async (_: YoutubePlayer, context: RendererContext<CustomOutputPluginConfig>) => {
   options = await context.getConfig();
+  cached_context = context
 
   document.addEventListener('ytmd:audio-can-play', audioCanPlayHandler, { once: true, passive: true });
-  await context.setConfig(await updateDeviceList());
+  await updateDeviceList();
 }
 
 export const stop = () => {
