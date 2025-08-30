@@ -87,10 +87,6 @@ const audioCanPlayHandler = ({ detail: { audioSource, audioContext } }: CustomEv
 }
 
 const ensureAudioContextLoad = (playerApi: YoutubePlayer) => {
-  if (playerApi.getPlayerState() === 3) {
-    setTimeout(() => ensureAudioContextLoad(playerApi), 500);
-    return
-  }
   if (playerApi.getPlayerState() !== 1 || storage.last_ctx) return;
 
   playerApi.loadVideoById(
@@ -111,9 +107,6 @@ export default createPlugin({
 
     start() {
       document.addEventListener('ytmd:audio-can-play', audioCanPlayHandler, { once: true, passive: true });
-      if (storage.last_ctx && !storage.last_compressor) {
-        storage.last_compressor = createCompressorNode(storage.last_ctx);
-      }
       storage.connectToCompressor(storage.last_src, storage.last_ctx, storage.last_compressor);
     },
 
