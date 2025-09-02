@@ -43,7 +43,7 @@ export default createPlugin({
     return [
       {
         label: 'Select Device',
-        click: () => promptDeviceSelector()
+        click: promptDeviceSelector
       }
     ]
   },
