@@ -2,7 +2,7 @@ import { t } from "@/i18n";
 import promptOptions from "@/providers/prompt-options";
 import { createPlugin } from "@/utils";
 import prompt from "custom-electron-prompt";
-import { onConfigChange, onPlayerApiReady, stop } from "./renderer";
+import { renderer } from "./renderer";
 
 export interface CustomOutputPluginConfig {
   enabled: boolean;
@@ -48,9 +48,5 @@ export default createPlugin({
     ]
   },
 
-  renderer: {
-    onPlayerApiReady,
-    stop,
-    onConfigChange,
-  }
+  renderer
 })
