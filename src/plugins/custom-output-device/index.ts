@@ -1,4 +1,4 @@
-// import { t } from "@/i18n";
+import { t } from "@/i18n";
 import promptOptions from "@/providers/prompt-options";
 import { createPlugin } from "@/utils";
 import prompt from "custom-electron-prompt";
@@ -12,8 +12,8 @@ export interface CustomOutputPluginConfig {
 
 
 export default createPlugin({
-  name: () => 'Custom Output Device',
-  description: () => 'Configure a custom output media device for songs.',
+  name: () => t('plugins.custom-output-device.name'),
+  description: () => t('plugins.custom-output-device.description'),
   restartNeeded: true,
   config: {
     enabled: false,
@@ -26,8 +26,8 @@ export default createPlugin({
       const options = await getConfig();
 
       const response = await prompt({
-        title: 'Select Output Device',
-        label: 'Choose the output media device to be used',
+        title: t('plugins.custom-output-device.prompt.device-selector.title'),
+        label: t('plugins.custom-output-device.prompt.device-selector.label'),
         value: options.output || 'default',
         type: 'select',
         selectOptions: options.devices,
@@ -42,7 +42,7 @@ export default createPlugin({
 
     return [
       {
-        label: 'Select Device',
+        label: t('plugins.custom-output-device.menu.device-selector'),
         click: promptDeviceSelector
       }
     ]
