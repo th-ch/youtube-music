@@ -114,19 +114,178 @@
           },
           "always-on-top": "Alltid överst",
           "auto-update": "Uppdatera automatiskt",
+          "hide-menu": {
+            "dialog": {
+              "message": "Menyn kommer vara dold nästa gång du startar, tryck [Alt] för att visa den (eller [´] om du använder inbyggda app-menyn)",
+              "title": "Dölj meny aktiverad"
+            },
+            "label": "Göm menyn"
+          },
           "language": {
             "dialog": {
               "message": "Språket ändras efter omstart",
               "title": "Språket har ändrats"
             },
-            "label": "Språk"
+            "label": "Språk",
+            "submenu": {
+              "to-help-translate": "Vill du hjälpa till att översätta? Klicka här"
+            }
           },
-          "resume-on-start": "Fortsätt spela när appen öppnas"
+          "resume-on-start": "Fortsätt spela när appen öppnas",
+          "single-instance-lock": "Lås för enskild instans",
+          "start-at-login": "Starta vid inloggning",
+          "starting-page": {
+            "label": "Startsidа",
+            "unset": "Ej inställt"
+          },
+          "tray": {
+            "label": "Systemfält",
+            "submenu": {
+              "disabled": "Inaktiverad",
+              "enabled-and-hide-app": "Aktiverad och dölj app",
+              "enabled-and-show-app": "Aktiverad och visa app",
+              "play-pause-on-click": "Spela/Pausa vid klick"
+            }
+          },
+          "visual-tweaks": {
+            "label": "Visuella justeringar",
+            "submenu": {
+              "custom-window-title": {
+                "label": "Anpassad titel på fönstret",
+                "prompt": {
+                  "label": "Skriv in en egen fönstertitel (lämna tomt om du inte vill använda någon)",
+                  "placeholder": "Exempelvis: YouTube Music"
+                }
+              },
+              "like-buttons": {
+                "default": "Standard",
+                "force-show": "Tvinga fram visning",
+                "hide": "Göm",
+                "label": "Gilla-knappar"
+              },
+              "remove-upgrade-button": "Ta bort knappen för uppgradering",
+              "theme": {
+                "dialog": {
+                  "button": {
+                    "cancel": "Avbryt",
+                    "remove": "Ta bort"
+                  },
+                  "remove-theme": "Vill du verkligen radera det anpassade temat?",
+                  "remove-theme-message": "Det här raderar ditt anpassade tema"
+                },
+                "label": "Tema",
+                "submenu": {
+                  "import-css-file": "Ladda in en anpassad CSS-fil",
+                  "no-theme": "Inget tema"
+                }
+              }
+            }
+          }
         }
+      },
+      "plugins": {
+        "enabled": "Aktiverad",
+        "label": "Plugins",
+        "new": "Ny"
+      },
+      "view": {
+        "label": "Visa",
+        "submenu": {
+          "force-reload": "Tvinga omladdning",
+          "reload": "Ladda om",
+          "reset-zoom": "Verklig storlek",
+          "toggle-fullscreen": "Växla helskärm",
+          "zoom-in": "Zooma in",
+          "zoom-out": "Zooma ut"
+        }
+      }
+    },
+    "tray": {
+      "next": "Nästa",
+      "play-pause": "Spela/Pausa",
+      "previous": "Föregående",
+      "quit": "Stäng",
+      "restart": "Starta om appen",
+      "show": "Visa fönster",
+      "tooltip": {
+        "default": "YouTube Music",
+        "with-song-info": "YouTube Music: {{artist}} – {{title}}"
       }
     }
   },
   "plugins": {
+    "ad-speedup": {
+      "description": "Om en annons spelas, tystas ljudet och uppspelningshastigheten sätts till 16×",
+      "name": "Snabba upp annonser"
+    },
+    "adblocker": {
+      "description": "Blockerar annonser och spårning automatiskt",
+      "menu": {
+        "blocker": "Blockerare"
+      },
+      "name": "Annonsblockerare"
+    },
+    "album-actions": {
+      "description": "Lägger till knappar för Undislike, Dislike, Like och Unlike för att använda detta på alla låtar i en spellista eller ett album",
+      "name": "Albumåtgärder"
+    },
+    "album-color-theme": {
+      "description": "Använder ett dynamiskt tema och visuella effekter baserat på albumets färgpalett",
+      "menu": {
+        "color-mix-ratio": {
+          "label": "Färgblandningsförhållande",
+          "submenu": {
+            "percent": "{{ratio}} %"
+          }
+        }
+      },
+      "name": "Albumfärgtema"
+    },
+    "ambient-mode": {
+      "description": "Ger en ljuseffekt genom att försiktigt kasta färger från videon på skärmens bakgrund",
+      "menu": {
+        "blur-amount": {
+          "label": "Osärpa",
+          "submenu": {
+            "pixels": "{{blurAmount}} pixlar"
+          }
+        },
+        "buffer": {
+          "label": "Buffert",
+          "submenu": {
+            "buffer": "{{buffer}}"
+          }
+        },
+        "opacity": {
+          "label": "Opacitet",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "quality": {
+          "label": "Kvalitet",
+          "submenu": {
+            "pixels": "{{quality}} pixlar"
+          }
+        },
+        "size": {
+          "label": "Storlek",
+          "submenu": {
+            "percent": "{{size}}%"
+          }
+        },
+        "smoothness-transition": {
+          "label": "Mjuk övergång",
+          "submenu": {
+            "during": "Under {{interpolationTime}} s"
+          }
+        },
+        "use-fullscreen": {
+          "label": "använder helskärm"
+        }
+      },
+      "name": "Ambiensläge"
+    },
     "navigation": {
       "name": "Navigering"
     },
@@ -224,6 +383,9 @@
       "templates": {
         "button-song": "Låt"
       }
+    },
+    "visualizer": {
+      "name": "Visualiserare"
     }
   }
 }
