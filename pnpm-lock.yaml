@@ -53,16 +53,16 @@ importers:
         version: 2.11.3(electron@37.3.0)
       '@hono/node-server':
         specifier: 1.18.2
-        version: 1.18.2(hono@4.9.2)
+        version: 1.18.2(hono@4.9.6)
       '@hono/swagger-ui':
         specifier: 0.5.2
-        version: 0.5.2(hono@4.9.2)
+        version: 0.5.2(hono@4.9.6)
       '@hono/zod-openapi':
         specifier: 1.1.0
-        version: 1.1.0(hono@4.9.2)(zod@4.0.17)
+        version: 1.1.0(hono@4.9.6)(zod@4.0.17)
       '@hono/zod-validator':
         specifier: 0.7.2
-        version: 0.7.2(hono@4.9.2)(zod@4.0.17)
+        version: 0.7.2(hono@4.9.6)(zod@4.0.17)
       '@jellybrick/dbus-next':
         specifier: 0.10.3
         version: 0.10.3
@@ -148,8 +148,8 @@ importers:
         specifier: 18.0.1
         version: 18.0.1
       hono:
-        specifier: 4.9.2
-        version: 4.9.2
+        specifier: 4.9.6
+        version: 4.9.6
       howler:
         specifier: 2.2.4
         version: 2.2.4
@@ -2770,8 +2770,8 @@ packages:
     resolution: {integrity: sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==}
     hasBin: true
 
-  hono@4.9.2:
-    resolution: {integrity: sha512-UG2jXGS/gkLH42l/1uROnwXpkjvvxkl3kpopL3LBo27NuaDPI6xHNfuUSilIHcrBkPfl4y0z6y2ByI455TjNRw==}
+  hono@4.9.6:
+    resolution: {integrity: sha512-doVjXhSFvYZ7y0dNokjwwSahcrAfdz+/BCLvAMa/vHLzjj8+CFyV5xteThGUsKdkaasgN+gF2mUxao+SGLpUeA==}
     engines: {node: '>=16.9.0'}
 
   hosted-git-info@4.1.0:
@@ -5249,25 +5249,25 @@ snapshots:
     dependencies:
       tldts-experimental: 7.0.11
 
-  '@hono/node-server@1.18.2(hono@4.9.2)':
+  '@hono/node-server@1.18.2(hono@4.9.6)':
     dependencies:
-      hono: 4.9.2
+      hono: 4.9.6
 
-  '@hono/swagger-ui@0.5.2(hono@4.9.2)':
+  '@hono/swagger-ui@0.5.2(hono@4.9.6)':
     dependencies:
-      hono: 4.9.2
+      hono: 4.9.6
 
-  '@hono/zod-openapi@1.1.0(hono@4.9.2)(zod@4.0.17)':
+  '@hono/zod-openapi@1.1.0(hono@4.9.6)(zod@4.0.17)':
     dependencies:
       '@asteasolutions/zod-to-openapi': 8.1.0(zod@4.0.17)
-      '@hono/zod-validator': 0.7.2(hono@4.9.2)(zod@4.0.17)
-      hono: 4.9.2
+      '@hono/zod-validator': 0.7.2(hono@4.9.6)(zod@4.0.17)
+      hono: 4.9.6
       openapi3-ts: 4.5.0
       zod: 4.0.17
 
-  '@hono/zod-validator@0.7.2(hono@4.9.2)(zod@4.0.17)':
+  '@hono/zod-validator@0.7.2(hono@4.9.6)(zod@4.0.17)':
     dependencies:
-      hono: 4.9.2
+      hono: 4.9.6
       zod: 4.0.17
 
   '@humanfs/core@0.19.1': {}
@@ -5756,7 +5756,7 @@ snapshots:
     dependencies:
       '@types/http-cache-semantics': 4.0.4
       '@types/keyv': 3.1.4
-      '@types/node': 22.17.2
+      '@types/node': 24.3.0
       '@types/responselike': 1.0.3
 
   '@types/debug@4.1.12':
@@ -5787,7 +5787,7 @@ snapshots:
 
   '@types/keyv@3.1.4':
     dependencies:
-      '@types/node': 22.17.2
+      '@types/node': 24.3.0
 
   '@types/ms@2.1.0': {}
 
@@ -5813,7 +5813,7 @@ snapshots:
 
   '@types/responselike@1.0.3':
     dependencies:
-      '@types/node': 22.17.2
+      '@types/node': 24.3.0
 
   '@types/semver@7.7.0': {}
 
@@ -5826,7 +5826,7 @@ snapshots:
 
   '@types/yauzl@2.10.3':
     dependencies:
-      '@types/node': 22.17.2
+      '@types/node': 24.3.0
     optional: true
 
   '@typescript-eslint/eslint-plugin@8.39.1(@typescript-eslint/parser@8.39.1(eslint@9.33.0)(typescript@5.9.2))(eslint@9.33.0)(typescript@5.9.2)':
@@ -7643,7 +7643,7 @@ snapshots:
 
   he@1.2.0: {}
 
-  hono@4.9.2: {}
+  hono@4.9.6: {}
 
   hosted-git-info@4.1.0:
     dependencies:
