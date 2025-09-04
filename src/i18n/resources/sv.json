@@ -116,7 +116,7 @@
           "auto-update": "Uppdatera automatiskt",
           "hide-menu": {
             "dialog": {
-              "message": "Menyn kommer att döljas vid nästa start, tryck [Alt] för att visa den (eller [´] om du använder inbyggda app-menyn)",
+              "message": "Menyn kommer att döljas efter omstart, använd [Alt] för att visa menyn (eller [`] vid användning av menyn inuti applikationen)",
               "title": "Dölj meny aktiverad"
             },
             "label": "Dölj meny"
