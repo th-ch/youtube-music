@@ -4,7 +4,7 @@ import { RendererContext } from "@/types/contexts";
 import { createRenderer } from "@/utils";
 
 const updateDeviceList = async (context: RendererContext<CustomOutputPluginConfig>) => {
-  const new_devices: Record<string, string> = {};
+  const newDevices: Record<string, string> = {};
   const devices = await navigator.mediaDevices.enumerateDevices().then(devices => devices.filter(device => device.kind === 'audiooutput'));
   for (const device of devices) {
     new_devices[device.deviceId] = device.label;
