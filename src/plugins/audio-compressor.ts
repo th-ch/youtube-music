@@ -116,7 +116,6 @@ export default createPlugin({
 
     start() {
       document.addEventListener('ytmd:audio-can-play', audioCanPlayHandler, {
-        once: true,
         passive: true,
       });
       storage.connectToCompressor(
