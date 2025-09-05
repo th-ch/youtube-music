@@ -39,10 +39,10 @@ export type RendererPluginLifecycle<Config, Context, This> =
   | RendererPluginLifecycleExtra<Config, Context, This>;
 
 export enum Platform {
-  Windows = 1  << 0,
-  macOS =   1  << 1,
-  Linux =   1  << 2,
-  Freebsd = 1  << 3
+  Windows = 1 << 0,
+  macOS = 1 << 1,
+  Linux = 1 << 2,
+  Freebsd = 1 << 3,
 }
 
 export interface PluginDef<

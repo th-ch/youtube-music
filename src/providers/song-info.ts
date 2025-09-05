@@ -1,4 +1,4 @@
-import { BrowserWindow, ipcMain, nativeImage, net } from 'electron';
+import { type BrowserWindow, ipcMain, nativeImage, net } from 'electron';
 
 import { Mutex } from 'async-mutex';
 

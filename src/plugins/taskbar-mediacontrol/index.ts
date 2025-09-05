@@ -12,7 +12,7 @@ import registerCallback, {
   type SongInfo,
   SongInfoEvent,
 } from '@/providers/song-info';
-import { mediaIcons } from '@/types/media-icons';
+import { type mediaIcons } from '@/types/media-icons';
 import { t } from '@/i18n';
 import { Platform } from '@/types/plugins';
 

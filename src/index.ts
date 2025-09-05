@@ -15,7 +15,7 @@ import {
   type BrowserWindowConstructorOptions,
 } from 'electron';
 import enhanceWebRequest, {
-  BetterSession,
+  type BetterSession,
 } from '@jellybrick/electron-better-web-request';
 import is from 'electron-is';
 import unhandled from 'electron-unhandled';

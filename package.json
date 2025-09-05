@@ -14,16 +14,16 @@
     "url": "https://github.com/th-ch/youtube-music"
   },
   "scripts": {
-    "test": "playwright test",
-    "test:debug": "cross-env DEBUG=pw:*,-pw:test:protocol playwright test",
-    "build": "electron-vite build",
+    "test": "pnpm playwright test",
+    "test:debug": "pnpm cross-env DEBUG=pw:*,-pw:test:protocol playwright test",
+    "build": "pnpm electron-vite build",
     "vite:inspect": "pnpm clean && electron-vite build --mode development && pnpm exec serve .vite-inspect",
-    "start": "electron-vite preview",
-    "start:debug": "cross-env ELECTRON_ENABLE_LOGGING=1 pnpm start",
-    "dev": "cross-env NODE_OPTIONS=--enable-source-maps electron-vite dev --watch",
-    "dev:renderer": "cross-env NODE_OPTIONS=--enable-source-maps electron-vite dev",
-    "dev:debug": "cross-env ELECTRON_ENABLE_LOGGING=1 pnpm dev",
-    "clean": "del-cli dist && del-cli pack && del-cli .vite-inspect",
+    "start": "pnpm electron-vite preview",
+    "start:debug": "pnpm cross-env ELECTRON_ENABLE_LOGGING=1 pnpm start",
+    "dev": "pnpm cross-env NODE_OPTIONS=--enable-source-maps electron-vite dev --watch",
+    "dev:renderer": "pnpm cross-env NODE_OPTIONS=--enable-source-maps electron-vite dev",
+    "dev:debug": "pnpm cross-env ELECTRON_ENABLE_LOGGING=1 pnpm dev",
+    "clean": "pnpm del-cli dist && pnpm del-cli pack && pnpm del-cli .vite-inspect",
     "dist": "pnpm clean && pnpm build && pnpm electron-builder --win --mac --linux -p never",
     "dist:linux": "pnpm clean && pnpm build && pnpm electron-builder --linux -p never",
     "dist:linux:deb-arm64": "pnpm clean && pnpm build && pnpm electron-builder --linux deb:arm64 -p never",
@@ -32,12 +32,12 @@
     "dist:mac:arm64": "pnpm clean && pnpm build && pnpm electron-builder --mac dmg:arm64 -p never",
     "dist:win": "pnpm clean && pnpm build && pnpm electron-builder --win -p never",
     "dist:win:x64": "pnpm clean && pnpm build && pnpm electron-builder --win nsis-web:x64 -p never",
-    "lint": "eslint .",
-    "changelog": "npx --yes auto-changelog",
+    "lint": "pnpm eslint ./src",
+    "changelog": "pnpm dlx --yes auto-changelog",
     "release:linux": "pnpm clean && pnpm build && pnpm electron-builder --linux -p always -c.snap.publish=github",
     "release:mac": "pnpm clean && pnpm build && pnpm electron-builder --mac -p always",
     "release:win": "pnpm clean && pnpm build && pnpm electron-builder --win -p always",
-    "typecheck": "tsc -p tsconfig.json --noEmit"
+    "typecheck": "pnpm tsc -p tsconfig.json --noEmit"
   },
   "engines": {
     "node": ">=22",
@@ -57,7 +57,7 @@
       "@malept/flatpak-bundler@0.4.0": "patches/@malept__flatpak-bundler@0.4.0.patch",
       "kuromoji@0.1.2": "patches/kuromoji@0.1.2.patch",
       "file-type@16.5.4": "patches/file-type@16.5.4.patch",
-      "electron-is": "patches/electron-is.patch"
+      "electron-is@3.0.0": "patches/electron-is@3.0.0.patch"
     },
     "neverBuiltDependencies": []
   },
