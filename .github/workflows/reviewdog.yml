@@ -1,6 +1,6 @@
 name: reviewdog
 
-on: [pull_request]
+on: [pull_request_target]
 
 env:
   NODE_VERSION: "22.x"
@@ -32,6 +32,6 @@ jobs:
 
       - uses: reviewdog/action-eslint@v1.34.0
         with:
-          github_token: ${{ secrets.GH_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-pr-review # Change reporter.
           eslint_flags: './src'
