@@ -1,7 +1,7 @@
 import { singleton } from './decorators';
 
 import type { YoutubePlayer } from '@/types/youtube-player';
-import type { GetState } from '@/types/datahost-get-state';
+import { LikeType, type GetState } from '@/types/datahost-get-state';
 import type {
   AlbumDetails,
   PlayerOverlays,
@@ -79,6 +79,39 @@ export const setupRepeatChangedListener = singleton(() => {
   );
 });
 
+const mapLikeStatus = (status: string | null): LikeType =>
+  Object.values(LikeType).includes(status as LikeType)
+    ? (status as LikeType)
+    : LikeType.Indifferent;
+
+const LIKE_STATUS_ATTRIBUTE = 'like-status';
+
+export const setupLikeChangedListener = singleton(() => {
+  const likeDislikeObserver = new MutationObserver((mutations) => {
+    window.ipcRenderer.send(
+      'ytmd:like-changed',
+      mapLikeStatus(
+        (mutations[0].target as HTMLElement)?.getAttribute?.(
+          LIKE_STATUS_ATTRIBUTE,
+        ),
+      ),
+    );
+  });
+  const likeButtonRenderer = document.querySelector('#like-button-renderer');
+  if (likeButtonRenderer) {
+    likeDislikeObserver.observe(likeButtonRenderer, {
+      attributes: true,
+      attributeFilter: [LIKE_STATUS_ATTRIBUTE],
+    });
+
+    // Emit the initial value as well; as it's persistent between launches.
+    window.ipcRenderer.send(
+      'ytmd:like-changed',
+      mapLikeStatus(likeButtonRenderer.getAttribute?.(LIKE_STATUS_ATTRIBUTE)),
+    );
+  }
+});
+
 export const setupVolumeChangedListener = singleton((api: YoutubePlayer) => {
   document.querySelector('video')?.addEventListener('volumechange', () => {
     window.ipcRenderer.send('ytmd:volume-changed', {
@@ -86,6 +119,7 @@ export const setupVolumeChangedListener = singleton((api: YoutubePlayer) => {
       isMuted: api.isMuted(),
     });
   });
+
   // Emit the initial value as well; as it's persistent between launches.
   window.ipcRenderer.send('ytmd:volume-changed', {
     state: api.getVolume(),
@@ -157,6 +191,10 @@ export const setupAutoPlayChangedListener = singleton(() => {
 export default (api: YoutubePlayer) => {
   window.ipcRenderer.on('ytmd:setup-time-changed-listener', () => {
     setupTimeChangedListener();
+  });
+
+  window.ipcRenderer.on('ytmd:setup-like-changed-listener', () => {
+    setupLikeChangedListener();
   });
 
   window.ipcRenderer.on('ytmd:setup-repeat-changed-listener', () => {
