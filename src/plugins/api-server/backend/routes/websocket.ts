@@ -9,7 +9,7 @@ import type { HonoApp } from '../types';
 import type { APIServerConfig } from '../../config';
 
 enum DataTypes {
-  PlayerState = 'PLAYER_STATE',
+  PlayerInfo = 'PLAYER_INFO',
   VideoChanged = 'VIDEO_CHANGED',
   PlayerStateChanged = 'PLAYER_STATE_CHANGED',
   PositionChanged = 'POSITION_CHANGED',
@@ -51,18 +51,14 @@ export const register = (
     songInfo?: SongInfo;
     volumeState?: VolumeState;
     repeat: RepeatMode;
-  }) => {
-    const data: PlayerState = {
-      song: songInfo,
-      isPlaying: songInfo ? !songInfo.isPaused : false,
-      muted: volumeState?.isMuted ?? false,
-      position: songInfo?.elapsedSeconds ?? 0,
-      volume: volumeState?.state ?? 100,
-      repeat,
-    } satisfies PlayerState;
-
-    return JSON.stringify({ type: DataTypes.PlayerState, ...data });
-  };
+  }): PlayerState => ({
+    song: songInfo,
+    isPlaying: songInfo ? !songInfo.isPaused : false,
+    muted: volumeState?.isMuted ?? false,
+    position: songInfo?.elapsedSeconds ?? 0,
+    volume: volumeState?.state ?? 100,
+    repeat,
+  });
 
   registerCallback((songInfo) => {
     if (lastSongInfo?.videoId !== songInfo.videoId) {
@@ -105,10 +101,13 @@ export const register = (
         sockets.add(ws);
 
         ws.send(
-          createPlayerState({
-            songInfo: lastSongInfo,
-            volumeState,
-            repeat,
+          JSON.stringify({
+            type: DataTypes.PlayerInfo,
+            ...createPlayerState({
+              songInfo: lastSongInfo,
+              volumeState,
+              repeat,
+            }),
           }),
         );
       },
