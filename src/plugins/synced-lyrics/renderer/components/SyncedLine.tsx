@@ -1,8 +1,8 @@
 import { createEffect, createMemo, For, Show, createSignal } from 'solid-js';
 
-import { VirtualizerHandle } from 'virtua/solid';
+import { type VirtualizerHandle } from 'virtua/solid';
 
-import { LineLyrics } from '@/plugins/synced-lyrics/types';
+import { type LineLyrics } from '@/plugins/synced-lyrics/types';
 
 import { config } from '../renderer';
 import { _ytAPI } from '..';

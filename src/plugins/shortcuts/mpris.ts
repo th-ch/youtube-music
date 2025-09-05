@@ -1,17 +1,17 @@
-import { BrowserWindow, ipcMain } from 'electron';
+import { type BrowserWindow, ipcMain } from 'electron';
 
 import MprisPlayer, {
   LOOP_STATUS_NONE,
   LOOP_STATUS_PLAYLIST,
   LOOP_STATUS_TRACK,
-  LoopStatus,
+  type LoopStatus,
   PLAYBACK_STATUS_PAUSED,
   PLAYBACK_STATUS_PLAYING,
   PLAYBACK_STATUS_STOPPED,
   type PlayBackStatus,
   type PlayerOptions,
   type Position,
-  Track,
+  type Track,
 } from '@jellybrick/mpris-service';
 
 import registerCallback, {

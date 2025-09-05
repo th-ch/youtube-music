@@ -150,6 +150,13 @@
           "visual-tweaks": {
             "label": "Visuelle Optimierungen",
             "submenu": {
+              "custom-window-title": {
+                "label": "Benutzerdefinierter Fenstertitel",
+                "prompt": {
+                  "label": "Benutzerdefinierten Fenstertitel eingeben: (zum Deaktivieren leer lassen)",
+                  "placeholder": "Beispiel: YouTube Music"
+                }
+              },
               "like-buttons": {
                 "default": "Standard",
                 "force-show": "Zeigen erzwungen",
@@ -345,7 +352,7 @@
           "label": "Port"
         }
       },
-      "name": "Auth Proxy Adapter",
+      "name": "Authentifizierungs-Proxyadapter",
       "prompt": {
         "hostname": {
           "label": "Hostnamen eingeben für lokalen Proxy-Server (Neustart erforderlich):",

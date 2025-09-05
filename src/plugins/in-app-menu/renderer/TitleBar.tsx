@@ -1,4 +1,4 @@
-import { Menu, MenuItem } from 'electron';
+import { type Menu, type MenuItem } from 'electron';
 import {
   createEffect,
   createResource,

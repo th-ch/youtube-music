@@ -150,6 +150,13 @@
           "visual-tweaks": {
             "label": "Visuele Aanpassingen",
             "submenu": {
+              "custom-window-title": {
+                "label": "Aangepaste venstertitel",
+                "prompt": {
+                  "label": "Voer aangepaste venstertitel in: (laat leeg om uit te schakelen)",
+                  "placeholder": "Voorbeeld: Youtube Music"
+                }
+              },
               "like-buttons": {
                 "default": "Standaard",
                 "force-show": "Forceren weergeven",
@@ -163,12 +170,12 @@
                     "cancel": "Annuleren",
                     "remove": "Verwijderen"
                   },
-                  "remove-theme": "Weet je zeker dat je het aangepaste thema wilt verwijderen?",
-                  "remove-theme-message": "Dit verwijderd het aangepaste thema"
+                  "remove-theme": "Weet je zeker dat je het aangepaste thema wil verwijderen?",
+                  "remove-theme-message": "Dit verwijdert het aangepaste thema"
                 },
                 "label": "Thema",
                 "submenu": {
-                  "import-css-file": "Aangepast CSS-bestand importeren",
+                  "import-css-file": "Importeer aangepast CSS-bestand",
                   "no-theme": "Geen thema"
                 }
               }
@@ -178,11 +185,11 @@
       },
       "plugins": {
         "enabled": "Ingeschakeld",
-        "label": "Plugins",
+        "label": "Invoegtoepassingen",
         "new": "NIEUW"
       },
       "view": {
-        "label": "Weergave",
+        "label": "Weergeven",
         "submenu": {
           "force-reload": "Forceer Herladen",
           "reload": "Herladen",
@@ -195,31 +202,31 @@
     },
     "tray": {
       "next": "Volgende",
-      "play-pause": "Afspelen/Pauzeren",
+      "play-pause": "Afspelen/Pauze",
       "previous": "Vorige",
       "quit": "Afsluiten",
-      "restart": "Applicatie Opnieuw Opstarten",
-      "show": "Venster Weergeven",
+      "restart": "Herstarten App",
+      "show": "Weergeven Venster",
       "tooltip": {
         "default": "YouTube Music",
-        "with-song-info": "YouTube Music: {{artist}} - {{title}}"
+        "with-song-info": "YouTube Music: {{artiest}} - {{titel}}"
       }
     }
   },
   "plugins": {
     "ad-speedup": {
-      "description": "Wanneer een advertentie afspeelt, dempt het geluid en versnelt de playback naar 16x",
-      "name": "Snellere advertenties"
+      "description": "Bij het afspelen van een advertentie wordt het geluid gedempt en wordt de afspeelsnelheid wordt verhoogd naar 16x",
+      "name": "Advertenties versnellen"
     },
     "adblocker": {
-      "description": "Blokkeer alle advertenties en tracking vanuit de doos",
+      "description": "Blokkeer alle advertenties en trackers buiten het kader",
       "menu": {
         "blocker": "Blokkeerder"
       },
       "name": "Advertentieblokkeerder"
     },
     "album-actions": {
-      "description": "Voegt knoppen toe voor Ondisliken, Disliken, Liken en Ontliken om dit toe te passen op alle nummers in een afspeellijst of album",
+      "description": "Voegt niet-Niet Leuk, Niet Leuk, Leuk, niet-Leuk knoppen toe om dit toe te passen op alle nummers in een afspeellijst of album",
       "name": "Albumacties"
     },
     "album-color-theme": {
@@ -345,7 +352,7 @@
           "label": "Poort"
         }
       },
-      "name": "Auth proxy adapter",
+      "name": "Proxy-authenticatieadapter",
       "prompt": {
         "hostname": {
           "label": "Hostname voor lokale proxy server (vereist herstart):",
@@ -381,6 +388,11 @@
       },
       "templates": {
         "title": "Open ondertitelkeuze"
+      },
+      "toast": {
+        "caption-changed": "Ondertitel veranderd naar {{language}}",
+        "caption-disabled": "Ondertitels uitgeschakeld",
+        "no-captions": "Geen ondertitels beschikbaar voor dit lied"
       }
     },
     "compact-sidebar": {
@@ -600,7 +612,15 @@
     },
     "navigation": {
       "description": "Volgende/Vorige navigatiepijlen rechtstreeks geïntegreerd in de interface, zoals in je favoriete browser",
-      "name": "Navigatie"
+      "name": "Navigatie",
+      "templates": {
+        "back": {
+          "title": "Ga naar de vorige pagina"
+        },
+        "forward": {
+          "title": "Ga naar de volgende pagina"
+        }
+      }
     },
     "no-google-login": {
       "description": "Verwijder Google aanmeldknoppen en -links uit de interface",
@@ -692,7 +712,12 @@
         }
       },
       "description": "Maakt het mogelijk de videokwaliteit te wijzigen met een knop op de video-overlay",
-      "name": "Videokwaliteitwisselaar"
+      "name": "Videokwaliteitwisselaar",
+      "renderer": {
+        "quality-settings-button": {
+          "label": "Open speler kwaliteitswisselaar"
+        }
+      }
     },
     "scrobbler": {
       "description": "Ondersteuning voor scrobbling toevoegen (etc. last.fm, Listenbrainz)",
@@ -859,7 +884,8 @@
       },
       "name": "Videoschakelaar",
       "templates": {
-        "button-song": "Nummer"
+        "button-song": "Nummer",
+        "button-video": "Video"
       }
     },
     "visualizer": {
