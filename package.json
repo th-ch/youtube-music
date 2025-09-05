@@ -56,7 +56,8 @@
       "vudio@2.1.1": "patches/vudio@2.1.1.patch",
       "@malept/flatpak-bundler@0.4.0": "patches/@malept__flatpak-bundler@0.4.0.patch",
       "kuromoji@0.1.2": "patches/kuromoji@0.1.2.patch",
-      "file-type@16.5.4": "patches/file-type@16.5.4.patch"
+      "file-type@16.5.4": "patches/file-type@16.5.4.patch",
+      "electron-is": "patches/electron-is.patch"
     },
     "neverBuiltDependencies": []
   },
