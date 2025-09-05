@@ -1,18 +1,45 @@
 :root {
-  --transparency-color: #111;
-  --transparent-background: rgb(
-    from var(--transparency-color) r g b /
-      var(--transparent-player-opacity, 0.5)
+  --ytmd-transparent-player-transparency-color: #111;
+  --ytmd-transparent-player-transparent-background: rgb(
+    from var(--ytmd-transparent-player-transparency-color) r g b /
+      var(--ytmd-transparent-player-opacity, 0.5)
   );
-  --transparent-background-dark: rgb(
-    from var(--transparency-color) r g b / 0.8
+  --ytmd-transparent-player-transparent-background-dark: rgb(
+    from var(--ytmd-transparent-player-transparency-color) r g b / 0.8
   );
-  --backdrop-blur: blur(20px);
+  --ytmd-transparent-player-backdrop-blur: blur(20px);
+}
+
+body.transparent-background-color {
+  background-color: var(--ytmd-transparent-player-transparent-background) !important;
+}
+
+body.transparent-player-backdrop-filter {
+  #layout {
+    #nav-bar-background,
+    #player-bar-background {
+      backdrop-filter: var(--ytmd-transparent-player-backdrop-blur) !important;
+    }
+  }
+
+  #search-page {
+    #tabs {
+      &.stuck {
+        backdrop-filter: var(--ytmd-transparent-player-backdrop-blur) !important;
+      }
+    }
+  }
+
+  ytmusic-menu-popup-renderer {
+    backdrop-filter: var(--ytmd-transparent-player-backdrop-blur) !important;
+  }
+
+  #ytmd-title-bar-main-panel {
+    backdrop-filter: var(--ytmd-transparent-player-backdrop-blur) !important;
+  }
 }
 
 body.transparent-player {
-  background-color: var(--transparent-background) !important;
-
   ytmusic-app {
     ytmusic-app-layout[player-page-open] {
       #nav-bar-background.ytmusic-app-layout,
@@ -24,8 +51,7 @@ body.transparent-player {
     #layout {
       #nav-bar-background,
       #player-bar-background {
-        background: var(--transparent-background-dark) !important;
-        backdrop-filter: var(--backdrop-blur) !important;
+        background: var(--ytmd-transparent-player-transparent-background-dark) !important;
       }
 
       #mini-guide-background {
@@ -51,8 +77,7 @@ body.transparent-player {
       #search-page {
         #tabs {
           &.stuck {
-            background: var(--transparent-background) !important;
-            backdrop-filter: var(--backdrop-blur) !important;
+            background: var(--ytmd-transparent-player-transparent-background) !important;
           }
         }
       }
@@ -76,7 +101,6 @@ body.transparent-player {
 
   /* Video Toggle Plugin */
   .av-toggle.ytmusic-av-toggle {
-    background-color: var(--transparent-background);
-    border-radius: 25px;
+    background-color: var(--ytmd-transparent-player-transparent-background);
   }
 }

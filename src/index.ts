@@ -338,8 +338,8 @@ async function createMainWindow() {
     titleBarStyle: useInlineMenu
       ? 'hidden'
       : is.macOS()
-      ? 'hiddenInset'
-      : 'default',
+        ? 'hiddenInset'
+        : 'default',
     autoHideMenuBar: config.get('options.hideMenu'),
   };
 
@@ -370,11 +370,6 @@ async function createMainWindow() {
     },
     ...decorations,
   };
-
-  if (!is.macOS() && config.get('options.backgroundMaterial')) {
-    electronWindowSettings.backgroundColor = 'rgba(0,0,0,0.1)';
-    electronWindowSettings.backgroundMaterial = config.get('options.backgroundMaterial');
-  }
 
   const win = new BrowserWindow(electronWindowSettings);
 
@@ -537,8 +532,8 @@ app.once('browser-window-created', (_event, win) => {
     const updatedUserAgent = is.macOS()
       ? userAgents.mac
       : is.windows()
-      ? userAgents.windows
-      : userAgents.linux;
+        ? userAgents.windows
+        : userAgents.linux;
 
     win.webContents.userAgent = updatedUserAgent;
     app.userAgentFallback = updatedUserAgent;
@@ -959,15 +954,18 @@ function removeContentSecurityPolicy(
   betterSession.webRequest.setResolver(
     'onHeadersReceived',
     async (listeners) => {
-      return listeners.reduce(async (accumulator, listener) => {
-        const acc = await accumulator;
-        if (acc.cancel) {
-          return acc;
-        }
+      return listeners.reduce(
+        async (accumulator, listener) => {
+          const acc = await accumulator;
+          if (acc.cancel) {
+            return acc;
+          }
 
-        const result = await listener.apply();
-        return { ...accumulator, ...result };
-      }, Promise.resolve({ cancel: false }));
+          const result = await listener.apply();
+          return { ...accumulator, ...result };
+        },
+        Promise.resolve({ cancel: false }),
+      );
     },
   );
 }
