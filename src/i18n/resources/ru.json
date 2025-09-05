@@ -421,6 +421,19 @@
         }
       }
     },
+    "custom-output-device": {
+      "description": "Настройка устройства вывода медиа для песен",
+      "menu": {
+        "device-selector": "Выберите устройство"
+      },
+      "name": "Пользовательское устройство вывода",
+      "prompt": {
+        "device-selector": {
+          "label": "Выберите устройство вывода медиа, которое будет использоваться",
+          "title": "Выберите устройство вывода"
+        }
+      }
+    },
     "disable-autoplay": {
       "description": "Запускает песню сразу на паузе",
       "menu": {
@@ -444,7 +457,15 @@
         "hide-duration-left": "Скрыть сколько осталось времени",
         "hide-github-button": "Скрыть ссылку на GitHub",
         "play-on-youtube-music": "Воспроизвести на YouTube Music",
-        "set-inactivity-timeout": "Поставить таймер неактивности"
+        "set-inactivity-timeout": "Поставить таймер неактивности",
+        "set-status-display-type": {
+          "label": "Текст статуса",
+          "submenu": {
+            "artist": "Слушает {исполнитель}",
+            "title": "Слушает {название трека}",
+            "youtube-music": "Слушает YouTube Music"
+          }
+        }
       },
       "name": "Discord Rich Presence",
       "prompt": {
