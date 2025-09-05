@@ -9,11 +9,16 @@ import type { HonoApp } from '../types';
 import type { APIServerConfig } from '../../config';
 
 enum DataTypes {
-  PLAYER_STATE = 'PLAYER_STATE',
+  PlayerState = 'PLAYER_STATE',
+  VideoChanged = 'VIDEO_CHANGED',
+  PlayerStateChanged = 'PLAYER_STATE_CHANGED',
+  PositionChanged = 'POSITION_CHANGED',
+  VolumeChanged = 'VOLUME_CHANGED',
+  RepeatChanged = 'REPEAT_CHANGED',
 }
 
 type PlayerState = {
-  song: SongInfo;
+  song?: SongInfo;
   isPlaying: boolean;
   muted: boolean;
   position: number;
@@ -21,95 +26,91 @@ type PlayerState = {
   repeat: RepeatMode;
 };
 
-let volumeState: VolumeState;
-let repeat: RepeatMode = 'NONE' as RepeatMode;
-
 export const register = (
   app: HonoApp,
   _: BackendContext<APIServerConfig>,
   upgradeWebSocket: UpgradeWebSocket<WebSocket>,
 ) => {
+  let volumeState: VolumeState | undefined = undefined;
+  let repeat: RepeatMode = 'NONE';
+  let lastSongInfo: SongInfo | undefined = undefined;
+
   const sockets = new Set<WSContext<WebSocket>>();
 
-  let lastSongInfo: SongInfo | null;
-
-  function send(state: Partial<PlayerState>) {
+  const send = (type: DataTypes, state: Partial<PlayerState>) => {
     sockets.forEach((socket) =>
-      socket.send(JSON.stringify({ type: DataTypes.PLAYER_STATE, ...state })),
+      socket.send(JSON.stringify({ type, ...state })),
     );
-  }
+  };
 
   const createPlayerState = ({
     songInfo,
-    volume,
+    volumeState,
     repeat,
-    muted,
   }: {
-    songInfo: SongInfo | null;
-    volume: number;
+    songInfo?: SongInfo;
+    volumeState?: VolumeState;
     repeat: RepeatMode;
-    muted: boolean;
-  }) =>
-    JSON.stringify({
-      type: DataTypes.PLAYER_STATE,
+  }) => {
+    const data: PlayerState = {
       song: songInfo,
       isPlaying: songInfo ? !songInfo.isPaused : false,
-      muted: muted ?? false,
+      muted: volumeState?.isMuted ?? false,
       position: songInfo?.elapsedSeconds ?? 0,
-      volume,
+      volume: volumeState?.state ?? 100,
       repeat,
-    });
+    } satisfies PlayerState;
+
+    return JSON.stringify({ type: DataTypes.PlayerState, ...data });
+  };
 
   registerCallback((songInfo) => {
     if (lastSongInfo?.videoId !== songInfo.videoId) {
-      send({ song: songInfo, position: 0 });
+      send(DataTypes.VideoChanged, { song: songInfo, position: 0 });
     }
 
     if (lastSongInfo?.isPaused !== songInfo.isPaused) {
-      send({
+      send(DataTypes.PlayerStateChanged, {
         isPlaying: !(songInfo?.isPaused ?? true),
         position: songInfo.elapsedSeconds,
       });
     }
 
-    // Only send the current position every 5 seconds
-    if ((songInfo.elapsedSeconds ?? 0) % 5 === 0) {
-      send({ position: songInfo.elapsedSeconds });
-    }
+    send(DataTypes.PositionChanged, { position: songInfo.elapsedSeconds });
 
     lastSongInfo = { ...songInfo };
   });
 
-  ipcMain.on(
-    'ytmd:volume-changed',
-    (_, newVolumeState: { state: number; isMuted: boolean }) => {
-      volumeState = newVolumeState;
-      send({ volume: volumeState.state, muted: volumeState.isMuted });
-    },
-  );
+  ipcMain.on('ytmd:volume-changed', (_, newVolumeState: VolumeState) => {
+    volumeState = newVolumeState;
+    send(DataTypes.VolumeChanged, {
+      volume: volumeState.state,
+      muted: volumeState.isMuted,
+    });
+  });
 
   ipcMain.on('ytmd:repeat-changed', (_, mode: RepeatMode) => {
     repeat = mode;
-    send({ repeat });
+    send(DataTypes.RepeatChanged, { repeat });
   });
 
   ipcMain.on('ytmd:seeked', (_, t: number) => {
-    send({ position: t });
+    send(DataTypes.PositionChanged, { position: t });
   });
 
   app.get(
     '/api/ws',
     upgradeWebSocket(() => ({
       onOpen(_, ws) {
+        sockets.add(ws);
+
         ws.send(
           createPlayerState({
             songInfo: lastSongInfo,
-            volume: volumeState.state,
+            volumeState,
             repeat,
-            muted: volumeState.isMuted,
           }),
         );
-        sockets.add(ws);
       },
 
       onClose(_, ws) {
