@@ -2,8 +2,6 @@ import { createStore } from 'solid-js/store';
 
 import { createMemo } from 'solid-js';
 
-import { SongInfo } from '@/providers/song-info';
-
 import { LRCLib } from './LRCLib';
 import { LyricsGenius } from './LyricsGenius';
 import { MusixMatch } from './MusixMatch';
@@ -12,6 +10,7 @@ import { YTMusic } from './YTMusic';
 import { getSongInfo } from '@/providers/song-info-front';
 
 import type { LyricProvider, LyricResult } from '../types';
+import type { SongInfo } from '@/providers/song-info';
 
 export const providers = {
   YTMusic: new YTMusic(),

@@ -1,5 +1,5 @@
 // This is used for to control the songs
-import { BrowserWindow, ipcMain } from 'electron';
+import { type BrowserWindow, ipcMain } from 'electron';
 
 // see protocol-handler.ts
 type ArgsType<T> = T | string[] | undefined;

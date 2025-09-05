@@ -1,5 +1,5 @@
-import { OpenAPIHono as Hono } from '@hono/zod-openapi';
-import { serve } from '@hono/node-server';
+import { type OpenAPIHono as Hono } from '@hono/zod-openapi';
+import { type serve } from '@hono/node-server';
 
 import type { BackendContext } from '@/types/contexts';
 import type { SongInfo } from '@/providers/song-info';

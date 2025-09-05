@@ -1,5 +1,5 @@
 import { FastAverageColor } from 'fast-average-color';
-import Color, { ColorInstance } from 'color';
+import Color, { type ColorInstance } from 'color';
 
 import style from './style.css?inline';
 
