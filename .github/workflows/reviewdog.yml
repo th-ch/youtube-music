@@ -31,10 +31,23 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - id: files
+        uses: Ana06/get-changed-files@v2.3.0
+      - name: Get changed JS files
+        run: |
+          matching_files=()
+          for changed_file in ${{ steps.files.outputs.added_modified }}; do
+            if [[ "$changed_file" =~ \.(js|jsx|ts|tsx)$ ]]; then
+              matching_files+=("$changed_file")
+            fi
+          done
+          # Set env var to be used in next step
+          echo "CHANGED_JS_FILES=${matching_files[@]}" >> $GITHUB_ENV
+
       - uses: reviewdog/action-eslint@v1.34.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-pr-review # Change reporter.
-          eslint_flags: './src'
+          eslint_flags: "${{ env.CHANGED_JS_FILES }}"
           fail_level: error
           filter_mode: nofilter
