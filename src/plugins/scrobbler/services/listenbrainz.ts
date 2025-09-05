@@ -24,6 +24,47 @@ interface ListenbrainzRequestBody {
   }[];
 }
 
+/**
+ * See Last.fm's getPrimaryArtist for behavior. Kept in sync for consistency.
+ */
+const getPrimaryArtist = (songInfo: SongInfo): string => {
+  const original = (songInfo.artist ?? '').trim();
+  if (!original) return original;
+
+  let working = original.replace(/\s+-\s+Topic$/i, '').trim();
+
+  const featMatch = working.match(/\s+(?:feat\.?|featuring|ft\.?|with)\s+/i);
+  if (featMatch && featMatch.index !== undefined) {
+    working = working.slice(0, featMatch.index).trim();
+  }
+
+  const commaCount = (working.match(/,/g) ?? []).length;
+  const connectorRegexGlobal = /\s+(?:&|and|[x×+])\s+/gi;
+  const connectorRegex = /\s+(?:&|and|[x×+])\s+/i;
+  const connectorMatches = working.match(connectorRegexGlobal) ?? [];
+  const connectorCount = connectorMatches.length;
+
+  if (commaCount === 0) {
+    if (connectorCount === 1) {
+      return working; // duo
+    }
+    if (connectorCount >= 2) {
+      return working.split(connectorRegex)[0].trim(); // multi
+    }
+    return working; // single
+  }
+
+  if (commaCount >= 2) {
+    return working.split(',')[0].trim();
+  }
+
+  if (connectorCount >= 1) {
+    return working.split(',')[0].trim();
+  }
+
+  return working; // likely single-comma name (e.g., "Tyler, The Creator")
+};
+
 export class ListenbrainzScrobbler extends ScrobblerBase {
   override isSessionCreated(): boolean {
     return true;
@@ -82,7 +123,7 @@ function createRequestBody(
       : songInfo.title;
 
   const trackMetadata = {
-    artist_name: songInfo.artist,
+    artist_name: getPrimaryArtist(songInfo),
     track_name: title,
     release_name: songInfo.album ?? undefined,
     additional_info: {
