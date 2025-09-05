@@ -7,9 +7,9 @@ import buttonSwitcherStyle from './button-switcher.css?inline';
 
 import { createPlugin } from '@/utils';
 import { moveVolumeHud as preciseVolumeMoveVolumeHud } from '@/plugins/precise-volume/renderer';
-import { ThumbnailElement } from '@/types/get-player-response';
+import { type ThumbnailElement } from '@/types/get-player-response';
 import { t } from '@/i18n';
-import { MenuTemplate } from '@/menu';
+import { type MenuTemplate } from '@/menu';
 
 import { VideoSwitchButton } from './templates/video-switch-button';
 
@@ -171,17 +171,18 @@ export default createPlugin({
       const video = document.querySelector<HTMLVideoElement>('video');
 
       const switchButtonContainer = document.createElement('div');
+      switchButtonContainer.id = 'ytmd-video-toggle-switch-button-container';
       switchButtonContainer.style.display = 'flex';
       render(
         () => (
           <Show when={showButton()}>
             <VideoSwitchButton
-              onClick={(e) => e.stopPropagation()}
               onChange={(e) => {
                 const target = e.target as HTMLInputElement;
 
                 setVideoState(target.checked);
               }}
+              onClick={(e) => e.stopPropagation()}
               songButtonText={t('plugins.video-toggle.templates.button-song')}
               videoButtonText={t('plugins.video-toggle.templates.button-video')}
             />

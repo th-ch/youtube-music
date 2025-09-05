@@ -21,7 +21,7 @@
   "main": {
     "console": {
       "did-finish-load": {
-        "dev-tools": "Загрузка завершена. DevTools открыт"
+        "dev-tools": "Загрузка завершена. DevTools открыты"
       },
       "i18n": {
         "loaded": "i18n загружен"
@@ -150,6 +150,13 @@
           "visual-tweaks": {
             "label": "Визуальные настройки",
             "submenu": {
+              "custom-window-title": {
+                "label": "Собственное название окна",
+                "prompt": {
+                  "label": "Введите собственное название окна: (оставьте пустым, чтобы отключить)",
+                  "placeholder": "Например: YouTube Music"
+                }
+              },
               "like-buttons": {
                 "default": "Default",
                 "force-show": "Всегда показывать",

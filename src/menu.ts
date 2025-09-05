@@ -1,11 +1,11 @@
 import is from 'electron-is';
 import {
   app,
-  BrowserWindow,
+  type BrowserWindow,
   clipboard,
   dialog,
   Menu,
-  MenuItem,
+  type MenuItem,
   shell,
 } from 'electron';
 import prompt from 'custom-electron-prompt';
@@ -214,6 +214,37 @@ export const mainMenuTemplate = async (
                   'options.removeUpgradeButton',
                   item.checked,
                 );
+              },
+            },
+            {
+              label: t(
+                'main.menu.options.submenu.visual-tweaks.submenu.custom-window-title.label',
+              ),
+              async click() {
+                const output = await prompt(
+                  {
+                    title: t(
+                      'main.menu.options.submenu.visual-tweaks.submenu.custom-window-title.label',
+                    ),
+                    label: t(
+                      'main.menu.options.submenu.visual-tweaks.submenu.custom-window-title.prompt.label',
+                    ),
+                    value: config.get('options.customWindowTitle') || '',
+                    type: 'input',
+                    inputAttrs: {
+                      type: 'text',
+                      placeholder: t(
+                        'main.menu.options.submenu.visual-tweaks.submenu.custom-window-title.prompt.placeholder',
+                      ),
+                    },
+                    width: 500,
+                    ...promptOptions(),
+                  },
+                  win,
+                );
+                if (typeof output === 'string') {
+                  config.setMenuOption('options.customWindowTitle', output);
+                }
               },
             },
             {

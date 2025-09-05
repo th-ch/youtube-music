@@ -150,6 +150,13 @@
           "visual-tweaks": {
             "label": "Visuelle Optimierungen",
             "submenu": {
+              "custom-window-title": {
+                "label": "Benutzerdefinierter Fenstertitel",
+                "prompt": {
+                  "label": "Benutzerdefinierten Fenstertitel eingeben: (zum Deaktivieren leer lassen)",
+                  "placeholder": "Beispiel: YouTube Music"
+                }
+              },
               "like-buttons": {
                 "default": "Standard",
                 "force-show": "Zeigen erzwungen",

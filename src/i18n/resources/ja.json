@@ -150,6 +150,13 @@
           "visual-tweaks": {
             "label": "見た目の微調整",
             "submenu": {
+              "custom-window-title": {
+                "label": "カスタムウィンドウタイトル",
+                "prompt": {
+                  "label": "カスタムウィンドウタイトルを入力: (未入力の場合無効になります)",
+                  "placeholder": "例: YouTube Music"
+                }
+              },
               "like-buttons": {
                 "default": "デフォルト",
                 "force-show": "強制的に表示",
@@ -334,6 +341,7 @@
       "name": "オーディオコンプレッサー"
     },
     "auth-proxy-adapter": {
+      "description": "認証プロキシサービスの利用サポート",
       "menu": {
         "disable": "プロキシアダプターを無効にする",
         "enable": "プロキシアダプターを有効にする",
@@ -344,6 +352,7 @@
           "label": "ポート"
         }
       },
+      "name": "認証プロキシアダプタ",
       "prompt": {
         "hostname": {
           "label": "ローカルプロキシサーバのホスト名を入力します（再起動が必要です）：",
@@ -382,7 +391,8 @@
       },
       "toast": {
         "caption-changed": "字幕を{{language}}に変更しました",
-        "caption-disabled": "字幕を無効にしました"
+        "caption-disabled": "字幕を無効にしました",
+        "no-captions": "この曲には字幕がありません"
       }
     },
     "compact-sidebar": {
@@ -702,7 +712,12 @@
         }
       },
       "description": "ビデオオーバーレイのボタンを使用してビデオ品質を変更できるようにします",
-      "name": "ビデオ品質チェンジャー"
+      "name": "ビデオ品質チェンジャー",
+      "renderer": {
+        "quality-settings-button": {
+          "label": "ビデオ品質チェンジャーを開きます"
+        }
+      }
     },
     "scrobbler": {
       "description": "スクロブリング対応を追加します（例：last.fm、Listenbrainzなど）",
@@ -869,7 +884,8 @@
       },
       "name": "動画の切り替え",
       "templates": {
-        "button-song": "曲"
+        "button-song": "曲",
+        "button-video": "動画"
       }
     },
     "visualizer": {
