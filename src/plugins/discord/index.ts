@@ -2,6 +2,7 @@ import { createPlugin } from '@/utils';
 import { backend } from './main';
 import { onMenu } from './menu';
 import { t } from '@/i18n';
+import { DiscordStatusDisplayType } from './constants';
 
 export type DiscordPluginConfig = {
   enabled: boolean;
@@ -33,6 +34,10 @@ export type DiscordPluginConfig = {
    * Hide the "duration left" in the rich presence
    */
   hideDurationLeft: boolean;
+  /**
+   * Controls which field is displayed in the Discord status text
+   */
+  statusDisplayType: (typeof DiscordStatusDisplayType)[keyof typeof DiscordStatusDisplayType];
 };
 
 export default createPlugin({
@@ -47,6 +52,7 @@ export default createPlugin({
     playOnYouTubeMusic: true,
     hideGitHubButton: false,
     hideDurationLeft: false,
+    statusDisplayType: DiscordStatusDisplayType.ARTIST,
   } as DiscordPluginConfig,
   menu: onMenu,
   backend,

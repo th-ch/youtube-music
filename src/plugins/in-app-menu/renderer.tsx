@@ -2,7 +2,7 @@ import { createSignal } from 'solid-js';
 import { render } from 'solid-js/web';
 
 import { TitleBar } from './renderer/TitleBar';
-import { defaultInAppMenuConfig, InAppMenuConfig } from './constants';
+import { defaultInAppMenuConfig, type InAppMenuConfig } from './constants';
 
 import type { RendererContext } from '@/types/contexts';
 

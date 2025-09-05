@@ -1,5 +1,4 @@
-import { Icons } from '@/types/icons';
-
+import type { Icons } from '@/types/icons';
 import type { ComponentProps } from 'solid-js';
 
 declare module 'solid-js' {

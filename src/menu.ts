@@ -1,11 +1,11 @@
 import is from 'electron-is';
 import {
   app,
-  BrowserWindow,
+  type BrowserWindow,
   clipboard,
   dialog,
   Menu,
-  MenuItem,
+  type MenuItem,
   shell,
 } from 'electron';
 import prompt from 'custom-electron-prompt';
