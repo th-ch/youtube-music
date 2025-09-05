@@ -1,7 +1,8 @@
-import { type YoutubePlayer } from '@/types/youtube-player';
-import { type CustomOutputPluginConfig } from '.';
-import { type RendererContext } from '@/types/contexts';
 import { createRenderer } from '@/utils';
+
+import type { YoutubePlayer } from '@/types/youtube-player';
+import type { RendererContext } from '@/types/contexts';
+import type { CustomOutputPluginConfig } from './index';
 
 const updateDeviceList = async (
   context: RendererContext<CustomOutputPluginConfig>,
