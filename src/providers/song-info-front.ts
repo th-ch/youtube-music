@@ -261,6 +261,25 @@ export default (api: YoutubePlayer) => {
   function sendSongInfo(videoData: VideoDataChangeValue) {
     const data = api.getPlayerResponse();
 
+    // Prefer the DOM-rendered title so we keep UI details like "(feat.)"
+    // The YT Music UI often includes featured artists in the title, while the player API may omit them.
+    // Only override the title here (artist remains sourced from the API).
+    try {
+      const playerBar = document.querySelector('ytmusic-player-bar');
+      const domTitle =
+        playerBar?.querySelector<HTMLElement>('#song-title')?.textContent?.trim() ||
+        playerBar?.querySelector<HTMLElement>('a#song-title')?.textContent?.trim() ||
+        playerBar?.querySelector<HTMLElement>('yt-formatted-string.title')?.textContent?.trim() ||
+        playerBar?.querySelector<HTMLElement>('.title')?.textContent?.trim() ||
+        undefined;
+
+      if (domTitle) {
+        data.videoDetails.title = domTitle;
+      }
+    } catch {
+      // If probing the DOM fails, fall back to the API-provided title
+    }
+
     let playerOverlay: PlayerOverlays | undefined;
 
     if (!videoData.ytmdWatchNextResponse) {
