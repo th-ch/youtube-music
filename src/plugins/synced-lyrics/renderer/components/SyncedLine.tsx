@@ -39,7 +39,6 @@ export const SyncedLine = (props: SyncedLineProps) => {
 
   return (
     <Show
-      when={text()}
       fallback={
         <yt-formatted-string
           text={{
@@ -47,6 +46,7 @@ export const SyncedLine = (props: SyncedLineProps) => {
           }}
         />
       }
+      when={text()}
     >
       <div
         class={`synced-line ${props.status}`}
@@ -54,7 +54,7 @@ export const SyncedLine = (props: SyncedLineProps) => {
           _ytAPI?.seekTo((props.line.timeInMs + 10) / 1000);
         }}
       >
-        <div dir="auto" class="description ytmusic-description-shelf-renderer">
+        <div class="description ytmusic-description-shelf-renderer" dir="auto">
           <yt-formatted-string
             text={{
               runs: [

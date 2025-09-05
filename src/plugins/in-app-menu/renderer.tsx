@@ -33,12 +33,12 @@ export const onRendererLoad = async ({
   render(
     () => (
       <TitleBar
-        ipc={ipc}
-        isMacOS={isMacOS}
         enableController={
           isNotWindowsOrMacOS && !config().hideDOMWindowControls
         }
         initialCollapsed={window.mainConfig.get('options.hideMenu')}
+        ipc={ipc}
+        isMacOS={isMacOS}
       />
     ),
     document.body,

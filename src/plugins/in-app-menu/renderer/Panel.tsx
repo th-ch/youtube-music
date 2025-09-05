@@ -149,17 +149,17 @@ export const Panel = (props: PanelProps) => {
     <Portal>
       <Transition
         appear
-        enterClass={animationStyle().enter}
         enterActiveClass={animationStyle().enterActive}
-        exitToClass={animationStyle().exitTo}
+        enterClass={animationStyle().enter}
         exitActiveClass={animationStyle().exitActive}
+        exitToClass={animationStyle().exitTo}
       >
         <Show when={local.open}>
           <ul
             {...leftProps}
+            class={panelStyle()}
             data-ytmd-sub-panel={true}
             ref={setPanel}
-            class={panelStyle()}
             style={{
               '--offset-x': `${position.x}px`,
               '--offset-y': `${position.y}px`,

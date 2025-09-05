@@ -177,12 +177,12 @@ export default createPlugin({
         () => (
           <Show when={showButton()}>
             <VideoSwitchButton
-              onClick={(e) => e.stopPropagation()}
               onChange={(e) => {
                 const target = e.target as HTMLInputElement;
 
                 setVideoState(target.checked);
               }}
+              onClick={(e) => e.stopPropagation()}
               songButtonText={t('plugins.video-toggle.templates.button-song')}
               videoButtonText={t('plugins.video-toggle.templates.button-video')}
             />

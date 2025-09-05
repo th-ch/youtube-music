@@ -21,12 +21,18 @@ const updateDeviceList = async (
   context.setConfig(options);
 };
 
-const updateSinkId = async (audioContext?: AudioContext, sinkId?: string) => {
+const updateSinkId = async (
+  audioContext?: AudioContext & {
+    setSinkId?: (sinkId: string) => Promise<void>;
+  },
+  sinkId?: string,
+) => {
   if (!audioContext || !sinkId) return;
   if (!('setSinkId' in audioContext)) return;
-  if (typeof audioContext.setSinkId !== 'function') return;
 
-  await audioContext.setSinkId(sinkId);
+  if (typeof audioContext.setSinkId === 'function') {
+    await audioContext.setSinkId(sinkId);
+  }
 };
 
 export const renderer = createRenderer<

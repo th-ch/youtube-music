@@ -31,6 +31,9 @@ export default tsEslint.config(
     rules: {
       'stylistic/arrow-parens': ['error', 'always'],
       'stylistic/object-curly-spacing': ['error', 'always'],
+      'stylistic/jsx-pascal-case': 'error',
+      'stylistic/jsx-curly-spacing': ['error', { when: 'never', children: true }],
+      'stylistic/jsx-sort-props': 'error',
       'prettier/prettier': ['error', { singleQuote: true, semi: true, tabWidth: 2, trailingComma: 'all', quoteProps: 'preserve' }],
       '@typescript-eslint/no-floating-promises': 'off',
       '@typescript-eslint/no-misused-promises': ['off', { checksVoidReturn: false }],

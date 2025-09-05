@@ -1,7 +1,8 @@
 import { singleton } from './decorators';
 
-import type { YoutubePlayer } from '@/types/youtube-player';
 import { LikeType, type GetState } from '@/types/datahost-get-state';
+
+import type { YoutubePlayer } from '@/types/youtube-player';
 import type {
   AlbumDetails,
   PlayerOverlays,
