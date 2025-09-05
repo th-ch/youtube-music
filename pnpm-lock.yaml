@@ -64,7 +64,7 @@ importers:
         specifier: 1.19.1
         version: 1.19.1(hono@4.9.6)
       '@hono/node-ws':
-        specifier: ^1.2.0
+        specifier: 1.2.0
         version: 1.2.0(@hono/node-server@1.19.1(hono@4.9.6))(bufferutil@4.0.9)(hono@4.9.6)(utf-8-validate@6.0.5)
       '@hono/swagger-ui':
         specifier: 0.5.2
