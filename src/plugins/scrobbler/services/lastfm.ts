@@ -28,6 +28,64 @@ interface LastFmSongData {
   api_sig?: string;
 }
 
+/**
+ * Returns the primary artist for scrobbling from the YouTube Music byline.
+ * Rules:
+ * - Remove trailing "- Topic"
+ * - Trim anything after feat/ft/featuring/with (keeps pre-feat part intact)
+ * - If no commas and exactly one connector (&/and/x/+/×), keep duo as-is (e.g., "Chuuwee & Trizz")
+ * - If multiple connectors and no commas (e.g., "A & B & C"), take first artist
+ * - If multiple commas (e.g., "A, B, & C"), take first artist
+ * - If exactly one comma and no connectors, preserve (e.g., "Tyler, The Creator")
+ */
+const getPrimaryArtist = (songInfo: SongInfo): string => {
+  const original = (songInfo.artist ?? '').trim();
+  if (!original) return original;
+
+  // Drop YT “- Topic” suffix
+  let working = original.replace(/\s+-\s+Topic$/i, '').trim();
+
+  // Split off features
+  const featMatch = working.match(/\s+(?:feat\.?|featuring|ft\.?|with)\s+/i);
+  if (featMatch && featMatch.index !== undefined) {
+    working = working.slice(0, featMatch.index).trim();
+  }
+
+  const commaCount = (working.match(/,/g) ?? []).length;
+  const connectorRegexGlobal = /\s+(?:&|and|[x×+])\s+/gi;
+  const connectorRegex = /\s+(?:&|and|[x×+])\s+/i;
+  const connectorMatches = working.match(connectorRegexGlobal) ?? [];
+  const connectorCount = connectorMatches.length;
+
+  if (commaCount === 0) {
+    if (connectorCount === 1) {
+      // Duo case like "Chuuwee & Trizz" -> keep as-is
+      return working;
+    }
+    if (connectorCount >= 2) {
+      // Multi-connector list without commas -> "A & B & C" => "A"
+      return working.split(connectorRegex)[0].trim();
+    }
+    // No connectors, no commas -> single artist
+    return working;
+  }
+
+  // Has commas
+  if (commaCount >= 2) {
+    // Typical multi-artist list -> "A, B, ..." => "A"
+    return working.split(',')[0].trim();
+  }
+
+  // Exactly one comma
+  if (connectorCount >= 1) {
+    // Mixed comma + connector pattern like "A, B & C" -> "A"
+    return working.split(',')[0].trim();
+  }
+
+  // Likely a single-comma artist name (e.g., "Tyler, The Creator") -> keep as-is
+  return working;
+};
+
 export class LastFmScrobbler extends ScrobblerBase {
   mainWindow: BrowserWindow;
 
@@ -135,7 +193,7 @@ export class LastFmScrobbler extends ScrobblerBase {
     const postData: LastFmSongData = {
       track: title,
       duration: songInfo.songDuration,
-      artist: songInfo.artist,
+      artist: getPrimaryArtist(songInfo),
       ...(songInfo.album ? { album: songInfo.album } : undefined), // Will be undefined if current song is a video
       api_key: config.scrobblers.lastfm.apiKey,
       sk: config.scrobblers.lastfm.sessionKey,
@@ -193,43 +251,33 @@ const createQueryString = (
   apiSignature: string,
 ) => {
   // Creates a querystring
-  const queryData = [];
-  parameters.api_sig = apiSignature;
+  const queryData: string[] = [];
   for (const key in parameters) {
-    queryData.push(
-      `${encodeURIComponent(key)}=${encodeURIComponent(
-        String(parameters[key]),
-      )}`,
-    );
+    queryData.push(`${key}=${encodeURIComponent(String(parameters[key]))}`);
   }
-
-  return '?' + queryData.join('&');
+  queryData.push(`api_sig=${apiSignature}`);
+  return `?${queryData.join('&')}`;
 };
 
-const createApiSig = (parameters: LastFmSongData, secret: string) => {
-  // This function creates the api signature, see: https://www.last.fm/api/authspec
-  let sig = '';
+const createApiSig = (
+  parameters: Record<string, unknown>,
+  secret: string,
+): string => {
+  // Creates the api signature
+  // The api signature is a concatenation of the keys in alphabetical order, and the values
+  // with the secret added to the end, and then hashed with MD5
+  const sortedKeys = Object.keys(parameters).sort();
+  let signature = '';
+  for (const key of sortedKeys) {
+    signature += key + parameters[key];
+  }
+  signature += secret;
 
-  Object.entries(parameters)
-    .sort(([a], [b]) => a.localeCompare(b))
-    .forEach(([key, value]) => {
-      if (key === 'format') {
-        return;
-      }
-      sig += key + value;
-    });
-
-  sig += secret;
-  sig = crypto.createHash('md5').update(sig, 'utf-8').digest('hex');
-  return sig;
+  return crypto.createHash('md5').update(signature).digest('hex');
 };
 
-const createToken = async ({
-  scrobblers: {
-    lastfm: { apiKey, apiRoot, secret },
-  },
-}: ScrobblerPluginConfig) => {
-  // Creates and stores the auth token
+const createToken = async (config: ScrobblerPluginConfig) => {
+  const { apiKey, secret, apiRoot } = config.scrobblers.lastfm;
   const data: {
     method: string;
     api_key: string;
