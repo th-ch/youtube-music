@@ -14,7 +14,7 @@ export default createPlugin({
     onPlayerApiReady(playerApi) {
       const syncVolume = (playerApi: YoutubePlayer) => {
         if (playerApi.getPlayerState() === 3) {
-          setTimeout(() => syncVolume(playerApi), 500);
+          setTimeout(() => syncVolume(playerApi), 0);
           return;
         }
 
