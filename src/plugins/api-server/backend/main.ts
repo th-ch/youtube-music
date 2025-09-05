@@ -3,7 +3,7 @@ import { OpenAPIHono as Hono } from '@hono/zod-openapi';
 import { cors } from 'hono/cors';
 import { swaggerUI } from '@hono/swagger-ui';
 import { serve } from '@hono/node-server';
-import { createNodeWebSocket } from "@hono/node-ws"
+import { createNodeWebSocket } from '@hono/node-ws';
 
 import registerCallback from '@/providers/song-info';
 import { createBackend } from '@/utils';
@@ -13,6 +13,7 @@ import { registerAuth, registerControl, registerWebsocket } from './routes';
 
 import { type APIServerConfig, AuthStrategy } from '../config';
 
+import type { UpgradeWebSocket, WSEvents } from 'hono/ws';
 import type { BackendType } from './types';
 import type { RepeatMode } from '@/types/datahost-get-state';
 
@@ -64,7 +65,9 @@ export const backend = createBackend<BackendType, APIServerConfig>({
   // Custom
   init(backendCtx) {
     this.app = new Hono();
-    const { upgradeWebSocket, injectWebSocket } = createNodeWebSocket({ app: this.app });
+    const ws = createNodeWebSocket({
+      app: this.app,
+    });
 
     this.app.use('*', cors());
 
@@ -109,7 +112,17 @@ export const backend = createBackend<BackendType, APIServerConfig>({
       () => this.volume,
     );
     registerAuth(this.app, backendCtx);
-    registerWebsocket(this.app, backendCtx, upgradeWebSocket)
+    registerWebsocket(
+      this.app,
+      backendCtx,
+      ws.upgradeWebSocket as UpgradeWebSocket<
+        WebSocket,
+        {
+          onError: (err: unknown) => void;
+        },
+        WSEvents<WebSocket>
+      >,
+    );
 
     // swagger
     this.app.openAPIRegistry.registerComponent(
@@ -138,7 +151,7 @@ export const backend = createBackend<BackendType, APIServerConfig>({
 
     this.app.get('/swagger', swaggerUI({ url: '/doc' }));
 
-    this.injectWebSocket = injectWebSocket;
+    this.injectWebSocket = ws.injectWebSocket.bind(this);
   },
   run(hostname, port) {
     if (!this.app) return;
@@ -153,7 +166,6 @@ export const backend = createBackend<BackendType, APIServerConfig>({
       if (this.injectWebSocket && this.server) {
         this.injectWebSocket(this.server);
       }
-
     } catch (err) {
       console.error(err);
     }
