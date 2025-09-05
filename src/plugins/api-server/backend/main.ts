@@ -5,7 +5,7 @@ import { swaggerUI } from '@hono/swagger-ui';
 import { serve } from '@hono/node-server';
 import { createNodeWebSocket } from '@hono/node-ws';
 
-import registerCallback from '@/providers/song-info';
+import { registerCallback } from '@/providers/song-info';
 import { createBackend } from '@/utils';
 
 import { JWTPayloadSchema } from './scheme';

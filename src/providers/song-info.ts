@@ -184,7 +184,7 @@ export type SongInfoCallback = (
 const callbacks: Set<SongInfoCallback> = new Set();
 
 // This function will allow plugins to register callback that will be triggered when data changes
-const registerCallback = (callback: SongInfoCallback) => {
+export const registerCallback = (callback: SongInfoCallback) => {
   callbacks.add(callback);
 };
 
@@ -282,5 +282,4 @@ export function cleanupName(name: string): string {
   return name;
 }
 
-export default registerCallback;
 export const setupSongInfo = registerProvider;
