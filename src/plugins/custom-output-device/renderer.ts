@@ -7,10 +7,10 @@ const updateDeviceList = async (context: RendererContext<CustomOutputPluginConfi
   const newDevices: Record<string, string> = {};
   const devices = await navigator.mediaDevices.enumerateDevices().then(devices => devices.filter(device => device.kind === 'audiooutput'));
   for (const device of devices) {
-    new_devices[device.deviceId] = device.label;
+    newDevices[device.deviceId] = device.label;
   }
   const options = await context.getConfig();
-  options.devices = new_devices;
+  options.devices = newDevices;
   context.setConfig(options);
 }
 
@@ -30,11 +30,11 @@ const updateSinkId = async (audioContext?: AudioContext, sinkId?: string) => {
 
 export const renderer = createRenderer<{
   options?: CustomOutputPluginConfig;
-  audio_context?: AudioContext;
+  audioContext?: AudioContext;
   audioCanPlayHandler: (event: CustomEvent<Compressor>) => Promise<void>;
 }, CustomOutputPluginConfig>({
   async audioCanPlayHandler({ detail: { audioContext } }) {
-    this.audio_context = audioContext
+    this.audioContext = audioContext
     await updateSinkId(audioContext, this.options!.output);
   },
 
@@ -54,6 +54,6 @@ export const renderer = createRenderer<{
 
   async onConfigChange(config) {
     this.options = config;
-    await updateSinkId(this.audio_context, config.output);
+    await updateSinkId(this.audioContext, config.output);
   }
 });
