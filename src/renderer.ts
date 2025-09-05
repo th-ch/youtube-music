@@ -286,7 +286,15 @@ async function onApiLoaded() {
 
       if (!app || !searchBox) return;
 
-      const result = await app.networkManager.fetch('/search', {
+      const result = await app.networkManager.fetch<
+        unknown,
+        {
+          query: string;
+          params?: string;
+          continuation?: string;
+          suggestStats?: unknown;
+        }
+      >('/search', {
         query,
         params,
         continuation,

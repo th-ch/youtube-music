@@ -150,6 +150,13 @@
           "visual-tweaks": {
             "label": "ปรับแต่งหน้าตาแอป",
             "submenu": {
+              "custom-window-title": {
+                "label": "ชื่อหน้าต่างกำหนดเอง",
+                "prompt": {
+                  "label": "กำหนดชื่อหน้าต่างที่ต้องการ: (ปล่อยว่างเพื่อปิดใช้งาน)",
+                  "placeholder": "ตัวอย่าง: Youtube Music"
+                }
+              },
               "like-buttons": {
                 "default": "ค่าเริ่มต้น",
                 "force-show": "บังคับให้แสดง",
@@ -381,6 +388,11 @@
       },
       "templates": {
         "title": "เปิดตัวเลือกคำบรรยาย"
+      },
+      "toast": {
+        "caption-changed": "เปลี่ยนคำบรรยายเป็นภาษา {{language}}",
+        "caption-disabled": "คำบรรยายถูกปิดใช้งาน",
+        "no-captions": "ไม่มีคำบรรยายสำหรับเพลงนี้"
       }
     },
     "compact-sidebar": {
@@ -600,7 +612,15 @@
     },
     "navigation": {
       "description": "ลูกศรนำทางถัดไป/ย้อนกลับรวมอยู่ในอินเทอร์เฟซโดยตรง เช่นเดียวกับในเบราว์เซอร์ที่คุณชื่นชอบ",
-      "name": "การนำทาง"
+      "name": "การนำทาง",
+      "templates": {
+        "back": {
+          "title": "ไปหน้าก่อนหน้า"
+        },
+        "forward": {
+          "title": "ไปหน้าถัดไป"
+        }
+      }
     },
     "no-google-login": {
       "description": "ลบปุ่มเข้าสู่ระบบ Google และลิงก์ออกจากอินเทอร์เฟซ",
@@ -692,7 +712,12 @@
         }
       },
       "description": "อนุญาตให้เปลี่ยนคุณภาพของวิดีโอด้วยปุ่มที่แสดงเหนือวิดีโอ",
-      "name": "ที่เปลี่ยนคุณภาพวิดีโอ"
+      "name": "ที่เปลี่ยนคุณภาพวิดีโอ",
+      "renderer": {
+        "quality-settings-button": {
+          "label": "เปิดตัวเปลี่ยนคุณภาพเครื่องเล่น"
+        }
+      }
     },
     "scrobbler": {
       "description": "รองรับการบันทึกการเล่นเพลง (เช่น last.fm, Listenbrainz)",
@@ -859,7 +884,8 @@
       },
       "name": "ปุ่มวิดีโอ",
       "templates": {
-        "button-song": "เพลง"
+        "button-song": "เพลง",
+        "button-video": "วิดีโอ"
       }
     },
     "visualizer": {

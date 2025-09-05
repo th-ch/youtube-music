@@ -123,9 +123,78 @@
           },
           "language": {
             "dialog": {
-              "message": "Jezik će se promijeniti nakon ponovnog pokretanja"
+              "message": "Jezik će se promijeniti nakon ponovnog pokretanja",
+              "title": "Jezik je uspješno promjenjen"
+            },
+            "label": "Jezik",
+            "submenu": {
+              "to-help-translate": "Želite da pomognete s prijevodom? Kliknite ovdje"
+            }
+          },
+          "resume-on-start": "Nastavi posljednju pjesmu pri sljedećem pokretaju",
+          "single-instance-lock": "Sprječavanje višestrukog pokretanja",
+          "start-at-login": "Pokreni čim se prijavite",
+          "starting-page": {
+            "label": "Početna stranica",
+            "unset": "Ukinite postavu"
+          },
+          "tray": {
+            "label": "Tacna",
+            "submenu": {
+              "disabled": "Onemogućeno",
+              "enabled-and-hide-app": "Tacna je uključena, i prozor aplikacije skrijte",
+              "enabled-and-show-app": "Tacna je uključena, i prozor aplikacije prikažite",
+              "play-pause-on-click": "Pokreni/Zaustavi na klik"
+            }
+          },
+          "visual-tweaks": {
+            "label": "Vizualne postavke",
+            "submenu": {
+              "custom-window-title": {
+                "label": "Prilagođeni naslov prozora",
+                "prompt": {
+                  "label": "Unesite vlastiti naslov prozora: (ostavite prazno za isključenje)",
+                  "placeholder": "Primjer: YouTube Music"
+                }
+              },
+              "like-buttons": {
+                "default": "Zadano",
+                "force-show": "Prinudno prikaži",
+                "hide": "Sakrij",
+                "label": "'Sviđa mi se' dugmadi"
+              },
+              "remove-upgrade-button": "Ukloni dugme za nadogradnju",
+              "theme": {
+                "dialog": {
+                  "button": {
+                    "cancel": "Otkaži",
+                    "remove": "Ukloni"
+                  },
+                  "remove-theme": "Jeste li sigurni da želite ukloniti prilagođenu temu?",
+                  "remove-theme-message": "Ovo će ukloniti prilagođenu temu"
+                },
+                "label": "Tema",
+                "submenu": {
+                  "import-css-file": "Uvoz prilagođene CSS datoteke",
+                  "no-theme": "Bez teme"
+                }
+              }
             }
           }
+        }
+      },
+      "plugins": {
+        "enabled": "Omogući",
+        "label": "Dodaci",
+        "new": "Novo"
+      }
+    }
+  },
+  "plugins": {
+    "ambient-mode": {
+      "menu": {
+        "quality": {
+          "label": "Kvalitet"
         }
       }
     }

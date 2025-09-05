@@ -150,6 +150,13 @@
           "visual-tweaks": {
             "label": "Görsel İnce Ayarlar",
             "submenu": {
+              "custom-window-title": {
+                "label": "Özel pencere başlığı",
+                "prompt": {
+                  "label": "Özel pencere başlığı girin: (devre dışı bırakmak için boş bırakın)",
+                  "placeholder": "Örnek: Youtube Music"
+                }
+              },
               "like-buttons": {
                 "default": "Varsayılan",
                 "force-show": "Zorla göster",
