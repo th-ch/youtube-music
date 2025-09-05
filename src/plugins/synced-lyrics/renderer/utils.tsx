@@ -1,17 +1,11 @@
 import { render } from 'solid-js/web';
-
 import KuromojiAnalyzer from 'kuroshiro-analyzer-kuromoji';
 import Kuroshiro from 'kuroshiro';
-
 import { romanize as esHangulRomanize } from 'es-hangul';
 import hanja from 'hanja';
-
-import pinyin from 'tiny-pinyin';
-
-import { romanize as romanizeThaiFrag } from '@dehoist/romanize-thai'
-
+import * as pinyin from 'tiny-pinyin';
+import { romanize as romanizeThaiFrag } from '@dehoist/romanize-thai';
 import { lazy } from 'lazy-var';
-
 import { detect } from 'tinyld';
 
 import { waitForElement } from '@/utils/wait-for-element';
@@ -93,8 +87,8 @@ export const canonicalize = (text: string) => {
 export const simplifyUnicode = (text?: string) =>
   text
     ? text
-      .replaceAll(/\u0020|\u00A0|[\u2000-\u200A]|\u202F|\u205F|\u3000/g, ' ')
-      .trim()
+        .replaceAll(/\u0020|\u00A0|[\u2000-\u200A]|\u202F|\u205F|\u3000/g, ' ')
+        .trim()
     : text;
 
 // Japanese Shinjitai
@@ -185,7 +179,11 @@ export const romanizeThai = (line: string) => {
 
   const segments = Array.from(thaiSegmenter.segment(line));
   const latin = segments
-    .map((segment) => segment.isWordLike ? romanizeThaiFrag(segment.segment) : segment.segment.trim())
+    .map((segment) =>
+      segment.isWordLike
+        ? romanizeThaiFrag(segment.segment)
+        : segment.segment.trim(),
+    )
     .join(' ')
     .trim();
 
@@ -204,7 +202,7 @@ export const romanize = async (line: string) => {
 
   const handler = handlers[lang];
   if (handler) {
-    return await handler(line);
+    return handler(line);
   }
 
   // fallback
