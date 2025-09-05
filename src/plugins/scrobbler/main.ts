@@ -1,6 +1,7 @@
 import { type BrowserWindow } from 'electron';
 
-import registerCallback, {
+import {
+  registerCallback,
   MediaType,
   type SongInfo,
   SongInfoEvent,

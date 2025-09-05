@@ -1,9 +1,7 @@
 import { createRoute, z } from '@hono/zod-openapi';
-
 import { ipcMain } from 'electron';
 
 import getSongControls from '@/providers/song-controls';
-
 import {
   LikeType,
   type RepeatMode,
@@ -25,6 +23,7 @@ import {
   SwitchRepeatSchema,
   type ResponseSongInfo,
 } from '../scheme';
+import { API_VERSION } from '../api-version';
 
 import type { SongInfo } from '@/providers/song-info';
 import type { BackendContext } from '@/types/contexts';
@@ -32,8 +31,6 @@ import type { APIServerConfig } from '../../config';
 import type { HonoApp } from '../types';
 import type { QueueResponse } from '@/types/youtube-music-desktop-internal';
 import type { Context } from 'hono';
-
-const API_VERSION = 'v1';
 
 const routes = {
   previous: createRoute({

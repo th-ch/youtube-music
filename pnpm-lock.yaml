@@ -63,6 +63,9 @@ importers:
       '@hono/node-server':
         specifier: 1.19.1
         version: 1.19.1(hono@4.9.6)
+      '@hono/node-ws':
+        specifier: 1.2.0
+        version: 1.2.0(@hono/node-server@1.19.1(hono@4.9.6))(bufferutil@4.0.9)(hono@4.9.6)(utf-8-validate@6.0.5)
       '@hono/swagger-ui':
         specifier: 0.5.2
         version: 0.5.2(hono@4.9.6)
@@ -812,6 +815,13 @@ packages:
     engines: {node: '>=18.14.1'}
     peerDependencies:
       hono: ^4
+
+  '@hono/node-ws@1.2.0':
+    resolution: {integrity: sha512-OBPQ8OSHBw29mj00wT/xGYtB6HY54j0fNSdVZ7gZM3TUeq0So11GXaWtFf1xWxQNfumKIsj0wRuLKWfVsO5GgQ==}
+    engines: {node: '>=18.14.1'}
+    peerDependencies:
+      '@hono/node-server': ^1.11.1
+      hono: ^4.6.0
 
   '@hono/swagger-ui@0.5.2':
     resolution: {integrity: sha512-7wxLKdb8h7JTdZ+K8DJNE3KXQMIpJejkBTQjrYlUWF28Z1PGOKw6kUykARe5NTfueIN37jbyG/sBYsbzXzG53A==}
@@ -5259,6 +5269,15 @@ snapshots:
   '@hono/node-server@1.19.1(hono@4.9.6)':
     dependencies:
       hono: 4.9.6
+
+  '@hono/node-ws@1.2.0(@hono/node-server@1.19.1(hono@4.9.6))(bufferutil@4.0.9)(hono@4.9.6)(utf-8-validate@6.0.5)':
+    dependencies:
+      '@hono/node-server': 1.19.1(hono@4.9.6)
+      hono: 4.9.6
+      ws: 8.18.3(bufferutil@4.0.9)(utf-8-validate@6.0.5)
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
 
   '@hono/swagger-ui@0.5.2(hono@4.9.6)':
     dependencies:

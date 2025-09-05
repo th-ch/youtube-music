@@ -3,12 +3,13 @@ import { OpenAPIHono as Hono } from '@hono/zod-openapi';
 import { cors } from 'hono/cors';
 import { swaggerUI } from '@hono/swagger-ui';
 import { serve } from '@hono/node-server';
+import { createNodeWebSocket } from '@hono/node-ws';
 
-import registerCallback from '@/providers/song-info';
+import { registerCallback } from '@/providers/song-info';
 import { createBackend } from '@/utils';
 
 import { JWTPayloadSchema } from './scheme';
-import { registerAuth, registerControl } from './routes';
+import { registerAuth, registerControl, registerWebsocket } from './routes';
 
 import { type APIServerConfig, AuthStrategy } from '../config';
 
@@ -29,6 +30,7 @@ export const backend = createBackend<BackendType, APIServerConfig>({
     });
 
     ctx.ipc.on('ytmd:player-api-loaded', () => {
+      ctx.ipc.send('ytmd:setup-seeked-listener');
       ctx.ipc.send('ytmd:setup-time-changed-listener');
       ctx.ipc.send('ytmd:setup-repeat-changed-listener');
       ctx.ipc.send('ytmd:setup-like-changed-listener');
@@ -67,6 +69,9 @@ export const backend = createBackend<BackendType, APIServerConfig>({
   // Custom
   init(backendCtx) {
     this.app = new Hono();
+    const ws = createNodeWebSocket({
+      app: this.app,
+    });
 
     this.app.use('*', cors());
 
@@ -115,6 +120,7 @@ export const backend = createBackend<BackendType, APIServerConfig>({
       () => this.volumeState,
     );
     registerAuth(this.app, backendCtx);
+    registerWebsocket(this.app, ws);
 
     // swagger
     this.app.openAPIRegistry.registerComponent(
@@ -142,6 +148,8 @@ export const backend = createBackend<BackendType, APIServerConfig>({
     });
 
     this.app.get('/swagger', swaggerUI({ url: '/doc' }));
+
+    this.injectWebSocket = ws.injectWebSocket.bind(this);
   },
   run(hostname, port) {
     if (!this.app) return;
@@ -152,6 +160,10 @@ export const backend = createBackend<BackendType, APIServerConfig>({
         port,
         hostname,
       });
+
+      if (this.injectWebSocket && this.server) {
+        this.injectWebSocket(this.server);
+      }
     } catch (err) {
       console.error(err);
     }

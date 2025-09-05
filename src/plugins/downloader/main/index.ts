@@ -17,7 +17,8 @@ import {
   sendFeedback as sendFeedback_,
   setBadge,
 } from './utils';
-import registerCallback, {
+import {
+  registerCallback,
   cleanupName,
   getImage,
   MediaType,
