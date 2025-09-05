@@ -10,8 +10,23 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+          run_install: false
+
+      - name: Setup NodeJS
+        uses: actions/setup-node@v5
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
       - uses: reviewdog/action-eslint@v1.34.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-pr-review # Change reporter.
-          eslint_flags: "./src"
+          eslint_flags: './src'
