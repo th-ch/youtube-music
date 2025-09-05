@@ -5,6 +5,12 @@ import { ipcMain } from 'electron';
 import getSongControls from '@/providers/song-controls';
 
 import {
+  LikeType,
+  type RepeatMode,
+  type VolumeState,
+} from '@/types/datahost-get-state';
+
+import {
   AddSongToQueueSchema,
   GoBackSchema,
   GoForwardScheme,
@@ -20,8 +26,6 @@ import {
   type ResponseSongInfo,
 } from '../scheme';
 
-import type { RepeatMode, VolumeState } from '@/types/datahost-get-state';
-import { LikeType } from '@/types/datahost-get-state';
 import type { SongInfo } from '@/providers/song-info';
 import type { BackendContext } from '@/types/contexts';
 import type { APIServerConfig } from '../../config';
@@ -99,7 +103,7 @@ const routes = {
         content: {
           'application/json': {
             schema: z.object({
-              state: z.nativeEnum(LikeType).nullable()
+              state: z.enum(LikeType).nullable(),
             }),
           },
         },
@@ -546,13 +550,15 @@ const routes = {
   }),
 };
 
+type PromiseOrValue<T> = T | Promise<T>;
+
 export const register = (
   app: HonoApp,
   { window }: BackendContext<APIServerConfig>,
-  songInfoGetter: () => SongInfo | undefined,
-  repeatModeGetter: () => RepeatMode | undefined,
-  likeTypeGetter: () => LikeType | undefined,
-  volumeStateGetter: () => VolumeState | undefined,
+  songInfoGetter: () => PromiseOrValue<SongInfo | undefined>,
+  repeatModeGetter: () => PromiseOrValue<RepeatMode | undefined>,
+  likeTypeGetter: () => PromiseOrValue<LikeType | undefined>,
+  volumeStateGetter: () => PromiseOrValue<VolumeState | undefined>,
 ) => {
   const controller = getSongControls(window);
 
@@ -586,9 +592,9 @@ export const register = (
     ctx.status(204);
     return ctx.body(null);
   });
-  app.openapi(routes.getLikeState, (ctx) => {
+  app.openapi(routes.getLikeState, async (ctx) => {
     ctx.status(200);
-    return ctx.json({ state: likeTypeGetter() ?? null });
+    return ctx.json({ state: (await likeTypeGetter()) ?? null });
   });
   app.openapi(routes.like, (ctx) => {
     controller.like();
@@ -649,9 +655,9 @@ export const register = (
     return ctx.body(null);
   });
 
-  app.openapi(routes.repeatMode, (ctx) => {
+  app.openapi(routes.repeatMode, async (ctx) => {
     ctx.status(200);
-    return ctx.json({ mode: repeatModeGetter() ?? null });
+    return ctx.json({ mode: (await repeatModeGetter()) ?? null });
   });
   app.openapi(routes.switchRepeat, (ctx) => {
     const { iteration } = ctx.req.valid('json');
@@ -667,9 +673,11 @@ export const register = (
     ctx.status(204);
     return ctx.body(null);
   });
-  app.openapi(routes.getVolumeState, (ctx) => {
+  app.openapi(routes.getVolumeState, async (ctx) => {
     ctx.status(200);
-    return ctx.json(volumeStateGetter() ?? { state: 0, isMuted: false });
+    return ctx.json(
+      (await volumeStateGetter()) ?? { state: 0, isMuted: false },
+    );
   });
   app.openapi(routes.setFullscreen, (ctx) => {
     const { state } = ctx.req.valid('json');
@@ -703,8 +711,8 @@ export const register = (
     return ctx.json({ state: fullscreen });
   });
 
-  const songInfo = (ctx: Context) => {
-    const info = songInfoGetter();
+  const songInfo = async (ctx: Context) => {
+    const info = await songInfoGetter();
 
     if (!info) {
       ctx.status(204);

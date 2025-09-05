@@ -13,7 +13,11 @@ import { registerAuth, registerControl } from './routes';
 import { type APIServerConfig, AuthStrategy } from '../config';
 
 import type { BackendType } from './types';
-import { LikeType, RepeatMode, VolumeState } from '@/types/datahost-get-state';
+import type {
+  LikeType,
+  RepeatMode,
+  VolumeState,
+} from '@/types/datahost-get-state';
 
 export const backend = createBackend<BackendType, APIServerConfig>({
   async start(ctx) {
@@ -34,11 +38,6 @@ export const backend = createBackend<BackendType, APIServerConfig>({
     ctx.ipc.on(
       'ytmd:repeat-changed',
       (mode: RepeatMode) => (this.currentRepeatMode = mode),
-    );
-
-    ctx.ipc.on(
-      'ytmd:like-changed',
-      (type: LikeType) => (this.currentLikeType = type),
     );
 
     ctx.ipc.on(
@@ -109,7 +108,10 @@ export const backend = createBackend<BackendType, APIServerConfig>({
       backendCtx,
       () => this.songInfo,
       () => this.currentRepeatMode,
-      () => this.currentLikeType,
+      () =>
+        backendCtx.window.webContents.executeJavaScript(
+          'document.querySelector("#like-button-renderer")?.likeStatus',
+        ) as Promise<LikeType>,
       () => this.volumeState,
     );
     registerAuth(this.app, backendCtx);
