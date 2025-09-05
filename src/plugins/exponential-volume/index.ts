@@ -1,16 +1,7 @@
 import { createPlugin } from '@/utils';
 import { t } from '@/i18n';
-import { YoutubePlayer } from '@/types/youtube-player';
 
-
-const syncVolume = (playerApi: YoutubePlayer) => {
-  if (playerApi.getPlayerState() === 3) {
-    setTimeout(() => syncVolume(playerApi), 500);
-    return;
-  }
-
-  playerApi.setVolume(playerApi.getVolume());
-}
+import type { YoutubePlayer } from '@/types/youtube-player';
 
 export default createPlugin({
   name: () => t('plugins.exponential-volume.name'),
@@ -21,6 +12,15 @@ export default createPlugin({
   },
   renderer: {
     onPlayerApiReady(playerApi) {
+      const syncVolume = (playerApi: YoutubePlayer) => {
+        if (playerApi.getPlayerState() === 3) {
+          setTimeout(() => syncVolume(playerApi), 500);
+          return;
+        }
+
+        playerApi.setVolume(playerApi.getVolume());
+      };
+
       // "YouTube Music fix volume ratio 0.4" by Marco Pfeiffer
       // https://greasyfork.org/en/scripts/397686-youtube-music-fix-volume-ratio/
 
