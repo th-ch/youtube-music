@@ -116,8 +116,6 @@ export const register = (
 
       onClose(_, ws) {
         sockets.delete(ws);
-
-        console.log(sockets);
       },
     })),
   );
