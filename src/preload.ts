@@ -1,7 +1,7 @@
 import {
   contextBridge,
   ipcRenderer,
-  IpcRendererEvent,
+  type IpcRendererEvent,
   webFrame,
 } from 'electron';
 import is from 'electron-is';

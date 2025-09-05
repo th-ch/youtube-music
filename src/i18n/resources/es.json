@@ -150,6 +150,13 @@
           "visual-tweaks": {
             "label": "Ajustes visuales",
             "submenu": {
+              "custom-window-title": {
+                "label": "Título de ventana personalizado",
+                "prompt": {
+                  "label": "Ingresa un título de ventana personalizado: (déjalo vacío para desactivar)",
+                  "placeholder": "Ejemplo: YouTube Music"
+                }
+              },
               "like-buttons": {
                 "default": "Predeterminado",
                 "force-show": "Forzar la visualización",
@@ -411,6 +418,19 @@
             "seconds-before-end": "Activar Crossfade N segundos antes del final"
           },
           "title": "Opciones de Crossfade"
+        }
+      }
+    },
+    "custom-output-device": {
+      "description": "Configura un dispositivo de salida de audio personalizado para las canciones",
+      "menu": {
+        "device-selector": "Seleccionar un dispositivo"
+      },
+      "name": "Dispositivo de audio personalizado",
+      "prompt": {
+        "device-selector": {
+          "label": "Escoge el dispositivo de salida de audio que se va a usar",
+          "title": "Seleccionar un dispositivo de audio"
         }
       }
     },

@@ -15,7 +15,7 @@ import {
   type BrowserWindowConstructorOptions,
 } from 'electron';
 import enhanceWebRequest, {
-  BetterSession,
+  type BetterSession,
 } from '@jellybrick/electron-better-web-request';
 import is from 'electron-is';
 import unhandled from 'electron-unhandled';
@@ -59,14 +59,7 @@ import ErrorHtmlAsset from '@assets/error.html?asset';
 
 import { defaultAuthProxyConfig } from '@/plugins/auth-proxy-adapter/config';
 
-import type { PluginConfig } from '@/types/plugins';
-
-if (!is.macOS()) {
-  delete (await allPlugins())['touchbar'];
-}
-if (!is.windows()) {
-  delete (await allPlugins())['taskbar-mediacontrol'];
-}
+import { type PluginConfig } from '@/types/plugins';
 
 // Catch errors and log them
 unhandled({
@@ -345,8 +338,8 @@ async function createMainWindow() {
     titleBarStyle: useInlineMenu
       ? 'hidden'
       : is.macOS()
-        ? 'hiddenInset'
-        : 'default',
+      ? 'hiddenInset'
+      : 'default',
     autoHideMenuBar: config.get('options.hideMenu'),
   };
 
@@ -360,6 +353,8 @@ async function createMainWindow() {
     icon,
     width: windowSize.width,
     height: windowSize.height,
+    minWidth: 325,
+    minHeight: 425,
     backgroundColor: '#000',
     show: false,
     webPreferences: {
@@ -534,8 +529,8 @@ app.once('browser-window-created', (_event, win) => {
     const updatedUserAgent = is.macOS()
       ? userAgents.mac
       : is.windows()
-        ? userAgents.windows
-        : userAgents.linux;
+      ? userAgents.windows
+      : userAgents.linux;
 
     win.webContents.userAgent = updatedUserAgent;
     app.userAgentFallback = updatedUserAgent;
@@ -956,18 +951,15 @@ function removeContentSecurityPolicy(
   betterSession.webRequest.setResolver(
     'onHeadersReceived',
     async (listeners) => {
-      return listeners.reduce(
-        async (accumulator, listener) => {
-          const acc = await accumulator;
-          if (acc.cancel) {
-            return acc;
-          }
+      return listeners.reduce(async (accumulator, listener) => {
+        const acc = await accumulator;
+        if (acc.cancel) {
+          return acc;
+        }
 
-          const result = await listener.apply();
-          return { ...accumulator, ...result };
-        },
-        Promise.resolve({ cancel: false }),
-      );
+        const result = await listener.apply();
+        return { ...accumulator, ...result };
+      }, Promise.resolve({ cancel: false }));
     },
   );
 }
