@@ -1,15 +1,18 @@
 import { createPlugin } from '@/utils';
 import { t } from '@/i18n';
-import { YoutubePlayer } from '@/types/youtube-player';
-
+import { type YoutubePlayer } from '@/types/youtube-player';
 
 const lazySafeTry = (...fns: (() => void)[]) => {
   for (const fn of fns) {
-    try { fn() } catch {}
+    try {
+      fn();
+    } catch {}
   }
-}
+};
 
-const createCompressorNode = (audioContext: AudioContext): DynamicsCompressorNode => {
+const createCompressorNode = (
+  audioContext: AudioContext,
+): DynamicsCompressorNode => {
   const compressor = audioContext.createDynamicsCompressor();
 
   compressor.threshold.value = -50;
@@ -19,15 +22,15 @@ const createCompressorNode = (audioContext: AudioContext): DynamicsCompressorNod
   compressor.release.value = 0.25;
 
   return compressor;
-}
-
+};
 
 class Storage {
-  last_src: MediaElementAudioSourceNode | null = null;
-  last_ctx: AudioContext | null = null;
-  last_compressor: DynamicsCompressorNode | null = null;
+  lastSource: MediaElementAudioSourceNode | null = null;
+  lastContext: AudioContext | null = null;
+  lastCompressor: DynamicsCompressorNode | null = null;
 
-  connected:WeakMap<MediaElementAudioSourceNode, DynamicsCompressorNode> = new WeakMap();
+  connected: WeakMap<MediaElementAudioSourceNode, DynamicsCompressorNode> =
+    new WeakMap();
 
   connectToCompressor = (
     source: MediaElementAudioSourceNode | null = null,
@@ -39,14 +42,14 @@ class Storage {
     const current = this.connected.get(source);
     if (current === compressor) return false;
 
-    this.last_src = source;
-    this.last_ctx = audioContext;
-    this.last_compressor = compressor;
+    this.lastSource = source;
+    this.lastContext = audioContext;
+    this.lastCompressor = compressor;
 
     if (current) {
       lazySafeTry(
         () => source.disconnect(current),
-        () => current.disconnect(audioContext.destination)
+        () => current.disconnect(audioContext.destination),
       );
     } else {
       lazySafeTry(() => source.disconnect(audioContext.destination));
@@ -61,40 +64,46 @@ class Storage {
       console.error('connectToCompressor failed', error);
       return false;
     }
-  }
+  };
 
-  disconnectCompressor = (): boolean =>  {
-    const source = this.last_src;
-    const audio_context = this.last_ctx;
-    if (!(source && audio_context)) return false;
+  disconnectCompressor = (): boolean => {
+    const source = this.lastSource;
+    const audioContext = this.lastContext;
+    if (!(source && audioContext)) return false;
     const current = this.connected.get(source);
     if (!current) return false;
 
     lazySafeTry(
-      () => source.connect(audio_context.destination),
+      () => source.connect(audioContext.destination),
       () => source.disconnect(current),
-      () => current.disconnect(audio_context.destination)
+      () => current.disconnect(audioContext.destination),
     );
     this.connected.delete(source);
     return true;
-  }
+  };
 }
 
 const storage = new Storage();
 
-const audioCanPlayHandler = ({ detail: { audioSource, audioContext } }: CustomEvent<Compressor>) => {
-  storage.connectToCompressor(audioSource, audioContext, createCompressorNode(audioContext));
-}
+const audioCanPlayHandler = ({
+  detail: { audioSource, audioContext },
+}: CustomEvent<Compressor>) => {
+  storage.connectToCompressor(
+    audioSource,
+    audioContext,
+    createCompressorNode(audioContext),
+  );
+};
 
 const ensureAudioContextLoad = (playerApi: YoutubePlayer) => {
-  if (playerApi.getPlayerState() !== 1 || storage.last_ctx) return;
+  if (playerApi.getPlayerState() !== 1 || storage.lastContext) return;
 
   playerApi.loadVideoById(
     playerApi.getPlayerResponse().videoDetails.videoId,
     playerApi.getCurrentTime(),
-    playerApi.getUserPlaybackQualityPreference()
+    playerApi.getUserPlaybackQualityPreference(),
   );
-}
+};
 
 export default createPlugin({
   name: () => t('plugins.audio-compressor.name'),
@@ -106,8 +115,15 @@ export default createPlugin({
     },
 
     start() {
-      document.addEventListener('ytmd:audio-can-play', audioCanPlayHandler, { once: true, passive: true });
-      storage.connectToCompressor(storage.last_src, storage.last_ctx, storage.last_compressor);
+      document.addEventListener('ytmd:audio-can-play', audioCanPlayHandler, {
+        once: true,
+        passive: true,
+      });
+      storage.connectToCompressor(
+        storage.lastSource,
+        storage.lastContext,
+        storage.lastCompressor,
+      );
     },
 
     stop() {
