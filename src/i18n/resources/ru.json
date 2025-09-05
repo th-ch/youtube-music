@@ -21,7 +21,7 @@
   "main": {
     "console": {
       "did-finish-load": {
-        "dev-tools": "Загрузка завершена. DevTools открыт"
+        "dev-tools": "Загрузка завершена. DevTools открыты"
       },
       "i18n": {
         "loaded": "i18n загружен"

@@ -7,16 +7,16 @@ import {
   Match,
   onCleanup,
   onMount,
-  Setter,
+  type Setter,
   Switch,
 } from 'solid-js';
 
 import {
   currentLyrics,
   lyricsStore,
-  ProviderName,
+  type ProviderName,
   providerNames,
-  ProviderState,
+  type ProviderState,
   setLyricsStore,
 } from '../../providers';
 

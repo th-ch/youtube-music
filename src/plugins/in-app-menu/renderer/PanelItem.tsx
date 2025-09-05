@@ -1,5 +1,5 @@
 import { createSignal, Match, Show, Switch } from 'solid-js';
-import { JSX } from 'solid-js/jsx-runtime';
+import { type JSX } from 'solid-js/jsx-runtime';
 import { css } from 'solid-styled-components';
 import { Portal } from 'solid-js/web';
 

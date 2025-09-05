@@ -15,7 +15,7 @@ import {
   type BrowserWindowConstructorOptions,
 } from 'electron';
 import enhanceWebRequest, {
-  BetterSession,
+  type BetterSession,
 } from '@jellybrick/electron-better-web-request';
 import is from 'electron-is';
 import unhandled from 'electron-unhandled';
@@ -59,14 +59,7 @@ import ErrorHtmlAsset from '@assets/error.html?asset';
 
 import { defaultAuthProxyConfig } from '@/plugins/auth-proxy-adapter/config';
 
-import type { PluginConfig } from '@/types/plugins';
-
-if (!is.macOS()) {
-  delete (await allPlugins())['touchbar'];
-}
-if (!is.windows()) {
-  delete (await allPlugins())['taskbar-mediacontrol'];
-}
+import { type PluginConfig } from '@/types/plugins';
 
 // Catch errors and log them
 unhandled({
