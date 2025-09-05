@@ -2,7 +2,7 @@ import { type UpgradeWebSocket, type WSContext } from 'hono/ws';
 import { ipcMain } from 'electron';
 
 import { type BackendContext } from '@/types/contexts';
-import registerCallback, { type SongInfo } from '@/providers/song-info';
+import { registerCallback, type SongInfo, SongInfoEvent } from '@/providers/song-info';
 
 import type { RepeatMode, VolumeState } from '@/types/datahost-get-state';
 import type { HonoApp } from '../types';
@@ -60,19 +60,21 @@ export const register = (
     repeat,
   });
 
-  registerCallback((songInfo) => {
-    if (lastSongInfo?.videoId !== songInfo.videoId) {
+  registerCallback((songInfo, event) => {
+    if (event === SongInfoEvent.VideoSrcChanged) {
       send(DataTypes.VideoChanged, { song: songInfo, position: 0 });
     }
 
-    if (lastSongInfo?.isPaused !== songInfo.isPaused) {
+    if (event === SongInfoEvent.PlayOrPaused) {
       send(DataTypes.PlayerStateChanged, {
         isPlaying: !(songInfo?.isPaused ?? true),
         position: songInfo.elapsedSeconds,
       });
     }
 
-    send(DataTypes.PositionChanged, { position: songInfo.elapsedSeconds });
+    if (event === SongInfoEvent.TimeChanged) {
+      send(DataTypes.PositionChanged, { position: songInfo.elapsedSeconds });
+    }
 
     lastSongInfo = { ...songInfo };
   });
