@@ -261,25 +261,7 @@ export default (api: YoutubePlayer) => {
   function sendSongInfo(videoData: VideoDataChangeValue) {
     const data = api.getPlayerResponse();
 
-    // Prefer the DOM-rendered title so we keep UI details like "(feat.)"
-    // The YT Music UI often includes featured artists in the title, while the player API may omit them.
-    // Only override the title here (artist remains sourced from the API).
-    try {
-      const playerBar = document.querySelector('ytmusic-player-bar');
-      const domTitle =
-        playerBar?.querySelector<HTMLElement>('#song-title')?.textContent?.trim() ||
-        playerBar?.querySelector<HTMLElement>('a#song-title')?.textContent?.trim() ||
-        playerBar?.querySelector<HTMLElement>('yt-formatted-string.title')?.textContent?.trim() ||
-        playerBar?.querySelector<HTMLElement>('.title')?.textContent?.trim() ||
-        undefined;
-
-      if (domTitle) {
-        data.videoDetails.title = domTitle;
-      }
-    } catch {
-      // If probing the DOM fails, fall back to the API-provided title
-    }
-
+    // Compute player overlay first so we can also use its title as a fallback
     let playerOverlay: PlayerOverlays | undefined;
 
     if (!videoData.ytmdWatchNextResponse) {
@@ -291,10 +273,96 @@ export default (api: YoutubePlayer) => {
     } else {
       playerOverlay = videoData.ytmdWatchNextResponse?.playerOverlays;
     }
+
+    // Prefer the DOM-rendered (or attribute) title to keep UI details like "(feat.)".
+    // YTM's player bar often exposes the full title in the "title" or "aria-label" attribute
+    // even when the visible text is truncated. Fall back to overlay title if present.
+    try {
+      const normalize = (s?: string | null) =>
+        s?.replace(/\s+/g, ' ').trim() || undefined;
+
+      const playerBar = document.querySelector('ytmusic-player-bar');
+
+      const domTitleCandidate =
+        normalize(
+          playerBar
+            ?.querySelector<HTMLElement>('#song-title')
+            ?.getAttribute('title'),
+        ) ||
+        normalize(
+          playerBar
+            ?.querySelector<HTMLElement>('a#song-title')
+            ?.getAttribute('title'),
+        ) ||
+        normalize(
+          playerBar
+            ?.querySelector<HTMLElement>('yt-formatted-string#song-title')
+            ?.getAttribute('title'),
+        ) ||
+        normalize(
+          playerBar
+            ?.querySelector<HTMLElement>('yt-formatted-string.title')
+            ?.getAttribute('title'),
+        ) ||
+        normalize(
+          playerBar
+            ?.querySelector<HTMLElement>('#song-title')
+            ?.getAttribute('aria-label'),
+        ) ||
+        normalize(
+          playerBar
+            ?.querySelector<HTMLElement>('a#song-title')
+            ?.getAttribute('aria-label'),
+        ) ||
+        normalize(
+          playerBar
+            ?.querySelector<HTMLElement>('yt-formatted-string#song-title')
+            ?.getAttribute('aria-label'),
+        ) ||
+        normalize(
+          playerBar
+            ?.querySelector<HTMLElement>('yt-formatted-string.title')
+            ?.getAttribute('aria-label'),
+        ) ||
+        normalize(
+          playerBar?.querySelector<HTMLElement>('#song-title')?.textContent,
+        ) ||
+        normalize(
+          playerBar
+            ?.querySelector<HTMLElement>('yt-formatted-string#song-title')
+            ?.textContent,
+        ) ||
+        normalize(
+          playerBar
+            ?.querySelector<HTMLElement>('yt-formatted-string.title')
+            ?.textContent,
+        ) ||
+        normalize(
+          playerBar?.querySelector<HTMLElement>('.title')?.textContent,
+        );
+
+      const overlayTitle =
+        playerOverlay?.playerOverlayRenderer?.browserMediaSession
+          ?.browserMediaSessionRenderer?.title?.runs
+          ?.map((r: { text: string }) => r.text)
+          .join('')
+          .trim();
+
+      const finalTitle = domTitleCandidate || overlayTitle;
+
+      if (finalTitle) {
+        data.videoDetails.title = finalTitle;
+      }
+    } catch {
+      // If probing the DOM/overlay fails, fall back to the API-provided title
+    }
+
+    // Album extraction kept as-is
     data.videoDetails.album =
       playerOverlay?.playerOverlayRenderer?.browserMediaSession?.browserMediaSessionRenderer?.album?.runs?.at(
         0,
       )?.text;
+
     data.videoDetails.elapsedSeconds = 0;
     data.videoDetails.isPaused = false;
 
