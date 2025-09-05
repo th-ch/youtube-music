@@ -421,6 +421,19 @@
         }
       }
     },
+    "custom-output-device": {
+      "description": "Configure a custom output media device for songs",
+      "menu": {
+        "device-selector": "Select Device"
+      },
+      "name": "Custom Output Device",
+      "prompt": {
+        "device-selector": {
+          "label": "Choose the output media device to be used",
+          "title": "Select Output Device"
+        }
+      }
+    },
     "disable-autoplay": {
       "description": "Makes song start in \"paused\" mode",
       "menu": {
