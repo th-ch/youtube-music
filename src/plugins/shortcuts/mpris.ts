@@ -14,7 +14,8 @@ import MprisPlayer, {
   type Track,
 } from '@jellybrick/mpris-service';
 
-import registerCallback, {
+import {
+  registerCallback,
   type SongInfo,
   SongInfoEvent,
 } from '@/providers/song-info';
