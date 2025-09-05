@@ -12,10 +12,17 @@ import type { MenuContext } from '@/types/contexts';
 import type { DiscordPluginConfig } from './index';
 
 import type { MenuTemplate } from '@/menu';
+import { DiscordStatusDisplayType } from './constants';
 
 const registerRefreshOnce = singleton((refreshMenu: () => void) => {
   discordService?.registerRefreshCallback(refreshMenu);
 });
+
+const DiscordStatusDisplayTypeLabels = {
+  [DiscordStatusDisplayType.YOUTUBE_MUSIC]: "plugins.discord.menu.set-status-display-type.submenu.youtube-music",
+  [DiscordStatusDisplayType.ARTIST]: "plugins.discord.menu.set-status-display-type.submenu.artist",
+  [DiscordStatusDisplayType.TITLE]: "plugins.discord.menu.set-status-display-type.submenu.title",
+}
 
 export const onMenu = async ({
   window,
@@ -91,6 +98,19 @@ export const onMenu = async ({
     {
       label: t('plugins.discord.menu.set-inactivity-timeout'),
       click: () => setInactivityTimeout(window, config),
+    },
+    {
+      label: t('plugins.discord.menu.set-status-display-type.label'),
+      submenu: Object.values(DiscordStatusDisplayType).map((statusDisplayType) => ({
+        label: t(DiscordStatusDisplayTypeLabels[statusDisplayType]),
+        type: 'radio',
+        checked: config.statusDisplayType == statusDisplayType,
+        click() {
+          setConfig({
+            statusDisplayType
+          });
+        },
+      })),
     },
   ];
 };
