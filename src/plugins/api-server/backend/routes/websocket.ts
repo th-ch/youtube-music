@@ -1,12 +1,20 @@
-import { type UpgradeWebSocket, type WSContext } from 'hono/ws';
 import { ipcMain } from 'electron';
+import { createRoute } from '@hono/zod-openapi';
 
-import { type BackendContext } from '@/types/contexts';
-import { registerCallback, type SongInfo, SongInfoEvent } from '@/providers/song-info';
+import { type NodeWebSocket } from '@hono/node-ws';
 
+import {
+  registerCallback,
+  type SongInfo,
+  SongInfoEvent,
+} from '@/providers/song-info';
+
+import { API_VERSION } from '../api-version';
+
+import type { WSContext } from 'hono/ws';
+import type { Context, Next } from 'hono';
 import type { RepeatMode, VolumeState } from '@/types/datahost-get-state';
 import type { HonoApp } from '../types';
-import type { APIServerConfig } from '../../config';
 
 enum DataTypes {
   PlayerInfo = 'PLAYER_INFO',
@@ -26,11 +34,7 @@ type PlayerState = {
   repeat: RepeatMode;
 };
 
-export const register = (
-  app: HonoApp,
-  _: BackendContext<APIServerConfig>,
-  upgradeWebSocket: UpgradeWebSocket<WebSocket>,
-) => {
+export const register = (app: HonoApp, nodeWebSocket: NodeWebSocket) => {
   let volumeState: VolumeState | undefined = undefined;
   let repeat: RepeatMode = 'NONE';
   let lastSongInfo: SongInfo | undefined = undefined;
@@ -96,11 +100,22 @@ export const register = (
     send(DataTypes.PositionChanged, { position: t });
   });
 
-  app.get(
-    '/api/ws',
-    upgradeWebSocket(() => ({
+  app.openapi(
+    createRoute({
+      method: 'get',
+      path: `/api/${API_VERSION}/ws`,
+      summary: 'websocket endpoint',
+      description: 'WebSocket endpoint for real-time updates',
+      responses: {
+        101: {
+          description: 'Switching Protocols',
+        },
+      },
+    }),
+    nodeWebSocket.upgradeWebSocket(() => ({
       onOpen(_, ws) {
-        sockets.add(ws);
+        // "Unsafe argument of type `WSContext<WebSocket>` assigned to a parameter of type `WSContext<WebSocket>`. (@typescript-eslint/no-unsafe-argument)" ????? what?
+        sockets.add(ws as WSContext<WebSocket>);
 
         ws.send(
           JSON.stringify({
@@ -115,8 +130,8 @@ export const register = (
       },
 
       onClose(_, ws) {
-        sockets.delete(ws);
+        sockets.delete(ws as WSContext<WebSocket>);
       },
-    })),
+    })) as (ctx: Context, next: Next) => Promise<Response>,
   );
 };

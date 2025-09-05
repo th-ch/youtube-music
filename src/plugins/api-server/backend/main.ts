@@ -13,7 +13,6 @@ import { registerAuth, registerControl, registerWebsocket } from './routes';
 
 import { type APIServerConfig, AuthStrategy } from '../config';
 
-import type { UpgradeWebSocket, WSEvents } from 'hono/ws';
 import type { BackendType } from './types';
 import type {
   LikeType,
@@ -121,17 +120,7 @@ export const backend = createBackend<BackendType, APIServerConfig>({
       () => this.volumeState,
     );
     registerAuth(this.app, backendCtx);
-    registerWebsocket(
-      this.app,
-      backendCtx,
-      ws.upgradeWebSocket as UpgradeWebSocket<
-        WebSocket,
-        {
-          onError: (err: unknown) => void;
-        },
-        WSEvents<WebSocket>
-      >,
-    );
+    registerWebsocket(this.app, ws);
 
     // swagger
     this.app.openAPIRegistry.registerComponent(
