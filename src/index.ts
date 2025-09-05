@@ -59,14 +59,7 @@ import ErrorHtmlAsset from '@assets/error.html?asset';
 
 import { defaultAuthProxyConfig } from '@/plugins/auth-proxy-adapter/config';
 
-import type { PluginConfig } from '@/types/plugins';
-
-if (!is.macOS()) {
-  delete (await allPlugins())['touchbar'];
-}
-if (!is.windows()) {
-  delete (await allPlugins())['taskbar-mediacontrol'];
-}
+import { type PluginConfig } from '@/types/plugins';
 
 // Catch errors and log them
 unhandled({
@@ -599,6 +592,15 @@ app.once('browser-window-created', (_event, win) => {
   win.webContents.on('will-prevent-unload', (event) => {
     event.preventDefault();
   });
+
+  const customWindowTitle = config.get('options.customWindowTitle');
+
+  if (customWindowTitle) {
+    win.on('page-title-updated', (event) => {
+      event.preventDefault();
+      win.setTitle(customWindowTitle);
+    });
+  }
 });
 
 app.on('window-all-closed', () => {

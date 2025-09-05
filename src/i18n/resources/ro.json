@@ -150,6 +150,13 @@
           "visual-tweaks": {
             "label": "Modificări Vizuale",
             "submenu": {
+              "custom-window-title": {
+                "label": "Titlul ferestrei personalizate",
+                "prompt": {
+                  "label": "Introduceți titlul ferestrei personalizate: (lăsați gol pentru a dezactiva)",
+                  "placeholder": "Exemplu: Youtube Music"
+                }
+              },
               "like-buttons": {
                 "default": "Default",
                 "force-show": "Forțează randarea",

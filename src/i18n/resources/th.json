@@ -150,6 +150,13 @@
           "visual-tweaks": {
             "label": "ปรับแต่งหน้าตาแอป",
             "submenu": {
+              "custom-window-title": {
+                "label": "ชื่อหน้าต่างกำหนดเอง",
+                "prompt": {
+                  "label": "กำหนดชื่อหน้าต่างที่ต้องการ: (ปล่อยว่างเพื่อปิดใช้งาน)",
+                  "placeholder": "ตัวอย่าง: Youtube Music"
+                }
+              },
               "like-buttons": {
                 "default": "ค่าเริ่มต้น",
                 "force-show": "บังคับให้แสดง",

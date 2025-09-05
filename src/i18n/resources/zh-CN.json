@@ -150,6 +150,13 @@
           "visual-tweaks": {
             "label": "视觉调整",
             "submenu": {
+              "custom-window-title": {
+                "label": "自定义窗口标题",
+                "prompt": {
+                  "label": "输入自定义窗口标题：（留空表示停用）",
+                  "placeholder": "示例：YouTube Music"
+                }
+              },
               "like-buttons": {
                 "default": "默认",
                 "force-show": "强制显示",

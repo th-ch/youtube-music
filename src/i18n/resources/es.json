@@ -150,6 +150,13 @@
           "visual-tweaks": {
             "label": "Ajustes visuales",
             "submenu": {
+              "custom-window-title": {
+                "label": "Título de ventana personalizado",
+                "prompt": {
+                  "label": "Ingresa un título de ventana personalizado: (déjalo vacío para desactivar)",
+                  "placeholder": "Ejemplo: YouTube Music"
+                }
+              },
               "like-buttons": {
                 "default": "Predeterminado",
                 "force-show": "Forzar la visualización",
@@ -835,7 +842,7 @@
       "warnings": {
         "duration-mismatch": "⚠️ - La letra puede estar desincronizada debido a un desajuste en la duración.",
         "inexact": "⚠️ - La letra de esta canción puede no ser exacta",
-        "instrumental": "⚠️ - Se trata de una canción instrumental"
+        "instrumental": "⚠️ - Esta es una canción instrumental"
       }
     },
     "taskbar-mediacontrol": {

@@ -102,6 +102,7 @@ export class DiscordService {
       details: truncateString(songInfo.title, 128), // Song title
       detailsUrl: songInfo.url ?? undefined,
       state: truncateString(songInfo.artist, 128), // Artist name
+      stateUrl: songInfo.artistUrl,
       largeImageKey: songInfo.imageSrc ?? undefined,
       largeImageText: songInfo.album
         ? truncateString(songInfo.album, 128)

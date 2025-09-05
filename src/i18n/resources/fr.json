@@ -150,6 +150,13 @@
           "visual-tweaks": {
             "label": "Ajustements visuels",
             "submenu": {
+              "custom-window-title": {
+                "label": "Titre de fenêtre personnalisé",
+                "prompt": {
+                  "label": "Entrés un titre de fenêtre : (Laissé vide pour déactiver)",
+                  "placeholder": "Exemple : YouTube Musique"
+                }
+              },
               "like-buttons": {
                 "default": "Par défaut",
                 "force-show": "Forcer à apparaître",

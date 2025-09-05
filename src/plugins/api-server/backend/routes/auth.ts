@@ -75,9 +75,11 @@ export const register = (
       // SKIP CHECK
     }
 
-    setConfig({
-      authorizedClients: [...config.authorizedClients, id],
-    });
+    if (!config.authorizedClients.includes(id)) {
+      setConfig({
+        authorizedClients: [...config.authorizedClients, id],
+      });
+    }
 
     const token = await sign(
       {
