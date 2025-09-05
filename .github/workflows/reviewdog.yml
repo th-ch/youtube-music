@@ -1,5 +1,10 @@
 name: reviewdog
+
 on: [pull_request]
+
+env:
+  NODE_VERSION: "22.x"
+
 jobs:
   eslint:
     name: runner / eslint
