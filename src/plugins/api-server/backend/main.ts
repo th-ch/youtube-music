@@ -13,7 +13,11 @@ import { registerAuth, registerControl } from './routes';
 import { type APIServerConfig, AuthStrategy } from '../config';
 
 import type { BackendType } from './types';
-import type { RepeatMode } from '@/types/datahost-get-state';
+import type {
+  LikeType,
+  RepeatMode,
+  VolumeState,
+} from '@/types/datahost-get-state';
 
 export const backend = createBackend<BackendType, APIServerConfig>({
   async start(ctx) {
@@ -27,6 +31,7 @@ export const backend = createBackend<BackendType, APIServerConfig>({
     ctx.ipc.on('ytmd:player-api-loaded', () => {
       ctx.ipc.send('ytmd:setup-time-changed-listener');
       ctx.ipc.send('ytmd:setup-repeat-changed-listener');
+      ctx.ipc.send('ytmd:setup-like-changed-listener');
       ctx.ipc.send('ytmd:setup-volume-changed-listener');
     });
 
@@ -37,7 +42,7 @@ export const backend = createBackend<BackendType, APIServerConfig>({
 
     ctx.ipc.on(
       'ytmd:volume-changed',
-      (newVolume: number) => (this.volume = newVolume),
+      (newVolumeState: VolumeState) => (this.volumeState = newVolumeState),
     );
 
     this.run(config.hostname, config.port);
@@ -103,7 +108,11 @@ export const backend = createBackend<BackendType, APIServerConfig>({
       backendCtx,
       () => this.songInfo,
       () => this.currentRepeatMode,
-      () => this.volume,
+      () =>
+        backendCtx.window.webContents.executeJavaScript(
+          'document.querySelector("#like-button-renderer")?.likeStatus',
+        ) as Promise<LikeType>,
+      () => this.volumeState,
     );
     registerAuth(this.app, backendCtx);
 
