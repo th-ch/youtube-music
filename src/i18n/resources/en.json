@@ -813,6 +813,14 @@
         "not-found": "⚠️ No lyrics found for this song."
       },
       "menu": {
+        "preferred-provider": {
+          "label": "Preferred Provider",
+          "tooltip": "Choose the default provider to use",
+          "none": {
+            "label": "None",
+            "tooltip": "No preferred provider"
+          }
+        },
         "default-text-string": {
           "label": "Default character between lyrics",
           "tooltip": "Choose the default character to use for the gap between lyrics"
