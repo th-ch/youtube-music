@@ -874,6 +874,26 @@
       "description": "Adds a TouchBar widget for macOS users",
       "name": "TouchBar"
     },
+    "transparent-player": {
+      "description": "Makes the app window transparent",
+      "name": "Transparent Player",
+      "menu": {
+        "opacity": {
+          "label": "Opacity",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "type": {
+          "label": "Type",
+          "submenu": {
+            "acrylic": "Acrylic",
+            "mica": "Mica",
+            "tabbed": "Tabbed"
+          }
+        }
+      }
+    },
     "tuna-obs": {
       "description": "Integration with OBS's plugin Tuna",
       "name": "Tuna OBS"
