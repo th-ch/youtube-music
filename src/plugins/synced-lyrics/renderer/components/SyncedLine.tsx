@@ -79,20 +79,20 @@ const EmptyLine = (props: SyncedLineProps) => {
 };
 
 export const SyncedLine = (props: SyncedLineProps) => {
-  const text = props.line.text.trim();
+  const text = createMemo(() => props.line.text.trim());
 
   const [romanization, setRomanization] = createSignal('');
   createEffect(() => {
+    const input = canonicalize(text());
     if (!config()?.romanization) return;
 
-    const input = canonicalize(text);
     romanize(input).then((result) => {
       setRomanization(canonicalize(result));
     });
   });
 
   return (
-    <Show when={text} fallback={<EmptyLine {...props} />}>
+    <Show when={text()} fallback={<EmptyLine {...props} />}>
       <div
         class={`synced-line ${props.status}`}
         onClick={() => {
@@ -123,7 +123,7 @@ export const SyncedLine = (props: SyncedLineProps) => {
             style={{ 'display': 'flex', 'flex-direction': 'column' }}
           >
             <span>
-              <For each={text.split(' ')}>
+              <For each={text().split(' ')}>
                 {(word, index) => {
                   return (
                     <span
@@ -146,7 +146,7 @@ export const SyncedLine = (props: SyncedLineProps) => {
             <Show
               when={
                 config()?.romanization &&
-                simplifyUnicode(text) !== simplifyUnicode(romanization())
+                simplifyUnicode(text()) !== simplifyUnicode(romanization())
               }
             >
               <span class="romaji">
