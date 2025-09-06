@@ -14,6 +14,7 @@ export type BackendType = {
   songInfo?: SongInfo;
   currentRepeatMode?: RepeatMode;
   volumeState?: VolumeState;
+  shuffleState?: boolean;
   injectWebSocket?: (server: ReturnType<typeof serve>) => void;
 
   init: (ctx: BackendContext<APIServerConfig>) => void;

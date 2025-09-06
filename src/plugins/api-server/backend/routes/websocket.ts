@@ -23,11 +23,13 @@ enum DataTypes {
   PositionChanged = 'POSITION_CHANGED',
   VolumeChanged = 'VOLUME_CHANGED',
   RepeatChanged = 'REPEAT_CHANGED',
+  ShuffleChanged = 'SHUFFLE_CHANGED',
 }
 
 type PlayerState = {
   song?: SongInfo;
   isPlaying: boolean;
+  isShuffled: boolean;
   muted: boolean;
   position: number;
   volume: number;
@@ -36,6 +38,7 @@ type PlayerState = {
 
 export const register = (app: HonoApp, nodeWebSocket: NodeWebSocket) => {
   let volumeState: VolumeState | undefined = undefined;
+  let isShuffled: boolean = false;
   let repeat: RepeatMode = 'NONE';
   let lastSongInfo: SongInfo | undefined = undefined;
 
@@ -51,10 +54,12 @@ export const register = (app: HonoApp, nodeWebSocket: NodeWebSocket) => {
     songInfo,
     volumeState,
     repeat,
+    isShuffled,
   }: {
     songInfo?: SongInfo;
     volumeState?: VolumeState;
     repeat: RepeatMode;
+    isShuffled: boolean;
   }): PlayerState => ({
     song: songInfo,
     isPlaying: songInfo ? !songInfo.isPaused : false,
@@ -62,6 +67,7 @@ export const register = (app: HonoApp, nodeWebSocket: NodeWebSocket) => {
     position: songInfo?.elapsedSeconds ?? 0,
     volume: volumeState?.state ?? 100,
     repeat,
+    isShuffled,
   });
 
   registerCallback((songInfo, event) => {
@@ -100,6 +106,11 @@ export const register = (app: HonoApp, nodeWebSocket: NodeWebSocket) => {
     send(DataTypes.PositionChanged, { position: t });
   });
 
+  ipcMain.on('ytmd:shuffle-changed', async (_, shuffleState: boolean) => {
+    isShuffled = shuffleState;
+    send(DataTypes.ShuffleChanged, { isShuffled });
+  });
+
   app.openapi(
     createRoute({
       method: 'get',
@@ -124,6 +135,7 @@ export const register = (app: HonoApp, nodeWebSocket: NodeWebSocket) => {
               songInfo: lastSongInfo,
               volumeState,
               repeat,
+              isShuffled,
             }),
           }),
         );

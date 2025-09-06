@@ -35,6 +35,7 @@ export const backend = createBackend<BackendType, APIServerConfig>({
       ctx.ipc.send('ytmd:setup-repeat-changed-listener');
       ctx.ipc.send('ytmd:setup-like-changed-listener');
       ctx.ipc.send('ytmd:setup-volume-changed-listener');
+      ctx.ipc.send('ytmd:setup-shuffle-changed-listener');
     });
 
     ctx.ipc.on(
@@ -45,6 +46,11 @@ export const backend = createBackend<BackendType, APIServerConfig>({
     ctx.ipc.on(
       'ytmd:volume-changed',
       (newVolumeState: VolumeState) => (this.volumeState = newVolumeState),
+    );
+
+    ctx.ipc.on(
+      'ytmd:shuffle-changed',
+      (newShuffleState: boolean) => (this.shuffleState = newShuffleState),
     );
 
     this.run(config.hostname, config.port);
