@@ -8,7 +8,7 @@ import {
 } from 'solid-js';
 import { type VirtualizerHandle, VList } from 'virtua/solid';
 
-import { LyricsPicker } from './components/LyricsPicker';
+import { LyricsPicker, pickerAdvancedOpen } from './components/LyricsPicker';
 
 import { selectors } from './utils';
 
@@ -23,6 +23,7 @@ import {
 import { currentLyrics } from '../providers';
 
 import type { LineLyrics, SyncedLyricsPluginConfig } from '../types';
+import { LyricsPickerAdvanced } from './components/LyricsPickerAdvanced';
 
 export const [isVisible, setIsVisible] = createSignal<boolean>(false);
 export const [config, setConfig] =
@@ -155,21 +156,43 @@ export const LyricsRenderer = () => {
       mouseCoord = (e as MouseEvent).clientY;
     }
 
+    const ref = stickyRef()!;
+    const [
+      [realPicker, pickerHeight],
+      [_, divHeight],
+      [realAdvanced, advancedHeight],
+    ] = Array.from(ref.children).map((c) => {
+      const style = getComputedStyle(c);
+      return [
+        parseFloat(style.height) -
+          (parseFloat(style.paddingTop) + parseFloat(style.paddingBottom)),
+        c.clientHeight,
+      ];
+    });
+
+    const contentHeight = pickerAdvancedOpen()
+      ? pickerHeight + advancedHeight
+      : pickerHeight;
+    ref.style.height = `${
+      pickerAdvancedOpen() ? realPicker + divHeight + realAdvanced : realPicker
+    }px`;
+
     const { top } = tab.getBoundingClientRect();
     const { clientHeight: height } = stickyRef()!;
     const scrollOffset = scroller()?.scrollOffset ?? -1;
 
     const isInView = scrollOffset <= height;
-    const isMouseOver = mouseCoord - top - 5 <= height;
+    const isMouseOver = mouseCoord - top - 5 <= contentHeight;
 
     const showPicker = isInView || isMouseOver;
+    console.log({ relative: mouseCoord - top - 5, showPicker });
 
     if (showPicker) {
       // picker visible
-      stickyRef()!.style.setProperty('--lyrics-picker-top', '0');
+      ref.style.setProperty('--lyrics-picker-top', '0');
     } else {
       // picker hidden
-      stickyRef()!.style.setProperty('--lyrics-picker-top', `-${height}px`);
+      ref.style.setProperty('--lyrics-picker-top', `-${contentHeight}px`);
     }
   };
 
@@ -228,11 +251,11 @@ export const LyricsRenderer = () => {
     });
   });
 
-  const [statuses, setStatuses] = createSignal<
-    ('previous' | 'current' | 'upcoming')[]
-  >([]);
+  // prettier-ignore
+  const [statuses, setStatuses] = createSignal<('previous' | 'current' | 'upcoming')[]>([]);
+
   createEffect(() => {
-    const time = currentTime();
+    const time = Math.max(0, currentTime() + (config()?.lyricsOffset ?? 0));
     const data = currentLyrics()?.data;
 
     if (!data || !data.lines) return setStatuses([]);
@@ -290,7 +313,23 @@ export const LyricsRenderer = () => {
           if (typeof props === 'undefined') return null;
           switch (props.kind) {
             case 'LyricsPicker':
-              return <LyricsPicker setStickRef={setStickRef} />;
+              return (
+                <div class="lyrics-picker-container" ref={setStickRef}>
+                  <LyricsPicker />
+                  <div
+                    id="divider"
+                    class="style-scope ytmusic-guide-section-renderer"
+                    style={{ width: '100%', margin: '0' }}
+                  ></div>
+                  <div
+                    class={`lyrics-picker-advanced ${
+                      pickerAdvancedOpen() ? 'open' : ''
+                    }`}
+                  >
+                    <LyricsPickerAdvanced />
+                  </div>
+                </div>
+              );
             case 'Error':
               return <ErrorDisplay {...props} />;
             case 'LoadingKaomoji':

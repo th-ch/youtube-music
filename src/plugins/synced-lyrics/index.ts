@@ -17,6 +17,7 @@ export default createPlugin({
   config: {
     enabled: false,
     preciseTiming: true,
+    lyricsOffset: 0,
     showLyricsEvenIfInexact: true,
     showTimeCodes: false,
     defaultTextString: '♪',
