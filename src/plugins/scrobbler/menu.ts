@@ -106,6 +106,15 @@ export const onMenu = async ({
       },
     },
     {
+      label: t('plugins.scrobbler.menu.scrobble-alternative-artist'),
+      type: 'checkbox',
+      checked: Boolean(config.alternativeArtist),
+      click(item) {
+        config.alternativeArtist = item.checked;
+        setConfig(config);
+      },
+    },
+    {
       label: 'Last.fm',
       submenu: [
         {
