@@ -18,8 +18,8 @@ interface SyncedLineProps {
 }
 
 const EmptyLine = (props: SyncedLineProps) => {
-  const defaulText = config()?.defaultTextString ?? '';
-  const states = Array.isArray(defaulText) ? defaulText : [defaulText];
+  const defaultText = config()?.defaultTextString ?? '';
+  const states = Array.isArray(defaultText) ? defaultText : [defaultText];
 
   const index = createMemo(() => {
     const progress = currentTime() - props.line.timeInMs;
