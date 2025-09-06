@@ -53,12 +53,12 @@ const EmptyLine = (props: SyncedLineProps) => {
           <span>
             <span>
               <Show
-                when={states().length > 1}
                 fallback={
                   <yt-formatted-string
                     text={{ runs: [{ text: states()[0] }] }}
                   />
                 }
+                when={states().length > 1}
               >
                 <yt-formatted-string
                   text={{
@@ -94,7 +94,7 @@ export const SyncedLine = (props: SyncedLineProps) => {
   });
 
   return (
-    <Show when={text()} fallback={<EmptyLine {...props} />}>
+    <Show fallback={<EmptyLine {...props} />} when={text()}>
       <div
         class={`synced-line ${props.status}`}
         onClick={() => {
