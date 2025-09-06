@@ -2,7 +2,7 @@ import path from 'node:path';
 
 import { app, type BrowserWindow } from 'electron';
 
-import getSongControls from './song-controls';
+import { getSongControls } from './song-controls';
 
 export const APP_PROTOCOL = 'youtubemusic';
 
@@ -36,10 +36,3 @@ export function changeProtocolHandler(
 ) {
   protocolHandler = f;
 }
-
-export default {
-  APP_PROTOCOL,
-  setupProtocolHandler,
-  handleProtocol,
-  changeProtocolHandler,
-};

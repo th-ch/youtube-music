@@ -189,7 +189,7 @@ export const setupAutoPlayChangedListener = singleton(() => {
   });
 });
 
-export default (api: YoutubePlayer) => {
+export const setupSongInfo = (api: YoutubePlayer) => {
   window.ipcRenderer.on('ytmd:setup-time-changed-listener', () => {
     setupTimeChangedListener();
   });

@@ -3,7 +3,7 @@ import '@total-typescript/ts-reset';
 import type { ipcRenderer as electronIpcRenderer } from 'electron';
 import type is from 'electron-is';
 
-import type config from './config';
+import type * as config from './config';
 import type { VideoDataChanged } from '@/types/video-data-changed';
 import type { t } from '@/i18n';
 import type { trustedTypes } from 'trusted-types';

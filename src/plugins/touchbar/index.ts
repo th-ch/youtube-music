@@ -1,7 +1,7 @@
 import { nativeImage, type NativeImage, TouchBar } from 'electron';
 
 import { createPlugin } from '@/utils';
-import getSongControls from '@/providers/song-controls';
+import { getSongControls } from '@/providers/song-controls';
 import { registerCallback, SongInfoEvent } from '@/providers/song-info';
 import { t } from '@/i18n';
 

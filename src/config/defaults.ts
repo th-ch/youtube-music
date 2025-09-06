@@ -40,7 +40,7 @@ export interface DefaultConfig {
   'plugins': Record<string, unknown>;
 }
 
-const defaultConfig: DefaultConfig = {
+export const defaultConfig: DefaultConfig = {
   'window-size': {
     width: 1100,
     height: 550,
@@ -74,5 +74,3 @@ const defaultConfig: DefaultConfig = {
   },
   'plugins': {},
 };
-
-export default defaultConfig;

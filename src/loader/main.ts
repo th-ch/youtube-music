@@ -3,7 +3,7 @@ import { type BrowserWindow, ipcMain } from 'electron';
 import { deepmerge } from 'deepmerge-ts';
 import { allPlugins, mainPlugins } from 'virtual:plugins';
 
-import config from '@/config';
+import * as config from '@/config';
 import { LoggerPrefix, startPlugin, stopPlugin } from '@/utils';
 
 import { t } from '@/i18n';

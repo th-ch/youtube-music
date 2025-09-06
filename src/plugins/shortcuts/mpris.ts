@@ -19,8 +19,8 @@ import {
   type SongInfo,
   SongInfoEvent,
 } from '@/providers/song-info';
-import getSongControls from '@/providers/song-controls';
-import config from '@/config';
+import { getSongControls } from '@/providers/song-controls';
+import * as config from '@/config';
 import { LoggerPrefix } from '@/utils';
 
 import type { RepeatMode, VolumeState } from '@/types/datahost-get-state';
@@ -84,7 +84,7 @@ function setupMPRIS() {
   return instance;
 }
 
-function registerMPRIS(win: BrowserWindow) {
+export function registerMPRIS(win: BrowserWindow) {
   const songControls = getSongControls(win);
   const {
     playPause,
@@ -363,5 +363,3 @@ function registerMPRIS(win: BrowserWindow) {
     console.trace(error);
   }
 }
-
-export default registerMPRIS;

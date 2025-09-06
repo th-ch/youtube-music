@@ -2,7 +2,7 @@ import { createSignal } from 'solid-js';
 
 import { render } from 'solid-js/web';
 
-import defaultConfig from '@/config/defaults';
+import { defaultConfig } from '@/config/defaults';
 import { getSongMenu } from '@/providers/dom-elements';
 import { getSongInfo } from '@/providers/song-info-front';
 import { t } from '@/i18n';

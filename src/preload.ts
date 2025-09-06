@@ -6,7 +6,7 @@ import {
 } from 'electron';
 import is from 'electron-is';
 
-import config from './config';
+import * as config from './config';
 
 import {
   forceLoadPreloadPlugin,
