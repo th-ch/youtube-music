@@ -7,16 +7,16 @@ import {
   Match,
   onCleanup,
   onMount,
-  Setter,
+  type Setter,
   Switch,
 } from 'solid-js';
 
 import {
   currentLyrics,
   lyricsStore,
-  ProviderName,
+  type ProviderName,
   providerNames,
-  ProviderState,
+  type ProviderState,
   setLyricsStore,
 } from '../../providers';
 
@@ -192,11 +192,11 @@ export const LyricsPicker = (props: {
             >
               <svg
                 class="style-scope yt-icon"
+                fill="#FFFFFF"
+                height={'40px'}
                 preserveAspectRatio="xMidYMid meet"
                 viewBox="0 -960 960 960"
-                height={'40px'}
                 width={'40px'}
-                fill="#FFFFFF"
               >
                 <g class="style-scope yt-icon">
                   <path
@@ -216,10 +216,10 @@ export const LyricsPicker = (props: {
             {(provider) => (
               <div
                 class="lyrics-picker-item"
-                tabindex="-1"
                 style={{
                   transform: `translateX(${providerIdx() * -100 - 5}%)`,
                 }}
+                tabindex="-1"
               >
                 <Switch>
                   <Match
@@ -230,9 +230,9 @@ export const LyricsPicker = (props: {
                   >
                     <tp-yt-paper-spinner-lite
                       active
-                      tabindex="-1"
                       class="loading-indicator style-scope"
                       style={{ padding: '5px', transform: 'scale(0.5)' }}
+                      tabindex="-1"
                     />
                   </Match>
                   <Match when={currentLyrics().state === 'error'}>
@@ -326,11 +326,11 @@ export const LyricsPicker = (props: {
             >
               <svg
                 class="style-scope yt-icon"
+                fill="#FFFFFF"
+                height={'40px'}
                 preserveAspectRatio="xMidYMid meet"
                 viewBox="0 -960 960 960"
-                height={'40px'}
                 width={'40px'}
-                fill="#FFFFFF"
               >
                 <g class="style-scope yt-icon">
                   <path

@@ -150,6 +150,13 @@
           "visual-tweaks": {
             "label": "시각적 변경",
             "submenu": {
+              "custom-window-title": {
+                "label": "사용자 정의 앱 제목",
+                "prompt": {
+                  "label": "앱 제목으로 표시할 내용 : (빈 칸 일시 비활성화)",
+                  "placeholder": "예: YouTube Music"
+                }
+              },
               "like-buttons": {
                 "default": "기본",
                 "force-show": "강제로 표시",
@@ -334,7 +341,7 @@
       "name": "오디오 컴프레서"
     },
     "auth-proxy-adapter": {
-      "description": "인증 프록시 서비스 사용 지원",
+      "description": "아이디/패스워드가 필요한 프록시를 지원합니다",
       "menu": {
         "disable": "프록시 어댑터 차단",
         "enable": "프록시 어댑터 허용",

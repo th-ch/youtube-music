@@ -31,6 +31,7 @@ export interface DefaultConfig {
     likeButtons: string;
     proxy: string;
     startingPage: string;
+    backgroundMaterial?: 'none' | 'mica' | 'acrylic' | 'tabbed';
     overrideUserAgent: boolean;
     usePodcastParticipantAsArtist: boolean;
     themes: string[];

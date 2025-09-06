@@ -2,7 +2,7 @@ import { deepmergeCustom } from 'deepmerge-ts';
 
 import defaultConfig from './defaults';
 
-import store, { IStore } from './store';
+import store, { type IStore } from './store';
 import plugins from './plugins';
 
 import { restart } from '@/providers/app-controls';
