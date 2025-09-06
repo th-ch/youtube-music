@@ -35,6 +35,7 @@ export const backend = createBackend<BackendType, APIServerConfig>({
       ctx.ipc.send('ytmd:setup-repeat-changed-listener');
       ctx.ipc.send('ytmd:setup-like-changed-listener');
       ctx.ipc.send('ytmd:setup-volume-changed-listener');
+      ctx.ipc.send('ytmd:setup-shuffle-changed-listener');
     });
 
     ctx.ipc.on(
