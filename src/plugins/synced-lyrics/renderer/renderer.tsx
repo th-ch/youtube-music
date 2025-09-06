@@ -301,8 +301,8 @@ export const LyricsRenderer = () => {
               return (
                 <SyncedLine
                   {...props}
-                  scroller={scroller()!}
                   index={idx()}
+                  scroller={scroller()!}
                   status={statuses()[idx() - 1]}
                 />
               );

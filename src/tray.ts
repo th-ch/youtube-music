@@ -7,7 +7,7 @@ import pausedTrayIconAsset from '@assets/youtube-music-tray-paused.png?asset&asa
 import config from './config';
 
 import { restart } from './providers/app-controls';
-import registerCallback, { SongInfoEvent } from './providers/song-info';
+import { registerCallback, SongInfoEvent } from './providers/song-info';
 import getSongControls from './providers/song-controls';
 
 import { t } from '@/i18n';

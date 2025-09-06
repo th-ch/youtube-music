@@ -1,8 +1,8 @@
 import { createEffect, For, Show, createSignal, createMemo } from 'solid-js';
 
-import { VirtualizerHandle } from 'virtua/solid';
+import { type VirtualizerHandle } from 'virtua/solid';
 
-import { LineLyrics } from '@/plugins/synced-lyrics/types';
+import { type LineLyrics } from '@/plugins/synced-lyrics/types';
 
 import { config, currentTime } from '../renderer';
 import { _ytAPI } from '..';
@@ -99,7 +99,7 @@ export const SyncedLine = (props: SyncedLineProps) => {
           _ytAPI?.seekTo((props.line.timeInMs + 10) / 1000);
         }}
       >
-        <div dir="auto" class="description ytmusic-description-shelf-renderer">
+        <div class="description ytmusic-description-shelf-renderer" dir="auto">
           <yt-formatted-string
             text={{
               runs: [
