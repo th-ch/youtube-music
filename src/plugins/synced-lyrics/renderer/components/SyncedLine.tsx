@@ -18,15 +18,17 @@ interface SyncedLineProps {
 }
 
 const EmptyLine = (props: SyncedLineProps) => {
-  const defaultText = config()?.defaultTextString ?? '';
-  const states = Array.isArray(defaultText) ? defaultText : [defaultText];
+  const states = createMemo(() => {
+    const defaultText = config()?.defaultTextString ?? '';
+    return Array.isArray(defaultText) ? defaultText : [defaultText];
+  });
 
   const index = createMemo(() => {
     const progress = currentTime() - props.line.timeInMs;
     const total = props.line.duration;
 
     const percentage = Math.min(1, progress / total);
-    return Math.max(0, Math.floor((states.length - 1) * percentage));
+    return Math.max(0, Math.floor((states().length - 1) * percentage));
   });
 
   return (
@@ -51,10 +53,10 @@ const EmptyLine = (props: SyncedLineProps) => {
           <span>
             <span>
               <Show
-                when={typeof defaultText !== 'string'}
+                when={states().length > 1}
                 fallback={
                   <yt-formatted-string
-                    text={{ runs: [{ text: defaultText }] }}
+                    text={{ runs: [{ text: states()[0] }] }}
                   />
                 }
               >
@@ -62,7 +64,7 @@ const EmptyLine = (props: SyncedLineProps) => {
                   text={{
                     runs: [
                       {
-                        text: states.at(
+                        text: states().at(
                           props.status === 'current' ? index() : -1,
                         )!,
                       },
