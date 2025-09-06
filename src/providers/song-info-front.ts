@@ -257,7 +257,6 @@ export const setupSongInfo = (api: YoutubePlayer) => {
 
     if (name === 'dataupdated' && waitingEvent.has(videoData.videoId)) {
       waitingEvent.delete(videoData.videoId);
-      sendSongInfo(videoData);
     } else if (name === 'dataloaded') {
       const video = document.querySelector<HTMLVideoElement>('video');
       video?.dispatchEvent(srcChangedEvent);
@@ -268,6 +267,7 @@ export const setupSongInfo = (api: YoutubePlayer) => {
       }
 
       waitingEvent.add(videoData.videoId);
+      sendSongInfo(videoData);
     }
   });
 
