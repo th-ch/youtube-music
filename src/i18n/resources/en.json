@@ -889,7 +889,8 @@
           "submenu": {
             "acrylic": "Acrylic",
             "mica": "Mica",
-            "tabbed": "Tabbed"
+            "tabbed": "Tabbed",
+            "none": "None"
           }
         }
       }
