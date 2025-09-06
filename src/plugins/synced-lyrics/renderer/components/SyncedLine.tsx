@@ -36,7 +36,7 @@ const EmptyLine = (props: SyncedLineProps) => {
         _ytAPI?.seekTo((props.line.timeInMs + 10) / 1000);
       }}
     >
-      <div dir="auto" class="description ytmusic-description-shelf-renderer">
+      <div class="description ytmusic-description-shelf-renderer" dir="auto">
         <yt-formatted-string
           text={{
             runs: [
