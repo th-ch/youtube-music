@@ -421,6 +421,19 @@
         }
       }
     },
+    "custom-output-device": {
+      "description": "Configura un dispositivo de salida de audio personalizado para las canciones",
+      "menu": {
+        "device-selector": "Seleccionar un dispositivo"
+      },
+      "name": "Dispositivo de audio personalizado",
+      "prompt": {
+        "device-selector": {
+          "label": "Escoge el dispositivo de salida de audio que se va a usar",
+          "title": "Seleccionar un dispositivo de audio"
+        }
+      }
+    },
     "disable-autoplay": {
       "description": "Hace que la canción comience en modo \"pausado\"",
       "menu": {

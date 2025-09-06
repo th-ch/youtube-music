@@ -19,6 +19,8 @@ declare global {
     'videodatachange': CustomEvent<VideoDataChanged>;
   }
 
+  declare var electronIs: typeof import('electron-is');
+
   interface Window {
     trustedTypes?: typeof trustedTypes;
     ipcRenderer: typeof electronIpcRenderer;

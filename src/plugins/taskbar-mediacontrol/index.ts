@@ -8,17 +8,20 @@ import previousIcon from '@assets/media-icons-black/previous.png?asset&asarUnpac
 
 import { createPlugin } from '@/utils';
 import getSongControls from '@/providers/song-controls';
-import registerCallback, {
+import {
+  registerCallback,
   type SongInfo,
   SongInfoEvent,
 } from '@/providers/song-info';
-import { mediaIcons } from '@/types/media-icons';
+import { type mediaIcons } from '@/types/media-icons';
 import { t } from '@/i18n';
+import { Platform } from '@/types/plugins';
 
 export default createPlugin({
   name: () => t('plugins.taskbar-mediacontrol.name'),
   description: () => t('plugins.taskbar-mediacontrol.description'),
   restartNeeded: true,
+  platform: Platform.Windows,
   config: {
     enabled: false,
   },
