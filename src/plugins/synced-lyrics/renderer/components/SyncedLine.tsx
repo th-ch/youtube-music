@@ -51,7 +51,7 @@ const EmptyLine = (props: SyncedLineProps) => {
           <span>
             <span>
               <Show
-                when={!(typeof states === 'string')}
+                when={!(typeof defaultText === 'string')}
                 fallback={
                   <yt-formatted-string
                     text={{ runs: [{ text: states as unknown as string }] }}
