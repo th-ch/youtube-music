@@ -6,7 +6,7 @@ export type SyncedLyricsPluginConfig = {
   preferredProvider?: ProviderName;
   preciseTiming: boolean;
   showTimeCodes: boolean;
-  defaultTextString: string;
+  defaultTextString: string | string[];
   showLyricsEvenIfInexact: boolean;
   lineEffect: LineEffect;
   romanization: boolean;

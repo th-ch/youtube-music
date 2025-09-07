@@ -1,7 +1,7 @@
 import i18next from 'i18next';
 
 import { startingPages } from './providers/extracted-data';
-import setupSongInfo from './providers/song-info-front';
+import { setupSongInfo } from './providers/song-info-front';
 import {
   createContext,
   forceLoadRendererPlugin,

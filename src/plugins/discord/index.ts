@@ -1,8 +1,9 @@
+import { StatusDisplayType } from 'discord-api-types/v10';
+
 import { createPlugin } from '@/utils';
 import { backend } from './main';
 import { onMenu } from './menu';
 import { t } from '@/i18n';
-import { DiscordStatusDisplayType } from './constants';
 
 export type DiscordPluginConfig = {
   enabled: boolean;
@@ -37,7 +38,7 @@ export type DiscordPluginConfig = {
   /**
    * Controls which field is displayed in the Discord status text
    */
-  statusDisplayType: (typeof DiscordStatusDisplayType)[keyof typeof DiscordStatusDisplayType];
+  statusDisplayType: (typeof StatusDisplayType)[keyof typeof StatusDisplayType];
 };
 
 export default createPlugin({
@@ -52,7 +53,7 @@ export default createPlugin({
     playOnYouTubeMusic: true,
     hideGitHubButton: false,
     hideDurationLeft: false,
-    statusDisplayType: DiscordStatusDisplayType.ARTIST,
+    statusDisplayType: StatusDisplayType.Details,
   } as DiscordPluginConfig,
   menu: onMenu,
   backend,

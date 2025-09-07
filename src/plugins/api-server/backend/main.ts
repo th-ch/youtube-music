@@ -35,6 +35,7 @@ export const backend = createBackend<BackendType, APIServerConfig>({
       ctx.ipc.send('ytmd:setup-repeat-changed-listener');
       ctx.ipc.send('ytmd:setup-like-changed-listener');
       ctx.ipc.send('ytmd:setup-volume-changed-listener');
+      ctx.ipc.send('ytmd:setup-shuffle-changed-listener');
     });
 
     ctx.ipc.on(
@@ -69,6 +70,7 @@ export const backend = createBackend<BackendType, APIServerConfig>({
   // Custom
   init(backendCtx) {
     this.app = new Hono();
+
     const ws = createNodeWebSocket({
       app: this.app,
     });
@@ -120,7 +122,7 @@ export const backend = createBackend<BackendType, APIServerConfig>({
       () => this.volumeState,
     );
     registerAuth(this.app, backendCtx);
-    registerWebsocket(this.app, ws);
+    registerWebsocket(this.app, backendCtx, ws);
 
     // swagger
     this.app.openAPIRegistry.registerComponent(

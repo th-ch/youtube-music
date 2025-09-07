@@ -7,7 +7,7 @@ import nextIcon from '@assets/media-icons-black/next.png?asset&asarUnpack';
 import previousIcon from '@assets/media-icons-black/previous.png?asset&asarUnpack';
 
 import { createPlugin } from '@/utils';
-import getSongControls from '@/providers/song-controls';
+import { getSongControls } from '@/providers/song-controls';
 import {
   registerCallback,
   type SongInfo,

@@ -23,13 +23,3 @@ export enum TimerKey {
   UpdateTimeout = 'updateTimeout', // Timer for throttled activity updates
   DiscordConnectRetry = 'discordConnectRetry', // Timer for Discord connection retries
 }
-
-/**
- * An enum for Discord's activity.status_display_type field, governing which field of the activity should be used after
- * "Listening to..." in the user's Discord status.
- */
-export const DiscordStatusDisplayType = {
-  YOUTUBE_MUSIC: 0,
-  ARTIST: 1,
-  TITLE: 2,
-} as const;

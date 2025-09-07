@@ -3,7 +3,8 @@ import { fileURLToPath } from 'node:url';
 
 import { globSync } from 'glob';
 import { Project } from 'ts-morph';
-import { Platform } from '../src/types/plugins'
+
+import { Platform } from '../src/types/plugins';
 
 const kebabToCamel = (text: string) =>
   text.replace(/-(\w)/g, (_, letter: string) => letter.toUpperCase());
@@ -75,7 +76,7 @@ export const pluginVirtualModuleGenerator = (
       }
 
       writer.blankLine();
-      if (mode === "main" || mode === "preload") {
+      if (mode === 'main' || mode === 'preload') {
         writer.writeLine("import * as is from 'electron-is';");
         writer.writeLine('globalThis.electronIs = is;');
       }
@@ -137,7 +138,7 @@ export const pluginVirtualModuleGenerator = (
 };
 
 function supportsPlatform({ platform }: { platform: string }) {
-  if (typeof platform !== "number") return true;
+  if (typeof platform !== 'number') return true;
 
   const is = globalThis.electronIs;
 

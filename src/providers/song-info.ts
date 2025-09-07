@@ -2,7 +2,7 @@ import { type BrowserWindow, ipcMain, nativeImage, net } from 'electron';
 
 import { Mutex } from 'async-mutex';
 
-import config from '@/config';
+import * as config from '@/config';
 
 import type { GetPlayerResponse } from '@/types/get-player-response';
 
