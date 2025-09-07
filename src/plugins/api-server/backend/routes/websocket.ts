@@ -1,4 +1,3 @@
-import { ipcMain } from 'electron';
 import { createRoute } from '@hono/zod-openapi';
 
 import { type NodeWebSocket } from '@hono/node-ws';
@@ -15,6 +14,8 @@ import type { WSContext } from 'hono/ws';
 import type { Context, Next } from 'hono';
 import type { RepeatMode, VolumeState } from '@/types/datahost-get-state';
 import type { HonoApp } from '../types';
+import type { BackendContext } from '@/types/contexts';
+import type { APIServerConfig } from '@/plugins/api-server/config';
 
 enum DataTypes {
   PlayerInfo = 'PLAYER_INFO',
@@ -36,7 +37,11 @@ type PlayerState = {
   shuffle: boolean;
 };
 
-export const register = (app: HonoApp, nodeWebSocket: NodeWebSocket) => {
+export const register = (
+  app: HonoApp,
+  { ipc }: BackendContext<APIServerConfig>,
+  { upgradeWebSocket }: NodeWebSocket,
+) => {
   let volumeState: VolumeState | undefined = undefined;
   let repeat: RepeatMode = 'NONE';
   let shuffle = false;
@@ -89,7 +94,7 @@ export const register = (app: HonoApp, nodeWebSocket: NodeWebSocket) => {
     lastSongInfo = { ...songInfo };
   });
 
-  ipcMain.on('ytmd:volume-changed', (_, newVolumeState: VolumeState) => {
+  ipc.on('ytmd:volume-changed', (newVolumeState: VolumeState) => {
     volumeState = newVolumeState;
     send(DataTypes.VolumeChanged, {
       volume: volumeState.state,
@@ -97,16 +102,16 @@ export const register = (app: HonoApp, nodeWebSocket: NodeWebSocket) => {
     });
   });
 
-  ipcMain.on('ytmd:repeat-changed', (_, mode: RepeatMode) => {
+  ipc.on('ytmd:repeat-changed', (mode: RepeatMode) => {
     repeat = mode;
     send(DataTypes.RepeatChanged, { repeat });
   });
 
-  ipcMain.on('ytmd:seeked', (_, t: number) => {
+  ipc.on('ytmd:seeked', (t: number) => {
     send(DataTypes.PositionChanged, { position: t });
   });
 
-  ipcMain.on('ytmd:shuffle-changed', (_, newShuffle: boolean) => {
+  ipc.on('ytmd:shuffle-changed', (newShuffle: boolean) => {
     shuffle = newShuffle;
     send(DataTypes.ShuffleChanged, { shuffle });
   });
@@ -123,7 +128,7 @@ export const register = (app: HonoApp, nodeWebSocket: NodeWebSocket) => {
         },
       },
     }),
-    nodeWebSocket.upgradeWebSocket(() => ({
+    upgradeWebSocket(() => ({
       onOpen(_, ws) {
         // "Unsafe argument of type `WSContext<WebSocket>` assigned to a parameter of type `WSContext<WebSocket>`. (@typescript-eslint/no-unsafe-argument)" ????? what?
         sockets.add(ws as WSContext<WebSocket>);

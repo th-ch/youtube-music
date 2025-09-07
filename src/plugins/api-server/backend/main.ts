@@ -70,6 +70,7 @@ export const backend = createBackend<BackendType, APIServerConfig>({
   // Custom
   init(backendCtx) {
     this.app = new Hono();
+
     const ws = createNodeWebSocket({
       app: this.app,
     });
@@ -121,7 +122,7 @@ export const backend = createBackend<BackendType, APIServerConfig>({
       () => this.volumeState,
     );
     registerAuth(this.app, backendCtx);
-    registerWebsocket(this.app, ws);
+    registerWebsocket(this.app, backendCtx, ws);
 
     // swagger
     this.app.openAPIRegistry.registerComponent(
