@@ -2,7 +2,7 @@ import { t } from '@/i18n';
 
 import { getSongInfo } from '@/providers/song-info-front';
 
-import { lyricsStore, retrySearch } from '../../providers';
+import { lyricsStore, retrySearch } from '../store';
 
 interface ErrorDisplayProps {
   error: Error;
