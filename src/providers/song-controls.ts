@@ -36,7 +36,7 @@ const parseStringFromArgsType = (args: ArgsType<string>) => {
   }
 };
 
-export default (win: BrowserWindow) => {
+export const getSongControls = (win: BrowserWindow) => {
   return {
     // Playback
     previous: () => win.webContents.send('ytmd:previous-video'),

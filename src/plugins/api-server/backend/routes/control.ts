@@ -1,7 +1,7 @@
 import { createRoute, z } from '@hono/zod-openapi';
 import { ipcMain } from 'electron';
 
-import getSongControls from '@/providers/song-controls';
+import { getSongControls } from '@/providers/song-controls';
 import {
   LikeType,
   type RepeatMode,

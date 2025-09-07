@@ -329,6 +329,7 @@ export const TitleBar = (props: TitleBarProps) => {
       data-macos={props.isMacOS}
       data-show={mouseY() < 32}
       data-ytmd-main-panel={true}
+      id={'ytmd-title-bar-main-panel'}
     >
       <IconButton
         onClick={() => setCollapsed(!collapsed())}

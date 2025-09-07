@@ -29,7 +29,7 @@ import { allPlugins, mainPlugins } from 'virtual:plugins';
 
 import { languageResources } from 'virtual:i18n';
 
-import config from '@/config';
+import * as config from '@/config';
 
 import { refreshMenu, setApplicationMenu } from '@/menu';
 import { fileExists, injectCSS, injectCSSAsFile } from '@/plugins/utils/main';
@@ -59,7 +59,7 @@ import ErrorHtmlAsset from '@assets/error.html?asset';
 
 import { defaultAuthProxyConfig } from '@/plugins/auth-proxy-adapter/config';
 
-import { type PluginConfig } from '@/types/plugins';
+import type { PluginConfig } from '@/types/plugins';
 
 // Catch errors and log them
 unhandled({
@@ -338,8 +338,8 @@ async function createMainWindow() {
     titleBarStyle: useInlineMenu
       ? 'hidden'
       : is.macOS()
-      ? 'hiddenInset'
-      : 'default',
+        ? 'hiddenInset'
+        : 'default',
     autoHideMenuBar: config.get('options.hideMenu'),
   };
 
@@ -349,7 +349,7 @@ async function createMainWindow() {
     delete decorations.titleBarStyle;
   }
 
-  const win = new BrowserWindow({
+  const electronWindowSettings: Electron.BrowserWindowConstructorOptions = {
     icon,
     width: windowSize.width,
     height: windowSize.height,
@@ -369,7 +369,10 @@ async function createMainWindow() {
           }),
     },
     ...decorations,
-  });
+  };
+
+  const win = new BrowserWindow(electronWindowSettings);
+
   await initHook(win);
   initTheme(win);
 
@@ -529,8 +532,8 @@ app.once('browser-window-created', (_event, win) => {
     const updatedUserAgent = is.macOS()
       ? userAgents.mac
       : is.windows()
-      ? userAgents.windows
-      : userAgents.linux;
+        ? userAgents.windows
+        : userAgents.linux;
 
     win.webContents.userAgent = updatedUserAgent;
     app.userAgentFallback = updatedUserAgent;
@@ -951,15 +954,18 @@ function removeContentSecurityPolicy(
   betterSession.webRequest.setResolver(
     'onHeadersReceived',
     async (listeners) => {
-      return listeners.reduce(async (accumulator, listener) => {
-        const acc = await accumulator;
-        if (acc.cancel) {
-          return acc;
-        }
+      return listeners.reduce(
+        async (accumulator, listener) => {
+          const acc = await accumulator;
+          if (acc.cancel) {
+            return acc;
+          }
 
-        const result = await listener.apply();
-        return { ...accumulator, ...result };
-      }, Promise.resolve({ cancel: false }));
+          const result = await listener.apply();
+          return { ...accumulator, ...result };
+        },
+        Promise.resolve({ cancel: false }),
+      );
     },
   );
 }

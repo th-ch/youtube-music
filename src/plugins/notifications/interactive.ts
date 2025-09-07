@@ -7,7 +7,7 @@ import previousIcon from '@assets/media-icons-black/previous.png?asset&asarUnpac
 
 import { notificationImage, secondsToMinutes, ToastStyles } from './utils';
 
-import getSongControls from '@/providers/song-controls';
+import { getSongControls } from '@/providers/song-controls';
 import {
   registerCallback,
   type SongInfo,

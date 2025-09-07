@@ -15,7 +15,7 @@ import { allPlugins } from 'virtual:plugins';
 
 import { languageResources } from 'virtual:i18n';
 
-import config from './config';
+import * as config from './config';
 
 import { restart } from './providers/app-controls';
 import { startingPages } from './providers/extracted-data';

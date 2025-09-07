@@ -11,18 +11,24 @@ import {
   Switch,
 } from 'solid-js';
 
+import * as z from 'zod';
+
 import {
-  currentLyrics,
-  lyricsStore,
   type ProviderName,
   providerNames,
+  ProviderNameSchema,
   type ProviderState,
-  setLyricsStore,
 } from '../../providers';
-
+import { currentLyrics, lyricsStore, setLyricsStore } from '../store';
 import { _ytAPI } from '../index';
+import { config } from '../renderer';
 
 import type { YtIcons } from '@/types/icons';
+import type { PlayerAPIEvents } from '@/types/player-api-events';
+
+const LocalStorageSchema = z.object({
+  provider: ProviderNameSchema,
+});
 
 export const providerIdx = createMemo(() =>
   providerNames.indexOf(lyricsStore.provider),
@@ -45,11 +51,19 @@ const providerBias = (p: ProviderName) =>
   (lyricsStore.lyrics[p].data?.lyrics ? 1 : -1);
 
 const pickBestProvider = () => {
+  const preferred = config()?.preferredProvider;
+  if (preferred) {
+    const data = lyricsStore.lyrics[preferred].data;
+    if (Array.isArray(data?.lines) || data?.lyrics) {
+      return { provider: preferred, force: true };
+    }
+  }
+
   const providers = Array.from(providerNames);
 
   providers.sort((a, b) => providerBias(b) - providerBias(a));
 
-  return providers[0];
+  return { provider: providers[0], force: false };
 };
 
 const [hasManuallySwitchedProvider, setHasManuallySwitchedProvider] =
@@ -58,32 +72,89 @@ const [hasManuallySwitchedProvider, setHasManuallySwitchedProvider] =
 export const LyricsPicker = (props: {
   setStickRef: Setter<HTMLElement | null>;
 }) => {
+  const [videoId, setVideoId] = createSignal<string | null>(null);
+  const [starredProvider, setStarredProvider] =
+    createSignal<ProviderName | null>(null);
+
   createEffect(() => {
-    // fallback to the next source, if the current one has an error
+    const id = videoId();
+    if (id === null) {
+      setStarredProvider(null);
+      return;
+    }
+
+    const key = `ytmd-sl-starred-${id}`;
+    const value = localStorage.getItem(key);
+    if (!value) {
+      setStarredProvider(null);
+      return;
+    }
+
+    const parseResult = LocalStorageSchema.safeParse(JSON.parse(value));
+    if (parseResult.success) {
+      setLyricsStore('provider', parseResult.data.provider);
+      setStarredProvider(parseResult.data.provider);
+    } else {
+      setStarredProvider(null);
+    }
+  });
+
+  const toggleStar = () => {
+    const id = videoId();
+    if (id === null) return;
+
+    const key = `ytmd-sl-starred-${id}`;
+
+    setStarredProvider((starredProvider) => {
+      if (lyricsStore.provider === starredProvider) {
+        localStorage.removeItem(key);
+        return null;
+      }
+
+      const provider = lyricsStore.provider;
+      localStorage.setItem(key, JSON.stringify({ provider }));
+
+      return provider;
+    });
+  };
+
+  const videoDataChangeHandler = (
+    name: string,
+    { videoId }: PlayerAPIEvents['videodatachange']['value'],
+  ) => {
+    setVideoId(videoId);
+
+    if (name !== 'dataloaded') return;
+    setHasManuallySwitchedProvider(false);
+  };
+
+  // prettier-ignore
+  {
+    onMount(() => _ytAPI?.addEventListener('videodatachange', videoDataChangeHandler));
+    onCleanup(() => _ytAPI?.removeEventListener('videodatachange', videoDataChangeHandler));
+  }
+
+  createEffect(() => {
     if (!hasManuallySwitchedProvider()) {
-      const bestProvider = pickBestProvider();
+      const starred = starredProvider();
+      if (starred !== null) {
+        setLyricsStore('provider', starred);
+        return;
+      }
 
       const allProvidersFailed = providerNames.every((p) =>
         shouldSwitchProvider(lyricsStore.lyrics[p]),
       );
       if (allProvidersFailed) return;
 
-      if (providerBias(lyricsStore.provider) < providerBias(bestProvider)) {
-        setLyricsStore('provider', bestProvider);
+      const { provider, force } = pickBestProvider();
+      if (
+        force ||
+        providerBias(lyricsStore.provider) < providerBias(provider)
+      ) {
+        setLyricsStore('provider', provider);
       }
     }
-  });
-
-  onMount(() => {
-    const videoDataChangeHandler = (name: string) => {
-      if (name !== 'dataloaded') return;
-      setHasManuallySwitchedProvider(false);
-    };
-
-    _ytAPI?.addEventListener('videodatachange', videoDataChangeHandler);
-    onCleanup(() =>
-      _ytAPI?.removeEventListener('videodatachange', videoDataChangeHandler),
-    );
   });
 
   const next = () => {
@@ -176,9 +247,9 @@ export const LyricsPicker = (props: {
                     />
                   </Match>
                   <Match when={currentLyrics().state === 'error'}>
-                    <yt-icon-button
+                    <yt-icon
                       icon={errorIcon}
-                      style={{ padding: '5px', transform: 'scale(0.5)' }}
+                      style={{ padding: '5px', transform: 'scale(0.8)' }}
                       tabindex="-1"
                     />
                   </Match>
@@ -189,9 +260,9 @@ export const LyricsPicker = (props: {
                         currentLyrics().data?.lyrics)
                     }
                   >
-                    <yt-icon-button
+                    <yt-icon
                       icon={successIcon}
-                      style={{ padding: '5px', transform: 'scale(0.5)' }}
+                      style={{ padding: '5px', transform: 'scale(0.8)' }}
                       tabindex="-1"
                     />
                   </Match>
@@ -202,9 +273,9 @@ export const LyricsPicker = (props: {
                       !currentLyrics().data?.lyrics
                     }
                   >
-                    <yt-icon-button
+                    <yt-icon
                       icon={notFoundIcon}
-                      style={{ padding: '5px', transform: 'scale(0.5)' }}
+                      style={{ padding: '5px', transform: 'scale(0.8)' }}
                       tabindex="-1"
                     />
                   </Match>
@@ -212,6 +283,20 @@ export const LyricsPicker = (props: {
                 <yt-formatted-string
                   class="description ytmusic-description-shelf-renderer"
                   text={{ runs: [{ text: provider() }] }}
+                />
+                <yt-icon
+                  icon={
+                    starredProvider() === provider()
+                      ? 'yt-sys-icons:star-filled'
+                      : 'yt-sys-icons:star'
+                  }
+                  onClick={toggleStar}
+                  style={{
+                    padding: '5px',
+                    transform: 'scale(0.8)',
+                    cursor: 'pointer',
+                  }}
+                  tabindex="-1"
                 />
               </div>
             )}

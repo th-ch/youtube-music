@@ -145,6 +145,7 @@ export const setupShuffleChangedListener = singleton(() => {
 
   observer.observe(playerBar, {
     attributes: true,
+    attributeFilter: ['shuffle-on'],
     childList: false,
     subtree: false,
   });
@@ -168,6 +169,7 @@ export const setupFullScreenChangedListener = singleton(() => {
 
   observer.observe(playerBar, {
     attributes: true,
+    attributeFilter: ['player-fullscreened'],
     childList: false,
     subtree: false,
   });
@@ -189,7 +191,7 @@ export const setupAutoPlayChangedListener = singleton(() => {
   });
 });
 
-export default (api: YoutubePlayer) => {
+export const setupSongInfo = (api: YoutubePlayer) => {
   window.ipcRenderer.on('ytmd:setup-time-changed-listener', () => {
     setupTimeChangedListener();
   });

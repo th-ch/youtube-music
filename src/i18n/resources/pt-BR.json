@@ -421,6 +421,19 @@
         }
       }
     },
+    "custom-output-device": {
+      "description": "Configure um dispositivo de saída de mídia personalizado para músicas",
+      "menu": {
+        "device-selector": "Selecionar dispositivo"
+      },
+      "name": "Dispositivo de saída personalizado",
+      "prompt": {
+        "device-selector": {
+          "label": "Escolha o dispositivo de saída de mídia que será usado",
+          "title": "Selecionar dispositivo de saída"
+        }
+      }
+    },
     "disable-autoplay": {
       "description": "Faz a música começar no modo \"pausado\"",
       "menu": {
@@ -444,7 +457,15 @@
         "hide-duration-left": "Ocultar duração restante",
         "hide-github-button": "Ocultar botão do GitHub",
         "play-on-youtube-music": "Reproduzir no YouTube Music",
-        "set-inactivity-timeout": "Definir tempo limite de inatividade"
+        "set-inactivity-timeout": "Definir tempo limite de inatividade",
+        "set-status-display-type": {
+          "label": "Texto de status",
+          "submenu": {
+            "artist": "Ouvindo {artist}",
+            "title": "Ouvindo {song title}",
+            "youtube-music": "Ouvindo YouTube Music"
+          }
+        }
       },
       "name": "Rich Presence do Discord",
       "prompt": {
