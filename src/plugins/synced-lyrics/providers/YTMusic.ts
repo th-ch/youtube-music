@@ -111,9 +111,14 @@ export class YTMusic implements LyricProvider {
 
     if (!app) return null;
 
-    return app.networkManager.fetch('/next?prettyPrint=false', {
+    return app.networkManager.fetch<
+      NextData,
+      {
+        videoId: string;
+      }
+    >('/next?prettyPrint=false', {
       videoId,
-    }) as Promise<NextData>;
+    });
   }
 
   private fetchBrowse(browseId: string) {
