@@ -184,7 +184,7 @@ export class Connection {
   }
 
   disconnect() {
-    if (this._mode === 'disconnected') return;
+    if (this._mode === 'disconnected') throw new Error('Already disconnected');
 
     // Set flag to stop any reconnection attempts
     this.isManualDisconnect = true;
