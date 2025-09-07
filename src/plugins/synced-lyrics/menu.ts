@@ -1,9 +1,10 @@
 import { t } from '@/i18n';
 
+import { providerNames } from './providers';
+
 import type { MenuItemConstructorOptions } from 'electron';
 import type { MenuContext } from '@/types/contexts';
 import type { SyncedLyricsPluginConfig } from './types';
-import type { providerNames } from './providers';
 
 export const menu = async (
   ctx: MenuContext<SyncedLyricsPluginConfig>,
@@ -27,25 +28,17 @@ export const menu = async (
             ctx.setConfig({ preferredProvider: undefined });
           },
         },
-        ...(
-          [
-            'YTMusic',
-            'LRCLib',
-            'MusixMatch',
-            'LyricsGenius',
-          ] as typeof providerNames
-        ) // can't do real import, build fails ¯\_(ツ)_/¯
-          .map(
-            (provider) =>
-              ({
-                label: provider,
-                type: 'radio',
-                checked: config.preferredProvider === provider,
-                click() {
-                  ctx.setConfig({ preferredProvider: provider });
-                },
-              } as const),
-          ),
+        ...providerNames.map(
+          (provider) =>
+            ({
+              label: provider,
+              type: 'radio',
+              checked: config.preferredProvider === provider,
+              click() {
+                ctx.setConfig({ preferredProvider: provider });
+              },
+            }) as const,
+        ),
       ],
     },
     {

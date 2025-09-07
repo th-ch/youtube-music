@@ -11,20 +11,24 @@ import {
   Switch,
 } from 'solid-js';
 
+import * as z from 'zod';
+
 import {
-  currentLyrics,
-  lyricsStore,
   type ProviderName,
   providerNames,
+  ProviderNameSchema,
   type ProviderState,
-  setLyricsStore,
 } from '../../providers';
-
+import { currentLyrics, lyricsStore, setLyricsStore } from '../store';
 import { _ytAPI } from '../index';
+import { config } from '../renderer';
 
 import type { YtIcons } from '@/types/icons';
-import { PlayerAPIEvents } from '@/types/player-api-events';
-import { config } from '../renderer';
+import type { PlayerAPIEvents } from '@/types/player-api-events';
+
+const LocalStorageSchema = z.object({
+  provider: ProviderNameSchema,
+});
 
 export const providerIdx = createMemo(() =>
   providerNames.indexOf(lyricsStore.provider),
@@ -69,9 +73,8 @@ export const LyricsPicker = (props: {
   setStickRef: Setter<HTMLElement | null>;
 }) => {
   const [videoId, setVideoId] = createSignal<string | null>(null);
-  const [starredProvider, setStarredProvider] = createSignal<string | null>(
-    null,
-  );
+  const [starredProvider, setStarredProvider] =
+    createSignal<ProviderName | null>(null);
 
   createEffect(() => {
     const id = videoId();
@@ -87,10 +90,13 @@ export const LyricsPicker = (props: {
       return;
     }
 
-    const { provider } = (JSON.parse(value) as { provider: string }) ?? {};
-    if (provider) setLyricsStore('provider', provider as any);
-
-    setStarredProvider(provider);
+    const parseResult = LocalStorageSchema.safeParse(value) ?? {};
+    if (parseResult.success) {
+      setLyricsStore('provider', parseResult.data.provider);
+      setStarredProvider(parseResult.data.provider);
+    } else {
+      setStarredProvider(null);
+    }
   });
 
   const toggleStar = () => {
@@ -128,19 +134,24 @@ export const LyricsPicker = (props: {
     onCleanup(() => _ytAPI?.removeEventListener('videodatachange', videoDataChangeHandler));
   }
 
-  // prettier-ignore
   createEffect(() => {
     if (!hasManuallySwitchedProvider()) {
-      if (starredProvider() !== null) {
-        setLyricsStore('provider', starredProvider() as any);
+      const starred = starredProvider();
+      if (starred !== null) {
+        setLyricsStore('provider', starred);
         return;
       }
 
-      const allProvidersFailed = providerNames.every((p) => shouldSwitchProvider(lyricsStore.lyrics[p]));
+      const allProvidersFailed = providerNames.every((p) =>
+        shouldSwitchProvider(lyricsStore.lyrics[p]),
+      );
       if (allProvidersFailed) return;
 
       const { provider, force } = pickBestProvider();
-      if (force || providerBias(lyricsStore.provider) < providerBias(provider)) {
+      if (
+        force ||
+        providerBias(lyricsStore.provider) < providerBias(provider)
+      ) {
         setLyricsStore('provider', provider);
       }
     }
@@ -238,8 +249,8 @@ export const LyricsPicker = (props: {
                   <Match when={currentLyrics().state === 'error'}>
                     <yt-icon
                       icon={errorIcon}
-                      tabindex="-1"
                       style={{ padding: '5px', transform: 'scale(0.8)' }}
+                      tabindex="-1"
                     />
                   </Match>
                   <Match
@@ -251,8 +262,8 @@ export const LyricsPicker = (props: {
                   >
                     <yt-icon
                       icon={successIcon}
-                      tabindex="-1"
                       style={{ padding: '5px', transform: 'scale(0.8)' }}
+                      tabindex="-1"
                     />
                   </Match>
                   <Match
@@ -264,8 +275,8 @@ export const LyricsPicker = (props: {
                   >
                     <yt-icon
                       icon={notFoundIcon}
-                      tabindex="-1"
                       style={{ padding: '5px', transform: 'scale(0.8)' }}
+                      tabindex="-1"
                     />
                   </Match>
                 </Switch>
@@ -279,13 +290,13 @@ export const LyricsPicker = (props: {
                       ? 'yt-sys-icons:star-filled'
                       : 'yt-sys-icons:star'
                   }
-                  tabindex="-1"
                   onClick={toggleStar}
                   style={{
                     padding: '5px',
                     transform: 'scale(0.8)',
                     cursor: 'pointer',
                   }}
+                  tabindex="-1"
                 />
               </div>
             )}

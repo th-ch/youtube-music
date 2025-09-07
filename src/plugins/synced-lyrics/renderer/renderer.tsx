@@ -20,7 +20,7 @@ import {
   PlainLyrics,
 } from './components';
 
-import { currentLyrics } from '../providers';
+import { currentLyrics } from './store';
 
 import type { LineLyrics, SyncedLyricsPluginConfig } from '../types';
 
