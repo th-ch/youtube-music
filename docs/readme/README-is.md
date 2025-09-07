@@ -21,7 +21,7 @@
 	</a>
 </div>
 
-Lestu þetta á öðrum tungumálum: [🏴 Ensku](../../README.md), [🇰🇷 Kóreska](./README-ko.md), [🇫🇷 Franska](./README-fr.md), [🇮🇸 Íslenskur](./README-is.md), [🇪🇸 Spænska](./README-es.md), [🇷🇺 Rússneska](./README-ru.md), [🇺🇦 Úkraínska](./README-uk.md), [🇧🇷 Portúgalska](./README-pt.md), [🇯🇵 Japanska](./README-ja.md)
+Lestu þetta á öðrum tungumálum: [🏴 Enska](../../README.md), [🇰🇷 Kóreska](./README-ko.md), [🇫🇷 Franska](./README-fr.md), [🇮🇸 Íslenska](./README-is.md), [🇪🇸 Spænska](./README-es.md), [🇷🇺 Rússneska](./README-ru.md), [🇺🇦 Úkraínska](./README-uk.md), [🇧🇷 Portúgalska](./README-pt.md), [🇭🇺 Ungverska](./README-hu.md) [🇯🇵 Japanska](./README-ja.md)
 
 **Electron umbúðir utan um YouTube Tónlist sem inniheldur:**
 

@@ -156,6 +156,13 @@
                 "hide": "Hide",
                 "label": "Like buttons"
               },
+              "custom-window-title": {
+                "label": "Custom window title",
+                "prompt": {
+                  "label": "Enter custom window title: (leave empty to disable)",
+                  "placeholder": "Example: YouTube Music"
+                }
+              },
               "remove-upgrade-button": "Remove upgrade button",
               "theme": {
                 "dialog": {
@@ -334,7 +341,6 @@
       "name": "Audio Compressor"
     },
     "auth-proxy-adapter": {
-      "name": "Auth Proxy Adapter",
       "description": "Support for the use of authentication proxy services",
       "menu": {
         "disable": "Disable Proxy Adapter",
@@ -346,14 +352,15 @@
           "label": "Port"
         }
       },
+      "name": "Auth Proxy Adapter",
       "prompt": {
         "hostname": {
           "title": "Proxy Hostname",
-        "label": "Enter hostname for local proxy server (requires restart):"
+          "label": "Enter hostname for local proxy server (requires restart):"
         },
         "port": {
           "title": "Proxy Port",
-        "label": "Enter port for local proxy server (requires restart):"
+          "label": "Enter port for local proxy server (requires restart):"
         }
       }
     },
@@ -414,6 +421,19 @@
         }
       }
     },
+    "custom-output-device": {
+      "description": "Configure a custom output media device for songs",
+      "menu": {
+        "device-selector": "Select Device"
+      },
+      "name": "Custom Output Device",
+      "prompt": {
+        "device-selector": {
+          "label": "Choose the output media device to be used",
+          "title": "Select Output Device"
+        }
+      }
+    },
     "disable-autoplay": {
       "description": "Makes song start in \"paused\" mode",
       "menu": {
@@ -437,7 +457,15 @@
         "hide-duration-left": "Hide duration left",
         "hide-github-button": "Hide GitHub link Button",
         "play-on-youtube-music": "Play on YouTube Music",
-        "set-inactivity-timeout": "Set inactivity timeout"
+        "set-inactivity-timeout": "Set inactivity timeout",
+        "set-status-display-type": {
+          "label": "Status text",
+          "submenu": {
+            "youtube-music": "Listening to YouTube Music",
+            "artist": "Listening to {artist}",
+            "title": "Listening to {song title}"
+          }
+        }
       },
       "name": "Discord Rich Presence",
       "prompt": {
@@ -704,13 +732,13 @@
           }
         }
       },
+      "description": "Allows changing the video quality with a button on the video overlay",
+      "name": "Video Quality Changer",
       "renderer": {
         "quality-settings-button": {
           "label": "Open player quality changer"
         }
-      },
-      "description": "Allows changing the video quality with a button on the video overlay",
-      "name": "Video Quality Changer"
+      }
     },
     "scrobbler": {
       "description": "Add scrobbling support (etc. last.fm, Listenbrainz)",
@@ -730,6 +758,7 @@
           "token": "Enter ListenBrainz user token"
         },
         "scrobble-alternative-title": "Use alternative titles",
+        "scrobble-alternative-artist": "Use alternative artists",
         "scrobble-other-media": "Scrobble other media"
       },
       "name": "Scrobbler",
@@ -784,6 +813,14 @@
         "not-found": "⚠️ No lyrics found for this song."
       },
       "menu": {
+        "preferred-provider": {
+          "label": "Preferred Provider",
+          "tooltip": "Choose the default provider to use",
+          "none": {
+            "label": "None",
+            "tooltip": "No preferred provider"
+          }
+        },
         "default-text-string": {
           "label": "Default character between lyrics",
           "tooltip": "Choose the default character to use for the gap between lyrics"
@@ -845,6 +882,27 @@
     "touchbar": {
       "description": "Adds a TouchBar widget for macOS users",
       "name": "TouchBar"
+    },
+    "transparent-player": {
+      "description": "Makes the app window transparent",
+      "name": "Transparent Player",
+      "menu": {
+        "opacity": {
+          "label": "Opacity",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "type": {
+          "label": "Type",
+          "submenu": {
+            "acrylic": "Acrylic",
+            "mica": "Mica",
+            "tabbed": "Tabbed",
+            "none": "None"
+          }
+        }
+      }
     },
     "tuna-obs": {
       "description": "Integration with OBS's plugin Tuna",

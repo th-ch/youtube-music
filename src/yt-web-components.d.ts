@@ -1,5 +1,4 @@
-import { Icons } from '@/types/icons';
-
+import type { Icons } from '@/types/icons';
 import type { ComponentProps } from 'solid-js';
 
 declare module 'solid-js' {
@@ -49,8 +48,8 @@ declare module 'solid-js' {
       'tp-yt-paper-icon-button': ComponentProps<'div'> &
         TpYtPaperIconButtonProps;
       'yt-icon-button': ComponentProps<'div'> & TpYtPaperIconButtonProps;
-      'tp-yt-iron-icon': ComponentProps<'div'>;
-      'yt-icon': ComponentProps<'div'>;
+      'tp-yt-iron-icon': ComponentProps<'div'> & TpYtPaperIconButtonProps;
+      'yt-icon': ComponentProps<'div'> & TpYtPaperIconButtonProps;
       // input type="range" slider component
       'tp-yt-paper-slider': ComponentProps<'input'> & {
         'value'?: number | string;

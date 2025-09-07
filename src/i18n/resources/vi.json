@@ -150,6 +150,13 @@
           "visual-tweaks": {
             "label": "Tinh chỉnh hình ảnh",
             "submenu": {
+              "custom-window-title": {
+                "label": "Tiêu đề cửa sổ tùy chỉnh",
+                "prompt": {
+                  "label": "Nhập tiêu đề cửa sổ tùy chỉnh: (để trống để vô hiệu hóa)",
+                  "placeholder": "Ví dụ: Youtube Music"
+                }
+              },
               "like-buttons": {
                 "default": "Mặc định",
                 "force-show": "Tập trung hiển thị",
@@ -317,7 +324,7 @@
           "label": "Cổng"
         }
       },
-      "name": "Máy chủ API [Beta]",
+      "name": "Máy chủ API [Thử nghiệm]",
       "prompt": {
         "hostname": {
           "label": "Điền tên máy chủ (như 0.0.0.0) cho máy chủ API:",
@@ -414,8 +421,21 @@
         }
       }
     },
+    "custom-output-device": {
+      "description": "Cài đặt cho thiết bị đầu ra tùy chỉnh cho bài hát",
+      "menu": {
+        "device-selector": "Chọn thiết bị"
+      },
+      "name": "Thiết bị đầu ra tùy chỉnh",
+      "prompt": {
+        "device-selector": {
+          "label": "Chọn thiết bị phát làm đầu ra để dùng",
+          "title": "Chọn thiết bị đầu ra"
+        }
+      }
+    },
     "disable-autoplay": {
-      "description": "Làm nhạc bắt đầu ở chế độ \"tạm dừng\"\nNgoài ra có thể dừng nhạc khi khởi động ứng dụng (nếu có bật tính năng \"Tiếp tục bài hát cuối cùng khi ứng dụng khởi động\")",
+      "description": "Làm nhạc bắt đầu ở chế độ \"tạm dừng\". Ngoài ra có thể dừng nhạc khi khởi động ứng dụng (nếu có bật tính năng \"Tiếp tục bài hát cuối cùng khi ứng dụng khởi động\")",
       "menu": {
         "apply-once": "Chỉ áp dụng khi khởi động"
       },
@@ -437,9 +457,17 @@
         "hide-duration-left": "Ẩn thời lượng còn lại",
         "hide-github-button": "Ẩn nút liên kết GitHub",
         "play-on-youtube-music": "Phát trong Youtube Music",
-        "set-inactivity-timeout": "Đặt thời gian chờ không hoạt động"
+        "set-inactivity-timeout": "Đặt thời gian chờ không hoạt động",
+        "set-status-display-type": {
+          "label": "Văn bản trạng thái",
+          "submenu": {
+            "artist": "Đang nghe nhạc của {artist}",
+            "title": "Đang nghe nhạc {song title}",
+            "youtube-music": "Đang nghe Youtube Music"
+          }
+        }
       },
-      "name": "Discord Rich Presence",
+      "name": "Tích hợp trạng thái Discord",
       "prompt": {
         "set-inactivity-timeout": {
           "label": "Nhập thời gian chờ không hoạt động tính bằng giây:",
@@ -482,8 +510,8 @@
           "playlist-has-only-one-song": "Danh sách phát chỉ có một mục, tải trực tiếp",
           "playlist-id-not-found": "Không tìm thấy ID danh sách phát",
           "playlist-is-empty": "Danh sách phát trống",
-          "playlist-is-mix-or-private": "Lỗi lấy thông tin danh sách phát: đảm bảo danh sách phát không ở chế độ riêng tư hoặc là danh sách phát \"Dành cho bạn\"\n\n{{error}}",
-          "preparing-file": "Đang chuẩn bị thư mục…",
+          "playlist-is-mix-or-private": "Lỗi lấy thông tin danh sách phát: hãy đảm bảo danh sách phát không ở chế độ riêng tư hoặc danh sách phát \"Dành cho bạn\"\n\n{{error}}",
+          "preparing-file": "Đang chuẩn bị tệp…",
           "saving": "Đang lưu…",
           "trying-to-get-playlist-id": "Đang lấy ID danh sách phát: {{playlistId}}",
           "video-id-not-found": "Không tìm thấy video",
@@ -509,8 +537,8 @@
           }
         },
         "download-playlist": "Tải danh sách phát",
-        "presets": "Cài đặt sẵn",
-        "skip-existing": "Bỏ qua các tập tin hiện có"
+        "presets": "Tùy chọn định dạng",
+        "skip-existing": "Bỏ qua các tập tin đã có"
       },
       "name": "Trình tải xuống",
       "renderer": {
@@ -521,7 +549,7 @@
       }
     },
     "equalizer": {
-      "description": "Thêm bộ lọc xì vào trình phát nhạc\nP.S: Bộ lọc xì (Equalizer), là một thiết bị được thiết kế để phân chia, tăng, giảm, cắt các dải tần số âm thanh để mang tới sự cân bằng và làm thay đổi các tín hiệu âm thanh đi qua nó",
+      "description": "Thêm bộ chỉnh âm để điều chỉnh âm thanh cho trình phát nhạc",
       "menu": {
         "presets": {
           "label": "Thiết lập có sẵn",
@@ -530,7 +558,7 @@
           }
         }
       },
-      "name": "Bộ lọc xì (EQ)"
+      "name": "Bộ chỉnh âm"
     },
     "exponential-volume": {
       "description": "Làm cho thanh trượt âm lượng theo cấp số nhân để dễ dàng chọn âm lượng thấp hơn.",
@@ -729,6 +757,7 @@
         "listenbrainz": {
           "token": "Nhập mã người dùng ListenBrainz"
         },
+        "scrobble-alternative-artist": "Dùng nghệ sĩ thay thế",
         "scrobble-alternative-title": "Dùng tiêu đề thay thế",
         "scrobble-other-media": "Scrobber nội dung khác"
       },
@@ -845,6 +874,27 @@
     "touchbar": {
       "description": "Thêm tiện ích TouchBar cho người dùng macOS",
       "name": "TouchBar"
+    },
+    "transparent-player": {
+      "description": "Làm cho cửa sổ ứng dụng có hiệu ứng trong suốt",
+      "menu": {
+        "opacity": {
+          "label": "Độ mờ",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "type": {
+          "label": "Kiểu nền",
+          "submenu": {
+            "acrylic": "Acrylic",
+            "mica": "Mica",
+            "none": "Không có",
+            "tabbed": "Tabbed"
+          }
+        }
+      },
+      "name": "Trình phát trong suốt"
     },
     "tuna-obs": {
       "description": "Tích hợp với plugin Tuna của OBS",
