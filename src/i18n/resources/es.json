@@ -457,7 +457,15 @@
         "hide-duration-left": "Ocultar la duración restante",
         "hide-github-button": "Ocultar el botón de enlace a GitHub",
         "play-on-youtube-music": "Reproducir en YouTube Music",
-        "set-inactivity-timeout": "Establecer tiempo de inactividad"
+        "set-inactivity-timeout": "Establecer tiempo de inactividad",
+        "set-status-display-type": {
+          "label": "Texto de estado",
+          "submenu": {
+            "artist": "Escuchando a {artist}",
+            "title": "Escuchando {song title}",
+            "youtube-music": "Escuchando YouTube Music"
+          }
+        }
       },
       "name": "Discord Rich Presence",
       "prompt": {
@@ -749,6 +757,7 @@
         "listenbrainz": {
           "token": "Introduzca el token de usuario de ListenBrainz"
         },
+        "scrobble-alternative-artist": "Usar artistas alternativos",
         "scrobble-alternative-title": "Usar títulos alternativos",
         "scrobble-other-media": "Hacer Scrobble sobre otros medios"
       },
@@ -834,6 +843,14 @@
           "label": "Haz que la letra esté perfectamente sincronizada",
           "tooltip": "Calcular al milisegundo la visualización de la siguiente línea (puede tener un pequeño impacto en el rendimiento)"
         },
+        "preferred-provider": {
+          "label": "Proveedor preferido",
+          "none": {
+            "label": "Ninguno",
+            "tooltip": "Ningún proveedor preferido"
+          },
+          "tooltip": "Elige el proveedor predeterminado que deseas usar"
+        },
         "romanization": {
           "label": "Romanizar letras",
           "tooltip": "Si la letra está en un idioma diferente, intenta mostrar una versión en latín."
@@ -865,6 +882,27 @@
     "touchbar": {
       "description": "Añade un widget TouchBar para los usuarios de macOS",
       "name": "TouchBar"
+    },
+    "transparent-player": {
+      "description": "Hace que la ventana de la aplicación sea transparente",
+      "menu": {
+        "opacity": {
+          "label": "Opacidad",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "type": {
+          "label": "Tipo",
+          "submenu": {
+            "acrylic": "Acrílico",
+            "mica": "Mica",
+            "none": "Ninguno",
+            "tabbed": "Con pestañas"
+          }
+        }
+      },
+      "name": "Reproductor transparente"
     },
     "tuna-obs": {
       "description": "Integración con el plugin Tuna de OBS",
