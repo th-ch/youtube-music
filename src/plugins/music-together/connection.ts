@@ -89,12 +89,16 @@ export class Connection {
       this.waitOpen.resolve = resolve;
       this.waitOpen.reject = reject;
     });
-    
-    const reconnectLoop = async (err?: PeerError<PeerErrorType>) => {
+
+    const reconnectLoop = async (err?: PeerError<`${PeerErrorType}`>) => {
       if (this.isManualDisconnect || this.isReconnecting) return;
       this.isReconnecting = true;
 
-      if (err) console.warn('Music Together: PeerJS event triggered reconnection.', err);
+      if (err)
+        console.warn(
+          'Music Together: PeerJS event triggered reconnection.',
+          err,
+        );
 
       if (!this.peer.disconnected) {
         this.peer.disconnect();
@@ -108,12 +112,17 @@ export class Connection {
             await delay(1000);
             continue;
           }
-          
-          console.log('Music Together: Attempting to reconnect to PeerJS server...');
+
+          console.log(
+            'Music Together: Attempting to reconnect to PeerJS server...',
+          );
           this.peer.reconnect();
           break;
         } catch (reconnectErr) {
-          console.error('Music Together: Reconnect attempt failed. Retrying in 10 seconds.', reconnectErr);
+          console.error(
+            'Music Together: Reconnect attempt failed. Retrying in 10 seconds.',
+            reconnectErr,
+          );
           // Wait before the next reconnection attempt
           await delay(10000);
         }
@@ -134,18 +143,25 @@ export class Connection {
     });
 
     this.peer.on('disconnected', () => {
-        if (this.isManualDisconnect) return;
-        console.warn('Music Together: Disconnected from PeerJS server. The library will attempt to reconnect automatically.');
+      if (this.isManualDisconnect) return;
+      console.warn(
+        'Music Together: Disconnected from PeerJS server. The library will attempt to reconnect automatically.',
+      );
     });
 
     this.peer.on('close', () => reconnectLoop());
 
     this.peer.on('error', (err) => {
       // Only attempt to reconnect on recoverable network errors
-      if (err.type === PeerErrorType.Network || err.type === PeerErrorType.PeerUnavailable || err.type === PeerErrorType.ServerError) {
+      if (
+        !this.isManualDisconnect &&
+        (err.type === PeerErrorType.Network ||
+          err.type === PeerErrorType.PeerUnavailable ||
+          err.type === PeerErrorType.ServerError)
+      ) {
         reconnectLoop(err);
       } else {
-        console.error("Music Together: Unrecoverable PeerJS Error:", err);
+        console.error('Music Together: Unrecoverable PeerJS Error:', err);
         this.waitOpen.reject(err);
         this.connectionListeners.forEach((listener) => listener());
         this.disconnect();
@@ -174,7 +190,7 @@ export class Connection {
     this.isManualDisconnect = true;
     this.isReconnecting = false;
     this._mode = 'disconnected';
-    
+
     this.getConnections().forEach((conn) =>
       conn.close({
         flush: true,
@@ -182,14 +198,14 @@ export class Connection {
     );
     this.connections = {};
     this.connectionListeners = [];
-    
+
     for (const listener of this.listeners) {
       listener({ type: 'CONNECTION_CLOSED', payload: null }, null);
     }
     this.listeners = [];
-    
+
     if (!this.peer.destroyed) {
-        this.peer.destroy();
+      this.peer.destroy();
     }
   }
 
