@@ -90,7 +90,7 @@ export const LyricsPicker = (props: {
       return;
     }
 
-    const parseResult = LocalStorageSchema.safeParse(value) ?? {};
+    const parseResult = LocalStorageSchema.safeParse(JSON.parse(value));
     if (parseResult.success) {
       setLyricsStore('provider', parseResult.data.provider);
       setStarredProvider(parseResult.data.provider);
