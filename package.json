@@ -33,7 +33,7 @@
     "dist:win": "pnpm clean && pnpm build && pnpm electron-builder --win -p never",
     "dist:win:x64": "pnpm clean && pnpm build && pnpm electron-builder --win nsis-web:x64 -p never",
     "lint": "pnpm eslint ./src",
-    "changelog": "pnpm dlx --yes auto-changelog",
+    "changelog": "pnpm dlx auto-changelog",
     "release:linux": "pnpm clean && pnpm build && pnpm electron-builder --linux -p always -c.snap.publish=github",
     "release:mac": "pnpm clean && pnpm build && pnpm electron-builder --mac -p always",
     "release:win": "pnpm clean && pnpm build && pnpm electron-builder --win -p always",
