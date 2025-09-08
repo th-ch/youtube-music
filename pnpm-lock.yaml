@@ -106,8 +106,8 @@ importers:
         specifier: 3.0.0-beta.4
         version: 3.0.0-beta.4
       color:
-        specifier: 5.0.0
-        version: 5.0.0
+        specifier: 5.0.1
+        version: 5.0.1
       conf:
         specifier: 14.0.0
         version: 14.0.0
@@ -1901,8 +1901,8 @@ packages:
     resolution: {integrity: sha512-5z9FbYTZPAo8iKsNEqRNv+OlpBbDcoE+SY9GjLfDUHEfcNNV7tS9eSAlFHEaub/r5tBL9LtskAeq1l9SaoZ5tQ==}
     engines: {node: '>=18'}
 
-  color@5.0.0:
-    resolution: {integrity: sha512-16BlyiuyLq3MLxpRWyOTiWsO3ii/eLQLJUQXBSNcxMBBSnyt1ee9YUdaozQp03ifwm5woztEZGDbk9RGVuCsdw==}
+  color@5.0.1:
+    resolution: {integrity: sha512-6ckzzlDXoHjQW/gDy7yfbxHhWFLQKgKmp8zZxTjCXY8XtlGBJ5Xz39PWiiUsUvG71p1jjH/qvjmptQ6hfxLN/A==}
     engines: {node: '>=18'}
 
   combined-stream@1.0.8:
@@ -6525,7 +6525,7 @@ snapshots:
     dependencies:
       color-name: 2.0.0
 
-  color@5.0.0:
+  color@5.0.1:
     dependencies:
       color-convert: 3.1.0
       color-string: 2.0.1
