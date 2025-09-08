@@ -821,6 +821,11 @@
           "label": "Zorg ervoor dat de songteksten perfect gesynchroniseerd zijn",
           "tooltip": "Bereken tot op de milliseconde de weergave van de volgende regel (kan een kleine impact hebben op de prestaties)"
         },
+        "preferred-provider": {
+          "none": {
+            "tooltip": "Geen provider beschikbaar"
+          }
+        },
         "romanization": {
           "label": "Romaniseer songtekst",
           "tooltip": "Als de songtekst in een andere taal is, probeer dan een Latijnse versie weer te geven."
