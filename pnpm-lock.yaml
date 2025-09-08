@@ -341,8 +341,8 @@ importers:
         specifier: 1.55.0
         version: 1.55.0
       ts-morph:
-        specifier: 26.0.0
-        version: 26.0.0
+        specifier: 27.0.0
+        version: 27.0.0
       typescript:
         specifier: 5.9.2
         version: 5.9.2
@@ -1237,8 +1237,8 @@ packages:
   '@total-typescript/ts-reset@0.6.1':
     resolution: {integrity: sha512-cka47fVSo6lfQDIATYqb/vO1nvFfbPw7uWLayIXIhGETj0wcOOlrlkobOMDNQOFr9QOafegUPq13V2+6vtD7yg==}
 
-  '@ts-morph/common@0.27.0':
-    resolution: {integrity: sha512-Wf29UqxWDpc+i61k3oIOzcUfQt79PIT9y/MWfAGlrkjg6lBC1hwDECLXPVJAhWjiGbfBCxZd65F/LIZF3+jeJQ==}
+  '@ts-morph/common@0.28.0':
+    resolution: {integrity: sha512-4w6X/oFmvXcwux6y6ExfM/xSqMHw20cYwFJH+BlYrtGa6nwY9qGq8GXnUs1sVYeF2o/KT3S8hAH6sKBI3VOkBg==}
 
   '@tybys/wasm-util@0.10.0':
     resolution: {integrity: sha512-VyyPYFlOMNylG45GoAe0xDoLwWuowvf92F9kySqzYh8vmYm7D2u4iUJKa1tOUpS70Ku13ASrOkS4ScXFsTaCNQ==}
@@ -4430,8 +4430,8 @@ packages:
     peerDependencies:
       typescript: '>=4.8.4'
 
-  ts-morph@26.0.0:
-    resolution: {integrity: sha512-ztMO++owQnz8c/gIENcM9XfCEzgoGphTv+nKpYNM1bgsdOVC/jRZuEBf6N+mLLDNg68Kl+GgUZfOySaRiG1/Ug==}
+  ts-morph@27.0.0:
+    resolution: {integrity: sha512-xcqelpTR5PCuZMs54qp9DE3t7tPgA2v/P1/qdW4ke5b3Y5liTGTYj6a/twT35EQW/H5okRqp1UOqwNlgg0K0eQ==}
 
   tsconfig-paths@3.15.0:
     resolution: {integrity: sha512-2Ac2RgzDe/cn48GvOe3M+o82pEFewD3UPbyoUHHdKasHwJKjds4fLXWf/Ux5kATBKN20oaFGu+jbElp1pos0mg==}
@@ -5746,11 +5746,11 @@ snapshots:
 
   '@total-typescript/ts-reset@0.6.1': {}
 
-  '@ts-morph/common@0.27.0':
+  '@ts-morph/common@0.28.0':
     dependencies:
-      fast-glob: 3.3.3
       minimatch: 10.0.3
       path-browserify: 1.0.1
+      tinyglobby: 0.2.14
 
   '@tybys/wasm-util@0.10.0':
     dependencies:
@@ -9311,9 +9311,9 @@ snapshots:
     dependencies:
       typescript: 5.9.2
 
-  ts-morph@26.0.0:
+  ts-morph@27.0.0:
     dependencies:
-      '@ts-morph/common': 0.27.0
+      '@ts-morph/common': 0.28.0
       code-block-writer: 13.0.3
 
   tsconfig-paths@3.15.0:
