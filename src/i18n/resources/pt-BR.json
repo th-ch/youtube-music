@@ -897,7 +897,8 @@
           "submenu": {
             "acrylic": "Acrílico",
             "mica": "Mica",
-            "none": "Nenhum"
+            "none": "Nenhum",
+            "tabbed": "Em abas"
           }
         }
       },
