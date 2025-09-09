@@ -169,7 +169,7 @@
     "playwright": "1.55.0",
     "ts-morph": "27.0.0",
     "typescript": "5.9.2",
-    "typescript-eslint": "8.42.0",
+    "typescript-eslint": "8.43.0",
     "utf-8-validate": "6.0.5",
     "vite": "npm:rolldown-vite@7.1.8",
     "vite-plugin-inspect": "11.3.3",
