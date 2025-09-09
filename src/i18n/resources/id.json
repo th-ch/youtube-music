@@ -151,7 +151,9 @@
             "label": "Penyesuaian Visual",
             "submenu": {
               "custom-window-title": {
+                "label": "Judul jendela kustom",
                 "prompt": {
+                  "label": "Masukkan judul jendela kustom (kosongkan untuk menonaktifkan)",
                   "placeholder": "Contoh: YouTube Music"
                 }
               },
