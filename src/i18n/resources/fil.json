@@ -150,6 +150,13 @@
           "visual-tweaks": {
             "label": "Mga Biswal na Tweak",
             "submenu": {
+              "custom-window-title": {
+                "label": "Custom na window title",
+                "prompt": {
+                  "label": "I-enter ang custom na window tile: (iwanang blanko para ma-disable)",
+                  "placeholder": "Halimbawa: YouTube Music"
+                }
+              },
               "like-buttons": {
                 "default": "Default",
                 "force-show": "Pilitang ipakita",
@@ -378,6 +385,19 @@
         }
       }
     },
+    "custom-output-device": {
+      "description": "I-configure ang custom na output media device para sa mga kanta",
+      "menu": {
+        "device-selector": "Pumili ng Device"
+      },
+      "name": "Custom na Output Device",
+      "prompt": {
+        "device-selector": {
+          "label": "Pumili ng output media device na gagamitin",
+          "title": "Pumili ng Output Device"
+        }
+      }
+    },
     "disable-autoplay": {
       "description": "Gawing simulan ang kanta sa \"naka-pause\" na mode",
       "menu": {
@@ -401,7 +421,14 @@
         "hide-duration-left": "Itago ang natitirang oras",
         "hide-github-button": "Itago ang button na GitHub link",
         "play-on-youtube-music": "Patugtugin sa YouTube Music",
-        "set-inactivity-timeout": "I-set ang inactivity timeout"
+        "set-inactivity-timeout": "I-set ang inactivity timeout",
+        "set-status-display-type": {
+          "submenu": {
+            "artist": "Nakikinig sa {artist}",
+            "title": "Nakikinig sa {song title}",
+            "youtube-music": "Kumikinig sa YouTube Music"
+          }
+        }
       },
       "prompt": {
         "set-inactivity-timeout": {
@@ -649,6 +676,7 @@
         "listenbrainz": {
           "token": "Ilagay ang user token ng ListenBrainz"
         },
+        "scrobble-alternative-artist": "Gumamit ng mga alternatibong artist",
         "scrobble-alternative-title": "Gumamit ng alternatibong mga title",
         "scrobble-other-media": "Mag-Scrobble ng ibang media"
       },
@@ -728,6 +756,14 @@
           "label": "Gawing perpektong naka-sync ang lyrics",
           "tooltip": "Kalkulahin sa millisecond ang pagpapakita ng susunod na linya (maaaring magkaroon ng maliit na epekto sa performance)"
         },
+        "preferred-provider": {
+          "label": "Napiling Provider",
+          "none": {
+            "label": "Wala",
+            "tooltip": "Walang napiling provider"
+          },
+          "tooltip": "Pumili ng default na provider para gagamitin"
+        },
         "romanization": {
           "label": "I-romanize ang lyrics",
           "tooltip": "Kung ang lyrics ay nasa ibang wika, subukang magpakita ng latin na bersyon."
@@ -757,6 +793,19 @@
     },
     "touchbar": {
       "description": "Idaragdag ang TouchBar na widget para sa mga user ng macOS"
+    },
+    "transparent-player": {
+      "description": "Gawing transparent ang app window",
+      "menu": {
+        "type": {
+          "label": "Uri",
+          "submenu": {
+            "none": "Wala",
+            "tabbed": "Naka-tab"
+          }
+        }
+      },
+      "name": "Transparent na Player"
     },
     "tuna-obs": {
       "description": "Integrasyon kasama ang Tuna na OBS plugin"
