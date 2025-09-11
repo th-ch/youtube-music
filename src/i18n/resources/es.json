@@ -490,7 +490,7 @@
               "ok": "OK"
             },
             "detail": "({{playlistSize}} canciones)",
-            "message": "Descargando Playlist {{playlistTitle}}",
+            "message": "Descargando lista de reproducción {{playlistTitle}}",
             "title": "Descarga iniciada"
           }
         },
@@ -905,7 +905,7 @@
       "name": "Reproductor transparente"
     },
     "tuna-obs": {
-      "description": "Integración con el plugin Tuna de OBS",
+      "description": "Integración con el complemento Tuna de OBS",
       "name": "Tuna OBS"
     },
     "unobtrusive-player": {
