@@ -421,6 +421,16 @@
         }
       }
     },
+    "custom-output-device": {
+      "menu": {
+        "device-selector": "Gerät auswählen"
+      },
+      "prompt": {
+        "device-selector": {
+          "title": "Wähle ein Ausgabegerät"
+        }
+      }
+    },
     "disable-autoplay": {
       "description": "Startet Lied im pausierten Modus",
       "menu": {
@@ -444,7 +454,13 @@
         "hide-duration-left": "Verbleibende Zeit verstecken",
         "hide-github-button": "Knopf mit Link zu GitHub ausblenden",
         "play-on-youtube-music": "Auf YouTube Music abspielen",
-        "set-inactivity-timeout": "Inaktivitätstimeout setzen"
+        "set-inactivity-timeout": "Inaktivitätstimeout setzen",
+        "set-status-display-type": {
+          "submenu": {
+            "artist": "Hört {artist} zu",
+            "youtube-music": "Hört YouTube Music"
+          }
+        }
       },
       "name": "Discords Aktivitätsstatus",
       "prompt": {
@@ -855,7 +871,6 @@
     },
     "transparent-player": {
       "description": "Macht das Player-Fenster transparent",
-      "name": "Transparent Player",
       "menu": {
         "opacity": {
           "label": "Hintergrund-Sichtbarkeit",
@@ -871,7 +886,8 @@
             "tabbed": "Tabbed"
           }
         }
-      }
+      },
+      "name": "Transparent Player"
     },
     "tuna-obs": {
       "description": "Integration mit dem OBS-Plugin Tuna",
