@@ -425,7 +425,8 @@
       "description": "Scegli da quale uscita audio vuoi riprodurre i brani",
       "menu": {
         "device-selector": "Seleziona un'uscita"
-      }
+      },
+      "name": "Dispositivo di Output Personalizzato"
     },
     "disable-autoplay": {
       "description": "Fa iniziare i brani in modalità \"pausa\"",
@@ -454,7 +455,8 @@
         "set-status-display-type": {
           "submenu": {
             "artist": "Stai ascoltando {artist}",
-            "title": "Stai ascoltando {song title}"
+            "title": "Stai ascoltando {song title}",
+            "youtube-music": "Ascoltando YouTube Music"
           }
         }
       },
@@ -878,11 +880,15 @@
       "description": "Rende trasparente la finestra del programma",
       "menu": {
         "opacity": {
-          "label": "Opacità"
+          "label": "Opacità",
+          "submenu": {
+            "percent": "{{opacità}}%"
+          }
         },
         "type": {
           "label": "Tipo",
           "submenu": {
+            "acrylic": "Acrilico",
             "none": "Nessuno"
           }
         }
