@@ -636,10 +636,10 @@
       "name": "Navegació",
       "templates": {
         "back": {
-          "title": "Tornar a la pàgina anterior"
+          "title": "Pàgina anterior"
         },
         "forward": {
-          "title": "Anar a la pàgina següent"
+          "title": "Pàgina següent"
         }
       }
     },
