@@ -1,5 +1,3 @@
-import { createRubberBandNode, RubberBandNode } from 'rubberband-web';
-
 import sliderHTML from './templates/slider.html?raw';
 
 import { getSongMenu } from '@/providers/dom-elements';
@@ -7,7 +5,7 @@ import { singleton } from '@/providers/decorators';
 
 import { defaultTrustedTypePolicy } from '@/utils/trusted-types';
 
-import workerScript from './rubberband-processor.js?raw';
+import workerScript from './soundtouch-worklet.js?raw';
 
 import { ElementFromHtml } from '../utils/renderer';
 
@@ -22,13 +20,13 @@ let pitchShift = 0;
 
 let storedAudioSource: AudioNode;
 let storedAudioContext: AudioContext;
-let pitchShifter: RubberBandNode;
+let pitchShifter: AudioWorkletNode;
 
 const updatePitchShift = () => {
   const ONE_SEMITONE_LINEAR = Math.pow(2, 1 / 12);
   const linearPitch = Math.pow(ONE_SEMITONE_LINEAR, pitchShift);
 
-  pitchShifter.setPitch(linearPitch);
+  pitchShifter.parameters.get('pitch').value = linearPitch;
 
   const pitchShiftElement = document.querySelector('#pitch-shift-value');
   if (pitchShiftElement) {
@@ -127,8 +125,12 @@ const addPitchShifter = async () => {
     };
   });
   if (typeof dataURI !== 'string') return;
-  pitchShifter = await createRubberBandNode(storedAudioContext, dataURI);
-  pitchShifter.setHighQuality(true);
+
+  await storedAudioContext.audioWorklet.addModule(dataURI);
+  pitchShifter = new AudioWorkletNode(
+    storedAudioContext,
+    'soundtouch-processor',
+  );
 
   storedAudioSource.disconnect();
   storedAudioSource.connect(pitchShifter);
