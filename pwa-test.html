@@ -1,53 +1,64 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
+  <head>
     <title>PWA Test Page</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
     <h1>🧪 PWA Test Results</h1>
     <div id="results"></div>
-    
+
     <script>
-        const results = document.getElementById('results');
-        
-        function addResult(test, status, details = '') {
-            const div = document.createElement('div');
-            div.style.margin = '10px 0';
-            div.innerHTML = `<strong>${test}:</strong> ${status} ${details}`;
-            results.appendChild(div);
-        }
-        
-        // Test Service Worker
-        if ('serviceWorker' in navigator) {
-            addResult('Service Worker Support', '✅ Supported');
-            navigator.serviceWorker.register('/sw.js')
-                .then(() => addResult('Service Worker Registration', '✅ Success'))
-                .catch(() => addResult('Service Worker Registration', '❌ Failed'));
-        } else {
-            addResult('Service Worker Support', '❌ Not supported');
-        }
-        
-        // Test Manifest
-        const manifestLink = document.querySelector('link[rel="manifest"]');
-        if (manifestLink) {
-            addResult('Manifest Link', '✅ Found');
-        } else {
-            addResult('Manifest Link', '❌ Missing');
-        }
-        
-        // Test Install Prompt
-        window.addEventListener('beforeinstallprompt', (e) => {
-            addResult('Install Prompt', '✅ Available');
-        });
-        
-        // Test other PWA features
-        addResult('HTTPS/Localhost', location.protocol === 'https:' || location.hostname === 'localhost' ? '✅ OK' : '❌ Required');
-        addResult('Viewport Meta', document.querySelector('meta[name="viewport"]') ? '✅ Found' : '❌ Missing');
-        
-        setTimeout(() => {
-            addResult('Page Load', '✅ Complete');
-        }, 1000);
+      const results = document.getElementById('results');
+
+      function addResult(test, status, details = '') {
+        const div = document.createElement('div');
+        div.style.margin = '10px 0';
+        div.innerHTML = `<strong>${test}:</strong> ${status} ${details}`;
+        results.appendChild(div);
+      }
+
+      // Test Service Worker
+      if ('serviceWorker' in navigator) {
+        addResult('Service Worker Support', '✅ Supported');
+        navigator.serviceWorker
+          .register('/sw.js')
+          .then(() => addResult('Service Worker Registration', '✅ Success'))
+          .catch(() => addResult('Service Worker Registration', '❌ Failed'));
+      } else {
+        addResult('Service Worker Support', '❌ Not supported');
+      }
+
+      // Test Manifest
+      const manifestLink = document.querySelector('link[rel="manifest"]');
+      if (manifestLink) {
+        addResult('Manifest Link', '✅ Found');
+      } else {
+        addResult('Manifest Link', '❌ Missing');
+      }
+
+      // Test Install Prompt
+      window.addEventListener('beforeinstallprompt', (e) => {
+        addResult('Install Prompt', '✅ Available');
+      });
+
+      // Test other PWA features
+      addResult(
+        'HTTPS/Localhost',
+        location.protocol === 'https:' || location.hostname === 'localhost'
+          ? '✅ OK'
+          : '❌ Required',
+      );
+      addResult(
+        'Viewport Meta',
+        document.querySelector('meta[name="viewport"]')
+          ? '✅ Found'
+          : '❌ Missing',
+      );
+
+      setTimeout(() => {
+        addResult('Page Load', '✅ Complete');
+      }, 1000);
     </script>
-</body>
+  </body>
 </html>

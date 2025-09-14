@@ -141,24 +141,24 @@ select {
 }
 
 button,
-html [type="button"],
-[type="reset"],
-[type="submit"] {
+html [type='button'],
+[type='reset'],
+[type='submit'] {
   -webkit-appearance: button;
 }
 
 button::-moz-focus-inner,
-[type="button"]::-moz-focus-inner,
-[type="reset"]::-moz-focus-inner,
-[type="submit"]::-moz-focus-inner {
+[type='button']::-moz-focus-inner,
+[type='reset']::-moz-focus-inner,
+[type='submit']::-moz-focus-inner {
   border-style: none;
   padding: 0;
 }
 
 button:-moz-focusring,
-[type="button"]:-moz-focusring,
-[type="reset"]:-moz-focusring,
-[type="submit"]:-moz-focusring {
+[type='button']:-moz-focusring,
+[type='reset']:-moz-focusring,
+[type='submit']:-moz-focusring {
   outline: 1px dotted ButtonText;
 }
 
@@ -184,24 +184,24 @@ textarea {
   overflow: auto;
 }
 
-[type="checkbox"],
-[type="radio"] {
+[type='checkbox'],
+[type='radio'] {
   box-sizing: border-box;
   padding: 0;
 }
 
-[type="number"]::-webkit-inner-spin-button,
-[type="number"]::-webkit-outer-spin-button {
+[type='number']::-webkit-inner-spin-button,
+[type='number']::-webkit-outer-spin-button {
   height: auto;
 }
 
-[type="search"] {
+[type='search'] {
   -webkit-appearance: textfield;
   outline-offset: -2px;
 }
 
-[type="search"]::-webkit-search-cancel-button,
-[type="search"]::-webkit-search-decoration {
+[type='search']::-webkit-search-cancel-button,
+[type='search']::-webkit-search-decoration {
   -webkit-appearance: none;
 }
 
@@ -355,7 +355,7 @@ button,
 input,
 select,
 textarea {
-  font-family: "Heebo", sans-serif;
+  font-family: 'Heebo', sans-serif;
 }
 
 a {
@@ -383,7 +383,7 @@ h6,
 .h6 {
   clear: both;
   color: #fff;
-  font-family: "Oxygen", sans-serif;
+  font-family: 'Oxygen', sans-serif;
   font-weight: 600;
 }
 
@@ -566,11 +566,11 @@ blockquote {
 }
 
 blockquote::before {
-  content: "\201C";
+  content: '\201C';
 }
 
 blockquote::after {
-  content: "\201D";
+  content: '\201D';
 }
 
 blockquote p {
@@ -599,7 +599,7 @@ pre .h3,
 pre .h4,
 pre .h5,
 pre .h6 {
-  font-family: "Courier 10 Pitch", Courier, monospace;
+  font-family: 'Courier 10 Pitch', Courier, monospace;
 }
 
 pre,
@@ -625,7 +625,7 @@ code,
 kbd,
 tt,
 var {
-  font-family: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
+  font-family: Monaco, Consolas, 'Andale Mono', 'DejaVu Sans Mono', monospace;
   font-size: 16px;
   padding: 2px 4px;
 }
@@ -751,7 +751,7 @@ label {
 }
 
 .has-top-divider::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
@@ -766,7 +766,7 @@ label {
 }
 
 .has-bottom-divider::after {
-  content: "";
+  content: '';
   position: absolute;
   bottom: 0;
   left: 0;
@@ -1174,7 +1174,7 @@ label {
 }
 
 .button-shadow::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   right: 0;
@@ -1336,7 +1336,7 @@ label {
 
 .hero::before,
 .hero::after {
-  content: "";
+  content: '';
   position: absolute;
   left: calc(50% - 360px);
   width: 720px;
@@ -1346,14 +1346,14 @@ label {
 .hero::before {
   top: 0;
   height: 159px;
-  background-image: url("../img/bg-top.svg");
+  background-image: url('../img/bg-top.svg');
   background-size: 720px 159px;
 }
 
 .hero::after {
   bottom: 42%;
   height: 173px;
-  background-image: url("../img/bg-bottom.svg");
+  background-image: url('../img/bg-bottom.svg');
   background-size: 720px 173px;
 }
 
@@ -1431,17 +1431,20 @@ label {
 }
 
 .has-animations.is-loaded .hero-title {
-  -webkit-animation: heroContent 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) forwards 0.15s;
+  -webkit-animation: heroContent 0.6s cubic-bezier(0.215, 0.61, 0.355, 1)
+    forwards 0.15s;
   animation: heroContent 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) forwards 0.15s;
 }
 
 .has-animations.is-loaded .hero-paragraph {
-  -webkit-animation: heroContent 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) forwards 0.3s;
+  -webkit-animation: heroContent 0.6s cubic-bezier(0.215, 0.61, 0.355, 1)
+    forwards 0.3s;
   animation: heroContent 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) forwards 0.3s;
 }
 
 .has-animations.is-loaded .hero-cta {
-  -webkit-animation: heroContent 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) forwards 0.45s;
+  -webkit-animation: heroContent 0.6s cubic-bezier(0.215, 0.61, 0.355, 1)
+    forwards 0.45s;
   animation: heroContent 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) forwards 0.45s;
 }
 
@@ -1776,13 +1779,13 @@ main {
 }
 
 .site-footer::before {
-  content: "";
+  content: '';
   position: absolute;
   top: -76px;
   left: calc(50% - 360px);
   width: 720px;
   height: 291px;
-  background-image: url("../img/footer.svg");
+  background-image: url('../img/footer.svg');
   background-size: 720px 291px;
   background-repeat: no-repeat;
 }

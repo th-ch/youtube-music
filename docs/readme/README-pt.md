@@ -12,8 +12,7 @@
 
 </div>
 
-![Screenshot](/web/screenshot.png "Screenshot")
-
+![Screenshot](/web/screenshot.png 'Screenshot')
 
 <div align="center">
   <a href="https://github.com/th-ch/youtube-music/releases/latest">
@@ -30,9 +29,9 @@ Leia em outros idiomas: [🏴 Inglês](../../README.md), [🇰🇷 Coreano](./RE
 
 ## Imagem de demonstração
 
-|                  Tela do Player (tema de cores do álbum e luz ambiente)                     |
-|:---------------------------------------------------------------------------------------------------------:|
-|![Screenshot1](https://github.com/th-ch/youtube-music/assets/16558115/53efdf73-b8fa-4d7b-a235-b96b91ea77fc)|
+|                           Tela do Player (tema de cores do álbum e luz ambiente)                            |
+| :---------------------------------------------------------------------------------------------------------: |
+| ![Screenshot1](https://github.com/th-ch/youtube-music/assets/16558115/53efdf73-b8fa-4d7b-a235-b96b91ea77fc) |
 
 ## Conteúdo
 
@@ -183,7 +182,7 @@ scoop install extras/youtube-music
 
 Alternativamente, você pode usar o [Winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/), o gerenciador de pacotes CLI oficial do Windows 11, para instalar o pacote `th-ch.YouTubeMusic`.
 
-*Nota: O Microsoft Defender SmartScreen pode bloquear a instalação por ser de um "publicador desconhecido". Isso também acontece na instalação manual ao tentar executar o arquivo .exe após download manual aqui no GitHub (mesmo arquivo).*
+_Nota: O Microsoft Defender SmartScreen pode bloquear a instalação por ser de um "publicador desconhecido". Isso também acontece na instalação manual ao tentar executar o arquivo .exe após download manual aqui no GitHub (mesmo arquivo)._
 
 ```bash
 winget install th-ch.YouTubeMusic
@@ -226,13 +225,14 @@ Usando plugins, você pode:
 Crie uma pasta em `src/plugins/NOMBRE-DEL-PLUGIN`:
 
 - `index.ts`: o arquivo principal do plugin
+
 ```typescript
 import style from './style.css?inline'; // importar estilo como inline
 
 import { createPlugin } from '@/utils';
 
 export default createPlugin({
-  name: "Plugin Label",
+  name: 'Plugin Label',
   restartNeeded: true, // se true, o ytmusic mostra diálogo de reinício
   config: {
     enabled: false,
@@ -243,10 +243,10 @@ export default createPlugin({
     const config = await getConfig();
     return [
       {
-        label: "menu",
+        label: 'menu',
         submenu: [1, 2, 3].map((value) => ({
           label: `value ${value}`,
-          type: "radio",
+          type: 'radio',
           checked: config.value === value,
           click() {
             setConfig({ value });
@@ -260,26 +260,34 @@ export default createPlugin({
       window.maximize();
 
       // você pode se comunicar com o plugin renderer
-      ipc.handle("some-event", () => {
-        return "hello";
+      ipc.handle('some-event', () => {
+        return 'hello';
       });
     },
     // disparado quando a configuração muda
-    onConfigChange(newConfig) { /* ... */ },
+    onConfigChange(newConfig) {
+      /* ... */
+    },
     // disparado quando o plugin é desativado
-    stop(context) { /* ... */ },
+    stop(context) {
+      /* ... */
+    },
   },
   renderer: {
     async start(context) {
-      console.log(await context.ipc.invoke("some-event"));
+      console.log(await context.ipc.invoke('some-event'));
     },
     // Hook disponível apenas no renderer
     onPlayerApiReady(api: YoutubePlayer, context: RendererContext) {
       // establecer la configuración del plugin fácilmente
       context.setConfig({ myConfig: api.getVolume() });
     },
-    onConfigChange(newConfig) { /* ... */ },
-    stop(_context) { /* ... */ },
+    onConfigChange(newConfig) {
+      /* ... */
+    },
+    stop(_context) {
+      /* ... */
+    },
   },
   preload: {
     async start({ getConfig }) {
@@ -289,7 +297,6 @@ export default createPlugin({
     stop(_context) {},
   },
 });
-
 ```
 
 ### Casos de uso comuns
@@ -303,13 +310,13 @@ import style from './style.css?inline'; // importa estilo como inline
 import { createPlugin } from '@/utils';
 
 export default createPlugin({
-    name: 'Plugin Label',
-    restartNeeded: true, // se true, o ytmusic mostrará um diálogo de reinício
-    config: {
-        enabled: false,
-    }, // sua configuração personalizada
-    stylesheets: [style], // seu estilo personalizado
-    renderer() {} // define o hook renderer
+  name: 'Plugin Label',
+  restartNeeded: true, // se true, o ytmusic mostrará um diálogo de reinício
+  config: {
+    enabled: false,
+  }, // sua configuração personalizada
+  stylesheets: [style], // seu estilo personalizado
+  renderer() {}, // define o hook renderer
 });
 ```
 
@@ -319,15 +326,15 @@ export default createPlugin({
 import { createPlugin } from '@/utils';
 
 export default createPlugin({
-    name: 'Plugin Label',
-    restartNeeded: true, // se true, o ytmusic mostrará o diálogo de reinício
-    config: {
-        enabled: false,
-    }, // sua configuração personalizada
-    renderer() {
-        // Remove o botão de login
-        document.querySelector(".sign-in-link.ytmusic-nav-bar").remove();
-    } // define o hook renderer
+  name: 'Plugin Label',
+  restartNeeded: true, // se true, o ytmusic mostrará o diálogo de reinício
+  config: {
+    enabled: false,
+  }, // sua configuração personalizada
+  renderer() {
+    // Remove o botão de login
+    document.querySelector('.sign-in-link.ytmusic-nav-bar').remove();
+  }, // define o hook renderer
 });
 ```
 

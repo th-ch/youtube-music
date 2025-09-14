@@ -12,8 +12,7 @@
 
 </div>
 
-![Знімок екрана](/web/screenshot.png "Знімок екрана")
-
+![Знімок екрана](/web/screenshot.png 'Знімок екрана')
 
 <div align="center">
     <a href="https://github.com/th-ch/youtube-music/releases/latest">
@@ -30,9 +29,9 @@
 
 ## Демонстраційне зображення
 
-|                          Екран плеєра (колірна тема альбому та режим Ambient)                                |
-|:---------------------------------------------------------------------------------------------------------:|
-|![Screenshot1](https://github.com/th-ch/youtube-music/assets/16558115/53efdf73-b8fa-4d7b-a235-b96b91ea77fc)|
+|                            Екран плеєра (колірна тема альбому та режим Ambient)                             |
+| :---------------------------------------------------------------------------------------------------------: |
+| ![Screenshot1](https://github.com/th-ch/youtube-music/assets/16558115/53efdf73-b8fa-4d7b-a235-b96b91ea77fc) |
 
 ## Зміст
 
@@ -58,9 +57,9 @@
 ## Можливості:
 
 - **Автоматичне підтвердження під час паузи** (Завжди ввімкнено): вимикає спливаюче вікно ["Продовжити перегляд?"](https://user-images.githubusercontent.com/61631665/129977894-01c60740-7ec6-4bf0-9a2c-25da24491b0e.png),
-    яке призупиняє музику через певний час
+  яке призупиняє музику через певний час
 
- - Та багато іншого...
+- Та багато іншого...
 
 ## Доступні плагіни:
 
@@ -180,7 +179,7 @@ scoop install extras/youtube-music
 
 Крім того, ви можете використовувати [Winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/), офіційний менеджер пакунків командного рядка Windows 11, для встановлення пакунка `th-ch.YouTubeMusic`.
 
-*Примітка: Microsoft Defender SmartScreen може блокувати встановлення, оскільки воно від "невідомого видавця". Це також стосується ручного встановлення під час спроби запустити виконуваний файл (.exe) після ручного завантаження тут, на GitHub (той самий файл).*
+_Примітка: Microsoft Defender SmartScreen може блокувати встановлення, оскільки воно від "невідомого видавця". Це також стосується ручного встановлення під час спроби запустити виконуваний файл (.exe) після ручного завантаження тут, на GitHub (той самий файл)._
 
 ```bash
 winget install th-ch.YouTubeMusic
@@ -223,6 +222,7 @@ pnpm dev
 Створіть теку в `src/plugins/НАЗВА_ВАШОГО_ПЛАГІНА`:
 
 - `index.ts`: основний файл плагіна
+
 ```typescript
 import style from './style.css?inline'; // імпортувати стиль як вбудований
 
@@ -262,9 +262,13 @@ export default createPlugin({
       });
     },
     // викликається при зміні конфігурації
-    onConfigChange(newConfig) { /* ... */ },
+    onConfigChange(newConfig) {
+      /* ... */
+    },
     // викликається при вимкненні плагіна
-    stop(context) { /* ... */ },
+    stop(context) {
+      /* ... */
+    },
   },
   renderer: {
     async start(context) {
@@ -275,8 +279,12 @@ export default createPlugin({
       // легко встановити конфігурацію плагіна
       context.setConfig({ myConfig: api.getVolume() });
     },
-    onConfigChange(newConfig) { /* ... */ },
-    stop(_context) { /* ... */ },
+    onConfigChange(newConfig) {
+      /* ... */
+    },
+    stop(_context) {
+      /* ... */
+    },
   },
   preload: {
     async start({ getConfig }) {
@@ -305,7 +313,7 @@ export default createPlugin({
     enabled: false,
   }, // ваша власна конфігурація
   stylesheets: [style], // ваш власний стиль
-  renderer() {} // визначити хук рендерера
+  renderer() {}, // визначити хук рендерера
 });
 ```
 
@@ -322,8 +330,8 @@ export default createPlugin({
   }, // ваша власна конфігурація
   renderer() {
     // Видалити кнопку входу
-    document.querySelector(".sign-in-link.ytmusic-nav-bar").remove();
-  } // визначити хук рендерера
+    document.querySelector('.sign-in-link.ytmusic-nav-bar').remove();
+  }, // визначити хук рендерера
 });
 ```
 

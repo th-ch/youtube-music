@@ -22,7 +22,7 @@ export default createPlugin({
   } as PWAPluginConfig,
   renderer: {
     async onPlayerApiReady(_api, { getConfig }) {
-      const config = await getConfig() as PWAPluginConfig;
+      const config = (await getConfig()) as PWAPluginConfig;
 
       // PWA Integration
       if (config.enableInstallPrompt) {
@@ -157,7 +157,10 @@ export default createPlugin({
         const closeBtn = content.querySelector('#close-pwa-dialog');
 
         copyPwaBtn?.addEventListener('click', () => {
-          copyToClipboard('https://th-ch.github.io/youtube-music/', '📱 PWA link copied to clipboard!');
+          copyToClipboard(
+            'https://th-ch.github.io/youtube-music/',
+            '📱 PWA link copied to clipboard!',
+          );
         });
 
         openDocsBtn?.addEventListener('click', () => {
@@ -183,7 +186,9 @@ export default createPlugin({
       function addShareButton() {
         // Add share button to player controls
         const observer = new MutationObserver(() => {
-          const playerBar = document.querySelector('.middle-controls-buttons.ytmusic-player-bar');
+          const playerBar = document.querySelector(
+            '.middle-controls-buttons.ytmusic-player-bar',
+          );
           if (playerBar && !playerBar.querySelector('.pwa-share-btn')) {
             const shareBtn = document.createElement('button');
             shareBtn.className = 'pwa-share-btn';
@@ -230,7 +235,7 @@ export default createPlugin({
 
         observer.observe(document.body, {
           childList: true,
-          subtree: true
+          subtree: true,
         });
       }
 
@@ -238,12 +243,14 @@ export default createPlugin({
         // Monitor connection status
         function updateConnectionStatus() {
           const isOnline = navigator.onLine;
-          const statusIndicator = document.getElementById('pwa-connection-status') || createConnectionIndicator();
-          
+          const statusIndicator =
+            document.getElementById('pwa-connection-status') ||
+            createConnectionIndicator();
+
           statusIndicator.textContent = isOnline ? '🟢' : '🔴';
           statusIndicator.title = isOnline ? 'Online' : 'Offline';
           statusIndicator.style.color = isOnline ? '#4CAF50' : '#F44336';
-          
+
           if (!isOnline) {
             showToast('⚠️ You are offline. Some features may be limited.');
           }
@@ -277,10 +284,16 @@ export default createPlugin({
         if ('mediaSession' in navigator) {
           // Update media session metadata when song changes
           const updateMediaSession = () => {
-            const titleElement = document.querySelector('.title.ytmusic-player-bar');
-            const artistElement = document.querySelector('.byline.ytmusic-player-bar');
-            const artworkElement = document.querySelector('.image.ytmusic-player-bar img') as HTMLImageElement;
-            
+            const titleElement = document.querySelector(
+              '.title.ytmusic-player-bar',
+            );
+            const artistElement = document.querySelector(
+              '.byline.ytmusic-player-bar',
+            );
+            const artworkElement = document.querySelector(
+              '.image.ytmusic-player-bar img',
+            ) as HTMLImageElement;
+
             if (titleElement && artistElement) {
               const title = titleElement.textContent || '';
               const artist = artistElement.textContent || '';
@@ -290,14 +303,16 @@ export default createPlugin({
                 title: title,
                 artist: artist,
                 album: 'YouTube Music',
-                artwork: artwork ? [
-                  { src: artwork, sizes: '96x96', type: 'image/jpeg' },
-                  { src: artwork, sizes: '128x128', type: 'image/jpeg' },
-                  { src: artwork, sizes: '192x192', type: 'image/jpeg' },
-                  { src: artwork, sizes: '256x256', type: 'image/jpeg' },
-                  { src: artwork, sizes: '384x384', type: 'image/jpeg' },
-                  { src: artwork, sizes: '512x512', type: 'image/jpeg' }
-                ] : []
+                artwork: artwork
+                  ? [
+                      { src: artwork, sizes: '96x96', type: 'image/jpeg' },
+                      { src: artwork, sizes: '128x128', type: 'image/jpeg' },
+                      { src: artwork, sizes: '192x192', type: 'image/jpeg' },
+                      { src: artwork, sizes: '256x256', type: 'image/jpeg' },
+                      { src: artwork, sizes: '384x384', type: 'image/jpeg' },
+                      { src: artwork, sizes: '512x512', type: 'image/jpeg' },
+                    ]
+                  : [],
               });
             }
           };
@@ -306,7 +321,7 @@ export default createPlugin({
           const observer = new MutationObserver(updateMediaSession);
           observer.observe(document.body, {
             childList: true,
-            subtree: true
+            subtree: true,
           });
 
           // Initial update
@@ -315,15 +330,19 @@ export default createPlugin({
       }
 
       function shareCurrentSong() {
-        const titleElement = document.querySelector('.title.ytmusic-player-bar');
-        const artistElement = document.querySelector('.byline.ytmusic-player-bar');
+        const titleElement = document.querySelector(
+          '.title.ytmusic-player-bar',
+        );
+        const artistElement = document.querySelector(
+          '.byline.ytmusic-player-bar',
+        );
         const title = titleElement?.textContent || 'Unknown Title';
         const artist = artistElement?.textContent || 'Unknown Artist';
 
         const shareData = {
           title: `${title} - ${artist}`,
           text: `🎵 Currently listening to "${title}" by ${artist} on YouTube Music`,
-          url: window.location.href
+          url: window.location.href,
         };
 
         if (navigator.share) {
@@ -339,7 +358,7 @@ export default createPlugin({
         const shareData = {
           title: 'YouTube Music Desktop App',
           text: '🎵 Check out this amazing YouTube Music desktop app with PWA support!',
-          url: 'https://github.com/th-ch/youtube-music'
+          url: 'https://github.com/th-ch/youtube-music',
         };
 
         if (navigator.share) {
@@ -351,17 +370,27 @@ export default createPlugin({
         }
       }
 
-      function fallbackShare(data: { title: string; text: string; url: string }) {
-        copyToClipboard(`${data.title}\n${data.text}\n${data.url}`, '📋 Share info copied to clipboard!');
+      function fallbackShare(data: {
+        title: string;
+        text: string;
+        url: string;
+      }) {
+        copyToClipboard(
+          `${data.title}\n${data.text}\n${data.url}`,
+          '📋 Share info copied to clipboard!',
+        );
       }
 
       function copyToClipboard(text: string, successMessage = 'Copied!') {
         if (navigator.clipboard) {
-          navigator.clipboard.writeText(text).then(() => {
-            showToast(successMessage);
-          }).catch(() => {
-            fallbackCopy(text, successMessage);
-          });
+          navigator.clipboard
+            .writeText(text)
+            .then(() => {
+              showToast(successMessage);
+            })
+            .catch(() => {
+              fallbackCopy(text, successMessage);
+            });
         } else {
           fallbackCopy(text, successMessage);
         }
@@ -409,7 +438,7 @@ export default createPlugin({
 
     async onConfigChange(newConfig) {
       const config = newConfig as PWAPluginConfig;
-      
+
       // Update features based on config changes
       if (config.enableInstallPrompt) {
         const existingBtn = document.getElementById('pwa-install-btn');
@@ -423,6 +452,6 @@ export default createPlugin({
           existingBtn.remove();
         }
       }
-    }
-  }
+    },
+  },
 });

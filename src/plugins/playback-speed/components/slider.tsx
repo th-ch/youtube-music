@@ -32,7 +32,7 @@ export const PlaybackSpeedSlider = (props: PlaybackSpeedSliderProps) => (
         onWheel={(e) => props.onWheel?.(e)}
         role="slider"
         step="0.125"
-        style={{ 'display': 'inherit !important' }}
+        style={{ display: 'inherit !important' }}
         tabindex="0"
         title={props.title}
         value={props.speed}
@@ -59,12 +59,12 @@ export const PlaybackSpeedSlider = (props: PlaybackSpeedSliderProps) => (
                   class="style-scope tp-yt-paper-progress"
                   hidden={true}
                   id="secondaryProgress"
-                  style={{ 'transform': 'scaleX(0)' }}
+                  style={{ transform: 'scaleX(0)' }}
                 />
                 <div
                   class="style-scope tp-yt-paper-progress"
                   id="primaryProgress"
-                  style={{ 'transform': 'scaleX(0.5)' }}
+                  style={{ transform: 'scaleX(0.5)' }}
                 />
               </div>
             </tp-yt-paper-progress>

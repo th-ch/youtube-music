@@ -18,7 +18,7 @@ export const UnLikeButton = (props: UnLikeButtonProps) => (
         aria-hidden="true"
         class="yt-spec-button-shape-next__icon"
         style={{
-          'color': 'var(--ytmusic-setting-item-toggle-active)',
+          color: 'var(--ytmusic-setting-item-toggle-active)',
         }}
       >
         <div

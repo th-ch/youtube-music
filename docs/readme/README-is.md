@@ -12,8 +12,7 @@
 
 </div>
 
-![Screenshot](/web/screenshot.png "Screenshot")
-
+![Screenshot](/web/screenshot.png 'Screenshot')
 
 <div align="center">
 	<a href="https://github.com/th-ch/youtube-music/releases/latest">
@@ -27,13 +26,13 @@ Lestu þetta á öðrum tungumálum: [🏴 Enska](../../README.md), [🇰🇷 K�
 
 - Innfæddur útlit og tilfinning, miðar að því að halda upprunalegu viðmótinu
 - Rammi fyrir sérsniðnar tengiforrit: breyttu YouTube Tónlist að þínum þörfum (stíl, efni, eiginleikar), virkjaðu/slökktu á viðbætur í
-   einn smellur
+  einn smellur
 
 ## Sýnishornsmynd
 
-|                          Spilaraskjár (albúmslitaþema & umhverfisljós)                                         |
-|:---------------------------------------------------------------------------------------------------------:|
-|![Screenshot1](https://github.com/th-ch/youtube-music/assets/16558115/53efdf73-b8fa-4d7b-a235-b96b91ea77fc)|
+|                                Spilaraskjár (albúmslitaþema & umhverfisljós)                                |
+| :---------------------------------------------------------------------------------------------------------: |
+| ![Screenshot1](https://github.com/th-ch/youtube-music/assets/16558115/53efdf73-b8fa-4d7b-a235-b96b91ea77fc) |
 
 ## Efni
 
@@ -59,10 +58,10 @@ Lestu þetta á öðrum tungumálum: [🏴 Enska](../../README.md), [🇰🇷 K�
 ## Eiginleikar:
 
 - **Sjálfvirk staðfesting þegar gert er hlé** (Alltaf virkt): slökkva á
-   ["Halda áfram að horfa?"](https://user-images.githubusercontent.com/61631665/129977894-01c60740-7ec6-4bf0-9a2c-25da24491b0e.png)
-   popup sem gerir hlé á tónlist eftir ákveðinn tíma
+  ["Halda áfram að horfa?"](https://user-images.githubusercontent.com/61631665/129977894-01c60740-7ec6-4bf0-9a2c-25da24491b0e.png)
+  popup sem gerir hlé á tónlist eftir ákveðinn tíma
 
- - Og meira...
+- Og meira...
 
 ## Tiltæk tengiforrit:
 
@@ -89,10 +88,10 @@ Lestu þetta á öðrum tungumálum: [🏴 Enska](../../README.md), [🇰🇷 K�
 - **Slökkva á Sjálfvirkri Spilun**: Gerir lag að byrja í "hlé" ham
 
 - **[Discord](https://discord.com/) Rík Nærveru**: Sýndu vinum þínum hvað þú hlustar á
-   með [Rík Nærveru](https://user-images.githubusercontent.com/28219076/104362104-a7a0b980-5513-11eb-9744-bb89eabe0016.png)
+  með [Rík Nærveru](https://user-images.githubusercontent.com/28219076/104362104-a7a0b980-5513-11eb-9744-bb89eabe0016.png)
 
 - **Niðurhalari**: Niðurhalum
-MP3 [beint úr viðmótinu](https://user-images.githubusercontent.com/61631665/129977677-83a7d067-c192-45e1-98ae-b5a4927393be.png) [(youtube-dl)](https://github.com/ytdl-org/youtube-dl)
+  MP3 [beint úr viðmótinu](https://user-images.githubusercontent.com/61631665/129977677-83a7d067-c192-45e1-98ae-b5a4927393be.png) [(youtube-dl)](https://github.com/ytdl-org/youtube-dl)
 
 - **Veldibundiðrúmmál**: Gerir hljóðstyrkssleðann [veldisvísis](https://greasyfork.org/en/scripts/397686-youtube-music-fix-volume-ratio/)
   svo það er auðveldara að velja lægra hljóðstyrk.
@@ -100,7 +99,7 @@ MP3 [beint úr viðmótinu](https://user-images.githubusercontent.com/61631665/1
 - **Valmynd í Forriti**: [Gefur börum flott, dökkt útlit](https://user-images.githubusercontent.com/78568641/112215894-923dbf00-8c29-11eb-95c3-3ce15db27eca.png)
 
   > (sjá [þessa færslu](https://github.com/th-ch/youtube-music/issues/410#issuecomment-952060709) ef þú átt í vandræðum
-  með að fá aðgang að valmyndinni eftir að hafa virkjað þessa viðbót og fela valmyndarvalkostinn)
+  > með að fá aðgang að valmyndinni eftir að hafa virkjað þessa viðbót og fela valmyndarvalkostinn)
 
 - **Scrobbler**: Bætir við scrobbling stuðningi fyrir [Last.fm](https://www.last.fm/) og [ListenBrainz](https://listenbrainz.org/)
 
@@ -125,10 +124,10 @@ MP3 [beint úr viðmótinu](https://user-images.githubusercontent.com/61631665/1
 - **Nákvæmshljóðstyrkur**: Stjórnaðu hljóðstyrknum nákvæmlega með músarhjóli/hraðtökkum, með sérsniðnum HUD og sérsniðnum hljóðstyrksþrepum
 
 - **Flýtileiðir (og MPRIS)**: Leyfir að stilla alþjóðlegarflýtilyklar fyrir spilun (spila/gera hlé/næsta/fyrri) +
-   óvirkja [media osd](https://user-images.githubusercontent.com/84923831/128601225-afa38c1f-dea8-4209-9f72-0f84c1dd8b54.png)
-   með því að hnekkja miðlunarlyklum + virkja Ctrl/CMD + F til að leita + virkja linux mpris stuðning fyrir
-   miðlunarlyklar + [sérsniðnir flýtilyklar](https://github.com/Araxeus/youtube-music/blob/1e591d6a3df98449bcda6e63baab249b28026148/providers/song-controls.js#L13-L50)
-   fyrir [háþróaða notendur](https://github.com/th-ch/youtube-music/issues/106#issuecomment-952156902)
+  óvirkja [media osd](https://user-images.githubusercontent.com/84923831/128601225-afa38c1f-dea8-4209-9f72-0f84c1dd8b54.png)
+  með því að hnekkja miðlunarlyklum + virkja Ctrl/CMD + F til að leita + virkja linux mpris stuðning fyrir
+  miðlunarlyklar + [sérsniðnir flýtilyklar](https://github.com/Araxeus/youtube-music/blob/1e591d6a3df98449bcda6e63baab249b28026148/providers/song-controls.js#L13-L50)
+  fyrir [háþróaða notendur](https://github.com/th-ch/youtube-music/issues/106#issuecomment-952156902)
 - **Slepptu Lögum sem Mislíkuðust**: Sleppir mislíkaði lög
 
 - **Slepptu Þögnum**: Slepptu sjálfkrafa þagnarköflum í lögum
@@ -198,9 +197,9 @@ scoop install extras/youtube-music
 Að öðrum kosti geturðu notað [Winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/), Windows 11s
 opinber CLI pakkastjóri til að setja upp `th-ch.YouTubeMusic` pakkann.
 
-*Athugið: Microsoft Defender SmartScreen gæti lokað uppsetningunni þar sem hún er frá „óþekktum útgefanda“. Þetta er einnig
+_Athugið: Microsoft Defender SmartScreen gæti lokað uppsetningunni þar sem hún er frá „óþekktum útgefanda“. Þetta er einnig
 satt fyrir handvirka uppsetningu þegar reynt er að keyra executable(.exe) eftir handvirkt niðurhal hér á github (sama
-skrá).*
+skrá)._
 
 ```bash
 winget install th-ch.YouTubeMusic
@@ -209,9 +208,9 @@ winget install th-ch.YouTubeMusic
 #### Hvernig á að setja upp án nettengingar? (í Windows)
 
 - Sæktu `*.nsis.7z` skrána fyrir _arkitektúr tækisins þíns_ á [útgáfusíðu](https://github.com/th-ch/youtube-music/releases/latest).
-   - `x64` fyrir 64-bita Windows
-   - `ia32` fyrir 32-bita Windows
-   - `arm64` fyrir ARM64 Windows
+  - `x64` fyrir 64-bita Windows
+  - `ia32` fyrir 32-bita Windows
+  - `arm64` fyrir ARM64 Windows
 - Sæktu uppsetningarforrit á útgáfusíðu. (`*-Setup.exe`)
 - Settu þær í **sömu möppuna**.
 - Keyrðu uppsetningarforritið.
@@ -243,6 +242,7 @@ Með því að nota tengiforrit geturðu:
 Búðu til möppu í `src/plugins/YOUR-PLUGIN-NAME`:
 
 - `index.ts`: aðal skránni af tengiforritið
+
 ```typescript
 import style from './style.css?inline'; // flytja inn stíl sem inline
 
@@ -282,9 +282,13 @@ export default createPlugin({
       });
     },
     // það kviknaði þegar stillingum var breytt
-    onConfigChange(newConfig) { /* ... */ },
+    onConfigChange(newConfig) {
+      /* ... */
+    },
     // it fired when plugin disabled
-    stop(context) { /* ... */ },
+    stop(context) {
+      /* ... */
+    },
   },
   renderer: {
     async start(context) {
@@ -295,8 +299,12 @@ export default createPlugin({
       // stilltu stillingar viðbótarinnar auðveldlega
       context.setConfig({ myConfig: api.getVolume() });
     },
-    onConfigChange(newConfig) { /* ... */ },
-    stop(_context) { /* ... */ },
+    onConfigChange(newConfig) {
+      /* ... */
+    },
+    stop(_context) {
+      /* ... */
+    },
   },
   preload: {
     async start({ getConfig }) {
@@ -325,7 +333,7 @@ export default createPlugin({
     enabled: false,
   }, // sérsniðnastillingar þinn
   stylesheets: [style], // sérsniðnastílinn þinn
-  renderer() {} // skilgreina renderer krók
+  renderer() {}, // skilgreina renderer krók
 });
 ```
 
@@ -342,13 +350,13 @@ export default createPlugin({
   }, // sérsniðnastillingar þinn
   renderer() {
     // Fjarlægðu innskráningarhnappinn
-    document.querySelector(".sign-in-link.ytmusic-nav-bar").remove();
-  } // skilgreina renderer krók
+    document.querySelector('.sign-in-link.ytmusic-nav-bar').remove();
+  }, // skilgreina renderer krók
 });
 ```
 
 - samskipti á milli að framan og aftan: hægt að gera með því að nota ipcMain eininguna frá electron. Sjá `index.ts` skrá og
-   dæmi í 'styrktarblokk' tengiforritinu.
+  dæmi í 'styrktarblokk' tengiforritinu.
 
 ## Byggja
 

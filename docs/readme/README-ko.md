@@ -12,7 +12,7 @@
 
 </div>
 
-![Screenshot](/web/screenshot.png "Screenshot")
+![Screenshot](/web/screenshot.png 'Screenshot')
 
 <div align="center">
 	<a href="https://github.com/th-ch/youtube-music/releases/latest">
@@ -142,6 +142,7 @@ AUR에서 [`youtube-music-bin`](https://aur.archlinux.org/packages/youtube-music
 ### MacOS
 
 Homebrew를 사용하여 앱을 설치할 수 있습니다:
+
 ```bash
 brew install --cask https://raw.githubusercontent.com/th-ch/youtube-music/master/youtube-music.rb
 ```
@@ -163,7 +164,7 @@ scoop install extras/youtube-music
 
 또는 Windows 11의 공식 CLI 패키지 관리자인 [Winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/)을 사용하여 `th-ch.YouTubeMusic` 패키지를 설치할 수 있습니다.
 
-*참고: "알 수 없는 게시자"의 파일이기 때문에 Microsoft Defender의 SmartScreen에서 설치를 차단할 수 있습니다. 이는 GitHub에서 동일 파일을 수동으로 다운로드한 후 실행 파일(.exe)을 실행하려고 할 때도 마찬가지로 발생합니다.*
+_참고: "알 수 없는 게시자"의 파일이기 때문에 Microsoft Defender의 SmartScreen에서 설치를 차단할 수 있습니다. 이는 GitHub에서 동일 파일을 수동으로 다운로드한 후 실행 파일(.exe)을 실행하려고 할 때도 마찬가지로 발생합니다._
 
 ```bash
 winget install th-ch.YouTubeMusic
@@ -171,7 +172,7 @@ winget install th-ch.YouTubeMusic
 
 #### (Windows에서) 네트워크에 연결하지 않고 설치하는 방법은 무엇인가요?
 
-- [릴리즈 페이지](https://github.com/th-ch/youtube-music/releases/latest)에서 _본인 기기 아키텍처_에 맞는 `*.nsis.7z` 파일을 다운로드하세요.
+- [릴리즈 페이지](https://github.com/th-ch/youtube-music/releases/latest)에서 *본인 기기 아키텍처*에 맞는 `*.nsis.7z` 파일을 다운로드하세요.
   - `x64`는 64비트 Windows 용입니다.
   - `ia32`는 32비트 Windows 용입니다.
   - `arm64`는 ARM64 Windows 용입니다.
@@ -206,6 +207,7 @@ pnpm dev
 `plugins/나만의-플러그인-이름`에 폴더를 만듭니다:
 
 - `index.ts`: 플러그인의 메인 파일입니다.
+
 ```typescript
 import style from './style.css?inline'; // 스타일을 인라인으로 가져옵니다
 
@@ -245,9 +247,13 @@ export default createPlugin({
       });
     },
     // config가 변경되면 실행됩니다
-    onConfigChange(newConfig) { /* ... */ },
+    onConfigChange(newConfig) {
+      /* ... */
+    },
     // 플러그인이 비활성화되면 실행됩니다
-    stop(context) { /* ... */ },
+    stop(context) {
+      /* ... */
+    },
   },
   renderer: {
     async start(context) {
@@ -258,8 +264,12 @@ export default createPlugin({
       // 플러그인의 config를 간단하게 설정할 수 있습니다
       context.setConfig({ myConfig: api.getVolume() });
     },
-    onConfigChange(newConfig) { /* ... */ },
-    stop(_context) { /* ... */ },
+    onConfigChange(newConfig) {
+      /* ... */
+    },
+    stop(_context) {
+      /* ... */
+    },
   },
   preload: {
     async start({ getConfig }) {
@@ -288,7 +298,7 @@ export default createPlugin({
     enabled: false,
   }, // 나의 커스텀 config
   stylesheets: [style], // 나의 커스텀 스타일
-  renderer() {} // 렌더러 훅 정의
+  renderer() {}, // 렌더러 훅 정의
 });
 ```
 
@@ -305,8 +315,8 @@ export default createPlugin({
   }, // 나의 커스텀 config
   renderer() {
     // 로그인 버튼을 제거합니다
-    document.querySelector(".sign-in-link.ytmusic-nav-bar").remove();
-  } // 렌더러 훅 정의
+    document.querySelector('.sign-in-link.ytmusic-nav-bar').remove();
+  }, // 렌더러 훅 정의
 });
 ```
 

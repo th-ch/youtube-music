@@ -12,8 +12,7 @@
 
 </div>
 
-![Screenshot](/web/screenshot.png "Screenshot")
-
+![Screenshot](/web/screenshot.png 'Screenshot')
 
 <div align="center">
 	<a href="https://github.com/th-ch/youtube-music/releases/latest">
@@ -30,9 +29,9 @@
 
 ## デモ画像
 
-|                          プレーヤースクリーン (アルバムカラーテーマ & アンビエントライト)                                |
-|:---------------------------------------------------------------------------------------------------------:|
-|![Screenshot1](https://github.com/th-ch/youtube-music/assets/16558115/53efdf73-b8fa-4d7b-a235-b96b91ea77fc)|
+|                      プレーヤースクリーン (アルバムカラーテーマ & アンビエントライト)                       |
+| :---------------------------------------------------------------------------------------------------------: |
+| ![Screenshot1](https://github.com/th-ch/youtube-music/assets/16558115/53efdf73-b8fa-4d7b-a235-b96b91ea77fc) |
 
 ## コンテンツ
 
@@ -59,7 +58,7 @@
 
 - **一時停止時の自動確認** (常に有効): 一定時間後に音楽を一時停止する["視聴を続けますか？"](https://user-images.githubusercontent.com/61631665/129977894-01c60740-7ec6-4bf0-9a2c-25da24491b0e.png)ポップアップを無効にします
 
- - その他の機能...
+- その他の機能...
 
 ## 利用可能なプラグイン:
 
@@ -181,7 +180,7 @@ scoop install extras/youtube-music
 
 または、Windows 11の公式CLIパッケージマネージャーである[Winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/)を使用して、`th-ch.YouTubeMusic`パッケージをインストールできます。
 
-*注: 「不明な発行元」からのものであるため、Microsoft Defender SmartScreenがインストールをブロックする場合があります。これは、GitHubで手動でダウンロードした後に実行ファイル（.exe）を実行しようとする場合にも当てはまります。*
+_注: 「不明な発行元」からのものであるため、Microsoft Defender SmartScreenがインストールをブロックする場合があります。これは、GitHubで手動でダウンロードした後に実行ファイル（.exe）を実行しようとする場合にも当てはまります。_
 
 ```bash
 winget install th-ch.YouTubeMusic
@@ -189,7 +188,7 @@ winget install th-ch.YouTubeMusic
 
 #### ネットワーク接続なしでインストールする方法 (Windows)
 
-- [リリースページ](https://github.com/th-ch/youtube-music/releases/latest)で_デバイスのアーキテクチャ_に対応する`*.nsis.7z`ファイルをダウンロードします。
+- [リリースページ](https://github.com/th-ch/youtube-music/releases/latest)で*デバイスのアーキテクチャ*に対応する`*.nsis.7z`ファイルをダウンロードします。
   - `x64`は64ビットWindows用
   - `ia32`は32ビットWindows用
   - `arm64`はARM64 Windows用
@@ -224,6 +223,7 @@ pnpm dev
 `src/plugins/YOUR-PLUGIN-NAME`にフォルダーを作成します。
 
 - `index.ts`: プラグインのメインファイル
+
 ```typescript
 import style from './style.css?inline'; // スタイルをインラインとしてインポート
 
@@ -248,7 +248,7 @@ export default createPlugin({
           checked: config.value === value,
           click() {
             setConfig({ value });
-          }, 
+          },
         })),
       },
     ];
@@ -263,9 +263,13 @@ export default createPlugin({
       });
     },
     // 設定が変更されたときに発生します
-    onConfigChange(newConfig) { /* ... */ },
+    onConfigChange(newConfig) {
+      /* ... */
+    },
     // プラグインが無効になったときに発生します
-    stop(context) { /* ... */ },
+    stop(context) {
+      /* ... */
+    },
   },
   renderer: {
     async start(context) {
@@ -276,8 +280,12 @@ export default createPlugin({
       // プラグイン設定を簡単に設定
       context.setConfig({ myConfig: api.getVolume() });
     },
-    onConfigChange(newConfig) { /* ... */ },
-    stop(_context) { /* ... */ },
+    onConfigChange(newConfig) {
+      /* ... */
+    },
+    stop(_context) {
+      /* ... */
+    },
   },
   preload: {
     async start({ getConfig }) {
@@ -306,7 +314,7 @@ export default createPlugin({
     enabled: false,
   }, // カスタム設定
   stylesheets: [style], // カスタムスタイル
-  renderer() {} // レンダラーフックを定義
+  renderer() {}, // レンダラーフックを定義
 });
 ```
 
@@ -323,8 +331,8 @@ export default createPlugin({
   }, // カスタム設定
   renderer() {
     // ログインボタンを削除
-    document.querySelector(".sign-in-link.ytmusic-nav-bar").remove();
-  } // レンダラーフックを定義
+    document.querySelector('.sign-in-link.ytmusic-nav-bar').remove();
+  }, // レンダラーフックを定義
 });
 ```
 

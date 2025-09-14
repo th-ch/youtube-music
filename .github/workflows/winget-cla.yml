@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       pr_url:
-        description: "Specific PR URL"
+        description: 'Specific PR URL'
         required: true
         type: string
 

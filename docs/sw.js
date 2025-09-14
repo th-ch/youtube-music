@@ -16,24 +16,27 @@ const STATIC_FILES = [
   '/favicon/favicon_32.png',
   '/favicon/favicon_48.png',
   '/favicon/favicon_96.png',
-  '/favicon/favicon_144.png'
+  '/favicon/favicon_144.png',
 ];
 
 // Install event - cache static files
 self.addEventListener('install', (event) => {
   console.log('[SW] Installing service worker for docs...');
-  
+
   event.waitUntil(
-    caches.open(STATIC_CACHE_NAME)
+    caches
+      .open(STATIC_CACHE_NAME)
       .then((cache) => {
         console.log('[SW] Caching static files');
-        return cache.addAll(STATIC_FILES.map(url => {
-          // Handle root path
-          if (url === '/') {
-            return '/youtube-music/';
-          }
-          return '/youtube-music' + url;
-        }));
+        return cache.addAll(
+          STATIC_FILES.map((url) => {
+            // Handle root path
+            if (url === '/') {
+              return '/youtube-music/';
+            }
+            return '/youtube-music' + url;
+          }),
+        );
       })
       .then(() => {
         console.log('[SW] Static files cached successfully');
@@ -41,30 +44,34 @@ self.addEventListener('install', (event) => {
       })
       .catch((error) => {
         console.error('[SW] Failed to cache static files:', error);
-      })
+      }),
   );
 });
 
 // Activate event - clean up old caches
 self.addEventListener('activate', (event) => {
   console.log('[SW] Activating service worker...');
-  
+
   event.waitUntil(
-    caches.keys()
+    caches
+      .keys()
       .then((cacheNames) => {
         return Promise.all(
           cacheNames.map((cacheName) => {
-            if (cacheName !== STATIC_CACHE_NAME && cacheName !== DYNAMIC_CACHE_NAME) {
+            if (
+              cacheName !== STATIC_CACHE_NAME &&
+              cacheName !== DYNAMIC_CACHE_NAME
+            ) {
               console.log('[SW] Deleting old cache:', cacheName);
               return caches.delete(cacheName);
             }
-          })
+          }),
         );
       })
       .then(() => {
         console.log('[SW] Service worker activated');
         return self.clients.claim();
-      })
+      }),
   );
 });
 
@@ -91,23 +98,24 @@ self.addEventListener('fetch', (event) => {
 async function networkFirstWithFallback(request) {
   try {
     const networkResponse = await fetch(request);
-    
+
     if (networkResponse.ok) {
       const cache = await caches.open(DYNAMIC_CACHE_NAME);
       cache.put(request, networkResponse.clone());
     }
-    
+
     return networkResponse;
   } catch (error) {
     const cachedResponse = await caches.match(request);
-    
+
     if (cachedResponse) {
       return cachedResponse;
     }
-    
+
     // For navigation requests, return a basic offline page
     if (request.mode === 'navigate') {
-      return new Response(`
+      return new Response(
+        `
         <!DOCTYPE html>
         <html>
         <head>
@@ -150,12 +158,14 @@ async function networkFirstWithFallback(request) {
           </div>
         </body>
         </html>
-      `, {
-        headers: { 'Content-Type': 'text/html' },
-        status: 200
-      });
+      `,
+        {
+          headers: { 'Content-Type': 'text/html' },
+          status: 200,
+        },
+      );
     }
-    
+
     throw error;
   }
 }

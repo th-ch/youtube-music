@@ -14,7 +14,6 @@
 
 ![Capture d'écran](/web/screenshot.png "Capture d'écran")
 
-
 <div align="center">
 	<a href="https://github.com/th-ch/youtube-music/releases/latest">
 		<img src="https://github.com/th-ch/youtube-music/raw/master/web/youtube-music.svg" width="400" height="100" alt="SVG YouTube Music">
@@ -31,9 +30,9 @@ Lisez ceci dans d'autres langues: [🏴 Anglais](../../README.md), [🇰🇷 Cor
 
 ## Image de démonstration
 
-|                          Écran du lecteur (thème de couleur de l'album & lumière ambiante)                                |
-|:---------------------------------------------------------------------------------------------------------:|
-|![Capture d'écran1](https://github.com/th-ch/youtube-music/assets/16558115/53efdf73-b8fa-4d7b-a235-b96b91ea77fc)|
+|                        Écran du lecteur (thème de couleur de l'album & lumière ambiante)                         |
+| :--------------------------------------------------------------------------------------------------------------: |
+| ![Capture d'écran1](https://github.com/th-ch/youtube-music/assets/16558115/53efdf73-b8fa-4d7b-a235-b96b91ea77fc) |
 
 ## Contenu
 
@@ -62,7 +61,7 @@ Lisez ceci dans d'autres langues: [🏴 Anglais](../../README.md), [🇰🇷 Cor
   la pop-up ["Continuer à regarder ?"](https://user-images.githubusercontent.com/61631665/129977894-01c60740-7ec6-4bf0-9a2c-25da24491b0e.png)
   qui pause la musique après un certain temps
 
- - Et plus encore ...
+- Et plus encore ...
 
 ## Plugins disponibles :
 
@@ -102,7 +101,7 @@ Lisez ceci dans d'autres langues: [🏴 Anglais](../../README.md), [🇰🇷 Cor
 - **Menu In-App** : [donne aux barres un aspect chic et sombre](https://user-images.githubusercontent.com/78568641/112215894-923dbf00-8c29-11eb-95c3-3ce15db27eca.png)
 
   > (voir [ce poste](https://github.com/th-ch/youtube-music/issues/410#issuecomment-952060709) si vous avez des problèmes
-  pour accéder au menu après avoir activé ce plugin et l'option masquer-menu)
+  > pour accéder au menu après avoir activé ce plugin et l'option masquer-menu)
 
 - **Scrobbler** : Ajoute le support de scrobbling pour [Last.fm](https://www.last.fm/) et [ListenBrainz](https://listenbrainz.org/)
 
@@ -200,7 +199,7 @@ scoop install extras/youtube-music
 
 Alternativement, vous pouvez utiliser [Winget](https://learn.microsoft.com/fr-fr/windows/package-manager/winget/), le gestionnaire de paquets CLI officiel de Windows 11, pour installer le paquet `th-ch.YouTubeMusic`.
 
-*Note : Microsoft Defender SmartScreen pourrait bloquer l'installation car elle provient d'un "éditeur inconnu". Ceci est également vrai pour l'installation manuelle lors de l'essai d'exécution de l'exécutable (.exe) après un téléchargement manuel ici sur GitHub (même fichier).*
+_Note : Microsoft Defender SmartScreen pourrait bloquer l'installation car elle provient d'un "éditeur inconnu". Ceci est également vrai pour l'installation manuelle lors de l'essai d'exécution de l'exécutable (.exe) après un téléchargement manuel ici sur GitHub (même fichier)._
 
 ```bash
 winget install th-ch.YouTubeMusic
@@ -230,6 +229,7 @@ cd youtube-music
 pnpm install --frozen-lockfile
 pnpm dev
 ```
+
 ## Créez vos propres plugins
 
 En utilisant des plugins, vous pouvez :
@@ -242,6 +242,7 @@ En utilisant des plugins, vous pouvez :
 Créez un dossier dans `src/plugins/NOM-DE-VOTRE-PLUGIN` :
 
 - `index.ts` : le fichier principal du plugin
+
 ```typescript
 import style from './style.css?inline'; // importez le style comme inline
 
@@ -325,7 +326,7 @@ export default createPlugin({
     enabled: false,
   }, // votre configuration personnalisée
   stylesheets: [style], // votre style personnalisé
-  renderer() {} // définissez le crochet de rendu
+  renderer() {}, // définissez le crochet de rendu
 });
 ```
 
@@ -342,10 +343,9 @@ export default createPlugin({
   }, // votre configuration personnalisée
   renderer() {
     // Supprimez le bouton de connexion
-    document.querySelector(".sign-in-link.ytmusic-nav-bar").remove();
-  } // définissez le crochet de rendu
+    document.querySelector('.sign-in-link.ytmusic-nav-bar').remove();
+  }, // définissez le crochet de rendu
 });
-
 ```
 
 - **Communication entre le front et le back** : cela peut se faire en utilisant le module ipcMain d'Electron. Voir le fichier `index.ts` et l'exemple dans le plugin `sponsorblock`.

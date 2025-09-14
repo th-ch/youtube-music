@@ -18,7 +18,7 @@ export const DislikeButton = (props: DislikeButtonProps) => (
         aria-hidden="true"
         class="yt-spec-button-shape-next__icon"
         style={{
-          'color': 'var(--ytmusic-setting-item-toggle-active)',
+          color: 'var(--ytmusic-setting-item-toggle-active)',
         }}
       >
         <div
@@ -34,7 +34,7 @@ export const DislikeButton = (props: DislikeButtonProps) => (
             'position': 'absolute',
           }}
         >
-          <div style={{ 'width': '24px', 'height': '24px' }}>
+          <div style={{ width: '24px', height: '24px' }}>
             <svg
               class="style-scope yt-icon"
               preserveAspectRatio="xMidYMid meet"

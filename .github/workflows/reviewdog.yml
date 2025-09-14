@@ -3,7 +3,7 @@ name: reviewdog
 on: [pull_request_target]
 
 env:
-  NODE_VERSION: "22.x"
+  NODE_VERSION: '22.x'
 
 jobs:
   eslint:

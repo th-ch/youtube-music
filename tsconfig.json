@@ -23,9 +23,5 @@
     }
   },
   "exclude": ["./dist"],
-  "include": [
-    "electron.vite.config.mts",
-    "./src/**/*",
-    "*.config.*js",
-  ]
+  "include": ["electron.vite.config.mts", "./src/**/*", "*.config.*js"]
 }
