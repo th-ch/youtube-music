@@ -699,6 +699,16 @@
         "button": "Speed"
       }
     },
+    "pwa": {
+      "description": "Progressive Web App features: install prompts, share buttons, offline support, and enhanced media session",
+      "name": "PWA Support",
+      "menu": {
+        "install-prompt": "Show Install Prompt",
+        "share-button": "Add Share Button",
+        "offline-support": "Offline Support Indicator",
+        "media-session": "Enhanced Media Session"
+      }
+    },
     "precise-volume": {
       "description": "Control the volume precisely using mousewheel/hotkeys, with a custom HUD and customizable volume steps",
       "menu": {

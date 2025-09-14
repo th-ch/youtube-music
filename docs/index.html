@@ -46,6 +46,25 @@
             content="YouTube&nbsp;Music&nbsp;Desktop&nbsp;App"
             property="og:site_name"
     />
+    
+    <!-- PWA Meta Tags -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="YouTube Music">
+    <meta name="application-name" content="YouTube Music">
+    <meta name="msapplication-TileColor" content="#000000">
+    <meta name="msapplication-tap-highlight" content="no">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="../assets/youtube-music.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../assets/youtube-music.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/youtube-music.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="../assets/youtube-music.png">
+    
     <meta
             class="meta-url"
             content="https://th-ch.github.io/youtube-music"
@@ -484,6 +503,102 @@
         </div>
     </footer>
 </div>
+
+<!-- PWA Scripts -->
+<script src="js/pwa-manager.js"></script>
+<script>
+// Additional PWA functionality for the docs site
+document.addEventListener('DOMContentLoaded', function() {
+    // Add PWA info section to the features
+    const pwaSection = document.createElement('div');
+    pwaSection.className = 'feature-extended pwa-info';
+    pwaSection.innerHTML = `
+        <div class="feature-extended-image">
+            <div style="font-size: 120px; color: #ff0000;">📱</div>
+        </div>
+        <div class="feature-extended-description">
+            <div class="feature-extended-label">Progressive Web App</div>
+            <h3 class="feature-extended-title mt-0">Install as Mobile App</h3>
+            <p class="text-sm mb-0">
+                Install YouTube Music as a Progressive Web App on your mobile device 
+                for a native-like experience. Works offline and includes push notifications, 
+                background sync, and direct installation from your browser.
+            </p>
+            <div class="pwa-install-container" style="margin-top: 20px;">
+                <button id="docs-install-btn" style="
+                    background: linear-gradient(135deg, #ff0000, #cc0000);
+                    color: white;
+                    border: none;
+                    padding: 12px 24px;
+                    border-radius: 25px;
+                    cursor: pointer;
+                    font-weight: bold;
+                    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+                    transition: all 0.3s ease;
+                    display: none;
+                ">📱 Install Now</button>
+                <div id="pwa-features" style="margin-top: 15px; font-size: 12px; opacity: 0.8;">
+                    ✓ Offline support &nbsp;&nbsp; ✓ Push notifications &nbsp;&nbsp; ✓ Fast loading
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Insert after the second feature (plugins section)
+    const featuresContainer = document.querySelector('.features-extended');
+    if (featuresContainer) {
+        const features = featuresContainer.querySelectorAll('.feature-extended');
+        if (features.length >= 2) {
+            features[1].parentNode.insertBefore(pwaSection, features[1].nextSibling);
+        }
+    }
+    
+    // Handle docs install button
+    const docsInstallBtn = document.getElementById('docs-install-btn');
+    if (docsInstallBtn && window.pwaManager) {
+        // Show button when install prompt is available
+        window.addEventListener('beforeinstallprompt', function() {
+            docsInstallBtn.style.display = 'inline-block';
+        });
+        
+        docsInstallBtn.addEventListener('click', function() {
+            if (window.pwaManager) {
+                window.pwaManager.installApp();
+            }
+        });
+        
+        // Hide button if already installed
+        if (window.matchMedia('(display-mode: standalone)').matches) {
+            docsInstallBtn.style.display = 'none';
+            document.getElementById('pwa-features').innerHTML = '✅ App is installed and ready to use!';
+        }
+    }
+    
+    // Add PWA detection info
+    const browserInfo = document.createElement('div');
+    browserInfo.style.cssText = `
+        position: fixed;
+        bottom: 10px;
+        left: 10px;
+        background: rgba(0,0,0,0.8);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 4px;
+        font-size: 11px;
+        z-index: 1000;
+        opacity: 0.7;
+    `;
+    
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+    const isInstallable = 'serviceWorker' in navigator && 'PushManager' in window;
+    
+    browserInfo.textContent = isStandalone ? 
+        '📱 Running as PWA' : 
+        isInstallable ? '🌐 PWA Ready' : '🌐 Limited PWA Support';
+    
+    document.body.appendChild(browserInfo);
+});
+</script>
 
 <script src="./js/main.js"></script>
 </body>

@@ -1,0 +1,101 @@
+{
+  "name": "YouTube Music Desktop App",
+  "short_name": "YouTube Music",
+  "description": "YouTube Music Desktop App - including custom plugins",
+  "start_url": "/youtube-music/",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone"],
+  "background_color": "#3f4042",
+  "theme_color": "#ff0000",
+  "orientation": "portrait-primary",
+  "categories": ["music", "entertainment"],
+  "lang": "en",
+  "dir": "ltr",
+  "scope": "/youtube-music/",
+  "icons": [
+    {
+      "src": "img/youtube-music.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "img/youtube-music.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "favicon/favicon_144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "favicon/favicon_96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "favicon/favicon_48.png",
+      "sizes": "48x48",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "favicon/favicon_32.png",
+      "sizes": "32x32",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "GitHub Repository",
+      "short_name": "GitHub",
+      "description": "View the GitHub repository",
+      "url": "/youtube-music/#github",
+      "icons": [
+        {
+          "src": "favicon/favicon_96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Download",
+      "short_name": "Download",
+      "description": "Download the desktop app",
+      "url": "/youtube-music/#download",
+      "icons": [
+        {
+          "src": "favicon/favicon_96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "prefer_related_applications": false,
+  "related_applications": [
+    {
+      "platform": "play",
+      "id": "com.google.android.apps.youtube.music"
+    },
+    {
+      "platform": "github",
+      "url": "https://github.com/th-ch/youtube-music"
+    }
+  ],
+  "share_target": {
+    "action": "/youtube-music/share-target/",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
+}
