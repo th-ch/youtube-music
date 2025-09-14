@@ -436,7 +436,7 @@ export default createPlugin({
       }
     },
 
-    async onConfigChange(newConfig) {
+    onConfigChange(newConfig) {
       const config = newConfig;
 
       // Update features based on config changes
