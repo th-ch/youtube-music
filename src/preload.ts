@@ -1,12 +1,12 @@
 import {
   contextBridge,
   ipcRenderer,
-  IpcRendererEvent,
+  type IpcRendererEvent,
   webFrame,
 } from 'electron';
 import is from 'electron-is';
 
-import config from './config';
+import * as config from './config';
 
 import {
   forceLoadPreloadPlugin,
@@ -17,7 +17,7 @@ import { loadI18n, setLanguage } from '@/i18n';
 
 loadI18n().then(async () => {
   await setLanguage(config.get('options.language') ?? 'en');
-  loadAllPreloadPlugins();
+  await loadAllPreloadPlugins();
 });
 
 ipcRenderer.on('plugin:unload', async (_, id: string) => {

@@ -1,9 +1,9 @@
-import { BrowserWindow, ipcMain } from 'electron';
+import { type BrowserWindow, ipcMain } from 'electron';
 
 import { deepmerge } from 'deepmerge-ts';
 import { allPlugins, mainPlugins } from 'virtual:plugins';
 
-import config from '@/config';
+import * as config from '@/config';
 import { LoggerPrefix, startPlugin, stopPlugin } from '@/utils';
 
 import { t } from '@/i18n';
@@ -20,13 +20,17 @@ const createContext = (
   id: string,
   win: BrowserWindow,
 ): BackendContext<PluginConfig> => ({
-  getConfig: () =>
+  getConfig: async () =>
     deepmerge(
-      allPlugins[id].config ?? { enabled: false },
+      (await allPlugins())[id].config ?? { enabled: false },
       config.get(`plugins.${id}`) ?? {},
     ) as PluginConfig,
-  setConfig: (newConfig) => {
-    config.setPartial(`plugins.${id}`, newConfig, allPlugins[id].config);
+  setConfig: async (newConfig) => {
+    config.setPartial(
+      `plugins.${id}`,
+      newConfig,
+      (await allPlugins())[id].config,
+    );
   },
 
   ipc: {
@@ -96,7 +100,7 @@ export const forceLoadMainPlugin = async (
   id: string,
   win: BrowserWindow,
 ): Promise<void> => {
-  const plugin = mainPlugins[id];
+  const plugin = (await mainPlugins())[id];
   if (!plugin) return;
 
   try {
@@ -133,7 +137,7 @@ export const loadAllMainPlugins = async (win: BrowserWindow) => {
   const pluginConfigs = config.plugins.getPlugins();
   const queue: Promise<void>[] = [];
 
-  for (const [plugin, pluginDef] of Object.entries(mainPlugins)) {
+  for (const [plugin, pluginDef] of Object.entries(await mainPlugins())) {
     const config = deepmerge(pluginDef.config, pluginConfigs[plugin] ?? {});
     if (config.enabled) {
       queue.push(forceLoadMainPlugin(plugin, win));

@@ -1,13 +1,42 @@
 import Store from 'electron-store';
 
-import defaults from './defaults';
+import { defaultConfig as defaults } from './defaults';
 
 import { DefaultPresetList, type Preset } from '@/plugins/downloader/types';
 
-// prettier-ignore
-export type IStore = InstanceType<typeof import('conf/dist/source/index').default<Record<string, unknown>>>;
+import type { SyncedLyricsPluginConfig } from '@/plugins/synced-lyrics/types';
+
+export type IStore = InstanceType<
+  typeof import('conf').default<Record<string, unknown>>
+>;
 
 const migrations = {
+  '>=3.10.0'(store: IStore) {
+    const lyricGeniusConfig = store.get('plugins.lyrics-genius') as
+      | {
+          enabled?: boolean;
+          romanizedLyrics?: boolean;
+        }
+      | undefined;
+
+    if (lyricGeniusConfig) {
+      const syncedLyricsConfig = store.get('plugins.synced-lyrics') as
+        | SyncedLyricsPluginConfig
+        | undefined;
+
+      if (
+        !syncedLyricsConfig ||
+        syncedLyricsConfig?.enabled !== lyricGeniusConfig?.enabled
+      ) {
+        store.set('plugins.synced-lyrics', {
+          ...syncedLyricsConfig,
+          enabled: lyricGeniusConfig.enabled,
+        });
+      }
+
+      store.delete('plugins.lyrics-genius');
+    }
+  },
   '>=3.3.0'(store: IStore) {
     const lastfmConfig = store.get('plugins.lastfm') as {
       enabled?: boolean;
@@ -228,7 +257,7 @@ const migrations = {
   },
 };
 
-export default new Store({
+export const store = new Store({
   defaults: {
     ...defaults,
     // README: 'plugin' uses deepmerge to populate the default values, so it is not necessary to include it here

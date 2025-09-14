@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Notification } from 'electron';
+import { app, type BrowserWindow, Notification } from 'electron';
 
 import playIcon from '@assets/media-icons-black/play.png?asset&asarUnpack';
 import pauseIcon from '@assets/media-icons-black/pause.png?asset&asarUnpack';
@@ -7,8 +7,9 @@ import previousIcon from '@assets/media-icons-black/previous.png?asset&asarUnpac
 
 import { notificationImage, secondsToMinutes, ToastStyles } from './utils';
 
-import getSongControls from '@/providers/song-controls';
-import registerCallback, {
+import { getSongControls } from '@/providers/song-controls';
+import {
+  registerCallback,
   type SongInfo,
   SongInfoEvent,
 } from '@/providers/song-info';
@@ -309,9 +310,10 @@ export default (
     savedNotification?.close();
   });
 
-  changeProtocolHandler((cmd, args) => {
+  changeProtocolHandler((cmd, ...args) => {
     if (Object.keys(songControls).includes(cmd)) {
-      songControls[cmd as keyof typeof songControls](args as never);
+      // @ts-expect-error: cmd is a key of songControls
+      songControls[cmd as keyof typeof songControls](...args);
       if (
         config().refreshOnPlayPause &&
         (cmd === 'pause' || (cmd === 'play' && !config().unpauseNotification))

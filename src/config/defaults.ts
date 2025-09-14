@@ -12,8 +12,8 @@ export interface DefaultConfig {
   'window-size': WindowSizeConfig;
   'window-maximized': boolean;
   'window-position': WindowPositionConfig;
-  url: string;
-  options: {
+  'url': string;
+  'options': {
     language?: string;
     tray: boolean;
     appVisible: boolean;
@@ -31,14 +31,16 @@ export interface DefaultConfig {
     likeButtons: string;
     proxy: string;
     startingPage: string;
+    backgroundMaterial?: 'none' | 'mica' | 'acrylic' | 'tabbed';
     overrideUserAgent: boolean;
     usePodcastParticipantAsArtist: boolean;
     themes: string[];
+    customWindowTitle?: string;
   };
-  plugins: Record<string, unknown>;
+  'plugins': Record<string, unknown>;
 }
 
-const defaultConfig: DefaultConfig = {
+export const defaultConfig: DefaultConfig = {
   'window-size': {
     width: 1100,
     height: 550,
@@ -72,5 +74,3 @@ const defaultConfig: DefaultConfig = {
   },
   'plugins': {},
 };
-
-export default defaultConfig;

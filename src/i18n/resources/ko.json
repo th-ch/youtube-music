@@ -150,6 +150,13 @@
           "visual-tweaks": {
             "label": "시각적 변경",
             "submenu": {
+              "custom-window-title": {
+                "label": "사용자 정의 앱 제목",
+                "prompt": {
+                  "label": "앱 제목으로 표시할 내용 : (빈 칸 일시 비활성화)",
+                  "placeholder": "예: YouTube Music"
+                }
+              },
               "like-buttons": {
                 "default": "기본",
                 "force-show": "강제로 표시",
@@ -164,7 +171,7 @@
                     "remove": "제거"
                   },
                   "remove-theme": "사용자 정의 테마를 제거하시겠습니까?",
-                  "remove-theme-message": "사용자 정의 테마가 제거됩니다. 계속하시겠습니까?"
+                  "remove-theme-message": "사용자 정의 테마를 제거하시겠습니까?"
                 },
                 "label": "테마",
                 "submenu": {
@@ -333,6 +340,30 @@
       "description": "오디오에 컴프레서를 적용합니다 (신호에서 가장 시끄러운 부분의 음량을 낮추고 가장 조용한 부분의 음량을 높임)",
       "name": "오디오 컴프레서"
     },
+    "auth-proxy-adapter": {
+      "description": "아이디/패스워드가 필요한 프록시를 지원합니다",
+      "menu": {
+        "disable": "프록시 어댑터 차단",
+        "enable": "프록시 어댑터 허용",
+        "hostname": {
+          "label": "호스트 명"
+        },
+        "port": {
+          "label": "포트"
+        }
+      },
+      "name": "권한 프록시 어댑터",
+      "prompt": {
+        "hostname": {
+          "label": "로컬 프록시 서버의 호스트명 을 입력 해주세요 (재시동이 필요합니다):",
+          "title": "프록시 호스트명"
+        },
+        "port": {
+          "label": "로컬 프록시 서버의 포트를 입력 해주세요 (재시동이 필요합니다):",
+          "title": "프록시 포트"
+        }
+      }
+    },
     "blur-nav-bar": {
       "description": "탐색 바를 투명하고 흐릿하게 만듭니다",
       "name": "탐색 바 흐림 효과"
@@ -357,6 +388,11 @@
       },
       "templates": {
         "title": "자막 선택기 열기"
+      },
+      "toast": {
+        "caption-changed": "자막 언어가 {{language}}(으)로 변경되었습니다",
+        "caption-disabled": "자막이 비활성화 되었습니다",
+        "no-captions": "이 곡에는 자막이 없습니다"
       }
     },
     "compact-sidebar": {
@@ -385,6 +421,19 @@
         }
       }
     },
+    "custom-output-device": {
+      "description": "미디어 출력 장치 구성",
+      "menu": {
+        "device-selector": "장치 선택"
+      },
+      "name": "출력 장치 커스텀",
+      "prompt": {
+        "device-selector": {
+          "label": "사용할 미디어 출력 장치를 선택하세요",
+          "title": "출력 장치 선택"
+        }
+      }
+    },
     "disable-autoplay": {
       "description": "노래를 '일시 정지' 모드로 시작하게 합니다",
       "menu": {
@@ -408,7 +457,15 @@
         "hide-duration-left": "남은 재생 시간 숨기기",
         "hide-github-button": "GitHub 링크 버튼 숨기기",
         "play-on-youtube-music": "유튜브 뮤직에서 재생",
-        "set-inactivity-timeout": "비활성 시간 제한 설정"
+        "set-inactivity-timeout": "비활성 시간 제한 설정",
+        "set-status-display-type": {
+          "label": "상태 텍스트",
+          "submenu": {
+            "artist": "{아티스트} 듣는 중",
+            "title": "{곡 제목} 듣는 중",
+            "youtube-music": "YouTube Music 듣는 중"
+          }
+        }
       },
       "name": "디스코드 활동 상태",
       "prompt": {
@@ -576,7 +633,15 @@
     },
     "navigation": {
       "description": "브라우저에서처럼, UI에 직접 통합된 앞으로/뒤로 탐색하는 화살표",
-      "name": "탐색"
+      "name": "탐색",
+      "templates": {
+        "back": {
+          "title": "이전 페이지로 이동"
+        },
+        "forward": {
+          "title": "다음 페이지로 이동"
+        }
+      }
     },
     "no-google-login": {
       "description": "UI에서 Google 로그인 버튼 및 링크 제거하기",
@@ -601,7 +666,7 @@
       "name": "알림"
     },
     "performance-improvement": {
-      "description": "위험한 스크립트를 활성화하여 성능을 개선합니다",
+      "description": "실험적인 스크립트를 활성화하여 성능을 개선합니다",
       "name": "성능 개선 [베타]"
     },
     "picture-in-picture": {
@@ -668,7 +733,12 @@
         }
       },
       "description": "영상 오버레이의 버튼으로 영상 품질을 변경할 수 있습니다",
-      "name": "영상 품질 체인저"
+      "name": "영상 품질 체인저",
+      "renderer": {
+        "quality-settings-button": {
+          "label": "영상 품질 선택기 열기"
+        }
+      }
     },
     "scrobbler": {
       "description": "스크로블링 지원을 추가합니다 (예: last.fm, Listenbrainz)",
@@ -687,6 +757,7 @@
         "listenbrainz": {
           "token": "ListenBrainz 유저 토큰 입력"
         },
+        "scrobble-alternative-artist": "대체 아티스트 명 사용",
         "scrobble-alternative-title": "대체 제목 사용하기",
         "scrobble-other-media": "다른 미디어 스크로블하기"
       },
@@ -772,6 +843,14 @@
           "label": "가사를 최대한 정교하게 동기화",
           "tooltip": "다음 줄의 표시를 밀리초 단위로 계산합니다 (성능에 약간의 영향을 미칠 수 있음)"
         },
+        "preferred-provider": {
+          "label": "선호하는 가사 제공자",
+          "none": {
+            "label": "없음",
+            "tooltip": "선호하는 가사 제공자 없음"
+          },
+          "tooltip": "사용할 기본 가사 제공자를 선택하세요"
+        },
         "romanization": {
           "label": "가사 로마자 변환",
           "tooltip": "가사가 영어가 아닌 언어로 되어있는 경우, 로마자 표기를 표시합니다."
@@ -804,6 +883,27 @@
       "description": "macOS 사용자를 위한 TouchBar 위젯을 추가합니다",
       "name": "TouchBar"
     },
+    "transparent-player": {
+      "description": "애플리케이션 창을 투명하게 만듭니다",
+      "menu": {
+        "opacity": {
+          "label": "불투명도",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "type": {
+          "label": "종류",
+          "submenu": {
+            "acrylic": "아크릴",
+            "mica": "미카",
+            "none": "없음",
+            "tabbed": "탭"
+          }
+        }
+      },
+      "name": "투명 플레이어"
+    },
     "tuna-obs": {
       "description": "OBS의 확장인 Tuna와의 통합을 활성화합니다",
       "name": "Tuna OBS"
@@ -835,7 +935,8 @@
       },
       "name": "영상 전환",
       "templates": {
-        "button": "노래"
+        "button-song": "노래",
+        "button-video": "영상"
       }
     },
     "visualizer": {

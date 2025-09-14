@@ -36,7 +36,7 @@
         "details": "Yanıt verilmedi!\n{{error}}"
       },
       "when-ready": {
-        "clearing-cache-after-20s": "Uygulama ön belleği temizleme"
+        "clearing-cache-after-20s": "Uygulama ön belleği temizle"
       },
       "window": {
         "tried-to-render-offscreen": "Pencere ekranın dışında oluşturulmaya çalışıldı, windowSize={{windowSize}}, displaySize={{displaySize}}, position={{position}}"
@@ -150,6 +150,13 @@
           "visual-tweaks": {
             "label": "Görsel İnce Ayarlar",
             "submenu": {
+              "custom-window-title": {
+                "label": "Özel pencere başlığı",
+                "prompt": {
+                  "label": "Özel pencere başlığı girin: (devre dışı bırakmak için boş bırakın)",
+                  "placeholder": "Örnek: Youtube Music"
+                }
+              },
               "like-buttons": {
                 "default": "Varsayılan",
                 "force-show": "Zorla göster",
@@ -209,7 +216,7 @@
   "plugins": {
     "ad-speedup": {
       "description": "Bir reklam oynatılırsa sesi kapatır ve oynatma hızını 16x olarak ayarlar",
-      "name": "Hızlandırma"
+      "name": "Reklam Hızlandırma"
     },
     "adblocker": {
       "description": "Tüm reklamları ve izleyicileri engelle",
@@ -287,7 +294,7 @@
       }
     },
     "api-server": {
-      "description": "APİ ekle ve oynatıcıyı kontrol et",
+      "description": "Oynatıcıyı kontrol etmek için bir API sunucusu ekle",
       "dialog": {
         "request": {
           "buttons": {
@@ -321,7 +328,7 @@
       "prompt": {
         "hostname": {
           "label": "API sunucusu için hostname (örneğin 0.0.0.0) girin:",
-          "title": "Hostname"
+          "title": "Hostname(Ana bilgisayar adı)"
         },
         "port": {
           "label": "API sunucusu için port girin:",
@@ -332,6 +339,30 @@
     "audio-compressor": {
       "description": "Ses sıkıştırma (dalganın en gürültülü bölümlerinin ses düzeyini azaltır ve daha yumuşak bölümlerin ses düzeyini artırır)",
       "name": "Ses Sıkıştırma"
+    },
+    "auth-proxy-adapter": {
+      "description": "Kimlik doğrulama proxy hizmetlerinin kullanımına destek",
+      "menu": {
+        "disable": "Proxy Bağdaştırıcısını Devre Dışı Bırak",
+        "enable": "Proxy Bağdaştırıcısını Etkinleştir",
+        "hostname": {
+          "label": "Ana makine adı"
+        },
+        "port": {
+          "label": "Port"
+        }
+      },
+      "name": "Ara Sunucu Doğrulama Bağdaştırıcısı",
+      "prompt": {
+        "hostname": {
+          "label": "Yerel proxy sunucusu için ana makine adını girin (yeniden başlatma gerektirir):",
+          "title": "Proxy Ana Makine Adı"
+        },
+        "port": {
+          "label": "Yerel proxy sunucusu için bağlantı noktasını girin (yeniden başlatma gerektirir):",
+          "title": "Proxy Bağlantı Noktası"
+        }
+      }
     },
     "blur-nav-bar": {
       "description": "Gezinme çubuğunu şeffaf ve bulanık yapar",
@@ -357,6 +388,11 @@
       },
       "templates": {
         "title": "Altyazı seçiciyi aç"
+      },
+      "toast": {
+        "caption-changed": "Başlık {{language}} olarak değiştirildi",
+        "caption-disabled": "Altyazılar devre dışı",
+        "no-captions": "Bu şarkı için altyazı mevcut değil"
       }
     },
     "compact-sidebar": {
@@ -385,6 +421,19 @@
         }
       }
     },
+    "custom-output-device": {
+      "description": "Şarkılar için özel bir medya çıkış aygıtı ayarlayın",
+      "menu": {
+        "device-selector": "Aygıt Seçin"
+      },
+      "name": "Özel Çıkış Aygıtı",
+      "prompt": {
+        "device-selector": {
+          "label": "Kullanılacak medya çıkış aygıtını seçin",
+          "title": "Çıkış Aygıtını Seçin"
+        }
+      }
+    },
     "disable-autoplay": {
       "description": "Şarkıların otomatik olarak duraklatılmasını sağlar",
       "menu": {
@@ -408,7 +457,15 @@
         "hide-duration-left": "Kalan süreyi gizle",
         "hide-github-button": "GitHub bağlantısını gizle",
         "play-on-youtube-music": "YouTube Music de oynat",
-        "set-inactivity-timeout": "Hareketsizlik zaman aşımını ayarla"
+        "set-inactivity-timeout": "Hareketsizlik zaman aşımını ayarla",
+        "set-status-display-type": {
+          "label": "Durum metni",
+          "submenu": {
+            "artist": "{artist} Dinleniyor",
+            "title": "{song title} Dinleniyor",
+            "youtube-music": "YouTube Müzik Dinleniyor"
+          }
+        }
       },
       "name": "Discord Etkinlik Durumu",
       "prompt": {
@@ -576,7 +633,15 @@
     },
     "navigation": {
       "description": "Favori tarayıcınızdaki gibi doğrudan arayüze entegre edilmiş İleri/Geri gezinme okları",
-      "name": "Navigasyon"
+      "name": "Navigasyon",
+      "templates": {
+        "back": {
+          "title": "Önceki sayfaya git"
+        },
+        "forward": {
+          "title": "Sonraki sayfaya geç"
+        }
+      }
     },
     "no-google-login": {
       "description": "Google giriş düğmelerini ve bağlantılarını arayüzden kaldır",
@@ -599,6 +664,10 @@
         "unpause-notification": "Şarkı tekrar oynatılınca bildirim göster"
       },
       "name": "Bildirimler"
+    },
+    "performance-improvement": {
+      "description": "Deneysel komut dosyalarını etkinleştirerek performansı artırın",
+      "name": "Performans iyileştirmesi [Beta]"
     },
     "picture-in-picture": {
       "description": "Uygulamayı resim-içinde-resim moduna geçirmeye izin verir",
@@ -664,7 +733,12 @@
         }
       },
       "description": "Video katmanı üzerindeki bir düğme ile video kalitesinin değiştirilmesine izin verir",
-      "name": "Video Kalitesi Değiştirici"
+      "name": "Video Kalitesi Değiştirici",
+      "renderer": {
+        "quality-settings-button": {
+          "label": "Açık oynatıcı kalite değiştirici"
+        }
+      }
     },
     "scrobbler": {
       "description": "Listeleme desteği ekler (lastfm, listenbrainz ve benzeri)",
@@ -683,6 +757,7 @@
         "listenbrainz": {
           "token": "ListenBrainz kullanıcı kimliğinizi girin"
         },
+        "scrobble-alternative-artist": "Alternatif sanatçıları kullan",
         "scrobble-alternative-title": "Alternatif başlıklar kullan",
         "scrobble-other-media": "Diğer medya ortamlarında listele"
       },
@@ -768,6 +843,14 @@
           "label": "Şarkı sözlerini mükemmel şekilde senkronize edin",
           "tooltip": "Bir sonraki satırın görüntülenmesini milisaniyesine kadar hesaplayın (performans üzerinde küçük bir etkisi olabilir)"
         },
+        "preferred-provider": {
+          "label": "Tercih edilen Sağlayıcı",
+          "none": {
+            "label": "Hiçbiri",
+            "tooltip": "Varsayılan sağlayıcı yok"
+          },
+          "tooltip": "Kullanmak İçin varsayılan sağlayıcıyı seçin"
+        },
         "romanization": {
           "label": "Sözleri Romanize Et",
           "tooltip": "Sözler başka bir dilde gözüküyorsa, Latin versiyonunu dene."
@@ -800,6 +883,27 @@
       "description": "macOS kullanıcıları için bir TouchBar widget'ı ekler",
       "name": "TouchBar"
     },
+    "transparent-player": {
+      "description": "Uygulama penceresini şeffaf yapar",
+      "menu": {
+        "opacity": {
+          "label": "Opaklık",
+          "submenu": {
+            "percent": "%{{opacity}}"
+          }
+        },
+        "type": {
+          "label": "Tür",
+          "submenu": {
+            "acrylic": "Akrilik",
+            "mica": "Mika",
+            "none": "Hiçbiri",
+            "tabbed": "Sekmeli"
+          }
+        }
+      },
+      "name": "Şeffaf Oynatıcı"
+    },
     "tuna-obs": {
       "description": "OBS eklentisi Tuna ile entegrasyon sağlar",
       "name": "Tuna OBS"
@@ -831,7 +935,8 @@
       },
       "name": "Video Geçiş",
       "templates": {
-        "button": "Şarkı"
+        "button-song": "Şarkı",
+        "button-video": "Video"
       }
     },
     "visualizer": {

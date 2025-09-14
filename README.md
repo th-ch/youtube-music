@@ -21,7 +21,7 @@
 	</a>
 </div>
 
-Read this in other languages: [🇰🇷](./docs/readme/README-ko.md), [🇫🇷](./docs/readme/README-fr.md), [🇮🇸](./docs/readme/README-is.md), [🇨🇱 🇪🇸](./docs/readme/README-es.md), [🇷🇺](./docs/readme/README-ru.md), [🇭🇺](./docs/readme/README-hu.md), [🇧🇷](./docs/readme/README-pt.md), [🇯🇵](./docs/readme/README-ja.md)
+Read this in other languages: [한국어](./docs/readme/README-ko.md), [Française](./docs/readme/README-fr.md), [Íslenska](./docs/readme/README-is.md), [Español](./docs/readme/README-es.md), [Pусский](./docs/readme/README-ru.md), [Українська](./docs/readme/README-uk.md), [Magyar](./docs/readme/README-hu.md), [Português](./docs/readme/README-pt.md), [日本語](./docs/readme/README-ja.md)
 
 **Electron wrapper around YouTube Music featuring:**
 
@@ -152,6 +152,8 @@ Read this in other languages: [🇰🇷](./docs/readme/README-ko.md), [🇫🇷]
 
 - **Tuna OBS**: Integration with [OBS](https://obsproject.com/)'s
   plugin [Tuna](https://obsproject.com/forum/resources/tuna.843/)
+
+- **Unobtrusive Player**: Prevents the player from popping up when playing a song
 
 - **Video Quality Changer**: Allows changing the video quality with
   a [button](https://user-images.githubusercontent.com/78568641/138574366-70324a5e-2d64-4f6a-acdd-dc2a2b9cecc5.png) on

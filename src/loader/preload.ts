@@ -3,7 +3,7 @@ import { allPlugins, preloadPlugins } from 'virtual:plugins';
 
 import { LoggerPrefix, startPlugin, stopPlugin } from '@/utils';
 
-import config from '@/config';
+import * as config from '@/config';
 
 import { t } from '@/i18n';
 
@@ -15,13 +15,17 @@ const loadedPluginMap: Record<
   PluginDef<unknown, unknown, unknown>
 > = {};
 const createContext = (id: string): PreloadContext<PluginConfig> => ({
-  getConfig: () =>
+  getConfig: async () =>
     deepmerge(
-      allPlugins[id].config ?? { enabled: false },
+      (await allPlugins())[id].config ?? { enabled: false },
       config.get(`plugins.${id}`) ?? {},
     ) as PluginConfig,
-  setConfig: (newConfig) => {
-    config.setPartial(`plugins.${id}`, newConfig, allPlugins[id].config);
+  setConfig: async (newConfig) => {
+    config.setPartial(
+      `plugins.${id}`,
+      newConfig,
+      (await allPlugins())[id].config,
+    );
   },
 });
 
@@ -48,7 +52,7 @@ export const forceUnloadPreloadPlugin = async (id: string) => {
 
 export const forceLoadPreloadPlugin = async (id: string) => {
   try {
-    const plugin = preloadPlugins[id];
+    const plugin = (await preloadPlugins())[id];
     if (!plugin) return;
 
     const hasStarted = await startPlugin(id, plugin, {
@@ -78,10 +82,10 @@ export const forceLoadPreloadPlugin = async (id: string) => {
   }
 };
 
-export const loadAllPreloadPlugins = () => {
+export const loadAllPreloadPlugins = async () => {
   const pluginConfigs = config.plugins.getPlugins();
 
-  for (const [pluginId, pluginDef] of Object.entries(preloadPlugins)) {
+  for (const [pluginId, pluginDef] of Object.entries(await preloadPlugins())) {
     const config = deepmerge(
       pluginDef.config ?? { enable: false },
       pluginConfigs[pluginId] ?? {},

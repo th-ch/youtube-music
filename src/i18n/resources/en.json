@@ -156,6 +156,13 @@
                 "hide": "Hide",
                 "label": "Like buttons"
               },
+              "custom-window-title": {
+                "label": "Custom window title",
+                "prompt": {
+                  "label": "Enter custom window title: (leave empty to disable)",
+                  "placeholder": "Example: YouTube Music"
+                }
+              },
               "remove-upgrade-button": "Remove upgrade button",
               "theme": {
                 "dialog": {
@@ -333,6 +340,30 @@
       "description": "Apply compression to audio (lowers the volume of the loudest parts of the signal and raises the volume of the softest parts)",
       "name": "Audio Compressor"
     },
+    "auth-proxy-adapter": {
+      "description": "Support for the use of authentication proxy services",
+      "menu": {
+        "disable": "Disable Proxy Adapter",
+        "enable": "Enable Proxy Adapter",
+        "hostname": {
+          "label": "Hostname"
+        },
+        "port": {
+          "label": "Port"
+        }
+      },
+      "name": "Auth Proxy Adapter",
+      "prompt": {
+        "hostname": {
+          "title": "Proxy Hostname",
+          "label": "Enter hostname for local proxy server (requires restart):"
+        },
+        "port": {
+          "title": "Proxy Port",
+          "label": "Enter port for local proxy server (requires restart):"
+        }
+      }
+    },
     "blur-nav-bar": {
       "description": "Makes navigation bar transparent and blurry",
       "name": "Blur Navigation Bar"
@@ -357,6 +388,11 @@
       },
       "templates": {
         "title": "Open captions selector"
+      },
+      "toast": {
+        "caption-changed": "Caption changed to {{language}}",
+        "caption-disabled": "Captions disabled",
+        "no-captions": "No captions available for this song"
       }
     },
     "compact-sidebar": {
@@ -385,6 +421,19 @@
         }
       }
     },
+    "custom-output-device": {
+      "description": "Configure a custom output media device for songs",
+      "menu": {
+        "device-selector": "Select Device"
+      },
+      "name": "Custom Output Device",
+      "prompt": {
+        "device-selector": {
+          "label": "Choose the output media device to be used",
+          "title": "Select Output Device"
+        }
+      }
+    },
     "disable-autoplay": {
       "description": "Makes song start in \"paused\" mode",
       "menu": {
@@ -408,7 +457,15 @@
         "hide-duration-left": "Hide duration left",
         "hide-github-button": "Hide GitHub link Button",
         "play-on-youtube-music": "Play on YouTube Music",
-        "set-inactivity-timeout": "Set inactivity timeout"
+        "set-inactivity-timeout": "Set inactivity timeout",
+        "set-status-display-type": {
+          "label": "Status text",
+          "submenu": {
+            "youtube-music": "Listening to YouTube Music",
+            "artist": "Listening to {artist}",
+            "title": "Listening to {song title}"
+          }
+        }
       },
       "name": "Discord Rich Presence",
       "prompt": {
@@ -491,6 +548,18 @@
         "button": "Download"
       }
     },
+    "equalizer": {
+      "description": "Adds an equalizer to the player",
+      "menu": {
+        "presets": {
+          "label": "Presets",
+          "list": {
+            "bass-booster": "Bass booster"
+          }
+        }
+      },
+      "name": "Equalizer"
+    },
     "exponential-volume": {
       "description": "Makes the volume slider exponential so it's easier to select lower volumes.",
       "name": "Exponential Volume"
@@ -564,7 +633,15 @@
     },
     "navigation": {
       "description": "Next/Back navigation arrows directly integrated in the interface, like in your favorite browser",
-      "name": "Navigation"
+      "name": "Navigation",
+      "templates": {
+        "back": {
+          "title": "Go to previous page"
+        },
+        "forward": {
+          "title": "Go to next page"
+        }
+      }
     },
     "no-google-login": {
       "description": "Remove Google login buttons and links from the interface",
@@ -589,7 +666,7 @@
       "name": "Notifications"
     },
     "performance-improvement": {
-      "description": "Improve performance by enabling dangerous scripts",
+      "description": "Improve performance by enabling experimental scripts",
       "name": "Performance improvement [Beta]"
     },
     "picture-in-picture": {
@@ -663,7 +740,12 @@
         }
       },
       "description": "Allows changing the video quality with a button on the video overlay",
-      "name": "Video Quality Changer"
+      "name": "Video Quality Changer",
+      "renderer": {
+        "quality-settings-button": {
+          "label": "Open player quality changer"
+        }
+      }
     },
     "scrobbler": {
       "description": "Add scrobbling support (etc. last.fm, Listenbrainz)",
@@ -682,8 +764,9 @@
         "listenbrainz": {
           "token": "Enter ListenBrainz user token"
         },
-        "scrobble-other-media": "Scrobble other media",
-        "scrobble-alternative-title": "Use alternative titles"
+        "scrobble-alternative-title": "Use alternative titles",
+        "scrobble-alternative-artist": "Use alternative artists",
+        "scrobble-other-media": "Scrobble other media"
       },
       "name": "Scrobbler",
       "prompt": {
@@ -737,6 +820,14 @@
         "not-found": "⚠️ No lyrics found for this song."
       },
       "menu": {
+        "preferred-provider": {
+          "label": "Preferred Provider",
+          "tooltip": "Choose the default provider to use",
+          "none": {
+            "label": "None",
+            "tooltip": "No preferred provider"
+          }
+        },
         "default-text-string": {
           "label": "Default character between lyrics",
           "tooltip": "Choose the default character to use for the gap between lyrics"
@@ -799,6 +890,27 @@
       "description": "Adds a TouchBar widget for macOS users",
       "name": "TouchBar"
     },
+    "transparent-player": {
+      "description": "Makes the app window transparent",
+      "name": "Transparent Player",
+      "menu": {
+        "opacity": {
+          "label": "Opacity",
+          "submenu": {
+            "percent": "{{opacity}}%"
+          }
+        },
+        "type": {
+          "label": "Type",
+          "submenu": {
+            "acrylic": "Acrylic",
+            "mica": "Mica",
+            "tabbed": "Tabbed",
+            "none": "None"
+          }
+        }
+      }
+    },
     "tuna-obs": {
       "description": "Integration with OBS's plugin Tuna",
       "name": "Tuna OBS"
@@ -830,7 +942,8 @@
       },
       "name": "Video Toggle",
       "templates": {
-        "button": "Song"
+        "button-song": "Song",
+        "button-video": "Video"
       }
     },
     "visualizer": {
@@ -839,18 +952,6 @@
         "visualizer-type": "Visualizer Type"
       },
       "name": "Visualizer"
-    },
-    "equalizer": {
-      "description": "Adds an equalizer to the player",
-      "name": "Equalizer",
-      "menu": {
-        "presets": {
-          "label": "Presets",
-          "list": {
-            "bass-booster": "Bass booster"
-          }
-        }
-      }
     }
   }
 }

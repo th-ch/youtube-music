@@ -2,7 +2,8 @@
 
 import eslint from '@eslint/js';
 import prettier from 'eslint-plugin-prettier/recommended';
-import stylistic from '@stylistic/eslint-plugin-js';
+import solid from 'eslint-plugin-solid/configs/recommended';
+import stylistic from '@stylistic/eslint-plugin';
 import tsEslint from 'typescript-eslint';
 
 import * as importPlugin from 'eslint-plugin-import';
@@ -12,6 +13,7 @@ export default tsEslint.config(
   tsEslint.configs.eslintRecommended,
   ...tsEslint.configs.recommendedTypeChecked,
   prettier,
+  solid,
   { ignores: ['dist', 'node_modules', '*.config.*js', '*.test.*js'] },
   {
     plugins: {
@@ -29,11 +31,19 @@ export default tsEslint.config(
     rules: {
       'stylistic/arrow-parens': ['error', 'always'],
       'stylistic/object-curly-spacing': ['error', 'always'],
+      'stylistic/jsx-pascal-case': 'error',
+      'stylistic/jsx-curly-spacing': ['error', { when: 'never', children: true }],
+      'stylistic/jsx-sort-props': 'error',
       'prettier/prettier': ['error', { singleQuote: true, semi: true, tabWidth: 2, trailingComma: 'all', quoteProps: 'preserve' }],
       '@typescript-eslint/no-floating-promises': 'off',
       '@typescript-eslint/no-misused-promises': ['off', { checksVoidReturn: false }],
       '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
       '@typescript-eslint/no-non-null-assertion': 'off',
+      '@typescript-eslint/consistent-type-imports': ['error', {
+        fixStyle: 'inline-type-imports',
+        prefer: 'type-imports',
+        disallowTypeAnnotations: false,
+      }],
       'importPlugin/first': 'error',
       'importPlugin/newline-after-import': 'off',
       'importPlugin/no-default-export': 'off',
