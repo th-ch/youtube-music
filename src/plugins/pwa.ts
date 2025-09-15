@@ -371,7 +371,8 @@ export default createPlugin({
             .writeText(text)
             .then(() => {
               showToast(successMessage);
-          }).catch(() => {
+            })
+            .catch(() => {
             fallbackCopy(text, successMessage);
           });
         } else {
