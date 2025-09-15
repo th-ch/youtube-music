@@ -307,7 +307,7 @@ export default createPlugin({
                       { src: artwork, sizes: '192x192', type: 'image/jpeg' },
                       { src: artwork, sizes: '256x256', type: 'image/jpeg' },
                       { src: artwork, sizes: '384x384', type: 'image/jpeg' },
-                  { src: artwork, sizes: '512x512', type: 'image/jpeg' }
+                      { src: artwork, sizes: '512x512', type: 'image/jpeg' },
                 ] : []
               });
             }
