@@ -326,7 +326,9 @@ export default createPlugin({
 
       function shareCurrentSong() {
         const titleElement = document.querySelector('.title.ytmusic-player-bar');
-        const artistElement = document.querySelector('.byline.ytmusic-player-bar');
+        const artistElement = document.querySelector(
+          '.byline.ytmusic-player-bar',
+        );
         const title = titleElement?.textContent || 'Unknown Title';
         const artist = artistElement?.textContent || 'Unknown Artist';
 
