@@ -335,7 +335,7 @@ export default createPlugin({
         const shareData = {
           title: `${title} - ${artist}`,
           text: `🎵 Currently listening to "${title}" by ${artist} on YouTube Music`,
-          url: window.location.href
+          url: window.location.href,
         };
 
         if (navigator.share) {
