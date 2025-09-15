@@ -316,7 +316,7 @@ export default createPlugin({
           const observer = new MutationObserver(updateMediaSession);
           observer.observe(document.body, {
             childList: true,
-            subtree: true
+            subtree: true,
           });
 
           // Initial update
