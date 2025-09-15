@@ -5,7 +5,6 @@ This project now includes Progressive Web App (PWA) support to provide a native 
 ## 🌟 Features
 
 ### 📱 Mobile PWA
-
 - **Install on mobile devices**: Visit the docs site on your mobile browser and install as a PWA
 - **Offline docs access**: Read documentation even when offline
 - **Native app experience**: Home screen icon, full-screen mode, and native navigation
@@ -13,7 +12,6 @@ This project now includes Progressive Web App (PWA) support to provide a native 
 - **Fast loading**: Cached resources for instant loading
 
 ### 💻 Desktop App Enhancement
-
 - **PWA Plugin**: Enable PWA features within the Electron app
 - **Share functionality**: Share songs and the app itself
 - **Install prompts**: Guide users to install the mobile PWA
@@ -41,21 +39,18 @@ This project now includes Progressive Web App (PWA) support to provide a native 
 ## 🔧 Technical Implementation
 
 ### PWA Manifest
-
 - Optimized for all screen sizes
 - Custom icons and branding
 - Proper display modes and orientation
 - Share target configuration
 
 ### Service Worker
-
 - **Cache Strategy**: Network-first with cache fallback
 - **Offline Support**: Cached documentation and assets
 - **Background Sync**: Updates when connection is restored
 - **Update Management**: Automatic update notifications
 
 ### Desktop Integration
-
 - **Electron PWA Bridge**: Adds PWA functionality to the desktop app
 - **Share API Support**: Native and fallback sharing options
 - **Media Session API**: Enhanced media controls
@@ -63,18 +58,17 @@ This project now includes Progressive Web App (PWA) support to provide a native 
 
 ## 📋 Browser Compatibility
 
-| Feature          | Chrome | Firefox | Safari | Edge |
-| ---------------- | ------ | ------- | ------ | ---- |
-| Service Worker   | ✅     | ✅      | ✅     | ✅   |
-| Web App Manifest | ✅     | ✅      | ✅     | ✅   |
-| Install Prompt   | ✅     | ✅      | ✅     | ✅   |
-| Share API        | ✅     | ❌      | ✅     | ✅   |
-| Media Session    | ✅     | ✅      | ✅     | ✅   |
+| Feature | Chrome | Firefox | Safari | Edge |
+|---------|--------|---------|---------|------|
+| Service Worker | ✅ | ✅ | ✅ | ✅ |
+| Web App Manifest | ✅ | ✅ | ✅ | ✅ |
+| Install Prompt | ✅ | ✅ | ✅ | ✅ |
+| Share API | ✅ | ❌ | ✅ | ✅ |
+| Media Session | ✅ | ✅ | ✅ | ✅ |
 
 ## 🛠️ Development
 
 ### Adding PWA Features
-
 ```javascript
 // Example: Custom PWA integration
 if ('serviceWorker' in navigator) {
@@ -89,18 +83,14 @@ window.addEventListener('beforeinstallprompt', (e) => {
 ```
 
 ### Customizing the Manifest
-
 Edit `/docs/manifest.json` to customize:
-
 - App name and description
 - Icons and theme colors
 - Display mode and orientation
 - Shortcuts and protocols
 
 ### Service Worker Configuration
-
 Modify `/docs/sw.js` to adjust:
-
 - Caching strategies
 - Offline fallbacks
 - Update mechanisms
@@ -109,19 +99,16 @@ Modify `/docs/sw.js` to adjust:
 ## 🎯 Use Cases
 
 ### Mobile Users
-
 - **On-the-go access**: Quick access to app information and downloads
 - **Offline reading**: Documentation available without internet
 - **Native feel**: App-like experience with proper navigation
 
 ### Desktop Users
-
 - **Sharing songs**: Quickly share what you're listening to
 - **Installing on mobile**: Easy way to get the app on your phone
 - **Enhanced controls**: Better media session integration
 
 ### Developers
-
 - **PWA best practices**: Reference implementation
 - **Electron + PWA**: Hybrid approach example
 - **Progressive enhancement**: Graceful fallbacks

@@ -54,10 +54,9 @@ class ElectronPWABridge {
 
     // Only show if not in fullscreen mode
     const checkFullscreen = () => {
-      const isFullscreen =
-        document.fullscreenElement ||
-        document.webkitFullscreenElement ||
-        document.mozFullScreenElement;
+      const isFullscreen = document.fullscreenElement || 
+                          document.webkitFullscreenElement ||
+                          document.mozFullScreenElement;
       installButton.style.display = isFullscreen ? 'none' : 'block';
     };
 
@@ -122,28 +121,20 @@ class ElectronPWABridge {
 
     // Event listeners
     content.querySelector('#copy-pwa-link').addEventListener('click', () => {
-      this.copyToClipboard(
-        'https://th-ch.github.io/youtube-music/',
-        'PWA link copied!',
-      );
+      this.copyToClipboard('https://th-ch.github.io/youtube-music/', 'PWA link copied!');
     });
 
     content.querySelector('#copy-github-link').addEventListener('click', () => {
-      this.copyToClipboard(
-        'https://github.com/th-ch/youtube-music',
-        'GitHub link copied!',
-      );
+      this.copyToClipboard('https://github.com/th-ch/youtube-music', 'GitHub link copied!');
     });
 
     content.querySelector('#share-native').addEventListener('click', () => {
       this.nativeShare();
     });
 
-    content
-      .querySelector('#close-share-dialog')
-      .addEventListener('click', () => {
-        dialog.remove();
-      });
+    content.querySelector('#close-share-dialog').addEventListener('click', () => {
+      dialog.remove();
+    });
 
     dialog.addEventListener('click', (e) => {
       if (e.target === dialog) {
@@ -173,7 +164,7 @@ class ElectronPWABridge {
     const shareData = {
       title: 'YouTube Music Desktop App',
       text: 'Check out this awesome YouTube Music desktop app with PWA support!',
-      url: 'https://github.com/th-ch/youtube-music',
+      url: 'https://github.com/th-ch/youtube-music'
     };
 
     if (navigator.share) {
@@ -184,10 +175,7 @@ class ElectronPWABridge {
       }
     } else {
       // Fallback to copying
-      this.copyToClipboard(
-        `${shareData.title}\n${shareData.text}\n${shareData.url}`,
-        'Share info copied!',
-      );
+      this.copyToClipboard(`${shareData.title}\n${shareData.text}\n${shareData.url}`, 'Share info copied!');
     }
   }
 
@@ -220,10 +208,8 @@ class ElectronPWABridge {
     // Monitor online/offline status
     const updateOnlineStatus = () => {
       const status = navigator.onLine ? 'online' : 'offline';
-      const message = navigator.onLine
-        ? '✅ Back online'
-        : '⚠️ You are offline';
-
+      const message = navigator.onLine ? '✅ Back online' : '⚠️ You are offline';
+      
       if (!navigator.onLine) {
         this.showToast(message);
       }
@@ -280,7 +266,7 @@ class ElectronPWABridge {
 
     observer.observe(document.body, {
       childList: true,
-      subtree: true,
+      subtree: true
     });
   }
 
@@ -293,16 +279,13 @@ class ElectronPWABridge {
     const shareData = {
       title: `${title} - ${artist}`,
       text: `Currently listening to "${title}" by ${artist} on YouTube Music`,
-      url: window.location.href,
+      url: window.location.href
     };
 
     if (navigator.share) {
       navigator.share(shareData).catch(console.error);
     } else {
-      this.copyToClipboard(
-        `${shareData.title}\n${shareData.url}`,
-        'Song info copied!',
-      );
+      this.copyToClipboard(`${shareData.title}\n${shareData.url}`, 'Song info copied!');
     }
   }
 
@@ -327,22 +310,15 @@ class ElectronPWABridge {
 
       // Update media session when song changes
       const updateMediaSession = () => {
-        const title =
-          document.querySelector('.title.ytmusic-player-bar')?.textContent ||
-          '';
-        const artist =
-          document.querySelector('.byline.ytmusic-player-bar')?.textContent ||
-          '';
-        const artwork =
-          document.querySelector('.image.ytmusic-player-bar img')?.src || '';
+        const title = document.querySelector('.title.ytmusic-player-bar')?.textContent || '';
+        const artist = document.querySelector('.byline.ytmusic-player-bar')?.textContent || '';
+        const artwork = document.querySelector('.image.ytmusic-player-bar img')?.src || '';
 
         if (title && artist) {
           navigator.mediaSession.metadata = new MediaMetadata({
             title: title,
             artist: artist,
-            artwork: artwork
-              ? [{ src: artwork, sizes: '512x512', type: 'image/jpeg' }]
-              : [],
+            artwork: artwork ? [{ src: artwork, sizes: '512x512', type: 'image/jpeg' }] : []
           });
         }
       };
@@ -350,7 +326,7 @@ class ElectronPWABridge {
       const observer = new MutationObserver(updateMediaSession);
       observer.observe(document.body, {
         childList: true,
-        subtree: true,
+        subtree: true
       });
     }
   }

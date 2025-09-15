@@ -439,7 +439,7 @@ const injectPWABridge = () => {
   try {
     const script = document.createElement('script');
     script.type = 'text/javascript';
-
+    
     // Inline the PWA bridge script content
     script.textContent = `
 // PWA Integration for YouTube Music Electron App
