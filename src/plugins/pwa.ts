@@ -284,7 +284,9 @@ export default createPlugin({
         if ('mediaSession' in navigator) {
           // Update media session metadata when song changes
           const updateMediaSession = () => {
-            const titleElement = document.querySelector('.title.ytmusic-player-bar');
+            const titleElement = document.querySelector(
+              '.title.ytmusic-player-bar',
+            );
             const artistElement = document.querySelector('.byline.ytmusic-player-bar');
             const artworkElement = document.querySelector('.image.ytmusic-player-bar img') as HTMLImageElement;
             
