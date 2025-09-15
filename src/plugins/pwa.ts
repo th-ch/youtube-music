@@ -246,7 +246,6 @@ export default createPlugin({
           const statusIndicator =
             document.getElementById('pwa-connection-status') ||
             createConnectionIndicator();
-          
           statusIndicator.textContent = isOnline ? '🟢' : '🔴';
           statusIndicator.title = isOnline ? 'Online' : 'Offline';
           statusIndicator.style.color = isOnline ? '#4CAF50' : '#F44336';
