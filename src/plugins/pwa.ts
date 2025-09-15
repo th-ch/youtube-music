@@ -157,7 +157,10 @@ export default createPlugin({
         const closeBtn = content.querySelector('#close-pwa-dialog');
 
         copyPwaBtn?.addEventListener('click', () => {
-          copyToClipboard('https://th-ch.github.io/youtube-music/', '📱 PWA link copied to clipboard!');
+          copyToClipboard(
+            'https://th-ch.github.io/youtube-music/',
+            '📱 PWA link copied to clipboard!',
+          );
         });
 
         openDocsBtn?.addEventListener('click', () => {
