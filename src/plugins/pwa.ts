@@ -383,7 +383,7 @@ export default createPlugin({
             })
             .catch(() => {
               fallbackCopy(text, successMessage);
-          });
+            });
         } else {
           fallbackCopy(text, successMessage);
         }
