@@ -291,7 +291,6 @@ export default createPlugin({
             const artworkElement = document.querySelector(
               '.image.ytmusic-player-bar img',
             ) as HTMLImageElement;
-            
             if (titleElement && artistElement) {
               const title = titleElement.textContent || '';
               const artist = artistElement.textContent || '';
