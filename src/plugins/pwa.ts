@@ -243,7 +243,9 @@ export default createPlugin({
         // Monitor connection status
         function updateConnectionStatus() {
           const isOnline = navigator.onLine;
-          const statusIndicator = document.getElementById('pwa-connection-status') || createConnectionIndicator();
+          const statusIndicator =
+            document.getElementById('pwa-connection-status') ||
+            createConnectionIndicator();
           
           statusIndicator.textContent = isOnline ? '🟢' : '🔴';
           statusIndicator.title = isOnline ? 'Online' : 'Offline';
