@@ -447,5 +447,5 @@ export default createPlugin({
         }
       }
     },
-  }
+  },
 });
