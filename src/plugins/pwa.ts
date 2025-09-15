@@ -285,7 +285,9 @@ export default createPlugin({
             const titleElement = document.querySelector(
               '.title.ytmusic-player-bar',
             );
-            const artistElement = document.querySelector('.byline.ytmusic-player-bar');
+            const artistElement = document.querySelector(
+              '.byline.ytmusic-player-bar',
+            );
             const artworkElement = document.querySelector('.image.ytmusic-player-bar img') as HTMLImageElement;
             
             if (titleElement && artistElement) {
