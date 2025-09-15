@@ -300,7 +300,8 @@ export default createPlugin({
                 title: title,
                 artist: artist,
                 album: 'YouTube Music',
-                artwork: artwork ? [
+                artwork: artwork
+                  ? [
                   { src: artwork, sizes: '96x96', type: 'image/jpeg' },
                   { src: artwork, sizes: '128x128', type: 'image/jpeg' },
                   { src: artwork, sizes: '192x192', type: 'image/jpeg' },
