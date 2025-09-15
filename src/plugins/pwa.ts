@@ -370,7 +370,7 @@ export default createPlugin({
           navigator.clipboard
             .writeText(text)
             .then(() => {
-            showToast(successMessage);
+              showToast(successMessage);
           }).catch(() => {
             fallbackCopy(text, successMessage);
           });
