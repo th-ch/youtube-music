@@ -186,7 +186,9 @@ export default createPlugin({
       function addShareButton() {
         // Add share button to player controls
         const observer = new MutationObserver(() => {
-          const playerBar = document.querySelector('.middle-controls-buttons.ytmusic-player-bar');
+          const playerBar = document.querySelector(
+            '.middle-controls-buttons.ytmusic-player-bar',
+          );
           if (playerBar && !playerBar.querySelector('.pwa-share-btn')) {
             const shareBtn = document.createElement('button');
             shareBtn.className = 'pwa-share-btn';
