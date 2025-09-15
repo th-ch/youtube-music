@@ -22,7 +22,7 @@ export default createPlugin({
   } as PWAPluginConfig,
   renderer: {
     async onPlayerApiReady(_api, { getConfig }) {
-      const config = (await getConfig()) as PWAPluginConfig;
+      const config = (await getConfig());
 
       // PWA Integration
       if (config.enableInstallPrompt) {
