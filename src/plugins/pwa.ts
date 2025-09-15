@@ -362,7 +362,9 @@ export default createPlugin({
 
       function copyToClipboard(text: string, successMessage = 'Copied!') {
         if (navigator.clipboard) {
-          navigator.clipboard.writeText(text).then(() => {
+          navigator.clipboard
+            .writeText(text)
+            .then(() => {
             showToast(successMessage);
           }).catch(() => {
             fallbackCopy(text, successMessage);
