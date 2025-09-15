@@ -351,7 +351,7 @@ export default createPlugin({
         const shareData = {
           title: 'YouTube Music Desktop App',
           text: '🎵 Check out this amazing YouTube Music desktop app with PWA support!',
-          url: 'https://github.com/th-ch/youtube-music'
+          url: 'https://github.com/th-ch/youtube-music',
         };
 
         if (navigator.share) {
