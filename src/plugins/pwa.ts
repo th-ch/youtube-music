@@ -430,7 +430,7 @@ export default createPlugin({
     },
 
     async onConfigChange(newConfig) {
-      const config = newConfig as PWAPluginConfig;
+      const config = newConfig;
 
       // Update features based on config changes
       if (config.enableInstallPrompt) {
