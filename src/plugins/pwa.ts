@@ -373,7 +373,7 @@ export default createPlugin({
               showToast(successMessage);
             })
             .catch(() => {
-            fallbackCopy(text, successMessage);
+              fallbackCopy(text, successMessage);
           });
         } else {
           fallbackCopy(text, successMessage);
