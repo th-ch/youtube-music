@@ -359,7 +359,10 @@ export default createPlugin({
       }
 
       function fallbackShare(data: { title: string; text: string; url: string }) {
-        copyToClipboard(`${data.title}\n${data.text}\n${data.url}`, '📋 Share info copied to clipboard!');
+        copyToClipboard(
+          `${data.title}\n${data.text}\n${data.url}`,
+          '📋 Share info copied to clipboard!',
+        );
       }
 
       function copyToClipboard(text: string, successMessage = 'Copied!') {
