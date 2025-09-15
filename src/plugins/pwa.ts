@@ -446,6 +446,6 @@ export default createPlugin({
           existingBtn.remove();
         }
       }
-    }
+    },
   }
 });
