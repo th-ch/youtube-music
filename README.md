@@ -14,24 +14,12 @@
 
 ![Screenshot](web/screenshot.png "Screenshot")
 
-Read this in other languages: [한국어](./docs/readme/README-ko.md), [Française](./docs/readme/README-fr.md), [Íslenska](./docs/readme/README-is.md), [Español](./docs/readme/README-es.md), [Pусский](./docs/readme/README-ru.md), [Українська](./docs/readme/README-uk.md), [Magyar](./docs/readme/README-hu.md), [Português](./docs/readme/README-pt.md), [日本語](./docs/readme/README-ja.md)
-
-**Electron wrapper around YouTube Music featuring:**
-
 - Native look & feel, aims at keeping the original interface
-- Framework for custom plugins: change YouTube Music to your needs (style, content, features), enable/disable plugins in
   one click
-
-## Demo Image
-
-|                          Player Screen (album color theme & ambient light)                                |
-|:---------------------------------------------------------------------------------------------------------:|
-|![Screenshot1](https://github.com/th-ch/youtube-music/assets/16558115/53efdf73-b8fa-4d7b-a235-b96b91ea77fc)|
 
 ## Content
 
 - [Features](#features)
-- [Available plugins](#available-plugins)
 - [Translation](#translation)
 - [Download](#download)
   - [Arch Linux](#arch-linux)
@@ -48,111 +36,6 @@ Read this in other languages: [한국어](./docs/readme/README-ko.md), [Françai
 - [Tests](#tests)
 - [License](#license)
 - [FAQ](#faq)
-
-## Features:
-
-- **Auto confirm when paused** (Always Enabled): disable
-  the ["Continue Watching?"](https://user-images.githubusercontent.com/61631665/129977894-01c60740-7ec6-4bf0-9a2c-25da24491b0e.png)
-  popup that pause music after a certain time
-
- - And more ...
-
-## Available plugins:
-- **Album Actions**: Adds Undislike, Dislike, Like, and Unlike buttons to apply this to all songs in a playlist or album
-
-- **Album Color Theme**: Applies a dynamic theme and visual effects based on the album color palette
-
-- **Ambient Mode**: Applies a lighting effect by casting gentle colors from the video, into your screen’s background
-
-- **Audio Compressor**: Apply compression to audio (lowers the volume of the loudest parts of the signal and raises the
-  volume of the softest parts)
-
-- **Blur Navigation Bar**: makes navigation bar transparent and blurry
-
-- **Bypass Age Restrictions**: bypass YouTube's age verification
-
-- **Captions Selector**: Enable captions
-
-- **Compact Sidebar**: Always set the sidebar in compact mode
-
-- **Crossfade**: Crossfade between songs
-
-- **Disable Autoplay**: Makes every song start in "paused" mode
-
-- **[Discord](https://discord.com/) Rich Presence**: Show your friends what you listen to
-  with [Rich Presence](https://user-images.githubusercontent.com/28219076/104362104-a7a0b980-5513-11eb-9744-bb89eabe0016.png)
-
-- **Downloader**: downloads
-  MP3 [directly from the interface](https://user-images.githubusercontent.com/61631665/129977677-83a7d067-c192-45e1-98ae-b5a4927393be.png) [(youtube-dl)](https://github.com/ytdl-org/youtube-dl)
-
-- **Equalizer**: add filters to boost or cut specific range of frequencies (e.g. bass booster)
-
-- **Exponential Volume**: Makes the volume
-  slider [exponential](https://greasyfork.org/en/scripts/397686-youtube-music-fix-volume-ratio/) so it's easier to
-  select lower volumes
-
-- **In-App Menu**: [gives bars a fancy, dark look](https://user-images.githubusercontent.com/78568641/112215894-923dbf00-8c29-11eb-95c3-3ce15db27eca.png)
-
-  > (see [this post](https://github.com/th-ch/youtube-music/issues/410#issuecomment-952060709) if you have problem
-  accessing the menu after enabling this plugin and hide-menu option)
-
-- **Scrobbler**: Adds scrobbling support for [Last.fm](https://www.last.fm/) and [ListenBrainz](https://listenbrainz.org/)
-
-- **Lumia Stream**: Adds [Lumia Stream](https://lumiastream.com/) support
-
-- **Lyrics Genius**: Adds lyrics support for most songs
-
-- **Music Together**: Share a playlist with others. When the host plays a song, everyone else will hear the same song
-
-- **Navigation**: Next/Back navigation arrows directly integrated in the interface, like in your favorite browser
-
-- **Notifications**: Display a notification when a song starts
-  playing ([interactive notifications](https://user-images.githubusercontent.com/78568641/114102651-63ce0e00-98d0-11eb-9dfe-c5a02bb54f9c.png)
-  are available on windows)
-
-- **Picture-in-picture**: allows to switch the app to picture-in-picture mode
-
-- **Playback Speed**: Listen fast, listen
-  slow! [Adds a slider that controls song speed](https://user-images.githubusercontent.com/61631665/129976003-e55db5ba-bf42-448c-a059-26a009775e68.png)
-
-- **Precise Volume**: Control the volume precisely using mousewheel/hotkeys, with a custom hud and customizable volume
-  steps
-
-- **Shortcuts (& MPRIS)**: Allows setting global hotkeys for playback (play/pause/next/previous) +
-  disable [media osd](https://user-images.githubusercontent.com/84923831/128601225-afa38c1f-dea8-4209-9f72-0f84c1dd8b54.png)
-  by overriding media keys + enable Ctrl/CMD + F to search + enable linux mpris support for
-  mediakeys + [custom hotkeys](https://github.com/Araxeus/youtube-music/blob/1e591d6a3df98449bcda6e63baab249b28026148/providers/song-controls.js#L13-L50)
-  for [advanced users](https://github.com/th-ch/youtube-music/issues/106#issuecomment-952156902)
-
-- **Skip Disliked Song**: Skips disliked songs
-
-- **Skip Silences**: Automatically skip silenced sections
-
-- [**SponsorBlock**](https://github.com/ajayyy/SponsorBlock): Automatically Skips non-music parts like intro/outro or
-  parts of music videos where the song isn't playing
-
-- **Synced Lyrics**: Provides synced lyrics to songs, using providers like [LRClib](https://lrclib.net).
-
-- **Taskbar Media Control**: Control playback from
-  your [Windows taskbar](https://user-images.githubusercontent.com/78568641/111916130-24a35e80-8a82-11eb-80c8-5021c1aa27f4.png)
-
-- **TouchBar**: Custom TouchBar layout for macOS
-
-- **Tuna OBS**: Integration with [OBS](https://obsproject.com/)'s
-  plugin [Tuna](https://obsproject.com/forum/resources/tuna.843/)
-
-- **Unobtrusive Player**: Prevents the player from popping up when playing a song
-
-- **Video Quality Changer**: Allows changing the video quality with
-  a [button](https://user-images.githubusercontent.com/78568641/138574366-70324a5e-2d64-4f6a-acdd-dc2a2b9cecc5.png) on
-  the video overlay
-
-- **Video Toggle**: Adds
-  a [button](https://user-images.githubusercontent.com/28893833/173663950-63e6610e-a532-49b7-9afa-54cb57ddfc15.png) to
-  switch between Video/Song mode. can also optionally remove the whole video tab
-
-- **Visualizer**: Different music visualizers
-
 
 ## Translation
 
@@ -343,8 +226,7 @@ export default createPlugin({
     enabled: false,
   }, // your custom config
   renderer() {
-    // Remove the login button
-    document.querySelector(".sign-in-link.ytmusic-nav-bar").remove();
+    console.log('hello from renderer');
   } // define renderer hook
 });
 ```
