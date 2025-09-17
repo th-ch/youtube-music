@@ -14,7 +14,7 @@
 
 ![Screenshot](web/screenshot.png "Screenshot")
 
-- Native look & feel, aims at keeping the original interface
+- Native look & feel extension, aims at keeping the original interface
   one click
 
 ## Content
