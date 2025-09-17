@@ -1,6 +1,6 @@
 <div align="center">
 
-# YouTube Music
+# YTMD
 
 [![GitHub release](https://img.shields.io/github/release/th-ch/youtube-music.svg?style=for-the-badge&logo=youtube-music)](https://github.com/th-ch/youtube-music/releases/)
 [![GitHub license](https://img.shields.io/github/license/th-ch/youtube-music.svg?style=for-the-badge)](https://github.com/th-ch/youtube-music/blob/master/license)
@@ -65,9 +65,6 @@ Read this in other languages: [한국어](./docs/readme/README-ko.md), [Françai
  - And more ...
 
 ## Available plugins:
-
-- **Ad Blocker**: Block all ads and tracking out of the box
-
 - **Album Actions**: Adds Undislike, Dislike, Like, and Unlike buttons to apply this to all songs in a playlist or album
 
 - **Album Color Theme**: Applies a dynamic theme and visual effects based on the album color palette
@@ -115,8 +112,6 @@ Read this in other languages: [한국어](./docs/readme/README-ko.md), [Françai
 - **Music Together**: Share a playlist with others. When the host plays a song, everyone else will hear the same song
 
 - **Navigation**: Next/Back navigation arrows directly integrated in the interface, like in your favorite browser
-
-- **No Google Login**: Remove Google login buttons and links from the interface
 
 - **Notifications**: Display a notification when a song starts
   playing ([interactive notifications](https://user-images.githubusercontent.com/78568641/114102651-63ce0e00-98d0-11eb-9dfe-c5a02bb54f9c.png)
