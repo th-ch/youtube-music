@@ -162,7 +162,6 @@ export default createPlugin({
       this.config = config;
       
       setVideoVisible(!config.hideVideo);
-      
       this.setVideoVisible = setVideoVisible;
 
       const moveVolumeHud = (await window.mainConfig.plugins.isEnabled(
