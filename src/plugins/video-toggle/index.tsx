@@ -213,7 +213,9 @@ export default createPlugin({
             showVideo ? 'OMV_PREFERRED' : 'ATV_PREFERRED',
           );
 
-          const videoElement = document.querySelector<HTMLElement>('#song-video.ytmusic-player');
+          const videoElement = document.querySelector<HTMLElement>(
+            '#song-video.ytmusic-player',
+          );
           const imageElement = document.querySelector<HTMLElement>('#song-image');
           
           if (videoElement && imageElement) {
