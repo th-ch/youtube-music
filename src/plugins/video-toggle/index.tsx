@@ -216,7 +216,8 @@ export default createPlugin({
           const videoElement = document.querySelector<HTMLElement>(
             '#song-video.ytmusic-player',
           );
-          const imageElement = document.querySelector<HTMLElement>('#song-image');
+          const imageElement =
+            document.querySelector<HTMLElement>('#song-image');
           
           if (videoElement && imageElement) {
             if (showVideo) {
