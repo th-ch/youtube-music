@@ -79,7 +79,7 @@
       }
     },
     "menu": {
-      "about": "À-propos",
+      "about": "À propos",
       "navigation": {
         "label": "Navigation",
         "submenu": {
@@ -94,7 +94,7 @@
         "label": "Paramètres",
         "submenu": {
           "advanced-options": {
-            "label": "Options avancée",
+            "label": "Options avancées",
             "submenu": {
               "auto-reset-app-cache": "Réinitialiser le cache de l'application au démarrage",
               "disable-hardware-acceleration": "Désactiver les accélérations matérielles",
@@ -189,7 +189,7 @@
         "new": "NOUVEAU"
       },
       "view": {
-        "label": "Vue",
+        "label": "Fenêtre",
         "submenu": {
           "force-reload": "Forcer l'actualisation",
           "reload": "Actualiser",
@@ -765,7 +765,7 @@
       "prompt": {
         "lastfm": {
           "api-key": "Clé API de Last.fm",
-          "api-secret": "API secret de Last.fm"
+          "api-secret": "Secret de l'API de Last.fm"
         },
         "listenbrainz": {
           "token": {
@@ -796,7 +796,7 @@
     },
     "skip-disliked-songs": {
       "description": "Passer les musiques que je n'aime pas",
-      "name": "Passer Chansons Déplaisantes"
+      "name": "Passer les chansons « Je n'aime pas »"
     },
     "skip-silences": {
       "description": "Ignorer automatiquement les sections de silence dans les chansons",
