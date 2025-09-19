@@ -160,9 +160,9 @@ export default createPlugin({
 
       const config = await getConfig();
       this.config = config;
-      
+
       setVideoVisible(!config.hideVideo);
-      
+
       this.setVideoVisible = setVideoVisible;
 
       const moveVolumeHud = (await window.mainConfig.plugins.isEnabled(
@@ -215,9 +215,12 @@ export default createPlugin({
             showVideo ? 'OMV_PREFERRED' : 'ATV_PREFERRED',
           );
 
-          const videoElement = document.querySelector<HTMLElement>('#song-video.ytmusic-player');
-          const imageElement = document.querySelector<HTMLElement>('#song-image');
-          
+          const videoElement = document.querySelector<HTMLElement>(
+            '#song-video.ytmusic-player',
+          );
+          const imageElement =
+            document.querySelector<HTMLElement>('#song-image');
+
           if (videoElement && imageElement) {
             if (showVideo) {
               videoElement.style.display = 'block';
