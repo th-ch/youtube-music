@@ -160,9 +160,9 @@ export default createPlugin({
 
       const config = await getConfig();
       this.config = config;
-      
+
       setVideoVisible(!config.hideVideo);
-      
+
       this.setVideoVisible = setVideoVisible;
 
       const moveVolumeHud = (await window.mainConfig.plugins.isEnabled(
@@ -215,21 +215,24 @@ export default createPlugin({
             showVideo ? 'OMV_PREFERRED' : 'ATV_PREFERRED',
           );
 
-          const videoElement = document.querySelector<HTMLElement>('#song-video.ytmusic-player');
-          const imageElement = document.querySelector<HTMLElement>('#song-image');
-          
+          const videoElement = document.querySelector<HTMLElement>(
+            '#song-video.ytmusic-player',
+          );
+          const imageElement =
+            document.querySelector<HTMLElement>('#song-image');
+
           if (videoElement && imageElement) {
             if (showVideo) {
               videoElement.style.display = 'block';
               imageElement.style.display = 'none';
-              
+
               if (video && !video.style.top) {
                 video.style.top = `${(player.clientHeight - video.clientHeight) / 2}px`;
               }
             } else {
               videoElement.style.display = 'none';
               imageElement.style.display = 'block';
-              
+
               imageElement.style.position = 'relative';
               imageElement.style.width = '100%';
               imageElement.style.height = '100%';
@@ -326,9 +329,12 @@ export default createPlugin({
         if (!playerSelector) return;
 
         const initializeConsistentStyling = () => {
-          const videoElement = document.querySelector<HTMLElement>('#song-video.ytmusic-player');
-          const imageElement = document.querySelector<HTMLElement>('#song-image');
-          
+          const videoElement = document.querySelector<HTMLElement>(
+            '#song-video.ytmusic-player',
+          );
+          const imageElement =
+            document.querySelector<HTMLElement>('#song-image');
+
           if (videoElement && imageElement) {
             videoElement.style.position = 'relative';
             videoElement.style.margin = 'auto';
@@ -347,14 +353,16 @@ export default createPlugin({
         video?.addEventListener('ytmd:src-changed', videoStarted);
         observeThumbnail();
         videoStarted();
-        
+
         if (this.config) {
-          const container = document.getElementById('ytmd-video-toggle-switch-button-container');
+          const container = document.getElementById(
+            'ytmd-video-toggle-switch-button-container',
+          );
           if (container) {
             const alignmentMap = {
               right: 'flex-end',
               middle: 'center',
-              left: 'flex-start'
+              left: 'flex-start',
             };
             container.style.justifyContent = alignmentMap[this.config.align];
           }
@@ -364,17 +372,19 @@ export default createPlugin({
     onConfigChange(newConfig) {
       this.config = newConfig;
       this.applyStyleClass(newConfig);
-      
-      const container = document.getElementById('ytmd-video-toggle-switch-button-container');
+
+      const container = document.getElementById(
+        'ytmd-video-toggle-switch-button-container',
+      );
       if (container) {
         const alignmentMap = {
           right: 'flex-end',
           middle: 'center',
-          left: 'flex-start'
+          left: 'flex-start',
         };
         container.style.justifyContent = alignmentMap[newConfig.align];
       }
-      
+
       if (this.setVideoVisible) {
         this.setVideoVisible(!newConfig.hideVideo);
       }
