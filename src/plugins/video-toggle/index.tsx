@@ -160,7 +160,6 @@ export default createPlugin({
 
       const config = await getConfig();
       this.config = config;
-      
       setVideoVisible(!config.hideVideo);
       this.setVideoVisible = setVideoVisible;
 
