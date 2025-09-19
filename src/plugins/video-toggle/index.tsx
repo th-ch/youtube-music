@@ -218,7 +218,6 @@ export default createPlugin({
           );
           const imageElement =
             document.querySelector<HTMLElement>('#song-image');
-          
           if (videoElement && imageElement) {
             if (showVideo) {
               videoElement.style.display = 'block';
