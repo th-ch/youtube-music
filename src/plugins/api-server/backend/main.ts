@@ -117,8 +117,9 @@ export const backend = createBackend<BackendType, APIServerConfig>({
               ctx.set('jwtPayload', payload);
               return next();
             } catch (e) {
+              console.error(e);
               ctx.status(401);
-              return;
+              return ctx.body('Unauthorized');
             }
           }
         }
